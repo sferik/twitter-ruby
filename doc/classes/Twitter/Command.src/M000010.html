@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>timeline (Twitter::Command)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/twitter/command.rb, line 65</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">timeline</span>(<span class="ruby-identifier">args</span>)
+        <span class="ruby-identifier">config</span> = <span class="ruby-identifier">create_or_find_config</span>
+        
+        <span class="ruby-identifier">timeline</span> = <span class="ruby-identifier">:friends</span>
+        <span class="ruby-identifier">timeline</span> = <span class="ruby-identifier">args</span>.<span class="ruby-identifier">shift</span>.<span class="ruby-identifier">intern</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">args</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-constant">Twitter</span><span class="ruby-operator">::</span><span class="ruby-constant">Base</span>.<span class="ruby-identifier">timelines</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">args</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">intern</span>)
+        
+        <span class="ruby-keyword kw">begin</span>
+          <span class="ruby-identifier">puts</span>
+          <span class="ruby-constant">Twitter</span><span class="ruby-operator">::</span><span class="ruby-constant">Base</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">config</span>[<span class="ruby-value str">'email'</span>], <span class="ruby-identifier">config</span>[<span class="ruby-value str">'password'</span>]).<span class="ruby-identifier">timeline</span>(<span class="ruby-identifier">timeline</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">s</span><span class="ruby-operator">|</span>
+            <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;#{s.text}\n-- #{s.relative_created_at} by #{s.user.name}&quot;</span>
+            <span class="ruby-identifier">puts</span>
+          <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">rescue</span>
+          <span class="ruby-identifier">puts</span> <span class="ruby-identifier">error_msg</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

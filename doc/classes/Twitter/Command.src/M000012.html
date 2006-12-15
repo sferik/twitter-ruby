@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>friend (Twitter::Command)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/twitter/command.rb, line 98</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">friend</span>(<span class="ruby-identifier">args</span>)
+        <span class="ruby-identifier">config</span> = <span class="ruby-identifier">create_or_find_config</span>
+        
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">args</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+          <span class="ruby-identifier">puts</span> <span class="ruby-value str">%(\n  You forgot to enter a screen name.\n\n  Usage: twitter friend jnunemaker\n)</span>
+          <span class="ruby-identifier">exit</span>(<span class="ruby-value">0</span>)
+        <span class="ruby-keyword kw">end</span>
+        
+        <span class="ruby-identifier">screen_name</span> = <span class="ruby-identifier">args</span>.<span class="ruby-identifier">shift</span>
+                
+        <span class="ruby-keyword kw">begin</span>
+          <span class="ruby-identifier">puts</span>
+          <span class="ruby-identifier">found</span> = <span class="ruby-keyword kw">false</span>
+          <span class="ruby-constant">Twitter</span><span class="ruby-operator">::</span><span class="ruby-constant">Base</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">config</span>[<span class="ruby-value str">'email'</span>], <span class="ruby-identifier">config</span>[<span class="ruby-value str">'password'</span>]).<span class="ruby-identifier">friends</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">u</span><span class="ruby-operator">|</span>
+            <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">u</span>.<span class="ruby-identifier">screen_name</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">screen_name</span>
+              <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;#{u.name} last updated #{u.status.relative_created_at}\n-- #{u.status.text}&quot;</span>
+              <span class="ruby-identifier">found</span> = <span class="ruby-keyword kw">true</span>
+            <span class="ruby-keyword kw">end</span>
+          <span class="ruby-keyword kw">end</span>
+          
+          <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">found</span>
+            <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Sorry couldn't find a friend of yours with #{screen_name} as a screen name&quot;</span>
+          <span class="ruby-keyword kw">end</span>
+          <span class="ruby-identifier">puts</span>
+        <span class="ruby-keyword kw">rescue</span>
+          <span class="ruby-identifier">puts</span> <span class="ruby-identifier">error_msg</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>
