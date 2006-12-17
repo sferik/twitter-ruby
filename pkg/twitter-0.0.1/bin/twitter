@@ -32,4 +32,4 @@ require 'rubygems'
 require 'twitter'
 require 'twitter/command'
 
-Twitter::Command.process(ARGV)
+Twitter::Command.process!

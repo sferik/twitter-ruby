@@ -2,11 +2,6 @@
 # to twitter, parses the xml (using hpricot) and returns ruby objects to play with.
 #
 # The private methods in this one are pretty fun. Be sure to check out users, statuses and call.
-require 'uri'
-require 'net/http'
-require 'rubygems'
-require 'hpricot'
-
 module Twitter
   class Untwitterable < StandardError; end
   class CantConnect < Untwitterable; end

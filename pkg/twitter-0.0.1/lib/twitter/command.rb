@@ -1,7 +1,5 @@
 # The command class is used for the command line interface. 
 # It is only used and included in the bin/twitter file.
-require 'yaml'
-
 module Twitter
   class Command
     @@commands  = [:post, :timeline, :friends, :friend, :followers, :follower]
@@ -17,18 +15,19 @@ module Twitter
 email: 
 password: 
 EOF
-
+    @@error_msg = "Something went wrong!!!\n\nMost likely: The twitter gem requires hpricot version >= 0.4.59. Check to make sure that you have at least that version installed. To install the newest version of hpricot:\n\n sudo gem install hpricot --source http://code.whytheluckystiff.net"
+    
     class << self
-      def process(args)
-        command = args.shift
+      def process!
+        command = ARGV.shift
 
         case command
-        when "post"       then Command.post(args)
-        when "timeline"   then Command.timeline(args)
+        when "post"       then Command.post
+        when "timeline"   then Command.timeline
         when "friends"    then Command.friends
-        when "friend"     then Command.friend(args)
+        when "friend"     then Command.friend
         when "followers"  then Command.followers
-        when "follower"   then Command.follower(args)
+        when "follower"   then Command.follower
         else
           puts "\nUsage: twitter <command> [options]\n\nAvailable Commands:"
           Twitter::Command.commands.each do |com|
@@ -42,15 +41,15 @@ EOF
       end
       
       # Posts an updated status to twitter
-      def post(args)
+      def post
         config = create_or_find_config
         
-        if args.size == 0
+        if ARGV.size == 0
           puts %(\n  You didn't enter a message to post.\n\n  Usage: twitter post "You're fabulous message"\n)
           exit(0)
         end
         
-        post = args.shift
+        post = ARGV.shift
         
         begin
           status = Twitter::Base.new(config['email'], config['password']).post(post)
@@ -61,11 +60,11 @@ EOF
       end
       
       # Shows status, time and user for the specified timeline
-      def timeline(args)
+      def timeline
         config = create_or_find_config
         
         timeline = :friends
-        timeline = args.shift.intern if args.size > 0 && Twitter::Base.timelines.include?(args[0].intern)
+        timeline = ARGV.shift.intern if ARGV.size > 0 && Twitter::Base.timelines.include?(ARGV[0].intern)
         
         begin
           puts
@@ -74,7 +73,7 @@ EOF
             puts
           end
         rescue
-          puts error_msg
+          puts @@error_msg
         end
       end
       
@@ -88,21 +87,21 @@ EOF
             puts
           end
         rescue
-          puts error_msg
+          puts @@error_msg
         end
       end
       
       # Shows last updated status and time for a friend
       # Needs a screen name
-      def friend(args)
+      def friend
         config = create_or_find_config
         
-        if args.size == 0
+        if ARGV.size == 0
           puts %(\n  You forgot to enter a screen name.\n\n  Usage: twitter friend jnunemaker\n)
           exit(0)
         end
         
-        screen_name = args.shift
+        screen_name = ARGV.shift
                 
         begin
           puts
@@ -119,7 +118,7 @@ EOF
           end
           puts
         rescue
-          puts error_msg
+          puts @@error_msg
         end
       end
       
@@ -134,26 +133,26 @@ EOF
             puts
           end
         rescue
-          puts error_msg
+          puts @@error_msg
         end
       end
       
       # Shows last updated status and time for a follower
       # Needs a screen name
-      def follower(args)
+      def follower
         config = create_or_find_config
         
-        if args.size == 0
+        if ARGV.size == 0
           puts %(\n  You forgot to enter a screen name.\n\n  Usage: twitter follower jnunemaker\n)
           exit(0)
         end
         
-        screen_name = args.shift
+        screen_name = ARGV.shift
         
         begin
           puts
           found = false
-          Twitter::Base.new(config['email'], config['password']).follower.each do |u|
+          Twitter::Base.new(config['email'], config['password']).followers.each do |u|
             if u.screen_name == screen_name
               puts "#{u.name} (#{u.screen_name}) last updated #{u.status.relative_created_at}\n-- #{u.status.text}"
               found = true
@@ -165,7 +164,7 @@ EOF
           end
           puts
         rescue
-          puts error_msg
+          puts @@error_msg
         end
       end
       
@@ -185,10 +184,6 @@ EOF
           end
           
           config
-        end
-        
-        def error_msg
-          "\nTwitter what?. Something went wrong and your status could not be updated.\n"
         end
     end
   end
