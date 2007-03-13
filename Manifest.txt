@@ -1,8 +1,7 @@
-README
+README.txt
 CHANGELOG
 Rakefile
 setup.rb
-bin/twitter
 lib/twitter.rb
 lib/twitter/base.rb
 lib/twitter/command.rb
@@ -10,3 +9,5 @@ lib/twitter/easy_class_maker.rb
 lib/twitter/status.rb
 lib/twitter/user.rb
 lib/twitter/version.rb
+examples/twitter.rb
+bin/twitter

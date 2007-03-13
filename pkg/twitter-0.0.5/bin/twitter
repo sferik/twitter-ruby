@@ -1,0 +1,35 @@
+#!/usr/bin/env ruby
+# = addicted to twitter
+# 
+# ... a sweet little diddy that helps you twitter your life away from the command line
+# 
+# == Install
+# 
+#   $ sudo gem install twitter
+# 
+# == Command Line Use
+# 
+#   $ twitter
+#     
+#     Usage: twitter <command> [options]
+# 
+#     Available Commands:
+#         - post
+#         - timeline
+#         - friends
+#         - friend
+#         - followers
+#         - follower
+# 
+# That will show the commands and each command will either run or show you the options it needs to run
+# 
+#   $ twitter post "releasing my new twitter gem"
+#   
+#     Got it! New twitter created at: Mon Nov 27 00:22:27 UTC 2006
+# 
+# That will post a status update to your twitter
+require 'rubygems'
+require 'twitter'
+require 'twitter/command'
+
+Twitter::Command.process!

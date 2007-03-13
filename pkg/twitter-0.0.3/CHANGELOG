@@ -1,3 +1,4 @@
+0.0.5 - just a bit of code cleanup
 0.0.4 - added :location, :description, :url, :profile_image_url to user class (Alex Payne)
 0.0.3 - added a bit more informative message when things go wrong
 0.0.2 - added the command line options i forgot to add (friend and follower); improved some docs

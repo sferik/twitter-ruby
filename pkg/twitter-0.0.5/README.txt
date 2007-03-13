@@ -1,16 +1,14 @@
-addicted to twitter
-==================
+= addicted to twitter
 
 ... a sweet little diddy that helps you twitter your life away
 
-
 == Command Line Use
 
-$ twitter
+	$ twitter
 
 That will show the commands and each command will either run or show you the options it needs to run
 
-$ twitter post "releasing my new twitter gem"
+	$ twitter post "releasing my new twitter gem"
 
 That will post a status update to your twitter
 

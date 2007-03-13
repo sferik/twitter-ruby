@@ -52,30 +52,20 @@ module Twitter
       req.basic_auth(@config[:email], @config[:password])
       req.set_form_data({'status' => status})
       
-      res = Net::HTTP.new(url.host, url.port).start { |http| http.request(req) }
-      Status.new_from_xml(Hpricot.parse(res.body).at('status'))
+      result = Net::HTTP.new(url.host, url.port).start { |http| http.request(req) }
+      Status.new_from_xml(Hpricot.XML(result.body).at('status'))
     end
     alias :update :post
     
     private      
       # Converts xml to an array of statuses
-      def statuses(res)
-        statuses = []
-        doc = Hpricot.parse(res)
-        (doc/:status).each do |status|
-          statuses << Status.new_from_xml(status)
-        end
-        statuses
+      def statuses(doc)
+        (doc/:status).inject([]) { |statuses, status| statuses << Status.new_from_xml(status); statuses }
       end
       
       # Converts xml to an array of users
-      def users(res)
-        users = []
-        doc = Hpricot.parse(res)
-        (doc/:user).each do |user|
-          users << User.new_from_xml(user)
-        end
-        users
+      def users(doc)
+        (doc/:user).inject([]) { |users, user| users << User.new_from_xml(user); users }
       end
       
       # Calls whatever api method requested
@@ -83,7 +73,6 @@ module Twitter
       # ie: call(:public_timeline, :auth => false)
       def call(method, arg_options={})
         options = { :auth => true }.merge(arg_options)
-        
         path    = "/statuses/#{method.to_s}.xml"
         headers = { "User-Agent" => @config[:email] }
         
@@ -95,7 +84,7 @@ module Twitter
           end
 
           raise BadResponse unless response.message == 'OK'
-          response.body
+          Hpricot.XML(response.body)
         rescue
           raise CantConnect
         end
