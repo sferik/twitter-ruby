@@ -1,4 +1,4 @@
-%w(uri net/http yaml rubygems hpricot).each { |f| require f }
+%w(uri net/http yaml rubygems hpricot active_support).each { |f| require f }
 
 require 'twitter/version'
 require 'twitter/easy_class_maker'

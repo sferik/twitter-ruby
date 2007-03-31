@@ -2,7 +2,7 @@
 # It is only used and included in the bin/twitter file.
 module Twitter
   class Command
-    @@commands  = [:post, :timeline, :friends, :friend, :followers, :follower]
+    @@commands  = [:post, :timeline, :friends, :friend, :followers, :follower, :featured]
     
     @@template  = <<EOF
 # .twitter
@@ -19,18 +19,13 @@ EOF
     class << self
       def process!
         command = ARGV.shift
-
-        case command
-        when "post"       then Command.post
-        when "timeline"   then Command.timeline
-        when "friends"    then Command.friends
-        when "friend"     then Command.friend
-        when "followers"  then Command.followers
-        when "follower"   then Command.follower
+        
+        if @@commands.include?(command.intern)
+          send(command)
         else
           puts "\nUsage: twitter <command> [options]\n\nAvailable Commands:"
-          Twitter::Command.commands.each do |com|
-            puts "    - #{com}"
+          Twitter::Command.commands.each do |c|
+            puts "    - #{c}"
           end
         end
       end
@@ -64,6 +59,7 @@ EOF
         puts
         Twitter::Base.new(config['email'], config['password']).timeline(timeline).each do |s|
           puts "#{s.text}\n-- #{s.created_at} by #{s.user.name}"
+          puts
         end
         puts
       end
@@ -95,6 +91,7 @@ EOF
         Twitter::Base.new(config['email'], config['password']).friends.each do |u|
           if u.screen_name == screen_name
             puts "#{u.name} last updated #{u.status.created_at}\n-- #{u.status.text}"
+            puts
             found = true
           end
         end
@@ -137,6 +134,18 @@ EOF
         
         puts "Sorry couldn't find a follower of yours with #{screen_name} as a screen name" unless found
         puts
+      end
+      
+      def featured
+        puts
+        puts 'This is all implemented, just waiting for twitter to get the api call working'
+        # config = create_or_find_config
+        # 
+        # puts
+        # Twitter::Base.new(config['email'], config['password']).featured.each do |u|
+        #   puts "#{u.name} last updated #{u.status.created_at}\n-- #{u.status.text}"
+        #   puts
+        # end
       end
       
       private

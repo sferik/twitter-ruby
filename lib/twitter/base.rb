@@ -39,10 +39,20 @@ module Twitter
       users(call(:friends))
     end
     
+    # Returns an array of users who are friends for the id or username passed in
+    def friends_for(id)
+      users(call(:friends, {:args => {:id => id}}))
+    end
+    
     # Returns an array of users who are following you
     def followers
       users(call(:followers))
     end
+    
+    # waiting for twitter to correclty implement this in the api as it is documented
+    # def featured
+    #   users(call(:featured))
+    # end
     
     # Updates your twitter with whatever status string is passed in
     def post(status)
@@ -53,11 +63,11 @@ module Twitter
       req.set_form_data({'status' => status})
       
       result = Net::HTTP.new(url.host, url.port).start { |http| http.request(req) }
-      Status.new_from_xml(Hpricot.XML(result.body).at('status'))
+      Status.new_from_xml(parse(result.body).at('status'))
     end
     alias :update :post
     
-    private      
+    private
       # Converts xml to an array of statuses
       def statuses(doc)
         (doc/:status).inject([]) { |statuses, status| statuses << Status.new_from_xml(status); statuses }
@@ -68,26 +78,34 @@ module Twitter
         (doc/:user).inject([]) { |users, user| users << User.new_from_xml(user); users }
       end
       
-      # Calls whatever api method requested
+      # Calls whatever api method requested that deals with statuses
       # 
       # ie: call(:public_timeline, :auth => false)
-      def call(method, arg_options={})
-        options = { :auth => true }.merge(arg_options)
+      def call(method, options={})
+        options.reverse_merge!({ :auth => true, :args => {} })
         path    = "/statuses/#{method.to_s}.xml"
-        headers = { "User-Agent" => @config[:email] }
-        
+        path   += '?' + options[:args].inject('') { |qs, h| qs += "#{h[0]}=#{h[1]}&"; qs } unless options[:args].blank?        
+        request(path, options)
+      end
+      
+      def request(path, options)
+        options.reverse_merge!({:headers => { "User-Agent" => @config[:email] }})
         begin
           response = Net::HTTP.start(@@api_url, 80) do |http|
-              req = Net::HTTP::Get.new(path, headers)
+              req = Net::HTTP::Get.new(path, options[:headers])
               req.basic_auth(@config[:email], @config[:password]) if options[:auth]
               http.request(req)
           end
 
           raise BadResponse unless response.message == 'OK'
-          Hpricot.XML(response.body)
+          parse(response.body)
         rescue
           raise CantConnect
         end
+      end
+      
+      def parse(response)
+        Hpricot.XML(response)
       end
   end
 end
