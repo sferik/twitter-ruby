@@ -48,10 +48,12 @@ hoe = Hoe.new(GEM_NAME, VERS) do |p|
   #p.spec_extras    - A hash of extra values to set in the gemspec.
 end
 
-
-
-desc "Package and Install Gem"
-task :package_and_install do
-  `rake package`
-  `sudo gem install pkg/#{NAME}-#{VERS}.gem`
+desc 'Publish HTML to RubyForge'
+task :publish_html do
+  config = YAML.load(File.read(File.expand_path("~/.rubyforge/user-config.yml")))
+  host = "#{config["username"]}@rubyforge.org"
+  remote_dir = "/var/www/gforge-projects/snitch/"
+  local_dir = 'html'
+  sh %{rsync -av --delete #{local_dir}/ #{host}:#{remote_dir}}
+  `rake publish_docs`
 end

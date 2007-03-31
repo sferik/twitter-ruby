@@ -15,8 +15,7 @@ module Twitter
 email: 
 password: 
 EOF
-    @@error_msg = "Something went wrong!!!\n\nMost likely: The twitter gem requires hpricot version >= 0.4.59. Check to make sure that you have at least that version installed. To install the newest version of hpricot:\n\n sudo gem install hpricot --source http://code.whytheluckystiff.net"
-    
+ 
     class << self
       def process!
         command = ARGV.shift
@@ -51,12 +50,8 @@ EOF
         
         post = ARGV.shift
         
-        begin
-          status = Twitter::Base.new(config['email'], config['password']).post(post)
-          puts "\nGot it! New twitter created at: #{status.created_at}\n"
-        rescue
-          puts "\nTwitter what?. Something went wrong and your status could not be updated.\n"
-        end
+        status = Twitter::Base.new(config['email'], config['password']).post(post)
+        puts "\nGot it! New twitter created at: #{status.created_at}\n"
       end
       
       # Shows status, time and user for the specified timeline
@@ -66,28 +61,20 @@ EOF
         timeline = :friends
         timeline = ARGV.shift.intern if ARGV.size > 0 && Twitter::Base.timelines.include?(ARGV[0].intern)
         
-        begin
-          puts
-          Twitter::Base.new(config['email'], config['password']).timeline(timeline).each do |s|
-            puts "#{s.text}\n-- #{s.relative_created_at} by #{s.user.name}"
-            puts
-          end
-        rescue
-          puts @@error_msg
+        puts
+        Twitter::Base.new(config['email'], config['password']).timeline(timeline).each do |s|
+          puts "#{s.text}\n-- #{s.created_at} by #{s.user.name}"
         end
+        puts
       end
       
       def friends
         config = create_or_find_config
         
-        begin
+        puts
+        Twitter::Base.new(config['email'], config['password']).friends.each do |u|
+          puts "#{u.name} (#{u.screen_name}) last updated #{u.status.created_at}\n-- #{u.status.text}"
           puts
-          Twitter::Base.new(config['email'], config['password']).friends.each do |u|
-            puts "#{u.name} (#{u.screen_name}) last updated #{u.status.relative_created_at}\n-- #{u.status.text}"
-            puts
-          end
-        rescue
-          puts @@error_msg
         end
       end
       
@@ -103,23 +90,17 @@ EOF
         
         screen_name = ARGV.shift
                 
-        begin
-          puts
-          found = false
-          Twitter::Base.new(config['email'], config['password']).friends.each do |u|
-            if u.screen_name == screen_name
-              puts "#{u.name} last updated #{u.status.relative_created_at}\n-- #{u.status.text}"
-              found = true
-            end
+        puts
+        found = false
+        Twitter::Base.new(config['email'], config['password']).friends.each do |u|
+          if u.screen_name == screen_name
+            puts "#{u.name} last updated #{u.status.created_at}\n-- #{u.status.text}"
+            found = true
           end
-          
-          unless found
-            puts "Sorry couldn't find a friend of yours with #{screen_name} as a screen name"
-          end
-          puts
-        rescue
-          puts @@error_msg
         end
+        
+        puts "Sorry couldn't find a friend of yours with #{screen_name} as a screen name" unless found
+        puts
       end
       
       # Shows all followers and their last updated status
@@ -129,7 +110,7 @@ EOF
         begin
           puts
           Twitter::Base.new(config['email'], config['password']).followers.each do |u|
-            puts "#{u.name} last updated #{u.status.relative_created_at}\n-- #{u.status.text}"
+            puts "#{u.name} last updated #{u.status.created_at}\n-- #{u.status.text}"
             puts
           end
         rescue
@@ -149,23 +130,17 @@ EOF
         
         screen_name = ARGV.shift
         
-        begin
-          puts
-          found = false
-          Twitter::Base.new(config['email'], config['password']).followers.each do |u|
-            if u.screen_name == screen_name
-              puts "#{u.name} (#{u.screen_name}) last updated #{u.status.relative_created_at}\n-- #{u.status.text}"
-              found = true
-            end
+        puts
+        found = false
+        Twitter::Base.new(config['email'], config['password']).followers.each do |u|
+          if u.screen_name == screen_name
+            puts "#{u.name} (#{u.screen_name}) last updated #{u.status.created_at}\n-- #{u.status.text}"
+            found = true
           end
-          
-          unless found
-            puts "Sorry couldn't find a follower of yours with #{screen_name} as a screen name"
-          end
-          puts
-        rescue
-          puts @@error_msg
         end
+        
+        puts "Sorry couldn't find a follower of yours with #{screen_name} as a screen name" unless found
+        puts
       end
       
       private

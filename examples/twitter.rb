@@ -1,4 +1,5 @@
-require '../lib/twitter'
+require 'rubygems'
+require 'twitter'
 
 puts "Public Timeline", "=" * 50
 Twitter::Base.new('emailaddress', 'password').timeline(:public).each do |s|
