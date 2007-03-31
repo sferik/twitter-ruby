@@ -107,14 +107,10 @@ EOF
       def followers
         config = create_or_find_config
         
-        begin
+        puts
+        Twitter::Base.new(config['email'], config['password']).followers.each do |u|
+          puts "#{u.name} last updated #{u.status.created_at}\n-- #{u.status.text}"
           puts
-          Twitter::Base.new(config['email'], config['password']).followers.each do |u|
-            puts "#{u.name} last updated #{u.status.created_at}\n-- #{u.status.text}"
-            puts
-          end
-        rescue
-          puts @@error_msg
         end
       end
       

@@ -14,7 +14,7 @@ module Twitter
     @@api_url   = 'twitter.com'
     
     # Timelines exposed by the twitter api
-    @@timelines = [:friends, :public]
+    @@timelines = [:friends, :public, :user]
     
     def self.timelines
       @@timelines

@@ -6,7 +6,7 @@ class BaseTest < Test::Unit::TestCase
   end
   
   test 'should have friend and public class level timelines' do
-    assert_equal 2, Twitter::Base.timelines.size
+    assert_equal 3, Twitter::Base.timelines.size
   end
   
 end
