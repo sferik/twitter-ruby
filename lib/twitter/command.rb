@@ -20,7 +20,7 @@ EOF
       def process!
         command = ARGV.shift
         
-        if @@commands.include?(command.intern)
+        if !command.nil? && @@commands.include?(command.intern)
           send(command)
         else
           puts "\nUsage: twitter <command> [options]\n\nAvailable Commands:"
@@ -58,10 +58,9 @@ EOF
         
         puts
         Twitter::Base.new(config['email'], config['password']).timeline(timeline).each do |s|
-          puts "#{s.text}\n-- #{s.created_at} by #{s.user.name}"
+          puts "#{s.text}\n-- #{s.user.name} at #{s.created_at}"
           puts
         end
-        puts
       end
       
       def friends
@@ -69,8 +68,8 @@ EOF
         
         puts
         Twitter::Base.new(config['email'], config['password']).friends.each do |u|
-          puts "#{u.name} (#{u.screen_name}) last updated #{u.status.created_at}\n-- #{u.status.text}"
-          puts
+          puts "#{u.name} (#{u.screen_name})"
+          puts "#{u.status.text} at #{u.status.created_at}" unless u.status.nil?
         end
       end
       
@@ -85,19 +84,18 @@ EOF
         end
         
         screen_name = ARGV.shift
-                
+        
         puts
         found = false
         Twitter::Base.new(config['email'], config['password']).friends.each do |u|
           if u.screen_name == screen_name
-            puts "#{u.name} last updated #{u.status.created_at}\n-- #{u.status.text}"
-            puts
+            puts "#{u.name} #{u.screen_name}"
+            puts "#{u.status.text} at #{u.status.created_at}" unless u.status.nil?
             found = true
           end
         end
         
         puts "Sorry couldn't find a friend of yours with #{screen_name} as a screen name" unless found
-        puts
       end
       
       # Shows all followers and their last updated status
@@ -106,8 +104,8 @@ EOF
         
         puts
         Twitter::Base.new(config['email'], config['password']).followers.each do |u|
-          puts "#{u.name} last updated #{u.status.created_at}\n-- #{u.status.text}"
-          puts
+          puts "#{u.name} (#{u.screen_name})"
+          puts "#{u.status.text} at #{u.status.created_at}" unless u.status.nil?
         end
       end
       
@@ -127,13 +125,13 @@ EOF
         found = false
         Twitter::Base.new(config['email'], config['password']).followers.each do |u|
           if u.screen_name == screen_name
-            puts "#{u.name} (#{u.screen_name}) last updated #{u.status.created_at}\n-- #{u.status.text}"
+            puts "#{u.name} (#{u.screen_name})"
+            puts "#{u.status.text} at #{u.status.created_at}" unless u.status.nil?
             found = true
           end
         end
         
         puts "Sorry couldn't find a follower of yours with #{screen_name} as a screen name" unless found
-        puts
       end
       
       def featured
@@ -151,11 +149,12 @@ EOF
       private
         # Checks for the config, creates it if not found
         def create_or_find_config
+          home = ENV['HOME'] || ENV['USERPROFILE'] || ENV['HOMEPATH']
           begin
-            config = YAML::load open(ENV['HOME'] + "/.twitter")
+            config = YAML::load open(home + "/.twitter")
           rescue
-            open(ENV["HOME"] + '/.twitter','w').write(@@template)
-            config = YAML::load open(ENV['HOME'] + "/.twitter")
+            open(home + '/.twitter','w').write(@@template)
+            config = YAML::load open(home + "/.twitter")
           end
           
           if config['email'] == nil or config['password'] == nil

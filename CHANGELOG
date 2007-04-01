@@ -1,3 +1,8 @@
+0.1.0 - March 31, 2007
+			* added friends_for method
+			* added a few tests
+			* removed relative_created_at as it is deprecated
+			* separated out the call method into call, request and parse methods
 0.0.5 - just a bit of code cleanup
 0.0.4 - added :location, :description, :url, :profile_image_url to user class (Alex Payne)
 0.0.3 - added a bit more informative message when things go wrong

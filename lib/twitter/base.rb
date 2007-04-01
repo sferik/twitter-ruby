@@ -54,6 +54,14 @@ module Twitter
     #   users(call(:featured))
     # end
     
+    # Returns an array of all the direct messages for the authenticated user
+    #
+    #   <tt>since</tt> - (optional) Narrows the resulting list of direct messages to just those sent after the specified HTTP-formatted date.
+    def direct_messages(since=nil)
+      doc = request('direct_messages.xml', { :auth => true })
+      (doc/:direct_message).inject([]) { |dms, dm| dms << DirectMessage.new_from_xml(dm); dms }
+    end
+    
     # Updates your twitter with whatever status string is passed in
     def post(status)
       url = URI.parse("http://#{@@api_url}/statuses/update.xml")
@@ -68,12 +76,12 @@ module Twitter
     alias :update :post
     
     private
-      # Converts xml to an array of statuses
+      # Converts an hpricot doc to an array of statuses
       def statuses(doc)
         (doc/:status).inject([]) { |statuses, status| statuses << Status.new_from_xml(status); statuses }
       end
       
-      # Converts xml to an array of users
+      # Converts an hpricot doc to an array of users
       def users(doc)
         (doc/:user).inject([]) { |users, user| users << User.new_from_xml(user); users }
       end
@@ -83,7 +91,7 @@ module Twitter
       # ie: call(:public_timeline, :auth => false)
       def call(method, options={})
         options.reverse_merge!({ :auth => true, :args => {} })
-        path    = "/statuses/#{method.to_s}.xml"
+        path    = "statuses/#{method.to_s}.xml"
         path   += '?' + options[:args].inject('') { |qs, h| qs += "#{h[0]}=#{h[1]}&"; qs } unless options[:args].blank?        
         request(path, options)
       end
@@ -92,7 +100,7 @@ module Twitter
         options.reverse_merge!({:headers => { "User-Agent" => @config[:email] }})
         begin
           response = Net::HTTP.start(@@api_url, 80) do |http|
-              req = Net::HTTP::Get.new(path, options[:headers])
+              req = Net::HTTP::Get.new('/' + path, options[:headers])
               req.basic_auth(@config[:email], @config[:password]) if options[:auth]
               http.request(req)
           end

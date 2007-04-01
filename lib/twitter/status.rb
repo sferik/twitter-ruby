@@ -11,7 +11,6 @@ module Twitter
           s.id         = (xml).at('id').innerHTML
           s.created_at = (xml).at('created_at').innerHTML
           s.text       = (xml).at('text').innerHTML
-          s.created_at = (xml).at('created_at').innerHTML
           s.user       = User.new_from_xml(xml) if (xml).at('user')
         end
       end

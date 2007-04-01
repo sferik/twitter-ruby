@@ -18,3 +18,4 @@ class << Test::Unit::TestCase
 end
 
 # load config
+CONFIG = YAML::load(open('/Users/nunemaker/.twitter'))

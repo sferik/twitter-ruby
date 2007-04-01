@@ -5,9 +5,15 @@ setup.rb
 lib/twitter.rb
 lib/twitter/base.rb
 lib/twitter/command.rb
+lib/twitter/direct_message.rb
 lib/twitter/easy_class_maker.rb
 lib/twitter/status.rb
 lib/twitter/user.rb
 lib/twitter/version.rb
 examples/twitter.rb
 bin/twitter
+test/test_helper.rb
+test/unit/base_test.rb
+test/unit/direct_message_test.rb
+test/unit/status_test.rb
+test/unit/user_test.rb
