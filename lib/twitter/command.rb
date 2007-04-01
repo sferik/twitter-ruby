@@ -2,7 +2,7 @@
 # It is only used and included in the bin/twitter file.
 module Twitter
   class Command
-    @@commands  = [:post, :timeline, :friends, :friend, :followers, :follower, :featured]
+    @@commands  = [:post, :timeline, :friends, :friend, :followers, :follower, :featured, :important]
     
     @@template  = <<EOF
 # .twitter
@@ -144,6 +144,18 @@ EOF
         #   puts "#{u.name} last updated #{u.status.created_at}\n-- #{u.status.text}"
         #   puts
         # end
+      end
+      
+      def important
+        config = create_or_find_config
+        
+        puts
+        Twitter::Base.new(config['email'], config['password']).timeline(:friends).each do |s|
+          if config['important'].include?(s.user.screen_name)
+            puts "#{s.text}\n-- #{s.user.name} at #{s.created_at}"
+            puts
+          end
+        end
       end
       
       private
