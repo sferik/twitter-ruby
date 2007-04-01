@@ -1,4 +1,7 @@
 0.1.0 - March 31, 2007
+			* added d method for creating direct messages (waiting for it to work as documented)
+			* added featured method for getting featured users statuses (waiting for it to work as documented)
+			* added direct_messages method
 			* added friends_for method
 			* added a few tests
 			* removed relative_created_at as it is deprecated
