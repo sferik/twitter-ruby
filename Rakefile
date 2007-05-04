@@ -52,8 +52,7 @@ desc 'Publish HTML to RubyForge'
 task :publish_html do
   config = YAML.load(File.read(File.expand_path("~/.rubyforge/user-config.yml")))
   host = "#{config["username"]}@rubyforge.org"
-  remote_dir = "/var/www/gforge-projects/snitch/"
+  remote_dir = "/var/www/gforge-projects/twitter/"
   local_dir = 'html'
-  sh %{rsync -av --delete #{local_dir}/ #{host}:#{remote_dir}}
-  `rake publish_docs`
+  sh %{rsync -av #{local_dir}/ #{host}:#{remote_dir}}
 end
