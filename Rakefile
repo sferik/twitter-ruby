@@ -48,11 +48,26 @@ hoe = Hoe.new(GEM_NAME, VERS) do |p|
   #p.spec_extras    - A hash of extra values to set in the gemspec.
 end
 
-desc 'Publish HTML to RubyForge'
-task :publish_html do
+desc 'Upload website files to rubyforge'
+task :website do
   config = YAML.load(File.read(File.expand_path("~/.rubyforge/user-config.yml")))
   host = "#{config["username"]}@rubyforge.org"
-  remote_dir = "/var/www/gforge-projects/twitter/"
-  local_dir = 'html'
+  remote_dir = "/var/www/gforge-projects/#{RUBYFORGE_PROJECT}/"
+  # remote_dir = "/var/www/gforge-projects/#{RUBYFORGE_PROJECT}/#{GEM_NAME}"
+  local_dir = 'website'
   sh %{rsync -av #{local_dir}/ #{host}:#{remote_dir}}
+end
+
+desc 'Release the website and new gem version'
+task :deploy => [:check_version, :website, :release]
+
+task :check_version do
+  unless ENV['VERSION']
+    puts 'Must pass a VERSION=x.y.z release version'
+    exit
+  end
+  unless ENV['VERSION'] == VERS
+    puts "Please update your version.rb to match the release version, currently #{VERS}"
+    exit
+  end
 end
