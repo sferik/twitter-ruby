@@ -9,7 +9,7 @@ module Twitter
       def new_from_xml(xml)
         DirectMessage.new do |d|
           d.id                    = (xml).at('id').innerHTML
-          d.text                  = (xml).at('text').innerHTML
+          d.text                  = (xml).get_elements_by_tag_name('text').innerHTML
           d.sender_id             = (xml).at('sender_id').innerHTML
           d.recipient_id          = (xml).at('recipient_id').innerHTML
           d.created_at            = (xml).at('created_at').innerHTML

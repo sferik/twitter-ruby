@@ -10,7 +10,7 @@ module Twitter
         Status.new do |s|
           s.id         = (xml).at('id').innerHTML
           s.created_at = (xml).at('created_at').innerHTML
-          s.text       = (xml).at('text').innerHTML
+          s.text       = (xml).get_elements_by_tag_name('text').innerHTML
           s.user       = User.new_from_xml(xml) if (xml).at('user')
         end
       end

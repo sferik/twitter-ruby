@@ -1,3 +1,5 @@
+0.1.1 - May 20, 2007
+			* hpricot 0.5+ now supported; just a bug fix (Ryan Waldron is the man!)
 0.1.0 - March 31, 2007
 			* added d method for creating direct messages (waiting for it to work as documented)
 			* added featured method for getting featured users statuses (waiting for it to work as documented)
