@@ -59,7 +59,9 @@ module Twitter
     #
     #   <tt>since</tt> - (optional) Narrows the resulting list of direct messages to just those sent after the specified HTTP-formatted date.
     def direct_messages(since=nil)
-      doc = request('direct_messages.xml', { :auth => true })
+      path = 'direct_messages.xml'
+      since.nil? ? 1 : path << "?since=#{CGI.escape(since.to_s)}"
+      doc = request(path, { :auth => true })
       (doc/:direct_message).inject([]) { |dms, dm| dms << DirectMessage.new_from_xml(dm); dms }
     end
     
