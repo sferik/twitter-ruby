@@ -65,18 +65,17 @@ module Twitter
       (doc/:direct_message).inject([]) { |dms, dm| dms << DirectMessage.new_from_xml(dm); dms }
     end
     
-    # This api methods doesn't seem to be working
-    # TODO: uncomment this when it is working
-    # def d(user, msg)
-    #   url = URI.parse("http://#{@@api_url}/statuses/update.xml")
-    #   
-    #   req = Net::HTTP::Post.new(url.path)
-    #   req.basic_auth(@config[:email], @config[:password])
-    #   req.set_form_data({'user' => user, 'msg' => msg})
-    #   
-    #   response = Net::HTTP.new(url.host, url.port).start { |http| http.request(req) }
-    #   puts response.message,response.body
-    # end
+    #Sends a direct message to <code>text</code> to <code>user</code>
+    def d(user, text)
+      url = URI.parse("http://#{@@api_url}/direct_messages/new.xml")
+      req = Net::HTTP::Post.new(url.path)
+
+      req.basic_auth(@config[:email], @config[:password])
+      req.set_form_data({'text' => text, 'user' => user})
+
+      response = Net::HTTP.new(url.host, url.port).start { |http| http.request(req) }
+      DirectMessage.new_from_xml(parse(response.body).at('direct_message'))
+    end
     
     # Updates your twitter with whatever status string is passed in
     def post(status)

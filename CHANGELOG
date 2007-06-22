@@ -1,4 +1,5 @@
 0.1.2 - to be released soon
+			* implemented d method to send direct messages (jnewland)
 			* fixed since argument in direct_messages method (jnewland)
 0.1.1 - May 20, 2007
 			* hpricot 0.5+ now supported; just a bug fix (Ryan Waldron is the man!)
