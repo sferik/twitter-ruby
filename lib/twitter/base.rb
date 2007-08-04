@@ -49,32 +49,77 @@ module Twitter
       users(call(:followers))
     end
     
-    # waiting for twitter to correclty implement this in the api as it is documented
-    # TODO: uncomment this when it is working
-    # def featured
-    #   users(call(:featured))
-    # end
+    # Returns a single status for a given id
+    def status(id)
+      statuses(call("show/#{id}")).first
+    end
+    
+    # returns all the profile information and the last status for a user
+    def user(id_or_screenname)
+      users(request("users/show/#{id_or_screenname}.xml", :auth => true)).first
+    end
+    
+    # Returns an array of statuses that are replies
+    def replies
+      statuses(call(:replies))
+    end
+    
+    # Destroys a status by id
+    def destroy(id)
+      call("destroy/#{id}")
+    end
+    
+    # waiting for twitter to correctly implement this in the api as it is documented
+    def featured
+      users(call(:featured))
+    end
     
     # Returns an array of all the direct messages for the authenticated user
     #
     #   <tt>since</tt> - (optional) Narrows the resulting list of direct messages to just those sent after the specified HTTP-formatted date.
+    # TODO: allow since_id and page as well for direct messages
     def direct_messages(since=nil)
       path = 'direct_messages.xml'
       since.nil? ? 1 : path << "?since=#{CGI.escape(since.to_s)}"
       doc = request(path, { :auth => true })
       (doc/:direct_message).inject([]) { |dms, dm| dms << DirectMessage.new_from_xml(dm); dms }
     end
+    alias :received_messages :direct_messages
     
-    #Sends a direct message to <code>text</code> to <code>user</code>
+    # Returns 20 direct messages sent by auth user
+    # TODO: allow since_id and page as well for sent messages
+    def sent_messages(since=nil)
+      path = 'direct_messages/sent.xml'
+      since.nil? ? 1 : path << "?since=#{CGI.escape(since.to_s)}"
+      doc = request(path, { :auth => true })
+      (doc/:direct_message).inject([]) { |dms, dm| dms << DirectMessage.new_from_xml(dm); dms }
+    end
+    
+    # destroys a give direct message by id if the auth user is a recipient
+    # TODO: return http status code
+    def destroy_direct_message(id)
+      request("direct_messages/destroy/#{id}.xml", :auth => true)
+    end
+    
+    # Sends a direct message <code>text</code> to <code>user</code>
     def d(user, text)
       url = URI.parse("http://#{@@api_url}/direct_messages/new.xml")
       req = Net::HTTP::Post.new(url.path)
-
+      
       req.basic_auth(@config[:email], @config[:password])
       req.set_form_data({'text' => text, 'user' => user})
-
+      
       response = Net::HTTP.new(url.host, url.port).start { |http| http.request(req) }
       DirectMessage.new_from_xml(parse(response.body).at('direct_message'))
+    end
+    
+    # Befriends the user specified in the ID parameter as the authenticating user.
+    def create_friendship(id_or_screenname)
+      users(request("friendships/create/#{id_or_screenname}.xml", :auth => true)).first
+    end
+    
+    def destroy_friendship(id_or_screenname)
+      users(request("friendships/destroy/#{id_or_screenname}.xml", :auth => true)).first
     end
     
     # Updates your twitter with whatever status string is passed in
@@ -111,7 +156,7 @@ module Twitter
         request(path, options)
       end
       
-      def request(path, options)
+      def request(path, options={})
         options.reverse_merge!({:headers => { "User-Agent" => @config[:email] }})
         begin
           response = Net::HTTP.start(@@api_url, 80) do |http|

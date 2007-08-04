@@ -137,23 +137,27 @@ EOF
       def featured
         puts
         puts 'This is all implemented, just waiting for twitter to get the api call working'
-        # config = create_or_find_config
-        # 
-        # puts
-        # Twitter::Base.new(config['email'], config['password']).featured.each do |u|
-        #   puts "#{u.name} last updated #{u.status.created_at}\n-- #{u.status.text}"
-        #   puts
-        # end
+        config = create_or_find_config
+        
+        puts
+        Twitter::Base.new(config['email'], config['password']).featured.each do |u|
+          puts "#{u.name} last updated #{u.status.created_at}\n-- #{u.status.text}"
+          puts
+        end
       end
       
       def important
         config = create_or_find_config
         
         puts
-        Twitter::Base.new(config['email'], config['password']).timeline(:friends).each do |s|
-          if config['important'].include?(s.user.screen_name)
-            puts "#{s.text}\n-- #{s.user.name} at #{s.created_at}"
-            puts
+        if config['important'].nil?
+          puts "You have not listed your most important twitter buddies in your config file.\nYou can add important twitterers by adding the following to your config file:\nimportant:\n- jnunemaker\n- frankfurter"
+        else
+          Twitter::Base.new(config['email'], config['password']).timeline(:friends).each do |s|          
+            if config['important'].include?(s.user.screen_name)
+              puts "#{s.text}\n-- #{s.user.name} at #{s.created_at}"
+              puts
+            end
           end
         end
       end

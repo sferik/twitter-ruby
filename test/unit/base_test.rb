@@ -25,6 +25,10 @@ class BaseTest < Test::Unit::TestCase
     puts 'Friends', @t.friends, "*"*50
   end
   
+  test 'should be able to get featured users' do
+    puts 'Featured', @t.featured, "*"*50
+  end
+  
   test 'should be able to get friends for another user' do
     puts 'Friends For', @t.friends_for('jnunemaker'), "*"*50
   end
@@ -36,4 +40,43 @@ class BaseTest < Test::Unit::TestCase
   test 'should be able to get direct messages for auth user' do
     puts 'Direct Messages', @t.direct_messages, "*"*50
   end
+  
+  test 'should be able to get direct messages for auth user by alias received messages' do
+    puts 'Recieved Messages', @t.received_messages, "*"*50
+  end
+  
+  test 'should be able to send a direct message' do
+    @t.d('jnunemaker', 'just testing')
+  end
+  
+  test 'should be able to get sent messages for auth user' do
+    puts 'Sent Messages', @t.sent_messages, "*"*50
+  end
+  
+  test 'should be able to get a status by id' do
+    puts "Status 185005122", @t.status(185005122).inspect, "*"*50
+  end
+  
+  test 'should be able to get replies for auth user' do
+    puts "Replies", @t.replies, "*"*50
+  end
+  
+  test "should be able to get a user's info" do
+    puts "User", @t.user('jnunemaker').inspect, "*"*50
+  end
+  
+  test 'should be able to create and destroy friendships' do
+    puts "Destroying Friendship with Snitch Test", @t.destroy_friendship('snitch_test'), "*"*50
+    puts "Creating Friendship with Snitch Test", @t.create_friendship('snitch_test'), "*"*50
+  end
+  #
+  # test 'should be able to destroy a status' do
+  #   # this has to be checked individually, create a status, put the id in and make sure it was deleted
+  #   #@t.destroy(185855442)
+  # end
+  #
+  # test 'should be able to destroy a direct message' do
+  #   # must be tested individually
+  #   @t.destroy_direct_message(4687032)
+  # end
 end

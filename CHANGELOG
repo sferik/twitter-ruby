@@ -1,4 +1,13 @@
-0.1.2 - to be released soon
+0.2.0 - Aug 4, 2007
+			* added sent_messages
+			* alias direct_messages to received_messages
+			* added create_friendship
+			* added destroy_friendship
+			* added featured to retrieve the featured twitter users
+			* added replies
+			* added destroy to destroy a status by id
+			* added status to find a status by id
+			* added active support as an extra dependency
 			* implemented d method to send direct messages (jnewland)
 			* fixed since argument in direct_messages method (jnewland)
 0.1.1 - May 20, 2007
