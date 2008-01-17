@@ -44,9 +44,18 @@ EOF
         end
         
         post = ARGV.shift
-        
-        status = Twitter::Base.new(config['email'], config['password']).post(post)
-        puts "\nGot it! New twitter created at: #{status.created_at}\n"
+        print "\nSending twitter update"
+        finished = false
+        status = nil
+        progress_thread = Thread.new { until finished; print "."; $stdout.flush; sleep 0.5; end; }
+        post_thread = Thread.new(binding()) { |b|
+          status = Twitter::Base.new(config['email'], config['password']).post(post)
+          finished = true
+        }
+        post_thread.join
+        progress_thread.join
+        puts " OK!"
+        puts "Got it! New twitter created at: #{status.created_at}\n"
       end
       
       # Shows status, time and user for the specified timeline

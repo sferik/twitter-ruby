@@ -2,6 +2,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class BaseTest < Test::Unit::TestCase
   def setup
+    # note to self use webgroup
     @t = Twitter::Base.new(CONFIG['email'], CONFIG['password'])
   end
   
@@ -66,8 +67,8 @@ class BaseTest < Test::Unit::TestCase
   end
   
   test 'should be able to create and destroy friendships' do
-    puts "Destroying Friendship with Snitch Test", @t.destroy_friendship('snitch_test'), "*"*50
-    puts "Creating Friendship with Snitch Test", @t.create_friendship('snitch_test'), "*"*50
+    puts "Destroying Friendship", @t.destroy_friendship('jnunemaker'), "*"*50
+    puts "Creating Friendship", @t.create_friendship('jnunemaker'), "*"*50
   end
   
   test 'should be able to follow a user' do
@@ -79,14 +80,13 @@ class BaseTest < Test::Unit::TestCase
   end
   
   
-  #
-  # test 'should be able to destroy a status' do
-  #   # this has to be checked individually, create a status, put the id in and make sure it was deleted
-  #   #@t.destroy(185855442)
-  # end
-  #
-  # test 'should be able to destroy a direct message' do
-  #   # must be tested individually
-  #   @t.destroy_direct_message(4687032)
-  # end
+  test 'should be able to destroy a status' do
+    # this has to be checked individually, create a status, put the id in and make sure it was deleted
+    #@t.destroy(185855442)
+  end
+  
+  test 'should be able to destroy a direct message' do
+    # must be tested individually
+    @t.destroy_direct_message(4687032)
+  end
 end

@@ -9,7 +9,6 @@ module Twitter
   class UnknownTimeline < ArgumentError; end
   
   class Base
-    
     # Twitter's url, duh!
     @@api_url   = 'twitter.com'
     
