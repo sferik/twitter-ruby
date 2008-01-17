@@ -69,6 +69,16 @@ class BaseTest < Test::Unit::TestCase
     puts "Destroying Friendship with Snitch Test", @t.destroy_friendship('snitch_test'), "*"*50
     puts "Creating Friendship with Snitch Test", @t.create_friendship('snitch_test'), "*"*50
   end
+  
+  test 'should be able to follow a user' do
+    puts "Following a user", @t.follow('jnunemaker'), "*"*50
+  end
+  
+  test 'should be able to leave a user' do
+    puts "Leaving a user", @t.leave('jnunemaker'), "*"*50
+  end
+  
+  
   #
   # test 'should be able to destroy a status' do
   #   # this has to be checked individually, create a status, put the id in and make sure it was deleted

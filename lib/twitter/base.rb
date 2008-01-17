@@ -122,6 +122,14 @@ module Twitter
       users(request("friendships/destroy/#{id_or_screenname}.xml", :auth => true)).first
     end
     
+    def follow(id_or_screenname)
+      users(request("notifications/follow/#{id_or_screenname}.xml", :auth => true)).first
+    end
+    
+    def leave(id_or_screenname)
+      users(request("notifications/leave/#{id_or_screenname}.xml", :auth => true)).first
+    end
+    
     # Updates your twitter with whatever status string is passed in
     def post(status)
       url = URI.parse("http://#{@@api_url}/statuses/update.xml")

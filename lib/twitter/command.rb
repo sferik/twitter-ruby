@@ -2,7 +2,7 @@
 # It is only used and included in the bin/twitter file.
 module Twitter
   class Command
-    @@commands  = [:post, :timeline, :friends, :friend, :followers, :follower, :featured, :important]
+    @@commands  = [:post, :timeline, :friends, :friend, :followers, :follower, :featured, :important, :follow, :leave]
     
     @@template  = <<EOF
 # .twitter
@@ -159,6 +159,46 @@ EOF
               puts
             end
           end
+        end
+      end
+      
+      def follow
+        config = create_or_find_config
+        
+        if ARGV.size == 0
+          puts %(\n  You forgot to enter a screen name or id to follow.\n\n  Usage: twitter follow jnunemaker\n)
+          exit(0)
+        end
+        
+        screen_name = ARGV.shift
+        
+        puts
+        found = false
+        begin
+          Twitter::Base.new(config['email'], config['password']).follow(screen_name)
+          puts "You are now following notifications for #{screen_name}."
+        rescue
+          puts "FAIL: Somethin went wrong. Sorry."
+        end
+      end
+      
+      def leave
+        config = create_or_find_config
+        
+        if ARGV.size == 0
+          puts %(\n  You forgot to enter a screen name or id to leave.\n\n  Usage: twitter leave jnunemaker\n)
+          exit(0)
+        end
+        
+        screen_name = ARGV.shift
+        
+        puts
+        found = false
+        begin
+          Twitter::Base.new(config['email'], config['password']).leave(screen_name)
+          puts "You are no longer following notifications for #{screen_name}."
+        rescue
+          puts "FAIL: Somethin went wrong. Sorry."
         end
       end
       
