@@ -1,3 +1,5 @@
+0.2.3 - Jan 16, 2008
+			* added d to command line interface twitter d jnunemaker 'hola'
 0.2.2 - added leave and follow which are new twitter api methods for turning notifications on and off
 0.2.0 - Aug 4, 2007
 			* added sent_messages

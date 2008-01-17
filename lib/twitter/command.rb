@@ -2,7 +2,7 @@
 # It is only used and included in the bin/twitter file.
 module Twitter
   class Command
-    @@commands  = [:post, :timeline, :friends, :friend, :followers, :follower, :featured, :important, :follow, :leave]
+    @@commands  = [:post, :timeline, :friends, :friend, :followers, :follower, :featured, :important, :follow, :leave, :d]
     
     @@template  = <<EOF
 # .twitter
@@ -200,6 +200,21 @@ EOF
         rescue
           puts "FAIL: Somethin went wrong. Sorry."
         end
+      end
+      
+      # Posts a direct message to twitter
+      def d
+        config = create_or_find_config
+        if ARGV.size != 2
+          puts %(\n  You didn't do it right.\n\n  Usage: twitter d jnunemaker "You're fabulous message"\n)
+          exit(0)
+        end
+
+        user = ARGV.shift
+        post = ARGV.shift
+
+        status = Twitter::Base.new(config['email'], config['password']).d(user, post)
+        puts "\nDirect message sent to #{user}.\n"
       end
       
       private
