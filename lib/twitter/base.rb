@@ -27,10 +27,10 @@ module Twitter
     # Returns an array of statuses for a timeline; 
     # Available timelines are determined from the @@timelines variable
     # Defaults to your friends timeline
-    def timeline(which=:friends)
+    def timeline(which=:friends, since=nil)
       raise UnknownTimeline unless @@timelines.include?(which)
       auth = which.to_s.include?('public') ? false : true
-      statuses(call("#{which}_timeline", :auth => auth))
+      statuses(call("#{which}_timeline", :auth => auth, :since => since))
     end
     
     # Returns an array of users who are in your friends list
@@ -59,8 +59,8 @@ module Twitter
     end
     
     # Returns an array of statuses that are replies
-    def replies
-      statuses(call(:replies))
+    def replies(since=nil)
+      statuses(call(:replies, :since => since))
     end
     
     # Destroys a status by id
@@ -79,8 +79,7 @@ module Twitter
     # TODO: allow since_id and page as well for direct messages
     def direct_messages(since=nil)
       path = 'direct_messages.xml'
-      since.nil? ? 1 : path << "?since=#{CGI.escape(since.to_s)}"
-      doc = request(path, { :auth => true })
+      doc = request(path, { :auth => true, :since => since })
       (doc/:direct_message).inject([]) { |dms, dm| dms << DirectMessage.new_from_xml(dm); dms }
     end
     alias :received_messages :direct_messages
@@ -89,8 +88,7 @@ module Twitter
     # TODO: allow since_id and page as well for sent messages
     def sent_messages(since=nil)
       path = 'direct_messages/sent.xml'
-      since.nil? ? 1 : path << "?since=#{CGI.escape(since.to_s)}"
-      doc = request(path, { :auth => true })
+      doc = request(path, { :auth => true, :since => since })
       (doc/:direct_message).inject([]) { |dms, dm| dms << DirectMessage.new_from_xml(dm); dms }
     end
     
@@ -165,6 +163,11 @@ module Twitter
       
       def request(path, options={})
         options.reverse_merge!({:headers => { "User-Agent" => @config[:email] }})
+        unless options[:since].blank?
+          since = options[:since].kind_of?(Date) ? options[:since].strftime('%a, %d-%b-%y %T GMT') : options[:since].to_s  
+          options[:headers]["If-Modified-Since"] = since
+        end
+        
         begin
           response = Net::HTTP.start(@@api_url, 80) do |http|
               req = Net::HTTP::Get.new('/' + path, options[:headers])
@@ -172,7 +175,7 @@ module Twitter
               http.request(req)
           end
 
-          raise BadResponse unless response.message == 'OK'
+          raise BadResponse unless response.message == 'OK' || response.message == 'Not Modified'
           parse(response.body)
         rescue
           raise CantConnect
