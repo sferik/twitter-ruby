@@ -34,18 +34,18 @@ module Twitter
     end
     
     # Returns an array of users who are in your friends list
-    def friends
-      users(call(:friends))
+    def friends(lite = false)
+      users(call(:friends, {:args => {:lite => lite}}))
     end
     
     # Returns an array of users who are friends for the id or username passed in
-    def friends_for(id)
-      users(call(:friends, {:args => {:id => id}}))
+    def friends_for(id, lite = false)
+      users(call(:friends, {:args => {:id => id, :lite => lite}}))
     end
     
     # Returns an array of users who are following you
-    def followers
-      users(call(:followers))
+    def followers(lite = false)
+      users(call(:followers, {:args => {:lite => lite}}))
     end
     
     # Returns a single status for a given id
@@ -156,6 +156,8 @@ module Twitter
       # ie: call(:public_timeline, :auth => false)
       def call(method, options={})
         options.reverse_merge!({ :auth => true, :args => {} })
+        # Following line needed as lite=false doens't work in the API: http://tinyurl.com/yo3h5d
+        options[:args].delete(:lite) unless options[:args][:lite]
         path    = "statuses/#{method.to_s}.xml"
         path   += '?' + options[:args].inject('') { |qs, h| qs += "#{h[0]}=#{h[1]}&"; qs } unless options[:args].blank?        
         request(path, options)
