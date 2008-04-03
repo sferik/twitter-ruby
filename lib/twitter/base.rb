@@ -76,7 +76,7 @@ module Twitter
     # Returns an array of all the direct messages for the authenticated user
     #
     #   <tt>since</tt> - (optional) Narrows the resulting list of direct messages to just those sent after the specified HTTP-formatted date.
-    # TODO: allow since_id and page as well for direct messages
+    # TODO: allow page for direct messages
     def direct_messages(since=nil)
       path = 'direct_messages.xml'
       doc = request(path, { :auth => true, :since => since })
@@ -85,7 +85,7 @@ module Twitter
     alias :received_messages :direct_messages
     
     # Returns 20 direct messages sent by auth user
-    # TODO: allow since_id and page as well for sent messages
+    # TODO: allow page for sent messages
     def sent_messages(since=nil)
       path = 'direct_messages/sent.xml'
       doc = request(path, { :auth => true, :since => since })
