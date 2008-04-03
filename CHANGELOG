@@ -1,3 +1,8 @@
+0.2.5 - April 2, 2008
+			* Command line interface can now use stdin for posting (ideas and example code from Jeremy Friesen)
+					$ twitter post 'test without stdin' # => twitters: test without stdin
+					$ echo 'test with stdin' | twitter post 'and an argv[1]' # => twitters: test with stdin and an argv[1]
+					$ echo 'test with stdin without any argv[1]' | twitter post # => twitters: test with stdin without any argv[1]
 0.2.4 - Mar 31, 2008
 			* Added lite option to friends and followers, which doesn't include the user's current status (Daniel Morrison)
 			* Updated since option to use HTTP header, and added the option on timeline() and replies(). (Daniel Morrison)
