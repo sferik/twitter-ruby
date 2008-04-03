@@ -1,3 +1,5 @@
+0.2.6 - April 2, 2008
+			* found a more simple way of doing stdin without any extra gem dependencies
 0.2.5 - April 2, 2008
 			* Command line interface can now use stdin for posting (ideas and example code from Jeremy Friesen)
 					$ twitter post 'test without stdin' # => twitters: test without stdin
