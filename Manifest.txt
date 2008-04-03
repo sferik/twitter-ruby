@@ -1,7 +1,6 @@
 CHANGELOG
 History.txt
 License.txt
-MIT-LICENSE
 Manifest.txt
 README.txt
 Rakefile
