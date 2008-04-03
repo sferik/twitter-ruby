@@ -31,15 +31,10 @@
 require 'rubygems'
 require 'twitter'
 require 'twitter/command'
-require 'timeout'
 
-begin
-  timeout(1) do
-    if ARGV[0] && ARGV[0] == 'post'
-      ARGV[1] = "#{STDIN.read}#{ARGV[1]}"
-    end
-  end
-rescue Timeout::Error
+# if we have stdin, let's prepend it to the message
+if ARGV[0] && ARGV[0] == 'post' && !STDIN.tty?
+  ARGV[1] = "#{STDIN.read}#{ARGV[1]}"
 end
 
 Twitter::Command.process!
