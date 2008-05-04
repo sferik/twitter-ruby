@@ -102,10 +102,8 @@ module Twitter
     def d(user, text)
       url = URI.parse("http://#{@@api_url}/direct_messages/new.xml")
       req = Net::HTTP::Post.new(url.path)
-      
       req.basic_auth(@config[:email], @config[:password])
       req.set_form_data({'text' => text, 'user' => user})
-      
       response = Net::HTTP.new(url.host, url.port).start { |http| http.request(req) }
       DirectMessage.new_from_xml(parse(response.body).at('direct_message'))
     end
@@ -176,7 +174,6 @@ module Twitter
               req.basic_auth(@config[:email], @config[:password]) if options[:auth]
               http.request(req)
           end
-
           raise BadResponse unless response.message == 'OK' || response.message == 'Not Modified'
           parse(response.body)
         rescue

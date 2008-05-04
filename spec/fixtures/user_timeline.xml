@@ -1,0 +1,465 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<statuses type="array">
+  <status>
+    <created_at>Sun May 04 21:59:52 +0000 2008</created_at>
+    <id>803435310</id>
+    <text>Writing tests (rspec) for the twitter gem that all can run. Wish I would have done this when I wrote it years back.</text>
+    <source>&lt;a href="http://iconfactory.com/software/twitterrific"&gt;twitterrific&lt;/a&gt;</source>
+
+    <truncated>false</truncated>
+    <in_reply_to_status_id></in_reply_to_status_id>
+    <in_reply_to_user_id></in_reply_to_user_id>
+    <favorited>false</favorited>
+    <user>
+      <id>4243</id>
+      <name>John Nunemaker</name>
+
+      <screen_name>jnunemaker</screen_name>
+      <location>Indiana</location>
+      <description>Loves his wife, ruby, notre dame football and iu basketball</description>
+      <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/52619256/ruby_enterprise_shirt_normal.jpg</profile_image_url>
+      <url>http://addictedtonew.com</url>
+      <protected>false</protected>
+
+      <followers_count>363</followers_count>
+    </user>
+  </status>
+  <status>
+    <created_at>Sun May 04 17:46:45 +0000 2008</created_at>
+    <id>803313859</id>
+    <text>recracking iphone cause i love me some mobilescrobbler, among other things.</text>
+
+    <source>&lt;a href="http://iconfactory.com/software/twitterrific"&gt;twitterrific&lt;/a&gt;</source>
+    <truncated>false</truncated>
+    <in_reply_to_status_id></in_reply_to_status_id>
+    <in_reply_to_user_id></in_reply_to_user_id>
+    <favorited>false</favorited>
+    <user>
+
+      <id>4243</id>
+      <name>John Nunemaker</name>
+      <screen_name>jnunemaker</screen_name>
+      <location>Indiana</location>
+      <description>Loves his wife, ruby, notre dame football and iu basketball</description>
+      <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/52619256/ruby_enterprise_shirt_normal.jpg</profile_image_url>
+
+      <url>http://addictedtonew.com</url>
+      <protected>false</protected>
+      <followers_count>363</followers_count>
+    </user>
+  </status>
+  <status>
+    <created_at>Sun May 04 17:16:47 +0000 2008</created_at>
+
+    <id>803298454</id>
+    <text>Nervously restoring my iphone. First time. Need to try out @jnewland's fireeagle auto updates.</text>
+    <source>&lt;a href="http://iconfactory.com/software/twitterrific"&gt;twitterrific&lt;/a&gt;</source>
+    <truncated>false</truncated>
+    <in_reply_to_status_id></in_reply_to_status_id>
+    <in_reply_to_user_id></in_reply_to_user_id>
+
+    <favorited>false</favorited>
+    <user>
+      <id>4243</id>
+      <name>John Nunemaker</name>
+      <screen_name>jnunemaker</screen_name>
+      <location>Indiana</location>
+
+      <description>Loves his wife, ruby, notre dame football and iu basketball</description>
+      <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/52619256/ruby_enterprise_shirt_normal.jpg</profile_image_url>
+      <url>http://addictedtonew.com</url>
+      <protected>false</protected>
+      <followers_count>363</followers_count>
+    </user>
+
+  </status>
+  <status>
+    <created_at>Sun May 04 04:48:47 +0000 2008</created_at>
+    <id>803010119</id>
+    <text>memcache is sweet. i'm amazed i haven't played with it for this long.</text>
+    <source>&lt;a href="http://iconfactory.com/software/twitterrific"&gt;twitterrific&lt;/a&gt;</source>
+
+    <truncated>false</truncated>
+    <in_reply_to_status_id></in_reply_to_status_id>
+    <in_reply_to_user_id></in_reply_to_user_id>
+    <favorited>false</favorited>
+    <user>
+      <id>4243</id>
+      <name>John Nunemaker</name>
+
+      <screen_name>jnunemaker</screen_name>
+      <location>Indiana</location>
+      <description>Loves his wife, ruby, notre dame football and iu basketball</description>
+      <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/52619256/ruby_enterprise_shirt_normal.jpg</profile_image_url>
+      <url>http://addictedtonew.com</url>
+      <protected>false</protected>
+
+      <followers_count>363</followers_count>
+    </user>
+  </status>
+  <status>
+    <created_at>Sat May 03 21:45:41 +0000 2008</created_at>
+    <id>802827613</id>
+    <text>Headed to steak and ale with steph to meet college roommate and his wife for dinner.</text>
+
+    <source>&lt;a href="http://iconfactory.com/software/twitterrific"&gt;twitterrific&lt;/a&gt;</source>
+    <truncated>false</truncated>
+    <in_reply_to_status_id></in_reply_to_status_id>
+    <in_reply_to_user_id></in_reply_to_user_id>
+    <favorited>false</favorited>
+    <user>
+
+      <id>4243</id>
+      <name>John Nunemaker</name>
+      <screen_name>jnunemaker</screen_name>
+      <location>Indiana</location>
+      <description>Loves his wife, ruby, notre dame football and iu basketball</description>
+      <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/52619256/ruby_enterprise_shirt_normal.jpg</profile_image_url>
+
+      <url>http://addictedtonew.com</url>
+      <protected>false</protected>
+      <followers_count>363</followers_count>
+    </user>
+  </status>
+  <status>
+    <created_at>Sat May 03 19:54:59 +0000 2008</created_at>
+
+    <id>802778602</id>
+    <text>Ruthlessly cleaning my desk. Zero clutter goal from here on out.</text>
+    <source>&lt;a href="http://help.twitter.com/index.php?pg=kb.page&amp;id=75"&gt;txt&lt;/a&gt;</source>
+    <truncated>false</truncated>
+    <in_reply_to_status_id></in_reply_to_status_id>
+
+    <in_reply_to_user_id></in_reply_to_user_id>
+    <favorited>false</favorited>
+    <user>
+      <id>4243</id>
+      <name>John Nunemaker</name>
+      <screen_name>jnunemaker</screen_name>
+      <location>Indiana</location>
+
+      <description>Loves his wife, ruby, notre dame football and iu basketball</description>
+      <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/52619256/ruby_enterprise_shirt_normal.jpg</profile_image_url>
+      <url>http://addictedtonew.com</url>
+      <protected>false</protected>
+      <followers_count>363</followers_count>
+    </user>
+
+  </status>
+  <status>
+    <created_at>Sat May 03 18:20:17 +0000 2008</created_at>
+    <id>802734033</id>
+    <text>@mattklawitter i'm jealous. hit a 3 for me.</text>
+    <source>&lt;a href="http://iconfactory.com/software/twitterrific"&gt;twitterrific&lt;/a&gt;</source>
+
+    <truncated>false</truncated>
+    <in_reply_to_status_id>802733703</in_reply_to_status_id>
+    <in_reply_to_user_id>13647</in_reply_to_user_id>
+    <favorited>false</favorited>
+    <user>
+      <id>4243</id>
+
+      <name>John Nunemaker</name>
+      <screen_name>jnunemaker</screen_name>
+      <location>Indiana</location>
+      <description>Loves his wife, ruby, notre dame football and iu basketball</description>
+      <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/52619256/ruby_enterprise_shirt_normal.jpg</profile_image_url>
+      <url>http://addictedtonew.com</url>
+
+      <protected>false</protected>
+      <followers_count>363</followers_count>
+    </user>
+  </status>
+  <status>
+    <created_at>Sat May 03 17:28:09 +0000 2008</created_at>
+    <id>802707224</id>
+
+    <text>Home. Doing a bit of freelance catch up.</text>
+    <source>&lt;a href="http://iconfactory.com/software/twitterrific"&gt;twitterrific&lt;/a&gt;</source>
+    <truncated>false</truncated>
+    <in_reply_to_status_id></in_reply_to_status_id>
+    <in_reply_to_user_id></in_reply_to_user_id>
+    <favorited>false</favorited>
+
+    <user>
+      <id>4243</id>
+      <name>John Nunemaker</name>
+      <screen_name>jnunemaker</screen_name>
+      <location>Indiana</location>
+      <description>Loves his wife, ruby, notre dame football and iu basketball</description>
+
+      <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/52619256/ruby_enterprise_shirt_normal.jpg</profile_image_url>
+      <url>http://addictedtonew.com</url>
+      <protected>false</protected>
+      <followers_count>363</followers_count>
+    </user>
+  </status>
+  <status>
+
+    <created_at>Sat May 03 17:08:24 +0000 2008</created_at>
+    <id>802696808</id>
+    <text>Target with steph. No luck.</text>
+    <source>&lt;a href="http://help.twitter.com/index.php?pg=kb.page&amp;id=75"&gt;txt&lt;/a&gt;</source>
+    <truncated>false</truncated>
+
+    <in_reply_to_status_id></in_reply_to_status_id>
+    <in_reply_to_user_id></in_reply_to_user_id>
+    <favorited>false</favorited>
+    <user>
+      <id>4243</id>
+      <name>John Nunemaker</name>
+      <screen_name>jnunemaker</screen_name>
+
+      <location>Indiana</location>
+      <description>Loves his wife, ruby, notre dame football and iu basketball</description>
+      <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/52619256/ruby_enterprise_shirt_normal.jpg</profile_image_url>
+      <url>http://addictedtonew.com</url>
+      <protected>false</protected>
+      <followers_count>363</followers_count>
+
+    </user>
+  </status>
+  <status>
+    <created_at>Sat May 03 01:26:00 +0000 2008</created_at>
+    <id>802316223</id>
+    <text>@lizsmc1 we have a tornado warning right now? where was sighting?</text>
+    <source>&lt;a href="http://iconfactory.com/software/twitterrific"&gt;twitterrific&lt;/a&gt;</source>
+
+    <truncated>false</truncated>
+    <in_reply_to_status_id>802314575</in_reply_to_status_id>
+    <in_reply_to_user_id>11485452</in_reply_to_user_id>
+    <favorited>false</favorited>
+    <user>
+      <id>4243</id>
+
+      <name>John Nunemaker</name>
+      <screen_name>jnunemaker</screen_name>
+      <location>Indiana</location>
+      <description>Loves his wife, ruby, notre dame football and iu basketball</description>
+      <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/52619256/ruby_enterprise_shirt_normal.jpg</profile_image_url>
+      <url>http://addictedtonew.com</url>
+
+      <protected>false</protected>
+      <followers_count>363</followers_count>
+    </user>
+  </status>
+  <status>
+    <created_at>Fri May 02 22:48:52 +0000 2008</created_at>
+    <id>802237608</id>
+
+    <text>Mishawaka brewing company.</text>
+    <source>&lt;a href="http://help.twitter.com/index.php?pg=kb.page&amp;id=75"&gt;txt&lt;/a&gt;</source>
+    <truncated>false</truncated>
+    <in_reply_to_status_id></in_reply_to_status_id>
+    <in_reply_to_user_id></in_reply_to_user_id>
+    <favorited>false</favorited>
+
+    <user>
+      <id>4243</id>
+      <name>John Nunemaker</name>
+      <screen_name>jnunemaker</screen_name>
+      <location>Indiana</location>
+      <description>Loves his wife, ruby, notre dame football and iu basketball</description>
+
+      <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/52619256/ruby_enterprise_shirt_normal.jpg</profile_image_url>
+      <url>http://addictedtonew.com</url>
+      <protected>false</protected>
+      <followers_count>363</followers_count>
+    </user>
+  </status>
+
+  <status>
+    <created_at>Fri May 02 18:06:57 +0000 2008</created_at>
+    <id>802062302</id>
+    <text>Trim time. It's like hammer time but with trim.</text>
+    <source>&lt;a href="http://help.twitter.com/index.php?pg=kb.page&amp;id=75"&gt;txt&lt;/a&gt;</source>
+
+    <truncated>false</truncated>
+    <in_reply_to_status_id></in_reply_to_status_id>
+    <in_reply_to_user_id></in_reply_to_user_id>
+    <favorited>false</favorited>
+    <user>
+      <id>4243</id>
+      <name>John Nunemaker</name>
+
+      <screen_name>jnunemaker</screen_name>
+      <location>Indiana</location>
+      <description>Loves his wife, ruby, notre dame football and iu basketball</description>
+      <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/52619256/ruby_enterprise_shirt_normal.jpg</profile_image_url>
+      <url>http://addictedtonew.com</url>
+      <protected>false</protected>
+
+      <followers_count>363</followers_count>
+    </user>
+  </status>
+  <status>
+    <created_at>Fri May 02 15:34:27 +0000 2008</created_at>
+    <id>801951791</id>
+    <text>Window shimming.</text>
+
+    <source>&lt;a href="http://help.twitter.com/index.php?pg=kb.page&amp;id=75"&gt;txt&lt;/a&gt;</source>
+    <truncated>false</truncated>
+    <in_reply_to_status_id></in_reply_to_status_id>
+    <in_reply_to_user_id></in_reply_to_user_id>
+    <favorited>false</favorited>
+    <user>
+
+      <id>4243</id>
+      <name>John Nunemaker</name>
+      <screen_name>jnunemaker</screen_name>
+      <location>Indiana</location>
+      <description>Loves his wife, ruby, notre dame football and iu basketball</description>
+      <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/52619256/ruby_enterprise_shirt_normal.jpg</profile_image_url>
+
+      <url>http://addictedtonew.com</url>
+      <protected>false</protected>
+      <followers_count>363</followers_count>
+    </user>
+  </status>
+  <status>
+    <created_at>Fri May 02 15:14:33 +0000 2008</created_at>
+
+    <id>801937014</id>
+    <text>Lowes for more supplies. Wish it wasn't raining.</text>
+    <source>&lt;a href="http://help.twitter.com/index.php?pg=kb.page&amp;id=75"&gt;txt&lt;/a&gt;</source>
+    <truncated>false</truncated>
+    <in_reply_to_status_id></in_reply_to_status_id>
+
+    <in_reply_to_user_id></in_reply_to_user_id>
+    <favorited>false</favorited>
+    <user>
+      <id>4243</id>
+      <name>John Nunemaker</name>
+      <screen_name>jnunemaker</screen_name>
+      <location>Indiana</location>
+
+      <description>Loves his wife, ruby, notre dame football and iu basketball</description>
+      <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/52619256/ruby_enterprise_shirt_normal.jpg</profile_image_url>
+      <url>http://addictedtonew.com</url>
+      <protected>false</protected>
+      <followers_count>363</followers_count>
+    </user>
+
+  </status>
+  <status>
+    <created_at>Fri May 02 14:22:52 +0000 2008</created_at>
+    <id>801898311</id>
+    <text>Holding a new window in place while Brady gets nails.</text>
+    <source>&lt;a href="http://help.twitter.com/index.php?pg=kb.page&amp;id=75"&gt;txt&lt;/a&gt;</source>
+
+    <truncated>false</truncated>
+    <in_reply_to_status_id></in_reply_to_status_id>
+    <in_reply_to_user_id></in_reply_to_user_id>
+    <favorited>false</favorited>
+    <user>
+      <id>4243</id>
+      <name>John Nunemaker</name>
+
+      <screen_name>jnunemaker</screen_name>
+      <location>Indiana</location>
+      <description>Loves his wife, ruby, notre dame football and iu basketball</description>
+      <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/52619256/ruby_enterprise_shirt_normal.jpg</profile_image_url>
+      <url>http://addictedtonew.com</url>
+      <protected>false</protected>
+
+      <followers_count>363</followers_count>
+    </user>
+  </status>
+  <status>
+    <created_at>Fri May 02 13:24:41 +0000 2008</created_at>
+    <id>801857351</id>
+    <text>@mwklawit yes. yes. yes.</text>
+
+    <source>&lt;a href="http://iconfactory.com/software/twitterrific"&gt;twitterrific&lt;/a&gt;</source>
+    <truncated>false</truncated>
+    <in_reply_to_status_id>801846483</in_reply_to_status_id>
+    <in_reply_to_user_id>3672651</in_reply_to_user_id>
+    <favorited>false</favorited>
+
+    <user>
+      <id>4243</id>
+      <name>John Nunemaker</name>
+      <screen_name>jnunemaker</screen_name>
+      <location>Indiana</location>
+      <description>Loves his wife, ruby, notre dame football and iu basketball</description>
+
+      <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/52619256/ruby_enterprise_shirt_normal.jpg</profile_image_url>
+      <url>http://addictedtonew.com</url>
+      <protected>false</protected>
+      <followers_count>363</followers_count>
+    </user>
+  </status>
+  <status>
+
+    <created_at>Fri May 02 09:11:58 +0000 2008</created_at>
+    <id>801737962</id>
+    <text>Ironman == AWESOME!!!</text>
+    <source>&lt;a href="http://help.twitter.com/index.php?pg=kb.page&amp;id=75"&gt;txt&lt;/a&gt;</source>
+    <truncated>false</truncated>
+
+    <in_reply_to_status_id></in_reply_to_status_id>
+    <in_reply_to_user_id></in_reply_to_user_id>
+    <favorited>false</favorited>
+    <user>
+      <id>4243</id>
+      <name>John Nunemaker</name>
+      <screen_name>jnunemaker</screen_name>
+
+      <location>Indiana</location>
+      <description>Loves his wife, ruby, notre dame football and iu basketball</description>
+      <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/52619256/ruby_enterprise_shirt_normal.jpg</profile_image_url>
+      <url>http://addictedtonew.com</url>
+      <protected>false</protected>
+      <followers_count>363</followers_count>
+
+    </user>
+  </status>
+  <status>
+    <created_at>Fri May 02 04:44:19 +0000 2008</created_at>
+    <id>801654740</id>
+    <text>Never been at a movie with more clapping by the audience.</text>
+    <source>&lt;a href="http://help.twitter.com/index.php?pg=kb.page&amp;id=75"&gt;txt&lt;/a&gt;</source>
+
+    <truncated>false</truncated>
+    <in_reply_to_status_id></in_reply_to_status_id>
+    <in_reply_to_user_id></in_reply_to_user_id>
+    <favorited>false</favorited>
+    <user>
+      <id>4243</id>
+      <name>John Nunemaker</name>
+
+      <screen_name>jnunemaker</screen_name>
+      <location>Indiana</location>
+      <description>Loves his wife, ruby, notre dame football and iu basketball</description>
+      <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/52619256/ruby_enterprise_shirt_normal.jpg</profile_image_url>
+      <url>http://addictedtonew.com</url>
+      <protected>false</protected>
+
+      <followers_count>363</followers_count>
+    </user>
+  </status>
+  <status>
+    <created_at>Fri May 02 04:25:55 +0000 2008</created_at>
+    <id>801648988</id>
+    <text>@hreview Iron Man; totally AWESOME, never seen/heard so much clapping in a movie. *****</text>
+
+    <source>web</source>
+    <truncated>false</truncated>
+    <in_reply_to_status_id>787398088</in_reply_to_status_id>
+    <in_reply_to_user_id>14073831</in_reply_to_user_id>
+    <favorited>false</favorited>
+    <user>
+
+      <id>4243</id>
+      <name>John Nunemaker</name>
+      <screen_name>jnunemaker</screen_name>
+      <location>Indiana</location>
+      <description>Loves his wife, ruby, notre dame football and iu basketball</description>
+      <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/52619256/ruby_enterprise_shirt_normal.jpg</profile_image_url>
+
+      <url>http://addictedtonew.com</url>
+      <protected>false</protected>
+      <followers_count>363</followers_count>
+    </user>
+  </status>
+</statuses>
