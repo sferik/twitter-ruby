@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/spec_helper.rb'
 
-describe "Twitter::Base" do
+describe "Twitter::User" do
   before do
     @base = Twitter::Base.new('foo', 'bar')
   end
