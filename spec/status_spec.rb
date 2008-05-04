@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/spec_helper.rb'
 
 describe "Twitter::Status" do
-  it "should create new user from xml doc" do
+  it "should create new status from xml doc" do
     xml = <<EOF
 <status>
   <created_at>Sat Mar 31 06:33:21 +0000 2007</created_at>
