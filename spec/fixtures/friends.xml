@@ -1,0 +1,2414 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<users type="array">
+  <user>
+    <id>20</id>
+    <name>Evan Williams</name>
+    <screen_name>ev</screen_name>
+    <location>San Francisco, CA, US</location>
+    <description>Founder of Obvious </description>
+
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/14019652/ev-sky_normal.jpg</profile_image_url>
+    <url>http://evhead.com</url>
+    <protected>false</protected>
+    <followers_count>11462</followers_count>
+    <status>
+      <created_at>Sun May 04 19:46:01 +0000 2008</created_at>
+
+      <id>803372400</id>
+      <text>Experiencing Philz Coffee for the first time. It's 2 blocks from my house. Don't know what took me so long.</text>
+      <source>web</source>
+      <truncated>false</truncated>
+      <in_reply_to_status_id></in_reply_to_status_id>
+      <in_reply_to_user_id></in_reply_to_user_id>
+      <favorited>false</favorited>
+
+    </status>
+  </user>
+  <user>
+    <id>246</id>
+    <name>Blaine Cook</name>
+    <screen_name>blaine</screen_name>
+    <location>San Francisco</location>
+
+    <description>TwitterInterpreter.</description>
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/14022002/171593560_00e00bc7c9_normal.jpg</profile_image_url>
+    <url>http://romeda.org/</url>
+    <protected>false</protected>
+    <followers_count>2766</followers_count>
+    <status>
+
+      <created_at>Sat May 03 01:36:56 +0000 2008</created_at>
+      <id>802321308</id>
+      <text>Agreement in the house: Sarah Polley kissing Scarlet Johannsen on the back of the neck is pretty much as hot as humans get.</text>
+      <source>&lt;a href="http://help.twitter.com/index.php?pg=kb.page&amp;id=75"&gt;txt&lt;/a&gt;</source>
+      <truncated>false</truncated>
+
+      <in_reply_to_status_id></in_reply_to_status_id>
+      <in_reply_to_user_id></in_reply_to_user_id>
+      <favorited>false</favorited>
+    </status>
+  </user>
+  <user>
+    <id>8906</id>
+    <name>Daniel Morrison</name>
+
+    <screen_name>danielmorrison</screen_name>
+    <location>Holland, MI</location>
+    <description>I write code between hanging out at conferences.</description>
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/51898464/verygreenteam_template_normal.png</profile_image_url>
+    <url>http://daniel.collectiveidea.com</url>
+    <protected>false</protected>
+
+    <followers_count>321</followers_count>
+    <status>
+      <created_at>Sun May 04 01:01:04 +0000 2008</created_at>
+      <id>802911879</id>
+      <text>won $6.40 on the Derby, betting on Eight Belles to show. Now she's been euthanized. Kinda depressing.</text>
+      <source>web</source>
+
+      <truncated>false</truncated>
+      <in_reply_to_status_id></in_reply_to_status_id>
+      <in_reply_to_user_id></in_reply_to_user_id>
+      <favorited>false</favorited>
+    </status>
+  </user>
+  <user>
+    <id>10718</id>
+
+    <name>Geoffrey Grosenbach</name>
+    <screen_name>topfunky</screen_name>
+    <location>Seattle</location>
+    <description>Independent publisher, senior visionary</description>
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/14408202/im_normal.gif</profile_image_url>
+    <url>http://topfunky.com</url>
+
+    <protected>false</protected>
+    <followers_count>1326</followers_count>
+    <status>
+      <created_at>Sat May 03 21:08:55 +0000 2008</created_at>
+      <id>802811701</id>
+      <text>The organic vegetable delivery service I subscribe to can also deliver doughnuts on request. This is dangerous. http://pioneerorganics.com</text>
+
+      <source>web</source>
+      <truncated>false</truncated>
+      <in_reply_to_status_id></in_reply_to_status_id>
+      <in_reply_to_user_id></in_reply_to_user_id>
+      <favorited>false</favorited>
+    </status>
+  </user>
+
+  <user>
+    <id>12196</id>
+    <name>Wilson Miner</name>
+    <screen_name>wilsonminer</screen_name>
+    <location>San Francisco, CA</location>
+    <description>The windy man, the long mover.</description>
+
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/47103512/wilson-sharp-bright_normal.jpg</profile_image_url>
+    <url>http://www.wilsonminer.com/</url>
+    <protected>false</protected>
+    <followers_count>462</followers_count>
+    <status>
+      <created_at>Sun May 04 17:31:24 +0000 2008</created_at>
+
+      <id>803305925</id>
+      <text>Apparently the downloadable content for GTA4 is going to be entirely new cities. Ridiculous.</text>
+      <source>&lt;a href="http://iconfactory.com/software/twitterrific"&gt;twitterrific&lt;/a&gt;</source>
+      <truncated>false</truncated>
+      <in_reply_to_status_id></in_reply_to_status_id>
+      <in_reply_to_user_id></in_reply_to_user_id>
+
+      <favorited>false</favorited>
+    </status>
+  </user>
+  <user>
+    <id>12543</id>
+    <name>Scott Raymond</name>
+    <screen_name>sco</screen_name>
+
+    <location>Kansas City</location>
+    <description>I am sco, plain sco, in the morning, standing five foot ten in one sock.</description>
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/52622133/scott-face-128_normal.jpg</profile_image_url>
+    <url>http://scottraymond.net/</url>
+    <protected>false</protected>
+    <followers_count>480</followers_count>
+
+    <status>
+      <created_at>Sun May 04 19:09:14 +0000 2008</created_at>
+      <id>803354922</id>
+      <text>enjoying a long walk through midtown.</text>
+      <source>web</source>
+      <truncated>false</truncated>
+
+      <in_reply_to_status_id></in_reply_to_status_id>
+      <in_reply_to_user_id></in_reply_to_user_id>
+      <favorited>false</favorited>
+    </status>
+  </user>
+  <user>
+    <id>12606</id>
+    <name>Bill</name>
+
+    <screen_name>billturner</screen_name>
+    <location>Pittsburgh, PA</location>
+    <description></description>
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/14743882/_yearbook__bturner_normal.jpg</profile_image_url>
+    <url>http://brilliantcorners.org/</url>
+    <protected>false</protected>
+
+    <followers_count>128</followers_count>
+    <status>
+      <created_at>Mon Apr 14 20:56:50 +0000 2008</created_at>
+      <id>789127310</id>
+      <text>@artwells: sorry to hear! hope she pulls through fine!</text>
+      <source>&lt;a href="http://iconfactory.com/software/twitterrific"&gt;twitterrific&lt;/a&gt;</source>
+
+      <truncated>false</truncated>
+      <in_reply_to_status_id>789119412</in_reply_to_status_id>
+      <in_reply_to_user_id>1552371</in_reply_to_user_id>
+      <favorited>false</favorited>
+    </status>
+  </user>
+  <user>
+
+    <id>12661</id>
+    <name>Adam Keys</name>
+    <screen_name>therealadam</screen_name>
+    <location>Dallas, TX</location>
+    <description>Telling a joke, trying to or making a joke of myself.</description>
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/52539922/shadesorange_normal.jpg</profile_image_url>
+
+    <url>http://therealadam.com</url>
+    <protected>false</protected>
+    <followers_count>515</followers_count>
+    <status>
+      <created_at>Sun May 04 15:39:40 +0000 2008</created_at>
+      <id>803247750</id>
+
+      <text>Seriously writing JavaScript for the first time in a long time. Prototypes abound!</text>
+      <source>&lt;a href="http://iconfactory.com/software/twitterrific"&gt;twitterrific&lt;/a&gt;</source>
+      <truncated>false</truncated>
+      <in_reply_to_status_id></in_reply_to_status_id>
+      <in_reply_to_user_id></in_reply_to_user_id>
+      <favorited>false</favorited>
+
+    </status>
+  </user>
+  <user>
+    <id>12707</id>
+    <name>Garrett Dimon</name>
+    <screen_name>garrettdimon</screen_name>
+    <location>Dallas, TX</location>
+
+    <description>Building a bug and issue tracker to make life more pleasant for developers.</description>
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/53317937/SmallAvatar_normal.jpg</profile_image_url>
+    <url>http://www.garrettdimon.com</url>
+    <protected>false</protected>
+    <followers_count>722</followers_count>
+    <status>
+
+      <created_at>Fri May 02 15:30:41 +0000 2008</created_at>
+      <id>801949097</id>
+      <text>It looks like a banana peel to me.  Bananas are yellow too. http://tinyurl.com/64gjx3</text>
+      <source>&lt;a href="http://iconfactory.com/software/twitterrific"&gt;twitterrific&lt;/a&gt;</source>
+      <truncated>false</truncated>
+
+      <in_reply_to_status_id></in_reply_to_status_id>
+      <in_reply_to_user_id></in_reply_to_user_id>
+      <favorited>false</favorited>
+    </status>
+  </user>
+  <user>
+    <id>12741</id>
+    <name>Dan Rubin</name>
+
+    <screen_name>danrubin</screen_name>
+    <location>Jacksonville Intl Airport</location>
+    <description>designer, singer, human. note to clients: follow me at your own risk...</description>
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/53213051/happy-webbies-headshot_normal.png</profile_image_url>
+    <url>http://superfluousbanter.org</url>
+    <protected>false</protected>
+
+    <followers_count>1490</followers_count>
+    <status>
+      <created_at>Sun May 04 17:42:20 +0000 2008</created_at>
+      <id>803311489</id>
+      <text>landed back in Fort Lauderdale, now a few hours until I fly to Chicago. Maybe this wasn't such a good idea...</text>
+      <source>&lt;a href="http://www.hahlo.com/"&gt;Hahlo&lt;/a&gt;</source>
+
+      <truncated>false</truncated>
+      <in_reply_to_status_id></in_reply_to_status_id>
+      <in_reply_to_user_id></in_reply_to_user_id>
+      <favorited>false</favorited>
+    </status>
+  </user>
+  <user>
+    <id>12796</id>
+
+    <name>William H Harle Jr.</name>
+    <screen_name>wharle</screen_name>
+    <location>South Bend, IN</location>
+    <description></description>
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/14786702/smirking-bill_normal.jpg</profile_image_url>
+    <url>http://90percentgravity.com</url>
+
+    <protected>false</protected>
+    <followers_count>42</followers_count>
+    <status>
+      <created_at>Sat May 03 02:18:52 +0000 2008</created_at>
+      <id>802341537</id>
+      <text>Ironman was everything transformers wasnt. The most important thing being awesome.</text>
+
+      <source>&lt;a href="http://help.twitter.com/index.php?pg=kb.page&amp;id=75"&gt;txt&lt;/a&gt;</source>
+      <truncated>false</truncated>
+      <in_reply_to_status_id></in_reply_to_status_id>
+      <in_reply_to_user_id></in_reply_to_user_id>
+      <favorited>false</favorited>
+    </status>
+
+  </user>
+  <user>
+    <id>12938</id>
+    <name>Steve Smith</name>
+    <screen_name>orderedlist</screen_name>
+    <location></location>
+    <description></description>
+
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/52246800/avatar_normal.jpg</profile_image_url>
+    <url>http://orderedlist.com</url>
+    <protected>false</protected>
+    <followers_count>697</followers_count>
+    <status>
+      <created_at>Fri May 02 21:05:37 +0000 2008</created_at>
+
+      <id>802178798</id>
+      <text>Am in need of beer and Mario Kart style relaxation.</text>
+      <source>&lt;a href="http://help.twitter.com/index.php?pg=kb.page&amp;id=75"&gt;txt&lt;/a&gt;</source>
+      <truncated>false</truncated>
+      <in_reply_to_status_id></in_reply_to_status_id>
+
+      <in_reply_to_user_id></in_reply_to_user_id>
+      <favorited>false</favorited>
+    </status>
+  </user>
+  <user>
+    <id>13229</id>
+    <name>Sandy</name>
+
+    <screen_name>s</screen_name>
+    <location>Portland, OR</location>
+    <description>I'm Sandy, your personal email assistant. I'll remember the details so you can focus on what's important. Twitter me directly with: d s hi</description>
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/32694302/sandy_circle_normal.png</profile_image_url>
+    <url>http://iwantsandy.com/</url>
+    <protected>false</protected>
+
+    <followers_count>5150</followers_count>
+    <status>
+      <created_at>Wed Dec 19 23:50:43 +0000 2007</created_at>
+      <id>515972382</id>
+      <text>I'm fully twitterized! (iwantsandy.com/help/twitter) d s reminder leave in 5 mins * d s lookup today * d s update #1 4-5pm * d s forget #1</text>
+      <source>web</source>
+
+      <truncated>false</truncated>
+      <in_reply_to_status_id></in_reply_to_status_id>
+      <in_reply_to_user_id></in_reply_to_user_id>
+      <favorited>false</favorited>
+    </status>
+  </user>
+  <user>
+    <id>13518</id>
+
+    <name>Jesse Newland</name>
+    <screen_name>jnewland</screen_name>
+    <location>Atlanta, GA</location>
+    <description>Ruby/Rails hacker, IT Director at LexBlog </description>
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/14914212/PageImage-79509-344229_normal.jpg</profile_image_url>
+    <url>http://jnewland.com</url>
+
+    <protected>false</protected>
+    <followers_count>369</followers_count>
+    <status>
+      <created_at>Sat May 03 19:09:37 +0000 2008</created_at>
+      <id>802757807</id>
+      <text>so, does lighthouse really not have RSS/Atom feeds of ticket bins? Or am I just not looking hard enough?</text>
+
+      <source>&lt;a href="http://iconfactory.com/software/twitterrific"&gt;twitterrific&lt;/a&gt;</source>
+      <truncated>false</truncated>
+      <in_reply_to_status_id></in_reply_to_status_id>
+      <in_reply_to_user_id></in_reply_to_user_id>
+      <favorited>false</favorited>
+    </status>
+
+  </user>
+  <user>
+    <id>13647</id>
+    <name>Matt Klawitter</name>
+    <screen_name>mattklawitter</screen_name>
+    <location></location>
+    <description></description>
+
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/14944452/17883645_N00_normal.jpg</profile_image_url>
+    <url>http://www.mattklawitter.com</url>
+    <protected>true</protected>
+    <followers_count>15</followers_count>
+    <status>
+      <created_at>Sun May 04 21:02:57 +0000 2008</created_at>
+
+      <id>803409155</id>
+      <text>Took 65 home from Indy instead of 31. Was faster. No Kokomo madness.</text>
+      <source>&lt;a href="http://help.twitter.com/index.php?pg=kb.page&amp;id=75"&gt;txt&lt;/a&gt;</source>
+      <truncated>false</truncated>
+      <in_reply_to_status_id></in_reply_to_status_id>
+
+      <in_reply_to_user_id></in_reply_to_user_id>
+      <favorited>false</favorited>
+    </status>
+  </user>
+  <user>
+    <id>14763</id>
+    <name>Ryan Carson</name>
+
+    <screen_name>ryancarson</screen_name>
+    <location>Bath, UK</location>
+    <description>I'm an American in Britain, running a small web company with my amazing wife.</description>
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/14988892/ryan-head_normal.jpg</profile_image_url>
+    <url>http://www.carsonified.com</url>
+    <protected>false</protected>
+
+    <followers_count>2448</followers_count>
+    <status>
+      <created_at>Sun May 04 12:48:11 +0000 2008</created_at>
+      <id>803168392</id>
+      <text>Might go test drive a Prius today. Any tips? Prius vs. Civic (hybrid)?</text>
+      <source>web</source>
+
+      <truncated>false</truncated>
+      <in_reply_to_status_id></in_reply_to_status_id>
+      <in_reply_to_user_id></in_reply_to_user_id>
+      <favorited>false</favorited>
+    </status>
+  </user>
+  <user>
+    <id>15323</id>
+
+    <name>Carrie Smith</name>
+    <screen_name>Carrie</screen_name>
+    <location>Mishawaka, Indiana</location>
+    <description></description>
+    <profile_image_url>http://static.twitter.com/images/default_profile_normal.png</profile_image_url>
+    <url></url>
+    <protected>false</protected>
+
+    <followers_count>12</followers_count>
+    <status>
+      <created_at>Wed Aug 15 01:34:30 +0000 2007</created_at>
+      <id>206466992</id>
+      <text>mourning the lost of most of the music on my ipod :(</text>
+      <source>web</source>
+
+      <truncated>false</truncated>
+      <in_reply_to_status_id></in_reply_to_status_id>
+      <in_reply_to_user_id></in_reply_to_user_id>
+      <favorited>false</favorited>
+    </status>
+  </user>
+  <user>
+    <id>18713</id>
+
+    <name>Alex Payne</name>
+    <screen_name>al3x</screen_name>
+    <location>San Francisco, CA</location>
+    <description>Oh, hi.  No, I just work here.</description>
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/51961745/al3x_normal.jpg</profile_image_url>
+    <url>http://www.al3x.net</url>
+
+    <protected>false</protected>
+    <followers_count>2889</followers_count>
+    <status>
+      <created_at>Sun May 04 22:38:39 +0000 2008</created_at>
+      <id>803453211</id>
+      <text>@5dots Yes.  Give me about 8 hours.  *sigh*</text>
+
+      <source>&lt;a href="http://iconfactory.com/software/twitterrific"&gt;twitterrific&lt;/a&gt;</source>
+      <truncated>false</truncated>
+      <in_reply_to_status_id>803450314</in_reply_to_status_id>
+      <in_reply_to_user_id>618923</in_reply_to_user_id>
+      <favorited>false</favorited>
+
+    </status>
+  </user>
+  <user>
+    <id>33493</id>
+    <name>Peter Cooper</name>
+    <screen_name>peterc</screen_name>
+    <location>Louth, UK</location>
+
+    <description>Media Scientist</description>
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/53691597/Picture_2_normal.png</profile_image_url>
+    <url>http://www.petercooper.co.uk/</url>
+    <protected>false</protected>
+    <followers_count>689</followers_count>
+    <status>
+
+      <created_at>Sun May 04 10:15:39 +0000 2008</created_at>
+      <id>803117266</id>
+      <text>The new E4 comedy "The Inbetweeners" is really, really good!</text>
+      <source>web</source>
+      <truncated>false</truncated>
+      <in_reply_to_status_id></in_reply_to_status_id>
+
+      <in_reply_to_user_id></in_reply_to_user_id>
+      <favorited>false</favorited>
+    </status>
+  </user>
+  <user>
+    <id>38353</id>
+    <name>Bruce Williams</name>
+
+    <screen_name>wbruce</screen_name>
+    <location>Austin, TX</location>
+    <description>Syntax Herder, Bezier Curve Wrangler.</description>
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/52941014/headshot-2008-04-16-01_normal.jpg</profile_image_url>
+    <url>http://codefluency.com</url>
+    <protected>false</protected>
+
+    <followers_count>335</followers_count>
+    <status>
+      <created_at>Sat May 03 16:04:23 +0000 2008</created_at>
+      <id>802662902</id>
+      <text>just caught up on 30 Rock, resolving @therealadam's ghostbusters reference. It wasn't random after all.</text>
+      <source>&lt;a href="http://iconfactory.com/software/twitterrific"&gt;twitterrific&lt;/a&gt;</source>
+
+      <truncated>false</truncated>
+      <in_reply_to_status_id></in_reply_to_status_id>
+      <in_reply_to_user_id></in_reply_to_user_id>
+      <favorited>false</favorited>
+    </status>
+  </user>
+  <user>
+    <id>46413</id>
+
+    <name>Status Updates</name>
+    <screen_name>twitter_status</screen_name>
+    <location>Inside the Twitter</location>
+    <description>140 characters or less on the health of Twitter!</description>
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/36881322/twttr_eng_normal.gif</profile_image_url>
+    <url></url>
+
+    <protected>false</protected>
+    <followers_count>8489</followers_count>
+    <status>
+      <created_at>Fri May 02 07:43:07 +0000 2008</created_at>
+      <id>801705083</id>
+      <text>The database is up, but still having problems. We're working on that right now.</text>
+
+      <source>web</source>
+      <truncated>false</truncated>
+      <in_reply_to_status_id></in_reply_to_status_id>
+      <in_reply_to_user_id></in_reply_to_user_id>
+      <favorited>false</favorited>
+    </status>
+  </user>
+
+  <user>
+    <id>52163</id>
+    <name>William Lindmeier</name>
+    <screen_name>wdlindmeier</screen_name>
+    <location>san francisco</location>
+    <description>Web Developer</description>
+
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/16018682/me_normal.jpg</profile_image_url>
+    <url>http://www.wdlindmeier.com</url>
+    <protected>false</protected>
+    <followers_count>76</followers_count>
+    <status>
+      <created_at>Thu Jan 18 03:28:47 +0000 2007</created_at>
+
+      <id>3208173</id>
+      <text>Install required dependency hoe? [Yn]</text>
+      <source>web</source>
+      <truncated>false</truncated>
+      <in_reply_to_status_id></in_reply_to_status_id>
+      <in_reply_to_user_id></in_reply_to_user_id>
+      <favorited>false</favorited>
+
+    </status>
+  </user>
+  <user>
+    <id>75413</id>
+    <name>Marcus Crafter</name>
+    <screen_name>crafterm</screen_name>
+    <location>Melbourne, Australia</location>
+
+    <description></description>
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/34672812/IMG_3750_normal.jpg</profile_image_url>
+    <url>http://crafterm.net/blog</url>
+    <protected>false</protected>
+    <followers_count>130</followers_count>
+    <status>
+      <created_at>Sun May 04 01:25:13 +0000 2008</created_at>
+
+      <id>802922601</id>
+      <text>looking forward to a relaxing sunday</text>
+      <source>&lt;a href="http://iconfactory.com/software/twitterrific"&gt;twitterrific&lt;/a&gt;</source>
+      <truncated>false</truncated>
+      <in_reply_to_status_id></in_reply_to_status_id>
+      <in_reply_to_user_id></in_reply_to_user_id>
+
+      <favorited>false</favorited>
+    </status>
+  </user>
+  <user>
+    <id>389153</id>
+    <name>Dan Webb</name>
+    <screen_name>danwrong</screen_name>
+
+    <location>London</location>
+    <description>Shaolin Monk Reservist</description>
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/17729242/avatar_normal.jpg</profile_image_url>
+    <url>http://www.danwebb.net</url>
+    <protected>false</protected>
+    <followers_count>268</followers_count>
+
+    <status>
+      <created_at>Fri May 02 11:34:08 +0000 2008</created_at>
+      <id>801796124</id>
+      <text>having an xbox on oyur desk is bad for productivity</text>
+      <source>&lt;a href="http://iconfactory.com/software/twitterrific"&gt;twitterrific&lt;/a&gt;</source>
+      <truncated>false</truncated>
+
+      <in_reply_to_status_id></in_reply_to_status_id>
+      <in_reply_to_user_id></in_reply_to_user_id>
+      <favorited>false</favorited>
+    </status>
+  </user>
+  <user>
+    <id>482253</id>
+    <name>Joe Lyphout</name>
+
+    <screen_name>jlyphout</screen_name>
+    <location>Mishawaka, IN</location>
+    <description></description>
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/17925302/monkey_with_glasses_normal.jpg</profile_image_url>
+    <url></url>
+    <protected>true</protected>
+    <followers_count>13</followers_count>
+
+    <status>
+      <created_at>Thu Apr 24 02:58:12 +0000 2008</created_at>
+      <id>795630487</id>
+      <text>@oaknd1 - I would blame Citibank's website issues on Ron Powlus</text>
+      <source>web</source>
+      <truncated>false</truncated>
+
+      <in_reply_to_status_id>795440282</in_reply_to_status_id>
+      <in_reply_to_user_id>3038211</in_reply_to_user_id>
+      <favorited>false</favorited>
+    </status>
+  </user>
+  <user>
+    <id>598503</id>
+
+    <name>Brent O'Connor</name>
+    <screen_name>epicserve</screen_name>
+    <location></location>
+    <description></description>
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/18124462/28921256_N00_normal.jpg</profile_image_url>
+    <url></url>
+    <protected>true</protected>
+
+    <followers_count>4</followers_count>
+    <status>
+      <created_at>Mon Apr 02 20:58:41 +0000 2007</created_at>
+      <id>17943531</id>
+      <text>Enjoying the last 30 mins of my last Monday at my current job.</text>
+      <source>web</source>
+
+      <truncated>false</truncated>
+      <in_reply_to_status_id></in_reply_to_status_id>
+      <in_reply_to_user_id></in_reply_to_user_id>
+      <favorited>false</favorited>
+    </status>
+  </user>
+  <user>
+    <id>610663</id>
+
+    <name>Ma.gnolia</name>
+    <screen_name>magnolia</screen_name>
+    <location>San Francisco</location>
+    <description>Whispers, early news, and important updates from Team Ma.gnolia</description>
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/18259642/magnolia_flower_normal.jpg</profile_image_url>
+    <url>http://ma.gnolia.com</url>
+
+    <protected>false</protected>
+    <followers_count>1125</followers_count>
+    <status>
+      <created_at>Wed Apr 30 17:02:17 +0000 2008</created_at>
+      <id>800517458</id>
+      <text>Welcoming quite a few new members and followers on twitter. We have quite a few new faces, many with big link collections already!</text>
+
+      <source>web</source>
+      <truncated>false</truncated>
+      <in_reply_to_status_id></in_reply_to_status_id>
+      <in_reply_to_user_id></in_reply_to_user_id>
+      <favorited>false</favorited>
+    </status>
+  </user>
+
+  <user>
+    <id>611823</id>
+    <name>Macworld</name>
+    <screen_name>macworld</screen_name>
+    <location>San Francisco, CA</location>
+    <description>The Mac, iPod, and iPhone Experts</description>
+
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/18292822/macworld256_normal.jpg</profile_image_url>
+    <url>http://www.macworld.com</url>
+    <protected>false</protected>
+    <followers_count>5299</followers_count>
+    <status>
+      <created_at>Tue Apr 29 23:22:40 +0000 2008</created_at>
+
+      <id>799920913</id>
+      <text>@chuq Fortunately I have a kitchenette with capable coffee maker, so summer intern will instead copy files and generate PDFs for me.</text>
+      <source>web</source>
+      <truncated>false</truncated>
+      <in_reply_to_status_id>799907953</in_reply_to_status_id>
+      <in_reply_to_user_id>13217612</in_reply_to_user_id>
+
+      <favorited>false</favorited>
+    </status>
+  </user>
+  <user>
+    <id>616163</id>
+    <name>Josh Peek</name>
+    <screen_name>joshpeek</screen_name>
+
+    <location>Chicago, IL</location>
+    <description>Ruby Hacker</description>
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/44242772/DSCF4386_thumb_normal.jpg</profile_image_url>
+    <url>http://joshpeek.com/</url>
+    <protected>false</protected>
+    <followers_count>107</followers_count>
+
+    <status>
+      <created_at>Sat May 03 02:00:38 +0000 2008</created_at>
+      <id>802332563</id>
+      <text>@nzkoz Are you playing on the 360 or PS3? I can't seem to find anyone with a PS3 to play with</text>
+      <source>web</source>
+      <truncated>false</truncated>
+
+      <in_reply_to_status_id>802321666</in_reply_to_status_id>
+      <in_reply_to_user_id>11294</in_reply_to_user_id>
+      <favorited>false</favorited>
+    </status>
+  </user>
+  <user>
+    <id>616673</id>
+
+    <name>takeo</name>
+    <screen_name>takeo</screen_name>
+    <location>san francisco</location>
+    <description>i make websites and stuff</description>
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/53178635/toby_normal.png</profile_image_url>
+    <url>http://stafftool.com</url>
+
+    <protected>false</protected>
+    <followers_count>123</followers_count>
+    <status>
+      <created_at>Sat May 03 22:03:46 +0000 2008</created_at>
+      <id>802835197</id>
+      <text>daddy and paisley time while jen gets a massage. This baby rules.</text>
+
+      <source>web</source>
+      <truncated>false</truncated>
+      <in_reply_to_status_id></in_reply_to_status_id>
+      <in_reply_to_user_id></in_reply_to_user_id>
+      <favorited>false</favorited>
+    </status>
+  </user>
+
+  <user>
+    <id>627303</id>
+    <name>Erik Kastner</name>
+    <screen_name>kastner</screen_name>
+    <location>Metuchen, NJ</location>
+    <description>wiitube wltv metaatem and others</description>
+
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/51887482/gold_avatar_normal.jpg</profile_image_url>
+    <url>http://metaatem.net/</url>
+    <protected>false</protected>
+    <followers_count>431</followers_count>
+    <status>
+      <created_at>Sun May 04 17:18:00 +0000 2008</created_at>
+
+      <id>803299088</id>
+      <text>@jxpx777 Got an invite for dropbox? :)</text>
+      <source>web</source>
+      <truncated>false</truncated>
+      <in_reply_to_status_id>803276540</in_reply_to_status_id>
+      <in_reply_to_user_id>51013</in_reply_to_user_id>
+
+      <favorited>false</favorited>
+    </status>
+  </user>
+  <user>
+    <id>633273</id>
+    <name>  microformats</name>
+    <screen_name>microformats</screen_name>
+
+    <location>in ur HTML makings meanings</location>
+    <description></description>
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/18913702/microformats-logo_normal.png</profile_image_url>
+    <url>http://microformats.org/</url>
+    <protected>false</protected>
+    <followers_count>4134</followers_count>
+
+    <status>
+      <created_at>Wed Apr 30 17:20:02 +0000 2008</created_at>
+      <id>800530139</id>
+      <text>@benwbrum for historical texts, markup historical figures/orgs with hCard, events with hCalendar, and locations with geo and/or adr.</text>
+      <source>&lt;a href="http://twitterhelp.blogspot.com/2008/05/twitter-via-mobile-web-mtwittercom.html"&gt;mobile web&lt;/a&gt;</source>
+      <truncated>false</truncated>
+
+      <in_reply_to_status_id>800448661</in_reply_to_status_id>
+      <in_reply_to_user_id>14234902</in_reply_to_user_id>
+      <favorited>false</favorited>
+    </status>
+  </user>
+  <user>
+    <id>637533</id>
+
+    <name>Coda</name>
+    <screen_name>coda</screen_name>
+    <location>Berkeley, CA</location>
+    <description>Competently disreputable.</description>
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/52169097/wicked0003_normal.jpg</profile_image_url>
+    <url>http://blog.codahale.com</url>
+
+    <protected>false</protected>
+    <followers_count>229</followers_count>
+    <status>
+      <created_at>Sat May 03 15:51:57 +0000 2008</created_at>
+      <id>802656066</id>
+      <text>@kevinclark: I'm in ur hometown, drivin on ur highway.</text>
+
+      <source>&lt;a href="http://help.twitter.com/index.php?pg=kb.page&amp;id=75"&gt;txt&lt;/a&gt;</source>
+      <truncated>false</truncated>
+      <in_reply_to_status_id>802492380</in_reply_to_status_id>
+      <in_reply_to_user_id>6826152</in_reply_to_user_id>
+      <favorited>false</favorited>
+
+    </status>
+  </user>
+  <user>
+    <id>654653</id>
+    <name>Nathaniel Talbott</name>
+    <screen_name>ntalbott</screen_name>
+    <location>Raleigh, NC</location>
+
+    <description></description>
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/42658072/Photo_60_normal.jpg</profile_image_url>
+    <url>http://blog.talbott.ws/</url>
+    <protected>false</protected>
+    <followers_count>272</followers_count>
+    <status>
+      <created_at>Sat May 03 13:16:47 +0000 2008</created_at>
+
+      <id>802578271</id>
+      <text>@jeremymcanally give her my congratulations!</text>
+      <source>&lt;a href="http://iconfactory.com/software/twitterrific"&gt;twitterrific&lt;/a&gt;</source>
+      <truncated>false</truncated>
+      <in_reply_to_status_id>802430378</in_reply_to_status_id>
+
+      <in_reply_to_user_id>937561</in_reply_to_user_id>
+      <favorited>false</favorited>
+    </status>
+  </user>
+  <user>
+    <id>658343</id>
+    <name>Ryan</name>
+
+    <screen_name>rwdaigle</screen_name>
+    <location>Cary, NC</location>
+    <description>geek</description>
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/45111492/ryan_vector_normal.png</profile_image_url>
+    <url>http://ryandaigle.com</url>
+    <protected>false</protected>
+
+    <followers_count>105</followers_count>
+    <status>
+      <created_at>Thu Apr 24 22:59:23 +0000 2008</created_at>
+      <id>796304452</id>
+      <text>@drnic great pointer, thx</text>
+      <source>&lt;a href="http://iconfactory.com/software/twitterrific"&gt;twitterrific&lt;/a&gt;</source>
+
+      <truncated>false</truncated>
+      <in_reply_to_status_id>796285242</in_reply_to_status_id>
+      <in_reply_to_user_id>9885102</in_reply_to_user_id>
+      <favorited>false</favorited>
+    </status>
+  </user>
+  <user>
+
+    <id>670283</id>
+    <name>Eric Hodel</name>
+    <screen_name>drbrain</screen_name>
+    <location>Seattle, WA</location>
+    <description></description>
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/48699372/2253496375_5b2ac33b4e_m_normal.jpg</profile_image_url>
+
+    <url>http://blog.segment7.net</url>
+    <protected>false</protected>
+    <followers_count>244</followers_count>
+    <status>
+      <created_at>Sat May 03 03:08:19 +0000 2008</created_at>
+      <id>802364677</id>
+
+      <text>Wasted two hours trying to get PS3 GTA IV not to hang on start.  Rockstar fails.</text>
+      <source>web</source>
+      <truncated>false</truncated>
+      <in_reply_to_status_id></in_reply_to_status_id>
+      <in_reply_to_user_id></in_reply_to_user_id>
+      <favorited>false</favorited>
+    </status>
+
+  </user>
+  <user>
+    <id>697893</id>
+    <name>Brandon Keepers</name>
+    <screen_name>bkeepers</screen_name>
+    <location></location>
+    <description></description>
+
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/51981803/avatar_normal.jpg</profile_image_url>
+    <url>http://opensoul.org</url>
+    <protected>false</protected>
+    <followers_count>131</followers_count>
+    <status>
+      <created_at>Thu May 01 13:13:26 +0000 2008</created_at>
+
+      <id>801149675</id>
+      <text>yay, the delicious plugin finally works in FF3</text>
+      <source>&lt;a href="http://iconfactory.com/software/twitterrific"&gt;twitterrific&lt;/a&gt;</source>
+      <truncated>false</truncated>
+      <in_reply_to_status_id></in_reply_to_status_id>
+      <in_reply_to_user_id></in_reply_to_user_id>
+
+      <favorited>false</favorited>
+    </status>
+  </user>
+  <user>
+    <id>713263</id>
+    <name>Chris Wanstrath</name>
+    <screen_name>defunkt</screen_name>
+
+    <location>sf, ca</location>
+    <description>hax</description>
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/21352992/rock_normal.jpg</profile_image_url>
+    <url>http://errtheblog.com</url>
+    <protected>false</protected>
+    <followers_count>633</followers_count>
+
+    <status>
+      <created_at>Sun May 04 08:33:17 +0000 2008</created_at>
+      <id>803086124</id>
+      <text>do you guys mind if I mace this stupid turkey?</text>
+      <source>web</source>
+      <truncated>false</truncated>
+
+      <in_reply_to_status_id></in_reply_to_status_id>
+      <in_reply_to_user_id></in_reply_to_user_id>
+      <favorited>false</favorited>
+    </status>
+  </user>
+  <user>
+    <id>717233</id>
+    <name>PJ Hyett</name>
+
+    <screen_name>pjhyett</screen_name>
+    <location>San Francisco</location>
+    <description>GitHub</description>
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/52348841/Album_no_respect_normal.jpg</profile_image_url>
+    <url>http://www.pjhyett.com</url>
+    <protected>false</protected>
+
+    <followers_count>421</followers_count>
+    <status>
+      <created_at>Sun May 04 17:03:55 +0000 2008</created_at>
+      <id>803291496</id>
+      <text>patching ruby to play in @_why's sandbox</text>
+      <source>&lt;a href="http://iconfactory.com/software/twitterrific"&gt;twitterrific&lt;/a&gt;</source>
+
+      <truncated>false</truncated>
+      <in_reply_to_status_id></in_reply_to_status_id>
+      <in_reply_to_user_id></in_reply_to_user_id>
+      <favorited>false</favorited>
+    </status>
+  </user>
+  <user>
+    <id>723873</id>
+
+    <name>Robert Evans</name>
+    <screen_name>revans</screen_name>
+    <location></location>
+    <description></description>
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/53065945/alley_normal.jpg</profile_image_url>
+    <url></url>
+    <protected>true</protected>
+
+    <followers_count>42</followers_count>
+    <status>
+      <created_at>Tue Apr 29 17:08:40 +0000 2008</created_at>
+      <id>799670024</id>
+      <text>@ntalbott: totally agree. A well written article.</text>
+      <source>web</source>
+
+      <truncated>false</truncated>
+      <in_reply_to_status_id>799663960</in_reply_to_status_id>
+      <in_reply_to_user_id>654653</in_reply_to_user_id>
+      <favorited>false</favorited>
+    </status>
+  </user>
+  <user>
+
+    <id>761613</id>
+    <name>evan</name>
+    <screen_name>_evan</screen_name>
+    <location>PHL</location>
+    <description>You must change your life.</description>
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/51900161/burberry-7578_normal.jpg</profile_image_url>
+
+    <url>http://horse.muxtape.com/</url>
+    <protected>false</protected>
+    <followers_count>130</followers_count>
+    <status>
+      <created_at>Sun May 04 19:27:50 +0000 2008</created_at>
+      <id>803363596</id>
+
+      <text>@moonpolysoft it's sunday, man, go home</text>
+      <source>web</source>
+      <truncated>false</truncated>
+      <in_reply_to_status_id>803353879</in_reply_to_status_id>
+      <in_reply_to_user_id>14204623</in_reply_to_user_id>
+      <favorited>false</favorited>
+
+    </status>
+  </user>
+  <user>
+    <id>768288</id>
+    <name>Josh Owens</name>
+    <screen_name>joshowens</screen_name>
+    <location>Cincinnati, Ohio</location>
+
+    <description>A.k.a. Queso on IRC. Rails dev.  I host the web 2.0 show too.</description>
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/53175897/Photo_39_normal.jpg</profile_image_url>
+    <url>http://josh.the-owens.com</url>
+    <protected>false</protected>
+    <followers_count>378</followers_count>
+    <status>
+
+      <created_at>Sun May 04 04:59:54 +0000 2008</created_at>
+      <id>803014053</id>
+      <text>@davewiner nah, you can't fake hair like that... my dad has the same style.</text>
+      <source>&lt;a href="http://iconfactory.com/software/twitterrific"&gt;twitterrific&lt;/a&gt;</source>
+      <truncated>false</truncated>
+
+      <in_reply_to_status_id>803012340</in_reply_to_status_id>
+      <in_reply_to_user_id>3839</in_reply_to_user_id>
+      <favorited>false</favorited>
+    </status>
+  </user>
+  <user>
+    <id>779169</id>
+
+    <name>Justin Palmer</name>
+    <screen_name>Caged</screen_name>
+    <location>Portland, OR</location>
+    <description>Sourcecode Superhero.  Co-founder and Design Ninjaneer for Active Reload.</description>
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/24036082/justin-small_normal.jpg</profile_image_url>
+    <url>http://alternateidea.com</url>
+
+    <protected>false</protected>
+    <followers_count>354</followers_count>
+    <status>
+      <created_at>Sat May 03 19:46:40 +0000 2008</created_at>
+      <id>802774856</id>
+      <text>loving the $9.00 price for HDMI cables at monoprice.com.</text>
+
+      <source>&lt;a href="http://iconfactory.com/software/twitterrific"&gt;twitterrific&lt;/a&gt;</source>
+      <truncated>false</truncated>
+      <in_reply_to_status_id></in_reply_to_status_id>
+      <in_reply_to_user_id></in_reply_to_user_id>
+      <favorited>false</favorited>
+    </status>
+
+  </user>
+  <user>
+    <id>780561</id>
+    <name>rick</name>
+    <screen_name>technoweenie</screen_name>
+    <location>tx</location>
+    <description>i write ruby codes</description>
+
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/53178018/1183257558_3390fcc71d.jpg_500&#215;335_pixels_normal.jpg</profile_image_url>
+    <url>http://weblog.techno-weenie.net</url>
+    <protected>false</protected>
+    <followers_count>739</followers_count>
+    <status>
+      <created_at>Sat May 03 04:01:36 +0000 2008</created_at>
+
+      <id>802389147</id>
+      <text>my son just described the hidden ending to iron man.  I missed it!</text>
+      <source>web</source>
+      <truncated>false</truncated>
+      <in_reply_to_status_id></in_reply_to_status_id>
+      <in_reply_to_user_id></in_reply_to_user_id>
+      <favorited>false</favorited>
+
+    </status>
+  </user>
+  <user>
+    <id>781972</id>
+    <name>Err the Blog</name>
+    <screen_name>err</screen_name>
+    <location></location>
+
+    <description></description>
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/24183212/err_normal.png</profile_image_url>
+    <url>http://errtheblog.com</url>
+    <protected>false</protected>
+    <followers_count>936</followers_count>
+    <status>
+      <created_at>Sun Mar 09 13:40:03 +0000 2008</created_at>
+
+      <id>768869661</id>
+      <text>okay i swear the dynamite and err feeds are fixed now.  if they're still busted in greader, please email chris</text>
+      <source>web</source>
+      <truncated>false</truncated>
+      <in_reply_to_status_id></in_reply_to_status_id>
+      <in_reply_to_user_id></in_reply_to_user_id>
+      <favorited>false</favorited>
+
+    </status>
+  </user>
+  <user>
+    <id>790205</id>
+    <name>Chad Fowler</name>
+    <screen_name>chadfowler</screen_name>
+    <location></location>
+
+    <description></description>
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/51890554/chad_gold_normal.png</profile_image_url>
+    <url></url>
+    <protected>false</protected>
+    <followers_count>1070</followers_count>
+    <status>
+      <created_at>Sun May 04 17:58:37 +0000 2008</created_at>
+
+      <id>803319885</id>
+      <text>Sorry for my logghorea but I just witnessed an epic rock paper scissors battled and couldn't not tell you about it.</text>
+      <source>&lt;a href="http://help.twitter.com/index.php?pg=kb.page&amp;id=75"&gt;txt&lt;/a&gt;</source>
+      <truncated>false</truncated>
+      <in_reply_to_status_id></in_reply_to_status_id>
+
+      <in_reply_to_user_id></in_reply_to_user_id>
+      <favorited>false</favorited>
+    </status>
+  </user>
+  <user>
+    <id>792399</id>
+    <name>Chas Grundy</name>
+
+    <screen_name>chasgrundy</screen_name>
+    <location>South Bend, Indiana</location>
+    <description>Developer in the Notre Dame Web Group, owns Birch Lake Studios, loves Ruby on Rails and arguing with oAk</description>
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/24745362/twitter-icon_normal.gif</profile_image_url>
+    <url>http://grundyhome.com/</url>
+    <protected>true</protected>
+
+    <followers_count>25</followers_count>
+    <status>
+      <created_at>Sun May 04 19:03:32 +0000 2008</created_at>
+      <id>803352200</id>
+      <text>these are some of my favorite days... planted herbs, cleaned out the shed, fixed up the yard... except for the broken water pipe flooding</text>
+      <source>&lt;a href="http://iconfactory.com/software/twitterrific"&gt;twitterrific&lt;/a&gt;</source>
+
+      <truncated>false</truncated>
+      <in_reply_to_status_id></in_reply_to_status_id>
+      <in_reply_to_user_id></in_reply_to_user_id>
+      <favorited>false</favorited>
+    </status>
+  </user>
+  <user>
+    <id>808074</id>
+
+    <name>Snitch Test</name>
+    <screen_name>snitch_test</screen_name>
+    <location></location>
+    <description></description>
+    <profile_image_url>http://static.twitter.com/images/default_profile_normal.png</profile_image_url>
+    <url></url>
+    <protected>true</protected>
+
+    <followers_count>1</followers_count>
+    <status>
+      <created_at>Thu Apr 03 03:30:19 +0000 2008</created_at>
+      <id>781900746</id>
+      <text>test without stdin</text>
+      <source>web</source>
+
+      <truncated>false</truncated>
+      <in_reply_to_status_id></in_reply_to_status_id>
+      <in_reply_to_user_id></in_reply_to_user_id>
+      <favorited>false</favorited>
+    </status>
+  </user>
+  <user>
+    <id>937561</id>
+
+    <name>Jeremy McAnally</name>
+    <screen_name>jeremymcanally</screen_name>
+    <location>Knoxville, TN</location>
+    <description>Developer, author, Christian, dude...</description>
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/27188752/me_normal.jpg</profile_image_url>
+    <url>http://www.jeremymcanally.com/</url>
+
+    <protected>false</protected>
+    <followers_count>109</followers_count>
+    <status>
+      <created_at>Sun May 04 14:57:29 +0000 2008</created_at>
+      <id>803226127</id>
+      <text>Finally doing more work on updating the Humble Little Ruby Book.  At least I'm only a month behind schedule rather than a year... :(</text>
+
+      <source>web</source>
+      <truncated>false</truncated>
+      <in_reply_to_status_id></in_reply_to_status_id>
+      <in_reply_to_user_id></in_reply_to_user_id>
+      <favorited>false</favorited>
+    </status>
+  </user>
+
+  <user>
+    <id>1140261</id>
+    <name>c3</name>
+    <screen_name>court3nay</screen_name>
+    <location></location>
+    <description></description>
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/28137962/sharky_normal.jpg</profile_image_url>
+
+    <url></url>
+    <protected>false</protected>
+    <followers_count>227</followers_count>
+    <status>
+      <created_at>Fri May 02 18:25:52 +0000 2008</created_at>
+      <id>802075289</id>
+      <text>ugh, insurance guy just emailed me a 25 page TIFF to fill out.  .. wait, what?</text>
+
+      <source>web</source>
+      <truncated>false</truncated>
+      <in_reply_to_status_id></in_reply_to_status_id>
+      <in_reply_to_user_id></in_reply_to_user_id>
+      <favorited>false</favorited>
+    </status>
+  </user>
+
+  <user>
+    <id>1182631</id>
+    <name>JonMagic</name>
+    <screen_name>jonmagic</screen_name>
+    <location>Elkhart Indiana</location>
+    <description>I'm a geek, and a lucky one at that, cuz I found a smart beautiful wife!</description>
+
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/50738912/jonmagic_africa_normal.jpg</profile_image_url>
+    <url>http://jonmagic.com</url>
+    <protected>false</protected>
+    <followers_count>32</followers_count>
+    <status>
+      <created_at>Thu May 01 20:53:08 +0000 2008</created_at>
+
+      <id>801455486</id>
+      <text>simply amazing http://tinyurl.com/6y5ry8</text>
+      <source>im</source>
+      <truncated>false</truncated>
+      <in_reply_to_status_id></in_reply_to_status_id>
+      <in_reply_to_user_id></in_reply_to_user_id>
+      <favorited>false</favorited>
+
+    </status>
+  </user>
+  <user>
+    <id>1341781</id>
+    <name>Giles</name>
+    <screen_name>gilesgoatboy</screen_name>
+    <location>los angeles</location>
+
+    <description>polymath</description>
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/53665427/cowboy_monkey_normal.jpg</profile_image_url>
+    <url>http://gilesbowkett.blogspot.com</url>
+    <protected>false</protected>
+    <followers_count>287</followers_count>
+    <status>
+
+      <created_at>Sun May 04 20:31:57 +0000 2008</created_at>
+      <id>803394084</id>
+      <text>how did I ever live without Ableton Live?</text>
+      <source>web</source>
+      <truncated>false</truncated>
+      <in_reply_to_status_id></in_reply_to_status_id>
+
+      <in_reply_to_user_id></in_reply_to_user_id>
+      <favorited>false</favorited>
+    </status>
+  </user>
+  <user>
+    <id>1714531</id>
+    <name>Jason Seifer</name>
+
+    <screen_name>jseifer</screen_name>
+    <location>Orlando, FL</location>
+    <description>If I had to describe my personality, I'd say good-looking.</description>
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/51892815/gold_avatar_template_normal.png</profile_image_url>
+    <url>http://www.railsenvy.com</url>
+    <protected>false</protected>
+
+    <followers_count>140</followers_count>
+    <status>
+      <created_at>Tue Apr 29 15:42:05 +0000 2008</created_at>
+      <id>799604833</id>
+      <text>At Austin's Coffee.  It's like home.</text>
+      <source>&lt;a href="http://iconfactory.com/software/twitterrific"&gt;twitterrific&lt;/a&gt;</source>
+
+      <truncated>false</truncated>
+      <in_reply_to_status_id></in_reply_to_status_id>
+      <in_reply_to_user_id></in_reply_to_user_id>
+      <favorited>false</favorited>
+    </status>
+  </user>
+  <user>
+    <id>1768041</id>
+
+    <name>matthew lyon</name>
+    <screen_name>mattly</screen_name>
+    <location>Portland, OR</location>
+    <description>i am mister edge-case</description>
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/53574037/profile_normal.jpg</profile_image_url>
+    <url>http://mattly.tumblr.com/</url>
+
+    <protected>false</protected>
+    <followers_count>115</followers_count>
+    <status>
+      <created_at>Sun May 04 20:58:04 +0000 2008</created_at>
+      <id>803406805</id>
+      <text>@cynicalryan well yeah if you're not making music i suppose you could give less than a shit about Ableton; but whatever</text>
+
+      <source>&lt;a href="http://iconfactory.com/software/twitterrific"&gt;twitterrific&lt;/a&gt;</source>
+      <truncated>false</truncated>
+      <in_reply_to_status_id>803401315</in_reply_to_status_id>
+      <in_reply_to_user_id>14297052</in_reply_to_user_id>
+      <favorited>false</favorited>
+
+    </status>
+  </user>
+  <user>
+    <id>2200751</id>
+    <name>Notre Dame Webgroup</name>
+    <screen_name>webgroup</screen_name>
+    <location>Notre Dame, IN</location>
+
+    <description>This is webgroup!!!</description>
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/29728242/Picture_2_normal.png</profile_image_url>
+    <url>http://webgroup.nd.edu/</url>
+    <protected>true</protected>
+    <followers_count>4</followers_count>
+    <status>
+
+      <created_at>Sat May 03 20:50:14 +0000 2008</created_at>
+      <id>802803537</id>
+      <text>[tinye] Revision 371 Committed by deploy: - Resized agency projects report table a bit</text>
+      <source>web</source>
+      <truncated>false</truncated>
+      <in_reply_to_status_id></in_reply_to_status_id>
+
+      <in_reply_to_user_id></in_reply_to_user_id>
+      <favorited>false</favorited>
+    </status>
+  </user>
+  <user>
+    <id>3038211</id>
+    <name>Tim O'Connor</name>
+
+    <screen_name>oaknd1</screen_name>
+    <location></location>
+    <description></description>
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/52837532/oaklogo_normal.jpg</profile_image_url>
+    <url></url>
+    <protected>true</protected>
+    <followers_count>24</followers_count>
+
+    <status>
+      <created_at>Sat May 03 17:55:03 +0000 2008</created_at>
+      <id>802721039</id>
+      <text>don pablo's</text>
+      <source>web</source>
+      <truncated>false</truncated>
+
+      <in_reply_to_status_id></in_reply_to_status_id>
+      <in_reply_to_user_id></in_reply_to_user_id>
+      <favorited>false</favorited>
+    </status>
+  </user>
+  <user>
+    <id>3191321</id>
+    <name>Marcel Molina</name>
+
+    <screen_name>noradio</screen_name>
+    <location>Austin, TX</location>
+    <description></description>
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/53473799/marcel-euro-rails-conf_normal.jpg</profile_image_url>
+    <url>http://project.ioni.st</url>
+    <protected>false</protected>
+
+    <followers_count>212</followers_count>
+    <status>
+      <created_at>Sun May 04 19:48:03 +0000 2008</created_at>
+      <id>803373337</id>
+      <text>The guy sitting next to me in the DFW Admirals Club fell asleep reading The Road Less Travelled.</text>
+      <source>&lt;a href="http://iconfactory.com/software/twitterrific"&gt;twitterrific&lt;/a&gt;</source>
+
+      <truncated>false</truncated>
+      <in_reply_to_status_id></in_reply_to_status_id>
+      <in_reply_to_user_id></in_reply_to_user_id>
+      <favorited>false</favorited>
+    </status>
+  </user>
+  <user>
+    <id>3468841</id>
+
+    <name>Josh Susser</name>
+    <screen_name>hasmanyjosh</screen_name>
+    <location>San Francisco, CA, USA</location>
+    <description>I only add people I actually know in some way. kthxbye!</description>
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/52187347/hasmanyjosh-tiny_normal.jpg</profile_image_url>
+    <url>http://blog.hasmanythrough.com</url>
+
+    <protected>true</protected>
+    <followers_count>98</followers_count>
+    <status>
+      <created_at>Sun May 04 21:04:32 +0000 2008</created_at>
+      <id>803409960</id>
+      <text>taking a friend to the office to hang some of his paintings</text>
+
+      <source>web</source>
+      <truncated>false</truncated>
+      <in_reply_to_status_id></in_reply_to_status_id>
+      <in_reply_to_user_id></in_reply_to_user_id>
+      <favorited>false</favorited>
+    </status>
+  </user>
+
+  <user>
+    <id>3560241</id>
+    <name>Ezra Zygmuntowicz</name>
+    <screen_name>ezmobius</screen_name>
+    <location>San Francisco</location>
+    <description>just another ruby hacker.</description>
+
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/50804322/Picture_17_normal.png</profile_image_url>
+    <url>http://brainspl.at</url>
+    <protected>false</protected>
+    <followers_count>512</followers_count>
+    <status>
+      <created_at>Fri May 02 21:33:32 +0000 2008</created_at>
+
+      <id>802195971</id>
+      <text>twitter got me a killer erlang guy fast, thanks twitter.</text>
+      <source>&lt;a href="http://iconfactory.com/software/twitterrific"&gt;twitterrific&lt;/a&gt;</source>
+      <truncated>false</truncated>
+      <in_reply_to_status_id></in_reply_to_status_id>
+      <in_reply_to_user_id></in_reply_to_user_id>
+
+      <favorited>false</favorited>
+    </status>
+  </user>
+  <user>
+    <id>3672651</id>
+    <name>Mark Klawitter</name>
+    <screen_name>mwklawit</screen_name>
+
+    <location></location>
+    <description></description>
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/19413592/caray_normal.jpg</profile_image_url>
+    <url></url>
+    <protected>true</protected>
+    <followers_count>11</followers_count>
+    <status>
+
+      <created_at>Sat May 03 22:34:48 +0000 2008</created_at>
+      <id>802848909</id>
+      <text>My horse finished 17th</text>
+      <source>&lt;a href="http://help.twitter.com/index.php?pg=kb.page&amp;id=75"&gt;txt&lt;/a&gt;</source>
+      <truncated>false</truncated>
+
+      <in_reply_to_status_id></in_reply_to_status_id>
+      <in_reply_to_user_id></in_reply_to_user_id>
+      <favorited>false</favorited>
+    </status>
+  </user>
+  <user>
+    <id>5446132</id>
+    <name>Michael Klawitter</name>
+
+    <screen_name>maklawitter</screen_name>
+    <location></location>
+    <description></description>
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/20087612/37063765_N00_normal.jpg</profile_image_url>
+    <url></url>
+    <protected>true</protected>
+    <followers_count>10</followers_count>
+
+    <status>
+      <created_at>Thu May 01 17:54:07 +0000 2008</created_at>
+      <id>801346259</id>
+      <text>@oaknd1 I think that the answer is yes.</text>
+      <source>web</source>
+      <truncated>false</truncated>
+
+      <in_reply_to_status_id>801332256</in_reply_to_status_id>
+      <in_reply_to_user_id>3038211</in_reply_to_user_id>
+      <favorited>false</favorited>
+    </status>
+  </user>
+  <user>
+    <id>5502392</id>
+
+    <name>Tom Preston-Werner</name>
+    <screen_name>mojombo</screen_name>
+    <location>san francisco</location>
+    <description>powerset ftw!</description>
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/21599172/tom_prestonwerner_normal.jpg</profile_image_url>
+    <url>http://rubyisawesome.com</url>
+
+    <protected>false</protected>
+    <followers_count>228</followers_count>
+    <status>
+      <created_at>Sat May 03 06:06:54 +0000 2008</created_at>
+      <id>802438299</id>
+      <text>"It's like Sapir/Worf...for Robots!" - http://kirindave.tumblr.com/post/33593128</text>
+
+      <source>&lt;a href="http://iconfactory.com/software/twitterrific"&gt;twitterrific&lt;/a&gt;</source>
+      <truncated>false</truncated>
+      <in_reply_to_status_id></in_reply_to_status_id>
+      <in_reply_to_user_id></in_reply_to_user_id>
+      <favorited>false</favorited>
+    </status>
+
+  </user>
+  <user>
+    <id>5784962</id>
+    <name>Matt Aimonetti</name>
+    <screen_name>mattetti</screen_name>
+    <location>California, USA</location>
+    <description></description>
+
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/33835242/matt_cropped_normal.png</profile_image_url>
+    <url>http://railsontherun.com</url>
+    <protected>true</protected>
+    <followers_count>49</followers_count>
+    <status>
+      <created_at>Sun May 04 21:58:16 +0000 2008</created_at>
+
+      <id>803434633</id>
+      <text>Barcamp SD was awesome, heading to the Red Bull air show on Coronado island</text>
+      <source>&lt;a href="http://twitter.com/twinkleking"&gt;Twinkle&lt;/a&gt;</source>
+      <truncated>false</truncated>
+      <in_reply_to_status_id></in_reply_to_status_id>
+      <in_reply_to_user_id></in_reply_to_user_id>
+
+      <favorited>false</favorited>
+    </status>
+  </user>
+  <user>
+    <id>5877822</id>
+    <name>Jamis Buck</name>
+    <screen_name>jamis</screen_name>
+
+    <location>Caldwell, ID</location>
+    <description>nascent woodcarver, ruby-on-rails programmer, 37signals employee, husband, father, and all-around swell-guy!</description>
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/28196462/jamis_icon_new_normal.png</profile_image_url>
+    <url>http://weblog.jamisbuck.org</url>
+    <protected>false</protected>
+    <followers_count>566</followers_count>
+
+    <status>
+      <created_at>Sun May 04 15:16:58 +0000 2008</created_at>
+      <id>803236342</id>
+      <text>finished carving an airplane for my son: http://jamis.backpackit.com/assets/1226/156/airplane.jpg</text>
+      <source>&lt;a href="http://iconfactory.com/software/twitterrific"&gt;twitterrific&lt;/a&gt;</source>
+      <truncated>false</truncated>
+
+      <in_reply_to_status_id></in_reply_to_status_id>
+      <in_reply_to_user_id></in_reply_to_user_id>
+      <favorited>false</favorited>
+    </status>
+  </user>
+  <user>
+    <id>6017542</id>
+    <name>Breaking News Alerts</name>
+
+    <screen_name>BreakingNewsOn</screen_name>
+    <location>The Netherlands</location>
+    <description>Live breaking news and developing stories... 24/7. Your most credible Twitter news source. First in online breaking news!</description>
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/53210782/BreakingNews_normal.jpg</profile_image_url>
+    <url>http://www.breakingtoday.com</url>
+    <protected>false</protected>
+
+    <followers_count>4496</followers_count>
+    <status>
+      <created_at>Sun May 04 22:27:08 +0000 2008</created_at>
+      <id>803447863</id>
+      <text>Voters have reportedly approved an autonomy vote for Santa Cruz, Bolivia. Meanwhile, at least 20 people have been wounded in voilence.</text>
+      <source>web</source>
+
+      <truncated>false</truncated>
+      <in_reply_to_status_id></in_reply_to_status_id>
+      <in_reply_to_user_id></in_reply_to_user_id>
+      <favorited>false</favorited>
+    </status>
+  </user>
+  <user>
+    <id>6141442</id>
+
+    <name>Rob Sanheim</name>
+    <screen_name>rsanheim</screen_name>
+    <location>Chapel Hill, NC</location>
+    <description>its all magic</description>
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/48012662/rob_and_mila_normal.jpg</profile_image_url>
+    <url>http://robsanheim.com</url>
+
+    <protected>false</protected>
+    <followers_count>90</followers_count>
+    <status>
+      <created_at>Fri May 02 12:22:16 +0000 2008</created_at>
+      <id>801820081</id>
+      <text>@minter yeah but thats 8 hours where you are free to do what you want in the train, vs 4 hrs of aggravation in the car</text>
+
+      <source>web</source>
+      <truncated>false</truncated>
+      <in_reply_to_status_id>801534691</in_reply_to_status_id>
+      <in_reply_to_user_id>8115722</in_reply_to_user_id>
+      <favorited>false</favorited>
+    </status>
+
+  </user>
+  <user>
+    <id>6186692</id>
+    <name>Dave Thomas</name>
+    <screen_name>pragdave</screen_name>
+    <location>Dallas, TX</location>
+    <description></description>
+
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/35925782/dave_normal.jpg</profile_image_url>
+    <url>http://pragdave.pragprog.com</url>
+    <protected>false</protected>
+    <followers_count>776</followers_count>
+    <status>
+      <created_at>Sun May 04 21:30:12 +0000 2008</created_at>
+
+      <id>803421951</id>
+      <text>@rich_kilmer Westin, opposite the Sheraton</text>
+      <source>web</source>
+      <truncated>false</truncated>
+      <in_reply_to_status_id>803416779</in_reply_to_status_id>
+      <in_reply_to_user_id>9572502</in_reply_to_user_id>
+
+      <favorited>false</favorited>
+    </status>
+  </user>
+  <user>
+    <id>6253282</id>
+    <name>API Updates</name>
+    <screen_name>api_updates</screen_name>
+
+    <location>San Francisco, CA</location>
+    <description>I update when the API changes.</description>
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/22275372/gray_kitten_power_normal.jpg</profile_image_url>
+    <url>http://twitter.com/help/api/</url>
+    <protected>false</protected>
+    <followers_count>407</followers_count>
+
+    <status>
+      <created_at>Thu Jan 17 03:25:10 +0000 2008</created_at>
+      <id>607861412</id>
+      <text>Announcing notifications API methods!  See docs at http://tinyurl.com/2xqgf9</text>
+      <source>web</source>
+      <truncated>false</truncated>
+
+      <in_reply_to_status_id></in_reply_to_status_id>
+      <in_reply_to_user_id></in_reply_to_user_id>
+      <favorited>false</favorited>
+    </status>
+  </user>
+  <user>
+    <id>6507762</id>
+    <name>ND.edu Updates</name>
+
+    <screen_name>NDdotEDU</screen_name>
+    <location>Notre Dame, IN</location>
+    <description>www.nd.edu/aboutnd/</description>
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/47739642/twitter_normal.jpg</profile_image_url>
+    <url>http://www.nd.edu</url>
+    <protected>false</protected>
+
+    <followers_count>28</followers_count>
+    <status>
+      <created_at>Thu May 01 12:39:18 +0000 2008</created_at>
+      <id>801130189</id>
+      <text>Added new space: Erskine A. Peters Fellowship at Notre Dame</text>
+      <source>web</source>
+
+      <truncated>false</truncated>
+      <in_reply_to_status_id></in_reply_to_status_id>
+      <in_reply_to_user_id></in_reply_to_user_id>
+      <favorited>false</favorited>
+    </status>
+  </user>
+  <user>
+    <id>6707392</id>
+
+    <name>Sam Stephenson</name>
+    <screen_name>sstephenson</screen_name>
+    <location>Chicago</location>
+    <description>Programmer, 37signals</description>
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/53628181/me_normal.jpg</profile_image_url>
+    <url></url>
+
+    <protected>false</protected>
+    <followers_count>238</followers_count>
+    <status>
+      <created_at>Sat May 03 18:48:37 +0000 2008</created_at>
+      <id>802747698</id>
+      <text>"I'm going to start a sitar and tabla band and call it the hindi cred" &#8212; Mikael Brockman</text>
+
+      <source>&lt;a href="http://iconfactory.com/software/twitterrific"&gt;twitterrific&lt;/a&gt;</source>
+      <truncated>false</truncated>
+      <in_reply_to_status_id></in_reply_to_status_id>
+      <in_reply_to_user_id></in_reply_to_user_id>
+      <favorited>false</favorited>
+    </status>
+
+  </user>
+  <user>
+    <id>6738932</id>
+    <name>Alec Hipshear</name>
+    <screen_name>xionon</screen_name>
+    <location>Goshen, IN</location>
+    <description></description>
+
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/33113732/tweet_normal.jpg</profile_image_url>
+    <url></url>
+    <protected>false</protected>
+    <followers_count>35</followers_count>
+    <status>
+      <created_at>Sun May 04 18:37:53 +0000 2008</created_at>
+      <id>803339720</id>
+
+      <text>There is a dragonfly in my truck!</text>
+      <source>&lt;a href="http://help.twitter.com/index.php?pg=kb.page&amp;id=75"&gt;txt&lt;/a&gt;</source>
+      <truncated>false</truncated>
+      <in_reply_to_status_id></in_reply_to_status_id>
+      <in_reply_to_user_id></in_reply_to_user_id>
+      <favorited>false</favorited>
+
+    </status>
+  </user>
+  <user>
+    <id>6927562</id>
+    <name>Thomas Fuchs</name>
+    <screen_name>madrobby</screen_name>
+    <location>Vienna, Austria</location>
+
+    <description>script.aculo.us author and global JavaScript guru</description>
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/51989956/madrobby_normal.png</profile_image_url>
+    <url>http://script.aculo.us/thomas</url>
+    <protected>false</protected>
+    <followers_count>484</followers_count>
+    <status>
+
+      <created_at>Sun May 04 21:29:48 +0000 2008</created_at>
+      <id>803421707</id>
+      <text>Yay!  http://snipurl.com/27497</text>
+      <source>&lt;a href="http://twitter.com/twinkleking"&gt;Twinkle&lt;/a&gt;</source>
+      <truncated>false</truncated>
+
+      <in_reply_to_status_id></in_reply_to_status_id>
+      <in_reply_to_user_id></in_reply_to_user_id>
+      <favorited>false</favorited>
+    </status>
+  </user>
+  <user>
+    <id>7019942</id>
+    <name>firebot</name>
+
+    <screen_name>firebot</screen_name>
+    <location>You tell me!</location>
+    <description>@firebot is a Fire Eagle bot developed by @jnewland. @jnewland is not affiliated with Yahoo!</description>
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/51546180/fe_logobeta_final_normal.png</profile_image_url>
+    <url>http://xrl.us/firebot</url>
+    <protected>false</protected>
+
+    <followers_count>819</followers_count>
+    <status>
+      <created_at>Sun May 04 16:32:57 +0000 2008</created_at>
+      <id>803275581</id>
+      <text>have a jailbroken iPhone? want to update FireEagle with your location every 5 minutes? http://xrl.us/iphonetofireeagle</text>
+      <source>web</source>
+
+      <truncated>false</truncated>
+      <in_reply_to_status_id></in_reply_to_status_id>
+      <in_reply_to_user_id></in_reply_to_user_id>
+      <favorited>false</favorited>
+    </status>
+  </user>
+  <user>
+    <id>7124752</id>
+
+    <name>MyMileMarker</name>
+    <screen_name>mymm</screen_name>
+    <location></location>
+    <description></description>
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/18136862/mymm_normal.gif</profile_image_url>
+    <url></url>
+    <protected>false</protected>
+
+    <followers_count>1310</followers_count>
+    <status>
+      <created_at>Sun Apr 06 15:15:47 +0000 2008</created_at>
+      <id>783874790</id>
+      <text>Gah, domain issues!! Use http://m3.sidebarcreative.com/ until they're resolved, which should be soon.</text>
+      <source>web</source>
+
+      <truncated>false</truncated>
+      <in_reply_to_status_id></in_reply_to_status_id>
+      <in_reply_to_user_id></in_reply_to_user_id>
+      <favorited>false</favorited>
+    </status>
+  </user>
+  <user>
+    <id>7152562</id>
+
+    <name>Foamee</name>
+    <screen_name>ioubeer</screen_name>
+    <location>The pub.</location>
+    <description>Do you owe someone a drink?</description>
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/18704292/foamee_normal.gif</profile_image_url>
+    <url>http://foamee.com</url>
+
+    <protected>false</protected>
+    <followers_count>4068</followers_count>
+    <status>
+      <created_at>Thu Dec 20 22:18:47 +0000 2007</created_at>
+      <id>519157762</id>
+      <text>Psst: @ioucoffee (because coffee can be Foamee, too).</text>
+
+      <source>web</source>
+      <truncated>false</truncated>
+      <in_reply_to_status_id></in_reply_to_status_id>
+      <in_reply_to_user_id></in_reply_to_user_id>
+      <favorited>false</favorited>
+    </status>
+  </user>
+
+  <user>
+    <id>7282592</id>
+    <name>MacHeist</name>
+    <screen_name>MacHeist</screen_name>
+    <location></location>
+    <description></description>
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/39240222/MacHeist_normal.png</profile_image_url>
+
+    <url>http://www.macheist.com</url>
+    <protected>false</protected>
+    <followers_count>1550</followers_count>
+    <status>
+      <created_at>Wed Apr 23 05:24:43 +0000 2008</created_at>
+      <id>794877592</id>
+
+      <text>Battle of the Bundles: http://tinyurl.com/6gchq3</text>
+      <source>web</source>
+      <truncated>false</truncated>
+      <in_reply_to_status_id></in_reply_to_status_id>
+      <in_reply_to_user_id></in_reply_to_user_id>
+      <favorited>false</favorited>
+    </status>
+
+  </user>
+  <user>
+    <id>7516242</id>
+    <name>Mislav Marohni&#263;</name>
+    <screen_name>mislav</screen_name>
+    <location>Zagreb, Croatia</location>
+    <description>Jump, eat, code, sleep, jump</description>
+
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/52741748/mislav-gold_normal.png</profile_image_url>
+    <url>http://mislav.caboo.se/</url>
+    <protected>false</protected>
+    <followers_count>145</followers_count>
+    <status>
+      <created_at>Sun May 04 22:22:25 +0000 2008</created_at>
+
+      <id>803445726</id>
+      <text>@&#65279;garthk no problems on Linux, both FF 2 and 3</text>
+      <source>im</source>
+      <truncated>false</truncated>
+      <in_reply_to_status_id>803436193</in_reply_to_status_id>
+      <in_reply_to_user_id>704593</in_reply_to_user_id>
+
+      <favorited>false</favorited>
+    </status>
+  </user>
+  <user>
+    <id>7726092</id>
+    <name>slicehost</name>
+    <screen_name>slicehost</screen_name>
+
+    <location>Saint Lous, MO</location>
+    <description>Xen VPS Hosting - Built for Developers</description>
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/34495932/Picture_2_normal.jpg</profile_image_url>
+    <url>http://blog.slicehost.com</url>
+    <protected>false</protected>
+    <followers_count>720</followers_count>
+
+    <status>
+      <created_at>Sun Apr 27 17:17:09 +0000 2008</created_at>
+      <id>798137246</id>
+      <text>We had some mail server problems this morning and may have lost some support emails. Please resend if you haven't heard back from us!</text>
+      <source>im</source>
+      <truncated>false</truncated>
+
+      <in_reply_to_status_id></in_reply_to_status_id>
+      <in_reply_to_user_id></in_reply_to_user_id>
+      <favorited>false</favorited>
+    </status>
+  </user>
+  <user>
+    <id>8028152</id>
+    <name>Next Update</name>
+
+    <screen_name>nextupdate</screen_name>
+    <location>Dallas, TX</location>
+    <description>Building a bug and issue tracker called Sifter.</description>
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/48977722/Untitled-1_normal.png</profile_image_url>
+    <url>http://nextupdate.com</url>
+    <protected>false</protected>
+
+    <followers_count>168</followers_count>
+    <status>
+      <created_at>Thu May 01 13:54:08 +0000 2008</created_at>
+      <id>801175685</id>
+      <text>Apologizing to anyone who left a comment that didn't get approved for a while. I wasn't receiving notifications for new comments. Fixed now.</text>
+      <source>web</source>
+
+      <truncated>false</truncated>
+      <in_reply_to_status_id></in_reply_to_status_id>
+      <in_reply_to_user_id></in_reply_to_user_id>
+      <favorited>false</favorited>
+    </status>
+  </user>
+  <user>
+    <id>8179412</id>
+
+    <name>todoist</name>
+    <screen_name>todoist</screen_name>
+    <location></location>
+    <description></description>
+    <profile_image_url>http://static.twitter.com/images/default_profile_normal.png</profile_image_url>
+    <url>http://todoist.com/</url>
+    <protected>false</protected>
+
+    <followers_count>245</followers_count>
+  </user>
+  <user>
+    <id>8616122</id>
+    <name>Amber Grundy</name>
+    <screen_name>abear23</screen_name>
+    <location>Vandalia, MI</location>
+
+    <description></description>
+    <profile_image_url>http://static.twitter.com/images/default_profile_normal.png</profile_image_url>
+    <url></url>
+    <protected>false</protected>
+    <followers_count>16</followers_count>
+    <status>
+      <created_at>Mon Apr 14 12:32:58 +0000 2008</created_at>
+
+      <id>788806057</id>
+      <text>one of my classes in the fall apparently meets in the library</text>
+      <source>im</source>
+      <truncated>false</truncated>
+      <in_reply_to_status_id></in_reply_to_status_id>
+      <in_reply_to_user_id></in_reply_to_user_id>
+      <favorited>false</favorited>
+
+    </status>
+  </user>
+  <user>
+    <id>8883422</id>
+    <name>erinflynn</name>
+    <screen_name>erinflynn</screen_name>
+    <location></location>
+
+    <description></description>
+    <profile_image_url>http://static.twitter.com/images/default_profile_normal.png</profile_image_url>
+    <url></url>
+    <protected>true</protected>
+    <followers_count>13</followers_count>
+    <status>
+      <created_at>Fri May 02 14:49:04 +0000 2008</created_at>
+
+      <id>801917362</id>
+      <text>starbucks. forum planning</text>
+      <source>&lt;a href="http://iconfactory.com/software/twitterrific"&gt;twitterrific&lt;/a&gt;</source>
+      <truncated>false</truncated>
+      <in_reply_to_status_id></in_reply_to_status_id>
+      <in_reply_to_user_id></in_reply_to_user_id>
+
+      <favorited>false</favorited>
+    </status>
+  </user>
+  <user>
+    <id>9241962</id>
+    <name>erunyon</name>
+    <screen_name>erunyon</screen_name>
+
+    <location>Michiana</location>
+    <description></description>
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/43767822/Photo_5_normal.jpg</profile_image_url>
+    <url></url>
+    <protected>false</protected>
+    <followers_count>16</followers_count>
+    <status>
+
+      <created_at>Fri May 02 16:33:40 +0000 2008</created_at>
+      <id>801995539</id>
+      <text>@chrisfaulkner Sorry Chris, Mac only: http://iconfactory.com/software/twitterrific/</text>
+      <source>&lt;a href="http://iconfactory.com/software/twitterrific"&gt;twitterrific&lt;/a&gt;</source>
+      <truncated>false</truncated>
+
+      <in_reply_to_status_id>801979812</in_reply_to_status_id>
+      <in_reply_to_user_id>9883192</in_reply_to_user_id>
+      <favorited>false</favorited>
+    </status>
+  </user>
+  <user>
+    <id>9264222</id>
+
+    <name>Wilford Brimley</name>
+    <screen_name>brink</screen_name>
+    <location>Goshen, IN</location>
+    <description>this guy</description>
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/32419182/me_avatar_normal.jpg</profile_image_url>
+    <url>http://fleshy.org.nz/yum/</url>
+
+    <protected>false</protected>
+    <followers_count>21</followers_count>
+    <status>
+      <created_at>Fri May 02 19:10:26 +0000 2008</created_at>
+      <id>802105441</id>
+      <text>pretty awesome that this motherboard ships with raid drivers on a floppy disk, yet there's not even a floppy connector on the damn thing.</text>
+
+      <source>im</source>
+      <truncated>false</truncated>
+      <in_reply_to_status_id></in_reply_to_status_id>
+      <in_reply_to_user_id></in_reply_to_user_id>
+      <favorited>false</favorited>
+    </status>
+  </user>
+
+  <user>
+    <id>9462972</id>
+    <name>Jeremy Kemper</name>
+    <screen_name>bitsweat</screen_name>
+    <location>Pasadena, CA</location>
+    <description></description>
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/52407155/Photo_4_normal.jpg</profile_image_url>
+
+    <url>http://bitsweat.net</url>
+    <protected>false</protected>
+    <followers_count>329</followers_count>
+    <status>
+      <created_at>Sat May 03 07:26:46 +0000 2008</created_at>
+      <id>802463694</id>
+
+      <text>Ran into a GPS posse at the museum; into Michelle and @zaneselvans on the ride home; into a dark house and a welcome meow.</text>
+      <source>&lt;a href="http://iconfactory.com/software/twitterrific"&gt;twitterrific&lt;/a&gt;</source>
+      <truncated>false</truncated>
+      <in_reply_to_status_id></in_reply_to_status_id>
+      <in_reply_to_user_id></in_reply_to_user_id>
+      <favorited>false</favorited>
+
+    </status>
+  </user>
+  <user>
+    <id>9885102</id>
+    <name>Dr Nic</name>
+    <screen_name>drnic</screen_name>
+    <location>Brisbane, Australia</location>
+
+    <description></description>
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/52014217/nic_goldteam_normal.png</profile_image_url>
+    <url>http://drnicwilliams.com</url>
+    <protected>false</protected>
+    <followers_count>519</followers_count>
+    <status>
+      <created_at>Sun May 04 21:00:38 +0000 2008</created_at>
+
+      <id>803408044</id>
+      <text>@20seven I'm in Aus. I created my twitter account when I was at RubyConf in NC last year. Guess I never revisited the Account page :)</text>
+      <source>&lt;a href="http://iconfactory.com/software/twitterrific"&gt;twitterrific&lt;/a&gt;</source>
+      <truncated>false</truncated>
+      <in_reply_to_status_id>803283765</in_reply_to_status_id>
+
+      <in_reply_to_user_id>2064111</in_reply_to_user_id>
+      <favorited>false</favorited>
+    </status>
+  </user>
+  <user>
+    <id>9907312</id>
+    <name>John Hwang</name>
+
+    <screen_name>tavon</screen_name>
+    <location>Grand Rapids, MI</location>
+    <description></description>
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/35553142/me2_normal.jpg</profile_image_url>
+    <url>http://tavon.org</url>
+    <protected>false</protected>
+
+    <followers_count>36</followers_count>
+    <status>
+      <created_at>Fri May 02 17:31:52 +0000 2008</created_at>
+      <id>802038074</id>
+      <text>@gruber Ever try the mont blanc pen refills with the G2? http://tinyurl.com/2cxkdm So far I'm loving it.  Works with all G2/G6 series.</text>
+      <source>&lt;a href="http://iconfactory.com/software/twitterrific"&gt;twitterrific&lt;/a&gt;</source>
+
+      <truncated>false</truncated>
+      <in_reply_to_status_id>802034197</in_reply_to_status_id>
+      <in_reply_to_user_id>33423</in_reply_to_user_id>
+      <favorited>false</favorited>
+    </status>
+  </user>
+  <user>
+
+    <id>9929452</id>
+    <name>David A. Black</name>
+    <screen_name>david_a_black</screen_name>
+    <location></location>
+    <description></description>
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/51966295/yellow_db_normal.jpg</profile_image_url>
+    <url></url>
+
+    <protected>false</protected>
+    <followers_count>238</followers_count>
+    <status>
+      <created_at>Sun May 04 19:40:39 +0000 2008</created_at>
+      <id>803369912</id>
+      <text>I'm going to throw up if I hear any more about race horses' "competitive spirit."</text>
+
+      <source>web</source>
+      <truncated>false</truncated>
+      <in_reply_to_status_id></in_reply_to_status_id>
+      <in_reply_to_user_id></in_reply_to_user_id>
+      <favorited>false</favorited>
+    </status>
+  </user>
+
+  <user>
+    <id>10193732</id>
+    <name>Ken Loh</name>
+    <screen_name>kloh</screen_name>
+    <location>Mission Viejo, CA, US</location>
+    <description>Hi, my name is Ken and I&#8217;m a Twitterholic.</description>
+
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/36411892/head_160x160_normal.jpg</profile_image_url>
+    <url>http://kenloh.com</url>
+    <protected>false</protected>
+    <followers_count>47</followers_count>
+    <status>
+      <created_at>Sun May 04 17:43:12 +0000 2008</created_at>
+
+      <id>803311918</id>
+      <text>Watching the boy get his haircut.</text>
+      <source>&lt;a href="http://www.hahlo.com/"&gt;Hahlo&lt;/a&gt;</source>
+      <truncated>false</truncated>
+      <in_reply_to_status_id></in_reply_to_status_id>
+      <in_reply_to_user_id></in_reply_to_user_id>
+
+      <favorited>false</favorited>
+    </status>
+  </user>
+  <user>
+    <id>10255262</id>
+    <name>Rein Henrichs</name>
+    <screen_name>ReinH</screen_name>
+
+    <location>Austin, TX</location>
+    <description></description>
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/52135315/ReinHAvatar_normal.jpg</profile_image_url>
+    <url>http://reinh.com</url>
+    <protected>false</protected>
+    <followers_count>125</followers_count>
+
+    <status>
+      <created_at>Sun May 04 18:06:10 +0000 2008</created_at>
+      <id>803323856</id>
+      <text>At shelby's drinking coffee, getting shit done</text>
+      <source>web</source>
+      <truncated>false</truncated>
+
+      <in_reply_to_status_id></in_reply_to_status_id>
+      <in_reply_to_user_id></in_reply_to_user_id>
+      <favorited>false</favorited>
+    </status>
+  </user>
+  <user>
+    <id>11485452</id>
+    <name>Liz O'Connor</name>
+
+    <screen_name>lizsmc1</screen_name>
+    <location>Indiana</location>
+    <description></description>
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/45241282/Picture_3_normal.png</profile_image_url>
+    <url></url>
+    <protected>true</protected>
+    <followers_count>15</followers_count>
+
+    <status>
+      <created_at>Sun May 04 18:25:36 +0000 2008</created_at>
+      <id>803333599</id>
+      <text>It has been a trying day at the oakses...blinds are up</text>
+      <source>&lt;a href="http://iconfactory.com/software/twitterrific"&gt;twitterrific&lt;/a&gt;</source>
+      <truncated>false</truncated>
+
+      <in_reply_to_status_id></in_reply_to_status_id>
+      <in_reply_to_user_id></in_reply_to_user_id>
+      <favorited>false</favorited>
+    </status>
+  </user>
+  <user>
+    <id>12235182</id>
+    <name>ryandunwiddie</name>
+
+    <screen_name>ryandunwiddie</screen_name>
+    <location></location>
+    <description></description>
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/44628812/ryan_normal.jpg</profile_image_url>
+    <url></url>
+    <protected>false</protected>
+    <followers_count>8</followers_count>
+
+    <status>
+      <created_at>Fri May 02 15:47:51 +0000 2008</created_at>
+      <id>801961703</id>
+      <text>Internet shimming.</text>
+      <source>&lt;a href="http://www.twhirl.org/"&gt;twhirl&lt;/a&gt;</source>
+      <truncated>false</truncated>
+
+      <in_reply_to_status_id></in_reply_to_status_id>
+      <in_reply_to_user_id></in_reply_to_user_id>
+      <favorited>false</favorited>
+    </status>
+  </user>
+  <user>
+    <id>13334762</id>
+    <name>github</name>
+
+    <screen_name>github</screen_name>
+    <location></location>
+    <description></description>
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/53128678/octocat_fluid_normal.png</profile_image_url>
+    <url></url>
+    <protected>false</protected>
+    <followers_count>175</followers_count>
+
+    <status>
+      <created_at>Sat May 03 22:09:41 +0000 2008</created_at>
+      <id>802837785</id>
+      <text>[blog] GitHub Badges! - http://github.com/blog/56-github-badges</text>
+      <source>web</source>
+      <truncated>false</truncated>
+
+      <in_reply_to_status_id></in_reply_to_status_id>
+      <in_reply_to_user_id></in_reply_to_user_id>
+      <favorited>false</favorited>
+    </status>
+  </user>
+  <user>
+    <id>13782402</id>
+    <name>bradleyktaylor</name>
+
+    <screen_name>bradleyktaylor</screen_name>
+    <location>Savannah, GA</location>
+    <description>CEO, DJ, Bird dog enthusiast</description>
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/50471452/IMGP1925_normal.JPG</profile_image_url>
+    <url>http://azilia.com</url>
+    <protected>false</protected>
+
+    <followers_count>23</followers_count>
+    <status>
+      <created_at>Sun May 04 21:47:32 +0000 2008</created_at>
+      <id>803429866</id>
+      <text>I want some cattle. http://www.pineywoodscattle.org/</text>
+      <source>&lt;a href="http://iconfactory.com/software/twitterrific"&gt;twitterrific&lt;/a&gt;</source>
+
+      <truncated>false</truncated>
+      <in_reply_to_status_id></in_reply_to_status_id>
+      <in_reply_to_user_id></in_reply_to_user_id>
+      <favorited>false</favorited>
+    </status>
+  </user>
+  <user>
+    <id>13826102</id>
+
+    <name>Paul Dix</name>
+    <screen_name>pauldix</screen_name>
+    <location>New York City, NY</location>
+    <description>Ruby programmer and student at Columbia University</description>
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/51109572/Photo_3_normal.jpg</profile_image_url>
+    <url>http://www.pauldix.net</url>
+
+    <protected>false</protected>
+    <followers_count>78</followers_count>
+    <status>
+      <created_at>Sun May 04 15:20:38 +0000 2008</created_at>
+      <id>803238175</id>
+      <text>writing a perceptron classifier and testing out some online learning algorithms: DKM, CBGZ: http://tinyurl.com/5t7gda</text>
+
+      <source>&lt;a href="http://www.twhirl.org/"&gt;twhirl&lt;/a&gt;</source>
+      <truncated>false</truncated>
+      <in_reply_to_status_id></in_reply_to_status_id>
+      <in_reply_to_user_id></in_reply_to_user_id>
+      <favorited>false</favorited>
+    </status>
+
+  </user>
+  <user>
+    <id>14073831</id>
+    <name>MicroReviews</name>
+    <screen_name>hreview</screen_name>
+    <location>Everywhere</location>
+    <description>Keeping track of what you think about anything, in 140 characters</description>
+
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/52936023/micro_normal.jpg</profile_image_url>
+    <url>http://microrevie.ws</url>
+    <protected>false</protected>
+    <followers_count>165</followers_count>
+    <status>
+      <created_at>Fri Apr 11 19:30:47 +0000 2008</created_at>
+
+      <id>787398088</id>
+      <text>Thanks to @evan for posting the 100th Review!  Who will get # 200?</text>
+      <source>web</source>
+      <truncated>false</truncated>
+      <in_reply_to_status_id></in_reply_to_status_id>
+      <in_reply_to_user_id></in_reply_to_user_id>
+      <favorited>false</favorited>
+
+    </status>
+  </user>
+  <user>
+    <id>14076758</id>
+    <name>fireball</name>
+    <screen_name>fireball</screen_name>
+    <location></location>
+
+    <description></description>
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/51606854/fireeagle_marker_3_on_normal.png</profile_image_url>
+    <url></url>
+    <protected>false</protected>
+    <followers_count>832</followers_count>
+    <status>
+      <created_at>Sat Apr 26 06:02:39 +0000 2008</created_at>
+
+      <id>797292085</id>
+      <text>fireball is sleeping. thanks for trying us out. we'll be back in a week or two w/ a few new tricks up our sleeves. :)</text>
+      <source>web</source>
+      <truncated>false</truncated>
+      <in_reply_to_status_id></in_reply_to_status_id>
+      <in_reply_to_user_id></in_reply_to_user_id>
+      <favorited>false</favorited>
+
+    </status>
+  </user>
+  <user>
+    <id>14094961</id>
+    <name>NoahArmstrong</name>
+    <screen_name>NoahArmstrong</screen_name>
+    <location></location>
+
+    <description></description>
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/51589906/pixelportrait_C_normal.jpg</profile_image_url>
+    <url></url>
+    <protected>true</protected>
+    <followers_count>5</followers_count>
+    <status>
+      <created_at>Mon Mar 10 03:48:09 +0000 2008</created_at>
+
+      <id>769135808</id>
+      <text>who wants to know when i poop? simple let me know and i'll be sure to send out a tweet each time.</text>
+      <source>&lt;a href="http://iconfactory.com/software/twitterrific"&gt;twitterrific&lt;/a&gt;</source>
+      <truncated>false</truncated>
+      <in_reply_to_status_id></in_reply_to_status_id>
+      <in_reply_to_user_id></in_reply_to_user_id>
+
+      <favorited>false</favorited>
+    </status>
+  </user>
+  <user>
+    <id>14096589</id>
+    <name>Jim Gosz</name>
+    <screen_name>humanradiator</screen_name>
+
+    <location>Indiana</location>
+    <description>Blisteringly Driven.  Torridly Imaginative.  Feverishly Creative.</description>
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/52394424/hr_twitter_avatar_normal.jpg</profile_image_url>
+    <url>http://www.humanradiator.com</url>
+    <protected>false</protected>
+    <followers_count>11</followers_count>
+
+    <status>
+      <created_at>Fri May 02 15:53:51 +0000 2008</created_at>
+      <id>801966248</id>
+      <text>Jimmy shimmy.</text>
+      <source>&lt;a href="http://iconfactory.com/software/twitterrific"&gt;twitterrific&lt;/a&gt;</source>
+      <truncated>false</truncated>
+
+      <in_reply_to_status_id></in_reply_to_status_id>
+      <in_reply_to_user_id></in_reply_to_user_id>
+      <favorited>false</favorited>
+    </status>
+  </user>
+  <user>
+    <id>14119520</id>
+    <name>eCredible Designs &amp; </name>
+
+    <screen_name>ecredible</screen_name>
+    <location>Sturgis, Michigan</location>
+    <description></description>
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/51672294/ecd_google_logo_normal.jpg</profile_image_url>
+    <url>http://www.ecredibledesigns.com</url>
+    <protected>true</protected>
+
+    <followers_count>1</followers_count>
+    <status>
+      <created_at>Tue Mar 11 02:07:31 +0000 2008</created_at>
+      <id>769614073</id>
+      <text>Updating my profile</text>
+      <source>web</source>
+
+      <truncated>false</truncated>
+      <in_reply_to_status_id></in_reply_to_status_id>
+      <in_reply_to_user_id></in_reply_to_user_id>
+      <favorited>false</favorited>
+    </status>
+  </user>
+</users>

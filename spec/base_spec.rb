@@ -41,6 +41,19 @@ describe "Twitter::Base" do
       @base.should_receive(:request).and_return(Hpricot::XML(data))
       @base.timeline(:user).size.should == 19
     end
+  end
+  
+  describe "friends" do
+    it "should be able to get friends" do
+      data = open(File.dirname(__FILE__) + '/fixtures/friends.xml').read
+      @base.should_receive(:request).and_return(Hpricot::XML(data))
+      @base.friends.size.should == 100
+    end
     
+    it "should be able to get friends without latest status" do
+      data = open(File.dirname(__FILE__) + '/fixtures/friends_lite.xml').read
+      @base.should_receive(:request).and_return(Hpricot::XML(data))
+      @base.friends(:lite => true).size.should == 100
+    end
   end
 end
