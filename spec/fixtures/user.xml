@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<user>
+  <id>4243</id>
+  <name>John Nunemaker</name>
+  <screen_name>jnunemaker</screen_name>
+  <location>Indiana</location>
+  <description>Loves his wife, ruby, notre dame football and iu basketball</description>
+	<profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/52619256/ruby_enterprise_shirt_normal.jpg</profile_image_url>
+  <url>http://addictedtonew.com</url>
+  <protected>false</protected>
+  <followers_count>363</followers_count>
+  <profile_background_color>FFFFFF</profile_background_color>
+  <profile_text_color>000000</profile_text_color>
+
+  <profile_link_color>000000</profile_link_color>
+  <profile_sidebar_fill_color>FD8C19</profile_sidebar_fill_color>
+  <profile_sidebar_border_color>F82500</profile_sidebar_border_color>
+  <friends_count>109</friends_count>
+  <created_at>Sun Aug 13 22:56:06 +0000 2006</created_at>
+  <favourites_count>18</favourites_count>
+  <utc_offset>-18000</utc_offset>
+  <time_zone>Indiana (East)</time_zone>
+ 	<profile_background_image_url>http://s3.amazonaws.com/twitter_production/profile_background_images/2349547/logo.jpg</profile_background_image_url>
+  <profile_background_tile>false</profile_background_tile>
+  <following>false</following>
+  <notifications>false</notifications>
+  <statuses_count>1981</statuses_count>
+  <status>
+    <created_at>Sun May 04 21:59:52 +0000 2008</created_at>
+    <id>803435310</id>
+    <text>Writing tests (rspec) for the twitter gem that all can run. Wish I would have done this when I wrote it years back.</text>
+    <source>&lt;a href="http://iconfactory.com/software/twitterrific"&gt;twitterrific&lt;/a&gt;</source>
+    <truncated>false</truncated>
+    <in_reply_to_status_id></in_reply_to_status_id>
+    <in_reply_to_user_id></in_reply_to_user_id>
+    <favorited>false</favorited>
+  </status>
+</user>

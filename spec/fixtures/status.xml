@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<status>
+  <created_at>Sun May 04 23:36:14 +0000 2008</created_at>
+  <id>803478581</id>
+  <text>Listening to Umberto Eco trashing the lack of intellectual discrimination on the web.</text>
+  <source>&lt;a href="http://help.twitter.com/index.php?pg=kb.page&amp;id=75"&gt;txt&lt;/a&gt;</source>
+
+  <truncated>false</truncated>
+  <in_reply_to_status_id></in_reply_to_status_id>
+  <in_reply_to_user_id></in_reply_to_user_id>
+  <favorited>false</favorited>
+  <user>
+    <id>246</id>
+    <name>Blaine Cook</name>
+
+    <screen_name>blaine</screen_name>
+    <location>San Francisco</location>
+    <description>TwitterInterpreter.</description>
+    <profile_image_url>http://s3.amazonaws.com/twitter_production/profile_images/14022002/171593560_00e00bc7c9_normal.jpg</profile_image_url>
+    <url>http://romeda.org/</url>
+    <protected>false</protected>
+
+    <followers_count>2765</followers_count>
+  </user>
+</status>
