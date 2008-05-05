@@ -43,7 +43,7 @@ describe "Twitter::Base" do
     end
   end
   
-  describe "friends" do
+  describe "friends and followers" do
     it "should be able to get friends" do
       data = open(File.dirname(__FILE__) + '/fixtures/friends.xml').read
       @base.should_receive(:request).and_return(Hpricot::XML(data))
@@ -54,6 +54,22 @@ describe "Twitter::Base" do
       data = open(File.dirname(__FILE__) + '/fixtures/friends_lite.xml').read
       @base.should_receive(:request).and_return(Hpricot::XML(data))
       @base.friends(:lite => true).size.should == 100
+    end
+    
+    it "should be able to get friends for another user" do
+      data = open(File.dirname(__FILE__) + '/fixtures/friends_for.xml').read
+      @base.should_receive(:request).and_return(Hpricot::XML(data))
+      timeline = @base.friends_for(20)
+      timeline.size.should == 100
+      timeline.first.name.should == 'Jack Dorsey'
+    end
+    
+    it "should be able to get followers" do
+      data = open(File.dirname(__FILE__) + '/fixtures/followers.xml').read
+      @base.should_receive(:request).and_return(Hpricot::XML(data))
+      timeline = @base.followers
+      timeline.size.should == 100
+      timeline.first.name.should == 'Blaine Cook'
     end
   end
 end
