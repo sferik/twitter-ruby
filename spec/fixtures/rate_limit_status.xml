@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hash>
+  <hourly-limit type="integer">20</hourly-limit>
+  <reset-time-in-seconds type="integer">1214757610</reset-time-in-seconds>
+  <reset-time type="datetime">2008-06-29T16:40:10+00:00</reset-time>
+  <remaining-hits type="integer">5</remaining-hits>
+</hash>

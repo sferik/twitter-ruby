@@ -84,4 +84,32 @@ describe "Twitter::Base" do
     @base.should_receive(:request).and_return(Hpricot::XML(data))
     @base.user('4243').name.should == 'John Nunemaker'
   end
+  
+  describe "rate limit status" do
+    before do 
+      @data = open(File.dirname(__FILE__) + '/fixtures/rate_limit_status.xml').read
+      @base.stub!(:request).and_return(Hpricot::XML(@data))
+    end
+    
+    it "should request the status" do
+      @base.should_receive(:request).and_return(Hpricot::XML(@data))
+      @base.rate_limit_status
+    end
+    
+    it "should have an hourly limit" do
+      @base.rate_limit_status.hourly_limit.should == 20
+    end
+    
+    it "should have a reset time in seconds" do
+      @base.rate_limit_status.reset_time_in_seconds.should == 1214757610
+    end
+    
+    it "should have a reset time" do
+      @base.rate_limit_status.reset_time.should == Time.parse('2008-06-29T16:40:10+00:00')
+    end
+    
+    it "should have remaining hits" do
+      @base.rate_limit_status.remaining_hits.should == 5
+    end
+  end
 end

@@ -68,6 +68,10 @@ module Twitter
       call("destroy/#{id}")
     end
     
+    def rate_limit_status
+      RateLimitStatus.new_from_xml request("account/rate_limit_status.xml", :auth => true)
+    end
+    
     # waiting for twitter to correctly implement this in the api as it is documented
     def featured
       users(call(:featured))
