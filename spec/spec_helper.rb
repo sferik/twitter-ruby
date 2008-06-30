@@ -2,4 +2,7 @@ require 'rubygems'
 gem 'rspec'
 require 'spec'
 
-require File.dirname(__FILE__) + '/../lib/twitter'
+dir = File.dirname(__FILE__)
+
+$:.unshift(File.join(dir, '/../lib/'))
+require dir + '/../lib/twitter'
