@@ -1,5 +1,15 @@
 0.2.7 - June 29, 2008
 			* added #rate_limit_status (Daniel Morrison)
+			* added source parameter option to Base#post 
+			* added twittergem as source when posting from command line
+			* Twitter::RateExceeded raised when you hit your limit (Jim O'Leary)
+			* Twitter::Unavailable raised when twitter returns 503
+			* Twitter::CantConnect is now more descriptive as to what is the problem when it is raised during a request
+			* quoting your message when using twitter post on the command line is now optional (Benoit Caccinolo)
+			* aliased post to p on command line so it's shorter (Benoit Caccinolo)
+			* unescaped html and added some color in command line view (Miles Z. Sterrett)
+			* added gemspec (technoweenie, Miles Z. Sterrett)
+			* Fixed stack trace error on first command line operation (Matt Rose)
 0.2.6 - April 2, 2008
 			* found a more simple way of doing stdin without any extra gem dependencies
 0.2.5 - April 2, 2008

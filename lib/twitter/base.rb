@@ -3,11 +3,6 @@
 #
 # The private methods in this one are pretty fun. Be sure to check out users, statuses and call.
 module Twitter
-  class Untwitterable < StandardError; end
-  class CantConnect < Untwitterable; end
-  class BadResponse < Untwitterable; end
-  class UnknownTimeline < ArgumentError; end
-  
   class Base
     # Twitter's url, duh!
     @@api_url   = 'twitter.com'
@@ -130,17 +125,24 @@ module Twitter
     end
     
     # Updates your twitter with whatever status string is passed in
-    def post(status)
+    def post(status, o={})
+      options = {}.merge(o)
+      form_data = {'status' => status}
+      form_data['source'] = options[:source] if options[:source]
       url = URI.parse("http://#{@@api_url}/statuses/update.xml")
       req = Net::HTTP::Post.new(url.path)
       
       req.basic_auth(@config[:email], @config[:password])
-      req.set_form_data({'status' => status})
+      req.set_form_data(form_data)
       
       response = Net::HTTP.new(url.host, url.port).start { |http| http.request(req) }
       Status.new_from_xml(parse(response.body).at('status'))
     end
     alias :update :post
+    
+    def verify_credentials
+      request('account/verify_credentials', :auth => true)
+    end
     
     private
       # Converts an hpricot doc to an array of statuses
@@ -174,14 +176,24 @@ module Twitter
         
         begin
           response = Net::HTTP.start(@@api_url, 80) do |http|
-              req = Net::HTTP::Get.new('/' + path, options[:headers])
-              req.basic_auth(@config[:email], @config[:password]) if options[:auth]
-              http.request(req)
+            req = Net::HTTP::Get.new('/' + path, options[:headers])
+            req.basic_auth(@config[:email], @config[:password]) if options[:auth]
+            http.request(req)
           end
-          raise BadResponse unless response.message == 'OK' || response.message == 'Not Modified'
-          parse(response.body)
-        rescue
-          raise CantConnect
+        rescue => error
+          raise CantConnect, error.message
+        end
+        
+        if %w[200 304].include?(response.code)
+          response = parse(response.body)
+          raise RateExceeded if (response/:hash/:error).text =~ /Rate limit exceeded/
+          response
+        elsif response.code == '503'
+          raise Unavailable, response.message
+        elsif response.code == '401'
+          raise CantConnect, 'Authentication failed. Check your username and password'
+        else
+          raise CantConnect, "Twitter is returning a #{response.code}: #{response.message}"
         end
       end
       

@@ -2,7 +2,7 @@
 # It is only used and included in the bin/twitter file.
 module Twitter
   class Command
-    @@commands  = [:post, :timeline, :friends, :friend, :followers, :follower, :featured, :important, :follow, :leave, :d]
+    @@commands  = [:post, :p, :timeline, :friends, :friend, :followers, :follower, :featured, :important, :follow, :leave, :d]
     
     @@template  = <<EOF
 # .twitter
@@ -43,13 +43,18 @@ EOF
           exit(0)
         end
         
-        post = ARGV.shift
+        post = if ARGV.size > 1
+          ARGV.join " "
+        else
+          ARGV.shift
+        end
+        
         print "\nSending twitter update"
         finished = false
         status = nil
         progress_thread = Thread.new { until finished; print "."; $stdout.flush; sleep 0.5; end; }
         post_thread = Thread.new(binding()) { |b|
-          status = Twitter::Base.new(config['email'], config['password']).post(post)
+          status = Twitter::Base.new(config['email'], config['password']).post(post, :source => Twitter::SourceName)
           finished = true
         }
         post_thread.join
@@ -57,6 +62,7 @@ EOF
         puts " OK!"
         puts "Got it! New twitter created at: #{status.created_at}\n"
       end
+      alias :p :post
       
       # Shows status, time and user for the specified timeline
       def timeline
@@ -67,8 +73,8 @@ EOF
         
         puts
         Twitter::Base.new(config['email'], config['password']).timeline(timeline).each do |s|
-          puts "#{s.text}\n-- #{s.user.name} at #{s.created_at}"
-          puts
+          puts "#{CGI::unescapeHTML(s.text)}\n --\e[34m #{CGI::unescapeHTML(s.user.name)}\e[32m at #{s.created_at}" 
+          puts "\e[0m"
         end
       end
       
@@ -144,8 +150,6 @@ EOF
       end
       
       def featured
-        puts
-        puts 'This is all implemented, just waiting for twitter to get the api call working'
         config = create_or_find_config
         
         puts
@@ -234,7 +238,7 @@ EOF
             config = YAML::load open(home + "/.twitter")
           rescue
             open(home + '/.twitter','w').write(@@template)
-            config = YAML::load open(home + "/.twitter")
+            config = YAML::load(@@template)
           end
           
           if config['email'] == nil or config['password'] == nil
