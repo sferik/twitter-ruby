@@ -32,7 +32,7 @@ Main {
   mode 'uninstall' do
     def run
       FileUtils.rm(Twitter::CLI::Config[:database])
-      say 'Twitter setup uninstalled.'
+      say 'Twitter gem uninstalled.'
     end
   end
   
@@ -59,12 +59,48 @@ Main {
     end
   end
   
+  mode 'remove' do
+    argument( 'username' ) { 
+      optional
+      description 'username of account you would like to remove' 
+    }
+    
+    def run
+      do_work do
+        if params['username'].given?
+          account = Account.find_by_username(params['username'].value)
+        else
+          Account.find(:all, :order => 'username').each do |a|
+            say "#{a.id}. #{a}"
+          end
+          account_id = ask 'Account to remove (enter number): ' do |q|
+            q.validate = /\d+/
+          end
+        end
+        
+        begin
+          account = account_id ? Account.find(account_id) : account
+          account_name = account.username
+          account.destroy
+          say "#{account_name} has been removed.\n"
+        rescue ActiveRecord::RecordNotFound
+          say "ERROR: Account could not be found. Try again. \n"
+        end
+        
+      end
+    end
+  end
+  
   mode 'list' do
     def run
-      say 'Account List'
       do_work do
-        Account.find(:all, :order => 'username').each do |a|
-          say a 
+        if Account.count == 0
+          say 'No accounts have been added.' 
+        else
+          say 'Account List'
+          Account.find(:all, :order => 'username').each do |a|
+            say a 
+          end
         end
       end
     end
@@ -96,6 +132,35 @@ Main {
           say "ERROR: Account could not be found. Try again. \n"
         end
         
+      end
+    end
+  end
+  
+  mode 'post' do
+    
+    def run
+      do_work do
+        account = Account.active
+        if account
+          post = if ARGV.size > 1
+            ARGV.join " "
+          else
+            ARGV.shift
+          end
+          
+          say "Sending twitter update"
+          finished, status = false, nil
+          progress_thread = Thread.new { until finished; print "."; $stdout.flush; sleep 0.5; end; }
+          post_thread = Thread.new(binding()) do |b|
+            status = Twitter::Base.new(account.username, account.password).post(post, :source => Twitter::SourceName)
+            finished = true
+          end
+          post_thread.join
+          progress_thread.join
+          say "Got it! New twitter created at: #{status.created_at}\n"
+        else
+          say 'You do not have a current account set.'
+        end
       end
     end
   end
