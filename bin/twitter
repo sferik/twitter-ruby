@@ -1,8 +1,13 @@
 #!/usr/bin/env ruby
 
-# if we have stdin, let's prepend it to the message
+# if we have stdin, let's prepend it to the message for post
 if ARGV[0] && ARGV[0] == 'post' && !STDIN.tty?
   ARGV[1] = "#{STDIN.read}#{ARGV[1]}"
+end
+
+# if we have stdin, let's prepend it to the message for d
+if ARGV[0] && ARGV[0] == 'd' && !STDIN.tty?
+  ARGV[2] = "#{STDIN.read}#{ARGV[2]}"
 end
 
 $:.unshift File.join(File.dirname(__FILE__), '..', 'lib')

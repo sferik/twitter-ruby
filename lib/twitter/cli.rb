@@ -138,12 +138,7 @@ Main {
   mode 'post' do
     def run
       do_work do
-        post = if ARGV.size > 1
-          ARGV.join " "
-        else
-          ARGV.shift
-        end
-        
+        post = ARGV.size > 1 ? ARGV.join(" ") : ARGV.shift
         say "Sending twitter update"
         finished, status = false, nil
         progress_thread = Thread.new { until finished; print "."; $stdout.flush; sleep 0.5; end; }
@@ -184,6 +179,22 @@ Main {
         username = params['username'].value
         base.leave(username)
         say "You are no longer following notifications from #{username}"
+      end
+    end
+  end
+  
+  mode 'd' do
+    argument('username') {
+      required
+      description 'username or id of twitterrer to direct message'
+    }
+    
+    def run
+      do_work do
+        username = params['username'].value
+        post = ARGV.size > 1 ? ARGV.join(" ") : ARGV.shift
+        base.d(username, post)
+        say "Direct message sent to #{username}"
       end
     end
   end
