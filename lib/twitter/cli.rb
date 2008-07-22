@@ -51,7 +51,7 @@ Main {
       end
       
       do_work do
-        Twitter::Base.new(account[:username], account[:password]).verify_credentials
+        base(account[:username], account[:password]).verify_credentials
         account[:current] = Account.current.count > 0 ? false : true
         Account.create(account)
         say 'Account added.'
@@ -131,36 +131,59 @@ Main {
         rescue ActiveRecord::RecordNotFound
           say "ERROR: Account could not be found. Try again. \n"
         end
-        
       end
     end
   end
   
   mode 'post' do
+    def run
+      do_work do
+        post = if ARGV.size > 1
+          ARGV.join " "
+        else
+          ARGV.shift
+        end
+        
+        say "Sending twitter update"
+        finished, status = false, nil
+        progress_thread = Thread.new { until finished; print "."; $stdout.flush; sleep 0.5; end; }
+        post_thread = Thread.new(binding()) do |b|
+          status = base.post(post, :source => Twitter::SourceName)
+          finished = true
+        end
+        post_thread.join
+        progress_thread.join
+        say "Got it! New twitter created at: #{status.created_at}\n"
+      end
+    end
+  end
+  
+  mode 'follow' do
+    argument('username') {
+      required
+      description 'username or id of twitterrer to follow'
+    }
     
     def run
       do_work do
-        account = Account.active
-        if account
-          post = if ARGV.size > 1
-            ARGV.join " "
-          else
-            ARGV.shift
-          end
-          
-          say "Sending twitter update"
-          finished, status = false, nil
-          progress_thread = Thread.new { until finished; print "."; $stdout.flush; sleep 0.5; end; }
-          post_thread = Thread.new(binding()) do |b|
-            status = Twitter::Base.new(account.username, account.password).post(post, :source => Twitter::SourceName)
-            finished = true
-          end
-          post_thread.join
-          progress_thread.join
-          say "Got it! New twitter created at: #{status.created_at}\n"
-        else
-          say 'You do not have a current account set.'
-        end
+        username = params['username'].value
+        base.follow(username)
+        say "You are now following notifications from #{username}"
+      end
+    end
+  end
+  
+  mode 'leave' do
+    argument('username') {
+      required
+      description 'username or id of twitterrer to leave'
+    }
+    
+    def run
+      do_work do
+        username = params['username'].value
+        base.leave(username)
+        say "You are no longer following notifications from #{username}"
       end
     end
   end

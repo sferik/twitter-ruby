@@ -1,6 +1,16 @@
 module Twitter
   module CLI
-    module Helpers            
+    module Helpers
+      def base(username=current_account.username, password=current_account.password)
+        @base ||= Twitter::Base.new(username, password)
+      end
+      
+      def current_account
+        @current_account ||= Account.active
+        exit('No current account.') if @current_account.blank?
+        @current_account
+      end
+                  
       def do_work(&block)
         connect
         begin
