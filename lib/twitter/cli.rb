@@ -152,6 +152,36 @@ Main {
       end
     end
   end
+
+  mode 'befriend' do
+    argument('username') {
+      required
+      description 'username or id of twitterrer to befriend'
+    }
+
+    def run
+      do_work do
+        username = params['username'].value
+        base.create_friendship(username)
+        say "#{username} has been added as a friend. follow notifications with 'twitter follow #{username}'"
+      end
+    end
+  end
+
+  mode 'defriend' do
+    argument('username') {
+      required
+      description 'username or id of twitterrer to defriend'
+    }
+
+    def run
+      do_work do
+        username = params['username'].value
+        base.destroy_friendship(username)
+        say "#{username} has been removed from your friends"
+      end
+    end
+  end
   
   mode 'follow' do
     argument('username') {
