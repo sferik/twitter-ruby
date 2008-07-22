@@ -25,7 +25,7 @@ Main {
   mode 'install' do
     def run
       migrate
-      say 'Twitter setup installed.'
+      say 'Twitter installed.'
     end
   end
   
@@ -225,6 +225,24 @@ Main {
         post = ARGV.size > 1 ? ARGV.join(" ") : ARGV.shift
         base.d(username, post)
         say "Direct message sent to #{username}"
+      end
+    end
+  end
+  
+  mode 'timeline' do
+    argument( 'timeline' ) {
+      description 'the timeline you wish to see (friends, public, me)'
+      default 'friends'
+    }
+    
+    def run
+      do_work do
+        timeline = params['timeline'].value == 'me' ? 'user' : params['timeline'].value
+        base.timeline(timeline.to_sym).each do |s|
+          Tweet.create_from_tweet(current_account, s) if timeline != :public
+          say "#{CGI::unescapeHTML(s.text)}\n --\e[34m #{CGI::unescapeHTML(s.user.name)}\e[32m at #{s.created_at}" 
+          say "\e[0m"
+        end
       end
     end
   end
