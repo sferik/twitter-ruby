@@ -7,22 +7,23 @@ require 'main'
 require 'highline/import'
 require 'activerecord'
 require 'sqlite3'
-HighLine.track_eof = false
 
+HighLine.track_eof = false
 CLI_ROOT = File.expand_path(File.join(File.dirname(__FILE__), 'cli'))
 require CLI_ROOT + '/config'
 require CLI_ROOT + '/helpers'
-
 Dir[CLI_ROOT + '/models/*.rb'].each { |m| require m }
 
 include Twitter::CLI::Helpers
 
 Main {
   def run
-    puts 'This is where the help goes'
+    puts "twitter [command] --help for usage instructions."
+    puts "The available commands are: \n   install, uninstall, add, remove, list, change, post, befriend, defriend, follow, leave, d and timeline."
   end
   
   mode 'install' do
+    description 'Creates the sqlite3 database and runs the migrations.'
     def run
       migrate
       say 'Twitter installed.'
@@ -30,6 +31,7 @@ Main {
   end
   
   mode 'uninstall' do
+    description 'Removes the sqlite3 database. There is no undo for this.'
     def run
       FileUtils.rm(Twitter::CLI::Config[:database])
       say 'Twitter gem uninstalled.'
@@ -37,6 +39,7 @@ Main {
   end
   
   mode 'add' do
+    description 'Adds a new twitter account to the database. Prompts for username and password.'
     def run
       account = Hash.new
       say "Add New Account:"
@@ -60,6 +63,7 @@ Main {
   end
   
   mode 'remove' do
+    description 'Removes a twitter account from the database. If username provided it removes that username else it prompts with list and asks for which one you would like to remove.'
     argument( 'username' ) { 
       optional
       description 'username of account you would like to remove' 
@@ -92,6 +96,7 @@ Main {
   end
   
   mode 'list' do
+    description 'Lists all the accounts that have been added and puts a * by the current one that is used for posting, etc.'
     def run
       do_work do
         if Account.count == 0
@@ -107,6 +112,7 @@ Main {
   end
   
   mode 'change' do
+    description 'Changes the current account being used for posting etc. to the username provided. If no username is provided, a list is presented and you can choose the account from there.'
     argument( 'username' ) { 
       optional
       description 'username of account you would like to switched to' 
@@ -136,6 +142,10 @@ Main {
   end
   
   mode 'post' do
+    description "Posts a message to twitter using the current account. The following are all valid examples from the command line:
+    $ twitter post 'my update'
+    $ twitter post my update with quotes
+    $ echo 'my update from stdin' | twitter post"
     def run
       do_work do
         post = ARGV.size > 1 ? ARGV.join(" ") : ARGV.shift
@@ -154,6 +164,7 @@ Main {
   end
 
   mode 'befriend' do
+    description "Allows you to add a user as a friend"
     argument('username') {
       required
       description 'username or id of twitterrer to befriend'
@@ -169,6 +180,7 @@ Main {
   end
 
   mode 'defriend' do
+    description "Allows you to remove a user from being a friend"
     argument('username') {
       required
       description 'username or id of twitterrer to defriend'
@@ -184,6 +196,7 @@ Main {
   end
   
   mode 'follow' do
+    description "Allows you to turn on notifications for a user"
     argument('username') {
       required
       description 'username or id of twitterrer to follow'
@@ -199,6 +212,7 @@ Main {
   end
   
   mode 'leave' do
+    description "Allows you to turn off notifications for a user"
     argument('username') {
       required
       description 'username or id of twitterrer to leave'
@@ -214,6 +228,10 @@ Main {
   end
   
   mode 'd' do
+    description "Allows you to direct message a user. The following are all valid examples from the command line:
+    $ twitter d jnunemaker 'yo homeboy'
+    $ twitter d jnunemaker yo homeboy
+    $ echo 'yo homeboy' | twitter d jnunemaker"
     argument('username') {
       required
       description 'username or id of twitterrer to direct message'
@@ -230,6 +248,7 @@ Main {
   end
   
   mode 'timeline' do
+    description "Allows you to view your timeline, your friends or the public one"
     argument( 'timeline' ) {
       description 'the timeline you wish to see (friends, public, me)'
       default 'friends'

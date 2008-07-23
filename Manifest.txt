@@ -1,4 +1,3 @@
-CHANGELOG
 History.txt
 License.txt
 Manifest.txt
@@ -10,7 +9,14 @@ config/requirements.rb
 examples/twitter.rb
 lib/twitter.rb
 lib/twitter/base.rb
-lib/twitter/command.rb
+lib/twitter/cli.rb
+lib/twitter/cli/config.rb
+lib/twitter/cli/helpers.rb
+lib/twitter/cli/migrations/20080722194500_create_accounts.rb
+lib/twitter/cli/migrations/20080722194508_create_tweets.rb
+lib/twitter/cli/migrations/20080722214605_add_account_id_to_tweets.rb
+lib/twitter/cli/models/account.rb
+lib/twitter/cli/models/tweet.rb
 lib/twitter/direct_message.rb
 lib/twitter/easy_class_maker.rb
 lib/twitter/rate_limit_status.rb
