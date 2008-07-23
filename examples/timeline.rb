@@ -12,7 +12,7 @@ puts
 puts
 
 puts 'SINCE_ID'
-twitter.timeline(:user, :since_id => 865368201).each do |s|
+twitter.timeline(:user, :since_id => 865547074).each do |s|
   puts "- #{s.text}"
 end
 puts

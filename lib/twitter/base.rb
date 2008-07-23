@@ -17,7 +17,7 @@ module Twitter
     def timeline(which=:friends, options={})
       raise UnknownTimeline unless [:friends, :public, :user].include?(which)
       auth = which.to_s.include?('public') ? false : true
-      statuses(call("#{which}_timeline", :auth => auth, :args => parse_options(options)))
+      statuses(call("#{which}_timeline", :auth => auth, :since => options[:since], :args => parse_options(options)))
     end
     
     # Returns an array of users who are in your friends list
@@ -51,7 +51,7 @@ module Twitter
     
     # Returns an array of statuses that are replies
     def replies(options={})
-      statuses(call(:replies, :args => parse_options(options)))
+      statuses(call(:replies, :since => options[:since], :args => parse_options(options)))
     end
     
     # Destroys a status by id
@@ -70,14 +70,14 @@ module Twitter
     
     # Returns an array of all the direct messages for the authenticated user
     def direct_messages(options={})
-      doc = request(build_path('direct_messages.xml', parse_options(options)), {:auth => true})
+      doc = request(build_path('direct_messages.xml', parse_options(options)), {:auth => true, :since => options[:since]})
       (doc/:direct_message).inject([]) { |dms, dm| dms << DirectMessage.new_from_xml(dm); dms }
     end
     alias :received_messages :direct_messages
     
     # Returns direct messages sent by auth user
     def sent_messages(options={})
-      doc = request(build_path('direct_messages/sent.xml', parse_options(options)), {:auth => true})
+      doc = request(build_path('direct_messages/sent.xml', parse_options(options)), {:auth => true, :since => options[:since]})
       (doc/:direct_message).inject([]) { |dms, dm| dms << DirectMessage.new_from_xml(dm); dms }
     end
     
@@ -194,7 +194,8 @@ module Twitter
         options.reverse_merge!({ :auth => true, :args => {} })
         # Following line needed as lite=false doesn't work in the API: http://tinyurl.com/yo3h5d
         options[:args].delete(:lite) unless options[:args][:lite]
-        request(build_path("statuses/#{method.to_s}.xml", options[:args]), options)
+        args = options.delete(:args)
+        request(build_path("statuses/#{method.to_s}.xml", args), options)
       end
       
       # Makes a request to twitter.

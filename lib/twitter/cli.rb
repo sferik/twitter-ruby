@@ -257,10 +257,39 @@ Main {
     def run
       do_work do
         timeline = params['timeline'].value == 'me' ? 'user' : params['timeline'].value
-        base.timeline(timeline.to_sym).each do |s|
-          Tweet.create_from_tweet(current_account, s) if timeline != :public
-          say "#{CGI::unescapeHTML(s.text)}\n --\e[34m #{CGI::unescapeHTML(s.user.name)}\e[32m at #{s.created_at}" 
-          say "\e[0m"
+        options, since_id = {}, Configuration["#{timeline}_last_id"]
+        options[:since_id] = since_id unless since_id.blank?
+        statuses = base.timeline(timeline.to_sym, options)
+        username_length = statuses.collect { |s| s.user.screen_name }.max { |a,b| a.length <=> b.length }.length rescue 0
+        if statuses.size > 0
+          statuses.each do |s|
+            Tweet.create_from_tweet(current_account, s) if timeline != :public
+            say "#{CGI::unescapeHTML(s.user.screen_name.ljust(username_length+1))}: #{CGI::unescapeHTML(s.text)} on #{Time.parse(s.created_at).strftime('%b %d at %l:%M%P')}"
+          end
+          Configuration["#{timeline}_last_id"] = statuses.first.id
+        else
+          say 'Nothing new since your last check'
+        end
+      end
+    end
+  end
+  
+  mode 'replies' do
+    description 'Allows you to view all @replies at you'
+    
+    def run
+      do_work do
+        options, since_id = {}, Configuration["replies_since_id"]
+        options[:since_id] = since_id if !since_id.blank?
+        replies = base.replies(options)
+        username_length = replies.collect { |s| s.user.screen_name }.max { |a,b| a.length <=> b.length }.length rescue 0
+        if replies.size > 0 
+          replies.each do |s|
+            say "#{CGI::unescapeHTML(s.user.screen_name.ljust(username_length+1))}: #{CGI::unescapeHTML(s.text)} on #{Time.parse(s.created_at).strftime('%b %d at %l:%M%P')}"
+          end
+          Configuration["replies_since_id"] = replies.first.id
+        else
+          say 'No new replies since your last check'
         end
       end
     end
