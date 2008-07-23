@@ -4,13 +4,7 @@ describe "Twitter::Base" do
   before do
     @base = Twitter::Base.new('foo', 'bar')
   end
-  
-  describe "class methods" do
-    it "should should have timelines" do
-      Twitter::Base.timelines.should == [:friends, :public, :user]
-    end
-  end  
-  
+    
   describe "being initialized" do
     it "should require email and password" do
       lambda { Twitter::Base.new }.should raise_error(ArgumentError)

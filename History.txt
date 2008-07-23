@@ -1,8 +1,26 @@
-0.2.8 - July 22, 2008
+0.3.0 - July 22, 2008
 			* complete rewrite of CLI. Now supports multiple accounts and changing between them.
 			* added source, truncated, in_reply_to_status_id, in_reply_to_user_id, and favorited to Twitter::Status
 			* added protected to Twitter::User
 			* d CLI method now takes standard input like post
+			* Rewrote several methods that had since parameter to now use a hash instead. This makes it more flexible as API updates.
+			* Rewrote the methods that took lite or since as an argument to instead take a hash.
+			* added Twitter::Base#friendship_exists?
+			* added Twitter::Base#update_location
+			* added Twitter::Base#update_delivery_device
+			* added Twitter::Base#favorites
+			* added Twitter::Base#create_favorite
+			* added Twitter::Base#destroy_favorite
+			* added Twitter::Base#block
+			* added Twitter::Base#unblock
+			
+			BACKWORDS COMPATIBILITY BREAK: 
+			Any method that you have using lite or since as an argument 
+			will no longer work with this version. Simply change to a 
+			hash and you'll be fine. For example:
+			
+			friends(true) would now be friends(:lite => true)
+			
 0.2.7 - June 29, 2008
 			* added #rate_limit_status (Daniel Morrison)
 			* added source parameter option to Base#post 

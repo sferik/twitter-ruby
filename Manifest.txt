@@ -6,7 +6,17 @@ Rakefile
 bin/twitter
 config/hoe.rb
 config/requirements.rb
+examples/blocks.rb
+examples/direct_messages.rb
+examples/favorites.rb
+examples/friends_followers.rb
+examples/friendships.rb
+examples/location.rb
+examples/replies.rb
+examples/sent_messages.rb
+examples/timeline.rb
 examples/twitter.rb
+examples/verify_credentials.rb
 lib/twitter.rb
 lib/twitter/base.rb
 lib/twitter/cli.rb

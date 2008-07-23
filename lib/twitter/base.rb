@@ -1,46 +1,42 @@
 # This is the base class for the twitter library. It makes all the requests 
 # to twitter, parses the xml (using hpricot) and returns ruby objects to play with.
 #
-# The private methods in this one are pretty fun. Be sure to check out users, statuses and call.
+# For complete documentation on the options, check out the twitter api docs.
+#   http://groups.google.com/group/twitter-development-talk/web/api-documentation
 module Twitter
   class Base
     # Twitter's url, duh!
     @@api_url   = 'twitter.com'
-    
-    # Timelines exposed by the twitter api
-    @@timelines = [:friends, :public, :user]
-    
-    def self.timelines
-      @@timelines
-    end
     
     # Initializes the configuration for making requests to twitter
     def initialize(email, password)
       @config, @config[:email], @config[:password] = {}, email, password
     end
     
-    # Returns an array of statuses for a timeline; 
-    # Available timelines are determined from the @@timelines variable
-    # Defaults to your friends timeline
-    def timeline(which=:friends, since=nil)
-      raise UnknownTimeline unless @@timelines.include?(which)
+    # Returns an array of statuses for a timeline; Defaults to your friends timeline.
+    def timeline(which=:friends, options={})
+      raise UnknownTimeline unless [:friends, :public, :user].include?(which)
       auth = which.to_s.include?('public') ? false : true
-      statuses(call("#{which}_timeline", :auth => auth, :since => since))
+      statuses(call("#{which}_timeline", :auth => auth, :args => parse_options(options)))
     end
     
     # Returns an array of users who are in your friends list
-    def friends(lite = false)
-      users(call(:friends, {:args => {:lite => lite}}))
+    def friends(options={})
+      users(call(:friends, {:args => parse_options(options)}))
     end
     
     # Returns an array of users who are friends for the id or username passed in
-    def friends_for(id, lite = false)
-      users(call(:friends, {:args => {:id => id, :lite => lite}}))
+    def friends_for(id, options={})
+      friends(options.merge({:id => id}))
     end
     
     # Returns an array of users who are following you
-    def followers(lite = false)
-      users(call(:followers, {:args => {:lite => lite}}))
+    def followers(options={})
+      users(call(:followers, {:args => parse_options(options)}))
+    end
+    
+    def followers_for(id, options={})
+      followers(options.merge({:id => id}))
     end
     
     # Returns a single status for a given id
@@ -54,8 +50,8 @@ module Twitter
     end
     
     # Returns an array of statuses that are replies
-    def replies(since=nil)
-      statuses(call(:replies, :since => since))
+    def replies(options={})
+      statuses(call(:replies, :args => parse_options(options)))
     end
     
     # Destroys a status by id
@@ -73,26 +69,19 @@ module Twitter
     end
     
     # Returns an array of all the direct messages for the authenticated user
-    #
-    #   <tt>since</tt> - (optional) Narrows the resulting list of direct messages to just those sent after the specified HTTP-formatted date.
-    # TODO: allow page for direct messages
-    def direct_messages(since=nil)
-      path = 'direct_messages.xml'
-      doc = request(path, { :auth => true, :since => since })
+    def direct_messages(options={})
+      doc = request(build_path('direct_messages.xml', parse_options(options)), {:auth => true})
       (doc/:direct_message).inject([]) { |dms, dm| dms << DirectMessage.new_from_xml(dm); dms }
     end
     alias :received_messages :direct_messages
     
-    # Returns 20 direct messages sent by auth user
-    # TODO: allow page for sent messages
-    def sent_messages(since=nil)
-      path = 'direct_messages/sent.xml'
-      doc = request(path, { :auth => true, :since => since })
+    # Returns direct messages sent by auth user
+    def sent_messages(options={})
+      doc = request(build_path('direct_messages/sent.xml', parse_options(options)), {:auth => true})
       (doc/:direct_message).inject([]) { |dms, dm| dms << DirectMessage.new_from_xml(dm); dms }
     end
     
     # destroys a give direct message by id if the auth user is a recipient
-    # TODO: return http status code
     def destroy_direct_message(id)
       request("direct_messages/destroy/#{id}.xml", :auth => true)
     end
@@ -107,44 +96,87 @@ module Twitter
       DirectMessage.new_from_xml(parse(response.body).at('direct_message'))
     end
     
-    # Befriends the user specified in the ID parameter as the authenticating user.
+    # Befriends id_or_screenname for the auth user
     def create_friendship(id_or_screenname)
       users(request("friendships/create/#{id_or_screenname}.xml", :auth => true)).first
     end
     
+    # Defriends id_or_screenname for the auth user
     def destroy_friendship(id_or_screenname)
       users(request("friendships/destroy/#{id_or_screenname}.xml", :auth => true)).first
     end
     
+    # Returns true if friendship exists, false if it doesn't.
+    def friendship_exists?(user_a, user_b)
+      doc = request(build_path("friendships/exists.xml", {:user_a => user_a, :user_b => user_b}), :auth => true)
+      doc.at('friends').innerHTML == 'true' ? true : false
+    end
+    
+    # Updates your location and returns Twitter::User object
+    def update_location(location)
+      users(request(build_path('account/update_location.xml', {'location' => location}), :auth => true)).first
+    end
+    
+    # Updates your deliver device and returns Twitter::User object
+    def update_delivery_device(device)
+      users(request(build_path('account/update_delivery_device.xml', {'device' => device}), :auth => true)).first
+    end
+    
+    # Turns notifications by id_or_screenname on for auth user.
     def follow(id_or_screenname)
       users(request("notifications/follow/#{id_or_screenname}.xml", :auth => true)).first
     end
-    
+
+    # Turns notifications by id_or_screenname off for auth user.    
     def leave(id_or_screenname)
       users(request("notifications/leave/#{id_or_screenname}.xml", :auth => true)).first
     end
     
-    # Updates your twitter with whatever status string is passed in
-    def post(status, o={})
-      options = {}.merge(o)
+    # Returns the most recent favorite statuses for the autenticating user
+    def favorites(options={})
+      statuses(request(build_path('favorites.xml', parse_options(options)), :auth => true))
+    end
+    
+    # Favorites the status specified by id for the auth user
+    def create_favorite(id)
+      statuses(request("favorites/create/#{id}.xml", :auth => true)).first
+    end
+
+    # Un-favorites the status specified by id for the auth user
+    def destroy_favorite(id)
+      statuses(request("favorites/destroy/#{id}.xml", :auth => true)).first
+    end
+    
+    # Blocks the user specified by id for the auth user
+    def block(id)
+      users(request("blocks/create/#{id}.xml", :auth => true)).first
+    end
+    
+    # Unblocks the user specified by id for the auth user
+    def unblock(id)
+      users(request("blocks/destroy/#{id}.xml", :auth => true)).first
+    end
+    
+    # Posts a new update to twitter for auth user.
+    def post(status, options={})
       form_data = {'status' => status}
-      form_data['source'] = options[:source] if options[:source]
+      form_data.merge({'source' => options[:source]}) if options[:source]
       url = URI.parse("http://#{@@api_url}/statuses/update.xml")
       req = Net::HTTP::Post.new(url.path)
-      
       req.basic_auth(@config[:email], @config[:password])
       req.set_form_data(form_data)
-      
       response = Net::HTTP.new(url.host, url.port).start { |http| http.request(req) }
       Status.new_from_xml(parse(response.body).at('status'))
     end
     alias :update :post
     
+    # Verifies the credentials for the auth user.
+    #   raises Twitter::CantConnect on failure.
     def verify_credentials
       request('account/verify_credentials', :auth => true)
     end
     
-    private
+    private      
       # Converts an hpricot doc to an array of statuses
       def statuses(doc)
         (doc/:status).inject([]) { |statuses, status| statuses << Status.new_from_xml(status); statuses }
@@ -160,13 +192,12 @@ module Twitter
       # ie: call(:public_timeline, :auth => false)
       def call(method, options={})
         options.reverse_merge!({ :auth => true, :args => {} })
-        # Following line needed as lite=false doens't work in the API: http://tinyurl.com/yo3h5d
+        # Following line needed as lite=false doesn't work in the API: http://tinyurl.com/yo3h5d
         options[:args].delete(:lite) unless options[:args][:lite]
-        path    = "statuses/#{method.to_s}.xml"
-        path   += '?' + options[:args].inject('') { |qs, h| qs += "#{h[0]}=#{h[1]}&"; qs } unless options[:args].blank?        
-        request(path, options)
+        request(build_path("statuses/#{method.to_s}.xml", options[:args]), options)
       end
       
+      # Makes a request to twitter.
       def request(path, options={})
         options.reverse_merge!({:headers => { "User-Agent" => @config[:email] }})
         unless options[:since].blank?
@@ -195,8 +226,21 @@ module Twitter
         else
           raise CantConnect, "Twitter is returning a #{response.code}: #{response.message}"
         end
+      end      
+    
+      # Given a path and a hash, build a full path with the hash turned into a query string
+      def build_path(path, options)
+        path += "?#{options.to_query}" unless options.blank?
+        path
+      end
+
+      # Tries to get all the options in the correct format before making the request
+      def parse_options(options)
+        options[:since] = options[:since].kind_of?(Date) ? options[:since].strftime('%a, %d-%b-%y %T GMT') : options[:since].to_s if options[:since]
+        options
       end
       
+      # Converts a string response into an Hpricot xml element.
       def parse(response)
         Hpricot.XML(response)
       end
