@@ -2,20 +2,14 @@
 
 ... a sweet little diddy that helps you twitter your life away
 
-== Command Line Use
+== Install
 
-	$ twitter
-
-That will show the commands and each command will either run or show you the options it needs to run
-
-	$ twitter post "releasing my new twitter gem"
-
-That will post a status update to your twitter
+sudo gem install twitter will work just fine. For command line use, you'll need a few other gems: sudo gem install main highline activerecord sqlite3-ruby
 
 == Examples
 
 	Twitter::Base.new('your email', 'your password').update('watching veronica mars')
-
+	
 	# or you can use post
 	Twitter::Base.new('your email', 'your password').post('post works too')
 
@@ -42,3 +36,40 @@ That will post a status update to your twitter
 	  puts u.name, u.status.text
 	  puts
 	end
+
+== Command Line Use
+	
+	$ twitter
+
+Will give you a list of all the commands. You can get the help for each command by running twitter [command] -h. 
+
+The first thing you'll want to do is install the database so your account(s) can be stored. 
+
+	$ twitter install
+	
+You can always uninstall twitter like this:
+
+	$ twitter uninstall
+	
+Once the twitter database is installed and migrated, you can add accounts like this:
+
+	$ twitter add
+	Add New Account:
+	Username: jnunemaker
+	Password (won't be displayed): 
+	Account added.
+
+You can also list all the accounts you've added.
+
+	$ twitter list
+	Account List
+	* jnunemaker
+	  snitch_test
+
+The * means denotes the account that will be used when posting, befriending, defriending, following, leaving or viewing a timeline.
+
+To post using the account marked with the *, simply type the following:
+
+	$ twitter post "releasing my new twitter gem"
+
+That is about it. You can do pretty much anything that you can do with twitter from the command line interface.
