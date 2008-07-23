@@ -25,7 +25,9 @@ lib/twitter/cli/helpers.rb
 lib/twitter/cli/migrations/20080722194500_create_accounts.rb
 lib/twitter/cli/migrations/20080722194508_create_tweets.rb
 lib/twitter/cli/migrations/20080722214605_add_account_id_to_tweets.rb
+lib/twitter/cli/migrations/20080722214606_create_configurations.rb
 lib/twitter/cli/models/account.rb
+lib/twitter/cli/models/configuration.rb
 lib/twitter/cli/models/tweet.rb
 lib/twitter/direct_message.rb
 lib/twitter/easy_class_maker.rb
