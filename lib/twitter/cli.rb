@@ -253,45 +253,57 @@ Main {
       description 'the timeline you wish to see (friends, public, me)'
       default 'friends'
     }
+    option('force', 'f') {
+      description "Ignore since_id and show first page of results even if there aren't new ones"
+    }
     
     def run
       do_work do
         timeline = params['timeline'].value == 'me' ? 'user' : params['timeline'].value
         options, since_id = {}, Configuration["#{timeline}_last_id"]
-        options[:since_id] = since_id unless since_id.blank?
-        statuses = base.timeline(timeline.to_sym, options)
-        username_length = statuses.collect { |s| s.user.screen_name }.max { |a,b| a.length <=> b.length }.length rescue 0
-        if statuses.size > 0
-          statuses.each do |s|
-            Tweet.create_from_tweet(current_account, s) if timeline != :public
-            say "#{CGI::unescapeHTML(s.user.screen_name.ljust(username_length+1))}: #{CGI::unescapeHTML(s.text)} on #{Time.parse(s.created_at).strftime('%b %d at %l:%M%P')}"
-          end
-          Configuration["#{timeline}_last_id"] = statuses.first.id
-        else
-          say 'Nothing new since your last check'
-        end
+        options[:since_id] = since_id if !since_id.blank? && !params['force'].given?
+        cache = [:friends, :user].include?(timeline)
+        collection = base.timeline(timeline.to_sym, options)
+        output_tweets(collection, {:cache => cache, :since_prefix => timeline})
       end
     end
   end
   
   mode 'replies' do
     description 'Allows you to view all @replies at you'
+    option('force', 'f') {
+      description "Ignore since_id and show first page of replies even if there aren't new ones"
+    }
     
     def run
       do_work do
         options, since_id = {}, Configuration["replies_since_id"]
-        options[:since_id] = since_id if !since_id.blank?
-        replies = base.replies(options)
-        username_length = replies.collect { |s| s.user.screen_name }.max { |a,b| a.length <=> b.length }.length rescue 0
-        if replies.size > 0 
-          replies.each do |s|
-            say "#{CGI::unescapeHTML(s.user.screen_name.ljust(username_length+1))}: #{CGI::unescapeHTML(s.text)} on #{Time.parse(s.created_at).strftime('%b %d at %l:%M%P')}"
-          end
-          Configuration["replies_since_id"] = replies.first.id
-        else
-          say 'No new replies since your last check'
-        end
+        options[:since_id] = since_id if !since_id.blank? && !params['force'].given?
+        collection = base.replies(options)
+        output_tweets(collection, {:since_prefix => 'replies'})
       end
+    end
+  end
+  
+  mode 'clear_config' do
+    def run
+      do_work do
+        count = Configuration.count
+        Configuration.destroy_all
+        say("#{count} configuration entries cleared.")
+      end
+    end
+  end
+  
+  mode 'open' do
+    description 'Opens the given twitter user in a browser window'
+    argument('username') {
+      required
+      description "username or id of twitterrer who's page you would like to see"
+    }
+    
+    def run
+      `open http://twitter.com/#{params['username'].value}`
     end
   end
 }
