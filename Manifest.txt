@@ -47,3 +47,7 @@ tasks/deployment.rake
 tasks/environment.rake
 tasks/website.rake
 twitter.gemspec
+website/css/common.css
+website/images/campfire.gif
+website/images/twitter.gif
+website/index.html
