@@ -3,15 +3,22 @@ module Twitter
     module Helpers
       def output_tweets(collection, options={})
         options.reverse_merge!({
-          :cache => false,
+          :cache        => false,
           :since_prefix => '',
-          :empty_msg => 'Nothing new since your last check.'
+          :empty_msg    => 'Nothing new since your last check.'
         })
         if collection.size > 0
-          username_length = collect.collect { |s| s.user.screen_name }.max { |a,b| a.length <=> b.length }.length rescue 0
+          justify   = collection.collect { |s| s.user.screen_name }.max { |a,b| a.length <=> b.length }.length rescue 0
+          indention = ' ' * (justify + 3)
+          say("\n#{indention}#{collection.size} new tweet(s) found.\n\n")
           collection.each do |s|
             Tweet.create_from_tweet(current_account, s) if options[:cache]
-            say "#{CGI::unescapeHTML(s.user.screen_name.ljust(username_length+1))}: #{CGI::unescapeHTML(s.text)} -- on #{Time.parse(s.created_at).strftime('%b %d at %l:%M%P')}"
+            occurred_at    = Time.parse(s.created_at).strftime('On %b %d at %l:%M%P')
+            formatted_time = '-' * occurred_at.length + "\n#{indention}#{occurred_at}"
+            formatted_name = s.user.screen_name.rjust(justify + 1)
+            formatted_msg  = ''
+            s.text.split(' ').in_groups_of(6, false) { |row| formatted_msg += row.join(' ') + "\n#{indention}" }
+            say "#{CGI::unescapeHTML(formatted_name)}: #{CGI::unescapeHTML(formatted_msg)}#{formatted_time}\n\n"
           end
           Configuration["#{options[:since_prefix]}_since_id"] = collection.first.id
         else

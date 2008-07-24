@@ -3,6 +3,7 @@ License.txt
 Manifest.txt
 README.txt
 Rakefile
+TODO.txt
 bin/twitter
 config/hoe.rb
 config/requirements.rb
@@ -40,6 +41,7 @@ script/generate
 script/txt2html
 setup.rb
 spec/base_spec.rb
+spec/cli/helper_spec.rb
 spec/direct_message_spec.rb
 spec/fixtures/followers.xml
 spec/fixtures/friends.xml

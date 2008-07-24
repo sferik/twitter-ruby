@@ -260,7 +260,7 @@ Main {
     def run
       do_work do
         timeline = params['timeline'].value == 'me' ? 'user' : params['timeline'].value
-        options, since_id = {}, Configuration["#{timeline}_last_id"]
+        options, since_id = {}, Configuration["#{timeline}_since_id"]
         options[:since_id] = since_id if !since_id.blank? && !params['force'].given?
         cache = [:friends, :user].include?(timeline)
         collection = base.timeline(timeline.to_sym, options)

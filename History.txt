@@ -2,6 +2,7 @@
 			* added open to CLI twitter open jnunemaker would open default browser to http://twitter.com/jnunemaker
 			* added -f to timeline and replies which ignores the since_id and shows all results
 			* added clear_config to remove all cached since id's and such
+			* Majorly pimped the output of timelines and replies.
 			
 0.3.0 - July 22, 2008
 			* complete rewrite of CLI. Now supports multiple accounts and changing between them.
