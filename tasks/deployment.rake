@@ -32,3 +32,10 @@ namespace :manifest do
     `rake check_manifest | patch -p0 > Manifest.txt`
   end
 end
+
+namespace :files do
+  task :copy do
+    files = File.read(File.join(File.dirname(__FILE__), '..', 'Manifest.txt')).split("\n")
+    %x[echo '#{files.inspect}' | pbcopy]
+  end
+end
