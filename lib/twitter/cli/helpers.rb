@@ -1,6 +1,9 @@
 module Twitter
   module CLI
     module Helpers
+      class NoActiveAccount < StandardError; end
+      class NoAccounts < StandardError; end
+      
       def output_tweets(collection, options={})
         options.reverse_merge!({
           :cache        => false,
@@ -31,8 +34,8 @@ module Twitter
       end
       
       def current_account
-        @current_account ||= Account.active
-        exit('No current account.') if @current_account.blank?
+        @current_account ||= Account.active        
+        raise Account.count == 0 ? NoAccounts : NoActiveAccount if @current_account.blank?
         @current_account
       end
                   
@@ -46,6 +49,10 @@ module Twitter
           say("Twitter is unavailable right now. Try again later.")
         rescue Twitter::CantConnect => msg
           say("Can't connect to twitter because: #{msg}")
+        rescue Twitter::CLI::Helpers::NoActiveAccount
+          say("You have not set an active account. Use 'twitter change' to set one now.")
+        rescue Twitter::CLI::Helpers::NoAccounts
+          say("You have not created any accounts. Use 'twitter add' to create one now.")
         end
       end
       
