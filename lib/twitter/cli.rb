@@ -26,6 +26,7 @@ Main {
     description 'Creates the sqlite3 database and runs the migrations.'
     def run
       migrate
+      attempt_import
       say 'Twitter installed.'
     end
   end
@@ -33,30 +34,48 @@ Main {
   mode 'uninstall' do
     description 'Removes the sqlite3 database. There is no undo for this.'
     def run
-      FileUtils.rm(Twitter::CLI::Config[:database])
+      FileUtils.rm(Twitter::CLI::Config[:database]) if File.exists?(Twitter::CLI::Config[:database])
       say 'Twitter gem uninstalled.'
     end
   end
   
   mode 'add' do
     description 'Adds a new twitter account to the database. Prompts for username and password.'
+    argument('username', 'u') {
+      optional
+      description 'optional username'
+    }
+    argument('password', 'p') {
+      optional
+      description 'optional password'
+    }
+    
     def run
       account = Hash.new
       say "Add New Account:"
-
-      account[:username] = ask('Username: ') do |q|
-        q.validate = /\S+/
+      
+      # allows optional username arg
+      if params['username'].given?
+        account[:username] = params['username'].value
+      else
+        account[:username] = ask('Username: ') do |q|
+          q.validate = /\S+/
+        end
       end
-
-      account[:password] = ask("Password (won't be displayed): ") do |q|
-        q.echo = false
-        q.validate = /\S+/
+      
+      # allows optional password arg
+      if params['password'].given?
+        account[:password] = params['password'].value
+      else
+        account[:password] = ask("Password (won't be displayed): ") do |q|
+          q.echo = false
+          q.validate = /\S+/
+        end
       end
       
       do_work do
         base(account[:username], account[:password]).verify_credentials
-        account[:current] = Account.current.count > 0 ? false : true
-        Account.create(account)
+        Account.add(account)
         say 'Account added.'
       end
     end
@@ -91,7 +110,6 @@ Main {
         rescue ActiveRecord::RecordNotFound
           say "ERROR: Account could not be found. Try again. \n"
         end
-        
       end
     end
   end

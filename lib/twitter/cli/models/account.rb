@@ -3,6 +3,14 @@ class Account < ActiveRecord::Base
   
   has_many :tweets, :dependent => :destroy
   
+  def self.add(hash)
+    username = hash.delete(:username)
+    account = find_or_initialize_by_username(username)
+    account.attributes = hash
+    account.save
+    set_current(account) if new_active_needed?
+  end
+  
   def self.active
     current.first
   end

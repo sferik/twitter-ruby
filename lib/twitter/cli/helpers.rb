@@ -38,6 +38,23 @@ module Twitter
         raise Account.count == 0 ? NoAccounts : NoActiveAccount if @current_account.blank?
         @current_account
       end
+      
+      def attempt_import(&block)
+        tweet_file = File.join(ENV['HOME'], '.twitter')
+        if File.exists?(tweet_file)
+          say '.twitter file found, attempting import...'
+          config = YAML::load(File.read(tweet_file))
+          if !config['email'].blank? && !config['password'].blank?
+            Account.add(:username => config['email'], :password => config['password'])
+            say 'Account imported'
+            block.call if block_given?
+            true
+          else
+            say "Either your username or password were blank in your .twitter file so I could not import. Use 'twitter add' to add an account."
+            false
+          end
+        end
+      end
                   
       def do_work(&block)
         connect
@@ -52,7 +69,9 @@ module Twitter
         rescue Twitter::CLI::Helpers::NoActiveAccount
           say("You have not set an active account. Use 'twitter change' to set one now.")
         rescue Twitter::CLI::Helpers::NoAccounts
-          say("You have not created any accounts. Use 'twitter add' to create one now.")
+          unless attempt_import { block.call }
+            say("You have not created any accounts. Use 'twitter add' to create one now.")
+          end
         end
       end
       
