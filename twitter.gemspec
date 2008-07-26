@@ -1,10 +1,10 @@
 Gem::Specification.new do |s|
   s.name = %q{twitter}
-  s.version = "0.3.1"
+  s.version = "0.3.2"
   s.specification_version = 2 if s.respond_to? :specification_version=
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["John Nunemaker"]
-  s.date = %q{2008-07-23}
+  s.date = %q{2008-07-26}
   s.default_executable = %q{twitter}
   s.description = %q{a command line interface for twitter, also a library which wraps the twitter api}
   s.email = %q{nunemaker@gmail.com}
@@ -18,6 +18,10 @@ Gem::Specification.new do |s|
   s.rubyforge_project = %q{twitter}
   s.rubygems_version = %q{1.1.1}
   s.summary = %q{a command line interface for twitter, also a library which wraps the twitter api}
-  s.add_dependency(%q<hpricot>, [">= 0"])
-  s.add_dependency(%q<activesupport>, [">= 0"])
+  s.add_dependency(%q<hpricot>, [">= 0.6"])
+  s.add_dependency(%q<activesupport>, [">= 2.1"])
+  s.add_dependency(%q<main>, [">= 2.8.2"])
+  s.add_dependency(%q<highline>, [">= 1.4.0"])
+  s.add_dependency(%q<activerecord>, [">= 2.1"])
+  s.add_dependency(%q<sqlite3-ruby>, [">= 1.2.2"])
 end

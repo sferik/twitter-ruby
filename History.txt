@@ -1,3 +1,7 @@
+0.3.2 - July 26, 2008
+			* added the CLI gems as dependencies for now until I separate out the CLI from the API wrapper
+			
+			
 0.3.1 - July 23, 2008
 			* added open to CLI twitter open jnunemaker would open default browser to http://twitter.com/jnunemaker
 			* added -f to timeline and replies which ignores the since_id and shows all results

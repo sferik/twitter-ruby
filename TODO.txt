@@ -1,5 +1,4 @@
 * import from .twitter
 * check if there is a current account before any methods that use that account
-* either add CLI gems as dependencies or separate CLI into a second gem that requires the api part
 * add timeout so it doesn't hang forever like it does now if twitter is down
 * add progress indicator for timeline and replies as posting has for more visual indication that work is happening

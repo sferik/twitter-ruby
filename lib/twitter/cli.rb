@@ -1,7 +1,7 @@
 require 'rubygems'
 gem 'main', '>= 2.8.2'
 gem 'highline', '>= 1.4.0'
-gem 'activerecord', '>= 2.1.0'
+gem 'activerecord', '>= 2.1'
 gem 'sqlite3-ruby', '>= 1.2.2'
 require 'main'
 require 'highline/import'
