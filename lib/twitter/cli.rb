@@ -86,6 +86,7 @@ Main {
           account = account_id ? Account.find(account_id) : account
           account_name = account.username
           account.destroy
+          Account.set_current(Account.first) if Account.new_active_needed?
           say "#{account_name} has been removed.\n"
         rescue ActiveRecord::RecordNotFound
           say "ERROR: Account could not be found. Try again. \n"

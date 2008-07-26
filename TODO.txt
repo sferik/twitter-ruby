@@ -1,4 +1,3 @@
-* if removing the current account, set a new one
 * import from .twitter
 * add timeout so it doesn't hang forever like it does now if twitter is down
 * add progress indicator for timeline and replies as posting has for more visual indication that work is happening

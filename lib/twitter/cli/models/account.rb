@@ -14,6 +14,10 @@ class Account < ActiveRecord::Base
     account
   end
   
+  def self.new_active_needed?
+    self.current.count == 0 && self.count > 0
+  end
+  
   def to_s
     "#{current? ? '*' : ' '} #{username}"
   end

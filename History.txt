@@ -1,5 +1,7 @@
 0.3.2 - July 26, 2008
 			* added the CLI gems as dependencies for now until I separate out the CLI from the API wrapper
+			* cleaner CLI errors for no active account or no accounts at all
+			* remove sets a new active account if there are none
 			
 			
 0.3.1 - July 23, 2008
