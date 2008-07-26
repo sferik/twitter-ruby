@@ -62,4 +62,5 @@ tasks/environment.rake
 tasks/website.rake
 twitter.gemspec
 website/css/common.css
+website/images/terminal_output.png
 website/index.html
