@@ -5,12 +5,11 @@
 #   http://groups.google.com/group/twitter-development-talk/web/api-documentation
 module Twitter
   class Base
-    # Twitter's url, duh!
-    @@api_url   = 'twitter.com'
-    
+
     # Initializes the configuration for making requests to twitter
-    def initialize(email, password)
+    def initialize(email, password, host='twitter.com')
       @config, @config[:email], @config[:password] = {}, email, password
+      @api_host = host
     end
     
     # Returns an array of statuses for a timeline; Defaults to your friends timeline.
@@ -88,7 +87,7 @@ module Twitter
     
     # Sends a direct message <code>text</code> to <code>user</code>
     def d(user, text)
-      url = URI.parse("http://#{@@api_url}/direct_messages/new.xml")
+      url = URI.parse("http://#{@api_host}/direct_messages/new.xml")
       req = Net::HTTP::Post.new(url.path)
       req.basic_auth(@config[:email], @config[:password])
       req.set_form_data({'text' => text, 'user' => user})
@@ -161,7 +160,7 @@ module Twitter
     def post(status, options={})
       form_data = {'status' => status}
       form_data.merge({'source' => options[:source]}) if options[:source]
-      url = URI.parse("http://#{@@api_url}/statuses/update.xml")
+      url = URI.parse("http://#{@api_host}/statuses/update.xml")
       req = Net::HTTP::Post.new(url.path)
       req.basic_auth(@config[:email], @config[:password])
       req.set_form_data(form_data)
@@ -207,7 +206,7 @@ module Twitter
         end
         
         begin
-          response = Net::HTTP.start(@@api_url, 80) do |http|
+          response = Net::HTTP.start(@api_host, 80) do |http|
             req = Net::HTTP::Get.new('/' + path, options[:headers])
             req.basic_auth(@config[:email], @config[:password]) if options[:auth]
             http.request(req)
