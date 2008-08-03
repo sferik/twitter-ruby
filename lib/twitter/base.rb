@@ -5,11 +5,10 @@
 #   http://groups.google.com/group/twitter-development-talk/web/api-documentation
 module Twitter
   class Base
-
     # Initializes the configuration for making requests to twitter
-    def initialize(email, password, host='twitter.com')
+    def initialize(email, password, options={})
       @config, @config[:email], @config[:password] = {}, email, password
-      @api_host = host
+      @api_host = options.delete(:api_host) || 'twitter.com'
     end
     
     # Returns an array of statuses for a timeline; Defaults to your friends timeline.
@@ -97,12 +96,12 @@ module Twitter
     
     # Befriends id_or_screenname for the auth user
     def create_friendship(id_or_screenname)
-      users(request("friendships/create/#{id_or_screenname}.xml", :auth => true)).first
+      users(request("friendships/create/#{id_or_screenname}.xml", :auth => true, :method => :post)).first
     end
     
     # Defriends id_or_screenname for the auth user
     def destroy_friendship(id_or_screenname)
-      users(request("friendships/destroy/#{id_or_screenname}.xml", :auth => true)).first
+      users(request("friendships/destroy/#{id_or_screenname}.xml", :auth => true, :method => :post)).first
     end
     
     # Returns true if friendship exists, false if it doesn't.
@@ -113,22 +112,22 @@ module Twitter
     
     # Updates your location and returns Twitter::User object
     def update_location(location)
-      users(request(build_path('account/update_location.xml', {'location' => location}), :auth => true)).first
+      users(request(build_path('account/update_location.xml', {'location' => location}), :auth => true, :method => :post)).first
     end
     
     # Updates your deliver device and returns Twitter::User object
     def update_delivery_device(device)
-      users(request(build_path('account/update_delivery_device.xml', {'device' => device}), :auth => true)).first
+      users(request(build_path('account/update_delivery_device.xml', {'device' => device}), :auth => true, :method => :post)).first
     end
     
     # Turns notifications by id_or_screenname on for auth user.
     def follow(id_or_screenname)
-      users(request("notifications/follow/#{id_or_screenname}.xml", :auth => true)).first
+      users(request("notifications/follow/#{id_or_screenname}.xml", :auth => true, :method => :post)).first
     end
 
     # Turns notifications by id_or_screenname off for auth user.    
     def leave(id_or_screenname)
-      users(request("notifications/leave/#{id_or_screenname}.xml", :auth => true)).first
+      users(request("notifications/leave/#{id_or_screenname}.xml", :auth => true, :method => :post)).first
     end
     
     # Returns the most recent favorite statuses for the autenticating user
@@ -138,22 +137,22 @@ module Twitter
     
     # Favorites the status specified by id for the auth user
     def create_favorite(id)
-      statuses(request("favorites/create/#{id}.xml", :auth => true)).first
+      statuses(request("favorites/create/#{id}.xml", :auth => true, :method => :post)).first
     end
 
     # Un-favorites the status specified by id for the auth user
     def destroy_favorite(id)
-      statuses(request("favorites/destroy/#{id}.xml", :auth => true)).first
+      statuses(request("favorites/destroy/#{id}.xml", :auth => true, :method => :post)).first
     end
     
     # Blocks the user specified by id for the auth user
     def block(id)
-      users(request("blocks/create/#{id}.xml", :auth => true)).first
+      users(request("blocks/create/#{id}.xml", :auth => true, :method => :post)).first
     end
     
     # Unblocks the user specified by id for the auth user
     def unblock(id)
-      users(request("blocks/destroy/#{id}.xml", :auth => true)).first
+      users(request("blocks/destroy/#{id}.xml", :auth => true, :method => :post)).first
     end
     
     # Posts a new update to twitter for auth user.
@@ -199,7 +198,10 @@ module Twitter
       
       # Makes a request to twitter.
       def request(path, options={})
-        options.reverse_merge!({:headers => { "User-Agent" => @config[:email] }})
+        options.reverse_merge!({
+          :headers => { "User-Agent" => @config[:email] },
+          :method => :get
+        })
         unless options[:since].blank?
           since = options[:since].kind_of?(Date) ? options[:since].strftime('%a, %d-%b-%y %T GMT') : options[:since].to_s  
           options[:headers]["If-Modified-Since"] = since
@@ -207,7 +209,8 @@ module Twitter
         
         begin
           response = Net::HTTP.start(@api_host, 80) do |http|
-            req = Net::HTTP::Get.new('/' + path, options[:headers])
+            klass = Net::HTTP.const_get options[:method].to_s.downcase.capitalize
+            req = klass.new('/' + path, options[:headers])
             req.basic_auth(@config[:email], @config[:password]) if options[:auth]
             http.request(req)
           end
