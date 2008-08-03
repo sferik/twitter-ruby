@@ -6,6 +6,11 @@
 module Twitter
   class Base
     # Initializes the configuration for making requests to twitter
+    # Twitter example:
+    #   Twitter.new('email/username', 'password')
+    #
+    # Identi.ca example:
+    #   Twitter.new('email/username', 'password', :api_host => 'identi.ca/api')
     def initialize(email, password, options={})
       @config, @config[:email], @config[:password] = {}, email, password
       @api_host = options.delete(:api_host) || 'twitter.com'
@@ -207,10 +212,12 @@ module Twitter
           options[:headers]["If-Modified-Since"] = since
         end
         
+        uri = URI.parse("http://#{@api_host}")
+        
         begin
-          response = Net::HTTP.start(@api_host, 80) do |http|
+          response = Net::HTTP.start(uri.host, 80) do |http|
             klass = Net::HTTP.const_get options[:method].to_s.downcase.capitalize
-            req = klass.new('/' + path, options[:headers])
+            req = klass.new("#{uri.path}/#{path}", options[:headers])
             req.basic_auth(@config[:email], @config[:password]) if options[:auth]
             http.request(req)
           end

@@ -12,6 +12,7 @@ examples/direct_messages.rb
 examples/favorites.rb
 examples/friends_followers.rb
 examples/friendships.rb
+examples/identica_timeline.rb
 examples/location.rb
 examples/replies.rb
 examples/sent_messages.rb
