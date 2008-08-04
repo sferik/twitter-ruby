@@ -67,7 +67,22 @@ twit.followers.each do |u|
 end
 		</code></pre>
 		
-		<h2>Command Line</h2> 
+		<h2>Search API Examples</h2>
+		
+<pre><code>#searches all tweets for httparty
+Twitter::Search.new('httparty').each { |r| puts r.inspect }
+
+# searches all of jnunemaker's tweets for httparty
+Twitter::Search.new('httparty').from('jnunemaker').each { |r| puts r.inspect }
+
+# searches all tweets from jnunemaker to oaknd1
+Twitter::Search.new.from('jnunemaker').to('oaknd1').each { |r| puts r.inspect }
+
+# you can also use fetch to actually just get the parsed response
+Twitter::Search.new.from('jnunemaker').to('oaknd1').fetch()
+</code></pre>
+		
+		<h2>Command Line</h2>
 
 		<p><img src="images/terminal_output.png" alt="Terminal Output" style="width:560px;" /></p>
 		

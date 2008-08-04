@@ -1,6 +1,10 @@
-require 'rubygems'
-gem 'rspec'
-require 'spec'
+begin
+  require 'spec'
+rescue LoadError
+  require 'rubygems'
+  gem 'rspec'
+  require 'spec'
+end
 
 dir = File.dirname(__FILE__)
 

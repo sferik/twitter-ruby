@@ -3,7 +3,6 @@ License.txt
 Manifest.txt
 README.txt
 Rakefile
-TODO.txt
 bin/twitter
 config/hoe.rb
 config/requirements.rb
@@ -15,6 +14,7 @@ examples/friendships.rb
 examples/identica_timeline.rb
 examples/location.rb
 examples/replies.rb
+examples/search.rb
 examples/sent_messages.rb
 examples/timeline.rb
 examples/twitter.rb
@@ -34,6 +34,7 @@ lib/twitter/cli/models/tweet.rb
 lib/twitter/direct_message.rb
 lib/twitter/easy_class_maker.rb
 lib/twitter/rate_limit_status.rb
+lib/twitter/search.rb
 lib/twitter/status.rb
 lib/twitter/user.rb
 lib/twitter/version.rb
@@ -51,9 +52,11 @@ spec/fixtures/friends_lite.xml
 spec/fixtures/friends_timeline.xml
 spec/fixtures/public_timeline.xml
 spec/fixtures/rate_limit_status.xml
+spec/fixtures/search_results.json
 spec/fixtures/status.xml
 spec/fixtures/user.xml
 spec/fixtures/user_timeline.xml
+spec/search_spec.rb
 spec/spec.opts
 spec/spec_helper.rb
 spec/status_spec.rb

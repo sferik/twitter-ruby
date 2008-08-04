@@ -36,6 +36,13 @@ sudo gem install twitter will work just fine. For command line use, you'll need 
 	  puts u.name, u.status.text
 	  puts
 	end
+	
+== Search Examples
+
+	Twitter::Search.new('httparty').each { |r| puts r.inspect }
+	Twitter::Search.new('httparty').from('jnunemaker').each { |r| puts r.inspect }
+	Twitter::Search.new.from('jnunemaker').to('oaknd1').each { |r| puts r.inspect }
+	
 
 == Command Line Use
 	

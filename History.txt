@@ -1,3 +1,6 @@
+0.3.4 - August 3, 2008
+			* Added search support
+			
 0.3.3 - August 3, 2008
 			* Now has option for host when initializing to support identi.ca (Dustin Sallings)
 			* Twitter changed a bunch of methods to POST only so I updated those to now work
