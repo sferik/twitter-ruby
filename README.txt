@@ -45,6 +45,8 @@ sudo gem install twitter will work just fine. For command line use, you'll need 
 	
 
 == Command Line Use
+
+Note: If you want to use twitter from the command line be sure that sqlite3 and the sqlite3-ruby gem are installed. I removed the sqlite3-ruby gem as a dependency because you shouldn't need that to just use the API wrapper. Eventually I'll move the CLI interface into another gem.
 	
 	$ twitter
 

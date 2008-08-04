@@ -1,10 +1,10 @@
 Gem::Specification.new do |s|
   s.name = %q{twitter}
-  s.version = "0.3.4"
+  s.version = "0.3.5"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["John Nunemaker"]
-  s.date = %q{2008-08-03}
+  s.date = %q{2008-08-04}
   s.default_executable = %q{twitter}
   s.description = %q{a command line interface for twitter, also a library which wraps the twitter api}
   s.email = %q{nunemaker@gmail.com}
@@ -29,7 +29,6 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<main>, [">= 2.8.2"])
       s.add_runtime_dependency(%q<highline>, [">= 1.4.0"])
       s.add_runtime_dependency(%q<activerecord>, [">= 2.1"])
-      s.add_runtime_dependency(%q<sqlite3-ruby>, [">= 1.2.2"])
       s.add_runtime_dependency(%q<httparty>, [">= 0.1.0"])
     else
       s.add_dependency(%q<hpricot>, [">= 0.6"])
@@ -37,7 +36,6 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<main>, [">= 2.8.2"])
       s.add_dependency(%q<highline>, [">= 1.4.0"])
       s.add_dependency(%q<activerecord>, [">= 2.1"])
-      s.add_dependency(%q<sqlite3-ruby>, [">= 1.2.2"])
       s.add_dependency(%q<httparty>, [">= 0.1.0"])
     end
   else
@@ -46,7 +44,6 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<main>, [">= 2.8.2"])
     s.add_dependency(%q<highline>, [">= 1.4.0"])
     s.add_dependency(%q<activerecord>, [">= 2.1"])
-    s.add_dependency(%q<sqlite3-ruby>, [">= 1.2.2"])
     s.add_dependency(%q<httparty>, [">= 0.1.0"])
   end
 end

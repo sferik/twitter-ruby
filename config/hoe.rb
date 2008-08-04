@@ -63,8 +63,7 @@ hoe = Hoe.new(GEM_NAME, VERS) do |p|
   #p.extra_deps = []     # An array of rubygem dependencies [name, version], e.g. [ ['active_support', '>= 1.3.1'] ]
   p.extra_deps = [['hpricot', '>= 0.6'], ['activesupport', '>= 2.1'], 
                   ['main', '>= 2.8.2'], ['highline', '>= 1.4.0'], 
-                  ['activerecord', '>= 2.1'], ['sqlite3-ruby', '>= 1.2.2'], 
-                  ['httparty', '>= 0.1.0']]
+                  ['activerecord', '>= 2.1'], ['httparty', '>= 0.1.0']]
   #p.spec_extras = {}    # A hash of extra values to set in the gemspec.
   
 end
