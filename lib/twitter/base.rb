@@ -86,17 +86,12 @@ module Twitter
     
     # destroys a give direct message by id if the auth user is a recipient
     def destroy_direct_message(id)
-      request("direct_messages/destroy/#{id}.xml", :auth => true)
+      DirectMessage.new_from_xml(request("direct_messages/destroy/#{id}.xml", :auth => true, :method => :post))
     end
     
     # Sends a direct message <code>text</code> to <code>user</code>
     def d(user, text)
-      url = URI.parse("http://#{@api_host}/direct_messages/new.xml")
-      req = Net::HTTP::Post.new(url.path)
-      req.basic_auth(@config[:email], @config[:password])
-      req.set_form_data({'text' => text, 'user' => user})
-      response = Net::HTTP.new(url.host, url.port).start { |http| http.request(req) }
-      DirectMessage.new_from_xml(parse(response.body).at('direct_message'))
+      DirectMessage.new_from_xml(request('direct_messages/new.xml', :auth => true, :method => :post, :form_data => {'text' => text, 'user' => user}))
     end
     
     # Befriends id_or_screenname for the auth user
@@ -164,12 +159,7 @@ module Twitter
     def post(status, options={})
       form_data = {'status' => status}
       form_data.merge({'source' => options[:source]}) if options[:source]
-      url = URI.parse("http://#{@api_host}/statuses/update.xml")
-      req = Net::HTTP::Post.new(url.path)
-      req.basic_auth(@config[:email], @config[:password])
-      req.set_form_data(form_data)
-      response = Net::HTTP.new(url.host, url.port).start { |http| http.request(req) }
-      Status.new_from_xml(parse(response.body).at('status'))
+      Status.new_from_xml(request('statuses/update.xml', :auth => true, :method => :post, :form_data => form_data))
     end
     alias :update :post
     
@@ -219,6 +209,9 @@ module Twitter
             klass = Net::HTTP.const_get options[:method].to_s.downcase.capitalize
             req = klass.new("#{uri.path}/#{path}", options[:headers])
             req.basic_auth(@config[:email], @config[:password]) if options[:auth]
+            if options[:method].to_s == 'post' && options[:form_data]
+              req.set_form_data(options[:form_data])
+            end
             http.request(req)
           end
         rescue => error

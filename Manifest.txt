@@ -13,6 +13,7 @@ examples/friends_followers.rb
 examples/friendships.rb
 examples/identica_timeline.rb
 examples/location.rb
+examples/posting.rb
 examples/replies.rb
 examples/search.rb
 examples/sent_messages.rb
