@@ -12,8 +12,8 @@ module Twitter
     # Identi.ca example:
     #   Twitter.new('email/username', 'password', :api_host => 'identi.ca/api')
     def initialize(email, password, options={})
-      @config, @config[:email], @config[:password] = {}, email, password
       @api_host = options.delete(:api_host) || 'twitter.com'
+      @config, @config[:email], @config[:password] = options, email, password
     end
     
     # Returns an array of statuses for a timeline; Defaults to your friends timeline.
