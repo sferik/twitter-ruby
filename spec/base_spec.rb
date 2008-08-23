@@ -16,7 +16,11 @@ describe "Twitter::Base" do
       lambda { @base.timeline(:fakeyoutey) }.should raise_error(Twitter::UnknownTimeline)
     end
     
-    it "should default to friends timeline"
+    it "should default to friends timeline" do
+      @base.should_receive(:call).with("friends_timeline", :anything)
+      @base.should_receive(:statuses).with(:anything)
+      @base.timeline
+    end
     
     it "should be able to retrieve friends timeline" do
       data = open(File.dirname(__FILE__) + '/fixtures/friends_timeline.xml').read
