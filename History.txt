@@ -1,3 +1,6 @@
+0.3.7 - August 26, 2008
+			* Fixed source param not getting through
+
 0.3.6 - August 11, 2008
 			* Fixed a few more methods that required post.
 			* Refactored the remaining methods that were not using #request to use it.

@@ -158,7 +158,7 @@ module Twitter
     # Posts a new update to twitter for auth user.
     def post(status, options={})
       form_data = {'status' => status}
-      form_data.merge({'source' => options[:source]}) if options[:source]
+      form_data.merge!({'source' => options[:source]}) if options[:source]
       Status.new_from_xml(request('statuses/update.xml', :auth => true, :method => :post, :form_data => form_data))
     end
     alias :update :post
