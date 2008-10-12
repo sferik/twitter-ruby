@@ -166,7 +166,7 @@ module Twitter
     # Verifies the credentials for the auth user.
     #   raises Twitter::CantConnect on failure.
     def verify_credentials
-      request('account/verify_credentials', :auth => true)
+      request('account/verify_credentials.xml', :auth => true)
     end
     
     private      
