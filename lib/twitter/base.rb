@@ -159,6 +159,7 @@ module Twitter
     def post(status, options={})
       form_data = {'status' => status}
       form_data.merge!({'source' => options[:source]}) if options[:source]
+      form_data.merge!({'in_reply_to_status_id' => options[:in_reply_to_status_id]}) if options[:in_reply_to_status_id]
       Status.new_from_xml(request('statuses/update.xml', :auth => true, :method => :post, :form_data => form_data))
     end
     alias :update :post
