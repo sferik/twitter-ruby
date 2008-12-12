@@ -205,7 +205,7 @@ module Twitter
         uri = URI.parse("http://#{@api_host}")
         
         begin
-          response = Net::HTTP.start(uri.host, 80) do |http|
+          response = Net::HTTP::Proxy(options[:proxy_host], options[:proxy_port]).start(uri.host, uri.port) do |http|
             klass = Net::HTTP.const_get options[:method].to_s.downcase.capitalize
             req = klass.new("#{uri.path}/#{path}", options[:headers])
             req.basic_auth(@config[:email], @config[:password]) if options[:auth]
