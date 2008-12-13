@@ -1,5 +1,5 @@
 desc 'Preps the gem for a new release'
-task :prep_for_release do
+task :prepare do
   require 'rio'
   Rake::Task['manifest:refresh'].invoke
   gemspec = %x[rake debug_gem]
