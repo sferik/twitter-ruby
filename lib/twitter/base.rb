@@ -230,6 +230,10 @@ module Twitter
           raise Unavailable, response.message
         elsif response.code == '401'
           raise CantConnect, 'Authentication failed. Check your username and password'
+        elsif response.code == '403'
+          raise CantFindUsers if (response/:hash/:error).text =~ /Could not find both specified users/
+          raise AlreadyFollowing if (response/:hash/:error).text =~ /already on your list/
+          raise CantFollowUser, "Response code #{response.code}: #{response.message} #{(response/:hash/:error).text}"
         else
           raise CantConnect, "Twitter is returning a #{response.code}: #{response.message}"
         end

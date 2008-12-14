@@ -69,6 +69,18 @@ describe "Twitter::Base" do
       timeline.size.should == 29
       timeline.first.name.should == 'Blaine Cook'
     end
+    
+    it "should be able to create a friendship" do
+      data = open(File.dirname(__FILE__) + '/fixtures/friendship_created.xml').read
+      @base.should_receive(:request).and_return(Hpricot::XML(data))
+      user = @base.create_friendship('jnunemaker')
+    end
+    
+    it "should bomb if friendship already exists" #do
+    #  data = open(File.dirname(__FILE__) + '/fixtures/friendship_already_exists.xml').read
+    #  @base.should_receive(:request).and_return(Hpricot::XML(data))
+    #  lambda { @base.create_friendship('billymeltdown') }.should raise_error(Twitter::AlreadyFollowing)
+    #end
   end
   
   it "should be able to get single status" do

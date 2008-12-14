@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hash>
+  <request>/friendships/create/billymeltdown.xml</request>
+  <error>Could not follow user: billymeltdown is already on your list.</error>
+</hash>
