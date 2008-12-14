@@ -231,9 +231,11 @@ module Twitter
         elsif response.code == '401'
           raise CantConnect, 'Authentication failed. Check your username and password'
         elsif response.code == '403'
-          raise CantFindUsers if (response/:hash/:error).text =~ /Could not find both specified users/
-          raise AlreadyFollowing if (response/:hash/:error).text =~ /already on your list/
-          raise CantFollowUser, "Response code #{response.code}: #{response.message} #{(response/:hash/:error).text}"
+          # get an Hpricot document
+          doc = parse(response.body)
+          raise CantFindUsers, (doc/:hash/:error).text if (doc/:hash/:error).text =~ /Could not find both specified users/
+          raise AlreadyFollowing, (doc/:hash/:error).text if (doc/:hash/:error).text =~ /already on your list/
+          raise CantFollowUser, "Response code #{response.code}: #{response.message} #{(doc/:hash/:error).text}"
         else
           raise CantConnect, "Twitter is returning a #{response.code}: #{response.message}"
         end
