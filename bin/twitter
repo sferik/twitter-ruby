@@ -10,6 +10,11 @@ if ARGV[0] && ARGV[0] == 'd' && !STDIN.tty?
   ARGV[2] = "#{STDIN.read}#{ARGV[2]}"
 end
 
-$:.unshift File.join(File.dirname(__FILE__), '..', 'lib')
+require 'rubygems'
+
+gem 'main', '>= 2.8.2'
+gem 'highline', '>= 1.4.0'
+gem 'activerecord', '>= 2.1'
+
 require 'twitter'
 require 'twitter/cli'
