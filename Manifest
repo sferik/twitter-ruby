@@ -1,11 +1,4 @@
-History.txt
-License.txt
-Manifest.txt
-README.txt
-Rakefile
 bin/twitter
-config/hoe.rb
-config/requirements.rb
 examples/blocks.rb
 examples/direct_messages.rb
 examples/favorites.rb
@@ -20,9 +13,8 @@ examples/sent_messages.rb
 examples/timeline.rb
 examples/twitter.rb
 examples/verify_credentials.rb
-lib/twitter.rb
+History
 lib/twitter/base.rb
-lib/twitter/cli.rb
 lib/twitter/cli/config.rb
 lib/twitter/cli/helpers.rb
 lib/twitter/cli/migrations/20080722194500_create_accounts.rb
@@ -32,6 +24,7 @@ lib/twitter/cli/migrations/20080722214606_create_configurations.rb
 lib/twitter/cli/models/account.rb
 lib/twitter/cli/models/configuration.rb
 lib/twitter/cli/models/tweet.rb
+lib/twitter/cli.rb
 lib/twitter/direct_message.rb
 lib/twitter/easy_class_maker.rb
 lib/twitter/rate_limit_status.rb
@@ -39,10 +32,11 @@ lib/twitter/search.rb
 lib/twitter/status.rb
 lib/twitter/user.rb
 lib/twitter/version.rb
-script/destroy
-script/generate
-script/txt2html
-setup.rb
+lib/twitter.rb
+License
+Manifest
+Rakefile
+README
 spec/base_spec.rb
 spec/cli/helper_spec.rb
 spec/direct_message_spec.rb
@@ -62,9 +56,6 @@ spec/spec.opts
 spec/spec_helper.rb
 spec/status_spec.rb
 spec/user_spec.rb
-tasks/deployment.rake
-tasks/environment.rake
-tasks/website.rake
 twitter.gemspec
 website/css/common.css
 website/images/terminal_output.png

@@ -11,7 +11,7 @@ module Twitter
     
     def initialize(q=nil)
       clear
-      containing(q) unless q.blank?
+      containing(q) if q && q.strip != ''
     end
     
     def from(user)

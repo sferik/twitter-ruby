@@ -184,7 +184,7 @@ module Twitter
       # 
       # ie: call(:public_timeline, :auth => false)
       def call(method, options={})
-        options.reverse_merge!({ :auth => true, :args => {} })
+        options = { :auth => true, :args => {} }.merge(options)
         # Following line needed as lite=false doesn't work in the API: http://tinyurl.com/yo3h5d
         options[:args].delete(:lite) unless options[:args][:lite]
         args = options.delete(:args)
@@ -193,11 +193,12 @@ module Twitter
       
       # Makes a request to twitter.
       def request(path, options={})
-        options.reverse_merge!({
+        options = {
           :headers => { "User-Agent" => @config[:email] },
-          :method => :get
-        })
-        unless options[:since].blank?
+          :method => :get,
+        }.merge(options)
+        
+        unless options[:since].nil?
           since = options[:since].kind_of?(Date) ? options[:since].strftime('%a, %d-%b-%y %T GMT') : options[:since].to_s  
           options[:headers]["If-Modified-Since"] = since
         end
@@ -233,7 +234,11 @@ module Twitter
     
       # Given a path and a hash, build a full path with the hash turned into a query string
       def build_path(path, options)
-        path += "?#{options.to_query}" unless options.blank?
+        unless options.nil?
+          query = options.inject('') { |str, h| str += "#{CGI.escape(h[0].to_s)}=#{CGI.escape(h[1].to_s)}&"; str }
+          path += "?#{query}"
+        end
+        
         path
       end
 

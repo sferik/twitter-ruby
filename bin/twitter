@@ -10,11 +10,5 @@ if ARGV[0] && ARGV[0] == 'd' && !STDIN.tty?
   ARGV[2] = "#{STDIN.read}#{ARGV[2]}"
 end
 
-require 'rubygems'
-
-gem 'main', '>= 2.8.2'
-gem 'highline', '>= 1.4.0'
-gem 'activerecord', '>= 2.1'
-
-require 'twitter'
+require File.expand_path(File.join(File.dirname(__FILE__), '..', 'lib', 'twitter'))
 require 'twitter/cli'

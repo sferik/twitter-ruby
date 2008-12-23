@@ -1,6 +1,12 @@
-%w(uri cgi net/http yaml rubygems hpricot active_support).each { |f| require f }
+require 'uri'
+require 'cgi'
+require 'net/http'
+require 'yaml'
+require 'time'
+require 'rubygems'
+require 'hpricot'
 
-$:.unshift(File.join(File.dirname(__FILE__)))
+$:.unshift(File.dirname(__FILE__))
 require 'twitter/version'
 require 'twitter/easy_class_maker'
 require 'twitter/base'

@@ -5,24 +5,34 @@ module Twitter
       class NoAccounts < StandardError; end
       
       def output_tweets(collection, options={})
-        options.reverse_merge!({
+        options = {
           :cache        => false,
           :since_prefix => '',
           :empty_msg    => 'Nothing new since your last check.'
-        })
+        }.merge(options)
+        
         if collection.size > 0
           justify   = collection.collect { |s| s.user.screen_name }.max { |a,b| a.length <=> b.length }.length rescue 0
           indention = ' ' * (justify + 3)
           say("\n#{indention}#{collection.size} new tweet(s) found.\n\n")
           collection.each do |s|
             Tweet.create_from_tweet(current_account, s) if options[:cache]
+            
             occurred_at    = Time.parse(s.created_at).strftime('On %b %d at %l:%M%P')
             formatted_time = '-' * occurred_at.length + "\n#{indention}#{occurred_at}"
             formatted_name = s.user.screen_name.rjust(justify + 1)
             formatted_msg  = ''
-            s.text.split(' ').in_groups_of(6, false) { |row| formatted_msg += row.join(' ') + "\n#{indention}" }
-            say "#{CGI::unescapeHTML(formatted_name)}: #{CGI::unescapeHTML(formatted_msg)}#{formatted_time}\n\n"
+            
+            s.text.split(' ').each_with_index do |word, idx|
+              formatted_msg += "#{word} "
+              
+              sixth_word = idx != 0 && idx % 6 == 0
+              formatted_msg += "\n#{indention}" if sixth_word
+            end
+            
+            say "#{CGI::unescapeHTML(formatted_name)}: #{CGI::unescapeHTML(formatted_msg)}\n#{indention}#{formatted_time}\n\n"
           end
+          
           Configuration["#{options[:since_prefix]}_since_id"] = collection.first.id
         else
           say(options[:empty_msg])
@@ -35,7 +45,7 @@ module Twitter
       
       def current_account
         @current_account ||= Account.active        
-        raise Account.count == 0 ? NoAccounts : NoActiveAccount if @current_account.blank?
+        raise Account.count == 0 ? NoAccounts : NoActiveAccount if @current_account.nil?
         @current_account
       end
       
@@ -44,7 +54,7 @@ module Twitter
         if File.exists?(tweet_file)
           say '.twitter file found, attempting import...'
           config = YAML::load(File.read(tweet_file))
-          if !config['email'].blank? && !config['password'].blank?
+          if !config['email'].nil? && !config['password'].nil?
             Account.add(:username => config['email'], :password => config['password'])
             say 'Account imported'
             block.call if block_given?
