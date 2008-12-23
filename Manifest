@@ -56,6 +56,7 @@ spec/spec.opts
 spec/spec_helper.rb
 spec/status_spec.rb
 spec/user_spec.rb
+twitter.gemspec
 website/css/common.css
 website/images/terminal_output.png
 website/index.html

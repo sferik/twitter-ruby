@@ -1,4 +1,5 @@
 require 'rubygems'
+require 'activesupport'
 require File.join(File.dirname(__FILE__), '..', 'lib', 'twitter')
 config = YAML::load(open(ENV['HOME'] + '/.twitter'))
 

@@ -1,3 +1,10 @@
+0.4.0 - December 23, 2008
+* 3 major changes
+  * Removed active support as dependency
+  * Removed CLI dependencies from install dependency list
+      (they are now only installed by you manually)
+  * Switched to echoe for gem managment
+      
 0.3.7 - August 26, 2008
 			* Fixed source param not getting through
 
