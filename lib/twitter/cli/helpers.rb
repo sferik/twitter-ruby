@@ -8,13 +8,15 @@ module Twitter
         options = {
           :cache        => false,
           :since_prefix => '',
-          :empty_msg    => 'Nothing new since your last check.'
+          :empty_msg    => 'Nothing new since your last check.',
+          :reverse      => false
         }.merge(options)
         
         if collection.size > 0
           justify   = collection.collect { |s| s.user.screen_name }.max { |a,b| a.length <=> b.length }.length rescue 0
           indention = ' ' * (justify + 3)
           say("\n#{indention}#{collection.size} new tweet(s) found.\n\n")
+          collection.reverse! if options[:reverse]
           collection.each do |s|
             Tweet.create_from_tweet(current_account, s) if options[:cache]
             
@@ -33,7 +35,7 @@ module Twitter
             say "#{CGI::unescapeHTML(formatted_name)}: #{CGI::unescapeHTML(formatted_msg)}\n#{indention}#{formatted_time}\n\n"
           end
           
-          Configuration["#{options[:since_prefix]}_since_id"] = collection.first.id
+          Configuration["#{options[:since_prefix]}_since_id"] = options[:reverse] ? collection.last.id : collection.first.id
         else
           say(options[:empty_msg])
         end

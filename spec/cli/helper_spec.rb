@@ -35,7 +35,15 @@ describe Twitter::CLI::Helpers do
     end
     
     specify "should properly format" do
-      output_tweets(@collection)
+      stdout_for {
+        output_tweets(@collection)
+      }.should match /with a few words[\w\W]*with a\./
+    end
+    
+    specify 'should format in reverse' do
+      stdout_for {
+        output_tweets(@collection, :reverse => true)
+      }.should match /with a\.[\w\W]*with a few words/
     end
   end
 end
