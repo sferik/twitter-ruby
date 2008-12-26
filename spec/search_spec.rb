@@ -73,13 +73,20 @@ describe Twitter::Search do
   
   describe "fetching" do
     before do
-      @response = open(File.dirname(__FILE__) + '/fixtures/friends_timeline.xml').read
+      @response = YAML.load_file(File.dirname(__FILE__) + '/fixtures/search_result_info.yml')
       @search.class.stub!(:get).and_return(@response)
     end
     
     it "should return results" do
       @search.class.should_receive(:get).and_return(@response)
       @search.from('jnunemaker').fetch().should == @response
+    end
+    
+    it "should support dot notation" do
+      @search.class.should_receive(:get).and_return(@response)
+      info = @search.from('httparty').fetch()
+      info["max_id"].should == info.max_id
+      info["results"].first["text"].should == info.results.first.text
     end
   end
   

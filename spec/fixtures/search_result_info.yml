@@ -1,0 +1,147 @@
+--- !map:Twitter::SearchResultInfo 
+results: 
+- !map:Twitter::SearchResult 
+  text: "@jqr - wow.  just really looked at httparty for first time - sweet! - have you been using that a lot?"
+  to_user_id: 176589
+  to_user: jqr
+  from_user: baldwindavid
+  id: 1073680192
+  from_user_id: 804487
+  iso_language_code: en
+  profile_image_url: http://s3.amazonaws.com/twitter_production/profile_images/67146299/before_400_normal.jpg
+  created_at: Tue, 23 Dec 2008 04:20:12 +0000
+- !map:Twitter::SearchResult 
+  text: the httparty gem rocks my socks.  no better way to consume web services in ruby.
+  to_user_id: 
+  from_user: mildmojo
+  id: 1073135700
+  from_user_id: 2090305
+  iso_language_code: en
+  profile_image_url: http://s3.amazonaws.com/twitter_production/profile_images/65215459/appicon_normal.png
+  created_at: Mon, 22 Dec 2008 22:20:43 +0000
+- !map:Twitter::SearchResult 
+  text: It's an HTTParty and everyone is invited!
+  to_user_id: 
+  from_user: mypheme
+  id: 1067975762
+  from_user_id: 3067473
+  iso_language_code: en
+  profile_image_url: http://s3.amazonaws.com/twitter_production/profile_images/67872558/Picture_3_normal.png
+  created_at: Fri, 19 Dec 2008 22:09:23 +0000
+- !map:Twitter::SearchResult 
+  text: dans la famille des clients http,vous connaissiez curb, httparty, mais connaissiez-vous httpclient ? http://dev.ctor.org/httpclient/
+  to_user_id: 
+  from_user: rubyfrance
+  id: 1064812719
+  from_user_id: 70780
+  iso_language_code: fr
+  profile_image_url: http://s3.amazonaws.com/twitter_production/profile_images/51884877/twitter_normal.png
+  created_at: Thu, 18 Dec 2008 12:46:27 +0000
+- !map:Twitter::SearchResult 
+  text: "@jnunemaker have you ever seen httparty get a Net::HTTPServerException: 411 &quot;Length Required&quot; back?"
+  to_user_id: 19106
+  to_user: jnunemaker
+  from_user: techpickles
+  id: 1064375973
+  from_user_id: 22902
+  iso_language_code: en
+  profile_image_url: http://s3.amazonaws.com/twitter_production/profile_images/64410494/Photo_9_normal.jpg
+  created_at: Thu, 18 Dec 2008 05:24:23 +0000
+- !map:Twitter::SearchResult 
+  text: playing with the tumblr api, httparty style
+  to_user_id: 
+  from_user: techpickles
+  id: 1064355666
+  from_user_id: 22902
+  iso_language_code: en
+  profile_image_url: http://s3.amazonaws.com/twitter_production/profile_images/64410494/Photo_9_normal.jpg
+  created_at: Thu, 18 Dec 2008 05:07:59 +0000
+- !map:Twitter::SearchResult 
+  text: Testing from HTTParty, awesome ruby gem that allows for easy access to APIs over http.
+  to_user_id: 
+  from_user: simonreed
+  id: 1063822669
+  from_user_id: 63911
+  iso_language_code: en
+  profile_image_url: http://s3.amazonaws.com/twitter_production/profile_images/53963586/fu_normal.jpg
+  created_at: Wed, 17 Dec 2008 23:21:34 +0000
+- !map:Twitter::SearchResult 
+  text: It's an HTTParty and everyone is invited!
+  to_user_id: 
+  from_user: bernsno
+  id: 1063277742
+  from_user_id: 1495935
+  iso_language_code: en
+  profile_image_url: http://s3.amazonaws.com/twitter_production/profile_images/63820805/me_normal.gif
+  created_at: Wed, 17 Dec 2008 18:25:31 +0000
+- !map:Twitter::SearchResult 
+  text: "[ruby] Using Context and Stump to HTTParty like a Wufoo"
+  to_user_id: 
+  from_user: rubymentary
+  id: 1062068801
+  from_user_id: 474717
+  iso_language_code: en
+  profile_image_url: http://static.twitter.com/images/default_profile_normal.png
+  created_at: Wed, 17 Dec 2008 03:37:00 +0000
+- !map:Twitter::SearchResult 
+  text: "net/http\xE3\x81\xAEwrapper\xE3\x81\xA0\xE3\x81\xA3\xE3\x81\x9F\xE3\x80\x82\xE3\x80\x82\xE3\x80\x82 &gt; HTTParty re: http://ff.im/h1Dg"
+  to_user_id: 
+  from_user: nahi
+  id: 1061821371
+  from_user_id: 36221
+  iso_language_code: "no"
+  profile_image_url: http://static.twitter.com/images/default_profile_normal.png
+  created_at: Wed, 17 Dec 2008 00:58:19 +0000
+- !map:Twitter::SearchResult 
+  text: Using HTTParty to wrap the Wufoo form submit API, as we are switching the Ordered List contact form to Wufoo.
+  to_user_id: 
+  from_user: jnunemaker
+  id: 1061117717
+  from_user_id: 19106
+  iso_language_code: en
+  profile_image_url: http://s3.amazonaws.com/twitter_production/profile_images/61024905/black250_normal.jpg
+  created_at: Tue, 16 Dec 2008 18:25:28 +0000
+- !map:Twitter::SearchResult 
+  text: Playing with HTTParty. Like it already. :)
+  to_user_id: 
+  from_user: atog
+  id: 1058725999
+  from_user_id: 21795
+  iso_language_code: en
+  profile_image_url: http://s3.amazonaws.com/twitter_production/profile_images/61430136/ikke_vierkant_normal.jpg
+  created_at: Mon, 15 Dec 2008 16:06:26 +0000
+- !map:Twitter::SearchResult 
+  text: HTTParty is like sweet candy...
+  to_user_id: 
+  from_user: levicole
+  id: 1055553905
+  from_user_id: 111971
+  iso_language_code: en
+  profile_image_url: http://s3.amazonaws.com/twitter_production/profile_images/24274692/Photo_2_normal.jpg
+  created_at: Sat, 13 Dec 2008 17:52:01 +0000
+- !map:Twitter::SearchResult 
+  text: "thinking httparty needs a bit of morph class generation magic: http://tinyurl.com/6774gz"
+  to_user_id: 
+  from_user: delineator
+  id: 1054352107
+  from_user_id: 102024
+  iso_language_code: en
+  profile_image_url: http://s3.amazonaws.com/twitter_production/profile_images/63867007/rob_64_64_normal.png
+  created_at: Fri, 12 Dec 2008 22:53:41 +0000
+- !map:Twitter::SearchResult 
+  text: To use HTTParty, or just net/http? I'm going to have to change some headers, which means digging around. Hrm.
+  to_user_id: 
+  from_user: HibiscuS4
+  id: 1050622779
+  from_user_id: 8780
+  iso_language_code: en
+  profile_image_url: http://s3.amazonaws.com/twitter_production/profile_images/60311231/Photo_9_normal.jpg
+  created_at: Thu, 11 Dec 2008 04:13:06 +0000
+since_id: 0
+max_id: 1078578631
+refresh_url: ?since_id=1078578631&q=httparty
+results_per_page: 15
+next_page: ?page=2&max_id=1078578631&q=httparty
+completed_in: 0.018799
+page: 1
+query: httparty

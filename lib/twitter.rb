@@ -15,6 +15,8 @@ require 'twitter/search'
 require 'twitter/status'
 require 'twitter/direct_message'
 require 'twitter/rate_limit_status'
+require 'twitter/search_result_info'
+require 'twitter/search_result'
 
 module Twitter
   class Unavailable < StandardError; end

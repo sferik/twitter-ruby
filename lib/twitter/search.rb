@@ -83,7 +83,7 @@ module Twitter
     # If you want to get results do something other than iterate over them.
     def fetch
       @query[:q] = @query[:q].join(' ')
-      self.class.get('/search.json', {:query => @query})
+      SearchResultInfo.new_from_hash(self.class.get('/search.json', {:query => @query}))
     end
     
     def each
@@ -92,3 +92,4 @@ module Twitter
     end
   end
 end
+
