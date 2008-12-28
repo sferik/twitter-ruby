@@ -179,7 +179,7 @@ Main {
         end
         post_thread.join
         progress_thread.join
-        say "Got it! New twitter created at: #{status.created_at}\n"
+        say "Got it! New tweet created at: #{status.created_at}\n"
       end
     end
   end
@@ -217,7 +217,7 @@ Main {
   end
   
   mode 'follow' do
-    description "Allows you to turn on notifications for a user"
+    description "Allows you to add notifications for a user (aka Follow Them)"
     argument('username') {
       required
       description 'username or id of twitterrer to follow'
@@ -291,7 +291,7 @@ Main {
   end
   
   mode 'replies' do
-    description 'Allows you to view all @replies at you'
+    description 'Allows you to view all @replies sent to you'
     option('force', 'f') {
       description "Ignore since_id and show first page of replies even if there aren't new ones"
     }
