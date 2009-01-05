@@ -76,11 +76,13 @@ describe "Twitter::Base" do
       user = @base.create_friendship('jnunemaker')
     end
     
-    it "should bomb if friendship already exists" #do
-    #  data = open(File.dirname(__FILE__) + '/fixtures/friendship_already_exists.xml').read
-    #  @base.should_receive(:request).and_return(Hpricot::XML(data))
-    #  lambda { @base.create_friendship('billymeltdown') }.should raise_error(Twitter::AlreadyFollowing)
-    #end
+    it "should bomb if friendship already exists" do
+      data = open(File.dirname(__FILE__) + '/fixtures/friendship_already_exists.xml').read
+      response = Net::HTTPForbidden.new("1.1", '403', '')
+      response.stub!(:body).and_return(data)
+      @base.should_receive(:response).and_return(response)
+      lambda { @base.create_friendship('billymeltdown') }.should raise_error(Twitter::AlreadyFollowing)
+    end
   end
   
   it "should be able to get single status" do

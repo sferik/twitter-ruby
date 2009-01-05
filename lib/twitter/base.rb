@@ -194,18 +194,7 @@ module Twitter
         request(build_path("statuses/#{method.to_s}.xml", args), options)
       end
       
-      # Makes a request to twitter.
-      def request(path, options={})
-        options = {
-          :headers => { "User-Agent" => @config[:email] },
-          :method => :get,
-        }.merge(options)
-        
-        unless options[:since].nil?
-          since = options[:since].kind_of?(Date) ? options[:since].strftime('%a, %d-%b-%y %T GMT') : options[:since].to_s  
-          options[:headers]["If-Modified-Since"] = since
-        end
-        
+      def response(path, options={})
         uri = URI.parse("http://#{@api_host}")
         
         begin
@@ -221,7 +210,24 @@ module Twitter
         rescue => error
           raise CantConnect, error.message
         end
+      end
+      
+      # Makes a request to twitter.
+      def request(path, options={})
+        options = {
+          :headers => { "User-Agent" => @config[:email] },
+          :method => :get,
+        }.merge(options)
         
+        unless options[:since].nil?
+          since = options[:since].kind_of?(Date) ? options[:since].strftime('%a, %d-%b-%y %T GMT') : options[:since].to_s  
+          options[:headers]["If-Modified-Since"] = since
+        end
+        
+        handle_response!(response(path, options))
+      end
+      
+      def handle_response!(response)
         if %w[200 304].include?(response.code)
           response = parse(response.body)
           raise RateExceeded if (response/:hash/:error).text =~ /Rate limit exceeded/
@@ -231,15 +237,14 @@ module Twitter
         elsif response.code == '401'
           raise CantConnect, 'Authentication failed. Check your username and password'
         elsif response.code == '403'
-          # get an Hpricot document
-          doc = parse(response.body)
-          raise CantFindUsers, (doc/:hash/:error).text if (doc/:hash/:error).text =~ /Could not find both specified users/
-          raise AlreadyFollowing, (doc/:hash/:error).text if (doc/:hash/:error).text =~ /already on your list/
-          raise CantFollowUser, "Response code #{response.code}: #{response.message} #{(doc/:hash/:error).text}"
+          error_message = (parse(response.body)/:hash/:error).text
+          raise CantFindUsers, error_message  if error_message =~ /Could not find both specified users/
+          raise AlreadyFollowing, error_message if error_message =~ /already on your list/
+          raise CantFollowUser, "Response code #{response.code}: #{response.message} #{error_message}"
         else
           raise CantConnect, "Twitter is returning a #{response.code}: #{response.message}"
         end
-      end      
+      end
     
       # Given a path and a hash, build a full path with the hash turned into a query string
       def build_path(path, options)
