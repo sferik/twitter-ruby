@@ -17,8 +17,8 @@ describe "Twitter::Base" do
     end
     
     it "should default to friends timeline" do
-      @base.should_receive(:call).with("friends_timeline", :anything)
-      @base.should_receive(:statuses).with(:anything)
+      @base.should_receive(:call).with("friends_timeline", {:auth=>true, :args=>{}, :since=>nil})
+      @base.should_receive(:statuses)
       @base.timeline
     end
     
