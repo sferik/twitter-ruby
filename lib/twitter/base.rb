@@ -14,6 +14,8 @@ module Twitter
     def initialize(email, password, options={})
       @api_host = options.delete(:api_host) || 'twitter.com'
       @config, @config[:email], @config[:password] = options, email, password
+      @proxy_host = options[:proxy_host]
+      @proxy_port = options[:proxy_port]
     end
     
     # Returns an array of statuses for a timeline; Defaults to your friends timeline.
@@ -207,7 +209,7 @@ module Twitter
         uri = URI.parse("http://#{@api_host}")
         
         begin
-          response = Net::HTTP::Proxy(options[:proxy_host], options[:proxy_port]).start(uri.host, uri.port) do |http|
+          response = Net::HTTP::Proxy(@proxy_host, @proxy_port).start(uri.host, uri.port) do |http|
             klass = Net::HTTP.const_get options[:method].to_s.downcase.capitalize
             req = klass.new("#{uri.path}/#{path}", options[:headers])
             req.basic_auth(@config[:email], @config[:password]) if options[:auth]
