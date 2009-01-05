@@ -2,6 +2,7 @@ require 'rubygems'
 require File.join(File.dirname(__FILE__), '..', 'lib', 'twitter')
 
 Twitter::Search.new('httparty').each { |r| puts r.inspect,'' }
+Twitter::Search.new('httparty').page(2).each { |r| puts r.inspect, '' }
 
 # search = Twitter::Search.new
 # search.from('jnunemaker').to('oaknd1').each { |r| puts r.inspect, '' }

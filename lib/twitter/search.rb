@@ -59,6 +59,12 @@ module Twitter
       self
     end
     
+    # Which page of results to fetch
+    def page(num)
+      @query[:page] = num
+      self
+    end
+    
     # Only searches tweets since a given id. 
     # Recommended to use this when possible.
     def since(since_id)

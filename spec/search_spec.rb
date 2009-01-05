@@ -49,6 +49,10 @@ describe Twitter::Search do
     @search.per_page(25).query[:rpp].should == 25
   end
   
+  it "should be able to specify the page number" do
+    @search.page(20).query[:page].should == 20
+  end
+  
   it "should be able to specify only returning results greater than an id" do
     @search.since(1234).query[:since_id].should == 1234
   end
