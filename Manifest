@@ -29,6 +29,8 @@ lib/twitter/direct_message.rb
 lib/twitter/easy_class_maker.rb
 lib/twitter/rate_limit_status.rb
 lib/twitter/search.rb
+lib/twitter/search_result.rb
+lib/twitter/search_result_info.rb
 lib/twitter/status.rb
 lib/twitter/user.rb
 lib/twitter/version.rb
@@ -45,8 +47,11 @@ spec/fixtures/friends.xml
 spec/fixtures/friends_for.xml
 spec/fixtures/friends_lite.xml
 spec/fixtures/friends_timeline.xml
+spec/fixtures/friendship_already_exists.xml
+spec/fixtures/friendship_created.xml
 spec/fixtures/public_timeline.xml
 spec/fixtures/rate_limit_status.xml
+spec/fixtures/search_result_info.yml
 spec/fixtures/search_results.json
 spec/fixtures/status.xml
 spec/fixtures/user.xml
