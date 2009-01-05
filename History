@@ -1,5 +1,10 @@
 0.4.1 - January 1, 2009
-* 1 major enhancement:
+* 4 minor enhancements and 2 bug fixes:
+  * Added better exception handling (Billy Gray)
+  * Added page to search (Michael Ivey)
+  * Adding an option to display tweets on CLI in reverse order (oldest first). (Cameron Booth)
+  * Added in_reply_to_status_id option for replying to statuses (anthonycrumley)
+  * Fixed a bug where the @config was improperly set (K. Adam Christensen)
   * Fix verify_credentials to include a format (breaks in laconica). (dustin)
   
 0.4.0 - December 23, 2008
