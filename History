@@ -1,3 +1,7 @@
+0.4.1 - January 1, 2009
+* 1 major enhancement:
+  * Fix verify_credentials to include a format (breaks in laconica). (dustin)
+  
 0.4.0 - December 23, 2008
 * 3 major changes
   * Removed active support as dependency
