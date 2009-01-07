@@ -87,7 +87,10 @@ Twitter::Search.new.from('jnunemaker').to('oaknd1').fetch()
 		
 		<p><img src="images/terminal_output.png" alt="Terminal Output" style="width:560px;" /></p>
 		
-		<p><strong>Note: If you want to use twitter from the command line be sure that sqlite3 and the sqlite3-ruby gem are installed.</strong> I removed the sqlite3-ruby gem as a dependency because you shouldn't need that to just use the API wrapper. Eventually I'll move the CLI interface into another gem.</p>
+		<p>I removed the command line dependencies from the gem dependencies list so if you want to use the command line part of the twitter gem be sure to install the following gems as well.</p>
+		
+		<pre><code>$ sudo gem install main highline sqlite3-ruby
+$ sudo gem install activerecord -v 2.2.2</code></pre>
 		
 	<p>The first thing you'll want to do is install the database so your account(s) can be stored.</p> 
 
