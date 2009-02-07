@@ -54,6 +54,12 @@ describe "Twitter::Base" do
       @base.friends(:lite => true).size.should == 15
     end
     
+    it "should be able to get friend ids" do
+      data = open(File.dirname(__FILE__) + '/fixtures/friend_ids.xml').read
+      @base.should_receive(:request).and_return(Hpricot::XML(data))
+      @base.friend_ids.size.should == 8
+    end
+    
     it "should be able to get friends for another user" do
       data = open(File.dirname(__FILE__) + '/fixtures/friends_for.xml').read
       @base.should_receive(:request).and_return(Hpricot::XML(data))
@@ -68,6 +74,12 @@ describe "Twitter::Base" do
       timeline = @base.followers
       timeline.size.should == 29
       timeline.first.name.should == 'Blaine Cook'
+    end
+    
+    it "should be able to get follower ids" do
+      data = open(File.dirname(__FILE__) + '/fixtures/follower_ids.xml').read
+      @base.should_receive(:request).and_return(Hpricot::XML(data))
+      @base.follower_ids.size.should == 8
     end
     
     it "should be able to create a friendship" do

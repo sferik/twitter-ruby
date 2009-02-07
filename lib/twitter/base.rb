@@ -35,6 +35,13 @@ module Twitter
       friends(options.merge({:id => id}))
     end
     
+    # Returns an array of user ids who are friends for the account or the option id/username passed in
+    def friend_ids(id_or_screenname = nil)
+      path = id_or_screenname ? "friends/ids/#{id_or_screenname}.xml" : "friends/ids.xml"
+      doc = request(path, :auth => true)
+      (doc/:id).inject([]) {|ids, id| ids << id.innerHTML; ids}
+    end
+    
     # Returns an array of users who are following you
     def followers(options={})
       users(call(:followers, {:args => parse_options(options)}))
@@ -42,6 +49,13 @@ module Twitter
     
     def followers_for(id, options={})
       followers(options.merge({:id => id}))
+    end
+    
+    # Returns an array of user ids who are followers for the account or the option id/username passed in
+    def follower_ids(id_or_screenname = nil)
+      path = id_or_screenname ? "followers/ids/#{id_or_screenname}.xml" : "followers/ids.xml"
+      doc = request(path, :auth => true)
+      (doc/:id).inject([]) {|ids, id| ids << id.innerHTML; ids}
     end
     
     # Returns a single status for a given id
