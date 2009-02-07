@@ -42,7 +42,9 @@ README
 spec/base_spec.rb
 spec/cli/helper_spec.rb
 spec/direct_message_spec.rb
+spec/fixtures/follower_ids.xml
 spec/fixtures/followers.xml
+spec/fixtures/friend_ids.xml
 spec/fixtures/friends.xml
 spec/fixtures/friends_for.xml
 spec/fixtures/friends_lite.xml
