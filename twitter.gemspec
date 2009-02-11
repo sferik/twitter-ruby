@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 1.2") if s.respond_to? :required_rubygems_version=
   s.authors = ["John Nunemaker"]
-  s.date = %q{2009-02-07}
+  s.date = %q{2009-02-11}
   s.default_executable = %q{twitter}
   s.description = %q{a command line interface for twitter, also a library which wraps the twitter api}
   s.email = %q{nunemaker@gmail.com}

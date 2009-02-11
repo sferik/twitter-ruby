@@ -1,3 +1,7 @@
+0.4.2 - February 10, 2009
+* 1 minor enhancement
+  * Adding the Social Graph API methods (Josh Owens)
+  
 0.4.1 - January 1, 2009
 * 4 minor enhancements and 2 bug fixes:
   * Added better exception handling (Billy Gray)
