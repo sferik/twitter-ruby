@@ -1,3 +1,7 @@
+0.4.3 - February 21, 2009
+* 1 minor enhancement
+  * verify_credentials now returns a Twitter::User rather than an hpricot doc
+  
 0.4.2 - February 10, 2009
 * 1 minor enhancement
   * Adding the Social Graph API methods (Josh Owens)
