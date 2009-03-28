@@ -5,7 +5,7 @@ module Twitter
     attributes  :id, :name, :screen_name, :status, :location, :description, :url,
                 :profile_image_url, :profile_background_color, :profile_text_color, :profile_link_color, 
                 :profile_sidebar_fill_color, :profile_sidebar_border_color, :friends_count, :followers_count,
-                :favourites_count, :statuses_count, :utc_offset , :protected
+                :favourites_count, :statuses_count, :utc_offset , :protected, :created_at
     
     # Creates a new user from a piece of xml
     def self.new_from_xml(xml)
@@ -16,9 +16,10 @@ module Twitter
       u.location                     = (xml).at('location').innerHTML
       u.description                  = (xml).at('description').innerHTML
       u.url                          = (xml).at('url').innerHTML
-      u.profile_image_url            = (xml).at('profile_image_url').innerHTML          
+      u.profile_image_url            = (xml).at('profile_image_url').innerHTML
       
       # optional, not always present
+      u.created_at                   = (xml).at('created_at').innerHTML if (xml).at('created_at')
       u.profile_background_color     = (xml).at('profile_background_color').innerHTML if (xml).at('profile_background_color')
       u.profile_text_color           = (xml).at('profile_text_color').innerHTML if (xml).at('profile_text_color')
       u.profile_link_color           = (xml).at('profile_link_color').innerHTML if (xml).at('profile_link_color')
