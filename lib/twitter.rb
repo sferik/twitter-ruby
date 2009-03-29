@@ -4,11 +4,17 @@ require 'net/http'
 require 'yaml'
 require 'time'
 require 'rubygems'
+
+gem 'hpricot'
 require 'hpricot'
+
+gem 'oauth'
+require 'oauth'
 
 $:.unshift(File.dirname(__FILE__))
 require 'twitter/version'
 require 'twitter/easy_class_maker'
+require 'twitter/oauth'
 require 'twitter/base'
 require 'twitter/user'
 require 'twitter/search'

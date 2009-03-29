@@ -12,7 +12,7 @@ Echoe.new(ProjectName, Twitter::Version) do |p|
   p.url             = "http://#{ProjectName}.rubyforge.org"
   p.author          = "John Nunemaker"
   p.email           = "nunemaker@gmail.com"
-  p.extra_deps      = [['hpricot', '>= 0.6'], ['activesupport', '>= 2.1'], ['httparty', '>= 0.2.4']]
+  p.extra_deps      = [['oauth', '>= 0.3.2'], ['hpricot', '>= 0.6'], ['activesupport', '>= 2.1'], ['httparty', '>= 0.2.4']]
   p.need_tar_gz     = false
   p.docs_host       = WebsitePath
 end
