@@ -10,7 +10,7 @@ begin
     gem.homepage = "http://github.com/jnunemaker/twitter"
     gem.authors = ["John Nunemaker"]
     gem.rubyforge_project = "twitter"
-  
+    gem.add_dependency([['oauth'], ['crack', '>= 0.1.1']])
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
 rescue LoadError

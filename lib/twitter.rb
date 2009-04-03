@@ -1,3 +1,5 @@
+require 'rubygems'
+
 %w(oauth crack).each do |lib|
   gem lib
   require lib
@@ -13,5 +15,9 @@ module Twitter
   class AlreadyFollowing < StandardError; end
   class CantFollowUser < StandardError; end
 
-  SourceName = 'twittergem'
+  # source name is twittergem
 end
+
+directory = File.dirname(__FILE__)
+$:.unshift(directory) unless $:.include?(directory)
+require 'twitter/oauth'
