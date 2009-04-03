@@ -44,3 +44,5 @@ Block Methods
   [ ] blocks/destroy
 Help Methods
   [ ] help/test
+Error handling
+  [ ] raise proper exceptions based on response codes
