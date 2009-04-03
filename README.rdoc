@@ -1,6 +1,6 @@
 = twitter
 
-The ruby twitter gem. The heard round the world and famous on the streets.
+The ruby twitter gem. The gem heard round the world and famous on the streets. Haha.
 
 == Copyright
 
