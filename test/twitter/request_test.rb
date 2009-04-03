@@ -29,7 +29,11 @@ class RequestTest < Test::Unit::TestCase
     
     context "performing request for collection" do
       setup do
-        response = mock('response', :body => fixture_file('user_timeline.json'))
+        response = mock('response') do
+          stubs(:body).returns(fixture_file('user_timeline.json'))
+          stubs(:code).returns('200')
+        end
+        
         @base.expects(:get).returns(response)
         @object = @request.perform
       end
@@ -43,7 +47,11 @@ class RequestTest < Test::Unit::TestCase
     
     context "performing a request for a single object" do
       setup do
-        response = mock('response', :body => fixture_file('status.json'))
+        response = mock('response') do
+          stubs(:body).returns(fixture_file('status.json'))
+          stubs(:code).returns('200')
+        end
+        
         @base.expects(:get).returns(response)
         @object = @request.perform
       end
@@ -74,7 +82,11 @@ class RequestTest < Test::Unit::TestCase
     end
     
     should "allow setting query string and headers" do
-      response = mock('response', :body => '')
+      response = mock('response') do
+        stubs(:body).returns('')
+        stubs(:code).returns('200')
+      end
+      
       @base.expects(:get).with('/statuses/friends_timeline.json?since_id=1234', {'Foo' => 'Bar'}).returns(response)
       Twitter::Request.get(@base, '/statuses/friends_timeline.json?since_id=1234', :headers => {'Foo' => 'Bar'})
     end
@@ -87,14 +99,22 @@ class RequestTest < Test::Unit::TestCase
     end
     
     should "allow setting body and headers" do
-      response = mock('response', :body => '')
+      response = mock('response') do
+        stubs(:body).returns('')
+        stubs(:code).returns('200')
+      end
+      
       @base.expects(:post).with('/statuses/update.json', {:status => 'Woohoo!'}, {'Foo' => 'Bar'}).returns(response)
       Twitter::Request.post(@base, '/statuses/update.json', :body => {:status => 'Woohoo!'}, :headers => {'Foo' => 'Bar'})
     end
     
     context "performing request" do
       setup do
-        response = mock('response', :body => fixture_file('status.json'))
+        response = mock('response') do
+          stubs(:body).returns(fixture_file('status.json'))
+          stubs(:code).returns('200')
+        end
+        
         @base.expects(:post).returns(response)
         @object = @request.perform
       end
@@ -110,4 +130,74 @@ class RequestTest < Test::Unit::TestCase
     end
   end
   
+  context "error raising" do
+    setup do
+      oauth = Twitter::OAuth.new('token', 'secret')
+      oauth.authorize_from_access('atoken', 'asecret')
+      @base = Twitter::Base.new(oauth)
+    end
+    
+    should "not raise error for 200" do
+      stub_get('http://twitter.com:80/foo', '', ['200'])
+      lambda {
+        Twitter::Request.get(@base, '/foo')
+      }.should_not raise_error
+    end
+    
+    should "not raise error for 304" do
+      stub_get('http://twitter.com:80/foo', '', ['304'])
+      lambda {
+        Twitter::Request.get(@base, '/foo')
+      }.should_not raise_error
+    end
+    
+    should "raise RateLimitExceeded for 400" do
+      stub_get('http://twitter.com:80/foo', 'rate_limit_exceeded.json', ['400'])
+      lambda {
+        Twitter::Request.get(@base, '/foo')
+      }.should raise_error(Twitter::RateLimitExceeded)
+    end
+    
+    should "raise Unauthorized for 401" do
+      stub_get('http://twitter.com:80/foo', '', ['401'])
+      lambda {
+        Twitter::Request.get(@base, '/foo')
+      }.should raise_error(Twitter::Unauthorized)
+    end
+    
+    should "raise General for 403" do
+      stub_get('http://twitter.com:80/foo', '', ['403'])
+      lambda {
+        Twitter::Request.get(@base, '/foo')
+      }.should raise_error(Twitter::General)
+    end
+
+    should "raise NotFound for 404" do
+      stub_get('http://twitter.com:80/foo', '', ['404'])
+      lambda {
+        Twitter::Request.get(@base, '/foo')
+      }.should raise_error(Twitter::NotFound)
+    end
+
+    should "raise InformTwitter for 500" do
+      stub_get('http://twitter.com:80/foo', '', ['500'])
+      lambda {
+        Twitter::Request.get(@base, '/foo')
+      }.should raise_error(Twitter::InformTwitter)
+    end
+
+    should "raise Unavailable for 502" do
+      stub_get('http://twitter.com:80/foo', '', ['502'])
+      lambda {
+        Twitter::Request.get(@base, '/foo')
+      }.should raise_error(Twitter::Unavailable)
+    end
+
+    should "raise Unavailable for 503" do
+      stub_get('http://twitter.com:80/foo', '', ['503'])
+      lambda {
+        Twitter::Request.get(@base, '/foo')
+      }.should raise_error(Twitter::Unavailable)
+    end
+  end
 end

@@ -1,22 +1,24 @@
 require 'forwardable'
 require 'rubygems'
 
-%w(oauth crack mash httparty).each do |lib|
+%w(oauth mash httparty).each do |lib|
   gem lib
   require lib
 end
 
 module Twitter
-  class Unavailable < StandardError; end
-  class CantConnect < StandardError; end
-  class BadResponse < StandardError; end
-  class UnknownTimeline < ArgumentError; end
-  class RateExceeded < StandardError; end
-  class CantFindUsers < ArgumentError; end
-  class AlreadyFollowing < StandardError; end
-  class CantFollowUser < StandardError; end
+  class RateLimitExceeded < StandardError; end
+  class Unauthorized      < StandardError; end
+  class Unavailable       < StandardError; end
+  class InformTwitter     < StandardError; end
+  class NotFound          < StandardError; end
+  class General           < StandardError; end
   
-  # source name is twittergem
+  
+  def self.firehose
+    response = HTTParty.get('http://twitter.com/statuses/public_timeline.json', :format => :json)
+    response.map { |tweet| Mash.new(tweet) }
+  end
 end
 
 directory = File.dirname(__FILE__)

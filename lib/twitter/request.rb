@@ -44,9 +44,27 @@ module Twitter
       end
       
       def make_friendly(response)
+        raise_errors(response)
         mash(parse(response))
       end
-    
+      
+      def raise_errors(response)
+        case response.code.to_i
+          when 400
+            raise RateLimitExceeded, "(#{response.code}): #{response.message}"
+          when 401
+            raise Unauthorized, "(#{response.code}): #{response.message}"
+          when 403
+            raise General, "(#{response.code}): #{response.message}"
+          when 404
+            raise NotFound, "(#{response.code}): #{response.message}"
+          when 500
+            raise InformTwitter, "Twitter had an internal error. Please let them know in the group. (#{response.code}): #{response.message}"
+          when 502..503
+            raise Unavailable, "(#{response.code}): #{response.message}"
+        end
+      end
+      
       def parse(response)
         Crack::JSON.parse(response.body)
       end

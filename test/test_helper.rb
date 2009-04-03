@@ -15,13 +15,18 @@ class Test::Unit::TestCase
 end
 
 def fixture_file(filename)
+  return '' if filename == ''
   file_path = File.expand_path(File.dirname(__FILE__) + '/fixtures/' + filename)
   File.read(file_path)
 end
 
-def stub_get(url, filename)
+def stub_get(url, filename, status=nil)
   url = url =~ /^http/ ? url : "http://twitter.com:80#{url}"
-  FakeWeb.register_uri(:get, url, :string => fixture_file(filename))
+  
+  options = {:string => fixture_file(filename)}
+  options.merge!({:status => status}) unless status.nil?
+  
+  FakeWeb.register_uri(:get, url, options)
 end
 
 def stub_post(url, filename)

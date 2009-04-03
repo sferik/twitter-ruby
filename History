@@ -1,3 +1,10 @@
+0.5.0 - March 3, 2009
+* 1 major rewrite for OAuth
+  * Backwards compatibility thrown to the wind
+  * Proxy no longer supported (someone please add it back in, I never use proxies)
+  * Identica support killed with an axe (nothing against them but I don't use it)
+  * CLI shot to death (will be reborn at a later date using oauth and its own gem)
+
 0.4.3 - February 21, 2009
 * 1 minor enhancement
   * verify_credentials now returns a Twitter::User rather than an hpricot doc
