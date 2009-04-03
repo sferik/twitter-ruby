@@ -1,3 +1,4 @@
+require 'forwardable'
 require 'rubygems'
 
 %w(oauth crack mash).each do |lib|
@@ -22,4 +23,5 @@ directory = File.dirname(__FILE__)
 $:.unshift(directory) unless $:.include?(directory)
 
 require 'twitter/oauth'
+require 'twitter/request'
 require 'twitter/base'
