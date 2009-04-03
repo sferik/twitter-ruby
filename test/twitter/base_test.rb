@@ -60,6 +60,15 @@ class BaseTest < Test::Unit::TestCase
         status.user.name.should == 'John Nunemaker'
         status.text.should == 'Rob Dyrdek is the funniest man alive. That is all.'
       end
+      
+      should "be able to get replies" do
+        stub_get('/statuses/replies.json', 'replies.json')
+        replies = @twitter.replies
+        replies.size.should == 19
+        first = replies.first
+        first.user.name.should == '-oAk-'
+        first.text.should == '@jnunemaker cold out today. cold yesterday. even colder today.'
+      end
     end
   end
 end

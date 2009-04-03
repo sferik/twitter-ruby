@@ -9,13 +9,13 @@ module Twitter
     end
     
     # Options: since_id, max_id, count, page, since
-    def friends_timeline(options={})
-      perform_get('/statuses/friends_timeline.json', :query => options)
+    def friends_timeline(query={})
+      perform_get('/statuses/friends_timeline.json', :query => query)
     end
     
     # Options: id, user_id, screen_name, since_id, max_id, page, since
-    def user_timeline(options={})
-      perform_get('/statuses/user_timeline.json', :query => options)
+    def user_timeline(query={})
+      perform_get('/statuses/user_timeline.json', :query => query)
     end
     
     # id Required. Id of the status to fetch.
@@ -24,8 +24,13 @@ module Twitter
     end
     
     # Options: in_reply_to_status_id
-    def update(status, options={})
-      perform_post("/statuses/update.json", :body => {:status => status}.merge(options))
+    def update(status, query={})
+      perform_post("/statuses/update.json", :body => {:status => status}.merge(query))
+    end
+    
+    # Options: since_id, max_id, since, page
+    def replies(query={})
+      perform_get('/statuses/replies.json', :query => query)
     end
     
     private
