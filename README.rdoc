@@ -1,0 +1,7 @@
+= twitter
+
+The ruby twitter gem. The heard round the world and famous on the streets.
+
+== Copyright
+
+Copyright (c) 2009 John Nunemaker. See LICENSE for details.
