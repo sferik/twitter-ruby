@@ -6,6 +6,10 @@ module Twitter
       new(base, :get, path, options).perform
     end
     
+    def self.post(base, path, options={})
+      new(base, :post, path, options).perform
+    end
+    
     attr_reader :base, :method, :path, :options
     
     def_delegators :base, :get, :post
@@ -27,10 +31,18 @@ module Twitter
     end
     
     def perform
-      make_friendly(send(method, uri))
+      make_friendly(send("perform_#{method}"))
     end
     
     private
+      def perform_get
+        send(:get, uri, options[:headers])
+      end
+      
+      def perform_post
+        send(:post, uri, options[:body], options[:headers])
+      end
+      
       def make_friendly(response)
         mash(parse(response))
       end

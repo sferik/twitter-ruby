@@ -23,9 +23,18 @@ module Twitter
       perform_get("/statuses/show/#{id}.json")
     end
     
+    # Options: in_reply_to_status_id
+    def update(status, options={})
+      perform_post("/statuses/update.json", :body => {:status => status}.merge(options))
+    end
+    
     private
       def perform_get(path, options={})
         Twitter::Request.get(self, path, options)
+      end
+      
+      def perform_post(path, options={})
+        Twitter::Request.post(self, path, options)
       end
   end
 end

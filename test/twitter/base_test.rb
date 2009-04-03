@@ -53,6 +53,13 @@ class BaseTest < Test::Unit::TestCase
         status.user.name.should == 'John Nunemaker'
         status.id.should == 1441588944
       end
+      
+      should "be able to update status" do
+        stub_post('/statuses/update.json', 'status.json')
+        status = @twitter.update('Rob Dyrdek is the funniest man alive. That is all.')
+        status.user.name.should == 'John Nunemaker'
+        status.text.should == 'Rob Dyrdek is the funniest man alive. That is all.'
+      end
     end
   end
 end
