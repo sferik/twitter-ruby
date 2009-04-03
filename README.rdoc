@@ -2,6 +2,8 @@
 
 The ruby twitter gem. The gem heard round the world and famous on the streets. Haha.
 
+For now this is just an API wrapper. The command line interface is temporarily dead until I have time to make it work with oauth. At that point, I'll make it a new gem twitter-cli or something and it will depend on this gem to work. That will keep the separation of the api wrapper and cli and fix a lot of dependency issues.
+
 == Copyright
 
 Copyright (c) 2009 John Nunemaker. See LICENSE for details.
