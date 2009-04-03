@@ -27,7 +27,7 @@ class BaseTest < Test::Unit::TestCase
     
     context "hitting the api" do
       should "be able to get friends timeline" do
-        stub_get('http://twitter.com:80/statuses/friends_timeline.json', 'friends_timeline.json')
+        stub_get('/statuses/friends_timeline.json', 'friends_timeline.json')
         timeline = @twitter.friends_timeline
         timeline.size.should == 20
         first = timeline.first
@@ -39,14 +39,20 @@ class BaseTest < Test::Unit::TestCase
       end
       
       should "be able to get user timeline" do
-        stub_get('http://twitter.com:80/statuses/user_timeline.json', 'user_timeline.json')
+        stub_get('/statuses/user_timeline.json', 'user_timeline.json')
         timeline = @twitter.user_timeline
         timeline.size.should == 20
         first = timeline.first
         first.text.should == 'Colder out today than expected. Headed to the Beanery for some morning wakeup drink. Latte or coffee...hmmm...'
         first.user.name.should == 'John Nunemaker'
       end
+      
+      should "be able to get a status" do
+        stub_get('/statuses/show/1441588944.json', 'status.json')
+        status = @twitter.status(1441588944)
+        status.user.name.should == 'John Nunemaker'
+        status.id.should == 1441588944
+      end
     end
-    
   end
 end

@@ -27,6 +27,12 @@ module Twitter
       Crack::JSON.parse(response.body).map { |tweet| Mash.new(tweet) }
     end
     
+    # id Required. Id of the status to fetch.
+    def status(id)
+      response = get("/statuses/show/#{id}.json")
+      Mash.new(Crack::JSON.parse(response.body))
+    end
+    
     private
       def to_query(options)
         options.inject([]) { |collection, opt| collection << "#{opt[0]}=#{opt[1]}"; collection } * '&'

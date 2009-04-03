@@ -20,5 +20,5 @@ def fixture_file(filename)
 end
 
 def stub_get(url, filename)
-  FakeWeb.register_uri(:get, url, :string => fixture_file(filename))
+  FakeWeb.register_uri(:get, "http://twitter.com:80#{url}", :string => fixture_file(filename))
 end
