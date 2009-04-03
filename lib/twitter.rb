@@ -1,7 +1,7 @@
 require 'forwardable'
 require 'rubygems'
 
-%w(oauth crack mash).each do |lib|
+%w(oauth crack mash httparty).each do |lib|
   gem lib
   require lib
 end
@@ -25,3 +25,4 @@ $:.unshift(directory) unless $:.include?(directory)
 require 'twitter/oauth'
 require 'twitter/request'
 require 'twitter/base'
+require 'twitter/search'

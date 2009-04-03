@@ -14,6 +14,7 @@ begin
     
     gem.add_dependency('oauth')
     gem.add_dependency('crack', '>= 0.1.1')
+    gem.add_dependency('httparty', '>= 0.4.2')
   end
 rescue LoadError
   puts "Jeweler not available. Install it with: sudo gem install technicalpickles-jeweler -s http://gems.github.com"
