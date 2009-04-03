@@ -1,9 +1,13 @@
 module Twitter
   class OAuth
-    attr_reader :token, :secret
+    attr_reader :ctoken, :csecret
     
     def initialize(ctoken, csecret)
       @ctoken, @csecret = ctoken, csecret
+    end
+    
+    def consumer
+      @consumer ||= ::OAuth::Consumer.new(@ctoken, @csecret, {:site => 'http://twitter.com'})
     end
     
     def request_token
@@ -23,10 +27,5 @@ module Twitter
     def authorize_from_access(atoken, asecret)
       @atoken, @asecret = atoken, asecret
     end
-    
-    private
-      def consumer
-        @consumer ||= ::OAuth::Consumer.new(@ctoken, @csecret, {:site => 'http://twitter.com'})
-      end
   end
 end
