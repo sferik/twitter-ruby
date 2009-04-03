@@ -10,7 +10,7 @@
 <div id="wrapper"> 
 	<div id="header"> 
 		<h1>Twitter</h1> 
-		<p>command line tweets and an api wrapper</p> 
+		<p>API wrapper for Twitter and Twitter Search API's</p> 
 		
 		<ul id="nav">
 			<li><a href="rdoc/">Docs</a></li> 
@@ -20,53 +20,27 @@
 		</ul> 
 	</div> 
 	
-	<div id="content"> 
+	<div id="content">
+	  <h2>Note</h2>
+	  
+	  <p>The twitter gem now only supports OAuth as an authentication method. OAuth is scary at first, but not once you try it out a little bit. Feel free to read my <a href="http://railstips.org/2009/3/29/oauth-explained-and-what-it-is-good-for">article on OAuth</a> to get past the scary part.</p>
+	   
 		<h2>Install</h2> 
-		<pre><code>$ sudo gem install twitter</code></pre> 
-		<p><small>note: the twitter gem now works with hpricot 0.5+</small></p> 
+		<pre><code>$ sudo gem install twitter</code></pre>
 		
-		<h2>API Wrapping</h2> 
-		<p>I do my best to keep it easy to use. Below are some code samples showing a few of the methods.</p> 
+		<h2>Examples</h2>
 		
-		<pre><code>twit = twit
-twit.update('watching veronica mars')
- 
-puts "Public Timeline", "=" * 50
-twit.timeline(:public).each do |s|
-  puts s.text, s.user.name
-  puts
-end
- 
-puts '', "Friends Timeline", "=" * 50
-twit.timeline(:friends).each do |s|
-  puts s.text, s.user.name
-  puts
-end
- 
-puts '', "You and Your Friends Timeline", "=" * 50
-twit.timeline(:user).each do |s|
-  puts s.text, s.user.name
-  puts
-end
- 
-puts '', "Your Friends", "=" * 50
-twit.friends.each do |u|
-  puts u.name, u.status.text
-  puts
-end
- 
-puts '', "jnunemaker's Friends", "=" * 50
-twit.friends_for('jnunemaker').each do |u|
-  puts u.name
-  puts
-end
- 
-puts '', "Your Followers", "=" * 50
-twit.followers.each do |u|
-  puts u.name
-  puts
-end
-		</code></pre>
+<pre><code># NOT SHOWN: granting access to twitter on website
+# and using request token to generate access token
+oauth = Twitter::OAuth.new('consumer token', 'consumer secret')
+oauth.authorize_from_access('access token', 'access secret')
+
+client = Twitter::Base.new(oauth)
+client.friends_timeline.each  { |tweet| puts tweet.inspect }
+client.user_timeline.each     { |tweet| puts tweet.inspect }
+client.replies.each           { |tweet| puts tweet.inspect }
+
+client.update('Heeeyyyyoooo from Twitter Gem!')</code></pre>
 		
 		<h2>Search API Examples</h2>
 		
@@ -83,50 +57,50 @@ Twitter::Search.new.from('jnunemaker').to('oaknd1').each { |r| puts r.inspect }
 Twitter::Search.new.from('jnunemaker').to('oaknd1').fetch()
 </code></pre>
 		
-		<h2>Command Line</h2>
-		
-		<p><img src="images/terminal_output.png" alt="Terminal Output" style="width:560px;" /></p>
-		
-		<p>I removed the command line dependencies from the gem dependencies list so if you want to use the command line part of the twitter gem be sure to install the following gems as well.</p>
-		
-		<pre><code>$ sudo gem install main highline sqlite3-ruby
+    <!-- <h2>Command Line</h2>
+    
+    <p><img src="images/terminal_output.png" alt="Terminal Output" style="width:560px;" /></p>
+    
+    <p>I removed the command line dependencies from the gem dependencies list so if you want to use the command line part of the twitter gem be sure to install the following gems as well.</p>
+    
+    <pre><code>$ sudo gem install main highline sqlite3-ruby
 $ sudo gem install activerecord -v 2.2.2</code></pre>
-		
-	<p>The first thing you'll want to do is install the database so your account(s) can be stored.</p> 
+    
+  <p>The first thing you'll want to do is install the database so your account(s) can be stored.</p> 
 
-		<pre><code>$ twitter install</code></pre>
+    <pre><code>$ twitter install</code></pre>
 
-	<p>You can always uninstall twitter like this:</p>
+  <p>You can always uninstall twitter like this:</p>
 
-		<pre><code>$ twitter uninstall</code></pre>
+    <pre><code>$ twitter uninstall</code></pre>
 
-	<p>Once the twitter database is installed and migrated, you can add accounts like this:</p>
+  <p>Once the twitter database is installed and migrated, you can add accounts like this:</p>
 
-		<pre><code>$ twitter add
+    <pre><code>$ twitter add
 Add New Account:
 Username: jnunemaker
 Password (won't be displayed): 
 Account added.</code></pre>
 
-	<p>You can also list all the accounts you've added.</p>
+  <p>You can also list all the accounts you've added.</p>
 
-		<pre><code>$ twitter list
+    <pre><code>$ twitter list
 Account List
 * jnunemaker
   snitch_test</code></pre>
 
-	<p>The * means denotes the account that will be used when posting, befriending, defriending, following, leaving or viewing a timeline.</p>
+  <p>The * means denotes the account that will be used when posting, befriending, defriending, following, leaving or viewing a timeline.</p>
 
-	<p>To post using the account marked with the *, simply type the following:</p>
+  <p>To post using the account marked with the *, simply type the following:</p>
 
-		<pre><code>$ twitter post "releasing my new twitter gem"</code></pre>
+    <pre><code>$ twitter post "releasing my new twitter gem"</code></pre>
 
-	<p>That is about it. You can do pretty much anything that you can do with twitter from the command line interface.</p>
-		
-		<pre><code>$ twitter</code></pre>
+  <p>That is about it. You can do pretty much anything that you can do with twitter from the command line interface.</p>
+    
+    <pre><code>$ twitter</code></pre>
 
-		<p>Will give you a list of all the commands. You can get the help for each command by running twitter [command] -h. </p>
-		
+    <p>Will give you a list of all the commands. You can get the help for each command by running twitter [command] -h. </p>
+     -->
 		
 		<h2>Support</h2> 
 		<p>Conversations welcome in the <a href="http://groups.google.com/group/ruby-twitter-gem">google group</a> and bugs/features over at <a href="http://jnunemaker.lighthouseapp.com/projects/14843-twitter-gem/overview">lighthouse</a></p>
@@ -136,12 +110,5 @@ Account List
 		<p>Created by <a href="http://addictedtonew.com/about/">John Nunemaker</a></p> 
 	</div> 
 </div> 
- 
-<script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script> 
-<script type="text/javascript">_uacct = "UA-85301-9"; urchinTracker();</script> 
- 
-<!-- 103bees.com 'bee' code v1.11 - please do not make any changes! --> 
-<script type="text/javascript" src="http://103bees.com/bees/?bee=3672&amp;fid=5643"></script> 
-<!-- 103bees.com 'bee' code --> 
 </body> 
 </html>
