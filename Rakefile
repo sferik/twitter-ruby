@@ -4,14 +4,16 @@ require 'rake'
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
-    gem.name = "twitter"
-    gem.summary = %Q{TODO}
-    gem.email = "nunemaker@gmail.com"
-    gem.homepage = "http://github.com/jnunemaker/twitter"
-    gem.authors = ["John Nunemaker"]
+    gem.name              = "twitter"
+    gem.summary           = %Q{wrapper for the twitter api (oauth only)}
+    gem.email             = "nunemaker@gmail.com"
+    gem.homepage          = "http://github.com/jnunemaker/twitter"
+    gem.authors           = ["John Nunemaker"]
     gem.rubyforge_project = "twitter"
-    gem.add_dependency([['oauth'], ['crack', '>= 0.1.1']])
-    # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
+    gem.files             = FileList["[A-Z]*", "{examples,lib,test}/**/*"]
+    
+    gem.add_dependency('oauth')
+    gem.add_dependency('crack', '>= 0.1.1')
   end
 rescue LoadError
   puts "Jeweler not available. Install it with: sudo gem install technicalpickles-jeweler -s http://gems.github.com"
