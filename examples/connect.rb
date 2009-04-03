@@ -37,7 +37,9 @@ oauth = Twitter::OAuth.new(config['token'], config['secret'])
 
 if config['atoken'] && config['asecret']
   oauth.authorize_from_access(config['atoken'], config['asecret'])
-  puts oauth.access_token.get("/statuses/friends_timeline.json")
+  # puts oauth.access_token.get("/statuses/friends_timeline.json")
+  twitter = Twitter::Base.new(oauth)
+  pp twitter.friends_timeline
   
 elsif config['rtoken'] && config['rsecret']  
   oauth.authorize_from_request(config['rtoken'], config['rsecret'])

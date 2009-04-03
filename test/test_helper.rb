@@ -13,3 +13,12 @@ require 'twitter'
 
 class Test::Unit::TestCase
 end
+
+def fixture_file(filename)
+  file_path = File.expand_path(File.dirname(__FILE__) + '/fixtures/' + filename)
+  File.read(file_path)
+end
+
+def stub_get(url, filename)
+  FakeWeb.register_uri(:get, url, :string => fixture_file(filename))
+end
