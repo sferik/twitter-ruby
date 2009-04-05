@@ -62,7 +62,7 @@ begin
   namespace :rubyforge do
     
     desc "Release gem and RDoc documentation to RubyForge"
-    task :release => ["rubyforge:release:gem", "rubyforge:release:docs"]
+    task :release => ["rubyforge:release:gem", "rubyforge:release:website", "rubyforge:release:docs"]
     
     namespace :release do
       desc "Publish RDoc to RubyForge."
@@ -72,9 +72,21 @@ begin
         )
 
         host = "#{config['username']}@rubyforge.org"
-        remote_dir = "/var/www/gforge-projects/twitter/"
+        remote_dir = "/var/www/gforge-projects/twitter/rdoc"
         local_dir = 'rdoc'
 
+        Rake::SshDirPublisher.new(host, remote_dir, local_dir).upload
+      end
+      
+      task :website do
+        config = YAML.load(
+            File.read(File.expand_path('~/.rubyforge/user-config.yml'))
+        )
+
+        host = "#{config['username']}@rubyforge.org"
+        remote_dir = "/var/www/gforge-projects/twitter/"
+        local_dir = 'website'
+        
         Rake::SshDirPublisher.new(host, remote_dir, local_dir).upload
       end
     end
