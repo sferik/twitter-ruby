@@ -1,6 +1,7 @@
 0.5.1 - April 5, 2009
 * 1 minor change
   * Added data error hash returned from twitter to a few of the exceptions to help with debugging
+  * Fixed friendship_exists?. Was throwing mash stringify keys error because it was returning true or false instead of hash or array.
   
 0.5.0 - April 3, 2009
 * 1 major rewrite for OAuth

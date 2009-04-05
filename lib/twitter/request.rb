@@ -74,8 +74,10 @@ module Twitter
       def mash(obj)
         if obj.is_a?(Array)
           obj.map { |item| Mash.new(item) }
-        else
+        elsif obj.is_a?(Hash)
           Mash.new(obj)
+        else
+          obj
         end
       end
       
