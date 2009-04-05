@@ -1,4 +1,8 @@
-0.5.0 - March 3, 2009
+0.5.1 - April 5, 2009
+* 1 minor change
+  * Added data error hash returned from twitter to a few of the exceptions to help with debugging
+  
+0.5.0 - April 3, 2009
 * 1 major rewrite for OAuth
   * Backwards compatibility thrown to the wind
   * Proxy no longer supported (someone please add it back in, I never use proxies)

@@ -51,11 +51,13 @@ module Twitter
       def raise_errors(response)
         case response.code.to_i
           when 400
-            raise RateLimitExceeded, "(#{response.code}): #{response.message}"
+            raise RateLimitExceeded.new(parse(response)), "(#{response.code}): #{response.message} - #{data['error']}"
           when 401
-            raise Unauthorized, "(#{response.code}): #{response.message}"
+            data = parse(response)
+            raise Unauthorized.new(data), "(#{response.code}): #{response.message} - #{data['error']}"
           when 403
-            raise General, "(#{response.code}): #{response.message}"
+            data = parse(response)
+            raise General.new(data), "(#{response.code}): #{response.message} - #{data['error']}"
           when 404
             raise NotFound, "(#{response.code}): #{response.message}"
           when 500
