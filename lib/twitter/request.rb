@@ -74,12 +74,21 @@ module Twitter
       
       def mash(obj)
         if obj.is_a?(Array)
-          obj.map { |item| Mash.new(item) }
+          obj.map { |item| make_mash_with_consistent_hash(item) }
         elsif obj.is_a?(Hash)
-          Mash.new(obj)
+          make_mash_with_consistent_hash(obj)
         else
           obj
         end
+      end
+
+      # Lame workaround for the fact that mash doesn't hash correctly
+      def make_mash_with_consistent_hash(obj)
+        m = Mash.new(obj)
+        def m.hash
+          inspect.hash
+        end
+        return m
       end
       
       def to_query(options)

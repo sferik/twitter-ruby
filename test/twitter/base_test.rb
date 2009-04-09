@@ -69,6 +69,12 @@ class BaseTest < Test::Unit::TestCase
         first.user.name.should == '-oAk-'
         first.text.should == '@jnunemaker cold out today. cold yesterday. even colder today.'
       end
+      
+      should "correctly hash statuses" do
+        stub_get('/statuses/friends_timeline.json', 'friends_timeline.json')
+        hashes = @twitter.friends_timeline.map{ |s| s.hash }
+        hashes.should == @twitter.friends_timeline.map{ |s| s.hash }
+      end
     end
   end
 end
