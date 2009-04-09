@@ -1,3 +1,11 @@
+0.5.2 - April 8, 2009
+* 4 minor fixes
+  * added mash as an install dependency, forgot it initially
+  * fixed that search wasn't taking into account a bunch of options duh!
+  * fixed some missing vars and stuff in exception raising
+  * added development dependencies to rake file to make that more explicit (technomancy)
+  * lame workaround for Mash#hash that allows using return objects in sets and such (technomancy)
+
 0.5.1 - April 5, 2009
 * 1 minor change
   * Added data error hash returned from twitter to a few of the exceptions to help with debugging
