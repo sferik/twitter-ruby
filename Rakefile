@@ -15,6 +15,12 @@ begin
     gem.add_dependency('oauth')
     gem.add_dependency('mash')
     gem.add_dependency('httparty', '>= 0.4.2')
+    
+    gem.add_development_dependency('thoughtbot-shoulda')
+    gem.add_development_dependency('jeremymcanally-matchy')
+    gem.add_development_dependency('mocha')
+    gem.add_development_dependency('fakeweb')
+    gem.add_development_dependency('mash')
   end
 rescue LoadError
   puts "Jeweler not available. Install it with: sudo gem install technicalpickles-jeweler -s http://gems.github.com"
