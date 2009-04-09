@@ -13,6 +13,7 @@ begin
     gem.files             = FileList["[A-Z]*", "{examples,lib,test}/**/*"]
     
     gem.add_dependency('oauth')
+    gem.add_dependency('mash')
     gem.add_dependency('httparty', '>= 0.4.2')
   end
 rescue LoadError
