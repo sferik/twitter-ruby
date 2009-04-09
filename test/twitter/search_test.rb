@@ -43,23 +43,33 @@ class SearchTest < Test::Unit::TestCase
     end
 
     should "should be able to specify the language" do
-      @search.lang('en').query[:lang].should == 'en'
+      @search.lang('en')
+      @search.class.expects(:get).with('http://search.twitter.com/search.json', :query => {:lang => 'en', :q => ''}, :format => :json).returns({'foo' => 'bar'})
+      @search.fetch()
     end
 
     should "should be able to specify the number of results per page" do
-      @search.per_page(25).query[:rpp].should == 25
+      @search.per_page(25)
+      @search.class.expects(:get).with('http://search.twitter.com/search.json', :query => {:rpp => 25, :q => ''}, :format => :json).returns({'foo' => 'bar'})
+      @search.fetch()
     end
 
     should "should be able to specify the page number" do
-      @search.page(20).query[:page].should == 20
+      @search.page(20)
+      @search.class.expects(:get).with('http://search.twitter.com/search.json', :query => {:page => 20, :q => ''}, :format => :json).returns({'foo' => 'bar'})
+      @search.fetch()
     end
 
     should "should be able to specify only returning results greater than an id" do
-      @search.since(1234).query[:since_id].should == 1234
+      @search.since(1234)
+      @search.class.expects(:get).with('http://search.twitter.com/search.json', :query => {:since_id => 1234, :q => ''}, :format => :json).returns({'foo' => 'bar'})
+      @search.fetch()
     end
 
     should "should be able to specify geo coordinates" do
-      @search.geocode('40.757929', '-73.985506', '25mi').query[:geocode].should == '40.757929,-73.985506,25mi'
+      @search.geocode('40.757929', '-73.985506', '25mi')
+      @search.class.expects(:get).with('http://search.twitter.com/search.json', :query => {:geocode => '40.757929,-73.985506,25mi', :q => ''}, :format => :json).returns({'foo' => 'bar'})
+      @search.fetch()
     end
 
     should "should be able to clear the filters set" do

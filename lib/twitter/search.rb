@@ -85,7 +85,9 @@ module Twitter
     
     def fetch(force=false)
       if @fetch.nil? || force
-        response = self.class.get('http://search.twitter.com/search.json', :query => {:q => @query[:q].dup.join(' ')}, :format => :json)
+        query = @query.dup
+        query[:q] = query[:q].join(' ')
+        response = self.class.get('http://search.twitter.com/search.json', :query => query, :format => :json)
         @fetch = Mash.new(response)
       end
       
