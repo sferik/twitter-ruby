@@ -1,3 +1,7 @@
+0.5.3 - April 10, 2009
+* 1 minor fix
+  * Twitter API assumed follow true whether true or false. Now only sending follow along to request if follow is true for calls to friendship_create.
+
 0.5.2 - April 8, 2009
 * 4 minor fixes
   * added mash as an install dependency, forgot it initially

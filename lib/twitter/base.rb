@@ -69,7 +69,9 @@ module Twitter
     end
     
     def friendship_create(id, follow=false)
-      perform_post("/friendships/create/#{id}.json", :body => {:follow => follow})
+      body = {}
+      body.merge!(:follow => follow) if follow
+      perform_post("/friendships/create/#{id}.json", :body => body)
     end
     
     def friendship_destroy(id)
