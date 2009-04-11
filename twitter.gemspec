@@ -2,11 +2,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{twitter}
-  s.version = "0.5.3"
+  s.version = "0.6.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["John Nunemaker"]
-  s.date = %q{2009-04-10}
+  s.date = %q{2009-04-11}
   s.email = %q{nunemaker@gmail.com}
   s.extra_rdoc_files = [
     "README.rdoc"
@@ -21,11 +21,13 @@ Gem::Specification.new do |s|
     "examples/connect.rb",
     "examples/friendship_existance.rb",
     "examples/helpers/config_store.rb",
+    "examples/httpauth.rb",
     "examples/search.rb",
     "examples/timeline.rb",
     "examples/update.rb",
     "lib/twitter.rb",
     "lib/twitter/base.rb",
+    "lib/twitter/httpauth.rb",
     "lib/twitter/oauth.rb",
     "lib/twitter/request.rb",
     "lib/twitter/search.rb",
@@ -39,6 +41,7 @@ Gem::Specification.new do |s|
     "test/fixtures/user_timeline.json",
     "test/test_helper.rb",
     "test/twitter/base_test.rb",
+    "test/twitter/httpauth_test.rb",
     "test/twitter/oauth_test.rb",
     "test/twitter/request_test.rb",
     "test/twitter/search_test.rb",
@@ -54,6 +57,7 @@ Gem::Specification.new do |s|
   s.test_files = [
     "test/test_helper.rb",
     "test/twitter/base_test.rb",
+    "test/twitter/httpauth_test.rb",
     "test/twitter/oauth_test.rb",
     "test/twitter/request_test.rb",
     "test/twitter/search_test.rb",
@@ -61,6 +65,7 @@ Gem::Specification.new do |s|
     "examples/connect.rb",
     "examples/friendship_existance.rb",
     "examples/helpers/config_store.rb",
+    "examples/httpauth.rb",
     "examples/search.rb",
     "examples/timeline.rb",
     "examples/update.rb"
