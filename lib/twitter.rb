@@ -35,6 +35,7 @@ directory = File.dirname(__FILE__)
 $:.unshift(directory) unless $:.include?(directory)
 
 require 'twitter/oauth'
+require 'twitter/httpauth'
 require 'twitter/request'
 require 'twitter/base'
 require 'twitter/search'

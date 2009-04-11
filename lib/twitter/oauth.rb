@@ -1,5 +1,8 @@
 module Twitter
   class OAuth
+    extend Forwardable
+    def_delegators :access_token, :get, :post
+    
     attr_reader :ctoken, :csecret
     
     def initialize(ctoken, csecret)
@@ -23,8 +26,6 @@ module Twitter
     def access_token
       @access_token ||= ::OAuth::AccessToken.new(consumer, @atoken, @asecret)
     end
-    
-    alias client access_token
     
     def authorize_from_access(atoken, asecret)
       @atoken, @asecret = atoken, asecret

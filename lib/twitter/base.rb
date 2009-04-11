@@ -2,10 +2,12 @@ module Twitter
   class Base
     extend Forwardable
     
-    def_delegators :@client, :get, :post
+    def_delegators :client, :get, :post
     
-    def initialize(oauth)
-      @client = oauth.access_token
+    attr_reader :client
+    
+    def initialize(client)
+      @client = client
     end
     
     # Options: since_id, max_id, count, page, since

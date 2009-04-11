@@ -10,8 +10,9 @@ class BaseTest < Test::Unit::TestCase
     end
     
     context "initialize" do
-      should "require an oauth object" do
-        @twitter.instance_variable_get('@client').should == @access_token
+      should "require a client" do
+        @twitter.client.should respond_to(:get)
+        @twitter.client.should respond_to(:post)
       end
     end
     

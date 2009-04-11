@@ -53,10 +53,19 @@ class OAuthTest < Test::Unit::TestCase
     twitter.access_token.secret.should == 'asecret'
   end
   
-  should "alias oauth token to client" do
+  should "delegate get to access token" do
+    access_token = mock('access token')
     twitter = Twitter::OAuth.new('token', 'secret')
-    twitter.authorize_from_access('atoken', 'asecret')
-    
-    twitter.client.should == twitter.access_token
+    twitter.stubs(:access_token).returns(access_token)
+    access_token.expects(:get).returns(nil)
+    twitter.get('/foo')
+  end
+  
+  should "delegate post to access token" do
+    access_token = mock('access token')
+    twitter = Twitter::OAuth.new('token', 'secret')
+    twitter.stubs(:access_token).returns(access_token)
+    access_token.expects(:post).returns(nil)
+    twitter.post('/foo')
   end
 end

@@ -2,20 +2,20 @@ module Twitter
   class Request
     extend Forwardable
     
-    def self.get(base, path, options={})
-      new(base, :get, path, options).perform
+    def self.get(client, path, options={})
+      new(client, :get, path, options).perform
     end
     
-    def self.post(base, path, options={})
-      new(base, :post, path, options).perform
+    def self.post(client, path, options={})
+      new(client, :post, path, options).perform
     end
     
-    attr_reader :base, :method, :path, :options
+    attr_reader :client, :method, :path, :options
     
-    def_delegators :base, :get, :post
+    def_delegators :client, :get, :post
     
-    def initialize(base, method, path, options={})
-      @base, @method, @path, @options = base, method, path, options
+    def initialize(client, method, path, options={})
+      @client, @method, @path, @options = client, method, path, options
     end
     
     def uri

@@ -3,12 +3,12 @@ require File.dirname(__FILE__) + '/../test_helper'
 class RequestTest < Test::Unit::TestCase
   context "new get request" do
     setup do
-      @base = mock('twitter base')
-      @request = Twitter::Request.new(@base, :get, '/statuses/user_timeline.json', {:query => {:since_id => 1234}})
+      @client = mock('twitter client')
+      @request = Twitter::Request.new(@client, :get, '/statuses/user_timeline.json', {:query => {:since_id => 1234}})
     end
     
-    should "have base" do
-      @request.base.should == @base
+    should "have client" do
+      @request.client.should == @client
     end
     
     should "have method" do
@@ -34,7 +34,7 @@ class RequestTest < Test::Unit::TestCase
           stubs(:code).returns('200')
         end
         
-        @base.expects(:get).returns(response)
+        @client.expects(:get).returns(response)
         @object = @request.perform
       end
 
@@ -52,7 +52,7 @@ class RequestTest < Test::Unit::TestCase
           stubs(:code).returns('200')
         end
         
-        @base.expects(:get).returns(response)
+        @client.expects(:get).returns(response)
         @object = @request.perform
       end
 
@@ -64,21 +64,21 @@ class RequestTest < Test::Unit::TestCase
     
     context "with no query string" do
       should "not have any query string" do
-        request = Twitter::Request.new(@base, :get, '/statuses/user_timeline.json')
+        request = Twitter::Request.new(@client, :get, '/statuses/user_timeline.json')
         request.uri.should == '/statuses/user_timeline.json'
       end
     end
     
     context "with blank query string" do
       should "not have any query string" do
-        request = Twitter::Request.new(@base, :get, '/statuses/user_timeline.json', :query => {})
+        request = Twitter::Request.new(@client, :get, '/statuses/user_timeline.json', :query => {})
         request.uri.should == '/statuses/user_timeline.json'
       end
     end
     
     should "have get shortcut to initialize and perform all in one" do
       Twitter::Request.any_instance.expects(:perform).returns(nil)
-      Twitter::Request.get(@base, '/foo')
+      Twitter::Request.get(@client, '/foo')
     end
     
     should "allow setting query string and headers" do
@@ -87,15 +87,15 @@ class RequestTest < Test::Unit::TestCase
         stubs(:code).returns('200')
       end
       
-      @base.expects(:get).with('/statuses/friends_timeline.json?since_id=1234', {'Foo' => 'Bar'}).returns(response)
-      Twitter::Request.get(@base, '/statuses/friends_timeline.json?since_id=1234', :headers => {'Foo' => 'Bar'})
+      @client.expects(:get).with('/statuses/friends_timeline.json?since_id=1234', {'Foo' => 'Bar'}).returns(response)
+      Twitter::Request.get(@client, '/statuses/friends_timeline.json?since_id=1234', :headers => {'Foo' => 'Bar'})
     end
   end
   
   context "new post request" do
     setup do
-      @base = mock('twitter base')
-      @request = Twitter::Request.new(@base, :post, '/statuses/update.json', {:body => {:status => 'Woohoo!'}})
+      @client = mock('twitter client')
+      @request = Twitter::Request.new(@client, :post, '/statuses/update.json', {:body => {:status => 'Woohoo!'}})
     end
     
     should "allow setting body and headers" do
@@ -104,8 +104,8 @@ class RequestTest < Test::Unit::TestCase
         stubs(:code).returns('200')
       end
       
-      @base.expects(:post).with('/statuses/update.json', {:status => 'Woohoo!'}, {'Foo' => 'Bar'}).returns(response)
-      Twitter::Request.post(@base, '/statuses/update.json', :body => {:status => 'Woohoo!'}, :headers => {'Foo' => 'Bar'})
+      @client.expects(:post).with('/statuses/update.json', {:status => 'Woohoo!'}, {'Foo' => 'Bar'}).returns(response)
+      Twitter::Request.post(@client, '/statuses/update.json', :body => {:status => 'Woohoo!'}, :headers => {'Foo' => 'Bar'})
     end
     
     context "performing request" do
@@ -115,7 +115,7 @@ class RequestTest < Test::Unit::TestCase
           stubs(:code).returns('200')
         end
         
-        @base.expects(:post).returns(response)
+        @client.expects(:post).returns(response)
         @object = @request.perform
       end
 
@@ -126,7 +126,7 @@ class RequestTest < Test::Unit::TestCase
     
     should "have post shortcut to initialize and perform all in one" do
       Twitter::Request.any_instance.expects(:perform).returns(nil)
-      Twitter::Request.post(@base, '/foo')
+      Twitter::Request.post(@client, '/foo')
     end
   end
   
@@ -134,69 +134,69 @@ class RequestTest < Test::Unit::TestCase
     setup do
       oauth = Twitter::OAuth.new('token', 'secret')
       oauth.authorize_from_access('atoken', 'asecret')
-      @base = Twitter::Base.new(oauth)
+      @client = Twitter::Base.new(oauth)
     end
     
     should "not raise error for 200" do
       stub_get('http://twitter.com:80/foo', '', ['200'])
       lambda {
-        Twitter::Request.get(@base, '/foo')
+        Twitter::Request.get(@client, '/foo')
       }.should_not raise_error
     end
     
     should "not raise error for 304" do
       stub_get('http://twitter.com:80/foo', '', ['304'])
       lambda {
-        Twitter::Request.get(@base, '/foo')
+        Twitter::Request.get(@client, '/foo')
       }.should_not raise_error
     end
     
     should "raise RateLimitExceeded for 400" do
       stub_get('http://twitter.com:80/foo', 'rate_limit_exceeded.json', ['400'])
       lambda {
-        Twitter::Request.get(@base, '/foo')
+        Twitter::Request.get(@client, '/foo')
       }.should raise_error(Twitter::RateLimitExceeded)
     end
     
     should "raise Unauthorized for 401" do
       stub_get('http://twitter.com:80/foo', '', ['401'])
       lambda {
-        Twitter::Request.get(@base, '/foo')
+        Twitter::Request.get(@client, '/foo')
       }.should raise_error(Twitter::Unauthorized)
     end
     
     should "raise General for 403" do
       stub_get('http://twitter.com:80/foo', '', ['403'])
       lambda {
-        Twitter::Request.get(@base, '/foo')
+        Twitter::Request.get(@client, '/foo')
       }.should raise_error(Twitter::General)
     end
 
     should "raise NotFound for 404" do
       stub_get('http://twitter.com:80/foo', '', ['404'])
       lambda {
-        Twitter::Request.get(@base, '/foo')
+        Twitter::Request.get(@client, '/foo')
       }.should raise_error(Twitter::NotFound)
     end
 
     should "raise InformTwitter for 500" do
       stub_get('http://twitter.com:80/foo', '', ['500'])
       lambda {
-        Twitter::Request.get(@base, '/foo')
+        Twitter::Request.get(@client, '/foo')
       }.should raise_error(Twitter::InformTwitter)
     end
 
     should "raise Unavailable for 502" do
       stub_get('http://twitter.com:80/foo', '', ['502'])
       lambda {
-        Twitter::Request.get(@base, '/foo')
+        Twitter::Request.get(@client, '/foo')
       }.should raise_error(Twitter::Unavailable)
     end
 
     should "raise Unavailable for 503" do
       stub_get('http://twitter.com:80/foo', '', ['503'])
       lambda {
-        Twitter::Request.get(@base, '/foo')
+        Twitter::Request.get(@client, '/foo')
       }.should raise_error(Twitter::Unavailable)
     end
   end
