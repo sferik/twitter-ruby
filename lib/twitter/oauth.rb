@@ -24,6 +24,8 @@ module Twitter
       @access_token ||= ::OAuth::AccessToken.new(consumer, @atoken, @asecret)
     end
     
+    alias client access_token
+    
     def authorize_from_access(atoken, asecret)
       @atoken, @asecret = atoken, asecret
     end

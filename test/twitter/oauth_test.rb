@@ -52,4 +52,11 @@ class OAuthTest < Test::Unit::TestCase
     twitter.access_token.token.should == 'atoken'
     twitter.access_token.secret.should == 'asecret'
   end
+  
+  should "alias oauth token to client" do
+    twitter = Twitter::OAuth.new('token', 'secret')
+    twitter.authorize_from_access('atoken', 'asecret')
+    
+    twitter.client.should == twitter.access_token
+  end
 end
