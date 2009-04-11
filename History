@@ -1,3 +1,7 @@
+0.6.0 - April 11, 2009
+* 1 feature addition
+  * Added http authentication back in. You can now use oauth or http auth as your client.
+  
 0.5.3 - April 10, 2009
 * 1 minor fix
   * Twitter API assumed follow true whether true or false. Now only sending follow along to request if follow is true for calls to friendship_create.
