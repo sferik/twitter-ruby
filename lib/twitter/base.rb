@@ -90,7 +90,7 @@ module Twitter
     end
     
     # Options: id, user_id, screen_name
-    def friend_ids(query={})
+    def follower_ids(query={})
       perform_get("/followers/ids.json", :query => query)
     end
     

@@ -1,3 +1,7 @@
+0.6.1 - April 12, 2009
+* 1 minor fix
+  * Had two friend_ids functions. Renamed one of them to follower_ids. 
+  
 0.6.0 - April 11, 2009
 * 1 feature addition
   * Added http authentication back in. You can now use oauth or http auth as your client.
