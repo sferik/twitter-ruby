@@ -75,6 +75,11 @@ module Twitter
       self
     end
     
+    def max(id)
+      @query[:max_id] = id
+      self
+    end
+    
     # Clears all the query filters to make a new search
     def clear
       @fetch = nil

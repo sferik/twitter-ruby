@@ -1,3 +1,7 @@
+0.6.2 - April 14, 2009
+* 1 minor addition
+  * added max to search so you can set the max id that should be used
+  
 0.6.1 - April 12, 2009
 * 1 minor fix
   * Had two friend_ids functions. Renamed one of them to follower_ids. 

@@ -72,6 +72,12 @@ class SearchTest < Test::Unit::TestCase
       @search.fetch()
     end
 
+    should "should be able to specify max id" do
+      @search.max(1234)
+      @search.class.expects(:get).with('http://search.twitter.com/search.json', :query => {:max_id => 1234, :q => ''}, :format => :json).returns({'foo' => 'bar'})
+      @search.fetch()
+    end
+
     should "should be able to clear the filters set" do
       @search.from('jnunemaker').to('oaknd1')
       @search.clear.query.should == {:q => []}
