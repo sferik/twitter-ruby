@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{twitter}
-  s.version = "0.6.2"
+  s.version = "0.6.3"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["John Nunemaker"]
@@ -25,6 +25,7 @@ Gem::Specification.new do |s|
     "examples/search.rb",
     "examples/timeline.rb",
     "examples/update.rb",
+    "examples/user.rb",
     "lib/twitter.rb",
     "lib/twitter/base.rb",
     "lib/twitter/httpauth.rb",
@@ -38,6 +39,7 @@ Gem::Specification.new do |s|
     "test/fixtures/search.json",
     "test/fixtures/search_from_jnunemaker.json",
     "test/fixtures/status.json",
+    "test/fixtures/user.json",
     "test/fixtures/user_timeline.json",
     "test/test_helper.rb",
     "test/twitter/base_test.rb",
@@ -68,7 +70,8 @@ Gem::Specification.new do |s|
     "examples/httpauth.rb",
     "examples/search.rb",
     "examples/timeline.rb",
-    "examples/update.rb"
+    "examples/update.rb",
+    "examples/user.rb"
   ]
 
   if s.respond_to? :specification_version then
