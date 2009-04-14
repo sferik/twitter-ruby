@@ -1,3 +1,7 @@
+0.6.3 - April 14, 2009
+* 1 minor addition
+  * Added Twitter.user method to get user's information without authenticating
+  
 0.6.2 - April 14, 2009
 * 1 minor addition
   * added max to search so you can set the max id that should be used

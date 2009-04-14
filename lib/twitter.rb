@@ -29,6 +29,11 @@ module Twitter
     response = HTTParty.get('http://twitter.com/statuses/public_timeline.json', :format => :json)
     response.map { |tweet| Mash.new(tweet) }
   end
+  
+  def self.user(id)
+    response = HTTParty.get("http://twitter.com/users/show/#{id}.json", :format => :json)
+    Mash.new(response)
+  end
 end
 
 directory = File.dirname(__FILE__)
