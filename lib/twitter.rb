@@ -1,10 +1,14 @@
 require 'forwardable'
 require 'rubygems'
 
-%w(oauth mash httparty).each do |lib|
-  gem lib
-  require lib
-end
+gem 'oauth', '0.3.2'
+require 'oauth'
+
+gem 'mash', '0.0.3'
+require 'mash'
+
+gem 'httparty', '0.4.2'
+require 'httparty'
 
 module Twitter
   class TwitterError < StandardError

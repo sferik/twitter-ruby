@@ -1,3 +1,7 @@
+0.6.4 - April 14, 2009
+* 1 minor tweak
+  * More explicit about dependency versions in gemspec and when requiring.
+
 0.6.3 - April 14, 2009
 * 1 minor addition
   * Added Twitter.user method to get user's information without authenticating
