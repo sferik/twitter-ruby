@@ -1,3 +1,7 @@
+0.6.6 - April 16, 2009
+* 1 minor enhancement
+  * added ability to pass query parameters to user method
+  
 0.6.5 - April 15, 2009
 * 1 bug fix
   * fixed that friend_ids and follower_ids were bombing from trying to mash them. Added :mash option to Twitter::Request so I can specifically not mash certain responses from twitter

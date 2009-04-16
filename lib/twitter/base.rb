@@ -48,8 +48,8 @@ module Twitter
       perform_get('/statuses/followers.json', :query => query)
     end
     
-    def user(id)
-      perform_get("/users/show/#{id}.json")
+    def user(id, :query => {})
+      perform_get("/users/show/#{id}.json", :query => query)
     end
     
     # Options: since, since_id, page
