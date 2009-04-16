@@ -15,7 +15,7 @@ module Twitter
     def_delegators :client, :get, :post
     
     def initialize(client, method, path, options={})
-      @client, @method, @path, @options = client, method, path, options
+      @client, @method, @path, @options = client, method, path, {:mash => true}.merge(options)
     end
     
     def uri
@@ -45,7 +45,8 @@ module Twitter
       
       def make_friendly(response)
         raise_errors(response)
-        mash(parse(response))
+        data = parse(response)
+        options[:mash] ? mash(data) : data
       end
       
       def raise_errors(response)

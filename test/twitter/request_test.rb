@@ -20,7 +20,7 @@ class RequestTest < Test::Unit::TestCase
     end
     
     should "have options" do
-      @request.options.should == {:query => {:since_id => 1234}}
+      @request.options[:query].should == {:since_id => 1234}
     end
     
     should "have uri" do
@@ -60,7 +60,7 @@ class RequestTest < Test::Unit::TestCase
         @object.class.should be(Mash)
         @object.text.should == 'Rob Dyrdek is the funniest man alive. That is all.'
       end
-    end    
+    end
     
     context "with no query string" do
       should "not have any query string" do
@@ -198,6 +198,20 @@ class RequestTest < Test::Unit::TestCase
       lambda {
         Twitter::Request.get(@client, '/foo')
       }.should raise_error(Twitter::Unavailable)
+    end
+  end
+  
+  context "Making request with mash option set to false" do
+    setup do
+      oauth = Twitter::OAuth.new('token', 'secret')
+      oauth.authorize_from_access('atoken', 'asecret')
+      @client = Twitter::Base.new(oauth)
+    end
+    
+    should "not attempt to create mash of return object" do
+      stub_get('http://twitter.com:80/foo', 'friend_ids.json')
+      object = Twitter::Request.get(@client, '/foo', :mash => false)
+      object.class.should_not be(Mash)
     end
   end
 end

@@ -71,6 +71,20 @@ class BaseTest < Test::Unit::TestCase
         first.text.should == '@jnunemaker cold out today. cold yesterday. even colder today.'
       end
       
+      should "be able to get follower ids" do
+        stub_get('/followers/ids.json', 'follower_ids.json')
+        follower_ids = @twitter.follower_ids
+        follower_ids.size.should == 1252
+        follower_ids.first.should == 613
+      end
+      
+      should "be able to get friend ids" do
+        stub_get('/friends/ids.json', 'friend_ids.json')
+        friend_ids = @twitter.friend_ids
+        friend_ids.size.should == 161
+        friend_ids.first.should == 15323
+      end
+      
       should "correctly hash statuses" do
         stub_get('/statuses/friends_timeline.json', 'friends_timeline.json')
         hashes = @twitter.friends_timeline.map{ |s| s.hash }

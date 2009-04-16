@@ -1,3 +1,7 @@
+0.6.5 - April 15, 2009
+* 1 bug fix
+  * fixed that friend_ids and follower_ids were bombing from trying to mash them. Added :mash option to Twitter::Request so I can specifically not mash certain responses from twitter
+  
 0.6.4 - April 14, 2009
 * 1 minor tweak
   * More explicit about dependency versions in gemspec and when requiring.

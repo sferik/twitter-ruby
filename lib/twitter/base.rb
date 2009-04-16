@@ -86,12 +86,12 @@ module Twitter
     
     # Options: id, user_id, screen_name
     def friend_ids(query={})
-      perform_get("/friends/ids.json", :query => query)
+      perform_get("/friends/ids.json", :query => query, :mash => false)
     end
     
     # Options: id, user_id, screen_name
     def follower_ids(query={})
-      perform_get("/followers/ids.json", :query => query)
+      perform_get("/followers/ids.json", :query => query, :mash => false)
     end
     
     def verify_credentials
