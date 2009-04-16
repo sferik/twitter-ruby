@@ -2,6 +2,9 @@
 * 1 minor enhancement
   * added ability to pass query parameters to user method
   * httpauth can now accept :ssl option to use https instead of http
+  * Added Twitter.status method for no auth calls to fetch status
+  * Added Twitter.friend_ids method for no auth calls to fetch status
+  * Added Twitter.follower_ids method for no auth calls to fetch status
   
 0.6.5 - April 15, 2009
 * 1 bug fix

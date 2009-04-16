@@ -16,4 +16,23 @@ class TwitterTest < Test::Unit::TestCase
     user.name.should == 'John Nunemaker'
     user.description.should == 'Loves his wife, ruby, notre dame football and iu basketball'
   end
+  
+  should "have status method for unauthenticated calls to get a status" do
+    stub_get('http://twitter.com:80/statuses/show/1533815199.json', 'status_show.json')
+    status = Twitter.status(1533815199)
+    status.id.should == 1533815199
+    status.text.should == 'Eating some oatmeal and butterscotch cookies with a cold glass of milk for breakfast. Tasty!'
+  end
+  
+  should "have friend_ids method" do
+    stub_get('http://twitter.com:80/friends/ids/jnunemaker.json', 'friend_ids.json')
+    ids = Twitter.friend_ids('jnunemaker')
+    ids.size.should == 161
+  end
+  
+  should "have follower_ids method" do
+    stub_get('http://twitter.com:80/followers/ids/jnunemaker.json', 'follower_ids.json')
+    ids = Twitter.follower_ids('jnunemaker')
+    ids.size.should == 1252
+  end
 end

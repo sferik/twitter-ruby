@@ -38,6 +38,19 @@ module Twitter
     response = HTTParty.get("http://twitter.com/users/show/#{id}.json", :format => :json)
     Mash.new(response)
   end
+  
+  def self.status(id)
+    response = HTTParty.get("http://twitter.com/statuses/show/#{id}.json", :format => :json)
+    Mash.new(response)
+  end
+  
+  def self.friend_ids(id)
+    HTTParty.get("http://twitter.com/friends/ids/#{id}.json", :format => :json)
+  end
+  
+  def self.follower_ids(id)
+    HTTParty.get("http://twitter.com/followers/ids/#{id}.json", :format => :json)
+  end
 end
 
 directory = File.dirname(__FILE__)
