@@ -1,13 +1,14 @@
 module Twitter
   class HTTPAuth
     include HTTParty
-    base_uri 'http://twitter.com'
     format :plain
     
-    attr_reader :username, :password
+    attr_reader :username, :password, :options
     
-    def initialize(username, password)
+    def initialize(username, password, options={})
       @username, @password = username, password
+      @options = {:ssl => false}.merge(options)
+      self.class.base_uri "http#{'s' if options[:ssl]}://twitter.com"
     end
     
     def get(uri, headers={})

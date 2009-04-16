@@ -7,6 +7,26 @@ class HTTPAuthTest < Test::Unit::TestCase
       twitter.username.should == 'username'
       twitter.password.should == 'password'
     end
+    
+    should "accept options" do
+      twitter = Twitter::HTTPAuth.new('username', 'password', :ssl => true)
+      twitter.options.should == {:ssl => true}
+    end
+    
+    should "default ssl to false" do
+      twitter = Twitter::HTTPAuth.new('username', 'password')
+      twitter.options[:ssl].should be(false)
+    end
+    
+    should "use https if ssl is true" do
+      Twitter::HTTPAuth.expects(:base_uri).with('https://twitter.com')
+      twitter = Twitter::HTTPAuth.new('username', 'password', :ssl => true)
+    end
+    
+    should "use http if ssl is false" do
+      Twitter::HTTPAuth.expects(:base_uri).with('http://twitter.com')
+      twitter = Twitter::HTTPAuth.new('username', 'password', :ssl => false)
+    end
   end
   
   context "Client methods" do
