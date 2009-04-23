@@ -33,7 +33,13 @@ class HTTPAuthTest < Test::Unit::TestCase
     setup do
       @twitter = Twitter::HTTPAuth.new('username', 'password')
     end
-
+    
+    should "not throw error when accessing response message" do
+      stub_get('http://twitter.com:80/statuses/user_timeline.json', 'user_timeline.json')
+      response = @twitter.get('/statuses/user_timeline.json')
+      response.message.should == 'OK'
+    end
+    
     should "be able to get" do
       stub_get('http://twitter.com:80/statuses/user_timeline.json', 'user_timeline.json')
       response = @twitter.get('/statuses/user_timeline.json')

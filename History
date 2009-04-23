@@ -1,3 +1,7 @@
+0.6.7 - April 23, 2009
+* 1 minor fix
+  * Bumped httparty version to 0.4.3 which allows response.message and fixes errors that the lack of response.message was causing to the twitter gem
+  
 0.6.6 - April 16, 2009
 * 1 minor enhancement
   * added ability to pass query parameters to user method

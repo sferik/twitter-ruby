@@ -7,7 +7,7 @@ require 'oauth'
 gem 'mash', '0.0.3'
 require 'mash'
 
-gem 'httparty', '0.4.2'
+gem 'httparty', '0.4.3'
 require 'httparty'
 
 module Twitter
