@@ -1,3 +1,7 @@
+0.6.8 - April 23, 2009
+* 1 dependency fix
+  * forgot to update rakefile rendering previous 0.6.7 release useless. crap!
+
 0.6.7 - April 23, 2009
 * 1 minor fix
   * Bumped httparty version to 0.4.3 which allows response.message and fixes errors that the lack of response.message was causing to the twitter gem
