@@ -68,6 +68,20 @@ module Twitter
       self
     end
     
+    # From the advanced search form, not documented in the API
+    # Format YYYY-MM-DD
+    def since_date(since_date)
+      @query[:since] = since_date
+      self
+    end
+
+    # From the advanced search form, not documented in the API
+    # Format YYYY-MM-DD
+    def until_date(until_date)
+      @query[:until] = until_date
+      self
+    end
+
     # Search tweets by longitude, latitude and a given range.
     # Ranges like 25km and 50mi work.
     def geocode(long, lat, range)

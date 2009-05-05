@@ -66,6 +66,18 @@ class SearchTest < Test::Unit::TestCase
       @search.fetch()
     end
 
+    should "should be able to specify since a date" do 
+      @search.since_date('2009-04-14')
+      @search.class.expects(:get).with('http://search.twitter.com/search.json', :query => { :since => '2009-04-14', :q => ''}, :format => :json).returns({ 'foo' => 'bar'})
+      @search.fetch
+    end
+
+    should "should be able to specify until a date" do 
+      @search.until_date('2009-04-14')
+      @search.class.expects(:get).with('http://search.twitter.com/search.json', :query => { :until => '2009-04-14', :q => ''}, :format => :json).returns({ 'foo' => 'bar'})
+      @search.fetch
+    end
+
     should "should be able to specify geo coordinates" do
       @search.geocode('40.757929', '-73.985506', '25mi')
       @search.class.expects(:get).with('http://search.twitter.com/search.json', :query => {:geocode => '40.757929,-73.985506,25mi', :q => ''}, :format => :json).returns({'foo' => 'bar'})
