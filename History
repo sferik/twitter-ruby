@@ -1,3 +1,7 @@
+0.6.10 - May 18, 2009
+* 1 cool addition
+  * Added full support for trends - current, daily and weekly (even allowing excluding of hashtags and for specific dates)
+
 0.6.9 - May 17, 2009
 * 1 minor tweak
   * Bumped oauth dependency version to 0.3.4.

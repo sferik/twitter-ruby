@@ -6,18 +6,24 @@ module Twitter
     
     # :exclude => 'hashtags' to exclude hashtags
     def self.current(options={})
-      response = get('/current.json', :query => options)
-      response['trends'].values.flatten.map { |t| Mash.new(t) }
+      mashup(get('/current.json', :query => options))
     end
     
+    # :exclude => 'hashtags' to exclude hashtags
+    # :date => yyyy-mm-dd for specific date
     def self.daily(options={})
-      response = get('/daily.json', :query => options)
-      response['trends'].values.flatten.map { |t| Mash.new(t) }
+      mashup(get('/daily.json', :query => options))
     end
     
+    # :exclude => 'hashtags' to exclude hashtags
+    # :date => yyyy-mm-dd for specific date
     def self.weekly(options={})
-      response = get('/weekly.json', :query => options)
-      response['trends'].values.flatten.map { |t| Mash.new(t) }
+      mashup(get('/weekly.json', :query => options))
     end
+    
+    private
+      def self.mashup(response)
+        response['trends'].values.flatten.map { |t| Mash.new(t) }
+      end
   end
 end
