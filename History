@@ -1,3 +1,7 @@
+0.6.9 - May 17, 2009
+* 1 minor tweak
+  * Bumped oauth dependency version to 0.3.4.
+  
 0.6.8 - April 23, 2009
 * 1 dependency fix
   * forgot to update rakefile rendering previous 0.6.7 release useless. crap!
