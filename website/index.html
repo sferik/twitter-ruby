@@ -13,7 +13,7 @@
 		<p>API wrapper for Twitter and Twitter Search API's</p> 
 		
 		<ul id="nav">
-			<li><a href="rdoc/">Docs</a></li> 
+			<li><a href="http://rdoc.info/projects/jnunemaker/twitter">Docs</a></li> 
 			<li><a href="http://github.com/jnunemaker/twitter">Github</a></li>
 			<li><a href="http://rubyforge.org/projects/twitter/">Rubyforge</a></li> 
 		</ul> 
@@ -54,16 +54,37 @@ base.friends_timeline.each { |tweet| puts tweet.text }
 		<h2>Search API Examples</h2>
 		
 <pre><code>#searches all tweets for httparty
-Twitter::Search.new('httparty').each { |r| puts r.inspect }
+Twitter::Search.new('httparty').each do |r| 
+  puts r.inspect
+end
 
 # searches all of jnunemaker's tweets for httparty
-Twitter::Search.new('httparty').from('jnunemaker').each { |r| puts r.inspect }
+Twitter::Search.new('httparty').from('jnunemaker').each do |r| 
+  puts r.inspect
+end
 
 # searches all tweets from jnunemaker to oaknd1
-Twitter::Search.new.from('jnunemaker').to('oaknd1').each { |r| puts r.inspect }
+Twitter::Search.new.from('jnunemaker').to('oaknd1').each do |r| 
+  puts r.inspect
+end
 
 # you can also use fetch to actually just get the parsed response
 Twitter::Search.new.from('jnunemaker').to('oaknd1').fetch()
+</code></pre>
+
+
+    <h2>Trends API Examples</h2>
+    
+<pre><code>Twitter::Trends.current
+Twitter::Trends.current(:exclude => 'hashtags')
+
+Twitter::Trends.daily # current day
+Twitter::Trends.daily(:exclude => 'hashtags')
+Twitter::Trends.daily(:date => Date.new(2009, 5, 1))
+
+Twitter::Trends.weekly # current day
+Twitter::Trends.weekly(:exclude => 'hashtags')
+Twitter::Trends.weekly(:date => Date.new(2009, 5, 1))
 </code></pre>
 		
     <!-- <h2>Command Line</h2>
