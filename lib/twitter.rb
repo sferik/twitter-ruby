@@ -53,11 +53,10 @@ module Twitter
   end
 end
 
-directory = File.dirname(__FILE__)
-$:.unshift(directory) unless $:.include?(directory)
+directory = File.expand_path(File.dirname(__FILE__))
 
-require 'twitter/oauth'
-require 'twitter/httpauth'
-require 'twitter/request'
-require 'twitter/base'
-require 'twitter/search'
+require File.join(directory, 'twitter', 'oauth')
+require File.join(directory, 'twitter', 'httpauth')
+require File.join(directory, 'twitter', 'request')
+require File.join(directory, 'twitter', 'base')
+require File.join(directory, 'twitter', 'search')
