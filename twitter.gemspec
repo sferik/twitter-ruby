@@ -2,11 +2,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{twitter}
-  s.version = "0.6.9"
+  s.version = "0.6.10"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["John Nunemaker"]
-  s.date = %q{2009-05-17}
+  s.date = %q{2009-05-18}
   s.email = %q{nunemaker@gmail.com}
   s.extra_rdoc_files = [
     "README.rdoc"
@@ -34,6 +34,7 @@ Gem::Specification.new do |s|
      "lib/twitter/oauth.rb",
      "lib/twitter/request.rb",
      "lib/twitter/search.rb",
+     "lib/twitter/trends.rb",
      "test/fixtures/firehose.json",
      "test/fixtures/follower_ids.json",
      "test/fixtures/friend_ids.json",
@@ -44,6 +45,14 @@ Gem::Specification.new do |s|
      "test/fixtures/search_from_jnunemaker.json",
      "test/fixtures/status.json",
      "test/fixtures/status_show.json",
+     "test/fixtures/trends_current.json",
+     "test/fixtures/trends_current_exclude.json",
+     "test/fixtures/trends_daily.json",
+     "test/fixtures/trends_daily_date.json",
+     "test/fixtures/trends_daily_exclude.json",
+     "test/fixtures/trends_weekly.json",
+     "test/fixtures/trends_weekly_date.json",
+     "test/fixtures/trends_weekly_exclude.json",
      "test/fixtures/user.json",
      "test/fixtures/user_timeline.json",
      "test/test_helper.rb",
@@ -52,6 +61,7 @@ Gem::Specification.new do |s|
      "test/twitter/oauth_test.rb",
      "test/twitter/request_test.rb",
      "test/twitter/search_test.rb",
+     "test/twitter/trends_test.rb",
      "test/twitter_test.rb"
   ]
   s.has_rdoc = true
@@ -68,6 +78,7 @@ Gem::Specification.new do |s|
      "test/twitter/oauth_test.rb",
      "test/twitter/request_test.rb",
      "test/twitter/search_test.rb",
+     "test/twitter/trends_test.rb",
      "test/twitter_test.rb",
      "examples/connect.rb",
      "examples/friendship_existance.rb",
