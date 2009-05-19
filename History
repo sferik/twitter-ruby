@@ -1,3 +1,7 @@
+0.6.11 - May 18, 2009
+* 1 minor addition
+  * Added the ability to sign in with twitter instead of authorizing
+
 0.6.10 - May 18, 2009
 * 1 cool addition
   * Added full support for trends - current, daily and weekly (even allowing excluding of hashtags and for specific dates)
