@@ -41,7 +41,7 @@ class HTTPAuthTest < Test::Unit::TestCase
     end
     
     should "be able to get" do
-      stub_get('http://twitter.com:80/statuses/user_timeline.json', 'user_timeline.json')
+      stub_get('http://username:password@twitter.com:80/statuses/user_timeline.json', 'user_timeline.json')
       response = @twitter.get('/statuses/user_timeline.json')
       response.should == fixture_file('user_timeline.json')
     end
@@ -57,7 +57,7 @@ class HTTPAuthTest < Test::Unit::TestCase
     end
     
     should "be able to post" do
-      stub_post('http://twitter.com:80/statuses/update.json', 'status.json')
+      stub_post('http://username:password@twitter.com:80/statuses/update.json', 'status.json')
       response = @twitter.post('/statuses/update.json', :text => 'My update.')
       response.should == fixture_file('status.json')
     end
