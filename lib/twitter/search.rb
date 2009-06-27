@@ -5,9 +5,14 @@ module Twitter
     
     attr_reader :result, :query
     
-    def initialize(q=nil)
+    def initialize(q=nil, options={})
+      @options = options
       clear
       containing(q) if q && q.strip != ''
+    end
+    
+    def user_agent
+      @options[:user_agent] || 'Ruby Twitter Gem'
     end
     
     def from(user)
@@ -92,7 +97,7 @@ module Twitter
       if @fetch.nil? || force
         query = @query.dup
         query[:q] = query[:q].join(' ')
-        response = self.class.get('http://search.twitter.com/search.json', :query => query, :format => :json)
+        response = self.class.get('http://search.twitter.com/search.json', :query => query, :format => :json, :headers => {'User-Agent' => user_agent})
         @fetch = Mash.new(response)
       end
       

@@ -1,6 +1,8 @@
 0.6.12 - June 26, 2009
-* 1 minor addition
+* 2 minor additions
   * fixed fakeweb test issue (obie fernandez)
+  * added user agent option to searches
+  
 0.6.11 - May 18, 2009
 * 1 minor addition
   * Added the ability to sign in with twitter instead of authorizing
