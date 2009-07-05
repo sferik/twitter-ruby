@@ -25,12 +25,12 @@ def twitter_url(url)
 end
 
 def stub_get(url, filename, status=nil)
-  options = {:string => fixture_file(filename)}
+  options = {:body => fixture_file(filename)}
   options.merge!({:status => status}) unless status.nil?
   
   FakeWeb.register_uri(:get, twitter_url(url), options)
 end
 
 def stub_post(url, filename)
-  FakeWeb.register_uri(:post, twitter_url(url), :string => fixture_file(filename))
+  FakeWeb.register_uri(:post, twitter_url(url), :body => fixture_file(filename))
 end
