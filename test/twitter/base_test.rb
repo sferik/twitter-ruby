@@ -90,6 +90,12 @@ class BaseTest < Test::Unit::TestCase
         hashes = @twitter.friends_timeline.map{ |s| s.hash }
         hashes.should == @twitter.friends_timeline.map{ |s| s.hash }
       end
+      
+      should "be able to get a friendship" do
+        id = 10
+        stub_get("/friendships/show.json?target_id=#{id}", 'friendship.json')
+        @twitter.friendship_show(id).relationship.target.followed_by == false
+      end
     end
   end
 end

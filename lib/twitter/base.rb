@@ -84,6 +84,10 @@ module Twitter
       perform_get("/friendships/exists.json", :query => {:user_a => a, :user_b => b})
     end
     
+    def friendship_show(id)
+      perform_get("/friendships/show.json", :query => {:target_id => id})
+    end
+    
     # Options: id, user_id, screen_name
     def friend_ids(query={})
       perform_get("/friends/ids.json", :query => query, :mash => false)
