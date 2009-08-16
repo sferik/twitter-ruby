@@ -22,6 +22,10 @@ begin
     gem.add_development_dependency('fakeweb')
     gem.add_development_dependency('mash')
   end
+  
+  Jeweler::RubyforgeTasks.new do |rubyforge|
+    rubyforge.doc_task = "rdoc"
+  end
 rescue LoadError
   puts "Jeweler not available. Install it with: sudo gem install technicalpickles-jeweler -s http://gems.github.com"
 end
@@ -64,40 +68,3 @@ Rake::RDocTask.new do |rdoc|
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
 
-begin
-  require 'rake/contrib/sshpublisher'
-  namespace :rubyforge do
-    
-    desc "Release gem and RDoc documentation to RubyForge"
-    task :release => ["rubyforge:release:gem", "rubyforge:release:website", "rubyforge:release:docs"]
-    
-    namespace :release do
-      desc "Publish RDoc to RubyForge."
-      task :docs => [:rdoc] do
-        config = YAML.load(
-            File.read(File.expand_path('~/.rubyforge/user-config.yml'))
-        )
-
-        host = "#{config['username']}@rubyforge.org"
-        remote_dir = "/var/www/gforge-projects/twitter/rdoc"
-        local_dir = 'rdoc'
-
-        Rake::SshDirPublisher.new(host, remote_dir, local_dir).upload
-      end
-      
-      task :website do
-        config = YAML.load(
-            File.read(File.expand_path('~/.rubyforge/user-config.yml'))
-        )
-
-        host = "#{config['username']}@rubyforge.org"
-        remote_dir = "/var/www/gforge-projects/twitter/"
-        local_dir = 'website'
-        
-        Rake::SshDirPublisher.new(host, remote_dir, local_dir).upload
-      end
-    end
-  end
-rescue LoadError
-  puts "Rake SshDirPublisher is unavailable or your rubyforge environment is not configured."
-end
