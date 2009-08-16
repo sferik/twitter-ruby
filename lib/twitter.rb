@@ -1,7 +1,7 @@
 require 'forwardable'
 require 'rubygems'
 
-gem 'oauth', '>= 0.3.5'
+gem 'oauth', '>= 0.3.4'
 require 'oauth'
 
 gem 'mash', '0.0.3'

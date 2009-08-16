@@ -1,3 +1,6 @@
+0.6.14 - August 16, 2009
+  * Lowered the oauth requirement to 0.3.4 as people are complaining about 0.3.5
+  
 0.6.13 - July 27, 2009
 * 1 minor update
   * Set oauth version to >= 0.3.5 so I don't have to release new gem for each oauth update, which seems to be frequent of late
