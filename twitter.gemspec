@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{twitter}
-  s.version = "0.6.14"
+  s.version = "0.6.15"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["John Nunemaker"]
-  s.date = %q{2009-08-16}
+  s.date = %q{2009-08-23}
   s.email = %q{nunemaker@gmail.com}
   s.extra_rdoc_files = [
     "README.rdoc"
@@ -26,6 +26,7 @@ Gem::Specification.new do |s|
      "examples/helpers/config_store.rb",
      "examples/httpauth.rb",
      "examples/ids.rb",
+     "examples/oauth.rb",
      "examples/search.rb",
      "examples/timeline.rb",
      "examples/unauthorized.rb",
@@ -72,7 +73,7 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
   s.rubyforge_project = %q{twitter}
   s.rubygems_version = %q{1.3.5}
-  s.summary = %q{wrapper for the twitter api (oauth only)}
+  s.summary = %q{wrapper for the twitter api}
   s.test_files = [
     "test/test_helper.rb",
      "test/twitter/base_test.rb",
@@ -87,6 +88,7 @@ Gem::Specification.new do |s|
      "examples/helpers/config_store.rb",
      "examples/httpauth.rb",
      "examples/ids.rb",
+     "examples/oauth.rb",
      "examples/search.rb",
      "examples/timeline.rb",
      "examples/unauthorized.rb",
@@ -99,32 +101,29 @@ Gem::Specification.new do |s|
     s.specification_version = 3
 
     if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<oauth>, [">= 0.3.4"])
+      s.add_runtime_dependency(%q<oauth>, [">= 0.3.5"])
       s.add_runtime_dependency(%q<mash>, ["= 0.0.3"])
       s.add_runtime_dependency(%q<httparty>, ["= 0.4.3"])
-      s.add_development_dependency(%q<thoughtbot-shoulda>, [">= 0"])
-      s.add_development_dependency(%q<jeremymcanally-matchy>, [">= 0"])
-      s.add_development_dependency(%q<mocha>, [">= 0"])
-      s.add_development_dependency(%q<fakeweb>, [">= 0"])
-      s.add_development_dependency(%q<mash>, [">= 0"])
+      s.add_development_dependency(%q<thoughtbot-shoulda>, [">= 2.10.1"])
+      s.add_development_dependency(%q<jeremymcanally-matchy>, ["= 0.4.0"])
+      s.add_development_dependency(%q<mocha>, ["= 0.9.4"])
+      s.add_development_dependency(%q<fakeweb>, [">= 1.2.5"])
     else
-      s.add_dependency(%q<oauth>, [">= 0.3.4"])
+      s.add_dependency(%q<oauth>, [">= 0.3.5"])
       s.add_dependency(%q<mash>, ["= 0.0.3"])
       s.add_dependency(%q<httparty>, ["= 0.4.3"])
-      s.add_dependency(%q<thoughtbot-shoulda>, [">= 0"])
-      s.add_dependency(%q<jeremymcanally-matchy>, [">= 0"])
-      s.add_dependency(%q<mocha>, [">= 0"])
-      s.add_dependency(%q<fakeweb>, [">= 0"])
-      s.add_dependency(%q<mash>, [">= 0"])
+      s.add_dependency(%q<thoughtbot-shoulda>, [">= 2.10.1"])
+      s.add_dependency(%q<jeremymcanally-matchy>, ["= 0.4.0"])
+      s.add_dependency(%q<mocha>, ["= 0.9.4"])
+      s.add_dependency(%q<fakeweb>, [">= 1.2.5"])
     end
   else
-    s.add_dependency(%q<oauth>, [">= 0.3.4"])
+    s.add_dependency(%q<oauth>, [">= 0.3.5"])
     s.add_dependency(%q<mash>, ["= 0.0.3"])
     s.add_dependency(%q<httparty>, ["= 0.4.3"])
-    s.add_dependency(%q<thoughtbot-shoulda>, [">= 0"])
-    s.add_dependency(%q<jeremymcanally-matchy>, [">= 0"])
-    s.add_dependency(%q<mocha>, [">= 0"])
-    s.add_dependency(%q<fakeweb>, [">= 0"])
-    s.add_dependency(%q<mash>, [">= 0"])
+    s.add_dependency(%q<thoughtbot-shoulda>, [">= 2.10.1"])
+    s.add_dependency(%q<jeremymcanally-matchy>, ["= 0.4.0"])
+    s.add_dependency(%q<mocha>, ["= 0.9.4"])
+    s.add_dependency(%q<fakeweb>, [">= 1.2.5"])
   end
 end
