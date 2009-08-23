@@ -5,7 +5,7 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name              = "twitter"
-    gem.summary           = %Q{wrapper for the twitter api (oauth only)}
+    gem.summary           = %Q{wrapper for the twitter api}
     gem.email             = "nunemaker@gmail.com"
     gem.homepage          = "http://github.com/jnunemaker/twitter"
     gem.authors           = ["John Nunemaker"]
@@ -16,11 +16,10 @@ begin
     gem.add_dependency('mash', '0.0.3')
     gem.add_dependency('httparty', '0.4.3')
     
-    gem.add_development_dependency('thoughtbot-shoulda')
-    gem.add_development_dependency('jeremymcanally-matchy')
-    gem.add_development_dependency('mocha')
-    gem.add_development_dependency('fakeweb')
-    gem.add_development_dependency('mash')
+    gem.add_development_dependency('thoughtbot-shoulda', '>= 2.10.1')
+    gem.add_development_dependency('jeremymcanally-matchy', '0.4.0')
+    gem.add_development_dependency('mocha', '0.9.4')
+    gem.add_development_dependency('fakeweb', '>= 1.2.5')
   end
   
   Jeweler::RubyforgeTasks.new do |rubyforge|
