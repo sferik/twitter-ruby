@@ -15,7 +15,6 @@ require 'fakeweb'
 FakeWeb.allow_net_connect = false
 
 dir = (Pathname(__FILE__).dirname + '../lib').expand_path
-$LOAD_PATH.unshift(File.dirname(__FILE__))
 require dir + 'twitter'
 
 class Test::Unit::TestCase

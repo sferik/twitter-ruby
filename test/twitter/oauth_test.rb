@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../test_helper'
+require 'test_helper'
 
 class OAuthTest < Test::Unit::TestCase
   should "initialize with consumer token and secret" do
