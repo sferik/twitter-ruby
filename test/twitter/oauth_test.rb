@@ -36,17 +36,44 @@ class OAuthTest < Test::Unit::TestCase
     twitter.request_token.should == request_token
   end
   
-  should "be able to create access token from request token and secret" do
+  context "set_callback_url" do
+    should "clear request token and set the callback url" do
+      consumer = mock('oauth consumer')
+      request_token = mock('request token')
+      
+      OAuth::Consumer.
+        expects(:new).
+        with('token', 'secret', {:site => 'http://twitter.com'}).
+        returns(consumer)
+      
+      twitter = Twitter::OAuth.new('token', 'secret')
+      
+      consumer.
+        expects(:get_request_token).
+        with({:oauth_callback => 'http://myapp.com/oauth_callback'})
+      
+      twitter.set_callback_url('http://myapp.com/oauth_callback')
+    end
+  end
+  
+  should "be able to create access token from request token, request secret and verifier" do
     twitter = Twitter::OAuth.new('token', 'secret')
     consumer = OAuth::Consumer.new('token', 'secret', {:site => 'http://twitter.com'})
     twitter.stubs(:consumer).returns(consumer)
     
-    access_token = mock('access token', :token => 'atoken', :secret => 'asecret')
+    access_token  = mock('access token', :token => 'atoken', :secret => 'asecret')
     request_token = mock('request token')
-    request_token.expects(:get_access_token).returns(access_token)
-    OAuth::RequestToken.expects(:new).with(consumer, 'rtoken', 'rsecret').returns(request_token)
+    request_token.
+      expects(:get_access_token).
+      with(:oauth_verifier => 'verifier').
+      returns(access_token)
+      
+    OAuth::RequestToken.
+      expects(:new).
+      with(consumer, 'rtoken', 'rsecret').
+      returns(request_token)
     
-    twitter.authorize_from_request('rtoken', 'rsecret')
+    twitter.authorize_from_request('rtoken', 'rsecret', 'verifier')
     twitter.access_token.class.should be(OAuth::AccessToken)
     twitter.access_token.token.should == 'atoken'
     twitter.access_token.secret.should == 'asecret'
