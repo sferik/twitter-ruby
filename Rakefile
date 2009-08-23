@@ -23,7 +23,7 @@ begin
   end
   
   Jeweler::RubyforgeTasks.new do |rubyforge|
-    rubyforge.doc_task = "rdoc"
+    # rubyforge.doc_task = "rdoc"
   end
 rescue LoadError
   puts "Jeweler not available. Install it with: sudo gem install technicalpickles-jeweler -s http://gems.github.com"
@@ -67,3 +67,7 @@ Rake::RDocTask.new do |rdoc|
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
 
+desc 'Upload website files to rubyforge'
+task :website do
+  sh %{rsync -av website/ jnunemaker@rubyforge.org:/var/www/gforge-projects/twitter}
+end

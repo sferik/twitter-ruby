@@ -46,9 +46,10 @@ client.update('Heeeyyyyoooo from Twitter Gem!')</code></pre>
 		<p>Now some HTTP Auth action:</p>
 		
 <pre><code>httpauth = Twitter::HTTPAuth.new('username', 'password')
-base = Twitter::Base.new(httpauth)
-base.update('Heeeeyyyyooo from the Twitter Gem')
-base.friends_timeline.each { |tweet| puts tweet.text }
+
+client = Twitter::Base.new(httpauth)
+client.update('Heeeeyyyyooo from the Twitter Gem')
+client.friends_timeline.each { |tweet| puts tweet.text }
 </code></pre>
 		
 		<h2>Search API Examples</h2>
