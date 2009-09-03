@@ -15,7 +15,6 @@ class BaseTest < Test::Unit::TestCase
         @twitter.client.should respond_to(:post)
       end
     end
-    
     should "delegate get to the client" do
       @access_token.expects(:get).with('/foo').returns(nil)
       @twitter.get('/foo')
@@ -90,6 +89,13 @@ class BaseTest < Test::Unit::TestCase
         hashes = @twitter.friends_timeline.map{ |s| s.hash }
         hashes.should == @twitter.friends_timeline.map{ |s| s.hash }
       end
+      
+      should "be able to get followers' stauses" do
+        stub_get('/statuses/followers.json', 'followers.json')
+        followers = @twitter.followers
+        followers.should == @twitter.followers
+      end
+      
     end
   end
 end
