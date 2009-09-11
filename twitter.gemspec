@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{twitter}
-  s.version = "0.6.15"
+  s.version = "0.6.15k"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["John Nunemaker"]
@@ -101,7 +101,7 @@ Gem::Specification.new do |s|
     s.specification_version = 3
 
     if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<oauth>, [">= 0.3.5"])
+      s.add_runtime_dependency(%q<oauth>, [">= 0.3.6"])
       s.add_runtime_dependency(%q<mash>, ["= 0.0.3"])
       s.add_runtime_dependency(%q<httparty>, ["= 0.4.3"])
       s.add_development_dependency(%q<thoughtbot-shoulda>, [">= 2.10.1"])
@@ -109,7 +109,7 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<mocha>, ["= 0.9.4"])
       s.add_development_dependency(%q<fakeweb>, [">= 1.2.5"])
     else
-      s.add_dependency(%q<oauth>, [">= 0.3.5"])
+      s.add_dependency(%q<oauth>, [">= 0.3.6"])
       s.add_dependency(%q<mash>, ["= 0.0.3"])
       s.add_dependency(%q<httparty>, ["= 0.4.3"])
       s.add_dependency(%q<thoughtbot-shoulda>, [">= 2.10.1"])
@@ -118,7 +118,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<fakeweb>, [">= 1.2.5"])
     end
   else
-    s.add_dependency(%q<oauth>, [">= 0.3.5"])
+    s.add_dependency(%q<oauth>, [">= 0.3.6"])
     s.add_dependency(%q<mash>, ["= 0.0.3"])
     s.add_dependency(%q<httparty>, ["= 0.4.3"])
     s.add_dependency(%q<thoughtbot-shoulda>, [">= 2.10.1"])

@@ -90,6 +90,12 @@ class BaseTest < Test::Unit::TestCase
         hashes = @twitter.friends_timeline.map{ |s| s.hash }
         hashes.should == @twitter.friends_timeline.map{ |s| s.hash }
       end
+      
+      should "upload a background image" do
+        stub_post('/account/update_profile_background_image.json', 'update_profile_background_image.json')
+        response = @twitter.update_profile_background(File.new(sample_image('sample-image.png')))
+        status.user.name.should == 'John Nunemaker' # update_profile_background responds with the user
+      end
     end
   end
 end
