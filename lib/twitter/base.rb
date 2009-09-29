@@ -153,6 +153,10 @@ module Twitter
       perform_get('/help/test.json')
     end
     
+    def blocked_ids
+      perform_get("/blocks/blocking/ids.json", :mash => false)
+    end
+    
     private
       def perform_get(path, options={})
         Twitter::Request.get(self, path, options)

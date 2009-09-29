@@ -96,6 +96,12 @@ class BaseTest < Test::Unit::TestCase
         followers.should == @twitter.followers
       end
       
+      should "be able to get blocked users' IDs" do
+        stub_get('/blocks/blocking/ids.json', 'ids.json')
+        blocked = @twitter.blocked_ids
+        blocked.should == @twitter.blocked_ids      
+      end
+      
     end
   end
 end
