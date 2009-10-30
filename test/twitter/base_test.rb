@@ -91,5 +91,6 @@ class BaseTest < Test::Unit::TestCase
         hashes.should == @twitter.friends_timeline.map{ |s| s.hash }
       end
     end
+    
   end
 end

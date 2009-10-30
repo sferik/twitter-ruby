@@ -38,8 +38,8 @@ class TrendsTest < Test::Unit::TestCase
       stub_get 'http://search.twitter.com:80/trends/daily.json?exclude=hashtags', 'trends_daily_exclude.json'
       trends = Trends.daily(:exclude => 'hashtags')
       trends.size.should == 480
-      trends[0].name.should == 'Star Trek'
-      trends[0].query.should == %Q(\"Star Trek\")
+      trends[0].name.should == 'Kobe'
+      trends[0].query.should == %Q(Kobe)
     end
     
     should "be able to get for specific date (with date string)" do
@@ -47,7 +47,7 @@ class TrendsTest < Test::Unit::TestCase
       trends = Trends.daily(:date => '2009-05-01')
       trends.size.should == 440
       trends[0].name.should == 'Swine Flu'
-      trends[0].query.should == %Q(\"Swine Flu\")
+      trends[0].query.should == %Q(\"Swine Flu\" OR Flu)
     end
     
     should "be able to get for specific date (with date object)" do
@@ -55,7 +55,7 @@ class TrendsTest < Test::Unit::TestCase
       trends = Trends.daily(:date => Date.new(2009, 5, 1))
       trends.size.should == 440
       trends[0].name.should == 'Swine Flu'
-      trends[0].query.should == %Q(\"Swine Flu\")
+      trends[0].query.should == %Q(\"Swine Flu\" OR Flu)
     end
   end
   
