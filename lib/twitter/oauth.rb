@@ -1,7 +1,7 @@
 module Twitter
   class OAuth
     extend Forwardable
-    def_delegators :access_token, :get, :post
+    def_delegators :access_token, :get, :post, :put, :delete
     
     attr_reader :ctoken, :csecret, :consumer_options
     

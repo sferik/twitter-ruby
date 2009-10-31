@@ -19,6 +19,14 @@ module Twitter
       self.class.post(uri, :body => body, :headers => headers, :basic_auth => basic_auth)
     end
     
+    def put(uri, body={}, headers={})
+      self.class.put(uri, :body => body, :headers => headers, :basic_auth => basic_auth)
+    end
+    
+    def delete(uri, body={}, headers={})
+      self.class.delete(uri, :body => body, :headers => headers, :basic_auth => basic_auth)
+    end
+    
     private
       def basic_auth
         @basic_auth ||= {:username => @username, :password => @password}

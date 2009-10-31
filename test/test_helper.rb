@@ -40,3 +40,11 @@ end
 def stub_post(url, filename)
   FakeWeb.register_uri(:post, twitter_url(url), :body => fixture_file(filename))
 end
+
+def stub_put(url, filename)
+  FakeWeb.register_uri(:put, twitter_url(url), :body => fixture_file(filename))
+end
+
+def stub_delete(url, filename)
+  FakeWeb.register_uri(:delete, twitter_url(url), :body => fixture_file(filename))
+end

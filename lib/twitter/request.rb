@@ -10,9 +10,17 @@ module Twitter
       new(client, :post, path, options).perform
     end
     
+    def self.put(client, path, options={})
+      new(client, :put, path, options).perform
+    end
+    
+    def self.delete(client, path, options={})
+      new(client, :delete, path, options).perform
+    end
+    
     attr_reader :client, :method, :path, :options
     
-    def_delegators :client, :get, :post
+    def_delegators :client, :get, :post, :put, :delete
     
     def initialize(client, method, path, options={})
       @client, @method, @path, @options = client, method, path, {:mash => true}.merge(options)
@@ -41,6 +49,14 @@ module Twitter
       
       def perform_post
         send(:post, uri, options[:body], options[:headers])
+      end
+      
+      def perform_put
+        send(:put, uri, options[:body], options[:headers])
+      end
+      
+      def perform_delete
+        send(:delete, uri, options[:headers])
       end
       
       def make_friendly(response)
