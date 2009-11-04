@@ -8,13 +8,13 @@ begin
     gem.summary           = %Q{wrapper for the twitter api}
     gem.email             = "nunemaker@gmail.com"
     gem.homepage          = "http://github.com/jnunemaker/twitter"
-    gem.authors           = ["John Nunemaker"]
+    gem.authors           = ["John Nunemaker", "Wynn Netherland"]
     gem.rubyforge_project = "twitter"
     gem.files             = FileList["[A-Z]*", "{examples,lib,test}/**/*"]
     
-    gem.add_dependency('oauth', '>= 0.3.5')
-    gem.add_dependency('mash', '0.0.3')
-    gem.add_dependency('httparty', '0.4.3')
+    gem.add_dependency('oauth', '~> 0.3.5')
+    gem.add_dependency('mash', '~> 0.0.3')
+    gem.add_dependency('httparty', '~> 0.4.3')
     
     gem.add_development_dependency('thoughtbot-shoulda', '>= 2.10.1')
     gem.add_development_dependency('jeremymcanally-matchy', '0.4.0')

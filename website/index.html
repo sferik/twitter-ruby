@@ -87,6 +87,15 @@ Twitter::Trends.weekly # current day
 Twitter::Trends.weekly(:exclude => 'hashtags')
 Twitter::Trends.weekly(:date => Date.new(2009, 5, 1))
 </code></pre>
+
+    <h2>Lists Examples</h2>
+    
+<pre><code>httpauth = Twitter::HTTPAuth.new('username', 'password')
+client = Twitter::Base.new(httpauth)
+client.lists('pengwynn')
+client.list_members('pengwynn', 'rubyists')
+client.list_create('pengwynn', 'razorback_fans')
+</code></pre>
 		
     <!-- <h2>Command Line</h2>
     
