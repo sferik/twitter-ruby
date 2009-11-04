@@ -73,10 +73,10 @@ module Twitter
       self
     end
     
-    # Search tweets by longitude, latitude and a given range.
+    # Search tweets by latitude, longitude, and a given range.
     # Ranges like 25km and 50mi work.
-    def geocode(long, lat, range)
-      @query[:geocode] = [long, lat, range].join(',')
+    def geocode(lat, long, range)
+      @query[:geocode] = [lat, long, range].join(',')
       self
     end
     
