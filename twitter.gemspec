@@ -50,7 +50,7 @@ Gem::Specification.new do |s|
      "test/fixtures/lists.json",
      "test/fixtures/memberships.json",
      "test/fixtures/rate_limit_exceeded.json",
-     "test/fixtures/replies.json",
+     "test/fixtures/mentions.json",
      "test/fixtures/search.json",
      "test/fixtures/search_from_jnunemaker.json",
      "test/fixtures/status.json",
