@@ -90,6 +90,11 @@ class BaseTest < Test::Unit::TestCase
         hashes = @twitter.friends_timeline.map{ |s| s.hash }
         hashes.should == @twitter.friends_timeline.map{ |s| s.hash }
       end
+      
+      should "be able to get a friendship" do
+        stub_get("/friendships/show.json?source_screen_name=dcrec1&target_screen_name=pengwynn", 'friendship.json')
+        @twitter.friendship_show(:source_screen_name => 'dcrec1', :target_screen_name => 'pengwynn').relationship.target.followed_by == false
+      end
     end
     
     context "when using lists" do

@@ -47,4 +47,5 @@ end
 
 def stub_delete(url, filename)
   FakeWeb.register_uri(:delete, twitter_url(url), :body => fixture_file(filename))
+
 end
