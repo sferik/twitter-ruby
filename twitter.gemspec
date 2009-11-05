@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{twitter}
-  s.version = "0.7.0"
+  s.version = "0.7.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["John Nunemaker", "Wynn Netherland"]
-  s.date = %q{2009-10-31}
+  s.date = %q{2009-11-05}
   s.email = %q{nunemaker@gmail.com}
   s.extra_rdoc_files = [
     "README.rdoc"
@@ -44,13 +44,14 @@ Gem::Specification.new do |s|
      "test/fixtures/follower_ids.json",
      "test/fixtures/friend_ids.json",
      "test/fixtures/friends_timeline.json",
+     "test/fixtures/friendship.json",
      "test/fixtures/list.json",
      "test/fixtures/list_statuses.json",
      "test/fixtures/list_users.json",
      "test/fixtures/lists.json",
      "test/fixtures/memberships.json",
+     "test/fixtures/mentions.json",
      "test/fixtures/rate_limit_exceeded.json",
-     "test/fixtures/replies.json",
      "test/fixtures/search.json",
      "test/fixtures/search_from_jnunemaker.json",
      "test/fixtures/status.json",
@@ -108,28 +109,28 @@ Gem::Specification.new do |s|
     s.specification_version = 3
 
     if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<oauth>, [">= 0.3.5"])
-      s.add_runtime_dependency(%q<mash>, ["= 0.0.3"])
-      s.add_runtime_dependency(%q<httparty>, ["= 0.4.3"])
+      s.add_runtime_dependency(%q<oauth>, ["~> 0.3.5"])
+      s.add_runtime_dependency(%q<mash>, ["~> 0.0.3"])
+      s.add_runtime_dependency(%q<httparty>, ["~> 0.4.3"])
       s.add_development_dependency(%q<thoughtbot-shoulda>, [">= 2.10.1"])
-      s.add_development_dependency(%q<jeremymcanally-matchy>, ["= 0.4.0"])
+      s.add_development_dependency(%q<jnunemaker-matchy>, ["= 0.4.0"])
       s.add_development_dependency(%q<mocha>, ["= 0.9.4"])
       s.add_development_dependency(%q<fakeweb>, [">= 1.2.5"])
     else
-      s.add_dependency(%q<oauth>, [">= 0.3.5"])
-      s.add_dependency(%q<mash>, ["= 0.0.3"])
-      s.add_dependency(%q<httparty>, ["= 0.4.3"])
+      s.add_dependency(%q<oauth>, ["~> 0.3.5"])
+      s.add_dependency(%q<mash>, ["~> 0.0.3"])
+      s.add_dependency(%q<httparty>, ["~> 0.4.3"])
       s.add_dependency(%q<thoughtbot-shoulda>, [">= 2.10.1"])
-      s.add_dependency(%q<jeremymcanally-matchy>, ["= 0.4.0"])
+      s.add_dependency(%q<jnunemaker-matchy>, ["= 0.4.0"])
       s.add_dependency(%q<mocha>, ["= 0.9.4"])
       s.add_dependency(%q<fakeweb>, [">= 1.2.5"])
     end
   else
-    s.add_dependency(%q<oauth>, [">= 0.3.5"])
-    s.add_dependency(%q<mash>, ["= 0.0.3"])
-    s.add_dependency(%q<httparty>, ["= 0.4.3"])
+    s.add_dependency(%q<oauth>, ["~> 0.3.5"])
+    s.add_dependency(%q<mash>, ["~> 0.0.3"])
+    s.add_dependency(%q<httparty>, ["~> 0.4.3"])
     s.add_dependency(%q<thoughtbot-shoulda>, [">= 2.10.1"])
-    s.add_dependency(%q<jeremymcanally-matchy>, ["= 0.4.0"])
+    s.add_dependency(%q<jnunemaker-matchy>, ["= 0.4.0"])
     s.add_dependency(%q<mocha>, ["= 0.9.4"])
     s.add_dependency(%q<fakeweb>, [">= 1.2.5"])
   end
