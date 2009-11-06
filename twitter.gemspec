@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{twitter}
-  s.version = "0.7.2"
+  s.version = "0.7.3"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["John Nunemaker", "Wynn Netherland"]
@@ -47,6 +47,7 @@ Gem::Specification.new do |s|
      "test/fixtures/friendship.json",
      "test/fixtures/list.json",
      "test/fixtures/list_statuses.json",
+     "test/fixtures/list_subscriptions.json",
      "test/fixtures/list_users.json",
      "test/fixtures/lists.json",
      "test/fixtures/memberships.json",
