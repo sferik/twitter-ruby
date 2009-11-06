@@ -224,6 +224,10 @@ module Twitter
     def list_unsubscribe(list_owner_username, slug)
       perform_delete("/#{list_owner_username}/#{slug}/subscribers.json")
     end
+    
+    def list_subscriptions(list_owner_username)
+      perform_get("/#{list_owner_username}/lists/subscriptions.json")
+    end
 
     private
       def perform_get(path, options={})
