@@ -10,11 +10,11 @@ Jeweler::Tasks.new do |gem|
   gem.authors           = ["John Nunemaker", "Wynn Netherland"]
   gem.rubyforge_project = "twitter"
   gem.files             = FileList["[A-Z]*", "{examples,lib,test}/**/*"]
-  
+
   gem.add_dependency('oauth', '~> 0.3.5')
-  gem.add_dependency('mash', '~> 0.0.3')
+  gem.add_dependency('hashie', '~> 0.1.3')
   gem.add_dependency('httparty', '~> 0.4.3')
-  
+
   gem.add_development_dependency('thoughtbot-shoulda', '>= 2.10.1')
   gem.add_development_dependency('jnunemaker-matchy', '0.4.0')
   gem.add_development_dependency('mocha', '0.9.4')
