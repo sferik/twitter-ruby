@@ -1,3 +1,5 @@
+0.7.5  - Novermber 17, 2009
+  * Patch from hassox to swap Mash for Hashie to avoid conflicts
 0.7.4  - Novermber 16, 2009
   * Support for user search
 0.7.3  - November 5, 2009
