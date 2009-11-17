@@ -60,6 +60,12 @@ module Twitter
     def user(id, query={})
       perform_get("/users/show/#{id}.json", :query => query)
     end
+    
+    # Options: page, per_page
+    def user_search(q, query={})
+      q = URI.escape(q)
+      perform_get("/users/search.json", :query => ({:q => q}.merge(query)))
+    end
 
     # Options: since, since_id, page
     def direct_messages(query={})

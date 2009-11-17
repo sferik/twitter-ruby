@@ -95,6 +95,12 @@ class BaseTest < Test::Unit::TestCase
         stub_get("/friendships/show.json?source_screen_name=dcrec1&target_screen_name=pengwynn", 'friendship.json')
         @twitter.friendship_show(:source_screen_name => 'dcrec1', :target_screen_name => 'pengwynn').relationship.target.followed_by == false
       end
+      
+      should "be able to search people" do
+        stub_get("/users/search.json?q=Wynn%20Netherland", 'people_search.json')
+        people = @twitter.user_search('Wynn Netherland')       
+        people.first.screen_name.should == 'pengwynn'
+      end
     end
     
     context "when using lists" do
