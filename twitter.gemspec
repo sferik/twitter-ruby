@@ -112,7 +112,7 @@ Gem::Specification.new do |s|
 
     if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<oauth>, ["~> 0.3.5"])
-      s.add_runtime_dependency(%q<mash>, ["~> 0.0.3"])
+      s.add_runtime_dependency(%q<hashie>, ["~> 0.1.3"])
       s.add_runtime_dependency(%q<httparty>, ["~> 0.4.3"])
       s.add_development_dependency(%q<thoughtbot-shoulda>, [">= 2.10.1"])
       s.add_development_dependency(%q<jnunemaker-matchy>, ["= 0.4.0"])
@@ -120,7 +120,7 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<fakeweb>, [">= 1.2.5"])
     else
       s.add_dependency(%q<oauth>, ["~> 0.3.5"])
-      s.add_dependency(%q<mash>, ["~> 0.0.3"])
+      s.add_dependency(%q<hashie>, ["~> 0.1.3"])
       s.add_dependency(%q<httparty>, ["~> 0.4.3"])
       s.add_dependency(%q<thoughtbot-shoulda>, [">= 2.10.1"])
       s.add_dependency(%q<jnunemaker-matchy>, ["= 0.4.0"])
@@ -129,7 +129,7 @@ Gem::Specification.new do |s|
     end
   else
     s.add_dependency(%q<oauth>, ["~> 0.3.5"])
-    s.add_dependency(%q<mash>, ["~> 0.0.3"])
+    s.add_dependency(%q<hashie>, ["~> 0.1.3"])
     s.add_dependency(%q<httparty>, ["~> 0.4.3"])
     s.add_dependency(%q<thoughtbot-shoulda>, [">= 2.10.1"])
     s.add_dependency(%q<jnunemaker-matchy>, ["= 0.4.0"])
