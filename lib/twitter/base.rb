@@ -1,22 +1,26 @@
 module Twitter
   class Base
     extend Forwardable
-    
+
     def_delegators :client, :get, :post, :put, :delete
-    
+
     attr_reader :client
 
     def initialize(client)
       @client = client
     end
 
+    # Options: since_id, max_id, count, page
+    def home_timeline(query={})
+      perform_get('http://api.twitter.com/1/statuses/home_timeline.json', :query => query)
+    end
+
     # Options: since_id, max_id, count, page, since
     def friends_timeline(query={})
       perform_get('/statuses/friends_timeline.json', :query => query)
     end
-    
-    # Options: id, user_id, screen_name, since_id, max_id, page, since, count
 
+    # Options: id, user_id, screen_name, since_id, max_id, page, since, count
     def user_timeline(query={})
       perform_get('/statuses/user_timeline.json', :query => query)
     end
@@ -60,7 +64,7 @@ module Twitter
     def user(id, query={})
       perform_get("/users/show/#{id}.json", :query => query)
     end
-    
+
     # Options: page, per_page
     def user_search(q, query={})
       q = URI.escape(q)
@@ -171,66 +175,66 @@ module Twitter
     def help
       perform_get('/help/test.json')
     end
-    
+
     def list_create(list_owner_username, options)
       perform_post("/#{list_owner_username}/lists.json", :body => {:user => list_owner_username}.merge(options))
     end
-    
+
     def list_update(list_owner_username, slug, options)
       perform_put("/#{list_owner_username}/lists/#{slug}.json", :body => options)
     end
-    
+
     def list_delete(list_owner_username, slug)
       perform_delete("/#{list_owner_username}/lists/#{slug}.json")
     end
-    
+
     def lists(list_owner_username=nil)
       path = "http://api.twitter.com/1"
       path += "/#{list_owner_username}" if list_owner_username
       path += "/lists.json"
       perform_get(path)
     end
-    
+
     def list(list_owner_username, slug)
       perform_get("/#{list_owner_username}/lists/#{slug}.json")
     end
-    
+
     def list_timeline(list_owner_username, slug)
       perform_get("/#{list_owner_username}/lists/#{slug}/statuses.json")
     end
-    
+
     def memberships(list_owner_username)
       perform_get("/#{list_owner_username}/lists/memberships.json")
     end
-    
+
     def list_members(list_owner_username, slug)
       perform_get("/#{list_owner_username}/#{slug}/members.json")
     end
-    
+
     def list_add_member(list_owner_username, slug, new_id)
       perform_post("/#{list_owner_username}/#{slug}/members.json", :body => {:id => new_id})
     end
-    
+
     def list_remove_member(list_owner_username, slug, id)
       perform_delete("/#{list_owner_username}/#{slug}/members.json", :body => {:id => id})
     end
-    
+
     def is_list_member?(list_owner_username, slug, id)
       perform_get("/#{list_owner_username}/#{slug}/members/#{id}.json").error.nil?
     end
-    
+
     def list_subscribers(list_owner_username, slug)
       perform_get("/#{list_owner_username}/#{slug}/subscribers.json")
     end
-    
+
     def list_subscribe(list_owner_username, slug)
       perform_post("/#{list_owner_username}/#{slug}/subscribers.json")
     end
-    
+
     def list_unsubscribe(list_owner_username, slug)
       perform_delete("/#{list_owner_username}/#{slug}/subscribers.json")
     end
-    
+
     def list_subscriptions(list_owner_username)
       perform_get("/#{list_owner_username}/lists/subscriptions.json")
     end
@@ -243,11 +247,11 @@ module Twitter
       def perform_post(path, options={})
         Twitter::Request.post(self, path, options)
       end
-      
+
       def perform_put(path, options={})
         Twitter::Request.put(self, path, options)
       end
-      
+
       def perform_delete(path, options={})
         Twitter::Request.delete(self, path, options)
       end
