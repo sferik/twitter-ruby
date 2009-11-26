@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{twitter}
-  s.version = "0.7.5"
+  s.version = "0.7.6"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["John Nunemaker", "Wynn Netherland"]
-  s.date = %q{2009-11-17}
+  s.date = %q{2009-11-25}
   s.email = %q{nunemaker@gmail.com}
   s.extra_rdoc_files = [
     "README.rdoc"
@@ -45,6 +45,7 @@ Gem::Specification.new do |s|
      "test/fixtures/friend_ids.json",
      "test/fixtures/friends_timeline.json",
      "test/fixtures/friendship.json",
+     "test/fixtures/home_timeline.json",
      "test/fixtures/list.json",
      "test/fixtures/list_statuses.json",
      "test/fixtures/list_subscriptions.json",
