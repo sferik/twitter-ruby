@@ -187,7 +187,7 @@ class BaseTest < Test::Unit::TestCase
       end
 
       should "be able to remove a member from a list" do
-        stub_delete('/pengwynn/rubyists/members.json', 'user.json')
+        stub_delete('/pengwynn/rubyists/members.json?id=4243', 'user.json')
         user = @twitter.list_remove_member('pengwynn', 'rubyists', 4243)
         user.screen_name.should == 'jnunemaker'
       end

@@ -216,7 +216,7 @@ module Twitter
     end
 
     def list_remove_member(list_owner_username, slug, id)
-      perform_delete("/#{list_owner_username}/#{slug}/members.json", :body => {:id => id})
+      perform_delete("/#{list_owner_username}/#{slug}/members.json", :query => {:id => id})
     end
 
     def is_list_member?(list_owner_username, slug, id)

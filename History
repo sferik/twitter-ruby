@@ -1,3 +1,5 @@
+0.7.7  - November 29, 2009
+  * Fixed bug when removing list members using OAuth
 0.7.6  - November 25, 2009
   * Patch from coderifous for home_timeline support
 0.7.5  - November 17, 2009
