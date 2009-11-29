@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["John Nunemaker", "Wynn Netherland"]
-  s.date = %q{2009-11-25}
+  s.date = %q{2009-11-29}
   s.email = %q{nunemaker@gmail.com}
   s.extra_rdoc_files = [
     "README.rdoc"
@@ -42,10 +42,12 @@ Gem::Specification.new do |s|
      "lib/twitter/trends.rb",
      "test/fixtures/firehose.json",
      "test/fixtures/follower_ids.json",
+     "test/fixtures/followers.json",
      "test/fixtures/friend_ids.json",
      "test/fixtures/friends_timeline.json",
      "test/fixtures/friendship.json",
      "test/fixtures/home_timeline.json",
+     "test/fixtures/ids.json",
      "test/fixtures/list.json",
      "test/fixtures/list_statuses.json",
      "test/fixtures/list_subscriptions.json",
@@ -55,6 +57,7 @@ Gem::Specification.new do |s|
      "test/fixtures/mentions.json",
      "test/fixtures/people_search.json",
      "test/fixtures/rate_limit_exceeded.json",
+     "test/fixtures/sample-image.png",
      "test/fixtures/search.json",
      "test/fixtures/search_from_jnunemaker.json",
      "test/fixtures/status.json",
@@ -67,6 +70,7 @@ Gem::Specification.new do |s|
      "test/fixtures/trends_weekly.json",
      "test/fixtures/trends_weekly_date.json",
      "test/fixtures/trends_weekly_exclude.json",
+     "test/fixtures/update_profile_background_image.json",
      "test/fixtures/user.json",
      "test/fixtures/user_timeline.json",
      "test/test_helper.rb",
@@ -112,7 +116,7 @@ Gem::Specification.new do |s|
     s.specification_version = 3
 
     if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<oauth>, ["~> 0.3.5"])
+      s.add_runtime_dependency(%q<oauth>, ["~> 0.3.6"])
       s.add_runtime_dependency(%q<hashie>, ["~> 0.1.3"])
       s.add_runtime_dependency(%q<httparty>, ["~> 0.4.3"])
       s.add_development_dependency(%q<thoughtbot-shoulda>, [">= 2.10.1"])
@@ -120,7 +124,7 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<mocha>, ["= 0.9.4"])
       s.add_development_dependency(%q<fakeweb>, [">= 1.2.5"])
     else
-      s.add_dependency(%q<oauth>, ["~> 0.3.5"])
+      s.add_dependency(%q<oauth>, ["~> 0.3.6"])
       s.add_dependency(%q<hashie>, ["~> 0.1.3"])
       s.add_dependency(%q<httparty>, ["~> 0.4.3"])
       s.add_dependency(%q<thoughtbot-shoulda>, [">= 2.10.1"])
@@ -129,7 +133,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<fakeweb>, [">= 1.2.5"])
     end
   else
-    s.add_dependency(%q<oauth>, ["~> 0.3.5"])
+    s.add_dependency(%q<oauth>, ["~> 0.3.6"])
     s.add_dependency(%q<hashie>, ["~> 0.1.3"])
     s.add_dependency(%q<httparty>, ["~> 0.4.3"])
     s.add_dependency(%q<thoughtbot-shoulda>, [">= 2.10.1"])

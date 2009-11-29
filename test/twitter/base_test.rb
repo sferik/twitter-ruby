@@ -126,6 +126,11 @@ class BaseTest < Test::Unit::TestCase
         blocked.should == @twitter.blocked_ids      
       end
 
+      should "upload a background image" do
+        stub_post('/account/update_profile_background_image.json', 'update_profile_background_image.json')
+        user = @twitter.update_profile_background(File.new(sample_image('sample-image.png')))
+        user.name.should == 'John Nunemaker' # update_profile_background responds with the user
+      end
     end
 
     context "when using lists" do

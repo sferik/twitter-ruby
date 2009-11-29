@@ -1,7 +1,7 @@
 require 'forwardable'
 require 'rubygems'
 
-gem 'oauth', '~> 0.3.5'
+gem 'oauth', '~> 0.3.6'
 require 'oauth'
 
 gem 'hashie', '~> 0.1.3'

@@ -20,6 +20,10 @@ require dir + 'twitter'
 class Test::Unit::TestCase
 end
 
+def sample_image(filename)
+  File.expand_path(File.dirname(__FILE__) + '/fixtures/' + filename)
+end
+
 def fixture_file(filename)
   return '' if filename == ''
   file_path = File.expand_path(File.dirname(__FILE__) + '/fixtures/' + filename)

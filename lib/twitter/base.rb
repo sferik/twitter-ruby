@@ -132,7 +132,12 @@ module Twitter
     def update_profile_colors(colors={})
       perform_post('/account/update_profile_colors.json', :body => colors)
     end
-
+    
+    # file should respond to #read and #path
+    def update_profile_background(file, tile = false)
+      perform_post('/account/update_profile_background_image.json', build_multipart_bodies(:image => file).merge(:tile => tile))
+    end
+    
     def rate_limit_status
       perform_get('/account/rate_limit_status.json')
     end
@@ -243,7 +248,42 @@ module Twitter
     def blocked_ids
       perform_get("/blocks/blocking/ids.json", :mash => false)
     end
-    
+
+  protected
+    def self.mime_type(file)
+      case 
+        when file =~ /\.jpg/ then 'image/jpg'
+        when file =~ /\.gif$/ then 'image/gif'
+        when file =~ /\.png$/ then 'image/png'
+        else 'application/octet-stream'
+      end
+    end
+    def mime_type(f) self.class.mime_type(f) end
+  
+    CRLF = "\r\n"
+    def self.build_multipart_bodies(parts)
+      boundary = Time.now.to_i.to_s(16)
+      body = ""
+      parts.each do |key, value|
+        esc_key = CGI.escape(key.to_s)
+        body << "--#{boundary}#{CRLF}"
+        if value.respond_to?(:read)
+          body << "Content-Disposition: form-data; name=\"#{esc_key}\"; filename=\"#{File.basename(value.path)}\"#{CRLF}"
+          body << "Content-Type: #{mime_type(value.path)}#{CRLF*2}"
+          body << value.read
+        else
+          body << "Content-Disposition: form-data; name=\"#{esc_key}\"#{CRLF*2}#{value}"
+        end
+        body << CRLF
+      end
+      body << "--#{boundary}--#{CRLF*2}"
+      {
+        :body => body,
+        :headers => {"Content-Type" => "multipart/form-data; boundary=#{boundary}"}
+      }
+    end
+    def build_multipart_bodies(parts) self.class.build_multipart_bodies(parts) end
+
     private
       def perform_get(path, options={})
         Twitter::Request.get(self, path, options)
