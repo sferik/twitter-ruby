@@ -11,7 +11,7 @@ if config['atoken'] && config['asecret']
   pp twitter.friends_timeline
   
 elsif config['rtoken'] && config['rsecret']  
-  oauth.authorize_from_request(config['rtoken'], config['rsecret'])
+  oauth.authorize_from_request(config['rtoken'], config['rsecret'], 'PIN')
   twitter = Twitter::Base.new(oauth)
   pp twitter.friends_timeline
   

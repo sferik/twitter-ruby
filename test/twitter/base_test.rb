@@ -113,6 +113,19 @@ class BaseTest < Test::Unit::TestCase
         people = @twitter.user_search('Wynn Netherland')
         people.first.screen_name.should == 'pengwynn'
       end
+      
+      should "be able to get followers' stauses" do
+        stub_get('/statuses/followers.json', 'followers.json')
+        followers = @twitter.followers
+        followers.should == @twitter.followers
+      end
+      
+      should "be able to get blocked users' IDs" do
+        stub_get('/blocks/blocking/ids.json', 'ids.json')
+        blocked = @twitter.blocked_ids
+        blocked.should == @twitter.blocked_ids      
+      end
+
     end
 
     context "when using lists" do
