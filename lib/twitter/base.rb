@@ -212,8 +212,10 @@ module Twitter
       perform_get("/#{list_owner_username}/lists/memberships.json")
     end
 
-    def list_members(list_owner_username, slug)
-      perform_get("/#{list_owner_username}/#{slug}/members.json")
+    def list_members(list_owner_username, slug, cursor = nil)
+      path = "/#{list_owner_username}/#{slug}/members.json"
+      path += "?cursor=#{cursor}" if cursor
+      perform_get(path)
     end
 
     def list_add_member(list_owner_username, slug, new_id)
