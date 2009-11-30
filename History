@@ -1,3 +1,5 @@
+0.7.8  - November 30, 2009
+  * Applied patch from ivey to use cursor with list_members
 0.7.7  - November 29, 2009
   * Fixed bug when removing list members using OAuth
   * Merged patch from kevn for update_profile_background
