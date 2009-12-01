@@ -74,6 +74,24 @@ class BaseTest < Test::Unit::TestCase
         status.text.should == 'Rob Dyrdek is the funniest man alive. That is all.'
       end
 
+      should "be able to retweet a status" do
+        stub_post('/statuses/retweet/6235127466.json', 'retweet.json')
+        status = @twitter.retweet(6235127466)
+        status.user.name.should == 'Michael D. Ivey'
+        status.text.should == "RT @jstetser: I'm not actually awake. My mind's on autopilot for food and I managed to take a detour along the way."
+        status.retweeted_status.user.screen_name.should == 'jstetser'
+        status.retweeted_status.text.should == "I'm not actually awake. My mind's on autopilot for food and I managed to take a detour along the way."
+      end
+
+      should "be able to get retweets of a status" do
+        stub_get('/statuses/retweets/6192831130.json', 'retweets.json')
+        retweets = @twitter.retweets(6192831130)
+        retweets.size.should == 6
+        first = retweets.first
+        first.user.name.should == 'josephholsten'
+        first.text.should == "RT @Moltz: Personally, I won't be satisfied until a Buddhist monk lights himself on fire for web standards."
+      end
+      
       should "be able to get mentions" do
         stub_get('/statuses/mentions.json', 'mentions.json')
         mentions = @twitter.mentions
@@ -81,6 +99,33 @@ class BaseTest < Test::Unit::TestCase
         first = mentions.first
         first.user.name.should == '-oAk-'
         first.text.should == '@jnunemaker cold out today. cold yesterday. even colder today.'
+      end
+
+      should "be able to get retweets by me" do
+        stub_get('/statuses/retweeted_by_me.json', 'retweeted_by_me.json')
+        retweeted_by_me = @twitter.retweeted_by_me
+        retweeted_by_me.size.should == 20
+        first = retweeted_by_me.first.retweeted_status
+        first.user.name.should == 'Troy Davis'
+        first.text.should == "I'm the mayor of win a free MacBook Pro with promo code Cyber Monday RT for a good time"
+      end
+
+      should "be able to get retweets to me" do
+        stub_get('/statuses/retweeted_to_me.json', 'retweeted_to_me.json')
+        retweeted_to_me = @twitter.retweeted_to_me
+        retweeted_to_me.size.should == 20
+        first = retweeted_to_me.first.retweeted_status
+        first.user.name.should == 'Cloudvox'
+        first.text.should == "Testing counts with voice apps too:\n\"the voice told residents to dial 'nine hundred eleven' rather than '9-1-1'\" \342\200\224 http://j.mp/7mqe2B"
+      end
+
+      should "be able to get retweets of me" do
+        stub_get('/statuses/retweets_of_me.json', 'retweets_of_me.json')
+        retweets_of_me = @twitter.retweets_of_me
+        retweets_of_me.size.should == 11
+        first = retweets_of_me.first
+        first.user.name.should == 'Michael D. Ivey'
+        first.text.should == "Trying out geotweets in Birdfeed. No \"new RT\" support, though. Any iPhone client with RTs yet?"
       end
 
       should "be able to get follower ids" do

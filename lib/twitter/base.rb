@@ -29,6 +29,11 @@ module Twitter
       perform_get("/statuses/show/#{id}.json")
     end
 
+    # Options: count
+    def retweets(id, query={ })
+      perform_get("/statuses/retweets/#{id}.json", :query => query)
+    end
+
     # Options: in_reply_to_status_id
     def update(status, query={})
       perform_post("/statuses/update.json", :body => {:status => status}.merge(query))
@@ -47,8 +52,27 @@ module Twitter
       perform_get('/statuses/mentions.json', :query => query)
     end
 
+    # Options: since_id, max_id, count, page
+    def retweeted_by_me(query={})
+      perform_get('/statuses/retweeted_by_me.json', :query => query)
+    end
+
+    # Options: since_id, max_id, count, page
+    def retweeted_to_me(query={})
+      perform_get('/statuses/retweeted_to_me.json', :query => query)
+    end
+
+    # Options: since_id, max_id, count, page
+    def retweets_of_me(query={})
+      perform_get('/statuses/retweets_of_me.json', :query => query)
+    end
+
     def status_destroy(id)
       perform_post("/statuses/destroy/#{id}.json")
+    end
+
+    def retweet(id)
+      perform_post("/statuses/retweet/#{id}.json")
     end
 
     # Options: id, user_id, screen_name, page
