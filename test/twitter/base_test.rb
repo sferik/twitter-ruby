@@ -170,6 +170,12 @@ class BaseTest < Test::Unit::TestCase
         blocked = @twitter.blocked_ids
         blocked.should == @twitter.blocked_ids      
       end
+      
+      should "be able to get an array of blocked users" do
+        stub_get('/blocks/blocking.json', 'blocking.json')
+        blocked = @twitter.blocking
+        blocked.last.screen_name.should == "euciavkvyplx"
+      end
 
       should "upload a background image" do
         stub_post('/account/update_profile_background_image.json', 'update_profile_background_image.json')

@@ -274,6 +274,10 @@ module Twitter
     def blocked_ids
       perform_get("/blocks/blocking/ids.json", :mash => false)
     end
+    
+    def blocking(options={})
+      perform_get("/blocks/blocking.json", options)
+    end
 
   protected
     def self.mime_type(file)
