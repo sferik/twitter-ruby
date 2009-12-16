@@ -240,6 +240,27 @@ class BaseTest < Test::Unit::TestCase
         tweets.first.id.should == 5272535583
         tweets.first.user.name.should == 'John Nunemaker'
       end
+      
+      should "be able to limit number of tweets in list timeline" do
+        stub_get('/pengwynn/lists/rubyists/statuses.json?per_page=1', 'list_statuses_1_1.json')
+        tweets = @twitter.list_timeline('pengwynn', 'rubyists', :per_page => 1)
+        tweets.size.should == 1
+        tweets.first.id.should == 5272535583
+        tweets.first.user.name.should == 'John Nunemaker'
+      end
+      
+      should "be able to paginate through the timeline" do
+        stub_get('/pengwynn/lists/rubyists/statuses.json?page=1&per_page=1', 'list_statuses_1_1.json')
+        stub_get('/pengwynn/lists/rubyists/statuses.json?page=2&per_page=1', 'list_statuses_2_1.json')
+        tweets = @twitter.list_timeline('pengwynn', 'rubyists', { :page => 1, :per_page => 1 })
+        tweets.size.should == 1
+        tweets.first.id.should == 5272535583
+        tweets.first.user.name.should == 'John Nunemaker'
+        tweets = @twitter.list_timeline('pengwynn', 'rubyists', { :page => 2, :per_page => 1 })
+        tweets.size.should == 1
+        tweets.first.id.should == 5264324712
+        tweets.first.user.name.should == 'John Nunemaker'
+      end
 
       should "be able to view list members" do
         stub_get('/pengwynn/rubyists/members.json', 'list_users.json')

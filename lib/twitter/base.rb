@@ -228,8 +228,10 @@ module Twitter
       perform_get("/#{list_owner_username}/lists/#{slug}.json")
     end
 
-    def list_timeline(list_owner_username, slug)
-      perform_get("/#{list_owner_username}/lists/#{slug}/statuses.json")
+    # :per_page = max number of statues to get at once
+    # :page = which page of tweets you wish to get
+    def list_timeline(list_owner_username, slug, query = {})
+      perform_get("/#{list_owner_username}/lists/#{slug}/statuses.json", :query => query)
     end
 
     def memberships(list_owner_username)
