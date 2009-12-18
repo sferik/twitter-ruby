@@ -28,7 +28,7 @@ class BaseTest < Test::Unit::TestCase
 
     context "hitting the api" do
       should "be able to get home timeline" do
-        stub_get('http://api.twitter.com/1/statuses/home_timeline.json', 'home_timeline.json')
+        stub_get('/statuses/home_timeline.json', 'home_timeline.json')
         timeline = @twitter.home_timeline
         timeline.size.should == 20
         first = timeline.first
@@ -219,7 +219,7 @@ class BaseTest < Test::Unit::TestCase
       end
 
       should "be able to view lists for the authenticated user" do
-        stub_get('http://api.twitter.com/1/pengwynn/lists.json', 'lists.json')
+        stub_get('/pengwynn/lists.json', 'lists.json')
         lists = @twitter.lists('pengwynn').lists
         lists.size.should == 1
         lists.first.name.should == 'Rubyists'
@@ -316,7 +316,17 @@ class BaseTest < Test::Unit::TestCase
       end
 
     end
+  end
+  
+  context "when using a non-twitter service" do
+    setup do
+      @twitter = Twitter::Base.new(Twitter::HTTPAuth.new('wynn@example.com', 'mypass', :api_endpoint => 'tumblr.com'))
+    end
 
-
+    should "get the home timeline" do
+      stub_get('http://wynn%40example.com:mypass@tumblr.com/statuses/home_timeline.json', 'home_timeline.json')
+      timeline = @twitter.home_timeline
+      timeline.size.should == 20
+    end
   end
 end

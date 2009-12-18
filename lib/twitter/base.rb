@@ -12,7 +12,7 @@ module Twitter
 
     # Options: since_id, max_id, count, page
     def home_timeline(query={})
-      perform_get('http://api.twitter.com/1/statuses/home_timeline.json', :query => query)
+      perform_get('/statuses/home_timeline.json', :query => query)
     end
 
     # Options: since_id, max_id, count, page, since
@@ -218,8 +218,7 @@ module Twitter
     end
 
     def lists(list_owner_username=nil)
-      path = "http://api.twitter.com/1"
-      path += "/#{list_owner_username}" if list_owner_username
+      path = "/#{list_owner_username}" if list_owner_username
       path += "/lists.json"
       perform_get(path)
     end

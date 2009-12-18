@@ -8,7 +8,8 @@ module Twitter
     def initialize(username, password, options={})
       @username, @password = username, password
       @options = {:ssl => false}.merge(options)
-      self.class.base_uri "http#{'s' if options[:ssl]}://twitter.com"
+      options[:api_endpoint] ||= "twitter.com"
+      self.class.base_uri "http#{'s' if options[:ssl]}://#{options[:api_endpoint]}"
     end
     
     def get(uri, headers={})
