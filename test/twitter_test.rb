@@ -24,6 +24,14 @@ class TwitterTest < Test::Unit::TestCase
     status.text.should == 'Eating some oatmeal and butterscotch cookies with a cold glass of milk for breakfast. Tasty!'
   end
   
+  should "have a timeline method for unauthenticated calls to get a user's timeline" do
+    stub_get('http://twitter.com:80/statuses/user_timeline/jnunemaker.json', 'user_timeline.json')
+    statuses = Twitter.timeline('jnunemaker')
+    statuses.first.id.should == 1445986256
+    statuses.first.user.screen_name.should == 'jnunemaker'
+    
+  end
+  
   should "have friend_ids method" do
     stub_get('http://twitter.com:80/friends/ids/jnunemaker.json', 'friend_ids.json')
     ids = Twitter.friend_ids('jnunemaker')
