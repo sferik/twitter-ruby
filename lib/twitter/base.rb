@@ -158,6 +158,11 @@ module Twitter
     end
     
     # file should respond to #read and #path
+    def update_profile_image(file)
+      perform_post('/account/update_profile_image.json', build_multipart_bodies(:image => file))
+    end
+
+    # file should respond to #read and #path
     def update_profile_background(file, tile = false)
       perform_post('/account/update_profile_background_image.json', build_multipart_bodies(:image => file).merge(:tile => tile))
     end

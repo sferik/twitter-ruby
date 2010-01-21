@@ -177,6 +177,12 @@ class BaseTest < Test::Unit::TestCase
         blocked.last.screen_name.should == "euciavkvyplx"
       end
 
+      should "upload a profile image" do
+        stub_post('/account/update_profile_image.json', 'update_profile_image.json')
+        user = @twitter.update_profile_image(File.new(sample_image('sample-image.png')))
+        user.name.should == 'John Nunemaker' # update_profile_image responds with the user
+      end
+
       should "upload a background image" do
         stub_post('/account/update_profile_background_image.json', 'update_profile_background_image.json')
         user = @twitter.update_profile_background(File.new(sample_image('sample-image.png')))
