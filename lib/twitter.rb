@@ -56,6 +56,13 @@ module Twitter
     response = HTTParty.get("http://twitter.com/statuses/user_timeline/#{id}.json", :query => options, :format => :json)
     response.map{|tweet| Hashie::Mash.new tweet}
   end
+
+  # :per_page = max number of statues to get at once
+  # :page = which page of tweets you wish to get
+  def self.list_timeline(list_owner_username, slug, query = {})
+    response = HTTParty.get("http://api.twitter.com/1/#{list_owner_username}/lists/#{slug}/statuses.json", :query => query, :format => :json)
+    response.map{|tweet| Hashie::Mash.new tweet}
+  end
 end
 
 directory = File.expand_path(File.dirname(__FILE__))
