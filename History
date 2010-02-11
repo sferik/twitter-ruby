@@ -1,3 +1,6 @@
+0.8.4 - February 11, 2010
+  * Added membership query options // thanks ming yeow ng
+  * Added support for a phrase search (instead of a group of words) from @zagari
 0.8.3 - January 29, 2010
   * Added patch for unauthenticated list timelines from @spastorino
 0.8.2 - January 21, 2010

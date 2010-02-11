@@ -43,6 +43,12 @@ module Twitter
       @query[:q] << "##{tag}"
       self
     end
+    
+    # Search for a phrase instead of a group of words
+    def phrase(phrase)
+      @query[:phrase] = phrase
+      self
+    end
 
     # lang must be ISO 639-1 code ie: en, fr, de, ja, etc.
     #

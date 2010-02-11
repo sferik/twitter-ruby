@@ -104,6 +104,12 @@ class SearchTest < Test::Unit::TestCase
       @search.class.expects(:get).with('http://search.twitter.com/search.json', :query => {:max_id => 1234, :q => ''}, :format => :json, :headers => {'User-Agent' => 'Ruby Twitter Gem'}).returns({'foo' => 'bar'})
       @search.fetch()
     end
+    
+    should "should be able to set the phrase" do
+      @search.phrase("Who Dat")
+      @search.class.expects(:get).with('http://search.twitter.com/search.json', :query => {:phrase => "Who Dat", :q => ''}, :format => :json, :headers => {'User-Agent' => 'Ruby Twitter Gem'}).returns({'foo' => 'bar'})
+      @search.fetch()
+    end
 
     should "should be able to clear the filters set" do
       @search.from('jnunemaker').to('oaknd1')
