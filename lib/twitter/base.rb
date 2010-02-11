@@ -284,7 +284,8 @@ module Twitter
     def blocking(options={})
       perform_get("/blocks/blocking.json", options)
     end
-
+    
+    
   protected
     def self.mime_type(file)
       case 

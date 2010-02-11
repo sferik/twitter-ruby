@@ -92,4 +92,21 @@ class TrendsTest < Test::Unit::TestCase
       trends[0].query.should == 'TGIF'
     end
   end
+  
+  context "Getting local trends" do
+
+    should "return a list of available locations" do
+      stub_get 'http://api.twitter.com/1/trends/available.json?lat=33.237593417&lng=-96.960559033', 'trends_available.json'
+      locations = Trends.available(:lat => 33.237593417, :lng => -96.960559033)
+      locations.first.country.should == 'Ireland'
+      locations.first.placeType.code.should == 12
+    end
+    
+    should "return a list of trends for a given location" do
+      stub_get 'http://api.twitter.com/1/trends/2487956.json', 'trends_location.json'
+      trends = Trends.for_location(2487956).first.trends
+      trends.last.name.should == 'Gmail'
+    end
+  end
+  
 end
