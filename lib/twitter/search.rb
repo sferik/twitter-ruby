@@ -116,8 +116,7 @@ module Twitter
       if @fetch.nil? || force
         query = @query.dup
         query[:q] = query[:q].join(' ')
-        response = self.class.get('http://search.twitter.com/search.json', :query => query, :format => :json, :headers => {'User-Agent' => user_agent})
-        @fetch = Hashie::Mash.new(response)
+        perform_get(query)
       end
 
       @fetch
@@ -126,5 +125,23 @@ module Twitter
     def each
       fetch()['results'].each { |r| yield r }
     end
+
+    def next_page?
+      !!fetch()['next_page']
+    end
+
+    def fetch_next_page
+      if next_page?
+        s = Search.new(nil, :user_agent => user_agent)
+        s.perform_get(fetch()['next_page'][1..-1])
+        s
+      end
+    end
+
+    protected
+      def perform_get(query)
+        response = self.class.get('http://search.twitter.com/search.json', :query => query, :format => :json, :headers => {'User-Agent' => user_agent})
+        @fetch = Hashie::Mash.new(response)
+      end
   end
 end
