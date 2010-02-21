@@ -145,6 +145,15 @@ class SearchTest < Test::Unit::TestCase
         Twitter::Search.expects(:get).once
         @search.fetch(true)
       end
+      
+      should "tell if another page is available" do
+        @search.next_page?.should == true
+      end
+      
+      should "be able to fetch the next page" do
+        Twitter::Search.expects(:get).with('http://search.twitter.com/search.json', :query => 'page=2&max_id=1446791544&q=%40jnunemaker', :format => :json, :headers => {'User-Agent' => 'Ruby Twitter Gem'}).returns({'foo' => 'bar'})
+        @search.fetch_next_page
+      end
     end
     
     context "iterating over results" do
