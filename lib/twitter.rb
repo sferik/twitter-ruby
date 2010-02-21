@@ -56,6 +56,31 @@ module Twitter
     response = HTTParty.get("http://twitter.com/statuses/user_timeline/#{id}.json", :query => options, :format => :json)
     response.map{|tweet| Hashie::Mash.new tweet}
   end
+
+  # :per_page = max number of statues to get at once
+  # :page = which page of tweets you wish to get
+  def self.list_timeline(list_owner_username, slug, query = {})
+    response = HTTParty.get("http://api.twitter.com/1/#{list_owner_username}/lists/#{slug}/statuses.json", :query => query, :format => :json)
+    response.map{|tweet| Hashie::Mash.new tweet}
+  end
+end
+
+module Hashie
+  class Mash
+  
+    # Converts all of the keys to strings, optionally formatting key name
+    def rubyify_keys!
+      keys.each{|k|
+        v = delete(k)
+        new_key = k.to_s.underscore
+        self[new_key] = v
+        v.rubyify_keys! if v.is_a?(Hash)
+        v.each{|p| p.rubyify_keys! if p.is_a?(Hash)} if v.is_a?(Array)
+      }
+      self
+    end
+  
+  end
 end
 
 directory = File.expand_path(File.dirname(__FILE__))

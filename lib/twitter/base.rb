@@ -238,8 +238,8 @@ module Twitter
       perform_get("/#{list_owner_username}/lists/#{slug}/statuses.json", :query => query)
     end
 
-    def memberships(list_owner_username)
-      perform_get("/#{list_owner_username}/lists/memberships.json")
+    def memberships(list_owner_username, query={})
+      perform_get("/#{list_owner_username}/lists/memberships.json", :query => query)
     end
 
     def list_members(list_owner_username, slug, cursor = nil)
@@ -284,7 +284,8 @@ module Twitter
     def blocking(options={})
       perform_get("/blocks/blocking.json", options)
     end
-
+    
+    
   protected
     def self.mime_type(file)
       case 

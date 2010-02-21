@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{twitter}
-  s.version = "0.8.1"
+  s.version = "0.8.4"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["John Nunemaker", "Wynn Netherland"]
-  s.date = %q{2010-01-12}
+  s.date = %q{2010-02-11}
   s.email = %q{nunemaker@gmail.com}
   s.extra_rdoc_files = [
     "README.rdoc"
@@ -71,15 +71,18 @@ Gem::Specification.new do |s|
      "test/fixtures/search_from_jnunemaker.json",
      "test/fixtures/status.json",
      "test/fixtures/status_show.json",
+     "test/fixtures/trends_available.json",
      "test/fixtures/trends_current.json",
      "test/fixtures/trends_current_exclude.json",
      "test/fixtures/trends_daily.json",
      "test/fixtures/trends_daily_date.json",
      "test/fixtures/trends_daily_exclude.json",
+     "test/fixtures/trends_location.json",
      "test/fixtures/trends_weekly.json",
      "test/fixtures/trends_weekly_date.json",
      "test/fixtures/trends_weekly_exclude.json",
      "test/fixtures/update_profile_background_image.json",
+     "test/fixtures/update_profile_image.json",
      "test/fixtures/user.json",
      "test/fixtures/user_timeline.json",
      "test/test_helper.rb",
