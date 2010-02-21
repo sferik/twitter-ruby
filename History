@@ -1,3 +1,5 @@
+0.8.5 - February 21, 2010
+  * Patch from @cyu to add fetch_next_page to search
 0.8.4 - February 11, 2010
   * Added membership query options // thanks ming yeow ng
   * Added support for a phrase search (instead of a group of words) from @zagari
