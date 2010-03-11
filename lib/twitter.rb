@@ -7,7 +7,7 @@ require 'oauth'
 gem 'hashie', '~> 0.1.3'
 require 'hashie'
 
-gem 'httparty', '= 0.5.2'
+gem 'httparty', '>= 0.5.2'
 require 'httparty'
 
 module Twitter
