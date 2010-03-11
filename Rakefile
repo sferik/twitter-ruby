@@ -13,7 +13,7 @@ Jeweler::Tasks.new do |gem|
 
   gem.add_dependency('oauth', '~> 0.3.6')
   gem.add_dependency('hashie', '~> 0.1.3')
-  gem.add_dependency('httparty', '~> 0.4.3')
+  gem.add_dependency('httparty', '= 0.5.2')
 
   gem.add_development_dependency('thoughtbot-shoulda', '>= 2.10.1')
   gem.add_development_dependency('jnunemaker-matchy', '0.4.0')
