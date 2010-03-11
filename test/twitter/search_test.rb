@@ -29,12 +29,20 @@ class SearchTest < Test::Unit::TestCase
       @search.from('jnunemaker').query[:q].should include('from:jnunemaker')
     end
 
+    should "should be able to specify not from" do
+      @search.from('jnunemaker',true).query[:q].should include('-from:jnunemaker')
+    end
+
     should "should be able to specify to" do
       @search.to('jnunemaker').query[:q].should include('to:jnunemaker')
     end
 
-    should "should be able to specify referencing" do
-      @search.referencing('jnunemaker').query[:q].should include('@jnunemaker')
+    should "should be able to specify not to" do
+      @search.to('jnunemaker',true).query[:q].should include('-to:jnunemaker')
+    end
+
+    should "should be able to specify not referencing" do
+      @search.referencing('jnunemaker',true).query[:q].should include('-@jnunemaker')
     end
 
     should "should alias references to referencing" do
@@ -49,12 +57,20 @@ class SearchTest < Test::Unit::TestCase
       @search.containing('milk').query[:q].should include('milk')
     end
 
+    should "should be able to specify not containing" do
+      @search.containing('milk',true).query[:q].should include('-milk')
+    end
+
     should "should alias contains to containing" do
       @search.contains('milk').query[:q].should include('milk')
     end  
 
     should "should be able to specify hashed" do
       @search.hashed('twitter').query[:q].should include('#twitter')
+    end
+
+    should "should be able to specify not hashed" do
+      @search.hashed('twitter',true).query[:q].should include('-#twitter')
     end
 
     should "should be able to specify the language" do
