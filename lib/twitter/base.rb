@@ -91,6 +91,21 @@ module Twitter
       perform_get("/#{API_VERSION}/users/show/#{id}.json", :query => query)
     end
 
+    def users(*ids_or_usernames)
+      ids, usernames = [], []
+      ids_or_usernames.each do |id_or_username|
+        if id_or_username.is_a?(Integer)
+          ids << id_or_username
+        elsif id_or_username.is_a?(String)
+          usernames << id_or_username
+        end
+      end
+      query = {}
+      query[:user_id] = ids.join(",") unless ids.empty?
+      query[:screen_name] = usernames.join(",") unless usernames.empty?
+      perform_get("/#{API_VERSION}/users/lookup.json", :query => query)
+    end
+
     # Options: page, per_page
     def user_search(q, query={})
       q = URI.escape(q)

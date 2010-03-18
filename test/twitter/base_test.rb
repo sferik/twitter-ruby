@@ -153,6 +153,18 @@ class BaseTest < Test::Unit::TestCase
         @twitter.friendship_show(:source_screen_name => 'dcrec1', :target_screen_name => 'pengwynn').relationship.target.followed_by == false
       end
 
+      should "be able to lookup a user" do
+        stub_get("/1/users/show/4243.json", "user.json")
+        user = @twitter.user(4243)
+        user.screen_name.should == "jnunemaker"
+      end
+
+      should "be able to lookup users in bulk" do
+        stub_get("/1/users/lookup.json?screen_name=sferik&user_id=59593,774010", "users.json")
+        users = @twitter.users("sferik", 59593, 774010)
+        users.first.screen_name.should == "sferik"
+      end
+
       should "be able to search people" do
         stub_get("/1/users/search.json?q=Wynn%20Netherland", 'people_search.json')
         people = @twitter.user_search('Wynn Netherland')
