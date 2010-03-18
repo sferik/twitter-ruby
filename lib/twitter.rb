@@ -28,32 +28,31 @@ module Twitter
   class InformTwitter < StandardError; end
   class NotFound      < StandardError; end
 
-
   def self.firehose
-    response = HTTParty.get('http://twitter.com/statuses/public_timeline.json', :format => :json)
+    response = HTTParty.get('http://api.twitter.com/statuses/public_timeline.json', :format => :json)
     response.map { |tweet| Hashie::Mash.new(tweet) }
   end
 
   def self.user(id)
-    response = HTTParty.get("http://twitter.com/users/show/#{id}.json", :format => :json)
+    response = HTTParty.get("http://api.twitter.com/users/show/#{id}.json", :format => :json)
     Hashie::Mash.new(response)
   end
 
   def self.status(id)
-    response = HTTParty.get("http://twitter.com/statuses/show/#{id}.json", :format => :json)
+    response = HTTParty.get("http://api.twitter.com/statuses/show/#{id}.json", :format => :json)
     Hashie::Mash.new(response)
   end
 
   def self.friend_ids(id)
-    HTTParty.get("http://twitter.com/friends/ids/#{id}.json", :format => :json)
+    HTTParty.get("http://api.twitter.com/friends/ids/#{id}.json", :format => :json)
   end
 
   def self.follower_ids(id)
-    HTTParty.get("http://twitter.com/followers/ids/#{id}.json", :format => :json)
+    HTTParty.get("http://api.twitter.com/followers/ids/#{id}.json", :format => :json)
   end
   
   def self.timeline(id, options={})
-    response = HTTParty.get("http://twitter.com/statuses/user_timeline/#{id}.json", :query => options, :format => :json)
+    response = HTTParty.get("http://api.twitter.com/statuses/user_timeline/#{id}.json", :query => options, :format => :json)
     response.map{|tweet| Hashie::Mash.new tweet}
   end
 

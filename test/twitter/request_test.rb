@@ -138,63 +138,63 @@ class RequestTest < Test::Unit::TestCase
     end
 
     should "not raise error for 200" do
-      stub_get('http://twitter.com:80/foo', '', ['200'])
+      stub_get('http://api.twitter.com:80/foo', '', ['200'])
       lambda {
         Twitter::Request.get(@client, '/foo')
       }.should_not raise_error
     end
 
     should "not raise error for 304" do
-      stub_get('http://twitter.com:80/foo', '', ['304'])
+      stub_get('http://api.twitter.com:80/foo', '', ['304'])
       lambda {
         Twitter::Request.get(@client, '/foo')
       }.should_not raise_error
     end
 
     should "raise RateLimitExceeded for 400" do
-      stub_get('http://twitter.com:80/foo', 'rate_limit_exceeded.json', ['400'])
+      stub_get('http://api.twitter.com:80/foo', 'rate_limit_exceeded.json', ['400'])
       lambda {
         Twitter::Request.get(@client, '/foo')
       }.should raise_error(Twitter::RateLimitExceeded)
     end
 
     should "raise Unauthorized for 401" do
-      stub_get('http://twitter.com:80/foo', '', ['401'])
+      stub_get('http://api.twitter.com:80/foo', '', ['401'])
       lambda {
         Twitter::Request.get(@client, '/foo')
       }.should raise_error(Twitter::Unauthorized)
     end
 
     should "raise General for 403" do
-      stub_get('http://twitter.com:80/foo', '', ['403'])
+      stub_get('http://api.twitter.com:80/foo', '', ['403'])
       lambda {
         Twitter::Request.get(@client, '/foo')
       }.should raise_error(Twitter::General)
     end
 
     should "raise NotFound for 404" do
-      stub_get('http://twitter.com:80/foo', '', ['404'])
+      stub_get('http://api.twitter.com:80/foo', '', ['404'])
       lambda {
         Twitter::Request.get(@client, '/foo')
       }.should raise_error(Twitter::NotFound)
     end
 
     should "raise InformTwitter for 500" do
-      stub_get('http://twitter.com:80/foo', '', ['500'])
+      stub_get('http://api.twitter.com:80/foo', '', ['500'])
       lambda {
         Twitter::Request.get(@client, '/foo')
       }.should raise_error(Twitter::InformTwitter)
     end
 
     should "raise Unavailable for 502" do
-      stub_get('http://twitter.com:80/foo', '', ['502'])
+      stub_get('http://api.twitter.com:80/foo', '', ['502'])
       lambda {
         Twitter::Request.get(@client, '/foo')
       }.should raise_error(Twitter::Unavailable)
     end
 
     should "raise Unavailable for 503" do
-      stub_get('http://twitter.com:80/foo', '', ['503'])
+      stub_get('http://api.twitter.com:80/foo', '', ['503'])
       lambda {
         Twitter::Request.get(@client, '/foo')
       }.should raise_error(Twitter::Unavailable)
@@ -209,7 +209,7 @@ class RequestTest < Test::Unit::TestCase
     end
 
     should "not attempt to create mash of return object" do
-      stub_get('http://twitter.com:80/foo', 'friend_ids.json')
+      stub_get('http://api.twitter.com:80/foo', 'friend_ids.json')
       object = Twitter::Request.get(@client, '/foo', :mash => false)
       object.class.should_not be(Hashie::Mash)
     end

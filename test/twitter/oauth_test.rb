@@ -20,7 +20,7 @@ class OAuthTest < Test::Unit::TestCase
   
   should "have a consumer" do
     consumer = mock('oauth consumer')
-    OAuth::Consumer.expects(:new).with('token', 'secret', {:site => 'http://twitter.com'}).returns(consumer)
+    OAuth::Consumer.expects(:new).with('token', 'secret', {:site => 'http://api.twitter.com'}).returns(consumer)
     twitter = Twitter::OAuth.new('token', 'secret')
     
     twitter.consumer.should == consumer
@@ -30,7 +30,7 @@ class OAuthTest < Test::Unit::TestCase
     consumer = mock('oauth consumer')
     request_token = mock('request token')
     consumer.expects(:get_request_token).returns(request_token)
-    OAuth::Consumer.expects(:new).with('token', 'secret', {:site => 'http://twitter.com'}).returns(consumer)
+    OAuth::Consumer.expects(:new).with('token', 'secret', {:site => 'http://api.twitter.com'}).returns(consumer)
     twitter = Twitter::OAuth.new('token', 'secret')
     
     twitter.request_token.should == request_token
@@ -43,7 +43,7 @@ class OAuthTest < Test::Unit::TestCase
       
       OAuth::Consumer.
         expects(:new).
-        with('token', 'secret', {:site => 'http://twitter.com'}).
+        with('token', 'secret', {:site => 'http://api.twitter.com'}).
         returns(consumer)
       
       twitter = Twitter::OAuth.new('token', 'secret')
@@ -58,7 +58,7 @@ class OAuthTest < Test::Unit::TestCase
   
   should "be able to create access token from request token, request secret and verifier" do
     twitter = Twitter::OAuth.new('token', 'secret')
-    consumer = OAuth::Consumer.new('token', 'secret', {:site => 'http://twitter.com'})
+    consumer = OAuth::Consumer.new('token', 'secret', {:site => 'http://api.twitter.com'})
     twitter.stubs(:consumer).returns(consumer)
     
     access_token  = mock('access token', :token => 'atoken', :secret => 'asecret')
@@ -81,7 +81,7 @@ class OAuthTest < Test::Unit::TestCase
   
   should "be able to create access token from access token and secret" do
     twitter = Twitter::OAuth.new('token', 'secret')
-    consumer = OAuth::Consumer.new('token', 'secret', {:site => 'http://twitter.com'})
+    consumer = OAuth::Consumer.new('token', 'secret', {:site => 'http://api.twitter.com'})
     twitter.stubs(:consumer).returns(consumer)
     
     twitter.authorize_from_access('atoken', 'asecret')

@@ -31,7 +31,7 @@ def fixture_file(filename)
 end
 
 def twitter_url(url)
-  url =~ /^http/ ? url : "http://twitter.com:80#{url}"
+  url =~ /^http/ ? url : "http://api.twitter.com:80#{url}"
 end
 
 def stub_get(url, filename, status=nil)
