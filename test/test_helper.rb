@@ -2,7 +2,7 @@ require 'test/unit'
 require 'pathname'
 require 'rubygems'
 
-gem 'thoughtbot-shoulda', '>= 2.10.1'
+gem 'shoulda', '>= 2.10.1'
 gem 'jnunemaker-matchy', '0.4.0'
 gem 'mocha', '0.9.4'
 gem 'fakeweb', '>= 1.2.5'
@@ -37,7 +37,6 @@ end
 def stub_get(url, filename, status=nil)
   options = {:body => fixture_file(filename)}
   options.merge!({:status => status}) unless status.nil?
-  
   FakeWeb.register_uri(:get, twitter_url(url), options)
 end
 
@@ -51,5 +50,4 @@ end
 
 def stub_delete(url, filename)
   FakeWeb.register_uri(:delete, twitter_url(url), :body => fixture_file(filename))
-
 end

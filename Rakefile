@@ -15,7 +15,7 @@ Jeweler::Tasks.new do |gem|
   gem.add_dependency('hashie', '~> 0.1.3')
   gem.add_dependency('httparty', '>= 0.5.2')
 
-  gem.add_development_dependency('thoughtbot-shoulda', '>= 2.10.1')
+  gem.add_development_dependency('shoulda', '>= 2.10.1')
   gem.add_development_dependency('jnunemaker-matchy', '0.4.0')
   gem.add_development_dependency('mocha', '0.9.4')
   gem.add_development_dependency('fakeweb', '>= 1.2.5')
