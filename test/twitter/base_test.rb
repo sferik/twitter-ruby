@@ -28,7 +28,7 @@ class BaseTest < Test::Unit::TestCase
 
     context "hitting the api" do
       should "be able to get home timeline" do
-        stub_get('/statuses/home_timeline.json', 'home_timeline.json')
+        stub_get('/1/statuses/home_timeline.json', 'home_timeline.json')
         timeline = @twitter.home_timeline
         timeline.size.should == 20
         first = timeline.first
@@ -40,7 +40,7 @@ class BaseTest < Test::Unit::TestCase
       end
 
       should "be able to get friends timeline" do
-        stub_get('/statuses/friends_timeline.json', 'friends_timeline.json')
+        stub_get('/1/statuses/friends_timeline.json', 'friends_timeline.json')
         timeline = @twitter.friends_timeline
         timeline.size.should == 20
         first = timeline.first
@@ -52,7 +52,7 @@ class BaseTest < Test::Unit::TestCase
       end
 
       should "be able to get user timeline" do
-        stub_get('/statuses/user_timeline.json', 'user_timeline.json')
+        stub_get('/1/statuses/user_timeline.json', 'user_timeline.json')
         timeline = @twitter.user_timeline
         timeline.size.should == 20
         first = timeline.first
@@ -61,21 +61,21 @@ class BaseTest < Test::Unit::TestCase
       end
 
       should "be able to get a status" do
-        stub_get('/statuses/show/1441588944.json', 'status.json')
+        stub_get('/1/statuses/show/1441588944.json', 'status.json')
         status = @twitter.status(1441588944)
         status.user.name.should == 'John Nunemaker'
         status.id.should == 1441588944
       end
 
       should "be able to update status" do
-        stub_post('/statuses/update.json', 'status.json')
+        stub_post('/1/statuses/update.json', 'status.json')
         status = @twitter.update('Rob Dyrdek is the funniest man alive. That is all.')
         status.user.name.should == 'John Nunemaker'
         status.text.should == 'Rob Dyrdek is the funniest man alive. That is all.'
       end
 
       should "be able to retweet a status" do
-        stub_post('/statuses/retweet/6235127466.json', 'retweet.json')
+        stub_post('/1/statuses/retweet/6235127466.json', 'retweet.json')
         status = @twitter.retweet(6235127466)
         status.user.name.should == 'Michael D. Ivey'
         status.text.should == "RT @jstetser: I'm not actually awake. My mind's on autopilot for food and I managed to take a detour along the way."
@@ -84,7 +84,7 @@ class BaseTest < Test::Unit::TestCase
       end
 
       should "be able to get retweets of a status" do
-        stub_get('/statuses/retweets/6192831130.json', 'retweets.json')
+        stub_get('/1/statuses/retweets/6192831130.json', 'retweets.json')
         retweets = @twitter.retweets(6192831130)
         retweets.size.should == 6
         first = retweets.first
@@ -93,7 +93,7 @@ class BaseTest < Test::Unit::TestCase
       end
       
       should "be able to get mentions" do
-        stub_get('/statuses/mentions.json', 'mentions.json')
+        stub_get('/1/statuses/mentions.json', 'mentions.json')
         mentions = @twitter.mentions
         mentions.size.should == 19
         first = mentions.first
@@ -102,7 +102,7 @@ class BaseTest < Test::Unit::TestCase
       end
 
       should "be able to get retweets by me" do
-        stub_get('/statuses/retweeted_by_me.json', 'retweeted_by_me.json')
+        stub_get('/1/statuses/retweeted_by_me.json', 'retweeted_by_me.json')
         retweeted_by_me = @twitter.retweeted_by_me
         retweeted_by_me.size.should == 20
         first = retweeted_by_me.first.retweeted_status
@@ -111,7 +111,7 @@ class BaseTest < Test::Unit::TestCase
       end
 
       should "be able to get retweets to me" do
-        stub_get('/statuses/retweeted_to_me.json', 'retweeted_to_me.json')
+        stub_get('/1/statuses/retweeted_to_me.json', 'retweeted_to_me.json')
         retweeted_to_me = @twitter.retweeted_to_me
         retweeted_to_me.size.should == 20
         first = retweeted_to_me.first.retweeted_status
@@ -120,7 +120,7 @@ class BaseTest < Test::Unit::TestCase
       end
 
       should "be able to get retweets of me" do
-        stub_get('/statuses/retweets_of_me.json', 'retweets_of_me.json')
+        stub_get('/1/statuses/retweets_of_me.json', 'retweets_of_me.json')
         retweets_of_me = @twitter.retweets_of_me
         retweets_of_me.size.should == 11
         first = retweets_of_me.first
@@ -129,62 +129,62 @@ class BaseTest < Test::Unit::TestCase
       end
 
       should "be able to get follower ids" do
-        stub_get('/followers/ids.json', 'follower_ids.json')
+        stub_get('/1/followers/ids.json', 'follower_ids.json')
         follower_ids = @twitter.follower_ids
         follower_ids.size.should == 1252
         follower_ids.first.should == 613
       end
 
       should "be able to get friend ids" do
-        stub_get('/friends/ids.json', 'friend_ids.json')
+        stub_get('/1/friends/ids.json', 'friend_ids.json')
         friend_ids = @twitter.friend_ids
         friend_ids.size.should == 161
         friend_ids.first.should == 15323
       end
 
       should "correctly hash statuses" do
-        stub_get('/statuses/friends_timeline.json', 'friends_timeline.json')
+        stub_get('/1/statuses/friends_timeline.json', 'friends_timeline.json')
         hashes = @twitter.friends_timeline.map{ |s| s.hash }
         hashes.should == @twitter.friends_timeline.map{ |s| s.hash }
       end
 
       should "be able to get a friendship" do
-        stub_get("/friendships/show.json?source_screen_name=dcrec1&target_screen_name=pengwynn", 'friendship.json')
+        stub_get("/1/friendships/show.json?source_screen_name=dcrec1&target_screen_name=pengwynn", 'friendship.json')
         @twitter.friendship_show(:source_screen_name => 'dcrec1', :target_screen_name => 'pengwynn').relationship.target.followed_by == false
       end
 
       should "be able to search people" do
-        stub_get("/users/search.json?q=Wynn%20Netherland", 'people_search.json')
+        stub_get("/1/users/search.json?q=Wynn%20Netherland", 'people_search.json')
         people = @twitter.user_search('Wynn Netherland')
         people.first.screen_name.should == 'pengwynn'
       end
       
       should "be able to get followers' stauses" do
-        stub_get('/statuses/followers.json', 'followers.json')
+        stub_get('/1/statuses/followers.json', 'followers.json')
         followers = @twitter.followers
         followers.should == @twitter.followers
       end
       
       should "be able to get blocked users' IDs" do
-        stub_get('/blocks/blocking/ids.json', 'ids.json')
+        stub_get('/1/blocks/blocking/ids.json', 'ids.json')
         blocked = @twitter.blocked_ids
         blocked.should == @twitter.blocked_ids      
       end
       
       should "be able to get an array of blocked users" do
-        stub_get('/blocks/blocking.json', 'blocking.json')
+        stub_get('/1/blocks/blocking.json', 'blocking.json')
         blocked = @twitter.blocking
         blocked.last.screen_name.should == "euciavkvyplx"
       end
 
       should "upload a profile image" do
-        stub_post('/account/update_profile_image.json', 'update_profile_image.json')
+        stub_post('/1/account/update_profile_image.json', 'update_profile_image.json')
         user = @twitter.update_profile_image(File.new(sample_image('sample-image.png')))
         user.name.should == 'John Nunemaker' # update_profile_image responds with the user
       end
 
       should "upload a background image" do
-        stub_post('/account/update_profile_background_image.json', 'update_profile_background_image.json')
+        stub_post('/1/account/update_profile_background_image.json', 'update_profile_background_image.json')
         user = @twitter.update_profile_background(File.new(sample_image('sample-image.png')))
         user.name.should == 'John Nunemaker' # update_profile_background responds with the user
       end
@@ -193,7 +193,7 @@ class BaseTest < Test::Unit::TestCase
     context "when using lists" do
 
       should "be able to create a new list" do
-        stub_post('/pengwynn/lists.json', 'list.json')
+        stub_post('/1/pengwynn/lists.json', 'list.json')
         list = @twitter.list_create('pengwynn', {:name => 'Rubyists'})
         list.name.should == 'Rubyists'
         list.slug.should == 'rubyists'
@@ -201,7 +201,7 @@ class BaseTest < Test::Unit::TestCase
       end
 
       should "be able to update a list" do
-        stub_put('/pengwynn/lists/rubyists.json', 'list.json')
+        stub_put('/1/pengwynn/lists/rubyists.json', 'list.json')
         list = @twitter.list_update('pengwynn', 'rubyists', {:name => 'Rubyists'})
         list.name.should == 'Rubyists'
         list.slug.should == 'rubyists'
@@ -209,7 +209,7 @@ class BaseTest < Test::Unit::TestCase
       end
 
       should "be able to delete a list" do
-        stub_delete('/pengwynn/lists/rubyists.json', 'list.json')
+        stub_delete('/1/pengwynn/lists/rubyists.json', 'list.json')
         list = @twitter.list_delete('pengwynn', 'rubyists')
         list.name.should == 'Rubyists'
         list.slug.should == 'rubyists'
@@ -217,7 +217,7 @@ class BaseTest < Test::Unit::TestCase
       end
 
       should "be able to view lists to which a user belongs" do
-        stub_get('/pengwynn/lists/memberships.json', 'memberships.json')
+        stub_get('/1/pengwynn/lists/memberships.json', 'memberships.json')
         lists = @twitter.memberships('pengwynn').lists
         lists.size.should == 16
         lists.first.name.should == 'web-dev'
@@ -225,7 +225,7 @@ class BaseTest < Test::Unit::TestCase
       end
 
       should "be able to view lists for the authenticated user" do
-        stub_get('/pengwynn/lists.json', 'lists.json')
+        stub_get('/1/pengwynn/lists.json', 'lists.json')
         lists = @twitter.lists('pengwynn').lists
         lists.size.should == 1
         lists.first.name.should == 'Rubyists'
@@ -233,14 +233,14 @@ class BaseTest < Test::Unit::TestCase
       end
 
       should "be able to view list details" do
-        stub_get('/pengwynn/lists/rubyists.json', 'list.json')
+        stub_get('/1/pengwynn/lists/rubyists.json', 'list.json')
         list = @twitter.list('pengwynn', 'rubyists')
         list.name.should == 'Rubyists'
         list.subscriber_count.should == 0
       end
 
       should "be able to view list timeline" do
-        stub_get('/pengwynn/lists/rubyists/statuses.json', 'list_statuses.json')
+        stub_get('/1/pengwynn/lists/rubyists/statuses.json', 'list_statuses.json')
         tweets = @twitter.list_timeline('pengwynn', 'rubyists')
         tweets.size.should == 20
         tweets.first.id.should == 5272535583
@@ -248,7 +248,7 @@ class BaseTest < Test::Unit::TestCase
       end
       
       should "be able to limit number of tweets in list timeline" do
-        stub_get('/pengwynn/lists/rubyists/statuses.json?per_page=1', 'list_statuses_1_1.json')
+        stub_get('/1/pengwynn/lists/rubyists/statuses.json?per_page=1', 'list_statuses_1_1.json')
         tweets = @twitter.list_timeline('pengwynn', 'rubyists', :per_page => 1)
         tweets.size.should == 1
         tweets.first.id.should == 5272535583
@@ -256,8 +256,8 @@ class BaseTest < Test::Unit::TestCase
       end
       
       should "be able to paginate through the timeline" do
-        stub_get('/pengwynn/lists/rubyists/statuses.json?page=1&per_page=1', 'list_statuses_1_1.json')
-        stub_get('/pengwynn/lists/rubyists/statuses.json?page=2&per_page=1', 'list_statuses_2_1.json')
+        stub_get('/1/pengwynn/lists/rubyists/statuses.json?page=1&per_page=1', 'list_statuses_1_1.json')
+        stub_get('/1/pengwynn/lists/rubyists/statuses.json?page=2&per_page=1', 'list_statuses_2_1.json')
         tweets = @twitter.list_timeline('pengwynn', 'rubyists', { :page => 1, :per_page => 1 })
         tweets.size.should == 1
         tweets.first.id.should == 5272535583
@@ -269,7 +269,7 @@ class BaseTest < Test::Unit::TestCase
       end
 
       should "be able to view list members" do
-        stub_get('/pengwynn/rubyists/members.json', 'list_users.json')
+        stub_get('/1/pengwynn/rubyists/members.json', 'list_users.json')
         members = @twitter.list_members('pengwynn', 'rubyists').users
         members.size.should == 2
         members.first.name.should == 'John Nunemaker'
@@ -277,24 +277,24 @@ class BaseTest < Test::Unit::TestCase
       end
 
       should "be able to add a member to a list" do
-        stub_post('/pengwynn/rubyists/members.json', 'user.json')
+        stub_post('/1/pengwynn/rubyists/members.json', 'user.json')
         user = @twitter.list_add_member('pengwynn', 'rubyists', 4243)
         user.screen_name.should == 'jnunemaker'
       end
 
       should "be able to remove a member from a list" do
-        stub_delete('/pengwynn/rubyists/members.json?id=4243', 'user.json')
+        stub_delete('/1/pengwynn/rubyists/members.json?id=4243', 'user.json')
         user = @twitter.list_remove_member('pengwynn', 'rubyists', 4243)
         user.screen_name.should == 'jnunemaker'
       end
 
       should "be able to check if a user is member of a list" do
-        stub_get('/pengwynn/rubyists/members/4243.json', 'user.json')
+        stub_get('/1/pengwynn/rubyists/members/4243.json', 'user.json')
         @twitter.is_list_member?('pengwynn', 'rubyists', 4243).should == true
       end
 
       should "be able to view list subscribers" do
-        stub_get('/pengwynn/rubyists/subscribers.json', 'list_users.json')
+        stub_get('/1/pengwynn/rubyists/subscribers.json', 'list_users.json')
         subscribers = @twitter.list_subscribers('pengwynn', 'rubyists').users
         subscribers.size.should == 2
         subscribers.first.name.should == 'John Nunemaker'
@@ -302,19 +302,19 @@ class BaseTest < Test::Unit::TestCase
       end
 
       should "be able to subscribe to a list" do
-        stub_post('/pengwynn/rubyists/subscribers.json', 'user.json')
+        stub_post('/1/pengwynn/rubyists/subscribers.json', 'user.json')
         user = @twitter.list_subscribe('pengwynn', 'rubyists')
         user.screen_name.should == 'jnunemaker'
       end
 
       should "be able to unsubscribe from a list" do
-        stub_delete('/pengwynn/rubyists/subscribers.json', 'user.json')
+        stub_delete('/1/pengwynn/rubyists/subscribers.json', 'user.json')
         user = @twitter.list_unsubscribe('pengwynn', 'rubyists')
         user.screen_name.should == 'jnunemaker'
       end
 
       should "be able to view a members list subscriptions" do
-        stub_get('/pengwynn/lists/subscriptions.json', 'list_subscriptions.json')
+        stub_get('/1/pengwynn/lists/subscriptions.json', 'list_subscriptions.json')
         subscriptions = @twitter.list_subscriptions('pengwynn').lists
         subscriptions.size.should == 1
         subscriptions.first.full_name.should == '@chriseppstein/sass-users'
@@ -330,7 +330,7 @@ class BaseTest < Test::Unit::TestCase
     end
 
     should "get the home timeline" do
-      stub_get('http://wynn%40example.com:mypass@tumblr.com/statuses/home_timeline.json', 'home_timeline.json')
+      stub_get('http://wynn%40example.com:mypass@tumblr.com/1/statuses/home_timeline.json', 'home_timeline.json')
       timeline = @twitter.home_timeline
       timeline.size.should == 20
     end
