@@ -1,4 +1,6 @@
-0.8.6 - March 11, 1010
+0.9.0 - March 20, 2010
+  * Patch from @sferik for API versioning and bulk user import
+0.8.6 - March 11, 2010
   * Patch from @dewski for httparty version
 0.8.5 - February 21, 2010
   * Patch from @cyu to add fetch_next_page to search
