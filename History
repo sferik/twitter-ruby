@@ -1,4 +1,5 @@
 0.9.0 - March 20, 2010
+  * Added support for popular/recent search
   * Patch from @sferik for API versioning and bulk user import
   * Patch from @abozanich for search exclusions
 0.8.6 - March 11, 2010

@@ -126,6 +126,12 @@ class SearchTest < Test::Unit::TestCase
       @search.class.expects(:get).with('http://search.twitter.com/search.json', :query => {:phrase => "Who Dat", :q => ''}, :format => :json, :headers => {'User-Agent' => 'Ruby Twitter Gem'}).returns({'foo' => 'bar'})
       @search.fetch()
     end
+    
+    should "should be able to set the result type" do
+      @search.result_type("popular")
+      @search.class.expects(:get).with('http://search.twitter.com/search.json', :query => {:result_type => 'popular', :q => ''}, :format => :json, :headers => {'User-Agent' => 'Ruby Twitter Gem'}).returns({'foo' => 'bar'})
+      @search.fetch()
+    end
 
     should "should be able to clear the filters set" do
       @search.from('jnunemaker').to('oaknd1')

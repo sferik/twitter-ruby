@@ -59,6 +59,12 @@ module Twitter
       @query[:lang] = lang
       self
     end
+    
+    # popular|recent
+    def result_type(result_type)
+      @query[:result_type] = result_type
+      self
+    end
 
     # Limits the number of results per page
     def per_page(num)
