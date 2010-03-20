@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{twitter}
-  s.version = "0.8.6"
+  s.version = "0.9.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["John Nunemaker", "Wynn Netherland"]
-  s.date = %q{2010-03-18}
+  s.date = %q{2010-03-20}
   s.email = %q{nunemaker@gmail.com}
   s.extra_rdoc_files = [
     "README.rdoc"
@@ -64,6 +64,7 @@ Gem::Specification.new do |s|
      "test/fixtures/retweet.json",
      "test/fixtures/retweeted_by_me.json",
      "test/fixtures/retweeted_to_me.json",
+     "test/fixtures/retweeters_of_tweet.json",
      "test/fixtures/retweets.json",
      "test/fixtures/retweets_of_me.json",
      "test/fixtures/sample-image.png",
@@ -85,6 +86,7 @@ Gem::Specification.new do |s|
      "test/fixtures/update_profile_image.json",
      "test/fixtures/user.json",
      "test/fixtures/user_timeline.json",
+     "test/fixtures/users.json",
      "test/test_helper.rb",
      "test/twitter/base_test.rb",
      "test/twitter/httpauth_test.rb",
@@ -98,7 +100,7 @@ Gem::Specification.new do |s|
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubyforge_project = %q{twitter}
-  s.rubygems_version = %q{1.3.6}
+  s.rubygems_version = %q{1.3.5}
   s.summary = %q{wrapper for the twitter api}
   s.test_files = [
     "test/test_helper.rb",
