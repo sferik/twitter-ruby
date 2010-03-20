@@ -15,32 +15,32 @@ module Twitter
       @options[:user_agent] || 'Ruby Twitter Gem'
     end
 
-    def from(user)
-      @query[:q] << "from:#{user}"
+    def from(user,exclude=false)
+      @query[:q] << "#{exclude ? '-' : ''}from:#{user}"
       self
     end
 
-    def to(user)
-      @query[:q] << "to:#{user}"
+    def to(user,exclude=false)
+      @query[:q] << "#{exclude ? '-' : ''}to:#{user}"
       self
     end
 
-    def referencing(user)
-      @query[:q] << "@#{user}"
+    def referencing(user,exclude=false)
+      @query[:q] << "#{exclude ? '-' : ''}@#{user}"
       self
     end
     alias :references :referencing
     alias :ref :referencing
 
-    def containing(word)
-      @query[:q] << "#{word}"
+    def containing(word,exclude=false)
+      @query[:q] << "#{exclude ? '-' : ''}#{word}"
       self
     end
     alias :contains :containing
 
     # adds filtering based on hash tag ie: #twitter
-    def hashed(tag)
-      @query[:q] << "##{tag}"
+    def hashed(tag,exclude=false)
+      @query[:q] << "#{exclude ? '-' : ''}\##{tag}"
       self
     end
     
