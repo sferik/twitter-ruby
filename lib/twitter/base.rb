@@ -68,6 +68,12 @@ module Twitter
     def retweets_of_me(query={})
       perform_get("/#{API_VERSION}/statuses/retweets_of_me.json", :query => query)
     end
+    
+    # options: count, page, ids_only
+    def retweeters_of(id, options={})
+      ids_only = !!(options.delete(:ids_only))
+      perform_get("/#{API_VERSION}/statuses/#{id}/retweeted_by#{"/ids" if ids_only}.json", :query => options, :mash => !ids_only)
+    end
 
     def status_destroy(id)
       perform_post("/#{API_VERSION}/statuses/destroy/#{id}.json")

@@ -127,6 +127,20 @@ class BaseTest < Test::Unit::TestCase
         first.user.name.should == 'Michael D. Ivey'
         first.text.should == "Trying out geotweets in Birdfeed. No \"new RT\" support, though. Any iPhone client with RTs yet?"
       end
+      
+      should "be able to get users who retweeted a tweet" do
+        stub_get('/1/statuses/9021932472/retweeted_by.json', 'retweeters_of_tweet.json')
+        retweeters = @twitter.retweeters_of("9021932472")
+        retweeters.size.should == 4
+        first = retweeters.first
+        first.screen_name.should == 'bryanl'
+      end
+      
+      should "be able to get ids of users who retweeted a tweet" do
+        stub_get('/1/statuses/9021932472/retweeted_by/ids.json', 'ids.json')
+        retweeters = @twitter.retweeters_of("9021932472", :ids_only => true)
+        retweeters.first.should == 61940910
+      end
 
       should "be able to get follower ids" do
         stub_get('/1/followers/ids.json', 'follower_ids.json')
