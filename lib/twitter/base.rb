@@ -243,13 +243,15 @@ module Twitter
       perform_delete("/#{API_VERSION}/#{list_owner_username}/lists/#{slug}.json")
     end
 
-    def lists(list_owner_username=nil)
+    def lists(list_owner_username = nil, cursor = nil)
       if list_owner_username
         path = "/#{API_VERSION}/#{list_owner_username}/lists.json"
       else
         path = "/#{API_VERSION}/lists.json"
       end
-      perform_get(path)
+      query = {}
+      query[:cursor] = cursor if cursor
+      perform_get(path, :query => query)
     end
 
     def list(list_owner_username, slug)
@@ -267,9 +269,9 @@ module Twitter
     end
 
     def list_members(list_owner_username, slug, cursor = nil)
-      path = "/#{API_VERSION}/#{list_owner_username}/#{slug}/members.json"
-      path += "?cursor=#{cursor}" if cursor
-      perform_get(path)
+      query = {}
+      query[:cursor] = cursor if cursor
+      perform_get("/#{API_VERSION}/#{list_owner_username}/#{slug}/members.json", :query => query)
     end
 
     def list_add_member(list_owner_username, slug, new_id)
