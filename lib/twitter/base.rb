@@ -66,7 +66,7 @@ module Twitter
     def retweets_of_me(query={})
       perform_get("/#{API_VERSION}/statuses/retweets_of_me.json", :query => query)
     end
-    
+
     # options: count, page, ids_only
     def retweeters_of(id, options={})
       ids_only = !!(options.delete(:ids_only))
@@ -177,7 +177,7 @@ module Twitter
     def update_profile_colors(colors={})
       perform_post("/#{API_VERSION}/account/update_profile_colors.json", :body => colors)
     end
-    
+
     # file should respond to #read and #path
     def update_profile_image(file)
       perform_post("/#{API_VERSION}/account/update_profile_image.json", build_multipart_bodies(:image => file))
@@ -187,7 +187,7 @@ module Twitter
     def update_profile_background(file, tile = false)
       perform_post("/#{API_VERSION}/account/update_profile_background_image.json", build_multipart_bodies(:image => file).merge(:tile => tile))
     end
-    
+
     def rate_limit_status
       perform_get("/#{API_VERSION}/account/rate_limit_status.json")
     end
@@ -301,7 +301,7 @@ module Twitter
     def list_subscriptions(list_owner_username)
       perform_get("/#{API_VERSION}/#{list_owner_username}/lists/subscriptions.json")
     end
-    
+
     def blocked_ids
       perform_get("/#{API_VERSION}/blocks/blocking/ids.json", :mash => false)
     end
@@ -313,7 +313,7 @@ module Twitter
   protected
 
     def self.mime_type(file)
-      case 
+      case
         when file =~ /\.jpg/ then 'image/jpg'
         when file =~ /\.gif$/ then 'image/gif'
         when file =~ /\.png$/ then 'image/png'

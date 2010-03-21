@@ -45,7 +45,7 @@ module Twitter
       @query[:q] << "#{exclude ? "-" : ""}\##{tag}"
       self
     end
-    
+
     # Search for a phrase instead of a group of words
     def phrase(phrase)
       @query[:phrase] = phrase
@@ -61,7 +61,7 @@ module Twitter
       @query[:lang] = lang
       self
     end
-    
+
     # popular|recent
     def result_type(result_type)
       @query[:result_type] = result_type
@@ -86,7 +86,7 @@ module Twitter
       @query[:since_id] = since_id
       self
     end
-    
+
     # From the advanced search form, not documented in the API
     # Format YYYY-MM-DD
     def since_date(since_date)

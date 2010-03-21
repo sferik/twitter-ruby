@@ -46,7 +46,7 @@ module Twitter
   def self.follower_ids(id)
     HTTParty.get("http://api.twitter.com/#{API_VERSION}/followers/ids/#{id}.json", :format => :json)
   end
-  
+
   def self.timeline(id, options={})
     response = HTTParty.get("http://api.twitter.com/#{API_VERSION}/statuses/user_timeline/#{id}.json", :query => options, :format => :json)
     response.map{|tweet| Hashie::Mash.new tweet}
@@ -62,7 +62,7 @@ end
 
 module Hashie
   class Mash
-  
+
     # Converts all of the keys to strings, optionally formatting key name
     def rubyify_keys!
       keys.each{|k|
@@ -74,7 +74,7 @@ module Hashie
       }
       self
     end
-  
+
   end
 end
 

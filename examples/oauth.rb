@@ -17,7 +17,7 @@ pin = gets.chomp
 
 begin
   oauth.authorize_from_request(rtoken, rsecret, pin)
-  
+
   twitter = Twitter::Base.new(oauth)
   twitter.user_timeline.each do |tweet|
     puts "#{tweet.user.screen_name}: #{tweet.text}"

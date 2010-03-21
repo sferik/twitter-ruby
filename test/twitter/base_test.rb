@@ -91,7 +91,7 @@ class BaseTest < Test::Unit::TestCase
         first.user.name.should == 'josephholsten'
         first.text.should == "RT @Moltz: Personally, I won't be satisfied until a Buddhist monk lights himself on fire for web standards."
       end
-      
+
       should "be able to get mentions" do
         stub_get('/1/statuses/mentions.json', 'mentions.json')
         mentions = @twitter.mentions
@@ -127,7 +127,7 @@ class BaseTest < Test::Unit::TestCase
         first.user.name.should == 'Michael D. Ivey'
         first.text.should == "Trying out geotweets in Birdfeed. No \"new RT\" support, though. Any iPhone client with RTs yet?"
       end
-      
+
       should "be able to get users who retweeted a tweet" do
         stub_get('/1/statuses/9021932472/retweeted_by.json', 'retweeters_of_tweet.json')
         retweeters = @twitter.retweeters_of("9021932472")
@@ -135,7 +135,7 @@ class BaseTest < Test::Unit::TestCase
         first = retweeters.first
         first.screen_name.should == 'bryanl'
       end
-      
+
       should "be able to get ids of users who retweeted a tweet" do
         stub_get('/1/statuses/9021932472/retweeted_by/ids.json', 'ids.json')
         retweeters = @twitter.retweeters_of("9021932472", :ids_only => true)
@@ -184,19 +184,19 @@ class BaseTest < Test::Unit::TestCase
         people = @twitter.user_search('Wynn Netherland')
         people.first.screen_name.should == 'pengwynn'
       end
-      
+
       should "be able to get followers' stauses" do
         stub_get('/1/statuses/followers.json', 'followers.json')
         followers = @twitter.followers
         followers.should == @twitter.followers
       end
-      
+
       should "be able to get blocked users' IDs" do
         stub_get('/1/blocks/blocking/ids.json', 'ids.json')
         blocked = @twitter.blocked_ids
-        blocked.should == @twitter.blocked_ids      
+        blocked.should == @twitter.blocked_ids
       end
-      
+
       should "be able to get an array of blocked users" do
         stub_get('/1/blocks/blocking.json', 'blocking.json')
         blocked = @twitter.blocking
@@ -272,7 +272,7 @@ class BaseTest < Test::Unit::TestCase
         tweets.first.id.should == 5272535583
         tweets.first.user.name.should == 'John Nunemaker'
       end
-      
+
       should "be able to limit number of tweets in list timeline" do
         stub_get('/1/pengwynn/lists/rubyists/statuses.json?per_page=1', 'list_statuses_1_1.json')
         tweets = @twitter.list_timeline('pengwynn', 'rubyists', :per_page => 1)
@@ -280,7 +280,7 @@ class BaseTest < Test::Unit::TestCase
         tweets.first.id.should == 5272535583
         tweets.first.user.name.should == 'John Nunemaker'
       end
-      
+
       should "be able to paginate through the timeline" do
         stub_get('/1/pengwynn/lists/rubyists/statuses.json?page=1&per_page=1', 'list_statuses_1_1.json')
         stub_get('/1/pengwynn/lists/rubyists/statuses.json?page=2&per_page=1', 'list_statuses_2_1.json')
@@ -349,7 +349,7 @@ class BaseTest < Test::Unit::TestCase
 
     end
   end
-  
+
   context "when using a non-twitter service" do
     setup do
       @twitter = Twitter::Base.new(Twitter::HTTPAuth.new('wynn@example.com', 'mypass', :api_endpoint => 'tumblr.com'))

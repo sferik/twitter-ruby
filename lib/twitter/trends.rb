@@ -20,11 +20,11 @@ module Twitter
     def self.weekly(options={})
       mashup(get("/weekly.json", :query => options))
     end
-    
+
     def self.available(query={})
       locations = get("http://api.twitter.com/#{API_VERSION}/trends/available.json", :query => query).map{|location| Hashie::Mash.new(location)}
     end
-    
+
     def self.for_location(woeid)
       get("http://api.twitter.com/#{API_VERSION}/trends/#{woeid}.json").map{|location| Hashie::Mash.new(location)}
     end

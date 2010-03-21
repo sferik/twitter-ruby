@@ -9,17 +9,17 @@ class SearchTest < Test::Unit::TestCase
     should "should be able to initialize with a search term" do
       Twitter::Search.new('httparty').query[:q].should include('httparty')
     end
-    
+
     should "default user agent to Ruby Twitter Gem" do
       search = Twitter::Search.new('foo')
       search.user_agent.should == 'Ruby Twitter Gem'
     end
-    
+
     should "allow overriding default user agent" do
       search = Twitter::Search.new('foo', :user_agent => 'Foobar')
       search.user_agent.should == 'Foobar'
     end
-    
+
     should "pass user agent along with headers when making request" do
       Twitter::Search.expects(:get).with('http://api.twitter.com/1/search.json', {:format => :json, :query => {:q => 'foo'}, :headers => {'User-Agent' => 'Foobar'}})
       Twitter::Search.new('foo', :user_agent => 'Foobar').fetch()
@@ -63,7 +63,7 @@ class SearchTest < Test::Unit::TestCase
 
     should "should alias contains to containing" do
       @search.contains('milk').query[:q].should include('milk')
-    end  
+    end
 
     should "should be able to specify hashed" do
       @search.hashed('twitter').query[:q].should include('#twitter')
@@ -97,13 +97,13 @@ class SearchTest < Test::Unit::TestCase
       @search.fetch()
     end
 
-    should "should be able to specify since a date" do 
+    should "should be able to specify since a date" do
       @search.since_date('2009-04-14')
       @search.class.expects(:get).with('http://api.twitter.com/1/search.json', :query => { :since => '2009-04-14', :q => ''}, :format => :json, :headers => {'User-Agent' => 'Ruby Twitter Gem'}).returns({ 'foo' => 'bar'})
       @search.fetch
     end
 
-    should "should be able to specify until a date" do 
+    should "should be able to specify until a date" do
       @search.until_date('2009-04-14')
       @search.class.expects(:get).with('http://api.twitter.com/1/search.json', :query => { :until => '2009-04-14', :q => ''}, :format => :json, :headers => {'User-Agent' => 'Ruby Twitter Gem'}).returns({ 'foo' => 'bar'})
       @search.fetch
@@ -120,13 +120,13 @@ class SearchTest < Test::Unit::TestCase
       @search.class.expects(:get).with('http://api.twitter.com/1/search.json', :query => {:max_id => 1234, :q => ''}, :format => :json, :headers => {'User-Agent' => 'Ruby Twitter Gem'}).returns({'foo' => 'bar'})
       @search.fetch()
     end
-    
+
     should "should be able to set the phrase" do
       @search.phrase("Who Dat")
       @search.class.expects(:get).with('http://api.twitter.com/1/search.json', :query => {:phrase => "Who Dat", :q => ''}, :format => :json, :headers => {'User-Agent' => 'Ruby Twitter Gem'}).returns({'foo' => 'bar'})
       @search.fetch()
     end
-    
+
     should "should be able to set the result type" do
       @search.result_type("popular")
       @search.class.expects(:get).with('http://api.twitter.com/1/search.json', :query => {:result_type => 'popular', :q => ''}, :format => :json, :headers => {'User-Agent' => 'Ruby Twitter Gem'}).returns({'foo' => 'bar'})
@@ -163,46 +163,46 @@ class SearchTest < Test::Unit::TestCase
         first.text.should == %q(Someone asked about a tweet reader. Easy to do in ruby with @jnunemaker's twitter gem and the win32-sapi gem, if you are on windows.)
         first.from_user.should == 'PatParslow'
       end
-      
+
       should "cache fetched results so multiple fetches don't keep hitting api" do
         Twitter::Search.expects(:get).never
         @search.fetch
       end
-      
+
       should "rehit api if fetch is called with true" do
         Twitter::Search.expects(:get).once
         @search.fetch(true)
       end
-      
+
       should "tell if another page is available" do
         @search.next_page?.should == true
       end
-      
+
       should "be able to fetch the next page" do
         Twitter::Search.expects(:get).with('http://api.twitter.com/1/search.json', :query => 'page=2&max_id=1446791544&q=%40jnunemaker', :format => :json, :headers => {'User-Agent' => 'Ruby Twitter Gem'}).returns({'foo' => 'bar'})
         @search.fetch_next_page
       end
     end
-    
+
     context "iterating over results" do
       setup do
         stub_get('http://api.twitter.com:80/1/search.json?q=from%3Ajnunemaker', 'search_from_jnunemaker.json')
         @search.from('jnunemaker')
       end
-      
+
       should "work" do
         @search.each { |result| result.should_not be(nil) }
       end
-      
+
       should "work multiple times in a row" do
         @search.each { |result| result.should_not be(nil) }
         @search.each { |result| result.should_not be(nil) }
       end
     end
-    
+
     should "should be able to iterate over results" do
       @search.respond_to?(:each).should be(true)
     end
   end
-  
+
 end
