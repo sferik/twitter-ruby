@@ -22,38 +22,40 @@ module Twitter
   class InformTwitter < StandardError; end
   class NotFound      < StandardError; end
 
+  API_VERSION = 1
+
   def self.firehose
-    response = HTTParty.get("http://api.twitter.com/statuses/public_timeline.json", :format => :json)
+    response = HTTParty.get("http://api.twitter.com/#{API_VERSION}/statuses/public_timeline.json", :format => :json)
     response.map { |tweet| Hashie::Mash.new(tweet) }
   end
 
   def self.user(id)
-    response = HTTParty.get("http://api.twitter.com/users/show/#{id}.json", :format => :json)
+    response = HTTParty.get("http://api.twitter.com/#{API_VERSION}/users/show/#{id}.json", :format => :json)
     Hashie::Mash.new(response)
   end
 
   def self.status(id)
-    response = HTTParty.get("http://api.twitter.com/statuses/show/#{id}.json", :format => :json)
+    response = HTTParty.get("http://api.twitter.com/#{API_VERSION}/statuses/show/#{id}.json", :format => :json)
     Hashie::Mash.new(response)
   end
 
   def self.friend_ids(id)
-    HTTParty.get("http://api.twitter.com/friends/ids/#{id}.json", :format => :json)
+    HTTParty.get("http://api.twitter.com/#{API_VERSION}/friends/ids/#{id}.json", :format => :json)
   end
 
   def self.follower_ids(id)
-    HTTParty.get("http://api.twitter.com/followers/ids/#{id}.json", :format => :json)
+    HTTParty.get("http://api.twitter.com/#{API_VERSION}/followers/ids/#{id}.json", :format => :json)
   end
   
   def self.timeline(id, options={})
-    response = HTTParty.get("http://api.twitter.com/statuses/user_timeline/#{id}.json", :query => options, :format => :json)
+    response = HTTParty.get("http://api.twitter.com/#{API_VERSION}/statuses/user_timeline/#{id}.json", :query => options, :format => :json)
     response.map{|tweet| Hashie::Mash.new tweet}
   end
 
   # :per_page = max number of statues to get at once
   # :page = which page of tweets you wish to get
   def self.list_timeline(list_owner_username, slug, query = {})
-    response = HTTParty.get("http://api.twitter.com/1/#{list_owner_username}/lists/#{slug}/statuses.json", :query => query, :format => :json)
+    response = HTTParty.get("http://api.twitter.com/#{API_VERSION}/#{list_owner_username}/lists/#{slug}/statuses.json", :query => query, :format => :json)
     response.map{|tweet| Hashie::Mash.new tweet}
   end
 end
