@@ -11,7 +11,7 @@ Jeweler::Tasks.new do |gem|
   gem.files             = FileList["[A-Z]*", "{examples,lib,test}/**/*"]
 
   gem.add_dependency("oauth", "~> 0.3.6")
-  gem.add_dependency("hashie", "~> 0.1.3")
+  gem.add_dependency("hashie", "~> 0.2.0")
   gem.add_dependency("httparty", "~> 0.5.2")
 
   gem.add_development_dependency("shoulda", "~> 2.10.1")
