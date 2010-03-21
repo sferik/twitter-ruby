@@ -2,45 +2,47 @@ module Twitter
   class Search
     include HTTParty
     include Enumerable
+    base_uri "api.twitter.com/1/search"
+    format :json
 
     attr_reader :result, :query
 
     def initialize(q=nil, options={})
       @options = options
       clear
-      containing(q) if q && q.strip != ''
+      containing(q) if q && q.strip != ""
     end
 
     def user_agent
-      @options[:user_agent] || 'Ruby Twitter Gem'
+      @options[:user_agent] || "Ruby Twitter Gem"
     end
 
     def from(user,exclude=false)
-      @query[:q] << "#{exclude ? '-' : ''}from:#{user}"
+      @query[:q] << "#{exclude ? "-" : ""}from:#{user}"
       self
     end
 
     def to(user,exclude=false)
-      @query[:q] << "#{exclude ? '-' : ''}to:#{user}"
+      @query[:q] << "#{exclude ? "-" : ""}to:#{user}"
       self
     end
 
     def referencing(user,exclude=false)
-      @query[:q] << "#{exclude ? '-' : ''}@#{user}"
+      @query[:q] << "#{exclude ? "-" : ""}@#{user}"
       self
     end
     alias :references :referencing
     alias :ref :referencing
 
     def containing(word,exclude=false)
-      @query[:q] << "#{exclude ? '-' : ''}#{word}"
+      @query[:q] << "#{exclude ? "-" : ""}#{word}"
       self
     end
     alias :contains :containing
 
     # adds filtering based on hash tag ie: #twitter
     def hashed(tag,exclude=false)
-      @query[:q] << "#{exclude ? '-' : ''}\##{tag}"
+      @query[:q] << "#{exclude ? "-" : ""}\##{tag}"
       self
     end
     
@@ -101,7 +103,7 @@ module Twitter
 
     # Ranges like 25km and 50mi work.
     def geocode(lat, long, range)
-      @query[:geocode] = [lat, long, range].join(',')
+      @query[:geocode] = [lat, long, range].join(",")
       self
     end
 
@@ -121,7 +123,7 @@ module Twitter
     def fetch(force=false)
       if @fetch.nil? || force
         query = @query.dup
-        query[:q] = query[:q].join(' ')
+        query[:q] = query[:q].join(" ")
         perform_get(query)
       end
 
@@ -129,24 +131,24 @@ module Twitter
     end
 
     def each
-      fetch()['results'].each { |r| yield r }
+      fetch()["results"].each { |r| yield r }
     end
 
     def next_page?
-      !!fetch()['next_page']
+      !!fetch()["next_page"]
     end
 
     def fetch_next_page
       if next_page?
         s = Search.new(nil, :user_agent => user_agent)
-        s.perform_get(fetch()['next_page'][1..-1])
+        s.perform_get(fetch()["next_page"][1..-1])
         s
       end
     end
 
     protected
       def perform_get(query)
-        response = self.class.get('http://search.twitter.com/search.json', :query => query, :format => :json, :headers => {'User-Agent' => user_agent})
+        response = self.class.get("http://api.twitter.com/#{API_VERSION}/search.json", :query => query, :format => :json, :headers => {"User-Agent" => user_agent})
         @fetch = Hashie::Mash.new(response)
       end
   end
