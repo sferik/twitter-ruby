@@ -2,8 +2,6 @@ module Twitter
   class Base
     extend Forwardable
 
-    API_VERSION = 1
-
     def_delegators :client, :get, :post, :put, :delete
 
     attr_reader :client
