@@ -1,14 +1,8 @@
-require 'forwardable'
-require 'rubygems'
-
-gem 'oauth', '~> 0.3.6'
-require 'oauth'
-
-gem 'hashie', '~> 0.1.3'
-require 'hashie'
-
-gem 'httparty', '>= 0.5.2'
-require 'httparty'
+require "forwardable"
+require "rubygems"
+require "oauth"
+require "hashie"
+require "httparty"
 
 module Twitter
   class TwitterError < StandardError
@@ -29,7 +23,7 @@ module Twitter
   class NotFound      < StandardError; end
 
   def self.firehose
-    response = HTTParty.get('http://api.twitter.com/statuses/public_timeline.json', :format => :json)
+    response = HTTParty.get("http://api.twitter.com/statuses/public_timeline.json", :format => :json)
     response.map { |tweet| Hashie::Mash.new(tweet) }
   end
 
@@ -84,9 +78,9 @@ end
 
 directory = File.expand_path(File.dirname(__FILE__))
 
-require File.join(directory, 'twitter', 'oauth')
-require File.join(directory, 'twitter', 'httpauth')
-require File.join(directory, 'twitter', 'request')
-require File.join(directory, 'twitter', 'base')
-require File.join(directory, 'twitter', 'search')
-require File.join(directory, 'twitter', 'trends')
+require File.join(directory, "twitter", "oauth")
+require File.join(directory, "twitter", "httpauth")
+require File.join(directory, "twitter", "request")
+require File.join(directory, "twitter", "base")
+require File.join(directory, "twitter", "search")
+require File.join(directory, "twitter", "trends")
