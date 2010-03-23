@@ -1,6 +1,5 @@
 require "test/unit"
 require "pathname"
-require "rubygems"
 require "shoulda"
 require "matchy"
 require "mocha"

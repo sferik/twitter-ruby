@@ -1,5 +1,4 @@
 require "forwardable"
-require "rubygems"
 require "oauth"
 require "hashie"
 require "httparty"
