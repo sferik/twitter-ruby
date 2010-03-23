@@ -2,7 +2,7 @@ module Twitter
   class Search
     include HTTParty
     include Enumerable
-    base_uri "api.twitter.com/1/search"
+    base_uri "api.twitter.com/#{API_VERSION}/search"
     format :json
 
     attr_reader :result, :query

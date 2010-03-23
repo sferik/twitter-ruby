@@ -1,7 +1,7 @@
 module Twitter
   class Trends
     include HTTParty
-    base_uri "api.twitter.com/1/trends"
+    base_uri "api.twitter.com/#{API_VERSION}/trends"
     format :json
 
     # :exclude => 'hashtags' to exclude hashtags
