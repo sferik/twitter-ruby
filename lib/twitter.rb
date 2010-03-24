@@ -2,6 +2,7 @@ require "forwardable"
 require "oauth"
 require "hashie"
 require "httparty"
+require "json"
 
 module Twitter
   include HTTParty
@@ -94,12 +95,13 @@ module Twitter
   end
 
   def self.parse(response)
-    Crack::JSON.parse(response.body)
+    return '' if response.body == ''
+    JSON.parse(response.body)
   end
 
   def self.mash(obj)
     if obj.is_a?(Array)
-      obj.map { |item| make_mash_with_consistent_hash(item) }
+      obj.map{|item| make_mash_with_consistent_hash(item)}
     elsif obj.is_a?(Hash)
       make_mash_with_consistent_hash(obj)
     else

@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["John Nunemaker", "Wynn Netherland"]
-  s.date = %q{2010-03-23}
+  s.date = %q{2010-03-24}
   s.email = %q{nunemaker@gmail.com}
   s.extra_rdoc_files = [
     "README.rdoc"
@@ -99,7 +99,7 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://github.com/jnunemaker/twitter}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.3.5}
+  s.rubygems_version = %q{1.3.6}
   s.summary = %q{wrapper for the twitter api}
   s.test_files = [
     "test/test_helper.rb",
@@ -133,6 +133,7 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<oauth>, ["~> 0.3.6"])
       s.add_runtime_dependency(%q<hashie>, ["~> 0.2.0"])
       s.add_runtime_dependency(%q<httparty>, ["~> 0.5.2"])
+      s.add_runtime_dependency(%q<json>, ["~> 1.2.3"])
       s.add_development_dependency(%q<shoulda>, ["~> 2.10.1"])
       s.add_development_dependency(%q<jnunemaker-matchy>, ["~> 0.4.0"])
       s.add_development_dependency(%q<mocha>, ["~> 0.9.4"])
@@ -141,6 +142,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<oauth>, ["~> 0.3.6"])
       s.add_dependency(%q<hashie>, ["~> 0.2.0"])
       s.add_dependency(%q<httparty>, ["~> 0.5.2"])
+      s.add_dependency(%q<json>, ["~> 1.2.3"])
       s.add_dependency(%q<shoulda>, ["~> 2.10.1"])
       s.add_dependency(%q<jnunemaker-matchy>, ["~> 0.4.0"])
       s.add_dependency(%q<mocha>, ["~> 0.9.4"])
@@ -150,6 +152,7 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<oauth>, ["~> 0.3.6"])
     s.add_dependency(%q<hashie>, ["~> 0.2.0"])
     s.add_dependency(%q<httparty>, ["~> 0.5.2"])
+    s.add_dependency(%q<json>, ["~> 1.2.3"])
     s.add_dependency(%q<shoulda>, ["~> 2.10.1"])
     s.add_dependency(%q<jnunemaker-matchy>, ["~> 0.4.0"])
     s.add_dependency(%q<mocha>, ["~> 0.9.4"])

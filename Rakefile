@@ -12,6 +12,7 @@ Jeweler::Tasks.new do |gem|
   gem.add_dependency("oauth", "~> 0.3.6")
   gem.add_dependency("hashie", "~> 0.2.0")
   gem.add_dependency("httparty", "~> 0.5.2")
+  gem.add_dependency("json", "~> 1.2.3")
 
   gem.add_development_dependency("shoulda", "~> 2.10.1")
   gem.add_development_dependency("jnunemaker-matchy", "~> 0.4.0")
