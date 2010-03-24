@@ -24,12 +24,25 @@ class TwitterTest < Test::Unit::TestCase
     status.text.should == 'Eating some oatmeal and butterscotch cookies with a cold glass of milk for breakfast. Tasty!'
   end
 
+  should "raise NotFound for unauthenticated calls to get a deleted or nonexistent status" do
+    stub_get('http://api.twitter.com:80/1/statuses/show/1.json', 'not_found.json', 404)
+    lambda {
+      Twitter.status(1)
+    }.should raise_error(Twitter::NotFound)
+  end
+
   should "have a timeline method for unauthenticated calls to get a user's timeline" do
     stub_get('http://api.twitter.com:80/1/statuses/user_timeline/jnunemaker.json', 'user_timeline.json')
     statuses = Twitter.timeline('jnunemaker')
     statuses.first.id.should == 1445986256
     statuses.first.user.screen_name.should == 'jnunemaker'
+  end
 
+  should "raise Unauthorized for unauthenticated calls to get a protected user's timeline" do
+    stub_get('http://api.twitter.com:80/1/statuses/user_timeline/protected.json', 'unauthorized.json', 401)
+    lambda {
+      Twitter.timeline('protected')
+    }.should raise_error(Twitter::Unauthorized)
   end
 
   should "have friend_ids method" do
@@ -38,10 +51,24 @@ class TwitterTest < Test::Unit::TestCase
     ids.size.should == 161
   end
 
+  should "raise Unauthorized for unauthenticated calls to get a protected user's friend_ids" do
+    stub_get('http://api.twitter.com:80/1/friends/ids/protected.json', 'unauthorized.json', 401)
+    lambda {
+      Twitter.friend_ids('protected')
+    }.should raise_error(Twitter::Unauthorized)
+  end
+
   should "have follower_ids method" do
     stub_get('http://api.twitter.com:80/1/followers/ids/jnunemaker.json', 'follower_ids.json')
     ids = Twitter.follower_ids('jnunemaker')
     ids.size.should == 1252
+  end
+
+  should "raise Unauthorized for unauthenticated calls to get a protected user's follower_ids" do
+    stub_get('http://api.twitter.com:80/1/followers/ids/protected.json', 'unauthorized.json', 401)
+    lambda {
+      Twitter.follower_ids('protected')
+    }.should raise_error(Twitter::Unauthorized)
   end
 
   context "when using lists" do
