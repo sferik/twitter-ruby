@@ -4,7 +4,7 @@ class RequestTest < Test::Unit::TestCase
   context "new get request" do
     setup do
       @client = mock('twitter client')
-      @request = Twitter::Request.new(@client, :get, '/statuses/user_timeline.json', {:query => {:since_id => 1234}})
+      @request = Twitter::Request.new(@client, :get, '/1/statuses/user_timeline.json', {:query => {:since_id => 1234}})
     end
 
     should "have client" do
@@ -16,7 +16,7 @@ class RequestTest < Test::Unit::TestCase
     end
 
     should "have path" do
-      @request.path.should == '/statuses/user_timeline.json'
+      @request.path.should == '/1/statuses/user_timeline.json'
     end
 
     should "have options" do
@@ -24,7 +24,7 @@ class RequestTest < Test::Unit::TestCase
     end
 
     should "have uri" do
-      @request.uri.should == '/statuses/user_timeline.json?since_id=1234'
+      @request.uri.should == '/1/statuses/user_timeline.json?since_id=1234'
     end
 
     context "performing request for collection" do
@@ -64,15 +64,15 @@ class RequestTest < Test::Unit::TestCase
 
     context "with no query string" do
       should "not have any query string" do
-        request = Twitter::Request.new(@client, :get, '/statuses/user_timeline.json')
-        request.uri.should == '/statuses/user_timeline.json'
+        request = Twitter::Request.new(@client, :get, '/1/statuses/user_timeline.json')
+        request.uri.should == '/1/statuses/user_timeline.json'
       end
     end
 
     context "with blank query string" do
       should "not have any query string" do
-        request = Twitter::Request.new(@client, :get, '/statuses/user_timeline.json', :query => {})
-        request.uri.should == '/statuses/user_timeline.json'
+        request = Twitter::Request.new(@client, :get, '/1/statuses/user_timeline.json', :query => {})
+        request.uri.should == '/1/statuses/user_timeline.json'
       end
     end
 
@@ -87,15 +87,15 @@ class RequestTest < Test::Unit::TestCase
         stubs(:code).returns('200')
       end
 
-      @client.expects(:get).with('/statuses/friends_timeline.json?since_id=1234', {'Foo' => 'Bar'}).returns(response)
-      Twitter::Request.get(@client, '/statuses/friends_timeline.json?since_id=1234', :headers => {'Foo' => 'Bar'})
+      @client.expects(:get).with('/1/statuses/friends_timeline.json?since_id=1234', {'Foo' => 'Bar'}).returns(response)
+      Twitter::Request.get(@client, '/1/statuses/friends_timeline.json?since_id=1234', :headers => {'Foo' => 'Bar'})
     end
   end
 
   context "new post request" do
     setup do
       @client = mock('twitter client')
-      @request = Twitter::Request.new(@client, :post, '/statuses/update.json', {:body => {:status => 'Woohoo!'}})
+      @request = Twitter::Request.new(@client, :post, '/1/statuses/update.json', {:body => {:status => 'Woohoo!'}})
     end
 
     should "allow setting body and headers" do
@@ -104,8 +104,8 @@ class RequestTest < Test::Unit::TestCase
         stubs(:code).returns('200')
       end
 
-      @client.expects(:post).with('/statuses/update.json', {:status => 'Woohoo!'}, {'Foo' => 'Bar'}).returns(response)
-      Twitter::Request.post(@client, '/statuses/update.json', :body => {:status => 'Woohoo!'}, :headers => {'Foo' => 'Bar'})
+      @client.expects(:post).with('/1/statuses/update.json', {:status => 'Woohoo!'}, {'Foo' => 'Bar'}).returns(response)
+      Twitter::Request.post(@client, '/1/statuses/update.json', :body => {:status => 'Woohoo!'}, :headers => {'Foo' => 'Bar'})
     end
 
     context "performing request" do

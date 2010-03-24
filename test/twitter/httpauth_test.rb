@@ -35,42 +35,42 @@ class HTTPAuthTest < Test::Unit::TestCase
     end
 
     should "not throw error when accessing response message" do
-      stub_get('http://api.twitter.com:80/statuses/user_timeline.json', 'user_timeline.json')
-      response = @twitter.get('/statuses/user_timeline.json')
+      stub_get('http://api.twitter.com:80/1/statuses/user_timeline.json', 'user_timeline.json')
+      response = @twitter.get('/1/statuses/user_timeline.json')
       response.message.should == 'OK'
     end
 
     should "be able to get" do
-      stub_get('http://username:password@api.twitter.com:80/statuses/user_timeline.json', 'user_timeline.json')
-      response = @twitter.get('/statuses/user_timeline.json')
+      stub_get('http://username:password@api.twitter.com:80/1/statuses/user_timeline.json', 'user_timeline.json')
+      response = @twitter.get('/1/statuses/user_timeline.json')
       response.should == fixture_file('user_timeline.json')
     end
 
     should "be able to get with headers" do
       @twitter.class.expects(:get).with(
-        '/statuses/user_timeline.json', {
+        '/1/statuses/user_timeline.json', {
           :basic_auth => {:username => 'username', :password => 'password'},
           :headers => {'Foo' => 'Bar'}
         }
       ).returns(fixture_file('user_timeline.json'))
-      @twitter.get('/statuses/user_timeline.json', {'Foo' => 'Bar'})
+      @twitter.get('/1/statuses/user_timeline.json', {'Foo' => 'Bar'})
     end
 
     should "be able to post" do
-      stub_post('http://username:password@api.twitter.com:80/statuses/update.json', 'status.json')
-      response = @twitter.post('/statuses/update.json', :text => 'My update.')
+      stub_post('http://username:password@api.twitter.com:80/1/statuses/update.json', 'status.json')
+      response = @twitter.post('/1/statuses/update.json', :text => 'My update.')
       response.should == fixture_file('status.json')
     end
 
     should "be able to post with headers" do
       @twitter.class.expects(:post).with(
-        '/statuses/update.json', {
+        '/1/statuses/update.json', {
           :headers => {'Foo' => 'Bar'},
           :body => {:text => 'My update.'},
           :basic_auth => {:username => 'username', :password => 'password'}
         }
       ).returns(fixture_file('status.json'))
-      @twitter.post('/statuses/update.json', {:text => 'My update.'}, {'Foo' => 'Bar'})
+      @twitter.post('/1/statuses/update.json', {:text => 'My update.'}, {'Foo' => 'Bar'})
     end
   end
 end
