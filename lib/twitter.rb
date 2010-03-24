@@ -6,7 +6,7 @@ require "json"
 
 module Twitter
   include HTTParty
-  API_VERSION = 1
+  API_VERSION = "1".freeze
   base_uri "api.twitter.com/#{API_VERSION}"
   format :json
 
