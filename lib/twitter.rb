@@ -27,39 +27,95 @@ module Twitter
   class NotFound      < StandardError; end
 
   def self.firehose
-    response = get("/statuses/public_timeline.json")
-    response.map { |tweet| Hashie::Mash.new(tweet) }
+    perform_get("/statuses/public_timeline.json")
   end
 
   def self.user(id)
-    response = get("/users/show/#{id}.json")
-    Hashie::Mash.new(response)
+    perform_get("/users/show/#{id}.json")
   end
 
   def self.status(id)
-    response = get("/statuses/show/#{id}.json")
-    Hashie::Mash.new(response)
+    perform_get("/statuses/show/#{id}.json")
   end
 
   def self.friend_ids(id)
-    get("/friends/ids/#{id}.json")
+    perform_get("/friends/ids/#{id}.json")
   end
 
   def self.follower_ids(id)
-    get("/followers/ids/#{id}.json")
+    perform_get("/followers/ids/#{id}.json")
   end
 
   def self.timeline(id, options={})
-    response = get("/statuses/user_timeline/#{id}.json", :query => options)
-    response.map{|tweet| Hashie::Mash.new tweet}
+    perform_get("/statuses/user_timeline/#{id}.json", :query => options)
   end
 
   # :per_page = max number of statues to get at once
   # :page = which page of tweets you wish to get
   def self.list_timeline(list_owner_username, slug, query = {})
-    response = get("/#{list_owner_username}/lists/#{slug}/statuses.json", :query => query)
-    response.map{|tweet| Hashie::Mash.new tweet}
+    perform_get("/#{list_owner_username}/lists/#{slug}/statuses.json", :query => query)
   end
+
+  private
+
+  def self.perform_get(uri, options = {})
+    make_friendly(get(uri, options))
+  end
+
+  def self.make_friendly(response)
+    raise_errors(response)
+    data = parse(response)
+    # Don't mash arrays of integers
+    if data && data.first.is_a?(Integer)
+      data
+    else
+      mash(data)
+    end
+  end
+
+  def self.raise_errors(response)
+    case response.code.to_i
+      when 400
+        data = parse(response)
+        raise RateLimitExceeded.new(data), "(#{response.code}): #{response.message} - #{data['error'] if data}"
+      when 401
+        data = parse(response)
+        raise Unauthorized.new(data), "(#{response.code}): #{response.message} - #{data['error'] if data}"
+      when 403
+        data = parse(response)
+        raise General.new(data), "(#{response.code}): #{response.message} - #{data['error'] if data}"
+      when 404
+        raise NotFound, "(#{response.code}): #{response.message}"
+      when 500
+        raise InformTwitter, "Twitter had an internal error. Please let them know in the group. (#{response.code}): #{response.message}"
+      when 502..503
+        raise Unavailable, "(#{response.code}): #{response.message}"
+    end
+  end
+
+  def self.parse(response)
+    Crack::JSON.parse(response.body)
+  end
+
+  def self.mash(obj)
+    if obj.is_a?(Array)
+      obj.map { |item| make_mash_with_consistent_hash(item) }
+    elsif obj.is_a?(Hash)
+      make_mash_with_consistent_hash(obj)
+    else
+      obj
+    end
+  end
+
+  # Lame workaround for the fact that mash doesn't hash correctly
+  def self.make_mash_with_consistent_hash(obj)
+    m = Hashie::Mash.new(obj)
+    def m.hash
+      inspect.hash
+    end
+    return m
+  end
+
 end
 
 module Hashie

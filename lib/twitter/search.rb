@@ -17,31 +17,31 @@ module Twitter
       @options[:user_agent] || "Ruby Twitter Gem"
     end
 
-    def from(user,exclude=false)
+    def from(user, exclude=false)
       @query[:q] << "#{exclude ? "-" : ""}from:#{user}"
       self
     end
 
-    def to(user,exclude=false)
+    def to(user, exclude=false)
       @query[:q] << "#{exclude ? "-" : ""}to:#{user}"
       self
     end
 
-    def referencing(user,exclude=false)
+    def referencing(user, exclude=false)
       @query[:q] << "#{exclude ? "-" : ""}@#{user}"
       self
     end
     alias :references :referencing
     alias :ref :referencing
 
-    def containing(word,exclude=false)
+    def containing(word, exclude=false)
       @query[:q] << "#{exclude ? "-" : ""}#{word}"
       self
     end
     alias :contains :containing
 
     # adds filtering based on hash tag ie: #twitter
-    def hashed(tag,exclude=false)
+    def hashed(tag, exclude=false)
       @query[:q] << "#{exclude ? "-" : ""}\##{tag}"
       self
     end
@@ -131,7 +131,7 @@ module Twitter
     end
 
     def each
-      fetch()["results"].each { |r| yield r }
+      fetch()["results"].each{|r| yield r}
     end
 
     def next_page?
@@ -147,9 +147,11 @@ module Twitter
     end
 
     protected
-      def perform_get(query)
-        response = self.class.get("http://api.twitter.com/#{API_VERSION}/search.json", :query => query, :format => :json, :headers => {"User-Agent" => user_agent})
-        @fetch = Hashie::Mash.new(response)
-      end
+
+    def perform_get(query)
+      response = self.class.get("http://api.twitter.com/#{API_VERSION}/search.json", :query => query, :format => :json, :headers => {"User-Agent" => user_agent})
+      @fetch = Twitter.mash(response)
+    end
+
   end
 end

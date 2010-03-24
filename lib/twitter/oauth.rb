@@ -1,6 +1,7 @@
 module Twitter
   class OAuth
     extend Forwardable
+
     def_delegators :access_token, :get, :post, :put, :delete
 
     attr_reader :ctoken, :csecret, :consumer_options
@@ -10,7 +11,6 @@ module Twitter
     #               (http://apiwiki.twitter.com/Sign-in-with-Twitter)
     def initialize(ctoken, csecret, options={})
       @ctoken, @csecret, @consumer_options = ctoken, csecret, {}
-
       if options[:sign_in]
         @consumer_options[:authorize_path] =  '/oauth/authenticate'
       end
@@ -49,8 +49,10 @@ module Twitter
     end
 
     private
-      def clear_request_token
-        @request_token = nil
-      end
+
+    def clear_request_token
+      @request_token = nil
+    end
+
   end
 end

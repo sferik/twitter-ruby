@@ -30,7 +30,7 @@ module Twitter
     end
 
     # Options: count
-    def retweets(id, query={ })
+    def retweets(id, query={})
       perform_get("/#{API_VERSION}/statuses/retweets/#{id}.json", :query => query)
     end
 
@@ -70,7 +70,7 @@ module Twitter
     # options: count, page, ids_only
     def retweeters_of(id, options={})
       ids_only = !!(options.delete(:ids_only))
-      perform_get("/#{API_VERSION}/statuses/#{id}/retweeted_by#{"/ids" if ids_only}.json", :query => options, :mash => !ids_only)
+      perform_get("/#{API_VERSION}/statuses/#{id}/retweeted_by#{"/ids" if ids_only}.json", :query => options)
     end
 
     def status_destroy(id)
@@ -154,12 +154,12 @@ module Twitter
 
     # Options: id, user_id, screen_name
     def friend_ids(query={})
-      perform_get("/#{API_VERSION}/friends/ids.json", :query => query, :mash => false)
+      perform_get("/#{API_VERSION}/friends/ids.json", :query => query)
     end
 
     # Options: id, user_id, screen_name
     def follower_ids(query={})
-      perform_get("/#{API_VERSION}/followers/ids.json", :query => query, :mash => false)
+      perform_get("/#{API_VERSION}/followers/ids.json", :query => query)
     end
 
     def verify_credentials
@@ -310,7 +310,7 @@ module Twitter
       perform_get("/#{API_VERSION}/blocks/blocking.json", options)
     end
 
-  protected
+    protected
 
     def self.mime_type(file)
       case
@@ -320,9 +320,11 @@ module Twitter
         else 'application/octet-stream'
       end
     end
+
     def mime_type(f) self.class.mime_type(f) end
 
     CRLF = "\r\n"
+
     def self.build_multipart_bodies(parts)
       boundary = Time.now.to_i.to_s(16)
       body = ""
@@ -364,5 +366,6 @@ module Twitter
     def perform_delete(path, options={})
       Twitter::Request.delete(self, path, options)
     end
+
   end
 end

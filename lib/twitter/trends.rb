@@ -22,16 +22,18 @@ module Twitter
     end
 
     def self.available(query={})
-      locations = get("http://api.twitter.com/#{API_VERSION}/trends/available.json", :query => query).map{|location| Hashie::Mash.new(location)}
+      get("/available.json", :query => query).map{|location| Twitter.mash(location)}
     end
 
     def self.for_location(woeid)
-      get("http://api.twitter.com/#{API_VERSION}/trends/#{woeid}.json").map{|location| Hashie::Mash.new(location)}
+      get("/#{woeid}.json").map{|location| Twitter.mash(location)}
     end
 
     private
-      def self.mashup(response)
-        response["trends"].values.flatten.map { |t| Hashie::Mash.new(t) }
-      end
+
+    def self.mashup(response)
+      response["trends"].values.flatten.map{|t| Twitter.mash(t)}
+    end
+
   end
 end

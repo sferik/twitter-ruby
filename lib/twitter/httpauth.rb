@@ -1,6 +1,7 @@
 module Twitter
   class HTTPAuth
     include HTTParty
+
     format :plain
 
     attr_reader :username, :password, :options
@@ -29,8 +30,10 @@ module Twitter
     end
 
     private
-      def basic_auth
-        @basic_auth ||= {:username => @username, :password => @password}
-      end
+
+    def basic_auth
+      @basic_auth ||= {:username => @username, :password => @password}
+    end
+
   end
 end
