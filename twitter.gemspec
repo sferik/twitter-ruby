@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{twitter}
-  s.version = "0.9.1"
+  s.version = "0.9.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["John Nunemaker", "Wynn Netherland"]
@@ -59,6 +59,7 @@ Gem::Specification.new do |s|
      "test/fixtures/lists.json",
      "test/fixtures/memberships.json",
      "test/fixtures/mentions.json",
+     "test/fixtures/not_found.json",
      "test/fixtures/people_search.json",
      "test/fixtures/rate_limit_exceeded.json",
      "test/fixtures/retweet.json",
@@ -82,6 +83,7 @@ Gem::Specification.new do |s|
      "test/fixtures/trends_weekly.json",
      "test/fixtures/trends_weekly_date.json",
      "test/fixtures/trends_weekly_exclude.json",
+     "test/fixtures/unauthorized.json",
      "test/fixtures/update_profile_background_image.json",
      "test/fixtures/update_profile_image.json",
      "test/fixtures/user.json",
@@ -99,7 +101,7 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://github.com/jnunemaker/twitter}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.3.6}
+  s.rubygems_version = %q{1.3.5}
   s.summary = %q{wrapper for the twitter api}
   s.test_files = [
     "test/test_helper.rb",
