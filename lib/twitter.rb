@@ -67,7 +67,7 @@ module Twitter
     raise_errors(response)
     data = parse(response)
     # Don't mash arrays of integers
-    if data && data.first.is_a?(Integer)
+    if data && data.is_a?(Array) && data.first.is_a?(Integer)
       data
     else
       mash(data)
