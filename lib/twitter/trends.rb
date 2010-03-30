@@ -1,7 +1,9 @@
+require File.join(File.expand_path(File.dirname(__FILE__)), "local_trends")
+
 module Twitter
   class Trends
     include HTTParty
-    base_uri "api.twitter.com/#{API_VERSION}/trends"
+    base_uri "search.twitter.com/trends"
     format :json
 
     # :exclude => 'hashtags' to exclude hashtags
@@ -22,11 +24,11 @@ module Twitter
     end
 
     def self.available(query={})
-      get("/available.json", :query => query).map{|location| Twitter.mash(location)}
+      LocalTrends.available(query)
     end
 
     def self.for_location(woeid)
-      get("/#{woeid}.json").map{|location| Twitter.mash(location)}
+      LocalTrends.for_location(woeid)
     end
 
     private
