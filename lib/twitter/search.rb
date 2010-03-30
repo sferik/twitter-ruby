@@ -2,7 +2,7 @@ module Twitter
   class Search
     include HTTParty
     include Enumerable
-    base_uri "api.twitter.com/#{API_VERSION}/search"
+    base_uri "search.twitter.com/search"
     format :json
 
     attr_reader :result, :query
@@ -149,7 +149,7 @@ module Twitter
     protected
 
     def perform_get(query)
-      response = self.class.get("http://api.twitter.com/#{API_VERSION}/search.json", :query => query, :format => :json, :headers => {"User-Agent" => user_agent})
+      response = self.class.get("#{self.class.base_uri}.json", :query => query, :format => :json, :headers => {"User-Agent" => user_agent})
       @fetch = Twitter.mash(response)
     end
 
