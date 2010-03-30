@@ -2,11 +2,11 @@ require "rake"
 require "jeweler"
 
 Jeweler::Tasks.new do |gem|
-  gem.name              = "secobarbital-twitter"
+  gem.name              = "twitter"
   gem.summary           = %Q{wrapper for the twitter api}
-  gem.email             = ["nunemaker@gmail.com", "seggy.umboh@gmail.com"]
-  gem.homepage          = "http://github.com/secobarbital/twitter"
-  gem.authors           = ["John Nunemaker", "Wynn Netherland", "Seggy Umboh"]
+  gem.email             = "nunemaker@gmail.com"
+  gem.homepage          = "http://github.com/jnunemaker/twitter"
+  gem.authors           = ["John Nunemaker", "Wynn Netherland"]
   gem.files             = FileList["[A-Z]*", "{examples,lib,test}/**/*"]
 
   gem.add_dependency("oauth", "~> 0.3.6")
