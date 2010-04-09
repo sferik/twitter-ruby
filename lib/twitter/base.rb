@@ -243,14 +243,14 @@ module Twitter
       perform_delete("/#{API_VERSION}/#{list_owner_username}/lists/#{slug}.json")
     end
 
-    def lists(list_owner_username = nil, cursor = nil)
-      if list_owner_username
-        path = "/#{API_VERSION}/#{list_owner_username}/lists.json"
+    def lists(list_owner_username = nil, query = {})
+      path = case list_owner_username
+      when nil, Hash
+        query = list_owner_username
+        "/#{API_VERSION}/lists.json"
       else
-        path = "/#{API_VERSION}/lists.json"
+        "/#{API_VERSION}/#{list_owner_username}/lists.json"
       end
-      query = {}
-      query[:cursor] = cursor if cursor
       perform_get(path, :query => query)
     end
 

@@ -257,6 +257,30 @@ class BaseTest < Test::Unit::TestCase
         lists.first.name.should == 'Rubyists'
         lists.first.slug.should == 'rubyists'
       end
+      
+      should "be able to view the user owned lists without passing the username" do
+        stub_get('/1/lists.json', 'lists.json')
+        lists = @twitter.lists().lists
+        lists.size.should == 1
+        lists.first.name.should == 'Rubyists'
+        lists.first.slug.should == 'rubyists'
+      end
+      
+      should "be able to view lists for the authenticated user by passing in a cursor" do
+        stub_get('/1/pengwynn/lists.json?cursor=-1', 'lists.json')
+        lists = @twitter.lists('pengwynn', :cursor => -1).lists
+        lists.size.should == 1
+        lists.first.name.should == 'Rubyists'
+        lists.first.slug.should == 'rubyists'
+      end
+      
+      should "be able to view the user owned lists without passing the username and passing in a cursor" do
+        stub_get('/1/lists.json?cursor=-1', 'lists.json')
+        lists = @twitter.lists(:cursor => -1).lists
+        lists.size.should == 1
+        lists.first.name.should == 'Rubyists'
+        lists.first.slug.should == 'rubyists'
+      end
 
       should "be able to view list details" do
         stub_get('/1/pengwynn/lists/rubyists.json', 'list.json')
