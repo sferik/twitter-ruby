@@ -268,6 +268,10 @@ module Twitter
       perform_get("/#{API_VERSION}/#{list_owner_username}/lists/memberships.json", :query => query)
     end
 
+    def subscriptions(list_owner_username, query = {})
+      perform_get("/#{API_VERSION}/#{list_owner_username}/lists/subscriptions.json", :query => query)
+    end
+
     def list_members(list_owner_username, slug, cursor = nil)
       query = {}
       query[:cursor] = cursor if cursor
@@ -296,10 +300,6 @@ module Twitter
 
     def list_unsubscribe(list_owner_username, slug)
       perform_delete("/#{API_VERSION}/#{list_owner_username}/#{slug}/subscribers.json")
-    end
-
-    def list_subscriptions(list_owner_username)
-      perform_get("/#{API_VERSION}/#{list_owner_username}/lists/subscriptions.json")
     end
 
     def blocked_ids

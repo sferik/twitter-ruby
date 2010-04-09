@@ -365,7 +365,7 @@ class BaseTest < Test::Unit::TestCase
 
       should "be able to view a members list subscriptions" do
         stub_get('/1/pengwynn/lists/subscriptions.json', 'list_subscriptions.json')
-        subscriptions = @twitter.list_subscriptions('pengwynn').lists
+        subscriptions = @twitter.subscriptions('pengwynn').lists
         subscriptions.size.should == 1
         subscriptions.first.full_name.should == '@chriseppstein/sass-users'
         subscriptions.first.slug.should == 'sass-users'
