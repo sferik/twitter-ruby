@@ -272,9 +272,7 @@ module Twitter
       perform_get("/#{API_VERSION}/#{list_owner_username}/lists/subscriptions.json", :query => query)
     end
 
-    def list_members(list_owner_username, slug, cursor = nil)
-      query = {}
-      query[:cursor] = cursor if cursor
+    def list_members(list_owner_username, slug, query = {})
       perform_get("/#{API_VERSION}/#{list_owner_username}/#{slug}/members.json", :query => query)
     end
 
