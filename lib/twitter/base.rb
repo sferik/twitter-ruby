@@ -226,7 +226,12 @@ module Twitter
     def unblock(id)
       perform_post("/#{API_VERSION}/blocks/destroy/#{id}.json")
     end
-
+    
+    # When reporting a user for spam, specify one or more of id, screen_name, or user_id
+    def report_spam(options)
+      perform_post("/#{API_VERSION}/report_spam.json", :body => options)
+    end
+    
     def help
       perform_get("/#{API_VERSION}/help/test.json")
     end
