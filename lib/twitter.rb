@@ -95,8 +95,7 @@ module Twitter
   end
 
   def self.parse(response)
-    return '' if response.body == ''
-    Yajl::Parser.new.parse(response.body)
+    Yajl::Parser.parse(response.body)
   end
 
   def self.mash(obj)
