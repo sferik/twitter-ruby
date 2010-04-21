@@ -308,6 +308,22 @@ module Twitter
       perform_get("/#{API_VERSION}/blocks/blocking.json", options)
     end
 
+    def saved_searches
+      perform_get("/#{API_VERSION}/saved_searches.json")
+    end
+
+    def saved_search(id)
+      perform_get("/#{API_VERSION}/saved_searches/show/#{id}.json")
+    end
+
+    def saved_search_create(query)
+      perform_post("/#{API_VERSION}/saved_searches/create.json", :body => {:query => query})
+    end
+
+    def saved_search_destroy(id)
+      perform_delete("/#{API_VERSION}/saved_searches/destroy/#{id}.json")
+    end
+
     protected
 
     def self.mime_type(file)

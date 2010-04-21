@@ -215,6 +215,33 @@ class BaseTest < Test::Unit::TestCase
         user.name.should == 'John Nunemaker' # update_profile_background responds with the user
       end
     end
+    
+    context "when using saved searches" do
+      should "be able to retrieve my saved searches" do
+        stub_get('/1/saved_searches.json', 'saved_searches.json')
+        searches = @twitter.saved_searches
+        searches[0].query.should == "great danes"
+        searches[1].query.should == "rubyconf OR railsconf"
+      end
+      
+      should "be able to retrieve a saved search by id" do
+        stub_get('/1/saved_searches/show/7095598.json', 'saved_search.json')
+        search = @twitter.saved_search(7095598)
+        search.query.should == "great danes"
+      end
+      
+      should "be able to create a saved search" do
+        stub_post('/1/saved_searches/create.json', 'saved_search.json')
+        search = @twitter.saved_search_create('great danes')
+        search.query.should == "great danes"
+      end
+      
+      should "be able to delete a saved search" do
+        stub_delete('/1/saved_searches/destroy/7095598.json', 'saved_search.json')
+        search = @twitter.saved_search_destroy(7095598)
+        search.query.should == "great danes"
+      end
+    end
 
     context "when using lists" do
 
