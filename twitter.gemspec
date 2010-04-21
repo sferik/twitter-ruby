@@ -64,6 +64,7 @@ Gem::Specification.new do |s|
      "test/fixtures/not_found.json",
      "test/fixtures/people_search.json",
      "test/fixtures/rate_limit_exceeded.json",
+     "test/fixtures/report_spam.json",
      "test/fixtures/retweet.json",
      "test/fixtures/retweeted_by_me.json",
      "test/fixtures/retweeted_to_me.json",
