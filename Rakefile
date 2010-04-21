@@ -9,15 +9,15 @@ Jeweler::Tasks.new do |gem|
   gem.authors           = ["John Nunemaker", "Wynn Netherland"]
   gem.files             = FileList["[A-Z]*", "{examples,lib,test}/**/*"]
 
-  gem.add_dependency("oauth", "~> 0.3")
-  gem.add_dependency("hashie", "~> 0.2")
-  gem.add_dependency("httparty", "~> 0.5")
-  gem.add_dependency("yajl-ruby", "~> 0.7")
+  gem.add_dependency("oauth", ">= 0.3.5")
+  gem.add_dependency("hashie", "~> 0.2.0")
+  gem.add_dependency("httparty", "~> 0.5.0")
+  gem.add_dependency("yajl-ruby", "~> 0.7.0")
 
-  gem.add_development_dependency("shoulda", "~> 2.10")
-  gem.add_development_dependency("jnunemaker-matchy", "~> 0.4")
-  gem.add_development_dependency("mocha", "~> 0.9")
-  gem.add_development_dependency("fakeweb", "~> 1.2")
+  gem.add_development_dependency("shoulda", "~> 2.10.0")
+  gem.add_development_dependency("jnunemaker-matchy", "~> 0.4.0")
+  gem.add_development_dependency("mocha", "~> 0.9.0")
+  gem.add_development_dependency("fakeweb", "~> 1.2.0")
 end
 
 Jeweler::GemcutterTasks.new

@@ -49,6 +49,7 @@ Gem::Specification.new do |s|
      "test/fixtures/friend_ids.json",
      "test/fixtures/friends_timeline.json",
      "test/fixtures/friendship.json",
+     "test/fixtures/friendship_exists.json",
      "test/fixtures/home_timeline.json",
      "test/fixtures/ids.json",
      "test/fixtures/list.json",
@@ -133,33 +134,33 @@ Gem::Specification.new do |s|
     s.specification_version = 3
 
     if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<oauth>, ["~> 0.3"])
-      s.add_runtime_dependency(%q<hashie>, ["~> 0.2"])
-      s.add_runtime_dependency(%q<httparty>, ["~> 0.5"])
-      s.add_runtime_dependency(%q<yajl-ruby>, ["~> 0.7"])
-      s.add_development_dependency(%q<shoulda>, ["~> 2.10"])
-      s.add_development_dependency(%q<jnunemaker-matchy>, ["~> 0.4"])
-      s.add_development_dependency(%q<mocha>, ["~> 0.9"])
-      s.add_development_dependency(%q<fakeweb>, ["~> 1.2"])
+      s.add_runtime_dependency(%q<oauth>, [">= 0.3.5"])
+      s.add_runtime_dependency(%q<hashie>, ["~> 0.2.0"])
+      s.add_runtime_dependency(%q<httparty>, ["~> 0.5.0"])
+      s.add_runtime_dependency(%q<yajl-ruby>, ["~> 0.7.0"])
+      s.add_development_dependency(%q<shoulda>, ["~> 2.10.0"])
+      s.add_development_dependency(%q<jnunemaker-matchy>, ["~> 0.4.0"])
+      s.add_development_dependency(%q<mocha>, ["~> 0.9.0"])
+      s.add_development_dependency(%q<fakeweb>, ["~> 1.2.0"])
     else
-      s.add_dependency(%q<oauth>, ["~> 0.3"])
-      s.add_dependency(%q<hashie>, ["~> 0.2"])
-      s.add_dependency(%q<httparty>, ["~> 0.5"])
-      s.add_dependency(%q<yajl-ruby>, ["~> 0.7"])
-      s.add_dependency(%q<shoulda>, ["~> 2.10"])
-      s.add_dependency(%q<jnunemaker-matchy>, ["~> 0.4"])
-      s.add_dependency(%q<mocha>, ["~> 0.9"])
-      s.add_dependency(%q<fakeweb>, ["~> 1.2"])
+      s.add_dependency(%q<oauth>, [">= 0.3.5"])
+      s.add_dependency(%q<hashie>, ["~> 0.2.0"])
+      s.add_dependency(%q<httparty>, ["~> 0.5.0"])
+      s.add_dependency(%q<yajl-ruby>, ["~> 0.7.0"])
+      s.add_dependency(%q<shoulda>, ["~> 2.10.0"])
+      s.add_dependency(%q<jnunemaker-matchy>, ["~> 0.4.0"])
+      s.add_dependency(%q<mocha>, ["~> 0.9.0"])
+      s.add_dependency(%q<fakeweb>, ["~> 1.2.0"])
     end
   else
-    s.add_dependency(%q<oauth>, ["~> 0.3"])
-    s.add_dependency(%q<hashie>, ["~> 0.2"])
-    s.add_dependency(%q<httparty>, ["~> 0.5"])
-    s.add_dependency(%q<yajl-ruby>, ["~> 0.7"])
-    s.add_dependency(%q<shoulda>, ["~> 2.10"])
-    s.add_dependency(%q<jnunemaker-matchy>, ["~> 0.4"])
-    s.add_dependency(%q<mocha>, ["~> 0.9"])
-    s.add_dependency(%q<fakeweb>, ["~> 1.2"])
+    s.add_dependency(%q<oauth>, [">= 0.3.5"])
+    s.add_dependency(%q<hashie>, ["~> 0.2.0"])
+    s.add_dependency(%q<httparty>, ["~> 0.5.0"])
+    s.add_dependency(%q<yajl-ruby>, ["~> 0.7.0"])
+    s.add_dependency(%q<shoulda>, ["~> 2.10.0"])
+    s.add_dependency(%q<jnunemaker-matchy>, ["~> 0.4.0"])
+    s.add_dependency(%q<mocha>, ["~> 0.9.0"])
+    s.add_dependency(%q<fakeweb>, ["~> 1.2.0"])
   end
 end
 
