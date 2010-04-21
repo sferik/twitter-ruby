@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{twitter}
-  s.version = "0.9.4"
+  s.version = "0.9.5"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["John Nunemaker", "Wynn Netherland"]
@@ -71,6 +71,8 @@ Gem::Specification.new do |s|
      "test/fixtures/retweets.json",
      "test/fixtures/retweets_of_me.json",
      "test/fixtures/sample-image.png",
+     "test/fixtures/saved_search.json",
+     "test/fixtures/saved_searches.json",
      "test/fixtures/search.json",
      "test/fixtures/search_from_jnunemaker.json",
      "test/fixtures/status.json",
