@@ -207,6 +207,12 @@ class BaseTest < Test::Unit::TestCase
         blocked = @twitter.blocking
         blocked.last.screen_name.should == "euciavkvyplx"
       end
+      
+      should "report a spammer" do
+        stub_post("/1/report_spam.json", "report_spam.json")
+        spammer = @twitter.report_spam(:screen_name => 'lucaasvaz00')
+        spammer.screen_name.should == "lucaasvaz00"
+      end
 
       should "upload a profile image" do
         stub_post("/1/account/update_profile_image.json", "update_profile_image.json")
