@@ -1,3 +1,10 @@
+0.9.5 - April, 21, 2010
+  * Saved searches (@zmoazeni)
+  * Patch to handle nil in .each in Search.fetch (@sferik)
+  * Added report_spam - Christopher Bailey
+  * Tests for friendship_exists? (@sferik)
+  * YAJL for JSON (@sferik)
+  * Cursors for lists (@moazeni)
 0.9.4 - March 30, 2010
   * Rolled back search api endpoint to get around rate limiting issues
 0.9.3 - March 23, 2010
