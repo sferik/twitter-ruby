@@ -131,7 +131,9 @@ module Twitter
     end
 
     def each
-      fetch()["results"].each{|r| yield r}
+      results = fetch()['results']
+      return if results.nil?
+      results.each {|r| yield r}
     end
 
     def next_page?
