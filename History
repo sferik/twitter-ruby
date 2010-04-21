@@ -1,10 +1,6 @@
-<<<<<<< HEAD
-0.9.3 - March 23, 2010
-=======
 0.9.4 - March 30, 2010
   * Rolled back search api endpoint to get around rate limiting issues
-0.9.3 - March 29, 2010
->>>>>>> integration
+0.9.3 - March 23, 2010
   * Applied patch from @raykrueger for Ruby 1.8.6 compatibility
 0.9.2 - March 24, 2010
   * More patches from @sferik for better authentication error handling and tests

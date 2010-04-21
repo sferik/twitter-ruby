@@ -248,14 +248,14 @@ module Twitter
       perform_delete("/#{API_VERSION}/#{list_owner_username}/lists/#{slug}.json")
     end
 
-    def lists(list_owner_username = nil, cursor = nil)
-      if list_owner_username
-        path = "/#{API_VERSION}/#{list_owner_username}/lists.json"
+    def lists(list_owner_username = nil, query = {})
+      path = case list_owner_username
+      when nil, Hash
+        query = list_owner_username
+        "/#{API_VERSION}/lists.json"
       else
-        path = "/#{API_VERSION}/lists.json"
+        "/#{API_VERSION}/#{list_owner_username}/lists.json"
       end
-      query = {}
-      query[:cursor] = cursor if cursor
       perform_get(path, :query => query)
     end
 
@@ -273,9 +273,11 @@ module Twitter
       perform_get("/#{API_VERSION}/#{list_owner_username}/lists/memberships.json", :query => query)
     end
 
-    def list_members(list_owner_username, slug, cursor = nil)
-      query = {}
-      query[:cursor] = cursor if cursor
+    def subscriptions(list_owner_username, query = {})
+      perform_get("/#{API_VERSION}/#{list_owner_username}/lists/subscriptions.json", :query => query)
+    end
+
+    def list_members(list_owner_username, slug, query = {})
       perform_get("/#{API_VERSION}/#{list_owner_username}/#{slug}/members.json", :query => query)
     end
 
@@ -303,16 +305,28 @@ module Twitter
       perform_delete("/#{API_VERSION}/#{list_owner_username}/#{slug}/subscribers.json")
     end
 
-    def list_subscriptions(list_owner_username)
-      perform_get("/#{API_VERSION}/#{list_owner_username}/lists/subscriptions.json")
-    end
-
     def blocked_ids
       perform_get("/#{API_VERSION}/blocks/blocking/ids.json", :mash => false)
     end
 
     def blocking(options={})
       perform_get("/#{API_VERSION}/blocks/blocking.json", options)
+    end
+
+    def saved_searches
+      perform_get("/#{API_VERSION}/saved_searches.json")
+    end
+
+    def saved_search(id)
+      perform_get("/#{API_VERSION}/saved_searches/show/#{id}.json")
+    end
+
+    def saved_search_create(query)
+      perform_post("/#{API_VERSION}/saved_searches/create.json", :body => {:query => query})
+    end
+
+    def saved_search_destroy(id)
+      perform_delete("/#{API_VERSION}/saved_searches/destroy/#{id}.json")
     end
 
     protected
