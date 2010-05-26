@@ -59,7 +59,7 @@ class OAuthTest < Test::Unit::TestCase
   should "be able to create access token from request token, request secret and verifier" do
     twitter = Twitter::OAuth.new('token', 'secret')
     consumer = OAuth::Consumer.new('token', 'secret', {:site => 'http://api.twitter.com'})
-    twitter.stubs(:consumer).returns(consumer)
+    twitter.stubs(:signing_consumer).returns(consumer)
 
     access_token  = mock('access token', :token => 'atoken', :secret => 'asecret')
     request_token = mock('request token')

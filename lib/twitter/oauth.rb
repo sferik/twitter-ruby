@@ -4,20 +4,26 @@ module Twitter
 
     def_delegators :access_token, :get, :post, :put, :delete
 
-    attr_reader :ctoken, :csecret, :consumer_options
+    attr_reader :ctoken, :csecret, :consumer_options, :api_endpoint, :signing_endpoint
 
     # Options
     #   :sign_in => true to just sign in with twitter instead of doing oauth authorization
     #               (http://apiwiki.twitter.com/Sign-in-with-Twitter)
     def initialize(ctoken, csecret, options={})
       @ctoken, @csecret, @consumer_options = ctoken, csecret, {}
+      @api_endpoint = options[:api_endpoint] || 'http://api.twitter.com'
+      @signing_endpoint = options[:signing_endpoint] || 'http://api.twitter.com'
       if options[:sign_in]
         @consumer_options[:authorize_path] =  '/oauth/authenticate'
       end
     end
 
     def consumer
-      @consumer ||= ::OAuth::Consumer.new(@ctoken, @csecret, {:site => 'http://api.twitter.com'}.merge(consumer_options))
+      @consumer ||= ::OAuth::Consumer.new(@ctoken, @csecret, {:site => api_endpoint}.merge(consumer_options))
+    end
+    
+    def signing_consumer
+      @signing_consumer ||= ::OAuth::Consumer.new(@ctoken, @csecret, {:site => signing_endpoint}.merge(consumer_options))
     end
 
     def set_callback_url(url)
@@ -29,13 +35,13 @@ module Twitter
     # Options:
     #   :oauth_callback => String, url that twitter should redirect to
     def request_token(options={})
-      @request_token ||= consumer.get_request_token(options)
+      @request_token ||= signing_consumer.get_request_token(options)
     end
 
     # For web apps use params[:oauth_verifier], for desktop apps,
     # use the verifier is the pin that twitter gives users.
     def authorize_from_request(rtoken, rsecret, verifier_or_pin)
-      request_token = ::OAuth::RequestToken.new(consumer, rtoken, rsecret)
+      request_token = ::OAuth::RequestToken.new(signing_consumer, rtoken, rsecret)
       access_token = request_token.get_access_token(:oauth_verifier => verifier_or_pin)
       @atoken, @asecret = access_token.token, access_token.secret
     end
