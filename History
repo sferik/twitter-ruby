@@ -1,4 +1,7 @@
-0.9.5 - April, 21, 2010
+0.9.6 - May 25, 2010
+  * Deprecated Basic Auth
+  * Added api_endpoint option for OAuth
+0.9.5 - April 21, 2010
   * Saved searches (@zmoazeni)
   * Patch to handle nil in .each in Search.fetch (@sferik)
   * Added report_spam - Christopher Bailey
