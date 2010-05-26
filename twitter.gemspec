@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{twitter}
-  s.version = "0.9.5"
+  s.version = "0.9.6"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["John Nunemaker", "Wynn Netherland"]
-  s.date = %q{2010-04-21}
+  s.date = %q{2010-05-25}
   s.email = %q{nunemaker@gmail.com}
   s.extra_rdoc_files = [
     "README.rdoc"
@@ -145,6 +145,7 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<jnunemaker-matchy>, ["~> 0.4.0"])
       s.add_development_dependency(%q<mocha>, ["~> 0.9.0"])
       s.add_development_dependency(%q<fakeweb>, ["~> 1.2.0"])
+      s.add_development_dependency(%q<redgreen>, ["~> 1.2.2"])
     else
       s.add_dependency(%q<oauth>, [">= 0.3.5"])
       s.add_dependency(%q<hashie>, ["~> 0.2.0"])
@@ -154,6 +155,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<jnunemaker-matchy>, ["~> 0.4.0"])
       s.add_dependency(%q<mocha>, ["~> 0.9.0"])
       s.add_dependency(%q<fakeweb>, ["~> 1.2.0"])
+      s.add_dependency(%q<redgreen>, ["~> 1.2.2"])
     end
   else
     s.add_dependency(%q<oauth>, [">= 0.3.5"])
@@ -164,6 +166,7 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<jnunemaker-matchy>, ["~> 0.4.0"])
     s.add_dependency(%q<mocha>, ["~> 0.9.0"])
     s.add_dependency(%q<fakeweb>, ["~> 1.2.0"])
+    s.add_dependency(%q<redgreen>, ["~> 1.2.2"])
   end
 end
 
