@@ -1,3 +1,5 @@
+0.9.7 - May 25, 2010
+  * Added api_endpoint option for Search
 0.9.6 - May 25, 2010
   * Deprecated Basic Auth
   * Added api_endpoint option for OAuth
