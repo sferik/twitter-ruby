@@ -18,6 +18,7 @@ Jeweler::Tasks.new do |gem|
   gem.add_development_dependency("jnunemaker-matchy", "~> 0.4.0")
   gem.add_development_dependency("mocha", "~> 0.9.0")
   gem.add_development_dependency("fakeweb", "~> 1.2.0")
+  gem.add_development_dependency("redgreen", "~> 1.2.2")
 end
 
 Jeweler::GemcutterTasks.new
