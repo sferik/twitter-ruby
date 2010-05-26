@@ -12,7 +12,16 @@ module Twitter
       @username, @password = username, password
       @options = {:ssl => false}.merge(options)
       options[:api_endpoint] ||= "api.twitter.com"
-      self.class.base_uri "http#{'s' if options[:ssl]}://#{options[:api_endpoint]}"
+
+      if options[:api_version] == false
+        version_path = ''
+      else
+        options[:api_version] ||= API_VERSION
+        version_path = "/#{options[:api_version]}"
+      end
+
+      self.class.base_uri "http#{'s' if options[:ssl]}://#{options[:api_endpoint]}#{version_path}"
+      self.class.default_timeout options[:timeout] if options[:timeout]
     end
 
     def get(uri, headers={})

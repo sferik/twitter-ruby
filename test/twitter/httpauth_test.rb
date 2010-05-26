@@ -19,13 +19,23 @@ class HTTPAuthTest < Test::Unit::TestCase
     end
 
     should "use https if ssl is true" do
-      Twitter::HTTPAuth.expects(:base_uri).with('https://api.twitter.com')
+      Twitter::HTTPAuth.expects(:base_uri).with('https://api.twitter.com/' + Twitter::API_VERSION)
       twitter = Twitter::HTTPAuth.new('username', 'password', :ssl => true)
     end
 
     should "use http if ssl is false" do
-      Twitter::HTTPAuth.expects(:base_uri).with('http://api.twitter.com')
+      Twitter::HTTPAuth.expects(:base_uri).with('http://api.twitter.com/' + Twitter::API_VERSION)
       twitter = Twitter::HTTPAuth.new('username', 'password', :ssl => false)
+    end
+
+    should "use api version if provided" do
+      Twitter::HTTPAuth.expects(:base_uri).with('http://api.twitter.com/2')
+      twitter = Twitter::HTTPAuth.new('username', 'password', {:ssl => false, :api_version => 2})
+    end
+
+    should "not use api versioning if api_version is false " do
+      Twitter::HTTPAuth.expects(:base_uri).with('http://api.twitter.com')
+      twitter = Twitter::HTTPAuth.new('username', 'password', {:ssl => false, :api_version => false})
     end
   end
 
