@@ -11,6 +11,7 @@ module Twitter
       @options = options
       clear
       containing(q) if q && q.strip != ""
+      self.class.base_uri(options[:api_endpoint]) if options[:api_endpoint]
     end
 
     def user_agent
