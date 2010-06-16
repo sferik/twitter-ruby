@@ -23,7 +23,7 @@ module Twitter
     end
     
     def signing_consumer
-      @signing_consumer ||= ::OAuth::Consumer.new(@ctoken, @csecret, {:site => signing_endpoint}.merge(consumer_options))
+      @signing_consumer ||= ::OAuth::Consumer.new(@ctoken, @csecret, {:site => signing_endpoint,:request_endpoint => api_endpoint }.merge(consumer_options))
     end
 
     def set_callback_url(url)
@@ -47,7 +47,7 @@ module Twitter
     end
 
     def access_token
-      @access_token ||= ::OAuth::AccessToken.new(consumer, @atoken, @asecret)
+      @access_token ||= ::OAuth::AccessToken.new(signing_consumer, @atoken, @asecret)
     end
 
     def authorize_from_access(atoken, asecret)

@@ -1,3 +1,4 @@
+require 'pp'
 module Twitter
   class Search
     include HTTParty
@@ -11,7 +12,9 @@ module Twitter
       @options = options
       clear
       containing(q) if q && q.strip != ""
-      self.class.base_uri(options[:api_endpoint]) if options[:api_endpoint]
+      endpoint_url = options[:api_endpoint]
+      endpoint_url = "#{endpoint_url}/search" if endpoint_url && !endpoint_url.include?("/search")
+      self.class.base_uri(endpoint_url) if endpoint_url
     end
 
     def user_agent
