@@ -30,7 +30,7 @@ class OAuthTest < Test::Unit::TestCase
     consumer = mock('oauth consumer')
     request_token = mock('request token')
     consumer.expects(:get_request_token).returns(request_token)
-    OAuth::Consumer.expects(:new).with('token', 'secret', {:site => 'http://api.twitter.com'}).returns(consumer)
+    OAuth::Consumer.expects(:new).with('token', 'secret', {:site => 'http://api.twitter.com', :request_endpoint => 'http://api.twitter.com'}).returns(consumer)
     twitter = Twitter::OAuth.new('token', 'secret')
 
     twitter.request_token.should == request_token
@@ -43,7 +43,7 @@ class OAuthTest < Test::Unit::TestCase
 
       OAuth::Consumer.
         expects(:new).
-        with('token', 'secret', {:site => 'http://api.twitter.com'}).
+        with('token', 'secret', {:site => 'http://api.twitter.com', :request_endpoint => 'http://api.twitter.com'}).
         returns(consumer)
 
       twitter = Twitter::OAuth.new('token', 'secret')
