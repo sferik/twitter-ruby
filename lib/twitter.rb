@@ -7,7 +7,6 @@ require "yajl"
 module Twitter
   include HTTParty
   API_VERSION = "1".freeze
-  base_uri "api.twitter.com/#{API_VERSION}"
   format :json
 
   class TwitterError < StandardError
@@ -27,59 +26,48 @@ module Twitter
   class InformTwitter < StandardError; end
   class NotFound      < StandardError; end
 
+  def self.api_endpoint
+    @api_endpoint ||= "api.twitter.com/#{API_VERSION}"
+  end
   
+  def self.api_endpoint=(value)
+    @api_endpoint = value
+  end
 
   def self.firehose(options = {})
-    before_test(options)	
     perform_get("/statuses/public_timeline.json")
   end
 
   def self.user(id,options={})
-    before_test(options)
     perform_get("/users/show/#{id}.json")
   end
 
   def self.status(id,options={})
-    before_test(options)	
     perform_get("/statuses/show/#{id}.json")
   end
 
-  def self.friend_ids(id,options={})
-    before_test(options) 	
+  def self.friend_ids(id,options={})	
     perform_get("/friends/ids/#{id}.json")
   end
 
   def self.follower_ids(id,options={})
-    before_test(options) 
     perform_get("/followers/ids/#{id}.json")
   end
 
   def self.timeline(id, options={})
-    before_test(options)
-    options.delete(:api_endpoint)
     perform_get("/statuses/user_timeline/#{id}.json", :query => options)
   end
 
   # :per_page = max number of statues to get at once
   # :page = which page of tweets you wish to get
   def self.list_timeline(list_owner_username, slug, query = {})
-    before_test(query)
-    query.delete(:api_endpoint)
     perform_get("/#{list_owner_username}/lists/#{slug}/statuses.json", :query => query)
   end
 
   private
 
-  def self.before_test(options)
-	configure_base_uri(options)
-  end
-
-  def self.configure_base_uri(options)
-    new_base_url = options[:api_endpoint] 	
-    base_uri "#{new_base_url}/#{API_VERSION}" if new_base_url
-  end	
-
   def self.perform_get(uri, options = {})
+    base_uri self.api_endpoint
     make_friendly(get(uri, options))
   end
 
