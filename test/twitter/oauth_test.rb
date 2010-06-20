@@ -8,12 +8,12 @@ class OAuthTest < Test::Unit::TestCase
     twitter.csecret.should == 'secret'
   end
 
-  should "set autorization path to '/oauth/authorize' by default" do
+  should "set authorization path to '/oauth/authorize' by default" do
     twitter = Twitter::OAuth.new('token', 'secret')
     twitter.consumer.options[:authorize_path].should == '/oauth/authorize'
   end
 
-  should "set autorization path to '/oauth/authenticate' if sign_in_with_twitter" do
+  should "set authorization path to '/oauth/authenticate' if sign_in_with_twitter" do
     twitter = Twitter::OAuth.new('token', 'secret', :sign_in => true)
     twitter.consumer.options[:authorize_path].should == '/oauth/authenticate'
   end
