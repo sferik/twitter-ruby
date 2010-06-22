@@ -30,7 +30,7 @@ module Twitter
   
 
   def self.firehose(options = {})
-    before_test(options)	
+    before_test(options)  
     perform_get("/statuses/public_timeline.json")
   end
 
@@ -40,12 +40,12 @@ module Twitter
   end
 
   def self.status(id,options={})
-    before_test(options)	
+    before_test(options)  
     perform_get("/statuses/show/#{id}.json")
   end
 
   def self.friend_ids(id,options={})
-    before_test(options) 	
+    before_test(options)  
     perform_get("/friends/ids/#{id}.json")
   end
 
@@ -71,13 +71,13 @@ module Twitter
   private
 
   def self.before_test(options)
-	configure_base_uri(options)
+  configure_base_uri(options)
   end
 
   def self.configure_base_uri(options)
-    new_base_url = options[:api_endpoint] 	
+    new_base_url = options[:api_endpoint]   
     base_uri "#{new_base_url}/#{API_VERSION}" if new_base_url
-  end	
+  end
 
   def self.perform_get(uri, options = {})
     make_friendly(get(uri, options))
