@@ -3,30 +3,31 @@ require File.join(File.expand_path(File.dirname(__FILE__)), "local_trends")
 module Twitter
   class Trends
     include HTTParty
-    base_uri "search.twitter.com/trends"
     format :json
+    
+    def self.api_endpoint
+      @api_endpoint ||= "search.twitter.com/trends"
+    end
+    
+    def self.api_endpoint=(value)
+      @api_endpoint = value
+    end
 
     # :exclude => 'hashtags' to exclude hashtags
     def self.current(options={})
-      before_test(options)
-      options.delete(:api_endpoint)		   
-      mashup(get("/current.json", :query => options))
+      get("/current.json", :query => options)
     end
 
     # :exclude => 'hashtags' to exclude hashtags
     # :date => yyyy-mm-dd for specific date
     def self.daily(options={})
-      before_test(options)
-      options.delete(:api_endpoint)		   
-      mashup(get("/daily.json", :query => options))
+      get("/daily.json", :query => options)
     end
 
     # :exclude => 'hashtags' to exclude hashtags
     # :date => yyyy-mm-dd for specific date
     def self.weekly(options={})
-      before_test(options)
-      options.delete(:api_endpoint)
-      mashup(get("/weekly.json", :query => options))
+      get("/weekly.json", :query => options)
     end
 
     def self.available(query={})
@@ -40,19 +41,15 @@ module Twitter
     end
 
     private
+    
+    def self.get(*args)
+      base_uri api_endpoint
+      mashup(super)
+    end
 
     def self.mashup(response)
       response["trends"].values.flatten.map{|t| Twitter.mash(t)}
     end
-
-    def self.before_test(options)
-      configure_base_uri(options)
-    end
-
-    def self.configure_base_uri(options)
-      new_base_url = options[:api_endpoint] 	
-      base_uri "#{new_base_url}/trends" if new_base_url
-    end	
 
   end
 end
