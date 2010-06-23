@@ -1,6 +1,5 @@
-0.9.9 - June 22, 2010
+0.9.8 - June 22, 2010 
   * Patch from @spagalloco for Geo API
-0.9.8 - June 17, 2010 
   * Patch from @apigee to set api_endpoint for unauthenticated calls
 0.9.7 - May 25, 2010
   * Added api_endpoint option for Search
