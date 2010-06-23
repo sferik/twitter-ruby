@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{twitter}
-  s.version = "0.9.7"
+  s.version = "0.9.8"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["John Nunemaker", "Wynn Netherland"]
-  s.date = %q{2010-06-19}
+  s.date = %q{2010-06-22}
   s.email = %q{nunemaker@gmail.com}
   s.extra_rdoc_files = [
     "README.rdoc"
@@ -22,7 +22,7 @@ Gem::Specification.new do |s|
      "Rakefile",
      "VERSION.yml",
      "examples/connect.rb",
-     "examples/friendship_existance.rb",
+     "examples/friendship_existence.rb",
      "examples/helpers/config_store.rb",
      "examples/httpauth.rb",
      "examples/ids.rb",
@@ -36,6 +36,7 @@ Gem::Specification.new do |s|
      "examples/user.rb",
      "lib/twitter.rb",
      "lib/twitter/base.rb",
+     "lib/twitter/geo.rb",
      "lib/twitter/httpauth.rb",
      "lib/twitter/local_trends.rb",
      "lib/twitter/oauth.rb",
@@ -50,6 +51,13 @@ Gem::Specification.new do |s|
      "test/fixtures/friends_timeline.json",
      "test/fixtures/friendship.json",
      "test/fixtures/friendship_exists.json",
+     "test/fixtures/geo_place.json",
+     "test/fixtures/geo_reverse_geocode.json",
+     "test/fixtures/geo_reverse_geocode_granularity.json",
+     "test/fixtures/geo_reverse_geocode_limit.json",
+     "test/fixtures/geo_search.json",
+     "test/fixtures/geo_search_ip_address.json",
+     "test/fixtures/geo_search_query.json",
      "test/fixtures/home_timeline.json",
      "test/fixtures/ids.json",
      "test/fixtures/list.json",
@@ -96,6 +104,7 @@ Gem::Specification.new do |s|
      "test/fixtures/users.json",
      "test/test_helper.rb",
      "test/twitter/base_test.rb",
+     "test/twitter/geo_test.rb",
      "test/twitter/httpauth_test.rb",
      "test/twitter/oauth_test.rb",
      "test/twitter/request_test.rb",
@@ -111,6 +120,7 @@ Gem::Specification.new do |s|
   s.test_files = [
     "test/test_helper.rb",
      "test/twitter/base_test.rb",
+     "test/twitter/geo_test.rb",
      "test/twitter/httpauth_test.rb",
      "test/twitter/oauth_test.rb",
      "test/twitter/request_test.rb",
@@ -118,7 +128,7 @@ Gem::Specification.new do |s|
      "test/twitter/trends_test.rb",
      "test/twitter_test.rb",
      "examples/connect.rb",
-     "examples/friendship_existance.rb",
+     "examples/friendship_existence.rb",
      "examples/helpers/config_store.rb",
      "examples/httpauth.rb",
      "examples/ids.rb",
