@@ -97,7 +97,7 @@ module Twitter
 
     def users(*ids_or_usernames)
       ids, usernames = [], []
-      ids_or_usernames.each do |id_or_username|
+      ids_or_usernames.flatten.each do |id_or_username|
         if id_or_username.is_a?(Integer)
           ids << id_or_username
         elsif id_or_username.is_a?(String)
