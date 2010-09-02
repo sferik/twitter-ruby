@@ -30,8 +30,8 @@ module Twitter
       @uri ||= begin
         uri = URI.parse(path)
 
-        if options[:query] && options[:query] != {}
-          uri.query = to_query(options[:query])
+        if options[:body][:query] && options[:body][:query] != {}
+          uri.query = to_query(options[:body][:query])
         end
 
         uri.to_s
