@@ -66,9 +66,29 @@ module Twitter
       self
     end
 
-    # popular|recent
+    # popular|recent|mixed
     def result_type(result_type)
       @query[:result_type] = result_type
+      self
+    end
+    
+    # Filters for tweets with links. Limits query to 7 days.
+    def filter_links
+      @query[:filter] = "links"
+      self
+    end
+    
+    # Specifies which words to OR together.
+    def or(word)
+      @query[:ors] ||= []
+      @query[:ors] << word.to_s
+      self
+    end
+    
+    # Specifies which words to AND together.
+    def and(word)
+      @query[:ands] ||= []
+      @query[:ands] << word.to_s
       self
     end
 

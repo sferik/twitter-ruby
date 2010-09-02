@@ -40,6 +40,18 @@ class SearchTest < Test::Unit::TestCase
     should "should be able to specify not to" do
       @search.to('jnunemaker',true).query[:q].should include('-to:jnunemaker')
     end
+    
+    should "should be able to specify AND query" do
+      @search.and('Foobar').query[:ands].should include('Foobar')
+    end
+    
+    should "should be able to specify OR query" do
+      @search.or('Foobar').query[:ors].should include('Foobar')
+    end
+    
+    should "should be able to filter by links" do
+      @search.filter_links.query[:filter].should include('link')
+    end
 
     should "should be able to specify not referencing" do
       @search.referencing('jnunemaker',true).query[:q].should include('-@jnunemaker')
