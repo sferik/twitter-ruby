@@ -16,4 +16,4 @@ http://rdoc.info/projects/jnunemaker/twitter
 
 == Copyright
 
-Copyright (c) 2009 John Nunemaker. See LICENSE for details.
+Copyright (c) 2010 John Nunemaker. See LICENSE for details.
