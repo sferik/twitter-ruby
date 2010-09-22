@@ -1,6 +1,7 @@
-pkg
+*.gem
 .DS_Store
-log
+.bundle
 doc
-twitter-*.gem
+log
+pkg/*
 rdoc

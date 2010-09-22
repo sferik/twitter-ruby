@@ -1,29 +1,9 @@
-require "rake"
-require "jeweler"
+require 'rake'
+require 'rake/testtask'
+require 'bundler'
 
-Jeweler::Tasks.new do |gem|
-  gem.name              = "twitter"
-  gem.summary           = %Q{wrapper for the twitter api}
-  gem.email             = "nunemaker@gmail.com"
-  gem.homepage          = "http://github.com/jnunemaker/twitter"
-  gem.authors           = ["John Nunemaker", "Wynn Netherland"]
-  gem.files             = FileList["[A-Z]*", "{examples,lib,test}/**/*"]
+Bundler::GemHelper.install_tasks
 
-  gem.add_dependency("oauth", "~> 0.4.3")
-  gem.add_dependency("hashie", "~> 0.4.0")
-  gem.add_dependency("httparty", "~> 0.6.1")
-  gem.add_dependency("yajl-ruby", "~> 0.7.7")
-
-  gem.add_development_dependency("shoulda", "~> 2.11.3")
-  gem.add_development_dependency("jnunemaker-matchy", "~> 0.4.0")
-  gem.add_development_dependency("mocha", "~> 0.9.8")
-  gem.add_development_dependency("fakeweb", "~> 1.3.0")
-  gem.add_development_dependency("redgreen", "~> 1.2.2")
-end
-
-Jeweler::GemcutterTasks.new
-
-require "rake/testtask"
 Rake::TestTask.new(:test) do |test|
   test.libs << "test"
   test.ruby_opts << "-rubygems"
@@ -31,8 +11,7 @@ Rake::TestTask.new(:test) do |test|
   test.verbose = true
 end
 
-task :default  => :test
-task :test     => :check_dependencies
+task :default => :test
 
 desc "Upload website files to rubyforge"
 task :website do
