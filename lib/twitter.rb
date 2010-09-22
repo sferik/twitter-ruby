@@ -29,7 +29,7 @@ module Twitter
   def self.api_endpoint
     @api_endpoint ||= "api.twitter.com/#{API_VERSION}"
   end
-  
+
   def self.api_endpoint=(value)
     @api_endpoint = value
   end
@@ -148,7 +148,6 @@ end
 directory = File.expand_path(File.dirname(__FILE__))
 
 require File.join(directory, "twitter", "oauth")
-require File.join(directory, "twitter", "httpauth")
 require File.join(directory, "twitter", "request")
 require File.join(directory, "twitter", "base")
 require File.join(directory, "twitter", "search")

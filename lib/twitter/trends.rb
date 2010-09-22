@@ -4,11 +4,11 @@ module Twitter
   class Trends
     include HTTParty
     format :json
-    
+
     def self.api_endpoint
       @api_endpoint ||= "search.twitter.com/trends"
     end
-    
+
     def self.api_endpoint=(value)
       @api_endpoint = value
     end
@@ -31,17 +31,17 @@ module Twitter
     end
 
     def self.available(query={})
-      #checking for api_endpoint in local_trends
+      # Checking for api_endpoint in local_trends
       LocalTrends.available(query)
     end
 
     def self.for_location(woeid,options={})
-      #checking for api_endpoint in local_trends 
+      # Checking for api_endpoint in local_trends
       LocalTrends.for_location(woeid,options)
     end
 
     private
-    
+
     def self.get(*args)
       base_uri api_endpoint
       mashup(super)

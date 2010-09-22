@@ -16,7 +16,7 @@ module Twitter
     end
 
     private
-    
+
     def self.before_test(options)
       configure_base_uri(options)
     end

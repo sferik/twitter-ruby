@@ -1,290 +1,245 @@
-0.9.8 - June 22, 2010 
-  * Patch from @spagalloco for Geo API
-  * Patch from @apigee to set api_endpoint for unauthenticated calls
+0.9.8 - June 22, 2010
+  * Geo API (@spagalloco)
+  * Set api_endpoint for unauthenticated calls (@apigee)
 0.9.7 - May 25, 2010
-  * Added api_endpoint option for Search
+  * Add api_endpoint option for Search
 0.9.6 - May 25, 2010
   * Deprecated Basic Auth
-  * Added api_endpoint option for OAuth
+  * Add api_endpoint option for OAuth
 0.9.5 - April 21, 2010
   * Saved searches (@zmoazeni)
   * Patch to handle nil in .each in Search.fetch (@sferik)
-  * Added report_spam - Christopher Bailey
+  * Add report_spam (@chrisrbailey)
   * Tests for friendship_exists? (@sferik)
   * YAJL for JSON (@sferik)
   * Cursors for lists (@moazeni)
 0.9.4 - March 30, 2010
-  * Rolled back search api endpoint to get around rate limiting issues
+  * Rolled back search API endpoint to get around rate limiting issues
 0.9.3 - March 23, 2010
-  * Applied patch from @raykrueger for Ruby 1.8.6 compatibility
+  * Restore Ruby 1.8.6 compatibility (@raykrueger)
 0.9.2 - March 24, 2010
-  * More patches from @sferik for better authentication error handling and tests
+  * Better authentication error handling and tests (@sferik)
 0.9.1 - March 23, 2010
-  * More patches from @sferik for bug fixes, removed rubygems dependencies, and more
+  * Bug fixes (@sferik)
+  * Remove rubygems dependencies (@sferik)
 0.9.0 - March 20, 2010
-  * Added support for new retweeted_by and retweeted_by ids methods
-  * Added support for popular/recent search
-  * Patch from @sferik for API versioning and bulk user import
-  * Patch from @abozanich for search exclusions
+  * Add retweeted_by and retweeted_by ids methods
+  * Add popular/recent search
+  * API versioning and bulk user import (@sferik)
+  * Search exclusions (@abozanich)
 0.8.6 - March 11, 2010
-  * Patch from @dewski for httparty version
+  * Fix httparty version (@dewski)
 0.8.5 - February 21, 2010
-  * Patch from @cyu to add fetch_next_page to search
+  * Add fetch_next_page to search (@cyu)
 0.8.4 - February 11, 2010
-  * Added membership query options // thanks ming yeow ng
-  * Added support for a phrase search (instead of a group of words) from @zagari
-  * Added support for trends/available and trends/location
+  * Add membership query options (@mingyeow)
+  * Add phrase search (@zagari)
+  * Add trends/available and trends/location
 0.8.3 - January 29, 2010
-  * Added patch for unauthenticated list timelines from @spastorino
+  * Add unauthenticated list timelines (@spastorino)
 0.8.2 - January 21, 2010
-  * Added patch for update_profile_image from @taazza
+  * Merge patch for update_profile_image (@taazza)
 0.8.1 - January 12, 2010
-  * Added unauthenticated timeline method just for @mtodd
+  * Add unauthenticated timeline method just for @mtodd
 0.8.0  - December 18, 2009
-  * Made API endpoint configurable to use services like Tumblr
+  * Make API endpoint configurable to use services like Tumblr
 0.7.11 - December 16, 2009
-  * Added support for list timeline paging (patch from Chen)
+  * Add list timeline paging (@kchen1)
 0.7.10 - December 12, 2009
-  * Added support for blocks/blocking
+  * Add blocks/blocking
 0.7.9  - December 1, 2009
-  * Applied patch from ivey for retweets support
+  * Add retweets (@ivey)
 0.7.8  - November 30, 2009
-  * Applied patch from ivey to use cursor with list_members
+  * Use cursor with list_members (@ivey)
 0.7.7  - November 29, 2009
-  * Fixed bug when removing list members using OAuth
-  * Merged patch from kevn for update_profile_background
-  * Bumped OAuth dependency to 0.3.6
-  * Merged patch from rizwanreza for blocked_ids
-  * Merged patch from Josh Schairbaum for since_date and until_date search methods
+  * Fix bug when removing list members using OAuth
+  * Bump oauth gem dependency to version 0.3.6
+  * Merge patch for update_profile_background (@kev_in)
+  * Merge patch for blocked_ids (@rizwanreza)
+  * Add since_date and until_date search methods (@jschairb)
 0.7.6  - November 25, 2009
-  * Patch from coderifous for home_timeline support
+  * Add home_timeline (@coderifous)
 0.7.5  - November 17, 2009
-  * Patch from hassox to swap Mash for Hashie to avoid conflicts
+  * Swap Mash for Hashie to avoid conflicts (@hassox)
 0.7.4  - November 16, 2009
   * Support for user search
 0.7.3  - November 5, 2009
-  * Support for list_subscriptions from christospappas
+  * Support for list_subscriptions (@christospappas)
 0.7.2  - November 5, 2009
-  * Support for friendship_show from dcrec1
+  * Support for friendship_show (@dcrec1)
 0.7.1  - November 4, 2009
   * Dependency changes
 0.7.0  - October 31, 2009
   * Twitter lists! - based on draft API
 0.6.14 - August 16, 2009
-  * Lowered the oauth requirement to 0.3.4 as people are complaining about 0.3.5
-  
+  * Lower oauth gem dependency to version 0.3.4 as people are complaining about 0.3.5
 0.6.13 - July 27, 2009
-* 1 minor update
-  * Set oauth version to >= 0.3.5 so I don't have to release new gem for each oauth update, which seems to be frequent of late
-  
+  * Bump oauth gem dependency to version >= 0.3.5 so I don't have to release new gem for each OAuth update, which seems to be frequent of late
 0.6.12 - June 26, 2009
-* 2 minor additions
-  * fixed fakeweb test issue (obie fernandez)
-  * added user agent option to searches
-  
+  * Fix fakeweb test issue (@obie)
+  * Add user agent option to searches
 0.6.11 - May 18, 2009
-* 1 minor addition
-  * Added the ability to sign in with twitter instead of authorizing
-
+  * Add the ability to sign in with Twitter instead of authorizing
 0.6.10 - May 18, 2009
-* 1 cool addition
-  * Added full support for trends - current, daily and weekly (even allowing excluding of hashtags and for specific dates)
-
+  * Add trends: current, daily, and weekly
 0.6.9 - May 17, 2009
-* 1 minor tweak
-  * Bumped oauth dependency version to 0.3.4.
-  
+  * Bump oauth gem dependency to version 0.3.4
 0.6.8 - April 23, 2009
-* 1 dependency fix
-  * forgot to update rakefile rendering previous 0.6.7 release useless. crap!
-
+  * Fix dependency (forgot to update Rakefile, rendering previous release useless)
 0.6.7 - April 23, 2009
-* 1 minor fix
-  * Bumped httparty version to 0.4.3 which allows response.message and fixes errors that the lack of response.message was causing to the twitter gem
-  
+  * Bump httparty gem dependency to version 0.4.3 which allows response.message and fixes errors that the lack of response.message was causing
 0.6.6 - April 16, 2009
-* 1 minor enhancement
-  * added ability to pass query parameters to user method
-  * httpauth can now accept :ssl option to use https instead of http
-  * Added Twitter.status method for no auth calls to fetch status
-  * Added Twitter.friend_ids method for no auth calls to fetch status
-  * Added Twitter.follower_ids method for no auth calls to fetch status
-  
+  * Add ability to pass query parameters to user method
+  * Add :ssl option to use HTTPS instead of HTTP for HTTPAuth
+  * Add Twitter.status method
+  * Add Twitter.friend_ids method
+  * Add Twitter.follower_ids method
 0.6.5 - April 15, 2009
-* 1 bug fix
-  * fixed that friend_ids and follower_ids were bombing from trying to mash them. Added :mash option to Twitter::Request so I can specifically not mash certain responses from twitter
-  
+  * Fix that friend_ids and follower_ids were bombing from trying to mash them
+  * Add :mash option to Twitter::Request so I can specifically not mash certain responses from Twitter
 0.6.4 - April 14, 2009
-* 1 minor tweak
-  * More explicit about dependency versions in gemspec and when requiring.
-
+  * More explicit about dependency versions in gemspec and when requiring
 0.6.3 - April 14, 2009
-* 1 minor addition
-  * Added Twitter.user method to get user's information without authenticating
-  
+  * Add Twitter.user method to get user's information without authenticating
 0.6.2 - April 14, 2009
-* 1 minor addition
-  * added max to search so you can set the max id that should be used
-  
+  * Add max to search so you can set the max id that should be used
 0.6.1 - April 12, 2009
-* 1 minor fix
-  * Had two friend_ids functions. Renamed one of them to follower_ids. 
-  
+  * Rename one of the two friend_ids methods to follower_ids
 0.6.0 - April 11, 2009
-* 1 feature addition
-  * Added http authentication back in. You can now use oauth or http auth as your client.
-  
+  * Add HTTP authentication
 0.5.3 - April 10, 2009
-* 1 minor fix
-  * Twitter API assumed follow true whether true or false. Now only sending follow along to request if follow is true for calls to friendship_create.
-
+  * Only send follow along to request if follow is true for calls to friendship_create
 0.5.2 - April 8, 2009
-* 4 minor fixes
-  * added mash as an install dependency, forgot it initially
-  * fixed that search wasn't taking into account a bunch of options duh!
-  * fixed some missing vars and stuff in exception raising
-  * added development dependencies to rake file to make that more explicit (technomancy)
-  * lame workaround for Mash#hash that allows using return objects in sets and such (technomancy)
-
+  * Add mash as an install dependency
+  * Add options to search
+  * Add missing variables in exception raising
+  * Add development dependencies to Rakefile to make that more explicit (@technomancy)
+  * Add workaround for Mash#hash that allows using return objects in sets and such (@technomancy)
 0.5.1 - April 5, 2009
-* 1 minor change
-  * Added data error hash returned from twitter to a few of the exceptions to help with debugging
-  * Fixed friendship_exists?. Was throwing mash stringify keys error because it was returning true or false instead of hash or array.
-  
+  * Add data error hash returned from Twitter to a few of the exceptions to help with debugging
+  * Fix bug with friendship_exists? throwing a mash stringify keys error because it was returning true or false instead of hash or array
 0.5.0 - April 3, 2009
-* 1 major rewrite for OAuth
   * Backwards compatibility thrown to the wind
   * Proxy no longer supported (someone please add it back in, I never use proxies)
   * Identica support killed with an axe (nothing against them but I don't use it)
-  * CLI shot to death (will be reborn at a later date using oauth and its own gem)
-
+  * CLI shot to death (will be reborn at a later date using OAuth and its own gem)
 0.4.3 - February 21, 2009
-* 1 minor enhancement
-  * verify_credentials now returns a Twitter::User rather than an hpricot doc
-  
+  * Make verify_credentials return a Twitter::User rather than an Hpricot doc
 0.4.2 - February 10, 2009
-* 1 minor enhancement
-  * Adding the Social Graph API methods (Josh Owens)
-  
+  * Add the Social Graph API methods (@joshowens)
 0.4.1 - January 1, 2009
-* 4 minor enhancements and 2 bug fixes:
-  * Added better exception handling (Billy Gray)
-  * Added page to search (Michael Ivey)
-  * Adding an option to display tweets on CLI in reverse order (oldest first). (Cameron Booth)
-  * Added in_reply_to_status_id option for replying to statuses (anthonycrumley)
-  * Fixed a bug where the @config was improperly set (K. Adam Christensen)
-  * Fix verify_credentials to include a format (breaks in laconica). (dustin)
-  
+  * Add better exception handling (@billymeltdown)
+  * Add page to search (@ivey)
+  * Add an option to display tweets on CLI in reverse chronological order (@coderdaddy)
+  * Add in_reply_to_status_id option for replying to statuses (@anthonycrumley)
+  * Fix a bug where the @config was improperly set (@pope)
+  * Fix verify_credentials to include a format (@dlsspy)
 0.4.0 - December 23, 2008
-* 3 major changes
-  * Removed active support as dependency
-  * Removed CLI dependencies from install dependency list
-      (they are now only installed by you manually)
-  * Switched to echoe for gem managment
-      
+  * Remove Active Support dependency
+  * Remove CLI dependencies from install dependency list
+  * Switch to echoe for gem managment
 0.3.7 - August 26, 2008
-      * Fixed source param not getting through
-
+  * Fix source param not getting through
 0.3.6 - August 11, 2008
-      * Fixed a few more methods that required post.
-      * Refactored the remaining methods that were not using #request to use it.
-
+  * Fix a few more methods that required POST
+  * Refactor the remaining methods that were not using #request to use it
 0.3.5 - August 4, 2008
-      * Removed sqlite-ruby 1.2.2 as a dependency due to install issues on linux
-      
+  * Remove sqlite-ruby dependency due to installation issues on Linux
 0.3.4 - August 3, 2008
-      * Added search support
-      
+  * Add search
 0.3.3 - August 3, 2008
-      * Now has option for host when initializing to support identi.ca (Dustin Sallings)
-      * Twitter changed a bunch of methods to POST only so I updated those to now work
-      
+  * Now has option for host when initializing to support Identica (@dlsspy)
+  * Update methods to POST only
 0.3.2 - July 26, 2008
-      * added the CLI gems as dependencies for now until I separate out the CLI from the API wrapper
-      * cleaner CLI errors for no active account or no accounts at all
-      * remove sets a new active account if there are none
-      * added username and password optional arguments to add
-      * added import attempt on install and on anything that uses #current_account helper
-      
+  * Add the CLI gems as dependencies for now until I separate out the CLI from the API wrapper
+  * Add cleaner CLI errors for no active account or no accounts at all
+  * Remove sets a new active account if there are none
+  * Add username and password optional arguments to add
+  * Add import attempt on install and on anything that uses #current_account helper
 0.3.1 - July 23, 2008
-      * added open to CLI twitter open jnunemaker would open default browser to http://twitter.com/jnunemaker
-      * added -f to timeline and replies which ignores the since_id and shows all results
-      * added clear_config to remove all cached since id's and such
-      * Majorly pimped the output of timelines and replies.
-      
+  * Add open to CLI Twitter open jnunemaker would open default browser to http://twitter.com/jnunemaker
+  * Add -f to timeline and replies which ignores the since_id and shows all results
+  * Add clear_config to remove all cached since id's and such
+  * Majorly pimped the output of timelines and replies
 0.3.0 - July 22, 2008
-      * complete rewrite of CLI. Now supports multiple accounts and changing between them.
-      * added source, truncated, in_reply_to_status_id, in_reply_to_user_id, and favorited to Twitter::Status
-      * added protected to Twitter::User
-      * d CLI method now takes standard input like post
-      * Rewrote several methods that had since parameter to now use a hash instead. This makes it more flexible as API updates.
-      * Rewrote the methods that took lite or since as an argument to instead take a hash.
-      * added Twitter::Base#friendship_exists?
-      * added Twitter::Base#update_location
-      * added Twitter::Base#update_delivery_device
-      * added Twitter::Base#favorites
-      * added Twitter::Base#create_favorite
-      * added Twitter::Base#destroy_favorite
-      * added Twitter::Base#block
-      * added Twitter::Base#unblock
-      
-      BACKWORDS COMPATIBILITY BREAK: 
-      Any method that you have using lite or since as an argument 
-      will no longer work with this version. Simply change to a 
-      hash and you'll be fine. For example:
-      
-      friends(true) would now be friends(:lite => true)
-      
+  * Complete rewrite of CLI
+  * Support multiple accounts in CLI and switching between them
+  * Add source, truncated, in_reply_to_status_id, in_reply_to_user_id, and favorited to Twitter::Status
+  * Add protected to Twitter::User
+  * Make d method take standard input like post
+  * Add Twitter::Base#friendship_exists?
+  * Add Twitter::Base#update_location
+  * Add Twitter::Base#update_delivery_device
+  * Add Twitter::Base#favorites
+  * Add Twitter::Base#create_favorite
+  * Add Twitter::Base#destroy_favorite
+  * Add Twitter::Base#block
+  * Add Twitter::Base#unblock
+  * Rewrite several methods that had since or lite parameter to now use a hash instead
+
+    BACKWORDS COMPATIBILITY BREAK:
+    Any method that you have using lite or since as an argument
+    will no longer work with this version. Simply change to a
+    hash and you'll be fine. For example:
+
+    friends(true) would now be friends(:lite => true)
 0.2.7 - June 29, 2008
-      * added #rate_limit_status (Daniel Morrison)
-      * added source parameter option to Base#post 
-      * added twittergem as source when posting from command line
-      * Twitter::RateExceeded raised when you hit your limit (Jim O'Leary)
-      * Twitter::Unavailable raised when twitter returns 503
-      * Twitter::CantConnect is now more descriptive as to what is the problem when it is raised during a request
-      * quoting your message when using twitter post on the command line is now optional (Benoit Caccinolo)
-      * aliased post to p on command line so it's shorter (Benoit Caccinolo)
-      * unescaped html and added some color in command line view (Miles Z. Sterrett)
-      * added gemspec (technoweenie, Miles Z. Sterrett)
-      * Fixed stack trace error on first command line operation (Matt Rose)
+  * Add #rate_limit_status (@danielmorrison)
+  * Add source parameter option to Base#post
+  * Add twittergem as source when posting from command line
+  * Raise Twitter::RateExceeded when you hit your limit (@jimoleary)
+  * Raise Twitter::Unavailable when Twitter returns 503
+  * Make Twitter::CantConnect more descriptive
+  * Make quoting your message when using Twitter post on the command line optional (@bcaccinolo)
+  * Alias post to p on command line so it's shorter (@bcaccinolo)
+  * Unescape html and add some color in command line view (@mileszs)
+  * Add gemspec (@technoweenie, @mileszs)
+  * Fix stack trace error on first command line operation (@mrose2n)
 0.2.6 - April 2, 2008
-      * found a more simple way of doing stdin without any extra gem dependencies
+  * Found a simpler way of doing stdin without any extra gem dependencies
 0.2.5 - April 2, 2008
-      * Command line interface can now use stdin for posting (ideas and example code from Jeremy Friesen)
-          $ twitter post 'test without stdin' # => twitters: test without stdin
-          $ echo 'test with stdin' | twitter post 'and an argv[1]' # => twitters: test with stdin and an argv[1]
-          $ echo 'test with stdin without any argv[1]' | twitter post # => twitters: test with stdin without any argv[1]
-0.2.4 - Mar 31, 2008
-      * Added lite option to friends and followers, which doesn't include the user's current status (Daniel Morrison)
-      * Updated since option to use HTTP header, and added the option on timeline() and replies(). (Daniel Morrison)
-0.2.3 - Jan 16, 2008
-      * added d to command line interface twitter d jnunemaker 'hola' (Humbucker)
-      * added progress dots when posting for confirmation when twitter is running slow (Hendy Irawan)
-0.2.2 - added leave and follow which are new twitter api methods for turning notifications on and off
-0.2.0 - Aug 4, 2007
-      * added sent_messages
-      * alias direct_messages to received_messages
-      * added create_friendship
-      * added destroy_friendship
-      * added featured to retrieve the featured twitter users
-      * added replies
-      * added destroy to destroy a status by id
-      * added status to find a status by id
-      * added active support as an extra dependency
-      * implemented d method to send direct messages (jnewland)
-      * fixed since argument in direct_messages method (jnewland)
+  * Command line interface can now use stdin for posting (ideas and example code from @reclusive_geek)
+      $ twitter post 'test without stdin' # => twitters: test without stdin
+      $ echo 'test with stdin' | twitter post 'and an argv[1]' # => twitters: test with stdin and an argv[1]
+      $ echo 'test with stdin without any argv[1]' | twitter post # => twitters: test with stdin without any argv[1]
+0.2.4 - March 31, 2008
+  * Add lite option to friends and followers, which doesn't include the user's current status (@danielmorrison)
+  * Update since option to use HTTP header, and added the option on timeline and replies (@danielmorrison)
+0.2.3 - January 16, 2008
+  * Add d to command line interface (@uumbucker)
+  * Add progress dots when posting for confirmation when Twitter is running slow (@HendyIrawan)
+0.2.2 - January 16, 2008
+  * Add leave and follow which are new Twitter API methods for turning notifications on and off
+0.2.1 - October 23, 2007
+0.2.0 - August 4, 2007
+  * Add sent_messages
+  * Alias direct_messages to received_messages
+  * Add create_friendship
+  * Add destroy_friendship
+  * Add featured to retrieve the featured Twitter users
+  * Add replies
+  * Add destroy to destroy a status by id
+  * Add status to find a status by id
+  * Add Active Support dependency
+  * Implement d method to send direct messages (@jnewland)
+  * Fix since argument in direct_messages method (@jnewland)
 0.1.1 - May 20, 2007
-      * hpricot 0.5+ now supported; just a bug fix (Ryan Waldron is the man!)
+  * Add support for hpricot 0.5+ now supported; just a bug fix (@erebor is the man!)
 0.1.0 - March 31, 2007
-      * added d method for creating direct messages (waiting for it to work as documented)
-      * added featured method for getting featured users statuses (waiting for it to work as documented)
-      * added direct_messages method
-      * added friends_for method
-      * added a few tests
-      * removed relative_created_at as it is deprecated
-      * separated out the call method into call, request and parse methods
-0.0.5 - just a bit of code cleanup
-0.0.4 - added :location, :description, :url, :profile_image_url to user class (Alex Payne)
-0.0.3 - added a bit more informative message when things go wrong
-0.0.2 - added the command line options i forgot to add (friend and follower); improved some docs
-0.0.1 - initial release
+  * Add d method for creating direct messages (waiting for it to work as documented)
+  * Add featured method for getting featured users statuses (waiting for it to work as documented)
+  * Add direct_messages method
+  * Add friends_for method
+  * Add tests
+  * Remove relative_created_at as it is deprecated
+  * Separate the call method into call, request, and parse methods
+0.0.5 - March 12, 2007
+  * Code cleanup
+0.0.4 - January 20, 2007
+  * Add #location, #description, #url, #profile_image_url to User class (@al3x)
+0.0.3 - December 17, 2006
+  * Make error message more informative
+0.0.2 - November 26, 2006
+  * Add command line options for friend and follower; improved docs
+0.0.1 - November 26, 2006
+  * Initial release

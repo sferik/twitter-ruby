@@ -207,7 +207,7 @@ class BaseTest < Test::Unit::TestCase
         blocked = @twitter.blocking
         blocked.last.screen_name.should == "euciavkvyplx"
       end
-      
+
       should "report a spammer" do
         stub_post("/report_spam.json", "report_spam.json")
         spammer = @twitter.report_spam(:screen_name => 'lucaasvaz00')
@@ -409,18 +409,6 @@ class BaseTest < Test::Unit::TestCase
         subscriptions.first.slug.should == "sass-users"
       end
 
-    end
-  end
-
-  context "when using a non-twitter service" do
-    setup do
-      @twitter = Twitter::Base.new(Twitter::HTTPAuth.new("wynn@example.com", "mypass", :api_endpoint => "tumblr.com"))
-    end
-
-    should "get the home timeline" do
-      stub_get("http://wynn%40example.com:mypass@tumblr.com/1/statuses/home_timeline.json", "home_timeline.json")
-      timeline = @twitter.home_timeline
-      timeline.size.should == 20
     end
   end
 end

@@ -1,59 +1,50 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-	<title>Ruby Twitter Gem by John Nunemaker</title>
-	<link rel="stylesheet" href="css/common.css" type="text/css" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <title>Ruby Twitter Gem by John Nunemaker</title>
+  <link rel="stylesheet" href="css/common.css" type="text/css" />
 </head>
 <body>
 
 <div id="wrapper">
-	<div id="header">
-		<h1>Twitter</h1>
-		<p>API wrapper for Twitter and Twitter Search API's</p>
-		
-		<ul id="nav">
-			<li><a href="http://rdoc.info/projects/jnunemaker/twitter">Docs</a></li>
-			<li><a href="http://github.com/jnunemaker/twitter">Github</a></li>
-			<li><a href="http://rubyforge.org/projects/twitter/">Rubyforge</a></li>
-		</ul>
-	</div>
-	
-	<div id="content">
-	  <h2>Note</h2>
-	
-	  <p>The Twitter gem supports OAuth and HTTP Auth (until Twitter deprecates it). OAuth is scary at first, but not once you try it out a little bit. Feel free to read my <a href="http://railstips.org/2009/3/29/oauth-explained-and-what-it-is-good-for">article on OAuth</a> to get past the scary part. Also, I have created an <a href="http://github.com/jnunemaker/twitter-app/">example app</a> that uses OAuth and the Twitter gem for you to peruse.</p>
-	
-		<h2>Install</h2>
-		<pre><code>$ sudo gem install twitter</code></pre>
-		
-		<h2>Examples</h2>
-		
-		<p>First some OAuth action:</p>
-		
+  <div id="header">
+    <h1>Twitter</h1>
+    <p>API wrapper for Twitter and Twitter Search API's</p>
+
+    <ul id="nav">
+      <li><a href="http://rdoc.info/projects/jnunemaker/twitter">Docs</a></li>
+      <li><a href="http://github.com/jnunemaker/twitter">Github</a></li>
+      <li><a href="http://rubyforge.org/projects/twitter/">Rubyforge</a></li>
+    </ul>
+  </div>
+
+  <div id="content">
+    <h2>Note</h2>
+
+    <p>The Twitter gem uses OAuth for authentication. OAuth is scary at first, but not once you try it out a little bit. Feel free to read my <a href="http://railstips.org/2009/3/29/oauth-explained-and-what-it-is-good-for">article on OAuth</a> to get past the scary part. Also, I have created an <a href="http://github.com/jnunemaker/twitter-app/">example app</a> that uses OAuth and the Twitter gem for you to peruse.</p>
+
+    <h2>Install</h2>
+    <pre><code>$ sudo gem install twitter</code></pre>
+
+    <h2>Examples</h2>
+
+    <p>First some OAuth action:</p>
+
 <pre><code># NOT SHOWN: granting access to twitter on website
 # and using request token to generate access token
 oauth = Twitter::OAuth.new('consumer token', 'consumer secret')
 oauth.authorize_from_access('access token', 'access secret')
 
 client = Twitter::Base.new(oauth)
-client.friends_timeline.each  { |tweet| puts tweet.inspect }
-client.user_timeline.each     { |tweet| puts tweet.inspect }
-client.replies.each           { |tweet| puts tweet.inspect }
+client.friends_timeline.each { |tweet| puts tweet.inspect }
+client.user_timeline.each    { |tweet| puts tweet.inspect }
+client.replies.each          { |tweet| puts tweet.inspect }
 
 client.update('Heeeyyyyoooo from Twitter Gem!')</code></pre>
-		
-		<p>Now some HTTP Auth action:</p>
-		
-<pre><code>httpauth = Twitter::HTTPAuth.new('username', 'password')
 
-client = Twitter::Base.new(httpauth)
-client.update('Heeeeyyyyooo from the Twitter Gem')
-client.friends_timeline.each { |tweet| puts tweet.text }
-</code></pre>
-		
-		<h2>Search API Examples</h2>
-		
+    <h2>Search API Examples</h2>
+
 <pre><code>#searches all tweets for httparty
 Twitter::Search.new('httparty').each do |r|
   puts r.inspect
@@ -90,13 +81,17 @@ Twitter::Trends.weekly(:date => Date.new(2009, 5, 1))
 
     <h2>Lists Examples</h2>
 
-<pre><code>httpauth = Twitter::HTTPAuth.new('username', 'password')
-client = Twitter::Base.new(httpauth)
+<pre><code># NOT SHOWN: granting access to twitter on website
+# and using request token to generate access token
+oauth = Twitter::OAuth.new('consumer token', 'consumer secret')
+oauth.authorize_from_access('access token', 'access secret')
+
+client = Twitter::Base.new(oauth)
 client.lists('pengwynn')
 client.list_members('pengwynn', 'rubyists')
 client.list_create('pengwynn', 'razorback_fans')
 </code></pre>
-		
+
     <!-- <h2>Command Line</h2>
 
     <p><img src="images/terminal_output.png" alt="Terminal Output" style="width:560px;" /></p>
@@ -141,14 +136,14 @@ Account List
 
     <p>Will give you a list of all the commands. You can get the help for each command by running twitter [command] -h. </p>
      -->
-		
-		<h2>Support</h2>
-		<p>Conversations welcome in the <a href="http://groups.google.com/group/ruby-twitter-gem">google group</a> and bugs/features over at <a href="http://github.com/jnunemaker/twitter/issues">Github</a></p>
-	</div>
 
-	<div id="footer">
-		<p>Created by <a href="http://addictedtonew.com/about/">John Nunemaker</a></p>
-	</div>
+    <h2>Support</h2>
+    <p>Conversations welcome in the <a href="http://groups.google.com/group/ruby-twitter-gem">google group</a> and bugs/features over at <a href="http://github.com/jnunemaker/twitter/issues">Github</a></p>
+  </div>
+
+  <div id="footer">
+    <p>Created by <a href="http://addictedtonew.com/about/">John Nunemaker</a></p>
+  </div>
 </div>
 </body>
 </html>

@@ -21,7 +21,7 @@ module Twitter
     def consumer
       @consumer ||= ::OAuth::Consumer.new(@ctoken, @csecret, {:site => api_endpoint}.merge(consumer_options))
     end
-    
+
     def signing_consumer
       @signing_consumer ||= ::OAuth::Consumer.new(@ctoken, @csecret, {:site => signing_endpoint, :request_endpoint => api_endpoint }.merge(consumer_options))
     end

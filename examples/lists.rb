@@ -3,9 +3,9 @@ require File.join(File.dirname(__FILE__), 'helpers', 'config_store')
 require 'pp'
 
 config = ConfigStore.new("#{ENV['HOME']}/.twitter")
+oauth = Twitter::OAuth.new(config['token'], config['secret'])
+oauth.authorize_from_access(config['atoken'], config['asecret'])
+client = Twitter::Base.new(oauth)
 
-httpauth = Twitter::HTTPAuth.new(config['email'], config['password'])
-base = Twitter::Base.new(httpauth)
-
-pp base.lists('pengwynn')
-pp base.list_members('pengwynn', 'rubyists')
+pp client.lists('pengwynn')
+pp client.list_members('pengwynn', 'rubyists')

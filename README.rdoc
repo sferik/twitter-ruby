@@ -1,16 +1,16 @@
-= twitter
+= Twitter
 
-The ruby twitter gem. The gem heard round the world and famous on the streets. Haha. This gem *works with both oauth and http auth*, if you care.
+The Ruby twitter gem. The gem heard round the world and famous on the streets. Haha.
 
-For now this is just an API wrapper. The command line interface is temporarily dead until I have time to make it work with oauth. At that point, I'll make it a new gem twitter-cli or something and it will depend on this gem to work. That will keep the separation of the api wrapper and cli and fix a lot of dependency issues.
+For now this is just an API wrapper. The command line interface is temporarily dead until I have time to make it work with OAuth. At that point, I'll make it a new gem twitter-cli or something and it will depend on this gem to work. That will keep the separation of the API wrapper and CLI and fix a lot of dependency issues.
 
-== examples
+== Examples
   
 See the examples directory.
 
 http://github.com/jnunemaker/twitter/tree/master/examples
 
-== docs
+== Docs
 
 http://rdoc.info/projects/jnunemaker/twitter
 
