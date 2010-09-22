@@ -46,7 +46,7 @@ module Twitter
     perform_get("/statuses/show/#{id}.json")
   end
 
-  def self.friend_ids(id,options={})	
+  def self.friend_ids(id,options={})
     perform_get("/friends/ids/#{id}.json")
   end
 
