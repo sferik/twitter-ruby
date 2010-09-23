@@ -6,7 +6,7 @@ module Twitter
     format :json
 
     def self.api_endpoint
-      @api_endpoint ||= "search.twitter.com/trends"
+      @api_endpoint ||= "api.twitter.com/#{API_VERSION}/trends"
     end
 
     def self.api_endpoint=(value)
