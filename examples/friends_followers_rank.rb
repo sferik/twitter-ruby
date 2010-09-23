@@ -8,7 +8,7 @@ oauth.authorize_from_access(config['atoken'], config['asecret'])
 client = Twitter::Base.new(oauth)
 
 puts "Friends List, sorted by followers"
-client.friends.sort {|a,b| a.followers_count <=> b.followers_count}.reverse.each {|f| puts "#{f.name} (@#{f.screen_name}) - #{f.followers_count}"}
+client.friends.sort {|a, b| a.followers_count <=> b.followers_count}.reverse.each {|f| puts "#{f.name} (@#{f.screen_name}) - #{f.followers_count}"}
 
 puts "\n\nFollowers List, sorted by followers"
-client.followers.sort {|a,b| a.followers_count <=> b.followers_count}.reverse.each {|f| puts "#{f.name} (@#{f.screen_name}) - #{f.followers_count}"}
+client.followers.sort {|a, b| a.followers_count <=> b.followers_count}.reverse.each {|f| puts "#{f.name} (@#{f.screen_name}) - #{f.followers_count}"}

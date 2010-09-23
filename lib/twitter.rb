@@ -44,19 +44,19 @@ module Twitter
     perform_get("/statuses/public_timeline.json")
   end
 
-  def self.user(id,options={})
+  def self.user(id, options={})
     perform_get("/users/show/#{id}.json")
   end
 
-  def self.status(id,options={})
+  def self.status(id, options={})
     perform_get("/statuses/show/#{id}.json")
   end
 
-  def self.friend_ids(id,options={})
+  def self.friend_ids(id, options={})
     perform_get("/friends/ids/#{id}.json")
   end
 
-  def self.follower_ids(id,options={})
+  def self.follower_ids(id, options={})
     perform_get("/followers/ids/#{id}.json")
   end
 
