@@ -3,7 +3,6 @@
   * Remove Basic Auth (@rodrigo3n)
   * Flatten ids_or_usernames before iterating (@jacqui)
   * Add an example to list followers and friends sorted by followers count (@danicuki)
-  * Changed trends endpoint to api.twitter.com/1/trends
   * Add optional query parameter to list_subscribers
   * Change trends endpoint to api.twitter.com/1/trends
   * Add gemspec
