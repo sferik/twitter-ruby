@@ -7,7 +7,6 @@ require "yajl"
 module Twitter
   include HTTParty
   API_VERSION = "1".freeze
-  # format :json  # EVIDENTLY NOT NEEDED
 
   class TwitterError < StandardError
     attr_reader :data
