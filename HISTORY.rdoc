@@ -1,3 +1,10 @@
+=== 0.9.10 - September 23, 2010
+* {Specify Twitter API version for all REST API calls}[http://github.com/jnunemaker/twitter/commit/76b1fa31588bbc20166464313027f75e3771e385]
+* {Parse all responses with YAJL JSON parser}[http://github.com/jnunemaker/twitter/commit/c477f368fde6161dbae59ea7bc7c7d182b15721b]
+* {Ensure that users are tested}[http://github.com/jnunemaker/twitter/commit/108019e83d745c23ebc92fc8a3f9f8c605b2e884] (@duncan[http://twitter.com/#!/duncan])
+* {Remove redgreen due to Ruby 1.9 incompatibility}[http://github.com/jnunemaker/twitter/commit/83e1ea168da2e38c3f393972bf1d8eb665df2510] (@duncan[http://twitter.com/#!/duncan])
+* {Make all tests pass in Ruby 1.9}[http://github.com/jnunemaker/twitter/commit/7bead60774fb118ef63fb1557976194848af6754] (@duncan[http://twitter.com/#!/duncan])
+
 === 0.9.9 - September 22, 2010
 * {Bump dependency versions}[http://github.com/jnunemaker/twitter/commit/ac8114c1f6ba2da20c2267d3133252c2ffc6b6a3]
 * {Remove Basic Auth}[http://github.com/jnunemaker/twitter/pull/56] (@rodrigo3n[http://twitter.com/#!/rodrigo3n])
