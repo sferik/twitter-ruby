@@ -2,7 +2,6 @@ module Twitter
   class LocalTrends
     include HTTParty
     base_uri "api.twitter.com/#{Twitter.api_version}/trends"
-    format :json
 
     def self.available(query={})
       query.delete(:api_endpoint)

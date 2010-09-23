@@ -2,7 +2,6 @@ module Twitter
   class Geo
     include HTTParty
     base_uri "api.twitter.com/#{Twitter.api_version}/geo"
-    format :json
 
     def self.place(place_id, query={})
       Twitter.mash(Twitter.parse(get("/id/#{place_id}.json", :query => query)))

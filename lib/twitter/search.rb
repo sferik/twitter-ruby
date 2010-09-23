@@ -1,10 +1,8 @@
-require 'pp'
 module Twitter
   class Search
     include HTTParty
     include Enumerable
     base_uri "search.twitter.com/search"
-    format :json
 
     attr_reader :result, :query
 

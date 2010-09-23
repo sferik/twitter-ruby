@@ -3,7 +3,6 @@ require File.join(File.expand_path(File.dirname(__FILE__)), "local_trends")
 module Twitter
   class Trends
     include HTTParty
-    format :json
 
     def self.api_endpoint
       @api_endpoint ||= "api.twitter.com/#{Twitter.api_version}/trends"
