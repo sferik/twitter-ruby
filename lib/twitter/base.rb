@@ -293,8 +293,8 @@ module Twitter
       perform_get("/#{list_owner_username}/#{slug}/members/#{id}.json").error.nil?
     end
 
-    def list_subscribers(list_owner_username, slug)
-      perform_get("/#{list_owner_username}/#{slug}/subscribers.json")
+    def list_subscribers(list_owner_username, slug, query={})
+      perform_get("/#{list_owner_username}/#{slug}/subscribers.json", :body => {:query => query})
     end
 
     def list_subscribe(list_owner_username, slug)
