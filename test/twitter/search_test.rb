@@ -65,6 +65,14 @@ class SearchTest < Test::Unit::TestCase
       @search.contains('milk').query[:q].should include('milk')
     end
 
+    should "should be able to specify retweeted" do
+      @search.retweeted.query[:q].should include('rt')
+    end
+
+    should "should be able to specify not_retweeted" do
+      @search.not_retweeted.query[:q].should include('-rt')
+    end
+
     should "should be able to specify hashed" do
       @search.hashed('twitter').query[:q].should include('#twitter')
     end
@@ -139,8 +147,8 @@ class SearchTest < Test::Unit::TestCase
     end
 
     should "should be able to chain methods together" do
-      @search.from('jnunemaker').to('oaknd1').referencing('orderedlist').containing('milk').hashed('twitter').lang('en').per_page(20).since(1234).geocode('40.757929', '-73.985506', '25mi')
-      @search.query[:q].should == ['from:jnunemaker', 'to:oaknd1', '@orderedlist', 'milk', '#twitter']
+      @search.from('jnunemaker').to('oaknd1').referencing('orderedlist').containing('milk').retweeted.hashed('twitter').lang('en').per_page(20).since(1234).geocode('40.757929', '-73.985506', '25mi')
+      @search.query[:q].should == ['from:jnunemaker', 'to:oaknd1', '@orderedlist', 'milk', 'rt', '#twitter']
       @search.query[:lang].should == 'en'
       @search.query[:rpp].should == 20
       @search.query[:since_id].should == 1234

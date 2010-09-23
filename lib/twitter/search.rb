@@ -42,6 +42,16 @@ module Twitter
     end
     alias :contains :containing
 
+    def retweeted
+      @query[:q] << "rt"
+      self
+    end
+
+    def not_retweeted
+      @query[:q] << "-rt"
+      self
+    end
+
     # adds filtering based on hash tag ie: #twitter
     def hashed(tag, exclude=false)
       @query[:q] << "#{exclude ? "-" : ""}\##{tag}"
