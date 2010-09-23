@@ -20,7 +20,6 @@ GEM
       rake
     oauth (0.4.3)
     rake (0.8.7)
-    redgreen (1.2.2)
     shoulda (2.11.3)
     yajl-ruby (0.7.7)
 
@@ -34,7 +33,6 @@ DEPENDENCIES
   jnunemaker-matchy (~> 0.4.0)
   mocha (~> 0.9.8)
   oauth (~> 0.4.3)
-  redgreen (~> 1.2.2)
   shoulda (~> 2.11.3)
   twitter!
   yajl-ruby (~> 0.7.7)
