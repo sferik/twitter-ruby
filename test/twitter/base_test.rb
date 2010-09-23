@@ -181,7 +181,11 @@ class BaseTest < Test::Unit::TestCase
       should "be able to lookup users in bulk" do
         stub_get("/users/lookup.json?screen_name=sferik&user_id=59593,774010", "users.json")
         users = @twitter.users("sferik", 59593, 774010)
-        users.first.screen_name.should == "sferik"
+        users.count.should == 3
+        usernames = users.map{|u| u['screen_name']}
+        usernames.should include 'sferik'
+        usernames.should include 'jm3'
+        usernames.should include 'jamiew'
       end
 
       should "be able to search people" do
