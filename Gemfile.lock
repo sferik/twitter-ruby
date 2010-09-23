@@ -4,8 +4,8 @@ PATH
     twitter (0.9.10)
       hashie (~> 0.4.0)
       httparty (~> 0.6.1)
+      multi_json (~> 0.0.4)
       oauth (~> 0.4.3)
-      yajl-ruby (~> 0.7.7)
 
 GEM
   remote: http://rubygems.org/
@@ -18,10 +18,10 @@ GEM
     jnunemaker-matchy (0.4.0)
     mocha (0.9.8)
       rake
+    multi_json (0.0.4)
     oauth (0.4.3)
     rake (0.8.7)
     shoulda (2.11.3)
-    yajl-ruby (0.7.7)
 
 PLATFORMS
   ruby
@@ -32,7 +32,7 @@ DEPENDENCIES
   httparty (~> 0.6.1)
   jnunemaker-matchy (~> 0.4.0)
   mocha (~> 0.9.8)
+  multi_json (~> 0.0.4)
   oauth (~> 0.4.3)
   shoulda (~> 2.11.3)
   twitter!
-  yajl-ruby (~> 0.7.7)

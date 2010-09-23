@@ -2,7 +2,7 @@ require "forwardable"
 require "oauth"
 require "hashie"
 require "httparty"
-require "yajl"
+require "multi_json"
 
 module Twitter
   include HTTParty
@@ -109,7 +109,7 @@ module Twitter
   end
 
   def self.parse(response)
-    Yajl::Parser.parse(response.body)
+    MultiJson.decode(response.body)
   end
 
   def self.mash(obj)
