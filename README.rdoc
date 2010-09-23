@@ -5,7 +5,7 @@ The Ruby twitter gem. The gem heard round the world and famous on the streets. H
 For now this is just an API wrapper. The command line interface is temporarily dead until I have time to make it work with OAuth. At that point, I'll make it a new gem twitter-cli or something and it will depend on this gem to work. That will keep the separation of the API wrapper and CLI and fix a lot of dependency issues.
 
 == Examples
-  
+
 See the examples directory.
 
 http://github.com/jnunemaker/twitter/tree/master/examples
