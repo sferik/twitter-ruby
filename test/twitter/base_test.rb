@@ -116,7 +116,7 @@ class BaseTest < Test::Unit::TestCase
         retweeted_to_me.size.should == 20
         first = retweeted_to_me.first.retweeted_status
         first.user.name.should == "Cloudvox"
-        first.text.should == "Testing counts with voice apps too:\n\"the voice told residents to dial 'nine hundred eleven' rather than '9-1-1'\" \u2014 http://j.mp/7mqe2B"
+        first.text.should == "Testing counts with voice apps too:\n\"the voice told residents to dial 'nine hundred eleven' rather than '9-1-1'\" http://j.mp/7mqe2B"
       end
 
       should "be able to get retweets of me" do
