@@ -6,7 +6,6 @@ require "yajl"
 
 module Twitter
   include HTTParty
-  API_VERSION = "1".freeze
 
   class TwitterError < StandardError
     attr_reader :data
@@ -26,11 +25,19 @@ module Twitter
   class NotFound      < StandardError; end
 
   def self.api_endpoint
-    @api_endpoint ||= "api.twitter.com/#{API_VERSION}"
+    @api_endpoint ||= "api.twitter.com/#{self.api_version}"
   end
 
   def self.api_endpoint=(value)
     @api_endpoint = value
+  end
+
+  def self.api_version
+    @api_version ||= "1"
+  end
+
+  def self.api_version=(value)
+    @api_version = value
   end
 
   def self.firehose(options = {})

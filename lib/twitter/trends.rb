@@ -6,7 +6,7 @@ module Twitter
     format :json
 
     def self.api_endpoint
-      @api_endpoint ||= "api.twitter.com/#{API_VERSION}/trends"
+      @api_endpoint ||= "api.twitter.com/#{Twitter.api_version}/trends"
     end
 
     def self.api_endpoint=(value)
@@ -35,9 +35,9 @@ module Twitter
       LocalTrends.available(query)
     end
 
-    def self.for_location(woeid,options={})
+    def self.for_location(woeid, options={})
       # Checking for api_endpoint in local_trends
-      LocalTrends.for_location(woeid,options)
+      LocalTrends.for_location(woeid, options)
     end
 
     private
@@ -48,7 +48,7 @@ module Twitter
     end
 
     def self.mashup(response)
-      response["trends"].values.flatten.map{|t| Twitter.mash(t)}
+      Twitter.parse(response)["trends"].values.flatten.map{|t| Twitter.mash(t)}
     end
 
   end

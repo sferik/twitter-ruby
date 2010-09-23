@@ -64,32 +64,32 @@ class TrendsTest < Test::Unit::TestCase
       stub_get 'http://api.twitter.com/1/trends/weekly.json?', 'trends_weekly.json'
       trends = Trends.weekly
       trends.size.should == 210
-      trends[0].name.should == 'Happy Mothers Day'
-      trends[0].query.should == %Q(\"Happy Mothers Day\" OR \"Mothers Day\")
+      trends[0].name.should == "Grey's Anatomy"
+      trends[0].query.should == %Q(\"Grey's Anatomy\")
     end
 
     should "be able to exclude hastags" do
       stub_get 'http://api.twitter.com/1/trends/weekly.json?exclude=hashtags', 'trends_weekly_exclude.json'
       trends = Trends.weekly(:exclude => 'hashtags')
       trends.size.should == 210
-      trends[0].name.should == 'Happy Mothers Day'
-      trends[0].query.should == %Q(\"Happy Mothers Day\" OR \"Mothers Day\")
+      trends[0].name.should == "Grey's Anatomy"
+      trends[0].query.should == %Q(\"Grey's Anatomy\")
     end
 
     should "be able to get for specific date (with date string)" do
       stub_get 'http://api.twitter.com/1/trends/weekly.json?date=2009-05-01', 'trends_weekly_date.json'
       trends = Trends.weekly(:date => '2009-05-01')
       trends.size.should == 210
-      trends[0].name.should == 'TGIF'
-      trends[0].query.should == 'TGIF'
+      trends[0].name.should == "Swine Flu"
+      trends[0].query.should == %Q(\"Swine Flu\")
     end
 
     should "be able to get for specific date (with date object)" do
       stub_get 'http://api.twitter.com/1/trends/weekly.json?date=2009-05-01', 'trends_weekly_date.json'
       trends = Trends.weekly(:date => Date.new(2009, 5, 1))
       trends.size.should == 210
-      trends[0].name.should == 'TGIF'
-      trends[0].query.should == 'TGIF'
+      trends[0].name.should == "Swine Flu"
+      trends[0].query.should == %Q(\"Swine Flu\")
     end
   end
 

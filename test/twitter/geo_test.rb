@@ -18,7 +18,7 @@ class GeoTest < Test::Unit::TestCase
   context "Geographic search" do
 
     should "work" do
-      stub_get 'http://api.twitter.com:80/1/geo/search.json?lat=35.061161&long=-80.854568', 'geo_search.json'
+      stub_get 'http://api.twitter.com/1/geo/search.json?lat=35.061161&long=-80.854568', 'geo_search.json'
       places = Geo.search(:lat => 35.061161, :long => -80.854568)
       places.size.should == 3
       places[0].full_name.should eql('Ballantyne West, Charlotte')
@@ -49,7 +49,7 @@ class GeoTest < Test::Unit::TestCase
   context "Geographic reverse_geocode" do
 
     should "work" do
-      stub_get 'http://api.twitter.com:80/1/geo/reverse_geocode.json?lat=35.061161&long=-80.854568', 'geo_reverse_geocode.json'
+      stub_get 'http://api.twitter.com/1/geo/reverse_geocode.json?lat=35.061161&long=-80.854568', 'geo_reverse_geocode.json'
       places = Geo.reverse_geocode(:lat => 35.061161, :long => -80.854568)
       places.size.should == 4
       places[0].full_name.should eql('Ballantyne West, Charlotte')

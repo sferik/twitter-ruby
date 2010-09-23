@@ -149,7 +149,7 @@ class SearchTest < Test::Unit::TestCase
 
     context "fetching" do
       setup do
-        stub_get('http://search.twitter.com:80/search.json?q=%40jnunemaker', 'search.json')
+        stub_get('http://search.twitter.com/search.json?q=%40jnunemaker', 'search.json')
         @search = Twitter::Search.new('@jnunemaker')
         @response = @search.fetch
       end
@@ -186,7 +186,7 @@ class SearchTest < Test::Unit::TestCase
 
     context "iterating over results" do
       setup do
-        stub_get('http://search.twitter.com:80/search.json?q=from%3Ajnunemaker', 'search_from_jnunemaker.json')
+        stub_get('http://search.twitter.com/search.json?q=from%3Ajnunemaker', 'search_from_jnunemaker.json')
         @search.from('jnunemaker')
       end
 

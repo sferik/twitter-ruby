@@ -1,11 +1,11 @@
 module Twitter
   class Geo
     include HTTParty
-    base_uri "api.twitter.com/#{API_VERSION}/geo"
+    base_uri "api.twitter.com/#{Twitter.api_version}/geo"
     format :json
 
     def self.place(place_id, query={})
-      Twitter.mash(get("/id/#{place_id}.json", :query => query))
+      Twitter.mash(Twitter.parse(get("/id/#{place_id}.json", :query => query)))
     end
 
     def self.search(query={})
@@ -18,8 +18,9 @@ module Twitter
 
     private
 
-      def self.mashup(response)
-        response["result"].values.flatten.map{|t| Twitter.mash(t)}
-      end
+    def self.mashup(response)
+      Twitter.parse(response)["result"].values.flatten.map{|t| Twitter.mash(t)}
+    end
+
   end
 end
