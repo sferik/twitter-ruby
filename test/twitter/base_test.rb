@@ -182,10 +182,10 @@ class BaseTest < Test::Unit::TestCase
         stub_get("/1/users/lookup.json?screen_name=sferik&user_id=59593,774010", "users.json")
         users = @twitter.users("sferik", 59593, 774010)
         assert_equal 3, users.count
-        usernames = users.map{|user| user["screen_name"]}
-        assert usernames.include? "sferik"
-        assert usernames.include? "jm3"
-        assert usernames.include? "jamiew"
+        screen_names = users.map{|user| user["screen_name"]}
+        assert screen_names.include? "sferik"
+        assert screen_names.include? "jm3"
+        assert screen_names.include? "jamiew"
       end
 
       should "be able to search people" do
@@ -298,9 +298,9 @@ class BaseTest < Test::Unit::TestCase
         assert_equal 'rubyists', lists.first.slug
       end
       
-      should "be able to view the user owned lists without passing the username" do
+      should "be able to view the user owned lists without passing the screen_name" do
         stub_get("/1/lists.json", "lists.json")
-        lists = @twitter.lists().lists
+        lists = @twitter.lists.lists
         assert_equal 1, lists.size
         assert_equal 'Rubyists', lists.first.name
         assert_equal 'rubyists', lists.first.slug
@@ -314,7 +314,7 @@ class BaseTest < Test::Unit::TestCase
         assert_equal 'rubyists', lists.first.slug
       end
       
-      should "be able to view the user owned lists without passing the username and passing in a cursor" do
+      should "be able to view the user owned lists without passing the screen_name and passing in a cursor" do
         stub_get("/1/lists.json?cursor=-1", "lists.json")
         lists = @twitter.lists(:cursor => -1).lists
         assert_equal 1, lists.size

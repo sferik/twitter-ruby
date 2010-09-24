@@ -91,27 +91,27 @@ module Twitter
       perform_get("/#{Twitter.api_version}/statuses/followers.json", :query => query)
     end
 
-    def user(id_or_username, query={})
-      if id_or_username.is_a?(Integer)
-        query.merge!({:user_id => id_or_username})
-      elsif id_or_username.is_a?(String)
-        query.merge!({:screen_name => id_or_username})
+    def user(id_or_screen_name, query={})
+      if id_or_screen_name.is_a?(Integer)
+        query.merge!({:user_id => id_or_screen_name})
+      elsif id_or_screen_name.is_a?(String)
+        query.merge!({:screen_name => id_or_screen_name})
       end
       perform_get("/#{Twitter.api_version}/users/show.json", :query => query)
     end
 
-    def users(*ids_or_usernames)
-      ids, usernames = [], []
-      ids_or_usernames.flatten.each do |id_or_username|
-        if id_or_username.is_a?(Integer)
-          ids << id_or_username
-        elsif id_or_username.is_a?(String)
-          usernames << id_or_username
+    def users(*ids_or_screen_names)
+      ids, screen_names = [], []
+      ids_or_screen_names.flatten.each do |id_or_screen_name|
+        if id_or_screen_name.is_a?(Integer)
+          ids << id_or_screen_name
+        elsif id_or_screen_name.is_a?(String)
+          screen_names << id_or_screen_name
         end
       end
       query = {}
       query[:user_id] = ids.join(",") unless ids.empty?
-      query[:screen_name] = usernames.join(",") unless usernames.empty?
+      query[:screen_name] = screen_names.join(",") unless screen_names.empty?
       perform_get("/#{Twitter.api_version}/users/lookup.json", :query => query)
     end
 
@@ -131,8 +131,8 @@ module Twitter
       perform_get("/#{Twitter.api_version}/direct_messages/sent.json", :query => query)
     end
 
-    def direct_message_create(user, text)
-      perform_post("/#{Twitter.api_version}/direct_messages/new.json", :body => {:user => user, :text => text})
+    def direct_message_create(user_id_or_screen_name, text)
+      perform_post("/#{Twitter.api_version}/direct_messages/new.json", :body => {:user => user_id_or_screen_name, :text => text})
     end
 
     def direct_message_destroy(id)
@@ -241,73 +241,73 @@ module Twitter
       perform_get("/#{Twitter.api_version}/help/test.json")
     end
 
-    def list_create(list_owner_username, options)
-      perform_post("/#{Twitter.api_version}/#{list_owner_username}/lists.json", :body => {:user => list_owner_username}.merge(options))
+    def list_create(list_owner_screen_name, options)
+      perform_post("/#{Twitter.api_version}/#{list_owner_screen_name}/lists.json", :body => {:user => list_owner_screen_name}.merge(options))
     end
 
-    def list_update(list_owner_username, slug, options)
-      perform_put("/#{Twitter.api_version}/#{list_owner_username}/lists/#{slug}.json", :body => options)
+    def list_update(list_owner_screen_name, slug, options)
+      perform_put("/#{Twitter.api_version}/#{list_owner_screen_name}/lists/#{slug}.json", :body => options)
     end
 
-    def list_delete(list_owner_username, slug)
-      perform_delete("/#{Twitter.api_version}/#{list_owner_username}/lists/#{slug}.json")
+    def list_delete(list_owner_screen_name, slug)
+      perform_delete("/#{Twitter.api_version}/#{list_owner_screen_name}/lists/#{slug}.json")
     end
 
-    def lists(list_owner_username = nil, query = {})
-      path = case list_owner_username
+    def lists(list_owner_screen_name = nil, query = {})
+      path = case list_owner_screen_name
       when nil, Hash
-        query = list_owner_username
+        query = list_owner_screen_name
         "/#{Twitter.api_version}/lists.json"
       else
-        "/#{Twitter.api_version}/#{list_owner_username}/lists.json"
+        "/#{Twitter.api_version}/#{list_owner_screen_name}/lists.json"
       end
       perform_get(path, :query => query)
     end
 
-    def list(list_owner_username, slug)
-      perform_get("/#{Twitter.api_version}/#{list_owner_username}/lists/#{slug}.json")
+    def list(list_owner_screen_name, slug)
+      perform_get("/#{Twitter.api_version}/#{list_owner_screen_name}/lists/#{slug}.json")
     end
 
     # :per_page = max number of statues to get at once
     # :page = which page of tweets you wish to get
-    def list_timeline(list_owner_username, slug, query = {})
-      perform_get("/#{Twitter.api_version}/#{list_owner_username}/lists/#{slug}/statuses.json", :query => query)
+    def list_timeline(list_owner_screen_name, slug, query = {})
+      perform_get("/#{Twitter.api_version}/#{list_owner_screen_name}/lists/#{slug}/statuses.json", :query => query)
     end
 
-    def memberships(list_owner_username, query={})
-      perform_get("/#{Twitter.api_version}/#{list_owner_username}/lists/memberships.json", :query => query)
+    def memberships(list_owner_screen_name, query={})
+      perform_get("/#{Twitter.api_version}/#{list_owner_screen_name}/lists/memberships.json", :query => query)
     end
 
-    def subscriptions(list_owner_username, query = {})
-      perform_get("/#{Twitter.api_version}/#{list_owner_username}/lists/subscriptions.json", :query => query)
+    def subscriptions(list_owner_screen_name, query = {})
+      perform_get("/#{Twitter.api_version}/#{list_owner_screen_name}/lists/subscriptions.json", :query => query)
     end
 
-    def list_members(list_owner_username, slug, query = {})
-      perform_get("/#{Twitter.api_version}/#{list_owner_username}/#{slug}/members.json", :query => query)
+    def list_members(list_owner_screen_name, slug, query = {})
+      perform_get("/#{Twitter.api_version}/#{list_owner_screen_name}/#{slug}/members.json", :query => query)
     end
 
-    def list_add_member(list_owner_username, slug, new_id)
-      perform_post("/#{Twitter.api_version}/#{list_owner_username}/#{slug}/members.json", :body => {:id => new_id})
+    def list_add_member(list_owner_screen_name, slug, new_id)
+      perform_post("/#{Twitter.api_version}/#{list_owner_screen_name}/#{slug}/members.json", :body => {:id => new_id})
     end
 
-    def list_remove_member(list_owner_username, slug, id)
-      perform_delete("/#{Twitter.api_version}/#{list_owner_username}/#{slug}/members.json", :query => {:id => id})
+    def list_remove_member(list_owner_screen_name, slug, id)
+      perform_delete("/#{Twitter.api_version}/#{list_owner_screen_name}/#{slug}/members.json", :query => {:id => id})
     end
 
-    def is_list_member?(list_owner_username, slug, id)
-      perform_get("/#{Twitter.api_version}/#{list_owner_username}/#{slug}/members/#{id}.json").error.nil?
+    def is_list_member?(list_owner_screen_name, slug, id)
+      perform_get("/#{Twitter.api_version}/#{list_owner_screen_name}/#{slug}/members/#{id}.json").error.nil?
     end
 
-    def list_subscribers(list_owner_username, slug, query={})
-      perform_get("/#{Twitter.api_version}/#{list_owner_username}/#{slug}/subscribers.json", :body => {:query => query})
+    def list_subscribers(list_owner_screen_name, slug, query={})
+      perform_get("/#{Twitter.api_version}/#{list_owner_screen_name}/#{slug}/subscribers.json", :body => {:query => query})
     end
 
-    def list_subscribe(list_owner_username, slug)
-      perform_post("/#{Twitter.api_version}/#{list_owner_username}/#{slug}/subscribers.json")
+    def list_subscribe(list_owner_screen_name, slug)
+      perform_post("/#{Twitter.api_version}/#{list_owner_screen_name}/#{slug}/subscribers.json")
     end
 
-    def list_unsubscribe(list_owner_username, slug)
-      perform_delete("/#{Twitter.api_version}/#{list_owner_username}/#{slug}/subscribers.json")
+    def list_unsubscribe(list_owner_screen_name, slug)
+      perform_delete("/#{Twitter.api_version}/#{list_owner_screen_name}/#{slug}/subscribers.json")
     end
 
     def blocked_ids
