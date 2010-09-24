@@ -73,6 +73,10 @@ class SearchTest < Test::Unit::TestCase
       @search.not_retweeted.query[:q].should include('-rt')
     end
 
+    should "should be able to specify filters" do
+      @search.filter('links').query[:q].should include('filter:links')
+    end
+
     should "should be able to specify hashed" do
       @search.hashed('twitter').query[:q].should include('#twitter')
     end

@@ -42,6 +42,11 @@ module Twitter
     end
     alias :contains :containing
 
+    def filter(filter)
+      @query[:q] << "filter:#{filter}"
+      self
+    end
+
     def retweeted
       @query[:q] << "rt"
       self
