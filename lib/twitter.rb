@@ -109,7 +109,16 @@ module Twitter
   end
 
   def self.parse(response)
-    MultiJson.decode(response.body)
+    case response.body
+    when ''
+      nil
+    when 'true'
+      true
+    when 'false'
+      false
+    else
+      MultiJson.decode(response.body)
+    end
   end
 
   def self.mash(obj)
