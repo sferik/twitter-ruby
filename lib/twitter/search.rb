@@ -95,6 +95,7 @@ module Twitter
       @query[:rpp] = num
       self
     end
+    alias :rpp :per_page
 
     # Which page of results to fetch
     def page(num)
@@ -104,10 +105,11 @@ module Twitter
 
     # Only searches tweets since a given id.
     # Recommended to use this when possible.
-    def since(since_id)
-      @query[:since_id] = since_id
+    def since_id(id)
+      @query[:since_id] = id
       self
     end
+    alias :since :since_id
 
     # From the advanced search form, not documented in the API
     # Format YYYY-MM-DD
@@ -129,10 +131,11 @@ module Twitter
       self
     end
 
-    def max(id)
+    def max_id(id)
       @query[:max_id] = id
       self
     end
+    alias :max :max_id
 
     # Clears all the query filters to make a new search
     def clear
