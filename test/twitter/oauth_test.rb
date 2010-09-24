@@ -4,26 +4,25 @@ class OAuthTest < Test::Unit::TestCase
   should "initialize with consumer token and secret" do
     twitter = Twitter::OAuth.new('token', 'secret')
 
-    twitter.ctoken.should == 'token'
-    twitter.csecret.should == 'secret'
+    assert_equal 'token', twitter.ctoken
+    assert_equal 'secret', twitter.csecret
   end
 
   should "set authorization path to '/oauth/authorize' by default" do
     twitter = Twitter::OAuth.new('token', 'secret')
-    twitter.consumer.options[:authorize_path].should == '/oauth/authorize'
+    assert_equal '/oauth/authorize', twitter.consumer.options[:authorize_path]
   end
 
   should "set authorization path to '/oauth/authenticate' if sign_in_with_twitter" do
     twitter = Twitter::OAuth.new('token', 'secret', :sign_in => true)
-    twitter.consumer.options[:authorize_path].should == '/oauth/authenticate'
+    assert_equal '/oauth/authenticate', twitter.consumer.options[:authorize_path]
   end
 
   should "have a consumer" do
     consumer = mock('oauth consumer')
     OAuth::Consumer.expects(:new).with('token', 'secret', {:site => 'http://api.twitter.com'}).returns(consumer)
     twitter = Twitter::OAuth.new('token', 'secret')
-
-    twitter.consumer.should == consumer
+    assert_equal consumer, twitter.consumer
   end
 
   should "have a request token from the consumer" do
@@ -32,8 +31,7 @@ class OAuthTest < Test::Unit::TestCase
     consumer.expects(:get_request_token).returns(request_token)
     OAuth::Consumer.expects(:new).with('token', 'secret', {:site => 'http://api.twitter.com', :request_endpoint => 'http://api.twitter.com'}).returns(consumer)
     twitter = Twitter::OAuth.new('token', 'secret')
-
-    twitter.request_token.should == request_token
+    assert_equal request_token, twitter.request_token
   end
 
   context "set_callback_url" do
@@ -75,19 +73,18 @@ class OAuthTest < Test::Unit::TestCase
 
     twitter.authorize_from_request('rtoken', 'rsecret', 'verifier')
     twitter.access_token.class.should be(OAuth::AccessToken)
-    twitter.access_token.token.should == 'atoken'
-    twitter.access_token.secret.should == 'asecret'
+    assert_equal 'atoken', twitter.access_token.token
+    assert_equal 'asecret', twitter.access_token.secret
   end
 
   should "be able to create access token from access token and secret" do
     twitter = Twitter::OAuth.new('token', 'secret')
     consumer = OAuth::Consumer.new('token', 'secret', {:site => 'http://api.twitter.com'})
     twitter.stubs(:consumer).returns(consumer)
-
     twitter.authorize_from_access('atoken', 'asecret')
     twitter.access_token.class.should be(OAuth::AccessToken)
-    twitter.access_token.token.should == 'atoken'
-    twitter.access_token.secret.should == 'asecret'
+    assert_equal 'atoken', twitter.access_token.token
+    assert_equal 'asecret', twitter.access_token.secret
   end
 
   should "delegate get to access token" do

@@ -6,18 +6,18 @@ class SearchTest < Test::Unit::TestCase
       @search = Twitter::Search.new
     end
 
-    should "should be able to initialize with a search term" do
+    should "be able to initialize with a search term" do
       Twitter::Search.new('httparty').query[:q].should include('httparty')
     end
 
     should "default user agent to Ruby Twitter Gem" do
       search = Twitter::Search.new('foo')
-      search.user_agent.should == 'Ruby Twitter Gem'
+      assert_equal 'Ruby Twitter Gem', search.user_agent
     end
 
     should "allow overriding default user agent" do
       search = Twitter::Search.new('foo', :user_agent => 'Foobar')
-      search.user_agent.should == 'Foobar'
+      assert_equal 'Foobar', search.user_agent
     end
 
     should "pass user agent along with headers when making request" do
@@ -25,146 +25,146 @@ class SearchTest < Test::Unit::TestCase
       Twitter::Search.new('foo', :user_agent => 'Foobar').fetch()
     end
 
-    should "should be able to specify from" do
+    should "be able to specify from" do
       @search.from('jnunemaker').query[:q].should include('from:jnunemaker')
     end
 
-    should "should be able to specify not from" do
+    should "be able to specify not from" do
       @search.from('jnunemaker',true).query[:q].should include('-from:jnunemaker')
     end
 
-    should "should be able to specify to" do
+    should "be able to specify to" do
       @search.to('jnunemaker').query[:q].should include('to:jnunemaker')
     end
 
-    should "should be able to specify not to" do
+    should "be able to specify not to" do
       @search.to('jnunemaker',true).query[:q].should include('-to:jnunemaker')
     end
 
-    should "should be able to specify not referencing" do
+    should "be able to specify not referencing" do
       @search.referencing('jnunemaker',true).query[:q].should include('-@jnunemaker')
     end
 
-    should "should alias references to referencing" do
+    should "alias references to referencing" do
       @search.references('jnunemaker').query[:q].should include('@jnunemaker')
     end
 
-    should "should alias ref to referencing" do
+    should "alias ref to referencing" do
       @search.ref('jnunemaker').query[:q].should include('@jnunemaker')
     end
 
-    should "should be able to specify containing" do
+    should "be able to specify containing" do
       @search.containing('milk').query[:q].should include('milk')
     end
 
-    should "should be able to specify not containing" do
+    should "be able to specify not containing" do
       @search.containing('milk', true).query[:q].should include('-milk')
     end
 
-    should "should alias contains to containing" do
+    should "alias contains to containing" do
       @search.contains('milk').query[:q].should include('milk')
     end
 
-    should "should be able to specify retweeted" do
+    should "be able to specify retweeted" do
       @search.retweeted.query[:q].should include('rt')
     end
 
-    should "should be able to specify not_retweeted" do
+    should "be able to specify not_retweeted" do
       @search.not_retweeted.query[:q].should include('-rt')
     end
 
-    should "should be able to specify filters" do
+    should "be able to specify filters" do
       @search.filter('links').query[:q].should include('filter:links')
     end
 
-    should "should be able to specify hashed" do
+    should "be able to specify hashed" do
       @search.hashed('twitter').query[:q].should include('#twitter')
     end
 
-    should "should be able to specify not hashed" do
+    should "be able to specify not hashed" do
       @search.hashed('twitter',true).query[:q].should include('-#twitter')
     end
 
-    should "should be able to specify the language" do
+    should "be able to specify the language" do
       @search.lang('en')
       @search.class.expects(:get).with('http://search.twitter.com/search.json', :query => {:lang => 'en', :q => ''}, :format => :json, :headers => {'User-Agent' => 'Ruby Twitter Gem'}).returns({'foo' => 'bar'})
       @search.fetch()
     end
 
-    should "should be able to specify the number of results per page" do
+    should "be able to specify the number of results per page" do
       @search.per_page(25)
       @search.class.expects(:get).with('http://search.twitter.com/search.json', :query => {:rpp => 25, :q => ''}, :format => :json, :headers => {'User-Agent' => 'Ruby Twitter Gem'}).returns({'foo' => 'bar'})
       @search.fetch()
     end
 
-    should "should be able to specify the page number" do
+    should "be able to specify the page number" do
       @search.page(20)
       @search.class.expects(:get).with('http://search.twitter.com/search.json', :query => {:page => 20, :q => ''}, :format => :json, :headers => {'User-Agent' => 'Ruby Twitter Gem'}).returns({'foo' => 'bar'})
       @search.fetch()
     end
 
-    should "should be able to specify only returning results greater than an id" do
+    should "be able to specify only returning results greater than an id" do
       @search.since(1234)
       @search.class.expects(:get).with('http://search.twitter.com/search.json', :query => {:since_id => 1234, :q => ''}, :format => :json, :headers => {'User-Agent' => 'Ruby Twitter Gem'}).returns({'foo' => 'bar'})
       @search.fetch()
     end
 
-    should "should be able to specify since a date" do
+    should "be able to specify since a date" do
       @search.since_date('2009-04-14')
       @search.class.expects(:get).with('http://search.twitter.com/search.json', :query => { :since => '2009-04-14', :q => ''}, :format => :json, :headers => {'User-Agent' => 'Ruby Twitter Gem'}).returns({ 'foo' => 'bar'})
       @search.fetch
     end
 
-    should "should be able to specify until a date" do
+    should "be able to specify until a date" do
       @search.until_date('2009-04-14')
       @search.class.expects(:get).with('http://search.twitter.com/search.json', :query => { :until => '2009-04-14', :q => ''}, :format => :json, :headers => {'User-Agent' => 'Ruby Twitter Gem'}).returns({ 'foo' => 'bar'})
       @search.fetch
     end
 
-    should "should be able to specify geo coordinates" do
+    should "be able to specify geo coordinates" do
       @search.geocode('40.757929', '-73.985506', '25mi')
       @search.class.expects(:get).with('http://search.twitter.com/search.json', :query => {:geocode => '40.757929,-73.985506,25mi', :q => ''}, :format => :json, :headers => {'User-Agent' => 'Ruby Twitter Gem'}).returns({'foo' => 'bar'})
       @search.fetch()
     end
 
-    should "should be able to specify max id" do
+    should "be able to specify max id" do
       @search.max(1234)
       @search.class.expects(:get).with('http://search.twitter.com/search.json', :query => {:max_id => 1234, :q => ''}, :format => :json, :headers => {'User-Agent' => 'Ruby Twitter Gem'}).returns({'foo' => 'bar'})
       @search.fetch()
     end
 
-    should "should be able to set the phrase" do
+    should "be able to set the phrase" do
       @search.phrase("Who Dat")
       @search.class.expects(:get).with('http://search.twitter.com/search.json', :query => {:phrase => "Who Dat", :q => ''}, :format => :json, :headers => {'User-Agent' => 'Ruby Twitter Gem'}).returns({'foo' => 'bar'})
       @search.fetch()
     end
 
-    should "should be able to set the result type" do
+    should "be able to set the result type" do
       @search.result_type("popular")
       @search.class.expects(:get).with('http://search.twitter.com/search.json', :query => {:result_type => 'popular', :q => ''}, :format => :json, :headers => {'User-Agent' => 'Ruby Twitter Gem'}).returns({'foo' => 'bar'})
       @search.fetch()
     end
 
-    should "should be able to clear the filters set" do
+    should "be able to clear the filters set" do
       @search.from('jnunemaker').to('oaknd1')
-      @search.clear.query.should == {:q => []}
+      assert_equal [], @search.clear.query[:q]
     end
 
-    should "should be able to chain methods together" do
+    should "be able to chain methods together" do
       @search.from('jnunemaker').to('oaknd1').referencing('orderedlist').containing('milk').retweeted.hashed('twitter').lang('en').per_page(20).since(1234).geocode('40.757929', '-73.985506', '25mi')
-      @search.query[:q].should == ['from:jnunemaker', 'to:oaknd1', '@orderedlist', 'milk', 'rt', '#twitter']
-      @search.query[:lang].should == 'en'
-      @search.query[:rpp].should == 20
-      @search.query[:since_id].should == 1234
-      @search.query[:geocode].should == '40.757929,-73.985506,25mi'
+      assert_equal ['from:jnunemaker', 'to:oaknd1', '@orderedlist', 'milk', 'rt', '#twitter'], @search.query[:q]
+      assert_equal 'en', @search.query[:lang]
+      assert_equal 20, @search.query[:rpp]
+      assert_equal 1234, @search.query[:since_id]
+      assert_equal '40.757929,-73.985506,25mi', @search.query[:geocode]
     end
 
-    should "should not replace the current query when fetching" do
+    should "not replace the current query when fetching" do
       stub_get('http://search.twitter.com/search.json?q=milk%20cheeze', 'search_milk_cheeze.json')
       @search.containing('milk').containing('cheeze')
-      @search.query[:q].should == ['milk', 'cheeze']
+      assert_equal ['milk', 'cheeze'], @search.query[:q]
       @search.fetch
-      @search.query[:q].should == ['milk', 'cheeze']
+      assert_equal ['milk', 'cheeze'], @search.query[:q]
     end
 
     context "fetching" do
@@ -174,14 +174,14 @@ class SearchTest < Test::Unit::TestCase
         @response = @search.fetch
       end
 
-      should "should return results" do
-        @response.results.size.should == 15
+      should "return results" do
+        assert_equal 15, @response.results.size
       end
 
-      should "should support dot notation" do
+      should "support dot notation" do
         first = @response.results.first
-        first.text.should == %q(Someone asked about a tweet reader. Easy to do in ruby with @jnunemaker's twitter gem and the win32-sapi gem, if you are on windows.)
-        first.from_user.should == 'PatParslow'
+        assert_equal %q(Someone asked about a tweet reader. Easy to do in ruby with @jnunemaker's twitter gem and the win32-sapi gem, if you are on windows.), first.text
+        assert_equal 'PatParslow', first.from_user
       end
 
       should "cache fetched results so multiple fetches don't keep hitting API" do
@@ -195,7 +195,7 @@ class SearchTest < Test::Unit::TestCase
       end
 
       should "tell if another page is available" do
-        @search.next_page?.should == true
+        assert @search.next_page?
       end
 
       should "be able to fetch the next page" do
@@ -220,7 +220,7 @@ class SearchTest < Test::Unit::TestCase
       end
     end
 
-    should "should be able to iterate over results" do
+    should "be able to iterate over results" do
       @search.respond_to?(:each).should be(true)
     end
   end

@@ -8,23 +8,23 @@ class RequestTest < Test::Unit::TestCase
     end
 
     should "have client" do
-      @request.client.should == @client
+      assert_equal @client, @request.client
     end
 
     should "have method" do
-      @request.method.should == :get
+      assert_equal :get, @request.method
     end
 
     should "have path" do
-      @request.path.should == '/1/statuses/user_timeline.json'
+      assert_equal '/1/statuses/user_timeline.json', @request.path
     end
 
     should "have options" do
-      @request.options[:query].should == {:since_id => 1234}
+      assert_equal 1234, @request.options[:query][:since_id]
     end
 
     should "have uri" do
-      @request.uri.should == '/1/statuses/user_timeline.json?since_id=1234'
+      assert_equal '/1/statuses/user_timeline.json?since_id=1234', @request.uri
     end
 
     context "performing request for collection" do
@@ -39,9 +39,9 @@ class RequestTest < Test::Unit::TestCase
       end
 
       should "return array of mashes" do
-        @object.size.should == 20
-        @object.each { |obj| obj.class.should be(Hashie::Mash) }
-        @object.first.text.should == 'Colder out today than expected. Headed to the Beanery for some morning wakeup drink. Latte or coffee...hmmm...'
+        assert_equal 20, @object.size
+        assert_equal Hashie::Mash, @object.first.class
+        assert_equal 'Colder out today than expected. Headed to the Beanery for some morning wakeup drink. Latte or coffee...hmmm...', @object.first.text
       end
     end
 
@@ -58,21 +58,21 @@ class RequestTest < Test::Unit::TestCase
 
       should "return a single mash" do
         @object.class.should be(Hashie::Mash)
-        @object.text.should == 'Rob Dyrdek is the funniest man alive. That is all.'
+        assert_equal 'Rob Dyrdek is the funniest man alive. That is all.', @object.text
       end
     end
 
     context "with no query string" do
       should "not have any query string" do
         request = Twitter::Request.new(@client, :get, '/1/statuses/user_timeline.json')
-        request.uri.should == '/1/statuses/user_timeline.json'
+        assert_equal '/1/statuses/user_timeline.json', request.uri
       end
     end
 
     context "with blank query string" do
       should "not have any query string" do
         request = Twitter::Request.new(@client, :get, '/1/statuses/user_timeline.json', :query => {})
-        request.uri.should == '/1/statuses/user_timeline.json'
+        assert_equal '/1/statuses/user_timeline.json', request.uri
       end
     end
 
@@ -120,7 +120,7 @@ class RequestTest < Test::Unit::TestCase
       end
 
       should "return a mash of the object" do
-        @object.text.should == 'Rob Dyrdek is the funniest man alive. That is all.'
+        assert_equal 'Rob Dyrdek is the funniest man alive. That is all.', @object.text
       end
     end
 
