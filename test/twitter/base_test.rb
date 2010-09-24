@@ -166,9 +166,15 @@ class BaseTest < Test::Unit::TestCase
         assert !@twitter.friendship_show(:source_screen_name => "dcrec1", :target_screen_name => "pengwynn").relationship.target.followed_by
       end
 
-      should "be able to lookup a user" do
-        stub_get("/1/users/show/4243.json", "user.json")
+      should "be able to lookup a user by id" do
+        stub_get("/1/users/show.json?user_id=4243", "user.json")
         user = @twitter.user(4243)
+        assert_equal 'jnunemaker', user.screen_name
+      end
+
+      should "be able to lookup a user by screen_name" do
+        stub_get("/1/users/show.json?screen_name=jnunemaker", "user.json")
+        user = @twitter.user('jnunemaker')
         assert_equal 'jnunemaker', user.screen_name
       end
 
