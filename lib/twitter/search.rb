@@ -79,6 +79,11 @@ module Twitter
       self
     end
 
+    def locale(locale)
+      @query[:locale] = locale
+      self
+    end
+
     # popular|recent
     def result_type(result_type)
       @query[:result_type] = result_type

@@ -91,6 +91,12 @@ class SearchTest < Test::Unit::TestCase
       @search.fetch()
     end
 
+    should "be able to specify the locale" do
+      stub_get("http://search.twitter.com/search.json?q=&locale=ja", "search.json")
+      @search.locale('ja')
+      @search.fetch()
+    end
+
     should "be able to specify the number of results per page" do
       @search.per_page(25)
       @search.class.expects(:get).with('http://search.twitter.com/search.json', :query => {:rpp => 25, :q => ''}, :format => :json, :headers => {'User-Agent' => 'Ruby Twitter Gem'}).returns({'foo' => 'bar'})
