@@ -91,8 +91,13 @@ module Twitter
       perform_get("/#{Twitter.api_version}/statuses/followers.json", :query => query)
     end
 
-    def user(id, query={})
-      perform_get("/#{Twitter.api_version}/users/show/#{id}.json", :query => query)
+    def user(id_or_username, query={})
+      if id_or_username.is_a?(Integer)
+        query.merge!({:user_id => id_or_username})
+      elsif id_or_username.is_a?(String)
+        query.merge!({:screen_name => id_or_username})
+      end
+      perform_get("/#{Twitter.api_version}/users/show.json", :query => query)
     end
 
     def users(*ids_or_usernames)
