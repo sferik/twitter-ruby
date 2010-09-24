@@ -24,6 +24,14 @@ module Twitter
   class InformTwitter < StandardError; end
   class NotFound      < StandardError; end
 
+  def self.user_agent
+    @user_agent ||= 'Ruby Twitter Gem'
+  end
+
+  def self.user_agent=(value)
+    @user_agent = value
+  end
+
   def self.api_endpoint
     @api_endpoint ||= "api.twitter.com/#{self.api_version}"
   end
