@@ -58,7 +58,7 @@ class SearchTest < Test::Unit::TestCase
     end
 
     should "should be able to specify not containing" do
-      @search.containing('milk',true).query[:q].should include('-milk')
+      @search.containing('milk', true).query[:q].should include('-milk')
     end
 
     should "should alias contains to containing" do
@@ -155,6 +155,14 @@ class SearchTest < Test::Unit::TestCase
       @search.query[:geocode].should == '40.757929,-73.985506,25mi'
     end
 
+    should "should not replace the current query when fetching" do
+      stub_get('http://search.twitter.com/search.json?q=milk%20cheeze', 'search_milk_cheeze.json')
+      @search.containing('milk').containing('cheeze')
+      @search.query[:q].should == ['milk', 'cheeze']
+      @search.fetch
+      @search.query[:q].should == ['milk', 'cheeze']
+    end
+
     context "fetching" do
       setup do
         stub_get('http://search.twitter.com/search.json?q=%40jnunemaker', 'search.json')
@@ -172,12 +180,12 @@ class SearchTest < Test::Unit::TestCase
         first.from_user.should == 'PatParslow'
       end
 
-      should "cache fetched results so multiple fetches don't keep hitting api" do
+      should "cache fetched results so multiple fetches don't keep hitting API" do
         Twitter::Search.expects(:get).never
         @search.fetch
       end
 
-      should "rehit api if fetch is called with true" do
+      should "rehit API if fetch is called with true" do
         Twitter::Search.expects(:get).once
         @search.fetch(true)
       end
