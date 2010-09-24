@@ -22,6 +22,7 @@ GEM
     oauth (0.4.3)
     rake (0.8.7)
     shoulda (2.11.3)
+    yajl-ruby (0.7.7)
 
 PLATFORMS
   ruby
@@ -36,3 +37,4 @@ DEPENDENCIES
   oauth (~> 0.4.3)
   shoulda (~> 2.11.3)
   twitter!
+  yajl-ruby (~> 0.7.7)

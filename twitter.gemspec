@@ -6,6 +6,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency("jnunemaker-matchy", ["~> 0.4.0"])
   s.add_development_dependency("mocha", ["~> 0.9.8"])
   s.add_development_dependency("shoulda", ["~> 2.11.3"])
+  s.add_development_dependency("yajl-ruby", ["~> 0.7.7"])
   s.add_runtime_dependency("hashie", ["~> 0.4.0"])
   s.add_runtime_dependency("httparty", ["~> 0.6.1"])
   s.add_runtime_dependency("oauth", ["~> 0.4.3"])
