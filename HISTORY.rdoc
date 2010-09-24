@@ -1,3 +1,9 @@
+=== 0.9.11 - September 24, 2010
+* {Add a <tt>filter</tt> method to the <tt>Search</tt> class}[http://github.com/jnunemaker/twitter/commit/0b37998055158d4fed0e3c296d8d2a42ac77d5d9] (@pjdavis[http://twitter.com/#!/pjdavis])
+* {Add test to ensure <tt>fetch</tt> doesn't overwrite <tt>@query[:q]</tt>}[http://github.com/jnunemaker/twitter/commit/2e05847cf70692b760c45dd54b6bad820176c9bd] (@pjdavis[http://twitter.com/#!/pjdavis])
+* {Add <tt>retweeted</tt> and <tt>not_retweeted</tt> methods to <tt>Search</tt> class}[http://github.com/jnunemaker/twitter/commit/9ef83acdcbe682a8b5a325f89d566f7ef97fffc2] (@levycarneiro[http://twitter.com/#!/levycarneiro])
+* {Switch from YAJL to MultiJson}[http://github.com/jnunemaker/twitter/commit/60a7cb179e77319e03c595850119b63fb413a53d] (@MichaelRykov[http://twitter.com/#!/MichaelRykov])
+
 === 0.9.10 - September 23, 2010
 * {Specify Twitter API version for all REST API calls}[http://github.com/jnunemaker/twitter/commit/76b1fa31588bbc20166464313027f75e3771e385]
 * {Parse all responses with YAJL JSON parser}[http://github.com/jnunemaker/twitter/commit/c477f368fde6161dbae59ea7bc7c7d182b15721b]
