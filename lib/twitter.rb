@@ -114,21 +114,12 @@ module Twitter
 
   def self.mash(obj)
     if obj.is_a?(Array)
-      obj.map{|item| make_mash_with_consistent_hash(item)}
+      obj.map{|item| Hashie::Mash.new(item)}
     elsif obj.is_a?(Hash)
-      make_mash_with_consistent_hash(obj)
+      Hashie::Mash.new(obj)
     else
       obj
     end
-  end
-
-  # Lame workaround for the fact that mash doesn't hash correctly
-  def self.make_mash_with_consistent_hash(obj)
-    m = Hashie::Mash.new(obj)
-    def m.hash
-      inspect.hash
-    end
-    return m
   end
 
 end

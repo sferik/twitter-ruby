@@ -156,12 +156,6 @@ class BaseTest < Test::Unit::TestCase
         friend_ids.first.should == 15323
       end
 
-      should "correctly hash statuses" do
-        stub_get("/1/statuses/friends_timeline.json", "friends_timeline.json")
-        hashes = @twitter.friends_timeline.map{ |s| s.hash }
-        hashes.should == @twitter.friends_timeline.map{ |s| s.hash }
-      end
-
       should "be able to test whether a friendship exists" do
         stub_get("/1/friendships/exists.json?user_a=pengwynn&user_b=sferik", "friendship_exists.json")
         @twitter.friendship_exists?("pengwynn", "sferik").should == true
