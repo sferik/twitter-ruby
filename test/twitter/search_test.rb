@@ -7,7 +7,7 @@ class SearchTest < Test::Unit::TestCase
     end
 
     should "be able to initialize with a search term" do
-      Twitter::Search.new('httparty').query[:q].should include('httparty')
+      assert Twitter::Search.new('httparty').query[:q].include? 'httparty'
     end
 
     should "default user agent to Ruby Twitter Gem" do
@@ -26,63 +26,63 @@ class SearchTest < Test::Unit::TestCase
     end
 
     should "be able to specify from" do
-      @search.from('jnunemaker').query[:q].should include('from:jnunemaker')
+      assert @search.from('jnunemaker').query[:q].include? 'from:jnunemaker'
     end
 
     should "be able to specify not from" do
-      @search.from('jnunemaker',true).query[:q].should include('-from:jnunemaker')
+      assert @search.from('jnunemaker',true).query[:q].include? '-from:jnunemaker'
     end
 
     should "be able to specify to" do
-      @search.to('jnunemaker').query[:q].should include('to:jnunemaker')
+      assert @search.to('jnunemaker').query[:q].include? 'to:jnunemaker'
     end
 
     should "be able to specify not to" do
-      @search.to('jnunemaker',true).query[:q].should include('-to:jnunemaker')
+      assert @search.to('jnunemaker',true).query[:q].include? '-to:jnunemaker'
     end
 
     should "be able to specify not referencing" do
-      @search.referencing('jnunemaker',true).query[:q].should include('-@jnunemaker')
+      assert @search.referencing('jnunemaker',true).query[:q].include? '-@jnunemaker'
     end
 
     should "alias references to referencing" do
-      @search.references('jnunemaker').query[:q].should include('@jnunemaker')
+      assert @search.references('jnunemaker').query[:q].include? '@jnunemaker'
     end
 
     should "alias ref to referencing" do
-      @search.ref('jnunemaker').query[:q].should include('@jnunemaker')
+      assert @search.ref('jnunemaker').query[:q].include? '@jnunemaker'
     end
 
     should "be able to specify containing" do
-      @search.containing('milk').query[:q].should include('milk')
+      assert @search.containing('milk').query[:q].include? 'milk'
     end
 
     should "be able to specify not containing" do
-      @search.containing('milk', true).query[:q].should include('-milk')
+      assert @search.containing('milk', true).query[:q].include? '-milk'
     end
 
     should "alias contains to containing" do
-      @search.contains('milk').query[:q].should include('milk')
+      assert @search.contains('milk').query[:q].include? 'milk'
     end
 
     should "be able to specify retweeted" do
-      @search.retweeted.query[:q].should include('rt')
+      assert @search.retweeted.query[:q].include? 'rt'
     end
 
     should "be able to specify not_retweeted" do
-      @search.not_retweeted.query[:q].should include('-rt')
+      assert @search.not_retweeted.query[:q].include? '-rt'
     end
 
     should "be able to specify filters" do
-      @search.filter('links').query[:q].should include('filter:links')
+      assert @search.filter('links').query[:q].include? 'filter:links'
     end
 
     should "be able to specify hashed" do
-      @search.hashed('twitter').query[:q].should include('#twitter')
+      assert @search.hashed('twitter').query[:q].include? '#twitter'
     end
 
     should "be able to specify not hashed" do
-      @search.hashed('twitter',true).query[:q].should include('-#twitter')
+      assert @search.hashed('twitter',true).query[:q].include? '-#twitter'
     end
 
     should "be able to specify the language" do
@@ -211,17 +211,17 @@ class SearchTest < Test::Unit::TestCase
       end
 
       should "work" do
-        @search.each { |result| result.should_not be(nil) }
+        @search.each { |result| assert result }
       end
 
       should "work multiple times in a row" do
-        @search.each { |result| result.should_not be(nil) }
-        @search.each { |result| result.should_not be(nil) }
+        @search.each { |result| assert result }
+        @search.each { |result| assert result }
       end
     end
 
     should "be able to iterate over results" do
-      @search.respond_to?(:each).should be(true)
+      assert_respond_to @search, :each
     end
   end
 

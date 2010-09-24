@@ -177,9 +177,9 @@ class BaseTest < Test::Unit::TestCase
         users = @twitter.users("sferik", 59593, 774010)
         assert_equal 3, users.count
         usernames = users.map{|user| user["screen_name"]}
-        usernames.should include "sferik"
-        usernames.should include "jm3"
-        usernames.should include "jamiew"
+        assert usernames.include? "sferik"
+        assert usernames.include? "jm3"
+        assert usernames.include? "jamiew"
       end
 
       should "be able to search people" do

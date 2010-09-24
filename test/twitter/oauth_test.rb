@@ -72,7 +72,7 @@ class OAuthTest < Test::Unit::TestCase
       returns(request_token)
 
     twitter.authorize_from_request('rtoken', 'rsecret', 'verifier')
-    twitter.access_token.class.should be(OAuth::AccessToken)
+    assert_kind_of OAuth::AccessToken, twitter.access_token
     assert_equal 'atoken', twitter.access_token.token
     assert_equal 'asecret', twitter.access_token.secret
   end
@@ -82,7 +82,7 @@ class OAuthTest < Test::Unit::TestCase
     consumer = OAuth::Consumer.new('token', 'secret', {:site => 'http://api.twitter.com'})
     twitter.stubs(:consumer).returns(consumer)
     twitter.authorize_from_access('atoken', 'asecret')
-    twitter.access_token.class.should be(OAuth::AccessToken)
+    assert_kind_of OAuth::AccessToken, twitter.access_token
     assert_equal 'atoken', twitter.access_token.token
     assert_equal 'asecret', twitter.access_token.secret
   end

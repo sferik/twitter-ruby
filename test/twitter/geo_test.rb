@@ -10,7 +10,7 @@ class GeoTest < Test::Unit::TestCase
       place = Geo.place('ea76a36c5bc2bdff')
       assert_equal 'The United States of America', place.country
       assert_equal 'Ballantyne West, Charlotte', place.full_name
-      place.geometry.coordinates.should be_kind_of(Array)
+      assert_kind_of Array, place.geometry.coordinates
     end
 
   end

@@ -1,7 +1,6 @@
 require "test/unit"
 require "pathname"
 require "shoulda"
-require "matchy"
 require "mocha"
 require "fakeweb"
 
