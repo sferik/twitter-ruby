@@ -78,7 +78,7 @@ module Twitter
     end
 
     def retweet(id)
-      perform_post("statuses/retweet/#{id}.json")
+      perform_post("statuses/retweet/#{id}.json", :body => {})
     end
 
     # Options: id, user_id, screen_name, page
@@ -303,7 +303,7 @@ module Twitter
     end
 
     def list_subscribe(list_owner_screen_name, slug)
-      perform_post("#{list_owner_screen_name}/#{slug}/subscribers.json")
+      perform_post("#{list_owner_screen_name}/#{slug}/subscribers.json", :body => {})
     end
 
     def list_unsubscribe(list_owner_screen_name, slug)
