@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    twitter (0.9.11)
+    twitter (0.9.12)
       hashie (~> 0.4.0)
       httparty (~> 0.6.1)
       multi_json (~> 0.0.4)

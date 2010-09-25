@@ -1,3 +1,10 @@
+=== 0.9.12 - September 25, 2010
+* {Rename parameters to be less confusing}[http://github.com/rorra/twitter/commit/cd7ea8de6663d6ed5ea22b590d39adc72646fc1e] (@rorra[http://twitter.com/#!/rorra])
+* {Update <tt>user</tt> method to match the Twitter API docs}[http://github.com/jnunemaker/twitter/commit/cb31e4a26b20d93006d568fab50ccce5c4d1626f] (@nerdEd[http://twitter.com/#!/nerdEd])
+* {Add aliases for search methods}[http://github.com/jnunemaker/twitter/commit/05dd3e5a058ef69f874cfe33ae35b01f574e549b]
+* {Add <tt>user_agent</tt> methods to <tt>Base</tt> class}[http://github.com/jnunemaker/twitter/commit/0fc68f1c52e3b754194fe8a9cfbd9d4499eacbe1]
+* {Add <tt>locale</tt> method to <tt>Search</tt> class}[http://github.com/jnunemaker/twitter/commit/584bcf9eb896530a87e4122fb1a020c35744f0cf]
+
 === 0.9.11 - September 24, 2010
 * {Add a <tt>filter</tt> method to the <tt>Search</tt> class}[http://github.com/jnunemaker/twitter/commit/0b37998055158d4fed0e3c296d8d2a42ac77d5d9] (@pjdavis[http://twitter.com/#!/pjdavis])
 * {Add test to ensure <tt>fetch</tt> doesn't overwrite <tt>@query[:q]</tt>}[http://github.com/jnunemaker/twitter/commit/2e05847cf70692b760c45dd54b6bad820176c9bd] (@pjdavis[http://twitter.com/#!/pjdavis])
@@ -133,7 +140,7 @@
 
 === 0.6.12 - June 26, 2009
 * {Fix <tt>fakeweb</tt> test issue}[http://github.com/jnunemaker/twitter/commit/cdd9dba19f6edc21f1b7eefb66db133dec682423] (@obie[http://twitter.com/#!/obie])
-* {Add <tt>user_agent</tt> parameter to search}[http://github.com/jnunemaker/twitter/commit/e8fbad6a9cfdcfaad4938f7243fc971a1ea8ac8c]
+* {Add <tt>user_agent</tt> method to <tt>Search</tt> class}[http://github.com/jnunemaker/twitter/commit/e8fbad6a9cfdcfaad4938f7243fc971a1ea8ac8c]
 
 === 0.6.11 - May 18, 2009
 * {Add the ability to sign in with Twitter instead of authorizing}[http://github.com/jnunemaker/twitter/commit/68b6252a21e7e773d108027f693b8378593e21ad]
