@@ -80,7 +80,16 @@
   a {
     color: #4b1a1a;
   }
+  
+  a.top {
+    text-decoration: none;
+  }
 
+  a.top:hover {
+    border-bottom:2px dotted;
+    border-bottom-color:#5c5757;
+  }
+ 
   a:hover {
     text-decoration: none;
   }
@@ -110,7 +119,8 @@
   }
 
   h3 {
-    font-size: 152%;
+    color: #b8111a;
+    font-size: 140%;
     margin: 10px 0;
   }
 
@@ -130,6 +140,8 @@
 
   code {
     font-size: 100%;
+    font-family: 'Monaco';
+    color: #4b1a1a;
     margin: 0;
     padding: 0;
   }
@@ -148,7 +160,7 @@
     border-width: 0 10px;
     margin: 0 auto;
     padding: 20px;
-    width: 560px;
+    width: 670px;
   }
 
   div#header {

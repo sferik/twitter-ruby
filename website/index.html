@@ -9,7 +9,8 @@
 
 <div id="wrapper">
   <div id="header">
-    <h1>Twitter</h1>
+    <h1><a href='/' class='top'>Twitter</a></h1>
+    <br>
     <p>API wrapper for Twitter and Twitter Search API's</p>
 
     <ul id="nav">
@@ -25,7 +26,7 @@
     <p>The Twitter gem uses OAuth for authentication. OAuth is scary at first, but not once you try it out a little bit. Feel free to read my <a href="http://railstips.org/2009/3/29/oauth-explained-and-what-it-is-good-for">article on OAuth</a> to get past the scary part. Also, I have created an <a href="http://github.com/jnunemaker/twitter-app/">example app</a> that uses OAuth and the Twitter gem for you to peruse.</p>
 
     <h2>Install</h2>
-    <pre><code>$ sudo gem install twitter</code></pre>
+    <pre><code>$ gem install twitter</code></pre>
 
     <h2>Examples</h2>
 
@@ -43,7 +44,7 @@ client.replies.each          { |tweet| puts tweet.inspect }
 
 client.update('Heeeyyyyoooo from Twitter Gem!')</code></pre>
 
-    <h2>Search API Examples</h2>
+    <h3>Search API Examples</h3>
 
 <pre><code>#searches all tweets for httparty
 Twitter::Search.new('httparty').each do |r|
@@ -65,7 +66,7 @@ Twitter::Search.new.from('jnunemaker').to('oaknd1').fetch()
 </code></pre>
 
 
-    <h2>Trends API Examples</h2>
+    <h3>Trends API Examples</h3>
 
 <pre><code>Twitter::Trends.current
 Twitter::Trends.current(:exclude => 'hashtags')
@@ -79,7 +80,7 @@ Twitter::Trends.weekly(:exclude => 'hashtags')
 Twitter::Trends.weekly(:date => Date.new(2009, 5, 1))
 </code></pre>
 
-    <h2>Lists Examples</h2>
+    <h3>Lists Examples</h3>
 
 <pre><code># NOT SHOWN: granting access to twitter on website
 # and using request token to generate access token
@@ -91,6 +92,9 @@ client.lists('pengwynn')
 client.list_members('pengwynn', 'rubyists')
 client.list_create('pengwynn', 'razorback_fans')
 </code></pre>
+
+    <p> You can check out the <a href='http://github.com/rodrigo3n/twitter/tree/master/examples/'>examples</a> directory of the Twitter Gem, there is a bunch of other examples. </p>
+    <p> Also, there is a <a href='http://github.com/jnunemaker/twitter-app'>Rails 2.3 demo app</a> from <a href='http://twitter.com/jnunemaker'>@jnunemaker</a> showing how to explore the Twitter API through the Twitter gem.</p>
 
     <!-- <h2>Command Line</h2>
 
