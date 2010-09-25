@@ -3,19 +3,19 @@ module Twitter
     extend Forwardable
 
     def self.get(client, path, options={})
-      new(client, :get, path, options).perform
+      new(client, :get, path, options).perform_get
     end
 
     def self.post(client, path, options={})
-      new(client, :post, path, options).perform
+      new(client, :post, path, options).perform_post
     end
 
     def self.put(client, path, options={})
-      new(client, :put, path, options).perform
+      new(client, :put, path, options).perform_put
     end
 
     def self.delete(client, path, options={})
-      new(client, :delete, path, options).perform
+      new(client, :delete, path, options).perform_delete
     end
 
     attr_reader :client, :method, :path, :options
@@ -38,27 +38,43 @@ module Twitter
       end
     end
 
-    def perform
-      Twitter.make_friendly(send("perform_#{method}"))
+    def connection
+      headers = {
+        :user_agent => Twitter.user_agent
+      }
+      @connection ||= Faraday::Connection.new(:url => Twitter.api_endpoint, :headers => headers) do |builder|
+        builder.adapter(@adapter || Faraday.default_adapter)
+        builder.use Faraday::Response::RaiseErrors
+        builder.use Faraday::Response::MultiJson
+        builder.use Faraday::Response::Mashify
+      end
     end
 
-    private
-
     def perform_get
-      get(uri, options[:headers])
+      results = connection.get do |req|
+        req.url uri
+      end.body
     end
 
     def perform_post
-      post(uri, options[:body], options[:headers])
+      results = connection.post do |req|
+        req.url uri, options[:body]
+      end.body
     end
 
     def perform_put
-      put(uri, options[:body], options[:headers])
+      results = connection.put do |req|
+        req.url uri, options[:body]
+      end.body
     end
 
     def perform_delete
-      delete(uri, options[:headers])
+      results = connection.delete do |req|
+        req.url uri
+      end.body
     end
+
+    private
 
     def to_query(options)
       options.inject([]) do |collection, opt|

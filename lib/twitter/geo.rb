@@ -1,24 +1,43 @@
 module Twitter
   class Geo
-    include HTTParty
-    base_uri "api.twitter.com/#{Twitter.api_version}/geo"
 
-    def self.place(place_id, query={})
-      Twitter.mash(Twitter.parse(get("/id/#{place_id}.json", :query => query)))
+    def initialize(options={})
+      @adapter = options.delete(:adapter)
+      @api_endpoint = "api.twitter.com/#{Twitter.api_version}/geo"
+      @api_endpoint = Addressable::URI.heuristic_parse(@api_endpoint)
+      @api_endpoint = @api_endpoint.to_s
     end
 
-    def self.search(query={})
-      mashup(get("/search.json", :query => query))
+    def place(place_id, options={})
+      results = connection.get do |req|
+        req.url "id/#{place_id}.json", options
+      end.body
+      results
     end
 
-    def self.reverse_geocode(query={})
-      mashup(get("/reverse_geocode.json", :query => query))
+    def search(options={})
+      results = connection.get do |req|
+        req.url "search.json", options
+      end.body
+      results.result.values.flatten
     end
 
-    private
+    def reverse_geocode(options={})
+      results = connection.get do |req|
+        req.url "reverse_geocode.json", options
+      end.body
+      results.result.values.flatten
+    end
 
-    def self.mashup(response)
-      Twitter.parse(response)["result"].values.flatten.map{|t| Twitter.mash(t)}
+    def connection
+      headers = {
+        :user_agent => Twitter.user_agent
+      }
+      @connection ||= Faraday::Connection.new(:url => @api_endpoint, :headers => headers) do |builder|
+        builder.adapter(@adapter || Faraday.default_adapter)
+        builder.use Faraday::Response::MultiJson
+        builder.use Faraday::Response::Mashify
+      end
     end
 
   end

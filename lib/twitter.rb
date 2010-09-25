@@ -1,11 +1,48 @@
-require "forwardable"
-require "oauth"
-require "hashie"
-require "httparty"
-require "multi_json"
+require 'addressable/uri'
+require 'faraday'
+require 'faraday_middleware'
+require 'forwardable'
+require 'hashie'
+require 'multi_json'
+require 'oauth'
 
 module Twitter
-  include HTTParty
+
+  def self.adapter
+    @adapter ||= Faraday.default_adapter
+  end
+
+  def self.adapter=(value)
+    @adapter = value
+  end
+
+  def self.user_agent
+    @user_agent ||= 'Ruby Twitter Gem'
+  end
+
+  def self.user_agent=(value)
+    @user_agent = value
+  end
+
+  def self.api_endpoint
+    api_endpoint = "api.twitter.com/#{Twitter.api_version}"
+    api_endpoint = Addressable::URI.heuristic_parse(api_endpoint).to_s
+    @api_endpoint ||= api_endpoint
+  end
+
+  def self.api_endpoint=(value)
+    @api_endpoint = Addressable::URI.heuristic_parse(value).to_s
+  end
+
+  def self.api_version
+    @api_version ||= "1"
+  end
+
+  def self.api_version=(value)
+    @api_version = value
+  end
+
+  private
 
   class TwitterError < StandardError
     attr_reader :data
@@ -17,84 +54,11 @@ module Twitter
   end
 
   class RateLimitExceeded < TwitterError; end
-  class Unauthorized      < TwitterError; end
-  class General           < TwitterError; end
-
-  class Unavailable   < StandardError; end
+  class Unauthorized < TwitterError; end
+  class General < TwitterError; end
+  class Unavailable < StandardError; end
   class InformTwitter < StandardError; end
-  class NotFound      < StandardError; end
-
-  def self.user_agent
-    @user_agent ||= 'Ruby Twitter Gem'
-  end
-
-  def self.user_agent=(value)
-    @user_agent = value
-  end
-
-  def self.api_endpoint
-    @api_endpoint ||= "api.twitter.com/#{self.api_version}"
-  end
-
-  def self.api_endpoint=(value)
-    @api_endpoint = value
-  end
-
-  def self.api_version
-    @api_version ||= "1"
-  end
-
-  def self.api_version=(value)
-    @api_version = value
-  end
-
-  def self.firehose(options = {})
-    perform_get("/statuses/public_timeline.json")
-  end
-
-  def self.user(id, options={})
-    perform_get("/users/show/#{id}.json")
-  end
-
-  def self.status(id, options={})
-    perform_get("/statuses/show/#{id}.json")
-  end
-
-  def self.friend_ids(id, options={})
-    perform_get("/friends/ids/#{id}.json")
-  end
-
-  def self.follower_ids(id, options={})
-    perform_get("/followers/ids/#{id}.json")
-  end
-
-  def self.timeline(id, options={})
-    perform_get("/statuses/user_timeline/#{id}.json", :query => options)
-  end
-
-  # :per_page = max number of statues to get at once
-  # :page = which page of tweets you wish to get
-  def self.list_timeline(list_owner_screen_name, slug, query = {})
-    perform_get("/#{list_owner_screen_name}/lists/#{slug}/statuses.json", :query => query)
-  end
-
-  private
-
-  def self.perform_get(uri, options = {})
-    base_uri self.api_endpoint
-    make_friendly(get(uri, options))
-  end
-
-  def self.make_friendly(response)
-    raise_errors(response)
-    data = parse(response)
-    # Don't mash arrays of integers
-    if data && data.is_a?(Array) && data.first.is_a?(Integer)
-      data
-    else
-      mash(data)
-    end
-  end
+  class NotFound < StandardError; end
 
   def self.raise_errors(response)
     case response.code.to_i
@@ -116,54 +80,13 @@ module Twitter
     end
   end
 
-  def self.parse(response)
-    case response.body
-    when ''
-      nil
-    when 'true'
-      true
-    when 'false'
-      false
-    else
-      MultiJson.decode(response.body)
-    end
-  end
-
-  def self.mash(obj)
-    if obj.is_a?(Array)
-      obj.map{|item| Hashie::Mash.new(item)}
-    elsif obj.is_a?(Hash)
-      Hashie::Mash.new(obj)
-    else
-      obj
-    end
-  end
-
 end
 
-module Hashie
-  class Mash
-
-    # Converts all of the keys to strings, optionally formatting key name
-    def rubyify_keys!
-      keys.each{|k|
-        v = delete(k)
-        new_key = k.to_s.underscore
-        self[new_key] = v
-        v.rubyify_keys! if v.is_a?(Hash)
-        v.each{|p| p.rubyify_keys! if p.is_a?(Hash)} if v.is_a?(Array)
-      }
-      self
-    end
-
-  end
-end
-
-directory = File.expand_path(File.dirname(__FILE__))
-
-require File.join(directory, "twitter", "oauth")
-require File.join(directory, "twitter", "request")
-require File.join(directory, "twitter", "base")
-require File.join(directory, "twitter", "search")
-require File.join(directory, "twitter", "trends")
-require File.join(directory, "twitter", "geo")
+require File.expand_path("../faraday/raise_errors", __FILE__)
+require File.expand_path("../twitter/oauth", __FILE__)
+require File.expand_path("../twitter/request", __FILE__)
+require File.expand_path("../twitter/base", __FILE__)
+require File.expand_path("../twitter/search", __FILE__)
+require File.expand_path("../twitter/trends", __FILE__)
+require File.expand_path("../twitter/geo", __FILE__)
+require File.expand_path("../twitter/unauthenticated", __FILE__)

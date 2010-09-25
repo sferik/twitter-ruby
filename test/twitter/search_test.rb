@@ -21,8 +21,8 @@ class SearchTest < Test::Unit::TestCase
     end
 
     should "pass user agent along with headers when making request" do
-      Twitter::Search.expects(:get).with('http://search.twitter.com/search.json', {:format => :json, :query => {:q => 'foo'}, :headers => {'User-Agent' => 'Foobar'}})
-      Twitter::Search.new('foo', :user_agent => 'Foobar').fetch()
+      s = Twitter::Search.new('foo', :user_agent => 'Foobar')
+      assert_equal 'Foobar', s.connection.headers['user_agent']
     end
 
     should "be able to specify from" do
@@ -86,69 +86,69 @@ class SearchTest < Test::Unit::TestCase
     end
 
     should "be able to specify the language" do
+      stub_get("http://search.twitter.com/search.json?q=&lang=en", "search.json")
       @search.lang('en')
-      @search.class.expects(:get).with('http://search.twitter.com/search.json', :query => {:lang => 'en', :q => ''}, :format => :json, :headers => {'User-Agent' => 'Ruby Twitter Gem'}).returns({'foo' => 'bar'})
-      @search.fetch()
+      @search.fetch
     end
 
     should "be able to specify the locale" do
       stub_get("http://search.twitter.com/search.json?q=&locale=ja", "search.json")
       @search.locale('ja')
-      @search.fetch()
+      @search.fetch
     end
 
     should "be able to specify the number of results per page" do
+      stub_get("http://search.twitter.com/search.json?q=&rpp=25", "search.json")
       @search.per_page(25)
-      @search.class.expects(:get).with('http://search.twitter.com/search.json', :query => {:rpp => 25, :q => ''}, :format => :json, :headers => {'User-Agent' => 'Ruby Twitter Gem'}).returns({'foo' => 'bar'})
-      @search.fetch()
+      @search.fetch
     end
 
     should "be able to specify the page number" do
+      stub_get("http://search.twitter.com/search.json?q=&page=20", "search.json")
       @search.page(20)
-      @search.class.expects(:get).with('http://search.twitter.com/search.json', :query => {:page => 20, :q => ''}, :format => :json, :headers => {'User-Agent' => 'Ruby Twitter Gem'}).returns({'foo' => 'bar'})
-      @search.fetch()
+      @search.fetch
     end
 
     should "be able to specify only returning results greater than an id" do
+      stub_get("http://search.twitter.com/search.json?q=&since_id=1234", "search.json")
       @search.since(1234)
-      @search.class.expects(:get).with('http://search.twitter.com/search.json', :query => {:since_id => 1234, :q => ''}, :format => :json, :headers => {'User-Agent' => 'Ruby Twitter Gem'}).returns({'foo' => 'bar'})
-      @search.fetch()
+      @search.fetch
     end
 
     should "be able to specify since a date" do
+      stub_get("http://search.twitter.com/search.json?q=&since=2009-04-14", "search.json")
       @search.since_date('2009-04-14')
-      @search.class.expects(:get).with('http://search.twitter.com/search.json', :query => { :since => '2009-04-14', :q => ''}, :format => :json, :headers => {'User-Agent' => 'Ruby Twitter Gem'}).returns({ 'foo' => 'bar'})
       @search.fetch
     end
 
     should "be able to specify until a date" do
+      stub_get("http://search.twitter.com/search.json?q=&until=2009-04-14", "search.json")
       @search.until_date('2009-04-14')
-      @search.class.expects(:get).with('http://search.twitter.com/search.json', :query => { :until => '2009-04-14', :q => ''}, :format => :json, :headers => {'User-Agent' => 'Ruby Twitter Gem'}).returns({ 'foo' => 'bar'})
       @search.fetch
     end
 
     should "be able to specify geo coordinates" do
+      stub_get("http://search.twitter.com/search.json?q=&geocode=40.757929%2C-73.985506%2C25mi", "search.json")
       @search.geocode('40.757929', '-73.985506', '25mi')
-      @search.class.expects(:get).with('http://search.twitter.com/search.json', :query => {:geocode => '40.757929,-73.985506,25mi', :q => ''}, :format => :json, :headers => {'User-Agent' => 'Ruby Twitter Gem'}).returns({'foo' => 'bar'})
-      @search.fetch()
+      @search.fetch
     end
 
     should "be able to specify max id" do
+      stub_get("http://search.twitter.com/search.json?q=&max_id=1234", "search.json")
       @search.max(1234)
-      @search.class.expects(:get).with('http://search.twitter.com/search.json', :query => {:max_id => 1234, :q => ''}, :format => :json, :headers => {'User-Agent' => 'Ruby Twitter Gem'}).returns({'foo' => 'bar'})
-      @search.fetch()
+      @search.fetch
     end
 
     should "be able to set the phrase" do
+      stub_get("http://search.twitter.com/search.json?q=&phrase=Who%20Dat", "search.json")
       @search.phrase("Who Dat")
-      @search.class.expects(:get).with('http://search.twitter.com/search.json', :query => {:phrase => "Who Dat", :q => ''}, :format => :json, :headers => {'User-Agent' => 'Ruby Twitter Gem'}).returns({'foo' => 'bar'})
-      @search.fetch()
+      @search.fetch
     end
 
     should "be able to set the result type" do
+      stub_get("http://search.twitter.com/search.json?q=&result_type=popular", "search.json")
       @search.result_type("popular")
-      @search.class.expects(:get).with('http://search.twitter.com/search.json', :query => {:result_type => 'popular', :q => ''}, :format => :json, :headers => {'User-Agent' => 'Ruby Twitter Gem'}).returns({'foo' => 'bar'})
-      @search.fetch()
+      @search.fetch
     end
 
     should "be able to clear the filters set" do
@@ -190,22 +190,12 @@ class SearchTest < Test::Unit::TestCase
         assert_equal 'PatParslow', first.from_user
       end
 
-      should "cache fetched results so multiple fetches don't keep hitting API" do
-        Twitter::Search.expects(:get).never
-        @search.fetch
-      end
-
-      should "rehit API if fetch is called with true" do
-        Twitter::Search.expects(:get).once
-        @search.fetch(true)
-      end
-
       should "tell if another page is available" do
         assert @search.next_page?
       end
 
       should "be able to fetch the next page" do
-        Twitter::Search.expects(:get).with('http://search.twitter.com/search.json', :query => 'page=2&max_id=1446791544&q=%40jnunemaker', :format => :json, :headers => {'User-Agent' => 'Ruby Twitter Gem'}).returns({'foo' => 'bar'})
+        stub_get("http://search.twitter.com/search.json?page%3D2%26max_id%3D1446791544%26q%3D%2540jnunemaker=", "search.json")
         @search.fetch_next_page
       end
     end
