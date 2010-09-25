@@ -1,53 +1,60 @@
-require File.join(File.expand_path(File.dirname(__FILE__)), "local_trends")
-
 module Twitter
   class Trends
-    include HTTParty
 
-    def self.api_endpoint
-      @api_endpoint ||= "api.twitter.com/#{Twitter.api_version}/trends"
-    end
-
-    def self.api_endpoint=(value)
-      @api_endpoint = value
-    end
-
-    # :exclude => 'hashtags' to exclude hashtags
-    def self.current(options={})
-      get("/current.json", :query => options)
+    def initialize(options={})
+      @adapter = options.delete(:adapter)
+      @api_endpoint = "api.twitter.com/#{Twitter.api_version}/trends"
+      @api_endpoint = Addressable::URI.heuristic_parse(@api_endpoint)
+      @api_endpoint = @api_endpoint.to_s
     end
 
     # :exclude => 'hashtags' to exclude hashtags
-    # :date => yyyy-mm-dd for specific date
-    def self.daily(options={})
-      get("/daily.json", :query => options)
+    def current(options={})
+      results = connection.get do |req|
+        req.url "current.json", options
+      end.body
+      results = results.trends.values.flatten
     end
 
     # :exclude => 'hashtags' to exclude hashtags
     # :date => yyyy-mm-dd for specific date
-    def self.weekly(options={})
-      get("/weekly.json", :query => options)
+    def daily(options={})
+      results = connection.get do |req|
+        req.url "daily.json", options
+      end.body
+      results = results.trends.values.flatten
     end
 
-    def self.available(query={})
-      # Checking for api_endpoint in local_trends
-      LocalTrends.available(query)
+    # :exclude => 'hashtags' to exclude hashtags
+    # :date => yyyy-mm-dd for specific date
+    def weekly(options={})
+      results = connection.get do |req|
+        req.url "weekly.json", options
+      end.body
+      results = results.trends.values.flatten
+    end
+  
+    def available(query={})
+      connection.get do |req|
+        req.url "available.json", query
+      end.body
     end
 
-    def self.for_location(woeid, options={})
-      # Checking for api_endpoint in local_trends
-      LocalTrends.for_location(woeid, options)
+    def for_location(woeid,options = {})
+      connection.get do |req|
+        req.url "#{woeid}.json", options
+      end.body
     end
 
-    private
-
-    def self.get(*args)
-      base_uri api_endpoint
-      mashup(super)
-    end
-
-    def self.mashup(response)
-      Twitter.parse(response)["trends"].values.flatten.map{|t| Twitter.mash(t)}
+    def connection
+      headers = {
+        :user_agent => Twitter.user_agent
+      }
+      @connection ||= Faraday::Connection.new(:url => @api_endpoint, :headers => headers) do |builder|
+        builder.adapter(@adapter || Faraday.default_adapter)
+        builder.use Faraday::Response::MultiJson
+        builder.use Faraday::Response::Mashify
+      end
     end
 
   end
