@@ -58,27 +58,6 @@ module Twitter
   class Unavailable < StandardError; end
   class InformTwitter < StandardError; end
   class NotFound < StandardError; end
-
-  def self.raise_errors(response)
-    case response.code.to_i
-      when 400
-        data = parse(response)
-        raise RateLimitExceeded.new(data), "(#{response.code}): #{response.message} - #{data['error'] if data}"
-      when 401
-        data = parse(response)
-        raise Unauthorized.new(data), "(#{response.code}): #{response.message} - #{data['error'] if data}"
-      when 403
-        data = parse(response)
-        raise General.new(data), "(#{response.code}): #{response.message} - #{data['error'] if data}"
-      when 404
-        raise NotFound, "(#{response.code}): #{response.message}"
-      when 500
-        raise InformTwitter, "Twitter had an internal error. Please let them know in the group. (#{response.code}): #{response.message}"
-      when 502..503
-        raise Unavailable, "(#{response.code}): #{response.message}"
-    end
-  end
-
 end
 
 require File.expand_path("../faraday/raise_errors", __FILE__)
