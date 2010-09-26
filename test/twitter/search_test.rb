@@ -20,11 +20,6 @@ class SearchTest < Test::Unit::TestCase
       assert_equal 'Foobar', search.user_agent
     end
 
-    should "pass user agent along with headers when making request" do
-      s = Twitter::Search.new('foo', :user_agent => 'Foobar')
-      assert_equal 'Foobar', s.connection.headers['user_agent']
-    end
-
     should "be able to specify from" do
       assert @search.from('jnunemaker').query[:q].include? 'from:jnunemaker'
     end
