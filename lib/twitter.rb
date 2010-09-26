@@ -3,7 +3,6 @@ require 'faraday'
 require 'faraday_middleware'
 require 'forwardable'
 require 'hashie'
-require 'multi_json'
 require 'oauth'
 
 module Twitter
