@@ -22,6 +22,7 @@ GEM
       multi_json (~> 0.0.4)
       oauth2 (~> 0.0.13)
     hashie (0.4.0)
+    json (1.4.6)
     mocha (0.9.8)
       rake
     multi_json (0.0.4)
@@ -42,6 +43,7 @@ DEPENDENCIES
   faraday (~> 0.4.6)
   faraday_middleware (~> 0.0.5)
   hashie (~> 0.4.0)
+  json (~> 1.4.6)
   mocha (~> 0.9.8)
   oauth (~> 0.4.3)
   shoulda (~> 2.11.3)
