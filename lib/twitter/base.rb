@@ -374,21 +374,63 @@ module Twitter
     def build_multipart_bodies(parts) self.class.build_multipart_bodies(parts) end
 
     private
+    
+    
+    def connection
+      headers = {
+        :user_agent => Twitter.user_agent
+      }
+      @connection ||= Faraday::Connection.new(:url => Twitter.api_endpoint, :headers => headers) do |builder|
+        builder.adapter(@adapter || Faraday.default_adapter)
+        builder.use Faraday::Response::RaiseErrors
+        builder.use Faraday::Response::MultiJson
+        builder.use Faraday::Response::Mashify
+      end
+    end
 
     def perform_get(path, options={})
-      Twitter::Request.get(self, path, options)
+      results = connection.get do |request|
+        request.url url(path, options)
+      end.body
     end
 
     def perform_post(path, options={})
-      Twitter::Request.post(self, path, options)
+      results = connection.post do |request|
+        request.path = url(path, options)
+        request.body = options[:body]
+      end.body
     end
 
     def perform_put(path, options={})
-      Twitter::Request.put(self, path, options)
+      results = connection.put do |request|
+        request.path = url(path, options)
+        request.body = options
+      end.body
     end
 
     def perform_delete(path, options={})
-      Twitter::Request.delete(self, path, options)
+      results = connection.delete do |request|
+        request.url url(path, options)
+      end.body
+    end
+    
+    def url(path, options={})
+      @url ||= begin
+        url = URI.parse(path)
+
+        if options[:query] && options[:query] != {}
+          url.query = to_query(options[:query])
+        end
+
+        url.to_s
+      end
+    end
+    
+    def to_query(options)
+      options.inject([]) do |collection, opt|
+        collection << "#{opt[0]}=#{opt[1]}"
+        collection
+      end * '&'
     end
 
   end
