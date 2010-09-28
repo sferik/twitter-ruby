@@ -2,10 +2,7 @@ require 'addressable/uri'
 require 'faraday'
 require 'faraday_middleware'
 require 'forwardable'
-require 'hashie'
 require 'oauth'
-
-
 
 module Twitter
   extend SingleForwardable
