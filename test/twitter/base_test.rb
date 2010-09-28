@@ -26,7 +26,7 @@ class BaseTest < Test::Unit::TestCase
       @twitter.post("/foo", {:bar => "baz"})
     end
 
-    context "hitting the api" do
+    context "hitting the API" do
       should "be able to get home timeline" do
         stub_get("/1/statuses/home_timeline.json", "home_timeline.json")
         timeline = @twitter.home_timeline
