@@ -26,7 +26,7 @@ class BaseTest < Test::Unit::TestCase
       @twitter.post("/foo", {:bar => "baz"})
     end
 
-    context "hitting the api" do
+    context "hitting the API" do
       should "be able to get home timeline" do
         stub_get("/1/statuses/home_timeline.json", "home_timeline.json")
         timeline = @twitter.home_timeline
@@ -179,7 +179,7 @@ class BaseTest < Test::Unit::TestCase
       end
 
       should "be able to lookup users in bulk" do
-        stub_get("/1/users/lookup.json?screen_name=sferik&user_id=59593,774010", "users.json")
+        stub_get("/1/users/lookup.json?user_id=59593%2C774010&screen_name=sferik", "users.json")
         users = @twitter.users("sferik", 59593, 774010)
         assert_equal 3, users.count
         screen_names = users.map{|user| user["screen_name"]}

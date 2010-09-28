@@ -23,19 +23,14 @@ class RequestTest < Test::Unit::TestCase
       assert_equal 1234, @request.options[:query][:since_id]
     end
 
-    should "have uri" do
-      assert_equal '/1/statuses/user_timeline.json?since_id=1234', @request.uri
+    should "have URL" do
+      assert_equal '/1/statuses/user_timeline.json?since_id=1234', @request.url
     end
 
     context "performing request for collection" do
       setup do
-        response = mock('response') do
-          stubs(:body).returns(fixture_file('user_timeline.json'))
-          stubs(:code).returns('200')
-        end
-
-        @client.expects(:get).returns(response)
-        @object = @request.perform
+        stub_get("/1/statuses/user_timeline.json?since_id=1234", "user_timeline.json")
+        @object = @request.perform_get
       end
 
       should "return array of mashes" do
@@ -47,13 +42,8 @@ class RequestTest < Test::Unit::TestCase
 
     context "performing a request for a single object" do
       setup do
-        response = mock('response') do
-          stubs(:body).returns(fixture_file('status.json'))
-          stubs(:code).returns('200')
-        end
-
-        @client.expects(:get).returns(response)
-        @object = @request.perform
+        stub_get("/1/statuses/user_timeline.json?since_id=1234", "status.json")
+        @object = @request.perform_get
       end
 
       should "return a single mash" do
@@ -65,30 +55,25 @@ class RequestTest < Test::Unit::TestCase
     context "with no query string" do
       should "not have any query string" do
         request = Twitter::Request.new(@client, :get, '/1/statuses/user_timeline.json')
-        assert_equal '/1/statuses/user_timeline.json', request.uri
+        assert_equal '/1/statuses/user_timeline.json', request.url
       end
     end
 
     context "with blank query string" do
       should "not have any query string" do
         request = Twitter::Request.new(@client, :get, '/1/statuses/user_timeline.json', :query => {})
-        assert_equal '/1/statuses/user_timeline.json', request.uri
+        assert_equal '/1/statuses/user_timeline.json', request.url
       end
     end
 
     should "have get shortcut to initialize and perform all in one" do
-      Twitter::Request.any_instance.expects(:perform).returns(nil)
+      Twitter::Request.any_instance.expects(:perform_get).returns(nil)
       Twitter::Request.get(@client, '/foo')
     end
 
-    should "allow setting query string and headers" do
-      response = mock('response') do
-        stubs(:body).returns('')
-        stubs(:code).returns('200')
-      end
-
-      @client.expects(:get).with('/1/statuses/friends_timeline.json?since_id=1234', {'Foo' => 'Bar'}).returns(response)
-      Twitter::Request.get(@client, '/1/statuses/friends_timeline.json?since_id=1234', :headers => {'Foo' => 'Bar'})
+    should "allow setting query string" do
+      stub_get('/1/statuses/friends_timeline.json?since_id=1234', 'friends_timeline.json')
+      Twitter::Request.get(@client, '/1/statuses/friends_timeline.json?since_id=1234')
     end
   end
 
@@ -98,25 +83,15 @@ class RequestTest < Test::Unit::TestCase
       @request = Twitter::Request.new(@client, :post, '/1/statuses/update.json', {:body => {:status => 'Woohoo!'}})
     end
 
-    should "allow setting body and headers" do
-      response = mock('response') do
-        stubs(:body).returns('')
-        stubs(:code).returns('200')
-      end
-
-      @client.expects(:post).with('/1/statuses/update.json', {:status => 'Woohoo!'}, {'Foo' => 'Bar'}).returns(response)
-      Twitter::Request.post(@client, '/1/statuses/update.json', :body => {:status => 'Woohoo!'}, :headers => {'Foo' => 'Bar'})
+    should "allow setting body" do
+      stub_post('/1/statuses/update.json', 'status.json')
+      Twitter::Request.post(@client, '/1/statuses/update.json', :body => {:status => 'Woohoo!'})
     end
 
     context "performing request" do
       setup do
-        response = mock('response') do
-          stubs(:body).returns(fixture_file('status.json'))
-          stubs(:code).returns('200')
-        end
-
-        @client.expects(:post).returns(response)
-        @object = @request.perform
+        stub_post('/1/statuses/update.json', 'status.json')
+        @object = @request.perform_post
       end
 
       should "return a mash of the object" do
@@ -125,7 +100,7 @@ class RequestTest < Test::Unit::TestCase
     end
 
     should "have post shortcut to initialize and perform all in one" do
-      Twitter::Request.any_instance.expects(:perform).returns(nil)
+      Twitter::Request.any_instance.expects(:perform_post).returns(nil)
       Twitter::Request.post(@client, '/foo')
     end
   end

@@ -1,18 +1,15 @@
 module Twitter
   class Search
-    include HTTParty
     include Enumerable
-    base_uri "search.twitter.com/search"
-
     attr_reader :result, :query
 
     def initialize(q=nil, options={})
+      @adapter = options.delete(:adapter)
       @options = options
       clear
       containing(q) if q && q.strip != ""
-      endpoint_url = options[:api_endpoint]
-      endpoint_url = "#{endpoint_url}/search" if endpoint_url && !endpoint_url.include?("/search")
-      self.class.base_uri(endpoint_url) if endpoint_url
+      @api_endpoint = 'search.twitter.com/search.json'
+      @api_endpoint = Addressable::URI.heuristic_parse(@api_endpoint)
     end
 
     def user_agent
@@ -156,28 +153,40 @@ module Twitter
     end
 
     def each
-      results = fetch()['results']
+      results = fetch['results']
       return if results.nil?
       results.each {|r| yield r}
     end
 
     def next_page?
-      !!fetch()["next_page"]
+      !!fetch["next_page"]
     end
 
     def fetch_next_page
       if next_page?
         s = Search.new(nil, :user_agent => user_agent)
-        s.perform_get(fetch()["next_page"][1..-1])
+        s.perform_get(fetch["next_page"][1..-1])
         s
+      end
+    end
+
+    def connection
+      headers = {
+        :user_agent => user_agent
+      }
+      @connection ||= Faraday::Connection.new(:url => @api_endpoint.omit(:path), :headers => headers) do |builder|
+        builder.adapter(@adapter || Faraday.default_adapter)
+        builder.use Faraday::Response::MultiJson
+        builder.use Faraday::Response::Mashify
       end
     end
 
     protected
 
     def perform_get(query)
-      response = self.class.get("#{self.class.base_uri}.json", :query => query, :format => :json, :headers => {"User-Agent" => user_agent})
-      @fetch = Twitter.mash(response)
+      @fetch = connection.get do |request|
+        request.url @api_endpoint.path, query
+      end.body
     end
 
   end
