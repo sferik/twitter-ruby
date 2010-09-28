@@ -80,7 +80,7 @@
   a {
     color: #4b1a1a;
   }
-  
+
   a.top {
     text-decoration: none;
   }
@@ -89,7 +89,7 @@
     border-bottom:2px dotted;
     border-bottom-color:#5c5757;
   }
- 
+
   a:hover {
     text-decoration: none;
   }

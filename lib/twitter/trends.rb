@@ -35,7 +35,7 @@ module Twitter
       end.body
       results = results.trends.values.flatten
     end
-  
+
     def available(options={})
       connection.get do |request|
         request.url "available.json", options
