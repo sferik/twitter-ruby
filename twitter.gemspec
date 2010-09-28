@@ -3,7 +3,7 @@ require File.expand_path("../lib/twitter/version", __FILE__)
 
 Gem::Specification.new do |s|
   s.add_development_dependency("fakeweb", ["~> 1.3.0"])
-  s.add_development_dependency("json", ["~> 1.4.6"])
+  s.add_development_dependency("json_pure", ["~> 1.4.6"])
   s.add_development_dependency("mocha", ["~> 0.9.8"])
   s.add_development_dependency("shoulda", ["~> 2.11.3"])
   s.add_runtime_dependency("addressable", ["~> 2.2.1"])
