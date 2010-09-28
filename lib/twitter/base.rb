@@ -11,18 +11,18 @@ module Twitter
     end
 
     # Options: since_id, max_id, count, page
-    def home_timeline(query={})
-      perform_get("statuses/home_timeline.json", :query => query)
+    def home_timeline(options={})
+      perform_get("statuses/home_timeline.json", options)
     end
 
     # Options: since_id, max_id, count, page, since
-    def friends_timeline(query={})
-      perform_get("statuses/friends_timeline.json", :query => query)
+    def friends_timeline(options={})
+      perform_get("statuses/friends_timeline.json", options)
     end
 
     # Options: id, user_id, screen_name, since_id, max_id, page, since, count
-    def user_timeline(query={})
-      perform_get("statuses/user_timeline.json", :query => query)
+    def user_timeline(options={})
+      perform_get("statuses/user_timeline.json", options)
     end
 
     def status(id)
@@ -30,47 +30,47 @@ module Twitter
     end
 
     # Options: count
-    def retweets(id, query={})
-      perform_get("statuses/retweets/#{id}.json", :query => query)
+    def retweets(id, options={})
+      perform_get("statuses/retweets/#{id}.json", options)
     end
 
     # Options: in_reply_to_status_id
-    def update(status, query={})
-      perform_post("statuses/update.json", :body => {:status => status}.merge(query))
+    def update(status, options={})
+      perform_post("statuses/update.json", :body => {:status => status}.merge(options))
     end
 
     # DEPRECATED: Use #mentions instead
     #
     # Options: since_id, max_id, since, page
-    def replies(query={})
+    def replies(options={})
       warn("DEPRECATED: #replies is deprecated by Twitter; use #mentions instead")
-      perform_get("statuses/replies.json", :query => query)
+      perform_get("statuses/replies.json", options)
     end
 
     # Options: since_id, max_id, count, page
-    def mentions(query={})
-      perform_get("statuses/mentions.json", :query => query)
+    def mentions(options={})
+      perform_get("statuses/mentions.json", options)
     end
 
     # Options: since_id, max_id, count, page
-    def retweeted_by_me(query={})
-      perform_get("statuses/retweeted_by_me.json", :query => query)
+    def retweeted_by_me(options={})
+      perform_get("statuses/retweeted_by_me.json", options)
     end
 
     # Options: since_id, max_id, count, page
-    def retweeted_to_me(query={})
-      perform_get("statuses/retweeted_to_me.json", :query => query)
+    def retweeted_to_me(options={})
+      perform_get("statuses/retweeted_to_me.json", options)
     end
 
     # Options: since_id, max_id, count, page
-    def retweets_of_me(query={})
-      perform_get("statuses/retweets_of_me.json", :query => query)
+    def retweets_of_me(options={})
+      perform_get("statuses/retweets_of_me.json", options)
     end
 
     # options: count, page, ids_only
     def retweeters_of(id, options={})
       ids_only = !!(options.delete(:ids_only))
-      perform_get("statuses/#{id}/retweeted_by#{"/ids" if ids_only}.json", :query => options)
+      perform_get("statuses/#{id}/retweeted_by#{"/ids" if ids_only}.json", options)
     end
 
     def status_destroy(id)
@@ -82,22 +82,22 @@ module Twitter
     end
 
     # Options: id, user_id, screen_name, page
-    def friends(query={})
-      perform_get("statuses/friends.json", :query => query)
+    def friends(options={})
+      perform_get("statuses/friends.json", options)
     end
 
     # Options: id, user_id, screen_name, page
-    def followers(query={})
-      perform_get("statuses/followers.json", :query => query)
+    def followers(options={})
+      perform_get("statuses/followers.json", options)
     end
 
-    def user(id_or_screen_name, query={})
+    def user(id_or_screen_name, options={})
       if id_or_screen_name.is_a?(Integer)
-        query.merge!({:user_id => id_or_screen_name})
+        options.merge!({:user_id => id_or_screen_name})
       elsif id_or_screen_name.is_a?(String)
-        query.merge!({:screen_name => id_or_screen_name})
+        options.merge!({:screen_name => id_or_screen_name})
       end
-      perform_get("users/show.json", :query => query)
+      perform_get("users/show.json", options)
     end
 
     def users(*ids_or_screen_names)
@@ -109,26 +109,25 @@ module Twitter
           screen_names << id_or_screen_name
         end
       end
-      query = {}
-      query[:user_id] = ids.join(",") unless ids.empty?
-      query[:screen_name] = screen_names.join(",") unless screen_names.empty?
-      perform_get("users/lookup.json", :query => query)
+      options = {}
+      options[:user_id] = ids.join(",") unless ids.empty?
+      options[:screen_name] = screen_names.join(",") unless screen_names.empty?
+      perform_get("users/lookup.json", options)
     end
 
     # Options: page, per_page
-    def user_search(q, query={})
-      q = URI.escape(q)
-      perform_get("users/search.json", :query => ({:q => q}.merge(query)))
+    def user_search(query, options={})
+      perform_get("users/search.json", {:q => query}.merge(options))
     end
 
     # Options: since, since_id, page
-    def direct_messages(query={})
-      perform_get("direct_messages.json", :query => query)
+    def direct_messages(options={})
+      perform_get("direct_messages.json", options)
     end
 
     # Options: since, since_id, page
-    def direct_messages_sent(query={})
-      perform_get("direct_messages/sent.json", :query => query)
+    def direct_messages_sent(options={})
+      perform_get("direct_messages/sent.json", options)
     end
 
     def direct_message_create(user_id_or_screen_name, text)
@@ -149,22 +148,22 @@ module Twitter
       perform_post("friendships/destroy/#{id}.json")
     end
 
-    def friendship_exists?(a, b)
-      perform_get("friendships/exists.json", :query => {:user_a => a, :user_b => b})
+    def friendship_exists?(user_id_or_screen_name_a, user_id_or_screen_name_b)
+      perform_get("friendships/exists.json", {:user_a => user_id_or_screen_name_a, :user_b => user_id_or_screen_name_b})
     end
 
-    def friendship_show(query)
-      perform_get("friendships/show.json", :query => query)
-    end
-
-    # Options: id, user_id, screen_name
-    def friend_ids(query={})
-      perform_get("friends/ids.json", :query => query)
+    def friendship_show(options)
+      perform_get("friendships/show.json", options)
     end
 
     # Options: id, user_id, screen_name
-    def follower_ids(query={})
-      perform_get("followers/ids.json", :query => query)
+    def friend_ids(options={})
+      perform_get("friends/ids.json", options)
+    end
+
+    # Options: id, user_id, screen_name
+    def follower_ids(options={})
+      perform_get("followers/ids.json", options)
     end
 
     def verify_credentials
@@ -204,8 +203,8 @@ module Twitter
     end
 
     # Options: id, page
-    def favorites(query={})
-      perform_get("favorites.json", :query => query)
+    def favorites(options={})
+      perform_get("favorites.json", options)
     end
 
     def favorite_create(id)
@@ -253,15 +252,17 @@ module Twitter
       perform_delete("#{list_owner_screen_name}/lists/#{slug}.json")
     end
 
-    def lists(list_owner_screen_name = nil, query = {})
+    def lists(list_owner_screen_name = nil, options={})
       path = case list_owner_screen_name
-      when nil, Hash
-        query = list_owner_screen_name
+      when nil
+        "lists.json"
+      when Hash
+        options = list_owner_screen_name
         "lists.json"
       else
         "#{list_owner_screen_name}/lists.json"
       end
-      perform_get(path, :query => query)
+      perform_get(path, options)
     end
 
     def list(list_owner_screen_name, slug)
@@ -270,20 +271,20 @@ module Twitter
 
     # :per_page = max number of statues to get at once
     # :page = which page of tweets you wish to get
-    def list_timeline(list_owner_screen_name, slug, query = {})
-      perform_get("#{list_owner_screen_name}/lists/#{slug}/statuses.json", :query => query)
+    def list_timeline(list_owner_screen_name, slug, options = {})
+      perform_get("#{list_owner_screen_name}/lists/#{slug}/statuses.json", options)
     end
 
-    def memberships(list_owner_screen_name, query={})
-      perform_get("#{list_owner_screen_name}/lists/memberships.json", :query => query)
+    def memberships(list_owner_screen_name, options={})
+      perform_get("#{list_owner_screen_name}/lists/memberships.json", options)
     end
 
-    def subscriptions(list_owner_screen_name, query = {})
-      perform_get("#{list_owner_screen_name}/lists/subscriptions.json", :query => query)
+    def subscriptions(list_owner_screen_name, options = {})
+      perform_get("#{list_owner_screen_name}/lists/subscriptions.json", options)
     end
 
-    def list_members(list_owner_screen_name, slug, query = {})
-      perform_get("#{list_owner_screen_name}/#{slug}/members.json", :query => query)
+    def list_members(list_owner_screen_name, slug, options = {})
+      perform_get("#{list_owner_screen_name}/#{slug}/members.json", options)
     end
 
     def list_add_member(list_owner_screen_name, slug, new_id)
@@ -291,15 +292,15 @@ module Twitter
     end
 
     def list_remove_member(list_owner_screen_name, slug, id)
-      perform_delete("#{list_owner_screen_name}/#{slug}/members.json", :query => {:id => id})
+      perform_delete("#{list_owner_screen_name}/#{slug}/members.json", {:id => id})
     end
 
     def is_list_member?(list_owner_screen_name, slug, id)
       perform_get("#{list_owner_screen_name}/#{slug}/members/#{id}.json").error.nil?
     end
 
-    def list_subscribers(list_owner_screen_name, slug, query={})
-      perform_get("#{list_owner_screen_name}/#{slug}/subscribers.json", :body => {:query => query})
+    def list_subscribers(list_owner_screen_name, slug, options={})
+      perform_get("#{list_owner_screen_name}/#{slug}/subscribers.json", options)
     end
 
     def list_subscribe(list_owner_screen_name, slug)
@@ -311,7 +312,7 @@ module Twitter
     end
 
     def blocked_ids
-      perform_get("blocks/blocking/ids.json", :mash => false)
+      perform_get("blocks/blocking/ids.json")
     end
 
     def blocking(options={})
@@ -326,8 +327,8 @@ module Twitter
       perform_get("saved_searches/show/#{id}.json")
     end
 
-    def saved_search_create(query)
-      perform_post("saved_searches/create.json", :body => {:query => query})
+    def saved_search_create(options)
+      perform_post("saved_searches/create.json", :body => {:options => options})
     end
 
     def saved_search_destroy(id)
@@ -374,8 +375,7 @@ module Twitter
     def build_multipart_bodies(parts) self.class.build_multipart_bodies(parts) end
 
     private
-    
-    
+
     def connection
       headers = {
         :user_agent => Twitter.user_agent
@@ -390,47 +390,28 @@ module Twitter
 
     def perform_get(path, options={})
       results = connection.get do |request|
-        request.url url(path, options)
+        request.url path, options
       end.body
     end
 
     def perform_post(path, options={})
       results = connection.post do |request|
-        request.path = url(path, options)
+        request.path = path
         request.body = options[:body]
       end.body
     end
 
     def perform_put(path, options={})
       results = connection.put do |request|
-        request.path = url(path, options)
-        request.body = options
+        request.path = path
+        request.body = options[:body]
       end.body
     end
 
     def perform_delete(path, options={})
       results = connection.delete do |request|
-        request.url url(path, options)
+        request.url path, options
       end.body
-    end
-    
-    def url(path, options={})
-      @url ||= begin
-        url = URI.parse(path)
-
-        if options[:query] && options[:query] != {}
-          url.query = to_query(options[:query])
-        end
-
-        url.to_s
-      end
-    end
-    
-    def to_query(options)
-      options.inject([]) do |collection, opt|
-        collection << "#{opt[0]}=#{opt[1]}"
-        collection
-      end * '&'
     end
 
   end

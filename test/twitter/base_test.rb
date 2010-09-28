@@ -228,7 +228,7 @@ class BaseTest < Test::Unit::TestCase
         assert_equal 'John Nunemaker', user.name # update_profile_background responds with the user
       end
     end
-    
+
     context "when using saved searches" do
       should "be able to retrieve my saved searches" do
         stub_get("/1/saved_searches.json", "saved_searches.json")
@@ -236,19 +236,19 @@ class BaseTest < Test::Unit::TestCase
         assert_equal 'great danes', searches[0].query
         assert_equal 'rubyconf OR railsconf', searches[1].query
       end
-      
+
       should "be able to retrieve a saved search by id" do
         stub_get("/1/saved_searches/show/7095598.json", "saved_search.json")
         search = @twitter.saved_search(7095598)
         assert_equal 'great danes', search.query
       end
-      
+
       should "be able to create a saved search" do
         stub_post("/1/saved_searches/create.json", "saved_search.json")
         search = @twitter.saved_search_create("great danes")
         assert_equal 'great danes', search.query
       end
-      
+
       should "be able to delete a saved search" do
         stub_delete("/1/saved_searches/destroy/7095598.json", "saved_search.json")
         search = @twitter.saved_search_destroy(7095598)
@@ -297,7 +297,7 @@ class BaseTest < Test::Unit::TestCase
         assert_equal 'Rubyists', lists.first.name
         assert_equal 'rubyists', lists.first.slug
       end
-      
+
       should "be able to view the user owned lists without passing the screen_name" do
         stub_get("/1/lists.json", "lists.json")
         lists = @twitter.lists.lists
@@ -305,7 +305,7 @@ class BaseTest < Test::Unit::TestCase
         assert_equal 'Rubyists', lists.first.name
         assert_equal 'rubyists', lists.first.slug
       end
-      
+
       should "be able to view lists for the authenticated user by passing in a cursor" do
         stub_get("/1/pengwynn/lists.json?cursor=-1", "lists.json")
         lists = @twitter.lists("pengwynn", :cursor => -1).lists
@@ -313,7 +313,7 @@ class BaseTest < Test::Unit::TestCase
         assert_equal 'Rubyists', lists.first.name
         assert_equal 'rubyists', lists.first.slug
       end
-      
+
       should "be able to view the user owned lists without passing the screen_name and passing in a cursor" do
         stub_get("/1/lists.json?cursor=-1", "lists.json")
         lists = @twitter.lists(:cursor => -1).lists

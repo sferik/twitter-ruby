@@ -66,7 +66,6 @@ end
 
 require File.expand_path("../faraday/raise_errors", __FILE__)
 require File.expand_path("../twitter/oauth", __FILE__)
-require File.expand_path("../twitter/request", __FILE__)
 require File.expand_path("../twitter/base", __FILE__)
 require File.expand_path("../twitter/search", __FILE__)
 require File.expand_path("../twitter/trends", __FILE__)
