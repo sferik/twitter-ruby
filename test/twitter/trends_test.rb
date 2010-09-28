@@ -38,24 +38,24 @@ class TrendsTest < Test::Unit::TestCase
       stub_get 'http://api.twitter.com/1/trends/daily.json?exclude=hashtags', 'trends_daily_exclude.json'
       trends = Trends.daily(:exclude => 'hashtags')
       assert_equal 480, trends.size
-      assert_equal 'Kobe', trends[0].name
-      assert_equal %Q(Kobe), trends[0].query
+      assert trends.map{|trend| trend.name}.include? 'Kobe'
+      assert trends.map{|trend| trend.query}.include? %Q(Kobe)
     end
 
     should "be able to get for specific date (with date string)" do
       stub_get 'http://api.twitter.com/1/trends/daily.json?date=2009-05-01', 'trends_daily_date.json'
       trends = Trends.daily(:date => '2009-05-01')
       assert_equal 440, trends.size
-      assert_equal 'Swine Flu', trends[0].name
-      assert_equal %Q(\"Swine Flu\" OR Flu), trends[0].query
+      assert trends.map{|trend| trend.name}.include? 'Swine Flu'
+      assert trends.map{|trend| trend.query}.include? %Q(\"Swine Flu\" OR Flu)
     end
 
     should "be able to get for specific date (with date object)" do
       stub_get 'http://api.twitter.com/1/trends/daily.json?date=2009-05-01', 'trends_daily_date.json'
       trends = Trends.daily(:date => Date.new(2009, 5, 1))
       assert_equal 440, trends.size
-      assert_equal 'Swine Flu', trends[0].name
-      assert_equal %Q(\"Swine Flu\" OR Flu), trends[0].query
+      assert trends.map{|trend| trend.name}.include? 'Swine Flu'
+      assert trends.map{|trend| trend.query}.include? %Q(\"Swine Flu\" OR Flu)
     end
   end
 
@@ -64,32 +64,32 @@ class TrendsTest < Test::Unit::TestCase
       stub_get 'http://api.twitter.com/1/trends/weekly.json?', 'trends_weekly.json'
       trends = Trends.weekly
       assert_equal 210, trends.size
-      assert_equal "Grey's Anatomy", trends[0].name
-      assert_equal %Q(\"Grey's Anatomy\"), trends[0].query
+      assert trends.map{|trend| trend.name}.include? "Grey's Anatomy"
+      assert trends.map{|trend| trend.query}.include? %Q(\"Grey's Anatomy\")
     end
 
     should "be able to exclude hastags" do
       stub_get 'http://api.twitter.com/1/trends/weekly.json?exclude=hashtags', 'trends_weekly_exclude.json'
       trends = Trends.weekly(:exclude => 'hashtags')
       assert_equal 210, trends.size
-      assert_equal "Grey's Anatomy", trends[0].name
-      assert_equal %Q(\"Grey's Anatomy\"), trends[0].query
+      assert trends.map{|trend| trend.name}.include? "Grey's Anatomy"
+      assert trends.map{|trend| trend.query}.include? %Q(\"Grey's Anatomy\")
     end
 
     should "be able to get for specific date (with date string)" do
       stub_get 'http://api.twitter.com/1/trends/weekly.json?date=2009-05-01', 'trends_weekly_date.json'
       trends = Trends.weekly(:date => '2009-05-01')
       assert_equal 210, trends.size
-      assert_equal 'Swine Flu', trends[0].name
-      assert_equal %Q(\"Swine Flu\"), trends[0].query
+      assert trends.map{|trend| trend.name}.include? 'Swine Flu'
+      assert trends.map{|trend| trend.query}.include? %Q(\"Swine Flu\")
     end
 
     should "be able to get for specific date (with date object)" do
       stub_get 'http://api.twitter.com/1/trends/weekly.json?date=2009-05-01', 'trends_weekly_date.json'
       trends = Trends.weekly(:date => Date.new(2009, 5, 1))
       assert_equal 210, trends.size
-      assert_equal 'Swine Flu', trends[0].name
-      assert_equal %Q(\"Swine Flu\"), trends[0].query
+      assert trends.map{|trend| trend.name}.include? 'Swine Flu'
+      assert trends.map{|trend| trend.query}.include? %Q(\"Swine Flu\")
     end
   end
 
