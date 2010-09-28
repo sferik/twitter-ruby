@@ -9,22 +9,22 @@ module Twitter
     end
 
     def place(place_id, options={})
-      results = connection.get do |req|
-        req.url "id/#{place_id}.json", options
+      results = connection.get do |request|
+        request.url "id/#{place_id}.json", options
       end.body
       results
     end
 
     def search(options={})
-      results = connection.get do |req|
-        req.url "search.json", options
+      results = connection.get do |request|
+        request.url "search.json", options
       end.body
       results.result.values.flatten
     end
 
     def reverse_geocode(options={})
-      results = connection.get do |req|
-        req.url "reverse_geocode.json", options
+      results = connection.get do |request|
+        request.url "reverse_geocode.json", options
       end.body
       results.result.values.flatten
     end

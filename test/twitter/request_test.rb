@@ -23,8 +23,8 @@ class RequestTest < Test::Unit::TestCase
       assert_equal 1234, @request.options[:query][:since_id]
     end
 
-    should "have uri" do
-      assert_equal '/1/statuses/user_timeline.json?since_id=1234', @request.uri
+    should "have URL" do
+      assert_equal '/1/statuses/user_timeline.json?since_id=1234', @request.url
     end
 
     context "performing request for collection" do
@@ -55,14 +55,14 @@ class RequestTest < Test::Unit::TestCase
     context "with no query string" do
       should "not have any query string" do
         request = Twitter::Request.new(@client, :get, '/1/statuses/user_timeline.json')
-        assert_equal '/1/statuses/user_timeline.json', request.uri
+        assert_equal '/1/statuses/user_timeline.json', request.url
       end
     end
 
     context "with blank query string" do
       should "not have any query string" do
         request = Twitter::Request.new(@client, :get, '/1/statuses/user_timeline.json', :query => {})
-        assert_equal '/1/statuses/user_timeline.json', request.uri
+        assert_equal '/1/statuses/user_timeline.json', request.url
       end
     end
 
@@ -84,13 +84,13 @@ class RequestTest < Test::Unit::TestCase
     end
 
     should "allow setting body" do
-      stub_post('/1/statuses/update.json?status=Woohoo%21', 'status.json')
+      stub_post('/1/statuses/update.json', 'status.json')
       Twitter::Request.post(@client, '/1/statuses/update.json', :body => {:status => 'Woohoo!'})
     end
 
     context "performing request" do
       setup do
-        stub_post('/1/statuses/update.json?status=Woohoo%21', 'status.json')
+        stub_post('/1/statuses/update.json', 'status.json')
         @object = @request.perform_post
       end
 

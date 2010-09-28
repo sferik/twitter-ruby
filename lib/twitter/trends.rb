@@ -10,8 +10,8 @@ module Twitter
 
     # :exclude => 'hashtags' to exclude hashtags
     def current(options={})
-      results = connection.get do |req|
-        req.url "current.json", options
+      results = connection.get do |request|
+        request.url "current.json", options
       end.body
       results = results.trends.values.flatten
     end
@@ -19,8 +19,8 @@ module Twitter
     # :exclude => 'hashtags' to exclude hashtags
     # :date => yyyy-mm-dd for specific date
     def daily(options={})
-      results = connection.get do |req|
-        req.url "daily.json", options
+      results = connection.get do |request|
+        request.url "daily.json", options
       end.body
       results = results.trends.values.flatten
     end
@@ -28,21 +28,21 @@ module Twitter
     # :exclude => 'hashtags' to exclude hashtags
     # :date => yyyy-mm-dd for specific date
     def weekly(options={})
-      results = connection.get do |req|
-        req.url "weekly.json", options
+      results = connection.get do |request|
+        request.url "weekly.json", options
       end.body
       results = results.trends.values.flatten
     end
   
-    def available(query={})
-      connection.get do |req|
-        req.url "available.json", query
+    def available(options={})
+      connection.get do |request|
+        request.url "available.json", options
       end.body
     end
 
-    def for_location(woeid,options = {})
-      connection.get do |req|
-        req.url "#{woeid}.json", options
+    def for_location(woeid, options = {})
+      connection.get do |request|
+        request.url "#{woeid}.json", options
       end.body
     end
 

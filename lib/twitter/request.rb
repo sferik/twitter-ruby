@@ -26,15 +26,15 @@ module Twitter
       @client, @method, @path, @options = client, method, path, options
     end
 
-    def uri
-      @uri ||= begin
-        uri = URI.parse(path)
+    def url
+      @url ||= begin
+        url = URI.parse(path)
 
         if options[:query] && options[:query] != {}
-          uri.query = to_query(options[:query])
+          url.query = to_query(options[:query])
         end
 
-        uri.to_s
+        url.to_s
       end
     end
 
@@ -51,26 +51,28 @@ module Twitter
     end
 
     def perform_get
-      results = connection.get do |req|
-        req.url uri
+      results = connection.get do |request|
+        request.url url
       end.body
     end
 
     def perform_post
-      results = connection.post do |req|
-        req.url uri, options[:body]
+      results = connection.post do |request|
+        request.path = url
+        request.body = options[:body]
       end.body
     end
 
     def perform_put
-      results = connection.put do |req|
-        req.url uri, options[:body]
+      results = connection.put do |request|
+        request.path = url
+        request.body = options
       end.body
     end
 
     def perform_delete
-      results = connection.delete do |req|
-        req.url uri
+      results = connection.delete do |request|
+        request.url url
       end.body
     end
 

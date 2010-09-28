@@ -68,7 +68,7 @@ class BaseTest < Test::Unit::TestCase
       end
 
       should "be able to update status" do
-        stub_post("/1/statuses/update.json?status=Rob%20Dyrdek%20is%20the%20funniest%20man%20alive.%20That%20is%20all.", "status.json")
+        stub_post("/1/statuses/update.json", "status.json")
         status = @twitter.update("Rob Dyrdek is the funniest man alive. That is all.")
         assert_equal 'John Nunemaker', status.user.name
         assert_equal 'Rob Dyrdek is the funniest man alive. That is all.', status.text
@@ -211,7 +211,7 @@ class BaseTest < Test::Unit::TestCase
       end
 
       should "report a spammer" do
-        stub_post("/1/report_spam.json?screen_name=lucaasvaz00", "report_spam.json")
+        stub_post("/1/report_spam.json", "report_spam.json")
         spammer = @twitter.report_spam(:screen_name => 'lucaasvaz00')
         assert_equal 'lucaasvaz00', spammer.screen_name
       end
@@ -244,7 +244,7 @@ class BaseTest < Test::Unit::TestCase
       end
       
       should "be able to create a saved search" do
-        stub_post("/1/saved_searches/create.json?query=great%20danes", "saved_search.json")
+        stub_post("/1/saved_searches/create.json", "saved_search.json")
         search = @twitter.saved_search_create("great danes")
         assert_equal 'great danes', search.query
       end
@@ -259,7 +259,7 @@ class BaseTest < Test::Unit::TestCase
     context "when using lists" do
 
       should "be able to create a new list" do
-        stub_post("/1/pengwynn/lists.json?name=Rubyists&user=pengwynn", "list.json")
+        stub_post("/1/pengwynn/lists.json", "list.json")
         list = @twitter.list_create("pengwynn", {:name => "Rubyists"})
         assert_equal 'Rubyists', list.name
         assert_equal 'rubyists', list.slug
@@ -267,7 +267,7 @@ class BaseTest < Test::Unit::TestCase
       end
 
       should "be able to update a list" do
-        stub_put("/1/pengwynn/lists/rubyists.json?name=Rubyists", "list.json")
+        stub_put("/1/pengwynn/lists/rubyists.json", "list.json")
         list = @twitter.list_update("pengwynn", "rubyists", {:name => "Rubyists"})
         assert_equal 'Rubyists', list.name
         assert_equal 'rubyists', list.slug
@@ -367,7 +367,7 @@ class BaseTest < Test::Unit::TestCase
       end
 
       should "be able to add a member to a list" do
-        stub_post("/1/pengwynn/rubyists/members.json?id=4243", "user.json")
+        stub_post("/1/pengwynn/rubyists/members.json", "user.json")
         user = @twitter.list_add_member("pengwynn", "rubyists", 4243)
         assert_equal 'jnunemaker', user.screen_name
       end

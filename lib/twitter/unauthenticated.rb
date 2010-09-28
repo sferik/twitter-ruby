@@ -9,46 +9,46 @@ module Twitter
     end
 
     def firehose(options = {})
-      results = connection.get do |req|
-        req.url "statuses/public_timeline.json", options
+      results = connection.get do |request|
+        request.url "statuses/public_timeline.json", options
       end.body
     end
 
     def user(id, options={})
-      results = connection.get do |req|
-        req.url "users/show/#{id}.json", options
+      results = connection.get do |request|
+        request.url "users/show/#{id}.json", options
       end.body
     end
 
     def status(id, options={})
-      results = connection.get do |req|
-        req.url "statuses/show/#{id}.json", options
+      results = connection.get do |request|
+        request.url "statuses/show/#{id}.json", options
       end.body
     end
 
     def friend_ids(id, options={})
-      results = connection.get do |req|
-        req.url "friends/ids/#{id}.json", options
+      results = connection.get do |request|
+        request.url "friends/ids/#{id}.json", options
       end.body
     end
 
     def follower_ids(id, options={})
-      results = connection.get do |req|
-        req.url "followers/ids/#{id}.json", options
+      results = connection.get do |request|
+        request.url "followers/ids/#{id}.json", options
       end.body
     end
 
     def timeline(id, options={})
-      results = connection.get do |req|
-        req.url "statuses/user_timeline/#{id}.json", options
+      results = connection.get do |request|
+        request.url "statuses/user_timeline/#{id}.json", options
       end.body
     end
 
     # :per_page = max number of statues to get at once
     # :page = which page of tweets you wish to get
     def list_timeline(list_owner_screen_name, slug, options = {})
-      results = connection.get do |req|
-        req.url "#{list_owner_screen_name}/lists/#{slug}/statuses.json", options
+      results = connection.get do |request|
+        request.url "#{list_owner_screen_name}/lists/#{slug}/statuses.json", options
       end.body
     end
 

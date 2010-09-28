@@ -184,8 +184,8 @@ module Twitter
     protected
 
     def perform_get(query)
-      @fetch = connection.get do |req|
-        req.url @api_endpoint.path, query
+      @fetch = connection.get do |request|
+        request.url @api_endpoint.path, query
       end.body
     end
 
