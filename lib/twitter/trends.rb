@@ -1,5 +1,7 @@
 module Twitter
   class Trends
+    extend SingleForwardable
+
 
     def initialize(options={})
       @adapter = options.delete(:adapter)
@@ -45,6 +47,10 @@ module Twitter
         request.url "#{woeid}.json", options
       end.body
     end
+
+    def self.client; self.new end
+
+    def_delegators :client, :current, :daily, :weekly, :available, :for_location
 
     def connection
       headers = {

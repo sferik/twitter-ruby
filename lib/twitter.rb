@@ -5,7 +5,14 @@ require 'forwardable'
 require 'hashie'
 require 'oauth'
 
+
+
 module Twitter
+  extend SingleForwardable
+
+  def self.client; Twitter::Unauthenticated.new end
+
+  def_delegators :client, :firehose, :user, :status, :friend_ids, :follower_ids, :timeline, :list_timeline
 
   def self.adapter
     @adapter ||= Faraday.default_adapter

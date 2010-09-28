@@ -1,5 +1,6 @@
 module Twitter
   class Geo
+    extend SingleForwardable
 
     def initialize(options={})
       @adapter = options.delete(:adapter)
@@ -28,6 +29,10 @@ module Twitter
       end.body
       results.result.values.flatten
     end
+
+    def self.client; self.new end
+
+    def_delegators :client, :place, :search, :reverse_geocode
 
     def connection
       headers = {
