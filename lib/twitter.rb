@@ -64,10 +64,12 @@ module Twitter
   class NotFound < StandardError; end
 end
 
-require File.expand_path("../faraday/raise_errors", __FILE__)
-require File.expand_path("../twitter/oauth", __FILE__)
-require File.expand_path("../twitter/base", __FILE__)
-require File.expand_path("../twitter/search", __FILE__)
-require File.expand_path("../twitter/trends", __FILE__)
-require File.expand_path("../twitter/geo", __FILE__)
-require File.expand_path("../twitter/unauthenticated", __FILE__)
+faraday_middleware_files = Dir[File.join(File.dirname(__FILE__), "/faraday/**/*.rb")].sort
+faraday_middleware_files.each do |file|
+  require file
+end
+
+library_files = Dir[File.join(File.dirname(__FILE__), "/twitter/**/*.rb")].sort
+library_files.each do |file|
+  require file
+end
