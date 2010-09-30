@@ -13,5 +13,5 @@ puts '*'*50
 pp client.user_timeline
 puts '*'*50
 
-pp client.replies
+pp client.mentions
 puts '*'*50

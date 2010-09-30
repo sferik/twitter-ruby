@@ -3,106 +3,136 @@ require 'test_helper'
 class UnauthenticatedTest < Test::Unit::TestCase
   include Twitter
 
-  should "have firehose method for public timeline" do
-    stub_get('http://api.twitter.com/1/statuses/public_timeline.json', 'firehose.json')
-    hose = Twitter.firehose
-    assert_equal 20, hose.size
-    first = hose.first
-    assert_equal '#torrents Ultimativer Flirt Guide - In 10 Minuten jede Frau erobern: Ultimativer Flirt Guide - In 10 Mi.. http://tinyurl.com/d3okh4', first.text
-    assert_equal 'P2P Torrents', first.user.name
+  should "get the firehose" do
+    stub_get('/1/statuses/public_timeline.json', 'array.json')
+    assert Twitter.firehose
   end
 
-  should "have user method for unauthenticated calls to get a user's information" do
-    stub_get('http://api.twitter.com/1/users/show/jnunemaker.json', 'user.json')
-    user = Twitter.user('jnunemaker')
-    assert_equal 'John Nunemaker', user.name
-    assert_equal 'Loves his wife, ruby, notre dame football and iu basketball', user.description
+  should "get a user by user id" do
+    stub_get('/1/users/show/7505382.json', 'user.json')
+    assert Twitter.user(7505382)
   end
 
-  should "have status method for unauthenticated calls to get a status" do
-    stub_get('http://api.twitter.com/1/statuses/show/1533815199.json', 'status_show.json')
-    status = Twitter.status(1533815199)
-    assert_equal 1533815199, status.id
-    assert_equal 'Eating some oatmeal and butterscotch cookies with a cold glass of milk for breakfast. Tasty!', status.text
+  should "get a user by screen_name" do
+    stub_get('/1/users/show/sferik.json', 'user.json')
+    assert Twitter.user('sferik')
   end
 
-  should "raise NotFound for unauthenticated calls to get a deleted or nonexistent status" do
-    stub_get('http://api.twitter.com/1/statuses/show/1.json', 'not_found.json', 404)
+  should "get suggestions" do
+    stub_get('/1/suggestions.json', 'array.json')
+    assert Twitter.suggestions
+  end
+
+  should "get suggestions by category_slug" do
+    stub_get('/1/users/suggestions/technology/members.json', 'array.json')
+    assert Twitter.suggestions('technology')
+  end
+
+  should "get suggestions with a cursor" do
+    stub_get('/1/suggestions.json?cursor=-1', 'array.json')
+    assert Twitter.suggestions(:cursor => -1)
+  end
+
+  should "get suggestions by category_slug with a cursor" do
+    stub_get('/1/users/suggestions/technology/members.json?cursor=-1', 'array.json')
+    assert Twitter.suggestions('technology', :cursor => -1)
+  end
+
+  should "get retweeted-to-user timeline by screen_name" do
+    stub_get('/1/statuses/retweeted_to_user.json?screen_name=sferik', 'array.json')
+    assert Twitter.retweeted_to_user('sferik')
+  end
+
+  should "get retweeted-to-user timeline by user_id" do
+    stub_get('/1/statuses/retweeted_to_user.json?user_id=7505382', 'array.json')
+    assert Twitter.retweeted_to_user(7505382)
+  end
+
+  should "get retweeted-by-user timeline by screen_name" do
+    stub_get('/1/statuses/retweeted_by_user.json?screen_name=sferik', 'array.json')
+    assert Twitter.retweeted_by_user('sferik')
+  end
+
+  should "get retweeted-by-user timeline by user_id" do
+    stub_get('/1/statuses/retweeted_by_user.json?user_id=7505382', 'array.json')
+    assert Twitter.retweeted_by_user(7505382)
+  end
+
+  should "get a status" do
+    stub_get('/1/statuses/show/1533815199.json', 'status_show.json')
+    assert Twitter.status(1533815199)
+  end
+
+  should "raise NotFound for a request to a deleted or nonexistent status" do
+    stub_get('/1/statuses/show/1.json', 'not_found.json', 404)
     assert_raise Twitter::NotFound do
       Twitter.status(1)
     end
   end
 
-  should "have a timeline method for unauthenticated calls to get a user's timeline" do
-    stub_get('http://api.twitter.com/1/statuses/user_timeline/jnunemaker.json', 'user_timeline.json')
-    statuses = Twitter.timeline('jnunemaker')
-    assert_equal 1445986256, statuses.first.id
-    assert_equal 'jnunemaker', statuses.first.user.screen_name
+  should "get a user timeline" do
+    stub_get('/1/statuses/user_timeline.json?screen_name=sferik', 'array.json')
+    assert Twitter.timeline('sferik')
   end
 
-  should "raise Unauthorized for unauthenticated calls to get a protected user's timeline" do
-    stub_get('http://api.twitter.com/1/statuses/user_timeline/protected.json', 'unauthorized.json', 401)
+  should "raise Unauthorized for a request to a protected user's timeline" do
+    stub_get('/1/statuses/user_timeline.json?screen_name=protected', 'unauthorized.json', 401)
     assert_raise Twitter::Unauthorized do
       Twitter.timeline('protected')
     end
   end
 
-  should "have friend_ids method" do
-    stub_get('http://api.twitter.com/1/friends/ids/jnunemaker.json', 'friend_ids.json')
-    ids = Twitter.friend_ids('jnunemaker')
-    assert_equal 161, ids.size
+  should "get friend ids" do
+    stub_get('/1/friends/ids.json?screen_name=sferik', 'array.json')
+    assert Twitter.friend_ids('sferik')
   end
 
-  should "raise Unauthorized for unauthenticated calls to get a protected user's friend_ids" do
-    stub_get('http://api.twitter.com/1/friends/ids/protected.json', 'unauthorized.json', 401)
+  should "raise Unauthorized for a request to a protected user's friend ids" do
+    stub_get('/1/friends/ids.json?screen_name=protected', 'unauthorized.json', 401)
     assert_raise Twitter::Unauthorized do
       Twitter.friend_ids('protected')
     end
   end
 
-  should "have follower_ids method" do
-    stub_get('http://api.twitter.com/1/followers/ids/jnunemaker.json', 'follower_ids.json')
-    ids = Twitter.follower_ids('jnunemaker')
-    assert_equal 1252, ids.size
+  should "get follower ids" do
+    stub_get('/1/followers/ids.json?screen_name=sferik', 'array.json')
+    assert Twitter.follower_ids('sferik')
   end
 
-  should "raise Unauthorized for unauthenticated calls to get a protected user's follower_ids" do
-    stub_get('http://api.twitter.com/1/followers/ids/protected.json', 'unauthorized.json', 401)
+  should "raise Unauthorized for a request to a protected user's follower ids" do
+    stub_get('/1/followers/ids.json?screen_name=protected', 'unauthorized.json', 401)
     assert_raise Twitter::Unauthorized do
       Twitter.follower_ids('protected')
     end
   end
 
   context "when using lists" do
-
-    should "be able to view list timeline" do
-      stub_get('http://api.twitter.com/1/pengwynn/lists/rubyists/statuses.json', 'list_statuses.json')
-      tweets = Twitter.list_timeline('pengwynn', 'rubyists')
-      assert_equal 20, tweets.size
-      assert_equal 5272535583, tweets.first.id
-      assert_equal 'John Nunemaker', tweets.first.user.name
+    should "get all lists with screen_name" do
+      stub_get('/1/lists/all.json?screen_name=pengwynn', 'lists.json')
+      assert Twitter.lists_subscribed('pengwynn').lists
     end
 
-    should "be able to limit number of tweets in list timeline" do
-      stub_get('http://api.twitter.com/1/pengwynn/lists/rubyists/statuses.json?per_page=1', 'list_statuses_1_1.json')
-      tweets = Twitter.list_timeline('pengwynn', 'rubyists', :per_page => 1)
-      assert_equal 1, tweets.size
-      assert_equal 5272535583, tweets.first.id
-      assert_equal 'John Nunemaker', tweets.first.user.name
+    should "get all lists with user_id" do
+      stub_get('/1/lists/all.json?user_id=14100886', 'lists.json')
+      assert Twitter.lists_subscribed(14100886).lists
     end
 
-    should "be able to paginate through the timeline" do
-      stub_get('http://api.twitter.com/1/pengwynn/lists/rubyists/statuses.json?page=1&per_page=1', 'list_statuses_1_1.json')
-      stub_get('http://api.twitter.com/1/pengwynn/lists/rubyists/statuses.json?page=2&per_page=1', 'list_statuses_2_1.json')
-      tweets = Twitter.list_timeline('pengwynn', 'rubyists', { :page => 1, :per_page => 1 })
-      assert_equal 1, tweets.size
-      assert_equal 5272535583, tweets.first.id
-      assert_equal 'John Nunemaker', tweets.first.user.name
-      tweets = Twitter.list_timeline('pengwynn', 'rubyists', { :page => 2, :per_page => 1 })
-      assert_equal 1, tweets.size
-      assert_equal 5264324712, tweets.first.id
-      assert_equal 'John Nunemaker', tweets.first.user.name
+    should "get list timeline" do
+      stub_get('/1/pengwynn/lists/rubyists/statuses.json', 'array.json')
+      assert Twitter.list_timeline('pengwynn', 'rubyists')
     end
 
+    should "get list timeline with limit" do
+      stub_get('/1/pengwynn/lists/rubyists/statuses.json?per_page=1', 'array.json')
+      assert Twitter.list_timeline('pengwynn', 'rubyists', :per_page => 1)
+    end
+
+    should "get list timeline with pagination" do
+      stub_get('/1/pengwynn/lists/rubyists/statuses.json?page=1&per_page=1', 'array.json')
+      stub_get('/1/pengwynn/lists/rubyists/statuses.json?page=2&per_page=1', 'array.json')
+      assert Twitter.list_timeline('pengwynn', 'rubyists', {:page => 1, :per_page => 1})
+      assert Twitter.list_timeline('pengwynn', 'rubyists', {:page => 2, :per_page => 1})
+    end
   end
+
 end

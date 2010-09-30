@@ -14,9 +14,39 @@ module Twitter
       end.body
     end
 
-    def user(id, options={})
+    def user(user_id_or_screen_name, options={})
+      merge_user_into_options!(user_id_or_screen_name, options)
       results = connection.get do |request|
-        request.url "users/show/#{id}.json", options
+        request.url "users/show.json", options
+      end.body
+    end
+
+    def suggestions(category_slug=nil, options={})
+      path = case category_slug
+      when nil
+        "suggestions.json"
+      when Hash
+        options = category_slug
+        "suggestions.json"
+      else
+        "users/suggestions/#{category_slug}/members.json"
+      end
+      results = connection.get do |request|
+        request.url path, options
+      end.body
+    end
+
+    def retweeted_to_user(user_id_or_screen_name, options={})
+      merge_user_into_options!(user_id_or_screen_name, options)
+      results = connection.get do |request|
+        request.url "statuses/retweeted_to_user.json", options
+      end.body
+    end
+
+    def retweeted_by_user(user_id_or_screen_name, options={})
+      merge_user_into_options!(user_id_or_screen_name, options)
+      results = connection.get do |request|
+        request.url "statuses/retweeted_by_user.json", options
       end.body
     end
 
@@ -26,21 +56,31 @@ module Twitter
       end.body
     end
 
-    def friend_ids(id, options={})
+    def friend_ids(user_id_or_screen_name, options={})
+      merge_user_into_options!(user_id_or_screen_name, options)
       results = connection.get do |request|
-        request.url "friends/ids/#{id}.json", options
+        request.url "friends/ids.json", options
       end.body
     end
 
-    def follower_ids(id, options={})
+    def follower_ids(user_id_or_screen_name, options={})
+      merge_user_into_options!(user_id_or_screen_name, options)
       results = connection.get do |request|
-        request.url "followers/ids/#{id}.json", options
+        request.url "followers/ids.json", options
       end.body
     end
 
-    def timeline(id, options={})
+    def timeline(user_id_or_screen_name, options={})
+      merge_user_into_options!(user_id_or_screen_name, options)
       results = connection.get do |request|
-        request.url "statuses/user_timeline/#{id}.json", options
+        request.url "statuses/user_timeline.json", options
+      end.body
+    end
+
+    def lists_subscribed(user_id_or_screen_name, options={})
+      merge_user_into_options!(user_id_or_screen_name, options)
+      results = connection.get do |request|
+        request.url "lists/all.json", options
       end.body
     end
 
@@ -62,6 +102,18 @@ module Twitter
         builder.use Faraday::Response::MultiJson
         builder.use Faraday::Response::Mashify
       end
+    end
+
+    private
+
+    def merge_user_into_options!(user_id_or_screen_name, options={})
+      case user_id_or_screen_name
+      when Fixnum
+        options[:user_id] = user_id_or_screen_name
+      when String
+        options[:screen_name] = user_id_or_screen_name
+      end
+      options
     end
 
   end

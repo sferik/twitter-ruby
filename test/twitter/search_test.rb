@@ -1,12 +1,13 @@
 require 'test_helper'
 
 class SearchTest < Test::Unit::TestCase
+
   context "searching" do
     setup do
       @search = Twitter::Search.new
     end
 
-    should "be able to initialize with a search term" do
+    should "initialize with a search term" do
       assert Twitter::Search.new('httparty').query[:q].include? 'httparty'
     end
 
@@ -20,23 +21,23 @@ class SearchTest < Test::Unit::TestCase
       assert_equal 'Foobar', search.user_agent
     end
 
-    should "be able to specify from" do
+    should "specify from" do
       assert @search.from('jnunemaker').query[:q].include? 'from:jnunemaker'
     end
 
-    should "be able to specify not from" do
+    should "specify not from" do
       assert @search.from('jnunemaker',true).query[:q].include? '-from:jnunemaker'
     end
 
-    should "be able to specify to" do
+    should "specify to" do
       assert @search.to('jnunemaker').query[:q].include? 'to:jnunemaker'
     end
 
-    should "be able to specify not to" do
+    should "specify not to" do
       assert @search.to('jnunemaker',true).query[:q].include? '-to:jnunemaker'
     end
 
-    should "be able to specify not referencing" do
+    should "specify not referencing" do
       assert @search.referencing('jnunemaker',true).query[:q].include? '-@jnunemaker'
     end
 
@@ -48,11 +49,11 @@ class SearchTest < Test::Unit::TestCase
       assert @search.ref('jnunemaker').query[:q].include? '@jnunemaker'
     end
 
-    should "be able to specify containing" do
+    should "specify containing" do
       assert @search.containing('milk').query[:q].include? 'milk'
     end
 
-    should "be able to specify not containing" do
+    should "specify not containing" do
       assert @search.containing('milk', true).query[:q].include? '-milk'
     end
 
@@ -60,98 +61,98 @@ class SearchTest < Test::Unit::TestCase
       assert @search.contains('milk').query[:q].include? 'milk'
     end
 
-    should "be able to specify retweeted" do
+    should "specify retweeted" do
       assert @search.retweeted.query[:q].include? 'rt'
     end
 
-    should "be able to specify not_retweeted" do
+    should "specify not_retweeted" do
       assert @search.not_retweeted.query[:q].include? '-rt'
     end
 
-    should "be able to specify filters" do
+    should "specify filters" do
       assert @search.filter('links').query[:q].include? 'filter:links'
     end
 
-    should "be able to specify hashed" do
+    should "specify hashed" do
       assert @search.hashed('twitter').query[:q].include? '#twitter'
     end
 
-    should "be able to specify not hashed" do
+    should "specify not hashed" do
       assert @search.hashed('twitter',true).query[:q].include? '-#twitter'
     end
 
-    should "be able to specify the language" do
-      stub_get("http://search.twitter.com/search.json?q=&lang=en", "search.json")
-      @search.lang('en')
-      @search.fetch
+    should "specify the language" do
+      stub_get('http://search.twitter.com/search.json?q=&lang=en', 'search.json')
+      assert @search.lang('en')
+      assert @search.fetch
     end
 
-    should "be able to specify the locale" do
-      stub_get("http://search.twitter.com/search.json?q=&locale=ja", "search.json")
-      @search.locale('ja')
-      @search.fetch
+    should "specify the locale" do
+      stub_get('http://search.twitter.com/search.json?q=&locale=ja', 'search.json')
+      assert @search.locale('ja')
+      assert @search.fetch
     end
 
-    should "be able to specify the number of results per page" do
-      stub_get("http://search.twitter.com/search.json?q=&rpp=25", "search.json")
-      @search.per_page(25)
-      @search.fetch
+    should "specify the number of results per page" do
+      stub_get('http://search.twitter.com/search.json?q=&rpp=25', 'search.json')
+      assert @search.per_page(25)
+      assert @search.fetch
     end
 
-    should "be able to specify the page number" do
-      stub_get("http://search.twitter.com/search.json?q=&page=20", "search.json")
-      @search.page(20)
-      @search.fetch
+    should "specify the page number" do
+      stub_get('http://search.twitter.com/search.json?q=&page=20', 'search.json')
+      assert @search.page(20)
+      assert @search.fetch
     end
 
-    should "be able to specify only returning results greater than an id" do
-      stub_get("http://search.twitter.com/search.json?q=&since_id=1234", "search.json")
-      @search.since(1234)
-      @search.fetch
+    should "specify only returning results greater than an id" do
+      stub_get('http://search.twitter.com/search.json?q=&since_id=1234', 'search.json')
+      assert @search.since(1234)
+      assert @search.fetch
     end
 
-    should "be able to specify since a date" do
-      stub_get("http://search.twitter.com/search.json?q=&since=2009-04-14", "search.json")
-      @search.since_date('2009-04-14')
-      @search.fetch
+    should "specify since a date" do
+      stub_get('http://search.twitter.com/search.json?q=&since=2009-04-14', 'search.json')
+      assert @search.since_date('2009-04-14')
+      assert @search.fetch
     end
 
-    should "be able to specify until a date" do
-      stub_get("http://search.twitter.com/search.json?q=&until=2009-04-14", "search.json")
-      @search.until_date('2009-04-14')
-      @search.fetch
+    should "specify until a date" do
+      stub_get('http://search.twitter.com/search.json?q=&until=2009-04-14', 'search.json')
+      assert @search.until_date('2009-04-14')
+      assert @search.fetch
     end
 
-    should "be able to specify geo coordinates" do
-      stub_get("http://search.twitter.com/search.json?q=&geocode=40.757929%2C-73.985506%2C25mi", "search.json")
-      @search.geocode('40.757929', '-73.985506', '25mi')
-      @search.fetch
+    should "specify geo coordinates" do
+      stub_get('http://search.twitter.com/search.json?q=&geocode=40.757929%2C-73.985506%2C25mi', 'search.json')
+      assert @search.geocode('40.757929', '-73.985506', '25mi')
+      assert @search.fetch
     end
 
-    should "be able to specify max id" do
-      stub_get("http://search.twitter.com/search.json?q=&max_id=1234", "search.json")
-      @search.max(1234)
-      @search.fetch
+    should "specify max id" do
+      stub_get('http://search.twitter.com/search.json?q=&max_id=1234', 'search.json')
+      assert @search.max(1234)
+      assert @search.fetch
     end
 
-    should "be able to set the phrase" do
-      stub_get("http://search.twitter.com/search.json?q=&phrase=Who%20Dat", "search.json")
-      @search.phrase("Who Dat")
-      @search.fetch
+    should "set the phrase" do
+      stub_get('http://search.twitter.com/search.json?q=&phrase=Who%20Dat', 'search.json')
+      assert @search.phrase('Who Dat')
+      assert @search.fetch
     end
 
-    should "be able to set the result type" do
-      stub_get("http://search.twitter.com/search.json?q=&result_type=popular", "search.json")
-      @search.result_type("popular")
-      @search.fetch
+    should "set the result type" do
+      stub_get('http://search.twitter.com/search.json?q=&result_type=popular', 'search.json')
+      assert @search.result_type('popular')
+      assert @search.fetch
     end
 
-    should "be able to clear the filters set" do
+    should "clear the filters set" do
       @search.from('jnunemaker').to('oaknd1')
       assert_equal [], @search.clear.query[:q]
     end
 
-    should "be able to chain methods together" do
+    should "chain methods together" do
       @search.from('jnunemaker').to('oaknd1').referencing('orderedlist').containing('milk').retweeted.hashed('twitter').lang('en').per_page(20).since(1234).geocode('40.757929', '-73.985506', '25mi')
       assert_equal ['from:jnunemaker', 'to:oaknd1', '@orderedlist', 'milk', 'rt', '#twitter'], @search.query[:q]
       assert_equal 'en', @search.query[:lang]
@@ -162,9 +163,9 @@ class SearchTest < Test::Unit::TestCase
 
     should "not replace the current query when fetching" do
       stub_get('http://search.twitter.com/search.json?q=milk%20cheeze', 'search_milk_cheeze.json')
-      @search.containing('milk').containing('cheeze')
+      assert @search.containing('milk').containing('cheeze')
       assert_equal ['milk', 'cheeze'], @search.query[:q]
-      @search.fetch
+      assert @search.fetch
       assert_equal ['milk', 'cheeze'], @search.query[:q]
     end
 
@@ -189,8 +190,8 @@ class SearchTest < Test::Unit::TestCase
         assert @search.next_page?
       end
 
-      should "be able to fetch the next page" do
-        stub_get("http://search.twitter.com/search.json?page%3D2%26max_id%3D1446791544%26q%3D%2540jnunemaker=", "search.json")
+      should "fetch the next page" do
+        stub_get('http://search.twitter.com/search.json?page%3D2%26max_id%3D1446791544%26q%3D%2540jnunemaker=', 'search.json')
         @search.fetch_next_page
       end
     end
@@ -211,7 +212,7 @@ class SearchTest < Test::Unit::TestCase
       end
     end
 
-    should "be able to iterate over results" do
+    should "iterate over results" do
       assert_respond_to @search, :each
     end
   end

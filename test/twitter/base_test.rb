@@ -1,416 +1,463 @@
-require "test_helper"
+require 'test_helper'
 
 class BaseTest < Test::Unit::TestCase
   context "base" do
     setup do
-      oauth = Twitter::OAuth.new("token", "secret")
-      @access_token = OAuth::AccessToken.new(oauth.consumer, "atoken", "asecret")
+      oauth = Twitter::OAuth.new('token', 'secret')
+      @access_token = OAuth::AccessToken.new(oauth.consumer, 'atoken', 'asecret')
       oauth.stubs(:access_token).returns(@access_token)
-      @twitter = Twitter::Base.new(oauth)
+      @client = Twitter::Base.new(oauth)
     end
 
     context "initialize" do
       should "require a client" do
-        assert_respond_to @twitter.client, :get
-        assert_respond_to @twitter.client, :post
+        assert_respond_to @client.client, :get
+        assert_respond_to @client.client, :post
       end
     end
 
     should "delegate get to the client" do
-      @access_token.expects(:get).with("/foo").returns(nil)
-      @twitter.get("/foo")
+      @access_token.expects(:get).with('/foo').returns(nil)
+      @client.get('/foo')
     end
 
     should "delegate post to the client" do
-      @access_token.expects(:post).with("/foo", {:bar => "baz"}).returns(nil)
-      @twitter.post("/foo", {:bar => "baz"})
+      @access_token.expects(:post).with('/foo', {:bar => 'baz'}).returns(nil)
+      @client.post('/foo', {:bar => 'baz'})
     end
 
     context "hitting the API" do
-      should "be able to get home timeline" do
-        stub_get("/1/statuses/home_timeline.json", "home_timeline.json")
-        timeline = @twitter.home_timeline
-        assert_equal 20, timeline.size
-        first = timeline.first
-        assert_equal '<a href="http://www.atebits.com/software/tweetie/">Tweetie</a>', first.source
-        assert_equal 'John Nunemaker', first.user.name
-        assert_equal 'http://railstips.org/about', first.user.url
-        assert_equal 1441588944, first.id
-        assert !first.favorited
+      should "get home timeline" do
+        stub_get('/1/statuses/home_timeline.json', 'array.json')
+        assert @client.home_timeline
       end
 
-      should "be able to get friends timeline" do
-        stub_get("/1/statuses/friends_timeline.json", "friends_timeline.json")
-        timeline = @twitter.friends_timeline
-        assert_equal 20, timeline.size
-        first = timeline.first
-        assert_equal '<a href="http://www.atebits.com/software/tweetie/">Tweetie</a>', first.source
-        assert_equal 'John Nunemaker', first.user.name
-        assert_equal 'http://railstips.org/about', first.user.url
-        assert_equal 1441588944, first.id
-        assert !first.favorited
+      should "get friends timeline" do
+        stub_get('/1/statuses/friends_timeline.json', 'array.json')
+        assert @client.friends_timeline
       end
 
-      should "be able to get user timeline" do
-        stub_get("/1/statuses/user_timeline.json", "user_timeline.json")
-        timeline = @twitter.user_timeline
-        assert_equal 20, timeline.size
-        first = timeline.first
-        assert_equal 'Colder out today than expected. Headed to the Beanery for some morning wakeup drink. Latte or coffee...hmmm...', first.text
-        assert_equal 'John Nunemaker', first.user.name
+      should "get user timeline" do
+        stub_get('/1/statuses/user_timeline.json', 'array.json')
+        assert @client.user_timeline
       end
 
-      should "be able to get a status" do
-        stub_get("/1/statuses/show/1441588944.json", "status.json")
-        status = @twitter.status(1441588944)
-        assert_equal 'John Nunemaker', status.user.name
-        assert_equal 1441588944, status.id
+      should "get retweeted-to-user timeline by screen_name" do
+        stub_get('/1/statuses/retweeted_to_user.json?screen_name=sferik', 'array.json')
+        assert @client.retweeted_to_user('sferik')
       end
 
-      should "be able to update status" do
-        stub_post("/1/statuses/update.json", "status.json")
-        status = @twitter.update("Rob Dyrdek is the funniest man alive. That is all.")
-        assert_equal 'John Nunemaker', status.user.name
-        assert_equal 'Rob Dyrdek is the funniest man alive. That is all.', status.text
+      should "get retweeted-to-user timeline by user_id" do
+        stub_get('/1/statuses/retweeted_to_user.json?user_id=7505382', 'array.json')
+        assert @client.retweeted_to_user(7505382)
       end
 
-      should "be able to retweet a status" do
-        stub_post("/1/statuses/retweet/6235127466.json", "retweet.json")
-        status = @twitter.retweet(6235127466)
-        assert_equal 'Michael D. Ivey', status.user.name
-        assert_equal "RT @jstetser: I'm not actually awake. My mind's on autopilot for food and I managed to take a detour along the way.", status.text
-        assert_equal 'jstetser', status.retweeted_status.user.screen_name
-        assert_equal "I'm not actually awake. My mind's on autopilot for food and I managed to take a detour along the way.", status.retweeted_status.text
+      should "get retweeted-by-user timeline by screen_name" do
+        stub_get('/1/statuses/retweeted_by_user.json?screen_name=sferik', 'array.json')
+        assert @client.retweeted_by_user('sferik')
       end
 
-      should "be able to get retweets of a status" do
-        stub_get("/1/statuses/retweets/6192831130.json", "retweets.json")
-        retweets = @twitter.retweets(6192831130)
-        assert_equal 6, retweets.size
-        first = retweets.first
-        assert_equal 'josephholsten', first.user.name
-        assert_equal "RT @Moltz: Personally, I won't be satisfied until a Buddhist monk lights himself on fire for web standards.", first.text
+      should "get retweeted-by-user timeline by user id" do
+        stub_get('/1/statuses/retweeted_by_user.json?user_id=7505382', 'array.json')
+        assert @client.retweeted_by_user(7505382)
       end
 
-      should "be able to get mentions" do
-        stub_get("/1/statuses/mentions.json", "mentions.json")
-        mentions = @twitter.mentions
-        assert_equal 19, mentions.size
-        first = mentions.first
-        assert_equal "-oAk-", first.user.name
-        assert_equal "@jnunemaker cold out today. cold yesterday. even colder today.", first.text
+      should "get a status" do
+        stub_get('/1/statuses/show/25938088801.json', 'status.json')
+        assert @client.status(25938088801)
       end
 
-      should "be able to get retweets by me" do
-        stub_get("/1/statuses/retweeted_by_me.json", "retweeted_by_me.json")
-        retweeted_by_me = @twitter.retweeted_by_me
-        assert_equal 20, retweeted_by_me.size
-        first = retweeted_by_me.first.retweeted_status
-        assert_equal 'Troy Davis', first.user.name
-        assert_equal "I'm the mayor of win a free MacBook Pro with promo code Cyber Monday RT for a good time", first.text
+      should "update a status" do
+        stub_post('/1/statuses/update.json', 'status.json')
+        assert @client.update('@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!')
       end
 
-      should "be able to get retweets to me" do
-        stub_get("/1/statuses/retweeted_to_me.json", "retweeted_to_me.json")
-        retweeted_to_me = @twitter.retweeted_to_me
-        assert_equal 20, retweeted_to_me.size
-        first = retweeted_to_me.first.retweeted_status
-        assert_equal 'Cloudvox', first.user.name
-        assert_equal "Testing counts with voice apps too:\n\"the voice told residents to dial 'nine hundred eleven' rather than '9-1-1'\" http://j.mp/7mqe2B", first.text
+      should "delete a status" do
+        stub_delete('/1/statuses/destroy/25938088801.json', 'status.json')
+        assert @client.status_destroy(25938088801)
       end
 
-      should "be able to get retweets of me" do
-        stub_get("/1/statuses/retweets_of_me.json", "retweets_of_me.json")
-        retweets_of_me = @twitter.retweets_of_me
-        assert_equal 11, retweets_of_me.size
-        first = retweets_of_me.first
-        assert_equal 'Michael D. Ivey', first.user.name
-        assert_equal "Trying out geotweets in Birdfeed. No \"new RT\" support, though. Any iPhone client with RTs yet?", first.text
+      should "retweet a status" do
+        stub_post('/1/statuses/retweet/6235127466.json', 'retweet.json')
+        assert @client.retweet(6235127466)
       end
 
-      should "be able to get users who retweeted a tweet" do
-        stub_get("/1/statuses/9021932472/retweeted_by.json", "retweeters_of_tweet.json")
-        retweeters = @twitter.retweeters_of("9021932472")
-        assert_equal 4, retweeters.size
-        first = retweeters.first
-        assert_equal 'bryanl', first.screen_name
+      should "get retweets of a status" do
+        stub_get('/1/statuses/retweets/6192831130.json', 'array.json')
+        assert @client.retweets(6192831130)
       end
 
-      should "be able to get ids of users who retweeted a tweet" do
-        stub_get("/1/statuses/9021932472/retweeted_by/ids.json", "ids.json")
-        retweeters = @twitter.retweeters_of("9021932472", :ids_only => true)
-        assert_equal 61940910, retweeters.first
+      should "get mentions" do
+        stub_get('/1/statuses/mentions.json', 'array.json')
+        assert @client.mentions
       end
 
-      should "be able to get follower ids" do
-        stub_get("/1/followers/ids.json", "follower_ids.json")
-        follower_ids = @twitter.follower_ids
-        assert_equal 1252, follower_ids.size
-        assert_equal 613, follower_ids.first
+      should "get retweets by me" do
+        stub_get('/1/statuses/retweeted_by_me.json', 'array.json')
+        assert @client.retweeted_by_me
       end
 
-      should "be able to get friend ids" do
-        stub_get("/1/friends/ids.json", "friend_ids.json")
-        friend_ids = @twitter.friend_ids
-        assert_equal 161, friend_ids.size
-        assert_equal 15323, friend_ids.first
+      should "get retweets to me" do
+        stub_get('/1/statuses/retweeted_to_me.json', 'array.json')
+        assert @client.retweeted_to_me
       end
 
-      should "be able to test whether a friendship exists" do
-        stub_get("/1/friendships/exists.json?user_a=pengwynn&user_b=sferik", "friendship_exists.json")
-        assert @twitter.friendship_exists?("pengwynn", "sferik")
+      should "get retweets of me" do
+        stub_get('/1/statuses/retweets_of_me.json', 'array.json')
+        assert @client.retweets_of_me
       end
 
-      should "be able to get a friendship" do
-        stub_get("/1/friendships/show.json?source_screen_name=dcrec1&target_screen_name=pengwynn", "friendship.json")
-        assert !@twitter.friendship_show(:source_screen_name => "dcrec1", :target_screen_name => "pengwynn").relationship.target.followed_by
+      should "get users who retweeted a tweet" do
+        stub_get('/1/statuses/24519048728/retweeted_by.json', 'array.json')
+        assert @client.retweeters_of(24519048728)
       end
 
-      should "be able to lookup a user by id" do
-        stub_get("/1/users/show.json?user_id=4243", "user.json")
-        user = @twitter.user(4243)
-        assert_equal 'jnunemaker', user.screen_name
+      should "get ids of users who retweeted a tweet" do
+        stub_get('/1/statuses/24519048728/retweeted_by/ids.json', 'array.json')
+        assert @client.retweeters_of(24519048728, :ids_only => true)
       end
 
-      should "be able to lookup a user by screen_name" do
-        stub_get("/1/users/show.json?screen_name=jnunemaker", "user.json")
-        user = @twitter.user('jnunemaker')
-        assert_equal 'jnunemaker', user.screen_name
+      should "get follower ids" do
+        stub_get('/1/followers/ids.json', 'array.json')
+        assert @client.follower_ids
       end
 
-      should "be able to lookup users in bulk" do
-        stub_get("/1/users/lookup.json?user_id=59593%2C774010&screen_name=sferik", "users.json")
-        users = @twitter.users("sferik", 59593, 774010)
-        assert_equal 3, users.count
-        screen_names = users.map{|user| user["screen_name"]}
-        assert screen_names.include? "sferik"
-        assert screen_names.include? "jm3"
-        assert screen_names.include? "jamiew"
+      should "get friend ids" do
+        stub_get('/1/friends/ids.json', 'array.json')
+        assert @client.friend_ids
       end
 
-      should "be able to search people" do
-        stub_get("/1/users/search.json?q=Wynn%20Netherland", "people_search.json")
-        people = @twitter.user_search("Wynn Netherland")
-        assert_equal 'pengwynn', people.first.screen_name
+      should "get a user by user id" do
+        stub_get('/1/users/show.json?user_id=7505382', 'user.json')
+        assert @client.user(7505382)
       end
 
-      should "be able to get followers' stauses" do
-        stub_get("/1/statuses/followers.json", "followers.json")
-        assert @twitter.followers
+      should "get a user by screen_name" do
+        stub_get('/1/users/show.json?screen_name=sferik', 'user.json')
+        assert @client.user('sferik')
       end
 
-      should "be able to get blocked users' IDs" do
-        stub_get("/1/blocks/blocking/ids.json", "ids.json")
-        assert @twitter.blocked_ids
+      should "get single user with the users method" do
+        stub_get('/1/users/lookup.json?screen_name=sferik', 'array.json')
+        assert @client.users('sferik')
       end
 
-      should "be able to get an array of blocked users" do
-        stub_get("/1/blocks/blocking.json", "blocking.json")
-        blocked = @twitter.blocking
-        assert_equal 'euciavkvyplx', blocked.last.screen_name
+      should "get users in bulk" do
+        stub_get('/1/users/lookup.json?user_id=59593%2C774010&screen_name=sferik', 'array.json')
+        assert @client.users(['sferik', 59593, 774010])
+      end
+
+      should "search people" do
+        stub_get('/1/users/search.json?q=Erik%20Michaels-Ober', 'array.json')
+        assert @client.user_search('Erik Michaels-Ober')
+      end
+
+      should "get a direct message" do
+        stub_get('/1/direct_messages/show/1694868698.json', 'array.json')
+        assert @client.direct_message(1694868698)
+      end
+
+      should "get direct messages" do
+        stub_get('/1/direct_messages.json', 'array.json')
+        assert @client.direct_messages
+      end
+
+      should "get direct messages sent" do
+        stub_get('/1/direct_messages/sent.json', 'array.json')
+        assert @client.direct_messages_sent
+      end
+
+      should "create a direct message" do
+        stub_post('/1/direct_messages/new.json', 'array.json')
+        assert @client.direct_message_create('hurrycane', "Erik, Could you please ask Yehuda for the date when he will make the payment? I still haven't received the stipend. Thanks!")
+      end
+
+      should "delete a direct message" do
+        stub_delete('/1/direct_messages/destroy/1694868698.json', 'array.json')
+        assert @client.direct_message_destroy(1694868698)
+      end
+
+      should "get a friendship" do
+        stub_get('/1/friendships/show.json?source_screen_name=dcrec1&target_screen_name=pengwynn', 'friendship.json')
+        assert !@client.friendship(:source_screen_name => 'dcrec1', :target_screen_name => 'pengwynn').relationship.target.followed_by
+      end
+
+      should "get single friendship with the friendships method" do
+        stub_get('/1/friendships/lookup.json?screen_name=SarahPalinUSA', 'array.json')
+        assert @client.friendships('SarahPalinUSA')
+      end
+
+      should "get friendships" do
+        stub_get('/1/friendships/lookup.json?user_id=33423%2C813286&screen_name=SarahPalinUSA', 'array.json')
+        assert @client.friendships(['SarahPalinUSA', 33423, 813286])
+      end
+
+      should "create a friendship" do
+        stub_post('/1/friendships/create.json', 'user.json')
+        assert @client.friendship_create('sferik')
+      end
+
+      should "update a friendship" do
+        stub_post('/1/friendships/update.json', 'relationship.json')
+        assert @client.friendship_update('twitterapi', :device => true, :retweets => false).relationship
+      end
+
+      should "delete a friendship" do
+        stub_delete('/1/friendships/destroy.json?screen_name=sferik', 'user.json')
+        assert @client.friendship_destroy('sferik')
+      end
+
+      should "test whether a friendship exists" do
+        stub_get('/1/friendships/exists.json?user_a=pengwynn&user_b=sferik', 'friendship_exists.json')
+        assert @client.friendship_exists?('pengwynn', 'sferik')
+      end
+
+      should "get followers' stauses" do
+        stub_get('/1/statuses/followers.json', 'array.json')
+        assert @client.followers
+      end
+
+      should "get blocked users' IDs" do
+        stub_get('/1/blocks/blocking/ids.json', 'array.json')
+        assert @client.blocked_ids
+      end
+
+      should "get an array of blocked users" do
+        stub_get('/1/blocks/blocking.json', 'array.json')
+        assert @client.blocking
+      end
+
+      should "update profile colors" do
+        stub_post('/1/account/update_profile_colors.json', 'user.json')
+        assert @client.update_profile_colors(:profile_background_color => 'C0DEED')
+      end
+
+      should "update profile image" do
+        stub_post('/1/account/update_profile_image.json', 'user.json')
+        assert @client.update_profile_image(File.new(sample_image('me.jpeg')))
+      end
+
+      should "update background image" do
+        stub_post('/1/account/update_profile_background_image.json', 'user.json')
+        assert @client.update_profile_background(File.new(sample_image('nature02922-f1.2.jpeg')))
+      end
+
+      should "update profile" do
+        stub_post('/1/account/update_profile.json', 'user.json')
+        assert @client.update_profile(:location => 'San Francisco')
+      end
+
+      should "get related results" do
+        stub_get('/1/related_results/show/25938088801.json', 'array.json')
+        assert @client.related_results(25938088801)
+      end
+
+      should "get rate limit status" do
+        stub_get('/1/account/rate_limit_status.json', 'rate_limit_status.json')
+        assert @client.rate_limit_status
+      end
+
+      should "get totals" do
+        stub_get('/1/account/totals.json', 'totals.json')
+        assert @client.totals
+      end
+
+      should "get settings" do
+        stub_get('/1/account/settings.json', 'settings.json')
+        assert @client.settings
+      end
+
+      should "get favorites" do
+        stub_get('/1/favorites.json', 'array.json')
+        assert @client.favorites
+      end
+
+      should "create favorites" do
+        stub_post('/1/favorites/create/25938088801.json', 'status.json')
+        assert @client.favorite_create(25938088801)
+      end
+
+      should "delete favorites" do
+        stub_delete('/1/favorites/destroy/25938088801.json', 'status.json')
+        assert @client.favorite_destroy(25938088801)
+      end
+
+      should "enabled notifications" do
+        stub_post('/1/notifications/follow.json', 'user.json')
+        assert @client.enable_notifications('sferik')
+      end
+
+      should "disable notifications" do
+        stub_post('/1/notifications/leave.json', 'user.json')
+        assert @client.disable_notifications('sferik')
+      end
+
+      should "block a user" do
+        stub_post('/1/blocks/create.json', 'user.json')
+        assert @client.block('sferik')
+      end
+
+      should "unblock a user" do
+        stub_delete('/1/blocks/destroy.json', 'user.json')
+        assert @client.unblock('sferik')
       end
 
       should "report a spammer" do
-        stub_post("/1/report_spam.json", "report_spam.json")
-        spammer = @twitter.report_spam(:screen_name => 'lucaasvaz00')
-        assert_equal 'lucaasvaz00', spammer.screen_name
-      end
-
-      should "upload a profile image" do
-        stub_post("/1/account/update_profile_image.json", "update_profile_image.json")
-        user = @twitter.update_profile_image(File.new(sample_image("sample-image.png")))
-        assert_equal 'John Nunemaker', user.name # update_profile_image responds with the user
-      end
-
-      should "upload a background image" do
-        stub_post("/1/account/update_profile_background_image.json", "update_profile_background_image.json")
-        user = @twitter.update_profile_background(File.new(sample_image("sample-image.png")))
-        assert_equal 'John Nunemaker', user.name # update_profile_background responds with the user
-      end
-    end
-
-    context "when using saved searches" do
-      should "be able to retrieve my saved searches" do
-        stub_get("/1/saved_searches.json", "saved_searches.json")
-        searches = @twitter.saved_searches
-        assert_equal 'great danes', searches[0].query
-        assert_equal 'rubyconf OR railsconf', searches[1].query
-      end
-
-      should "be able to retrieve a saved search by id" do
-        stub_get("/1/saved_searches/show/7095598.json", "saved_search.json")
-        search = @twitter.saved_search(7095598)
-        assert_equal 'great danes', search.query
-      end
-
-      should "be able to create a saved search" do
-        stub_post("/1/saved_searches/create.json", "saved_search.json")
-        search = @twitter.saved_search_create("great danes")
-        assert_equal 'great danes', search.query
-      end
-
-      should "be able to delete a saved search" do
-        stub_delete("/1/saved_searches/destroy/7095598.json", "saved_search.json")
-        search = @twitter.saved_search_destroy(7095598)
-        assert_equal 'great danes', search.query
+        stub_post('/1/report_spam.json', 'user.json')
+        assert @client.report_spam(:screen_name => 'lucaasvaz00')
       end
     end
 
     context "when using lists" do
-
-      should "be able to create a new list" do
-        stub_post("/1/pengwynn/lists.json", "list.json")
-        list = @twitter.list_create("pengwynn", {:name => "Rubyists"})
-        assert_equal 'Rubyists', list.name
-        assert_equal 'rubyists', list.slug
-        assert_equal 'public', list.mode
+      should "create a new list" do
+        stub_post('/1/pengwynn/lists.json', 'list.json')
+        assert @client.list_create('pengwynn', {:name => 'Rubyists'})
       end
 
-      should "be able to update a list" do
-        stub_put("/1/pengwynn/lists/rubyists.json", "list.json")
-        list = @twitter.list_update("pengwynn", "rubyists", {:name => "Rubyists"})
-        assert_equal 'Rubyists', list.name
-        assert_equal 'rubyists', list.slug
-        assert_equal 'public', list.mode
+      should "update a list" do
+        stub_put('/1/pengwynn/lists/rubyists.json', 'list.json')
+        assert @client.list_update('pengwynn', 'rubyists', {:name => 'Rubyists'})
       end
 
-      should "be able to delete a list" do
-        stub_delete("/1/pengwynn/lists/rubyists.json", "list.json")
-        list = @twitter.list_delete("pengwynn", "rubyists")
-        assert_equal 'Rubyists', list.name
-        assert_equal 'rubyists', list.slug
-        assert_equal 'public', list.mode
+      should "delete a list" do
+        stub_delete('/1/pengwynn/lists/rubyists.json', 'list.json')
+        assert @client.list_delete('pengwynn', 'rubyists')
       end
 
-      should "be able to view lists to which a user belongs" do
-        stub_get("/1/pengwynn/lists/memberships.json", "memberships.json")
-        lists = @twitter.memberships("pengwynn").lists
-        assert_equal 16, lists.size
-        assert_equal 'web-dev', lists.first.name
-        assert_equal 38, lists.first.member_count
+      should "get lists to which a user belongs" do
+        stub_get('/1/pengwynn/lists/memberships.json', 'memberships.json')
+        assert @client.memberships('pengwynn').lists
       end
 
-      should "be able to view lists for the authenticated user" do
-        stub_get("/1/pengwynn/lists.json", "lists.json")
-        lists = @twitter.lists("pengwynn").lists
-        assert_equal 1, lists.size
-        assert_equal 'Rubyists', lists.first.name
-        assert_equal 'rubyists', lists.first.slug
+      should "get all lists" do
+        stub_get('/1/lists/all.json', 'lists.json')
+        assert @client.lists_subscribed.lists
       end
 
-      should "be able to view the user owned lists without passing the screen_name" do
-        stub_get("/1/lists.json", "lists.json")
-        lists = @twitter.lists.lists
-        assert_equal 1, lists.size
-        assert_equal 'Rubyists', lists.first.name
-        assert_equal 'rubyists', lists.first.slug
+      should "get list" do
+        stub_get('/1/lists.json', 'lists.json')
+        assert @client.lists.lists
       end
 
-      should "be able to view lists for the authenticated user by passing in a cursor" do
-        stub_get("/1/pengwynn/lists.json?cursor=-1", "lists.json")
-        lists = @twitter.lists("pengwynn", :cursor => -1).lists
-        assert_equal 1, lists.size
-        assert_equal 'Rubyists', lists.first.name
-        assert_equal 'rubyists', lists.first.slug
+      should "get lists by screen_name" do
+        stub_get('/1/pengwynn/lists.json', 'lists.json')
+        assert @client.lists('pengwynn').lists
       end
 
-      should "be able to view the user owned lists without passing the screen_name and passing in a cursor" do
-        stub_get("/1/lists.json?cursor=-1", "lists.json")
-        lists = @twitter.lists(:cursor => -1).lists
-        assert_equal 1, lists.size
-        assert_equal 'Rubyists', lists.first.name
-        assert_equal 'rubyists', lists.first.slug
+      should "get lists with a cursor" do
+        stub_get('/1/lists.json?cursor=-1', 'lists.json')
+        assert @client.lists(:cursor => -1).lists
       end
 
-      should "be able to view list details" do
-        stub_get("/1/pengwynn/lists/rubyists.json", "list.json")
-        list = @twitter.list("pengwynn", "rubyists")
-        assert_equal 'Rubyists', list.name
-        assert_equal 0, list.subscriber_count
+      should "get lists by screen_name with a cursor" do
+        stub_get('/1/pengwynn/lists.json?cursor=-1', 'lists.json')
+        assert @client.lists('pengwynn', :cursor => -1).lists
       end
 
-      should "be able to view list timeline" do
-        stub_get("/1/pengwynn/lists/rubyists/statuses.json", "list_statuses.json")
-        tweets = @twitter.list_timeline("pengwynn", "rubyists")
-        assert_equal 20, tweets.size
-        assert_equal 5272535583, tweets.first.id
-        assert_equal 'John Nunemaker', tweets.first.user.name
+      should "get suggestions" do
+        stub_get('/1/suggestions.json', 'array.json')
+        assert @client.suggestions
       end
 
-      should "be able to limit number of tweets in list timeline" do
-        stub_get("/1/pengwynn/lists/rubyists/statuses.json?per_page=1", "list_statuses_1_1.json")
-        tweets = @twitter.list_timeline("pengwynn", "rubyists", :per_page => 1)
-        assert_equal 1, tweets.size
-        assert_equal 5272535583, tweets.first.id
-        assert_equal 'John Nunemaker', tweets.first.user.name
+      should "get suggestions by category_slug" do
+        stub_get('/1/users/suggestions/technology/members.json', 'array.json')
+        assert @client.suggestions('technology')
       end
 
-      should "be able to paginate through the timeline" do
-        stub_get("/1/pengwynn/lists/rubyists/statuses.json?page=1&per_page=1", "list_statuses_1_1.json")
-        stub_get("/1/pengwynn/lists/rubyists/statuses.json?page=2&per_page=1", "list_statuses_2_1.json")
-        tweets = @twitter.list_timeline("pengwynn", "rubyists", { :page => 1, :per_page => 1 })
-        assert_equal 1, tweets.size
-        assert_equal 5272535583, tweets.first.id
-        assert_equal 'John Nunemaker', tweets.first.user.name
-        tweets = @twitter.list_timeline("pengwynn", "rubyists", { :page => 2, :per_page => 1 })
-        assert_equal 1, tweets.size
-        assert_equal 5264324712, tweets.first.id
-        assert_equal 'John Nunemaker', tweets.first.user.name
+      should "get suggestions with a cursor" do
+        stub_get('/1/suggestions.json?cursor=-1', 'array.json')
+        assert @client.suggestions(:cursor => -1)
       end
 
-      should "be able to view list members" do
-        stub_get("/1/pengwynn/rubyists/members.json", "list_users.json")
-        members = @twitter.list_members("pengwynn", "rubyists").users
-        assert_equal 2, members.size
-        assert_equal 'John Nunemaker', members.first.name
-        assert_equal 'jnunemaker', members.first.screen_name
+      should "get suggestions by category_slug with a cursor" do
+        stub_get('/1/users/suggestions/technology/members.json?cursor=-1', 'array.json')
+        assert @client.suggestions('technology', :cursor => -1)
       end
 
-      should "be able to add a member to a list" do
-        stub_post("/1/pengwynn/rubyists/members.json", "user.json")
-        user = @twitter.list_add_member("pengwynn", "rubyists", 4243)
-        assert_equal 'jnunemaker', user.screen_name
+      should "get list details" do
+        stub_get('/1/pengwynn/lists/rubyists.json', 'list.json')
+        assert @client.list('pengwynn', 'rubyists')
       end
 
-      should "be able to remove a member from a list" do
-        stub_delete("/1/pengwynn/rubyists/members.json?id=4243", "user.json")
-        user = @twitter.list_remove_member("pengwynn", "rubyists", 4243)
-        assert_equal 'jnunemaker', user.screen_name
+      should "get list timeline" do
+        stub_get('/1/pengwynn/lists/rubyists/statuses.json', 'array.json')
+        assert @client.list_timeline('pengwynn', 'rubyists')
       end
 
-      should "be able to check if a user is member of a list" do
-        stub_get("/1/pengwynn/rubyists/members/4243.json", "user.json")
-        assert @twitter.is_list_member?("pengwynn", "rubyists", 4243)
+      should "limit number of tweets in list timeline" do
+        stub_get('/1/pengwynn/lists/rubyists/statuses.json?per_page=1', 'array.json')
+        assert @client.list_timeline('pengwynn', 'rubyists', :per_page => 1)
       end
 
-      should "be able to view list subscribers" do
-        stub_get("/1/pengwynn/rubyists/subscribers.json", "list_users.json")
-        subscribers = @twitter.list_subscribers("pengwynn", "rubyists").users
-        assert_equal 2, subscribers.size
-        assert_equal 'John Nunemaker', subscribers.first.name
-        assert_equal 'jnunemaker', subscribers.first.screen_name
+      should "paginate through the timeline" do
+        stub_get('/1/pengwynn/lists/rubyists/statuses.json?page=1&per_page=1', 'array.json')
+        stub_get('/1/pengwynn/lists/rubyists/statuses.json?page=2&per_page=1', 'array.json')
+        assert @client.list_timeline('pengwynn', 'rubyists', {:page => 1, :per_page => 1})
+        assert @client.list_timeline('pengwynn', 'rubyists', {:page => 2, :per_page => 1})
       end
 
-      should "be able to subscribe to a list" do
-        stub_post("/1/pengwynn/rubyists/subscribers.json", "user.json")
-        user = @twitter.list_subscribe("pengwynn", "rubyists")
-        assert_equal 'jnunemaker', user.screen_name
+      should "get list members" do
+        stub_get('/1/pengwynn/rubyists/members.json', 'list_users.json')
+        assert @client.list_members('pengwynn', 'rubyists').users
       end
 
-      should "be able to unsubscribe from a list" do
-        stub_delete("/1/pengwynn/rubyists/subscribers.json", "user.json")
-        user = @twitter.list_unsubscribe("pengwynn", "rubyists")
-        assert_equal 'jnunemaker', user.screen_name
+      should "add a member to a list" do
+        stub_post('/1/pengwynn/rubyists/members.json', 'user.json')
+        assert @client.list_add_member('pengwynn', 'rubyists', 4243)
       end
 
-      should "be able to view a members list subscriptions" do
-        stub_get("/1/pengwynn/lists/subscriptions.json", "list_subscriptions.json")
-        subscriptions = @twitter.subscriptions("pengwynn").lists
-        assert_equal 1, subscriptions.size
-        assert_equal '@chriseppstein/sass-users', subscriptions.first.full_name
-        assert_equal 'sass-users', subscriptions.first.slug
+      should "remove a member from a list" do
+        stub_delete('/1/pengwynn/rubyists/members.json?id=4243', 'user.json')
+        assert @client.list_remove_member('pengwynn', 'rubyists', 4243)
       end
 
+      should "check if a user is member of a list" do
+        stub_get('/1/pengwynn/rubyists/members/4243.json', 'user.json')
+        assert @client.is_list_member?('pengwynn', 'rubyists', 4243)
+      end
+
+      should "get list subscribers" do
+        stub_get('/1/pengwynn/rubyists/subscribers.json', 'list_users.json')
+        assert @client.list_subscribers('pengwynn', 'rubyists').users
+      end
+
+      should "subscribe to a list" do
+        stub_post('/1/pengwynn/rubyists/subscribers.json', 'user.json')
+        assert @client.list_subscribe('pengwynn', 'rubyists')
+      end
+
+      should "unsubscribe from a list" do
+        stub_delete('/1/pengwynn/rubyists/subscribers.json', 'user.json')
+        assert @client.list_unsubscribe('pengwynn', 'rubyists')
+      end
+
+      should "get a members list subscriptions" do
+        stub_get('/1/pengwynn/lists/subscriptions.json', 'list_subscriptions.json')
+        assert @client.subscriptions('pengwynn').lists
+      end
     end
+
+    context "when using saved searches" do
+      should "retrieve my saved searches" do
+        stub_get('/1/saved_searches.json', 'array.json')
+        assert @client.saved_searches
+      end
+
+      should "retrieve a saved search by id" do
+        stub_get('/1/saved_searches/show/7095598.json', 'saved_search.json')
+        assert @client.saved_search(7095598)
+      end
+
+      should "create a saved search" do
+        stub_post('/1/saved_searches/create.json', 'saved_search.json')
+        assert @client.saved_search_create('great danes')
+      end
+
+      should "delete a saved search" do
+        stub_delete('/1/saved_searches/destroy/7095598.json', 'saved_search.json')
+        assert @client.saved_search_destroy(7095598)
+      end
+    end
+
   end
 end

@@ -54,7 +54,7 @@ class OAuthTest < Test::Unit::TestCase
     end
   end
 
-  should "be able to create access token from request token, request secret and verifier" do
+  should "create access token from request token, request secret and verifier" do
     twitter = Twitter::OAuth.new('token', 'secret')
     consumer = OAuth::Consumer.new('token', 'secret', {:site => 'http://api.twitter.com'})
     twitter.stubs(:signing_consumer).returns(consumer)
@@ -77,7 +77,7 @@ class OAuthTest < Test::Unit::TestCase
     assert_equal 'asecret', twitter.access_token.secret
   end
 
-  should "be able to create access token from access token and secret" do
+  should "create access token from access token and secret" do
     twitter = Twitter::OAuth.new('token', 'secret')
     consumer = OAuth::Consumer.new('token', 'secret', {:site => 'http://api.twitter.com'})
     twitter.stubs(:consumer).returns(consumer)
@@ -102,4 +102,5 @@ class OAuthTest < Test::Unit::TestCase
     access_token.expects(:post).returns(nil)
     twitter.post('/foo')
   end
+
 end
