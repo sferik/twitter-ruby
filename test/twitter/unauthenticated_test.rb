@@ -9,12 +9,12 @@ class UnauthenticatedTest < Test::Unit::TestCase
   end
 
   should "get a user by user id" do
-    stub_get('/1/users/show/7505382.json', 'user.json')
+    stub_get('/1/users/show/7505382.json', 'hash.json')
     assert Twitter.user(7505382)
   end
 
   should "get a user by screen_name" do
-    stub_get('/1/users/show/sferik.json', 'user.json')
+    stub_get('/1/users/show/sferik.json', 'hash.json')
     assert Twitter.user('sferik')
   end
 
@@ -59,7 +59,7 @@ class UnauthenticatedTest < Test::Unit::TestCase
   end
 
   should "get a status" do
-    stub_get('/1/statuses/show/1533815199.json', 'status_show.json')
+    stub_get('/1/statuses/show/1533815199.json', 'hash.json')
     assert Twitter.status(1533815199)
   end
 
@@ -108,13 +108,13 @@ class UnauthenticatedTest < Test::Unit::TestCase
 
   context "when using lists" do
     should "get all lists with screen_name" do
-      stub_get('/1/lists/all.json?screen_name=pengwynn', 'lists.json')
-      assert Twitter.lists_subscribed('pengwynn').lists
+      stub_get('/1/lists/all.json?screen_name=pengwynn', 'hash.json')
+      assert Twitter.lists_subscribed('pengwynn')
     end
 
     should "get all lists with user_id" do
-      stub_get('/1/lists/all.json?user_id=14100886', 'lists.json')
-      assert Twitter.lists_subscribed(14100886).lists
+      stub_get('/1/lists/all.json?user_id=14100886', 'hash.json')
+      assert Twitter.lists_subscribed(14100886)
     end
 
     should "get list timeline" do

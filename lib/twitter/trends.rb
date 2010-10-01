@@ -15,7 +15,6 @@ module Twitter
       results = connection.get do |request|
         request.url "current.json", options
       end.body
-      results = results.trends.values.flatten
     end
 
     # :exclude => 'hashtags' to exclude hashtags
@@ -24,7 +23,6 @@ module Twitter
       results = connection.get do |request|
         request.url "daily.json", options
       end.body
-      results = results.trends.values.flatten
     end
 
     # :exclude => 'hashtags' to exclude hashtags
@@ -33,7 +31,6 @@ module Twitter
       results = connection.get do |request|
         request.url "weekly.json", options
       end.body
-      results = results.trends.values.flatten
     end
 
     def available(options={})

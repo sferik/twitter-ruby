@@ -63,22 +63,22 @@ class BaseTest < Test::Unit::TestCase
       end
 
       should "get a status" do
-        stub_get('/1/statuses/show/25938088801.json', 'status.json')
+        stub_get('/1/statuses/show/25938088801.json', 'hash.json')
         assert @client.status(25938088801)
       end
 
       should "update a status" do
-        stub_post('/1/statuses/update.json', 'status.json')
+        stub_post('/1/statuses/update.json', 'hash.json')
         assert @client.update('@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!')
       end
 
       should "delete a status" do
-        stub_delete('/1/statuses/destroy/25938088801.json', 'status.json')
+        stub_delete('/1/statuses/destroy/25938088801.json', 'hash.json')
         assert @client.status_destroy(25938088801)
       end
 
       should "retweet a status" do
-        stub_post('/1/statuses/retweet/6235127466.json', 'retweet.json')
+        stub_post('/1/statuses/retweet/6235127466.json', 'hash.json')
         assert @client.retweet(6235127466)
       end
 
@@ -128,12 +128,12 @@ class BaseTest < Test::Unit::TestCase
       end
 
       should "get a user by user id" do
-        stub_get('/1/users/show.json?user_id=7505382', 'user.json')
+        stub_get('/1/users/show.json?user_id=7505382', 'hash.json')
         assert @client.user(7505382)
       end
 
       should "get a user by screen_name" do
-        stub_get('/1/users/show.json?screen_name=sferik', 'user.json')
+        stub_get('/1/users/show.json?screen_name=sferik', 'hash.json')
         assert @client.user('sferik')
       end
 
@@ -178,8 +178,8 @@ class BaseTest < Test::Unit::TestCase
       end
 
       should "get a friendship" do
-        stub_get('/1/friendships/show.json?source_screen_name=dcrec1&target_screen_name=pengwynn', 'friendship.json')
-        assert !@client.friendship(:source_screen_name => 'dcrec1', :target_screen_name => 'pengwynn').relationship.target.followed_by
+        stub_get('/1/friendships/show.json?source_screen_name=dcrec1&target_screen_name=pengwynn', 'hash.json')
+        assert @client.friendship(:source_screen_name => 'dcrec1', :target_screen_name => 'pengwynn')
       end
 
       should "get single friendship with the friendships method" do
@@ -193,22 +193,22 @@ class BaseTest < Test::Unit::TestCase
       end
 
       should "create a friendship" do
-        stub_post('/1/friendships/create.json', 'user.json')
+        stub_post('/1/friendships/create.json', 'hash.json')
         assert @client.friendship_create('sferik')
       end
 
       should "update a friendship" do
-        stub_post('/1/friendships/update.json', 'relationship.json')
-        assert @client.friendship_update('twitterapi', :device => true, :retweets => false).relationship
+        stub_post('/1/friendships/update.json', 'hash.json')
+        assert @client.friendship_update('twitterapi', :device => true, :retweets => false)
       end
 
       should "delete a friendship" do
-        stub_delete('/1/friendships/destroy.json?screen_name=sferik', 'user.json')
+        stub_delete('/1/friendships/destroy.json?screen_name=sferik', 'hash.json')
         assert @client.friendship_destroy('sferik')
       end
 
       should "test whether a friendship exists" do
-        stub_get('/1/friendships/exists.json?user_a=pengwynn&user_b=sferik', 'friendship_exists.json')
+        stub_get('/1/friendships/exists.json?user_a=pengwynn&user_b=sferik', 'true.json')
         assert @client.friendship_exists?('pengwynn', 'sferik')
       end
 
@@ -228,22 +228,22 @@ class BaseTest < Test::Unit::TestCase
       end
 
       should "update profile colors" do
-        stub_post('/1/account/update_profile_colors.json', 'user.json')
+        stub_post('/1/account/update_profile_colors.json', 'hash.json')
         assert @client.update_profile_colors(:profile_background_color => 'C0DEED')
       end
 
       should "update profile image" do
-        stub_post('/1/account/update_profile_image.json', 'user.json')
+        stub_post('/1/account/update_profile_image.json', 'hash.json')
         assert @client.update_profile_image(File.new(sample_image('me.jpeg')))
       end
 
       should "update background image" do
-        stub_post('/1/account/update_profile_background_image.json', 'user.json')
+        stub_post('/1/account/update_profile_background_image.json', 'hash.json')
         assert @client.update_profile_background(File.new(sample_image('nature02922-f1.2.jpeg')))
       end
 
       should "update profile" do
-        stub_post('/1/account/update_profile.json', 'user.json')
+        stub_post('/1/account/update_profile.json', 'hash.json')
         assert @client.update_profile(:location => 'San Francisco')
       end
 
@@ -253,17 +253,17 @@ class BaseTest < Test::Unit::TestCase
       end
 
       should "get rate limit status" do
-        stub_get('/1/account/rate_limit_status.json', 'rate_limit_status.json')
+        stub_get('/1/account/rate_limit_status.json', 'hash.json')
         assert @client.rate_limit_status
       end
 
       should "get totals" do
-        stub_get('/1/account/totals.json', 'totals.json')
+        stub_get('/1/account/totals.json', 'hash.json')
         assert @client.totals
       end
 
       should "get settings" do
-        stub_get('/1/account/settings.json', 'settings.json')
+        stub_get('/1/account/settings.json', 'hash.json')
         assert @client.settings
       end
 
@@ -273,85 +273,85 @@ class BaseTest < Test::Unit::TestCase
       end
 
       should "create favorites" do
-        stub_post('/1/favorites/create/25938088801.json', 'status.json')
+        stub_post('/1/favorites/create/25938088801.json', 'hash.json')
         assert @client.favorite_create(25938088801)
       end
 
       should "delete favorites" do
-        stub_delete('/1/favorites/destroy/25938088801.json', 'status.json')
+        stub_delete('/1/favorites/destroy/25938088801.json', 'hash.json')
         assert @client.favorite_destroy(25938088801)
       end
 
       should "enabled notifications" do
-        stub_post('/1/notifications/follow.json', 'user.json')
+        stub_post('/1/notifications/follow.json', 'hash.json')
         assert @client.enable_notifications('sferik')
       end
 
       should "disable notifications" do
-        stub_post('/1/notifications/leave.json', 'user.json')
+        stub_post('/1/notifications/leave.json', 'hash.json')
         assert @client.disable_notifications('sferik')
       end
 
       should "block a user" do
-        stub_post('/1/blocks/create.json', 'user.json')
+        stub_post('/1/blocks/create.json', 'hash.json')
         assert @client.block('sferik')
       end
 
       should "unblock a user" do
-        stub_delete('/1/blocks/destroy.json', 'user.json')
+        stub_delete('/1/blocks/destroy.json', 'hash.json')
         assert @client.unblock('sferik')
       end
 
       should "report a spammer" do
-        stub_post('/1/report_spam.json', 'user.json')
+        stub_post('/1/report_spam.json', 'hash.json')
         assert @client.report_spam(:screen_name => 'lucaasvaz00')
       end
     end
 
     context "when using lists" do
       should "create a new list" do
-        stub_post('/1/pengwynn/lists.json', 'list.json')
+        stub_post('/1/pengwynn/lists.json', 'hash.json')
         assert @client.list_create('pengwynn', {:name => 'Rubyists'})
       end
 
       should "update a list" do
-        stub_put('/1/pengwynn/lists/rubyists.json', 'list.json')
+        stub_put('/1/pengwynn/lists/rubyists.json', 'hash.json')
         assert @client.list_update('pengwynn', 'rubyists', {:name => 'Rubyists'})
       end
 
       should "delete a list" do
-        stub_delete('/1/pengwynn/lists/rubyists.json', 'list.json')
+        stub_delete('/1/pengwynn/lists/rubyists.json', 'hash.json')
         assert @client.list_delete('pengwynn', 'rubyists')
       end
 
       should "get lists to which a user belongs" do
-        stub_get('/1/pengwynn/lists/memberships.json', 'memberships.json')
-        assert @client.memberships('pengwynn').lists
+        stub_get('/1/pengwynn/lists/memberships.json', 'hash.json')
+        assert @client.memberships('pengwynn')
       end
 
       should "get all lists" do
-        stub_get('/1/lists/all.json', 'lists.json')
-        assert @client.lists_subscribed.lists
+        stub_get('/1/lists/all.json', 'hash.json')
+        assert @client.lists_subscribed
       end
 
       should "get list" do
-        stub_get('/1/lists.json', 'lists.json')
-        assert @client.lists.lists
+        stub_get('/1/lists.json', 'hash.json')
+        assert @client.lists
       end
 
       should "get lists by screen_name" do
-        stub_get('/1/pengwynn/lists.json', 'lists.json')
-        assert @client.lists('pengwynn').lists
+        stub_get('/1/pengwynn/lists.json', 'hash.json')
+        assert @client.lists('pengwynn')
       end
 
       should "get lists with a cursor" do
-        stub_get('/1/lists.json?cursor=-1', 'lists.json')
-        assert @client.lists(:cursor => -1).lists
+        stub_get('/1/lists.json?cursor=-1', 'hash.json')
+        assert @client.lists(:cursor => -1)
       end
 
       should "get lists by screen_name with a cursor" do
-        stub_get('/1/pengwynn/lists.json?cursor=-1', 'lists.json')
-        assert @client.lists('pengwynn', :cursor => -1).lists
+        stub_get('/1/pengwynn/lists.json?cursor=-1', 'hash.json')
+        assert @client.lists('pengwynn', :cursor => -1)
       end
 
       should "get suggestions" do
@@ -375,7 +375,7 @@ class BaseTest < Test::Unit::TestCase
       end
 
       should "get list details" do
-        stub_get('/1/pengwynn/lists/rubyists.json', 'list.json')
+        stub_get('/1/pengwynn/lists/rubyists.json', 'hash.json')
         assert @client.list('pengwynn', 'rubyists')
       end
 
@@ -397,43 +397,43 @@ class BaseTest < Test::Unit::TestCase
       end
 
       should "get list members" do
-        stub_get('/1/pengwynn/rubyists/members.json', 'list_users.json')
-        assert @client.list_members('pengwynn', 'rubyists').users
+        stub_get('/1/pengwynn/rubyists/members.json', 'hash.json')
+        assert @client.list_members('pengwynn', 'rubyists')
       end
 
       should "add a member to a list" do
-        stub_post('/1/pengwynn/rubyists/members.json', 'user.json')
+        stub_post('/1/pengwynn/rubyists/members.json', 'hash.json')
         assert @client.list_add_member('pengwynn', 'rubyists', 4243)
       end
 
       should "remove a member from a list" do
-        stub_delete('/1/pengwynn/rubyists/members.json?id=4243', 'user.json')
+        stub_delete('/1/pengwynn/rubyists/members.json?id=4243', 'hash.json')
         assert @client.list_remove_member('pengwynn', 'rubyists', 4243)
       end
 
       should "check if a user is member of a list" do
-        stub_get('/1/pengwynn/rubyists/members/4243.json', 'user.json')
+        stub_get('/1/pengwynn/rubyists/members/4243.json', 'hash.json')
         assert @client.is_list_member?('pengwynn', 'rubyists', 4243)
       end
 
       should "get list subscribers" do
-        stub_get('/1/pengwynn/rubyists/subscribers.json', 'list_users.json')
-        assert @client.list_subscribers('pengwynn', 'rubyists').users
+        stub_get('/1/pengwynn/rubyists/subscribers.json', 'hash.json')
+        assert @client.list_subscribers('pengwynn', 'rubyists')
       end
 
       should "subscribe to a list" do
-        stub_post('/1/pengwynn/rubyists/subscribers.json', 'user.json')
+        stub_post('/1/pengwynn/rubyists/subscribers.json', 'hash.json')
         assert @client.list_subscribe('pengwynn', 'rubyists')
       end
 
       should "unsubscribe from a list" do
-        stub_delete('/1/pengwynn/rubyists/subscribers.json', 'user.json')
+        stub_delete('/1/pengwynn/rubyists/subscribers.json', 'hash.json')
         assert @client.list_unsubscribe('pengwynn', 'rubyists')
       end
 
       should "get a members list subscriptions" do
-        stub_get('/1/pengwynn/lists/subscriptions.json', 'list_subscriptions.json')
-        assert @client.subscriptions('pengwynn').lists
+        stub_get('/1/pengwynn/lists/subscriptions.json', 'hash.json')
+        assert @client.subscriptions('pengwynn')
       end
     end
 
@@ -444,17 +444,17 @@ class BaseTest < Test::Unit::TestCase
       end
 
       should "retrieve a saved search by id" do
-        stub_get('/1/saved_searches/show/7095598.json', 'saved_search.json')
+        stub_get('/1/saved_searches/show/7095598.json', 'hash.json')
         assert @client.saved_search(7095598)
       end
 
       should "create a saved search" do
-        stub_post('/1/saved_searches/create.json', 'saved_search.json')
+        stub_post('/1/saved_searches/create.json', 'hash.json')
         assert @client.saved_search_create('great danes')
       end
 
       should "delete a saved search" do
-        stub_delete('/1/saved_searches/destroy/7095598.json', 'saved_search.json')
+        stub_delete('/1/saved_searches/destroy/7095598.json', 'hash.json')
         assert @client.saved_search_destroy(7095598)
       end
     end
