@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    twitter (0.9.12)
+    twitter (0.10.0)
       addressable (~> 2.2.1)
       faraday (~> 0.4.6)
       faraday_middleware (~> 0.0.5)

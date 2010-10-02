@@ -2,7 +2,6 @@ module Twitter
   class Trends
     extend SingleForwardable
 
-
     def initialize(options={})
       @adapter = options.delete(:adapter)
       @api_endpoint = "api.twitter.com/#{Twitter.api_version}/trends"
