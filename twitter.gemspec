@@ -6,6 +6,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency("json_pure", ["~> 1.4.6"])
   s.add_development_dependency("mocha", ["~> 0.9.8"])
   s.add_development_dependency("shoulda", ["~> 2.11.3"])
+  s.add_development_dependency("ZenTest", ["~> 4.4.0"])
   s.add_runtime_dependency("addressable", ["~> 2.2.1"])
   s.add_runtime_dependency("faraday", ["~> 0.4.6"])
   s.add_runtime_dependency("faraday_middleware", ["~> 0.1.0"])
