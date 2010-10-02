@@ -5,7 +5,8 @@
 * {Fix tests that assume position in a <tt>Hash</tt>}[http://github.com/jnunemaker/twitter/commit/c9f7ed1d9106807aa6fb27d48a92f4b92d0594a7] (@duncan[http://twitter.com/#!/duncan])
 * {Use HTTP DELETE method instead of HTTP POST for all destructive methods}[http://github.com/jnunemaker/twitter/commit/0bfbf6352de9bdda2b93ed053a358c0cb8e78e8f]
 * {Remove <tt>Base#replies</tt> (use <tt>Base#mentions</tt> instead) and <tt>Base#help</tt>, which returned invalid JSON}[http://github.com/jnunemaker/twitter/commit/0bfbf6352de9bdda2b93ed053a358c0cb8e78e8f]
-* {Return full trends object to include <tt>as_of</tt> method}[http://github.com/jnunemaker/twitter/commit/009f7d38013293a887c7460fce70fff4a826caaf]
+* {Return full <tt>Trends</tt> object to include <tt>as_of</tt> method}[http://github.com/jnunemaker/twitter/commit/009f7d38013293a887c7460fce70fff4a826caaf]
+* {Return full <tt>Geo</tt> object to include <tt>query</tt> method}[http://github.com/jnunemaker/twitter/commit/46ca16fd296c60caff9533ed37bc6f3f1b8c0424]
 * {Change the method signature for <tt>Base#users</tt> and <tt>Base#friendships</tt> to accept an <tt>Array</tt> and an options <tt>Hash</tt>}[http://github.com/jnunemaker/twitter/commit/0bfbf6352de9bdda2b93ed053a358c0cb8e78e8f]
 * {Improve website style}[http://github.com/jnunemaker/twitter/commit/4cdf4e76b6d71d5d4760b46d1a894c00929c0ba3] (@rodrigo3n[http://twitter.com/#!/rodrigo3n])
 

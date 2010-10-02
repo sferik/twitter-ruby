@@ -38,9 +38,9 @@ oauth = Twitter::OAuth.new('consumer token', 'consumer secret')
 oauth.authorize_from_access('access token', 'access secret')
 
 client = Twitter::Base.new(oauth)
-client.friends_timeline.each { |tweet| puts tweet.inspect }
-client.user_timeline.each    { |tweet| puts tweet.inspect }
-client.mentions.each          { |tweet| puts tweet.inspect }
+client.friends_timeline.each {|tweet| puts tweet.inspect}
+client.user_timeline.each    {|tweet| puts tweet.inspect}
+client.mentions.each         {|tweet| puts tweet.inspect}
 
 client.update('Heeeyyyyoooo from Twitter Gem!')</code></pre>
 
@@ -64,7 +64,6 @@ end
 # you can also use fetch to actually just get the parsed response
 Twitter::Search.new.from('jnunemaker').to('oaknd1').fetch
 </code></pre>
-
 
     <h3>Trends API Examples</h3>
 
