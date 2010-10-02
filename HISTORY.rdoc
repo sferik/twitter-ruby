@@ -6,7 +6,7 @@
 * {Use HTTP DELETE method instead of HTTP POST for all destructive methods}[http://github.com/jnunemaker/twitter/commit/0bfbf6352de9bdda2b93ed053a358c0cb8e78e8f]
 * {Remove <tt>Base#replies</tt> (use <tt>Base#mentions</tt> instead) and <tt>Base#help</tt>, which returned invalid JSON}[http://github.com/jnunemaker/twitter/commit/0bfbf6352de9bdda2b93ed053a358c0cb8e78e8f]
 * {Return full trends object to include <tt>as_of</tt> method}[http://github.com/jnunemaker/twitter/commit/009f7d38013293a887c7460fce70fff4a826caaf]
-* {Change the method signature for <tt>Base#users</tt> and <tt>Base#friendships</tt> must be passed arrays
+* {Change the method signature for <tt>Base#users</tt> and <tt>Base#friendships</tt> to accept an <tt>Array</tt> and an options <tt>Hash</tt>}[http://github.com/jnunemaker/twitter/commit/0bfbf6352de9bdda2b93ed053a358c0cb8e78e8f]
 * {Improve website style}[http://github.com/jnunemaker/twitter/commit/4cdf4e76b6d71d5d4760b46d1a894c00929c0ba3] (@rodrigo3n[http://twitter.com/#!/rodrigo3n])
 
 === 0.9.12 - September 25, 2010
