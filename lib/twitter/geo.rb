@@ -13,21 +13,18 @@ module Twitter
       results = connection.get do |request|
         request.url "id/#{place_id}.json", options
       end.body
-      results
     end
 
     def search(options={})
       results = connection.get do |request|
         request.url "search.json", options
       end.body
-      results.result.values.flatten
     end
 
     def reverse_geocode(options={})
       results = connection.get do |request|
         request.url "reverse_geocode.json", options
       end.body
-      results.result.values.flatten
     end
 
     def self.client; self.new end
