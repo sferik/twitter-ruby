@@ -99,7 +99,7 @@ module Twitter
       @connection ||= Faraday::Connection.new(:url => @api_endpoint, :headers => headers) do |builder|
         builder.adapter(@adapter || Faraday.default_adapter)
         builder.use Faraday::Response::RaiseErrors
-        builder.use Faraday::Response::MultiJson
+        builder.use Faraday::Response::ParseJson
         builder.use Faraday::Response::Mashify
       end
     end
