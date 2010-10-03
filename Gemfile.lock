@@ -6,7 +6,7 @@ PATH
       faraday (~> 0.4.6)
       faraday_middleware (~> 0.1.0)
       hashie (~> 0.4.0)
-      oauth (~> 0.4.3)
+      roauth (~> 0.0.3)
 
 GEM
   remote: http://rubygems.org/
@@ -27,12 +27,12 @@ GEM
     mocha (0.9.8)
       rake
     multi_json (0.0.4)
-    oauth (0.4.3)
     oauth2 (0.0.13)
       faraday (~> 0.4.1)
       multi_json (>= 0.0.4)
     rack (1.2.1)
     rake (0.8.7)
+    roauth (0.0.3)
     shoulda (2.11.3)
 
 PLATFORMS
@@ -47,6 +47,6 @@ DEPENDENCIES
   hashie (~> 0.4.0)
   json_pure (~> 1.4.6)
   mocha (~> 0.9.8)
-  oauth (~> 0.4.3)
+  roauth (~> 0.0.3)
   shoulda (~> 2.11.3)
   twitter!

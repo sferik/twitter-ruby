@@ -2,7 +2,8 @@ require 'addressable/uri'
 require 'faraday'
 require 'faraday_middleware'
 require 'forwardable'
-require 'oauth'
+require 'roauth'
+require 'cgi'
 
 module Twitter
   extend SingleForwardable
@@ -43,6 +44,28 @@ module Twitter
 
   def self.api_version=(value)
     @api_version = value
+  end
+  
+  class << self
+    attr_accessor :consumer_key
+    attr_accessor :consumer_secret
+    attr_accessor :access_key
+    attr_accessor :access_secret
+
+    # config/initializers/twitter.rb (for instance)
+    #
+    # Twitter.configure do |config|
+    #   config.consumer_key = 'ctoken'
+    #   config.consumer_secret = 'csecret'
+    #   config.access_key = 'atoken'
+    #   config.access_secret = 'asecret'
+    # end
+
+    def configure
+      yield self
+      true
+    end
+
   end
 
   private

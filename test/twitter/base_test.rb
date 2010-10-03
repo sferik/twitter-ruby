@@ -1,29 +1,32 @@
 require 'test_helper'
 
 class BaseTest < Test::Unit::TestCase
+  
   context "base" do
     setup do
-      oauth = Twitter::OAuth.new('token', 'secret')
-      @access_token = OAuth::AccessToken.new(oauth.consumer, 'atoken', 'asecret')
-      oauth.stubs(:access_token).returns(@access_token)
-      @client = Twitter::Base.new(oauth)
+      Twitter.configure do |config|
+        config.consumer_key = 'ctoken'
+        config.consumer_secret = 'csecret'
+        config.access_key = 'atoken'
+        config.access_secret = 'asecret'
+      end
+      
+      @client = Twitter::Base.new
     end
 
     context "initialize" do
-      should "require a client" do
-        assert_respond_to @client.client, :get
-        assert_respond_to @client.client, :post
+      should "accept oauth params" do
+        assert_equal @client.consumer_key, 'ctoken'
       end
-    end
-
-    should "delegate get to the client" do
-      @access_token.expects(:get).with('/foo').returns(nil)
-      @client.get('/foo')
-    end
-
-    should "delegate post to the client" do
-      @access_token.expects(:post).with('/foo', {:bar => 'baz'}).returns(nil)
-      @client.post('/foo', {:bar => 'baz'})
+      
+      should "override oauth params" do
+        oauth = {
+          :access_key      => "atoken",
+          :access_secret   => "s3cr3t"
+        }
+        client = Twitter::Base.new(oauth)
+        assert_equal 's3cr3t', client.access_secret
+      end
     end
 
     context "hitting the API" do

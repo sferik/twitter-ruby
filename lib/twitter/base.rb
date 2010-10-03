@@ -1,13 +1,13 @@
 module Twitter
   class Base
-    extend Forwardable
+    
+    attr_reader :consumer_key, :consumer_secret, :access_key, :access_secret
 
-    def_delegators :client, :get, :post, :put, :delete
-
-    attr_reader :client
-
-    def initialize(client)
-      @client = client
+    def initialize(options={})
+      @consumer_key = options[:consumer_key] || Twitter.consumer_key
+      @consumer_secret = options[:consumer_secret] || Twitter.consumer_secret
+      @access_key = options[:access_key] || Twitter.access_key
+      @access_secret = options[:access_secret] || Twitter.access_secret
     end
 
     # Options: since_id, max_id, count, page
@@ -443,10 +443,21 @@ module Twitter
         builder.use Faraday::Response::Mashify
       end
     end
+    
+    def oauth_header(path, options)
+      oauth_params = {
+        :consumer_key    => self.consumer_key,
+        :consumer_secret => self.consumer_secret,
+        :access_key      => self.access_key,
+        :access_secret   => self.access_secret
+      }
+      ROAuth.header(oauth_params, connection.build_url(path, options), options)
+    end
 
     def perform_get(path, options={})
       results = connection.get do |request|
         request.url path, options
+        request['Authorization'] = oauth_header(path, options)
       end.body
     end
 
@@ -454,6 +465,7 @@ module Twitter
       results = connection.post do |request|
         request.path = path
         request.body = options
+        request['Authorization'] = oauth_header(path, {})
       end.body
     end
 
@@ -461,12 +473,14 @@ module Twitter
       results = connection.put do |request|
         request.path = path
         request.body = options
+        request['Authorization'] = oauth_header(path, options)
       end.body
     end
 
     def perform_delete(path, options={})
       results = connection.delete do |request|
         request.url path, options
+        request['Authorization'] = oauth_header(path, options)
       end.body
     end
 

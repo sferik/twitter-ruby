@@ -2,6 +2,23 @@ require 'test_helper'
 
 class TwitterTest < Test::Unit::TestCase
 
+  should "configure consumer and access keys for easy access" do
+
+    Twitter.configure do |config|
+      config.consumer_key = 'OU812'
+      config.consumer_secret = 'vh5150'
+      config.access_key = '8675309'
+      config.access_secret = '8008135'
+    end
+
+    client = Twitter::Base.new
+
+    assert_equal 'OU812', client.consumer_key
+    assert_equal 'vh5150', client.consumer_secret
+    assert_equal '8675309', client.access_key
+    assert_equal '8008135', client.access_secret
+  end
+  
   should "default adapter to Faraday.default_adapter" do
     assert_equal Faraday.default_adapter, Twitter.adapter
   end
