@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency("faraday_middleware", ["~> 0.1.0"])
   s.add_runtime_dependency("hashie", ["~> 0.4.0"])
   s.authors = ["John Nunemaker", "Wynn Netherland", "Erik Michaels-Ober"]
-  s.description = %q{Ruby wrapper for the Twitter API}
+  s.description = %q{A Ruby wrapper for the Twitter REST and Search APIs.}
   s.email = ["nunemaker@gmail.com"]
   s.executables = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.extra_rdoc_files = ["README.rdoc"]
