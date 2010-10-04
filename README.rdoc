@@ -12,6 +12,12 @@ http://github.com/jnunemaker/twitter/tree/master/examples
 
 http://rdoc.info/projects/jnunemaker/twitter
 
+== Submiting Bugs/Features
+
+We use the GitHub issue tracker for bugs and feature requests. If you want to report a bug or missing feature, please make sure it hasn't already been reported, then create a new issue. When submitting a bug report, please include a Gist[http://gist.github.com/] of the stack trace and any details that may be necessary to reproduce the bug, including the version of the gem you're using, your Ruby version, and your operating system. Ideally, bug reports should be submitted with failing tests, but this is not necessary.
+
+http://github.com/jnunemaker/twitter/issues
+
 == Submitting Patches
 
 1. Fork the project.
