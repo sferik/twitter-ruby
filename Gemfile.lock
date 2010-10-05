@@ -47,6 +47,7 @@ DEPENDENCIES
   hashie (~> 0.4.0)
   json_pure (~> 1.4.6)
   mocha (~> 0.9.8)
+  rake (~> 0.8.7)
   roauth (~> 0.0.3)
   shoulda (~> 2.11.3)
   twitter!
