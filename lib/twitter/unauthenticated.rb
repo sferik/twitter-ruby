@@ -92,16 +92,18 @@ module Twitter
       end.body
     end
 
+    def profile_image(screen_name)
+      connection_with_unparsed_response.get do |request|
+        request.url "users/profile_image/#{screen_name}.json"
+      end.headers["location"]
+    end
+    
     def connection
-      headers = {
-        :user_agent => Twitter.user_agent
-      }
-      @connection ||= Faraday::Connection.new(:url => @api_endpoint, :headers => headers) do |builder|
-        builder.adapter(@adapter || Faraday.default_adapter)
-        builder.use Faraday::Response::RaiseErrors
-        builder.use Faraday::Response::ParseJson
-        builder.use Faraday::Response::Mashify
-      end
+      connection_with_builders(Faraday::Response::RaiseErrors, Faraday::Response::ParseJson, Faraday::Response::Mashify)
+    end
+
+    def connection_with_unparsed_response
+      connection_with_builders(Faraday::Response::RaiseErrors, Faraday::Response::Mashify)
     end
 
     private
@@ -114,6 +116,16 @@ module Twitter
         options[:screen_name] = user_id_or_screen_name
       end
       options
+    end
+    
+    def connection_with_builders(*builders)
+      headers = {
+        :user_agent => Twitter.user_agent
+      }
+      Faraday::Connection.new(:url => @api_endpoint, :headers => headers) do |builder|
+        builder.adapter(@adapter || Faraday.default_adapter)
+        builders.each do |b| builder.use b end
+      end
     end
 
   end

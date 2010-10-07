@@ -10,7 +10,7 @@ module Twitter
 
   def self.client; Twitter::Unauthenticated.new end
 
-  def_delegators :client, :firehose, :user, :suggestions, :retweeted_to_user, :retweeted_by_user, :status, :friend_ids, :follower_ids, :timeline, :lists_subscribed, :list_timeline
+  def_delegators :client, :firehose, :user, :suggestions, :retweeted_to_user, :retweeted_by_user, :status, :friend_ids, :follower_ids, :timeline, :lists_subscribed, :list_timeline, :profile_image
 
   def self.adapter
     @adapter ||= Faraday.default_adapter
