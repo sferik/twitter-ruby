@@ -7,6 +7,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency("mocha", ["~> 0.9.8"])
   s.add_development_dependency("rake", ["~> 0.8.7"])
   s.add_development_dependency("shoulda", ["~> 2.11.3"])
+  s.add_development_dependency("test-unit", ["~> 2.1.1"])
   s.add_development_dependency("ZenTest", ["~> 4.4.0"])
   s.add_runtime_dependency("roauth", "~> 0.0.3")
   s.add_runtime_dependency("addressable", ["~> 2.2.1"])
