@@ -8,7 +8,7 @@ module Twitter
       @options = options
       clear
       containing(q) if q && q.strip != ""
-      @api_endpoint = 'search.twitter.com/search.json'
+      @api_endpoint = "search.twitter.com/search.#{Twitter.format}"
       @api_endpoint = Addressable::URI.heuristic_parse(@api_endpoint)
     end
 
@@ -170,13 +170,21 @@ module Twitter
       end
     end
 
+    private
+
     def connection
       headers = {
         :user_agent => user_agent
       }
       @connection ||= Faraday::Connection.new(:url => @api_endpoint.omit(:path), :headers => headers) do |builder|
         builder.adapter(@adapter || Faraday.default_adapter)
-        builder.use Faraday::Response::ParseJson
+        builder.use Faraday::Response::RaiseErrors
+        case Twitter.format.to_s
+        when "json"
+          builder.use Faraday::Response::ParseJson
+        when "xml"
+          builder.use Faraday::Response::ParseXml
+        end
         builder.use Faraday::Response::Mashify
       end
     end

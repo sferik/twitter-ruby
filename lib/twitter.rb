@@ -28,6 +28,14 @@ module Twitter
     @user_agent = value
   end
 
+  def self.format
+    @format ||= 'json'
+  end
+
+  def self.format=(value)
+    @format = value
+  end
+
   def self.api_endpoint
     api_endpoint = "api.twitter.com/#{Twitter.api_version}"
     api_endpoint = Addressable::URI.heuristic_parse(api_endpoint).to_s
@@ -45,7 +53,7 @@ module Twitter
   def self.api_version=(value)
     @api_version = value
   end
-  
+
   class << self
     attr_accessor :consumer_key
     attr_accessor :consumer_secret

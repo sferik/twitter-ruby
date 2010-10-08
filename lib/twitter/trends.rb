@@ -12,7 +12,7 @@ module Twitter
     # :exclude => 'hashtags' to exclude hashtags
     def current(options={})
       results = connection.get do |request|
-        request.url "current.json", options
+        request.url "current.#{Twitter.format}", options
       end.body
     end
 
@@ -20,7 +20,7 @@ module Twitter
     # :date => yyyy-mm-dd for specific date
     def daily(options={})
       results = connection.get do |request|
-        request.url "daily.json", options
+        request.url "daily.#{Twitter.format}", options
       end.body
     end
 
@@ -28,19 +28,19 @@ module Twitter
     # :date => yyyy-mm-dd for specific date
     def weekly(options={})
       results = connection.get do |request|
-        request.url "weekly.json", options
+        request.url "weekly.#{Twitter.format}", options
       end.body
     end
 
     def available(options={})
       connection.get do |request|
-        request.url "available.json", options
+        request.url "available.#{Twitter.format}", options
       end.body
     end
 
     def for_location(woeid, options = {})
       connection.get do |request|
-        request.url "#{woeid}.json", options
+        request.url "#{woeid}.#{Twitter.format}", options
       end.body
     end
 
@@ -48,13 +48,21 @@ module Twitter
 
     def_delegators :client, :current, :daily, :weekly, :available, :for_location
 
+    private
+
     def connection
       headers = {
         :user_agent => Twitter.user_agent
       }
       @connection ||= Faraday::Connection.new(:url => @api_endpoint, :headers => headers) do |builder|
         builder.adapter(@adapter || Faraday.default_adapter)
-        builder.use Faraday::Response::ParseJson
+        builder.use Faraday::Response::RaiseErrors
+        case Twitter.format.to_s
+        when "json"
+          builder.use Faraday::Response::ParseJson
+        when "xml"
+          builder.use Faraday::Response::ParseXml
+        end
         builder.use Faraday::Response::Mashify
       end
     end

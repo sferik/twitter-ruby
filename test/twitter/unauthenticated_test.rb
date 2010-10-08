@@ -18,6 +18,11 @@ class UnauthenticatedTest < Test::Unit::TestCase
     assert Twitter.user('sferik')
   end
 
+  should "get a user's profile image" do
+    stub_get('/1/users/profile_image/ratherchad.json', 'n605431196_2079896_558_normal.jpg', 302, 'http://a3.twimg.com/profile_images/1107413683/n605431196_2079896_558_normal.jpg')
+    assert Twitter.profile_image('ratherchad')
+  end
+
   should "get suggestions" do
     stub_get('/1/suggestions.json', 'array.json')
     assert Twitter.suggestions
@@ -134,10 +139,4 @@ class UnauthenticatedTest < Test::Unit::TestCase
       assert Twitter.list_timeline('pengwynn', 'rubyists', {:page => 2, :per_page => 1})
     end
   end
-  
-  should "get a user's profile image" do
-    stub_get('/1/users/profile_image/ratherchad.json', 'array.json', nil, 'http://a3.twimg.com/profile_images/1107413683/n605431196_2079896_558_normal.jpg')
-    assert_equal 'http://a3.twimg.com/profile_images/1107413683/n605431196_2079896_558_normal.jpg',  Twitter.profile_image( 'ratherchad' )
-  end
-
 end
