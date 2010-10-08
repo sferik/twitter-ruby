@@ -3,7 +3,7 @@ module Faraday
     def self.register_on_complete(env)
       env[:response].on_complete do |response|
         case response[:status].to_i
-        when 400
+        when 400, 420
           raise Twitter::RateLimitExceeded, "#{response[:body]['error'] if response[:body]}"
         when 401
           raise Twitter::Unauthorized, "#{response[:body]['error'] if response[:body]}"
