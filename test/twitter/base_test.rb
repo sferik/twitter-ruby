@@ -4,19 +4,19 @@ class BaseTest < Test::Unit::TestCase
 
   context "base" do
     setup do
-      Twitter.configure do |config|
-        config.consumer_key = 'ctoken'
-        config.consumer_secret = 'csecret'
-        config.access_key = 'atoken'
-        config.access_secret = 'asecret'
-      end
-
       @client = Twitter::Base.new
     end
 
     context "initialize" do
       should "accept oauth params" do
-        assert_equal @client.consumer_key, 'ctoken'
+        Twitter.configure do |config|
+          config.consumer_key = 'ctoken'
+          config.consumer_secret = 'csecret'
+          config.access_key = 'atoken'
+          config.access_secret = 'asecret'
+        end
+        client = Twitter::Base.new
+        assert_equal client.consumer_key, 'ctoken'
       end
 
       should "override oauth params" do

@@ -8,6 +8,16 @@ require 'cgi'
 module Twitter
   extend SingleForwardable
 
+  class BadRequest < StandardError; end
+  class Unauthorized < StandardError; end
+  class Forbidden < StandardError; end
+  class NotFound < StandardError; end
+  class NotAcceptable < StandardError; end
+  class EnhanceYourCalm < StandardError; end
+  class InternalServerError < StandardError; end
+  class BadGateway < StandardError; end
+  class ServiceUnavailable < StandardError; end
+
   def self.client; Twitter::Unauthenticated.new end
 
   def_delegators :client, :firehose, :user, :suggestions, :retweeted_to_user, :retweeted_by_user, :status, :friend_ids, :follower_ids, :timeline, :lists_subscribed, :list_timeline, :profile_image
@@ -75,24 +85,6 @@ module Twitter
     end
 
   end
-
-  private
-
-  class TwitterError < StandardError
-    attr_reader :data
-
-    def initialize(data)
-      @data = data
-      super
-    end
-  end
-
-  class RateLimitExceeded < TwitterError; end
-  class Unauthorized < TwitterError; end
-  class General < TwitterError; end
-  class Unavailable < StandardError; end
-  class InformTwitter < StandardError; end
-  class NotFound < StandardError; end
 end
 
 faraday_middleware_files = Dir[File.join(File.dirname(__FILE__), "/faraday/**/*.rb")].sort

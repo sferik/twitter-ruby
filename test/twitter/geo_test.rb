@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class GeoTest < Test::Unit::TestCase
-  include Twitter
 
   context "Geographic place lookup" do
     should "work" do

@@ -26,7 +26,7 @@ class SearchTest < Test::Unit::TestCase
     end
 
     should "specify not from" do
-      assert @search.from('sferik',true).query[:q].include? '-from:sferik'
+      assert @search.from('sferik', true).query[:q].include? '-from:sferik'
     end
 
     should "specify to" do
@@ -34,11 +34,11 @@ class SearchTest < Test::Unit::TestCase
     end
 
     should "specify not to" do
-      assert @search.to('sferik',true).query[:q].include? '-to:sferik'
+      assert @search.to('sferik', true).query[:q].include? '-to:sferik'
     end
 
     should "specify not referencing" do
-      assert @search.referencing('sferik',true).query[:q].include? '-@sferik'
+      assert @search.referencing('sferik', true).query[:q].include? '-@sferik'
     end
 
     should "alias references to referencing" do
@@ -78,7 +78,7 @@ class SearchTest < Test::Unit::TestCase
     end
 
     should "specify not hashed" do
-      assert @search.hashed('twitter',true).query[:q].include? '-#twitter'
+      assert @search.hashed('twitter', true).query[:q].include? '-#twitter'
     end
 
     should "specify the language" do

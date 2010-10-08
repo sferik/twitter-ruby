@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class TrendsTest < Test::Unit::TestCase
-  include Twitter
 
   context "Getting current trends" do
     should "work" do
