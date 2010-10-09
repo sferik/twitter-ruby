@@ -51,10 +51,9 @@ module Twitter
     private
 
     def connection
-      headers = {
-        :user_agent => Twitter.user_agent
-      }
-      @connection = Faraday::Connection.new(:url => @api_endpoint, :headers => headers) do |builder|
+      headers = {:user_agent => Twitter.user_agent}
+      ssl = {:verify => false}
+      @connection = Faraday::Connection.new(:url => @api_endpoint, :headers => headers, :ssl => ssl) do |builder|
         builder.adapter(@adapter || Faraday.default_adapter)
         builder.use Faraday::Response::RaiseErrors
         case Twitter.format.to_s

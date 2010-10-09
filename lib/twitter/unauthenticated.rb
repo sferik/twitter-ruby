@@ -120,10 +120,9 @@ module Twitter
     end
 
     def connection_with_builders(builders)
-      headers = {
-        :user_agent => Twitter.user_agent
-      }
-      @connection = Faraday::Connection.new(:url => @api_endpoint, :headers => headers) do |builder|
+      headers = {:user_agent => Twitter.user_agent}
+      ssl = {:verify => false}
+      @connection = Faraday::Connection.new(:url => @api_endpoint, :headers => headers, :ssl => ssl) do |builder|
         builder.adapter(@adapter || Faraday.default_adapter)
         builders.each do |b| builder.use b end
       end
