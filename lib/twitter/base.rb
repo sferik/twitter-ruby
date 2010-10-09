@@ -468,20 +468,20 @@ module Twitter
       @connection
     end
 
-    def oauth_header(path, options)
+    def oauth_header(path, options, method)
       oauth_params = {
         :consumer_key    => self.consumer_key,
         :consumer_secret => self.consumer_secret,
         :access_key      => self.access_key,
         :access_secret   => self.access_secret
       }
-      ROAuth.header(oauth_params, connection.build_url(path, options), options)
+      ROAuth.header(oauth_params, connection.build_url(path), options, method)
     end
 
     def perform_get(path, options={})
       results = connection.get do |request|
         request.url path, options
-        request['Authorization'] = oauth_header(path, options)
+        request['Authorization'] = oauth_header(path, options, :get)
       end.body
     end
 
@@ -489,7 +489,7 @@ module Twitter
       results = connection.post do |request|
         request.path = path
         request.body = options
-        request['Authorization'] = oauth_header(path, {})
+        request['Authorization'] = oauth_header(path, options, :post)
       end.body
     end
 
@@ -497,14 +497,14 @@ module Twitter
       results = connection.put do |request|
         request.path = path
         request.body = options
-        request['Authorization'] = oauth_header(path, options)
+        request['Authorization'] = oauth_header(path, options, :put)
       end.body
     end
 
     def perform_delete(path, options={})
       results = connection.delete do |request|
         request.url path, options
-        request['Authorization'] = oauth_header(path, options)
+        request['Authorization'] = oauth_header(path, options, :delete)
       end.body
     end
 
