@@ -381,7 +381,8 @@ module Twitter
       perform_get("saved_searches/show/#{id}.#{Twitter.format}", options)
     end
 
-    def saved_search_create(options)
+    def saved_search_create(query)
+      options = query.is_a?(Hash) ? query : {:query => query}
       perform_post("saved_searches/create.#{Twitter.format}", options)
     end
 
