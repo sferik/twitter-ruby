@@ -37,7 +37,7 @@ class RaiseErrorsTest < Test::Unit::TestCase
     end
 
     should "raise NotAcceptable when an invalid format is specified" do
-      stub_get('http://search.twitter.com/search.json?q=from%3Asferik', 'not_acceptable.json', 406)
+      stub_get('https://search.twitter.com/search.json?q=from%3Asferik', 'not_acceptable.json', 406)
       assert_raise Twitter::NotAcceptable do
         @search.from('sferik')
         @search.fetch
@@ -45,7 +45,7 @@ class RaiseErrorsTest < Test::Unit::TestCase
     end
 
     should "raise EnhanceYourCalm when search is rate limited" do
-      stub_get('http://search.twitter.com/search.json?q=from%3Asferik', 'enhance_your_calm.json', 420)
+      stub_get('https://search.twitter.com/search.json?q=from%3Asferik', 'enhance_your_calm.json', 420)
       assert_raise Twitter::EnhanceYourCalm do
         @search.from('sferik')
         @search.fetch

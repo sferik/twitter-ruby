@@ -37,7 +37,7 @@ module Twitter
       headers = {
         :user_agent => Twitter.user_agent
       }
-      @connection ||= Faraday::Connection.new(:url => @api_endpoint, :headers => headers) do |builder|
+      @connection = Faraday::Connection.new(:url => @api_endpoint, :headers => headers) do |builder|
         builder.adapter(@adapter || Faraday.default_adapter)
         builder.use Faraday::Response::RaiseErrors
         case Twitter.format.to_s
@@ -48,6 +48,8 @@ module Twitter
         end
         builder.use Faraday::Response::Mashify
       end
+      @connection.scheme = Twitter.scheme
+      @connection
     end
 
   end

@@ -123,10 +123,12 @@ module Twitter
       headers = {
         :user_agent => Twitter.user_agent
       }
-      Faraday::Connection.new(:url => @api_endpoint, :headers => headers) do |builder|
+      @connection = Faraday::Connection.new(:url => @api_endpoint, :headers => headers) do |builder|
         builder.adapter(@adapter || Faraday.default_adapter)
         builders.each do |b| builder.use b end
       end
+      @connection.scheme = Twitter.scheme
+      @connection
     end
 
     def merge_user_into_options!(user_id_or_screen_name, options={})

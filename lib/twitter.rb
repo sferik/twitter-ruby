@@ -46,6 +46,14 @@ module Twitter
     @format = value
   end
 
+  def self.scheme
+    @scheme ||= 'https'
+  end
+
+  def self.scheme=(value)
+    @scheme = value
+  end
+
   def self.api_endpoint
     api_endpoint = "api.twitter.com/#{Twitter.api_version}"
     api_endpoint = Addressable::URI.heuristic_parse(api_endpoint).to_s

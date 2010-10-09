@@ -461,10 +461,12 @@ module Twitter
       headers = {
         :user_agent => Twitter.user_agent
       }
-      @connection ||= Faraday::Connection.new(:url => Twitter.api_endpoint, :headers => headers) do |builder|
+      @connection = Faraday::Connection.new(:url => Twitter.api_endpoint, :headers => headers) do |builder|
         builder.adapter(@adapter || Faraday.default_adapter)
         builders.each do |b| builder.use b end
       end
+      @connection.scheme = Twitter.scheme
+      @connection
     end
 
     def oauth_header(path, options)

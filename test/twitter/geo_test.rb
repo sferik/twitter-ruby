@@ -34,7 +34,7 @@ class GeoTest < Test::Unit::TestCase
 
     should "limit the number of results returned" do
       stub_get('/1/geo/reverse_geocode.json?lat=37.783935&max_results=2&long=-122.39361', 'hash.json')
-      assert  Twitter::Geo.reverse_geocode(:lat => 37.783935, :long => -122.39361, :max_results => 2)
+      assert Twitter::Geo.reverse_geocode(:lat => 37.783935, :long => -122.39361, :max_results => 2)
     end
 
     should "lookup with granularity" do

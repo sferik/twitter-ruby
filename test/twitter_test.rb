@@ -22,8 +22,8 @@ class TwitterTest < Test::Unit::TestCase
     assert_equal Faraday.default_adapter, Twitter.adapter
   end
 
-  context "when overriding the adapter" do
-    should "be able to specify the adapter" do
+  context "when overriding adapter" do
+    should "be able to specify adapter" do
       Twitter.adapter = :typhoeus
       assert_equal :typhoeus, Twitter.adapter
       # Reset
@@ -35,8 +35,8 @@ class TwitterTest < Test::Unit::TestCase
     assert_equal 'Ruby Twitter Gem', Twitter.user_agent
   end
 
-  context "when overriding the user_agent" do
-    should "be able to specify the user_agent" do
+  context "when overriding user_agent" do
+    should "be able to specify user_agent" do
       Twitter.user_agent = 'My Twitter Gem'
       assert_equal 'My Twitter Gem', Twitter.user_agent
       # Reset
@@ -48,8 +48,8 @@ class TwitterTest < Test::Unit::TestCase
     assert_equal "http://api.twitter.com/#{Twitter.api_version}", Twitter.api_endpoint
   end
 
-  context "when overriding the api_endpoint" do
-    should "be able to specify the api_endpoint" do
+  context "when overriding api_endpoint" do
+    should "be able to specify api_endpoint" do
       Twitter.api_endpoint = 'tumblr.com'
       assert_equal 'http://tumblr.com', Twitter.api_endpoint
       # Reset
@@ -61,8 +61,8 @@ class TwitterTest < Test::Unit::TestCase
     assert_equal 1, Twitter.api_version
   end
 
-  context "when overriding the api_version" do
-    should "be able to specify the api_version" do
+  context "when overriding api_version" do
+    should "be able to specify api_version" do
       Twitter.api_version = 2
       assert_equal 2, Twitter.api_version
       # Reset
@@ -74,12 +74,25 @@ class TwitterTest < Test::Unit::TestCase
     assert_equal "json", Twitter.format
   end
 
-  context "when overriding the format" do
-    should "be able to specify the format" do
+  context "when overriding format" do
+    should "be able to specify format" do
       Twitter.format = "xml"
       assert_equal "xml", Twitter.format
       # Reset
       Twitter.format = "json"
+    end
+  end
+
+  should "default scheme to https" do
+    assert_equal "https", Twitter.scheme
+  end
+
+  context "when overriding scheme" do
+    should "be able to specify scheme" do
+      Twitter.scheme = "http"
+      assert_equal "http", Twitter.scheme
+      # Reset
+      Twitter.scheme = "https"
     end
   end
 
