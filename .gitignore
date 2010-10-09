@@ -5,3 +5,5 @@ doc
 log
 pkg/*
 rdoc
+.yardoc
+/doc
