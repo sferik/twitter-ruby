@@ -115,6 +115,7 @@ module Twitter
       end.body
     end
 
+    # @private
     def self.client; self.new end
 
     def_delegators :client, :place, :search, :reverse_geocode, :similar_places, :create_place

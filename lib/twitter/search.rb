@@ -22,6 +22,7 @@ module Twitter
     end
 
     # Returns the configured user agent for the search
+    # @return <String> the configured user agent
     def user_agent
       @options[:user_agent] || "Ruby Twitter Gem"
     end
