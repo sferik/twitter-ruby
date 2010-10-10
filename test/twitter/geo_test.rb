@@ -42,5 +42,35 @@ class GeoTest < Test::Unit::TestCase
       assert Twitter::Geo.reverse_geocode(:lat => 37.783935, :long => -122.39361, :granularity => 'city')
     end
   end
+  
+  context "Geographically similar places" do
+    should "work" do
+      stub_get('/1/geo/similar_places.json?lat=37.783935&long=-122.39361&name=Twitter%20HQ', 'hash.json')
+      assert Twitter::Geo.similar_places(:lat => 37.783935, :long => -122.39361, :name => "Twitter HQ")
+    end
+  end
+  
+  context "Creating places" do 
+    should "work" do
+      stub_post('/1/geo/place.json', 'hash.json')
+      
+      Twitter.configure do |config|
+        config.consumer_key = 'ctoken'
+        config.consumer_secret = 'csecret'
+        config.access_key = 'atoken'
+        config.access_secret = 'asecret'
+      end
+      
+      info = {
+        :name => 'Twitter HQ',
+        :contained_within => '247f43d441defc03',
+        :token => '36179c9bf78835898ebf521c1defd4be',
+        :lat => 37.7821120598956,
+        :long => -122.400612831116
+      }
+      assert Twitter::Geo.create_place(info)
+      
+    end
+  end
 
 end
