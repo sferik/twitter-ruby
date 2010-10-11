@@ -7,3 +7,4 @@ pkg/*
 rdoc
 .yardoc
 /doc
+/snippets
