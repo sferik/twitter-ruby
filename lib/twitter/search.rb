@@ -275,13 +275,13 @@ module Twitter
       ssl = {:verify => false}
       @connection = Faraday::Connection.new(:url => @api_endpoint.omit(:path), :headers => headers, :ssl => false) do |builder|
         builder.adapter(@adapter || Faraday.default_adapter)
+        builder.use Faraday::Response::RaiseErrors
         case Twitter.format.to_s
         when "json"
           builder.use Faraday::Response::ParseJson
         when "xml"
           builder.use Faraday::Response::ParseXml
         end
-        builder.use Faraday::Response::RaiseErrors
         builder.use Faraday::Response::Mashify
       end
       @connection.scheme = Twitter.scheme
