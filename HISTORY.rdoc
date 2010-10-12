@@ -1,16 +1,17 @@
-=== 1.0.0 - COMING SOON
-* {Switch from HTTParty to Faraday}[http://github.com/jnunemaker/twitter/commit/80aff88dae11d64673fe4e025cc8f065a6796345]
-* {Switch from OAuth to ROAuth}[http://github.com/jnunemaker/twitter/commit/d33b119cdfdaefb10db99e56d28dd69625816edf]
+=== 1.0.0.rc.1 - October 12, 2010
+* {Switch from httparty to faraday HTTP client library}[http://github.com/jnunemaker/twitter/commit/80aff88dae11d64673fe4e025cc8f065a6796345]
+* {Switch from oauth to simple_oauth for authentication}[http://github.com/jnunemaker/twitter/commit/76cfe3749e56b2b486f2b5ffc9aa7f437cb2db29] (@laserlemon[http://twitter.com/#!/laserlemon])
 * {Handle errors with <tt>faraday_middleware</tt>}[http://github.com/jnunemaker/twitter/commit/1f99e46f602268bc82daf39b329d81e54abfb292]
 * {Add #NewTwitter methods and tests}[http://github.com/jnunemaker/twitter/commit/0bfbf6352de9bdda2b93ed053a358c0cb8e78e8f]
 * {Fix tests that assume position in a <tt>Hash</tt>}[http://github.com/jnunemaker/twitter/commit/c9f7ed1d9106807aa6fb27d48a92f4b92d0594a7] (@duncan[http://twitter.com/#!/duncan])
+* {Enable SSL by default (add option to disable SSL)}[http://github.com/jnunemaker/twitter/commit/c4f8907d6595f93d63bc84d6575920a14774e656]
 * {Use HTTP DELETE method instead of HTTP POST for all destructive methods}[http://github.com/jnunemaker/twitter/commit/0bfbf6352de9bdda2b93ed053a358c0cb8e78e8f]
-* {Remove <tt>Base#replies</tt> (use <tt>Base#mentions</tt> instead) and <tt>Base#help</tt>, which returned invalid JSON}[http://github.com/jnunemaker/twitter/commit/0bfbf6352de9bdda2b93ed053a358c0cb8e78e8f]
+* {Remove <tt>Base#replies</tt> (use <tt>Base#mentions</tt> instead)}[http://github.com/jnunemaker/twitter/commit/0bfbf6352de9bdda2b93ed053a358c0cb8e78e8f]
 * {Return full <tt>Trends</tt> object to include <tt>as_of</tt> method}[http://github.com/jnunemaker/twitter/commit/009f7d38013293a887c7460fce70fff4a826caaf]
 * {Return full <tt>Geo</tt> object to include <tt>query</tt> method}[http://github.com/jnunemaker/twitter/commit/46ca16fd296c60caff9533ed37bc6f3f1b8c0424]
 * {Change the method signature for <tt>Base#users</tt> and <tt>Base#friendships</tt> to accept an <tt>Array</tt> and an options <tt>Hash</tt>}[http://github.com/jnunemaker/twitter/commit/0bfbf6352de9bdda2b93ed053a358c0cb8e78e8f]
-* {Improve website style}[http://github.com/jnunemaker/twitter/commit/4cdf4e76b6d71d5d4760b46d1a894c00929c0ba3] (@rodrigo3n[http://twitter.com/#!/rodrigo3n])
 * {Add <tt>Twitter.profile_image</tt> method}[http://github.com/jnunemaker/twitter/commit/e6645022aefdc11860fe88b45725a08bb24adf55] (@ratherchad[http://twitter.com/#!/ratherchad])
+* {Improve website style}[http://github.com/jnunemaker/twitter/commit/4cdf4e76b6d71d5d4760b46d1a894c00929c0ba3] (@rodrigo3n[http://twitter.com/#!/rodrigo3n])
 * {Make request format configurable}[http://github.com/jnunemaker/twitter/commit/d35d6447b25fa84447ae97558958431fa9f6aa29]
 
 === 0.9.12 - September 25, 2010
