@@ -147,7 +147,8 @@ module Twitter
         :access_key      => @access_key,
         :access_secret   => @access_secret
       }
-      ROAuth.header(oauth_params, connection.build_url(path), options, method)
+      SimpleOAuth::Header.new(method, connection.build_url(path), options, oauth_params).to_s
+      #ROAuth.header(oauth_params, connection.build_url(path), options, method)
     end
 
   end

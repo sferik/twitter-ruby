@@ -2,7 +2,7 @@ require 'addressable/uri'
 require 'faraday'
 require 'faraday_middleware'
 require 'forwardable'
-require 'roauth'
+require 'simple_oauth'
 require 'cgi'
 
 module Twitter

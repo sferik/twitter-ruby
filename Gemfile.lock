@@ -5,7 +5,7 @@ PATH
       addressable (~> 2.2.1)
       faraday (~> 0.4.1)
       faraday_middleware (~> 0.1.1)
-      roauth (~> 0.0.3)
+      simple_oauth (~> 0.1.0)
 
 GEM
   remote: http://rubygems.org/
@@ -37,6 +37,7 @@ GEM
     rake (0.8.7)
     roauth (0.0.3)
     shoulda (2.11.3)
+    simple_oauth (0.1.0)
     test-unit (2.1.1)
     yard (0.6.1)
 
@@ -53,8 +54,8 @@ DEPENDENCIES
   json_pure (~> 1.4)
   mocha (~> 0.9)
   rake (~> 0.8)
-  roauth (~> 0.0.3)
   shoulda (~> 2.11)
+  simple_oauth (~> 0.1.0)
   test-unit (~> 2.1)
   twitter!
   yard (~> 0.6)
