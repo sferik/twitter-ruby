@@ -11,7 +11,7 @@ GEM
   remote: http://rubygems.org/
   specs:
     ZenTest (4.4.0)
-    addressable (2.2.1)
+    addressable (2.2.2)
     bluecloth (2.0.9)
     fakeweb (1.3.0)
     faraday (0.4.6)
