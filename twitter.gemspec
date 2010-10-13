@@ -12,8 +12,11 @@ Gem::Specification.new do |s|
   s.add_development_dependency("yard", "~> 0.6")
   s.add_development_dependency("ZenTest", "~> 4.4")
   s.add_runtime_dependency("addressable", "~> 2.1.1")
+  s.add_runtime_dependency("hashie", "~> 0.4.0")
   s.add_runtime_dependency("faraday", "~> 0.5.0")
-  s.add_runtime_dependency("faraday_middleware", "~> 0.1.4")
+  s.add_runtime_dependency("faraday_middleware", "~> 0.1.6")
+  s.add_runtime_dependency("multi_json", "~> 0.0.4")
+  s.add_runtime_dependency("multi_xml", "~> 0.1.0")
   s.add_runtime_dependency("simple_oauth", "~> 0.1.1")
   s.authors = ["John Nunemaker", "Wynn Netherland", "Erik Michaels-Ober"]
   s.description = %q{A Ruby wrapper for the Twitter REST and Search APIs.}
