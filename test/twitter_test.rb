@@ -83,16 +83,16 @@ class TwitterTest < Test::Unit::TestCase
     end
   end
 
-  should "default scheme to https" do
-    assert_equal "https", Twitter.scheme
+  should "default protocol to https" do
+    assert_equal "https", Twitter.protocol
   end
 
-  context "when overriding scheme" do
-    should "be able to specify scheme" do
-      Twitter.scheme = "http"
-      assert_equal "http", Twitter.scheme
+  context "when overriding protocol" do
+    should "be able to specify protocol" do
+      Twitter.protocol = "http"
+      assert_equal "http", Twitter.protocol
       # Reset
-      Twitter.scheme = "https"
+      Twitter.protocol = "https"
     end
   end
 

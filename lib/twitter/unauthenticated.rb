@@ -126,7 +126,7 @@ module Twitter
         builder.adapter(@adapter || Faraday.default_adapter)
         builders.each do |b| builder.use b end
       end
-      @connection.scheme = Twitter.scheme
+      @connection.scheme = Twitter.protocol
       @connection
     end
 

@@ -284,7 +284,7 @@ module Twitter
         end
         builder.use Faraday::Response::Mashify
       end
-      @connection.scheme = Twitter.scheme
+      @connection.scheme = Twitter.protocol
       @connection
     end
 

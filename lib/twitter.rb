@@ -46,12 +46,12 @@ module Twitter
     @format = value
   end
 
-  def self.scheme
-    @scheme ||= 'https'
+  def self.protocol
+    @protocol ||= 'https'
   end
 
-  def self.scheme=(value)
-    @scheme = value
+  def self.protocol=(value)
+    @protocol = value
   end
 
   def self.api_endpoint
