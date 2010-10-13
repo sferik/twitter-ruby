@@ -1,8 +1,11 @@
 require 'test_helper'
 
 class TrendsTest < Test::Unit::TestCase
-
   context "Getting current trends" do
+    setup do
+      Twitter.format = 'json'
+    end
+
     should "work" do
       stub_get('/1/trends/current.json', 'hash.json')
       assert Twitter::Trends.current
@@ -15,6 +18,10 @@ class TrendsTest < Test::Unit::TestCase
   end
 
   context "Getting daily trends" do
+    setup do
+      Twitter.format = 'json'
+    end
+
     should "work" do
       stub_get('/1/trends/daily.json', 'hash.json')
       assert Twitter::Trends.daily
@@ -37,6 +44,10 @@ class TrendsTest < Test::Unit::TestCase
   end
 
   context "Getting weekly trends" do
+    setup do
+      Twitter.format = 'json'
+    end
+
     should "work" do
       stub_get('/1/trends/weekly.json?', 'hash.json')
       assert Twitter::Trends.weekly
@@ -59,6 +70,10 @@ class TrendsTest < Test::Unit::TestCase
   end
 
   context "Getting local trends" do
+    setup do
+      Twitter.format = 'json'
+    end
+
     should "return a list of available locations" do
       stub_get('/1/trends/available.json?lat=33.237593417&lng=-96.960559033', 'array.json')
       assert Twitter::Trends.available(:lat => 33.237593417, :lng => -96.960559033)

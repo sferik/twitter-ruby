@@ -4,6 +4,7 @@ class SearchTest < Test::Unit::TestCase
 
   context "searching" do
     setup do
+      Twitter.format = 'json'
       @search = Twitter::Search.new
     end
 

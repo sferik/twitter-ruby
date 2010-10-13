@@ -1,8 +1,11 @@
 require 'test_helper'
 
 class GeoTest < Test::Unit::TestCase
-
   context "Geographic place lookup" do
+    setup do
+      Twitter.format = 'json'
+    end
+
     should "work" do
       stub_get('/1/geo/id/ea76a36c5bc2bdff.json', 'hash.json')
       assert Twitter::Geo.place('ea76a36c5bc2bdff')
@@ -10,6 +13,10 @@ class GeoTest < Test::Unit::TestCase
   end
 
   context "Geographic search" do
+    setup do
+      Twitter.format = 'json'
+    end
+
     should "work" do
       stub_get('/1/geo/search.json?lat=37.783935&long=-122.39361', 'hash.json')
       assert Twitter::Geo.search(:lat => 37.783935, :long => -122.39361)
@@ -27,6 +34,10 @@ class GeoTest < Test::Unit::TestCase
   end
 
   context "Geographic reverse_geocode" do
+    setup do
+      Twitter.format = 'json'
+    end
+
     should "work" do
       stub_get('/1/geo/reverse_geocode.json?lat=37.783935&long=-122.39361', 'hash.json')
       assert Twitter::Geo.reverse_geocode(:lat => 37.783935, :long => -122.39361)
@@ -44,6 +55,10 @@ class GeoTest < Test::Unit::TestCase
   end
   
   context "Geographically similar places" do
+    setup do
+      Twitter.format = 'json'
+    end
+
     should "work" do
       stub_get('/1/geo/similar_places.json?lat=37.783935&long=-122.39361&name=Twitter%20HQ', 'hash.json')
       assert Twitter::Geo.similar_places(:lat => 37.783935, :long => -122.39361, :name => "Twitter HQ")
@@ -51,6 +66,10 @@ class GeoTest < Test::Unit::TestCase
   end
   
   context "Creating places" do 
+    setup do
+      Twitter.format = 'json'
+    end
+
     should "work" do
       stub_post('/1/geo/place.json', 'hash.json')
       
