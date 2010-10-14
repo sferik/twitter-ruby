@@ -1,7 +1,7 @@
 === 1.0.0.rc.1 - October 12, 2010
 * {Switch from httparty to faraday HTTP client library}[http://github.com/jnunemaker/twitter/commit/80aff88dae11d64673fe4e025cc8f065a6796345]
 * {Switch from oauth to simple_oauth for authentication}[http://github.com/jnunemaker/twitter/commit/76cfe3749e56b2b486f2b5ffc9aa7f437cb2db29] (@laserlemon[http://twitter.com/#!/laserlemon])
-* {Handle errors with <tt>faraday_middleware</tt>}[http://github.com/jnunemaker/twitter/commit/1f99e46f602268bc82daf39b329d81e54abfb292]
+* {Handle errors in faraday middleware}[http://github.com/jnunemaker/twitter/commit/466a0d9942d1c0c0c35c6302951087076ddf4b82#diff-2]
 * {Add #NewTwitter methods and tests}[http://github.com/jnunemaker/twitter/commit/0bfbf6352de9bdda2b93ed053a358c0cb8e78e8f]
 * {Fix tests that assume position in a <tt>Hash</tt>}[http://github.com/jnunemaker/twitter/commit/c9f7ed1d9106807aa6fb27d48a92f4b92d0594a7] (@duncan[http://twitter.com/#!/duncan])
 * {Enable SSL by default (add option to disable SSL)}[http://github.com/jnunemaker/twitter/commit/c4f8907d6595f93d63bc84d6575920a14774e656]

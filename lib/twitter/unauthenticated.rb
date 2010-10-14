@@ -102,20 +102,22 @@ module Twitter
 
     def connection
       builders = []
-      builders << Faraday::Response::RaiseErrors
+      builders << Faraday::Response::RaiseHttp5xx
       case Twitter.format.to_s
       when "json"
         builders << Faraday::Response::ParseJson
       when "xml"
         builders << Faraday::Response::ParseXml
       end
+      builders << Faraday::Response::RaiseHttp4xx
       builders << Faraday::Response::Mashify
       connection_with_builders(builders)
     end
 
     def connection_with_unparsed_response
       builders = []
-      builders << Faraday::Response::RaiseErrors
+      builders << Faraday::Response::RaiseHttp5xx
+      builders << Faraday::Response::RaiseHttp4xx
       connection_with_builders(builders)
     end
 
