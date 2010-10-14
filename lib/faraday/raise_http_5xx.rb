@@ -21,7 +21,7 @@ module Faraday
     private
 
     def self.error_message(response, body=nil)
-      "#{response[:method].to_s.upcase} #{response[:url].to_s}: #{response[:response_headers]['status']}#{': ' + body if body} Check http://status.twitter.com/ for update on the status of the Twitter service."
+      "#{response[:method].to_s.upcase} #{response[:url].to_s}: #{response[:response_headers]['status']}:#{(' ' + body) if body} Check http://status.twitter.com/ for update on the status of the Twitter service."
     end
   end
 end
