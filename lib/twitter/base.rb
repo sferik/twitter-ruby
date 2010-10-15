@@ -475,8 +475,8 @@ module Twitter
       oauth_params = {
         :consumer_key    => self.consumer_key,
         :consumer_secret => self.consumer_secret,
-        :access_key      => self.access_key,
-        :access_secret   => self.access_secret
+        :token           => self.access_key,
+        :token_secret    => self.access_secret
       }
       SimpleOAuth::Header.new(method, connection.build_url(path), options, oauth_params).to_s
     end
