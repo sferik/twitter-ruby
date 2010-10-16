@@ -7,7 +7,7 @@ PATH
       faraday_middleware (~> 0.1.7)
       hashie (~> 0.4.0)
       multi_json (~> 0.0.4)
-      multi_xml (~> 0.1.0)
+      multi_xml (~> 0.1.1)
       simple_oauth (~> 0.1.1)
 
 GEM
@@ -28,7 +28,7 @@ GEM
     mocha (0.9.8)
       rake
     multi_json (0.0.4)
-    multi_xml (0.1.0)
+    multi_xml (0.1.1)
     multipart-post (1.0.1)
     rack (1.2.1)
     rake (0.8.7)
@@ -51,7 +51,7 @@ DEPENDENCIES
   json_pure (~> 1.4)
   mocha (~> 0.9)
   multi_json (~> 0.0.4)
-  multi_xml (~> 0.1.0)
+  multi_xml (~> 0.1.1)
   rake (~> 0.8)
   shoulda (~> 2.11)
   simple_oauth (~> 0.1.1)
