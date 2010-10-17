@@ -10,7 +10,7 @@ class TwitterTest < Test::Unit::TestCase
       config.access_secret = '8008135'
     end
 
-    client = Twitter::Base.new
+    client = Twitter::Authenticated.new
 
     assert_equal 'OU812', client.consumer_key
     assert_equal 'vh5150', client.consumer_secret

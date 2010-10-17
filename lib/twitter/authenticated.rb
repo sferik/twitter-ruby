@@ -1,5 +1,5 @@
 module Twitter
-  class Base
+  class Authenticated
 
     attr_reader :consumer_key, :consumer_secret, :access_key, :access_secret
 

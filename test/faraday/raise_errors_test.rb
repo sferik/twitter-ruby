@@ -4,7 +4,7 @@ class RaiseErrorsTest < Test::Unit::TestCase
 
   context "RaiseErrors" do
     setup do
-      @client = Twitter::Base.new
+      @client = Twitter::Authenticated.new
       @search = Twitter::Search.new
     end
 

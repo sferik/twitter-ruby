@@ -37,7 +37,7 @@
 oauth = Twitter::OAuth.new('consumer token', 'consumer secret')
 oauth.authorize_from_access('access token', 'access secret')
 
-client = Twitter::Base.new(oauth)
+client = Twitter::Authenticated.new(oauth)
 client.friends_timeline.each {|tweet| puts tweet.inspect}
 client.user_timeline.each    {|tweet| puts tweet.inspect}
 client.mentions.each         {|tweet| puts tweet.inspect}
@@ -86,7 +86,7 @@ Twitter::Trends.weekly(:date => Date.new(2009, 5, 1))
 oauth = Twitter::OAuth.new('consumer token', 'consumer secret')
 oauth.authorize_from_access('access token', 'access secret')
 
-client = Twitter::Base.new(oauth)
+client = Twitter::Authenticated.new(oauth)
 client.lists('pengwynn')
 client.list_members('pengwynn', 'rubyists')
 client.list_create('pengwynn', 'razorback_fans')

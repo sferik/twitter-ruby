@@ -5,6 +5,6 @@ require 'pp'
 config = ConfigStore.new("#{ENV['HOME']}/.twitter")
 oauth = Twitter::OAuth.new(config['token'], config['secret'])
 oauth.authorize_from_access(config['atoken'], config['asecret'])
-client = Twitter::Base.new(oauth)
+client = Twitter::Authenticated.new(oauth)
 
 pp client.update('This is an update from the twitter gem')

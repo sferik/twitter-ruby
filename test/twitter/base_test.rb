@@ -1,10 +1,10 @@
 require 'test_helper'
 
-class BaseTest < Test::Unit::TestCase
+class AuthenticatedTest < Test::Unit::TestCase
 
   context "base" do
     setup do
-      @client = Twitter::Base.new
+      @client = Twitter::Authenticated.new
     end
 
     context "initialize" do
@@ -15,7 +15,7 @@ class BaseTest < Test::Unit::TestCase
           config.access_key = 'atoken'
           config.access_secret = 'asecret'
         end
-        client = Twitter::Base.new
+        client = Twitter::Authenticated.new
         assert_equal client.consumer_key, 'ctoken'
       end
 
@@ -24,7 +24,7 @@ class BaseTest < Test::Unit::TestCase
           :access_key      => "atoken",
           :access_secret   => "s3cr3t"
         }
-        client = Twitter::Base.new(oauth)
+        client = Twitter::Authenticated.new(oauth)
         assert_equal 's3cr3t', client.access_secret
       end
     end

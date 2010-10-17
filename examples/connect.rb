@@ -7,12 +7,12 @@ oauth = Twitter::OAuth.new(config['token'], config['secret'])
 
 if config['atoken'] && config['asecret']
   oauth.authorize_from_access(config['atoken'], config['asecret'])
-  twitter = Twitter::Base.new(oauth)
+  twitter = Twitter::Authenticated.new(oauth)
   pp twitter.friends_timeline
 
 elsif config['rtoken'] && config['rsecret']
   oauth.authorize_from_request(config['rtoken'], config['rsecret'], 'PIN')
-  twitter = Twitter::Base.new(oauth)
+  twitter = Twitter::Authenticated.new(oauth)
   pp twitter.friends_timeline
 
   config.update({
