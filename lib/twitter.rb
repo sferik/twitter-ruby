@@ -1,76 +1,21 @@
 require 'addressable/uri'
 require 'faraday'
 require 'faraday_middleware'
+require 'faraday/raise_http_4xx'
+require 'faraday/raise_http_5xx'
 require 'forwardable'
 require 'simple_oauth'
-require 'cgi'
+require 'twitter/authenticated'
+require 'twitter/geo'
+require 'twitter/search'
+require 'twitter/trends'
+require 'twitter/unauthenticated'
 
 module Twitter
+
   extend SingleForwardable
 
-  class BadRequest < StandardError; end
-  class Unauthorized < StandardError; end
-  class Forbidden < StandardError; end
-  class NotFound < StandardError; end
-  class NotAcceptable < StandardError; end
-  class EnhanceYourCalm < StandardError; end
-  class InternalServerError < StandardError; end
-  class BadGateway < StandardError; end
-  class ServiceUnavailable < StandardError; end
-
-  def self.client; Twitter::Unauthenticated.new end
-
   def_delegators :client, :firehose, :user, :suggestions, :retweeted_to_user, :retweeted_by_user, :status, :friend_ids, :follower_ids, :timeline, :lists_subscribed, :list_timeline, :profile_image
-
-  def self.adapter
-    @adapter ||= Faraday.default_adapter
-  end
-
-  def self.adapter=(value)
-    @adapter = value
-  end
-
-  def self.user_agent
-    @user_agent ||= 'Ruby Twitter Gem'
-  end
-
-  def self.user_agent=(value)
-    @user_agent = value
-  end
-
-  def self.format
-    @format ||= 'json'
-  end
-
-  def self.format=(value)
-    @format = value
-  end
-
-  def self.protocol
-    @protocol ||= 'https'
-  end
-
-  def self.protocol=(value)
-    @protocol = value
-  end
-
-  def self.api_endpoint
-    api_endpoint = "api.twitter.com/#{Twitter.api_version}"
-    api_endpoint = Addressable::URI.heuristic_parse(api_endpoint).to_s
-    @api_endpoint ||= api_endpoint
-  end
-
-  def self.api_endpoint=(value)
-    @api_endpoint = Addressable::URI.heuristic_parse(value).to_s
-  end
-
-  def self.api_version
-    @api_version ||= 1
-  end
-
-  def self.api_version=(value)
-    @api_version = value
-  end
 
   class << self
     attr_accessor :consumer_key
@@ -92,15 +37,65 @@ module Twitter
       true
     end
 
+    def client; Twitter::Unauthenticated.new end
+
+    def adapter
+      @adapter ||= Faraday.default_adapter
+    end
+
+    def adapter=(value)
+      @adapter = value
+    end
+
+    def user_agent
+      @user_agent ||= 'Ruby Twitter Gem'
+    end
+
+    def user_agent=(value)
+      @user_agent = value
+    end
+
+    def format
+      @format ||= 'json'
+    end
+
+    def format=(value)
+      @format = value
+    end
+
+    def protocol
+      @protocol ||= 'https'
+    end
+
+    def protocol=(value)
+      @protocol = value
+    end
+
+    def api_endpoint
+      @api_endpoint ||= Addressable::URI.heuristic_parse("api.twitter.com/#{api_version}").to_s
+    end
+
+    def api_endpoint=(value)
+      @api_endpoint = Addressable::URI.heuristic_parse(value).to_s
+    end
+
+    def api_version
+      @api_version ||= 1
+    end
+
+    def api_version=(value)
+      @api_version = value
+    end
   end
-end
 
-faraday_middleware_files = Dir[File.join(File.dirname(__FILE__), "/faraday/**/*.rb")].sort
-faraday_middleware_files.each do |file|
-  require file
-end
+  class BadRequest < StandardError; end
+  class Unauthorized < StandardError; end
+  class Forbidden < StandardError; end
+  class NotFound < StandardError; end
+  class NotAcceptable < StandardError; end
+  class EnhanceYourCalm < StandardError; end
+  class InternalServerError < StandardError; end
+  class BadGateway < StandardError; end
+  class ServiceUnavailable < StandardError; end
 
-library_files = Dir[File.join(File.dirname(__FILE__), "/twitter/**/*.rb")].sort
-library_files.each do |file|
-  require file
 end
