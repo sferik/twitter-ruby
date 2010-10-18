@@ -4,10 +4,11 @@ module Twitter
   #
   # @see http://dev.twitter.com/pages/geo_dev_guidelines Geo Developer Guidelines
   class Geo
-
+    extend ConfigHelper
+    extend ConnectionHelper
     extend SingleForwardable
-
-    attr_reader :consumer_key, :consumer_secret, :access_key, :access_secret
+    include RequestHelper
+    attr_reader :access_key, :access_secret, :consumer_key, :consumer_secret
 
     # Creates a new instance of the geo client
     #
@@ -17,6 +18,11 @@ module Twitter
       @consumer_secret = options[:consumer_secret] || Twitter.consumer_secret
       @access_key = options[:access_key] || Twitter.access_key
       @access_secret = options[:access_secret] || Twitter.access_secret
+      @adapter = options[:adapter] || Twitter.adapter
+      @api_endpoint = options[:api_endpoint] || Twitter.api_endpoint
+      @api_version = options[:api_version] || Twitter.api_version
+      @protocol = options[:protocol] || Twitter.protocol
+      @user_agent = options[:user_agent] || Twitter.user_agent
     end
 
     # Returns all the information about a known place
@@ -28,7 +34,7 @@ module Twitter
     # @authenticated false
     # @rate_limited true
     def place(place_id)
-      perform_get("geo/id/#{place_id}.#{Twitter.format}")
+      perform_get("geo/id/#{place_id}.json")
     end
 
     # Search for places that can be attached to a statuses/update
@@ -46,7 +52,7 @@ module Twitter
     # @authenticated false
     # @rate_limited true
     def search(options={})
-      perform_get("geo/search.#{Twitter.format}", options)
+      perform_get("geo/search.json", options)
     end
 
     # Given a latitude and a longitude, searches for up to
@@ -61,7 +67,7 @@ module Twitter
     # @authenticated false
     # @rate_limited true
     def reverse_geocode(options={})
-      perform_get("geo/reverse_geocode.#{Twitter.format}", options)
+      perform_get("geo/reverse_geocode.json", options)
     end
 
     # Locates places near the given coordinates which are similar in name.
@@ -77,7 +83,7 @@ module Twitter
     # @authenticated false
     # @rate_limited true
     def similar_places(options={})
-      perform_get("geo/similar_places.#{Twitter.format}", options)
+      perform_get("geo/similar_places.json", options)
     end
 
     # Creates a new place at the given latitude and longitude
@@ -94,40 +100,13 @@ module Twitter
     # @authenticated true
     # @rate_limited true
     def create_place(options={})
-      perform_post("geo/place.#{Twitter.format}", options)
+      perform_post("geo/place.json", options)
     end
 
     # @private
     def self.client; self.new end
 
     def_delegators :client, :place, :search, :reverse_geocode, :similar_places, :create_place
-
-    private
-
-    def oauth_header(path, options, method)
-      oauth_params = {
-        :consumer_key    => @consumer_key,
-        :consumer_secret => @consumer_secret,
-        :token           => @access_key,
-        :token_secret    => @access_secret
-      }
-      SimpleOAuth::Header.new(method, Twitter.connection.build_url(path), options, oauth_params).to_s
-    end
-
-    def perform_get(path, options={})
-      results = Twitter.connection.get do |request|
-        request.url(path, options)
-        request['Authorization'] = oauth_header(path, options, :get)
-      end.body
-    end
-
-    def perform_post(path, options={})
-      results = Twitter.connection.post do |request|
-        request.path = path
-        request.body = options
-        request['Authorization'] = oauth_header(path, options, :post)
-      end.body
-    end
 
   end
 end

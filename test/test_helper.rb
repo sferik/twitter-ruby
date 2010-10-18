@@ -20,7 +20,7 @@ def fixture_file(filename)
 end
 
 def api_endpoint
-  "https://api.twitter.com/"
+  "https://api.twitter.com/1/"
 end
 
 def stub_get(path, filename, status=nil, location=nil, content_as_full_response=false)

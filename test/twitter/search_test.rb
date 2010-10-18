@@ -13,13 +13,14 @@ class SearchTest < Test::Unit::TestCase
     end
 
     should "default user agent to Ruby Twitter Gem" do
-      search = Twitter::Search.new('foo')
-      assert_equal 'Ruby Twitter Gem', search.user_agent
+      assert_equal 'Ruby Twitter Gem', Twitter::Search.user_agent
     end
 
     should "allow overriding default user agent" do
-      search = Twitter::Search.new('foo', :user_agent => 'Foobar')
-      assert_equal 'Foobar', search.user_agent
+      Twitter.user_agent = 'Foobar'
+      assert_equal 'Ruby Twitter Gem', Twitter::Search.user_agent
+      # Reset
+      Twitter.user_agent = 'Ruby Twitter Gem'
     end
 
     should "specify from" do
@@ -83,67 +84,67 @@ class SearchTest < Test::Unit::TestCase
     end
 
     should "specify the language" do
-      stub_get('1/search.json?q=&lang=en', 'hash.json')
+      stub_get("search.json?q=&lang=en", "hash.json")
       assert @search.lang('en')
       assert @search.fetch
     end
 
     should "specify the locale" do
-      stub_get('1/search.json?q=&locale=ja', 'hash.json')
+      stub_get("search.json?q=&locale=ja", "hash.json")
       assert @search.locale('ja')
       assert @search.fetch
     end
 
     should "specify the number of results per page" do
-      stub_get('1/search.json?q=&rpp=25', 'hash.json')
+      stub_get("search.json?q=&rpp=25", "hash.json")
       assert @search.per_page(25)
       assert @search.fetch
     end
 
     should "specify the page number" do
-      stub_get('1/search.json?q=&page=20', 'hash.json')
+      stub_get("search.json?q=&page=20", "hash.json")
       assert @search.page(20)
       assert @search.fetch
     end
 
     should "specify only returning results greater than an id" do
-      stub_get('1/search.json?q=&since_id=1234', 'hash.json')
+      stub_get("search.json?q=&since_id=1234", "hash.json")
       assert @search.since(1234)
       assert @search.fetch
     end
 
     should "specify since a date" do
-      stub_get('1/search.json?q=&since=2009-04-14', 'hash.json')
+      stub_get("search.json?q=&since=2009-04-14", "hash.json")
       assert @search.since_date('2009-04-14')
       assert @search.fetch
     end
 
     should "specify until a date" do
-      stub_get('1/search.json?q=&until=2009-04-14', 'hash.json')
+      stub_get("search.json?q=&until=2009-04-14", "hash.json")
       assert @search.until_date('2009-04-14')
       assert @search.fetch
     end
 
     should "specify geo coordinates" do
-      stub_get('1/search.json?q=&geocode=40.757929%2C-73.985506%2C25mi', 'hash.json')
+      stub_get("search.json?q=&geocode=40.757929%2C-73.985506%2C25mi", "hash.json")
       assert @search.geocode('40.757929', '-73.985506', '25mi')
       assert @search.fetch
     end
 
     should "specify max id" do
-      stub_get('1/search.json?q=&max_id=1234', 'hash.json')
+      stub_get("search.json?q=&max_id=1234", "hash.json")
       assert @search.max(1234)
       assert @search.fetch
     end
 
     should "set the phrase" do
-      stub_get('1/search.json?q=&phrase=Who%20Dat', 'hash.json')
+      stub_get("search.json?q=&phrase=Who%20Dat", "hash.json")
       assert @search.phrase('Who Dat')
       assert @search.fetch
     end
 
     should "set the result type" do
-      stub_get('1/search.json?q=&result_type=popular', 'hash.json')
+      stub_get("search.json?q=&result_type=popular", "hash.json")
       assert @search.result_type('popular')
       assert @search.fetch
     end
@@ -163,7 +164,7 @@ class SearchTest < Test::Unit::TestCase
     end
 
     should "not replace the current query when fetching" do
-      stub_get('1/search.json?q=milk%20cheeze', 'hash.json')
+      stub_get("search.json?q=milk%20cheeze", "hash.json")
       assert @search.containing('milk').containing('cheeze')
       assert_equal ['milk', 'cheeze'], @search.query[:q]
       assert @search.fetch
@@ -172,7 +173,7 @@ class SearchTest < Test::Unit::TestCase
 
     context "fetching" do
       setup do
-        stub_get('1/search.json?q=%40sferik', 'hash.json')
+        stub_get("search.json?q=%40sferik", "hash.json")
         @search = Twitter::Search.new('@sferik')
         @response = @search.fetch
       end
@@ -188,7 +189,7 @@ class SearchTest < Test::Unit::TestCase
 
     context "iterating over results" do
       setup do
-        stub_get('1/search.json?q=from%3Asferik', 'hash.json')
+        stub_get("search.json?q=from%3Asferik", "hash.json")
         @search.from('sferik')
       end
 

@@ -7,7 +7,7 @@ class GeoTest < Test::Unit::TestCase
     end
 
     should "work" do
-      stub_get('1/geo/id/ea76a36c5bc2bdff.json', 'hash.json')
+      stub_get("geo/id/ea76a36c5bc2bdff.json", "hash.json")
       assert Twitter::Geo.place('ea76a36c5bc2bdff')
     end
   end
@@ -18,17 +18,17 @@ class GeoTest < Test::Unit::TestCase
     end
 
     should "work" do
-      stub_get('1/geo/search.json?lat=37.783935&long=-122.39361', 'hash.json')
+      stub_get("geo/search.json?lat=37.783935&long=-122.39361", "hash.json")
       assert Twitter::Geo.search(:lat => 37.783935, :long => -122.39361)
     end
 
     should "search with free form text" do
-      stub_get('1/geo/search.json?query=princeton%20record%20exchange', 'hash.json')
+      stub_get("geo/search.json?query=princeton%20record%20exchange", "hash.json")
       assert Twitter::Geo.search(:query => 'princeton record exchange')
     end
 
     should "search by ip address" do
-      stub_get('1/geo/search.json?ip=74.125.19.104', 'hash.json')
+      stub_get("geo/search.json?ip=74.125.19.104", "hash.json")
       assert Twitter::Geo.search(:ip => '74.125.19.104')
     end
   end
@@ -39,17 +39,17 @@ class GeoTest < Test::Unit::TestCase
     end
 
     should "work" do
-      stub_get('1/geo/reverse_geocode.json?lat=37.783935&long=-122.39361', 'hash.json')
+      stub_get("geo/reverse_geocode.json?lat=37.783935&long=-122.39361", "hash.json")
       assert Twitter::Geo.reverse_geocode(:lat => 37.783935, :long => -122.39361)
     end
 
     should "limit the number of results returned" do
-      stub_get('1/geo/reverse_geocode.json?lat=37.783935&max_results=2&long=-122.39361', 'hash.json')
+      stub_get("geo/reverse_geocode.json?lat=37.783935&max_results=2&long=-122.39361", "hash.json")
       assert Twitter::Geo.reverse_geocode(:lat => 37.783935, :long => -122.39361, :max_results => 2)
     end
 
     should "lookup with granularity" do
-      stub_get('1/geo/reverse_geocode.json?lat=37.783935&long=-122.39361&granularity=city', 'hash.json')
+      stub_get("geo/reverse_geocode.json?lat=37.783935&long=-122.39361&granularity=city", "hash.json")
       assert Twitter::Geo.reverse_geocode(:lat => 37.783935, :long => -122.39361, :granularity => 'city')
     end
   end
@@ -60,7 +60,7 @@ class GeoTest < Test::Unit::TestCase
     end
 
     should "work" do
-      stub_get('1/geo/similar_places.json?lat=37.783935&long=-122.39361&name=Twitter%20HQ', 'hash.json')
+      stub_get("geo/similar_places.json?lat=37.783935&long=-122.39361&name=Twitter%20HQ", "hash.json")
       assert Twitter::Geo.similar_places(:lat => 37.783935, :long => -122.39361, :name => "Twitter HQ")
     end
   end
@@ -71,8 +71,7 @@ class GeoTest < Test::Unit::TestCase
     end
 
     should "work" do
-      stub_post('1/geo/place.json', 'hash.json')
-
+      stub_post("geo/place.json", "hash.json")
       Twitter.configure do |config|
         config.consumer_key = 'ctoken'
         config.consumer_secret = 'csecret'
@@ -88,8 +87,6 @@ class GeoTest < Test::Unit::TestCase
         :long => -122.400612831116
       }
       assert Twitter::Geo.create_place(info)
-
     end
   end
-
 end

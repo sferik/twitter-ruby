@@ -2,7 +2,23 @@ module Twitter
 
   # Handles the Twitter trends API
   class Trends
+    extend ConfigHelper
+    extend ConnectionHelper
+    include RequestHelper
     extend SingleForwardable
+    attr_reader :access_key, :access_secret, :consumer_key, :consumer_secret
+
+    def initialize(options={})
+      @consumer_key = options[:consumer_key] || Twitter.consumer_key
+      @consumer_secret = options[:consumer_secret] || Twitter.consumer_secret
+      @access_key = options[:access_key] || Twitter.access_key
+      @access_secret = options[:access_secret] || Twitter.access_secret
+      @adapter = options[:adapter] || Twitter.adapter
+      @api_endpoint = options[:api_endpoint] || Twitter.api_endpoint
+      @api_version = options[:api_version] || Twitter.api_version
+      @protocol = options[:protocol] || Twitter.protocol
+      @user_agent = options[:user_agent] || Twitter.user_agent
+    end
 
     # @group Global trends
     #
@@ -14,7 +30,7 @@ module Twitter
     # @authenticated false
     # @rate_limited true
     def current(options={})
-      perform_get("trends/current.#{Twitter.format}", options)
+      perform_get("trends/current.json", options)
     end
 
     # Returns the top 20 trending topics for each hour in a given day
@@ -26,7 +42,7 @@ module Twitter
     # @authenticated false
     # @rate_limited true
     def daily(options={})
-      perform_get("trends/daily.#{Twitter.format}", options)
+      perform_get("trends/daily.json", options)
     end
 
     # Returns the top 30 trending topics for each hour for a given week
@@ -38,7 +54,7 @@ module Twitter
     # @authenticated false
     # @rate_limited true
     def weekly(options={})
-      perform_get("trends/weekly.#{Twitter.format}", options)
+      perform_get("trends/weekly.json", options)
     end
 
     # @group Local trends
@@ -53,7 +69,7 @@ module Twitter
     # @authenticated false
     # @rate_limited true
     def available(options={})
-      perform_get("trends/available.#{Twitter.format}", options)
+      perform_get("trends/available.json", options)
     end
 
     # Returns the top 10 trending topics for a specific WOEID,
@@ -66,21 +82,13 @@ module Twitter
     # @authenticated false
     # @rate_limited true
     def for_location(woeid)
-      perform_get("trends/#{woeid}.#{Twitter.format}")
+      perform_get("trends/#{woeid}.json")
     end
 
     # @private
     def self.client; self.new end
 
     def_delegators :client, :current, :daily, :weekly, :available, :for_location
-
-    private
-
-    def perform_get(path, options={})
-      results = Twitter.connection.get do |request|
-        request.url(path, options)
-      end.body
-    end
 
   end
 end

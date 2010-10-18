@@ -4,24 +4,27 @@ module Twitter
   #
   # @see http://dev.twitter.com/doc/get/search Twitter Search API docs
   class Search
+    extend ConfigHelper
+    extend ConnectionHelper
     include Enumerable
-    attr_reader :result, :query
+    include RequestHelper
+    attr_reader :access_key, :access_secret, :consumer_key, :consumer_secret, :query, :result
 
     # Creates a new instance of a search
     #
     # @param [String] query the optional keyword to search
-    # @option options [String] :api_endpoint an alternative API endpoint such as Apigee
-    # @option options [String] :user_agent The user agent passed to Twitter. Default: 'Ruby Twitter Gem'
     def initialize(query=nil, options={})
-      @options = options
+      @consumer_key = options[:consumer_key] || Twitter.consumer_key
+      @consumer_secret = options[:consumer_secret] || Twitter.consumer_secret
+      @access_key = options[:access_key] || Twitter.access_key
+      @access_secret = options[:access_secret] || Twitter.access_secret
+      @adapter = options[:adapter] || Twitter.adapter
+      @api_endpoint = options[:api_endpoint] || Twitter.api_endpoint
+      @api_version = options[:api_version] || Twitter.api_version
+      @protocol = options[:protocol] || Twitter.protocol
+      @user_agent = options[:user_agent] || Twitter.user_agent
       clear
       containing(query) if query && query.strip != ""
-    end
-
-    # Returns the configured user agent for the search
-    # @return <String> the configured user agent
-    def user_agent
-      @options[:user_agent] || "Ruby Twitter Gem"
     end
 
     # Clears all the query filters to make a new search
@@ -236,8 +239,8 @@ module Twitter
     # Fetch the next page of results in the query
     def fetch_next_page
       if next_page?
-        search = Search.new(nil, :user_agent => user_agent)
-        search.perform_get(fetch["next_page"][1..-1])
+        search = Search.new
+        search.perform_get("search.json", fetch["next_page"][1..-1])
         search
       end
     end
@@ -245,14 +248,10 @@ module Twitter
     # Perform the search, hitting the API
     #
     # @param force [Boolean] optionally ignore cache and hit the API again
-    def fetch(force=false)
-      if @fetch.nil? || force
-        query = @query.dup
-        query[:q] = query[:q].join(" ")
-        perform_get(query)
-      end
-
-      @fetch
+    def fetch
+      query = @query.dup
+      query[:q] = query[:q].join(" ")
+      perform_get("search.json", query)
     end
 
     # Iterate over the results
@@ -263,15 +262,6 @@ module Twitter
       results = fetch['results']
       return if results.nil?
       results.each {|r| yield r}
-    end
-
-    private
-
-    # @private
-    def perform_get(query)
-      @fetch = Twitter.connection.get do |request|
-        request.url("search.#{Twitter.format}", query)
-      end.body
     end
 
   end
