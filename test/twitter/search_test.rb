@@ -12,13 +12,13 @@ class SearchTest < Test::Unit::TestCase
       assert Twitter::Search.new('httparty').query[:q].include? 'httparty'
     end
 
-    should "default user agent to Ruby Twitter Gem" do
-      assert_equal 'Ruby Twitter Gem', Twitter::Search.user_agent
+    should "default user agent to Twitter Ruby Gem" do
+      assert_equal 'Twitter Ruby Gem', Twitter::Search.user_agent
     end
 
     should "allow overriding default user agent" do
       Twitter.user_agent = 'Foobar'
-      assert_equal 'Ruby Twitter Gem', Twitter::Search.user_agent
+      assert_equal 'Twitter Ruby Gem', Twitter::Search.user_agent
       # Reset
       Twitter.user_agent = Twitter.default_user_agent
     end

@@ -31,8 +31,8 @@ class TwitterTest < Test::Unit::TestCase
     end
   end
 
-  should "default user_agent to 'Ruby Twitter Gem'" do
-    assert_equal 'Ruby Twitter Gem', Twitter.user_agent
+  should "default user_agent to 'Twitter Ruby Gem'" do
+    assert_equal 'Twitter Ruby Gem', Twitter.user_agent
   end
 
   context "when overriding user_agent" do

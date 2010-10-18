@@ -98,7 +98,7 @@ module Twitter
     end
 
     def default_user_agent
-      @default_user_agent ||= 'Ruby Twitter Gem'
+      @default_user_agent ||= 'Twitter Ruby Gem'
     end
   end
 
