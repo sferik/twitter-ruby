@@ -6,8 +6,7 @@ require "fakeweb"
 
 FakeWeb.allow_net_connect = false
 
-dir = (Pathname(__FILE__).dirname + "../lib").expand_path
-require dir + "twitter"
+require "twitter"
 
 def sample_image(filename)
   File.expand_path(File.dirname(__FILE__) + "/fixtures/" + filename)
