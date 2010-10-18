@@ -29,22 +29,22 @@ class UnauthenticatedTest < Test::Unit::TestCase
       end
 
       should "get suggestions" do
-        stub_get("/1/suggestions.#{format}", "hash.#{format}")
+        stub_get("/1/users/suggestions.#{format}", "hash.#{format}")
         assert Twitter.suggestions
       end
 
       should "get suggestions by category_slug" do
-        stub_get("/1/users/suggestions/technology/members.#{format}", "hash.#{format}")
+        stub_get("/1/users/suggestions/technology.#{format}", "hash.#{format}")
         assert Twitter.suggestions('technology')
       end
 
       should "get suggestions with a cursor" do
-        stub_get("/1/suggestions.#{format}?cursor=-1", "hash.#{format}")
+        stub_get("/1/users/suggestions.#{format}?cursor=-1", "hash.#{format}")
         assert Twitter.suggestions(:cursor => -1)
       end
 
       should "get suggestions by category_slug with a cursor" do
-        stub_get("/1/users/suggestions/technology/members.#{format}?cursor=-1", "hash.#{format}")
+        stub_get("/1/users/suggestions/technology.#{format}?cursor=-1", "hash.#{format}")
         assert Twitter.suggestions('technology', :cursor => -1)
       end
 

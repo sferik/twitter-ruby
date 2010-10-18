@@ -30,12 +30,12 @@ module Twitter
     def suggestions(category_slug=nil, options={})
       path = case category_slug
       when nil
-        "suggestions.#{Twitter.format}"
+        "users/suggestions.#{Twitter.format}"
       when Hash
         options = category_slug
-        "suggestions.#{Twitter.format}"
+        "users/suggestions.#{Twitter.format}"
       else
-        "users/suggestions/#{category_slug}/members.#{Twitter.format}"
+        "users/suggestions/#{category_slug}.#{Twitter.format}"
       end
       results = connection.get do |request|
         request.url path, options

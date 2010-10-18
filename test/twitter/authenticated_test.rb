@@ -369,22 +369,22 @@ class AuthenticatedTest < Test::Unit::TestCase
           end
 
           should "get suggestions" do
-            stub_get("/1/suggestions.#{format}", "array.#{format}")
+            stub_get("/1/users/suggestions.#{format}", "array.#{format}")
             assert @client.suggestions
           end
 
           should "get suggestions by category_slug" do
-            stub_get("/1/users/suggestions/technology/members.#{format}", "array.#{format}")
+            stub_get("/1/users/suggestions/technology.#{format}", "array.#{format}")
             assert @client.suggestions('technology')
           end
 
           should "get suggestions with a cursor" do
-            stub_get("/1/suggestions.#{format}?cursor=-1", "array.#{format}")
+            stub_get("/1/users/suggestions.#{format}?cursor=-1", "array.#{format}")
             assert @client.suggestions(:cursor => -1)
           end
 
           should "get suggestions by category_slug with a cursor" do
-            stub_get("/1/users/suggestions/technology/members.#{format}?cursor=-1", "array.#{format}")
+            stub_get("/1/users/suggestions/technology.#{format}?cursor=-1", "array.#{format}")
             assert @client.suggestions('technology', :cursor => -1)
           end
 
