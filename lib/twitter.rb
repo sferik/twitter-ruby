@@ -125,9 +125,23 @@ module Twitter
   class Forbidden < StandardError; end
   class NotFound < StandardError; end
   class NotAcceptable < StandardError; end
-  class EnhanceYourCalm < StandardError; end
   class InternalServerError < StandardError; end
   class BadGateway < StandardError; end
   class ServiceUnavailable < StandardError; end
+
+  class EnhanceYourCalm < StandardError
+
+    def initialize(message, http_headers)
+      @http_headers = Hash[http_headers]
+      super message
+    end
+
+    # Returns number of seconds the application should wait before requesting data from the Search API again.
+    def waiting_time
+      header_value = @http_headers["retry-after"] || @http_headers["Retry-After"]
+      header_value.to_i
+    end
+
+  end
 
 end
