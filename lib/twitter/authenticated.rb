@@ -409,7 +409,7 @@ module Twitter
       end
     end
 
-    def mime_type(f) self.class.mime_type(f) end
+    def mime_type(file) self.class.mime_type(file) end
 
     CRLF = "\r\n"
 

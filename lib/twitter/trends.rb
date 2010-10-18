@@ -79,7 +79,7 @@ module Twitter
     #
     # @param woeid
     # @return [Hashie::Mash] Trends for the specified location
-    # @see http://dev.twitter.com/doc/get/trends/available
+    # @see http://dev.twitter.com/doc/get/trends/:woeid
     # @see http://developer.yahoo.com/geo/geoplanet/ Yahoo! WOEID info
     # @authenticated false
     # @rate_limited true
