@@ -23,8 +23,9 @@ def twitter_url(url)
   url =~ /^http/ ? url : "https://api.twitter.com#{url}"
 end
 
-def stub_get(url, filename, status=nil, location=nil)
-  options = {:body => fixture_file(filename)}
+def stub_get(url, filename, status=nil, location=nil, content_as_full_response = false)
+  response_content = content_as_full_response ? 'response' : 'body'
+  options = { response_content.to_sym => fixture_file(filename) }  
   options.merge!({:status => status}) unless status.nil?
   options.merge!({:location => location}) unless location.nil?
   FakeWeb.register_uri(:get, twitter_url(url), options)

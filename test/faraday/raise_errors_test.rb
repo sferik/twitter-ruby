@@ -45,10 +45,14 @@ class RaiseErrorsTest < Test::Unit::TestCase
     end
 
     should "raise EnhanceYourCalm when search is rate limited" do
-      stub_get('https://search.twitter.com/search.json?q=from%3Asferik', 'enhance_your_calm.json', 420)
-      assert_raise Twitter::EnhanceYourCalm do
+      stub_get('https://search.twitter.com/search.json?q=from%3Asferik', 'enhance_your_calm.text', 420, nil, true)
+      begin
         @search.from('sferik')
         @search.fetch
+        flunk 'Should have exception at this point'
+      rescue => err
+        assert_instance_of Twitter::EnhanceYourCalm, err
+        assert_operator err.waiting_time, :> , 0
       end
     end
 

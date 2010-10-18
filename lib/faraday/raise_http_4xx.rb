@@ -14,7 +14,7 @@ module Faraday
         when 406
           raise Twitter::NotAcceptable, error_message(response)
         when 420
-          raise Twitter::EnhanceYourCalm, error_message(response)
+          raise Twitter::EnhanceYourCalm.new error_message(response), response[:response_headers]
         end
       end
     end
