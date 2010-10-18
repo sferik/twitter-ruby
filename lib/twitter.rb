@@ -86,6 +86,38 @@ module Twitter
     def api_version=(value)
       @api_version = value
     end
+
+    def connection
+      builders = []
+      builders << Faraday::Response::RaiseHttp5xx
+      case Twitter.format.to_s
+      when "json"
+        builders << Faraday::Response::ParseJson
+      when "xml"
+        builders << Faraday::Response::ParseXml
+      end
+      builders << Faraday::Response::RaiseHttp4xx
+      builders << Faraday::Response::Mashify
+      connection_with_builders(builders)
+    end
+
+    def connection_with_unparsed_response
+      builders = []
+      builders << Faraday::Response::RaiseHttp5xx
+      builders << Faraday::Response::RaiseHttp4xx
+      connection_with_builders(builders)
+    end
+
+    def connection_with_builders(builders)
+      headers = {:user_agent => Twitter.user_agent}
+      ssl = {:verify => false}
+      @connection = Faraday::Connection.new(:url => Twitter.api_endpoint, :headers => headers, :ssl => ssl) do |builder|
+        builder.adapter(@adapter || Faraday.default_adapter)
+        builders.each do |b| builder.use b end
+      end
+      @connection.scheme = Twitter.protocol
+      @connection
+    end
   end
 
   class BadRequest < StandardError; end

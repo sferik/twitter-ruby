@@ -9,109 +9,109 @@ class UnauthenticatedTest < Test::Unit::TestCase
       end
 
       should "get the firehose" do
-        stub_get("/1/statuses/public_timeline.#{format}", "hash.#{format}")
+        stub_get("1/statuses/public_timeline.#{format}", "hash.#{format}")
         assert Twitter.firehose
       end
 
       should "get a user by user id" do
-        stub_get("/1/users/show/7505382.#{format}", "hash.#{format}")
+        stub_get("1/users/show/7505382.#{format}", "hash.#{format}")
         assert Twitter.user(7505382)
       end
 
       should "get a user by screen_name" do
-        stub_get("/1/users/show/sferik.#{format}", "hash.#{format}")
+        stub_get("1/users/show/sferik.#{format}", "hash.#{format}")
         assert Twitter.user('sferik')
       end
 
       should "get a user's profile image" do
-        stub_get("/1/users/profile_image/ratherchad.#{format}", "n605431196_2079896_558_normal.jpg", 302, "http://a3.twimg.com/profile_images/1107413683/n605431196_2079896_558_normal.jpg")
+        stub_get("1/users/profile_image/ratherchad.#{format}", "n605431196_2079896_558_normal.jpg", 302, "http://a3.twimg.com/profile_images/1107413683/n605431196_2079896_558_normal.jpg")
         assert Twitter.profile_image('ratherchad')
       end
 
       should "get suggestions" do
-        stub_get("/1/users/suggestions.#{format}", "hash.#{format}")
+        stub_get("1/users/suggestions.#{format}", "hash.#{format}")
         assert Twitter.suggestions
       end
 
       should "get suggestions by category_slug" do
-        stub_get("/1/users/suggestions/technology.#{format}", "hash.#{format}")
+        stub_get("1/users/suggestions/technology.#{format}", "hash.#{format}")
         assert Twitter.suggestions('technology')
       end
 
       should "get suggestions with a cursor" do
-        stub_get("/1/users/suggestions.#{format}?cursor=-1", "hash.#{format}")
+        stub_get("1/users/suggestions.#{format}?cursor=-1", "hash.#{format}")
         assert Twitter.suggestions(:cursor => -1)
       end
 
       should "get suggestions by category_slug with a cursor" do
-        stub_get("/1/users/suggestions/technology.#{format}?cursor=-1", "hash.#{format}")
+        stub_get("1/users/suggestions/technology.#{format}?cursor=-1", "hash.#{format}")
         assert Twitter.suggestions('technology', :cursor => -1)
       end
 
       should "get retweeted-to-user timeline by screen_name" do
-        stub_get("/1/statuses/retweeted_to_user.#{format}?screen_name=sferik", "hash.#{format}")
+        stub_get("1/statuses/retweeted_to_user.#{format}?screen_name=sferik", "hash.#{format}")
         assert Twitter.retweeted_to_user('sferik')
       end
 
       should "get retweeted-to-user timeline by user_id" do
-        stub_get("/1/statuses/retweeted_to_user.#{format}?user_id=7505382", "hash.#{format}")
+        stub_get("1/statuses/retweeted_to_user.#{format}?user_id=7505382", "hash.#{format}")
         assert Twitter.retweeted_to_user(7505382)
       end
 
       should "get retweeted-by-user timeline by screen_name" do
-        stub_get("/1/statuses/retweeted_by_user.#{format}?screen_name=sferik", "hash.#{format}")
+        stub_get("1/statuses/retweeted_by_user.#{format}?screen_name=sferik", "hash.#{format}")
         assert Twitter.retweeted_by_user('sferik')
       end
 
       should "get retweeted-by-user timeline by user_id" do
-        stub_get("/1/statuses/retweeted_by_user.#{format}?user_id=7505382", "hash.#{format}")
+        stub_get("1/statuses/retweeted_by_user.#{format}?user_id=7505382", "hash.#{format}")
         assert Twitter.retweeted_by_user(7505382)
       end
 
       should "get a status" do
-        stub_get("/1/statuses/show/1533815199.#{format}", "hash.#{format}")
+        stub_get("1/statuses/show/1533815199.#{format}", "hash.#{format}")
         assert Twitter.status(1533815199)
       end
 
       should "get a user timeline" do
-        stub_get("/1/statuses/user_timeline.#{format}?screen_name=sferik", "hash.#{format}")
+        stub_get("1/statuses/user_timeline.#{format}?screen_name=sferik", "hash.#{format}")
         assert Twitter.timeline('sferik')
       end
 
       should "get friend ids" do
-        stub_get("/1/friends/ids.#{format}?screen_name=sferik", "hash.#{format}")
+        stub_get("1/friends/ids.#{format}?screen_name=sferik", "hash.#{format}")
         assert Twitter.friend_ids('sferik')
       end
 
       should "get follower ids" do
-        stub_get("/1/followers/ids.#{format}?screen_name=sferik", "hash.#{format}")
+        stub_get("1/followers/ids.#{format}?screen_name=sferik", "hash.#{format}")
         assert Twitter.follower_ids('sferik')
       end
 
       context "when using lists" do
         should "get all lists with screen_name" do
-          stub_get("/1/lists/all.#{format}?screen_name=pengwynn", "hash.#{format}")
+          stub_get("1/lists/all.#{format}?screen_name=pengwynn", "hash.#{format}")
           assert Twitter.lists_subscribed('pengwynn')
         end
 
         should "get all lists with user_id" do
-          stub_get("/1/lists/all.#{format}?user_id=14100886", "hash.#{format}")
+          stub_get("1/lists/all.#{format}?user_id=14100886", "hash.#{format}")
           assert Twitter.lists_subscribed(14100886)
         end
 
         should "get list timeline" do
-          stub_get("/1/pengwynn/lists/rubyists/statuses.#{format}", "hash.#{format}")
+          stub_get("1/pengwynn/lists/rubyists/statuses.#{format}", "hash.#{format}")
           assert Twitter.list_timeline('pengwynn', 'rubyists')
         end
 
         should "get list timeline with limit" do
-          stub_get("/1/pengwynn/lists/rubyists/statuses.#{format}?per_page=1", "hash.#{format}")
+          stub_get("1/pengwynn/lists/rubyists/statuses.#{format}?per_page=1", "hash.#{format}")
           assert Twitter.list_timeline('pengwynn', 'rubyists', :per_page => 1)
         end
 
         should "get list timeline with pagination" do
-          stub_get("/1/pengwynn/lists/rubyists/statuses.#{format}?page=1&per_page=1", "hash.#{format}")
-          stub_get("/1/pengwynn/lists/rubyists/statuses.#{format}?page=2&per_page=1", "hash.#{format}")
+          stub_get("1/pengwynn/lists/rubyists/statuses.#{format}?page=1&per_page=1", "hash.#{format}")
+          stub_get("1/pengwynn/lists/rubyists/statuses.#{format}?page=2&per_page=1", "hash.#{format}")
           assert Twitter.list_timeline('pengwynn', 'rubyists', {:page => 1, :per_page => 1})
           assert Twitter.list_timeline('pengwynn', 'rubyists', {:page => 2, :per_page => 1})
         end

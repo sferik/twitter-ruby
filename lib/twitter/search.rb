@@ -9,16 +9,13 @@ module Twitter
 
     # Creates a new instance of a search
     #
-    # @param [String] q the optional keyword to search
+    # @param [String] query the optional keyword to search
     # @option options [String] :api_endpoint an alternative API endpoint such as Apigee
     # @option options [String] :user_agent The user agent passed to Twitter. Default: 'Ruby Twitter Gem'
-    def initialize(q=nil, options={})
-      @adapter = options.delete(:adapter)
+    def initialize(query=nil, options={})
       @options = options
       clear
-      containing(q) if q && q.strip != ""
-      @api_endpoint = "search.twitter.com/search.#{Twitter.format}"
-      @api_endpoint = Addressable::URI.heuristic_parse(@api_endpoint)
+      containing(query) if query && query.strip != ""
     end
 
     # Returns the configured user agent for the search
@@ -26,7 +23,7 @@ module Twitter
     def user_agent
       @options[:user_agent] || "Ruby Twitter Gem"
     end
-    
+
     # Clears all the query filters to make a new search
     def clear
       @fetch = nil
@@ -46,9 +43,9 @@ module Twitter
       self
     end
 
-    # Specify the language of the query you are sending 
-    # (only ja is currently effective). This is intended for 
-    # language-specific clients and the default should work in 
+    # Specify the language of the query you are sending
+    # (only ja is currently effective). This is intended for
+    # language-specific clients and the default should work in
     # the majority of cases.
     #
     # @param locale [String] the language code for your query
@@ -196,7 +193,7 @@ module Twitter
     end
     alias :until :until_date
 
-    # Returns tweets by users located within a given radius of the 
+    # Returns tweets by users located within a given radius of the
     # given latitude/longitude.
     #
     # @example
@@ -228,7 +225,7 @@ module Twitter
       @query[:page] = num
       self
     end
-    
+
     # Indicates if the results have more to be fetched
     def next_page?
       !!fetch["next_page"]
@@ -239,9 +236,9 @@ module Twitter
     # Fetch the next page of results in the query
     def fetch_next_page
       if next_page?
-        s = Search.new(nil, :user_agent => user_agent)
-        s.perform_get(fetch["next_page"][1..-1])
-        s
+        search = Search.new(nil, :user_agent => user_agent)
+        search.perform_get(fetch["next_page"][1..-1])
+        search
       end
     end
 
@@ -270,31 +267,10 @@ module Twitter
 
     private
 
-    def connection
-      headers = {:user_agent => Twitter.user_agent}
-      ssl = {:verify => false}
-      @connection = Faraday::Connection.new(:url => @api_endpoint.omit(:path), :headers => headers, :ssl => false) do |builder|
-        builder.adapter(@adapter || Faraday.default_adapter)
-        builder.use Faraday::Response::RaiseHttp5xx
-        case Twitter.format.to_s
-        when "json"
-          builder.use Faraday::Response::ParseJson
-        when "xml"
-          builder.use Faraday::Response::ParseXml
-        end
-        builder.use Faraday::Response::RaiseHttp4xx
-        builder.use Faraday::Response::Mashify
-      end
-      @connection.scheme = Twitter.protocol
-      @connection
-    end
-
-    protected
-
     # @private
     def perform_get(query)
-      @fetch = connection.get do |request|
-        request.url @api_endpoint.path, query
+      @fetch = Twitter.connection.get do |request|
+        request.url("search.#{Twitter.format}", query)
       end.body
     end
 

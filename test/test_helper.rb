@@ -19,34 +19,34 @@ def fixture_file(filename)
   File.read(file_path)
 end
 
-def twitter_url(url)
-  url =~ /^http/ ? url : "https://api.twitter.com#{url}"
+def api_endpoint
+  "https://api.twitter.com/"
 end
 
-def stub_get(url, filename, status=nil, location=nil)
+def stub_get(path, filename, status=nil, location=nil)
   options = {:body => fixture_file(filename)}
   options.merge!({:status => status}) unless status.nil?
   options.merge!({:location => location}) unless location.nil?
-  FakeWeb.register_uri(:get, twitter_url(url), options)
+  FakeWeb.register_uri(:get, api_endpoint + path, options)
 end
 
-def stub_post(url, filename, status=nil, location=nil)
+def stub_post(path, filename, status=nil, location=nil)
   options = {:body => fixture_file(filename)}
   options.merge!({:status => status}) unless status.nil?
   options.merge!({:location => location}) unless location.nil?
-  FakeWeb.register_uri(:post, twitter_url(url), options)
+  FakeWeb.register_uri(:post, api_endpoint + path, options)
 end
 
-def stub_put(url, filename, status=nil, location=nil)
+def stub_put(path, filename, status=nil, location=nil)
   options = {:body => fixture_file(filename)}
   options.merge!({:status => status}) unless status.nil?
   options.merge!({:location => location}) unless location.nil?
-  FakeWeb.register_uri(:put, twitter_url(url), options)
+  FakeWeb.register_uri(:put, api_endpoint + path, options)
 end
 
-def stub_delete(url, filename, status=nil, location=nil)
+def stub_delete(path, filename, status=nil, location=nil)
   options = {:body => fixture_file(filename)}
   options.merge!({:status => status}) unless status.nil?
   options.merge!({:location => location}) unless location.nil?
-  FakeWeb.register_uri(:delete, twitter_url(url), options)
+  FakeWeb.register_uri(:delete, api_endpoint + path, options)
 end

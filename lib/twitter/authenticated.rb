@@ -116,8 +116,8 @@ module Twitter
     end
 
     def profile_image(screen_name, options={})
-      connection_with_unparsed_response.get do |request|
-        request.url "users/profile_image/#{screen_name}.#{Twitter.format}", options
+      Twitter.connection_with_unparsed_response.get do |request|
+        request.url("users/profile_image/#{screen_name}.#{Twitter.format}", options)
       end.headers["location"]
     end
 
@@ -439,57 +439,25 @@ module Twitter
 
     private
 
-    def connection
-      builders = []
-      builders << Faraday::Response::RaiseHttp5xx
-      case Twitter.format.to_s
-      when "json"
-        builders << Faraday::Response::ParseJson
-      when "xml"
-        builders << Faraday::Response::ParseXml
-      end
-      builders << Faraday::Response::RaiseHttp4xx
-      builders << Faraday::Response::Mashify
-      connection_with_builders(builders)
-    end
-
-    def connection_with_unparsed_response
-      builders = []
-      builders << Faraday::Response::RaiseHttp5xx
-      builders << Faraday::Response::RaiseHttp4xx
-      connection_with_builders(builders)
-    end
-
-    def connection_with_builders(builders)
-      headers = {:user_agent => Twitter.user_agent}
-      ssl = {:verify => false}
-      @connection = Faraday::Connection.new(:url => Twitter.api_endpoint, :headers => headers, :ssl => ssl) do |builder|
-        builder.adapter(@adapter || Faraday.default_adapter)
-        builders.each do |b| builder.use b end
-      end
-      @connection.scheme = Twitter.protocol
-      @connection
-    end
-
     def oauth_header(path, options, method)
       oauth_params = {
-        :consumer_key    => self.consumer_key,
-        :consumer_secret => self.consumer_secret,
-        :token           => self.access_key,
-        :token_secret    => self.access_secret
+        :consumer_key    => @consumer_key,
+        :consumer_secret => @consumer_secret,
+        :token           => @access_key,
+        :token_secret    => @access_secret
       }
-      SimpleOAuth::Header.new(method, connection.build_url(path), options, oauth_params).to_s
+      SimpleOAuth::Header.new(method, Twitter.connection.build_url(path), options, oauth_params).to_s
     end
 
     def perform_get(path, options={})
-      results = connection.get do |request|
-        request.url path, options
+      results = Twitter.connection.get do |request|
+        request.url(path, options)
         request['Authorization'] = oauth_header(path, options, :get)
       end.body
     end
 
     def perform_post(path, options={})
-      results = connection.post do |request|
+      results = Twitter.connection.post do |request|
         request.path = path
         request.body = options
         request['Authorization'] = oauth_header(path, options, :post)
@@ -497,7 +465,7 @@ module Twitter
     end
 
     def perform_put(path, options={})
-      results = connection.put do |request|
+      results = Twitter.connection.put do |request|
         request.path = path
         request.body = options
         request['Authorization'] = oauth_header(path, options, :put)
@@ -505,8 +473,8 @@ module Twitter
     end
 
     def perform_delete(path, options={})
-      results = connection.delete do |request|
-        request.url path, options
+      results = Twitter.connection.delete do |request|
+        request.url(path, options)
         request['Authorization'] = oauth_header(path, options, :delete)
       end.body
     end

@@ -1,13 +1,6 @@
 module Twitter
   class Unauthenticated
 
-    def initialize(options={})
-      @adapter = options.delete(:adapter)
-      @api_endpoint = "api.twitter.com/#{Twitter.api_version}"
-      @api_endpoint = Addressable::URI.heuristic_parse(@api_endpoint)
-      @api_endpoint = @api_endpoint.to_s
-    end
-
     def firehose(options = {})
       perform_get("statuses/public_timeline.#{Twitter.format}", options)
     end
@@ -18,7 +11,7 @@ module Twitter
     end
 
     def profile_image(screen_name, options={})
-      connection_with_unparsed_response.get do |request|
+      Twitter.connection_with_unparsed_response.get do |request|
         request.url("users/profile_image/#{screen_name}.#{Twitter.format}", options)
       end.headers["location"]
     end
@@ -78,40 +71,8 @@ module Twitter
 
     private
 
-    def connection
-      builders = []
-      builders << Faraday::Response::RaiseHttp5xx
-      case Twitter.format.to_s
-      when "json"
-        builders << Faraday::Response::ParseJson
-      when "xml"
-        builders << Faraday::Response::ParseXml
-      end
-      builders << Faraday::Response::RaiseHttp4xx
-      builders << Faraday::Response::Mashify
-      connection_with_builders(builders)
-    end
-
-    def connection_with_unparsed_response
-      builders = []
-      builders << Faraday::Response::RaiseHttp5xx
-      builders << Faraday::Response::RaiseHttp4xx
-      connection_with_builders(builders)
-    end
-
-    def connection_with_builders(builders)
-      headers = {:user_agent => Twitter.user_agent}
-      ssl = {:verify => false}
-      @connection = Faraday::Connection.new(:url => @api_endpoint, :headers => headers, :ssl => ssl) do |builder|
-        builder.adapter(@adapter || Faraday.default_adapter)
-        builders.each do |b| builder.use b end
-      end
-      @connection.scheme = Twitter.protocol
-      @connection
-    end
-
     def perform_get(path, options={})
-      results = connection.get do |request|
+      results = Twitter.connection.get do |request|
         request.url(path, options)
       end.body
     end
