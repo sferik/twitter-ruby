@@ -9,21 +9,17 @@ module Twitter
     end
 
     def firehose(options = {})
-      results = connection.get do |request|
-        request.url "statuses/public_timeline.#{Twitter.format}", options
-      end.body
+      perform_get("statuses/public_timeline.#{Twitter.format}", options)
     end
 
     def user(user_id_or_screen_name, options={})
       merge_user_into_options!(user_id_or_screen_name, options)
-      results = connection.get do |request|
-        request.url "users/show.#{Twitter.format}", options
-      end.body
+      perform_get("users/show.#{Twitter.format}", options)
     end
 
     def profile_image(screen_name, options={})
       connection_with_unparsed_response.get do |request|
-        request.url "users/profile_image/#{screen_name}.#{Twitter.format}", options
+        request.url("users/profile_image/#{screen_name}.#{Twitter.format}", options)
       end.headers["location"]
     end
 
@@ -37,65 +33,47 @@ module Twitter
       else
         "users/suggestions/#{category_slug}.#{Twitter.format}"
       end
-      results = connection.get do |request|
-        request.url path, options
-      end.body
+      perform_get(path, options)
     end
 
     def retweeted_to_user(user_id_or_screen_name, options={})
       merge_user_into_options!(user_id_or_screen_name, options)
-      results = connection.get do |request|
-        request.url "statuses/retweeted_to_user.#{Twitter.format}", options
-      end.body
+      perform_get("statuses/retweeted_to_user.#{Twitter.format}", options)
     end
 
     def retweeted_by_user(user_id_or_screen_name, options={})
       merge_user_into_options!(user_id_or_screen_name, options)
-      results = connection.get do |request|
-        request.url "statuses/retweeted_by_user.#{Twitter.format}", options
-      end.body
+      perform_get("statuses/retweeted_by_user.#{Twitter.format}", options)
     end
 
     def status(id, options={})
-      results = connection.get do |request|
-        request.url "statuses/show/#{id}.#{Twitter.format}", options
-      end.body
+      perform_get("statuses/show/#{id}.#{Twitter.format}", options)
     end
 
     def friend_ids(user_id_or_screen_name, options={})
       merge_user_into_options!(user_id_or_screen_name, options)
-      results = connection.get do |request|
-        request.url "friends/ids.#{Twitter.format}", options
-      end.body
+      perform_get("friends/ids.#{Twitter.format}", options)
     end
 
     def follower_ids(user_id_or_screen_name, options={})
       merge_user_into_options!(user_id_or_screen_name, options)
-      results = connection.get do |request|
-        request.url "followers/ids.#{Twitter.format}", options
-      end.body
+      perform_get("followers/ids.#{Twitter.format}", options)
     end
 
     def timeline(user_id_or_screen_name, options={})
       merge_user_into_options!(user_id_or_screen_name, options)
-      results = connection.get do |request|
-        request.url "statuses/user_timeline.#{Twitter.format}", options
-      end.body
+      perform_get("statuses/user_timeline.#{Twitter.format}", options)
     end
 
     def lists_subscribed(user_id_or_screen_name, options={})
       merge_user_into_options!(user_id_or_screen_name, options)
-      results = connection.get do |request|
-        request.url "lists/all.#{Twitter.format}", options
-      end.body
+      perform_get("lists/all.#{Twitter.format}", options)
     end
 
     # :per_page = max number of statues to get at once
     # :page = which page of tweets you wish to get
     def list_timeline(list_owner_screen_name, slug, options = {})
-      results = connection.get do |request|
-        request.url "#{list_owner_screen_name}/lists/#{slug}/statuses.#{Twitter.format}", options
-      end.body
+      perform_get("#{list_owner_screen_name}/lists/#{slug}/statuses.#{Twitter.format}", options)
     end
 
     private
@@ -130,6 +108,12 @@ module Twitter
       end
       @connection.scheme = Twitter.protocol
       @connection
+    end
+
+    def perform_get(path, options={})
+      results = connection.get do |request|
+        request.url(path, options)
+      end.body
     end
 
     def merge_user_into_options!(user_id_or_screen_name, options={})
