@@ -27,7 +27,7 @@ class TwitterTest < Test::Unit::TestCase
       Twitter.adapter = :typhoeus
       assert_equal :typhoeus, Twitter.adapter
       # Reset
-      Twitter.adapter = Faraday.default_adapter
+      Twitter.adapter = Twitter.default_adapter
     end
   end
 
@@ -40,7 +40,7 @@ class TwitterTest < Test::Unit::TestCase
       Twitter.user_agent = 'My Twitter Gem'
       assert_equal 'My Twitter Gem', Twitter.user_agent
       # Reset
-      Twitter.user_agent = 'Ruby Twitter Gem'
+      Twitter.user_agent = Twitter.default_user_agent
     end
   end
 
@@ -53,7 +53,7 @@ class TwitterTest < Test::Unit::TestCase
       Twitter.api_endpoint = 'tumblr.com'
       assert_equal 'http://tumblr.com', Twitter.api_endpoint
       # Reset
-      Twitter.api_endpoint = "api.twitter.com/#{Twitter.api_version}"
+      Twitter.api_endpoint = Twitter.default_api_endpoint
     end
   end
 
@@ -66,7 +66,7 @@ class TwitterTest < Test::Unit::TestCase
       Twitter.api_version = 2
       assert_equal 2, Twitter.api_version
       # Reset
-      Twitter.api_version = 1
+      Twitter.api_version = Twitter.default_api_version
     end
   end
 
@@ -79,7 +79,7 @@ class TwitterTest < Test::Unit::TestCase
       Twitter.format = "xml"
       assert_equal "xml", Twitter.format
       # Reset
-      Twitter.format = "json"
+      Twitter.format = Twitter.default_format
     end
   end
 
@@ -92,7 +92,7 @@ class TwitterTest < Test::Unit::TestCase
       Twitter.protocol = "http"
       assert_equal "http", Twitter.protocol
       # Reset
-      Twitter.protocol = "https"
+      Twitter.protocol = Twitter.default_protocol
     end
   end
 

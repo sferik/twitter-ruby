@@ -30,51 +30,75 @@ module Twitter
 
   module ConfigHelper
     def adapter
-      @adapter ||= Faraday.default_adapter
+      @adapter ||= default_adapter
     end
 
     def adapter=(value)
       @adapter = value
     end
 
+    def default_adapter
+      @default_adapter ||= Faraday.default_adapter
+    end
+
     def api_endpoint
-      @api_endpoint ||= Addressable::URI.heuristic_parse("api.twitter.com/#{api_version}").to_s
+      @api_endpoint ||= default_api_endpoint
     end
 
     def api_endpoint=(value)
       @api_endpoint = Addressable::URI.heuristic_parse(value).to_s
     end
 
+    def default_api_endpoint
+      @default_api_endpoint ||= Addressable::URI.heuristic_parse("api.twitter.com/#{api_version}").to_s
+    end
+
     def api_version
-      @api_version ||= 1
+      @api_version ||= default_api_version
     end
 
     def api_version=(value)
       @api_version = value
     end
 
+    def default_api_version
+      @default_api_version ||= 1
+    end
+
     def format
-      @format ||= 'json'
+      @format ||= default_format
     end
 
     def format=(value)
       @format = value
     end
 
+    def default_format
+      @default_format ||= 'json'
+    end
+
     def protocol
-      @protocol ||= 'https'
+      @protocol ||= default_protocol
     end
 
     def protocol=(value)
       @protocol = value
     end
 
+    def default_protocol
+      @default_protocol ||= 'https'
+    end
+
     def user_agent
-      @user_agent ||= 'Ruby Twitter Gem'
+      @user_agent ||= default_user_agent
     end
 
     def user_agent=(value)
       @user_agent = value
+    end
+
+    def default_user_agent
+      @default_user_agent ||= 'Ruby Twitter Gem'
     end
   end
 

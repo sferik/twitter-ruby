@@ -20,7 +20,7 @@ class SearchTest < Test::Unit::TestCase
       Twitter.user_agent = 'Foobar'
       assert_equal 'Ruby Twitter Gem', Twitter::Search.user_agent
       # Reset
-      Twitter.user_agent = 'Ruby Twitter Gem'
+      Twitter.user_agent = Twitter.default_user_agent
     end
 
     should "specify from" do
