@@ -95,6 +95,14 @@ module Twitter
       perform_get("statuses/followers.#{@format}", options)
     end
 
+    def tos
+      perform_get("legal/tos.#{@format}")
+    end
+
+    def privacy
+      perform_get("legal/privacy.#{@format}")
+    end
+
     private
 
     def merge_user_into_options!(user_id_or_screen_name, options={})
