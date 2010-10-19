@@ -81,6 +81,10 @@ module Twitter
       perform_get("#{list_owner_screen_name}/lists/#{slug}/statuses.#{@format}", options)
     end
 
+    def retweets(id, options={})
+      perform_get("statuses/retweets/#{id}.#{@format}", options)
+    end
+
     private
 
     def merge_user_into_options!(user_id_or_screen_name, options={})
