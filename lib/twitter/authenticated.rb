@@ -415,6 +415,11 @@ module Twitter
       perform_get("friendships/outgoing.#{@format}", options)
     end
 
+    def list_add_members(list_owner_screen_name, slug, new_ids, options={})
+      merge_users_into_options!(Array(new_ids), options)
+      perform_post("#{list_owner_screen_name}/#{slug}/create_all.#{@format}", options)
+    end
+
     protected
 
     def self.mime_type(file)
