@@ -90,6 +90,11 @@ module Twitter
       perform_get("statuses/friends.#{@format}", options)
     end
 
+    def followers(user_id_or_screen_name, options={})
+      merge_user_into_options!(user_id_or_screen_name, options)
+      perform_get("statuses/followers.#{@format}", options)
+    end
+
     private
 
     def merge_user_into_options!(user_id_or_screen_name, options={})
