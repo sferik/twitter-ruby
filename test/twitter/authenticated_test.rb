@@ -281,6 +281,16 @@ class AuthenticatedTest < Test::Unit::TestCase
             assert @client.friendships_outgoing
           end
 
+          should "return true if a user is blocked" do
+            stub_get("blocks/exists.#{format}?user_id=1234", "hash.#{format}")
+            assert @client.block_exists?(1234)
+          end
+
+          should "return false if a user is not blocked" do
+            stub_get("blocks/exists.#{format}?screen_name=laserlemon", "not_found.#{format}", 404)
+            assert @client.block_exists?('laserlemon')
+          end
+
           should "get totals" do
             stub_get("account/totals.#{format}", "hash.#{format}")
             assert @client.totals

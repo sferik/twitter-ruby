@@ -429,6 +429,16 @@ module Twitter
       end
     end
 
+    def block_exists?(user_id_or_screen_name, options={})
+      merge_user_into_options!(user_id_or_screen_name, options)
+      begin
+        perform_get("blocks/exists.#{@format}", options)
+        true
+      rescue Twitter::NotFound
+        false
+      end
+    end
+
     protected
 
     def self.mime_type(file)
