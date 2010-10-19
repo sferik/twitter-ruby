@@ -411,6 +411,10 @@ module Twitter
       perform_get("account/rate_limit_status.#{@format}", options)
     end
 
+    def friendships_outgoing(options={})
+      perform_get("friendships/outgoing.#{@format}", options)
+    end
+
     protected
 
     def self.mime_type(file)
