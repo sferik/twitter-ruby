@@ -1,3 +1,26 @@
+=== 1.0.0.rc.3 - COMING SOON
+* {Rename <tt>Base</tt> to <tt>Authenticated</tt>}[http://github.com/jnunemaker/twitter/commit/7d6dba7bc12423e72639df5f5a5fbab99a1b6770]
+* {Make <tt>Authenticated#suggestions</tt> and <tt>Unauthenticated#suggestions</tt> methods consistent with Twitter API documentation}[http://github.com/jnunemaker/twitter/commit/8393a06a9e8ca03be9adffdbfd042c176e2f6597]
+* {Rename default user agent}[http://github.com/jnunemaker/twitter/commit/2929e533f441bea2313882c4e0ed5593fe999491]
+* {Create public accessor methods for default values}[http://github.com/jnunemaker/twitter/commit/9ad0ef09e8d31bee5d52832ec1f7ea5b234c6714]
+* {Make all global settings overrideable at the class level}[http://github.com/jnunemaker/twitter/commit/66f3ac223d6f0822c8b3acd4cdcd8c84c8dacfe0]
+* {Expose a property in EnhanceYourCalm for HTTP header "Retry-After"}[http://github.com/jnunemaker/twitter/commit/7ab91f9d26351f52d3c803bb191d33bdacff5094] (@duylam[http://twitter.com/#!/duylam])
+* {Add <tt>Unauthenticated#retweets</tt> method}[http://github.com/jnunemaker/twitter/commit/6bd37294bd996c7d20c2aa4016f1b092b9d97149] (@laserlemon[http://twitter.com/#!/laserlemon])
+* {Add <tt>Unauthenticated#friends</tt> method}[http://github.com/jnunemaker/twitter/commit/37fe801dbbc59f70acb06e2a511dd1d338324353] (@laserlemon[http://twitter.com/#!/laserlemon])
+* {Add <tt>Unauthenticated#followers</tt> method}[http://github.com/jnunemaker/twitter/commit/c1152fb2c28edebbed1d3a368d73e27da66d82a8] (@laserlemon[http://twitter.com/#!/laserlemon])
+* {Add <tt>Unauthenticated#tos</tt> and <tt>Unauthenticated#privacy</tt> methods}[http://github.com/jnunemaker/twitter/commit/fc767830cfefebe0bbe73e1f7d26cae71864e1f7] (@laserlemon[http://twitter.com/#!/laserlemon])
+* {Add <tt>Authenticated#friendships_outgoing</tt> method}[http://github.com/jnunemaker/twitter/commit/5a4349fa29fd86103c428da9fe4cb23aca5edf3c] (@laserlemon[http://twitter.com/#!/laserlemon])
+* {Add <tt>Authenticated#friendships_incoming</tt> method}[http://github.com/jnunemaker/twitter/commit/054fea3e908cccb88d6f43524ea116146e423168]
+* {Add <tt>Authenticated#list_add_members</tt> method}[http://github.com/jnunemaker/twitter/commit/8eeef81d7b5e5b10c0ae71483a2919de0ccc3c72] (@laserlemon[http://twitter.com/#!/laserlemon])
+* {Add <tt>Authenticated#is_subscriber?</tt> method}[http://github.com/jnunemaker/twitter/commit/0e0b49b2b02087ad2e76b135ea6871b049e6fab8] (@laserlemon[http://twitter.com/#!/laserlemon])
+* {Add <tt>Authenticated#block_exists?</tt> method}[http://github.com/jnunemaker/twitter/commit/58d63c13c1b9165252f956cc7be511ba678ed701] (@laserlemon[http://twitter.com/#!/laserlemon])
+
+=== 1.0.0.rc.2 - October 15, 2010
+* {Rename <tt>Twitter.scheme</tt> to <tt>Twitter.protocol</tt>}[http://github.com/jnunemaker/twitter/commit/512fcdfc22b796d39dd07c2dcc712aa48131d7c6]
+* {Map access key/secret names to SimpleOAuth correctly}[http://github.com/jnunemaker/twitter/commit/9fa5be3a9e0b7f7dcb4046314d8c6bc41f4f063d]
+* {Improved error handling by separating HTTP 4xx errors from HTTP 5xx errors, so HTTP 4xx errors can be parsed first}[http://github.com/jnunemaker/twitter/commit/f26e7875980a7b2b16285c31198601b92ac5cbb6]
+* {Add tests for XML response format}[http://github.com/jnunemaker/twitter/commit/54c4b36b8f9a5a0ad7c741e53409a03a7ddaade7]
+
 === 1.0.0.rc.1 - October 12, 2010
 * {Switch from httparty to faraday HTTP client library}[http://github.com/jnunemaker/twitter/commit/80aff88dae11d64673fe4e025cc8f065a6796345]
 * {Switch from oauth to simple_oauth for authentication}[http://github.com/jnunemaker/twitter/commit/76cfe3749e56b2b486f2b5ffc9aa7f437cb2db29] (@laserlemon[http://twitter.com/#!/laserlemon])
