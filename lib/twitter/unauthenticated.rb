@@ -1,7 +1,7 @@
 module Twitter
   class Unauthenticated
     extend ConfigHelper
-    extend ConnectionHelper
+    include ConnectionHelper
     include RequestHelper
 
     def initialize(options={})
@@ -23,7 +23,7 @@ module Twitter
     end
 
     def profile_image(screen_name, options={})
-      self.class.connection_with_unparsed_response.get do |request|
+      connection_with_unparsed_response.get do |request|
         request.url("users/profile_image/#{screen_name}.#{@format}", options)
       end.headers["location"]
     end

@@ -5,7 +5,7 @@ module Twitter
   # @see http://dev.twitter.com/pages/geo_dev_guidelines Geo Developer Guidelines
   class Geo
     extend ConfigHelper
-    extend ConnectionHelper
+    include ConnectionHelper
     extend SingleForwardable
     include RequestHelper
     attr_reader :access_key, :access_secret, :consumer_key, :consumer_secret

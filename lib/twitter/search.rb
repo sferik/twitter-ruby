@@ -5,7 +5,7 @@ module Twitter
   # @see http://dev.twitter.com/doc/get/search Twitter Search API docs
   class Search
     extend ConfigHelper
-    extend ConnectionHelper
+    include ConnectionHelper
     include Enumerable
     include RequestHelper
     attr_reader :access_key, :access_secret, :consumer_key, :consumer_secret, :query, :result

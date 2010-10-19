@@ -3,7 +3,7 @@ module Twitter
   # Handles the Twitter trends API
   class Trends
     extend ConfigHelper
-    extend ConnectionHelper
+    include ConnectionHelper
     include RequestHelper
     extend SingleForwardable
     attr_reader :access_key, :access_secret, :consumer_key, :consumer_secret

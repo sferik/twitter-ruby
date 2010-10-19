@@ -1,6 +1,7 @@
 require 'addressable/uri'
 require 'faraday'
 require 'faraday_middleware'
+require 'faraday/oauth'
 require 'faraday/raise_http_4xx'
 require 'faraday/raise_http_5xx'
 require 'forwardable'
@@ -106,75 +107,63 @@ module Twitter
 
   module ConnectionHelper
     def connection
-      builders = []
-      builders << Faraday::Response::RaiseHttp5xx
-      case Twitter.format.to_s
-      when "json"
-        builders << Faraday::Response::ParseJson
-      when "xml"
-        builders << Faraday::Response::ParseXml
+      base_connection do |builder|
+        builder.use Faraday::Response::RaiseHttp5xx
+        case Twitter.format.to_s
+        when "json"
+          builder.use Faraday::Response::ParseJson
+        when "xml"
+          builder.use Faraday::Response::ParseXml
+        end
+        builder.use Faraday::Response::RaiseHttp4xx
+        builder.use Faraday::Response::Mashify
       end
-      builders << Faraday::Response::RaiseHttp4xx
-      builders << Faraday::Response::Mashify
-      connection_with_builders(builders)
     end
 
     def connection_with_unparsed_response
-      builders = []
-      builders << Faraday::Response::RaiseHttp5xx
-      builders << Faraday::Response::RaiseHttp4xx
-      connection_with_builders(builders)
+      base_connection do |builder|
+        builder.use Faraday::Response::RaiseHttp5xx
+        builder.use Faraday::Response::RaiseHttp4xx
+      end
     end
 
-    def connection_with_builders(builders)
-      headers = {:user_agent => user_agent}
+    def base_connection(&block)
+      headers = {:user_agent => self.class.user_agent}
       ssl = {:verify => false}
-      Faraday::Connection.new(:url => api_endpoint, :headers => headers, :ssl => ssl) do |connection|
-        connection.adapter(adapter)
-        connection.scheme = protocol
-        builders.each{|builder| connection.use builder}
+      oauth = {:consumer_key => @consumer_key, :consumer_secret => @consumer_secret, :token => @access_key, :token_secret => @access_secret}
+      Faraday::Connection.new(:url => self.class.api_endpoint, :headers => headers, :ssl => ssl) do |connection|
+        connection.scheme = self.class.protocol
+        connection.use Faraday::Request::OAuth, oauth
+        connection.adapter(self.class.adapter)
+        yield connection if block_given?
       end
     end
   end
 
   module RequestHelper
-    def oauth_header(path, options, method)
-      oauth_params = {
-        :consumer_key    => @consumer_key,
-        :consumer_secret => @consumer_secret,
-        :token           => @access_key,
-        :token_secret    => @access_secret
-      }
-      SimpleOAuth::Header.new(method, self.class.connection.build_url(path), options, oauth_params).to_s
-    end
-
     def perform_get(path, options={})
-      results = self.class.connection.get do |request|
+      connection.get do |request|
         request.url(path, options)
-        request['Authorization'] = oauth_header(path, options, :get)
       end.body
     end
 
     def perform_post(path, options={})
-      results = self.class.connection.post do |request|
+      connection.post do |request|
         request.path = path
         request.body = options
-        request['Authorization'] = oauth_header(path, options, :post)
       end.body
     end
 
     def perform_put(path, options={})
-      results = self.class.connection.put do |request|
+      connection.put do |request|
         request.path = path
         request.body = options
-        request['Authorization'] = oauth_header(path, options, :put)
       end.body
     end
 
     def perform_delete(path, options={})
-      results = self.class.connection.delete do |request|
+      connection.delete do |request|
         request.url(path, options)
-        request['Authorization'] = oauth_header(path, options, :delete)
       end.body
     end
   end
