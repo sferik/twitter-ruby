@@ -3,10 +3,6 @@ require 'test_helper'
 class AuthenticatedTest < Test::Unit::TestCase
 
   context "base" do
-    setup do
-      @client = Twitter::Authenticated.new
-    end
-
     context "initialize" do
       should "accept oauth params" do
         Twitter.configure do |config|
@@ -33,6 +29,7 @@ class AuthenticatedTest < Test::Unit::TestCase
       context "with request format #{format}" do
         setup do
           Twitter.format = format
+          @client = Twitter::Authenticated.new
         end
 
         context "hitting the API" do
@@ -277,18 +274,23 @@ class AuthenticatedTest < Test::Unit::TestCase
           end
 
           should "get outgoing friendships" do
-            stub_get("friendships/outgoing.#{format}", "hash.#{format}")
+            stub_get("friendships/outgoing.#{format}", "array.#{format}")
             assert @client.friendships_outgoing
+          end
+
+          should "get incoming friendships" do
+            stub_get("friendships/incoming.#{format}", "array.#{format}")
+            assert @client.friendships_incoming
           end
 
           should "return true if a user is blocked" do
             stub_get("blocks/exists.#{format}?user_id=1234", "hash.#{format}")
-            assert @client.block_exists?(1234)
+            assert_true @client.block_exists?(1234)
           end
 
           should "return false if a user is not blocked" do
             stub_get("blocks/exists.#{format}?screen_name=laserlemon", "not_found.#{format}", 404)
-            assert @client.block_exists?('laserlemon')
+            assert_false @client.block_exists?('laserlemon')
           end
 
           should "get totals" do
