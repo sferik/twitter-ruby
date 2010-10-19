@@ -190,7 +190,13 @@ module Twitter
     end
 
     def friendship_exists?(user_id_or_screen_name_a, user_id_or_screen_name_b)
-      perform_get("friendships/exists.#{@format}", {:user_a => user_id_or_screen_name_a, :user_b => user_id_or_screen_name_b})
+      response = perform_get("friendships/exists.#{@format}", {:user_a => user_id_or_screen_name_a, :user_b => user_id_or_screen_name_b})
+      case @format.to_s
+      when 'xml'
+        !%w(0 false).include?(response.friends)
+      else
+        response
+      end
     end
 
     # Options: id, user_id, screen_name

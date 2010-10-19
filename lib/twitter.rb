@@ -109,9 +109,9 @@ module Twitter
       builders = []
       builders << Faraday::Response::RaiseHttp5xx
       case Twitter.format.to_s
-      when "json"
+      when 'json'
         builders << Faraday::Response::ParseJson
-      when "xml"
+      when 'xml'
         builders << Faraday::Response::ParseXml
       end
       builders << Faraday::Response::RaiseHttp4xx
