@@ -437,12 +437,12 @@ class AuthenticatedTest < Test::Unit::TestCase
 
           should "be true if user is a member of a list" do
             stub_get("pengwynn/rubyists/members/4243.#{format}", "hash.#{format}")
-            assert_true @client.is_list_member?('pengwynn', 'rubyists', 4243)
+            assert @client.is_list_member?('pengwynn', 'rubyists', 4243)
           end
 
           should "be false if user is not a member of a list" do
             stub_get("pengwynn/rubyists/members/1234.#{format}", "not_found.#{format}", 404)
-            assert_false @client.is_list_member?('pengwynn', 'rubyists', 1234)
+            assert !@client.is_list_member?('pengwynn', 'rubyists', 1234)
           end
 
           should "get list subscribers" do
@@ -468,6 +468,16 @@ class AuthenticatedTest < Test::Unit::TestCase
           should "add members to a list" do
             stub_post("pengwynn/rubyists/create_all.#{format}", "hash.#{format}")
             assert @client.list_add_members('pengwynn', 'rubyists', [4243, 27748704424])
+          end
+
+          should "be true if user subscribes to a list" do
+            stub_get("pengwynn/rubyists/subscribers/4243.#{format}", "hash.#{format}")
+            assert @client.is_subscriber?('pengwynn', 'rubyists', 4243)
+          end
+
+          should "be false if user does not subscribe to a list" do
+            stub_get("pengwynn/rubyists/subscribers/1234.#{format}", "not_found.#{format}", 404)
+            assert !@client.is_subscriber?('pengwynn', 'rubyists', 1234)
           end
         end
 
