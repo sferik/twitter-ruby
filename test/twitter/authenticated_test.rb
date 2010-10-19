@@ -276,6 +276,11 @@ class AuthenticatedTest < Test::Unit::TestCase
             assert @client.rate_limit_status
           end
 
+          should "get outgoing friendships" do
+            stub_get("friendships/outgoing.#{format}", "hash.#{format}")
+            assert @client.friendships_outgoing
+          end
+
           should "get totals" do
             stub_get("account/totals.#{format}", "hash.#{format}")
             assert @client.totals
