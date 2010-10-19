@@ -121,6 +121,11 @@ class UnauthenticatedTest < Test::Unit::TestCase
         stub_get("statuses/retweets/1533815199.#{format}", "hash.#{format}")
         assert Twitter.retweets(1533815199)
       end
+
+      should "get friends" do
+        stub_get("statuses/friends.#{format}?screen_name=laserlemon", "hash.#{format}")
+        assert Twitter.friends('laserlemon')
+      end
     end
   end
 end

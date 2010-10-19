@@ -13,7 +13,7 @@ module Twitter
       @user_agent = options[:user_agent] || Twitter.user_agent
     end
 
-    def firehose(options = {})
+    def firehose(options={})
       perform_get("statuses/public_timeline.#{@format}", options)
     end
 
@@ -77,12 +77,17 @@ module Twitter
 
     # :per_page = max number of statues to get at once
     # :page = which page of tweets you wish to get
-    def list_timeline(list_owner_screen_name, slug, options = {})
+    def list_timeline(list_owner_screen_name, slug, options={})
       perform_get("#{list_owner_screen_name}/lists/#{slug}/statuses.#{@format}", options)
     end
 
     def retweets(id, options={})
       perform_get("statuses/retweets/#{id}.#{@format}", options)
+    end
+
+    def friends(user_id_or_screen_name, options={})
+      merge_user_into_options!(user_id_or_screen_name, options)
+      perform_get("statuses/friends.#{@format}", options)
     end
 
     private
