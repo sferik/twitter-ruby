@@ -283,12 +283,12 @@ class AuthenticatedTest < Test::Unit::TestCase
 
           should "return true if a user is blocked" do
             stub_get("blocks/exists.#{format}?user_id=1234", "hash.#{format}")
-            assert @client.block_exists?(1234)
+            assert_true @client.block_exists?(1234)
           end
 
           should "return false if a user is not blocked" do
             stub_get("blocks/exists.#{format}?screen_name=laserlemon", "not_found.#{format}", 404)
-            assert @client.block_exists?('laserlemon')
+            assert_false @client.block_exists?('laserlemon')
           end
 
           should "get totals" do
