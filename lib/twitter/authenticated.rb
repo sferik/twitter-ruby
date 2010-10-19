@@ -357,9 +357,9 @@ module Twitter
       perform_delete("#{list_owner_screen_name}/#{slug}/members.#{@format}", options)
     end
 
-    def is_list_member?(list_owner_screen_name, slug, user_id_or_screen_name, options={})
+    def is_list_member?(list_owner_screen_name, slug, id, options={})
       begin
-        perform_get("#{list_owner_screen_name}/#{slug}/members/#{user_id_or_screen_name}.#{@format}", options)
+        perform_get("#{list_owner_screen_name}/#{slug}/members/#{id}.#{@format}", options)
         true
       rescue Twitter::NotFound
         false
@@ -418,6 +418,15 @@ module Twitter
     def list_add_members(list_owner_screen_name, slug, new_ids, options={})
       merge_users_into_options!(Array(new_ids), options)
       perform_post("#{list_owner_screen_name}/#{slug}/create_all.#{@format}", options)
+    end
+
+    def is_subscriber?(list_owner_screen_name, slug, id, options={})
+      begin
+        perform_get("#{list_owner_screen_name}/#{slug}/subscribers/#{id}.#{@format}", options)
+        true
+      rescue Twitter::NotFound
+        false
+      end
     end
 
     protected
