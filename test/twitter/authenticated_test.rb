@@ -277,8 +277,13 @@ class AuthenticatedTest < Test::Unit::TestCase
           end
 
           should "get outgoing friendships" do
-            stub_get("friendships/outgoing.#{format}", "hash.#{format}")
+            stub_get("friendships/outgoing.#{format}", "array.#{format}")
             assert @client.friendships_outgoing
+          end
+
+          should "get incoming friendships" do
+            stub_get("friendships/incoming.#{format}", "array.#{format}")
+            assert @client.friendships_incoming
           end
 
           should "return true if a user is blocked" do
