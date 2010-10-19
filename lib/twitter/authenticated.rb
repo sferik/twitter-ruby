@@ -358,7 +358,12 @@ module Twitter
     end
 
     def is_list_member?(list_owner_screen_name, slug, user_id_or_screen_name, options={})
-      perform_get("#{list_owner_screen_name}/#{slug}/members/#{user_id_or_screen_name}.#{@format}", options).error.nil?
+      begin
+        perform_get("#{list_owner_screen_name}/#{slug}/members/#{user_id_or_screen_name}.#{@format}", options)
+        true
+      rescue Twitter::NotFound
+        false
+      end
     end
 
     def list_subscribers(list_owner_screen_name, slug, options={})

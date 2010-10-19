@@ -221,9 +221,14 @@ class AuthenticatedTest < Test::Unit::TestCase
             assert @client.friendship_destroy('sferik')
           end
 
-          should "test whether a friendship exists" do
+          should "be true if a friendship exists" do
             stub_get("friendships/exists.#{format}?user_a=pengwynn&user_b=sferik", "true.#{format}")
-            assert @client.friendship_exists?('pengwynn', 'sferik')
+            assert_true @client.friendship_exists?('pengwynn', 'sferik')
+          end
+
+          should "be false if a friendship does not exist" do
+            stub_get("friendships/exists.#{format}?user_a=pengwynn&user_b=justinbieber", "false.#{format}")
+            assert_false @client.friendship_exists?('pengwynn', 'justinbieber')
           end
 
           should "get followers' stauses" do
@@ -425,9 +430,14 @@ class AuthenticatedTest < Test::Unit::TestCase
             assert @client.list_remove_member('pengwynn', 'rubyists', 4243)
           end
 
-          should "check if a user is member of a list" do
+          should "be true if user is a member of a list" do
             stub_get("pengwynn/rubyists/members/4243.#{format}", "hash.#{format}")
-            assert @client.is_list_member?('pengwynn', 'rubyists', 4243)
+            assert_true @client.is_list_member?('pengwynn', 'rubyists', 4243)
+          end
+
+          should "be false if user is not a member of a list" do
+            stub_get("pengwynn/rubyists/members/1234.#{format}", "not_found.#{format}", 404)
+            assert_false @client.is_list_member?('pengwynn', 'rubyists', 1234)
           end
 
           should "get list subscribers" do
