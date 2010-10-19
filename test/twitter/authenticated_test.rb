@@ -3,10 +3,6 @@ require 'test_helper'
 class AuthenticatedTest < Test::Unit::TestCase
 
   context "base" do
-    setup do
-      @client = Twitter::Authenticated.new
-    end
-
     context "initialize" do
       should "accept oauth params" do
         Twitter.configure do |config|
@@ -33,6 +29,7 @@ class AuthenticatedTest < Test::Unit::TestCase
       context "with request format #{format}" do
         setup do
           Twitter.format = format
+          @client = Twitter::Authenticated.new
         end
 
         context "hitting the API" do
