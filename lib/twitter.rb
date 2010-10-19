@@ -196,9 +196,9 @@ module Twitter
     end
 
     # Returns number of seconds the application should wait before requesting data from the Search API again.
-    def waiting_time
-      header_value = @http_headers["retry-after"] || @http_headers["Retry-After"]
-      header_value.to_i
+    def retry_after
+      retry_after = @http_headers["retry-after"] || @http_headers["Retry-After"]
+      retry_after.to_i
     end
   end
 

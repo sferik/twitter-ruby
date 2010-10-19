@@ -59,7 +59,7 @@ class RaiseHttp4xxTest < Test::Unit::TestCase
         flunk 'Should have exception at this point'
       rescue => err
         assert_instance_of Twitter::EnhanceYourCalm, err
-        assert_operator err.waiting_time, :> , 0
+        assert_operator err.retry_after, :> , 0
       end
     end
 
