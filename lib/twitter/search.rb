@@ -261,7 +261,7 @@ module Twitter
     def each
       results = fetch['results']
       return if results.nil?
-      results.each {|r| yield r}
+      results.each{|result| yield result}
     end
 
   end

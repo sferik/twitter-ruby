@@ -131,7 +131,7 @@ module Twitter
       ssl = {:verify => false}
       connection = Faraday::Connection.new(:url => api_endpoint, :headers => headers, :ssl => ssl) do |builder|
         builder.adapter(adapter)
-        builders.each{|b| builder.use b}
+        builders.each{|builder| builder.use builder}
       end
       connection.scheme = protocol
       connection
