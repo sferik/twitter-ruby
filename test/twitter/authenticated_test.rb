@@ -464,6 +464,11 @@ class AuthenticatedTest < Test::Unit::TestCase
             stub_get("pengwynn/lists/subscriptions.#{format}", "hash.#{format}")
             assert @client.subscriptions('pengwynn')
           end
+
+          should "add members to a list" do
+            stub_post("pengwynn/rubyists/create_all.#{format}", "hash.#{format}")
+            assert @client.list_add_members('pengwynn', 'rubyists', [4243, 27748704424])
+          end
         end
 
         context "when using saved searches" do
