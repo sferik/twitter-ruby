@@ -131,6 +131,16 @@ class UnauthenticatedTest < Test::Unit::TestCase
         stub_get("statuses/followers.#{format}?screen_name=laserlemon", "hash.#{format}")
         assert Twitter.followers('laserlemon')
       end
+
+      should "get terms of service" do
+        stub_get("legal/tos.#{format}", "hash.#{format}")
+        assert Twitter.tos
+      end
+
+      should "get privacy policy" do
+        stub_get("legal/privacy.#{format}", "hash.#{format}")
+        assert Twitter.privacy
+      end
     end
   end
 end
