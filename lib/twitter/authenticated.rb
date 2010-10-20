@@ -232,12 +232,12 @@ module Twitter
 
     # file should respond to #read and #path
     def update_profile_image(file)
-      perform_post("account/update_profile_image.#{@format}", build_multipart_bodies(:image => file))
+      perform_post("account/update_profile_image.#{@format}", :image => file)
     end
 
     # file should respond to #read and #path
     def update_profile_background(file, tile = false)
-      perform_post("account/update_profile_background_image.#{@format}", build_multipart_bodies(:image => file).merge(:tile => tile))
+      perform_post("account/update_profile_background_image.#{@format}", :image => file, :tile => tile)
     end
 
     # One or more of the following must be present:
@@ -452,45 +452,6 @@ module Twitter
         false
       end
     end
-
-    protected
-
-    def self.mime_type(file)
-      case
-        when file =~ /\.jpg/ then 'image/jpg'
-        when file =~ /\.gif$/ then 'image/gif'
-        when file =~ /\.png$/ then 'image/png'
-        else 'application/octet-stream'
-      end
-    end
-
-    def mime_type(file) self.class.mime_type(file) end
-
-    CRLF = "\r\n"
-
-    def self.build_multipart_bodies(parts)
-      boundary = Time.now.to_i.to_s(16)
-      body = ""
-      parts.each do |key, value|
-        esc_key = CGI.escape(key.to_s)
-        body << "--#{boundary}#{CRLF}"
-        if value.respond_to?(:read)
-          body << "Content-Disposition: form-data; name=\"#{esc_key}\"; filename=\"#{File.basename(value.path)}\"#{CRLF}"
-          body << "Content-Type: #{mime_type(value.path)}#{CRLF*2}"
-          body << value.read
-        else
-          body << "Content-Disposition: form-data; name=\"#{esc_key}\"#{CRLF*2}#{value}"
-        end
-        body << CRLF
-      end
-      body << "--#{boundary}--#{CRLF*2}"
-      {
-        :body => body,
-        :headers => {"Content-Type" => "multipart/form-data; boundary=#{boundary}"}
-      }
-    end
-
-    def build_multipart_bodies(parts) self.class.build_multipart_bodies(parts) end
 
     private
 

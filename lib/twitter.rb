@@ -1,6 +1,7 @@
 require 'addressable/uri'
 require 'faraday'
 require 'faraday_middleware'
+require 'faraday/multipart'
 require 'faraday/oauth'
 require 'faraday/raise_http_4xx'
 require 'faraday/raise_http_5xx'
@@ -133,6 +134,7 @@ module Twitter
       oauth = {:consumer_key => @consumer_key, :consumer_secret => @consumer_secret, :token => @access_key, :token_secret => @access_secret}
       Faraday::Connection.new(:url => self.class.api_endpoint, :headers => headers, :ssl => ssl) do |connection|
         connection.scheme = self.class.protocol
+        connection.use Faraday::Request::Multipart
         connection.use Faraday::Request::OAuth, oauth
         connection.adapter(self.class.adapter)
         yield connection if block_given?
