@@ -95,6 +95,10 @@ module Twitter
       perform_get("statuses/followers.#{@format}", options)
     end
 
+    def rate_limit_status(options={})
+      perform_get("account/rate_limit_status.#{@format}", options)
+    end
+
     def tos
       perform_get("legal/tos.#{@format}")
     end

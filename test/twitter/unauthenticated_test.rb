@@ -132,6 +132,11 @@ class UnauthenticatedTest < Test::Unit::TestCase
         assert Twitter.followers('laserlemon')
       end
 
+      should "get rate limit status" do
+        stub_get("account/rate_limit_status.#{format}", "hash.#{format}")
+        assert Twitter.rate_limit_status
+      end
+
       should "get terms of service" do
         stub_get("legal/tos.#{format}", "hash.#{format}")
         assert Twitter.tos
