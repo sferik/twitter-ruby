@@ -38,6 +38,11 @@ class AuthenticatedTest < Test::Unit::TestCase
             assert @client.home_timeline
           end
 
+          should "get public timeline" do
+            stub_get("statuses/public_timeline.#{format}", "hash.#{format}")
+            assert @client.public_timeline
+          end
+
           should "get friends timeline" do
             stub_get("statuses/friends_timeline.#{format}", "array.#{format}")
             assert @client.friends_timeline

@@ -13,7 +13,7 @@ module Twitter
       @user_agent = options[:user_agent] || Twitter.user_agent
     end
 
-    def firehose(options={})
+    def public_timeline(options={})
       perform_get("statuses/public_timeline.#{@format}", options)
     end
 
