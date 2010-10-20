@@ -352,12 +352,12 @@ class AuthenticatedTest < Test::Unit::TestCase
         context "when using lists" do
           should "create a new list" do
             stub_post("pengwynn/lists.#{format}", "hash.#{format}")
-            assert @client.list_create('pengwynn', {:name => 'Rubyists'})
+            assert @client.list_create('pengwynn', 'Rubyists')
           end
 
           should "update a list" do
             stub_put("pengwynn/lists/rubyists.#{format}", "hash.#{format}")
-            assert @client.list_update('pengwynn', 'rubyists', {:name => 'Rubyists'})
+            assert @client.list_update('pengwynn', 'rubyists', 'Rubyists')
           end
 
           should "delete a list" do
