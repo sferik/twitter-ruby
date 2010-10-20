@@ -8,9 +8,9 @@ class UnauthenticatedTest < Test::Unit::TestCase
         Twitter.format = format
       end
 
-      should "get the firehose" do
+      should "get public timeline" do
         stub_get("statuses/public_timeline.#{format}", "hash.#{format}")
-        assert Twitter.firehose
+        assert Twitter.public_timeline
       end
 
       should "get a user by user id" do
@@ -130,6 +130,11 @@ class UnauthenticatedTest < Test::Unit::TestCase
       should "get followers" do
         stub_get("statuses/followers.#{format}?screen_name=laserlemon", "hash.#{format}")
         assert Twitter.followers('laserlemon')
+      end
+
+      should "get rate limit status" do
+        stub_get("account/rate_limit_status.#{format}", "hash.#{format}")
+        assert Twitter.rate_limit_status
       end
 
       should "get terms of service" do

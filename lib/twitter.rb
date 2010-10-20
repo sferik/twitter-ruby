@@ -9,7 +9,7 @@ require 'simple_oauth'
 
 module Twitter
   extend SingleForwardable
-  def_delegators :client, :firehose, :user, :profile_image, :suggestions, :retweeted_to_user, :retweeted_by_user, :status, :friend_ids, :follower_ids, :timeline, :lists_subscribed, :list_timeline, :retweets, :friends, :followers, :tos, :privacy
+  def_delegators :client, :public_timeline, :user, :profile_image, :suggestions, :retweeted_to_user, :retweeted_by_user, :status, :friend_ids, :follower_ids, :timeline, :lists_subscribed, :list_timeline, :retweets, :friends, :followers, :rate_limit_status, :tos, :privacy
 
   class << self
     attr_accessor :consumer_key, :consumer_secret, :access_key, :access_secret

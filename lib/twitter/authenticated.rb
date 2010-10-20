@@ -18,6 +18,10 @@ module Twitter
       @user_agent = options[:user_agent] || Twitter.user_agent
     end
 
+    def public_timeline(options={})
+      perform_get("statuses/public_timeline.#{@format}", options)
+    end
+
     # Options: since_id, max_id, count, page
     def home_timeline(options={})
       perform_get("statuses/home_timeline.#{@format}", options)

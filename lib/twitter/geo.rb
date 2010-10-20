@@ -6,7 +6,6 @@ module Twitter
   class Geo
     extend ConfigHelper
     include ConnectionHelper
-    extend SingleForwardable
     include RequestHelper
     attr_reader :access_key, :access_secret, :consumer_key, :consumer_secret
 
@@ -102,11 +101,6 @@ module Twitter
     def create_place(options={})
       perform_post("geo/place.json", options)
     end
-
-    # @private
-    def self.client; self.new end
-
-    def_delegators :client, :place, :search, :reverse_geocode, :similar_places, :create_place
 
   end
 end

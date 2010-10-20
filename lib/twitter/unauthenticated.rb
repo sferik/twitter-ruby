@@ -13,7 +13,7 @@ module Twitter
       @user_agent = options[:user_agent] || Twitter.user_agent
     end
 
-    def firehose(options={})
+    def public_timeline(options={})
       perform_get("statuses/public_timeline.#{@format}", options)
     end
 
@@ -93,6 +93,10 @@ module Twitter
     def followers(user_id_or_screen_name, options={})
       merge_user_into_options!(user_id_or_screen_name, options)
       perform_get("statuses/followers.#{@format}", options)
+    end
+
+    def rate_limit_status(options={})
+      perform_get("account/rate_limit_status.#{@format}", options)
     end
 
     def tos
