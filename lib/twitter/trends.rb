@@ -5,7 +5,6 @@ module Twitter
     extend ConfigHelper
     include ConnectionHelper
     include RequestHelper
-    extend SingleForwardable
     attr_reader :access_key, :access_secret, :consumer_key, :consumer_secret
 
     def initialize(options={})
@@ -84,11 +83,6 @@ module Twitter
     def for_location(woeid)
       perform_get("trends/#{woeid}.json")
     end
-
-    # @private
-    def self.client; self.new end
-
-    def_delegators :client, :current, :daily, :weekly, :available, :for_location
 
   end
 end
