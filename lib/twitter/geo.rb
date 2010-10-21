@@ -20,6 +20,7 @@ module Twitter
       @adapter = options[:adapter] || Twitter.adapter
       @api_endpoint = options[:api_endpoint] || Twitter.api_endpoint
       @api_version = options[:api_version] || Twitter.api_version
+      @format = Twitter.default_format
       @protocol = options[:protocol] || Twitter.protocol
       @user_agent = options[:user_agent] || Twitter.user_agent
     end
@@ -33,7 +34,7 @@ module Twitter
     # @authenticated false
     # @rate_limited true
     def place(place_id)
-      perform_get("geo/id/#{place_id}.json")
+      perform_get("geo/id/#{place_id}.#{self.class.format}")
     end
 
     # Search for places that can be attached to a statuses/update
@@ -51,7 +52,7 @@ module Twitter
     # @authenticated false
     # @rate_limited true
     def search(options={})
-      perform_get("geo/search.json", options)
+      perform_get("geo/search.#{self.class.format}", options)
     end
 
     # Given a latitude and a longitude, searches for up to
@@ -66,7 +67,7 @@ module Twitter
     # @authenticated false
     # @rate_limited true
     def reverse_geocode(options={})
-      perform_get("geo/reverse_geocode.json", options)
+      perform_get("geo/reverse_geocode.#{self.class.format}", options)
     end
 
     # Locates places near the given coordinates which are similar in name.
@@ -82,7 +83,7 @@ module Twitter
     # @authenticated false
     # @rate_limited true
     def similar_places(options={})
-      perform_get("geo/similar_places.json", options)
+      perform_get("geo/similar_places.#{self.class.format}", options)
     end
 
     # Creates a new place at the given latitude and longitude
@@ -99,7 +100,7 @@ module Twitter
     # @authenticated true
     # @rate_limited true
     def create_place(options={})
-      perform_post("geo/place.json", options)
+      perform_post("geo/place.#{self.class.format}", options)
     end
 
   end

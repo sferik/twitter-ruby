@@ -15,6 +15,7 @@ module Twitter
       @adapter = options[:adapter] || Twitter.adapter
       @api_endpoint = options[:api_endpoint] || Twitter.api_endpoint
       @api_version = options[:api_version] || Twitter.api_version
+      @format = Twitter.default_format
       @protocol = options[:protocol] || Twitter.protocol
       @user_agent = options[:user_agent] || Twitter.user_agent
     end
@@ -29,7 +30,7 @@ module Twitter
     # @authenticated false
     # @rate_limited true
     def current(options={})
-      perform_get("trends/current.json", options)
+      perform_get("trends/current.#{self.class.format}", options)
     end
 
     # Returns the top 20 trending topics for each hour in a given day
@@ -41,7 +42,7 @@ module Twitter
     # @authenticated false
     # @rate_limited true
     def daily(options={})
-      perform_get("trends/daily.json", options)
+      perform_get("trends/daily.#{self.class.format}", options)
     end
 
     # Returns the top 30 trending topics for each hour for a given week
@@ -53,7 +54,7 @@ module Twitter
     # @authenticated false
     # @rate_limited true
     def weekly(options={})
-      perform_get("trends/weekly.json", options)
+      perform_get("trends/weekly.#{self.class.format}", options)
     end
 
     # @group Local trends
@@ -68,7 +69,7 @@ module Twitter
     # @authenticated false
     # @rate_limited true
     def available(options={})
-      perform_get("trends/available.json", options)
+      perform_get("trends/available.#{self.class.format}", options)
     end
 
     # Returns the top 10 trending topics for a specific WOEID,
@@ -81,7 +82,7 @@ module Twitter
     # @authenticated false
     # @rate_limited true
     def for_location(woeid)
-      perform_get("trends/#{woeid}.json")
+      perform_get("trends/#{woeid}.#{self.class.format}")
     end
 
   end

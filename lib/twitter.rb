@@ -7,6 +7,7 @@ require 'faraday/raise_http_4xx'
 require 'faraday/raise_http_5xx'
 require 'forwardable'
 require 'simple_oauth'
+require 'twitter/version'
 
 module Twitter
   extend SingleForwardable
@@ -40,7 +41,7 @@ module Twitter
     end
 
     def default_adapter
-      @default_adapter ||= Faraday.default_adapter
+      Faraday.default_adapter.freeze
     end
 
     def api_endpoint
@@ -52,7 +53,7 @@ module Twitter
     end
 
     def default_api_endpoint
-      @default_api_endpoint ||= Addressable::URI.heuristic_parse("api.twitter.com/#{api_version}").to_s
+      Addressable::URI.heuristic_parse("api.twitter.com/#{api_version}").to_s.freeze
     end
 
     def api_version
@@ -64,7 +65,7 @@ module Twitter
     end
 
     def default_api_version
-      @default_api_version ||= 1
+      1.freeze
     end
 
     def format
@@ -76,7 +77,7 @@ module Twitter
     end
 
     def default_format
-      @default_format ||= 'json'
+      'json'.freeze
     end
 
     def protocol
@@ -88,7 +89,7 @@ module Twitter
     end
 
     def default_protocol
-      @default_protocol ||= 'https'
+      'https'.freeze
     end
 
     def user_agent
@@ -100,7 +101,7 @@ module Twitter
     end
 
     def default_user_agent
-      @default_user_agent ||= 'Twitter Ruby Gem'
+      "Twitter Ruby Gem/#{Twitter::VERSION}".freeze
     end
   end
 
@@ -110,12 +111,7 @@ module Twitter
     def connection
       base_connection do |builder|
         builder.use Faraday::Response::RaiseHttp5xx
-        case Twitter.format.to_s
-        when "json"
-          builder.use Faraday::Response::ParseJson
-        when "xml"
-          builder.use Faraday::Response::ParseXml
-        end
+        builder.use Faraday::Response::Parse
         builder.use Faraday::Response::RaiseHttp4xx
         builder.use Faraday::Response::Mashify
       end

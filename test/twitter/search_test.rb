@@ -13,14 +13,14 @@ class SearchTest < Test::Unit::TestCase
     end
 
     should "default user agent to Twitter Ruby Gem" do
-      assert_equal 'Twitter Ruby Gem', Twitter::Search.user_agent
+      assert_equal "Twitter Ruby Gem/#{Twitter::VERSION}", Twitter::Search.user_agent
     end
 
     should "allow overriding default user agent" do
-      Twitter.user_agent = 'Foobar'
-      assert_equal 'Twitter Ruby Gem', Twitter::Search.user_agent
+      Twitter::Search.user_agent = 'My Twitter Gem'
+      assert_equal 'My Twitter Gem', Twitter::Search.user_agent
       # Reset
-      Twitter.user_agent = Twitter.default_user_agent
+      Twitter::Search.user_agent = Twitter.default_user_agent
     end
 
     should "specify from" do

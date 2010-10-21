@@ -21,6 +21,7 @@ module Twitter
       @adapter = options[:adapter] || Twitter.adapter
       @api_endpoint = options[:api_endpoint] || Twitter.api_endpoint
       @api_version = options[:api_version] || Twitter.api_version
+      @format = Twitter.default_format
       @protocol = options[:protocol] || Twitter.protocol
       @user_agent = options[:user_agent] || Twitter.user_agent
       clear
@@ -240,7 +241,7 @@ module Twitter
     def fetch_next_page
       if next_page?
         search = Search.new
-        search.perform_get("search.json", fetch["next_page"][1..-1])
+        search.perform_get("search.#{self.class.format}", fetch["next_page"][1..-1])
         search
       end
     end
@@ -251,7 +252,7 @@ module Twitter
     def fetch
       query = @query.dup
       query[:q] = query[:q].join(" ")
-      perform_get("search.json", query)
+      perform_get("search.#{self.class.format}", query)
     end
 
     # Iterate over the results
