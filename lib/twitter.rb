@@ -7,6 +7,7 @@ require 'faraday/raise_http_4xx'
 require 'faraday/raise_http_5xx'
 require 'forwardable'
 require 'simple_oauth'
+require 'twitter/version'
 
 module Twitter
   extend SingleForwardable
@@ -100,7 +101,7 @@ module Twitter
     end
 
     def default_user_agent
-      @default_user_agent ||= 'Twitter Ruby Gem'
+      @default_user_agent ||= "Twitter Ruby Gem/#{Twitter::VERSION}"
     end
   end
 
