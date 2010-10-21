@@ -4,16 +4,16 @@ class RaiseHttp4xxTest < Test::Unit::TestCase
 
   context "RaiseHttp4xx" do
     %w(json xml).each do |format|
-      context "with request format #{format}" do
+      context "with request formata#{format}" do
 
         setup do
           Twitter.format = format
         end
 
         should "raise BadRequest when rate limited" do
-          stub_get("statuses/show/1.#{format}", "bad_request.#{format}", "application/#{format}; charset=utf-8", 400)
+          stub_get("statuses/show/400.#{format}", "bad_request.#{format}", "application/#{format}; charset=utf-8", 400)
           assert_raise Twitter::BadRequest do
-            Twitter.status(1)
+            Twitter.status(400)
           end
         end
 
@@ -33,9 +33,9 @@ class RaiseHttp4xxTest < Test::Unit::TestCase
         end
 
         should "raise NotFound for a request to a deleted or nonexistent status" do
-          stub_get("statuses/show/1.#{format}", "not_found.#{format}", "application/#{format}; charset=utf-8", 404)
+          stub_get("statuses/show/404.#{format}", "not_found.#{format}", "application/#{format}; charset=utf-8", 404)
           assert_raise Twitter::NotFound do
-            Twitter.status(1)
+            Twitter.status(404)
           end
         end
       end

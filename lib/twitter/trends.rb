@@ -30,7 +30,7 @@ module Twitter
     # @authenticated false
     # @rate_limited true
     def current(options={})
-      perform_get("trends/current.#{@format}", options)
+      perform_get("trends/current.#{self.class.format}", options)
     end
 
     # Returns the top 20 trending topics for each hour in a given day
@@ -42,7 +42,7 @@ module Twitter
     # @authenticated false
     # @rate_limited true
     def daily(options={})
-      perform_get("trends/daily.#{@format}", options)
+      perform_get("trends/daily.#{self.class.format}", options)
     end
 
     # Returns the top 30 trending topics for each hour for a given week
@@ -54,7 +54,7 @@ module Twitter
     # @authenticated false
     # @rate_limited true
     def weekly(options={})
-      perform_get("trends/weekly.#{@format}", options)
+      perform_get("trends/weekly.#{self.class.format}", options)
     end
 
     # @group Local trends
@@ -69,7 +69,7 @@ module Twitter
     # @authenticated false
     # @rate_limited true
     def available(options={})
-      perform_get("trends/available.#{@format}", options)
+      perform_get("trends/available.#{self.class.format}", options)
     end
 
     # Returns the top 10 trending topics for a specific WOEID,
@@ -82,7 +82,7 @@ module Twitter
     # @authenticated false
     # @rate_limited true
     def for_location(woeid)
-      perform_get("trends/#{woeid}.#{@format}")
+      perform_get("trends/#{woeid}.#{self.class.format}")
     end
 
   end

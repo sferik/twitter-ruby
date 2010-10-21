@@ -34,7 +34,7 @@ module Twitter
     # @authenticated false
     # @rate_limited true
     def place(place_id)
-      perform_get("geo/id/#{place_id}.#{@format}")
+      perform_get("geo/id/#{place_id}.#{self.class.format}")
     end
 
     # Search for places that can be attached to a statuses/update
@@ -52,7 +52,7 @@ module Twitter
     # @authenticated false
     # @rate_limited true
     def search(options={})
-      perform_get("geo/search.#{@format}", options)
+      perform_get("geo/search.#{self.class.format}", options)
     end
 
     # Given a latitude and a longitude, searches for up to
@@ -67,7 +67,7 @@ module Twitter
     # @authenticated false
     # @rate_limited true
     def reverse_geocode(options={})
-      perform_get("geo/reverse_geocode.#{@format}", options)
+      perform_get("geo/reverse_geocode.#{self.class.format}", options)
     end
 
     # Locates places near the given coordinates which are similar in name.
@@ -83,7 +83,7 @@ module Twitter
     # @authenticated false
     # @rate_limited true
     def similar_places(options={})
-      perform_get("geo/similar_places.#{@format}", options)
+      perform_get("geo/similar_places.#{self.class.format}", options)
     end
 
     # Creates a new place at the given latitude and longitude
@@ -100,7 +100,7 @@ module Twitter
     # @authenticated true
     # @rate_limited true
     def create_place(options={})
-      perform_post("geo/place.#{@format}", options)
+      perform_post("geo/place.#{self.class.format}", options)
     end
 
   end

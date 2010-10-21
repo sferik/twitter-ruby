@@ -241,7 +241,7 @@ module Twitter
     def fetch_next_page
       if next_page?
         search = Search.new
-        search.perform_get("search.#{@format}", fetch["next_page"][1..-1])
+        search.perform_get("search.#{self.class.format}", fetch["next_page"][1..-1])
         search
       end
     end
@@ -252,7 +252,7 @@ module Twitter
     def fetch
       query = @query.dup
       query[:q] = query[:q].join(" ")
-      perform_get("search.#{@format}", query)
+      perform_get("search.#{self.class.format}", query)
     end
 
     # Iterate over the results
