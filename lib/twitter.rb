@@ -110,12 +110,7 @@ module Twitter
     def connection
       base_connection do |builder|
         builder.use Faraday::Response::RaiseHttp5xx
-        case Twitter.format.to_s
-        when "json"
-          builder.use Faraday::Response::ParseJson
-        when "xml"
-          builder.use Faraday::Response::ParseXml
-        end
+        builder.use Faraday::Response::Parse
         builder.use Faraday::Response::RaiseHttp4xx
         builder.use Faraday::Response::Mashify
       end
