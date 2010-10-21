@@ -1,3 +1,6 @@
+require 'faraday'
+require 'simple_oauth'
+
 module Faraday
   class Request::OAuth < Faraday::Middleware
     def call(env)
