@@ -13,14 +13,16 @@ class RaiseHttp4xxTest < Test::Unit::TestCase
         should "raise BadRequest when rate limited" do
           stub_get("statuses/show/400.#{format}", "bad_request.#{format}", "application/#{format}; charset=utf-8", 400)
           assert_raise Twitter::BadRequest do
-            Twitter.status(400)
+            client = Twitter::Unauthenticated.new
+            client.status(400)
           end
         end
 
         should "raise Unauthorized for a request to a protected user's timeline" do
           stub_get("statuses/user_timeline.#{format}?screen_name=protected", "unauthorized.#{format}", "application/#{format}; charset=utf-8", 401)
           assert_raise Twitter::Unauthorized do
-            Twitter.timeline('protected')
+            client = Twitter::Unauthenticated.new
+            client.timeline('protected')
           end
         end
 
@@ -35,7 +37,8 @@ class RaiseHttp4xxTest < Test::Unit::TestCase
         should "raise NotFound for a request to a deleted or nonexistent status" do
           stub_get("statuses/show/404.#{format}", "not_found.#{format}", "application/#{format}; charset=utf-8", 404)
           assert_raise Twitter::NotFound do
-            Twitter.status(404)
+            client = Twitter::Unauthenticated.new
+            client.status(404)
           end
         end
       end
