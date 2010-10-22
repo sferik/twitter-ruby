@@ -1,10 +1,9 @@
 *.gem
 .DS_Store
 .bundle
-doc
-log
-pkg/*
-rdoc
 .yardoc
-/doc
-/snippets
+coverage/*
+doc/*
+log/*
+pkg/*
+rdoc/*
