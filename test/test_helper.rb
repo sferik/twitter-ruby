@@ -1,59 +1,53 @@
-require "test/unit"
-require "pathname"
-require "shoulda"
-require "mocha"
-require "fakeweb"
+require 'test/unit'
+require 'pathname'
+require 'shoulda'
+require 'mocha'
+require 'fakeweb'
 
 FakeWeb.allow_net_connect = false
 
-require "twitter"
+require 'twitter'
+
+def fixture_path(filename)
+  File.expand_path("../fixtures/#{filename}", __FILE__)
+end
 
 def sample_image(filename)
-  File.expand_path(File.dirname(__FILE__) + "/fixtures/" + filename)
+  fixture_path(filename)
 end
 
 def fixture_file(filename)
-  return "" if filename == ""
-  file_path = File.expand_path(File.dirname(__FILE__) + "/fixtures/" + filename)
-  File.read(file_path)
+  return '' if filename == ''
+  File.read(fixture_path(filename))
 end
 
-def api_endpoint
-  "https://api.twitter.com/1/"
+def stub_get(path, filename, options={})
+  stub_request(:get, path, filename, options)
 end
 
-def stub_get(path, filename, content_type='application/json; charset=utf-8', status=200, location=nil, content_as_full_response=false)
-  response_content = content_as_full_response ? 'response' : 'body'
-  options = {response_content.to_sym => fixture_file(filename)}
-  options.merge!({:status => status})
-  options.merge!({:content_type => content_type})
-  options.merge!({:location => location}) unless location.nil?
-  FakeWeb.register_uri(:get, api_endpoint + path, options)
+def stub_post(path, filename, options={})
+  stub_request(:post, path, filename, options)
 end
 
-def stub_post(path, filename, content_type='application/json; charset=utf-8', status=200, location=nil, content_as_full_response=false)
-  response_content = content_as_full_response ? 'response' : 'body'
-  options = {response_content.to_sym => fixture_file(filename)}
-  options.merge!({:status => status})
-  options.merge!({:content_type => content_type})
-  options.merge!({:location => location}) unless location.nil?
-  FakeWeb.register_uri(:post, api_endpoint + path, options)
+def stub_put(path, filename, options={})
+  stub_request(:put, path, filename, options)
 end
 
-def stub_put(path, filename, content_type='application/json; charset=utf-8', status=200, location=nil, content_as_full_response=false)
-  response_content = content_as_full_response ? 'response' : 'body'
-  options = {response_content.to_sym => fixture_file(filename)}
-  options.merge!({:status => status})
-  options.merge!({:content_type => content_type})
-  options.merge!({:location => location}) unless location.nil?
-  FakeWeb.register_uri(:put, api_endpoint + path, options)
+def stub_delete(path, filename, options={})
+  stub_request(:delete, path, filename, options)
 end
 
-def stub_delete(path, filename, content_type='application/json; charset=utf-8', status=200, location=nil, content_as_full_response=false)
-  response_content = content_as_full_response ? 'response' : 'body'
-  options = {response_content.to_sym => fixture_file(filename)}
-  options.merge!({:status => status})
-  options.merge!({:content_type => content_type})
-  options.merge!({:location => location}) unless location.nil?
-  FakeWeb.register_uri(:delete, api_endpoint + path, options)
+def stub_request(method, path, filename, options)
+  options = {
+    :format => :json,
+    :status => 200,
+    :location => nil,
+    :content_as_full_response => false
+  }.merge(options)
+
+  response_content = options[:content_as_full_response] ? :response : :body
+  content_type = "application/#{options[:format]}; charset=utf-8"
+  response_options = {:status => options[:status], response_content => fixture_file(filename), :content_type => content_type}
+  response_options.merge!(:location => options[:location]) if options[:location]
+  FakeWeb.register_uri(method, Twitter::Configuration::DEFAULT_ENDPOINT + path, response_options)
 end

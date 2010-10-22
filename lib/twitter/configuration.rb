@@ -1,32 +1,33 @@
-require 'twitter/version'
 require 'faraday'
+require 'twitter/version'
 
 module Twitter
   module Configuration
-    DEFAULT_ADAPTER = Faraday.default_adapter
-    DEFAULT_ENDPOINT = 'https://api.twitter.com/1'
-    DEFAULT_FORMAT = 'json'
-    DEFAULT_USER_AGENT = "Twitter Ruby Gem #{Twitter::VERSION}"
+    VALID_OPTIONS_KEYS = [:access_key, :access_secret, :consumer_key, :consumer_secret, :adapter, :endpoint, :format, :user_agent].freeze
+    DEFAULT_ADAPTER = Faraday.default_adapter.freeze
+    DEFAULT_ENDPOINT = 'https://api.twitter.com/1/'.freeze
+    DEFAULT_FORMAT = 'json'.freeze
+    DEFAULT_USER_AGENT = "Twitter Ruby Gem #{Twitter::VERSION}".freeze
+
+    attr_accessor *VALID_OPTIONS_KEYS
+
+    def self.extended(base)
+      base.reset
+    end
 
     def configure
       yield self
     end
 
     def options
-      @options ||= {
-        :adapter => DEFAULT_ADAPTER,
-        :endpoint => DEFAULT_ENDPOINT,
-        :format => DEFAULT_FORMAT,
-        :user_agent => DEFAULT_USER_AGENT
-      }
+      VALID_OPTIONS_KEYS.inject({}){|o,k| o.merge!(k => send(k)) }
     end
 
-    def method_missing(symbol, *args)
-      if (method = symbol.to_s).sub!(/\=$/, '')
-        options[method.to_sym] = args.first
-      else
-        options.fetch(method.to_sym, super)
-      end
+    def reset
+      self.adapter    = DEFAULT_ADAPTER
+      self.endpoint   = DEFAULT_ENDPOINT
+      self.format     = DEFAULT_FORMAT
+      self.user_agent = DEFAULT_USER_AGENT
     end
   end
 end

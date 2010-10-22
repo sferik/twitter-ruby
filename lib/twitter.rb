@@ -1,20 +1,17 @@
 require 'twitter/version'
 require 'twitter/error'
-require 'twitter/client'
 require 'twitter/configuration'
+require 'twitter/client'
 
 module Twitter
+  extend Configuration
+
   def self.client(options={})
     Twitter::Client.new(options)
   end
 
   def self.method_missing(method, *args, &block)
-    begin
-      client.__send__(method, *args, &block)
-    rescue NoMethodError
-      super
-    end
+    return super unless client.respond_to?(method)
+    client.send(method, *args, &block)
   end
-
-  extend Configuration
 end

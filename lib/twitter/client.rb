@@ -2,21 +2,13 @@ Dir[File.expand_path('../client/*.rb', __FILE__)].each{|f| require f }
 
 module Twitter
   class Client
-    attr_reader :access_key, :access_secret, :consumer_key, :consumer_secret
-    attr_reader :adapter, :endpoint, :format, :user_agent
+    attr_accessor *Configuration::VALID_OPTIONS_KEYS
 
     def initialize(options={})
       options = Twitter.options.merge(options)
-
-      @access_key      = options[:access_key]
-      @access_secret   = options[:access_secret]
-      @consumer_key    = options[:consumer_key]
-      @consumer_secret = options[:consumer_secret]
-
-      @adapter    = options[:adapter]
-      @endpoint   = options[:endpoint]
-      @format     = options[:format]
-      @user_agent = options[:user_agent]
+      Configuration::VALID_OPTIONS_KEYS.each do |key|
+        send("#{key}=", options[key])
+      end
     end
 
     include Connection

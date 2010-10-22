@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class TwitterTest < Test::Unit::TestCase
-
   should "configure consumer and access keys for easy access" do
     Twitter.configure do |config|
       config.consumer_key = 'OU812'
@@ -10,12 +9,19 @@ class TwitterTest < Test::Unit::TestCase
       config.access_secret = '8008135'
     end
 
-    client = Twitter::Authenticated.new
+    assert_equal 'OU812', Twitter.consumer_key
+    assert_equal 'vh5150', Twitter.consumer_secret
+    assert_equal '8675309', Twitter.access_key
+    assert_equal '8008135', Twitter.access_secret
+
+    client = Twitter::Client.new
 
     assert_equal 'OU812', client.consumer_key
     assert_equal 'vh5150', client.consumer_secret
     assert_equal '8675309', client.access_key
     assert_equal '8008135', client.access_secret
+
+    Twitter.reset
   end
 
   should "default adapter to Faraday.default_adapter" do
@@ -26,74 +32,43 @@ class TwitterTest < Test::Unit::TestCase
     should "be able to specify adapter" do
       Twitter.adapter = :typhoeus
       assert_equal :typhoeus, Twitter.adapter
-      # Reset
-      Twitter.adapter = Twitter.default_adapter
+      Twitter.reset
     end
   end
 
-  should "default user_agent to 'Twitter Ruby Gem'" do
-    assert_equal "Twitter Ruby Gem/#{Twitter::VERSION}", Twitter.user_agent
+  should "default user_agent to 'Twitter Ruby Gem \#{version}'" do
+    assert_equal "Twitter Ruby Gem #{Twitter::VERSION}", Twitter.user_agent
   end
 
   context "when overriding user_agent" do
     should "be able to specify user_agent" do
       Twitter.user_agent = 'My Twitter Gem'
       assert_equal 'My Twitter Gem', Twitter.user_agent
-      # Reset
-      Twitter.user_agent = Twitter.default_user_agent
+      Twitter.reset
     end
   end
 
-  should "default api_endpoint to 'api.twitter.com'" do
-    assert_equal "http://api.twitter.com/#{Twitter.api_version}", Twitter.api_endpoint
+  should "default endpoint to 'https://api.twitter.com/1/'" do
+    assert_equal "https://api.twitter.com/1/", Twitter.endpoint
   end
 
-  context "when overriding api_endpoint" do
-    should "be able to specify api_endpoint" do
-      Twitter.api_endpoint = 'tumblr.com'
-      assert_equal 'http://tumblr.com', Twitter.api_endpoint
-      # Reset
-      Twitter.api_endpoint = Twitter.default_api_endpoint
-    end
-  end
-
-  should "default api_version to 1" do
-    assert_equal 1, Twitter.api_version
-  end
-
-  context "when overriding api_version" do
-    should "be able to specify api_version" do
-      Twitter.api_version = 2
-      assert_equal 2, Twitter.api_version
-      # Reset
-      Twitter.api_version = Twitter.default_api_version
+  context "when overriding endpoint" do
+    should "be able to specify endpoint" do
+      Twitter.endpoint = 'http://tumblr.com/'
+      assert_equal 'http://tumblr.com/', Twitter.endpoint
+      Twitter.reset
     end
   end
 
   should "default format to json" do
-    assert_equal "json", Twitter.format
+    assert_equal 'json', Twitter.format
   end
 
   context "when overriding format" do
     should "be able to specify format" do
-      Twitter.format = "xml"
-      assert_equal "xml", Twitter.format
-      # Reset
-      Twitter.format = Twitter.default_format
+      Twitter.format = 'xml'
+      assert_equal 'xml', Twitter.format
+      Twitter.reset
     end
   end
-
-  should "default protocol to https" do
-    assert_equal "https", Twitter.protocol
-  end
-
-  context "when overriding protocol" do
-    should "be able to specify protocol" do
-      Twitter.protocol = "http"
-      assert_equal "http", Twitter.protocol
-      # Reset
-      Twitter.protocol = Twitter.default_protocol
-    end
-  end
-
 end

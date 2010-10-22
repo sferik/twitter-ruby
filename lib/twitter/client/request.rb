@@ -20,7 +20,7 @@ module Twitter
       private
 
         def request(method, path, options, raw)
-          response = connection(raw).__send__(method) do |request|
+          response = connection(raw).send(method) do |request|
             case method
               when :get, :delete
                 request.url(formatted_path(path), options)
