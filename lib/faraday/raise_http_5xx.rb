@@ -1,3 +1,5 @@
+require 'faraday'
+
 module Faraday
   class Response::RaiseHttp5xx < Response::Middleware
     def self.register_on_complete(env)

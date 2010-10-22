@@ -1,3 +1,5 @@
+require 'faraday'
+
 module Faraday
   class Request::Multipart < Faraday::Middleware
     def call(env)
