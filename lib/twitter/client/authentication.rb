@@ -20,7 +20,7 @@ module Twitter
         end
 
         def authenticated?
-          [consumer_key, consumer_secret, access_key, access_secret].all?
+          [consumer_key, consumer_secret, oauth_token, access_secret].all?
         end
 
         def reset_authenticate
@@ -40,7 +40,7 @@ module Twitter
           {
             :consumer_key => consumer_key,
             :consumer_secret => consumer_secret,
-            :token => access_key,
+            :token => oauth_token,
             :token_secret => access_secret
           }
         end

@@ -25,7 +25,7 @@ class ClientTest < Test::Unit::TestCase
 
       context "and custom configuration" do
         setup do
-          @custom = {:access_key => 'AK', :access_secret => 'AS', :consumer_key => 'CK', :consumer_secret => 'CS'}
+          @custom = {:oauth_token => 'AK', :access_secret => 'AS', :consumer_key => 'CK', :consumer_secret => 'CS'}
         end
 
         should "be able to override Twitter base configuration" do

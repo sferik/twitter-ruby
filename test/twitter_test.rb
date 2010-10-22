@@ -5,20 +5,20 @@ class TwitterTest < Test::Unit::TestCase
     Twitter.configure do |config|
       config.consumer_key = 'OU812'
       config.consumer_secret = 'vh5150'
-      config.access_key = '8675309'
+      config.oauth_token = '8675309'
       config.access_secret = '8008135'
     end
 
     assert_equal 'OU812', Twitter.consumer_key
     assert_equal 'vh5150', Twitter.consumer_secret
-    assert_equal '8675309', Twitter.access_key
+    assert_equal '8675309', Twitter.oauth_token
     assert_equal '8008135', Twitter.access_secret
 
     client = Twitter::Client.new
 
     assert_equal 'OU812', client.consumer_key
     assert_equal 'vh5150', client.consumer_secret
-    assert_equal '8675309', client.access_key
+    assert_equal '8675309', client.oauth_token
     assert_equal '8008135', client.access_secret
 
     Twitter.reset

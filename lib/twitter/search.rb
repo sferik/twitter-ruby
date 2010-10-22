@@ -8,7 +8,7 @@ module Twitter
     include ConnectionHelper
     include Enumerable
     include RequestHelper
-    attr_reader :access_key, :access_secret, :consumer_key, :consumer_secret, :query, :result
+    attr_reader :oauth_token, :access_secret, :consumer_key, :consumer_secret, :query, :result
 
     # Creates a new instance of a search
     #
@@ -16,7 +16,7 @@ module Twitter
     def initialize(query=nil, options={})
       @consumer_key = options[:consumer_key] || Twitter.consumer_key
       @consumer_secret = options[:consumer_secret] || Twitter.consumer_secret
-      @access_key = options[:access_key] || Twitter.access_key
+      @oauth_token = options[:oauth_token] || Twitter.oauth_token
       @access_secret = options[:access_secret] || Twitter.access_secret
       @adapter = options[:adapter] || Twitter.adapter
       @api_endpoint = options[:api_endpoint] || Twitter.api_endpoint
