@@ -13,8 +13,8 @@ describe "Twitter" do
   end
 
   describe ".adapter" do
-    it "should be set to Net::HTTP by default" do
-      Twitter.adapter.should == :net_http
+    it "should return the default adapter" do
+      Twitter.adapter.should == Twitter::Configuration::DEFAULT_ADAPTER
     end
   end
 
@@ -26,8 +26,8 @@ describe "Twitter" do
   end
 
   describe ".endpoint" do
-    it "should be set to https://api.twitter.com/1/ by default" do
-      Twitter.endpoint.should == 'https://api.twitter.com/1/'
+    it "should return the default endpoint" do
+      Twitter.endpoint.should == Twitter::Configuration::DEFAULT_ENDPOINT
     end
   end
 
@@ -39,8 +39,8 @@ describe "Twitter" do
   end
 
   describe ".format" do
-    it "should be set to JSON by default" do
-      Twitter.format.should == 'json'
+    it "should return the default format" do
+      Twitter.format.should == Twitter::Configuration::DEFAULT_FORMAT
     end
   end
 
@@ -52,8 +52,8 @@ describe "Twitter" do
   end
 
   describe ".user_agent" do
-    it "should be set to Twitter Ruby Gem by default" do
-      Twitter.user_agent.should == "Twitter Ruby Gem #{Twitter::VERSION}"
+    it "should return the default user agent" do
+      Twitter.user_agent.should == Twitter::Configuration::DEFAULT_USER_AGENT
     end
   end
 
