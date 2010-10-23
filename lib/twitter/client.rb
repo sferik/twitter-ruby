@@ -35,6 +35,5 @@ module Twitter
     include SavedSearches
     include Geo
     include Legal
-    include Help
   end
 end
