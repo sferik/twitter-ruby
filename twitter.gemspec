@@ -3,7 +3,7 @@ require File.expand_path("../lib/twitter/version", __FILE__)
 
 Gem::Specification.new do |s|
   s.add_development_dependency("bluecloth", "~> 2.0")
-  s.add_development_dependency("json_pure", "~> 1.4")
+  s.add_development_dependency("libxml-ruby", "~> 1.1")
   s.add_development_dependency("mocha", "~> 0.9")
   s.add_development_dependency("rake", "~> 0.8")
   s.add_development_dependency("rcov", "~> 0.9")
@@ -11,6 +11,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency("shoulda", "~> 2.11")
   s.add_development_dependency("webmock", "~> 1.4")
   s.add_development_dependency("yard", "~> 0.6")
+  s.add_development_dependency("yajl-ruby", "~> 0.7")
   s.add_development_dependency("ZenTest", "~> 4.4")
   s.add_runtime_dependency("addressable", "~> 2.2.2")
   s.add_runtime_dependency("hashie", "~> 0.4.0")
