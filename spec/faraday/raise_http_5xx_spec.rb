@@ -1,6 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-describe "RaiseHttp4xx" do
+describe "RaiseHttp5xx" do
   before do
     @client = Twitter::Client.new
   end

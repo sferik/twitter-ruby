@@ -2,47 +2,57 @@ module Twitter
   class Client
     module List
       def list_create(screen_name, name, options={})
-        post("#{screen_name}/lists", options.merge(:name => name))
+        authenticate!
+        response = post("#{screen_name}/lists", options.merge(:name => name))
+        format.to_s.downcase == 'xml' ? response.list : response
       end
 
       def list_update(screen_name, name, options={})
-        put("#{screen_name}/lists/#{name}", options)
+        authenticate!
+        response = put("#{screen_name}/lists/#{name}", options)
+        format.to_s.downcase == 'xml' ? response.list : response
       end
 
       def lists(*args)
+        authenticate!
         options = args.last.is_a?(Hash) ? args.pop : {}
         screen_name = args.first
         if screen_name
-          get("#{screen_name}/lists", options)
+          response = get("#{screen_name}/lists", options)
         else
-          authenticate! do
-            get('lists', options)
-          end
+          response = get('lists', options)
         end
+        format.to_s.downcase == 'xml' ? response.lists_list : response
       end
 
       def list(screen_name, name, options={})
-        get("#{screen_name}/lists/#{name}", options)
+        authenticate!
+        response = get("#{screen_name}/lists/#{name}", options)
+        format.to_s.downcase == 'xml' ? response.list : response
       end
 
       def list_delete(screen_name, name, options={})
-        delete("#{screen_name}/lists/#{name}", options)
+        authenticate!
+        response = delete("#{screen_name}/lists/#{name}", options)
+        format.to_s.downcase == 'xml' ? response.list : response
       end
 
       def list_timeline(screen_name, name, options={})
-        get("#{screen_name}/lists/#{name}/statuses", options)
+        authenticate!
+        response = get("#{screen_name}/lists/#{name}/statuses", options)
+        format.to_s.downcase == 'xml' ? response.statuses : response
       end
 
       def memberships(screen_name, options={})
-        authenticate! do
-          get("#{screen_name}/lists/memberships", options)
-        end
+        authenticate!
+        response = get("#{screen_name}/lists/memberships", options)
+        format.to_s.downcase == 'xml' ? response.lists_list : response
       end
 
       def subscriptions(screen_name, options={})
-        authenticate! do
-          get("#{screen_name}/lists/subscriptions", options)
-        end
+        authenticate!
+        response = get("#{screen_name}/lists/subscriptions", options)
+        format.to_s.downcase == 'xml' ? response.lists_list : response
       end
     end
   end
