@@ -1,6 +1,5 @@
 require 'faraday'
 require 'faraday_middleware'
-
 require 'faraday/multipart'
 require 'faraday/oauth'
 require 'faraday/raise_http_4xx'

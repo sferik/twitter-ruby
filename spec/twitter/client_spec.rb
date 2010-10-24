@@ -1,7 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe "Twitter::Client" do
-
   before do
     @keys = Twitter::Configuration::VALID_OPTIONS_KEYS
   end
@@ -62,11 +61,7 @@ describe "Twitter::Client" do
             client.send(key).should == @configuration[key]
           end
         end
-
       end
-
     end
-
   end
-
 end

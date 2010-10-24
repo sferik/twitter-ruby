@@ -1,7 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe "RaiseHttp4xx" do
-
   before do
     @client = Twitter::Client.new
   end
@@ -93,7 +92,5 @@ describe "RaiseHttp4xx" do
         @client.user_timeline('sferik')
       end.should raise_error Twitter::EnhanceYourCalm
     end
-
   end
-
 end

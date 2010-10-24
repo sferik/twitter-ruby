@@ -1,11 +1,8 @@
 require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 
 describe "Twitter::Client" do
-
   %w(json xml).each do |format|
-
     context ".new(:format => '#{format}')" do
-
       before do
         @client = Twitter::Client.new(:format => format, :consumer_key => 'CK', :consumer_secret => 'CS', :oauth_token => 'OT', :oauth_token_secret => 'OS')
       end
@@ -116,11 +113,7 @@ describe "Twitter::Client" do
           ids.should be_an Array
           ids.first.should == 47
         end
-
       end
-
     end
-
   end
-
 end

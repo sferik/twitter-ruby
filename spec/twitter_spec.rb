@@ -1,7 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
 describe "Twitter" do
-
   after do
     Twitter.reset
   end
@@ -74,9 +73,6 @@ describe "Twitter" do
           Twitter.send(key).should == key
         end
       end
-
     end
-
   end
-
 end
