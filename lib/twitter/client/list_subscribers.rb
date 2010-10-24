@@ -2,22 +2,25 @@ module Twitter
   class Client
     module ListSubscribers
       def list_subscribers(screen_name, slug, options={})
-        get("#{screen_name}/#{slug}/subscribers", options)
+        authenticate!
+        response = get("#{screen_name}/#{slug}/subscribers", options)
+        format.to_s.downcase == 'xml' ? response.users_list : response
       end
 
       def list_subscribe(screen_name, slug, options={})
-        authenticate! do
-          post("#{screen_name}/#{slug}/subscribers", options)
-        end
+        authenticate!
+        response = post("#{screen_name}/#{slug}/subscribers", options)
+        format.to_s.downcase == 'xml' ? response.list : response
       end
 
       def list_unsubscribe(screen_name, slug, options={})
-        authenticate! do
-          delete("#{screen_name}/#{slug}/subscribers", options)
-        end
+        authenticate!
+        response = delete("#{screen_name}/#{slug}/subscribers", options)
+        format.to_s.downcase == 'xml' ? response.list : response
       end
 
       def is_subscriber?(screen_name, slug, user_id, options={})
+        authenticate!
         begin
           get("#{screen_name}/#{slug}/subscribers/#{user_id}", options)
           true
