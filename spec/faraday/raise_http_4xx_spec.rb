@@ -84,13 +84,21 @@ describe "RaiseHttp4xx" do
 
     before do
       stub_get("statuses/user_timeline.json?screen_name=sferik").
-        to_return(:status => 420)
+        to_return(:status => 420, :headers => {'retry-after' => 420})
     end
 
     it "should raise Twitter::EnhanceYourCalm" do
       lambda do
         @client.user_timeline('sferik')
       end.should raise_error Twitter::EnhanceYourCalm
+    end
+
+    it "should capture wait time" do
+      begin
+        @client.user_timeline('sferik')
+      rescue Twitter::EnhanceYourCalm => error
+        error.retry_after.should == 420
+      end
     end
   end
 end

@@ -5,6 +5,25 @@ describe "Twitter" do
     Twitter.reset
   end
 
+  context "when delegating to a client" do
+
+    before do
+      stub_get("statuses/user_timeline.json?screen_name=sferik").
+        to_return(:body => fixture("statuses.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+    end
+
+    it "should get the correct resource" do
+      Twitter.user_timeline('sferik')
+      a_get("statuses/user_timeline.json?screen_name=sferik").
+        should have_been_made
+    end
+
+    it "should return the same results as a client" do
+      Twitter.user_timeline('sferik').should == Twitter::Client.new.user_timeline('sferik')
+    end
+
+  end
+
   describe ".client" do
     it "should be a Twitter::Client" do
       Twitter.client.should be_a Twitter::Client
