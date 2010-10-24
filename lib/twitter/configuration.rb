@@ -4,9 +4,10 @@ require 'twitter/version'
 module Twitter
   module Configuration
     VALID_OPTIONS_KEYS = [:consumer_key, :consumer_secret, :oauth_token, :oauth_token_secret, :adapter, :endpoint, :format, :user_agent].freeze
+    VALID_FORMATS = [:json, :xml].freeze
     DEFAULT_ADAPTER = Faraday.default_adapter.freeze
     DEFAULT_ENDPOINT = 'https://api.twitter.com/1/'.freeze
-    DEFAULT_FORMAT = 'json'.freeze
+    DEFAULT_FORMAT = :json.freeze
     DEFAULT_USER_AGENT = "Twitter Ruby Gem #{Twitter::VERSION}".freeze
 
     attr_accessor *VALID_OPTIONS_KEYS
