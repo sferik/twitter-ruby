@@ -18,7 +18,6 @@ module Twitter
       end
 
       def create_place(options={})
-        authenticate!
         post('geo/place', options)
       end
     end

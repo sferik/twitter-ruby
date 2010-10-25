@@ -19,7 +19,7 @@ module Twitter
 
           Faraday::Connection.new(options) do |builder|
             builder.use Faraday::Request::Multipart
-            builder.use Faraday::Request::OAuth, authentication if authenticate?
+            builder.use Faraday::Request::OAuth, authentication if authenticated?
             builder.adapter(adapter)
             builder.use Faraday::Response::RaiseHttp5xx
             builder.use Faraday::Response::Parse unless raw
