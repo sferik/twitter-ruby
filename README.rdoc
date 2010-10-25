@@ -17,4 +17,4 @@ http://github.com/jnunemaker/twitter/issues
 4. Do not mess with gemspec, version, or history. (If you want to have your own version, that's fine, but please do so in a separate commit.)
 5. Submit a pull request. Bonus points for topic branches.
 == Copyright
-Copyright (c) 2010 John Nunemaker. See LICENSE for details.
+Copyright (c) 2010 John Nunemaker, Wynn Netherland, Erik Michaels-Ober, Steve Richert. See LICENSE for details.
