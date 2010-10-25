@@ -5,17 +5,20 @@ module Twitter
         authenticate!
         options = args.last.is_a?(Hash) ? args.pop : {}
         user = args.first
-        get(['favorites', user].compact.join('/'), options)
+        response = get(['favorites', user].compact.join('/'), options)
+        format.to_s.downcase == 'xml' ? response.statuses : response
       end
 
       def favorite_create(id, options={})
         authenticate!
-        post("favorites/create/#{id}", options)
+        response = post("favorites/create/#{id}", options)
+        format.to_s.downcase == 'xml' ? response.status : response
       end
 
       def favorite_destroy(id, options={})
         authenticate!
-        delete("favorites/destroy/#{id}", options)
+        response = delete("favorites/destroy/#{id}", options)
+        format.to_s.downcase == 'xml' ? response.status : response
       end
     end
   end

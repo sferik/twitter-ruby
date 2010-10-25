@@ -74,27 +74,6 @@ describe "Twitter::Client" do
 
       describe ".suggestions" do
 
-        context "with no arguments passed" do
-
-          before do
-            stub_get("users/suggestions.#{format}").
-              to_return(:body => fixture("suggestions.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
-          end
-
-          it "should get the correct resource" do
-            @auth_client.suggestions
-            a_get("users/suggestions.#{format}").
-              should have_been_made
-          end
-
-          it "should return the list of suggested user categories" do
-            suggestions = @auth_client.suggestions
-            suggestions.should be_a Array
-            suggestions.first.name.should == "Art & Design"
-          end
-
-        end
-
         context "with a category slug passed" do
 
           before do
@@ -102,15 +81,75 @@ describe "Twitter::Client" do
               to_return(:body => fixture("category.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
 
-          it "should get the correct resource" do
-            @auth_client.suggestions("art-design")
-            a_get("users/suggestions/art-design.#{format}").
-              should have_been_made
+          context "with authentication" do
+
+            it "should get the correct resource" do
+              @auth_client.suggestions("art-design")
+              a_get("users/suggestions/art-design.#{format}").
+                should have_been_made
+            end
+
+            it "should return the users in a given category of the Twitter suggested user list" do
+              category = @auth_client.suggestions("art-design")
+              category.name.should == "Art & Design"
+            end
+
           end
 
-          it "should return the users in a given category of the Twitter suggested user list" do
-            category = @auth_client.suggestions("art-design")
-            category.name.should == "Art & Design"
+          context "without authentication" do
+
+            it "should get the correct resource" do
+              @client.suggestions("art-design")
+              a_get("users/suggestions/art-design.#{format}").
+                should have_been_made
+            end
+
+            it "should return the users in a given category of the Twitter suggested user list" do
+              category = @client.suggestions("art-design")
+              category.name.should == "Art & Design"
+            end
+
+          end
+
+        end
+
+        context "without arguments passed" do
+
+          before do
+            stub_get("users/suggestions.#{format}").
+              to_return(:body => fixture("suggestions.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+          end
+
+          context "with authentication" do
+
+            it "should get the correct resource" do
+              @auth_client.suggestions
+              a_get("users/suggestions.#{format}").
+                should have_been_made
+            end
+
+            it "should return the list of suggested user categories" do
+              suggestions = @auth_client.suggestions
+              suggestions.should be_a Array
+              suggestions.first.name.should == "Art & Design"
+            end
+
+          end
+
+          context "without authentication" do
+
+            it "should get the correct resource" do
+              @client.suggestions
+              a_get("users/suggestions.#{format}").
+                should have_been_made
+            end
+
+            it "should return the list of suggested user categories" do
+              suggestions = @client.suggestions
+              suggestions.should be_a Array
+              suggestions.first.name.should == "Art & Design"
+            end
+
           end
 
         end
@@ -124,26 +163,86 @@ describe "Twitter::Client" do
             to_return(fixture("profile_image.text"))
         end
 
-        it "should redirect to the correct resource" do
-          profile_image = @auth_client.profile_image("sferik")
-          a_get("users/profile_image/sferik.#{format}").
-            with(:status => 302).
-            should have_been_made
-          profile_image.should == "http://a0.twimg.com/profile_images/323331048/me_normal.jpg"
+        context "with authentication" do
+
+          it "should redirect to the correct resource" do
+            profile_image = @auth_client.profile_image("sferik")
+            a_get("users/profile_image/sferik.#{format}").
+              with(:status => 302).
+              should have_been_made
+            profile_image.should == "http://a0.twimg.com/profile_images/323331048/me_normal.jpg"
+          end
+
+        end
+
+        context "without authentication" do
+
+          it "should redirect to the correct resource" do
+            profile_image = @client.profile_image("sferik")
+            a_get("users/profile_image/sferik.#{format}").
+              with(:status => 302).
+              should have_been_made
+            profile_image.should == "http://a0.twimg.com/profile_images/323331048/me_normal.jpg"
+          end
+
         end
 
       end
 
       describe ".friends" do
 
-        context "with authentication" do
+        context "with a screen name passed" do
 
-          context "with no arguments passed" do
+          before do
+            stub_get("statuses/friends.#{format}").
+              with(:query => {"screen_name" => "sferik"}).
+              to_return(:body => fixture("friends.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+          end
 
-            before do
-              stub_get("statuses/friends.#{format}").
-                to_return(:body => fixture("friends.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+          context "with authentication" do
+
+            it "should get the correct resource" do
+              @auth_client.friends("sferik")
+              a_get("statuses/friends.#{format}").
+                with(:query => {"screen_name" => "sferik"}).
+                should have_been_made
             end
+
+            it "should return a user's friends, each with current status inline" do
+              friends = @auth_client.friends("sferik")
+              friends.should be_a Array
+              friends.first.name.should == "kellan"
+            end
+
+          end
+
+          context "without authentication" do
+
+            it "should get the correct resource" do
+              @client.friends("sferik")
+              a_get("statuses/friends.#{format}").
+                with(:query => {"screen_name" => "sferik"}).
+                should have_been_made
+            end
+
+            it "should return a user's friends, each with current status inline" do
+              friends = @client.friends("sferik")
+              friends.should be_a Array
+              friends.first.name.should == "kellan"
+            end
+
+          end
+
+        end
+
+        context "without arguments passed" do
+
+          before do
+            stub_get("statuses/friends.#{format}").
+              to_return(:body => fixture("friends.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+          end
+
+          context "with authentication" do
 
             it "should get the correct resource" do
               @auth_client.friends
@@ -159,27 +258,20 @@ describe "Twitter::Client" do
 
           end
 
-        end
+          context "without authentication" do
 
-        context "with a screen name passed" do
+            it "should get the correct resource" do
+              @client.friends
+              a_get("statuses/friends.#{format}").
+                should have_been_made
+            end
 
-          before do
-            stub_get("statuses/friends.#{format}").
-              with(:query => {"screen_name" => "sferik"}).
-              to_return(:body => fixture("friends.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
-          end
+            it "should return a user's friends, each with current status inline" do
+              friends = @client.friends
+              friends.should be_a Array
+              friends.first.name.should == "kellan"
+            end
 
-          it "should get the correct resource" do
-            @auth_client.friends("sferik")
-            a_get("statuses/friends.#{format}").
-              with(:query => {"screen_name" => "sferik"}).
-              should have_been_made
-          end
-
-          it "should return a user's friends, each with current status inline" do
-            friends = @auth_client.friends("sferik")
-            friends.should be_a Array
-            friends.first.name.should == "kellan"
           end
 
         end
@@ -188,17 +280,15 @@ describe "Twitter::Client" do
 
       describe ".followers" do
 
-        before do
-          stub_get("statuses/followers.#{format}").
-            to_return(:body => fixture("followers.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
-          stub_get("statuses/followers.#{format}").
-            with(:query => {"screen_name" => "sferik"}).
-            to_return(:body => fixture("followers.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
-        end
+        context "with a screen name passed" do
 
-        context "with authentication" do
+          before do
+            stub_get("statuses/followers.#{format}").
+              with(:query => {"screen_name" => "sferik"}).
+              to_return(:body => fixture("followers.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+          end
 
-          context "with a screen name passed" do
+          context "with authentication" do
 
             it "should get the correct resource" do
               @auth_client.followers("sferik")
@@ -215,27 +305,7 @@ describe "Twitter::Client" do
 
           end
 
-          context "with no arguments passed" do
-
-            it "should get the correct resource" do
-              @auth_client.followers
-              a_get("statuses/followers.#{format}").
-                should have_been_made
-            end
-
-            it "should return a user's followers, each with current status inline" do
-              followers = @auth_client.followers
-              followers.should be_a Array
-              followers.first.name.should == "samz sasuke"
-            end
-
-          end
-
-        end
-
-        context "without authentication" do
-
-          context "with a screen name passed" do
+          context "without authentication" do
 
             it "should get the correct resource" do
               @client.followers("sferik")
@@ -252,12 +322,43 @@ describe "Twitter::Client" do
 
           end
 
-          context "with no arguments passed" do
+        end
 
-            it "should raise Twitter::Unauthorized" do
-              lambda do
-                @client.subscriptions("pengwynn")
-              end.should raise_error Twitter::Unauthorized
+        context "without arguments passed" do
+
+          before do
+            stub_get("statuses/followers.#{format}").
+              to_return(:body => fixture("followers.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+          end
+
+          context "with authentication" do
+
+            it "should get the correct resource" do
+              @auth_client.followers
+              a_get("statuses/followers.#{format}").
+                should have_been_made
+            end
+
+            it "should return a user's followers, each with current status inline" do
+              followers = @auth_client.followers
+              followers.should be_a Array
+              followers.first.name.should == "samz sasuke"
+            end
+
+          end
+
+          context "without authentication" do
+
+            it "should get the correct resource" do
+              @client.followers
+              a_get("statuses/followers.#{format}").
+                should have_been_made
+            end
+
+            it "should return a user's followers, each with current status inline" do
+              followers = @client.followers
+              followers.should be_a Array
+              followers.first.name.should == "samz sasuke"
             end
           end
         end

@@ -78,16 +78,14 @@ describe "Twitter::Client" do
 
       describe ".lists" do
 
-        before do
-          stub_get("pengwynn/lists.#{format}").
-            to_return(:body => fixture("lists.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
-          stub_get("lists.#{format}").
-            to_return(:body => fixture("lists.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
-        end
+        context "with a screen name passed" do
 
-        context "with authentication" do
+          before do
+            stub_get("pengwynn/lists.#{format}").
+              to_return(:body => fixture("lists.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+          end
 
-          context "with a screen name passed" do
+          context "with authentication" do
 
             it "should get the correct resource" do
               @auth_client.lists("pengwynn")
@@ -103,7 +101,26 @@ describe "Twitter::Client" do
 
           end
 
-          context "without arguments passed" do
+          context "without authentication" do
+
+            it "should raise Twitter::Unauthorized" do
+              lambda do
+                @client.lists("pengwynn")
+              end.should raise_error Twitter::Unauthorized
+            end
+
+          end
+
+        end
+
+        context "without arguments passed" do
+
+          before do
+            stub_get("lists.#{format}").
+              to_return(:body => fixture("lists.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+          end
+
+          context "with authentication" do
 
             it "should get the correct resource" do
               @auth_client.lists
@@ -119,21 +136,7 @@ describe "Twitter::Client" do
 
           end
 
-        end
-
-        context "without authentication" do
-
-          context "with a screen name passed" do
-
-            it "should raise Twitter::Unauthorized" do
-              lambda do
-                @client.lists("pengwynn")
-              end.should raise_error Twitter::Unauthorized
-            end
-
-          end
-
-          context "without arguments passed" do
+          context "without authentication" do
 
             it "should raise Twitter::Unauthorized" do
               lambda do
