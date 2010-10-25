@@ -2,19 +2,23 @@ module Twitter
   class Client
     module Trends
       def trends(options={})
-        get('trends', options)
+        authenticate
+        get('trends', options).trends
       end
 
-      def current_trends(options={})
-        get('trends/current', options)
+      def trends_current(options={})
+        authenticate
+        get('trends/current', options).trends
       end
 
-      def daily_trends(date=Time.now, options={})
-        get('trends/daily', options.merge(:date => date.strftime('%Y-%m-%d')))
+      def trends_daily(date=Time.now, options={})
+        authenticate
+        get('trends/daily', options.merge(:date => date.strftime('%Y-%m-%d'))).trends
       end
 
-      def weekly_trends(date=Time.now, options={})
-        get('trends/daily', options.merge(:date => date.strftime('%Y-%m-%d')))
+      def trends_weekly(date=Time.now, options={})
+        authenticate
+        get('trends/weekly', options.merge(:date => date.strftime('%Y-%m-%d'))).trends
       end
     end
   end
