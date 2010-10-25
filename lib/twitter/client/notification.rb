@@ -4,13 +4,15 @@ module Twitter
       def enable_notifications(user, options={})
         authenticate!
         merge_user_into_options!(user, options)
-        post('notifications/follow', options)
+        response = post('notifications/follow', options)
+        format.to_s.downcase == 'xml' ? response.user : response
       end
 
       def disable_notifications(user, options={})
         authenticate!
         merge_user_into_options!(user, options)
-        post('notifications/leave', options)
+        response = post('notifications/leave', options)
+        format.to_s.downcase == 'xml' ? response.user : response
       end
     end
   end

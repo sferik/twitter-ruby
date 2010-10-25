@@ -205,7 +205,7 @@ describe "Twitter::Client" do
               should have_been_made
           end
 
-          it "should return up to 100 of the first retweets of a given tweet" do
+          it "should return " do
             users = @auth_client.retweeters_of(27467028175)
             users.should be_an Array
             users.first.name.should == "Dave W Baldwin"
