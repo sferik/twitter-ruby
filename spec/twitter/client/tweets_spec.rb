@@ -220,7 +220,6 @@ describe "Twitter::Client" do
               @client.retweeters_of(27467028175)
             end.should raise_error Twitter::Unauthorized
           end
-
         end
       end
     end

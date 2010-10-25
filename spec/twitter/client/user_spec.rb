@@ -16,16 +16,36 @@ describe "Twitter::Client" do
             to_return(:body => fixture("user.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
-        it "should get the correct resource" do
-          @auth_client.user("sferik")
-          a_get("users/show.#{format}").
-            with(:query => {"screen_name" => "sferik"}).
-            should have_been_made
+        context "with authentication" do
+
+          it "should get the correct resource" do
+            @auth_client.user("sferik")
+            a_get("users/show.#{format}").
+              with(:query => {"screen_name" => "sferik"}).
+              should have_been_made
+          end
+
+          it "should return extended information of a given user" do
+            user = @auth_client.user("sferik")
+            user.name.should == "Erik Michaels-Ober"
+          end
+
         end
 
-        it "should return extended information of a given user" do
-          user = @auth_client.user("sferik")
-          user.name.should == "Erik Michaels-Ober"
+        context "without authentication" do
+
+          it "should get the correct resource" do
+            @client.user("sferik")
+            a_get("users/show.#{format}").
+              with(:query => {"screen_name" => "sferik"}).
+              should have_been_made
+          end
+
+          it "should return extended information of a given user" do
+            user = @client.user("sferik")
+            user.name.should == "Erik Michaels-Ober"
+          end
+
         end
 
       end
@@ -37,16 +57,30 @@ describe "Twitter::Client" do
             to_return(:body => fixture("users.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
-        it "should get the correct resource" do
-          @auth_client.users(["sferik", "pengwynn"])
-          a_get("users/lookup.#{format}?screen_name=sferik,pengwynn").
-            should have_been_made
+        context "with authentication" do
+
+          it "should get the correct resource" do
+            @auth_client.users(["sferik", "pengwynn"])
+            a_get("users/lookup.#{format}?screen_name=sferik,pengwynn").
+              should have_been_made
+          end
+
+          it "should return up to 100 users worth of extended information" do
+            users = @auth_client.users(["sferik", "pengwynn"])
+            users.should be_a Array
+            users.first.name.should == "Erik Michaels-Ober"
+          end
+
         end
 
-        it "should return up to 100 users worth of extended information" do
-          users = @auth_client.users(["sferik", "pengwynn"])
-          users.should be_a Array
-          users.first.name.should == "Erik Michaels-Ober"
+        context "without authentication" do
+
+          it "should raise Twitter::Unauthorized" do
+            lambda do
+              @client.users(["sferik", "pengwynn"])
+            end.should raise_error Twitter::Unauthorized
+          end
+
         end
 
       end
@@ -58,16 +92,30 @@ describe "Twitter::Client" do
             to_return(:body => fixture("user_search.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
-        it "should get the correct resource" do
-          @auth_client.user_search("Erik Michaels-Ober")
-          a_get("users/search.#{format}?q=Erik Michaels-Ober").
-            should have_been_made
+        context "with authentication" do
+
+          it "should get the correct resource" do
+            @auth_client.user_search("Erik Michaels-Ober")
+            a_get("users/search.#{format}?q=Erik Michaels-Ober").
+              should have_been_made
+          end
+
+          it "should return an array of user search results" do
+            user_search = @auth_client.user_search("Erik Michaels-Ober")
+            user_search.should be_a Array
+            user_search.first.name.should == "Erik Michaels-Ober"
+          end
+
         end
 
-        it "should return an array of user search results" do
-          user_search = @auth_client.user_search("Erik Michaels-Ober")
-          user_search.should be_a Array
-          user_search.first.name.should == "Erik Michaels-Ober"
+        context "with authentication" do
+
+          it "should raise Twitter::Unauthorized" do
+            lambda do
+              @client.user_search("Erik Michaels-Ober")
+            end.should raise_error Twitter::Unauthorized
+          end
+
         end
 
       end
