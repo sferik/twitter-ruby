@@ -19,22 +19,22 @@ module Twitter
 
       private
 
-        def request(method, path, options, raw)
-          response = connection(raw).send(method) do |request|
-            case method
-              when :get, :delete
-                request.url(formatted_path(path), options)
-              when :post, :put
-                request.path = formatted_path(path)
-                request.body = options
-            end
+      def request(method, path, options, raw)
+        response = connection(raw).send(method) do |request|
+          case method
+            when :get, :delete
+              request.url(formatted_path(path), options)
+            when :post, :put
+              request.path = formatted_path(path)
+              request.body = options
           end
-          raw ? response : response.body
         end
+        raw ? response : response.body
+      end
 
-        def formatted_path(path)
-          [path, format].compact.join('.')
-        end
+      def formatted_path(path)
+        [path, format].compact.join('.')
+      end
     end
   end
 end

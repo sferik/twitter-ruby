@@ -1,32 +1,29 @@
+Dir[File.expand_path('../search/*.rb', __FILE__)].each{|f| require f}
+
 module Twitter
 
   # Handles the Twitter Search API
   #
   # @see http://dev.twitter.com/doc/get/search Twitter Search API docs
   class Search
-    extend ConfigHelper
-    include ConnectionHelper
-    include Enumerable
-    include RequestHelper
-    attr_reader :oauth_token, :oauth_token_secret, :consumer_key, :consumer_secret, :query, :result
+    attr_accessor *Configuration::VALID_OPTIONS_KEYS
+    attr_reader :query, :result
 
     # Creates a new instance of a search
     #
     # @param [String] query the optional keyword to search
     def initialize(query=nil, options={})
-      @consumer_key = options[:consumer_key] || Twitter.consumer_key
-      @consumer_secret = options[:consumer_secret] || Twitter.consumer_secret
-      @oauth_token = options[:oauth_token] || Twitter.oauth_token
-      @oauth_token_secret = options[:oauth_token_secret] || Twitter.oauth_token_secret
-      @adapter = options[:adapter] || Twitter.adapter
-      @api_endpoint = options[:api_endpoint] || Twitter.api_endpoint
-      @api_version = options[:api_version] || Twitter.api_version
-      @format = Twitter.default_format
-      @protocol = options[:protocol] || Twitter.protocol
-      @user_agent = options[:user_agent] || Twitter.user_agent
+      options = Twitter.options.merge(options)
+      Configuration::VALID_OPTIONS_KEYS.each do |key|
+        send("#{key}=", options[key])
+      end
       clear
       containing(query) if query && query.strip != ""
     end
+
+    include Connection
+    include Request
+    include Authentication
 
     # Clears all the query filters to make a new search
     def clear
@@ -241,7 +238,7 @@ module Twitter
     def fetch_next_page
       if next_page?
         search = Search.new
-        search.perform_get("search.#{self.class.format}", fetch["next_page"][1..-1])
+        search.get("search", fetch["next_page"][1..-1]).results
         search
       end
     end
@@ -252,7 +249,7 @@ module Twitter
     def fetch
       query = @query.dup
       query[:q] = query[:q].join(" ")
-      perform_get("search.#{self.class.format}", query)
+      get("search", query).results
     end
 
     # Iterate over the results
