@@ -33,13 +33,12 @@ module Twitter
       def friends(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
         user = args.first
+        authenticate
         if user
           merge_user_into_options!(user, options)
           response = get('statuses/friends', options)
         else
-          authenticate! do
-            response = get('statuses/friends', options)
-          end
+          response = get('statuses/friends', options)
         end
         format.to_s.downcase == 'xml' ? response.users : response
       end
@@ -48,12 +47,12 @@ module Twitter
         options = args.last.is_a?(Hash) ? args.pop : {}
         user = args.first
         if user
+          authenticate
           merge_user_into_options!(user, options)
           response = get('statuses/followers', options)
         else
-          authenticate! do
-            response = get('statuses/followers', options)
-          end
+          authenticate!
+          response = get('statuses/followers', options)
         end
         format.to_s.downcase == 'xml' ? response.users : response
       end

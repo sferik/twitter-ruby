@@ -5,6 +5,7 @@ describe "Twitter::Client" do
     context ".new(:format => '#{format}')" do
       before do
         @client = Twitter::Client.new(:format => format)
+        @auth_client = Twitter::Client.new(:format => format, :consumer_key => 'CK', :consumer_secret => 'CS', :oauth_token => 'OT', :oauth_token_secret => 'OS')
       end
 
       describe ".tos" do
@@ -14,15 +15,34 @@ describe "Twitter::Client" do
             to_return(:body => fixture("tos.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
-        it "should get the correct resource" do
-          @client.tos
-          a_get("legal/tos.#{format}").
-            should have_been_made
+        context "with authentication" do
+
+          it "should get the correct resource" do
+            @auth_client.tos
+            a_get("legal/tos.#{format}").
+              should have_been_made
+          end
+
+          it "should return Twitter's Terms of Service" do
+            tos = @auth_client.tos
+            tos.split.first.should == "Terms"
+          end
+
         end
 
-        it "should return Twitter's Terms of Service" do
-          tos = @client.tos
-          tos.split.first.should == "Terms"
+        context "without authentication" do
+
+          it "should get the correct resource" do
+            @client.tos
+            a_get("legal/tos.#{format}").
+              should have_been_made
+          end
+
+          it "should return Twitter's Terms of Service" do
+            tos = @client.tos
+            tos.split.first.should == "Terms"
+          end
+
         end
 
       end
@@ -34,15 +54,33 @@ describe "Twitter::Client" do
             to_return(:body => fixture("privacy.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
-        it "should get the correct resource" do
-          @client.privacy
-          a_get("legal/privacy.#{format}").
-            should have_been_made
+        context "with authentication" do
+
+          it "should get the correct resource" do
+            @auth_client.privacy
+            a_get("legal/privacy.#{format}").
+              should have_been_made
+          end
+
+          it "should return Twitter's Privacy Policy" do
+            privacy = @auth_client.privacy
+            privacy.split.first.should == "Twitter"
+          end
+
         end
 
-        it "should return Twitter's Privacy Policy" do
-          privacy = @client.privacy
-          privacy.split.first.should == "Twitter"
+        context "without authentication" do
+
+          it "should get the correct resource" do
+            @client.privacy
+            a_get("legal/privacy.#{format}").
+              should have_been_made
+          end
+
+          it "should return Twitter's Privacy Policy" do
+            privacy = @client.privacy
+            privacy.split.first.should == "Twitter"
+          end
         end
       end
     end
