@@ -3,7 +3,6 @@ module Twitter
     module FriendsAndFollowers
       # TODO: Optional merge user into options if user is nil
       def friend_ids(*args)
-        authenticate
         options = args.last.is_a?(Hash) ? args.pop : {}
         user = args.first
         merge_user_into_options!(user, options)
@@ -12,7 +11,6 @@ module Twitter
       end
 
       def follower_ids(*args)
-        authenticate
         options = args.last.is_a?(Hash) ? args.pop : {}
         user = args.first
         merge_user_into_options!(user, options)
