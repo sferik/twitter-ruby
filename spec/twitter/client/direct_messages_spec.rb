@@ -82,7 +82,7 @@ describe "Twitter::Client" do
             should have_been_made
         end
 
-        it "should return the sent message" do
+        it "should return the deleted message" do
           direct_message = @client.direct_message_destroy(1825785544)
           direct_message.text.should == "Creating a fixture for the Twitter gem"
         end
