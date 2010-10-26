@@ -3,12 +3,12 @@ module Twitter
     module List
       def list_create(screen_name, name, options={})
         response = post("#{screen_name}/lists", options.merge(:name => name))
-        format.to_s.downcase == 'xml' ? response.list : response
+        format.to_s.downcase == 'xml' ? response['list'] : response
       end
 
       def list_update(screen_name, name, options={})
         response = put("#{screen_name}/lists/#{name}", options)
-        format.to_s.downcase == 'xml' ? response.list : response
+        format.to_s.downcase == 'xml' ? response['list'] : response
       end
 
       def lists(*args)
@@ -19,32 +19,32 @@ module Twitter
         else
           response = get('lists', options)
         end
-        format.to_s.downcase == 'xml' ? response.lists_list : response
+        format.to_s.downcase == 'xml' ? response['lists_list'] : response
       end
 
       def list(screen_name, name, options={})
         response = get("#{screen_name}/lists/#{name}", options)
-        format.to_s.downcase == 'xml' ? response.list : response
+        format.to_s.downcase == 'xml' ? response['list'] : response
       end
 
       def list_delete(screen_name, name, options={})
         response = delete("#{screen_name}/lists/#{name}", options)
-        format.to_s.downcase == 'xml' ? response.list : response
+        format.to_s.downcase == 'xml' ? response['list'] : response
       end
 
       def list_timeline(screen_name, name, options={})
         response = get("#{screen_name}/lists/#{name}/statuses", options)
-        format.to_s.downcase == 'xml' ? response.statuses : response
+        format.to_s.downcase == 'xml' ? response['statuses'] : response
       end
 
       def memberships(screen_name, options={})
         response = get("#{screen_name}/lists/memberships", options)
-        format.to_s.downcase == 'xml' ? response.lists_list : response
+        format.to_s.downcase == 'xml' ? response['lists_list'] : response
       end
 
       def subscriptions(screen_name, options={})
         response = get("#{screen_name}/lists/subscriptions", options)
-        format.to_s.downcase == 'xml' ? response.lists_list : response
+        format.to_s.downcase == 'xml' ? response['lists_list'] : response
       end
     end
   end

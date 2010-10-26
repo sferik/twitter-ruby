@@ -4,7 +4,7 @@ module Twitter
       def report_spam(user, options={})
         merge_user_into_options!(user, options)
         response = post('report_spam', options)
-        format.to_s.downcase == 'xml' ? response.user : response
+        format.to_s.downcase == 'xml' ? response['user'] : response
       end
     end
   end

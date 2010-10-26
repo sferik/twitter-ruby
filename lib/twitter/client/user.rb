@@ -4,7 +4,7 @@ module Twitter
       def user(user, options={})
         merge_user_into_options!(user, options)
         response = get('users/show', options)
-        format.to_s.downcase == 'xml' ? response.user : response
+        format.to_s.downcase == 'xml' ? response['user'] : response
       end
 
       def users(*args)
@@ -12,12 +12,12 @@ module Twitter
         users = args
         merge_users_into_options!(Array(users), options)
         response = get('users/lookup', options)
-        format.to_s.downcase == 'xml' ? response.users : response
+        format.to_s.downcase == 'xml' ? response['users'] : response
       end
 
       def user_search(query, options={})
         response = get('users/search', options.merge(:q => query))
-        format.to_s.downcase == 'xml' ? response.users : response
+        format.to_s.downcase == 'xml' ? response['users'] : response
       end
 
       def suggestions(*args)
@@ -41,7 +41,7 @@ module Twitter
         else
           response = get('statuses/friends', options)
         end
-        format.to_s.downcase == 'xml' ? response.users : response
+        format.to_s.downcase == 'xml' ? response['users'] : response
       end
 
       def followers(*args)
@@ -53,7 +53,7 @@ module Twitter
         else
           response = get('statuses/followers', options)
         end
-        format.to_s.downcase == 'xml' ? response.users : response
+        format.to_s.downcase == 'xml' ? response['users'] : response
       end
     end
   end
