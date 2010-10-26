@@ -31,7 +31,7 @@ module Twitter
         format.to_s.downcase == 'xml' ? response.user : response
       end
 
-      def update_profile_background(file, options={})
+      def update_profile_background_image(file, options={})
         response = post('account/update_profile_background_image', options.merge(:image => file))
         format.to_s.downcase == 'xml' ? response.user : response
       end

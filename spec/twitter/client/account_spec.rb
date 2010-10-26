@@ -67,6 +67,106 @@ describe "Twitter::Client" do
 
       end
 
+      describe ".update_delivery_device" do
+
+        before do
+          stub_post("account/update_delivery_device.#{format}").
+            to_return(:body => fixture("user.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+        end
+
+        it "should get the correct resource" do
+          @client.update_delivery_device("sms")
+          a_post("account/update_delivery_device.#{format}").
+            should have_been_made
+        end
+
+        it "should return a null cookie" do
+          user = @client.update_delivery_device("sms")
+          user.name.should == "Erik Michaels-Ober"
+        end
+
+      end
+
+      describe ".update_profile_colors" do
+
+        before do
+          stub_post("account/update_profile_colors.#{format}").
+            to_return(:body => fixture("user.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+        end
+
+        it "should get the correct resource" do
+          @client.update_profile_colors(:profile_background_color => "000000")
+          a_post("account/update_profile_colors.#{format}").
+            should have_been_made
+        end
+
+        it "should return a null cookie" do
+          user = @client.update_profile_colors(:profile_background_color => "000000")
+          user.name.should == "Erik Michaels-Ober"
+        end
+
+      end
+
+      describe ".update_profile_image" do
+
+        before do
+          stub_post("account/update_profile_image.#{format}").
+            to_return(:body => fixture("user.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+        end
+
+        it "should get the correct resource" do
+          @client.update_profile_image(fixture("me.jpeg"))
+          a_post("account/update_profile_image.#{format}").
+            should have_been_made
+        end
+
+        it "should return a null cookie" do
+          user = @client.update_profile_image(fixture("me.jpeg"))
+          user.name.should == "Erik Michaels-Ober"
+        end
+
+      end
+
+      describe ".update_profile_background_image" do
+
+        before do
+          stub_post("account/update_profile_background_image.#{format}").
+            to_return(:body => fixture("user.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+        end
+
+        it "should get the correct resource" do
+          @client.update_profile_background_image(fixture("we_concept_bg2.png"))
+          a_post("account/update_profile_background_image.#{format}").
+            should have_been_made
+        end
+
+        it "should return a null cookie" do
+          user = @client.update_profile_background_image(fixture("we_concept_bg2.png"))
+          user.name.should == "Erik Michaels-Ober"
+        end
+
+      end
+
+      describe ".update_profile" do
+
+        before do
+          stub_post("account/update_profile.#{format}").
+            to_return(:body => fixture("user.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+        end
+
+        it "should get the correct resource" do
+          @client.update_profile(:url => "http://github.com/sferik/")
+          a_post("account/update_profile.#{format}").
+            should have_been_made
+        end
+
+        it "should return a null cookie" do
+          user = @client.update_profile(:url => "http://github.com/sferik/")
+          user.name.should == "Erik Michaels-Ober"
+        end
+
+      end
+
     end
   end
 end
