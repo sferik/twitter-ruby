@@ -24,8 +24,8 @@ module Twitter
         options = args.last.is_a?(Hash) ? args.pop : {}
         category = args.first
         response = get(['users/suggestions', category].compact.join('/'), options)
-        xml_method = category ? :category : :suggestions
-        format.to_s.downcase == 'xml' ? response.send(xml_method) : response
+        xml_key = category ? 'category' : 'suggestions'
+        format.to_s.downcase == 'xml' ? response[xml_key] : response
       end
 
       def profile_image(screen_name, options={})
