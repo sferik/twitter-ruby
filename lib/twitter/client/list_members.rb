@@ -2,20 +2,24 @@ module Twitter
   class Client
     module ListMembers
       def list_members(screen_name, slug, options={})
-        get("#{screen_name}/#{slug}/members", options)
+        response = get("#{screen_name}/#{slug}/members", options)
+        format.to_s.downcase == 'xml' ? response.users_list : response
       end
 
       def list_add_member(screen_name, slug, user_id, options={})
-        post("#{screen_name}/#{slug}/members", options.merge(:id => user_id))
+        response = post("#{screen_name}/#{slug}/members", options.merge(:id => user_id))
+        format.to_s.downcase == 'xml' ? response.list : response
       end
 
       def list_add_members(screen_name, slug, users, options={})
         merge_users_into_options!(Array(users), options)
-        post("#{screen_name}/#{slug}/create_all", options)
+        response = post("#{screen_name}/#{slug}/create_all", options)
+        format.to_s.downcase == 'xml' ? response.list : response
       end
 
       def list_remove_member(screen_name, slug, user_id, options={})
-        delete("#{screen_name}/#{slug}/members", options.merge(:id => user_id))
+        response = delete("#{screen_name}/#{slug}/members", options.merge(:id => user_id))
+        format.to_s.downcase == 'xml' ? response.list : response
       end
 
       def is_list_member?(screen_name, slug, user_id, options={})

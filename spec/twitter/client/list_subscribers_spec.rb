@@ -11,7 +11,7 @@ describe "Twitter::Client" do
 
         before do
           stub_get("pengwynn/rubyists/subscribers.#{format}").
-            to_return(:body => fixture("list_subscribers.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+            to_return(:body => fixture("users_list.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource" do
@@ -21,9 +21,9 @@ describe "Twitter::Client" do
         end
 
         it "should return the subscribers of the specified list" do
-          list_subscribers = @client.list_subscribers("pengwynn", "rubyists")
-          list_subscribers.users.should be_an Array
-          list_subscribers.users.first.name.should == "Erik Michaels-Ober"
+          users_list = @client.list_subscribers("pengwynn", "rubyists")
+          users_list.users.should be_an Array
+          users_list.users.first.name.should == "Erik Michaels-Ober"
         end
 
       end

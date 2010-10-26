@@ -37,13 +37,13 @@ describe "Twitter::Client" do
         end
 
         it "should get the correct resource" do
-          @client.users(["sferik", "pengwynn"])
+          @client.users("sferik", "pengwynn")
           a_get("users/lookup.#{format}?screen_name=sferik,pengwynn").
             should have_been_made
         end
 
         it "should return up to 100 users worth of extended information" do
-          users = @client.users(["sferik", "pengwynn"])
+          users = @client.users("sferik", "pengwynn")
           users.should be_a Array
           users.first.name.should == "Erik Michaels-Ober"
         end

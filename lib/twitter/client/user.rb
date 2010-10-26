@@ -7,7 +7,9 @@ module Twitter
         format.to_s.downcase == 'xml' ? response.user : response
       end
 
-      def users(users, options={})
+      def users(*args)
+        options = args.last.is_a?(Hash) ? args.pop : {}
+        users = args
         merge_users_into_options!(Array(users), options)
         response = get('users/lookup', options)
         format.to_s.downcase == 'xml' ? response.users : response
