@@ -164,9 +164,7 @@ describe "Twitter::Client" do
           user = @client.update_profile(:url => "http://github.com/sferik/")
           user.name.should == "Erik Michaels-Ober"
         end
-
       end
-
     end
   end
 end
