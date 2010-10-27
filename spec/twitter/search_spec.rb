@@ -2,6 +2,13 @@ require File.expand_path('../../spec_helper', __FILE__)
 
 describe "Twitter::Search" do
 
+  it "should connect using the search_endpoint configuration" do
+    search = Twitter::Search.new
+    endpoint = URI.parse(search.api_endpoint)
+    connection = search.send(:connection).build_url(nil).to_s
+    connection.should == endpoint.to_s
+  end
+
   context "with module configuration" do
 
     before do
