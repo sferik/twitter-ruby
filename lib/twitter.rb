@@ -1,6 +1,7 @@
-require 'twitter/configuration'
-require 'twitter/client'
-require 'twitter/error'
+require File.expand_path('../twitter/error', __FILE__)
+require File.expand_path('../twitter/configuration', __FILE__)
+require File.expand_path('../twitter/client', __FILE__)
+require File.expand_path('../twitter/search', __FILE__)
 
 module Twitter
   extend Configuration

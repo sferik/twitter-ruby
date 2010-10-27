@@ -1,10 +1,4 @@
-$LOAD_PATH.unshift(File.dirname(__FILE__))
-$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
-require 'twitter'
-require 'rspec/core'
-require 'rubygems'
-require 'bundler'
-Bundler.setup
+require File.expand_path('../../lib/twitter', __FILE__)
 
 require 'webmock/rspec'
 RSpec.configure do |config|

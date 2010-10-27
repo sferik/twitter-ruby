@@ -1,9 +1,6 @@
 require 'faraday'
 require 'faraday_middleware'
-require 'faraday/multipart'
-require 'faraday/oauth'
-require 'faraday/raise_http_4xx'
-require 'faraday/raise_http_5xx'
+Dir[File.expand_path('../../../faraday/*.rb', __FILE__)].each{|f| require f}
 
 module Twitter
   class Client

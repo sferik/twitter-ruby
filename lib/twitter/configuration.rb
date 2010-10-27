@@ -1,5 +1,5 @@
 require 'faraday'
-require 'twitter/version'
+require File.expand_path('../version', __FILE__)
 
 module Twitter
   module Configuration
