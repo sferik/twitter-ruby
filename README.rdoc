@@ -1,10 +1,37 @@
 = The twitter Ruby gem
-==== A Ruby wrapper for the Twitter REST and Search APIs.
+==== A Ruby wrapper for the Twitter REST and Search APIs
 == Examples
   require 'rubygems'
   require 'twitter'
 
-  # Register an app at http://dev.twitter.com/apps to get your Twitter OAuth credentials
+  # Get a user's location
+  puts Twitter.user("sferik").location
+
+  # Get a user's most recent status update
+  puts Twitter.user_timeline("sferik").first.text
+
+  # Get a status update by id
+  puts Twitter.status(27558893223).text
+
+  # Initialize a Twitter search
+  search = Twitter::Search.new(:endpoint => "http://search.twitter.com/")
+
+  # Find the 3 most recent marriage proposals to @justinbieber
+  search.containing('marry me').to('justinbieber').result_type('recent').per_page(3).each do |r|
+    puts "#{r.from_user}: #{r.text}"
+  end
+
+  # Enough about Justin Bieber
+  search.clear
+
+  # Let's find a Japanese-language status update tagged #ruby
+  puts search.hashtag('ruby').language('ja').no_retweets.per_page(1).fetch.results.first.text
+
+  # And another
+  puts search.fetch_next_page.results.first.text
+
+  # Calling some methods requires an authenticated client. To get your Twitter OAuth credentials,
+  # register an app at http://dev.twitter.com/apps
   Twitter.configure do |config|
     config.consumer_key = YOUR_CONSUMER_KEY
     config.consumer_secret = YOUR_CONSUMER_SECRET
@@ -12,51 +39,35 @@
     config.oauth_token_secret = YOUR_OAUTH_TOKEN_SECRET
   end
 
-  # Initialize a Twitter client
+  # Initialize your Twitter client
   client = Twitter::Client.new
 
   # Post a status update
   client.update("I just posted a status update via the Twitter Ruby Gem!")
 
-  # Read the latest tweet in your home timeline
+  # Read the most recent status update in your home timeline
   puts client.home_timeline.first.text
 
-  # Get a user's location
-  puts client.user("sferik").location
-
-  # Get a status update by id
-  puts client.status(27558893223).text
-
-  # Get your most popular friend
+  # Who's your most popular friend?
   puts client.friends.sort{|a, b| a.followers_count <=> b.followers_count}.reverse.first.name
 
-  # Get your most popular follower
+  # Who's your most popular follower?
   puts client.followers.sort{|a, b| a.followers_count <=> b.followers_count}.reverse.first.name
 
   # Get your rate limit status
   puts client.rate_limit_status.remaining_hits.to_s + " Twitter API request(s) remaining this hour"
+== Documentation
+=== http://rdoc.info/github/jnunemaker/twitter
+== Submitting an Issue
+We use GitHub to track for bugs and features. Before submitting a bug report or feature request,
+check to make sure it hasn't already been submitted. You can indicate support for an existing
+issuse by voting for it. When submitting a bug report, please include a Gist[http://gist.github.com/]
+that includes a stack trace and any details that may be necessary to reproduce the bug, including
+your gem version, Ruby version, and operating system. Ideally, a bug report should include a pull
+request with failing specs.
 
-  # Initialize a Twitter search client
-  search = Twitter::Search.new(:endpoint => "http://search.twitter.com/")
-
-  # Find the 3 most recent proposals to @justinbieber
-  search.containing('marry me').to('justinbieber').result_type('recent').per_page(3).each{|s| puts "#{s.from_user}: #{s.text}"}
-
-  # Reset the search client
-  search.clear
-
-  # Find a Japanese-language status update tagged #ruby
-  puts search.hashtag('ruby').language('ja').no_retweets.per_page(1).fetch.results.first.text
-
-  # Find another
-  puts search.fetch_next_page.results.first.text
-== Docs
-http://rdoc.info/github/jnunemaker/twitter
-== Submitting Bugs/Features
-We use the GitHub issue tracker for bugs and feature requests. If you want to report a bug or missing feature, please make sure it hasn't already been reported, then create a new issue. When submitting a bug report, please include a Gist[http://gist.github.com/] of the stack trace and any details that may be necessary to reproduce the bug, including the version of the gem you're using, your Ruby version, and your operating system. Ideally, bug reports should be submitted with failing/pending specs.
-
-http://github.com/jnunemaker/twitter/issues
-== Submitting Patches
+=== http://github.com/jnunemaker/twitter/issues
+== Submitting a Pull Request
 1. Fork the project.
 2. Create a topic branch.
 3. Commit your feature or bug fix.

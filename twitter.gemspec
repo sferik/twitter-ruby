@@ -22,7 +22,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency("multi_xml", "~> 0.2.0")
   s.add_runtime_dependency("simple_oauth", "~> 0.1.1")
   s.authors = ["John Nunemaker", "Wynn Netherland", "Erik Michaels-Ober"]
-  s.description = %q{A Ruby wrapper for the Twitter REST and Search APIs.}
+  s.description = %q{A Ruby wrapper for the Twitter REST and Search APIs}
   s.email = ["nunemaker@gmail.com"]
   s.executables = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.extra_rdoc_files = ["README.rdoc"]

@@ -1,4 +1,5 @@
 require 'cgi'
+require File.expand_path('../search/request', __FILE__)
 Dir[File.expand_path('../search/*.rb', __FILE__)].each{|f| require f}
 
 module Twitter
