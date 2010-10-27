@@ -149,7 +149,7 @@ describe "Twitter::Client" do
         it "should return the tweet timeline for members of the specified list" do
           statuses = @client.list_timeline("pengwynn", "Rubyists")
           statuses.should be_an Array
-          statuses.first.text.should == "@nzkoz Doh. So give me 3 good alternatives to choose from with lightweight collaboration/change tracking/image insertion? cc:@polarbearfarm"
+          statuses.first.text.should == "Ruby is the best programming language for hiding the ugly bits."
         end
 
       end

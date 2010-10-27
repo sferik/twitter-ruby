@@ -1,61 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <statuses type="array">
 <status>
-  <created_at>Sun Oct 24 07:33:46 +0000 2010</created_at>
-  <id>28575318888</id>
-  <text>@nzkoz Doh. So give me 3 good alternatives to choose from with lightweight collaboration/change tracking/image insertion? cc:@polarbearfarm</text>
-  <source>&lt;a href=&quot;http://twitter.com&quot; rel=&quot;nofollow&quot;&gt;Tweetie for Mac&lt;/a&gt;</source>
-  <truncated>false</truncated>
-  <favorited>false</favorited>
-  <in_reply_to_status_id>28574321381</in_reply_to_status_id>
-  <in_reply_to_user_id>11294</in_reply_to_user_id>
-  <in_reply_to_screen_name>nzkoz</in_reply_to_screen_name>
-  <retweet_count></retweet_count>
-  <retweeted>false</retweeted>
-  <user>
-    <id>14341663</id>
-    <name>Tim Haines</name>
-    <screen_name>timhaines</screen_name>
-    <location>Wellington, New Zealand</location>
-    <description>Favstar.fm founder, Husband, Father, collector of tower statuettes, lover of grilled cheese. Mmm!</description>
-    <profile_image_url>http://a0.twimg.com/profile_images/929258068/TimWeekend_bigger2_normal.png</profile_image_url>
-    <url>http://favstar.fm/users/timhaines</url>
-    <protected>false</protected>
-    <followers_count>2971</followers_count>
-    <profile_background_color>9ae4e8</profile_background_color>
-    <profile_text_color>000000</profile_text_color>
-    <profile_link_color>0000ff</profile_link_color>
-    <profile_sidebar_fill_color>e0ff92</profile_sidebar_fill_color>
-    <profile_sidebar_border_color>87bc44</profile_sidebar_border_color>
-    <friends_count>611</friends_count>
-    <created_at>Wed Apr 09 13:39:15 +0000 2008</created_at>
-    <favourites_count>10115</favourites_count>
-    <utc_offset>43200</utc_offset>
-    <time_zone>Wellington</time_zone>
-    <profile_background_image_url>http://a3.twimg.com/profile_background_images/2447849/black-wallpaper-bg.gif</profile_background_image_url>
-    <profile_background_tile>true</profile_background_tile>
-    <profile_use_background_image>true</profile_use_background_image>
-    <notifications>false</notifications>
-    <geo_enabled>true</geo_enabled>
-    <verified>false</verified>
-    <following>true</following>
-    <statuses_count>17018</statuses_count>
-    <lang>en</lang>
-    <contributors_enabled>false</contributors_enabled>
-    <follow_request_sent>false</follow_request_sent>
-    <listed_count>367</listed_count>
-    <show_all_inline_media>false</show_all_inline_media>
-  </user>
-  <geo/>
-  <coordinates/>
-  <place/>
-  <contributors/>
-</status>
-<status>
-  <created_at>Sun Oct 24 07:32:49 +0000 2010</created_at>
-  <id>28575268575</id>
-  <text>a friend once told me &quot;i'm in IT to solve hard problems. if they don't give me hard problems i'll go be a snowboard instructor&quot;</text>
-  <source>&lt;a href=&quot;http://www.tweetdeck.com&quot; rel=&quot;nofollow&quot;&gt;TweetDeck&lt;/a&gt;</source>
+  <created_at>Sat Oct 16 17:07:46 +0000 2010</created_at>
+  <id>27558893223</id>
+  <text>Ruby is the best programming language for hiding the ugly bits.</text>
+  <source>&lt;a href=&quot;http://www.echofon.com/&quot; rel=&quot;nofollow&quot;&gt;Echofon&lt;/a&gt;</source>
   <truncated>false</truncated>
   <favorited>false</favorited>
   <in_reply_to_status_id></in_reply_to_status_id>
@@ -64,861 +13,37 @@
   <retweet_count></retweet_count>
   <retweeted>false</retweeted>
   <user>
-    <id>10224712</id>
-    <name>Phillip Cal&#231;ado</name>
-    <screen_name>pcalcado</screen_name>
-    <location>Sydney</location>
-    <description>hehe.</description>
-    <profile_image_url>http://a3.twimg.com/profile_images/731634747/opera_normal.png</profile_image_url>
-    <url>http://fragmental.tw</url>
-    <protected>false</protected>
-    <followers_count>1897</followers_count>
-    <profile_background_color>3F7608</profile_background_color>
-    <profile_text_color>f3f7f2</profile_text_color>
-    <profile_link_color>0000ff</profile_link_color>
-    <profile_sidebar_fill_color>e0ff92</profile_sidebar_fill_color>
-    <profile_sidebar_border_color>34520d</profile_sidebar_border_color>
-    <friends_count>1732</friends_count>
-    <created_at>Tue Nov 13 19:44:14 +0000 2007</created_at>
-    <favourites_count>57</favourites_count>
-    <utc_offset>36000</utc_offset>
-    <time_zone>Sydney</time_zone>
-    <profile_background_image_url>http://a1.twimg.com/profile_background_images/2156442/Heineken.jpg</profile_background_image_url>
-    <profile_background_tile>false</profile_background_tile>
-    <profile_use_background_image>true</profile_use_background_image>
-    <notifications>false</notifications>
-    <geo_enabled>false</geo_enabled>
-    <verified>false</verified>
-    <following>true</following>
-    <statuses_count>8337</statuses_count>
-    <lang>en</lang>
-    <contributors_enabled>false</contributors_enabled>
-    <follow_request_sent>false</follow_request_sent>
-    <listed_count>141</listed_count>
-    <show_all_inline_media>false</show_all_inline_media>
-  </user>
-  <geo/>
-  <coordinates/>
-  <place/>
-  <contributors/>
-</status>
-<status>
-  <created_at>Sun Oct 24 07:30:05 +0000 2010</created_at>
-  <id>28575138197</id>
-  <text>Lolz rofl! :) *dirty minds* of people RT @preetidhingra: everytime i tell someone that i like bananas, their expressions change</text>
-  <source>&lt;a href=&quot;http://twitter.com/&quot; rel=&quot;nofollow&quot;&gt;Twitter for iPhone&lt;/a&gt;</source>
-  <truncated>false</truncated>
-  <favorited>false</favorited>
-  <in_reply_to_status_id></in_reply_to_status_id>
-  <in_reply_to_user_id></in_reply_to_user_id>
-  <in_reply_to_screen_name></in_reply_to_screen_name>
-  <retweet_count></retweet_count>
-  <retweeted>false</retweeted>
-  <user>
-    <id>6466912</id>
-    <name>Arjun Ghosh</name>
-    <screen_name>arjunghosh</screen_name>
-    <location>New Delhi, Delhi, India</location>
-    <description>web developer, technologist, Literati,web 2.0 activist,technology enthusiast, social and new media evangelist, blogger,outdoor guy,getting down &amp; dirty person</description>
-    <profile_image_url>http://a3.twimg.com/profile_images/1108551939/image_normal.jpg</profile_image_url>
-    <url>http://arjunghosh.wordpress.com/</url>
-    <protected>false</protected>
-    <followers_count>1575</followers_count>
-    <profile_background_color>9ae4e8</profile_background_color>
-    <profile_text_color>000000</profile_text_color>
-    <profile_link_color>0000ff</profile_link_color>
-    <profile_sidebar_fill_color>e0ff92</profile_sidebar_fill_color>
-    <profile_sidebar_border_color>87bc44</profile_sidebar_border_color>
-    <friends_count>1323</friends_count>
-    <created_at>Thu May 31 09:40:21 +0000 2007</created_at>
-    <favourites_count>129</favourites_count>
-    <utc_offset>19800</utc_offset>
-    <time_zone>Kolkata</time_zone>
-    <profile_background_image_url>http://a3.twimg.com/profile_background_images/47094605/twilk_background.jpg</profile_background_image_url>
-    <profile_background_tile>true</profile_background_tile>
-    <profile_use_background_image>true</profile_use_background_image>
-    <notifications>false</notifications>
-    <geo_enabled>true</geo_enabled>
-    <verified>false</verified>
-    <following>true</following>
-    <statuses_count>26864</statuses_count>
-    <lang>en</lang>
-    <contributors_enabled>false</contributors_enabled>
-    <follow_request_sent>false</follow_request_sent>
-    <listed_count>118</listed_count>
-    <show_all_inline_media>false</show_all_inline_media>
-  </user>
-  <geo xmlns:georss="http://www.georss.org/georss">
-    <georss:point>22.49854195 88.35941398</georss:point>
-  </geo>
-  <coordinates xmlns:georss="http://www.georss.org/georss">
-    <georss:point>22.49854195 88.35941398</georss:point>
-  </coordinates>
-  <place/>
-  <contributors/>
-</status>
-<status>
-  <created_at>Sun Oct 24 07:26:58 +0000 2010</created_at>
-  <id>28574985503</id>
-  <text>White Punks WIth Dogs: http://www.youtube.com/watch?v=nHlJODYBLKs</text>
-  <source>&lt;a href=&quot;http://twitter.com&quot; rel=&quot;nofollow&quot;&gt;Tweetie for Mac&lt;/a&gt;</source>
-  <truncated>false</truncated>
-  <favorited>false</favorited>
-  <in_reply_to_status_id></in_reply_to_status_id>
-  <in_reply_to_user_id></in_reply_to_user_id>
-  <in_reply_to_screen_name></in_reply_to_screen_name>
-  <retweet_count></retweet_count>
-  <retweeted>false</retweeted>
-  <user>
-    <id>1235521</id>
-    <name>Tim Bray</name>
-    <screen_name>timbray</screen_name>
-    <location>Vancouver</location>
-    <description>Web geek with a camera, currently doing Android stuff at Google.</description>
-    <profile_image_url>http://a2.twimg.com/profile_images/421637246/Tim_normal.jpg</profile_image_url>
-    <url>http://www.tbray.org/ongoing/</url>
-    <protected>false</protected>
-    <followers_count>13433</followers_count>
-    <profile_background_color>FFFFFF</profile_background_color>
-    <profile_text_color>000000</profile_text_color>
-    <profile_link_color>AA0000</profile_link_color>
-    <profile_sidebar_fill_color>e0ff92</profile_sidebar_fill_color>
-    <profile_sidebar_border_color>87bc44</profile_sidebar_border_color>
-    <friends_count>582</friends_count>
-    <created_at>Thu Mar 15 17:24:22 +0000 2007</created_at>
-    <favourites_count>156</favourites_count>
-    <utc_offset>-28800</utc_offset>
-    <time_zone>Pacific Time (US &amp; Canada)</time_zone>
-    <profile_background_image_url>http://a1.twimg.com/profile_background_images/1980852/IMGP1686.jpg</profile_background_image_url>
-    <profile_background_tile>false</profile_background_tile>
-    <profile_use_background_image>false</profile_use_background_image>
-    <notifications>false</notifications>
-    <geo_enabled>false</geo_enabled>
-    <verified>false</verified>
-    <following>false</following>
-    <statuses_count>7525</statuses_count>
-    <lang>en</lang>
-    <contributors_enabled>false</contributors_enabled>
-    <follow_request_sent>false</follow_request_sent>
-    <listed_count>1276</listed_count>
-    <show_all_inline_media>false</show_all_inline_media>
-  </user>
-  <geo/>
-  <coordinates/>
-  <place/>
-  <contributors/>
-</status>
-<status>
-  <created_at>Sun Oct 24 07:16:05 +0000 2010</created_at>
-  <id>28574453718</id>
-  <text>Ruby on Rails with CouchDB development &#171; &#25216;&#34899;&#32773;&#27966;&#36963;&#12398;&#25216;&#34899;&#26085;&#35468;&#12502;&#12525;&#12464; http://bit.ly/d3LkMb</text>
-  <source>&lt;a href=&quot;http://twitterfeed.com&quot; rel=&quot;nofollow&quot;&gt;twitterfeed&lt;/a&gt;</source>
-  <truncated>false</truncated>
-  <favorited>false</favorited>
-  <in_reply_to_status_id></in_reply_to_status_id>
-  <in_reply_to_user_id></in_reply_to_user_id>
-  <in_reply_to_screen_name></in_reply_to_screen_name>
-  <retweet_count></retweet_count>
-  <retweeted>false</retweeted>
-  <user>
-    <id>66909971</id>
-    <name>Ruby on Rails UK</name>
-    <screen_name>RailsUK</screen_name>
-    <location>United Kingdom</location>
-    <description>Ruby on Rails UK</description>
-    <profile_image_url>http://a0.twimg.com/profile_images/369763828/Ruby_on_Rails_logo_normal.jpg</profile_image_url>
-    <url>http://tinyurl.com/ruby-on-rails-uk</url>
-    <protected>false</protected>
-    <followers_count>2301</followers_count>
-    <profile_background_color>0099B9</profile_background_color>
-    <profile_text_color>3C3940</profile_text_color>
-    <profile_link_color>0099B9</profile_link_color>
-    <profile_sidebar_fill_color>95E8EC</profile_sidebar_fill_color>
-    <profile_sidebar_border_color>5ED4DC</profile_sidebar_border_color>
-    <friends_count>8</friends_count>
-    <created_at>Wed Aug 19 04:30:02 +0000 2009</created_at>
-    <favourites_count>0</favourites_count>
-    <utc_offset>0</utc_offset>
-    <time_zone>London</time_zone>
-    <profile_background_image_url>http://s.twimg.com/a/1286916367/images/themes/theme4/bg.gif</profile_background_image_url>
-    <profile_background_tile>false</profile_background_tile>
-    <profile_use_background_image>true</profile_use_background_image>
-    <notifications>false</notifications>
-    <geo_enabled>false</geo_enabled>
-    <verified>false</verified>
-    <following>true</following>
-    <statuses_count>4685</statuses_count>
-    <lang>en</lang>
-    <contributors_enabled>false</contributors_enabled>
-    <follow_request_sent>false</follow_request_sent>
-    <listed_count>94</listed_count>
-    <show_all_inline_media>false</show_all_inline_media>
-  </user>
-  <geo/>
-  <coordinates/>
-  <place/>
-  <contributors/>
-</status>
-<status>
-  <created_at>Sun Oct 24 07:16:05 +0000 2010</created_at>
-  <id>28574453666</id>
-  <text>Ruby on Rails with CouchDB development &#171; &#25216;&#34899;&#32773;&#27966;&#36963;&#12398;&#25216;&#34899;&#26085;&#35468;&#12502;&#12525;&#12464; http://bit.ly/d3LkMb</text>
-  <source>&lt;a href=&quot;http://twitterfeed.com&quot; rel=&quot;nofollow&quot;&gt;twitterfeed&lt;/a&gt;</source>
-  <truncated>false</truncated>
-  <favorited>false</favorited>
-  <in_reply_to_status_id></in_reply_to_status_id>
-  <in_reply_to_user_id></in_reply_to_user_id>
-  <in_reply_to_screen_name></in_reply_to_screen_name>
-  <retweet_count></retweet_count>
-  <retweeted>false</retweeted>
-  <user>
-    <id>25225996</id>
-    <name>RubyOnRails Ireland</name>
-    <screen_name>RailsIreland</screen_name>
-    <location>Ireland</location>
-    <description>Ruby on Rails Ireland</description>
-    <profile_image_url>http://a1.twimg.com/profile_images/369753137/Ruby_on_Rails_logo_normal.jpg</profile_image_url>
-    <url>http://tinyurl.com/ruby-on-rails-ireland</url>
-    <protected>false</protected>
-    <followers_count>2088</followers_count>
-    <profile_background_color>642D8B</profile_background_color>
-    <profile_text_color>3D1957</profile_text_color>
-    <profile_link_color>FF0000</profile_link_color>
-    <profile_sidebar_fill_color>7AC3EE</profile_sidebar_fill_color>
-    <profile_sidebar_border_color>65B0DA</profile_sidebar_border_color>
-    <friends_count>8</friends_count>
-    <created_at>Thu Mar 19 03:11:20 +0000 2009</created_at>
-    <favourites_count>0</favourites_count>
-    <utc_offset>0</utc_offset>
-    <time_zone>Dublin</time_zone>
-    <profile_background_image_url>http://s.twimg.com/a/1287010001/images/themes/theme10/bg.gif</profile_background_image_url>
-    <profile_background_tile>true</profile_background_tile>
-    <profile_use_background_image>true</profile_use_background_image>
-    <notifications>false</notifications>
-    <geo_enabled>false</geo_enabled>
-    <verified>false</verified>
-    <following>true</following>
-    <statuses_count>5103</statuses_count>
-    <lang>en</lang>
-    <contributors_enabled>false</contributors_enabled>
-    <follow_request_sent>false</follow_request_sent>
-    <listed_count>37</listed_count>
-    <show_all_inline_media>false</show_all_inline_media>
-  </user>
-  <geo/>
-  <coordinates/>
-  <place/>
-  <contributors/>
-</status>
-<status>
-  <created_at>Sun Oct 24 07:12:21 +0000 2010</created_at>
-  <id>28574268020</id>
-  <text>And rainbows :) do not forget them ;) RT @mandybedi: I want sunshine.. on a rainy day..! :)</text>
-  <source>&lt;a href=&quot;http://twitter.com/&quot; rel=&quot;nofollow&quot;&gt;Twitter for iPhone&lt;/a&gt;</source>
-  <truncated>false</truncated>
-  <favorited>false</favorited>
-  <in_reply_to_status_id></in_reply_to_status_id>
-  <in_reply_to_user_id></in_reply_to_user_id>
-  <in_reply_to_screen_name></in_reply_to_screen_name>
-  <retweet_count></retweet_count>
-  <retweeted>false</retweeted>
-  <user>
-    <id>6466912</id>
-    <name>Arjun Ghosh</name>
-    <screen_name>arjunghosh</screen_name>
-    <location>New Delhi, Delhi, India</location>
-    <description>web developer, technologist, Literati,web 2.0 activist,technology enthusiast, social and new media evangelist, blogger,outdoor guy,getting down &amp; dirty person</description>
-    <profile_image_url>http://a3.twimg.com/profile_images/1108551939/image_normal.jpg</profile_image_url>
-    <url>http://arjunghosh.wordpress.com/</url>
-    <protected>false</protected>
-    <followers_count>1574</followers_count>
-    <profile_background_color>9ae4e8</profile_background_color>
-    <profile_text_color>000000</profile_text_color>
-    <profile_link_color>0000ff</profile_link_color>
-    <profile_sidebar_fill_color>e0ff92</profile_sidebar_fill_color>
-    <profile_sidebar_border_color>87bc44</profile_sidebar_border_color>
-    <friends_count>1323</friends_count>
-    <created_at>Thu May 31 09:40:21 +0000 2007</created_at>
-    <favourites_count>129</favourites_count>
-    <utc_offset>19800</utc_offset>
-    <time_zone>Kolkata</time_zone>
-    <profile_background_image_url>http://a3.twimg.com/profile_background_images/47094605/twilk_background.jpg</profile_background_image_url>
-    <profile_background_tile>true</profile_background_tile>
-    <profile_use_background_image>true</profile_use_background_image>
-    <notifications>false</notifications>
-    <geo_enabled>true</geo_enabled>
-    <verified>false</verified>
-    <following>true</following>
-    <statuses_count>26846</statuses_count>
-    <lang>en</lang>
-    <contributors_enabled>false</contributors_enabled>
-    <follow_request_sent>false</follow_request_sent>
-    <listed_count>118</listed_count>
-    <show_all_inline_media>false</show_all_inline_media>
-  </user>
-  <geo xmlns:georss="http://www.georss.org/georss">
-    <georss:point>22.49854195 88.35941398</georss:point>
-  </geo>
-  <coordinates xmlns:georss="http://www.georss.org/georss">
-    <georss:point>22.49854195 88.35941398</georss:point>
-  </coordinates>
-  <place/>
-  <contributors/>
-</status>
-<status>
-  <created_at>Sun Oct 24 07:11:40 +0000 2010</created_at>
-  <id>28574233265</id>
-  <text>:) RT @Devious_Chick: My car is low on oil so I am waiting for the next oil spill.</text>
-  <source>&lt;a href=&quot;http://twitter.com/&quot; rel=&quot;nofollow&quot;&gt;Twitter for iPhone&lt;/a&gt;</source>
-  <truncated>false</truncated>
-  <favorited>false</favorited>
-  <in_reply_to_status_id></in_reply_to_status_id>
-  <in_reply_to_user_id></in_reply_to_user_id>
-  <in_reply_to_screen_name></in_reply_to_screen_name>
-  <retweet_count></retweet_count>
-  <retweeted>false</retweeted>
-  <user>
-    <id>6466912</id>
-    <name>Arjun Ghosh</name>
-    <screen_name>arjunghosh</screen_name>
-    <location>New Delhi, Delhi, India</location>
-    <description>web developer, technologist, Literati,web 2.0 activist,technology enthusiast, social and new media evangelist, blogger,outdoor guy,getting down &amp; dirty person</description>
-    <profile_image_url>http://a3.twimg.com/profile_images/1108551939/image_normal.jpg</profile_image_url>
-    <url>http://arjunghosh.wordpress.com/</url>
-    <protected>false</protected>
-    <followers_count>1574</followers_count>
-    <profile_background_color>9ae4e8</profile_background_color>
-    <profile_text_color>000000</profile_text_color>
-    <profile_link_color>0000ff</profile_link_color>
-    <profile_sidebar_fill_color>e0ff92</profile_sidebar_fill_color>
-    <profile_sidebar_border_color>87bc44</profile_sidebar_border_color>
-    <friends_count>1323</friends_count>
-    <created_at>Thu May 31 09:40:21 +0000 2007</created_at>
-    <favourites_count>129</favourites_count>
-    <utc_offset>19800</utc_offset>
-    <time_zone>Kolkata</time_zone>
-    <profile_background_image_url>http://a3.twimg.com/profile_background_images/47094605/twilk_background.jpg</profile_background_image_url>
-    <profile_background_tile>true</profile_background_tile>
-    <profile_use_background_image>true</profile_use_background_image>
-    <notifications>false</notifications>
-    <geo_enabled>true</geo_enabled>
-    <verified>false</verified>
-    <following>true</following>
-    <statuses_count>26845</statuses_count>
-    <lang>en</lang>
-    <contributors_enabled>false</contributors_enabled>
-    <follow_request_sent>false</follow_request_sent>
-    <listed_count>118</listed_count>
-    <show_all_inline_media>false</show_all_inline_media>
-  </user>
-  <geo/>
-  <coordinates/>
-  <place/>
-  <contributors/>
-</status>
-<status>
-  <created_at>Sun Oct 24 07:07:38 +0000 2010</created_at>
-  <id>28574028260</id>
-  <text>A Week From Hallowe&#8217;en: http://is.gd/gfkxn</text>
-  <source>&lt;a href=&quot;http://twitter.com&quot; rel=&quot;nofollow&quot;&gt;Tweetie for Mac&lt;/a&gt;</source>
-  <truncated>false</truncated>
-  <favorited>false</favorited>
-  <in_reply_to_status_id></in_reply_to_status_id>
-  <in_reply_to_user_id></in_reply_to_user_id>
-  <in_reply_to_screen_name></in_reply_to_screen_name>
-  <retweet_count></retweet_count>
-  <retweeted>false</retweeted>
-  <user>
-    <id>1235521</id>
-    <name>Tim Bray</name>
-    <screen_name>timbray</screen_name>
-    <location>Vancouver</location>
-    <description>Web geek with a camera, currently doing Android stuff at Google.</description>
-    <profile_image_url>http://a2.twimg.com/profile_images/421637246/Tim_normal.jpg</profile_image_url>
-    <url>http://www.tbray.org/ongoing/</url>
-    <protected>false</protected>
-    <followers_count>13433</followers_count>
-    <profile_background_color>FFFFFF</profile_background_color>
-    <profile_text_color>000000</profile_text_color>
-    <profile_link_color>AA0000</profile_link_color>
-    <profile_sidebar_fill_color>e0ff92</profile_sidebar_fill_color>
-    <profile_sidebar_border_color>87bc44</profile_sidebar_border_color>
-    <friends_count>582</friends_count>
-    <created_at>Thu Mar 15 17:24:22 +0000 2007</created_at>
-    <favourites_count>156</favourites_count>
-    <utc_offset>-28800</utc_offset>
-    <time_zone>Pacific Time (US &amp; Canada)</time_zone>
-    <profile_background_image_url>http://a1.twimg.com/profile_background_images/1980852/IMGP1686.jpg</profile_background_image_url>
-    <profile_background_tile>false</profile_background_tile>
-    <profile_use_background_image>false</profile_use_background_image>
-    <notifications>false</notifications>
-    <geo_enabled>false</geo_enabled>
-    <verified>false</verified>
-    <following>false</following>
-    <statuses_count>7524</statuses_count>
-    <lang>en</lang>
-    <contributors_enabled>false</contributors_enabled>
-    <follow_request_sent>false</follow_request_sent>
-    <listed_count>1276</listed_count>
-    <show_all_inline_media>false</show_all_inline_media>
-  </user>
-  <geo/>
-  <coordinates/>
-  <place/>
-  <contributors/>
-</status>
-<status>
-  <created_at>Sun Oct 24 07:07:05 +0000 2010</created_at>
-  <id>28573999291</id>
-  <text>Wow, @edaz is awesome. So glad he's a mentor for #swphx. The teams are really benefitting from his knowledge and experience.</text>
-  <source>web</source>
-  <truncated>false</truncated>
-  <favorited>false</favorited>
-  <in_reply_to_status_id></in_reply_to_status_id>
-  <in_reply_to_user_id></in_reply_to_user_id>
-  <in_reply_to_screen_name></in_reply_to_screen_name>
-  <retweet_count></retweet_count>
-  <retweeted>false</retweeted>
-  <user>
-    <id>12345462</id>
-    <name>Curtis Miller</name>
-    <screen_name>curtism</screen_name>
-    <location>Phoenix, AZ</location>
-    <description>Rubyist, Entrepreneur, Co-founder of Flatterline with @squanderingtime. Co-founder of @yeahpick.</description>
-    <profile_image_url>http://a0.twimg.com/profile_images/210750020/profile2-orig_normal.jpg</profile_image_url>
-    <url>http://millarian.com</url>
-    <protected>false</protected>
-    <followers_count>892</followers_count>
-    <profile_background_color>000000</profile_background_color>
-    <profile_text_color>666666</profile_text_color>
-    <profile_link_color>b73535</profile_link_color>
-    <profile_sidebar_fill_color>121212</profile_sidebar_fill_color>
-    <profile_sidebar_border_color>6a2929</profile_sidebar_border_color>
-    <friends_count>171</friends_count>
-    <created_at>Thu Jan 17 04:46:25 +0000 2008</created_at>
-    <favourites_count>27</favourites_count>
-    <utc_offset>-25200</utc_offset>
-    <time_zone>Arizona</time_zone>
-    <profile_background_image_url>http://a3.twimg.com/profile_background_images/130548915/threadlesshorde_658_9382.jpg</profile_background_image_url>
-    <profile_background_tile>false</profile_background_tile>
-    <profile_use_background_image>true</profile_use_background_image>
-    <notifications>false</notifications>
-    <geo_enabled>true</geo_enabled>
-    <verified>false</verified>
-    <following>true</following>
-    <statuses_count>5271</statuses_count>
-    <lang>en</lang>
-    <contributors_enabled>false</contributors_enabled>
-    <follow_request_sent>false</follow_request_sent>
-    <listed_count>110</listed_count>
-    <show_all_inline_media>true</show_all_inline_media>
-  </user>
-  <geo/>
-  <coordinates/>
-  <place/>
-  <contributors/>
-</status>
-<status>
-  <created_at>Sun Oct 24 07:01:48 +0000 2010</created_at>
-  <id>28573732781</id>
-  <text>Postgres talk now in Felspar room due to technical difficulties #barCampbkk4</text>
-  <source>&lt;a href=&quot;http://twitter.com/&quot; rel=&quot;nofollow&quot;&gt;Twitter for iPhone&lt;/a&gt;</source>
-  <truncated>false</truncated>
-  <favorited>false</favorited>
-  <in_reply_to_status_id></in_reply_to_status_id>
-  <in_reply_to_user_id></in_reply_to_user_id>
-  <in_reply_to_screen_name></in_reply_to_screen_name>
-  <retweet_count></retweet_count>
-  <retweeted>false</retweeted>
-  <user>
-    <id>21359927</id>
-    <name>Gordon Anderson</name>
-    <screen_name>elgrodo</screen_name>
-    <location>Bangkok</location>
-    <description>Web developer living in Bangkok, previously lived in Wellington NZ</description>
-    <profile_image_url>http://a3.twimg.com/profile_images/649772667/twitterProfilePhoto_normal.jpg</profile_image_url>
+    <id>7505382</id>
+    <name>Erik Michaels-Ober</name>
+    <screen_name>sferik</screen_name>
+    <location>San Francisco</location>
+    <description>Adventures in hunger and foolishness.</description>
+    <profile_image_url>http://a0.twimg.com/profile_images/323331048/me_normal.jpg</profile_image_url>
     <url></url>
     <protected>false</protected>
-    <followers_count>247</followers_count>
-    <profile_background_color>C6E2EE</profile_background_color>
-    <profile_text_color>663B12</profile_text_color>
-    <profile_link_color>1F98C7</profile_link_color>
-    <profile_sidebar_fill_color>DAECF4</profile_sidebar_fill_color>
-    <profile_sidebar_border_color>C6E2EE</profile_sidebar_border_color>
-    <friends_count>503</friends_count>
-    <created_at>Fri Feb 20 01:03:58 +0000 2009</created_at>
-    <favourites_count>306</favourites_count>
-    <utc_offset>25200</utc_offset>
-    <time_zone>Bangkok</time_zone>
-    <profile_background_image_url>http://s.twimg.com/a/1287010001/images/themes/theme2/bg.gif</profile_background_image_url>
+    <followers_count>897</followers_count>
+    <profile_background_color>000000</profile_background_color>
+    <profile_text_color>333333</profile_text_color>
+    <profile_link_color>0084B4</profile_link_color>
+    <profile_sidebar_fill_color>DDEEF6</profile_sidebar_fill_color>
+    <profile_sidebar_border_color>C0DEED</profile_sidebar_border_color>
+    <friends_count>89</friends_count>
+    <created_at>Mon Jul 16 12:59:01 +0000 2007</created_at>
+    <favourites_count>729</favourites_count>
+    <utc_offset>-28800</utc_offset>
+    <time_zone>Pacific Time (US &amp; Canada)</time_zone>
+    <profile_background_image_url>http://a3.twimg.com/profile_background_images/162641967/we_concept_bg2.png</profile_background_image_url>
     <profile_background_tile>false</profile_background_tile>
     <profile_use_background_image>true</profile_use_background_image>
     <notifications>false</notifications>
     <geo_enabled>true</geo_enabled>
     <verified>false</verified>
     <following>false</following>
-    <statuses_count>4031</statuses_count>
+    <statuses_count>2973</statuses_count>
     <lang>en</lang>
     <contributors_enabled>false</contributors_enabled>
     <follow_request_sent>false</follow_request_sent>
-    <listed_count>21</listed_count>
-    <show_all_inline_media>false</show_all_inline_media>
-  </user>
-  <geo/>
-  <coordinates/>
-  <place/>
-  <contributors/>
-</status>
-<status>
-  <created_at>Sun Oct 24 07:01:38 +0000 2010</created_at>
-  <id>28573724495</id>
-  <text>Yesterday's coding efforts paid off: My bot ranks 191 after 20 matches. http://ai-contest.com/profile.php?user_id=11428 #aichallenge</text>
-  <source>&lt;a href=&quot;http://twitter.com&quot; rel=&quot;nofollow&quot;&gt;Tweetie for Mac&lt;/a&gt;</source>
-  <truncated>false</truncated>
-  <favorited>false</favorited>
-  <in_reply_to_status_id></in_reply_to_status_id>
-  <in_reply_to_user_id></in_reply_to_user_id>
-  <in_reply_to_screen_name></in_reply_to_screen_name>
-  <retweet_count></retweet_count>
-  <retweeted>false</retweeted>
-  <user>
-    <id>5295232</id>
-    <name>Wes Oldenbeuving</name>
-    <screen_name>Narnach</screen_name>
-    <location>Amsterdam, The Netherlands</location>
-    <description>Freelance Rubyist. Interested in complex systems. Love books, games and good conversations.</description>
-    <profile_image_url>http://a2.twimg.com/profile_images/72325202/Photo_25_normal.jpg</profile_image_url>
-    <url>http://narnach.com</url>
-    <protected>false</protected>
-    <followers_count>158</followers_count>
-    <profile_background_color>C6E2EE</profile_background_color>
-    <profile_text_color>1f91a3</profile_text_color>
-    <profile_link_color>142638</profile_link_color>
-    <profile_sidebar_fill_color>b1d6e7</profile_sidebar_fill_color>
-    <profile_sidebar_border_color>C6E2EE</profile_sidebar_border_color>
-    <friends_count>94</friends_count>
-    <created_at>Fri Apr 20 05:47:01 +0000 2007</created_at>
-    <favourites_count>65</favourites_count>
-    <utc_offset>3600</utc_offset>
-    <time_zone>Amsterdam</time_zone>
-    <profile_background_image_url>http://s.twimg.com/a/1287523226/images/themes/theme2/bg.gif</profile_background_image_url>
-    <profile_background_tile>false</profile_background_tile>
-    <profile_use_background_image>true</profile_use_background_image>
-    <notifications>false</notifications>
-    <geo_enabled>false</geo_enabled>
-    <verified>false</verified>
-    <following>false</following>
-    <statuses_count>801</statuses_count>
-    <lang>en</lang>
-    <contributors_enabled>false</contributors_enabled>
-    <follow_request_sent>false</follow_request_sent>
-    <listed_count>19</listed_count>
-    <show_all_inline_media>false</show_all_inline_media>
-  </user>
-  <geo/>
-  <coordinates/>
-  <place/>
-  <contributors/>
-</status>
-<status>
-  <created_at>Sun Oct 24 06:57:29 +0000 2010</created_at>
-  <id>28573513426</id>
-  <text>me gustar&#237;a leer m&#225;s libros en espa&#241;ol. &#191;recomendaciones? (psicol&#243;gico, ciencia ficci&#243;n u otro) #es</text>
-  <source>&lt;a href=&quot;http://twitter.com&quot; rel=&quot;nofollow&quot;&gt;Tweetie for Mac&lt;/a&gt;</source>
-  <truncated>false</truncated>
-  <favorited>false</favorited>
-  <in_reply_to_status_id></in_reply_to_status_id>
-  <in_reply_to_user_id></in_reply_to_user_id>
-  <in_reply_to_screen_name></in_reply_to_screen_name>
-  <retweet_count></retweet_count>
-  <retweeted>false</retweeted>
-  <user>
-    <id>16476741</id>
-    <name>Matt Aimonetti</name>
-    <screen_name>merbist</screen_name>
-    <location>San Diego, CA</location>
-    <description>Sony Playstation Ruby developer during the day, hacker by night. The opinions expressed here are not those of my employer.</description>
-    <profile_image_url>http://a3.twimg.com/profile_images/1125997283/m_aimonetti_normal.jpg</profile_image_url>
-    <url>http://merbist.com</url>
-    <protected>false</protected>
-    <followers_count>2485</followers_count>
-    <profile_background_color>3fa16b</profile_background_color>
-    <profile_text_color>333333</profile_text_color>
-    <profile_link_color>0084B4</profile_link_color>
-    <profile_sidebar_fill_color>DDFFCC</profile_sidebar_fill_color>
-    <profile_sidebar_border_color>BDDCAD</profile_sidebar_border_color>
-    <friends_count>936</friends_count>
-    <created_at>Fri Sep 26 23:07:57 +0000 2008</created_at>
-    <favourites_count>6</favourites_count>
-    <utc_offset>-28800</utc_offset>
-    <time_zone>Pacific Time (US &amp; Canada)</time_zone>
-    <profile_background_image_url>http://a3.twimg.com/profile_background_images/3633097/merbist_twitter.gif</profile_background_image_url>
-    <profile_background_tile>false</profile_background_tile>
-    <profile_use_background_image>false</profile_use_background_image>
-    <notifications>false</notifications>
-    <geo_enabled>false</geo_enabled>
-    <verified>false</verified>
-    <following>false</following>
-    <statuses_count>5236</statuses_count>
-    <lang>en</lang>
-    <contributors_enabled>false</contributors_enabled>
-    <follow_request_sent>false</follow_request_sent>
-    <listed_count>334</listed_count>
-    <show_all_inline_media>false</show_all_inline_media>
-  </user>
-  <geo/>
-  <coordinates/>
-  <place/>
-  <contributors/>
-</status>
-<status>
-  <created_at>Sun Oct 24 06:57:21 +0000 2010</created_at>
-  <id>28573506847</id>
-  <text>My internet speed has dropped down to around 256 kb/s the past few days. I'm not happy, Frontier.</text>
-  <source>&lt;a href=&quot;http://www.echofon.com/&quot; rel=&quot;nofollow&quot;&gt;Echofon&lt;/a&gt;</source>
-  <truncated>false</truncated>
-  <favorited>false</favorited>
-  <in_reply_to_status_id></in_reply_to_status_id>
-  <in_reply_to_user_id></in_reply_to_user_id>
-  <in_reply_to_screen_name></in_reply_to_screen_name>
-  <retweet_count></retweet_count>
-  <retweeted>false</retweeted>
-  <user>
-    <id>14246143</id>
-    <name>Ryan Bates</name>
-    <screen_name>rbates</screen_name>
-    <location>Southern Oregon</location>
-    <description>Producer of Railscasts - Free Ruby on Rails Screencasts</description>
-    <profile_image_url>http://a0.twimg.com/profile_images/52189024/ryan_bates_cropped_normal.jpg</profile_image_url>
-    <url>http://railscasts.com</url>
-    <protected>false</protected>
-    <followers_count>5784</followers_count>
-    <profile_background_color>C6E2EE</profile_background_color>
-    <profile_text_color>000000</profile_text_color>
-    <profile_link_color>1c95c4</profile_link_color>
-    <profile_sidebar_fill_color>f2f2f2</profile_sidebar_fill_color>
-    <profile_sidebar_border_color>b3b3b3</profile_sidebar_border_color>
-    <friends_count>282</friends_count>
-    <created_at>Fri Mar 28 19:10:25 +0000 2008</created_at>
-    <favourites_count>65</favourites_count>
-    <utc_offset>-28800</utc_offset>
-    <time_zone>Pacific Time (US &amp; Canada)</time_zone>
-    <profile_background_image_url>http://s.twimg.com/a/1287010001/images/themes/theme2/bg.gif</profile_background_image_url>
-    <profile_background_tile>false</profile_background_tile>
-    <profile_use_background_image>true</profile_use_background_image>
-    <notifications>false</notifications>
-    <geo_enabled>false</geo_enabled>
-    <verified>false</verified>
-    <following>true</following>
-    <statuses_count>4187</statuses_count>
-    <lang>en</lang>
-    <contributors_enabled>false</contributors_enabled>
-    <follow_request_sent>false</follow_request_sent>
-    <listed_count>650</listed_count>
-    <show_all_inline_media>false</show_all_inline_media>
-  </user>
-  <geo/>
-  <coordinates/>
-  <place/>
-  <contributors/>
-</status>
-<status>
-  <created_at>Sun Oct 24 06:57:07 +0000 2010</created_at>
-  <id>28573494525</id>
-  <text>Are you obsessed with health and happiness? Help out a #swphx startup by filling out this short survey: http://bit.ly/9u2H5</text>
-  <source>web</source>
-  <truncated>false</truncated>
-  <favorited>false</favorited>
-  <in_reply_to_status_id></in_reply_to_status_id>
-  <in_reply_to_user_id></in_reply_to_user_id>
-  <in_reply_to_screen_name></in_reply_to_screen_name>
-  <retweet_count></retweet_count>
-  <retweeted>false</retweeted>
-  <user>
-    <id>15913931</id>
-    <name>Marc Chung</name>
-    <screen_name>heisenthought</screen_name>
-    <location>Arizona</location>
-    <description>Woohoo. I'm getting married.</description>
-    <profile_image_url>http://a3.twimg.com/profile_images/768477835/me-linkedin-30a16c5_normal.jpg</profile_image_url>
-    <url>http://marcchung.com</url>
-    <protected>false</protected>
-    <followers_count>784</followers_count>
-    <profile_background_color>181c1f</profile_background_color>
-    <profile_text_color>575e61</profile_text_color>
-    <profile_link_color>cb9934</profile_link_color>
-    <profile_sidebar_fill_color>0e1621</profile_sidebar_fill_color>
-    <profile_sidebar_border_color>454b52</profile_sidebar_border_color>
-    <friends_count>597</friends_count>
-    <created_at>Wed Aug 20 04:23:31 +0000 2008</created_at>
-    <favourites_count>264</favourites_count>
-    <utc_offset>-25200</utc_offset>
-    <time_zone>Arizona</time_zone>
-    <profile_background_image_url>http://a3.twimg.com/profile_background_images/96118017/tcchalk_578_9428.jpg</profile_background_image_url>
-    <profile_background_tile>false</profile_background_tile>
-    <profile_use_background_image>true</profile_use_background_image>
-    <notifications>false</notifications>
-    <geo_enabled>false</geo_enabled>
-    <verified>false</verified>
-    <following>true</following>
-    <statuses_count>3307</statuses_count>
-    <lang>en</lang>
-    <contributors_enabled>false</contributors_enabled>
-    <follow_request_sent>false</follow_request_sent>
-    <listed_count>81</listed_count>
-    <show_all_inline_media>false</show_all_inline_media>
-  </user>
-  <geo/>
-  <coordinates/>
-  <place/>
-  <contributors/>
-</status>
-<status>
-  <created_at>Sun Oct 24 06:56:19 +0000 2010</created_at>
-  <id>28573455233</id>
-  <text>Brand new solid state drive installed. Loading up software now. Super fast!</text>
-  <source>&lt;a href=&quot;http://twitter.com&quot; rel=&quot;nofollow&quot;&gt;Tweetie for Mac&lt;/a&gt;</source>
-  <truncated>false</truncated>
-  <favorited>false</favorited>
-  <in_reply_to_status_id></in_reply_to_status_id>
-  <in_reply_to_user_id></in_reply_to_user_id>
-  <in_reply_to_screen_name></in_reply_to_screen_name>
-  <retweet_count></retweet_count>
-  <retweeted>false</retweeted>
-  <user>
-    <id>8476702</id>
-    <name>Bryan Ray</name>
-    <screen_name>bryanray</screen_name>
-    <location>Houston, TX</location>
-    <description>I'm not a good developer; I'm just a decent developer with great habits.</description>
-    <profile_image_url>http://a3.twimg.com/profile_images/342896891/Photo_8_normal.jpg</profile_image_url>
-    <url>http://www.bryanray.net</url>
-    <protected>false</protected>
-    <followers_count>173</followers_count>
-    <profile_background_color>0099B9</profile_background_color>
-    <profile_text_color>3C3940</profile_text_color>
-    <profile_link_color>0099B9</profile_link_color>
-    <profile_sidebar_fill_color>95E8EC</profile_sidebar_fill_color>
-    <profile_sidebar_border_color>5ED4DC</profile_sidebar_border_color>
-    <friends_count>58</friends_count>
-    <created_at>Tue Aug 28 02:49:31 +0000 2007</created_at>
-    <favourites_count>2</favourites_count>
-    <utc_offset>-21600</utc_offset>
-    <time_zone>Central Time (US &amp; Canada)</time_zone>
-    <profile_background_image_url>http://s.twimg.com/a/1287523226/images/themes/theme4/bg.gif</profile_background_image_url>
-    <profile_background_tile>false</profile_background_tile>
-    <profile_use_background_image>true</profile_use_background_image>
-    <notifications>false</notifications>
-    <geo_enabled>false</geo_enabled>
-    <verified>false</verified>
-    <following>false</following>
-    <statuses_count>2641</statuses_count>
-    <lang>en</lang>
-    <contributors_enabled>false</contributors_enabled>
-    <follow_request_sent>false</follow_request_sent>
-    <listed_count>7</listed_count>
-    <show_all_inline_media>false</show_all_inline_media>
-  </user>
-  <geo/>
-  <coordinates/>
-  <place/>
-  <contributors/>
-</status>
-<status>
-  <created_at>Sun Oct 24 06:54:35 +0000 2010</created_at>
-  <id>28573366331</id>
-  <text>Current late-night vinyl: George Thorogood and the Destroyers, &quot;Move It On Over&quot;. So pure. No temptation to skip side 2.</text>
-  <source>&lt;a href=&quot;http://twitter.com&quot; rel=&quot;nofollow&quot;&gt;Tweetie for Mac&lt;/a&gt;</source>
-  <truncated>false</truncated>
-  <favorited>false</favorited>
-  <in_reply_to_status_id></in_reply_to_status_id>
-  <in_reply_to_user_id></in_reply_to_user_id>
-  <in_reply_to_screen_name></in_reply_to_screen_name>
-  <retweet_count></retweet_count>
-  <retweeted>false</retweeted>
-  <user>
-    <id>1235521</id>
-    <name>Tim Bray</name>
-    <screen_name>timbray</screen_name>
-    <location>Vancouver</location>
-    <description>Web geek with a camera, currently doing Android stuff at Google.</description>
-    <profile_image_url>http://a2.twimg.com/profile_images/421637246/Tim_normal.jpg</profile_image_url>
-    <url>http://www.tbray.org/ongoing/</url>
-    <protected>false</protected>
-    <followers_count>13433</followers_count>
-    <profile_background_color>FFFFFF</profile_background_color>
-    <profile_text_color>000000</profile_text_color>
-    <profile_link_color>AA0000</profile_link_color>
-    <profile_sidebar_fill_color>e0ff92</profile_sidebar_fill_color>
-    <profile_sidebar_border_color>87bc44</profile_sidebar_border_color>
-    <friends_count>582</friends_count>
-    <created_at>Thu Mar 15 17:24:22 +0000 2007</created_at>
-    <favourites_count>155</favourites_count>
-    <utc_offset>-28800</utc_offset>
-    <time_zone>Pacific Time (US &amp; Canada)</time_zone>
-    <profile_background_image_url>http://a1.twimg.com/profile_background_images/1980852/IMGP1686.jpg</profile_background_image_url>
-    <profile_background_tile>false</profile_background_tile>
-    <profile_use_background_image>false</profile_use_background_image>
-    <notifications>false</notifications>
-    <geo_enabled>false</geo_enabled>
-    <verified>false</verified>
-    <following>false</following>
-    <statuses_count>7523</statuses_count>
-    <lang>en</lang>
-    <contributors_enabled>false</contributors_enabled>
-    <follow_request_sent>false</follow_request_sent>
-    <listed_count>1276</listed_count>
-    <show_all_inline_media>false</show_all_inline_media>
-  </user>
-  <geo/>
-  <coordinates/>
-  <place/>
-  <contributors/>
-</status>
-<status>
-  <created_at>Sun Oct 24 06:53:09 +0000 2010</created_at>
-  <id>28573293288</id>
-  <text>Me: &quot;I love kimchi, but it gives me wicked heartburn.&quot; Wife: &quot;Then don't eat so much of it.&quot; Me: &quot;No. Not an option.&quot;</text>
-  <source>&lt;a href=&quot;http://www.echofon.com/&quot; rel=&quot;nofollow&quot;&gt;Echofon&lt;/a&gt;</source>
-  <truncated>false</truncated>
-  <favorited>false</favorited>
-  <in_reply_to_status_id></in_reply_to_status_id>
-  <in_reply_to_user_id></in_reply_to_user_id>
-  <in_reply_to_screen_name></in_reply_to_screen_name>
-  <retweet_count></retweet_count>
-  <retweeted>false</retweeted>
-  <user>
-    <id>18713</id>
-    <name>Alex Payne</name>
-    <screen_name>al3x</screen_name>
-    <location>PDX / NYC / SFO / DCA</location>
-    <description>Chief Product &amp; Technology Officer, BankSimple. Programmer, writer, beverage enthusiast. Used to work here.</description>
-    <profile_image_url>http://a0.twimg.com/profile_images/357750272/small_3_normal.png</profile_image_url>
-    <url>http://al3x.net/</url>
-    <protected>false</protected>
-    <followers_count>22388</followers_count>
-    <profile_background_color>e5e9eb</profile_background_color>
-    <profile_text_color>232323</profile_text_color>
-    <profile_link_color>336699</profile_link_color>
-    <profile_sidebar_fill_color>c3cbd0</profile_sidebar_fill_color>
-    <profile_sidebar_border_color>333</profile_sidebar_border_color>
-    <friends_count>241</friends_count>
-    <created_at>Thu Nov 23 19:29:11 +0000 2006</created_at>
-    <favourites_count>3221</favourites_count>
-    <utc_offset>-28800</utc_offset>
-    <time_zone>Pacific Time (US &amp; Canada)</time_zone>
-    <profile_background_image_url>http://s.twimg.com/a/1287010001/images/themes/theme1/bg.png</profile_background_image_url>
-    <profile_background_tile>false</profile_background_tile>
-    <profile_use_background_image>false</profile_use_background_image>
-    <notifications>false</notifications>
-    <geo_enabled>false</geo_enabled>
-    <verified>false</verified>
-    <following>true</following>
-    <statuses_count>16197</statuses_count>
-    <lang>en</lang>
-    <contributors_enabled>false</contributors_enabled>
-    <follow_request_sent>false</follow_request_sent>
-    <listed_count>1786</listed_count>
+    <listed_count>28</listed_count>
     <show_all_inline_media>true</show_all_inline_media>
   </user>
   <geo/>
@@ -927,10 +52,10 @@
   <contributors/>
 </status>
 <status>
-  <created_at>Sun Oct 24 06:50:00 +0000 2010</created_at>
-  <id>28573133251</id>
-  <text>RT @ra66i: this has to be one of my most epic trolls ever, sekrets of the roflscale sauce: http://bit.ly/abBT8n (via @alloy)</text>
-  <source>&lt;a href=&quot;http://twitter.com&quot; rel=&quot;nofollow&quot;&gt;Tweetie for Mac&lt;/a&gt;</source>
+  <created_at>Fri Oct 15 18:26:47 +0000 2010</created_at>
+  <id>27467028175</id>
+  <text>There are 1.3 billion people in China; when people say there are 1 billion they are rounding off the entire population of the United States.</text>
+  <source>&lt;a href=&quot;http://www.echofon.com/&quot; rel=&quot;nofollow&quot;&gt;Echofon&lt;/a&gt;</source>
   <truncated>false</truncated>
   <favorited>false</favorited>
   <in_reply_to_status_id></in_reply_to_status_id>
@@ -939,38 +64,935 @@
   <retweet_count></retweet_count>
   <retweeted>false</retweeted>
   <user>
-    <id>5295232</id>
-    <name>Wes Oldenbeuving</name>
-    <screen_name>Narnach</screen_name>
-    <location>Amsterdam, The Netherlands</location>
-    <description>Freelance Rubyist. Interested in complex systems. Love books, games and good conversations.</description>
-    <profile_image_url>http://a2.twimg.com/profile_images/72325202/Photo_25_normal.jpg</profile_image_url>
-    <url>http://narnach.com</url>
+    <id>7505382</id>
+    <name>Erik Michaels-Ober</name>
+    <screen_name>sferik</screen_name>
+    <location>San Francisco</location>
+    <description>Adventures in hunger and foolishness.</description>
+    <profile_image_url>http://a0.twimg.com/profile_images/323331048/me_normal.jpg</profile_image_url>
+    <url></url>
     <protected>false</protected>
-    <followers_count>158</followers_count>
-    <profile_background_color>C6E2EE</profile_background_color>
-    <profile_text_color>1f91a3</profile_text_color>
-    <profile_link_color>142638</profile_link_color>
-    <profile_sidebar_fill_color>b1d6e7</profile_sidebar_fill_color>
-    <profile_sidebar_border_color>C6E2EE</profile_sidebar_border_color>
-    <friends_count>94</friends_count>
-    <created_at>Fri Apr 20 05:47:01 +0000 2007</created_at>
-    <favourites_count>65</favourites_count>
-    <utc_offset>3600</utc_offset>
-    <time_zone>Amsterdam</time_zone>
-    <profile_background_image_url>http://s.twimg.com/a/1287523226/images/themes/theme2/bg.gif</profile_background_image_url>
+    <followers_count>897</followers_count>
+    <profile_background_color>000000</profile_background_color>
+    <profile_text_color>333333</profile_text_color>
+    <profile_link_color>0084B4</profile_link_color>
+    <profile_sidebar_fill_color>DDEEF6</profile_sidebar_fill_color>
+    <profile_sidebar_border_color>C0DEED</profile_sidebar_border_color>
+    <friends_count>89</friends_count>
+    <created_at>Mon Jul 16 12:59:01 +0000 2007</created_at>
+    <favourites_count>729</favourites_count>
+    <utc_offset>-28800</utc_offset>
+    <time_zone>Pacific Time (US &amp; Canada)</time_zone>
+    <profile_background_image_url>http://a3.twimg.com/profile_background_images/162641967/we_concept_bg2.png</profile_background_image_url>
     <profile_background_tile>false</profile_background_tile>
     <profile_use_background_image>true</profile_use_background_image>
     <notifications>false</notifications>
-    <geo_enabled>false</geo_enabled>
+    <geo_enabled>true</geo_enabled>
     <verified>false</verified>
     <following>false</following>
-    <statuses_count>800</statuses_count>
+    <statuses_count>2973</statuses_count>
     <lang>en</lang>
     <contributors_enabled>false</contributors_enabled>
     <follow_request_sent>false</follow_request_sent>
-    <listed_count>19</listed_count>
-    <show_all_inline_media>false</show_all_inline_media>
+    <listed_count>28</listed_count>
+    <show_all_inline_media>true</show_all_inline_media>
+  </user>
+  <geo/>
+  <coordinates/>
+  <place/>
+  <contributors/>
+</status>
+<status>
+  <created_at>Mon Oct 11 20:57:56 +0000 2010</created_at>
+  <id>27068258331</id>
+  <text>The new Windows Phone campaign is the best advertising from Microsoft since &quot;Start Me Up&quot; (1995). Great work by CP+B. http://t.co/tIzxopI</text>
+  <source>&lt;a href=&quot;http://twitter.com/tweetbutton&quot; rel=&quot;nofollow&quot;&gt;Tweet Button&lt;/a&gt;</source>
+  <truncated>false</truncated>
+  <favorited>false</favorited>
+  <in_reply_to_status_id></in_reply_to_status_id>
+  <in_reply_to_user_id></in_reply_to_user_id>
+  <in_reply_to_screen_name></in_reply_to_screen_name>
+  <retweet_count></retweet_count>
+  <retweeted>false</retweeted>
+  <user>
+    <id>7505382</id>
+    <name>Erik Michaels-Ober</name>
+    <screen_name>sferik</screen_name>
+    <location>San Francisco</location>
+    <description>Adventures in hunger and foolishness.</description>
+    <profile_image_url>http://a0.twimg.com/profile_images/323331048/me_normal.jpg</profile_image_url>
+    <url></url>
+    <protected>false</protected>
+    <followers_count>897</followers_count>
+    <profile_background_color>000000</profile_background_color>
+    <profile_text_color>333333</profile_text_color>
+    <profile_link_color>0084B4</profile_link_color>
+    <profile_sidebar_fill_color>DDEEF6</profile_sidebar_fill_color>
+    <profile_sidebar_border_color>C0DEED</profile_sidebar_border_color>
+    <friends_count>89</friends_count>
+    <created_at>Mon Jul 16 12:59:01 +0000 2007</created_at>
+    <favourites_count>729</favourites_count>
+    <utc_offset>-28800</utc_offset>
+    <time_zone>Pacific Time (US &amp; Canada)</time_zone>
+    <profile_background_image_url>http://a3.twimg.com/profile_background_images/162641967/we_concept_bg2.png</profile_background_image_url>
+    <profile_background_tile>false</profile_background_tile>
+    <profile_use_background_image>true</profile_use_background_image>
+    <notifications>false</notifications>
+    <geo_enabled>true</geo_enabled>
+    <verified>false</verified>
+    <following>false</following>
+    <statuses_count>2973</statuses_count>
+    <lang>en</lang>
+    <contributors_enabled>false</contributors_enabled>
+    <follow_request_sent>false</follow_request_sent>
+    <listed_count>28</listed_count>
+    <show_all_inline_media>true</show_all_inline_media>
+  </user>
+  <geo/>
+  <coordinates/>
+  <place/>
+  <contributors/>
+</status>
+<status>
+  <created_at>Sun Oct 10 18:26:22 +0000 2010</created_at>
+  <id>26959930192</id>
+  <text>Fear not to sow seeds because of the birds. http://twitpic.com/2wg621</text>
+  <source>&lt;a href=&quot;http://www.echofon.com/&quot; rel=&quot;nofollow&quot;&gt;Echofon&lt;/a&gt;</source>
+  <truncated>false</truncated>
+  <favorited>false</favorited>
+  <in_reply_to_status_id></in_reply_to_status_id>
+  <in_reply_to_user_id></in_reply_to_user_id>
+  <in_reply_to_screen_name></in_reply_to_screen_name>
+  <retweet_count></retweet_count>
+  <retweeted>false</retweeted>
+  <user>
+    <id>7505382</id>
+    <name>Erik Michaels-Ober</name>
+    <screen_name>sferik</screen_name>
+    <location>San Francisco</location>
+    <description>Adventures in hunger and foolishness.</description>
+    <profile_image_url>http://a0.twimg.com/profile_images/323331048/me_normal.jpg</profile_image_url>
+    <url></url>
+    <protected>false</protected>
+    <followers_count>897</followers_count>
+    <profile_background_color>000000</profile_background_color>
+    <profile_text_color>333333</profile_text_color>
+    <profile_link_color>0084B4</profile_link_color>
+    <profile_sidebar_fill_color>DDEEF6</profile_sidebar_fill_color>
+    <profile_sidebar_border_color>C0DEED</profile_sidebar_border_color>
+    <friends_count>89</friends_count>
+    <created_at>Mon Jul 16 12:59:01 +0000 2007</created_at>
+    <favourites_count>729</favourites_count>
+    <utc_offset>-28800</utc_offset>
+    <time_zone>Pacific Time (US &amp; Canada)</time_zone>
+    <profile_background_image_url>http://a3.twimg.com/profile_background_images/162641967/we_concept_bg2.png</profile_background_image_url>
+    <profile_background_tile>false</profile_background_tile>
+    <profile_use_background_image>true</profile_use_background_image>
+    <notifications>false</notifications>
+    <geo_enabled>true</geo_enabled>
+    <verified>false</verified>
+    <following>false</following>
+    <statuses_count>2973</statuses_count>
+    <lang>en</lang>
+    <contributors_enabled>false</contributors_enabled>
+    <follow_request_sent>false</follow_request_sent>
+    <listed_count>28</listed_count>
+    <show_all_inline_media>true</show_all_inline_media>
+  </user>
+  <geo xmlns:georss="http://www.georss.org/georss">
+    <georss:point>38.524535 -123.088368</georss:point>
+  </geo>
+  <coordinates xmlns:georss="http://www.georss.org/georss">
+    <georss:point>38.524535 -123.088368</georss:point>
+  </coordinates>
+  <place xmlns:georss="http://www.georss.org/georss">
+    <id>4552eed9a8b61ff9</id>
+    <name>Russian River-Coastal</name>
+    <full_name>Russian River-Coastal, CA</full_name>
+    <place_type>city</place_type>
+    <url>http://api.twitter.com/1/geo/id/4552eed9a8b61ff9.json</url>
+    <attributes/>
+    <bounding_box>
+      <georss:polygon>38.29571 -123.632497 38.29571 -122.833844 38.808369 -122.833844 38.808369 -123.632497</georss:polygon>
+    </bounding_box>
+    <country code="US">The United States of America</country>
+  </place>
+  <contributors/>
+</status>
+<status>
+  <created_at>Wed Oct 06 00:03:47 +0000 2010</created_at>
+  <id>26503221778</id>
+  <text>Speaking of things that are maddening: the interview with the Wall Street guys on the most recent This American Life http://bit.ly/af9pSD</text>
+  <source>&lt;a href=&quot;http://www.echofon.com/&quot; rel=&quot;nofollow&quot;&gt;Echofon&lt;/a&gt;</source>
+  <truncated>false</truncated>
+  <favorited>false</favorited>
+  <in_reply_to_status_id></in_reply_to_status_id>
+  <in_reply_to_user_id></in_reply_to_user_id>
+  <in_reply_to_screen_name></in_reply_to_screen_name>
+  <retweet_count></retweet_count>
+  <retweeted>false</retweeted>
+  <user>
+    <id>7505382</id>
+    <name>Erik Michaels-Ober</name>
+    <screen_name>sferik</screen_name>
+    <location>San Francisco</location>
+    <description>Adventures in hunger and foolishness.</description>
+    <profile_image_url>http://a0.twimg.com/profile_images/323331048/me_normal.jpg</profile_image_url>
+    <url></url>
+    <protected>false</protected>
+    <followers_count>897</followers_count>
+    <profile_background_color>000000</profile_background_color>
+    <profile_text_color>333333</profile_text_color>
+    <profile_link_color>0084B4</profile_link_color>
+    <profile_sidebar_fill_color>DDEEF6</profile_sidebar_fill_color>
+    <profile_sidebar_border_color>C0DEED</profile_sidebar_border_color>
+    <friends_count>89</friends_count>
+    <created_at>Mon Jul 16 12:59:01 +0000 2007</created_at>
+    <favourites_count>729</favourites_count>
+    <utc_offset>-28800</utc_offset>
+    <time_zone>Pacific Time (US &amp; Canada)</time_zone>
+    <profile_background_image_url>http://a3.twimg.com/profile_background_images/162641967/we_concept_bg2.png</profile_background_image_url>
+    <profile_background_tile>false</profile_background_tile>
+    <profile_use_background_image>true</profile_use_background_image>
+    <notifications>false</notifications>
+    <geo_enabled>true</geo_enabled>
+    <verified>false</verified>
+    <following>false</following>
+    <statuses_count>2973</statuses_count>
+    <lang>en</lang>
+    <contributors_enabled>false</contributors_enabled>
+    <follow_request_sent>false</follow_request_sent>
+    <listed_count>28</listed_count>
+    <show_all_inline_media>true</show_all_inline_media>
+  </user>
+  <geo/>
+  <coordinates/>
+  <place/>
+  <contributors/>
+</status>
+<status>
+  <created_at>Wed Sep 29 00:49:44 +0000 2010</created_at>
+  <id>25836892941</id>
+  <text>Holy cow! RailsAdmin is up to 200 watchers (from 100 yesterday). http://github.com/sferik/rails_admin</text>
+  <source>&lt;a href=&quot;http://www.echofon.com/&quot; rel=&quot;nofollow&quot;&gt;Echofon&lt;/a&gt;</source>
+  <truncated>false</truncated>
+  <favorited>false</favorited>
+  <in_reply_to_status_id></in_reply_to_status_id>
+  <in_reply_to_user_id></in_reply_to_user_id>
+  <in_reply_to_screen_name></in_reply_to_screen_name>
+  <retweet_count></retweet_count>
+  <retweeted>false</retweeted>
+  <user>
+    <id>7505382</id>
+    <name>Erik Michaels-Ober</name>
+    <screen_name>sferik</screen_name>
+    <location>San Francisco</location>
+    <description>Adventures in hunger and foolishness.</description>
+    <profile_image_url>http://a0.twimg.com/profile_images/323331048/me_normal.jpg</profile_image_url>
+    <url></url>
+    <protected>false</protected>
+    <followers_count>897</followers_count>
+    <profile_background_color>000000</profile_background_color>
+    <profile_text_color>333333</profile_text_color>
+    <profile_link_color>0084B4</profile_link_color>
+    <profile_sidebar_fill_color>DDEEF6</profile_sidebar_fill_color>
+    <profile_sidebar_border_color>C0DEED</profile_sidebar_border_color>
+    <friends_count>89</friends_count>
+    <created_at>Mon Jul 16 12:59:01 +0000 2007</created_at>
+    <favourites_count>729</favourites_count>
+    <utc_offset>-28800</utc_offset>
+    <time_zone>Pacific Time (US &amp; Canada)</time_zone>
+    <profile_background_image_url>http://a3.twimg.com/profile_background_images/162641967/we_concept_bg2.png</profile_background_image_url>
+    <profile_background_tile>false</profile_background_tile>
+    <profile_use_background_image>true</profile_use_background_image>
+    <notifications>false</notifications>
+    <geo_enabled>true</geo_enabled>
+    <verified>false</verified>
+    <following>false</following>
+    <statuses_count>2973</statuses_count>
+    <lang>en</lang>
+    <contributors_enabled>false</contributors_enabled>
+    <follow_request_sent>false</follow_request_sent>
+    <listed_count>28</listed_count>
+    <show_all_inline_media>true</show_all_inline_media>
+  </user>
+  <geo/>
+  <coordinates/>
+  <place/>
+  <contributors/>
+</status>
+<status>
+  <created_at>Mon Sep 27 23:35:56 +0000 2010</created_at>
+  <id>25732982065</id>
+  <text>Kind of cool that Facebook acts as a mirror for open-source projects that they use or like http://mirror.facebook.net/</text>
+  <source>&lt;a href=&quot;http://www.echofon.com/&quot; rel=&quot;nofollow&quot;&gt;Echofon&lt;/a&gt;</source>
+  <truncated>false</truncated>
+  <favorited>false</favorited>
+  <in_reply_to_status_id></in_reply_to_status_id>
+  <in_reply_to_user_id></in_reply_to_user_id>
+  <in_reply_to_screen_name></in_reply_to_screen_name>
+  <retweet_count></retweet_count>
+  <retweeted>false</retweeted>
+  <user>
+    <id>7505382</id>
+    <name>Erik Michaels-Ober</name>
+    <screen_name>sferik</screen_name>
+    <location>San Francisco</location>
+    <description>Adventures in hunger and foolishness.</description>
+    <profile_image_url>http://a0.twimg.com/profile_images/323331048/me_normal.jpg</profile_image_url>
+    <url></url>
+    <protected>false</protected>
+    <followers_count>897</followers_count>
+    <profile_background_color>000000</profile_background_color>
+    <profile_text_color>333333</profile_text_color>
+    <profile_link_color>0084B4</profile_link_color>
+    <profile_sidebar_fill_color>DDEEF6</profile_sidebar_fill_color>
+    <profile_sidebar_border_color>C0DEED</profile_sidebar_border_color>
+    <friends_count>89</friends_count>
+    <created_at>Mon Jul 16 12:59:01 +0000 2007</created_at>
+    <favourites_count>729</favourites_count>
+    <utc_offset>-28800</utc_offset>
+    <time_zone>Pacific Time (US &amp; Canada)</time_zone>
+    <profile_background_image_url>http://a3.twimg.com/profile_background_images/162641967/we_concept_bg2.png</profile_background_image_url>
+    <profile_background_tile>false</profile_background_tile>
+    <profile_use_background_image>true</profile_use_background_image>
+    <notifications>false</notifications>
+    <geo_enabled>true</geo_enabled>
+    <verified>false</verified>
+    <following>false</following>
+    <statuses_count>2973</statuses_count>
+    <lang>en</lang>
+    <contributors_enabled>false</contributors_enabled>
+    <follow_request_sent>false</follow_request_sent>
+    <listed_count>28</listed_count>
+    <show_all_inline_media>true</show_all_inline_media>
+  </user>
+  <geo/>
+  <coordinates/>
+  <place/>
+  <contributors/>
+</status>
+<status>
+  <created_at>Mon Sep 27 14:55:28 +0000 2010</created_at>
+  <id>25693598875</id>
+  <text>RailsAdmin already has 100 watchers, 12 forks, and 6 contributors in less than 2 months. Let's keep the momentum going! http://bit.ly/cCMMqD</text>
+  <source>&lt;a href=&quot;http://www.echofon.com/&quot; rel=&quot;nofollow&quot;&gt;Echofon&lt;/a&gt;</source>
+  <truncated>false</truncated>
+  <favorited>false</favorited>
+  <in_reply_to_status_id></in_reply_to_status_id>
+  <in_reply_to_user_id></in_reply_to_user_id>
+  <in_reply_to_screen_name></in_reply_to_screen_name>
+  <retweet_count></retweet_count>
+  <retweeted>false</retweeted>
+  <user>
+    <id>7505382</id>
+    <name>Erik Michaels-Ober</name>
+    <screen_name>sferik</screen_name>
+    <location>San Francisco</location>
+    <description>Adventures in hunger and foolishness.</description>
+    <profile_image_url>http://a0.twimg.com/profile_images/323331048/me_normal.jpg</profile_image_url>
+    <url></url>
+    <protected>false</protected>
+    <followers_count>897</followers_count>
+    <profile_background_color>000000</profile_background_color>
+    <profile_text_color>333333</profile_text_color>
+    <profile_link_color>0084B4</profile_link_color>
+    <profile_sidebar_fill_color>DDEEF6</profile_sidebar_fill_color>
+    <profile_sidebar_border_color>C0DEED</profile_sidebar_border_color>
+    <friends_count>89</friends_count>
+    <created_at>Mon Jul 16 12:59:01 +0000 2007</created_at>
+    <favourites_count>729</favourites_count>
+    <utc_offset>-28800</utc_offset>
+    <time_zone>Pacific Time (US &amp; Canada)</time_zone>
+    <profile_background_image_url>http://a3.twimg.com/profile_background_images/162641967/we_concept_bg2.png</profile_background_image_url>
+    <profile_background_tile>false</profile_background_tile>
+    <profile_use_background_image>true</profile_use_background_image>
+    <notifications>false</notifications>
+    <geo_enabled>true</geo_enabled>
+    <verified>false</verified>
+    <following>false</following>
+    <statuses_count>2973</statuses_count>
+    <lang>en</lang>
+    <contributors_enabled>false</contributors_enabled>
+    <follow_request_sent>false</follow_request_sent>
+    <listed_count>28</listed_count>
+    <show_all_inline_media>true</show_all_inline_media>
+  </user>
+  <geo/>
+  <coordinates/>
+  <place/>
+  <contributors/>
+</status>
+<status>
+  <created_at>Tue Sep 14 03:25:46 +0000 2010</created_at>
+  <id>24443017910</id>
+  <text>This week's This American Life is amazing. @JoeLipari is an American hero. http://bit.ly/d9RbnB</text>
+  <source>&lt;a href=&quot;http://www.echofon.com/&quot; rel=&quot;nofollow&quot;&gt;Echofon&lt;/a&gt;</source>
+  <truncated>false</truncated>
+  <favorited>false</favorited>
+  <in_reply_to_status_id></in_reply_to_status_id>
+  <in_reply_to_user_id></in_reply_to_user_id>
+  <in_reply_to_screen_name></in_reply_to_screen_name>
+  <retweet_count></retweet_count>
+  <retweeted>false</retweeted>
+  <user>
+    <id>7505382</id>
+    <name>Erik Michaels-Ober</name>
+    <screen_name>sferik</screen_name>
+    <location>San Francisco</location>
+    <description>Adventures in hunger and foolishness.</description>
+    <profile_image_url>http://a0.twimg.com/profile_images/323331048/me_normal.jpg</profile_image_url>
+    <url></url>
+    <protected>false</protected>
+    <followers_count>897</followers_count>
+    <profile_background_color>000000</profile_background_color>
+    <profile_text_color>333333</profile_text_color>
+    <profile_link_color>0084B4</profile_link_color>
+    <profile_sidebar_fill_color>DDEEF6</profile_sidebar_fill_color>
+    <profile_sidebar_border_color>C0DEED</profile_sidebar_border_color>
+    <friends_count>89</friends_count>
+    <created_at>Mon Jul 16 12:59:01 +0000 2007</created_at>
+    <favourites_count>729</favourites_count>
+    <utc_offset>-28800</utc_offset>
+    <time_zone>Pacific Time (US &amp; Canada)</time_zone>
+    <profile_background_image_url>http://a3.twimg.com/profile_background_images/162641967/we_concept_bg2.png</profile_background_image_url>
+    <profile_background_tile>false</profile_background_tile>
+    <profile_use_background_image>true</profile_use_background_image>
+    <notifications>false</notifications>
+    <geo_enabled>true</geo_enabled>
+    <verified>false</verified>
+    <following>false</following>
+    <statuses_count>2973</statuses_count>
+    <lang>en</lang>
+    <contributors_enabled>false</contributors_enabled>
+    <follow_request_sent>false</follow_request_sent>
+    <listed_count>28</listed_count>
+    <show_all_inline_media>true</show_all_inline_media>
+  </user>
+  <geo/>
+  <coordinates/>
+  <place/>
+  <contributors/>
+</status>
+<status>
+  <created_at>Sat Sep 11 02:17:29 +0000 2010</created_at>
+  <id>24158227743</id>
+  <text>RT @polyseme: OH: shofars should be called jewvuzelas.</text>
+  <source>&lt;a href=&quot;http://www.echofon.com/&quot; rel=&quot;nofollow&quot;&gt;Echofon&lt;/a&gt;</source>
+  <truncated>false</truncated>
+  <favorited>false</favorited>
+  <in_reply_to_status_id></in_reply_to_status_id>
+  <in_reply_to_user_id></in_reply_to_user_id>
+  <in_reply_to_screen_name></in_reply_to_screen_name>
+  <retweet_count></retweet_count>
+  <retweeted>false</retweeted>
+  <user>
+    <id>7505382</id>
+    <name>Erik Michaels-Ober</name>
+    <screen_name>sferik</screen_name>
+    <location>San Francisco</location>
+    <description>Adventures in hunger and foolishness.</description>
+    <profile_image_url>http://a0.twimg.com/profile_images/323331048/me_normal.jpg</profile_image_url>
+    <url></url>
+    <protected>false</protected>
+    <followers_count>897</followers_count>
+    <profile_background_color>000000</profile_background_color>
+    <profile_text_color>333333</profile_text_color>
+    <profile_link_color>0084B4</profile_link_color>
+    <profile_sidebar_fill_color>DDEEF6</profile_sidebar_fill_color>
+    <profile_sidebar_border_color>C0DEED</profile_sidebar_border_color>
+    <friends_count>89</friends_count>
+    <created_at>Mon Jul 16 12:59:01 +0000 2007</created_at>
+    <favourites_count>729</favourites_count>
+    <utc_offset>-28800</utc_offset>
+    <time_zone>Pacific Time (US &amp; Canada)</time_zone>
+    <profile_background_image_url>http://a3.twimg.com/profile_background_images/162641967/we_concept_bg2.png</profile_background_image_url>
+    <profile_background_tile>false</profile_background_tile>
+    <profile_use_background_image>true</profile_use_background_image>
+    <notifications>false</notifications>
+    <geo_enabled>true</geo_enabled>
+    <verified>false</verified>
+    <following>false</following>
+    <statuses_count>2973</statuses_count>
+    <lang>en</lang>
+    <contributors_enabled>false</contributors_enabled>
+    <follow_request_sent>false</follow_request_sent>
+    <listed_count>28</listed_count>
+    <show_all_inline_media>true</show_all_inline_media>
+  </user>
+  <geo/>
+  <coordinates/>
+  <place/>
+  <contributors/>
+</status>
+<status>
+  <created_at>Fri Sep 10 18:07:47 +0000 2010</created_at>
+  <id>24126395365</id>
+  <text>Spent this morning fixing broken windows in RailsAdmin http://github.com/sferik/rails_admin/compare/ab6c598...0e3770f</text>
+  <source>&lt;a href=&quot;http://www.echofon.com/&quot; rel=&quot;nofollow&quot;&gt;Echofon&lt;/a&gt;</source>
+  <truncated>false</truncated>
+  <favorited>false</favorited>
+  <in_reply_to_status_id></in_reply_to_status_id>
+  <in_reply_to_user_id></in_reply_to_user_id>
+  <in_reply_to_screen_name></in_reply_to_screen_name>
+  <retweet_count></retweet_count>
+  <retweeted>false</retweeted>
+  <user>
+    <id>7505382</id>
+    <name>Erik Michaels-Ober</name>
+    <screen_name>sferik</screen_name>
+    <location>San Francisco</location>
+    <description>Adventures in hunger and foolishness.</description>
+    <profile_image_url>http://a0.twimg.com/profile_images/323331048/me_normal.jpg</profile_image_url>
+    <url></url>
+    <protected>false</protected>
+    <followers_count>897</followers_count>
+    <profile_background_color>000000</profile_background_color>
+    <profile_text_color>333333</profile_text_color>
+    <profile_link_color>0084B4</profile_link_color>
+    <profile_sidebar_fill_color>DDEEF6</profile_sidebar_fill_color>
+    <profile_sidebar_border_color>C0DEED</profile_sidebar_border_color>
+    <friends_count>89</friends_count>
+    <created_at>Mon Jul 16 12:59:01 +0000 2007</created_at>
+    <favourites_count>729</favourites_count>
+    <utc_offset>-28800</utc_offset>
+    <time_zone>Pacific Time (US &amp; Canada)</time_zone>
+    <profile_background_image_url>http://a3.twimg.com/profile_background_images/162641967/we_concept_bg2.png</profile_background_image_url>
+    <profile_background_tile>false</profile_background_tile>
+    <profile_use_background_image>true</profile_use_background_image>
+    <notifications>false</notifications>
+    <geo_enabled>true</geo_enabled>
+    <verified>false</verified>
+    <following>false</following>
+    <statuses_count>2973</statuses_count>
+    <lang>en</lang>
+    <contributors_enabled>false</contributors_enabled>
+    <follow_request_sent>false</follow_request_sent>
+    <listed_count>28</listed_count>
+    <show_all_inline_media>true</show_all_inline_media>
+  </user>
+  <geo/>
+  <coordinates/>
+  <place/>
+  <contributors/>
+</status>
+<status>
+  <created_at>Fri Sep 10 18:02:34 +0000 2010</created_at>
+  <id>24126047148</id>
+  <text>I'm a big believer that the broken windows theory applies to software development http://en.wikipedia.org/wiki/Broken_windows_theory</text>
+  <source>&lt;a href=&quot;http://www.echofon.com/&quot; rel=&quot;nofollow&quot;&gt;Echofon&lt;/a&gt;</source>
+  <truncated>false</truncated>
+  <favorited>false</favorited>
+  <in_reply_to_status_id></in_reply_to_status_id>
+  <in_reply_to_user_id></in_reply_to_user_id>
+  <in_reply_to_screen_name></in_reply_to_screen_name>
+  <retweet_count></retweet_count>
+  <retweeted>false</retweeted>
+  <user>
+    <id>7505382</id>
+    <name>Erik Michaels-Ober</name>
+    <screen_name>sferik</screen_name>
+    <location>San Francisco</location>
+    <description>Adventures in hunger and foolishness.</description>
+    <profile_image_url>http://a0.twimg.com/profile_images/323331048/me_normal.jpg</profile_image_url>
+    <url></url>
+    <protected>false</protected>
+    <followers_count>897</followers_count>
+    <profile_background_color>000000</profile_background_color>
+    <profile_text_color>333333</profile_text_color>
+    <profile_link_color>0084B4</profile_link_color>
+    <profile_sidebar_fill_color>DDEEF6</profile_sidebar_fill_color>
+    <profile_sidebar_border_color>C0DEED</profile_sidebar_border_color>
+    <friends_count>89</friends_count>
+    <created_at>Mon Jul 16 12:59:01 +0000 2007</created_at>
+    <favourites_count>729</favourites_count>
+    <utc_offset>-28800</utc_offset>
+    <time_zone>Pacific Time (US &amp; Canada)</time_zone>
+    <profile_background_image_url>http://a3.twimg.com/profile_background_images/162641967/we_concept_bg2.png</profile_background_image_url>
+    <profile_background_tile>false</profile_background_tile>
+    <profile_use_background_image>true</profile_use_background_image>
+    <notifications>false</notifications>
+    <geo_enabled>true</geo_enabled>
+    <verified>false</verified>
+    <following>false</following>
+    <statuses_count>2973</statuses_count>
+    <lang>en</lang>
+    <contributors_enabled>false</contributors_enabled>
+    <follow_request_sent>false</follow_request_sent>
+    <listed_count>28</listed_count>
+    <show_all_inline_media>true</show_all_inline_media>
+  </user>
+  <geo/>
+  <coordinates/>
+  <place/>
+  <contributors/>
+</status>
+<status>
+  <created_at>Thu Sep 09 17:12:21 +0000 2010</created_at>
+  <id>24028079777</id>
+  <text>I hope you idiots are happy with your piece of shit Android phones. http://www.apple.com/pr/library/2010/09/09statement.html</text>
+  <source>&lt;a href=&quot;http://www.echofon.com/&quot; rel=&quot;nofollow&quot;&gt;Echofon&lt;/a&gt;</source>
+  <truncated>false</truncated>
+  <favorited>false</favorited>
+  <in_reply_to_status_id></in_reply_to_status_id>
+  <in_reply_to_user_id></in_reply_to_user_id>
+  <in_reply_to_screen_name></in_reply_to_screen_name>
+  <retweet_count></retweet_count>
+  <retweeted>false</retweeted>
+  <user>
+    <id>7505382</id>
+    <name>Erik Michaels-Ober</name>
+    <screen_name>sferik</screen_name>
+    <location>San Francisco</location>
+    <description>Adventures in hunger and foolishness.</description>
+    <profile_image_url>http://a0.twimg.com/profile_images/323331048/me_normal.jpg</profile_image_url>
+    <url></url>
+    <protected>false</protected>
+    <followers_count>897</followers_count>
+    <profile_background_color>000000</profile_background_color>
+    <profile_text_color>333333</profile_text_color>
+    <profile_link_color>0084B4</profile_link_color>
+    <profile_sidebar_fill_color>DDEEF6</profile_sidebar_fill_color>
+    <profile_sidebar_border_color>C0DEED</profile_sidebar_border_color>
+    <friends_count>89</friends_count>
+    <created_at>Mon Jul 16 12:59:01 +0000 2007</created_at>
+    <favourites_count>729</favourites_count>
+    <utc_offset>-28800</utc_offset>
+    <time_zone>Pacific Time (US &amp; Canada)</time_zone>
+    <profile_background_image_url>http://a3.twimg.com/profile_background_images/162641967/we_concept_bg2.png</profile_background_image_url>
+    <profile_background_tile>false</profile_background_tile>
+    <profile_use_background_image>true</profile_use_background_image>
+    <notifications>false</notifications>
+    <geo_enabled>true</geo_enabled>
+    <verified>false</verified>
+    <following>false</following>
+    <statuses_count>2973</statuses_count>
+    <lang>en</lang>
+    <contributors_enabled>false</contributors_enabled>
+    <follow_request_sent>false</follow_request_sent>
+    <listed_count>28</listed_count>
+    <show_all_inline_media>true</show_all_inline_media>
+  </user>
+  <geo/>
+  <coordinates/>
+  <place/>
+  <contributors/>
+</status>
+<status>
+  <created_at>Wed Sep 01 17:55:15 +0000 2010</created_at>
+  <id>22728299854</id>
+  <text>Ping: kills MySpace dead.</text>
+  <source>&lt;a href=&quot;http://www.echofon.com/&quot; rel=&quot;nofollow&quot;&gt;Echofon&lt;/a&gt;</source>
+  <truncated>false</truncated>
+  <favorited>false</favorited>
+  <in_reply_to_status_id></in_reply_to_status_id>
+  <in_reply_to_user_id></in_reply_to_user_id>
+  <in_reply_to_screen_name></in_reply_to_screen_name>
+  <retweet_count></retweet_count>
+  <retweeted>false</retweeted>
+  <user>
+    <id>7505382</id>
+    <name>Erik Michaels-Ober</name>
+    <screen_name>sferik</screen_name>
+    <location>San Francisco</location>
+    <description>Adventures in hunger and foolishness.</description>
+    <profile_image_url>http://a0.twimg.com/profile_images/323331048/me_normal.jpg</profile_image_url>
+    <url></url>
+    <protected>false</protected>
+    <followers_count>897</followers_count>
+    <profile_background_color>000000</profile_background_color>
+    <profile_text_color>333333</profile_text_color>
+    <profile_link_color>0084B4</profile_link_color>
+    <profile_sidebar_fill_color>DDEEF6</profile_sidebar_fill_color>
+    <profile_sidebar_border_color>C0DEED</profile_sidebar_border_color>
+    <friends_count>89</friends_count>
+    <created_at>Mon Jul 16 12:59:01 +0000 2007</created_at>
+    <favourites_count>729</favourites_count>
+    <utc_offset>-28800</utc_offset>
+    <time_zone>Pacific Time (US &amp; Canada)</time_zone>
+    <profile_background_image_url>http://a3.twimg.com/profile_background_images/162641967/we_concept_bg2.png</profile_background_image_url>
+    <profile_background_tile>false</profile_background_tile>
+    <profile_use_background_image>true</profile_use_background_image>
+    <notifications>false</notifications>
+    <geo_enabled>true</geo_enabled>
+    <verified>false</verified>
+    <following>false</following>
+    <statuses_count>2973</statuses_count>
+    <lang>en</lang>
+    <contributors_enabled>false</contributors_enabled>
+    <follow_request_sent>false</follow_request_sent>
+    <listed_count>28</listed_count>
+    <show_all_inline_media>true</show_all_inline_media>
+  </user>
+  <geo/>
+  <coordinates/>
+  <place/>
+  <contributors/>
+</status>
+<status>
+  <created_at>Wed Sep 01 17:43:30 +0000 2010</created_at>
+  <id>22727444431</id>
+  <text>Crazy that iTunes Ping didn't leak a drop.</text>
+  <source>&lt;a href=&quot;http://www.echofon.com/&quot; rel=&quot;nofollow&quot;&gt;Echofon&lt;/a&gt;</source>
+  <truncated>false</truncated>
+  <favorited>false</favorited>
+  <in_reply_to_status_id></in_reply_to_status_id>
+  <in_reply_to_user_id></in_reply_to_user_id>
+  <in_reply_to_screen_name></in_reply_to_screen_name>
+  <retweet_count></retweet_count>
+  <retweeted>false</retweeted>
+  <user>
+    <id>7505382</id>
+    <name>Erik Michaels-Ober</name>
+    <screen_name>sferik</screen_name>
+    <location>San Francisco</location>
+    <description>Adventures in hunger and foolishness.</description>
+    <profile_image_url>http://a0.twimg.com/profile_images/323331048/me_normal.jpg</profile_image_url>
+    <url></url>
+    <protected>false</protected>
+    <followers_count>897</followers_count>
+    <profile_background_color>000000</profile_background_color>
+    <profile_text_color>333333</profile_text_color>
+    <profile_link_color>0084B4</profile_link_color>
+    <profile_sidebar_fill_color>DDEEF6</profile_sidebar_fill_color>
+    <profile_sidebar_border_color>C0DEED</profile_sidebar_border_color>
+    <friends_count>89</friends_count>
+    <created_at>Mon Jul 16 12:59:01 +0000 2007</created_at>
+    <favourites_count>729</favourites_count>
+    <utc_offset>-28800</utc_offset>
+    <time_zone>Pacific Time (US &amp; Canada)</time_zone>
+    <profile_background_image_url>http://a3.twimg.com/profile_background_images/162641967/we_concept_bg2.png</profile_background_image_url>
+    <profile_background_tile>false</profile_background_tile>
+    <profile_use_background_image>true</profile_use_background_image>
+    <notifications>false</notifications>
+    <geo_enabled>true</geo_enabled>
+    <verified>false</verified>
+    <following>false</following>
+    <statuses_count>2973</statuses_count>
+    <lang>en</lang>
+    <contributors_enabled>false</contributors_enabled>
+    <follow_request_sent>false</follow_request_sent>
+    <listed_count>28</listed_count>
+    <show_all_inline_media>true</show_all_inline_media>
+  </user>
+  <geo/>
+  <coordinates/>
+  <place/>
+  <contributors/>
+</status>
+<status>
+  <created_at>Wed Sep 01 05:53:01 +0000 2010</created_at>
+  <id>22683247815</id>
+  <text>The plot thickens http://twitpic.com/2k5lt2</text>
+  <source>&lt;a href=&quot;http://www.echofon.com/&quot; rel=&quot;nofollow&quot;&gt;Echofon&lt;/a&gt;</source>
+  <truncated>false</truncated>
+  <favorited>false</favorited>
+  <in_reply_to_status_id></in_reply_to_status_id>
+  <in_reply_to_user_id></in_reply_to_user_id>
+  <in_reply_to_screen_name></in_reply_to_screen_name>
+  <retweet_count></retweet_count>
+  <retweeted>false</retweeted>
+  <user>
+    <id>7505382</id>
+    <name>Erik Michaels-Ober</name>
+    <screen_name>sferik</screen_name>
+    <location>San Francisco</location>
+    <description>Adventures in hunger and foolishness.</description>
+    <profile_image_url>http://a0.twimg.com/profile_images/323331048/me_normal.jpg</profile_image_url>
+    <url></url>
+    <protected>false</protected>
+    <followers_count>897</followers_count>
+    <profile_background_color>000000</profile_background_color>
+    <profile_text_color>333333</profile_text_color>
+    <profile_link_color>0084B4</profile_link_color>
+    <profile_sidebar_fill_color>DDEEF6</profile_sidebar_fill_color>
+    <profile_sidebar_border_color>C0DEED</profile_sidebar_border_color>
+    <friends_count>89</friends_count>
+    <created_at>Mon Jul 16 12:59:01 +0000 2007</created_at>
+    <favourites_count>729</favourites_count>
+    <utc_offset>-28800</utc_offset>
+    <time_zone>Pacific Time (US &amp; Canada)</time_zone>
+    <profile_background_image_url>http://a3.twimg.com/profile_background_images/162641967/we_concept_bg2.png</profile_background_image_url>
+    <profile_background_tile>false</profile_background_tile>
+    <profile_use_background_image>true</profile_use_background_image>
+    <notifications>false</notifications>
+    <geo_enabled>true</geo_enabled>
+    <verified>false</verified>
+    <following>false</following>
+    <statuses_count>2973</statuses_count>
+    <lang>en</lang>
+    <contributors_enabled>false</contributors_enabled>
+    <follow_request_sent>false</follow_request_sent>
+    <listed_count>28</listed_count>
+    <show_all_inline_media>true</show_all_inline_media>
+  </user>
+  <geo xmlns:georss="http://www.georss.org/georss">
+    <georss:point>37.782365 -122.392431</georss:point>
+  </geo>
+  <coordinates xmlns:georss="http://www.georss.org/georss">
+    <georss:point>37.782365 -122.392431</georss:point>
+  </coordinates>
+  <place xmlns:georss="http://www.georss.org/georss">
+    <id>5c92ab5379de3839</id>
+    <name>South Beach</name>
+    <full_name>South Beach, San Francisco</full_name>
+    <place_type>neighborhood</place_type>
+    <url>http://api.twitter.com/1/geo/id/5c92ab5379de3839.json</url>
+    <attributes/>
+    <bounding_box>
+      <georss:polygon>37.77752898 -122.40348192 37.77752898 -122.387436 37.79448597 -122.387436 37.79448597 -122.40348192</georss:polygon>
+    </bounding_box>
+    <country code="US">The United States of America</country>
+  </place>
+  <contributors/>
+</status>
+<status>
+  <created_at>Fri Aug 27 23:01:19 +0000 2010</created_at>
+  <id>22305399947</id>
+  <text>140 Proof Provides A Piece Of The Twitter Advertising&#160;Puzzle http://t.co/R2cUSDe via @techcrunch</text>
+  <source>&lt;a href=&quot;http://twitter.com/tweetbutton&quot; rel=&quot;nofollow&quot;&gt;Tweet Button&lt;/a&gt;</source>
+  <truncated>false</truncated>
+  <favorited>false</favorited>
+  <in_reply_to_status_id></in_reply_to_status_id>
+  <in_reply_to_user_id></in_reply_to_user_id>
+  <in_reply_to_screen_name></in_reply_to_screen_name>
+  <retweet_count></retweet_count>
+  <retweeted>false</retweeted>
+  <user>
+    <id>7505382</id>
+    <name>Erik Michaels-Ober</name>
+    <screen_name>sferik</screen_name>
+    <location>San Francisco</location>
+    <description>Adventures in hunger and foolishness.</description>
+    <profile_image_url>http://a0.twimg.com/profile_images/323331048/me_normal.jpg</profile_image_url>
+    <url></url>
+    <protected>false</protected>
+    <followers_count>897</followers_count>
+    <profile_background_color>000000</profile_background_color>
+    <profile_text_color>333333</profile_text_color>
+    <profile_link_color>0084B4</profile_link_color>
+    <profile_sidebar_fill_color>DDEEF6</profile_sidebar_fill_color>
+    <profile_sidebar_border_color>C0DEED</profile_sidebar_border_color>
+    <friends_count>89</friends_count>
+    <created_at>Mon Jul 16 12:59:01 +0000 2007</created_at>
+    <favourites_count>729</favourites_count>
+    <utc_offset>-28800</utc_offset>
+    <time_zone>Pacific Time (US &amp; Canada)</time_zone>
+    <profile_background_image_url>http://a3.twimg.com/profile_background_images/162641967/we_concept_bg2.png</profile_background_image_url>
+    <profile_background_tile>false</profile_background_tile>
+    <profile_use_background_image>true</profile_use_background_image>
+    <notifications>false</notifications>
+    <geo_enabled>true</geo_enabled>
+    <verified>false</verified>
+    <following>false</following>
+    <statuses_count>2973</statuses_count>
+    <lang>en</lang>
+    <contributors_enabled>false</contributors_enabled>
+    <follow_request_sent>false</follow_request_sent>
+    <listed_count>28</listed_count>
+    <show_all_inline_media>true</show_all_inline_media>
+  </user>
+  <geo/>
+  <coordinates/>
+  <place/>
+  <contributors/>
+</status>
+<status>
+  <created_at>Fri Aug 27 22:33:42 +0000 2010</created_at>
+  <id>22303907694</id>
+  <text>Try as you may http://www.thedoghousediaries.com/?p=1940</text>
+  <source>&lt;a href=&quot;http://www.echofon.com/&quot; rel=&quot;nofollow&quot;&gt;Echofon&lt;/a&gt;</source>
+  <truncated>false</truncated>
+  <favorited>false</favorited>
+  <in_reply_to_status_id></in_reply_to_status_id>
+  <in_reply_to_user_id></in_reply_to_user_id>
+  <in_reply_to_screen_name></in_reply_to_screen_name>
+  <retweet_count></retweet_count>
+  <retweeted>false</retweeted>
+  <user>
+    <id>7505382</id>
+    <name>Erik Michaels-Ober</name>
+    <screen_name>sferik</screen_name>
+    <location>San Francisco</location>
+    <description>Adventures in hunger and foolishness.</description>
+    <profile_image_url>http://a0.twimg.com/profile_images/323331048/me_normal.jpg</profile_image_url>
+    <url></url>
+    <protected>false</protected>
+    <followers_count>897</followers_count>
+    <profile_background_color>000000</profile_background_color>
+    <profile_text_color>333333</profile_text_color>
+    <profile_link_color>0084B4</profile_link_color>
+    <profile_sidebar_fill_color>DDEEF6</profile_sidebar_fill_color>
+    <profile_sidebar_border_color>C0DEED</profile_sidebar_border_color>
+    <friends_count>89</friends_count>
+    <created_at>Mon Jul 16 12:59:01 +0000 2007</created_at>
+    <favourites_count>729</favourites_count>
+    <utc_offset>-28800</utc_offset>
+    <time_zone>Pacific Time (US &amp; Canada)</time_zone>
+    <profile_background_image_url>http://a3.twimg.com/profile_background_images/162641967/we_concept_bg2.png</profile_background_image_url>
+    <profile_background_tile>false</profile_background_tile>
+    <profile_use_background_image>true</profile_use_background_image>
+    <notifications>false</notifications>
+    <geo_enabled>true</geo_enabled>
+    <verified>false</verified>
+    <following>false</following>
+    <statuses_count>2973</statuses_count>
+    <lang>en</lang>
+    <contributors_enabled>false</contributors_enabled>
+    <follow_request_sent>false</follow_request_sent>
+    <listed_count>28</listed_count>
+    <show_all_inline_media>true</show_all_inline_media>
+  </user>
+  <geo/>
+  <coordinates/>
+  <place/>
+  <contributors/>
+</status>
+<status>
+  <created_at>Thu Aug 19 01:38:01 +0000 2010</created_at>
+  <id>21538122473</id>
+  <text>I know @SarahPalinUSA has a right to use Twitter, but should she?</text>
+  <source>&lt;a href=&quot;http://www.echofon.com/&quot; rel=&quot;nofollow&quot;&gt;Echofon&lt;/a&gt;</source>
+  <truncated>false</truncated>
+  <favorited>false</favorited>
+  <in_reply_to_status_id></in_reply_to_status_id>
+  <in_reply_to_user_id></in_reply_to_user_id>
+  <in_reply_to_screen_name></in_reply_to_screen_name>
+  <retweet_count></retweet_count>
+  <retweeted>false</retweeted>
+  <user>
+    <id>7505382</id>
+    <name>Erik Michaels-Ober</name>
+    <screen_name>sferik</screen_name>
+    <location>San Francisco</location>
+    <description>Adventures in hunger and foolishness.</description>
+    <profile_image_url>http://a0.twimg.com/profile_images/323331048/me_normal.jpg</profile_image_url>
+    <url></url>
+    <protected>false</protected>
+    <followers_count>897</followers_count>
+    <profile_background_color>000000</profile_background_color>
+    <profile_text_color>333333</profile_text_color>
+    <profile_link_color>0084B4</profile_link_color>
+    <profile_sidebar_fill_color>DDEEF6</profile_sidebar_fill_color>
+    <profile_sidebar_border_color>C0DEED</profile_sidebar_border_color>
+    <friends_count>89</friends_count>
+    <created_at>Mon Jul 16 12:59:01 +0000 2007</created_at>
+    <favourites_count>729</favourites_count>
+    <utc_offset>-28800</utc_offset>
+    <time_zone>Pacific Time (US &amp; Canada)</time_zone>
+    <profile_background_image_url>http://a3.twimg.com/profile_background_images/162641967/we_concept_bg2.png</profile_background_image_url>
+    <profile_background_tile>false</profile_background_tile>
+    <profile_use_background_image>true</profile_use_background_image>
+    <notifications>false</notifications>
+    <geo_enabled>true</geo_enabled>
+    <verified>false</verified>
+    <following>false</following>
+    <statuses_count>2973</statuses_count>
+    <lang>en</lang>
+    <contributors_enabled>false</contributors_enabled>
+    <follow_request_sent>false</follow_request_sent>
+    <listed_count>28</listed_count>
+    <show_all_inline_media>true</show_all_inline_media>
   </user>
   <geo/>
   <coordinates/>
