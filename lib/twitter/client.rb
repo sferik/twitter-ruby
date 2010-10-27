@@ -1,19 +1,10 @@
-Dir[File.expand_path('../client/*.rb', __FILE__)].each{|f| require f}
-
 module Twitter
-  class Client
-    attr_accessor *Configuration::VALID_OPTIONS_KEYS
+  class Client < API
+    # Require client method modules after initializing the Client class in
+    # order to avoid a superclass mismatch error, allowing those modules to be
+    # Client-namespaced.
+    Dir[File.expand_path('../client/*.rb', __FILE__)].each{|f| require f}
 
-    def initialize(options={})
-      options = Twitter.options.merge(options)
-      Configuration::VALID_OPTIONS_KEYS.each do |key|
-        send("#{key}=", options[key])
-      end
-    end
-
-    include Connection
-    include Request
-    include Authentication
     include Utils
 
     include Timeline
