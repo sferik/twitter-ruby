@@ -16,7 +16,7 @@ module Twitter
       super
     end
 
-    alias :search_endpoint :endpoint
+    alias :api_endpoint :search_endpoint
 
     # Clears all the query filters to make a new search
     def clear

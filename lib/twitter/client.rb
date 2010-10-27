@@ -5,6 +5,8 @@ module Twitter
     # Client-namespaced.
     Dir[File.expand_path('../client/*.rb', __FILE__)].each{|f| require f}
 
+    alias :api_endpoint :endpoint
+
     include Utils
 
     include Timeline

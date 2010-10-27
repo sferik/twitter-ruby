@@ -9,7 +9,7 @@ module Twitter
       options = {
         :headers => {:user_agent => user_agent},
         :ssl => {:verify => false},
-        :url => endpoint
+        :url => api_endpoint
       }
 
       Faraday::Connection.new(options) do |builder|
