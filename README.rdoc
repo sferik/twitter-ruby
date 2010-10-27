@@ -1,7 +1,6 @@
 = The twitter Ruby gem
 ==== A Ruby wrapper for the Twitter REST and Search APIs.
 == Examples
-
   require 'rubygems'
   require 'twitter'
 
@@ -15,32 +14,42 @@
 
   # Initialize a Twitter client
   client = Twitter::Client.new
+
   # Post a status update
   client.update("I just posted a status update via the Twitter Ruby Gem!")
+
   # Read the latest tweet in your home timeline
   puts client.home_timeline.first.text
+
   # Get a user's location
   puts client.user("sferik").location
+
   # Get a status update by id
   puts client.status(27558893223).text
+
   # Get your most popular friend
   puts client.friends.sort{|a, b| a.followers_count <=> b.followers_count}.reverse.first.name
+
   # Get your most popular follower
   puts client.followers.sort{|a, b| a.followers_count <=> b.followers_count}.reverse.first.name
+
   # Get your rate limit status
   puts client.rate_limit_status.remaining_hits.to_s + " Twitter API request(s) remaining this hour"
 
   # Initialize a Twitter search client
   search = Twitter::Search.new(:endpoint => "http://search.twitter.com/")
+
   # Find the 3 most recent proposals to @justinbieber
-  search.to('justinbieber').containing('marry me').result_type('recent').per_page(3).each{|s| puts "#{s.from_user}: #{s.text}"}
+  search.containing('marry me').to('justinbieber').result_type('recent').per_page(3).each{|s| puts "#{s.from_user}: #{s.text}"}
+
   # Reset the search client
   search.clear
+
   # Find a Japanese-language status update tagged #ruby
   puts search.hashtag('ruby').language('ja').no_retweets.per_page(1).fetch.results.first.text
+
   # Find another
   puts search.fetch_next_page.results.first.text
-
 == Docs
 http://rdoc.info/github/jnunemaker/twitter
 == Submitting Bugs/Features
