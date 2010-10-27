@@ -12,9 +12,11 @@ We use the GitHub issue tracker for bugs and feature requests. If you want to re
 http://github.com/jnunemaker/twitter/issues
 == Submitting Patches
 1. Fork the project.
-2. Commit your feature or bug fix.
-3. Add tests for it. This is important so it doesn't break in the future.
-4. Do not mess with gemspec, version, or history. (If you want to have your own version, that's fine, but please do so in a separate commit.)
-5. Submit a pull request. Bonus points for topic branches.
+2. Create a topic branch.
+3. Commit your feature or bug fix.
+4. Add specs for feature or bug fix. This is important so it doesn't break in the future.
+5. Run `bundle exec rake spec:rcov`. If your changes are not covered, go back to 4.
+6. Please do not include changes to the gemspec, version, or history file. (If you want to create your own version, please do so in a separate commit.)
+7. Submit a pull request.
 == Copyright
 Copyright (c) 2010 John Nunemaker, Wynn Netherland, Erik Michaels-Ober, Steve Richert. See LICENSE for details.
