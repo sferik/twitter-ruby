@@ -1,6 +1,32 @@
-= The twitter Ruby gem
+= The Twitter Ruby Gem
 ==== A Ruby wrapper for the Twitter REST and Search APIs
-== Examples
+== What's New in 1.0
+This gem has been completely rewritten for version 1.0 thanks to {contributions from numerous 
+people}[http://github.com/jnunemaker/twitter/blob/master/HISTORY.rdoc]. This rewrite breaks 
+compatibility with version 0.9.12 and earlier versions of the gem. Most notably, the 
+<tt>Twitter::Base</tt>, <tt>Twitter:Geo</tt>, <tt>Twitter::LocalTrends</tt>, and <tt>Twitter::Trends</tt> classes have all been 
+combined in the <tt>Twitter::Client</tt> class. This gem will {display deprecation warnings and forward 
+method calls to the Client class}[http://github.com/jnunemaker/twitter/commit/192e5884f367750dbdca8471aa12385ed5b057ca]
+whenever possible. In a handful of cases, method names were changed to improve clarity, consistency, 
+or resolve namespace conflicts.
+
+The <tt>Twitter::Search</tt> class has remained largely the same, however it no longer accepts a query in
+its constructor. You can specify a query using the <tt>containing</tt> method, which is aliased to <tt>q</tt>.
+
+  # Pre-1.0
+  Twitter::Search.new('query')
+  # Post-1.0
+  Twitter::Search.new.q('query')
+
+The public APIs defined in version 1.0 of this gem will maintain backwards compatibility until
+the next major version, following the best practice of {Semantic Versioning}[http://semver.org/].
+You are free to continue using the 0.9 series of the gem, however it will not be maintained, so
+upgrading to 1.0 is strongly recommended.
+
+For more information, please see the full documentation and examples of the gem's usage below.
+== Documentation
+=== http://rdoc.info/github/jnunemaker/twitter
+== Usage Examples
   require 'rubygems'
   require 'twitter'
 
@@ -14,7 +40,7 @@
   puts Twitter.status(27558893223).text
 
   # Initialize a Twitter search
-  search = Twitter::Search.new(:endpoint => "http://search.twitter.com/")
+  search = Twitter::Search.new
 
   # Find the 3 most recent marriage proposals to @justinbieber
   search.containing('marry me').to('justinbieber').result_type('recent').per_page(3).each do |r|
@@ -56,8 +82,6 @@
 
   # Get your rate limit status
   puts client.rate_limit_status.remaining_hits.to_s + " Twitter API request(s) remaining this hour"
-== Documentation
-=== http://rdoc.info/github/jnunemaker/twitter
 == Submitting an Issue
 We use GitHub to track for bugs and features. Before submitting a bug report or feature request,
 check to make sure it hasn't already been submitted. You can indicate support for an existing
@@ -65,14 +89,13 @@ issuse by voting for it. When submitting a bug report, please include a Gist[htt
 that includes a stack trace and any details that may be necessary to reproduce the bug, including
 your gem version, Ruby version, and operating system. Ideally, a bug report should include a pull
 request with failing specs.
-
 === http://github.com/jnunemaker/twitter/issues
 == Submitting a Pull Request
 1. Fork the project.
 2. Create a topic branch.
 3. Commit your feature or bug fix.
-4. Add specs for your feature or bug fix. This is important so it doesn't break in the future.
-5. Run `bundle exec rake spec:rcov`. If your changes are not 100% covered, go back to step 4.
+4. Add specs for your feature or bug fix.
+5. Run <tt>bundle exec rake spec:rcov</tt>. If your changes are not 100% covered, go back to step 4.
 6. Submit a pull request. Please do not include changes to the gemspec, version, or history file. (If you want to create your own version for some reason, please do so in a separate commit.)
 == Copyright
 Copyright (c) 2010 John Nunemaker, Wynn Netherland, Erik Michaels-Ober, Steve Richert. See LICENSE for details.
