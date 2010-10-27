@@ -2,6 +2,13 @@ require File.expand_path('../../spec_helper', __FILE__)
 
 describe "Twitter::Search" do
 
+  it "should connect using the search_endpoint configuration" do
+    search = Twitter::Search.new
+    endpoint = URI.parse(search.api_endpoint)
+    connection = search.send(:connection).build_url(nil).to_s
+    connection.should == endpoint.to_s
+  end
+
   context "with module configuration" do
 
     before do
@@ -34,6 +41,7 @@ describe "Twitter::Search" do
           :oauth_token_secret => 'OS',
           :adapter => :typhoeus,
           :endpoint => 'http://tumblr.com/',
+          :search_endpoint => 'http://google.com/',
           :format => :xml,
           :user_agent => 'Custom User Agent',
         }

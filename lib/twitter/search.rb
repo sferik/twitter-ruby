@@ -1,30 +1,22 @@
 require 'cgi'
-require File.expand_path('../search/request', __FILE__)
-Dir[File.expand_path('../search/*.rb', __FILE__)].each{|f| require f}
 
 module Twitter
 
   # Handles the Twitter Search API
   #
   # @see http://dev.twitter.com/doc/get/search Twitter Search API docs
-  class Search
-    attr_accessor *Configuration::VALID_OPTIONS_KEYS
+  class Search < API
     attr_reader :fetch, :query
 
     # Creates a new instance of a search
     #
     # @param [String] query the optional keyword to search
-    def initialize(options={})
-      options = Twitter.options.merge(options)
+    def initialize(*)
       clear
-      Configuration::VALID_OPTIONS_KEYS.each do |key|
-        send("#{key}=", options[key])
-      end
+      super
     end
 
-    include Connection
-    include Request
-    include Authentication
+    alias :api_endpoint :search_endpoint
 
     # Clears all the query filters to make a new search
     def clear
