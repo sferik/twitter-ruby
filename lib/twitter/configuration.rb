@@ -8,7 +8,7 @@ module Twitter
 
     DEFAULT_ADAPTER         = Faraday.default_adapter.freeze
     DEFAULT_ENDPOINT        = 'https://api.twitter.com/1/'.freeze
-    DEFAULT_SEARCH_ENDPOINT = 'http://search.twitter.com/'.freeze
+    DEFAULT_SEARCH_ENDPOINT = 'https://search.twitter.com/'.freeze
     DEFAULT_FORMAT          = :json.freeze
     DEFAULT_USER_AGENT      = "Twitter Ruby Gem #{Twitter::VERSION}".freeze
 
