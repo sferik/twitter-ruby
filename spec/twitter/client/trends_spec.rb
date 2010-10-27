@@ -49,13 +49,15 @@ describe "Twitter::Client" do
     describe ".trends_daily" do
 
       before do
-        stub_get("trends/daily.json?date=#{Time.now.strftime('%Y-%m-%d')}").
+        stub_get("trends/daily.json").
+          with(:query => {"date" => Time.now.strftime('%Y-%m-%d')}).
           to_return(:body => fixture("trends_daily.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
 
       it "should get the correct resource" do
         @client.trends_daily
-        a_get("trends/daily.json?date=#{Time.now.strftime('%Y-%m-%d')}").
+        a_get("trends/daily.json").
+          with(:query => {"date" => Time.now.strftime('%Y-%m-%d')}).
           should have_been_made
       end
 
@@ -69,13 +71,15 @@ describe "Twitter::Client" do
     describe ".trends_weekly" do
 
       before do
-        stub_get("trends/weekly.json?date=#{Time.now.strftime('%Y-%m-%d')}").
+        stub_get("trends/weekly.json").
+          with(:query => {"date" => Time.now.strftime('%Y-%m-%d')}).
           to_return(:body => fixture("trends_weekly.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
 
       it "should get the correct resource" do
         @client.trends_weekly
-        a_get("trends/weekly.json?date=#{Time.now.strftime('%Y-%m-%d')}").
+        a_get("trends/weekly.json").
+          with(:query => {"date" => Time.now.strftime('%Y-%m-%d')}).
           should have_been_made
       end
 

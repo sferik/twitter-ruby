@@ -71,13 +71,15 @@ describe "Twitter::Client" do
       describe ".list_remove_member" do
 
         before do
-          stub_delete("pengwynn/Rubyists/members.#{format}?id=7505382").
+          stub_delete("pengwynn/Rubyists/members.#{format}").
+            with(:query => {"id" => "7505382"}).
             to_return(:body => fixture("list.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource" do
           @client.list_remove_member("pengwynn", "Rubyists", 7505382)
-          a_delete("pengwynn/Rubyists/members.#{format}?id=7505382").
+          a_delete("pengwynn/Rubyists/members.#{format}").
+            with(:query => {"id" => "7505382"}).
             should have_been_made
         end
 

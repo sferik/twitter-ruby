@@ -32,13 +32,15 @@ describe "Twitter::Client" do
       describe ".users" do
 
         before do
-          stub_get("users/lookup.#{format}?screen_name=sferik,pengwynn").
+          stub_get("users/lookup.#{format}").
+            with(:query => {"screen_name" => "sferik,pengwynn"}).
             to_return(:body => fixture("users.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource" do
           @client.users("sferik", "pengwynn")
-          a_get("users/lookup.#{format}?screen_name=sferik,pengwynn").
+          a_get("users/lookup.#{format}").
+            with(:query => {"screen_name" => "sferik,pengwynn"}).
             should have_been_made
         end
 
@@ -53,13 +55,15 @@ describe "Twitter::Client" do
       describe ".user_search" do
 
         before do
-          stub_get("users/search.#{format}?q=Erik+Michaels-Ober").
+          stub_get("users/search.#{format}").
+            with(:query => {"q" => "Erik Michaels-Ober"}).
             to_return(:body => fixture("user_search.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource" do
           @client.user_search("Erik Michaels-Ober")
-          a_get("users/search.#{format}?q=Erik Michaels-Ober").
+          a_get("users/search.#{format}").
+            with(:query => {"q" => "Erik Michaels-Ober"}).
             should have_been_made
         end
 

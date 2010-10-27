@@ -12,13 +12,15 @@ describe "Twitter::Client" do
         context "with a screen_name passed" do
 
           before do
-            stub_get("friends/ids.#{format}?screen_name=sferik").
+            stub_get("friends/ids.#{format}").
+              with(:query => {"screen_name" => "sferik"}).
               to_return(:body => fixture("ids.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
 
           it "should get the correct resource" do
             @client.friend_ids("sferik")
-            a_get("friends/ids.#{format}?screen_name=sferik").
+            a_get("friends/ids.#{format}").
+              with(:query => {"screen_name" => "sferik"}).
               should have_been_made
           end
 
@@ -58,13 +60,15 @@ describe "Twitter::Client" do
         context "with a screen_name passed" do
 
           before do
-            stub_get("followers/ids.#{format}?screen_name=sferik").
+            stub_get("followers/ids.#{format}").
+              with(:query => {"screen_name" => "sferik"}).
               to_return(:body => fixture("ids.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
 
           it "should get the correct resource" do
             @client.follower_ids("sferik")
-            a_get("followers/ids.#{format}?screen_name=sferik").
+            a_get("followers/ids.#{format}").
+              with(:query => {"screen_name" => "sferik"}).
               should have_been_made
           end
 

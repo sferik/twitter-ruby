@@ -52,15 +52,18 @@ describe "Twitter::Client" do
       describe ".friendship_exists?" do
 
         before do
-          stub_get("friendships/exists.#{format}?user_a=sferik&user_b=pengwynn").
+          stub_get("friendships/exists.#{format}").
+            with(:query => {"user_a" => "sferik", "user_b" => "pengwynn"}).
             to_return(:body => fixture("true.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
-          stub_get("friendships/exists.#{format}?user_a=pengwynn&user_b=sferik").
+          stub_get("friendships/exists.#{format}").
+            with(:query => {"user_a" => "pengwynn", "user_b" => "sferik"}).
             to_return(:body => fixture("false.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource" do
           @client.friendship_exists?("sferik", "pengwynn")
-          a_get("friendships/exists.#{format}?user_a=sferik&user_b=pengwynn").
+          a_get("friendships/exists.#{format}").
+            with(:query => {"user_a" => "sferik", "user_b" => "pengwynn"}).
             should have_been_made
         end
 

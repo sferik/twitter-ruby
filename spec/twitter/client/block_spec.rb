@@ -30,13 +30,15 @@ describe "Twitter::Client" do
       describe ".unblock" do
 
         before do
-          stub_delete("blocks/destroy.#{format}?screen_name=sferik").
+          stub_delete("blocks/destroy.#{format}").
+            with(:query => {"screen_name" => "sferik"}).
             to_return(:body => fixture("user.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource" do
           @client.unblock("sferik")
-          a_delete("blocks/destroy.#{format}?screen_name=sferik").
+          a_delete("blocks/destroy.#{format}").
+            with(:query => {"screen_name" => "sferik"}).
             should have_been_made
         end
 
@@ -50,15 +52,18 @@ describe "Twitter::Client" do
       describe ".block_exists?" do
 
         before do
-          stub_get("blocks/exists.#{format}?screen_name=sferik").
+          stub_get("blocks/exists.#{format}").
+            with(:query => {"screen_name" => "sferik"}).
             to_return(:body => fixture("user.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
-          stub_get("blocks/exists.#{format}?screen_name=pengwynn").
+          stub_get("blocks/exists.#{format}").
+            with(:query => {"screen_name" => "pengwynn"}).
             to_return(:body => fixture("not_found.#{format}"), :status => 404, :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource" do
           @client.block_exists?("sferik")
-          a_get("blocks/exists.#{format}?screen_name=sferik").
+          a_get("blocks/exists.#{format}").
+            with(:query => {"screen_name" => "sferik"}).
             should have_been_made
         end
 
