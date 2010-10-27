@@ -1,3 +1,4 @@
+require 'cgi'
 Dir[File.expand_path('../search/*.rb', __FILE__)].each{|f| require f}
 
 module Twitter
@@ -7,18 +8,17 @@ module Twitter
   # @see http://dev.twitter.com/doc/get/search Twitter Search API docs
   class Search
     attr_accessor *Configuration::VALID_OPTIONS_KEYS
-    attr_reader :query, :result
+    attr_reader :fetch, :query
 
     # Creates a new instance of a search
     #
     # @param [String] query the optional keyword to search
-    def initialize(query=nil, options={})
+    def initialize(options={})
       options = Twitter.options.merge(options)
+      clear
       Configuration::VALID_OPTIONS_KEYS.each do |key|
         send("#{key}=", options[key])
       end
-      clear
-      containing(query) if query && query.strip != ""
     end
 
     include Connection
@@ -33,16 +33,39 @@ module Twitter
       self
     end
 
+    # Search only tweets containing a keyword
+    #
+    # @param word [String] word by which to filter
+    def containing(word)
+      @query[:q] << word
+      self
+    end
+    alias :contains :containing
+    alias :q :containing
+
+    # Search only tweets containing a keyword
+    #
+    # @param word [String] word by which to filter
+    def not_containing(word)
+      @query[:q] << "-#{word}"
+      self
+    end
+    alias :does_not_contain :not_containing
+    alias :excluding :not_containing
+    alias :excludes :not_containing
+    alias :exclude :not_containing
+
     # @group Search parameters
     #
     # Restricts tweets to the given language
     #
-    # @param lang [String] the ISO 639-1 language code (en, fr, de, ja, etc.)
+    # @param code [String] the ISO 639-1 language code (en, fr, de, ja, etc.)
     # @see http://en.wikipedia.org/wiki/ISO_639-1
-    def lang(lang)
-      @query[:lang] = lang
+    def language(code)
+      @query[:lang] = code
       self
     end
+    alias :lang :language
 
     # Specify the language of the query you are sending
     # (only ja is currently effective). This is intended for
@@ -58,46 +81,61 @@ module Twitter
     # Search only tweets from a particular user
     #
     # @param user [String] screen name of user by which to filter
-    # @param exclude [Boolean] optionally exclude tweets from this user
-    def from(user, exclude=false)
-      @query[:q] << "#{exclude ? "-" : ""}from:#{user}"
+    def from(user)
+      @query[:q] << "from:#{user}"
+      self
+    end
+
+    # Exclude tweets from a particular user
+    #
+    # @param user [String] screen name of user by which to filter
+    def not_from(user)
+      @query[:q] << "-from:#{user}"
       self
     end
 
     # Search only tweets to a particular user
     #
     # @param user [String] screen name of user by which to filter
-    # @param exclude [Boolean] optionally exclude tweets to this user
-    def to(user, exclude=false)
-      @query[:q] << "#{exclude ? "-" : ""}to:#{user}"
+    def to(user)
+      @query[:q] << "to:#{user}"
+      self
+    end
+
+    # Exclude tweets to a particular user
+    #
+    # @param user [String] screen name of user by which to filter
+    def not_to(user)
+      @query[:q] << "-to:#{user}"
       self
     end
 
     # Search only tweets referencing a particular user
     #
     # @param user [String] screen name of user by which to filter
-    # @param exclude [Boolean] optionally exclude tweets referencing this user
-    def referencing(user, exclude=false)
-      @query[:q] << "#{exclude ? "-" : ""}@#{user}"
+    def mentioning(user)
+      @query[:q] << "@#{user.gsub('@', '')}"
       self
     end
-    alias :references :referencing
-    alias :ref :referencing
+    alias :referencing :mentioning
+    alias :mentions :mentioning
+    alias :references :mentioning
 
-    # Search only tweets containing a keyword
+    # Search only tweets referencing a particular user
     #
-    # @param word [String] word by which to filter
-    # @param exclude [Boolean] optionally exclude tweets with this word
-    def containing(word, exclude=false)
-      @query[:q] << "#{exclude ? "-" : ""}#{word}"
+    # @param user [String] screen name of user by which to filter
+    def not_mentioning(user)
+      @query[:q] << "-@#{user.gsub('@', '')}"
       self
     end
-    alias :contains :containing
+    alias :not_referencing :not_mentioning
+    alias :does_not_mention :not_mentioning
+    alias :does_not_reference :not_mentioning
 
     # Add a search filter
     #
     # @example
-    #   Twitter::Search.new('ruby').filter('links')
+    #   Twitter::Search.new.containing('twitter').filter('links')
     #
     # @param filter [String] filter to add to the search
     def filter(filter)
@@ -105,14 +143,14 @@ module Twitter
       self
     end
 
-    # Show only retweets
-    def retweeted
+    # Only show retweets
+    def retweets
       @query[:q] << "rt"
       self
     end
 
-    # Show only non retweets
-    def not_retweeted
+    # Only show original status updates (i.e., not retweets)
+    def no_retweets
       @query[:q] << "-rt"
       self
     end
@@ -120,11 +158,20 @@ module Twitter
     # Search a hashtag
     #
     # @param tag [String] the hashtag
-    # @param exclude [Boolean] optionally exclude this hashtag
-    def hashed(tag, exclude=false)
-      @query[:q] << "#{exclude ? "-" : ""}\##{tag}"
+    def hashtag(tag)
+      @query[:q] << "\##{tag.gsub('#', '')}"
       self
     end
+    alias :hashed :hashtag
+
+    # Search a hashtag
+    #
+    # @param tag [String] the hashtag
+    def not_hashtag(tag)
+      @query[:q] << "-\##{tag.gsub('#', '')}"
+      self
+    end
+    alias :not_hashed :not_hashtag
 
     # Search for a phrase instead of a group of words
     #
@@ -146,7 +193,7 @@ module Twitter
     # the specified ID.
     #
     # @example
-    #   Twitter::Search.new('ruby').since_id(123456789)
+    #   Twitter::Search.new.containing('twitter').since_id(123456789)
     #
     # @param id [Integer] the status ID of the tweet after which to search
     def since_id(id)
@@ -159,7 +206,7 @@ module Twitter
     # the specified ID.
     #
     # @example
-    #   Twitter::Search.new('ruby').max_id(123456789)
+    #   Twitter::Search.new.containing('twitter').max_id(123456789)
     #
     # @param id [Integer] the status ID of the tweet before which to search
     def max_id(id)
@@ -174,7 +221,7 @@ module Twitter
     # Format: YYYY-MM-DD
     #
     # @example
-    #   Twitter::Search.new('ruby').since_date('2010-10-09')
+    #   Twitter::Search.new.containing('twitter').since_date('2010-10-10')
     #
     # @param since_date [String] the search date in YYYY-MM-DD format
     def since_date(since_date)
@@ -185,7 +232,7 @@ module Twitter
     # Returns results with a date less than the specified date
     #
     # @example
-    #   Twitter::Search.new('ruby').until_date('2010-10-09')
+    #   Twitter::Search.new.containing('twitter').until_date('2010-10-10')
     #
     # @param until_date [String] the search date in YYYY-MM-DD format
     def until_date(until_date)
@@ -198,7 +245,7 @@ module Twitter
     # given latitude/longitude.
     #
     # @example
-    #   Twitter::Search.new('ruby').geocode(37.781157, -122.398720, "1mi")
+    #   Twitter::Search.new.containing('twitter').geocode(37.781157, -122.398720, "1mi")
     #
     # @param lat [Float] the latitude to search
     # @param long [Float] the longitude to search
@@ -237,25 +284,26 @@ module Twitter
     # Fetch the next page of results in the query
     def fetch_next_page
       if next_page?
-        search = Search.new
-        search.get("search", fetch["next_page"][1..-1]).results
-        search
+        @fetch = get("search", CGI.parse(fetch["next_page"][1..-1]))
       end
     end
 
     # Perform the search, hitting the API
     #
     # @param force [Boolean] optionally ignore cache and hit the API again
-    def fetch
-      query = @query.dup
-      query[:q] = query[:q].join(" ")
-      get("search", query).results
+    def fetch(force=false)
+      if @fetch.nil? || force
+        query = @query.dup
+        query[:q] = query[:q].join(" ")
+        @fetch = get("search", query)
+      end
+      @fetch
     end
 
     # Iterate over the results
     #
     # @example
-    #   Twitter::Search.new('ruby').each {|t| puts t.from_user}
+    #   Twitter::Search.new.containing('twitter').each {|t| puts t.from_user}
     def each
       results = fetch['results']
       return if results.nil?

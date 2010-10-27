@@ -4,7 +4,6 @@ module Twitter
       def places_nearby(options={})
         get('geo/search', options)['result']['places']
       end
-
       alias :geo_search :places_nearby
 
       def places_similar(options={})

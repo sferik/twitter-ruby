@@ -36,7 +36,7 @@ describe "Twitter::Client" do
           :oauth_token_secret => 'OS',
           :adapter => :typhoeus,
           :endpoint => 'http://tumblr.com/',
-          :format => 'XML',
+          :format => :xml,
           :user_agent => 'Custom User Agent',
         }
       end

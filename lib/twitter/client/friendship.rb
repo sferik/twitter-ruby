@@ -8,7 +8,6 @@ module Twitter
         response = post('friendships/create', options.merge(:follow => follow))
         format.to_s.downcase == 'xml' ? response['user'] : response
       end
-
       alias :friendship_create :follow
 
       def unfollow(user, options={})
@@ -16,7 +15,6 @@ module Twitter
         response = delete('friendships/destroy', options)
         format.to_s.downcase == 'xml' ? response['user'] : response
       end
-
       alias :friendship_destroy :unfollow
 
       def friendship_exists?(source, target, options={})
@@ -27,7 +25,6 @@ module Twitter
       def friendship(options={})
         get('friendships/show', options)['relationship']
       end
-
       alias :friendship_show :friendship
 
       def friendships_incoming(options={})
