@@ -41,8 +41,9 @@ describe "Twitter::Search" do
           :oauth_token_secret => 'OS',
           :adapter => :typhoeus,
           :endpoint => 'http://tumblr.com/',
-          :search_endpoint => 'http://google.com/',
           :format => :xml,
+          :proxy => 'http://erik:sekret@proxy.example.com:8080',
+          :search_endpoint => 'http://google.com/',
           :user_agent => 'Custom User Agent',
         }
       end

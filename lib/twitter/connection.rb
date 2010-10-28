@@ -7,19 +7,20 @@ module Twitter
 
     def connection(raw=false)
       options = {
-        :headers => {:user_agent => user_agent},
+        :headers => {'Accept' => "application/#{format}", 'User-Agent' => user_agent},
+        :proxy => proxy,
         :ssl => {:verify => false},
-        :url => api_endpoint
+        :url => api_endpoint,
       }
 
-      Faraday::Connection.new(options) do |builder|
-        builder.use Faraday::Request::Multipart
-        builder.use Faraday::Request::OAuth, authentication if authenticated?
-        builder.adapter(adapter)
-        builder.use Faraday::Response::RaiseHttp5xx
-        builder.use Faraday::Response::Parse unless raw
-        builder.use Faraday::Response::RaiseHttp4xx
-        builder.use Faraday::Response::Mashify unless raw
+      Faraday::Connection.new(options) do |connection|
+        connection.use Faraday::Request::Multipart
+        connection.use Faraday::Request::OAuth, authentication if authenticated?
+        connection.adapter(adapter)
+        connection.use Faraday::Response::RaiseHttp5xx
+        connection.use Faraday::Response::Parse unless raw
+        connection.use Faraday::Response::RaiseHttp4xx
+        connection.use Faraday::Response::Mashify unless raw
       end
     end
   end
