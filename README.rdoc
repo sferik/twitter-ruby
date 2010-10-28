@@ -69,7 +69,7 @@ Here are a few more reasons to upgrade to 1.0:
 * Improved error handling: More easily retry after rate-limit errors or fail whales
 
 For more information, please see the full documentation and examples of the gem's usage below.
-== Help! I'm getting RuntimeError: "Did not recognize your engine specification. Please specify either a symbol or a class."
+== Help! I'm getting: "Did not recognize your engine specification. Please specify either a symbol or a class. (RuntimeError)"
 If you're using the JSON request format (i.e., the default), you'll need to
 explicitly require a JSON library. We recommend {<tt>yajl-ruby</tt>}[http://github.com/brianmario/yajl-ruby].
 If you're using the XML request format, we recommend requiring {<tt>libxml-ruby</tt>}[http://github.com/dvdplm/libxml-ruby] for dramatically improved performance over REXML.
