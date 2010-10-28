@@ -6,10 +6,10 @@ people}[http://github.com/jnunemaker/twitter/blob/master/HISTORY.rdoc]. This rew
 compatibility with version 0.9.12 and earlier versions of the gem. Most notably, the
 <tt>Twitter::Base</tt>, <tt>Twitter:Geo</tt>, <tt>Twitter::LocalTrends</tt>, and
 <tt>Twitter::Trends</tt> classes {have all been
-combined}[http://github.com/jnunemaker/twitter/commit/eb53872249634ee1f0179982b091a1a0fd9c0973] in
-the <tt>Twitter::Client</tt> class. This gem will {display deprecation warnings and forward method
-calls to the Client class}[http://github.com/jnunemaker/twitter/commit/192e5884f367750dbdca8471aa12385ed5b057ca]
-whenever possible. In a handful of cases, method names were changed to resolve namespace conflicts.
+merged}[http://github.com/jnunemaker/twitter/commit/eb53872249634ee1f0179982b091a1a0fd9c0973] into
+the <tt>Twitter::Client</tt> class. Whenever possible, we {display deprecation warnings and forward method
+calls to the Client class}[http://github.com/jnunemaker/twitter/commit/192e5884f367750dbdca8471aa12385ed5b057ca].
+In a handful of cases, method names were changed to resolve namespace conflicts.
 
   # Pre-1.0
   Twitter::Base.new.user('sferik').name
