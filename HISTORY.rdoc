@@ -4,7 +4,8 @@
 * {Make all global settings overrideable at the class level}[http://github.com/jnunemaker/twitter/commit/66f3ac223d6f0822c8b3acd4cdcd8c84c8dacfe0]
 * {Expose a property in EnhanceYourCalm for HTTP header "Retry-After"}[http://github.com/jnunemaker/twitter/commit/7ab91f9d26351f52d3c803bb191d33bdacff5094] (@duylam[http://twitter.com/#!/duylam])
 * {Merge <tt>Base</tt>, <tt>Geo</tt>, <tt>Trends</tt>, and <tt>Unauthenticated</tt> into <tt>Client</tt> class}[http://github.com/jnunemaker/twitter/commit/eb53872249634ee1f0179982b091a1a0fd9c0973] (@laserlemon[http://twitter.com/#!/laserlemon])
-* {Move examples into README}[http://github.com/laserlemon/twitter/commit/96600cb5611965788c41b3788668188d37e16803]
+* {Move examples into README}[http://github.com/jnunemaker/twitter/commit/96600cb5611965788c41b3788668188d37e16803]
+* {Add proxy support}[http://github.com/jnunemaker/twitter/commit/1df33b7495093bc1f136d61b8aac9c9038414bc5]
 * Rewrite tests as specs
 
 === 1.0.0.rc.2 - October 15, 2010
