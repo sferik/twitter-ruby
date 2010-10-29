@@ -31,6 +31,66 @@ aliased to <tt>#q</tt>.
 * Post-1.0
         Twitter::Search.new.q('query').fetch.results.first.text
 
+The error classes have gone through a transformation to make them consistent with [Twitter's documented response codes](http://dev.twitter.com/pages/responses_errors).
+These changes should make it easier to rescue from specific errors and take action accordingly.
+
+<table>
+  <thead>
+    <tr>
+      <th>Response Code</th>
+      <th>Pre-1.0</th>
+      <th>Post-1.0</th>
+    </tr>
+  </thead>
+  </tbody>
+    <tr>
+      <td><tt>400</tt></td>
+      <td><tt>Twitter::RateLimitExceeded</tt></td>
+      <td><tt>Twitter::BadRequest</tt></td>
+    </tr>
+    <tr>
+      <td><tt>401</tt></td>
+      <td><tt>Twitter::Unauthorized</tt></td>
+      <td><tt>Twitter::Unauthorized</tt></td>
+    </tr>
+    <tr>
+      <td><tt>403</tt></td>
+      <td><tt>Twitter::General</tt></td>
+      <td><tt>Twitter::Forbidden</tt></td>
+    </tr>
+    <tr>
+      <td><tt>404</tt></td>
+      <td><tt>Twitter::NotFound</tt></td>
+      <td><tt>Twitter::NotFound</tt></td>
+    </tr>
+    <tr>
+      <td><tt>406</tt></td>
+      <td>N/A</td>
+      <td><tt>Twitter::NotAcceptable</tt></td>
+    </tr>
+    <tr>
+      <td><tt>420</tt></td>
+      <td>N/A</td>
+      <td><tt>Twitter::EnhanceYourCalm</tt></td>
+    </tr>
+    <tr>
+      <td><tt>500</tt></td>
+      <td><tt>Twitter::InformTwitter</tt></td>
+      <td><tt>Twitter::InternalServerError</tt></td>
+    </tr>
+    <tr>
+      <td><tt>502</tt></td>
+      <td><tt>Twitter::Unavailable</tt></td>
+      <td><tt>Twitter::BadGateway</tt></td>
+    </tr>
+    <tr>
+      <td><tt>503</tt></td>
+      <td><tt>Twitter::Unavailable</tt></td>
+      <td><tt>Twitter::ServiceUnavailable</tt></td>
+    </tr>
+  </tbody>
+</table>
+
 The <tt>Twitter::OAuth</tt> class [has been removed](http://github.com/jnunemaker/twitter/commit/d33b119cdfdaefb10db99e56d28dd69625816edf).
 This class was just a wrapper to get access tokens via the [oauth
 gem](http://github.com/oauth/oauth-ruby). Given that there are a variety of gems that do the same
