@@ -17,22 +17,24 @@ the <tt>Twitter::Client</tt> class. Whenever possible, we [display deprecation w
 calls to the <tt>Twitter::Client</tt> class](http://github.com/jnunemaker/twitter/commit/192e5884f367750dbdca8471aa12385ed5b057ca).
 In a handful of cases, method names were changed to resolve namespace conflicts.
 
-* Pre-1.0
+* **Pre-1.0**
         Twitter::Base.new.user('sferik').name
-* Post-1.0
+* **Post-1.0**
         Twitter::Client.new.user('sferik').name
 
 The <tt>Twitter::Search</tt> class has remained largely the same, however it no longer accepts a
 query in its constructor. You can specify a query using the <tt>#containing</tt> method, which is
 aliased to <tt>#q</tt>.
 
-* Pre-1.0
+* **Pre-1.0**
         Twitter::Search.new('query').fetch.results.first.text
-* Post-1.0
+* **Post-1.0**
         Twitter::Search.new.q('query').fetch.results.first.text
 
-The error classes have gone through a transformation to make them consistent with [Twitter's documented response codes](http://dev.twitter.com/pages/responses_errors).
-These changes should make it easier to rescue from specific errors and take action accordingly.
+The error classes have gone through a transformation to make them consistent with [Twitter's documented
+response codes](http://dev.twitter.com/pages/responses_errors). These changes should make it easier to
+rescue from specific errors and take action accordingly. We've also added support for two new classes of
+error thrown by the Twitter Search API.
 
 <table>
   <thead>
@@ -101,7 +103,7 @@ this functionality so you can use the authentication library of your choosing, o
 you would like to continue using the [oauth gem](http://github.com/oauth/oauth-ruby),
 simply require it and make the following changes:
 
-* Pre-1.0
+* **Pre-1.0**
         options = {:api_endpoint => 'https://api.twitter.com', :signing_endpoint => 'https://api.twitter.com', :sign_in => true}
         oauth_wrapper = Twitter::OAuth.new(YOUR_CONSUMER_TOKEN, YOUR_CONSUMER_SECRET, options)
         signing_consumer = oauth_wrapper.signing_consumer
@@ -110,7 +112,7 @@ simply require it and make the following changes:
         # Use 'pin' instead of 'verifier' for PIN authentication
         oauth_token, oauth_token_secret = oauth_wrapper.authorize_from_request(request_token.token, request_token.secret, 'verifier')
 
-* Post-1.0
+* **Post-1.0**
         options = {:site => 'https://api.twitter.com', :request_endpoint => 'https://api.twitter.com', :authorize_path => '/oauth/authenticate'}
         signing_consumer = OAuth::Consumer.new(YOUR_CONSUMER_TOKEN, YOUR_CONSUMER_SECRET, options)
         request_token = signing_consumer.get_request_token(:oauth_callback => CALLBACK_URL)
