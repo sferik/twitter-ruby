@@ -2,8 +2,12 @@ The Twitter Ruby Gem
 ====================
 A Ruby wrapper for the Twitter REST and Search APIs
 
-What's New in 1.0
------------------
+Does your project or company use this gem?
+------------------------------------------
+Add it to the [apps](http://github.com/jnunemaker/twitter/wiki/apps) wiki!
+
+What's new in 1.0?
+------------------
 This gem has been completely rewritten for version 1.0 thanks to [contributions from numerous
 people](http://github.com/jnunemaker/twitter/blob/master/HISTORY.md). This rewrite breaks
 compatibility with version 0.9.12 and earlier versions of the gem. Most notably, the
