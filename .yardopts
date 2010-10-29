@@ -1,5 +1,4 @@
 --protected
---tag authenticated:"Requires Authentication"
---tag rate_limited:"Rate limited"
 -
-LICENSE
+LICENSE.md
+HISTORY.md
