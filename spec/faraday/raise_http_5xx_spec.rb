@@ -1,6 +1,6 @@
 require File.expand_path('../../spec_helper', __FILE__)
 
-describe "RaiseHttp5xx" do
+describe Faraday::Response::RaiseHttp5xx do
   before do
     @client = Twitter::Client.new
   end

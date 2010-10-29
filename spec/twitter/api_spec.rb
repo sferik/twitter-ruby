@@ -1,6 +1,6 @@
 require File.expand_path('../../spec_helper', __FILE__)
 
-describe "Twitter::API" do
+describe Twitter::API do
   before do
     @keys = Twitter::Configuration::VALID_OPTIONS_KEYS
   end

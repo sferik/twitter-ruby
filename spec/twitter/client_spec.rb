@@ -1,6 +1,6 @@
 require File.expand_path('../../spec_helper', __FILE__)
 
-describe "Twitter::Client" do
+describe Twitter::Client do
   it "should connect using the endpoint configuration" do
     client = Twitter::Client.new
     endpoint = URI.parse(client.api_endpoint)

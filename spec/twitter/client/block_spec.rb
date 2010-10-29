@@ -1,6 +1,6 @@
 require File.expand_path('../../../spec_helper', __FILE__)
 
-describe "Twitter::Client" do
+describe Twitter::Client do
   Twitter::Configuration::VALID_FORMATS.each do |format|
     context ".new(:format => '#{format}')" do
       before do

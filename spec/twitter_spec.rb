@@ -1,6 +1,6 @@
 require File.expand_path('../spec_helper', __FILE__)
 
-describe "Twitter" do
+describe Twitter do
   after do
     Twitter.reset
   end

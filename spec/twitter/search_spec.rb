@@ -1,6 +1,6 @@
 require File.expand_path('../../spec_helper', __FILE__)
 
-describe "Twitter::Search" do
+describe Twitter::Search do
 
   it "should connect using the search_endpoint configuration" do
     search = Twitter::Search.new

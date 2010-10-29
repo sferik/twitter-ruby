@@ -1,6 +1,6 @@
 require File.expand_path('../../spec_helper', __FILE__)
 
-describe "Twitter::Base" do
+describe Twitter::Base do
   context ".new" do
     before do
       @client = Twitter::Base.new
