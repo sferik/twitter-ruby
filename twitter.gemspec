@@ -25,12 +25,10 @@ Gem::Specification.new do |s|
   s.description = %q{A Ruby wrapper for the Twitter REST and Search APIs}
   s.email = ["nunemaker@gmail.com"]
   s.executables = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
-  s.extra_rdoc_files = ["README.rdoc"]
   s.files = `git ls-files`.split("\n")
   s.homepage = "http://rubygems.org/gems/twitter"
   s.name = "twitter"
   s.platform = Gem::Platform::RUBY
-  s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.required_rubygems_version = Gem::Requirement.new(">= 1.3.6") if s.respond_to? :required_rubygems_version=
   s.rubyforge_project = "twitter"

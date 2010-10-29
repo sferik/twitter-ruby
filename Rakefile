@@ -18,12 +18,9 @@ end
 
 task :default => ["spec:rcov"]
 
-require 'rake/rdoctask'
-Rake::RDocTask.new do |rdoc|
-  rdoc.rdoc_dir = 'rdoc'
-  rdoc.title = "twitter #{Twitter::VERSION}"
-  rdoc.rdoc_files.include('README*')
-  rdoc.rdoc_files.include('lib/**/*.rb')
+require 'yard'
+YARD::Rake::YardocTask.new do |task|
+  task.options += ['--title', "Twitter #{Twitter::VERSION} Documentation"]
 end
 
 desc "Upload website files to rubyforge"
