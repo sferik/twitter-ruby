@@ -34,7 +34,7 @@ aliased to <tt>#q</tt>.
 The error classes have gone through a transformation to make them consistent with [Twitter's documented
 response codes](http://dev.twitter.com/pages/responses_errors). These changes should make it easier to
 rescue from specific errors and take action accordingly. We've also added support for two new classes of
-error thrown by the Twitter Search API.
+error returned by the Twitter Search API.
 
 <table>
   <thead>
@@ -104,22 +104,20 @@ you would like to continue using the [oauth gem](http://github.com/oauth/oauth-r
 simply require it and make the following changes:
 
 * **Pre-1.0**
-        options = {:api_endpoint => 'https://api.twitter.com', :signing_endpoint => 'https://api.twitter.com', :sign_in => true}
+        options = {:api_endpoint => 'http://api.twitter.com', :signing_endpoint => 'http://api.twitter.com'}
         oauth_wrapper = Twitter::OAuth.new(YOUR_CONSUMER_TOKEN, YOUR_CONSUMER_SECRET, options)
+        oauth_wrapper.set_callback_url(CALLBACK_URL)
         signing_consumer = oauth_wrapper.signing_consumer
-        request_token = signing_consumer.get_request_token(:oauth_callback => CALLBACK_URL)
+        request_token = signing_consumer.get_request_token
         redirect_to request_token.authorize_url
-        # Use 'pin' instead of 'verifier' for PIN authentication
-        oauth_token, oauth_token_secret = oauth_wrapper.authorize_from_request(request_token.token, request_token.secret, 'verifier')
+        oauth_wrapper.authorize_from_request(request_token.token, request_token.secret, params[:oauth_verifier])
 
 * **Post-1.0**
-        options = {:site => 'https://api.twitter.com', :request_endpoint => 'https://api.twitter.com', :authorize_path => '/oauth/authenticate'}
+        options = {:site => 'http://api.twitter.com', :request_endpoint => 'http://api.twitter.com'}
         signing_consumer = OAuth::Consumer.new(YOUR_CONSUMER_TOKEN, YOUR_CONSUMER_SECRET, options)
         request_token = signing_consumer.get_request_token(:oauth_callback => CALLBACK_URL)
         redirect_to request_token.authorize_url
-        # Use 'pin' instead of 'verifier' for PIN authentication
-        access_token = OAuth::RequestToken.new(signing_consumer, request_token.token, request_token.secret).get_access_token(:oauth_verifier => 'verifier')
-        oauth_token, oauth_token_secret = access_token.token, access_token.secret
+        OAuth::RequestToken.new(signing_consumer, request_token.token, request_token.secret).get_access_token(:oauth_verifier => params[:oauth_verifier])
 
 The public APIs defined in version 1.0 of this gem will maintain backwards compatibility until
 the next major version, following the best practice of [Semantic Versioning](http://semver.org/).
