@@ -1,4 +1,6 @@
 --protected
+--tag authenticated:"Requires Authentication"
+--tag rate_limited:"Rate limited"
 -
 LICENSE.md
 HISTORY.md
