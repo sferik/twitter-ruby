@@ -4,7 +4,6 @@ require File.expand_path('../twitter/api', __FILE__)
 require File.expand_path('../twitter/client', __FILE__)
 require File.expand_path('../twitter/search', __FILE__)
 require File.expand_path('../twitter/base', __FILE__)
-require File.expand_path('../twitter/geo', __FILE__)
 
 module Twitter
   extend Configuration
