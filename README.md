@@ -18,18 +18,18 @@ calls to the <tt>Twitter::Client</tt> class](http://github.com/jnunemaker/twitte
 In a handful of cases, method names were changed to resolve namespace conflicts.
 
 * **Pre-1.0**
-        Twitter::Base.new.user('sferik').name
+        Twitter::Base.new.user("sferik").name
 * **Post-1.0**
-        Twitter::Client.new.user('sferik').name
+        Twitter::Client.new.user("sferik").name
 
 The <tt>Twitter::Search</tt> class has remained largely the same, however it no longer accepts a
 query in its constructor. You can specify a query using the <tt>#containing</tt> method, which is
 aliased to <tt>#q</tt>.
 
 * **Pre-1.0**
-        Twitter::Search.new('query').fetch.results.first.text
+        Twitter::Search.new("query").fetch.first.text
 * **Post-1.0**
-        Twitter::Search.new.q('query').fetch.results.first.text
+        Twitter::Search.new.q("query").fetch.first.text
 
 The error classes have gone through a transformation to make them consistent with [Twitter's documented
 response codes](http://dev.twitter.com/pages/responses_errors). These changes should make it easier to
@@ -104,7 +104,7 @@ you would like to continue using the [oauth gem](http://github.com/oauth/oauth-r
 simply require it and make the following changes:
 
 * **Pre-1.0**
-        options = {:api_endpoint => 'http://api.twitter.com', :signing_endpoint => 'http://api.twitter.com'}
+        options = {:api_endpoint => "http://api.twitter.com", :signing_endpoint => "http://api.twitter.com"}
         oauth_wrapper = Twitter::OAuth.new(YOUR_CONSUMER_TOKEN, YOUR_CONSUMER_SECRET, options)
         oauth_wrapper.set_callback_url(CALLBACK_URL)
         signing_consumer = oauth_wrapper.signing_consumer
@@ -113,7 +113,7 @@ simply require it and make the following changes:
         oauth_wrapper.authorize_from_request(request_token.token, request_token.secret, params[:oauth_verifier])
 
 * **Post-1.0**
-        options = {:site => 'http://api.twitter.com', :request_endpoint => 'http://api.twitter.com'}
+        options = {:site => "http://api.twitter.com", :request_endpoint => "http://api.twitter.com"}
         signing_consumer = OAuth::Consumer.new(YOUR_CONSUMER_TOKEN, YOUR_CONSUMER_SECRET, options)
         request_token = signing_consumer.get_request_token(:oauth_callback => CALLBACK_URL)
         redirect_to request_token.authorize_url
@@ -151,8 +151,8 @@ Documentation
 
 Usage Examples
 --------------
-    require 'rubygems'
-    require 'twitter'
+    require "rubygems"
+    require "twitter"
 
     # Get a user's location
     puts Twitter.user("sferik").location
@@ -167,7 +167,7 @@ Usage Examples
     search = Twitter::Search.new
 
     # Find the 3 most recent marriage proposals to @justinbieber
-    search.containing('marry me').to('justinbieber').result_type('recent').per_page(3).each do |r|
+    search.containing("marry me").to("justinbieber").result_type("recent").per_page(3).each do |r|
       puts "#{r.from_user}: #{r.text}"
     end
 
@@ -175,10 +175,10 @@ Usage Examples
     search.clear
 
     # Let's find a Japanese-language status update tagged #ruby
-    puts search.hashtag('ruby').language('ja').no_retweets.per_page(1).fetch.results.first.text
+    puts search.hashtag("ruby").language("ja").no_retweets.per_page(1).fetch.first.text
 
     # And another
-    puts search.fetch_next_page.results.first.text
+    puts search.fetch_next_page.first.text
 
     # Certain methods require authentication. To get your Twitter OAuth credentials,
     # register an app at http://dev.twitter.com/apps

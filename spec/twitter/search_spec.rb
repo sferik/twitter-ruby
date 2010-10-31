@@ -193,10 +193,10 @@ describe Twitter::Search do
 
     end
 
-    describe ".not_hashtag" do
+    describe ".excluding_hashtag" do
 
       it "should set the query not to include hashtag" do
-        @client.not_hashtag('twitter').query[:q].should include '-#twitter'
+        @client.excluding_hashtag('twitter').query[:q].should include '-#twitter'
       end
 
     end
@@ -279,17 +279,18 @@ describe Twitter::Search do
         stub_request(:get, "https://search.twitter.com/search.json").
           with(:query => {"q" => "twitter"}).
           to_return(:body => fixture("search.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        @client.containing('twitter')
       end
 
       it "should get the correct resource" do
-        @client.containing('twitter').fetch.next_page?
+        @client.next_page?
         a_request(:get, "https://search.twitter.com/search.json").
           with(:query => {"q" => "twitter"}).
           should have_been_made
       end
 
       it "should be true if there's another page" do
-        next_page = @client.containing('twitter').fetch.next_page?
+        next_page = @client.next_page?
         next_page.should be_true
       end
 
@@ -304,10 +305,11 @@ describe Twitter::Search do
         stub_request(:get, "https://search.twitter.com/search.json").
           with(:query => {"q" => "twitter", "page" => "2", "max_id" => "28857935752"}).
           to_return(:body => fixture("search.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        @client.containing('twitter')
       end
 
       it "should get the correct resource" do
-        @client.containing('twitter').fetch_next_page
+        @client.fetch_next_page
         a_request(:get, "https://search.twitter.com/search.json").
           with(:query => {"q" => "twitter"}).
           should have_been_made
