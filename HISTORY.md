@@ -1,5 +1,9 @@
 1.0.0.rc.4 - October 28, 2010
 -----------------------------
+* [Changes to Search class](http://github.com/jnunemaker/twitter/commit/e769fabc0232cbbcb9d0fa5a07277fb9f50b17c8)
+
+1.0.0.rc.4 - October 28, 2010
+-----------------------------
 * [Add proxy support](http://github.com/jnunemaker/twitter/commit/1df33b7495093bc1f136d61b8aac9c9038414bc5)
 
 1.0.0.rc.3 - October 27, 2010
