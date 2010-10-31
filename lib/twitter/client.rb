@@ -7,26 +7,26 @@ module Twitter
 
     alias :api_endpoint :endpoint
 
-    include Utils
+    include Twitter::Client::Utils
 
-    include Timeline
-    include Tweets
-    include User
-    include Trends
-    include LocalTrends
-    include List
-    include ListMembers
-    include ListSubscribers
-    include DirectMessages
-    include Friendship
-    include FriendsAndFollowers
-    include Account
-    include Favorites
-    include Notification
-    include Block
-    include SpamReporting
-    include SavedSearches
-    include Geo
-    include Legal
+    include Twitter::Client::Account
+    include Twitter::Client::Block
+    include Twitter::Client::DirectMessages
+    include Twitter::Client::Favorites
+    include Twitter::Client::Friendship
+    include Twitter::Client::FriendsAndFollowers
+    include Twitter::Client::Geo
+    include Twitter::Client::Legal
+    include Twitter::Client::List
+    include Twitter::Client::ListMembers
+    include Twitter::Client::ListSubscribers
+    include Twitter::Client::LocalTrends
+    include Twitter::Client::Notification
+    include Twitter::Client::SpamReporting
+    include Twitter::Client::SavedSearches
+    include Twitter::Client::Timeline
+    include Twitter::Client::Trends
+    include Twitter::Client::Tweets
+    include Twitter::Client::User
   end
 end
