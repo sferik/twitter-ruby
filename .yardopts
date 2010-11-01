@@ -1,6 +1,7 @@
 --protected
+--tag formats:"Supported formats"
 --tag authenticated:"Requires Authentication"
---tag rate_limited:"Rate limited"
+--tag rate_limited:"Rate Limited"
 -
 LICENSE.md
 HISTORY.md

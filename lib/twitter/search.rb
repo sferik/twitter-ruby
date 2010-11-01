@@ -47,7 +47,7 @@ module Twitter
 
     # Search query
     #
-    # @param query [String] The search query
+    # @param query [String] The search query.
     # @return [Twitter::Search] self
     # @example
     #   Twitter::Search.new.containing("twitter").fetch # Returns an array of tweets containing "twitter"
@@ -62,7 +62,7 @@ module Twitter
 
     # Negative search query
     #
-    # @param query [String] The negative search query
+    # @param query [String] The negative search query.
     # @return [Twitter::Search] self
     # @example
     #   Twitter::Search.new.containing("beer").not_containing("root").fetch   # Returns an array of tweets containing "beer" but not "root"
@@ -81,7 +81,7 @@ module Twitter
 
     # Search for a specific phrase instead of a group of words
     #
-    # @param phrase [String] The search phrase
+    # @param phrase [String] The search phrase.
     # @return [Twitter::Search] self
     # @example
     #   Twitter::Search.new.phrase("happy hour").fetch # Returns an array of tweets containing the phrase "happy hour"
@@ -103,7 +103,7 @@ module Twitter
 
     # Only include tweets from after a given date, specified in the formatted YYYY-MM-DD
     #
-    # @param date [String] A date in the format YYYY-MM-DD
+    # @param date [String] A date in the format YYYY-MM-DD.
     # @return [Twitter::Search] self
     # @example
     #   Twitter::Search.new.containing("twitter").since_date("2010-10-01").fetch # Return an array of tweets containing "twitter" since October 1, 2010
@@ -115,7 +115,7 @@ module Twitter
 
     # Only include tweets from before a given date, specified in the formatted YYYY-MM-DD
     #
-    # @param date [String] A date in the format YYYY-MM-DD
+    # @param date [String] A date in the format YYYY-MM-DD.
     # @return [Twitter::Search] self
     # @example
     #   Twitter::Search.new.containing("twitter").since_date("2010-10-01").fetch # Return an array of tweets containing "twitter" up until October 1, 2010
@@ -159,7 +159,7 @@ module Twitter
 
     # Only include tweets in a given language, specified by an ISO 639-1 code
     #
-    # @param code [String] An ISO 639-1 code
+    # @param code [String] An ISO 639-1 code.
     # @return [Twitter::Search] self
     # @example
     #   Twitter::Search.new.containing("twitter").language("fr").fetch # Returns an array of French-language tweets containing "twitter"
@@ -175,7 +175,7 @@ module Twitter
     # This is intended for language-specific clients and
     # the default should work in the majority of cases.
     #
-    # @param code [String] An ISO 639-1 code (only 'ja' is currently effective)
+    # @param code [String] An ISO 639-1 code (only 'ja' is currently effective).
     # @return [Twitter::Search] self
     # @example
     #   Twitter::Search.new.containing("twitter").locale("ja").fetch # Returns an array of tweets from Japan containing "twitter"
@@ -187,9 +187,9 @@ module Twitter
 
     # Only include tweets from users in a given radius of a given location, specified by latitude and longitude
     #
-    # @param lat [Float] A latitude
-    # @param long [Float] A longitude
-    # @param radius [String] A search radius, specified in either 'mi' or 'km'
+    # @param lat [Float] A latitude.
+    # @param long [Float] A longitude.
+    # @param radius [String] A search radius, specified in either 'mi' (miles) or 'km' (kilometers).
     # @return [Twitter::Search] self
     # @example
     #   Twitter::Search.new.containing("twitter").geocode(37.781157, -122.398720, "1mi").fetch # Returns an array of tweets within a 1-mile radius of Twitter HQ
@@ -200,7 +200,7 @@ module Twitter
 
     # Only include tweets from users in a given place, specified by a place ID
     #
-    # @param place_id [String] A place ID
+    # @param place_id [String] A place ID.
     # @return [Twitter::Search] self
     # @example
     #   Twitter::Search.new.place("5a110d312052166f").fetch # Returns an array of tweets from San Francisco
@@ -211,7 +211,7 @@ module Twitter
 
     # Only include tweets from users near a given location
     #
-    # @param location [String] A place ID
+    # @param location [String] A location name.
     # @return [Twitter::Search] self
     # @example
     #   Twitter::Search.new.near("San Francisco").fetch # Returns an array of tweets near San Francisco
@@ -224,7 +224,7 @@ module Twitter
 
     # Only include tweets from a given user, specified by screen_name
     #
-    # @param screen_name [String] A Twitter user name
+    # @param screen_name [String] A Twitter user name.
     # @return [Twitter::Search] self
     # @example
     #   Twitter::Search.new.containing("twitter").from("sferik").fetch # Returns an array of tweets containing "twitter" from @sferik
@@ -235,7 +235,7 @@ module Twitter
 
     # Exclude tweets from a given user, specified by screen_name
     #
-    # @param screen_name [String] A Twitter user name
+    # @param screen_name [String] A Twitter user name.
     # @return [Twitter::Search] self
     # @example
     #   Twitter::Search.new.containing("twitter").not_from("sferik").fetch # Returns an array of tweets containing "twitter" from everyone except @sferik
@@ -246,7 +246,7 @@ module Twitter
 
     # Only include tweets to a given user, specified by screen_name
     #
-    # @param screen_name [String] A Twitter user name
+    # @param screen_name [String] A Twitter user name.
     # @return [Twitter::Search] self
     # @example
     #   Twitter::Search.new.containing("twitter").to("sferik").fetch # Returns an array of tweets containing "twitter" to @sferik
@@ -257,7 +257,7 @@ module Twitter
 
     # Exclude tweets to a given user, specified by screen_name
     #
-    # @param screen_name [String] A Twitter user name
+    # @param screen_name [String] A Twitter user name.
     # @return [Twitter::Search] self
     # @example
     #   Twitter::Search.new.containing("twitter").not_to("sferik").fetch # Returns an array of tweets containing "twitter" to everyone except @sferik
@@ -268,7 +268,7 @@ module Twitter
 
     # Only include tweets mentioning a given user, specified by screen_name
     #
-    # @param screen_name [String] A Twitter user name
+    # @param screen_name [String] A Twitter user name.
     # @return [Twitter::Search] self
     # @example
     #   Twitter::Search.new.containing("twitter").mentioning("sferik").fetch # Returns an array of tweets containing "twitter" and mentioning @sferik
@@ -282,7 +282,7 @@ module Twitter
 
     # Exclude tweets mentioning a given user, specified by screen_name
     #
-    # @param screen_name [String] A Twitter user name
+    # @param screen_name [String] A Twitter user name.
     # @return [Twitter::Search] self
     # @example
     #   Twitter::Search.new.containing("twitter").not_mentioning("sferik").fetch # Returns an array of tweets containing "twitter" but not mentioning @sferik
@@ -317,7 +317,7 @@ module Twitter
 
     # Only include tweets containing a given hashtag
     #
-    # @param tag [String] A Twitter hashtag
+    # @param tag [String] A Twitter hashtag.
     # @return [Twitter::Search] self
     # @example
     #   Twitter::Search.new.hashtag("FollowFriday").fetch # Returns an array of tweets containing the hashtag #FollowFriday
@@ -328,7 +328,7 @@ module Twitter
 
     # Exclude tweets containing a given hashtag
     #
-    # @param tag [String] A Twitter hashtag
+    # @param tag [String] A Twitter hashtag.
     # @return [Twitter::Search] self
     # @example
     #   Twitter::Search.new.hashtag("FollowFriday").excluding_hashtag("FF").fetch # Returns an array of tweets containing the hashtag #FollowFriday but not #FF
@@ -343,7 +343,7 @@ module Twitter
 
     # Only include tweets with an ID greater than (that is, more recent than) the specified ID.
     #
-    # @param id [Integer] A Twitter status ID
+    # @param id [Integer] A Twitter status ID.
     # @return [Twitter::Search] self
     # @example
     #   Twitter::Search.new.containing("twitter").since_id(123456789).fetch # Returns an array of tweets containing "twitter" with an ID greater than 123456789
@@ -354,7 +354,7 @@ module Twitter
 
     # Only include tweets with an ID less than or equal to the specified ID
     #
-    # @param id [Integer] A Twitter status ID
+    # @param id [Integer] A Twitter status ID.
     # @return [Twitter::Search] self
     # @example
     #   Twitter::Search.new.containing("twitter").max_id(123456789).fetch # Returns an array of tweets containing "twitter" with an ID less than or equal to 123456789
@@ -367,7 +367,7 @@ module Twitter
 
     # Specify what type of search results you want to receive
     #
-    # @param result_type [String] The type of results you want to receive ('recent', 'popular', or 'mixed')
+    # @param result_type [String] The type of results you want to receive ('recent', 'popular', or 'mixed').
     # @return [Twitter::Search] self
     # @example
     #   Twitter::Search.new.containing("twitter").result_type("recent").fetch # Returns an array of recent tweets containing "twitter"
@@ -378,7 +378,7 @@ module Twitter
 
     # Only include tweets from a given source
     #
-    # @param source [String] A Twitter source
+    # @param source [String] A Twitter source.
     # @return [Twitter::Search] self
     # @example
     #   Twitter::Search.new.containing("twitter").source("Hibari").fetch # Returns an array of tweets containing "twitter", posted from Hibari
@@ -391,7 +391,7 @@ module Twitter
 
     # Specify the number of tweets to return per page
     #
-    # @param number [Integer] The number of tweets to return per page, maximum 100
+    # @param number [Integer] The number of tweets to return per page, up to a max of 100.
     # @return [Twitter::Search] self
     # @example
     #   Twitter::Search.new.containing("twitter").per_page(100).fetch # Returns an array of 100 tweets containing "twitter"
@@ -403,7 +403,7 @@ module Twitter
 
     # Specify the page number to return, up to a maximum of roughly 1500 results
     #
-    # @param number [Integer] A page number, starting at 1
+    # @param number [Integer] The page number (starting at 1) to return, up to a max of roughly 1500 results (based on {Twitter::Client::Search#per_page} * {Twitter::Client::Search#page}).
     # @return [Twitter::Search] self
     # @example
     #   Twitter::Search.new.containing("twitter").page(2).fetch # Returns the second page of tweets containing "twitter"
