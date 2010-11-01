@@ -1,4 +1,8 @@
-1.0.0.rc.4 - October 28, 2010
+1.0.0.rc.6 - November 1, 2010
+-----------------------------
+* [Add methods to <tt>Search</tt> class](http://github.com/jnunemaker/twitter/commit/1871913342a5621edfebb9a7c8be705608e082d5)
+
+1.0.0.rc.5 - October 31, 2010
 -----------------------------
 * [Changes to Search class](http://github.com/jnunemaker/twitter/commit/e769fabc0232cbbcb9d0fa5a07277fb9f50b17c8)
 
