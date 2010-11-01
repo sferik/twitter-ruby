@@ -217,6 +217,14 @@ describe Twitter::Search do
 
     end
 
+    describe ".source" do
+
+      it "should set the source" do
+        @client.source("Hibari").query[:q].should include 'source:Hibari'
+      end
+
+    end
+
     describe ".since_id" do
 
       it "should set the since id" do
@@ -249,10 +257,50 @@ describe Twitter::Search do
 
     end
 
+    describe ".positive" do
+
+      it "should set the query to include ':)'" do
+        @client.positive.query[:q].should include ':)'
+      end
+
+    end
+
+    describe ".negative" do
+
+      it "should set the query to include ':('" do
+        @client.negative.query[:q].should include ':('
+      end
+
+    end
+
+    describe ".question" do
+
+      it "should set the query to include '?'" do
+        @client.question.query[:q].should include '?'
+      end
+
+    end
+
     describe ".geocode" do
 
       it "should set the geocode" do
         @client.geocode(37.781157, -122.398720, '1mi').query[:geocode].should == '37.781157,-122.39872,1mi'
+      end
+
+    end
+
+    describe ".place" do
+
+      it "should set the place" do
+        @client.place("5a110d312052166f").query[:q].should include 'place:5a110d312052166f'
+      end
+
+    end
+
+    describe ".near" do
+
+      it "should set the near location" do
+        @client.near("San Francisco").query[:q].should include 'near:"San Francisco"'
       end
 
     end

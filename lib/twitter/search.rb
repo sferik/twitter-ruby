@@ -125,6 +125,36 @@ module Twitter
     end
     alias :until :until_date
 
+    # Only include tweets with a positive attitude
+    #
+    # @return [Twitter::Search] self
+    # @example
+    #   Twitter::Search.new.positive.fetch # Returns an array of tweets containing happy emoticons
+    def positive
+      @query[:q] << ":)"
+      self
+    end
+
+    # Only include tweets with a negative attitude
+    #
+    # @return [Twitter::Search] self
+    # @example
+    #   Twitter::Search.new.negative.fetch # Returns an array of tweets containing sad emoticons
+    def negative
+      @query[:q] << ":("
+      self
+    end
+
+    # Only include tweets that are asking a question
+    #
+    # @return [Twitter::Search] self
+    # @example
+    #   Twitter::Search.new.question.fetch # Returns an array of tweets containing question marks
+    def question
+      @query[:q] << "?"
+      self
+    end
+
     # @group Demographic filters
 
     # Only include tweets in a given language, specified by an ISO 639-1 code
@@ -155,7 +185,7 @@ module Twitter
       self
     end
 
-    # Only include tweets from users located within a given radius of a given location, specified by latitude and longitude
+    # Only include tweets from users in a given radius of a given location, specified by latitude and longitude
     #
     # @param lat [Float] A latitude
     # @param long [Float] A longitude
@@ -165,6 +195,28 @@ module Twitter
     #   Twitter::Search.new.containing("twitter").geocode(37.781157, -122.398720, "1mi").fetch # Returns an array of tweets within a 1-mile radius of Twitter HQ
     def geocode(lat, long, radius)
       @query[:geocode] = [lat, long, radius].join(",")
+      self
+    end
+
+    # Only include tweets from users in a given place, specified by a place ID
+    #
+    # @param place_id [String] A place ID
+    # @return [Twitter::Search] self
+    # @example
+    #   Twitter::Search.new.place("5a110d312052166f").fetch # Returns an array of tweets from San Francisco
+    def place(place_id)
+      @query[:q] << "place:#{place_id}"
+      self
+    end
+
+    # Only include tweets from users near a given location
+    #
+    # @param location [String] A place ID
+    # @return [Twitter::Search] self
+    # @example
+    #   Twitter::Search.new.near("San Francisco").fetch # Returns an array of tweets near San Francisco
+    def near(location)
+      @query[:q] << "near:#{location.inspect}"
       self
     end
 
@@ -289,17 +341,6 @@ module Twitter
     alias :excludes_hashtag :excluding_hashtag
     alias :exclude_hashtag :excluding_hashtag
 
-    # Specify what type of search results you want to receive
-    #
-    # @param result_type [String] The type of results you want to receive ('recent', 'popular', or 'mixed')
-    # @return [Twitter::Search] self
-    # @example
-    #   Twitter::Search.new.containing("twitter").result_type('recent').fetch # Returns an array of recent tweets containing "twitter"
-    def result_type(result_type="mixed")
-      @query[:result_type] = result_type
-      self
-    end
-
     # Only include tweets with an ID greater than (that is, more recent than) the specified ID.
     #
     # @param id [Integer] A Twitter status ID
@@ -323,6 +364,28 @@ module Twitter
       self
     end
     alias :max :max_id
+
+    # Specify what type of search results you want to receive
+    #
+    # @param result_type [String] The type of results you want to receive ('recent', 'popular', or 'mixed')
+    # @return [Twitter::Search] self
+    # @example
+    #   Twitter::Search.new.containing("twitter").result_type("recent").fetch # Returns an array of recent tweets containing "twitter"
+    def result_type(result_type="mixed")
+      @query[:result_type] = result_type
+      self
+    end
+
+    # Only include tweets from a given source
+    #
+    # @param source [String] A Twitter source
+    # @return [Twitter::Search] self
+    # @example
+    #   Twitter::Search.new.containing("twitter").source("Hibari").fetch # Returns an array of tweets containing "twitter", posted from Hibari
+    def source(source)
+      @query[:q] << "source:#{source}"
+      self
+    end
 
     # @group Paging
 
