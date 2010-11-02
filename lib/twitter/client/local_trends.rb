@@ -24,7 +24,7 @@ module Twitter
       # @formats :json, :xml
       # @authenticated false
       # @rate_limited true
-      # @param woeid [Integer] The {http://developer.yahoo.com/geo/geoplanet Yahoo! Where On Earth ID} of the location to return trending information for. Global information is available by using 1 as the WOEID.
+      # @param woeid [Integer] The {http://developer.yahoo.com/geo/geoplanet Yahoo! Where On Earth ID} of the location to return trending information for. WOEIDs can be retrieved by calling {Twitter::Client::LocalTrends#trend_locations}. Global information is available by using 1 as the WOEID.
       # @param options [Hash] A customizable set of options.
       # @return [Array]
       # @see http://dev.twitter.com/doc/get/trends/:woeid
