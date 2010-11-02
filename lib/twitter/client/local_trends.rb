@@ -1,12 +1,7 @@
 module Twitter
   class Client
     module LocalTrends
-      # Returns the locations that Twitter has trending topic information for.
-      #
-      # The response is an array of "locations" that encode the location's WOEID and some other human-readable information
-      # such as a canonical name and country the location belongs in.
-      #
-      # A WOEID is a {http://developer.yahoo.com/geo/geoplanet Yahoo! Where On Earth ID}.
+      # Returns the locations that Twitter has trending topic information for
       #
       # @formats :json, :xml
       # @authenticated false
@@ -21,13 +16,7 @@ module Twitter
         format.to_s.downcase == 'xml' ? response['locations'] : response
       end
 
-      # Returns the top 10 trending topics for a specific WOEID, if trending information is available for it.
-      #
-      # The response is an array of "trend" objects that encode the name of the trending topic, the query option that can be
-      # used to search for the topic on {http://search.twitter.com Twitter Search}, and the Twitter Search URL.
-      #
-      # This information is cached for 5 minutes. Requesting more frequently than that will not return any more data, and will
-      # count against your rate limit usage.
+      # Returns the top 10 trending topics for a specific WOEID
       #
       # @formats :json, :xml
       # @authenticated false

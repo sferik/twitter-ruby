@@ -2,10 +2,7 @@ module Twitter
   class Client
     # @see http://dev.twitter.com/pages/geo_dev_guidelines Twitter Geo Developer Guidelines
     module Geo
-      # Search for places that can be attached to a {Twitter::Client::Tweets#update}.
-      # Given a latitude and a longitude pair, an IP address, or a name, this request
-      # will return a list of all the valid places that can be used as the place_id
-      # when updating a status.
+      # Search for places that can be attached to a {Twitter::Client::Tweets#update}
       #
       # @formats :json
       # @authenticated false
@@ -27,7 +24,7 @@ module Twitter
       end
       alias :geo_search :places_nearby
 
-      # Locates places near the given coordinates which are similar in name.
+      # Locates places near the given coordinates which are similar in name
       #
       # Conceptually you would use this method to get a list of known places to choose from first.
       # Then, if the desired place doesn't exist, make a request to {Twitter::Client::Geo#place}
@@ -50,7 +47,7 @@ module Twitter
         get('geo/similar_places', options)['result']['places']
       end
 
-      # Given a latitude and a longitude, searches for up to 20 places that can be used as a place_id when updating a status.
+      # Searches for up to 20 places that can be used as a place_id
       #
       # This request is an informative call and will deliver generalized results about geography.
       #

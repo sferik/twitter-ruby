@@ -1,7 +1,11 @@
 module Twitter
+  # @private
   module Authentication
     private
 
+    # Authentication hash
+    #
+    # @return [Hash]
     def authentication
       {
         :consumer_key => consumer_key,
@@ -11,6 +15,9 @@ module Twitter
       }
     end
 
+    # Check whether user is authenticated
+    #
+    # @return [Boolean]
     def authenticated?
       authentication.values.all?
     end

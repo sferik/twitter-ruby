@@ -18,9 +18,13 @@ module Twitter
   # {Twitter::Client::User#user} to get the correct user id if necessary.
   # @see http://dev.twitter.com/doc/get/search Twitter Search API Documentation
   class Search < API
+    # @private
     attr_reader :query
 
     # Creates a new search
+    #
+    # @example Initialize a Twitter search
+    #   search = Twitter::Search.new
     def initialize(*)
       clear
       super
@@ -31,7 +35,7 @@ module Twitter
     # Clears all query filters and cached results
     #
     # @return [Twitter::Search] self
-    # @example
+    # @example Clear a search for "twitter"
     #   search = Twitter::Search.new
     #   search.containing("twitter").fetch
     #   search.clear
@@ -49,8 +53,8 @@ module Twitter
     #
     # @param query [String] The search query.
     # @return [Twitter::Search] self
-    # @example
-    #   Twitter::Search.new.containing("twitter").fetch # Returns an array of tweets containing "twitter"
+    # @example Return an array of tweets containing "twitter"
+    #   Twitter::Search.new.containing("twitter").fetch
     #   Twitter::Search.new.contains("twitter").fetch   # Shortcut for the above
     #   Twitter::Search.new.q("twitter").fetch          # Even shorter-cut
     def containing(query)
@@ -64,8 +68,8 @@ module Twitter
     #
     # @param query [String] The negative search query.
     # @return [Twitter::Search] self
-    # @example
-    #   Twitter::Search.new.containing("beer").not_containing("root").fetch   # Returns an array of tweets containing "beer" but not "root"
+    # @example Return an array of tweets containing "beer" but not "root"
+    #   Twitter::Search.new.containing("beer").not_containing("root").fetch
     #   Twitter::Search.new.containing("beer").does_not_contain("root").fetch # Same as above
     #   Twitter::Search.new.containing("beer").excluding("root").fetch        # Shortcut for the above
     #   Twitter::Search.new.contains("beer").excludes("root").fetch           # Even shorter
@@ -83,8 +87,8 @@ module Twitter
     #
     # @param phrase [String] The search phrase.
     # @return [Twitter::Search] self
-    # @example
-    #   Twitter::Search.new.phrase("happy hour").fetch # Returns an array of tweets containing the phrase "happy hour"
+    # @example Return an array of tweets containing the phrase "happy hour"
+    #   Twitter::Search.new.phrase("happy hour").fetch
     def phrase(phrase)
       @query[:phrase] = phrase
       self
@@ -94,31 +98,31 @@ module Twitter
     #
     # @param filter [String] A type of search filter. Only 'links' is currently effective.
     # @return [Twitter::Search] self
-    # @example
-    #   Twitter::Search.new.containing("twitter").filter.fetch # Returns an array of tweets containing "twitter" and URLs
+    # @example Return an array of tweets containing "twitter" and URLs
+    #   Twitter::Search.new.containing("twitter").filter.fetch
     def filter(filter='links')
       @query[:q] << "filter:#{filter}"
       self
     end
 
-    # Only include tweets from after a given date, specified in the formatted YYYY-MM-DD
+    # Only include tweets from after a given date
     #
     # @param date [String] A date in the format YYYY-MM-DD.
     # @return [Twitter::Search] self
-    # @example
-    #   Twitter::Search.new.containing("twitter").since_date("2010-10-01").fetch # Return an array of tweets containing "twitter" since October 1, 2010
+    # @example Return an array of tweets containing "twitter" since October 1, 2010
+    #   Twitter::Search.new.containing("twitter").since_date("2010-10-01").fetch
     def since_date(date)
       @query[:since] = date
       self
     end
     alias :since :since_date
 
-    # Only include tweets from before a given date, specified in the formatted YYYY-MM-DD
+    # Only include tweets from before a given date
     #
     # @param date [String] A date in the format YYYY-MM-DD.
     # @return [Twitter::Search] self
-    # @example
-    #   Twitter::Search.new.containing("twitter").since_date("2010-10-01").fetch # Return an array of tweets containing "twitter" up until October 1, 2010
+    # @example Return an array of tweets containing "twitter" up until October 1, 2010
+    #   Twitter::Search.new.containing("twitter").since_date("2010-10-01").fetch
     def until_date(date)
       @query[:until] = date
       self
@@ -128,8 +132,8 @@ module Twitter
     # Only include tweets with a positive attitude
     #
     # @return [Twitter::Search] self
-    # @example
-    #   Twitter::Search.new.positive.fetch # Returns an array of tweets containing happy emoticons
+    # @example Return an array of tweets containing happy emoticons
+    #   Twitter::Search.new.positive.fetch
     def positive
       @query[:q] << ":)"
       self
@@ -138,8 +142,8 @@ module Twitter
     # Only include tweets with a negative attitude
     #
     # @return [Twitter::Search] self
-    # @example
-    #   Twitter::Search.new.negative.fetch # Returns an array of tweets containing sad emoticons
+    # @example Return an array of tweets containing sad emoticons
+    #   Twitter::Search.new.negative.fetch
     def negative
       @query[:q] << ":("
       self
@@ -148,8 +152,8 @@ module Twitter
     # Only include tweets that are asking a question
     #
     # @return [Twitter::Search] self
-    # @example
-    #   Twitter::Search.new.question.fetch # Returns an array of tweets containing question marks
+    # @example Return an array of tweets containing question marks
+    #   Twitter::Search.new.question.fetch
     def question
       @query[:q] << "?"
       self
@@ -161,8 +165,8 @@ module Twitter
     #
     # @param code [String] An ISO 639-1 code.
     # @return [Twitter::Search] self
-    # @example
-    #   Twitter::Search.new.containing("twitter").language("fr").fetch # Returns an array of French-language tweets containing "twitter"
+    # @example Return an array of French-language tweets containing "twitter"
+    #   Twitter::Search.new.containing("twitter").language("fr").fetch
     #   Twitter::Search.new.containing("twitter").lang("fr").fetch     # Shortcut for the above
     # @see http://en.wikipedia.org/wiki/ISO_639-1
     def language(code)
@@ -171,28 +175,26 @@ module Twitter
     end
     alias :lang :language
 
-    # Specify the language of the query you are sending.
-    # This is intended for language-specific clients and
-    # the default should work in the majority of cases.
+    # Specify the locale of the query you are sending
     #
     # @param code [String] An ISO 639-1 code (only 'ja' is currently effective).
     # @return [Twitter::Search] self
-    # @example
-    #   Twitter::Search.new.containing("twitter").locale("ja").fetch # Returns an array of tweets from Japan containing "twitter"
+    # @example Return an array of tweets from Japan containing "twitter"
+    #   Twitter::Search.new.containing("twitter").locale("ja").fetch
     # @see http://en.wikipedia.org/wiki/ISO_639-1
     def locale(code)
       @query[:locale] = code
       self
     end
 
-    # Only include tweets from users in a given radius of a given location, specified by latitude and longitude
+    # Only include tweets from users in a given radius of a given location
     #
     # @param lat [Float] A latitude.
     # @param long [Float] A longitude.
     # @param radius [String] A search radius, specified in either 'mi' (miles) or 'km' (kilometers).
     # @return [Twitter::Search] self
-    # @example
-    #   Twitter::Search.new.containing("twitter").geocode(37.781157, -122.398720, "1mi").fetch # Returns an array of tweets within a 1-mile radius of Twitter HQ
+    # @example Return an array of tweets within a 1-mile radius of Twitter HQ
+    #   Twitter::Search.new.containing("twitter").geocode(37.781157, -122.398720, "1mi").fetch
     def geocode(lat, long, radius)
       @query[:geocode] = [lat, long, radius].join(",")
       self
@@ -202,8 +204,8 @@ module Twitter
     #
     # @param place_id [String] A place ID.
     # @return [Twitter::Search] self
-    # @example
-    #   Twitter::Search.new.place("5a110d312052166f").fetch # Returns an array of tweets from San Francisco
+    # @example Return an array of tweets from San Francisco
+    #   Twitter::Search.new.place("5a110d312052166f").fetch
     def place(place_id)
       @query[:q] << "place:#{place_id}"
       self
@@ -213,8 +215,8 @@ module Twitter
     #
     # @param location [String] A location name.
     # @return [Twitter::Search] self
-    # @example
-    #   Twitter::Search.new.near("San Francisco").fetch # Returns an array of tweets near San Francisco
+    # @example Return an array of tweets near San Francisco
+    #   Twitter::Search.new.near("San Francisco").fetch
     def near(location)
       @query[:q] << "near:#{location.inspect}"
       self
@@ -226,8 +228,8 @@ module Twitter
     #
     # @param screen_name [String] A Twitter user name.
     # @return [Twitter::Search] self
-    # @example
-    #   Twitter::Search.new.containing("twitter").from("sferik").fetch # Returns an array of tweets containing "twitter" from @sferik
+    # @example Return an array of tweets containing "twitter" from @sferik
+    #   Twitter::Search.new.containing("twitter").from("sferik").fetch
     def from(screen_name)
       @query[:q] << "from:#{screen_name}"
       self
@@ -237,8 +239,8 @@ module Twitter
     #
     # @param screen_name [String] A Twitter user name.
     # @return [Twitter::Search] self
-    # @example
-    #   Twitter::Search.new.containing("twitter").not_from("sferik").fetch # Returns an array of tweets containing "twitter" from everyone except @sferik
+    # @example Return an array of tweets containing "twitter" from everyone except @sferik
+    #   Twitter::Search.new.containing("twitter").not_from("sferik").fetch
     def not_from(screen_name)
       @query[:q] << "-from:#{screen_name}"
       self
@@ -248,8 +250,8 @@ module Twitter
     #
     # @param screen_name [String] A Twitter user name.
     # @return [Twitter::Search] self
-    # @example
-    #   Twitter::Search.new.containing("twitter").to("sferik").fetch # Returns an array of tweets containing "twitter" to @sferik
+    # @example Return an array of tweets containing "twitter" to @sferik
+    #   Twitter::Search.new.containing("twitter").to("sferik").fetch
     def to(screen_name)
       @query[:q] << "to:#{screen_name}"
       self
@@ -259,8 +261,8 @@ module Twitter
     #
     # @param screen_name [String] A Twitter user name.
     # @return [Twitter::Search] self
-    # @example
-    #   Twitter::Search.new.containing("twitter").not_to("sferik").fetch # Returns an array of tweets containing "twitter" to everyone except @sferik
+    # @example Return an array of tweets containing "twitter" to everyone except @sferik
+    #   Twitter::Search.new.containing("twitter").not_to("sferik").fetch
     def not_to(screen_name)
       @query[:q] << "-to:#{screen_name}"
       self
@@ -270,8 +272,8 @@ module Twitter
     #
     # @param screen_name [String] A Twitter user name.
     # @return [Twitter::Search] self
-    # @example
-    #   Twitter::Search.new.containing("twitter").mentioning("sferik").fetch # Returns an array of tweets containing "twitter" and mentioning @sferik
+    # @example Return an array of tweets containing "twitter" and mentioning @sferik
+    #   Twitter::Search.new.containing("twitter").mentioning("sferik").fetch
     def mentioning(screen_name)
       @query[:q] << "@#{screen_name.gsub('@', '')}"
       self
@@ -284,8 +286,8 @@ module Twitter
     #
     # @param screen_name [String] A Twitter user name.
     # @return [Twitter::Search] self
-    # @example
-    #   Twitter::Search.new.containing("twitter").not_mentioning("sferik").fetch # Returns an array of tweets containing "twitter" but not mentioning @sferik
+    # @example Return an array of tweets containing "twitter" but not mentioning @sferik
+    #   Twitter::Search.new.containing("twitter").not_mentioning("sferik").fetch
     def not_mentioning(screen_name)
       @query[:q] << "-@#{screen_name.gsub('@', '')}"
       self
@@ -299,17 +301,18 @@ module Twitter
     # Only include retweets
     #
     # @return [Twitter::Search] self
-    # @example
-    #   Twitter::Search.new.containing("twitter").retweets.fetch # Returns an array of retweets containing "twitter"
+    # @example Return an array of retweets containing "twitter"
+    #   Twitter::Search.new.containing("twitter").retweets.fetch
     def retweets
       @query[:q] << "rt"
       self
     end
 
     # Only include original status updates (i.e., not retweets)
+    #
     # @return [Twitter::Search] self
-    # @example
-    #   Twitter::Search.new.containing("twitter").no_retweets.fetch # Returns an array of tweets containing "twitter", excluding retweets
+    # @example Return an array of tweets containing "twitter", excluding retweets
+    #   Twitter::Search.new.containing("twitter").no_retweets.fetch
     def no_retweets
       @query[:q] << "-rt"
       self
@@ -319,8 +322,8 @@ module Twitter
     #
     # @param tag [String] A Twitter hashtag.
     # @return [Twitter::Search] self
-    # @example
-    #   Twitter::Search.new.hashtag("FollowFriday").fetch # Returns an array of tweets containing the hashtag #FollowFriday
+    # @example Return an array of tweets containing the hashtag #FollowFriday
+    #   Twitter::Search.new.hashtag("FollowFriday").fetch
     def hashtag(tag)
       @query[:q] << "\##{tag.gsub('#', '')}"
       self
@@ -330,8 +333,8 @@ module Twitter
     #
     # @param tag [String] A Twitter hashtag.
     # @return [Twitter::Search] self
-    # @example
-    #   Twitter::Search.new.hashtag("FollowFriday").excluding_hashtag("FF").fetch # Returns an array of tweets containing the hashtag #FollowFriday but not #FF
+    # @example Return an array of tweets containing the hashtag #FollowFriday but not #FF
+    #   Twitter::Search.new.hashtag("FollowFriday").excluding_hashtag("FF").fetch
     #   Twitter::Search.new.hashtag("FollowFriday").excludes_hashtag("FF").fetch  # Shortcut for the above
     #   Twitter::Search.new.hashtag("FollowFriday").exclude_hashtag("FF").fetch   # Even shorter
     def excluding_hashtag(tag)
@@ -341,12 +344,12 @@ module Twitter
     alias :excludes_hashtag :excluding_hashtag
     alias :exclude_hashtag :excluding_hashtag
 
-    # Only include tweets with an ID greater than (that is, more recent than) the specified ID.
+    # Only include tweets with an ID greater than the specified ID
     #
     # @param id [Integer] A Twitter status ID.
     # @return [Twitter::Search] self
-    # @example
-    #   Twitter::Search.new.containing("twitter").since_id(123456789).fetch # Returns an array of tweets containing "twitter" with an ID greater than 123456789
+    # @example Return an array of tweets containing "twitter" with an ID greater than 123456789
+    #   Twitter::Search.new.containing("twitter").since_id(123456789).fetch
     def since_id(id)
       @query[:since_id] = id
       self
@@ -356,8 +359,8 @@ module Twitter
     #
     # @param id [Integer] A Twitter status ID.
     # @return [Twitter::Search] self
-    # @example
-    #   Twitter::Search.new.containing("twitter").max_id(123456789).fetch # Returns an array of tweets containing "twitter" with an ID less than or equal to 123456789
+    # @example Return an array of tweets containing "twitter" with an ID less than or equal to 123456789
+    #   Twitter::Search.new.containing("twitter").max_id(123456789).fetch
     #
     def max_id(id)
       @query[:max_id] = id
@@ -369,8 +372,8 @@ module Twitter
     #
     # @param result_type [String] The type of results you want to receive ('recent', 'popular', or 'mixed').
     # @return [Twitter::Search] self
-    # @example
-    #   Twitter::Search.new.containing("twitter").result_type("recent").fetch # Returns an array of recent tweets containing "twitter"
+    # @example Return an array of recent tweets containing "twitter"
+    #   Twitter::Search.new.containing("twitter").result_type("recent").fetch
     def result_type(result_type="mixed")
       @query[:result_type] = result_type
       self
@@ -380,8 +383,8 @@ module Twitter
     #
     # @param source [String] A Twitter source.
     # @return [Twitter::Search] self
-    # @example
-    #   Twitter::Search.new.containing("twitter").source("Hibari").fetch # Returns an array of tweets containing "twitter", posted from Hibari
+    # @example Return an array of tweets containing "twitter", posted from Hibari
+    #   Twitter::Search.new.containing("twitter").source("Hibari").fetch
     def source(source)
       @query[:q] << "source:#{source}"
       self
@@ -393,8 +396,8 @@ module Twitter
     #
     # @param number [Integer] The number of tweets to return per page, up to a max of 100.
     # @return [Twitter::Search] self
-    # @example
-    #   Twitter::Search.new.containing("twitter").per_page(100).fetch # Returns an array of 100 tweets containing "twitter"
+    # @example Return an array of 100 tweets containing "twitter"
+    #   Twitter::Search.new.containing("twitter").per_page(100).fetch
     def per_page(number=15)
       @query[:rpp] = number
       self
@@ -405,8 +408,8 @@ module Twitter
     #
     # @param number [Integer] The page number (starting at 1) to return, up to a max of roughly 1500 results (based on {Twitter::Client::Search#per_page} * {Twitter::Client::Search#page}).
     # @return [Twitter::Search] self
-    # @example
-    #   Twitter::Search.new.containing("twitter").page(2).fetch # Returns the second page of tweets containing "twitter"
+    # @example Return the second page of tweets containing "twitter"
+    #   Twitter::Search.new.containing("twitter").page(2).fetch
     def page(number)
       @query[:page] = number
       self
@@ -428,9 +431,9 @@ module Twitter
     # Fetch the next page of results of the query
     #
     # @return [Array] Tweets that match specified query.
-    # @example
-    #   search = Twitter::Search.new.containing("twitter").fetch # Returns the first page of results
-    #   search.fetch_next_page                                   # Returns the second page of results
+    # @example Return the first two pages of results
+    #   search = Twitter::Search.new.containing("twitter").fetch
+    #   search.fetch_next_page
     def fetch_next_page
       if next_page?
         @cache = get("search", CGI.parse(@cache["next_page"][1..-1]))
@@ -442,8 +445,8 @@ module Twitter
     #
     # @param force [Boolean] Ignore the cache and hit the API again.
     # @return [Array] Tweets that match specified query.
-    # @example
-    #   search = Twitter::Search.new.containing("twitter").fetch # Returns an array of tweets containing "twitter"
+    # @example Return an array of tweets containing "twitter"
+    #   search = Twitter::Search.new.containing("twitter").fetch
     def fetch(force=false)
       if @cache.nil? || force
         options = query.dup

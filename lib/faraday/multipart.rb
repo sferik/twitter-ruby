@@ -1,6 +1,7 @@
 require 'faraday'
 
 module Faraday
+  # @private
   class Request::Multipart < Faraday::Middleware
     def call(env)
       if env[:body].is_a?(Hash)

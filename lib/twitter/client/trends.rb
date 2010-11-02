@@ -1,8 +1,7 @@
 module Twitter
   class Client
     module Trends
-      # Returns the top ten topics that are currently trending on Twitter. The response includes the time of the request,
-      # the name of each trend, and the url to the {http://search.twitter.com Twitter Search} results page for that topic.
+      # Returns the top ten topics that are currently trending on Twitter
       #
       # @formats :json
       # @authenticated false
@@ -14,8 +13,7 @@ module Twitter
         get('trends', options)['trends']
       end
 
-      # Returns the current top 10 trending topics on Twitter. The response includes the time of the request,
-      # the name of each trending topic, and query used on {http://search.twitter.com Twitter Search} results page for that topic.
+      # Returns the current top 10 trending topics on Twitter
       #
       # @formats :json
       # @authenticated false
@@ -28,7 +26,7 @@ module Twitter
         get('trends/current', options)['trends']
       end
 
-      # Returns the top 20 trending topics for each hour in a given day.
+      # Returns the top 20 trending topics for each hour in a given day
       #
       # @formats :json
       # @authenticated false
@@ -42,7 +40,7 @@ module Twitter
         get('trends/daily', options.merge(:date => date.strftime('%Y-%m-%d')))['trends']
       end
 
-      # Returns the top 30 trending topics for each day in a given week.
+      # Returns the top 30 trending topics for each day in a given week
       #
       # @formats :json
       # @authenticated false
