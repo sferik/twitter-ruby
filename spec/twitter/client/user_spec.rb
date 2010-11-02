@@ -9,45 +9,172 @@ describe Twitter::Client do
 
       describe ".user" do
 
-        before do
-          stub_get("users/show.#{format}").
-            with(:query => {"screen_name" => "sferik"}).
-            to_return(:body => fixture("user.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+        context "with screen name passed" do
+
+            before do
+              stub_get("users/show.#{format}").
+                with(:query => {"screen_name" => "sferik"}).
+                to_return(:body => fixture("user.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+            end
+
+            it "should get the correct resource" do
+              @client.user("sferik")
+              a_get("users/show.#{format}").
+                with(:query => {"screen_name" => "sferik"}).
+                should have_been_made
+            end
+
+            it "should return extended information of a given user" do
+              user = @client.user("sferik")
+              user.name.should == "Erik Michaels-Ober"
+            end
+
         end
 
-        it "should get the correct resource" do
-          @client.user("sferik")
-          a_get("users/show.#{format}").
-            with(:query => {"screen_name" => "sferik"}).
-            should have_been_made
+        context "with screen name including '@' passed" do
+
+          before do
+            stub_get("users/show.#{format}").
+              with(:query => {"screen_name" => "sferik"}).
+              to_return(:body => fixture("user.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+          end
+
+          it "should get the correct resource" do
+            @client.user("@sferik")
+            a_get("users/show.#{format}").
+              with(:query => {"screen_name" => "sferik"}).
+              should have_been_made
+          end
+
         end
 
-        it "should return extended information of a given user" do
-          user = @client.user("sferik")
-          user.name.should == "Erik Michaels-Ober"
+        context "with numeric screen name passed" do
+
+          before do
+            stub_get("users/show.#{format}").
+              with(:query => {"screen_name" => "0"}).
+              to_return(:body => fixture("user.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+          end
+
+          it "should get the correct resource" do
+            @client.user("0")
+            a_get("users/show.#{format}").
+              with(:query => {"screen_name" => "0"}).
+              should have_been_made
+          end
+
+        end
+
+        context "with user ID passed" do
+
+          before do
+            stub_get("users/show.#{format}").
+              with(:query => {"user_id" => "7505382"}).
+              to_return(:body => fixture("user.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+          end
+
+          it "should get the correct resource" do
+            @client.user(7505382)
+            a_get("users/show.#{format}").
+              with(:query => {"user_id" => "7505382"}).
+              should have_been_made
+          end
+
         end
 
       end
 
       describe ".users" do
 
-        before do
-          stub_get("users/lookup.#{format}").
-            with(:query => {"screen_name" => "sferik,pengwynn"}).
-            to_return(:body => fixture("users.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+        context "with screen names passed" do
+
+          before do
+            stub_get("users/lookup.#{format}").
+              with(:query => {"screen_name" => "sferik,pengwynn"}).
+              to_return(:body => fixture("users.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+          end
+
+          it "should get the correct resource" do
+            @client.users("sferik", "pengwynn")
+            a_get("users/lookup.#{format}").
+              with(:query => {"screen_name" => "sferik,pengwynn"}).
+              should have_been_made
+          end
+
+          it "should return up to 100 users worth of extended information" do
+            users = @client.users("sferik", "pengwynn")
+            users.should be_a Array
+            users.first.name.should == "Erik Michaels-Ober"
+          end
+
         end
 
-        it "should get the correct resource" do
-          @client.users("sferik", "pengwynn")
-          a_get("users/lookup.#{format}").
-            with(:query => {"screen_name" => "sferik,pengwynn"}).
-            should have_been_made
+        context "with screen names including '@' passed" do
+
+          before do
+            stub_get("users/lookup.#{format}").
+              with(:query => {"screen_name" => "sferik,pengwynn"}).
+              to_return(:body => fixture("users.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+          end
+
+          it "should get the correct resource" do
+            @client.users("@sferik", "@pengwynn")
+            a_get("users/lookup.#{format}").
+              with(:query => {"screen_name" => "sferik,pengwynn"}).
+              should have_been_made
+          end
+
         end
 
-        it "should return up to 100 users worth of extended information" do
-          users = @client.users("sferik", "pengwynn")
-          users.should be_a Array
-          users.first.name.should == "Erik Michaels-Ober"
+        context "with numeric screen names passed" do
+
+          before do
+            stub_get("users/lookup.#{format}").
+              with(:query => {"screen_name" => "0,311"}).
+              to_return(:body => fixture("users.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+          end
+
+          it "should get the correct resource" do
+            @client.users("0", "311")
+            a_get("users/lookup.#{format}").
+              with(:query => {"screen_name" => "0,311"}).
+              should have_been_made
+          end
+
+        end
+
+        context "with user IDs passed" do
+
+          before do
+            stub_get("users/lookup.#{format}").
+              with(:query => {"user_id" => "7505382,14100886"}).
+              to_return(:body => fixture("users.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+          end
+
+          it "should get the correct resource" do
+            @client.users(7505382, 14100886)
+            a_get("users/lookup.#{format}").
+              with(:query => {"user_id" => "7505382,14100886"}).
+              should have_been_made
+          end
+
+        end
+
+        context "with both screen names and user IDs passed" do
+
+          before do
+            stub_get("users/lookup.#{format}").
+              with(:query => {"screen_name" => "sferik", "user_id" => "14100886"}).
+              to_return(:body => fixture("users.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+          end
+
+          it "should get the correct resource" do
+            @client.users("sferik", 14100886)
+            a_get("users/lookup.#{format}").
+              with(:query => {"screen_name" => "sferik", "user_id" => "14100886"}).
+              should have_been_made
+          end
+
         end
 
       end

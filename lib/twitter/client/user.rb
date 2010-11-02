@@ -1,12 +1,39 @@
 module Twitter
   class Client
     module User
+      # Returns extended information of a given user
+      #
+      # @format :json, :xml
+      # @authenticated false
+      # @rate_limited true
+      # @param user [String, Integer] A Twitter user ID or screen name.
+      # @param options [Hash] A customizable set of options.
+      # @option options [String] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
+      # @return [Hashie::Mash] The requested user object.
+      # @see http://dev.twitter.com/doc/get/users/show
+      # @example Return extended information for @sferik
+      #   Twitter.user("sferik")
+      #   Twitter.user(7505382)  # Same as above
       def user(user, options={})
         merge_user_into_options!(user, options)
         response = get('users/show', options)
         format.to_s.downcase == 'xml' ? response['user'] : response
       end
 
+      # Returns extended information of a given user
+      #
+      # @format :json, :xml
+      # @authenticated false
+      # @rate_limited true
+      # @param user [String, Integer] A Twitter user ID or screen name.
+      # @param options [Hash] A customizable set of options.
+      # @option options [String] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
+      # @return [Hashie::Mash] The requested user object.
+      # @see http://dev.twitter.com/doc/get/users/lookup
+      # @example Return extended information for @sferik
+      #   Twitter.user("sferik", "pengwynn")
+      #   Twitter.user("sferik", 14100886)   # Same as above
+      #   Twitter.user(7505382, 14100886)    # Same as above
       def users(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
         users = args
