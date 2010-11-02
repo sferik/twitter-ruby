@@ -46,7 +46,7 @@ GEM
       rspec-expectations (~> 2.0.1)
     shoulda (2.11.3)
     simple_oauth (0.1.1)
-    webmock (1.4.0)
+    webmock (1.5.0)
       addressable (>= 2.2.2)
       crack (>= 0.1.7)
     yajl-ruby (0.7.8)
@@ -73,6 +73,6 @@ DEPENDENCIES
   shoulda (~> 2.11)
   simple_oauth (~> 0.1.1)
   twitter!
-  webmock (~> 1.4)
+  webmock (~> 1.5)
   yajl-ruby (~> 0.7)
   yard (~> 0.6)
