@@ -459,7 +459,7 @@ module Twitter
     # Calls block once for each element in self, passing that element as a parameter
     #
     # @yieldparam [Hashie::Mash] result Tweet that matches specified query.
-    # @yieldreturn [Array] Tweets that match specified query.
+    # @return [Array] Tweets that match specified query.
     # @example
     #   Twitter::Search.new.containing('marry me').to('justinbieber').each do |result|
     #     puts "#{result.from_user}: #{result.text}"

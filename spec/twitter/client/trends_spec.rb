@@ -50,19 +50,19 @@ describe Twitter::Client do
 
       before do
         stub_get("trends/daily.json").
-          with(:query => {"date" => Time.now.strftime('%Y-%m-%d')}).
+          with(:query => {"date" => "2010-10-24"}).
           to_return(:body => fixture("trends_daily.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
 
       it "should get the correct resource" do
-        @client.trends_daily
+        @client.trends_daily(Date.parse("2010-10-24"))
         a_get("trends/daily.json").
-          with(:query => {"date" => Time.now.strftime('%Y-%m-%d')}).
+          with(:query => {"date" => "2010-10-24"}).
           should have_been_made
       end
 
       it "should return the top 20 trending topics for each hour in a given day" do
-        trends = @client.trends_daily
+        trends = @client.trends_daily(Date.parse("2010-10-24"))
         trends["2010-10-24 17:00"].first.name.should == "#bigbangcomeback"
       end
 
@@ -72,19 +72,19 @@ describe Twitter::Client do
 
       before do
         stub_get("trends/weekly.json").
-          with(:query => {"date" => Time.now.strftime('%Y-%m-%d')}).
+          with(:query => {"date" => "2010-10-24"}).
           to_return(:body => fixture("trends_weekly.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
 
       it "should get the correct resource" do
-        @client.trends_weekly
+        @client.trends_weekly(Date.parse("2010-10-24"))
         a_get("trends/weekly.json").
-          with(:query => {"date" => Time.now.strftime('%Y-%m-%d')}).
+          with(:query => {"date" => "2010-10-24"}).
           should have_been_made
       end
 
       it "should return the top 30 trending topics for each day in a given week" do
-        trends = @client.trends_weekly
+        trends = @client.trends_weekly(Date.parse("2010-10-24"))
         trends["2010-10-23"].first.name.should == "#unfollowmeif"
       end
     end

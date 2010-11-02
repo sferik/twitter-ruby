@@ -11,6 +11,9 @@ module Twitter
       # @option options [Float] :long If provided with a :lat option the available trend locations will be sorted by distance, nearest to furthest, to the co-ordinate pair. The valid ranges for longitude is -180.0 to +180.0 (East is positive) inclusive.
       # @return [Array]
       # @see http://dev.twitter.com/doc/get/trends/available
+      # @example Return the locations that Twitter has trending topic information for
+      #   client = Twitter::Client.new
+      #   client.trend_locations
       def trend_locations(options={})
         response = get('trends/available', options)
         format.to_s.downcase == 'xml' ? response['locations'] : response
@@ -25,6 +28,9 @@ module Twitter
       # @param options [Hash] A customizable set of options.
       # @return [Array]
       # @see http://dev.twitter.com/doc/get/trends/:woeid
+      # @example Return the top 10 trending topics for San Francisco
+      #   client = Twitter::Client.new
+      #   client.local_trends(2487956)
       def local_trends(woeid=1, options={})
         response = get("trends/#{woeid}", options)
         format.to_s.downcase == 'xml' ? response['matching_trends'].first.trend : response.first.trends.map{|trend| trend.name}

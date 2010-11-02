@@ -33,18 +33,18 @@ describe Twitter::Client do
         context "with woeid passed" do
 
           before do
-            stub_get("trends/2.#{format}").
+            stub_get("trends/2487956.#{format}").
               to_return(:body => fixture("matching_trends.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
 
           it "should get the correct resource" do
-            @client.local_trends(2)
-            a_get("trends/2.#{format}").
+            @client.local_trends(2487956)
+            a_get("trends/2487956.#{format}").
               should have_been_made
           end
 
           it "should return the top 10 trending topics for a specific WOEID" do
-            matching_trends = @client.local_trends(2)
+            matching_trends = @client.local_trends(2487956)
             matching_trends.should be_an Array
             matching_trends.first.should == "#sevenwordsaftersex"
           end

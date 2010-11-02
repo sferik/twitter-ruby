@@ -19,6 +19,9 @@ module Twitter
       # @option options [String] :"attribute:street_address" This option searches for places which have this given street address. There are other well-known, and application specific attributes available. Custom attributes are also permitted.
       # @return [Array]
       # @see http://dev.twitter.com/doc/get/geo/search
+      # @example Return an array of places near the IP address 74.125.19.104
+      #   search = Twitter::Client.new
+      #   search.places_nearby(:ip => "74.125.19.104")
       def places_nearby(options={})
         get('geo/search', options)['result']['places']
       end
@@ -43,6 +46,9 @@ module Twitter
       # @option options [String] :"attribute:street_address" This option searches for places which have this given street address. There are other well-known, and application specific attributes available. Custom attributes are also permitted.
       # @return [Array]
       # @see http://dev.twitter.com/doc/get/geo/similar_places
+      # @example Return an array of places similar to Twitter HQ
+      #   search = Twitter::Client.new
+      #   search.places_similar(:lat => "37.7821120598956", :long => "-122.400612831116", :name => "Twitter HQ")
       def places_similar(options={})
         get('geo/similar_places', options)['result']['places']
       end
@@ -62,6 +68,9 @@ module Twitter
       # @option options [Integer] :max_results A hint as to the number of results to return. This does not guarantee that the number of results returned will equal max_results, but instead informs how many "nearby" results to return. Ideally, only pass in the number of places you intend to display to the user here.
       # @return [Array]
       # @see http://dev.twitter.com/doc/get/geo/reverse_geocode
+      # @example Return an array of places within the specified region
+      #   search = Twitter::Client.new
+      #   search.reverse_geocode(:lat => "37.7821120598956", :long => "-122.400612831116")
       def reverse_geocode(options={})
         get('geo/reverse_geocode', options)['result']['places']
       end
@@ -75,6 +84,9 @@ module Twitter
       # @param options [Hash] A customizable set of options.
       # @return [Hashie::Mash]
       # @see http://dev.twitter.com/doc/get/geo/id/:place_id
+      # @example Return all the information about Twitter HQ
+      #   search = Twitter::Client.new
+      #   search.place("247f43d441defc03")
       def place(place_id, options={})
         get("geo/id/#{place_id}", options)
       end
@@ -93,6 +105,9 @@ module Twitter
       # @option options [String] :"attribute:street_address" This option searches for places which have this given street address. There are other well-known, and application specific attributes available. Custom attributes are also permitted.
       # @return [Hashie::Mash]
       # @see http://dev.twitter.com/doc/post/geo/place
+      # @example Create a new place
+      #   search = Twitter::Client.new
+      #   search.place_create(:name => "@sferik's Apartment", :token => "22ff5b1f7159032cf69218c4d8bb78bc", :contained_within => "41bcb736f84a799e", :lat => "37.783699", :long => "-122.393581")
       def place_create(options={})
         post('geo/place', options)
       end
