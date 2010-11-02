@@ -4,7 +4,7 @@ module Twitter
     module Geo
       # Search for places that can be attached to a {Twitter::Client::Tweets#update}
       #
-      # @formats :json
+      # @format :json
       # @authenticated false
       # @rate_limited true
       # @param options [Hash] A customizable set of options.
@@ -20,8 +20,7 @@ module Twitter
       # @return [Array]
       # @see http://dev.twitter.com/doc/get/geo/search
       # @example Return an array of places near the IP address 74.125.19.104
-      #   search = Twitter::Client.new
-      #   search.places_nearby(:ip => "74.125.19.104")
+      #   Twitter.places_nearby(:ip => "74.125.19.104")
       def places_nearby(options={})
         get('geo/search', options)['result']['places']
       end
@@ -35,7 +34,7 @@ module Twitter
       #
       # The token contained in the response is the token needed to be able to create a new place.
       #
-      # @formats :json
+      # @format :json
       # @authenticated false
       # @rate_limited true
       # @param options [Hash] A customizable set of options.
@@ -47,8 +46,7 @@ module Twitter
       # @return [Array]
       # @see http://dev.twitter.com/doc/get/geo/similar_places
       # @example Return an array of places similar to Twitter HQ
-      #   search = Twitter::Client.new
-      #   search.places_similar(:lat => "37.7821120598956", :long => "-122.400612831116", :name => "Twitter HQ")
+      #   Twitter.places_similar(:lat => "37.7821120598956", :long => "-122.400612831116", :name => "Twitter HQ")
       def places_similar(options={})
         get('geo/similar_places', options)['result']['places']
       end
@@ -57,7 +55,7 @@ module Twitter
       #
       # This request is an informative call and will deliver generalized results about geography.
       #
-      # @formats :json
+      # @format :json
       # @authenticated false
       # @rate_limited true
       # @param options [Hash] A customizable set of options.
@@ -69,31 +67,29 @@ module Twitter
       # @return [Array]
       # @see http://dev.twitter.com/doc/get/geo/reverse_geocode
       # @example Return an array of places within the specified region
-      #   search = Twitter::Client.new
-      #   search.reverse_geocode(:lat => "37.7821120598956", :long => "-122.400612831116")
+      #   Twitter.reverse_geocode(:lat => "37.7821120598956", :long => "-122.400612831116")
       def reverse_geocode(options={})
         get('geo/reverse_geocode', options)['result']['places']
       end
 
       # Returns all the information about a known place
       #
-      # @formats :json
+      # @format :json
       # @authenticated false
       # @rate_limited true
       # @param place_id [String] A place in the world. These IDs can be retrieved from {Twitter::Client::Geo#reverse_geocode}.
       # @param options [Hash] A customizable set of options.
-      # @return [Hashie::Mash]
+      # @return [Hashie::Mash] The requested place object.
       # @see http://dev.twitter.com/doc/get/geo/id/:place_id
       # @example Return all the information about Twitter HQ
-      #   search = Twitter::Client.new
-      #   search.place("247f43d441defc03")
+      #   Twitter.place("247f43d441defc03")
       def place(place_id, options={})
         get("geo/id/#{place_id}", options)
       end
 
       # Creates a new place at the given latitude and longitude
       #
-      # @formats :json
+      # @format :json
       # @authenticated false
       # @rate_limited true
       # @param options [Hash] A customizable set of options.
@@ -103,11 +99,10 @@ module Twitter
       # @option options [Float] :lat The latitude to search around. This option will be ignored unless it is inside the range -90.0 to +90.0 (North is positive) inclusive. It will also be ignored if there isn't a corresponding :long option.
       # @option options [Float] :long The longitude to search around. The valid ranges for longitude is -180.0 to +180.0 (East is positive) inclusive. This option will be ignored if outside that range, if it is not a number, if geo_enabled is disabled, or if there not a corresponding :lat option.
       # @option options [String] :"attribute:street_address" This option searches for places which have this given street address. There are other well-known, and application specific attributes available. Custom attributes are also permitted.
-      # @return [Hashie::Mash]
+      # @return [Hashie::Mash] The created place object.
       # @see http://dev.twitter.com/doc/post/geo/place
       # @example Create a new place
-      #   search = Twitter::Client.new
-      #   search.place_create(:name => "@sferik's Apartment", :token => "22ff5b1f7159032cf69218c4d8bb78bc", :contained_within => "41bcb736f84a799e", :lat => "37.783699", :long => "-122.393581")
+      #   Twitter.place_create(:name => "@sferik's Apartment", :token => "22ff5b1f7159032cf69218c4d8bb78bc", :contained_within => "41bcb736f84a799e", :lat => "37.783699", :long => "-122.393581")
       def place_create(options={})
         post('geo/place', options)
       end
