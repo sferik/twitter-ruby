@@ -2,91 +2,6 @@
 <users_list>
 <users type="array">
 <user>
-  <id>202975981</id>
-  <name>Cheryl Parker</name>
-  <screen_name>CherylParkerWVD</screen_name>
-  <location>Truckee, CA</location>
-  <description></description>
-  <profile_image_url>http://a0.twimg.com/profile_images/1145958368/1679945837928436q20114_normal.jpg</profile_image_url>
-  <url></url>
-  <protected>false</protected>
-  <followers_count>200</followers_count>
-  <profile_background_color>709397</profile_background_color>
-  <profile_text_color>333333</profile_text_color>
-  <profile_link_color>FF3300</profile_link_color>
-  <profile_sidebar_fill_color>A0C5C7</profile_sidebar_fill_color>
-  <profile_sidebar_border_color>86A4A6</profile_sidebar_border_color>
-  <friends_count>642</friends_count>
-  <created_at>Fri Oct 15 07:14:51 +0000 2010</created_at>
-  <favourites_count>0</favourites_count>
-  <utc_offset>-32400</utc_offset>
-  <time_zone>Alaska</time_zone>
-  <profile_background_image_url>http://s.twimg.com/a/1287523226/images/themes/theme6/bg.gif</profile_background_image_url>
-  <profile_background_tile>false</profile_background_tile>
-  <profile_use_background_image>true</profile_use_background_image>
-  <notifications>false</notifications>
-  <geo_enabled>false</geo_enabled>
-  <verified>false</verified>
-  <following>false</following>
-  <statuses_count>0</statuses_count>
-  <lang>en</lang>
-  <contributors_enabled>false</contributors_enabled>
-  <follow_request_sent>false</follow_request_sent>
-  <listed_count>3</listed_count>
-  <show_all_inline_media>false</show_all_inline_media>
-</user>
-<user>
-  <id>153113191</id>
-  <name>cool iphone</name>
-  <screen_name>cooliphone</screen_name>
-  <location>New York, NY</location>
-  <description>Just a dude with an iPhone that likes stuff from Apple. I'm a technology/gadgets enthusiast. Sharing cool things about technology, iphone, apps &#8230;</description>
-  <profile_image_url>http://a3.twimg.com/profile_images/968722035/cooliphonephoto_normal.jpg</profile_image_url>
-  <url></url>
-  <protected>false</protected>
-  <followers_count>1875</followers_count>
-  <profile_background_color>C0DEED</profile_background_color>
-  <profile_text_color>333333</profile_text_color>
-  <profile_link_color>0084B4</profile_link_color>
-  <profile_sidebar_fill_color>DDEEF6</profile_sidebar_fill_color>
-  <profile_sidebar_border_color>C0DEED</profile_sidebar_border_color>
-  <friends_count>2064</friends_count>
-  <created_at>Mon Jun 07 18:29:10 +0000 2010</created_at>
-  <favourites_count>0</favourites_count>
-  <utc_offset></utc_offset>
-  <time_zone></time_zone>
-  <profile_background_image_url>http://a3.twimg.com/profile_background_images/109621965/cooliphonebackground.jpg</profile_background_image_url>
-  <profile_background_tile>true</profile_background_tile>
-  <profile_use_background_image>true</profile_use_background_image>
-  <notifications>false</notifications>
-  <geo_enabled>false</geo_enabled>
-  <verified>false</verified>
-  <following>false</following>
-  <statuses_count>1201</statuses_count>
-  <lang>en</lang>
-  <contributors_enabled>false</contributors_enabled>
-  <follow_request_sent>false</follow_request_sent>
-  <listed_count>41</listed_count>
-  <show_all_inline_media>false</show_all_inline_media>
-  <status>
-    <created_at>Wed Nov 03 12:27:10 +0000 2010</created_at>
-    <id>29566090093</id>
-    <text>Hands On: Motorola Droid smartphone http://bit.ly/ctW1iu</text>
-    <source>&lt;a href=&quot;http://www.socialoomph.com&quot; rel=&quot;nofollow&quot;&gt;SocialOomph&lt;/a&gt;</source>
-    <truncated>false</truncated>
-    <favorited>false</favorited>
-    <in_reply_to_status_id></in_reply_to_status_id>
-    <in_reply_to_user_id></in_reply_to_user_id>
-    <in_reply_to_screen_name></in_reply_to_screen_name>
-    <retweet_count></retweet_count>
-    <retweeted>false</retweeted>
-    <geo/>
-    <coordinates/>
-    <place/>
-    <contributors/>
-  </status>
-</user>
-<user>
   <id>61074651</id>
   <name>Joel Mahoney</name>
   <screen_name>joelmahoney</screen_name>
@@ -476,7 +391,7 @@ about you and give you exclusive offers.</description>
   <profile_link_color>0084B4</profile_link_color>
   <profile_sidebar_fill_color>DDEEF6</profile_sidebar_fill_color>
   <profile_sidebar_border_color>C0DEED</profile_sidebar_border_color>
-  <friends_count>1806</friends_count>
+  <friends_count>1813</friends_count>
   <created_at>Thu Feb 25 21:17:37 +0000 2010</created_at>
   <favourites_count>0</favourites_count>
   <utc_offset>-28800</utc_offset>
@@ -1249,7 +1164,7 @@ agak sulit ne...</text>
   <profile_image_url>http://a3.twimg.com/profile_images/1157672351/38516_147566095256327_100000088118511_431519_7709287_n_normal.jpg</profile_image_url>
   <url>http://jjarichardson.tumblr.com/</url>
   <protected>false</protected>
-  <followers_count>516</followers_count>
+  <followers_count>517</followers_count>
   <profile_background_color>131516</profile_background_color>
   <profile_text_color>333333</profile_text_color>
   <profile_link_color>009999</profile_link_color>
@@ -1317,7 +1232,7 @@ agak sulit ne...</text>
   <profile_image_url>http://a3.twimg.com/profile_images/1153550035/rick-rar-talk-1_normal.png</profile_image_url>
   <url>http://techno-weenie.net</url>
   <protected>false</protected>
-  <followers_count>4018</followers_count>
+  <followers_count>4019</followers_count>
   <profile_background_color>FFFFFF</profile_background_color>
   <profile_text_color>000000</profile_text_color>
   <profile_link_color>0000ff</profile_link_color>
@@ -1525,16 +1440,16 @@ agak sulit ne...</text>
   <geo_enabled>false</geo_enabled>
   <verified>false</verified>
   <following>false</following>
-  <statuses_count>126</statuses_count>
+  <statuses_count>127</statuses_count>
   <lang>ja</lang>
   <contributors_enabled>false</contributors_enabled>
   <follow_request_sent>false</follow_request_sent>
   <listed_count>2</listed_count>
   <show_all_inline_media>false</show_all_inline_media>
   <status>
-    <created_at>Wed Nov 03 14:21:30 +0000 2010</created_at>
-    <id>29575538623</id>
-    <text>&#20170;&#12363;&#12425; F# &#12434;&#12452;&#12531;&#12473;&#12488;&#12540;&#12523;&#12375;&#12424;&#12358;&#12290; / Visual F# Express Edition &#12398;&#20837;&#25163;&#26041;&#27861; - (hatena (diary &#8217;Nobuhisa)) http://htn.to/Jeb2kL</text>
+    <created_at>Wed Nov 03 14:45:49 +0000 2010</created_at>
+    <id>29577664929</id>
+    <text>F# &#20837;&#38272;&#12398;&#12506;&#12540;&#12472;(&#12371;&#12428;&#12399;&#12356;&#12356;) / F#&#20837;&#38272; http://htn.to/GVgZCx</text>
     <source>&lt;a href=&quot;http://www.hatena.ne.jp/guide/twitter&quot; rel=&quot;nofollow&quot;&gt;Hatena&lt;/a&gt;</source>
     <truncated>false</truncated>
     <favorited>false</favorited>
@@ -1627,22 +1542,22 @@ agak sulit ne...</text>
   <geo_enabled>true</geo_enabled>
   <verified>false</verified>
   <following>false</following>
-  <statuses_count>31543</statuses_count>
+  <statuses_count>31547</statuses_count>
   <lang>en</lang>
   <contributors_enabled>false</contributors_enabled>
   <follow_request_sent>false</follow_request_sent>
   <listed_count>254</listed_count>
   <show_all_inline_media>false</show_all_inline_media>
   <status>
-    <created_at>Wed Nov 03 14:07:48 +0000 2010</created_at>
-    <id>29574353218</id>
-    <text>@florianseroussi Simone :-) can't believe it's already four years...</text>
-    <source>&lt;a href=&quot;http://tweetsride.com/&quot; rel=&quot;nofollow&quot;&gt;TweetsRide&lt;/a&gt;</source>
+    <created_at>Wed Nov 03 14:41:00 +0000 2010</created_at>
+    <id>29577224423</id>
+    <text>An Open Source, HTML5 Framework for iPad E-books http://j.mp/aO70Aj</text>
+    <source>&lt;a href=&quot;http://reader2twitter.appspot.com/&quot; rel=&quot;nofollow&quot;&gt;Google2Tweet&lt;/a&gt;</source>
     <truncated>false</truncated>
     <favorited>false</favorited>
-    <in_reply_to_status_id>29569875973</in_reply_to_status_id>
-    <in_reply_to_user_id>6513952</in_reply_to_user_id>
-    <in_reply_to_screen_name>florianseroussi</in_reply_to_screen_name>
+    <in_reply_to_status_id></in_reply_to_status_id>
+    <in_reply_to_user_id></in_reply_to_user_id>
+    <in_reply_to_screen_name></in_reply_to_screen_name>
     <retweet_count></retweet_count>
     <retweeted>false</retweeted>
     <geo/>
@@ -2939,17 +2854,17 @@ all my life O;-]</text>
   <geo_enabled>true</geo_enabled>
   <verified>false</verified>
   <following>false</following>
-  <statuses_count>1020</statuses_count>
+  <statuses_count>1021</statuses_count>
   <lang>en</lang>
   <contributors_enabled>false</contributors_enabled>
   <follow_request_sent>false</follow_request_sent>
   <listed_count>171</listed_count>
   <show_all_inline_media>false</show_all_inline_media>
   <status>
-    <created_at>Wed Nov 03 08:35:05 +0000 2010</created_at>
-    <id>29552985229</id>
-    <text>RT @smashingmag: Is IE9 really the most HTML5 Compatible Browser? http://is.gd/gCFDh and http://is.gd/gEw1I (thanks, @tomantonis)</text>
-    <source>&lt;a href=&quot;http://www.hootsuite.com&quot; rel=&quot;nofollow&quot;&gt;HootSuite&lt;/a&gt;</source>
+    <created_at>Wed Nov 03 14:26:53 +0000 2010</created_at>
+    <id>29575997875</id>
+    <text>Paython: Python payment processing module http://lg.gd/3m</text>
+    <source>&lt;a href=&quot;http://twitter.com&quot; rel=&quot;nofollow&quot;&gt;Tweetie for Mac&lt;/a&gt;</source>
     <truncated>false</truncated>
     <favorited>false</favorited>
     <in_reply_to_status_id></in_reply_to_status_id>
@@ -3193,7 +3108,7 @@ all my life O;-]</text>
   <profile_image_url>http://a0.twimg.com/profile_images/1152516944/birthday_cake_normal.jpg</profile_image_url>
   <url>http://www.officialtherefromhere.com</url>
   <protected>false</protected>
-  <followers_count>2062</followers_count>
+  <followers_count>2061</followers_count>
   <profile_background_color>ffffff</profile_background_color>
   <profile_text_color>210626</profile_text_color>
   <profile_link_color>000000</profile_link_color>
@@ -3630,7 +3545,7 @@ all my life O;-]</text>
   <profile_image_url>http://a0.twimg.com/profile_images/581820664/profilepic_normal.jpg</profile_image_url>
   <url>http://about.me/hiten/bio</url>
   <protected>false</protected>
-  <followers_count>25715</followers_count>
+  <followers_count>25716</followers_count>
   <profile_background_color>668284</profile_background_color>
   <profile_text_color>2A2829</profile_text_color>
   <profile_link_color>7B3B3B</profile_link_color>
@@ -3835,22 +3750,22 @@ all my life O;-]</text>
   <geo_enabled>false</geo_enabled>
   <verified>false</verified>
   <following>false</following>
-  <statuses_count>938</statuses_count>
+  <statuses_count>940</statuses_count>
   <lang>en</lang>
   <contributors_enabled>false</contributors_enabled>
   <follow_request_sent>false</follow_request_sent>
   <listed_count>40</listed_count>
   <show_all_inline_media>false</show_all_inline_media>
   <status>
-    <created_at>Wed Nov 03 13:24:05 +0000 2010</created_at>
-    <id>29570639160</id>
-    <text>Digging into the @prototypejs source for the first time - clean and very readable. #veryimpressed</text>
+    <created_at>Wed Nov 03 14:45:26 +0000 2010</created_at>
+    <id>29577628939</id>
+    <text>@VideoMinutes You too! Edit me well. =)</text>
     <source>web</source>
     <truncated>false</truncated>
     <favorited>false</favorited>
-    <in_reply_to_status_id></in_reply_to_status_id>
-    <in_reply_to_user_id></in_reply_to_user_id>
-    <in_reply_to_screen_name></in_reply_to_screen_name>
+    <in_reply_to_status_id>29569434096</in_reply_to_status_id>
+    <in_reply_to_user_id>103888318</in_reply_to_user_id>
+    <in_reply_to_screen_name>VideoMinutes</in_reply_to_screen_name>
     <retweet_count></retweet_count>
     <retweeted>false</retweeted>
     <geo/>
@@ -3985,7 +3900,7 @@ all my life O;-]</text>
   <profile_image_url>http://a3.twimg.com/profile_images/53473799/marcel-euro-rails-conf_normal.jpg</profile_image_url>
   <url>http://project.ioni.st</url>
   <protected>false</protected>
-  <followers_count>279523</followers_count>
+  <followers_count>279522</followers_count>
   <profile_background_color>9AE4E8</profile_background_color>
   <profile_text_color>333333</profile_text_color>
   <profile_link_color>0084B4</profile_link_color>
@@ -4261,27 +4176,42 @@ San Fransocialite</description>
   <geo_enabled>true</geo_enabled>
   <verified>false</verified>
   <following>false</following>
-  <statuses_count>348</statuses_count>
+  <statuses_count>349</statuses_count>
   <lang>en</lang>
   <contributors_enabled>false</contributors_enabled>
   <follow_request_sent>false</follow_request_sent>
   <listed_count>1</listed_count>
   <show_all_inline_media>false</show_all_inline_media>
   <status>
-    <created_at>Tue Nov 02 22:54:38 +0000 2010</created_at>
-    <id>29513795174</id>
-    <text>@DavidMarkowitz what, no #NYTM ? http://frf.ly/7x5+</text>
+    <created_at>Wed Nov 03 14:29:32 +0000 2010</created_at>
+    <id>29576228129</id>
+    <text>I'm at LGA - Delta Terminal in Queens, New York http://frf.ly/7DE+</text>
     <source>&lt;a href=&quot;http://frf.ly&quot; rel=&quot;nofollow&quot;&gt;Firefly for iPhone&lt;/a&gt;</source>
     <truncated>false</truncated>
     <favorited>false</favorited>
-    <in_reply_to_status_id>29512831384</in_reply_to_status_id>
-    <in_reply_to_user_id>17471849</in_reply_to_user_id>
-    <in_reply_to_screen_name>DavidMarkowitz</in_reply_to_screen_name>
+    <in_reply_to_status_id></in_reply_to_status_id>
+    <in_reply_to_user_id></in_reply_to_user_id>
+    <in_reply_to_screen_name></in_reply_to_screen_name>
     <retweet_count></retweet_count>
     <retweeted>false</retweeted>
-    <geo/>
-    <coordinates/>
-    <place/>
+    <geo xmlns:georss="http://www.georss.org/georss">
+      <georss:point>40.7704 -73.8597</georss:point>
+    </geo>
+    <coordinates xmlns:georss="http://www.georss.org/georss">
+      <georss:point>40.7704 -73.8597</georss:point>
+    </coordinates>
+    <place xmlns:georss="http://www.georss.org/georss">
+      <id>b6ea2e341ba4356f</id>
+      <name>Queens</name>
+      <full_name>Queens, NY</full_name>
+      <place_type>city</place_type>
+      <url>http://api.twitter.com/1/geo/id/b6ea2e341ba4356f.json</url>
+      <attributes/>
+      <bounding_box>
+        <georss:polygon>40.489794 -74.042112 40.489794 -73.700272 40.812242 -73.700272 40.812242 -74.042112</georss:polygon>
+      </bounding_box>
+      <country code="US">The United States of America</country>
+    </place>
     <contributors/>
   </status>
 </user>
@@ -4776,16 +4706,16 @@ San Fransocialite</description>
   <geo_enabled>false</geo_enabled>
   <verified>false</verified>
   <following>false</following>
-  <statuses_count>3457</statuses_count>
+  <statuses_count>3458</statuses_count>
   <lang>en</lang>
   <contributors_enabled>false</contributors_enabled>
   <follow_request_sent>false</follow_request_sent>
   <listed_count>4</listed_count>
   <show_all_inline_media>false</show_all_inline_media>
   <status>
-    <created_at>Wed Nov 03 09:00:41 +0000 2010</created_at>
-    <id>29554184544</id>
-    <text>How Singapore Could Become the Most Important City in the Emerging World http://retwt.me/1PuyO (via @TechCrunch)</text>
+    <created_at>Wed Nov 03 14:28:51 +0000 2010</created_at>
+    <id>29576169347</id>
+    <text>Flash Sales Site For Indian Fashion Exclusively.in Raises $2.8 Million From Accel http://retwt.me/1PuLS (via @blogshot)</text>
     <source>&lt;a href=&quot;http://tweetmeme.com&quot; rel=&quot;nofollow&quot;&gt;TweetMeme&lt;/a&gt;</source>
     <truncated>false</truncated>
     <favorited>false</favorited>
@@ -5199,7 +5129,110 @@ http://tinyurl.com/26lm7nh</text>
     <contributors/>
   </status>
 </user>
+<user>
+  <id>180959939</id>
+  <name>protradesgal</name>
+  <screen_name>protradesgal</screen_name>
+  <location></location>
+  <description>Day trader - Forex, options, stocks, futures
+</description>
+  <profile_image_url>http://a3.twimg.com/profile_images/1107441847/k0709470_normal.jpg</profile_image_url>
+  <url></url>
+  <protected>false</protected>
+  <followers_count>301</followers_count>
+  <profile_background_color>C0DEED</profile_background_color>
+  <profile_text_color>333333</profile_text_color>
+  <profile_link_color>0084B4</profile_link_color>
+  <profile_sidebar_fill_color>DDEEF6</profile_sidebar_fill_color>
+  <profile_sidebar_border_color>C0DEED</profile_sidebar_border_color>
+  <friends_count>988</friends_count>
+  <created_at>Fri Aug 20 23:09:02 +0000 2010</created_at>
+  <favourites_count>0</favourites_count>
+  <utc_offset>-21600</utc_offset>
+  <time_zone>Central Time (US &amp; Canada)</time_zone>
+  <profile_background_image_url>http://s.twimg.com/a/1288660386/images/themes/theme1/bg.png</profile_background_image_url>
+  <profile_background_tile>false</profile_background_tile>
+  <profile_use_background_image>true</profile_use_background_image>
+  <notifications>false</notifications>
+  <geo_enabled>false</geo_enabled>
+  <verified>false</verified>
+  <following>false</following>
+  <statuses_count>47</statuses_count>
+  <lang>en</lang>
+  <contributors_enabled>false</contributors_enabled>
+  <follow_request_sent>false</follow_request_sent>
+  <listed_count>6</listed_count>
+  <show_all_inline_media>false</show_all_inline_media>
+  <status>
+    <created_at>Tue Sep 21 21:10:39 +0000 2010</created_at>
+    <id>25151868279</id>
+    <text>http://tinyurl.com/335ug5x Interview on  specific trading methodology with traderinterviews.com $$ #trading #stocks #mkt</text>
+    <source>web</source>
+    <truncated>false</truncated>
+    <favorited>false</favorited>
+    <in_reply_to_status_id></in_reply_to_status_id>
+    <in_reply_to_user_id></in_reply_to_user_id>
+    <in_reply_to_screen_name></in_reply_to_screen_name>
+    <retweet_count></retweet_count>
+    <retweeted>false</retweeted>
+    <geo/>
+    <coordinates/>
+    <place/>
+    <contributors/>
+  </status>
+</user>
+<user>
+  <id>180956634</id>
+  <name>Chad K</name>
+  <screen_name>ratherchad</screen_name>
+  <location>San Francisco</location>
+  <description>Rather Chad-like, and currently a Ruby developer</description>
+  <profile_image_url>http://a3.twimg.com/profile_images/1107413683/n605431196_2079896_558_normal.jpg</profile_image_url>
+  <url></url>
+  <protected>false</protected>
+  <followers_count>18</followers_count>
+  <profile_background_color>C6E2EE</profile_background_color>
+  <profile_text_color>663B12</profile_text_color>
+  <profile_link_color>1F98C7</profile_link_color>
+  <profile_sidebar_fill_color>DAECF4</profile_sidebar_fill_color>
+  <profile_sidebar_border_color>C6E2EE</profile_sidebar_border_color>
+  <friends_count>44</friends_count>
+  <created_at>Fri Aug 20 22:58:09 +0000 2010</created_at>
+  <favourites_count>0</favourites_count>
+  <utc_offset>-28800</utc_offset>
+  <time_zone>Pacific Time (US &amp; Canada)</time_zone>
+  <profile_background_image_url>http://s.twimg.com/a/1288039940/images/themes/theme2/bg.gif</profile_background_image_url>
+  <profile_background_tile>false</profile_background_tile>
+  <profile_use_background_image>true</profile_use_background_image>
+  <notifications></notifications>
+  <geo_enabled>false</geo_enabled>
+  <verified>false</verified>
+  <following></following>
+  <statuses_count>14</statuses_count>
+  <lang>en</lang>
+  <contributors_enabled>false</contributors_enabled>
+  <follow_request_sent></follow_request_sent>
+  <listed_count>4</listed_count>
+  <show_all_inline_media>false</show_all_inline_media>
+  <status>
+    <created_at>Thu Oct 28 01:03:24 +0000 2010</created_at>
+    <id>28943301790</id>
+    <text>Cliff Lee's first post season loss will be tonight!  Sanchez, Buster and Huff have his number. #sfgiants</text>
+    <source>&lt;a href=&quot;http://www.tweetdeck.com&quot; rel=&quot;nofollow&quot;&gt;TweetDeck&lt;/a&gt;</source>
+    <truncated>false</truncated>
+    <favorited>false</favorited>
+    <in_reply_to_status_id></in_reply_to_status_id>
+    <in_reply_to_user_id></in_reply_to_user_id>
+    <in_reply_to_screen_name></in_reply_to_screen_name>
+    <retweet_count></retweet_count>
+    <retweeted>false</retweeted>
+    <geo/>
+    <coordinates/>
+    <place/>
+    <contributors/>
+  </status>
+</user>
 </users>
-<next_cursor>1344705575776646761</next_cursor>
+<next_cursor>1344637399602463196</next_cursor>
 <previous_cursor>0</previous_cursor>
 </users_list>

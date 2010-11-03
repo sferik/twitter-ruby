@@ -8,8 +8,8 @@ module Twitter
       # @rate_limited true
       # @param user [String, Integer] A Twitter user ID or screen name.
       # @param options [Hash] A customizable set of options.
-      # @option options [String] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
-      # @return [Hashie::Mash] The requested user object.
+      # @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
+      # @return [Hashie::Mash] The requested user.
       # @see http://dev.twitter.com/doc/get/users/show
       # @example Return extended information for @sferik
       #   Twitter.user("sferik")
@@ -20,7 +20,7 @@ module Twitter
         format.to_s.downcase == 'xml' ? response['user'] : response
       end
 
-      # Returns extended information of a given user
+      # Return up to 100 users worth of extended information
       #
       # @format :json, :xml
       # @authenticated true
@@ -28,10 +28,10 @@ module Twitter
       # @overload users(*users, options={})
       #   @param users [String, Integer] Twitter users ID or screen names.
       #   @param options [Hash] A customizable set of options.
-      #   @option options [String] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
-      # @return [Hashie::Mash] The requested user object.
+      #   @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
+      # @return [Array] The requested users.
       # @see http://dev.twitter.com/doc/get/users/lookup
-      # @example Return extended information for @sferik
+      # @example Return extended information for @sferik and @pengwynn
       #   Twitter.user("sferik", "pengwynn")
       #   Twitter.user("sferik", 14100886)   # Same as above
       #   Twitter.user(7505382, 14100886)    # Same as above
@@ -52,7 +52,7 @@ module Twitter
       # @param options [Hash] A customizable set of options.
       # @option options [Integer] :per_page The number of people to retrieve. Maxiumum of 20 allowed per page.
       # @option options [Integer] :page Specifies the page of results to retrieve.
-      # @option options [String] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
+      # @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
       # @return [Array]
       # @see http://dev.twitter.com/doc/get/users/search
       # @example Return users that match "Erik Michaels-Ober"
@@ -112,7 +112,7 @@ module Twitter
       # @overload friends(options={})
       #   @param options [Hash] A customizable set of options.
       #   @option options [String] :cursor (-1) Breaks the results into pages. This is recommended for users who are following many users. Provide a value of -1 to begin paging. Provide values as returned in the response body's next_cursor and previous_cursor attributes to page back and forth in the list.
-      #   @option options [String] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
+      #   @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
       #   @return [Hashie::Mash]
       #   @example Return the authenticated user's friends
       #     Twitter.freinds
@@ -120,7 +120,7 @@ module Twitter
       #   @param user [String, Integer] A Twitter user ID or screen name.
       #   @param options [Hash] A customizable set of options.
       #   @option options [String] :cursor (-1) Breaks the results into pages. This is recommended for users who are following many users. Provide a value of -1 to begin paging. Provide values as returned in the response body's next_cursor and previous_cursor attributes to page back and forth in the list.
-      #   @option options [String] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
+      #   @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
       #   @return [Hashie::Mash]
       #   @example Return the @sferik's friends
       #     Twitter.friends("sferik")
@@ -147,7 +147,7 @@ module Twitter
       # @overload followers(options={})
       #   @param options [Hash] A customizable set of options.
       #   @option options [String] :cursor (-1) Breaks the results into pages. Provide values as returned in the response object's next_cursor and previous_cursor attributes to page back and forth in the list.
-      #   @option options [String] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
+      #   @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
       #   @return [Hashie::Mash]
       #   @example Return the authenticated user's followers
       #     Twitter.freinds
@@ -155,7 +155,7 @@ module Twitter
       #   @param user [String, Integer] A Twitter user ID or screen name.
       #   @param options [Hash] A customizable set of options.
       #   @option options [String] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
-      #   @option options [String] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
+      #   @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
       #   @return [Hashie::Mash]
       #   @example Return the @sferik's followers
       #     Twitter.followers("sferik")

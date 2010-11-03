@@ -79,7 +79,7 @@ module Twitter
       # @rate_limited true
       # @param place_id [String] A place in the world. These IDs can be retrieved from {Twitter::Client::Geo#reverse_geocode}.
       # @param options [Hash] A customizable set of options.
-      # @return [Hashie::Mash] The requested place object.
+      # @return [Hashie::Mash] The requested place.
       # @see http://dev.twitter.com/doc/get/geo/id/:place_id
       # @example Return all the information about Twitter HQ
       #   Twitter.place("247f43d441defc03")
@@ -99,7 +99,7 @@ module Twitter
       # @option options [Float] :lat The latitude to search around. This option will be ignored unless it is inside the range -90.0 to +90.0 (North is positive) inclusive. It will also be ignored if there isn't a corresponding :long option.
       # @option options [Float] :long The longitude to search around. The valid ranges for longitude is -180.0 to +180.0 (East is positive) inclusive. This option will be ignored if outside that range, if it is not a number, if geo_enabled is disabled, or if there not a corresponding :lat option.
       # @option options [String] :"attribute:street_address" This option searches for places which have this given street address. There are other well-known, and application specific attributes available. Custom attributes are also permitted.
-      # @return [Hashie::Mash] The created place object.
+      # @return [Hashie::Mash] The created place.
       # @see http://dev.twitter.com/doc/post/geo/place
       # @example Create a new place
       #   Twitter.place_create(:name => "@sferik's Apartment", :token => "22ff5b1f7159032cf69218c4d8bb78bc", :contained_within => "41bcb736f84a799e", :lat => "37.783699", :long => "-122.393581")
