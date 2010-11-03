@@ -23,7 +23,7 @@ module Twitter
       # Returns extended information of a given user
       #
       # @format :json, :xml
-      # @authenticated false
+      # @authenticated true
       # @rate_limited true
       # @param user [String, Integer] A Twitter user ID or screen name.
       # @param options [Hash] A customizable set of options.
@@ -42,20 +42,60 @@ module Twitter
         format.to_s.downcase == 'xml' ? response['users'] : response
       end
 
+      # Returns users that match the given query
+      #
+      # @format :json, :xml
+      # @authenticated true
+      # @rate_limited true
+      # @param query [String] The search query to run against people search.
+      # @param options [Hash] A customizable set of options.
+      # @option options [Integer] :per_page The number of people to retrieve. Maxiumum of 20 allowed per page.
+      # @option options [Integer] :page Specifies the page of results to retrieve.
+      # @option options [String] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
+      # @return [Array]
+      # @see http://dev.twitter.com/doc/get/users/search
+      # @example Return users that match "Erik Michaels-Ober"
+      #   Twitter.user_search("Erik Michaels-Ober")
       def user_search(query, options={})
         response = get('users/search', options.merge(:q => query))
         format.to_s.downcase == 'xml' ? response['users'] : response
       end
 
+      # Returns the list of suggested user categories or users in a given category
+      #
+      # @format :json, :xml
+      # @authenticated false
+      # @rate_limited true
+      # @param slug [String] The short name of list or a category.
+      # @param options [Hash] A customizable set of options.
+      # @return [Array]
+      # @see http://dev.twitter.com/doc/get/users/suggestions
+      # @see http://dev.twitter.com/doc/get/users/suggestions/:slug
+      # @example
+      #   Twitter.suggestions               # Return the list of suggested user categories
+      #   Twitter.suggestions("art-design") # Return the users in the Art & Design category
       def suggestions(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
-        category = args.first
-        response = get(['users/suggestions', category].compact.join('/'), options)
-        xml_key = category ? 'category' : 'suggestions'
+        slug = args.first
+        response = get(['users/suggestions', slug].compact.join('/'), options)
+        xml_key = slug ? 'category' : 'suggestions'
         format.to_s.downcase == 'xml' ? response[xml_key] : response
       end
 
+      # Access the profile image in various sizes for the user with the indicated screen name
+      #
+      # @format :json, :xml
+      # @authenticated false
+      # @rate_limited false
+      # @param screen_name [String] The screen name of the user for whom to return results for.
+      # @param options [Hash] A customizable set of options.
+      # @option options [String] :size ('normal') Specifies the size of image to fetch. Valid options include: 'bigger' (73px by 73px), 'normal' (48px by 48px), and 'mini' (24px by 24px).
+      # @return [String] The URL for the requested user's profile image.
+      # @see http://dev.twitter.com/doc/get/users/profile_image/:screen_name
+      # @example Return the URL for the 24px by 24px version of @sferik's profile image
+      #   Twitter.profile_image("sferik", :size => 'mini')
       def profile_image(screen_name, options={})
+        clean_screen_name!(screen_name)
         get("users/profile_image/#{screen_name}", options, true).headers['location']
       end
 
