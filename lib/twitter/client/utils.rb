@@ -1,6 +1,6 @@
 module Twitter
   class Client
-    # @private
+    # @api private
     module Utils
       private
 

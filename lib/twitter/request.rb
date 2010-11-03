@@ -1,4 +1,5 @@
 module Twitter
+  # @api private
   module Request
     def get(path, options={}, raw=false)
       request(:get, path, options, raw)

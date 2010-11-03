@@ -2,23 +2,22 @@ require 'cgi'
 
 module Twitter
 
-  # Wrapper for the Twitter Search API.
+  # Wrapper for the Twitter Search API
   #
-  # *Notice*: As of April 1st 2010, the Search API provides an option to retrieve
-  # "popular tweets" in addition to real-time search results. In an upcoming release,
-  # this will become the default and clients that don't want to receive popular tweets
-  # in their search results will have to explicitly opt-out. See {Twitter::Search#result_type}
-  # for more information.
-  #
-  # *Warning*: The user ids in the Search API are different from those in the REST API
-  # ({http://dev.twitter.com/pages/api_overview about the two APIs}). This defect is
-  # being tracked by {http://code.google.com/p/twitter-api/issues/detail?id=214 Issue 214}.
-  # This means that the to_user_id and from_user_id field vary from the actualy user id on
-  # Twitter.com. Applications will have to perform a screen name-based lookup with
-  # {Twitter::Client::User#user} to get the correct user id if necessary.
+  # @note As of April 1st 2010, the Search API provides an option to retrieve
+  #   "popular tweets" in addition to real-time search results. In an upcoming release,
+  #   this will become the default and clients that don't want to receive popular tweets
+  #   in their search results will have to explicitly opt-out. See {Twitter::Search#result_type}
+  #   for more information.
+  # @note The user ids in the Search API are different from those in the REST API
+  #   ({http://dev.twitter.com/pages/api_overview about the two APIs}). This defect is
+  #   being tracked by {http://code.google.com/p/twitter-api/issues/detail?id=214 Issue 214}.
+  #   This means that the to_user_id and from_user_id field vary from the actualy user id on
+  #   Twitter.com. Applications will have to perform a screen name-based lookup with
+  #   {Twitter::Client::User#user} to get the correct user id if necessary.
   # @see http://dev.twitter.com/doc/get/search Twitter Search API Documentation
   class Search < API
-    # @private
+    # @api private
     attr_reader :query
 
     # Creates a new search

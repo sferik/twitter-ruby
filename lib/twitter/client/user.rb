@@ -99,6 +99,20 @@ module Twitter
         get("users/profile_image/#{screen_name}", options, true).headers['location']
       end
 
+      # Returns a user's friends
+      #
+      # @format :json, :xml
+      # @authenticated false unless requesting it from a protected user; if getting this data of a protected user, you must auth (and be allowed to see that user).
+      # @rate_limited true
+      # @param user [String, Integer] A Twitter user ID or screen name.
+      # @param options [Hash] A customizable set of options.
+      # @option options [String] :cursor Breaks the results into pages. This is recommended for users who are following many users. Provide a value of -1 to begin paging. Provide values as returned in the response body's next_cursor and previous_cursor attributes to page back and forth in the list.
+      # @option options [String] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
+      # @return [Array]
+      # @see http://dev.twitter.com/doc/get/statuses/friends
+      # @example Return the @sferik's friends
+      #   Twitter.freinds("sferik")
+      #   Twitter.friends(7505382)  # Same as above
       def friends(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
         user = args.first
@@ -111,6 +125,20 @@ module Twitter
         format.to_s.downcase == 'xml' ? response['users'] : response
       end
 
+      # Returns a user's followers
+      #
+      # @format :json, :xml
+      # @authenticated false unless requesting it from a protected user; if getting this data of a protected user, you must auth (and be allowed to see that user).
+      # @rate_limited true
+      # @param user [String, Integer] A Twitter user ID or screen name.
+      # @param options [Hash] A customizable set of options.
+      # @option options [String] :cursor Breaks the results into pages. This is recommended for users who are followed by many users. Provide a value of -1 to begin paging. Provide values as returned in the response body's next_cursor and previous_cursor attributes to page back and forth in the list.
+      # @option options [String] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
+      # @return [Array]
+      # @see http://dev.twitter.com/doc/get/statuses/followers
+      # @example Return the @sferik's followers
+      #   Twitter.followers("sferik")
+      #   Twitter.followers(7505382)  # Same as above
       def followers(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
         user = args.first

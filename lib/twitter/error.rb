@@ -1,15 +1,23 @@
 module Twitter
+  # Custom error class for rescuing from all Twitter errors
   class Error < StandardError; end
 
-  class BadGateway < Error; end
+  # Raised when Twitter returns a 400 HTTP status code
   class BadRequest < Error; end
-  class Forbidden < Error; end
-  class InternalServerError < Error; end
-  class NotAcceptable < Error; end
-  class NotFound < Error; end
-  class ServiceUnavailable < Error; end
+
+  # Raised when Twitter returns a 401 HTTP status code
   class Unauthorized < Error; end
 
+  # Raised when Twitter returns a 403 HTTP status code
+  class Forbidden < Error; end
+
+  # Raised when Twitter returns a 404 HTTP status code
+  class NotFound < Error; end
+
+  # Raised when Twitter returns a 406 HTTP status code
+  class NotAcceptable < Error; end
+
+  # Raised when Twitter returns a 420 HTTP status code
   class EnhanceYourCalm < Error
     def initialize(message, http_headers)
       @http_headers = Hash[http_headers]
@@ -20,4 +28,13 @@ module Twitter
       @http_headers.values_at('retry-after', 'Retry-After').first.to_i
     end
   end
+
+  # Raised when Twitter returns a 500 HTTP status code
+  class InternalServerError < Error; end
+
+  # Raised when Twitter returns a 502 HTTP status code
+  class BadGateway < Error; end
+
+  # Raised when Twitter returns a 503 HTTP status code
+  class ServiceUnavailable < Error; end
 end
