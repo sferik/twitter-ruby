@@ -2,6 +2,7 @@
 --tag format:"Supported formats"
 --tag authenticated:"Requires Authentication"
 --tag rate_limited:"Rate Limited"
+--markup markdown
 -
-LICENSE.md
-HISTORY.md
+HISTORY.mkd
+LICENSE.mkd
