@@ -6,7 +6,7 @@ module Twitter
       # @format :json, :xml
       # @authenticated false
       # @rate_limited true
-      # @param user [String, Integer] A Twitter user ID or screen name.
+      # @param user [Integer, String] A Twitter user ID or screen name.
       # @param options [Hash] A customizable set of options.
       # @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
       # @return [Hashie::Mash] The requested user.
@@ -26,7 +26,7 @@ module Twitter
       # @authenticated true
       # @rate_limited true
       # @overload users(*users, options={})
-      #   @param users [String, Integer] Twitter users ID or screen names.
+      #   @param users [Integer, String] Twitter users ID or screen names.
       #   @param options [Hash] A customizable set of options.
       #   @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
       # @return [Array] The requested users.
@@ -117,7 +117,7 @@ module Twitter
       #   @example Return the authenticated user's friends
       #     Twitter.freinds
       # @overload friends(user, options={})
-      #   @param user [String, Integer] A Twitter user ID or screen name.
+      #   @param user [Integer, String] A Twitter user ID or screen name.
       #   @param options [Hash] A customizable set of options.
       #   @option options [String] :cursor (-1) Breaks the results into pages. This is recommended for users who are following many users. Provide a value of -1 to begin paging. Provide values as returned in the response body's next_cursor and previous_cursor attributes to page back and forth in the list.
       #   @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
@@ -152,7 +152,7 @@ module Twitter
       #   @example Return the authenticated user's followers
       #     Twitter.freinds
       # @overload followers(user, options={})
-      #   @param user [String, Integer] A Twitter user ID or screen name.
+      #   @param user [Integer, String] A Twitter user ID or screen name.
       #   @param options [Hash] A customizable set of options.
       #   @option options [String] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
       #   @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
