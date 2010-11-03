@@ -25,9 +25,10 @@ module Twitter
       # @format :json, :xml
       # @authenticated true
       # @rate_limited true
-      # @param user [String, Integer] A Twitter user ID or screen name.
-      # @param options [Hash] A customizable set of options.
-      # @option options [String] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
+      # @overload users(*users, options={})
+      #   @param users [String, Integer] Twitter users ID or screen names.
+      #   @param options [Hash] A customizable set of options.
+      #   @option options [String] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
       # @return [Hashie::Mash] The requested user object.
       # @see http://dev.twitter.com/doc/get/users/lookup
       # @example Return extended information for @sferik
@@ -61,19 +62,26 @@ module Twitter
         format.to_s.downcase == 'xml' ? response['users'] : response
       end
 
-      # Returns the list of suggested user categories or users in a given category
+      # @overload suggestions(options={})
+      #   Returns the list of suggested user categories
       #
+      #   @param options [Hash] A customizable set of options.
+      #   @return [Array]
+      #   @see http://dev.twitter.com/doc/get/users/suggestions
+      #   @example Return the list of suggested user categories
+      #     Twitter.suggestions
+      # @overload suggestions(slug, options={})
+      #   Returns the users in a given category
+      #
+      #   @param slug [String] The short name of list or a category.
+      #   @param options [Hash] A customizable set of options.
+      #   @return [Array]
+      #   @see http://dev.twitter.com/doc/get/users/suggestions/:slug
+      #   @example Return the users in the Art & Design category
+      #     Twitter.suggestions("art-design")
       # @format :json, :xml
       # @authenticated false
       # @rate_limited true
-      # @param slug [String] The short name of list or a category.
-      # @param options [Hash] A customizable set of options.
-      # @return [Array]
-      # @see http://dev.twitter.com/doc/get/users/suggestions
-      # @see http://dev.twitter.com/doc/get/users/suggestions/:slug
-      # @example
-      #   Twitter.suggestions               # Return the list of suggested user categories
-      #   Twitter.suggestions("art-design") # Return the users in the Art & Design category
       def suggestions(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
         slug = args.first
@@ -101,20 +109,29 @@ module Twitter
 
       # Returns a user's friends
       #
+      # @overload friends(options={})
+      #   @param options [Hash] A customizable set of options.
+      #   @option options [String] :cursor (-1) Breaks the results into pages. This is recommended for users who are following many users. Provide a value of -1 to begin paging. Provide values as returned in the response body's next_cursor and previous_cursor attributes to page back and forth in the list.
+      #   @option options [String] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
+      #   @return [Hashie::Mash]
+      #   @example Return the authenticated user's friends
+      #     Twitter.freinds
+      # @overload friends(user, options={})
+      #   @param user [String, Integer] A Twitter user ID or screen name.
+      #   @param options [Hash] A customizable set of options.
+      #   @option options [String] :cursor (-1) Breaks the results into pages. This is recommended for users who are following many users. Provide a value of -1 to begin paging. Provide values as returned in the response body's next_cursor and previous_cursor attributes to page back and forth in the list.
+      #   @option options [String] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
+      #   @return [Hashie::Mash]
+      #   @example Return the @sferik's friends
+      #     Twitter.friends("sferik")
+      #     Twitter.friends(7505382)  # Same as above
+      # @see http://dev.twitter.com/doc/get/statuses/friends
       # @format :json, :xml
       # @authenticated false unless requesting it from a protected user; if getting this data of a protected user, you must auth (and be allowed to see that user).
       # @rate_limited true
-      # @param user [String, Integer] A Twitter user ID or screen name.
-      # @param options [Hash] A customizable set of options.
-      # @option options [String] :cursor Breaks the results into pages. This is recommended for users who are following many users. Provide a value of -1 to begin paging. Provide values as returned in the response body's next_cursor and previous_cursor attributes to page back and forth in the list.
-      # @option options [String] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
-      # @return [Array]
-      # @see http://dev.twitter.com/doc/get/statuses/friends
-      # @example Return the @sferik's friends
-      #   Twitter.freinds("sferik")
-      #   Twitter.friends(7505382)  # Same as above
       def friends(*args)
-        options = args.last.is_a?(Hash) ? args.pop : {}
+        options = {:cursor => -1}
+        options.merge!(args.last.is_a?(Hash) ? args.pop : {})
         user = args.first
         if user
           merge_user_into_options!(user, options)
@@ -122,25 +139,34 @@ module Twitter
         else
           response = get('statuses/friends', options)
         end
-        format.to_s.downcase == 'xml' ? response['users'] : response
+        format.to_s.downcase == 'xml' ? response['users_list'] : response
       end
 
       # Returns a user's followers
       #
+      # @overload followers(options={})
+      #   @param options [Hash] A customizable set of options.
+      #   @option options [String] :cursor (-1) Breaks the results into pages. Provide values as returned in the response object's next_cursor and previous_cursor attributes to page back and forth in the list.
+      #   @option options [String] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
+      #   @return [Hashie::Mash]
+      #   @example Return the authenticated user's followers
+      #     Twitter.freinds
+      # @overload followers(user, options={})
+      #   @param user [String, Integer] A Twitter user ID or screen name.
+      #   @param options [Hash] A customizable set of options.
+      #   @option options [String] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
+      #   @option options [String] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
+      #   @return [Hashie::Mash]
+      #   @example Return the @sferik's followers
+      #     Twitter.followers("sferik")
+      #     Twitter.followers(7505382)  # Same as above
+      # @see http://dev.twitter.com/doc/get/statuses/followers
       # @format :json, :xml
       # @authenticated false unless requesting it from a protected user; if getting this data of a protected user, you must auth (and be allowed to see that user).
       # @rate_limited true
-      # @param user [String, Integer] A Twitter user ID or screen name.
-      # @param options [Hash] A customizable set of options.
-      # @option options [String] :cursor Breaks the results into pages. This is recommended for users who are followed by many users. Provide a value of -1 to begin paging. Provide values as returned in the response body's next_cursor and previous_cursor attributes to page back and forth in the list.
-      # @option options [String] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
-      # @return [Array]
-      # @see http://dev.twitter.com/doc/get/statuses/followers
-      # @example Return the @sferik's followers
-      #   Twitter.followers("sferik")
-      #   Twitter.followers(7505382)  # Same as above
       def followers(*args)
-        options = args.last.is_a?(Hash) ? args.pop : {}
+        options = {:cursor => -1}
+        options.merge!(args.last.is_a?(Hash) ? args.pop : {})
         user = args.first
         if user
           merge_user_into_options!(user, options)
@@ -148,7 +174,7 @@ module Twitter
         else
           response = get('statuses/followers', options)
         end
-        format.to_s.downcase == 'xml' ? response['users'] : response
+        format.to_s.downcase == 'xml' ? response['users_list'] : response
       end
     end
   end

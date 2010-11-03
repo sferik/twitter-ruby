@@ -270,21 +270,21 @@ describe Twitter::Client do
 
           before do
             stub_get("statuses/friends.#{format}").
-              with(:query => {"screen_name" => "sferik"}).
+              with(:query => {"screen_name" => "sferik", "cursor" => "-1"}).
               to_return(:body => fixture("friends.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
 
           it "should get the correct resource" do
             @client.friends("sferik")
             a_get("statuses/friends.#{format}").
-              with(:query => {"screen_name" => "sferik"}).
+              with(:query => {"screen_name" => "sferik", "cursor" => "-1"}).
               should have_been_made
           end
 
           it "should return a user's friends, each with current status inline" do
             friends = @client.friends("sferik")
-            friends.should be_a Array
-            friends.first.name.should == "kellan"
+            friends.users.should be_a Array
+            friends.users.first.name.should == "Tim O'Reilly"
           end
 
         end
@@ -293,19 +293,21 @@ describe Twitter::Client do
 
           before do
             stub_get("statuses/friends.#{format}").
+              with(:query => {"cursor" => "-1"}).
               to_return(:body => fixture("friends.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
 
           it "should get the correct resource" do
             @client.friends
             a_get("statuses/friends.#{format}").
+              with(:query => {"cursor" => "-1"}).
               should have_been_made
           end
 
           it "should return a user's friends, each with current status inline" do
             friends = @client.friends
-            friends.should be_a Array
-            friends.first.name.should == "kellan"
+            friends.users.should be_a Array
+            friends.users.first.name.should == "Tim O'Reilly"
           end
 
         end
@@ -318,21 +320,21 @@ describe Twitter::Client do
 
           before do
             stub_get("statuses/followers.#{format}").
-              with(:query => {"screen_name" => "sferik"}).
+              with(:query => {"screen_name" => "sferik", "cursor" => "-1"}).
               to_return(:body => fixture("followers.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
 
           it "should get the correct resource" do
             @client.followers("sferik")
             a_get("statuses/followers.#{format}").
-              with(:query => {"screen_name" => "sferik"}).
+              with(:query => {"screen_name" => "sferik", "cursor" => "-1"}).
               should have_been_made
           end
 
           it "should return a user's followers, each with current status inline" do
             followers = @client.followers("sferik")
-            followers.should be_a Array
-            followers.first.name.should == "samz sasuke"
+            followers.users.should be_a Array
+            followers.users.first.name.should == "Cheryl Parker"
           end
 
         end
@@ -341,19 +343,21 @@ describe Twitter::Client do
 
           before do
             stub_get("statuses/followers.#{format}").
+              with(:query => {"cursor" => "-1"}).
               to_return(:body => fixture("followers.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
 
           it "should get the correct resource" do
             @client.followers
             a_get("statuses/followers.#{format}").
+              with(:query => {"cursor" => "-1"}).
               should have_been_made
           end
 
           it "should return a user's followers, each with current status inline" do
             followers = @client.followers
-            followers.should be_a Array
-            followers.first.name.should == "samz sasuke"
+            followers.users.should be_a Array
+            followers.users.first.name.should == "Cheryl Parker"
           end
         end
       end
