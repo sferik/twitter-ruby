@@ -16,7 +16,7 @@ module Twitter
       # @see http://dev.twitter.com/doc/post/:user/lists
       # @example Create a list named "presidents"
       #   Twitter.list_create("sferik", "presidents")
-      # @todo Overload the method to allow fetching of the authenticated screen name's from configuration.
+      # @todo Overload the method to allow fetching of the authenticated user's screen name from configuration.
       def list_create(screen_name, name, options={})
         clean_screen_name!(screen_name)
         response = post("#{screen_name}/lists", options.merge(:name => name))
@@ -37,7 +37,7 @@ module Twitter
       # @see http://dev.twitter.com/doc/post/:user/lists/:id
       # @example Update the "presidents" list to have the description "Presidents of the United States of America"
       #   Twitter.list_update("sferik", "presidents", :description => "Presidents of the United States of America")
-      # @todo Overload the method to allow fetching of the authenticated screen name's from configuration.
+      # @todo Overload the method to allow fetching of the authenticated user's screen name from configuration.
       def list_update(screen_name, name, options={})
         clean_screen_name!(screen_name)
         response = put("#{screen_name}/lists/#{name}", options)
@@ -90,7 +90,7 @@ module Twitter
       # @see http://dev.twitter.com/doc/get/:user/lists/:id
       # @example Show @sferik's "presidents" list
       #   Twitter.list("sferik", "presidents")
-      # @todo Overload the method to allow fetching of the authenticated screen name's from configuration.
+      # @todo Overload the method to allow fetching of the authenticated user's screen name from configuration.
       def list(screen_name, id, options={})
         clean_screen_name!(screen_name)
         response = get("#{screen_name}/lists/#{id}", options)
@@ -110,7 +110,7 @@ module Twitter
       # @see http://dev.twitter.com/doc/delete/:user/lists/:id
       # @example Delete @sferik's "presidents" list
       #   Twitter.list_delete("sferik", "presidents")
-      # @todo Overload the method to allow fetching of the authenticated screen name's from configuration.
+      # @todo Overload the method to allow fetching of the authenticated user's screen name from configuration.
       def list_delete(screen_name, id, options={})
         clean_screen_name!(screen_name)
         response = delete("#{screen_name}/lists/#{id}", options)
@@ -134,7 +134,7 @@ module Twitter
       # @see http://dev.twitter.com/doc/get/:user/lists/:id/statuses
       # @example Show tweet timeline for members of @sferik's "presidents" list
       #   Twitter.list_timeline("sferik", "presidents")
-      # @todo Overload the method to allow fetching of the authenticated screen name's from configuration.
+      # @todo Overload the method to allow fetching of the authenticated user's screen name from configuration.
       def list_timeline(screen_name, name, options={})
         clean_screen_name!(screen_name)
         response = get("#{screen_name}/lists/#{name}/statuses", options)
@@ -153,7 +153,7 @@ module Twitter
       # @see http://dev.twitter.com/doc/get/:user/lists/memberships
       # @example List the lists that @sferik has been added to
       #   Twitter.memberships("sferik")
-      # @todo Overload the method to allow fetching of the authenticated screen name's from configuration.
+      # @todo Overload the method to allow fetching of the authenticated user's screen name from configuration.
       def memberships(screen_name, options={})
         options = {:cursor => -1}.merge(options)
         clean_screen_name!(screen_name)
@@ -173,7 +173,7 @@ module Twitter
       # @see http://dev.twitter.com/doc/get/:user/lists/subscriptions
       # @example List the lists that @sferik follows
       #   Twitter.subscriptions("sferik")
-      # @todo Overload the method to allow fetching of the authenticated screen name's from configuration.
+      # @todo Overload the method to allow fetching of the authenticated user's screen name from configuration.
       def subscriptions(screen_name, options={})
         options = {:cursor => -1}.merge(options)
         clean_screen_name!(screen_name)

@@ -44,7 +44,7 @@ module Twitter
       alias :friendship_destroy :unfollow
 
       # Test for the existence of friendship between two users
-      # @note Consider using {Twitter::Client:Friendship#friendship} instead of this method.
+      # @note Consider using {Twitter::Client::Friendship#friendship} instead of this method.
       #
       # @format :json, :xml
       # @authenticated false unless user_a or user_b is protected
@@ -52,7 +52,7 @@ module Twitter
       # @param user_a [Integer, String] The ID or screen_name of the subject user.
       # @param user_b [Integer, String] The ID or screen_name of the user to test for following.
       # @param options [Hash] A customizable set of options.
-      # @return [Boolean] true if user_a follows user_b, otherwise will false.
+      # @return [Boolean] true if user_a follows user_b, otherwise false.
       # @see http://dev.twitter.com/doc/get/friendships/exists
       # @example Return true if @sferik follows @pengwynn
       #   Twitter.friendship_exists?("sferik", "pengwynn")

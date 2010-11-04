@@ -11,12 +11,14 @@ describe Twitter::Client do
 
         before do
           stub_get("sferik/presidents/members.#{format}").
+            with(:query => {"cursor" => "-1"}).
             to_return(:body => fixture("users_list.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource" do
           @client.list_members("sferik", "presidents")
           a_get("sferik/presidents/members.#{format}").
+            with(:query => {"cursor" => "-1"}).
             should have_been_made
         end
 
@@ -36,13 +38,13 @@ describe Twitter::Client do
         end
 
         it "should get the correct resource" do
-          @client.list_add_member("sferik", "presidents", 7505382)
+          @client.list_add_member("sferik", "presidents", 813286)
           a_post("sferik/presidents/members.#{format}").
             should have_been_made
         end
 
         it "should return the list" do
-          list = @client.list_add_member("sferik", "presidents", 7505382)
+          list = @client.list_add_member("sferik", "presidents", 813286)
           list.name.should == "presidents"
         end
 
@@ -56,13 +58,13 @@ describe Twitter::Client do
         end
 
         it "should get the correct resource" do
-          @client.list_add_members("sferik", "presidents", [7505382, 14100886])
+          @client.list_add_members("sferik", "presidents", [813286, 18755393])
           a_post("sferik/presidents/create_all.#{format}").
             should have_been_made
         end
 
         it "should return the list" do
-          list = @client.list_add_members("sferik", "presidents", [7505382, 14100886])
+          list = @client.list_add_members("sferik", "presidents", [813286, 18755393])
           list.name.should == "presidents"
         end
 
@@ -72,19 +74,19 @@ describe Twitter::Client do
 
         before do
           stub_delete("sferik/presidents/members.#{format}").
-            with(:query => {"id" => "7505382"}).
+            with(:query => {"id" => "813286"}).
             to_return(:body => fixture("list.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource" do
-          @client.list_remove_member("sferik", "presidents", 7505382)
+          @client.list_remove_member("sferik", "presidents", 813286)
           a_delete("sferik/presidents/members.#{format}").
-            with(:query => {"id" => "7505382"}).
+            with(:query => {"id" => "813286"}).
             should have_been_made
         end
 
         it "should return the list" do
-          list = @client.list_remove_member("sferik", "presidents", 7505382)
+          list = @client.list_remove_member("sferik", "presidents", 813286)
           list.name.should == "presidents"
         end
 
@@ -93,25 +95,25 @@ describe Twitter::Client do
       describe ".is_list_member?" do
 
         before do
-          stub_get("sferik/presidents/members/4243.#{format}").
+          stub_get("sferik/presidents/members/813286.#{format}").
             to_return(:body => fixture("list.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
-          stub_get("sferik/presidents/members/7505382.#{format}").
+          stub_get("sferik/presidents/members/65493023.#{format}").
             to_return(:body => fixture("not_found.#{format}"), :status => 404, :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource" do
-          @client.is_list_member?("sferik", "presidents", 4243)
-          a_get("sferik/presidents/members/4243.#{format}").
+          @client.is_list_member?("sferik", "presidents", 813286)
+          a_get("sferik/presidents/members/813286.#{format}").
             should have_been_made
         end
 
         it "should return true if user is a list member" do
-          is_list_member = @client.is_list_member?("sferik", "presidents", 4243)
+          is_list_member = @client.is_list_member?("sferik", "presidents", 813286)
           is_list_member.should be_true
         end
 
         it "should return false if user is not a list member" do
-          is_list_member = @client.is_list_member?("sferik", "presidents", 7505382)
+          is_list_member = @client.is_list_member?("sferik", "presidents", 65493023)
           is_list_member.should be_false
         end
       end

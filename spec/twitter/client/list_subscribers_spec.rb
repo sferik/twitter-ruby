@@ -71,25 +71,25 @@ describe Twitter::Client do
       describe ".is_subscriber?" do
 
         before do
-          stub_get("sferik/presidents/subscribers/7505382.#{format}").
+          stub_get("sferik/presidents/subscribers/813286.#{format}").
             to_return(:body => fixture("user.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
-          stub_get("sferik/presidents/subscribers/14100886.#{format}").
+          stub_get("sferik/presidents/subscribers/18755393.#{format}").
             to_return(:body => fixture("not_found.#{format}"), :status => 404, :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource" do
-          @client.is_subscriber?("sferik", "presidents", 7505382)
-          a_get("sferik/presidents/subscribers/7505382.#{format}").
+          @client.is_subscriber?("sferik", "presidents", 813286)
+          a_get("sferik/presidents/subscribers/813286.#{format}").
             should have_been_made
         end
 
         it "should return true if the specified user subscribes to the specified list" do
-          is_subscriber = @client.is_subscriber?("sferik", "presidents", 7505382)
+          is_subscriber = @client.is_subscriber?("sferik", "presidents", 813286)
           is_subscriber.should be_true
         end
 
         it "should return false if the specified user does not subscribe to the specified list" do
-          is_subscriber = @client.is_subscriber?("sferik", "presidents", 14100886)
+          is_subscriber = @client.is_subscriber?("sferik", "presidents", 18755393)
           is_subscriber.should be_false
         end
       end
