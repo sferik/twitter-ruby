@@ -111,7 +111,7 @@ module Twitter
       #
       # @overload friends(options={})
       #   @param options [Hash] A customizable set of options.
-      #   @option options [String] :cursor (-1) Breaks the results into pages. This is recommended for users who are following many users. Provide a value of -1 to begin paging. Provide values as returned in the response body's next_cursor and previous_cursor attributes to page back and forth in the list.
+      #   @option options [String] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
       #   @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
       #   @return [Hashie::Mash]
       #   @example Return the authenticated user's friends
@@ -119,15 +119,15 @@ module Twitter
       # @overload friends(user, options={})
       #   @param user [Integer, String] A Twitter user ID or screen name.
       #   @param options [Hash] A customizable set of options.
-      #   @option options [String] :cursor (-1) Breaks the results into pages. This is recommended for users who are following many users. Provide a value of -1 to begin paging. Provide values as returned in the response body's next_cursor and previous_cursor attributes to page back and forth in the list.
+      #   @option options [String] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
       #   @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
       #   @return [Hashie::Mash]
-      #   @example Return the @sferik's friends
+      #   @example Return @sferik's friends
       #     Twitter.friends("sferik")
       #     Twitter.friends(7505382)  # Same as above
       # @see http://dev.twitter.com/doc/get/statuses/friends
       # @format :json, :xml
-      # @authenticated false unless requesting it from a protected user; if getting this data of a protected user, you must auth (and be allowed to see that user).
+      # @authenticated [false] unless requesting it from a protected user; if getting this data of a protected user, you must auth (and be allowed to see that user).
       # @rate_limited true
       def friends(*args)
         options = {:cursor => -1}
@@ -157,12 +157,12 @@ module Twitter
       #   @option options [String] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
       #   @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
       #   @return [Hashie::Mash]
-      #   @example Return the @sferik's followers
+      #   @example Return @sferik's followers
       #     Twitter.followers("sferik")
       #     Twitter.followers(7505382)  # Same as above
       # @see http://dev.twitter.com/doc/get/statuses/followers
       # @format :json, :xml
-      # @authenticated false unless requesting it from a protected user; if getting this data of a protected user, you must auth (and be allowed to see that user).
+      # @authenticated [false] unless requesting it from a protected user; if getting this data of a protected user, you must auth (and be allowed to see that user).
       # @rate_limited true
       def followers(*args)
         options = {:cursor => -1}
