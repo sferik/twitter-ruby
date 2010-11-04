@@ -55,13 +55,13 @@ module Twitter
       # @return [Boolean] true if user_a follows user_b, otherwise will false.
       # @see http://dev.twitter.com/doc/get/friendships/exists
       # @example Return true if @sferik follows @pengwynn
-      #   Twitter.unfollow("sferik", "pengwynn")
+      #   Twitter.friendship_exists?("sferik", "pengwynn")
       def friendship_exists?(user_a, user_b, options={})
         response = get('friendships/exists', options.merge(:user_a => user_a, :user_b => user_b))
         format.to_s.downcase == 'xml' ? !%w(0 false).include?(response['friends']) : response
       end
 
-      # Returns detailed information about the relationship between two users.
+      # Returns detailed information about the relationship between two users
       #
       # @format :json, :xml
       # @authenticated false
@@ -95,7 +95,7 @@ module Twitter
       #   Twitter.friendships_incoming
       # @todo Move the code that makes the parsed XML consistent with the parsed JSON into MultiXML.
       def friendships_incoming(options={})
-        options = {:cursor => -1}
+        options = {:cursor => -1}.merge(options)
         response = get('friendships/incoming', options)
         format.to_s.downcase == 'xml' ? Hashie::Mash.new(:ids => response['id_list']['ids']['id'].map{|id| id.to_i}) : response
       end
@@ -113,7 +113,7 @@ module Twitter
       #   Twitter.friendships_outgoing
       # @todo Move the code that makes the parsed XML consistent with the parsed JSON into MultiXML.
       def friendships_outgoing(options={})
-        options = {:cursor => -1}
+        options = {:cursor => -1}.merge(options)
         response = get('friendships/outgoing', options)
         format.to_s.downcase == 'xml' ? Hashie::Mash.new(:ids => response['id_list']['ids']['id'].map{|id| id.to_i}) : response
       end

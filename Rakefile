@@ -18,7 +18,6 @@ end
 
 task :default => ["spec:rcov"]
 
-task :doc => [:yard]
 namespace :doc do
   require 'yard'
   YARD::Rake::YardocTask.new do |task|

@@ -10,19 +10,19 @@ describe Twitter::Client do
       describe ".list_create" do
 
         before do
-          stub_post("pengwynn/lists.#{format}").
+          stub_post("sferik/lists.#{format}").
             to_return(:body => fixture("list.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource" do
-          @client.list_create("pengwynn", "Rubyists")
-          a_post("pengwynn/lists.#{format}").
+          @client.list_create("sferik", "presidents")
+          a_post("sferik/lists.#{format}").
             should have_been_made
         end
 
         it "should return the created list" do
-          list = @client.list_create("pengwynn", "Rubyists")
-          list.name.should == "Rubyists"
+          list = @client.list_create("sferik", "presidents")
+          list.name.should == "presidents"
         end
 
       end
@@ -30,19 +30,19 @@ describe Twitter::Client do
       describe ".list_update" do
 
         before do
-          stub_put("pengwynn/lists/Rubyists.#{format}").
+          stub_put("sferik/lists/presidents.#{format}").
             to_return(:body => fixture("list.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource" do
-          @client.list_update("pengwynn", "Rubyists")
-          a_put("pengwynn/lists/Rubyists.#{format}").
+          @client.list_update("sferik", "presidents", :description => "Presidents of the United States of America")
+          a_put("sferik/lists/presidents.#{format}").
             should have_been_made
         end
 
         it "should return the updated list" do
-          list = @client.list_update("pengwynn", "Rubyists")
-          list.name.should == "Rubyists"
+          list = @client.list_update("sferik", "presidents", :description => "Presidents of the United States of America")
+          list.name.should == "presidents"
         end
 
       end
@@ -52,20 +52,22 @@ describe Twitter::Client do
         context "with a screen name passed" do
 
           before do
-            stub_get("pengwynn/lists.#{format}").
+            stub_get("sferik/lists.#{format}").
+              with(:query => {"cursor" => "-1"}).
               to_return(:body => fixture("lists.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
 
           it "should get the correct resource" do
-            @client.lists("pengwynn")
-            a_get("pengwynn/lists.#{format}").
+            @client.lists("sferik")
+            a_get("sferik/lists.#{format}").
+              with(:query => {"cursor" => "-1"}).
               should have_been_made
           end
 
           it "should return the updated list" do
-            lists = @client.lists("pengwynn")
+            lists = @client.lists("sferik")
             lists.lists.should be_an Array
-            lists.lists.first.name.should == "things-to-attend"
+            lists.lists.first.name.should == "Rubyists"
           end
 
         end
@@ -74,19 +76,21 @@ describe Twitter::Client do
 
           before do
             stub_get("lists.#{format}").
+              with(:query => {"cursor" => "-1"}).
               to_return(:body => fixture("lists.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
 
           it "should get the correct resource" do
             @client.lists
             a_get("lists.#{format}").
+              with(:query => {"cursor" => "-1"}).
               should have_been_made
           end
 
           it "should return the updated list" do
             lists = @client.lists
             lists.lists.should be_an Array
-            lists.lists.first.name.should == "things-to-attend"
+            lists.lists.first.name.should == "Rubyists"
           end
 
         end
@@ -96,19 +100,19 @@ describe Twitter::Client do
       describe ".list" do
 
         before do
-          stub_get("pengwynn/lists/Rubyists.#{format}").
+          stub_get("sferik/lists/presidents.#{format}").
             to_return(:body => fixture("list.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource" do
-          @client.list("pengwynn", "Rubyists")
-          a_get("pengwynn/lists/Rubyists.#{format}").
+          @client.list("sferik", "presidents")
+          a_get("sferik/lists/presidents.#{format}").
             should have_been_made
         end
 
         it "should return the updated list" do
-          list = @client.list("pengwynn", "Rubyists")
-          list.name.should == "Rubyists"
+          list = @client.list("sferik", "presidents")
+          list.name.should == "presidents"
         end
 
       end
@@ -116,19 +120,19 @@ describe Twitter::Client do
       describe ".list_delete" do
 
         before do
-          stub_delete("pengwynn/lists/Rubyists.#{format}").
+          stub_delete("sferik/lists/presidents.#{format}").
             to_return(:body => fixture("list.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource" do
-          @client.list_delete("pengwynn", "Rubyists")
-          a_delete("pengwynn/lists/Rubyists.#{format}").
+          @client.list_delete("sferik", "presidents")
+          a_delete("sferik/lists/presidents.#{format}").
             should have_been_made
         end
 
         it "should return the deleted list" do
-          list = @client.list_delete("pengwynn", "Rubyists")
-          list.name.should == "Rubyists"
+          list = @client.list_delete("sferik", "presidents")
+          list.name.should == "presidents"
         end
 
       end
@@ -136,18 +140,18 @@ describe Twitter::Client do
       describe ".list_timeline" do
 
         before do
-          stub_get("pengwynn/lists/Rubyists/statuses.#{format}").
+          stub_get("sferik/lists/presidents/statuses.#{format}").
             to_return(:body => fixture("statuses.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource" do
-          @client.list_timeline("pengwynn", "Rubyists")
-          a_get("pengwynn/lists/Rubyists/statuses.#{format}").
+          @client.list_timeline("sferik", "presidents")
+          a_get("sferik/lists/presidents/statuses.#{format}").
             should have_been_made
         end
 
         it "should return the tweet timeline for members of the specified list" do
-          statuses = @client.list_timeline("pengwynn", "Rubyists")
+          statuses = @client.list_timeline("sferik", "presidents")
           statuses.should be_an Array
           statuses.first.text.should == "Ruby is the best programming language for hiding the ugly bits."
         end
@@ -158,19 +162,21 @@ describe Twitter::Client do
 
         before do
           stub_get("pengwynn/lists/memberships.#{format}").
+            with(:query => {"cursor" => "-1"}).
             to_return(:body => fixture("lists.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource" do
           @client.memberships("pengwynn")
           a_get("pengwynn/lists/memberships.#{format}").
+            with(:query => {"cursor" => "-1"}).
             should have_been_made
         end
 
         it "should return the lists the specified user has been added to" do
           lists = @client.memberships("pengwynn")
           lists.lists.should be_an Array
-          lists.lists.first.name.should == "things-to-attend"
+          lists.lists.first.name.should == "Rubyists"
         end
 
       end
@@ -179,19 +185,21 @@ describe Twitter::Client do
 
         before do
           stub_get("pengwynn/lists/subscriptions.#{format}").
+            with(:query => {"cursor" => "-1"}).
             to_return(:body => fixture("lists.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource" do
           @client.subscriptions("pengwynn")
           a_get("pengwynn/lists/subscriptions.#{format}").
+            with(:query => {"cursor" => "-1"}).
             should have_been_made
         end
 
         it "should return the lists the specified user follows" do
           lists = @client.subscriptions("pengwynn")
           lists.lists.should be_an Array
-          lists.lists.first.name.should == "things-to-attend"
+          lists.lists.first.name.should == "Rubyists"
         end
       end
     end

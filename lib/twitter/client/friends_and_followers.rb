@@ -6,7 +6,7 @@ module Twitter
       #
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. This is recommended for users who are following many users. Provide a value of -1 to begin paging. Provide values as returned in the response body's next_cursor and previous_cursor attributes to page back and forth in the list.
-      #   @return [Array] Numeric IDs
+      #   @return [Array] Numeric IDs.
       #   @example Return the authenticated user's friends IDs
       #     Twitter.freinds_ids
       # @overload friend_ids(user, options={})
@@ -38,7 +38,7 @@ module Twitter
       #
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
-      #   @return [Array] Numeric IDs
+      #   @return [Array] Numeric IDs.
       #   @example Return the authenticated user's followers IDs
       #     Twitter.follower_ids
       # @overload follower_ids(user, options={})

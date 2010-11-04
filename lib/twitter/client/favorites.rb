@@ -1,14 +1,13 @@
 module Twitter
   class Client
     module Favorites
-
       # @overload favorites(options={})
       #   Returns the 20 most recent favorite statuses for the authenticating user
       #
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :page Specifies the page of results to retrieve.
       #   @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
-      #   @return [Array] 20 favorite statuses
+      #   @return [Array] 20 favorite statuses.
       #   @example Return the 20 most recent favorite statuses for the authenticating user
       #     Twitter.favorites
       # @overload favorites(user, options={})
@@ -17,7 +16,7 @@ module Twitter
       #   @param user [Integer, String] A Twitter user ID or screen name.
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :page Specifies the page of results to retrieve.
-      #   @return [Array] 20 favorite statuses
+      #   @return [Array] 20 favorite statuses.
       #   @example Returns the 20 most recent favorite statuses for @sferik
       #     Twitter.favorites("sferik")
       # @format :json, :xml

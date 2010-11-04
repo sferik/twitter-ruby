@@ -12,7 +12,7 @@ module Twitter
       # @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 200.
       # @option options [Integer] :page Specifies the page of results to retrieve.
       # @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
-      # @return [Array] Direct messages sent to the authenticating user
+      # @return [Array] Direct messages sent to the authenticating user.
       # @see http://dev.twitter.com/doc/get/direct_messages
       # @example Return the 20 most recent direct messages sent to the authenticating user
       #   Twitter.direct_messages
@@ -32,7 +32,7 @@ module Twitter
       # @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 200.
       # @option options [Integer] :page Specifies the page of results to retrieve.
       # @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
-      # @return [Array] Direct messages sent by the authenticating user
+      # @return [Array] Direct messages sent by the authenticating user.
       # @see http://dev.twitter.com/doc/get/direct_messages/sent
       # @example Return the 20 most recent direct messages sent by the authenticating user
       #   Twitter.direct_messages_sent
