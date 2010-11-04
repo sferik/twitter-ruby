@@ -111,7 +111,7 @@ module Twitter
       #
       # @overload friends(options={})
       #   @param options [Hash] A customizable set of options.
-      #   @option options [String] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
+      #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
       #   @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
       #   @return [Hashie::Mash]
       #   @example Return the authenticated user's friends
@@ -119,7 +119,7 @@ module Twitter
       # @overload friends(user, options={})
       #   @param user [Integer, String] A Twitter user ID or screen name.
       #   @param options [Hash] A customizable set of options.
-      #   @option options [String] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
+      #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
       #   @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
       #   @return [Hashie::Mash]
       #   @example Return @sferik's friends
@@ -146,7 +146,7 @@ module Twitter
       #
       # @overload followers(options={})
       #   @param options [Hash] A customizable set of options.
-      #   @option options [String] :cursor (-1) Breaks the results into pages. Provide values as returned in the response object's next_cursor and previous_cursor attributes to page back and forth in the list.
+      #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response object's next_cursor and previous_cursor attributes to page back and forth in the list.
       #   @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
       #   @return [Hashie::Mash]
       #   @example Return the authenticated user's followers
@@ -154,7 +154,7 @@ module Twitter
       # @overload followers(user, options={})
       #   @param user [Integer, String] A Twitter user ID or screen name.
       #   @param options [Hash] A customizable set of options.
-      #   @option options [String] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
+      #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
       #   @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
       #   @return [Hashie::Mash]
       #   @example Return @sferik's followers

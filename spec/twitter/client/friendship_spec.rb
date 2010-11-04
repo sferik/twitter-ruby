@@ -105,18 +105,21 @@ describe Twitter::Client do
 
         before do
           stub_get("friendships/incoming.#{format}").
+            with(:query => {"cursor" => "-1"}).
             to_return(:body => fixture("id_list.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource" do
           @client.friendships_incoming
           a_get("friendships/incoming.#{format}").
+            with(:query => {"cursor" => "-1"}).
             should have_been_made
         end
 
         it "should return an array of numeric IDs for every user who has a pending request to follow the authenticating user" do
           id_list = @client.friendships_incoming
-          id_list.first.should == 146197851
+          id_list.ids.should be_an Array
+          id_list.ids.first.should == 146197851
         end
 
       end
@@ -125,18 +128,21 @@ describe Twitter::Client do
 
         before do
           stub_get("friendships/outgoing.#{format}").
+            with(:query => {"cursor" => "-1"}).
             to_return(:body => fixture("id_list.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource" do
           @client.friendships_outgoing
           a_get("friendships/outgoing.#{format}").
+            with(:query => {"cursor" => "-1"}).
             should have_been_made
         end
 
         it "should return an array of numeric IDs for every protected user for whom the authenticating user has a pending follow request" do
           id_list = @client.friendships_outgoing
-          id_list.first.should == 146197851
+          id_list.ids.should be_an Array
+          id_list.ids.first.should == 146197851
         end
       end
     end

@@ -5,7 +5,7 @@ module Twitter
       #   Returns an array of numeric IDs for every user the authenticated user is following
       #
       #   @param options [Hash] A customizable set of options.
-      #   @option options [String] :cursor (-1) Breaks the results into pages. This is recommended for users who are following many users. Provide a value of -1 to begin paging. Provide values as returned in the response body's next_cursor and previous_cursor attributes to page back and forth in the list.
+      #   @option options [Integer] :cursor (-1) Breaks the results into pages. This is recommended for users who are following many users. Provide a value of -1 to begin paging. Provide values as returned in the response body's next_cursor and previous_cursor attributes to page back and forth in the list.
       #   @return [Array] Numeric IDs
       #   @example Return the authenticated user's friends IDs
       #     Twitter.freinds_ids
@@ -14,8 +14,8 @@ module Twitter
       #
       #   @param user [Integer, String] A Twitter user ID or screen name.
       #   @param options [Hash] A customizable set of options.
-      #   @option options [String] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
-      #   @return [Array] Numeric IDs
+      #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
+      #   @return [Hashie::Mash]
       #   @example Return @sferik's friends IDs
       #     Twitter.friend_ids("sferik")
       #     Twitter.friend_ids(7505382)  # Same as above
@@ -37,7 +37,7 @@ module Twitter
       #   Returns an array of numeric IDs for every user following the authenticated user
       #
       #   @param options [Hash] A customizable set of options.
-      #   @option options [String] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
+      #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
       #   @return [Array] Numeric IDs
       #   @example Return the authenticated user's followers IDs
       #     Twitter.follower_ids
@@ -46,8 +46,8 @@ module Twitter
       #
       #   @param user [Integer, String] A Twitter user ID or screen name.
       #   @param options [Hash] A customizable set of options.
-      #   @option options [String] :cursor (-1) Breaks the results into pages. This is recommended for users who are following many users. Provide a value of -1 to begin paging. Provide values as returned in the response body's next_cursor and previous_cursor attributes to page back and forth in the list.
-      #   @return [Array] Numeric IDs
+      #   @option options [Integer] :cursor (-1) Breaks the results into pages. This is recommended for users who are following many users. Provide a value of -1 to begin paging. Provide values as returned in the response body's next_cursor and previous_cursor attributes to page back and forth in the list.
+      #   @return [Hashie::Mash]
       #   @example Return @sferik's followers IDs
       #     Twitter.follower_ids("sferik")
       #     Twitter.follower_ids(7505382)  # Same as above

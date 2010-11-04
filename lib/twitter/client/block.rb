@@ -48,7 +48,7 @@ module Twitter
       # @param user [Integer, String] A Twitter user ID or screen name.
       # @param options [Hash] A customizable set of options.
       # @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
-      # @return [Boolean] Whether the authenticating user is blocking a target user.
+      # @return [Boolean] true if the authenticating user is blocking the target user, otherwise false.
       # @see http://dev.twitter.com/doc/get/blocks/exists
       # @example Check whether the authenticating user is blocking @sferik
       #   Twitter.block_exists?("sferik")
