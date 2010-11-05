@@ -11,12 +11,14 @@ describe Twitter::Client do
 
         before do
           stub_get("sferik/presidents/subscribers.#{format}").
+            with(:query => {"cursor" => "-1"}).
             to_return(:body => fixture("users_list.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource" do
           @client.list_subscribers("sferik", "presidents")
           a_get("sferik/presidents/subscribers.#{format}").
+            with(:query => {"cursor" => "-1"}).
             should have_been_made
         end
 
