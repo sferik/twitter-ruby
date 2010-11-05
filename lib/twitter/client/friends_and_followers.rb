@@ -22,7 +22,7 @@ module Twitter
       #     Twitter.friend_ids(7505382)  # Same as above
       # @see http://dev.twitter.com/doc/get/friends/ids
       # @format :json, :xml
-      # @authenticated [false] unless requesting it from a protected user; if getting this data of a protected user, you must auth (and be allowed to see that user).
+      # @authenticated false unless requesting it from a protected user; if getting this data of a protected user, you must auth (and be allowed to see that user).
       # @rate_limited true
       def friend_ids(*args)
         options = {:cursor => -1}
@@ -54,7 +54,7 @@ module Twitter
       #     Twitter.follower_ids(7505382)  # Same as above
       # @see http://dev.twitter.com/doc/get/followers/ids
       # @format :json, :xml
-      # @authenticated [false] unless requesting it from a protected user; if getting this data of a protected user, you must auth (and be allowed to see that user).
+      # @authenticated false unless requesting it from a protected user; if getting this data of a protected user, you must auth (and be allowed to see that user).
       # @rate_limited true
       def follower_ids(*args)
         options = {:cursor => -1}

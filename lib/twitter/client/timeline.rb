@@ -71,7 +71,7 @@ module Twitter
       # @todo Overload the method to allow fetching of the authenticated user's screen name from configuration.
       # @note This method is can only return up to 3200 statuses. If the :include_rts option is set only 3200 statuses, including retweets if they exist, can be returned.
       # @format :json, :xml
-      # @authenticated [false] unless the user you are trying to view the timeline of is protected
+      # @authenticated false unless the user you are trying to view the timeline of is protected
       # @rate_limited true
       # @param user [Integer, String] A Twitter user ID or screen name.
       # @param options [Hash] A customizable set of options.

@@ -4,7 +4,7 @@ module Twitter
       # Returns a single status, specified by ID
       #
       # @format :json, :xml
-      # @authenticated [false] unless the author of the status is protected
+      # @authenticated false unless the author of the status is protected
       # @rate_limited true
       # @param id [Integer] The numerical ID of the desired status.
       # @param options [Hash] A customizable set of options.

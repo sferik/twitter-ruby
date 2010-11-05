@@ -9,20 +9,64 @@ describe Twitter::Client do
 
       describe ".follow" do
 
-        before do
-          stub_post("friendships/create.#{format}").
-            to_return(:body => fixture("user.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+        context "with :follow => true passed" do
+
+          before do
+            stub_post("friendships/create.#{format}").
+              to_return(:body => fixture("user.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+          end
+
+          it "should get the correct resource" do
+            @client.follow("sferik", :follow => true)
+            a_post("friendships/create.#{format}").
+              should have_been_made
+          end
+
+          it "should return the befriended user" do
+            user = @client.follow("sferik", :follow => true)
+            user.name.should == "Erik Michaels-Ober"
+          end
+
         end
 
-        it "should get the correct resource" do
-          @client.follow("sferik")
-          a_post("friendships/create.#{format}").
-            should have_been_made
+        context "with :follow => false passed" do
+
+          before do
+            stub_post("friendships/create.#{format}").
+              to_return(:body => fixture("user.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+          end
+
+          it "should get the correct resource" do
+            @client.follow("sferik", :follow => false)
+            a_post("friendships/create.#{format}").
+              should have_been_made
+          end
+
+          it "should return the befriended user" do
+            user = @client.follow("sferik", :follow => false)
+            user.name.should == "Erik Michaels-Ober"
+          end
+
         end
 
-        it "should return the befriended user" do
-          user = @client.follow("sferik")
-          user.name.should == "Erik Michaels-Ober"
+        context "without :follow passed" do
+
+          before do
+            stub_post("friendships/create.#{format}").
+              to_return(:body => fixture("user.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+          end
+
+          it "should get the correct resource" do
+            @client.follow("sferik")
+            a_post("friendships/create.#{format}").
+              should have_been_made
+          end
+
+          it "should return the befriended user" do
+            user = @client.follow("sferik")
+            user.name.should == "Erik Michaels-Ober"
+          end
+
         end
 
       end

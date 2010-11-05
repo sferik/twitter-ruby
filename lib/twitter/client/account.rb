@@ -21,7 +21,7 @@ module Twitter
       # Returns the remaining number of API requests available to the requesting user
       #
       # @format :json, :xml
-      # @authenticated [false] This will return the requesting IP's rate limit status. If you want the authenticating user's rate limit status you must authenticate.
+      # @authenticated false This will return the requesting IP's rate limit status. If you want the authenticating user's rate limit status you must authenticate.
       # @rate_limited true
       # @param options [Hash] A customizable set of options.
       # @return [Hashie::Mash]
