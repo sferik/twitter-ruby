@@ -31,12 +31,14 @@ describe Twitter::Client do
 
         before do
           stub_put("sferik/lists/presidents.#{format}").
+            with(:body => {:description => "Presidents of the United States of America"}).
             to_return(:body => fixture("list.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource" do
           @client.list_update("sferik", "presidents", :description => "Presidents of the United States of America")
           a_put("sferik/lists/presidents.#{format}").
+            with(:body => {:description => "Presidents of the United States of America"}).
             should have_been_made
         end
 
@@ -53,14 +55,14 @@ describe Twitter::Client do
 
           before do
             stub_get("sferik/lists.#{format}").
-              with(:query => {"cursor" => "-1"}).
+              with(:query => {:cursor => "-1"}).
               to_return(:body => fixture("lists.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
 
           it "should get the correct resource" do
             @client.lists("sferik")
             a_get("sferik/lists.#{format}").
-              with(:query => {"cursor" => "-1"}).
+              with(:query => {:cursor => "-1"}).
               should have_been_made
           end
 
@@ -76,14 +78,14 @@ describe Twitter::Client do
 
           before do
             stub_get("lists.#{format}").
-              with(:query => {"cursor" => "-1"}).
+              with(:query => {:cursor => "-1"}).
               to_return(:body => fixture("lists.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
 
           it "should get the correct resource" do
             @client.lists
             a_get("lists.#{format}").
-              with(:query => {"cursor" => "-1"}).
+              with(:query => {:cursor => "-1"}).
               should have_been_made
           end
 
@@ -162,14 +164,14 @@ describe Twitter::Client do
 
         before do
           stub_get("pengwynn/lists/memberships.#{format}").
-            with(:query => {"cursor" => "-1"}).
+            with(:query => {:cursor => "-1"}).
             to_return(:body => fixture("lists.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource" do
           @client.memberships("pengwynn")
           a_get("pengwynn/lists/memberships.#{format}").
-            with(:query => {"cursor" => "-1"}).
+            with(:query => {:cursor => "-1"}).
             should have_been_made
         end
 
@@ -185,14 +187,14 @@ describe Twitter::Client do
 
         before do
           stub_get("pengwynn/lists/subscriptions.#{format}").
-            with(:query => {"cursor" => "-1"}).
+            with(:query => {:cursor => "-1"}).
             to_return(:body => fixture("lists.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource" do
           @client.subscriptions("pengwynn")
           a_get("pengwynn/lists/subscriptions.#{format}").
-            with(:query => {"cursor" => "-1"}).
+            with(:query => {:cursor => "-1"}).
             should have_been_made
         end
 

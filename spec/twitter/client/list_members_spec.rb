@@ -11,14 +11,14 @@ describe Twitter::Client do
 
         before do
           stub_get("sferik/presidents/members.#{format}").
-            with(:query => {"cursor" => "-1"}).
+            with(:query => {:cursor => "-1"}).
             to_return(:body => fixture("users_list.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource" do
           @client.list_members("sferik", "presidents")
           a_get("sferik/presidents/members.#{format}").
-            with(:query => {"cursor" => "-1"}).
+            with(:query => {:cursor => "-1"}).
             should have_been_made
         end
 
@@ -74,14 +74,14 @@ describe Twitter::Client do
 
         before do
           stub_delete("sferik/presidents/members.#{format}").
-            with(:query => {"id" => "813286"}).
+            with(:query => {:id => "813286"}).
             to_return(:body => fixture("list.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource" do
           @client.list_remove_member("sferik", "presidents", 813286)
           a_delete("sferik/presidents/members.#{format}").
-            with(:query => {"id" => "813286"}).
+            with(:query => {:id => "813286"}).
             should have_been_made
         end
 

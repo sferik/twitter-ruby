@@ -74,14 +74,14 @@ describe Twitter::Client do
 
         before do
           stub_get("statuses/user_timeline.#{format}").
-            with(:query => {"screen_name" => "sferik"}).
+            with(:query => {:screen_name => "sferik"}).
             to_return(:body => fixture("statuses.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource" do
           @client.user_timeline("sferik")
           a_get("statuses/user_timeline.#{format}").
-            with(:query => {"screen_name" => "sferik"}).
+            with(:query => {:screen_name => "sferik"}).
             should have_been_made
         end
 

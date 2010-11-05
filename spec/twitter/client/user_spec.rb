@@ -13,14 +13,14 @@ describe Twitter::Client do
 
             before do
               stub_get("users/show.#{format}").
-                with(:query => {"screen_name" => "sferik"}).
+                with(:query => {:screen_name => "sferik"}).
                 to_return(:body => fixture("user.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
             end
 
             it "should get the correct resource" do
               @client.user("sferik")
               a_get("users/show.#{format}").
-                with(:query => {"screen_name" => "sferik"}).
+                with(:query => {:screen_name => "sferik"}).
                 should have_been_made
             end
 
@@ -35,14 +35,14 @@ describe Twitter::Client do
 
           before do
             stub_get("users/show.#{format}").
-              with(:query => {"screen_name" => "sferik"}).
+              with(:query => {:screen_name => "sferik"}).
               to_return(:body => fixture("user.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
 
           it "should get the correct resource" do
             @client.user("@sferik")
             a_get("users/show.#{format}").
-              with(:query => {"screen_name" => "sferik"}).
+              with(:query => {:screen_name => "sferik"}).
               should have_been_made
           end
 
@@ -52,14 +52,14 @@ describe Twitter::Client do
 
           before do
             stub_get("users/show.#{format}").
-              with(:query => {"screen_name" => "0"}).
+              with(:query => {:screen_name => "0"}).
               to_return(:body => fixture("user.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
 
           it "should get the correct resource" do
             @client.user("0")
             a_get("users/show.#{format}").
-              with(:query => {"screen_name" => "0"}).
+              with(:query => {:screen_name => "0"}).
               should have_been_made
           end
 
@@ -69,14 +69,14 @@ describe Twitter::Client do
 
           before do
             stub_get("users/show.#{format}").
-              with(:query => {"user_id" => "7505382"}).
+              with(:query => {:user_id => "7505382"}).
               to_return(:body => fixture("user.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
 
           it "should get the correct resource" do
             @client.user(7505382)
             a_get("users/show.#{format}").
-              with(:query => {"user_id" => "7505382"}).
+              with(:query => {:user_id => "7505382"}).
               should have_been_made
           end
 
@@ -90,14 +90,14 @@ describe Twitter::Client do
 
           before do
             stub_get("users/lookup.#{format}").
-              with(:query => {"screen_name" => "sferik,pengwynn"}).
+              with(:query => {:screen_name => "sferik,pengwynn"}).
               to_return(:body => fixture("users.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
 
           it "should get the correct resource" do
             @client.users("sferik", "pengwynn")
             a_get("users/lookup.#{format}").
-              with(:query => {"screen_name" => "sferik,pengwynn"}).
+              with(:query => {:screen_name => "sferik,pengwynn"}).
               should have_been_made
           end
 
@@ -113,14 +113,14 @@ describe Twitter::Client do
 
           before do
             stub_get("users/lookup.#{format}").
-              with(:query => {"screen_name" => "sferik,pengwynn"}).
+              with(:query => {:screen_name => "sferik,pengwynn"}).
               to_return(:body => fixture("users.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
 
           it "should get the correct resource" do
             @client.users("@sferik", "@pengwynn")
             a_get("users/lookup.#{format}").
-              with(:query => {"screen_name" => "sferik,pengwynn"}).
+              with(:query => {:screen_name => "sferik,pengwynn"}).
               should have_been_made
           end
 
@@ -130,14 +130,14 @@ describe Twitter::Client do
 
           before do
             stub_get("users/lookup.#{format}").
-              with(:query => {"screen_name" => "0,311"}).
+              with(:query => {:screen_name => "0,311"}).
               to_return(:body => fixture("users.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
 
           it "should get the correct resource" do
             @client.users("0", "311")
             a_get("users/lookup.#{format}").
-              with(:query => {"screen_name" => "0,311"}).
+              with(:query => {:screen_name => "0,311"}).
               should have_been_made
           end
 
@@ -147,14 +147,14 @@ describe Twitter::Client do
 
           before do
             stub_get("users/lookup.#{format}").
-              with(:query => {"user_id" => "7505382,14100886"}).
+              with(:query => {:user_id => "7505382,14100886"}).
               to_return(:body => fixture("users.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
 
           it "should get the correct resource" do
             @client.users(7505382, 14100886)
             a_get("users/lookup.#{format}").
-              with(:query => {"user_id" => "7505382,14100886"}).
+              with(:query => {:user_id => "7505382,14100886"}).
               should have_been_made
           end
 
@@ -164,14 +164,14 @@ describe Twitter::Client do
 
           before do
             stub_get("users/lookup.#{format}").
-              with(:query => {"screen_name" => "sferik", "user_id" => "14100886"}).
+              with(:query => {:screen_name => "sferik", :user_id => "14100886"}).
               to_return(:body => fixture("users.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
 
           it "should get the correct resource" do
             @client.users("sferik", 14100886)
             a_get("users/lookup.#{format}").
-              with(:query => {"screen_name" => "sferik", "user_id" => "14100886"}).
+              with(:query => {:screen_name => "sferik", :user_id => "14100886"}).
               should have_been_made
           end
 
@@ -183,14 +183,14 @@ describe Twitter::Client do
 
         before do
           stub_get("users/search.#{format}").
-            with(:query => {"q" => "Erik Michaels-Ober"}).
+            with(:query => {:q => "Erik Michaels-Ober"}).
             to_return(:body => fixture("user_search.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource" do
           @client.user_search("Erik Michaels-Ober")
           a_get("users/search.#{format}").
-            with(:query => {"q" => "Erik Michaels-Ober"}).
+            with(:query => {:q => "Erik Michaels-Ober"}).
             should have_been_made
         end
 
@@ -270,14 +270,14 @@ describe Twitter::Client do
 
           before do
             stub_get("statuses/friends.#{format}").
-              with(:query => {"screen_name" => "sferik", "cursor" => "-1"}).
+              with(:query => {:screen_name => "sferik", :cursor => "-1"}).
               to_return(:body => fixture("friends.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
 
           it "should get the correct resource" do
             @client.friends("sferik")
             a_get("statuses/friends.#{format}").
-              with(:query => {"screen_name" => "sferik", "cursor" => "-1"}).
+              with(:query => {:screen_name => "sferik", :cursor => "-1"}).
               should have_been_made
           end
 
@@ -293,14 +293,14 @@ describe Twitter::Client do
 
           before do
             stub_get("statuses/friends.#{format}").
-              with(:query => {"cursor" => "-1"}).
+              with(:query => {:cursor => "-1"}).
               to_return(:body => fixture("friends.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
 
           it "should get the correct resource" do
             @client.friends
             a_get("statuses/friends.#{format}").
-              with(:query => {"cursor" => "-1"}).
+              with(:query => {:cursor => "-1"}).
               should have_been_made
           end
 
@@ -320,14 +320,14 @@ describe Twitter::Client do
 
           before do
             stub_get("statuses/followers.#{format}").
-              with(:query => {"screen_name" => "sferik", "cursor" => "-1"}).
+              with(:query => {:screen_name => "sferik", :cursor => "-1"}).
               to_return(:body => fixture("followers.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
 
           it "should get the correct resource" do
             @client.followers("sferik")
             a_get("statuses/followers.#{format}").
-              with(:query => {"screen_name" => "sferik", "cursor" => "-1"}).
+              with(:query => {:screen_name => "sferik", :cursor => "-1"}).
               should have_been_made
           end
 
@@ -343,14 +343,14 @@ describe Twitter::Client do
 
           before do
             stub_get("statuses/followers.#{format}").
-              with(:query => {"cursor" => "-1"}).
+              with(:query => {:cursor => "-1"}).
               to_return(:body => fixture("followers.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
 
           it "should get the correct resource" do
             @client.followers
             a_get("statuses/followers.#{format}").
-              with(:query => {"cursor" => "-1"}).
+              with(:query => {:cursor => "-1"}).
               should have_been_made
           end
 

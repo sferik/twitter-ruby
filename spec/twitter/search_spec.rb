@@ -325,7 +325,7 @@ describe Twitter::Search do
 
       before do
         stub_request(:get, "https://search.twitter.com/search.json").
-          with(:query => {"q" => "twitter"}).
+          with(:query => {:q => "twitter"}).
           to_return(:body => fixture("search.json"), :headers => {:content_type => "application/json; charset=utf-8"})
         @client.containing('twitter')
       end
@@ -333,7 +333,7 @@ describe Twitter::Search do
       it "should get the correct resource" do
         @client.next_page?
         a_request(:get, "https://search.twitter.com/search.json").
-          with(:query => {"q" => "twitter"}).
+          with(:query => {:q => "twitter"}).
           should have_been_made
       end
 
@@ -348,10 +348,10 @@ describe Twitter::Search do
 
       before do
         stub_request(:get, "https://search.twitter.com/search.json").
-          with(:query => {"q" => "twitter"}).
+          with(:query => {:q => "twitter"}).
           to_return(:body => fixture("search.json"), :headers => {:content_type => "application/json; charset=utf-8"})
         stub_request(:get, "https://search.twitter.com/search.json").
-          with(:query => {"q" => "twitter", "page" => "2", "max_id" => "28857935752"}).
+          with(:query => {:q => "twitter", :page => "2", :max_id => "28857935752"}).
           to_return(:body => fixture("search.json"), :headers => {:content_type => "application/json; charset=utf-8"})
         @client.containing('twitter')
       end
@@ -359,10 +359,10 @@ describe Twitter::Search do
       it "should get the correct resource" do
         @client.fetch_next_page
         a_request(:get, "https://search.twitter.com/search.json").
-          with(:query => {"q" => "twitter"}).
+          with(:query => {:q => "twitter"}).
           should have_been_made
         a_request(:get, "https://search.twitter.com/search.json").
-          with(:query => {"q" => "twitter", "page" => "2", "max_id" => "28857935752"}).
+          with(:query => {:q => "twitter", :page => "2", :max_id => "28857935752"}).
           should have_been_made
       end
 
@@ -372,14 +372,14 @@ describe Twitter::Search do
 
       before do
         stub_request(:get, "https://search.twitter.com/search.json").
-          with(:query => {"q" => "twitter"}).
+          with(:query => {:q => "twitter"}).
           to_return(:body => fixture("search.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
 
       it "should get the correct resource" do
         @client.containing('twitter').fetch
         a_request(:get, "https://search.twitter.com/search.json").
-          with(:query => {"q" => "twitter"}).
+          with(:query => {:q => "twitter"}).
           should have_been_made
       end
 
@@ -389,14 +389,14 @@ describe Twitter::Search do
 
       before do
         stub_request(:get, "https://search.twitter.com/search.json").
-          with(:query => {"q" => "twitter"}).
+          with(:query => {:q => "twitter"}).
           to_return(:body => fixture("search.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
 
       it "should iterate over results" do
         @client.containing('twitter').each{|result| result.should_not be_nil}
         a_request(:get, "https://search.twitter.com/search.json").
-          with(:query => {"q" => "twitter"}).
+          with(:query => {:q => "twitter"}).
           should have_been_made
       end
 
@@ -404,7 +404,7 @@ describe Twitter::Search do
         @client.containing('twitter').each{|result| result.should_not be_nil}
         @client.containing('twitter').each{|result| result.should_not be_nil}
         a_request(:get, "https://search.twitter.com/search.json").
-          with(:query => {"q" => "twitter"}).
+          with(:query => {:q => "twitter"}).
           should have_been_made
       end
     end

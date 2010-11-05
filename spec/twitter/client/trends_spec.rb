@@ -50,14 +50,14 @@ describe Twitter::Client do
 
       before do
         stub_get("trends/daily.json").
-          with(:query => {"date" => "2010-10-24"}).
+          with(:query => {:date => "2010-10-24"}).
           to_return(:body => fixture("trends_daily.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
 
       it "should get the correct resource" do
         @client.trends_daily(Date.parse("2010-10-24"))
         a_get("trends/daily.json").
-          with(:query => {"date" => "2010-10-24"}).
+          with(:query => {:date => "2010-10-24"}).
           should have_been_made
       end
 
@@ -72,14 +72,14 @@ describe Twitter::Client do
 
       before do
         stub_get("trends/weekly.json").
-          with(:query => {"date" => "2010-10-24"}).
+          with(:query => {:date => "2010-10-24"}).
           to_return(:body => fixture("trends_weekly.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
 
       it "should get the correct resource" do
         @client.trends_weekly(Date.parse("2010-10-24"))
         a_get("trends/weekly.json").
-          with(:query => {"date" => "2010-10-24"}).
+          with(:query => {:date => "2010-10-24"}).
           should have_been_made
       end
 

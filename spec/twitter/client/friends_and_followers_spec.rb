@@ -13,14 +13,14 @@ describe Twitter::Client do
 
           before do
             stub_get("friends/ids.#{format}").
-              with(:query => {"screen_name" => "sferik", "cursor" => "-1"}).
+              with(:query => {:screen_name => "sferik", :cursor => "-1"}).
               to_return(:body => fixture("id_list.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
 
           it "should get the correct resource" do
             @client.friend_ids("sferik")
             a_get("friends/ids.#{format}").
-              with(:query => {"screen_name" => "sferik", "cursor" => "-1"}).
+              with(:query => {:screen_name => "sferik", :cursor => "-1"}).
               should have_been_made
           end
 
@@ -36,14 +36,14 @@ describe Twitter::Client do
 
           before do
             stub_get("friends/ids.#{format}").
-              with(:query => {"cursor" => "-1"}).
+              with(:query => {:cursor => "-1"}).
               to_return(:body => fixture("id_list.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
 
           it "should get the correct resource" do
             @client.friend_ids
             a_get("friends/ids.#{format}").
-              with(:query => {"cursor" => "-1"}).
+              with(:query => {:cursor => "-1"}).
               should have_been_made
           end
 
@@ -63,14 +63,14 @@ describe Twitter::Client do
 
           before do
             stub_get("followers/ids.#{format}").
-              with(:query => {"screen_name" => "sferik", "cursor" => "-1"}).
+              with(:query => {:screen_name => "sferik", :cursor => "-1"}).
               to_return(:body => fixture("id_list.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
 
           it "should get the correct resource" do
             @client.follower_ids("sferik")
             a_get("followers/ids.#{format}").
-              with(:query => {"screen_name" => "sferik", "cursor" => "-1"}).
+              with(:query => {:screen_name => "sferik", :cursor => "-1"}).
               should have_been_made
           end
 
@@ -86,14 +86,14 @@ describe Twitter::Client do
 
           before do
             stub_get("followers/ids.#{format}").
-              with(:query => {"cursor" => "-1"}).
+              with(:query => {:cursor => "-1"}).
               to_return(:body => fixture("id_list.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
 
           it "should get the correct resource" do
             @client.follower_ids
             a_get("followers/ids.#{format}").
-              with(:query => {"cursor" => "-1"}).
+              with(:query => {:cursor => "-1"}).
               should have_been_made
           end
 

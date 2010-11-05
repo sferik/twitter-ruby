@@ -10,14 +10,14 @@ describe Twitter::Client do
 
       before do
         stub_get("geo/search.json").
-          with(:query => {"ip" => "74.125.19.104"}).
+          with(:query => {:ip => "74.125.19.104"}).
           to_return(:body => fixture("places.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
 
       it "should get the correct resource" do
         @client.places_nearby(:ip => "74.125.19.104")
         a_get("geo/search.json").
-          with(:query => {"ip" => "74.125.19.104"}).
+          with(:query => {:ip => "74.125.19.104"}).
           should have_been_made
       end
 
@@ -33,14 +33,14 @@ describe Twitter::Client do
 
       before do
         stub_get("geo/similar_places.json").
-          with(:query => {"lat" => "37.7821120598956", "long" => "-122.400612831116", "name" => "Twitter HQ"}).
+          with(:query => {:lat => "37.7821120598956", :long => "-122.400612831116", :name => "Twitter HQ"}).
           to_return(:body => fixture("places.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
 
       it "should get the correct resource" do
         @client.places_similar(:lat => "37.7821120598956", :long => "-122.400612831116", :name => "Twitter HQ")
         a_get("geo/similar_places.json").
-          with(:query => {"lat" => "37.7821120598956", "long" => "-122.400612831116", "name" => "Twitter HQ"}).
+          with(:query => {:lat => "37.7821120598956", :long => "-122.400612831116", :name => "Twitter HQ"}).
           should have_been_made
       end
 
@@ -56,14 +56,14 @@ describe Twitter::Client do
 
       before do
         stub_get("geo/reverse_geocode.json").
-          with(:query => {"lat" => "37.7821120598956", "long" => "-122.400612831116"}).
+          with(:query => {:lat => "37.7821120598956", :long => "-122.400612831116"}).
           to_return(:body => fixture("places.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
 
       it "should get the correct resource" do
         @client.reverse_geocode(:lat => "37.7821120598956", :long => "-122.400612831116")
         a_get("geo/reverse_geocode.json").
-          with(:query => {"lat" => "37.7821120598956", "long" => "-122.400612831116"}).
+          with(:query => {:lat => "37.7821120598956", :long => "-122.400612831116"}).
           should have_been_made
       end
 
