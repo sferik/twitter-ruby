@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 module Twitter
   class Client
     # @api private
