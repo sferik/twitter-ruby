@@ -14,7 +14,7 @@ module Twitter
       # @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
       # @return [Array] The subscribers of the specified list.
       # @see http://dev.twitter.com/doc/get/:user/:list_id/subscribers
-      # @example Returns the subscribers of of @sferik's "presidents" list
+      # @example Return the subscribers of of @sferik's "presidents" list
       #   Twitter.list_subscribers("sferik", "presidents")
       def list_subscribers(screen_name, list_id, options={})
         options = {:cursor => -1}.merge(options)

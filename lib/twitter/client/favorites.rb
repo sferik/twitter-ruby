@@ -17,7 +17,7 @@ module Twitter
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :page Specifies the page of results to retrieve.
       #   @return [Array] 20 favorite statuses.
-      #   @example Returns the 20 most recent favorite statuses for @sferik
+      #   @example Return the 20 most recent favorite statuses for @sferik
       #     Twitter.favorites("sferik")
       # @format :json, :xml
       # @authenticated false
