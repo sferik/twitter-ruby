@@ -20,6 +20,10 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency("simple_oauth", "~> 0.1.1")
   s.authors = ["John Nunemaker", "Wynn Netherland", "Erik Michaels-Ober"]
   s.description = %q{A Ruby wrapper for the Twitter REST and Search APIs}
+  s.post_install_message =<<eos
+Using this gem for your project or company? Add it to the apps wiki!
+https://github.com/jnunemaker/twitter/wiki/apps
+eos
   s.email = ["nunemaker@gmail.com"]
   s.executables = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.files = `git ls-files`.split("\n")
