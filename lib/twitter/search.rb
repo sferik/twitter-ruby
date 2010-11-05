@@ -1,7 +1,6 @@
 require 'cgi'
 
 module Twitter
-
   # Wrapper for the Twitter Search API
   #
   # @note As of April 1st 2010, the Search API provides an option to retrieve

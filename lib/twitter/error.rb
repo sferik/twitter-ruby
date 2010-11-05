@@ -19,11 +19,15 @@ module Twitter
 
   # Raised when Twitter returns a 420 HTTP status code
   class EnhanceYourCalm < Error
+    # Creates a new EnhanceYourCalm error
     def initialize(message, http_headers)
       @http_headers = Hash[http_headers]
       super message
     end
 
+    # The number of seconds your application should wait before requesting date from the Search API again
+    #
+    # @see http://dev.twitter.com/pages/rate-limiting
     def retry_after
       @http_headers.values_at('retry-after', 'Retry-After').first.to_i
     end
