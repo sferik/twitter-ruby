@@ -13,12 +13,14 @@ describe Twitter::Client do
 
           before do
             stub_post("friendships/create.#{format}").
+              with(:body => {"screen_name" => "sferik", "follow" => "true"}).
               to_return(:body => fixture("user.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
 
           it "should get the correct resource" do
             @client.follow("sferik", :follow => true)
             a_post("friendships/create.#{format}").
+              with(:body => {"screen_name" => "sferik", "follow" => "true"}).
               should have_been_made
           end
 
@@ -33,12 +35,14 @@ describe Twitter::Client do
 
           before do
             stub_post("friendships/create.#{format}").
+              with(:body => {"screen_name" => "sferik"}).
               to_return(:body => fixture("user.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
 
           it "should get the correct resource" do
             @client.follow("sferik", :follow => false)
             a_post("friendships/create.#{format}").
+              with(:body => {"screen_name" => "sferik"}).
               should have_been_made
           end
 
@@ -53,12 +57,14 @@ describe Twitter::Client do
 
           before do
             stub_post("friendships/create.#{format}").
+              with(:body => {"screen_name" => "sferik"}).
               to_return(:body => fixture("user.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
 
           it "should get the correct resource" do
             @client.follow("sferik")
             a_post("friendships/create.#{format}").
+              with(:body => {"screen_name" => "sferik"}).
               should have_been_made
           end
 

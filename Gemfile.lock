@@ -24,6 +24,7 @@ GEM
     faraday_middleware (0.2.2)
       faraday (~> 0.5.2)
     hashie (0.4.0)
+    json (1.4.6)
     libxml-ruby (1.1.4)
     multi_json (0.0.5)
     multi_xml (0.2.0)
@@ -45,7 +46,6 @@ GEM
     webmock (1.5.0)
       addressable (>= 2.2.2)
       crack (>= 0.1.7)
-    yajl-ruby (0.7.8)
     yard (0.6.1)
 
 PLATFORMS
@@ -58,6 +58,7 @@ DEPENDENCIES
   faraday (~> 0.5.2)
   faraday_middleware (~> 0.2.2)
   hashie (~> 0.4.0)
+  json (~> 1.4)
   libxml-ruby (~> 1.1)
   multi_json (~> 0.0.4)
   multi_xml (~> 0.2.0)
@@ -67,5 +68,4 @@ DEPENDENCIES
   simple_oauth (~> 0.1.1)
   twitter!
   webmock (~> 1.5)
-  yajl-ruby (~> 0.7)
   yard (~> 0.6)
