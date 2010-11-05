@@ -3,6 +3,7 @@ module Twitter
     module User
       # Returns extended information of a given user
       #
+      # @todo Overload the method to allow fetching of the authenticated screen name's from configuration.
       # @format :json, :xml
       # @authenticated false
       # @rate_limited true
@@ -14,7 +15,6 @@ module Twitter
       # @example Return extended information for @sferik
       #   Twitter.user("sferik")
       #   Twitter.user(7505382)  # Same as above
-      # @todo Overload the method to allow fetching of the authenticated screen name's from configuration.
       def user(user, options={})
         merge_user_into_options!(user, options)
         response = get('users/show', options)
@@ -93,6 +93,7 @@ module Twitter
 
       # Access the profile image in various sizes for the user with the indicated screen name
       #
+      # @todo Overload the method to allow fetching of the authenticated screen name's from configuration.
       # @format :json, :xml
       # @authenticated false
       # @rate_limited false
@@ -103,7 +104,6 @@ module Twitter
       # @see http://dev.twitter.com/doc/get/users/profile_image/:screen_name
       # @example Return the URL for the 24px by 24px version of @sferik's profile image
       #   Twitter.profile_image("sferik", :size => 'mini')
-      # @todo Overload the method to allow fetching of the authenticated screen name's from configuration.
       def profile_image(screen_name, options={})
         clean_screen_name!(screen_name)
         get("users/profile_image/#{screen_name}", options, true).headers['location']

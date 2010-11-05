@@ -87,8 +87,8 @@ module Twitter
       end
 
       # Updates the authenticating user's profile image
-      # @note This method asynchronously processes the uploaded file before updating the user's profile image URL. You can either update your local cache the next time you request the user's information, or, at least 5 seconds after uploading the image, ask for the updated URL using {Twitter::Client::User#profile_image}.
       #
+      # @note This method asynchronously processes the uploaded file before updating the user's profile image URL. You can either update your local cache the next time you request the user's information, or, at least 5 seconds after uploading the image, ask for the updated URL using {Twitter::Client::User#profile_image}.
       # @format :json, :xml
       # @authenticated true
       # @rate_limited false
@@ -123,8 +123,8 @@ module Twitter
       end
 
       # Sets values that users are able to set under the "Account" tab of their settings page
-      # @note Only the options specified will be updated.
       #
+      # @note Only the options specified will be updated.
       # @format :json, :xml
       # @authenticated true
       # @rate_limited false

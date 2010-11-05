@@ -2,8 +2,8 @@ module Twitter
   class Client
     module Block
       # Blocks the user specified by the authenticating user
-      # @note Destroys a friendship to the blocked user if it exists.
       #
+      # @note Destroys a friendship to the blocked user if it exists.
       # @format :json, :xml
       # @authenticated true
       # @rate_limited false

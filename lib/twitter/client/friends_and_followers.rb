@@ -1,6 +1,7 @@
 module Twitter
   class Client
     module FriendsAndFollowers
+      # @todo Move the code that makes the parsed XML consistent with the parsed JSON into MultiXML.
       # @overload friend_ids(options={})
       #   Returns an array of numeric IDs for every user the authenticated user is following
       #
@@ -23,7 +24,6 @@ module Twitter
       # @format :json, :xml
       # @authenticated [false] unless requesting it from a protected user; if getting this data of a protected user, you must auth (and be allowed to see that user).
       # @rate_limited true
-      # @todo Move the code that makes the parsed XML consistent with the parsed JSON into MultiXML.
       def friend_ids(*args)
         options = {:cursor => -1}
         options.merge!(args.last.is_a?(Hash) ? args.pop : {})
@@ -33,6 +33,7 @@ module Twitter
         format.to_s.downcase == 'xml' ? Hashie::Mash.new(:ids => response['id_list']['ids']['id'].map{|id| id.to_i}) : response
       end
 
+      # @todo Move the code that makes the parsed XML consistent with the parsed JSON into MultiXML.
       # @overload follower_ids(options={})
       #   Returns an array of numeric IDs for every user following the authenticated user
       #
@@ -55,7 +56,6 @@ module Twitter
       # @format :json, :xml
       # @authenticated [false] unless requesting it from a protected user; if getting this data of a protected user, you must auth (and be allowed to see that user).
       # @rate_limited true
-      # @todo Move the code that makes the parsed XML consistent with the parsed JSON into MultiXML.
       def follower_ids(*args)
         options = {:cursor => -1}
         options.merge!(args.last.is_a?(Hash) ? args.pop : {})

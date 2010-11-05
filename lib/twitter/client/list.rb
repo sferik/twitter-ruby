@@ -2,8 +2,9 @@ module Twitter
   class Client
     module List
       # Creates a new list for the authenticated user
-      # @note Accounts are limited to 20 lists.
       #
+      # @note Accounts are limited to 20 lists.
+      # @todo Overload the method to allow fetching of the authenticated user's screen name from configuration.
       # @format :json, :xml
       # @authenticated true
       # @rate_limited false
@@ -16,7 +17,6 @@ module Twitter
       # @see http://dev.twitter.com/doc/post/:user/lists
       # @example Create a list named "presidents"
       #   Twitter.list_create("sferik", "presidents")
-      # @todo Overload the method to allow fetching of the authenticated user's screen name from configuration.
       def list_create(screen_name, name, options={})
         clean_screen_name!(screen_name)
         response = post("#{screen_name}/lists", options.merge(:name => name))
@@ -25,6 +25,7 @@ module Twitter
 
       # Updates the specified list
       #
+      # @todo Overload the method to allow fetching of the authenticated user's screen name from configuration.
       # @format :json, :xml
       # @authenticated true
       # @rate_limited false
@@ -37,7 +38,6 @@ module Twitter
       # @see http://dev.twitter.com/doc/post/:user/lists/:id
       # @example Update the "presidents" list to have the description "Presidents of the United States of America"
       #   Twitter.list_update("sferik", "presidents", :description => "Presidents of the United States of America")
-      # @todo Overload the method to allow fetching of the authenticated user's screen name from configuration.
       def list_update(screen_name, name, options={})
         clean_screen_name!(screen_name)
         response = put("#{screen_name}/lists/#{name}", options)
@@ -45,8 +45,8 @@ module Twitter
       end
 
       # List the lists of the specified user
-      # @note Private lists will be included if the authenticated users is the same as the user who's lists are being returned.
       #
+      # @note Private lists will be included if the authenticated users is the same as the user who's lists are being returned.
       # @overload lists(options={})
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
@@ -78,8 +78,9 @@ module Twitter
       end
 
       # Show the specified list
-      # @note Private lists will only be shown if the authenticated user owns the specified list.
       #
+      # @todo Overload the method to allow fetching of the authenticated user's screen name from configuration.
+      # @note Private lists will only be shown if the authenticated user owns the specified list.
       # @format :json, :xml
       # @authenticated true
       # @rate_limited true
@@ -90,7 +91,6 @@ module Twitter
       # @see http://dev.twitter.com/doc/get/:user/lists/:id
       # @example Show @sferik's "presidents" list
       #   Twitter.list("sferik", "presidents")
-      # @todo Overload the method to allow fetching of the authenticated user's screen name from configuration.
       def list(screen_name, id, options={})
         clean_screen_name!(screen_name)
         response = get("#{screen_name}/lists/#{id}", options)
@@ -98,8 +98,8 @@ module Twitter
       end
 
       # Deletes the specified list
-      # @note Must be owned by the authenticated user.
       #
+      # @note Must be owned by the authenticated user.
       # @format :json, :xml
       # @authenticated true
       # @rate_limited false

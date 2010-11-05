@@ -44,8 +44,8 @@ module Twitter
       alias :friendship_destroy :unfollow
 
       # Test for the existence of friendship between two users
-      # @note Consider using {Twitter::Client::Friendship#friendship} instead of this method.
       #
+      # @note Consider using {Twitter::Client::Friendship#friendship} instead of this method.
       # @format :json, :xml
       # @authenticated false unless user_a or user_b is protected
       # @rate_limited true
@@ -84,6 +84,7 @@ module Twitter
 
       # Returns an array of numeric IDs for every user who has a pending request to follow the authenticating user
       #
+      # @todo Move the code that makes the parsed XML consistent with the parsed JSON into MultiXML.
       # @format :json, :xml
       # @authenticated true
       # @rate_limited true
@@ -93,7 +94,6 @@ module Twitter
       # @see http://dev.twitter.com/doc/get/friendships/incoming
       # @example Return an array of numeric IDs for every user who has a pending request to follow the authenticating user
       #   Twitter.friendships_incoming
-      # @todo Move the code that makes the parsed XML consistent with the parsed JSON into MultiXML.
       def friendships_incoming(options={})
         options = {:cursor => -1}.merge(options)
         response = get('friendships/incoming', options)
@@ -102,6 +102,7 @@ module Twitter
 
       # Returns an array of numeric IDs for every protected user for whom the authenticating user has a pending follow request
       #
+      # @todo Move the code that makes the parsed XML consistent with the parsed JSON into MultiXML.
       # @format :json, :xml
       # @authenticated true
       # @rate_limited true
@@ -111,7 +112,6 @@ module Twitter
       # @see http://dev.twitter.com/doc/get/friendships/outgoing
       # @example Return an array of numeric IDs for every protected user for whom the authenticating user has a pending follow request
       #   Twitter.friendships_outgoing
-      # @todo Move the code that makes the parsed XML consistent with the parsed JSON into MultiXML.
       def friendships_outgoing(options={})
         options = {:cursor => -1}.merge(options)
         response = get('friendships/outgoing', options)

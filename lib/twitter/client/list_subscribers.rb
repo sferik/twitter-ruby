@@ -3,6 +3,7 @@ module Twitter
     module ListSubscribers
       # Returns the subscribers of the specified list
       #
+      # @todo Overload the method to allow fetching of the authenticated user's screen name from configuration.
       # @format :json, :xml
       # @authenticated true
       # @rate_limited true
@@ -15,7 +16,6 @@ module Twitter
       # @see http://dev.twitter.com/doc/get/:user/:list_id/subscribers
       # @example Returns the subscribers of of @sferik's "presidents" list
       #   Twitter.list_subscribers("sferik", "presidents")
-      # @todo Overload the method to allow fetching of the authenticated user's screen name from configuration.
       def list_subscribers(screen_name, list_id, options={})
         options = {:cursor => -1}.merge(options)
         clean_screen_name!(screen_name)
@@ -25,6 +25,7 @@ module Twitter
 
       # Unsubscribes the authenticated user form the specified list
       #
+      # @todo Overload the method to allow fetching of the authenticated user's screen name from configuration.
       # @format :json, :xml
       # @authenticated true
       # @rate_limited false
@@ -35,7 +36,6 @@ module Twitter
       # @see http://dev.twitter.com/doc/post/:user/:list_id/subscribers
       # @example Subscribe to @sferik's "presidents" list
       #   Twitter.list_subscribe("sferik", "presidents")
-      # @todo Overload the method to allow fetching of the authenticated user's screen name from configuration.
       def list_subscribe(screen_name, list_id, options={})
         clean_screen_name!(screen_name)
         response = post("#{screen_name}/#{list_id}/subscribers", options)
@@ -44,6 +44,7 @@ module Twitter
 
       # Make the authenticated user follow the specified list
       #
+      # @todo Overload the method to allow fetching of the authenticated user's screen name from configuration.
       # @format :json, :xml
       # @authenticated true
       # @rate_limited false
@@ -54,7 +55,6 @@ module Twitter
       # @see http://dev.twitter.com/doc/delete/:user/:list_id/subscribers
       # @example Unsubscribe from @sferik's "presidents" list
       #   Twitter.list_unsubscribe("sferik", "presidents")
-      # @todo Overload the method to allow fetching of the authenticated user's screen name from configuration.
       def list_unsubscribe(screen_name, list_id, options={})
         clean_screen_name!(screen_name)
         response = delete("#{screen_name}/#{list_id}/subscribers", options)
@@ -63,6 +63,7 @@ module Twitter
 
       # Check if a user is a subscriber of the specified list
       #
+      # @todo Overload the method to allow fetching of the authenticated user's screen name from configuration.
       # @format :json, :xml
       # @authenticated true
       # @rate_limited true
@@ -74,7 +75,6 @@ module Twitter
       # @see http://dev.twitter.com/doc/get/:user/:list_id/subscribers/:id
       # @example Check if @BarackObama is a subscriber of @sferik's "presidents" list
       #   Twitter.is_subscriber?("sferik", "presidents", 813286)
-      # @todo Overload the method to allow fetching of the authenticated user's screen name from configuration.
       def is_subscriber?(screen_name, list_id, id, options={})
         clean_screen_name!(screen_name)
         begin

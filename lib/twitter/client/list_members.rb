@@ -3,6 +3,7 @@ module Twitter
     module ListMembers
       # Returns the members of the specified list
       #
+      # @todo Overload the method to allow fetching of the authenticated user's screen name from configuration.
       # @format :json, :xml
       # @authenticated true
       # @rate_limited true
@@ -15,7 +16,6 @@ module Twitter
       # @see http://dev.twitter.com/doc/get/:user/:list_id/members
       # @example Return the members of @sferik's "presidents" list
       #   Twitter.list_members("sferik", "presidents")
-      # @todo Overload the method to allow fetching of the authenticated user's screen name from configuration.
       def list_members(screen_name, list_id, options={})
         options = {:cursor => -1}.merge(options)
         clean_screen_name!(screen_name)
@@ -24,8 +24,9 @@ module Twitter
       end
 
       # Add a member to a list
-      # @note Lists are limited to having 500 members.
       #
+      # @todo Overload the method to allow fetching of the authenticated user's screen name from configuration.
+      # @note Lists are limited to having 500 members.
       # @format :json, :xml
       # @authenticated true
       # @rate_limited false
@@ -37,7 +38,6 @@ module Twitter
       # @see http://dev.twitter.com/doc/post/:user/:list_id/members
       # @example Add @BarackObama to @sferik's "presidents" list
       #   Twitter.list_add_member("sferik", "presidents", 813286)
-      # @todo Overload the method to allow fetching of the authenticated user's screen name from configuration.
       def list_add_member(screen_name, list_id, id, options={})
         clean_screen_name!(screen_name)
         response = post("#{screen_name}/#{list_id}/members", options.merge(:id => id))
@@ -45,8 +45,9 @@ module Twitter
       end
 
       # Adds multiple members to a list
-      # @note Lists are limited to having 500 members, and you are limited to adding up to 100 members to a list at a time with this method.
       #
+      # @todo Overload the method to allow fetching of the authenticated user's screen name from configuration.
+      # @note Lists are limited to having 500 members, and you are limited to adding up to 100 members to a list at a time with this method.
       # @format :json, :xml
       # @authenticated true
       # @rate_limited false
@@ -58,7 +59,6 @@ module Twitter
       # @see http://dev.twitter.com/doc/post/:user/:list_id/create_all
       # @example Add @BarackObama and @Jasonfinn to @sferik's "presidents" list
       #   Twitter.list_add_members("sferik", "presidents", [813286, 18755393])
-      # @todo Overload the method to allow fetching of the authenticated user's screen name from configuration.
       def list_add_members(screen_name, list_id, users, options={})
         clean_screen_name!(screen_name)
         merge_users_into_options!(Array(users), options)
@@ -68,6 +68,7 @@ module Twitter
 
       # Removes the specified member from the list
       #
+      # @todo Overload the method to allow fetching of the authenticated user's screen name from configuration.
       # @format :json, :xml
       # @authenticated true
       # @rate_limited false
@@ -79,7 +80,6 @@ module Twitter
       # @see http://dev.twitter.com/doc/delete/:user/:list_id/members
       # @example Remove @BarackObama from @sferik's "presidents" list
       #   Twitter.list_remove_member("sferik", "presidents", 813286)
-      # @todo Overload the method to allow fetching of the authenticated user's screen name from configuration.
       def list_remove_member(screen_name, list_id, id, options={})
         clean_screen_name!(screen_name)
         response = delete("#{screen_name}/#{list_id}/members", options.merge(:id => id))
@@ -88,6 +88,7 @@ module Twitter
 
       # Check if a user is a member of the specified list
       #
+      # @todo Overload the method to allow fetching of the authenticated user's screen name from configuration.
       # @format :json, :xml
       # @authenticated true
       # @rate_limited false
@@ -99,7 +100,6 @@ module Twitter
       # @see http://dev.twitter.com/doc/get/:user/:list_id/members/:id
       # @example Check if @BarackObama is a member of @sferik's "presidents" list
       #   Twitter.is_list_member?("sferik", "presidents", 813286)
-      # @todo Overload the method to allow fetching of the authenticated user's screen name from configuration.
       def is_list_member?(screen_name, list_id, id, options={})
         clean_screen_name!(screen_name)
         begin

@@ -62,8 +62,8 @@ module Twitter
       end
 
       # Destroys a direct message
-      # @note The authenticating user must be the recipient of the specified direct message.
       #
+      # @note The authenticating user must be the recipient of the specified direct message.
       # @format :json, :xml
       # @authenticated true
       # @rate_limited false
