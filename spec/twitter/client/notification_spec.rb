@@ -11,12 +11,14 @@ describe Twitter::Client do
 
         before do
           stub_post("notifications/follow.#{format}").
+            with(:body => {:screen_name => "sferik"}).
             to_return(:body => fixture("user.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource" do
           @client.enable_notifications("sferik")
           a_post("notifications/follow.#{format}").
+            with(:body => {:screen_name => "sferik"}).
             should have_been_made
         end
 
@@ -31,12 +33,14 @@ describe Twitter::Client do
 
         before do
           stub_post("notifications/leave.#{format}").
+            with(:body => {:screen_name => "sferik"}).
             to_return(:body => fixture("user.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource" do
           @client.disable_notifications("sferik")
           a_post("notifications/leave.#{format}").
+            with(:body => {:screen_name => "sferik"}).
             should have_been_made
         end
 

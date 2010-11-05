@@ -11,6 +11,7 @@ describe Twitter::Client do
 
         before do
           stub_post("blocks/create.#{format}").
+            with(:body => {:screen_name => "sferik"}).
             to_return(:body => fixture("user.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 

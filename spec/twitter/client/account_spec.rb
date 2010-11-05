@@ -71,12 +71,14 @@ describe Twitter::Client do
 
         before do
           stub_post("account/update_delivery_device.#{format}").
+            with(:body => {:device => "sms"}).
             to_return(:body => fixture("user.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource" do
           @client.update_delivery_device("sms")
           a_post("account/update_delivery_device.#{format}").
+            with(:body => {:device => "sms"}).
             should have_been_made
         end
 
@@ -91,12 +93,14 @@ describe Twitter::Client do
 
         before do
           stub_post("account/update_profile_colors.#{format}").
+            with(:body => {:profile_background_color => "000000"}).
             to_return(:body => fixture("user.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource" do
           @client.update_profile_colors(:profile_background_color => "000000")
           a_post("account/update_profile_colors.#{format}").
+            with(:body => {:profile_background_color => "000000"}).
             should have_been_made
         end
 
@@ -151,12 +155,14 @@ describe Twitter::Client do
 
         before do
           stub_post("account/update_profile.#{format}").
+            with(:body => {:url => "http://github.com/sferik/"}).
             to_return(:body => fixture("user.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource" do
           @client.update_profile(:url => "http://github.com/sferik/")
           a_post("account/update_profile.#{format}").
+            with(:body => {:url => "http://github.com/sferik/"}).
             should have_been_made
         end
 

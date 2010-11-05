@@ -11,12 +11,14 @@ describe Twitter::Client do
 
         before do
           stub_post("sferik/lists.#{format}").
+            with(:body => {:name => "presidents"}).
             to_return(:body => fixture("list.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource" do
           @client.list_create("sferik", "presidents")
           a_post("sferik/lists.#{format}").
+            with(:body => {:name => "presidents"}).
             should have_been_made
         end
 

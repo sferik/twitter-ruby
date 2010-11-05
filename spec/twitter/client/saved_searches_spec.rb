@@ -52,17 +52,19 @@ describe Twitter::Client do
 
         before do
           stub_post("saved_searches/create.#{format}").
+            with(:body => {:query => "twitter"}).
             to_return(:body => fixture("saved_search.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource" do
           @client.saved_search_create("twitter")
           a_post("saved_searches/create.#{format}").
+            with(:body => {:query => "twitter"}).
             should have_been_made
         end
 
         it "should return the created saved search" do
-          saved_search = @client.saved_search_create(16129012)
+          saved_search = @client.saved_search_create("twitter")
           saved_search.name.should == "twitter"
         end
 

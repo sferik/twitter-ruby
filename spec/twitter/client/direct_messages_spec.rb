@@ -53,12 +53,14 @@ describe Twitter::Client do
 
         before do
           stub_post("direct_messages/new.#{format}").
+            with(:body => {:screen_name => "pengwynn", :text => "Creating a fixture for the Twitter gem"}).
             to_return(:body => fixture("direct_message.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource" do
           @client.direct_message_create("pengwynn", "Creating a fixture for the Twitter gem")
           a_post("direct_messages/new.#{format}").
+            with(:body => {:screen_name => "pengwynn", :text => "Creating a fixture for the Twitter gem"}).
             should have_been_made
         end
 
