@@ -8,21 +8,23 @@ module Twitter
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. This is recommended for users who are following many users. Provide a value of -1 to begin paging. Provide values as returned in the response body's next_cursor and previous_cursor attributes to page back and forth in the list.
       #   @return [Array] Numeric IDs.
-      #   @example Return the authenticated user's friends IDs
-      #     Twitter.freinds_ids
+      #   @example Return the authenticated user's friends' IDs
+      #     Twitter.friend_ids
       # @overload friend_ids(user, options={})
       #   Returns an array of numeric IDs for every user the specified user is following
       #
       #   @param user [Integer, String] A Twitter user ID or screen name.
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
-      #   @return [Hashie::Mash]
-      #   @example Return @sferik's friends IDs
+      #   @return [Array] Numeric IDs.
+      #   @example Return @sferik's friends' IDs
       #     Twitter.friend_ids("sferik")
       #     Twitter.friend_ids(7505382)  # Same as above
       # @see http://dev.twitter.com/doc/get/friends/ids
       # @format :json, :xml
-      # @authenticated false unless requesting it from a protected user; if getting this data of a protected user, you must auth (and be allowed to see that user).
+      # @authenticated false unless requesting it from a protected user
+      #
+      #   If getting this data of a protected user, you must authenticate (and be allowed to see that user).
       # @rate_limited true
       def friend_ids(*args)
         options = {:cursor => -1}
@@ -40,7 +42,7 @@ module Twitter
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
       #   @return [Array] Numeric IDs.
-      #   @example Return the authenticated user's followers IDs
+      #   @example Return the authenticated user's followers' IDs
       #     Twitter.follower_ids
       # @overload follower_ids(user, options={})
       #   Returns an array of numeric IDs for every user following the specified user
@@ -48,13 +50,15 @@ module Twitter
       #   @param user [Integer, String] A Twitter user ID or screen name.
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. This is recommended for users who are following many users. Provide a value of -1 to begin paging. Provide values as returned in the response body's next_cursor and previous_cursor attributes to page back and forth in the list.
-      #   @return [Hashie::Mash]
-      #   @example Return @sferik's followers IDs
+      #   @return [Array] Numeric IDs.
+      #   @example Return @sferik's followers' IDs
       #     Twitter.follower_ids("sferik")
       #     Twitter.follower_ids(7505382)  # Same as above
       # @see http://dev.twitter.com/doc/get/followers/ids
       # @format :json, :xml
-      # @authenticated false unless requesting it from a protected user; if getting this data of a protected user, you must auth (and be allowed to see that user).
+      # @authenticated false unless requesting it from a protected user
+      #
+      #   If getting this data of a protected user, you must authenticate (and be allowed to see that user).
       # @rate_limited true
       def follower_ids(*args)
         options = {:cursor => -1}

@@ -8,7 +8,7 @@ module Twitter
       # @rate_limited true
       # @param id [Integer] The numerical ID of the desired status.
       # @param options [Hash] A customizable set of options.
-      # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object including only the status author's numerical ID when set to true, 't' or 1.
+      # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       # @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
       # @return [Hashie::Mash] The requested status.
       # @see http://dev.twitter.com/doc/get/statuses/show/:id
@@ -21,18 +21,18 @@ module Twitter
 
       # Updates the authenticating user's status
       #
-      # @note A status update with text identical to the authenticating user's text identical to the authenticating user's current status will be ignored to prevent duplicates.
+      # @note A status update with text identical to the authenticating user's current status will be ignored to prevent duplicates.
       # @format :json, :xml
       # @authenticated true
       # @rate_limited false
       # @param status [String] The text of your status update, up to 140 characters.
       # @param options [Hash] A customizable set of options.
       # @option options [Integer] :in_reply_to_status_id The ID of an existing status that the update is in reply to.
-      # @option options [Float] :lat The latitude of the location this tweet refers to. This parameter will be ignored unless it is inside the range -90.0 to +90.0 (North is positive) inclusive. It will also be ignored if there isn't a corresponding :long option.
-      # @option options [Float] :long The longitude of the location this tweet refers to. The valid ranges for longitude is -180.0 to +180.0 (East is positive) inclusive. This parameter will be ignored if outside that range, if it is not a number, if geo_enabled is disabled, or if there not a corresponding :lat option.
+      # @option options [Float] :lat The latitude of the location this tweet refers to. This option will be ignored unless it is inside the range -90.0 to +90.0 (North is positive) inclusive. It will also be ignored if there isn't a corresponding :long option.
+      # @option options [Float] :long The longitude of the location this tweet refers to. The valid ranges for longitude is -180.0 to +180.0 (East is positive) inclusive. This option will be ignored if outside that range, if it is not a number, if geo_enabled is disabled, or if there not a corresponding :lat option.
       # @option options [String] :place_id A place in the world. These IDs can be retrieved from {Twitter::Client::Geo#reverse_geocode}.
       # @option options [String] :display_coordinates Whether or not to put a pin on the exact coordinates a tweet has been sent from.
-      # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object including only the status author's numerical ID when set to true, 't' or 1.
+      # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       # @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
       # @return [Hashie::Mash] The created status.
       # @see http://dev.twitter.com/doc/post/statuses/update
@@ -43,7 +43,7 @@ module Twitter
         format.to_s.downcase == 'xml' ? response['status'] : response
       end
 
-      # Destroys the status specified by the ID parameter
+      # Destroys the specified status
       #
       # @note The authenticating user must be the author of the specified status.
       # @format :json, :xml
@@ -51,7 +51,7 @@ module Twitter
       # @rate_limited false
       # @param id [Integer] The numerical ID of the desired status.
       # @param options [Hash] A customizable set of options.
-      # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object including only the status author's numerical ID when set to true, 't' or 1.
+      # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       # @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
       # @return [Hashie::Mash] The deleted status.
       # @see http://dev.twitter.com/doc/post/statuses/destroy/:id
@@ -70,7 +70,7 @@ module Twitter
       # @rate_limited false
       # @param id [Integer] The numerical ID of the desired status.
       # @param options [Hash] A customizable set of options.
-      # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object including only the status author's numerical ID when set to true, 't' or 1.
+      # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       # @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
       # @return [Hashie::Mash] The original tweet with retweet details embedded.
       # @see http://dev.twitter.com/doc/post/statuses/retweet/:id
@@ -89,7 +89,7 @@ module Twitter
       # @param id [Integer] The numerical ID of the desired status.
       # @param options [Hash] A customizable set of options.
       # @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 100.
-      # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object including only the status author's numerical ID when set to true, 't' or 1.
+      # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       # @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
       # @return [Array]
       # @see http://dev.twitter.com/doc/get/statuses/retweets/:id
@@ -109,7 +109,7 @@ module Twitter
       # @param options [Hash] A customizable set of options.
       # @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 100.
       # @option options [Integer] :page Specifies the page of results to retrieve.
-      # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object including only the status author's numerical ID when set to true, 't' or 1.
+      # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       # @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
       # @option options [Boolean] :ids_only ('false') Only return user ids instead of full user objects.
       # @return [Array]
