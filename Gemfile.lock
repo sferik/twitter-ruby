@@ -5,7 +5,7 @@ PATH
       faraday (~> 0.5.2)
       faraday_middleware (~> 0.2.2)
       hashie (~> 0.4.0)
-      multi_json (~> 0.0.4)
+      multi_json (~> 0.0.5)
       multi_xml (~> 0.2.0)
       simple_oauth (~> 0.1.1)
 
@@ -58,7 +58,7 @@ DEPENDENCIES
   hashie (~> 0.4.0)
   json (~> 1.4)
   libxml-ruby (~> 1.1)
-  multi_json (~> 0.0.4)
+  multi_json (~> 0.0.5)
   multi_xml (~> 0.2.0)
   rake (~> 0.8)
   rcov (~> 0.9)
