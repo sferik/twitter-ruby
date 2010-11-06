@@ -126,17 +126,17 @@ upgrading to 1.0 is strongly recommended.
 
 Here are a few more reasons to upgrade to 1.0:
 
-* Ruby 1.9 compatibility: All code and specs now work in the latest version of Ruby
-* Support for HTTP proxies: Access Twitter from from China, Iran, or inside your office firewall
+* Ruby 1.9 compatibility: All code and specs now work in the latest version of Ruby!
+* Support for HTTP proxies: Access Twitter from from China, Iran, or inside your office firewall!
 * Support for multiple HTTP adapters: NetHttp (default), Typhoeus, Patron, or ActionDispatch
 * Support for multiple request formats: JSON (default) or XML
-* More flexible: Parse JSON or XML with the engine or your choosing via [MultiJSON](http://github.com/intridea/multi_json) and [MultiXML](http://github.com/sferik/multi_xml)
-* More RESTful: Use HTTP DELETE (instead of POST) when calling destructive resources
-* More methods: Request any documented resource in the Twitter API
-* Send all requests over SSL: [Faster](http://gist.github.com/652330) and more secure
-* Improved error handling: More easily retry after rate-limit errors or fail whales
+* More flexible: Parse JSON or XML with the engine of your choosing via [MultiJSON](http://github.com/intridea/multi_json) and [MultiXML](http://github.com/sferik/multi_xml)
+* More RESTful: Uses HTTP DELETE (instead of POST) when requesting destructive resources
+* More methods: Request any documented resource in the Twitter API, including all [#newtwitter resources](http://groups.google.com/group/twitter-development-talk/browse_thread/thread/cdc34ae78a2350b8)!
+* SSL: On by default for increased [speed](http://gist.github.com/652330) and security!
+* Improved error handling: Easily rescue and retry after rate-limit errors or fail whales!
 
-For more information, please see the full documentation and examples of the gem's usage below.
+For more information, please see the (full documentation)[http://rdoc.info/gems/twitter] and examples of the gem's usage below.
 
 Help! I'm getting: "Did not recognize your engine specification. Please specify either a symbol or a class. (RuntimeError)"
 ---------------------------------------------------------------------------------------------------------------------------
