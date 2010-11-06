@@ -11,7 +11,7 @@ module Twitter
       #   @example Return the 20 most recent favorite statuses for the authenticating user
       #     Twitter.favorites
       # @overload favorites(user, options={})
-      #   Returns the 20 most recent favorite statuses for the user specified by the user parameter
+      #   Returns the 20 most recent favorite statuses for the specified user
       #
       #   @param user [Integer, String] A Twitter user ID or screen name.
       #   @param options [Hash] A customizable set of options.
@@ -31,7 +31,7 @@ module Twitter
         format.to_s.downcase == 'xml' ? response['statuses'] : response
       end
 
-      # Favorites the status specified in the ID parameter as the authenticating user
+      # Favorites the specified status as the authenticating user
       #
       # @format :json, :xml
       # @authenticated true
@@ -48,7 +48,7 @@ module Twitter
         format.to_s.downcase == 'xml' ? response['status'] : response
       end
 
-      # Un-favorites the status specified in the ID parameter as the authenticating user
+      # Un-favorites the specified status as the authenticating user
       #
       # @format :json, :xml
       # @authenticated true

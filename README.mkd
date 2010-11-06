@@ -13,7 +13,7 @@ Installation
 What's new in 1.0?
 ------------------
 This gem has been completely rewritten for version 1.0 thanks to [contributions from numerous
-people](http://github.com/jnunemaker/twitter/blob/master/HISTORY.md). This rewrite breaks
+people](http://github.com/jnunemaker/twitter/blob/master/HISTORY.mkd). This rewrite breaks
 compatibility with version 0.9.12 and earlier versions of the gem. Most notably, the
 <tt>Twitter::Base</tt>, <tt>Twitter:Geo</tt>, <tt>Twitter::LocalTrends</tt>, and
 <tt>Twitter::Trends</tt> classes [have all been merged](http://github.com/jnunemaker/twitter/commit/eb53872249634ee1f0179982b091a1a0fd9c0973) into
@@ -105,7 +105,7 @@ thing ([twitter-auth](http://github.com/mbleigh/twitter-auth),
 [devise](http://github.com/plataformatec/devise), to name a few) we decided to decouple
 this functionality so you can use the authentication library of your choosing, or none at all. If
 you would like to continue using the [oauth gem](http://github.com/oauth/oauth-ruby),
-simply require it and make the following changes:
+simply apply the following changes to your code:
 
 * **Pre-1.0**
         options = {:api_endpoint => "http://api.twitter.com", :signing_endpoint => "http://api.twitter.com"}
@@ -117,6 +117,7 @@ simply require it and make the following changes:
         oauth_wrapper.authorize_from_request(request_token.token, request_token.secret, params[:oauth_verifier])
 
 * **Post-1.0**
+        require 'oauth'
         options = {:site => "http://api.twitter.com", :request_endpoint => "http://api.twitter.com"}
         signing_consumer = OAuth::Consumer.new(YOUR_CONSUMER_TOKEN, YOUR_CONSUMER_SECRET, options)
         request_token = signing_consumer.get_request_token(:oauth_callback => CALLBACK_URL)
@@ -125,13 +126,13 @@ simply require it and make the following changes:
 
 The public APIs defined in version 1.0 of this gem will maintain backwards compatibility until
 the next major version, following the best practice of [Semantic Versioning](http://semver.org/).
-You are free to continue using the 0.9 series of the gem, however it will not be maintained, so
+You are free to continue using the 0.9 series of the gem; however, it will not be maintained so
 upgrading to 1.0 is strongly recommended.
 
 Here are a few more reasons to upgrade to 1.0:
 
 * Ruby 1.9 compatibility: All code and specs now work in the latest version of Ruby!
-* Support for HTTP proxies: Access Twitter from from China, Iran, or inside your office firewall!
+* Support for HTTP proxies: Access Twitter from China, Iran, or inside your office firewall!
 * Support for multiple HTTP adapters: NetHttp (default), Typhoeus, Patron, or ActionDispatch
 * Support for multiple request formats: JSON (default) or XML
 * More flexible: Parse JSON or XML with the engine of your choosing via [MultiJSON](http://github.com/intridea/multi_json) and [MultiXML](http://github.com/sferik/multi_xml)
@@ -140,7 +141,8 @@ Here are a few more reasons to upgrade to 1.0:
 * SSL: On by default for increased [speed](http://gist.github.com/652330) and security!
 * Improved error handling: Easily rescue and retry after rate-limit errors or fail whales!
 
-For more information, please see the (full documentation)[http://rdoc.info/gems/twitter] and examples of the gem's usage below.
+For more information, please see the [full documentation](http://rdoc.info/gems/twitter) and
+examples of the gem's usage below.
 
 Help! I'm getting: "Did not recognize your engine specification. Please specify either a symbol or a class. (RuntimeError)"
 ---------------------------------------------------------------------------------------------------------------------------
@@ -222,13 +224,14 @@ Here are some ways *you* can contribute:
 * by suggesting new features
 * by writing or editing documentation
 * by writing specifications
-* by writing code (**no patch is too small**: fix typos, add comments, cleanup inconsistent whitespace)
+* by writing code (**no patch is too small**: fix typos, add comments, clean up inconsistent whitespace)
 * by refactoring code
 * by closing [issues](http://github.com/jnunemaker/twitter/issues)
 * by reviewing patches
 * [financially](http://pledgie.com/campaigns/1193)
 
-All contributors will be added to the [HISTORY](https://github.com/jnunemaker/twitter/blob/master/HISTORY.mkd) file and will receive the respect and gratitude of the community.
+All contributors will be added to the [HISTORY](https://github.com/jnunemaker/twitter/blob/master/HISTORY.mkd)
+file and will receive the respect and gratitude of the community.
 
 Submitting an Issue
 -------------------
@@ -252,4 +255,5 @@ Submitting a Pull Request
 
 Copyright
 ---------
-Copyright (c) 2010 John Nunemaker, Wynn Netherland, Erik Michaels-Ober, Steve Richert. See LICENSE for details.
+Copyright (c) 2010 John Nunemaker, Wynn Netherland, Erik Michaels-Ober, Steve Richert.
+See [LICENSE](https://github.com/jnunemaker/twitter/blob/master/LICENSE.mkd) for details.

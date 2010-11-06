@@ -46,7 +46,7 @@ module Twitter
 
       # List the lists of the specified user
       #
-      # @note Private lists will be included if the authenticated users is the same as the user who's lists are being returned.
+      # @note Private lists will be included if the authenticated user is the same as the user whose lists are being returned.
       # @overload lists(options={})
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.

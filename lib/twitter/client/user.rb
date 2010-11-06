@@ -3,7 +3,7 @@ module Twitter
     module User
       # Returns extended information of a given user
       #
-      # @todo Overload the method to allow fetching of the authenticated screen name's from configuration.
+      # @todo Overload the method to allow fetching of the authenticated user's screen name from configuration.
       # @format :json, :xml
       # @authenticated false
       # @rate_limited true
@@ -21,7 +21,7 @@ module Twitter
         format.to_s.downcase == 'xml' ? response['user'] : response
       end
 
-      # Return up to 100 users worth of extended information
+      # Returns extended information for up to 100 users
       #
       # @format :json, :xml
       # @authenticated true
@@ -93,7 +93,7 @@ module Twitter
 
       # Access the profile image in various sizes for the user with the indicated screen name
       #
-      # @todo Overload the method to allow fetching of the authenticated screen name's from configuration.
+      # @todo Overload the method to allow fetching of the authenticated user's screen name from configuration.
       # @format :json, :xml
       # @authenticated false
       # @rate_limited false
@@ -117,7 +117,7 @@ module Twitter
       #   @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
       #   @return [Hashie::Mash]
       #   @example Return the authenticated user's friends
-      #     Twitter.freinds
+      #     Twitter.friends
       # @overload friends(user, options={})
       #   @param user [Integer, String] A Twitter user ID or screen name.
       #   @param options [Hash] A customizable set of options.
@@ -129,7 +129,9 @@ module Twitter
       #     Twitter.friends(7505382)  # Same as above
       # @see http://dev.twitter.com/doc/get/statuses/friends
       # @format :json, :xml
-      # @authenticated false unless requesting it from a protected user; if getting this data of a protected user, you must auth (and be allowed to see that user).
+      # @authenticated false unless requesting it from a protected user
+      #
+      #   If getting this data of a protected user, you must authenticate (and be allowed to see that user).
       # @rate_limited true
       def friends(*args)
         options = {:cursor => -1}
@@ -152,7 +154,7 @@ module Twitter
       #   @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
       #   @return [Hashie::Mash]
       #   @example Return the authenticated user's followers
-      #     Twitter.freinds
+      #     Twitter.followers
       # @overload followers(user, options={})
       #   @param user [Integer, String] A Twitter user ID or screen name.
       #   @param options [Hash] A customizable set of options.
@@ -164,7 +166,9 @@ module Twitter
       #     Twitter.followers(7505382)  # Same as above
       # @see http://dev.twitter.com/doc/get/statuses/followers
       # @format :json, :xml
-      # @authenticated false unless requesting it from a protected user; if getting this data of a protected user, you must auth (and be allowed to see that user).
+      # @authenticated false unless requesting it from a protected user
+      #
+      #   If getting this data of a protected user, you must authenticate (and be allowed to see that user).
       # @rate_limited true
       def followers(*args)
         options = {:cursor => -1}

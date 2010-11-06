@@ -21,7 +21,9 @@ module Twitter
       # Returns the remaining number of API requests available to the requesting user
       #
       # @format :json, :xml
-      # @authenticated false This will return the requesting IP's rate limit status. If you want the authenticating user's rate limit status you must authenticate.
+      # @authenticated false
+      #
+      #   This will return the requesting IP's rate limit status. If you want the authenticating user's rate limit status you must authenticate.
       # @rate_limited true
       # @param options [Hash] A customizable set of options.
       # @return [Hashie::Mash]
@@ -41,7 +43,7 @@ module Twitter
       # @param options [Hash] A customizable set of options.
       # @return [Hashie::Mash]
       # @see http://dev.twitter.com/doc/post/account/end_session
-      # @example End the sessions of the authenticating user
+      # @example End the session of the authenticating user
       #   Twitter.end_session
       def end_session(options={})
         response = post('account/end_session', options)
@@ -109,7 +111,7 @@ module Twitter
       # @format :json, :xml
       # @authenticated true
       # @rate_limited false
-      # @param image [String] The background image for the profile. Must be a valid GIF, JPG, or PNG image of less than 800 kilobytes in size. Images with width larger than 2048 pixels will be forceably scaled down.
+      # @param image [String] The background image for the profile. Must be a valid GIF, JPG, or PNG image of less than 800 kilobytes in size. Images with width larger than 2048 pixels will be scaled down.
       # @param options [Hash] A customizable set of options.
       # @option options [Boolean] :tile Whether or not to tile the background image. If set to true the background image will be displayed tiled. The image will not be tiled otherwise.
       # @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
