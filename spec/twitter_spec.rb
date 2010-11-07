@@ -8,13 +8,15 @@ describe Twitter do
   context "when delegating to a client" do
 
     before do
-      stub_get("statuses/user_timeline.json?screen_name=sferik").
+      stub_get("statuses/user_timeline.json").
+        with(:query => {:screen_name => "sferik"}).
         to_return(:body => fixture("statuses.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
 
     it "should get the correct resource" do
       Twitter.user_timeline('sferik')
-      a_get("statuses/user_timeline.json?screen_name=sferik").
+      a_get("statuses/user_timeline.json").
+        with(:query => {:screen_name => "sferik"}).
         should have_been_made
     end
 
