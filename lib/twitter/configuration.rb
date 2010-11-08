@@ -47,12 +47,16 @@ module Twitter
 
     # Reset all configuration options to defaults
     def reset
-      self.adapter         = DEFAULT_ADAPTER
-      self.endpoint        = DEFAULT_ENDPOINT
-      self.search_endpoint = DEFAULT_SEARCH_ENDPOINT
-      self.format          = DEFAULT_FORMAT
-      self.proxy           = DEFAULT_PROXY
-      self.user_agent      = DEFAULT_USER_AGENT
+      self.consumer_key       = DEFAULT_CONSUMER_KEY
+      self.consumer_secret    = DEFAULT_CONSUMER_SECRET
+      self.oauth_token        = DEFAULT_OAUTH_TOKEN
+      self.oauth_token_secret = DEFAULT_OAUTH_TOKEN_SECRET
+      self.adapter            = DEFAULT_ADAPTER
+      self.endpoint           = DEFAULT_ENDPOINT
+      self.format             = DEFAULT_FORMAT
+      self.proxy              = DEFAULT_PROXY
+      self.search_endpoint    = DEFAULT_SEARCH_ENDPOINT
+      self.user_agent         = DEFAULT_USER_AGENT
       self
     end
   end
