@@ -2,13 +2,18 @@ The Twitter Ruby Gem
 ====================
 A Ruby wrapper for the Twitter REST and Search APIs
 
-Does your project or company use this gem?
-------------------------------------------
-Add it to the [apps](http://github.com/jnunemaker/twitter/wiki/apps) wiki!
-
 Installation
 ------------
     $ [sudo] gem install twitter --pre
+
+Follow @gem on Twitter
+----------------------
+You should [follow @gem on Twitter](http://twitter.com/#!/gem) for announcements,
+updates, and news about the twitter gem.
+
+Does your project or organization use this gem?
+------------------------------------------
+Add it to the [apps](http://github.com/jnunemaker/twitter/wiki/apps) wiki!
 
 What's new in 1.0?
 ------------------

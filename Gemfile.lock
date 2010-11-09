@@ -14,6 +14,7 @@ GEM
   specs:
     ZenTest (4.4.0)
     addressable (2.2.2)
+    bluecloth (2.0.9)
     crack (0.1.8)
     diff-lcs (1.1.2)
     faraday (0.5.3)
@@ -50,6 +51,7 @@ PLATFORMS
 
 DEPENDENCIES
   ZenTest (~> 4.4)
+  bluecloth (~> 2.0)
   bundler (~> 1.0)
   faraday (~> 0.5.3)
   faraday_middleware (~> 0.3.0)
