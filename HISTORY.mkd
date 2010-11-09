@@ -81,7 +81,7 @@
 
 0.9.8 - June 22, 2010
 ---------------------
-* [Geo API](http://github.com/jnunemaker/twitter/commit/0e5aa205f9e29db434d84452f59694d9b64877d2) ([@spagalloco](http://twitter.com/#!/spagalloco))
+* [Geo API](http://github.com/jnunemaker/twitter/commit/0e5aa205f9e29db434d84452f59694d9b64877d2) ([@anno](http://twitter.com/#!/anno))
 * [Set <tt>api_endpoint</tt> for unauthenticated calls](http://github.com/jnunemaker/twitter/commit/ff20ecb4f4fef12c58572fb31e5c06162f8659d7) ([@earth2marsh](http://twitter.com/#!/earth2marsh))
 
 0.9.7 - May 25, 2010
@@ -100,7 +100,7 @@
 * [Add <tt>report_spam</tt>](http://github.com/jnunemaker/twitter/commit/91275b549ebdd1cad795dff9f7a1772a4ca37749) ([@chrisrbailey](http://twitter.com/#!/chrisrbailey))
 * [Tests for <tt>friendship_exists?</tt> method](http://github.com/jnunemaker/twitter/commit/e778d7f5f2bed73428c854d5d788d4a2d58540cd) ([@sferik](http://twitter.com/#!/sferik))
 * [Replace JSON parser with YAJL JSON parser](http://github.com/jnunemaker/twitter/commit/1f480a85925025aec1ac5c91cfb45b4e74e4c9c3) ([@sferik](http://twitter.com/#!/sferik))
-* [Cursors for lists](http://github.com/jnunemaker/twitter/commit/d283cefdbcaeee6005b0ec747e8d6bded14911b2) ([@moazeni](http://twitter.com/#!/moazeni))
+* [Cursors for lists](http://github.com/jnunemaker/twitter/commit/d283cefdbcaeee6005b0ec747e8d6bded14911b2) ([@zmoazeni](http://twitter.com/#!/zmoazeni))
 
 0.9.4 - March 30, 2010
 ----------------------
@@ -395,7 +395,7 @@
 
 0.2.3 - January 16, 2008
 ------------------------
-* [Add <tt>d</tt> to the command-line interface](http://github.com/jnunemaker/twitter/commit/a9ecddd3323ef202248dae59d049b00b88b76b4e) ([@uumbucker](http://twitter.com/#!/uumbucker))
+* [Add <tt>d</tt> to the command-line interface](http://github.com/jnunemaker/twitter/commit/a9ecddd3323ef202248dae59d049b00b88b76b4e) ([@humbucker](http://twitter.com/#!/humbucker))
 * [Add progress dots while waiting for confirmation when Twitter is being slow](http://github.com/jnunemaker/twitter/commit/02a24d9042f3fa0235759fbbd6f34ea639a01578) ([@HendyIrawan](http://twitter.com/#!/HendyIrawan))
 
 0.2.2 - January 16, 2008
