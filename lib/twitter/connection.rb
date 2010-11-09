@@ -19,7 +19,12 @@ module Twitter
         connection.use Faraday::Request::OAuth, authentication if authenticated?
         connection.adapter(adapter)
         connection.use Faraday::Response::RaiseHttp5xx
-        connection.use Faraday::Response::Parse unless raw
+        unless raw
+          case format.to_s.downcase
+          when 'json' then connection.use Faraday::Response::ParseJson
+          when 'xml' then connection.use Faraday::Response::ParseXml
+          end
+        end
         connection.use Faraday::Response::RaiseHttp4xx
         connection.use Faraday::Response::Mashify unless raw
       end
