@@ -14,7 +14,6 @@ GEM
   specs:
     ZenTest (4.4.0)
     addressable (2.2.2)
-    bluecloth (2.0.9)
     crack (0.1.8)
     diff-lcs (1.1.2)
     faraday (0.5.3)
@@ -25,10 +24,15 @@ GEM
       faraday (~> 0.5.3)
     hashie (0.4.0)
     json (1.4.6)
+    json (1.4.6-java)
+    maruku (0.6.0)
+      syntax (>= 1.0.0)
     multi_json (0.0.5)
     multi_xml (0.2.0)
     multipart-post (1.0.1)
     nokogiri (1.4.3.1)
+    nokogiri (1.4.3.1-java)
+      weakling (>= 0.0.3)
     rack (1.2.1)
     rake (0.8.7)
     rspec (2.1.0)
@@ -43,22 +47,25 @@ GEM
     simplecov (0.3.7)
       simplecov-html (>= 0.3.7)
     simplecov-html (0.3.9)
+    syntax (1.0.0)
+    weakling (0.0.4-java)
     webmock (1.5.0)
       addressable (>= 2.2.2)
       crack (>= 0.1.7)
     yard (0.6.1)
 
 PLATFORMS
+  java
   ruby
 
 DEPENDENCIES
   ZenTest (~> 4.4)
-  bluecloth (~> 2.0)
   bundler (~> 1.0)
   faraday (~> 0.5.3)
   faraday_middleware (~> 0.3.0)
   hashie (~> 0.4.0)
   json (~> 1.4)
+  maruku (~> 0.6)
   multi_json (~> 0.0.5)
   multi_xml (~> 0.2.0)
   nokogiri (~> 1.4)

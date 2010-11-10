@@ -53,7 +53,7 @@ error returned by the Twitter Search API.
       <th>Post-1.0</th>
     </tr>
   </thead>
-  </tbody>
+  <tbody>
     <tr>
       <td><tt>400</tt></td>
       <td><tt>Twitter::RateLimitExceeded</tt></td>
