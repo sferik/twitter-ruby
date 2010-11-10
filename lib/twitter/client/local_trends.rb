@@ -1,5 +1,7 @@
 module Twitter
   class Client
+    # Defines methods related to local trends
+    # @see Twitter::Client::Trends
     module LocalTrends
       # Returns the locations that Twitter has trending topic information for
       #

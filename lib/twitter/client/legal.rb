@@ -1,5 +1,6 @@
 module Twitter
   class Client
+    # Defines methods related to legal documents
     module Legal
       # Returns {http://twitter.com/tos Twitter's Terms of Service}
       #

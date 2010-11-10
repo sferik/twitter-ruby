@@ -1,5 +1,7 @@
 module Twitter
   class Client
+    # Defines methods related to spam reporting
+    # @see Twitter::Client::Block
     module SpamReporting
       # The user specified is blocked by the authenticated user and reported as a spammer
       #

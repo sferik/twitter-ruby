@@ -1,5 +1,6 @@
 module Twitter
   class Client
+    # Defines methods related to users
     module User
       # Returns extended information of a given user
       #

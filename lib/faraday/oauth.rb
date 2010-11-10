@@ -1,8 +1,9 @@
 require 'faraday'
 require 'simple_oauth'
 
-# @api private
+# @private
 module Faraday
+  # @private
   class Request::OAuth < Faraday::Middleware
     def call(env)
       params = env[:body].is_a?(Hash) ? env[:body] : {}

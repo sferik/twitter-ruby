@@ -1,7 +1,8 @@
 require 'faraday'
 
-# @api private
+# @private
 module Faraday
+  # @private
   class Response::RaiseHttp4xx < Response::Middleware
     def self.register_on_complete(env)
       env[:response].on_complete do |response|

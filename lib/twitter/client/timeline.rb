@@ -1,5 +1,6 @@
 module Twitter
   class Client
+    # Defines methods related to timelines
     module Timeline
       # Returns the 20 most recent statuses, including retweets if they exist, from non-protected users
       #

@@ -1,5 +1,6 @@
 module Twitter
   class Client
+    # Defines methods related to direct messages
     module DirectMessages
       # Returns the 20 most recent direct messages sent to the authenticating user
       #

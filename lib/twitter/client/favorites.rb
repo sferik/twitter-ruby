@@ -1,5 +1,6 @@
 module Twitter
   class Client
+    # Defines methods related to favorites (or favourites)
     module Favorites
       # @overload favorites(options={})
       #   Returns the 20 most recent favorite statuses for the authenticating user

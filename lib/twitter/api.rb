@@ -3,7 +3,7 @@ require File.expand_path('../request', __FILE__)
 require File.expand_path('../authentication', __FILE__)
 
 module Twitter
-  # @api private
+  # @private
   class API
     attr_accessor *Configuration::VALID_OPTIONS_KEYS
 

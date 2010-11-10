@@ -1,5 +1,8 @@
 module Twitter
   class Client
+    # Defines methods related to lists
+    # @see Twitter::Client::ListMembers
+    # @see Twitter::Client::ListSubscribers
     module List
       # Creates a new list for the authenticated user
       #

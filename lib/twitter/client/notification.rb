@@ -1,5 +1,6 @@
 module Twitter
   class Client
+    # Defines methods related to notification
     module Notification
       # Enables device notifications for updates from the specified user to the authenticating user
       #

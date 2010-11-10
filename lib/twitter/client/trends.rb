@@ -1,5 +1,7 @@
 module Twitter
   class Client
+    # Defines methods related to global trends
+    # @see Twitter::Client::LocalTrends
     module Trends
       # Returns the top ten topics that are currently trending on Twitter
       #

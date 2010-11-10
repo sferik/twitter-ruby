@@ -1,5 +1,5 @@
 module Twitter
-  # @api private
+  # @private
   module Authentication
     private
 

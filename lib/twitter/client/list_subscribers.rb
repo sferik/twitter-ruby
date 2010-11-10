@@ -1,5 +1,8 @@
 module Twitter
   class Client
+    # Defines methods related to list subscribers
+    # @see Twitter::Client::List
+    # @see Twitter::Client::ListMembers
     module ListSubscribers
       # Returns the subscribers of the specified list
       #

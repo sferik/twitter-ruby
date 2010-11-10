@@ -1,5 +1,7 @@
 module Twitter
   class Client
+    # Defines methods related to blocking and unblocking users
+    # @see Twitter::Client::SpamReporting
     module Block
       # Blocks the user specified by the authenticating user
       #

@@ -1,5 +1,6 @@
 module Twitter
   class Client
+    # Defines methods related to friendship
     module Friendship
       # Allows the authenticating user to follow the specified user
       #

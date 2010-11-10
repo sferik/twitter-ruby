@@ -1,3 +1,4 @@
+--no-private
 --protected
 --tag format:"Supported formats"
 --tag authenticated:"Requires Authentication"

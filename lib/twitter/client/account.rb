@@ -1,5 +1,6 @@
 module Twitter
   class Client
+    # Defines methods related to a user's account
     module Account
       # Returns the requesting user if authentication was successful, otherwise raises {Twitter::Unauthorized}
       #

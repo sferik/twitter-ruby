@@ -1,5 +1,6 @@
 module Twitter
   class Client
+    # Defines methods related to saved searches
     module SavedSearches
       # Returns the authenticated user's saved search queries
       #

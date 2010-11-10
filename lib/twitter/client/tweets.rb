@@ -1,5 +1,6 @@
 module Twitter
   class Client
+    # Defines methods related to tweets
     module Tweets
       # Returns a single status, specified by ID
       #

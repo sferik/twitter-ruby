@@ -1,5 +1,6 @@
 module Twitter
   class Client
+    # Defines methods related to friends and followers
     module FriendsAndFollowers
       # @todo Move the code that makes the parsed XML consistent with the parsed JSON into MultiXML.
       # @overload friend_ids(options={})
