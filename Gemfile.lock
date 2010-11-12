@@ -49,7 +49,7 @@ GEM
     simplecov-html (0.3.9)
     syntax (1.0.0)
     weakling (0.0.4-java)
-    webmock (1.5.0)
+    webmock (1.6.0)
       addressable (>= 2.2.2)
       crack (>= 0.1.7)
     yard (0.6.1)
@@ -74,5 +74,5 @@ DEPENDENCIES
   simple_oauth (~> 0.1.1)
   simplecov (~> 0.3)
   twitter!
-  webmock (~> 1.5)
+  webmock (~> 1.6)
   yard (~> 0.6)
