@@ -15,6 +15,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency("hashie", "~> 0.4.0")
   s.add_runtime_dependency("faraday", "~> 0.5.3")
   s.add_runtime_dependency("faraday_middleware", "~> 0.3.0")
+  s.add_runtime_dependency("jruby-openssl", "~> 0.7.2")
   s.add_runtime_dependency("multi_json", "~> 0.0.5")
   s.add_runtime_dependency("multi_xml", "~> 0.2.0")
   s.add_runtime_dependency("simple_oauth", "~> 0.1.1")
@@ -24,6 +25,7 @@ Gem::Specification.new do |s|
 ********************************************************************************
   You should follow @gem on Twitter for announcements, updates, and news.
   https://twitter.com/gem
+
   Using this gem in your project or organization? Add it to the apps wiki!
   https://github.com/jnunemaker/twitter/wiki/apps
 ********************************************************************************

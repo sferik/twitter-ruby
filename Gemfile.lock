@@ -5,6 +5,7 @@ PATH
       faraday (~> 0.5.3)
       faraday_middleware (~> 0.3.0)
       hashie (~> 0.4.0)
+      jruby-openssl (~> 0.7.2)
       multi_json (~> 0.0.5)
       multi_xml (~> 0.2.0)
       simple_oauth (~> 0.1.1)
@@ -14,6 +15,7 @@ GEM
   specs:
     ZenTest (4.4.0)
     addressable (2.2.2)
+    bouncy-castle-java (1.5.0145.2)
     crack (0.1.8)
     diff-lcs (1.1.2)
     faraday (0.5.3)
@@ -23,6 +25,8 @@ GEM
     faraday_middleware (0.3.0)
       faraday (~> 0.5.3)
     hashie (0.4.0)
+    jruby-openssl (0.7.2)
+      bouncy-castle-java
     json (1.4.6)
     json (1.4.6-java)
     maruku (0.6.0)
@@ -64,6 +68,7 @@ DEPENDENCIES
   faraday (~> 0.5.3)
   faraday_middleware (~> 0.3.0)
   hashie (~> 0.4.0)
+  jruby-openssl (~> 0.7.2)
   json (~> 1.4)
   maruku (~> 0.6)
   multi_json (~> 0.0.5)
