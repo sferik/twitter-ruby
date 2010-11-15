@@ -1,4 +1,4 @@
 module Twitter
   # The version of the gem
-  VERSION = '1.0.0.rc.6' unless defined?(Twitter::VERSION)
+  VERSION = '1.0.0.rc.7' unless defined?(Twitter::VERSION)
 end
