@@ -8,7 +8,7 @@ PATH
       jruby-openssl (~> 0.7.2)
       multi_json (~> 0.0.5)
       multi_xml (~> 0.2.0)
-      simple_oauth (~> 0.1.1)
+      simple_oauth (~> 0.1.2)
 
 GEM
   remote: http://rubygems.org/
@@ -47,7 +47,7 @@ GEM
     rspec-expectations (2.1.0)
       diff-lcs (~> 1.1.2)
     rspec-mocks (2.1.0)
-    simple_oauth (0.1.1)
+    simple_oauth (0.1.2)
     simplecov (0.3.7)
       simplecov-html (>= 0.3.7)
     simplecov-html (0.3.9)
@@ -76,7 +76,7 @@ DEPENDENCIES
   nokogiri (~> 1.4)
   rake (~> 0.8)
   rspec (~> 2.1)
-  simple_oauth (~> 0.1.1)
+  simple_oauth (~> 0.1.2)
   simplecov (~> 0.3)
   twitter!
   webmock (~> 1.6)
