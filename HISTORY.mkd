@@ -1,4 +1,8 @@
-1.0.0.rc.7 - COMING SOON
+1.0.0.rc.8 - November 16, 2010
+------------------------------
+* [Fix conditional inclusion of jruby-openssl in Ruby 1.9](https://github.com/jnunemaker/twitter/commit/e8e9b1d7232bf69ac5e217e2e18dc9c8e75f2fc4)
+
+1.0.0.rc.7 - November 15, 2010
 -----------------------------
 * [Allow users to pass in screen names with leading '@'](https://github.com/jnunemaker/twitter/commit/fc3af84e0d7358ddacf49acefe7d950ac11983e0)
 * [UTF-8 encode <tt>Utils</tt> module](https://github.com/jnunemaker/twitter/commit/4a62f181c2ae7b931e17fcfa6532b3a3f0ed0c8e)
