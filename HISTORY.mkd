@@ -1,43 +1,22 @@
-1.0.0.rc.8 - November 16, 2010
-------------------------------
+1.0.0 - November 18, 2010
+-------------------------
 * [Fix conditional inclusion of jruby-openssl in Ruby 1.9](https://github.com/jnunemaker/twitter/commit/e8e9b1d7232bf69ac5e217e2e18dc9c8e75f2fc4)
-
-1.0.0.rc.7 - November 15, 2010
------------------------------
 * [Allow users to pass in screen names with leading '@'](https://github.com/jnunemaker/twitter/commit/fc3af84e0d7358ddacf49acefe7d950ac11983e0)
 * [UTF-8 encode <tt>Utils</tt> module](https://github.com/jnunemaker/twitter/commit/4a62f181c2ae7b931e17fcfa6532b3a3f0ed0c8e)
 * [Copy-edit documentation](https://github.com/jnunemaker/twitter/commit/7873b0306d5fb1f27e4061cd024ab43589441fa4) ([@dianakimball](http://twitter.com/#!/dianakimball))
-
-1.0.0.rc.6 - November 1, 2010
------------------------------
 * [Add methods to <tt>Search</tt> class](http://github.com/jnunemaker/twitter/commit/1871913342a5621edfebb9a7c8be705608e082d5)
-
-1.0.0.rc.5 - October 31, 2010
------------------------------
 * [Changes to <tt>Search</tt> class](http://github.com/jnunemaker/twitter/commit/e769fabc0232cbbcb9d0fa5a07277fb9f50b17c8)
-
-1.0.0.rc.4 - October 28, 2010
------------------------------
 * [Add proxy support](http://github.com/jnunemaker/twitter/commit/1df33b7495093bc1f136d61b8aac9c9038414bc5)
-
-1.0.0.rc.3 - October 27, 2010
------------------------------
 * [Make <tt>#suggestions</tt> method consistent with Twitter API documentation](http://github.com/jnunemaker/twitter/commit/8393a06a9e8ca03be9adffdbfd042c176e2f6597)
 * [Rename default user agent](http://github.com/jnunemaker/twitter/commit/2929e533f441bea2313882c4e0ed5593fe999491)
 * [Make all global settings overrideable at the class level](http://github.com/jnunemaker/twitter/commit/66f3ac223d6f0822c8b3acd4cdcd8c84c8dacfe0)
 * [Expose a property in EnhanceYourCalm for HTTP header "Retry-After"](http://github.com/jnunemaker/twitter/commit/7ab91f9d26351f52d3c803bb191d33bdacff5094) ([@duylam](http://twitter.com/#!/duylam))
 * [Merge <tt>Base</tt>, <tt>Geo</tt>, <tt>Trends</tt>, and <tt>Unauthenticated</tt> into <tt>Client</tt> class](http://github.com/jnunemaker/twitter/commit/eb53872249634ee1f0179982b091a1a0fd9c0973) ([@laserlemon](http://twitter.com/#!/laserlemon))
 * [Move examples into README](http://github.com/jnunemaker/twitter/commit/96600cb5611965788c41b3788668188d37e16803)
-
-1.0.0.rc.2 - October 15, 2010
-----------------------------
 * [Rename <tt>Twitter.scheme</tt> to <tt>Twitter.protocol</tt>](http://github.com/jnunemaker/twitter/commit/512fcdfc22b796d39dd07c2dcc712aa48131d7c6)
 * [Map access key/secret names to SimpleOAuth correctly](http://github.com/jnunemaker/twitter/commit/9fa5be3a9e0b7f7dcb4046314d8c6bc41f4f063d)
 * [Improved error handling by separating HTTP 4xx errors from HTTP 5xx errors, so HTTP 4xx errors can be parsed first](http://github.com/jnunemaker/twitter/commit/f26e7875980a7b2b16285c31198601b92ac5cbb6)
 * [Add tests for XML response format](http://github.com/jnunemaker/twitter/commit/54c4b36b8f9a5a0ad7c741e53409a03a7ddaade7)
-
-1.0.0.rc.1 - October 12, 2010
------------------------------
 * [Switch from httparty to faraday HTTP client library](http://github.com/jnunemaker/twitter/commit/80aff88dae11d64673fe4e025cc8f065a6796345)
 * [Switch from oauth to simple_oauth for authentication](http://github.com/jnunemaker/twitter/commit/76cfe3749e56b2b486f2b5ffc9aa7f437cb2db29) ([@laserlemon](http://twitter.com/#!/laserlemon))
 * [Handle errors in faraday middleware](http://github.com/jnunemaker/twitter/commit/466a0d9942d1c0c0c35c6302951087076ddf4b82#diff-2)

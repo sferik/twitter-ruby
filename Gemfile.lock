@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    twitter (1.0.0.rc.8)
+    twitter (1.0.0)
       faraday (~> 0.5.3)
       faraday_middleware (~> 0.3.0)
       hashie (~> 0.4.0)

@@ -4,7 +4,7 @@ A Ruby wrapper for the Twitter REST and Search APIs
 
 Installation
 ------------
-    $ [sudo] gem install twitter --pre
+    $ gem install twitter
 
 Follow @gem on Twitter
 ----------------------
