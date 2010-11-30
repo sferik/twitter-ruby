@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency("jruby-openssl", "~> 0.7.2") if RUBY_PLATFORM == "java"
   s.add_runtime_dependency("multi_json", "~> 0.0.5")
   s.add_runtime_dependency("multi_xml", "~> 0.2.0")
-  s.add_runtime_dependency("simple_oauth", "~> 0.1.2")
+  s.add_runtime_dependency("simple_oauth", "~> 0.1.3")
   s.authors = ["John Nunemaker", "Wynn Netherland", "Erik Michaels-Ober", "Steve Richert"]
   s.description = %q{A Ruby wrapper for the Twitter REST and Search APIs}
   s.post_install_message =<<eos
