@@ -69,25 +69,27 @@ module Twitter
 
       # Returns the 20 most recent statuses posted by the specified user
       #
-      # @todo Overload the method to allow fetching of the authenticated user's screen name from configuration.
+      # @overload user_timeline(user, options={})
+      #   @param user [Integer, String] A Twitter user ID or screen name.
+      #   @param options [Hash] A customizable set of options.
+      #   @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID.
+      #   @option options [Integer] :max_id Returns results with an ID less than (that is, older than) or equal to the specified ID.
+      #   @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 200.
+      #   @option options [Integer] :page Specifies the page of results to retrieve.
+      #   @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
+      #   @option options [Boolean, String, Integer] :include_rts The timeline will contain native retweets (if they exist) in addition to the standard stream of tweets when set to true, 't' or 1.
+      #   @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
+      #   @return [Array]
+      #   @example Return the 20 most recent statuses posted by @sferik
+      #     Twitter.user_timeline("sferik")
       # @note This method can only return up to 3200 statuses. If the :include_rts option is set, only 3200 statuses, including retweets if they exist, can be returned.
       # @format :json, :xml
       # @authenticated false unless the user whose timeline you're trying to view is protected
       # @rate_limited true
-      # @param user [Integer, String] A Twitter user ID or screen name.
-      # @param options [Hash] A customizable set of options.
-      # @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID.
-      # @option options [Integer] :max_id Returns results with an ID less than (that is, older than) or equal to the specified ID.
-      # @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 200.
-      # @option options [Integer] :page Specifies the page of results to retrieve.
-      # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
-      # @option options [Boolean, String, Integer] :include_rts The timeline will contain native retweets (if they exist) in addition to the standard stream of tweets when set to true, 't' or 1.
-      # @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
-      # @return [Array]
       # @see http://dev.twitter.com/doc/get/statuses/user_timeline
-      # @example Return the 20 most recent statuses posted by @sferik
-      #   Twitter.user_timeline("sferik")
-      def user_timeline(user, options={})
+      def user_timeline(*args)
+        options = args.last.is_a?(Hash) ? args.pop : {}
+        user = args.first || get_screen_name
         merge_user_into_options!(user, options)
         response = get('statuses/user_timeline', options)
         format.to_s.downcase == 'xml' ? response['statuses'] : response

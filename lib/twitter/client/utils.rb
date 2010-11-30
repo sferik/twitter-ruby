@@ -5,6 +5,14 @@ module Twitter
     module Utils
       private
 
+      # Returns the screen name of the authenticated user
+      def get_screen_name
+        if !Twitter.user_screen_name
+          Twitter.user_screen_name = self.verify_credentials.screen_name
+        end 
+        Twitter.user_screen_name 
+      end
+
       # Remove @ signs from screen names
       def clean_screen_name!(screen_name)
         screen_name.gsub!(/[@＠]/, '') if screen_name

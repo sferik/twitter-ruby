@@ -4,23 +4,51 @@ module Twitter
     module User
       # Returns extended information of a given user
       #
-      # @todo Overload the method to allow fetching of the authenticated user's screen name from configuration.
+      # @overload user(user, options={})
+      #   @param user [Integer, String] A Twitter user ID or screen name.
+      #   @param options [Hash] A customizable set of options.
+      #   @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
+      #   @return [Hashie::Mash] The requested user.
+      #   @example Return extended information for @sferik
+      #     Twitter.user("sferik")
+      #     Twitter.user(7505382)  # Same as above
       # @format :json, :xml
       # @authenticated false
       # @rate_limited true
-      # @param user [Integer, String] A Twitter user ID or screen name.
-      # @param options [Hash] A customizable set of options.
-      # @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
-      # @return [Hashie::Mash] The requested user.
       # @see http://dev.twitter.com/doc/get/users/show
+      def user(*args)
+        options = args.last.is_a?(Hash) ? args.pop : {}
+        user = args.first || get_screen_name
+        merge_user_into_options!(user, options)
+        response = get('users/show', options)
+        format.to_s.downcase == 'xml' ? response['user'] : response  
+      end
+      
+      # Returns extended information of a given user
+      #
+      # @overload user(user, options={})
+      #   @param user [Integer, String] A Twitter user ID or screen name.
+      #   @param options [Hash] A customizable set of options.
+      #   @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
+      #   @return [Hashie::Mash] The requested user.
       # @example Return extended information for @sferik
       #   Twitter.user("sferik")
       #   Twitter.user(7505382)  # Same as above
-      def user(user, options={})
-        merge_user_into_options!(user, options)
-        response = get('users/show', options)
-        format.to_s.downcase == 'xml' ? response['user'] : response
-      end
+      # @format :json, :xml
+      # @authenticated false
+      # @rate_limited true
+      # @see http://dev.twitter.com/doc/get/users/show
+      # def user(*args)
+      #   options = args.last.is_a?(Hash) ? args.pop : {}
+      #   user = args || Twitter.options.user_id
+      #   merge_user_into_options!(user, options)
+      #   response = get('users/show', options)
+      #   Twitter.options.merge!({
+      #     :screen_name => response.user.screen_name,
+      #     :user_id => response.user.id
+      #   })
+      #   format.to_s.downcase == 'xml' ? response['user'] : response
+      # end
 
       # Returns extended information for up to 100 users
       #
@@ -94,18 +122,20 @@ module Twitter
 
       # Access the profile image in various sizes for the user with the indicated screen name
       #
-      # @todo Overload the method to allow fetching of the authenticated user's screen name from configuration.
+      # @overload profile_image(screen_name, options={})
+      #   @param screen_name [String] The screen name of the user for whom to return results for.
+      #   @param options [Hash] A customizable set of options.
+      #   @option options [String] :size ('normal') Specifies the size of image to fetch. Valid options include: 'bigger' (73px by 73px), 'normal' (48px by 48px), and 'mini' (24px by 24px).
+      #   @example Return the URL for the 24px by 24px version of @sferik's profile image
+      #     Twitter.profile_image("sferik", :size => 'mini')      
       # @format :json, :xml
       # @authenticated false
       # @rate_limited false
-      # @param screen_name [String] The screen name of the user for whom to return results for.
-      # @param options [Hash] A customizable set of options.
-      # @option options [String] :size ('normal') Specifies the size of image to fetch. Valid options include: 'bigger' (73px by 73px), 'normal' (48px by 48px), and 'mini' (24px by 24px).
       # @return [String] The URL for the requested user's profile image.
       # @see http://dev.twitter.com/doc/get/users/profile_image/:screen_name
-      # @example Return the URL for the 24px by 24px version of @sferik's profile image
-      #   Twitter.profile_image("sferik", :size => 'mini')
-      def profile_image(screen_name, options={})
+      def profile_image(*args)
+        options = args.last.is_a?(Hash) ? args.pop : {}
+        screen_name = args.first || get_screen_name
         clean_screen_name!(screen_name)
         get("users/profile_image/#{screen_name}", options, true).headers['location']
       end

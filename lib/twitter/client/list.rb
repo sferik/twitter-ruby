@@ -28,20 +28,23 @@ module Twitter
 
       # Updates the specified list
       #
-      # @todo Overload the method to allow fetching of the authenticated user's screen name from configuration.
+      # @overload list_update(screen_name, name, options={})
+      #   @param screen_name [String] A Twitter screen name.
+      #   @param name [String] The name for the list.
+      #   @param options [Hash] A customizable set of options.
+      #   @option options [String] :mode ('public') Whether your list is public or private. Values can be 'public' or 'private'.
+      #   @option options [String] :description The description to give the list.
+      #   @example Update the "presidents" list to have the description "Presidents of the United States of America"
+      #     Twitter.list_update("sferik", "presidents", :description => "Presidents of the United States of America")
       # @format :json, :xml
       # @authenticated true
       # @rate_limited false
-      # @param screen_name [String] A Twitter screen name.
-      # @param name [String] The name for the list.
-      # @param options [Hash] A customizable set of options.
-      # @option options [String] :mode ('public') Whether your list is public or private. Values can be 'public' or 'private'.
-      # @option options [String] :description The description to give the list.
       # @return [Hashie::Mash] The created list.
       # @see http://dev.twitter.com/doc/post/:user/lists/:id
-      # @example Update the "presidents" list to have the description "Presidents of the United States of America"
-      #   Twitter.list_update("sferik", "presidents", :description => "Presidents of the United States of America")
-      def list_update(screen_name, name, options={})
+      def list_update(*args)
+        options = args.last.is_a?(Hash) ? args.pop : {}
+        name = args.pop
+        screen_name = args.pop || get_screen_name
         clean_screen_name!(screen_name)
         response = put("#{screen_name}/lists/#{name}", options)
         format.to_s.downcase == 'xml' ? response['list'] : response
