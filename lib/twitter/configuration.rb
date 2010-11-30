@@ -5,7 +5,7 @@ module Twitter
   # Defines constants and methods related to configuration
   module Configuration
     # An array of valid keys in the options hash when configuring a {Twitter::API}
-    VALID_OPTIONS_KEYS = [:consumer_key, :consumer_secret, :oauth_token, :oauth_token_secret, :adapter, :endpoint, :format, :proxy, :search_endpoint, :user_agent].freeze
+    VALID_OPTIONS_KEYS = [:consumer_key, :consumer_secret, :oauth_token, :oauth_token_secret, :adapter, :endpoint, :format, :proxy, :search_endpoint, :user_agent, :user_screen_name].freeze
 
     # An array of valid request/response formats
     #
