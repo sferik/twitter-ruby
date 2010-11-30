@@ -15,7 +15,7 @@ describe Faraday::Response::RaiseHttp4xx do
     it "should raise Twitter::BadRequest" do
       lambda do
         @client.user_timeline('sferik')
-      end.should raise_error Twitter::BadRequest
+      end.should raise_error(Twitter::BadRequest)
     end
 
   end
@@ -30,7 +30,7 @@ describe Faraday::Response::RaiseHttp4xx do
     it "should raise Twitter::Unauthorized" do
       lambda do
         @client.user_timeline('sferik')
-      end.should raise_error Twitter::Unauthorized
+      end.should raise_error(Twitter::Unauthorized)
     end
 
   end
@@ -45,7 +45,7 @@ describe Faraday::Response::RaiseHttp4xx do
     it "should raise Twitter::Forbidden" do
       lambda do
         @client.user_timeline('sferik')
-      end.should raise_error Twitter::Forbidden
+      end.should raise_error(Twitter::Forbidden)
     end
 
   end
@@ -60,7 +60,7 @@ describe Faraday::Response::RaiseHttp4xx do
     it "should raise Twitter::NotFound" do
       lambda do
         @client.user_timeline('sferik')
-      end.should raise_error Twitter::NotFound
+      end.should raise_error(Twitter::NotFound)
     end
 
   end
@@ -75,7 +75,7 @@ describe Faraday::Response::RaiseHttp4xx do
     it "should raise Twitter::NotAcceptable" do
       lambda do
         @client.user_timeline('sferik')
-      end.should raise_error Twitter::NotAcceptable
+      end.should raise_error(Twitter::NotAcceptable)
     end
 
   end
@@ -90,7 +90,7 @@ describe Faraday::Response::RaiseHttp4xx do
     it "should raise Twitter::EnhanceYourCalm" do
       lambda do
         @client.user_timeline('sferik')
-      end.should raise_error Twitter::EnhanceYourCalm
+      end.should raise_error(Twitter::EnhanceYourCalm)
     end
 
     it "should capture wait time" do
