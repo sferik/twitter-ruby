@@ -23,32 +23,6 @@ module Twitter
         response = get('users/show', options)
         format.to_s.downcase == 'xml' ? response['user'] : response  
       end
-      
-      # Returns extended information of a given user
-      #
-      # @overload user(user, options={})
-      #   @param user [Integer, String] A Twitter user ID or screen name.
-      #   @param options [Hash] A customizable set of options.
-      #   @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
-      #   @return [Hashie::Mash] The requested user.
-      # @example Return extended information for @sferik
-      #   Twitter.user("sferik")
-      #   Twitter.user(7505382)  # Same as above
-      # @format :json, :xml
-      # @authenticated false
-      # @rate_limited true
-      # @see http://dev.twitter.com/doc/get/users/show
-      # def user(*args)
-      #   options = args.last.is_a?(Hash) ? args.pop : {}
-      #   user = args || Twitter.options.user_id
-      #   merge_user_into_options!(user, options)
-      #   response = get('users/show', options)
-      #   Twitter.options.merge!({
-      #     :screen_name => response.user.screen_name,
-      #     :user_id => response.user.id
-      #   })
-      #   format.to_s.downcase == 'xml' ? response['user'] : response
-      # end
 
       # Returns extended information for up to 100 users
       #
