@@ -81,6 +81,24 @@ describe Twitter::Client do
           end
 
         end
+        
+        context "without screen name or user ID passed" do
+
+          before do
+            @client.stub!(:get_screen_name).and_return('sferik')
+            stub_get("users/show.#{format}").
+              with(:query => {:screen_name => "sferik"}).
+              to_return(:body => fixture("user.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+          end
+
+          it "should get the correct resource" do
+            @client.user()
+            a_get("users/show.#{format}").
+              with(:query => {:screen_name => "sferik"}).
+              should have_been_made
+          end
+
+        end
 
       end
 
@@ -248,18 +266,40 @@ describe Twitter::Client do
       end
 
       describe ".profile_image" do
+        
+        context "with screen name passed" do
 
-        before do
-          stub_get("users/profile_image/sferik.#{format}").
-            to_return(fixture("profile_image.text"))
+          before do
+            stub_get("users/profile_image/sferik.#{format}").
+              to_return(fixture("profile_image.text"))
+          end
+  
+          it "should redirect to the correct resource" do
+            profile_image = @client.profile_image("sferik")
+            a_get("users/profile_image/sferik.#{format}").
+              with(:status => 302).
+              should have_been_made
+            profile_image.should == "http://a0.twimg.com/profile_images/323331048/me_normal.jpg"
+          end
+          
         end
+        
+        context "without screen name passed" do
 
-        it "should redirect to the correct resource" do
-          profile_image = @client.profile_image("sferik")
-          a_get("users/profile_image/sferik.#{format}").
-            with(:status => 302).
-            should have_been_made
-          profile_image.should == "http://a0.twimg.com/profile_images/323331048/me_normal.jpg"
+          before do
+            @client.stub!(:get_screen_name).and_return('sferik')
+            stub_get("users/profile_image/sferik.#{format}").
+              to_return(fixture("profile_image.text"))
+          end
+  
+          it "should redirect to the correct resource" do
+            profile_image = @client.profile_image()
+            a_get("users/profile_image/sferik.#{format}").
+              with(:status => 302).
+              should have_been_made
+            profile_image.should == "http://a0.twimg.com/profile_images/323331048/me_normal.jpg"
+          end
+          
         end
 
       end
