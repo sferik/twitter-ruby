@@ -2,7 +2,6 @@ module Twitter
   class Client
     # Defines methods related to friends and followers
     module FriendsAndFollowers
-      # @todo Move the code that makes the parsed XML consistent with the parsed JSON into MultiXML.
       # @overload friend_ids(options={})
       #   Returns an array of numeric IDs for every user the authenticated user is following
       #
@@ -36,7 +35,6 @@ module Twitter
         format.to_s.downcase == 'xml' ? Hashie::Mash.new(:ids => response['id_list']['ids']['id'].map{|id| id.to_i}) : response
       end
 
-      # @todo Move the code that makes the parsed XML consistent with the parsed JSON into MultiXML.
       # @overload follower_ids(options={})
       #   Returns an array of numeric IDs for every user following the authenticated user
       #

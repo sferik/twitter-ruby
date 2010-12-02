@@ -85,7 +85,6 @@ module Twitter
 
       # Returns an array of numeric IDs for every user who has a pending request to follow the authenticating user
       #
-      # @todo Move the code that makes the parsed XML consistent with the parsed JSON into MultiXML.
       # @format :json, :xml
       # @authenticated true
       # @rate_limited true
@@ -103,7 +102,6 @@ module Twitter
 
       # Returns an array of numeric IDs for every protected user for whom the authenticating user has a pending follow request
       #
-      # @todo Move the code that makes the parsed XML consistent with the parsed JSON into MultiXML.
       # @format :json, :xml
       # @authenticated true
       # @rate_limited true
