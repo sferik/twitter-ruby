@@ -190,7 +190,7 @@ Usage Examples
     # Get a status update by id
     puts Twitter.status(27558893223).text
 
-    # Initialize a Twitter search
+    # Initialize a Twitter search client
     search = Twitter::Search.new
 
     # Find the 3 most recent marriage proposals to @justinbieber
@@ -216,23 +216,20 @@ Usage Examples
       config.oauth_token_secret = YOUR_OAUTH_TOKEN_SECRET
     end
 
-    # Initialize your Twitter client
-    client = Twitter::Client.new
-
     # Update your status
-    client.update("I'm tweeting from the Twitter Ruby Gem!")
+    Twitter.update("I'm tweeting from the Twitter Ruby Gem!")
 
     # Read the most recent tweet in your home timeline
-    puts client.home_timeline.first.text
+    puts Twitter.home_timeline.first.text
 
     # Who's your most popular friend?
-    puts client.friends.sort{|a, b| a.followers_count <=> b.followers_count}.reverse.first.name
+    puts Twitter.friends.sort{|a, b| a.followers_count <=> b.followers_count}.reverse.first.name
 
     # Who's your most popular follower?
-    puts client.followers.sort{|a, b| a.followers_count <=> b.followers_count}.reverse.first.name
+    puts Twitter.followers.sort{|a, b| a.followers_count <=> b.followers_count}.reverse.first.name
 
     # Get your rate limit status
-    puts client.rate_limit_status.remaining_hits.to_s + " Twitter API request(s) remaining this hour"
+    puts Twitter.rate_limit_status.remaining_hits.to_s + " Twitter API request(s) remaining this hour"
 
 Contributing
 ------------
