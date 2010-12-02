@@ -70,9 +70,9 @@ module Twitter
       # @param user_a [Integer, String] The ID or screen_name of the subject user.
       # @param user_b [Integer, String] The ID or screen_name of the user to test for following.
       # @param options [Hash] A customizable set of options.
-      # @option options [Integer] :source_id The user_id of the subject user.
+      # @option options [Integer] :source_id The ID of the subject user.
       # @option options [String] :source_screen_name The screen_name of the subject user.
-      # @option options [Integer] :target_id The user_id of the target user.
+      # @option options [Integer] :target_id The ID of the target user.
       # @option options [String] :target_screen_name The screen_name of the target user.
       # @return [Hashie::Mash]
       # @see http://dev.twitter.com/doc/get/friendships/show
