@@ -4,16 +4,50 @@ A Ruby wrapper for the Twitter REST and Search APIs
 
 Installation
 ------------
-    $ gem install twitter
+    gem install twitter
+
+Documentation
+-------------
+<http://rdoc.info/gems/twitter>
 
 Follow @gem on Twitter
 ----------------------
 You should [follow @gem on Twitter](http://twitter.com/#!/gem) for announcements,
 updates, and news about the twitter gem.
 
+Join the mailing list!
+----------------------
+<https://groups.google.com/group/ruby-twitter-gem>
+
 Does your project or organization use this gem?
-------------------------------------------
+-----------------------------------------------
 Add it to the [apps](http://github.com/jnunemaker/twitter/wiki/apps) wiki!
+
+What's new in 1.1?
+------------------
+This version no longer requires that you explicitly pass the authenticated
+user's ID or screen name.
+
+**Pre-1.1**
+
+    Twitter.configure do |config|
+      config.consumer_key = YOUR_CONSUMER_KEY
+      config.consumer_secret = YOUR_CONSUMER_SECRET
+      config.oauth_token = YOUR_OAUTH_TOKEN
+      config.oauth_token_secret = YOUR_OAUTH_TOKEN_SECRET
+    end
+    
+    Twitter.user("sferik")
+**Post-1.1**
+
+    Twitter.configure do |config|
+      config.consumer_key = YOUR_CONSUMER_KEY
+      config.consumer_secret = YOUR_CONSUMER_SECRET
+      config.oauth_token = YOUR_OAUTH_TOKEN
+      config.oauth_token_secret = YOUR_OAUTH_TOKEN_SECRET
+    end
+    
+    Twitter.user
 
 What's new in 1.0?
 ------------------
@@ -26,19 +60,23 @@ the <tt>Twitter::Client</tt> class. Whenever possible, we [display deprecation w
 calls to the <tt>Twitter::Client</tt> class](http://github.com/jnunemaker/twitter/commit/192e5884f367750dbdca8471aa12385ed5b057ca).
 In a handful of cases, method names were changed to resolve namespace conflicts.
 
-* **Pre-1.0**
-        Twitter::Base.new.user("sferik").name
-* **Post-1.0**
-        Twitter::Client.new.user("sferik").name
+**Pre-1.0**
+
+    Twitter::Base.new.user("sferik").name
+**Post-1.0**
+
+    Twitter::Client.new.user("sferik").name
 
 The <tt>Twitter::Search</tt> class has remained largely the same, however it no longer accepts a
 query in its constructor. You can specify a query using the <tt>#containing</tt> method, which is
 aliased to <tt>#q</tt>.
 
-* **Pre-1.0**
-        Twitter::Search.new("query").fetch.first.text
-* **Post-1.0**
-        Twitter::Search.new.q("query").fetch.first.text
+**Pre-1.0**
+
+    Twitter::Search.new("query").fetch.first.text
+**Post-1.0**
+
+    Twitter::Search.new.q("query").fetch.first.text
 
 The error classes have gone through a transformation to make them consistent with [Twitter's documented
 response codes](http://dev.twitter.com/pages/responses_errors). These changes should make it easier to
@@ -102,7 +140,7 @@ error returned by the Twitter Search API.
   </tbody>
 </table>
 
-The <tt>Twitter::OAuth</tt> class [has been removed](http://github.com/jnunemaker/twitter/commit/d33b119cdfdaefb10db99e56d28dd69625816edf).
+Additionally, the <tt>Twitter::OAuth</tt> class [has been removed](http://github.com/jnunemaker/twitter/commit/d33b119cdfdaefb10db99e56d28dd69625816edf).
 This class was just a wrapper to get access tokens via the [oauth
 gem](http://github.com/oauth/oauth-ruby). Given that there are a variety of gems that do the same
 thing ([twitter-auth](http://github.com/mbleigh/twitter-auth),
@@ -110,24 +148,8 @@ thing ([twitter-auth](http://github.com/mbleigh/twitter-auth),
 [devise](http://github.com/plataformatec/devise), to name a few) we decided to decouple
 this functionality so you can use the authentication library of your choosing, or none at all. If
 you would like to continue using the [oauth gem](http://github.com/oauth/oauth-ruby),
-simply apply the following changes to your code:
-
-* **Pre-1.0**
-        options = {:api_endpoint => "http://api.twitter.com", :signing_endpoint => "http://api.twitter.com"}
-        oauth_wrapper = Twitter::OAuth.new(YOUR_CONSUMER_TOKEN, YOUR_CONSUMER_SECRET, options)
-        oauth_wrapper.set_callback_url(CALLBACK_URL)
-        signing_consumer = oauth_wrapper.signing_consumer
-        request_token = signing_consumer.get_request_token
-        redirect_to request_token.authorize_url
-        oauth_wrapper.authorize_from_request(request_token.token, request_token.secret, params[:oauth_verifier])
-
-* **Post-1.0**
-        require 'oauth'
-        options = {:site => "http://api.twitter.com", :request_endpoint => "http://api.twitter.com"}
-        signing_consumer = OAuth::Consumer.new(YOUR_CONSUMER_TOKEN, YOUR_CONSUMER_SECRET, options)
-        request_token = signing_consumer.get_request_token(:oauth_callback => CALLBACK_URL)
-        redirect_to request_token.authorize_url
-        OAuth::RequestToken.new(signing_consumer, request_token.token, request_token.secret).get_access_token(:oauth_verifier => params[:oauth_verifier])
+we have created an [example app](https://github.com/jnunemaker/twitter-app) that demonstrates how
+to do so.
 
 The public APIs defined in version 1.0 of this gem will maintain backwards compatibility until
 the next major version, following the best practice of [Semantic Versioning](http://semver.org/).
@@ -136,29 +158,23 @@ upgrading to 1.0 is strongly recommended.
 
 Here are a few more reasons to upgrade to 1.0:
 
-* Ruby 1.9 compatibility: All code and specs now work in the latest version of Ruby!
-* Support for HTTP proxies: Access Twitter from China, Iran, or inside your office firewall!
+* Full Ruby 1.9 compatibility: All code and specs now work in the latest version of Ruby
+* Support for HTTP proxies: Access Twitter from China, Iran, or inside your office firewall
 * Support for multiple HTTP adapters: NetHttp (default), Typhoeus, Patron, or ActionDispatch
-* Support for multiple request formats: JSON (default) or XML
+* Support for multiple Twitter response formats: JSON (default) or XML
 * More flexible: Parse JSON or XML with the engine of your choosing via [MultiJSON](http://github.com/intridea/multi_json) and [MultiXML](http://github.com/sferik/multi_xml)
 * More RESTful: Uses HTTP DELETE (instead of POST) when requesting destructive resources
-* More methods: Request any documented resource in the Twitter API, including all [#newtwitter resources](http://groups.google.com/group/twitter-development-talk/browse_thread/thread/cdc34ae78a2350b8)!
-* SSL: On by default for increased [speed](http://gist.github.com/652330) and security!
-* Improved error handling: Easily rescue and retry after rate-limit errors or fail whales!
-
-For more information, please see the [full documentation](http://rdoc.info/gems/twitter) and
-examples of the gem's usage below.
+* More methods: Request any documented resource in the Twitter API, including all [#newtwitter resources](http://groups.google.com/group/twitter-development-talk/browse_thread/thread/cdc34ae78a2350b8)
+* SSL: On by default for increased [speed](http://gist.github.com/652330) and security
+* Improved error handling: More easily rescue from rate-limit errors or fail whales
 
 Help! I'm getting: "Did not recognize your engine specification. Please specify either a symbol or a class. (RuntimeError)"
 ---------------------------------------------------------------------------------------------------------------------------
 
 If you're using the JSON request format (i.e., the default), you'll need to
 explicitly require a JSON library. We recommend [yajl-ruby](http://github.com/brianmario/yajl-ruby).
-If you're using the XML request format, we recommend requiring [libxml-ruby](http://github.com/dvdplm/libxml-ruby) for dramatically improved performance over REXML.
-
-Documentation
--------------
-<http://rdoc.info/gems/twitter>
+If you're using the XML request format, we recommend requiring [libxml-ruby](http://github.com/dvdplm/libxml-ruby) or
+[nokogiri](http://nokogiri.org/) for dramatically improved performance over REXML.
 
 Usage Examples
 --------------
@@ -185,7 +201,7 @@ Usage Examples
     # Enough about Justin Bieber
     search.clear
 
-    # Let's find a Japanese-language status update tagged #ruby
+    # Let's find a Japanese-language tweet tagged #ruby
     puts search.hashtag("ruby").language("ja").no_retweets.per_page(1).fetch.first.text
 
     # And another
@@ -203,10 +219,10 @@ Usage Examples
     # Initialize your Twitter client
     client = Twitter::Client.new
 
-    # Post a status update
-    client.update("I just posted a status update via the Twitter Ruby Gem!")
+    # Update your status
+    client.update("I'm tweeting from the Twitter Ruby Gem!")
 
-    # Read the most recent status update in your home timeline
+    # Read the most recent tweet in your home timeline
     puts client.home_timeline.first.text
 
     # Who's your most popular friend?

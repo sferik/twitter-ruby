@@ -23,11 +23,16 @@ Gem::Specification.new do |s|
   s.description = %q{A Ruby wrapper for the Twitter REST and Search APIs}
   s.post_install_message =<<eos
 ********************************************************************************
-  You should follow @gem on Twitter for announcements, updates, and news.
+
+  Follow @gem on Twitter for announcements, updates, and news.
   https://twitter.com/gem
 
-  Using this gem in your project or organization? Add it to the apps wiki!
+  Join the mailing list!
+  https://groups.google.com/group/ruby-twitter-gem
+
+  Add your project or organization to the apps wiki!
   https://github.com/jnunemaker/twitter/wiki/apps
+
 ********************************************************************************
 eos
   s.email = ["nunemaker@gmail.com", "wynn.netherland@gmail.com", "sferik@gmail.com", "steve.richert@gmail.com"]

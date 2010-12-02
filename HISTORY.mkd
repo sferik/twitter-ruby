@@ -1,3 +1,6 @@
+1.1.0 - Coming Soon
+* [Overload all methods that require a screen_name parameter](https://github.com/jnunemaker/twitter/compare/ecd647e414ac0b0cae96...59cf052ca646a2b79446) ([@gabriel_somoza](http://twitter.com/#!/gabriel_somoza))
+
 1.0.0 - November 18, 2010
 -------------------------
 * [Fix conditional inclusion of jruby-openssl in Ruby 1.9](https://github.com/jnunemaker/twitter/commit/e8e9b1d7232bf69ac5e217e2e18dc9c8e75f2fc4)
