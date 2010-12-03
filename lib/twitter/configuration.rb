@@ -53,7 +53,10 @@ module Twitter
     DEFAULT_PROXY = nil.freeze
 
     # The user agent that will be sent to the API endpoint if none is set
-    DEFAULT_USER_AGENT         = "Twitter Ruby Gem #{Twitter::VERSION}".freeze
+    DEFAULT_USER_AGENT = "Twitter Ruby Gem #{Twitter::VERSION}".freeze
+
+    # By default, don't set a screen name
+    DEFAULT_SCREEN_NAME = nil.freeze
 
     # @private
     attr_accessor *VALID_OPTIONS_KEYS
@@ -87,6 +90,7 @@ module Twitter
       self.proxy              = DEFAULT_PROXY
       self.search_endpoint    = DEFAULT_SEARCH_ENDPOINT
       self.user_agent         = DEFAULT_USER_AGENT
+      self.screen_name        = DEFAULT_SCREEN_NAME
       self
     end
   end
