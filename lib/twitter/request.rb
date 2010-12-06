@@ -24,7 +24,7 @@ module Twitter
     private
 
     # Perform an HTTP request
-    def request(method, path, options, raw)
+    def request(method, path, options, raw=false)
       response = connection(raw).send(method) do |request|
         case method
         when :get, :delete
