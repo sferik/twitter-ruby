@@ -8,7 +8,8 @@ describe Faraday::Response::RaiseHttp5xx do
   context "when response status is 500" do
 
     before do
-      stub_get("statuses/user_timeline.json?screen_name=sferik").
+      stub_get("statuses/user_timeline.json").
+        with(:query => {:screen_name => "sferik"}).
         to_return(:status => 500)
     end
 
@@ -23,7 +24,8 @@ describe Faraday::Response::RaiseHttp5xx do
   context "when response status is 502" do
 
     before do
-      stub_get("statuses/user_timeline.json?screen_name=sferik").
+      stub_get("statuses/user_timeline.json").
+        with(:query => {:screen_name => "sferik"}).
         to_return(:status => 502)
     end
 
@@ -38,7 +40,8 @@ describe Faraday::Response::RaiseHttp5xx do
   context "when response status is 503" do
 
     before do
-      stub_get("statuses/user_timeline.json?screen_name=sferik").
+      stub_get("statuses/user_timeline.json").
+        with(:query => {:screen_name => "sferik"}).
         to_return(:status => 503)
     end
 

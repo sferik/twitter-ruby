@@ -8,7 +8,8 @@ describe Faraday::Response::RaiseHttp4xx do
   context "when response status is 400" do
 
     before do
-      stub_get("statuses/user_timeline.json?screen_name=sferik").
+      stub_get("statuses/user_timeline.json").
+        with(:query => {:screen_name => "sferik"}).
         to_return(:status => 400)
     end
 
@@ -23,7 +24,8 @@ describe Faraday::Response::RaiseHttp4xx do
   context "when response status is 401" do
 
     before do
-      stub_get("statuses/user_timeline.json?screen_name=sferik").
+      stub_get("statuses/user_timeline.json").
+        with(:query => {:screen_name => "sferik"}).
         to_return(:status => 401)
     end
 
@@ -38,7 +40,8 @@ describe Faraday::Response::RaiseHttp4xx do
   context "when response status is 403" do
 
     before do
-      stub_get("statuses/user_timeline.json?screen_name=sferik").
+      stub_get("statuses/user_timeline.json").
+        with(:query => {:screen_name => "sferik"}).
         to_return(:status => 403)
     end
 
@@ -53,7 +56,8 @@ describe Faraday::Response::RaiseHttp4xx do
   context "when response status is 404" do
 
     before do
-      stub_get("statuses/user_timeline.json?screen_name=sferik").
+      stub_get("statuses/user_timeline.json").
+        with(:query => {:screen_name => "sferik"}).
         to_return(:status => 404)
     end
 
@@ -68,7 +72,8 @@ describe Faraday::Response::RaiseHttp4xx do
   context "when response status is 406" do
 
     before do
-      stub_get("statuses/user_timeline.json?screen_name=sferik").
+      stub_get("statuses/user_timeline.json").
+        with(:query => {:screen_name => "sferik"}).
         to_return(:status => 406)
     end
 
@@ -83,7 +88,8 @@ describe Faraday::Response::RaiseHttp4xx do
   context "when response status is 420" do
 
     before do
-      stub_get("statuses/user_timeline.json?screen_name=sferik").
+      stub_get("statuses/user_timeline.json").
+        with(:query => {:screen_name => "sferik"}).
         to_return(:status => 420, :headers => {'retry-after' => 420})
     end
 
