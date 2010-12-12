@@ -69,6 +69,22 @@ describe Faraday::Response::RaiseHttp4xx do
 
   end
 
+  context "when response status is 404 from lookup" do
+
+    before do
+      stub_get("users/lookup.json").
+        with(:query => {:screen_name => "not_on_twitter"}).
+        to_return(:status => 404, :body => fixture('lookup-404.json'))
+    end
+
+    it "should raise Twitter::NotFound" do
+      lambda do
+        @client.users('not_on_twitter')
+      end.should raise_error(Twitter::NotFound)
+    end
+
+  end
+
   context "when response status is 406" do
 
     before do

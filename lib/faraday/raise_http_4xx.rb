@@ -40,7 +40,12 @@ module Faraday
       elsif body['error']
         ": #{body['error']}"
       elsif body['errors']
-        ": #{body['errors'].to_a.first.chomp}"
+        first = body['errors'].to_a.first
+        if first.kind_of? Hash
+          ": #{first['message'].chomp}"
+        else
+          ": #{first.chomp}"
+        end
       end
     end
   end
