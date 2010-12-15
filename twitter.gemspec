@@ -38,7 +38,7 @@ eos
   s.email = ['nunemaker@gmail.com', 'wynn.netherland@gmail.com', 'sferik@gmail.com', 'steve.richert@gmail.com']
   s.executables = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.files = `git ls-files`.split("\n")
-  s.homepage = 'http://rubygems.org/gems/twitter'
+  s.homepage = 'https://github.com/jnunemaker/twitter'
   s.name = 'twitter'
   s.platform = Gem::Platform::RUBY
   s.require_paths = ['lib']
