@@ -1,6 +1,7 @@
 1.1.0 - Coming Soon
 -------------------
 * [Overload all methods that require a screen_name parameter](https://github.com/jnunemaker/twitter/compare/ecd647e414ac0b0cae96...59cf052ca646a2b79446) ([@gabriel_somoza](http://twitter.com/#!/gabriel_somoza))
+* [Rename <tt>user_screen_name</tt> to <tt>screen_name</tt>](https://github.com/jnunemaker/twitter/commit/4fb4f8a28c967f7d5a2cf295b34548a346900cfd) ([@jalada](http://twitter.com/#!/jalada))
 
 1.0.0 - November 18, 2010
 -------------------------
