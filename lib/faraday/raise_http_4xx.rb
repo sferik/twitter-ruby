@@ -31,7 +31,7 @@ module Faraday
     private
 
     def self.error_message(response)
-      "#{response[:method].to_s.upcase} #{response[:url].to_s}: #{response[:response_headers]['status']}#{error_body(response[:body])}"
+      "#{response[:method].to_s.upcase} #{response[:url].to_s}: #{response[:status]}#{error_body(response[:body])}"
     end
 
     def self.error_body(body)
