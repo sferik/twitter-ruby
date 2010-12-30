@@ -261,7 +261,7 @@ describe Twitter::Search do
     describe ".positive" do
 
       it "should set the query to include ':)'" do
-        @client.positive.query[:q].should include ':)'
+        @client.positive.query[:tude].should include ':)'
       end
 
     end
@@ -269,7 +269,7 @@ describe Twitter::Search do
     describe ".negative" do
 
       it "should set the query to include ':('" do
-        @client.negative.query[:q].should include ':('
+        @client.negative.query[:tude].should include ':('
       end
 
     end
@@ -277,7 +277,7 @@ describe Twitter::Search do
     describe ".question" do
 
       it "should set the query to include '?'" do
-        @client.question.query[:q].should include '?'
+        @client.question.query[:tude].should include '?'
       end
 
     end
