@@ -42,6 +42,7 @@ module Twitter
       @cache = nil
       @query = {}
       @query[:q] = []
+      @query[:tude] = []
       self
     end
 
@@ -133,7 +134,7 @@ module Twitter
     # @example Return an array of tweets containing happy emoticons
     #   Twitter::Search.new.positive.fetch
     def positive
-      @query[:q] << ":)"
+      @query[:tude] << ":)"
       self
     end
 
@@ -143,7 +144,7 @@ module Twitter
     # @example Return an array of tweets containing sad emoticons
     #   Twitter::Search.new.negative.fetch
     def negative
-      @query[:q] << ":("
+      @query[:tude] << ":("
       self
     end
 
@@ -153,7 +154,7 @@ module Twitter
     # @example Return an array of tweets containing question marks
     #   Twitter::Search.new.question.fetch
     def question
-      @query[:q] << "?"
+      @query[:tude] << "?"
       self
     end
 
