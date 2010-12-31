@@ -16,6 +16,8 @@ module Twitter
   #   {Twitter::Client::User#user} to get the correct user id if necessary.
   # @see http://dev.twitter.com/doc/get/search Twitter Search API Documentation
   class Search < API
+    include Enumerable
+
     # @private
     attr_reader :query
 
