@@ -71,46 +71,46 @@ describe Twitter::Client do
       end
 
       describe ".user_timeline" do
-        
+
         context "with screen name passed" do
-  
+
           before do
             stub_get("statuses/user_timeline.#{format}").
               with(:query => {:screen_name => "sferik"}).
               to_return(:body => fixture("statuses.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
-  
+
           it "should get the correct resource" do
             @client.user_timeline("sferik")
             a_get("statuses/user_timeline.#{format}").
               with(:query => {:screen_name => "sferik"}).
               should have_been_made
           end
-  
+
           it "should return the 20 most recent statuses posted by the user specified by screen name or user id" do
             statuses = @client.user_timeline("sferik")
             statuses.should be_an Array
             statuses.first.text.should == "Ruby is the best programming language for hiding the ugly bits."
           end
-          
+
         end
-        
+
         context "without screen name passed" do
-  
+
           before do
             @client.stub!(:get_screen_name).and_return('sferik')
             stub_get("statuses/user_timeline.#{format}").
               with(:query => {:screen_name => "sferik"}).
               to_return(:body => fixture("statuses.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
-  
+
           it "should get the correct resource" do
             @client.user_timeline()
             a_get("statuses/user_timeline.#{format}").
               with(:query => {:screen_name => "sferik"}).
               should have_been_made
           end
-          
+
         end
 
       end

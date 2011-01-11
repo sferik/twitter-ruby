@@ -21,7 +21,7 @@ module Twitter
         user = args.first || get_screen_name
         merge_user_into_options!(user, options)
         response = get('users/show', options)
-        format.to_s.downcase == 'xml' ? response['user'] : response  
+        format.to_s.downcase == 'xml' ? response['user'] : response
       end
 
       # Returns extended information for up to 100 users
@@ -101,7 +101,7 @@ module Twitter
       #   @param options [Hash] A customizable set of options.
       #   @option options [String] :size ('normal') Specifies the size of image to fetch. Valid options include: 'bigger' (73px by 73px), 'normal' (48px by 48px), and 'mini' (24px by 24px).
       #   @example Return the URL for the 24px by 24px version of @sferik's profile image
-      #     Twitter.profile_image("sferik", :size => 'mini')      
+      #     Twitter.profile_image("sferik", :size => 'mini')
       # @format :json, :xml
       # @authenticated false
       # @rate_limited false

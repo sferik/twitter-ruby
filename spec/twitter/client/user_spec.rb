@@ -81,7 +81,7 @@ describe Twitter::Client do
           end
 
         end
-        
+
         context "without screen name or user ID passed" do
 
           before do
@@ -266,14 +266,14 @@ describe Twitter::Client do
       end
 
       describe ".profile_image" do
-        
+
         context "with screen name passed" do
 
           before do
             stub_get("users/profile_image/sferik.#{format}").
               to_return(fixture("profile_image.text"))
           end
-  
+
           it "should redirect to the correct resource" do
             profile_image = @client.profile_image("sferik")
             a_get("users/profile_image/sferik.#{format}").
@@ -281,9 +281,9 @@ describe Twitter::Client do
               should have_been_made
             profile_image.should == "http://a0.twimg.com/profile_images/323331048/me_normal.jpg"
           end
-          
+
         end
-        
+
         context "without screen name passed" do
 
           before do
@@ -291,7 +291,7 @@ describe Twitter::Client do
             stub_get("users/profile_image/sferik.#{format}").
               to_return(fixture("profile_image.text"))
           end
-  
+
           it "should redirect to the correct resource" do
             profile_image = @client.profile_image()
             a_get("users/profile_image/sferik.#{format}").
@@ -299,7 +299,7 @@ describe Twitter::Client do
               should have_been_made
             profile_image.should == "http://a0.twimg.com/profile_images/323331048/me_normal.jpg"
           end
-          
+
         end
 
       end

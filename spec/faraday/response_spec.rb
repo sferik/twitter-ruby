@@ -5,7 +5,7 @@ describe Faraday::Response do
     @client = Twitter::Client.new
   end
 
-  { 
+  {
     400 => Twitter::BadRequest,
     401 => Twitter::Unauthorized,
     403 => Twitter::Forbidden,
