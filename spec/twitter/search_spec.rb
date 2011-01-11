@@ -395,15 +395,15 @@ describe Twitter::Search do
       end
 
       it "should iterate over results" do
-        @client.containing('twitter').each{|result| result.should_not be_nil}
+        @client.containing('twitter').each{|result| result.should be}
         a_request(:get, "https://search.twitter.com/search.json").
           with(:query => {:q => "twitter"}).
           should have_been_made
       end
 
       it "should iterate over results multiple times in a row" do
-        @client.containing('twitter').each{|result| result.should_not be_nil}
-        @client.containing('twitter').each{|result| result.should_not be_nil}
+        @client.containing('twitter').each{|result| result.should be}
+        @client.containing('twitter').each{|result| result.should be}
         a_request(:get, "https://search.twitter.com/search.json").
           with(:query => {:q => "twitter"}).
           should have_been_made
