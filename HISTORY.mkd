@@ -1,6 +1,9 @@
+1.1.1 - January 16, 2011
+* [Don't set cached <tt>screen_name</tt> when creating a new API client](https://github.com/jnunemaker/twitter/commit/ceeed993b16f95582c648e93de03738362ba1d7b)
+
 1.1.0 - January 6, 2011
 -------------------
-* [Overload all methods that require a screen_name parameter](https://github.com/jnunemaker/twitter/compare/ecd647e414ac0b0cae96...59cf052ca646a2b79446) ([@gabriel_somoza](http://twitter.com/#!/gabriel_somoza))
+* [Overload all methods that require a <tt>screen_name</tt> parameter](https://github.com/jnunemaker/twitter/compare/ecd647e414ac0b0cae96...59cf052ca646a2b79446) ([@gabriel_somoza](http://twitter.com/#!/gabriel_somoza))
 * [Rename <tt>user_screen_name</tt> to <tt>screen_name</tt>](https://github.com/jnunemaker/twitter/commit/4fb4f8a28c967f7d5a2cf295b34548a346900cfd) ([@jalada](http://twitter.com/#!/jalada))
 * [Handle error returns from lookup](https://github.com/jnunemaker/twitter/commit/0553cdbe262f006fae149309ce51a03985ed8fd2) ([@leshill](http://twitter.com/#!/leshill))
 * [Use 'tude' parameter for attitudes](https://github.com/jnunemaker/twitter/commit/8db1bf9dadec3a660a281c94cab2fc335891ce30) ([@ALindeman](http://twitter.com/#!/ALindeman))
