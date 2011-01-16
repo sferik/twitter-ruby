@@ -9,7 +9,7 @@ module Twitter
       #
       # @return [String]
       def get_screen_name
-        Twitter.screen_name ||= self.verify_credentials.screen_name
+        @screen_name ||= self.verify_credentials.screen_name
       end
 
       # Remove @ signs from screen names
