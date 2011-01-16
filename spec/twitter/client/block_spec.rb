@@ -12,7 +12,7 @@ describe Twitter::Client do
         before do
           stub_post("blocks/create.#{format}").
             with(:body => {:screen_name => "sferik"}).
-            to_return(:body => fixture("user.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+            to_return(:body => fixture("sferik.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource" do
@@ -33,7 +33,7 @@ describe Twitter::Client do
         before do
           stub_delete("blocks/destroy.#{format}").
             with(:query => {:screen_name => "sferik"}).
-            to_return(:body => fixture("user.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+            to_return(:body => fixture("sferik.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource" do
@@ -55,7 +55,7 @@ describe Twitter::Client do
         before do
           stub_get("blocks/exists.#{format}").
             with(:query => {:screen_name => "sferik"}).
-            to_return(:body => fixture("user.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+            to_return(:body => fixture("sferik.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           stub_get("blocks/exists.#{format}").
             with(:query => {:screen_name => "pengwynn"}).
             to_return(:body => fixture("not_found.#{format}"), :status => 404, :headers => {:content_type => "application/#{format}; charset=utf-8"})

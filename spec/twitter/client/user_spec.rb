@@ -14,7 +14,7 @@ describe Twitter::Client do
             before do
               stub_get("users/show.#{format}").
                 with(:query => {:screen_name => "sferik"}).
-                to_return(:body => fixture("user.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+                to_return(:body => fixture("sferik.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
             end
 
             it "should get the correct resource" do
@@ -36,7 +36,7 @@ describe Twitter::Client do
           before do
             stub_get("users/show.#{format}").
               with(:query => {:screen_name => "sferik"}).
-              to_return(:body => fixture("user.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+              to_return(:body => fixture("sferik.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
 
           it "should get the correct resource" do
@@ -53,7 +53,7 @@ describe Twitter::Client do
           before do
             stub_get("users/show.#{format}").
               with(:query => {:screen_name => "0"}).
-              to_return(:body => fixture("user.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+              to_return(:body => fixture("sferik.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
 
           it "should get the correct resource" do
@@ -70,7 +70,7 @@ describe Twitter::Client do
           before do
             stub_get("users/show.#{format}").
               with(:query => {:user_id => "7505382"}).
-              to_return(:body => fixture("user.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+              to_return(:body => fixture("sferik.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
 
           it "should get the correct resource" do
@@ -88,7 +88,7 @@ describe Twitter::Client do
             @client.stub!(:get_screen_name).and_return('sferik')
             stub_get("users/show.#{format}").
               with(:query => {:screen_name => "sferik"}).
-              to_return(:body => fixture("user.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+              to_return(:body => fixture("sferik.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
 
           it "should get the correct resource" do

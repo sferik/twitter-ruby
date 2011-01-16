@@ -11,7 +11,7 @@ describe Twitter::Client do
 
         before do
           stub_get("account/verify_credentials.#{format}").
-            to_return(:body => fixture("user.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+            to_return(:body => fixture("sferik.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource" do
@@ -72,7 +72,7 @@ describe Twitter::Client do
         before do
           stub_post("account/update_delivery_device.#{format}").
             with(:body => {:device => "sms"}).
-            to_return(:body => fixture("user.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+            to_return(:body => fixture("sferik.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource" do
@@ -94,7 +94,7 @@ describe Twitter::Client do
         before do
           stub_post("account/update_profile_colors.#{format}").
             with(:body => {:profile_background_color => "000000"}).
-            to_return(:body => fixture("user.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+            to_return(:body => fixture("sferik.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource" do
@@ -115,7 +115,7 @@ describe Twitter::Client do
 
         before do
           stub_post("account/update_profile_image.#{format}").
-            to_return(:body => fixture("user.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+            to_return(:body => fixture("sferik.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource" do
@@ -135,7 +135,7 @@ describe Twitter::Client do
 
         before do
           stub_post("account/update_profile_background_image.#{format}").
-            to_return(:body => fixture("user.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+            to_return(:body => fixture("sferik.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource" do
@@ -156,7 +156,7 @@ describe Twitter::Client do
         before do
           stub_post("account/update_profile.#{format}").
             with(:body => {:url => "http://github.com/sferik/"}).
-            to_return(:body => fixture("user.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+            to_return(:body => fixture("sferik.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource" do

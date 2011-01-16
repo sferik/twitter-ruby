@@ -138,7 +138,7 @@ describe Twitter::Client do
 
           before do
             stub_get("sferik/presidents/subscribers/813286.#{format}").
-              to_return(:body => fixture("user.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+              to_return(:body => fixture("sferik.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
             stub_get("sferik/presidents/subscribers/18755393.#{format}").
               to_return(:body => fixture("not_found.#{format}"), :status => 404, :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
@@ -166,7 +166,7 @@ describe Twitter::Client do
           before do
             @client.stub!(:get_screen_name).and_return('sferik')
             stub_get("sferik/presidents/subscribers/813286.#{format}").
-              to_return(:body => fixture("user.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+              to_return(:body => fixture("sferik.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
             stub_get("sferik/presidents/subscribers/18755393.#{format}").
               to_return(:body => fixture("not_found.#{format}"), :status => 404, :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end

@@ -14,7 +14,7 @@ describe Twitter::Client do
           before do
             stub_post("friendships/create.#{format}").
               with(:body => {:screen_name => "sferik", :follow => "true"}).
-              to_return(:body => fixture("user.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+              to_return(:body => fixture("sferik.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
 
           it "should get the correct resource" do
@@ -36,7 +36,7 @@ describe Twitter::Client do
           before do
             stub_post("friendships/create.#{format}").
               with(:body => {:screen_name => "sferik"}).
-              to_return(:body => fixture("user.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+              to_return(:body => fixture("sferik.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
 
           it "should get the correct resource" do
@@ -58,7 +58,7 @@ describe Twitter::Client do
           before do
             stub_post("friendships/create.#{format}").
               with(:body => {:screen_name => "sferik"}).
-              to_return(:body => fixture("user.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+              to_return(:body => fixture("sferik.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
 
           it "should get the correct resource" do
@@ -82,7 +82,7 @@ describe Twitter::Client do
         before do
           stub_delete("friendships/destroy.#{format}").
             with(:query => {:screen_name => "sferik"}).
-            to_return(:body => fixture("user.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+            to_return(:body => fixture("sferik.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource" do
