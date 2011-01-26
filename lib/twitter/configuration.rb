@@ -20,18 +20,20 @@ module Twitter
     # An array of valid request/response formats
     #
     # @note Not all methods support the XML format.
-    VALID_FORMATS = [:json, :xml].freeze
+    VALID_FORMATS = [
+      :json,
+      :xml].freeze
 
     # The adapter that will be used to connect if none is set
     #
     # @note The default faraday adapter is Net::HTTP.
-    DEFAULT_ADAPTER = Faraday.default_adapter.freeze
+    DEFAULT_ADAPTER = Faraday.default_adapter
 
     # By default, don't set an application key
-    DEFAULT_CONSUMER_KEY = nil.freeze
+    DEFAULT_CONSUMER_KEY = nil
 
     # By default, don't set an application secret
-    DEFAULT_CONSUMER_SECRET = nil.freeze
+    DEFAULT_CONSUMER_SECRET = nil
 
     # The endpoint that will be used to connect if none is set
     #
@@ -45,16 +47,16 @@ module Twitter
     # The response format appended to the path and sent in the 'Accept' header if none is set
     #
     # @note JSON is preferred over XML because it is more concise and faster to parse.
-    DEFAULT_FORMAT = :json.freeze
+    DEFAULT_FORMAT = :json
 
     # By default, don't set a user oauth token
-    DEFAULT_OAUTH_TOKEN = nil.freeze
+    DEFAULT_OAUTH_TOKEN = nil
 
     # By default, don't set a user oauth secret
-    DEFAULT_OAUTH_TOKEN_SECRET = nil.freeze
+    DEFAULT_OAUTH_TOKEN_SECRET = nil
 
     # By default, don't use a proxy server
-    DEFAULT_PROXY = nil.freeze
+    DEFAULT_PROXY = nil
 
     # The search endpoint that will be used to connect if none is set
     #
