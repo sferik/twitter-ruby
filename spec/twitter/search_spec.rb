@@ -126,6 +126,13 @@ describe Twitter::Search do
       it "should set the query not to include statuses from the specified person" do
         @client.not_from('sferik').query[:q].should include '-from:sferik'
       end
+      
+      it "should exclude multiple users" do
+        query = @client.not_from('sferik').not_from('pengwynn').query[:q]
+        query.should include '-from:sferik'
+        query.should include '-from:pengwynn'
+        
+      end
 
     end
 
