@@ -20,4 +20,9 @@ module Twitter
     return super unless client.respond_to?(method)
     client.send(method, *args, &block)
   end
+
+  # Delegate to Twitter::Client
+  def self.respond_to?(method)
+    return client.respond_to?(method) || super
+  end
 end
