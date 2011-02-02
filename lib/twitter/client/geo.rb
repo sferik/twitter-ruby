@@ -44,7 +44,7 @@ module Twitter
       # @example Return an array of places similar to Twitter HQ
       #   Twitter.places_similar(:lat => "37.7821120598956", :long => "-122.400612831116", :name => "Twitter HQ")
       def places_similar(options={})
-        get('geo/similar_places', options)['result']['places']
+        get('geo/similar_places', options)['result']
       end
 
       # Searches for up to 20 places that can be used as a place_id
