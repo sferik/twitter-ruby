@@ -1,3 +1,7 @@
+1.1.2 - February 2, 2011
+* [Opt-in for testing with rubygems-test](https://github.com/jnunemaker/twitter/commit/7d92afc138cac1b751b17682fd166b2603f804c6)
+* [Add support for respond_to? in Twitter class](https://github.com/jnunemaker/twitter/commit/ce64c7818f9b62cf91f1fa5dc2e76a9d4205cd2e) ([@fernandezpablo](http://twitter.com/#!/fernandezpablo))
+
 1.1.1 - January 16, 2011
 * [Don't set cached <tt>screen_name</tt> when creating a new API client](https://github.com/jnunemaker/twitter/commit/ceeed993b16f95582c648e93de03738362ba1d7b)
 
