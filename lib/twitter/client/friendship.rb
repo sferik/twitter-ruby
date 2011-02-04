@@ -67,8 +67,6 @@ module Twitter
       # @format :json, :xml
       # @authenticated false
       # @rate_limited true
-      # @param user_a [Integer, String] The ID or screen_name of the subject user.
-      # @param user_b [Integer, String] The ID or screen_name of the user to test for following.
       # @param options [Hash] A customizable set of options.
       # @option options [Integer] :source_id The ID of the subject user.
       # @option options [String] :source_screen_name The screen_name of the subject user.
@@ -77,7 +75,8 @@ module Twitter
       # @return [Hashie::Mash]
       # @see http://dev.twitter.com/doc/get/friendships/show
       # @example Return the relationship between @sferik and @pengwynn
-      #   Twitter.friendship("sferik", "pengwynn")
+      #   Twitter.friendship(:source_screen_name => "sferik", :target_screen_name => "pengwynn")
+      #   Twitter.friendship(:source_id => 7505382, :target_id => 14100886)
       def friendship(options={})
         get('friendships/show', options)['relationship']
       end
