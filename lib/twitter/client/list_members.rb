@@ -23,7 +23,6 @@ module Twitter
         options = {:cursor => -1}.merge(args.last.is_a?(Hash) ? args.pop : {})
         list_id = args.pop
         screen_name = args.pop || get_screen_name
-        clean_screen_name!(screen_name)
         response = get("#{screen_name}/#{list_id}/members", options)
         format.to_s.downcase == 'xml' ? response['users_list'] : response
       end
@@ -47,7 +46,6 @@ module Twitter
         options = args.last.is_a?(Hash) ? args.pop : {}
         id, list_id = args.pop, args.pop
         screen_name = args.pop || get_screen_name
-        clean_screen_name!(screen_name)
         response = post("#{screen_name}/#{list_id}/members", options.merge(:id => id))
         format.to_s.downcase == 'xml' ? response['list'] : response
       end
@@ -71,7 +69,6 @@ module Twitter
         options = args.last.is_a?(Hash) ? args.pop : {}
         users, list_id = args.pop, args.pop
         screen_name = args.pop || get_screen_name
-        clean_screen_name!(screen_name)
         merge_users_into_options!(Array(users), options)
         response = post("#{screen_name}/#{list_id}/create_all", options)
         format.to_s.downcase == 'xml' ? response['list'] : response
@@ -95,7 +92,6 @@ module Twitter
         options = args.last.is_a?(Hash) ? args.pop : {}
         id, list_id = args.pop, args.pop
         screen_name = args.pop || get_screen_name
-        clean_screen_name!(screen_name)
         response = delete("#{screen_name}/#{list_id}/members", options.merge(:id => id))
         format.to_s.downcase == 'xml' ? response['list'] : response
       end
@@ -118,7 +114,6 @@ module Twitter
         options = args.last.is_a?(Hash) ? args.pop : {}
         id, list_id = args.pop, args.pop
         screen_name = args.pop || get_screen_name
-        clean_screen_name!(screen_name)
         begin
           get("#{screen_name}/#{list_id}/members/#{id}", options)
           true

@@ -24,7 +24,6 @@ module Twitter
         options = args.last.is_a?(Hash) ? args.pop : {}
         name = args.pop
         screen_name = args.pop || get_screen_name
-        clean_screen_name!(screen_name)
         response = post("#{screen_name}/lists", options.merge(:name => name))
         format.to_s.downcase == 'xml' ? response['list'] : response
       end
@@ -48,7 +47,6 @@ module Twitter
         options = args.last.is_a?(Hash) ? args.pop : {}
         name = args.pop
         screen_name = args.pop || get_screen_name
-        clean_screen_name!(screen_name)
         response = put("#{screen_name}/lists/#{name}", options)
         format.to_s.downcase == 'xml' ? response['list'] : response
       end
@@ -77,7 +75,6 @@ module Twitter
         options = {:cursor => -1}.merge(args.last.is_a?(Hash) ? args.pop : {})
         screen_name = args.first
         if screen_name
-          clean_screen_name!(screen_name)
           response = get("#{screen_name}/lists", options)
         else
           response = get('lists', options)
@@ -103,7 +100,6 @@ module Twitter
         options = args.last.is_a?(Hash) ? args.pop : {}
         id = args.pop
         screen_name = args.pop || get_screen_name
-        clean_screen_name!(screen_name)
         response = get("#{screen_name}/lists/#{id}", options)
         format.to_s.downcase == 'xml' ? response['list'] : response
       end
@@ -126,7 +122,6 @@ module Twitter
         options = args.last.is_a?(Hash) ? args.pop : {}
         id = args.pop
         screen_name = args.pop || get_screeen_name
-        clean_screen_name!(screen_name)
         response = delete("#{screen_name}/lists/#{id}", options)
         format.to_s.downcase == 'xml' ? response['list'] : response
       end
@@ -153,7 +148,6 @@ module Twitter
         options = args.last.is_a?(Hash) ? args.pop : {}
         name = args.pop
         screen_name = args.pop || get_screen_name
-        clean_screen_name!(screen_name)
         response = get("#{screen_name}/lists/#{name}/statuses", options)
         format.to_s.downcase == 'xml' ? response['statuses'] : response
       end
@@ -174,7 +168,6 @@ module Twitter
       def memberships(*args)
         options = {:cursor => -1}.merge(args.last.is_a?(Hash) ? args.pop : {})
         screen_name = args.pop || get_screen_name
-        clean_screen_name!(screen_name)
         response = get("#{screen_name}/lists/memberships", options)
         format.to_s.downcase == 'xml' ? response['lists_list'] : response
       end
@@ -195,7 +188,6 @@ module Twitter
       def subscriptions(*args)
         options = {:cursor => -1}.merge(args.last.is_a?(Hash) ? args.pop : {})
         screen_name = args.pop || get_screen_name
-        clean_screen_name!(screen_name)
         response = get("#{screen_name}/lists/subscriptions", options)
         format.to_s.downcase == 'xml' ? response['lists_list'] : response
       end

@@ -27,7 +27,6 @@ module Twitter
       def favorites(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
         user = args.first
-        clean_screen_name!(user)
         response = get(['favorites', user].compact.join('/'), options)
         format.to_s.downcase == 'xml' ? response['statuses'] : response
       end

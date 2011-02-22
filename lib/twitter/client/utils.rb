@@ -12,14 +12,6 @@ module Twitter
         @screen_name ||= self.verify_credentials.screen_name
       end
 
-      # Remove @ signs from screen names
-      #
-      # @param screen_name [String] A Twitter screen name.
-      # @return [String] The Twitter screen name minus the @ sign.
-      def clean_screen_name!(screen_name)
-        screen_name.gsub!(/[@＠]/, '') if screen_name
-      end
-
       # Take a single user ID or screen name and merge it into an options hash with the correct key
       #
       # @param user_id_or_screen_name [Integer, String] A Twitter user ID or screen_name.
@@ -30,7 +22,6 @@ module Twitter
         when Fixnum
           options[:user_id] = user_id_or_screen_name
         when String
-          clean_screen_name!(user_id_or_screen_name)
           options[:screen_name] = user_id_or_screen_name
         end
         options
@@ -48,7 +39,6 @@ module Twitter
           when Fixnum
             user_ids << user_id_or_screen_name
           when String
-            clean_screen_name!(user_id_or_screen_name)
             screen_names << user_id_or_screen_name
           end
         end

@@ -110,7 +110,6 @@ module Twitter
       def profile_image(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
         screen_name = args.first || get_screen_name
-        clean_screen_name!(screen_name)
         get("users/profile_image/#{screen_name}", options, true).headers['location']
       end
 

@@ -23,7 +23,6 @@ module Twitter
         options = {:cursor => -1}.merge(args.last.is_a?(Hash) ? args.pop : {})
         list_id = args.pop
         screen_name = args.pop || get_screen_name
-        clean_screen_name!(screen_name)
         response = get("#{screen_name}/#{list_id}/subscribers", options)
         format.to_s.downcase == 'xml' ? response['users_list'] : response
       end
@@ -45,7 +44,6 @@ module Twitter
         options = args.last.is_a?(Hash) ? args.pop : {}
         list_id = args.pop
         screen_name = args.pop || get_screen_name
-        clean_screen_name!(screen_name)
         response = post("#{screen_name}/#{list_id}/subscribers", options)
         format.to_s.downcase == 'xml' ? response['list'] : response
       end
@@ -67,7 +65,6 @@ module Twitter
         options = args.last.is_a?(Hash) ? args.pop : {}
         list_id = args.pop
         screen_name = args.pop || get_screen_name
-        clean_screen_name!(screen_name)
         response = delete("#{screen_name}/#{list_id}/subscribers", options)
         format.to_s.downcase == 'xml' ? response['list'] : response
       end
@@ -90,7 +87,6 @@ module Twitter
         options = args.last.is_a?(Hash) ? args.pop : {}
         id, list_id = args.pop, args.pop
         screen_name = args.pop || get_screen_name
-        clean_screen_name!(screen_name)
         begin
           get("#{screen_name}/#{list_id}/subscribers/#{id}", options)
           true

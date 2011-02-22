@@ -35,14 +35,14 @@ describe Twitter::Client do
 
           before do
             stub_get("users/show.#{format}").
-              with(:query => {:screen_name => "sferik"}).
+              with(:query => {:screen_name => "@sferik"}).
               to_return(:body => fixture("sferik.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
 
           it "should get the correct resource" do
             @client.user("@sferik")
             a_get("users/show.#{format}").
-              with(:query => {:screen_name => "sferik"}).
+              with(:query => {:screen_name => "@sferik"}).
               should have_been_made
           end
 
@@ -123,23 +123,6 @@ describe Twitter::Client do
             users = @client.users("sferik", "pengwynn")
             users.should be_a Array
             users.first.name.should == "Erik Michaels-Ober"
-          end
-
-        end
-
-        context "with screen names including '@' passed" do
-
-          before do
-            stub_get("users/lookup.#{format}").
-              with(:query => {:screen_name => "sferik,pengwynn"}).
-              to_return(:body => fixture("users.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
-          end
-
-          it "should get the correct resource" do
-            @client.users("@sferik", "@pengwynn")
-            a_get("users/lookup.#{format}").
-              with(:query => {:screen_name => "sferik,pengwynn"}).
-              should have_been_made
           end
 
         end
