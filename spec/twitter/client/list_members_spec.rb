@@ -101,14 +101,14 @@ describe Twitter::Client do
         context "with screen name passed" do
 
           before do
-            stub_post("sferik/presidents/create_all.#{format}").
+            stub_post("sferik/presidents/members/create_all.#{format}").
               with(:body => {:user_id => "813286,18755393"}).
               to_return(:body => fixture("list.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
 
           it "should get the correct resource" do
             @client.list_add_members("sferik", "presidents", [813286, 18755393])
-            a_post("sferik/presidents/create_all.#{format}").
+            a_post("sferik/presidents/members/create_all.#{format}").
               with(:body => {:user_id => "813286,18755393"}).
               should have_been_made
           end
@@ -124,14 +124,14 @@ describe Twitter::Client do
 
           before do
             @client.stub!(:get_screen_name).and_return('sferik')
-            stub_post("sferik/presidents/create_all.#{format}").
+            stub_post("sferik/presidents/members/create_all.#{format}").
               with(:body => {:user_id => "813286,18755393"}).
               to_return(:body => fixture("list.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
 
           it "should get the correct resource" do
             @client.list_add_members("presidents", [813286, 18755393])
-            a_post("sferik/presidents/create_all.#{format}").
+            a_post("sferik/presidents/members/create_all.#{format}").
               with(:body => {:user_id => "813286,18755393"}).
               should have_been_made
           end

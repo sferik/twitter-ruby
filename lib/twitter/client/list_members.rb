@@ -70,7 +70,7 @@ module Twitter
         users, list_id = args.pop, args.pop
         screen_name = args.pop || get_screen_name
         merge_users_into_options!(Array(users), options)
-        response = post("#{screen_name}/#{list_id}/create_all", options)
+        response = post("#{screen_name}/#{list_id}/members/create_all", options)
         format.to_s.downcase == 'xml' ? response['list'] : response
       end
 
