@@ -29,7 +29,7 @@ module Twitter
     #
     # @see http://dev.twitter.com/pages/rate-limiting
     def retry_after
-      @http_headers.values_at('retry-after', 'Retry-After').first.to_i
+      @http_headers.values_at('retry-after', 'Retry-After').detect {|value| value }.to_i
     end
   end
 
