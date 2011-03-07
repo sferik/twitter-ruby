@@ -82,9 +82,7 @@ module Twitter
 
     # Create a hash of options and their values
     def options
-      VALID_OPTIONS_KEYS.inject({}) do |option, key|
-        option.merge!(key => send(key))
-      end
+      Hash[VALID_OPTIONS_KEYS.map {|key| [key, send(key)] }]
     end
 
     # Reset all configuration options to defaults
