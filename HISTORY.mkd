@@ -1,16 +1,16 @@
 1.2.0 - Match 20, 2011
 ----------------------
 * [Respect global load path](https://github.com/jnunemaker/twitter/commit/6a629a6a06e115388cce6f1de04f45a4b0707cac)
-* [Use map and Hash[] instead of inject({})](https://github.com/jnunemaker/twitter/commit/a2b0b51618f40b526f554c019a6c83b0bf9a8cdf)
-* [Check headers for Retry-After in absence of retry-after](https://github.com/jnunemaker/twitter/commit/924253214efcedfeb80b4c6fe57dcbb2a7470177)
-* [Fix name of list_add_members resource](https://github.com/jnunemaker/twitter/commit/3adcc1592240be2679f0a2c7d0c390b574abe8f1)
+* [Use map and <tt>Hash[]</tt> instead of <tt>inject({})</tt>](https://github.com/jnunemaker/twitter/commit/a2b0b51618f40b526f554c019a6c83b0bf9a8cdf) ([@wtnelson](http://twitter.com/#!/wtnelson))
+* [Check headers for <tt>Retry-After</tt> in absence of <tt>retry-after</tt>](https://github.com/jnunemaker/twitter/commit/924253214efcedfeb80b4c6fe57dcbb2a7470177) ([@wtnelson](http://twitter.com/#!/wtnelson))
+* [Fix name of <tt>#list_add_members</tt> resource](https://github.com/jnunemaker/twitter/commit/3adcc1592240be2679f0a2c7d0c390b574abe8f1)
 * [Don't strip @ signs from screen names](https://github.com/jnunemaker/twitter/commit/38c9dd0a720ea857ff6220b28f66db4c780a7fda)
 * [Make <tt>#places_similar</tt> method return a token](https://github.com/jnunemaker/twitter/commit/351e2240717a34d6575a802078077a1681fa4616) ([@nicolassanta](http://twitter.com/#!/nicolassanta))
 
 1.1.2 - February 2, 2011
 ------------------------
 * [Opt-in for testing with rubygems-test](https://github.com/jnunemaker/twitter/commit/7d92afc138cac1b751b17682fd166b2603f804c6)
-* [Add support for respond_to? in Twitter class](https://github.com/jnunemaker/twitter/commit/ce64c7818f9b62cf91f1fa5dc2e76a9d4205cd2e) ([@fernandezpablo](http://twitter.com/#!/fernandezpablo))
+* [Add support for <tt>Twitter.respond_to?</tt>](https://github.com/jnunemaker/twitter/commit/ce64c7818f9b62cf91f1fa5dc2e76a9d4205cd2e) ([@fernandezpablo](http://twitter.com/#!/fernandezpablo))
 
 1.1.1 - January 16, 2011
 ------------------------
