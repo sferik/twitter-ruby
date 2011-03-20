@@ -1,4 +1,4 @@
-1.2.0 - Match 20, 2011
+1.2.0 - March 20, 2011
 ----------------------
 * [Respect global load path](https://github.com/jnunemaker/twitter/commit/6a629a6a06e115388cce6f1de04f45a4b0707cac)
 * [Use map and <tt>Hash[]</tt> instead of <tt>inject({})</tt>](https://github.com/jnunemaker/twitter/commit/a2b0b51618f40b526f554c019a6c83b0bf9a8cdf) ([@wtnelson](http://twitter.com/#!/wtnelson))
