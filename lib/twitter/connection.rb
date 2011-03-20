@@ -1,5 +1,8 @@
 require 'faraday_middleware'
-Dir[File.expand_path('../../faraday/*.rb', __FILE__)].each{|f| require f}
+require 'faraday/multipart'
+require 'faraday/oauth'
+require 'faraday/raise_http_4xx'
+require 'faraday/raise_http_5xx'
 
 module Twitter
   # @private

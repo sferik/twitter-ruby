@@ -1,5 +1,5 @@
 require 'faraday'
-require File.expand_path('../version', __FILE__)
+require 'twitter/version'
 
 module Twitter
   # Defines constants and methods related to configuration

@@ -7,7 +7,26 @@ module Twitter
     # Require client method modules after initializing the Client class in
     # order to avoid a superclass mismatch error, allowing those modules to be
     # Client-namespaced.
-    Dir[File.expand_path('../client/*.rb', __FILE__)].each{|f| require f}
+    require 'twitter/client/utils'
+    require 'twitter/client/account'
+    require 'twitter/client/block'
+    require 'twitter/client/direct_messages'
+    require 'twitter/client/favorites'
+    require 'twitter/client/friendship'
+    require 'twitter/client/friends_and_followers'
+    require 'twitter/client/geo'
+    require 'twitter/client/legal'
+    require 'twitter/client/list'
+    require 'twitter/client/list_members'
+    require 'twitter/client/list_subscribers'
+    require 'twitter/client/local_trends'
+    require 'twitter/client/notification'
+    require 'twitter/client/spam_reporting'
+    require 'twitter/client/saved_searches'
+    require 'twitter/client/timeline'
+    require 'twitter/client/trends'
+    require 'twitter/client/tweets'
+    require 'twitter/client/user'
 
     alias :api_endpoint :endpoint
 

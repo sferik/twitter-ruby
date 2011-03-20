@@ -4,9 +4,7 @@ SimpleCov.start do
   add_group 'Faraday Middleware', 'lib/faraday'
   add_group 'Specs', 'spec'
 end
-
-require File.expand_path('../../lib/twitter', __FILE__)
-
+require 'twitter'
 require 'rspec'
 require 'webmock/rspec'
 RSpec.configure do |config|

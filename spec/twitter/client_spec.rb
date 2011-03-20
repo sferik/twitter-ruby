@@ -1,4 +1,4 @@
-require File.expand_path('../../spec_helper', __FILE__)
+require 'helper'
 
 describe Twitter::Client do
   it "should connect using the endpoint configuration" do
