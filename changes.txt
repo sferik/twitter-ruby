@@ -1,0 +1,1 @@
+Typo on readme when sorting friends or followers would yield a no method error.
