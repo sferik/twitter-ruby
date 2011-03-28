@@ -223,10 +223,10 @@ Usage Examples
     puts Twitter.home_timeline.first.text
 
     # Who's your most popular friend?
-    puts Twitter.friends.sort{|a, b| a.followers_count <=> b.followers_count}.reverse.first.name
+    puts Twitter.friends.users.sort{|a, b| a.followers_count <=> b.followers_count}.reverse.first.name
 
     # Who's your most popular follower?
-    puts Twitter.followers.sort{|a, b| a.followers_count <=> b.followers_count}.reverse.first.name
+    puts Twitter.followers.users.sort{|a, b| a.followers_count <=> b.followers_count}.reverse.first.name
 
     # Get your rate limit status
     puts Twitter.rate_limit_status.remaining_hits.to_s + " Twitter API request(s) remaining this hour"
