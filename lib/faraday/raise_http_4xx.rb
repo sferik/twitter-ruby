@@ -8,17 +8,17 @@ module Faraday
       env[:response].on_complete do |response|
         case response[:status].to_i
         when 400
-          raise Twitter::BadRequest, error_message(response)
+          raise Twitter::BadRequest.new(error_message(response), response[:response_headers])
         when 401
-          raise Twitter::Unauthorized, error_message(response)
+          raise Twitter::Unauthorized.new(error_message(response), response[:response_headers])
         when 403
-          raise Twitter::Forbidden, error_message(response)
+          raise Twitter::Forbidden.new(error_message(response), response[:response_headers])
         when 404
-          raise Twitter::NotFound, error_message(response)
+          raise Twitter::NotFound.new(error_message(response), response[:response_headers])
         when 406
-          raise Twitter::NotAcceptable, error_message(response)
+          raise Twitter::NotAcceptable.new(error_message(response), response[:response_headers])
         when 420
-          raise Twitter::EnhanceYourCalm.new error_message(response), response[:response_headers]
+          raise Twitter::EnhanceYourCalm.new(error_message(response), response[:response_headers])
         end
       end
     end
