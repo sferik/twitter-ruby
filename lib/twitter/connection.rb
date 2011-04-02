@@ -16,19 +16,21 @@ module Twitter
         :url => api_endpoint,
       }
 
-      Faraday::Connection.new(options) do |connection|
-        connection.use Faraday::Request::Multipart
-        connection.use Faraday::Request::OAuth, authentication if authenticated?
-        connection.adapter(adapter)
-        connection.use Faraday::Response::RaiseHttp5xx
+      Faraday.new(options) do |builder|
+        builder.use Faraday::Request::Multipart
+        builder.use Faraday::Request::OAuth, authentication if authenticated?
+        builder.adapter(adapter)
+        builder.use Faraday::Response::RaiseHttp5xx
         unless raw
           case format.to_s.downcase
-          when 'json' then connection.use Faraday::Response::ParseJson
-          when 'xml' then connection.use Faraday::Response::ParseXml
+          when 'json'
+            builder.use Faraday::Response::ParseJson
+          when 'xml'
+            builder.use Faraday::Response::ParseXml
           end
         end
-        connection.use Faraday::Response::RaiseHttp4xx
-        connection.use Faraday::Response::Mashify unless raw
+        builder.use Faraday::Response::RaiseHttp4xx
+        builder.use Faraday::Response::Mashify unless raw
       end
     end
   end
