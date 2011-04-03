@@ -1,7 +1,7 @@
 require 'faraday_middleware'
-require 'faraday/multipart_with_file'
-require 'faraday/raise_http_4xx'
-require 'faraday/raise_http_5xx'
+require 'faraday/request/multipart_with_file'
+require 'faraday/response/raise_http_4xx'
+require 'faraday/response/raise_http_5xx'
 
 module Twitter
   # @private
