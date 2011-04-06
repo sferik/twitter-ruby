@@ -22,7 +22,7 @@ module Twitter
         builder.use Faraday::Request::OAuth, authentication if authenticated?
         builder.use Faraday::Request::UrlEncoded
         builder.use Faraday::Response::RaiseHttp4xx
-        builder.use Faraday::Response::Mashify unless raw
+        builder.use Faraday::Response::Rashify unless raw
         unless raw
           case format.to_s.downcase
           when 'json'
