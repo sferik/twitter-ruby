@@ -18,6 +18,7 @@ module Twitter
 
       Faraday.new(options) do |builder|
         builder.use Faraday::Request::MultipartWithFile
+        builder.use Faraday::Request::Multipart
         builder.use Faraday::Request::OAuth, authentication if authenticated?
         builder.use Faraday::Request::UrlEncoded
         builder.use Faraday::Response::RaiseHttp4xx
