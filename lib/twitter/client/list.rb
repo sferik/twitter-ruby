@@ -7,24 +7,19 @@ module Twitter
       # Creates a new list for the authenticated user
       #
       # @note Accounts are limited to 20 lists.
-      # @overload list_create(screen_name, name, options={})
-      #   @param screen_name [String] A Twitter screen name.
-      #   @param name [String] The name for the list.
-      #   @param options [Hash] A customizable set of options.
-      #   @option options [String] :mode ('public') Whether your list is public or private. Values can be 'public' or 'private'.
-      #   @option options [String] :description The description to give the list.
-      #   @return [Hashie::Mash] The created list.
-      #   @example Create a list named "presidents"
-      #     Twitter.list_create("sferik", "presidents")
       # @format :json, :xml
       # @authenticated true
       # @rate_limited false
+      # @param name [String] The name for the list.
+      # @param options [Hash] A customizable set of options.
+      # @option options [String] :mode ('public') Whether your list is public or private. Values can be 'public' or 'private'.
+      # @option options [String] :description The description to give the list.
+      # @return [Hashie::Mash] The created list.
       # @see http://dev.twitter.com/doc/post/:user/lists
-      def list_create(*args)
-        options = args.last.is_a?(Hash) ? args.pop : {}
-        name = args.pop
-        screen_name = args.pop || get_screen_name
-        response = post("#{screen_name}/lists", options.merge(:name => name))
+      # @example Create a list named "presidents"
+      #   Twitter.list_create("presidents")
+      def list_create(name, options={})
+        response = post("lists/create", options.merge(:name => name))
         format.to_s.downcase == 'xml' ? response['list'] : response
       end
 
@@ -47,7 +42,9 @@ module Twitter
         options = args.last.is_a?(Hash) ? args.pop : {}
         name = args.pop
         screen_name = args.pop || get_screen_name
-        response = put("#{screen_name}/lists/#{name}", options)
+        puts "Options are #{options.inspect} and name is #{name}"
+        #        response = post("lists/update", options.merge(:list_id => "#{name}"))  # works if name is the numeric list_id of the list
+        response = post("lists/update", options.merge(:list_id => "42457968", :user => 'bobo_the_clown'))
         format.to_s.downcase == 'xml' ? response['list'] : response
       end
 
@@ -55,19 +52,19 @@ module Twitter
       #
       # @note Private lists will be included if the authenticated user is the same as the user whose lists are being returned.
       # @overload lists(options={})
-      #   @param options [Hash] A customizable set of options.
-      #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
-      #   @return [Hashie::Mash]
-      #   @example List the authenticated user's lists
-      #     Twitter.lists
+      # @param options [Hash] A customizable set of options.
+      # @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
+      # @return [Hashie::Mash]
+      # @example List the authenticated user's lists
+      #   Twitter.lists
       # @overload lists(user, options={})
-      #   @param user [Integer, String] A Twitter user ID or screen name.
-      #   @param options [Hash] A customizable set of options.
-      #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
-      #   @return [Hashie::Mash]
-      #   @example List @sferik's lists
-      #     Twitter.lists("sferik")
-      # @see http://dev.twitter.com/doc/get/statuses/friends
+      # @param user [Integer, String] A Twitter user ID or screen name.
+      # @param options [Hash] A customizable set of options.
+      # @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
+      # @return [Hashie::Mash]
+      # @example List @sferik's lists
+      #   Twitter.lists("sferik")
+      # @see http://dev.twitter.com/doc/get/:user/lists
       # @format :json, :xml
       # @authenticated true
       # @rate_limited true
@@ -75,7 +72,7 @@ module Twitter
         options = {:cursor => -1}.merge(args.last.is_a?(Hash) ? args.pop : {})
         screen_name = args.first
         if screen_name
-          response = get("#{screen_name}/lists", options)
+          response = get("lists", options.merge(:screen_name => screen_name))
         else
           response = get('lists', options)
         end
