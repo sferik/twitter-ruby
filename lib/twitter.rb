@@ -21,8 +21,7 @@ module Twitter
     client.send(method, *args, &block)
   end
 
-  # Delegate to Twitter::Client
   def self.respond_to?(method)
-    return client.respond_to?(method) || super
+    client.respond_to?(method) || super
   end
 end

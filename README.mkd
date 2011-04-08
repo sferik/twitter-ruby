@@ -23,6 +23,10 @@ Does your project or organization use this gem?
 -----------------------------------------------
 Add it to the [apps](http://github.com/jnunemaker/twitter/wiki/apps) wiki!
 
+Continuous Integration
+----------------------
+[![Build Status](http://travis-ci.org/jnunemaker/twitter.png)](http://travis-ci.org/jnunemaker/twitter)
+
 What's new in 1.1?
 ------------------
 This version no longer requires that you explicitly pass the authenticated

@@ -4,6 +4,7 @@ module Twitter
     attr_reader :http_headers
 
     def initialize(message, http_headers)
+      http_headers ||= {}
       @http_headers = Hash[http_headers]
       super message
     end
