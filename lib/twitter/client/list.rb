@@ -25,14 +25,15 @@ module Twitter
 
       # Updates the specified list
       #
-      # @overload list_update(owner_screen_name, name, options={})
-      # @param screen_name [String] The Twitter screen name of the list's owner.
-      # @param name [String] The name for the list.
+      # @overload list_update(screen_name, name, options={})
+      # @param user [Integer, String] A Twitter user ID or screen name.
+      # @param list [Integer, String] The list_id or slug for the list (slug is often the name, but not always).
       # @param options [Hash] A customizable set of options.
       # @option options [String] :mode ('public') Whether your list is public or private. Values can be 'public' or 'private'.
       # @option options [String] :description The description to give the list.
       # @example Update the "presidents" list to have the description "Presidents of the United States of America"
       #   Twitter.list_update("sferik", "presidents", :description => "Presidents of the United States of America")
+      #   Twitter.list_update(7505382, "presidents", :description => "Presidents of the United States of America")
       # @format :json, :xml
       # @authenticated true
       # @rate_limited false
@@ -40,9 +41,11 @@ module Twitter
       # @see http://dev.twitter.com/doc/post/:user/lists/:id
       def list_update(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
-        name = args.pop
-        screen_name = args.pop || get_screen_name
-        response = post("lists/update", options.merge(:slug => name, :owner_screen_name => screen_name))
+        list = args.pop
+        user = args.pop || get_screen_name
+        list_key = (list.is_a? Integer) ? :list_id : :slug
+        user_key = (user.is_a? Integer) ? :owner_id : :owner_screen_name
+        response = post("lists/update", options.merge(list_key => "#{list}", user_key => "#{user}"))
         format.to_s.downcase == 'xml' ? response['list'] : response
       end
 
@@ -68,9 +71,10 @@ module Twitter
       # @rate_limited true
       def lists(*args)
         options = {:cursor => -1}.merge(args.last.is_a?(Hash) ? args.pop : {})
-        screen_name = args.first
-        if screen_name
-          response = get("lists", options.merge(:screen_name => screen_name))
+        user = args.first
+        if user
+          user_key = (user.is_a? Integer) ? :user_id : :screen_name
+          response = get("lists", options.merge(user_key => "#{user}"))
         else
           response = get('lists', options)
         end
@@ -80,8 +84,8 @@ module Twitter
       # Show the specified list
       #
       # @overload list(screen_name, id, options={})
-      # @param screen_name [String] A Twitter screen name.
-      # @param id [Integer, String] The id or slug of the list.
+      # @param user [Integer, String] A Twitter user ID or screen name.
+      # @param list [Integer, String] The id or slug of the list.
       # @param options [Hash] A customizable set of options.
       # @return [Hashie::Mash] The specified list.
       # @example Show @sferik's "presidents" list
@@ -93,21 +97,23 @@ module Twitter
       # @see http://dev.twitter.com/doc/get/:user/lists/:id
       def list(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
-        id = args.pop
-        screen_name = args.pop || get_screen_name
-        response = get("lists/show", options.merge(:slug => id, :owner_screen_name => screen_name))
+        list = args.pop
+        user = args.pop || get_screen_name
+        list_key = (list.is_a? Integer) ? :list_id : :slug
+        user_key = (user.is_a? Integer) ? :owner_id : :owner_screen_name
+        response = get("lists/show", options.merge(list_key => "#{list}", user_key => "#{user}"))
         format.to_s.downcase == 'xml' ? response['list'] : response
       end
 
       # Deletes the specified list
       #
       # @overload list_delete(screen_name, id, options={})
-      #   @param screen_name [String] A Twitter screen name.
-      #   @param id [Integer, String] The id or slug of the list.
-      #   @param options [Hash] A customizable set of options.
-      #   @return [Hashie::Mash] The deleted list.
-      #   @example Delete @sferik's "presidents" list
-      #     Twitter.list_delete("sferik", "presidents")
+      # @param user [Integer, String] A Twitter user ID or screen name.
+      # @param list [Integer, String] The id or slug of the list.
+      # @param options [Hash] A customizable set of options.
+      # @return [Hashie::Mash] The deleted list.
+      # @example Delete @sferik's "presidents" list
+      #   Twitter.list_delete("sferik", "presidents")
       # @note Must be owned by the authenticated user.
       # @format :json, :xml
       # @authenticated true
@@ -115,9 +121,11 @@ module Twitter
       # @see http://dev.twitter.com/doc/delete/:user/lists/:id
       def list_delete(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
-        id = args.pop
-        screen_name = args.pop || get_screeen_name
-        response = delete("#{screen_name}/lists/#{id}", options)
+        list = args.pop
+        user = args.pop || get_screeen_name
+        list_key = (list.is_a? Integer) ? :list_id : :slug
+        user_key = (user.is_a? Integer) ? :owner_id : :owner_screen_name
+        response = delete("lists/destroy", options.merge(list_key => "#{list}", user_key => "#{user}"))
         format.to_s.downcase == 'xml' ? response['list'] : response
       end
 

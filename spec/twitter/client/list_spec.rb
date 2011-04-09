@@ -67,9 +67,41 @@ describe Twitter::Client do
               with(:body => {:owner_screen_name => 'sferik', :slug => 'presidents', :description => "Presidents of the United States of America"}).
               should have_been_made
           end
+        end
+
+        context "with Integer list_id passed" do
+
+          before do
+            stub_post("lists/update.#{format}").
+              with(:body => {:owner_screen_name => 'sferik', :list_id => '12345678', :description => "Presidents of the United States of America"}).
+              to_return(:body => fixture("list.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+          end
+
+          it "should get the correct resource" do
+            @client.list_update("sferik", 12345678, :description => "Presidents of the United States of America")
+            a_post("lists/update.#{format}").
+              with(:body => {:owner_screen_name => 'sferik', :list_id => '12345678', :description => "Presidents of the United States of America"}).
+              should have_been_made
+          end
 
         end
 
+        context "with Integer user_id passed" do
+
+          before do
+            stub_post("lists/update.#{format}").
+              with(:body => {:owner_id => '12345678', :slug => 'presidents', :description => "Presidents of the United States of America"}).
+              to_return(:body => fixture("list.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+          end
+
+          it "should get the correct resource" do
+            @client.list_update(12345678, 'presidents', :description => "Presidents of the United States of America")
+            a_post("lists/update.#{format}").
+              with(:body => {:owner_id => '12345678', :slug => 'presidents', :description => "Presidents of the United States of America"}).
+              should have_been_made
+          end
+
+        end
       end
 
       describe ".lists" do
@@ -91,6 +123,29 @@ describe Twitter::Client do
 
           it "should return the updated list" do
             lists = @client.lists("sferik")
+            lists.lists.should be_an Array
+            lists.lists.first.name.should == "Rubyists"
+          end
+
+        end
+
+        context "with an Integer user id passed" do
+
+          before do
+            stub_get("lists.#{format}").
+              with(:query => {:user_id => '12345678', :cursor => "-1"}).
+              to_return(:body => fixture("lists.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+          end
+
+          it "should get the correct resource" do
+            @client.lists(12345678)
+            a_get("lists.#{format}").
+              with(:query => {:user_id => '12345678', :cursor => "-1"}).
+              should have_been_made
+          end
+
+          it "should return the updated list" do
+            lists = @client.lists(12345678)
             lists.lists.should be_an Array
             lists.lists.first.name.should == "Rubyists"
           end
@@ -164,6 +219,40 @@ describe Twitter::Client do
 
         end
 
+        context "with Integer list_id passed" do
+
+          before do
+            stub_get("lists/show.#{format}").
+              with(:query => {:owner_screen_name => 'sferik', :list_id => '12345678'}).
+              to_return(:body => fixture("list.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+          end
+
+          it "should get the correct resource" do
+            @client.list("sferik", 12345678)
+            a_get("lists/show.#{format}").
+              with(:query => {:owner_screen_name => 'sferik', :list_id => '12345678'}).
+              should have_been_made
+          end
+
+        end
+
+        context "with Integer user_id passed" do
+
+          before do
+            stub_get("lists/show.#{format}").
+              with(:query => {:owner_id => '12345678', :slug => 'presidents'}).
+              to_return(:body => fixture("list.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+          end
+
+          it "should get the correct resource" do
+            @client.list(12345678, 'presidents')
+            a_get("lists/show.#{format}").
+              with(:query => {:owner_id => '12345678', :slug => 'presidents'}).
+              should have_been_made
+          end
+
+        end
+
       end
 
       describe ".list_delete" do
@@ -171,13 +260,15 @@ describe Twitter::Client do
         context "with a screen name passed" do
 
           before do
-            stub_delete("sferik/lists/presidents.#{format}").
+            stub_delete("lists/destroy.#{format}").
+              with(:query => {:owner_screen_name => 'sferik', :slug => 'presidents'}).
               to_return(:body => fixture("list.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
 
           it "should get the correct resource" do
             @client.list_delete("sferik", "presidents")
-            a_delete("sferik/lists/presidents.#{format}").
+            a_delete("lists/destroy.#{format}").
+              with(:query => {:owner_screen_name => 'sferik', :slug => 'presidents'}).
               should have_been_made
           end
 
@@ -192,13 +283,49 @@ describe Twitter::Client do
 
           before do
             @client.stub!(:get_screen_name).and_return('sferik')
-            stub_delete("sferik/lists/presidents.#{format}").
+            stub_delete("lists/destroy.#{format}").
+              with(:query => {:owner_screen_name => 'sferik', :slug => 'presidents'}).
               to_return(:body => fixture("list.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
 
           it "should get the correct resource" do
             @client.list_delete("sferik", "presidents")
-            a_delete("sferik/lists/presidents.#{format}").
+            a_delete("lists/destroy.#{format}").
+              with(:query => {:owner_screen_name => 'sferik', :slug => 'presidents'}).
+              should have_been_made
+          end
+
+        end
+
+        context "with Integer list_id passed" do
+
+          before do
+            stub_delete("lists/destroy.#{format}").
+              with(:query => {:owner_screen_name => 'sferik', :list_id => '12345678'}).
+              to_return(:body => fixture("list.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+          end
+
+          it "should get the correct resource" do
+            @client.list_delete("sferik", 12345678)
+            a_delete("lists/destroy.#{format}").
+              with(:query => {:owner_screen_name => 'sferik', :list_id => '12345678'}).
+              should have_been_made
+          end
+
+        end
+
+        context "with Integer user_id passed" do
+
+          before do
+            stub_delete("lists/destroy.#{format}").
+              with(:query => {:owner_id => '12345678', :slug => 'presidents'}).
+              to_return(:body => fixture("list.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+          end
+
+          it "should get the correct resource" do
+            @client.list_delete(12345678, 'presidents')
+            a_delete("lists/destroy.#{format}").
+              with(:query => {:owner_id => '12345678', :slug => 'presidents'}).
               should have_been_made
           end
 
