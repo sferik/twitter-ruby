@@ -35,14 +35,14 @@ describe Twitter::Client do
 
           before do
             stub_post("lists/update.#{format}").
-              with(:body => {:name => "presidents", :description => "Presidents of the United States of America"}).
+              with(:body => {:owner_screen_name => 'sferik', :slug => "presidents", :description => "Presidents of the United States of America"}).
               to_return(:body => fixture("list.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
 
           it "should get the correct resource" do
             @client.list_update("sferik", "presidents", :description => "Presidents of the United States of America")
             a_post("lists/update.#{format}").
-              with(:body => {:name => "presidents", :description => "Presidents of the United States of America"}).
+              with(:body => {:owner_screen_name => 'sferik', :slug => "presidents", :description => "Presidents of the United States of America"}).
               should have_been_made
           end
 
@@ -54,18 +54,17 @@ describe Twitter::Client do
         end
 
         context "without screen name passed" do
-# totally hosed, move on for now
           before do
             @client.stub!(:get_screen_name).and_return('sferik')
-            stub_put("lists/update.#{format}").
-              with(:body => {:user => 'sferik', :description => "Presidents of the United States of America"}).
+            stub_post("lists/update.#{format}").
+              with(:body => {:owner_screen_name => 'sferik', :slug => 'presidents', :description => "Presidents of the United States of America"}).
               to_return(:body => fixture("list.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
 
           it "should get the correct resource" do
             @client.list_update("sferik", "presidents", :description => "Presidents of the United States of America")
-            a_put("sferik/lists/presidents.#{format}").
-              with(:body => {:description => "Presidents of the United States of America"}).
+            a_post("lists/update.#{format}").
+              with(:body => {:owner_screen_name => 'sferik', :slug => 'presidents', :description => "Presidents of the United States of America"}).
               should have_been_made
           end
 
@@ -128,13 +127,15 @@ describe Twitter::Client do
         context "with a screen name passed" do
 
           before do
-            stub_get("sferik/lists/presidents.#{format}").
+            stub_get("lists/show.#{format}").
+              with(:query => {:owner_screen_name => 'sferik', :slug => 'presidents'}).
               to_return(:body => fixture("list.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
 
           it "should get the correct resource" do
             @client.list("sferik", "presidents")
-            a_get("sferik/lists/presidents.#{format}").
+            a_get("lists/show.#{format}").
+              with(:query => {:owner_screen_name => 'sferik', :slug => 'presidents'}).
               should have_been_made
           end
 
@@ -149,13 +150,15 @@ describe Twitter::Client do
 
           before do
             @client.stub!(:get_screen_name).and_return('sferik')
-            stub_get("sferik/lists/presidents.#{format}").
+            stub_get("lists/show.#{format}").
+              with(:query => {:owner_screen_name => 'sferik', :slug => 'presidents'}).
               to_return(:body => fixture("list.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
 
           it "should get the correct resource" do
             @client.list("sferik", "presidents")
-            a_get("sferik/lists/presidents.#{format}").
+            a_get("lists/show.#{format}").
+              with(:query => {:owner_screen_name => 'sferik', :slug => 'presidents'}).
               should have_been_made
           end
 
