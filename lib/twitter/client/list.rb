@@ -25,14 +25,14 @@ module Twitter
 
       # Updates the specified list
       #
-      # @overload list_update(screen_name, name, options={})
-      #   @param screen_name [String] A Twitter screen name.
-      #   @param name [String] The name for the list.
-      #   @param options [Hash] A customizable set of options.
-      #   @option options [String] :mode ('public') Whether your list is public or private. Values can be 'public' or 'private'.
-      #   @option options [String] :description The description to give the list.
-      #   @example Update the "presidents" list to have the description "Presidents of the United States of America"
-      #     Twitter.list_update("sferik", "presidents", :description => "Presidents of the United States of America")
+      # @overload list_update(owner_screen_name, name, options={})
+      # @param screen_name [String] The Twitter screen name of the list's owner.
+      # @param name [String] The name for the list.
+      # @param options [Hash] A customizable set of options.
+      # @option options [String] :mode ('public') Whether your list is public or private. Values can be 'public' or 'private'.
+      # @option options [String] :description The description to give the list.
+      # @example Update the "presidents" list to have the description "Presidents of the United States of America"
+      #   Twitter.list_update("sferik", "presidents", :description => "Presidents of the United States of America")
       # @format :json, :xml
       # @authenticated true
       # @rate_limited false
@@ -42,9 +42,7 @@ module Twitter
         options = args.last.is_a?(Hash) ? args.pop : {}
         name = args.pop
         screen_name = args.pop || get_screen_name
-        puts "Options are #{options.inspect} and name is #{name}"
-        #        response = post("lists/update", options.merge(:list_id => "#{name}"))  # works if name is the numeric list_id of the list
-        response = post("lists/update", options.merge(:list_id => "42457968", :user => 'bobo_the_clown'))
+        response = post("lists/update", options.merge(:slug => name, :owner_screen_name => screen_name))
         format.to_s.downcase == 'xml' ? response['list'] : response
       end
 
@@ -82,12 +80,12 @@ module Twitter
       # Show the specified list
       #
       # @overload list(screen_name, id, options={})
-      #   @param screen_name [String] A Twitter screen name.
-      #   @param id [Integer, String] The id or slug of the list.
-      #   @param options [Hash] A customizable set of options.
-      #   @return [Hashie::Mash] The specified list.
-      #   @example Show @sferik's "presidents" list
-      #     Twitter.list("sferik", "presidents")
+      # @param screen_name [String] A Twitter screen name.
+      # @param id [Integer, String] The id or slug of the list.
+      # @param options [Hash] A customizable set of options.
+      # @return [Hashie::Mash] The specified list.
+      # @example Show @sferik's "presidents" list
+      #   Twitter.list("sferik", "presidents")
       # @note Private lists will only be shown if the authenticated user owns the specified list.
       # @format :json, :xml
       # @authenticated true
@@ -97,7 +95,7 @@ module Twitter
         options = args.last.is_a?(Hash) ? args.pop : {}
         id = args.pop
         screen_name = args.pop || get_screen_name
-        response = get("#{screen_name}/lists/#{id}", options)
+        response = get("lists/show", options.merge(:slug => id, :owner_screen_name => screen_name))
         format.to_s.downcase == 'xml' ? response['list'] : response
       end
 
