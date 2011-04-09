@@ -69,7 +69,7 @@ describe Twitter::Client do
           end
         end
 
-        context "with Integer list_id passed" do
+        context "with an Integer list_id passed" do
 
           before do
             stub_post("lists/update.#{format}").
@@ -86,7 +86,7 @@ describe Twitter::Client do
 
         end
 
-        context "with Integer user_id passed" do
+        context "with an Integer user_id passed" do
 
           before do
             stub_post("lists/update.#{format}").
@@ -219,7 +219,7 @@ describe Twitter::Client do
 
         end
 
-        context "with Integer list_id passed" do
+        context "with an Integer list_id passed" do
 
           before do
             stub_get("lists/show.#{format}").
@@ -236,7 +236,7 @@ describe Twitter::Client do
 
         end
 
-        context "with Integer user_id passed" do
+        context "with an Integer user_id passed" do
 
           before do
             stub_get("lists/show.#{format}").
@@ -297,7 +297,7 @@ describe Twitter::Client do
 
         end
 
-        context "with Integer list_id passed" do
+        context "with an Integer list_id passed" do
 
           before do
             stub_delete("lists/destroy.#{format}").
@@ -314,7 +314,7 @@ describe Twitter::Client do
 
         end
 
-        context "with Integer user_id passed" do
+        context "with an Integer user_id passed" do
 
           before do
             stub_delete("lists/destroy.#{format}").
@@ -338,13 +338,15 @@ describe Twitter::Client do
         context "with a screen name passed" do
 
           before do
-            stub_get("sferik/lists/presidents/statuses.#{format}").
+            stub_get("lists/statuses.#{format}").
+              with(:query => {:owner_screen_name => 'sferik', :slug => 'presidents'}).
               to_return(:body => fixture("statuses.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
 
           it "should get the correct resource" do
             @client.list_timeline("sferik", "presidents")
-            a_get("sferik/lists/presidents/statuses.#{format}").
+            a_get("lists/statuses.#{format}").
+              with(:query => {:owner_screen_name => 'sferik', :slug => 'presidents'}).
               should have_been_made
           end
 
@@ -360,13 +362,15 @@ describe Twitter::Client do
 
           before do
             @client.stub!(:get_screen_name).and_return('sferik')
-            stub_get("sferik/lists/presidents/statuses.#{format}").
+            stub_get("lists/statuses.#{format}").
+              with(:query => {:owner_screen_name => 'sferik', :slug => 'presidents'}).
               to_return(:body => fixture("statuses.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
 
           it "should get the correct resource" do
             @client.list_timeline("sferik", "presidents")
-            a_get("sferik/lists/presidents/statuses.#{format}").
+            a_get("lists/statuses.#{format}").
+              with(:query => {:owner_screen_name => 'sferik', :slug => 'presidents'}).
               should have_been_made
           end
 
@@ -374,6 +378,40 @@ describe Twitter::Client do
             statuses = @client.list_timeline("sferik", "presidents")
             statuses.should be_an Array
             statuses.first.text.should == "Ruby is the best programming language for hiding the ugly bits."
+          end
+
+        end
+
+        context "with an Integer list_id passed" do
+
+          before do
+            stub_get("lists/statuses.#{format}").
+              with(:query => {:owner_screen_name => 'sferik', :list_id => '12345678'}).
+              to_return(:body => fixture("list.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+          end
+
+          it "should get the correct resource" do
+            @client.list_timeline("sferik", 12345678)
+            a_get("lists/statuses.#{format}").
+              with(:query => {:owner_screen_name => 'sferik', :list_id => '12345678'}).
+              should have_been_made
+          end
+
+        end
+
+        context "with an Integer user_id passed" do
+
+          before do
+            stub_get("lists/statuses.#{format}").
+              with(:query => {:owner_id => '12345678', :slug => 'presidents'}).
+              to_return(:body => fixture("list.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+          end
+
+          it "should get the correct resource" do
+            @client.list_timeline(12345678, 'presidents')
+            a_get("lists/statuses.#{format}").
+              with(:query => {:owner_id => '12345678', :slug => 'presidents'}).
+              should have_been_made
           end
 
         end
@@ -385,15 +423,15 @@ describe Twitter::Client do
         context "with a screen name passed" do
 
           before do
-            stub_get("pengwynn/lists/memberships.#{format}").
-              with(:query => {:cursor => "-1"}).
+            stub_get("lists/memberships.#{format}").
+              with(:query => {:screen_name => 'pengwynn', :cursor => "-1"}).
               to_return(:body => fixture("lists.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
 
           it "should get the correct resource" do
             @client.memberships("pengwynn")
-            a_get("pengwynn/lists/memberships.#{format}").
-              with(:query => {:cursor => "-1"}).
+            a_get("lists/memberships.#{format}").
+              with(:query => {:screen_name => 'pengwynn', :cursor => "-1"}).
               should have_been_made
           end
 
@@ -408,16 +446,16 @@ describe Twitter::Client do
         context "without a screen name passed" do
 
           before do
-            @client.stub!(:get_screen_name).and_return('sferik')
-            stub_get("pengwynn/lists/memberships.#{format}").
-              with(:query => {:cursor => "-1"}).
+            @client.stub!(:get_screen_name).and_return('pengwynn')
+            stub_get("lists/memberships.#{format}").
+              with(:query => {:screen_name => 'pengwynn', :cursor => "-1"}).
               to_return(:body => fixture("lists.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
 
           it "should get the correct resource" do
             @client.memberships("pengwynn")
-            a_get("pengwynn/lists/memberships.#{format}").
-              with(:query => {:cursor => "-1"}).
+            a_get("lists/memberships.#{format}").
+              with(:query => {:screen_name => 'pengwynn', :cursor => "-1"}).
               should have_been_made
           end
 
@@ -425,6 +463,23 @@ describe Twitter::Client do
             lists = @client.memberships("pengwynn")
             lists.lists.should be_an Array
             lists.lists.first.name.should == "Rubyists"
+          end
+
+        end
+
+        context "with an Integer user_id passed" do
+
+          before do
+            stub_get("lists/memberships.#{format}").
+              with(:query => {:user_id => '12345678', :cursor => "-1"}).
+              to_return(:body => fixture("lists.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+          end
+
+          it "should get the correct resource" do
+            @client.memberships(12345678)
+            a_get("lists/memberships.#{format}").
+              with(:query => {:user_id => '12345678', :cursor => "-1"}).
+              should have_been_made
           end
 
         end
@@ -436,15 +491,15 @@ describe Twitter::Client do
         context "with a screen name passed" do
 
           before do
-            stub_get("pengwynn/lists/subscriptions.#{format}").
-              with(:query => {:cursor => "-1"}).
+            stub_get("lists/subscriptions.#{format}").
+              with(:query => {:screen_name => 'pengwynn', :cursor => "-1"}).
               to_return(:body => fixture("lists.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
 
           it "should get the correct resource" do
             @client.subscriptions("pengwynn")
-            a_get("pengwynn/lists/subscriptions.#{format}").
-              with(:query => {:cursor => "-1"}).
+            a_get("lists/subscriptions.#{format}").
+              with(:query => {:screen_name => 'pengwynn', :cursor => "-1"}).
               should have_been_made
           end
 
@@ -459,16 +514,16 @@ describe Twitter::Client do
         context "without a screen name passed" do
 
           before do
-            @client.stub!(:get_screen_name).and_return('sferik')
-            stub_get("pengwynn/lists/subscriptions.#{format}").
-              with(:query => {:cursor => "-1"}).
+            @client.stub!(:get_screen_name).and_return('pengwynn')
+            stub_get("lists/subscriptions.#{format}").
+              with(:query => {:screen_name => 'pengwynn', :cursor => "-1"}).
               to_return(:body => fixture("lists.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
 
           it "should get the correct resource" do
             @client.subscriptions("pengwynn")
-            a_get("pengwynn/lists/subscriptions.#{format}").
-              with(:query => {:cursor => "-1"}).
+            a_get("lists/subscriptions.#{format}").
+              with(:query => {:screen_name => 'pengwynn', :cursor => "-1"}).
               should have_been_made
           end
 
@@ -476,6 +531,23 @@ describe Twitter::Client do
             lists = @client.subscriptions("pengwynn")
             lists.lists.should be_an Array
             lists.lists.first.name.should == "Rubyists"
+          end
+
+        end
+
+        context "with an Integer user_id passed" do
+
+          before do
+            stub_get("lists/subscriptions.#{format}").
+              with(:query => {:user_id => '12345678', :cursor => "-1"}).
+              to_return(:body => fixture("lists.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+          end
+
+          it "should get the correct resource" do
+            @client.subscriptions(12345678)
+            a_get("lists/subscriptions.#{format}").
+              with(:query => {:user_id => '12345678', :cursor => "-1"}).
+              should have_been_made
           end
 
         end

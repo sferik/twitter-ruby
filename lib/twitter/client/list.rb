@@ -34,6 +34,8 @@ module Twitter
       # @example Update the "presidents" list to have the description "Presidents of the United States of America"
       #   Twitter.list_update("sferik", "presidents", :description => "Presidents of the United States of America")
       #   Twitter.list_update(7505382, "presidents", :description => "Presidents of the United States of America")
+      #   Twitter.list_update("sferik", 8863586, :description => "Presidents of the United States of America")
+      #   Twitter.list_update(7505382, 8863586, :description => "Presidents of the United States of America")
       # @format :json, :xml
       # @authenticated true
       # @rate_limited false
@@ -65,6 +67,7 @@ module Twitter
       # @return [Hashie::Mash]
       # @example List @sferik's lists
       #   Twitter.lists("sferik")
+      #   Twitter.lists(7505382)
       # @see http://dev.twitter.com/doc/get/:user/lists
       # @format :json, :xml
       # @authenticated true
@@ -90,6 +93,9 @@ module Twitter
       # @return [Hashie::Mash] The specified list.
       # @example Show @sferik's "presidents" list
       #   Twitter.list("sferik", "presidents")
+      #   Twitter.list("sferik", 8863586)
+      #   Twitter.list(7505382, "presidents")
+      #   Twitter.list(7505382, 8863586)
       # @note Private lists will only be shown if the authenticated user owns the specified list.
       # @format :json, :xml
       # @authenticated true
@@ -114,6 +120,9 @@ module Twitter
       # @return [Hashie::Mash] The deleted list.
       # @example Delete @sferik's "presidents" list
       #   Twitter.list_delete("sferik", "presidents")
+      #   Twitter.list_delete("sferik", 8863586)
+      #   Twitter.list_delete(7505382, "presidents")
+      #   Twitter.list_delete(7505382, 8863586)
       # @note Must be owned by the authenticated user.
       # @format :json, :xml
       # @authenticated true
@@ -132,66 +141,75 @@ module Twitter
       # Show tweet timeline for members of the specified list
       #
       # @overload list_timeline(screen_name, name, options={})
-      #   @param screen_name [String] A Twitter screen name.
-      #   @param id [Integer, String] The id or slug of the list.
-      #   @param options [Hash] A customizable set of options.
-      #   @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID.
-      #   @option options [Integer] :max_id Returns results with an ID less than (that is, older than) or equal to the specified ID.
-      #   @option options [Integer] :per_page The number of results to retrieve.
-      #   @option options [Integer] :page Specifies the page of results to retrieve.
-      #   @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
-      #   @return [Array]
-      #   @example Show tweet timeline for members of @sferik's "presidents" list
-      #     Twitter.list_timeline("sferik", "presidents")
+      # @param user [String] A Twitter user ID or screen name.
+      # @param list [Integer, String] The id or slug of the list.
+      # @param options [Hash] A customizable set of options.
+      # @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID.
+      # @option options [Integer] :max_id Returns results with an ID less than (that is, older than) or equal to the specified ID.
+      # @option options [Integer] :per_page The number of results to retrieve.
+      # @option options [Integer] :page Specifies the page of results to retrieve.
+      # @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
+      # @return [Array]
+      # @example Show tweet timeline for members of @sferik's "presidents" list
+      #   Twitter.list_timeline("sferik", "presidents")
+      #   Twitter.list_timeline("sferik", 8863586)
+      #   Twitter.list_timeline(7505382, "presidents")
+      #   Twitter.list_timeline(7505382, 8863586)
       # @format :json, :xml
       # @authenticated false
       # @rate_limited true
       # @see http://dev.twitter.com/doc/get/:user/lists/:id/statuses
       def list_timeline(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
-        name = args.pop
-        screen_name = args.pop || get_screen_name
-        response = get("#{screen_name}/lists/#{name}/statuses", options)
+        list = args.pop
+        user = args.pop || get_screeen_name
+        list_key = (list.is_a? Integer) ? :list_id : :slug
+        user_key = (user.is_a? Integer) ? :owner_id : :owner_screen_name
+        response = get("lists/statuses", options.merge(list_key => "#{list}", user_key => "#{user}"))
         format.to_s.downcase == 'xml' ? response['statuses'] : response
       end
 
       # List the lists the specified user has been added to
       #
       # @overload memberships(screen_name, options={})
-      #   @param screen_name [String] A Twitter screen name.
-      #   @param options [Hash] A customizable set of options.
-      #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
-      #   @return [Array]
-      #   @example List the lists that @sferik has been added to
-      #     Twitter.memberships("sferik")
+      # @param user [Integer, String] A Twitter user ID or screen name.
+      # @param options [Hash] A customizable set of options.
+      # @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
+      # @return [Array]
+      # @example List the lists that @sferik has been added to
+      #   Twitter.memberships("sferik")
+      #   Twitter.memberships(7505382)
       # @format :json, :xml
       # @authenticated true
       # @rate_limited true
       # @see http://dev.twitter.com/doc/get/:user/lists/memberships
       def memberships(*args)
         options = {:cursor => -1}.merge(args.last.is_a?(Hash) ? args.pop : {})
-        screen_name = args.pop || get_screen_name
-        response = get("#{screen_name}/lists/memberships", options)
+        user = args.pop || get_screen_name
+        user_key = (user.is_a? Integer) ? :user_id : :screen_name
+        response = get("lists/memberships", options.merge(user_key => "#{user}"))
         format.to_s.downcase == 'xml' ? response['lists_list'] : response
       end
 
       # List the lists the specified user follows
       #
       # @overload subscriptions(screen_name, options={})
-      #   @param screen_name [String] A Twitter screen name.
-      #   @param options [Hash] A customizable set of options.
-      #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
-      #   @return [Array]
-      #   @example List the lists that @sferik follows
-      #     Twitter.subscriptions("sferik")
+      # @param user [String] A Twitter user ID or screen name.
+      # @param options [Hash] A customizable set of options.
+      # @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
+      # @return [Array]
+      # @example List the lists that @sferik follows
+      #   Twitter.subscriptions("sferik")
+      #   Twitter.subscriptions(7505382)
       # @format :json, :xml
       # @authenticated true
       # @rate_limited true
       # @see http://dev.twitter.com/doc/get/:user/lists/subscriptions
       def subscriptions(*args)
         options = {:cursor => -1}.merge(args.last.is_a?(Hash) ? args.pop : {})
-        screen_name = args.pop || get_screen_name
-        response = get("#{screen_name}/lists/subscriptions", options)
+        user = args.pop || get_screen_name
+        user_key = (user.is_a? Integer) ? :user_id : :screen_name
+        response = get("lists/subscriptions", options.merge(user_key => "#{user}"))
         format.to_s.downcase == 'xml' ? response['lists_list'] : response
       end
     end
