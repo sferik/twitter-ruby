@@ -127,7 +127,7 @@ module Twitter
       def list_delete(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
         list = args.pop
-        user = args.pop || get_screeen_name
+        user = args.pop || get_screen_name
         merge_list_into_options!(list, options)
         merge_owner_into_options!(user, options)
         response = delete("lists/destroy", options)
@@ -158,7 +158,7 @@ module Twitter
       def list_timeline(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
         list = args.pop
-        user = args.pop || get_screeen_name
+        user = args.pop || get_screen_name
         merge_list_into_options!(list, options)
         merge_owner_into_options!(user, options)
         response = get("lists/statuses", options)
