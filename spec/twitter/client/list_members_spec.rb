@@ -346,9 +346,6 @@ describe Twitter::Client do
               with(:query => {:owner_screen_name => 'sferik', :slug => 'presidents', :user_id => '813286'}).
               to_return(:body => fixture("list.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
             stub_get("lists/members/show.#{format}").
-              with(:query => {:owner_screen_name => 'sferik', :slug => 'presidents', :screen_name => 'erebor'}).
-              to_return(:body => fixture("list.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
-            stub_get("lists/members/show.#{format}").
               with(:query => {:owner_screen_name => 'sferik', :slug => 'presidents', :user_id => '65493023'}).
               to_return(:body => fixture("not_found.#{format}"), :status => 404, :headers => {:content_type => "application/#{format}; charset=utf-8"})
             stub_get("lists/members/show.#{format}").
