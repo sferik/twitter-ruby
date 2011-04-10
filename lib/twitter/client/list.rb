@@ -45,9 +45,9 @@ module Twitter
         options = args.last.is_a?(Hash) ? args.pop : {}
         list = args.pop
         user = args.pop || get_screen_name
-        list_key = (list.is_a? Integer) ? :list_id : :slug
-        user_key = (user.is_a? Integer) ? :owner_id : :owner_screen_name
-        response = post("lists/update", options.merge(list_key => "#{list}", user_key => "#{user}"))
+        merge_list_into_options!(list, options)
+        merge_owner_into_options!(user, options)
+        response = post("lists/update", options)
         format.to_s.downcase == 'xml' ? response['list'] : response
       end
 
@@ -75,12 +75,8 @@ module Twitter
       def lists(*args)
         options = {:cursor => -1}.merge(args.last.is_a?(Hash) ? args.pop : {})
         user = args.first
-        if user
-          user_key = (user.is_a? Integer) ? :user_id : :screen_name
-          response = get("lists", options.merge(user_key => "#{user}"))
-        else
-          response = get('lists', options)
-        end
+        merge_user_into_options!(user, options) if user
+        response = get("lists", options)
         format.to_s.downcase == 'xml' ? response['lists_list'] : response
       end
 
@@ -105,9 +101,9 @@ module Twitter
         options = args.last.is_a?(Hash) ? args.pop : {}
         list = args.pop
         user = args.pop || get_screen_name
-        list_key = (list.is_a? Integer) ? :list_id : :slug
-        user_key = (user.is_a? Integer) ? :owner_id : :owner_screen_name
-        response = get("lists/show", options.merge(list_key => "#{list}", user_key => "#{user}"))
+        merge_list_into_options!(list, options)
+        merge_owner_into_options!(user, options)
+        response = get("lists/show", options)
         format.to_s.downcase == 'xml' ? response['list'] : response
       end
 
@@ -132,9 +128,9 @@ module Twitter
         options = args.last.is_a?(Hash) ? args.pop : {}
         list = args.pop
         user = args.pop || get_screeen_name
-        list_key = (list.is_a? Integer) ? :list_id : :slug
-        user_key = (user.is_a? Integer) ? :owner_id : :owner_screen_name
-        response = delete("lists/destroy", options.merge(list_key => "#{list}", user_key => "#{user}"))
+        merge_list_into_options!(list, options)
+        merge_owner_into_options!(user, options)
+        response = delete("lists/destroy", options)
         format.to_s.downcase == 'xml' ? response['list'] : response
       end
 
@@ -163,9 +159,9 @@ module Twitter
         options = args.last.is_a?(Hash) ? args.pop : {}
         list = args.pop
         user = args.pop || get_screeen_name
-        list_key = (list.is_a? Integer) ? :list_id : :slug
-        user_key = (user.is_a? Integer) ? :owner_id : :owner_screen_name
-        response = get("lists/statuses", options.merge(list_key => "#{list}", user_key => "#{user}"))
+        merge_list_into_options!(list, options)
+        merge_owner_into_options!(user, options)
+        response = get("lists/statuses", options)
         format.to_s.downcase == 'xml' ? response['statuses'] : response
       end
 
@@ -186,8 +182,8 @@ module Twitter
       def memberships(*args)
         options = {:cursor => -1}.merge(args.last.is_a?(Hash) ? args.pop : {})
         user = args.pop || get_screen_name
-        user_key = (user.is_a? Integer) ? :user_id : :screen_name
-        response = get("lists/memberships", options.merge(user_key => "#{user}"))
+        merge_user_into_options!(user, options)
+        response = get("lists/memberships", options)
         format.to_s.downcase == 'xml' ? response['lists_list'] : response
       end
 
@@ -208,8 +204,8 @@ module Twitter
       def subscriptions(*args)
         options = {:cursor => -1}.merge(args.last.is_a?(Hash) ? args.pop : {})
         user = args.pop || get_screen_name
-        user_key = (user.is_a? Integer) ? :user_id : :screen_name
-        response = get("lists/subscriptions", options.merge(user_key => "#{user}"))
+        merge_user_into_options!(user, options)
+        response = get("lists/subscriptions", options)
         format.to_s.downcase == 'xml' ? response['lists_list'] : response
       end
     end

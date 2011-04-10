@@ -7,23 +7,28 @@ module Twitter
       # Returns the members of the specified list
       #
       # @overload list_members(screen_name, list_id, options={})
-      #   @param screen_name [String] A Twitter screen name.
-      #   @param list_id [Integer, String] The id or slug of the list.
-      #   @param options [Hash] A customizable set of options.
-      #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
-      #   @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
-      #   @return [Array]
-      #   @example Return the members of @sferik's "presidents" list
-      #     Twitter.list_members("sferik", "presidents")
+      # @param user [String] A Twitter user ID or screen name.
+      # @param list [Integer, String] The list_id or slug of the list.
+      # @param options [Hash] A customizable set of options.
+      # @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
+      # @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
+      # @return [Array]
+      # @example Return the members of @sferik's "presidents" list
+      #   Twitter.list_members("sferik", "presidents")
+      #   Twitter.list_members(7505382, 8863586)
+      #   Twitter.list_members(7505382, "presidents")
+      #   Twitter.list_members(7505382, 8863586)
       # @format :json, :xml
       # @authenticated true
       # @rate_limited true
       # @see http://dev.twitter.com/doc/get/:user/:list_id/members
       def list_members(*args)
         options = {:cursor => -1}.merge(args.last.is_a?(Hash) ? args.pop : {})
-        list_id = args.pop
-        screen_name = args.pop || get_screen_name
-        response = get("#{screen_name}/#{list_id}/members", options)
+        list = args.pop
+        user = args.pop || get_screeen_name
+        list_key = (list.is_a? Integer) ? :list_id : :slug
+        user_key = (user.is_a? Integer) ? :owner_id : :owner_screen_name
+        response = get("lists/members", options.merge(list_key => "#{list}", user_key => "#{user}"))
         format.to_s.downcase == 'xml' ? response['users_list'] : response
       end
 

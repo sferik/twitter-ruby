@@ -27,6 +27,22 @@ module Twitter
         options
       end
 
+      # Take a single owner ID or owner screen name and merge it into an options hash with the correct key
+      # (for Twitter API endpoints that want :owner_id and :owner_screen_name)
+      #
+      # @param owner_id_or_owner_screen_name [Integer, String] A Twitter user ID or screen_name.
+      # @param options [Hash] A customizable set of options.
+      # @return [Hash]
+      def merge_owner_into_options!(owner_id_or_owner_screen_name, options={})
+        case owner_id_or_owner_screen_name
+        when Fixnum
+          options[:owner_id] = owner_id_or_owner_screen_name
+        when String
+          options[:owner_screen_name] = owner_id_or_owner_screen_name
+        end
+        options
+      end
+
       # Take a multiple user IDs and screen names and merge them into an options hash with the correct keys
       #
       # @param users_id_or_screen_names [Array] An array of Twitter user IDs or screen_names.
@@ -46,6 +62,22 @@ module Twitter
         options[:screen_name] = screen_names.join(',') unless screen_names.empty?
         options
       end
+
+      # Take a single list ID or slug and merge it into an options hash with the correct key
+      #
+      # @param list_id_or_slug [Integer, String] A Twitter list ID or slug.
+      # @param options [Hash] A customizable set of options.
+      # @return [Hash]
+      def merge_list_into_options!(list_id_or_screen_name, options={})
+        case list_id_or_screen_name
+        when Fixnum
+          options[:list_id] = list_id_or_screen_name
+        when String
+          options[:slug] = list_id_or_screen_name
+        end
+        options
+      end
+
     end
   end
 end
