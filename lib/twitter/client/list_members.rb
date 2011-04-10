@@ -7,7 +7,7 @@ module Twitter
       # Returns the members of the specified list
       #
       # @overload list_members(user, list, options={})
-      # @param user [String] A Twitter user ID or screen name.
+      # @param user [Integer, String] A Twitter user ID or screen name.
       # @param list [Integer, String] The list_id or slug of the list.
       # @param options [Hash] A customizable set of options.
       # @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.

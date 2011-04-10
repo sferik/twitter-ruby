@@ -27,7 +27,7 @@ module Twitter
       #
       # @overload list_update(user, list, options={})
       # @param user [Integer, String] A Twitter user ID or screen name.
-      # @param list [Integer, String] The list_id or slug for the list (slug is often the name, but not always).
+      # @param list [Integer, String] The list_id or slug for the list.
       # @param options [Hash] A customizable set of options.
       # @option options [String] :mode ('public') Whether your list is public or private. Values can be 'public' or 'private'.
       # @option options [String] :description The description to give the list.
@@ -84,7 +84,7 @@ module Twitter
       #
       # @overload list(user, list, options={})
       # @param user [Integer, String] A Twitter user ID or screen name.
-      # @param list [Integer, String] The id or slug of the list.
+      # @param list [Integer, String] The list_id or slug of the list.
       # @param options [Hash] A customizable set of options.
       # @return [Hashie::Mash] The specified list.
       # @example Show @sferik's "presidents" list
@@ -111,7 +111,7 @@ module Twitter
       #
       # @overload list_delete(user, list, options={})
       # @param user [Integer, String] A Twitter user ID or screen name.
-      # @param list [Integer, String] The id or slug of the list.
+      # @param list [Integer, String] The list_id or slug of the list.
       # @param options [Hash] A customizable set of options.
       # @return [Hashie::Mash] The deleted list.
       # @example Delete @sferik's "presidents" list
@@ -138,7 +138,7 @@ module Twitter
       #
       # @overload list_timeline(user, list, options={})
       # @param user [Integer, String] A Twitter user ID or screen name.
-      # @param list [Integer, String] The id or slug of the list.
+      # @param list [Integer, String] The list_id or slug of the list.
       # @param options [Hash] A customizable set of options.
       # @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID.
       # @option options [Integer] :max_id Returns results with an ID less than (that is, older than) or equal to the specified ID.
