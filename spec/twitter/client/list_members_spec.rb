@@ -247,15 +247,15 @@ describe Twitter::Client do
         context "with screen name passed" do
 
           before do
-            stub_delete("sferik/presidents/members.#{format}").
-              with(:query => {:id => "813286"}).
+            stub_post("lists/members/destroy.#{format}").
+              with(:body => {:owner_screen_name => 'sferik', :slug => 'presidents', :user_id => "813286"}).
               to_return(:body => fixture("list.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
 
           it "should get the correct resource" do
             @client.list_remove_member("sferik", "presidents", 813286)
-            a_delete("sferik/presidents/members.#{format}").
-              with(:query => {:id => "813286"}).
+            a_post("lists/members/destroy.#{format}").
+              with(:body => {:owner_screen_name => 'sferik', :slug => 'presidents', :user_id => "813286"}).
               should have_been_made
           end
 
@@ -266,19 +266,70 @@ describe Twitter::Client do
 
         end
 
+        context "with an Integer user_id passed" do
+
+          before do
+            stub_post("lists/members/destroy.#{format}").
+              with(:body => {:owner_id => '12345678', :slug => 'presidents', :user_id => "813286"}).
+              to_return(:body => fixture("list.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+          end
+
+          it "should get the correct resource" do
+            @client.list_remove_member(12345678, "presidents", 813286)
+            a_post("lists/members/destroy.#{format}").
+              with(:body => {:owner_id => '12345678', :slug => 'presidents', :user_id => "813286"}).
+              should have_been_made
+          end
+
+        end
+
+        context "with an Integer list_id passed" do
+
+          before do
+            stub_post("lists/members/destroy.#{format}").
+              with(:body => {:owner_screen_name => 'sferik', :list_id => '12345678', :user_id => "813286"}).
+              to_return(:body => fixture("list.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+          end
+
+          it "should get the correct resource" do
+            @client.list_remove_member('sferik', 12345678, 813286)
+            a_post("lists/members/destroy.#{format}").
+              with(:body => {:owner_screen_name => 'sferik', :list_id => '12345678', :user_id => "813286"}).
+              should have_been_made
+          end
+
+        end
+
+        context "with a screen name to remove" do
+
+          before do
+            stub_post("lists/members/destroy.#{format}").
+              with(:body => {:owner_screen_name => 'sferik', :slug => 'presidents', :screen_name => "erebor"}).
+              to_return(:body => fixture("list.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+          end
+
+          it "should get the correct resource" do
+            @client.list_remove_member('sferik', 'presidents', 'erebor')
+            a_post("lists/members/destroy.#{format}").
+              with(:body => {:owner_screen_name => 'sferik', :slug => 'presidents', :screen_name => "erebor"}).
+              should have_been_made
+          end
+
+        end
+
         context "without screen name passed" do
 
           before do
             @client.stub!(:get_screen_name).and_return('sferik')
-            stub_delete("sferik/presidents/members.#{format}").
-              with(:query => {:id => "813286"}).
+            stub_post("lists/members/destroy.#{format}").
+              with(:body => {:owner_screen_name => 'sferik', :slug => 'presidents', :user_id => "813286"}).
               to_return(:body => fixture("list.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
 
           it "should get the correct resource" do
             @client.list_remove_member("presidents", 813286)
-            a_delete("sferik/presidents/members.#{format}").
-              with(:query => {:id => "813286"}).
+            a_post("lists/members/destroy.#{format}").
+              with(:body => {:owner_screen_name => 'sferik', :slug => 'presidents', :user_id => "813286"}).
               should have_been_made
           end
 
@@ -291,15 +342,24 @@ describe Twitter::Client do
         context "with screen name passed" do
 
           before do
-            stub_get("sferik/presidents/members/813286.#{format}").
+            stub_get("lists/members/show.#{format}").
+              with(:query => {:owner_screen_name => 'sferik', :slug => 'presidents', :user_id => '813286'}).
               to_return(:body => fixture("list.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
-            stub_get("sferik/presidents/members/65493023.#{format}").
+            stub_get("lists/members/show.#{format}").
+              with(:query => {:owner_screen_name => 'sferik', :slug => 'presidents', :screen_name => 'erebor'}).
+              to_return(:body => fixture("list.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+            stub_get("lists/members/show.#{format}").
+              with(:query => {:owner_screen_name => 'sferik', :slug => 'presidents', :user_id => '65493023'}).
               to_return(:body => fixture("not_found.#{format}"), :status => 404, :headers => {:content_type => "application/#{format}; charset=utf-8"})
+            stub_get("lists/members/show.#{format}").
+              with(:query => {:owner_screen_name => 'sferik', :slug => 'presidents', :user_id => '12345678'}).
+              to_return(:body => fixture("not_found.#{format}"), :status => 403, :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
 
           it "should get the correct resource" do
             @client.is_list_member?("sferik", "presidents", 813286)
-            a_get("sferik/presidents/members/813286.#{format}").
+            a_get("lists/members/show.#{format}").
+              with(:query => {:owner_screen_name => 'sferik', :slug => 'presidents', :user_id => '813286'}).
               should have_been_made
           end
 
@@ -313,21 +373,77 @@ describe Twitter::Client do
             is_list_member.should be_false
           end
 
+          it "should return false if user does not exist" do
+            is_list_member = @client.is_list_member?("sferik", "presidents", 12345678)
+            is_list_member.should be_false
+          end
+
+        end
+
+        context "with an Integer owner_id passed" do
+
+          before do
+            stub_get("lists/members/show.#{format}").
+              with(:query => {:owner_id => '12345678', :slug => 'presidents', :user_id => '813286'}).
+              to_return(:body => fixture("list.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+          end
+
+          it "should get the correct resource" do
+            @client.is_list_member?(12345678, "presidents", 813286)
+            a_get("lists/members/show.#{format}").
+              with(:query => {:owner_id => '12345678', :slug => 'presidents', :user_id => '813286'}).
+              should have_been_made
+          end
+
+        end
+
+        context "with an Integer list_id passed" do
+
+          before do
+            stub_get("lists/members/show.#{format}").
+              with(:query => {:owner_screen_name => 'sferik', :list_id => '12345678', :user_id => '813286'}).
+              to_return(:body => fixture("list.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+          end
+
+          it "should get the correct resource" do
+            @client.is_list_member?('sferik', 12345678, 813286)
+            a_get("lists/members/show.#{format}").
+              with(:query => {:owner_screen_name => 'sferik', :list_id => '12345678', :user_id => '813286'}).
+              should have_been_made
+          end
+
+        end
+
+        context "with screen name passed for user_to_check" do
+
+          before do
+            stub_get("lists/members/show.#{format}").
+              with(:query => {:owner_screen_name => 'sferik', :slug => 'presidents', :screen_name => 'erebor'}).
+              to_return(:body => fixture("list.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+          end
+
+          it "should get the correct resource" do
+            @client.is_list_member?("sferik", "presidents", 'erebor')
+            a_get("lists/members/show.#{format}").
+              with(:query => {:owner_screen_name => 'sferik', :slug => 'presidents', :screen_name => 'erebor'}).
+              should have_been_made
+          end
+
         end
 
         context "without screen name passed" do
 
           before do
             @client.stub!(:get_screen_name).and_return('sferik')
-            stub_get("sferik/presidents/members/813286.#{format}").
+            stub_get("lists/members/show.#{format}").
+              with(:query => {:owner_screen_name => 'sferik', :slug => 'presidents', :user_id => '813286'}).
               to_return(:body => fixture("list.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
-            stub_get("sferik/presidents/members/65493023.#{format}").
-              to_return(:body => fixture("not_found.#{format}"), :status => 404, :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
 
           it "should get the correct resource" do
             @client.is_list_member?("presidents", 813286)
-            a_get("sferik/presidents/members/813286.#{format}").
+            a_get("lists/members/show.#{format}").
+              with(:query => {:owner_screen_name => 'sferik', :slug => 'presidents', :user_id => '813286'}).
               should have_been_made
           end
 
