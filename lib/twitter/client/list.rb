@@ -25,7 +25,7 @@ module Twitter
 
       # Updates the specified list
       #
-      # @overload list_update(screen_name, name, options={})
+      # @overload list_update(user, list, options={})
       # @param user [Integer, String] A Twitter user ID or screen name.
       # @param list [Integer, String] The list_id or slug for the list (slug is often the name, but not always).
       # @param options [Hash] A customizable set of options.
@@ -82,7 +82,7 @@ module Twitter
 
       # Show the specified list
       #
-      # @overload list(screen_name, id, options={})
+      # @overload list(user, list, options={})
       # @param user [Integer, String] A Twitter user ID or screen name.
       # @param list [Integer, String] The id or slug of the list.
       # @param options [Hash] A customizable set of options.
@@ -109,7 +109,7 @@ module Twitter
 
       # Deletes the specified list
       #
-      # @overload list_delete(screen_name, id, options={})
+      # @overload list_delete(user, list, options={})
       # @param user [Integer, String] A Twitter user ID or screen name.
       # @param list [Integer, String] The id or slug of the list.
       # @param options [Hash] A customizable set of options.
@@ -136,8 +136,8 @@ module Twitter
 
       # Show tweet timeline for members of the specified list
       #
-      # @overload list_timeline(screen_name, name, options={})
-      # @param user [String] A Twitter user ID or screen name.
+      # @overload list_timeline(user, list, options={})
+      # @param user [Integer, String] A Twitter user ID or screen name.
       # @param list [Integer, String] The id or slug of the list.
       # @param options [Hash] A customizable set of options.
       # @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID.
@@ -167,7 +167,7 @@ module Twitter
 
       # List the lists the specified user has been added to
       #
-      # @overload memberships(screen_name, options={})
+      # @overload memberships(user, options={})
       # @param user [Integer, String] A Twitter user ID or screen name.
       # @param options [Hash] A customizable set of options.
       # @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
@@ -189,8 +189,8 @@ module Twitter
 
       # List the lists the specified user follows
       #
-      # @overload subscriptions(screen_name, options={})
-      # @param user [String] A Twitter user ID or screen name.
+      # @overload subscriptions(user, options={})
+      # @param user [Integer, String] A Twitter user ID or screen name.
       # @param options [Hash] A customizable set of options.
       # @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
       # @return [Array]
