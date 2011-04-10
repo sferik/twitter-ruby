@@ -25,6 +25,14 @@ module Twitter
 
       # Updates the specified list
       #
+      # @overload list_update(list, options={})
+      # @param list [Integer, String] The list_id or slug for the list.
+      # @param options [Hash] A customizable set of options.
+      # @option options [String] :mode ('public') Whether your list is public or private. Values can be 'public' or 'private'.
+      # @option options [String] :description The description to give the list.
+      # @example Update the "presidents" list to have the description "Presidents of the United States of America"
+      #   Twitter.list_update("presidents", :description => "Presidents of the United States of America")
+      #   Twitter.list_update(8863586, :description => "Presidents of the United States of America")
       # @overload list_update(user, list, options={})
       # @param user [Integer, String] A Twitter user ID or screen name.
       # @param list [Integer, String] The list_id or slug for the list.
