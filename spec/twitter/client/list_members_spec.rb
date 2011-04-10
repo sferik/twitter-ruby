@@ -12,15 +12,15 @@ describe Twitter::Client do
         context "with screen name" do
 
           before do
-            stub_get("sferik/presidents/members.#{format}").
-              with(:query => {:cursor => "-1"}).
+            stub_get("lists/members.#{format}").
+              with(:query => {:owner_screen_name => 'sferik', :slug => 'presidents', :cursor => "-1"}).
               to_return(:body => fixture("users_list.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
 
           it "should get the correct resource" do
             @client.list_members("sferik", "presidents")
-            a_get("sferik/presidents/members.#{format}").
-              with(:query => {:cursor => "-1"}).
+            a_get("lists/members.#{format}").
+              with(:query => {:owner_screen_name => 'sferik', :slug => 'presidents', :cursor => "-1"}).
               should have_been_made
           end
 
@@ -32,19 +32,35 @@ describe Twitter::Client do
 
         end
 
+        context "with an Integer user_id passed" do
+
+          before do
+            stub_get("lists/members.#{format}").
+              with(:query => {:owner_id => '12345678', :slug => 'presidents', :cursor => "-1"}).
+              to_return(:body => fixture("users_list.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+          end
+
+          it "should get the correct resource" do
+            @client.list_members(12345678, 'presidents')
+            a_get("lists/members.#{format}").
+              with(:query => {:owner_id => '12345678', :slug => 'presidents', :cursor => "-1"}).
+              should have_been_made
+          end
+
+        end
         context "without screen name" do
 
           before do
             @client.stub!(:get_screen_name).and_return('sferik')
-            stub_get("sferik/presidents/members.#{format}").
-              with(:query => {:cursor => "-1"}).
+            stub_get("lists/members.#{format}").
+              with(:query => {:owner_screen_name => 'sferik', :slug => 'presidents', :cursor => "-1"}).
               to_return(:body => fixture("users_list.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
 
           it "should get the correct resource" do
             @client.list_members("presidents")
-            a_get("sferik/presidents/members.#{format}").
-              with(:query => {:cursor => "-1"}).
+            a_get("lists/members.#{format}").
+              with(:query => {:owner_screen_name => 'sferik', :slug => 'presidents', :cursor => "-1"}).
               should have_been_made
           end
 

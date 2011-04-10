@@ -6,7 +6,7 @@ module Twitter
     module ListMembers
       # Returns the members of the specified list
       #
-      # @overload list_members(screen_name, list_id, options={})
+      # @overload list_members(user, list, options={})
       # @param user [String] A Twitter user ID or screen name.
       # @param list [Integer, String] The list_id or slug of the list.
       # @param options [Hash] A customizable set of options.
@@ -25,23 +25,23 @@ module Twitter
       def list_members(*args)
         options = {:cursor => -1}.merge(args.last.is_a?(Hash) ? args.pop : {})
         list = args.pop
-        user = args.pop || get_screeen_name
-        list_key = (list.is_a? Integer) ? :list_id : :slug
-        user_key = (user.is_a? Integer) ? :owner_id : :owner_screen_name
-        response = get("lists/members", options.merge(list_key => "#{list}", user_key => "#{user}"))
+        user = args.pop || get_screen_name
+        merge_list_into_options!(list, options)
+        merge_owner_into_options!(user, options)
+        response = get("lists/members", options)
         format.to_s.downcase == 'xml' ? response['users_list'] : response
       end
 
       # Add a member to a list
       #
-      # @overload list_add_member(screen_name, list_id, id, options={})
-      #   @param screen_name [String] A Twitter screen name.
-      #   @param list_id [Integer, String] The id or slug of the list.
-      #   @param id [Integer] The user id of the list member.
-      #   @param options [Hash] A customizable set of options.
-      #   @return [Hashie::Mash] The list.
-      #   @example Add @BarackObama to @sferik's "presidents" list
-      #     Twitter.list_add_member("sferik", "presidents", 813286)
+      # @overload list_add_member(user, list, id, options={})
+      # @param user [Integer, String] A Twitter user ID or screen name.
+      # @param list [Integer, String] The list_id or slug of the list.
+      # @param id [Integer] The user id of the list member.
+      # @param options [Hash] A customizable set of options.
+      # @return [Hashie::Mash] The list.
+      # @example Add @BarackObama to @sferik's "presidents" list
+      #   Twitter.list_add_member("sferik", "presidents", 813286)
       # @note Lists are limited to having 500 members.
       # @format :json, :xml
       # @authenticated true
