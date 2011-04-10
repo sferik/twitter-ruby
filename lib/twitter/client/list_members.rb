@@ -15,7 +15,7 @@ module Twitter
       # @return [Array]
       # @example Return the members of @sferik's "presidents" list
       #   Twitter.list_members("sferik", "presidents")
-      #   Twitter.list_members(7505382, 8863586)
+      #   Twitter.list_members("sferik", 8863586)
       #   Twitter.list_members(7505382, "presidents")
       #   Twitter.list_members(7505382, 8863586)
       # @format :json, :xml
@@ -37,11 +37,14 @@ module Twitter
       # @overload list_add_member(user, list, id, options={})
       # @param user [Integer, String] A Twitter user ID or screen name.
       # @param list [Integer, String] The list_id or slug of the list.
-      # @param id [Integer] The user id of the list member.
+      # @param id [Integer] The user id to add to the list.
       # @param options [Hash] A customizable set of options.
       # @return [Hashie::Mash] The list.
       # @example Add @BarackObama to @sferik's "presidents" list
       #   Twitter.list_add_member("sferik", "presidents", 813286)
+      #   Twitter.list_add_member('sferik', 8863586, 813286)
+      #   Twitter.list_add_member(7505382, "presidents", 813286)
+      #   Twitter.list_add_member(7505382, 8863586, 813286)
       # @note Lists are limited to having 500 members.
       # @format :json, :xml
       # @authenticated true
@@ -49,22 +52,28 @@ module Twitter
       # @see http://dev.twitter.com/doc/post/:user/:list_id/members
       def list_add_member(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
-        id, list_id = args.pop, args.pop
-        screen_name = args.pop || get_screen_name
-        response = post("#{screen_name}/#{list_id}/members", options.merge(:id => id))
+        id, list = args.pop, args.pop
+        user = args.pop || get_screen_name
+        merge_list_into_options!(list, options)
+        merge_owner_into_options!(user, options)
+        response = post("lists/members/create", options.merge(:user_id => id))
         format.to_s.downcase == 'xml' ? response['list'] : response
       end
 
       # Adds multiple members to a list
       #
-      # @overload list_add_members(screen_name, list_id, users, options={})
-      #   @param screen_name [String] A Twitter screen name.
-      #   @param list_id [Integer, String] The id or slug of the list.
-      #   @param users [Array] The user ids to add.
-      #   @param options [Hash] A customizable set of options.
-      #   @return [Hashie::Mash] The list.
-      #   @example Add @BarackObama and @Jasonfinn to @sferik's "presidents" list
-      #     Twitter.list_add_members("sferik", "presidents", [813286, 18755393])
+      # @overload list_add_members(user, list, users_to_add, options={})
+      # @param user [Integer, String] A Twitter user ID or screen name.
+      # @param list [Integer, String] The list_id or slug of the list.
+      # @param users_to_add [Array] The user IDs and/or screen names to add.
+      # @param options [Hash] A customizable set of options.
+      # @return [Hashie::Mash] The list.
+      # @example Add @BarackObama and @Jasonfinn to @sferik's "presidents" list
+      #   Twitter.list_add_members("sferik", "presidents", [813286, 18755393])
+      #   Twitter.list_add_members('sferik', 'presidents', [813286, 'pengwynn'])
+      #   Twitter.list_add_members('sferik', 8863586, [813286, 18755393])
+      #   Twitter.list_add_members(7505382, "presidents", [813286, 18755393])
+      #   Twitter.list_add_members(7505382, 8863586, [813286, 18755393])
       # @note Lists are limited to having 500 members, and you are limited to adding up to 100 members to a list at a time with this method.
       # @format :json, :xml
       # @authenticated true
@@ -72,10 +81,24 @@ module Twitter
       # @see http://dev.twitter.com/doc/post/:user/:list_id/create_all
       def list_add_members(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
-        users, list_id = args.pop, args.pop
-        screen_name = args.pop || get_screen_name
-        merge_users_into_options!(Array(users), options)
-        response = post("#{screen_name}/#{list_id}/members/create_all", options)
+        users_to_add, list = args.pop, args.pop
+        user = args.pop || get_screen_name
+        merge_list_into_options!(list, options)
+        merge_owner_into_options!(user, options)
+        merge_users_into_options!(Array(users_to_add), options)
+        response = post("lists/members/create_all", options)
+        format.to_s.downcase == 'xml' ? response['list'] : response
+      end
+
+      def add_members_foo(*args)
+        options = args.last.is_a?(Hash) ? args.pop : {}
+        users_to_add, list = args.pop, args.pop
+        user = args.pop || get_screen_name
+        # merge_list_into_options!(list, options)
+        # merge_owner_into_options!(user, options)
+        # merge_users_into_options!(Array(users_to_add), options)
+        puts "Options are #{options.inspect}"
+        response = post("lists/members/create_all", options)
         format.to_s.downcase == 'xml' ? response['list'] : response
       end
 

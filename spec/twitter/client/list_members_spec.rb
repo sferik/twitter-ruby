@@ -48,6 +48,7 @@ describe Twitter::Client do
           end
 
         end
+
         context "without screen name" do
 
           before do
@@ -73,15 +74,15 @@ describe Twitter::Client do
         context "with screen name passed" do
 
           before do
-            stub_post("sferik/presidents/members.#{format}").
-              with(:body => {:id => "813286"}).
+            stub_post("lists/members/create.#{format}").
+              with(:body => {:owner_screen_name => 'sferik', :slug => 'presidents', :user_id => "813286"}).
               to_return(:body => fixture("list.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
 
           it "should get the correct resource" do
             @client.list_add_member("sferik", "presidents", 813286)
-            a_post("sferik/presidents/members.#{format}").
-              with(:body => {:id => "813286"}).
+            a_post("lists/members/create.#{format}").
+              with(:body => {:owner_screen_name => 'sferik', :slug => 'presidents', :user_id => "813286"}).
               should have_been_made
           end
 
@@ -92,19 +93,53 @@ describe Twitter::Client do
 
         end
 
+        context "with an Integer user_id passed" do
+
+          before do
+            stub_post("lists/members/create.#{format}").
+              with(:body => {:owner_id => '12345678', :slug => 'presidents', :user_id => "813286"}).
+              to_return(:body => fixture("users_list.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+          end
+
+          it "should get the correct resource" do
+            @client.list_add_member(12345678, 'presidents', 813286)
+            a_post("lists/members/create.#{format}").
+              with(:body => {:owner_id => '12345678', :slug => 'presidents', :user_id => "813286"}).
+              should have_been_made
+          end
+
+        end
+
+        context "with an Integer list_id passed" do
+
+          before do
+            stub_post("lists/members/create.#{format}").
+              with(:body => {:owner_screen_name => 'sferik', :list_id => '12345678', :user_id => "813286"}).
+              to_return(:body => fixture("users_list.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+          end
+
+          it "should get the correct resource" do
+            @client.list_add_member('sferik', 12345678, 813286)
+            a_post("lists/members/create.#{format}").
+              with(:body => {:owner_screen_name => 'sferik', :list_id => '12345678', :user_id => "813286"}).
+              should have_been_made
+          end
+
+        end
+
         context "without screen name passed" do
 
           before do
             @client.stub!(:get_screen_name).and_return('sferik')
-            stub_post("sferik/presidents/members.#{format}").
-              with(:body => {:id => "813286"}).
+            stub_post("lists/members/create.#{format}").
+              with(:body => {:owner_screen_name => 'sferik', :slug => 'presidents', :user_id => "813286"}).
               to_return(:body => fixture("list.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
 
           it "should get the correct resource" do
             @client.list_add_member("presidents", 813286)
-            a_post("sferik/presidents/members.#{format}").
-              with(:body => {:id => "813286"}).
+            a_post("lists/members/create.#{format}").
+              with(:body => {:owner_screen_name => 'sferik', :slug => 'presidents', :user_id => "813286"}).
               should have_been_made
           end
 
@@ -117,15 +152,15 @@ describe Twitter::Client do
         context "with screen name passed" do
 
           before do
-            stub_post("sferik/presidents/members/create_all.#{format}").
-              with(:body => {:user_id => "813286,18755393"}).
+            stub_post("lists/members/create_all.#{format}").
+              with(:body => {:owner_screen_name => 'sferik', :slug => 'presidents', :user_id => "813286,18755393"}).
               to_return(:body => fixture("list.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
 
           it "should get the correct resource" do
             @client.list_add_members("sferik", "presidents", [813286, 18755393])
-            a_post("sferik/presidents/members/create_all.#{format}").
-              with(:body => {:user_id => "813286,18755393"}).
+            a_post("lists/members/create_all.#{format}").
+              with(:body => {:owner_screen_name => 'sferik', :slug => 'presidents', :user_id => "813286,18755393"}).
               should have_been_made
           end
 
@@ -136,19 +171,70 @@ describe Twitter::Client do
 
         end
 
+        context "with an Integer user_id passed" do
+
+          before do
+            stub_post("lists/members/create_all.#{format}").
+              with(:body => {:owner_id => '12345678', :slug => 'presidents', :user_id => "813286,18755393"}).
+              to_return(:body => fixture("list.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+          end
+
+          it "should get the correct resource" do
+            @client.list_add_members(12345678, "presidents", [813286, 18755393])
+            a_post("lists/members/create_all.#{format}").
+              with(:body => {:owner_id => '12345678', :slug => 'presidents', :user_id => "813286,18755393"}).
+              should have_been_made
+          end
+
+        end
+
+        context "with an Integer list_id passed" do
+
+          before do
+            stub_post("lists/members/create_all.#{format}").
+              with(:body => {:owner_screen_name => 'sferik', :list_id => '12345678', :user_id => "813286,18755393"}).
+              to_return(:body => fixture("list.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+          end
+
+          it "should get the correct resource" do
+            @client.list_add_members('sferik', 12345678, [813286, 18755393])
+            a_post("lists/members/create_all.#{format}").
+              with(:body => {:owner_screen_name => 'sferik', :list_id => '12345678', :user_id => "813286,18755393"}).
+              should have_been_made
+          end
+
+        end
+
+        context "with a combination of member IDs and member screen names to add" do
+
+          before do
+            stub_post("lists/members/create_all.#{format}").
+              with(:body => {:owner_screen_name => 'sferik', :slug => 'presidents', :user_id => "813286,18755393", :screen_name => "pengwynn,erebor"}).
+              to_return(:body => fixture("list.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+          end
+
+          it "should get the correct resource" do
+            @client.list_add_members('sferik', 'presidents', [813286, 'pengwynn', 18755393, 'erebor'])
+            a_post("lists/members/create_all.#{format}").
+              with(:body => {:owner_screen_name => 'sferik', :slug => 'presidents', :user_id => "813286,18755393", :screen_name => "pengwynn,erebor"}).
+              should have_been_made
+          end
+
+        end
+
         context "without screen name passed" do
 
           before do
             @client.stub!(:get_screen_name).and_return('sferik')
-            stub_post("sferik/presidents/members/create_all.#{format}").
-              with(:body => {:user_id => "813286,18755393"}).
+            stub_post("lists/members/create_all.#{format}").
+              with(:body => {:owner_screen_name => 'sferik', :slug => 'presidents', :user_id => "813286,18755393"}).
               to_return(:body => fixture("list.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
 
           it "should get the correct resource" do
             @client.list_add_members("presidents", [813286, 18755393])
-            a_post("sferik/presidents/members/create_all.#{format}").
-              with(:body => {:user_id => "813286,18755393"}).
+            a_post("lists/members/create_all.#{format}").
+              with(:body => {:owner_screen_name => 'sferik', :slug => 'presidents', :user_id => "813286,18755393"}).
               should have_been_made
           end
 
