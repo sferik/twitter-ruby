@@ -26,24 +26,24 @@ module Twitter
       # Updates the specified list
       #
       # @overload list_update(list, options={})
-      # @param list [Integer, String] The list_id or slug for the list.
-      # @param options [Hash] A customizable set of options.
-      # @option options [String] :mode ('public') Whether your list is public or private. Values can be 'public' or 'private'.
-      # @option options [String] :description The description to give the list.
-      # @example Update the "presidents" list to have the description "Presidents of the United States of America"
-      #   Twitter.list_update("presidents", :description => "Presidents of the United States of America")
-      #   Twitter.list_update(8863586, :description => "Presidents of the United States of America")
+      #   @param list [Integer, String] The list_id or slug for the list.
+      #   @param options [Hash] A customizable set of options.
+      #   @option options [String] :mode ('public') Whether your list is public or private. Values can be 'public' or 'private'.
+      #   @option options [String] :description The description to give the list.
+      #   @example Update the "presidents" list to have the description "Presidents of the United States of America"
+      #     Twitter.list_update("presidents", :description => "Presidents of the United States of America")
+      #     Twitter.list_update(8863586, :description => "Presidents of the United States of America")
       # @overload list_update(user, list, options={})
-      # @param user [Integer, String] A Twitter user ID or screen name.
-      # @param list [Integer, String] The list_id or slug for the list.
-      # @param options [Hash] A customizable set of options.
-      # @option options [String] :mode ('public') Whether your list is public or private. Values can be 'public' or 'private'.
-      # @option options [String] :description The description to give the list.
-      # @example Update the "presidents" list to have the description "Presidents of the United States of America"
-      #   Twitter.list_update("sferik", "presidents", :description => "Presidents of the United States of America")
-      #   Twitter.list_update(7505382, "presidents", :description => "Presidents of the United States of America")
-      #   Twitter.list_update("sferik", 8863586, :description => "Presidents of the United States of America")
-      #   Twitter.list_update(7505382, 8863586, :description => "Presidents of the United States of America")
+      #   @param user [Integer, String] A Twitter user ID or screen name.
+      #   @param list [Integer, String] The list_id or slug for the list.
+      #   @param options [Hash] A customizable set of options.
+      #   @option options [String] :mode ('public') Whether your list is public or private. Values can be 'public' or 'private'.
+      #   @option options [String] :description The description to give the list.
+      #   @example Update the "presidents" list to have the description "Presidents of the United States of America"
+      #     Twitter.list_update("sferik", "presidents", :description => "Presidents of the United States of America")
+      #     Twitter.list_update(7505382, "presidents", :description => "Presidents of the United States of America")
+      #     Twitter.list_update("sferik", 8863586, :description => "Presidents of the United States of America")
+      #     Twitter.list_update(7505382, 8863586, :description => "Presidents of the United States of America")
       # @format :json, :xml
       # @authenticated true
       # @rate_limited false
@@ -63,19 +63,19 @@ module Twitter
       #
       # @note Private lists will be included if the authenticated user is the same as the user whose lists are being returned.
       # @overload lists(options={})
-      # @param options [Hash] A customizable set of options.
-      # @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
-      # @return [Hashie::Mash]
-      # @example List the authenticated user's lists
-      #   Twitter.lists
+      #   @param options [Hash] A customizable set of options.
+      #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
+      #   @return [Hashie::Mash]
+      #   @example List the authenticated user's lists
+      #     Twitter.lists
       # @overload lists(user, options={})
-      # @param user [Integer, String] A Twitter user ID or screen name.
-      # @param options [Hash] A customizable set of options.
-      # @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
-      # @return [Hashie::Mash]
-      # @example List @sferik's lists
-      #   Twitter.lists("sferik")
-      #   Twitter.lists(7505382)
+      #   @param user [Integer, String] A Twitter user ID or screen name.
+      #   @param options [Hash] A customizable set of options.
+      #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
+      #   @return [Hashie::Mash]
+      #   @example List @sferik's lists
+      #     Twitter.lists("sferik")
+      #     Twitter.lists(7505382)
       # @see http://dev.twitter.com/doc/get/:user/lists
       # @format :json, :xml
       # @authenticated true
@@ -91,15 +91,15 @@ module Twitter
       # Show the specified list
       #
       # @overload list(user, list, options={})
-      # @param user [Integer, String] A Twitter user ID or screen name.
-      # @param list [Integer, String] The list_id or slug of the list.
-      # @param options [Hash] A customizable set of options.
-      # @return [Hashie::Mash] The specified list.
-      # @example Show @sferik's "presidents" list
-      #   Twitter.list("sferik", "presidents")
-      #   Twitter.list("sferik", 8863586)
-      #   Twitter.list(7505382, "presidents")
-      #   Twitter.list(7505382, 8863586)
+      #   @param user [Integer, String] A Twitter user ID or screen name.
+      #   @param list [Integer, String] The list_id or slug of the list.
+      #   @param options [Hash] A customizable set of options.
+      #   @return [Hashie::Mash] The specified list.
+      #   @example Show @sferik's "presidents" list
+      #     Twitter.list("sferik", "presidents")
+      #     Twitter.list("sferik", 8863586)
+      #     Twitter.list(7505382, "presidents")
+      #     Twitter.list(7505382, 8863586)
       # @note Private lists will only be shown if the authenticated user owns the specified list.
       # @format :json, :xml
       # @authenticated true
@@ -118,15 +118,15 @@ module Twitter
       # Deletes the specified list
       #
       # @overload list_delete(user, list, options={})
-      # @param user [Integer, String] A Twitter user ID or screen name.
-      # @param list [Integer, String] The list_id or slug of the list.
-      # @param options [Hash] A customizable set of options.
-      # @return [Hashie::Mash] The deleted list.
-      # @example Delete @sferik's "presidents" list
-      #   Twitter.list_delete("sferik", "presidents")
-      #   Twitter.list_delete("sferik", 8863586)
-      #   Twitter.list_delete(7505382, "presidents")
-      #   Twitter.list_delete(7505382, 8863586)
+      #   @param user [Integer, String] A Twitter user ID or screen name.
+      #   @param list [Integer, String] The list_id or slug of the list.
+      #   @param options [Hash] A customizable set of options.
+      #   @return [Hashie::Mash] The deleted list.
+      #   @example Delete @sferik's "presidents" list
+      #     Twitter.list_delete("sferik", "presidents")
+      #     Twitter.list_delete("sferik", 8863586)
+      #     Twitter.list_delete(7505382, "presidents")
+      #     Twitter.list_delete(7505382, 8863586)
       # @note Must be owned by the authenticated user.
       # @format :json, :xml
       # @authenticated true
@@ -145,20 +145,20 @@ module Twitter
       # Show tweet timeline for members of the specified list
       #
       # @overload list_timeline(user, list, options={})
-      # @param user [Integer, String] A Twitter user ID or screen name.
-      # @param list [Integer, String] The list_id or slug of the list.
-      # @param options [Hash] A customizable set of options.
-      # @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID.
-      # @option options [Integer] :max_id Returns results with an ID less than (that is, older than) or equal to the specified ID.
-      # @option options [Integer] :per_page The number of results to retrieve.
-      # @option options [Integer] :page Specifies the page of results to retrieve.
-      # @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
-      # @return [Array]
-      # @example Show tweet timeline for members of @sferik's "presidents" list
-      #   Twitter.list_timeline("sferik", "presidents")
-      #   Twitter.list_timeline("sferik", 8863586)
-      #   Twitter.list_timeline(7505382, "presidents")
-      #   Twitter.list_timeline(7505382, 8863586)
+      #   @param user [Integer, String] A Twitter user ID or screen name.
+      #   @param list [Integer, String] The list_id or slug of the list.
+      #   @param options [Hash] A customizable set of options.
+      #   @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID.
+      #   @option options [Integer] :max_id Returns results with an ID less than (that is, older than) or equal to the specified ID.
+      #   @option options [Integer] :per_page The number of results to retrieve.
+      #   @option options [Integer] :page Specifies the page of results to retrieve.
+      #   @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
+      #   @return [Array]
+      #   @example Show tweet timeline for members of @sferik's "presidents" list
+      #     Twitter.list_timeline("sferik", "presidents")
+      #     Twitter.list_timeline("sferik", 8863586)
+      #     Twitter.list_timeline(7505382, "presidents")
+      #     Twitter.list_timeline(7505382, 8863586)
       # @format :json, :xml
       # @authenticated false
       # @rate_limited true
@@ -176,13 +176,13 @@ module Twitter
       # List the lists the specified user has been added to
       #
       # @overload memberships(user, options={})
-      # @param user [Integer, String] A Twitter user ID or screen name.
-      # @param options [Hash] A customizable set of options.
-      # @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
-      # @return [Array]
-      # @example List the lists that @sferik has been added to
-      #   Twitter.memberships("sferik")
-      #   Twitter.memberships(7505382)
+      #   @param user [Integer, String] A Twitter user ID or screen name.
+      #   @param options [Hash] A customizable set of options.
+      #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
+      #   @return [Array]
+      #   @example List the lists that @sferik has been added to
+      #     Twitter.memberships("sferik")
+      #     Twitter.memberships(7505382)
       # @format :json, :xml
       # @authenticated true
       # @rate_limited true
@@ -198,13 +198,13 @@ module Twitter
       # List the lists the specified user follows
       #
       # @overload subscriptions(user, options={})
-      # @param user [Integer, String] A Twitter user ID or screen name.
-      # @param options [Hash] A customizable set of options.
-      # @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
-      # @return [Array]
-      # @example List the lists that @sferik follows
-      #   Twitter.subscriptions("sferik")
-      #   Twitter.subscriptions(7505382)
+      #   @param user [Integer, String] A Twitter user ID or screen name.
+      #   @param options [Hash] A customizable set of options.
+      #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
+      #   @return [Array]
+      #   @example List the lists that @sferik follows
+      #     Twitter.subscriptions("sferik")
+      #     Twitter.subscriptions(7505382)
       # @format :json, :xml
       # @authenticated true
       # @rate_limited true
