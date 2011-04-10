@@ -34,10 +34,10 @@ module Twitter
 
       # Add a member to a list
       #
-      # @overload list_add_member(user, list, id, options={})
+      # @overload list_add_member(user, list, user_to_add, options={})
       # @param user [Integer, String] A Twitter user ID or screen name.
       # @param list [Integer, String] The list_id or slug of the list.
-      # @param id [Integer] The user id to add to the list.
+      # @param user_to_add [Integer, String] The user id or screen name to add to the list.
       # @param options [Hash] A customizable set of options.
       # @return [Hashie::Mash] The list.
       # @example Add @BarackObama to @sferik's "presidents" list
@@ -52,11 +52,12 @@ module Twitter
       # @see http://dev.twitter.com/doc/post/:user/:list_id/members
       def list_add_member(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
-        id, list = args.pop, args.pop
+        user_to_add, list = args.pop, args.pop
         user = args.pop || get_screen_name
         merge_list_into_options!(list, options)
         merge_owner_into_options!(user, options)
-        response = post("lists/members/create", options.merge(:user_id => id))
+        merge_user_into_options!(user_to_add, options)
+        response = post("lists/members/create", options)
         format.to_s.downcase == 'xml' ? response['list'] : response
       end
 
@@ -90,62 +91,62 @@ module Twitter
         format.to_s.downcase == 'xml' ? response['list'] : response
       end
 
-      def add_members_foo(*args)
-        options = args.last.is_a?(Hash) ? args.pop : {}
-        users_to_add, list = args.pop, args.pop
-        user = args.pop || get_screen_name
-        # merge_list_into_options!(list, options)
-        # merge_owner_into_options!(user, options)
-        # merge_users_into_options!(Array(users_to_add), options)
-        puts "Options are #{options.inspect}"
-        response = post("lists/members/create_all", options)
-        format.to_s.downcase == 'xml' ? response['list'] : response
-      end
-
       # Removes the specified member from the list
       #
-      # @overload list_remove_member(screen_name, list_id, id, options={})
-      #   @param screen_name [String] A Twitter screen name.
-      #   @param list_id [Integer, String] The id or slug of the list.
-      #   @param id [Integer] The user id of the list member.
-      #   @param options [Hash] A customizable set of options.
-      #   @return [Hashie::Mash] The list.
-      #   @example Remove @BarackObama from @sferik's "presidents" list
-      #     Twitter.list_remove_member("sferik", "presidents", 813286)
+      # @overload list_remove_member(user, list, user_to_remove, options={})
+      # @param user [Integer, String] A Twitter user ID or screen name.
+      # @param list [Integer, String] The list_id or slug of the list.
+      # @param user_to_remove [Integer, String] The user id or screen name of the list member to remove.
+      # @param options [Hash] A customizable set of options.
+      # @return [Hashie::Mash] The list.
+      # @example Remove @BarackObama from @sferik's "presidents" list
+      #   Twitter.list_remove_member("sferik", "presidents", 813286)
+      #   Twitter.list_remove_member("sferik", "presidents", 'BarackObama')
+      #   Twitter.list_remove_member('sferik', 8863586, 'BarackObama')
+      #   Twitter.list_remove_member(7505382, "presidents", 813286)
       # @format :json, :xml
       # @authenticated true
       # @rate_limited false
       # @see http://dev.twitter.com/doc/delete/:user/:list_id/members
       def list_remove_member(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
-        id, list_id = args.pop, args.pop
-        screen_name = args.pop || get_screen_name
-        response = delete("#{screen_name}/#{list_id}/members", options.merge(:id => id))
+        user_to_remove, list = args.pop, args.pop
+        user = args.pop || get_screen_name
+        merge_list_into_options!(list, options)
+        merge_owner_into_options!(user, options)
+        merge_user_into_options!(user_to_remove, options)
+        response = post("lists/members/destroy", options)
         format.to_s.downcase == 'xml' ? response['list'] : response
       end
 
       # Check if a user is a member of the specified list
       #
-      # @overload is_list_member?(screen_name, list_id, id, options={})
-      #   @param screen_name [String] A Twitter screen name.
-      #   @param list_id [Integer, String] The id or slug of the list.
-      #   @param id [Integer] The user id of the list member.
-      #   @param options [Hash] A customizable set of options.
-      #   @return [Boolean] true if user is a member of the specified list, otherwise false.
-      #   @example Check if @BarackObama is a member of @sferik's "presidents" list
-      #     Twitter.is_list_member?("sferik", "presidents", 813286)
+      # @overload is_list_member?(user, list, user_to_check, options={})
+      # @param user [Integer, String] A Twitter user ID or screen name.
+      # @param list [Integer, String] The list_id or slug of the list.
+      # @param user_to_check [Integer, String] The user ID or screen name of the list member.
+      # @param options [Hash] A customizable set of options.
+      # @return [Boolean] true if user is a member of the specified list, otherwise false.
+      # @example Check if @BarackObama is a member of @sferik's "presidents" list
+      #   Twitter.is_list_member?("sferik", "presidents", 813286)
+      #   Twitter.is_list_member?('sferik', 8863586, 'BarackObama')
+      #   Twitter.is_list_member?(7505382, "presidents", 813286)
       # @format :json, :xml
       # @authenticated true
       # @rate_limited false
       # @see http://dev.twitter.com/doc/get/:user/:list_id/members/:id
       def is_list_member?(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
-        id, list_id = args.pop, args.pop
-        screen_name = args.pop || get_screen_name
+        user_to_check, list = args.pop, args.pop
+        user = args.pop || get_screen_name
+        merge_list_into_options!(list, options)
+        merge_owner_into_options!(user, options)
+        merge_user_into_options!(user_to_check, options)
+        puts "Options are #{options.inspect}"
         begin
-          get("#{screen_name}/#{list_id}/members/#{id}", options)
+          get("lists/members/show", options)
           true
-        rescue Twitter::NotFound
+        rescue Twitter::NotFound, Twitter::Forbidden
           false
         end
       end
