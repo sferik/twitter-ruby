@@ -21,7 +21,7 @@ module Twitter
     client.send(method, *args, &block)
   end
 
-  def self.respond_to?(method)
-    client.respond_to?(method) || super
+  def self.respond_to?(method, include_private = false)
+    client.respond_to?(method, include_private) || super(method, include_private)
   end
 end
