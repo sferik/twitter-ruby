@@ -4,7 +4,9 @@ A Ruby wrapper for the Twitter REST and Search APIs
 
 Installation
 ------------
-    gem install twitter
+``` sh
+gem install twitter
+```
 
 Documentation
 -------------
@@ -33,25 +35,27 @@ This version no longer requires that you explicitly pass the authenticated
 user's ID or screen name.
 
 **Pre-1.1**
+``` ruby
+Twitter.configure do |config|
+  config.consumer_key = YOUR_CONSUMER_KEY
+  config.consumer_secret = YOUR_CONSUMER_SECRET
+  config.oauth_token = YOUR_OAUTH_TOKEN
+  config.oauth_token_secret = YOUR_OAUTH_TOKEN_SECRET
+end
 
-    Twitter.configure do |config|
-      config.consumer_key = YOUR_CONSUMER_KEY
-      config.consumer_secret = YOUR_CONSUMER_SECRET
-      config.oauth_token = YOUR_OAUTH_TOKEN
-      config.oauth_token_secret = YOUR_OAUTH_TOKEN_SECRET
-    end
-    
-    Twitter.user("sferik")
+Twitter.user("sferik")
+```
 **Post-1.1**
+``` ruby
+Twitter.configure do |config|
+  config.consumer_key = YOUR_CONSUMER_KEY
+  config.consumer_secret = YOUR_CONSUMER_SECRET
+  config.oauth_token = YOUR_OAUTH_TOKEN
+  config.oauth_token_secret = YOUR_OAUTH_TOKEN_SECRET
+end
 
-    Twitter.configure do |config|
-      config.consumer_key = YOUR_CONSUMER_KEY
-      config.consumer_secret = YOUR_CONSUMER_SECRET
-      config.oauth_token = YOUR_OAUTH_TOKEN
-      config.oauth_token_secret = YOUR_OAUTH_TOKEN_SECRET
-    end
-    
-    Twitter.user
+Twitter.user
+```
 
 What's new in 1.0?
 ------------------
@@ -65,23 +69,25 @@ calls to the <tt>Twitter::Client</tt> class](http://github.com/jnunemaker/twitte
 In a handful of cases, method names were changed to resolve namespace conflicts.
 
 **Pre-1.0**
-
-    Twitter::Base.new.user("sferik").name
+``` ruby
+Twitter::Base.new.user("sferik").name
+```
 **Post-1.0**
-
-    Twitter::Client.new.user("sferik").name
-
+``` ruby
+Twitter::Client.new.user("sferik").name
+```
 The <tt>Twitter::Search</tt> class has remained largely the same, however it no longer accepts a
 query in its constructor. You can specify a query using the <tt>#containing</tt> method, which is
 aliased to <tt>#q</tt>.
 
 **Pre-1.0**
-
-    Twitter::Search.new("query").fetch.first.text
+``` ruby
+Twitter::Search.new("query").fetch.first.text
+```
 **Post-1.0**
-
-    Twitter::Search.new.q("query").fetch.first.text
-
+``` ruby
+Twitter::Search.new.q("query").fetch.first.text
+```
 The error classes have gone through a transformation to make them consistent with [Twitter's documented
 response codes](http://dev.twitter.com/pages/responses_errors). These changes should make it easier to
 rescue from specific errors and take action accordingly. We've also added support for two new classes of
@@ -182,58 +188,60 @@ If you're using the XML request format, we recommend requiring [libxml-ruby](htt
 
 Usage Examples
 --------------
-    require "rubygems"
-    require "twitter"
+``` ruby
+require "rubygems"
+require "twitter"
 
-    # Get a user's location
-    puts Twitter.user("sferik").location
+# Get a user's location
+puts Twitter.user("sferik").location
 
-    # Get a user's most recent status update
-    puts Twitter.user_timeline("sferik").first.text
+# Get a user's most recent status update
+puts Twitter.user_timeline("sferik").first.text
 
-    # Get a status update by id
-    puts Twitter.status(27558893223).text
+# Get a status update by id
+puts Twitter.status(27558893223).text
 
-    # Initialize a Twitter search client
-    search = Twitter::Search.new
+# Initialize a Twitter search client
+search = Twitter::Search.new
 
-    # Find the 3 most recent marriage proposals to @justinbieber
-    search.containing("marry me").to("justinbieber").result_type("recent").per_page(3).each do |r|
-      puts "#{r.from_user}: #{r.text}"
-    end
+# Find the 3 most recent marriage proposals to @justinbieber
+search.containing("marry me").to("justinbieber").result_type("recent").per_page(3).each do |r|
+  puts "#{r.from_user}: #{r.text}"
+end
 
-    # Enough about Justin Bieber
-    search.clear
+# Enough about Justin Bieber
+search.clear
 
-    # Let's find a Japanese-language tweet tagged #ruby
-    puts search.hashtag("ruby").language("ja").no_retweets.per_page(1).fetch.first.text
+# Let's find a Japanese-language tweet tagged #ruby
+puts search.hashtag("ruby").language("ja").no_retweets.per_page(1).fetch.first.text
 
-    # And another
-    puts search.fetch_next_page.first.text
+# And another
+puts search.fetch_next_page.first.text
 
-    # Certain methods require authentication. To get your Twitter OAuth credentials,
-    # register an app at http://dev.twitter.com/apps
-    Twitter.configure do |config|
-      config.consumer_key = YOUR_CONSUMER_KEY
-      config.consumer_secret = YOUR_CONSUMER_SECRET
-      config.oauth_token = YOUR_OAUTH_TOKEN
-      config.oauth_token_secret = YOUR_OAUTH_TOKEN_SECRET
-    end
+# Certain methods require authentication. To get your Twitter OAuth credentials,
+# register an app at http://dev.twitter.com/apps
+Twitter.configure do |config|
+  config.consumer_key = YOUR_CONSUMER_KEY
+  config.consumer_secret = YOUR_CONSUMER_SECRET
+  config.oauth_token = YOUR_OAUTH_TOKEN
+  config.oauth_token_secret = YOUR_OAUTH_TOKEN_SECRET
+end
 
-    # Update your status
-    Twitter.update("I'm tweeting from the Twitter Ruby Gem!")
+# Update your status
+Twitter.update("I'm tweeting from the Twitter Ruby Gem!")
 
-    # Read the most recent tweet in your home timeline
-    puts Twitter.home_timeline.first.text
+# Read the most recent tweet in your home timeline
+puts Twitter.home_timeline.first.text
 
-    # Who's your most popular friend?
-    puts Twitter.friends.users.sort{|a, b| a.followers_count <=> b.followers_count}.reverse.first.name
+# Who's your most popular friend?
+puts Twitter.friends.users.sort{|a, b| a.followers_count <=> b.followers_count}.reverse.first.name
 
-    # Who's your most popular follower?
-    puts Twitter.followers.users.sort{|a, b| a.followers_count <=> b.followers_count}.reverse.first.name
+# Who's your most popular follower?
+puts Twitter.followers.users.sort{|a, b| a.followers_count <=> b.followers_count}.reverse.first.name
 
-    # Get your rate limit status
-    puts Twitter.rate_limit_status.remaining_hits.to_s + " Twitter API request(s) remaining this hour"
+# Get your rate limit status
+puts Twitter.rate_limit_status.remaining_hits.to_s + " Twitter API request(s) remaining this hour"
+```
 
 Contributing
 ------------
