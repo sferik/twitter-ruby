@@ -26,6 +26,7 @@ module Twitter
       #     Twitter.list_subscribers("sferik", 'presidents')
       #     Twitter.list_subscribers("sferik", 8863586)
       #     Twitter.list_subscribers(7505382, 'presidents')
+      # @return [Array] The subscribers of the specified list.
       # @format :json, :xml
       # @authenticated true
       # @rate_limited true
@@ -58,6 +59,7 @@ module Twitter
       #     Twitter.list_subscribe("sferik", 'presidents')
       #     Twitter.list_subscribe("sferik", 8863586)
       #     Twitter.list_subscribe(7505382, 'presidents')
+      # @return [Hashie::Mash] The specified list.
       # @format :json, :xml
       # @authenticated true
       # @rate_limited false
@@ -90,6 +92,7 @@ module Twitter
       #     Twitter.list_unsubscribe("sferik", 'presidents')
       #     Twitter.list_unsubscribe("sferik", 8863586)
       #     Twitter.list_unsubscribe(7505382, 'presidents')
+      # @return [Hashie::Mash] The specified list.
       # @format :json, :xml
       # @authenticated true
       # @rate_limited false
@@ -126,6 +129,7 @@ module Twitter
       #     Twitter.is_subscriber?("sferik", 8863586, 813286)
       #     Twitter.is_subscriber?(7505382, 'presidents', 813286)
       #     Twitter.is_subscriber?("sferik", 'presidents', 'BarackObama')
+      # @return [Boolean] true if user is a subscriber of the specified list, otherwise false.
       # @format :json, :xml
       # @authenticated true
       # @rate_limited true

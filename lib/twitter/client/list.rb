@@ -51,6 +51,7 @@ module Twitter
       #     Twitter.list_update(7505382, "presidents", :description => "Presidents of the United States of America")
       #     Twitter.list_update("sferik", 8863586, :description => "Presidents of the United States of America")
       #     Twitter.list_update(7505382, 8863586, :description => "Presidents of the United States of America")
+      # @return [Hashie::Mash] The created list.
       # @format :json, :xml
       # @authenticated true
       # @rate_limited false
@@ -82,6 +83,7 @@ module Twitter
       #   @example List @sferik's lists
       #     Twitter.lists("sferik")
       #     Twitter.lists(7505382)
+      # @return [Hashie::Mash]
       # @see http://dev.twitter.com/doc/get/:user/lists
       # @format :json, :xml
       # @authenticated true
@@ -113,6 +115,7 @@ module Twitter
       #     Twitter.list("sferik", 8863586)
       #     Twitter.list(7505382, "presidents")
       #     Twitter.list(7505382, 8863586)
+      # @return [Hashie::Mash] The specified list.
       # @note Private lists will only be shown if the authenticated user owns the specified list.
       # @format :json, :xml
       # @authenticated true
@@ -147,6 +150,7 @@ module Twitter
       #     Twitter.list_delete("sferik", 8863586)
       #     Twitter.list_delete(7505382, "presidents")
       #     Twitter.list_delete(7505382, 8863586)
+      # @return [Hashie::Mash] The deleted list.
       # @note Must be owned by the authenticated user.
       # @format :json, :xml
       # @authenticated true
@@ -191,6 +195,7 @@ module Twitter
       #     Twitter.list_timeline("sferik", 8863586)
       #     Twitter.list_timeline(7505382, "presidents")
       #     Twitter.list_timeline(7505382, 8863586)
+      # @return [Array]
       # @format :json, :xml
       # @authenticated false
       # @rate_limited true
@@ -221,6 +226,7 @@ module Twitter
       #   @example List the lists that @sferik has been added to
       #     Twitter.memberships("sferik")
       #     Twitter.memberships(7505382)
+      # @return [Array]
       # @format :json, :xml
       # @authenticated true
       # @rate_limited true
@@ -249,6 +255,7 @@ module Twitter
       #   @example List the lists that @sferik follows
       #     Twitter.subscriptions("sferik")
       #     Twitter.subscriptions(7505382)
+      # @return [Array]
       # @format :json, :xml
       # @authenticated true
       # @rate_limited true
