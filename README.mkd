@@ -35,6 +35,7 @@ This version no longer requires that you explicitly pass the authenticated
 user's ID or screen name.
 
 **Pre-1.1**
+
 ``` ruby
 Twitter.configure do |config|
   config.consumer_key = YOUR_CONSUMER_KEY
@@ -46,6 +47,7 @@ end
 Twitter.user("sferik")
 ```
 **Post-1.1**
+
 ``` ruby
 Twitter.configure do |config|
   config.consumer_key = YOUR_CONSUMER_KEY
@@ -69,10 +71,12 @@ calls to the <tt>Twitter::Client</tt> class](http://github.com/jnunemaker/twitte
 In a handful of cases, method names were changed to resolve namespace conflicts.
 
 **Pre-1.0**
+
 ``` ruby
 Twitter::Base.new.user("sferik").name
 ```
 **Post-1.0**
+
 ``` ruby
 Twitter::Client.new.user("sferik").name
 ```
@@ -81,10 +85,12 @@ query in its constructor. You can specify a query using the <tt>#containing</tt>
 aliased to <tt>#q</tt>.
 
 **Pre-1.0**
+
 ``` ruby
 Twitter::Search.new("query").fetch.first.text
 ```
 **Post-1.0**
+
 ``` ruby
 Twitter::Search.new.q("query").fetch.first.text
 ```
