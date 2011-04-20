@@ -27,6 +27,7 @@ module Twitter
       #     Twitter.list_members("sferik", 8863586)
       #     Twitter.list_members(7505382, "presidents")
       #     Twitter.list_members(7505382, 8863586)
+      # @return [Array]
       # @format :json, :xml
       # @authenticated true
       # @rate_limited true
@@ -62,6 +63,7 @@ module Twitter
       #     Twitter.list_add_member('sferik', 8863586, 813286)
       #     Twitter.list_add_member(7505382, "presidents", 813286)
       #     Twitter.list_add_member(7505382, 8863586, 813286)
+      # @return [Hashie::Mash] The list.
       # @note Lists are limited to having 500 members.
       # @format :json, :xml
       # @authenticated true
@@ -101,6 +103,7 @@ module Twitter
       #     Twitter.list_add_members('sferik', 8863586, [813286, 18755393])
       #     Twitter.list_add_members(7505382, "presidents", [813286, 18755393])
       #     Twitter.list_add_members(7505382, 8863586, [813286, 18755393])
+      # @return [Hashie::Mash] The list.
       # @note Lists are limited to having 500 members, and you are limited to adding up to 100 members to a list at a time with this method.
       # @format :json, :xml
       # @authenticated true
@@ -139,6 +142,7 @@ module Twitter
       #     Twitter.list_remove_member("sferik", "presidents", 'BarackObama')
       #     Twitter.list_remove_member('sferik', 8863586, 'BarackObama')
       #     Twitter.list_remove_member(7505382, "presidents", 813286)
+      # @return [Hashie::Mash] The list.
       # @format :json, :xml
       # @authenticated true
       # @rate_limited false
@@ -174,6 +178,7 @@ module Twitter
       #     Twitter.is_list_member?("sferik", "presidents", 813286)
       #     Twitter.is_list_member?('sferik', 8863586, 'BarackObama')
       #     Twitter.is_list_member?(7505382, "presidents", 813286)
+      # @return [Boolean] true if user is a member of the specified list, otherwise false.
       # @format :json, :xml
       # @authenticated true
       # @rate_limited false
