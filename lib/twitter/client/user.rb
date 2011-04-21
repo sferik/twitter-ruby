@@ -41,9 +41,13 @@ module Twitter
       #   Twitter.user(7505382, 14100886)    # Same as above
       def users(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
+
+        options = {:raw => false}.merge(options)
+        raw = options.delete(:raw)
+
         users = args
         merge_users_into_options!(Array(users), options)
-        response = get('users/lookup', options)
+        response = get('users/lookup', options, raw)
         format.to_s.downcase == 'xml' ? response['users'] : response
       end
 
