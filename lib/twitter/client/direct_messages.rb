@@ -51,7 +51,7 @@ module Twitter
       # @param text [String] The text of your direct message, up to 140 characters.
       # @param options [Hash] A customizable set of options.
       # @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
-      # @return [Hashie::Mash] The sent message.
+      # @return [Hashie::Rash] The sent message.
       # @see http://dev.twitter.com/doc/post/direct_messages/new
       # @example Send a direct message to @sferik from the authenticating user
       #   Twitter.direct_message_create("sferik", "I'm sending you this message via the Twitter Ruby Gem!")
@@ -71,7 +71,7 @@ module Twitter
       # @param id [Integer] The ID of the direct message to delete.
       # @param options [Hash] A customizable set of options.
       # @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
-      # @return [Hashie::Mash] The deleted message.
+      # @return [Hashie::Rash] The deleted message.
       # @see http://dev.twitter.com/doc/post/direct_messages/destroy/:id
       # @example Destroys the direct message with the ID 1825785544
       #   Twitter.direct_message_destroy(1825785544)

@@ -32,7 +32,7 @@ module Twitter
         user = args.first
         merge_user_into_options!(user, options)
         response = get('friends/ids', options)
-        format.to_s.downcase == 'xml' ? Hashie::Mash.new(:ids => response['id_list']['ids']['id'].map{|id| id.to_i}) : response
+        format.to_s.downcase == 'xml' ? Hashie::Rash.new(:ids => response['id_list']['ids']['id'].map{|id| id.to_i}) : response
       end
 
       # @overload follower_ids(options={})
@@ -65,7 +65,7 @@ module Twitter
         user = args.first
         merge_user_into_options!(user, options)
         response = get('followers/ids', options)
-        format.to_s.downcase == 'xml' ? Hashie::Mash.new(:ids => response['id_list']['ids']['id'].map{|id| id.to_i}) : response
+        format.to_s.downcase == 'xml' ? Hashie::Rash.new(:ids => response['id_list']['ids']['id'].map{|id| id.to_i}) : response
       end
     end
   end

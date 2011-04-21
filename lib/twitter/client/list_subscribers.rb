@@ -46,7 +46,7 @@ module Twitter
       # @overload list_subscribe(list, options={})
       #   @param list [Integer, String] The list_id or slug of the list.
       #   @param options [Hash] A customizable set of options.
-      #   @return [Hashie::Mash] The specified list.
+      #   @return [Hashie::Rash] The specified list.
       #   @example Subscribe to the authenticated user's "presidents" list
       #     Twitter.list_subscribe('presidents')
       #     Twitter.list_subscribe(8863586)
@@ -54,12 +54,12 @@ module Twitter
       #   @param user [Integer, String] A Twitter user ID or screen name.
       #   @param list [Integer, String] The list_id or slug of the list.
       #   @param options [Hash] A customizable set of options.
-      #   @return [Hashie::Mash] The specified list.
+      #   @return [Hashie::Rash] The specified list.
       #   @example Subscribe to @sferik's "presidents" list
       #     Twitter.list_subscribe("sferik", 'presidents')
       #     Twitter.list_subscribe("sferik", 8863586)
       #     Twitter.list_subscribe(7505382, 'presidents')
-      # @return [Hashie::Mash] The specified list.
+      # @return [Hashie::Rash] The specified list.
       # @format :json, :xml
       # @authenticated true
       # @rate_limited false
@@ -79,7 +79,7 @@ module Twitter
       # @overload list_unsubscribe(list, options={})
       #   @param list [Integer, String] The list_id or slug of the list.
       #   @param options [Hash] A customizable set of options.
-      #   @return [Hashie::Mash] The specified list.
+      #   @return [Hashie::Rash] The specified list.
       #   @example Unsubscribe from the authenticated user's "presidents" list
       #     Twitter.list_unsubscribe('presidents')
       #     Twitter.list_unsubscribe(8863586)
@@ -87,12 +87,12 @@ module Twitter
       #   @param user [Integer, String] A Twitter user ID or screen name.
       #   @param list [Integer, String] The list_id or slug of the list.
       #   @param options [Hash] A customizable set of options.
-      #   @return [Hashie::Mash] The specified list.
+      #   @return [Hashie::Rash] The specified list.
       #   @example Unsubscribe from @sferik's "presidents" list
       #     Twitter.list_unsubscribe("sferik", 'presidents')
       #     Twitter.list_unsubscribe("sferik", 8863586)
       #     Twitter.list_unsubscribe(7505382, 'presidents')
-      # @return [Hashie::Mash] The specified list.
+      # @return [Hashie::Rash] The specified list.
       # @format :json, :xml
       # @authenticated true
       # @rate_limited false

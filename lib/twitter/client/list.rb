@@ -14,7 +14,7 @@ module Twitter
       # @param options [Hash] A customizable set of options.
       # @option options [String] :mode ('public') Whether your list is public or private. Values can be 'public' or 'private'.
       # @option options [String] :description The description to give the list.
-      # @return [Hashie::Mash] The created list.
+      # @return [Hashie::Rash] The created list.
       # @see http://dev.twitter.com/doc/post/:user/lists
       # @example Create a list named "presidents"
       #   Twitter.list_create("presidents")
@@ -35,7 +35,7 @@ module Twitter
       #   @param options [Hash] A customizable set of options.
       #   @option options [String] :mode ('public') Whether your list is public or private. Values can be 'public' or 'private'.
       #   @option options [String] :description The description to give the list.
-      #   @return [Hashie::Mash] The created list.
+      #   @return [Hashie::Rash] The created list.
       #   @example Update the authenticated user's "presidents" list to have the description "Presidents of the United States of America"
       #     Twitter.list_update("presidents", :description => "Presidents of the United States of America")
       #     Twitter.list_update(8863586, :description => "Presidents of the United States of America")
@@ -45,13 +45,13 @@ module Twitter
       #   @param options [Hash] A customizable set of options.
       #   @option options [String] :mode ('public') Whether your list is public or private. Values can be 'public' or 'private'.
       #   @option options [String] :description The description to give the list.
-      #   @return [Hashie::Mash] The created list.
+      #   @return [Hashie::Rash] The created list.
       #   @example Update the @sferik's "presidents" list to have the description "Presidents of the United States of America"
       #     Twitter.list_update("sferik", "presidents", :description => "Presidents of the United States of America")
       #     Twitter.list_update(7505382, "presidents", :description => "Presidents of the United States of America")
       #     Twitter.list_update("sferik", 8863586, :description => "Presidents of the United States of America")
       #     Twitter.list_update(7505382, 8863586, :description => "Presidents of the United States of America")
-      # @return [Hashie::Mash] The created list.
+      # @return [Hashie::Rash] The created list.
       # @format :json, :xml
       # @authenticated true
       # @rate_limited false
@@ -72,18 +72,18 @@ module Twitter
       # @overload lists(options={})
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
-      #   @return [Hashie::Mash]
+      #   @return [Hashie::Rash]
       #   @example List the authenticated user's lists
       #     Twitter.lists
       # @overload lists(user, options={})
       #   @param user [Integer, String] A Twitter user ID or screen name.
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
-      #   @return [Hashie::Mash]
+      #   @return [Hashie::Rash]
       #   @example List @sferik's lists
       #     Twitter.lists("sferik")
       #     Twitter.lists(7505382)
-      # @return [Hashie::Mash]
+      # @return [Hashie::Rash]
       # @see http://dev.twitter.com/doc/get/:user/lists
       # @format :json, :xml
       # @authenticated true
@@ -101,7 +101,7 @@ module Twitter
       # @overload list(list, options={})
       #   @param list [Integer, String] The list_id or slug of the list.
       #   @param options [Hash] A customizable set of options.
-      #   @return [Hashie::Mash] The specified list.
+      #   @return [Hashie::Rash] The specified list.
       #   @example Show the authenticated user's "presidents" list
       #     Twitter.list("presidents")
       #     Twitter.list(8863586)
@@ -109,13 +109,13 @@ module Twitter
       #   @param user [Integer, String] A Twitter user ID or screen name.
       #   @param list [Integer, String] The list_id or slug of the list.
       #   @param options [Hash] A customizable set of options.
-      #   @return [Hashie::Mash] The specified list.
+      #   @return [Hashie::Rash] The specified list.
       #   @example Show @sferik's "presidents" list
       #     Twitter.list("sferik", "presidents")
       #     Twitter.list("sferik", 8863586)
       #     Twitter.list(7505382, "presidents")
       #     Twitter.list(7505382, 8863586)
-      # @return [Hashie::Mash] The specified list.
+      # @return [Hashie::Rash] The specified list.
       # @note Private lists will only be shown if the authenticated user owns the specified list.
       # @format :json, :xml
       # @authenticated true
@@ -136,7 +136,7 @@ module Twitter
       # @overload list_delete(list, options={})
       #   @param list [Integer, String] The list_id or slug of the list.
       #   @param options [Hash] A customizable set of options.
-      #   @return [Hashie::Mash] The deleted list.
+      #   @return [Hashie::Rash] The deleted list.
       #   @example Delete the authenticated user's "presidents" list
       #     Twitter.list_delete("presidents")
       #     Twitter.list_delete(8863586)
@@ -144,13 +144,13 @@ module Twitter
       #   @param user [Integer, String] A Twitter user ID or screen name.
       #   @param list [Integer, String] The list_id or slug of the list.
       #   @param options [Hash] A customizable set of options.
-      #   @return [Hashie::Mash] The deleted list.
+      #   @return [Hashie::Rash] The deleted list.
       #   @example Delete @sferik's "presidents" list
       #     Twitter.list_delete("sferik", "presidents")
       #     Twitter.list_delete("sferik", 8863586)
       #     Twitter.list_delete(7505382, "presidents")
       #     Twitter.list_delete(7505382, 8863586)
-      # @return [Hashie::Mash] The deleted list.
+      # @return [Hashie::Rash] The deleted list.
       # @note Must be owned by the authenticated user.
       # @format :json, :xml
       # @authenticated true

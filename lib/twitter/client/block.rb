@@ -12,7 +12,7 @@ module Twitter
       # @param user [Integer, String] A Twitter user ID or screen name.
       # @param options [Hash] A customizable set of options.
       # @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
-      # @return [Hashie::Mash] The blocked user.
+      # @return [Hashie::Rash] The blocked user.
       # @see http://dev.twitter.com/doc/post/blocks/create
       # @example Block and unfriend @sferik as the authenticating user
       #   Twitter.block("sferik")
@@ -31,7 +31,7 @@ module Twitter
       # @param user [Integer, String] A Twitter user ID or screen name.
       # @param options [Hash] A customizable set of options.
       # @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
-      # @return [Hashie::Mash] The un-blocked user.
+      # @return [Hashie::Rash] The un-blocked user.
       # @see http://dev.twitter.com/doc/post/blocks/destroy
       # @example Un-block @sferik as the authenticating user
       #   Twitter.unblock("sferik")

@@ -10,7 +10,7 @@ module Twitter
       # @param user [Integer, String] A Twitter user ID or screen name.
       # @param options [Hash] A customizable set of options.
       # @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
-      # @return [Hashie::Mash] The specified user.
+      # @return [Hashie::Rash] The specified user.
       # @see http://dev.twitter.com/doc/post/notifications/follow
       # @example Enable device notifications for updates from @sferik
       #   Twitter.enable_notifications("sferik")
@@ -29,7 +29,7 @@ module Twitter
       # @param user [Integer, String] A Twitter user ID or screen name.
       # @param options [Hash] A customizable set of options.
       # @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
-      # @return [Hashie::Mash] The specified user.
+      # @return [Hashie::Rash] The specified user.
       # @see http://dev.twitter.com/doc/post/notifications/leave
       # @example Disable device notifications for updates from @sferik
       #   Twitter.disable_notifications("sferik")

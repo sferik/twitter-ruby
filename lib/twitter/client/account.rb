@@ -9,7 +9,7 @@ module Twitter
       # @rate_limited true
       # @param options [Hash] A customizable set of options.
       # @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
-      # @return [Hashie::Mash] The authenticated user.
+      # @return [Hashie::Rash] The authenticated user.
       # @raise [Twitter::Unauthorized] Error raised when supplied user credentials are not valid.
       # @see http://dev.twitter.com/doc/get/account/verify_credentials
       # @example Return the requesting user if authentication was successful
@@ -27,7 +27,7 @@ module Twitter
       #   This will return the requesting IP's rate limit status. If you want the authenticating user's rate limit status you must authenticate.
       # @rate_limited true
       # @param options [Hash] A customizable set of options.
-      # @return [Hashie::Mash]
+      # @return [Hashie::Rash]
       # @see http://dev.twitter.com/doc/get/account/rate_limit_status
       # @example Return the remaining number of API requests available to the requesting user
       #   Twitter.rate_limit_status
@@ -42,7 +42,7 @@ module Twitter
       # @authenticated true
       # @rate_limited false
       # @param options [Hash] A customizable set of options.
-      # @return [Hashie::Mash]
+      # @return [Hashie::Rash]
       # @see http://dev.twitter.com/doc/post/account/end_session
       # @example End the session of the authenticating user
       #   Twitter.end_session
@@ -59,7 +59,7 @@ module Twitter
       # @param device [String] Must be one of: 'sms', 'none'.
       # @param options [Hash] A customizable set of options.
       # @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
-      # @return [Hashie::Mash] The authenticated user.
+      # @return [Hashie::Rash] The authenticated user.
       # @see http://dev.twitter.com/doc/post/account/update_delivery_device
       # @example Turn SMS updates on for the authenticating user
       #   Twitter.update_delivery_device('sms')
@@ -80,7 +80,7 @@ module Twitter
       # @option options [String] :profile_sidebar_fill_color Profile sidebar's background color.
       # @option options [String] :profile_sidebar_border_color Profile sidebar's border color.
       # @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
-      # @return [Hashie::Mash] The authenticated user.
+      # @return [Hashie::Rash] The authenticated user.
       # @see http://dev.twitter.com/doc/post/account/update_profile_colors
       # @example Set authenticating user's profile background to black
       #   Twitter.update_profile_colors(:profile_background_color => '000000')
@@ -98,7 +98,7 @@ module Twitter
       # @param image [String] The avatar image for the profile. Must be a valid GIF, JPG, or PNG image of less than 700 kilobytes in size. Images with width larger than 500 pixels will be scaled down. Animated GIFs will be converted to a static GIF of the first frame, removing the animation.
       # @param options [Hash] A customizable set of options.
       # @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
-      # @return [Hashie::Mash] The authenticated user.
+      # @return [Hashie::Rash] The authenticated user.
       # @see http://dev.twitter.com/doc/post/account/update_profile_image
       # @example Update the authenticating user's profile image
       #   Twitter.update_profile_image(File.new("me.jpeg"))
@@ -116,7 +116,7 @@ module Twitter
       # @param options [Hash] A customizable set of options.
       # @option options [Boolean] :tile Whether or not to tile the background image. If set to true the background image will be displayed tiled. The image will not be tiled otherwise.
       # @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
-      # @return [Hashie::Mash] The authenticated user.
+      # @return [Hashie::Rash] The authenticated user.
       # @see http://dev.twitter.com/doc/post/account/update_profile_background_image
       # @example Update the authenticating user's profile background image
       #   Twitter.update_profile_background_image(File.new("we_concept_bg2.png"))
@@ -137,7 +137,7 @@ module Twitter
       # @option options [String] :location The city or country describing where the user of the account is located. The contents are not normalized or geocoded in any way. Maximum of 30 characters.
       # @option options [String] :description A description of the user owning the account. Maximum of 160 characters.
       # @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
-      # @return [Hashie::Mash] The authenticated user.
+      # @return [Hashie::Rash] The authenticated user.
       # @see http://dev.twitter.com/doc/post/account/update_profile
       # @example Set authenticating user's name to Erik Michaels-Ober
       #   Twitter.update_profile(:name => "Erik Michaels-Ober")
