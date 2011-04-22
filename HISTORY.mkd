@@ -1,3 +1,11 @@
+HISTORY
+=======
+
+1.4.0 - April 20, 2011
+----------------------
+* [Update list methods to use new resources](https://github.com/jnunemaker/twitter/compare/v1.3.0...v1.4.0) ([@erebor](http://twitter.com/#!/erebor))
+* [Fix copy/paste bug in <tt>Error#ratelimit_remaining</tt>](https://github.com/jnunemaker/twitter/commit/b74861e75f0cdf7eaafc37162e2f040ae27db002)
+
 1.3.0 - April 6, 2011
 ---------------------
 * [Update faraday dependency to version 0.6](https://github.com/jnunemaker/twitter/commit/2b29c2109d2ca95a699ebe3822b98091a96256d8)
