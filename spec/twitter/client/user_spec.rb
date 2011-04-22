@@ -121,7 +121,7 @@ describe Twitter::Client do
 
           it "should return up to 100 users worth of extended information" do
             users = @client.users("sferik", "pengwynn")
-            users.should be_a Array
+            users.should be_an Array
             users.first.name.should == "Erik Michaels-Ober"
           end
 
@@ -197,7 +197,7 @@ describe Twitter::Client do
 
         it "should return an array of user search results" do
           user_search = @client.user_search("Erik Michaels-Ober")
-          user_search.should be_a Array
+          user_search.should be_an Array
           user_search.first.name.should == "Erik Michaels-Ober"
         end
 
@@ -240,7 +240,7 @@ describe Twitter::Client do
 
           it "should return the list of suggested user categories" do
             suggestions = @client.suggestions
-            suggestions.should be_a Array
+            suggestions.should be_an Array
             suggestions.first.name.should == "Art & Design"
           end
 
@@ -306,7 +306,7 @@ describe Twitter::Client do
 
           it "should return a user's friends, each with current status inline" do
             friends = @client.friends("sferik")
-            friends.users.should be_a Array
+            friends.users.should be_an Array
             friends.users.first.name.should == "Tim O'Reilly"
           end
 
@@ -329,7 +329,7 @@ describe Twitter::Client do
 
           it "should return a user's friends, each with current status inline" do
             friends = @client.friends
-            friends.users.should be_a Array
+            friends.users.should be_an Array
             friends.users.first.name.should == "Tim O'Reilly"
           end
 
@@ -356,7 +356,7 @@ describe Twitter::Client do
 
           it "should return a user's followers, each with current status inline" do
             followers = @client.followers("sferik")
-            followers.users.should be_a Array
+            followers.users.should be_an Array
             followers.users.first.name.should == "Joel Mahoney"
           end
 
@@ -379,7 +379,7 @@ describe Twitter::Client do
 
           it "should return a user's followers, each with current status inline" do
             followers = @client.followers
-            followers.users.should be_a Array
+            followers.users.should be_an Array
             followers.users.first.name.should == "Joel Mahoney"
           end
         end

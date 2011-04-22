@@ -46,7 +46,7 @@ describe Twitter::Client do
 
       it "should return similar places" do
         places = @client.places_similar(:lat => "37.7821120598956", :long => "-122.400612831116", :name => "Twitter HQ")
-        places.should be_an Hash
+        places.should be_a Hash
         places[:places].first.name.should == "Bernal Heights"
       end
 
