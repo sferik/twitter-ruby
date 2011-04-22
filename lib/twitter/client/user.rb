@@ -36,9 +36,9 @@ module Twitter
       # @return [Array] The requested users.
       # @see http://dev.twitter.com/doc/get/users/lookup
       # @example Return extended information for @sferik and @pengwynn
-      #   Twitter.user("sferik", "pengwynn")
-      #   Twitter.user("sferik", 14100886)   # Same as above
-      #   Twitter.user(7505382, 14100886)    # Same as above
+      #   Twitter.users("sferik", "pengwynn")
+      #   Twitter.users("sferik", 14100886)   # Same as above
+      #   Twitter.users(7505382, 14100886)    # Same as above
       def users(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
         users = args
