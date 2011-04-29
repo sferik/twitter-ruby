@@ -1,6 +1,10 @@
 HISTORY
 =======
 
+1.4.1 - April 28, 2011
+----------------------
+* [Update multi_json dependency to version 1.0.0](https://github.com/jnunemaker/twitter/commit/9ab51bc5536e5eebea10283d771cfe57e2fccbc7)
+
 1.4.0 - April 20, 2011
 ----------------------
 * [Update list methods to use new resources](https://github.com/jnunemaker/twitter/compare/v1.3.0...v1.4.0) ([@erebor](http://twitter.com/#!/erebor))
