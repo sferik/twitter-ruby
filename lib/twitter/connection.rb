@@ -1,5 +1,6 @@
 require 'faraday_middleware'
 require 'faraday/request/multipart_with_file'
+require 'faraday/request/gateway'
 require 'faraday/response/raise_http_4xx'
 require 'faraday/response/raise_http_5xx'
 
@@ -21,6 +22,7 @@ module Twitter
         builder.use Faraday::Request::OAuth, authentication if authenticated?
         builder.use Faraday::Request::Multipart
         builder.use Faraday::Request::UrlEncoded
+        builder.use Faraday::Request::Gateway, gateway if gateway
         builder.use Faraday::Response::RaiseHttp4xx
         builder.use Faraday::Response::Rashify unless raw
         unless raw

@@ -11,6 +11,7 @@ module Twitter
       :consumer_secret,
       :endpoint,
       :format,
+      :gateway,
       :oauth_token,
       :oauth_token_secret,
       :proxy,
@@ -67,6 +68,8 @@ module Twitter
     # The user agent that will be sent to the API endpoint if none is set
     DEFAULT_USER_AGENT = "Twitter Ruby Gem #{Twitter::VERSION}".freeze
 
+    DEFAULT_GATEWAY = nil
+
     # @private
     attr_accessor *VALID_OPTIONS_KEYS
 
@@ -99,6 +102,7 @@ module Twitter
       self.proxy              = DEFAULT_PROXY
       self.search_endpoint    = DEFAULT_SEARCH_ENDPOINT
       self.user_agent         = DEFAULT_USER_AGENT
+      self.gateway            = DEFAULT_GATEWAY
       self
     end
   end

@@ -41,6 +41,7 @@ describe Twitter::Search do
           :oauth_token_secret => 'OS',
           :adapter => :typhoeus,
           :endpoint => 'http://tumblr.com/',
+          :gateway => 'apigee-32234.apigee.com',
           :format => :xml,
           :proxy => 'http://erik:sekret@proxy.example.com:8080',
           :search_endpoint => 'http://google.com/',
