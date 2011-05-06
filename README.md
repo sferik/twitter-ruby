@@ -56,7 +56,7 @@ user's ID or screen name.
 What's new in 1.0?
 ------------------
 This gem has been completely rewritten for version 1.0 thanks to [contributions from numerous
-people](http://github.com/jnunemaker/twitter/blob/master/HISTORY.mkd). This rewrite breaks
+people](http://github.com/jnunemaker/twitter/blob/master/HISTORY.md). This rewrite breaks
 compatibility with version 0.9.12 and earlier versions of the gem. Most notably, the
 <tt>Twitter::Base</tt>, <tt>Twitter:Geo</tt>, <tt>Twitter::LocalTrends</tt>, and
 <tt>Twitter::Trends</tt> classes [have all been merged](http://github.com/jnunemaker/twitter/commit/eb53872249634ee1f0179982b091a1a0fd9c0973) into
@@ -252,7 +252,7 @@ Here are some ways *you* can contribute:
 * by reviewing patches
 * [financially](http://pledgie.com/campaigns/1193)
 
-All contributors will be added to the [HISTORY](https://github.com/jnunemaker/twitter/blob/master/HISTORY.mkd)
+All contributors will be added to the [HISTORY](https://github.com/jnunemaker/twitter/blob/master/HISTORY.md)
 file and will receive the respect and gratitude of the community.
 
 Submitting an Issue
@@ -279,4 +279,4 @@ Submitting a Pull Request
 Copyright
 ---------
 Copyright (c) 2010 John Nunemaker, Wynn Netherland, Erik Michaels-Ober, Steve Richert.
-See [LICENSE](https://github.com/jnunemaker/twitter/blob/master/LICENSE.mkd) for details.
+See [LICENSE](https://github.com/jnunemaker/twitter/blob/master/LICENSE.md) for details.
