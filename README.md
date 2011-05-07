@@ -150,10 +150,12 @@ gem](http://github.com/oauth/oauth-ruby). Given that there are a variety of gems
 thing ([twitter-auth](http://github.com/mbleigh/twitter-auth),
 [omniauth](http://github.com/intridea/omniauth), and
 [devise](http://github.com/plataformatec/devise), to name a few) we decided to decouple
-this functionality so you can use the authentication library of your choosing, or none at all. If
-you would like to continue using the [oauth gem](http://github.com/oauth/oauth-ruby),
-we have created an [example app](https://github.com/jnunemaker/twitter-app) that demonstrates how
-to do so.
+this functionality so you can use whichever authentication library you prefer, or none at all. If
+you would like to see how to use the [omniauth
+gem](https://github.com/intridea/omniauth) for authentication, Erik
+Michaels-Ober maintains [a simple Rails
+application](https://github.com/sferik/sign-in-with-twitter) that demonstrates
+how to do so.
 
 The public APIs defined in version 1.0 of this gem will maintain backwards compatibility until
 the next major version, following the best practice of [Semantic Versioning](http://semver.org/).
