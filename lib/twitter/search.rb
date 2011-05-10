@@ -212,14 +212,19 @@ module Twitter
       self
     end
 
-    # Only include tweets from users near a given location
+    # Only include tweets from users in a given radius of a given location
     #
-    # @param location [String] A location name.
+    # @deprecated Twitter::Search#near is deprecated and will be permanently removed in the next major version. Please use Twitter::Search#geocode instead.
+    # @param lat [Float] A latitude.
+    # @param long [Float] A longitude.
+    # @param radius [String] A search radius, specified in either 'mi' (miles) or 'km' (kilometers).
     # @return [Twitter::Search] self
-    # @example Return an array of tweets near San Francisco
-    #   Twitter::Search.new.near("San Francisco").fetch
-    def near(location)
-      @query[:q] << "near:#{location.inspect}"
+    # @see http://dev.twitter.com/pages/using_search
+    # @example Return an array of tweets within a 1-mile radius of Twitter HQ
+    #   Twitter::Search.new.containing("twitter").geocode(37.781157, -122.398720, "1mi").fetch
+    def near(lat, long, radius)
+      warn "#{Kernel.caller.first}: [DEPRECATION] Twitter::Search#near is deprecated and will be permanently removed in the next major version. Please use Twitter::Search#geocode instead."
+      @query[:geocode] = [lat, long, radius].join(",")
       self
     end
 

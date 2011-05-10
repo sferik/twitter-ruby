@@ -305,14 +305,6 @@ describe Twitter::Search do
 
     end
 
-    describe ".near" do
-
-      it "should set the near location" do
-        @client.near("San Francisco").query[:q].should include 'near:"San Francisco"'
-      end
-
-    end
-
     describe ".per_page" do
 
       it "should set the number of results per page" do
