@@ -8,7 +8,7 @@ Installation
 
 Documentation
 -------------
-<http://rdoc.info/gems/twitter>
+[http://rdoc.info/gems/twitter](http://rdoc.info/gems/twitter)
 
 Follow @gem on Twitter
 ----------------------
@@ -17,7 +17,7 @@ updates, and news about the twitter gem.
 
 Join the mailing list!
 ----------------------
-<https://groups.google.com/group/ruby-twitter-gem>
+[https://groups.google.com/group/ruby-twitter-gem](https://groups.google.com/group/ruby-twitter-gem)
 
 Does your project or organization use this gem?
 -----------------------------------------------
