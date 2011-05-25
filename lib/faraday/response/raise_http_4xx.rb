@@ -33,7 +33,7 @@ module Faraday
       elsif body['error']
         ": #{body['error']}"
       elsif body['errors']
-        first = body['errors'].to_a.first
+        first = Array(body['errors']).first
         if first.kind_of? Hash
           ": #{first['message'].chomp}"
         else

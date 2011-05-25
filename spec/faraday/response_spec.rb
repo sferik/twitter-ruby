@@ -16,18 +16,36 @@ describe Faraday::Response do
     502 => Twitter::BadGateway,
     503 => Twitter::ServiceUnavailable,
   }.each do |status, exception|
-    context "when HTTP status is #{status}" do
+    if (status >= 500)
+      context "when HTTP status is #{status}" do
+        before do
+          stub_get('statuses/user_timeline.json').
+            with(:query => {:screen_name => 'sferik'}).
+            to_return(:status => status)
+        end
 
-      before do
-        stub_get('statuses/user_timeline.json').
-          with(:query => {:screen_name => 'sferik'}).
-          to_return(:status => status)
+        it "should raise #{exception.name} error" do
+          lambda do
+            @client.user_timeline('sferik')
+          end.should raise_error(exception)
+        end
       end
+    else
+      [nil, "error", "errors"].each do |body|
+        context "when HTTP status is #{status} and body is #{body}" do
+          before do
+            body_message = '{"'+body+'":"test"}' unless body.nil?
+            stub_get('statuses/user_timeline.json').
+              with(:query => {:screen_name => 'sferik'}).
+              to_return(:status => status, :body => body_message)
+          end
 
-      it "should raise #{exception.name} error" do
-        lambda do
-          @client.user_timeline('sferik')
-        end.should raise_error(exception)
+          it "should raise #{exception.name} error" do
+            lambda do
+              @client.user_timeline('sferik')
+            end.should raise_error(exception)
+          end
+        end
       end
     end
   end
