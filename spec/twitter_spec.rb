@@ -28,13 +28,13 @@ describe Twitter do
 
   describe '.respond_to?' do
     it 'takes an optional include private argument' do
-      Twitter.respond_to?(:client, true).should be_true
+      Twitter.respond_to?(:new, true).should be_true
     end
   end
 
-  describe ".client" do
-    it "should be a Twitter::Client" do
-      Twitter.client.should be_a Twitter::Client
+  describe ".new" do
+    it "should return a Twitter::Client" do
+      Twitter.new.should be_a Twitter::Client
     end
   end
 
