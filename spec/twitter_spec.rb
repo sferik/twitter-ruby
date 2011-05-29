@@ -27,7 +27,7 @@ describe Twitter do
   end
 
   describe '.respond_to?' do
-    it 'takes an optional include private argument' do
+    it "should take an optional argument" do
       Twitter.respond_to?(:new, true).should be_true
     end
   end
@@ -91,9 +91,7 @@ describe Twitter do
   end
 
   describe ".configure" do
-
     Twitter::Configuration::VALID_OPTIONS_KEYS.each do |key|
-
       it "should set the #{key}" do
         Twitter.configure do |config|
           config.send("#{key}=", key)
