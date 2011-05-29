@@ -174,13 +174,19 @@ Here are a few more reasons to upgrade to 1.0:
 * SSL: On by default for increased [speed](https://gist.github.com/652330) and security
 * Improved error handling: More easily rescue from rate-limit errors or fail whales
 
-Help! I'm getting: "Did not recognize your engine specification. Please specify either a symbol or a class. (RuntimeError)"
----------------------------------------------------------------------------------------------------------------------------
+Performance
+-----------
+You can improve performance by preloading a faster JSON or XML parsing library.
+By default, the JSON will be parsed with [okjson][okjson] and XML will be
+parsed with [REXML][rexml]. For faster JSON parsing, we recommend
+[yajl-ruby][yajl] and for faster XML parsing, we recommend
+[libxml-ruby][libxml] or [nokogiri][nokogiri].
 
-If you're using the JSON request format (i.e., the default), you'll need to
-explicitly require a JSON library. We recommend [yajl-ruby](https://github.com/brianmario/yajl-ruby).
-If you're using the XML request format, we recommend requiring [libxml-ruby](https://github.com/dvdplm/libxml-ruby) or
-[nokogiri](http://nokogiri.org/) for dramatically improved performance over REXML.
+[okjson]: https://github.com/ddollar/okjson
+[rexml]: http://www.germane-software.com/software/rexml
+[yajl]: https://github.com/brianmario/yajl-ruby
+[libxml]: https://github.com/dvdplm/libxml-ruby
+[nokogiri]: http://nokogiri.org
 
 Usage Examples
 --------------
