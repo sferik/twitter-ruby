@@ -1,15 +1,10 @@
+$:.unshift File.expand_path('..', __FILE__)
+$:.unshift File.expand_path('../../lib', __FILE__)
 require 'simplecov'
-SimpleCov.start do
-  add_group 'Twitter', 'lib/twitter'
-  add_group 'Faraday Middleware', 'lib/faraday'
-  add_group 'Specs', 'spec'
-end
+SimpleCov.start
 require 'twitter'
 require 'rspec'
 require 'webmock/rspec'
-RSpec.configure do |config|
-  config.include WebMock::API
-end
 
 def a_delete(path)
   a_request(:delete, Twitter.endpoint + path)
