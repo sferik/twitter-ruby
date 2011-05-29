@@ -1,6 +1,10 @@
 HISTORY
 =======
 
+1.5.0 - May 29, 2011
+--------------------
+* [Change interface to make <tt>Twitter</tt> module behave more like a class](https://github.com/jnunemaker/twitter/commit/df5247de490f7448c35c8f84112a9e7c14ce4057)
+
 1.4.1 - April 28, 2011
 ----------------------
 * [Update multi_json dependency to version 1.0.0](https://github.com/jnunemaker/twitter/commit/9ab51bc5536e5eebea10283d771cfe57e2fccbc7)
