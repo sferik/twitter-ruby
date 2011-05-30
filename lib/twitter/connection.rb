@@ -1,6 +1,7 @@
 require 'faraday_middleware'
 require 'faraday/request/multipart_with_file'
 require 'faraday/request/gateway'
+require 'faraday/request/oauth'
 require 'faraday/response/raise_http_4xx'
 require 'faraday/response/raise_http_5xx'
 
