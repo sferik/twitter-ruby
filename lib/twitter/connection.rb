@@ -1,7 +1,7 @@
 require 'faraday_middleware'
 require 'faraday/request/multipart_with_file'
 require 'faraday/request/gateway'
-require 'faraday/request/oauth'
+require 'faraday/request/twitter_oauth'
 require 'faraday/response/raise_http_4xx'
 require 'faraday/response/raise_http_5xx'
 
@@ -20,7 +20,7 @@ module Twitter
 
       Faraday.new(options) do |builder|
         builder.use Faraday::Request::MultipartWithFile
-        builder.use Faraday::Request::OAuth, authentication if authenticated?
+        builder.use Faraday::Request::TwitterOAuth, authentication if authenticated?
         builder.use Faraday::Request::Multipart
         builder.use Faraday::Request::UrlEncoded
         builder.use Faraday::Request::Gateway, gateway if gateway

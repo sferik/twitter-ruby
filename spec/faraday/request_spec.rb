@@ -1,11 +1,8 @@
 require 'helper'
-require 'faraday'
-require 'faraday/request/oauth'
-require 'simple_oauth'
 
 describe Faraday::Request do
   before(:each) do
-    @oauth = Faraday::Request::OAuth.new lambda { |env| return env }, Hash.new
+    @oauth = Faraday::Request::TwitterOAuth.new lambda { |env| return env }, Hash.new
     @req = { :method => "post", :url => "http://test.com/test.JSON", :request_headers => {}, :body => { :status => "Yar" } }
   end
   
