@@ -73,7 +73,7 @@ describe Twitter::Client do
           block.should be_true
         end
 
-        it "should return false if block does not exists" do
+        it "should return false if block does not exist" do
           block = @client.block?("pengwynn")
           block.should be_false
         end

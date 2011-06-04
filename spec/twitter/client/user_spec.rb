@@ -125,7 +125,7 @@ describe Twitter::Client do
           user.should be_true
         end
 
-        it "should return false if user does not exists" do
+        it "should return false if user does not exist" do
           user = @client.user?("pengwynn")
           user.should be_false
         end
