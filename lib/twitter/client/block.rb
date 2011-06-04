@@ -44,7 +44,6 @@ module Twitter
 
       # Returns true if the authenticating user is blocking a target user
       #
-      # @format :json, :xml
       # @authenticated true
       # @rate_limited true
       # @param user [Integer, String] A Twitter user ID or screen name.
@@ -52,16 +51,31 @@ module Twitter
       # @return [Boolean] true if the authenticating user is blocking the target user, otherwise false.
       # @see http://dev.twitter.com/doc/get/blocks/exists
       # @example Check whether the authenticating user is blocking @sferik
-      #   Twitter.block_exists?("sferik")
-      #   Twitter.block_exists?(7505382)  # Same as above
-      def block_exists?(user, options={})
+      #   Twitter.block?("sferik")
+      #   Twitter.block?(7505382)  # Same as above
+      def block?(user, options={})
         merge_user_into_options!(user, options)
-        begin
-          get('blocks/exists', options)
-          true
-        rescue Twitter::NotFound
-          false
-        end
+        get('blocks/exists', options, true)
+        true
+      rescue Twitter::NotFound
+        false
+      end
+
+      # Returns true if the authenticating user is blocking a target user
+      #
+      # @deprecated {Twitter::Client::Block#block_exists?} is deprecated and will be removed in the next major version. Please use {Twitter::Client::Block#block?} instead.
+      # @authenticated true
+      # @rate_limited true
+      # @param user [Integer, String] A Twitter user ID or screen name.
+      # @param options [Hash] A customizable set of options.
+      # @return [Boolean] true if the authenticating user is blocking the target user, otherwise false.
+      # @see http://dev.twitter.com/doc/get/blocks/exists
+      # @example Check whether the authenticating user is blocking @sferik
+      #   Twitter.block?("sferik")
+      #   Twitter.block?(7505382)  # Same as above
+      def block_exists?(user, options={})
+        warn "#{Kernel.caller.first}: [DEPRECATION] #block_exists? is deprecated and will be removed in the next major version. Please use #block? instead."
+        block?(user, options)
       end
 
       # Returns an array of user objects that the authenticating user is blocking

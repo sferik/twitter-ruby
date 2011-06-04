@@ -56,10 +56,28 @@ module Twitter
       # @return [Boolean] true if user_a follows user_b, otherwise false.
       # @see http://dev.twitter.com/doc/get/friendships/exists
       # @example Return true if @sferik follows @pengwynn
-      #   Twitter.friendship_exists?("sferik", "pengwynn")
-      def friendship_exists?(user_a, user_b, options={})
+      #   Twitter.friendship?("sferik", "pengwynn")
+      def friendship?(user_a, user_b, options={})
         response = get('friendships/exists', options.merge(:user_a => user_a, :user_b => user_b))
         format.to_s.downcase == 'xml' ? !%w(0 false).include?(response['friends']) : response
+      end
+
+      # Test for the existence of friendship between two users
+      #
+      # @deprecated {Twitter::Client::Friendship#friendship_exists?} is deprecated and will be removed in the next major version. Please use {Twitter::Client::Friendship#friendship?} instead.
+      # @format :json, :xml
+      # @authenticated false unless user_a or user_b is protected
+      # @rate_limited true
+      # @param user_a [Integer, String] The ID or screen_name of the subject user.
+      # @param user_b [Integer, String] The ID or screen_name of the user to test for following.
+      # @param options [Hash] A customizable set of options.
+      # @return [Boolean] true if user_a follows user_b, otherwise false.
+      # @see http://dev.twitter.com/doc/get/friendships/exists
+      # @example Return true if @sferik follows @pengwynn
+      #   Twitter.friendship_exists?("sferik", "pengwynn")
+      def friendship_exists?(user_a, user_b, options={})
+        warn "#{Kernel.caller.first}: [DEPRECATION] #friendship_exists? is deprecated and will be removed in the next major version. Please use #friendship? instead."
+        friendship?(user_a, user_b, options={})
       end
 
       # Returns detailed information about the relationship between two users

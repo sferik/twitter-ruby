@@ -242,7 +242,7 @@ describe Twitter::Client do
 
       end
 
-      describe ".is_subscriber?" do
+      describe ".list_subscriber?" do
 
         context "with screen name passed" do
 
@@ -259,25 +259,25 @@ describe Twitter::Client do
           end
 
           it "should get the correct resource" do
-            @client.is_subscriber?("sferik", "presidents", 813286)
+            @client.list_subscriber?("sferik", "presidents", 813286)
             a_get("lists/subscribers/show.#{format}").
               with(:query => {:owner_screen_name => 'sferik', :slug => 'presidents', :user_id => '813286'}).
               should have_been_made
           end
 
           it "should return true if the specified user subscribes to the specified list" do
-            is_subscriber = @client.is_subscriber?("sferik", "presidents", 813286)
-            is_subscriber.should be_true
+            list_subscriber = @client.list_subscriber?("sferik", "presidents", 813286)
+            list_subscriber.should be_true
           end
 
           it "should return false if the specified user does not subscribe to the specified list" do
-            is_subscriber = @client.is_subscriber?("sferik", "presidents", 18755393)
-            is_subscriber.should be_false
+            list_subscriber = @client.list_subscriber?("sferik", "presidents", 18755393)
+            list_subscriber.should be_false
           end
 
           it "should return false if user does not exist" do
-            is_subscriber = @client.is_subscriber?("sferik", "presidents", 12345678)
-            is_subscriber.should be_false
+            list_subscriber = @client.list_subscriber?("sferik", "presidents", 12345678)
+            list_subscriber.should be_false
           end
 
         end
@@ -291,7 +291,7 @@ describe Twitter::Client do
           end
 
           it "should get the correct resource" do
-            @client.is_subscriber?(12345678, "presidents", 813286)
+            @client.list_subscriber?(12345678, "presidents", 813286)
             a_get("lists/subscribers/show.#{format}").
               with(:query => {:owner_id => '12345678', :slug => 'presidents', :user_id => '813286'}).
               should have_been_made
@@ -308,7 +308,7 @@ describe Twitter::Client do
           end
 
           it "should get the correct resource" do
-            @client.is_subscriber?('sferik', 12345678, 813286)
+            @client.list_subscriber?('sferik', 12345678, 813286)
             a_get("lists/subscribers/show.#{format}").
               with(:query => {:owner_screen_name => 'sferik', :list_id => '12345678', :user_id => '813286'}).
               should have_been_made
@@ -325,7 +325,7 @@ describe Twitter::Client do
           end
 
           it "should get the correct resource" do
-            @client.is_subscriber?("sferik", "presidents", 'erebor')
+            @client.list_subscriber?("sferik", "presidents", 'erebor')
             a_get("lists/subscribers/show.#{format}").
               with(:query => {:owner_screen_name => 'sferik', :slug => 'presidents', :screen_name => 'erebor'}).
               should have_been_made
@@ -343,7 +343,7 @@ describe Twitter::Client do
           end
 
           it "should get the correct resource" do
-            @client.is_subscriber?("presidents", 813286)
+            @client.list_subscriber?("presidents", 813286)
             a_get("lists/subscribers/show.#{format}").
               with(:query => {:owner_screen_name => 'sferik', :slug => 'presidents', :user_id => '813286'}).
               should have_been_made

@@ -50,7 +50,7 @@ describe Twitter::Client do
 
       end
 
-      describe ".block_exists?" do
+      describe ".block?" do
 
         before do
           stub_get("blocks/exists.#{format}").
@@ -62,20 +62,20 @@ describe Twitter::Client do
         end
 
         it "should get the correct resource" do
-          @client.block_exists?("sferik")
+          @client.block?("sferik")
           a_get("blocks/exists.#{format}").
             with(:query => {:screen_name => "sferik"}).
             should have_been_made
         end
 
         it "should return true if block exists" do
-          block_exists = @client.block_exists?("sferik")
-          block_exists.should be_true
+          block = @client.block?("sferik")
+          block.should be_true
         end
 
         it "should return false if block does not exists" do
-          block_exists = @client.block_exists?("pengwynn")
-          block_exists.should be_false
+          block = @client.block?("pengwynn")
+          block.should be_false
         end
 
       end

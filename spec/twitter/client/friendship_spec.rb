@@ -99,7 +99,7 @@ describe Twitter::Client do
 
       end
 
-      describe ".friendship_exists?" do
+      describe ".friendship?" do
 
         before do
           stub_get("friendships/exists.#{format}").
@@ -111,20 +111,20 @@ describe Twitter::Client do
         end
 
         it "should get the correct resource" do
-          @client.friendship_exists?("sferik", "pengwynn")
+          @client.friendship?("sferik", "pengwynn")
           a_get("friendships/exists.#{format}").
             with(:query => {:user_a => "sferik", :user_b => "pengwynn"}).
             should have_been_made
         end
 
         it "should return true if user_a follows user_b" do
-          friendship_exists = @client.friendship_exists?("sferik", "pengwynn")
-          friendship_exists.should be_true
+          friendship = @client.friendship?("sferik", "pengwynn")
+          friendship.should be_true
         end
 
         it "should return false if user_a does not follows user_b" do
-          friendship_exists = @client.friendship_exists?("pengwynn", "sferik")
-          friendship_exists.should be_false
+          friendship = @client.friendship?("pengwynn", "sferik")
+          friendship.should be_false
         end
 
       end

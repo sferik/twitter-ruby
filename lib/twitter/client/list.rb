@@ -7,22 +7,32 @@ module Twitter
       # Creates a new list for the authenticated user
       #
       # @note Accounts are limited to 20 lists.
+      # @overload list_create(screen_name, name, options={})
+      #   @deprecated Calling {Twitter::Client::List#list_create} with a screen_name is deprecated and will be removed in the next major version. Please omit the screen_name argument.
+      #   @param screen_name [String] A Twitter user name.
+      #   @param name [String] The name for the list.
+      #   @param options [Hash] A customizable set of options.
+      #   @option options [String] :mode ('public') Whether your list is public or private. Values can be 'public' or 'private'.
+      #   @option options [String] :description The description to give the list.
+      #   @example Create a list named "presidents"
+      #     Twitter.list_create("sferik", "presidents")
+      # @overload list_create(name, options={})
+      #   @param name [String] The name for the list.
+      #   @param options [Hash] A customizable set of options.
+      #   @option options [String] :mode ('public') Whether your list is public or private. Values can be 'public' or 'private'.
+      #   @option options [String] :description The description to give the list.
+      #   @example Create a list named "presidents"
+      #     Twitter.list_create("presidents")
+      # @return [Hashie::Rash] The created list.
       # @format :json, :xml
       # @authenticated true
       # @rate_limited false
-      # @param name [String] The name for the list.
-      # @param options [Hash] A customizable set of options.
-      # @option options [String] :mode ('public') Whether your list is public or private. Values can be 'public' or 'private'.
-      # @option options [String] :description The description to give the list.
-      # @return [Hashie::Rash] The created list.
       # @see http://dev.twitter.com/doc/post/:user/lists
-      # @example Create a list named "presidents"
-      #   Twitter.list_create("presidents")
       def list_create(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
         name = args.pop
         if screen_name = args.pop
-          warn "#{Kernel.caller.first}: [DEPRECATION] Calling Twitter::Client#list_create with a screen_name is deprecated and will be removed in the next major version. Please omit the screen_name argument."
+          warn "#{Kernel.caller.first}: [DEPRECATION] Calling #list_create with a screen_name is deprecated and will be removed in the next major version. Please omit the screen_name argument."
         end
         response = post("lists/create", options.merge(:name => name))
         format.to_s.downcase == 'xml' ? response['list'] : response
