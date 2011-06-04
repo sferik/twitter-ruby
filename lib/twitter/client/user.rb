@@ -24,6 +24,23 @@ module Twitter
         format.to_s.downcase == 'xml' ? response['user'] : response
       end
 
+      # Returns true if the specified user exists
+      #
+      # @param user [Integer, String] A Twitter user ID or screen name.
+      # @return [Boolean] true if the user exists, otherwise false.
+      # @example Return true if @sferik exists
+      #     Twitter.user?("sferik")
+      #     Twitter.user?(7505382)  # Same as above
+      # @authenticated false
+      # @rate_limited true
+      def user?(user, options={})
+        merge_user_into_options!(user, options)
+        get('users/show', options, true)
+        true
+      rescue Twitter::NotFound
+        false
+      end
+
       # Returns extended information for up to 100 users
       #
       # @format :json, :xml
