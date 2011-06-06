@@ -37,7 +37,7 @@ module Twitter
       #   Twitter.unblock(7505382)  # Same as above
       def unblock(user, options={})
         merge_user_into_options!(user, options)
-        response = delete('blocks/destroy', options)
+        response = delete("blocks/destroy/#{user}", options)
         format.to_s.downcase == 'xml' ? response['user'] : response
       end
 
