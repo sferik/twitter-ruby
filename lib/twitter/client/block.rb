@@ -18,7 +18,7 @@ module Twitter
       #   Twitter.block("sferik")
       #   Twitter.block(7505382)  # Same as above
       def block(user, options={})
-        response = post('blocks/create/#{user}', options)
+        response = post("blocks/create/#{user}", options)
         format.to_s.downcase == 'xml' ? response['user'] : response
       end
 
