@@ -48,7 +48,7 @@ module Twitter
       #   @param list [Integer, String] The list_id or slug of the list.
       #   @param user_to_add [Integer, String] The user id or screen name to add to the list.
       #   @param options [Hash] A customizable set of options.
-      #   @return [Hashie::Rash] The list.
+      #   @return [Hashie::Mash] The list.
       #   @example Add @BarackObama to the authenticated user's "presidents" list
       #     Twitter.list_add_member("presidents", 813286)
       #     Twitter.list_add_member(8863586, 813286)
@@ -57,13 +57,13 @@ module Twitter
       #   @param list [Integer, String] The list_id or slug of the list.
       #   @param user_to_add [Integer, String] The user id or screen name to add to the list.
       #   @param options [Hash] A customizable set of options.
-      #   @return [Hashie::Rash] The list.
+      #   @return [Hashie::Mash] The list.
       #   @example Add @BarackObama to @sferik's "presidents" list
       #     Twitter.list_add_member("sferik", "presidents", 813286)
       #     Twitter.list_add_member('sferik', 8863586, 813286)
       #     Twitter.list_add_member(7505382, "presidents", 813286)
       #     Twitter.list_add_member(7505382, 8863586, 813286)
-      # @return [Hashie::Rash] The list.
+      # @return [Hashie::Mash] The list.
       # @note Lists are limited to having 500 members.
       # @format :json, :xml
       # @authenticated true
@@ -86,7 +86,7 @@ module Twitter
       #   @param list [Integer, String] The list_id or slug of the list.
       #   @param users_to_add [Array] The user IDs and/or screen names to add.
       #   @param options [Hash] A customizable set of options.
-      #   @return [Hashie::Rash] The list.
+      #   @return [Hashie::Mash] The list.
       #   @example Add @BarackObama and @pengwynn to the authenticated user's "presidents" list
       #     Twitter.list_add_members("presidents", [813286, 18755393])
       #     Twitter.list_add_members('presidents', [813286, 'pengwynn'])
@@ -96,14 +96,14 @@ module Twitter
       #   @param list [Integer, String] The list_id or slug of the list.
       #   @param users_to_add [Array] The user IDs and/or screen names to add.
       #   @param options [Hash] A customizable set of options.
-      #   @return [Hashie::Rash] The list.
+      #   @return [Hashie::Mash] The list.
       #   @example Add @BarackObama and @pengwynn to @sferik's "presidents" list
       #     Twitter.list_add_members("sferik", "presidents", [813286, 18755393])
       #     Twitter.list_add_members('sferik', 'presidents', [813286, 'pengwynn'])
       #     Twitter.list_add_members('sferik', 8863586, [813286, 18755393])
       #     Twitter.list_add_members(7505382, "presidents", [813286, 18755393])
       #     Twitter.list_add_members(7505382, 8863586, [813286, 18755393])
-      # @return [Hashie::Rash] The list.
+      # @return [Hashie::Mash] The list.
       # @note Lists are limited to having 500 members, and you are limited to adding up to 100 members to a list at a time with this method.
       # @format :json, :xml
       # @authenticated true
@@ -126,7 +126,7 @@ module Twitter
       #   @param list [Integer, String] The list_id or slug of the list.
       #   @param user_to_remove [Integer, String] The user id or screen name of the list member to remove.
       #   @param options [Hash] A customizable set of options.
-      #   @return [Hashie::Rash] The list.
+      #   @return [Hashie::Mash] The list.
       #   @example Remove @BarackObama from the authenticated user's "presidents" list
       #     Twitter.list_remove_member("presidents", 813286)
       #     Twitter.list_remove_member("presidents", 'BarackObama')
@@ -136,13 +136,13 @@ module Twitter
       #   @param list [Integer, String] The list_id or slug of the list.
       #   @param user_to_remove [Integer, String] The user id or screen name of the list member to remove.
       #   @param options [Hash] A customizable set of options.
-      #   @return [Hashie::Rash] The list.
+      #   @return [Hashie::Mash] The list.
       #   @example Remove @BarackObama from @sferik's "presidents" list
       #     Twitter.list_remove_member("sferik", "presidents", 813286)
       #     Twitter.list_remove_member("sferik", "presidents", 'BarackObama')
       #     Twitter.list_remove_member('sferik', 8863586, 'BarackObama')
       #     Twitter.list_remove_member(7505382, "presidents", 813286)
-      # @return [Hashie::Rash] The list.
+      # @return [Hashie::Mash] The list.
       # @format :json, :xml
       # @authenticated true
       # @rate_limited false

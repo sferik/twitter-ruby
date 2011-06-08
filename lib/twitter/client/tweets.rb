@@ -11,7 +11,7 @@ module Twitter
       # @param options [Hash] A customizable set of options.
       # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       # @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
-      # @return [Hashie::Rash] The requested status.
+      # @return [Hashie::Mash] The requested status.
       # @see http://dev.twitter.com/doc/get/statuses/show/:id
       # @example Return the status with the ID 25938088801
       #   Twitter.status(25938088801)
@@ -35,7 +35,7 @@ module Twitter
       # @option options [String] :display_coordinates Whether or not to put a pin on the exact coordinates a tweet has been sent from.
       # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       # @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
-      # @return [Hashie::Rash] The created status.
+      # @return [Hashie::Mash] The created status.
       # @see http://dev.twitter.com/doc/post/statuses/update
       # @example Update the authenticating user's status
       #   Twitter.update("I just posted a status update via the Twitter Ruby Gem!")
@@ -54,7 +54,7 @@ module Twitter
       # @param options [Hash] A customizable set of options.
       # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       # @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
-      # @return [Hashie::Rash] The deleted status.
+      # @return [Hashie::Mash] The deleted status.
       # @see http://dev.twitter.com/doc/post/statuses/destroy/:id
       # @example Destroy the status with the ID 25938088801
       #   Twitter.status_destroy(25938088801)
@@ -73,7 +73,7 @@ module Twitter
       # @param options [Hash] A customizable set of options.
       # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       # @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
-      # @return [Hashie::Rash] The original tweet with retweet details embedded.
+      # @return [Hashie::Mash] The original tweet with retweet details embedded.
       # @see http://dev.twitter.com/doc/post/statuses/retweet/:id
       # @example Retweet the status with the ID 28561922516
       #   Twitter.retweet(28561922516)

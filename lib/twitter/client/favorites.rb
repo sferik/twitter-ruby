@@ -39,7 +39,7 @@ module Twitter
       # @param id [Integer] The numerical ID of the desired status.
       # @param options [Hash] A customizable set of options.
       # @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
-      # @return [Hashie::Rash] The favorited status.
+      # @return [Hashie::Mash] The favorited status.
       # @see http://dev.twitter.com/doc/post/favorites/create/:id
       # @example Favorite the status with the ID 25938088801
       #   Twitter.favorite_create(25938088801)
@@ -56,7 +56,7 @@ module Twitter
       # @param id [Integer] The numerical ID of the desired status.
       # @param options [Hash] A customizable set of options.
       # @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
-      # @return [Hashie::Rash] The un-favorited status.
+      # @return [Hashie::Mash] The un-favorited status.
       # @see http://dev.twitter.com/doc/post/favorites/destroy/:id
       # @example Un-favorite the status with the ID 25938088801
       #   Twitter.favorite_destroy(25938088801)

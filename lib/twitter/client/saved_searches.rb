@@ -24,7 +24,7 @@ module Twitter
       # @rate_limited true
       # @param id [Integer] The ID of the saved search.
       # @param options [Hash] A customizable set of options.
-      # @return [Hashie::Rash] The saved search.
+      # @return [Hashie::Mash] The saved search.
       # @see http://dev.twitter.com/doc/get/saved_searches/show/:id
       # @example Retrieve the data for a saved search owned by the authenticating user with the ID 16129012
       #   Twitter.saved_search(16129012)
@@ -40,7 +40,7 @@ module Twitter
       # @rate_limited false
       # @param query [String] The query of the search the user would like to save.
       # @param options [Hash] A customizable set of options.
-      # @return [Hashie::Rash] The created saved search.
+      # @return [Hashie::Mash] The created saved search.
       # @see http://dev.twitter.com/doc/post/saved_searches/create
       # @example Create a saved search for the authenticated user with the query "twitter"
       #   Twitter.saved_search_create("twitter")
@@ -57,7 +57,7 @@ module Twitter
       # @rate_limited false
       # @param id [Integer] The ID of the saved search.
       # @param options [Hash] A customizable set of options.
-      # @return [Hashie::Rash] The deleted saved search.
+      # @return [Hashie::Mash] The deleted saved search.
       # @see http://dev.twitter.com/doc/post/saved_searches/destroy/:id
       # @example Destroys a saved search for the authenticated user with the ID 16129012
       #   Twitter.saved_search_destroy(16129012)
