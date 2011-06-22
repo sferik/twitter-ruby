@@ -141,7 +141,7 @@ module Twitter
         merge_list_into_options!(list, options)
         merge_owner_into_options!(user, options)
         merge_user_into_options!(user_to_check, options)
-        get("lists/subscribers/show", options, true)
+        get("lists/subscribers/show", options, :raw)
         true
       rescue Twitter::NotFound, Twitter::Forbidden
         false

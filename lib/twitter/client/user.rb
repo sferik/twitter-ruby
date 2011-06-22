@@ -35,7 +35,7 @@ module Twitter
       # @rate_limited true
       def user?(user, options={})
         merge_user_into_options!(user, options)
-        get('users/show', options, true)
+        get('users/show', options, :raw)
         true
       rescue Twitter::NotFound
         false
@@ -127,7 +127,7 @@ module Twitter
       def profile_image(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
         screen_name = args.first || get_screen_name
-        get("users/profile_image/#{screen_name}", options, true).headers['location']
+        get("users/profile_image/#{screen_name}", options, :raw).headers['location']
       end
 
       # Returns a user's friends

@@ -55,7 +55,7 @@ module Twitter
       #   Twitter.block?(7505382)  # Same as above
       def block?(user, options={})
         merge_user_into_options!(user, options)
-        get('blocks/exists', options, true)
+        get('blocks/exists', options, :raw)
         true
       rescue Twitter::NotFound
         false
