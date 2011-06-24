@@ -1,6 +1,13 @@
 HISTORY
 =======
 
+1.6.0 - June 24, 2011
+---------------------
+* [Add a custom OAuth implementation](https://github.com/jnunemaker/twitter/commit/5d2e7cc514b13842d7fe02fa7bc724136ef9f276) ([@NathanielBarnes](http://twitter.com/#!/NathanielBarnes))
+* [Unify naming of boolean methods](https://github.com/jnunemaker/twitter/commit/b139e912ef70b55f7af7c03a27346f15ff472c7e)
+* [Add convenience method to determine whether a user exists](https://github.com/jnunemaker/twitter/commit/a7fc8616e5733e4c64f98f2ff5562e74e025a1f3)
+* [Fully remove <tt>Rash</tt>](https://github.com/jnunemaker/twitter/commit/3b39696902cc05a29bac35e7465ef352264b694d)
+
 1.5.0 - May 29, 2011
 --------------------
 * [Change interface to make <tt>Twitter</tt> module behave more like a class](https://github.com/jnunemaker/twitter/commit/df5247de490f7448c35c8f84112a9e7c14ce4057)

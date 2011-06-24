@@ -243,9 +243,9 @@ Usage Examples
     # Get your rate limit status
     puts Twitter.rate_limit_status.remaining_hits.to_s + " Twitter API request(s) remaining this hour"
 
-Configuration for API Proxy Services  
+Configuration for API Proxy Services
 ------------------------------------
-Use of API proxy services such as APIgee (http://apigee.com) can allow for increased rate limits to the Twitter API. 
+Use of API proxy services such as APIgee (http://apigee.com) can allow for increased rate limits to the Twitter API.
 
 **APIgee configuration example**
 
