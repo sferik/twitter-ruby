@@ -55,7 +55,7 @@ module Twitter
     # @see http://status.net/wiki/Twitter-compatible_API
     DEFAULT_SEARCH_ENDPOINT = 'https://search.twitter.com/'.freeze
 
-    # The user agent that will be sent to the API endpoint if none is set
+    # The value sent in the 'User-Agent' header if none is set
     DEFAULT_USER_AGENT = "Twitter Ruby Gem #{Twitter::VERSION}".freeze
 
     DEFAULT_GATEWAY = nil

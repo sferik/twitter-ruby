@@ -1,3 +1,5 @@
+require 'twitter/client'
+
 module Twitter
   # @deprecated {Twitter::Base} is deprecated and will be permanently removed in the next major version. Please use {Twitter::Client} instead.
   class Base

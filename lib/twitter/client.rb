@@ -7,7 +7,6 @@ module Twitter
     # Require client method modules after initializing the Client class in
     # order to avoid a superclass mismatch error, allowing those modules to be
     # Client-namespaced.
-    require 'twitter/client/utils'
     require 'twitter/client/account'
     require 'twitter/client/block'
     require 'twitter/client/direct_messages'
@@ -27,6 +26,7 @@ module Twitter
     require 'twitter/client/trends'
     require 'twitter/client/tweets'
     require 'twitter/client/user'
+    require 'twitter/client/utils'
 
     alias :api_endpoint :endpoint
 

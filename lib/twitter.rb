@@ -1,9 +1,9 @@
-require 'twitter/error'
-require 'twitter/configuration'
 require 'twitter/api'
-require 'twitter/client'
-require 'twitter/search'
 require 'twitter/base'
+require 'twitter/client'
+require 'twitter/configuration'
+require 'twitter/error'
+require 'twitter/search'
 
 module Twitter
   extend Configuration
