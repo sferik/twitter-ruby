@@ -18,13 +18,6 @@ module Twitter
       :search_endpoint,
       :user_agent].freeze
 
-    # An array of valid request/response formats
-    #
-    # @note Not all methods support the XML format.
-    VALID_FORMATS = [
-      :json,
-      :xml].freeze
-
     # The adapter that will be used to connect if none is set
     #
     # @note The default faraday adapter is Net::HTTP.
