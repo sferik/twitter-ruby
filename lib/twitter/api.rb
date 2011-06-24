@@ -1,6 +1,6 @@
 require 'twitter/authentication'
-require 'twitter/connection'
 require 'twitter/configuration'
+require 'twitter/connection'
 require 'twitter/request'
 
 module Twitter
