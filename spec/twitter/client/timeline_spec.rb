@@ -105,7 +105,7 @@ describe Twitter::Client do
           end
 
           it "should get the correct resource" do
-            @client.user_timeline()
+            @client.user_timeline
             a_get("statuses/user_timeline.#{format}").
               with(:query => {:screen_name => "sferik"}).
               should have_been_made
@@ -196,9 +196,7 @@ describe Twitter::Client do
           statuses.should be_an Array
           statuses.first.text.should == "Ruby is the best programming language for hiding the ugly bits."
         end
-
       end
-
     end
   end
 end

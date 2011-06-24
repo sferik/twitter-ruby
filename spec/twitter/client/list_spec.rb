@@ -549,11 +549,8 @@ describe Twitter::Client do
               with(:query => {:user_id => '12345678', :cursor => "-1"}).
               should have_been_made
           end
-
         end
-
       end
-
     end
   end
 end

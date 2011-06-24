@@ -92,7 +92,7 @@ describe Twitter::Client do
           end
 
           it "should get the correct resource" do
-            @client.user()
+            @client.user
             a_get("users/show.#{format}").
               with(:query => {:screen_name => "sferik"}).
               should have_been_made
@@ -105,17 +105,17 @@ describe Twitter::Client do
       describe ".user?" do
 
         before do
-          stub_get("users/show.#{format}").
+          stub_get("users/show.json").
             with(:query => {:screen_name => "sferik"}).
-            to_return(:body => fixture("sferik.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
-          stub_get("users/show.#{format}").
+            to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+          stub_get("users/show.json").
             with(:query => {:screen_name => "pengwynn"}).
-            to_return(:body => fixture("not_found.#{format}"), :status => 404, :headers => {:content_type => "application/#{format}; charset=utf-8"})
+            to_return(:body => fixture("not_found.json"), :status => 404, :headers => {:content_type => "application/json; charset=utf-8"})
         end
 
         it "should get the correct resource" do
           @client.user?("sferik")
-          a_get("users/show.#{format}").
+          a_get("users/show.json").
             with(:query => {:screen_name => "sferik"}).
             should have_been_made
         end
@@ -283,13 +283,13 @@ describe Twitter::Client do
         context "with screen name passed" do
 
           before do
-            stub_get("users/profile_image/sferik.#{format}").
+            stub_get("users/profile_image/sferik.json").
               to_return(fixture("profile_image.text"))
           end
 
           it "should redirect to the correct resource" do
             profile_image = @client.profile_image("sferik")
-            a_get("users/profile_image/sferik.#{format}").
+            a_get("users/profile_image/sferik.json").
               with(:status => 302).
               should have_been_made
             profile_image.should == "http://a0.twimg.com/profile_images/323331048/me_normal.jpg"
@@ -301,13 +301,13 @@ describe Twitter::Client do
 
           before do
             @client.stub!(:get_screen_name).and_return('sferik')
-            stub_get("users/profile_image/sferik.#{format}").
+            stub_get("users/profile_image/sferik.json").
               to_return(fixture("profile_image.text"))
           end
 
           it "should redirect to the correct resource" do
-            profile_image = @client.profile_image()
-            a_get("users/profile_image/sferik.#{format}").
+            profile_image = @client.profile_image
+            a_get("users/profile_image/sferik.json").
               with(:status => 302).
               should have_been_made
             profile_image.should == "http://a0.twimg.com/profile_images/323331048/me_normal.jpg"

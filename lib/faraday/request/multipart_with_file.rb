@@ -20,10 +20,14 @@ module Faraday
 
     def mime_type(file)
       case file.path
-        when /\.jpe?g/i then 'image/jpeg'
-        when /\.gif$/i then 'image/gif'
-        when /\.png$/i then 'image/png'
-        else 'application/octet-stream'
+      when /\.jpe?g/i
+        'image/jpeg'
+      when /\.gif$/i
+        'image/gif'
+      when /\.png$/i
+        'image/png'
+      else
+        'application/octet-stream'
       end
     end
   end

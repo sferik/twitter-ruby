@@ -11,7 +11,7 @@ module Twitter
         :consumer_key => consumer_key,
         :consumer_secret => consumer_secret,
         :token => oauth_token,
-        :token_secret => oauth_token_secret
+        :token_secret => oauth_token_secret,
       }
     end
 
