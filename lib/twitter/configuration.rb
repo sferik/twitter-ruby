@@ -1,4 +1,3 @@
-require 'faraday'
 require 'twitter/version'
 
 module Twitter
@@ -19,9 +18,7 @@ module Twitter
       :user_agent].freeze
 
     # The adapter that will be used to connect if none is set
-    #
-    # @note The default faraday adapter is Net::HTTP.
-    DEFAULT_ADAPTER = Faraday.default_adapter
+    DEFAULT_ADAPTER = :net_http
 
     # By default, don't set an application key
     DEFAULT_CONSUMER_KEY = nil
@@ -79,7 +76,7 @@ module Twitter
     # Create a hash of options and their values
     def options
       options = {}
-      VALID_OPTIONS_KEYS.each{|k| options[k] = send(k) }
+      VALID_OPTIONS_KEYS.each{|k| options[k] = send(k)}
       options
     end
 

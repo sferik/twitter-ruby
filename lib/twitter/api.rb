@@ -5,6 +5,10 @@ require 'twitter/authentication'
 module Twitter
   # @private
   class API
+    include Connection
+    include Request
+    include Authentication
+
     # @private
     attr_accessor *Configuration::VALID_OPTIONS_KEYS
 
@@ -15,9 +19,5 @@ module Twitter
         send("#{key}=", options[key])
       end
     end
-
-    include Connection
-    include Request
-    include Authentication
   end
 end
