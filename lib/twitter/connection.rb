@@ -13,8 +13,8 @@ module Twitter
     def connection(format=format)
       options = {
         :headers => {
-          'Accept' => "application/#{format}",
-          'User-Agent' => user_agent,
+          :accept => "application/#{format}",
+          :user_agent => user_agent,
         },
         :proxy => proxy,
         :ssl => {:verify => false},
