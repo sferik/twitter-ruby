@@ -85,7 +85,7 @@ module Twitter
       # Returns up to 100 of the first retweets of a given tweet
       #
       # @format :json, :xml
-      # @authenticated false
+      # @authenticated true
       # @rate_limited true
       # @param id [Integer] The numerical ID of the desired status.
       # @param options [Hash] A customizable set of options.
