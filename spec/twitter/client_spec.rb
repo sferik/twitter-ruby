@@ -3,9 +3,9 @@ require 'helper'
 describe Twitter::Client do
   it "should connect using the endpoint configuration" do
     client = Twitter::Client.new
-    endpoint = URI.parse(client.api_endpoint)
+    endpoint = URI.parse(client.api_endpoint).to_s.gsub(/\/$/, '')
     connection = client.send(:connection).build_url(nil).to_s
-    connection.should == endpoint.to_s
+    connection.should == endpoint
   end
 
   it "should not cache the screen name across clients" do
