@@ -4,9 +4,11 @@ describe Twitter::Search do
 
   it "should connect using the search_endpoint configuration" do
     search = Twitter::Search.new
-    endpoint = URI.parse(search.api_endpoint)
+    endpoint = URI.parse(search.api_endpoint).to_s.gsub(/\/$/, '')
     connection = search.send(:connection).build_url(nil).to_s
-    connection.should == endpoint.to_s
+    puts "URI says: #{endpoint.to_s}"
+    puts "Connection says: #{connection.to_s}"
+    connection.should == endpoint
   end
 
   context "with module configuration" do
