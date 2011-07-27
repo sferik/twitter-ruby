@@ -25,7 +25,7 @@ Add it to the [apps](https://github.com/jnunemaker/twitter/wiki/apps) wiki!
 
 Continuous Integration
 ----------------------
-[![Build Status](http://travis-ci.org/jnunemaker/twitter.png)](http://travis-ci.org/jnunemaker/twitter)
+[![Build Status](https://secure.travis-ci.org/jnunemaker/twitter.png)](http://travis-ci.org/jnunemaker/twitter)
 
 What's new in 1.1?
 ------------------
