@@ -12,7 +12,7 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'ZenTest', '~> 4.5'
   gem.add_runtime_dependency 'hashie', '~> 1.0.0'
   gem.add_runtime_dependency 'faraday', '~> 0.7.4'
-  gem.add_runtime_dependency 'faraday_middleware', '~> 0.7.0.rc1'
+  gem.add_runtime_dependency 'faraday_middleware', '~> 0.7.0'
   gem.add_runtime_dependency 'multi_json', '~> 1.0.0'
   gem.add_runtime_dependency 'multi_xml', '~> 0.2.0'
   gem.add_runtime_dependency 'simple_oauth', '~> 0.1.5'
