@@ -1,6 +1,9 @@
 HISTORY
 =======
 
+1.7.0 - July 30, 2011
+* [Update faraday dependency to 0.7.0](https://github.com/jnunemaker/twitter/commit/59a50a8f08999fa7a90b0e332171079a137c6752) ([@ngauthier](http://twitter.com/#!/ngauthier))
+
 1.6.0 - June 24, 2011
 ---------------------
 * [Add a custom OAuth implementation](https://github.com/jnunemaker/twitter/commit/5d2e7cc514b13842d7fe02fa7bc724136ef9f276) ([@NathanielBarnes](http://twitter.com/#!/NathanielBarnes))
