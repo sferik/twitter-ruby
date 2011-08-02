@@ -1,7 +1,12 @@
 HISTORY
 =======
 
-1.7.0 - July 30, 2011
+1.6.2 - August 2, 2011
+----------------------
+* [Update hashie dependency to 1.1.0](https://github.com/jnunemaker/twitter/commit/fb86f58203fb7c7dfec30068de663624416e955f)
+
+1.6.1 - July 30, 2011
+---------------------
 * [Update faraday dependency to 0.7.0](https://github.com/jnunemaker/twitter/commit/59a50a8f08999fa7a90b0e332171079a137c6752) ([@ngauthier](http://twitter.com/#!/ngauthier))
 
 1.6.0 - June 24, 2011
