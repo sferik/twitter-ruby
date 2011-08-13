@@ -2,11 +2,11 @@ The Twitter Ruby Gem
 ====================
 A Ruby wrapper for the Twitter REST and Search APIs
 
-Installation
+<a name="installation">Installation</a>
 ------------
     gem install twitter
 
-Documentation
+<a name="documentation">Documentation</a>
 -------------
 [http://rdoc.info/gems/twitter](http://rdoc.info/gems/twitter)
 
@@ -23,7 +23,7 @@ Does your project or organization use this gem?
 -----------------------------------------------
 Add it to the [apps](https://github.com/jnunemaker/twitter/wiki/apps) wiki!
 
-Continuous Integration
+<a name="ci">Continuous Integration</a>
 ----------------------
 [![Build Status](https://secure.travis-ci.org/jnunemaker/twitter.png)](http://travis-ci.org/jnunemaker/twitter)
 
@@ -188,7 +188,7 @@ parsed with [REXML][rexml]. For faster JSON parsing, we recommend
 [libxml]: https://github.com/dvdplm/libxml-ruby
 [nokogiri]: http://nokogiri.org
 
-Usage Examples
+<a name="examples">Usage Examples</a>
 --------------
     require "rubygems"
     require "twitter"
@@ -261,7 +261,7 @@ For APIgee set the configuration gateway with your APIgee hostname
 		end
 
 
-Contributing
+<a name="contributing">Contributing</a>
 ------------
 In the spirit of [free software](http://www.fsf.org/licensing/essays/free-sw.html), **everyone** is encouraged to help improve this project.
 
@@ -281,7 +281,7 @@ Here are some ways *you* can contribute:
 All contributors will be added to the [HISTORY](https://github.com/jnunemaker/twitter/blob/master/HISTORY.md)
 file and will receive the respect and gratitude of the community.
 
-Submitting an Issue
+<a name="issues">Submitting an Issue</a>
 -------------------
 We use the [GitHub issue tracker](https://github.com/jnunemaker/twitter/issues) to track bugs and
 features. Before submitting a bug report or feature request, check to make sure it hasn't already
@@ -290,7 +290,7 @@ bug report, please include a [Gist](https://gist.github.com/) that includes a st
 details that may be necessary to reproduce the bug, including your gem version, Ruby version, and
 operating system. Ideally, a bug report should include a pull request with failing specs.
 
-Submitting a Pull Request
+<a name="pulls">Submitting a Pull Request</a>
 -------------------------
 1. Fork the project.
 2. Create a topic branch.
@@ -302,7 +302,7 @@ Submitting a Pull Request
 8. Commit and push your changes.
 9. Submit a pull request. Please do not include changes to the gemspec, version, or history file. (If you want to create your own version for some reason, please do so in a separate commit.)
 
-Supported Rubies
+<a name="rubies">Supported Rubies</a>
 ----------------
 This library aims to support and is [tested
 against](http://travis-ci.org/jnunemaker/twitter) the following Ruby
@@ -329,7 +329,7 @@ implementation, you will be personally responsible for providing patches in a
 timely fashion. If critical issues for a particular implementation exist at the
 time of a major release, support for that Ruby version may be dropped.
 
-Copyright
+<a name="copyright">Copyright</a>
 ---------
 Copyright (c) 2010 John Nunemaker, Wynn Netherland, Erik Michaels-Ober, Steve Richert.
 See [LICENSE](https://github.com/jnunemaker/twitter/blob/master/LICENSE.md) for details.
