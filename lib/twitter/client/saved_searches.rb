@@ -11,7 +11,7 @@ module Twitter
       # @return [Array] Saved search queries.
       # @see http://dev.twitter.com/doc/get/saved_searches
       # @example Return the authenticated user's saved search queries
-      #   Twitter.saved_searched
+      #   Twitter.saved_searches
       def saved_searches(options={})
         response = get('saved_searches', options)
         format.to_s.downcase == 'xml' ? response['saved_searches'] : response
