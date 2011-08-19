@@ -1,34 +1,26 @@
-The Twitter Ruby Gem
-====================
+# The Twitter Ruby Gem
 A Ruby wrapper for the Twitter REST and Search APIs
 
-<a name="installation">Installation</a>
-------------
+## <a name="installation">Installation</a>
     gem install twitter
 
-<a name="documentation">Documentation</a>
--------------
+## <a name="documentation">Documentation</a>
 [http://rdoc.info/gems/twitter](http://rdoc.info/gems/twitter)
 
-Follow @gem on Twitter
-----------------------
+## <a name="follow">Follow @gem on Twitter</a>
 You should [follow @gem on Twitter](http://twitter.com/#!/gem) for announcements,
 updates, and news about the twitter gem.
 
-Join the mailing list!
-----------------------
+## <a name="mailing_list">Join the mailing list!</a>
 [https://groups.google.com/group/ruby-twitter-gem](https://groups.google.com/group/ruby-twitter-gem)
 
-Does your project or organization use this gem?
------------------------------------------------
+## <a name="apps">Does your project or organization use this gem?</a>
 Add it to the [apps](https://github.com/jnunemaker/twitter/wiki/apps) wiki!
 
-<a name="ci">Continuous Integration</a>
-----------------------
+## <a name="ci">Continuous Integration</a>
 [![Build Status](https://secure.travis-ci.org/jnunemaker/twitter.png)](http://travis-ci.org/jnunemaker/twitter)
 
-What's new in 1.1?
-------------------
+## What's new in 1.1?
 This version no longer requires that you explicitly pass the authenticated
 user's ID or screen name.
 
@@ -53,16 +45,20 @@ user's ID or screen name.
 
     Twitter.user
 
-What's new in 1.0?
-------------------
-This gem has been completely rewritten for version 1.0 thanks to [contributions from numerous
-people](https://github.com/jnunemaker/twitter/blob/master/HISTORY.md). This rewrite breaks
-compatibility with version 0.9.12 and earlier versions of the gem. Most notably, the
-<tt>Twitter::Base</tt>, <tt>Twitter:Geo</tt>, <tt>Twitter::LocalTrends</tt>, and
-<tt>Twitter::Trends</tt> classes [have all been merged](https://github.com/jnunemaker/twitter/commit/eb53872249634ee1f0179982b091a1a0fd9c0973) into
-the <tt>Twitter::Client</tt> class. Whenever possible, we [display deprecation warnings and forward method
-calls to the <tt>Twitter::Client</tt> class](https://github.com/jnunemaker/twitter/commit/192e5884f367750dbdca8471aa12385ed5b057ca).
-In a handful of cases, method names were changed to resolve namespace conflicts.
+## What's new in 1.0?
+This gem has been completely rewritten for version 1.0 thanks to [contributions
+from numerous
+people](https://github.com/jnunemaker/twitter/blob/master/HISTORY.md). This
+rewrite breaks compatibility with version 0.9.12 and earlier versions of the
+gem. Most notably, the <tt>Twitter::Base</tt>, <tt>Twitter:Geo</tt>,
+<tt>Twitter::LocalTrends</tt>, and <tt>Twitter::Trends</tt> classes [have all
+been
+merged](https://github.com/jnunemaker/twitter/commit/eb53872249634ee1f0179982b091a1a0fd9c0973)
+into the <tt>Twitter::Client</tt> class. Whenever possible, we [display
+deprecation warnings and forward method calls to the <tt>Twitter::Client</tt>
+class](https://github.com/jnunemaker/twitter/commit/192e5884f367750dbdca8471aa12385ed5b057ca).
+In a handful of cases, method names were changed to resolve namespace
+conflicts.
 
 **Pre-1.0**
 
@@ -174,8 +170,7 @@ Here are a few more reasons to upgrade to 1.0:
 * SSL: On by default for increased [speed](https://gist.github.com/652330) and security
 * Improved error handling: More easily rescue from rate-limit errors or fail whales
 
-Performance
------------
+## <a href="performance">Performance</a>
 You can improve performance by preloading a faster JSON or XML parsing library.
 By default, the JSON will be parsed with [okjson][okjson] and XML will be
 parsed with [REXML][rexml]. For faster JSON parsing, we recommend
@@ -188,8 +183,7 @@ parsed with [REXML][rexml]. For faster JSON parsing, we recommend
 [libxml]: https://github.com/dvdplm/libxml-ruby
 [nokogiri]: http://nokogiri.org
 
-<a name="examples">Usage Examples</a>
---------------
+## <a name="examples">Usage Examples</a>
     require "rubygems"
     require "twitter"
 
@@ -229,7 +223,7 @@ parsed with [REXML][rexml]. For faster JSON parsing, we recommend
     end
 
     # Update your status
-    Twitter.update("I'm tweeting from the Twitter Ruby Gem!")
+    Twitter.update("I'm tweeting with @gem!")
 
     # Read the most recent tweet in your home timeline
     puts Twitter.home_timeline.first.text
@@ -243,8 +237,7 @@ parsed with [REXML][rexml]. For faster JSON parsing, we recommend
     # Get your rate limit status
     puts Twitter.rate_limit_status.remaining_hits.to_s + " Twitter API request(s) remaining this hour"
 
-Configuration for API Proxy Services
-------------------------------------
+## <a name="proxy">Configuration for API Proxy Services</a>
 Use of API proxy services such as APIgee (http://apigee.com) can allow for increased rate limits to the Twitter API.
 
 **APIgee configuration example**
@@ -260,9 +253,7 @@ For APIgee set the configuration gateway with your APIgee hostname
 			config.gateway = YOUR_APIGEE_HOSTNAME # e.g 'twitter.apigee.com'
 		end
 
-
-<a name="contributing">Contributing</a>
-------------
+## <a name="contributing">Contributing</a>
 In the spirit of [free software](http://www.fsf.org/licensing/essays/free-sw.html), **everyone** is encouraged to help improve this project.
 
 Here are some ways *you* can contribute:
@@ -281,8 +272,7 @@ Here are some ways *you* can contribute:
 All contributors will be added to the [HISTORY](https://github.com/jnunemaker/twitter/blob/master/HISTORY.md)
 file and will receive the respect and gratitude of the community.
 
-<a name="issues">Submitting an Issue</a>
--------------------
+## <a name="issues">Submitting an Issue</a>
 We use the [GitHub issue tracker](https://github.com/jnunemaker/twitter/issues) to track bugs and
 features. Before submitting a bug report or feature request, check to make sure it hasn't already
 been submitted. You can indicate support for an existing issuse by voting it up. When submitting a
@@ -290,8 +280,7 @@ bug report, please include a [Gist](https://gist.github.com/) that includes a st
 details that may be necessary to reproduce the bug, including your gem version, Ruby version, and
 operating system. Ideally, a bug report should include a pull request with failing specs.
 
-<a name="pulls">Submitting a Pull Request</a>
--------------------------
+## <a name="pulls">Submitting a Pull Request</a>
 1. Fork the project.
 2. Create a topic branch.
 3. Implement your feature or bug fix.
@@ -302,8 +291,7 @@ operating system. Ideally, a bug report should include a pull request with faili
 8. Commit and push your changes.
 9. Submit a pull request. Please do not include changes to the gemspec, version, or history file. (If you want to create your own version for some reason, please do so in a separate commit.)
 
-<a name="rubies">Supported Rubies</a>
-----------------
+## <a name="rubies">Supported Rubies</a>
 This library aims to support and is [tested
 against](http://travis-ci.org/jnunemaker/twitter) the following Ruby
 implementations:
@@ -329,7 +317,6 @@ implementation, you will be personally responsible for providing patches in a
 timely fashion. If critical issues for a particular implementation exist at the
 time of a major release, support for that Ruby version may be dropped.
 
-<a name="copyright">Copyright</a>
----------
+## <a name="copyright">Copyright</a>
 Copyright (c) 2010 John Nunemaker, Wynn Netherland, Erik Michaels-Ober, Steve Richert.
 See [LICENSE](https://github.com/jnunemaker/twitter/blob/master/LICENSE.md) for details.
