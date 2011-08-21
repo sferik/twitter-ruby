@@ -7,7 +7,7 @@ module Twitter
       # @overload user(user, options={})
       #   @param user [Integer, String] A Twitter user ID or screen name.
       #   @param options [Hash] A customizable set of options.
-      #   @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
+      #   @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
       #   @return [Hashie::Mash] The requested user.
       #   @example Return extended information for @sferik
       #     Twitter.user("sferik")
@@ -15,7 +15,7 @@ module Twitter
       # @format :json, :xml
       # @authenticated false
       # @rate_limited true
-      # @see http://dev.twitter.com/doc/get/users/show
+      # @see https://dev.twitter.com/docs/api/1/get/users/show
       def user(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
         user = args.first || get_screen_name
@@ -49,9 +49,9 @@ module Twitter
       # @overload users(*users, options={})
       #   @param users [Integer, String] Twitter users ID or screen names.
       #   @param options [Hash] A customizable set of options.
-      #   @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
+      #   @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
       # @return [Array] The requested users.
-      # @see http://dev.twitter.com/doc/get/users/lookup
+      # @see https://dev.twitter.com/docs/api/1/get/users/lookup
       # @example Return extended information for @sferik and @pengwynn
       #   Twitter.users("sferik", "pengwynn")
       #   Twitter.users("sferik", 14100886)   # Same as above
@@ -73,9 +73,9 @@ module Twitter
       # @param options [Hash] A customizable set of options.
       # @option options [Integer] :per_page The number of people to retrieve. Maxiumum of 20 allowed per page.
       # @option options [Integer] :page Specifies the page of results to retrieve.
-      # @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
+      # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
       # @return [Array]
-      # @see http://dev.twitter.com/doc/get/users/search
+      # @see https://dev.twitter.com/docs/api/1/get/users/search
       # @example Return users that match "Erik Michaels-Ober"
       #   Twitter.user_search("Erik Michaels-Ober")
       def user_search(query, options={})
@@ -88,7 +88,7 @@ module Twitter
       #
       #   @param options [Hash] A customizable set of options.
       #   @return [Array]
-      #   @see http://dev.twitter.com/doc/get/users/suggestions
+      #   @see https://dev.twitter.com/docs/api/1/get/users/suggestions
       #   @example Return the list of suggested user categories
       #     Twitter.suggestions
       # @overload suggestions(slug, options={})
@@ -97,7 +97,7 @@ module Twitter
       #   @param slug [String] The short name of list or a category.
       #   @param options [Hash] A customizable set of options.
       #   @return [Array]
-      #   @see http://dev.twitter.com/doc/get/users/suggestions/:slug
+      #   @see https://dev.twitter.com/docs/api/1/get/users/suggestions/:slug
       #   @example Return the users in the Art & Design category
       #     Twitter.suggestions("art-design")
       # @format :json, :xml
@@ -123,7 +123,7 @@ module Twitter
       # @authenticated false
       # @rate_limited false
       # @return [String] The URL for the requested user's profile image.
-      # @see http://dev.twitter.com/doc/get/users/profile_image/:screen_name
+      # @see https://dev.twitter.com/docs/api/1/get/users/profile_image/:screen_name
       def profile_image(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
         screen_name = args.first || get_screen_name
@@ -135,7 +135,7 @@ module Twitter
       # @overload friends(options={})
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
-      #   @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
+      #   @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
       #   @return [Hashie::Mash]
       #   @example Return the authenticated user's friends
       #     Twitter.friends
@@ -143,12 +143,12 @@ module Twitter
       #   @param user [Integer, String] A Twitter user ID or screen name.
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
-      #   @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
+      #   @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
       #   @return [Hashie::Mash]
       #   @example Return @sferik's friends
       #     Twitter.friends("sferik")
       #     Twitter.friends(7505382)  # Same as above
-      # @see http://dev.twitter.com/doc/get/statuses/friends
+      # @see https://dev.twitter.com/docs/api/1/get/statuses/friends
       # @format :json, :xml
       # @authenticated false unless requesting it from a protected user
       #
@@ -172,7 +172,7 @@ module Twitter
       # @overload followers(options={})
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response object's next_cursor and previous_cursor attributes to page back and forth in the list.
-      #   @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
+      #   @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
       #   @return [Hashie::Mash]
       #   @example Return the authenticated user's followers
       #     Twitter.followers
@@ -180,12 +180,12 @@ module Twitter
       #   @param user [Integer, String] A Twitter user ID or screen name.
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
-      #   @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
+      #   @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
       #   @return [Hashie::Mash]
       #   @example Return @sferik's followers
       #     Twitter.followers("sferik")
       #     Twitter.followers(7505382)  # Same as above
-      # @see http://dev.twitter.com/doc/get/statuses/followers
+      # @see https://dev.twitter.com/docs/api/1/get/statuses/followers
       # @format :json, :xml
       # @authenticated false unless requesting it from a protected user
       #

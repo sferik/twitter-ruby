@@ -10,7 +10,7 @@ module Twitter
       # @rate_limited true
       # @param options [Hash] A customizable set of options.
       # @return [Array]
-      # @see http://dev.twitter.com/doc/get/trends
+      # @see https://dev.twitter.com/docs/api/1/get/trends
       # @example Return the top ten topics that are currently trending on Twitter
       #   Twitter.trends
       def trends(options={})
@@ -25,7 +25,7 @@ module Twitter
       # @param options [Hash] A customizable set of options.
       # @option options [String] :exclude Setting this equal to 'hashtags' will remove all hashtags from the trends list.
       # @return [Array]
-      # @see http://dev.twitter.com/doc/get/trends/current
+      # @see https://dev.twitter.com/docs/api/1/get/trends/current
       # @example Return the current top 10 trending topics on Twitter
       #   Twitter.trends_current
       def trends_current(options={})
@@ -41,7 +41,7 @@ module Twitter
       # @param options [Hash] A customizable set of options.
       # @option options [String] :exclude Setting this equal to 'hashtags' will remove all hashtags from the trends list.
       # @return [Array]
-      # @see http://dev.twitter.com/doc/get/trends/daily
+      # @see https://dev.twitter.com/docs/api/1/get/trends/daily
       # @example Return the top 20 trending topics for each hour of October 24, 2010
       #   Twitter.trends_daily(Date.parse("2010-10-24"))
       def trends_daily(date=Date.today, options={})
@@ -57,7 +57,7 @@ module Twitter
       # @param options [Hash] A customizable set of options.
       # @option options [String] :exclude Setting this equal to 'hashtags' will remove all hashtags from the trends list.
       # @return [Array]
-      # @see http://dev.twitter.com/doc/get/trends/weekly
+      # @see https://dev.twitter.com/docs/api/1/get/trends/weekly
       # @example Return the top ten topics that are currently trending on Twitter
       #   Twitter.trends_weekly(Date.parse("2010-10-24"))
       def trends_weekly(date=Date.today, options={})

@@ -10,9 +10,9 @@ module Twitter
       # @param user [Integer, String] A Twitter user ID or screen name.
       # @param options [Hash] A customizable set of options.
       # @option options [Boolean] :follow (false) Enable notifications for the target user.
-      # @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
+      # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
       # @return [Hashie::Mash] The followed user.
-      # @see http://dev.twitter.com/doc/post/friendships/create
+      # @see https://dev.twitter.com/docs/api/1/post/friendships/create
       # @example Follow @sferik
       #   Twitter.follow("sferik")
       def follow(user, options={})
@@ -32,9 +32,9 @@ module Twitter
       # @rate_limited false
       # @param user [Integer, String] A Twitter user ID or screen name.
       # @param options [Hash] A customizable set of options.
-      # @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
+      # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
       # @return [Hashie::Mash] The unfollowed user.
-      # @see http://dev.twitter.com/doc/post/friendships/destroy
+      # @see https://dev.twitter.com/docs/api/1/post/friendships/destroy
       # @example Unfollow @sferik
       #   Twitter.unfollow("sferik")
       def unfollow(user, options={})
@@ -54,7 +54,7 @@ module Twitter
       # @param user_b [Integer, String] The ID or screen_name of the user to test for following.
       # @param options [Hash] A customizable set of options.
       # @return [Boolean] true if user_a follows user_b, otherwise false.
-      # @see http://dev.twitter.com/doc/get/friendships/exists
+      # @see https://dev.twitter.com/docs/api/1/get/friendships/exists
       # @example Return true if @sferik follows @pengwynn
       #   Twitter.friendship?("sferik", "pengwynn")
       def friendship?(user_a, user_b, options={})
@@ -72,7 +72,7 @@ module Twitter
       # @param user_b [Integer, String] The ID or screen_name of the user to test for following.
       # @param options [Hash] A customizable set of options.
       # @return [Boolean] true if user_a follows user_b, otherwise false.
-      # @see http://dev.twitter.com/doc/get/friendships/exists
+      # @see https://dev.twitter.com/docs/api/1/get/friendships/exists
       # @example Return true if @sferik follows @pengwynn
       #   Twitter.friendship_exists?("sferik", "pengwynn")
       def friendship_exists?(user_a, user_b, options={})
@@ -91,7 +91,7 @@ module Twitter
       # @option options [Integer] :target_id The ID of the target user.
       # @option options [String] :target_screen_name The screen_name of the target user.
       # @return [Hashie::Mash]
-      # @see http://dev.twitter.com/doc/get/friendships/show
+      # @see https://dev.twitter.com/docs/api/1/get/friendships/show
       # @example Return the relationship between @sferik and @pengwynn
       #   Twitter.friendship(:source_screen_name => "sferik", :target_screen_name => "pengwynn")
       #   Twitter.friendship(:source_id => 7505382, :target_id => 14100886)
@@ -108,7 +108,7 @@ module Twitter
       # @param options [Hash] A customizable set of options.
       # @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
       # @return [Hashie::Mash]
-      # @see http://dev.twitter.com/doc/get/friendships/incoming
+      # @see https://dev.twitter.com/docs/api/1/get/friendships/incoming
       # @example Return an array of numeric IDs for every user who has a pending request to follow the authenticating user
       #   Twitter.friendships_incoming
       def friendships_incoming(options={})
@@ -125,7 +125,7 @@ module Twitter
       # @param options [Hash] A customizable set of options.
       # @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
       # @return [Hashie::Mash]
-      # @see http://dev.twitter.com/doc/get/friendships/outgoing
+      # @see https://dev.twitter.com/docs/api/1/get/friendships/outgoing
       # @example Return an array of numeric IDs for every protected user for whom the authenticating user has a pending follow request
       #   Twitter.friendships_outgoing
       def friendships_outgoing(options={})

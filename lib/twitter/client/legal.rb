@@ -8,7 +8,7 @@ module Twitter
       # @authenticated false
       # @rate_limited true
       # @return [String]
-      # @see http://dev.twitter.com/doc/get/legal/tos
+      # @see https://dev.twitter.com/docs/api/1/get/legal/tos
       # @example Return {http://twitter.com/tos Twitter's Terms of Service}
       #   Twitter.tos
       def tos(options={})
@@ -21,7 +21,7 @@ module Twitter
       # @authenticated false
       # @rate_limited true
       # @return [String]
-      # @see http://dev.twitter.com/doc/get/legal/privacy
+      # @see https://dev.twitter.com/docs/api/1/get/legal/privacy
       # @example Return {http://twitter.com/privacy Twitter's Privacy Policy}
       #   Twitter.privacy
       def privacy(options={})

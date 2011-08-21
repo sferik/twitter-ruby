@@ -27,7 +27,7 @@ module Twitter
       # @format :json, :xml
       # @authenticated true
       # @rate_limited false
-      # @see http://dev.twitter.com/doc/post/:user/lists
+      # @see https://dev.twitter.com/docs/api/1/post/:user/lists
       def list_create(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
         name = args.pop
@@ -65,7 +65,7 @@ module Twitter
       # @format :json, :xml
       # @authenticated true
       # @rate_limited false
-      # @see http://dev.twitter.com/doc/post/:user/lists/:id
+      # @see https://dev.twitter.com/docs/api/1/post/:user/lists/:id
       def list_update(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
         list = args.pop
@@ -94,7 +94,7 @@ module Twitter
       #     Twitter.lists("sferik")
       #     Twitter.lists(7505382)
       # @return [Hashie::Mash]
-      # @see http://dev.twitter.com/doc/get/:user/lists
+      # @see https://dev.twitter.com/docs/api/1/get/:user/lists
       # @format :json, :xml
       # @authenticated true
       # @rate_limited true
@@ -130,7 +130,7 @@ module Twitter
       # @format :json, :xml
       # @authenticated true
       # @rate_limited true
-      # @see http://dev.twitter.com/doc/get/:user/lists/:id
+      # @see https://dev.twitter.com/docs/api/1/get/:user/lists/:id
       def list(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
         list = args.pop
@@ -165,7 +165,7 @@ module Twitter
       # @format :json, :xml
       # @authenticated true
       # @rate_limited false
-      # @see http://dev.twitter.com/doc/delete/:user/lists/:id
+      # @see https://dev.twitter.com/docs/api/1/delete/:user/lists/:id
       def list_delete(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
         list = args.pop
@@ -185,7 +185,7 @@ module Twitter
       #   @option options [Integer] :max_id Returns results with an ID less than (that is, older than) or equal to the specified ID.
       #   @option options [Integer] :per_page The number of results to retrieve.
       #   @option options [Integer] :page Specifies the page of results to retrieve.
-      #   @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
+      #   @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
       #   @return [Array]
       #   @example Show tweet timeline for members of the authenticated user's "presidents" list
       #     Twitter.list_timeline("presidents")
@@ -198,7 +198,7 @@ module Twitter
       #   @option options [Integer] :max_id Returns results with an ID less than (that is, older than) or equal to the specified ID.
       #   @option options [Integer] :per_page The number of results to retrieve.
       #   @option options [Integer] :page Specifies the page of results to retrieve.
-      #   @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
+      #   @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
       #   @return [Array]
       #   @example Show tweet timeline for members of @sferik's "presidents" list
       #     Twitter.list_timeline("sferik", "presidents")
@@ -209,7 +209,7 @@ module Twitter
       # @format :json, :xml
       # @authenticated false
       # @rate_limited true
-      # @see http://dev.twitter.com/doc/get/:user/lists/:id/statuses
+      # @see https://dev.twitter.com/docs/api/1/get/:user/lists/:id/statuses
       def list_timeline(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
         list = args.pop
@@ -240,7 +240,7 @@ module Twitter
       # @format :json, :xml
       # @authenticated true
       # @rate_limited true
-      # @see http://dev.twitter.com/doc/get/:user/lists/memberships
+      # @see https://dev.twitter.com/docs/api/1/get/:user/lists/memberships
       def memberships(*args)
         options = {:cursor => -1}.merge(args.last.is_a?(Hash) ? args.pop : {})
         user = args.pop || get_screen_name
@@ -269,7 +269,7 @@ module Twitter
       # @format :json, :xml
       # @authenticated true
       # @rate_limited true
-      # @see http://dev.twitter.com/doc/get/:user/lists/subscriptions
+      # @see https://dev.twitter.com/docs/api/1/get/:user/lists/subscriptions
       def subscriptions(*args)
         options = {:cursor => -1}.merge(args.last.is_a?(Hash) ? args.pop : {})
         user = args.pop || get_screen_name

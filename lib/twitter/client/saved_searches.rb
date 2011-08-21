@@ -9,7 +9,7 @@ module Twitter
       # @rate_limited true
       # @param options [Hash] A customizable set of options.
       # @return [Array] Saved search queries.
-      # @see http://dev.twitter.com/doc/get/saved_searches
+      # @see https://dev.twitter.com/docs/api/1/get/saved_searches
       # @example Return the authenticated user's saved search queries
       #   Twitter.saved_searches
       def saved_searches(options={})
@@ -25,7 +25,7 @@ module Twitter
       # @param id [Integer] The ID of the saved search.
       # @param options [Hash] A customizable set of options.
       # @return [Hashie::Mash] The saved search.
-      # @see http://dev.twitter.com/doc/get/saved_searches/show/:id
+      # @see https://dev.twitter.com/docs/api/1/get/saved_searches/show/:id
       # @example Retrieve the data for a saved search owned by the authenticating user with the ID 16129012
       #   Twitter.saved_search(16129012)
       def saved_search(id, options={})
@@ -41,7 +41,7 @@ module Twitter
       # @param query [String] The query of the search the user would like to save.
       # @param options [Hash] A customizable set of options.
       # @return [Hashie::Mash] The created saved search.
-      # @see http://dev.twitter.com/doc/post/saved_searches/create
+      # @see https://dev.twitter.com/docs/api/1/post/saved_searches/create
       # @example Create a saved search for the authenticated user with the query "twitter"
       #   Twitter.saved_search_create("twitter")
       def saved_search_create(query, options={})
@@ -58,7 +58,7 @@ module Twitter
       # @param id [Integer] The ID of the saved search.
       # @param options [Hash] A customizable set of options.
       # @return [Hashie::Mash] The deleted saved search.
-      # @see http://dev.twitter.com/doc/post/saved_searches/destroy/:id
+      # @see https://dev.twitter.com/docs/api/1/post/saved_searches/destroy/:id
       # @example Destroys a saved search for the authenticated user with the ID 16129012
       #   Twitter.saved_search_destroy(16129012)
       def saved_search_destroy(id, options={})

@@ -10,9 +10,9 @@ module Twitter
       # @rate_limited true
       # @param user [Integer, String] A Twitter user ID or screen name.
       # @param options [Hash] A customizable set of options.
-      # @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
+      # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
       # @return [Hashie::Mash] The requested user.
-      # @see http://dev.twitter.com/doc/post/report_spam
+      # @see https://dev.twitter.com/docs/api/1/post/report_spam
       # @example Report @spam for spam
       #   Twitter.report_spam("spam")
       #   Twitter.report_spam(14589771) # Same as above

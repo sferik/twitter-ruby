@@ -31,7 +31,7 @@ module Twitter
       # @format :json, :xml
       # @authenticated true
       # @rate_limited true
-      # @see http://dev.twitter.com/doc/get/:user/:list_id/members
+      # @see http://dev.twitter.com/docs/api/1/get/:user/:list_id/members
       def list_members(*args)
         options = {:cursor => -1}.merge(args.last.is_a?(Hash) ? args.pop : {})
         list = args.pop
@@ -68,7 +68,7 @@ module Twitter
       # @format :json, :xml
       # @authenticated true
       # @rate_limited false
-      # @see http://dev.twitter.com/doc/post/:user/:list_id/members
+      # @see http://dev.twitter.com/docs/api/1/post/:user/:list_id/members
       def list_add_member(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
         user_to_add, list = args.pop, args.pop
@@ -108,7 +108,7 @@ module Twitter
       # @format :json, :xml
       # @authenticated true
       # @rate_limited false
-      # @see http://dev.twitter.com/doc/post/:user/:list_id/create_all
+      # @see http://dev.twitter.com/docs/api/1/post/:user/:list_id/create_all
       def list_add_members(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
         users_to_add, list = args.pop, args.pop
@@ -146,7 +146,7 @@ module Twitter
       # @format :json, :xml
       # @authenticated true
       # @rate_limited false
-      # @see http://dev.twitter.com/doc/delete/:user/:list_id/members
+      # @see https://dev.twitter.com/docs/api/1/delete/:user/:list_id/members
       def list_remove_member(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
         user_to_remove, list = args.pop, args.pop
@@ -181,7 +181,7 @@ module Twitter
       # @return [Boolean] true if user is a member of the specified list, otherwise false.
       # @authenticated true
       # @rate_limited false
-      # @see http://dev.twitter.com/doc/get/:user/:list_id/members/:id
+      # @see http://dev.twitter.com/docs/api/1/get/:user/:list_id/members/:id
       def list_member?(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
         user_to_check, list = args.pop, args.pop
@@ -219,7 +219,7 @@ module Twitter
       # @return [Boolean] true if user is a member of the specified list, otherwise false.
       # @authenticated true
       # @rate_limited false
-      # @see http://dev.twitter.com/doc/get/:user/:list_id/members/:id
+      # @see http://dev.twitter.com/docs/api/1/get/:user/:list_id/members/:id
       def is_list_member?(*args)
         warn "#{Kernel.caller.first}: [DEPRECATION] #is_list_member? is deprecated and will be removed in the next major version. Please use #list_member? instead."
         friendship?(args)

@@ -10,7 +10,7 @@ module Twitter
       #   @param list [Integer, String] The list_id or slug of the list.
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
-      #   @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
+      #   @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
       #   @return [Array] The subscribers of the specified list.
       #   @example Return the subscribers of the authenticated user's "presidents" list
       #     Twitter.list_subscribers('presidents')
@@ -20,7 +20,7 @@ module Twitter
       #   @param list [Integer, String] The list_id or slug of the list.
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
-      #   @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
+      #   @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
       #   @return [Array] The subscribers of the specified list.
       #   @example Return the subscribers of @sferik's "presidents" list
       #     Twitter.list_subscribers("sferik", 'presidents')
@@ -30,7 +30,7 @@ module Twitter
       # @format :json, :xml
       # @authenticated true
       # @rate_limited true
-      # @see http://dev.twitter.com/doc/get/:user/:list_id/subscribers
+      # @see https://dev.twitter.com/docs/api/1/get/:user/:list_id/subscribers
       def list_subscribers(*args)
         options = {:cursor => -1}.merge(args.last.is_a?(Hash) ? args.pop : {})
         list = args.pop
@@ -63,7 +63,7 @@ module Twitter
       # @format :json, :xml
       # @authenticated true
       # @rate_limited false
-      # @see http://dev.twitter.com/doc/post/:user/:list_id/subscribers
+      # @see https://dev.twitter.com/docs/api/1/post/:user/:list_id/subscribers
       def list_subscribe(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
         list = args.pop
@@ -96,7 +96,7 @@ module Twitter
       # @format :json, :xml
       # @authenticated true
       # @rate_limited false
-      # @see http://dev.twitter.com/doc/delete/:user/:list_id/subscribers
+      # @see https://dev.twitter.com/docs/api/1/delete/:user/:list_id/subscribers
       def list_unsubscribe(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
         list = args.pop
@@ -133,7 +133,7 @@ module Twitter
       # @format :json, :xml
       # @authenticated true
       # @rate_limited true
-      # @see http://dev.twitter.com/doc/get/:user/:list_id/subscribers/:id
+      # @see https://dev.twitter.com/docs/api/1/get/:user/:list_id/subscribers/:id
       def list_subscriber?(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
         user_to_check, list = args.pop, args.pop
@@ -174,7 +174,7 @@ module Twitter
       # @format :json, :xml
       # @authenticated true
       # @rate_limited true
-      # @see http://dev.twitter.com/doc/get/:user/:list_id/subscribers/:id
+      # @see https://dev.twitter.com/docs/api/1/get/:user/:list_id/subscribers/:id
       def is_subscriber?(*args)
         warn "#{Kernel.caller.first}: [DEPRECATION] #is_subscriber? is deprecated and will be removed in the next major version. Please use #list_subscriber? instead."
         list_subscriber?(args)

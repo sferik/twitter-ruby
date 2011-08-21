@@ -11,9 +11,9 @@ module Twitter
       # @rate_limited false
       # @param user [Integer, String] A Twitter user ID or screen name.
       # @param options [Hash] A customizable set of options.
-      # @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
+      # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
       # @return [Hashie::Mash] The blocked user.
-      # @see http://dev.twitter.com/doc/post/blocks/create
+      # @see https://dev.twitter.com/docs/api/1/post/blocks/create
       # @example Block and unfriend @sferik as the authenticating user
       #   Twitter.block("sferik")
       #   Twitter.block(7505382)  # Same as above
@@ -30,9 +30,9 @@ module Twitter
       # @rate_limited false
       # @param user [Integer, String] A Twitter user ID or screen name.
       # @param options [Hash] A customizable set of options.
-      # @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
+      # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
       # @return [Hashie::Mash] The un-blocked user.
-      # @see http://dev.twitter.com/doc/post/blocks/destroy
+      # @see https://dev.twitter.com/docs/api/1/post/blocks/destroy
       # @example Un-block @sferik as the authenticating user
       #   Twitter.unblock("sferik")
       #   Twitter.unblock(7505382)  # Same as above
@@ -49,7 +49,7 @@ module Twitter
       # @param user [Integer, String] A Twitter user ID or screen name.
       # @param options [Hash] A customizable set of options.
       # @return [Boolean] true if the authenticating user is blocking the target user, otherwise false.
-      # @see http://dev.twitter.com/doc/get/blocks/exists
+      # @see https://dev.twitter.com/docs/api/1/get/blocks/exists
       # @example Check whether the authenticating user is blocking @sferik
       #   Twitter.block?("sferik")
       #   Twitter.block?(7505382)  # Same as above
@@ -69,7 +69,7 @@ module Twitter
       # @param user [Integer, String] A Twitter user ID or screen name.
       # @param options [Hash] A customizable set of options.
       # @return [Boolean] true if the authenticating user is blocking the target user, otherwise false.
-      # @see http://dev.twitter.com/doc/get/blocks/exists
+      # @see https://dev.twitter.com/docs/api/1/get/blocks/exists
       # @example Check whether the authenticating user is blocking @sferik
       #   Twitter.block?("sferik")
       #   Twitter.block?(7505382)  # Same as above
@@ -85,9 +85,9 @@ module Twitter
       # @rate_limited true
       # @param options [Hash] A customizable set of options.
       # @option options [Integer] :page Specifies the page of results to retrieve.
-      # @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
+      # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
       # @return [Array] User objects that the authenticating user is blocking.
-      # @see http://dev.twitter.com/doc/get/blocks/blocking
+      # @see https://dev.twitter.com/docs/api/1/get/blocks/blocking
       # @example Return an array of user objects that the authenticating user is blocking
       #   Twitter.blocking
       def blocking(options={})
@@ -102,7 +102,7 @@ module Twitter
       # @rate_limited true
       # @param options [Hash] A customizable set of options.
       # @return [Array] Numeric user ids the authenticating user is blocking.
-      # @see http://dev.twitter.com/doc/get/blocks/blocking/ids
+      # @see https://dev.twitter.com/docs/api/1/get/blocks/blocking/ids
       # @example Return an array of numeric user ids the authenticating user is blocking
       #   Twitter.blocking_ids
       def blocked_ids(options={})

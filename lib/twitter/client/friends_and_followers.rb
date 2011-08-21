@@ -20,7 +20,7 @@ module Twitter
       #   @example Return @sferik's friends' IDs
       #     Twitter.friend_ids("sferik")
       #     Twitter.friend_ids(7505382)  # Same as above
-      # @see http://dev.twitter.com/doc/get/friends/ids
+      # @see https://dev.twitter.com/docs/api/1/get/friends/ids
       # @format :json, :xml
       # @authenticated false unless requesting it from a protected user
       #
@@ -53,7 +53,7 @@ module Twitter
       #   @example Return @sferik's followers' IDs
       #     Twitter.follower_ids("sferik")
       #     Twitter.follower_ids(7505382)  # Same as above
-      # @see http://dev.twitter.com/doc/get/followers/ids
+      # @see https://dev.twitter.com/docs/api/1/get/followers/ids
       # @format :json, :xml
       # @authenticated false unless requesting it from a protected user
       #

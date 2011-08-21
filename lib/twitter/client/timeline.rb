@@ -10,9 +10,9 @@ module Twitter
       # @rate_limited true
       # @param options [Hash] A customizable set of options.
       # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
-      # @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
+      # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
       # @return [Array]
-      # @see http://dev.twitter.com/doc/get/statuses/public_timeline
+      # @see https://dev.twitter.com/docs/api/1/get/statuses/public_timeline
       # @example Return the 20 most recent statuses, including retweets if they exist, from non-protected users
       #   Twitter.public_timeline
       def public_timeline(options={})
@@ -33,9 +33,9 @@ module Twitter
       # @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 200.
       # @option options [Integer] :page Specifies the page of results to retrieve.
       # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
-      # @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
+      # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
       # @return [Array]
-      # @see http://dev.twitter.com/doc/get/statuses/home_timeline
+      # @see https://dev.twitter.com/docs/api/1/get/statuses/home_timeline
       # @example Return the 20 most recent statuses, including retweets if they exist, posted by the authenticating user and the users they follow
       #   Twitter.home_timeline
       def home_timeline(options={})
@@ -57,9 +57,9 @@ module Twitter
       # @option options [Integer] :page Specifies the page of results to retrieve.
       # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       # @option options [Boolean, String, Integer] :include_rts The timeline will contain native retweets (if they exist) in addition to the standard stream of tweets when set to true, 't' or 1.
-      # @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
+      # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
       # @return [Array]
-      # @see http://dev.twitter.com/doc/get/statuses/friends_timeline
+      # @see https://dev.twitter.com/docs/api/1/get/statuses/friends_timeline
       # @example Return the 20 most recent statuses, including retweets if they exist, posted by the authenticating user and the users they follow
       #   Twitter.friends_timeline
       def friends_timeline(options={})
@@ -78,7 +78,7 @@ module Twitter
       #   @option options [Integer] :page Specifies the page of results to retrieve.
       #   @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       #   @option options [Boolean, String, Integer] :include_rts The timeline will contain native retweets (if they exist) in addition to the standard stream of tweets when set to true, 't' or 1.
-      #   @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
+      #   @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
       #   @return [Array]
       #   @example Return the 20 most recent statuses posted by @sferik
       #     Twitter.user_timeline("sferik")
@@ -86,7 +86,7 @@ module Twitter
       # @format :json, :xml
       # @authenticated false unless the user whose timeline you're trying to view is protected
       # @rate_limited true
-      # @see http://dev.twitter.com/doc/get/statuses/user_timeline
+      # @see https://dev.twitter.com/docs/api/1/get/statuses/user_timeline
       def user_timeline(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
         user = args.first || get_screen_name
@@ -108,9 +108,9 @@ module Twitter
       # @option options [Integer] :page Specifies the page of results to retrieve.
       # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       # @option options [Boolean, String, Integer] :include_rts The timeline will contain native retweets (if they exist) in addition to the standard stream of tweets when set to true, 't' or 1.
-      # @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
+      # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
       # @return [Array]
-      # @see http://dev.twitter.com/doc/get/statuses/mentions
+      # @see https://dev.twitter.com/docs/api/1/get/statuses/mentions
       # @example Return the 20 most recent mentions (statuses containing @username) for the authenticating user
       #   Twitter.mentions
       def mentions(options={})
@@ -129,9 +129,9 @@ module Twitter
       # @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 200.
       # @option options [Integer] :page Specifies the page of results to retrieve.
       # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
-      # @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
+      # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
       # @return [Array]
-      # @see http://dev.twitter.com/doc/get/statuses/retweeted_by_me
+      # @see https://dev.twitter.com/docs/api/1/get/statuses/retweeted_by_me
       # @example Return the 20 most recent retweets posted by the authenticating user
       #   Twitter.retweeted_by_me
       def retweeted_by_me(options={})
@@ -150,9 +150,9 @@ module Twitter
       # @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 200.
       # @option options [Integer] :page Specifies the page of results to retrieve.
       # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
-      # @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
+      # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
       # @return [Array]
-      # @see http://dev.twitter.com/doc/get/statuses/retweeted_to_me
+      # @see https://dev.twitter.com/docs/api/1/get/statuses/retweeted_to_me
       # @example Return the 20 most recent retweets posted by users followed by the authenticating user
       #   Twitter.retweeted_to_me
       def retweeted_to_me(options={})
@@ -171,9 +171,9 @@ module Twitter
       # @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 200.
       # @option options [Integer] :page Specifies the page of results to retrieve.
       # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
-      # @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
+      # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
       # @return [Array]
-      # @see http://dev.twitter.com/doc/get/statuses/retweets_of_me
+      # @see https://dev.twitter.com/docs/api/1/get/statuses/retweets_of_me
       # @example Return the 20 most recent tweets of the authenticated user that have been retweeted by others
       #   Twitter.retweets_of_me
       def retweets_of_me(options={})
