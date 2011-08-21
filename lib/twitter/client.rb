@@ -14,6 +14,7 @@ module Twitter
     require 'twitter/client/friendship'
     require 'twitter/client/friends_and_followers'
     require 'twitter/client/geo'
+    require 'twitter/client/help'
     require 'twitter/client/legal'
     require 'twitter/client/list'
     require 'twitter/client/list_members'
@@ -39,6 +40,7 @@ module Twitter
     include Twitter::Client::Friendship
     include Twitter::Client::FriendsAndFollowers
     include Twitter::Client::Geo
+    include Twitter::Client::Help
     include Twitter::Client::Legal
     include Twitter::Client::List
     include Twitter::Client::ListMembers
