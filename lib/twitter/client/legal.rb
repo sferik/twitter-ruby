@@ -2,27 +2,29 @@ module Twitter
   class Client
     # Defines methods related to legal documents
     module Legal
-      # Returns {http://twitter.com/tos Twitter's Terms of Service}
+      # Returns {https://twitter.com/tos Twitter's Terms of Service}
       #
-      # @format :json, :xml
-      # @authenticated false
-      # @rate_limited true
-      # @return [String]
       # @see https://dev.twitter.com/docs/api/1/get/legal/tos
-      # @example Return {http://twitter.com/tos Twitter's Terms of Service}
+      # @rate_limited Yes
+      # @requires_authentication No
+      # @response_formats `json`
+      # @response_formats `xml`
+      # @return [String]
+      # @example Return {https://twitter.com/tos Twitter's Terms of Service}
       #   Twitter.tos
       def tos(options={})
         get('legal/tos', options)['tos']
       end
 
-      # Returns {http://twitter.com/privacy Twitter's Privacy Policy}
+      # Returns {https://twitter.com/privacy Twitter's Privacy Policy}
       #
-      # @format :json, :xml
-      # @authenticated false
-      # @rate_limited true
-      # @return [String]
       # @see https://dev.twitter.com/docs/api/1/get/legal/privacy
-      # @example Return {http://twitter.com/privacy Twitter's Privacy Policy}
+      # @rate_limited Yes
+      # @requires_authentication No
+      # @response_formats `json`
+      # @response_formats `xml`
+      # @return [String]
+      # @example Return {https://twitter.com/privacy Twitter's Privacy Policy}
       #   Twitter.privacy
       def privacy(options={})
         get('legal/privacy', options)['privacy']

@@ -6,11 +6,16 @@ module Twitter
     module ListMembers
       # Returns the members of the specified list
       #
+      # @see https://dev.twitter.com/docs/api/1/get/:user/:list_id/members
+      # @rate_limited Yes
+      # @requires_authentication Yes
+      # @response_formats `json`
+      # @response_formats `xml`
       # @overload list_members(list, options={})
       #   @param list [Integer, String] The list_id or slug of the list.
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
-      #   @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
+      #   @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
       #   @return [Array]
       #   @example Return the members of the authenticated user's "presidents" list
       #     Twitter.list_members("presidents")
@@ -20,7 +25,7 @@ module Twitter
       #   @param list [Integer, String] The list_id or slug of the list.
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
-      #   @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
+      #   @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
       #   @return [Array]
       #   @example Return the members of @sferik's "presidents" list
       #     Twitter.list_members("sferik", "presidents")
@@ -28,10 +33,6 @@ module Twitter
       #     Twitter.list_members(7505382, "presidents")
       #     Twitter.list_members(7505382, 8863586)
       # @return [Array]
-      # @format :json, :xml
-      # @authenticated true
-      # @rate_limited true
-      # @see http://dev.twitter.com/docs/api/1/get/:user/:list_id/members
       def list_members(*args)
         options = {:cursor => -1}.merge(args.last.is_a?(Hash) ? args.pop : {})
         list = args.pop
@@ -44,6 +45,12 @@ module Twitter
 
       # Add a member to a list
       #
+      # @see https://dev.twitter.com/docs/api/1/post/:user/:list_id/members
+      # @note Lists are limited to having 500 members.
+      # @rate_limited No
+      # @requires_authentication Yes
+      # @response_formats `json`
+      # @response_formats `xml`
       # @overload list_add_member(list, user_to_add, options={})
       #   @param list [Integer, String] The list_id or slug of the list.
       #   @param user_to_add [Integer, String] The user id or screen name to add to the list.
@@ -64,11 +71,6 @@ module Twitter
       #     Twitter.list_add_member(7505382, "presidents", 813286)
       #     Twitter.list_add_member(7505382, 8863586, 813286)
       # @return [Hashie::Mash] The list.
-      # @note Lists are limited to having 500 members.
-      # @format :json, :xml
-      # @authenticated true
-      # @rate_limited false
-      # @see http://dev.twitter.com/docs/api/1/post/:user/:list_id/members
       def list_add_member(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
         user_to_add, list = args.pop, args.pop
@@ -82,6 +84,12 @@ module Twitter
 
       # Adds multiple members to a list
       #
+      # @see https://dev.twitter.com/docs/api/1/post/:user/:list_id/create_all
+      # @note Lists are limited to having 500 members, and you are limited to adding up to 100 members to a list at a time with this method.
+      # @rate_limited No
+      # @requires_authentication Yes
+      # @response_formats `json`
+      # @response_formats `xml`
       # @overload list_add_members(list, users_to_add, options={})
       #   @param list [Integer, String] The list_id or slug of the list.
       #   @param users_to_add [Array] The user IDs and/or screen names to add.
@@ -104,11 +112,6 @@ module Twitter
       #     Twitter.list_add_members(7505382, "presidents", [813286, 18755393])
       #     Twitter.list_add_members(7505382, 8863586, [813286, 18755393])
       # @return [Hashie::Mash] The list.
-      # @note Lists are limited to having 500 members, and you are limited to adding up to 100 members to a list at a time with this method.
-      # @format :json, :xml
-      # @authenticated true
-      # @rate_limited false
-      # @see http://dev.twitter.com/docs/api/1/post/:user/:list_id/create_all
       def list_add_members(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
         users_to_add, list = args.pop, args.pop
@@ -122,6 +125,11 @@ module Twitter
 
       # Removes the specified member from the list
       #
+      # @see https://dev.twitter.com/docs/api/1/delete/:user/:list_id/members
+      # @rate_limited No
+      # @requires_authentication Yes
+      # @response_formats `json`
+      # @response_formats `xml`
       # @overload list_remove_member(list, user_to_remove, options={})
       #   @param list [Integer, String] The list_id or slug of the list.
       #   @param user_to_remove [Integer, String] The user id or screen name of the list member to remove.
@@ -143,10 +151,6 @@ module Twitter
       #     Twitter.list_remove_member('sferik', 8863586, 'BarackObama')
       #     Twitter.list_remove_member(7505382, "presidents", 813286)
       # @return [Hashie::Mash] The list.
-      # @format :json, :xml
-      # @authenticated true
-      # @rate_limited false
-      # @see https://dev.twitter.com/docs/api/1/delete/:user/:list_id/members
       def list_remove_member(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
         user_to_remove, list = args.pop, args.pop
@@ -160,6 +164,9 @@ module Twitter
 
       # Check if a user is a member of the specified list
       #
+      # @see https://dev.twitter.com/docs/api/1/get/:user/:list_id/members/:id
+      # @requires_authentication Yes
+      # @rate_limited No
       # @overload list_member?(list, user_to_check, options={})
       #   @param list [Integer, String] The list_id or slug of the list.
       #   @param user_to_check [Integer, String] The user ID or screen name of the list member.
@@ -179,9 +186,6 @@ module Twitter
       #     Twitter.list_member?('sferik', 8863586, 'BarackObama')
       #     Twitter.list_member?(7505382, "presidents", 813286)
       # @return [Boolean] true if user is a member of the specified list, otherwise false.
-      # @authenticated true
-      # @rate_limited false
-      # @see http://dev.twitter.com/docs/api/1/get/:user/:list_id/members/:id
       def list_member?(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
         user_to_check, list = args.pop, args.pop
@@ -197,7 +201,10 @@ module Twitter
 
       # Check if a user is a member of the specified list
       #
+      # @see https://dev.twitter.com/docs/api/1/get/:user/:list_id/members/:id
       # @deprecated {Twitter::Client::ListMembers#is_list_member?} is deprecated and will be removed in the next major version. Please use {Twitter::Client::ListMembers#list_member?} instead.
+      # @requires_authentication Yes
+      # @rate_limited No
       # @overload is_list_member?(list, user_to_check, options={})
       #   @param list [Integer, String] The list_id or slug of the list.
       #   @param user_to_check [Integer, String] The user ID or screen name of the list member.
@@ -217,9 +224,6 @@ module Twitter
       #     Twitter.is_list_member?('sferik', 8863586, 'BarackObama')
       #     Twitter.is_list_member?(7505382, "presidents", 813286)
       # @return [Boolean] true if user is a member of the specified list, otherwise false.
-      # @authenticated true
-      # @rate_limited false
-      # @see http://dev.twitter.com/docs/api/1/get/:user/:list_id/members/:id
       def is_list_member?(*args)
         warn "#{Kernel.caller.first}: [DEPRECATION] #is_list_member? is deprecated and will be removed in the next major version. Please use #list_member? instead."
         friendship?(args)

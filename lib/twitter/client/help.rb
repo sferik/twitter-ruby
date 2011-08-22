@@ -4,11 +4,12 @@ module Twitter
     module Help
       # Returns the current configuration used by Twitter
       #
-      # @format :json, :xml
-      # @authenticated false
-      # @rate_limited true
-      # @return [Hashie::Mash] Twitter's configuration.
       # @see https://dev.twitter.com/docs/api/1/get/help/configuration
+      # @rate_limited Yes
+      # @requires_authentication No
+      # @response_formats `json`
+      # @response_formats `xml`
+      # @return [Hashie::Mash] Twitter's configuration.
       # @example Return the current configuration used by Twitter
       #   Twitter.configuration
       def configuration(options={})
@@ -18,11 +19,12 @@ module Twitter
 
       # Returns the list of languages supported by Twitter
       #
-      # @format :json, :xml
-      # @authenticated false
-      # @rate_limited true
-      # @return [Array]
       # @see https://dev.twitter.com/docs/api/1/get/help/languages
+      # @rate_limited Yes
+      # @requires_authentication No
+      # @response_formats `json`
+      # @response_formats `xml`
+      # @return [Array]
       # @example Return the list of languages Twitter supports
       #   Twitter.languages
       def languages(options={})

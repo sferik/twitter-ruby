@@ -6,7 +6,12 @@ module Twitter
     module List
       # Creates a new list for the authenticated user
       #
+      # @see https://dev.twitter.com/docs/api/1/post/:user/lists
       # @note Accounts are limited to 20 lists.
+      # @rate_limited No
+      # @requires_authentication Yes
+      # @response_formats `json`
+      # @response_formats `xml`
       # @overload list_create(screen_name, name, options={})
       #   @deprecated Calling {Twitter::Client::List#list_create} with a screen_name is deprecated and will be removed in the next major version. Please omit the screen_name argument.
       #   @param screen_name [String] A Twitter user name.
@@ -24,10 +29,6 @@ module Twitter
       #   @example Create a list named "presidents"
       #     Twitter.list_create("presidents")
       # @return [Hashie::Mash] The created list.
-      # @format :json, :xml
-      # @authenticated true
-      # @rate_limited false
-      # @see https://dev.twitter.com/docs/api/1/post/:user/lists
       def list_create(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
         name = args.pop
@@ -40,6 +41,11 @@ module Twitter
 
       # Updates the specified list
       #
+      # @see https://dev.twitter.com/docs/api/1/post/:user/lists/:id
+      # @rate_limited No
+      # @requires_authentication Yes
+      # @response_formats `json`
+      # @response_formats `xml`
       # @overload list_update(list, options={})
       #   @param list [Integer, String] The list_id or slug for the list.
       #   @param options [Hash] A customizable set of options.
@@ -62,10 +68,6 @@ module Twitter
       #     Twitter.list_update("sferik", 8863586, :description => "Presidents of the United States of America")
       #     Twitter.list_update(7505382, 8863586, :description => "Presidents of the United States of America")
       # @return [Hashie::Mash] The created list.
-      # @format :json, :xml
-      # @authenticated true
-      # @rate_limited false
-      # @see https://dev.twitter.com/docs/api/1/post/:user/lists/:id
       def list_update(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
         list = args.pop
@@ -78,7 +80,12 @@ module Twitter
 
       # List the lists of the specified user
       #
+      # @see https://dev.twitter.com/docs/api/1/get/:user/lists
       # @note Private lists will be included if the authenticated user is the same as the user whose lists are being returned.
+      # @rate_limited Yes
+      # @requires_authentication Yes
+      # @response_formats `json`
+      # @response_formats `xml`
       # @overload lists(options={})
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
@@ -94,10 +101,6 @@ module Twitter
       #     Twitter.lists("sferik")
       #     Twitter.lists(7505382)
       # @return [Hashie::Mash]
-      # @see https://dev.twitter.com/docs/api/1/get/:user/lists
-      # @format :json, :xml
-      # @authenticated true
-      # @rate_limited true
       def lists(*args)
         options = {:cursor => -1}.merge(args.last.is_a?(Hash) ? args.pop : {})
         user = args.first
@@ -108,6 +111,12 @@ module Twitter
 
       # Show the specified list
       #
+      # @see https://dev.twitter.com/docs/api/1/get/:user/lists/:id
+      # @note Private lists will only be shown if the authenticated user owns the specified list.
+      # @rate_limited Yes
+      # @requires_authentication Yes
+      # @response_formats `json`
+      # @response_formats `xml`
       # @overload list(list, options={})
       #   @param list [Integer, String] The list_id or slug of the list.
       #   @param options [Hash] A customizable set of options.
@@ -126,11 +135,6 @@ module Twitter
       #     Twitter.list(7505382, "presidents")
       #     Twitter.list(7505382, 8863586)
       # @return [Hashie::Mash] The specified list.
-      # @note Private lists will only be shown if the authenticated user owns the specified list.
-      # @format :json, :xml
-      # @authenticated true
-      # @rate_limited true
-      # @see https://dev.twitter.com/docs/api/1/get/:user/lists/:id
       def list(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
         list = args.pop
@@ -143,6 +147,12 @@ module Twitter
 
       # Deletes the specified list
       #
+      # @see https://dev.twitter.com/docs/api/1/delete/:user/lists/:id
+      # @note Must be owned by the authenticated user.
+      # @rate_limited No
+      # @requires_authentication Yes
+      # @response_formats `json`
+      # @response_formats `xml`
       # @overload list_delete(list, options={})
       #   @param list [Integer, String] The list_id or slug of the list.
       #   @param options [Hash] A customizable set of options.
@@ -161,11 +171,6 @@ module Twitter
       #     Twitter.list_delete(7505382, "presidents")
       #     Twitter.list_delete(7505382, 8863586)
       # @return [Hashie::Mash] The deleted list.
-      # @note Must be owned by the authenticated user.
-      # @format :json, :xml
-      # @authenticated true
-      # @rate_limited false
-      # @see https://dev.twitter.com/docs/api/1/delete/:user/lists/:id
       def list_delete(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
         list = args.pop
@@ -178,6 +183,11 @@ module Twitter
 
       # Show tweet timeline for members of the specified list
       #
+      # @see https://dev.twitter.com/docs/api/1/get/:user/lists/:id/statuses
+      # @rate_limited Yes
+      # @requires_authentication No
+      # @response_formats `json`
+      # @response_formats `xml`
       # @overload list_timeline(list, options={})
       #   @param list [Integer, String] The list_id or slug of the list.
       #   @param options [Hash] A customizable set of options.
@@ -185,7 +195,7 @@ module Twitter
       #   @option options [Integer] :max_id Returns results with an ID less than (that is, older than) or equal to the specified ID.
       #   @option options [Integer] :per_page The number of results to retrieve.
       #   @option options [Integer] :page Specifies the page of results to retrieve.
-      #   @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
+      #   @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
       #   @return [Array]
       #   @example Show tweet timeline for members of the authenticated user's "presidents" list
       #     Twitter.list_timeline("presidents")
@@ -198,7 +208,7 @@ module Twitter
       #   @option options [Integer] :max_id Returns results with an ID less than (that is, older than) or equal to the specified ID.
       #   @option options [Integer] :per_page The number of results to retrieve.
       #   @option options [Integer] :page Specifies the page of results to retrieve.
-      #   @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
+      #   @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
       #   @return [Array]
       #   @example Show tweet timeline for members of @sferik's "presidents" list
       #     Twitter.list_timeline("sferik", "presidents")
@@ -206,10 +216,6 @@ module Twitter
       #     Twitter.list_timeline(7505382, "presidents")
       #     Twitter.list_timeline(7505382, 8863586)
       # @return [Array]
-      # @format :json, :xml
-      # @authenticated false
-      # @rate_limited true
-      # @see https://dev.twitter.com/docs/api/1/get/:user/lists/:id/statuses
       def list_timeline(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
         list = args.pop
@@ -222,6 +228,11 @@ module Twitter
 
       # List the lists the specified user has been added to
       #
+      # @see https://dev.twitter.com/docs/api/1/get/:user/lists/memberships
+      # @rate_limited Yes
+      # @requires_authentication Yes
+      # @response_formats `json`
+      # @response_formats `xml`
       # @overload memberships(options={})
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
@@ -237,10 +248,6 @@ module Twitter
       #     Twitter.memberships("sferik")
       #     Twitter.memberships(7505382)
       # @return [Array]
-      # @format :json, :xml
-      # @authenticated true
-      # @rate_limited true
-      # @see https://dev.twitter.com/docs/api/1/get/:user/lists/memberships
       def memberships(*args)
         options = {:cursor => -1}.merge(args.last.is_a?(Hash) ? args.pop : {})
         user = args.pop || get_screen_name
@@ -251,6 +258,11 @@ module Twitter
 
       # List the lists the specified user follows
       #
+      # @see https://dev.twitter.com/docs/api/1/get/:user/lists/subscriptions
+      # @rate_limited Yes
+      # @requires_authentication Yes
+      # @response_formats `json`
+      # @response_formats `xml`
       # @overload subscriptions(options={})
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
@@ -266,10 +278,6 @@ module Twitter
       #     Twitter.subscriptions("sferik")
       #     Twitter.subscriptions(7505382)
       # @return [Array]
-      # @format :json, :xml
-      # @authenticated true
-      # @rate_limited true
-      # @see https://dev.twitter.com/docs/api/1/get/:user/lists/subscriptions
       def subscriptions(*args)
         options = {:cursor => -1}.merge(args.last.is_a?(Hash) ? args.pop : {})
         user = args.pop || get_screen_name

@@ -4,12 +4,13 @@ module Twitter
     module SavedSearches
       # Returns the authenticated user's saved search queries
       #
-      # @format :json, :xml
-      # @authenticated true
-      # @rate_limited true
+      # @see https://dev.twitter.com/docs/api/1/get/saved_searches
+      # @rate_limited Yes
+      # @requires_authentication Yes
+      # @response_formats `json`
+      # @response_formats `xml`
       # @param options [Hash] A customizable set of options.
       # @return [Array] Saved search queries.
-      # @see https://dev.twitter.com/docs/api/1/get/saved_searches
       # @example Return the authenticated user's saved search queries
       #   Twitter.saved_searches
       def saved_searches(options={})
@@ -19,13 +20,14 @@ module Twitter
 
       # Retrieve the data for a saved search owned by the authenticating user specified by the given ID
       #
-      # @format :json, :xml
-      # @authenticated true
-      # @rate_limited true
+      # @see https://dev.twitter.com/docs/api/1/get/saved_searches/show/:id
+      # @rate_limited Yes
+      # @requires_authentication Yes
+      # @response_formats `json`
+      # @response_formats `xml`
       # @param id [Integer] The ID of the saved search.
       # @param options [Hash] A customizable set of options.
       # @return [Hashie::Mash] The saved search.
-      # @see https://dev.twitter.com/docs/api/1/get/saved_searches/show/:id
       # @example Retrieve the data for a saved search owned by the authenticating user with the ID 16129012
       #   Twitter.saved_search(16129012)
       def saved_search(id, options={})
@@ -35,13 +37,14 @@ module Twitter
 
       # Creates a saved search for the authenticated user
       #
-      # @format :json, :xml
-      # @authenticated true
-      # @rate_limited false
+      # @see https://dev.twitter.com/docs/api/1/post/saved_searches/create
+      # @rate_limited No
+      # @requires_authentication Yes
+      # @response_formats `json`
+      # @response_formats `xml`
       # @param query [String] The query of the search the user would like to save.
       # @param options [Hash] A customizable set of options.
       # @return [Hashie::Mash] The created saved search.
-      # @see https://dev.twitter.com/docs/api/1/post/saved_searches/create
       # @example Create a saved search for the authenticated user with the query "twitter"
       #   Twitter.saved_search_create("twitter")
       def saved_search_create(query, options={})
@@ -50,15 +53,16 @@ module Twitter
       end
 
       # Destroys a saved search for the authenticated user
-      # @note The search specified by ID must be owned by the authenticating user.
       #
-      # @format :json, :xml
-      # @authenticated true
-      # @rate_limited false
+      # @see https://dev.twitter.com/docs/api/1/post/saved_searches/destroy/:id
+      # @note The search specified by ID must be owned by the authenticating user.
+      # @rate_limited No
+      # @requires_authentication Yes
+      # @response_formats `json`
+      # @response_formats `xml`
       # @param id [Integer] The ID of the saved search.
       # @param options [Hash] A customizable set of options.
       # @return [Hashie::Mash] The deleted saved search.
-      # @see https://dev.twitter.com/docs/api/1/post/saved_searches/destroy/:id
       # @example Destroys a saved search for the authenticated user with the ID 16129012
       #   Twitter.saved_search_destroy(16129012)
       def saved_search_destroy(id, options={})

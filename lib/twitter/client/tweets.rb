@@ -4,15 +4,16 @@ module Twitter
     module Tweets
       # Returns a single status, specified by ID
       #
-      # @format :json, :xml
-      # @authenticated false unless the author of the status is protected
-      # @rate_limited true
+      # @see https://dev.twitter.com/docs/api/1/get/statuses/show/:id
+      # @rate_limited Yes
+      # @requires_authentication No unless the author of the status is protected
+      # @response_formats `json`
+      # @response_formats `xml`
       # @param id [Integer] The numerical ID of the desired status.
       # @param options [Hash] A customizable set of options.
       # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
-      # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
+      # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
       # @return [Hashie::Mash] The requested status.
-      # @see https://dev.twitter.com/docs/api/1/get/statuses/show/:id
       # @example Return the status with the ID 25938088801
       #   Twitter.status(25938088801)
       def status(id, options={})
@@ -22,10 +23,12 @@ module Twitter
 
       # Updates the authenticating user's status
       #
+      # @see https://dev.twitter.com/docs/api/1/post/statuses/update
       # @note A status update with text identical to the authenticating user's current status will be ignored to prevent duplicates.
-      # @format :json, :xml
-      # @authenticated true
-      # @rate_limited false
+      # @rate_limited No
+      # @requires_authentication Yes
+      # @response_formats `json`
+      # @response_formats `xml`
       # @param status [String] The text of your status update, up to 140 characters.
       # @param options [Hash] A customizable set of options.
       # @option options [Integer] :in_reply_to_status_id The ID of an existing status that the update is in reply to.
@@ -34,9 +37,8 @@ module Twitter
       # @option options [String] :place_id A place in the world. These IDs can be retrieved from {Twitter::Client::Geo#reverse_geocode}.
       # @option options [String] :display_coordinates Whether or not to put a pin on the exact coordinates a tweet has been sent from.
       # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
-      # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
+      # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
       # @return [Hashie::Mash] The created status.
-      # @see https://dev.twitter.com/docs/api/1/post/statuses/update
       # @example Update the authenticating user's status
       #   Twitter.update("I just posted a status update via the Twitter Ruby Gem!")
       def update(status, options={})
@@ -46,16 +48,17 @@ module Twitter
 
       # Destroys the specified status
       #
+      # @see https://dev.twitter.com/docs/api/1/post/statuses/destroy/:id
       # @note The authenticating user must be the author of the specified status.
-      # @format :json, :xml
-      # @authenticated true
-      # @rate_limited false
+      # @rate_limited No
+      # @requires_authentication Yes
+      # @response_formats `json`
+      # @response_formats `xml`
       # @param id [Integer] The numerical ID of the desired status.
       # @param options [Hash] A customizable set of options.
       # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
-      # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
+      # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
       # @return [Hashie::Mash] The deleted status.
-      # @see https://dev.twitter.com/docs/api/1/post/statuses/destroy/:id
       # @example Destroy the status with the ID 25938088801
       #   Twitter.status_destroy(25938088801)
       def status_destroy(id, options={})
@@ -65,16 +68,17 @@ module Twitter
 
       # Retweets a tweet
       #
+      # @see https://dev.twitter.com/docs/api/1/post/statuses/retweet/:id
       # @note The authenticating user must be the author of the specified status.
-      # @format :json, :xml
-      # @authenticated true
-      # @rate_limited false
+      # @rate_limited No
+      # @requires_authentication Yes
+      # @response_formats `json`
+      # @response_formats `xml`
       # @param id [Integer] The numerical ID of the desired status.
       # @param options [Hash] A customizable set of options.
       # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
-      # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
+      # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
       # @return [Hashie::Mash] The original tweet with retweet details embedded.
-      # @see https://dev.twitter.com/docs/api/1/post/statuses/retweet/:id
       # @example Retweet the status with the ID 28561922516
       #   Twitter.retweet(28561922516)
       def retweet(id, options={})
@@ -84,16 +88,17 @@ module Twitter
 
       # Returns up to 100 of the first retweets of a given tweet
       #
-      # @format :json, :xml
-      # @authenticated true
-      # @rate_limited true
+      # @see https://dev.twitter.com/docs/api/1/get/statuses/retweets/:id
+      # @rate_limited Yes
+      # @requires_authentication Yes
+      # @response_formats `json`
+      # @response_formats `xml`
       # @param id [Integer] The numerical ID of the desired status.
       # @param options [Hash] A customizable set of options.
       # @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 100.
       # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
-      # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
+      # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
       # @return [Array]
-      # @see https://dev.twitter.com/docs/api/1/get/statuses/retweets/:id
       # @example Return up to 100 of the first retweets of the status with the ID 28561922516
       #   Twitter.retweets(28561922516)
       def retweets(id, options={})
@@ -103,19 +108,20 @@ module Twitter
 
       # Show up to 100 users who retweeted the status
       #
-      # @format :json, :xml
-      # @authenticated true
-      # @rate_limited true
+      # @see https://dev.twitter.com/docs/api/1/get/statuses/:id/retweeted_by
+      # @see https://dev.twitter.com/docs/api/1/get/statuses/:id/retweeted_by/ids
+      # @rate_limited Yes
+      # @requires_authentication Yes
+      # @response_formats `json`
+      # @response_formats `xml`
       # @param id [Integer] The numerical ID of the desired status.
       # @param options [Hash] A customizable set of options.
       # @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 100.
       # @option options [Integer] :page Specifies the page of results to retrieve.
       # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
-      # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
+      # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
       # @option options [Boolean] :ids_only ('false') Only return user ids instead of full user objects.
       # @return [Array]
-      # @see https://dev.twitter.com/docs/api/1/get/statuses/:id/retweeted_by
-      # @see https://dev.twitter.com/docs/api/1/get/statuses/:id/retweeted_by/ids
       # @example Show up to 100 users who retweeted the status with the ID 28561922516
       #   Twitter.retweeters_of(28561922516)
       def retweeters_of(id, options={})

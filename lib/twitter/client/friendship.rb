@@ -4,15 +4,16 @@ module Twitter
     module Friendship
       # Allows the authenticating user to follow the specified user
       #
-      # @format :json, :xml
-      # @authenticated true
-      # @rate_limited false
+      # @see https://dev.twitter.com/docs/api/1/post/friendships/create
+      # @rate_limited No
+      # @requires_authentication Yes
+      # @response_formats `json`
+      # @response_formats `xml`
       # @param user [Integer, String] A Twitter user ID or screen name.
       # @param options [Hash] A customizable set of options.
       # @option options [Boolean] :follow (false) Enable notifications for the target user.
-      # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
+      # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
       # @return [Hashie::Mash] The followed user.
-      # @see https://dev.twitter.com/docs/api/1/post/friendships/create
       # @example Follow @sferik
       #   Twitter.follow("sferik")
       def follow(user, options={})
@@ -27,14 +28,15 @@ module Twitter
 
       # Allows the authenticating user to unfollow the specified user
       #
-      # @format :json, :xml
-      # @authenticated true
-      # @rate_limited false
+      # @see https://dev.twitter.com/docs/api/1/post/friendships/destroy
+      # @rate_limited No
+      # @requires_authentication Yes
+      # @response_formats `json`
+      # @response_formats `xml`
       # @param user [Integer, String] A Twitter user ID or screen name.
       # @param options [Hash] A customizable set of options.
-      # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
+      # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
       # @return [Hashie::Mash] The unfollowed user.
-      # @see https://dev.twitter.com/docs/api/1/post/friendships/destroy
       # @example Unfollow @sferik
       #   Twitter.unfollow("sferik")
       def unfollow(user, options={})
@@ -46,15 +48,16 @@ module Twitter
 
       # Test for the existence of friendship between two users
       #
+      # @see https://dev.twitter.com/docs/api/1/get/friendships/exists
       # @note Consider using {Twitter::Client::Friendship#friendship} instead of this method.
-      # @format :json, :xml
-      # @authenticated false unless user_a or user_b is protected
-      # @rate_limited true
+      # @rate_limited Yes
+      # @requires_authentication No unless user_a or user_b is protected
+      # @response_formats `json`
+      # @response_formats `xml`
       # @param user_a [Integer, String] The ID or screen_name of the subject user.
       # @param user_b [Integer, String] The ID or screen_name of the user to test for following.
       # @param options [Hash] A customizable set of options.
       # @return [Boolean] true if user_a follows user_b, otherwise false.
-      # @see https://dev.twitter.com/docs/api/1/get/friendships/exists
       # @example Return true if @sferik follows @pengwynn
       #   Twitter.friendship?("sferik", "pengwynn")
       def friendship?(user_a, user_b, options={})
@@ -64,15 +67,16 @@ module Twitter
 
       # Test for the existence of friendship between two users
       #
+      # @see https://dev.twitter.com/docs/api/1/get/friendships/exists
       # @deprecated {Twitter::Client::Friendship#friendship_exists?} is deprecated and will be removed in the next major version. Please use {Twitter::Client::Friendship#friendship?} instead.
-      # @format :json, :xml
-      # @authenticated false unless user_a or user_b is protected
-      # @rate_limited true
+      # @rate_limited Yes
+      # @requires_authentication No unless user_a or user_b is protected
+      # @response_formats `json`
+      # @response_formats `xml`
       # @param user_a [Integer, String] The ID or screen_name of the subject user.
       # @param user_b [Integer, String] The ID or screen_name of the user to test for following.
       # @param options [Hash] A customizable set of options.
       # @return [Boolean] true if user_a follows user_b, otherwise false.
-      # @see https://dev.twitter.com/docs/api/1/get/friendships/exists
       # @example Return true if @sferik follows @pengwynn
       #   Twitter.friendship_exists?("sferik", "pengwynn")
       def friendship_exists?(user_a, user_b, options={})
@@ -82,16 +86,17 @@ module Twitter
 
       # Returns detailed information about the relationship between two users
       #
-      # @format :json, :xml
-      # @authenticated false
-      # @rate_limited true
+      # @see https://dev.twitter.com/docs/api/1/get/friendships/show
+      # @rate_limited Yes
+      # @requires_authentication No
+      # @response_formats `json`
+      # @response_formats `xml`
       # @param options [Hash] A customizable set of options.
       # @option options [Integer] :source_id The ID of the subject user.
       # @option options [String] :source_screen_name The screen_name of the subject user.
       # @option options [Integer] :target_id The ID of the target user.
       # @option options [String] :target_screen_name The screen_name of the target user.
       # @return [Hashie::Mash]
-      # @see https://dev.twitter.com/docs/api/1/get/friendships/show
       # @example Return the relationship between @sferik and @pengwynn
       #   Twitter.friendship(:source_screen_name => "sferik", :target_screen_name => "pengwynn")
       #   Twitter.friendship(:source_id => 7505382, :target_id => 14100886)
@@ -102,13 +107,14 @@ module Twitter
 
       # Returns an array of numeric IDs for every user who has a pending request to follow the authenticating user
       #
-      # @format :json, :xml
-      # @authenticated true
-      # @rate_limited true
+      # @see https://dev.twitter.com/docs/api/1/get/friendships/incoming
+      # @rate_limited Yes
+      # @requires_authentication Yes
+      # @response_formats `json`
+      # @response_formats `xml`
       # @param options [Hash] A customizable set of options.
       # @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
       # @return [Hashie::Mash]
-      # @see https://dev.twitter.com/docs/api/1/get/friendships/incoming
       # @example Return an array of numeric IDs for every user who has a pending request to follow the authenticating user
       #   Twitter.friendships_incoming
       def friendships_incoming(options={})
@@ -119,13 +125,14 @@ module Twitter
 
       # Returns an array of numeric IDs for every protected user for whom the authenticating user has a pending follow request
       #
-      # @format :json, :xml
-      # @authenticated true
-      # @rate_limited true
+      # @see https://dev.twitter.com/docs/api/1/get/friendships/outgoing
+      # @rate_limited Yes
+      # @requires_authentication Yes
+      # @response_formats `json`
+      # @response_formats `xml`
       # @param options [Hash] A customizable set of options.
       # @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
       # @return [Hashie::Mash]
-      # @see https://dev.twitter.com/docs/api/1/get/friendships/outgoing
       # @example Return an array of numeric IDs for every protected user for whom the authenticating user has a pending follow request
       #   Twitter.friendships_outgoing
       def friendships_outgoing(options={})

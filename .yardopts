@@ -1,8 +1,8 @@
 --no-private
 --protected
---tag format:"Supported formats"
---tag authenticated:"Requires Authentication"
---tag rate_limited:"Rate Limited"
+--tag rate_limited:"Rate Limited?"
+--tag requires_authentication:"Requires Authentication?"
+--tag response_formats:"Response Formats"
 --markup markdown
 -
 HISTORY.md

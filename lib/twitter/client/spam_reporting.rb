@@ -5,14 +5,15 @@ module Twitter
     module SpamReporting
       # The user specified is blocked by the authenticated user and reported as a spammer
       #
-      # @format :json, :xml
-      # @authenticated false
-      # @rate_limited true
+      # @see https://dev.twitter.com/docs/api/1/post/report_spam
+      # @rate_limited Yes
+      # @requires_authentication No
+      # @response_formats `json`
+      # @response_formats `xml`
       # @param user [Integer, String] A Twitter user ID or screen name.
       # @param options [Hash] A customizable set of options.
-      # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
+      # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
       # @return [Hashie::Mash] The requested user.
-      # @see https://dev.twitter.com/docs/api/1/post/report_spam
       # @example Report @spam for spam
       #   Twitter.report_spam("spam")
       #   Twitter.report_spam(14589771) # Same as above

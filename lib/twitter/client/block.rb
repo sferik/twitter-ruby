@@ -5,15 +5,16 @@ module Twitter
     module Block
       # Blocks the user specified by the authenticating user
       #
+      # @see https://dev.twitter.com/docs/api/1/post/blocks/create
       # @note Destroys a friendship to the blocked user if it exists.
-      # @format :json, :xml
-      # @authenticated true
-      # @rate_limited false
+      # @rate_limited No
+      # @requires_authentication Yes
+      # @response_formats `json`
+      # @response_formats `xml`
       # @param user [Integer, String] A Twitter user ID or screen name.
       # @param options [Hash] A customizable set of options.
-      # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
+      # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
       # @return [Hashie::Mash] The blocked user.
-      # @see https://dev.twitter.com/docs/api/1/post/blocks/create
       # @example Block and unfriend @sferik as the authenticating user
       #   Twitter.block("sferik")
       #   Twitter.block(7505382)  # Same as above
@@ -25,14 +26,15 @@ module Twitter
 
       # Un-blocks the user specified by the authenticating user
       #
-      # @format :json, :xml
-      # @authenticated true
-      # @rate_limited false
+      # @see https://dev.twitter.com/docs/api/1/post/blocks/destroy
+      # @rate_limited No
+      # @requires_authentication Yes
+      # @response_formats `json`
+      # @response_formats `xml`
       # @param user [Integer, String] A Twitter user ID or screen name.
       # @param options [Hash] A customizable set of options.
-      # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
+      # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
       # @return [Hashie::Mash] The un-blocked user.
-      # @see https://dev.twitter.com/docs/api/1/post/blocks/destroy
       # @example Un-block @sferik as the authenticating user
       #   Twitter.unblock("sferik")
       #   Twitter.unblock(7505382)  # Same as above
@@ -44,12 +46,12 @@ module Twitter
 
       # Returns true if the authenticating user is blocking a target user
       #
-      # @authenticated true
-      # @rate_limited true
+      # @see https://dev.twitter.com/docs/api/1/get/blocks/exists
+      # @requires_authentication Yes
+      # @rate_limited Yes
       # @param user [Integer, String] A Twitter user ID or screen name.
       # @param options [Hash] A customizable set of options.
       # @return [Boolean] true if the authenticating user is blocking the target user, otherwise false.
-      # @see https://dev.twitter.com/docs/api/1/get/blocks/exists
       # @example Check whether the authenticating user is blocking @sferik
       #   Twitter.block?("sferik")
       #   Twitter.block?(7505382)  # Same as above
@@ -63,13 +65,13 @@ module Twitter
 
       # Returns true if the authenticating user is blocking a target user
       #
+      # @see https://dev.twitter.com/docs/api/1/get/blocks/exists
       # @deprecated {Twitter::Client::Block#block_exists?} is deprecated and will be removed in the next major version. Please use {Twitter::Client::Block#block?} instead.
-      # @authenticated true
-      # @rate_limited true
+      # @requires_authentication Yes
+      # @rate_limited Yes
       # @param user [Integer, String] A Twitter user ID or screen name.
       # @param options [Hash] A customizable set of options.
       # @return [Boolean] true if the authenticating user is blocking the target user, otherwise false.
-      # @see https://dev.twitter.com/docs/api/1/get/blocks/exists
       # @example Check whether the authenticating user is blocking @sferik
       #   Twitter.block?("sferik")
       #   Twitter.block?(7505382)  # Same as above
@@ -80,14 +82,15 @@ module Twitter
 
       # Returns an array of user objects that the authenticating user is blocking
       #
-      # @format :json, :xml
-      # @authenticated true
-      # @rate_limited true
+      # @see https://dev.twitter.com/docs/api/1/get/blocks/blocking
+      # @rate_limited Yes
+      # @requires_authentication Yes
+      # @response_formats `json`
+      # @response_formats `xml`
       # @param options [Hash] A customizable set of options.
       # @option options [Integer] :page Specifies the page of results to retrieve.
-      # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
+      # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
       # @return [Array] User objects that the authenticating user is blocking.
-      # @see https://dev.twitter.com/docs/api/1/get/blocks/blocking
       # @example Return an array of user objects that the authenticating user is blocking
       #   Twitter.blocking
       def blocking(options={})
@@ -97,12 +100,13 @@ module Twitter
 
       # Returns an array of numeric user ids the authenticating user is blocking
       #
-      # @format :json, :xml
-      # @authenticated true
-      # @rate_limited true
+      # @see https://dev.twitter.com/docs/api/1/get/blocks/blocking/ids
+      # @rate_limited Yes
+      # @requires_authentication Yes
+      # @response_formats `json`
+      # @response_formats `xml`
       # @param options [Hash] A customizable set of options.
       # @return [Array] Numeric user ids the authenticating user is blocking.
-      # @see https://dev.twitter.com/docs/api/1/get/blocks/blocking/ids
       # @example Return an array of numeric user ids the authenticating user is blocking
       #   Twitter.blocking_ids
       def blocked_ids(options={})
