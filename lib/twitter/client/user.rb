@@ -214,6 +214,25 @@ module Twitter
         end
         format.to_s.downcase == 'xml' ? response['users_list'] : response
       end
+
+      # Returns recommended users for the authenticated user
+      #
+      # @note {https://dev.twitter.com/discussions/1120 Undocumented}
+      # @rate_limited Yes
+      # @requires_authentication Yes
+      # @response_format `json`
+      # @response_format `xml`
+      # @param options [Hash] A customizable set of options.
+      # @option options [Integer] :limit (20) Specifies the number of records to retrieve.
+      # @option options [String] :excluded Comma-separated list of user IDs to exclude.
+      # @return [Array]
+      # @example Return recommended users for the authenticated user
+      #   Twitter.recommendations
+      def recommendations(options={})
+        options[:excluded] = options[:excluded].join(',') if options[:excluded].is_a?(Array)
+        response = get('users/recommendations', options)
+        format.to_s.downcase == 'xml' ? response['userrecommendations'] : response
+      end
     end
   end
 end

@@ -412,6 +412,28 @@ describe Twitter::Client do
             followers.users.should be_an Array
             followers.users.first.name.should == "Joel Mahoney"
           end
+
+        end
+
+      end
+
+      describe ".recommendations" do
+
+        before do
+          stub_get("users/recommendations.#{format}").
+            to_return(:body => fixture("recommendations.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+        end
+
+        it "should get the correct resource" do
+          @client.recommendations
+          a_get("users/recommendations.#{format}").
+            should have_been_made
+        end
+
+        it "should return recommended users for the authenticated user" do
+          recommendations = @client.recommendations
+          recommendations.should be_an Array
+          recommendations.first.user.name.should == "John Trupiano"
         end
       end
     end
