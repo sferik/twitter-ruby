@@ -76,7 +76,7 @@ module Twitter
       #   Twitter.block?("sferik")
       #   Twitter.block?(7505382)  # Same as above
       def block_exists?(user, options={})
-        warn "#{Kernel.caller.first}: [DEPRECATION] #block_exists? is deprecated and will be removed in the next major version. Please use #block? instead."
+        warn "#{caller.first}: [DEPRECATION] #block_exists? is deprecated and will be removed in the next major version. Please use #block? instead."
         block?(user, options)
       end
 

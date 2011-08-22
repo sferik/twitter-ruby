@@ -80,7 +80,7 @@ module Twitter
       # @example Return true if @sferik follows @pengwynn
       #   Twitter.friendship_exists?("sferik", "pengwynn")
       def friendship_exists?(user_a, user_b, options={})
-        warn "#{Kernel.caller.first}: [DEPRECATION] #friendship_exists? is deprecated and will be removed in the next major version. Please use #friendship? instead."
+        warn "#{caller.first}: [DEPRECATION] #friendship_exists? is deprecated and will be removed in the next major version. Please use #friendship? instead."
         friendship?(user_a, user_b, options={})
       end
 

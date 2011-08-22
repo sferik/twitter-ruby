@@ -6,7 +6,7 @@ module Twitter
     module List
       # Creates a new list for the authenticated user
       #
-      # @see https://dev.twitter.com/docs/api/1/post/:user/lists
+      # @see https://dev.twitter.com/docs/api/1/post/lists/create
       # @note Accounts are limited to 20 lists.
       # @rate_limited No
       # @requires_authentication Yes
@@ -33,7 +33,7 @@ module Twitter
         options = args.last.is_a?(Hash) ? args.pop : {}
         name = args.pop
         if screen_name = args.pop
-          warn "#{Kernel.caller.first}: [DEPRECATION] Calling #list_create with a screen_name is deprecated and will be removed in the next major version. Please omit the screen_name argument."
+          warn "#{caller.first}: [DEPRECATION] Calling #list_create with a screen_name is deprecated and will be removed in the next major version. Please omit the screen_name argument."
         end
         response = post("lists/create", options.merge(:name => name))
         format.to_s.downcase == 'xml' ? response['list'] : response
@@ -41,7 +41,7 @@ module Twitter
 
       # Updates the specified list
       #
-      # @see https://dev.twitter.com/docs/api/1/post/:user/lists/:id
+      # @see https://dev.twitter.com/docs/api/1/post/lists/update
       # @rate_limited No
       # @requires_authentication Yes
       # @response_format `json`
@@ -80,7 +80,7 @@ module Twitter
 
       # List the lists of the specified user
       #
-      # @see https://dev.twitter.com/docs/api/1/get/:user/lists
+      # @see https://dev.twitter.com/docs/api/1/get/lists
       # @note Private lists will be included if the authenticated user is the same as the user whose lists are being returned.
       # @rate_limited Yes
       # @requires_authentication Yes
@@ -111,7 +111,7 @@ module Twitter
 
       # Show the specified list
       #
-      # @see https://dev.twitter.com/docs/api/1/get/:user/lists/:id
+      # @see https://dev.twitter.com/docs/api/1/get/lists/show
       # @note Private lists will only be shown if the authenticated user owns the specified list.
       # @rate_limited Yes
       # @requires_authentication Yes
@@ -147,7 +147,7 @@ module Twitter
 
       # Deletes the specified list
       #
-      # @see https://dev.twitter.com/docs/api/1/delete/:user/lists/:id
+      # @see https://dev.twitter.com/docs/api/1/post/lists/destroy
       # @note Must be owned by the authenticated user.
       # @rate_limited No
       # @requires_authentication Yes
@@ -183,7 +183,7 @@ module Twitter
 
       # Show tweet timeline for members of the specified list
       #
-      # @see https://dev.twitter.com/docs/api/1/get/:user/lists/:id/statuses
+      # @see https://dev.twitter.com/docs/api/1/get/lists/statuses
       # @rate_limited Yes
       # @requires_authentication No
       # @response_format `json`
@@ -228,7 +228,7 @@ module Twitter
 
       # List the lists the specified user has been added to
       #
-      # @see https://dev.twitter.com/docs/api/1/get/:user/lists/memberships
+      # @see https://dev.twitter.com/docs/api/1/get/lists/memberships
       # @rate_limited Yes
       # @requires_authentication Yes
       # @response_format `json`
@@ -258,7 +258,7 @@ module Twitter
 
       # List the lists the specified user follows
       #
-      # @see https://dev.twitter.com/docs/api/1/get/:user/lists/subscriptions
+      # @see https://dev.twitter.com/docs/api/1/get/lists/subscriptions
       # @rate_limited Yes
       # @requires_authentication Yes
       # @response_format `json`

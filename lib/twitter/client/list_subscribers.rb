@@ -6,7 +6,7 @@ module Twitter
     module ListSubscribers
       # Returns the subscribers of the specified list
       #
-      # @see https://dev.twitter.com/docs/api/1/get/:user/:list_id/subscribers
+      # @see https://dev.twitter.com/docs/api/1/get/lists/subscriptions
       # @rate_limited Yes
       # @requires_authentication Yes
       # @response_format `json`
@@ -44,7 +44,7 @@ module Twitter
 
       # Make the authenticated user follow the specified list
       #
-      # @see https://dev.twitter.com/docs/api/1/post/:user/:list_id/subscribers
+      # @see https://dev.twitter.com/docs/api/1/post/lists/subscribers/create
       # @rate_limited No
       # @requires_authentication Yes
       # @response_format `json`
@@ -78,7 +78,7 @@ module Twitter
 
       # Unsubscribes the authenticated user form the specified list
       #
-      # @see https://dev.twitter.com/docs/api/1/delete/:user/:list_id/subscribers
+      # @see https://dev.twitter.com/docs/api/1/post/lists/subscribers/destroy
       # @rate_limited No
       # @requires_authentication Yes
       # @response_format `json`
@@ -112,7 +112,7 @@ module Twitter
 
       # Check if a user is a subscriber of the specified list
       #
-      # @see https://dev.twitter.com/docs/api/1/get/:user/:list_id/subscribers/:id
+      # @see https://dev.twitter.com/docs/api/1/get/lists/subscribers/show
       # @rate_limited Yes
       # @requires_authentication Yes
       # @response_format `json`
@@ -153,7 +153,7 @@ module Twitter
 
       # Check if a user is a subscriber of the specified list
       #
-      # @see https://dev.twitter.com/docs/api/1/get/:user/:list_id/subscribers/:id
+      # @see https://dev.twitter.com/docs/api/1/get/lists/subscribers/show
       # @deprecated {Twitter::Client::ListSubscribers#is_subscriber?} is deprecated and will be removed in the next major version. Please use {Twitter::Client::ListSubscribers#list_subscriber?} instead.
       # @rate_limited Yes
       # @requires_authentication Yes
@@ -181,7 +181,7 @@ module Twitter
       #     Twitter.is_subscriber?("sferik", 'presidents', 'BarackObama')
       # @return [Boolean] true if user is a subscriber of the specified list, otherwise false.
       def is_subscriber?(*args)
-        warn "#{Kernel.caller.first}: [DEPRECATION] #is_subscriber? is deprecated and will be removed in the next major version. Please use #list_subscriber? instead."
+        warn "#{caller.first}: [DEPRECATION] #is_subscriber? is deprecated and will be removed in the next major version. Please use #list_subscriber? instead."
         list_subscriber?(args)
       end
     end

@@ -6,7 +6,7 @@ module Twitter
     module ListMembers
       # Returns the members of the specified list
       #
-      # @see https://dev.twitter.com/docs/api/1/get/:user/:list_id/members
+      # @see https://dev.twitter.com/docs/api/1/get/lists/members
       # @rate_limited Yes
       # @requires_authentication Yes
       # @response_format `json`
@@ -45,7 +45,7 @@ module Twitter
 
       # Add a member to a list
       #
-      # @see https://dev.twitter.com/docs/api/1/post/:user/:list_id/members
+      # @see https://dev.twitter.com/docs/api/1/post/lists/members/create
       # @note Lists are limited to having 500 members.
       # @rate_limited No
       # @requires_authentication Yes
@@ -84,7 +84,7 @@ module Twitter
 
       # Adds multiple members to a list
       #
-      # @see https://dev.twitter.com/docs/api/1/post/:user/:list_id/create_all
+      # @see https://dev.twitter.com/docs/api/1/post/lists/members/create_all
       # @note Lists are limited to having 500 members, and you are limited to adding up to 100 members to a list at a time with this method.
       # @rate_limited No
       # @requires_authentication Yes
@@ -125,7 +125,7 @@ module Twitter
 
       # Removes the specified member from the list
       #
-      # @see https://dev.twitter.com/docs/api/1/delete/:user/:list_id/members
+      # @see https://dev.twitter.com/docs/api/1/post/lists/members/destroy
       # @rate_limited No
       # @requires_authentication Yes
       # @response_format `json`
@@ -164,7 +164,7 @@ module Twitter
 
       # Check if a user is a member of the specified list
       #
-      # @see https://dev.twitter.com/docs/api/1/get/:user/:list_id/members/:id
+      # @see https://dev.twitter.com/docs/api/1/get/lists/members/show
       # @requires_authentication Yes
       # @rate_limited Yes
       # @overload list_member?(list, user_to_check, options={})
@@ -201,7 +201,7 @@ module Twitter
 
       # Check if a user is a member of the specified list
       #
-      # @see https://dev.twitter.com/docs/api/1/get/:user/:list_id/members/:id
+      # @see https://dev.twitter.com/docs/api/1/get/lists/members/show
       # @deprecated {Twitter::Client::ListMembers#is_list_member?} is deprecated and will be removed in the next major version. Please use {Twitter::Client::ListMembers#list_member?} instead.
       # @requires_authentication Yes
       # @rate_limited Yes
@@ -225,8 +225,8 @@ module Twitter
       #     Twitter.is_list_member?(7505382, "presidents", 813286)
       # @return [Boolean] true if user is a member of the specified list, otherwise false.
       def is_list_member?(*args)
-        warn "#{Kernel.caller.first}: [DEPRECATION] #is_list_member? is deprecated and will be removed in the next major version. Please use #list_member? instead."
-        friendship?(args)
+        warn "#{caller.first}: [DEPRECATION] #is_list_member? is deprecated and will be removed in the next major version. Please use #list_member? instead."
+        list_member?(args)
       end
     end
   end

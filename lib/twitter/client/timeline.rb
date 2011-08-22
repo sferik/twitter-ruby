@@ -48,6 +48,7 @@ module Twitter
       # Returns the 20 most recent statuses posted by the authenticating user and the users they follow
       #
       # @see https://dev.twitter.com/docs/api/1/get/statuses/friends_timeline
+      # @deprecated {Twitter::Client::Timeline#friends_timeline} is deprecated and will be removed in the next major version. Please use {Twitter::Client::Timeline#home_timeline} instead.
       # @note This method is identical to {Twitter::Client::Timeline#home_timeline}, except that this method will only include retweets if the :include_rts option is set.
       # @note This method can only return up to 800 statuses. If the :include_rts option is set, only 800 statuses, including retweets if they exist, can be returned.
       # @rate_limited Yes
@@ -66,8 +67,8 @@ module Twitter
       # @example Return the 20 most recent statuses, including retweets if they exist, posted by the authenticating user and the users they follow
       #   Twitter.friends_timeline
       def friends_timeline(options={})
-        response = get('statuses/friends_timeline', options)
-        format.to_s.downcase == 'xml' ? response['statuses'] : response
+        warn "#{caller.first}: [DEPRECATION] #friends_timeline is deprecated and will be removed in the next major version. Please use #home_timeline instead."
+        home_timeline(options)
       end
 
       # Returns the 20 most recent statuses posted by the specified user

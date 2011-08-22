@@ -142,6 +142,7 @@ module Twitter
       # Returns a user's friends
       #
       # @see https://dev.twitter.com/docs/api/1/get/statuses/friends
+      # @deprecated {Twitter::Client::User#friends} is deprecated as it will only return information about users who have Tweeted recently. It is not a functional way to retrieve all of a users followers. Instead of using this method use a combination of {Twitter::Client::FriendsAndFollowers#friend_ids} and {Twitter::Client::User#users}.
       # @rate_limited Yes
       # @requires_authentication No unless requesting it from a protected user
       #
@@ -165,6 +166,7 @@ module Twitter
       #     Twitter.friends("sferik")
       #     Twitter.friends(7505382)  # Same as above
       def friends(*args)
+        warn "#{caller.first}: [DEPRECATION] #friends is deprecated as it will only return information about users who have Tweeted recently. It is not a functional way to retrieve all of a users followers. Instead of using this method use a combination of #friend_ids and #users."
         options = {:cursor => -1}
         options.merge!(args.last.is_a?(Hash) ? args.pop : {})
         user = args.first
@@ -180,6 +182,7 @@ module Twitter
       # Returns a user's followers
       #
       # @see https://dev.twitter.com/docs/api/1/get/statuses/followers
+      # @deprecated {Twitter::Client::User#followers} is deprecated as it will only return information about users who have Tweeted recently. It is not a functional way to retrieve all of a users followers. Instead of using this method use a combination of {Twitter::Client::FriendsAndFollowers#follower_ids} and {Twitter::Client::User#users}.
       # @rate_limited Yes
       # @requires_authentication No unless requesting it from a protected user
       #
@@ -203,6 +206,7 @@ module Twitter
       #     Twitter.followers("sferik")
       #     Twitter.followers(7505382)  # Same as above
       def followers(*args)
+        warn "#{caller.first}: [DEPRECATION] #followers is deprecated as it will only return information about users who have Tweeted recently. It is not a functional way to retrieve all of a users followers. Instead of using this method use a combination of #follower_ids and #users."
         options = {:cursor => -1}
         options.merge!(args.last.is_a?(Hash) ? args.pop : {})
         user = args.first
