@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<users type="array">
+<user>
+  <id>6253282</id>
+  <name>Twitter API</name>
+  <screen_name>twitterapi</screen_name>
+  <location>San Francisco, CA</location>
+  <description>The Real Twitter API. I tweet about API changes, service issues and happily answer questions about Twitter and our API. Don't get an answer? It's on my website.</description>
+  <profile_image_url>http://a2.twimg.com/profile_images/1438634086/avatar_normal.png</profile_image_url>
+  <profile_image_url_https>https://si0.twimg.com/profile_images/1438634086/avatar_normal.png</profile_image_url_https>
+  <url>http://dev.twitter.com</url>
+  <protected>false</protected>
+  <followers_count>633989</followers_count>
+  <profile_background_color>e8f2f7</profile_background_color>
+  <profile_text_color>437792</profile_text_color>
+  <profile_link_color>0094C2</profile_link_color>
+  <profile_sidebar_fill_color>a9d9f1</profile_sidebar_fill_color>
+  <profile_sidebar_border_color>0094C2</profile_sidebar_border_color>
+  <friends_count>30</friends_count>
+  <created_at>Wed May 23 06:01:13 +0000 2007</created_at>
+  <favourites_count>22</favourites_count>
+  <utc_offset>-28800</utc_offset>
+  <time_zone>Pacific Time (US &amp; Canada)</time_zone>
+  <profile_background_image_url>http://a2.twimg.com/profile_background_images/229557229/twitterapi-bg.png</profile_background_image_url>
+  <profile_background_image_url_https>https://si0.twimg.com/profile_background_images/229557229/twitterapi-bg.png</profile_background_image_url_https>
+  <profile_background_tile>false</profile_background_tile>
+  <profile_use_background_image>true</profile_use_background_image>
+  <notifications>false</notifications>
+  <geo_enabled>true</geo_enabled>
+  <verified>true</verified>
+  <following>false</following>
+  <statuses_count>3044</statuses_count>
+  <lang>en</lang>
+  <contributors_enabled>true</contributors_enabled>
+  <follow_request_sent>false</follow_request_sent>
+  <listed_count>9032</listed_count>
+  <show_all_inline_media>false</show_all_inline_media>
+  <default_profile>false</default_profile>
+  <default_profile_image>false</default_profile_image>
+  <expanded_url></expanded_url>
+  <display_url></display_url>
+  <entities>
+    <user_mentions/>
+    <urls/>
+    <hashtags/>
+  </entities>
+  <is_translator>false</is_translator>
+  <status>
+    <created_at>Sun Aug 21 15:47:24 +0000 2011</created_at>
+    <id>105305005493452801</id>
+    <text>dev.twitter.com is still inaccessible from some locations. We're working to restore availability to everyone again. ^TS</text>
+    <source>web</source>
+    <truncated>false</truncated>
+    <favorited>false</favorited>
+    <in_reply_to_status_id></in_reply_to_status_id>
+    <in_reply_to_user_id></in_reply_to_user_id>
+    <in_reply_to_screen_name></in_reply_to_screen_name>
+    <retweet_count>25</retweet_count>
+    <retweeted>false</retweeted>
+    <geo/>
+    <coordinates/>
+    <place/>
+    <contributors>
+      <user_id>819797</user_id>
+    </contributors>
+  </status>
+</user>
+<user>
+  <id>44709792</id>
+  <name>teamteam</name>
+  <screen_name>teamteam</screen_name>
+  <location>Twitter</location>
+  <description>Do more with less. </description>
+  <profile_image_url>http://a2.twimg.com/profile_images/323680542/Bluebird_of_Happiness_normal.jpg</profile_image_url>
+  <profile_image_url_https>https://si0.twimg.com/profile_images/323680542/Bluebird_of_Happiness_normal.jpg</profile_image_url_https>
+  <url>http://www.flickr.com/photos/twitteroffice</url>
+  <protected>true</protected>
+  <followers_count>433</followers_count>
+  <profile_background_color>C0DEED</profile_background_color>
+  <profile_text_color>333333</profile_text_color>
+  <profile_link_color>0084B4</profile_link_color>
+  <profile_sidebar_fill_color>DDEEF6</profile_sidebar_fill_color>
+  <profile_sidebar_border_color>C0DEED</profile_sidebar_border_color>
+  <friends_count>633</friends_count>
+  <created_at>Thu Jun 04 20:20:20 +0000 2009</created_at>
+  <favourites_count>18</favourites_count>
+  <utc_offset>-28800</utc_offset>
+  <time_zone>Pacific Time (US &amp; Canada)</time_zone>
+  <profile_background_image_url>http://a0.twimg.com/images/themes/theme1/bg.png</profile_background_image_url>
+  <profile_background_image_url_https>https://si0.twimg.com/images/themes/theme1/bg.png</profile_background_image_url_https>
+  <profile_background_tile>false</profile_background_tile>
+  <profile_use_background_image>true</profile_use_background_image>
+  <notifications>false</notifications>
+  <geo_enabled>false</geo_enabled>
+  <verified>false</verified>
+  <following>false</following>
+  <statuses_count>490</statuses_count>
+  <lang>en</lang>
+  <contributors_enabled>true</contributors_enabled>
+  <follow_request_sent>false</follow_request_sent>
+  <listed_count>161</listed_count>
+  <show_all_inline_media>false</show_all_inline_media>
+  <default_profile>true</default_profile>
+  <default_profile_image>false</default_profile_image>
+  <expanded_url></expanded_url>
+  <display_url></display_url>
+  <entities>
+    <user_mentions/>
+    <urls/>
+    <hashtags/>
+  </entities>
+  <is_translator>false</is_translator>
+</user>
+<user>
+  <id>99765600</id>
+  <name>Shoutout</name>
+  <screen_name>twittershoutout</screen_name>
+  <location></location>
+  <description>Contribute your shoutouts to peeps.</description>
+  <profile_image_url>http://a2.twimg.com/profile_images/597683385/shout_normal.png</profile_image_url>
+  <profile_image_url_https>https://si0.twimg.com/profile_images/597683385/shout_normal.png</profile_image_url_https>
+  <url>http://twitter.com</url>
+  <protected>true</protected>
+  <followers_count>336</followers_count>
+  <profile_background_color>022330</profile_background_color>
+  <profile_text_color>333333</profile_text_color>
+  <profile_link_color>0084B4</profile_link_color>
+  <profile_sidebar_fill_color>C0DFEC</profile_sidebar_fill_color>
+  <profile_sidebar_border_color>a8c7f7</profile_sidebar_border_color>
+  <friends_count>3</friends_count>
+  <created_at>Sun Dec 27 19:22:01 +0000 2009</created_at>
+  <favourites_count>8</favourites_count>
+  <utc_offset>-28800</utc_offset>
+  <time_zone>Pacific Time (US &amp; Canada)</time_zone>
+  <profile_background_image_url>http://a0.twimg.com/images/themes/theme15/bg.png</profile_background_image_url>
+  <profile_background_image_url_https>https://si0.twimg.com/images/themes/theme15/bg.png</profile_background_image_url_https>
+  <profile_background_tile>false</profile_background_tile>
+  <profile_use_background_image>true</profile_use_background_image>
+  <notifications></notifications>
+  <geo_enabled>true</geo_enabled>
+  <verified>false</verified>
+  <following></following>
+  <statuses_count>693</statuses_count>
+  <lang>en</lang>
+  <contributors_enabled>true</contributors_enabled>
+  <follow_request_sent></follow_request_sent>
+  <listed_count>61</listed_count>
+  <show_all_inline_media>false</show_all_inline_media>
+  <default_profile>false</default_profile>
+  <default_profile_image>false</default_profile_image>
+  <expanded_url></expanded_url>
+  <display_url></display_url>
+  <entities>
+    <user_mentions/>
+    <urls/>
+    <hashtags/>
+  </entities>
+  <is_translator>false</is_translator>
+</user>
+<user>
+  <id>9576402</id>
+  <name>Anywhere</name>
+  <screen_name>anywhere</screen_name>
+  <location>Twitter, HQ</location>
+  <description>Here. There. Anywhere.</description>
+  <profile_image_url>http://a1.twimg.com/profile_images/754566723/_anywhere_normal.png</profile_image_url>
+  <profile_image_url_https>https://si0.twimg.com/profile_images/754566723/_anywhere_normal.png</profile_image_url_https>
+  <url></url>
+  <protected>false</protected>
+  <followers_count>47444</followers_count>
+  <profile_background_color>022330</profile_background_color>
+  <profile_text_color>333333</profile_text_color>
+  <profile_link_color>0084B4</profile_link_color>
+  <profile_sidebar_fill_color>C0DFEC</profile_sidebar_fill_color>
+  <profile_sidebar_border_color>a8c7f7</profile_sidebar_border_color>
+  <friends_count>16</friends_count>
+  <created_at>Sun Oct 21 09:05:41 +0000 2007</created_at>
+  <favourites_count>11</favourites_count>
+  <utc_offset>-28800</utc_offset>
+  <time_zone>Pacific Time (US &amp; Canada)</time_zone>
+  <profile_background_image_url>http://a0.twimg.com/images/themes/theme15/bg.png</profile_background_image_url>
+  <profile_background_image_url_https>https://si0.twimg.com/images/themes/theme15/bg.png</profile_background_image_url_https>
+  <profile_background_tile>false</profile_background_tile>
+  <profile_use_background_image>true</profile_use_background_image>
+  <notifications>false</notifications>
+  <geo_enabled>true</geo_enabled>
+  <verified>false</verified>
+  <following>false</following>
+  <statuses_count>31</statuses_count>
+  <lang>en</lang>
+  <contributors_enabled>true</contributors_enabled>
+  <follow_request_sent>false</follow_request_sent>
+  <listed_count>2246</listed_count>
+  <show_all_inline_media>false</show_all_inline_media>
+  <default_profile>false</default_profile>
+  <default_profile_image>false</default_profile_image>
+  <expanded_url></expanded_url>
+  <display_url></display_url>
+  <entities>
+    <user_mentions/>
+    <urls/>
+    <hashtags/>
+  </entities>
+  <is_translator>false</is_translator>
+  <status>
+    <created_at>Tue Feb 01 05:28:46 +0000 2011</created_at>
+    <id>32309362097651712</id>
+    <text>Version 1.2 was released today. If you version locked to anything other than '1' you need to update now. Read more: http://t.co/ACcUovI</text>
+    <source>web</source>
+    <truncated>false</truncated>
+    <favorited>false</favorited>
+    <in_reply_to_status_id></in_reply_to_status_id>
+    <in_reply_to_user_id></in_reply_to_user_id>
+    <in_reply_to_screen_name></in_reply_to_screen_name>
+    <retweet_count>75</retweet_count>
+    <retweeted>false</retweeted>
+    <geo/>
+    <coordinates/>
+    <place xmlns:georss="http://www.georss.org/georss">
+      <id>866269c983527d5a</id>
+      <name>Ashbury Heights</name>
+      <full_name>Ashbury Heights, San Francisco</full_name>
+      <place_type>neighborhood</place_type>
+      <url>http://api.twitter.com/1/geo/id/866269c983527d5a.json</url>
+      <attributes/>
+      <bounding_box>
+        <georss:polygon>37.75932999 -122.45778216 37.75932999 -122.44248216 37.76752899 -122.44248216 37.76752899 -122.45778216</georss:polygon>
+      </bounding_box>
+      <country code="US">United States</country>
+    </place>
+    <possibly_sensitive>false</possibly_sensitive>
+    <contributors>
+      <user_id>777925</user_id>
+    </contributors>
+  </status>
+</user>
+<user>
+  <id>102782288</id>
+  <name>Geo Team</name>
+  <screen_name>geo</screen_name>
+  <location>San Francisco, CA</location>
+  <description>All your lats and longs are belong to us</description>
+  <profile_image_url>http://a2.twimg.com/profile_images/622831073/Geo-profile-icon_normal.png</profile_image_url>
+  <profile_image_url_https>https://si0.twimg.com/profile_images/622831073/Geo-profile-icon_normal.png</profile_image_url_https>
+  <url></url>
+  <protected>false</protected>
+  <followers_count>3595</followers_count>
+  <profile_background_color>C0DEED</profile_background_color>
+  <profile_text_color>333333</profile_text_color>
+  <profile_link_color>0084B4</profile_link_color>
+  <profile_sidebar_fill_color>DDEEF6</profile_sidebar_fill_color>
+  <profile_sidebar_border_color>C0DEED</profile_sidebar_border_color>
+  <friends_count>0</friends_count>
+  <created_at>Thu Jan 07 20:30:42 +0000 2010</created_at>
+  <favourites_count>0</favourites_count>
+  <utc_offset>-32400</utc_offset>
+  <time_zone>Alaska</time_zone>
+  <profile_background_image_url>http://a0.twimg.com/images/themes/theme1/bg.png</profile_background_image_url>
+  <profile_background_image_url_https>https://si0.twimg.com/images/themes/theme1/bg.png</profile_background_image_url_https>
+  <profile_background_tile>false</profile_background_tile>
+  <profile_use_background_image>true</profile_use_background_image>
+  <notifications></notifications>
+  <geo_enabled>true</geo_enabled>
+  <verified>false</verified>
+  <following></following>
+  <statuses_count>0</statuses_count>
+  <lang>en</lang>
+  <contributors_enabled>true</contributors_enabled>
+  <follow_request_sent></follow_request_sent>
+  <listed_count>202</listed_count>
+  <show_all_inline_media>false</show_all_inline_media>
+  <default_profile>true</default_profile>
+  <default_profile_image>false</default_profile_image>
+  <expanded_url></expanded_url>
+  <display_url></display_url>
+  <entities>
+    <user_mentions/>
+    <urls/>
+    <hashtags/>
+  </entities>
+  <is_translator>false</is_translator>
+</user>
+<user>
+  <id>183709371</id>
+  <name>Site Streams Beta</name>
+  <screen_name>sitestreams</screen_name>
+  <location>San Francisco, CA</location>
+  <description>Twitter Site Streams Beta Announcements.                                 When reporting an issue, include account &amp; UTC. You may DM critical outages.</description>
+  <profile_image_url>http://a1.twimg.com/profile_images/1112022529/api_normal.png</profile_image_url>
+  <profile_image_url_https>https://si0.twimg.com/profile_images/1112022529/api_normal.png</profile_image_url_https>
+  <url>http://twitter.com</url>
+  <protected>false</protected>
+  <followers_count>2199</followers_count>
+  <profile_background_color>C0DEED</profile_background_color>
+  <profile_text_color>333333</profile_text_color>
+  <profile_link_color>0084B4</profile_link_color>
+  <profile_sidebar_fill_color>DDEEF6</profile_sidebar_fill_color>
+  <profile_sidebar_border_color>C0DEED</profile_sidebar_border_color>
+  <friends_count>1</friends_count>
+  <created_at>Fri Aug 27 18:04:38 +0000 2010</created_at>
+  <favourites_count>0</favourites_count>
+  <utc_offset></utc_offset>
+  <time_zone></time_zone>
+  <profile_background_image_url>http://a0.twimg.com/images/themes/theme1/bg.png</profile_background_image_url>
+  <profile_background_image_url_https>https://si0.twimg.com/images/themes/theme1/bg.png</profile_background_image_url_https>
+  <profile_background_tile>false</profile_background_tile>
+  <profile_use_background_image>true</profile_use_background_image>
+  <notifications></notifications>
+  <geo_enabled>false</geo_enabled>
+  <verified>true</verified>
+  <following></following>
+  <statuses_count>139</statuses_count>
+  <lang>en</lang>
+  <contributors_enabled>true</contributors_enabled>
+  <follow_request_sent></follow_request_sent>
+  <listed_count>98</listed_count>
+  <show_all_inline_media>false</show_all_inline_media>
+  <default_profile>true</default_profile>
+  <default_profile_image>false</default_profile_image>
+  <expanded_url></expanded_url>
+  <display_url></display_url>
+  <entities>
+    <user_mentions/>
+    <urls/>
+    <hashtags/>
+  </entities>
+  <is_translator>false</is_translator>
+  <status>
+    <created_at>Thu Aug 18 19:39:20 +0000 2011</created_at>
+    <id>104276210699341825</id>
+    <text>For the moment we've stopped the rollout of the new SSL certificate for sitestreams. We'll tweet again when we resume.</text>
+    <source>web</source>
+    <truncated>false</truncated>
+    <favorited>false</favorited>
+    <in_reply_to_status_id></in_reply_to_status_id>
+    <in_reply_to_user_id></in_reply_to_user_id>
+    <in_reply_to_screen_name></in_reply_to_screen_name>
+    <retweet_count>0</retweet_count>
+    <retweeted>false</retweeted>
+    <geo/>
+    <coordinates/>
+    <place/>
+    <contributors>
+      <user_id>777925</user_id>
+    </contributors>
+  </status>
+</user>
+</users>
