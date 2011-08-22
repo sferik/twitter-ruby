@@ -52,13 +52,13 @@ describe Twitter::Client do
       describe ".friends_timeline" do
 
         before do
-          stub_get("statuses/friends_timeline.#{format}").
+          stub_get("statuses/home_timeline.#{format}").
             to_return(:body => fixture("statuses.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
-        it "should get the 20 most recent statuses posted by the authenticating user and the user's they follow" do
+        it "should return the 20 most recent statuses posted by the authenticating user and the user's they follow" do
           @client.friends_timeline
-          a_get("statuses/friends_timeline.#{format}").
+          a_get("statuses/home_timeline.#{format}").
             should have_been_made
         end
 
