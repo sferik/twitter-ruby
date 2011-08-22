@@ -436,6 +436,54 @@ describe Twitter::Client do
           recommendations.first.user.name.should == "John Trupiano"
         end
       end
+
+      describe ".contributees" do
+
+        context "with a screen name passed" do
+
+          before do
+            stub_get("users/contributees.#{format}").
+              with(:query => {:screen_name => "sferik"}).
+              to_return(:body => fixture("contributees.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+          end
+
+          it "should get the correct resource" do
+            @client.contributees("sferik")
+            a_get("users/contributees.#{format}").
+              with(:query => {:screen_name => "sferik"}).
+              should have_been_made
+          end
+
+          it "should return a user's contributees" do
+            contributees = @client.contributees("sferik")
+            contributees.should be_an Array
+            contributees.first.name.should == "Twitter API"
+          end
+        end
+
+        context "without arguments passed" do
+
+          before do
+            @client.stub!(:get_screen_name).and_return('sferik')
+            stub_get("users/contributees.#{format}").
+              with(:query => {:screen_name => "sferik"}).
+              to_return(:body => fixture("contributees.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+          end
+
+          it "should get the correct resource" do
+            @client.contributees
+            a_get("users/contributees.#{format}").
+              with(:query => {:screen_name => "sferik"}).
+              should have_been_made
+          end
+
+          it "should return a user's contributees" do
+            contributees = @client.contributees
+            contributees.should be_an Array
+            contributees.first.name.should == "Twitter API"
+          end
+        end
+      end
     end
   end
 end
