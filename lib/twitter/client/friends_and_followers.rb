@@ -7,8 +7,8 @@ module Twitter
       # @requires_authentication No unless requesting it from a protected user
       #
       #   If getting this data of a protected user, you must authenticate (and be allowed to see that user).
-      # @response_formats `json`
-      # @response_formats `xml`
+      # @response_format `json`
+      # @response_format `xml`
       # @overload friend_ids(options={})
       #   Returns an array of numeric IDs for every user the authenticated user is following
       #
@@ -41,8 +41,8 @@ module Twitter
       # @requires_authentication No unless requesting it from a protected user
       #
       #   If getting this data of a protected user, you must authenticate (and be allowed to see that user).
-      # @response_formats `json`
-      # @response_formats `xml`
+      # @response_format `json`
+      # @response_format `xml`
       # @overload follower_ids(options={})
       #   Returns an array of numeric IDs for every user following the authenticated user
       #

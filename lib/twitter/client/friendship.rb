@@ -7,8 +7,8 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1/post/friendships/create
       # @rate_limited No
       # @requires_authentication Yes
-      # @response_formats `json`
-      # @response_formats `xml`
+      # @response_format `json`
+      # @response_format `xml`
       # @param user [Integer, String] A Twitter user ID or screen name.
       # @param options [Hash] A customizable set of options.
       # @option options [Boolean] :follow (false) Enable notifications for the target user.
@@ -31,8 +31,8 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1/post/friendships/destroy
       # @rate_limited No
       # @requires_authentication Yes
-      # @response_formats `json`
-      # @response_formats `xml`
+      # @response_format `json`
+      # @response_format `xml`
       # @param user [Integer, String] A Twitter user ID or screen name.
       # @param options [Hash] A customizable set of options.
       # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
@@ -52,8 +52,8 @@ module Twitter
       # @note Consider using {Twitter::Client::Friendship#friendship} instead of this method.
       # @rate_limited Yes
       # @requires_authentication No unless user_a or user_b is protected
-      # @response_formats `json`
-      # @response_formats `xml`
+      # @response_format `json`
+      # @response_format `xml`
       # @param user_a [Integer, String] The ID or screen_name of the subject user.
       # @param user_b [Integer, String] The ID or screen_name of the user to test for following.
       # @param options [Hash] A customizable set of options.
@@ -71,8 +71,8 @@ module Twitter
       # @deprecated {Twitter::Client::Friendship#friendship_exists?} is deprecated and will be removed in the next major version. Please use {Twitter::Client::Friendship#friendship?} instead.
       # @rate_limited Yes
       # @requires_authentication No unless user_a or user_b is protected
-      # @response_formats `json`
-      # @response_formats `xml`
+      # @response_format `json`
+      # @response_format `xml`
       # @param user_a [Integer, String] The ID or screen_name of the subject user.
       # @param user_b [Integer, String] The ID or screen_name of the user to test for following.
       # @param options [Hash] A customizable set of options.
@@ -89,8 +89,8 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1/get/friendships/show
       # @rate_limited Yes
       # @requires_authentication No
-      # @response_formats `json`
-      # @response_formats `xml`
+      # @response_format `json`
+      # @response_format `xml`
       # @param options [Hash] A customizable set of options.
       # @option options [Integer] :source_id The ID of the subject user.
       # @option options [String] :source_screen_name The screen_name of the subject user.
@@ -110,8 +110,8 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1/get/friendships/incoming
       # @rate_limited Yes
       # @requires_authentication Yes
-      # @response_formats `json`
-      # @response_formats `xml`
+      # @response_format `json`
+      # @response_format `xml`
       # @param options [Hash] A customizable set of options.
       # @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
       # @return [Hashie::Mash]
@@ -128,8 +128,8 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1/get/friendships/outgoing
       # @rate_limited Yes
       # @requires_authentication Yes
-      # @response_formats `json`
-      # @response_formats `xml`
+      # @response_format `json`
+      # @response_format `xml`
       # @param options [Hash] A customizable set of options.
       # @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
       # @return [Hashie::Mash]

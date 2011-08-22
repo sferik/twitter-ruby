@@ -7,8 +7,8 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1/get/account/verify_credentials
       # @rate_limited Yes
       # @requires_authentication Yes
-      # @response_formats `json`
-      # @response_formats `xml`
+      # @response_format `json`
+      # @response_format `xml`
       # @param options [Hash] A customizable set of options.
       # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
       # @return [Hashie::Mash] The authenticated user.
@@ -27,8 +27,8 @@ module Twitter
       # @requires_authentication No
       #
       #   This will return the requesting IP's rate limit status. If you want the authenticating user's rate limit status you must authenticate.
-      # @response_formats `json`
-      # @response_formats `xml`
+      # @response_format `json`
+      # @response_format `xml`
       # @param options [Hash] A customizable set of options.
       # @return [Hashie::Mash]
       # @example Return the remaining number of API requests available to the requesting user
@@ -43,8 +43,8 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1/post/account/end_session
       # @rate_limited No
       # @requires_authentication Yes
-      # @response_formats `json`
-      # @response_formats `xml`
+      # @response_format `json`
+      # @response_format `xml`
       # @param options [Hash] A customizable set of options.
       # @return [Hashie::Mash]
       # @example End the session of the authenticating user
@@ -59,8 +59,8 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1/post/account/update_delivery_device
       # @rate_limited No
       # @requires_authentication Yes
-      # @response_formats `json`
-      # @response_formats `xml`
+      # @response_format `json`
+      # @response_format `xml`
       # @param device [String] Must be one of: 'sms', 'none'.
       # @param options [Hash] A customizable set of options.
       # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
@@ -77,8 +77,8 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1/post/account/update_profile_colors
       # @rate_limited No
       # @requires_authentication Yes
-      # @response_formats `json`
-      # @response_formats `xml`
+      # @response_format `json`
+      # @response_format `xml`
       # @param options [Hash] A customizable set of options.
       # @option options [String] :profile_background_color Profile background color.
       # @option options [String] :profile_text_color Profile text color.
@@ -100,8 +100,8 @@ module Twitter
       # @note This method asynchronously processes the uploaded file before updating the user's profile image URL. You can either update your local cache the next time you request the user's information, or, at least 5 seconds after uploading the image, ask for the updated URL using {Twitter::Client::User#profile_image}.
       # @rate_limited No
       # @requires_authentication Yes
-      # @response_formats `json`
-      # @response_formats `xml`
+      # @response_format `json`
+      # @response_format `xml`
       # @param image [String] The avatar image for the profile. Must be a valid GIF, JPG, or PNG image of less than 700 kilobytes in size. Images with width larger than 500 pixels will be scaled down. Animated GIFs will be converted to a static GIF of the first frame, removing the animation.
       # @param options [Hash] A customizable set of options.
       # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
@@ -118,8 +118,8 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1/post/account/update_profile_background_image
       # @rate_limited No
       # @requires_authentication Yes
-      # @response_formats `json`
-      # @response_formats `xml`
+      # @response_format `json`
+      # @response_format `xml`
       # @param image [String] The background image for the profile. Must be a valid GIF, JPG, or PNG image of less than 800 kilobytes in size. Images with width larger than 2048 pixels will be scaled down.
       # @param options [Hash] A customizable set of options.
       # @option options [Boolean] :tile Whether or not to tile the background image. If set to true the background image will be displayed tiled. The image will not be tiled otherwise.
@@ -138,8 +138,8 @@ module Twitter
       # @note Only the options specified will be updated.
       # @rate_limited No
       # @requires_authentication Yes
-      # @response_formats `json`
-      # @response_formats `xml`
+      # @response_format `json`
+      # @response_format `xml`
       # @param options [Hash] A customizable set of options.
       # @option options [String] :name Full name associated with the profile. Maximum of 20 characters.
       # @option options [String] :url URL associated with the profile. Will be prepended with "http://" if not present. Maximum of 100 characters.

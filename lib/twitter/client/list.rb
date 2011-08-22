@@ -10,8 +10,8 @@ module Twitter
       # @note Accounts are limited to 20 lists.
       # @rate_limited No
       # @requires_authentication Yes
-      # @response_formats `json`
-      # @response_formats `xml`
+      # @response_format `json`
+      # @response_format `xml`
       # @overload list_create(screen_name, name, options={})
       #   @deprecated Calling {Twitter::Client::List#list_create} with a screen_name is deprecated and will be removed in the next major version. Please omit the screen_name argument.
       #   @param screen_name [String] A Twitter user name.
@@ -44,8 +44,8 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1/post/:user/lists/:id
       # @rate_limited No
       # @requires_authentication Yes
-      # @response_formats `json`
-      # @response_formats `xml`
+      # @response_format `json`
+      # @response_format `xml`
       # @overload list_update(list, options={})
       #   @param list [Integer, String] The list_id or slug for the list.
       #   @param options [Hash] A customizable set of options.
@@ -84,8 +84,8 @@ module Twitter
       # @note Private lists will be included if the authenticated user is the same as the user whose lists are being returned.
       # @rate_limited Yes
       # @requires_authentication Yes
-      # @response_formats `json`
-      # @response_formats `xml`
+      # @response_format `json`
+      # @response_format `xml`
       # @overload lists(options={})
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
@@ -115,8 +115,8 @@ module Twitter
       # @note Private lists will only be shown if the authenticated user owns the specified list.
       # @rate_limited Yes
       # @requires_authentication Yes
-      # @response_formats `json`
-      # @response_formats `xml`
+      # @response_format `json`
+      # @response_format `xml`
       # @overload list(list, options={})
       #   @param list [Integer, String] The list_id or slug of the list.
       #   @param options [Hash] A customizable set of options.
@@ -151,8 +151,8 @@ module Twitter
       # @note Must be owned by the authenticated user.
       # @rate_limited No
       # @requires_authentication Yes
-      # @response_formats `json`
-      # @response_formats `xml`
+      # @response_format `json`
+      # @response_format `xml`
       # @overload list_delete(list, options={})
       #   @param list [Integer, String] The list_id or slug of the list.
       #   @param options [Hash] A customizable set of options.
@@ -186,8 +186,8 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1/get/:user/lists/:id/statuses
       # @rate_limited Yes
       # @requires_authentication No
-      # @response_formats `json`
-      # @response_formats `xml`
+      # @response_format `json`
+      # @response_format `xml`
       # @overload list_timeline(list, options={})
       #   @param list [Integer, String] The list_id or slug of the list.
       #   @param options [Hash] A customizable set of options.
@@ -231,8 +231,8 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1/get/:user/lists/memberships
       # @rate_limited Yes
       # @requires_authentication Yes
-      # @response_formats `json`
-      # @response_formats `xml`
+      # @response_format `json`
+      # @response_format `xml`
       # @overload memberships(options={})
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
@@ -261,8 +261,8 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1/get/:user/lists/subscriptions
       # @rate_limited Yes
       # @requires_authentication Yes
-      # @response_formats `json`
-      # @response_formats `xml`
+      # @response_format `json`
+      # @response_format `xml`
       # @overload subscriptions(options={})
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.

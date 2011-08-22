@@ -7,8 +7,8 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1/get/legal/tos
       # @rate_limited Yes
       # @requires_authentication No
-      # @response_formats `json`
-      # @response_formats `xml`
+      # @response_format `json`
+      # @response_format `xml`
       # @return [String]
       # @example Return {https://twitter.com/tos Twitter's Terms of Service}
       #   Twitter.tos
@@ -21,8 +21,8 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1/get/legal/privacy
       # @rate_limited Yes
       # @requires_authentication No
-      # @response_formats `json`
-      # @response_formats `xml`
+      # @response_format `json`
+      # @response_format `xml`
       # @return [String]
       # @example Return {https://twitter.com/privacy Twitter's Privacy Policy}
       #   Twitter.privacy

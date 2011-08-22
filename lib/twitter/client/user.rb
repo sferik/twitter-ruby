@@ -7,8 +7,8 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1/get/users/show
       # @rate_limited Yes
       # @requires_authentication No
-      # @response_formats `json`
-      # @response_formats `xml`
+      # @response_format `json`
+      # @response_format `xml`
       # @overload user(user, options={})
       #   @param user [Integer, String] A Twitter user ID or screen name.
       #   @param options [Hash] A customizable set of options.
@@ -47,8 +47,8 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1/get/users/lookup
       # @rate_limited Yes
       # @requires_authentication Yes
-      # @response_formats `json`
-      # @response_formats `xml`
+      # @response_format `json`
+      # @response_format `xml`
       # @overload users(*users, options={})
       #   @param users [Integer, String] Twitter users ID or screen names.
       #   @param options [Hash] A customizable set of options.
@@ -71,8 +71,8 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1/get/users/search
       # @rate_limited Yes
       # @requires_authentication Yes
-      # @response_formats `json`
-      # @response_formats `xml`
+      # @response_format `json`
+      # @response_format `xml`
       # @param query [String] The search query to run against people search.
       # @param options [Hash] A customizable set of options.
       # @option options [Integer] :per_page The number of people to retrieve. Maxiumum of 20 allowed per page.
@@ -92,7 +92,8 @@ module Twitter
       #   @see https://dev.twitter.com/docs/api/1/get/users/suggestions
       #   @rate_limited Yes
       #   @requires_authentication No
-      #   @response_formats `json`, `xml`
+      #   @response_format `json`
+      #   @response_format `xml`
       #   @param options [Hash] A customizable set of options.
       #   @return [Array]
       #   @example Return the list of suggested user categories
@@ -103,7 +104,8 @@ module Twitter
       #   @see https://dev.twitter.com/docs/api/1/get/users/suggestions/:slug
       #   @rate_limited Yes
       #   @requires_authentication No
-      #   @response_formats `json`, `xml`
+      #   @response_format `json`
+      #   @response_format `xml`
       #   @param slug [String] The short name of list or a category.
       #   @param options [Hash] A customizable set of options.
       #   @return [Array]
@@ -122,8 +124,8 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1/get/users/profile_image/:screen_name
       # @rate_limited No
       # @requires_authentication No
-      # @response_formats `json`
-      # @response_formats `xml`
+      # @response_format `json`
+      # @response_format `xml`
       # @overload profile_image(screen_name, options={})
       #   @param screen_name [String] The screen name of the user for whom to return results for.
       #   @param options [Hash] A customizable set of options.
@@ -144,8 +146,8 @@ module Twitter
       # @requires_authentication No unless requesting it from a protected user
       #
       #   If getting this data of a protected user, you must authenticate (and be allowed to see that user).
-      # @response_formats `json`
-      # @response_formats `xml`
+      # @response_format `json`
+      # @response_format `xml`
       # @overload friends(options={})
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
@@ -182,8 +184,8 @@ module Twitter
       # @requires_authentication No unless requesting it from a protected user
       #
       #   If getting this data of a protected user, you must authenticate (and be allowed to see that user).
-      # @response_formats `json`
-      # @response_formats `xml`
+      # @response_format `json`
+      # @response_format `xml`
       # @overload followers(options={})
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response object's next_cursor and previous_cursor attributes to page back and forth in the list.

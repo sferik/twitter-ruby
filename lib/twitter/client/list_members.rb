@@ -9,8 +9,8 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1/get/:user/:list_id/members
       # @rate_limited Yes
       # @requires_authentication Yes
-      # @response_formats `json`
-      # @response_formats `xml`
+      # @response_format `json`
+      # @response_format `xml`
       # @overload list_members(list, options={})
       #   @param list [Integer, String] The list_id or slug of the list.
       #   @param options [Hash] A customizable set of options.
@@ -49,8 +49,8 @@ module Twitter
       # @note Lists are limited to having 500 members.
       # @rate_limited No
       # @requires_authentication Yes
-      # @response_formats `json`
-      # @response_formats `xml`
+      # @response_format `json`
+      # @response_format `xml`
       # @overload list_add_member(list, user_to_add, options={})
       #   @param list [Integer, String] The list_id or slug of the list.
       #   @param user_to_add [Integer, String] The user id or screen name to add to the list.
@@ -88,8 +88,8 @@ module Twitter
       # @note Lists are limited to having 500 members, and you are limited to adding up to 100 members to a list at a time with this method.
       # @rate_limited No
       # @requires_authentication Yes
-      # @response_formats `json`
-      # @response_formats `xml`
+      # @response_format `json`
+      # @response_format `xml`
       # @overload list_add_members(list, users_to_add, options={})
       #   @param list [Integer, String] The list_id or slug of the list.
       #   @param users_to_add [Array] The user IDs and/or screen names to add.
@@ -128,8 +128,8 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1/delete/:user/:list_id/members
       # @rate_limited No
       # @requires_authentication Yes
-      # @response_formats `json`
-      # @response_formats `xml`
+      # @response_format `json`
+      # @response_format `xml`
       # @overload list_remove_member(list, user_to_remove, options={})
       #   @param list [Integer, String] The list_id or slug of the list.
       #   @param user_to_remove [Integer, String] The user id or screen name of the list member to remove.

@@ -5,8 +5,8 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1/get/favorites
       # @rate_limited Yes
       # @requires_authentication No
-      # @response_formats `json`
-      # @response_formats `xml`
+      # @response_format `json`
+      # @response_format `xml`
       # @overload favorites(options={})
       #   Returns the 20 most recent favorite statuses for the authenticating user
       #
@@ -37,8 +37,8 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1/post/favorites/create/:id
       # @rate_limited No
       # @requires_authentication Yes
-      # @response_formats `json`
-      # @response_formats `xml`
+      # @response_format `json`
+      # @response_format `xml`
       # @param id [Integer] The numerical ID of the desired status.
       # @param options [Hash] A customizable set of options.
       # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
@@ -55,8 +55,8 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1/post/favorites/destroy/:id
       # @rate_limited No
       # @requires_authentication Yes
-      # @response_formats `json`
-      # @response_formats `xml`
+      # @response_format `json`
+      # @response_format `xml`
       # @param id [Integer] The numerical ID of the desired status.
       # @param options [Hash] A customizable set of options.
       # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.

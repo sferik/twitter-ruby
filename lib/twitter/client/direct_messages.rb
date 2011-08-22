@@ -7,8 +7,8 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1/get/direct_messages
       # @rate_limited Yes
       # @requires_authentication Yes
-      # @response_formats `json`
-      # @response_formats `xml`
+      # @response_format `json`
+      # @response_format `xml`
       # @param options [Hash] A customizable set of options.
       # @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID.
       # @option options [Integer] :max_id Returns results with an ID less than (that is, older than) or equal to the specified ID.
@@ -28,8 +28,8 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1/get/direct_messages/sent
       # @rate_limited Yes
       # @requires_authentication Yes
-      # @response_formats `json`
-      # @response_formats `xml`
+      # @response_format `json`
+      # @response_format `xml`
       # @param options [Hash] A customizable set of options.
       # @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID.
       # @option options [Integer] :max_id Returns results with an ID less than (that is, older than) or equal to the specified ID.
@@ -49,8 +49,8 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1/post/direct_messages/new
       # @rate_limited No
       # @requires_authentication Yes
-      # @response_formats `json`
-      # @response_formats `xml`
+      # @response_format `json`
+      # @response_format `xml`
       # @param user [Integer, String] A Twitter user ID or screen name.
       # @param text [String] The text of your direct message, up to 140 characters.
       # @param options [Hash] A customizable set of options.
@@ -71,8 +71,8 @@ module Twitter
       # @note The authenticating user must be the recipient of the specified direct message.
       # @rate_limited No
       # @requires_authentication Yes
-      # @response_formats `json`
-      # @response_formats `xml`
+      # @response_format `json`
+      # @response_format `xml`
       # @param id [Integer] The ID of the direct message to delete.
       # @param options [Hash] A customizable set of options.
       # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.

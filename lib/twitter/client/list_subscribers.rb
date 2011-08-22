@@ -9,8 +9,8 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1/get/:user/:list_id/subscribers
       # @rate_limited Yes
       # @requires_authentication Yes
-      # @response_formats `json`
-      # @response_formats `xml`
+      # @response_format `json`
+      # @response_format `xml`
       # @overload list_subscribers(list, options={})
       #   @param list [Integer, String] The list_id or slug of the list.
       #   @param options [Hash] A customizable set of options.
@@ -47,8 +47,8 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1/post/:user/:list_id/subscribers
       # @rate_limited No
       # @requires_authentication Yes
-      # @response_formats `json`
-      # @response_formats `xml`
+      # @response_format `json`
+      # @response_format `xml`
       # @overload list_subscribe(list, options={})
       #   @param list [Integer, String] The list_id or slug of the list.
       #   @param options [Hash] A customizable set of options.
@@ -81,8 +81,8 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1/delete/:user/:list_id/subscribers
       # @rate_limited No
       # @requires_authentication Yes
-      # @response_formats `json`
-      # @response_formats `xml`
+      # @response_format `json`
+      # @response_format `xml`
       # @overload list_unsubscribe(list, options={})
       #   @param list [Integer, String] The list_id or slug of the list.
       #   @param options [Hash] A customizable set of options.
@@ -115,8 +115,8 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1/get/:user/:list_id/subscribers/:id
       # @rate_limited Yes
       # @requires_authentication Yes
-      # @response_formats `json`
-      # @response_formats `xml`
+      # @response_format `json`
+      # @response_format `xml`
       # @overload list_subscriber?(list, user_to_check, options={})
       #   @param list [Integer, String] The list_id or slug of the list.
       #   @param user_to_check [Integer, String] The user ID or screen_name of the list member.
@@ -157,8 +157,8 @@ module Twitter
       # @deprecated {Twitter::Client::ListSubscribers#is_subscriber?} is deprecated and will be removed in the next major version. Please use {Twitter::Client::ListSubscribers#list_subscriber?} instead.
       # @rate_limited Yes
       # @requires_authentication Yes
-      # @response_formats `json`
-      # @response_formats `xml`
+      # @response_format `json`
+      # @response_format `xml`
       # @overload is_subscriber?(list, user_to_check, options={})
       #   @param list [Integer, String] The list_id or slug of the list.
       #   @param user_to_check [Integer, String] The user ID or screen_name of the list member.

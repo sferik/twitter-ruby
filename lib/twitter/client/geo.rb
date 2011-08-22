@@ -8,7 +8,7 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1/get/geo/search
       # @rate_limited Yes
       # @requires_authentication No
-      # @response_formats `json`
+      # @response_format `json`
       # @param options [Hash] A customizable set of options.
       # @option options [Float] :lat The latitude to search around. This option will be ignored unless it is inside the range -90.0 to +90.0 (North is positive) inclusive. It will also be ignored if there isn't a corresponding :long option.
       # @option options [Float] :long The longitude to search around. The valid range for longitude is -180.0 to +180.0 (East is positive) inclusive. This option will be ignored if outside that range, if it is not a number, if geo_enabled is disabled, or if there not a corresponding :lat option.
@@ -33,7 +33,7 @@ module Twitter
       # @note Conceptually, you would use this method to get a list of known places to choose from first. Then, if the desired place doesn't exist, make a request to {Twitter::Client::Geo#place} to create a new one. The token contained in the response is the token necessary to create a new place.
       # @rate_limited Yes
       # @requires_authentication No
-      # @response_formats `json`
+      # @response_format `json`
       # @param options [Hash] A customizable set of options.
       # @option options [Float] :lat The latitude to search around. This option will be ignored unless it is inside the range -90.0 to +90.0 (North is positive) inclusive. It will also be ignored if there isn't a corresponding :long option.
       # @option options [Float] :long The longitude to search around. The valid range for longitude is -180.0 to +180.0 (East is positive) inclusive. This option will be ignored if outside that range, if it is not a number, if geo_enabled is disabled, or if there not a corresponding :lat option.
@@ -53,7 +53,7 @@ module Twitter
       # @note This request is an informative call and will deliver generalized results about geography.
       # @rate_limited Yes
       # @requires_authentication No
-      # @response_formats `json`
+      # @response_format `json`
       # @param options [Hash] A customizable set of options.
       # @option options [Float] :lat The latitude to search around. This option will be ignored unless it is inside the range -90.0 to +90.0 (North is positive) inclusive. It will also be ignored if there isn't a corresponding :long option.
       # @option options [Float] :long The longitude to search around. The valid range for longitude is -180.0 to +180.0 (East is positive) inclusive. This option will be ignored if outside that range, if it is not a number, if geo_enabled is disabled, or if there not a corresponding :lat option.
@@ -72,7 +72,7 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1/get/geo/id/:place_id
       # @rate_limited Yes
       # @requires_authentication No
-      # @response_formats `json`
+      # @response_format `json`
       # @param place_id [String] A place in the world. These IDs can be retrieved from {Twitter::Client::Geo#reverse_geocode}.
       # @param options [Hash] A customizable set of options.
       # @return [Hashie::Mash] The requested place.
@@ -87,7 +87,7 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1/post/geo/place
       # @rate_limited Yes
       # @requires_authentication No
-      # @response_formats `json`
+      # @response_format `json`
       # @param options [Hash] A customizable set of options.
       # @option options [String] :name The name a place is known as.
       # @option options [String] :contained_within This is the place_id which you would like to restrict the search results to. Setting this value means only places within the given place_id will be found.

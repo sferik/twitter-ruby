@@ -7,8 +7,8 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1/get/help/configuration
       # @rate_limited Yes
       # @requires_authentication No
-      # @response_formats `json`
-      # @response_formats `xml`
+      # @response_format `json`
+      # @response_format `xml`
       # @return [Hashie::Mash] Twitter's configuration.
       # @example Return the current configuration used by Twitter
       #   Twitter.configuration
@@ -22,8 +22,8 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1/get/help/languages
       # @rate_limited Yes
       # @requires_authentication No
-      # @response_formats `json`
-      # @response_formats `xml`
+      # @response_format `json`
+      # @response_format `xml`
       # @return [Array]
       # @example Return the list of languages Twitter supports
       #   Twitter.languages

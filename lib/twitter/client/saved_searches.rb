@@ -7,8 +7,8 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1/get/saved_searches
       # @rate_limited Yes
       # @requires_authentication Yes
-      # @response_formats `json`
-      # @response_formats `xml`
+      # @response_format `json`
+      # @response_format `xml`
       # @param options [Hash] A customizable set of options.
       # @return [Array] Saved search queries.
       # @example Return the authenticated user's saved search queries
@@ -23,8 +23,8 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1/get/saved_searches/show/:id
       # @rate_limited Yes
       # @requires_authentication Yes
-      # @response_formats `json`
-      # @response_formats `xml`
+      # @response_format `json`
+      # @response_format `xml`
       # @param id [Integer] The ID of the saved search.
       # @param options [Hash] A customizable set of options.
       # @return [Hashie::Mash] The saved search.
@@ -40,8 +40,8 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1/post/saved_searches/create
       # @rate_limited No
       # @requires_authentication Yes
-      # @response_formats `json`
-      # @response_formats `xml`
+      # @response_format `json`
+      # @response_format `xml`
       # @param query [String] The query of the search the user would like to save.
       # @param options [Hash] A customizable set of options.
       # @return [Hashie::Mash] The created saved search.
@@ -58,8 +58,8 @@ module Twitter
       # @note The search specified by ID must be owned by the authenticating user.
       # @rate_limited No
       # @requires_authentication Yes
-      # @response_formats `json`
-      # @response_formats `xml`
+      # @response_format `json`
+      # @response_format `xml`
       # @param id [Integer] The ID of the saved search.
       # @param options [Hash] A customizable set of options.
       # @return [Hashie::Mash] The deleted saved search.

@@ -8,7 +8,7 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1/get/trends
       # @rate_limited Yes
       # @requires_authentication No
-      # @response_formats `json`
+      # @response_format `json`
       # @param options [Hash] A customizable set of options.
       # @return [Array]
       # @example Return the top ten topics that are currently trending on Twitter
@@ -22,7 +22,7 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1/get/trends/current
       # @rate_limited Yes
       # @requires_authentication No
-      # @response_formats `json`
+      # @response_format `json`
       # @param options [Hash] A customizable set of options.
       # @option options [String] :exclude Setting this equal to 'hashtags' will remove all hashtags from the trends list.
       # @return [Array]
@@ -37,7 +37,7 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1/get/trends/daily
       # @rate_limited Yes
       # @requires_authentication No
-      # @response_formats `json`
+      # @response_format `json`
       # @param date [Date] The start date for the report. A 404 error will be thrown if the date is older than the available search index (7-10 days). Dates in the future will be forced to the current date.
       # @param options [Hash] A customizable set of options.
       # @option options [String] :exclude Setting this equal to 'hashtags' will remove all hashtags from the trends list.
@@ -53,7 +53,7 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1/get/trends/weekly
       # @rate_limited Yes
       # @requires_authentication No
-      # @response_formats `json`
+      # @response_format `json`
       # @param date [Date] The start date for the report. A 404 error will be thrown if the date is older than the available search index (7-10 days). Dates in the future will be forced to the current date.
       # @param options [Hash] A customizable set of options.
       # @option options [String] :exclude Setting this equal to 'hashtags' will remove all hashtags from the trends list.
