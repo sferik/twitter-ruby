@@ -166,7 +166,7 @@ module Twitter
       #
       # @see https://dev.twitter.com/docs/api/1/get/:user/:list_id/members/:id
       # @requires_authentication Yes
-      # @rate_limited No
+      # @rate_limited Yes
       # @overload list_member?(list, user_to_check, options={})
       #   @param list [Integer, String] The list_id or slug of the list.
       #   @param user_to_check [Integer, String] The user ID or screen name of the list member.
@@ -204,7 +204,7 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1/get/:user/:list_id/members/:id
       # @deprecated {Twitter::Client::ListMembers#is_list_member?} is deprecated and will be removed in the next major version. Please use {Twitter::Client::ListMembers#list_member?} instead.
       # @requires_authentication Yes
-      # @rate_limited No
+      # @rate_limited Yes
       # @overload is_list_member?(list, user_to_check, options={})
       #   @param list [Integer, String] The list_id or slug of the list.
       #   @param user_to_check [Integer, String] The user ID or screen name of the list member.

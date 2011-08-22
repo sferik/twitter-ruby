@@ -7,7 +7,7 @@ module Twitter
       #
       # @see https://dev.twitter.com/docs/api/1/post/blocks/create
       # @note Destroys a friendship to the blocked user if it exists.
-      # @rate_limited No
+      # @rate_limited Yes
       # @requires_authentication Yes
       # @response_formats `json`
       # @response_formats `xml`
