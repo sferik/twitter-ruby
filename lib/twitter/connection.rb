@@ -10,7 +10,7 @@ module Twitter
   module Connection
     private
 
-    def connection(format=format)
+    def connection(format=format, media=false)
       options = {
         :headers => {
           :accept => "application/#{format}",
@@ -18,9 +18,10 @@ module Twitter
         },
         :proxy => proxy,
         :ssl => {:verify => false},
-        :url => api_endpoint,
       }
-
+      
+      options[:url] = media ? media_endpoint : api_endpoint
+      
       Faraday.new(options) do |builder|
         builder.use Faraday::Request::MultipartWithFile
         builder.use Faraday::Request::TwitterOAuth, authentication if authenticated?
