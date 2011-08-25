@@ -45,6 +45,30 @@ module Twitter
         response = post('statuses/update', options.merge(:status => status))
         format.to_s.downcase == 'xml' ? response['status'] : response
       end
+      
+      # Updates with media the authenticating user's status
+      #
+      # @see http://dev.twitter.com/docs/api/1/post/statuses/update_with_media
+      # @format :json, :xml
+      # @authenticated true
+      # @rate_limited false
+      # @param status [String] The text of your status update, up to 140 characters.
+      # @param media [File] A File object with your picture (PNG, JPEG or GIF)
+      # @param options [Hash] A customizable set of options.
+      # @option options [Integer] :in_reply_to_status_id The ID of an existing status that the update is in reply to.
+      # @option options [Float] :lat The latitude of the location this tweet refers to. This option will be ignored unless it is inside the range -90.0 to +90.0 (North is positive) inclusive. It will also be ignored if there isn't a corresponding :long option.
+      # @option options [Float] :long The longitude of the location this tweet refers to. The valid ranges for longitude is -180.0 to +180.0 (East is positive) inclusive. This option will be ignored if outside that range, if it is not a number, if geo_enabled is disabled, or if there not a corresponding :lat option.
+      # @option options [String] :place_id A place in the world. These IDs can be retrieved from {Twitter::Client::Geo#reverse_geocode}.
+      # @option options [String] :display_coordinates Whether or not to put a pin on the exact coordinates a tweet has been sent from.
+      # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
+      # @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
+      # @return [Hashie::Mash] The created status.
+      # @example Update the authenticating user's status
+      #   Twitter.update("I just posted a status update with a pic via the Twitter Ruby Gem!", File.new('my_awesome_pic.jpeg))
+      def update_with_media(status, image, options={})
+        response = post('statuses/update_with_media', options.merge('media[]' => image, 'status' => status), format, true)
+        format.to_s.downcase == 'xml' ? response['user'] : response
+      end
 
       # Destroys the specified status
       #
