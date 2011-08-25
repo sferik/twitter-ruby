@@ -62,7 +62,7 @@ module Twitter
     DEFAULT_GATEWAY = nil
     
     # This endpoint will be used by default when updating statuses with media
-    DEFAULT_SEARCH_ENDPOINT = 'https://search.twitter.com/'.freeze
+    MEDIA_ENDPOINT = 'https://upload.twitter.com/1/'.freeze
 
     # @private
     attr_accessor *VALID_OPTIONS_KEYS
