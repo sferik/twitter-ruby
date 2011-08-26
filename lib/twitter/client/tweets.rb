@@ -48,7 +48,6 @@ module Twitter
       
       # Updates with media the authenticating user's status
       #
-      # @see http://dev.twitter.com/docs/api/1/post/statuses/update_with_media
       # @format :json, :xml
       # @authenticated true
       # @rate_limited false
@@ -63,8 +62,13 @@ module Twitter
       # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       # @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
       # @return [Hashie::Mash] The created status.
+      # @see http://dev.twitter.com/docs/api/1/post/statuses/update_with_media
       # @example Update the authenticating user's status
+      #   When you have a File instance (e.g. the pic is already on your disk)
       #   Twitter.update("I just posted a status update with a pic via the Twitter Ruby Gem!", File.new('my_awesome_pic.jpeg))
+      #   When you have an IO instance (e.g. your pic is on S3 and you don't want to write a temp file on the disk),
+      #     download the pic and put the response in a StringIO object
+      #   Twitter.update("I just posted a status update with a pic via the Twitter Ruby Gem!", {'io' => StringIO.new(pic), 'type' => 'jpg'})
       def update_with_media(status, image, options={})
         response = post('statuses/update_with_media', options.merge('media[]' => image, 'status' => status), format, true)
         format.to_s.downcase == 'xml' ? response['user'] : response
