@@ -7,7 +7,7 @@ module Faraday
     def call(env)
       if env[:body].is_a?(Hash)
         env[:body].each do |key, value|
-          if value.is_a?(File)
+          if value.is_a?(File) 
             env[:body][key] = Faraday::UploadIO.new(value, mime_type(value), value.path)
           end
         end
