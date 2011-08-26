@@ -10,7 +10,7 @@ module Twitter
   module Connection
     private
 
-    def connection(format=format, media=false)
+    def connection(format=format, temp_api_endpoint=nil)
       options = {
         :headers => {
           :accept => "application/#{format}",
@@ -20,7 +20,7 @@ module Twitter
         :ssl => {:verify => false},
       }
       
-      options[:url] = media ? media_endpoint : api_endpoint
+      options[:url] = temp_api_endpoint ? temp_api_endpoint : api_endpoint
       
       Faraday.new(options) do |builder|
         builder.use Faraday::Request::MultipartWithFile

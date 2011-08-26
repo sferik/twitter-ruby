@@ -49,6 +49,7 @@ module Twitter
       # Updates with media the authenticating user's status
       #
       # @format :json, :xml
+      # @note A status update with text/media identical to the authenticating user's current status will NOT be ignored
       # @authenticated true
       # @rate_limited false
       # @param status [String] The text of your status update, up to 140 characters.
@@ -70,7 +71,7 @@ module Twitter
       #     download the pic and put the response in a StringIO object
       #   Twitter.update("I just posted a status update with a pic via the Twitter Ruby Gem!", {'io' => StringIO.new(pic), 'type' => 'jpg'})
       def update_with_media(status, image, options={})
-        response = post('statuses/update_with_media', options.merge('media[]' => image, 'status' => status), format, true)
+        response = post('statuses/update_with_media', options.merge('media[]' => image, 'status' => status), format, media_endpoint)
         format.to_s.downcase == 'xml' ? response['user'] : response
       end
 
