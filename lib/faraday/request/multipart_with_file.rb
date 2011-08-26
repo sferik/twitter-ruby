@@ -20,8 +20,8 @@ module Faraday
 
     private
 
-    def mime_type(file)
-      case file.path
+    def mime_type(path)
+      case path
       when /\.jpe?g/i
         'image/jpeg'
       when /\.gif$/i
