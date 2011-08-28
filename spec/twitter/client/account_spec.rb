@@ -187,7 +187,6 @@ describe Twitter::Client do
 
       end
 
-      # TODO: make this describe both GET and POST verbs
       describe ".settings" do
 
         before do
