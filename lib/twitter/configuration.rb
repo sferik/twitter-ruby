@@ -60,9 +60,9 @@ module Twitter
     DEFAULT_USER_AGENT = "Twitter Ruby Gem #{Twitter::VERSION}".freeze
 
     DEFAULT_GATEWAY = nil
-    
+
     # This endpoint will be used by default when updating statuses with media
-    MEDIA_ENDPOINT = 'https://upload.twitter.com/1/'.freeze
+    DEFAULT_MEDIA_ENDPOINT = 'https://upload.twitter.com/1/'.freeze
 
     # @private
     attr_accessor *VALID_OPTIONS_KEYS
@@ -97,7 +97,7 @@ module Twitter
       self.search_endpoint    = DEFAULT_SEARCH_ENDPOINT
       self.user_agent         = DEFAULT_USER_AGENT
       self.gateway            = DEFAULT_GATEWAY
-      self.media_endpoint     = MEDIA_ENDPOINT
+      self.media_endpoint     = DEFAULT_MEDIA_ENDPOINT
       self
     end
   end
