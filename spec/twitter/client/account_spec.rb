@@ -171,6 +171,47 @@ describe Twitter::Client do
           user.name.should == "Erik Michaels-Ober"
         end
       end
+      
+      describe ".totals" do
+
+        before do
+          stub_get("account/totals.#{format}").
+            to_return(:body => fixture("totals.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+        end
+
+        it "should get the correct resource" do
+          @client.totals
+          a_get("account/totals.#{format}").
+            should have_been_made
+        end
+
+      end
+
+      describe ".settings" do
+
+        before do
+          stub_get("account/settings.#{format}").
+            to_return(:body => fixture("settings.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+          stub_post("account/settings.#{format}").
+            with(:body => {:trend_location_woeid => "23424803"}).
+            to_return(:body => fixture("settings.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+        end
+
+        it "should get the correct resource on GET" do
+          @client.settings
+          a_get("account/settings.#{format}").
+            should have_been_made
+        end
+        
+        it "should get the correct resource on POST" do
+          @client.settings(:trend_location_woeid => "23424803")
+          a_post("account/settings.#{format}").
+            with(:body => {:trend_location_woeid => "23424803"}).
+            should have_been_made
+        end
+
+      end
+
     end
   end
 end
