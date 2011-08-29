@@ -40,6 +40,7 @@ describe Twitter::API do
           :format => :xml,
           :proxy => 'http://erik:sekret@proxy.example.com:8080',
           :search_endpoint => 'http://google.com/',
+          :media_endpoint => 'https://upload.twitter.com/',
           :user_agent => 'Custom User Agent',
         }
       end
