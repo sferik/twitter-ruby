@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings>
+  <trend_location>
+    <woeid>23424803</woeid>
+    <name>Ireland</name>
+    <placeTypeName code="12">Country</placeTypeName>
+    <country type="Country" code="IE">Ireland</country>
+    <url>http://where.yahooapis.com/v1/place/23424803</url>
+    <parentid>1</parentid>
+  </trend_location>
+  <geo_enabled>true</geo_enabled>
+  <discoverable_by_email>true</discoverable_by_email>
+  <sleep_time>
+    <enabled>false</enabled>
+    <start_time>0</start_time>
+    <end_time>0</end_time>
+  </sleep_time>
+  <always_use_https>true</always_use_https>
+  <time_zone>
+    <name>Eastern Time (US &amp; Canada)</name>
+    <utc_offset>-18000</utc_offset>
+    <tzinfo_name>America/New_York</tzinfo_name>
+  </time_zone>
+  <language>en</language>
+</settings>

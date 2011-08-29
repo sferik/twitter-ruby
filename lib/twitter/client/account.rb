@@ -153,6 +153,53 @@ module Twitter
         response = post('account/update_profile', options)
         format.to_s.downcase == 'xml' ? response['user'] : response
       end
+
+      # Returns the current count of friends, followers, updates (statuses) and favorites of the authenticating user.
+      #
+      # @see https://dev.twitter.com/docs/api/1/get/account/totals
+      # @rate_limited Yes
+      # @requires_authentication Yes
+      # @response_format `json`
+      # @response_format `xml`
+      # @return [Hashie::Mash] the current count of friends, followers, updates, and favorites of the authenticating user.
+      # @raise [Twitter::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @example Return the totals for the authenticating user.
+      #   Twitter.totals
+      def totals()
+        response = get('account/totals')
+        format.to_s.downcase == 'xml' ? response['hash'] : response
+      end
+
+      # Updates the authenticating user's settings. 
+      # Or, if no options supplied, returns settings (including current trend, geo and sleep time information) for the authenticating user.
+      #
+      # @see https://dev.twitter.com/docs/api/1/post/account/settings
+      # @see https://dev.twitter.com/docs/api/1/get/account/settings
+      # @rate_limited Yes
+      # @requires_authentication Yes
+      # @response_format `json`
+      # @response_format `xml`
+      # @param options [Hash] A customizable set of options.
+      # @option options [Integer] :trend_location_woeid The Yahoo! Where On Earth ID to use as the user's default trend location. Global information is available by using 1 as the WOEID. The woeid must be one of the locations returned by {https://dev.twitter.com/docs/api/1/get/trends/available GET trends/available}.
+      # @option options [Boolean, String, Integer] :sleep_time_enabled When set to true, 't' or 1, will enable sleep time for the user. Sleep time is the time when push or SMS notifications should not be sent to the user.
+      # @option options [Integer] :start_sleep_time The hour that sleep time should begin if it is enabled. The value for this parameter should be provided in {http://en.wikipedia.org/wiki/ISO_8601 ISO8601} format (i.e. 00-23). The time is considered to be in the same timezone as the user's time_zone setting.
+      # @option options [Integer] :end_sleep_time The hour that sleep time should end if it is enabled. The value for this parameter should be provided in {http://en.wikipedia.org/wiki/ISO_8601 ISO8601} format (i.e. 00-23). The time is considered to be in the same timezone as the user's time_zone setting.
+      # @option options [String] :time_zone The timezone dates and times should be displayed in for the user. The timezone must be one of the {http://api.rubyonrails.org/classes/ActiveSupport/TimeZone.html Rails TimeZone} names.
+      # @option options [String] :lang The language which Twitter should render in for this user. The language must be specified by the appropriate two letter ISO 639-1 representation. Currently supported languages are provided by {https://dev.twitter.com/docs/api/1/get/help/languages GET help/languages}.
+      # @return [Hashie::Mash]
+      # @raise [Twitter::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @example Return the settings for the authenticating user.
+      #   Twitter.settings
+      def settings(options = {})
+        case options.length
+        when 0
+          response = get('account/settings')
+        else
+          response = post('account/settings', options)
+        end
+          format.to_s.downcase == 'xml' ? response['hash'] : response
+      end
+
     end
   end
 end
