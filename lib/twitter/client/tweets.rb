@@ -45,7 +45,7 @@ module Twitter
         response = post('statuses/update', options.merge(:status => status))
         format.to_s.downcase == 'xml' ? response['status'] : response
       end
-      
+
       # Updates with media the authenticating user's status
       #
       # @format :json, :xml
@@ -72,7 +72,7 @@ module Twitter
       #   Twitter.update("I just posted a status update with a pic via the Twitter Ruby Gem!", {'io' => StringIO.new(pic), 'type' => 'jpg'})
       def update_with_media(status, image, options={})
         response = post('statuses/update_with_media', options.merge('media[]' => image, 'status' => status), format, media_endpoint)
-        format.to_s.downcase == 'xml' ? response['user'] : response
+        format.to_s.downcase == 'xml' ? response['status'] : response
       end
 
       # Destroys the specified status
