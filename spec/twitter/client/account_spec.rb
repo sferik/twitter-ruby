@@ -191,10 +191,10 @@ describe Twitter::Client do
 
         before do
           stub_get("account/settings.#{format}").
-            to_return(:body => fixture("settings_GET.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+            to_return(:body => fixture("settings.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           stub_post("account/settings.#{format}").
             with(:body => {:trend_location_woeid => "23424803"}).
-            to_return(:body => fixture("settings_POST.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+            to_return(:body => fixture("settings.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource on GET" do
