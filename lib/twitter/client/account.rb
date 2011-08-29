@@ -170,7 +170,7 @@ module Twitter
         format.to_s.downcase == 'xml' ? response['hash'] : response
       end
 
-      # Updates the authenticating user's settings. 
+      # Updates the authenticating user's settings.
       # Or, if no options supplied, returns settings (including current trend, geo and sleep time information) for the authenticating user.
       #
       # @see https://dev.twitter.com/docs/api/1/post/account/settings

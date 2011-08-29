@@ -19,9 +19,9 @@ module Twitter
         :proxy => proxy,
         :ssl => {:verify => false},
       }
-      
+
       options[:url] = temp_api_endpoint ? temp_api_endpoint : api_endpoint
-      
+
       Faraday.new(options) do |builder|
         builder.use Faraday::Request::MultipartWithFile
         builder.use Faraday::Request::TwitterOAuth, authentication if authenticated?

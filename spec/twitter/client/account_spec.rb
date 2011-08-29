@@ -171,7 +171,7 @@ describe Twitter::Client do
           user.name.should == "Erik Michaels-Ober"
         end
       end
-      
+
       describe ".totals" do
 
         before do
@@ -202,7 +202,7 @@ describe Twitter::Client do
           a_get("account/settings.#{format}").
             should have_been_made
         end
-        
+
         it "should get the correct resource on POST" do
           @client.settings(:trend_location_woeid => "23424803")
           a_post("account/settings.#{format}").
