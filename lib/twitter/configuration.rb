@@ -15,7 +15,8 @@ module Twitter
       :oauth_token_secret,
       :proxy,
       :search_endpoint,
-      :user_agent].freeze
+      :user_agent,
+      :media_endpoint].freeze
 
     # The adapter that will be used to connect if none is set
     DEFAULT_ADAPTER = :net_http
@@ -60,6 +61,9 @@ module Twitter
 
     DEFAULT_GATEWAY = nil
 
+    # This endpoint will be used by default when updating statuses with media
+    DEFAULT_MEDIA_ENDPOINT = 'https://upload.twitter.com/1/'.freeze
+
     # @private
     attr_accessor *VALID_OPTIONS_KEYS
 
@@ -93,6 +97,7 @@ module Twitter
       self.search_endpoint    = DEFAULT_SEARCH_ENDPOINT
       self.user_agent         = DEFAULT_USER_AGENT
       self.gateway            = DEFAULT_GATEWAY
+      self.media_endpoint     = DEFAULT_MEDIA_ENDPOINT
       self
     end
   end

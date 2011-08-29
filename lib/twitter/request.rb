@@ -6,9 +6,8 @@ module Twitter
       request(:get, path, options, format)
     end
 
-    # Perform an HTTP POST request
-    def post(path, options={}, format=format)
-      request(:post, path, options, format)
+    def post(path, options={}, format=format, temp_api_endpoint=nil)
+      request(:post, path, options, format, temp_api_endpoint)
     end
 
     # Perform an HTTP PUT request
@@ -24,8 +23,8 @@ module Twitter
     private
 
     # Perform an HTTP request
-    def request(method, path, options, format)
-      response = connection(format).send(method) do |request|
+    def request(method, path, options, format, temp_api_endpoint=nil)
+      response = connection(format, temp_api_endpoint).send(method) do |request|
         case method.to_sym
         when :get, :delete
           request.url(formatted_path(path, format), options)

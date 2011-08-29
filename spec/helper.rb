@@ -6,36 +6,36 @@ require 'twitter'
 require 'rspec'
 require 'webmock/rspec'
 
-def a_delete(path)
-  a_request(:delete, Twitter.endpoint + path)
+def a_delete(path, endpoint=Twitter.endpoint)
+  a_request(:delete, endpoint + path)
 end
 
-def a_get(path)
-  a_request(:get, Twitter.endpoint + path)
+def a_get(path, endpoint=Twitter.endpoint)
+  a_request(:get, endpoint + path)
 end
 
-def a_post(path)
-  a_request(:post, Twitter.endpoint + path)
+def a_post(path, endpoint=Twitter.endpoint)
+  a_request(:post, endpoint + path)
 end
 
-def a_put(path)
-  a_request(:put, Twitter.endpoint + path)
+def a_put(path, endpoint=Twitter.endpoint)
+  a_request(:put, endpoint + path)
 end
 
-def stub_delete(path)
-  stub_request(:delete, Twitter.endpoint + path)
+def stub_delete(path, endpoint=Twitter.endpoint)
+  stub_request(:delete, endpoint + path)
 end
 
-def stub_get(path)
-  stub_request(:get, Twitter.endpoint + path)
+def stub_get(path, endpoint=Twitter.endpoint)
+  stub_request(:get, endpoint + path)
 end
 
-def stub_post(path)
-  stub_request(:post, Twitter.endpoint + path)
+def stub_post(path, endpoint=Twitter.endpoint)
+  stub_request(:post, endpoint + path)
 end
 
-def stub_put(path)
-  stub_request(:put, Twitter.endpoint + path)
+def stub_put(path, endpoint=Twitter.endpoint)
+  stub_request(:put, endpoint + path)
 end
 
 def fixture_path

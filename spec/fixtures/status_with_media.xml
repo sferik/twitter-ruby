@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<status>
+  <created_at>Mon Aug 29 03:48:06 +0000 2011</created_at>
+  <id>108023089715089408</id>
+  <text>You always have options http://t.co/CBYa7Ri</text>
+  <source>&lt;a href=&quot;http://beforeitwasround.com&quot; rel=&quot;nofollow&quot;&gt;Tweetstreamie&lt;/a&gt;</source>
+  <truncated>false</truncated>
+  <favorited>false</favorited>
+  <in_reply_to_status_id></in_reply_to_status_id>
+  <in_reply_to_user_id></in_reply_to_user_id>
+  <in_reply_to_screen_name></in_reply_to_screen_name>
+  <retweet_count>0</retweet_count>
+  <retweeted>false</retweeted>
+  <user>
+    <id>4618</id>
+    <name>Steve Agalloco</name>
+    <screen_name>anno</screen_name>
+    <location>Charlotte, NC</location>
+    <description>ruby, rails, node, nosql, husband, father, golfer. not necessarily in that order.</description>
+    <profile_image_url>http://a3.twimg.com/profile_images/1376908742/social_network_icon_normal.jpg</profile_image_url>
+    <profile_image_url_https>https://si0.twimg.com/profile_images/1376908742/social_network_icon_normal.jpg</profile_image_url_https>
+    <url>http://www.beforeitwasround.com</url>
+    <protected>false</protected>
+    <followers_count>396</followers_count>
+    <profile_background_color>131516</profile_background_color>
+    <profile_text_color>333333</profile_text_color>
+    <profile_link_color>009999</profile_link_color>
+    <profile_sidebar_fill_color>efefef</profile_sidebar_fill_color>
+    <profile_sidebar_border_color>eeeeee</profile_sidebar_border_color>
+    <friends_count>380</friends_count>
+    <created_at>Wed Aug 23 01:12:20 +0000 2006</created_at>
+    <favourites_count>383</favourites_count>
+    <utc_offset>-18000</utc_offset>
+    <time_zone>Eastern Time (US &amp; Canada)</time_zone>
+    <profile_background_image_url>http://a3.twimg.com/profile_background_images/140563920/116775_0147_ful.jpg</profile_background_image_url>
+    <profile_background_image_url_https>https://si0.twimg.com/profile_background_images/140563920/116775_0147_ful.jpg</profile_background_image_url_https>
+    <profile_background_tile>true</profile_background_tile>
+    <profile_use_background_image>false</profile_use_background_image>
+    <notifications>false</notifications>
+    <geo_enabled>true</geo_enabled>
+    <verified>false</verified>
+    <following>true</following>
+    <statuses_count>2013</statuses_count>
+    <lang>en</lang>
+    <contributors_enabled>false</contributors_enabled>
+    <follow_request_sent>false</follow_request_sent>
+    <listed_count>21</listed_count>
+    <show_all_inline_media>true</show_all_inline_media>
+    <default_profile>false</default_profile>
+    <default_profile_image>false</default_profile_image>
+    <is_translator>false</is_translator>
+  </user>
+  <geo/>
+  <coordinates/>
+  <place/>
+  <possibly_sensitive>false</possibly_sensitive>
+  <contributors/>
+  <entities>
+    <user_mentions/>
+    <media>
+      <creative end="43" start="24">
+        <media_url>http://p.twimg.com/AX_GbYJCEAAldJ7.jpg</media_url>
+        <url>http://t.co/CBYa7Ri</url>
+        <type>photo</type>
+        <display_url>pic.twitter.com/CBYa7Ri</display_url>
+        <media_url_https>https://p.twimg.com/AX_GbYJCEAAldJ7.jpg</media_url_https>
+        <expanded_url>http://twitter.com/anno/status/108023089715089408/photo/1</expanded_url>
+        <sizes>
+          <small>
+            <w>94</w>
+            <h>81</h>
+            <resize>fit</resize>
+          </small>
+          <medium>
+            <w>94</w>
+            <h>81</h>
+            <resize>fit</resize>
+          </medium>
+          <large>
+            <w>94</w>
+            <h>81</h>
+            <resize>fit</resize>
+          </large>
+          <thumb>
+            <w>94</w>
+            <h>81</h>
+            <resize>crop</resize>
+          </thumb>
+        </sizes>
+        <id_str>108023089719283712</id_str>
+        <id>108023089719283712</id>
+      </creative>
+    </media>
+    <urls/>
+    <hashtags/>
+  </entities>
+</status>
