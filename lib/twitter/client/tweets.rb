@@ -49,8 +49,8 @@ module Twitter
       # Updates with media the authenticating user's status
       #
       # @note A status update with text/media identical to the authenticating user's current status will NOT be ignored
-      # @authenticated true
-      # @rate_limited false
+      # @requires_authentication Yes
+      # @rate_limited No
       # @response_format `json`
       # @response_format `xml`
       # @param status [String] The text of your status update, up to 140 characters.

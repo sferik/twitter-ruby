@@ -1,0 +1,1046 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<statuses type="array">
+<status>
+  <created_at>Fri Aug 26 18:57:59 +0000 2011</created_at>
+  <id>107164904741552128</id>
+  <text>Google is throwing up a question mark for Sunday's weather in Boston. At least they're being honest. http://t.co/Jh7bAhS</text>
+  <source>web</source>
+  <truncated>false</truncated>
+  <favorited>false</favorited>
+  <in_reply_to_status_id></in_reply_to_status_id>
+  <in_reply_to_user_id></in_reply_to_user_id>
+  <in_reply_to_screen_name></in_reply_to_screen_name>
+  <retweet_count>6</retweet_count>
+  <retweeted>false</retweeted>
+  <user>
+    <id>7505382</id>
+    <name>Erik Michaels-Ober</name>
+    <screen_name>sferik</screen_name>
+    <location>San Francisco</location>
+    <description>&#8220;If you want something done, ask a busy person to do it. The more things you do, the more you can do.&#8221;
+&#8212;Lucille Ball</description>
+    <profile_image_url>http://a2.twimg.com/profile_images/1279736243/Github_Square_normal.jpg</profile_image_url>
+    <profile_image_url_https>https://si0.twimg.com/profile_images/1279736243/Github_Square_normal.jpg</profile_image_url_https>
+    <url>https://github.com/sferik</url>
+    <protected>false</protected>
+    <followers_count>1646</followers_count>
+    <profile_background_color>000000</profile_background_color>
+    <profile_text_color>333333</profile_text_color>
+    <profile_link_color>0084B4</profile_link_color>
+    <profile_sidebar_fill_color>DDEEF6</profile_sidebar_fill_color>
+    <profile_sidebar_border_color>C0DEED</profile_sidebar_border_color>
+    <friends_count>419</friends_count>
+    <created_at>Mon Jul 16 12:59:01 +0000 2007</created_at>
+    <favourites_count>1700</favourites_count>
+    <utc_offset>-28800</utc_offset>
+    <time_zone>Pacific Time (US &amp; Canada)</time_zone>
+    <profile_background_image_url>http://a0.twimg.com/profile_background_images/162641967/we_concept_bg2.png</profile_background_image_url>
+    <profile_background_image_url_https>https://si0.twimg.com/profile_background_images/162641967/we_concept_bg2.png</profile_background_image_url_https>
+    <profile_background_tile>false</profile_background_tile>
+    <profile_use_background_image>true</profile_use_background_image>
+    <notifications></notifications>
+    <geo_enabled>true</geo_enabled>
+    <verified>false</verified>
+    <following></following>
+    <statuses_count>4985</statuses_count>
+    <lang>en</lang>
+    <contributors_enabled>false</contributors_enabled>
+    <follow_request_sent></follow_request_sent>
+    <listed_count>89</listed_count>
+    <show_all_inline_media>true</show_all_inline_media>
+    <default_profile>false</default_profile>
+    <default_profile_image>false</default_profile_image>
+    <is_translator>false</is_translator>
+  </user>
+  <geo/>
+  <coordinates/>
+  <place xmlns:georss="http://www.georss.org/georss">
+    <id>5a110d312052166f</id>
+    <name>San Francisco</name>
+    <full_name>San Francisco, CA</full_name>
+    <place_type>city</place_type>
+    <url>http://api.twitter.com/1/geo/id/5a110d312052166f.json</url>
+    <attributes/>
+    <bounding_box>
+      <georss:polygon>37.70813196 -122.51368188 37.70813196 -122.35845384 37.83245301 -122.35845384 37.83245301 -122.51368188</georss:polygon>
+    </bounding_box>
+    <country code="US">United States</country>
+  </place>
+  <possibly_sensitive>false</possibly_sensitive>
+  <contributors/>
+</status>
+<status>
+  <created_at>Thu Aug 25 00:47:11 +0000 2011</created_at>
+  <id>106528009388957697</id>
+  <text>for posterity http://t.co/pRkVnhX</text>
+  <source>web</source>
+  <truncated>false</truncated>
+  <favorited>false</favorited>
+  <in_reply_to_status_id></in_reply_to_status_id>
+  <in_reply_to_user_id></in_reply_to_user_id>
+  <in_reply_to_screen_name></in_reply_to_screen_name>
+  <retweet_count>1</retweet_count>
+  <retweeted>false</retweeted>
+  <user>
+    <id>7505382</id>
+    <name>Erik Michaels-Ober</name>
+    <screen_name>sferik</screen_name>
+    <location>San Francisco</location>
+    <description>&#8220;If you want something done, ask a busy person to do it. The more things you do, the more you can do.&#8221;
+&#8212;Lucille Ball</description>
+    <profile_image_url>http://a2.twimg.com/profile_images/1279736243/Github_Square_normal.jpg</profile_image_url>
+    <profile_image_url_https>https://si0.twimg.com/profile_images/1279736243/Github_Square_normal.jpg</profile_image_url_https>
+    <url>https://github.com/sferik</url>
+    <protected>false</protected>
+    <followers_count>1646</followers_count>
+    <profile_background_color>000000</profile_background_color>
+    <profile_text_color>333333</profile_text_color>
+    <profile_link_color>0084B4</profile_link_color>
+    <profile_sidebar_fill_color>DDEEF6</profile_sidebar_fill_color>
+    <profile_sidebar_border_color>C0DEED</profile_sidebar_border_color>
+    <friends_count>419</friends_count>
+    <created_at>Mon Jul 16 12:59:01 +0000 2007</created_at>
+    <favourites_count>1700</favourites_count>
+    <utc_offset>-28800</utc_offset>
+    <time_zone>Pacific Time (US &amp; Canada)</time_zone>
+    <profile_background_image_url>http://a0.twimg.com/profile_background_images/162641967/we_concept_bg2.png</profile_background_image_url>
+    <profile_background_image_url_https>https://si0.twimg.com/profile_background_images/162641967/we_concept_bg2.png</profile_background_image_url_https>
+    <profile_background_tile>false</profile_background_tile>
+    <profile_use_background_image>true</profile_use_background_image>
+    <notifications></notifications>
+    <geo_enabled>true</geo_enabled>
+    <verified>false</verified>
+    <following></following>
+    <statuses_count>4985</statuses_count>
+    <lang>en</lang>
+    <contributors_enabled>false</contributors_enabled>
+    <follow_request_sent></follow_request_sent>
+    <listed_count>89</listed_count>
+    <show_all_inline_media>true</show_all_inline_media>
+    <default_profile>false</default_profile>
+    <default_profile_image>false</default_profile_image>
+    <is_translator>false</is_translator>
+  </user>
+  <geo/>
+  <coordinates/>
+  <place xmlns:georss="http://www.georss.org/georss">
+    <id>5a110d312052166f</id>
+    <name>San Francisco</name>
+    <full_name>San Francisco, CA</full_name>
+    <place_type>city</place_type>
+    <url>http://api.twitter.com/1/geo/id/5a110d312052166f.json</url>
+    <attributes/>
+    <bounding_box>
+      <georss:polygon>37.70813196 -122.51368188 37.70813196 -122.35845384 37.83245301 -122.35845384 37.83245301 -122.51368188</georss:polygon>
+    </bounding_box>
+    <country code="US">United States</country>
+  </place>
+  <possibly_sensitive>false</possibly_sensitive>
+  <contributors/>
+</status>
+<status>
+  <created_at>Tue Aug 23 16:59:11 +0000 2011</created_at>
+  <id>106047847782293504</id>
+  <text>@joshaber have you tried the iPad app? It looks like this: http://t.co/618aQ7V</text>
+  <source>&lt;a href=&quot;http://www.echofon.com/&quot; rel=&quot;nofollow&quot;&gt;Echofon&lt;/a&gt;</source>
+  <truncated>false</truncated>
+  <favorited>false</favorited>
+  <in_reply_to_status_id>106034932580753410</in_reply_to_status_id>
+  <in_reply_to_user_id>14103557</in_reply_to_user_id>
+  <in_reply_to_screen_name>joshaber</in_reply_to_screen_name>
+  <retweet_count>0</retweet_count>
+  <retweeted>false</retweeted>
+  <user>
+    <id>7505382</id>
+    <name>Erik Michaels-Ober</name>
+    <screen_name>sferik</screen_name>
+    <location>San Francisco</location>
+    <description>&#8220;If you want something done, ask a busy person to do it. The more things you do, the more you can do.&#8221;
+&#8212;Lucille Ball</description>
+    <profile_image_url>http://a2.twimg.com/profile_images/1279736243/Github_Square_normal.jpg</profile_image_url>
+    <profile_image_url_https>https://si0.twimg.com/profile_images/1279736243/Github_Square_normal.jpg</profile_image_url_https>
+    <url>https://github.com/sferik</url>
+    <protected>false</protected>
+    <followers_count>1646</followers_count>
+    <profile_background_color>000000</profile_background_color>
+    <profile_text_color>333333</profile_text_color>
+    <profile_link_color>0084B4</profile_link_color>
+    <profile_sidebar_fill_color>DDEEF6</profile_sidebar_fill_color>
+    <profile_sidebar_border_color>C0DEED</profile_sidebar_border_color>
+    <friends_count>419</friends_count>
+    <created_at>Mon Jul 16 12:59:01 +0000 2007</created_at>
+    <favourites_count>1700</favourites_count>
+    <utc_offset>-28800</utc_offset>
+    <time_zone>Pacific Time (US &amp; Canada)</time_zone>
+    <profile_background_image_url>http://a0.twimg.com/profile_background_images/162641967/we_concept_bg2.png</profile_background_image_url>
+    <profile_background_image_url_https>https://si0.twimg.com/profile_background_images/162641967/we_concept_bg2.png</profile_background_image_url_https>
+    <profile_background_tile>false</profile_background_tile>
+    <profile_use_background_image>true</profile_use_background_image>
+    <notifications></notifications>
+    <geo_enabled>true</geo_enabled>
+    <verified>false</verified>
+    <following></following>
+    <statuses_count>4985</statuses_count>
+    <lang>en</lang>
+    <contributors_enabled>false</contributors_enabled>
+    <follow_request_sent></follow_request_sent>
+    <listed_count>89</listed_count>
+    <show_all_inline_media>true</show_all_inline_media>
+    <default_profile>false</default_profile>
+    <default_profile_image>false</default_profile_image>
+    <is_translator>false</is_translator>
+  </user>
+  <geo xmlns:georss="http://www.georss.org/georss">
+    <georss:point>37.7836 -122.3934</georss:point>
+  </geo>
+  <coordinates xmlns:georss="http://www.georss.org/georss">
+    <georss:point>37.7836 -122.3934</georss:point>
+  </coordinates>
+  <place xmlns:georss="http://www.georss.org/georss">
+    <id>5c92ab5379de3839</id>
+    <name>South Beach</name>
+    <full_name>South Beach, San Francisco</full_name>
+    <place_type>neighborhood</place_type>
+    <url>http://api.twitter.com/1/geo/id/5c92ab5379de3839.json</url>
+    <attributes/>
+    <bounding_box>
+      <georss:polygon>37.77752898 -122.40348192 37.77752898 -122.387436 37.79448597 -122.387436 37.79448597 -122.40348192</georss:polygon>
+    </bounding_box>
+    <country code="US">United States</country>
+  </place>
+  <possibly_sensitive>false</possibly_sensitive>
+  <contributors/>
+</status>
+<status>
+  <created_at>Sun Aug 21 16:38:24 +0000 2011</created_at>
+  <id>105317838113345536</id>
+  <text>Current status: http://t.co/DeyX72o</text>
+  <source>web</source>
+  <truncated>false</truncated>
+  <favorited>false</favorited>
+  <in_reply_to_status_id></in_reply_to_status_id>
+  <in_reply_to_user_id></in_reply_to_user_id>
+  <in_reply_to_screen_name></in_reply_to_screen_name>
+  <retweet_count>0</retweet_count>
+  <retweeted>false</retweeted>
+  <user>
+    <id>7505382</id>
+    <name>Erik Michaels-Ober</name>
+    <screen_name>sferik</screen_name>
+    <location>San Francisco</location>
+    <description>&#8220;If you want something done, ask a busy person to do it. The more things you do, the more you can do.&#8221;
+&#8212;Lucille Ball</description>
+    <profile_image_url>http://a2.twimg.com/profile_images/1279736243/Github_Square_normal.jpg</profile_image_url>
+    <profile_image_url_https>https://si0.twimg.com/profile_images/1279736243/Github_Square_normal.jpg</profile_image_url_https>
+    <url>https://github.com/sferik</url>
+    <protected>false</protected>
+    <followers_count>1646</followers_count>
+    <profile_background_color>000000</profile_background_color>
+    <profile_text_color>333333</profile_text_color>
+    <profile_link_color>0084B4</profile_link_color>
+    <profile_sidebar_fill_color>DDEEF6</profile_sidebar_fill_color>
+    <profile_sidebar_border_color>C0DEED</profile_sidebar_border_color>
+    <friends_count>419</friends_count>
+    <created_at>Mon Jul 16 12:59:01 +0000 2007</created_at>
+    <favourites_count>1700</favourites_count>
+    <utc_offset>-28800</utc_offset>
+    <time_zone>Pacific Time (US &amp; Canada)</time_zone>
+    <profile_background_image_url>http://a0.twimg.com/profile_background_images/162641967/we_concept_bg2.png</profile_background_image_url>
+    <profile_background_image_url_https>https://si0.twimg.com/profile_background_images/162641967/we_concept_bg2.png</profile_background_image_url_https>
+    <profile_background_tile>false</profile_background_tile>
+    <profile_use_background_image>true</profile_use_background_image>
+    <notifications></notifications>
+    <geo_enabled>true</geo_enabled>
+    <verified>false</verified>
+    <following></following>
+    <statuses_count>4985</statuses_count>
+    <lang>en</lang>
+    <contributors_enabled>false</contributors_enabled>
+    <follow_request_sent></follow_request_sent>
+    <listed_count>89</listed_count>
+    <show_all_inline_media>true</show_all_inline_media>
+    <default_profile>false</default_profile>
+    <default_profile_image>false</default_profile_image>
+    <is_translator>false</is_translator>
+  </user>
+  <geo/>
+  <coordinates/>
+  <place xmlns:georss="http://www.georss.org/georss">
+    <id>5a110d312052166f</id>
+    <name>San Francisco</name>
+    <full_name>San Francisco, CA</full_name>
+    <place_type>city</place_type>
+    <url>http://api.twitter.com/1/geo/id/5a110d312052166f.json</url>
+    <attributes/>
+    <bounding_box>
+      <georss:polygon>37.70813196 -122.51368188 37.70813196 -122.35845384 37.83245301 -122.35845384 37.83245301 -122.51368188</georss:polygon>
+    </bounding_box>
+    <country code="US">United States</country>
+  </place>
+  <possibly_sensitive>false</possibly_sensitive>
+  <contributors/>
+</status>
+<status>
+  <created_at>Sat Aug 20 01:31:51 +0000 2011</created_at>
+  <id>104727310984417280</id>
+  <text>Getting a haircut from the CEO  @ Code for America http://t.co/xD1xYK9</text>
+  <source>&lt;a href=&quot;http://instagr.am&quot; rel=&quot;nofollow&quot;&gt;Instagram&lt;/a&gt;</source>
+  <truncated>false</truncated>
+  <favorited>false</favorited>
+  <in_reply_to_status_id></in_reply_to_status_id>
+  <in_reply_to_user_id></in_reply_to_user_id>
+  <in_reply_to_screen_name></in_reply_to_screen_name>
+  <retweet_count>0</retweet_count>
+  <retweeted>false</retweeted>
+  <user>
+    <id>7505382</id>
+    <name>Erik Michaels-Ober</name>
+    <screen_name>sferik</screen_name>
+    <location>San Francisco</location>
+    <description>&#8220;If you want something done, ask a busy person to do it. The more things you do, the more you can do.&#8221;
+&#8212;Lucille Ball</description>
+    <profile_image_url>http://a2.twimg.com/profile_images/1279736243/Github_Square_normal.jpg</profile_image_url>
+    <profile_image_url_https>https://si0.twimg.com/profile_images/1279736243/Github_Square_normal.jpg</profile_image_url_https>
+    <url>https://github.com/sferik</url>
+    <protected>false</protected>
+    <followers_count>1646</followers_count>
+    <profile_background_color>000000</profile_background_color>
+    <profile_text_color>333333</profile_text_color>
+    <profile_link_color>0084B4</profile_link_color>
+    <profile_sidebar_fill_color>DDEEF6</profile_sidebar_fill_color>
+    <profile_sidebar_border_color>C0DEED</profile_sidebar_border_color>
+    <friends_count>419</friends_count>
+    <created_at>Mon Jul 16 12:59:01 +0000 2007</created_at>
+    <favourites_count>1700</favourites_count>
+    <utc_offset>-28800</utc_offset>
+    <time_zone>Pacific Time (US &amp; Canada)</time_zone>
+    <profile_background_image_url>http://a0.twimg.com/profile_background_images/162641967/we_concept_bg2.png</profile_background_image_url>
+    <profile_background_image_url_https>https://si0.twimg.com/profile_background_images/162641967/we_concept_bg2.png</profile_background_image_url_https>
+    <profile_background_tile>false</profile_background_tile>
+    <profile_use_background_image>true</profile_use_background_image>
+    <notifications></notifications>
+    <geo_enabled>true</geo_enabled>
+    <verified>false</verified>
+    <following></following>
+    <statuses_count>4985</statuses_count>
+    <lang>en</lang>
+    <contributors_enabled>false</contributors_enabled>
+    <follow_request_sent></follow_request_sent>
+    <listed_count>89</listed_count>
+    <show_all_inline_media>true</show_all_inline_media>
+    <default_profile>false</default_profile>
+    <default_profile_image>false</default_profile_image>
+    <is_translator>false</is_translator>
+  </user>
+  <geo xmlns:georss="http://www.georss.org/georss">
+    <georss:point>37.788299 -122.399983</georss:point>
+  </geo>
+  <coordinates xmlns:georss="http://www.georss.org/georss">
+    <georss:point>37.788299 -122.399983</georss:point>
+  </coordinates>
+  <place xmlns:georss="http://www.georss.org/georss">
+    <id>5c92ab5379de3839</id>
+    <name>South Beach</name>
+    <full_name>South Beach, San Francisco</full_name>
+    <place_type>neighborhood</place_type>
+    <url>http://api.twitter.com/1/geo/id/5c92ab5379de3839.json</url>
+    <attributes/>
+    <bounding_box>
+      <georss:polygon>37.77752898 -122.40348192 37.77752898 -122.387436 37.79448597 -122.387436 37.79448597 -122.40348192</georss:polygon>
+    </bounding_box>
+    <country code="US">United States</country>
+  </place>
+  <possibly_sensitive>false</possibly_sensitive>
+  <contributors/>
+</status>
+<status>
+  <created_at>Wed Aug 17 21:16:38 +0000 2011</created_at>
+  <id>103938307297251329</id>
+  <text>@joshaber @nuzz do you guys know each other? Your icons are remarkably similar: http://t.co/7thQ2X7</text>
+  <source>web</source>
+  <truncated>false</truncated>
+  <favorited>false</favorited>
+  <in_reply_to_status_id>103936484305940481</in_reply_to_status_id>
+  <in_reply_to_user_id>14103557</in_reply_to_user_id>
+  <in_reply_to_screen_name>joshaber</in_reply_to_screen_name>
+  <retweet_count>0</retweet_count>
+  <retweeted>false</retweeted>
+  <user>
+    <id>7505382</id>
+    <name>Erik Michaels-Ober</name>
+    <screen_name>sferik</screen_name>
+    <location>San Francisco</location>
+    <description>&#8220;If you want something done, ask a busy person to do it. The more things you do, the more you can do.&#8221;
+&#8212;Lucille Ball</description>
+    <profile_image_url>http://a2.twimg.com/profile_images/1279736243/Github_Square_normal.jpg</profile_image_url>
+    <profile_image_url_https>https://si0.twimg.com/profile_images/1279736243/Github_Square_normal.jpg</profile_image_url_https>
+    <url>https://github.com/sferik</url>
+    <protected>false</protected>
+    <followers_count>1646</followers_count>
+    <profile_background_color>000000</profile_background_color>
+    <profile_text_color>333333</profile_text_color>
+    <profile_link_color>0084B4</profile_link_color>
+    <profile_sidebar_fill_color>DDEEF6</profile_sidebar_fill_color>
+    <profile_sidebar_border_color>C0DEED</profile_sidebar_border_color>
+    <friends_count>419</friends_count>
+    <created_at>Mon Jul 16 12:59:01 +0000 2007</created_at>
+    <favourites_count>1700</favourites_count>
+    <utc_offset>-28800</utc_offset>
+    <time_zone>Pacific Time (US &amp; Canada)</time_zone>
+    <profile_background_image_url>http://a0.twimg.com/profile_background_images/162641967/we_concept_bg2.png</profile_background_image_url>
+    <profile_background_image_url_https>https://si0.twimg.com/profile_background_images/162641967/we_concept_bg2.png</profile_background_image_url_https>
+    <profile_background_tile>false</profile_background_tile>
+    <profile_use_background_image>true</profile_use_background_image>
+    <notifications></notifications>
+    <geo_enabled>true</geo_enabled>
+    <verified>false</verified>
+    <following></following>
+    <statuses_count>4985</statuses_count>
+    <lang>en</lang>
+    <contributors_enabled>false</contributors_enabled>
+    <follow_request_sent></follow_request_sent>
+    <listed_count>89</listed_count>
+    <show_all_inline_media>true</show_all_inline_media>
+    <default_profile>false</default_profile>
+    <default_profile_image>false</default_profile_image>
+    <is_translator>false</is_translator>
+  </user>
+  <geo/>
+  <coordinates/>
+  <place xmlns:georss="http://www.georss.org/georss">
+    <id>5a110d312052166f</id>
+    <name>San Francisco</name>
+    <full_name>San Francisco, CA</full_name>
+    <place_type>city</place_type>
+    <url>http://api.twitter.com/1/geo/id/5a110d312052166f.json</url>
+    <attributes/>
+    <bounding_box>
+      <georss:polygon>37.70813196 -122.51368188 37.70813196 -122.35845384 37.83245301 -122.35845384 37.83245301 -122.51368188</georss:polygon>
+    </bounding_box>
+    <country code="US">United States</country>
+  </place>
+  <possibly_sensitive>false</possibly_sensitive>
+  <contributors/>
+</status>
+<status>
+  <created_at>Mon Aug 15 23:47:30 +0000 2011</created_at>
+  <id>103251496338071552</id>
+  <text>@joehewitt Now I'm seeing this! http://t.co/h4ygJag</text>
+  <source>web</source>
+  <truncated>false</truncated>
+  <favorited>false</favorited>
+  <in_reply_to_status_id>103248132191694848</in_reply_to_status_id>
+  <in_reply_to_user_id>1260231</in_reply_to_user_id>
+  <in_reply_to_screen_name>joehewitt</in_reply_to_screen_name>
+  <retweet_count>0</retweet_count>
+  <retweeted>false</retweeted>
+  <user>
+    <id>7505382</id>
+    <name>Erik Michaels-Ober</name>
+    <screen_name>sferik</screen_name>
+    <location>San Francisco</location>
+    <description>&#8220;If you want something done, ask a busy person to do it. The more things you do, the more you can do.&#8221;
+&#8212;Lucille Ball</description>
+    <profile_image_url>http://a2.twimg.com/profile_images/1279736243/Github_Square_normal.jpg</profile_image_url>
+    <profile_image_url_https>https://si0.twimg.com/profile_images/1279736243/Github_Square_normal.jpg</profile_image_url_https>
+    <url>https://github.com/sferik</url>
+    <protected>false</protected>
+    <followers_count>1646</followers_count>
+    <profile_background_color>000000</profile_background_color>
+    <profile_text_color>333333</profile_text_color>
+    <profile_link_color>0084B4</profile_link_color>
+    <profile_sidebar_fill_color>DDEEF6</profile_sidebar_fill_color>
+    <profile_sidebar_border_color>C0DEED</profile_sidebar_border_color>
+    <friends_count>419</friends_count>
+    <created_at>Mon Jul 16 12:59:01 +0000 2007</created_at>
+    <favourites_count>1700</favourites_count>
+    <utc_offset>-28800</utc_offset>
+    <time_zone>Pacific Time (US &amp; Canada)</time_zone>
+    <profile_background_image_url>http://a0.twimg.com/profile_background_images/162641967/we_concept_bg2.png</profile_background_image_url>
+    <profile_background_image_url_https>https://si0.twimg.com/profile_background_images/162641967/we_concept_bg2.png</profile_background_image_url_https>
+    <profile_background_tile>false</profile_background_tile>
+    <profile_use_background_image>true</profile_use_background_image>
+    <notifications></notifications>
+    <geo_enabled>true</geo_enabled>
+    <verified>false</verified>
+    <following></following>
+    <statuses_count>4985</statuses_count>
+    <lang>en</lang>
+    <contributors_enabled>false</contributors_enabled>
+    <follow_request_sent></follow_request_sent>
+    <listed_count>89</listed_count>
+    <show_all_inline_media>true</show_all_inline_media>
+    <default_profile>false</default_profile>
+    <default_profile_image>false</default_profile_image>
+    <is_translator>false</is_translator>
+  </user>
+  <geo/>
+  <coordinates/>
+  <place xmlns:georss="http://www.georss.org/georss">
+    <id>5a110d312052166f</id>
+    <name>San Francisco</name>
+    <full_name>San Francisco, CA</full_name>
+    <place_type>city</place_type>
+    <url>http://api.twitter.com/1/geo/id/5a110d312052166f.json</url>
+    <attributes/>
+    <bounding_box>
+      <georss:polygon>37.70813196 -122.51368188 37.70813196 -122.35845384 37.83245301 -122.35845384 37.83245301 -122.51368188</georss:polygon>
+    </bounding_box>
+    <country code="US">United States</country>
+  </place>
+  <possibly_sensitive>false</possibly_sensitive>
+  <contributors/>
+</status>
+<status>
+  <created_at>Tue Jul 26 03:24:03 +0000 2011</created_at>
+  <id>95695850344431616</id>
+  <text>@atogle http://t.co/mPkH5mb</text>
+  <source>&lt;a href=&quot;http://itunes.apple.com/us/app/twitter/id409789998?mt=12&quot; rel=&quot;nofollow&quot;&gt;Twitter for Mac&lt;/a&gt;</source>
+  <truncated>false</truncated>
+  <favorited>false</favorited>
+  <in_reply_to_status_id>95665223276560384</in_reply_to_status_id>
+  <in_reply_to_user_id>21866144</in_reply_to_user_id>
+  <in_reply_to_screen_name>atogle</in_reply_to_screen_name>
+  <retweet_count>0</retweet_count>
+  <retweeted>false</retweeted>
+  <user>
+    <id>7505382</id>
+    <name>Erik Michaels-Ober</name>
+    <screen_name>sferik</screen_name>
+    <location>San Francisco</location>
+    <description>&#8220;If you want something done, ask a busy person to do it. The more things you do, the more you can do.&#8221;
+&#8212;Lucille Ball</description>
+    <profile_image_url>http://a2.twimg.com/profile_images/1279736243/Github_Square_normal.jpg</profile_image_url>
+    <profile_image_url_https>https://si0.twimg.com/profile_images/1279736243/Github_Square_normal.jpg</profile_image_url_https>
+    <url>https://github.com/sferik</url>
+    <protected>false</protected>
+    <followers_count>1646</followers_count>
+    <profile_background_color>000000</profile_background_color>
+    <profile_text_color>333333</profile_text_color>
+    <profile_link_color>0084B4</profile_link_color>
+    <profile_sidebar_fill_color>DDEEF6</profile_sidebar_fill_color>
+    <profile_sidebar_border_color>C0DEED</profile_sidebar_border_color>
+    <friends_count>419</friends_count>
+    <created_at>Mon Jul 16 12:59:01 +0000 2007</created_at>
+    <favourites_count>1700</favourites_count>
+    <utc_offset>-28800</utc_offset>
+    <time_zone>Pacific Time (US &amp; Canada)</time_zone>
+    <profile_background_image_url>http://a0.twimg.com/profile_background_images/162641967/we_concept_bg2.png</profile_background_image_url>
+    <profile_background_image_url_https>https://si0.twimg.com/profile_background_images/162641967/we_concept_bg2.png</profile_background_image_url_https>
+    <profile_background_tile>false</profile_background_tile>
+    <profile_use_background_image>true</profile_use_background_image>
+    <notifications></notifications>
+    <geo_enabled>true</geo_enabled>
+    <verified>false</verified>
+    <following></following>
+    <statuses_count>4985</statuses_count>
+    <lang>en</lang>
+    <contributors_enabled>false</contributors_enabled>
+    <follow_request_sent></follow_request_sent>
+    <listed_count>89</listed_count>
+    <show_all_inline_media>true</show_all_inline_media>
+    <default_profile>false</default_profile>
+    <default_profile_image>false</default_profile_image>
+    <is_translator>false</is_translator>
+  </user>
+  <geo/>
+  <coordinates/>
+  <place/>
+  <possibly_sensitive>false</possibly_sensitive>
+  <contributors/>
+</status>
+<status>
+  <created_at>Sat Jul 23 05:50:41 +0000 2011</created_at>
+  <id>94645589299560449</id>
+  <text>@kevintwohy on second thought, I'm pretty sure it's pronounced like this: http://t.co/QxJNv8Q</text>
+  <source>&lt;a href=&quot;http://itunes.apple.com/us/app/twitter/id409789998?mt=12&quot; rel=&quot;nofollow&quot;&gt;Twitter for Mac&lt;/a&gt;</source>
+  <truncated>false</truncated>
+  <favorited>false</favorited>
+  <in_reply_to_status_id>94643126349729792</in_reply_to_status_id>
+  <in_reply_to_user_id>13334062</in_reply_to_user_id>
+  <in_reply_to_screen_name>kevintwohy</in_reply_to_screen_name>
+  <retweet_count>0</retweet_count>
+  <retweeted>false</retweeted>
+  <user>
+    <id>7505382</id>
+    <name>Erik Michaels-Ober</name>
+    <screen_name>sferik</screen_name>
+    <location>San Francisco</location>
+    <description>&#8220;If you want something done, ask a busy person to do it. The more things you do, the more you can do.&#8221;
+&#8212;Lucille Ball</description>
+    <profile_image_url>http://a2.twimg.com/profile_images/1279736243/Github_Square_normal.jpg</profile_image_url>
+    <profile_image_url_https>https://si0.twimg.com/profile_images/1279736243/Github_Square_normal.jpg</profile_image_url_https>
+    <url>https://github.com/sferik</url>
+    <protected>false</protected>
+    <followers_count>1646</followers_count>
+    <profile_background_color>000000</profile_background_color>
+    <profile_text_color>333333</profile_text_color>
+    <profile_link_color>0084B4</profile_link_color>
+    <profile_sidebar_fill_color>DDEEF6</profile_sidebar_fill_color>
+    <profile_sidebar_border_color>C0DEED</profile_sidebar_border_color>
+    <friends_count>419</friends_count>
+    <created_at>Mon Jul 16 12:59:01 +0000 2007</created_at>
+    <favourites_count>1700</favourites_count>
+    <utc_offset>-28800</utc_offset>
+    <time_zone>Pacific Time (US &amp; Canada)</time_zone>
+    <profile_background_image_url>http://a0.twimg.com/profile_background_images/162641967/we_concept_bg2.png</profile_background_image_url>
+    <profile_background_image_url_https>https://si0.twimg.com/profile_background_images/162641967/we_concept_bg2.png</profile_background_image_url_https>
+    <profile_background_tile>false</profile_background_tile>
+    <profile_use_background_image>true</profile_use_background_image>
+    <notifications></notifications>
+    <geo_enabled>true</geo_enabled>
+    <verified>false</verified>
+    <following></following>
+    <statuses_count>4985</statuses_count>
+    <lang>en</lang>
+    <contributors_enabled>false</contributors_enabled>
+    <follow_request_sent></follow_request_sent>
+    <listed_count>89</listed_count>
+    <show_all_inline_media>true</show_all_inline_media>
+    <default_profile>false</default_profile>
+    <default_profile_image>false</default_profile_image>
+    <is_translator>false</is_translator>
+  </user>
+  <geo/>
+  <coordinates/>
+  <place/>
+  <possibly_sensitive>false</possibly_sensitive>
+  <contributors/>
+</status>
+<status>
+  <created_at>Sat Jul 23 05:29:14 +0000 2011</created_at>
+  <id>94640192727683072</id>
+  <text>Just discovered a new way to make accents in Mac OS X Lion. Just hold down the key and a menu appears! #protip http://t.co/3HC456w</text>
+  <source>&lt;a href=&quot;http://itunes.apple.com/us/app/twitter/id409789998?mt=12&quot; rel=&quot;nofollow&quot;&gt;Twitter for Mac&lt;/a&gt;</source>
+  <truncated>false</truncated>
+  <favorited>false</favorited>
+  <in_reply_to_status_id></in_reply_to_status_id>
+  <in_reply_to_user_id></in_reply_to_user_id>
+  <in_reply_to_screen_name></in_reply_to_screen_name>
+  <retweet_count>6</retweet_count>
+  <retweeted>false</retweeted>
+  <user>
+    <id>7505382</id>
+    <name>Erik Michaels-Ober</name>
+    <screen_name>sferik</screen_name>
+    <location>San Francisco</location>
+    <description>&#8220;If you want something done, ask a busy person to do it. The more things you do, the more you can do.&#8221;
+&#8212;Lucille Ball</description>
+    <profile_image_url>http://a2.twimg.com/profile_images/1279736243/Github_Square_normal.jpg</profile_image_url>
+    <profile_image_url_https>https://si0.twimg.com/profile_images/1279736243/Github_Square_normal.jpg</profile_image_url_https>
+    <url>https://github.com/sferik</url>
+    <protected>false</protected>
+    <followers_count>1646</followers_count>
+    <profile_background_color>000000</profile_background_color>
+    <profile_text_color>333333</profile_text_color>
+    <profile_link_color>0084B4</profile_link_color>
+    <profile_sidebar_fill_color>DDEEF6</profile_sidebar_fill_color>
+    <profile_sidebar_border_color>C0DEED</profile_sidebar_border_color>
+    <friends_count>419</friends_count>
+    <created_at>Mon Jul 16 12:59:01 +0000 2007</created_at>
+    <favourites_count>1700</favourites_count>
+    <utc_offset>-28800</utc_offset>
+    <time_zone>Pacific Time (US &amp; Canada)</time_zone>
+    <profile_background_image_url>http://a0.twimg.com/profile_background_images/162641967/we_concept_bg2.png</profile_background_image_url>
+    <profile_background_image_url_https>https://si0.twimg.com/profile_background_images/162641967/we_concept_bg2.png</profile_background_image_url_https>
+    <profile_background_tile>false</profile_background_tile>
+    <profile_use_background_image>true</profile_use_background_image>
+    <notifications></notifications>
+    <geo_enabled>true</geo_enabled>
+    <verified>false</verified>
+    <following></following>
+    <statuses_count>4985</statuses_count>
+    <lang>en</lang>
+    <contributors_enabled>false</contributors_enabled>
+    <follow_request_sent></follow_request_sent>
+    <listed_count>89</listed_count>
+    <show_all_inline_media>true</show_all_inline_media>
+    <default_profile>false</default_profile>
+    <default_profile_image>false</default_profile_image>
+    <is_translator>false</is_translator>
+  </user>
+  <geo/>
+  <coordinates/>
+  <place/>
+  <possibly_sensitive>false</possibly_sensitive>
+  <contributors/>
+</status>
+<status>
+  <created_at>Sat Jul 23 00:13:12 +0000 2011</created_at>
+  <id>94560659072761856</id>
+  <text>Among the first to taste @carlmalamud's new brew. Free as in freedom &amp; free as in beer.  @ Code for America http://instagr.am/p/IRUPK/</text>
+  <source>&lt;a href=&quot;http://instagr.am&quot; rel=&quot;nofollow&quot;&gt;Instagram&lt;/a&gt;</source>
+  <truncated>false</truncated>
+  <favorited>false</favorited>
+  <in_reply_to_status_id></in_reply_to_status_id>
+  <in_reply_to_user_id></in_reply_to_user_id>
+  <in_reply_to_screen_name></in_reply_to_screen_name>
+  <retweet_count>1</retweet_count>
+  <retweeted>false</retweeted>
+  <user>
+    <id>7505382</id>
+    <name>Erik Michaels-Ober</name>
+    <screen_name>sferik</screen_name>
+    <location>San Francisco</location>
+    <description>&#8220;If you want something done, ask a busy person to do it. The more things you do, the more you can do.&#8221;
+&#8212;Lucille Ball</description>
+    <profile_image_url>http://a2.twimg.com/profile_images/1279736243/Github_Square_normal.jpg</profile_image_url>
+    <profile_image_url_https>https://si0.twimg.com/profile_images/1279736243/Github_Square_normal.jpg</profile_image_url_https>
+    <url>https://github.com/sferik</url>
+    <protected>false</protected>
+    <followers_count>1646</followers_count>
+    <profile_background_color>000000</profile_background_color>
+    <profile_text_color>333333</profile_text_color>
+    <profile_link_color>0084B4</profile_link_color>
+    <profile_sidebar_fill_color>DDEEF6</profile_sidebar_fill_color>
+    <profile_sidebar_border_color>C0DEED</profile_sidebar_border_color>
+    <friends_count>419</friends_count>
+    <created_at>Mon Jul 16 12:59:01 +0000 2007</created_at>
+    <favourites_count>1700</favourites_count>
+    <utc_offset>-28800</utc_offset>
+    <time_zone>Pacific Time (US &amp; Canada)</time_zone>
+    <profile_background_image_url>http://a0.twimg.com/profile_background_images/162641967/we_concept_bg2.png</profile_background_image_url>
+    <profile_background_image_url_https>https://si0.twimg.com/profile_background_images/162641967/we_concept_bg2.png</profile_background_image_url_https>
+    <profile_background_tile>false</profile_background_tile>
+    <profile_use_background_image>true</profile_use_background_image>
+    <notifications></notifications>
+    <geo_enabled>true</geo_enabled>
+    <verified>false</verified>
+    <following></following>
+    <statuses_count>4985</statuses_count>
+    <lang>en</lang>
+    <contributors_enabled>false</contributors_enabled>
+    <follow_request_sent></follow_request_sent>
+    <listed_count>89</listed_count>
+    <show_all_inline_media>true</show_all_inline_media>
+    <default_profile>false</default_profile>
+    <default_profile_image>false</default_profile_image>
+    <is_translator>false</is_translator>
+  </user>
+  <geo xmlns:georss="http://www.georss.org/georss">
+    <georss:point>37.788299 -122.399983</georss:point>
+  </geo>
+  <coordinates xmlns:georss="http://www.georss.org/georss">
+    <georss:point>37.788299 -122.399983</georss:point>
+  </coordinates>
+  <place xmlns:georss="http://www.georss.org/georss">
+    <id>5c92ab5379de3839</id>
+    <name>South Beach</name>
+    <full_name>South Beach, San Francisco</full_name>
+    <place_type>neighborhood</place_type>
+    <url>http://api.twitter.com/1/geo/id/5c92ab5379de3839.json</url>
+    <attributes/>
+    <bounding_box>
+      <georss:polygon>37.77752898 -122.40348192 37.77752898 -122.387436 37.79448597 -122.387436 37.79448597 -122.40348192</georss:polygon>
+    </bounding_box>
+    <country code="US">United States</country>
+  </place>
+  <possibly_sensitive>false</possibly_sensitive>
+  <contributors/>
+</status>
+<status>
+  <created_at>Tue Jul 19 23:12:37 +0000 2011</created_at>
+  <id>93458246685294592</id>
+  <text>@scottsil http://t.co/QAUYQAa</text>
+  <source>&lt;a href=&quot;http://itunes.apple.com/us/app/twitter/id409789998?mt=12&quot; rel=&quot;nofollow&quot;&gt;Twitter for Mac&lt;/a&gt;</source>
+  <truncated>false</truncated>
+  <favorited>false</favorited>
+  <in_reply_to_status_id>93442600509517824</in_reply_to_status_id>
+  <in_reply_to_user_id>721623</in_reply_to_user_id>
+  <in_reply_to_screen_name>scottsil</in_reply_to_screen_name>
+  <retweet_count>0</retweet_count>
+  <retweeted>false</retweeted>
+  <user>
+    <id>7505382</id>
+    <name>Erik Michaels-Ober</name>
+    <screen_name>sferik</screen_name>
+    <location>San Francisco</location>
+    <description>&#8220;If you want something done, ask a busy person to do it. The more things you do, the more you can do.&#8221;
+&#8212;Lucille Ball</description>
+    <profile_image_url>http://a2.twimg.com/profile_images/1279736243/Github_Square_normal.jpg</profile_image_url>
+    <profile_image_url_https>https://si0.twimg.com/profile_images/1279736243/Github_Square_normal.jpg</profile_image_url_https>
+    <url>https://github.com/sferik</url>
+    <protected>false</protected>
+    <followers_count>1646</followers_count>
+    <profile_background_color>000000</profile_background_color>
+    <profile_text_color>333333</profile_text_color>
+    <profile_link_color>0084B4</profile_link_color>
+    <profile_sidebar_fill_color>DDEEF6</profile_sidebar_fill_color>
+    <profile_sidebar_border_color>C0DEED</profile_sidebar_border_color>
+    <friends_count>419</friends_count>
+    <created_at>Mon Jul 16 12:59:01 +0000 2007</created_at>
+    <favourites_count>1700</favourites_count>
+    <utc_offset>-28800</utc_offset>
+    <time_zone>Pacific Time (US &amp; Canada)</time_zone>
+    <profile_background_image_url>http://a0.twimg.com/profile_background_images/162641967/we_concept_bg2.png</profile_background_image_url>
+    <profile_background_image_url_https>https://si0.twimg.com/profile_background_images/162641967/we_concept_bg2.png</profile_background_image_url_https>
+    <profile_background_tile>false</profile_background_tile>
+    <profile_use_background_image>true</profile_use_background_image>
+    <notifications></notifications>
+    <geo_enabled>true</geo_enabled>
+    <verified>false</verified>
+    <following></following>
+    <statuses_count>4985</statuses_count>
+    <lang>en</lang>
+    <contributors_enabled>false</contributors_enabled>
+    <follow_request_sent></follow_request_sent>
+    <listed_count>89</listed_count>
+    <show_all_inline_media>true</show_all_inline_media>
+    <default_profile>false</default_profile>
+    <default_profile_image>false</default_profile_image>
+    <is_translator>false</is_translator>
+  </user>
+  <geo/>
+  <coordinates/>
+  <place/>
+  <possibly_sensitive>false</possibly_sensitive>
+  <contributors/>
+</status>
+<status>
+  <created_at>Tue Jul 19 21:00:14 +0000 2011</created_at>
+  <id>93424934822477824</id>
+  <text>Code for America by the numbers: http://t.co/D9TEprA</text>
+  <source>&lt;a href=&quot;http://itunes.apple.com/us/app/twitter/id409789998?mt=12&quot; rel=&quot;nofollow&quot;&gt;Twitter for Mac&lt;/a&gt;</source>
+  <truncated>false</truncated>
+  <favorited>false</favorited>
+  <in_reply_to_status_id></in_reply_to_status_id>
+  <in_reply_to_user_id></in_reply_to_user_id>
+  <in_reply_to_screen_name></in_reply_to_screen_name>
+  <retweet_count>0</retweet_count>
+  <retweeted>false</retweeted>
+  <user>
+    <id>7505382</id>
+    <name>Erik Michaels-Ober</name>
+    <screen_name>sferik</screen_name>
+    <location>San Francisco</location>
+    <description>&#8220;If you want something done, ask a busy person to do it. The more things you do, the more you can do.&#8221;
+&#8212;Lucille Ball</description>
+    <profile_image_url>http://a2.twimg.com/profile_images/1279736243/Github_Square_normal.jpg</profile_image_url>
+    <profile_image_url_https>https://si0.twimg.com/profile_images/1279736243/Github_Square_normal.jpg</profile_image_url_https>
+    <url>https://github.com/sferik</url>
+    <protected>false</protected>
+    <followers_count>1646</followers_count>
+    <profile_background_color>000000</profile_background_color>
+    <profile_text_color>333333</profile_text_color>
+    <profile_link_color>0084B4</profile_link_color>
+    <profile_sidebar_fill_color>DDEEF6</profile_sidebar_fill_color>
+    <profile_sidebar_border_color>C0DEED</profile_sidebar_border_color>
+    <friends_count>419</friends_count>
+    <created_at>Mon Jul 16 12:59:01 +0000 2007</created_at>
+    <favourites_count>1700</favourites_count>
+    <utc_offset>-28800</utc_offset>
+    <time_zone>Pacific Time (US &amp; Canada)</time_zone>
+    <profile_background_image_url>http://a0.twimg.com/profile_background_images/162641967/we_concept_bg2.png</profile_background_image_url>
+    <profile_background_image_url_https>https://si0.twimg.com/profile_background_images/162641967/we_concept_bg2.png</profile_background_image_url_https>
+    <profile_background_tile>false</profile_background_tile>
+    <profile_use_background_image>true</profile_use_background_image>
+    <notifications></notifications>
+    <geo_enabled>true</geo_enabled>
+    <verified>false</verified>
+    <following></following>
+    <statuses_count>4985</statuses_count>
+    <lang>en</lang>
+    <contributors_enabled>false</contributors_enabled>
+    <follow_request_sent></follow_request_sent>
+    <listed_count>89</listed_count>
+    <show_all_inline_media>true</show_all_inline_media>
+    <default_profile>false</default_profile>
+    <default_profile_image>false</default_profile_image>
+    <is_translator>false</is_translator>
+  </user>
+  <geo/>
+  <coordinates/>
+  <place/>
+  <possibly_sensitive>false</possibly_sensitive>
+  <contributors/>
+</status>
+<status>
+  <created_at>Sat Jul 16 18:38:43 +0000 2011</created_at>
+  <id>92302157730156544</id>
+  <text>@superamit I'd still like to see handwriting recognition. Apple has bad memories of Newton but I hope Google does it! http://t.co/Gb92NnV</text>
+  <source>&lt;a href=&quot;http://itunes.apple.com/us/app/twitter/id409789998?mt=12&quot; rel=&quot;nofollow&quot;&gt;Twitter for Mac&lt;/a&gt;</source>
+  <truncated>false</truncated>
+  <favorited>false</favorited>
+  <in_reply_to_status_id>92267018656550913</in_reply_to_status_id>
+  <in_reply_to_user_id>10609</in_reply_to_user_id>
+  <in_reply_to_screen_name>superamit</in_reply_to_screen_name>
+  <retweet_count>0</retweet_count>
+  <retweeted>false</retweeted>
+  <user>
+    <id>7505382</id>
+    <name>Erik Michaels-Ober</name>
+    <screen_name>sferik</screen_name>
+    <location>San Francisco</location>
+    <description>&#8220;If you want something done, ask a busy person to do it. The more things you do, the more you can do.&#8221;
+&#8212;Lucille Ball</description>
+    <profile_image_url>http://a2.twimg.com/profile_images/1279736243/Github_Square_normal.jpg</profile_image_url>
+    <profile_image_url_https>https://si0.twimg.com/profile_images/1279736243/Github_Square_normal.jpg</profile_image_url_https>
+    <url>https://github.com/sferik</url>
+    <protected>false</protected>
+    <followers_count>1646</followers_count>
+    <profile_background_color>000000</profile_background_color>
+    <profile_text_color>333333</profile_text_color>
+    <profile_link_color>0084B4</profile_link_color>
+    <profile_sidebar_fill_color>DDEEF6</profile_sidebar_fill_color>
+    <profile_sidebar_border_color>C0DEED</profile_sidebar_border_color>
+    <friends_count>419</friends_count>
+    <created_at>Mon Jul 16 12:59:01 +0000 2007</created_at>
+    <favourites_count>1700</favourites_count>
+    <utc_offset>-28800</utc_offset>
+    <time_zone>Pacific Time (US &amp; Canada)</time_zone>
+    <profile_background_image_url>http://a0.twimg.com/profile_background_images/162641967/we_concept_bg2.png</profile_background_image_url>
+    <profile_background_image_url_https>https://si0.twimg.com/profile_background_images/162641967/we_concept_bg2.png</profile_background_image_url_https>
+    <profile_background_tile>false</profile_background_tile>
+    <profile_use_background_image>true</profile_use_background_image>
+    <notifications></notifications>
+    <geo_enabled>true</geo_enabled>
+    <verified>false</verified>
+    <following></following>
+    <statuses_count>4985</statuses_count>
+    <lang>en</lang>
+    <contributors_enabled>false</contributors_enabled>
+    <follow_request_sent></follow_request_sent>
+    <listed_count>89</listed_count>
+    <show_all_inline_media>true</show_all_inline_media>
+    <default_profile>false</default_profile>
+    <default_profile_image>false</default_profile_image>
+    <is_translator>false</is_translator>
+  </user>
+  <geo/>
+  <coordinates/>
+  <place/>
+  <possibly_sensitive>false</possibly_sensitive>
+  <contributors/>
+</status>
+<status>
+  <created_at>Thu Jul 14 04:27:50 +0000 2011</created_at>
+  <id>91363248892416000</id>
+  <text>@j3 you can add another one to the list. Just updated my Twitter bio to reflect my philosophy. :) http://t.co/ZKV3Nzl</text>
+  <source>&lt;a href=&quot;http://itunes.apple.com/us/app/twitter/id409789998?mt=12&quot; rel=&quot;nofollow&quot;&gt;Twitter for Mac&lt;/a&gt;</source>
+  <truncated>false</truncated>
+  <favorited>false</favorited>
+  <in_reply_to_status_id>91291010021335041</in_reply_to_status_id>
+  <in_reply_to_user_id>1133971</in_reply_to_user_id>
+  <in_reply_to_screen_name>j3</in_reply_to_screen_name>
+  <retweet_count>0</retweet_count>
+  <retweeted>false</retweeted>
+  <user>
+    <id>7505382</id>
+    <name>Erik Michaels-Ober</name>
+    <screen_name>sferik</screen_name>
+    <location>San Francisco</location>
+    <description>&#8220;If you want something done, ask a busy person to do it. The more things you do, the more you can do.&#8221;
+&#8212;Lucille Ball</description>
+    <profile_image_url>http://a2.twimg.com/profile_images/1279736243/Github_Square_normal.jpg</profile_image_url>
+    <profile_image_url_https>https://si0.twimg.com/profile_images/1279736243/Github_Square_normal.jpg</profile_image_url_https>
+    <url>https://github.com/sferik</url>
+    <protected>false</protected>
+    <followers_count>1646</followers_count>
+    <profile_background_color>000000</profile_background_color>
+    <profile_text_color>333333</profile_text_color>
+    <profile_link_color>0084B4</profile_link_color>
+    <profile_sidebar_fill_color>DDEEF6</profile_sidebar_fill_color>
+    <profile_sidebar_border_color>C0DEED</profile_sidebar_border_color>
+    <friends_count>419</friends_count>
+    <created_at>Mon Jul 16 12:59:01 +0000 2007</created_at>
+    <favourites_count>1700</favourites_count>
+    <utc_offset>-28800</utc_offset>
+    <time_zone>Pacific Time (US &amp; Canada)</time_zone>
+    <profile_background_image_url>http://a0.twimg.com/profile_background_images/162641967/we_concept_bg2.png</profile_background_image_url>
+    <profile_background_image_url_https>https://si0.twimg.com/profile_background_images/162641967/we_concept_bg2.png</profile_background_image_url_https>
+    <profile_background_tile>false</profile_background_tile>
+    <profile_use_background_image>true</profile_use_background_image>
+    <notifications></notifications>
+    <geo_enabled>true</geo_enabled>
+    <verified>false</verified>
+    <following></following>
+    <statuses_count>4985</statuses_count>
+    <lang>en</lang>
+    <contributors_enabled>false</contributors_enabled>
+    <follow_request_sent></follow_request_sent>
+    <listed_count>89</listed_count>
+    <show_all_inline_media>true</show_all_inline_media>
+    <default_profile>false</default_profile>
+    <default_profile_image>false</default_profile_image>
+    <is_translator>false</is_translator>
+  </user>
+  <geo/>
+  <coordinates/>
+  <place/>
+  <possibly_sensitive>false</possibly_sensitive>
+  <contributors/>
+</status>
+<status>
+  <created_at>Wed Jul 06 05:36:27 +0000 2011</created_at>
+  <id>88481414600863744</id>
+  <text>@goldman watching during the break http://t.co/6698CCf</text>
+  <source>&lt;a href=&quot;http://twitter.com/#!/download/iphone&quot; rel=&quot;nofollow&quot;&gt;Twitter for iPhone&lt;/a&gt;</source>
+  <truncated>false</truncated>
+  <favorited>false</favorited>
+  <in_reply_to_status_id>88465733595570179</in_reply_to_status_id>
+  <in_reply_to_user_id>291</in_reply_to_user_id>
+  <in_reply_to_screen_name>goldman</in_reply_to_screen_name>
+  <retweet_count>0</retweet_count>
+  <retweeted>false</retweeted>
+  <user>
+    <id>7505382</id>
+    <name>Erik Michaels-Ober</name>
+    <screen_name>sferik</screen_name>
+    <location>San Francisco</location>
+    <description>&#8220;If you want something done, ask a busy person to do it. The more things you do, the more you can do.&#8221;
+&#8212;Lucille Ball</description>
+    <profile_image_url>http://a2.twimg.com/profile_images/1279736243/Github_Square_normal.jpg</profile_image_url>
+    <profile_image_url_https>https://si0.twimg.com/profile_images/1279736243/Github_Square_normal.jpg</profile_image_url_https>
+    <url>https://github.com/sferik</url>
+    <protected>false</protected>
+    <followers_count>1646</followers_count>
+    <profile_background_color>000000</profile_background_color>
+    <profile_text_color>333333</profile_text_color>
+    <profile_link_color>0084B4</profile_link_color>
+    <profile_sidebar_fill_color>DDEEF6</profile_sidebar_fill_color>
+    <profile_sidebar_border_color>C0DEED</profile_sidebar_border_color>
+    <friends_count>419</friends_count>
+    <created_at>Mon Jul 16 12:59:01 +0000 2007</created_at>
+    <favourites_count>1700</favourites_count>
+    <utc_offset>-28800</utc_offset>
+    <time_zone>Pacific Time (US &amp; Canada)</time_zone>
+    <profile_background_image_url>http://a0.twimg.com/profile_background_images/162641967/we_concept_bg2.png</profile_background_image_url>
+    <profile_background_image_url_https>https://si0.twimg.com/profile_background_images/162641967/we_concept_bg2.png</profile_background_image_url_https>
+    <profile_background_tile>false</profile_background_tile>
+    <profile_use_background_image>true</profile_use_background_image>
+    <notifications></notifications>
+    <geo_enabled>true</geo_enabled>
+    <verified>false</verified>
+    <following></following>
+    <statuses_count>4985</statuses_count>
+    <lang>en</lang>
+    <contributors_enabled>false</contributors_enabled>
+    <follow_request_sent></follow_request_sent>
+    <listed_count>89</listed_count>
+    <show_all_inline_media>true</show_all_inline_media>
+    <default_profile>false</default_profile>
+    <default_profile_image>false</default_profile_image>
+    <is_translator>false</is_translator>
+  </user>
+  <geo xmlns:georss="http://www.georss.org/georss">
+    <georss:point>36.11699995 -115.18757006</georss:point>
+  </geo>
+  <coordinates xmlns:georss="http://www.georss.org/georss">
+    <georss:point>36.11699995 -115.18757006</georss:point>
+  </coordinates>
+  <place xmlns:georss="http://www.georss.org/georss">
+    <id>8fa6d7a33b83ef26</id>
+    <name>Paradise</name>
+    <full_name>Paradise, NV</full_name>
+    <place_type>city</place_type>
+    <url>http://api.twitter.com/1/geo/id/8fa6d7a33b83ef26.json</url>
+    <attributes/>
+    <bounding_box>
+      <georss:polygon>35.984787 -115.208073 35.984787 -115.059344 36.137126 -115.059344 36.137126 -115.208073</georss:polygon>
+    </bounding_box>
+    <country code="US">United States</country>
+  </place>
+  <possibly_sensitive>false</possibly_sensitive>
+  <contributors/>
+</status>
+</statuses>

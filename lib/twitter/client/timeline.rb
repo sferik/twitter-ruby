@@ -189,6 +189,33 @@ module Twitter
         response = get('statuses/retweets_of_me', options)
         format.to_s.downcase == 'xml' ? response['statuses'] : response
       end
+
+      # Returns the 20 most recent images posted by the specified user
+      #
+      # @see https://support.twitter.com/articles/20169409
+      # @note This method can only return up to the 100 most recent images.
+      # @note Images will not be returned from tweets posted before January 1, 2010.
+      # @rate_limited Yes
+      # @requires_authentication No unless the user whose timeline you're trying to view is protected
+      # @response_format `json`
+      # @response_format `xml`
+      # @overload media_timeline(user, options={})
+      #   @param user [Integer, String] A Twitter user ID or screen name.
+      #   @param options [Hash] A customizable set of options.
+      #   @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 200.
+      #   @option options [Integer] :page Specifies the page of results to retrieve.
+      #   @option options [Boolean] :filter Include possibly sensitive media when set to false, 'f' or 0.
+      #   @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
+      #   @return [Array]
+      #   @example Return the 20 most recent statuses posted by @sferik
+      #     Twitter.media_timeline("sferik")
+      def media_timeline(*args)
+        options = args.last.is_a?(Hash) ? args.pop : {}
+        user = args.first || get_screen_name
+        merge_user_into_options!(user, options)
+        response = get('statuses/media_timeline', options)
+        format.to_s.downcase == 'xml' ? response['statuses'] : response
+      end
     end
   end
 end
