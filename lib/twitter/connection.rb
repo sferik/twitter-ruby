@@ -13,8 +13,12 @@ module Twitter
     def connection(format=format, temp_api_endpoint=nil)
       options = {
         :headers => {
-          :accept => "application/#{format}",
-          :user_agent => user_agent,
+          'Accept' => "application/#{format}",
+          'User-Agent' => user_agent,
+          # Not sure what what the X-Phx (Phoenix?) header is for but it's
+          # required to access certain undocumented resources
+          # e.g. GET urls/resolve
+          'X-Phx' => 'true',
         },
         :proxy => proxy,
         :ssl => {:verify => false},

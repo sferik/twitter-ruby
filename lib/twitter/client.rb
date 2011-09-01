@@ -26,6 +26,7 @@ module Twitter
     require 'twitter/client/timeline'
     require 'twitter/client/trends'
     require 'twitter/client/tweets'
+    require 'twitter/client/urls'
     require 'twitter/client/user'
     require 'twitter/client/utils'
 
@@ -52,6 +53,7 @@ module Twitter
     include Twitter::Client::Timeline
     include Twitter::Client::Trends
     include Twitter::Client::Tweets
+    include Twitter::Client::Urls
     include Twitter::Client::User
   end
 end

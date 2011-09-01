@@ -82,7 +82,7 @@ describe Twitter::Search do
   context ".new" do
 
     before do
-      @client = Twitter::Search.new(:consumer_key => 'CK', :consumer_secret => 'CS', :oauth_token => 'OT', :oauth_token_secret => 'OS', :endpoint => 'https://search.twitter.com/')
+      @client = Twitter::Search.new
     end
 
     describe ".containing" do
