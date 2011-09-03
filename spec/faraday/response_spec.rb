@@ -49,4 +49,20 @@ describe Faraday::Response do
       end
     end
   end
+
+  context "when response status is 404 from lookup" do
+
+    before do
+      stub_get("users/lookup.json").
+        with(:query => {:screen_name => "not_on_twitter"}).
+        to_return(:status => 404, :body => fixture('no_user_matches.json'))
+    end
+
+    it "should raise Twitter::NotFound" do
+      lambda do
+        @client.users('not_on_twitter')
+      end.should raise_error(Twitter::NotFound)
+    end
+
+  end
 end
