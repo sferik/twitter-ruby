@@ -34,7 +34,7 @@ module Twitter
         builder.use Faraday::Request::Gateway, gateway if gateway
         builder.use Faraday::Response::RaiseHttp4xx
         case format.to_s.downcase
-        when 'json'
+        when 'json', 'phoenix'
           builder.use Faraday::Response::Mashify
           builder.use Faraday::Response::ParseJson
         when 'xml'

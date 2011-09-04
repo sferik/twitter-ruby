@@ -38,7 +38,7 @@ module Twitter
 
     def formatted_path(path, format)
       case format.to_s.downcase
-      when 'json', 'xml'
+      when 'json', 'phoenix', 'xml'
         [path, format].compact.join('.')
       when 'raw'
         [path, Twitter.format].compact.join('.')
