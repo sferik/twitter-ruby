@@ -10,13 +10,13 @@ describe Twitter::Client do
       describe ".trends" do
 
         before do
-          stub_get("trends.json").
+          stub_get("1/trends.json").
             to_return(:body => fixture("trends.json"), :headers => {:content_type => "application/json; charset=utf-8"})
         end
 
         it "should get the correct resource" do
           @client.trends
-          a_get("trends.json").
+          a_get("1/trends.json").
             should have_been_made
         end
 
@@ -30,13 +30,13 @@ describe Twitter::Client do
       describe ".trends_current" do
 
         before do
-          stub_get("trends/current.json").
+          stub_get("1/trends/current.json").
             to_return(:body => fixture("trends_current.json"), :headers => {:content_type => "application/json; charset=utf-8"})
         end
 
         it "should get the correct resource" do
           @client.trends_current
-          a_get("trends/current.json").
+          a_get("1/trends/current.json").
             should have_been_made
         end
 
@@ -50,14 +50,14 @@ describe Twitter::Client do
       describe ".trends_daily" do
 
         before do
-          stub_get("trends/daily.json").
+          stub_get("1/trends/daily.json").
             with(:query => {:date => "2010-10-24"}).
             to_return(:body => fixture("trends_daily.json"), :headers => {:content_type => "application/json; charset=utf-8"})
         end
 
         it "should get the correct resource" do
           @client.trends_daily(Date.parse("2010-10-24"))
-          a_get("trends/daily.json").
+          a_get("1/trends/daily.json").
             with(:query => {:date => "2010-10-24"}).
             should have_been_made
         end
@@ -72,14 +72,14 @@ describe Twitter::Client do
       describe ".trends_weekly" do
 
         before do
-          stub_get("trends/weekly.json").
+          stub_get("1/trends/weekly.json").
             with(:query => {:date => "2010-10-24"}).
             to_return(:body => fixture("trends_weekly.json"), :headers => {:content_type => "application/json; charset=utf-8"})
         end
 
         it "should get the correct resource" do
           @client.trends_weekly(Date.parse("2010-10-24"))
-          a_get("trends/weekly.json").
+          a_get("1/trends/weekly.json").
             with(:query => {:date => "2010-10-24"}).
             should have_been_made
         end

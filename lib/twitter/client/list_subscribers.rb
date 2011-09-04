@@ -38,7 +38,7 @@ module Twitter
         user = args.pop || get_screen_name
         merge_list_into_options!(list, options)
         merge_owner_into_options!(user, options)
-        response = get("lists/subscribers", options)
+        response = get("1/lists/subscribers", options)
         format.to_s.downcase == 'xml' ? response['users_list'] : response
       end
 
@@ -72,7 +72,7 @@ module Twitter
         user = args.pop || get_screen_name
         merge_list_into_options!(list, options)
         merge_owner_into_options!(user, options)
-        response = post("lists/subscribers/create", options)
+        response = post("1/lists/subscribers/create", options)
         format.to_s.downcase == 'xml' ? response['list'] : response
       end
 
@@ -106,7 +106,7 @@ module Twitter
         user = args.pop || get_screen_name
         merge_list_into_options!(list, options)
         merge_owner_into_options!(user, options)
-        response = post("lists/subscribers/destroy", options)
+        response = post("1/lists/subscribers/destroy", options)
         format.to_s.downcase == 'xml' ? response['list'] : response
       end
 
@@ -145,7 +145,7 @@ module Twitter
         merge_list_into_options!(list, options)
         merge_owner_into_options!(user, options)
         merge_user_into_options!(user_to_check, options)
-        get("lists/subscribers/show", options, :raw)
+        get("1/lists/subscribers/show", options, :raw)
         true
       rescue Twitter::NotFound, Twitter::Forbidden
         false

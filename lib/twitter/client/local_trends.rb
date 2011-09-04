@@ -17,7 +17,7 @@ module Twitter
       # @example Return the locations that Twitter has trending topic information for
       #   Twitter.trend_locations
       def trend_locations(options={})
-        response = get('trends/available', options)
+        response = get('1/trends/available', options)
         format.to_s.downcase == 'xml' ? response['locations'] : response
       end
 
@@ -34,7 +34,7 @@ module Twitter
       # @example Return the top 10 trending topics for San Francisco
       #   Twitter.local_trends(2487956)
       def local_trends(woeid=1, options={})
-        response = get("trends/#{woeid}", options)
+        response = get("1/trends/#{woeid}", options)
         format.to_s.downcase == 'xml' ? response['matching_trends'].first.trend : response.first.trends.map{|trend| trend.name}
       end
     end

@@ -10,13 +10,13 @@ describe Twitter::Client do
       describe ".configuration" do
 
         before do
-          stub_get("help/configuration.#{format}").
+          stub_get("1/help/configuration.#{format}").
             to_return(:body => fixture("configuration.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource" do
           @client.configuration
-          a_get("help/configuration.#{format}").
+          a_get("1/help/configuration.#{format}").
             should have_been_made
         end
 
@@ -30,13 +30,13 @@ describe Twitter::Client do
       describe ".languages" do
 
         before do
-          stub_get("help/languages.#{format}").
+          stub_get("1/help/languages.#{format}").
             to_return(:body => fixture("languages.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource" do
           @client.languages
-          a_get("help/languages.#{format}").
+          a_get("1/help/languages.#{format}").
             should have_been_made
         end
 

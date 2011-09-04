@@ -28,7 +28,7 @@ module Twitter
       def favorites(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
         user = args.first
-        response = get(['favorites', user].compact.join('/'), options)
+        response = get([1, 'favorites', user].compact.join('/'), options)
         format.to_s.downcase == 'xml' ? response['statuses'] : response
       end
 
@@ -46,7 +46,7 @@ module Twitter
       # @example Favorite the status with the ID 25938088801
       #   Twitter.favorite_create(25938088801)
       def favorite_create(id, options={})
-        response = post("favorites/create/#{id}", options)
+        response = post("1/favorites/create/#{id}", options)
         format.to_s.downcase == 'xml' ? response['status'] : response
       end
 
@@ -64,7 +64,7 @@ module Twitter
       # @example Un-favorite the status with the ID 25938088801
       #   Twitter.favorite_destroy(25938088801)
       def favorite_destroy(id, options={})
-        response = delete("favorites/destroy/#{id}", options)
+        response = delete("1/favorites/destroy/#{id}", options)
         format.to_s.downcase == 'xml' ? response['status'] : response
       end
     end

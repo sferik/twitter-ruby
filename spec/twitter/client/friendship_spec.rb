@@ -12,14 +12,14 @@ describe Twitter::Client do
         context "with :follow => true passed" do
 
           before do
-            stub_post("friendships/create.#{format}").
+            stub_post("1/friendships/create.#{format}").
               with(:body => {:screen_name => "sferik", :follow => "true"}).
               to_return(:body => fixture("sferik.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
 
           it "should get the correct resource" do
             @client.follow("sferik", :follow => true)
-            a_post("friendships/create.#{format}").
+            a_post("1/friendships/create.#{format}").
               with(:body => {:screen_name => "sferik", :follow => "true"}).
               should have_been_made
           end
@@ -34,14 +34,14 @@ describe Twitter::Client do
         context "with :follow => false passed" do
 
           before do
-            stub_post("friendships/create.#{format}").
+            stub_post("1/friendships/create.#{format}").
               with(:body => {:screen_name => "sferik"}).
               to_return(:body => fixture("sferik.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
 
           it "should get the correct resource" do
             @client.follow("sferik", :follow => false)
-            a_post("friendships/create.#{format}").
+            a_post("1/friendships/create.#{format}").
               with(:body => {:screen_name => "sferik"}).
               should have_been_made
           end
@@ -56,14 +56,14 @@ describe Twitter::Client do
         context "without :follow passed" do
 
           before do
-            stub_post("friendships/create.#{format}").
+            stub_post("1/friendships/create.#{format}").
               with(:body => {:screen_name => "sferik"}).
               to_return(:body => fixture("sferik.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
 
           it "should get the correct resource" do
             @client.follow("sferik")
-            a_post("friendships/create.#{format}").
+            a_post("1/friendships/create.#{format}").
               with(:body => {:screen_name => "sferik"}).
               should have_been_made
           end
@@ -80,14 +80,14 @@ describe Twitter::Client do
       describe ".unfollow" do
 
         before do
-          stub_delete("friendships/destroy.#{format}").
+          stub_delete("1/friendships/destroy.#{format}").
             with(:query => {:screen_name => "sferik"}).
             to_return(:body => fixture("sferik.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource" do
           @client.unfollow("sferik")
-          a_delete("friendships/destroy.#{format}").
+          a_delete("1/friendships/destroy.#{format}").
             with(:query => {:screen_name => "sferik"}).
             should have_been_made
         end
@@ -102,17 +102,17 @@ describe Twitter::Client do
       describe ".friendship?" do
 
         before do
-          stub_get("friendships/exists.#{format}").
+          stub_get("1/friendships/exists.#{format}").
             with(:query => {:user_a => "sferik", :user_b => "pengwynn"}).
             to_return(:body => fixture("true.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
-          stub_get("friendships/exists.#{format}").
+          stub_get("1/friendships/exists.#{format}").
             with(:query => {:user_a => "pengwynn", :user_b => "sferik"}).
             to_return(:body => fixture("false.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource" do
           @client.friendship?("sferik", "pengwynn")
-          a_get("friendships/exists.#{format}").
+          a_get("1/friendships/exists.#{format}").
             with(:query => {:user_a => "sferik", :user_b => "pengwynn"}).
             should have_been_made
         end
@@ -132,14 +132,14 @@ describe Twitter::Client do
       describe ".friendship" do
 
         before do
-          stub_get("friendships/show.#{format}").
+          stub_get("1/friendships/show.#{format}").
             with(:query => {:source_screen_name => "sferik", :target_screen_name => "pengwynn"}).
             to_return(:body => fixture("relationship.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource" do
           @client.friendship(:source_screen_name => "sferik", :target_screen_name => "pengwynn")
-          a_get("friendships/show.#{format}").
+          a_get("1/friendships/show.#{format}").
             with(:query => {:source_screen_name => "sferik", :target_screen_name => "pengwynn"}).
             should have_been_made
         end
@@ -154,14 +154,14 @@ describe Twitter::Client do
       describe ".friendships_incoming" do
 
         before do
-          stub_get("friendships/incoming.#{format}").
+          stub_get("1/friendships/incoming.#{format}").
             with(:query => {:cursor => "-1"}).
             to_return(:body => fixture("id_list.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource" do
           @client.friendships_incoming
-          a_get("friendships/incoming.#{format}").
+          a_get("1/friendships/incoming.#{format}").
             with(:query => {:cursor => "-1"}).
             should have_been_made
         end
@@ -177,14 +177,14 @@ describe Twitter::Client do
       describe ".friendships_outgoing" do
 
         before do
-          stub_get("friendships/outgoing.#{format}").
+          stub_get("1/friendships/outgoing.#{format}").
             with(:query => {:cursor => "-1"}).
             to_return(:body => fixture("id_list.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource" do
           @client.friendships_outgoing
-          a_get("friendships/outgoing.#{format}").
+          a_get("1/friendships/outgoing.#{format}").
             with(:query => {:cursor => "-1"}).
             should have_been_made
         end

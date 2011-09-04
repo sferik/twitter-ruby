@@ -10,14 +10,14 @@ describe Twitter::Client do
       describe ".report_spam" do
 
         before do
-          stub_post("report_spam.#{format}").
+          stub_post("1/report_spam.#{format}").
             with(:body => {:screen_name => "sferik"}).
             to_return(:body => fixture("sferik.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource" do
           @client.report_spam("sferik")
-          a_post("report_spam.#{format}").
+          a_post("1/report_spam.#{format}").
             with(:body => {:screen_name => "sferik"}).
             should have_been_made
         end

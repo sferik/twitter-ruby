@@ -10,13 +10,13 @@ describe Twitter::Client do
       describe ".trend_locations" do
 
         before do
-          stub_get("trends/available.#{format}").
+          stub_get("1/trends/available.#{format}").
             to_return(:body => fixture("locations.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource" do
           @client.trend_locations
-          a_get("trends/available.#{format}").
+          a_get("1/trends/available.#{format}").
             should have_been_made
         end
 
@@ -33,13 +33,13 @@ describe Twitter::Client do
         context "with woeid passed" do
 
           before do
-            stub_get("trends/2487956.#{format}").
+            stub_get("1/trends/2487956.#{format}").
               to_return(:body => fixture("matching_trends.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
 
           it "should get the correct resource" do
             @client.local_trends(2487956)
-            a_get("trends/2487956.#{format}").
+            a_get("1/trends/2487956.#{format}").
               should have_been_made
           end
 
@@ -54,13 +54,13 @@ describe Twitter::Client do
         context "without arguments passed" do
 
           before do
-            stub_get("trends/1.#{format}").
+            stub_get("1/trends/1.#{format}").
               to_return(:body => fixture("matching_trends.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
 
           it "should get the correct resource" do
             @client.local_trends
-            a_get("trends/1.#{format}").
+            a_get("1/trends/1.#{format}").
               should have_been_made
           end
 

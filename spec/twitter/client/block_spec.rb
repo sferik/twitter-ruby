@@ -10,14 +10,14 @@ describe Twitter::Client do
       describe ".block" do
 
         before do
-          stub_post("blocks/create.#{format}").
+          stub_post("1/blocks/create.#{format}").
             with(:body => {:screen_name => "sferik"}).
             to_return(:body => fixture("sferik.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource" do
           @client.block("sferik")
-          a_post("blocks/create.#{format}").
+          a_post("1/blocks/create.#{format}").
             should have_been_made
         end
 
@@ -31,14 +31,14 @@ describe Twitter::Client do
       describe ".unblock" do
 
         before do
-          stub_delete("blocks/destroy.#{format}").
+          stub_delete("1/blocks/destroy.#{format}").
             with(:query => {:screen_name => "sferik"}).
             to_return(:body => fixture("sferik.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource" do
           @client.unblock("sferik")
-          a_delete("blocks/destroy.#{format}").
+          a_delete("1/blocks/destroy.#{format}").
             with(:query => {:screen_name => "sferik"}).
             should have_been_made
         end
@@ -53,17 +53,17 @@ describe Twitter::Client do
       describe ".block?" do
 
         before do
-          stub_get("blocks/exists.json").
+          stub_get("1/blocks/exists.json").
             with(:query => {:screen_name => "sferik"}).
             to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-          stub_get("blocks/exists.json").
+          stub_get("1/blocks/exists.json").
             with(:query => {:screen_name => "pengwynn"}).
             to_return(:body => fixture("not_found.json"), :status => 404, :headers => {:content_type => "application/json; charset=utf-8"})
         end
 
         it "should get the correct resource" do
           @client.block?("sferik")
-          a_get("blocks/exists.json").
+          a_get("1/blocks/exists.json").
             with(:query => {:screen_name => "sferik"}).
             should have_been_made
         end
@@ -83,13 +83,13 @@ describe Twitter::Client do
       describe ".blocking" do
 
         before do
-          stub_get("blocks/blocking.#{format}").
+          stub_get("1/blocks/blocking.#{format}").
             to_return(:body => fixture("users.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource" do
           @client.blocking
-          a_get("blocks/blocking.#{format}").
+          a_get("1/blocks/blocking.#{format}").
             should have_been_made
         end
 
@@ -104,13 +104,13 @@ describe Twitter::Client do
       describe ".blocked_ids" do
 
         before do
-          stub_get("blocks/blocking/ids.#{format}").
+          stub_get("1/blocks/blocking/ids.#{format}").
             to_return(:body => fixture("ids.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource" do
           @client.blocked_ids
-          a_get("blocks/blocking/ids.#{format}").
+          a_get("1/blocks/blocking/ids.#{format}").
             should have_been_made
         end
 

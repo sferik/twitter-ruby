@@ -14,7 +14,7 @@ module Twitter
       # @example Return the authenticated user's saved search queries
       #   Twitter.saved_searches
       def saved_searches(options={})
-        response = get('saved_searches', options)
+        response = get('1/saved_searches', options)
         format.to_s.downcase == 'xml' ? response['saved_searches'] : response
       end
 
@@ -31,7 +31,7 @@ module Twitter
       # @example Retrieve the data for a saved search owned by the authenticating user with the ID 16129012
       #   Twitter.saved_search(16129012)
       def saved_search(id, options={})
-        response = get("saved_searches/show/#{id}", options)
+        response = get("1/saved_searches/show/#{id}", options)
         format.to_s.downcase == 'xml' ? response['saved_search'] : response
       end
 
@@ -48,7 +48,7 @@ module Twitter
       # @example Create a saved search for the authenticated user with the query "twitter"
       #   Twitter.saved_search_create("twitter")
       def saved_search_create(query, options={})
-        response = post('saved_searches/create', options.merge(:query => query))
+        response = post('1/saved_searches/create', options.merge(:query => query))
         format.to_s.downcase == 'xml' ? response['saved_search'] : response
       end
 
@@ -66,7 +66,7 @@ module Twitter
       # @example Destroys a saved search for the authenticated user with the ID 16129012
       #   Twitter.saved_search_destroy(16129012)
       def saved_search_destroy(id, options={})
-        response = delete("saved_searches/destroy/#{id}", options)
+        response = delete("1/saved_searches/destroy/#{id}", options)
         format.to_s.downcase == 'xml' ? response['saved_search'] : response
       end
     end

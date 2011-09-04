@@ -20,7 +20,7 @@ module Twitter
       #   Twitter.block(7505382)  # Same as above
       def block(user, options={})
         merge_user_into_options!(user, options)
-        response = post('blocks/create', options)
+        response = post('1/blocks/create', options)
         format.to_s.downcase == 'xml' ? response['user'] : response
       end
 
@@ -40,7 +40,7 @@ module Twitter
       #   Twitter.unblock(7505382)  # Same as above
       def unblock(user, options={})
         merge_user_into_options!(user, options)
-        response = delete('blocks/destroy', options)
+        response = delete('1/blocks/destroy', options)
         format.to_s.downcase == 'xml' ? response['user'] : response
       end
 
@@ -57,7 +57,7 @@ module Twitter
       #   Twitter.block?(7505382)  # Same as above
       def block?(user, options={})
         merge_user_into_options!(user, options)
-        get('blocks/exists', options, :raw)
+        get('1/blocks/exists', options, :raw)
         true
       rescue Twitter::NotFound
         false
@@ -94,7 +94,7 @@ module Twitter
       # @example Return an array of user objects that the authenticating user is blocking
       #   Twitter.blocking
       def blocking(options={})
-        response = get('blocks/blocking', options)
+        response = get('1/blocks/blocking', options)
         format.to_s.downcase == 'xml' ? response['users'] : response
       end
 
@@ -110,7 +110,7 @@ module Twitter
       # @example Return an array of numeric user ids the authenticating user is blocking
       #   Twitter.blocking_ids
       def blocked_ids(options={})
-        response = get('blocks/blocking/ids', options)
+        response = get('1/blocks/blocking/ids', options)
         format.to_s.downcase == 'xml' ? response['ids']['id'].map{|id| id.to_i} : response
       end
     end

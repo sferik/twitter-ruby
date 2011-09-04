@@ -23,7 +23,7 @@ module Twitter
       # @example Return an array of places near the IP address 74.125.19.104
       #   Twitter.places_nearby(:ip => "74.125.19.104")
       def places_nearby(options={})
-        get('geo/search', options, :json)['result']['places']
+        get('1/geo/search', options, :json)['result']['places']
       end
       alias :geo_search :places_nearby
 
@@ -44,7 +44,7 @@ module Twitter
       # @example Return an array of places similar to Twitter HQ
       #   Twitter.places_similar(:lat => "37.7821120598956", :long => "-122.400612831116", :name => "Twitter HQ")
       def places_similar(options={})
-        get('geo/similar_places', options, :json)['result']
+        get('1/geo/similar_places', options, :json)['result']
       end
 
       # Searches for up to 20 places that can be used as a place_id
@@ -64,7 +64,7 @@ module Twitter
       # @example Return an array of places within the specified region
       #   Twitter.reverse_geocode(:lat => "37.7821120598956", :long => "-122.400612831116")
       def reverse_geocode(options={})
-        get('geo/reverse_geocode', options, :json)['result']['places']
+        get('1/geo/reverse_geocode', options, :json)['result']['places']
       end
 
       # Returns all the information about a known place
@@ -79,7 +79,7 @@ module Twitter
       # @example Return all the information about Twitter HQ
       #   Twitter.place("247f43d441defc03")
       def place(place_id, options={})
-        get("geo/id/#{place_id}", options, :json)
+        get("1/geo/id/#{place_id}", options, :json)
       end
 
       # Creates a new place at the given latitude and longitude
@@ -99,7 +99,7 @@ module Twitter
       # @example Create a new place
       #   Twitter.place_create(:name => "@sferik's Apartment", :token => "22ff5b1f7159032cf69218c4d8bb78bc", :contained_within => "41bcb736f84a799e", :lat => "37.783699", :long => "-122.393581")
       def place_create(options={})
-        post('geo/place', options, :json)
+        post('1/geo/place', options, :json)
       end
     end
   end

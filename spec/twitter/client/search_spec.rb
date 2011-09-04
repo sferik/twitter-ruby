@@ -10,14 +10,14 @@ describe Twitter::Client do
       describe ".image_facets" do
 
         before do
-          stub_get("search/image_facets.#{format}").
+          stub_get("i/search/image_facets.#{format}").
             with(:query => {:q => "twitter"}).
             to_return(:body => fixture("image_facets.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource" do
           @client.image_facets('twitter')
-          a_get("search/image_facets.#{format}").
+          a_get("i/search/image_facets.#{format}").
             with(:query => {:q => "twitter"}).
             should have_been_made
         end
@@ -32,14 +32,14 @@ describe Twitter::Client do
       describe ".video_facets" do
 
         before do
-          stub_get("search/video_facets.#{format}").
+          stub_get("i/search/video_facets.#{format}").
             with(:query => {:q => "twitter"}).
             to_return(:body => fixture("video_facets.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource" do
           @client.video_facets('twitter')
-          a_get("search/video_facets.#{format}").
+          a_get("i/search/video_facets.#{format}").
             with(:query => {:q => "twitter"}).
             should have_been_made
         end

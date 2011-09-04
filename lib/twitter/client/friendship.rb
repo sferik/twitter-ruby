@@ -21,7 +21,7 @@ module Twitter
         # Twitter always turns on notifications if the "follow" option is present, even if it's set to false
         # so only send follow if it's true
         options.merge!(:follow => true) if options.delete(:follow)
-        response = post('friendships/create', options)
+        response = post('1/friendships/create', options)
         format.to_s.downcase == 'xml' ? response['user'] : response
       end
       alias :friendship_create :follow
@@ -41,7 +41,7 @@ module Twitter
       #   Twitter.unfollow("sferik")
       def unfollow(user, options={})
         merge_user_into_options!(user, options)
-        response = delete('friendships/destroy', options)
+        response = delete('1/friendships/destroy', options)
         format.to_s.downcase == 'xml' ? response['user'] : response
       end
       alias :friendship_destroy :unfollow
@@ -61,7 +61,7 @@ module Twitter
       # @example Return true if @sferik follows @pengwynn
       #   Twitter.friendship?("sferik", "pengwynn")
       def friendship?(user_a, user_b, options={})
-        response = get('friendships/exists', options.merge(:user_a => user_a, :user_b => user_b))
+        response = get('1/friendships/exists', options.merge(:user_a => user_a, :user_b => user_b))
         format.to_s.downcase == 'xml' ? !%w(0 false).include?(response['friends']) : response
       end
 
@@ -101,7 +101,7 @@ module Twitter
       #   Twitter.friendship(:source_screen_name => "sferik", :target_screen_name => "pengwynn")
       #   Twitter.friendship(:source_id => 7505382, :target_id => 14100886)
       def friendship(options={})
-        get('friendships/show', options)['relationship']
+        get('1/friendships/show', options)['relationship']
       end
       alias :friendship_show :friendship
 
@@ -119,7 +119,7 @@ module Twitter
       #   Twitter.friendships_incoming
       def friendships_incoming(options={})
         options = {:cursor => -1}.merge(options)
-        response = get('friendships/incoming', options)
+        response = get('1/friendships/incoming', options)
         format.to_s.downcase == 'xml' ? Hashie::Mash.new(:ids => response['id_list']['ids']['id'].map{|id| id.to_i}) : response
       end
 
@@ -137,7 +137,7 @@ module Twitter
       #   Twitter.friendships_outgoing
       def friendships_outgoing(options={})
         options = {:cursor => -1}.merge(options)
-        response = get('friendships/outgoing', options)
+        response = get('1/friendships/outgoing', options)
         format.to_s.downcase == 'xml' ? Hashie::Mash.new(:ids => response['id_list']['ids']['id'].map{|id| id.to_i}) : response
       end
     end

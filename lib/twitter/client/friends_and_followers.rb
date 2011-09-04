@@ -32,7 +32,7 @@ module Twitter
         options.merge!(args.last.is_a?(Hash) ? args.pop : {})
         user = args.first
         merge_user_into_options!(user, options)
-        response = get('friends/ids', options)
+        response = get('1/friends/ids', options)
         format.to_s.downcase == 'xml' ? Hashie::Mash.new(:ids => response['id_list']['ids']['id'].map{|id| id.to_i}) : response
       end
 
@@ -66,7 +66,7 @@ module Twitter
         options.merge!(args.last.is_a?(Hash) ? args.pop : {})
         user = args.first
         merge_user_into_options!(user, options)
-        response = get('followers/ids', options)
+        response = get('1/followers/ids', options)
         format.to_s.downcase == 'xml' ? Hashie::Mash.new(:ids => response['id_list']['ids']['id'].map{|id| id.to_i}) : response
       end
     end

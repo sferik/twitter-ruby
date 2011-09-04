@@ -10,13 +10,13 @@ describe Twitter::Client do
       describe ".saved_searches" do
 
         before do
-          stub_get("saved_searches.#{format}").
+          stub_get("1/saved_searches.#{format}").
             to_return(:body => fixture("saved_searches.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource" do
           @client.saved_searches
-          a_get("saved_searches.#{format}").
+          a_get("1/saved_searches.#{format}").
             should have_been_made
         end
 
@@ -31,13 +31,13 @@ describe Twitter::Client do
       describe ".saved_search" do
 
         before do
-          stub_get("saved_searches/show/16129012.#{format}").
+          stub_get("1/saved_searches/show/16129012.#{format}").
             to_return(:body => fixture("saved_search.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource" do
           @client.saved_search(16129012)
-          a_get("saved_searches/show/16129012.#{format}").
+          a_get("1/saved_searches/show/16129012.#{format}").
             should have_been_made
         end
 
@@ -51,14 +51,14 @@ describe Twitter::Client do
       describe ".saved_search_create" do
 
         before do
-          stub_post("saved_searches/create.#{format}").
+          stub_post("1/saved_searches/create.#{format}").
             with(:body => {:query => "twitter"}).
             to_return(:body => fixture("saved_search.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource" do
           @client.saved_search_create("twitter")
-          a_post("saved_searches/create.#{format}").
+          a_post("1/saved_searches/create.#{format}").
             with(:body => {:query => "twitter"}).
             should have_been_made
         end
@@ -73,13 +73,13 @@ describe Twitter::Client do
       describe ".saved_search_destroy" do
 
         before do
-          stub_delete("saved_searches/destroy/16129012.#{format}").
+          stub_delete("1/saved_searches/destroy/16129012.#{format}").
             to_return(:body => fixture("saved_search.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource" do
           @client.saved_search_destroy(16129012)
-          a_delete("saved_searches/destroy/16129012.#{format}").
+          a_delete("1/saved_searches/destroy/16129012.#{format}").
             should have_been_made
         end
 

@@ -12,13 +12,13 @@ describe Twitter::Client do
         context "with a screen name passed" do
 
           before do
-            stub_get("favorites/sferik.#{format}").
+            stub_get("1/favorites/sferik.#{format}").
               to_return(:body => fixture("favorites.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
 
           it "should get the correct resource" do
             @client.favorites("sferik")
-            a_get("favorites/sferik.#{format}").
+            a_get("1/favorites/sferik.#{format}").
               should have_been_made
           end
 
@@ -33,13 +33,13 @@ describe Twitter::Client do
         context "without arguments passed" do
 
           before do
-            stub_get("favorites.#{format}").
+            stub_get("1/favorites.#{format}").
               to_return(:body => fixture("favorites.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
 
           it "should get the correct resource" do
             @client.favorites
-            a_get("favorites.#{format}").
+            a_get("1/favorites.#{format}").
               should have_been_made
           end
 
@@ -56,13 +56,13 @@ describe Twitter::Client do
       describe ".favorite_create" do
 
         before do
-          stub_post("favorites/create/25938088801.#{format}").
+          stub_post("1/favorites/create/25938088801.#{format}").
             to_return(:body => fixture("status.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource" do
           @client.favorite_create(25938088801)
-          a_post("favorites/create/25938088801.#{format}").
+          a_post("1/favorites/create/25938088801.#{format}").
             should have_been_made
         end
 
@@ -76,13 +76,13 @@ describe Twitter::Client do
       describe ".favorite_destroy" do
 
         before do
-          stub_delete("favorites/destroy/25938088801.#{format}").
+          stub_delete("1/favorites/destroy/25938088801.#{format}").
             to_return(:body => fixture("status.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource" do
           @client.favorite_destroy(25938088801)
-          a_delete("favorites/destroy/25938088801.#{format}").
+          a_delete("1/favorites/destroy/25938088801.#{format}").
             should have_been_made
         end
 

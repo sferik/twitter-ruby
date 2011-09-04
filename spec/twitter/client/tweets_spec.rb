@@ -10,13 +10,13 @@ describe Twitter::Client do
       describe ".status" do
 
         before do
-          stub_get("statuses/show/25938088801.#{format}").
+          stub_get("1/statuses/show/25938088801.#{format}").
             to_return(:body => fixture("status.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource" do
           @client.status(25938088801)
-          a_get("statuses/show/25938088801.#{format}").
+          a_get("1/statuses/show/25938088801.#{format}").
             should have_been_made
         end
 
@@ -30,14 +30,14 @@ describe Twitter::Client do
       describe ".update" do
 
         before do
-          stub_post("statuses/update.#{format}").
+          stub_post("1/statuses/update.#{format}").
             with(:body => {:status => "@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!"}).
             to_return(:body => fixture("status.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource" do
           @client.update("@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!")
-          a_post("statuses/update.#{format}").
+          a_post("1/statuses/update.#{format}").
             with(:body => {:status => "@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!"}).
             should have_been_made
         end
@@ -52,13 +52,13 @@ describe Twitter::Client do
       describe ".update_with_media" do
 
         before do
-          stub_post("statuses/update_with_media.#{format}", Twitter.media_endpoint).
+          stub_post("1/statuses/update_with_media.#{format}", Twitter.media_endpoint).
             to_return(:body => fixture("status_with_media.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource" do
           @client.update_with_media("You always have options", fixture("me.jpeg"))
-          a_post("statuses/update_with_media.#{format}", Twitter.media_endpoint).
+          a_post("1/statuses/update_with_media.#{format}", Twitter.media_endpoint).
             should have_been_made
         end
 
@@ -77,13 +77,13 @@ describe Twitter::Client do
       describe ".status_destroy" do
 
         before do
-          stub_delete("statuses/destroy/25938088801.#{format}").
+          stub_delete("1/statuses/destroy/25938088801.#{format}").
             to_return(:body => fixture("status.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource" do
           @client.status_destroy(25938088801)
-          a_delete("statuses/destroy/25938088801.#{format}").
+          a_delete("1/statuses/destroy/25938088801.#{format}").
             should have_been_made
         end
 
@@ -97,13 +97,13 @@ describe Twitter::Client do
       describe ".retweet" do
 
         before do
-          stub_post("statuses/retweet/28561922516.#{format}").
+          stub_post("1/statuses/retweet/28561922516.#{format}").
             to_return(:body => fixture("retweet.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource" do
           @client.retweet(28561922516)
-          a_post("statuses/retweet/28561922516.#{format}").
+          a_post("1/statuses/retweet/28561922516.#{format}").
             should have_been_made
         end
 
@@ -117,13 +117,13 @@ describe Twitter::Client do
       describe ".retweets" do
 
         before do
-          stub_get("statuses/retweets/28561922516.#{format}").
+          stub_get("1/statuses/retweets/28561922516.#{format}").
             to_return(:body => fixture("retweets.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource" do
           @client.retweets(28561922516)
-          a_get("statuses/retweets/28561922516.#{format}").
+          a_get("1/statuses/retweets/28561922516.#{format}").
             should have_been_made
         end
 
@@ -138,13 +138,13 @@ describe Twitter::Client do
       describe ".retweeters_of" do
 
         before do
-          stub_get("statuses/27467028175/retweeted_by.#{format}").
+          stub_get("1/statuses/27467028175/retweeted_by.#{format}").
             to_return(:body => fixture("retweeters_of.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource" do
           @client.retweeters_of(27467028175)
-          a_get("statuses/27467028175/retweeted_by.#{format}").
+          a_get("1/statuses/27467028175/retweeted_by.#{format}").
             should have_been_made
         end
 

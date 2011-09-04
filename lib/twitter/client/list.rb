@@ -35,7 +35,7 @@ module Twitter
         if screen_name = args.pop
           warn "#{caller.first}: [DEPRECATION] Calling #list_create with a screen_name is deprecated and will be removed in the next major version. Please omit the screen_name argument."
         end
-        response = post("lists/create", options.merge(:name => name))
+        response = post("1/lists/create", options.merge(:name => name))
         format.to_s.downcase == 'xml' ? response['list'] : response
       end
 
@@ -74,7 +74,7 @@ module Twitter
         user = args.pop || get_screen_name
         merge_list_into_options!(list, options)
         merge_owner_into_options!(user, options)
-        response = post("lists/update", options)
+        response = post("1/lists/update", options)
         format.to_s.downcase == 'xml' ? response['list'] : response
       end
 
@@ -105,7 +105,7 @@ module Twitter
         options = {:cursor => -1}.merge(args.last.is_a?(Hash) ? args.pop : {})
         user = args.first
         merge_user_into_options!(user, options) if user
-        response = get("lists", options)
+        response = get("1/lists", options)
         format.to_s.downcase == 'xml' ? response['lists_list'] : response
       end
 
@@ -141,7 +141,7 @@ module Twitter
         user = args.pop || get_screen_name
         merge_list_into_options!(list, options)
         merge_owner_into_options!(user, options)
-        response = get("lists/show", options)
+        response = get("1/lists/show", options)
         format.to_s.downcase == 'xml' ? response['list'] : response
       end
 
@@ -177,7 +177,7 @@ module Twitter
         user = args.pop || get_screen_name
         merge_list_into_options!(list, options)
         merge_owner_into_options!(user, options)
-        response = delete("lists/destroy", options)
+        response = delete("1/lists/destroy", options)
         format.to_s.downcase == 'xml' ? response['list'] : response
       end
 
@@ -222,7 +222,7 @@ module Twitter
         user = args.pop || get_screen_name
         merge_list_into_options!(list, options)
         merge_owner_into_options!(user, options)
-        response = get("lists/statuses", options)
+        response = get("1/lists/statuses", options)
         format.to_s.downcase == 'xml' ? response['statuses'] : response
       end
 
@@ -252,7 +252,7 @@ module Twitter
         options = {:cursor => -1}.merge(args.last.is_a?(Hash) ? args.pop : {})
         user = args.pop || get_screen_name
         merge_user_into_options!(user, options)
-        response = get("lists/memberships", options)
+        response = get("1/lists/memberships", options)
         format.to_s.downcase == 'xml' ? response['lists_list'] : response
       end
 
@@ -282,7 +282,7 @@ module Twitter
         options = {:cursor => -1}.merge(args.last.is_a?(Hash) ? args.pop : {})
         user = args.pop || get_screen_name
         merge_user_into_options!(user, options)
-        response = get("lists/subscriptions", options)
+        response = get("1/lists/subscriptions", options)
         format.to_s.downcase == 'xml' ? response['lists_list'] : response
       end
     end

@@ -10,13 +10,13 @@ describe Twitter::Client do
       describe ".direct_messages" do
 
         before do
-          stub_get("direct_messages.#{format}").
+          stub_get("1/direct_messages.#{format}").
             to_return(:body => fixture("direct_messages.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource" do
           @client.direct_messages
-          a_get("direct_messages.#{format}").
+          a_get("1/direct_messages.#{format}").
             should have_been_made
         end
 
@@ -31,13 +31,13 @@ describe Twitter::Client do
       describe ".direct_messages_sent" do
 
         before do
-          stub_get("direct_messages/sent.#{format}").
+          stub_get("1/direct_messages/sent.#{format}").
             to_return(:body => fixture("direct_messages.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource" do
           @client.direct_messages_sent
-          a_get("direct_messages/sent.#{format}").
+          a_get("1/direct_messages/sent.#{format}").
             should have_been_made
         end
 
@@ -52,14 +52,14 @@ describe Twitter::Client do
       describe ".direct_message_create" do
 
         before do
-          stub_post("direct_messages/new.#{format}").
+          stub_post("1/direct_messages/new.#{format}").
             with(:body => {:screen_name => "pengwynn", :text => "Creating a fixture for the Twitter gem"}).
             to_return(:body => fixture("direct_message.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource" do
           @client.direct_message_create("pengwynn", "Creating a fixture for the Twitter gem")
-          a_post("direct_messages/new.#{format}").
+          a_post("1/direct_messages/new.#{format}").
             with(:body => {:screen_name => "pengwynn", :text => "Creating a fixture for the Twitter gem"}).
             should have_been_made
         end
@@ -74,13 +74,13 @@ describe Twitter::Client do
       describe ".direct_message_destroy" do
 
         before do
-          stub_delete("direct_messages/destroy/1825785544.#{format}").
+          stub_delete("1/direct_messages/destroy/1825785544.#{format}").
             to_return(:body => fixture("direct_message.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource" do
           @client.direct_message_destroy(1825785544)
-          a_delete("direct_messages/destroy/1825785544.#{format}").
+          a_delete("1/direct_messages/destroy/1825785544.#{format}").
             should have_been_made
         end
 

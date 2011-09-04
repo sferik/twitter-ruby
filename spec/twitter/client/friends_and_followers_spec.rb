@@ -12,14 +12,14 @@ describe Twitter::Client do
         context "with a screen_name passed" do
 
           before do
-            stub_get("friends/ids.#{format}").
+            stub_get("1/friends/ids.#{format}").
               with(:query => {:screen_name => "sferik", :cursor => "-1"}).
               to_return(:body => fixture("id_list.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
 
           it "should get the correct resource" do
             @client.friend_ids("sferik")
-            a_get("friends/ids.#{format}").
+            a_get("1/friends/ids.#{format}").
               with(:query => {:screen_name => "sferik", :cursor => "-1"}).
               should have_been_made
           end
@@ -35,14 +35,14 @@ describe Twitter::Client do
         context "without arguments passed" do
 
           before do
-            stub_get("friends/ids.#{format}").
+            stub_get("1/friends/ids.#{format}").
               with(:query => {:cursor => "-1"}).
               to_return(:body => fixture("id_list.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
 
           it "should get the correct resource" do
             @client.friend_ids
-            a_get("friends/ids.#{format}").
+            a_get("1/friends/ids.#{format}").
               with(:query => {:cursor => "-1"}).
               should have_been_made
           end
@@ -62,14 +62,14 @@ describe Twitter::Client do
         context "with a screen_name passed" do
 
           before do
-            stub_get("followers/ids.#{format}").
+            stub_get("1/followers/ids.#{format}").
               with(:query => {:screen_name => "sferik", :cursor => "-1"}).
               to_return(:body => fixture("id_list.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
 
           it "should get the correct resource" do
             @client.follower_ids("sferik")
-            a_get("followers/ids.#{format}").
+            a_get("1/followers/ids.#{format}").
               with(:query => {:screen_name => "sferik", :cursor => "-1"}).
               should have_been_made
           end
@@ -85,14 +85,14 @@ describe Twitter::Client do
         context "without arguments passed" do
 
           before do
-            stub_get("followers/ids.#{format}").
+            stub_get("1/followers/ids.#{format}").
               with(:query => {:cursor => "-1"}).
               to_return(:body => fixture("id_list.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
 
           it "should get the correct resource" do
             @client.follower_ids
-            a_get("followers/ids.#{format}").
+            a_get("1/followers/ids.#{format}").
               with(:query => {:cursor => "-1"}).
               should have_been_made
           end

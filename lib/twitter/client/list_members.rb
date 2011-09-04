@@ -39,7 +39,7 @@ module Twitter
         user = args.pop || get_screen_name
         merge_list_into_options!(list, options)
         merge_owner_into_options!(user, options)
-        response = get("lists/members", options)
+        response = get("1/lists/members", options)
         format.to_s.downcase == 'xml' ? response['users_list'] : response
       end
 
@@ -78,7 +78,7 @@ module Twitter
         merge_list_into_options!(list, options)
         merge_owner_into_options!(user, options)
         merge_user_into_options!(user_to_add, options)
-        response = post("lists/members/create", options)
+        response = post("1/lists/members/create", options)
         format.to_s.downcase == 'xml' ? response['list'] : response
       end
 
@@ -119,7 +119,7 @@ module Twitter
         merge_list_into_options!(list, options)
         merge_owner_into_options!(user, options)
         merge_users_into_options!(Array(users_to_add), options)
-        response = post("lists/members/create_all", options)
+        response = post("1/lists/members/create_all", options)
         format.to_s.downcase == 'xml' ? response['list'] : response
       end
 
@@ -158,7 +158,7 @@ module Twitter
         merge_list_into_options!(list, options)
         merge_owner_into_options!(user, options)
         merge_user_into_options!(user_to_remove, options)
-        response = post("lists/members/destroy", options)
+        response = post("1/lists/members/destroy", options)
         format.to_s.downcase == 'xml' ? response['list'] : response
       end
 
@@ -193,7 +193,7 @@ module Twitter
         merge_list_into_options!(list, options)
         merge_owner_into_options!(user, options)
         merge_user_into_options!(user_to_check, options)
-        get("lists/members/show", options, :raw)
+        get("1/lists/members/show", options, :raw)
         true
       rescue Twitter::NotFound, Twitter::Forbidden
         false

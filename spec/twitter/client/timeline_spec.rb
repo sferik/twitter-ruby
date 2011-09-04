@@ -10,13 +10,13 @@ describe Twitter::Client do
       describe ".public_timeline" do
 
         before do
-          stub_get("statuses/public_timeline.#{format}").
+          stub_get("1/statuses/public_timeline.#{format}").
             to_return(:body => fixture("statuses.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource" do
           @client.public_timeline
-          a_get("statuses/public_timeline.#{format}").
+          a_get("1/statuses/public_timeline.#{format}").
             should have_been_made
         end
 
@@ -31,13 +31,13 @@ describe Twitter::Client do
       describe ".home_timeline" do
 
         before do
-          stub_get("statuses/home_timeline.#{format}").
+          stub_get("1/statuses/home_timeline.#{format}").
             to_return(:body => fixture("statuses.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource" do
           @client.home_timeline
-          a_get("statuses/home_timeline.#{format}").
+          a_get("1/statuses/home_timeline.#{format}").
             should have_been_made
         end
 
@@ -52,13 +52,13 @@ describe Twitter::Client do
       describe ".friends_timeline" do
 
         before do
-          stub_get("statuses/home_timeline.#{format}").
+          stub_get("1/statuses/home_timeline.#{format}").
             to_return(:body => fixture("statuses.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should return the 20 most recent statuses posted by the authenticating user and the user's they follow" do
           @client.friends_timeline
-          a_get("statuses/home_timeline.#{format}").
+          a_get("1/statuses/home_timeline.#{format}").
             should have_been_made
         end
 
@@ -75,14 +75,14 @@ describe Twitter::Client do
         context "with screen name passed" do
 
           before do
-            stub_get("statuses/user_timeline.#{format}").
+            stub_get("1/statuses/user_timeline.#{format}").
               with(:query => {:screen_name => "sferik"}).
               to_return(:body => fixture("statuses.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
 
           it "should get the correct resource" do
             @client.user_timeline("sferik")
-            a_get("statuses/user_timeline.#{format}").
+            a_get("1/statuses/user_timeline.#{format}").
               with(:query => {:screen_name => "sferik"}).
               should have_been_made
           end
@@ -99,14 +99,14 @@ describe Twitter::Client do
 
           before do
             @client.stub!(:get_screen_name).and_return('sferik')
-            stub_get("statuses/user_timeline.#{format}").
+            stub_get("1/statuses/user_timeline.#{format}").
               with(:query => {:screen_name => "sferik"}).
               to_return(:body => fixture("statuses.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
 
           it "should get the correct resource" do
             @client.user_timeline
-            a_get("statuses/user_timeline.#{format}").
+            a_get("1/statuses/user_timeline.#{format}").
               with(:query => {:screen_name => "sferik"}).
               should have_been_made
           end
@@ -118,13 +118,13 @@ describe Twitter::Client do
       describe ".mentions" do
 
         before do
-          stub_get("statuses/mentions.#{format}").
+          stub_get("1/statuses/mentions.#{format}").
             to_return(:body => fixture("statuses.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource" do
           @client.mentions
-          a_get("statuses/mentions.#{format}").
+          a_get("1/statuses/mentions.#{format}").
             should have_been_made
         end
 
@@ -139,13 +139,13 @@ describe Twitter::Client do
       describe ".retweeted_by_me" do
 
         before do
-          stub_get("statuses/retweeted_by_me.#{format}").
+          stub_get("1/statuses/retweeted_by_me.#{format}").
             to_return(:body => fixture("statuses.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource" do
           @client.retweeted_by_me
-          a_get("statuses/retweeted_by_me.#{format}").
+          a_get("1/statuses/retweeted_by_me.#{format}").
             should have_been_made
         end
 
@@ -160,13 +160,13 @@ describe Twitter::Client do
       describe ".retweeted_to_me" do
 
         before do
-          stub_get("statuses/retweeted_to_me.#{format}").
+          stub_get("1/statuses/retweeted_to_me.#{format}").
             to_return(:body => fixture("statuses.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource" do
           @client.retweeted_to_me
-          a_get("statuses/retweeted_to_me.#{format}").
+          a_get("1/statuses/retweeted_to_me.#{format}").
             should have_been_made
         end
 
@@ -181,13 +181,13 @@ describe Twitter::Client do
       describe ".retweets_of_me" do
 
         before do
-          stub_get("statuses/retweets_of_me.#{format}").
+          stub_get("1/statuses/retweets_of_me.#{format}").
             to_return(:body => fixture("statuses.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
         end
 
         it "should get the correct resource" do
           @client.retweets_of_me
-          a_get("statuses/retweets_of_me.#{format}").
+          a_get("1/statuses/retweets_of_me.#{format}").
             should have_been_made
         end
 
@@ -203,14 +203,14 @@ describe Twitter::Client do
         context "with screen name passed" do
 
           before do
-            stub_get("statuses/media_timeline.#{format}").
+            stub_get("1/statuses/media_timeline.#{format}").
               with(:query => {:screen_name => "sferik"}).
               to_return(:body => fixture("media_timeline.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
 
           it "should get the correct resource" do
             @client.media_timeline("sferik")
-            a_get("statuses/media_timeline.#{format}").
+            a_get("1/statuses/media_timeline.#{format}").
               with(:query => {:screen_name => "sferik"}).
               should have_been_made
           end
@@ -227,14 +227,14 @@ describe Twitter::Client do
 
           before do
             @client.stub!(:get_screen_name).and_return('sferik')
-            stub_get("statuses/media_timeline.#{format}").
+            stub_get("1/statuses/media_timeline.#{format}").
               with(:query => {:screen_name => "sferik"}).
               to_return(:body => fixture("media_timeline.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
           end
 
           it "should get the correct resource" do
             @client.media_timeline
-            a_get("statuses/media_timeline.#{format}").
+            a_get("1/statuses/media_timeline.#{format}").
               with(:query => {:screen_name => "sferik"}).
               should have_been_made
           end

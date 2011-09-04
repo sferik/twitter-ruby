@@ -17,7 +17,7 @@ module Twitter
       # @example Return recent images related to twitter
       #   Twitter.image_facets('twitter')
       def image_facets(q, options={})
-        response = get('search/image_facets', options.merge(:q => q))
+        response = get('i/search/image_facets', options.merge(:q => q))
         format.to_s.downcase == 'xml' ? response['statuses'] : response
       end
 
@@ -36,7 +36,7 @@ module Twitter
       # @example Return recent videos related to twitter
       #   Twitter.video_facets('twitter')
       def video_facets(q, options={})
-        response = get('search/video_facets', options.merge(:q => q))
+        response = get('i/search/video_facets', options.merge(:q => q))
         format.to_s.downcase == 'xml' ? response['statuses'] : response
       end
     end

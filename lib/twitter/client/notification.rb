@@ -18,7 +18,7 @@ module Twitter
       #   Twitter.enable_notifications(7505382)  # Same as above
       def enable_notifications(user, options={})
         merge_user_into_options!(user, options)
-        response = post('notifications/follow', options)
+        response = post('1/notifications/follow', options)
         format.to_s.downcase == 'xml' ? response['user'] : response
       end
 
@@ -38,7 +38,7 @@ module Twitter
       #   Twitter.disable_notifications(7505382)  # Same as above
       def disable_notifications(user, options={})
         merge_user_into_options!(user, options)
-        response = post('notifications/leave', options)
+        response = post('1/notifications/leave', options)
         format.to_s.downcase == 'xml' ? response['user'] : response
       end
     end

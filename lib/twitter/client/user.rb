@@ -21,7 +21,7 @@ module Twitter
         options = args.last.is_a?(Hash) ? args.pop : {}
         user = args.first || get_screen_name
         merge_user_into_options!(user, options)
-        response = get('users/show', options)
+        response = get('1/users/show', options)
         format.to_s.downcase == 'xml' ? response['user'] : response
       end
 
@@ -36,7 +36,7 @@ module Twitter
       # @rate_limited Yes
       def user?(user, options={})
         merge_user_into_options!(user, options)
-        get('users/show', options, :raw)
+        get('1/users/show', options, :raw)
         true
       rescue Twitter::NotFound
         false
@@ -62,7 +62,7 @@ module Twitter
         options = args.last.is_a?(Hash) ? args.pop : {}
         users = args
         merge_users_into_options!(Array(users), options)
-        response = get('users/lookup', options)
+        response = get('1/users/lookup', options)
         format.to_s.downcase == 'xml' ? response['users'] : response
       end
 
@@ -82,7 +82,7 @@ module Twitter
       # @example Return users that match "Erik Michaels-Ober"
       #   Twitter.user_search("Erik Michaels-Ober")
       def user_search(query, options={})
-        response = get('users/search', options.merge(:q => query))
+        response = get('1/users/search', options.merge(:q => query))
         format.to_s.downcase == 'xml' ? response['users'] : response
       end
 
@@ -114,7 +114,7 @@ module Twitter
       def suggestions(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
         slug = args.first
-        response = get(['users/suggestions', slug].compact.join('/'), options)
+        response = get([1, 'users', 'suggestions', slug].compact.join('/'), options)
         xml_key = slug ? 'category' : 'suggestions'
         format.to_s.downcase == 'xml' ? response[xml_key] : response
       end
@@ -136,7 +136,7 @@ module Twitter
       def profile_image(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
         screen_name = args.first || get_screen_name
-        get("users/profile_image/#{screen_name}", options, :raw).headers['location']
+        get("1/users/profile_image/#{screen_name}", options, :raw).headers['location']
       end
 
       # Returns a user's friends
@@ -172,9 +172,9 @@ module Twitter
         user = args.first
         if user
           merge_user_into_options!(user, options)
-          response = get('statuses/friends', options)
+          response = get('1/statuses/friends', options)
         else
-          response = get('statuses/friends', options)
+          response = get('1/statuses/friends', options)
         end
         format.to_s.downcase == 'xml' ? response['users_list'] : response
       end
@@ -212,9 +212,9 @@ module Twitter
         user = args.first
         if user
           merge_user_into_options!(user, options)
-          response = get('statuses/followers', options)
+          response = get('1/statuses/followers', options)
         else
-          response = get('statuses/followers', options)
+          response = get('1/statuses/followers', options)
         end
         format.to_s.downcase == 'xml' ? response['users_list'] : response
       end
@@ -234,7 +234,7 @@ module Twitter
       #   Twitter.recommendations
       def recommendations(options={})
         options[:excluded] = options[:excluded].join(',') if options[:excluded].is_a?(Array)
-        response = get('users/recommendations', options)
+        response = get('1/users/recommendations', options)
         format.to_s.downcase == 'xml' ? response['userrecommendations'] : response
       end
 
@@ -269,9 +269,9 @@ module Twitter
         user = args.pop || get_screen_name
         if user
           merge_user_into_options!(user, options)
-          response = get('users/contributees', options)
+          response = get('1/users/contributees', options)
         else
-          response = get('users/contributees', options)
+          response = get('1/users/contributees', options)
         end
         format.to_s.downcase == 'xml' ? response['users'] : response
       end

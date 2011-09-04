@@ -17,7 +17,7 @@ module Twitter
       # @example Return the status with the ID 25938088801
       #   Twitter.status(25938088801)
       def status(id, options={})
-        response = get("statuses/show/#{id}", options)
+        response = get("1/statuses/show/#{id}", options)
         format.to_s.downcase == 'xml' ? response['status'] : response
       end
 
@@ -42,7 +42,7 @@ module Twitter
       # @example Update the authenticating user's status
       #   Twitter.update("I just posted a status update via the Twitter Ruby Gem!")
       def update(status, options={})
-        response = post('statuses/update', options.merge(:status => status))
+        response = post('1/statuses/update', options.merge(:status => status))
         format.to_s.downcase == 'xml' ? response['status'] : response
       end
 
@@ -72,7 +72,7 @@ module Twitter
       #     download the pic and put the response in a StringIO object
       #   Twitter.update("I just posted a status update with a pic via the Twitter Ruby Gem!", {'io' => StringIO.new(pic), 'type' => 'jpg'})
       def update_with_media(status, image, options={})
-        response = post('statuses/update_with_media', options.merge('media[]' => image, 'status' => status), format, media_endpoint)
+        response = post('1/statuses/update_with_media', options.merge('media[]' => image, 'status' => status), format, media_endpoint)
         format.to_s.downcase == 'xml' ? response['status'] : response
       end
 
@@ -92,7 +92,7 @@ module Twitter
       # @example Destroy the status with the ID 25938088801
       #   Twitter.status_destroy(25938088801)
       def status_destroy(id, options={})
-        response = delete("statuses/destroy/#{id}", options)
+        response = delete("1/statuses/destroy/#{id}", options)
         format.to_s.downcase == 'xml' ? response['status'] : response
       end
 
@@ -112,7 +112,7 @@ module Twitter
       # @example Retweet the status with the ID 28561922516
       #   Twitter.retweet(28561922516)
       def retweet(id, options={})
-        response = post("statuses/retweet/#{id}", options)
+        response = post("1/statuses/retweet/#{id}", options)
         format.to_s.downcase == 'xml' ? response['status'] : response
       end
 
@@ -132,7 +132,7 @@ module Twitter
       # @example Return up to 100 of the first retweets of the status with the ID 28561922516
       #   Twitter.retweets(28561922516)
       def retweets(id, options={})
-        response = get("statuses/retweets/#{id}", options)
+        response = get("1/statuses/retweets/#{id}", options)
         format.to_s.downcase == 'xml' ? response['statuses'] : response
       end
 
@@ -156,7 +156,7 @@ module Twitter
       #   Twitter.retweeters_of(28561922516)
       def retweeters_of(id, options={})
         ids_only = !!options.delete(:ids_only)
-        response = get("statuses/#{id}/retweeted_by#{'/ids' if ids_only}", options)
+        response = get("1/statuses/#{id}/retweeted_by#{'/ids' if ids_only}", options)
         format.to_s.downcase == 'xml' ? response['users'] : response
       end
     end

@@ -17,7 +17,7 @@ module Twitter
       # @example Return the 20 most recent statuses, including retweets if they exist, from non-protected users
       #   Twitter.public_timeline
       def public_timeline(options={})
-        response = get('statuses/public_timeline', options)
+        response = get('1/statuses/public_timeline', options)
         format.to_s.downcase == 'xml' ? response['statuses'] : response
       end
 
@@ -41,7 +41,7 @@ module Twitter
       # @example Return the 20 most recent statuses, including retweets if they exist, posted by the authenticating user and the users they follow
       #   Twitter.home_timeline
       def home_timeline(options={})
-        response = get('statuses/home_timeline', options)
+        response = get('1/statuses/home_timeline', options)
         format.to_s.downcase == 'xml' ? response['statuses'] : response
       end
 
@@ -96,7 +96,7 @@ module Twitter
         options = args.last.is_a?(Hash) ? args.pop : {}
         user = args.first || get_screen_name
         merge_user_into_options!(user, options)
-        response = get('statuses/user_timeline', options)
+        response = get('1/statuses/user_timeline', options)
         format.to_s.downcase == 'xml' ? response['statuses'] : response
       end
 
@@ -120,7 +120,7 @@ module Twitter
       # @example Return the 20 most recent mentions (statuses containing @username) for the authenticating user
       #   Twitter.mentions
       def mentions(options={})
-        response = get('statuses/mentions', options)
+        response = get('1/statuses/mentions', options)
         format.to_s.downcase == 'xml' ? response['statuses'] : response
       end
 
@@ -142,7 +142,7 @@ module Twitter
       # @example Return the 20 most recent retweets posted by the authenticating user
       #   Twitter.retweeted_by_me
       def retweeted_by_me(options={})
-        response = get('statuses/retweeted_by_me', options)
+        response = get('1/statuses/retweeted_by_me', options)
         format.to_s.downcase == 'xml' ? response['statuses'] : response
       end
 
@@ -164,7 +164,7 @@ module Twitter
       # @example Return the 20 most recent retweets posted by users followed by the authenticating user
       #   Twitter.retweeted_to_me
       def retweeted_to_me(options={})
-        response = get('statuses/retweeted_to_me', options)
+        response = get('1/statuses/retweeted_to_me', options)
         format.to_s.downcase == 'xml' ? response['statuses'] : response
       end
 
@@ -186,7 +186,7 @@ module Twitter
       # @example Return the 20 most recent tweets of the authenticated user that have been retweeted by others
       #   Twitter.retweets_of_me
       def retweets_of_me(options={})
-        response = get('statuses/retweets_of_me', options)
+        response = get('1/statuses/retweets_of_me', options)
         format.to_s.downcase == 'xml' ? response['statuses'] : response
       end
 
@@ -213,7 +213,7 @@ module Twitter
         options = args.last.is_a?(Hash) ? args.pop : {}
         user = args.first || get_screen_name
         merge_user_into_options!(user, options)
-        response = get('statuses/media_timeline', options)
+        response = get('1/statuses/media_timeline', options)
         format.to_s.downcase == 'xml' ? response['statuses'] : response
       end
     end

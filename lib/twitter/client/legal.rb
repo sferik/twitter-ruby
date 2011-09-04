@@ -13,7 +13,7 @@ module Twitter
       # @example Return {https://twitter.com/tos Twitter's Terms of Service}
       #   Twitter.tos
       def tos(options={})
-        get('legal/tos', options)['tos']
+        get('1/legal/tos', options)['tos']
       end
 
       # Returns {https://twitter.com/privacy Twitter's Privacy Policy}
@@ -27,7 +27,7 @@ module Twitter
       # @example Return {https://twitter.com/privacy Twitter's Privacy Policy}
       #   Twitter.privacy
       def privacy(options={})
-        get('legal/privacy', options)['privacy']
+        get('1/legal/privacy', options)['privacy']
       end
     end
   end

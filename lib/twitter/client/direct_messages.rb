@@ -19,7 +19,7 @@ module Twitter
       # @example Return the 20 most recent direct messages sent to the authenticating user
       #   Twitter.direct_messages
       def direct_messages(options={})
-        response = get('direct_messages', options)
+        response = get('1/direct_messages', options)
         format.to_s.downcase == 'xml' ? response['direct_messages'] : response
       end
 
@@ -40,7 +40,7 @@ module Twitter
       # @example Return the 20 most recent direct messages sent by the authenticating user
       #   Twitter.direct_messages_sent
       def direct_messages_sent(options={})
-        response = get('direct_messages/sent', options)
+        response = get('1/direct_messages/sent', options)
         format.to_s.downcase == 'xml' ? response['direct_messages'] : response
       end
 
@@ -61,7 +61,7 @@ module Twitter
       #   Twitter.direct_message_create(7505382, "I'm sending you this message via the Twitter Ruby Gem!")  # Same as above
       def direct_message_create(user, text, options={})
         merge_user_into_options!(user, options)
-        response = post('direct_messages/new', options.merge(:text => text))
+        response = post('1/direct_messages/new', options.merge(:text => text))
         format.to_s.downcase == 'xml' ? response['direct_message'] : response
       end
 
@@ -80,7 +80,7 @@ module Twitter
       # @example Destroys the direct message with the ID 1825785544
       #   Twitter.direct_message_destroy(1825785544)
       def direct_message_destroy(id, options={})
-        response = delete("direct_messages/destroy/#{id}", options)
+        response = delete("1/direct_messages/destroy/#{id}", options)
         format.to_s.downcase == 'xml' ? response['direct_message'] : response
       end
     end

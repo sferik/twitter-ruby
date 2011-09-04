@@ -9,14 +9,14 @@ describe Twitter::Client do
     describe ".resolve" do
 
       before do
-        stub_get("urls/resolve.json").
+        stub_get("1/urls/resolve.json").
           with(:query => {:urls => ["http://t.co/uw5bn1w"]}).
           to_return(:body => fixture("resolve.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
 
       it "should get the correct resource" do
         @client.resolve('http://t.co/uw5bn1w')
-        a_get("urls/resolve.json").
+        a_get("1/urls/resolve.json").
           with(:query => {:urls => ["http://t.co/uw5bn1w"]}).
           should have_been_made
       end

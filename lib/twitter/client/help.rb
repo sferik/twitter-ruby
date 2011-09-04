@@ -13,7 +13,7 @@ module Twitter
       # @example Return the current configuration used by Twitter
       #   Twitter.configuration
       def configuration(options={})
-        response = get('help/configuration', options)
+        response = get('1/help/configuration', options)
         format.to_s.downcase == 'xml' ? response['configuration'] : response
       end
 
@@ -28,7 +28,7 @@ module Twitter
       # @example Return the list of languages Twitter supports
       #   Twitter.languages
       def languages(options={})
-        response = get('help/languages', options)
+        response = get('1/help/languages', options)
         format.to_s.downcase == 'xml' ? response['languages']['language'] : response
       end
     end
