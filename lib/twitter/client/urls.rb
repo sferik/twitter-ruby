@@ -9,7 +9,7 @@ module Twitter
       # @requires_authentication Yes
       # @response_format `json`
       # @overload resolve(urls, options={})
-      #   @param urls [String] A list of shortened URLs
+      #   @param urls [String] A list of shortened URLs.
       #   @param options [Hash] A customizable set of options.
       #   @return [Hashie::Mash] A hash of URLs with the shortened URLs as the key
       # @example Return the canonical version of a URL shortened by Twitter

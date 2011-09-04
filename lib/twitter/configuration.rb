@@ -34,7 +34,7 @@ module Twitter
     # @see http://en.blog.wordpress.com/2009/12/12/twitter-api/
     # @see http://staff.tumblr.com/post/287703110/api
     # @see http://developer.typepad.com/typepad-twitter-api/twitter-api.html
-    DEFAULT_ENDPOINT = 'https://api.twitter.com/1/'.freeze
+    DEFAULT_ENDPOINT = 'https://api.twitter.com/i/'.freeze
 
     # The response format appended to the path and sent in the 'Accept' header if none is set
     #

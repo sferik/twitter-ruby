@@ -21,8 +21,9 @@ module Twitter
     require 'twitter/client/list_subscribers'
     require 'twitter/client/local_trends'
     require 'twitter/client/notification'
-    require 'twitter/client/spam_reporting'
     require 'twitter/client/saved_searches'
+    require 'twitter/client/search'
+    require 'twitter/client/spam_reporting'
     require 'twitter/client/timeline'
     require 'twitter/client/trends'
     require 'twitter/client/tweets'
@@ -48,8 +49,9 @@ module Twitter
     include Twitter::Client::ListSubscribers
     include Twitter::Client::LocalTrends
     include Twitter::Client::Notification
-    include Twitter::Client::SpamReporting
     include Twitter::Client::SavedSearches
+    include Twitter::Client::Search
+    include Twitter::Client::SpamReporting
     include Twitter::Client::Timeline
     include Twitter::Client::Trends
     include Twitter::Client::Tweets

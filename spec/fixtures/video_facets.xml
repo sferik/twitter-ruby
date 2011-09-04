@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<statuses type="array">
+<status>
+  <created_at>Mon Aug 29 01:32:53 +0000 2011</created_at>
+  <id>107989062362734594</id>
+  <text>@Foofighters LEGENDS with a Legendary set of Music Videos http://t.co/IcVGIQO #VMA #VEVO</text>
+  <source>web</source>
+  <truncated>false</truncated>
+  <favorited>false</favorited>
+  <in_reply_to_status_id></in_reply_to_status_id>
+  <in_reply_to_user_id>19081001</in_reply_to_user_id>
+  <in_reply_to_screen_name>foofighters</in_reply_to_screen_name>
+  <retweet_count>8</retweet_count>
+  <retweeted>false</retweeted>
+  <user>
+    <id>28201743</id>
+    <name>VEVO</name>
+    <screen_name>VEVO</screen_name>
+    <location>US, Canada, UK, Ireland</location>
+    <description>VEVO: Music Evolution Revolution!  Music videos and more...</description>
+    <profile_image_url>http://a1.twimg.com/profile_images/1465999828/v_logo_youtube_normal.jpg</profile_image_url>
+    <profile_image_url_https>https://si0.twimg.com/profile_images/1465999828/v_logo_youtube_normal.jpg</profile_image_url_https>
+    <url>http://www.vevo.com/</url>
+    <protected>false</protected>
+    <followers_count>130612</followers_count>
+    <profile_background_color>df2100</profile_background_color>
+    <profile_text_color>6f7172</profile_text_color>
+    <profile_link_color>df2100</profile_link_color>
+    <profile_sidebar_fill_color>ffffff</profile_sidebar_fill_color>
+    <profile_sidebar_border_color>6f7172</profile_sidebar_border_color>
+    <friends_count>1095</friends_count>
+    <created_at>Wed Apr 01 21:32:48 +0000 2009</created_at>
+    <favourites_count>667</favourites_count>
+    <utc_offset>-18000</utc_offset>
+    <time_zone>Eastern Time (US &amp; Canada)</time_zone>
+    <profile_background_image_url>http://a3.twimg.com/profile_background_images/94390739/vevo_logo.jpg</profile_background_image_url>
+    <profile_background_image_url_https>https://si0.twimg.com/profile_background_images/94390739/vevo_logo.jpg</profile_background_image_url_https>
+    <profile_background_tile>false</profile_background_tile>
+    <profile_use_background_image>true</profile_use_background_image>
+    <notifications></notifications>
+    <geo_enabled>false</geo_enabled>
+    <verified>false</verified>
+    <following></following>
+    <statuses_count>3510</statuses_count>
+    <lang>en</lang>
+    <contributors_enabled>false</contributors_enabled>
+    <follow_request_sent></follow_request_sent>
+    <listed_count>2587</listed_count>
+    <show_all_inline_media>false</show_all_inline_media>
+    <default_profile>false</default_profile>
+    <default_profile_image>false</default_profile_image>
+    <is_translator>false</is_translator>
+  </user>
+  <geo/>
+  <coordinates/>
+  <place/>
+  <possibly_sensitive>false</possibly_sensitive>
+  <contributors/>
+  <entities>
+    <user_mentions>
+      <user_mention end="12" start="0">
+        <id>19081001</id>
+        <screen_name>foofighters</screen_name>
+        <name>Foo Fighters</name>
+      </user_mention>
+    </user_mentions>
+    <urls>
+      <url end="77" start="58">
+        <url>http://t.co/IcVGIQO</url>
+        <display_url>vevo.ly/n63ucj</display_url>
+        <expanded_url>http://vevo.ly/n63ucj</expanded_url>
+      </url>
+    </urls>
+    <hashtags>
+      <hashtag end="82" start="78">
+        <text>VMA</text>
+      </hashtag>
+      <hashtag end="88" start="83">
+        <text>VEVO</text>
+      </hashtag>
+    </hashtags>
+  </entities>
+</status>
+</statuses>

@@ -1,0 +1,2081 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<statuses type="array">
+<status>
+  <created_at>Sat Sep 03 20:04:48 +0000 2011</created_at>
+  <id>110080825852305408</id>
+  <text>Thanks Twitter family! Beautiful. Cc @laurelstout @seacue @janetvh @mgale @choppedonion  http://t.co/drAqoba</text>
+  <source>&lt;a href=&quot;http://twitter.com/#!/download/iphone&quot; rel=&quot;nofollow&quot;&gt;Twitter for iPhone&lt;/a&gt;</source>
+  <truncated>false</truncated>
+  <favorited>false</favorited>
+  <in_reply_to_status_id></in_reply_to_status_id>
+  <in_reply_to_user_id></in_reply_to_user_id>
+  <in_reply_to_screen_name></in_reply_to_screen_name>
+  <retweet_count>0</retweet_count>
+  <retweeted>false</retweeted>
+  <user>
+    <id>94143715</id>
+    <name>Katie Jacobs Stanton</name>
+    <screen_name>KatieS</screen_name>
+    <location>San Francisco, California</location>
+    <description>Mom of 3. Twitter Globetrotter.  Cupcake Connoisseur. </description>
+    <profile_image_url>http://a0.twimg.com/profile_images/1327739416/Screen_shot_2011-04-25_at_9.22.40_PM_normal.png</profile_image_url>
+    <profile_image_url_https>https://si0.twimg.com/profile_images/1327739416/Screen_shot_2011-04-25_at_9.22.40_PM_normal.png</profile_image_url_https>
+    <url>http://t.co/4sW849z</url>
+    <protected>false</protected>
+    <followers_count>34825</followers_count>
+    <profile_background_color>709397</profile_background_color>
+    <profile_text_color>333333</profile_text_color>
+    <profile_link_color>502fad</profile_link_color>
+    <profile_sidebar_fill_color>A0C5C7</profile_sidebar_fill_color>
+    <profile_sidebar_border_color>86A4A6</profile_sidebar_border_color>
+    <friends_count>721</friends_count>
+    <created_at>Wed Dec 02 18:20:00 +0000 2009</created_at>
+    <favourites_count>221</favourites_count>
+    <utc_offset>-28800</utc_offset>
+    <time_zone>Pacific Time (US &amp; Canada)</time_zone>
+    <profile_background_image_url>http://a1.twimg.com/images/themes/theme6/bg.gif</profile_background_image_url>
+    <profile_background_image_url_https>https://si0.twimg.com/images/themes/theme6/bg.gif</profile_background_image_url_https>
+    <profile_background_tile>false</profile_background_tile>
+    <profile_use_background_image>true</profile_use_background_image>
+    <notifications>false</notifications>
+    <geo_enabled>true</geo_enabled>
+    <verified>false</verified>
+    <following>false</following>
+    <statuses_count>4928</statuses_count>
+    <lang>en</lang>
+    <contributors_enabled>true</contributors_enabled>
+    <follow_request_sent>false</follow_request_sent>
+    <listed_count>1200</listed_count>
+    <show_all_inline_media>true</show_all_inline_media>
+    <default_profile>false</default_profile>
+    <default_profile_image>false</default_profile_image>
+    <expanded_url>http://www.twitter.com</expanded_url>
+    <display_url>twitter.com</display_url>
+    <entities>
+      <user_mentions/>
+      <urls/>
+      <hashtags/>
+    </entities>
+    <is_translator>false</is_translator>
+  </user>
+  <geo xmlns:georss="http://www.georss.org/georss">
+    <georss:point>37.37849715 -122.11648388</georss:point>
+  </geo>
+  <coordinates xmlns:georss="http://www.georss.org/georss">
+    <georss:point>37.37849715 -122.11648388</georss:point>
+  </coordinates>
+  <place xmlns:georss="http://www.georss.org/georss">
+    <id>6a4364ea6f987c10</id>
+    <name>Los Altos</name>
+    <full_name>Los Altos, CA</full_name>
+    <place_type>city</place_type>
+    <url>http://api.twitter.com/1/geo/id/6a4364ea6f987c10.json</url>
+    <attributes/>
+    <bounding_box>
+      <georss:polygon>37.33006 -122.129344 37.33006 -122.061557 37.406258 -122.061557 37.406258 -122.129344</georss:polygon>
+    </bounding_box>
+    <country code="US">United States</country>
+  </place>
+  <possibly_sensitive>false</possibly_sensitive>
+  <contributors/>
+  <entities>
+    <user_mentions>
+      <user_mention end="49" start="37">
+        <id>168409687</id>
+        <screen_name>laurelstout</screen_name>
+        <name>Laurel Stout</name>
+      </user_mention>
+      <user_mention end="57" start="50">
+        <id>8525682</id>
+        <screen_name>seacue</screen_name>
+        <name>Caroline Quick</name>
+      </user_mention>
+      <user_mention end="66" start="58">
+        <id>74534435</id>
+        <screen_name>janetvh</screen_name>
+        <name>janet vanhuysse</name>
+      </user_mention>
+      <user_mention end="73" start="67">
+        <id>104263660</id>
+        <screen_name>mgale</screen_name>
+        <name>Michelle Gale</name>
+      </user_mention>
+      <user_mention end="87" start="74">
+        <id>93547212</id>
+        <screen_name>choppedonion</screen_name>
+        <name>Kelly Flannery</name>
+      </user_mention>
+    </user_mentions>
+    <urls>
+      <url end="108" start="89">
+        <url>http://t.co/drAqoba</url>
+        <display_url>yfrog.com/nz89657778j</display_url>
+        <expanded_url>http://yfrog.com/nz89657778j</expanded_url>
+      </url>
+    </urls>
+    <hashtags/>
+  </entities>
+</status>
+<status>
+  <created_at>Sat Sep 03 21:07:01 +0000 2011</created_at>
+  <id>110096472611102720</id>
+  <text>Latest #Kaita track and update from @NHC_Atlantic http://t.co/x7eHCUb</text>
+  <source>web</source>
+  <truncated>false</truncated>
+  <favorited>false</favorited>
+  <in_reply_to_status_id></in_reply_to_status_id>
+  <in_reply_to_user_id></in_reply_to_user_id>
+  <in_reply_to_screen_name></in_reply_to_screen_name>
+  <retweet_count>3</retweet_count>
+  <retweeted>false</retweeted>
+  <user>
+    <id>15647676</id>
+    <name>Homeland Security</name>
+    <screen_name>DHSJournal</screen_name>
+    <location>Washington, D.C.</location>
+    <description>U.S. Department of Homeland Security (Official).</description>
+    <profile_image_url>http://a2.twimg.com/profile_images/936215926/dhs-twitter-300_normal.jpg</profile_image_url>
+    <profile_image_url_https>https://si0.twimg.com/profile_images/936215926/dhs-twitter-300_normal.jpg</profile_image_url_https>
+    <url>http://www.dhs.gov/</url>
+    <protected>false</protected>
+    <followers_count>45560</followers_count>
+    <profile_background_color>FFFFFF</profile_background_color>
+    <profile_text_color>3A3636</profile_text_color>
+    <profile_link_color>0000ff</profile_link_color>
+    <profile_sidebar_fill_color>FFFFFF</profile_sidebar_fill_color>
+    <profile_sidebar_border_color>821111</profile_sidebar_border_color>
+    <friends_count>133</friends_count>
+    <created_at>Tue Jul 29 16:32:34 +0000 2008</created_at>
+    <favourites_count>0</favourites_count>
+    <utc_offset>-18000</utc_offset>
+    <time_zone>Quito</time_zone>
+    <profile_background_image_url>http://a0.twimg.com/images/themes/theme1/bg.png</profile_background_image_url>
+    <profile_background_image_url_https>https://si0.twimg.com/images/themes/theme1/bg.png</profile_background_image_url_https>
+    <profile_background_tile>false</profile_background_tile>
+    <profile_use_background_image>false</profile_use_background_image>
+    <notifications>false</notifications>
+    <geo_enabled>false</geo_enabled>
+    <verified>true</verified>
+    <following>true</following>
+    <statuses_count>1524</statuses_count>
+    <lang>en</lang>
+    <contributors_enabled>true</contributors_enabled>
+    <follow_request_sent>false</follow_request_sent>
+    <listed_count>2717</listed_count>
+    <show_all_inline_media>false</show_all_inline_media>
+    <default_profile>false</default_profile>
+    <default_profile_image>false</default_profile_image>
+    <is_translator>false</is_translator>
+  </user>
+  <geo/>
+  <coordinates/>
+  <place/>
+  <possibly_sensitive>false</possibly_sensitive>
+  <contributors/>
+  <entities>
+    <user_mentions>
+      <user_mention end="49" start="36">
+        <id>299798272</id>
+        <screen_name>NHC_Atlantic</screen_name>
+        <name>Natl Hurricane Ctr</name>
+      </user_mention>
+    </user_mentions>
+    <media>
+      <creative end="69" start="50">
+        <type>photo</type>
+        <id_str>110096472615297025</id_str>
+        <display_url>pic.twitter.com/x7eHCUb</display_url>
+        <media_url_https>https://p.twimg.com/AYckKJVCIAE7ekD.gif</media_url_https>
+        <expanded_url>http://twitter.com/DHSJournal/status/110096472611102720/photo/1</expanded_url>
+        <url>http://t.co/x7eHCUb</url>
+        <sizes>
+          <small>
+            <w>340</w>
+            <h>272</h>
+            <resize>fit</resize>
+          </small>
+          <large>
+            <w>895</w>
+            <h>716</h>
+            <resize>fit</resize>
+          </large>
+          <medium>
+            <w>600</w>
+            <h>480</h>
+            <resize>fit</resize>
+          </medium>
+          <thumb>
+            <w>150</w>
+            <h>150</h>
+            <resize>crop</resize>
+          </thumb>
+        </sizes>
+        <id>110096472615297025</id>
+        <media_url>http://p.twimg.com/AYckKJVCIAE7ekD.gif</media_url>
+      </creative>
+    </media>
+    <urls/>
+    <hashtags>
+      <hashtag end="13" start="7">
+        <text>Kaita</text>
+      </hashtag>
+    </hashtags>
+  </entities>
+</status>
+<status>
+  <created_at>Sat Sep 03 20:17:26 +0000 2011</created_at>
+  <id>110084002584600577</id>
+  <text>Gracias , es un honor haber llegado a 100k esto es que mi trabajo esta haciendoce bien http://t.co/HjJMBRs</text>
+  <source>web</source>
+  <truncated>false</truncated>
+  <favorited>false</favorited>
+  <in_reply_to_status_id></in_reply_to_status_id>
+  <in_reply_to_user_id></in_reply_to_user_id>
+  <in_reply_to_screen_name></in_reply_to_screen_name>
+  <retweet_count>10</retweet_count>
+  <retweeted>false</retweeted>
+  <user>
+    <id>41502343</id>
+    <name>RaphyPina-PinaRecord</name>
+    <screen_name>pinarecords1</screen_name>
+    <location>iPhone: 18.234558,-66.034416</location>
+    <description>President of Pina records , urban music label . also music producer and manager of :rkm&amp;keny,tonydize,zion y lennox,Plan B , DJ Eliel, Myztiko .
+</description>
+    <profile_image_url>http://a2.twimg.com/profile_images/1510785765/pinarecords1_normal.jpg</profile_image_url>
+    <profile_image_url_https>https://si0.twimg.com/profile_images/1510785765/pinarecords1_normal.jpg</profile_image_url_https>
+    <url>http://www.pinarecords.net</url>
+    <protected>false</protected>
+    <followers_count>100030</followers_count>
+    <profile_background_color>ACDED6</profile_background_color>
+    <profile_text_color>333333</profile_text_color>
+    <profile_link_color>038543</profile_link_color>
+    <profile_sidebar_fill_color>F6F6F6</profile_sidebar_fill_color>
+    <profile_sidebar_border_color>EEEEEE</profile_sidebar_border_color>
+    <friends_count>384</friends_count>
+    <created_at>Thu May 21 01:42:25 +0000 2009</created_at>
+    <favourites_count>3</favourites_count>
+    <utc_offset>-18000</utc_offset>
+    <time_zone>Quito</time_zone>
+    <profile_background_image_url>http://a2.twimg.com/profile_background_images/261014146/Screen_shot_2011-05-30_at_2.37.58_AM.png</profile_background_image_url>
+    <profile_background_image_url_https>https://si0.twimg.com/profile_background_images/261014146/Screen_shot_2011-05-30_at_2.37.58_AM.png</profile_background_image_url_https>
+    <profile_background_tile>true</profile_background_tile>
+    <profile_use_background_image>true</profile_use_background_image>
+    <notifications>false</notifications>
+    <geo_enabled>true</geo_enabled>
+    <verified>true</verified>
+    <following>true</following>
+    <statuses_count>18593</statuses_count>
+    <lang>en</lang>
+    <contributors_enabled>false</contributors_enabled>
+    <follow_request_sent>false</follow_request_sent>
+    <listed_count>635</listed_count>
+    <show_all_inline_media>false</show_all_inline_media>
+    <default_profile>false</default_profile>
+    <default_profile_image>false</default_profile_image>
+    <is_translator>false</is_translator>
+  </user>
+  <geo/>
+  <coordinates/>
+  <place/>
+  <possibly_sensitive>false</possibly_sensitive>
+  <contributors/>
+  <entities>
+    <user_mentions/>
+    <media>
+      <creative end="106" start="87">
+        <type>photo</type>
+        <id_str>110084002588794880</id_str>
+        <display_url>pic.twitter.com/HjJMBRs</display_url>
+        <media_url_https>https://p.twimg.com/AYcY0S3CIAA9ZrQ.jpg</media_url_https>
+        <expanded_url>http://twitter.com/pinarecords1/status/110084002584600577/photo/1</expanded_url>
+        <url>http://t.co/HjJMBRs</url>
+        <sizes>
+          <small>
+            <w>340</w>
+            <h>66</h>
+            <resize>fit</resize>
+          </small>
+          <large>
+            <w>840</w>
+            <h>164</h>
+            <resize>fit</resize>
+          </large>
+          <medium>
+            <w>600</w>
+            <h>117</h>
+            <resize>fit</resize>
+          </medium>
+          <thumb>
+            <w>150</w>
+            <h>150</h>
+            <resize>crop</resize>
+          </thumb>
+        </sizes>
+        <id>110084002588794880</id>
+        <media_url>http://p.twimg.com/AYcY0S3CIAA9ZrQ.jpg</media_url>
+      </creative>
+    </media>
+    <urls/>
+    <hashtags/>
+  </entities>
+</status>
+<status>
+  <created_at>Sat Sep 03 20:03:27 +0000 2011</created_at>
+  <id>110080481017606144</id>
+  <text>Guess Who's Coming To Dinner? Ted The Damp Red Squirrel, earlier http://t.co/B1ZZxNj</text>
+  <source>web</source>
+  <truncated>false</truncated>
+  <favorited>false</favorited>
+  <in_reply_to_status_id></in_reply_to_status_id>
+  <in_reply_to_user_id></in_reply_to_user_id>
+  <in_reply_to_screen_name></in_reply_to_screen_name>
+  <retweet_count>8</retweet_count>
+  <retweeted>false</retweeted>
+  <user>
+    <id>22907871</id>
+    <name>Stuart Maconie</name>
+    <screen_name>StuartMaconie</screen_name>
+    <location>iPhone: 54.991354,-2.356316</location>
+    <description></description>
+    <profile_image_url>http://a0.twimg.com/profile_images/1522196997/New_Pic_normal.jpg</profile_image_url>
+    <profile_image_url_https>https://si0.twimg.com/profile_images/1522196997/New_Pic_normal.jpg</profile_image_url_https>
+    <url></url>
+    <protected>false</protected>
+    <followers_count>33178</followers_count>
+    <profile_background_color>C0DEED</profile_background_color>
+    <profile_text_color>333333</profile_text_color>
+    <profile_link_color>0084B4</profile_link_color>
+    <profile_sidebar_fill_color>DDEEF6</profile_sidebar_fill_color>
+    <profile_sidebar_border_color>C0DEED</profile_sidebar_border_color>
+    <friends_count>100</friends_count>
+    <created_at>Thu Mar 05 11:16:46 +0000 2009</created_at>
+    <favourites_count>26</favourites_count>
+    <utc_offset>0</utc_offset>
+    <time_zone>London</time_zone>
+    <profile_background_image_url>http://a0.twimg.com/images/themes/theme1/bg.png</profile_background_image_url>
+    <profile_background_image_url_https>https://si0.twimg.com/images/themes/theme1/bg.png</profile_background_image_url_https>
+    <profile_background_tile>false</profile_background_tile>
+    <profile_use_background_image>true</profile_use_background_image>
+    <notifications>false</notifications>
+    <geo_enabled>true</geo_enabled>
+    <verified>false</verified>
+    <following>true</following>
+    <statuses_count>1659</statuses_count>
+    <lang>en</lang>
+    <contributors_enabled>false</contributors_enabled>
+    <follow_request_sent>false</follow_request_sent>
+    <listed_count>831</listed_count>
+    <show_all_inline_media>false</show_all_inline_media>
+    <default_profile>true</default_profile>
+    <default_profile_image>false</default_profile_image>
+    <is_translator>false</is_translator>
+  </user>
+  <geo/>
+  <coordinates/>
+  <place/>
+  <possibly_sensitive>false</possibly_sensitive>
+  <contributors/>
+  <entities>
+    <user_mentions/>
+    <media>
+      <creative end="84" start="65">
+        <type>photo</type>
+        <id_str>110080481021800448</id_str>
+        <display_url>pic.twitter.com/B1ZZxNj</display_url>
+        <media_url_https>https://p.twimg.com/AYcVnUACMAADhLs.jpg</media_url_https>
+        <expanded_url>http://twitter.com/StuartMaconie/status/110080481017606144/photo/1</expanded_url>
+        <url>http://t.co/B1ZZxNj</url>
+        <sizes>
+          <small>
+            <w>340</w>
+            <h>455</h>
+            <resize>fit</resize>
+          </small>
+          <large>
+            <w>1024</w>
+            <h>1372</h>
+            <resize>fit</resize>
+          </large>
+          <medium>
+            <w>600</w>
+            <h>803</h>
+            <resize>fit</resize>
+          </medium>
+          <thumb>
+            <w>150</w>
+            <h>150</h>
+            <resize>crop</resize>
+          </thumb>
+        </sizes>
+        <id>110080481021800448</id>
+        <media_url>http://p.twimg.com/AYcVnUACMAADhLs.jpg</media_url>
+      </creative>
+    </media>
+    <urls/>
+    <hashtags/>
+  </entities>
+</status>
+<status>
+  <created_at>Sat Sep 03 20:34:03 +0000 2011</created_at>
+  <id>110088182720245760</id>
+  <text>are you going to finish your &quot;Kreayshawn&quot;? http://t.co/GNngnuO</text>
+  <source>web</source>
+  <truncated>false</truncated>
+  <favorited>false</favorited>
+  <in_reply_to_status_id></in_reply_to_status_id>
+  <in_reply_to_user_id></in_reply_to_user_id>
+  <in_reply_to_screen_name></in_reply_to_screen_name>
+  <retweet_count>18</retweet_count>
+  <retweeted>false</retweeted>
+  <user>
+    <id>260839822</id>
+    <name>Grizzly Bear</name>
+    <screen_name>grizzlybear</screen_name>
+    <location>oh hello there. </location>
+    <description>Mostly tweets from Edward, rare tweets by Daniel and Chris Taylor. Chris Bear tweets over at @crbear. We are a band. See our website. </description>
+    <profile_image_url>http://a2.twimg.com/profile_images/1280868768/images_normal.jpeg</profile_image_url>
+    <profile_image_url_https>https://si0.twimg.com/profile_images/1280868768/images_normal.jpeg</profile_image_url_https>
+    <url>http://www.grizzly-bear.net/</url>
+    <protected>false</protected>
+    <followers_count>18687</followers_count>
+    <profile_background_color>9AE4E8</profile_background_color>
+    <profile_text_color>333333</profile_text_color>
+    <profile_link_color>0084B4</profile_link_color>
+    <profile_sidebar_fill_color>DDFFCC</profile_sidebar_fill_color>
+    <profile_sidebar_border_color>BDDCAD</profile_sidebar_border_color>
+    <friends_count>155</friends_count>
+    <created_at>Fri Mar 04 18:25:25 +0000 2011</created_at>
+    <favourites_count>0</favourites_count>
+    <utc_offset>-18000</utc_offset>
+    <time_zone>Eastern Time (US &amp; Canada)</time_zone>
+    <profile_background_image_url>http://a1.twimg.com/profile_background_images/220465734/dogslettuceap_450x359_2.jpg</profile_background_image_url>
+    <profile_background_image_url_https>https://si0.twimg.com/profile_background_images/220465734/dogslettuceap_450x359_2.jpg</profile_background_image_url_https>
+    <profile_background_tile>true</profile_background_tile>
+    <profile_use_background_image>true</profile_use_background_image>
+    <notifications>false</notifications>
+    <geo_enabled>true</geo_enabled>
+    <verified>true</verified>
+    <following>true</following>
+    <statuses_count>498</statuses_count>
+    <lang>en</lang>
+    <contributors_enabled>false</contributors_enabled>
+    <follow_request_sent>false</follow_request_sent>
+    <listed_count>516</listed_count>
+    <show_all_inline_media>false</show_all_inline_media>
+    <default_profile>false</default_profile>
+    <default_profile_image>false</default_profile_image>
+    <is_translator>false</is_translator>
+  </user>
+  <geo/>
+  <coordinates/>
+  <place/>
+  <possibly_sensitive>false</possibly_sensitive>
+  <contributors/>
+  <entities>
+    <user_mentions/>
+    <media>
+      <creative end="62" start="43">
+        <type>photo</type>
+        <id_str>110088182724440064</id_str>
+        <display_url>pic.twitter.com/GNngnuO</display_url>
+        <media_url_https>https://p.twimg.com/AYccnnFCMAAHySU.jpg</media_url_https>
+        <expanded_url>http://twitter.com/grizzlybear/status/110088182720245760/photo/1</expanded_url>
+        <url>http://t.co/GNngnuO</url>
+        <sizes>
+          <small>
+            <w>340</w>
+            <h>226</h>
+            <resize>fit</resize>
+          </small>
+          <large>
+            <w>425</w>
+            <h>282</h>
+            <resize>fit</resize>
+          </large>
+          <medium>
+            <w>425</w>
+            <h>282</h>
+            <resize>fit</resize>
+          </medium>
+          <thumb>
+            <w>150</w>
+            <h>150</h>
+            <resize>crop</resize>
+          </thumb>
+        </sizes>
+        <id>110088182724440064</id>
+        <media_url>http://p.twimg.com/AYccnnFCMAAHySU.jpg</media_url>
+      </creative>
+    </media>
+    <urls/>
+    <hashtags/>
+  </entities>
+</status>
+<status>
+  <created_at>Sat Sep 03 20:21:39 +0000 2011</created_at>
+  <id>110085064846606337</id>
+  <text>LABOR DAY SPECIAL... Place an order today at http://t.co/HHunqJa and get a few free goodies including these!! Lets Go! http://t.co/lC6BzVx</text>
+  <source>web</source>
+  <truncated>false</truncated>
+  <favorited>false</favorited>
+  <in_reply_to_status_id></in_reply_to_status_id>
+  <in_reply_to_user_id></in_reply_to_user_id>
+  <in_reply_to_screen_name></in_reply_to_screen_name>
+  <retweet_count>11</retweet_count>
+  <retweeted>false</retweeted>
+  <user>
+    <id>23489663</id>
+    <name>RASHEEDA </name>
+    <screen_name>RASHEEDAGAPEACH</screen_name>
+    <location>ATLANTA,GA</location>
+    <description>Bookin Info-DLO117@gmail.com Artist,Entrepreneur,SongWriter,Boss Chick,Ck Out http://www.ImBossy.com Bet's 2010 best female hip hop nominee.Its A Movement baby!</description>
+    <profile_image_url>http://a2.twimg.com/profile_images/1429966048/_rasheedagapeach_bad_mutha_fucker_Video_new_normal.jpg</profile_image_url>
+    <profile_image_url_https>https://si0.twimg.com/profile_images/1429966048/_rasheedagapeach_bad_mutha_fucker_Video_new_normal.jpg</profile_image_url_https>
+    <url>http://www.youtube.com/user/dlo117</url>
+    <protected>false</protected>
+    <followers_count>68931</followers_count>
+    <profile_background_color>ff0ae2</profile_background_color>
+    <profile_text_color>ff0a80</profile_text_color>
+    <profile_link_color>12090f</profile_link_color>
+    <profile_sidebar_fill_color>ab1fa9</profile_sidebar_fill_color>
+    <profile_sidebar_border_color>bddcad</profile_sidebar_border_color>
+    <friends_count>326</friends_count>
+    <created_at>Mon Mar 09 19:52:47 +0000 2009</created_at>
+    <favourites_count>1</favourites_count>
+    <utc_offset>-18000</utc_offset>
+    <time_zone>Quito</time_zone>
+    <profile_background_image_url>http://a0.twimg.com/profile_background_images/232722802/Rasheeda_RevOfficial_Twitter_-1.jpg</profile_background_image_url>
+    <profile_background_image_url_https>https://si0.twimg.com/profile_background_images/232722802/Rasheeda_RevOfficial_Twitter_-1.jpg</profile_background_image_url_https>
+    <profile_background_tile>true</profile_background_tile>
+    <profile_use_background_image>true</profile_use_background_image>
+    <notifications>false</notifications>
+    <geo_enabled>false</geo_enabled>
+    <verified>false</verified>
+    <following>true</following>
+    <statuses_count>25011</statuses_count>
+    <lang>en</lang>
+    <contributors_enabled>false</contributors_enabled>
+    <follow_request_sent>false</follow_request_sent>
+    <listed_count>1022</listed_count>
+    <show_all_inline_media>false</show_all_inline_media>
+    <default_profile>false</default_profile>
+    <default_profile_image>false</default_profile_image>
+    <is_translator>false</is_translator>
+  </user>
+  <geo/>
+  <coordinates/>
+  <place/>
+  <possibly_sensitive>false</possibly_sensitive>
+  <contributors/>
+  <entities>
+    <user_mentions/>
+    <media>
+      <creative end="138" start="119">
+        <type>photo</type>
+        <id_str>110085064850800642</id_str>
+        <display_url>pic.twitter.com/lC6BzVx</display_url>
+        <media_url_https>https://p.twimg.com/AYcZyIGCAAII69P.jpg</media_url_https>
+        <expanded_url>http://twitter.com/RASHEEDAGAPEACH/status/110085064846606337/photo/1</expanded_url>
+        <url>http://t.co/lC6BzVx</url>
+        <sizes>
+          <small>
+            <w>340</w>
+            <h>254</h>
+            <resize>fit</resize>
+          </small>
+          <large>
+            <w>640</w>
+            <h>478</h>
+            <resize>fit</resize>
+          </large>
+          <medium>
+            <w>600</w>
+            <h>448</h>
+            <resize>fit</resize>
+          </medium>
+          <thumb>
+            <w>150</w>
+            <h>150</h>
+            <resize>crop</resize>
+          </thumb>
+        </sizes>
+        <id>110085064850800642</id>
+        <media_url>http://p.twimg.com/AYcZyIGCAAII69P.jpg</media_url>
+      </creative>
+    </media>
+    <urls>
+      <url end="64" start="45">
+        <url>http://t.co/HHunqJa</url>
+        <display_url>ImBossy.com</display_url>
+        <expanded_url>http://www.ImBossy.com</expanded_url>
+      </url>
+    </urls>
+    <hashtags/>
+  </entities>
+</status>
+<status>
+  <created_at>Sat Sep 03 20:36:59 +0000 2011</created_at>
+  <id>110088918824783872</id>
+  <text>Confira um aperitivo da entrega do Jo&#227;o Sorris&#227;o para o R10 http://t.co/7Wa073E</text>
+  <source>web</source>
+  <truncated>false</truncated>
+  <favorited>false</favorited>
+  <in_reply_to_status_id></in_reply_to_status_id>
+  <in_reply_to_user_id></in_reply_to_user_id>
+  <in_reply_to_screen_name></in_reply_to_screen_name>
+  <retweet_count>0</retweet_count>
+  <retweeted>false</retweeted>
+  <user>
+    <id>94132246</id>
+    <name>Equipe do EE</name>
+    <screen_name>eespetacular</screen_name>
+    <location>BRASIL</location>
+    <description>DOMINGOS DE MANH&#195; NA TV GLOBO</description>
+    <profile_image_url>http://a3.twimg.com/profile_images/1378819985/tande_glenda2_normal.jpg</profile_image_url>
+    <profile_image_url_https>https://si0.twimg.com/profile_images/1378819985/tande_glenda2_normal.jpg</profile_image_url_https>
+    <url>http://www.globoesporte.com/espetacular</url>
+    <protected>false</protected>
+    <followers_count>110353</followers_count>
+    <profile_background_color>EDECE9</profile_background_color>
+    <profile_text_color>634047</profile_text_color>
+    <profile_link_color>088253</profile_link_color>
+    <profile_sidebar_fill_color>E3E2DE</profile_sidebar_fill_color>
+    <profile_sidebar_border_color>D3D2CF</profile_sidebar_border_color>
+    <friends_count>14</friends_count>
+    <created_at>Wed Dec 02 17:23:36 +0000 2009</created_at>
+    <favourites_count>1</favourites_count>
+    <utc_offset>-10800</utc_offset>
+    <time_zone>Brasilia</time_zone>
+    <profile_background_image_url>http://a0.twimg.com/profile_background_images/57349916/capa.jpg</profile_background_image_url>
+    <profile_background_image_url_https>https://si0.twimg.com/profile_background_images/57349916/capa.jpg</profile_background_image_url_https>
+    <profile_background_tile>true</profile_background_tile>
+    <profile_use_background_image>true</profile_use_background_image>
+    <notifications>false</notifications>
+    <geo_enabled>true</geo_enabled>
+    <verified>false</verified>
+    <following>true</following>
+    <statuses_count>4326</statuses_count>
+    <lang>en</lang>
+    <contributors_enabled>false</contributors_enabled>
+    <follow_request_sent>false</follow_request_sent>
+    <listed_count>1591</listed_count>
+    <show_all_inline_media>false</show_all_inline_media>
+    <default_profile>false</default_profile>
+    <default_profile_image>false</default_profile_image>
+    <is_translator>false</is_translator>
+  </user>
+  <geo/>
+  <coordinates/>
+  <place/>
+  <possibly_sensitive>false</possibly_sensitive>
+  <contributors/>
+  <entities>
+    <user_mentions/>
+    <media>
+      <creative end="79" start="60">
+        <type>photo</type>
+        <id_str>110088918828978176</id_str>
+        <display_url>pic.twitter.com/7Wa073E</display_url>
+        <media_url_https>https://p.twimg.com/AYcdSdSCEAApuWj.jpg</media_url_https>
+        <expanded_url>http://twitter.com/eespetacular/status/110088918824783872/photo/1</expanded_url>
+        <url>http://t.co/7Wa073E</url>
+        <sizes>
+          <small>
+            <w>340</w>
+            <h>453</h>
+            <resize>fit</resize>
+          </small>
+          <large>
+            <w>1024</w>
+            <h>1365</h>
+            <resize>fit</resize>
+          </large>
+          <thumb>
+            <w>150</w>
+            <h>150</h>
+            <resize>crop</resize>
+          </thumb>
+          <medium>
+            <w>600</w>
+            <h>800</h>
+            <resize>fit</resize>
+          </medium>
+        </sizes>
+        <id>110088918828978176</id>
+        <media_url>http://p.twimg.com/AYcdSdSCEAApuWj.jpg</media_url>
+      </creative>
+    </media>
+    <urls/>
+    <hashtags/>
+  </entities>
+</status>
+<status>
+  <created_at>Sat Sep 03 20:59:14 +0000 2011</created_at>
+  <id>110094519927717888</id>
+  <text>Have you seen this yet?  Season two, twitches...it's a-comin': http://t.co/0lTv3bg</text>
+  <source>web</source>
+  <truncated>false</truncated>
+  <favorited>false</favorited>
+  <in_reply_to_status_id></in_reply_to_status_id>
+  <in_reply_to_user_id></in_reply_to_user_id>
+  <in_reply_to_screen_name></in_reply_to_screen_name>
+  <retweet_count>11</retweet_count>
+  <retweeted>false</retweeted>
+  <user>
+    <id>292995395</id>
+    <name>Garret Dillahunt</name>
+    <screen_name>GarretDillahunt</screen_name>
+    <location></location>
+    <description>I'm an actor, lately on Raising Hope, but sometimes other stuff too. 
+Ht: 18.5 hands
+Wt: 13.6 stone.
+ Fancy-pants official site:</description>
+    <profile_image_url>http://a0.twimg.com/profile_images/1457096852/denim_normal.jpg</profile_image_url>
+    <profile_image_url_https>https://si0.twimg.com/profile_images/1457096852/denim_normal.jpg</profile_image_url_https>
+    <url>http://garret-dillahunt.net</url>
+    <protected>false</protected>
+    <followers_count>9324</followers_count>
+    <profile_background_color>6b6b6b</profile_background_color>
+    <profile_text_color>9999a3</profile_text_color>
+    <profile_link_color>0c7494</profile_link_color>
+    <profile_sidebar_fill_color>333333</profile_sidebar_fill_color>
+    <profile_sidebar_border_color>4f4f4f</profile_sidebar_border_color>
+    <friends_count>132</friends_count>
+    <created_at>Wed May 04 15:48:27 +0000 2011</created_at>
+    <favourites_count>1</favourites_count>
+    <utc_offset>-18000</utc_offset>
+    <time_zone>Quito</time_zone>
+    <profile_background_image_url>http://a2.twimg.com/profile_background_images/300455741/beach.jpg</profile_background_image_url>
+    <profile_background_image_url_https>https://si0.twimg.com/profile_background_images/300455741/beach.jpg</profile_background_image_url_https>
+    <profile_background_tile>true</profile_background_tile>
+    <profile_use_background_image>true</profile_use_background_image>
+    <notifications>false</notifications>
+    <geo_enabled>false</geo_enabled>
+    <verified>true</verified>
+    <following>true</following>
+    <statuses_count>537</statuses_count>
+    <lang>en</lang>
+    <contributors_enabled>false</contributors_enabled>
+    <follow_request_sent>false</follow_request_sent>
+    <listed_count>213</listed_count>
+    <show_all_inline_media>true</show_all_inline_media>
+    <default_profile>false</default_profile>
+    <default_profile_image>false</default_profile_image>
+    <is_translator>false</is_translator>
+  </user>
+  <geo/>
+  <coordinates/>
+  <place/>
+  <possibly_sensitive>false</possibly_sensitive>
+  <contributors/>
+  <entities>
+    <user_mentions/>
+    <media>
+      <creative end="82" start="63">
+        <type>photo</type>
+        <id_str>110094519931912192</id_str>
+        <display_url>pic.twitter.com/0lTv3bg</display_url>
+        <media_url_https>https://p.twimg.com/AYciYfBCQAA74GE.jpg</media_url_https>
+        <expanded_url>http://twitter.com/GarretDillahunt/status/110094519927717888/photo/1</expanded_url>
+        <url>http://t.co/0lTv3bg</url>
+        <sizes>
+          <small>
+            <w>340</w>
+            <h>250</h>
+            <resize>fit</resize>
+          </small>
+          <large>
+            <w>1024</w>
+            <h>754</h>
+            <resize>fit</resize>
+          </large>
+          <medium>
+            <w>600</w>
+            <h>442</h>
+            <resize>fit</resize>
+          </medium>
+          <thumb>
+            <w>150</w>
+            <h>150</h>
+            <resize>crop</resize>
+          </thumb>
+        </sizes>
+        <id>110094519931912192</id>
+        <media_url>http://p.twimg.com/AYciYfBCQAA74GE.jpg</media_url>
+      </creative>
+    </media>
+    <urls/>
+    <hashtags/>
+  </entities>
+</status>
+<status>
+  <created_at>Sat Sep 03 20:48:58 +0000 2011</created_at>
+  <id>110091929353584640</id>
+  <text>Tories set to disband in Scotland - front page of tomorrow's Sunday Telegraph http://t.co/fHF1ADC</text>
+  <source>web</source>
+  <truncated>false</truncated>
+  <favorited>false</favorited>
+  <in_reply_to_status_id></in_reply_to_status_id>
+  <in_reply_to_user_id></in_reply_to_user_id>
+  <in_reply_to_screen_name></in_reply_to_screen_name>
+  <retweet_count>26</retweet_count>
+  <retweeted>false</retweeted>
+  <user>
+    <id>16343974</id>
+    <name>The Telegraph</name>
+    <screen_name>Telegraph</screen_name>
+    <location>London, UK</location>
+    <description>News and comment from The Daily Telegraph, The Sunday Telegraph and The Telegraph. Info about new products, apps &amp; promotions. Please say hello if we can help</description>
+    <profile_image_url>http://a3.twimg.com/profile_images/998929715/Telegraph_normal.jpg</profile_image_url>
+    <profile_image_url_https>https://si0.twimg.com/profile_images/998929715/Telegraph_normal.jpg</profile_image_url_https>
+    <url>http://www.telegraph.co.uk/</url>
+    <protected>false</protected>
+    <followers_count>59559</followers_count>
+    <profile_background_color>5f5653</profile_background_color>
+    <profile_text_color>000000</profile_text_color>
+    <profile_link_color>5f5653</profile_link_color>
+    <profile_sidebar_fill_color>f4f4f0</profile_sidebar_fill_color>
+    <profile_sidebar_border_color>5f5653</profile_sidebar_border_color>
+    <friends_count>70</friends_count>
+    <created_at>Thu Sep 18 06:50:54 +0000 2008</created_at>
+    <favourites_count>0</favourites_count>
+    <utc_offset>0</utc_offset>
+    <time_zone>London</time_zone>
+    <profile_background_image_url>http://a0.twimg.com/profile_background_images/177485899/Comment_twitter.png</profile_background_image_url>
+    <profile_background_image_url_https>https://si0.twimg.com/profile_background_images/177485899/Comment_twitter.png</profile_background_image_url_https>
+    <profile_background_tile>false</profile_background_tile>
+    <profile_use_background_image>true</profile_use_background_image>
+    <notifications>false</notifications>
+    <geo_enabled>false</geo_enabled>
+    <verified>false</verified>
+    <following>true</following>
+    <statuses_count>137151</statuses_count>
+    <lang>en</lang>
+    <contributors_enabled>false</contributors_enabled>
+    <follow_request_sent>false</follow_request_sent>
+    <listed_count>2232</listed_count>
+    <show_all_inline_media>false</show_all_inline_media>
+    <default_profile>false</default_profile>
+    <default_profile_image>false</default_profile_image>
+    <is_translator>false</is_translator>
+  </user>
+  <geo/>
+  <coordinates/>
+  <place/>
+  <possibly_sensitive>false</possibly_sensitive>
+  <contributors/>
+  <entities>
+    <user_mentions/>
+    <media>
+      <creative end="97" start="78">
+        <type>photo</type>
+        <id_str>110091929357778945</id_str>
+        <display_url>pic.twitter.com/fHF1ADC</display_url>
+        <media_url_https>https://p.twimg.com/AYcgBsYCAAEuY-d.png</media_url_https>
+        <expanded_url>http://twitter.com/Telegraph/status/110091929353584640/photo/1</expanded_url>
+        <url>http://t.co/fHF1ADC</url>
+        <sizes>
+          <small>
+            <w>340</w>
+            <h>559</h>
+            <resize>fit</resize>
+          </small>
+          <large>
+            <w>800</w>
+            <h>1315</h>
+            <resize>fit</resize>
+          </large>
+          <thumb>
+            <w>150</w>
+            <h>150</h>
+            <resize>crop</resize>
+          </thumb>
+          <medium>
+            <w>600</w>
+            <h>986</h>
+            <resize>fit</resize>
+          </medium>
+        </sizes>
+        <id>110091929357778945</id>
+        <media_url>http://p.twimg.com/AYcgBsYCAAEuY-d.png</media_url>
+      </creative>
+    </media>
+    <urls/>
+    <hashtags/>
+  </entities>
+</status>
+<status>
+  <created_at>Sat Sep 03 20:19:25 +0000 2011</created_at>
+  <id>110084499085344768</id>
+  <text>WEIL ... &#225;vila ... http://t.co/GzgdFjQ</text>
+  <source>web</source>
+  <truncated>false</truncated>
+  <favorited>false</favorited>
+  <in_reply_to_status_id></in_reply_to_status_id>
+  <in_reply_to_user_id></in_reply_to_user_id>
+  <in_reply_to_screen_name></in_reply_to_screen_name>
+  <retweet_count>14</retweet_count>
+  <retweeted>false</retweeted>
+  <user>
+    <id>80837321</id>
+    <name>roberto weil</name>
+    <screen_name>WEIL_caricatura</screen_name>
+    <location>caracas</location>
+    <description></description>
+    <profile_image_url>http://a2.twimg.com/profile_images/671591711/twetter_i_normal.jpg</profile_image_url>
+    <profile_image_url_https>https://si0.twimg.com/profile_images/671591711/twetter_i_normal.jpg</profile_image_url_https>
+    <url>http://www.weil.com.ve</url>
+    <protected>false</protected>
+    <followers_count>36468</followers_count>
+    <profile_background_color>000000</profile_background_color>
+    <profile_text_color>333333</profile_text_color>
+    <profile_link_color>009999</profile_link_color>
+    <profile_sidebar_fill_color>efefef</profile_sidebar_fill_color>
+    <profile_sidebar_border_color>eeeeee</profile_sidebar_border_color>
+    <friends_count>146</friends_count>
+    <created_at>Thu Oct 08 12:30:28 +0000 2009</created_at>
+    <favourites_count>0</favourites_count>
+    <utc_offset>-16200</utc_offset>
+    <time_zone>Caracas</time_zone>
+    <profile_background_image_url>http://a0.twimg.com/profile_background_images/72478654/logo_weil_i.jpg</profile_background_image_url>
+    <profile_background_image_url_https>https://si0.twimg.com/profile_background_images/72478654/logo_weil_i.jpg</profile_background_image_url_https>
+    <profile_background_tile>false</profile_background_tile>
+    <profile_use_background_image>true</profile_use_background_image>
+    <notifications>false</notifications>
+    <geo_enabled>false</geo_enabled>
+    <verified>false</verified>
+    <following>true</following>
+    <statuses_count>1225</statuses_count>
+    <lang>en</lang>
+    <contributors_enabled>false</contributors_enabled>
+    <follow_request_sent>false</follow_request_sent>
+    <listed_count>1080</listed_count>
+    <show_all_inline_media>false</show_all_inline_media>
+    <default_profile>false</default_profile>
+    <default_profile_image>false</default_profile_image>
+    <is_translator>false</is_translator>
+  </user>
+  <geo/>
+  <coordinates/>
+  <place/>
+  <possibly_sensitive>false</possibly_sensitive>
+  <contributors/>
+  <entities>
+    <user_mentions/>
+    <media>
+      <creative end="38" start="19">
+        <type>photo</type>
+        <id_str>110084499089539072</id_str>
+        <display_url>pic.twitter.com/GzgdFjQ</display_url>
+        <media_url_https>https://p.twimg.com/AYcZRMeCQAAphkP.jpg</media_url_https>
+        <expanded_url>http://twitter.com/WEIL_caricatura/status/110084499085344768/photo/1</expanded_url>
+        <url>http://t.co/GzgdFjQ</url>
+        <sizes>
+          <small>
+            <w>340</w>
+            <h>137</h>
+            <resize>fit</resize>
+          </small>
+          <large>
+            <w>1024</w>
+            <h>413</h>
+            <resize>fit</resize>
+          </large>
+          <medium>
+            <w>600</w>
+            <h>242</h>
+            <resize>fit</resize>
+          </medium>
+          <thumb>
+            <w>150</w>
+            <h>150</h>
+            <resize>crop</resize>
+          </thumb>
+        </sizes>
+        <id>110084499089539072</id>
+        <media_url>http://p.twimg.com/AYcZRMeCQAAphkP.jpg</media_url>
+      </creative>
+    </media>
+    <urls/>
+    <hashtags/>
+  </entities>
+</status>
+<status>
+  <created_at>Sat Sep 03 21:22:46 +0000 2011</created_at>
+  <id>110100444747010048</id>
+  <text>Me &amp; @KKCarpy at @InsightMovie Premiere. My mother's response: &quot;I'm surprised they let you in without a sports coat.&quot; http://t.co/5yMmNfl</text>
+  <source>web</source>
+  <truncated>false</truncated>
+  <favorited>false</favorited>
+  <in_reply_to_status_id></in_reply_to_status_id>
+  <in_reply_to_user_id></in_reply_to_user_id>
+  <in_reply_to_screen_name></in_reply_to_screen_name>
+  <retweet_count>0</retweet_count>
+  <retweeted>false</retweeted>
+  <user>
+    <id>18269216</id>
+    <name>Aaron Ginsburg</name>
+    <screen_name>DrLawyercop</screen_name>
+    <location>City of Dreams</location>
+    <description>Writer on FOX's THE FINDER, THE GOOD GUYS. 
+Producer of BURN NOTICE: THE FALL OF SAM AXE.
+Director of THE THRILLING ADVENTURE HOUR.  
+</description>
+    <profile_image_url>http://a2.twimg.com/profile_images/1299800341/Screen_shot_2011-03-30_at_2.03.29_PM_normal.jpg</profile_image_url>
+    <profile_image_url_https>https://si0.twimg.com/profile_images/1299800341/Screen_shot_2011-03-30_at_2.03.29_PM_normal.jpg</profile_image_url_https>
+    <url>http://aaronginsburg.tumblr.com</url>
+    <protected>false</protected>
+    <followers_count>4089</followers_count>
+    <profile_background_color>352726</profile_background_color>
+    <profile_text_color>3E4415</profile_text_color>
+    <profile_link_color>D02B55</profile_link_color>
+    <profile_sidebar_fill_color>99CC33</profile_sidebar_fill_color>
+    <profile_sidebar_border_color>829D5E</profile_sidebar_border_color>
+    <friends_count>255</friends_count>
+    <created_at>Sat Dec 20 17:25:20 +0000 2008</created_at>
+    <favourites_count>5</favourites_count>
+    <utc_offset>-28800</utc_offset>
+    <time_zone>Pacific Time (US &amp; Canada)</time_zone>
+    <profile_background_image_url>http://a1.twimg.com/profile_background_images/3656056/DSCN2084.jpg</profile_background_image_url>
+    <profile_background_image_url_https>https://si0.twimg.com/profile_background_images/3656056/DSCN2084.jpg</profile_background_image_url_https>
+    <profile_background_tile>false</profile_background_tile>
+    <profile_use_background_image>true</profile_use_background_image>
+    <notifications>false</notifications>
+    <geo_enabled>false</geo_enabled>
+    <verified>false</verified>
+    <following>true</following>
+    <statuses_count>6362</statuses_count>
+    <lang>en</lang>
+    <contributors_enabled>false</contributors_enabled>
+    <follow_request_sent>false</follow_request_sent>
+    <listed_count>246</listed_count>
+    <show_all_inline_media>false</show_all_inline_media>
+    <default_profile>false</default_profile>
+    <default_profile_image>false</default_profile_image>
+    <is_translator>false</is_translator>
+  </user>
+  <geo/>
+  <coordinates/>
+  <place/>
+  <possibly_sensitive>false</possibly_sensitive>
+  <contributors/>
+  <entities>
+    <user_mentions>
+      <user_mention end="13" start="5">
+        <id>25844639</id>
+        <screen_name>KKCarpy</screen_name>
+        <name>Krista</name>
+      </user_mention>
+      <user_mention end="30" start="17">
+        <id>348588776</id>
+        <screen_name>InsightMovie</screen_name>
+        <name>Insight The Movie</name>
+      </user_mention>
+    </user_mentions>
+    <media>
+      <creative end="137" start="118">
+        <type>photo</type>
+        <id_str>110100444751204353</id_str>
+        <display_url>pic.twitter.com/5yMmNfl</display_url>
+        <media_url_https>https://p.twimg.com/AYcnxWsCEAEbtVj.jpg</media_url_https>
+        <expanded_url>http://twitter.com/DrLawyercop/status/110100444747010048/photo/1</expanded_url>
+        <url>http://t.co/5yMmNfl</url>
+        <sizes>
+          <small>
+            <w>340</w>
+            <h>226</h>
+            <resize>fit</resize>
+          </small>
+          <large>
+            <w>720</w>
+            <h>478</h>
+            <resize>fit</resize>
+          </large>
+          <thumb>
+            <w>150</w>
+            <h>150</h>
+            <resize>crop</resize>
+          </thumb>
+          <medium>
+            <w>600</w>
+            <h>398</h>
+            <resize>fit</resize>
+          </medium>
+        </sizes>
+        <id>110100444751204353</id>
+        <media_url>http://p.twimg.com/AYcnxWsCEAEbtVj.jpg</media_url>
+      </creative>
+    </media>
+    <urls/>
+    <hashtags/>
+  </entities>
+</status>
+<status>
+  <created_at>Sat Sep 03 21:22:48 +0000 2011</created_at>
+  <id>110100448681275392</id>
+  <text>East Bay Wildlife: http://t.co/NXhEcuT</text>
+  <source>web</source>
+  <truncated>false</truncated>
+  <favorited>false</favorited>
+  <in_reply_to_status_id></in_reply_to_status_id>
+  <in_reply_to_user_id></in_reply_to_user_id>
+  <in_reply_to_screen_name></in_reply_to_screen_name>
+  <retweet_count>0</retweet_count>
+  <retweeted>false</retweeted>
+  <user>
+    <id>14895312</id>
+    <name>Rudy Winnacker</name>
+    <screen_name>ronpepsi</screen_name>
+    <location>Piedmont, CA</location>
+    <description>Twitter Operations</description>
+    <profile_image_url>http://a0.twimg.com/profile_images/54839849/TRS_80_Color_Computer_2_normal.jpg</profile_image_url>
+    <profile_image_url_https>https://si0.twimg.com/profile_images/54839849/TRS_80_Color_Computer_2_normal.jpg</profile_image_url_https>
+    <url>http://t.co/CKqzPJi</url>
+    <protected>false</protected>
+    <followers_count>3526</followers_count>
+    <profile_background_color>C0DEED</profile_background_color>
+    <profile_text_color>333333</profile_text_color>
+    <profile_link_color>0084B4</profile_link_color>
+    <profile_sidebar_fill_color>DDEEF6</profile_sidebar_fill_color>
+    <profile_sidebar_border_color>C0DEED</profile_sidebar_border_color>
+    <friends_count>109</friends_count>
+    <created_at>Sun May 25 00:57:02 +0000 2008</created_at>
+    <favourites_count>0</favourites_count>
+    <utc_offset>-28800</utc_offset>
+    <time_zone>Pacific Time (US &amp; Canada)</time_zone>
+    <profile_background_image_url>http://a0.twimg.com/images/themes/theme1/bg.png</profile_background_image_url>
+    <profile_background_image_url_https>https://si0.twimg.com/images/themes/theme1/bg.png</profile_background_image_url_https>
+    <profile_background_tile>false</profile_background_tile>
+    <profile_use_background_image>true</profile_use_background_image>
+    <notifications></notifications>
+    <geo_enabled>true</geo_enabled>
+    <verified>false</verified>
+    <following></following>
+    <statuses_count>6644</statuses_count>
+    <lang>en</lang>
+    <contributors_enabled>false</contributors_enabled>
+    <follow_request_sent></follow_request_sent>
+    <listed_count>103</listed_count>
+    <show_all_inline_media>false</show_all_inline_media>
+    <default_profile>true</default_profile>
+    <default_profile_image>false</default_profile_image>
+    <expanded_url>http://www.winnacker.com</expanded_url>
+    <display_url>winnacker.com</display_url>
+    <entities>
+      <user_mentions/>
+      <urls/>
+      <hashtags/>
+    </entities>
+    <is_translator>false</is_translator>
+  </user>
+  <geo/>
+  <coordinates/>
+  <place xmlns:georss="http://www.georss.org/georss">
+    <id>ab2f2fac83aa388d</id>
+    <name>Oakland</name>
+    <full_name>Oakland, CA</full_name>
+    <place_type>city</place_type>
+    <url>http://api.twitter.com/1/geo/id/ab2f2fac83aa388d.json</url>
+    <attributes/>
+    <bounding_box>
+      <georss:polygon>37.632226 -122.355881 37.632226 -122.114672 37.885255 -122.114672 37.885255 -122.355881</georss:polygon>
+    </bounding_box>
+    <country code="US">United States</country>
+  </place>
+  <possibly_sensitive>false</possibly_sensitive>
+  <contributors/>
+  <entities>
+    <user_mentions/>
+    <media>
+      <creative end="38" start="19">
+        <type>photo</type>
+        <id_str>110100448685469696</id_str>
+        <display_url>pic.twitter.com/NXhEcuT</display_url>
+        <media_url_https>https://p.twimg.com/AYcnxlWCMAAFr-s.jpg</media_url_https>
+        <expanded_url>http://twitter.com/ronpepsi/status/110100448681275392/photo/1</expanded_url>
+        <url>http://t.co/NXhEcuT</url>
+        <sizes>
+          <small>
+            <w>340</w>
+            <h>453</h>
+            <resize>fit</resize>
+          </small>
+          <large>
+            <w>1024</w>
+            <h>1365</h>
+            <resize>fit</resize>
+          </large>
+          <thumb>
+            <w>150</w>
+            <h>150</h>
+            <resize>crop</resize>
+          </thumb>
+          <medium>
+            <w>600</w>
+            <h>800</h>
+            <resize>fit</resize>
+          </medium>
+        </sizes>
+        <id>110100448685469696</id>
+        <media_url>http://p.twimg.com/AYcnxlWCMAAFr-s.jpg</media_url>
+      </creative>
+    </media>
+    <urls/>
+    <hashtags/>
+  </entities>
+</status>
+<status>
+  <created_at>Sat Sep 03 20:23:43 +0000 2011</created_at>
+  <id>110085582855733248</id>
+  <text>Went to @acedtect 's room to drop off gear and found this!   #awkward #dragoncon http://t.co/NvUkI0J</text>
+  <source>web</source>
+  <truncated>false</truncated>
+  <favorited>false</favorited>
+  <in_reply_to_status_id></in_reply_to_status_id>
+  <in_reply_to_user_id></in_reply_to_user_id>
+  <in_reply_to_screen_name></in_reply_to_screen_name>
+  <retweet_count>4</retweet_count>
+  <retweeted>false</retweeted>
+  <user>
+    <id>1652731</id>
+    <name>Roger Chang</name>
+    <screen_name>jollyroger</screen_name>
+    <location>37.759299,-122.38821</location>
+    <description>A TV/Web video producer who once played a game of ping-pong against Wil Wheaton. I lost. I'm also the funny half of the East Meets West podcast.  </description>
+    <profile_image_url>http://a0.twimg.com/profile_images/842250047/jollyroger_normal.jpg</profile_image_url>
+    <profile_image_url_https>https://si0.twimg.com/profile_images/842250047/jollyroger_normal.jpg</profile_image_url_https>
+    <url>http://facebook.com/rogee.chang</url>
+    <protected>false</protected>
+    <followers_count>11115</followers_count>
+    <profile_background_color>1A1B1F</profile_background_color>
+    <profile_text_color>666666</profile_text_color>
+    <profile_link_color>2FC2EF</profile_link_color>
+    <profile_sidebar_fill_color>252429</profile_sidebar_fill_color>
+    <profile_sidebar_border_color>181A1E</profile_sidebar_border_color>
+    <friends_count>114</friends_count>
+    <created_at>Tue Mar 20 17:49:09 +0000 2007</created_at>
+    <favourites_count>0</favourites_count>
+    <utc_offset>-28800</utc_offset>
+    <time_zone>Pacific Time (US &amp; Canada)</time_zone>
+    <profile_background_image_url>http://a0.twimg.com/profile_background_images/106906599/Image2.jpg</profile_background_image_url>
+    <profile_background_image_url_https>https://si0.twimg.com/profile_background_images/106906599/Image2.jpg</profile_background_image_url_https>
+    <profile_background_tile>true</profile_background_tile>
+    <profile_use_background_image>true</profile_use_background_image>
+    <notifications>true</notifications>
+    <geo_enabled>false</geo_enabled>
+    <verified>false</verified>
+    <following>true</following>
+    <statuses_count>5225</statuses_count>
+    <lang>en</lang>
+    <contributors_enabled>false</contributors_enabled>
+    <follow_request_sent>false</follow_request_sent>
+    <listed_count>1218</listed_count>
+    <show_all_inline_media>false</show_all_inline_media>
+    <default_profile>false</default_profile>
+    <default_profile_image>false</default_profile_image>
+    <is_translator>false</is_translator>
+  </user>
+  <geo/>
+  <coordinates/>
+  <place/>
+  <possibly_sensitive>false</possibly_sensitive>
+  <contributors/>
+  <entities>
+    <user_mentions>
+      <user_mention end="17" start="8">
+        <id>610533</id>
+        <screen_name>acedtect</screen_name>
+        <name>Tom Merritt</name>
+      </user_mention>
+    </user_mentions>
+    <media>
+      <creative end="100" start="81">
+        <type>photo</type>
+        <display_url>pic.twitter.com/NvUkI0J</display_url>
+        <url>http://t.co/NvUkI0J</url>
+        <media_url_https>https://p.twimg.com/AYcaQR1CAAA8yn9.jpg</media_url_https>
+        <expanded_url>http://twitter.com/jollyroger/status/110085582855733248/photo/1</expanded_url>
+        <sizes>
+          <small>
+            <w>340</w>
+            <h>255</h>
+            <resize>fit</resize>
+          </small>
+          <medium>
+            <w>600</w>
+            <h>450</h>
+            <resize>fit</resize>
+          </medium>
+          <large>
+            <w>1024</w>
+            <h>768</h>
+            <resize>fit</resize>
+          </large>
+          <thumb>
+            <w>150</w>
+            <h>150</h>
+            <resize>crop</resize>
+          </thumb>
+        </sizes>
+        <id_str>110085582859927552</id_str>
+        <media_url>http://p.twimg.com/AYcaQR1CAAA8yn9.jpg</media_url>
+        <id>110085582859927552</id>
+      </creative>
+    </media>
+    <urls/>
+    <hashtags>
+      <hashtag end="69" start="61">
+        <text>awkward</text>
+      </hashtag>
+      <hashtag end="80" start="70">
+        <text>dragoncon</text>
+      </hashtag>
+    </hashtags>
+  </entities>
+</status>
+<status>
+  <created_at>Sat Sep 03 20:22:09 +0000 2011</created_at>
+  <id>110085188217872387</id>
+  <text>@miotroespejo te mando mi ADN es el mismo de la Patria http://t.co/sbISOer</text>
+  <source>web</source>
+  <truncated>false</truncated>
+  <favorited>false</favorited>
+  <in_reply_to_status_id>110084317660725248</in_reply_to_status_id>
+  <in_reply_to_user_id>152708650</in_reply_to_user_id>
+  <in_reply_to_screen_name>miotroespejo</in_reply_to_screen_name>
+  <retweet_count>0</retweet_count>
+  <retweeted>false</retweeted>
+  <user>
+    <id>143502765</id>
+    <name>Julio Piumato</name>
+    <screen_name>JulioPiumato</screen_name>
+    <location>Argentina</location>
+    <description>SecGralUEJN(Judiciales)SecDDHH CGT,Dip Nac(MC)Pres Cees(Centro de Estudios estrat&#233;gicos Suramericanos)Militante peronista,abogado, hincha de Boca.</description>
+    <profile_image_url>http://a1.twimg.com/profile_images/950325261/Piumato_CABA_23330-240_normal.jpg</profile_image_url>
+    <profile_image_url_https>https://si0.twimg.com/profile_images/950325261/Piumato_CABA_23330-240_normal.jpg</profile_image_url_https>
+    <url>http://juliopiumato.blogspot.com</url>
+    <protected>false</protected>
+    <followers_count>22760</followers_count>
+    <profile_background_color>C0DEED</profile_background_color>
+    <profile_text_color>333333</profile_text_color>
+    <profile_link_color>0084B4</profile_link_color>
+    <profile_sidebar_fill_color>DDEEF6</profile_sidebar_fill_color>
+    <profile_sidebar_border_color>C0DEED</profile_sidebar_border_color>
+    <friends_count>45</friends_count>
+    <created_at>Thu May 13 17:01:29 +0000 2010</created_at>
+    <favourites_count>2</favourites_count>
+    <utc_offset>-10800</utc_offset>
+    <time_zone>Buenos Aires</time_zone>
+    <profile_background_image_url>http://a0.twimg.com/profile_background_images/101147551/boca.jpg</profile_background_image_url>
+    <profile_background_image_url_https>https://si0.twimg.com/profile_background_images/101147551/boca.jpg</profile_background_image_url_https>
+    <profile_background_tile>true</profile_background_tile>
+    <profile_use_background_image>true</profile_use_background_image>
+    <notifications>false</notifications>
+    <geo_enabled>false</geo_enabled>
+    <verified>false</verified>
+    <following>true</following>
+    <statuses_count>12524</statuses_count>
+    <lang>es</lang>
+    <contributors_enabled>false</contributors_enabled>
+    <follow_request_sent>false</follow_request_sent>
+    <listed_count>582</listed_count>
+    <show_all_inline_media>false</show_all_inline_media>
+    <default_profile>false</default_profile>
+    <default_profile_image>false</default_profile_image>
+    <is_translator>false</is_translator>
+  </user>
+  <geo/>
+  <coordinates/>
+  <place/>
+  <possibly_sensitive>false</possibly_sensitive>
+  <contributors/>
+  <entities>
+    <user_mentions>
+      <user_mention end="13" start="0">
+        <id>152708650</id>
+        <screen_name>miotroespejo</screen_name>
+        <name>mauro garcia K</name>
+      </user_mention>
+    </user_mentions>
+    <media>
+      <creative end="74" start="55">
+        <type>photo</type>
+        <media_url>http://p.twimg.com/AYcZ5TtCIAAVA43.jpg</media_url>
+        <id_str>110085188226260992</id_str>
+        <display_url>pic.twitter.com/sbISOer</display_url>
+        <url>http://t.co/sbISOer</url>
+        <media_url_https>https://p.twimg.com/AYcZ5TtCIAAVA43.jpg</media_url_https>
+        <expanded_url>http://twitter.com/JulioPiumato/status/110085188217872387/photo/1</expanded_url>
+        <sizes>
+          <medium>
+            <w>107</w>
+            <h>130</h>
+            <resize>fit</resize>
+          </medium>
+          <small>
+            <w>107</w>
+            <h>130</h>
+            <resize>fit</resize>
+          </small>
+          <large>
+            <w>107</w>
+            <h>130</h>
+            <resize>fit</resize>
+          </large>
+          <thumb>
+            <w>107</w>
+            <h>130</h>
+            <resize>crop</resize>
+          </thumb>
+        </sizes>
+        <id>110085188226260992</id>
+      </creative>
+    </media>
+    <urls/>
+    <hashtags/>
+  </entities>
+</status>
+<status>
+  <created_at>Sat Sep 03 21:09:33 +0000 2011</created_at>
+  <id>110097117149794304</id>
+  <text>FUN FACT: We named our cat Toast because of his coloring, but also so we can call him Mr. Toast after @themistertoast. http://t.co/WwzgPlU</text>
+  <source>web</source>
+  <truncated>false</truncated>
+  <favorited>false</favorited>
+  <in_reply_to_status_id></in_reply_to_status_id>
+  <in_reply_to_user_id></in_reply_to_user_id>
+  <in_reply_to_screen_name></in_reply_to_screen_name>
+  <retweet_count>0</retweet_count>
+  <retweeted>false</retweeted>
+  <user>
+    <id>16049481</id>
+    <name>Ron Hogan</name>
+    <screen_name>RonHogan</screen_name>
+    <location>New York, NY</location>
+    <description>I run Beatrice.com. I curate a reading series at @GreenlightBklyn &amp; a book club at @FountainBkstore. I wrote GETTING RIGHT WITH TAO (@channelvbooks).</description>
+    <profile_image_url>http://a2.twimg.com/profile_images/932234747/twitter-avatar_normal.jpg</profile_image_url>
+    <profile_image_url_https>https://si0.twimg.com/profile_images/932234747/twitter-avatar_normal.jpg</profile_image_url_https>
+    <url>http://www.ronhogan.net</url>
+    <protected>false</protected>
+    <followers_count>8555</followers_count>
+    <profile_background_color>b2bbc0</profile_background_color>
+    <profile_text_color>333333</profile_text_color>
+    <profile_link_color>822007</profile_link_color>
+    <profile_sidebar_fill_color>b2bbc0</profile_sidebar_fill_color>
+    <profile_sidebar_border_color>3d414c</profile_sidebar_border_color>
+    <friends_count>180</friends_count>
+    <created_at>Sat Aug 30 00:55:53 +0000 2008</created_at>
+    <favourites_count>74</favourites_count>
+    <utc_offset>-18000</utc_offset>
+    <time_zone>Eastern Time (US &amp; Canada)</time_zone>
+    <profile_background_image_url>http://a3.twimg.com/profile_background_images/105289790/twitter-corner-2.jpg</profile_background_image_url>
+    <profile_background_image_url_https>https://si0.twimg.com/profile_background_images/105289790/twitter-corner-2.jpg</profile_background_image_url_https>
+    <profile_background_tile>false</profile_background_tile>
+    <profile_use_background_image>true</profile_use_background_image>
+    <notifications>false</notifications>
+    <geo_enabled>false</geo_enabled>
+    <verified>false</verified>
+    <following>true</following>
+    <statuses_count>23562</statuses_count>
+    <lang>en</lang>
+    <contributors_enabled>false</contributors_enabled>
+    <follow_request_sent>false</follow_request_sent>
+    <listed_count>774</listed_count>
+    <show_all_inline_media>false</show_all_inline_media>
+    <default_profile>false</default_profile>
+    <default_profile_image>false</default_profile_image>
+    <is_translator>false</is_translator>
+  </user>
+  <geo/>
+  <coordinates/>
+  <place/>
+  <possibly_sensitive>false</possibly_sensitive>
+  <contributors/>
+  <entities>
+    <user_mentions>
+      <user_mention end="117" start="102">
+        <id>74870546</id>
+        <screen_name>themistertoast</screen_name>
+        <name>Dan Goodsell</name>
+      </user_mention>
+    </user_mentions>
+    <media>
+      <creative end="138" start="119">
+        <type>photo</type>
+        <id_str>110097117153988608</id_str>
+        <display_url>pic.twitter.com/WwzgPlU</display_url>
+        <media_url_https>https://p.twimg.com/AYckvqbCEAAR30-.jpg</media_url_https>
+        <expanded_url>http://twitter.com/RonHogan/status/110097117149794304/photo/1</expanded_url>
+        <url>http://t.co/WwzgPlU</url>
+        <sizes>
+          <small>
+            <w>340</w>
+            <h>286</h>
+            <resize>fit</resize>
+          </small>
+          <large>
+            <w>800</w>
+            <h>671</h>
+            <resize>fit</resize>
+          </large>
+          <thumb>
+            <w>150</w>
+            <h>150</h>
+            <resize>crop</resize>
+          </thumb>
+          <medium>
+            <w>600</w>
+            <h>503</h>
+            <resize>fit</resize>
+          </medium>
+        </sizes>
+        <id>110097117153988608</id>
+        <media_url>http://p.twimg.com/AYckvqbCEAAR30-.jpg</media_url>
+      </creative>
+    </media>
+    <urls/>
+    <hashtags/>
+  </entities>
+</status>
+<status>
+  <created_at>Sat Sep 03 20:48:20 +0000 2011</created_at>
+  <id>110091778593538049</id>
+  <text>La Macchina is almost here http://t.co/IOClWFR</text>
+  <source>&lt;a href=&quot;http://www.apple.com&quot; rel=&quot;nofollow&quot;&gt;Camera on iOS&lt;/a&gt;</source>
+  <truncated>false</truncated>
+  <favorited>false</favorited>
+  <in_reply_to_status_id></in_reply_to_status_id>
+  <in_reply_to_user_id></in_reply_to_user_id>
+  <in_reply_to_screen_name></in_reply_to_screen_name>
+  <retweet_count>0</retweet_count>
+  <retweeted>false</retweeted>
+  <user>
+    <id>20904050</id>
+    <name>Federico Viticci</name>
+    <screen_name>viticci</screen_name>
+    <location>Viterbo, Italy</location>
+    <description>Editor of MacStories.net.</description>
+    <profile_image_url>http://a0.twimg.com/profile_images/1135129324/Viticci_2010_normal.jpg</profile_image_url>
+    <profile_image_url_https>https://si0.twimg.com/profile_images/1135129324/Viticci_2010_normal.jpg</profile_image_url_https>
+    <url>http://www.macstories.net/</url>
+    <protected>false</protected>
+    <followers_count>15132</followers_count>
+    <profile_background_color>062039</profile_background_color>
+    <profile_text_color>191a19</profile_text_color>
+    <profile_link_color>0d8eb5</profile_link_color>
+    <profile_sidebar_fill_color>f7f7f7</profile_sidebar_fill_color>
+    <profile_sidebar_border_color>232b3d</profile_sidebar_border_color>
+    <friends_count>896</friends_count>
+    <created_at>Sun Feb 15 10:52:33 +0000 2009</created_at>
+    <favourites_count>6132</favourites_count>
+    <utc_offset>3600</utc_offset>
+    <time_zone>Rome</time_zone>
+    <profile_background_image_url>http://a3.twimg.com/profile_background_images/79556586/sfondotwitter.jpg</profile_background_image_url>
+    <profile_background_image_url_https>https://si0.twimg.com/profile_background_images/79556586/sfondotwitter.jpg</profile_background_image_url_https>
+    <profile_background_tile>true</profile_background_tile>
+    <profile_use_background_image>true</profile_use_background_image>
+    <notifications>false</notifications>
+    <geo_enabled>true</geo_enabled>
+    <verified>false</verified>
+    <following>true</following>
+    <statuses_count>36485</statuses_count>
+    <lang>en</lang>
+    <contributors_enabled>false</contributors_enabled>
+    <follow_request_sent>false</follow_request_sent>
+    <listed_count>901</listed_count>
+    <show_all_inline_media>true</show_all_inline_media>
+    <default_profile>false</default_profile>
+    <default_profile_image>false</default_profile_image>
+    <is_translator>true</is_translator>
+  </user>
+  <geo xmlns:georss="http://www.georss.org/georss">
+    <georss:point>42.418186 12.106259</georss:point>
+  </geo>
+  <coordinates xmlns:georss="http://www.georss.org/georss">
+    <georss:point>42.418186 12.106259</georss:point>
+  </coordinates>
+  <place xmlns:georss="http://www.georss.org/georss">
+    <id>6197893ccb5e11d0</id>
+    <name>Viterbo</name>
+    <full_name>Viterbo, Viterbo</full_name>
+    <place_type>city</place_type>
+    <url>http://api.twitter.com/1/geo/id/6197893ccb5e11d0.json</url>
+    <attributes/>
+    <bounding_box>
+      <georss:polygon>42.2968828 11.9036425 42.2968828 12.2266818 42.5874835 12.2266818 42.5874835 11.9036425</georss:polygon>
+    </bounding_box>
+    <country code="IT">Italy</country>
+  </place>
+  <possibly_sensitive>false</possibly_sensitive>
+  <contributors/>
+  <entities>
+    <user_mentions/>
+    <media>
+      <creative end="46" start="27">
+        <type>photo</type>
+        <id_str>110091778597732353</id_str>
+        <display_url>pic.twitter.com/IOClWFR</display_url>
+        <media_url_https>https://p.twimg.com/AYcf46wCQAErhdW.jpg</media_url_https>
+        <expanded_url>http://twitter.com/viticci/status/110091778593538049/photo/1</expanded_url>
+        <url>http://t.co/IOClWFR</url>
+        <sizes>
+          <small>
+            <w>340</w>
+            <h>455</h>
+            <resize>fit</resize>
+          </small>
+          <large>
+            <w>484</w>
+            <h>648</h>
+            <resize>fit</resize>
+          </large>
+          <thumb>
+            <w>150</w>
+            <h>150</h>
+            <resize>crop</resize>
+          </thumb>
+          <medium>
+            <w>484</w>
+            <h>648</h>
+            <resize>fit</resize>
+          </medium>
+        </sizes>
+        <id>110091778597732353</id>
+        <media_url>http://p.twimg.com/AYcf46wCQAErhdW.jpg</media_url>
+      </creative>
+    </media>
+    <urls/>
+    <hashtags/>
+  </entities>
+</status>
+<status>
+  <created_at>Sat Sep 03 20:19:44 +0000 2011</created_at>
+  <id>110084580027006976</id>
+  <text>#PicOfTheDay http://t.co/3oqTZlu</text>
+  <source>web</source>
+  <truncated>false</truncated>
+  <favorited>false</favorited>
+  <in_reply_to_status_id></in_reply_to_status_id>
+  <in_reply_to_user_id></in_reply_to_user_id>
+  <in_reply_to_screen_name></in_reply_to_screen_name>
+  <retweet_count>0</retweet_count>
+  <retweeted>false</retweeted>
+  <user>
+    <id>250329331</id>
+    <name>Carey Hart Fans</name>
+    <screen_name>CareyHartFans</screen_name>
+    <location></location>
+    <description>#1 fans twitter account for the loveable, crazy,legend Carey Hart (@hartluck)
+ our facebook page for even more updates.
+http://www.facebook.com/CareyHartFans</description>
+    <profile_image_url>http://a0.twimg.com/profile_images/1473018205/carebear_normal.jpg</profile_image_url>
+    <profile_image_url_https>https://si0.twimg.com/profile_images/1473018205/carebear_normal.jpg</profile_image_url_https>
+    <url>http://www.hartandhuntington.com</url>
+    <protected>false</protected>
+    <followers_count>1090</followers_count>
+    <profile_background_color>000000</profile_background_color>
+    <profile_text_color>827b82</profile_text_color>
+    <profile_link_color>0084b4</profile_link_color>
+    <profile_sidebar_fill_color>333333</profile_sidebar_fill_color>
+    <profile_sidebar_border_color>000000</profile_sidebar_border_color>
+    <friends_count>21</friends_count>
+    <created_at>Thu Feb 10 21:52:45 +0000 2011</created_at>
+    <favourites_count>2</favourites_count>
+    <utc_offset></utc_offset>
+    <time_zone></time_zone>
+    <profile_background_image_url>http://a3.twimg.com/profile_background_images/275179792/2011-03-25_22-22-06_97.114.236.119.jpg</profile_background_image_url>
+    <profile_background_image_url_https>https://si0.twimg.com/profile_background_images/275179792/2011-03-25_22-22-06_97.114.236.119.jpg</profile_background_image_url_https>
+    <profile_background_tile>false</profile_background_tile>
+    <profile_use_background_image>true</profile_use_background_image>
+    <notifications></notifications>
+    <geo_enabled>false</geo_enabled>
+    <verified>false</verified>
+    <following></following>
+    <statuses_count>158</statuses_count>
+    <lang>en</lang>
+    <contributors_enabled>false</contributors_enabled>
+    <follow_request_sent></follow_request_sent>
+    <listed_count>82</listed_count>
+    <show_all_inline_media>false</show_all_inline_media>
+    <default_profile>false</default_profile>
+    <default_profile_image>false</default_profile_image>
+    <is_translator>false</is_translator>
+  </user>
+  <geo/>
+  <coordinates/>
+  <place/>
+  <possibly_sensitive>false</possibly_sensitive>
+  <contributors/>
+  <entities>
+    <user_mentions/>
+    <media>
+      <creative end="32" start="13">
+        <type>photo</type>
+        <id_str>110084580031201280</id_str>
+        <display_url>pic.twitter.com/3oqTZlu</display_url>
+        <media_url_https>https://p.twimg.com/AYcZV6ACAAAtQ4D.jpg</media_url_https>
+        <expanded_url>http://twitter.com/CareyHartFans/status/110084580027006976/photo/1</expanded_url>
+        <url>http://t.co/3oqTZlu</url>
+        <sizes>
+          <small>
+            <w>340</w>
+            <h>256</h>
+            <resize>fit</resize>
+          </small>
+          <large>
+            <w>750</w>
+            <h>564</h>
+            <resize>fit</resize>
+          </large>
+          <thumb>
+            <w>150</w>
+            <h>150</h>
+            <resize>crop</resize>
+          </thumb>
+          <medium>
+            <w>600</w>
+            <h>451</h>
+            <resize>fit</resize>
+          </medium>
+        </sizes>
+        <id>110084580031201280</id>
+        <media_url>http://p.twimg.com/AYcZV6ACAAAtQ4D.jpg</media_url>
+      </creative>
+    </media>
+    <urls/>
+    <hashtags>
+      <hashtag end="12" start="0">
+        <text>PicOfTheDay</text>
+      </hashtag>
+    </hashtags>
+  </entities>
+</status>
+<status>
+  <created_at>Sat Sep 03 21:18:08 +0000 2011</created_at>
+  <id>110099277509955585</id>
+  <text>Zeppelin pic at MIT Museum. /cc @jsnell http://t.co/Nz621Ni</text>
+  <source>&lt;a href=&quot;http://www.apple.com&quot; rel=&quot;nofollow&quot;&gt;Photos on iOS&lt;/a&gt;</source>
+  <truncated>false</truncated>
+  <favorited>false</favorited>
+  <in_reply_to_status_id></in_reply_to_status_id>
+  <in_reply_to_user_id></in_reply_to_user_id>
+  <in_reply_to_screen_name></in_reply_to_screen_name>
+  <retweet_count>0</retweet_count>
+  <retweeted>false</retweeted>
+  <user>
+    <id>668243</id>
+    <name>Dan Moren</name>
+    <screen_name>dmoren</screen_name>
+    <location>Somerville, MA</location>
+    <description>Storyteller, rocketeer. Slamming evil since MCMLXXX. Senior Associate Editorial Robot at Macworld.</description>
+    <profile_image_url>http://a3.twimg.com/profile_images/51955128/dmoren3_normal.jpg</profile_image_url>
+    <profile_image_url_https>https://si0.twimg.com/profile_images/51955128/dmoren3_normal.jpg</profile_image_url_https>
+    <url>http://doombot.com</url>
+    <protected>false</protected>
+    <followers_count>3688</followers_count>
+    <profile_background_color>FFFFFF</profile_background_color>
+    <profile_text_color>000000</profile_text_color>
+    <profile_link_color>990000</profile_link_color>
+    <profile_sidebar_fill_color>F0F0F0</profile_sidebar_fill_color>
+    <profile_sidebar_border_color>D8D8D8</profile_sidebar_border_color>
+    <friends_count>175</friends_count>
+    <created_at>Fri Jan 19 22:25:04 +0000 2007</created_at>
+    <favourites_count>321</favourites_count>
+    <utc_offset>-36000</utc_offset>
+    <time_zone>Hawaii</time_zone>
+    <profile_background_image_url>http://a3.twimg.com/profile_background_images/36792/doombot.jpg</profile_background_image_url>
+    <profile_background_image_url_https>https://si0.twimg.com/profile_background_images/36792/doombot.jpg</profile_background_image_url_https>
+    <profile_background_tile>false</profile_background_tile>
+    <profile_use_background_image>true</profile_use_background_image>
+    <notifications></notifications>
+    <geo_enabled>true</geo_enabled>
+    <verified>false</verified>
+    <following></following>
+    <statuses_count>10545</statuses_count>
+    <lang>en</lang>
+    <contributors_enabled>false</contributors_enabled>
+    <follow_request_sent></follow_request_sent>
+    <listed_count>380</listed_count>
+    <show_all_inline_media>true</show_all_inline_media>
+    <default_profile>false</default_profile>
+    <default_profile_image>false</default_profile_image>
+    <is_translator>false</is_translator>
+  </user>
+  <geo/>
+  <coordinates/>
+  <place/>
+  <possibly_sensitive>false</possibly_sensitive>
+  <contributors/>
+  <entities>
+    <user_mentions>
+      <user_mention end="39" start="32">
+        <id>784912</id>
+        <screen_name>jsnell</screen_name>
+        <name>Jason Snell</name>
+      </user_mention>
+    </user_mentions>
+    <media>
+      <creative end="59" start="40">
+        <type>photo</type>
+        <id_str>110099277514149889</id_str>
+        <display_url>pic.twitter.com/Nz621Ni</display_url>
+        <media_url_https>https://p.twimg.com/AYcmtaZCEAEIdWi.jpg</media_url_https>
+        <expanded_url>http://twitter.com/dmoren/status/110099277509955585/photo/1</expanded_url>
+        <url>http://t.co/Nz621Ni</url>
+        <sizes>
+          <small>
+            <w>340</w>
+            <h>254</h>
+            <resize>fit</resize>
+          </small>
+          <large>
+            <w>648</w>
+            <h>484</h>
+            <resize>fit</resize>
+          </large>
+          <medium>
+            <w>600</w>
+            <h>448</h>
+            <resize>fit</resize>
+          </medium>
+          <thumb>
+            <w>150</w>
+            <h>150</h>
+            <resize>crop</resize>
+          </thumb>
+        </sizes>
+        <id>110099277514149889</id>
+        <media_url>http://p.twimg.com/AYcmtaZCEAEIdWi.jpg</media_url>
+      </creative>
+    </media>
+    <urls/>
+    <hashtags/>
+  </entities>
+</status>
+<status>
+  <created_at>Sat Sep 03 20:15:22 +0000 2011</created_at>
+  <id>110083479647162368</id>
+  <text>Skate and Destroy. http://t.co/YjC7PNd</text>
+  <source>web</source>
+  <truncated>false</truncated>
+  <favorited>false</favorited>
+  <in_reply_to_status_id></in_reply_to_status_id>
+  <in_reply_to_user_id></in_reply_to_user_id>
+  <in_reply_to_screen_name></in_reply_to_screen_name>
+  <retweet_count>0</retweet_count>
+  <retweeted>false</retweeted>
+  <user>
+    <id>20319095</id>
+    <name>Danny Boy O'Connor</name>
+    <screen_name>DannyBoy1968</screen_name>
+    <location>Beverly Hills, CA.</location>
+    <description>LA COKA NOSTRA-HOUSE OF PAIN-HELL FIRE CANYON CLUB-THE GREAT AMERICAN LOVE MACHINE.</description>
+    <profile_image_url>http://a2.twimg.com/profile_images/1441944755/Picture_4_normal.png</profile_image_url>
+    <profile_image_url_https>https://si0.twimg.com/profile_images/1441944755/Picture_4_normal.png</profile_image_url_https>
+    <url>http://americanlovemachine.com/</url>
+    <protected>false</protected>
+    <followers_count>5623</followers_count>
+    <profile_background_color>040101</profile_background_color>
+    <profile_text_color>000000</profile_text_color>
+    <profile_link_color>eb0700</profile_link_color>
+    <profile_sidebar_fill_color>454f40</profile_sidebar_fill_color>
+    <profile_sidebar_border_color>000000</profile_sidebar_border_color>
+    <friends_count>342</friends_count>
+    <created_at>Sat Feb 07 16:51:42 +0000 2009</created_at>
+    <favourites_count>0</favourites_count>
+    <utc_offset>-28800</utc_offset>
+    <time_zone>Pacific Time (US &amp; Canada)</time_zone>
+    <profile_background_image_url>http://a0.twimg.com/profile_background_images/141476661/Picture_6.png</profile_background_image_url>
+    <profile_background_image_url_https>https://si0.twimg.com/profile_background_images/141476661/Picture_6.png</profile_background_image_url_https>
+    <profile_background_tile>true</profile_background_tile>
+    <profile_use_background_image>true</profile_use_background_image>
+    <notifications>false</notifications>
+    <geo_enabled>false</geo_enabled>
+    <verified>false</verified>
+    <following>true</following>
+    <statuses_count>4301</statuses_count>
+    <lang>en</lang>
+    <contributors_enabled>false</contributors_enabled>
+    <follow_request_sent>false</follow_request_sent>
+    <listed_count>121</listed_count>
+    <show_all_inline_media>true</show_all_inline_media>
+    <default_profile>false</default_profile>
+    <default_profile_image>false</default_profile_image>
+    <is_translator>false</is_translator>
+  </user>
+  <geo/>
+  <coordinates/>
+  <place/>
+  <possibly_sensitive>false</possibly_sensitive>
+  <contributors/>
+  <entities>
+    <user_mentions/>
+    <media>
+      <creative end="38" start="19">
+        <type>photo</type>
+        <id_str>110083479651356672</id_str>
+        <display_url>pic.twitter.com/YjC7PNd</display_url>
+        <media_url_https>https://p.twimg.com/AYcYV2xCEAAJLRz.jpg</media_url_https>
+        <expanded_url>http://twitter.com/DannyBoy1968/status/110083479647162368/photo/1</expanded_url>
+        <url>http://t.co/YjC7PNd</url>
+        <sizes>
+          <small>
+            <w>340</w>
+            <h>369</h>
+            <resize>fit</resize>
+          </small>
+          <large>
+            <w>1024</w>
+            <h>1109</h>
+            <resize>fit</resize>
+          </large>
+          <thumb>
+            <w>150</w>
+            <h>150</h>
+            <resize>crop</resize>
+          </thumb>
+          <medium>
+            <w>600</w>
+            <h>650</h>
+            <resize>fit</resize>
+          </medium>
+        </sizes>
+        <id>110083479651356672</id>
+        <media_url>http://p.twimg.com/AYcYV2xCEAAJLRz.jpg</media_url>
+      </creative>
+    </media>
+    <urls/>
+    <hashtags/>
+  </entities>
+</status>
+<status>
+  <created_at>Sat Sep 03 21:24:10 +0000 2011</created_at>
+  <id>110100794983985153</id>
+  <text>Giant @cw_network's Twitter timeline in Westfield: http://t.co/1vxkaPz</text>
+  <source>&lt;a href=&quot;http://twitter.com&quot; rel=&quot;nofollow&quot;&gt;Twitter for  iPhone&lt;/a&gt;</source>
+  <truncated>false</truncated>
+  <favorited>false</favorited>
+  <in_reply_to_status_id></in_reply_to_status_id>
+  <in_reply_to_user_id></in_reply_to_user_id>
+  <in_reply_to_screen_name></in_reply_to_screen_name>
+  <retweet_count>0</retweet_count>
+  <retweeted>false</retweeted>
+  <user>
+    <id>14717846</id>
+    <name>Miguel Rios</name>
+    <screen_name>miguelrios</screen_name>
+    <location>San Francisco, California</location>
+    <description>Information design nerd. Numbers and Data Visualization @Twitter. J&#237;baro Boricua. Tweets represent my view...</description>
+    <profile_image_url>http://a2.twimg.com/profile_images/1499675862/prof_normal.png</profile_image_url>
+    <profile_image_url_https>https://si0.twimg.com/profile_images/1499675862/prof_normal.png</profile_image_url_https>
+    <url>http://t.co/FVVzWKE</url>
+    <protected>false</protected>
+    <followers_count>3184</followers_count>
+    <profile_background_color>131516</profile_background_color>
+    <profile_text_color>333333</profile_text_color>
+    <profile_link_color>009999</profile_link_color>
+    <profile_sidebar_fill_color>efefef</profile_sidebar_fill_color>
+    <profile_sidebar_border_color>eeeeee</profile_sidebar_border_color>
+    <friends_count>885</friends_count>
+    <created_at>Fri May 09 20:45:18 +0000 2008</created_at>
+    <favourites_count>1203</favourites_count>
+    <utc_offset>-28800</utc_offset>
+    <time_zone>Pacific Time (US &amp; Canada)</time_zone>
+    <profile_background_image_url>http://a1.twimg.com/images/themes/theme14/bg.gif</profile_background_image_url>
+    <profile_background_image_url_https>https://si0.twimg.com/images/themes/theme14/bg.gif</profile_background_image_url_https>
+    <profile_background_tile>true</profile_background_tile>
+    <profile_use_background_image>true</profile_use_background_image>
+    <notifications>false</notifications>
+    <geo_enabled>true</geo_enabled>
+    <verified>false</verified>
+    <following>false</following>
+    <statuses_count>40758</statuses_count>
+    <lang>en</lang>
+    <contributors_enabled>true</contributors_enabled>
+    <follow_request_sent>false</follow_request_sent>
+    <listed_count>221</listed_count>
+    <show_all_inline_media>true</show_all_inline_media>
+    <default_profile>false</default_profile>
+    <default_profile_image>false</default_profile_image>
+    <expanded_url>http://about.me/miguelrios</expanded_url>
+    <display_url>about.me/miguelrios</display_url>
+    <entities>
+      <user_mentions>
+        <user_mention end="64" start="56">
+          <id>783214</id>
+          <screen_name>twitter</screen_name>
+          <name>Twitter</name>
+        </user_mention>
+      </user_mentions>
+      <urls/>
+      <hashtags/>
+    </entities>
+    <is_translator>false</is_translator>
+  </user>
+  <geo xmlns:georss="http://www.georss.org/georss">
+    <georss:point>37.78458046 -122.40651798</georss:point>
+  </geo>
+  <coordinates xmlns:georss="http://www.georss.org/georss">
+    <georss:point>37.78458046 -122.40651798</georss:point>
+  </coordinates>
+  <place xmlns:georss="http://www.georss.org/georss">
+    <id>2b6ff8c22edd9576</id>
+    <name>SoMa</name>
+    <full_name>SoMa, San Francisco</full_name>
+    <place_type>neighborhood</place_type>
+    <url>http://api.twitter.com/1/geo/id/2b6ff8c22edd9576.json</url>
+    <attributes/>
+    <bounding_box>
+      <georss:polygon>37.76893497 -122.42284884 37.76893497 -122.3964 37.78752897 -122.3964 37.78752897 -122.42284884</georss:polygon>
+    </bounding_box>
+    <country code="US">United States</country>
+  </place>
+  <possibly_sensitive>false</possibly_sensitive>
+  <contributors/>
+  <entities>
+    <user_mentions>
+      <user_mention end="17" start="6">
+        <id>22083910</id>
+        <screen_name>CW_network</screen_name>
+        <name>CW Network</name>
+      </user_mention>
+    </user_mentions>
+    <media>
+      <creative end="70" start="51">
+        <type>photo</type>
+        <id_str>110100794988179456</id_str>
+        <display_url>pic.twitter.com/1vxkaPz</display_url>
+        <media_url_https>https://p.twimg.com/AYcoFvbCMAAXpSw.jpg</media_url_https>
+        <expanded_url>http://twitter.com/miguelrios/status/110100794983985153/photo/1</expanded_url>
+        <url>http://t.co/1vxkaPz</url>
+        <sizes>
+          <small>
+            <w>340</w>
+            <h>455</h>
+            <resize>fit</resize>
+          </small>
+          <large>
+            <w>765</w>
+            <h>1024</h>
+            <resize>fit</resize>
+          </large>
+          <thumb>
+            <w>150</w>
+            <h>150</h>
+            <resize>crop</resize>
+          </thumb>
+          <medium>
+            <w>600</w>
+            <h>803</h>
+            <resize>fit</resize>
+          </medium>
+        </sizes>
+        <id>110100794988179456</id>
+        <media_url>http://p.twimg.com/AYcoFvbCMAAXpSw.jpg</media_url>
+      </creative>
+    </media>
+    <urls/>
+    <hashtags/>
+  </entities>
+</status>
+</statuses>
