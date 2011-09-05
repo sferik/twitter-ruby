@@ -119,6 +119,23 @@ module Twitter
         format.to_s.downcase == 'xml' ? response[xml_key] : response
       end
 
+      # Access the users in a given category of the Twitter suggested user list and return their most recent status if they are not a protected user
+      #
+      # @see https://dev.twitter.com/docs/api/1/get/users/suggestions/:slug/members
+      # @rate_limited Yes
+      # @requires_authentication No
+      # @response_format `json`
+      # @response_format `xml`
+      # @param slug [String] The short name of list or a category.
+      # @param options [Hash] A customizable set of options.
+      # @return [Array]
+      # @example Return the users in the Art & Design category and their most recent status if they are not a protected user
+      #   Twitter.suggest_users("art-design")
+      def suggest_users(slug, options={})
+        response = get("1/users/suggestions/#{slug}/members", options)
+        format.to_s.downcase == 'xml' ? response['suggestions'] : response
+      end
+
       # Access the profile image in various sizes for the user with the indicated screen name
       #
       # @see https://dev.twitter.com/docs/api/1/get/users/profile_image/:screen_name

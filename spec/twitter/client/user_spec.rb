@@ -278,6 +278,26 @@ describe Twitter::Client do
 
       end
 
+      describe ".suggest_users" do
+
+        before do
+          stub_get("1/users/suggestions/art-design/members.#{format}").
+            to_return(:body => fixture("members.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+        end
+
+        it "should get the correct resource" do
+          @client.suggest_users("art-design")
+          a_get("1/users/suggestions/art-design/members.#{format}").
+            should have_been_made
+        end
+
+        it "should return users in a given category of the Twitter suggested user list and return their most recent status if they are not a protected user" do
+          suggest_users = @client.suggest_users("art-design")
+          suggest_users.first.name.should == "OMGFacts"
+        end
+
+      end
+
       describe ".profile_image" do
 
         context "with screen name passed" do
