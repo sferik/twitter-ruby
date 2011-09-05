@@ -1,0 +1,807 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<users type="array">
+<user>
+  <id>13</id>
+  <name>Biz Stone</name>
+  <screen_name>biz</screen_name>
+  <location>San Francisco, CA</location>
+  <description>Co-founder of Twitter, Inc.</description>
+  <profile_image_url>http://a0.twimg.com/profile_images/513819852/biz_stone_normal.jpg</profile_image_url>
+  <profile_image_url_https>https://si0.twimg.com/profile_images/513819852/biz_stone_normal.jpg</profile_image_url_https>
+  <url>http://t.co/bdlNWgB</url>
+  <protected>false</protected>
+  <followers_count>1765282</followers_count>
+  <profile_background_color>022330</profile_background_color>
+  <profile_text_color>333333</profile_text_color>
+  <profile_link_color>0084B4</profile_link_color>
+  <profile_sidebar_fill_color>C0DFEC</profile_sidebar_fill_color>
+  <profile_sidebar_border_color>a8c7f7</profile_sidebar_border_color>
+  <friends_count>530</friends_count>
+  <created_at>Tue Mar 21 20:51:43 +0000 2006</created_at>
+  <favourites_count>869</favourites_count>
+  <utc_offset>-28800</utc_offset>
+  <time_zone>Pacific Time (US &amp; Canada)</time_zone>
+  <profile_background_image_url>http://a0.twimg.com/images/themes/theme15/bg.png</profile_background_image_url>
+  <profile_background_image_url_https>https://si0.twimg.com/images/themes/theme15/bg.png</profile_background_image_url_https>
+  <profile_background_tile>false</profile_background_tile>
+  <profile_use_background_image>true</profile_use_background_image>
+  <notifications></notifications>
+  <geo_enabled>true</geo_enabled>
+  <verified>true</verified>
+  <following></following>
+  <statuses_count>4466</statuses_count>
+  <lang>en</lang>
+  <contributors_enabled>false</contributors_enabled>
+  <follow_request_sent></follow_request_sent>
+  <listed_count>15392</listed_count>
+  <show_all_inline_media>true</show_all_inline_media>
+  <default_profile>false</default_profile>
+  <default_profile_image>false</default_profile_image>
+  <expanded_url>http://www.bizstone.com</expanded_url>
+  <display_url>bizstone.com</display_url>
+  <entities>
+    <user_mentions/>
+    <urls/>
+    <hashtags/>
+  </entities>
+  <is_translator>false</is_translator>
+  <status>
+    <created_at>Sat Sep 03 21:59:16 +0000 2011</created_at>
+    <id>110109632814518272</id>
+    <text>Cavallo Point Dandelion http://t.co/nv0gcpL</text>
+    <source>&lt;a href=&quot;http://flickr.com/services/twitter/&quot; rel=&quot;nofollow&quot;&gt;Flickr&lt;/a&gt;</source>
+    <truncated>false</truncated>
+    <favorited>false</favorited>
+    <in_reply_to_status_id></in_reply_to_status_id>
+    <in_reply_to_user_id></in_reply_to_user_id>
+    <in_reply_to_screen_name></in_reply_to_screen_name>
+    <retweet_count>4</retweet_count>
+    <retweeted>false</retweeted>
+    <geo/>
+    <coordinates/>
+    <place/>
+    <possibly_sensitive>false</possibly_sensitive>
+    <contributors/>
+  </status>
+</user>
+<user>
+  <id>20</id>
+  <name>Evan Williams</name>
+  <screen_name>ev</screen_name>
+  <location>San Francisco, CA, US</location>
+  <description>Farm boy from Nebraska. Husband and father. Co-founder of Twitter. Partner at @ObviousCorp</description>
+  <profile_image_url>http://a1.twimg.com/profile_images/1275356729/evedit0xr_2__1__normal.jpg</profile_image_url>
+  <profile_image_url_https>https://si0.twimg.com/profile_images/1275356729/evedit0xr_2__1__normal.jpg</profile_image_url_https>
+  <url>http://t.co/C2HZiQ4</url>
+  <protected>false</protected>
+  <followers_count>1386646</followers_count>
+  <profile_background_color>D4BEA7</profile_background_color>
+  <profile_text_color>C3B7A1</profile_text_color>
+  <profile_link_color>A8AB9A</profile_link_color>
+  <profile_sidebar_fill_color>454A43</profile_sidebar_fill_color>
+  <profile_sidebar_border_color>E23912</profile_sidebar_border_color>
+  <friends_count>1346</friends_count>
+  <created_at>Tue Mar 21 21:02:31 +0000 2006</created_at>
+  <favourites_count>1852</favourites_count>
+  <utc_offset>-28800</utc_offset>
+  <time_zone>Pacific Time (US &amp; Canada)</time_zone>
+  <profile_background_image_url>http://a1.twimg.com/profile_background_images/313094643/COLOURlovers.com-Indecent_Exposure-.png</profile_background_image_url>
+  <profile_background_image_url_https>https://si0.twimg.com/profile_background_images/313094643/COLOURlovers.com-Indecent_Exposure-.png</profile_background_image_url_https>
+  <profile_background_tile>true</profile_background_tile>
+  <profile_use_background_image>true</profile_use_background_image>
+  <notifications>false</notifications>
+  <geo_enabled>true</geo_enabled>
+  <verified>true</verified>
+  <following>false</following>
+  <statuses_count>6316</statuses_count>
+  <lang>en</lang>
+  <contributors_enabled>false</contributors_enabled>
+  <follow_request_sent>false</follow_request_sent>
+  <listed_count>17223</listed_count>
+  <show_all_inline_media>true</show_all_inline_media>
+  <default_profile>false</default_profile>
+  <default_profile_image>false</default_profile_image>
+  <expanded_url>http://evhead.com</expanded_url>
+  <display_url>evhead.com</display_url>
+  <entities>
+    <user_mentions>
+      <user_mention end="90" start="78">
+        <id>322904764</id>
+        <screen_name>obviouscorp</screen_name>
+        <name>Obvious Corporation</name>
+      </user_mention>
+    </user_mentions>
+    <urls/>
+    <hashtags/>
+  </entities>
+  <is_translator>false</is_translator>
+  <status>
+    <created_at>Sat Sep 03 04:20:36 +0000 2011</created_at>
+    <id>109843207965261824</id>
+    <text>@chrissyteigen Well, at least you didn't want fried chicken and potato salad. Just saw this today:  http://t.co/hO4eIrl</text>
+    <source>&lt;a href=&quot;http://twitter.com/#!/download/iphone&quot; rel=&quot;nofollow&quot;&gt;Twitter for iPhone&lt;/a&gt;</source>
+    <truncated>false</truncated>
+    <favorited>false</favorited>
+    <in_reply_to_status_id>109841684006838272</in_reply_to_status_id>
+    <in_reply_to_user_id>39364684</in_reply_to_user_id>
+    <in_reply_to_screen_name>chrissyteigen</in_reply_to_screen_name>
+    <retweet_count>3</retweet_count>
+    <retweeted>false</retweeted>
+    <geo/>
+    <coordinates/>
+    <place/>
+    <possibly_sensitive>false</possibly_sensitive>
+    <contributors/>
+  </status>
+</user>
+<user>
+  <id>822571</id>
+  <name>Sean Garrett</name>
+  <screen_name>SG</screen_name>
+  <location>San Francisco</location>
+  <description>Ephemeral whinging aspects.  Twitter, Inc. comms.</description>
+  <profile_image_url>http://a3.twimg.com/profile_images/1041950033/capt.80e1b2df11e243c0b9c78f70a49a8394-80e1b2df11e243c0b9c78f70a49a8394-0_normal.jpg</profile_image_url>
+  <profile_image_url_https>https://si0.twimg.com/profile_images/1041950033/capt.80e1b2df11e243c0b9c78f70a49a8394-80e1b2df11e243c0b9c78f70a49a8394-0_normal.jpg</profile_image_url_https>
+  <url></url>
+  <protected>false</protected>
+  <followers_count>15629</followers_count>
+  <profile_background_color>9ae4e8</profile_background_color>
+  <profile_text_color>000000</profile_text_color>
+  <profile_link_color>0000ff</profile_link_color>
+  <profile_sidebar_fill_color>e0ff92</profile_sidebar_fill_color>
+  <profile_sidebar_border_color>87bc44</profile_sidebar_border_color>
+  <friends_count>961</friends_count>
+  <created_at>Thu Mar 08 18:38:33 +0000 2007</created_at>
+  <favourites_count>94</favourites_count>
+  <utc_offset>-28800</utc_offset>
+  <time_zone>Pacific Time (US &amp; Canada)</time_zone>
+  <profile_background_image_url>http://a0.twimg.com/profile_background_images/25315274/07-05-2003__44.jpg</profile_background_image_url>
+  <profile_background_image_url_https>https://si0.twimg.com/profile_background_images/25315274/07-05-2003__44.jpg</profile_background_image_url_https>
+  <profile_background_tile>false</profile_background_tile>
+  <profile_use_background_image>true</profile_use_background_image>
+  <notifications>false</notifications>
+  <geo_enabled>true</geo_enabled>
+  <verified>false</verified>
+  <following>false</following>
+  <statuses_count>3436</statuses_count>
+  <lang>en</lang>
+  <contributors_enabled>false</contributors_enabled>
+  <follow_request_sent>false</follow_request_sent>
+  <listed_count>403</listed_count>
+  <show_all_inline_media>true</show_all_inline_media>
+  <default_profile>false</default_profile>
+  <default_profile_image>false</default_profile_image>
+  <expanded_url></expanded_url>
+  <display_url></display_url>
+  <entities>
+    <user_mentions/>
+    <urls/>
+    <hashtags/>
+  </entities>
+  <is_translator>false</is_translator>
+  <status>
+    <created_at>Sat Sep 03 15:44:08 +0000 2011</created_at>
+    <id>110015226308591616</id>
+    <text>Looking forward to the quirky infographic on the growth of quirky infigraphics.</text>
+    <source>&lt;a href=&quot;http://twitter.com&quot; rel=&quot;nofollow&quot;&gt;Twitter for  iPhone&lt;/a&gt;</source>
+    <truncated>false</truncated>
+    <favorited>false</favorited>
+    <in_reply_to_status_id></in_reply_to_status_id>
+    <in_reply_to_user_id></in_reply_to_user_id>
+    <in_reply_to_screen_name></in_reply_to_screen_name>
+    <retweet_count>0</retweet_count>
+    <retweeted>false</retweeted>
+    <geo/>
+    <coordinates/>
+    <place/>
+    <contributors/>
+  </status>
+</user>
+<user>
+  <id>7694352</id>
+  <name>Carolyn Penner</name>
+  <screen_name>cpen</screen_name>
+  <location>San Francisco</location>
+  <description>twitter comms. mobile geek. laughs easily. talks loudly. and, according to @sg, the she in that's what she said</description>
+  <profile_image_url>http://a2.twimg.com/profile_images/1054499775/profile2_normal.png</profile_image_url>
+  <profile_image_url_https>https://si0.twimg.com/profile_images/1054499775/profile2_normal.png</profile_image_url_https>
+  <url>http://t.co/sWhRERk</url>
+  <protected>false</protected>
+  <followers_count>8505</followers_count>
+  <profile_background_color>BADFCD</profile_background_color>
+  <profile_text_color>0C3E53</profile_text_color>
+  <profile_link_color>3851de</profile_link_color>
+  <profile_sidebar_fill_color>FFF7CC</profile_sidebar_fill_color>
+  <profile_sidebar_border_color>F2E195</profile_sidebar_border_color>
+  <friends_count>384</friends_count>
+  <created_at>Tue Jul 24 20:43:20 +0000 2007</created_at>
+  <favourites_count>446</favourites_count>
+  <utc_offset>-28800</utc_offset>
+  <time_zone>Pacific Time (US &amp; Canada)</time_zone>
+  <profile_background_image_url>http://a0.twimg.com/profile_background_images/269139380/sunset_benches.jpg</profile_background_image_url>
+  <profile_background_image_url_https>https://si0.twimg.com/profile_background_images/269139380/sunset_benches.jpg</profile_background_image_url_https>
+  <profile_background_tile>true</profile_background_tile>
+  <profile_use_background_image>true</profile_use_background_image>
+  <notifications>false</notifications>
+  <geo_enabled>true</geo_enabled>
+  <verified>false</verified>
+  <following>false</following>
+  <statuses_count>6231</statuses_count>
+  <lang>en</lang>
+  <contributors_enabled>true</contributors_enabled>
+  <follow_request_sent>false</follow_request_sent>
+  <listed_count>296</listed_count>
+  <show_all_inline_media>true</show_all_inline_media>
+  <default_profile>false</default_profile>
+  <default_profile_image>false</default_profile_image>
+  <expanded_url>http://cpen.posterous.com/</expanded_url>
+  <display_url>cpen.posterous.com</display_url>
+  <entities>
+    <user_mentions>
+      <user_mention end="78" start="75">
+        <id>822571</id>
+        <screen_name>SG</screen_name>
+        <name>Sean Garrett</name>
+      </user_mention>
+    </user_mentions>
+    <urls/>
+    <hashtags/>
+  </entities>
+  <is_translator>false</is_translator>
+  <status>
+    <created_at>Sat Sep 03 21:59:33 +0000 2011</created_at>
+    <id>110109700942598144</id>
+    <text>Lots of people in white today. Like, all white. #LaborDayCountdown</text>
+    <source>&lt;a href=&quot;http://twitter.com/#!/download/iphone&quot; rel=&quot;nofollow&quot;&gt;Twitter for iPhone&lt;/a&gt;</source>
+    <truncated>false</truncated>
+    <favorited>false</favorited>
+    <in_reply_to_status_id></in_reply_to_status_id>
+    <in_reply_to_user_id></in_reply_to_user_id>
+    <in_reply_to_screen_name></in_reply_to_screen_name>
+    <retweet_count>0</retweet_count>
+    <retweeted>false</retweeted>
+    <geo/>
+    <coordinates/>
+    <place/>
+    <contributors/>
+  </status>
+</user>
+<user>
+  <id>14013722</id>
+  <name>Matt Graves</name>
+  <screen_name>mgrooves</screen_name>
+  <location>San Francisco</location>
+  <description>twitter comms. lover of loud music and louder laughs.</description>
+  <profile_image_url>http://a3.twimg.com/profile_images/1230241496/Photo_on_2011-01-30_at_13.57__2_normal.jpg</profile_image_url>
+  <profile_image_url_https>https://si0.twimg.com/profile_images/1230241496/Photo_on_2011-01-30_at_13.57__2_normal.jpg</profile_image_url_https>
+  <url></url>
+  <protected>false</protected>
+  <followers_count>4613</followers_count>
+  <profile_background_color>C0DEED</profile_background_color>
+  <profile_text_color>333333</profile_text_color>
+  <profile_link_color>0084B4</profile_link_color>
+  <profile_sidebar_fill_color>DDEEF6</profile_sidebar_fill_color>
+  <profile_sidebar_border_color>C0DEED</profile_sidebar_border_color>
+  <friends_count>857</friends_count>
+  <created_at>Tue Feb 26 17:06:58 +0000 2008</created_at>
+  <favourites_count>193</favourites_count>
+  <utc_offset>-28800</utc_offset>
+  <time_zone>Pacific Time (US &amp; Canada)</time_zone>
+  <profile_background_image_url>http://a0.twimg.com/images/themes/theme1/bg.png</profile_background_image_url>
+  <profile_background_image_url_https>https://si0.twimg.com/images/themes/theme1/bg.png</profile_background_image_url_https>
+  <profile_background_tile>false</profile_background_tile>
+  <profile_use_background_image>true</profile_use_background_image>
+  <notifications></notifications>
+  <geo_enabled>true</geo_enabled>
+  <verified>false</verified>
+  <following></following>
+  <statuses_count>3805</statuses_count>
+  <lang>en</lang>
+  <contributors_enabled>true</contributors_enabled>
+  <follow_request_sent></follow_request_sent>
+  <listed_count>186</listed_count>
+  <show_all_inline_media>true</show_all_inline_media>
+  <default_profile>true</default_profile>
+  <default_profile_image>false</default_profile_image>
+  <expanded_url></expanded_url>
+  <display_url></display_url>
+  <entities>
+    <user_mentions/>
+    <urls/>
+    <hashtags/>
+  </entities>
+  <is_translator>false</is_translator>
+  <status>
+    <created_at>Wed Aug 31 06:43:55 +0000 2011</created_at>
+    <id>108792113889689600</id>
+    <text>@willotoons @sfbg Good to know where you stand on the boobs v. butts issue. #important</text>
+    <source>&lt;a href=&quot;http://twitter.com/#!/download/iphone&quot; rel=&quot;nofollow&quot;&gt;Twitter for iPhone&lt;/a&gt;</source>
+    <truncated>false</truncated>
+    <favorited>false</favorited>
+    <in_reply_to_status_id>108715659239759872</in_reply_to_status_id>
+    <in_reply_to_user_id>772386</in_reply_to_user_id>
+    <in_reply_to_screen_name>willotoons</in_reply_to_screen_name>
+    <retweet_count>0</retweet_count>
+    <retweeted>false</retweeted>
+    <geo xmlns:georss="http://www.georss.org/georss">
+      <georss:point>39.47795653 -119.82139879</georss:point>
+    </geo>
+    <coordinates xmlns:georss="http://www.georss.org/georss">
+      <georss:point>39.47795653 -119.82139879</georss:point>
+    </coordinates>
+    <place xmlns:georss="http://www.georss.org/georss">
+      <id>4b25aded08900fd8</id>
+      <name>Reno</name>
+      <full_name>Reno, NV</full_name>
+      <place_type>city</place_type>
+      <url>http://api.twitter.com/1/geo/id/4b25aded08900fd8.json</url>
+      <attributes/>
+      <bounding_box>
+        <georss:polygon>39.416409 -119.943728 39.416409 -119.723736 39.693608 -119.723736 39.693608 -119.943728</georss:polygon>
+      </bounding_box>
+      <country code="US">United States</country>
+    </place>
+    <contributors/>
+  </status>
+</user>
+<user>
+  <id>16259374</id>
+  <name>jodiolson</name>
+  <screen_name>jodiolson</screen_name>
+  <location>San Francisco</location>
+  <description>Twitter PR, mother, cook and aspiring gardener. Authentic but unverified.</description>
+  <profile_image_url>http://a2.twimg.com/profile_images/125848090/JO_lisbon_normal_normal.jpg</profile_image_url>
+  <profile_image_url_https>https://si0.twimg.com/profile_images/125848090/JO_lisbon_normal_normal.jpg</profile_image_url_https>
+  <url></url>
+  <protected>false</protected>
+  <followers_count>2907</followers_count>
+  <profile_background_color>ACDED6</profile_background_color>
+  <profile_text_color>333333</profile_text_color>
+  <profile_link_color>038543</profile_link_color>
+  <profile_sidebar_fill_color>F6F6F6</profile_sidebar_fill_color>
+  <profile_sidebar_border_color>EEEEEE</profile_sidebar_border_color>
+  <friends_count>596</friends_count>
+  <created_at>Fri Sep 12 17:26:39 +0000 2008</created_at>
+  <favourites_count>14</favourites_count>
+  <utc_offset>-28800</utc_offset>
+  <time_zone>Pacific Time (US &amp; Canada)</time_zone>
+  <profile_background_image_url>http://a1.twimg.com/images/themes/theme18/bg.gif</profile_background_image_url>
+  <profile_background_image_url_https>https://si0.twimg.com/images/themes/theme18/bg.gif</profile_background_image_url_https>
+  <profile_background_tile>false</profile_background_tile>
+  <profile_use_background_image>true</profile_use_background_image>
+  <notifications>false</notifications>
+  <geo_enabled>true</geo_enabled>
+  <verified>false</verified>
+  <following>false</following>
+  <statuses_count>1395</statuses_count>
+  <lang>en</lang>
+  <contributors_enabled>false</contributors_enabled>
+  <follow_request_sent>false</follow_request_sent>
+  <listed_count>77</listed_count>
+  <show_all_inline_media>true</show_all_inline_media>
+  <default_profile>false</default_profile>
+  <default_profile_image>false</default_profile_image>
+  <expanded_url></expanded_url>
+  <display_url></display_url>
+  <entities>
+    <user_mentions/>
+    <urls/>
+    <hashtags/>
+  </entities>
+  <is_translator>false</is_translator>
+  <status>
+    <created_at>Thu Sep 01 18:37:26 +0000 2011</created_at>
+    <id>109334062912638976</id>
+    <text>A note from @jack to Twitter developers: http://t.co/rWZ2TpE</text>
+    <source>web</source>
+    <truncated>false</truncated>
+    <favorited>false</favorited>
+    <in_reply_to_status_id></in_reply_to_status_id>
+    <in_reply_to_user_id></in_reply_to_user_id>
+    <in_reply_to_screen_name></in_reply_to_screen_name>
+    <retweet_count>1</retweet_count>
+    <retweeted>false</retweeted>
+    <geo/>
+    <coordinates/>
+    <place/>
+    <possibly_sensitive>false</possibly_sensitive>
+    <contributors/>
+  </status>
+</user>
+<user>
+  <id>16739704</id>
+  <name>jenna</name>
+  <screen_name>jennadawn</screen_name>
+  <location>San Francisco </location>
+  <description>An Alaskan realizing the merit of urbanism via SF. Those who think idealism is naive only care to neglect. </description>
+  <profile_image_url>http://a3.twimg.com/profile_images/1224057555/photo-31_normal.jpeg</profile_image_url>
+  <profile_image_url_https>https://si0.twimg.com/profile_images/1224057555/photo-31_normal.jpeg</profile_image_url_https>
+  <url></url>
+  <protected>false</protected>
+  <followers_count>308123</followers_count>
+  <profile_background_color>ffffff</profile_background_color>
+  <profile_text_color>8C94A2</profile_text_color>
+  <profile_link_color>8cb2bd</profile_link_color>
+  <profile_sidebar_fill_color>424c55</profile_sidebar_fill_color>
+  <profile_sidebar_border_color>8cb2bd</profile_sidebar_border_color>
+  <friends_count>489</friends_count>
+  <created_at>Tue Oct 14 15:31:55 +0000 2008</created_at>
+  <favourites_count>43</favourites_count>
+  <utc_offset>-28800</utc_offset>
+  <time_zone>Pacific Time (US &amp; Canada)</time_zone>
+  <profile_background_image_url>http://a0.twimg.com/profile_background_images/189647945/xd9f362b4c1859de155db40b6a282d8d.jpg</profile_background_image_url>
+  <profile_background_image_url_https>https://si0.twimg.com/profile_background_images/189647945/xd9f362b4c1859de155db40b6a282d8d.jpg</profile_background_image_url_https>
+  <profile_background_tile>false</profile_background_tile>
+  <profile_use_background_image>true</profile_use_background_image>
+  <notifications>false</notifications>
+  <geo_enabled>true</geo_enabled>
+  <verified>false</verified>
+  <following>false</following>
+  <statuses_count>1609</statuses_count>
+  <lang>en</lang>
+  <contributors_enabled>false</contributors_enabled>
+  <follow_request_sent>false</follow_request_sent>
+  <listed_count>842</listed_count>
+  <show_all_inline_media>true</show_all_inline_media>
+  <default_profile>false</default_profile>
+  <default_profile_image>false</default_profile_image>
+  <expanded_url></expanded_url>
+  <display_url></display_url>
+  <entities>
+    <user_mentions/>
+    <urls/>
+    <hashtags/>
+  </entities>
+  <is_translator>true</is_translator>
+  <status>
+    <created_at>Fri Sep 02 03:55:44 +0000 2011</created_at>
+    <id>109474557777281024</id>
+    <text>My special friends. http://t.co/5JqNrmC</text>
+    <source>&lt;a href=&quot;http://twitter.com/download/android&quot; rel=&quot;nofollow&quot;&gt;Twitter for Android&lt;/a&gt;</source>
+    <truncated>false</truncated>
+    <favorited>false</favorited>
+    <in_reply_to_status_id></in_reply_to_status_id>
+    <in_reply_to_user_id></in_reply_to_user_id>
+    <in_reply_to_screen_name></in_reply_to_screen_name>
+    <retweet_count>0</retweet_count>
+    <retweeted>false</retweeted>
+    <geo/>
+    <coordinates/>
+    <place/>
+    <possibly_sensitive>false</possibly_sensitive>
+    <contributors/>
+  </status>
+</user>
+<user>
+  <id>145727626</id>
+  <name>Julie Del Carlo</name>
+  <screen_name>juliedelcarlo</screen_name>
+  <location></location>
+  <description></description>
+  <profile_image_url>http://a1.twimg.com/profile_images/1441125224/me_in_nyc_normal</profile_image_url>
+  <profile_image_url_https>https://si0.twimg.com/profile_images/1441125224/me_in_nyc_normal</profile_image_url_https>
+  <url></url>
+  <protected>false</protected>
+  <followers_count>3823</followers_count>
+  <profile_background_color>FBC2CE</profile_background_color>
+  <profile_text_color>5A4A37</profile_text_color>
+  <profile_link_color>DD4969</profile_link_color>
+  <profile_sidebar_fill_color>FFC36E</profile_sidebar_fill_color>
+  <profile_sidebar_border_color>F8F2E6</profile_sidebar_border_color>
+  <friends_count>586</friends_count>
+  <created_at>Wed May 19 18:32:50 +0000 2010</created_at>
+  <favourites_count>8</favourites_count>
+  <utc_offset>-28800</utc_offset>
+  <time_zone>Pacific Time (US &amp; Canada)</time_zone>
+  <profile_background_image_url>http://a3.twimg.com/profile_background_images/319117928/xbad02b8c30148db3a7d53570a0acdbf.png</profile_background_image_url>
+  <profile_background_image_url_https>https://si0.twimg.com/profile_background_images/319117928/xbad02b8c30148db3a7d53570a0acdbf.png</profile_background_image_url_https>
+  <profile_background_tile>true</profile_background_tile>
+  <profile_use_background_image>true</profile_use_background_image>
+  <notifications></notifications>
+  <geo_enabled>true</geo_enabled>
+  <verified>false</verified>
+  <following></following>
+  <statuses_count>402</statuses_count>
+  <lang>en</lang>
+  <contributors_enabled>false</contributors_enabled>
+  <follow_request_sent></follow_request_sent>
+  <listed_count>46</listed_count>
+  <show_all_inline_media>true</show_all_inline_media>
+  <default_profile>false</default_profile>
+  <default_profile_image>false</default_profile_image>
+  <expanded_url></expanded_url>
+  <display_url></display_url>
+  <entities>
+    <user_mentions/>
+    <urls/>
+    <hashtags/>
+  </entities>
+  <is_translator>false</is_translator>
+  <status>
+    <created_at>Tue Aug 30 19:30:08 +0000 2011</created_at>
+    <id>108622547423199232</id>
+    <text>A very happy birthday to @che! #francisco http://t.co/LUjIvI6</text>
+    <source>&lt;a href=&quot;http://twitter.com/download/android&quot; rel=&quot;nofollow&quot;&gt;Twitter for Android&lt;/a&gt;</source>
+    <truncated>false</truncated>
+    <favorited>false</favorited>
+    <in_reply_to_status_id></in_reply_to_status_id>
+    <in_reply_to_user_id></in_reply_to_user_id>
+    <in_reply_to_screen_name></in_reply_to_screen_name>
+    <retweet_count>0</retweet_count>
+    <retweeted>false</retweeted>
+    <geo/>
+    <coordinates/>
+    <place/>
+    <possibly_sensitive>false</possibly_sensitive>
+    <contributors/>
+  </status>
+</user>
+<user>
+  <id>22824309</id>
+  <name>Rachael Horwitz</name>
+  <screen_name>RachaelRad</screen_name>
+  <location>San Francisco, CA</location>
+  <description>Twitter Communications. Short person. Loud voice. More than just a pizzabagel. </description>
+  <profile_image_url>http://a0.twimg.com/profile_images/1408115265/186227_587309531_8155668_n_normal.jpg</profile_image_url>
+  <profile_image_url_https>https://si0.twimg.com/profile_images/1408115265/186227_587309531_8155668_n_normal.jpg</profile_image_url_https>
+  <url></url>
+  <protected>false</protected>
+  <followers_count>868</followers_count>
+  <profile_background_color>665147</profile_background_color>
+  <profile_text_color>090700</profile_text_color>
+  <profile_link_color>000807</profile_link_color>
+  <profile_sidebar_fill_color>F7F9F9</profile_sidebar_fill_color>
+  <profile_sidebar_border_color>EBD98D</profile_sidebar_border_color>
+  <friends_count>682</friends_count>
+  <created_at>Wed Mar 04 19:57:26 +0000 2009</created_at>
+  <favourites_count>51</favourites_count>
+  <utc_offset>-28800</utc_offset>
+  <time_zone>Pacific Time (US &amp; Canada)</time_zone>
+  <profile_background_image_url>http://a3.twimg.com/profile_background_images/315104167/x9d3c16ade13b57b2abe466f3b154311.jpg</profile_background_image_url>
+  <profile_background_image_url_https>https://si0.twimg.com/profile_background_images/315104167/x9d3c16ade13b57b2abe466f3b154311.jpg</profile_background_image_url_https>
+  <profile_background_tile>true</profile_background_tile>
+  <profile_use_background_image>true</profile_use_background_image>
+  <notifications>false</notifications>
+  <geo_enabled>false</geo_enabled>
+  <verified>false</verified>
+  <following>false</following>
+  <statuses_count>2325</statuses_count>
+  <lang>en</lang>
+  <contributors_enabled>false</contributors_enabled>
+  <follow_request_sent>false</follow_request_sent>
+  <listed_count>38</listed_count>
+  <show_all_inline_media>true</show_all_inline_media>
+  <default_profile>false</default_profile>
+  <default_profile_image>false</default_profile_image>
+  <expanded_url></expanded_url>
+  <display_url></display_url>
+  <entities>
+    <user_mentions/>
+    <urls/>
+    <hashtags/>
+  </entities>
+  <is_translator>false</is_translator>
+  <status>
+    <created_at>Sat Sep 03 22:26:36 +0000 2011</created_at>
+    <id>110116509141045249</id>
+    <text>Greetings from Oregon! http://t.co/slpi8xr</text>
+    <source>&lt;a href=&quot;http://twitter.com/download/android&quot; rel=&quot;nofollow&quot;&gt;Twitter for Android&lt;/a&gt;</source>
+    <truncated>false</truncated>
+    <favorited>false</favorited>
+    <in_reply_to_status_id></in_reply_to_status_id>
+    <in_reply_to_user_id></in_reply_to_user_id>
+    <in_reply_to_screen_name></in_reply_to_screen_name>
+    <retweet_count>0</retweet_count>
+    <retweeted>false</retweeted>
+    <geo/>
+    <coordinates/>
+    <place/>
+    <possibly_sensitive>false</possibly_sensitive>
+    <contributors/>
+  </status>
+</user>
+<user>
+  <id>3446291</id>
+  <name>Rachel Bremer</name>
+  <screen_name>rbremer</screen_name>
+  <location>London</location>
+  <description>European communications manager for Twitter. That's enough for now.</description>
+  <profile_image_url>http://a2.twimg.com/profile_images/1370853870/RYB_headshot_sm_normal.jpg</profile_image_url>
+  <profile_image_url_https>https://si0.twimg.com/profile_images/1370853870/RYB_headshot_sm_normal.jpg</profile_image_url_https>
+  <url></url>
+  <protected>false</protected>
+  <followers_count>1666</followers_count>
+  <profile_background_color>9ae4e8</profile_background_color>
+  <profile_text_color>000000</profile_text_color>
+  <profile_link_color>0000ff</profile_link_color>
+  <profile_sidebar_fill_color>fdfcfc</profile_sidebar_fill_color>
+  <profile_sidebar_border_color>e6e9e2</profile_sidebar_border_color>
+  <friends_count>557</friends_count>
+  <created_at>Wed Apr 04 18:09:44 +0000 2007</created_at>
+  <favourites_count>31</favourites_count>
+  <utc_offset>0</utc_offset>
+  <time_zone>London</time_zone>
+  <profile_background_image_url>http://a2.twimg.com/profile_background_images/4036889/Twitter.jpg</profile_background_image_url>
+  <profile_background_image_url_https>https://si0.twimg.com/profile_background_images/4036889/Twitter.jpg</profile_background_image_url_https>
+  <profile_background_tile>true</profile_background_tile>
+  <profile_use_background_image>true</profile_use_background_image>
+  <notifications>false</notifications>
+  <geo_enabled>false</geo_enabled>
+  <verified>false</verified>
+  <following>false</following>
+  <statuses_count>2556</statuses_count>
+  <lang>en</lang>
+  <contributors_enabled>false</contributors_enabled>
+  <follow_request_sent>false</follow_request_sent>
+  <listed_count>36</listed_count>
+  <show_all_inline_media>true</show_all_inline_media>
+  <default_profile>false</default_profile>
+  <default_profile_image>false</default_profile_image>
+  <expanded_url></expanded_url>
+  <display_url></display_url>
+  <entities>
+    <user_mentions/>
+    <urls/>
+    <hashtags/>
+  </entities>
+  <is_translator>false</is_translator>
+  <status>
+    <created_at>Sat Sep 03 09:42:04 +0000 2011</created_at>
+    <id>109924107214258176</id>
+    <text>On our way to Burghley for a day of horsey stuff...</text>
+    <source>&lt;a href=&quot;http://twitter.com/#!/download/iphone&quot; rel=&quot;nofollow&quot;&gt;Twitter for iPhone&lt;/a&gt;</source>
+    <truncated>false</truncated>
+    <favorited>false</favorited>
+    <in_reply_to_status_id></in_reply_to_status_id>
+    <in_reply_to_user_id></in_reply_to_user_id>
+    <in_reply_to_screen_name></in_reply_to_screen_name>
+    <retweet_count>0</retweet_count>
+    <retweeted>false</retweeted>
+    <geo/>
+    <coordinates/>
+    <place/>
+    <contributors/>
+  </status>
+</user>
+<user>
+  <id>14769591</id>
+  <name>Lynn Fox</name>
+  <screen_name>foxycar</screen_name>
+  <location></location>
+  <description>Twitter Comms. OH'ing myself.</description>
+  <profile_image_url>http://a2.twimg.com/profile_images/1134096793/bio_photo_small_normal.jpg</profile_image_url>
+  <profile_image_url_https>https://si0.twimg.com/profile_images/1134096793/bio_photo_small_normal.jpg</profile_image_url_https>
+  <url></url>
+  <protected>false</protected>
+  <followers_count>2702</followers_count>
+  <profile_background_color>9AE4E8</profile_background_color>
+  <profile_text_color>333333</profile_text_color>
+  <profile_link_color>0084B4</profile_link_color>
+  <profile_sidebar_fill_color>DDFFCC</profile_sidebar_fill_color>
+  <profile_sidebar_border_color>BDDCAD</profile_sidebar_border_color>
+  <friends_count>969</friends_count>
+  <created_at>Wed May 14 05:26:31 +0000 2008</created_at>
+  <favourites_count>44</favourites_count>
+  <utc_offset>-28800</utc_offset>
+  <time_zone>Pacific Time (US &amp; Canada)</time_zone>
+  <profile_background_image_url>http://a3.twimg.com/profile_background_images/143745093/Photo_102.jpg</profile_background_image_url>
+  <profile_background_image_url_https>https://si0.twimg.com/profile_background_images/143745093/Photo_102.jpg</profile_background_image_url_https>
+  <profile_background_tile>true</profile_background_tile>
+  <profile_use_background_image>true</profile_use_background_image>
+  <notifications>false</notifications>
+  <geo_enabled>true</geo_enabled>
+  <verified>false</verified>
+  <following>false</following>
+  <statuses_count>4058</statuses_count>
+  <lang>en</lang>
+  <contributors_enabled>false</contributors_enabled>
+  <follow_request_sent>false</follow_request_sent>
+  <listed_count>198</listed_count>
+  <show_all_inline_media>true</show_all_inline_media>
+  <default_profile>false</default_profile>
+  <default_profile_image>false</default_profile_image>
+  <expanded_url></expanded_url>
+  <display_url></display_url>
+  <entities>
+    <user_mentions/>
+    <urls/>
+    <hashtags/>
+  </entities>
+  <is_translator>false</is_translator>
+  <status>
+    <created_at>Sat Sep 03 16:17:36 +0000 2011</created_at>
+    <id>110023646487117824</id>
+    <text>Just showed &quot;Who's on first?&quot; to the boys. Classic.</text>
+    <source>web</source>
+    <truncated>false</truncated>
+    <favorited>false</favorited>
+    <in_reply_to_status_id></in_reply_to_status_id>
+    <in_reply_to_user_id></in_reply_to_user_id>
+    <in_reply_to_screen_name></in_reply_to_screen_name>
+    <retweet_count>0</retweet_count>
+    <retweeted>false</retweeted>
+    <geo/>
+    <coordinates/>
+    <place/>
+    <contributors/>
+  </status>
+</user>
+<user>
+  <id>14589956</id>
+  <name>kristen</name>
+  <screen_name>kh</screen_name>
+  <location>San Francisco</location>
+  <description>I'm a fun girl! Also, communications at Twitter</description>
+  <profile_image_url>http://a2.twimg.com/profile_images/1352279358/twitterpic_normal.jpg</profile_image_url>
+  <profile_image_url_https>https://si0.twimg.com/profile_images/1352279358/twitterpic_normal.jpg</profile_image_url_https>
+  <url>http://t.co/B6brkVp</url>
+  <protected>false</protected>
+  <followers_count>1825</followers_count>
+  <profile_background_color>9ae4e8</profile_background_color>
+  <profile_text_color>000000</profile_text_color>
+  <profile_link_color>B21515</profile_link_color>
+  <profile_sidebar_fill_color>e0ff92</profile_sidebar_fill_color>
+  <profile_sidebar_border_color>2DA530</profile_sidebar_border_color>
+  <friends_count>230</friends_count>
+  <created_at>Tue Apr 29 20:06:27 +0000 2008</created_at>
+  <favourites_count>210</favourites_count>
+  <utc_offset>-28800</utc_offset>
+  <time_zone>Pacific Time (US &amp; Canada)</time_zone>
+  <profile_background_image_url>http://a3.twimg.com/profile_background_images/8116121/Picture_1.png</profile_background_image_url>
+  <profile_background_image_url_https>https://si0.twimg.com/profile_background_images/8116121/Picture_1.png</profile_background_image_url_https>
+  <profile_background_tile>true</profile_background_tile>
+  <profile_use_background_image>true</profile_use_background_image>
+  <notifications></notifications>
+  <geo_enabled>true</geo_enabled>
+  <verified>false</verified>
+  <following></following>
+  <statuses_count>3946</statuses_count>
+  <lang>en</lang>
+  <contributors_enabled>false</contributors_enabled>
+  <follow_request_sent></follow_request_sent>
+  <listed_count>57</listed_count>
+  <show_all_inline_media>true</show_all_inline_media>
+  <default_profile>false</default_profile>
+  <default_profile_image>false</default_profile_image>
+  <expanded_url>http://about.me/kristenhawley</expanded_url>
+  <display_url>about.me/kristenhawley</display_url>
+  <entities>
+    <user_mentions/>
+    <urls/>
+    <hashtags/>
+  </entities>
+  <is_translator>false</is_translator>
+  <status>
+    <created_at>Sat Sep 03 22:21:16 +0000 2011</created_at>
+    <id>110115169379684353</id>
+    <text>Happy where I am, happy where I am going.</text>
+    <source>&lt;a href=&quot;http://twitter.com/#!/download/iphone&quot; rel=&quot;nofollow&quot;&gt;Twitter for iPhone&lt;/a&gt;</source>
+    <truncated>false</truncated>
+    <favorited>false</favorited>
+    <in_reply_to_status_id></in_reply_to_status_id>
+    <in_reply_to_user_id></in_reply_to_user_id>
+    <in_reply_to_screen_name></in_reply_to_screen_name>
+    <retweet_count>0</retweet_count>
+    <retweeted>false</retweeted>
+    <geo xmlns:georss="http://www.georss.org/georss">
+      <georss:point>38.47005683 -123.01459763</georss:point>
+    </geo>
+    <coordinates xmlns:georss="http://www.georss.org/georss">
+      <georss:point>38.47005683 -123.01459763</georss:point>
+    </coordinates>
+    <place xmlns:georss="http://www.georss.org/georss">
+      <id>aa352d4b3a8983c0</id>
+      <name>Monte Rio</name>
+      <full_name>Monte Rio, CA</full_name>
+      <place_type>city</place_type>
+      <url>http://api.twitter.com/1/geo/id/aa352d4b3a8983c0.json</url>
+      <attributes/>
+      <bounding_box>
+        <georss:polygon>38.455777 -123.03198 38.455777 -122.991321 38.476978 -122.991321 38.476978 -123.03198</georss:polygon>
+      </bounding_box>
+      <country code="US">United States</country>
+    </place>
+    <contributors/>
+  </status>
+</user>
+</users>

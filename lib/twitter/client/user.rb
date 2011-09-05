@@ -238,7 +238,7 @@ module Twitter
         format.to_s.downcase == 'xml' ? response['userrecommendations'] : response
       end
 
-      # Returns users the specified user can contribute to.
+      # Returns an array of users that the specified user can contribute to
       #
       # @see http://dev.twitter.com/docs/api/1/get/users/contributees
       # @rate_limited Yes
@@ -272,6 +272,44 @@ module Twitter
           response = get('1/users/contributees', options)
         else
           response = get('1/users/contributees', options)
+        end
+        format.to_s.downcase == 'xml' ? response['users'] : response
+      end
+
+      # Returns an array of users who can contribute to the specified account
+      #
+      # @see http://dev.twitter.com/docs/api/1/get/users/contributors
+      # @rate_limited Yes
+      # @requires_authentication No unless requesting it from a protected user
+      #
+      #   If getting this data of a protected user, you must authenticate (and be allowed to see that user).
+      # @response_format `json`
+      # @response_format `xml`
+      # @overload contributors(options={})
+      #   @param options [Hash] A customizable set of options.
+      #   @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
+      #   @option options [Boolean, String, Integer] :skip_status Do not include contributee's statuses when set to true, 't' or 1.
+      #   @return [Array]
+      #   @example Return the authenticated user's contributors
+      #     Twitter.contributors
+      ## @overload contributors(user, options={})
+      #   @param user [Integer, String] A Twitter user ID or screen name.
+      #   @param options [Hash] A customizable set of options.
+      #   @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
+      #   @option options [Boolean, String, Integer] :skip_status Do not include contributee's statuses when set to true, 't' or 1.
+      #   @return [Array]
+      #   @example Return users who can contribute to @sferik's account
+      #     Twitter.contributors("sferik")
+      #     Twitter.contributors(7505382)  # Same as above
+      def contributors(*args)
+        options = {}
+        options.merge!(args.last.is_a?(Hash) ? args.pop : {})
+        user = args.pop || get_screen_name
+        if user
+          merge_user_into_options!(user, options)
+          response = get('1/users/contributors', options)
+        else
+          response = get('1/users/contributors', options)
         end
         format.to_s.downcase == 'xml' ? response['users'] : response
       end
