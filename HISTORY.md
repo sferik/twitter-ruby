@@ -1,6 +1,22 @@
 HISTORY
 =======
 
+1.7.0 - September 6, 2011
+-------------------------
+* [Add <tt>Account#totals</tt> and <tt>Account#settings</tt>](https://github.com/jnunemaker/twitter/commit/6496e318ec49f5b054f93a13ea91b4f1d4bb58c0) ([@gazoombo](http://twitter.com/gazoombo))
+* [Add <tt>Activity#about_me</tt> and <tt>Activity#by_friends</tt>](https://github.com/jnunemaker/twitter/commit/35e96108c450e76611137feed841f595d7214533)
+* [Add <tt>Help#configuration</tt> and <tt>Help#language</tt>](https://github.com/jnunemaker/twitter/commit/a0c88b43990a64b22b82e32301f2b91c094ab721) ([@anno](http://twitter.com/anno))
+* [Add <tt>Search#images_facets</tt> and <tt>Search#video_facets</tt>](https://github.com/jnunemaker/twitter/commit/1cc1f3cd75128f5e2c802fe95524a1afffc3962b)
+* [Add <tt>Search#search</tt>](https://github.com/jnunemaker/twitter/commit/327724b8edcefaf726d9d92c7e9d8f5380003097)
+* [Add <tt>Statuses#media_timeline</tt>](https://github.com/jnunemaker/twitter/commit/f1a78ea183663e9853b4b5dc128dee9ce79391a3)
+* [Add <tt>Tweets#update_with_media</tt>](https://github.com/jnunemaker/twitter/commit/cdf717b366a9ac73133a6f576391c4c3f46f9bb3) ([@JulienNakache](http://twitter.com/JulienNakache))
+* [Add <tt>Urls#resolve</tt>](https://github.com/jnunemaker/twitter/commit/b8d92b9f3b9669cc7267774b563bae543295350e)
+* [Add <tt>User#contributees</tt>](https://github.com/jnunemaker/twitter/commit/2b88f819775b9a90f4969fe03dc66ef1ecc2fb38) ([@GhettoCode](http://twitter.com/GhettoCode))
+* [Add <tt>User#contributor</tt>](https://github.com/jnunemaker/twitter/commit/1bb9f2000a322f9026681b78d1e8966409a333a2)
+* [Add <tt>User#recommendations</tt>](https://github.com/jnunemaker/twitter/commit/52d13cd4711931539686a483daa15666bae297a5)
+* [Add <tt>User#suggest_users</tt>](https://github.com/jnunemaker/twitter/commit/15dc1812f270be0f635f65091044d7cbb88cae4d)
+* [Move API version out of endpoint and into path](https://github.com/jnunemaker/twitter/commit/d156fd54a8591b44b22f72890099fce0ce4d58c8)
+
 1.6.2 - August 2, 2011
 ----------------------
 * [Update hashie dependency to 1.1.0](https://github.com/jnunemaker/twitter/commit/fb86f58203fb7c7dfec30068de663624416e955f)
