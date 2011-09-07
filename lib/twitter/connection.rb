@@ -1,4 +1,5 @@
 require 'faraday_middleware'
+require 'faraday/request/phoenix'
 require 'faraday/request/multipart_with_file'
 require 'faraday/request/gateway'
 require 'faraday/request/twitter_oauth'
@@ -14,11 +15,7 @@ module Twitter
       options = {
         :headers => {
           'Accept' => "application/#{format}",
-          'User-Agent' => user_agent,
-          # Not sure what what the X-Phx (Phoenix?) header is for but it's
-          # required to access certain undocumented resources
-          # e.g. GET urls/resolve
-          'X-Phx' => 'true',
+          'User-Agent' => user_agent
         },
         :proxy => proxy,
         :ssl => {:verify => false},
@@ -27,6 +24,7 @@ module Twitter
       options[:url] = temp_api_endpoint ? temp_api_endpoint : api_endpoint
 
       Faraday.new(options) do |builder|
+        builder.use Faraday::Request::Phoenix
         builder.use Faraday::Request::MultipartWithFile
         builder.use Faraday::Request::TwitterOAuth, authentication if authenticated?
         builder.use Faraday::Request::Multipart
