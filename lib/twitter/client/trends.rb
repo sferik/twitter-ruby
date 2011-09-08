@@ -14,7 +14,7 @@ module Twitter
       # @example Return the top ten topics that are currently trending on Twitter
       #   Twitter.trends
       def trends(options={})
-        get('1/trends', options, :json)['trends']
+        get('1/trends', options, :format => :json)['trends']
       end
 
       # Returns the current top 10 trending topics on Twitter
@@ -29,7 +29,7 @@ module Twitter
       # @example Return the current top 10 trending topics on Twitter
       #   Twitter.trends_current
       def trends_current(options={})
-        get('1/trends/current', options, :json)['trends']
+        get('1/trends/current', options, :format => :json)['trends']
       end
 
       # Returns the top 20 trending topics for each hour in a given day
@@ -45,7 +45,7 @@ module Twitter
       # @example Return the top 20 trending topics for each hour of October 24, 2010
       #   Twitter.trends_daily(Date.parse("2010-10-24"))
       def trends_daily(date=Date.today, options={})
-        get('1/trends/daily', options.merge(:date => date.strftime('%Y-%m-%d')), :json)['trends']
+        get('1/trends/daily', options.merge(:date => date.strftime('%Y-%m-%d')), :format => :json)['trends']
       end
 
       # Returns the top 30 trending topics for each day in a given week
@@ -61,7 +61,7 @@ module Twitter
       # @example Return the top ten topics that are currently trending on Twitter
       #   Twitter.trends_weekly(Date.parse("2010-10-24"))
       def trends_weekly(date=Date.today, options={})
-        get('1/trends/weekly', options.merge(:date => date.strftime('%Y-%m-%d')), :json)['trends']
+        get('1/trends/weekly', options.merge(:date => date.strftime('%Y-%m-%d')), :format => :json)['trends']
       end
     end
   end

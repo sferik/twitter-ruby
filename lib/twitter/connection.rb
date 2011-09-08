@@ -11,19 +11,16 @@ module Twitter
   module Connection
     private
 
-    def connection(format=format, temp_api_endpoint=nil)
-      options = {
+    def connection(options={})
+      Faraday.new(
         :headers => {
           'Accept' => "application/#{format}",
           'User-Agent' => user_agent
         },
         :proxy => proxy,
         :ssl => {:verify => false},
-      }
-
-      options[:url] = temp_api_endpoint ? temp_api_endpoint : api_endpoint
-
-      Faraday.new(options) do |builder|
+        :url => options.fetch(:endpoint, api_endpoint)
+      ) do |builder|
         builder.use Faraday::Request::Phoenix
         builder.use Faraday::Request::MultipartWithFile
         builder.use Faraday::Request::TwitterOAuth, authentication if authenticated?
@@ -31,13 +28,15 @@ module Twitter
         builder.use Faraday::Request::UrlEncoded
         builder.use Faraday::Request::Gateway, gateway if gateway
         builder.use Faraday::Response::RaiseHttp4xx
-        case format.to_s.downcase
-        when 'json', 'phoenix'
-          builder.use Faraday::Response::Mashify
-          builder.use Faraday::Response::ParseJson
-        when 'xml'
-          builder.use Faraday::Response::Mashify
-          builder.use Faraday::Response::ParseXml
+        unless options[:raw]
+          case options.fetch(:format, format).to_s.downcase
+          when 'json', 'phoenix'
+            builder.use Faraday::Response::Mashify
+            builder.use Faraday::Response::ParseJson
+          when 'xml'
+            builder.use Faraday::Response::Mashify
+            builder.use Faraday::Response::ParseXml
+          end
         end
         builder.use Faraday::Response::RaiseHttp5xx
         builder.adapter(adapter)

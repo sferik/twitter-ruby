@@ -442,7 +442,7 @@ module Twitter
     #   search.fetch_next_page
     def fetch_next_page
       if next_page?
-        @cache = get("search", CGI.parse(@cache["next_page"][1..-1]), :json)
+        @cache = get("search", CGI.parse(@cache["next_page"][1..-1]), :format => :json)
         @cache.results
       end
     end
@@ -457,7 +457,7 @@ module Twitter
       if @cache.nil? || force
         options = query.dup
         options[:q] = options[:q].join(" ")
-        @cache = get("search", options, :json)
+        @cache = get("search", options, :format => :json)
       end
       @cache.results
     end

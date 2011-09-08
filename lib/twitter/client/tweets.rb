@@ -72,7 +72,7 @@ module Twitter
       #     download the pic and put the response in a StringIO object
       #   Twitter.update("I just posted a status update with a pic via the Twitter Ruby Gem!", {'io' => StringIO.new(pic), 'type' => 'jpg'})
       def update_with_media(status, image, options={})
-        response = post('1/statuses/update_with_media', options.merge('media[]' => image, 'status' => status), format, media_endpoint)
+        response = post('1/statuses/update_with_media', options.merge('media[]' => image, 'status' => status), :endpoint => media_endpoint)
         format.to_s.downcase == 'xml' ? response['status'] : response
       end
 

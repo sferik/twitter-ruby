@@ -2,47 +2,42 @@ module Twitter
   # Defines HTTP request methods
   module Request
     # Perform an HTTP GET request
-    def get(path, options={}, format=format)
-      request(:get, path, options, format)
+    def get(path, params={}, options={})
+      request(:get, path, params, options)
     end
 
-    def post(path, options={}, format=format, temp_api_endpoint=nil)
-      request(:post, path, options, format, temp_api_endpoint)
+    def post(path, params={}, options={})
+      request(:post, path, params, options)
     end
 
     # Perform an HTTP PUT request
-    def put(path, options={}, format=format)
-      request(:put, path, options, format)
+    def put(path, params={}, options={})
+      request(:put, path, params, options)
     end
 
     # Perform an HTTP DELETE request
-    def delete(path, options={}, format=format)
-      request(:delete, path, options, format)
+    def delete(path, params={}, options={})
+      request(:delete, path, params, options)
     end
 
     private
 
     # Perform an HTTP request
-    def request(method, path, options, format, temp_api_endpoint=nil)
-      response = connection(format, temp_api_endpoint).send(method) do |request|
+    def request(method, path, params, options)
+      response = connection(options).send(method) do |request|
         case method.to_sym
         when :get, :delete
-          request.url(formatted_path(path, format), options)
+          request.url(formatted_path(path, options), params)
         when :post, :put
-          request.path = formatted_path(path, format)
-          request.body = options unless options.empty?
+          request.path = formatted_path(path, options)
+          request.body = params unless params.empty?
         end
       end
-      'raw' == format.to_s.downcase ? response : response.body
+      options[:raw] ? response : response.body
     end
 
-    def formatted_path(path, format)
-      case format.to_s.downcase
-      when 'json', 'phoenix', 'xml'
-        [path, format].compact.join('.')
-      when 'raw'
-        [path, Twitter.format].compact.join('.')
-      end
+    def formatted_path(path, options={})
+      [path, options.fetch(:format, format)].compact.join('.')
     end
   end
 end

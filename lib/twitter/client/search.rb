@@ -56,7 +56,7 @@ module Twitter
       # @example Return recent statuses related to twitter with images and videos embedded
       #   Twitter.search('twitter')
       def search(q, options={})
-        response = get('phoenix_search', options.merge(:q => q), :phoenix)['statuses']
+        response = get('phoenix_search', options.merge(:q => q), :format => :phoenix)['statuses']
       end
     end
   end
