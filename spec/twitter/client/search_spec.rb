@@ -19,6 +19,7 @@ describe Twitter::Client do
           @client.images('twitter')
           a_get("i/search/image_facets.#{format}").
             with(:query => {:q => "twitter"}).
+            with(:headers => {'X-Phx' => 'true'}).
             should have_been_made
         end
 
@@ -41,6 +42,7 @@ describe Twitter::Client do
           @client.videos('twitter')
           a_get("i/search/video_facets.#{format}").
             with(:query => {:q => "twitter"}).
+            with(:headers => {'X-Phx' => 'true'}).
             should have_been_made
         end
 
@@ -62,6 +64,7 @@ describe Twitter::Client do
           @client.search('twitter')
           a_get("phoenix_search.phoenix").
             with(:query => {:q => "twitter"}).
+            with(:headers => {'X-Phx' => 'true'}).
             should have_been_made
         end
 

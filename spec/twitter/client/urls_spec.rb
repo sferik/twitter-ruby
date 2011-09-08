@@ -18,6 +18,7 @@ describe Twitter::Client do
         @client.resolve('http://t.co/uw5bn1w')
         a_get("1/urls/resolve.json").
           with(:query => {:urls => ["http://t.co/uw5bn1w"]}).
+          with(:headers => {'X-Phx' => 'true'}).
           should have_been_made
       end
 
