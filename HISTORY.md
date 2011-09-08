@@ -1,6 +1,11 @@
 HISTORY
 =======
 
+1.7.1 - September 8, 2001
+-------------------------
+* [Refactor connection and requests to accept options](https://github.com/jnunemaker/twitter/commit/f7570de9f38f57e9fc6f15aa275f308a5ea69bc7) ([@laserlemon](http://twitter.com/laserlemon))
+* [Include X-Phx header for internal APIs only](https://github.com/jnunemaker/twitter/compare/f7570de9...34f29fe6) ([@laserlemon](http://twitter.com/laserlemon))
+
 1.7.0 - September 6, 2011
 -------------------------
 * [Add <tt>Account#totals</tt> and <tt>Account#settings</tt>](https://github.com/jnunemaker/twitter/commit/6496e318ec49f5b054f93a13ea91b4f1d4bb58c0) ([@gazoombo](http://twitter.com/gazoombo))
