@@ -17,7 +17,7 @@ module Twitter
       #   Twitter.resolve(['http://t.co/uw5bn1w', 'http://t.co/dXvMz9i']) # Same as above
       def resolve(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
-        get("1/urls/resolve", options.merge("urls[]" => args), :format => :json)
+        get("1/urls/resolve", options.merge("urls[]" => args), :format => :json, :phoenix => true)
       end
     end
   end

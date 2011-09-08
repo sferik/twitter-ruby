@@ -16,7 +16,7 @@ module Twitter
       # @example Return activity about me
       #   Twitter.about_me
       def about_me(options={})
-        get("i/activity/about_me", options, :format => :json)
+        get("i/activity/about_me", options, :format => :json, :phoenix => true)
       end
 
       # Returns activity by friends
@@ -33,7 +33,7 @@ module Twitter
       # @example Return activity by friends
       #   Twitter.by_friends
       def by_friends(options={})
-        get("i/activity/by_friends", options, :format => :json)
+        get("i/activity/by_friends", options, :format => :json, :phoenix => true)
       end
     end
   end

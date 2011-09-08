@@ -17,7 +17,7 @@ module Twitter
       # @example Return recent statuses that contain images related to a query
       #   Twitter.images('twitter')
       def images(q, options={})
-        response = get('i/search/image_facets', options.merge(:q => q))
+        response = get('i/search/image_facets', options.merge(:q => q), :phoenix => true)
         format.to_s.downcase == 'xml' ? response['statuses'] : response
       end
 
@@ -36,7 +36,7 @@ module Twitter
       # @example Return recent statuses that contain videos related to a query
       #   Twitter.videos('twitter')
       def videos(q, options={})
-        response = get('i/search/video_facets', options.merge(:q => q))
+        response = get('i/search/video_facets', options.merge(:q => q), :phoenix => true)
         format.to_s.downcase == 'xml' ? response['statuses'] : response
       end
 
@@ -56,7 +56,7 @@ module Twitter
       # @example Return recent statuses related to twitter with images and videos embedded
       #   Twitter.search('twitter')
       def search(q, options={})
-        response = get('phoenix_search', options.merge(:q => q), :format => :phoenix)['statuses']
+        response = get('phoenix_search', options.merge(:q => q), :format => :phoenix, :phoenix => true)['statuses']
       end
     end
   end

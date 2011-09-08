@@ -21,7 +21,7 @@ module Twitter
         :ssl => {:verify => false},
         :url => options.fetch(:endpoint, api_endpoint)
       ) do |builder|
-        builder.use Faraday::Request::Phoenix
+        builder.use Faraday::Request::Phoenix if options[:phoenix]
         builder.use Faraday::Request::MultipartWithFile
         builder.use Faraday::Request::TwitterOAuth, authentication if authenticated?
         builder.use Faraday::Request::Multipart
