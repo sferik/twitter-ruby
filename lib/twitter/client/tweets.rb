@@ -67,10 +67,10 @@ module Twitter
       # @see http://dev.twitter.com/docs/api/1/post/statuses/update_with_media
       # @example Update the authenticating user's status
       #   When you have a File instance (e.g. the pic is already on your disk)
-      #   Twitter.update("I just posted a status update with a pic via the Twitter Ruby Gem!", File.new('my_awesome_pic.jpeg))
+      #   Twitter.update_with_media("I just posted a status update with a pic via the Twitter Ruby Gem!", File.new('my_awesome_pic.jpeg'))
       #   When you have an IO instance (e.g. your pic is on S3 and you don't want to write a temp file on the disk),
       #     download the pic and put the response in a StringIO object
-      #   Twitter.update("I just posted a status update with a pic via the Twitter Ruby Gem!", {'io' => StringIO.new(pic), 'type' => 'jpg'})
+      #   Twitter.update_with_media("I just posted a status update with a pic via the Twitter Ruby Gem!", {'io' => StringIO.new(pic), 'type' => 'jpg'})
       def update_with_media(status, image, options={})
         response = post('1/statuses/update_with_media', options.merge('media[]' => image, 'status' => status), :endpoint => media_endpoint)
         format.to_s.downcase == 'xml' ? response['status'] : response
