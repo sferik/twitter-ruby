@@ -5,7 +5,7 @@ module Twitter
     module Trends
       # Returns the top ten topics that are currently trending on Twitter
       #
-      # @see https://dev.twitter.com/docs/api/1/get/trends
+      # @see https://dev.twitter.com/docs/api/1/get/trends/:woeid
       # @rate_limited Yes
       # @requires_authentication No
       # @response_format `json`
@@ -14,22 +14,23 @@ module Twitter
       # @example Return the top ten topics that are currently trending on Twitter
       #   Twitter.trends
       def trends(options={})
-        get('1/trends', options, :format => :json)['trends']
+        local_trends(1, options)
       end
 
       # Returns the current top 10 trending topics on Twitter
       #
       # @see https://dev.twitter.com/docs/api/1/get/trends/current
+      # @deprecated {Twitter::Client::Trends#trends_current} is deprecated and will be removed in the next major version. Please use {Twitter::Client::Trends#trends} instead.
       # @rate_limited Yes
       # @requires_authentication No
       # @response_format `json`
       # @param options [Hash] A customizable set of options.
-      # @option options [String] :exclude Setting this equal to 'hashtags' will remove all hashtags from the trends list.
       # @return [Array]
       # @example Return the current top 10 trending topics on Twitter
       #   Twitter.trends_current
       def trends_current(options={})
-        get('1/trends/current', options, :format => :json)['trends']
+        warn "#{caller.first}: [DEPRECATION] #trends_current is deprecated and will be removed in the next major version. Please use #trends instead."
+        local_trends(1, options)
       end
 
       # Returns the top 20 trending topics for each hour in a given day
