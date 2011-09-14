@@ -42,6 +42,7 @@ describe Twitter::API do
           :search_endpoint => 'http://google.com/',
           :media_endpoint => 'https://upload.twitter.com/',
           :user_agent => 'Custom User Agent',
+          :faraday_options => {:timeout => 10}
         }
       end
 
