@@ -10,6 +10,7 @@ module Twitter
       # @requires_authentication No
       # @response_format `json`
       # @param options [Hash] A customizable set of options.
+      # @option options [String] :exclude Setting this equal to 'hashtags' will remove all hashtags from the trends list.
       # @return [Array]
       # @example Return the top ten topics that are currently trending on Twitter
       #   Twitter.trends
@@ -25,6 +26,7 @@ module Twitter
       # @requires_authentication No
       # @response_format `json`
       # @param options [Hash] A customizable set of options.
+      # @option options [String] :exclude Setting this equal to 'hashtags' will remove all hashtags from the trends list.
       # @return [Array]
       # @example Return the current top 10 trending topics on Twitter
       #   Twitter.trends_current

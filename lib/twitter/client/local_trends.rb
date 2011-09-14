@@ -27,6 +27,7 @@ module Twitter
       # @response_format `json`
       # @param woeid [Integer] The {https://developer.yahoo.com/geo/geoplanet Yahoo! Where On Earth ID} of the location to return trending information for. WOEIDs can be retrieved by calling {Twitter::Client::LocalTrends#trend_locations}. Global information is available by using 1 as the WOEID.
       # @param options [Hash] A customizable set of options.
+      # @option options [String] :exclude Setting this equal to 'hashtags' will remove all hashtags from the trends list.
       # @return [Array]
       # @example Return the top 10 trending topics for San Francisco
       #   Twitter.local_trends(2487956)
