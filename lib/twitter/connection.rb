@@ -12,7 +12,7 @@ module Twitter
     private
 
     def connection(options={})
-      Faraday.new(
+      merged_options = faraday_options.merge({
         :headers => {
           'Accept' => "application/#{format}",
           'User-Agent' => user_agent
@@ -20,7 +20,9 @@ module Twitter
         :proxy => proxy,
         :ssl => {:verify => false},
         :url => options.fetch(:endpoint, api_endpoint)
-      ) do |builder|
+      })
+      
+      Faraday.new(merged_options) do |builder|
         builder.use Faraday::Request::Phoenix if options[:phoenix]
         builder.use Faraday::Request::MultipartWithFile
         builder.use Faraday::Request::TwitterOAuth, authentication if authenticated?

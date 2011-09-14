@@ -16,7 +16,8 @@ module Twitter
       :proxy,
       :search_endpoint,
       :user_agent,
-      :media_endpoint].freeze
+      :media_endpoint,
+      :faraday_options].freeze
 
     # The adapter that will be used to connect if none is set
     DEFAULT_ADAPTER = :net_http
@@ -64,6 +65,8 @@ module Twitter
     # This endpoint will be used by default when updating statuses with media
     DEFAULT_MEDIA_ENDPOINT = 'https://upload.twitter.com/'.freeze
 
+    DEFAULT_FARADAY_OPTIONS = {}.freeze
+
     # @private
     attr_accessor *VALID_OPTIONS_KEYS
 
@@ -98,6 +101,7 @@ module Twitter
       self.user_agent         = DEFAULT_USER_AGENT
       self.gateway            = DEFAULT_GATEWAY
       self.media_endpoint     = DEFAULT_MEDIA_ENDPOINT
+      self.faraday_options    = DEFAULT_FARADAY_OPTIONS
       self
     end
   end
