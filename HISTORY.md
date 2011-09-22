@@ -1,7 +1,13 @@
 HISTORY
 =======
 
-1.7.1 - September 8, 2001
+1.7.2 - September 22, 2011
+--------------------------
+* [Update multi_xml dependency to 0.4.0](https://github.com/jnunemaker/twitter/commit/01105b7e7f211a140ce61bdbe5e3fc7d68c9b301) ([@masterkain](http://twitter.com/masterkain))
+* [Add support for passing options directly to faraday](https://github.com/jnunemaker/twitter/commit/4cc469761ea9e663abaf761e061a89e848ce9beb) ([@icambron](http://twitter.com/icambron))
+* [Deprecate Trends#trends_current and remove the XML response format](https://github.com/jnunemaker/twitter/commit/f9f0c1f1ddc5057cdb655f645970f771e1ebc702)
+
+1.7.1 - September 8, 2011
 -------------------------
 * [Refactor connection and requests to accept options](https://github.com/jnunemaker/twitter/commit/f7570de9f38f57e9fc6f15aa275f308a5ea69bc7) ([@laserlemon](http://twitter.com/laserlemon))
 * [Include X-Phx header for internal APIs only](https://github.com/jnunemaker/twitter/compare/f7570de9...34f29fe6) ([@laserlemon](http://twitter.com/laserlemon))
