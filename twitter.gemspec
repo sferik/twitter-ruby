@@ -8,7 +8,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'multi_json', '~> 1.0.0'
   gem.add_dependency 'multi_xml', '~> 0.4.0'
   gem.add_dependency 'simple_oauth', '~> 0.1.5'
-  gem.add_development_dependency 'nokogiri', '~> 1.4'
+  gem.add_development_dependency 'ox', '~> 1.3'
   gem.add_development_dependency 'rake', '~> 0.9'
   gem.add_development_dependency 'rdiscount', '~> 1.6'
   gem.add_development_dependency 'rspec', '~> 2.6'

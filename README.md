@@ -174,14 +174,12 @@ Here are a few more reasons to upgrade to 1.0:
 You can improve performance by preloading a faster JSON or XML parsing library.
 By default, the JSON will be parsed with [okjson][okjson] and XML will be
 parsed with [REXML][rexml]. For faster JSON parsing, we recommend
-[yajl-ruby][yajl] and for faster XML parsing, we recommend
-[libxml-ruby][libxml] or [nokogiri][nokogiri].
+[yajl-ruby][yajl] and for faster XML parsing, we recommend [ox][ox].
 
 [okjson]: https://github.com/ddollar/okjson
 [rexml]: http://www.germane-software.com/software/rexml
 [yajl]: https://github.com/brianmario/yajl-ruby
-[libxml]: https://github.com/dvdplm/libxml-ruby
-[nokogiri]: http://nokogiri.org
+[ox]: https://github.com/ohler55/ox
 
 ## <a name="examples">Usage Examples</a>
     require "rubygems"
