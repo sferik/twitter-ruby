@@ -21,7 +21,7 @@ module Twitter
         :ssl => {:verify => false},
         :url => options.fetch(:endpoint, api_endpoint)
       })
-      
+
       Faraday.new(merged_options) do |builder|
         builder.use Faraday::Request::Phoenix if options[:phoenix]
         builder.use Faraday::Request::MultipartWithFile
