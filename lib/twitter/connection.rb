@@ -1,8 +1,9 @@
-require 'faraday_middleware'
-require 'faraday/request/phoenix'
-require 'faraday/request/multipart_with_file'
 require 'faraday/request/gateway'
+require 'faraday/request/multipart_with_file'
+require 'faraday/request/phoenix'
 require 'faraday/request/twitter_oauth'
+require 'faraday/response/mashify'
+require 'faraday/response/parse_json'
 require 'faraday/response/raise_http_4xx'
 require 'faraday/response/raise_http_5xx'
 
