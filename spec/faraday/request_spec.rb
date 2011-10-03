@@ -2,7 +2,7 @@ require 'helper'
 
 describe Faraday::Request do
   before(:each) do
-    @oauth = Faraday::Request::TwitterOAuth.new(lambda{|env| env}, Hash.new)
+    @oauth = Twitter::Request::TwitterOAuth.new(lambda{|env| env}, Hash.new)
     @request = {:method => "post", :url => "http://test.com/test.json", :request_headers => {}, :body => {:status => "Test"}}
   end
 

@@ -1,3 +1,5 @@
+require 'twitter/api'
+
 module Twitter
   # Wrapper for the Twitter REST API
   #

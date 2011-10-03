@@ -15,7 +15,7 @@ module Twitter
       request(:post, path, params, options)
     end
 
-    private
+  private
 
     # Perform an HTTP request
     def request(method, path, params, options)

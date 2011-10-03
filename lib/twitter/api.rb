@@ -4,13 +4,11 @@ require 'twitter/connection'
 require 'twitter/request'
 
 module Twitter
-  # @private
   class API
+    include Authentication
     include Connection
     include Request
-    include Authentication
 
-    # @private
     attr_accessor *Configuration::VALID_OPTIONS_KEYS
 
     # Creates a new API

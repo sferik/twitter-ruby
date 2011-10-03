@@ -1,7 +1,6 @@
 module Twitter
-  # @private
   module Authentication
-    private
+  private
 
     # Authentication hash
     #

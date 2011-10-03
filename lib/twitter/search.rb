@@ -1,4 +1,5 @@
 require 'cgi'
+require 'twitter/api'
 
 module Twitter
   # Wrapper for the Twitter Search API
@@ -18,7 +19,6 @@ module Twitter
   class Search < API
     include Enumerable
 
-    # @private
     attr_reader :query
 
     # Creates a new search

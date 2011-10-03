@@ -1,3 +1,5 @@
+require 'twitter/error/not_found'
+
 module Twitter
   class Client
     # Defines methods related to blocking and unblocking users
@@ -53,7 +55,7 @@ module Twitter
         merge_user_into_options!(user, options)
         get("/1/blocks/exists.json", options, :raw => true)
         true
-      rescue Twitter::NotFound
+      rescue Twitter::Error::NotFound
         false
       end
 

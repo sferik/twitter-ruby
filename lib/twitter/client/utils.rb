@@ -1,9 +1,7 @@
-# -*- encoding: utf-8 -*-
 module Twitter
   class Client
-    # @private
     module Utils
-      private
+    private
 
       # Returns the configured screen name or the screen name of the authenticated user
       #

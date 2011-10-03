@@ -1,3 +1,6 @@
+require 'twitter/error/forbidden'
+require 'twitter/error/not_found'
+
 module Twitter
   class Client
     # Defines methods related to list members
@@ -183,7 +186,7 @@ module Twitter
         merge_user_into_options!(user_to_check, options)
         get("/1/lists/members/show.json", options, :raw => true)
         true
-      rescue Twitter::NotFound, Twitter::Forbidden
+      rescue Twitter::Error::NotFound, Twitter::Error::Forbidden
         false
       end
     end

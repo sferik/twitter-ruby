@@ -61,7 +61,6 @@ module Twitter
 
     DEFAULT_FARADAY_OPTIONS = {}.freeze
 
-    # @private
     attr_accessor *VALID_OPTIONS_KEYS
 
     # When this module is extended, set all configuration options to their default values

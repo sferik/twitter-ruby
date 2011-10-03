@@ -1,3 +1,5 @@
+require 'twitter/error/not_found'
+
 module Twitter
   class Client
     # Defines methods related to users
@@ -35,7 +37,7 @@ module Twitter
         merge_user_into_options!(user, options)
         get("/1/users/show.json", options, :raw => true)
         true
-      rescue Twitter::NotFound
+      rescue Twitter::Error::NotFound
         false
       end
 

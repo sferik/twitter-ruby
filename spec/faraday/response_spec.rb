@@ -6,15 +6,15 @@ describe Faraday::Response do
   end
 
   {
-    400 => Twitter::BadRequest,
-    401 => Twitter::Unauthorized,
-    403 => Twitter::Forbidden,
-    404 => Twitter::NotFound,
-    406 => Twitter::NotAcceptable,
-    420 => Twitter::EnhanceYourCalm,
-    500 => Twitter::InternalServerError,
-    502 => Twitter::BadGateway,
-    503 => Twitter::ServiceUnavailable,
+    400 => Twitter::Error::BadRequest,
+    401 => Twitter::Error::Unauthorized,
+    403 => Twitter::Error::Forbidden,
+    404 => Twitter::Error::NotFound,
+    406 => Twitter::Error::NotAcceptable,
+    420 => Twitter::Error::EnhanceYourCalm,
+    500 => Twitter::Error::InternalServerError,
+    502 => Twitter::Error::BadGateway,
+    503 => Twitter::Error::ServiceUnavailable,
   }.each do |status, exception|
     if (status >= 500)
       context "when HTTP status is #{status}" do
@@ -58,10 +58,10 @@ describe Faraday::Response do
         to_return(:status => 404, :body => fixture('no_user_matches.json'))
     end
 
-    it "should raise Twitter::NotFound" do
+    it "should raise Twitter::Error::NotFound" do
       lambda do
         @client.users('not_on_twitter')
-      end.should raise_error(Twitter::NotFound)
+      end.should raise_error(Twitter::Error::NotFound)
     end
 
   end
