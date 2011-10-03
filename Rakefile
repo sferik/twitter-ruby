@@ -9,16 +9,5 @@ RSpec::Core::RakeTask.new(:spec)
 task :test => :spec
 task :default => :spec
 
-namespace :doc do
-  require 'yard'
-  YARD::Rake::YardocTask.new do |task|
-    task.files   = ['HISTORY.md', 'LICENSE.md', 'lib/**/*.rb']
-    task.options = [
-      '--protected',
-      '--output-dir', 'doc/yard',
-      '--tag', 'requires_authentication:Requires Authentication?',
-      '--tag', 'rate_limited:Rate Limited?',
-      '--markup', 'markdown',
-    ]
-  end
-end
+require 'yard'
+YARD::Rake::YardocTask.new
