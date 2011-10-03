@@ -59,7 +59,7 @@ module Twitter
       #     Twitter.user_timeline("sferik")
       def user_timeline(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
-        user = args.first || get_screen_name
+        user = args.pop || get_screen_name
         merge_user_into_options!(user, options)
         get("/1/statuses/user_timeline.json", options)
       end
@@ -161,7 +161,7 @@ module Twitter
       #     Twitter.media_timeline("sferik")
       def media_timeline(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
-        user = args.first || get_screen_name
+        user = args.pop || get_screen_name
         merge_user_into_options!(user, options)
         get("/1/statuses/media_timeline.json", options)
       end

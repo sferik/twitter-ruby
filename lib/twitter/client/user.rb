@@ -17,7 +17,7 @@ module Twitter
       #     Twitter.user(7505382)  # Same as above
       def user(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
-        user = args.first || get_screen_name
+        user = args.pop || get_screen_name
         merge_user_into_options!(user, options)
         get("/1/users/show.json", options)
       end
@@ -135,7 +135,7 @@ module Twitter
       # @return [String] The URL for the requested user's profile image.
       def profile_image(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
-        screen_name = args.first || get_screen_name
+        screen_name = args.pop || get_screen_name
         get("/1/users/profile_image/#{screen_name}", options, :raw => true).headers['location']
       end
 
@@ -182,12 +182,8 @@ module Twitter
         options = {}
         options.merge!(args.last.is_a?(Hash) ? args.pop : {})
         user = args.pop || get_screen_name
-        if user
-          merge_user_into_options!(user, options)
-          get("/1/users/contributees.json", options)
-        else
-          get("/1/users/contributees.json", options)
-        end
+        merge_user_into_options!(user, options)
+        get("/1/users/contributees.json", options)
       end
 
       # Returns an array of users who can contribute to the specified account
@@ -217,12 +213,8 @@ module Twitter
         options = {}
         options.merge!(args.last.is_a?(Hash) ? args.pop : {})
         user = args.pop || get_screen_name
-        if user
-          merge_user_into_options!(user, options)
-          get("/1/users/contributors.json", options)
-        else
-          get("/1/users/contributors.json", options)
-        end
+        merge_user_into_options!(user, options)
+        get("/1/users/contributors.json", options)
       end
     end
   end
