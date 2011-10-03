@@ -7,8 +7,6 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1/get/statuses/show/:id
       # @rate_limited Yes
       # @requires_authentication No unless the author of the status is protected
-      # @response_format `json`
-      # @response_format `xml`
       # @param id [Integer] The numerical ID of the desired status.
       # @param options [Hash] A customizable set of options.
       # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
@@ -17,8 +15,7 @@ module Twitter
       # @example Return the status with the ID 25938088801
       #   Twitter.status(25938088801)
       def status(id, options={})
-        response = get("1/statuses/show/#{id}", options)
-        format.to_s.downcase == 'xml' ? response['status'] : response
+        get("/1/statuses/show/#{id}.json", options)
       end
 
       # Updates the authenticating user's status
@@ -27,8 +24,6 @@ module Twitter
       # @note A status update with text identical to the authenticating user's current status will be ignored to prevent duplicates.
       # @rate_limited No
       # @requires_authentication Yes
-      # @response_format `json`
-      # @response_format `xml`
       # @param status [String] The text of your status update, up to 140 characters.
       # @param options [Hash] A customizable set of options.
       # @option options [Integer] :in_reply_to_status_id The ID of an existing status that the update is in reply to.
@@ -42,8 +37,7 @@ module Twitter
       # @example Update the authenticating user's status
       #   Twitter.update("I just posted a status update via the Twitter Ruby Gem!")
       def update(status, options={})
-        response = post('1/statuses/update', options.merge(:status => status))
-        format.to_s.downcase == 'xml' ? response['status'] : response
+        post("/1/statuses/update.json", options.merge(:status => status))
       end
 
       # Updates with media the authenticating user's status
@@ -51,8 +45,6 @@ module Twitter
       # @note A status update with text/media identical to the authenticating user's current status will NOT be ignored
       # @requires_authentication Yes
       # @rate_limited No
-      # @response_format `json`
-      # @response_format `xml`
       # @param status [String] The text of your status update, up to 140 characters.
       # @param media [File] A File object with your picture (PNG, JPEG or GIF)
       # @param options [Hash] A customizable set of options.
@@ -72,8 +64,7 @@ module Twitter
       #     download the pic and put the response in a StringIO object
       #   Twitter.update_with_media("I just posted a status update with a pic via the Twitter Ruby Gem!", {'io' => StringIO.new(pic), 'type' => 'jpg'})
       def update_with_media(status, image, options={})
-        response = post('1/statuses/update_with_media', options.merge('media[]' => image, 'status' => status), :endpoint => media_endpoint)
-        format.to_s.downcase == 'xml' ? response['status'] : response
+        post("/1/statuses/update_with_media.json", options.merge('media[]' => image, 'status' => status), :endpoint => media_endpoint)
       end
 
       # Destroys the specified status
@@ -82,8 +73,6 @@ module Twitter
       # @note The authenticating user must be the author of the specified status.
       # @rate_limited No
       # @requires_authentication Yes
-      # @response_format `json`
-      # @response_format `xml`
       # @param id [Integer] The numerical ID of the desired status.
       # @param options [Hash] A customizable set of options.
       # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
@@ -92,8 +81,7 @@ module Twitter
       # @example Destroy the status with the ID 25938088801
       #   Twitter.status_destroy(25938088801)
       def status_destroy(id, options={})
-        response = delete("1/statuses/destroy/#{id}", options)
-        format.to_s.downcase == 'xml' ? response['status'] : response
+        delete("/1/statuses/destroy/#{id}.json", options)
       end
 
       # Retweets a tweet
@@ -102,8 +90,6 @@ module Twitter
       # @note The authenticating user must be the author of the specified status.
       # @rate_limited Yes
       # @requires_authentication Yes
-      # @response_format `json`
-      # @response_format `xml`
       # @param id [Integer] The numerical ID of the desired status.
       # @param options [Hash] A customizable set of options.
       # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
@@ -112,8 +98,7 @@ module Twitter
       # @example Retweet the status with the ID 28561922516
       #   Twitter.retweet(28561922516)
       def retweet(id, options={})
-        response = post("1/statuses/retweet/#{id}", options)
-        format.to_s.downcase == 'xml' ? response['status'] : response
+        post("/1/statuses/retweet/#{id}.json", options)
       end
 
       # Returns up to 100 of the first retweets of a given tweet
@@ -121,8 +106,6 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1/get/statuses/retweets/:id
       # @rate_limited Yes
       # @requires_authentication Yes
-      # @response_format `json`
-      # @response_format `xml`
       # @param id [Integer] The numerical ID of the desired status.
       # @param options [Hash] A customizable set of options.
       # @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 100.
@@ -132,8 +115,7 @@ module Twitter
       # @example Return up to 100 of the first retweets of the status with the ID 28561922516
       #   Twitter.retweets(28561922516)
       def retweets(id, options={})
-        response = get("1/statuses/retweets/#{id}", options)
-        format.to_s.downcase == 'xml' ? response['statuses'] : response
+        get("/1/statuses/retweets/#{id}.json", options)
       end
 
       # Show up to 100 users who retweeted the status
@@ -142,8 +124,6 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1/get/statuses/:id/retweeted_by/ids
       # @rate_limited Yes
       # @requires_authentication Yes
-      # @response_format `json`
-      # @response_format `xml`
       # @param id [Integer] The numerical ID of the desired status.
       # @param options [Hash] A customizable set of options.
       # @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 100.
@@ -156,8 +136,7 @@ module Twitter
       #   Twitter.retweeters_of(28561922516)
       def retweeters_of(id, options={})
         ids_only = !!options.delete(:ids_only)
-        response = get("1/statuses/#{id}/retweeted_by#{'/ids' if ids_only}", options)
-        format.to_s.downcase == 'xml' ? response['users'] : response
+        get("/1/statuses/#{id}/retweeted_by#{'/ids' if ids_only}.json", options)
       end
     end
   end

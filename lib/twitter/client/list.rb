@@ -10,8 +10,6 @@ module Twitter
       # @note Accounts are limited to 20 lists.
       # @rate_limited No
       # @requires_authentication Yes
-      # @response_format `json`
-      # @response_format `xml`
       # @overload list_create(screen_name, name, options={})
       #   @deprecated Calling {Twitter::Client::List#list_create} with a screen_name is deprecated and will be removed in the next major version. Please omit the screen_name argument.
       #   @param screen_name [String] A Twitter user name.
@@ -35,8 +33,7 @@ module Twitter
         if screen_name = args.pop
           warn "#{caller.first}: [DEPRECATION] Calling #list_create with a screen_name is deprecated and will be removed in the next major version. Please omit the screen_name argument."
         end
-        response = post("1/lists/create", options.merge(:name => name))
-        format.to_s.downcase == 'xml' ? response['list'] : response
+        post("/1/lists/create.json", options.merge(:name => name))
       end
 
       # Updates the specified list
@@ -44,8 +41,6 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1/post/lists/update
       # @rate_limited No
       # @requires_authentication Yes
-      # @response_format `json`
-      # @response_format `xml`
       # @overload list_update(list, options={})
       #   @param list [Integer, String] The list_id or slug for the list.
       #   @param options [Hash] A customizable set of options.
@@ -74,8 +69,7 @@ module Twitter
         user = args.pop || get_screen_name
         merge_list_into_options!(list, options)
         merge_owner_into_options!(user, options)
-        response = post("1/lists/update", options)
-        format.to_s.downcase == 'xml' ? response['list'] : response
+        post("/1/lists/update.json", options)
       end
 
       # List the lists of the specified user
@@ -84,8 +78,6 @@ module Twitter
       # @note Private lists will be included if the authenticated user is the same as the user whose lists are being returned.
       # @rate_limited Yes
       # @requires_authentication Yes
-      # @response_format `json`
-      # @response_format `xml`
       # @overload lists(options={})
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
@@ -105,8 +97,7 @@ module Twitter
         options = {:cursor => -1}.merge(args.last.is_a?(Hash) ? args.pop : {})
         user = args.first
         merge_user_into_options!(user, options) if user
-        response = get("1/lists", options)
-        format.to_s.downcase == 'xml' ? response['lists_list'] : response
+        get("/1/lists.json", options)
       end
 
       # Show the specified list
@@ -115,8 +106,6 @@ module Twitter
       # @note Private lists will only be shown if the authenticated user owns the specified list.
       # @rate_limited Yes
       # @requires_authentication Yes
-      # @response_format `json`
-      # @response_format `xml`
       # @overload list(list, options={})
       #   @param list [Integer, String] The list_id or slug of the list.
       #   @param options [Hash] A customizable set of options.
@@ -141,8 +130,7 @@ module Twitter
         user = args.pop || get_screen_name
         merge_list_into_options!(list, options)
         merge_owner_into_options!(user, options)
-        response = get("1/lists/show", options)
-        format.to_s.downcase == 'xml' ? response['list'] : response
+        get("/1/lists/show.json", options)
       end
 
       # Deletes the specified list
@@ -151,14 +139,12 @@ module Twitter
       # @note Must be owned by the authenticated user.
       # @rate_limited No
       # @requires_authentication Yes
-      # @response_format `json`
-      # @response_format `xml`
       # @overload list_delete(list, options={})
       #   @param list [Integer, String] The list_id or slug of the list.
       #   @param options [Hash] A customizable set of options.
       #   @return [Hashie::Mash] The deleted list.
       #   @example Delete the authenticated user's "presidents" list
-      #     Twitter.list_delete("presidents")
+      #     Twitter.list_delete("/presidents")
       #     Twitter.list_delete(8863586)
       # @overload list_delete(user, list, options={})
       #   @param user [Integer, String] A Twitter user ID or screen name.
@@ -166,8 +152,8 @@ module Twitter
       #   @param options [Hash] A customizable set of options.
       #   @return [Hashie::Mash] The deleted list.
       #   @example Delete @sferik's "presidents" list
-      #     Twitter.list_delete("sferik", "presidents")
-      #     Twitter.list_delete("sferik", 8863586)
+      #     Twitter.list_delete("/sferik", "presidents")
+      #     Twitter.list_delete("/sferik", 8863586)
       #     Twitter.list_delete(7505382, "presidents")
       #     Twitter.list_delete(7505382, 8863586)
       # @return [Hashie::Mash] The deleted list.
@@ -177,8 +163,7 @@ module Twitter
         user = args.pop || get_screen_name
         merge_list_into_options!(list, options)
         merge_owner_into_options!(user, options)
-        response = delete("1/lists/destroy", options)
-        format.to_s.downcase == 'xml' ? response['list'] : response
+        delete("/1/lists/destroy.json", options)
       end
 
       # Show tweet timeline for members of the specified list
@@ -186,8 +171,6 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1/get/lists/statuses
       # @rate_limited Yes
       # @requires_authentication No
-      # @response_format `json`
-      # @response_format `xml`
       # @overload list_timeline(list, options={})
       #   @param list [Integer, String] The list_id or slug of the list.
       #   @param options [Hash] A customizable set of options.
@@ -222,8 +205,7 @@ module Twitter
         user = args.pop || get_screen_name
         merge_list_into_options!(list, options)
         merge_owner_into_options!(user, options)
-        response = get("1/lists/statuses", options)
-        format.to_s.downcase == 'xml' ? response['statuses'] : response
+        get("/1/lists/statuses.json", options)
       end
 
       # List the lists the specified user has been added to
@@ -231,8 +213,6 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1/get/lists/memberships
       # @rate_limited Yes
       # @requires_authentication Yes
-      # @response_format `json`
-      # @response_format `xml`
       # @overload memberships(options={})
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
@@ -252,8 +232,7 @@ module Twitter
         options = {:cursor => -1}.merge(args.last.is_a?(Hash) ? args.pop : {})
         user = args.pop || get_screen_name
         merge_user_into_options!(user, options)
-        response = get("1/lists/memberships", options)
-        format.to_s.downcase == 'xml' ? response['lists_list'] : response
+        get("/1/lists/memberships.json", options)
       end
 
       # List the lists the specified user follows
@@ -261,8 +240,6 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1/get/lists/subscriptions
       # @rate_limited Yes
       # @requires_authentication Yes
-      # @response_format `json`
-      # @response_format `xml`
       # @overload subscriptions(options={})
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
@@ -282,8 +259,7 @@ module Twitter
         options = {:cursor => -1}.merge(args.last.is_a?(Hash) ? args.pop : {})
         user = args.pop || get_screen_name
         merge_user_into_options!(user, options)
-        response = get("1/lists/subscriptions", options)
-        format.to_s.downcase == 'xml' ? response['lists_list'] : response
+        get("/1/lists/subscriptions.json", options)
       end
     end
   end

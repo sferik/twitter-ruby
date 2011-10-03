@@ -19,7 +19,7 @@ describe Faraday::Response do
     if (status >= 500)
       context "when HTTP status is #{status}" do
         before do
-          stub_get("1/statuses/user_timeline.json").
+          stub_get("/1/statuses/user_timeline.json").
             with(:query => {:screen_name => 'sferik'}).
             to_return(:status => status)
         end
@@ -35,7 +35,7 @@ describe Faraday::Response do
         context "when HTTP status is #{status} and body is #{body||='nil'}" do
           before do
             body_message = '{"'+body+'":"test"}' unless body.nil?
-            stub_get("1/statuses/user_timeline.json").
+            stub_get("/1/statuses/user_timeline.json").
               with(:query => {:screen_name => 'sferik'}).
               to_return(:status => status, :body => body_message)
           end
@@ -53,7 +53,7 @@ describe Faraday::Response do
   context "when response status is 404 from lookup" do
 
     before do
-      stub_get("1/users/lookup.json").
+      stub_get("/1/users/lookup.json").
         with(:query => {:screen_name => "not_on_twitter"}).
         to_return(:status => 404, :body => fixture('no_user_matches.json'))
     end

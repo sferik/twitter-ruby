@@ -7,8 +7,6 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1/post/notifications/follow
       # @rate_limited No
       # @requires_authentication Yes
-      # @response_format `json`
-      # @response_format `xml`
       # @param user [Integer, String] A Twitter user ID or screen name.
       # @param options [Hash] A customizable set of options.
       # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
@@ -18,8 +16,7 @@ module Twitter
       #   Twitter.enable_notifications(7505382)  # Same as above
       def enable_notifications(user, options={})
         merge_user_into_options!(user, options)
-        response = post('1/notifications/follow', options)
-        format.to_s.downcase == 'xml' ? response['user'] : response
+        post("/1/notifications/follow.json", options)
       end
 
       # Disables notifications for updates from the specified user to the authenticating user
@@ -27,8 +24,6 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1/post/notifications/leave
       # @rate_limited No
       # @requires_authentication Yes
-      # @response_format `json`
-      # @response_format `xml`
       # @param user [Integer, String] A Twitter user ID or screen name.
       # @param options [Hash] A customizable set of options.
       # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
@@ -38,8 +33,7 @@ module Twitter
       #   Twitter.disable_notifications(7505382)  # Same as above
       def disable_notifications(user, options={})
         merge_user_into_options!(user, options)
-        response = post('1/notifications/leave', options)
-        format.to_s.downcase == 'xml' ? response['user'] : response
+        post("/1/notifications/leave.json", options)
       end
     end
   end

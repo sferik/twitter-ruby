@@ -8,14 +8,14 @@ describe Twitter do
   context "when delegating to a client" do
 
     before do
-      stub_get("1/statuses/user_timeline.json").
+      stub_get("/1/statuses/user_timeline.json").
         with(:query => {:screen_name => "sferik"}).
         to_return(:body => fixture("statuses.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
 
     it "should get the correct resource" do
       Twitter.user_timeline('sferik')
-      a_get("1/statuses/user_timeline.json").
+      a_get("/1/statuses/user_timeline.json").
         with(:query => {:screen_name => "sferik"}).
         should have_been_made
     end
@@ -61,19 +61,6 @@ describe Twitter do
     it "should set the endpoint" do
       Twitter.endpoint = 'http://tumblr.com/'
       Twitter.endpoint.should == 'http://tumblr.com/'
-    end
-  end
-
-  describe ".format" do
-    it "should return the default format" do
-      Twitter.format.should == Twitter::Configuration::DEFAULT_FORMAT
-    end
-  end
-
-  describe ".format=" do
-    it "should set the format" do
-      Twitter.format = 'xml'
-      Twitter.format.should == 'xml'
     end
   end
 

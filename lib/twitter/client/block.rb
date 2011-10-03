@@ -9,8 +9,6 @@ module Twitter
       # @note Destroys a friendship to the blocked user if it exists.
       # @rate_limited Yes
       # @requires_authentication Yes
-      # @response_format `json`
-      # @response_format `xml`
       # @param user [Integer, String] A Twitter user ID or screen name.
       # @param options [Hash] A customizable set of options.
       # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
@@ -20,8 +18,7 @@ module Twitter
       #   Twitter.block(7505382)  # Same as above
       def block(user, options={})
         merge_user_into_options!(user, options)
-        response = post('1/blocks/create', options)
-        format.to_s.downcase == 'xml' ? response['user'] : response
+        post("/1/blocks/create.json", options)
       end
 
       # Un-blocks the user specified by the authenticating user
@@ -29,8 +26,6 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1/post/blocks/destroy
       # @rate_limited No
       # @requires_authentication Yes
-      # @response_format `json`
-      # @response_format `xml`
       # @param user [Integer, String] A Twitter user ID or screen name.
       # @param options [Hash] A customizable set of options.
       # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
@@ -40,8 +35,7 @@ module Twitter
       #   Twitter.unblock(7505382)  # Same as above
       def unblock(user, options={})
         merge_user_into_options!(user, options)
-        response = delete('1/blocks/destroy', options)
-        format.to_s.downcase == 'xml' ? response['user'] : response
+        delete("/1/blocks/destroy.json", options)
       end
 
       # Returns true if the authenticating user is blocking a target user
@@ -57,7 +51,7 @@ module Twitter
       #   Twitter.block?(7505382)  # Same as above
       def block?(user, options={})
         merge_user_into_options!(user, options)
-        get('1/blocks/exists', options, :format => :json, :raw => true)
+        get("/1/blocks/exists.json", options, :raw => true)
         true
       rescue Twitter::NotFound
         false
@@ -85,8 +79,6 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1/get/blocks/blocking
       # @rate_limited Yes
       # @requires_authentication Yes
-      # @response_format `json`
-      # @response_format `xml`
       # @param options [Hash] A customizable set of options.
       # @option options [Integer] :page Specifies the page of results to retrieve.
       # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
@@ -94,8 +86,7 @@ module Twitter
       # @example Return an array of user objects that the authenticating user is blocking
       #   Twitter.blocking
       def blocking(options={})
-        response = get('1/blocks/blocking', options)
-        format.to_s.downcase == 'xml' ? response['users'] : response
+        get("/1/blocks/blocking.json", options)
       end
 
       # Returns an array of numeric user ids the authenticating user is blocking
@@ -103,15 +94,12 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1/get/blocks/blocking/ids
       # @rate_limited Yes
       # @requires_authentication Yes
-      # @response_format `json`
-      # @response_format `xml`
       # @param options [Hash] A customizable set of options.
       # @return [Array] Numeric user ids the authenticating user is blocking.
       # @example Return an array of numeric user ids the authenticating user is blocking
       #   Twitter.blocking_ids
       def blocked_ids(options={})
-        response = get('1/blocks/blocking/ids', options)
-        format.to_s.downcase == 'xml' ? response['ids']['id'].map{|id| id.to_i} : response
+        get("/1/blocks/blocking/ids.json", options)
       end
     end
   end

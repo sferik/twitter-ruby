@@ -9,8 +9,6 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1/get/lists/subscriptions
       # @rate_limited Yes
       # @requires_authentication Yes
-      # @response_format `json`
-      # @response_format `xml`
       # @overload list_subscribers(list, options={})
       #   @param list [Integer, String] The list_id or slug of the list.
       #   @param options [Hash] A customizable set of options.
@@ -38,8 +36,7 @@ module Twitter
         user = args.pop || get_screen_name
         merge_list_into_options!(list, options)
         merge_owner_into_options!(user, options)
-        response = get("1/lists/subscribers", options)
-        format.to_s.downcase == 'xml' ? response['users_list'] : response
+        get("/1/lists/subscribers.json", options)
       end
 
       # Make the authenticated user follow the specified list
@@ -47,8 +44,6 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1/post/lists/subscribers/create
       # @rate_limited No
       # @requires_authentication Yes
-      # @response_format `json`
-      # @response_format `xml`
       # @overload list_subscribe(list, options={})
       #   @param list [Integer, String] The list_id or slug of the list.
       #   @param options [Hash] A customizable set of options.
@@ -72,8 +67,7 @@ module Twitter
         user = args.pop || get_screen_name
         merge_list_into_options!(list, options)
         merge_owner_into_options!(user, options)
-        response = post("1/lists/subscribers/create", options)
-        format.to_s.downcase == 'xml' ? response['list'] : response
+        post("/1/lists/subscribers/create.json", options)
       end
 
       # Unsubscribes the authenticated user form the specified list
@@ -81,8 +75,6 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1/post/lists/subscribers/destroy
       # @rate_limited No
       # @requires_authentication Yes
-      # @response_format `json`
-      # @response_format `xml`
       # @overload list_unsubscribe(list, options={})
       #   @param list [Integer, String] The list_id or slug of the list.
       #   @param options [Hash] A customizable set of options.
@@ -106,8 +98,7 @@ module Twitter
         user = args.pop || get_screen_name
         merge_list_into_options!(list, options)
         merge_owner_into_options!(user, options)
-        response = post("1/lists/subscribers/destroy", options)
-        format.to_s.downcase == 'xml' ? response['list'] : response
+        post("/1/lists/subscribers/destroy.json", options)
       end
 
       # Check if a user is a subscriber of the specified list
@@ -115,8 +106,6 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1/get/lists/subscribers/show
       # @rate_limited Yes
       # @requires_authentication Yes
-      # @response_format `json`
-      # @response_format `xml`
       # @overload list_subscriber?(list, user_to_check, options={})
       #   @param list [Integer, String] The list_id or slug of the list.
       #   @param user_to_check [Integer, String] The user ID or screen_name of the list member.
@@ -145,7 +134,7 @@ module Twitter
         merge_list_into_options!(list, options)
         merge_owner_into_options!(user, options)
         merge_user_into_options!(user_to_check, options)
-        get("1/lists/subscribers/show", options, :format => :json, :raw => true)
+        get("/1/lists/subscribers/show.json", options, :raw => true)
         true
       rescue Twitter::NotFound, Twitter::Forbidden
         false
@@ -157,8 +146,6 @@ module Twitter
       # @deprecated {Twitter::Client::ListSubscribers#is_subscriber?} is deprecated and will be removed in the next major version. Please use {Twitter::Client::ListSubscribers#list_subscriber?} instead.
       # @rate_limited Yes
       # @requires_authentication Yes
-      # @response_format `json`
-      # @response_format `xml`
       # @overload is_subscriber?(list, user_to_check, options={})
       #   @param list [Integer, String] The list_id or slug of the list.
       #   @param user_to_check [Integer, String] The user ID or screen_name of the list member.

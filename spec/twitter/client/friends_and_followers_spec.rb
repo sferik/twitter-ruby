@@ -1,108 +1,104 @@
 require 'helper'
 
 describe Twitter::Client do
-  %w(json xml).each do |format|
-    context ".new(:format => '#{format}')" do
+  before do
+    @client = Twitter::Client.new
+  end
+
+  describe ".friend_ids" do
+
+    context "with a screen_name passed" do
+
       before do
-        @client = Twitter::Client.new(:format => format)
+        stub_get("/1/friends/ids.json").
+          with(:query => {:screen_name => "sferik", :cursor => "-1"}).
+          to_return(:body => fixture("id_list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
 
-      describe ".friend_ids" do
-
-        context "with a screen_name passed" do
-
-          before do
-            stub_get("1/friends/ids.#{format}").
-              with(:query => {:screen_name => "sferik", :cursor => "-1"}).
-              to_return(:body => fixture("id_list.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
-          end
-
-          it "should get the correct resource" do
-            @client.friend_ids("sferik")
-            a_get("1/friends/ids.#{format}").
-              with(:query => {:screen_name => "sferik", :cursor => "-1"}).
-              should have_been_made
-          end
-
-          it "should return an array of numeric IDs for every user the specified user is following" do
-            id_list = @client.friend_ids("sferik")
-            id_list.ids.should be_an Array
-            id_list.ids.first.should == 146197851
-          end
-
-        end
-
-        context "without arguments passed" do
-
-          before do
-            stub_get("1/friends/ids.#{format}").
-              with(:query => {:cursor => "-1"}).
-              to_return(:body => fixture("id_list.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
-          end
-
-          it "should get the correct resource" do
-            @client.friend_ids
-            a_get("1/friends/ids.#{format}").
-              with(:query => {:cursor => "-1"}).
-              should have_been_made
-          end
-
-          it "should return an array of numeric IDs for every user the specified user is following" do
-            id_list = @client.friend_ids
-            id_list.ids.should be_an Array
-            id_list.ids.first.should == 146197851
-          end
-
-        end
-
+      it "should get the correct resource" do
+        @client.friend_ids("sferik")
+        a_get("/1/friends/ids.json").
+          with(:query => {:screen_name => "sferik", :cursor => "-1"}).
+          should have_been_made
       end
 
-      describe ".follower_ids" do
+      it "should return an array of numeric IDs for every user the specified user is following" do
+        id_list = @client.friend_ids("sferik")
+        id_list.ids.should be_an Array
+        id_list.ids.first.should == 146197851
+      end
 
-        context "with a screen_name passed" do
+    end
 
-          before do
-            stub_get("1/followers/ids.#{format}").
-              with(:query => {:screen_name => "sferik", :cursor => "-1"}).
-              to_return(:body => fixture("id_list.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
-          end
+    context "without arguments passed" do
 
-          it "should get the correct resource" do
-            @client.follower_ids("sferik")
-            a_get("1/followers/ids.#{format}").
-              with(:query => {:screen_name => "sferik", :cursor => "-1"}).
-              should have_been_made
-          end
+      before do
+        stub_get("/1/friends/ids.json").
+          with(:query => {:cursor => "-1"}).
+          to_return(:body => fixture("id_list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      end
 
-          it "should return an array of numeric IDs for every user following the specified user" do
-            id_list = @client.follower_ids("sferik")
-            id_list.ids.should be_an Array
-            id_list.ids.first.should == 146197851
-          end
+      it "should get the correct resource" do
+        @client.friend_ids
+        a_get("/1/friends/ids.json").
+          with(:query => {:cursor => "-1"}).
+          should have_been_made
+      end
 
-        end
+      it "should return an array of numeric IDs for every user the specified user is following" do
+        id_list = @client.friend_ids
+        id_list.ids.should be_an Array
+        id_list.ids.first.should == 146197851
+      end
 
-        context "without arguments passed" do
+    end
 
-          before do
-            stub_get("1/followers/ids.#{format}").
-              with(:query => {:cursor => "-1"}).
-              to_return(:body => fixture("id_list.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
-          end
+  end
 
-          it "should get the correct resource" do
-            @client.follower_ids
-            a_get("1/followers/ids.#{format}").
-              with(:query => {:cursor => "-1"}).
-              should have_been_made
-          end
+  describe ".follower_ids" do
 
-          it "should return an array of numeric IDs for every user following the specified user" do
-            id_list = @client.follower_ids
-            id_list.ids.should be_an Array
-            id_list.ids.first.should == 146197851
-          end
-        end
+    context "with a screen_name passed" do
+
+      before do
+        stub_get("/1/followers/ids.json").
+          with(:query => {:screen_name => "sferik", :cursor => "-1"}).
+          to_return(:body => fixture("id_list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      end
+
+      it "should get the correct resource" do
+        @client.follower_ids("sferik")
+        a_get("/1/followers/ids.json").
+          with(:query => {:screen_name => "sferik", :cursor => "-1"}).
+          should have_been_made
+      end
+
+      it "should return an array of numeric IDs for every user following the specified user" do
+        id_list = @client.follower_ids("sferik")
+        id_list.ids.should be_an Array
+        id_list.ids.first.should == 146197851
+      end
+
+    end
+
+    context "without arguments passed" do
+
+      before do
+        stub_get("/1/followers/ids.json").
+          with(:query => {:cursor => "-1"}).
+          to_return(:body => fixture("id_list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      end
+
+      it "should get the correct resource" do
+        @client.follower_ids
+        a_get("/1/followers/ids.json").
+          with(:query => {:cursor => "-1"}).
+          should have_been_made
+      end
+
+      it "should return an array of numeric IDs for every user following the specified user" do
+        id_list = @client.follower_ids
+        id_list.ids.should be_an Array
+        id_list.ids.first.should == 146197851
       end
     end
   end

@@ -7,8 +7,6 @@ module Twitter
       # @requires_authentication No unless requesting it from a protected user
       #
       #   If getting this data of a protected user, you must authenticate (and be allowed to see that user).
-      # @response_format `json`
-      # @response_format `xml`
       # @overload friend_ids(options={})
       #   Returns an array of numeric IDs for every user the authenticated user is following
       #
@@ -32,8 +30,7 @@ module Twitter
         options.merge!(args.last.is_a?(Hash) ? args.pop : {})
         user = args.first
         merge_user_into_options!(user, options)
-        response = get('1/friends/ids', options)
-        format.to_s.downcase == 'xml' ? Hashie::Mash.new(:ids => response['id_list']['ids']['id'].map{|id| id.to_i}) : response
+        get("/1/friends/ids.json", options)
       end
 
       # @see https://dev.twitter.com/docs/api/1/get/followers/ids
@@ -41,8 +38,6 @@ module Twitter
       # @requires_authentication No unless requesting it from a protected user
       #
       #   If getting this data of a protected user, you must authenticate (and be allowed to see that user).
-      # @response_format `json`
-      # @response_format `xml`
       # @overload follower_ids(options={})
       #   Returns an array of numeric IDs for every user following the authenticated user
       #
@@ -66,8 +61,7 @@ module Twitter
         options.merge!(args.last.is_a?(Hash) ? args.pop : {})
         user = args.first
         merge_user_into_options!(user, options)
-        response = get('1/followers/ids', options)
-        format.to_s.downcase == 'xml' ? Hashie::Mash.new(:ids => response['id_list']['ids']['id'].map{|id| id.to_i}) : response
+        get("/1/followers/ids.json", options)
       end
     end
   end

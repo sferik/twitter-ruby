@@ -14,12 +14,12 @@ module Twitter
     def connection(options={})
       merged_options = faraday_options.merge({
         :headers => {
-          'Accept' => "application/#{format}",
-          'User-Agent' => user_agent
+          :accept => 'application/json',
+          :user_agent => user_agent,
         },
         :proxy => proxy,
         :ssl => {:verify => false},
-        :url => options.fetch(:endpoint, api_endpoint)
+        :url => options.fetch(:endpoint, api_endpoint),
       })
 
       Faraday.new(merged_options) do |builder|
@@ -31,14 +31,8 @@ module Twitter
         builder.use Faraday::Request::Gateway, gateway if gateway
         builder.use Faraday::Response::RaiseHttp4xx
         unless options[:raw]
-          case options.fetch(:format, format).to_s.downcase
-          when 'json', 'phoenix'
-            builder.use Faraday::Response::Mashify
-            builder.use Faraday::Response::ParseJson
-          when 'xml'
-            builder.use Faraday::Response::Mashify
-            builder.use Faraday::Response::ParseXml
-          end
+          builder.use Faraday::Response::Mashify
+          builder.use Faraday::Response::ParseJson
         end
         builder.use Faraday::Response::RaiseHttp5xx
         builder.adapter(adapter)

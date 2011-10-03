@@ -1,200 +1,196 @@
 require 'helper'
 
 describe Twitter::Client do
-  %w(json xml).each do |format|
-    context ".new(:format => '#{format}')" do
+  before do
+    @client = Twitter::Client.new
+  end
+
+  describe ".follow" do
+
+    context "with :follow => true passed" do
+
       before do
-        @client = Twitter::Client.new(:format => format)
+        stub_post("/1/friendships/create.json").
+          with(:body => {:screen_name => "sferik", :follow => "true"}).
+          to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
 
-      describe ".follow" do
-
-        context "with :follow => true passed" do
-
-          before do
-            stub_post("1/friendships/create.#{format}").
-              with(:body => {:screen_name => "sferik", :follow => "true"}).
-              to_return(:body => fixture("sferik.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
-          end
-
-          it "should get the correct resource" do
-            @client.follow("sferik", :follow => true)
-            a_post("1/friendships/create.#{format}").
-              with(:body => {:screen_name => "sferik", :follow => "true"}).
-              should have_been_made
-          end
-
-          it "should return the befriended user" do
-            user = @client.follow("sferik", :follow => true)
-            user.name.should == "Erik Michaels-Ober"
-          end
-
-        end
-
-        context "with :follow => false passed" do
-
-          before do
-            stub_post("1/friendships/create.#{format}").
-              with(:body => {:screen_name => "sferik"}).
-              to_return(:body => fixture("sferik.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
-          end
-
-          it "should get the correct resource" do
-            @client.follow("sferik", :follow => false)
-            a_post("1/friendships/create.#{format}").
-              with(:body => {:screen_name => "sferik"}).
-              should have_been_made
-          end
-
-          it "should return the befriended user" do
-            user = @client.follow("sferik", :follow => false)
-            user.name.should == "Erik Michaels-Ober"
-          end
-
-        end
-
-        context "without :follow passed" do
-
-          before do
-            stub_post("1/friendships/create.#{format}").
-              with(:body => {:screen_name => "sferik"}).
-              to_return(:body => fixture("sferik.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
-          end
-
-          it "should get the correct resource" do
-            @client.follow("sferik")
-            a_post("1/friendships/create.#{format}").
-              with(:body => {:screen_name => "sferik"}).
-              should have_been_made
-          end
-
-          it "should return the befriended user" do
-            user = @client.follow("sferik")
-            user.name.should == "Erik Michaels-Ober"
-          end
-
-        end
-
+      it "should get the correct resource" do
+        @client.follow("sferik", :follow => true)
+        a_post("/1/friendships/create.json").
+          with(:body => {:screen_name => "sferik", :follow => "true"}).
+          should have_been_made
       end
 
-      describe ".unfollow" do
-
-        before do
-          stub_delete("1/friendships/destroy.#{format}").
-            with(:query => {:screen_name => "sferik"}).
-            to_return(:body => fixture("sferik.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
-        end
-
-        it "should get the correct resource" do
-          @client.unfollow("sferik")
-          a_delete("1/friendships/destroy.#{format}").
-            with(:query => {:screen_name => "sferik"}).
-            should have_been_made
-        end
-
-        it "should return the unfollowed" do
-          user = @client.friendship_destroy("sferik")
-          user.name.should == "Erik Michaels-Ober"
-        end
-
+      it "should return the befriended user" do
+        user = @client.follow("sferik", :follow => true)
+        user.name.should == "Erik Michaels-Ober"
       end
 
-      describe ".friendship?" do
+    end
 
-        before do
-          stub_get("1/friendships/exists.#{format}").
-            with(:query => {:user_a => "sferik", :user_b => "pengwynn"}).
-            to_return(:body => fixture("true.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
-          stub_get("1/friendships/exists.#{format}").
-            with(:query => {:user_a => "pengwynn", :user_b => "sferik"}).
-            to_return(:body => fixture("false.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
-        end
+    context "with :follow => false passed" do
 
-        it "should get the correct resource" do
-          @client.friendship?("sferik", "pengwynn")
-          a_get("1/friendships/exists.#{format}").
-            with(:query => {:user_a => "sferik", :user_b => "pengwynn"}).
-            should have_been_made
-        end
-
-        it "should return true if user_a follows user_b" do
-          friendship = @client.friendship?("sferik", "pengwynn")
-          friendship.should be_true
-        end
-
-        it "should return false if user_a does not follows user_b" do
-          friendship = @client.friendship?("pengwynn", "sferik")
-          friendship.should be_false
-        end
-
+      before do
+        stub_post("/1/friendships/create.json").
+          with(:body => {:screen_name => "sferik"}).
+          to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
 
-      describe ".friendship" do
-
-        before do
-          stub_get("1/friendships/show.#{format}").
-            with(:query => {:source_screen_name => "sferik", :target_screen_name => "pengwynn"}).
-            to_return(:body => fixture("relationship.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
-        end
-
-        it "should get the correct resource" do
-          @client.friendship(:source_screen_name => "sferik", :target_screen_name => "pengwynn")
-          a_get("1/friendships/show.#{format}").
-            with(:query => {:source_screen_name => "sferik", :target_screen_name => "pengwynn"}).
-            should have_been_made
-        end
-
-        it "should return detailed information about the relationship between two users" do
-          relationship = @client.friendship(:source_screen_name => "sferik", :target_screen_name => "pengwynn")
-          relationship.source.screen_name.should == "sferik"
-        end
-
+      it "should get the correct resource" do
+        @client.follow("sferik", :follow => false)
+        a_post("/1/friendships/create.json").
+          with(:body => {:screen_name => "sferik"}).
+          should have_been_made
       end
 
-      describe ".friendships_incoming" do
-
-        before do
-          stub_get("1/friendships/incoming.#{format}").
-            with(:query => {:cursor => "-1"}).
-            to_return(:body => fixture("id_list.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
-        end
-
-        it "should get the correct resource" do
-          @client.friendships_incoming
-          a_get("1/friendships/incoming.#{format}").
-            with(:query => {:cursor => "-1"}).
-            should have_been_made
-        end
-
-        it "should return an array of numeric IDs for every user who has a pending request to follow the authenticating user" do
-          id_list = @client.friendships_incoming
-          id_list.ids.should be_an Array
-          id_list.ids.first.should == 146197851
-        end
-
+      it "should return the befriended user" do
+        user = @client.follow("sferik", :follow => false)
+        user.name.should == "Erik Michaels-Ober"
       end
 
-      describe ".friendships_outgoing" do
+    end
 
-        before do
-          stub_get("1/friendships/outgoing.#{format}").
-            with(:query => {:cursor => "-1"}).
-            to_return(:body => fixture("id_list.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
-        end
+    context "without :follow passed" do
 
-        it "should get the correct resource" do
-          @client.friendships_outgoing
-          a_get("1/friendships/outgoing.#{format}").
-            with(:query => {:cursor => "-1"}).
-            should have_been_made
-        end
-
-        it "should return an array of numeric IDs for every protected user for whom the authenticating user has a pending follow request" do
-          id_list = @client.friendships_outgoing
-          id_list.ids.should be_an Array
-          id_list.ids.first.should == 146197851
-        end
+      before do
+        stub_post("/1/friendships/create.json").
+          with(:body => {:screen_name => "sferik"}).
+          to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
+
+      it "should get the correct resource" do
+        @client.follow("sferik")
+        a_post("/1/friendships/create.json").
+          with(:body => {:screen_name => "sferik"}).
+          should have_been_made
+      end
+
+      it "should return the befriended user" do
+        user = @client.follow("sferik")
+        user.name.should == "Erik Michaels-Ober"
+      end
+
+    end
+
+  end
+
+  describe ".unfollow" do
+
+    before do
+      stub_delete("/1/friendships/destroy.json").
+        with(:query => {:screen_name => "sferik"}).
+        to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+    end
+
+    it "should get the correct resource" do
+      @client.unfollow("sferik")
+      a_delete("/1/friendships/destroy.json").
+        with(:query => {:screen_name => "sferik"}).
+        should have_been_made
+    end
+
+    it "should return the unfollowed" do
+      user = @client.friendship_destroy("sferik")
+      user.name.should == "Erik Michaels-Ober"
+    end
+
+  end
+
+  describe ".friendship?" do
+
+    before do
+      stub_get("/1/friendships/exists.json").
+        with(:query => {:user_a => "sferik", :user_b => "pengwynn"}).
+        to_return(:body => fixture("true.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      stub_get("/1/friendships/exists.json").
+        with(:query => {:user_a => "pengwynn", :user_b => "sferik"}).
+        to_return(:body => fixture("false.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+    end
+
+    it "should get the correct resource" do
+      @client.friendship?("sferik", "pengwynn")
+      a_get("/1/friendships/exists.json").
+        with(:query => {:user_a => "sferik", :user_b => "pengwynn"}).
+        should have_been_made
+    end
+
+    it "should return true if user_a follows user_b" do
+      friendship = @client.friendship?("sferik", "pengwynn")
+      friendship.should be_true
+    end
+
+    it "should return false if user_a does not follows user_b" do
+      friendship = @client.friendship?("pengwynn", "sferik")
+      friendship.should be_false
+    end
+
+  end
+
+  describe ".friendship" do
+
+    before do
+      stub_get("/1/friendships/show.json").
+        with(:query => {:source_screen_name => "sferik", :target_screen_name => "pengwynn"}).
+        to_return(:body => fixture("relationship.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+    end
+
+    it "should get the correct resource" do
+      @client.friendship(:source_screen_name => "sferik", :target_screen_name => "pengwynn")
+      a_get("/1/friendships/show.json").
+        with(:query => {:source_screen_name => "sferik", :target_screen_name => "pengwynn"}).
+        should have_been_made
+    end
+
+    it "should return detailed information about the relationship between two users" do
+      relationship = @client.friendship(:source_screen_name => "sferik", :target_screen_name => "pengwynn")
+      relationship.source.screen_name.should == "sferik"
+    end
+
+  end
+
+  describe ".friendships_incoming" do
+
+    before do
+      stub_get("/1/friendships/incoming.json").
+        with(:query => {:cursor => "-1"}).
+        to_return(:body => fixture("id_list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+    end
+
+    it "should get the correct resource" do
+      @client.friendships_incoming
+      a_get("/1/friendships/incoming.json").
+        with(:query => {:cursor => "-1"}).
+        should have_been_made
+    end
+
+    it "should return an array of numeric IDs for every user who has a pending request to follow the authenticating user" do
+      id_list = @client.friendships_incoming
+      id_list.ids.should be_an Array
+      id_list.ids.first.should == 146197851
+    end
+
+  end
+
+  describe ".friendships_outgoing" do
+
+    before do
+      stub_get("/1/friendships/outgoing.json").
+        with(:query => {:cursor => "-1"}).
+        to_return(:body => fixture("id_list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+    end
+
+    it "should get the correct resource" do
+      @client.friendships_outgoing
+      a_get("/1/friendships/outgoing.json").
+        with(:query => {:cursor => "-1"}).
+        should have_been_made
+    end
+
+    it "should return an array of numeric IDs for every protected user for whom the authenticating user has a pending follow request" do
+      id_list = @client.friendships_outgoing
+      id_list.ids.should be_an Array
+      id_list.ids.first.should == 146197851
     end
   end
 end

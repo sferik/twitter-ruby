@@ -7,8 +7,6 @@ module Twitter
       # @note Undocumented
       # @rate_limited Yes
       # @requires_authentication No
-      # @response_format `json`
-      # @response_format `xml`
       # @param q [String] A search term.
       # @param options [Hash] A customizable set of options.
       # @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 100.
@@ -17,8 +15,7 @@ module Twitter
       # @example Return recent statuses that contain images related to a query
       #   Twitter.images('twitter')
       def images(q, options={})
-        response = get('i/search/image_facets', options.merge(:q => q), :phoenix => true)
-        format.to_s.downcase == 'xml' ? response['statuses'] : response
+        get("/i/search/image_facets.json", options.merge(:q => q), :phoenix => true)
       end
 
       # Returns recent statuses that contain videos related to a query
@@ -26,8 +23,6 @@ module Twitter
       # @note Undocumented
       # @rate_limited Yes
       # @requires_authentication No
-      # @response_format `json`
-      # @response_format `xml`
       # @param q [String] A search term.
       # @param options [Hash] A customizable set of options.
       # @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 100.
@@ -36,8 +31,7 @@ module Twitter
       # @example Return recent statuses that contain videos related to a query
       #   Twitter.videos('twitter')
       def videos(q, options={})
-        response = get('i/search/video_facets', options.merge(:q => q), :phoenix => true)
-        format.to_s.downcase == 'xml' ? response['statuses'] : response
+        get("/i/search/video_facets.json", options.merge(:q => q), :phoenix => true)
       end
 
       # Returns recent statuses related to a query with images and videos embedded
@@ -45,8 +39,6 @@ module Twitter
       # @note Undocumented
       # @rate_limited Yes
       # @requires_authentication No
-      # @response_format `json`
-      # @response_format `xml`
       # @param q [String] A search term.
       # @param options [Hash] A customizable set of options.
       # @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 100.
@@ -56,7 +48,7 @@ module Twitter
       # @example Return recent statuses related to twitter with images and videos embedded
       #   Twitter.search('twitter')
       def search(q, options={})
-        response = get('phoenix_search', options.merge(:q => q), :format => :phoenix, :phoenix => true)['statuses']
+        get("/phoenix_search.phoenix", options.merge(:q => q), :phoenix => true)['statuses']
       end
     end
   end

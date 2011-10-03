@@ -9,7 +9,6 @@ module Twitter
       :consumer_key,
       :consumer_secret,
       :endpoint,
-      :format,
       :gateway,
       :oauth_token,
       :oauth_token_secret,
@@ -35,12 +34,7 @@ module Twitter
     # @see http://en.blog.wordpress.com/2009/12/12/twitter-api/
     # @see http://staff.tumblr.com/post/287703110/api
     # @see http://developer.typepad.com/typepad-twitter-api/twitter-api.html
-    DEFAULT_ENDPOINT = 'https://api.twitter.com/'.freeze
-
-    # The response format appended to the path and sent in the 'Accept' header if none is set
-    #
-    # @note JSON is preferred over XML because it is more concise and faster to parse.
-    DEFAULT_FORMAT = :json
+    DEFAULT_ENDPOINT = 'https://api.twitter.com'.freeze
 
     # By default, don't set a user oauth token
     DEFAULT_OAUTH_TOKEN = nil
@@ -55,7 +49,7 @@ module Twitter
     #
     # @note This is configurable in case you want to use HTTP instead of HTTPS or use a Twitter-compatible endpoint.
     # @see http://status.net/wiki/Twitter-compatible_API
-    DEFAULT_SEARCH_ENDPOINT = 'https://search.twitter.com/'.freeze
+    DEFAULT_SEARCH_ENDPOINT = 'https://search.twitter.com'.freeze
 
     # The value sent in the 'User-Agent' header if none is set
     DEFAULT_USER_AGENT = "Twitter Ruby Gem #{Twitter::VERSION}".freeze
@@ -63,7 +57,7 @@ module Twitter
     DEFAULT_GATEWAY = nil
 
     # This endpoint will be used by default when updating statuses with media
-    DEFAULT_MEDIA_ENDPOINT = 'https://upload.twitter.com/'.freeze
+    DEFAULT_MEDIA_ENDPOINT = 'https://upload.twitter.com'.freeze
 
     DEFAULT_FARADAY_OPTIONS = {}.freeze
 
@@ -93,7 +87,6 @@ module Twitter
       self.consumer_key       = DEFAULT_CONSUMER_KEY
       self.consumer_secret    = DEFAULT_CONSUMER_SECRET
       self.endpoint           = DEFAULT_ENDPOINT
-      self.format             = DEFAULT_FORMAT
       self.oauth_token        = DEFAULT_OAUTH_TOKEN
       self.oauth_token_secret = DEFAULT_OAUTH_TOKEN_SECRET
       self.proxy              = DEFAULT_PROXY

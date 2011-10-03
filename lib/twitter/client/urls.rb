@@ -7,7 +7,6 @@ module Twitter
       # @note Undocumented
       # @rate_limited Yes
       # @requires_authentication Yes
-      # @response_format `json`
       # @overload resolve(urls, options={})
       #   @param urls [String] A list of shortened URLs.
       #   @param options [Hash] A customizable set of options.
@@ -17,7 +16,7 @@ module Twitter
       #   Twitter.resolve(['http://t.co/uw5bn1w', 'http://t.co/dXvMz9i']) # Same as above
       def resolve(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
-        get("1/urls/resolve", options.merge("urls[]" => args), :format => :json, :phoenix => true)
+        get("/1/urls/resolve.json", options.merge("urls[]" => args), :phoenix => true)
       end
     end
   end

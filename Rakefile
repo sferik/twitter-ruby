@@ -16,9 +16,8 @@ namespace :doc do
     task.options = [
       '--protected',
       '--output-dir', 'doc/yard',
-      '--tag', 'format:Supported formats',
-      '--tag', 'authenticated:Requires Authentication',
-      '--tag', 'rate_limited:Rate Limited',
+      '--tag', 'requires_authentication:Requires Authentication?',
+      '--tag', 'rate_limited:Rate Limited?',
       '--markup', 'markdown',
     ]
   end
