@@ -56,23 +56,6 @@ module Twitter
         get("/1/friendships/exists.json", options.merge(:user_a => user_a, :user_b => user_b))
       end
 
-      # Test for the existence of friendship between two users
-      #
-      # @see https://dev.twitter.com/docs/api/1/get/friendships/exists
-      # @deprecated {Twitter::Client::Friendship#friendship_exists?} is deprecated and will be removed in the next major version. Please use {Twitter::Client::Friendship#friendship?} instead.
-      # @rate_limited Yes
-      # @requires_authentication No unless user_a or user_b is protected
-      # @param user_a [Integer, String] The ID or screen_name of the subject user.
-      # @param user_b [Integer, String] The ID or screen_name of the user to test for following.
-      # @param options [Hash] A customizable set of options.
-      # @return [Boolean] true if user_a follows user_b, otherwise false.
-      # @example Return true if @sferik follows @pengwynn
-      #   Twitter.friendship_exists?("sferik", "pengwynn")
-      def friendship_exists?(user_a, user_b, options={})
-        warn "#{caller.first}: [DEPRECATION] #friendship_exists? is deprecated and will be removed in the next major version. Please use #friendship? instead."
-        friendship?(user_a, user_b, options={})
-      end
-
       # Returns detailed information about the relationship between two users
       #
       # @see https://dev.twitter.com/docs/api/1/get/friendships/show

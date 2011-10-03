@@ -21,7 +21,6 @@ module Twitter
       # Returns the 20 most recent statuses, including retweets if they exist, posted by the authenticating user and the users they follow
       #
       # @see https://dev.twitter.com/docs/api/1/get/statuses/home_timeline
-      # @note This method is identical to {Twitter::Client::Timeline#friends_timeline}, except that this method always includes retweets.
       # @note This method can only return up to 800 statuses, including retweets.
       # @rate_limited Yes
       # @requires_authentication Yes
@@ -37,30 +36,6 @@ module Twitter
       #   Twitter.home_timeline
       def home_timeline(options={})
         get("/1/statuses/home_timeline.json", options)
-      end
-
-      # Returns the 20 most recent statuses posted by the authenticating user and the users they follow
-      #
-      # @see https://dev.twitter.com/docs/api/1/get/statuses/friends_timeline
-      # @deprecated {Twitter::Client::Timeline#friends_timeline} is deprecated and will be removed in the next major version. Please use {Twitter::Client::Timeline#home_timeline} instead.
-      # @note This method is identical to {Twitter::Client::Timeline#home_timeline}, except that this method will only include retweets if the :include_rts option is set.
-      # @note This method can only return up to 800 statuses. If the :include_rts option is set, only 800 statuses, including retweets if they exist, can be returned.
-      # @rate_limited Yes
-      # @requires_authentication Yes
-      # @param options [Hash] A customizable set of options.
-      # @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID.
-      # @option options [Integer] :max_id Returns results with an ID less than (that is, older than) or equal to the specified ID.
-      # @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 200.
-      # @option options [Integer] :page Specifies the page of results to retrieve.
-      # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
-      # @option options [Boolean, String, Integer] :include_rts The timeline will contain native retweets (if they exist) in addition to the standard stream of tweets when set to true, 't' or 1.
-      # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
-      # @return [Array]
-      # @example Return the 20 most recent statuses, including retweets if they exist, posted by the authenticating user and the users they follow
-      #   Twitter.friends_timeline
-      def friends_timeline(options={})
-        warn "#{caller.first}: [DEPRECATION] #friends_timeline is deprecated and will be removed in the next major version. Please use #home_timeline instead."
-        home_timeline(options)
       end
 
       # Returns the 20 most recent statuses posted by the specified user

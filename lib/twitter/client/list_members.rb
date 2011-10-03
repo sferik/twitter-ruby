@@ -186,36 +186,6 @@ module Twitter
       rescue Twitter::NotFound, Twitter::Forbidden
         false
       end
-
-      # Check if a user is a member of the specified list
-      #
-      # @see https://dev.twitter.com/docs/api/1/get/lists/members/show
-      # @deprecated {Twitter::Client::ListMembers#is_list_member?} is deprecated and will be removed in the next major version. Please use {Twitter::Client::ListMembers#list_member?} instead.
-      # @requires_authentication Yes
-      # @rate_limited Yes
-      # @overload is_list_member?(list, user_to_check, options={})
-      #   @param list [Integer, String] The list_id or slug of the list.
-      #   @param user_to_check [Integer, String] The user ID or screen name of the list member.
-      #   @param options [Hash] A customizable set of options.
-      #   @return [Boolean] true if user is a member of the specified list, otherwise false.
-      #   @example Check if @BarackObama is a member of the authenticated user's "presidents" list
-      #     Twitter.is_list_member?("presidents", 813286)
-      #     Twitter.is_list_member?(8863586, 'BarackObama')
-      # @overload is_list_member?(user, list, user_to_check, options={})
-      #   @param user [Integer, String] A Twitter user ID or screen name.
-      #   @param list [Integer, String] The list_id or slug of the list.
-      #   @param user_to_check [Integer, String] The user ID or screen name of the list member.
-      #   @param options [Hash] A customizable set of options.
-      #   @return [Boolean] true if user is a member of the specified list, otherwise false.
-      #   @example Check if @BarackObama is a member of @sferik's "presidents" list
-      #     Twitter.is_list_member?("sferik", "presidents", 813286)
-      #     Twitter.is_list_member?('sferik', 8863586, 'BarackObama')
-      #     Twitter.is_list_member?(7505382, "presidents", 813286)
-      # @return [Boolean] true if user is a member of the specified list, otherwise false.
-      def is_list_member?(*args)
-        warn "#{caller.first}: [DEPRECATION] #is_list_member? is deprecated and will be removed in the next major version. Please use #list_member? instead."
-        list_member?(args)
-      end
     end
   end
 end

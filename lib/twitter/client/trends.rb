@@ -17,22 +17,6 @@ module Twitter
         local_trends(1, options)
       end
 
-      # Returns the current top 10 trending topics on Twitter
-      #
-      # @see https://dev.twitter.com/docs/api/1/get/trends/current
-      # @deprecated {Twitter::Client::Trends#trends_current} is deprecated and will be removed in the next major version. Please use {Twitter::Client::Trends#trends} instead.
-      # @rate_limited Yes
-      # @requires_authentication No
-      # @param options [Hash] A customizable set of options.
-      # @option options [String] :exclude Setting this equal to 'hashtags' will remove all hashtags from the trends list.
-      # @return [Array]
-      # @example Return the current top 10 trending topics on Twitter
-      #   Twitter.trends_current
-      def trends_current(options={})
-        warn "#{caller.first}: [DEPRECATION] #trends_current is deprecated and will be removed in the next major version. Please use #trends instead."
-        local_trends(1, options)
-      end
-
       # Returns the top 20 trending topics for each hour in a given day
       #
       # @see https://dev.twitter.com/docs/api/1/get/trends/daily

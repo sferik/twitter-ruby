@@ -139,38 +139,6 @@ module Twitter
       rescue Twitter::NotFound, Twitter::Forbidden
         false
       end
-
-      # Check if a user is a subscriber of the specified list
-      #
-      # @see https://dev.twitter.com/docs/api/1/get/lists/subscribers/show
-      # @deprecated {Twitter::Client::ListSubscribers#is_subscriber?} is deprecated and will be removed in the next major version. Please use {Twitter::Client::ListSubscribers#list_subscriber?} instead.
-      # @rate_limited Yes
-      # @requires_authentication Yes
-      # @overload is_subscriber?(list, user_to_check, options={})
-      #   @param list [Integer, String] The list_id or slug of the list.
-      #   @param user_to_check [Integer, String] The user ID or screen_name of the list member.
-      #   @param options [Hash] A customizable set of options.
-      #   @return [Boolean] true if user is a subscriber of the specified list, otherwise false.
-      #   @example Check if @BarackObama is a subscriber of the authenticated user's "presidents" list
-      #     Twitter.is_subscriber?('presidents', 813286)
-      #     Twitter.is_subscriber?(8863586, 813286)
-      #     Twitter.is_subscriber?('presidents', 'BarackObama')
-      # @overload is_subscriber?(user, list, user_to_check, options={})
-      #   @param user [Integer, String] A Twitter user ID or screen name.
-      #   @param list [Integer, String] The list_id or slug of the list.
-      #   @param user_to_check [Integer, String] The user ID or screen_name of the list member.
-      #   @param options [Hash] A customizable set of options.
-      #   @return [Boolean] true if user is a subscriber of the specified list, otherwise false.
-      #   @example Check if @BarackObama is a subscriber of @sferik's "presidents" list
-      #     Twitter.is_subscriber?("sferik", 'presidents', 813286)
-      #     Twitter.is_subscriber?("sferik", 8863586, 813286)
-      #     Twitter.is_subscriber?(7505382, 'presidents', 813286)
-      #     Twitter.is_subscriber?("sferik", 'presidents', 'BarackObama')
-      # @return [Boolean] true if user is a subscriber of the specified list, otherwise false.
-      def is_subscriber?(*args)
-        warn "#{caller.first}: [DEPRECATION] #is_subscriber? is deprecated and will be removed in the next major version. Please use #list_subscriber? instead."
-        list_subscriber?(args)
-      end
     end
   end
 end

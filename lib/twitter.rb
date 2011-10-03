@@ -1,5 +1,4 @@
 require 'twitter/api'
-require 'twitter/base'
 require 'twitter/client'
 require 'twitter/configuration'
 require 'twitter/error'

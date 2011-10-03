@@ -26,27 +26,6 @@ describe Twitter::Client do
 
   end
 
-  describe ".trends_current" do
-
-    before do
-      stub_get("/1/trends/1.json").
-        to_return(:body => fixture("matching_trends.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-    end
-
-    it "should get the correct resource" do
-      @client.trends_current
-      a_get("/1/trends/1.json").
-        should have_been_made
-    end
-
-    it "should return the current top 10 trending topics on Twitter" do
-      trends_current = @client.trends_current
-      trends_current.should be_an Array
-      trends_current.first.should == "#sevenwordsaftersex"
-    end
-
-  end
-
   describe ".trends_daily" do
 
     before do

@@ -57,23 +57,6 @@ module Twitter
         false
       end
 
-      # Returns true if the authenticating user is blocking a target user
-      #
-      # @see https://dev.twitter.com/docs/api/1/get/blocks/exists
-      # @deprecated {Twitter::Client::Block#block_exists?} is deprecated and will be removed in the next major version. Please use {Twitter::Client::Block#block?} instead.
-      # @requires_authentication Yes
-      # @rate_limited Yes
-      # @param user [Integer, String] A Twitter user ID or screen name.
-      # @param options [Hash] A customizable set of options.
-      # @return [Boolean] true if the authenticating user is blocking the target user, otherwise false.
-      # @example Check whether the authenticating user is blocking @sferik
-      #   Twitter.block?("sferik")
-      #   Twitter.block?(7505382)  # Same as above
-      def block_exists?(user, options={})
-        warn "#{caller.first}: [DEPRECATION] #block_exists? is deprecated and will be removed in the next major version. Please use #block? instead."
-        block?(user, options)
-      end
-
       # Returns an array of user objects that the authenticating user is blocking
       #
       # @see https://dev.twitter.com/docs/api/1/get/blocks/blocking

@@ -10,29 +10,14 @@ module Twitter
       # @note Accounts are limited to 20 lists.
       # @rate_limited No
       # @requires_authentication Yes
-      # @overload list_create(screen_name, name, options={})
-      #   @deprecated Calling {Twitter::Client::List#list_create} with a screen_name is deprecated and will be removed in the next major version. Please omit the screen_name argument.
-      #   @param screen_name [String] A Twitter user name.
-      #   @param name [String] The name for the list.
-      #   @param options [Hash] A customizable set of options.
-      #   @option options [String] :mode ('public') Whether your list is public or private. Values can be 'public' or 'private'.
-      #   @option options [String] :description The description to give the list.
-      #   @example Create a list named "presidents"
-      #     Twitter.list_create("sferik", "presidents")
-      # @overload list_create(name, options={})
-      #   @param name [String] The name for the list.
-      #   @param options [Hash] A customizable set of options.
-      #   @option options [String] :mode ('public') Whether your list is public or private. Values can be 'public' or 'private'.
-      #   @option options [String] :description The description to give the list.
-      #   @example Create a list named "presidents"
-      #     Twitter.list_create("presidents")
+      # @param name [String] The name for the list.
+      # @param options [Hash] A customizable set of options.
+      # @option options [String] :mode ('public') Whether your list is public or private. Values can be 'public' or 'private'.
+      # @option options [String] :description The description to give the list.
+      # @example Create a list named "presidents"
+      #   Twitter.list_create("presidents")
       # @return [Hashie::Mash] The created list.
-      def list_create(*args)
-        options = args.last.is_a?(Hash) ? args.pop : {}
-        name = args.pop
-        if screen_name = args.pop
-          warn "#{caller.first}: [DEPRECATION] Calling #list_create with a screen_name is deprecated and will be removed in the next major version. Please omit the screen_name argument."
-        end
+      def list_create(name, options={})
         post("/1/lists/create.json", options.merge(:name => name))
       end
 

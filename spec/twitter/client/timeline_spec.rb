@@ -47,27 +47,6 @@ describe Twitter::Client do
 
   end
 
-  describe ".friends_timeline" do
-
-    before do
-      stub_get("/1/statuses/home_timeline.json").
-        to_return(:body => fixture("statuses.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-    end
-
-    it "should return the 20 most recent statuses posted by the authenticating user and the user's they follow" do
-      @client.friends_timeline
-      a_get("/1/statuses/home_timeline.json").
-        should have_been_made
-    end
-
-    it "should return a timeline" do
-      statuses = @client.friends_timeline
-      statuses.should be_an Array
-      statuses.first.text.should == "Ruby is the best programming language for hiding the ugly bits."
-    end
-
-  end
-
   describe ".user_timeline" do
 
     context "with screen name passed" do
