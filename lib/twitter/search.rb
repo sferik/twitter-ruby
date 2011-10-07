@@ -425,7 +425,7 @@ module Twitter
     # entities are not supported by the search api
     #
     # @return [Twitter::Search] self
-    # @example Return an array of tweets containing "twitter", including the entities inthe tweets.
+    # @example Return an array of tweets containing "twitter", including the entities in the tweets.
     #   Twitter::Search.new.containing("twitter").include_entities().fetch
     #
     def include_entities()
@@ -436,8 +436,8 @@ module Twitter
     # Return the "official" user ids in the to_user_id and from_user_id fields
     #
     # @return [Twitter::Search] self
-    # @example Return an array of tweets containing "twitter", including the entities inthe tweets.
-    #   Twitter::Search.new.containing("twitter").include_entities().fetch
+    # @example Return an array of tweets containing "twitter", and populate the to_user_id and from_user_id fields with the "official" user ids - not the search ones.
+    #   Twitter::Search.new.containing("twitter").with_twitter_user_id().fetch
     #
     def with_twitter_user_id()
       @query[:with_twitter_user_id] = true

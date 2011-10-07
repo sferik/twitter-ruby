@@ -317,6 +317,23 @@ describe Twitter::Search do
 
     end
 
+    describe ".include_entities" do
+
+      it "should set the query to include entities" do
+        @client.include_entities().query[:include_entities].should == true
+      end
+
+    end
+
+    describe ".with_twitter_user_id" do
+
+      it "should set the query to return official user ids" do
+        @client.with_twitter_user_id().query[:with_twitter_user_id].should == true
+      end
+
+    end
+
+
     describe ".page" do
 
       it "should set the page number" do
@@ -324,6 +341,9 @@ describe Twitter::Search do
       end
 
     end
+
+
+
 
     describe ".next_page?" do
 
