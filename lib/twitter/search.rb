@@ -420,7 +420,7 @@ module Twitter
       @query[:page] = number
       self
     end
-    
+
     # Include entities in the returned tweets. Note that "user_mentions"
     # entities are not supported by the search api
     #
@@ -432,7 +432,7 @@ module Twitter
       @query[:include_entities] = true
       self
     end
-    
+
     # Return the "official" user ids in the to_user_id and from_user_id fields
     #
     # @return [Twitter::Search] self

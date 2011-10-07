@@ -342,9 +342,6 @@ describe Twitter::Search do
 
     end
 
-
-
-
     describe ".next_page?" do
 
       before do
