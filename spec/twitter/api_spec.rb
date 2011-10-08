@@ -45,17 +45,16 @@ describe Twitter::API do
         }
       end
 
-      context "during initialization"
-
+      context "during initialization" do
         it "should override module configuration" do
           api = Twitter::API.new(@configuration)
           @keys.each do |key|
             api.send(key).should == @configuration[key]
           end
         end
+      end
 
       context "after initilization" do
-
         it "should override module configuration after initialization" do
           api = Twitter::API.new
           @configuration.each do |key, value|

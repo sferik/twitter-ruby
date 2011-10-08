@@ -1,4 +1,5 @@
 require 'twitter/error/not_found'
+require 'twitter/user'
 
 module Twitter
   class Client
@@ -21,7 +22,8 @@ module Twitter
         options = args.last.is_a?(Hash) ? args.pop : {}
         user = args.pop || get_screen_name
         merge_user_into_options!(user, options)
-        get("/1/users/show.json", options)
+        user = get("/1/users/show.json", options)
+        Twitter::User.new(user)
       end
 
       # Returns true if the specified user exists

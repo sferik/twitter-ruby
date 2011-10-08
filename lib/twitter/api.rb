@@ -1,11 +1,11 @@
-require 'twitter/authentication'
+require 'twitter/authenticatable'
 require 'twitter/configuration'
 require 'twitter/connection'
 require 'twitter/request'
 
 module Twitter
   class API
-    include Authentication
+    include Authenticatable
     include Connection
     include Request
 

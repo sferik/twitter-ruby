@@ -25,7 +25,7 @@ module Twitter
       Faraday.new(merged_options) do |builder|
         builder.use Twitter::Request::Phoenix if options[:phoenix]
         builder.use Twitter::Request::MultipartWithFile
-        builder.use Twitter::Request::TwitterOAuth, authentication if authenticated?
+        builder.use Twitter::Request::TwitterOAuth, credentials if authenticated?
         builder.use Faraday::Request::Multipart
         builder.use Faraday::Request::UrlEncoded
         builder.use Twitter::Request::Gateway, gateway if gateway

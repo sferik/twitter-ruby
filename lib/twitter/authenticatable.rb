@@ -1,11 +1,10 @@
 module Twitter
-  module Authentication
-  private
+  module Authenticatable
 
-    # Authentication hash
+    # Credentials hash
     #
     # @return [Hash]
-    def authentication
+    def credentials
       {
         :consumer_key => consumer_key,
         :consumer_secret => consumer_secret,
@@ -18,7 +17,7 @@ module Twitter
     #
     # @return [Boolean]
     def authenticated?
-      authentication.values.all?
+      credentials.values.all?
     end
   end
 end
