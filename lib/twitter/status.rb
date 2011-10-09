@@ -14,6 +14,10 @@ module Twitter
     alias :retweeted? :retweeted
     alias :truncated? :truncated
 
+    def ==(other)
+      super || id == other.id
+    end
+
     def geo
       Twitter::GeoFactory.new(@geo) if @geo
     end

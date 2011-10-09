@@ -4,6 +4,10 @@ module Twitter
   class Point < Twitter::Base
     attr_reader :coordinates
 
+    def ==(other)
+      super || coordinates == other.coordinates
+    end
+
     def latitude
       @coordinates[0]
     end

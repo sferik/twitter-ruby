@@ -2,6 +2,22 @@ require 'helper'
 
 describe Twitter::User do
 
+  describe "#==" do
+
+    it "should return true when ids are equal" do
+      user = Twitter::User.new(:id => 1)
+      other = Twitter::User.new(:id => 1)
+      (user == other).should be_true
+    end
+
+    it "should return false when ids are not equal" do
+      user = Twitter::User.new(:id => 1)
+      other = Twitter::User.new(:id => 2)
+      (user == other).should be_false
+    end
+
+  end
+
   describe "#created_at" do
 
     it "should return a Time when created_at is set" do

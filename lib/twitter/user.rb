@@ -33,6 +33,10 @@ module Twitter
     alias :show_all_inline_media? :show_all_inline_media
     alias :verified? :verified
 
+    def ==(other)
+      super || id == other.id
+    end
+
     # Get a user's status
     #
     # @return [Status]

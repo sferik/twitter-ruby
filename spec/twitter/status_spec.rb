@@ -2,6 +2,22 @@ require 'helper'
 
 describe Twitter::Status do
 
+  describe "#==" do
+
+    it "should return true when ids are equal" do
+      status = Twitter::Status.new(:id => 1)
+      other = Twitter::Status.new(:id => 1)
+      (status == other).should be_true
+    end
+
+    it "should return false when ids are not equal" do
+      status = Twitter::Status.new(:id => 1)
+      other = Twitter::Status.new(:id => 2)
+      (status == other).should be_false
+    end
+
+  end
+
   describe "#created_at" do
 
     it "should return a Time when set" do

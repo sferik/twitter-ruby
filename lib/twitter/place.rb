@@ -6,6 +6,10 @@ module Twitter
     attr_reader :attributes, :country, :country_code, :full_name, :id, :name,
       :place_type, :url
 
+    def ==(other)
+      super || id == other.id
+    end
+
     def bounding_box
       Twitter::GeoFactory.new(@bounding_box) if @bounding_box
     end
