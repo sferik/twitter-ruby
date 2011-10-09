@@ -14,7 +14,7 @@ module Twitter
       #   @param user [Integer, String] A Twitter user ID or screen name.
       #   @param options [Hash] A customizable set of options.
       #   @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
-      #   @return [Hashie::Mash] The requested user.
+      #   @return [Twitter::User] The requested user.
       #   @example Return extended information for @sferik
       #     Twitter.user("sferik")
       #     Twitter.user(7505382)  # Same as above
