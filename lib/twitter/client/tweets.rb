@@ -1,3 +1,5 @@
+require 'twitter/status'
+
 module Twitter
   class Client
     # Defines methods related to tweets
@@ -11,11 +13,12 @@ module Twitter
       # @param options [Hash] A customizable set of options.
       # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
-      # @return [Hashie::Mash] The requested status.
+      # @return [Twitter::Status] The requested status.
       # @example Return the status with the ID 25938088801
       #   Twitter.status(25938088801)
       def status(id, options={})
-        get("/1/statuses/show/#{id}.json", options)
+        status = get("/1/statuses/show/#{id}.json", options)
+        Twitter::Status.new(status)
       end
 
       # Updates the authenticating user's status
