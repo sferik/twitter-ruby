@@ -60,4 +60,18 @@ describe Twitter::Status do
 
   end
 
+  describe "#user" do
+
+    it "should return a User when user is set" do
+      user = Twitter::Status.new(:user => {}).user
+      user.should be_a Twitter::User
+    end
+
+    it "should return nil when user is not set" do
+      user = Twitter::Status.new.user
+      user.should be_nil
+    end
+
+  end
+
 end

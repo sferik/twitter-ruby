@@ -41,7 +41,7 @@ module Twitter
     #
     # @return [Status]
     def status
-      Twitter::Status.new(@status) if @status
+      Twitter::Status.new(@status.merge(:user => self.to_hash.delete(:status))) if @status
     end
 
   end

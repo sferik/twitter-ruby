@@ -26,5 +26,9 @@ module Twitter
       Twitter::Place.new(@place) if @place
     end
 
+    def user
+      Twitter::User.new(@user.merge(:status => self.to_hash.delete(:user))) if @user
+    end
+
   end
 end

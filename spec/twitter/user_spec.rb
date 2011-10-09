@@ -33,8 +33,9 @@ describe Twitter::User do
   end
 
   describe "#status" do
+
     it "should return a Status when status is set" do
-      status = Twitter::User.new(:status => {:text => "Hello"}).status
+      status = Twitter::User.new(:status => {}).status
       status.should be_a Twitter::Status
     end
 

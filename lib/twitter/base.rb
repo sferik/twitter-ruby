@@ -8,5 +8,9 @@ module Twitter
       self
     end
 
+    def to_hash
+      Hash[instance_variables.map{|ivar| [ivar[1..-1].to_sym, instance_variable_get(ivar)]}]
+    end
+
   end
 end
