@@ -17,8 +17,7 @@ module Twitter
       :profile_link_color, :profile_sidebar_border_color,
       :profile_sidebar_fill_color, :profile_text_color,
       :profile_use_background_image, :protected, :screen_name,
-      :show_all_inline_media, :statuses_count, :time_zone, :url, :utc_offset,
-      :verified
+      :statuses_count, :time_zone, :url, :utc_offset, :verified
     alias :contributors_enabled? :contributors_enabled
     alias :default_profile? :default_profile
     alias :default_profile_image? :default_profile_image
@@ -30,7 +29,6 @@ module Twitter
     alias :profile_background_tile? :profile_background_tile
     alias :profile_use_background_image? :profile_use_background_image
     alias :protected? :protected
-    alias :show_all_inline_media? :show_all_inline_media
     alias :verified? :verified
 
     def ==(other)
