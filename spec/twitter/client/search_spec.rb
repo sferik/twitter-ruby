@@ -23,6 +23,8 @@ describe Twitter::Client do
 
     it "should return recent statuses that contain images related to a query" do
       images = @client.images('twitter')
+      images.should be_an Array
+      images.first.should be_a Twitter::Status
       images.first.text.should == "Thanks Twitter family! Beautiful. Cc @laurelstout @seacue @janetvh @mgale @choppedonion  http://t.co/drAqoba"
     end
 
@@ -46,6 +48,8 @@ describe Twitter::Client do
 
     it "should return recent statuses that contain videos related to a query" do
       videos = @client.videos('twitter')
+      videos.should be_an Array
+      videos.first.should be_a Twitter::Status
       videos.first.text.should == "@Foofighters LEGENDS with a Legendary set of Music Videos http://t.co/IcVGIQO #VMA #VEVO"
     end
   end
@@ -68,6 +72,8 @@ describe Twitter::Client do
 
     it "should return recent statuses related to a query with images and videos embedded" do
       search = @client.search('twitter')
+      search.should be_an Array
+      search.first.should be_a Twitter::Status
       search.first.text.should == "looking at twitter trends just makes me realize how little i really understand about mankind."
     end
   end
