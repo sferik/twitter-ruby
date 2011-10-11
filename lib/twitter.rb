@@ -1,6 +1,12 @@
 require 'twitter/client'
 require 'twitter/configuration'
+require 'twitter/direct_message'
+require 'twitter/place'
+require 'twitter/point'
+require 'twitter/polygon'
 require 'twitter/search'
+require 'twitter/status'
+require 'twitter/user'
 
 module Twitter
   extend Configuration
