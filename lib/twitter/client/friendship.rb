@@ -1,3 +1,5 @@
+require 'twitter/user'
+
 module Twitter
   class Client
     # Defines methods related to friendship
@@ -11,7 +13,7 @@ module Twitter
       # @param options [Hash] A customizable set of options.
       # @option options [Boolean] :follow (false) Enable notifications for the target user.
       # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
-      # @return [Hashie::Mash] The followed user.
+      # @return [Twitter::User] The followed user.
       # @example Follow @sferik
       #   Twitter.follow("sferik")
       def follow(user, options={})
@@ -19,7 +21,8 @@ module Twitter
         # Twitter always turns on notifications if the "follow" option is present, even if it's set to false
         # so only send follow if it's true
         options.merge!(:follow => true) if options.delete(:follow)
-        post("/1/friendships/create.json", options)
+        user = post("/1/friendships/create.json", options)
+        Twitter::User.new(user)
       end
       alias :friendship_create :follow
 
@@ -31,12 +34,13 @@ module Twitter
       # @param user [Integer, String] A Twitter user ID or screen name.
       # @param options [Hash] A customizable set of options.
       # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
-      # @return [Hashie::Mash] The unfollowed user.
+      # @return [Twitter::User] The unfollowed user.
       # @example Unfollow @sferik
       #   Twitter.unfollow("sferik")
       def unfollow(user, options={})
         merge_user_into_options!(user, options)
-        delete("/1/friendships/destroy.json", options)
+        user = delete("/1/friendships/destroy.json", options)
+        Twitter::User.new(user)
       end
       alias :friendship_destroy :unfollow
 

@@ -24,6 +24,7 @@ describe Twitter::Client do
 
       it "should return the befriended user" do
         user = @client.follow("sferik", :follow => true)
+        user.should be_a Twitter::User
         user.name.should == "Erik Michaels-Ober"
       end
 
@@ -46,6 +47,7 @@ describe Twitter::Client do
 
       it "should return the befriended user" do
         user = @client.follow("sferik", :follow => false)
+        user.should be_a Twitter::User
         user.name.should == "Erik Michaels-Ober"
       end
 
@@ -68,6 +70,7 @@ describe Twitter::Client do
 
       it "should return the befriended user" do
         user = @client.follow("sferik")
+        user.should be_a Twitter::User
         user.name.should == "Erik Michaels-Ober"
       end
 
@@ -92,6 +95,7 @@ describe Twitter::Client do
 
     it "should return the unfollowed" do
       user = @client.friendship_destroy("sferik")
+      user.should be_a Twitter::User
       user.name.should == "Erik Michaels-Ober"
     end
 
