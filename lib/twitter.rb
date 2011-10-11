@@ -1,6 +1,7 @@
 require 'twitter/client'
 require 'twitter/configuration'
 require 'twitter/direct_message'
+require 'twitter/list'
 require 'twitter/place'
 require 'twitter/point'
 require 'twitter/polygon'
