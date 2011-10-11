@@ -1,3 +1,6 @@
+require 'twitter/list'
+require 'twitter/status'
+
 module Twitter
   class Client
     # Defines methods related to lists
@@ -16,9 +19,10 @@ module Twitter
       # @option options [String] :description The description to give the list.
       # @example Create a list named "presidents"
       #   Twitter.list_create("presidents")
-      # @return [Hashie::Mash] The created list.
+      # @return [Twitter::List] The created list.
       def list_create(name, options={})
-        post("/1/lists/create.json", options.merge(:name => name))
+        list = post("/1/lists/create.json", options.merge(:name => name))
+        Twitter::List.new(list)
       end
 
       # Updates the specified list
@@ -31,7 +35,7 @@ module Twitter
       #   @param options [Hash] A customizable set of options.
       #   @option options [String] :mode ('public') Whether your list is public or private. Values can be 'public' or 'private'.
       #   @option options [String] :description The description to give the list.
-      #   @return [Hashie::Mash] The created list.
+      #   @return [Twitter::List] The created list.
       #   @example Update the authenticated user's "presidents" list to have the description "Presidents of the United States of America"
       #     Twitter.list_update("presidents", :description => "Presidents of the United States of America")
       #     Twitter.list_update(8863586, :description => "Presidents of the United States of America")
@@ -41,20 +45,21 @@ module Twitter
       #   @param options [Hash] A customizable set of options.
       #   @option options [String] :mode ('public') Whether your list is public or private. Values can be 'public' or 'private'.
       #   @option options [String] :description The description to give the list.
-      #   @return [Hashie::Mash] The created list.
+      #   @return [Twitter::List] The created list.
       #   @example Update the @sferik's "presidents" list to have the description "Presidents of the United States of America"
       #     Twitter.list_update("sferik", "presidents", :description => "Presidents of the United States of America")
       #     Twitter.list_update(7505382, "presidents", :description => "Presidents of the United States of America")
       #     Twitter.list_update("sferik", 8863586, :description => "Presidents of the United States of America")
       #     Twitter.list_update(7505382, 8863586, :description => "Presidents of the United States of America")
-      # @return [Hashie::Mash] The created list.
+      # @return [Twitter::List] The created list.
       def list_update(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
         list = args.pop
         user = args.pop || get_screen_name
         merge_list_into_options!(list, options)
         merge_owner_into_options!(user, options)
-        post("/1/lists/update.json", options)
+        list = post("/1/lists/update.json", options)
+        Twitter::List.new(list)
       end
 
       # List the lists of the specified user
@@ -66,23 +71,25 @@ module Twitter
       # @overload lists(options={})
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
-      #   @return [Hashie::Mash]
+      #   @return [Twitter::List]
       #   @example List the authenticated user's lists
       #     Twitter.lists
       # @overload lists(user, options={})
       #   @param user [Integer, String] A Twitter user ID or screen name.
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
-      #   @return [Hashie::Mash]
+      #   @return [Twitter::List]
       #   @example List @sferik's lists
       #     Twitter.lists("sferik")
       #     Twitter.lists(7505382)
-      # @return [Hashie::Mash]
+      # @return [Twitter::List]
       def lists(*args)
         options = {:cursor => -1}.merge(args.last.is_a?(Hash) ? args.pop : {})
         user = args.first
         merge_user_into_options!(user, options) if user
-        get("/1/lists.json", options)
+        get("/1/lists.json", options)['lists'].map do |list|
+          Twitter::List.new(list)
+        end
       end
 
       # Show the specified list
@@ -94,7 +101,7 @@ module Twitter
       # @overload list(list, options={})
       #   @param list [Integer, String] The list_id or slug of the list.
       #   @param options [Hash] A customizable set of options.
-      #   @return [Hashie::Mash] The specified list.
+      #   @return [Twitter::List] The specified list.
       #   @example Show the authenticated user's "presidents" list
       #     Twitter.list("presidents")
       #     Twitter.list(8863586)
@@ -102,20 +109,21 @@ module Twitter
       #   @param user [Integer, String] A Twitter user ID or screen name.
       #   @param list [Integer, String] The list_id or slug of the list.
       #   @param options [Hash] A customizable set of options.
-      #   @return [Hashie::Mash] The specified list.
+      #   @return [Twitter::List] The specified list.
       #   @example Show @sferik's "presidents" list
       #     Twitter.list("sferik", "presidents")
       #     Twitter.list("sferik", 8863586)
       #     Twitter.list(7505382, "presidents")
       #     Twitter.list(7505382, 8863586)
-      # @return [Hashie::Mash] The specified list.
+      # @return [Twitter::List] The specified list.
       def list(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
         list = args.pop
         user = args.pop || get_screen_name
         merge_list_into_options!(list, options)
         merge_owner_into_options!(user, options)
-        get("/1/lists/show.json", options)
+        list = get("/1/lists/show.json", options)
+        Twitter::List.new(list)
       end
 
       # Deletes the specified list
@@ -127,7 +135,7 @@ module Twitter
       # @overload list_delete(list, options={})
       #   @param list [Integer, String] The list_id or slug of the list.
       #   @param options [Hash] A customizable set of options.
-      #   @return [Hashie::Mash] The deleted list.
+      #   @return [Twitter::List] The deleted list.
       #   @example Delete the authenticated user's "presidents" list
       #     Twitter.list_delete("/presidents")
       #     Twitter.list_delete(8863586)
@@ -135,20 +143,21 @@ module Twitter
       #   @param user [Integer, String] A Twitter user ID or screen name.
       #   @param list [Integer, String] The list_id or slug of the list.
       #   @param options [Hash] A customizable set of options.
-      #   @return [Hashie::Mash] The deleted list.
+      #   @return [Twitter::List] The deleted list.
       #   @example Delete @sferik's "presidents" list
       #     Twitter.list_delete("/sferik", "presidents")
       #     Twitter.list_delete("/sferik", 8863586)
       #     Twitter.list_delete(7505382, "presidents")
       #     Twitter.list_delete(7505382, 8863586)
-      # @return [Hashie::Mash] The deleted list.
+      # @return [Twitter::List] The deleted list.
       def list_delete(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
         list = args.pop
         user = args.pop || get_screen_name
         merge_list_into_options!(list, options)
         merge_owner_into_options!(user, options)
-        delete("/1/lists/destroy.json", options)
+        list = delete("/1/lists/destroy.json", options)
+        Twitter::List.new(list)
       end
 
       # Show tweet timeline for members of the specified list
@@ -164,7 +173,7 @@ module Twitter
       #   @option options [Integer] :per_page The number of results to retrieve.
       #   @option options [Integer] :page Specifies the page of results to retrieve.
       #   @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
-      #   @return [Array]
+      #   @return [Array<Twitter::Status>]
       #   @example Show tweet timeline for members of the authenticated user's "presidents" list
       #     Twitter.list_timeline("presidents")
       #     Twitter.list_timeline(8863586)
@@ -177,20 +186,21 @@ module Twitter
       #   @option options [Integer] :per_page The number of results to retrieve.
       #   @option options [Integer] :page Specifies the page of results to retrieve.
       #   @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
-      #   @return [Array]
+      #   @return [Array<Twitter::Status>]
       #   @example Show tweet timeline for members of @sferik's "presidents" list
       #     Twitter.list_timeline("sferik", "presidents")
       #     Twitter.list_timeline("sferik", 8863586)
       #     Twitter.list_timeline(7505382, "presidents")
       #     Twitter.list_timeline(7505382, 8863586)
-      # @return [Array]
       def list_timeline(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
         list = args.pop
         user = args.pop || get_screen_name
         merge_list_into_options!(list, options)
         merge_owner_into_options!(user, options)
-        get("/1/lists/statuses.json", options)
+        get("/1/lists/statuses.json", options).map do |status|
+          Twitter::Status.new(status)
+        end
       end
 
       # List the lists the specified user has been added to
@@ -201,23 +211,24 @@ module Twitter
       # @overload memberships(options={})
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
-      #   @return [Array]
+      #   @return [Array<Twitter::List>]
       #   @example List the lists the authenticated user has been added to
       #     Twitter.memberships
       # @overload memberships(user, options={})
       #   @param user [Integer, String] A Twitter user ID or screen name.
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
-      #   @return [Array]
+      #   @return [Array<Twitter::List>]
       #   @example List the lists that @sferik has been added to
       #     Twitter.memberships("sferik")
       #     Twitter.memberships(7505382)
-      # @return [Array]
       def memberships(*args)
         options = {:cursor => -1}.merge(args.last.is_a?(Hash) ? args.pop : {})
         user = args.pop || get_screen_name
         merge_user_into_options!(user, options)
-        get("/1/lists/memberships.json", options)
+        get("/1/lists/memberships.json", options)['lists'].map do |list|
+          Twitter::List.new(list)
+        end
       end
 
       # List the lists the specified user follows
@@ -228,23 +239,24 @@ module Twitter
       # @overload subscriptions(options={})
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
-      #   @return [Array]
+      #   @return [Array<Twitter::List>]
       #   @example List the lists the authenticated user follows
       #     Twitter.subscriptions
       # @overload subscriptions(user, options={})
       #   @param user [Integer, String] A Twitter user ID or screen name.
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
-      #   @return [Array]
+      #   @return [Array<Twitter::List>]
       #   @example List the lists that @sferik follows
       #     Twitter.subscriptions("sferik")
       #     Twitter.subscriptions(7505382)
-      # @return [Array]
       def subscriptions(*args)
         options = {:cursor => -1}.merge(args.last.is_a?(Hash) ? args.pop : {})
         user = args.pop || get_screen_name
         merge_user_into_options!(user, options)
-        get("/1/lists/subscriptions.json", options)
+        get("/1/lists/subscriptions.json", options)['lists'].map do |list|
+          Twitter::List.new(list)
+        end
       end
     end
   end

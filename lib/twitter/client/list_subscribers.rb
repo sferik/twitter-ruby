@@ -1,5 +1,7 @@
 require 'twitter/error/forbidden'
 require 'twitter/error/not_found'
+require 'twitter/list'
+require 'twitter/user'
 
 module Twitter
   class Client
@@ -17,7 +19,7 @@ module Twitter
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
       #   @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
-      #   @return [Array] The subscribers of the specified list.
+      #   @return [Array<Twitter::User>] The subscribers of the specified list.
       #   @example Return the subscribers of the authenticated user's "presidents" list
       #     Twitter.list_subscribers('presidents')
       #     Twitter.list_subscribers(8863586)
@@ -27,19 +29,20 @@ module Twitter
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
       #   @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
-      #   @return [Array] The subscribers of the specified list.
+      #   @return [Array<Twitter::User>] The subscribers of the specified list.
       #   @example Return the subscribers of @sferik's "presidents" list
       #     Twitter.list_subscribers("sferik", 'presidents')
       #     Twitter.list_subscribers("sferik", 8863586)
       #     Twitter.list_subscribers(7505382, 'presidents')
-      # @return [Array] The subscribers of the specified list.
       def list_subscribers(*args)
         options = {:cursor => -1}.merge(args.last.is_a?(Hash) ? args.pop : {})
         list = args.pop
         user = args.pop || get_screen_name
         merge_list_into_options!(list, options)
         merge_owner_into_options!(user, options)
-        get("/1/lists/subscribers.json", options)
+        get("/1/lists/subscribers.json", options)['users'].map do |user|
+          Twitter::User.new(user)
+        end
       end
 
       # Make the authenticated user follow the specified list
@@ -50,7 +53,7 @@ module Twitter
       # @overload list_subscribe(list, options={})
       #   @param list [Integer, String] The list_id or slug of the list.
       #   @param options [Hash] A customizable set of options.
-      #   @return [Hashie::Mash] The specified list.
+      #   @return [Twitter::List] The specified list.
       #   @example Subscribe to the authenticated user's "presidents" list
       #     Twitter.list_subscribe('presidents')
       #     Twitter.list_subscribe(8863586)
@@ -58,19 +61,19 @@ module Twitter
       #   @param user [Integer, String] A Twitter user ID or screen name.
       #   @param list [Integer, String] The list_id or slug of the list.
       #   @param options [Hash] A customizable set of options.
-      #   @return [Hashie::Mash] The specified list.
+      #   @return [Twitter::List] The specified list.
       #   @example Subscribe to @sferik's "presidents" list
       #     Twitter.list_subscribe("sferik", 'presidents')
       #     Twitter.list_subscribe("sferik", 8863586)
       #     Twitter.list_subscribe(7505382, 'presidents')
-      # @return [Hashie::Mash] The specified list.
       def list_subscribe(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
         list = args.pop
         user = args.pop || get_screen_name
         merge_list_into_options!(list, options)
         merge_owner_into_options!(user, options)
-        post("/1/lists/subscribers/create.json", options)
+        list = post("/1/lists/subscribers/create.json", options)
+        Twitter::List.new(list)
       end
 
       # Unsubscribes the authenticated user form the specified list
@@ -81,7 +84,7 @@ module Twitter
       # @overload list_unsubscribe(list, options={})
       #   @param list [Integer, String] The list_id or slug of the list.
       #   @param options [Hash] A customizable set of options.
-      #   @return [Hashie::Mash] The specified list.
+      #   @return [Twitter::List] The specified list.
       #   @example Unsubscribe from the authenticated user's "presidents" list
       #     Twitter.list_unsubscribe('presidents')
       #     Twitter.list_unsubscribe(8863586)
@@ -89,19 +92,19 @@ module Twitter
       #   @param user [Integer, String] A Twitter user ID or screen name.
       #   @param list [Integer, String] The list_id or slug of the list.
       #   @param options [Hash] A customizable set of options.
-      #   @return [Hashie::Mash] The specified list.
+      #   @return [Twitter::List] The specified list.
       #   @example Unsubscribe from @sferik's "presidents" list
       #     Twitter.list_unsubscribe("sferik", 'presidents')
       #     Twitter.list_unsubscribe("sferik", 8863586)
       #     Twitter.list_unsubscribe(7505382, 'presidents')
-      # @return [Hashie::Mash] The specified list.
       def list_unsubscribe(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
         list = args.pop
         user = args.pop || get_screen_name
         merge_list_into_options!(list, options)
         merge_owner_into_options!(user, options)
-        post("/1/lists/subscribers/destroy.json", options)
+        list = post("/1/lists/subscribers/destroy.json", options)
+        Twitter::List.new(list)
       end
 
       # Check if a user is a subscriber of the specified list

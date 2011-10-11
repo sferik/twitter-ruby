@@ -23,9 +23,10 @@ describe Twitter::Client do
       end
 
       it "should return the members of the specified list" do
-        users_list = @client.list_members("sferik", "presidents")
-        users_list.users.should be_an Array
-        users_list.users.first.name.should == "Erik Michaels-Ober"
+        list_members = @client.list_members("sferik", "presidents")
+        list_members.should be_an Array
+        list_members.first.should be_a Twitter::User
+        list_members.first.name.should == "Erik Michaels-Ober"
       end
 
     end
@@ -86,6 +87,7 @@ describe Twitter::Client do
 
       it "should return the list" do
         list = @client.list_add_member("sferik", "presidents", 813286)
+        list.should be_a Twitter::List
         list.name.should == "presidents"
       end
 
@@ -164,6 +166,7 @@ describe Twitter::Client do
 
       it "should return the list" do
         list = @client.list_add_members("sferik", "presidents", [813286, 18755393])
+        list.should be_a Twitter::List
         list.name.should == "presidents"
       end
 
@@ -259,6 +262,7 @@ describe Twitter::Client do
 
       it "should return the list" do
         list = @client.list_remove_member("sferik", "presidents", 813286)
+        list.should be_a Twitter::List
         list.name.should == "presidents"
       end
 

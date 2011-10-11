@@ -22,6 +22,7 @@ describe Twitter::Client do
 
     it "should return the created list" do
       list = @client.list_create("presidents")
+      list.should be_a Twitter::List
       list.name.should == "presidents"
     end
 
@@ -46,6 +47,7 @@ describe Twitter::Client do
 
       it "should return the updated list" do
         list = @client.list_update("sferik", "presidents", :description => "Presidents of the United States of America")
+        list.should be_a Twitter::List
         list.name.should == "presidents"
       end
 
@@ -121,8 +123,9 @@ describe Twitter::Client do
 
       it "should return the updated list" do
         lists = @client.lists("sferik")
-        lists.lists.should be_an Array
-        lists.lists.first.name.should == "Rubyists"
+        lists.should be_an Array
+        lists.first.should be_a Twitter::List
+        lists.first.name.should == "Rubyists"
       end
 
     end
@@ -144,8 +147,9 @@ describe Twitter::Client do
 
       it "should return the updated list" do
         lists = @client.lists(12345678)
-        lists.lists.should be_an Array
-        lists.lists.first.name.should == "Rubyists"
+        lists.should be_an Array
+        lists.first.should be_a Twitter::List
+        lists.first.name.should == "Rubyists"
       end
 
     end
@@ -167,8 +171,9 @@ describe Twitter::Client do
 
       it "should return the updated list" do
         lists = @client.lists
-        lists.lists.should be_an Array
-        lists.lists.first.name.should == "Rubyists"
+        lists.should be_an Array
+        lists.first.should be_a Twitter::List
+        lists.first.name.should == "Rubyists"
       end
 
     end
@@ -194,6 +199,7 @@ describe Twitter::Client do
 
       it "should return the updated list" do
         list = @client.list("sferik", "presidents")
+        list.should be_a Twitter::List
         list.name.should == "presidents"
       end
 
@@ -272,6 +278,7 @@ describe Twitter::Client do
 
       it "should return the deleted list" do
         list = @client.list_delete("sferik", "presidents")
+        list.should be_a Twitter::List
         list.name.should == "presidents"
       end
 
@@ -351,6 +358,7 @@ describe Twitter::Client do
       it "should return the tweet timeline for members of the specified list" do
         statuses = @client.list_timeline("sferik", "presidents")
         statuses.should be_an Array
+        statuses.first.should be_a Twitter::Status
         statuses.first.text.should == "Ruby is the best programming language for hiding the ugly bits."
       end
 
@@ -375,6 +383,7 @@ describe Twitter::Client do
       it "should return the tweet timeline for members of the specified list" do
         statuses = @client.list_timeline("sferik", "presidents")
         statuses.should be_an Array
+        statuses.first.should be_a Twitter::Status
         statuses.first.text.should == "Ruby is the best programming language for hiding the ugly bits."
       end
 
@@ -435,8 +444,9 @@ describe Twitter::Client do
 
       it "should return the lists the specified user has been added to" do
         lists = @client.memberships("pengwynn")
-        lists.lists.should be_an Array
-        lists.lists.first.name.should == "Rubyists"
+        lists.should be_an Array
+        lists.first.should be_an Twitter::List
+        lists.first.name.should == "Rubyists"
       end
 
     end
@@ -459,8 +469,9 @@ describe Twitter::Client do
 
       it "should return the lists the specified user has been added to" do
         lists = @client.memberships("pengwynn")
-        lists.lists.should be_an Array
-        lists.lists.first.name.should == "Rubyists"
+        lists.should be_an Array
+        lists.first.should be_an Twitter::List
+        lists.first.name.should == "Rubyists"
       end
 
     end
@@ -503,8 +514,9 @@ describe Twitter::Client do
 
       it "should return the lists the specified user follows" do
         lists = @client.subscriptions("pengwynn")
-        lists.lists.should be_an Array
-        lists.lists.first.name.should == "Rubyists"
+        lists.should be_an Array
+        lists.first.should be_an Twitter::List
+        lists.first.name.should == "Rubyists"
       end
 
     end
@@ -527,8 +539,9 @@ describe Twitter::Client do
 
       it "should return the lists the specified user follows" do
         lists = @client.subscriptions("pengwynn")
-        lists.lists.should be_an Array
-        lists.lists.first.name.should == "Rubyists"
+        lists.should be_an Array
+        lists.first.should be_an Twitter::List
+        lists.first.name.should == "Rubyists"
       end
 
     end

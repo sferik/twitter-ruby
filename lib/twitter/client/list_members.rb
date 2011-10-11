@@ -1,5 +1,7 @@
 require 'twitter/error/forbidden'
 require 'twitter/error/not_found'
+require 'twitter/list'
+require 'twitter/user'
 
 module Twitter
   class Client
@@ -17,7 +19,7 @@ module Twitter
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
       #   @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
-      #   @return [Array]
+      #   @return [Array<Twitter::User>]
       #   @example Return the members of the authenticated user's "presidents" list
       #     Twitter.list_members("presidents")
       #     Twitter.list_members(8863586)
@@ -27,20 +29,21 @@ module Twitter
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
       #   @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
-      #   @return [Array]
+      #   @return [Array<Twitter::User>]
       #   @example Return the members of @sferik's "presidents" list
       #     Twitter.list_members("sferik", "presidents")
       #     Twitter.list_members("sferik", 8863586)
       #     Twitter.list_members(7505382, "presidents")
       #     Twitter.list_members(7505382, 8863586)
-      # @return [Array]
       def list_members(*args)
         options = {:cursor => -1}.merge(args.last.is_a?(Hash) ? args.pop : {})
         list = args.pop
         user = args.pop || get_screen_name
         merge_list_into_options!(list, options)
         merge_owner_into_options!(user, options)
-        get("/1/lists/members.json", options)
+        get("/1/lists/members.json", options)['users'].map do |user|
+          Twitter::User.new(user)
+        end
       end
 
       # Add a member to a list
@@ -53,7 +56,7 @@ module Twitter
       #   @param list [Integer, String] The list_id or slug of the list.
       #   @param user_to_add [Integer, String] The user id or screen name to add to the list.
       #   @param options [Hash] A customizable set of options.
-      #   @return [Hashie::Mash] The list.
+      #   @return [Twitter::List] The list.
       #   @example Add @BarackObama to the authenticated user's "presidents" list
       #     Twitter.list_add_member("presidents", 813286)
       #     Twitter.list_add_member(8863586, 813286)
@@ -62,13 +65,12 @@ module Twitter
       #   @param list [Integer, String] The list_id or slug of the list.
       #   @param user_to_add [Integer, String] The user id or screen name to add to the list.
       #   @param options [Hash] A customizable set of options.
-      #   @return [Hashie::Mash] The list.
+      #   @return [Twitter::List] The list.
       #   @example Add @BarackObama to @sferik's "presidents" list
       #     Twitter.list_add_member("sferik", "presidents", 813286)
       #     Twitter.list_add_member('sferik', 8863586, 813286)
       #     Twitter.list_add_member(7505382, "presidents", 813286)
       #     Twitter.list_add_member(7505382, 8863586, 813286)
-      # @return [Hashie::Mash] The list.
       def list_add_member(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
         user_to_add, list = args.pop, args.pop
@@ -76,7 +78,8 @@ module Twitter
         merge_list_into_options!(list, options)
         merge_owner_into_options!(user, options)
         merge_user_into_options!(user_to_add, options)
-        post("/1/lists/members/create.json", options)
+        list = post("/1/lists/members/create.json", options)
+        Twitter::List.new(list)
       end
 
       # Adds multiple members to a list
@@ -89,7 +92,7 @@ module Twitter
       #   @param list [Integer, String] The list_id or slug of the list.
       #   @param users_to_add [Array] The user IDs and/or screen names to add.
       #   @param options [Hash] A customizable set of options.
-      #   @return [Hashie::Mash] The list.
+      #   @return [Twitter::List] The list.
       #   @example Add @BarackObama and @pengwynn to the authenticated user's "presidents" list
       #     Twitter.list_add_members("presidents", [813286, 18755393])
       #     Twitter.list_add_members('presidents', [813286, 'pengwynn'])
@@ -99,14 +102,13 @@ module Twitter
       #   @param list [Integer, String] The list_id or slug of the list.
       #   @param users_to_add [Array] The user IDs and/or screen names to add.
       #   @param options [Hash] A customizable set of options.
-      #   @return [Hashie::Mash] The list.
+      #   @return [Twitter::List] The list.
       #   @example Add @BarackObama and @pengwynn to @sferik's "presidents" list
       #     Twitter.list_add_members("sferik", "presidents", [813286, 18755393])
       #     Twitter.list_add_members('sferik', 'presidents', [813286, 'pengwynn'])
       #     Twitter.list_add_members('sferik', 8863586, [813286, 18755393])
       #     Twitter.list_add_members(7505382, "presidents", [813286, 18755393])
       #     Twitter.list_add_members(7505382, 8863586, [813286, 18755393])
-      # @return [Hashie::Mash] The list.
       def list_add_members(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
         users_to_add, list = args.pop, args.pop
@@ -114,7 +116,8 @@ module Twitter
         merge_list_into_options!(list, options)
         merge_owner_into_options!(user, options)
         merge_users_into_options!(Array(users_to_add), options)
-        post("/1/lists/members/create_all.json", options)
+        list = post("/1/lists/members/create_all.json", options)
+        Twitter::List.new(list)
       end
 
       # Removes the specified member from the list
@@ -126,7 +129,7 @@ module Twitter
       #   @param list [Integer, String] The list_id or slug of the list.
       #   @param user_to_remove [Integer, String] The user id or screen name of the list member to remove.
       #   @param options [Hash] A customizable set of options.
-      #   @return [Hashie::Mash] The list.
+      #   @return [Twitter::List] The list.
       #   @example Remove @BarackObama from the authenticated user's "presidents" list
       #     Twitter.list_remove_member("presidents", 813286)
       #     Twitter.list_remove_member("presidents", 'BarackObama')
@@ -136,13 +139,12 @@ module Twitter
       #   @param list [Integer, String] The list_id or slug of the list.
       #   @param user_to_remove [Integer, String] The user id or screen name of the list member to remove.
       #   @param options [Hash] A customizable set of options.
-      #   @return [Hashie::Mash] The list.
+      #   @return [Twitter::List] The list.
       #   @example Remove @BarackObama from @sferik's "presidents" list
       #     Twitter.list_remove_member("sferik", "presidents", 813286)
       #     Twitter.list_remove_member("sferik", "presidents", 'BarackObama')
       #     Twitter.list_remove_member('sferik', 8863586, 'BarackObama')
       #     Twitter.list_remove_member(7505382, "presidents", 813286)
-      # @return [Hashie::Mash] The list.
       def list_remove_member(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
         user_to_remove, list = args.pop, args.pop
@@ -150,7 +152,8 @@ module Twitter
         merge_list_into_options!(list, options)
         merge_owner_into_options!(user, options)
         merge_user_into_options!(user_to_remove, options)
-        post("/1/lists/members/destroy.json", options)
+        list = post("/1/lists/members/destroy.json", options)
+        Twitter::List.new(list)
       end
 
       # Check if a user is a member of the specified list
@@ -176,7 +179,6 @@ module Twitter
       #     Twitter.list_member?("sferik", "presidents", 813286)
       #     Twitter.list_member?('sferik', 8863586, 'BarackObama')
       #     Twitter.list_member?(7505382, "presidents", 813286)
-      # @return [Boolean] true if user is a member of the specified list, otherwise false.
       def list_member?(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
         user_to_check, list = args.pop, args.pop

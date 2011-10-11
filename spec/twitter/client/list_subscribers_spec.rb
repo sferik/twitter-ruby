@@ -23,9 +23,10 @@ describe Twitter::Client do
       end
 
       it "should return the subscribers of the specified list" do
-        users_list = @client.list_subscribers("sferik", "presidents")
-        users_list.users.should be_an Array
-        users_list.users.first.name.should == "Erik Michaels-Ober"
+        list_subscribers = @client.list_subscribers("sferik", "presidents")
+        list_subscribers.should be_an Array
+        list_subscribers.first.should be_an Twitter::User
+        list_subscribers.first.name.should == "Erik Michaels-Ober"
       end
 
     end
@@ -103,6 +104,7 @@ describe Twitter::Client do
 
       it "should return the specified list" do
         list = @client.list_subscribe("sferik", "presidents")
+        list.should be_a Twitter::List
         list.name.should == "presidents"
       end
 
@@ -181,6 +183,7 @@ describe Twitter::Client do
 
       it "should return the specified list" do
         list = @client.list_unsubscribe("sferik", "presidents")
+        list.should be_a Twitter::List
         list.name.should == "presidents"
       end
 
