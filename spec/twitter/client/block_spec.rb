@@ -115,7 +115,7 @@ describe Twitter::Client do
         should have_been_made
     end
 
-    it "should return an array of numeric user ids the authenticating user is blocking" do
+    it "should return an array of numeric user IDs the authenticating user is blocking" do
       ids = @client.blocked_ids
       ids.should be_an Array
       ids.first.should == 47

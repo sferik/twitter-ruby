@@ -36,11 +36,12 @@ module Twitter
       # @option options [String] :display_coordinates Whether or not to put a pin on the exact coordinates a tweet has been sent from.
       # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
-      # @return [Hashie::Mash] The created status.
+      # @return [Twitter::Status] The created status.
       # @example Update the authenticating user's status
       #   Twitter.update("I just posted a status update via the Twitter Ruby Gem!")
       def update(status, options={})
-        post("/1/statuses/update.json", options.merge(:status => status))
+        status = post("/1/statuses/update.json", options.merge(:status => status))
+        Twitter::Status.new(status)
       end
 
       # Updates with media the authenticating user's status
@@ -80,11 +81,12 @@ module Twitter
       # @param options [Hash] A customizable set of options.
       # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
-      # @return [Hashie::Mash] The deleted status.
+      # @return [Twitter::Status] The deleted status.
       # @example Destroy the status with the ID 25938088801
       #   Twitter.status_destroy(25938088801)
       def status_destroy(id, options={})
-        delete("/1/statuses/destroy/#{id}.json", options)
+        status = delete("/1/statuses/destroy/#{id}.json", options)
+        Twitter::Status.new(status)
       end
 
       # Retweets a tweet
@@ -97,11 +99,12 @@ module Twitter
       # @param options [Hash] A customizable set of options.
       # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
-      # @return [Hashie::Mash] The original tweet with retweet details embedded.
+      # @return [Twitter::Status] The original tweet with retweet details embedded.
       # @example Retweet the status with the ID 28561922516
       #   Twitter.retweet(28561922516)
       def retweet(id, options={})
-        post("/1/statuses/retweet/#{id}.json", options)
+        status = post("/1/statuses/retweet/#{id}.json", options)['retweeted_status']
+        Twitter::Status.new(status)
       end
 
       # Returns up to 100 of the first retweets of a given tweet
@@ -114,11 +117,13 @@ module Twitter
       # @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 100.
       # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
-      # @return [Array]
+      # @return [Array<Twitter::Status>]
       # @example Return up to 100 of the first retweets of the status with the ID 28561922516
       #   Twitter.retweets(28561922516)
       def retweets(id, options={})
-        get("/1/statuses/retweets/#{id}.json", options)
+        get("/1/statuses/retweets/#{id}.json", options).map do |status|
+          Twitter::Status.new(status)
+        end
       end
 
       # Show up to 100 users who retweeted the status
@@ -138,8 +143,13 @@ module Twitter
       # @example Show up to 100 users who retweeted the status with the ID 28561922516
       #   Twitter.retweeters_of(28561922516)
       def retweeters_of(id, options={})
-        ids_only = !!options.delete(:ids_only)
-        get("/1/statuses/#{id}/retweeted_by#{'/ids' if ids_only}.json", options)
+        if ids_only = !!options.delete(:ids_only)
+          get("/1/statuses/#{id}/retweeted_by/ids.json", options)
+        else
+          get("/1/statuses/#{id}/retweeted_by.json", options).map do |user|
+            Twitter::User.new(user)
+          end
+        end
       end
     end
   end

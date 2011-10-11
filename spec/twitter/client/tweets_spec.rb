@@ -20,6 +20,7 @@ describe Twitter::Client do
 
     it "should return a single status" do
       status = @client.status(25938088801)
+      status.should be_a Twitter::Status
       status.text.should == "@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!"
     end
 
@@ -42,6 +43,7 @@ describe Twitter::Client do
 
     it "should return a single status" do
       status = @client.update("@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!")
+      status.should be_a Twitter::Status
       status.text.should == "@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!"
     end
 
@@ -87,6 +89,7 @@ describe Twitter::Client do
 
     it "should return a single status" do
       status = @client.status_destroy(25938088801)
+      status.should be_a Twitter::Status
       status.text.should == "@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!"
     end
 
@@ -107,7 +110,8 @@ describe Twitter::Client do
 
     it "should return the original tweet with retweet details embedded" do
       status = @client.retweet(28561922516)
-      status.retweeted_status.text.should == "As for the Series, I'm for the Giants. Fuck Texas, fuck Nolan Ryan, fuck George Bush."
+      status.should be_a Twitter::Status
+      status.text.should == "As for the Series, I'm for the Giants. Fuck Texas, fuck Nolan Ryan, fuck George Bush."
     end
 
   end
@@ -128,6 +132,7 @@ describe Twitter::Client do
     it "should return up to 100 of the first retweets of a given tweet" do
       statuses = @client.retweets(28561922516)
       statuses.should be_an Array
+      statuses.first.should be_a Twitter::Status
       statuses.first.text.should == "RT @gruber: As for the Series, I'm for the Giants. Fuck Texas, fuck Nolan Ryan, fuck George Bush."
     end
 
@@ -135,21 +140,46 @@ describe Twitter::Client do
 
   describe ".retweeters_of" do
 
-    before do
-      stub_get("/1/statuses/27467028175/retweeted_by.json").
-        to_return(:body => fixture("retweeters_of.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+    context "with ids_only passed" do
+
+      before do
+        stub_get("/1/statuses/27467028175/retweeted_by/ids.json").
+          to_return(:body => fixture("ids.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      end
+
+      it "should get the correct resource" do
+        @client.retweeters_of(27467028175, :ids_only => true)
+        a_get("/1/statuses/27467028175/retweeted_by/ids.json").
+          should have_been_made
+      end
+
+      it "should return an array of numeric user IDs of retweeters of a status" do
+        ids = @client.retweeters_of(27467028175, :ids_only => true)
+        ids.should be_an Array
+        ids.first.should == 47
+      end
+
     end
 
-    it "should get the correct resource" do
-      @client.retweeters_of(27467028175)
-      a_get("/1/statuses/27467028175/retweeted_by.json").
-        should have_been_made
-    end
+    context "without ids_only passed" do
 
-    it "should return " do
-      users = @client.retweeters_of(27467028175)
-      users.should be_an Array
-      users.first.name.should == "Dave W Baldwin"
+      before do
+        stub_get("/1/statuses/27467028175/retweeted_by.json").
+          to_return(:body => fixture("retweeters_of.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      end
+
+      it "should get the correct resource" do
+        @client.retweeters_of(27467028175)
+        a_get("/1/statuses/27467028175/retweeted_by.json").
+          should have_been_made
+      end
+
+      it "should return an array of user of retweeters of a status" do
+        users = @client.retweeters_of(27467028175)
+        users.should be_an Array
+        users.first.should be_a Twitter::User
+        users.first.name.should == "Dave W Baldwin"
+      end
     end
   end
 end
