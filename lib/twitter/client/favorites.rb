@@ -46,12 +46,12 @@ module Twitter
       # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
       # @return [Twitter::Status] The favorited status.
       # @example Favorite the status with the ID 25938088801
-      #   Twitter.favorite_create(25938088801)
-      def favorite_create(id, options={})
+      #   Twitter.favorite(25938088801)
+      def favorite(id, options={})
         status = post("/1/favorites/create/#{id}.json", options)
         Twitter::Status.new(status)
       end
-      alias :favorite :favorite_create
+      alias :favorite_create :favorite
 
       # Un-favorites the specified status as the authenticating user
       #
@@ -63,12 +63,12 @@ module Twitter
       # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
       # @return [Twitter::Status] The un-favorited status.
       # @example Un-favorite the status with the ID 25938088801
-      #   Twitter.favorite_destroy(25938088801)
-      def favorite_destroy(id, options={})
+      #   Twitter.unfavorite(25938088801)
+      def unfavorite(id, options={})
         status = delete("/1/favorites/destroy/#{id}.json", options)
         Twitter::Status.new(status)
       end
-      alias :unfavorite :favorite_destroy
+      alias :favorite_destroy :unfavorite
     end
   end
 end

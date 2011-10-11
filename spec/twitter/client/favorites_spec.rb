@@ -53,7 +53,7 @@ describe Twitter::Client do
 
   end
 
-  describe ".favorite_create" do
+  describe ".favorite" do
 
     before do
       stub_post("/1/favorites/create/25938088801.json").
@@ -61,20 +61,20 @@ describe Twitter::Client do
     end
 
     it "should get the correct resource" do
-      @client.favorite_create(25938088801)
+      @client.favorite(25938088801)
       a_post("/1/favorites/create/25938088801.json").
         should have_been_made
     end
 
     it "should return the favorite status when successful" do
-      status = @client.favorite_create(25938088801)
+      status = @client.favorite(25938088801)
       status.should be_an Twitter::Status
       status.text.should == "@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!"
     end
 
   end
 
-  describe ".favorite_destroy" do
+  describe ".unfavorite" do
 
     before do
       stub_delete("/1/favorites/destroy/25938088801.json").
@@ -82,13 +82,13 @@ describe Twitter::Client do
     end
 
     it "should get the correct resource" do
-      @client.favorite_destroy(25938088801)
+      @client.unfavorite(25938088801)
       a_delete("/1/favorites/destroy/25938088801.json").
         should have_been_made
     end
 
     it "should return the un-favorite status when successful" do
-      status = @client.favorite_destroy(25938088801)
+      status = @client.unfavorite(25938088801)
       status.should be_an Twitter::Status
       status.text.should == "@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!"
     end
