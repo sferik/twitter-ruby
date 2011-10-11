@@ -20,6 +20,7 @@ describe Twitter::Client do
 
     it "should return the requesting user" do
       user = @client.verify_credentials
+      user.should be_a Twitter::User
       user.name.should == "Erik Michaels-Ober"
     end
 
@@ -82,6 +83,7 @@ describe Twitter::Client do
 
     it "should return a null cookie" do
       user = @client.update_delivery_device("sms")
+      user.should be_a Twitter::User
       user.name.should == "Erik Michaels-Ober"
     end
 
@@ -104,6 +106,7 @@ describe Twitter::Client do
 
     it "should return a null cookie" do
       user = @client.update_profile_colors(:profile_background_color => "000000")
+      user.should be_a Twitter::User
       user.name.should == "Erik Michaels-Ober"
     end
 
@@ -124,6 +127,7 @@ describe Twitter::Client do
 
     it "should return a null cookie" do
       user = @client.update_profile_image(fixture("me.jpeg"))
+      user.should be_a Twitter::User
       user.name.should == "Erik Michaels-Ober"
     end
 
@@ -144,6 +148,7 @@ describe Twitter::Client do
 
     it "should return a null cookie" do
       user = @client.update_profile_background_image(fixture("we_concept_bg2.png"))
+      user.should be_a Twitter::User
       user.name.should == "Erik Michaels-Ober"
     end
 
@@ -166,6 +171,7 @@ describe Twitter::Client do
 
     it "should return a null cookie" do
       user = @client.update_profile(:url => "http://github.com/sferik/")
+      user.should be_a Twitter::User
       user.name.should == "Erik Michaels-Ober"
     end
   end

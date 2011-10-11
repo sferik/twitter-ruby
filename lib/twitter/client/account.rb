@@ -1,3 +1,5 @@
+require 'twitter/user'
+
 module Twitter
   class Client
     # Defines methods related to a user's account
@@ -9,12 +11,13 @@ module Twitter
       # @requires_authentication Yes
       # @param options [Hash] A customizable set of options.
       # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
-      # @return [Hashie::Mash] The authenticated user.
+      # @return [Twitter::User] The authenticated user.
       # @raise [Twitter::Unauthorized] Error raised when supplied user credentials are not valid.
       # @example Return the requesting user if authentication was successful
       #   Twitter.verify_credentials
       def verify_credentials(options={})
-        get("/1/account/verify_credentials.json", options)
+        user = get("/1/account/verify_credentials.json", options)
+        Twitter::User.new(user)
       end
 
       # Returns the remaining number of API requests available to the requesting user
@@ -53,11 +56,12 @@ module Twitter
       # @param device [String] Must be one of: 'sms', 'none'.
       # @param options [Hash] A customizable set of options.
       # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
-      # @return [Hashie::Mash] The authenticated user.
+      # @return [Twitter::User] The authenticated user.
       # @example Turn SMS updates on for the authenticating user
       #   Twitter.update_delivery_device('sms')
       def update_delivery_device(device, options={})
-        post("/1/account/update_delivery_device.json", options.merge(:device => device))
+        user = post("/1/account/update_delivery_device.json", options.merge(:device => device))
+        Twitter::User.new(user)
       end
 
       # Sets one or more hex values that control the color scheme of the authenticating user's profile
@@ -72,11 +76,12 @@ module Twitter
       # @option options [String] :profile_sidebar_fill_color Profile sidebar's background color.
       # @option options [String] :profile_sidebar_border_color Profile sidebar's border color.
       # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
-      # @return [Hashie::Mash] The authenticated user.
+      # @return [Twitter::User] The authenticated user.
       # @example Set authenticating user's profile background to black
       #   Twitter.update_profile_colors(:profile_background_color => '000000')
       def update_profile_colors(options={})
-        post("/1/account/update_profile_colors.json", options)
+        user = post("/1/account/update_profile_colors.json", options)
+        Twitter::User.new(user)
       end
 
       # Updates the authenticating user's profile image
@@ -88,11 +93,12 @@ module Twitter
       # @param image [String] The avatar image for the profile. Must be a valid GIF, JPG, or PNG image of less than 700 kilobytes in size. Images with width larger than 500 pixels will be scaled down. Animated GIFs will be converted to a static GIF of the first frame, removing the animation.
       # @param options [Hash] A customizable set of options.
       # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
-      # @return [Hashie::Mash] The authenticated user.
+      # @return [Twitter::User] The authenticated user.
       # @example Update the authenticating user's profile image
       #   Twitter.update_profile_image(File.new("me.jpeg"))
       def update_profile_image(image, options={})
-        post("/1/account/update_profile_image.json", options.merge(:image => image))
+        user = post("/1/account/update_profile_image.json", options.merge(:image => image))
+        Twitter::User.new(user)
       end
 
       # Updates the authenticating user's profile background image
@@ -104,11 +110,12 @@ module Twitter
       # @param options [Hash] A customizable set of options.
       # @option options [Boolean] :tile Whether or not to tile the background image. If set to true the background image will be displayed tiled. The image will not be tiled otherwise.
       # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
-      # @return [Hashie::Mash] The authenticated user.
+      # @return [Twitter::User] The authenticated user.
       # @example Update the authenticating user's profile background image
       #   Twitter.update_profile_background_image(File.new("we_concept_bg2.png"))
       def update_profile_background_image(image, options={})
-        post("/1/account/update_profile_background_image.json", options.merge(:image => image))
+        user = post("/1/account/update_profile_background_image.json", options.merge(:image => image))
+        Twitter::User.new(user)
       end
 
       # Sets values that users are able to set under the "Account" tab of their settings page
@@ -123,11 +130,12 @@ module Twitter
       # @option options [String] :location The city or country describing where the user of the account is located. The contents are not normalized or geocoded in any way. Maximum of 30 characters.
       # @option options [String] :description A description of the user owning the account. Maximum of 160 characters.
       # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
-      # @return [Hashie::Mash] The authenticated user.
+      # @return [Twitter::User] The authenticated user.
       # @example Set authenticating user's name to Erik Michaels-Ober
       #   Twitter.update_profile(:name => "Erik Michaels-Ober")
       def update_profile(options={})
-        post("/1/account/update_profile.json", options)
+        user = post("/1/account/update_profile.json", options)
+        Twitter::User.new(user)
       end
 
       # Returns the current count of friends, followers, updates (statuses) and favorites of the authenticating user.
