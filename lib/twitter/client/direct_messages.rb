@@ -62,6 +62,7 @@ module Twitter
         direct_message = post("/1/direct_messages/new.json", options.merge(:text => text))
         Twitter::DirectMessage.new(direct_message)
       end
+      alias :d :direct_message_create
 
       # Destroys a direct message
       #
