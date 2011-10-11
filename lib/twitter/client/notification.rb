@@ -1,3 +1,5 @@
+require 'twitter/user'
+
 module Twitter
   class Client
     # Defines methods related to notification
@@ -10,13 +12,14 @@ module Twitter
       # @param user [Integer, String] A Twitter user ID or screen name.
       # @param options [Hash] A customizable set of options.
       # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
-      # @return [Hashie::Mash] The specified user.
+      # @return [Twitter::User] The specified user.
       # @example Enable device notifications for updates from @sferik
       #   Twitter.enable_notifications("sferik")
       #   Twitter.enable_notifications(7505382)  # Same as above
       def enable_notifications(user, options={})
         merge_user_into_options!(user, options)
-        post("/1/notifications/follow.json", options)
+        user = post("/1/notifications/follow.json", options)
+        Twitter::User.new(user)
       end
 
       # Disables notifications for updates from the specified user to the authenticating user
@@ -27,13 +30,14 @@ module Twitter
       # @param user [Integer, String] A Twitter user ID or screen name.
       # @param options [Hash] A customizable set of options.
       # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
-      # @return [Hashie::Mash] The specified user.
+      # @return [Twitter::User] The specified user.
       # @example Disable device notifications for updates from @sferik
       #   Twitter.disable_notifications("sferik")
       #   Twitter.disable_notifications(7505382)  # Same as above
       def disable_notifications(user, options={})
         merge_user_into_options!(user, options)
-        post("/1/notifications/leave.json", options)
+        user = post("/1/notifications/leave.json", options)
+        Twitter::User.new(user)
       end
     end
   end

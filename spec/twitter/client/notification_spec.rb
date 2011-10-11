@@ -22,6 +22,7 @@ describe Twitter::Client do
 
     it "should return the specified user when successful" do
       user = @client.enable_notifications("sferik")
+      user.should be_a Twitter::User
       user.name.should == "Erik Michaels-Ober"
     end
 
@@ -44,6 +45,7 @@ describe Twitter::Client do
 
     it "should return the specified user when successful" do
       user = @client.disable_notifications("sferik")
+      user.should be_a Twitter::User
       user.name.should == "Erik Michaels-Ober"
     end
   end
