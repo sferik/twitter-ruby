@@ -21,6 +21,7 @@ describe Twitter::Client do
 
     it "should return the blocked user" do
       user = @client.block("sferik")
+      user.should be_a Twitter::User
       user.name.should == "Erik Michaels-Ober"
     end
 
@@ -43,6 +44,7 @@ describe Twitter::Client do
 
     it "should return the un-blocked user" do
       user = @client.unblock("sferik")
+      user.should be_a Twitter::User
       user.name.should == "Erik Michaels-Ober"
     end
 
@@ -94,6 +96,7 @@ describe Twitter::Client do
     it "should return an array of user objects that the authenticating user is blocking" do
       users = @client.blocking
       users.should be_an Array
+      users.first.should be_a Twitter::User
       users.first.name.should == "Erik Michaels-Ober"
     end
 

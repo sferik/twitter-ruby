@@ -1,4 +1,5 @@
 require 'twitter/error/not_found'
+require 'twitter/user'
 
 module Twitter
   class Client
@@ -14,13 +15,14 @@ module Twitter
       # @param user [Integer, String] A Twitter user ID or screen name.
       # @param options [Hash] A customizable set of options.
       # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
-      # @return [Hashie::Mash] The blocked user.
+      # @return [Twitter::User] The blocked user.
       # @example Block and unfriend @sferik as the authenticating user
       #   Twitter.block("sferik")
       #   Twitter.block(7505382)  # Same as above
       def block(user, options={})
         merge_user_into_options!(user, options)
-        post("/1/blocks/create.json", options)
+        user = post("/1/blocks/create.json", options)
+        Twitter::User.new(user)
       end
 
       # Un-blocks the user specified by the authenticating user
@@ -31,13 +33,14 @@ module Twitter
       # @param user [Integer, String] A Twitter user ID or screen name.
       # @param options [Hash] A customizable set of options.
       # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
-      # @return [Hashie::Mash] The un-blocked user.
+      # @return [Twitter::User] The un-blocked user.
       # @example Un-block @sferik as the authenticating user
       #   Twitter.unblock("sferik")
       #   Twitter.unblock(7505382)  # Same as above
       def unblock(user, options={})
         merge_user_into_options!(user, options)
-        delete("/1/blocks/destroy.json", options)
+        user = delete("/1/blocks/destroy.json", options)
+        Twitter::User.new(user)
       end
 
       # Returns true if the authenticating user is blocking a target user
@@ -67,11 +70,13 @@ module Twitter
       # @param options [Hash] A customizable set of options.
       # @option options [Integer] :page Specifies the page of results to retrieve.
       # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
-      # @return [Array] User objects that the authenticating user is blocking.
+      # @return [Array<Twitter::User>] User objects that the authenticating user is blocking.
       # @example Return an array of user objects that the authenticating user is blocking
       #   Twitter.blocking
       def blocking(options={})
-        get("/1/blocks/blocking.json", options)
+        get("/1/blocks/blocking.json", options).map do |user|
+          Twitter::User.new(user)
+        end
       end
 
       # Returns an array of numeric user ids the authenticating user is blocking
