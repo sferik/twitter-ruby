@@ -24,6 +24,7 @@ describe Twitter::Client do
 
         it "should return extended information of a given user" do
           user = @client.user("sferik")
+          user.should be_a Twitter::User
           user.name.should == "Erik Michaels-Ober"
         end
 
@@ -150,6 +151,7 @@ describe Twitter::Client do
       it "should return up to 100 users worth of extended information" do
         users = @client.users("sferik", "pengwynn")
         users.should be_an Array
+        users.first.should be_a Twitter::User
         users.first.name.should == "Erik Michaels-Ober"
       end
 
@@ -226,6 +228,7 @@ describe Twitter::Client do
     it "should return an array of user search results" do
       user_search = @client.user_search("Erik Michaels-Ober")
       user_search.should be_an Array
+      user_search.first.should be_a Twitter::User
       user_search.first.name.should == "Erik Michaels-Ober"
     end
 
@@ -291,6 +294,8 @@ describe Twitter::Client do
 
     it "should return users in a given category of the Twitter suggested user list and return their most recent status if they are not a protected user" do
       suggest_users = @client.suggest_users("art-design")
+      suggest_users.should be_a Array
+      suggest_users.first.should be_a Twitter::User
       suggest_users.first.name.should == "OMGFacts"
     end
 
@@ -351,7 +356,8 @@ describe Twitter::Client do
     it "should return recommended users for the authenticated user" do
       recommendations = @client.recommendations
       recommendations.should be_an Array
-      recommendations.first.user.name.should == "John Trupiano"
+      recommendations.first.should be_a Twitter::User
+      recommendations.first.name.should == "John Trupiano"
     end
   end
 
@@ -375,6 +381,7 @@ describe Twitter::Client do
       it "should return a user's contributees" do
         contributees = @client.contributees("sferik")
         contributees.should be_an Array
+        contributees.first.should be_a Twitter::User
         contributees.first.name.should == "Twitter API"
       end
     end
@@ -398,6 +405,7 @@ describe Twitter::Client do
       it "should return a user's contributees" do
         contributees = @client.contributees
         contributees.should be_an Array
+        contributees.first.should be_a Twitter::User
         contributees.first.name.should == "Twitter API"
       end
     end
@@ -423,6 +431,7 @@ describe Twitter::Client do
       it "should return a user's contributors" do
         contributors = @client.contributors("sferik")
         contributors.should be_an Array
+        contributors.first.should be_a Twitter::User
         contributors.first.name.should == "Biz Stone"
       end
     end
@@ -446,6 +455,7 @@ describe Twitter::Client do
       it "should return a user's contributors" do
         contributors = @client.contributors
         contributors.should be_an Array
+        contributors.first.should be_a Twitter::User
         contributors.first.name.should == "Biz Stone"
       end
     end

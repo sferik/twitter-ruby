@@ -52,7 +52,7 @@ module Twitter
       #   @param users [Integer, String] Twitter users ID or screen names.
       #   @param options [Hash] A customizable set of options.
       #   @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
-      # @return [Array] The requested users.
+      # @return [Array<Twitter::User>] The requested users.
       # @example Return extended information for @sferik and @pengwynn
       #   Twitter.users("sferik", "pengwynn")
       #   Twitter.users("sferik", 14100886)   # Same as above
@@ -61,7 +61,9 @@ module Twitter
         options = args.last.is_a?(Hash) ? args.pop : {}
         users = args
         merge_users_into_options!(Array(users), options)
-        get("/1/users/lookup.json", options)
+        get("/1/users/lookup.json", options).map do |user|
+          Twitter::User.new(user)
+        end
       end
 
       # Returns users that match the given query
@@ -74,11 +76,13 @@ module Twitter
       # @option options [Integer] :per_page The number of people to retrieve. Maxiumum of 20 allowed per page.
       # @option options [Integer] :page Specifies the page of results to retrieve.
       # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
-      # @return [Array]
+      # @return [Array<Twitter::User>]
       # @example Return users that match "Erik Michaels-Ober"
       #   Twitter.user_search("Erik Michaels-Ober")
       def user_search(query, options={})
-        get("/1/users/search.json", options.merge(:q => query))
+        get("/1/users/search.json", options.merge(:q => query)).map do |user|
+          Twitter::User.new(user)
+        end
       end
 
       # @overload suggestions(options={})
@@ -118,11 +122,13 @@ module Twitter
       # @requires_authentication No
       # @param slug [String] The short name of list or a category.
       # @param options [Hash] A customizable set of options.
-      # @return [Array]
+      # @return [Array<Twitter::User>]
       # @example Return the users in the Art & Design category and their most recent status if they are not a protected user
       #   Twitter.suggest_users("art-design")
       def suggest_users(slug, options={})
-        get("/1/users/suggestions/#{slug}/members.json", options)
+        get("/1/users/suggestions/#{slug}/members.json", options).map do |user|
+          Twitter::User.new(user)
+        end
       end
 
       # Access the profile image in various sizes for the user with the indicated screen name
@@ -151,12 +157,14 @@ module Twitter
       # @param options [Hash] A customizable set of options.
       # @option options [Integer] :limit (20) Specifies the number of records to retrieve.
       # @option options [String] :excluded Comma-separated list of user IDs to exclude.
-      # @return [Array]
+      # @return [Array<Twitter::User>]
       # @example Return recommended users for the authenticated user
       #   Twitter.recommendations
       def recommendations(options={})
         options[:excluded] = options[:excluded].join(',') if options[:excluded].is_a?(Array)
-        get("/1/users/recommendations.json", options)
+        get("/1/users/recommendations.json", options).map do |recommendation|
+          Twitter::User.new(recommendation['user'])
+        end
       end
 
       # Returns an array of users that the specified user can contribute to
@@ -170,7 +178,7 @@ module Twitter
       #   @param options [Hash] A customizable set of options.
       #   @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
       #   @option options [Boolean, String, Integer] :skip_status Do not include contributee's statuses when set to true, 't' or 1.
-      #   @return [Array]
+      #   @return [Array<Twitter::User>]
       #   @example Return the authenticated user's contributees
       #     Twitter.contributees
       ## @overload contributees(user, options={})
@@ -178,7 +186,7 @@ module Twitter
       #   @param options [Hash] A customizable set of options.
       #   @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
       #   @option options [Boolean, String, Integer] :skip_status Do not include contributee's statuses when set to true, 't' or 1.
-      #   @return [Array]
+      #   @return [Array<Twitter::User>]
       #   @example Return users @sferik can contribute to
       #     Twitter.contributees("sferik")
       #     Twitter.contributees(7505382)  # Same as above
@@ -187,7 +195,9 @@ module Twitter
         options.merge!(args.last.is_a?(Hash) ? args.pop : {})
         user = args.pop || get_screen_name
         merge_user_into_options!(user, options)
-        get("/1/users/contributees.json", options)
+        get("/1/users/contributees.json", options).map do |user|
+          Twitter::User.new(user)
+        end
       end
 
       # Returns an array of users who can contribute to the specified account
@@ -201,7 +211,7 @@ module Twitter
       #   @param options [Hash] A customizable set of options.
       #   @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
       #   @option options [Boolean, String, Integer] :skip_status Do not include contributee's statuses when set to true, 't' or 1.
-      #   @return [Array]
+      #   @return [Array<Twitter::User>]
       #   @example Return the authenticated user's contributors
       #     Twitter.contributors
       ## @overload contributors(user, options={})
@@ -209,7 +219,7 @@ module Twitter
       #   @param options [Hash] A customizable set of options.
       #   @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
       #   @option options [Boolean, String, Integer] :skip_status Do not include contributee's statuses when set to true, 't' or 1.
-      #   @return [Array]
+      #   @return [Array<Twitter::User>]
       #   @example Return users who can contribute to @sferik's account
       #     Twitter.contributors("sferik")
       #     Twitter.contributors(7505382)  # Same as above
@@ -218,7 +228,9 @@ module Twitter
         options.merge!(args.last.is_a?(Hash) ? args.pop : {})
         user = args.pop || get_screen_name
         merge_user_into_options!(user, options)
-        get("/1/users/contributors.json", options)
+        get("/1/users/contributors.json", options).map do |user|
+          Twitter::User.new(user)
+        end
       end
     end
   end
