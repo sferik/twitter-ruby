@@ -21,6 +21,7 @@ describe Twitter::Client do
     it "should return the authenticated user's saved search queries" do
       saved_searches = @client.saved_searches
       saved_searches.should be_an Array
+      saved_searches.first.should be_a Twitter::SavedSearch
       saved_searches.first.name.should == "twitter"
     end
 
@@ -41,6 +42,7 @@ describe Twitter::Client do
 
     it "should return the data for a saved search owned by the authenticating user specified by the given id" do
       saved_search = @client.saved_search(16129012)
+      saved_search.should be_a Twitter::SavedSearch
       saved_search.name.should == "twitter"
     end
 
@@ -63,6 +65,7 @@ describe Twitter::Client do
 
     it "should return the created saved search" do
       saved_search = @client.saved_search_create("twitter")
+      saved_search.should be_a Twitter::SavedSearch
       saved_search.name.should == "twitter"
     end
 
@@ -83,6 +86,7 @@ describe Twitter::Client do
 
     it "should return the deleted saved search" do
       saved_search = @client.saved_search_destroy(16129012)
+      saved_search.should be_a Twitter::SavedSearch
       saved_search.name.should == "twitter"
     end
   end
