@@ -21,6 +21,7 @@ describe Twitter::Client do
     it "should return the 20 most recent statuses, including retweets if they exist, from non-protected users" do
       statuses = @client.public_timeline
       statuses.should be_an Array
+      statuses.first.should be_a Twitter::Status
       statuses.first.text.should == "Ruby is the best programming language for hiding the ugly bits."
     end
 
@@ -42,6 +43,7 @@ describe Twitter::Client do
     it "should return the 20 most recent statuses, including retweets if they exist, posted by the authenticating user and the user's they follow" do
       statuses = @client.home_timeline
       statuses.should be_an Array
+      statuses.first.should be_a Twitter::Status
       statuses.first.text.should == "Ruby is the best programming language for hiding the ugly bits."
     end
 
@@ -67,6 +69,7 @@ describe Twitter::Client do
       it "should return the 20 most recent statuses posted by the user specified by screen name or user id" do
         statuses = @client.user_timeline("sferik")
         statuses.should be_an Array
+        statuses.first.should be_a Twitter::Status
         statuses.first.text.should == "Ruby is the best programming language for hiding the ugly bits."
       end
 
@@ -108,6 +111,7 @@ describe Twitter::Client do
     it "should return the 20 most recent mentions (status containing @username) for the authenticating user" do
       statuses = @client.mentions
       statuses.should be_an Array
+      statuses.first.should be_a Twitter::Status
       statuses.first.text.should == "Ruby is the best programming language for hiding the ugly bits."
     end
 
@@ -129,6 +133,7 @@ describe Twitter::Client do
     it "should return the 20 most recent retweets posted by the authenticating user" do
       statuses = @client.retweeted_by_me
       statuses.should be_an Array
+      statuses.first.should be_a Twitter::Status
       statuses.first.text.should == "Ruby is the best programming language for hiding the ugly bits."
     end
 
@@ -150,6 +155,7 @@ describe Twitter::Client do
     it "should return the 20 most recent retweets posted by users the authenticating user follow" do
       statuses = @client.retweeted_to_me
       statuses.should be_an Array
+      statuses.first.should be_a Twitter::Status
       statuses.first.text.should == "Ruby is the best programming language for hiding the ugly bits."
     end
 
@@ -171,6 +177,7 @@ describe Twitter::Client do
     it "should return the 20 most recent tweets of the authenticated user that have been retweeted by others" do
       statuses = @client.retweets_of_me
       statuses.should be_an Array
+      statuses.first.should be_a Twitter::Status
       statuses.first.text.should == "Ruby is the best programming language for hiding the ugly bits."
     end
   end
@@ -195,6 +202,7 @@ describe Twitter::Client do
       it "should return the 20 most recent images posted by the user specified by screen name or user id" do
         statuses = @client.media_timeline("sferik")
         statuses.should be_an Array
+        statuses.first.should be_a Twitter::Status
         statuses.first.text.should == "Google is throwing up a question mark for Sunday's weather in Boston. At least they're being honest. http://t.co/Jh7bAhS"
       end
 

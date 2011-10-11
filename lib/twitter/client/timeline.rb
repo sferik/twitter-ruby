@@ -1,3 +1,5 @@
+require 'twitter/status'
+
 module Twitter
   class Client
     # Defines methods related to timelines
@@ -11,11 +13,13 @@ module Twitter
       # @param options [Hash] A customizable set of options.
       # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
-      # @return [Array]
+      # @return [Array<Twitter::Status>]
       # @example Return the 20 most recent statuses, including retweets if they exist, from non-protected users
       #   Twitter.public_timeline
       def public_timeline(options={})
-        get("/1/statuses/public_timeline.json", options)
+        get("/1/statuses/public_timeline.json", options).map do |status|
+          Twitter::Status.new(status)
+        end
       end
 
       # Returns the 20 most recent statuses, including retweets if they exist, posted by the authenticating user and the users they follow
@@ -31,11 +35,13 @@ module Twitter
       # @option options [Integer] :page Specifies the page of results to retrieve.
       # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
-      # @return [Array]
+      # @return [Array<Twitter::Status>]
       # @example Return the 20 most recent statuses, including retweets if they exist, posted by the authenticating user and the users they follow
       #   Twitter.home_timeline
       def home_timeline(options={})
-        get("/1/statuses/home_timeline.json", options)
+        get("/1/statuses/home_timeline.json", options).map do |status|
+          Twitter::Status.new(status)
+        end
       end
 
       # Returns the 20 most recent statuses posted by the specified user
@@ -54,14 +60,16 @@ module Twitter
       #   @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       #   @option options [Boolean, String, Integer] :include_rts The timeline will contain native retweets (if they exist) in addition to the standard stream of tweets when set to true, 't' or 1.
       #   @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
-      #   @return [Array]
+      #   @return [Array<Twitter::Status>]
       #   @example Return the 20 most recent statuses posted by @sferik
       #     Twitter.user_timeline("sferik")
       def user_timeline(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
         user = args.pop || get_screen_name
         merge_user_into_options!(user, options)
-        get("/1/statuses/user_timeline.json", options)
+        get("/1/statuses/user_timeline.json", options).map do |status|
+          Twitter::Status.new(status)
+        end
       end
 
       # Returns the 20 most recent mentions (statuses containing @username) for the authenticating user
@@ -78,11 +86,13 @@ module Twitter
       # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       # @option options [Boolean, String, Integer] :include_rts The timeline will contain native retweets (if they exist) in addition to the standard stream of tweets when set to true, 't' or 1.
       # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
-      # @return [Array]
+      # @return [Array<Twitter::Status>]
       # @example Return the 20 most recent mentions (statuses containing @username) for the authenticating user
       #   Twitter.mentions
       def mentions(options={})
-        get("/1/statuses/mentions.json", options)
+        get("/1/statuses/mentions.json", options).map do |status|
+          Twitter::Status.new(status)
+        end
       end
 
       # Returns the 20 most recent retweets posted by the authenticating user
@@ -97,11 +107,13 @@ module Twitter
       # @option options [Integer] :page Specifies the page of results to retrieve.
       # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
-      # @return [Array]
+      # @return [Array<Twitter::Status>]
       # @example Return the 20 most recent retweets posted by the authenticating user
       #   Twitter.retweeted_by_me
       def retweeted_by_me(options={})
-        get("/1/statuses/retweeted_by_me.json", options)
+        get("/1/statuses/retweeted_by_me.json", options).map do |status|
+          Twitter::Status.new(status)
+        end
       end
 
       # Returns the 20 most recent retweets posted by users followed by the authenticating user
@@ -116,11 +128,13 @@ module Twitter
       # @option options [Integer] :page Specifies the page of results to retrieve.
       # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
-      # @return [Array]
+      # @return [Array<Twitter::Status>]
       # @example Return the 20 most recent retweets posted by users followed by the authenticating user
       #   Twitter.retweeted_to_me
       def retweeted_to_me(options={})
-        get("/1/statuses/retweeted_to_me.json", options)
+        get("/1/statuses/retweeted_to_me.json", options).map do |status|
+          Twitter::Status.new(status)
+        end
       end
 
       # Returns the 20 most recent tweets of the authenticated user that have been retweeted by others
@@ -135,11 +149,13 @@ module Twitter
       # @option options [Integer] :page Specifies the page of results to retrieve.
       # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
-      # @return [Array]
+      # @return [Array<Twitter::Status>]
       # @example Return the 20 most recent tweets of the authenticated user that have been retweeted by others
       #   Twitter.retweets_of_me
       def retweets_of_me(options={})
-        get("/1/statuses/retweets_of_me.json", options)
+        get("/1/statuses/retweets_of_me.json", options).map do |status|
+          Twitter::Status.new(status)
+        end
       end
 
       # Returns the 20 most recent images posted by the specified user
@@ -156,14 +172,16 @@ module Twitter
       #   @option options [Integer] :page Specifies the page of results to retrieve.
       #   @option options [Boolean] :filter Include possibly sensitive media when set to false, 'f' or 0.
       #   @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
-      #   @return [Array]
+      #   @return [Array<Twitter::Status>]
       #   @example Return the 20 most recent statuses posted by @sferik
       #     Twitter.media_timeline("sferik")
       def media_timeline(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
         user = args.pop || get_screen_name
         merge_user_into_options!(user, options)
-        get("/1/statuses/media_timeline.json", options)
+        get("/1/statuses/media_timeline.json", options).map do |status|
+          Twitter::Status.new(status)
+        end
       end
     end
   end
