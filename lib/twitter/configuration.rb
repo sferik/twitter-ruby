@@ -52,7 +52,7 @@ module Twitter
     DEFAULT_SEARCH_ENDPOINT = 'https://search.twitter.com'.freeze
 
     # The value sent in the 'User-Agent' header if none is set
-    DEFAULT_USER_AGENT = "Twitter Ruby Gem #{Twitter::VERSION}".freeze
+    DEFAULT_USER_AGENT = "Twitter Ruby Gem #{Twitter::Version}".freeze
 
     DEFAULT_GATEWAY = nil
 

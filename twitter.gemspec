@@ -38,5 +38,5 @@ eos
   gem.required_rubygems_version = Gem::Requirement.new('>= 1.3.6')
   gem.summary = %q{Twitter API wrapper}
   gem.test_files = `git ls-files -- {test,spec,features}/*`.split("\n")
-  gem.version = Twitter::VERSION.dup
+  gem.version = Twitter::Version.to_s
 end
