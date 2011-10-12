@@ -148,7 +148,8 @@ describe Twitter::Client do
 
     it "should return detailed information about the relationship between two users" do
       relationship = @client.friendship(:source_screen_name => "sferik", :target_screen_name => "pengwynn")
-      relationship.source.screen_name.should == "sferik"
+      relationship.should be_a Hash
+      relationship['source']['screen_name'].should == "sferik"
     end
 
   end
@@ -169,9 +170,10 @@ describe Twitter::Client do
     end
 
     it "should return an array of numeric IDs for every user who has a pending request to follow the authenticating user" do
-      id_list = @client.friendships_incoming
-      id_list.ids.should be_an Array
-      id_list.ids.first.should == 146197851
+      friendships_incoming = @client.friendships_incoming
+      friendships_incoming.should be_a Hash
+      friendships_incoming['ids'].should be_an Array
+      friendships_incoming['ids'].first.should == 146197851
     end
 
   end
@@ -192,9 +194,10 @@ describe Twitter::Client do
     end
 
     it "should return an array of numeric IDs for every protected user for whom the authenticating user has a pending follow request" do
-      id_list = @client.friendships_outgoing
-      id_list.ids.should be_an Array
-      id_list.ids.first.should == 146197851
+      friendships_outgoing = @client.friendships_outgoing
+      friendships_outgoing.should be_a Hash
+      friendships_outgoing['ids'].should be_an Array
+      friendships_outgoing['ids'].first.should == 146197851
     end
   end
 end

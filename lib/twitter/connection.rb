@@ -2,7 +2,6 @@ require 'twitter/request/gateway'
 require 'twitter/request/multipart_with_file'
 require 'twitter/request/phoenix'
 require 'twitter/request/oauth'
-require 'twitter/response/mashify'
 require 'twitter/response/parse_json'
 require 'twitter/response/raise_http_4xx'
 require 'twitter/response/raise_http_5xx'
@@ -30,10 +29,7 @@ module Twitter
         builder.use Faraday::Request::UrlEncoded
         builder.use Twitter::Request::Gateway, gateway if gateway
         builder.use Twitter::Response::RaiseHttp4xx
-        unless options[:raw]
-          builder.use Twitter::Response::Mashify
-          builder.use Twitter::Response::ParseJson
-        end
+        builder.use Twitter::Response::ParseJson unless options[:raw]
         builder.use Twitter::Response::RaiseHttp5xx
         builder.adapter(adapter)
       end

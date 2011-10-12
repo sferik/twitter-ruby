@@ -251,7 +251,8 @@ describe Twitter::Client do
 
       it "should return the users in a given category of the Twitter suggested user list" do
         category = @client.suggestions("art-design")
-        category.name.should == "Art & Design"
+        category.should be_a Hash
+        category['name'].should == "Art & Design"
       end
 
     end
@@ -272,7 +273,8 @@ describe Twitter::Client do
       it "should return the list of suggested user categories" do
         suggestions = @client.suggestions
         suggestions.should be_an Array
-        suggestions.first.name.should == "Art & Design"
+        suggestions.first.should be_a Hash
+        suggestions.first['name'].should == "Art & Design"
       end
 
     end

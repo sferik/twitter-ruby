@@ -59,7 +59,7 @@ module Twitter
       # @option options [String] :display_coordinates Whether or not to put a pin on the exact coordinates a tweet has been sent from.
       # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       # @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
-      # @return [Hashie::Mash] The created status.
+      # @return [Twitter::Status] The created status.
       # @see http://dev.twitter.com/docs/api/1/post/statuses/update_with_media
       # @example Update the authenticating user's status
       #   When you have a File instance (e.g. the pic is already on your disk)
@@ -68,7 +68,8 @@ module Twitter
       #     download the pic and put the response in a StringIO object
       #   Twitter.update_with_media("I just posted a status update with a pic via the Twitter Ruby Gem!", {'io' => StringIO.new(pic), 'type' => 'jpg'})
       def update_with_media(status, image, options={})
-        post("/1/statuses/update_with_media.json", options.merge('media[]' => image, 'status' => status), :endpoint => media_endpoint)
+        status = post("/1/statuses/update_with_media.json", options.merge('media[]' => image, 'status' => status), :endpoint => media_endpoint)
+        Twitter::Status.new(status)
       end
 
       # Destroys the specified status

@@ -70,7 +70,7 @@ module Twitter
       # @option options [String] :source_screen_name The screen_name of the subject user.
       # @option options [Integer] :target_id The ID of the target user.
       # @option options [String] :target_screen_name The screen_name of the target user.
-      # @return [Hashie::Mash]
+      # @return [Hash]
       # @example Return the relationship between @sferik and @pengwynn
       #   Twitter.friendship(:source_screen_name => "sferik", :target_screen_name => "pengwynn")
       #   Twitter.friendship(:source_id => 7505382, :target_id => 14100886)
@@ -86,7 +86,7 @@ module Twitter
       # @requires_authentication Yes
       # @param options [Hash] A customizable set of options.
       # @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
-      # @return [Hashie::Mash]
+      # @return [Hash]
       # @example Return an array of numeric IDs for every user who has a pending request to follow the authenticating user
       #   Twitter.friendships_incoming
       def friendships_incoming(options={})
@@ -101,7 +101,7 @@ module Twitter
       # @requires_authentication Yes
       # @param options [Hash] A customizable set of options.
       # @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
-      # @return [Hashie::Mash]
+      # @return [Hash]
       # @example Return an array of numeric IDs for every protected user for whom the authenticating user has a pending follow request
       #   Twitter.friendships_outgoing
       def friendships_outgoing(options={})

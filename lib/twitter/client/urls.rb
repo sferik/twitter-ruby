@@ -10,7 +10,7 @@ module Twitter
       # @overload resolve(urls, options={})
       #   @param urls [String] A list of shortened URLs.
       #   @param options [Hash] A customizable set of options.
-      #   @return [Hashie::Mash] A hash of URLs with the shortened URLs as the key
+      #   @return [Hash] A hash of URLs with the shortened URLs as the key
       # @example Return the canonical version of a URL shortened by Twitter
       #   Twitter.resolve('http://t.co/uw5bn1w', 'http://t.co/dXvMz9i')
       #   Twitter.resolve(['http://t.co/uw5bn1w', 'http://t.co/dXvMz9i']) # Same as above

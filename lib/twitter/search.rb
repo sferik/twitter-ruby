@@ -450,7 +450,7 @@ module Twitter
     def fetch_next_page
       if next_page?
         @cache = get("/search.json", CGI.parse(@cache["next_page"][1..-1]), :format => :json)
-        @cache.results
+        @cache['results']
       end
     end
 
@@ -466,12 +466,12 @@ module Twitter
         options[:q] = options[:q].join(" ")
         @cache = get("/search.json", options, :format => :json)
       end
-      @cache.results
+      @cache['results']
     end
 
     # Calls block once for each element in self, passing that element as a parameter
     #
-    # @yieldparam [Hashie::Mash] result Tweet that matches specified query.
+    # @yieldparam [Hash] result Tweet that matches specified query.
     # @return [Array] Tweets that match specified query.
     # @example
     #   Twitter::Search.new.containing('marry me').to('justinbieber').each do |result|

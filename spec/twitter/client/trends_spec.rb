@@ -43,7 +43,8 @@ describe Twitter::Client do
 
     it "should return the top 20 trending topics for each hour in a given day" do
       trends = @client.trends_daily(Date.parse("2010-10-24"))
-      trends["2010-10-24 17:00"].first.name.should == "#bigbangcomeback"
+      trends.should be_a Hash
+      trends["2010-10-24 17:00"].first['name'].should == "#bigbangcomeback"
     end
 
   end
@@ -65,7 +66,8 @@ describe Twitter::Client do
 
     it "should return the top 30 trending topics for each day in a given week" do
       trends = @client.trends_weekly(Date.parse("2010-10-24"))
-      trends["2010-10-23"].first.name.should == "#unfollowmeif"
+      trends.should be_a Hash
+      trends["2010-10-23"].first['name'].should == "#unfollowmeif"
     end
   end
 end

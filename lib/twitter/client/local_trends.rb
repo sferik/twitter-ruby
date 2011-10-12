@@ -30,8 +30,9 @@ module Twitter
       # @example Return the top 10 trending topics for San Francisco
       #   Twitter.local_trends(2487956)
       def local_trends(woeid=1, options={})
-        response = get("/1/trends/#{woeid}.json", options)
-        response.first.trends.map{|trend| trend.name}
+        get("/1/trends/#{woeid}.json", options).first['trends'].map do |trend|
+          trend['name']
+        end
       end
     end
   end

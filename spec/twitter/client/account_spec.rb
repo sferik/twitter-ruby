@@ -41,7 +41,8 @@ describe Twitter::Client do
 
     it "should return the remaining number of API requests available to the requesting user before the API limit is reached" do
       rate_limit_status = @client.rate_limit_status
-      rate_limit_status.remaining_hits.should == 19993
+      rate_limit_status.should be_a Hash
+      rate_limit_status['remaining_hits'].should == 19993
     end
 
   end
@@ -61,7 +62,7 @@ describe Twitter::Client do
 
     it "should return a null cookie" do
       end_session = @client.end_session
-      end_session.error.should == "Logged out."
+      end_session['error'].should == "Logged out."
     end
 
   end
@@ -189,6 +190,12 @@ describe Twitter::Client do
         should have_been_made
     end
 
+    it "should return a hash" do
+      totals = @client.totals
+      totals.should be_a Hash
+      totals['favorites'].should == 2811
+    end
+
   end
 
   describe ".settings" do
@@ -205,6 +212,12 @@ describe Twitter::Client do
       @client.settings
       a_get("/1/account/settings.json").
         should have_been_made
+    end
+
+    it "should return a hash" do
+      settings = @client.settings
+      settings.should be_a Hash
+      settings['language'].should == 'en'
     end
 
     it "should get the correct resource on POST" do

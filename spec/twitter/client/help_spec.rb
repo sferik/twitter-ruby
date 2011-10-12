@@ -20,7 +20,8 @@ describe Twitter::Client do
 
     it "should return Twitter's current configuration" do
       configuration = @client.configuration
-      configuration.characters_reserved_per_media.to_s.should == '20'
+      configuration.should be_a Hash
+      configuration['characters_reserved_per_media'].should == 20
     end
 
   end
@@ -40,7 +41,9 @@ describe Twitter::Client do
 
     it "should return the list of languages supported by Twitter" do
       languages = @client.languages
-      languages.first.name.should == "Portuguese"
+      languages.should be_an Array
+      languages.first.should be_a Hash
+      languages.first['name'].should == "Portuguese"
     end
   end
 end

@@ -7,7 +7,7 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1/get/help/configuration
       # @rate_limited Yes
       # @requires_authentication No
-      # @return [Hashie::Mash] Twitter's configuration.
+      # @return [Hash] Twitter's configuration.
       # @example Return the current configuration used by Twitter
       #   Twitter.configuration
       def configuration(options={})
@@ -19,7 +19,7 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1/get/help/languages
       # @rate_limited Yes
       # @requires_authentication No
-      # @return [Array]
+      # @return [Array<Hash>]
       # @example Return the list of languages Twitter supports
       #   Twitter.languages
       def languages(options={})
