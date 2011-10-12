@@ -14,7 +14,7 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'webmock', '~> 1.7'
   gem.add_development_dependency 'yard', '~> 0.7'
   gem.authors = ["John Nunemaker", "Wynn Netherland", "Erik Michaels-Ober", "Steve Richert"]
-  gem.description = %q{A Ruby wrapper for the Twitter REST and Search APIs}
+  gem.description = %q{A Ruby wrapper for the Twitter API.}
   gem.email = ['nunemaker@gmail.com', 'wynn.netherland@gmail.com', 'sferik@gmail.com', 'steve.richert@gmail.com']
   gem.executables = `git ls-files -- bin/*`.split("\n").map{|f| File.basename(f)}
   gem.files = `git ls-files`.split("\n")
@@ -36,7 +36,7 @@ Gem::Specification.new do |gem|
 eos
   gem.require_paths = ['lib']
   gem.required_rubygems_version = Gem::Requirement.new('>= 1.3.6')
-  gem.summary = %q{Ruby wrapper for the Twitter API}
+  gem.summary = %q{Twitter API wrapper}
   gem.test_files = `git ls-files -- {test,spec,features}/*`.split("\n")
   gem.version = Twitter::VERSION.dup
 end

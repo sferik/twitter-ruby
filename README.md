@@ -1,5 +1,5 @@
 # The Twitter Ruby Gem
-A Ruby wrapper for the Twitter REST and Search APIs
+A Ruby wrapper for the Twitter API.
 
 ## <a name="installation">Installation</a>
     gem install twitter
