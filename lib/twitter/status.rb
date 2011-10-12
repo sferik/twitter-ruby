@@ -1,6 +1,7 @@
 require 'twitter/base'
 require 'twitter/creatable'
 require 'twitter/geo_factory'
+require 'twitter/media_factory'
 require 'twitter/place'
 require 'twitter/user'
 require 'twitter-text'
@@ -16,7 +17,7 @@ module Twitter
     alias :truncated? :truncated
 
     def ==(other)
-      super || id == other.id
+      super || (other.class == self.class && other.id == self.id)
     end
 
     def geo
@@ -28,7 +29,11 @@ module Twitter
     end
 
     def media
-      @entities['media'] if @entities
+      if @entities
+        @entities['media'].map do |media|
+          MediaFactory.new(media)
+        end
+      end
     end
 
     def place

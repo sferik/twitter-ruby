@@ -9,7 +9,7 @@ module Twitter
       :sender_screen_name, :text
 
     def ==(other)
-      super || id == other.id
+      super || (other.class == self.class && other.id == self.id)
     end
 
     def recipient

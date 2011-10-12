@@ -4,15 +4,21 @@ describe Twitter::User do
 
   describe "#==" do
 
-    it "should return true when ids are equal" do
-      user = Twitter::User.new(:id => 1)
-      other = Twitter::User.new(:id => 1)
+    it "should return true when ids and classes are equal" do
+      user = Twitter::User.new('id' => 1)
+      other = Twitter::User.new('id' => 1)
       (user == other).should be_true
     end
 
+    it "should return false when classes are not equal" do
+      user = Twitter::User.new('id' => 1)
+      other = Twitter::Status.new('id' => 1)
+      (user == other).should be_false
+    end
+
     it "should return false when ids are not equal" do
-      user = Twitter::User.new(:id => 1)
-      other = Twitter::User.new(:id => 2)
+      user = Twitter::User.new('id' => 1)
+      other = Twitter::User.new('id' => 2)
       (user == other).should be_false
     end
 
@@ -21,7 +27,7 @@ describe Twitter::User do
   describe "#created_at" do
 
     it "should return a Time when created_at is set" do
-      user = Twitter::User.new(:created_at => "Mon Jul 16 12:59:01 +0000 2007")
+      user = Twitter::User.new('created_at' => "Mon Jul 16 12:59:01 +0000 2007")
       user.created_at.should be_a Time
     end
 
@@ -35,7 +41,7 @@ describe Twitter::User do
   describe "#status" do
 
     it "should return a Status when status is set" do
-      status = Twitter::User.new(:status => {}).status
+      status = Twitter::User.new('status' => {}).status
       status.should be_a Twitter::Status
     end
 

@@ -32,7 +32,7 @@ module Twitter
     alias :verified? :verified
 
     def ==(other)
-      super || id == other.id
+      super || (other.class == self.class && other.id == self.id)
     end
 
     # Get a user's status

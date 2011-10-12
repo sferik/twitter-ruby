@@ -7,7 +7,7 @@ module Twitter
       :place_type, :url
 
     def ==(other)
-      super || id == other.id
+      super || (other.class == self.class && other.id == self.id)
     end
 
     def bounding_box

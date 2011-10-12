@@ -5,7 +5,7 @@ module Twitter
     attr_reader :coordinates
 
     def ==(other)
-      super || coordinates == other.coordinates
+      super || (other.class == self.class && other.coordinates == self.coordinates)
     end
   end
 end

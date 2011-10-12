@@ -8,7 +8,7 @@ module Twitter
     alias :following? :following
 
     def ==(other)
-      super || id == other.id
+      super || (other.class == self.class && other.id == self.id)
     end
 
     def user
