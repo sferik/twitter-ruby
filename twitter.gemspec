@@ -5,6 +5,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'faraday', '~> 0.7.4'
   gem.add_dependency 'multi_json', '~> 1.0.0'
   gem.add_dependency 'simple_oauth', '~> 0.1.5'
+  gem.add_dependency 'twitter-text', '~> 1.4.2'
   gem.add_development_dependency 'json', '~> 1.6'
   gem.add_development_dependency 'rake', '~> 0.9'
   gem.add_development_dependency 'rdiscount', '~> 1.6'

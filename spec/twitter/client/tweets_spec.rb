@@ -67,7 +67,7 @@ describe Twitter::Client do
       status.text.should include("You always have options")
     end
 
-    pending 'should return the media as an entity' do
+    it 'should return the media as an entity' do
       status = @client.update_with_media("You always have options", fixture("me.jpeg"))
       status.media.should be
     end

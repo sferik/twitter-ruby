@@ -46,6 +46,36 @@ describe Twitter::Status do
 
   end
 
+  describe "#hashtags" do
+
+    it "should return hashtags" do
+      hashtags = Twitter::Status.new(:text => "This tweet contains a #hashtag.").hashtags
+      hashtags.should be_an Array
+      hashtags.first.should == "hashtag"
+    end
+
+    it "should return nil when not set" do
+      hashtags = Twitter::Status.new.hashtags
+      hashtags.should be_nil
+    end
+
+  end
+
+  describe "#media" do
+
+    it "should return media" do
+      media = Twitter::Status.new(:entities => {'media' => [{'type' => 'photo'}]}).media
+      media.should be_an Array
+      media.first['type'].should == 'photo'
+    end
+
+    it "should return nil when not set" do
+      media = Twitter::Status.new.media
+      media.should be_nil
+    end
+
+  end
+
   describe "#place" do
 
     it "should return a Twitter::Place when set" do
@@ -60,6 +90,21 @@ describe Twitter::Status do
 
   end
 
+  describe "#url" do
+
+    it "should return urls" do
+      urls = Twitter::Status.new(:text => "This tweet contains a http://example.com.").urls
+      urls.should be_an Array
+      urls.first.should == "http://example.com"
+    end
+
+    it "should return nil when not set" do
+      urls = Twitter::Status.new.urls
+      urls.should be_nil
+    end
+
+  end
+
   describe "#user" do
 
     it "should return a User when user is set" do
@@ -70,6 +115,21 @@ describe Twitter::Status do
     it "should return nil when user is not set" do
       user = Twitter::Status.new.user
       user.should be_nil
+    end
+
+  end
+
+  describe "#user_mentions" do
+
+    it "should return urls" do
+      user_mentions = Twitter::Status.new(:text => "This tweet contains a @mention.").user_mentions
+      user_mentions.should be_an Array
+      user_mentions.first.should == "mention"
+    end
+
+    it "should return nil when not set" do
+      user_mentions = Twitter::Status.new.user_mentions
+      user_mentions.should be_nil
     end
 
   end
