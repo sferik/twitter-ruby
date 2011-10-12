@@ -132,25 +132,25 @@ module Twitter
       # @note Must be owned by the authenticated user.
       # @rate_limited No
       # @requires_authentication Yes
-      # @overload list_delete(list, options={})
+      # @overload list_destroy(list, options={})
       #   @param list [Integer, String] The list_id or slug of the list.
       #   @param options [Hash] A customizable set of options.
       #   @return [Twitter::List] The deleted list.
       #   @example Delete the authenticated user's "presidents" list
-      #     Twitter.list_delete("/presidents")
-      #     Twitter.list_delete(8863586)
-      # @overload list_delete(user, list, options={})
+      #     Twitter.list_destroy("/presidents")
+      #     Twitter.list_destroy(8863586)
+      # @overload list_destroy(user, list, options={})
       #   @param user [Integer, String] A Twitter user ID or screen name.
       #   @param list [Integer, String] The list_id or slug of the list.
       #   @param options [Hash] A customizable set of options.
       #   @return [Twitter::List] The deleted list.
       #   @example Delete @sferik's "presidents" list
-      #     Twitter.list_delete("/sferik", "presidents")
-      #     Twitter.list_delete("/sferik", 8863586)
-      #     Twitter.list_delete(7505382, "presidents")
-      #     Twitter.list_delete(7505382, 8863586)
+      #     Twitter.list_destroy("/sferik", "presidents")
+      #     Twitter.list_destroy("/sferik", 8863586)
+      #     Twitter.list_destroy(7505382, "presidents")
+      #     Twitter.list_destroy(7505382, 8863586)
       # @return [Twitter::List] The deleted list.
-      def list_delete(*args)
+      def list_destroy(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
         list = args.pop
         user = args.pop || get_screen_name

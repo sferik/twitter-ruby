@@ -259,7 +259,7 @@ describe Twitter::Client do
 
   end
 
-  describe ".list_delete" do
+  describe ".list_destroy" do
 
     context "with a screen name passed" do
 
@@ -270,14 +270,14 @@ describe Twitter::Client do
       end
 
       it "should get the correct resource" do
-        @client.list_delete("sferik", "presidents")
+        @client.list_destroy("sferik", "presidents")
         a_delete("/1/lists/destroy.json").
           with(:query => {:owner_screen_name => 'sferik', :slug => 'presidents'}).
           should have_been_made
       end
 
       it "should return the deleted list" do
-        list = @client.list_delete("sferik", "presidents")
+        list = @client.list_destroy("sferik", "presidents")
         list.should be_a Twitter::List
         list.name.should == "presidents"
       end
@@ -294,7 +294,7 @@ describe Twitter::Client do
       end
 
       it "should get the correct resource" do
-        @client.list_delete("sferik", "presidents")
+        @client.list_destroy("sferik", "presidents")
         a_delete("/1/lists/destroy.json").
           with(:query => {:owner_screen_name => 'sferik', :slug => 'presidents'}).
           should have_been_made
@@ -311,7 +311,7 @@ describe Twitter::Client do
       end
 
       it "should get the correct resource" do
-        @client.list_delete("sferik", 12345678)
+        @client.list_destroy("sferik", 12345678)
         a_delete("/1/lists/destroy.json").
           with(:query => {:owner_screen_name => 'sferik', :list_id => '12345678'}).
           should have_been_made
@@ -328,7 +328,7 @@ describe Twitter::Client do
       end
 
       it "should get the correct resource" do
-        @client.list_delete(12345678, 'presidents')
+        @client.list_destroy(12345678, 'presidents')
         a_delete("/1/lists/destroy.json").
           with(:query => {:owner_id => '12345678', :slug => 'presidents'}).
           should have_been_made

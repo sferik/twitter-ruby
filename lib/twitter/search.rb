@@ -410,9 +410,9 @@ module Twitter
     #
     # @return [Twitter::Search] self
     # @example Return an array of tweets containing "twitter", including the entities in the tweets.
-    #   Twitter::Search.new.containing("twitter").include_entities().fetch
+    #   Twitter::Search.new.containing("twitter").include_entities.fetch
     #
-    def include_entities()
+    def include_entities
       @query[:include_entities] = true
       self
     end
@@ -421,9 +421,9 @@ module Twitter
     #
     # @return [Twitter::Search] self
     # @example Return an array of tweets containing "twitter", and populate the to_user_id and from_user_id fields with the "official" user ids - not the search ones.
-    #   Twitter::Search.new.containing("twitter").with_twitter_user_id().fetch
+    #   Twitter::Search.new.containing("twitter").with_twitter_user_id.fetch
     #
-    def with_twitter_user_id()
+    def with_twitter_user_id
       @query[:with_twitter_user_id] = true
       self
     end
