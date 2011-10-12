@@ -1,5 +1,9 @@
 $:.unshift File.expand_path('..', __FILE__)
 $:.unshift File.expand_path('../../lib', __FILE__)
+
+major, minor, patch = RUBY_VERSION.split('.')
+$KCODE = 'UTF8' if major.to_i == 1 && minor.to_i < 9
+
 require 'simplecov'
 SimpleCov.start
 require 'twitter'
