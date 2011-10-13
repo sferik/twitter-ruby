@@ -83,6 +83,10 @@ Version 2 also includes some advanced Tweet-parsing methods, for example:
 This tweet parsing is performed by [twitter-text][], Twitter's official text
 processing library, so it should be consistent with all other Twitter services.
 
+Note: All error classes have been moved inside the `Twitter::Error` namespace.
+If you were previously rescuing `Twitter::NotFound` you'll need to change that
+to `Twitter::Error::NotFound`.
+
 [twitter-text]: https://github.com/twitter/twitter-text-rb
 
 ## <a href="performance"></a>Performance
