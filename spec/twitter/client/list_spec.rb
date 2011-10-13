@@ -123,10 +123,10 @@ describe Twitter::Client do
 
       it "should return the updated list" do
         lists = @client.lists("sferik")
-        lists.should be_a Hash
-        lists['lists'].should be_an Array
-        lists['lists'].first.should be_a Twitter::List
-        lists['lists'].first.name.should == "Rubyists"
+        lists.should be_a Twitter::Paginator
+        lists.lists.should be_an Array
+        lists.lists.first.should be_an Twitter::List
+        lists.lists.first.name.should == "Rubyists"
       end
 
     end
@@ -148,10 +148,10 @@ describe Twitter::Client do
 
       it "should return the updated list" do
         lists = @client.lists(12345678)
-        lists.should be_a Hash
-        lists['lists'].should be_an Array
-        lists['lists'].first.should be_a Twitter::List
-        lists['lists'].first.name.should == "Rubyists"
+        lists.should be_a Twitter::Paginator
+        lists.lists.should be_an Array
+        lists.lists.first.should be_an Twitter::List
+        lists.lists.first.name.should == "Rubyists"
       end
 
     end
@@ -173,10 +173,10 @@ describe Twitter::Client do
 
       it "should return the updated list" do
         lists = @client.lists
-        lists.should be_a Hash
-        lists['lists'].should be_an Array
-        lists['lists'].first.should be_a Twitter::List
-        lists['lists'].first.name.should == "Rubyists"
+        lists.should be_a Twitter::Paginator
+        lists.lists.should be_an Array
+        lists.lists.first.should be_an Twitter::List
+        lists.lists.first.name.should == "Rubyists"
       end
 
     end
@@ -446,11 +446,11 @@ describe Twitter::Client do
       end
 
       it "should return the lists the specified user has been added to" do
-        lists = @client.memberships("pengwynn")
-        lists.should be_a Hash
-        lists['lists'].should be_an Array
-        lists['lists'].first.should be_an Twitter::List
-        lists['lists'].first.name.should == "Rubyists"
+        memberships = @client.memberships("pengwynn")
+        memberships.should be_a Twitter::Paginator
+        memberships.lists.should be_an Array
+        memberships.lists.first.should be_an Twitter::List
+        memberships.lists.first.name.should == "Rubyists"
       end
 
     end
@@ -465,18 +465,18 @@ describe Twitter::Client do
       end
 
       it "should get the correct resource" do
-        @client.memberships("pengwynn")
+        @client.memberships
         a_get("/1/lists/memberships.json").
           with(:query => {:screen_name => 'pengwynn', :cursor => "-1"}).
           should have_been_made
       end
 
       it "should return the lists the specified user has been added to" do
-        lists = @client.memberships("pengwynn")
-        lists.should be_a Hash
-        lists['lists'].should be_an Array
-        lists['lists'].first.should be_an Twitter::List
-        lists['lists'].first.name.should == "Rubyists"
+        memberships = @client.memberships
+        memberships.should be_a Twitter::Paginator
+        memberships.lists.should be_an Array
+        memberships.lists.first.should be_an Twitter::List
+        memberships.lists.first.name.should == "Rubyists"
       end
 
     end
@@ -518,11 +518,11 @@ describe Twitter::Client do
       end
 
       it "should return the lists the specified user follows" do
-        lists = @client.subscriptions("pengwynn")
-        lists.should be_a Hash
-        lists['lists'].should be_an Array
-        lists['lists'].first.should be_an Twitter::List
-        lists['lists'].first.name.should == "Rubyists"
+        subscriptions = @client.subscriptions("pengwynn")
+        subscriptions.should be_a Twitter::Paginator
+        subscriptions.lists.should be_an Array
+        subscriptions.lists.first.should be_an Twitter::List
+        subscriptions.lists.first.name.should == "Rubyists"
       end
 
     end
@@ -537,18 +537,18 @@ describe Twitter::Client do
       end
 
       it "should get the correct resource" do
-        @client.subscriptions("pengwynn")
+        @client.subscriptions
         a_get("/1/lists/subscriptions.json").
           with(:query => {:screen_name => 'pengwynn', :cursor => "-1"}).
           should have_been_made
       end
 
       it "should return the lists the specified user follows" do
-        lists = @client.subscriptions("pengwynn")
-        lists.should be_a Hash
-        lists['lists'].should be_an Array
-        lists['lists'].first.should be_an Twitter::List
-        lists['lists'].first.name.should == "Rubyists"
+        subscriptions = @client.subscriptions
+        subscriptions.should be_a Twitter::Paginator
+        subscriptions.lists.should be_an Array
+        subscriptions.lists.first.should be_an Twitter::List
+        subscriptions.lists.first.name.should == "Rubyists"
       end
 
     end

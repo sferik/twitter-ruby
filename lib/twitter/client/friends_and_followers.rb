@@ -1,3 +1,5 @@
+require 'twitter/paginator'
+
 module Twitter
   class Client
     # Defines methods related to friends and followers
@@ -12,7 +14,7 @@ module Twitter
       #
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. This is recommended for users who are following many users. Provide a value of -1 to begin paging. Provide values as returned in the response body's next_cursor and previous_cursor attributes to page back and forth in the list.
-      #   @return [Hash]
+      #   @return [Twitter::Paginator]
       #   @example Return the authenticated user's friends' IDs
       #     Twitter.friend_ids
       # @overload friend_ids(user, options={})
@@ -21,7 +23,7 @@ module Twitter
       #   @param user [Integer, String] A Twitter user ID or screen name.
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
-      #   @return [Hash]
+      #   @return [Twitter::Paginator]
       #   @example Return @sferik's friends' IDs
       #     Twitter.friend_ids("sferik")
       #     Twitter.friend_ids(7505382)  # Same as above
@@ -30,7 +32,8 @@ module Twitter
         options.merge!(args.last.is_a?(Hash) ? args.pop : {})
         user = args.first
         merge_user_into_options!(user, options)
-        get("/1/friends/ids.json", options)
+        paginator = get("/1/friends/ids.json", options)
+        Twitter::Paginator.new(paginator, 'ids')
       end
 
       # @see https://dev.twitter.com/docs/api/1/get/followers/ids
@@ -43,7 +46,7 @@ module Twitter
       #
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
-      #   @return [Hash]
+      #   @return [Twitter::Paginator]
       #   @example Return the authenticated user's followers' IDs
       #     Twitter.follower_ids
       # @overload follower_ids(user, options={})
@@ -52,7 +55,7 @@ module Twitter
       #   @param user [Integer, String] A Twitter user ID or screen name.
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. This is recommended for users who are following many users. Provide a value of -1 to begin paging. Provide values as returned in the response body's next_cursor and previous_cursor attributes to page back and forth in the list.
-      #   @return [Hash]
+      #   @return [Twitter::Paginator]
       #   @example Return @sferik's followers' IDs
       #     Twitter.follower_ids("sferik")
       #     Twitter.follower_ids(7505382)  # Same as above
@@ -61,7 +64,8 @@ module Twitter
         options.merge!(args.last.is_a?(Hash) ? args.pop : {})
         user = args.first
         merge_user_into_options!(user, options)
-        get("/1/followers/ids.json", options)
+        paginator = get("/1/followers/ids.json", options)
+        Twitter::Paginator.new(paginator, 'ids')
       end
     end
   end
