@@ -23,13 +23,13 @@ Gem::Specification.new do |gem|
   gem.post_install_message =<<eos
 ********************************************************************************
 
-  Follow @gem on Twitter for announcements, updates, and news.
+  You should follow @gem on Twitter for announcements and updates about the gem.
   https://twitter.com/gem
 
-  Join the mailing list!
+  Please direct any questions about the library to the mailing list.
   https://groups.google.com/group/ruby-twitter-gem
 
-  Add your project or organization to the apps wiki!
+  Does your project or organization use this gem? Add it to the apps wiki!
   https://github.com/jnunemaker/twitter/wiki/apps
 
 ********************************************************************************
