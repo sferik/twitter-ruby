@@ -123,7 +123,7 @@ describe Twitter::Client do
 
       it "should return the updated list" do
         lists = @client.lists("sferik")
-        lists.should be_a Twitter::Paginator
+        lists.should be_a Twitter::Cursor
         lists.lists.should be_an Array
         lists.lists.first.should be_an Twitter::List
         lists.lists.first.name.should == "Rubyists"
@@ -148,7 +148,7 @@ describe Twitter::Client do
 
       it "should return the updated list" do
         lists = @client.lists(12345678)
-        lists.should be_a Twitter::Paginator
+        lists.should be_a Twitter::Cursor
         lists.lists.should be_an Array
         lists.lists.first.should be_an Twitter::List
         lists.lists.first.name.should == "Rubyists"
@@ -173,7 +173,7 @@ describe Twitter::Client do
 
       it "should return the updated list" do
         lists = @client.lists
-        lists.should be_a Twitter::Paginator
+        lists.should be_a Twitter::Cursor
         lists.lists.should be_an Array
         lists.lists.first.should be_an Twitter::List
         lists.lists.first.name.should == "Rubyists"
@@ -447,7 +447,7 @@ describe Twitter::Client do
 
       it "should return the lists the specified user has been added to" do
         memberships = @client.memberships("pengwynn")
-        memberships.should be_a Twitter::Paginator
+        memberships.should be_a Twitter::Cursor
         memberships.lists.should be_an Array
         memberships.lists.first.should be_an Twitter::List
         memberships.lists.first.name.should == "Rubyists"
@@ -473,7 +473,7 @@ describe Twitter::Client do
 
       it "should return the lists the specified user has been added to" do
         memberships = @client.memberships
-        memberships.should be_a Twitter::Paginator
+        memberships.should be_a Twitter::Cursor
         memberships.lists.should be_an Array
         memberships.lists.first.should be_an Twitter::List
         memberships.lists.first.name.should == "Rubyists"
@@ -519,7 +519,7 @@ describe Twitter::Client do
 
       it "should return the lists the specified user follows" do
         subscriptions = @client.subscriptions("pengwynn")
-        subscriptions.should be_a Twitter::Paginator
+        subscriptions.should be_a Twitter::Cursor
         subscriptions.lists.should be_an Array
         subscriptions.lists.first.should be_an Twitter::List
         subscriptions.lists.first.name.should == "Rubyists"
@@ -545,7 +545,7 @@ describe Twitter::Client do
 
       it "should return the lists the specified user follows" do
         subscriptions = @client.subscriptions
-        subscriptions.should be_a Twitter::Paginator
+        subscriptions.should be_a Twitter::Cursor
         subscriptions.lists.should be_an Array
         subscriptions.lists.first.should be_an Twitter::List
         subscriptions.lists.first.name.should == "Rubyists"

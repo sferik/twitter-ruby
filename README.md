@@ -34,9 +34,9 @@ wiki][apps]!
 ## <a name="2.0"></a>What new in version 2?
 This version introduces 11 new classes:
 
-1. `Twitter::DirectMessage`
-2. `Twitter::List`
-3. `Twitter::Paginator`
+1. `Twitter::Cursor`
+2. `Twitter::DirectMessage`
+3. `Twitter::List`
 4. `Twitter::Photo`
 5. `Twitter::Place`
 6. `Twitter::Point`

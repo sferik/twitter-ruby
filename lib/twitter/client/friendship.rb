@@ -1,4 +1,4 @@
-require 'twitter/paginator'
+require 'twitter/cursor'
 require 'twitter/user'
 
 module Twitter
@@ -87,13 +87,13 @@ module Twitter
       # @requires_authentication Yes
       # @param options [Hash] A customizable set of options.
       # @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
-      # @return [Twitter::Paginator]
+      # @return [Twitter::Cursor]
       # @example Return an array of numeric IDs for every user who has a pending request to follow the authenticating user
       #   Twitter.friendships_incoming
       def friendships_incoming(options={})
         options = {:cursor => -1}.merge(options)
-        paginator = get("/1/friendships/incoming.json", options)
-        Twitter::Paginator.new(paginator, 'ids')
+        cursor = get("/1/friendships/incoming.json", options)
+        Twitter::Cursor.new(cursor, 'ids')
       end
 
       # Returns an array of numeric IDs for every protected user for whom the authenticating user has a pending follow request
@@ -108,8 +108,8 @@ module Twitter
       #   Twitter.friendships_outgoing
       def friendships_outgoing(options={})
         options = {:cursor => -1}.merge(options)
-        paginator = get("/1/friendships/outgoing.json", options)
-        Twitter::Paginator.new(paginator, 'ids')
+        cursor = get("/1/friendships/outgoing.json", options)
+        Twitter::Cursor.new(cursor, 'ids')
       end
     end
   end

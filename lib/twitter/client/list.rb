@@ -1,5 +1,5 @@
 require 'twitter/list'
-require 'twitter/paginator'
+require 'twitter/cursor'
 require 'twitter/status'
 
 module Twitter
@@ -72,14 +72,14 @@ module Twitter
       # @overload lists(options={})
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
-      #   @return [Twitter::Paginator]
+      #   @return [Twitter::Cursor]
       #   @example List the authenticated user's lists
       #     Twitter.lists
       # @overload lists(user, options={})
       #   @param user [Integer, String] A Twitter user ID or screen name.
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
-      #   @return [Twitter::Paginator]
+      #   @return [Twitter::Cursor]
       #   @example List @sferik's lists
       #     Twitter.lists("sferik")
       #     Twitter.lists(7505382)
@@ -88,8 +88,8 @@ module Twitter
         options = {:cursor => -1}.merge(args.last.is_a?(Hash) ? args.pop : {})
         user = args.first
         merge_user_into_options!(user, options) if user
-        paginator = get("/1/lists.json", options)
-        Twitter::Paginator.new(paginator, 'lists', Twitter::List)
+        cursor = get("/1/lists.json", options)
+        Twitter::Cursor.new(cursor, 'lists', Twitter::List)
       end
 
       # Show the specified list
@@ -211,14 +211,14 @@ module Twitter
       # @overload memberships(options={})
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
-      #   @return [Twitter::Paginator]
+      #   @return [Twitter::Cursor]
       #   @example List the lists the authenticated user has been added to
       #     Twitter.memberships
       # @overload memberships(user, options={})
       #   @param user [Integer, String] A Twitter user ID or screen name.
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
-      #   @return [Twitter::Paginator]
+      #   @return [Twitter::Cursor]
       #   @example List the lists that @sferik has been added to
       #     Twitter.memberships("sferik")
       #     Twitter.memberships(7505382)
@@ -226,8 +226,8 @@ module Twitter
         options = {:cursor => -1}.merge(args.last.is_a?(Hash) ? args.pop : {})
         user = args.pop || get_screen_name
         merge_user_into_options!(user, options)
-        paginator = get("/1/lists/memberships.json", options)
-        Twitter::Paginator.new(paginator, 'lists', Twitter::List)
+        cursor = get("/1/lists/memberships.json", options)
+        Twitter::Cursor.new(cursor, 'lists', Twitter::List)
       end
 
       # List the lists the specified user follows
@@ -238,14 +238,14 @@ module Twitter
       # @overload subscriptions(options={})
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
-      #   @return [Twitter::Paginator]
+      #   @return [Twitter::Cursor]
       #   @example List the lists the authenticated user follows
       #     Twitter.subscriptions
       # @overload subscriptions(user, options={})
       #   @param user [Integer, String] A Twitter user ID or screen name.
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
-      #   @return [Twitter::Paginator]
+      #   @return [Twitter::Cursor]
       #   @example List the lists that @sferik follows
       #     Twitter.subscriptions("sferik")
       #     Twitter.subscriptions(7505382)
@@ -253,8 +253,8 @@ module Twitter
         options = {:cursor => -1}.merge(args.last.is_a?(Hash) ? args.pop : {})
         user = args.pop || get_screen_name
         merge_user_into_options!(user, options)
-        paginator = get("/1/lists/subscriptions.json", options)
-        Twitter::Paginator.new(paginator, 'lists', Twitter::List)
+        cursor = get("/1/lists/subscriptions.json", options)
+        Twitter::Cursor.new(cursor, 'lists', Twitter::List)
       end
     end
   end

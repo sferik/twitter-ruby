@@ -24,7 +24,7 @@ describe Twitter::Client do
 
       it "should return an array of numeric IDs for every user the specified user is following" do
         friend_ids = @client.friend_ids("sferik")
-        friend_ids.should be_a Twitter::Paginator
+        friend_ids.should be_a Twitter::Cursor
         friend_ids.ids.should be_an Array
         friend_ids.ids.first.should == 146197851
       end
@@ -48,7 +48,7 @@ describe Twitter::Client do
 
       it "should return an array of numeric IDs for every user the specified user is following" do
         friend_ids = @client.friend_ids
-        friend_ids.should be_a Twitter::Paginator
+        friend_ids.should be_a Twitter::Cursor
         friend_ids.ids.should be_an Array
         friend_ids.ids.first.should == 146197851
       end
@@ -76,7 +76,7 @@ describe Twitter::Client do
 
       it "should return an array of numeric IDs for every user following the specified user" do
         follower_ids = @client.follower_ids("sferik")
-        follower_ids.should be_a Twitter::Paginator
+        follower_ids.should be_a Twitter::Cursor
         follower_ids.ids.should be_an Array
         follower_ids.ids.first.should == 146197851
       end
@@ -100,7 +100,7 @@ describe Twitter::Client do
 
       it "should return an array of numeric IDs for every user following the specified user" do
         follower_ids = @client.follower_ids
-        follower_ids.should be_a Twitter::Paginator
+        follower_ids.should be_a Twitter::Cursor
         follower_ids.ids.should be_an Array
         follower_ids.ids.first.should == 146197851
       end

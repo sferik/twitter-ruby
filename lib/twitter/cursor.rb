@@ -1,8 +1,10 @@
 require 'twitter/base'
 
 module Twitter
-  class Paginator < Twitter::Base
+  class Cursor < Twitter::Base
     attr_reader :next_cursor, :previous_cursor
+    alias :next :next_cursor
+    alias :previous :previous_cursor
 
     def initialize(object, method, klass=nil)
       @previous_cursor = object['previous_cursor']

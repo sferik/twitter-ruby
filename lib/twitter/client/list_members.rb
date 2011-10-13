@@ -1,7 +1,7 @@
 require 'twitter/error/forbidden'
 require 'twitter/error/not_found'
 require 'twitter/list'
-require 'twitter/paginator'
+require 'twitter/cursor'
 require 'twitter/user'
 
 module Twitter
@@ -20,7 +20,7 @@ module Twitter
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
       #   @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
-      #   @return [Twitter::Paginator]
+      #   @return [Twitter::Cursor]
       #   @example Return the members of the authenticated user's "presidents" list
       #     Twitter.list_members("presidents")
       #     Twitter.list_members(8863586)
@@ -30,7 +30,7 @@ module Twitter
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
       #   @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
-      #   @return [Twitter::Paginator]
+      #   @return [Twitter::Cursor]
       #   @example Return the members of @sferik's "presidents" list
       #     Twitter.list_members("sferik", "presidents")
       #     Twitter.list_members("sferik", 8863586)
@@ -42,8 +42,8 @@ module Twitter
         user = args.pop || get_screen_name
         merge_list_into_options!(list, options)
         merge_owner_into_options!(user, options)
-        paginator = get("/1/lists/members.json", options)
-        Twitter::Paginator.new(paginator, 'users', Twitter::User)
+        cursor = get("/1/lists/members.json", options)
+        Twitter::Cursor.new(cursor, 'users', Twitter::User)
       end
 
       # Add a member to a list

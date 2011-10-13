@@ -24,7 +24,7 @@ describe Twitter::Client do
 
       it "should return the subscribers of the specified list" do
         list_subscribers = @client.list_subscribers("sferik", "presidents")
-        list_subscribers.should be_a Twitter::Paginator
+        list_subscribers.should be_a Twitter::Cursor
         list_subscribers.users.should be_an Array
         list_subscribers.users.first.should be_a Twitter::User
         list_subscribers.users.first.name.should == "Erik Michaels-Ober"
