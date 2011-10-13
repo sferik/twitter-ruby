@@ -24,9 +24,10 @@ describe Twitter::Client do
 
       it "should return the subscribers of the specified list" do
         list_subscribers = @client.list_subscribers("sferik", "presidents")
-        list_subscribers.should be_an Array
-        list_subscribers.first.should be_an Twitter::User
-        list_subscribers.first.name.should == "Erik Michaels-Ober"
+        list_subscribers.should be_a Hash
+        list_subscribers['users'].should be_a Array
+        list_subscribers['users'].first.should be_an Twitter::User
+        list_subscribers['users'].first.name.should == "Erik Michaels-Ober"
       end
 
     end

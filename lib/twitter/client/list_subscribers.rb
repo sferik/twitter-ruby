@@ -19,7 +19,7 @@ module Twitter
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
       #   @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
-      #   @return [Array<Twitter::User>] The subscribers of the specified list.
+      #   @return [Hash] The subscribers of the specified list.
       #   @example Return the subscribers of the authenticated user's "presidents" list
       #     Twitter.list_subscribers('presidents')
       #     Twitter.list_subscribers(8863586)
@@ -29,7 +29,7 @@ module Twitter
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
       #   @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
-      #   @return [Array<Twitter::User>] The subscribers of the specified list.
+      #   @return [Hash] The subscribers of the specified list.
       #   @example Return the subscribers of @sferik's "presidents" list
       #     Twitter.list_subscribers("sferik", 'presidents')
       #     Twitter.list_subscribers("sferik", 8863586)
@@ -40,9 +40,11 @@ module Twitter
         user = args.pop || get_screen_name
         merge_list_into_options!(list, options)
         merge_owner_into_options!(user, options)
-        get("/1/lists/subscribers.json", options)['users'].map do |user|
+        response = get("/1/lists/subscribers.json", options)
+        response['users'] = response['users'].map do |user|
           Twitter::User.new(user)
         end
+        response
       end
 
       # Make the authenticated user follow the specified list
