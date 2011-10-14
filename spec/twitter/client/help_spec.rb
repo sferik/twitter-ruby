@@ -20,8 +20,8 @@ describe Twitter::Client do
 
     it "should return Twitter's current configuration" do
       configuration = @client.configuration
-      configuration.should be_a Hash
-      configuration['characters_reserved_per_media'].should == 20
+      configuration.should be_a Twitter::Configuration
+      configuration.characters_reserved_per_media.should == 20
     end
 
   end

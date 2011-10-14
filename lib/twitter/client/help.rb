@@ -1,3 +1,4 @@
+require 'twitter/configuration'
 require 'twitter/language'
 
 module Twitter
@@ -9,11 +10,12 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1/get/help/configuration
       # @rate_limited Yes
       # @requires_authentication No
-      # @return [Hash] Twitter's configuration.
+      # @return [Twitter::Configuration] Twitter's configuration.
       # @example Return the current configuration used by Twitter
       #   Twitter.configuration
       def configuration(options={})
-        get("/1/help/configuration.json", options)
+        configuration = get("/1/help/configuration.json", options)
+        Twitter::Configuration.new(configuration)
       end
 
       # Returns the list of languages supported by Twitter

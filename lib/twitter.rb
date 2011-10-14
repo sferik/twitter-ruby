@@ -1,5 +1,6 @@
 require 'twitter/client'
 require 'twitter/config'
+require 'twitter/configuration'
 require 'twitter/cursor'
 require 'twitter/direct_message'
 require 'twitter/language'
