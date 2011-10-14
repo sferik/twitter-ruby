@@ -145,7 +145,7 @@ Get your rate limit status
 Use of API proxy services, like [Apigee](http://apigee.com), can be used to
 attain higher rate limits to the Twitter API.
 
-    Twitter.gateway = YOUR_APIGEE_HOSTNAME # e.g 'twitter.apigee.com'
+    Twitter.gateway = YOUR_GATEWAY_HOSTNAME # e.g 'twitter.apigee.com'
 
 ## <a name="contributing"></a>Contributing
 In the spirit of [free software][], **everyone** is encouraged to help improve
@@ -171,6 +171,8 @@ Here are some ways *you* can contribute:
 
 All contributors will be added to the [history][] and will receive the respect
 and gratitude of the community.
+
+[history]: https://github.com/jnunemaker/twitter/blob/master/HISTORY.md
 
 ## <a name="issues"></a>Submitting an Issue
 We use the [GitHub issue tracker][issues] to track bugs and features. Before
