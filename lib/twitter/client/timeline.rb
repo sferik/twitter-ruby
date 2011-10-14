@@ -37,6 +37,7 @@ module Twitter
       # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
       # @option options [Boolean, String, Integer] :exclude_replies This parameter will prevent replies from appearing in the returned timeline. Using exclude_replies with the count parameter will mean you will receive up-to count tweets — this is because the count parameter retrieves that many tweets before filtering out retweets and replies.
       # @return [Array<Twitter::Status>]
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @example Return the 20 most recent statuses, including retweets if they exist, posted by the authenticating user and the users they follow
       #   Twitter.home_timeline
       def home_timeline(options={})
@@ -89,6 +90,7 @@ module Twitter
       # @option options [Boolean, String, Integer] :include_rts The timeline will contain native retweets (if they exist) in addition to the standard stream of tweets when set to true, 't' or 1.
       # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
       # @return [Array<Twitter::Status>]
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @example Return the 20 most recent mentions (statuses containing @username) for the authenticating user
       #   Twitter.mentions
       def mentions(options={})
@@ -110,6 +112,7 @@ module Twitter
       # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
       # @return [Array<Twitter::Status>]
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @example Return the 20 most recent retweets posted by the authenticating user
       #   Twitter.retweeted_by_me
       def retweeted_by_me(options={})
@@ -131,6 +134,7 @@ module Twitter
       # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
       # @return [Array<Twitter::Status>]
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @example Return the 20 most recent retweets posted by users followed by the authenticating user
       #   Twitter.retweeted_to_me
       def retweeted_to_me(options={})
@@ -152,6 +156,7 @@ module Twitter
       # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
       # @return [Array<Twitter::Status>]
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @example Return the 20 most recent tweets of the authenticated user that have been retweeted by others
       #   Twitter.retweets_of_me
       def retweets_of_me(options={})

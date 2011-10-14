@@ -11,6 +11,7 @@ module Twitter
       # @requires_authentication Yes
       # @param options [Hash] A customizable set of options.
       # @return [Array<Twitter::SavedSearch>] Saved search queries.
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @example Return the authenticated user's saved search queries
       #   Twitter.saved_searches
       def saved_searches(options={})
@@ -27,6 +28,7 @@ module Twitter
       # @param id [Integer] The ID of the saved search.
       # @param options [Hash] A customizable set of options.
       # @return [Twitter::SavedSearch] The saved search.
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @example Retrieve the data for a saved search owned by the authenticating user with the ID 16129012
       #   Twitter.saved_search(16129012)
       def saved_search(id, options={})

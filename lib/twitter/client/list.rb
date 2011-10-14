@@ -18,9 +18,10 @@ module Twitter
       # @param options [Hash] A customizable set of options.
       # @option options [String] :mode ('public') Whether your list is public or private. Values can be 'public' or 'private'.
       # @option options [String] :description The description to give the list.
+      # @return [Twitter::List] The created list.
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @example Create a list named "presidents"
       #   Twitter.list_create("presidents")
-      # @return [Twitter::List] The created list.
       def list_create(name, options={})
         list = post("/1/lists/create.json", options.merge(:name => name))
         Twitter::List.new(list)
@@ -37,6 +38,7 @@ module Twitter
       #   @option options [String] :mode ('public') Whether your list is public or private. Values can be 'public' or 'private'.
       #   @option options [String] :description The description to give the list.
       #   @return [Twitter::List] The created list.
+      #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       #   @example Update the authenticated user's "presidents" list to have the description "Presidents of the United States of America"
       #     Twitter.list_update("presidents", :description => "Presidents of the United States of America")
       #     Twitter.list_update(8863586, :description => "Presidents of the United States of America")
@@ -46,13 +48,13 @@ module Twitter
       #   @param options [Hash] A customizable set of options.
       #   @option options [String] :mode ('public') Whether your list is public or private. Values can be 'public' or 'private'.
       #   @option options [String] :description The description to give the list.
+      #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       #   @return [Twitter::List] The created list.
       #   @example Update the @sferik's "presidents" list to have the description "Presidents of the United States of America"
       #     Twitter.list_update("sferik", "presidents", :description => "Presidents of the United States of America")
       #     Twitter.list_update(7505382, "presidents", :description => "Presidents of the United States of America")
       #     Twitter.list_update("sferik", 8863586, :description => "Presidents of the United States of America")
       #     Twitter.list_update(7505382, 8863586, :description => "Presidents of the United States of America")
-      # @return [Twitter::List] The created list.
       def list_update(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
         list = args.pop
@@ -73,6 +75,7 @@ module Twitter
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
       #   @return [Twitter::Cursor]
+      #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       #   @example List the authenticated user's lists
       #     Twitter.lists
       # @overload lists(user, options={})
@@ -80,10 +83,10 @@ module Twitter
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
       #   @return [Twitter::Cursor]
+      #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       #   @example List @sferik's lists
       #     Twitter.lists("sferik")
       #     Twitter.lists(7505382)
-      # @return [Twitter::List]
       def lists(*args)
         options = {:cursor => -1}.merge(args.last.is_a?(Hash) ? args.pop : {})
         user = args.first
@@ -102,6 +105,7 @@ module Twitter
       #   @param list [Integer, String] The list_id or slug of the list.
       #   @param options [Hash] A customizable set of options.
       #   @return [Twitter::List] The specified list.
+      #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       #   @example Show the authenticated user's "presidents" list
       #     Twitter.list("presidents")
       #     Twitter.list(8863586)
@@ -110,12 +114,12 @@ module Twitter
       #   @param list [Integer, String] The list_id or slug of the list.
       #   @param options [Hash] A customizable set of options.
       #   @return [Twitter::List] The specified list.
+      #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       #   @example Show @sferik's "presidents" list
       #     Twitter.list("sferik", "presidents")
       #     Twitter.list("sferik", 8863586)
       #     Twitter.list(7505382, "presidents")
       #     Twitter.list(7505382, 8863586)
-      # @return [Twitter::List] The specified list.
       def list(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
         list = args.pop
@@ -136,6 +140,7 @@ module Twitter
       #   @param list [Integer, String] The list_id or slug of the list.
       #   @param options [Hash] A customizable set of options.
       #   @return [Twitter::List] The deleted list.
+      #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       #   @example Delete the authenticated user's "presidents" list
       #     Twitter.list_destroy("/presidents")
       #     Twitter.list_destroy(8863586)
@@ -144,12 +149,12 @@ module Twitter
       #   @param list [Integer, String] The list_id or slug of the list.
       #   @param options [Hash] A customizable set of options.
       #   @return [Twitter::List] The deleted list.
+      #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       #   @example Delete @sferik's "presidents" list
       #     Twitter.list_destroy("/sferik", "presidents")
       #     Twitter.list_destroy("/sferik", 8863586)
       #     Twitter.list_destroy(7505382, "presidents")
       #     Twitter.list_destroy(7505382, 8863586)
-      # @return [Twitter::List] The deleted list.
       def list_destroy(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
         list = args.pop
@@ -212,6 +217,7 @@ module Twitter
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
       #   @return [Twitter::Cursor]
+      #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       #   @example List the lists the authenticated user has been added to
       #     Twitter.memberships
       # @overload memberships(user, options={})
@@ -219,6 +225,7 @@ module Twitter
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
       #   @return [Twitter::Cursor]
+      #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       #   @example List the lists that @sferik has been added to
       #     Twitter.memberships("sferik")
       #     Twitter.memberships(7505382)
@@ -239,6 +246,7 @@ module Twitter
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
       #   @return [Twitter::Cursor]
+      #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       #   @example List the lists the authenticated user follows
       #     Twitter.subscriptions
       # @overload subscriptions(user, options={})
@@ -246,6 +254,7 @@ module Twitter
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
       #   @return [Twitter::Cursor]
+      #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       #   @example List the lists that @sferik follows
       #     Twitter.subscriptions("sferik")
       #     Twitter.subscriptions(7505382)

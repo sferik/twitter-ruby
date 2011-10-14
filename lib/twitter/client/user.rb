@@ -52,11 +52,13 @@ module Twitter
       #   @param users [Integer, String] Twitter users ID or screen names.
       #   @param options [Hash] A customizable set of options.
       #   @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
-      # @return [Array<Twitter::User>] The requested users.
-      # @example Return extended information for @sferik and @pengwynn
-      #   Twitter.users("sferik", "pengwynn")
-      #   Twitter.users("sferik", 14100886)   # Same as above
-      #   Twitter.users(7505382, 14100886)    # Same as above
+      #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      #   @return [Array<Twitter::User>] The requested users.
+      #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      #   @example Return extended information for @sferik and @pengwynn
+      #     Twitter.users("sferik", "pengwynn")
+      #     Twitter.users("sferik", 14100886)   # Same as above
+      #     Twitter.users(7505382, 14100886)    # Same as above
       def users(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
         users = args
@@ -77,6 +79,7 @@ module Twitter
       # @option options [Integer] :page Specifies the page of results to retrieve.
       # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
       # @return [Array<Twitter::User>]
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @example Return users that match "Erik Michaels-Ober"
       #   Twitter.user_search("Erik Michaels-Ober")
       def user_search(query, options={})
@@ -158,6 +161,7 @@ module Twitter
       # @option options [Integer] :limit (20) Specifies the number of records to retrieve.
       # @option options [String] :excluded Comma-separated list of user IDs to exclude.
       # @return [Array<Twitter::User>]
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @example Return recommended users for the authenticated user
       #   Twitter.recommendations
       def recommendations(options={})

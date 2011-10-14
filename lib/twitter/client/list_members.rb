@@ -21,6 +21,7 @@ module Twitter
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
       #   @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
       #   @return [Twitter::Cursor]
+      #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       #   @example Return the members of the authenticated user's "presidents" list
       #     Twitter.list_members("presidents")
       #     Twitter.list_members(8863586)
@@ -31,6 +32,7 @@ module Twitter
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
       #   @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
       #   @return [Twitter::Cursor]
+      #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       #   @example Return the members of @sferik's "presidents" list
       #     Twitter.list_members("sferik", "presidents")
       #     Twitter.list_members("sferik", 8863586)
@@ -57,6 +59,7 @@ module Twitter
       #   @param user_to_add [Integer, String] The user id or screen name to add to the list.
       #   @param options [Hash] A customizable set of options.
       #   @return [Twitter::List] The list.
+      #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       #   @example Add @BarackObama to the authenticated user's "presidents" list
       #     Twitter.list_add_member("presidents", 813286)
       #     Twitter.list_add_member(8863586, 813286)
@@ -66,6 +69,7 @@ module Twitter
       #   @param user_to_add [Integer, String] The user id or screen name to add to the list.
       #   @param options [Hash] A customizable set of options.
       #   @return [Twitter::List] The list.
+      #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       #   @example Add @BarackObama to @sferik's "presidents" list
       #     Twitter.list_add_member("sferik", "presidents", 813286)
       #     Twitter.list_add_member('sferik', 8863586, 813286)
@@ -93,6 +97,7 @@ module Twitter
       #   @param users_to_add [Array] The user IDs and/or screen names to add.
       #   @param options [Hash] A customizable set of options.
       #   @return [Twitter::List] The list.
+      #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       #   @example Add @BarackObama and @pengwynn to the authenticated user's "presidents" list
       #     Twitter.list_add_members("presidents", [813286, 18755393])
       #     Twitter.list_add_members('presidents', [813286, 'pengwynn'])
@@ -103,6 +108,7 @@ module Twitter
       #   @param users_to_add [Array] The user IDs and/or screen names to add.
       #   @param options [Hash] A customizable set of options.
       #   @return [Twitter::List] The list.
+      #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       #   @example Add @BarackObama and @pengwynn to @sferik's "presidents" list
       #     Twitter.list_add_members("sferik", "presidents", [813286, 18755393])
       #     Twitter.list_add_members('sferik', 'presidents', [813286, 'pengwynn'])
@@ -130,6 +136,7 @@ module Twitter
       #   @param user_to_remove [Integer, String] The user id or screen name of the list member to remove.
       #   @param options [Hash] A customizable set of options.
       #   @return [Twitter::List] The list.
+      #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       #   @example Remove @BarackObama from the authenticated user's "presidents" list
       #     Twitter.list_remove_member("presidents", 813286)
       #     Twitter.list_remove_member("presidents", 'BarackObama')
@@ -140,6 +147,7 @@ module Twitter
       #   @param user_to_remove [Integer, String] The user id or screen name of the list member to remove.
       #   @param options [Hash] A customizable set of options.
       #   @return [Twitter::List] The list.
+      #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       #   @example Remove @BarackObama from @sferik's "presidents" list
       #     Twitter.list_remove_member("sferik", "presidents", 813286)
       #     Twitter.list_remove_member("sferik", "presidents", 'BarackObama')
@@ -166,6 +174,7 @@ module Twitter
       #   @param user_to_check [Integer, String] The user ID or screen name of the list member.
       #   @param options [Hash] A customizable set of options.
       #   @return [Boolean] true if user is a member of the specified list, otherwise false.
+      #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       #   @example Check if @BarackObama is a member of the authenticated user's "presidents" list
       #     Twitter.list_member?("presidents", 813286)
       #     Twitter.list_member?(8863586, 'BarackObama')
@@ -175,6 +184,7 @@ module Twitter
       #   @param user_to_check [Integer, String] The user ID or screen name of the list member.
       #   @param options [Hash] A customizable set of options.
       #   @return [Boolean] true if user is a member of the specified list, otherwise false.
+      #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       #   @example Check if @BarackObama is a member of @sferik's "presidents" list
       #     Twitter.list_member?("sferik", "presidents", 813286)
       #     Twitter.list_member?('sferik', 8863586, 'BarackObama')

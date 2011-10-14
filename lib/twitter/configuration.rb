@@ -71,6 +71,7 @@ module Twitter
     # Convenience method to allow configuration options to be set in a block
     def configure
       yield self
+      self
     end
 
     # Create a hash of options and their values

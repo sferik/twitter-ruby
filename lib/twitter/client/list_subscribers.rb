@@ -21,6 +21,7 @@ module Twitter
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
       #   @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
       #   @return [Twitter::Cursor] The subscribers of the specified list.
+      #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       #   @example Return the subscribers of the authenticated user's "presidents" list
       #     Twitter.list_subscribers('presidents')
       #     Twitter.list_subscribers(8863586)
@@ -31,6 +32,7 @@ module Twitter
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
       #   @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
       #   @return [Twitter::Cursor] The subscribers of the specified list.
+      #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       #   @example Return the subscribers of @sferik's "presidents" list
       #     Twitter.list_subscribers("sferik", 'presidents')
       #     Twitter.list_subscribers("sferik", 8863586)
@@ -54,6 +56,7 @@ module Twitter
       #   @param list [Integer, String] The list_id or slug of the list.
       #   @param options [Hash] A customizable set of options.
       #   @return [Twitter::List] The specified list.
+      #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       #   @example Subscribe to the authenticated user's "presidents" list
       #     Twitter.list_subscribe('presidents')
       #     Twitter.list_subscribe(8863586)
@@ -62,6 +65,7 @@ module Twitter
       #   @param list [Integer, String] The list_id or slug of the list.
       #   @param options [Hash] A customizable set of options.
       #   @return [Twitter::List] The specified list.
+      #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       #   @example Subscribe to @sferik's "presidents" list
       #     Twitter.list_subscribe("sferik", 'presidents')
       #     Twitter.list_subscribe("sferik", 8863586)
@@ -85,6 +89,7 @@ module Twitter
       #   @param list [Integer, String] The list_id or slug of the list.
       #   @param options [Hash] A customizable set of options.
       #   @return [Twitter::List] The specified list.
+      #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       #   @example Unsubscribe from the authenticated user's "presidents" list
       #     Twitter.list_unsubscribe('presidents')
       #     Twitter.list_unsubscribe(8863586)
@@ -93,6 +98,7 @@ module Twitter
       #   @param list [Integer, String] The list_id or slug of the list.
       #   @param options [Hash] A customizable set of options.
       #   @return [Twitter::List] The specified list.
+      #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       #   @example Unsubscribe from @sferik's "presidents" list
       #     Twitter.list_unsubscribe("sferik", 'presidents')
       #     Twitter.list_unsubscribe("sferik", 8863586)
@@ -117,6 +123,7 @@ module Twitter
       #   @param user_to_check [Integer, String] The user ID or screen_name of the list member.
       #   @param options [Hash] A customizable set of options.
       #   @return [Boolean] true if user is a subscriber of the specified list, otherwise false.
+      #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       #   @example Check if @BarackObama is a subscriber of the authenticated user's "presidents" list
       #     Twitter.list_subscriber?('presidents', 813286)
       #     Twitter.list_subscriber?(8863586, 813286)
@@ -127,6 +134,7 @@ module Twitter
       #   @param user_to_check [Integer, String] The user ID or screen_name of the list member.
       #   @param options [Hash] A customizable set of options.
       #   @return [Boolean] true if user is a subscriber of the specified list, otherwise false.
+      #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       #   @example Check if @BarackObama is a subscriber of @sferik's "presidents" list
       #     Twitter.list_subscriber?("sferik", 'presidents', 813286)
       #     Twitter.list_subscriber?("sferik", 8863586, 813286)

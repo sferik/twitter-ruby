@@ -4,7 +4,7 @@ module Twitter
   class Client
     # Defines methods related to a user's account
     module Account
-      # Returns the requesting user if authentication was successful, otherwise raises {Twitter::Unauthorized}
+      # Returns the requesting user if authentication was successful, otherwise raises {Twitter::Error::Unauthorized}
       #
       # @see https://dev.twitter.com/docs/api/1/get/account/verify_credentials
       # @rate_limited Yes
@@ -12,7 +12,7 @@ module Twitter
       # @param options [Hash] A customizable set of options.
       # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
       # @return [Twitter::User] The authenticated user.
-      # @raise [Twitter::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @example Return the requesting user if authentication was successful
       #   Twitter.verify_credentials
       def verify_credentials(options={})
@@ -42,6 +42,7 @@ module Twitter
       # @requires_authentication Yes
       # @param options [Hash] A customizable set of options.
       # @return [Hash]
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @example End the session of the authenticating user
       #   Twitter.end_session
       def end_session(options={})
@@ -57,6 +58,7 @@ module Twitter
       # @param options [Hash] A customizable set of options.
       # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
       # @return [Twitter::User] The authenticated user.
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @example Turn SMS updates on for the authenticating user
       #   Twitter.update_delivery_device('sms')
       def update_delivery_device(device, options={})
@@ -77,6 +79,7 @@ module Twitter
       # @option options [String] :profile_sidebar_border_color Profile sidebar's border color.
       # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
       # @return [Twitter::User] The authenticated user.
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @example Set authenticating user's profile background to black
       #   Twitter.update_profile_colors(:profile_background_color => '000000')
       def update_profile_colors(options={})
@@ -94,6 +97,7 @@ module Twitter
       # @param options [Hash] A customizable set of options.
       # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
       # @return [Twitter::User] The authenticated user.
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @example Update the authenticating user's profile image
       #   Twitter.update_profile_image(File.new("me.jpeg"))
       def update_profile_image(image, options={})
@@ -111,6 +115,7 @@ module Twitter
       # @option options [Boolean] :tile Whether or not to tile the background image. If set to true the background image will be displayed tiled. The image will not be tiled otherwise.
       # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
       # @return [Twitter::User] The authenticated user.
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @example Update the authenticating user's profile background image
       #   Twitter.update_profile_background_image(File.new("we_concept_bg2.png"))
       def update_profile_background_image(image, options={})
@@ -131,6 +136,7 @@ module Twitter
       # @option options [String] :description A description of the user owning the account. Maximum of 160 characters.
       # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
       # @return [Twitter::User] The authenticated user.
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @example Set authenticating user's name to Erik Michaels-Ober
       #   Twitter.update_profile(:name => "Erik Michaels-Ober")
       def update_profile(options={})
@@ -153,12 +159,11 @@ module Twitter
       # @option options [String] :time_zone The timezone dates and times should be displayed in for the user. The timezone must be one of the {http://api.rubyonrails.org/classes/ActiveSupport/TimeZone.html Rails TimeZone} names.
       # @option options [String] :lang The language which Twitter should render in for this user. The language must be specified by the appropriate two letter ISO 639-1 representation. Currently supported languages are provided by {https://dev.twitter.com/docs/api/1/get/help/languages GET help/languages}.
       # @return [Hash]
-      # @raise [Twitter::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @example Return the settings for the authenticating user.
       #   Twitter.settings
       def settings(options={})
-        case options.length
-        when 0
+        if options.size.zero?
           get("/1/account/settings.json", options)
         else
           post("/1/account/settings.json", options)

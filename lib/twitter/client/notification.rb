@@ -13,6 +13,7 @@ module Twitter
       # @param options [Hash] A customizable set of options.
       # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
       # @return [Twitter::User] The specified user.
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @example Enable device notifications for updates from @sferik
       #   Twitter.enable_notifications("sferik")
       #   Twitter.enable_notifications(7505382)  # Same as above
@@ -31,6 +32,7 @@ module Twitter
       # @param options [Hash] A customizable set of options.
       # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
       # @return [Twitter::User] The specified user.
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @example Disable device notifications for updates from @sferik
       #   Twitter.disable_notifications("sferik")
       #   Twitter.disable_notifications(7505382)  # Same as above

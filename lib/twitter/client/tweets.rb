@@ -37,8 +37,9 @@ module Twitter
       # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
       # @return [Twitter::Status] The created status.
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @example Update the authenticating user's status
-      #   Twitter.update("I just posted a status update via the Twitter Ruby Gem!")
+      #   Twitter.update("I'm tweeting with @gem!")
       def update(status, options={})
         status = post("/1/statuses/update.json", options.merge(:status => status))
         Twitter::Status.new(status)
@@ -46,6 +47,7 @@ module Twitter
 
       # Updates with media the authenticating user's status
       #
+      # @see http://dev.twitter.com/docs/api/1/post/statuses/update_with_media
       # @note A status update with text/media identical to the authenticating user's current status will NOT be ignored
       # @requires_authentication Yes
       # @rate_limited No
@@ -60,13 +62,10 @@ module Twitter
       # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       # @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
       # @return [Twitter::Status] The created status.
-      # @see http://dev.twitter.com/docs/api/1/post/statuses/update_with_media
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @example Update the authenticating user's status
-      #   When you have a File instance (e.g. the pic is already on your disk)
-      #   Twitter.update_with_media("I just posted a status update with a pic via the Twitter Ruby Gem!", File.new('my_awesome_pic.jpeg'))
-      #   When you have an IO instance (e.g. your pic is on S3 and you don't want to write a temp file on the disk),
-      #     download the pic and put the response in a StringIO object
-      #   Twitter.update_with_media("I just posted a status update with a pic via the Twitter Ruby Gem!", {'io' => StringIO.new(pic), 'type' => 'jpg'})
+      #   Twitter.update_with_media("I'm tweeting with @gem!", File.new('my_awesome_pic.jpeg'))
+      #   Twitter.update_with_media("I'm tweeting with @gem!", {'io' => StringIO.new(pic), 'type' => 'jpg'})
       def update_with_media(status, image, options={})
         status = post("/1/statuses/update_with_media.json", options.merge('media[]' => image, 'status' => status), :endpoint => media_endpoint)
         Twitter::Status.new(status)
@@ -83,6 +82,7 @@ module Twitter
       # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
       # @return [Twitter::Status] The deleted status.
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @example Destroy the status with the ID 25938088801
       #   Twitter.status_destroy(25938088801)
       def status_destroy(id, options={})
@@ -100,6 +100,7 @@ module Twitter
       # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
       # @return [Twitter::Status] The original tweet with retweet details embedded.
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @example Retweet the status with the ID 28561922516
       #   Twitter.retweet(28561922516)
       def retweet(id, options={})
@@ -118,6 +119,7 @@ module Twitter
       # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
       # @return [Array<Twitter::Status>]
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @example Return up to 100 of the first retweets of the status with the ID 28561922516
       #   Twitter.retweets(28561922516)
       def retweets(id, options={})
@@ -140,6 +142,7 @@ module Twitter
       # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
       # @option options [Boolean] :ids_only ('false') Only return user ids instead of full user objects.
       # @return [Array]
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @example Show up to 100 users who retweeted the status with the ID 28561922516
       #   Twitter.retweeters_of(28561922516)
       def retweeters_of(id, options={})

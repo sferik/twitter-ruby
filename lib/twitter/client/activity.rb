@@ -12,6 +12,7 @@ module Twitter
       # @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
       # @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID.
       # @return [Array] An array of actions
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @example Return activity about me
       #   Twitter.about_me
       def about_me(options={})
@@ -28,6 +29,7 @@ module Twitter
       # @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
       # @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID.
       # @return [Array] An array of actions
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid./
       # @example Return activity by friends
       #   Twitter.by_friends
       def by_friends(options={})
