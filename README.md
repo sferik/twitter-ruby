@@ -81,7 +81,7 @@ Version 2 also includes some advanced Tweet-parsing methods, for example:
     # Return all users mentioned in the Tweet
     status.user_mentions #=> []
 
-This tweet parsing is performed by [twitter-text][], Twitter's official text
+Tweet parsing is performed by [twitter-text][], Twitter's official text
 processing library, so it should be consistent with all other Twitter services.
 
 [twitter-text]: https://github.com/twitter/twitter-text-rb
@@ -143,7 +143,7 @@ Find the 3 most recent marriage proposals to [@justinbieber][justinbieber]
     search.containing("marry me").to("justinbieber").result_type("recent").per_page(3).map do |status|
       "#{status["from_user"]}: #{status["text"]}"
     end
-Enough about Justin Bieber. Let's find a Japanese-language tweet tagged #ruby.
+Enough about Justin Bieber. Let's find a Japanese-language Tweet tagged #ruby.
 
     search = Twitter::Search.new
     search.hashtag("ruby").language("ja").no_retweets.per_page(1).fetch.first["text"]

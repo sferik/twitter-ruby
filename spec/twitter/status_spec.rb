@@ -55,7 +55,7 @@ describe Twitter::Status do
   describe "#hashtags" do
 
     it "should return hashtags" do
-      hashtags = Twitter::Status.new('text' => "This tweet contains a #hashtag.").hashtags
+      hashtags = Twitter::Status.new('text' => "This Tweet contains a #hashtag.").hashtags
       hashtags.should be_an Array
       hashtags.first.should == "hashtag"
     end
@@ -99,7 +99,7 @@ describe Twitter::Status do
   describe "#url" do
 
     it "should return urls" do
-      urls = Twitter::Status.new('text' => "This tweet contains a http://example.com.").urls
+      urls = Twitter::Status.new('text' => "This Tweet contains a http://example.com.").urls
       urls.should be_an Array
       urls.first.should == "http://example.com"
     end
@@ -128,7 +128,7 @@ describe Twitter::Status do
   describe "#user_mentions" do
 
     it "should return urls" do
-      user_mentions = Twitter::Status.new('text' => "This tweet contains a @mention.").user_mentions
+      user_mentions = Twitter::Status.new('text' => "This Tweet contains a @mention.").user_mentions
       user_mentions.should be_an Array
       user_mentions.first.should == "mention"
     end

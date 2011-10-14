@@ -358,7 +358,7 @@ describe Twitter::Client do
           should have_been_made
       end
 
-      it "should return the tweet timeline for members of the specified list" do
+      it "should return the timeline for members of the specified list" do
         statuses = @client.list_timeline("sferik", "presidents")
         statuses.should be_an Array
         statuses.first.should be_a Twitter::Status
@@ -383,7 +383,7 @@ describe Twitter::Client do
           should have_been_made
       end
 
-      it "should return the tweet timeline for members of the specified list" do
+      it "should return the timeline for members of the specified list" do
         statuses = @client.list_timeline("sferik", "presidents")
         statuses.should be_an Array
         statuses.first.should be_a Twitter::Status

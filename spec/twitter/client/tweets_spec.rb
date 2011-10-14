@@ -108,7 +108,7 @@ describe Twitter::Client do
         should have_been_made
     end
 
-    it "should return the original tweet with retweet details embedded" do
+    it "should return the original Tweet with retweet details embedded" do
       status = @client.retweet(28561922516)
       status.should be_a Twitter::Status
       status.text.should == "As for the Series, I'm for the Giants. Fuck Texas, fuck Nolan Ryan, fuck George Bush."
