@@ -93,7 +93,6 @@ module Twitter
       # Retweets a tweet
       #
       # @see https://dev.twitter.com/docs/api/1/post/statuses/retweet/:id
-      # @note The authenticating user must be the author of the specified status.
       # @rate_limited Yes
       # @requires_authentication Yes
       # @param id [Integer] The numerical ID of the desired status.
