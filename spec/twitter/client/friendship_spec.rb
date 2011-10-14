@@ -140,14 +140,14 @@ describe Twitter::Client do
     end
 
     it "should get the correct resource" do
-      @client.friendship(:source_screen_name => "sferik", :target_screen_name => "pengwynn")
+      @client.friendship("sferik", "pengwynn")
       a_get("/1/friendships/show.json").
         with(:query => {:source_screen_name => "sferik", :target_screen_name => "pengwynn"}).
         should have_been_made
     end
 
     it "should return detailed information about the relationship between two users" do
-      relationship = @client.friendship(:source_screen_name => "sferik", :target_screen_name => "pengwynn")
+      relationship = @client.friendship("sferik", "pengwynn")
       relationship.should be_a Hash
       relationship['source']['screen_name'].should == "sferik"
     end

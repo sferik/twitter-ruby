@@ -75,10 +75,23 @@ module Twitter
       # @example Return the relationship between @sferik and @pengwynn
       #   Twitter.friendship(:source_screen_name => "sferik", :target_screen_name => "pengwynn")
       #   Twitter.friendship(:source_id => 7505382, :target_id => 14100886)
-      def friendship(options={})
+      def friendship(user_a, user_b, options={})
+        case user_a
+        when Fixnum
+          options[:source_id] = user_a
+        when String
+          options[:source_screen_name] = user_a
+        end
+        case user_b
+        when Fixnum
+          options[:target_id] = user_b
+        when String
+          options[:target_screen_name] = user_b
+        end
         get("/1/friendships/show.json", options)['relationship']
       end
       alias :friendship_show :friendship
+      alias :relationship :friendship
 
       # Returns an array of numeric IDs for every user who has a pending request to follow the authenticating user
       #
@@ -103,7 +116,7 @@ module Twitter
       # @requires_authentication Yes
       # @param options [Hash] A customizable set of options.
       # @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
-      # @return [Hash]
+      # @return [Twitter::Cursor]
       # @example Return an array of numeric IDs for every protected user for whom the authenticating user has a pending follow request
       #   Twitter.friendships_outgoing
       def friendships_outgoing(options={})
