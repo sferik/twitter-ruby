@@ -1,5 +1,5 @@
 require 'twitter/client'
-require 'twitter/configuration'
+require 'twitter/config'
 require 'twitter/cursor'
 require 'twitter/direct_message'
 require 'twitter/language'
@@ -18,7 +18,7 @@ require 'twitter/status'
 require 'twitter/user'
 
 module Twitter
-  extend Configuration
+  extend Config
   class << self
     # Alias for Twitter::Client.new
     #

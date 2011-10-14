@@ -2,7 +2,7 @@ require 'twitter/version'
 
 module Twitter
   # Defines constants and methods related to configuration
-  module Configuration
+  module Config
     # An array of valid keys in the options hash when configuring a {Twitter::API}
     VALID_OPTIONS_KEYS = [
       :adapter,

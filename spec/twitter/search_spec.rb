@@ -14,7 +14,7 @@ describe Twitter::Search do
   context "with module configuration" do
 
     before do
-      @keys = Twitter::Configuration::VALID_OPTIONS_KEYS
+      @keys = Twitter::Config::VALID_OPTIONS_KEYS
       Twitter.configure do |config|
         @keys.each do |key|
           config.send("#{key}=", key)

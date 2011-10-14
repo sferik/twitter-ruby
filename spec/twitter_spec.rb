@@ -40,7 +40,7 @@ describe Twitter do
 
   describe ".adapter" do
     it "should return the default adapter" do
-      Twitter.adapter.should == Twitter::Configuration::DEFAULT_ADAPTER
+      Twitter.adapter.should == Twitter::Config::DEFAULT_ADAPTER
     end
   end
 
@@ -53,7 +53,7 @@ describe Twitter do
 
   describe ".endpoint" do
     it "should return the default endpoint" do
-      Twitter.endpoint.should == Twitter::Configuration::DEFAULT_ENDPOINT
+      Twitter.endpoint.should == Twitter::Config::DEFAULT_ENDPOINT
     end
   end
 
@@ -66,7 +66,7 @@ describe Twitter do
 
   describe ".user_agent" do
     it "should return the default user agent" do
-      Twitter.user_agent.should == Twitter::Configuration::DEFAULT_USER_AGENT
+      Twitter.user_agent.should == Twitter::Config::DEFAULT_USER_AGENT
     end
   end
 
@@ -78,7 +78,7 @@ describe Twitter do
   end
 
   describe ".configure" do
-    Twitter::Configuration::VALID_OPTIONS_KEYS.each do |key|
+    Twitter::Config::VALID_OPTIONS_KEYS.each do |key|
       it "should set the #{key}" do
         Twitter.configure do |config|
           config.send("#{key}=", key)

@@ -2,7 +2,7 @@ require 'helper'
 
 describe Twitter::API do
   before do
-    @keys = Twitter::Configuration::VALID_OPTIONS_KEYS
+    @keys = Twitter::Config::VALID_OPTIONS_KEYS
   end
 
   context "with module configuration" do
