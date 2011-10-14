@@ -138,19 +138,6 @@ module Twitter
         Twitter::User.new(user)
       end
 
-      # Returns the current count of friends, followers, updates (statuses) and favorites of the authenticating user.
-      #
-      # @see https://dev.twitter.com/docs/api/1/get/account/totals
-      # @rate_limited Yes
-      # @requires_authentication Yes
-      # @return [Hash] the current count of friends, followers, updates, and favorites of the authenticating user.
-      # @raise [Twitter::Unauthorized] Error raised when supplied user credentials are not valid.
-      # @example Return the totals for the authenticating user.
-      #   Twitter.totals
-      def totals(options={})
-        get("/1/account/totals.json", options)
-      end
-
       # Updates the authenticating user's settings.
       # Or, if no options supplied, returns settings (including current trend, geo and sleep time information) for the authenticating user.
       #

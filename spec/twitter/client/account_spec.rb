@@ -177,27 +177,6 @@ describe Twitter::Client do
     end
   end
 
-  describe ".totals" do
-
-    before do
-      stub_get("/1/account/totals.json").
-        to_return(:body => fixture("totals.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-    end
-
-    it "should get the correct resource" do
-      @client.totals
-      a_get("/1/account/totals.json").
-        should have_been_made
-    end
-
-    it "should return a hash" do
-      totals = @client.totals
-      totals.should be_a Hash
-      totals['favorites'].should == 2811
-    end
-
-  end
-
   describe ".settings" do
 
     before do

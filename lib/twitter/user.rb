@@ -23,14 +23,22 @@ module Twitter
     alias :default_profile_image? :default_profile_image
     alias :follow_request_sent? :follow_request_sent
     alias :following? :following
+    alias :favorites :favourites_count
+    alias :favorites_count :favourites_count
+    alias :favourites :favourites_count
+    alias :followers :followers_count
+    alias :friends :friends_count
     alias :geo_enabled? :geo_enabled
     alias :is_translator? :is_translator
+    alias :listed :listed_count
     alias :notifications? :notifications
     alias :profile_background_tile? :profile_background_tile
     alias :profile_use_background_image? :profile_use_background_image
     alias :protected? :protected
+    alias :statuses :statuses_count
     alias :translator :is_translator
     alias :translator? :is_translator
+    alias :updates :statuses_count
     alias :verified? :verified
 
     def initialize(user={})
