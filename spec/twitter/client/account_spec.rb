@@ -41,8 +41,8 @@ describe Twitter::Client do
 
     it "should return the remaining number of API requests available to the requesting user before the API limit is reached" do
       rate_limit_status = @client.rate_limit_status
-      rate_limit_status.should be_a Hash
-      rate_limit_status['remaining_hits'].should == 19993
+      rate_limit_status.should be_a Twitter::RateLimitStatus
+      rate_limit_status.remaining_hits.should == 19993
     end
 
   end

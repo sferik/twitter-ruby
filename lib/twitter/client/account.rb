@@ -1,3 +1,4 @@
+require 'twitter/rate_limit_status'
 require 'twitter/settings'
 require 'twitter/user'
 
@@ -29,11 +30,12 @@ module Twitter
       #
       #   This will return the requesting IP's rate limit status. If you want the authenticating user's rate limit status you must authenticate.
       # @param options [Hash] A customizable set of options.
-      # @return [Hash]
+      # @return [Twitter::RateLimitStatus]
       # @example Return the remaining number of API requests available to the requesting user
       #   Twitter.rate_limit_status
       def rate_limit_status(options={})
-        get("/1/account/rate_limit_status.json", options)
+        rate_limit_status = get("/1/account/rate_limit_status.json", options)
+        Twitter::RateLimitStatus.new(rate_limit_status)
       end
 
       # Ends the session of the authenticating user

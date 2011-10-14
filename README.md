@@ -32,7 +32,7 @@ wiki][apps]!
 [ci]: http://travis-ci.org/jnunemaker/twitter
 
 ## <a name="2.0"></a>What new in version 2?
-This version introduces 12 new classes:
+This version introduces 13 new classes:
 
 1. `Twitter::Cursor`
 2. `Twitter::DirectMessage`
@@ -41,11 +41,12 @@ This version introduces 12 new classes:
 5. `Twitter::Place`
 6. `Twitter::Point`
 7. `Twitter::Polygon`
-8. `Twitter::SavedSearch`
-9. `Twitter::Settings`
-10. `Twitter::Size`
-11. `Twitter::Status`
-12. `Twitter::User`
+8. `Twitter::RateLimitStatus`
+9. `Twitter::SavedSearch`
+10. `Twitter::Settings`
+11. `Twitter::Size`
+12. `Twitter::Status`
+13. `Twitter::User`
 
 These classes (plus Ruby primitives) have replaced all instances of
 `Hashie::Mash`. This allows us to remove the gem's dependency on [hashie][] and
@@ -166,7 +167,7 @@ Read the most recent Tweet in your timeline
     Twitter.home_timeline.first.text
 Get your rate limit status
 
-    Twitter.rate_limit_status['remaining_hits'].to_s + " Twitter API request(s) remaining this hour"
+    Twitter.rate_limit_status.remaining_hits.to_s + " Twitter API request(s) remaining this hour"
 
 [sferik]: https://twitter.com/sferik
 [justinbieber]: https://twitter.com/justinbieber
