@@ -42,8 +42,8 @@ describe Twitter::Client do
     it "should return the list of languages supported by Twitter" do
       languages = @client.languages
       languages.should be_an Array
-      languages.first.should be_a Hash
-      languages.first['name'].should == "Portuguese"
+      languages.first.should be_a Twitter::Language
+      languages.first.name.should == "Portuguese"
     end
   end
 end
