@@ -1,4 +1,5 @@
 require 'twitter/cursor'
+require 'twitter/relationship'
 require 'twitter/user'
 
 module Twitter
@@ -69,24 +70,25 @@ module Twitter
       # @rate_limited Yes
       # @requires_authentication No
       # @param options [Hash] A customizable set of options.
-      # @return [Hash]
+      # @return [Twitter::Relationship]
       # @example Return the relationship between @sferik and @pengwynn
       #   Twitter.friendship("sferik", "pengwynn")
       #   Twitter.friendship(7505382, 14100886)
-      def friendship(user_a, user_b, options={})
-        case user_a
+      def friendship(source, target, options={})
+        case source
         when Fixnum
-          options[:source_id] = user_a
+          options[:source_id] = source
         when String
-          options[:source_screen_name] = user_a
+          options[:source_screen_name] = source
         end
-        case user_b
+        case target
         when Fixnum
-          options[:target_id] = user_b
+          options[:target_id] = target
         when String
-          options[:target_screen_name] = user_b
+          options[:target_screen_name] = target
         end
-        get("/1/friendships/show.json", options)['relationship']
+        relationship = get("/1/friendships/show.json", options)['relationship']
+        Twitter::Relationship.new(relationship)
       end
       alias :friendship_show :friendship
       alias :relationship :friendship

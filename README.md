@@ -32,7 +32,7 @@ wiki][apps]!
 [ci]: http://travis-ci.org/jnunemaker/twitter
 
 ## <a name="2.0"></a>What new in version 2?
-This version introduces 13 new classes:
+This version introduces 14 new classes:
 
 1. `Twitter::Cursor`
 2. `Twitter::DirectMessage`
@@ -42,11 +42,12 @@ This version introduces 13 new classes:
 6. `Twitter::Point`
 7. `Twitter::Polygon`
 8. `Twitter::RateLimitStatus`
-9. `Twitter::SavedSearch`
-10. `Twitter::Settings`
-11. `Twitter::Size`
-12. `Twitter::Status`
-13. `Twitter::User`
+9. `Twitter::Relationship`
+10. `Twitter::SavedSearch`
+11. `Twitter::Settings`
+12. `Twitter::Size`
+13. `Twitter::Status`
+14. `Twitter::User`
 
 These classes (plus Ruby primitives) have replaced all instances of
 `Hashie::Mash`. This allows us to remove the gem's dependency on [hashie][] and

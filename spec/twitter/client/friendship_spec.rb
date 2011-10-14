@@ -148,8 +148,8 @@ describe Twitter::Client do
 
     it "should return detailed information about the relationship between two users" do
       relationship = @client.friendship("sferik", "pengwynn")
-      relationship.should be_a Hash
-      relationship['source']['screen_name'].should == "sferik"
+      relationship.should be_a Twitter::Relationship
+      relationship.source.screen_name.should == "sferik"
     end
 
   end
