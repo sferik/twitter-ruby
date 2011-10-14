@@ -82,7 +82,7 @@ describe Twitter::Client do
         should have_been_made
     end
 
-    it "should return a null cookie" do
+    it "should return a user" do
       user = @client.update_delivery_device("sms")
       user.should be_a Twitter::User
       user.name.should == "Erik Michaels-Ober"
@@ -105,7 +105,7 @@ describe Twitter::Client do
         should have_been_made
     end
 
-    it "should return a null cookie" do
+    it "should return a user" do
       user = @client.update_profile_colors(:profile_background_color => "000000")
       user.should be_a Twitter::User
       user.name.should == "Erik Michaels-Ober"
@@ -126,7 +126,7 @@ describe Twitter::Client do
         should have_been_made
     end
 
-    it "should return a null cookie" do
+    it "should return a user" do
       user = @client.update_profile_image(fixture("me.jpeg"))
       user.should be_a Twitter::User
       user.name.should == "Erik Michaels-Ober"
@@ -147,7 +147,7 @@ describe Twitter::Client do
         should have_been_made
     end
 
-    it "should return a null cookie" do
+    it "should return a user" do
       user = @client.update_profile_background_image(fixture("we_concept_bg2.png"))
       user.should be_a Twitter::User
       user.name.should == "Erik Michaels-Ober"
@@ -170,7 +170,7 @@ describe Twitter::Client do
         should have_been_made
     end
 
-    it "should return a null cookie" do
+    it "should return a user" do
       user = @client.update_profile(:url => "http://github.com/sferik/")
       user.should be_a Twitter::User
       user.name.should == "Erik Michaels-Ober"
@@ -193,10 +193,10 @@ describe Twitter::Client do
         should have_been_made
     end
 
-    it "should return a hash" do
+    it "should return settings" do
       settings = @client.settings
-      settings.should be_a Hash
-      settings['language'].should == 'en'
+      settings.should be_a Twitter::Settings
+      settings.language.should == 'en'
     end
 
     it "should get the correct resource on POST" do
@@ -204,6 +204,12 @@ describe Twitter::Client do
       a_post("/1/account/settings.json").
         with(:body => {:trend_location_woeid => "23424803"}).
         should have_been_made
+    end
+
+    it "should return settings" do
+      settings = @client.settings(:trend_location_woeid => "23424803")
+      settings.should be_a Twitter::Settings
+      settings.language.should == 'en'
     end
 
   end

@@ -1,3 +1,4 @@
+require 'twitter/settings'
 require 'twitter/user'
 
 module Twitter
@@ -158,16 +159,17 @@ module Twitter
       # @option options [Integer] :end_sleep_time The hour that sleep time should end if it is enabled. The value for this parameter should be provided in {http://en.wikipedia.org/wiki/ISO_8601 ISO8601} format (i.e. 00-23). The time is considered to be in the same timezone as the user's time_zone setting.
       # @option options [String] :time_zone The timezone dates and times should be displayed in for the user. The timezone must be one of the {http://api.rubyonrails.org/classes/ActiveSupport/TimeZone.html Rails TimeZone} names.
       # @option options [String] :lang The language which Twitter should render in for this user. The language must be specified by the appropriate two letter ISO 639-1 representation. Currently supported languages are provided by {https://dev.twitter.com/docs/api/1/get/help/languages GET help/languages}.
-      # @return [Hash]
+      # @return [Twitter::Settings]
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @example Return the settings for the authenticating user.
       #   Twitter.settings
       def settings(options={})
-        if options.size.zero?
+        settings = if options.size.zero?
           get("/1/account/settings.json", options)
         else
           post("/1/account/settings.json", options)
         end
+        Twitter::Settings.new(settings)
       end
 
     end
