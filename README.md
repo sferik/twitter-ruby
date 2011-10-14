@@ -59,8 +59,8 @@ of raising a `NoMethodError`.
 
 Another benefit of these new objects is instance methods like `created_at` now
 return a `Time` instead of a `String`. This should make the objects easier to
-work with and better fulfills the promise of a Ruby wrapper for the Twitter
-API.
+work with and better fulfills the promise of this library as a Ruby wrapper for
+the Twitter API.
 
 Any instance method that returns a boolean can now be called with a trailing
 question mark, for example:
@@ -73,22 +73,51 @@ Version 2 also includes some advanced Tweet-parsing methods, for example:
     status = Twitter.status(76360760606986241)
 
     # Return all hashtags in the Tweet
-    status.hashtags
+    status.hashtags #=> ["Photos"]
 
     # Return all URLs in the Tweet
-    status.urls
+    status.urls #=> ["http://t.co/qbJx26r"]
 
     # Return all users mentioned in the Tweet
-    status.user_mentions
+    status.user_mentions #=> []
 
 This tweet parsing is performed by [twitter-text][], Twitter's official text
 processing library, so it should be consistent with all other Twitter services.
 
-Note: All error classes have been moved inside the `Twitter::Error` namespace.
-If you were previously rescuing `Twitter::NotFound` you'll need to change that
-to `Twitter::Error::NotFound`.
-
 [twitter-text]: https://github.com/twitter/twitter-text-rb
+
+This version also introduces object equivalence, so objects that are logically
+equivalent are considered equal, even if they don't occupy the same address in
+memory, for example:
+
+    Twitter.user("sferik") == Twitter.user("sferik") #=> true
+    Twitter.user("sferik") == Twitter.user(7505382) #=> true
+
+In previous versions of this gem, both of the above statements would have
+returned false. We've stopped short of implementing a true identity map, such
+that:
+
+    Twitter.user("sferik").object_id == Twitter.user("sferik").object_id
+
+I wouldn't mind seeing this feature implemented in a future version of the gem,
+but object equivalence seems like a step in the right direction.
+
+### Additional Notes
+* All deprecated methods have been removed.
+* `Twitter::Client#totals` has been removed. Use `Twitter::Client#user`
+  instead.
+* `Twitter::Client#friendships` now takes up to 3 arguments instead of 1.
+* Support for the XML response format has been removed. This decision was
+  guided largely by Twitter, who has started removing XML responses available
+  for [some resources][trends]. This allows us to remove the gem's dependency
+  on [multi_xml][]. Using JSON is faster than XML, both in terms of parsing
+  speed and time over the wire.
+* All error classes have been moved inside the `Twitter::Error` namespace. If
+  you were previously rescuing `Twitter::NotFound` you'll need to change that
+  to `Twitter::Error::NotFound`.
+
+[trends]: https://dev.twitter.com/blog/changing-trends-api
+[multi_xml]: https://github.com/sferik/multi_xml
 
 ## <a href="performance"></a>Performance
 You can improve performance by preloading a faster JSON parsing library. By
