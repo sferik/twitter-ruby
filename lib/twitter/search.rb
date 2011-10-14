@@ -1,5 +1,6 @@
 require 'cgi'
 require 'twitter/api'
+require 'twitter/status'
 
 module Twitter
   # Wrapper for the Twitter Search API
@@ -443,7 +444,7 @@ module Twitter
 
     # Fetch the next page of results of the query
     #
-    # @return [Array] Tweets that match specified query.
+    # @return [Array<Twitter::Status>] Tweets that match specified query.
     # @example Return the first two pages of results
     #   search = Twitter::Search.new.containing("twitter").fetch
     #   search.fetch_next_page
@@ -457,7 +458,7 @@ module Twitter
     # Fetch the results of the query
     #
     # @param force [Boolean] Ignore the cache and hit the API again.
-    # @return [Array] Tweets that match specified query.
+    # @return [Array<Twitter::Status>] Tweets that match specified query.
     # @example Return an array of tweets containing "twitter"
     #   search = Twitter::Search.new.containing("twitter").fetch
     def fetch(force=false)
@@ -466,13 +467,15 @@ module Twitter
         options[:q] = options[:q].join(" ")
         @cache = get("/search.json", options, :format => :json)
       end
-      @cache['results']
+      @cache['results'].map do |status|
+        Twitter::Status.new(status)
+      end
     end
 
     # Calls block once for each element in self, passing that element as a parameter
     #
     # @yieldparam [Hash] result Tweet that matches specified query.
-    # @return [Array] Tweets that match specified query.
+    # @return [Array<Twitter::Status>] Tweets that match specified query.
     # @example
     #   Twitter::Search.new.containing('marry me').to('justinbieber').each do |result|
     #     puts "#{result.from_user}: #{result.text}"

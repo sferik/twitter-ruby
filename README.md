@@ -147,12 +147,12 @@ Find the 3 most recent marriage proposals to [@justinbieber][justinbieber]
 
     search = Twitter::Search.new
     search.containing("marry me").to("justinbieber").result_type("recent").per_page(3).map do |status|
-      "#{status["from_user"]}: #{status["text"]}"
+      "#{status.from_user}: #{status.text}"
     end
 Enough about Justin Bieber. Let's find a Japanese-language Tweet tagged #ruby.
 
     search = Twitter::Search.new
-    search.hashtag("ruby").language("ja").no_retweets.per_page(1).fetch.first["text"]
+    search.hashtag("ruby").language("ja").no_retweets.per_page(1).fetch.first.text
 
 Certain methods require authentication. To get your Twitter OAuth credentials,
 register an app at http://dev.twitter.com/apps

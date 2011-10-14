@@ -364,6 +364,30 @@ describe Twitter::Search do
 
     end
 
+    describe ".fetch" do
+
+      before do
+        stub_request(:get, "https://search.twitter.com/search.json").
+          with(:query => {:q => "twitter"}).
+          to_return(:body => fixture("search.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      end
+
+      it "should get the correct resource" do
+        @client.containing('twitter').fetch
+        a_request(:get, "https://search.twitter.com/search.json").
+          with(:query => {:q => "twitter"}).
+          should have_been_made
+      end
+
+      it "should return an array of search results" do
+        results = @client.containing('twitter').fetch
+        results.should be_an Array
+        results.first.should be_a Twitter::Status
+        results.first.text.should == "@KaiserKuo from not too far away your new twitter icon looks like Vader."
+      end
+
+    end
+
     describe ".fetch_next_page" do
 
       before do
@@ -388,23 +412,6 @@ describe Twitter::Search do
 
     end
 
-    describe ".fetch" do
-
-      before do
-        stub_request(:get, "https://search.twitter.com/search.json").
-          with(:query => {:q => "twitter"}).
-          to_return(:body => fixture("search.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-      end
-
-      it "should get the correct resource" do
-        @client.containing('twitter').fetch
-        a_request(:get, "https://search.twitter.com/search.json").
-          with(:query => {:q => "twitter"}).
-          should have_been_made
-      end
-
-    end
-
     describe ".each" do
 
       before do
@@ -414,18 +421,24 @@ describe Twitter::Search do
       end
 
       it "should iterate over results" do
-        @client.containing('twitter').each{|result| result.should be}
+        @client.containing('twitter').each do |result|
+          result.should be
+        end
         a_request(:get, "https://search.twitter.com/search.json").
           with(:query => {:q => "twitter"}).
           should have_been_made
       end
 
       it "should iterate over results multiple times in a row" do
-        @client.containing('twitter').each{|result| result.should be}
-        @client.containing('twitter').each{|result| result.should be}
+        @client.containing('twitter').each do |result|
+          result.should be
+        end
+        @client.containing('twitter').each do |result|
+          result.should be
+        end
         a_request(:get, "https://search.twitter.com/search.json").
           with(:query => {:q => "twitter"}).
-          should have_been_made
+          should have_been_made.once
       end
     end
   end
