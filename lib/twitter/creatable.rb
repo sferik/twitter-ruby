@@ -6,7 +6,7 @@ module Twitter
     #
     # @return [Time]
     def created_at
-      Time.parse(@created_at) if @created_at
+      @created_at = Time.parse(@created_at) unless @created_at.nil? || @created_at.is_a?(Time)
     end
   end
 end

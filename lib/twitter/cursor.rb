@@ -2,23 +2,22 @@ require 'twitter/base'
 
 module Twitter
   class Cursor < Twitter::Base
-    attr_reader :next_cursor, :previous_cursor
+    attr_reader :collection, :next_cursor, :previous_cursor
     alias :next :next_cursor
     alias :previous :previous_cursor
 
-    def initialize(object, method, klass=nil)
-      @previous_cursor = object['previous_cursor']
-      @next_cursor = object['next_cursor']
-      (class << self; self; end).class_eval do
-        define_method method.to_sym do
-          @collection ||= object[method.to_s].map do |item|
-            if klass
-              klass.new(item)
-            else
-              item
-            end
-          end
+    def initialize(cursor, method, klass=nil)
+      @collection = cursor[method.to_s].map do |item|
+        if klass
+          klass.new(item)
+        else
+          item
         end
+      end
+      @next_cursor = cursor['next_cursor']
+      @previous_cursor = cursor['previous_cursor']
+      (class << self; self; end).class_eval do
+        alias_method method.to_sym, :collection
       end
     end
 

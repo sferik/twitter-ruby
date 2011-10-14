@@ -16,7 +16,7 @@ module Twitter
       :profile_background_tile, :profile_image_url, :profile_image_url_https,
       :profile_link_color, :profile_sidebar_border_color,
       :profile_sidebar_fill_color, :profile_text_color,
-      :profile_use_background_image, :protected, :screen_name,
+      :profile_use_background_image, :protected, :screen_name, :status,
       :statuses_count, :time_zone, :url, :utc_offset, :verified
     alias :contributors_enabled? :contributors_enabled
     alias :default_profile? :default_profile
@@ -29,18 +29,52 @@ module Twitter
     alias :profile_background_tile? :profile_background_tile
     alias :profile_use_background_image? :profile_use_background_image
     alias :protected? :protected
+    alias :translator :is_translator
+    alias :translator? :is_translator
     alias :verified? :verified
 
+    def initialize(user={})
+      @contributors_enabled = user['contributors_enabled']
+      @created_at = user['created_at']
+      @default_profile = user['default_profile']
+      @default_profile_image = user['default_profile_image']
+      @description = user['description']
+      @favourites_count = user['favourites_count']
+      @follow_request_sent = user['follow_request_sent']
+      @followers_count = user['followers_count']
+      @following = user['following']
+      @friends_count = user['friends_count']
+      @geo_enabled = user['geo_enabled']
+      @id = user['id']
+      @is_translator = user['is_translator']
+      @lang = user['lang']
+      @listed_count = user['listed_count']
+      @location = user['location']
+      @name = user['name']
+      @notifications = user['notifications']
+      @profile_background_color = user['profile_background_color']
+      @profile_background_image_url = user['profile_background_image_url']
+      @profile_background_image_url_https = user['profile_background_image_url_https']
+      @profile_background_tile = user['profile_background_tile']
+      @profile_image_url = user['profile_image_url']
+      @profile_image_url_https = user['profile_image_url_https']
+      @profile_link_color = user['profile_link_color']
+      @profile_sidebar_border_color = user['profile_sidebar_border_color']
+      @profile_sidebar_fill_color = user['profile_sidebar_fill_color']
+      @profile_text_color = user['profile_text_color']
+      @profile_use_background_image = user['profile_use_background_image']
+      @protected = user['protected']
+      @screen_name = user['screen_name']
+      @status = Twitter::Status.new(user['status'].merge('user' => self.to_hash.delete('status'))) unless user['status'].nil?
+      @statuses_count = user['statuses_count']
+      @time_zone = user['time_zone']
+      @url = user['url']
+      @utc_offset = user['utc_offset']
+      @verified = user['verified']
+    end
+
     def ==(other)
-      super || (other.class == self.class && other.id == self.id)
+      super || (other.class == self.class && other.id == @id)
     end
-
-    # Get a user's status
-    #
-    # @return [Status]
-    def status
-      Twitter::Status.new(@status.merge(:user => self.to_hash.delete(:status))) if @status
-    end
-
   end
 end

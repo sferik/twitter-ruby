@@ -397,7 +397,7 @@ describe Twitter::Client do
       before do
         stub_get("/1/lists/statuses.json").
           with(:query => {:owner_screen_name => 'sferik', :list_id => '12345678'}).
-          to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+          to_return(:body => fixture("statuses.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
 
       it "should get the correct resource" do
@@ -414,7 +414,7 @@ describe Twitter::Client do
       before do
         stub_get("/1/lists/statuses.json").
           with(:query => {:owner_id => '12345678', :slug => 'presidents'}).
-          to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+          to_return(:body => fixture("statuses.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
 
       it "should get the correct resource" do
