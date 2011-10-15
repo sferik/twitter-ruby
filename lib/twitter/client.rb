@@ -15,12 +15,12 @@ module Twitter
     require 'twitter/client/direct_messages'
     require 'twitter/client/favorites'
     require 'twitter/client/friends_and_followers'
-    require 'twitter/client/geo'
     require 'twitter/client/help'
     require 'twitter/client/legal'
     require 'twitter/client/lists'
     require 'twitter/client/local_trends'
     require 'twitter/client/notification'
+    require 'twitter/client/places_and_geo'
     require 'twitter/client/saved_searches'
     require 'twitter/client/search'
     require 'twitter/client/spam_reporting'
@@ -41,12 +41,12 @@ module Twitter
     include Twitter::Client::DirectMessages
     include Twitter::Client::Favorites
     include Twitter::Client::FriendsAndFollowers
-    include Twitter::Client::Geo
     include Twitter::Client::Help
     include Twitter::Client::Legal
     include Twitter::Client::Lists
     include Twitter::Client::LocalTrends
     include Twitter::Client::Notification
+    include Twitter::Client::PlacesAndGeo
     include Twitter::Client::SavedSearches
     include Twitter::Client::Search
     include Twitter::Client::SpamReporting

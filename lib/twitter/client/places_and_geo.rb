@@ -4,7 +4,7 @@ module Twitter
   class Client
     # Defines methods related to geography
     # @see https://dev.twitter.com/terms/geo-developer-guidelines Developer Guidelines
-    module Geo
+    module PlacesAndGeo
       # Search for places that can be attached to a {Twitter::Client::Tweets#update}
       #
       # @see https://dev.twitter.com/docs/api/1/get/geo/search
