@@ -54,8 +54,8 @@ describe Twitter::Client do
     it "should return the locations that Twitter has trending topic information for" do
       locations = @client.trend_locations
       locations.should be_an Array
-      locations.first.should be_a Hash
-      locations.first['name'].should == "Ireland"
+      locations.first.should be_a Twitter::Place
+      locations.first.name.should == "Ireland"
     end
   end
 

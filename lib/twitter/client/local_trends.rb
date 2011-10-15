@@ -1,3 +1,5 @@
+require 'twitter/place'
+
 module Twitter
   class Client
     # Defines methods related to local trends
@@ -33,7 +35,9 @@ module Twitter
       # @example Return the locations that Twitter has trending topic information for
       #   Twitter.trend_locations
       def trend_locations(options={})
-        get("/1/trends/available.json", options)
+        get("/1/trends/available.json", options).map do |place|
+          Twitter::Place.new(place)
+        end
       end
 
     end
