@@ -1,9 +1,43 @@
 require 'twitter/cursor'
+require 'twitter/relationship'
+require 'twitter/user'
 
 module Twitter
   class Client
     # Defines methods related to friends and followers
     module FriendsAndFollowers
+      # @see https://dev.twitter.com/docs/api/1/get/followers/ids
+      # @rate_limited Yes
+      # @requires_authentication No unless requesting it from a protected user
+      #
+      #   If getting this data of a protected user, you must authenticate (and be allowed to see that user).
+      # @overload follower_ids(options={})
+      #   Returns an array of numeric IDs for every user following the authenticated user
+      #
+      #   @param options [Hash] A customizable set of options.
+      #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
+      #   @return [Twitter::Cursor]
+      #   @example Return the authenticated user's followers' IDs
+      #     Twitter.follower_ids
+      # @overload follower_ids(user, options={})
+      #   Returns an array of numeric IDs for every user following the specified user
+      #
+      #   @param user [Integer, String] A Twitter user ID or screen name.
+      #   @param options [Hash] A customizable set of options.
+      #   @option options [Integer] :cursor (-1) Breaks the results into pages. This is recommended for users who are following many users. Provide a value of -1 to begin paging. Provide values as returned in the response body's next_cursor and previous_cursor attributes to page back and forth in the list.
+      #   @return [Twitter::Cursor]
+      #   @example Return @sferik's followers' IDs
+      #     Twitter.follower_ids("sferik")
+      #     Twitter.follower_ids(7505382)  # Same as above
+      def follower_ids(*args)
+        options = {:cursor => -1}
+        options.merge!(args.last.is_a?(Hash) ? args.pop : {})
+        user = args.first
+        merge_user_into_options!(user, options)
+        cursor = get("/1/followers/ids.json", options)
+        Twitter::Cursor.new(cursor, 'ids')
+      end
+
       # @see https://dev.twitter.com/docs/api/1/get/friends/ids
       # @rate_limited Yes
       # @requires_authentication No unless requesting it from a protected user
@@ -36,37 +70,127 @@ module Twitter
         Twitter::Cursor.new(cursor, 'ids')
       end
 
-      # @see https://dev.twitter.com/docs/api/1/get/followers/ids
+      # Test for the existence of friendship between two users
+      #
+      # @see https://dev.twitter.com/docs/api/1/get/friendships/exists
+      # @note Consider using {Twitter::Client::FriendsAndFollowers#friendship} instead of this method.
       # @rate_limited Yes
-      # @requires_authentication No unless requesting it from a protected user
+      # @requires_authentication No unless user_a or user_b is protected
+      # @param user_a [Integer, String] The ID or screen_name of the subject user.
+      # @param user_b [Integer, String] The ID or screen_name of the user to test for following.
+      # @param options [Hash] A customizable set of options.
+      # @return [Boolean] true if user_a follows user_b, otherwise false.
+      # @example Return true if @sferik follows @pengwynn
+      #   Twitter.friendship?("sferik", "pengwynn")
+      def friendship?(user_a, user_b, options={})
+        get("/1/friendships/exists.json", options.merge(:user_a => user_a, :user_b => user_b))
+      end
+
+      # Returns an array of numeric IDs for every user who has a pending request to follow the authenticating user
       #
-      #   If getting this data of a protected user, you must authenticate (and be allowed to see that user).
-      # @overload follower_ids(options={})
-      #   Returns an array of numeric IDs for every user following the authenticated user
-      #
-      #   @param options [Hash] A customizable set of options.
-      #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
-      #   @return [Twitter::Cursor]
-      #   @example Return the authenticated user's followers' IDs
-      #     Twitter.follower_ids
-      # @overload follower_ids(user, options={})
-      #   Returns an array of numeric IDs for every user following the specified user
-      #
-      #   @param user [Integer, String] A Twitter user ID or screen name.
-      #   @param options [Hash] A customizable set of options.
-      #   @option options [Integer] :cursor (-1) Breaks the results into pages. This is recommended for users who are following many users. Provide a value of -1 to begin paging. Provide values as returned in the response body's next_cursor and previous_cursor attributes to page back and forth in the list.
-      #   @return [Twitter::Cursor]
-      #   @example Return @sferik's followers' IDs
-      #     Twitter.follower_ids("sferik")
-      #     Twitter.follower_ids(7505382)  # Same as above
-      def follower_ids(*args)
-        options = {:cursor => -1}
-        options.merge!(args.last.is_a?(Hash) ? args.pop : {})
-        user = args.first
-        merge_user_into_options!(user, options)
-        cursor = get("/1/followers/ids.json", options)
+      # @see https://dev.twitter.com/docs/api/1/get/friendships/incoming
+      # @rate_limited Yes
+      # @requires_authentication Yes
+      # @param options [Hash] A customizable set of options.
+      # @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
+      # @return [Twitter::Cursor]
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @example Return an array of numeric IDs for every user who has a pending request to follow the authenticating user
+      #   Twitter.friendships_incoming
+      def friendships_incoming(options={})
+        options = {:cursor => -1}.merge(options)
+        cursor = get("/1/friendships/incoming.json", options)
         Twitter::Cursor.new(cursor, 'ids')
       end
+
+      # Returns an array of numeric IDs for every protected user for whom the authenticating user has a pending follow request
+      #
+      # @see https://dev.twitter.com/docs/api/1/get/friendships/outgoing
+      # @rate_limited Yes
+      # @requires_authentication Yes
+      # @param options [Hash] A customizable set of options.
+      # @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
+      # @return [Twitter::Cursor]
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @example Return an array of numeric IDs for every protected user for whom the authenticating user has a pending follow request
+      #   Twitter.friendships_outgoing
+      def friendships_outgoing(options={})
+        options = {:cursor => -1}.merge(options)
+        cursor = get("/1/friendships/outgoing.json", options)
+        Twitter::Cursor.new(cursor, 'ids')
+      end
+
+      # Returns detailed information about the relationship between two users
+      #
+      # @see https://dev.twitter.com/docs/api/1/get/friendships/show
+      # @rate_limited Yes
+      # @requires_authentication No
+      # @param options [Hash] A customizable set of options.
+      # @return [Twitter::Relationship]
+      # @example Return the relationship between @sferik and @pengwynn
+      #   Twitter.friendship("sferik", "pengwynn")
+      #   Twitter.friendship(7505382, 14100886)
+      def friendship(source, target, options={})
+        case source
+        when Fixnum
+          options[:source_id] = source
+        when String
+          options[:source_screen_name] = source
+        end
+        case target
+        when Fixnum
+          options[:target_id] = target
+        when String
+          options[:target_screen_name] = target
+        end
+        relationship = get("/1/friendships/show.json", options)['relationship']
+        Twitter::Relationship.new(relationship)
+      end
+      alias :friendship_show :friendship
+      alias :relationship :friendship
+
+      # Allows the authenticating user to follow the specified user
+      #
+      # @see https://dev.twitter.com/docs/api/1/post/friendships/create
+      # @rate_limited No
+      # @requires_authentication Yes
+      # @param user [Integer, String] A Twitter user ID or screen name.
+      # @param options [Hash] A customizable set of options.
+      # @option options [Boolean] :follow (false) Enable notifications for the target user.
+      # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
+      # @return [Twitter::User] The followed user.
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @example Follow @sferik
+      #   Twitter.follow("sferik")
+      def follow(user, options={})
+        merge_user_into_options!(user, options)
+        # Twitter always turns on notifications if the "follow" option is present, even if it's set to false
+        # so only send follow if it's true
+        options.merge!(:follow => true) if options.delete(:follow)
+        user = post("/1/friendships/create.json", options)
+        Twitter::User.new(user)
+      end
+      alias :friendship_create :follow
+
+      # Allows the authenticating user to unfollow the specified user
+      #
+      # @see https://dev.twitter.com/docs/api/1/post/friendships/destroy
+      # @rate_limited No
+      # @requires_authentication Yes
+      # @param user [Integer, String] A Twitter user ID or screen name.
+      # @param options [Hash] A customizable set of options.
+      # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
+      # @return [Twitter::User] The unfollowed user.
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @example Unfollow @sferik
+      #   Twitter.unfollow("sferik")
+      def unfollow(user, options={})
+        merge_user_into_options!(user, options)
+        user = delete("/1/friendships/destroy.json", options)
+        Twitter::User.new(user)
+      end
+      alias :friendship_destroy :unfollow
+
     end
   end
 end

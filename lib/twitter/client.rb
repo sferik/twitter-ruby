@@ -15,7 +15,6 @@ module Twitter
     require 'twitter/client/direct_messages'
     require 'twitter/client/favorites'
     require 'twitter/client/friends_and_followers'
-    require 'twitter/client/friendship'
     require 'twitter/client/geo'
     require 'twitter/client/help'
     require 'twitter/client/legal'
@@ -42,7 +41,6 @@ module Twitter
     include Twitter::Client::DirectMessages
     include Twitter::Client::Favorites
     include Twitter::Client::FriendsAndFollowers
-    include Twitter::Client::Friendship
     include Twitter::Client::Geo
     include Twitter::Client::Help
     include Twitter::Client::Legal
