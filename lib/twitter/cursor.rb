@@ -1,3 +1,4 @@
+require 'active_support/core_ext/kernel/singleton_class'
 require 'twitter/base'
 
 module Twitter
@@ -16,7 +17,7 @@ module Twitter
       end
       @next_cursor = cursor['next_cursor']
       @previous_cursor = cursor['previous_cursor']
-      (class << self; self; end).class_eval do
+      singleton_class.class_eval do
         alias_method method.to_sym, :collection
       end
     end

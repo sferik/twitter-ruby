@@ -2,18 +2,18 @@
 require File.expand_path('../lib/twitter/version', __FILE__)
 
 Gem::Specification.new do |gem|
-  gem.add_dependency 'activesupport'
-  gem.add_dependency 'faraday', '~> 0.7.4'
-  gem.add_dependency 'multi_json', '~> 1.0.0'
-  gem.add_dependency 'simple_oauth', '~> 0.1.5'
-  gem.add_dependency 'twitter-text', '~> 1.4.2'
-  gem.add_development_dependency 'json', '~> 1.6'
-  gem.add_development_dependency 'rake', '~> 0.9'
-  gem.add_development_dependency 'rdiscount', '~> 1.6'
-  gem.add_development_dependency 'rspec', '~> 2.6'
-  gem.add_development_dependency 'simplecov', '~> 0.4'
-  gem.add_development_dependency 'webmock', '~> 1.7'
-  gem.add_development_dependency 'yard', '~> 0.7'
+  gem.add_dependency 'activesupport', '~> 3.0'
+  gem.add_dependency 'faraday', '~> 0.7'
+  gem.add_dependency 'multi_json', '~> 1.0'
+  gem.add_dependency 'simple_oauth', '~> 0.1'
+  gem.add_dependency 'twitter-text', '~> 1.4'
+  gem.add_development_dependency 'json'
+  gem.add_development_dependency 'rake'
+  gem.add_development_dependency 'rdiscount'
+  gem.add_development_dependency 'rspec'
+  gem.add_development_dependency 'simplecov'
+  gem.add_development_dependency 'webmock'
+  gem.add_development_dependency 'yard'
   gem.authors = ["John Nunemaker", "Wynn Netherland", "Erik Michaels-Ober", "Steve Richert"]
   gem.description = %q{A Ruby wrapper for the Twitter API.}
   gem.email = ['nunemaker@gmail.com', 'wynn.netherland@gmail.com', 'sferik@gmail.com', 'steve.richert@gmail.com']
