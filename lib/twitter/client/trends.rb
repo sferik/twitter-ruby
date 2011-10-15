@@ -3,19 +3,6 @@ module Twitter
     # Defines methods related to global trends
     # @see Twitter::Client::LocalTrends
     module Trends
-      # Returns the top ten topics that are currently trending on Twitter
-      #
-      # @see https://dev.twitter.com/docs/api/1/get/trends/:woeid
-      # @rate_limited Yes
-      # @requires_authentication No
-      # @param options [Hash] A customizable set of options.
-      # @option options [String] :exclude Setting this equal to 'hashtags' will remove all hashtags from the trends list.
-      # @return [Array]
-      # @example Return the top ten topics that are currently trending on Twitter
-      #   Twitter.trends
-      def trends(options={})
-        local_trends(1, options)
-      end
 
       # Returns the top 20 trending topics for each hour in a given day
       #
@@ -46,6 +33,7 @@ module Twitter
       def trends_weekly(date=Date.today, options={})
         get("/1/trends/weekly.json", options.merge(:date => date.strftime('%Y-%m-%d')))['trends']
       end
+
     end
   end
 end

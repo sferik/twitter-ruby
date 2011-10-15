@@ -4,6 +4,7 @@ module Twitter
   class Client
     # Defines methods related to favorites (or favourites)
     module Favorites
+
       # @see https://dev.twitter.com/docs/api/1/get/favorites
       # @rate_limited Yes
       # @requires_authentication No
@@ -71,6 +72,7 @@ module Twitter
         Twitter::Status.new(status)
       end
       alias :favorite_destroy :unfavorite
+
     end
   end
 end

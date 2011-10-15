@@ -6,21 +6,6 @@ module Twitter
   class Client
     # Defines methods related to a user's account
     module Accounts
-      # Returns the requesting user if authentication was successful, otherwise raises {Twitter::Error::Unauthorized}
-      #
-      # @see https://dev.twitter.com/docs/api/1/get/account/verify_credentials
-      # @rate_limited Yes
-      # @requires_authentication Yes
-      # @param options [Hash] A customizable set of options.
-      # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
-      # @return [Twitter::User] The authenticated user.
-      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-      # @example Return the requesting user if authentication was successful
-      #   Twitter.verify_credentials
-      def verify_credentials(options={})
-        user = get("/1/account/verify_credentials.json", options)
-        Twitter::User.new(user)
-      end
 
       # Returns the remaining number of API requests available to the requesting user
       #
@@ -36,6 +21,22 @@ module Twitter
       def rate_limit_status(options={})
         rate_limit_status = get("/1/account/rate_limit_status.json", options)
         Twitter::RateLimitStatus.new(rate_limit_status)
+      end
+
+      # Returns the requesting user if authentication was successful, otherwise raises {Twitter::Error::Unauthorized}
+      #
+      # @see https://dev.twitter.com/docs/api/1/get/account/verify_credentials
+      # @rate_limited Yes
+      # @requires_authentication Yes
+      # @param options [Hash] A customizable set of options.
+      # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
+      # @return [Twitter::User] The authenticated user.
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @example Return the requesting user if authentication was successful
+      #   Twitter.verify_credentials
+      def verify_credentials(options={})
+        user = get("/1/account/verify_credentials.json", options)
+        Twitter::User.new(user)
       end
 
       # Ends the session of the authenticating user
@@ -66,6 +67,45 @@ module Twitter
       #   Twitter.update_delivery_device('sms')
       def update_delivery_device(device, options={})
         user = post("/1/account/update_delivery_device.json", options.merge(:device => device))
+        Twitter::User.new(user)
+      end
+
+      # Sets values that users are able to set under the "Account" tab of their settings page
+      #
+      # @see https://dev.twitter.com/docs/api/1/post/account/update_profile
+      # @note Only the options specified will be updated.
+      # @rate_limited No
+      # @requires_authentication Yes
+      # @param options [Hash] A customizable set of options.
+      # @option options [String] :name Full name associated with the profile. Maximum of 20 characters.
+      # @option options [String] :url URL associated with the profile. Will be prepended with "http://" if not present. Maximum of 100 characters.
+      # @option options [String] :location The city or country describing where the user of the account is located. The contents are not normalized or geocoded in any way. Maximum of 30 characters.
+      # @option options [String] :description A description of the user owning the account. Maximum of 160 characters.
+      # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
+      # @return [Twitter::User] The authenticated user.
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @example Set authenticating user's name to Erik Michaels-Ober
+      #   Twitter.update_profile(:name => "Erik Michaels-Ober")
+      def update_profile(options={})
+        user = post("/1/account/update_profile.json", options)
+        Twitter::User.new(user)
+      end
+
+      # Updates the authenticating user's profile background image
+      #
+      # @see https://dev.twitter.com/docs/api/1/post/account/update_profile_background_image
+      # @rate_limited No
+      # @requires_authentication Yes
+      # @param image [String] The background image for the profile. Must be a valid GIF, JPG, or PNG image of less than 800 kilobytes in size. Images with width larger than 2048 pixels will be scaled down.
+      # @param options [Hash] A customizable set of options.
+      # @option options [Boolean] :tile Whether or not to tile the background image. If set to true the background image will be displayed tiled. The image will not be tiled otherwise.
+      # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
+      # @return [Twitter::User] The authenticated user.
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @example Update the authenticating user's profile background image
+      #   Twitter.update_profile_background_image(File.new("we_concept_bg2.png"))
+      def update_profile_background_image(image, options={})
+        user = post("/1/account/update_profile_background_image.json", options.merge(:image => image))
         Twitter::User.new(user)
       end
 
@@ -105,45 +145,6 @@ module Twitter
       #   Twitter.update_profile_image(File.new("me.jpeg"))
       def update_profile_image(image, options={})
         user = post("/1/account/update_profile_image.json", options.merge(:image => image))
-        Twitter::User.new(user)
-      end
-
-      # Updates the authenticating user's profile background image
-      #
-      # @see https://dev.twitter.com/docs/api/1/post/account/update_profile_background_image
-      # @rate_limited No
-      # @requires_authentication Yes
-      # @param image [String] The background image for the profile. Must be a valid GIF, JPG, or PNG image of less than 800 kilobytes in size. Images with width larger than 2048 pixels will be scaled down.
-      # @param options [Hash] A customizable set of options.
-      # @option options [Boolean] :tile Whether or not to tile the background image. If set to true the background image will be displayed tiled. The image will not be tiled otherwise.
-      # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
-      # @return [Twitter::User] The authenticated user.
-      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-      # @example Update the authenticating user's profile background image
-      #   Twitter.update_profile_background_image(File.new("we_concept_bg2.png"))
-      def update_profile_background_image(image, options={})
-        user = post("/1/account/update_profile_background_image.json", options.merge(:image => image))
-        Twitter::User.new(user)
-      end
-
-      # Sets values that users are able to set under the "Account" tab of their settings page
-      #
-      # @see https://dev.twitter.com/docs/api/1/post/account/update_profile
-      # @note Only the options specified will be updated.
-      # @rate_limited No
-      # @requires_authentication Yes
-      # @param options [Hash] A customizable set of options.
-      # @option options [String] :name Full name associated with the profile. Maximum of 20 characters.
-      # @option options [String] :url URL associated with the profile. Will be prepended with "http://" if not present. Maximum of 100 characters.
-      # @option options [String] :location The city or country describing where the user of the account is located. The contents are not normalized or geocoded in any way. Maximum of 30 characters.
-      # @option options [String] :description A description of the user owning the account. Maximum of 160 characters.
-      # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
-      # @return [Twitter::User] The authenticated user.
-      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-      # @example Set authenticating user's name to Erik Michaels-Ober
-      #   Twitter.update_profile(:name => "Erik Michaels-Ober")
-      def update_profile(options={})
-        user = post("/1/account/update_profile.json", options)
         Twitter::User.new(user)
       end
 

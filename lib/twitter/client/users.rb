@@ -5,6 +5,70 @@ module Twitter
   class Client
     # Defines methods related to users
     module Users
+
+      # Returns extended information for up to 100 users
+      #
+      # @see https://dev.twitter.com/docs/api/1/get/users/lookup
+      # @rate_limited Yes
+      # @requires_authentication Yes
+      # @overload users(*users, options={})
+      #   @param users [Integer, String] Twitter users ID or screen names.
+      #   @param options [Hash] A customizable set of options.
+      #   @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
+      #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      #   @return [Array<Twitter::User>] The requested users.
+      #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      #   @example Return extended information for @sferik and @pengwynn
+      #     Twitter.users("sferik", "pengwynn")
+      #     Twitter.users("sferik", 14100886)   # Same as above
+      #     Twitter.users(7505382, 14100886)    # Same as above
+      def users(*args)
+        options = args.last.is_a?(Hash) ? args.pop : {}
+        users = args
+        merge_users_into_options!(Array(users), options)
+        get("/1/users/lookup.json", options).map do |user|
+          Twitter::User.new(user)
+        end
+      end
+
+      # Access the profile image in various sizes for the user with the indicated screen name
+      #
+      # @see https://dev.twitter.com/docs/api/1/get/users/profile_image/:screen_name
+      # @rate_limited No
+      # @requires_authentication No
+      # @overload profile_image(screen_name, options={})
+      #   @param screen_name [String] The screen name of the user for whom to return results for.
+      #   @param options [Hash] A customizable set of options.
+      #   @option options [String] :size ('normal') Specifies the size of image to fetch. Valid options include: 'bigger' (73px by 73px), 'normal' (48px by 48px), and 'mini' (24px by 24px).
+      #   @example Return the URL for the 24px by 24px version of @sferik's profile image
+      #     Twitter.profile_image("sferik", :size => 'mini')
+      # @return [String] The URL for the requested user's profile image.
+      def profile_image(*args)
+        options = args.last.is_a?(Hash) ? args.pop : {}
+        screen_name = args.pop || get_screen_name
+        get("/1/users/profile_image/#{screen_name}", options, :raw => true).headers['location']
+      end
+
+      # Returns users that match the given query
+      #
+      # @see https://dev.twitter.com/docs/api/1/get/users/search
+      # @rate_limited Yes
+      # @requires_authentication Yes
+      # @param query [String] The search query to run against people search.
+      # @param options [Hash] A customizable set of options.
+      # @option options [Integer] :per_page The number of people to retrieve. Maxiumum of 20 allowed per page.
+      # @option options [Integer] :page Specifies the page of results to retrieve.
+      # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
+      # @return [Array<Twitter::User>]
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @example Return users that match "Erik Michaels-Ober"
+      #   Twitter.user_search("Erik Michaels-Ober")
+      def user_search(query, options={})
+        get("/1/users/search.json", options.merge(:q => query)).map do |user|
+          Twitter::User.new(user)
+        end
+      end
+
       # Returns extended information of a given user
       #
       # @see https://dev.twitter.com/docs/api/1/get/users/show
@@ -41,88 +105,6 @@ module Twitter
         true
       rescue Twitter::Error::NotFound
         false
-      end
-
-      # Returns extended information for up to 100 users
-      #
-      # @see https://dev.twitter.com/docs/api/1/get/users/lookup
-      # @rate_limited Yes
-      # @requires_authentication Yes
-      # @overload users(*users, options={})
-      #   @param users [Integer, String] Twitter users ID or screen names.
-      #   @param options [Hash] A customizable set of options.
-      #   @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
-      #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-      #   @return [Array<Twitter::User>] The requested users.
-      #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-      #   @example Return extended information for @sferik and @pengwynn
-      #     Twitter.users("sferik", "pengwynn")
-      #     Twitter.users("sferik", 14100886)   # Same as above
-      #     Twitter.users(7505382, 14100886)    # Same as above
-      def users(*args)
-        options = args.last.is_a?(Hash) ? args.pop : {}
-        users = args
-        merge_users_into_options!(Array(users), options)
-        get("/1/users/lookup.json", options).map do |user|
-          Twitter::User.new(user)
-        end
-      end
-
-      # Returns users that match the given query
-      #
-      # @see https://dev.twitter.com/docs/api/1/get/users/search
-      # @rate_limited Yes
-      # @requires_authentication Yes
-      # @param query [String] The search query to run against people search.
-      # @param options [Hash] A customizable set of options.
-      # @option options [Integer] :per_page The number of people to retrieve. Maxiumum of 20 allowed per page.
-      # @option options [Integer] :page Specifies the page of results to retrieve.
-      # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
-      # @return [Array<Twitter::User>]
-      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-      # @example Return users that match "Erik Michaels-Ober"
-      #   Twitter.user_search("Erik Michaels-Ober")
-      def user_search(query, options={})
-        get("/1/users/search.json", options.merge(:q => query)).map do |user|
-          Twitter::User.new(user)
-        end
-      end
-
-      # Access the profile image in various sizes for the user with the indicated screen name
-      #
-      # @see https://dev.twitter.com/docs/api/1/get/users/profile_image/:screen_name
-      # @rate_limited No
-      # @requires_authentication No
-      # @overload profile_image(screen_name, options={})
-      #   @param screen_name [String] The screen name of the user for whom to return results for.
-      #   @param options [Hash] A customizable set of options.
-      #   @option options [String] :size ('normal') Specifies the size of image to fetch. Valid options include: 'bigger' (73px by 73px), 'normal' (48px by 48px), and 'mini' (24px by 24px).
-      #   @example Return the URL for the 24px by 24px version of @sferik's profile image
-      #     Twitter.profile_image("sferik", :size => 'mini')
-      # @return [String] The URL for the requested user's profile image.
-      def profile_image(*args)
-        options = args.last.is_a?(Hash) ? args.pop : {}
-        screen_name = args.pop || get_screen_name
-        get("/1/users/profile_image/#{screen_name}", options, :raw => true).headers['location']
-      end
-
-      # Returns recommended users for the authenticated user
-      #
-      # @note {https://dev.twitter.com/discussions/1120 Undocumented}
-      # @rate_limited Yes
-      # @requires_authentication Yes
-      # @param options [Hash] A customizable set of options.
-      # @option options [Integer] :limit (20) Specifies the number of records to retrieve.
-      # @option options [String] :excluded Comma-separated list of user IDs to exclude.
-      # @return [Array<Twitter::User>]
-      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-      # @example Return recommended users for the authenticated user
-      #   Twitter.recommendations
-      def recommendations(options={})
-        options[:excluded] = options[:excluded].join(',') if options[:excluded].is_a?(Array)
-        get("/1/users/recommendations.json", options).map do |recommendation|
-          Twitter::User.new(recommendation['user'])
-        end
       end
 
       # Returns an array of users that the specified user can contribute to
@@ -190,6 +172,26 @@ module Twitter
           Twitter::User.new(user)
         end
       end
+
+      # Returns recommended users for the authenticated user
+      #
+      # @note {https://dev.twitter.com/discussions/1120 Undocumented}
+      # @rate_limited Yes
+      # @requires_authentication Yes
+      # @param options [Hash] A customizable set of options.
+      # @option options [Integer] :limit (20) Specifies the number of records to retrieve.
+      # @option options [String] :excluded Comma-separated list of user IDs to exclude.
+      # @return [Array<Twitter::User>]
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @example Return recommended users for the authenticated user
+      #   Twitter.recommendations
+      def recommendations(options={})
+        options[:excluded] = options[:excluded].join(',') if options[:excluded].is_a?(Array)
+        get("/1/users/recommendations.json", options).map do |recommendation|
+          Twitter::User.new(recommendation['user'])
+        end
+      end
+
     end
   end
 end

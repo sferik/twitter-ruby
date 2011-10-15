@@ -5,6 +5,7 @@ module Twitter
   class Client
     # Defines methods related twitter's supported features and configuration
     module Help
+
       # Returns the current configuration used by Twitter
       #
       # @see https://dev.twitter.com/docs/api/1/get/help/configuration
@@ -31,6 +32,7 @@ module Twitter
           Twitter::Language.new(language)
         end
       end
+
     end
   end
 end

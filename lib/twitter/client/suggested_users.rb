@@ -23,7 +23,7 @@ module Twitter
       #   @requires_authentication No
       #   @param slug [String] The short name of list or a category.
       #   @param options [Hash] A customizable set of options.
-      #   @return [Array]
+      #   @return [Array<Hash>]
       #   @example Return the users in the Art & Design category
       #     Twitter.suggestions("art-design")
       def suggestions(*args)

@@ -5,6 +5,7 @@ module Twitter
     # Defines methods related to geography
     # @see https://dev.twitter.com/terms/geo-developer-guidelines Developer Guidelines
     module PlacesAndGeo
+
       # Search for places that can be attached to a {Twitter::Client::Tweets#update}
       #
       # @see https://dev.twitter.com/docs/api/1/get/geo/search
@@ -106,6 +107,7 @@ module Twitter
         place = post("/1/geo/place.json", options)
         Twitter::Place.new(place)
       end
+
     end
   end
 end

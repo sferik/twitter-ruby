@@ -8,6 +8,7 @@ require 'twitter/user'
 module Twitter
   class Client
     module Lists
+
       # Returns all lists the authenticating or specified user subscribes to, including their own
       #
       # @see https://dev.twitter.com/docs/api/1/get/lists/all

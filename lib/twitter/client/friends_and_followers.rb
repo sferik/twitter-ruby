@@ -6,6 +6,7 @@ module Twitter
   class Client
     # Defines methods related to friends and followers
     module FriendsAndFollowers
+
       # @see https://dev.twitter.com/docs/api/1/get/followers/ids
       # @rate_limited Yes
       # @requires_authentication No unless requesting it from a protected user

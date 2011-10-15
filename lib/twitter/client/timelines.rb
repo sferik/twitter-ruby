@@ -4,23 +4,6 @@ module Twitter
   class Client
     # Defines methods related to timelines
     module Timelines
-      # Returns the 20 most recent statuses, including retweets if they exist, from non-protected users
-      #
-      # @see https://dev.twitter.com/docs/api/1/get/statuses/public_timeline
-      # @note The public timeline is cached for 60 seconds. Requesting more frequently than that will not return any more data, and will count against your rate limit usage.
-      # @rate_limited Yes
-      # @requires_authentication No
-      # @param options [Hash] A customizable set of options.
-      # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
-      # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
-      # @return [Array<Twitter::Status>]
-      # @example Return the 20 most recent statuses, including retweets if they exist, from non-protected users
-      #   Twitter.public_timeline
-      def public_timeline(options={})
-        get("/1/statuses/public_timeline.json", options).map do |status|
-          Twitter::Status.new(status)
-        end
-      end
 
       # Returns the 20 most recent statuses, including retweets if they exist, posted by the authenticating user and the users they follow
       #
@@ -46,35 +29,6 @@ module Twitter
         end
       end
 
-      # Returns the 20 most recent statuses posted by the specified user
-      #
-      # @see https://dev.twitter.com/docs/api/1/get/statuses/user_timeline
-      # @note This method can only return up to 3200 statuses. If the :include_rts option is set, only 3200 statuses, including retweets if they exist, can be returned.
-      # @rate_limited Yes
-      # @requires_authentication No unless the user whose timeline you're trying to view is protected
-      # @overload user_timeline(user, options={})
-      #   @param user [Integer, String] A Twitter user ID or screen name.
-      #   @param options [Hash] A customizable set of options.
-      #   @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID.
-      #   @option options [Integer] :max_id Returns results with an ID less than (that is, older than) or equal to the specified ID.
-      #   @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 200.
-      #   @option options [Integer] :page Specifies the page of results to retrieve.
-      #   @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
-      #   @option options [Boolean, String, Integer] :include_rts The timeline will contain native retweets (if they exist) in addition to the standard stream of tweets when set to true, 't' or 1.
-      #   @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
-      #   @option options [Boolean, String, Integer] :exclude_replies This parameter will prevent replies from appearing in the returned timeline. Using exclude_replies with the count parameter will mean you will receive up-to count tweets — this is because the count parameter retrieves that many tweets before filtering out retweets and replies.
-      #   @return [Array<Twitter::Status>]
-      #   @example Return the 20 most recent statuses posted by @sferik
-      #     Twitter.user_timeline("sferik")
-      def user_timeline(*args)
-        options = args.last.is_a?(Hash) ? args.pop : {}
-        user = args.pop || get_screen_name
-        merge_user_into_options!(user, options)
-        get("/1/statuses/user_timeline.json", options).map do |status|
-          Twitter::Status.new(status)
-        end
-      end
-
       # Returns the 20 most recent mentions (statuses containing @username) for the authenticating user
       #
       # @see https://dev.twitter.com/docs/api/1/get/statuses/mentions
@@ -95,6 +49,24 @@ module Twitter
       #   Twitter.mentions
       def mentions(options={})
         get("/1/statuses/mentions.json", options).map do |status|
+          Twitter::Status.new(status)
+        end
+      end
+
+      # Returns the 20 most recent statuses, including retweets if they exist, from non-protected users
+      #
+      # @see https://dev.twitter.com/docs/api/1/get/statuses/public_timeline
+      # @note The public timeline is cached for 60 seconds. Requesting more frequently than that will not return any more data, and will count against your rate limit usage.
+      # @rate_limited Yes
+      # @requires_authentication No
+      # @param options [Hash] A customizable set of options.
+      # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
+      # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
+      # @return [Array<Twitter::Status>]
+      # @example Return the 20 most recent statuses, including retweets if they exist, from non-protected users
+      #   Twitter.public_timeline
+      def public_timeline(options={})
+        get("/1/statuses/public_timeline.json", options).map do |status|
           Twitter::Status.new(status)
         end
       end
@@ -165,6 +137,35 @@ module Twitter
         end
       end
 
+      # Returns the 20 most recent statuses posted by the specified user
+      #
+      # @see https://dev.twitter.com/docs/api/1/get/statuses/user_timeline
+      # @note This method can only return up to 3200 statuses. If the :include_rts option is set, only 3200 statuses, including retweets if they exist, can be returned.
+      # @rate_limited Yes
+      # @requires_authentication No unless the user whose timeline you're trying to view is protected
+      # @overload user_timeline(user, options={})
+      #   @param user [Integer, String] A Twitter user ID or screen name.
+      #   @param options [Hash] A customizable set of options.
+      #   @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID.
+      #   @option options [Integer] :max_id Returns results with an ID less than (that is, older than) or equal to the specified ID.
+      #   @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 200.
+      #   @option options [Integer] :page Specifies the page of results to retrieve.
+      #   @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
+      #   @option options [Boolean, String, Integer] :include_rts The timeline will contain native retweets (if they exist) in addition to the standard stream of tweets when set to true, 't' or 1.
+      #   @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
+      #   @option options [Boolean, String, Integer] :exclude_replies This parameter will prevent replies from appearing in the returned timeline. Using exclude_replies with the count parameter will mean you will receive up-to count tweets — this is because the count parameter retrieves that many tweets before filtering out retweets and replies.
+      #   @return [Array<Twitter::Status>]
+      #   @example Return the 20 most recent statuses posted by @sferik
+      #     Twitter.user_timeline("sferik")
+      def user_timeline(*args)
+        options = args.last.is_a?(Hash) ? args.pop : {}
+        user = args.pop || get_screen_name
+        merge_user_into_options!(user, options)
+        get("/1/statuses/user_timeline.json", options).map do |status|
+          Twitter::Status.new(status)
+        end
+      end
+
       # Returns the 20 most recent images posted by the specified user
       #
       # @see https://support.twitter.com/articles/20169409
@@ -190,6 +191,7 @@ module Twitter
           Twitter::Status.new(status)
         end
       end
+
     end
   end
 end

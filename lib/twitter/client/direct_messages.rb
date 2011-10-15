@@ -4,6 +4,7 @@ module Twitter
   class Client
     # Defines methods related to direct messages
     module DirectMessages
+
       # Returns the 20 most recent direct messages sent to the authenticating user
       #
       # @see https://dev.twitter.com/docs/api/1/get/direct_messages
@@ -46,6 +47,24 @@ module Twitter
         end
       end
 
+      # Destroys a direct message
+      #
+      # @see https://dev.twitter.com/docs/api/1/post/direct_messages/destroy/:id
+      # @note The authenticating user must be the recipient of the specified direct message.
+      # @rate_limited No
+      # @requires_authentication Yes
+      # @param id [Integer] The ID of the direct message to delete.
+      # @param options [Hash] A customizable set of options.
+      # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
+      # @return [Twitter::DirectMessage] The deleted message.
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @example Destroys the direct message with the ID 1825785544
+      #   Twitter.direct_message_destroy(1825785544)
+      def direct_message_destroy(id, options={})
+        direct_message = delete("/1/direct_messages/destroy/#{id}.json", options)
+        Twitter::DirectMessage.new(direct_message)
+      end
+
       # Sends a new direct message to the specified user from the authenticating user
       #
       # @see https://dev.twitter.com/docs/api/1/post/direct_messages/new
@@ -67,23 +86,6 @@ module Twitter
       end
       alias :d :direct_message_create
 
-      # Destroys a direct message
-      #
-      # @see https://dev.twitter.com/docs/api/1/post/direct_messages/destroy/:id
-      # @note The authenticating user must be the recipient of the specified direct message.
-      # @rate_limited No
-      # @requires_authentication Yes
-      # @param id [Integer] The ID of the direct message to delete.
-      # @param options [Hash] A customizable set of options.
-      # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
-      # @return [Twitter::DirectMessage] The deleted message.
-      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-      # @example Destroys the direct message with the ID 1825785544
-      #   Twitter.direct_message_destroy(1825785544)
-      def direct_message_destroy(id, options={})
-        direct_message = delete("/1/direct_messages/destroy/#{id}.json", options)
-        Twitter::DirectMessage.new(direct_message)
-      end
     end
   end
 end

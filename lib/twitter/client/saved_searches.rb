@@ -4,6 +4,7 @@ module Twitter
   class Client
     # Defines methods related to saved searches
     module SavedSearches
+
       # Returns the authenticated user's saved search queries
       #
       # @see https://dev.twitter.com/docs/api/1/get/saved_searches
@@ -66,6 +67,7 @@ module Twitter
         saved_search = delete("/1/saved_searches/destroy/#{id}.json", options)
         Twitter::SavedSearch.new(saved_search)
       end
+
     end
   end
 end

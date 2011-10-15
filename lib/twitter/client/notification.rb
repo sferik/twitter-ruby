@@ -4,6 +4,7 @@ module Twitter
   class Client
     # Defines methods related to notification
     module Notification
+
       # Enables device notifications for updates from the specified user to the authenticating user
       #
       # @see https://dev.twitter.com/docs/api/1/post/notifications/follow
@@ -41,6 +42,7 @@ module Twitter
         user = post("/1/notifications/leave.json", options)
         Twitter::User.new(user)
       end
+
     end
   end
 end

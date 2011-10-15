@@ -4,6 +4,7 @@ module Twitter
   class Client
     # Defines methods related to Search
     module Search
+
       # Returns recent statuses that contain images related to a query
       #
       # @note Undocumented
@@ -58,6 +59,7 @@ module Twitter
           Twitter::Status.new(status)
         end
       end
+
     end
   end
 end
