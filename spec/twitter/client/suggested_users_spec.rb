@@ -18,9 +18,11 @@ describe Twitter::Client do
           should have_been_made
       end
       it "should return the users in a given category of the Twitter suggested user list" do
-        category = @client.suggestions("art-design")
-        category.should be_a Hash
-        category['name'].should == "Art & Design"
+        suggestion = @client.suggestions("art-design")
+        suggestion.should be_a Twitter::Suggestion
+        suggestion.name.should == "Art & Design"
+        suggestion.users.should be_an Array
+        suggestion.users.first.should be_a Twitter::User
       end
     end
     context "without arguments passed" do
@@ -36,8 +38,8 @@ describe Twitter::Client do
       it "should return the list of suggested user categories" do
         suggestions = @client.suggestions
         suggestions.should be_an Array
-        suggestions.first.should be_a Hash
-        suggestions.first['name'].should == "Art & Design"
+        suggestions.first.should be_a Twitter::Suggestion
+        suggestions.first.name.should == "Art & Design"
       end
     end
   end

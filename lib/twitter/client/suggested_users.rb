@@ -1,3 +1,4 @@
+require 'twitter/suggestion'
 require 'twitter/user'
 
 module Twitter
@@ -12,7 +13,7 @@ module Twitter
       #   @rate_limited Yes
       #   @requires_authentication No
       #   @param options [Hash] A customizable set of options.
-      #   @return [Array]
+      #   @return [Array<Twitter::Suggestion>]
       #   @example Return the list of suggested user categories
       #     Twitter.suggestions
       # @overload suggestions(slug, options={})
@@ -23,15 +24,18 @@ module Twitter
       #   @requires_authentication No
       #   @param slug [String] The short name of list or a category.
       #   @param options [Hash] A customizable set of options.
-      #   @return [Array<Hash>]
+      #   @return [Array<Twitter::Suggestion>]
       #   @example Return the users in the Art & Design category
       #     Twitter.suggestions("art-design")
       def suggestions(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
         if slug = args.first
-          get("/1/users/suggestions/#{slug}.json", options)
+          suggestion = get("/1/users/suggestions/#{slug}.json", options)
+          Twitter::Suggestion.new(suggestion)
         else
-          get("/1/users/suggestions.json", options)
+          get("/1/users/suggestions.json", options).map do |suggestion|
+            Twitter::Suggestion.new(suggestion)
+          end
         end
       end
 

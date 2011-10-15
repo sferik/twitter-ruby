@@ -33,7 +33,7 @@ module Twitter
       @in_reply_to_user_id = status['in_reply_to_user_id']
       @iso_language_code = status['iso_language_code']
       @media = status['entities']['media'].map do |media|
-        MediaFactory.new(media)
+        Twitter::MediaFactory.new(media)
       end unless status['entities'].nil? || status['entities']['media'].nil?
       @metadata = Twitter::Metadata.new(status['metadata']) unless status['metadata'].nil?
       @place = Twitter::Place.new(status['place']) unless status['place'].nil?

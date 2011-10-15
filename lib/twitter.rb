@@ -17,6 +17,7 @@ require 'twitter/search'
 require 'twitter/settings'
 require 'twitter/size'
 require 'twitter/status'
+require 'twitter/suggestion'
 require 'twitter/user'
 
 module Twitter
