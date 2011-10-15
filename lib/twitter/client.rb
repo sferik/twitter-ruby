@@ -19,9 +19,7 @@ module Twitter
     require 'twitter/client/geo'
     require 'twitter/client/help'
     require 'twitter/client/legal'
-    require 'twitter/client/list'
-    require 'twitter/client/list_members'
-    require 'twitter/client/list_subscribers'
+    require 'twitter/client/lists'
     require 'twitter/client/local_trends'
     require 'twitter/client/notification'
     require 'twitter/client/saved_searches'
@@ -48,9 +46,7 @@ module Twitter
     include Twitter::Client::Geo
     include Twitter::Client::Help
     include Twitter::Client::Legal
-    include Twitter::Client::List
-    include Twitter::Client::ListMembers
-    include Twitter::Client::ListSubscribers
+    include Twitter::Client::Lists
     include Twitter::Client::LocalTrends
     include Twitter::Client::Notification
     include Twitter::Client::SavedSearches
