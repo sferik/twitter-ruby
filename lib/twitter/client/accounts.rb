@@ -5,7 +5,7 @@ require 'twitter/user'
 module Twitter
   class Client
     # Defines methods related to a user's account
-    module Account
+    module Accounts
       # Returns the requesting user if authentication was successful, otherwise raises {Twitter::Error::Unauthorized}
       #
       # @see https://dev.twitter.com/docs/api/1/get/account/verify_credentials

@@ -3,7 +3,7 @@ require 'twitter/status'
 module Twitter
   class Client
     # Defines methods related to timelines
-    module Timeline
+    module Timelines
       # Returns the 20 most recent statuses, including retweets if they exist, from non-protected users
       #
       # @see https://dev.twitter.com/docs/api/1/get/statuses/public_timeline

@@ -9,7 +9,7 @@ module Twitter
     # Require client method modules after initializing the Client class in
     # order to avoid a superclass mismatch error, allowing those modules to be
     # Client-namespaced.
-    require 'twitter/client/account'
+    require 'twitter/client/accounts'
     require 'twitter/client/activity'
     require 'twitter/client/block'
     require 'twitter/client/direct_messages'
@@ -25,7 +25,7 @@ module Twitter
     require 'twitter/client/search'
     require 'twitter/client/spam_reporting'
     require 'twitter/client/suggested_users'
-    require 'twitter/client/timeline'
+    require 'twitter/client/timelines'
     require 'twitter/client/trends'
     require 'twitter/client/tweets'
     require 'twitter/client/urls'
@@ -36,7 +36,7 @@ module Twitter
 
     include Twitter::Client::Utils
 
-    include Twitter::Client::Account
+    include Twitter::Client::Accounts
     include Twitter::Client::Activity
     include Twitter::Client::Block
     include Twitter::Client::DirectMessages
@@ -52,7 +52,7 @@ module Twitter
     include Twitter::Client::Search
     include Twitter::Client::SpamReporting
     include Twitter::Client::SuggestedUsers
-    include Twitter::Client::Timeline
+    include Twitter::Client::Timelines
     include Twitter::Client::Trends
     include Twitter::Client::Tweets
     include Twitter::Client::Urls
