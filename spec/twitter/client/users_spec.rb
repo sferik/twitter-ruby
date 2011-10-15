@@ -234,75 +234,6 @@ describe Twitter::Client do
 
   end
 
-  describe ".suggestions" do
-
-    context "with a category slug passed" do
-
-      before do
-        stub_get("/1/users/suggestions/art-design.json").
-          to_return(:body => fixture("category.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-      end
-
-      it "should get the correct resource" do
-        @client.suggestions("art-design")
-        a_get("/1/users/suggestions/art-design.json").
-          should have_been_made
-      end
-
-      it "should return the users in a given category of the Twitter suggested user list" do
-        category = @client.suggestions("art-design")
-        category.should be_a Hash
-        category['name'].should == "Art & Design"
-      end
-
-    end
-
-    context "without arguments passed" do
-
-      before do
-        stub_get("/1/users/suggestions.json").
-          to_return(:body => fixture("suggestions.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-      end
-
-      it "should get the correct resource" do
-        @client.suggestions
-        a_get("/1/users/suggestions.json").
-          should have_been_made
-      end
-
-      it "should return the list of suggested user categories" do
-        suggestions = @client.suggestions
-        suggestions.should be_an Array
-        suggestions.first.should be_a Hash
-        suggestions.first['name'].should == "Art & Design"
-      end
-
-    end
-
-  end
-
-  describe ".suggest_users" do
-
-    before do
-      stub_get("/1/users/suggestions/art-design/members.json").
-        to_return(:body => fixture("members.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-    end
-
-    it "should get the correct resource" do
-      @client.suggest_users("art-design")
-      a_get("/1/users/suggestions/art-design/members.json").
-        should have_been_made
-    end
-
-    it "should return users in a given category of the Twitter suggested user list and return their most recent status if they are not a protected user" do
-      suggest_users = @client.suggest_users("art-design")
-      suggest_users.should be_a Array
-      suggest_users.first.should be_a Twitter::User
-      suggest_users.first.name.should == "OMGFacts"
-    end
-
-  end
-
   describe ".profile_image" do
 
     context "with screen name passed" do
@@ -460,6 +391,9 @@ describe Twitter::Client do
         contributors.first.should be_a Twitter::User
         contributors.first.name.should == "Biz Stone"
       end
+
     end
+
   end
+
 end

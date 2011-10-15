@@ -24,11 +24,12 @@ module Twitter
     require 'twitter/client/saved_searches'
     require 'twitter/client/search'
     require 'twitter/client/spam_reporting'
+    require 'twitter/client/suggested_users'
     require 'twitter/client/timeline'
     require 'twitter/client/trends'
     require 'twitter/client/tweets'
     require 'twitter/client/urls'
-    require 'twitter/client/user'
+    require 'twitter/client/users'
     require 'twitter/client/utils'
 
     alias :api_endpoint :endpoint
@@ -50,10 +51,11 @@ module Twitter
     include Twitter::Client::SavedSearches
     include Twitter::Client::Search
     include Twitter::Client::SpamReporting
+    include Twitter::Client::SuggestedUsers
     include Twitter::Client::Timeline
     include Twitter::Client::Trends
     include Twitter::Client::Tweets
     include Twitter::Client::Urls
-    include Twitter::Client::User
+    include Twitter::Client::Users
   end
 end

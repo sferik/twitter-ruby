@@ -4,7 +4,7 @@ require 'twitter/user'
 module Twitter
   class Client
     # Defines methods related to users
-    module User
+    module Users
       # Returns extended information of a given user
       #
       # @see https://dev.twitter.com/docs/api/1/get/users/show
@@ -84,52 +84,6 @@ module Twitter
       #   Twitter.user_search("Erik Michaels-Ober")
       def user_search(query, options={})
         get("/1/users/search.json", options.merge(:q => query)).map do |user|
-          Twitter::User.new(user)
-        end
-      end
-
-      # @overload suggestions(options={})
-      #   Returns the list of suggested user categories
-      #
-      #   @see https://dev.twitter.com/docs/api/1/get/users/suggestions
-      #   @rate_limited Yes
-      #   @requires_authentication No
-      #   @param options [Hash] A customizable set of options.
-      #   @return [Array]
-      #   @example Return the list of suggested user categories
-      #     Twitter.suggestions
-      # @overload suggestions(slug, options={})
-      #   Returns the users in a given category
-      #
-      #   @see https://dev.twitter.com/docs/api/1/get/users/suggestions/:slug
-      #   @rate_limited Yes
-      #   @requires_authentication No
-      #   @param slug [String] The short name of list or a category.
-      #   @param options [Hash] A customizable set of options.
-      #   @return [Array]
-      #   @example Return the users in the Art & Design category
-      #     Twitter.suggestions("art-design")
-      def suggestions(*args)
-        options = args.last.is_a?(Hash) ? args.pop : {}
-        if slug = args.first
-          get("/1/users/suggestions/#{slug}.json", options)
-        else
-          get("/1/users/suggestions.json", options)
-        end
-      end
-
-      # Access the users in a given category of the Twitter suggested user list and return their most recent status if they are not a protected user
-      #
-      # @see https://dev.twitter.com/docs/api/1/get/users/suggestions/:slug/members
-      # @rate_limited Yes
-      # @requires_authentication No
-      # @param slug [String] The short name of list or a category.
-      # @param options [Hash] A customizable set of options.
-      # @return [Array<Twitter::User>]
-      # @example Return the users in the Art & Design category and their most recent status if they are not a protected user
-      #   Twitter.suggest_users("art-design")
-      def suggest_users(slug, options={})
-        get("/1/users/suggestions/#{slug}/members.json", options).map do |user|
           Twitter::User.new(user)
         end
       end
