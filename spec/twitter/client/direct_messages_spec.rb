@@ -78,4 +78,21 @@ describe Twitter::Client do
     end
   end
 
+  describe ".direct_message" do
+    before do
+      stub_get("/1/direct_messages/show/1825786345.json").
+        to_return(:body => fixture("direct_message.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+    end
+    it "should get the correct resource" do
+      @client.direct_message(1825786345)
+      a_get("/1/direct_messages/show/1825786345.json").
+        should have_been_made
+    end
+    it "should return the 20 most recent direct messages sent to the authenticating user" do
+      direct_messages = @client.direct_message(1825786345)
+      direct_messages.should be_an Twitter::DirectMessage
+      direct_messages.sender.name.should == "Erik Michaels-Ober"
+    end
+  end
+
 end

@@ -8,6 +8,7 @@ module Twitter
       # Returns the 20 most recent direct messages sent to the authenticating user
       #
       # @see https://dev.twitter.com/docs/api/1/get/direct_messages
+      # @note This method requires an access token with RWD (read, write & direct message) permissions. Consult The Application Permission Model for more information.
       # @rate_limited Yes
       # @requires_authentication Yes
       # @param options [Hash] A customizable set of options.
@@ -29,6 +30,7 @@ module Twitter
       # Returns the 20 most recent direct messages sent by the authenticating user
       #
       # @see https://dev.twitter.com/docs/api/1/get/direct_messages/sent
+      # @note This method requires an access token with RWD (read, write & direct message) permissions. Consult The Application Permission Model for more information.
       # @rate_limited Yes
       # @requires_authentication Yes
       # @param options [Hash] A customizable set of options.
@@ -50,7 +52,7 @@ module Twitter
       # Destroys a direct message
       #
       # @see https://dev.twitter.com/docs/api/1/post/direct_messages/destroy/:id
-      # @note The authenticating user must be the recipient of the specified direct message.
+      # @note This method requires an access token with RWD (read, write & direct message) permissions. Consult The Application Permission Model for more information.
       # @rate_limited No
       # @requires_authentication Yes
       # @param id [Integer] The ID of the direct message to delete.
@@ -86,6 +88,22 @@ module Twitter
       end
       alias :d :direct_message_create
 
+      # Returns a single direct message, specified by id.
+      #
+      # @see https://dev.twitter.com/docs/api/1/get/direct_messages/show/%3Aid
+      # @note This method requires an access token with RWD (read, write & direct message) permissions. Consult The Application Permission Model for more information.
+      # @rate_limited Yes
+      # @requires_authentication Yes
+      # @param id [Integer] The ID of the direct message to retrieve.
+      # @param options [Hash] A customizable set of options.
+      # @return [Twitter::DirectMessage] The requested message.
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @example Return the direct message with the id 1825786345
+      #   Twitter.direct_message(1825786345)
+      def direct_message(id, options={})
+        direct_message = get("/1/direct_messages/show/#{id}.json", options)
+        Twitter::DirectMessage.new(direct_message)
+      end
     end
   end
 end
