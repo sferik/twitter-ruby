@@ -60,39 +60,69 @@ describe Twitter::Client do
     end
   end
 
-  describe ".retweeted_by_me" do
-    before do
-      stub_get("/1/statuses/retweeted_by_me.json").
-        to_return(:body => fixture("statuses.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+  describe ".retweeted_by" do
+    context "with a screen name passed" do
+      before do
+        stub_get("/1/statuses/retweeted_by_user.json").
+          with(:query => {:screen_name => "sferik"}).
+          to_return(:body => fixture("statuses.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      end
+      it "should get the correct resource" do
+        @client.retweeted_by("sferik")
+        a_get("/1/statuses/retweeted_by_user.json").
+          with(:query => {:screen_name => "sferik"}).
+          should have_been_made
+      end
+      it "should return the 20 most recent retweets posted by the authenticating user" do
+        statuses = @client.retweeted_by("sferik")
+        statuses.should be_an Array
+        statuses.first.should be_a Twitter::Status
+        statuses.first.text.should == "Ruby is the best programming language for hiding the ugly bits."
+      end
     end
-    it "should get the correct resource" do
-      @client.retweeted_by_me
-      a_get("/1/statuses/retweeted_by_me.json").
-        should have_been_made
-    end
-    it "should return the 20 most recent retweets posted by the authenticating user" do
-      statuses = @client.retweeted_by_me
-      statuses.should be_an Array
-      statuses.first.should be_a Twitter::Status
-      statuses.first.text.should == "Ruby is the best programming language for hiding the ugly bits."
+    context "without a screen name passed" do
+      before do
+        stub_get("/1/statuses/retweeted_by_me.json").
+          to_return(:body => fixture("statuses.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      end
+      it "should get the correct resource" do
+        @client.retweeted_by
+        a_get("/1/statuses/retweeted_by_me.json").
+          should have_been_made
+      end
     end
   end
 
-  describe ".retweeted_to_me" do
-    before do
-      stub_get("/1/statuses/retweeted_to_me.json").
-        to_return(:body => fixture("statuses.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+  describe ".retweeted_to" do
+    context "with a screen name passed" do
+      before do
+        stub_get("/1/statuses/retweeted_to_user.json").
+          with(:query => {:screen_name => "sferik"}).
+          to_return(:body => fixture("statuses.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      end
+      it "should get the correct resource" do
+        @client.retweeted_to("sferik")
+        a_get("/1/statuses/retweeted_to_user.json").
+          with(:query => {:screen_name => "sferik"}).
+          should have_been_made
+      end
+      it "should return the 20 most recent retweets posted by users the authenticating user follow" do
+        statuses = @client.retweeted_to("sferik")
+        statuses.should be_an Array
+        statuses.first.should be_a Twitter::Status
+        statuses.first.text.should == "Ruby is the best programming language for hiding the ugly bits."
+      end
     end
-    it "should get the correct resource" do
-      @client.retweeted_to_me
-      a_get("/1/statuses/retweeted_to_me.json").
-        should have_been_made
-    end
-    it "should return the 20 most recent retweets posted by users the authenticating user follow" do
-      statuses = @client.retweeted_to_me
-      statuses.should be_an Array
-      statuses.first.should be_a Twitter::Status
-      statuses.first.text.should == "Ruby is the best programming language for hiding the ugly bits."
+    context "without a screen name passed" do
+      before do
+        stub_get("/1/statuses/retweeted_to_me.json").
+          to_return(:body => fixture("statuses.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      end
+      it "should get the correct resource" do
+        @client.retweeted_to
+        a_get("/1/statuses/retweeted_to_me.json").
+          should have_been_made
+      end
     end
   end
 

@@ -71,46 +71,88 @@ module Twitter
         end
       end
 
-      # Returns the 20 most recent retweets posted by the authenticating user
+      # Returns the 20 most recent retweets posted by the specified user
       #
       # @see https://dev.twitter.com/docs/api/1/get/statuses/retweeted_by_me
+      # @see https://dev.twitter.com/docs/api/1/get/statuses/retweeted_by_user
       # @rate_limited Yes
-      # @requires_authentication Yes
-      # @param options [Hash] A customizable set of options.
-      # @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID.
-      # @option options [Integer] :max_id Returns results with an ID less than (that is, older than) or equal to the specified ID.
-      # @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 200.
-      # @option options [Integer] :page Specifies the page of results to retrieve.
-      # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
-      # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
-      # @return [Array<Twitter::Status>]
-      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-      # @example Return the 20 most recent retweets posted by the authenticating user
-      #   Twitter.retweeted_by_me
-      def retweeted_by_me(options={})
-        get("/1/statuses/retweeted_by_me.json", options).map do |status|
+      # @requires_authentication Supported
+      # @overload retweeted_by(options={})
+      #   @param options [Hash] A customizable set of options.
+      #   @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID.
+      #   @option options [Integer] :max_id Returns results with an ID less than (that is, older than) or equal to the specified ID.
+      #   @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 200.
+      #   @option options [Integer] :page Specifies the page of results to retrieve.
+      #   @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
+      #   @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
+      #   @return [Array<Twitter::Status>]
+      #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      #   @example Return the 20 most recent retweets posted by the authenticating user
+      #     Twitter.retweeted_by("sferik")
+      # @overload retweeted_by(user, options={})
+      #   @param user [Integer, String] A Twitter user ID or screen name.
+      #   @param options [Hash] A customizable set of options.
+      #   @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID.
+      #   @option options [Integer] :max_id Returns results with an ID less than (that is, older than) or equal to the specified ID.
+      #   @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 200.
+      #   @option options [Integer] :page Specifies the page of results to retrieve.
+      #   @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
+      #   @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
+      #   @return [Array<Twitter::Status>]
+      #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      #   @example Return the 20 most recent retweets posted by the authenticating user
+      #     Twitter.retweeted_by
+      def retweeted_by(*args)
+        options = args.last.is_a?(Hash) ? args.pop : {}
+        if user = args.pop
+          merge_user_into_options!(user, options)
+          get("/1/statuses/retweeted_by_user.json", options)
+        else
+          get("/1/statuses/retweeted_by_me.json", options)
+        end.map do |status|
           Twitter::Status.new(status)
         end
       end
 
-      # Returns the 20 most recent retweets posted by users followed by the authenticating user
+      # Returns the 20 most recent retweets posted by users the specified user follows
       #
       # @see https://dev.twitter.com/docs/api/1/get/statuses/retweeted_to_me
+      # @see https://dev.twitter.com/docs/api/1/get/statuses/retweeted_to_user
       # @rate_limited Yes
-      # @requires_authentication Yes
-      # @param options [Hash] A customizable set of options.
-      # @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID.
-      # @option options [Integer] :max_id Returns results with an ID less than (that is, older than) or equal to the specified ID.
-      # @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 200.
-      # @option options [Integer] :page Specifies the page of results to retrieve.
-      # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
-      # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
-      # @return [Array<Twitter::Status>]
-      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-      # @example Return the 20 most recent retweets posted by users followed by the authenticating user
-      #   Twitter.retweeted_to_me
-      def retweeted_to_me(options={})
-        get("/1/statuses/retweeted_to_me.json", options).map do |status|
+      # @requires_authentication Supported
+      # @overload retweeted_to(options={})
+      #   @param options [Hash] A customizable set of options.
+      #   @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID.
+      #   @option options [Integer] :max_id Returns results with an ID less than (that is, older than) or equal to the specified ID.
+      #   @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 200.
+      #   @option options [Integer] :page Specifies the page of results to retrieve.
+      #   @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
+      #   @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
+      #   @return [Array<Twitter::Status>]
+      #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      #   @example Return the 20 most recent retweets posted by users followed by the authenticating user
+      #     Twitter.retweeted_to
+      # @overload retweeted_to(user, options={})
+      #   @param user [Integer, String] A Twitter user ID or screen name.
+      #   @param options [Hash] A customizable set of options.
+      #   @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID.
+      #   @option options [Integer] :max_id Returns results with an ID less than (that is, older than) or equal to the specified ID.
+      #   @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 200.
+      #   @option options [Integer] :page Specifies the page of results to retrieve.
+      #   @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
+      #   @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
+      #   @return [Array<Twitter::Status>]
+      #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      #   @example Return the 20 most recent retweets posted by users followed by the authenticating user
+      #     Twitter.retweeted_to("sferik")
+      def retweeted_to(*args)
+        options = args.last.is_a?(Hash) ? args.pop : {}
+        if user = args.pop
+          merge_user_into_options!(user, options)
+          get("/1/statuses/retweeted_to_user.json", options)
+        else
+          get("/1/statuses/retweeted_to_me.json", options)
+        end.map do |status|
           Twitter::Status.new(status)
         end
       end
