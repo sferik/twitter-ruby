@@ -7,12 +7,12 @@ module Twitter
   class User < Twitter::Base
     include Twitter::Authenticatable
     include Twitter::Creatable
-    attr_reader :all_replies, :blocking, :can_dm, :contributors_enabled,
-      :default_profile, :default_profile_image, :description,
-      :favourites_count, :follow_request_sent, :followed_by, :followers_count,
-      :following, :friends_count, :geo_enabled, :id, :is_translator, :lang,
-      :listed_count, :location, :marked_spam, :name, :notifications,
-      :notifications_enabled, :profile_background_color,
+    attr_reader :all_replies, :blocking, :can_dm, :connections,
+      :contributors_enabled, :default_profile, :default_profile_image,
+      :description, :favourites_count, :follow_request_sent, :followed_by,
+      :followers_count, :following, :friends_count, :geo_enabled, :id,
+      :is_translator, :lang, :listed_count, :location, :marked_spam, :name,
+      :notifications, :notifications_enabled, :profile_background_color,
       :profile_background_image_url, :profile_background_image_url_https,
       :profile_background_tile, :profile_image_url, :profile_image_url_https,
       :profile_link_color, :profile_sidebar_border_color,
@@ -50,6 +50,10 @@ module Twitter
     alias :want_retweets? :want_retweets
 
     def initialize(user={})
+      @all_replies = user['all_replies']
+      @blocking = user['blocking']
+      @can_dm = user['can_dm']
+      @connections = user['connections']
       @contributors_enabled = user['contributors_enabled']
       @created_at = user['created_at']
       @default_profile = user['default_profile']
@@ -57,6 +61,7 @@ module Twitter
       @description = user['description']
       @favourites_count = user['favourites_count']
       @follow_request_sent = user['follow_request_sent']
+      @followed_by = user['followed_by']
       @followers_count = user['followers_count']
       @following = user['following']
       @friends_count = user['friends_count']
@@ -66,7 +71,9 @@ module Twitter
       @lang = user['lang']
       @listed_count = user['listed_count']
       @location = user['location']
+      @marked_spam = user['marked_spam']
       @name = user['name']
+      @notifications_enabled = user['notifications_enabled']
       @notifications = user['notifications']
       @profile_background_color = user['profile_background_color']
       @profile_background_image_url = user['profile_background_image_url']
@@ -87,6 +94,7 @@ module Twitter
       @url = user['url']
       @utc_offset = user['utc_offset']
       @verified = user['verified']
+      @want_retweets = user['want_retweets']
     end
 
     def ==(other)

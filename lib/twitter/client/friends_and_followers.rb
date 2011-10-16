@@ -192,6 +192,33 @@ module Twitter
       end
       alias :friendship_destroy :unfollow
 
+      # Returns the relationship of the authenticating user to the comma separated list of up to 100 screen_names or user_ids provided. Values for connections can be: following, following_requested, followed_by, none.
+      #
+      # @see https://dev.twitter.com/docs/api/1/get/friendships/lookup
+      # @rate_limited Yes
+      # @requires_authentication Yes
+      # @param options [Hash] A customizable set of options.
+      # @return [Twitter::Relationship]
+      # @overload friendships(*users, options={})
+      #   @param users [Integer, String] Twitter users ID or screen names.
+      #   @param options [Hash] A customizable set of options.
+      #   @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet
+      #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      #   @return [Array<Twitter::User>] The requested users.
+      #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      #   @example Return extended information for @sferik and @pengwynn
+      #     Twitter.friendships("sferik", "pengwynn")
+      #     Twitter.friendships("sferik", 14100886)   # Same as above
+      #     Twitter.friendships(7505382, 14100886)    # Same as above
+      def friendships(*args)
+        options = args.last.is_a?(Hash) ? args.pop : {}
+        users = args
+        merge_users_into_options!(Array(users), options)
+        get("/1/friendships/lookup.json", options).map do |user|
+          Twitter::User.new(user)
+        end
+      end
+
     end
   end
 end

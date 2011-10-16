@@ -248,4 +248,66 @@ describe Twitter::Client do
     end
   end
 
+  describe ".friendships" do
+    context "with screen names passed" do
+      before do
+        stub_get("/1/friendships/lookup.json").
+          with(:query => {:screen_name => "sferik,pengwynn"}).
+          to_return(:body => fixture("friendships.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      end
+      it "should get the correct resource" do
+        @client.friendships("sferik", "pengwynn")
+        a_get("/1/friendships/lookup.json").
+          with(:query => {:screen_name => "sferik,pengwynn"}).
+          should have_been_made
+      end
+      it "should return up to 100 users worth of extended information" do
+        friendships = @client.friendships("sferik", "pengwynn")
+        friendships.should be_an Array
+        friendships.first.should be_a Twitter::User
+        friendships.first.name.should == "Erik Michaels-Ober"
+        friendships.first.connections.should == ["none"]
+      end
+    end
+    context "with numeric screen names passed" do
+      before do
+        stub_get("/1/friendships/lookup.json").
+          with(:query => {:screen_name => "0,311"}).
+          to_return(:body => fixture("friendships.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      end
+      it "should get the correct resource" do
+        @client.friendships("0", "311")
+        a_get("/1/friendships/lookup.json").
+          with(:query => {:screen_name => "0,311"}).
+          should have_been_made
+      end
+    end
+    context "with user IDs passed" do
+      before do
+        stub_get("/1/friendships/lookup.json").
+          with(:query => {:user_id => "7505382,14100886"}).
+          to_return(:body => fixture("friendships.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      end
+      it "should get the correct resource" do
+        @client.friendships(7505382, 14100886)
+        a_get("/1/friendships/lookup.json").
+          with(:query => {:user_id => "7505382,14100886"}).
+          should have_been_made
+      end
+    end
+    context "with both screen names and user IDs passed" do
+      before do
+        stub_get("/1/friendships/lookup.json").
+          with(:query => {:screen_name => "sferik", :user_id => "14100886"}).
+          to_return(:body => fixture("friendships.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      end
+      it "should get the correct resource" do
+        @client.friendships("sferik", 14100886)
+        a_get("/1/friendships/lookup.json").
+          with(:query => {:screen_name => "sferik", :user_id => "14100886"}).
+          should have_been_made
+      end
+    end
+  end
+
 end
