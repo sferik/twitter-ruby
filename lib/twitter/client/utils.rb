@@ -17,7 +17,7 @@ module Twitter
       # @return [Hash]
       def merge_user_into_options!(user_id_or_screen_name, options={})
         case user_id_or_screen_name
-        when Fixnum
+        when Integer
           options[:user_id] = user_id_or_screen_name
         when String
           options[:screen_name] = user_id_or_screen_name
@@ -34,7 +34,7 @@ module Twitter
         user_ids, screen_names = [], []
         user_ids_or_screen_names.flatten.each do |user_id_or_screen_name|
           case user_id_or_screen_name
-          when Fixnum
+          when Integer
             user_ids << user_id_or_screen_name
           when String
             screen_names << user_id_or_screen_name
@@ -53,7 +53,7 @@ module Twitter
       # @return [Hash]
       def merge_owner_into_options!(owner_id_or_owner_screen_name, options={})
         case owner_id_or_owner_screen_name
-        when Fixnum
+        when Integer
           options[:owner_id] = owner_id_or_owner_screen_name
         when String
           options[:owner_screen_name] = owner_id_or_owner_screen_name
@@ -68,7 +68,7 @@ module Twitter
       # @return [Hash]
       def merge_list_into_options!(list_id_or_screen_name, options={})
         case list_id_or_screen_name
-        when Fixnum
+        when Integer
           options[:list_id] = list_id_or_screen_name
         when String
           options[:slug] = list_id_or_screen_name

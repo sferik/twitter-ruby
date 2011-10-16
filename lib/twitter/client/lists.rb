@@ -28,8 +28,9 @@ module Twitter
       #     Twitter.lists_subscribed_to(8863586)
       def lists_subscribed_to(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
-        user = args.pop || get_screen_name
-        merge_user_into_options!(user, options)
+        if user = args.pop
+          merge_user_into_options!(user, options)
+        end
         get("/1/lists/all.json", options).map do |list|
           Twitter::List.new(list)
         end
@@ -70,9 +71,9 @@ module Twitter
       def list_timeline(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
         list = args.pop
-        user = args.pop || get_screen_name
         merge_list_into_options!(list, options)
-        merge_owner_into_options!(user, options)
+        owner = args.pop || get_screen_name
+        merge_owner_into_options!(owner, options)
         get("/1/lists/statuses.json", options).map do |status|
           Twitter::Status.new(status)
         end
@@ -107,11 +108,12 @@ module Twitter
       #     Twitter.list_remove_member(7505382, "presidents", 813286)
       def list_remove_member(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
-        user_to_remove, list = args.pop, args.pop
-        user = args.pop || get_screen_name
-        merge_list_into_options!(list, options)
-        merge_owner_into_options!(user, options)
+        user_to_remove = args.pop
         merge_user_into_options!(user_to_remove, options)
+        list = args.pop
+        merge_list_into_options!(list, options)
+        owner = args.pop || get_screen_name
+        merge_owner_into_options!(owner, options)
         list = post("/1/lists/members/destroy.json", options)
         Twitter::List.new(list)
       end
@@ -120,7 +122,7 @@ module Twitter
       #
       # @see https://dev.twitter.com/docs/api/1/get/lists/memberships
       # @rate_limited Yes
-      # @requires_authentication Yes
+      # @requires_authentication Supported
       # @overload memberships(options={})
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
@@ -139,8 +141,9 @@ module Twitter
       #     Twitter.memberships(7505382)
       def memberships(*args)
         options = {:cursor => -1}.merge(args.last.is_a?(Hash) ? args.pop : {})
-        user = args.pop || get_screen_name
-        merge_user_into_options!(user, options)
+        if user = args.pop
+          merge_user_into_options!(user, options)
+        end
         cursor = get("/1/lists/memberships.json", options)
         Twitter::Cursor.new(cursor, 'lists', Twitter::List)
       end
@@ -149,7 +152,7 @@ module Twitter
       #
       # @see https://dev.twitter.com/docs/api/1/get/lists/subscriptions
       # @rate_limited Yes
-      # @requires_authentication Yes
+      # @requires_authentication Supported
       # @overload list_subscribers(list, options={})
       #   @param list [Integer, String] The list_id or slug of the list.
       #   @param options [Hash] A customizable set of options.
@@ -175,9 +178,9 @@ module Twitter
       def list_subscribers(*args)
         options = {:cursor => -1}.merge(args.last.is_a?(Hash) ? args.pop : {})
         list = args.pop
-        user = args.pop || get_screen_name
         merge_list_into_options!(list, options)
-        merge_owner_into_options!(user, options)
+        owner = args.pop || get_screen_name
+        merge_owner_into_options!(owner, options)
         cursor = get("/1/lists/subscribers.json", options)
         Twitter::Cursor.new(cursor, 'users', Twitter::User)
       end
@@ -186,7 +189,7 @@ module Twitter
       #
       # @see https://dev.twitter.com/docs/api/1/get/lists/subscriptions
       # @rate_limited Yes
-      # @requires_authentication Yes
+      # @requires_authentication Supported
       # @overload subscriptions(options={})
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
@@ -205,8 +208,9 @@ module Twitter
       #     Twitter.subscriptions(7505382)
       def subscriptions(*args)
         options = {:cursor => -1}.merge(args.last.is_a?(Hash) ? args.pop : {})
-        user = args.pop || get_screen_name
-        merge_user_into_options!(user, options)
+        if user = args.pop
+          merge_user_into_options!(user, options)
+        end
         cursor = get("/1/lists/subscriptions.json", options)
         Twitter::Cursor.new(cursor, 'lists', Twitter::List)
       end
@@ -237,9 +241,9 @@ module Twitter
       def list_subscribe(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
         list = args.pop
-        user = args.pop || get_screen_name
         merge_list_into_options!(list, options)
-        merge_owner_into_options!(user, options)
+        owner = args.pop || get_screen_name
+        merge_owner_into_options!(owner, options)
         list = post("/1/lists/subscribers/create.json", options)
         Twitter::List.new(list)
       end
@@ -274,11 +278,12 @@ module Twitter
       # @return [Boolean] true if user is a subscriber of the specified list, otherwise false.
       def list_subscriber?(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
-        user_to_check, list = args.pop, args.pop
-        user = args.pop || get_screen_name
-        merge_list_into_options!(list, options)
-        merge_owner_into_options!(user, options)
+        user_to_check = args.pop
         merge_user_into_options!(user_to_check, options)
+        list = args.pop
+        merge_list_into_options!(list, options)
+        owner = args.pop || get_screen_name
+        merge_owner_into_options!(owner, options)
         get("/1/lists/subscribers/show.json", options, :raw => true)
         true
       rescue Twitter::Error::NotFound, Twitter::Error::Forbidden
@@ -311,9 +316,9 @@ module Twitter
       def list_unsubscribe(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
         list = args.pop
-        user = args.pop || get_screen_name
         merge_list_into_options!(list, options)
-        merge_owner_into_options!(user, options)
+        owner = args.pop || get_screen_name
+        merge_owner_into_options!(owner, options)
         list = post("/1/lists/subscribers/destroy.json", options)
         Twitter::List.new(list)
       end
@@ -349,11 +354,12 @@ module Twitter
       #     Twitter.list_add_members(7505382, 8863586, [813286, 18755393])
       def list_add_members(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
-        users_to_add, list = args.pop, args.pop
-        user = args.pop || get_screen_name
-        merge_list_into_options!(list, options)
-        merge_owner_into_options!(user, options)
+        users_to_add = args.pop
         merge_users_into_options!(Array(users_to_add), options)
+        list = args.pop
+        merge_list_into_options!(list, options)
+        owner = args.pop || get_screen_name
+        merge_owner_into_options!(owner, options)
         list = post("/1/lists/members/create_all.json", options)
         Twitter::List.new(list)
       end
@@ -385,11 +391,12 @@ module Twitter
       #     Twitter.list_member?(7505382, "presidents", 813286)
       def list_member?(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
-        user_to_check, list = args.pop, args.pop
-        user = args.pop || get_screen_name
-        merge_list_into_options!(list, options)
-        merge_owner_into_options!(user, options)
+        user_to_check = args.pop
         merge_user_into_options!(user_to_check, options)
+        list = args.pop
+        merge_list_into_options!(list, options)
+        owner = args.pop || get_screen_name
+        merge_owner_into_options!(owner, options)
         get("/1/lists/members/show.json", options, :raw => true)
         true
       rescue Twitter::Error::NotFound, Twitter::Error::Forbidden
@@ -427,9 +434,9 @@ module Twitter
       def list_members(*args)
         options = {:cursor => -1}.merge(args.last.is_a?(Hash) ? args.pop : {})
         list = args.pop
-        user = args.pop || get_screen_name
         merge_list_into_options!(list, options)
-        merge_owner_into_options!(user, options)
+        owner = args.pop || get_screen_name
+        merge_owner_into_options!(owner, options)
         cursor = get("/1/lists/members.json", options)
         Twitter::Cursor.new(cursor, 'users', Twitter::User)
       end
@@ -463,11 +470,12 @@ module Twitter
       #     Twitter.list_add_member(7505382, 8863586, 813286)
       def list_add_member(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
-        user_to_add, list = args.pop, args.pop
-        user = args.pop || get_screen_name
-        merge_list_into_options!(list, options)
-        merge_owner_into_options!(user, options)
+        user_to_add = args.pop
         merge_user_into_options!(user_to_add, options)
+        list = args.pop
+        merge_list_into_options!(list, options)
+        owner = args.pop || get_screen_name
+        merge_owner_into_options!(owner, options)
         list = post("/1/lists/members/create.json", options)
         Twitter::List.new(list)
       end
@@ -500,9 +508,9 @@ module Twitter
       def list_destroy(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
         list = args.pop
-        user = args.pop || get_screen_name
         merge_list_into_options!(list, options)
-        merge_owner_into_options!(user, options)
+        owner = args.pop || get_screen_name
+        merge_owner_into_options!(owner, options)
         list = delete("/1/lists/destroy.json", options)
         Twitter::List.new(list)
       end
@@ -538,9 +546,9 @@ module Twitter
       def list_update(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
         list = args.pop
-        user = args.pop || get_screen_name
         merge_list_into_options!(list, options)
-        merge_owner_into_options!(user, options)
+        owner = args.pop || get_screen_name
+        merge_owner_into_options!(owner, options)
         list = post("/1/lists/update.json", options)
         Twitter::List.new(list)
       end
@@ -622,9 +630,9 @@ module Twitter
       def list(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
         list = args.pop
-        user = args.pop || get_screen_name
         merge_list_into_options!(list, options)
-        merge_owner_into_options!(user, options)
+        owner = args.pop || get_screen_name
+        merge_owner_into_options!(owner, options)
         list = get("/1/lists/show.json", options)
         Twitter::List.new(list)
       end

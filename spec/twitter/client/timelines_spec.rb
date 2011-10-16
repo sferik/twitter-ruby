@@ -115,7 +115,7 @@ describe Twitter::Client do
   end
 
   describe ".user_timeline" do
-    context "with screen name passed" do
+    context "with a screen name passed" do
       before do
         stub_get("/1/statuses/user_timeline.json").
           with(:query => {:screen_name => "sferik"}).
@@ -134,24 +134,21 @@ describe Twitter::Client do
         statuses.first.text.should == "Ruby is the best programming language for hiding the ugly bits."
       end
     end
-    context "without screen name passed" do
+    context "without a screen name passed" do
       before do
-        @client.stub!(:get_screen_name).and_return('sferik')
         stub_get("/1/statuses/user_timeline.json").
-          with(:query => {:screen_name => "sferik"}).
           to_return(:body => fixture("statuses.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "should get the correct resource" do
         @client.user_timeline
         a_get("/1/statuses/user_timeline.json").
-          with(:query => {:screen_name => "sferik"}).
           should have_been_made
       end
     end
   end
 
   describe ".media_timeline" do
-    context "with screen name passed" do
+    context "with a screen name passed" do
       before do
         stub_get("/1/statuses/media_timeline.json").
           with(:query => {:screen_name => "sferik"}).
@@ -170,17 +167,14 @@ describe Twitter::Client do
         statuses.first.text.should == "Google is throwing up a question mark for Sunday's weather in Boston. At least they're being honest. http://t.co/Jh7bAhS"
       end
     end
-    context "without screen name passed" do
+    context "without a screen name passed" do
       before do
-        @client.stub!(:get_screen_name).and_return('sferik')
         stub_get("/1/statuses/media_timeline.json").
-          with(:query => {:screen_name => "sferik"}).
           to_return(:body => fixture("media_timeline.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "should get the correct resource" do
         @client.media_timeline
         a_get("/1/statuses/media_timeline.json").
-          with(:query => {:screen_name => "sferik"}).
           should have_been_made
       end
     end

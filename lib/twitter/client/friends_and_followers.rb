@@ -133,13 +133,13 @@ module Twitter
       #   Twitter.friendship(7505382, 14100886)
       def friendship(source, target, options={})
         case source
-        when Fixnum
+        when Integer
           options[:source_id] = source
         when String
           options[:source_screen_name] = source
         end
         case target
-        when Fixnum
+        when Integer
           options[:target_id] = target
         when String
           options[:target_screen_name] = target

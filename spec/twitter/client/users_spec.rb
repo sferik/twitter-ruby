@@ -68,7 +68,7 @@ describe Twitter::Client do
   end
 
   describe ".profile_image" do
-    context "with screen name passed" do
+    context "with a screen name passed" do
       before do
         stub_get("/1/users/profile_image/sferik").
           to_return(fixture("profile_image.text"))
@@ -81,7 +81,7 @@ describe Twitter::Client do
         profile_image.should == "http://a0.twimg.com/profile_images/323331048/me_normal.jpg"
       end
     end
-    context "without screen name passed" do
+    context "without a screen name passed" do
       before do
         @client.stub!(:get_screen_name).and_return('sferik')
         stub_get("/1/users/profile_image/sferik").
@@ -118,7 +118,7 @@ describe Twitter::Client do
   end
 
   describe ".user" do
-    context "with screen name passed" do
+    context "with a screen name passed" do
       before do
         stub_get("/1/users/show.json").
           with(:query => {:screen_name => "sferik"}).
@@ -136,7 +136,7 @@ describe Twitter::Client do
         user.name.should == "Erik Michaels-Ober"
       end
     end
-    context "with screen name including '@' passed" do
+    context "with a screen name including '@' passed" do
       before do
         stub_get("/1/users/show.json").
           with(:query => {:screen_name => "@sferik"}).
@@ -149,7 +149,7 @@ describe Twitter::Client do
           should have_been_made
       end
     end
-    context "with numeric screen name passed" do
+    context "with a numeric screen name passed" do
       before do
         stub_get("/1/users/show.json").
           with(:query => {:screen_name => "0"}).
@@ -162,7 +162,7 @@ describe Twitter::Client do
           should have_been_made
       end
     end
-    context "with user ID passed" do
+    context "with a user ID passed" do
       before do
         stub_get("/1/users/show.json").
           with(:query => {:user_id => "7505382"}).
@@ -175,7 +175,7 @@ describe Twitter::Client do
           should have_been_made
       end
     end
-    context "without screen name or user ID passed" do
+    context "without a screen name or user ID passed" do
       before do
         @client.stub!(:get_screen_name).and_return('sferik')
         stub_get("/1/users/show.json").

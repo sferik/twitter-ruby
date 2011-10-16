@@ -28,22 +28,13 @@ describe Twitter::Client do
     end
     context "without a screen name passed" do
       before do
-        @client.stub!(:get_screen_name).and_return('sferik')
         stub_get("/1/lists/all.json").
-          with(:query => {:screen_name => "sferik"}).
           to_return(:body => fixture("all.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "should get the correct resource" do
         @client.lists_subscribed_to
         a_get("/1/lists/all.json").
-          with(:query => {:screen_name => "sferik"}).
           should have_been_made
-      end
-      it "should return the lists the specified user subscribes to" do
-        lists = @client.lists_subscribed_to
-        lists.should be_an Array
-        lists.first.should be_a Twitter::List
-        lists.first.name.should == "Rubyists"
       end
     end
   end
@@ -76,16 +67,10 @@ describe Twitter::Client do
           to_return(:body => fixture("statuses.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "should get the correct resource" do
-        @client.list_timeline("sferik", "presidents")
+        @client.list_timeline("presidents")
         a_get("/1/lists/statuses.json").
           with(:query => {:owner_screen_name => 'sferik', :slug => 'presidents'}).
           should have_been_made
-      end
-      it "should return the timeline for members of the specified list" do
-        statuses = @client.list_timeline("sferik", "presidents")
-        statuses.should be_an Array
-        statuses.first.should be_a Twitter::Status
-        statuses.first.text.should == "Ruby is the best programming language for hiding the ugly bits."
       end
     end
     context "with an Integer list_id passed" do
@@ -117,7 +102,7 @@ describe Twitter::Client do
   end
 
   describe ".list_remove_member" do
-    context "with screen name passed" do
+    context "with a screen name passed" do
       before do
         stub_post("/1/lists/members/destroy.json").
           with(:body => {:owner_screen_name => 'sferik', :slug => 'presidents', :user_id => "813286"}).
@@ -174,7 +159,7 @@ describe Twitter::Client do
           should have_been_made
       end
     end
-    context "without screen name passed" do
+    context "without a screen name passed" do
       before do
         @client.stub!(:get_screen_name).and_return('sferik')
         stub_post("/1/lists/members/destroy.json").
@@ -213,23 +198,15 @@ describe Twitter::Client do
     end
     context "without a screen name passed" do
       before do
-        @client.stub!(:get_screen_name).and_return('pengwynn')
         stub_get("/1/lists/memberships.json").
-          with(:query => {:screen_name => 'pengwynn', :cursor => "-1"}).
+          with(:query => {:cursor => "-1"}).
           to_return(:body => fixture("lists.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "should get the correct resource" do
         @client.memberships
         a_get("/1/lists/memberships.json").
-          with(:query => {:screen_name => 'pengwynn', :cursor => "-1"}).
+          with(:query => {:cursor => "-1"}).
           should have_been_made
-      end
-      it "should return the lists the specified user has been added to" do
-        memberships = @client.memberships
-        memberships.should be_a Twitter::Cursor
-        memberships.lists.should be_an Array
-        memberships.lists.first.should be_an Twitter::List
-        memberships.lists.first.name.should == "Rubyists"
       end
     end
     context "with an Integer user_id passed" do
@@ -248,7 +225,7 @@ describe Twitter::Client do
   end
 
   describe ".list_subscribers" do
-    context "with screen name passed" do
+    context "with a screen name passed" do
       before do
         stub_get("/1/lists/subscribers.json").
           with(:query => {:owner_screen_name => 'sferik', :slug => 'presidents', :cursor => "-1"}).
@@ -294,7 +271,7 @@ describe Twitter::Client do
           should have_been_made
       end
     end
-    context "without screen name passed" do
+    context "without a screen name passed" do
       before do
         @client.stub!(:get_screen_name).and_return('sferik')
         stub_get("/1/lists/subscribers.json").
@@ -333,23 +310,15 @@ describe Twitter::Client do
     end
     context "without a screen name passed" do
       before do
-        @client.stub!(:get_screen_name).and_return('pengwynn')
         stub_get("/1/lists/subscriptions.json").
-          with(:query => {:screen_name => 'pengwynn', :cursor => "-1"}).
+          with(:query => {:cursor => "-1"}).
           to_return(:body => fixture("lists.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "should get the correct resource" do
         @client.subscriptions
         a_get("/1/lists/subscriptions.json").
-          with(:query => {:screen_name => 'pengwynn', :cursor => "-1"}).
+          with(:query => {:cursor => "-1"}).
           should have_been_made
-      end
-      it "should return the lists the specified user follows" do
-        subscriptions = @client.subscriptions
-        subscriptions.should be_a Twitter::Cursor
-        subscriptions.lists.should be_an Array
-        subscriptions.lists.first.should be_an Twitter::List
-        subscriptions.lists.first.name.should == "Rubyists"
       end
     end
     context "with an Integer user_id passed" do
@@ -368,7 +337,7 @@ describe Twitter::Client do
   end
 
   describe ".list_subscribe" do
-    context "with screen name passed" do
+    context "with a screen name passed" do
       before do
         stub_post("/1/lists/subscribers/create.json").
           with(:body => {:owner_screen_name => 'sferik', :slug => 'presidents'}).
@@ -412,7 +381,7 @@ describe Twitter::Client do
           should have_been_made
       end
     end
-    context "without screen name passed" do
+    context "without a screen name passed" do
       before do
         @client.stub!(:get_screen_name).and_return('sferik')
         stub_post("/1/lists/subscribers/create.json").
@@ -429,7 +398,7 @@ describe Twitter::Client do
   end
 
   describe ".list_subscriber?" do
-    context "with screen name passed" do
+    context "with a screen name passed" do
       before do
         stub_get("/1/lists/subscribers/show.json").
           with(:query => {:owner_screen_name => 'sferik', :slug => 'presidents', :user_id => '813286'}).
@@ -486,7 +455,7 @@ describe Twitter::Client do
           should have_been_made
       end
     end
-    context "with screen name passed for user_to_check" do
+    context "with a screen name passed for user_to_check" do
       before do
         stub_get("/1/lists/subscribers/show.json").
           with(:query => {:owner_screen_name => 'sferik', :slug => 'presidents', :screen_name => 'erebor'}).
@@ -499,7 +468,7 @@ describe Twitter::Client do
           should have_been_made
       end
     end
-    context "without screen name passed" do
+    context "without a screen name passed" do
       before do
         @client.stub!(:get_screen_name).and_return('sferik')
         stub_get("/1/lists/subscribers/show.json").
@@ -516,7 +485,7 @@ describe Twitter::Client do
   end
 
   describe ".list_unsubscribe" do
-    context "with screen name" do
+    context "with a screen name passed" do
       before do
         stub_post("/1/lists/subscribers/destroy.json").
           with(:body => {:owner_screen_name => 'sferik', :slug => 'presidents'}).
@@ -560,7 +529,7 @@ describe Twitter::Client do
           should have_been_made
       end
     end
-    context "without screen name" do
+    context "without a screen name passed" do
       before do
         @client.stub!(:get_screen_name).and_return('sferik')
         stub_post("/1/lists/subscribers/destroy.json").
@@ -577,7 +546,7 @@ describe Twitter::Client do
   end
 
   describe ".list_add_members" do
-    context "with screen name passed" do
+    context "with a screen name passed" do
       before do
         stub_post("/1/lists/members/create_all.json").
           with(:body => {:owner_screen_name => 'sferik', :slug => 'presidents', :user_id => "813286,18755393"}).
@@ -634,7 +603,7 @@ describe Twitter::Client do
           should have_been_made
       end
     end
-    context "without screen name passed" do
+    context "without a screen name passed" do
       before do
         @client.stub!(:get_screen_name).and_return('sferik')
         stub_post("/1/lists/members/create_all.json").
@@ -651,7 +620,7 @@ describe Twitter::Client do
   end
 
   describe ".list_member?" do
-    context "with screen name passed" do
+    context "with a screen name passed" do
       before do
         stub_get("/1/lists/members/show.json").
           with(:query => {:owner_screen_name => 'sferik', :slug => 'presidents', :user_id => '813286'}).
@@ -708,7 +677,7 @@ describe Twitter::Client do
           should have_been_made
       end
     end
-    context "with screen name passed for user_to_check" do
+    context "with a screen name passed for user_to_check" do
       before do
         stub_get("/1/lists/members/show.json").
           with(:query => {:owner_screen_name => 'sferik', :slug => 'presidents', :screen_name => 'erebor'}).
@@ -721,7 +690,7 @@ describe Twitter::Client do
           should have_been_made
       end
     end
-    context "without screen name passed" do
+    context "without a screen name passed" do
       before do
         @client.stub!(:get_screen_name).and_return('sferik')
         stub_get("/1/lists/members/show.json").
@@ -738,7 +707,7 @@ describe Twitter::Client do
   end
 
   describe ".list_members" do
-    context "with screen name" do
+    context "with a screen name passed" do
       before do
         stub_get("/1/lists/members.json").
           with(:query => {:owner_screen_name => 'sferik', :slug => 'presidents', :cursor => "-1"}).
@@ -771,7 +740,7 @@ describe Twitter::Client do
           should have_been_made
       end
     end
-    context "without screen name" do
+    context "without a screen name passed" do
       before do
         @client.stub!(:get_screen_name).and_return('sferik')
         stub_get("/1/lists/members.json").
@@ -788,7 +757,7 @@ describe Twitter::Client do
   end
 
   describe ".list_add_member" do
-    context "with screen name passed" do
+    context "with a screen name passed" do
       before do
         stub_post("/1/lists/members/create.json").
           with(:body => {:owner_screen_name => 'sferik', :slug => 'presidents', :user_id => "813286"}).
@@ -832,7 +801,7 @@ describe Twitter::Client do
           should have_been_made
       end
     end
-    context "without screen name passed" do
+    context "without a screen name passed" do
       before do
         @client.stub!(:get_screen_name).and_return('sferik')
         stub_post("/1/lists/members/create.json").
@@ -875,7 +844,7 @@ describe Twitter::Client do
           to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "should get the correct resource" do
-        @client.list_destroy("sferik", "presidents")
+        @client.list_destroy("presidents")
         a_delete("/1/lists/destroy.json").
           with(:query => {:owner_screen_name => 'sferik', :slug => 'presidents'}).
           should have_been_made
@@ -910,7 +879,7 @@ describe Twitter::Client do
   end
 
   describe ".list_update" do
-    context "with screen name passed" do
+    context "with a screen name passed" do
       before do
         stub_post("/1/lists/update.json").
           with(:body => {:owner_screen_name => 'sferik', :slug => "presidents", :description => "Presidents of the United States of America"}).
@@ -928,7 +897,7 @@ describe Twitter::Client do
         list.name.should == "presidents"
       end
     end
-    context "without screen name passed" do
+    context "without a screen name passed" do
       before do
         @client.stub!(:get_screen_name).and_return('sferik')
         stub_post("/1/lists/update.json").
@@ -936,7 +905,7 @@ describe Twitter::Client do
           to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "should get the correct resource" do
-        @client.list_update("sferik", "presidents", :description => "Presidents of the United States of America")
+        @client.list_update("presidents", :description => "Presidents of the United States of America")
         a_post("/1/lists/update.json").
           with(:body => {:owner_screen_name => 'sferik', :slug => 'presidents', :description => "Presidents of the United States of America"}).
           should have_been_made
@@ -1079,7 +1048,7 @@ describe Twitter::Client do
           to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "should get the correct resource" do
-        @client.list("sferik", "presidents")
+        @client.list("presidents")
         a_get("/1/lists/show.json").
           with(:query => {:owner_screen_name => 'sferik', :slug => 'presidents'}).
           should have_been_made
