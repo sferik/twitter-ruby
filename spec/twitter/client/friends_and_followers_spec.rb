@@ -391,4 +391,22 @@ describe Twitter::Client do
     end
   end
 
+  describe ".no_retweet_ids" do
+    before do
+      stub_get("/1/friendships/no_retweet_ids.json").
+        to_return(:body => fixture("ids.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+    end
+    it "should get the correct resource" do
+      @client.no_retweet_ids
+      a_get("/1/friendships/no_retweet_ids.json").
+        should have_been_made
+    end
+    it "should return detailed information about the relationship between two users" do
+      no_retweet_ids = @client.no_retweet_ids
+      no_retweet_ids.should be_an Array
+      no_retweet_ids.first.should be_an Integer
+      no_retweet_ids.first.should == 47
+    end
+  end
+
 end

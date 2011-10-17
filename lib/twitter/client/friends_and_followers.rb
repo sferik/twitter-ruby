@@ -237,6 +237,22 @@ module Twitter
         Twitter::Relationship.new(relationship)
       end
 
+      # Returns an array of user_ids that the currently authenticated user does not want to see retweets from.
+      #
+      # @see https://dev.twitter.com/docs/api/get-friendshipsno_retweet_ids
+      # @rate_limited Yes
+      # @requires_authentication Yes
+      # @param user [Integer, String] Twitter user ID or screen name.
+      # @param options [Hash] A customizable set of options.
+      # @option options [Boolean] :stringify_ids Many programming environments will not consume our ids due to their size. Provide this option to have ids returned as strings instead. Read more about Twitter IDs, JSON and Snowflake.
+      # @return [Array<Integer>]
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @example Enable rewteets and devise notifications for @sferik
+      #   Twitter.no_retweet_ids
+      def no_retweet_ids(options={})
+        get("/1/friendships/no_retweet_ids.json", options)
+      end
+
     end
   end
 end
