@@ -19,7 +19,8 @@ module Twitter
       # @example Return the top 20 trending topics for each hour of October 24, 2010
       #   Twitter.trends_daily(Date.parse("2010-10-24"))
       def trends_daily(date=Date.today, options={})
-        get("/1/trends/daily.json", options.merge(:date => date.strftime('%Y-%m-%d')))['trends'].each_with_object(Hash.new([])) do |(key, value), object|
+        get("/1/trends/daily.json", options.merge(:date => date.strftime('%Y-%m-%d')))['trends'].each_with_object({}) do |(key, value), object|
+          object[key] = []
           value.each do |trend|
             object[key] << Twitter::Trend.new(trend)
           end
