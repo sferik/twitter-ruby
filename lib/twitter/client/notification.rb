@@ -1,3 +1,4 @@
+require 'twitter/core_ext/hash'
 require 'twitter/user'
 
 module Twitter
@@ -19,7 +20,7 @@ module Twitter
       #   Twitter.enable_notifications("sferik")
       #   Twitter.enable_notifications(7505382)  # Same as above
       def enable_notifications(user, options={})
-        merge_user_into_options!(user, options)
+        options.merge_user!(user)
         user = post("/1/notifications/follow.json", options)
         Twitter::User.new(user)
       end
@@ -38,7 +39,7 @@ module Twitter
       #   Twitter.disable_notifications("sferik")
       #   Twitter.disable_notifications(7505382)  # Same as above
       def disable_notifications(user, options={})
-        merge_user_into_options!(user, options)
+        options.merge_user!(user)
         user = post("/1/notifications/leave.json", options)
         Twitter::User.new(user)
       end

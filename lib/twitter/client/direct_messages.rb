@@ -1,3 +1,4 @@
+require 'twitter/core_ext/hash'
 require 'twitter/direct_message'
 
 module Twitter
@@ -82,7 +83,7 @@ module Twitter
       #   Twitter.direct_message_create("sferik", "I'm sending you this message via the Twitter Ruby Gem!")
       #   Twitter.direct_message_create(7505382, "I'm sending you this message via the Twitter Ruby Gem!")  # Same as above
       def direct_message_create(user, text, options={})
-        merge_user_into_options!(user, options)
+        options.merge_user!(user)
         direct_message = post("/1/direct_messages/new.json", options.merge(:text => text))
         Twitter::DirectMessage.new(direct_message)
       end

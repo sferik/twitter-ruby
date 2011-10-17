@@ -1,3 +1,4 @@
+require 'twitter/core_ext/hash'
 require 'twitter/user'
 
 module Twitter
@@ -19,7 +20,7 @@ module Twitter
       #   Twitter.report_spam("spam")
       #   Twitter.report_spam(14589771) # Same as above
       def report_spam(user, options={})
-        merge_user_into_options!(user, options)
+        options.merge_user!(user)
         user = post("/1/report_spam.json", options)
         Twitter::User.new(user)
       end

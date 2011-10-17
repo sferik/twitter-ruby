@@ -1,3 +1,4 @@
+require 'twitter/core_ext/hash'
 require 'twitter/error/not_found'
 require 'twitter/user'
 
@@ -25,7 +26,7 @@ module Twitter
       def users(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
         users = args
-        merge_users_into_options!(Array(users), options)
+        options.merge_users!(Array(users))
         get("/1/users/lookup.json", options).map do |user|
           Twitter::User.new(user)
         end
@@ -85,7 +86,7 @@ module Twitter
       def user(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
         user = args.pop || get_screen_name
-        merge_user_into_options!(user, options)
+        options.merge_user!(user)
         user = get("/1/users/show.json", options)
         Twitter::User.new(user)
       end
@@ -100,7 +101,7 @@ module Twitter
       # @requires_authentication No
       # @rate_limited Yes
       def user?(user, options={})
-        merge_user_into_options!(user, options)
+        options.merge_user!(user)
         get("/1/users/show.json", options, :raw => true)
         true
       rescue Twitter::Error::NotFound
@@ -134,7 +135,7 @@ module Twitter
         options = {}
         options.merge!(args.last.is_a?(Hash) ? args.pop : {})
         user = args.pop || get_screen_name
-        merge_user_into_options!(user, options)
+        options.merge_user!(user)
         get("/1/users/contributees.json", options).map do |user|
           Twitter::User.new(user)
         end
@@ -167,7 +168,7 @@ module Twitter
         options = {}
         options.merge!(args.last.is_a?(Hash) ? args.pop : {})
         user = args.pop || get_screen_name
-        merge_user_into_options!(user, options)
+        options.merge_user!(user)
         get("/1/users/contributors.json", options).map do |user|
           Twitter::User.new(user)
         end
@@ -190,6 +191,15 @@ module Twitter
         get("/1/users/recommendations.json", options).map do |recommendation|
           Twitter::User.new(recommendation['user'])
         end
+      end
+
+    private
+
+      # Returns the configured screen name or the screen name of the authenticated user
+      #
+      # @return [String]
+      def get_screen_name
+        @screen_name ||= self.verify_credentials.screen_name
       end
 
     end

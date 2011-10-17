@@ -30,11 +30,8 @@ module Twitter
     require 'twitter/client/tweets'
     require 'twitter/client/urls'
     require 'twitter/client/users'
-    require 'twitter/client/utils'
 
     alias :api_endpoint :endpoint
-
-    include Twitter::Client::Utils
 
     include Twitter::Client::Accounts
     include Twitter::Client::Activity

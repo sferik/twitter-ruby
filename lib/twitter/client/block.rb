@@ -1,3 +1,4 @@
+require 'twitter/core_ext/hash'
 require 'twitter/error/not_found'
 require 'twitter/user'
 
@@ -52,7 +53,7 @@ module Twitter
       #   Twitter.block?("sferik")
       #   Twitter.block?(7505382)  # Same as above
       def block?(user, options={})
-        merge_user_into_options!(user, options)
+        options.merge_user!(user)
         get("/1/blocks/exists.json", options, :raw => true)
         true
       rescue Twitter::Error::NotFound
@@ -74,7 +75,7 @@ module Twitter
       #   Twitter.block("sferik")
       #   Twitter.block(7505382)  # Same as above
       def block(user, options={})
-        merge_user_into_options!(user, options)
+        options.merge_user!(user)
         user = post("/1/blocks/create.json", options)
         Twitter::User.new(user)
       end
@@ -93,7 +94,7 @@ module Twitter
       #   Twitter.unblock("sferik")
       #   Twitter.unblock(7505382)  # Same as above
       def unblock(user, options={})
-        merge_user_into_options!(user, options)
+        options.merge_user!(user)
         user = delete("/1/blocks/destroy.json", options)
         Twitter::User.new(user)
       end

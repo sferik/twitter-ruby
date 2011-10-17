@@ -1,3 +1,4 @@
+require 'twitter/core_ext/hash'
 require 'twitter/status'
 
 module Twitter
@@ -105,7 +106,7 @@ module Twitter
       def retweeted_by(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
         if user = args.pop
-          merge_user_into_options!(user, options)
+          options.merge_user!(user)
           get("/1/statuses/retweeted_by_user.json", options)
         else
           get("/1/statuses/retweeted_by_me.json", options)
@@ -148,7 +149,7 @@ module Twitter
       def retweeted_to(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
         if user = args.pop
-          merge_user_into_options!(user, options)
+          options.merge_user!(user)
           get("/1/statuses/retweeted_to_user.json", options)
         else
           get("/1/statuses/retweeted_to_me.json", options)
@@ -202,7 +203,7 @@ module Twitter
       def user_timeline(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
         if user = args.pop
-          merge_user_into_options!(user, options)
+          options.merge_user!(user)
         end
         get("/1/statuses/user_timeline.json", options).map do |status|
           Twitter::Status.new(status)
@@ -229,7 +230,7 @@ module Twitter
       def media_timeline(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
         if user = args.pop
-          merge_user_into_options!(user, options)
+          options.merge_user!(user)
         end
         get("/1/statuses/media_timeline.json", options).map do |status|
           Twitter::Status.new(status)

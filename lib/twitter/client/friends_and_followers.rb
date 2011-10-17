@@ -1,3 +1,4 @@
+require 'twitter/core_ext/hash'
 require 'twitter/cursor'
 require 'twitter/relationship'
 require 'twitter/user'
@@ -34,7 +35,7 @@ module Twitter
         options = {:cursor => -1}
         options.merge!(args.last.is_a?(Hash) ? args.pop : {})
         user = args.first
-        merge_user_into_options!(user, options)
+        options.merge_user!(user)
         cursor = get("/1/followers/ids.json", options)
         Twitter::Cursor.new(cursor, 'ids')
       end
@@ -66,7 +67,7 @@ module Twitter
         options = {:cursor => -1}
         options.merge!(args.last.is_a?(Hash) ? args.pop : {})
         user = args.first
-        merge_user_into_options!(user, options)
+        options.merge_user!(user)
         cursor = get("/1/friends/ids.json", options)
         Twitter::Cursor.new(cursor, 'ids')
       end
@@ -164,7 +165,7 @@ module Twitter
       # @example Follow @sferik
       #   Twitter.follow("sferik")
       def follow(user, options={})
-        merge_user_into_options!(user, options)
+        options.merge_user!(user)
         # Twitter always turns on notifications if the "follow" option is present, even if it's set to false
         # so only send follow if it's true
         options.merge!(:follow => true) if options.delete(:follow)
@@ -186,7 +187,7 @@ module Twitter
       # @example Unfollow @sferik
       #   Twitter.unfollow("sferik")
       def unfollow(user, options={})
-        merge_user_into_options!(user, options)
+        options.merge_user!(user)
         user = delete("/1/friendships/destroy.json", options)
         Twitter::User.new(user)
       end
@@ -212,7 +213,7 @@ module Twitter
       def friendships(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
         users = args
-        merge_users_into_options!(Array(users), options)
+        options.merge_users!(Array(users))
         get("/1/friendships/lookup.json", options).map do |user|
           Twitter::User.new(user)
         end
@@ -232,7 +233,7 @@ module Twitter
       # @example Enable rewteets and devise notifications for @sferik
       #   Twitter.friendship_update("sferik", :device => true, :retweets => true)
       def friendship_update(user, options={})
-        merge_user_into_options!(user, options)
+        options.merge_user!(user)
         relationship = post("/1/friendships/update.json", options)['relationship']
         Twitter::Relationship.new(relationship)
       end
