@@ -14,7 +14,7 @@ module Twitter
         else
           item
         end
-      end
+      end unless cursor[method.to_s].nil?
       @next_cursor = cursor['next_cursor']
       @previous_cursor = cursor['previous_cursor']
       singleton_class.class_eval do
