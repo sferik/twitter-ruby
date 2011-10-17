@@ -6,6 +6,10 @@ module Twitter
       end
     end
 
+    def [](method)
+      self.__send__(method.to_sym)
+    end
+
     def to_hash
       Hash[instance_variables.map{|ivar| [ivar[1..-1].to_sym, instance_variable_get(ivar)]}]
     end
