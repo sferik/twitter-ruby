@@ -210,4 +210,22 @@ describe Twitter::Client do
     end
   end
 
+  describe ".network_timeline" do
+    before do
+      stub_get("/i/statuses/network_timeline.json").
+        to_return(:body => fixture("statuses.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+    end
+    it "should get the correct resource" do
+      @client.network_timeline
+      a_get("/i/statuses/network_timeline.json").
+        should have_been_made
+    end
+    it "should return the 20 most recent tweets of the authenticated user that have been retweeted by others" do
+      statuses = @client.network_timeline
+      statuses.should be_an Array
+      statuses.first.should be_a Twitter::Status
+      statuses.first.text.should == "Ruby is the best programming language for hiding the ugly bits."
+    end
+  end
+
 end

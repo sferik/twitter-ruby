@@ -250,7 +250,7 @@ module Twitter
       # @example Enable rewteets and devise notifications for @sferik
       #   Twitter.no_retweet_ids
       def no_retweet_ids(options={})
-        get("/1/friendships/no_retweet_ids.json", options)
+        get("/1/friendships/no_retweet_ids.json", options, :phoenix => true)
       end
 
     end
