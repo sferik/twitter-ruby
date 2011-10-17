@@ -154,21 +154,49 @@ describe Twitter::Client do
   end
 
   describe ".friendship" do
-    before do
-      stub_get("/1/friendships/show.json").
-        with(:query => {:source_screen_name => "sferik", :target_screen_name => "pengwynn"}).
-        to_return(:body => fixture("relationship.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+    context "with screen names passed" do
+      before do
+        stub_get("/1/friendships/show.json").
+          with(:query => {:source_screen_name => "sferik", :target_screen_name => "pengwynn"}).
+          to_return(:body => fixture("relationship.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      end
+      it "should get the correct resource" do
+        @client.friendship("sferik", "pengwynn")
+        a_get("/1/friendships/show.json").
+          with(:query => {:source_screen_name => "sferik", :target_screen_name => "pengwynn"}).
+          should have_been_made
+      end
+      it "should return detailed information about the relationship between two users" do
+        relationship = @client.friendship("sferik", "pengwynn")
+        relationship.should be_a Twitter::Relationship
+        relationship.source.screen_name.should == "sferik"
+      end
     end
-    it "should get the correct resource" do
-      @client.friendship("sferik", "pengwynn")
-      a_get("/1/friendships/show.json").
-        with(:query => {:source_screen_name => "sferik", :target_screen_name => "pengwynn"}).
-        should have_been_made
+    context "with numeric screen names passed" do
+      before do
+        stub_get("/1/friendships/show.json").
+          with(:query => {:source_screen_name => "0", :target_screen_name => "311"}).
+          to_return(:body => fixture("relationship.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      end
+      it "should get the correct resource" do
+        @client.friendship("0", "311")
+        a_get("/1/friendships/show.json").
+          with(:query => {:source_screen_name => "0", :target_screen_name => "311"}).
+          should have_been_made
+      end
     end
-    it "should return detailed information about the relationship between two users" do
-      relationship = @client.friendship("sferik", "pengwynn")
-      relationship.should be_a Twitter::Relationship
-      relationship.source.screen_name.should == "sferik"
+    context "with user IDs passed" do
+      before do
+        stub_get("/1/friendships/show.json").
+          with(:query => {:source_id => "7505382", :target_id => "14100886"}).
+          to_return(:body => fixture("relationship.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      end
+      it "should get the correct resource" do
+        @client.friendship(7505382, 14100886)
+        a_get("/1/friendships/show.json").
+          with(:query => {:source_id => "7505382", :target_id => "14100886"}).
+          should have_been_made
+      end
     end
   end
 
