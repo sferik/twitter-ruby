@@ -203,7 +203,6 @@ module Twitter
       #   @param users [Integer, String] Twitter users ID or screen names.
       #   @param options [Hash] A customizable set of options.
       #   @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet
-      #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       #   @return [Array<Twitter::User>] The requested users.
       #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       #   @example Return extended information for @sferik and @pengwynn
@@ -217,6 +216,25 @@ module Twitter
         get("/1/friendships/lookup.json", options).map do |user|
           Twitter::User.new(user)
         end
+      end
+
+      # Allows one to enable or disable retweets and device notifications from the specified user.
+      #
+      # @see https://dev.twitter.com/docs/api/1/post/friendships/update
+      # @rate_limited No
+      # @requires_authentication Yes
+      # @param user [Integer, String] Twitter user ID or screen name.
+      # @param options [Hash] A customizable set of options.
+      # @option options [Boolean] :device Enable/disable device notifications from the target user.
+      # @option options [Boolean] :retweets Enable/disable retweets from the target user.
+      # @return [Twitter::Relationship]
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @example Enable rewteets and devise notifications for @sferik
+      #   Twitter.friendship_update("sferik", :device => true, :retweets => true)
+      def friendship_update(user, options={})
+        merge_user_into_options!(user, options)
+        relationship = post("/1/friendships/update.json", options)['relationship']
+        Twitter::Relationship.new(relationship)
       end
 
     end
