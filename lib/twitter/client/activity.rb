@@ -2,6 +2,7 @@ module Twitter
   class Client
     # Defines methods related to URLs
     module Activity
+
       # Returns activity about me
       #
       # @note Undocumented
@@ -35,6 +36,7 @@ module Twitter
       def by_friends(options={})
         get("/i/activity/by_friends.json", options, :phoenix => true)
       end
+
     end
   end
 end

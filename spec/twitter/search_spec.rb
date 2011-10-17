@@ -74,9 +74,7 @@ describe Twitter::Search do
         end
 
       end
-
     end
-
   end
 
   context ".new" do
@@ -86,310 +84,236 @@ describe Twitter::Search do
     end
 
     describe ".containing" do
-
       it "should set the query to include term" do
         @client.containing('twitter').query[:q].should include 'twitter'
       end
-
     end
 
     describe ".not_containing" do
-
       it "should set the query not to include term" do
         @client.not_containing('twitter').query[:q].should include '-twitter'
       end
-
     end
 
     describe ".language" do
-
       it "should set the language to the query" do
         @client.language('en').query[:lang].should == 'en'
       end
-
     end
 
     describe ".locale" do
-
       it "should set the locale to the query" do
         @client.locale('ja').query[:locale].should == 'ja'
       end
-
     end
 
     describe ".from" do
-
       it "should set the query to include statuses from the specified person" do
         @client.from('sferik').query[:q].should include 'from:sferik'
       end
-
     end
 
     describe ".not_from" do
-
       it "should set the query not to include statuses from the specified person" do
         @client.not_from('sferik').query[:q].should include '-from:sferik'
       end
-
       it "should exclude multiple users" do
         query = @client.not_from('sferik').not_from('pengwynn').query[:q]
         query.should include '-from:sferik'
         query.should include '-from:pengwynn'
-
       end
-
     end
 
     describe ".to" do
-
       it "should set the query to include statuses to the specified person" do
         @client.to('sferik').query[:q].should include 'to:sferik'
       end
-
     end
 
     describe ".not_to" do
-
       it "should set the query not to include statuses to the specified person" do
         @client.not_to('sferik').query[:q].should include '-to:sferik'
       end
-
     end
 
     describe ".mentioning" do
-
       it "should set the query to include mentions" do
         @client.mentioning('sferik').query[:q].should include '@sferik'
       end
-
     end
 
     describe ".not_mentioning" do
-
       it "should set the query not to include mentions" do
         @client.not_mentioning('sferik').query[:q].should include '-@sferik'
       end
-
     end
 
     describe ".filter" do
-
       it "should set the query to include filter" do
         @client.filter('links').query[:q].should include 'filter:links'
       end
-
     end
 
     describe ".retweets" do
-
       it "should set the query to include retweets" do
         @client.retweets.query[:q].should include 'rt'
       end
-
     end
 
     describe ".no_retweets" do
-
       it "should set the query not to include retweets" do
         @client.no_retweets.query[:q].should include '-rt'
       end
-
     end
 
     describe ".hashtag" do
-
       it "should set the query to include hashtag" do
         @client.hashtag('twitter').query[:q].should include '#twitter'
       end
-
     end
 
     describe ".excluding_hashtag" do
-
       it "should set the query not to include hashtag" do
         @client.excluding_hashtag('twitter').query[:q].should include '-#twitter'
       end
-
-    end
-
-    describe ".phrase" do
-
-      it "should set the phrase" do
-        @client.phrase('peanut butter').query[:phrase].should == 'peanut butter'
-      end
-
-    end
-
-    describe ".result_type" do
-
-      it "should set the result type" do
-        @client.result_type('popular').query[:result_type].should == 'popular'
-      end
-
-    end
-
-    describe ".source" do
-
-      it "should set the source" do
-        @client.source("Hibari").query[:q].should include 'source:Hibari'
-      end
-
-    end
-
-    describe ".since_id" do
-
-      it "should set the since id" do
-        @client.since_id(1).query[:since_id].should == 1
-      end
-
     end
 
     describe ".max_id" do
-
       it "should set the max id" do
         @client.max_id(1).query[:max_id].should == 1
       end
+    end
 
+    describe ".phrase" do
+      it "should set the phrase" do
+        @client.phrase('peanut butter').query[:phrase].should == 'peanut butter'
+      end
+    end
+
+    describe ".result_type" do
+      it "should set the result type" do
+        @client.result_type('popular').query[:result_type].should == 'popular'
+      end
+    end
+
+    describe ".source" do
+      it "should set the source" do
+        @client.source("Hibari").query[:q].should include 'source:Hibari'
+      end
+    end
+
+    describe ".since_id" do
+      it "should set the since id" do
+        @client.since_id(1).query[:since_id].should == 1
+      end
     end
 
     describe ".since_date" do
-
       it "should set the since date" do
         @client.since_date('2010-10-10').query[:since].should == '2010-10-10'
       end
-
     end
 
     describe ".until_date" do
-
       it "should set the until date" do
         @client.until_date('2010-10-10').query[:until].should == '2010-10-10'
       end
-
     end
 
     describe ".positive" do
-
       it "should set the query to include ':)'" do
         @client.positive.query[:tude].should include ':)'
       end
-
     end
 
     describe ".negative" do
-
       it "should set the query to include ':('" do
         @client.negative.query[:tude].should include ':('
       end
-
     end
 
     describe ".question" do
-
       it "should set the query to include '?'" do
         @client.question.query[:tude].should include '?'
       end
-
     end
 
     describe ".geocode" do
-
       it "should set the geocode" do
         @client.geocode(37.781157, -122.398720, '1mi').query[:geocode].should == '37.781157,-122.39872,1mi'
       end
-
     end
 
     describe ".place" do
-
       it "should set the place" do
         @client.place("5a110d312052166f").query[:q].should include 'place:5a110d312052166f'
       end
-
     end
 
     describe ".per_page" do
-
       it "should set the number of results per page" do
         @client.per_page(25).query[:rpp].should == 25
       end
-
     end
 
     describe ".include_entities" do
-
       it "should set the query to include entities" do
         @client.include_entities().query[:include_entities].should == true
       end
-
     end
 
     describe ".with_twitter_user_id" do
-
       it "should set the query to return official user ids" do
         @client.with_twitter_user_id().query[:with_twitter_user_id].should == true
       end
-
     end
 
-
     describe ".page" do
-
       it "should set the page number" do
         @client.page(20).query[:page].should == 20
       end
-
     end
 
     describe ".next_page?" do
-
       before do
         stub_request(:get, "https://search.twitter.com/search.json").
           with(:query => {:q => "twitter"}).
           to_return(:body => fixture("search.json"), :headers => {:content_type => "application/json; charset=utf-8"})
         @client.containing('twitter')
       end
-
       it "should get the correct resource" do
         @client.next_page?
         a_request(:get, "https://search.twitter.com/search.json").
           with(:query => {:q => "twitter"}).
           should have_been_made
       end
-
       it "should be true if there's another page" do
         next_page = @client.next_page?
         next_page.should be_true
       end
-
     end
 
     describe ".fetch" do
-
       before do
         stub_request(:get, "https://search.twitter.com/search.json").
           with(:query => {:q => "twitter"}).
           to_return(:body => fixture("search.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
-
       it "should get the correct resource" do
         @client.containing('twitter').fetch
         a_request(:get, "https://search.twitter.com/search.json").
           with(:query => {:q => "twitter"}).
           should have_been_made
       end
-
       it "should return an array of search results" do
         results = @client.containing('twitter').fetch
         results.should be_an Array
         results.first.should be_a Twitter::Status
         results.first.text.should == "@KaiserKuo from not too far away your new twitter icon looks like Vader."
       end
-
     end
 
     describe ".fetch_next_page" do
-
       before do
         stub_request(:get, "https://search.twitter.com/search.json").
           with(:query => {:q => "twitter"}).
@@ -399,7 +323,6 @@ describe Twitter::Search do
           to_return(:body => fixture("search.json"), :headers => {:content_type => "application/json; charset=utf-8"})
         @client.containing('twitter')
       end
-
       it "should get the correct resource" do
         @client.fetch_next_page
         a_request(:get, "https://search.twitter.com/search.json").
@@ -409,17 +332,14 @@ describe Twitter::Search do
           with(:query => {:q => "twitter", :page => "2", :max_id => "28857935752"}).
           should have_been_made
       end
-
     end
 
     describe ".each" do
-
       before do
         stub_request(:get, "https://search.twitter.com/search.json").
           with(:query => {:q => "twitter"}).
           to_return(:body => fixture("search.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
-
       it "should iterate over results" do
         @client.containing('twitter').each do |result|
           result.should be
@@ -428,7 +348,6 @@ describe Twitter::Search do
           with(:query => {:q => "twitter"}).
           should have_been_made
       end
-
       it "should iterate over results multiple times in a row" do
         @client.containing('twitter').each do |result|
           result.should be
@@ -441,5 +360,6 @@ describe Twitter::Search do
           should have_been_made.once
       end
     end
+
   end
 end
