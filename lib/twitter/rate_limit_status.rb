@@ -2,13 +2,11 @@ require 'twitter/base'
 
 module Twitter
   class RateLimitStatus < Twitter::Base
-    attr_reader :hourly_limit, :remaining_hits, :reset_time_in_seconds
+    attr_reader :hourly_limit, :remaining_hits, :reset_time, :reset_time_in_seconds
 
-    # Time when the rate limit resets
-    #
-    # @return [Time]
-    def reset_time
-      @reset_time = Time.parse(@reset_time) unless @reset_time.nil? || @reset_time.is_a?(Time)
+    def initialize(rate_limit_status={})
+      @reset_time = Time.parse(rate_limit_status.delete('reset_time')) unless rate_limit_status['reset_time'].nil?
+      super(rate_limit_status)
     end
 
   end

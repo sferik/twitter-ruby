@@ -7,17 +7,10 @@ module Twitter
       :full_name, :id, :name, :place_type, :parent_id, :url, :woeid
 
     def initialize(place={})
-      @attributes = place['attributes']
-      @bounding_box = Twitter::GeoFactory.new(place['bounding_box']) unless place['bounding_box'].nil?
-      @country = place['country']
-      @country_code = place['country_code'] || place['countryCode']
-      @full_name = place['full_name']
-      @id = place['id']
-      @name = place['name']
-      @parent_id = place['parentid']
-      @place_type = place['place_type'] || place['placeType'] && place['placeType']['name']
-      @url = place['url']
-      @woeid = place['woeid']
+      @bounding_box = Twitter::GeoFactory.new(place.delete('bounding_box')) unless place['bounding_box'].nil?
+      @country_code = place.delete('country_code') || place.delete('countryCode')
+      @place_type = place.delete('place_type') || place['placeType'] && place['placeType'].delete('name')
+      super(place)
     end
 
     def ==(other)

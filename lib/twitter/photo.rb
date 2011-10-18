@@ -8,16 +8,10 @@ module Twitter
       :media_url_https, :sizes, :url
 
     def initialize(photo={})
-      @display_url = photo['display_url']
-      @expanded_url = photo['expanded_url']
-      @id = photo['id']
-      @indices = photo['indices']
-      @media_url = photo['media_url']
-      @media_url_https = photo['media_url_https']
-      @sizes = photo['sizes'].each_with_object({}) do |(key, value), object|
+      @sizes = photo.delete('sizes').each_with_object({}) do |(key, value), object|
         object[key] = Twitter::Size.new(value)
       end unless photo['sizes'].nil?
-      @url = photo['url']
+      super(photo)
     end
 
     def ==(other)

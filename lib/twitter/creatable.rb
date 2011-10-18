@@ -2,12 +2,11 @@ require 'time'
 
 module Twitter
   module Creatable
+    attr_reader :created_at
 
-    # Time when the user was created
-    #
-    # @return [Time]
-    def created_at
-      @created_at = Time.parse(@created_at) unless @created_at.nil? || @created_at.is_a?(Time)
+    def initialize(hash={})
+      @created_at = Time.parse(hash.delete('created_at')) unless hash['created_at'].nil?
+      super(hash)
     end
 
   end

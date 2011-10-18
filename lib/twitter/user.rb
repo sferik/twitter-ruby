@@ -50,51 +50,8 @@ module Twitter
     alias :want_retweets? :want_retweets
 
     def initialize(user={})
-      @all_replies = user['all_replies']
-      @blocking = user['blocking']
-      @can_dm = user['can_dm']
-      @connections = user['connections']
-      @contributors_enabled = user['contributors_enabled']
-      @created_at = user['created_at']
-      @default_profile = user['default_profile']
-      @default_profile_image = user['default_profile_image']
-      @description = user['description']
-      @favourites_count = user['favourites_count']
-      @follow_request_sent = user['follow_request_sent']
-      @followed_by = user['followed_by']
-      @followers_count = user['followers_count']
-      @following = user['following']
-      @friends_count = user['friends_count']
-      @geo_enabled = user['geo_enabled']
-      @id = user['id']
-      @is_translator = user['is_translator']
-      @lang = user['lang']
-      @listed_count = user['listed_count']
-      @location = user['location']
-      @marked_spam = user['marked_spam']
-      @name = user['name']
-      @notifications_enabled = user['notifications_enabled']
-      @notifications = user['notifications']
-      @profile_background_color = user['profile_background_color']
-      @profile_background_image_url = user['profile_background_image_url']
-      @profile_background_image_url_https = user['profile_background_image_url_https']
-      @profile_background_tile = user['profile_background_tile']
-      @profile_image_url = user['profile_image_url']
-      @profile_image_url_https = user['profile_image_url_https']
-      @profile_link_color = user['profile_link_color']
-      @profile_sidebar_border_color = user['profile_sidebar_border_color']
-      @profile_sidebar_fill_color = user['profile_sidebar_fill_color']
-      @profile_text_color = user['profile_text_color']
-      @profile_use_background_image = user['profile_use_background_image']
-      @protected = user['protected']
-      @screen_name = user['screen_name']
-      @status = Twitter::Status.new(user['status'].merge('user' => self.to_hash.delete('status'))) unless user['status'].nil?
-      @statuses_count = user['statuses_count']
-      @time_zone = user['time_zone']
-      @url = user['url']
-      @utc_offset = user['utc_offset']
-      @verified = user['verified']
-      @want_retweets = user['want_retweets']
+      @status = Twitter::Status.new(user.delete('status').merge('user' => self.to_hash.delete('status'))) unless user['status'].nil?
+      super(user)
     end
 
     def ==(other)

@@ -6,12 +6,10 @@ module Twitter
     attr_reader :name, :size, :slug, :users
 
     def initialize(suggestion={})
-      @name = suggestion['name']
-      @size = suggestion['size']
-      @slug = suggestion['slug']
-      @users = suggestion['users'].map do |user|
+      @users = suggestion.delete('users').map do |user|
         Twitter::User.new(user)
       end unless suggestion['users'].nil?
+      super(suggestion)
     end
 
     def ==(other)
