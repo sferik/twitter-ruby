@@ -28,7 +28,7 @@ describe Twitter::Photo do
     end
     it "should return nil when sizes is not set" do
       sizes = Twitter::Photo.new.sizes
-      sizes.should be_nil
+      sizes.should be_empty
     end
   end
 

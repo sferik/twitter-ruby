@@ -7,7 +7,6 @@ module Twitter
   class User < Twitter::Base
     include Twitter::Authenticatable
     include Twitter::Creatable
-    attr_reader :status
     lazy_attr_reader :all_replies, :blocking, :can_dm, :connections,
       :contributors_enabled, :default_profile, :default_profile_image,
       :description, :favourites_count, :follow_request_sent, :followed_by,
@@ -50,14 +49,12 @@ module Twitter
     alias :verified? :verified
     alias :want_retweets? :want_retweets
 
-    def initialize(attributes={})
-      attributes = attributes.dup
-      @status = Twitter::Status.new(attributes.delete('status')) unless attributes['status'].nil?
-      super(attributes)
-    end
-
     def ==(other)
       super || (other.class == self.class && other.id == self.id)
+    end
+
+    def status
+      @status ||= Twitter::Status.new(@attributes['status']) unless @attributes['status'].nil?
     end
 
   end

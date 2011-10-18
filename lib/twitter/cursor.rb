@@ -9,18 +9,17 @@ module Twitter
     alias :previous :previous_cursor
 
     def initialize(attributes, method, klass=nil)
-      attributes = attributes.dup
-      @collection = attributes.delete(method.to_s).map do |item|
+      super(attributes)
+      @collection = Array(attributes[method.to_s]).map do |item|
         if klass
           klass.new(item)
         else
           item
         end
-      end unless attributes[method.to_s].nil?
+      end
       singleton_class.class_eval do
         alias_method method.to_sym, :collection
       end
-      super(attributes)
     end
 
     def first?

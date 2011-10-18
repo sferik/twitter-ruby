@@ -10,7 +10,7 @@ describe Twitter::Configuration do
     end
     it "should return nil when photo_sizes is not set" do
       photo_sizes = Twitter::Configuration.new.photo_sizes
-      photo_sizes.should be_nil
+      photo_sizes.should be_empty
     end
   end
 
