@@ -15,7 +15,7 @@ module Twitter
     end
 
     def ==(other)
-      super || (other.class == self.class && other.slug == @slug)
+      super || (other.class == self.class && other.instance_variable_get('@slug'.to_sym) == @slug)
     end
 
   end

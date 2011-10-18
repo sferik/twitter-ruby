@@ -7,7 +7,7 @@ module Twitter
     attr_reader :id, :name, :position, :query
 
     def ==(other)
-      super || (other.class == self.class && other.id == @id)
+      super || (other.class == self.class && other.instance_variable_get('@id'.to_sym) == @id)
     end
 
   end

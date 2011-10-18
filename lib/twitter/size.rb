@@ -7,7 +7,7 @@ module Twitter
     alias :width :w
 
     def ==(other)
-      super || (other.class == self.class && other.height == self.height && other.width == self.width)
+      super || (other.class == self.class && other.instance_variable_get('@h'.to_sym) == @h && other.instance_variable_get('@w'.to_sym) == @w)
     end
 
   end
