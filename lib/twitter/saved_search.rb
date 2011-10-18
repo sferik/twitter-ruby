@@ -4,10 +4,10 @@ require 'twitter/creatable'
 module Twitter
   class SavedSearch < Twitter::Base
     include Twitter::Creatable
-    attr_reader :id, :name, :position, :query
+    lazy_attr_reader :id, :name, :position, :query
 
     def ==(other)
-      super || (other.class == self.class && other.instance_variable_get('@id'.to_sym) == @id)
+      super || (other.class == self.class && other.id == self.id)
     end
 
   end

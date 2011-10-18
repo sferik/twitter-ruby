@@ -3,17 +3,19 @@ require 'twitter/user'
 
 module Twitter
   class Suggestion < Twitter::Base
-    attr_reader :name, :size, :slug, :users
+    attr_reader :users
+    lazy_attr_reader :name, :size, :slug
 
-    def initialize(suggestion={})
-      @users = suggestion.delete('users').map do |user|
+    def initialize(attributes={})
+      attributes = attributes.dup
+      @users = attributes.delete('users').map do |user|
         Twitter::User.new(user)
-      end unless suggestion['users'].nil?
-      super(suggestion)
+      end unless attributes['users'].nil?
+      super(attributes)
     end
 
     def ==(other)
-      super || (other.class == self.class && other.instance_variable_get('@slug'.to_sym) == @slug)
+      super || (other.class == self.class && other.slug == self.slug)
     end
 
   end

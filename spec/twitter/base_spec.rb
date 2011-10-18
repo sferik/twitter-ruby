@@ -15,11 +15,4 @@ describe Twitter::Base do
     end
   end
 
-  describe "#to_hash" do
-    it "should return a hash" do
-      @base.to_hash.should be_a Hash
-      @base.to_hash[:id].should == 1
-    end
-  end
-
 end

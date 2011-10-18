@@ -7,7 +7,8 @@ module Twitter
   class User < Twitter::Base
     include Twitter::Authenticatable
     include Twitter::Creatable
-    attr_reader :all_replies, :blocking, :can_dm, :connections,
+    attr_reader :status
+    lazy_attr_reader :all_replies, :blocking, :can_dm, :connections,
       :contributors_enabled, :default_profile, :default_profile_image,
       :description, :favourites_count, :follow_request_sent, :followed_by,
       :followers_count, :following, :friends_count, :geo_enabled, :id,
@@ -17,8 +18,8 @@ module Twitter
       :profile_background_tile, :profile_image_url, :profile_image_url_https,
       :profile_link_color, :profile_sidebar_border_color,
       :profile_sidebar_fill_color, :profile_text_color,
-      :profile_use_background_image, :protected, :screen_name, :status,
-      :statuses_count, :time_zone, :url, :utc_offset, :verified, :want_retweets
+      :profile_use_background_image, :protected, :screen_name, :statuses_count,
+      :time_zone, :url, :utc_offset, :verified, :want_retweets
     alias :all_replies? :all_replies
     alias :blocking? :blocking
     alias :can_dm? :can_dm
@@ -49,13 +50,14 @@ module Twitter
     alias :verified? :verified
     alias :want_retweets? :want_retweets
 
-    def initialize(user={})
-      @status = Twitter::Status.new(user.delete('status').merge('user' => self.to_hash.delete('status'))) unless user['status'].nil?
-      super(user)
+    def initialize(attributes={})
+      attributes = attributes.dup
+      @status = Twitter::Status.new(attributes.delete('status')) unless attributes['status'].nil?
+      super(attributes)
     end
 
     def ==(other)
-      super || (other.class == self.class && other.instance_variable_get('@id'.to_sym) == @id)
+      super || (other.class == self.class && other.id == self.id)
     end
 
   end

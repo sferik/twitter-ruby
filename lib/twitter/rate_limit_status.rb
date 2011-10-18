@@ -2,11 +2,13 @@ require 'twitter/base'
 
 module Twitter
   class RateLimitStatus < Twitter::Base
-    attr_reader :hourly_limit, :remaining_hits, :reset_time, :reset_time_in_seconds
+    attr_reader :reset_time
+    lazy_attr_reader :hourly_limit, :remaining_hits, :reset_time_in_seconds
 
-    def initialize(rate_limit_status={})
-      @reset_time = Time.parse(rate_limit_status.delete('reset_time')) unless rate_limit_status['reset_time'].nil?
-      super(rate_limit_status)
+    def initialize(attributes={})
+      attributes = attributes.dup
+      @reset_time = Time.parse(attributes['reset_time']) unless attributes['reset_time'].nil?
+      super(attributes)
     end
 
   end

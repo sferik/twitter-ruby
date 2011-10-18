@@ -1,18 +1,22 @@
 module Twitter
   class Base
 
-    def initialize(hash={})
-      hash.each do |key, value|
-        instance_variable_set(:"@#{key}", value)
+    def self.lazy_attr_reader(*attributes)
+      attributes.each do |attribute|
+        class_eval <<-RUBY, __FILE__, __LINE__ + 1
+          def #{attribute}
+            @#{attribute} ||= @attributes[#{attribute.to_s.inspect}]
+          end
+        RUBY
       end
+    end
+
+    def initialize(attributes = {})
+      @attributes = attributes.dup
     end
 
     def [](method)
       self.__send__(method.to_sym)
-    end
-
-    def to_hash
-      Hash[instance_variables.map{|ivar| [ivar[1..-1].to_sym, instance_variable_get(ivar)]}]
     end
 
   end

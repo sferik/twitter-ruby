@@ -5,16 +5,18 @@ require 'twitter/user'
 module Twitter
   class DirectMessage < Twitter::Base
     include Twitter::Creatable
-    attr_reader :id, :recipient, :sender, :text
+    attr_reader :recipient, :sender
+    lazy_attr_reader :id, :text
 
-    def initialize(direct_message={})
-      @recipient = Twitter::User.new(direct_message.delete('recipient')) unless direct_message['recipient'].nil?
-      @sender = Twitter::User.new(direct_message.delete('sender')) unless direct_message['sender'].nil?
-      super(direct_message)
+    def initialize(attributes={})
+      attributes = attributes.dup
+      @recipient = Twitter::User.new(attributes.delete('recipient')) unless attributes['recipient'].nil?
+      @sender = Twitter::User.new(attributes.delete('sender')) unless attributes['sender'].nil?
+      super(attributes)
     end
 
     def ==(other)
-      super || (other.class == self.class && other.instance_variable_get('@id'.to_sym) == @id)
+      super || (other.class == self.class && other.id == self.id)
     end
 
   end
