@@ -3,11 +3,11 @@ module Twitter
 
     def self.lazy_attr_reader(*attributes)
       attributes.each do |attribute|
-        class_eval <<-RUBY, __FILE__, __LINE__ + 1
-          def #{attribute}
-            @#{attribute} ||= @attributes[#{attribute.to_s.inspect}]
+        class_eval do
+          define_method attribute do
+            instance_variable_get("@attributes")[attribute.to_s]
           end
-        RUBY
+        end
       end
     end
 
