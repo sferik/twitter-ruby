@@ -89,6 +89,19 @@ describe Twitter::Status do
     end
   end
 
+  describe "#expanded_urls" do
+    it "should return the expanded urls" do
+      urls = [{'expanded_url' => 'http://example.com'}]
+      expanded_urls = Twitter::Status.new('entities' => {'urls' => urls}).expanded_urls
+      expanded_urls.should be_an Array
+      expanded_urls.first.should == "http://example.com"
+    end
+    it "should return nil when not set" do
+      expanded_urls = Twitter::Status.new.expanded_urls
+      expanded_urls.should be_nil
+    end
+  end
+
   describe "#user" do
     it "should return a User when user is set" do
       user = Twitter::Status.new('user' => {}).user
