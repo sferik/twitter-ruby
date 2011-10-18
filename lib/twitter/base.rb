@@ -3,7 +3,7 @@ module Twitter
 
     def initialize(hash={})
       hash.each do |key, value|
-        instance_variable_set(:"@#{key}", value) unless value.nil?
+        instance_variable_set(:"@#{key}", value)
       end
     end
 
