@@ -22,6 +22,12 @@ module Twitter
       super || (other.class == self.class && other.id == self.id)
     end
 
+    def expanded_urls
+      @expanded_urls ||= Array(@attributes['entities']['urls']).map do |url|
+        url['expanded_url']
+      end unless @attributes['entities'].nil?
+    end
+
     def geo
       @geo ||= Twitter::GeoFactory.new(@attributes['geo']) unless @attributes['geo'].nil?
     end
