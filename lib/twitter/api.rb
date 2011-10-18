@@ -18,5 +18,6 @@ module Twitter
         send("#{key}=", options[key])
       end
     end
+
   end
 end

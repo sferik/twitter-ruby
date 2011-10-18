@@ -10,5 +10,6 @@ module Twitter
     def reset_time
       @reset_time = Time.parse(@reset_time) unless @reset_time.nil? || @reset_time.is_a?(Time)
     end
+
   end
 end

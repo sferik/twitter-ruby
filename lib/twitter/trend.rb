@@ -7,5 +7,6 @@ module Twitter
     def ==(other)
       super || (other.class == self.class && other.name == self.name)
     end
+
   end
 end

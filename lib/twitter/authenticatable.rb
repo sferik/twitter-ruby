@@ -19,5 +19,6 @@ module Twitter
     def authenticated?
       credentials.values.all?
     end
+
   end
 end

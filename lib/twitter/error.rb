@@ -23,5 +23,6 @@ module Twitter
     def retry_after
       [(ratelimit_reset - Time.now).ceil, 0].max
     end
+
   end
 end

@@ -97,5 +97,6 @@ module Twitter
       self.faraday_options    = DEFAULT_FARADAY_OPTIONS
       self
     end
+
   end
 end

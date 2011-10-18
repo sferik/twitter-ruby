@@ -19,5 +19,6 @@ module Twitter
       @short_url_length = configuration['short_url_length']
       @short_url_length_https = configuration['short_url_length_https']
     end
+
   end
 end

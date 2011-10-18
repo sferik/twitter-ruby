@@ -7,5 +7,6 @@ module Twitter
     def ==(other)
       super || (other.class == self.class && other.coordinates == self.coordinates)
     end
+
   end
 end

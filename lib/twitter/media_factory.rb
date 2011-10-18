@@ -2,6 +2,7 @@ require 'twitter/photo'
 
 module Twitter
   class MediaFactory
+
     def self.new(media)
       type = media['type']
       if type
@@ -10,5 +11,6 @@ module Twitter
         raise ArgumentError, "argument must have a type key"
       end
     end
+
   end
 end

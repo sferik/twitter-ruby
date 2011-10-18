@@ -31,5 +31,6 @@ module Twitter
       @next_cursor.zero?
     end
     alias :last :last?
+
   end
 end

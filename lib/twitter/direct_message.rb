@@ -18,5 +18,6 @@ module Twitter
     def ==(other)
       super || (other.class == self.class && other.id == @id)
     end
+
   end
 end

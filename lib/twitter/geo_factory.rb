@@ -3,6 +3,7 @@ require 'twitter/polygon'
 
 module Twitter
   class GeoFactory
+
     def self.new(geo)
       type = geo['type']
       if type
@@ -11,5 +12,6 @@ module Twitter
         raise ArgumentError, "argument must have a type key"
       end
     end
+
   end
 end

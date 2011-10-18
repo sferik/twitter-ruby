@@ -9,5 +9,6 @@ module Twitter
       @source = Twitter::User.new(relationship['source']) unless relationship['source'].nil?
       @target = Twitter::User.new(relationship['target']) unless relationship['target'].nil?
     end
+
   end
 end
