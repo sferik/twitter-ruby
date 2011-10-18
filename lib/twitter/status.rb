@@ -55,7 +55,7 @@ module Twitter
     end
 
     def user
-      @user ||= Twitter::User.new(@attributes['user']) unless @attributes['user'].nil?
+      @user ||= Twitter::User.new(@attributes['user'].merge('status' => self.to_hash.delete_if{|key, value| key == 'user'})) unless @attributes['user'].nil?
     end
 
     def user_mentions

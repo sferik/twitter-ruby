@@ -54,7 +54,7 @@ module Twitter
     end
 
     def status
-      @status ||= Twitter::Status.new(@attributes['status']) unless @attributes['status'].nil?
+      @status ||= Twitter::Status.new(@attributes['status'].merge('user' => self.to_hash.delete_if{|key, value| key == 'status'})) unless @attributes['status'].nil?
     end
 
   end
