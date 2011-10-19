@@ -7,7 +7,7 @@ module Twitter
       attrs.each do |attribute|
         class_eval do
           define_method attribute do
-            instance_variable_get("@attrs")[attribute.to_s]
+            @attrs[attribute.to_s]
           end
         end
       end
