@@ -42,9 +42,9 @@ describe Twitter::Client do
     it "should return the top 30 trending topics for each day in a given week" do
       trends = @client.trends_weekly(Date.parse("2010-10-24"))
       trends.should be_a Hash
-      trends["2010-10-24 17:00"].should be_an Array
-      trends["2010-10-24 17:00"].first.should be_a Twitter::Trend
-      trends["2010-10-24 17:00"].first.name.should == "#unfollowmeif"
+      trends["2010-10-24"].should be_an Array
+      trends["2010-10-24"].first.should be_a Twitter::Trend
+      trends["2010-10-24"].first.name.should == "#youcantbeuglyand"
     end
   end
 
