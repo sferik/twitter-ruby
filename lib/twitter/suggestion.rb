@@ -10,7 +10,7 @@ module Twitter
     end
 
     def users
-      @users = Array(@attributes['users']).map do |user|
+      @users = Array(@attrs['users']).map do |user|
         Twitter::User.new(user)
       end
     end

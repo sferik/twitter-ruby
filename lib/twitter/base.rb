@@ -1,20 +1,20 @@
 module Twitter
   class Base
-    attr_accessor :attributes
-    alias :to_hash :attributes
+    attr_accessor :attrs
+    alias :to_hash :attrs
 
-    def self.lazy_attr_reader(*attributes)
-      attributes.each do |attribute|
+    def self.lazy_attr_reader(*attrs)
+      attrs.each do |attribute|
         class_eval do
           define_method attribute do
-            instance_variable_get("@attributes")[attribute.to_s]
+            instance_variable_get("@attrs")[attribute.to_s]
           end
         end
       end
     end
 
-    def initialize(attributes = {})
-      @attributes = attributes.dup
+    def initialize(attrs = {})
+      @attrs = attrs.dup
     end
 
     def [](method)

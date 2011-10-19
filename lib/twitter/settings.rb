@@ -9,7 +9,7 @@ module Twitter
     alias :protected? :protected
 
     def trend_location
-      @trend_location ||= Twitter::Place.new(@attributes['trend_location'].first) unless @attributes['trend_location'].nil? || @attributes['trend_location'].empty?
+      @trend_location ||= Twitter::Place.new(@attrs['trend_location'].first) unless @attrs['trend_location'].nil? || @attrs['trend_location'].empty?
     end
 
   end

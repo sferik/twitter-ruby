@@ -12,7 +12,7 @@ module Twitter
     end
 
     def user
-      @user ||= Twitter::User.new(@attributes['user']) unless @attributes['user'].nil?
+      @user ||= Twitter::User.new(@attrs['user']) unless @attrs['user'].nil?
     end
 
   end

@@ -8,7 +8,7 @@ module Twitter
       :non_username_paths, :photo_size_limit, :short_url_length, :short_url_length_https
 
     def photo_sizes
-      @photo_sizes ||= Array(@attributes['photo_sizes']).each_with_object({}) do |(key, value), object|
+      @photo_sizes ||= Array(@attrs['photo_sizes']).each_with_object({}) do |(key, value), object|
         object[key] = Twitter::Size.new(value)
       end
     end

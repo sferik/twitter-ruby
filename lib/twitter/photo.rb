@@ -12,7 +12,7 @@ module Twitter
     end
 
     def sizes
-      @sizes ||= Array(@attributes['sizes']).each_with_object({}) do |(key, value), object|
+      @sizes ||= Array(@attrs['sizes']).each_with_object({}) do |(key, value), object|
         object[key] = Twitter::Size.new(value)
       end
     end

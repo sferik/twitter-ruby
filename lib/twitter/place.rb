@@ -11,19 +11,19 @@ module Twitter
     end
 
     def bounding_box
-      @bounding_box ||= Twitter::GeoFactory.new(@attributes['bounding_box']) unless @attributes['bounding_box'].nil?
+      @bounding_box ||= Twitter::GeoFactory.new(@attrs['bounding_box']) unless @attrs['bounding_box'].nil?
     end
 
     def country_code
-      @country_code ||= @attributes['country_code'] || @attributes['countryCode']
+      @country_code ||= @attrs['country_code'] || @attrs['countryCode']
     end
 
     def parent_id
-      @parent_id ||= @attributes['parentid']
+      @parent_id ||= @attrs['parentid']
     end
 
     def place_type
-      @place_type ||= @attributes['place_type'] || @attributes['placeType'] && @attributes['placeType']['name']
+      @place_type ||= @attrs['place_type'] || @attrs['placeType'] && @attrs['placeType']['name']
     end
 
   end

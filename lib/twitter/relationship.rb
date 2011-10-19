@@ -5,11 +5,11 @@ module Twitter
   class Relationship < Twitter::Base
 
     def source
-      @source ||= Twitter::User.new(@attributes['source']) unless @attributes['source'].nil?
+      @source ||= Twitter::User.new(@attrs['source']) unless @attrs['source'].nil?
     end
 
     def target
-      @target ||= Twitter::User.new(@attributes['target']) unless @attributes['target'].nil?
+      @target ||= Twitter::User.new(@attrs['target']) unless @attrs['target'].nil?
     end
 
   end
