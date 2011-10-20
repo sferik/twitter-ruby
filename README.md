@@ -114,6 +114,7 @@ but object equivalence seems like a step in the right direction.
 * All deprecated methods have been removed.
 * `Twitter::Client#totals` has been removed. Use `Twitter::Client#user`
   instead.
+* `Twitter.faraday_options` has been renamed to `Twitter.connection_options`.
 * `Twitter::Client#friendships` now takes up to 3 arguments instead of 1.
 * Support for the XML response format has been removed. This decision was
   guided largely by Twitter, who has started removing XML responses available

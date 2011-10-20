@@ -37,6 +37,7 @@ describe Twitter::Search do
 
       before do
         @configuration = {
+          :connection_options => {:timeout => 10},
           :consumer_key => 'CK',
           :consumer_secret => 'CS',
           :oauth_token => 'OT',
@@ -48,7 +49,6 @@ describe Twitter::Search do
           :search_endpoint => 'http://google.com/',
           :media_endpoint => 'https://upload.twitter.com/',
           :user_agent => 'Custom User Agent',
-          :faraday_options => {:timeout => 10}
         }
       end
 

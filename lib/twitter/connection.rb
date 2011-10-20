@@ -1,3 +1,4 @@
+require 'faraday'
 require 'twitter/request/gateway'
 require 'twitter/request/multipart_with_file'
 require 'twitter/request/phoenix'
@@ -10,8 +11,11 @@ module Twitter
   module Connection
   private
 
+    # Returns a Faraday::Connection object
+    #
+    # @return [Faraday::Connection]
     def connection(options={})
-      merged_options = faraday_options.merge({
+      merged_options = connection_options.merge({
         :headers => {
           :accept => 'application/json',
           :user_agent => user_agent,
@@ -23,7 +27,7 @@ module Twitter
       Faraday.new(merged_options) do |builder|
         builder.use Twitter::Request::Phoenix if options[:phoenix]
         builder.use Twitter::Request::MultipartWithFile
-        builder.use Twitter::Request::TwitterOAuth, credentials if authenticated?
+        builder.use Twitter::Request::TwitterOAuth, credentials if credentials?
         builder.use Faraday::Request::Multipart
         builder.use Faraday::Request::UrlEncoded
         builder.use Twitter::Request::Gateway, gateway if gateway
