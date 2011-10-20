@@ -77,7 +77,7 @@ describe Twitter::Status do
     end
   end
 
-  describe "#url" do
+  describe "#urls" do
     it "should return urls" do
       urls = Twitter::Status.new('text' => "This Tweet contains a http://example.com.").urls
       urls.should be_an Array
@@ -99,6 +99,22 @@ describe Twitter::Status do
     it "should return nil when not set" do
       expanded_urls = Twitter::Status.new.expanded_urls
       expanded_urls.should be_nil
+    end
+  end
+
+  describe "#all_urls" do
+    it "should return urls in the text, and in all fields from the entities" do
+      urls = [{'url' => 'http://t.co/example', 'expanded_url' => 'http://example.com'}]
+      status_attributes = { 'text' => "This tweet contains a http://t.co/example.", 'entities' => {'urls' => urls} }
+      all_urls = Twitter::Status.new(status_attributes).all_urls
+      all_urls.should be_an Array
+      all_urls.first.should == "http://t.co/example"
+      all_urls.last.should  == "http://example.com"
+    end
+
+    it "should return nil when not set" do
+      all_urls = Twitter::Status.new.all_urls
+      all_urls.should be_nil
     end
   end
 

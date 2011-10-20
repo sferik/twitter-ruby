@@ -22,6 +22,13 @@ module Twitter
       super || (other.class == self.class && other.id == self.id)
     end
 
+    def all_urls
+      @all_urls ||= begin
+        all_urls = [ urls, expanded_urls ].compact.flatten.uniq
+        all_urls.length > 0 ? all_urls : nil
+      end
+    end
+
     def expanded_urls
       @expanded_urls ||= Array(@attrs['entities']['urls']).map do |url|
         url['expanded_url']
