@@ -33,6 +33,13 @@ describe Twitter::Status do
       all_urls = Twitter::Status.new.all_urls
       all_urls.should be_nil
     end
+    it "should not include nil" do
+      urls = [{'url' => 'http://t.co/example', 'expanded_url' => nil}]
+      status_attributes = { 'text' => "This tweet contains a http://t.co/example.", 'entities' => {'urls' => urls} }
+      all_urls = Twitter::Status.new(status_attributes).all_urls
+      all_urls.should be_an Array
+      all_urls.should == ["http://t.co/example"]
+    end
   end
 
   describe "#expanded_urls" do
