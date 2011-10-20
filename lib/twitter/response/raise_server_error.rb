@@ -6,6 +6,7 @@ require 'twitter/error/service_unavailable'
 module Twitter
   module Response
     class RaiseServerError < Faraday::Response::Middleware
+
       def on_complete(env)
         case env[:status].to_i
         when 500
@@ -22,6 +23,7 @@ module Twitter
       def error_message(env, body=nil)
         "#{env[:method].to_s.upcase} #{env[:url].to_s}: #{[env[:status].to_s + ':', body].compact.join(' ')} Check http://status.twitter.com/ for updates on the status of the Twitter service."
       end
+
     end
   end
 end

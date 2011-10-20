@@ -13,10 +13,10 @@ module Twitter
       }
     end
 
-    # Check whether user is authenticated
+    # Check whether credentials are present
     #
     # @return [Boolean]
-    def authenticated?
+    def credentials?
       credentials.values.all?
     end
 

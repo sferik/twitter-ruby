@@ -8,6 +8,7 @@ module Twitter
       :time_zone
     alias :protected? :protected
 
+    # @return [Twitter::Place]
     def trend_location
       @trend_location ||= Twitter::Place.new(@attrs['trend_location'].first) unless @attrs['trend_location'].nil? || @attrs['trend_location'].empty?
     end

@@ -3,6 +3,11 @@ require 'twitter/photo'
 module Twitter
   class MediaFactory
 
+    # Instantiates a new media object
+    #
+    # @param attrs [Hash]
+    # @raise [ArgumentError] Error raised when supplied argument is missing a type key.
+    # @return [Twitter::Photo]
     def self.new(media={})
       type = media['type']
       if type

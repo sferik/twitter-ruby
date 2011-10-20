@@ -20,6 +20,7 @@ module Twitter
       def initialize(app, options)
         @app, @options = app, options
       end
+
     end
   end
 end

@@ -17,6 +17,7 @@ module Twitter
           ::MultiJson.decode(body)
         end
       end
+
     end
   end
 end

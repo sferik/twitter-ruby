@@ -3,6 +3,7 @@ require 'faraday'
 module Twitter
   module Request
     class MultipartWithFile < Faraday::Middleware
+
       def call(env)
         if env[:body].is_a?(Hash)
           env[:body].each do |key, value|
@@ -13,7 +14,6 @@ module Twitter
             end
           end
         end
-
         @app.call(env)
       end
 
@@ -31,6 +31,7 @@ module Twitter
           'application/octet-stream'
         end
       end
+
     end
   end
 end

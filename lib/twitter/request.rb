@@ -11,6 +11,7 @@ module Twitter
       request(:get, path, params, options)
     end
 
+    # Perform an HTTP POST request
     def post(path, params={}, options={})
       request(:post, path, params, options)
     end

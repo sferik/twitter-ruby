@@ -4,6 +4,11 @@ require 'twitter/polygon'
 module Twitter
   class GeoFactory
 
+    # Instantiates a new geo object
+    #
+    # @param attrs [Hash]
+    # @raise [ArgumentError] Error raised when supplied argument is missing a type key.
+    # @return [Twitter::Point, Twitter::Polygon]
     def self.new(geo={})
       type = geo['type']
       if type

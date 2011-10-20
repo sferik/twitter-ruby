@@ -11,11 +11,14 @@ module Twitter
 
     attr_accessor *Config::VALID_OPTIONS_KEYS
 
-    # Creates a new API
-    def initialize(options={})
-      options = Twitter.options.merge(options)
+    # Initializes a new API object
+    #
+    # @param attrs [Hash]
+    # @return [Twitter::API]
+    def initialize(attrs={})
+      attrs = Twitter.options.merge(attrs)
       Config::VALID_OPTIONS_KEYS.each do |key|
-        send("#{key}=", options[key])
+        instance_variable_set("@#{key}".to_sym, attrs[key])
       end
     end
 

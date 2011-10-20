@@ -8,9 +8,15 @@ module Twitter
     alias :next :next_cursor
     alias :previous :previous_cursor
 
-    def initialize(attributes, method, klass=nil)
-      super(attributes)
-      @collection = Array(attributes[method.to_s]).map do |item|
+    # Initializes a new Cursor object
+    #
+    # @param attrs [Hash]
+    # @params method [String, Symbol] The name of the method to return the collection
+    # @params klass [Class] The class to instantiate object in the collection
+    # @return [Twitter::Cursor]
+    def initialize(attrs, method, klass=nil)
+      super(attrs)
+      @collection = Array(attrs[method.to_s]).map do |item|
         if klass
           klass.new(item)
         else
@@ -22,11 +28,13 @@ module Twitter
       end
     end
 
+    # @return [Boolean]
     def first?
       previous_cursor.zero?
     end
     alias :first :first?
 
+    # @return [Boolean]
     def last?
       next_cursor.zero?
     end

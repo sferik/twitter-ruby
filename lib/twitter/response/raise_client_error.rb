@@ -9,6 +9,7 @@ require 'twitter/error/unauthorized'
 module Twitter
   module Response
     class RaiseClientError < Faraday::Response::Middleware
+
       def on_complete(env)
         case env[:status].to_i
         when 400
@@ -46,6 +47,7 @@ module Twitter
           end
         end
       end
+
     end
   end
 end

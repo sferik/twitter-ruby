@@ -3,6 +3,7 @@ require 'faraday'
 module Twitter
   module Request
     class Gateway < Faraday::Middleware
+
       def call(env)
         url = env[:url].dup
         url.host = @gateway
@@ -13,6 +14,7 @@ module Twitter
       def initialize(app, gateway)
         @app, @gateway = app, gateway
       end
+
     end
   end
 end

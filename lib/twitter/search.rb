@@ -22,8 +22,9 @@ module Twitter
 
     attr_reader :query
 
-    # Creates a new search
+    # Initializes a new Search object
     #
+    # @return [Twitter::Search]
     # @example Initialize a Twitter search
     #   search = Twitter::Search.new
     def initialize(*)

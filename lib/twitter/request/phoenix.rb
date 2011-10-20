@@ -3,6 +3,7 @@ require 'faraday'
 module Twitter
   module Request
     class Phoenix < Faraday::Middleware
+
       def call(env)
         # Not sure what what the X-Phx (Phoenix?) header is for but it's
         # required to access certain undocumented resources
@@ -15,6 +16,7 @@ module Twitter
       def initialize(app)
         @app = app
       end
+
     end
   end
 end

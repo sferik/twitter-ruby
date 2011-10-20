@@ -49,10 +49,13 @@ module Twitter
     alias :verified? :verified
     alias :want_retweets? :want_retweets
 
+    # @param other [Twiter::User]
+    # @return [Boolean]
     def ==(other)
       super || (other.class == self.class && other.id == self.id)
     end
 
+    # @return [Twitter::Status]
     def status
       @status ||= Twitter::Status.new(@attrs['status'].merge('user' => self.to_hash.delete_if{|key, value| key == 'status'})) unless @attrs['status'].nil?
     end
