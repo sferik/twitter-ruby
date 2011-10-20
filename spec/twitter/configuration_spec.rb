@@ -8,8 +8,8 @@ describe Twitter::Configuration do
       photo_sizes.should be_a Hash
       photo_sizes['small'].should be_a Twitter::Size
     end
-    it "should return nil when photo_sizes is not set" do
-      photo_sizes = Twitter::Configuration.new.photo_sizes
+    it "should be empty when photo_sizes is not set" do
+      photo_sizes = Twitter::Configuration.new().photo_sizes
       photo_sizes.should be_empty
     end
   end

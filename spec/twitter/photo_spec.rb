@@ -26,7 +26,7 @@ describe Twitter::Photo do
       sizes.should be_a Hash
       sizes['small'].should be_a Twitter::Size
     end
-    it "should return nil when sizes is not set" do
+    it "should be empty when sizes is not set" do
       sizes = Twitter::Photo.new.sizes
       sizes.should be_empty
     end

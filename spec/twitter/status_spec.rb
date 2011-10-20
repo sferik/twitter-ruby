@@ -20,6 +20,34 @@ describe Twitter::Status do
     end
   end
 
+  describe "#all_urls" do
+    it "should return urls in the text, and in all fields from the entities" do
+      urls = [{'url' => 'http://t.co/example', 'expanded_url' => 'http://example.com'}]
+      status_attributes = { 'text' => "This tweet contains a http://t.co/example.", 'entities' => {'urls' => urls} }
+      all_urls = Twitter::Status.new(status_attributes).all_urls
+      all_urls.should be_an Array
+      all_urls.first.should == "http://t.co/example"
+      all_urls.last.should  == "http://example.com"
+    end
+    it "should return nil when not set" do
+      all_urls = Twitter::Status.new.all_urls
+      all_urls.should be_nil
+    end
+  end
+
+  describe "#expanded_urls" do
+    it "should return the expanded urls" do
+      urls = [{'expanded_url' => 'http://example.com'}]
+      expanded_urls = Twitter::Status.new('entities' => {'urls' => urls}).expanded_urls
+      expanded_urls.should be_an Array
+      expanded_urls.first.should == "http://example.com"
+    end
+    it "should return nil when not set" do
+      expanded_urls = Twitter::Status.new.expanded_urls
+      expanded_urls.should be_nil
+    end
+  end
+
   describe "#created_at" do
     it "should return a Time when set" do
       status = Twitter::Status.new('created_at' => "Mon Jul 16 12:59:01 +0000 2007")
@@ -66,6 +94,17 @@ describe Twitter::Status do
     end
   end
 
+  describe "#metadata" do
+    it "should return a User when user is set" do
+      metadata = Twitter::Status.new('metadata' => {}).metadata
+      metadata.should be_a Twitter::Metadata
+    end
+    it "should return nil when user is not set" do
+      metadata = Twitter::Status.new.metadata
+      metadata.should be_nil
+    end
+  end
+
   describe "#place" do
     it "should return a Twitter::Place when set" do
       status = Twitter::Status.new('place' => {})
@@ -86,35 +125,6 @@ describe Twitter::Status do
     it "should return nil when not set" do
       urls = Twitter::Status.new.urls
       urls.should be_nil
-    end
-  end
-
-  describe "#expanded_urls" do
-    it "should return the expanded urls" do
-      urls = [{'expanded_url' => 'http://example.com'}]
-      expanded_urls = Twitter::Status.new('entities' => {'urls' => urls}).expanded_urls
-      expanded_urls.should be_an Array
-      expanded_urls.first.should == "http://example.com"
-    end
-    it "should return nil when not set" do
-      expanded_urls = Twitter::Status.new.expanded_urls
-      expanded_urls.should be_nil
-    end
-  end
-
-  describe "#all_urls" do
-    it "should return urls in the text, and in all fields from the entities" do
-      urls = [{'url' => 'http://t.co/example', 'expanded_url' => 'http://example.com'}]
-      status_attributes = { 'text' => "This tweet contains a http://t.co/example.", 'entities' => {'urls' => urls} }
-      all_urls = Twitter::Status.new(status_attributes).all_urls
-      all_urls.should be_an Array
-      all_urls.first.should == "http://t.co/example"
-      all_urls.last.should  == "http://example.com"
-    end
-
-    it "should return nil when not set" do
-      all_urls = Twitter::Status.new.all_urls
-      all_urls.should be_nil
     end
   end
 
