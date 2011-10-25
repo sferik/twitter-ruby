@@ -240,7 +240,7 @@ module Twitter
 
       # Returns an array of user_ids that the currently authenticated user does not want to see retweets from.
       #
-      # @see https://dev.twitter.com/docs/api/get-friendshipsno_retweet_ids
+      # @see https://dev.twitter.com/docs/api/1/get/friendships/no_retweet_ids
       # @rate_limited Yes
       # @requires_authentication Yes
       # @param user [Integer, String] Twitter user ID or screen name.
