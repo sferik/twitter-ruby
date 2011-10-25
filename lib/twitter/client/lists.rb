@@ -151,7 +151,7 @@ module Twitter
 
       # Returns the subscribers of the specified list
       #
-      # @see https://dev.twitter.com/docs/api/1/get/lists/subscriptions
+      # @see https://dev.twitter.com/docs/api/1/get/lists/subscribers
       # @rate_limited Yes
       # @requires_authentication Supported
       # @overload list_subscribers(list, options={})
