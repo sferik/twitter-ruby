@@ -49,7 +49,7 @@ module Twitter
     # The value sent in the 'User-Agent' header if none is set
     DEFAULT_USER_AGENT = "Twitter Ruby Gem #{Twitter::Version}"
 
-    # An array of valid keys in the options hash when configuring a {Twitter::API}
+    # An array of valid keys in the options hash when configuring a {Twitter::Client}
     VALID_OPTIONS_KEYS = [
       :adapter,
       :connection_options,

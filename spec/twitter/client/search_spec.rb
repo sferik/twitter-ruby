@@ -50,19 +50,39 @@ describe Twitter::Client do
 
   describe ".search" do
     before do
+      stub_get("/search.json", Twitter.search_endpoint).
+        with(:query => {:q => "twitter"}).
+        to_return(:body => fixture("/search.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+    end
+    it "should get the correct resource" do
+      @client.search('twitter')
+      a_get("/search.json", Twitter.search_endpoint).
+        with(:query => {:q => "twitter"}).
+        should have_been_made
+    end
+    it "should return recent statuses related to a query with images and videos embedded" do
+      search = @client.search('twitter')
+      search.should be_an Array
+      search.first.should be_a Twitter::Status
+      search.first.text.should == "@KaiserKuo from not too far away your new twitter icon looks like Vader."
+    end
+  end
+
+  describe ".phoenix_search" do
+    before do
       stub_get("/phoenix_search.phoenix").
         with(:query => {:q => "twitter"}).
         to_return(:body => fixture("phoenix_search.phoenix"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "should get the correct resource" do
-      @client.search('twitter')
+      @client.phoenix_search('twitter')
       a_get("/phoenix_search.phoenix").
         with(:query => {:q => "twitter"}).
         with(:headers => {'X-Phx' => 'true'}).
         should have_been_made
     end
     it "should return recent statuses related to a query with images and videos embedded" do
-      search = @client.search('twitter')
+      search = @client.phoenix_search('twitter')
       search.should be_an Array
       search.first.should be_a Twitter::Status
       search.first.text.should == "looking at twitter trends just makes me realize how little i really understand about mankind."

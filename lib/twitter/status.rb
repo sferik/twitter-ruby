@@ -27,7 +27,7 @@ module Twitter
     # @return [Array<String>]
     def all_urls
       @all_urls ||= begin
-        all_urls = [ urls, expanded_urls ].flatten.compact.uniq
+        all_urls = [urls, expanded_urls].flatten.compact.uniq
         all_urls.length > 0 ? all_urls : nil
       end
     end

@@ -75,6 +75,11 @@ question mark, for example:
 
     Twitter.user("sferik").protected?
 
+The `Twitter::Search` class has been replaced by the `Twitter::Client#search`
+method. This unifies the library's interfaces and will make the code easier to
+maintain over time. As a result, you can no longer build queries by chaining
+methods (ARel-style) but the new syntax is more consistent and concise.
+
 Version 2 also includes some advanced Tweet-parsing methods, for example:
 
     # Fetch the Tweet at https://twitter.com/twitter/statuses/76360760606986241
@@ -148,14 +153,13 @@ Return the text of the Tweet at https://twitter.com/sferik/statuses/27558893223
     Twitter.status(27558893223).text
 Find the 3 most recent marriage proposals to [@justinbieber][justinbieber]
 
-    search = Twitter::Search.new
-    search.containing("marry me").to("justinbieber").result_type("recent").per_page(3).map do |status|
+    Twitter.search("to:justinbieber marry me", :rpp => 3, :result_type => "recent").map do |status|
       "#{status.from_user}: #{status.text}"
     end
-Enough about Justin Bieber. Let's find a Japanese-language Tweet tagged #ruby.
 
-    search = Twitter::Search.new
-    search.hashtag("ruby").language("ja").no_retweets.per_page(1).fetch.first.text
+Let's find a Japanese-language Tweet tagged #ruby (no retweets)
+
+    Twitter.search("#ruby -rt", :lang => "ja", :rpp => 1).first.text
 
 Certain methods require authentication. To get your Twitter OAuth credentials,
 register an app at http://dev.twitter.com/apps

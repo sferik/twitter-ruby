@@ -22,7 +22,7 @@ module Twitter
         },
         :proxy => proxy,
         :ssl => {:verify => false},
-        :url => options.fetch(:endpoint, api_endpoint),
+        :url => options.fetch(:endpoint, endpoint),
       })
       Faraday.new(merged_options) do |builder|
         builder.use Twitter::Request::Phoenix if options[:phoenix]

@@ -1,5 +1,7 @@
-require 'twitter/api'
+require 'twitter/authenticatable'
+require 'twitter/config'
 require 'twitter/configuration'
+require 'twitter/connection'
 require 'twitter/cursor'
 require 'twitter/direct_message'
 require 'twitter/language'
@@ -11,8 +13,8 @@ require 'twitter/point'
 require 'twitter/polygon'
 require 'twitter/rate_limit_status'
 require 'twitter/relationship'
+require 'twitter/request'
 require 'twitter/saved_search'
-require 'twitter/search'
 require 'twitter/settings'
 require 'twitter/size'
 require 'twitter/status'
@@ -25,8 +27,7 @@ module Twitter
   #
   # @note All methods have been separated into modules and follow the same grouping used in {http://dev.twitter.com/doc the Twitter API Documentation}.
   # @see http://dev.twitter.com/pages/every_developer
-  class Client < API
-
+  class Client
     # Require client method modules after initializing the Client class in
     # order to avoid a superclass mismatch error, allowing those modules to be
     # Client-namespaced.
@@ -52,7 +53,9 @@ module Twitter
     require 'twitter/client/urls'
     require 'twitter/client/users'
 
-    alias :api_endpoint :endpoint
+    include Twitter::Authenticatable
+    include Twitter::Connection
+    include Twitter::Request
 
     include Twitter::Client::Accounts
     include Twitter::Client::Activity
@@ -75,6 +78,19 @@ module Twitter
     include Twitter::Client::Tweets
     include Twitter::Client::Urls
     include Twitter::Client::Users
+
+    attr_accessor *Config::VALID_OPTIONS_KEYS
+
+    # Initializes a new API object
+    #
+    # @param attrs [Hash]
+    # @return [Twitter::Client]
+    def initialize(attrs={})
+      attrs = Twitter.options.merge(attrs)
+      Config::VALID_OPTIONS_KEYS.each do |key|
+        instance_variable_set("@#{key}".to_sym, attrs[key])
+      end
+    end
 
   end
 end
