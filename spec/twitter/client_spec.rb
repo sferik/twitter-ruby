@@ -82,7 +82,7 @@ describe Twitter::Client do
 
   it "should recursively merge connection options" do
     stub_get("/1/statuses/user_timeline.json").
-      with(:query => {:screen_name => "sferik"}, :headers => {"User-Agent" => "Custom User Agent"}).
+      with(:query => {:screen_name => "sferik"}, :headers => {"Accept" => "application/json", "User-Agent" => "Custom User Agent"}).
       to_return(:body => fixture("statuses.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     client = Twitter::Client.new(:connection_options => {:headers => {:user_agent => 'Custom User Agent'}})
     client.user_timeline("sferik")
