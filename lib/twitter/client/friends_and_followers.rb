@@ -254,6 +254,40 @@ module Twitter
         get("/1/friendships/no_retweet_ids.json", options, :phoenix => true)
       end
 
+      # Allows the authenticating user to accept the specified user's follow request
+      #
+      # @note Undocumented
+      # @rate_limited No
+      # @requires_authentication Yes
+      # @param user [Integer, String] A Twitter user ID or screen name.
+      # @param options [Hash] A customizable set of options.
+      # @return [Twitter::User] The accepted user.
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @example Accept @sferik's follow request
+      #   Twitter.accept("sferik")
+      def accept(user, options={})
+        options.merge_user!(user)
+        user = post("/1/friendships/accept.json", options)
+        Twitter::User.new(user)
+      end
+
+      # Allows the authenticating user to deny the specified user's follow request
+      #
+      # @note Undocumented
+      # @rate_limited No
+      # @requires_authentication Yes
+      # @param user [Integer, String] A Twitter user ID or screen name.
+      # @param options [Hash] A customizable set of options.
+      # @return [Twitter::User] The denied user.
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @example Deny @sferik's follow request
+      #   Twitter.deny("sferik")
+      def deny(user, options={})
+        options.merge_user!(user)
+        user = post("/1/friendships/deny.json", options)
+        Twitter::User.new(user)
+      end
+
     end
   end
 end

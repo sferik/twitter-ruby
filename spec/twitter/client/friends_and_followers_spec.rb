@@ -437,4 +437,42 @@ describe Twitter::Client do
     end
   end
 
+  describe ".accept" do
+    before do
+      stub_post("/1/friendships/accept.json").
+        with(:body => {:screen_name => "sferik"}).
+        to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+    end
+    it "should get the correct resource" do
+      @client.accept("sferik")
+      a_post("/1/friendships/accept.json").
+        with(:body => {:screen_name => "sferik"}).
+        should have_been_made
+    end
+    it "should return the accepted user" do
+      user = @client.accept("sferik")
+      user.should be_a Twitter::User
+      user.name.should == "Erik Michaels-Ober"
+    end
+  end
+
+  describe ".deny" do
+    before do
+      stub_post("/1/friendships/deny.json").
+        with(:body => {:screen_name => "sferik"}).
+        to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+    end
+    it "should get the correct resource" do
+      @client.deny("sferik")
+      a_post("/1/friendships/deny.json").
+        with(:body => {:screen_name => "sferik"}).
+        should have_been_made
+    end
+    it "should return the denied user" do
+      user = @client.deny("sferik")
+      user.should be_a Twitter::User
+      user.name.should == "Erik Michaels-Ober"
+    end
+  end
+
 end
