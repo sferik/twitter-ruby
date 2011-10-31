@@ -1,6 +1,22 @@
 class Hash
 
-  # Take a single user ID or screen name and merge it into the hash with the correct key
+  # Merges self with another hash, recursively
+  #
+  # @param hash [Hash] The hash to merge
+  # @return [Hash]
+  def deep_merge(hash)
+    target = self.dup
+    hash.keys.each do |key|
+      if hash[key].is_a?(Hash) && self[key].is_a?(Hash)
+        target[key] = target[key].deep_merge(hash[key])
+        next
+      end
+      target[key] = hash[key]
+    end
+    target
+  end
+
+  # Take a single user ID or screen name and merge it into self with the correct key
   #
   # @param user_id_or_screen_name [Integer, String] A Twitter user ID or screen_name.
   # @return [Hash]
@@ -14,7 +30,7 @@ class Hash
     self
   end
 
-  # Take a multiple user IDs and screen names and merge them into the hash with the correct keys
+  # Take a multiple user IDs and screen names and merge them into self with the correct keys
   #
   # @param users_id_or_screen_names [Array] An array of Twitter user IDs or screen_names.
   # @return [Hash]
@@ -33,7 +49,7 @@ class Hash
     self
   end
 
-  # Take a single owner ID or owner screen name and merge it into the hash with the correct key
+  # Take a single owner ID or owner screen name and merge it into self with the correct key
   # (for Twitter API endpoints that want :owner_id and :owner_screen_name)
   #
   # @param owner_id_or_owner_screen_name [Integer, String] A Twitter user ID or screen_name.
@@ -48,7 +64,7 @@ class Hash
     self
   end
 
-  # Take a single list ID or slug and merge it into the hash with the correct key
+  # Take a single list ID or slug and merge it into self with the correct key
   #
   # @param list_id_or_slug [Integer, String] A Twitter list ID or slug.
   # @return [Hash]
