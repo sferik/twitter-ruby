@@ -26,7 +26,7 @@ module Twitter
         :ssl => {:verify => false},
         :url => options.fetch(:endpoint, endpoint),
       }
-      Faraday.new(connection_options.deep_merge(default_options)) do |builder|
+      Faraday.new(default_options.deep_merge(connection_options)) do |builder|
         builder.use Twitter::Request::Phoenix if options[:phoenix]
         builder.use Twitter::Request::MultipartWithFile
         builder.use Twitter::Request::TwitterOAuth, credentials if credentials?

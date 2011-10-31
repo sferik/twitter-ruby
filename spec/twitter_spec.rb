@@ -87,4 +87,5 @@ describe Twitter do
       end
     end
   end
+
 end
