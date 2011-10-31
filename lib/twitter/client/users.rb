@@ -46,7 +46,7 @@ module Twitter
       # @return [String] The URL for the requested user's profile image.
       def profile_image(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
-        screen_name = args.pop || get_screen_name
+        screen_name = args.pop || self.current_user.screen_name
         get("/1/users/profile_image/#{screen_name}", options, :raw => true).headers['location']
       end
 
@@ -85,7 +85,7 @@ module Twitter
       #     Twitter.user(7505382)  # Same as above
       def user(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
-        user = args.pop || get_screen_name
+        user = args.pop || self.current_user.screen_name
         options.merge_user!(user)
         user = get("/1/users/show.json", options)
         Twitter::User.new(user)
@@ -134,7 +134,7 @@ module Twitter
       def contributees(*args)
         options = {}
         options.merge!(args.last.is_a?(Hash) ? args.pop : {})
-        user = args.pop || get_screen_name
+        user = args.pop || self.current_user.screen_name
         options.merge_user!(user)
         get("/1/users/contributees.json", options).map do |user|
           Twitter::User.new(user)
@@ -167,7 +167,7 @@ module Twitter
       def contributors(*args)
         options = {}
         options.merge!(args.last.is_a?(Hash) ? args.pop : {})
-        user = args.pop || get_screen_name
+        user = args.pop || self.current_user.screen_name
         options.merge_user!(user)
         get("/1/users/contributors.json", options).map do |user|
           Twitter::User.new(user)
@@ -191,15 +191,6 @@ module Twitter
         get("/1/users/recommendations.json", options).map do |recommendation|
           Twitter::User.new(recommendation['user'])
         end
-      end
-
-    private
-
-      # Returns the configured screen name or the screen name of the authenticated user
-      #
-      # @return [String]
-      def get_screen_name
-        @screen_name ||= self.verify_credentials.screen_name
       end
 
     end

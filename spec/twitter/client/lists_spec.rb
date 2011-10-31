@@ -28,6 +28,8 @@ describe Twitter::Client do
     end
     context "without a screen name passed" do
       before do
+        stub_get("/1/account/verify_credentials.json").
+          to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
         stub_get("/1/lists/all.json").
           to_return(:body => fixture("all.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
@@ -61,7 +63,8 @@ describe Twitter::Client do
     end
     context "without a screen name passed" do
       before do
-        @client.stub!(:get_screen_name).and_return('sferik')
+        stub_get("/1/account/verify_credentials.json").
+          to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
         stub_get("/1/lists/statuses.json").
           with(:query => {:owner_screen_name => 'sferik', :slug => 'presidents'}).
           to_return(:body => fixture("statuses.json"), :headers => {:content_type => "application/json; charset=utf-8"})
@@ -161,7 +164,8 @@ describe Twitter::Client do
     end
     context "without a screen name passed" do
       before do
-        @client.stub!(:get_screen_name).and_return('sferik')
+        stub_get("/1/account/verify_credentials.json").
+          to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
         stub_post("/1/lists/members/destroy.json").
           with(:body => {:owner_screen_name => 'sferik', :slug => 'presidents', :user_id => "813286"}).
           to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
@@ -198,6 +202,8 @@ describe Twitter::Client do
     end
     context "without a screen name passed" do
       before do
+        stub_get("/1/account/verify_credentials.json").
+          to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
         stub_get("/1/lists/memberships.json").
           with(:query => {:cursor => "-1"}).
           to_return(:body => fixture("lists.json"), :headers => {:content_type => "application/json; charset=utf-8"})
@@ -273,7 +279,8 @@ describe Twitter::Client do
     end
     context "without a screen name passed" do
       before do
-        @client.stub!(:get_screen_name).and_return('sferik')
+        stub_get("/1/account/verify_credentials.json").
+          to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
         stub_get("/1/lists/subscribers.json").
           with(:query => {:owner_screen_name => 'sferik', :slug => 'presidents', :cursor => "-1"}).
           to_return(:body => fixture("users_list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
@@ -310,6 +317,8 @@ describe Twitter::Client do
     end
     context "without a screen name passed" do
       before do
+        stub_get("/1/account/verify_credentials.json").
+          to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
         stub_get("/1/lists/subscriptions.json").
           with(:query => {:cursor => "-1"}).
           to_return(:body => fixture("lists.json"), :headers => {:content_type => "application/json; charset=utf-8"})
@@ -383,7 +392,8 @@ describe Twitter::Client do
     end
     context "without a screen name passed" do
       before do
-        @client.stub!(:get_screen_name).and_return('sferik')
+        stub_get("/1/account/verify_credentials.json").
+          to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
         stub_post("/1/lists/subscribers/create.json").
           with(:body => {:owner_screen_name => 'sferik', :slug => 'presidents'}).
           to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
@@ -470,7 +480,8 @@ describe Twitter::Client do
     end
     context "without a screen name passed" do
       before do
-        @client.stub!(:get_screen_name).and_return('sferik')
+        stub_get("/1/account/verify_credentials.json").
+          to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
         stub_get("/1/lists/subscribers/show.json").
           with(:query => {:owner_screen_name => 'sferik', :slug => 'presidents', :user_id => '813286'}).
           to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
@@ -531,7 +542,8 @@ describe Twitter::Client do
     end
     context "without a screen name passed" do
       before do
-        @client.stub!(:get_screen_name).and_return('sferik')
+        stub_get("/1/account/verify_credentials.json").
+          to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
         stub_post("/1/lists/subscribers/destroy.json").
           with(:body => {:owner_screen_name => 'sferik', :slug => 'presidents'}).
           to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
@@ -605,7 +617,8 @@ describe Twitter::Client do
     end
     context "without a screen name passed" do
       before do
-        @client.stub!(:get_screen_name).and_return('sferik')
+        stub_get("/1/account/verify_credentials.json").
+          to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
         stub_post("/1/lists/members/create_all.json").
           with(:body => {:owner_screen_name => 'sferik', :slug => 'presidents', :user_id => "813286,18755393"}).
           to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
@@ -692,7 +705,8 @@ describe Twitter::Client do
     end
     context "without a screen name passed" do
       before do
-        @client.stub!(:get_screen_name).and_return('sferik')
+        stub_get("/1/account/verify_credentials.json").
+          to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
         stub_get("/1/lists/members/show.json").
           with(:query => {:owner_screen_name => 'sferik', :slug => 'presidents', :user_id => '813286'}).
           to_return(:body => fixture("list.json"), :headers => {:content_type => "application/.json; charset=utf-8"})
@@ -742,7 +756,8 @@ describe Twitter::Client do
     end
     context "without a screen name passed" do
       before do
-        @client.stub!(:get_screen_name).and_return('sferik')
+        stub_get("/1/account/verify_credentials.json").
+          to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
         stub_get("/1/lists/members.json").
           with(:query => {:owner_screen_name => 'sferik', :slug => 'presidents', :cursor => "-1"}).
           to_return(:body => fixture("users_list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
@@ -803,7 +818,8 @@ describe Twitter::Client do
     end
     context "without a screen name passed" do
       before do
-        @client.stub!(:get_screen_name).and_return('sferik')
+        stub_get("/1/account/verify_credentials.json").
+          to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
         stub_post("/1/lists/members/create.json").
           with(:body => {:owner_screen_name => 'sferik', :slug => 'presidents', :user_id => "813286"}).
           to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
@@ -838,7 +854,8 @@ describe Twitter::Client do
     end
     context "without a screen name passed" do
       before do
-        @client.stub!(:get_screen_name).and_return('sferik')
+        stub_get("/1/account/verify_credentials.json").
+          to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
         stub_delete("/1/lists/destroy.json").
           with(:query => {:owner_screen_name => 'sferik', :slug => 'presidents'}).
           to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
@@ -899,7 +916,8 @@ describe Twitter::Client do
     end
     context "without a screen name passed" do
       before do
-        @client.stub!(:get_screen_name).and_return('sferik')
+        stub_get("/1/account/verify_credentials.json").
+          to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
         stub_post("/1/lists/update.json").
           with(:body => {:owner_screen_name => 'sferik', :slug => 'presidents', :description => "Presidents of the United States of America"}).
           to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
@@ -1042,7 +1060,8 @@ describe Twitter::Client do
     end
     context "without a screen name passed" do
       before do
-        @client.stub!(:get_screen_name).and_return('sferik')
+        stub_get("/1/account/verify_credentials.json").
+          to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
         stub_get("/1/lists/show.json").
           with(:query => {:owner_screen_name => 'sferik', :slug => 'presidents'}).
           to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})

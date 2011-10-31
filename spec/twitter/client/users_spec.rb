@@ -83,7 +83,8 @@ describe Twitter::Client do
     end
     context "without a screen name passed" do
       before do
-        @client.stub!(:get_screen_name).and_return('sferik')
+        stub_get("/1/account/verify_credentials.json").
+          to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
         stub_get("/1/users/profile_image/sferik").
           to_return(fixture("profile_image.text"))
       end
@@ -177,7 +178,8 @@ describe Twitter::Client do
     end
     context "without a screen name or user ID passed" do
       before do
-        @client.stub!(:get_screen_name).and_return('sferik')
+        stub_get("/1/account/verify_credentials.json").
+          to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
         stub_get("/1/users/show.json").
           with(:query => {:screen_name => "sferik"}).
           to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
@@ -238,7 +240,8 @@ describe Twitter::Client do
     end
     context "without arguments passed" do
       before do
-        @client.stub!(:get_screen_name).and_return('sferik')
+        stub_get("/1/account/verify_credentials.json").
+          to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
         stub_get("/1/users/contributees.json").
           with(:query => {:screen_name => "sferik"}).
           to_return(:body => fixture("contributees.json"), :headers => {:content_type => "application/json; charset=utf-8"})
@@ -261,6 +264,8 @@ describe Twitter::Client do
   describe ".contributors" do
     context "with a screen name passed" do
       before do
+        stub_get("/1/account/verify_credentials.json").
+          to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
         stub_get("/1/users/contributors.json").
           with(:query => {:screen_name => "sferik"}).
           to_return(:body => fixture("contributors.json"), :headers => {:content_type => "application/json; charset=utf-8"})
@@ -280,7 +285,8 @@ describe Twitter::Client do
     end
     context "without arguments passed" do
       before do
-        @client.stub!(:get_screen_name).and_return('sferik')
+        stub_get("/1/account/verify_credentials.json").
+          to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
         stub_get("/1/users/contributors.json").
           with(:query => {:screen_name => "sferik"}).
           to_return(:body => fixture("contributors.json"), :headers => {:content_type => "application/json; charset=utf-8"})

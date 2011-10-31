@@ -73,7 +73,7 @@ module Twitter
         options = args.last.is_a?(Hash) ? args.pop : {}
         list = args.pop
         options.merge_list!(list)
-        owner = args.pop || get_screen_name
+        owner = args.pop || self.current_user.screen_name
         options.merge_owner!(owner)
         get("/1/lists/statuses.json", options).map do |status|
           Twitter::Status.new(status)
@@ -113,7 +113,7 @@ module Twitter
         options.merge_user!(user_to_remove)
         list = args.pop
         options.merge_list!(list)
-        owner = args.pop || get_screen_name
+        owner = args.pop || self.current_user.screen_name
         options.merge_owner!(owner)
         list = post("/1/lists/members/destroy.json", options)
         Twitter::List.new(list)
@@ -180,7 +180,7 @@ module Twitter
         options = {:cursor => -1}.merge(args.last.is_a?(Hash) ? args.pop : {})
         list = args.pop
         options.merge_list!(list)
-        owner = args.pop || get_screen_name
+        owner = args.pop || self.current_user.screen_name
         options.merge_owner!(owner)
         cursor = get("/1/lists/subscribers.json", options)
         Twitter::Cursor.new(cursor, 'users', Twitter::User)
@@ -243,7 +243,7 @@ module Twitter
         options = args.last.is_a?(Hash) ? args.pop : {}
         list = args.pop
         options.merge_list!(list)
-        owner = args.pop || get_screen_name
+        owner = args.pop || self.current_user.screen_name
         options.merge_owner!(owner)
         list = post("/1/lists/subscribers/create.json", options)
         Twitter::List.new(list)
@@ -283,7 +283,7 @@ module Twitter
         options.merge_user!(user_to_check)
         list = args.pop
         options.merge_list!(list)
-        owner = args.pop || get_screen_name
+        owner = args.pop || self.current_user.screen_name
         options.merge_owner!(owner)
         get("/1/lists/subscribers/show.json", options, :raw => true)
         true
@@ -318,7 +318,7 @@ module Twitter
         options = args.last.is_a?(Hash) ? args.pop : {}
         list = args.pop
         options.merge_list!(list)
-        owner = args.pop || get_screen_name
+        owner = args.pop || self.current_user.screen_name
         options.merge_owner!(owner)
         list = post("/1/lists/subscribers/destroy.json", options)
         Twitter::List.new(list)
@@ -359,7 +359,7 @@ module Twitter
         options.merge_users!(Array(users_to_add))
         list = args.pop
         options.merge_list!(list)
-        owner = args.pop || get_screen_name
+        owner = args.pop || self.current_user.screen_name
         options.merge_owner!(owner)
         list = post("/1/lists/members/create_all.json", options)
         Twitter::List.new(list)
@@ -396,7 +396,7 @@ module Twitter
         options.merge_user!(user_to_check)
         list = args.pop
         options.merge_list!(list)
-        owner = args.pop || get_screen_name
+        owner = args.pop || self.current_user.screen_name
         options.merge_owner!(owner)
         get("/1/lists/members/show.json", options, :raw => true)
         true
@@ -436,7 +436,7 @@ module Twitter
         options = {:cursor => -1}.merge(args.last.is_a?(Hash) ? args.pop : {})
         list = args.pop
         options.merge_list!(list)
-        owner = args.pop || get_screen_name
+        owner = args.pop || self.current_user.screen_name
         options.merge_owner!(owner)
         cursor = get("/1/lists/members.json", options)
         Twitter::Cursor.new(cursor, 'users', Twitter::User)
@@ -475,7 +475,7 @@ module Twitter
         options.merge_user!(user_to_add)
         list = args.pop
         options.merge_list!(list)
-        owner = args.pop || get_screen_name
+        owner = args.pop || self.current_user.screen_name
         options.merge_owner!(owner)
         list = post("/1/lists/members/create.json", options)
         Twitter::List.new(list)
@@ -510,7 +510,7 @@ module Twitter
         options = args.last.is_a?(Hash) ? args.pop : {}
         list = args.pop
         options.merge_list!(list)
-        owner = args.pop || get_screen_name
+        owner = args.pop || self.current_user.screen_name
         options.merge_owner!(owner)
         list = delete("/1/lists/destroy.json", options)
         Twitter::List.new(list)
@@ -548,7 +548,7 @@ module Twitter
         options = args.last.is_a?(Hash) ? args.pop : {}
         list = args.pop
         options.merge_list!(list)
-        owner = args.pop || get_screen_name
+        owner = args.pop || self.current_user.screen_name
         options.merge_owner!(owner)
         list = post("/1/lists/update.json", options)
         Twitter::List.new(list)
@@ -632,19 +632,10 @@ module Twitter
         options = args.last.is_a?(Hash) ? args.pop : {}
         list = args.pop
         options.merge_list!(list)
-        owner = args.pop || get_screen_name
+        owner = args.pop || self.current_user.screen_name
         options.merge_owner!(owner)
         list = get("/1/lists/show.json", options)
         Twitter::List.new(list)
-      end
-
-    private
-
-      # Returns the configured screen name or the screen name of the authenticated user
-      #
-      # @return [String]
-      def get_screen_name
-        @screen_name ||= self.verify_credentials.screen_name
       end
 
     end

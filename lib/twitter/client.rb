@@ -92,5 +92,12 @@ module Twitter
       end
     end
 
+    # Returns the configured screen name or the screen name of the authenticated user
+    #
+    # @return [Twitter::User]
+    def current_user
+      @current_user ||= Twitter::User.new(self.verify_credentials)
+    end
+
   end
 end
