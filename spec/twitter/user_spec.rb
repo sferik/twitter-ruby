@@ -40,6 +40,11 @@ describe Twitter::User do
       status = Twitter::User.new.status
       status.should be_nil
     end
+    it "should have a user when user is set" do
+      status = Twitter::User.new('screen_name' => 'sferik', 'status' => {}).status
+      status.user.should be_a Twitter::User
+      status.user.screen_name.should == 'sferik'
+    end
   end
 
 end

@@ -1,3 +1,4 @@
+require 'active_support/core_ext/hash/except'
 require 'twitter/base'
 require 'twitter/creatable'
 require 'twitter/geo_factory'
@@ -73,7 +74,7 @@ module Twitter
 
     # @return [Twitter::User]
     def user
-      @user ||= Twitter::User.new(@attrs['user'].merge('status' => self.to_hash.dup.delete('user'))) unless @attrs['user'].nil?
+      @user ||= Twitter::User.new(@attrs.dup['user'].merge('status' => @attrs.except('user'))) unless @attrs['user'].nil?
     end
 
     # @return [Array<String>]

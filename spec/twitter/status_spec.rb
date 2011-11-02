@@ -144,6 +144,11 @@ describe Twitter::Status do
       user = Twitter::Status.new.user
       user.should be_nil
     end
+    it "should have a status when status is set" do
+      user = Twitter::Status.new('text' => 'Tweet text.', 'user' => {}).user
+      user.status.should be_a Twitter::Status
+      user.status.text.should == 'Tweet text.'
+    end
   end
 
   describe "#user_mentions" do

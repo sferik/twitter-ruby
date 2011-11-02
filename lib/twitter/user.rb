@@ -1,3 +1,4 @@
+require 'active_support/core_ext/hash/except'
 require 'twitter/authenticatable'
 require 'twitter/base'
 require 'twitter/creatable'
@@ -57,7 +58,7 @@ module Twitter
 
     # @return [Twitter::Status]
     def status
-      @status ||= Twitter::Status.new(@attrs['status'].merge('user' => self.to_hash.dup.delete('status'))) unless @attrs['status'].nil?
+      @status ||= Twitter::Status.new(@attrs.dup['status'].merge('user' => @attrs.except('status'))) unless @attrs['status'].nil?
     end
 
   end
