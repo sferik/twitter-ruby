@@ -73,7 +73,7 @@ module Twitter
 
     # @return [Twitter::User]
     def user
-      @user ||= Twitter::User.new(@attrs['user'].merge('status' => self.to_hash.delete_if{|key, value| key == 'user'})) unless @attrs['user'].nil?
+      @user ||= Twitter::User.new(@attrs['user'].merge('status' => self.to_hash.dup.delete('user'))) unless @attrs['user'].nil?
     end
 
     # @return [Array<String>]
