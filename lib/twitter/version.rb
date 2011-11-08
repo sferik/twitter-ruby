@@ -18,7 +18,7 @@ module Twitter
 
     # @return [String, NilClass]
     def self.pre
-      "rc.1"
+      "rc.2"
     end
 
     # @return [String]
