@@ -1,3 +1,5 @@
+require 'twitter/action_factory'
+
 module Twitter
   class Client
     # Defines methods related to URLs
@@ -15,9 +17,11 @@ module Twitter
       # @return [Array] An array of actions
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @example Return activity about me
-      #   Twitter.about_me
-      def about_me(options={})
-        get("/i/activity/about_me.json", options, :phoenix => true)
+      #   Twitter.activity_about_me
+      def activity_about_me(options={})
+        get("/i/activity/about_me.json", options, :phoenix => true).map do |action|
+          Twitter::ActionFactory.new(action)
+        end
       end
 
       # Returns activity by friends
@@ -32,9 +36,11 @@ module Twitter
       # @return [Array] An array of actions
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid./
       # @example Return activity by friends
-      #   Twitter.by_friends
-      def by_friends(options={})
-        get("/i/activity/by_friends.json", options, :phoenix => true)
+      #   Twitter.activity_by_friends
+      def activity_by_friends(options={})
+        get("/i/activity/by_friends.json", options, :phoenix => true).map do |action|
+          Twitter::ActionFactory.new(action)
+        end
       end
 
     end

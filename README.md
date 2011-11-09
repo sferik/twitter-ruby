@@ -32,27 +32,32 @@ wiki][apps]!
 [ci]: http://travis-ci.org/jnunemaker/twitter
 
 ## <a name="2.0"></a>What new in version 2?
-This version introduces 19 new classes:
+This version introduces a number of new classes, notably:
 
 1. `Twitter::Configuration`
 2. `Twitter::Cursor`
 3. `Twitter::DirectMessage`
-4. `Twitter::Language`
-5. `Twitter::List`
-6. `Twitter::Metadata`
-7. `Twitter::Photo`
-8. `Twitter::Place`
-9. `Twitter::Point`
-10. `Twitter::Polygon`
-11. `Twitter::RateLimitStatus`
-12. `Twitter::Relationship`
-13. `Twitter::SavedSearch`
-14. `Twitter::Settings`
-15. `Twitter::Size`
-16. `Twitter::Status`
-17. `Twitter::Suggestion`
-18. `Twitter::Trend`
-19. `Twitter::User`
+4. `Twitter::Favorite`
+5. `Twitter::Follow`
+6. `Twitter::Language`
+7. `Twitter::List`
+8. `Twitter::Metadata`
+9. `Twitter::Mention`
+10. `Twitter::Photo`
+11. `Twitter::Place`
+12. `Twitter::Point`
+13. `Twitter::Polygon`
+14. `Twitter::RateLimitStatus`
+15. `Twitter::Relationship`
+16. `Twitter::Reply`
+17. `Twitter::Retweet`
+18. `Twitter::SavedSearch`
+19. `Twitter::Settings`
+20. `Twitter::Size`
+21. `Twitter::Status`
+22. `Twitter::Suggestion`
+23. `Twitter::Trend`
+24. `Twitter::User`
 
 These classes (plus Ruby primitives) have replaced all instances of
 `Hashie::Mash`. This allows us to remove the gem's dependency on [hashie][] and
@@ -78,7 +83,7 @@ question mark, for example:
 The `Twitter::Search` class has been replaced by the `Twitter::Client#search`
 method. This unifies the library's interfaces and will make the code easier to
 maintain over time. As a result, you can no longer build queries by chaining
-methods (ARel-style) but the new syntax is more consistent and concise.
+methods (ARel-style). The new syntax is more consistent and concise.
 
 Version 2 also includes some advanced Tweet-parsing methods, for example:
 
@@ -112,8 +117,7 @@ that:
 
     Twitter.user("sferik").object_id == Twitter.user("sferik").object_id
 
-I wouldn't mind seeing this feature implemented in a future version of the gem,
-but object equivalence seems like a step in the right direction.
+A true identity map may be implemented in future versions of this library.
 
 ### Additional Notes
 * All deprecated methods have been removed.
@@ -122,7 +126,7 @@ but object equivalence seems like a step in the right direction.
 * `Twitter.faraday_options` has been renamed to `Twitter.connection_options`.
 * `Twitter::Client#friendships` now takes up to 3 arguments instead of 1.
 * Support for the XML response format has been removed. This decision was
-  guided largely by Twitter, who has started removing XML responses available
+  guided largely by Twitter, which has started removing XML responses available
   for [some resources][trends]. This allows us to remove the gem's dependency
   on [multi_xml][]. Using JSON is faster than XML, both in terms of parsing
   speed and time over the wire.
