@@ -13,6 +13,10 @@ describe Twitter::Base do
     it "should be able to call methods using [] with string" do
       @base['object_id'].should be_an Integer
     end
+    it "should return nil for missing method" do
+      @base[:foo].should be_nil
+      @base['foo'].should be_nil
+    end
   end
 
   describe "#to_hash" do

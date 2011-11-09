@@ -32,6 +32,8 @@ module Twitter
     # @param method [String, Symbol] Message to send to the object
     def [](method)
       self.__send__(method.to_sym)
+    rescue NoMethodError
+      nil
     end
 
   end
