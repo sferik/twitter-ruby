@@ -34,30 +34,44 @@ wiki][apps]!
 ## <a name="2.0"></a>What new in version 2?
 This version introduces a number of new classes, notably:
 
-1. `Twitter::Configuration`
-2. `Twitter::Cursor`
-3. `Twitter::DirectMessage`
-4. `Twitter::Favorite`
-5. `Twitter::Follow`
-6. `Twitter::Language`
-7. `Twitter::List`
-8. `Twitter::Metadata`
-9. `Twitter::Mention`
-10. `Twitter::Photo`
-11. `Twitter::Place`
-12. `Twitter::Point`
-13. `Twitter::Polygon`
-14. `Twitter::RateLimitStatus`
-15. `Twitter::Relationship`
-16. `Twitter::Reply`
-17. `Twitter::Retweet`
-18. `Twitter::SavedSearch`
-19. `Twitter::Settings`
-20. `Twitter::Size`
-21. `Twitter::Status`
-22. `Twitter::Suggestion`
-23. `Twitter::Trend`
-24. `Twitter::User`
+<table>
+  <tr>
+    <td><tt>Twitter::Configuration</tt></td>
+    <td><tt>Twitter::List</tt></td>
+    <td><tt>Twitter::Polygon</tt></td>
+    <td><tt>Twitter::Settings</tt></td>
+  </tr>
+  <tr>
+    <td><tt>Twitter::Cursor</tt></td>
+    <td><tt>Twitter::Metadata</tt></td>
+    <td><tt>Twitter::RateLimitStatus</tt></td>
+    <td><tt>Twitter::Size</tt></td>
+  </tr>
+  <tr>
+    <td><tt>Twitter::DirectMessage</tt></td>
+    <td><tt>Twitter::Mention</tt></td>
+    <td><tt>Twitter::Relationship</tt></td>
+    <td><tt>Twitter::Status</tt></td>
+  </tr>
+  <tr>
+    <td><tt>Twitter::Favorite</tt></td>
+    <td><tt>Twitter::Photo</tt></td>
+    <td><tt>Twitter::Reply</tt></td>
+    <td><tt>Twitter::Suggestion</tt></td>
+  </tr>
+  <tr>
+    <td><tt>Twitter::Follow</tt></td>
+    <td><tt>Twitter::Place</tt></td>
+    <td><tt>Twitter::Retweet</tt></td>
+    <td><tt>Twitter::Trend</tt></td>
+  </tr>
+  <tr>
+    <td><tt>Twitter::Language</tt></td>
+    <td><tt>Twitter::Point</tt></td>
+    <td><tt>Twitter::SavedSearch</tt></td>
+    <td><tt>Twitter::User</tt></td>
+  </tr>
+</table>
 
 These classes (plus Ruby primitives) have replaced all instances of
 `Hashie::Mash`. This allows us to remove the gem's dependency on [hashie][] and
@@ -236,9 +250,9 @@ bug report should include a pull request with failing specs.
 2. Create a topic branch.
 3. Implement your feature or bug fix.
 4. Add documentation for your feature or bug fix.
-5. Run <tt>bundle exec rake doc:yard</tt>. If your changes are not 100% documented, go back to step 4.
+5. Run `bundle exec rake doc:yard`. If your changes are not 100% documented, go back to step 4.
 6. Add specs for your feature or bug fix.
-7. Run <tt>bundle exec rake spec</tt>. If your changes are not 100% covered, go back to step 6.
+7. Run `bundle exec rake spec`. If your changes are not 100% covered, go back to step 6.
 8. Commit and push your changes.
 9. Submit a pull request. Please do not include changes to the gemspec, version, or history file. (If you want to create your own version for some reason, please do so in a separate commit.)
 
