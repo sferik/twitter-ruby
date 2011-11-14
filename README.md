@@ -81,7 +81,7 @@ eliminate a layer in the middleware stack.
 
 This should have the effect of making object instantiation and method
 invocation faster and less susceptible to typos. For example, if you typed
-`Twitter.user("sferik").loctaion`, a `Hashie::Mash` would return `nil` instead
+`Twitter.user("sferik").location`, a `Hashie::Mash` would return `nil` instead
 of raising a `NoMethodError`.
 
 Another benefit of these new objects is instance methods like `created_at` now
