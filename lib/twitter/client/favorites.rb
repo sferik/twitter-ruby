@@ -12,6 +12,7 @@ module Twitter
       #   Returns the 20 most recent favorite statuses for the authenticating user
       #
       #   @param options [Hash] A customizable set of options.
+      #   @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID.
       #   @option options [Integer] :page Specifies the page of results to retrieve.
       #   @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
       #   @return [Array<Twitter::Status>] 20 favorite statuses.
