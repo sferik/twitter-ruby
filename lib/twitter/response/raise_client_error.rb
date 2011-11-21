@@ -13,25 +13,21 @@ module Twitter
       def on_complete(env)
         case env[:status].to_i
         when 400
-          raise Twitter::Error::BadRequest.new(error_message(env), env[:response_headers])
+          raise Twitter::Error::BadRequest.new(error_body(env[:body]), env[:response_headers])
         when 401
-          raise Twitter::Error::Unauthorized.new(error_message(env), env[:response_headers])
+          raise Twitter::Error::Unauthorized.new(error_body(env[:body]), env[:response_headers])
         when 403
-          raise Twitter::Error::Forbidden.new(error_message(env), env[:response_headers])
+          raise Twitter::Error::Forbidden.new(error_body(env[:body]), env[:response_headers])
         when 404
-          raise Twitter::Error::NotFound.new(error_message(env), env[:response_headers])
+          raise Twitter::Error::NotFound.new(error_body(env[:body]), env[:response_headers])
         when 406
-          raise Twitter::Error::NotAcceptable.new(error_message(env), env[:response_headers])
+          raise Twitter::Error::NotAcceptable.new(error_body(env[:body]), env[:response_headers])
         when 420
-          raise Twitter::Error::EnhanceYourCalm.new(error_message(env), env[:response_headers])
+          raise Twitter::Error::EnhanceYourCalm.new(error_body(env[:body]), env[:response_headers])
         end
       end
 
     private
-
-      def error_message(env)
-        "#{env[:method].to_s.upcase} #{env[:url].to_s}: #{env[:status]}#{error_body(env[:body])}"
-      end
 
       def error_body(body)
         if body.nil?
