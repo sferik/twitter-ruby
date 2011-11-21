@@ -182,6 +182,8 @@ module Twitter
       # @param options [Hash] A customizable set of options.
       # @option options [Integer] :limit (20) Specifies the number of records to retrieve.
       # @option options [String] :excluded Comma-separated list of user IDs to exclude.
+      # @option options [String] :screen_name Find users similar to this screen_name
+      # @option options [Integer] :user_id Find users similar to this user ID.
       # @return [Array<Twitter::User>]
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @example Return recommended users for the authenticated user
