@@ -256,7 +256,7 @@ bug report should include a pull request with failing specs.
 8. Commit and push your changes.
 9. Submit a pull request. Please do not include changes to the gemspec, version, or history file. (If you want to create your own version for some reason, please do so in a separate commit.)
 
-## <a name="rubies"></a>Supported Rubies
+## <a name="versions"></a>Supported Ruby Versions
 This library aims to support and is [tested against][ci] the following Ruby
 implementations:
 
