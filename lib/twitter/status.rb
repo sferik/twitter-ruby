@@ -6,7 +6,6 @@ require 'twitter/media_factory'
 require 'twitter/metadata'
 require 'twitter/place'
 require 'twitter/user'
-require 'twitter-text'
 
 module Twitter
   class Status < Twitter::Base
@@ -27,14 +26,6 @@ module Twitter
     end
 
     # @return [Array<String>]
-    def all_urls
-      @all_urls ||= begin
-        all_urls = [urls, expanded_urls].flatten.compact.uniq
-        all_urls.length > 0 ? all_urls : nil
-      end
-    end
-
-    # @return [Array<String>]
     def expanded_urls
       @expanded_urls ||= Array(@attrs['entities']['urls']).map do |url|
         url['expanded_url']
@@ -44,11 +35,6 @@ module Twitter
     # @return [Twitter::Point, Twitter::Polygon]
     def geo
       @geo ||= Twitter::GeoFactory.new(@attrs['geo']) unless @attrs['geo'].nil?
-    end
-
-    # @return [Array<String>]
-    def hashtags
-      @hashtags ||= Twitter::Extractor.extract_hashtags(@attrs['text']) unless @attrs['text'].nil?
     end
 
     # @return [Array]
@@ -68,21 +54,10 @@ module Twitter
       @place ||= Twitter::Place.new(@attrs['place']) unless @attrs['place'].nil?
     end
 
-    # @return [Array<String>]
-    def urls
-      @urls ||= Twitter::Extractor.extract_urls(@attrs['text']) unless @attrs['text'].nil?
-    end
-
     # @return [Twitter::User]
     def user
       @user ||= Twitter::User.new(@attrs.dup['user'].merge('status' => @attrs.except('user'))) unless @attrs['user'].nil?
     end
-
-    # @return [Array<String>]
-    def user_mentions
-      @user_mentions ||= Twitter::Extractor.extract_mentioned_screen_names(@attrs['text']) unless @attrs['text'].nil?
-    end
-    alias :mentions :user_mentions
 
   end
 end

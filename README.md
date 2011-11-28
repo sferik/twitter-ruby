@@ -99,25 +99,6 @@ method. This unifies the library's interfaces and will make the code easier to
 maintain over time. As a result, you can no longer build queries by chaining
 methods (ARel-style). The new syntax is more consistent and concise.
 
-Version 2 also includes some advanced Tweet-parsing methods, for example:
-
-    # Fetch the Tweet at https://twitter.com/twitter/statuses/76360760606986241
-    status = Twitter.status(76360760606986241)
-
-    # Return all hashtags in the Tweet
-    status.hashtags #=> ["Photos"]
-
-    # Return all URLs in the Tweet
-    status.urls #=> ["http://t.co/qbJx26r"]
-
-    # Return all users mentioned in the Tweet
-    status.user_mentions #=> []
-
-Tweet parsing is performed by [twitter-text][], Twitter's official text
-processing library, so it should be consistent with all other Twitter services.
-
-[twitter-text]: https://github.com/twitter/twitter-text-rb
-
 This version also introduces object equivalence, so objects that are logically
 equivalent are considered equal, even if they don't occupy the same address in
 memory, for example:

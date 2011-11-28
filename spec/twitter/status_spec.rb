@@ -20,28 +20,6 @@ describe Twitter::Status do
     end
   end
 
-  describe "#all_urls" do
-    it "should return urls in the text, and in all fields from the entities" do
-      urls = [{'url' => 'http://t.co/example', 'expanded_url' => 'http://example.com'}]
-      status_attributes = { 'text' => "This tweet contains a http://t.co/example.", 'entities' => {'urls' => urls} }
-      all_urls = Twitter::Status.new(status_attributes).all_urls
-      all_urls.should be_an Array
-      all_urls.first.should == "http://t.co/example"
-      all_urls.last.should  == "http://example.com"
-    end
-    it "should return nil when not set" do
-      all_urls = Twitter::Status.new.all_urls
-      all_urls.should be_nil
-    end
-    it "should not include nil" do
-      urls = [{'url' => 'http://t.co/example', 'expanded_url' => nil}]
-      status_attributes = { 'text' => "This tweet contains a http://t.co/example.", 'entities' => {'urls' => urls} }
-      all_urls = Twitter::Status.new(status_attributes).all_urls
-      all_urls.should be_an Array
-      all_urls.should == ["http://t.co/example"]
-    end
-  end
-
   describe "#expanded_urls" do
     it "should return the expanded urls" do
       urls = [{'expanded_url' => 'http://example.com'}]
@@ -74,18 +52,6 @@ describe Twitter::Status do
     it "should return nil when not set" do
       status = Twitter::Status.new
       status.geo.should be_nil
-    end
-  end
-
-  describe "#hashtags" do
-    it "should return hashtags" do
-      hashtags = Twitter::Status.new('text' => "This Tweet contains a #hashtag.").hashtags
-      hashtags.should be_an Array
-      hashtags.first.should == "hashtag"
-    end
-    it "should return nil when not set" do
-      hashtags = Twitter::Status.new.hashtags
-      hashtags.should be_nil
     end
   end
 
@@ -123,18 +89,6 @@ describe Twitter::Status do
     end
   end
 
-  describe "#urls" do
-    it "should return urls" do
-      urls = Twitter::Status.new('text' => "This Tweet contains a http://example.com.").urls
-      urls.should be_an Array
-      urls.first.should == "http://example.com"
-    end
-    it "should return nil when not set" do
-      urls = Twitter::Status.new.urls
-      urls.should be_nil
-    end
-  end
-
   describe "#user" do
     it "should return a User when user is set" do
       user = Twitter::Status.new('user' => {}).user
@@ -148,18 +102,6 @@ describe Twitter::Status do
       user = Twitter::Status.new('text' => 'Tweet text.', 'user' => {}).user
       user.status.should be_a Twitter::Status
       user.status.text.should == 'Tweet text.'
-    end
-  end
-
-  describe "#user_mentions" do
-    it "should return urls" do
-      user_mentions = Twitter::Status.new('text' => "This Tweet contains a @mention.").user_mentions
-      user_mentions.should be_an Array
-      user_mentions.first.should == "mention"
-    end
-    it "should return nil when not set" do
-      user_mentions = Twitter::Status.new.user_mentions
-      user_mentions.should be_nil
     end
   end
 
