@@ -31,6 +31,11 @@ wiki][apps]!
 
 [ci]: http://travis-ci.org/jnunemaker/twitter
 
+## <a name="dependencies"></a>Gemnasium Status
+[![Gemnasium Status](https://gemnasium.com/jnunemaker/twitter.png)][gemnasium]
+
+[gemnasium]: https://gemnasium.com/jnunemaker/twitter
+
 ## <a name="2.0"></a>What new in version 2?
 This version introduces a number of new classes, notably:
 
