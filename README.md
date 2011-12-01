@@ -26,13 +26,13 @@ wiki][apps]!
 
 [apps]: https://github.com/jnunemaker/twitter/wiki/apps
 
-## <a name="ci"></a>Continuous Integration
+## <a name="ci"></a>Build Status
 [![Build Status](https://secure.travis-ci.org/jnunemaker/twitter.png)][ci]
 
 [ci]: http://travis-ci.org/jnunemaker/twitter
 
-## <a name="dependencies"></a>Gemnasium Status
-[![Gemnasium Status](https://gemnasium.com/jnunemaker/twitter.png)][gemnasium]
+## <a name="dependencies"></a>Dependency Status
+[![Dependency Status](https://gemnasium.com/jnunemaker/twitter.png)][gemnasium]
 
 [gemnasium]: https://gemnasium.com/jnunemaker/twitter
 
