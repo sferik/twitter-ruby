@@ -31,15 +31,15 @@ module Twitter
 
       def error_body(body)
         if body.nil?
-          nil
+          ''
         elsif body['error']
-          ": #{body['error']}"
+          body['error']
         elsif body['errors']
           first = Array(body['errors']).first
-          if first.kind_of? Hash
-            ": #{first['message'].chomp}"
+          if first.kind_of?(Hash)
+            first['message'].chomp
           else
-            ": #{first.chomp}"
+            first.chomp
           end
         end
       end
