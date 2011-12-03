@@ -32,7 +32,7 @@ wiki][apps]!
 [ci]: http://travis-ci.org/jnunemaker/twitter
 
 ## <a name="dependencies"></a>Dependency Status
-[![Dependency Status](https://gemnasium.com/jnunemaker/twitter.png)][gemnasium]
+[![Dependency Status](https://gemnasium.com/jnunemaker/twitter.png?travis)][gemnasium]
 
 [gemnasium]: https://gemnasium.com/jnunemaker/twitter
 
