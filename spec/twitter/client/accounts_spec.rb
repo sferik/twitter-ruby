@@ -11,7 +11,7 @@ describe Twitter::Client do
       stub_get("/1/account/rate_limit_status.json").
         to_return(:body => fixture("rate_limit_status.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
-    it "should get the correct resource" do
+    it "should request the correct resource" do
       @client.rate_limit_status
       a_get("/1/account/rate_limit_status.json").
         should have_been_made
@@ -28,7 +28,7 @@ describe Twitter::Client do
       stub_get("/1/account/verify_credentials.json").
         to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
-    it "should get the correct resource" do
+    it "should request the correct resource" do
       @client.verify_credentials
       a_get("/1/account/verify_credentials.json").
         should have_been_made
@@ -45,7 +45,7 @@ describe Twitter::Client do
       stub_post("/1/account/end_session.json").
         to_return(:body => fixture("end_session.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
-    it "should get the correct resource" do
+    it "should request the correct resource" do
       @client.end_session
       a_post("/1/account/end_session.json").
         should have_been_made
@@ -62,7 +62,7 @@ describe Twitter::Client do
         with(:body => {:device => "sms"}).
         to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
-    it "should get the correct resource" do
+    it "should request the correct resource" do
       @client.update_delivery_device("sms")
       a_post("/1/account/update_delivery_device.json").
         with(:body => {:device => "sms"}).
@@ -81,7 +81,7 @@ describe Twitter::Client do
         with(:body => {:url => "http://github.com/sferik/"}).
         to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
-    it "should get the correct resource" do
+    it "should request the correct resource" do
       @client.update_profile(:url => "http://github.com/sferik/")
       a_post("/1/account/update_profile.json").
         with(:body => {:url => "http://github.com/sferik/"}).
@@ -99,7 +99,7 @@ describe Twitter::Client do
       stub_post("/1/account/update_profile_background_image.json").
         to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
-    it "should get the correct resource" do
+    it "should request the correct resource" do
       @client.update_profile_background_image(fixture("we_concept_bg2.png"))
       a_post("/1/account/update_profile_background_image.json").
         should have_been_made
@@ -117,7 +117,7 @@ describe Twitter::Client do
         with(:body => {:profile_background_color => "000000"}).
         to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
-    it "should get the correct resource" do
+    it "should request the correct resource" do
       @client.update_profile_colors(:profile_background_color => "000000")
       a_post("/1/account/update_profile_colors.json").
         with(:body => {:profile_background_color => "000000"}).
@@ -135,7 +135,7 @@ describe Twitter::Client do
       stub_post("/1/account/update_profile_image.json").
         to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
-    it "should get the correct resource" do
+    it "should request the correct resource" do
       @client.update_profile_image(fixture("me.jpeg"))
       a_post("/1/account/update_profile_image.json").
         should have_been_made
@@ -155,7 +155,7 @@ describe Twitter::Client do
         with(:body => {:trend_location_woeid => "23424803"}).
         to_return(:body => fixture("settings.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
-    it "should get the correct resource on GET" do
+    it "should request the correct resource on GET" do
       @client.settings
       a_get("/1/account/settings.json").
         should have_been_made
@@ -165,7 +165,7 @@ describe Twitter::Client do
       settings.should be_a Twitter::Settings
       settings.language.should == 'en'
     end
-    it "should get the correct resource on POST" do
+    it "should request the correct resource on POST" do
       @client.settings(:trend_location_woeid => "23424803")
       a_post("/1/account/settings.json").
         with(:body => {:trend_location_woeid => "23424803"}).

@@ -12,7 +12,7 @@ describe Twitter::Client do
         with(:body => {:screen_name => "sferik"}).
         to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
-    it "should get the correct resource" do
+    it "should request the correct resource" do
       @client.enable_notifications("sferik")
       a_post("/1/notifications/follow.json").
         with(:body => {:screen_name => "sferik"}).
@@ -31,7 +31,7 @@ describe Twitter::Client do
         with(:body => {:screen_name => "sferik"}).
         to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
-    it "should get the correct resource" do
+    it "should request the correct resource" do
       @client.disable_notifications("sferik")
       a_post("/1/notifications/leave.json").
         with(:body => {:screen_name => "sferik"}).

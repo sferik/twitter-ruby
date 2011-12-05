@@ -13,7 +13,7 @@ describe Twitter do
         to_return(:body => fixture("statuses.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
 
-    it "should get the correct resource" do
+    it "should request the correct resource" do
       Twitter.user_timeline('sferik')
       a_get("/1/statuses/user_timeline.json").
         with(:query => {:screen_name => "sferik"}).

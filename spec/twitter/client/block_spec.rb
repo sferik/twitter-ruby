@@ -11,7 +11,7 @@ describe Twitter::Client do
       stub_get("/1/blocks/blocking.json").
         to_return(:body => fixture("users.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
-    it "should get the correct resource" do
+    it "should request the correct resource" do
       @client.blocking
       a_get("/1/blocks/blocking.json").
         should have_been_made
@@ -29,7 +29,7 @@ describe Twitter::Client do
       stub_get("/1/blocks/blocking/ids.json").
         to_return(:body => fixture("ids.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
-    it "should get the correct resource" do
+    it "should request the correct resource" do
       @client.blocked_ids
       a_get("/1/blocks/blocking/ids.json").
         should have_been_made
@@ -50,7 +50,7 @@ describe Twitter::Client do
         with(:query => {:screen_name => "pengwynn"}).
         to_return(:body => fixture("not_found.json"), :status => 404, :headers => {:content_type => "application/json; charset=utf-8"})
     end
-    it "should get the correct resource" do
+    it "should request the correct resource" do
       @client.block?("sferik")
       a_get("/1/blocks/exists.json").
         with(:query => {:screen_name => "sferik"}).
@@ -72,7 +72,7 @@ describe Twitter::Client do
         with(:body => {:screen_name => "sferik"}).
         to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
-    it "should get the correct resource" do
+    it "should request the correct resource" do
       @client.block("sferik")
       a_post("/1/blocks/create.json").
         should have_been_made
@@ -90,7 +90,7 @@ describe Twitter::Client do
         with(:query => {:screen_name => "sferik"}).
         to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
-    it "should get the correct resource" do
+    it "should request the correct resource" do
       @client.unblock("sferik")
       a_delete("/1/blocks/destroy.json").
         with(:query => {:screen_name => "sferik"}).

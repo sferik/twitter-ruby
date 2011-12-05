@@ -11,7 +11,7 @@ describe Twitter::Client do
       stub_get("/1/statuses/home_timeline.json").
         to_return(:body => fixture("statuses.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
-    it "should get the correct resource" do
+    it "should request the correct resource" do
       @client.home_timeline
       a_get("/1/statuses/home_timeline.json").
         should have_been_made
@@ -29,7 +29,7 @@ describe Twitter::Client do
       stub_get("/1/statuses/mentions.json").
         to_return(:body => fixture("statuses.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
-    it "should get the correct resource" do
+    it "should request the correct resource" do
       @client.mentions
       a_get("/1/statuses/mentions.json").
         should have_been_made
@@ -47,7 +47,7 @@ describe Twitter::Client do
       stub_get("/1/statuses/public_timeline.json").
         to_return(:body => fixture("statuses.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
-    it "should get the correct resource" do
+    it "should request the correct resource" do
       @client.public_timeline
       a_get("/1/statuses/public_timeline.json").
         should have_been_made
@@ -67,7 +67,7 @@ describe Twitter::Client do
           with(:query => {:screen_name => "sferik"}).
           to_return(:body => fixture("statuses.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
-      it "should get the correct resource" do
+      it "should request the correct resource" do
         @client.retweeted_by("sferik")
         a_get("/1/statuses/retweeted_by_user.json").
           with(:query => {:screen_name => "sferik"}).
@@ -85,7 +85,7 @@ describe Twitter::Client do
         stub_get("/1/statuses/retweeted_by_me.json").
           to_return(:body => fixture("statuses.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
-      it "should get the correct resource" do
+      it "should request the correct resource" do
         @client.retweeted_by
         a_get("/1/statuses/retweeted_by_me.json").
           should have_been_made
@@ -100,7 +100,7 @@ describe Twitter::Client do
           with(:query => {:screen_name => "sferik"}).
           to_return(:body => fixture("statuses.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
-      it "should get the correct resource" do
+      it "should request the correct resource" do
         @client.retweeted_to("sferik")
         a_get("/1/statuses/retweeted_to_user.json").
           with(:query => {:screen_name => "sferik"}).
@@ -118,7 +118,7 @@ describe Twitter::Client do
         stub_get("/1/statuses/retweeted_to_me.json").
           to_return(:body => fixture("statuses.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
-      it "should get the correct resource" do
+      it "should request the correct resource" do
         @client.retweeted_to
         a_get("/1/statuses/retweeted_to_me.json").
           should have_been_made
@@ -131,7 +131,7 @@ describe Twitter::Client do
       stub_get("/1/statuses/retweets_of_me.json").
         to_return(:body => fixture("statuses.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
-    it "should get the correct resource" do
+    it "should request the correct resource" do
       @client.retweets_of_me
       a_get("/1/statuses/retweets_of_me.json").
         should have_been_made
@@ -151,7 +151,7 @@ describe Twitter::Client do
           with(:query => {:screen_name => "sferik"}).
           to_return(:body => fixture("statuses.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
-      it "should get the correct resource" do
+      it "should request the correct resource" do
         @client.user_timeline("sferik")
         a_get("/1/statuses/user_timeline.json").
           with(:query => {:screen_name => "sferik"}).
@@ -169,7 +169,7 @@ describe Twitter::Client do
         stub_get("/1/statuses/user_timeline.json").
           to_return(:body => fixture("statuses.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
-      it "should get the correct resource" do
+      it "should request the correct resource" do
         @client.user_timeline
         a_get("/1/statuses/user_timeline.json").
           should have_been_made
@@ -184,7 +184,7 @@ describe Twitter::Client do
           with(:query => {:screen_name => "sferik"}).
           to_return(:body => fixture("media_timeline.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
-      it "should get the correct resource" do
+      it "should request the correct resource" do
         @client.media_timeline("sferik")
         a_get("/1/statuses/media_timeline.json").
           with(:query => {:screen_name => "sferik"}).
@@ -202,7 +202,7 @@ describe Twitter::Client do
         stub_get("/1/statuses/media_timeline.json").
           to_return(:body => fixture("media_timeline.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
-      it "should get the correct resource" do
+      it "should request the correct resource" do
         @client.media_timeline
         a_get("/1/statuses/media_timeline.json").
           should have_been_made
@@ -215,7 +215,7 @@ describe Twitter::Client do
       stub_get("/i/statuses/network_timeline.json").
         to_return(:body => fixture("statuses.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
-    it "should get the correct resource" do
+    it "should request the correct resource" do
       @client.network_timeline
       a_get("/i/statuses/network_timeline.json").
         should have_been_made

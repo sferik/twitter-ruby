@@ -12,7 +12,7 @@ describe Twitter::Client do
         with(:query => {:ip => "74.125.19.104"}).
         to_return(:body => fixture("places.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
-    it "should get the correct resource" do
+    it "should request the correct resource" do
       @client.places_nearby(:ip => "74.125.19.104")
       a_get("/1/geo/search.json").
         with(:query => {:ip => "74.125.19.104"}).
@@ -31,7 +31,7 @@ describe Twitter::Client do
         with(:query => {:lat => "37.7821120598956", :long => "-122.400612831116", :name => "Twitter HQ"}).
         to_return(:body => fixture("places.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
-    it "should get the correct resource" do
+    it "should request the correct resource" do
       @client.places_similar(:lat => "37.7821120598956", :long => "-122.400612831116", :name => "Twitter HQ")
       a_get("/1/geo/similar_places.json").
         with(:query => {:lat => "37.7821120598956", :long => "-122.400612831116", :name => "Twitter HQ"}).
@@ -50,7 +50,7 @@ describe Twitter::Client do
         with(:query => {:lat => "37.7821120598956", :long => "-122.400612831116"}).
         to_return(:body => fixture("places.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
-    it "should get the correct resource" do
+    it "should request the correct resource" do
       @client.reverse_geocode(:lat => "37.7821120598956", :long => "-122.400612831116")
       a_get("/1/geo/reverse_geocode.json").
         with(:query => {:lat => "37.7821120598956", :long => "-122.400612831116"}).
@@ -68,7 +68,7 @@ describe Twitter::Client do
       stub_get("/1/geo/id/247f43d441defc03.json").
         to_return(:body => fixture("place.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
-    it "should get the correct resource" do
+    it "should request the correct resource" do
       @client.place("247f43d441defc03")
       a_get("/1/geo/id/247f43d441defc03.json").
         should have_been_made
@@ -85,7 +85,7 @@ describe Twitter::Client do
         with(:body => {:name => "@sferik's Apartment", :token => "22ff5b1f7159032cf69218c4d8bb78bc", :contained_within => "41bcb736f84a799e", :lat => "37.783699", :long => "-122.393581"}).
         to_return(:body => fixture("place.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
-    it "should get the correct resource" do
+    it "should request the correct resource" do
       @client.place_create(:name => "@sferik's Apartment", :token => "22ff5b1f7159032cf69218c4d8bb78bc", :contained_within => "41bcb736f84a799e", :lat => "37.783699", :long => "-122.393581")
       a_post("/1/geo/place.json").
         with(:body => {:name => "@sferik's Apartment", :token => "22ff5b1f7159032cf69218c4d8bb78bc", :contained_within => "41bcb736f84a799e", :lat => "37.783699", :long => "-122.393581"}).

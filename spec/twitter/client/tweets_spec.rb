@@ -12,7 +12,7 @@ describe Twitter::Client do
         stub_get("/1/statuses/27467028175/retweeted_by/ids.json").
           to_return(:body => fixture("ids.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
-      it "should get the correct resource" do
+      it "should request the correct resource" do
         @client.retweeters_of(27467028175, :ids_only => true)
         a_get("/1/statuses/27467028175/retweeted_by/ids.json").
           should have_been_made
@@ -28,7 +28,7 @@ describe Twitter::Client do
         stub_get("/1/statuses/27467028175/retweeted_by.json").
           to_return(:body => fixture("retweeters_of.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
-      it "should get the correct resource" do
+      it "should request the correct resource" do
         @client.retweeters_of(27467028175)
         a_get("/1/statuses/27467028175/retweeted_by.json").
           should have_been_made
@@ -47,7 +47,7 @@ describe Twitter::Client do
       stub_get("/1/statuses/retweets/28561922516.json").
         to_return(:body => fixture("retweets.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
-    it "should get the correct resource" do
+    it "should request the correct resource" do
       @client.retweets(28561922516)
       a_get("/1/statuses/retweets/28561922516.json").
         should have_been_made
@@ -65,7 +65,7 @@ describe Twitter::Client do
       stub_get("/1/statuses/show/25938088801.json").
         to_return(:body => fixture("status.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
-    it "should get the correct resource" do
+    it "should request the correct resource" do
       @client.status(25938088801)
       a_get("/1/statuses/show/25938088801.json").
         should have_been_made
@@ -82,7 +82,7 @@ describe Twitter::Client do
       stub_delete("/1/statuses/destroy/25938088801.json").
         to_return(:body => fixture("status.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
-    it "should get the correct resource" do
+    it "should request the correct resource" do
       @client.status_destroy(25938088801)
       a_delete("/1/statuses/destroy/25938088801.json").
         should have_been_made
@@ -99,7 +99,7 @@ describe Twitter::Client do
       stub_post("/1/statuses/retweet/28561922516.json").
         to_return(:body => fixture("retweet.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
-    it "should get the correct resource" do
+    it "should request the correct resource" do
       @client.retweet(28561922516)
       a_post("/1/statuses/retweet/28561922516.json").
         should have_been_made
@@ -117,7 +117,7 @@ describe Twitter::Client do
         with(:body => {:status => "@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!"}).
         to_return(:body => fixture("status.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
-    it "should get the correct resource" do
+    it "should request the correct resource" do
       @client.update("@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!")
       a_post("/1/statuses/update.json").
         with(:body => {:status => "@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!"}).
@@ -135,7 +135,7 @@ describe Twitter::Client do
       stub_post("/1/statuses/update_with_media.json", Twitter.media_endpoint).
         to_return(:body => fixture("status_with_media.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
-    it "should get the correct resource" do
+    it "should request the correct resource" do
       @client.update_with_media("You always have options", fixture("me.jpeg"))
       a_post("/1/statuses/update_with_media.json", Twitter.media_endpoint).
         should have_been_made

@@ -13,7 +13,7 @@ describe Twitter::Client do
           with(:query => {:screen_name => "sferik", :cursor => "-1"}).
           to_return(:body => fixture("id_list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
-      it "should get the correct resource" do
+      it "should request the correct resource" do
         @client.follower_ids("sferik")
         a_get("/1/followers/ids.json").
           with(:query => {:screen_name => "sferik", :cursor => "-1"}).
@@ -32,7 +32,7 @@ describe Twitter::Client do
           with(:query => {:cursor => "-1"}).
           to_return(:body => fixture("id_list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
-      it "should get the correct resource" do
+      it "should request the correct resource" do
         @client.follower_ids
         a_get("/1/followers/ids.json").
           with(:query => {:cursor => "-1"}).
@@ -54,7 +54,7 @@ describe Twitter::Client do
           with(:query => {:screen_name => "sferik", :cursor => "-1"}).
           to_return(:body => fixture("id_list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
-      it "should get the correct resource" do
+      it "should request the correct resource" do
         @client.friend_ids("sferik")
         a_get("/1/friends/ids.json").
           with(:query => {:screen_name => "sferik", :cursor => "-1"}).
@@ -73,7 +73,7 @@ describe Twitter::Client do
           with(:query => {:cursor => "-1"}).
           to_return(:body => fixture("id_list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
-      it "should get the correct resource" do
+      it "should request the correct resource" do
         @client.friend_ids
         a_get("/1/friends/ids.json").
           with(:query => {:cursor => "-1"}).
@@ -97,7 +97,7 @@ describe Twitter::Client do
         with(:query => {:user_a => "pengwynn", :user_b => "sferik"}).
         to_return(:body => fixture("false.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
-    it "should get the correct resource" do
+    it "should request the correct resource" do
       @client.friendship?("sferik", "pengwynn")
       a_get("/1/friendships/exists.json").
         with(:query => {:user_a => "sferik", :user_b => "pengwynn"}).
@@ -119,7 +119,7 @@ describe Twitter::Client do
         with(:query => {:cursor => "-1"}).
         to_return(:body => fixture("id_list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
-    it "should get the correct resource" do
+    it "should request the correct resource" do
       @client.friendships_incoming
       a_get("/1/friendships/incoming.json").
         with(:query => {:cursor => "-1"}).
@@ -139,7 +139,7 @@ describe Twitter::Client do
         with(:query => {:cursor => "-1"}).
         to_return(:body => fixture("id_list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
-    it "should get the correct resource" do
+    it "should request the correct resource" do
       @client.friendships_outgoing
       a_get("/1/friendships/outgoing.json").
         with(:query => {:cursor => "-1"}).
@@ -160,7 +160,7 @@ describe Twitter::Client do
           with(:query => {:source_screen_name => "sferik", :target_screen_name => "pengwynn"}).
           to_return(:body => fixture("relationship.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
-      it "should get the correct resource" do
+      it "should request the correct resource" do
         @client.friendship("sferik", "pengwynn")
         a_get("/1/friendships/show.json").
           with(:query => {:source_screen_name => "sferik", :target_screen_name => "pengwynn"}).
@@ -178,7 +178,7 @@ describe Twitter::Client do
           with(:query => {:source_screen_name => "0", :target_screen_name => "311"}).
           to_return(:body => fixture("relationship.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
-      it "should get the correct resource" do
+      it "should request the correct resource" do
         @client.friendship("0", "311")
         a_get("/1/friendships/show.json").
           with(:query => {:source_screen_name => "0", :target_screen_name => "311"}).
@@ -191,7 +191,7 @@ describe Twitter::Client do
           with(:query => {:source_id => "7505382", :target_id => "14100886"}).
           to_return(:body => fixture("relationship.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
-      it "should get the correct resource" do
+      it "should request the correct resource" do
         @client.friendship(7505382, 14100886)
         a_get("/1/friendships/show.json").
           with(:query => {:source_id => "7505382", :target_id => "14100886"}).
@@ -207,7 +207,7 @@ describe Twitter::Client do
           with(:body => {:screen_name => "sferik", :follow => "true"}).
           to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
-      it "should get the correct resource" do
+      it "should request the correct resource" do
         @client.follow("sferik", :follow => true)
         a_post("/1/friendships/create.json").
           with(:body => {:screen_name => "sferik", :follow => "true"}).
@@ -225,7 +225,7 @@ describe Twitter::Client do
           with(:body => {:screen_name => "sferik"}).
           to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
-      it "should get the correct resource" do
+      it "should request the correct resource" do
         @client.follow("sferik", :follow => false)
         a_post("/1/friendships/create.json").
           with(:body => {:screen_name => "sferik"}).
@@ -243,7 +243,7 @@ describe Twitter::Client do
           with(:body => {:screen_name => "sferik"}).
           to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
-      it "should get the correct resource" do
+      it "should request the correct resource" do
         @client.follow("sferik")
         a_post("/1/friendships/create.json").
           with(:body => {:screen_name => "sferik"}).
@@ -263,7 +263,7 @@ describe Twitter::Client do
         with(:query => {:screen_name => "sferik"}).
         to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
-    it "should get the correct resource" do
+    it "should request the correct resource" do
       @client.unfollow("sferik")
       a_delete("/1/friendships/destroy.json").
         with(:query => {:screen_name => "sferik"}).
@@ -283,7 +283,7 @@ describe Twitter::Client do
           with(:query => {:screen_name => "sferik,pengwynn"}).
           to_return(:body => fixture("friendships.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
-      it "should get the correct resource" do
+      it "should request the correct resource" do
         @client.friendships("sferik", "pengwynn")
         a_get("/1/friendships/lookup.json").
           with(:query => {:screen_name => "sferik,pengwynn"}).
@@ -303,7 +303,7 @@ describe Twitter::Client do
           with(:query => {:screen_name => "0,311"}).
           to_return(:body => fixture("friendships.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
-      it "should get the correct resource" do
+      it "should request the correct resource" do
         @client.friendships("0", "311")
         a_get("/1/friendships/lookup.json").
           with(:query => {:screen_name => "0,311"}).
@@ -316,7 +316,7 @@ describe Twitter::Client do
           with(:query => {:user_id => "7505382,14100886"}).
           to_return(:body => fixture("friendships.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
-      it "should get the correct resource" do
+      it "should request the correct resource" do
         @client.friendships(7505382, 14100886)
         a_get("/1/friendships/lookup.json").
           with(:query => {:user_id => "7505382,14100886"}).
@@ -329,7 +329,7 @@ describe Twitter::Client do
           with(:query => {:screen_name => "sferik", :user_id => "14100886"}).
           to_return(:body => fixture("friendships.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
-      it "should get the correct resource" do
+      it "should request the correct resource" do
         @client.friendships("sferik", 14100886)
         a_get("/1/friendships/lookup.json").
           with(:query => {:screen_name => "sferik", :user_id => "14100886"}).
@@ -345,7 +345,7 @@ describe Twitter::Client do
           with(:query => {:screen_name => "sferik,pengwynn"}).
           to_return(:body => fixture("friendships.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
-      it "should get the correct resource" do
+      it "should request the correct resource" do
         @client.friendships("sferik", "pengwynn")
         a_get("/1/friendships/lookup.json").
           with(:query => {:screen_name => "sferik,pengwynn"}).
@@ -365,7 +365,7 @@ describe Twitter::Client do
           with(:query => {:screen_name => "0,311"}).
           to_return(:body => fixture("friendships.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
-      it "should get the correct resource" do
+      it "should request the correct resource" do
         @client.friendships("0", "311")
         a_get("/1/friendships/lookup.json").
           with(:query => {:screen_name => "0,311"}).
@@ -378,7 +378,7 @@ describe Twitter::Client do
           with(:query => {:user_id => "7505382,14100886"}).
           to_return(:body => fixture("friendships.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
-      it "should get the correct resource" do
+      it "should request the correct resource" do
         @client.friendships(7505382, 14100886)
         a_get("/1/friendships/lookup.json").
           with(:query => {:user_id => "7505382,14100886"}).
@@ -391,7 +391,7 @@ describe Twitter::Client do
           with(:query => {:screen_name => "sferik", :user_id => "14100886"}).
           to_return(:body => fixture("friendships.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
-      it "should get the correct resource" do
+      it "should request the correct resource" do
         @client.friendships("sferik", 14100886)
         a_get("/1/friendships/lookup.json").
           with(:query => {:screen_name => "sferik", :user_id => "14100886"}).
@@ -406,7 +406,7 @@ describe Twitter::Client do
         with(:body => {:screen_name => "sferik", :retweets => "true"}).
         to_return(:body => fixture("relationship.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
-    it "should get the correct resource" do
+    it "should request the correct resource" do
       @client.friendship_update("sferik", :retweets => true)
       a_post("/1/friendships/update.json").
         with(:body => {:screen_name => "sferik", :retweets => "true"}).
@@ -424,7 +424,7 @@ describe Twitter::Client do
       stub_get("/1/friendships/no_retweet_ids.json").
         to_return(:body => fixture("ids.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
-    it "should get the correct resource" do
+    it "should request the correct resource" do
       @client.no_retweet_ids
       a_get("/1/friendships/no_retweet_ids.json").
         should have_been_made
@@ -443,7 +443,7 @@ describe Twitter::Client do
         with(:body => {:screen_name => "sferik"}).
         to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
-    it "should get the correct resource" do
+    it "should request the correct resource" do
       @client.accept("sferik")
       a_post("/1/friendships/accept.json").
         with(:body => {:screen_name => "sferik"}).
@@ -462,7 +462,7 @@ describe Twitter::Client do
         with(:body => {:screen_name => "sferik"}).
         to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
-    it "should get the correct resource" do
+    it "should request the correct resource" do
       @client.deny("sferik")
       a_post("/1/friendships/deny.json").
         with(:body => {:screen_name => "sferik"}).

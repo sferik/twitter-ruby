@@ -11,7 +11,7 @@ describe Twitter::Client do
       stub_get("/1/saved_searches.json").
         to_return(:body => fixture("saved_searches.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
-    it "should get the correct resource" do
+    it "should request the correct resource" do
       @client.saved_searches
       a_get("/1/saved_searches.json").
         should have_been_made
@@ -29,7 +29,7 @@ describe Twitter::Client do
       stub_get("/1/saved_searches/show/16129012.json").
         to_return(:body => fixture("saved_search.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
-    it "should get the correct resource" do
+    it "should request the correct resource" do
       @client.saved_search(16129012)
       a_get("/1/saved_searches/show/16129012.json").
         should have_been_made
@@ -47,7 +47,7 @@ describe Twitter::Client do
         with(:body => {:query => "twitter"}).
         to_return(:body => fixture("saved_search.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
-    it "should get the correct resource" do
+    it "should request the correct resource" do
       @client.saved_search_create("twitter")
       a_post("/1/saved_searches/create.json").
         with(:body => {:query => "twitter"}).
@@ -65,7 +65,7 @@ describe Twitter::Client do
       stub_delete("/1/saved_searches/destroy/16129012.json").
         to_return(:body => fixture("saved_search.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
-    it "should get the correct resource" do
+    it "should request the correct resource" do
       @client.saved_search_destroy(16129012)
       a_delete("/1/saved_searches/destroy/16129012.json").
         should have_been_made

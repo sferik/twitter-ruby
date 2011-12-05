@@ -11,7 +11,7 @@ describe Twitter::Client do
       stub_get("/i/activity/about_me.json").
         to_return(:body => fixture("about_me.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
-    it "should get the correct resource" do
+    it "should request the correct resource" do
       @client.activity_about_me
       a_get("/i/activity/about_me.json").
         with(:headers => {'X-Phx' => 'true'}).
@@ -28,7 +28,7 @@ describe Twitter::Client do
       stub_get("/i/activity/by_friends.json").
         to_return(:body => fixture("by_friends.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
-    it "should get the correct resource" do
+    it "should request the correct resource" do
       @client.activity_by_friends
       a_get("/i/activity/by_friends.json").
         with(:headers => {'X-Phx' => 'true'}).

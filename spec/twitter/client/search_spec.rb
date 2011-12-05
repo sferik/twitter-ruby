@@ -12,7 +12,7 @@ describe Twitter::Client do
         with(:query => {:q => "twitter"}).
         to_return(:body => fixture("image_facets.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
-    it "should get the correct resource" do
+    it "should request the correct resource" do
       @client.images('twitter')
       a_get("/i/search/image_facets.json").
         with(:query => {:q => "twitter"}).
@@ -33,7 +33,7 @@ describe Twitter::Client do
         with(:query => {:q => "twitter"}).
         to_return(:body => fixture("video_facets.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
-    it "should get the correct resource" do
+    it "should request the correct resource" do
       @client.videos('twitter')
       a_get("/i/search/video_facets.json").
         with(:query => {:q => "twitter"}).
@@ -54,7 +54,7 @@ describe Twitter::Client do
         with(:query => {:q => "twitter"}).
         to_return(:body => fixture("/search.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
-    it "should get the correct resource" do
+    it "should request the correct resource" do
       @client.search('twitter')
       a_get("/search.json", Twitter.search_endpoint).
         with(:query => {:q => "twitter"}).
@@ -74,7 +74,7 @@ describe Twitter::Client do
         with(:query => {:q => "twitter"}).
         to_return(:body => fixture("phoenix_search.phoenix"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
-    it "should get the correct resource" do
+    it "should request the correct resource" do
       @client.phoenix_search('twitter')
       a_get("/phoenix_search.phoenix").
         with(:query => {:q => "twitter"}).
