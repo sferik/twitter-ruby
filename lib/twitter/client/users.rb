@@ -85,9 +85,12 @@ module Twitter
       #     Twitter.user(7505382)  # Same as above
       def user(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
-        user = args.pop || self.current_user.screen_name
-        options.merge_user!(user)
-        user = get("/1/users/show.json", options)
+        if user = args.pop
+          options.merge_user!(user)
+          user = get("/1/users/show.json", options)
+        else
+          user = get("/1/account/verify_credentials.json", options)
+        end
         Twitter::User.new(user)
       end
 

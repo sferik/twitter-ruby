@@ -180,14 +180,10 @@ describe Twitter::Client do
       before do
         stub_get("/1/account/verify_credentials.json").
           to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-        stub_get("/1/users/show.json").
-          with(:query => {:screen_name => "sferik"}).
-          to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "should request the correct resource" do
         @client.user
-        a_get("/1/users/show.json").
-          with(:query => {:screen_name => "sferik"}).
+        a_get("/1/account/verify_credentials.json").
           should have_been_made
       end
     end
