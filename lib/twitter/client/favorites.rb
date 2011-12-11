@@ -12,10 +12,11 @@ module Twitter
       #   Returns the 20 most recent favorite statuses for the authenticating user
       #
       #   @param options [Hash] A customizable set of options.
+      #   @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 100.
       #   @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID.
       #   @option options [Integer] :page Specifies the page of results to retrieve.
       #   @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
-      #   @return [Array<Twitter::Status>] 20 favorite statuses.
+      #   @return [Array<Twitter::Status>] favorite statuses.
       #   @example Return the 20 most recent favorite statuses for the authenticating user
       #     Twitter.favorites
       # @overload favorites(user, options={})
@@ -23,8 +24,10 @@ module Twitter
       #
       #   @param user [Integer, String] A Twitter user ID or screen name.
       #   @param options [Hash] A customizable set of options.
+      #   @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 100.
+      #   @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID.
       #   @option options [Integer] :page Specifies the page of results to retrieve.
-      #   @return [Array<Twitter::Status>] 20 favorite statuses.
+      #   @return [Array<Twitter::Status>] favorite statuses.
       #   @example Return the 20 most recent favorite statuses for @sferik
       #     Twitter.favorites("sferik")
       def favorites(*args)
