@@ -33,55 +33,72 @@ module Twitter
   # @note All methods have been separated into modules and follow the same grouping used in {http://dev.twitter.com/doc the Twitter API Documentation}.
   # @see http://dev.twitter.com/pages/every_developer
   class Client
-    # Require client method modules after initializing the Client class in
-    # order to avoid a superclass mismatch error, allowing those modules to be
-    # Client-namespaced.
-    require 'twitter/client/accounts'
-    require 'twitter/client/activity'
-    require 'twitter/client/block'
-    require 'twitter/client/direct_messages'
-    require 'twitter/client/favorites'
-    require 'twitter/client/friends_and_followers'
-    require 'twitter/client/help'
-    require 'twitter/client/legal'
-    require 'twitter/client/lists'
-    require 'twitter/client/local_trends'
-    require 'twitter/client/notification'
-    require 'twitter/client/places_and_geo'
-    require 'twitter/client/saved_searches'
-    require 'twitter/client/search'
-    require 'twitter/client/spam_reporting'
-    require 'twitter/client/suggested_users'
-    require 'twitter/client/timelines'
-    require 'twitter/client/trends'
-    require 'twitter/client/tweets'
-    require 'twitter/client/urls'
-    require 'twitter/client/users'
 
     include Twitter::Authenticatable
     include Twitter::Connection
     include Twitter::Request
 
+    require 'twitter/client/accounts'
     include Twitter::Client::Accounts
+
+    require 'twitter/client/activity'
     include Twitter::Client::Activity
+
+    require 'twitter/client/block'
     include Twitter::Client::Block
+
+    require 'twitter/client/direct_messages'
     include Twitter::Client::DirectMessages
+
+    require 'twitter/client/favorites'
     include Twitter::Client::Favorites
+
+    require 'twitter/client/friends_and_followers'
     include Twitter::Client::FriendsAndFollowers
+
+    require 'twitter/client/help'
     include Twitter::Client::Help
+
+    require 'twitter/client/legal'
     include Twitter::Client::Legal
+
+    require 'twitter/client/lists'
     include Twitter::Client::Lists
+
+    require 'twitter/client/local_trends'
     include Twitter::Client::LocalTrends
+
+    require 'twitter/client/notification'
     include Twitter::Client::Notification
+
+    require 'twitter/client/places_and_geo'
     include Twitter::Client::PlacesAndGeo
+
+    require 'twitter/client/saved_searches'
     include Twitter::Client::SavedSearches
+
+    require 'twitter/client/search'
     include Twitter::Client::Search
+
+    require 'twitter/client/spam_reporting'
     include Twitter::Client::SpamReporting
+
+    require 'twitter/client/suggested_users'
     include Twitter::Client::SuggestedUsers
+
+    require 'twitter/client/timelines'
     include Twitter::Client::Timelines
+
+    require 'twitter/client/trends'
     include Twitter::Client::Trends
+
+    require 'twitter/client/tweets'
     include Twitter::Client::Tweets
+
+    require 'twitter/client/urls'
     include Twitter::Client::Urls
+
+    require 'twitter/client/users'
     include Twitter::Client::Users
 
     attr_accessor *Config::VALID_OPTIONS_KEYS

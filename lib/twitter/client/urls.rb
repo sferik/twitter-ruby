@@ -1,5 +1,6 @@
 module Twitter
   class Client
+
     # Defines methods related to URLs
     module Urls
       # Returns the canonical version of a URL shortened by Twitter
@@ -20,5 +21,6 @@ module Twitter
         get("/1/urls/resolve.json", options.merge("urls[]" => args), :phoenix => true)
       end
     end
+
   end
 end
