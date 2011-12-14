@@ -493,7 +493,7 @@ module Twitter
       #   @return [Twitter::List] The deleted list.
       #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       #   @example Delete the authenticated user's "presidents" list
-      #     Twitter.list_destroy("/presidents")
+      #     Twitter.list_destroy("presidents")
       #     Twitter.list_destroy(8863586)
       # @overload list_destroy(user, list, options={})
       #   @param user [Integer, String] A Twitter user ID or screen name.
@@ -502,8 +502,8 @@ module Twitter
       #   @return [Twitter::List] The deleted list.
       #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       #   @example Delete @sferik's "presidents" list
-      #     Twitter.list_destroy("/sferik", "presidents")
-      #     Twitter.list_destroy("/sferik", 8863586)
+      #     Twitter.list_destroy("sferik", "presidents")
+      #     Twitter.list_destroy("sferik", 8863586)
       #     Twitter.list_destroy(7505382, "presidents")
       #     Twitter.list_destroy(7505382, 8863586)
       def list_destroy(*args)
