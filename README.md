@@ -4,6 +4,14 @@ A Ruby wrapper for the Twitter API.
 ## <a name="installation"></a>Installation
     gem install twitter
 
+Looking for the Twitter command-line interface? It was [removed] from this gem
+in version 0.5.0 and now is [maintained][] as a separate project called `t`.
+
+    gem install t
+
+[removed]: https://github.com/jnunemaker/twitter/commit/dd2445e3e2c97f38b28a3f32ea902536b3897adf
+[maintained]: https://github.com/sferik/t
+
 ## <a name="documentation"></a>Documentation
 [http://rdoc.info/gems/twitter][documentation]
 
