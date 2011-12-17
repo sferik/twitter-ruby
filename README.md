@@ -1,5 +1,8 @@
-# The Twitter Ruby Gem
+# The Twitter Ruby Gem [![Build Status](https://secure.travis-ci.org/jnunemaker/twitter.png?branch=master)][travis] [![Dependency Status](https://gemnasium.com/jnunemaker/twitter.png?travis)][gemnasium]
 A Ruby wrapper for the Twitter API.
+
+[travis]: http://travis-ci.org/jnunemaker/twitter
+[gemnasium]: https://gemnasium.com/jnunemaker/twitter
 
 ## <a name="installation"></a>Installation
     gem install twitter
@@ -33,16 +36,6 @@ Does your project or organization use this gem? Add it to the [apps
 wiki][apps]!
 
 [apps]: https://github.com/jnunemaker/twitter/wiki/apps
-
-## <a name="build"></a>Build Status
-[![Build Status](https://secure.travis-ci.org/jnunemaker/twitter.png?branch=master)][travis]
-
-[travis]: http://travis-ci.org/jnunemaker/twitter
-
-## <a name="dependencies"></a>Dependency Status
-[![Dependency Status](https://gemnasium.com/jnunemaker/twitter.png?travis)][gemnasium]
-
-[gemnasium]: https://gemnasium.com/jnunemaker/twitter
 
 ## <a name="2.0"></a>What new in version 2?
 This version introduces a number of new classes, notably:
