@@ -13,7 +13,7 @@ module Twitter
       # @rate_limited Yes
       # @requires_authentication Yes
       # @overload users(*users, options={})
-      #   @param users [Integer, String] Twitter users ID or screen names.
+      #   @param users [Integer, String, List] Twitter users ID or screen names.
       #   @param options [Hash] A customizable set of options.
       #   @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
       #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
