@@ -201,7 +201,7 @@ module Twitter
       # @param options [Hash] A customizable set of options.
       # @return [Twitter::Relationship]
       # @overload friendships(*users, options={})
-      #   @param users [Integer, String] Twitter users ID or screen names.
+      #   @param users [Array<Integer, String>, Set<Integer, String>] Twitter user IDs or screen names.
       #   @param options [Hash] A customizable set of options.
       #   @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet
       #   @return [Array<Twitter::User>] The requested users.
