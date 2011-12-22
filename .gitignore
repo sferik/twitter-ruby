@@ -1,11 +1,12 @@
 *.gem
 *.rbc
-.DS_Store
+*~
 .bundle
+.DS_Store
 .rvmrc
 .yardoc
-Gemfile.lock
 coverage/*
 doc/*
+Gemfile.lock
 log/*
 pkg/*
