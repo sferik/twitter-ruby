@@ -1,4 +1,7 @@
 require 'simplecov'
+# HACK - couldn't get tests to run without this, simple cov barfed with the following error:
+# .../simplecov-0.5.4/lib/simplecov/source_file.rb:157:in `block in process_skipped_lines!': invalid byte sequence in US-ASCII #(ArgumentError)
+# I intend to find a better solution before making the pull request 
 Encoding.default_external = Encoding::UTF_8
 Encoding.default_internal = Encoding::UTF_8
 SimpleCov.start
