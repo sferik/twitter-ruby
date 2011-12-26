@@ -76,8 +76,17 @@ module Twitter
       # @rate_limited Yes
       # @requires_authentication No unless the author of the status is protected
       # @param id [Integer] The numerical ID of the desired status to be embedded.
-      def oembed(id)
-        oembed = get("/1/statuses/oembed.json?id=#{id}")
+      # @param url [String] The url to the status to be embedded. ex: https://twitter.com/#!/twitter/status/25938088801
+      def oembed(id_or_url)
+        case id_or_url
+        when Integer
+          id = id_or_url
+          oembed = get("/1/statuses/oembed.json?id=#{id}")
+        when String
+          url = id_or_url
+          escaped_url = URI.escape(url, Regexp.new("[^#{URI::PATTERN::UNRESERVED}]"))
+          oembed = get("/1/statuses/oembed.json?url=#{escaped_url}")
+        end
         Twitter::OEmbed.new(oembed)
       end
       # Destroys the specified status
