@@ -1,4 +1,5 @@
 require 'twitter/status'
+require 'twitter/oembed'
 
 module Twitter
   class Client
@@ -68,7 +69,17 @@ module Twitter
         status = get("/1/statuses/show/#{id}.json", options)
         Twitter::Status.new(status)
       end
-
+      
+      # Returns an oEmbed version of a single status, specified by ID or url to the tweet
+      #
+      # @see https://dev.twitter.com/docs/api/1/get/statuses/oembed
+      # @rate_limited Yes
+      # @requires_authentication No unless the author of the status is protected
+      # @param id [Integer] The numerical ID of the desired status to be embedded.
+      def oembed(id)
+        oembed = get("/1/statuses/oembed.json?id=#{id}")
+        Twitter::OEmbed.new(oembed)
+      end
       # Destroys the specified status
       #
       # @see https://dev.twitter.com/docs/api/1/post/statuses/destroy/:id

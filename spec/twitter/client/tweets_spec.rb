@@ -149,5 +149,23 @@ describe Twitter::Client do
       status.media.should be
     end
   end
+  
+  describe ".oembed" do
+    context "with id passed" do
+      before do
+        stub_get("/1/statuses/oembed.json?id=25938088801").
+          to_return(:body => fixture("oembed.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      end
+      it "should request the correct resource" do
+        @client.oembed(25938088801)
+        a_get("/1/statuses/oembed.json?id=25938088801").
+          should have_been_made
+      end
+      it "should return an oembed instance" do
+        oembed = @client.oembed(25938088801)
+        oembed.should be_a Twitter::OEmbed
+      end
+    end
+  end
 
 end
