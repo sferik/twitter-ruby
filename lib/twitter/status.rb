@@ -59,5 +59,12 @@ module Twitter
       @user ||= Twitter::User.new(@attrs.dup['user'].merge('status' => @attrs.except('user'))) unless @attrs['user'].nil?
     end
 
+    # If this status is itself a retweet, the original tweet is available here.
+    #
+    # @return [Twitter::Status]
+    def retweeted_status
+      @retweeted_status ||= self.class.new(@attrs['retweeted_status']) unless @attrs['retweeted_status'].nil?
+    end
+
   end
 end

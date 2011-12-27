@@ -105,4 +105,21 @@ describe Twitter::Status do
     end
   end
 
+  describe "#retweeted_status" do
+    before do
+      @a_retweeted_status = Twitter::Status.new('retweeted_status' => {'text' => 'BOOSH'})
+    end
+    it "should return a Status when retweeted_status is set" do
+      @a_retweeted_status.retweeted_status.should be_a Twitter::Status
+    end
+    it "should return nil when a retweeted_status is NOT set" do
+      status = Twitter::Status.new
+      status.retweeted_status.should be_nil
+    end
+    it "should have text when retweeted_status is set" do
+      status = Twitter::Status.new('retweeted_status' => {'text' => 'BOOSH'})
+      status.retweeted_status.text.should == 'BOOSH'
+    end
+  end
+
 end
