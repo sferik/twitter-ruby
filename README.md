@@ -40,44 +40,12 @@ wiki][apps]!
 ## <a name="2.0"></a>What new in version 2?
 This version introduces a number of new classes, notably:
 
-<table>
-  <tr>
-    <td><tt>Twitter::Configuration</tt></td>
-    <td><tt>Twitter::List</tt></td>
-    <td><tt>Twitter::Polygon</tt></td>
-    <td><tt>Twitter::Settings</tt></td>
-  </tr>
-  <tr>
-    <td><tt>Twitter::Cursor</tt></td>
-    <td><tt>Twitter::Metadata</tt></td>
-    <td><tt>Twitter::RateLimitStatus</tt></td>
-    <td><tt>Twitter::Size</tt></td>
-  </tr>
-  <tr>
-    <td><tt>Twitter::DirectMessage</tt></td>
-    <td><tt>Twitter::Mention</tt></td>
-    <td><tt>Twitter::Relationship</tt></td>
-    <td><tt>Twitter::Status</tt></td>
-  </tr>
-  <tr>
-    <td><tt>Twitter::Favorite</tt></td>
-    <td><tt>Twitter::Photo</tt></td>
-    <td><tt>Twitter::Reply</tt></td>
-    <td><tt>Twitter::Suggestion</tt></td>
-  </tr>
-  <tr>
-    <td><tt>Twitter::Follow</tt></td>
-    <td><tt>Twitter::Place</tt></td>
-    <td><tt>Twitter::Retweet</tt></td>
-    <td><tt>Twitter::Trend</tt></td>
-  </tr>
-  <tr>
-    <td><tt>Twitter::Language</tt></td>
-    <td><tt>Twitter::Point</tt></td>
-    <td><tt>Twitter::SavedSearch</tt></td>
-    <td><tt>Twitter::User</tt></td>
-  </tr>
-</table>
+    Twitter::Configuration	Twitter::List		Twitter::Polygon			Twitter::Settings
+    Twitter::Cursor			Twitter::Metadata	Twitter::RateLimitStatus	Twitter::Size
+    Twitter::DirectMessage	Twitter::Mention	Twitter::Relationship		Twitter::Status
+    Twitter::Favorite		Twitter::Photo		Twitter::Reply				Twitter::Suggestion
+    Twitter::Follow			Twitter::Place		Twitter::Retweet			Twitter::Trend
+    Twitter::Language		Twitter::Point		Twitter::SavedSearch		Twitter::User
 
 These classes (plus Ruby primitives) have replaced all instances of
 `Hashie::Mash`. This allows us to remove the gem's dependency on [hashie][] and
