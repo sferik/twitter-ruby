@@ -104,5 +104,27 @@ describe Twitter::Status do
       user.status.text.should == 'Tweet text.'
     end
   end
-
+  
+  describe "#oembed" do
+    before do
+      stub_get("/1/statuses/oembed.json?id=25938088801").
+        to_return(:body => fixture("oembed.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      @status = Twitter::Status.new('id' => 25938088801)
+    end
+    it "should request the correct resource" do
+      @status.oembed
+      a_get("/1/statuses/oembed.json?id=25938088801").
+        should have_been_made
+    end
+    it "should return an OEmbed instance" do
+      oembed = @status.oembed
+      oembed.should be_a Twitter::OEmbed
+    end
+    context "without an id" do
+      it "should return nil" do
+        status = Twitter::Status.new
+        status.oembed.should be_nil
+      end
+    end
+  end
 end

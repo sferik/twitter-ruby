@@ -1,9 +1,11 @@
 require 'active_support/core_ext/hash/except'
 require 'twitter/base'
+require 'twitter/client'
 require 'twitter/creatable'
 require 'twitter/geo_factory'
 require 'twitter/media_factory'
 require 'twitter/metadata'
+require 'twitter/oembed'
 require 'twitter/place'
 require 'twitter/user'
 
@@ -58,6 +60,11 @@ module Twitter
     def user
       @user ||= Twitter::User.new(@attrs.dup['user'].merge('status' => @attrs.except('user'))) unless @attrs['user'].nil?
     end
-
+    
+    # @return [Twitter::OEmbed]
+    def oembed(options={})
+      @client ||= Twitter::Client.new
+      @client.oembed(@attrs['id'], options) unless @attrs['id'].nil?
+    end
   end
 end
