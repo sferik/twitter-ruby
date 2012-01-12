@@ -6,16 +6,19 @@ module Twitter
     class ParseJson < Faraday::Response::Middleware
 
       def parse(body)
-        case body
-        when ''
-          nil
-        when 'true'
-          true
-        when 'false'
-          false
-        else
-          ::MultiJson.decode(body)
+        unless (respond_to?(:env)) && env[:request][:raw]
+          body = case body
+                when ''
+                  nil
+                when 'true'
+                  true
+                when 'false'
+                  false
+                else
+                  ::MultiJson.decode(body) 
+                end 
         end
+        body
       end
 
     end

@@ -8,7 +8,7 @@ module Twitter
         # Not sure what what the X-Phx (Phoenix?) header is for but it's
         # required to access certain undocumented resources
         # e.g. GET urls/resolve
-        env[:request_headers]['X-Phx'] = 'true'
+        env[:request_headers]['X-Phx'] = 'true' if env[:request][:phoenix]
 
         @app.call(env)
       end
