@@ -1,4 +1,5 @@
 require 'twitter/status'
+require 'twitter/oembed'
 
 module Twitter
   class Client
@@ -69,6 +70,33 @@ module Twitter
         Twitter::Status.new(status)
       end
 
+      # Returns an oEmbed version of a single status, specified by ID or url to the tweet
+      #
+      # @see https://dev.twitter.com/docs/api/1/get/statuses/oembed
+      # @rate_limited Yes
+      # @requires_authentication No unless the author of the status is protected
+      # @param id [Integer] The numerical ID of the desired status to be embedded.
+      # @param url [String] The url to the status to be embedded. ex: https://twitter.com/#!/twitter/status/25938088801
+      # @param options [Hash] A customizable set of options.
+      # @option options [Integer] :maxwidth The maximum width in pixels that the embed should be rendered at. This value is constrained to be between 250 and 550 pixels.
+      # @option options [Boolean, String, Integer] :hide_media Specifies whether the embedded Tweet should automatically expand images which were uploaded via {https://dev.twitter.com/docs/api/1/post/statuses/update_with_media POST statuses/update_with_media}. When set to either true, t or 1 images will not be expanded. Defaults to false.
+      # @option options [Boolean, String, Integer] :hide_thread Specifies whether the embedded Tweet should automatically show the original message in the case that the embedded Tweet is a reply. When set to either true, t or 1 the original Tweet will not be shown. Defaults to false.
+      # @option options [Boolean, String, Integer] :omit_script Specifies whether the embedded Tweet HTML should include a <script> element pointing to widgets.js. In cases where a page already includes widgets.js, setting this value to true will prevent a redundant script element from being included. When set to either true, t or 1 the <script> element will not be included in the embed HTML, meaning that pages must include a reference to widgets.js manually. Defaults to false.
+      # @option options [String] :align Specifies whether the embedded Tweet should be left aligned, right aligned, or centered in the page. Valid values are left, right, center, and none. Defaults to none, meaning no alignment styles are specified for the Tweet.
+      # @option options [String] :related A value for the TWT related parameter, as described in {https://dev.twitter.com/docs/intents Web Intents}. This value will be forwarded to all Web Intents calls.
+      # @option options [String] :lang Language code for the rendered embed. This will affect the text and localization of the rendered HTML.
+      def oembed(id_or_url, options={})
+        case id_or_url
+        when Integer
+          id = id_or_url
+          oembed = get("/1/statuses/oembed.json?id=#{id}", options)
+        when String
+          url = id_or_url
+          escaped_url = URI.escape(url, Regexp.new("[^#{URI::PATTERN::UNRESERVED}]"))
+          oembed = get("/1/statuses/oembed.json?url=#{escaped_url}", options)
+        end
+        Twitter::OEmbed.new(oembed)
+      end
       # Destroys the specified status
       #
       # @see https://dev.twitter.com/docs/api/1/post/statuses/destroy/:id

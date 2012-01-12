@@ -1,9 +1,11 @@
 require 'active_support/core_ext/hash/except'
 require 'twitter/base'
+require 'twitter/client'
 require 'twitter/creatable'
 require 'twitter/geo_factory'
 require 'twitter/media_factory'
 require 'twitter/metadata'
+require 'twitter/oembed'
 require 'twitter/place'
 require 'twitter/user'
 
@@ -64,6 +66,12 @@ module Twitter
     # @return [Twitter::Status]
     def retweeted_status
       @retweeted_status ||= self.class.new(@attrs['retweeted_status']) unless @attrs['retweeted_status'].nil?
+    end
+
+    # @return [Twitter::OEmbed]
+    def oembed(options={})
+      @client ||= Twitter::Client.new
+      @client.oembed(@attrs['id'], options) unless @attrs['id'].nil?
     end
 
   end
