@@ -130,8 +130,10 @@ module Twitter
       # @example Retweet the status with the ID 28561922516
       #   Twitter.retweet(28561922516)
       def retweet(id, options={})
-        status = post("/1/statuses/retweet/#{id}.json", options)['retweeted_status']
-        Twitter::Status.new(status)
+        new_status = post("/1/statuses/retweet/#{id}.json", options)
+        orig_status = new_status.delete('retweeted_status')
+        orig_status['retweeted_status'] = new_status
+        Twitter::Status.new(orig_status)
       end
 
       # Updates the authenticating user's status
