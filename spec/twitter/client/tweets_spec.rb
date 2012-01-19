@@ -108,6 +108,8 @@ describe Twitter::Client do
       status = @client.retweet(28561922516)
       status.should be_a Twitter::Status
       status.text.should == "As for the Series, I'm for the Giants. Fuck Texas, fuck Nolan Ryan, fuck George Bush."
+      status.retweeted_status.text.should == "RT @gruber: As for the Series, I'm for the Giants. Fuck Texas, fuck Nolan Ryan, fuck George Bush."
+      status.retweeted_status.id.should_not == status.id
     end
   end
 
