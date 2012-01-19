@@ -131,8 +131,7 @@ module Twitter
       #   Twitter.retweet(28561922516)
       def retweet(id, options={})
         new_status = post("/1/statuses/retweet/#{id}.json", options)
-        orig_status = new_status['retweeted_status']
-        new_status.delete('retweeted_status')
+        orig_status = new_status.delete('retweeted_status')
         orig_status['retweeted_status'] = new_status
         Twitter::Status.new(orig_status)
       end
