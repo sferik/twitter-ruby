@@ -7,7 +7,7 @@ module Twitter
       :mode, :name, :slug, :subscriber_count, :uri
     alias :following? :following
 
-    # @param other [Twiter::List]
+    # @param other [Twitter::List]
     # @return [Boolean]
     def ==(other)
       super || (other.class == self.class && other.id == self.id)
