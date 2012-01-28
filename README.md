@@ -37,7 +37,7 @@ wiki][apps]!
 
 [apps]: https://github.com/jnunemaker/twitter/wiki/apps
 
-## <a name="2.0"></a>What new in version 2?
+## <a name="2.0"></a>What's new in version 2?
 This version introduces a number of new classes, notably:
 
     Twitter::Configuration	Twitter::List		Twitter::Polygon			Twitter::Settings
