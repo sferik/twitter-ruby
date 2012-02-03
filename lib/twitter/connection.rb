@@ -38,8 +38,6 @@ module Twitter
         builder.use Twitter::Response::RaiseServerError
         builder.adapter(adapter)
       end
-      @connection
     end
-
   end
 end
