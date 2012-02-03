@@ -20,7 +20,9 @@ module Twitter
 
     # Perform an HTTP request
     def request(method, path, params, options)
-      response = connection(options).send(method) do |request|
+      response = connection(options).run_request(method, nil, nil, nil) do |request|
+        request.options[:phoenix] = true if options[:phoenix]
+        request.options[:raw] = true if options[:raw]
         case method.to_sym
         when :delete, :get
           request.url(path, params)
