@@ -10,7 +10,7 @@ module Twitter
       # Returns the remaining number of API requests available to the requesting user
       #
       # @see https://dev.twitter.com/docs/api/1/get/account/rate_limit_status
-      # @rate_limited Yes
+      # @rate_limited No
       # @requires_authentication No
       #
       #   This will return the requesting IP's rate limit status. If you want the authenticating user's rate limit status you must authenticate.
