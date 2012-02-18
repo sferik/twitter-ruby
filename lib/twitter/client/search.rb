@@ -47,7 +47,6 @@ module Twitter
       # @see https://dev.twitter.com/docs/using-search
       # @see https://dev.twitter.com/docs/history-rest-search-api
       # @note As of April 1st 2010, the Search API provides an option to retrieve "popular tweets" in addition to real-time search results. In an upcoming release, this will become the default and clients that don't want to receive popular tweets in their search results will have to explicitly opt-out. See the result_type parameter below for more information.
-      # @note By default, the user ids in the Search API are different from those in the REST API. To return user IDs which map to the values returned by the REST API, specify the with_twitter_user_id=true query parameter.
       # @rate_limited Yes
       # @requires_authentication No
       # @param q [String] A search term.
