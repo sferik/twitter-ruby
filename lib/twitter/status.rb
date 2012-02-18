@@ -15,7 +15,7 @@ module Twitter
     lazy_attr_reader :favorited, :from_user, :from_user_id, :from_user_name, :id,
       :in_reply_to_screen_name, :in_reply_to_attrs_id, :in_reply_to_status_id,
       :in_reply_to_user_id, :iso_language_code, :profile_image_url,
-      :retweet_count, :retweeted, :source, :text, :to_user, :to_user_id, :to_user_name, 
+      :retweet_count, :retweeted, :source, :text, :to_user, :to_user_id, :to_user_name,
       :truncated
     alias :favorited? :favorited
     alias :retweeted? :retweeted
@@ -27,6 +27,7 @@ module Twitter
       super || (other.class == self.class && other.id == self.id)
     end
 
+    # @note Must :include_entities in your request for this method to work
     # @return [Array<String>]
     def expanded_urls
       @expanded_urls ||= Array(@attrs['entities']['urls']).map do |url|
@@ -39,6 +40,7 @@ module Twitter
       @geo ||= Twitter::GeoFactory.new(@attrs['geo']) unless @attrs['geo'].nil?
     end
 
+    # @note Must :include_entities in your request for this method to work
     # @return [Array]
     def media
       @media ||= Array(@attrs['entities']['media']).map do |media|
