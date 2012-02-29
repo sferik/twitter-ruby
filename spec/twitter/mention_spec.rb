@@ -14,6 +14,17 @@ describe Twitter::Mention do
     end
   end
 
+  describe "#source" do
+    it "should return the user who mentioned a user" do
+      source = Twitter::Mention.new('sources' => [{}]).source
+      source.should be_a Twitter::User
+    end
+    it "should be nil when not set" do
+      source = Twitter::Mention.new.source
+      source.should be_nil
+    end
+  end
+
   describe "#target_objects" do
     it "should return a collection of statuses that mention a user" do
       targets = Twitter::Mention.new('target_objects' => [{}]).target_objects
