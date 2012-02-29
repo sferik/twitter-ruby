@@ -14,6 +14,13 @@ module Twitter
       end
     end
 
+    # The user who mentioned a user
+    #
+    # @return [Twitter::User]
+    def source
+      @source = sources.first
+    end
+
     # A collection of statuses that mention a user
     #
     # @return [Array<Twitter::Status>]
