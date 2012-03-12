@@ -1,6 +1,8 @@
 # encoding: utf-8
-require 'simplecov'
-SimpleCov.start
+unless ENV['CI']
+  require 'simplecov'
+  SimpleCov.start
+end
 
 require 'twitter'
 require 'rspec'
