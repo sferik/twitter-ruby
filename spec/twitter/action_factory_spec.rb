@@ -11,6 +11,10 @@ describe Twitter::ActionFactory do
       action = Twitter::ActionFactory.new('action' => 'follow')
       action.should be_a Twitter::Follow
     end
+    it "should generate a ListMemberAdded" do
+      action = Twitter::ActionFactory.new('action' => 'list_member_added')
+      action.should be_a Twitter::ListMemberAdded
+    end
     it "should generate a Mention" do
       action = Twitter::ActionFactory.new('action' => 'mention')
       action.should be_a Twitter::Mention
