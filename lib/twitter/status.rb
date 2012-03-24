@@ -16,7 +16,7 @@ module Twitter
       :in_reply_to_screen_name, :in_reply_to_attrs_id, :in_reply_to_status_id,
       :in_reply_to_user_id, :iso_language_code, :profile_image_url,
       :retweet_count, :retweeted, :source, :text, :to_user, :to_user_id, :to_user_name,
-      :truncated
+      :truncated, :entities
     alias :favorited? :favorited
     alias :retweeted? :retweeted
     alias :truncated? :truncated
