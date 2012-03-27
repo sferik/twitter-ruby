@@ -632,6 +632,81 @@ describe Twitter::Client do
     end
   end
 
+  describe ".list_remove_members" do
+    context "with a screen name passed" do
+      before do
+        stub_post("/1/lists/members/destroy_all.json").
+          with(:body => {:owner_screen_name => 'sferik', :slug => 'presidents', :user_id => "813286,18755393"}).
+          to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      end
+      it "should request the correct resource" do
+        @client.list_remove_members("sferik", "presidents", [813286, 18755393])
+        a_post("/1/lists/members/destroy_all.json").
+          with(:body => {:owner_screen_name => 'sferik', :slug => 'presidents', :user_id => "813286,18755393"}).
+          should have_been_made
+      end
+      it "should return the list" do
+        list = @client.list_remove_members("sferik", "presidents", [813286, 18755393])
+        list.should be_a Twitter::List
+        list.name.should == "presidents"
+      end
+    end
+    context "with an Integer user_id passed" do
+      before do
+        stub_post("/1/lists/members/destroy_all.json").
+          with(:body => {:owner_id => '12345678', :slug => 'presidents', :user_id => "813286,18755393"}).
+          to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      end
+      it "should request the correct resource" do
+        @client.list_remove_members(12345678, "presidents", [813286, 18755393])
+        a_post("/1/lists/members/destroy_all.json").
+          with(:body => {:owner_id => '12345678', :slug => 'presidents', :user_id => "813286,18755393"}).
+          should have_been_made
+      end
+    end
+    context "with an Integer list_id passed" do
+      before do
+        stub_post("/1/lists/members/destroy_all.json").
+          with(:body => {:owner_screen_name => 'sferik', :list_id => '12345678', :user_id => "813286,18755393"}).
+          to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      end
+      it "should request the correct resource" do
+        @client.list_remove_members('sferik', 12345678, [813286, 18755393])
+        a_post("/1/lists/members/destroy_all.json").
+          with(:body => {:owner_screen_name => 'sferik', :list_id => '12345678', :user_id => "813286,18755393"}).
+          should have_been_made
+      end
+    end
+    context "with a combination of member IDs and member screen names to add" do
+      before do
+        stub_post("/1/lists/members/destroy_all.json").
+          with(:body => {:owner_screen_name => 'sferik', :slug => 'presidents', :user_id => "813286,18755393", :screen_name => "pengwynn,erebor"}).
+          to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      end
+      it "should request the correct resource" do
+        @client.list_remove_members('sferik', 'presidents', [813286, 'pengwynn', 18755393, 'erebor'])
+        a_post("/1/lists/members/destroy_all.json").
+          with(:body => {:owner_screen_name => 'sferik', :slug => 'presidents', :user_id => "813286,18755393", :screen_name => "pengwynn,erebor"}).
+          should have_been_made
+      end
+    end
+    context "without a screen name passed" do
+      before do
+        stub_get("/1/account/verify_credentials.json").
+          to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        stub_post("/1/lists/members/destroy_all.json").
+          with(:body => {:owner_screen_name => 'sferik', :slug => 'presidents', :user_id => "813286,18755393"}).
+          to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      end
+      it "should request the correct resource" do
+        @client.list_remove_members("presidents", [813286, 18755393])
+        a_post("/1/lists/members/destroy_all.json").
+          with(:body => {:owner_screen_name => 'sferik', :slug => 'presidents', :user_id => "813286,18755393"}).
+          should have_been_made
+      end
+    end
+  end
+
   describe ".list_member?" do
     context "with a screen name passed" do
       before do

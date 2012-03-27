@@ -324,7 +324,7 @@ module Twitter
         Twitter::List.new(list)
       end
 
-      # Adds multiple members to a list
+      # Adds specified members to a list
       #
       # @see https://dev.twitter.com/docs/api/1/post/lists/members/create_all
       # @note Lists are limited to having 500 members, and you are limited to adding up to 100 members to a list at a time with this method.
@@ -364,6 +364,48 @@ module Twitter
         owner = args.pop || self.current_user.screen_name
         options.merge_owner!(owner)
         list = post("/1/lists/members/create_all.json", options)
+        Twitter::List.new(list)
+      end
+
+      # Removes specified members from the list
+      #
+      # @see https://dev.twitter.com/docs/api/1/post/lists/members/destroy_all
+      # @rate_limited No
+      # @requires_authentication Yes
+      # @overload list_remove_members(list, users_to_remove, options={})
+      #   @param list [Integer, String] The list_id or slug of the list.
+      #   @param users_to_remove [Array] The user IDs and/or screen names to remove.
+      #   @param options [Hash] A customizable set of options.
+      #   @return [Twitter::List] The list.
+      #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      #   @example Remove @BarackObama and @pengwynn from the authenticated user's "presidents" list
+      #     Twitter.list_remove_members('presidents', ['BarackObama', 'pengwynn'])
+      #     Twitter.list_remove_members('presidents', [813286, 18755393])
+      #     Twitter.list_remove_members(8863586, ['BarackObama', 'pengwynn'])
+      #     Twitter.list_remove_members(8863586, [813286, 18755393])
+      # @overload list_remove_members(user, list, users_to_remove, options={})
+      #   @param user [Integer, String] A Twitter user ID or screen name.
+      #   @param list [Integer, String] The list_id or slug of the list.
+      #   @param users_to_remove [Array] The user IDs and/or screen names to remove.
+      #   @param options [Hash] A customizable set of options.
+      #   @return [Twitter::List] The list.
+      #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      #   @example Remove @BarackObama and @pengwynn from @sferik's "presidents" list
+      #     Twitter.list_remove_members('sferik', 'presidents', ['BarackObama', 'pengwynn'])
+      #     Twitter.list_remove_members('sferik', 'presidents', [813286, 18755393])
+      #     Twitter.list_remove_members(7505382, 'presidents', ['BarackObama', 'pengwynn'])
+      #     Twitter.list_remove_members(7505382, 'presidents', [813286, 18755393])
+      #     Twitter.list_remove_members(7505382, 8863586, ['BarackObama', 'pengwynn'])
+      #     Twitter.list_remove_members(7505382, 8863586, [813286, 18755393])
+      def list_remove_members(*args)
+        options = args.last.is_a?(Hash) ? args.pop : {}
+        users_to_remove = args.pop
+        options.merge_users!(Array(users_to_remove))
+        list = args.pop
+        options.merge_list!(list)
+        owner = args.pop || self.current_user.screen_name
+        options.merge_owner!(owner)
+        list = post("/1/lists/members/destroy_all.json", options)
         Twitter::List.new(list)
       end
 
