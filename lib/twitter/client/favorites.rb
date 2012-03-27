@@ -29,7 +29,7 @@ module Twitter
       #   @option options [Integer] :page Specifies the page of results to retrieve.
       #   @return [Array<Twitter::Status>] favorite statuses.
       #   @example Return the 20 most recent favorite statuses for @sferik
-      #     Twitter.favorites("sferik")
+      #     Twitter.favorites('sferik')
       def favorites(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
         if user = args.first

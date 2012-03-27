@@ -50,7 +50,7 @@ module Twitter
       # @return [Boolean] true if the authenticating user is blocking the target user, otherwise false.
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @example Check whether the authenticating user is blocking @sferik
-      #   Twitter.block?("sferik")
+      #   Twitter.block?('sferik')
       #   Twitter.block?(7505382)  # Same as above
       def block?(user, options={})
         options.merge_user!(user)
@@ -72,7 +72,7 @@ module Twitter
       # @return [Twitter::User] The blocked user.
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @example Block and unfriend @sferik as the authenticating user
-      #   Twitter.block("sferik")
+      #   Twitter.block('sferik')
       #   Twitter.block(7505382)  # Same as above
       def block(user, options={})
         options.merge_user!(user)
@@ -91,7 +91,7 @@ module Twitter
       # @return [Twitter::User] The un-blocked user.
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @example Un-block @sferik as the authenticating user
-      #   Twitter.unblock("sferik")
+      #   Twitter.unblock('sferik')
       #   Twitter.unblock(7505382)  # Same as above
       def unblock(user, options={})
         options.merge_user!(user)

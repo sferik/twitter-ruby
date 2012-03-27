@@ -20,8 +20,7 @@ module Twitter
       #   @return [Array<Twitter::User>] The requested users.
       #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       #   @example Return extended information for @sferik and @pengwynn
-      #     Twitter.users("sferik", "pengwynn")
-      #     Twitter.users("sferik", 14100886)   # Same as above
+      #     Twitter.users('sferik', 'pengwynn')
       #     Twitter.users(7505382, 14100886)    # Same as above
       def users(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
@@ -42,7 +41,7 @@ module Twitter
       #   @param options [Hash] A customizable set of options.
       #   @option options [String] :size ('normal') Specifies the size of image to fetch. Valid options include: 'bigger' (73px by 73px), 'normal' (48px by 48px), and 'mini' (24px by 24px).
       #   @example Return the URL for the 24px by 24px version of @sferik's profile image
-      #     Twitter.profile_image("sferik", :size => 'mini')
+      #     Twitter.profile_image('sferik', :size => 'mini')
       # @return [String] The URL for the requested user's profile image.
       def profile_image(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
@@ -81,7 +80,7 @@ module Twitter
       #   @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
       #   @return [Twitter::User] The requested user.
       #   @example Return extended information for @sferik
-      #     Twitter.user("sferik")
+      #     Twitter.user('sferik')
       #     Twitter.user(7505382)  # Same as above
       def user(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
@@ -99,7 +98,7 @@ module Twitter
       # @param user [Integer, String] A Twitter user ID or screen name.
       # @return [Boolean] true if the user exists, otherwise false.
       # @example Return true if @sferik exists
-      #     Twitter.user?("sferik")
+      #     Twitter.user?('sferik')
       #     Twitter.user?(7505382)  # Same as above
       # @requires_authentication No
       # @rate_limited Yes
@@ -132,7 +131,7 @@ module Twitter
       #   @option options [Boolean, String, Integer] :skip_status Do not include contributee's statuses when set to true, 't' or 1.
       #   @return [Array<Twitter::User>]
       #   @example Return users @sferik can contribute to
-      #     Twitter.contributees("sferik")
+      #     Twitter.contributees('sferik')
       #     Twitter.contributees(7505382)  # Same as above
       def contributees(*args)
         options = {}
@@ -165,7 +164,7 @@ module Twitter
       #   @option options [Boolean, String, Integer] :skip_status Do not include contributee's statuses when set to true, 't' or 1.
       #   @return [Array<Twitter::User>]
       #   @example Return users who can contribute to @sferik's account
-      #     Twitter.contributors("sferik")
+      #     Twitter.contributors('sferik')
       #     Twitter.contributors(7505382)  # Same as above
       def contributors(*args)
         options = {}

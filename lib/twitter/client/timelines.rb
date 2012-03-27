@@ -89,7 +89,7 @@ module Twitter
       #   @return [Array<Twitter::Status>]
       #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       #   @example Return the 20 most recent retweets posted by the authenticating user
-      #     Twitter.retweeted_by("sferik")
+      #     Twitter.retweeted_by('sferik')
       # @overload retweeted_by(user, options={})
       #   @param user [Integer, String] A Twitter user ID or screen name.
       #   @param options [Hash] A customizable set of options.
@@ -145,7 +145,7 @@ module Twitter
       #   @return [Array<Twitter::Status>]
       #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       #   @example Return the 20 most recent retweets posted by users followed by the authenticating user
-      #     Twitter.retweeted_to("sferik")
+      #     Twitter.retweeted_to('sferik')
       def retweeted_to(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
         if user = args.pop
@@ -199,7 +199,7 @@ module Twitter
       #   @option options [Boolean, String, Integer] :exclude_replies This parameter will prevent replies from appearing in the returned timeline. Using exclude_replies with the count parameter will mean you will receive up-to count tweets — this is because the count parameter retrieves that many tweets before filtering out retweets and replies.
       #   @return [Array<Twitter::Status>]
       #   @example Return the 20 most recent statuses posted by @sferik
-      #     Twitter.user_timeline("sferik")
+      #     Twitter.user_timeline('sferik')
       def user_timeline(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
         if user = args.pop
@@ -226,7 +226,7 @@ module Twitter
       #   @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
       #   @return [Array<Twitter::Status>]
       #   @example Return the 20 most recent statuses posted by @sferik
-      #     Twitter.media_timeline("sferik")
+      #     Twitter.media_timeline('sferik')
       def media_timeline(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
         if user = args.pop

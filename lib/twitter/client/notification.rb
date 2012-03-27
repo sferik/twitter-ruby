@@ -17,7 +17,7 @@ module Twitter
       # @return [Twitter::User] The specified user.
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @example Enable device notifications for updates from @sferik
-      #   Twitter.enable_notifications("sferik")
+      #   Twitter.enable_notifications('sferik')
       #   Twitter.enable_notifications(7505382)  # Same as above
       def enable_notifications(user, options={})
         options.merge_user!(user)
@@ -36,7 +36,7 @@ module Twitter
       # @return [Twitter::User] The specified user.
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @example Disable device notifications for updates from @sferik
-      #   Twitter.disable_notifications("sferik")
+      #   Twitter.disable_notifications('sferik')
       #   Twitter.disable_notifications(7505382)  # Same as above
       def disable_notifications(user, options={})
         options.merge_user!(user)

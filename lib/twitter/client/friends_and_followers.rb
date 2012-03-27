@@ -29,7 +29,7 @@ module Twitter
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. This is recommended for users who are following many users. Provide a value of -1 to begin paging. Provide values as returned in the response body's next_cursor and previous_cursor attributes to page back and forth in the list.
       #   @return [Twitter::Cursor]
       #   @example Return @sferik's followers' IDs
-      #     Twitter.follower_ids("sferik")
+      #     Twitter.follower_ids('sferik')
       #     Twitter.follower_ids(7505382)  # Same as above
       def follower_ids(*args)
         options = {:cursor => -1}
@@ -61,7 +61,7 @@ module Twitter
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
       #   @return [Twitter::Cursor]
       #   @example Return @sferik's friends' IDs
-      #     Twitter.friend_ids("sferik")
+      #     Twitter.friend_ids('sferik')
       #     Twitter.friend_ids(7505382)  # Same as above
       def friend_ids(*args)
         options = {:cursor => -1}
@@ -83,7 +83,7 @@ module Twitter
       # @param options [Hash] A customizable set of options.
       # @return [Boolean] true if user_a follows user_b, otherwise false.
       # @example Return true if @sferik follows @pengwynn
-      #   Twitter.friendship?("sferik", "pengwynn")
+      #   Twitter.friendship?('sferik', 'pengwynn')
       def friendship?(user_a, user_b, options={})
         get("/1/friendships/exists.json", options.merge(:user_a => user_a, :user_b => user_b))
       end
@@ -130,7 +130,7 @@ module Twitter
       # @param options [Hash] A customizable set of options.
       # @return [Twitter::Relationship]
       # @example Return the relationship between @sferik and @pengwynn
-      #   Twitter.friendship("sferik", "pengwynn")
+      #   Twitter.friendship('sferik', 'pengwynn')
       #   Twitter.friendship(7505382, 14100886)
       def friendship(source, target, options={})
         case source
@@ -163,7 +163,7 @@ module Twitter
       # @return [Twitter::User] The followed user.
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @example Follow @sferik
-      #   Twitter.follow("sferik")
+      #   Twitter.follow('sferik')
       def follow(user, options={})
         options.merge_user!(user)
         # Twitter always turns on notifications if the "follow" option is present, even if it's set to false
@@ -185,7 +185,7 @@ module Twitter
       # @return [Twitter::User] The unfollowed user.
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @example Unfollow @sferik
-      #   Twitter.unfollow("sferik")
+      #   Twitter.unfollow('sferik')
       def unfollow(user, options={})
         options.merge_user!(user)
         user = delete("/1/friendships/destroy.json", options)
@@ -207,8 +207,8 @@ module Twitter
       #   @return [Array<Twitter::User>] The requested users.
       #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       #   @example Return extended information for @sferik and @pengwynn
-      #     Twitter.friendships("sferik", "pengwynn")
-      #     Twitter.friendships("sferik", 14100886)   # Same as above
+      #     Twitter.friendships('sferik', 'pengwynn')
+      #     Twitter.friendships('sferik', 14100886)   # Same as above
       #     Twitter.friendships(7505382, 14100886)    # Same as above
       def friendships(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
@@ -231,7 +231,7 @@ module Twitter
       # @return [Twitter::Relationship]
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @example Enable rewteets and devise notifications for @sferik
-      #   Twitter.friendship_update("sferik", :device => true, :retweets => true)
+      #   Twitter.friendship_update('sferik', :device => true, :retweets => true)
       def friendship_update(user, options={})
         options.merge_user!(user)
         relationship = post("/1/friendships/update.json", options)['relationship']
@@ -264,7 +264,7 @@ module Twitter
       # @return [Twitter::User] The accepted user.
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @example Accept @sferik's follow request
-      #   Twitter.accept("sferik")
+      #   Twitter.accept('sferik')
       def accept(user, options={})
         options.merge_user!(user)
         user = post("/1/friendships/accept.json", options)
@@ -281,7 +281,7 @@ module Twitter
       # @return [Twitter::User] The denied user.
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @example Deny @sferik's follow request
-      #   Twitter.deny("sferik")
+      #   Twitter.deny('sferik')
       def deny(user, options={})
         options.merge_user!(user)
         user = post("/1/friendships/deny.json", options)

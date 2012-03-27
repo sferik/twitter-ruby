@@ -80,8 +80,8 @@ module Twitter
       # @return [Twitter::DirectMessage] The sent message.
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @example Send a direct message to @sferik from the authenticating user
-      #   Twitter.direct_message_create("sferik", "I'm sending you this message via the Twitter Ruby Gem!")
-      #   Twitter.direct_message_create(7505382, "I'm sending you this message via the Twitter Ruby Gem!")  # Same as above
+      #   Twitter.direct_message_create('sferik', "I'm sending you this message via @gem!")
+      #   Twitter.direct_message_create(7505382, "I'm sending you this message via @gem!")  # Same as above
       def direct_message_create(user, text, options={})
         options.merge_user!(user)
         direct_message = post("/1/direct_messages/new.json", options.merge(:text => text))

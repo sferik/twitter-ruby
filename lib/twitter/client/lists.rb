@@ -25,7 +25,7 @@ module Twitter
       #   @param options [Hash] A customizable set of options.
       #   @return [Array<Twitter::List>]
       #   @example Return all lists the specified user subscribes to
-      #     Twitter.lists_subscribed_to("sferik")
+      #     Twitter.lists_subscribed_to('sferik')
       #     Twitter.lists_subscribed_to(8863586)
       def lists_subscribed_to(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
@@ -52,7 +52,7 @@ module Twitter
       #   @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
       #   @return [Array<Twitter::Status>]
       #   @example Show tweet timeline for members of the authenticated user's "presidents" list
-      #     Twitter.list_timeline("presidents")
+      #     Twitter.list_timeline('presidents')
       #     Twitter.list_timeline(8863586)
       # @overload list_timeline(user, list, options={})
       #   @param user [Integer, String] A Twitter user ID or screen name.
@@ -65,9 +65,9 @@ module Twitter
       #   @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
       #   @return [Array<Twitter::Status>]
       #   @example Show tweet timeline for members of @sferik's "presidents" list
-      #     Twitter.list_timeline("sferik", "presidents")
-      #     Twitter.list_timeline("sferik", 8863586)
-      #     Twitter.list_timeline(7505382, "presidents")
+      #     Twitter.list_timeline('sferik', 'presidents')
+      #     Twitter.list_timeline('sferik', 8863586)
+      #     Twitter.list_timeline(7505382, 'presidents')
       #     Twitter.list_timeline(7505382, 8863586)
       def list_timeline(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
@@ -92,8 +92,8 @@ module Twitter
       #   @return [Twitter::List] The list.
       #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       #   @example Remove @BarackObama from the authenticated user's "presidents" list
-      #     Twitter.list_remove_member("presidents", 813286)
-      #     Twitter.list_remove_member("presidents", 'BarackObama')
+      #     Twitter.list_remove_member('presidents', 813286)
+      #     Twitter.list_remove_member('presidents', 'BarackObama')
       #     Twitter.list_remove_member(8863586, 'BarackObama')
       # @overload list_remove_member(user, list, user_to_remove, options={})
       #   @param user [Integer, String] A Twitter user ID or screen name.
@@ -103,10 +103,10 @@ module Twitter
       #   @return [Twitter::List] The list.
       #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       #   @example Remove @BarackObama from @sferik's "presidents" list
-      #     Twitter.list_remove_member("sferik", "presidents", 813286)
-      #     Twitter.list_remove_member("sferik", "presidents", 'BarackObama')
+      #     Twitter.list_remove_member('sferik', 'presidents', 813286)
+      #     Twitter.list_remove_member('sferik', 'presidents', 'BarackObama')
       #     Twitter.list_remove_member('sferik', 8863586, 'BarackObama')
-      #     Twitter.list_remove_member(7505382, "presidents", 813286)
+      #     Twitter.list_remove_member(7505382, 'presidents', 813286)
       def list_remove_member(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
         user_to_remove = args.pop
@@ -138,7 +138,7 @@ module Twitter
       #   @return [Twitter::Cursor]
       #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       #   @example List the lists that @sferik has been added to
-      #     Twitter.memberships("sferik")
+      #     Twitter.memberships('sferik')
       #     Twitter.memberships(7505382)
       def memberships(*args)
         options = {:cursor => -1}.merge(args.last.is_a?(Hash) ? args.pop : {})
@@ -173,8 +173,8 @@ module Twitter
       #   @return [Twitter::Cursor] The subscribers of the specified list.
       #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       #   @example Return the subscribers of @sferik's "presidents" list
-      #     Twitter.list_subscribers("sferik", 'presidents')
-      #     Twitter.list_subscribers("sferik", 8863586)
+      #     Twitter.list_subscribers('sferik', 'presidents')
+      #     Twitter.list_subscribers('sferik', 8863586)
       #     Twitter.list_subscribers(7505382, 'presidents')
       def list_subscribers(*args)
         options = {:cursor => -1}.merge(args.last.is_a?(Hash) ? args.pop : {})
@@ -205,7 +205,7 @@ module Twitter
       #   @return [Twitter::Cursor]
       #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       #   @example List the lists that @sferik follows
-      #     Twitter.subscriptions("sferik")
+      #     Twitter.subscriptions('sferik')
       #     Twitter.subscriptions(7505382)
       def subscriptions(*args)
         options = {:cursor => -1}.merge(args.last.is_a?(Hash) ? args.pop : {})
@@ -236,8 +236,8 @@ module Twitter
       #   @return [Twitter::List] The specified list.
       #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       #   @example Subscribe to @sferik's "presidents" list
-      #     Twitter.list_subscribe("sferik", 'presidents')
-      #     Twitter.list_subscribe("sferik", 8863586)
+      #     Twitter.list_subscribe('sferik', 'presidents')
+      #     Twitter.list_subscribe('sferik', 8863586)
       #     Twitter.list_subscribe(7505382, 'presidents')
       def list_subscribe(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
@@ -272,10 +272,10 @@ module Twitter
       #   @return [Boolean] true if user is a subscriber of the specified list, otherwise false.
       #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       #   @example Check if @BarackObama is a subscriber of @sferik's "presidents" list
-      #     Twitter.list_subscriber?("sferik", 'presidents', 813286)
-      #     Twitter.list_subscriber?("sferik", 8863586, 813286)
+      #     Twitter.list_subscriber?('sferik', 'presidents', 813286)
+      #     Twitter.list_subscriber?('sferik', 8863586, 813286)
       #     Twitter.list_subscriber?(7505382, 'presidents', 813286)
-      #     Twitter.list_subscriber?("sferik", 'presidents', 'BarackObama')
+      #     Twitter.list_subscriber?('sferik', 'presidents', 'BarackObama')
       # @return [Boolean] true if user is a subscriber of the specified list, otherwise false.
       def list_subscriber?(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
@@ -311,8 +311,8 @@ module Twitter
       #   @return [Twitter::List] The specified list.
       #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       #   @example Unsubscribe from @sferik's "presidents" list
-      #     Twitter.list_unsubscribe("sferik", 'presidents')
-      #     Twitter.list_unsubscribe("sferik", 8863586)
+      #     Twitter.list_unsubscribe('sferik', 'presidents')
+      #     Twitter.list_unsubscribe('sferik', 8863586)
       #     Twitter.list_unsubscribe(7505382, 'presidents')
       def list_unsubscribe(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
@@ -337,8 +337,9 @@ module Twitter
       #   @return [Twitter::List] The list.
       #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       #   @example Add @BarackObama and @pengwynn to the authenticated user's "presidents" list
-      #     Twitter.list_add_members("presidents", [813286, 18755393])
-      #     Twitter.list_add_members('presidents', [813286, 'pengwynn'])
+      #     Twitter.list_add_members('presidents', ['BarackObama', 'pengwynn'])
+      #     Twitter.list_add_members('presidents', [813286, 18755393])
+      #     Twitter.list_add_members(8863586, ['BarackObama', 'pengwynn'])
       #     Twitter.list_add_members(8863586, [813286, 18755393])
       # @overload list_add_members(user, list, users_to_add, options={})
       #   @param user [Integer, String] A Twitter user ID or screen name.
@@ -348,10 +349,11 @@ module Twitter
       #   @return [Twitter::List] The list.
       #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       #   @example Add @BarackObama and @pengwynn to @sferik's "presidents" list
-      #     Twitter.list_add_members("sferik", "presidents", [813286, 18755393])
-      #     Twitter.list_add_members('sferik', 'presidents', [813286, 'pengwynn'])
-      #     Twitter.list_add_members('sferik', 8863586, [813286, 18755393])
-      #     Twitter.list_add_members(7505382, "presidents", [813286, 18755393])
+      #     Twitter.list_add_members('sferik', 'presidents', ['BarackObama', 'pengwynn'])
+      #     Twitter.list_add_members('sferik', 'presidents', [813286, 18755393])
+      #     Twitter.list_add_members(7505382, 'presidents', ['BarackObama', 'pengwynn'])
+      #     Twitter.list_add_members(7505382, 'presidents', [813286, 18755393])
+      #     Twitter.list_add_members(7505382, 8863586, ['BarackObama', 'pengwynn'])
       #     Twitter.list_add_members(7505382, 8863586, [813286, 18755393])
       def list_add_members(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
@@ -377,7 +379,7 @@ module Twitter
       #   @return [Boolean] true if user is a member of the specified list, otherwise false.
       #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       #   @example Check if @BarackObama is a member of the authenticated user's "presidents" list
-      #     Twitter.list_member?("presidents", 813286)
+      #     Twitter.list_member?('presidents', 813286)
       #     Twitter.list_member?(8863586, 'BarackObama')
       # @overload list_member?(user, list, user_to_check, options={})
       #   @param user [Integer, String] A Twitter user ID or screen name.
@@ -387,9 +389,9 @@ module Twitter
       #   @return [Boolean] true if user is a member of the specified list, otherwise false.
       #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       #   @example Check if @BarackObama is a member of @sferik's "presidents" list
-      #     Twitter.list_member?("sferik", "presidents", 813286)
+      #     Twitter.list_member?('sferik', 'presidents', 813286)
       #     Twitter.list_member?('sferik', 8863586, 'BarackObama')
-      #     Twitter.list_member?(7505382, "presidents", 813286)
+      #     Twitter.list_member?(7505382, 'presidents', 813286)
       def list_member?(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
         user_to_check = args.pop
@@ -417,7 +419,7 @@ module Twitter
       #   @return [Twitter::Cursor]
       #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       #   @example Return the members of the authenticated user's "presidents" list
-      #     Twitter.list_members("presidents")
+      #     Twitter.list_members('presidents')
       #     Twitter.list_members(8863586)
       # @overload list_members(user, list, options={})
       #   @param user [Integer, String] A Twitter user ID or screen name.
@@ -428,9 +430,9 @@ module Twitter
       #   @return [Twitter::Cursor]
       #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       #   @example Return the members of @sferik's "presidents" list
-      #     Twitter.list_members("sferik", "presidents")
-      #     Twitter.list_members("sferik", 8863586)
-      #     Twitter.list_members(7505382, "presidents")
+      #     Twitter.list_members('sferik', 'presidents')
+      #     Twitter.list_members('sferik', 8863586)
+      #     Twitter.list_members(7505382, 'presidents')
       #     Twitter.list_members(7505382, 8863586)
       def list_members(*args)
         options = {:cursor => -1}.merge(args.last.is_a?(Hash) ? args.pop : {})
@@ -455,7 +457,7 @@ module Twitter
       #   @return [Twitter::List] The list.
       #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       #   @example Add @BarackObama to the authenticated user's "presidents" list
-      #     Twitter.list_add_member("presidents", 813286)
+      #     Twitter.list_add_member('presidents', 813286)
       #     Twitter.list_add_member(8863586, 813286)
       # @overload list_add_member(user, list, user_to_add, options={})
       #   @param user [Integer, String] A Twitter user ID or screen name.
@@ -465,9 +467,9 @@ module Twitter
       #   @return [Twitter::List] The list.
       #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       #   @example Add @BarackObama to @sferik's "presidents" list
-      #     Twitter.list_add_member("sferik", "presidents", 813286)
+      #     Twitter.list_add_member('sferik', 'presidents', 813286)
       #     Twitter.list_add_member('sferik', 8863586, 813286)
-      #     Twitter.list_add_member(7505382, "presidents", 813286)
+      #     Twitter.list_add_member(7505382, 'presidents', 813286)
       #     Twitter.list_add_member(7505382, 8863586, 813286)
       def list_add_member(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
@@ -493,7 +495,7 @@ module Twitter
       #   @return [Twitter::List] The deleted list.
       #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       #   @example Delete the authenticated user's "presidents" list
-      #     Twitter.list_destroy("presidents")
+      #     Twitter.list_destroy('presidents')
       #     Twitter.list_destroy(8863586)
       # @overload list_destroy(user, list, options={})
       #   @param user [Integer, String] A Twitter user ID or screen name.
@@ -502,9 +504,9 @@ module Twitter
       #   @return [Twitter::List] The deleted list.
       #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       #   @example Delete @sferik's "presidents" list
-      #     Twitter.list_destroy("sferik", "presidents")
-      #     Twitter.list_destroy("sferik", 8863586)
-      #     Twitter.list_destroy(7505382, "presidents")
+      #     Twitter.list_destroy('sferik', 'presidents')
+      #     Twitter.list_destroy('sferik', 8863586)
+      #     Twitter.list_destroy(7505382, 'presidents')
       #     Twitter.list_destroy(7505382, 8863586)
       def list_destroy(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
@@ -529,7 +531,7 @@ module Twitter
       #   @return [Twitter::List] The created list.
       #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       #   @example Update the authenticated user's "presidents" list to have the description "Presidents of the United States of America"
-      #     Twitter.list_update("presidents", :description => "Presidents of the United States of America")
+      #     Twitter.list_update('presidents', :description => "Presidents of the United States of America")
       #     Twitter.list_update(8863586, :description => "Presidents of the United States of America")
       # @overload list_update(user, list, options={})
       #   @param user [Integer, String] A Twitter user ID or screen name.
@@ -540,9 +542,9 @@ module Twitter
       #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       #   @return [Twitter::List] The created list.
       #   @example Update the @sferik's "presidents" list to have the description "Presidents of the United States of America"
-      #     Twitter.list_update("sferik", "presidents", :description => "Presidents of the United States of America")
-      #     Twitter.list_update(7505382, "presidents", :description => "Presidents of the United States of America")
-      #     Twitter.list_update("sferik", 8863586, :description => "Presidents of the United States of America")
+      #     Twitter.list_update('sferik', 'presidents', :description => "Presidents of the United States of America")
+      #     Twitter.list_update(7505382, 'presidents', :description => "Presidents of the United States of America")
+      #     Twitter.list_update('sferik', 8863586, :description => "Presidents of the United States of America")
       #     Twitter.list_update(7505382, 8863586, :description => "Presidents of the United States of America")
       def list_update(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
@@ -566,8 +568,8 @@ module Twitter
       # @option options [String] :description The description to give the list.
       # @return [Twitter::List] The created list.
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-      # @example Create a list named "presidents"
-      #   Twitter.list_create("presidents")
+      # @example Create a list named 'presidents'
+      #   Twitter.list_create('presidents')
       def list_create(name, options={})
         list = post("/1/lists/create.json", options.merge(:name => name))
         Twitter::List.new(list)
@@ -593,7 +595,7 @@ module Twitter
       #   @return [Twitter::Cursor]
       #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       #   @example List @sferik's lists
-      #     Twitter.lists("sferik")
+      #     Twitter.lists('sferik')
       #     Twitter.lists(7505382)
       def lists(*args)
         options = {:cursor => -1}.merge(args.last.is_a?(Hash) ? args.pop : {})
@@ -615,7 +617,7 @@ module Twitter
       #   @return [Twitter::List] The specified list.
       #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       #   @example Show the authenticated user's "presidents" list
-      #     Twitter.list("presidents")
+      #     Twitter.list('presidents')
       #     Twitter.list(8863586)
       # @overload list(user, list, options={})
       #   @param user [Integer, String] A Twitter user ID or screen name.
@@ -624,9 +626,9 @@ module Twitter
       #   @return [Twitter::List] The specified list.
       #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       #   @example Show @sferik's "presidents" list
-      #     Twitter.list("sferik", "presidents")
-      #     Twitter.list("sferik", 8863586)
-      #     Twitter.list(7505382, "presidents")
+      #     Twitter.list('sferik', 'presidents')
+      #     Twitter.list('sferik', 8863586)
+      #     Twitter.list(7505382, 'presidents')
       #     Twitter.list(7505382, 8863586)
       def list(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
