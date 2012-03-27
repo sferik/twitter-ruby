@@ -98,5 +98,31 @@ module Twitter
       end
     end
 
+    # @note Must :include_entities in your request for this method to work
+    # @return [Array<Twitter::Entity::Hashtag>]
+    # @raise [Twitter::Status::NoEntityError] Error raised when entities are not available
+    def hashtags
+      @hashtags ||= if @attrs['entities'].nil?
+        raise NoEntityError
+      else
+        Array(@attrs['entities']['hashtags']).map do |hashtag|
+          Twitter::Entity::Hashtag.new(hashtag)
+        end
+      end
+    end
+
+    # @note Must :include_entities in your request for this method to work
+    # @return [Array<Twitter::Entity::UserMention>]
+    # @raise [Twitter::Status::NoEntityError] Error raised when entities are not available
+    def user_mentions
+      @user_mentions ||= if @attrs['entities'].nil?
+        raise NoEntityError
+      else
+        Array(@attrs['entities']['user_mentions']).map do |user_mention|
+          Twitter::Entity::UserMention.new(user_mention)
+        end
+      end
+    end
+
   end
 end
