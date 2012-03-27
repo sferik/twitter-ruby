@@ -8,9 +8,18 @@ require 'twitter/metadata'
 require 'twitter/oembed'
 require 'twitter/place'
 require 'twitter/user'
+require 'twitter/entity/url'
+require 'twitter/entity/user_mention'
+require 'twitter/entity/hashtag'
 
 module Twitter
   class Status < Twitter::Base
+    class NoEntityError < StandardError
+      def initialize
+        super("Entities are not available.  Pass :include_entities => true on fetching the Twitter::Status object")
+      end
+    end
+
     include Twitter::Creatable
     lazy_attr_reader :favorited, :from_user, :from_user_id, :from_user_name, :id,
       :in_reply_to_screen_name, :in_reply_to_attrs_id, :in_reply_to_status_id,
@@ -74,6 +83,45 @@ module Twitter
     def oembed(options={})
       @client ||= Twitter::Client.new
       @client.oembed(@attrs['id'], options) unless @attrs['id'].nil?
+    end
+
+    # @note Must :include_entities in your request for this method to work
+    # @return [Array<Twitter::Entity::Url>]
+    # @raise [Twitter::Status::NoEntityError] Error raised when entities are not available
+    def urls
+      @urls ||= if @attrs['entities'].nil?
+        raise NoEntityError
+      else
+        Array(@attrs['entities']['urls']).map do |url|
+          Twitter::Entity::Url.new(url)
+        end
+      end
+    end
+
+    # @note Must :include_entities in your request for this method to work
+    # @return [Array<Twitter::Entity::Hashtag>]
+    # @raise [Twitter::Status::NoEntityError] Error raised when entities are not available
+    def hashtags
+      @hashtags ||= if @attrs['entities'].nil?
+        raise NoEntityError
+      else
+        Array(@attrs['entities']['hashtags']).map do |hashtag|
+          Twitter::Entity::Hashtag.new(hashtag)
+        end
+      end
+    end
+
+    # @note Must :include_entities in your request for this method to work
+    # @return [Array<Twitter::Entity::UserMention>]
+    # @raise [Twitter::Status::NoEntityError] Error raised when entities are not available
+    def user_mentions
+      @user_mentions ||= if @attrs['entities'].nil?
+        raise NoEntityError
+      else
+        Array(@attrs['entities']['user_mentions']).map do |user_mention|
+          Twitter::Entity::UserMention.new(user_mention)
+        end
+      end
     end
 
   end
