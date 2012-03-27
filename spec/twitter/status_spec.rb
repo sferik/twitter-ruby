@@ -145,4 +145,21 @@ describe Twitter::Status do
     end
   end
 
+  describe "#urls" do
+    it "should return an Array of Entity::Url when entities are set" do
+      urls_hash = [{'url' => 'http://example.com/t.co',
+          'expanded_url' => 'http://example.com/expanded',
+          'display_url' => 'example.com/expanded',
+          'indices' => [10, 33]}]
+      urls = Twitter::Status.new('entities' => {'urls' => urls_hash}).urls
+      urls.should be_an Array
+      urls.first.should be_an Twitter::Entity::Url
+      urls.first.indices.should == [10, 33]
+      urls.first.display_url.should == 'example.com/expanded'
+    end
+    it "should raise NoEntityError when entities are not set" do
+      expect { Twitter::Status.new.urls }.to raise_error(Twitter::Status::NoEntityError)
+    end
+  end
+
 end
