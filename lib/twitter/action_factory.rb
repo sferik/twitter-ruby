@@ -1,11 +1,10 @@
+require 'active_support/core_ext/string/inflections'
 require 'twitter/favorite'
 require 'twitter/follow'
 require 'twitter/list_member_added'
 require 'twitter/mention'
 require 'twitter/reply'
 require 'twitter/retweet'
-
-require 'active_support/core_ext/string/inflections'
 
 module Twitter
   class ActionFactory

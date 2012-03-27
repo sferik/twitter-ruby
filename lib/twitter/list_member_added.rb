@@ -6,7 +6,7 @@ module Twitter
   class ListMemberAdded < Twitter::Action
     lazy_attr_reader :target_objects
 
-    # A collection of users who added to the list
+    # A collection of users who added a user to a list
     #
     # @return [Array<Twitter::User>]
     def sources
@@ -24,7 +24,7 @@ module Twitter
       end
     end
 
-    # A collection of users who were added to the list
+    # A collection of users who were added to a list
     #
     # @return [Array<Twitter::User>]
     def targets
