@@ -20,20 +20,6 @@ Gem::Specification.new do |gem|
   gem.files = `git ls-files`.split("\n")
   gem.homepage = 'https://github.com/jnunemaker/twitter'
   gem.name = 'twitter'
-  gem.post_install_message =<<eos
-********************************************************************************
-
-  You should follow @gem on Twitter for announcements and updates about the gem.
-  https://twitter.com/gem
-
-  Please direct any questions about the library to the mailing list.
-  https://groups.google.com/group/ruby-twitter-gem
-
-  Does your project or organization use this gem? Add it to the apps wiki!
-  https://github.com/jnunemaker/twitter/wiki/apps
-
-********************************************************************************
-eos
   gem.require_paths = ['lib']
   gem.required_rubygems_version = Gem::Requirement.new('>= 1.3.6')
   gem.summary = %q{Twitter API wrapper}
