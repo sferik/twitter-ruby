@@ -36,7 +36,7 @@ describe Twitter::Client do
           :oauth_token_secret => 'OS',
           :adapter => :typhoeus,
           :endpoint => 'http://tumblr.com/',
-          :gateway => 'apigee-1111.apigee.com',
+          :gateway => 'gateway.example.com',
           :proxy => 'http://erik:sekret@proxy.example.com:8080',
           :search_endpoint => 'http://google.com/',
           :media_endpoint => 'https://upload.twitter.com/',
