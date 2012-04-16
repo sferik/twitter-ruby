@@ -55,7 +55,7 @@ module Twitter
       # @option options [String] :lang Restricts tweets to the given language, given by an ISO 639-1 code.
       # @option options [String] :locale Specify the language of the query you are sending (only ja is currently effective). This is intended for language-specific clients and the default should work in the majority of cases.
       # @option options [Integer] :page The page number (starting at 1) to return, up to a max of roughly 1500 results (based on rpp * page).
-      # @option options [String] :result_type Specifies what type of search results you would prefer to receive. The current default is "mixed."
+      # @option options [String] :result_type Specifies what type of search results you would prefer to receive. Options are "mixed", "recent", and "popular". The current default is "mixed."
       # @option options [Integer] :rpp The number of tweets to return per page, up to a max of 100.
       # @option options [String] :until Optional. Returns tweets generated before the given date. Date should be formatted as YYYY-MM-DD.
       # @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID. There are limits to the number of Tweets which can be accessed through the API. If the limit of Tweets has occured since the since_id, the since_id will be forced to the oldest ID available.
