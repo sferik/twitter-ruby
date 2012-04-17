@@ -14,7 +14,7 @@ module Twitter
           when 'false'
             false
           else
-            ::MultiJson.decode(body)
+            ::MultiJson.load(body)
           end
       end
 

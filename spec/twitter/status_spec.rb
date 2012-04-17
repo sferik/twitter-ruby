@@ -30,9 +30,9 @@ describe Twitter::Status do
   end
 
   describe "#created_at" do
-    it "should return a Time when set" do
+    it "should return a String when set" do
       status = Twitter::Status.new('created_at' => "Mon Jul 16 12:59:01 +0000 2007")
-      status.created_at.should be_a Time
+      status.created_at.should be_a String
     end
     it "should return nil when not set" do
       status = Twitter::Status.new
