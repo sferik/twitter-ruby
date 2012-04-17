@@ -5,9 +5,9 @@ module Twitter
 
     # Time when the object was created on Twitter
     #
-    # @return [Time]
+    # @return [String]
     def created_at
-      @created_at ||= Time.parse(@attrs['created_at']) unless @attrs['created_at'].nil?
+      @created_at ||= @attrs['created_at'] unless @attrs['created_at'].nil?
     end
 
   end

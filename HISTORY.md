@@ -1,6 +1,11 @@
 HISTORY
 =======
 
+2.2.1 - April 16, 2012
+--------------------------
+* Use load insted of decode for json decoding
+* Avoid Time to String conversion error for created_at attribute
+
 1.7.2 - September 22, 2011
 --------------------------
 * [Update multi_xml dependency to 0.4.0](https://github.com/jnunemaker/twitter/commit/01105b7e7f211a140ce61bdbe5e3fc7d68c9b301) ([@masterkain](http://twitter.com/masterkain))

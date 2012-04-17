@@ -23,7 +23,7 @@ describe Twitter::SavedSearch do
   describe "#created_at" do
     it "should return a Time when created_at is set" do
       saved_search = Twitter::SavedSearch.new('created_at' => "Mon Jul 16 12:59:01 +0000 2007")
-      saved_search.created_at.should be_a Time
+      saved_search.created_at.should be_a String
     end
     it "should return nil when created_at is not set" do
       saved_search = Twitter::SavedSearch.new
