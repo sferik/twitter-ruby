@@ -2,7 +2,6 @@
 *.rbc
 *~
 .bundle
-.DS_Store
 .rvmrc
 .yardoc
 coverage/*
