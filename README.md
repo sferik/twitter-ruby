@@ -109,10 +109,10 @@ A true identity map may be implemented in future versions of this library.
 ## <a href="performance"></a>Performance
 You can improve performance by preloading a faster JSON parsing library. By
 default, JSON will be parsed with [okjson][]. For faster JSON parsing, we
-recommend [yajl][].
+recommend [Oj][].
 
 [okjson]: https://github.com/ddollar/okjson
-[yajl]: https://github.com/brianmario/yajl-ruby
+[oj]: https://rubygems.org/gems/oj
 
 ## <a name="examples"></a>Usage Examples
 Return [@sferik][sferik]'s location
