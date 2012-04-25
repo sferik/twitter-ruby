@@ -303,20 +303,47 @@ describe Twitter::Client do
   end
 
   describe ".recommendations" do
-    before do
-      stub_get("/1/users/recommendations.json").
-        to_return(:body => fixture("recommendations.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+    context "with a screen name passed" do
+      before do
+        stub_get("/1/users/recommendations.json").
+          with(:query => {:screen_name => "sferik"}).
+          to_return(:body => fixture("recommendations.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      end
+      it "should request the correct resource" do
+        @client.recommendations("sferik")
+        a_get("/1/users/recommendations.json").
+          with(:query => {:screen_name => "sferik"}).
+          should have_been_made
+      end
+      it "should return recommended users for the authenticated user" do
+        recommendations = @client.recommendations("sferik")
+        recommendations.should be_an Array
+        recommendations.first.should be_a Twitter::User
+        recommendations.first.name.should == "John Trupiano"
+      end
     end
-    it "should request the correct resource" do
-      @client.recommendations
-      a_get("/1/users/recommendations.json").
-        should have_been_made
-    end
-    it "should return recommended users for the authenticated user" do
-      recommendations = @client.recommendations
-      recommendations.should be_an Array
-      recommendations.first.should be_a Twitter::User
-      recommendations.first.name.should == "John Trupiano"
+    context "without arguments passed" do
+      before do
+        stub_get("/1/account/verify_credentials.json").
+          to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        stub_get("/1/users/recommendations.json").
+          with(:query => {:screen_name => "sferik"}).
+          to_return(:body => fixture("recommendations.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      end
+      it "should request the correct resource" do
+        @client.recommendations
+        a_get("/1/account/verify_credentials.json").
+          should have_been_made
+        a_get("/1/users/recommendations.json").
+          with(:query => {:screen_name => "sferik"}).
+          should have_been_made
+      end
+      it "should return recommended users for the authenticated user" do
+        recommendations = @client.recommendations
+        recommendations.should be_an Array
+        recommendations.first.should be_a Twitter::User
+        recommendations.first.name.should == "John Trupiano"
+      end
     end
   end
 

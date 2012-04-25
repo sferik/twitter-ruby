@@ -190,7 +190,11 @@ module Twitter
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @example Return recommended users for the authenticated user
       #   Twitter.recommendations
-      def recommendations(options={})
+      def recommendations(*args)
+        options = {}
+        options.merge!(args.last.is_a?(Hash) ? args.pop : {})
+        user = args.pop || self.current_user.screen_name
+        options.merge_user!(user)
         options[:excluded] = options[:excluded].join(',') if options[:excluded].is_a?(Array)
         get("/1/users/recommendations.json", options).map do |recommendation|
           Twitter::User.new(recommendation['user'])
