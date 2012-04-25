@@ -23,6 +23,7 @@ module Twitter
           Twitter::Trend.new(trend)
         end
       end
+      alias :trends :local_trends
 
       # Returns the locations that Twitter has trending topic information for
       #
