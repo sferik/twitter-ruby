@@ -1,8 +1,10 @@
 require 'twitter/base'
+require 'twitter/creatable'
 require 'twitter/user'
 
 module Twitter
   class List < Twitter::Base
+    include Twitter::Creatable
     lazy_attr_reader :description, :following, :full_name, :id, :member_count,
       :mode, :name, :slug, :subscriber_count, :uri
     alias :following? :following
