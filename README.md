@@ -4,7 +4,7 @@ A Ruby wrapper for the Twitter API.
 [travis]: http://travis-ci.org/jnunemaker/twitter
 [gemnasium]: https://gemnasium.com/jnunemaker/twitter
 
-## <a name="installation"></a>Installation
+## Installation
     gem install twitter
 
 Looking for the Twitter command-line interface? It was [removed] from this gem
@@ -15,29 +15,29 @@ in version 0.5.0 and now is [maintained][] as a separate project called `t`.
 [removed]: https://github.com/jnunemaker/twitter/commit/dd2445e3e2c97f38b28a3f32ea902536b3897adf
 [maintained]: https://github.com/sferik/t
 
-## <a name="documentation"></a>Documentation
+## Documentation
 [http://rdoc.info/gems/twitter][documentation]
 
 [documentation]: http://rdoc.info/gems/twitter
 
-## <a name="follow"></a>Follow @gem on Twitter
+## Follow @gem on Twitter
 You should [follow @gem][follow] on Twitter for announcements and updates about
 the gem.
 
 [follow]: https://twitter.com/gem
 
-## <a name="mailing_list"></a>Mailing List
+## Mailing List
 Please direct any questions about the library to the [mailing list].
 
 [mailing list]: https://groups.google.com/group/ruby-twitter-gem
 
-## <a name="apps"></a>Apps Wiki
+## Apps Wiki
 Does your project or organization use this gem? Add it to the [apps
 wiki][apps]!
 
 [apps]: https://github.com/jnunemaker/twitter/wiki/apps
 
-## <a name="2.0"></a>What's new in version 2?
+## What's new in version 2?
 This version introduces a number of new classes, notably:
 
     Twitter::Configuration	Twitter::List		Twitter::Polygon			Twitter::Settings
@@ -114,7 +114,7 @@ recommend [Oj][].
 [okjson]: https://github.com/ddollar/okjson
 [oj]: https://rubygems.org/gems/oj
 
-## <a name="examples"></a>Usage Examples
+## Usage Examples
 Return [@sferik][sferik]'s location
 
     Twitter.user("sferik").location
@@ -156,11 +156,11 @@ Get your rate limit status
 [sferik]: https://twitter.com/sferik
 [justinbieber]: https://twitter.com/justinbieber
 
-## <a name="proxy"></a>Configuration for API Proxy Services
+## Configuration for API Proxy Services
 
     Twitter.gateway = YOUR_GATEWAY_HOSTNAME # e.g 'gateway.example.com'
 
-## <a name="contributing"></a>Contributing
+## Contributing
 In the spirit of [free software][free-sw], **everyone** is encouraged to help improve
 this project.
 
@@ -173,9 +173,10 @@ Here are some ways *you* can contribute:
 * by suggesting new features
 * by writing or editing documentation
 * by writing specifications
-* by writing code (**no patch is too small**: fix typos, add comments, clean up inconsistent whitespace)
+* by writing code (**no patch is too small**: fix typos, add comments, clean up
+  inconsistent whitespace)
 * by refactoring code
-* by closing [issues][]
+* by fixing [issues][]
 * by reviewing patches
 * [financially][]
 
@@ -187,33 +188,36 @@ and gratitude of the community.
 
 [history]: https://github.com/jnunemaker/twitter/blob/master/HISTORY.md
 
-## <a name="issues"></a>Submitting an Issue
+## Submitting an Issue
 We use the [GitHub issue tracker][issues] to track bugs and features. Before
 submitting a bug report or feature request, check to make sure it hasn't
-already been submitted. You can indicate support for an existing issue by
-voting it up. When submitting a bug report, please include a [gist][] that
-includes a stack trace and any details that may be necessary to reproduce the
-bug, including your gem version, Ruby version, and operating system. Ideally, a
-bug report should include a pull request with failing specs.
+already been submitted. When submitting a bug report, please include a [Gist][]
+that includes a stack trace and any details that may be necessary to reproduce
+the bug, including your gem version, Ruby version, and operating system.
+Ideally, a bug report should include a pull request with failing specs.
 
 [gist]: https://gist.github.com/
 
-## <a name="pulls"></a>Submitting a Pull Request
-1. Fork the project.
-2. Create a topic branch.
-3. Implement your feature or bug fix.
-4. Add documentation for your feature or bug fix.
-5. Run `bundle exec rake yard`. If your changes are not 100% documented, go
-   back to step 4.
-6. Add specs for your feature or bug fix.
-7. Run `bundle exec rake spec`. If your changes are not 100% covered, go back
-   to step 6.
-8. Commit and push your changes.
-9. Submit a pull request. Please do not include changes to the gemspec,
-   version, or history file. (If you want to create your own version for some
-   reason, please do so in a separate commit.)
+## Submitting a Pull Request
+1. [Fork the repository.][fork]
+2. [Create a topic branch.][branch]
+3. Add specs for your unimplemented feature or bug fix.
+4. Run `bundle exec rake spec`. If your specs pass, return to step 3.
+5. Implement your feature or bug fix.
+6. Run `bundle exec rake spec`. If your specs fail, return to step 5.
+7. Run `open coverage/index.html`. If your changes are not completely covered
+   by your tests, return to step 3.
+8. Add documentation for your feature or bug fix.
+9. Run `bundle exec rake yard`. If your changes are not 100% documented, go
+   back to step 8.
+10. Add, commit, and push your changes.
+11. [Submit a pull request.][pr]
 
-## <a name="versions"></a>Supported Ruby Versions
+[fork]: http://help.github.com/fork-a-repo/
+[branch]: http://learn.github.com/p/branching.html
+[pr]: http://help.github.com/send-pull-requests/
+
+## Supported Ruby Versions
 This library aims to support and is [tested against][travis] the following Ruby
 implementations:
 
@@ -240,7 +244,7 @@ implementation, you will be personally responsible for providing patches in a
 timely fashion. If critical issues for a particular implementation exist at the
 time of a major release, support for that Ruby version may be dropped.
 
-## <a name="copyright"></a>Copyright
+## Copyright
 Copyright (c) 2011 John Nunemaker, Wynn Netherland, Erik Michaels-Ober, Steve Richert.
 See [LICENSE][] for details.
 
