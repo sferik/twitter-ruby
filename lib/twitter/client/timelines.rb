@@ -32,7 +32,7 @@ module Twitter
       # Returns the 20 most recent mentions (statuses containing @username) for the authenticating user
       #
       # @see https://dev.twitter.com/docs/api/1/get/statuses/mentions
-      # @note This method can only return up to 800 statuses. If the :include_rts option is set, only 800 statuses, including retweets if they exist, can be returned.
+      # @note This method can only return up to 800 statuses.
       # @rate_limited Yes
       # @requires_authentication Yes
       # @param options [Hash] A customizable set of options.
@@ -40,7 +40,6 @@ module Twitter
       # @option options [Integer] :max_id Returns results with an ID less than (that is, older than) or equal to the specified ID.
       # @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 200.
       # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
-      # @option options [Boolean, String, Integer] :include_rts The timeline will contain native retweets (if they exist) in addition to the standard stream of tweets when set to true, 't' or 1.
       # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
       # @return [Array<Twitter::Status>]
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
@@ -176,7 +175,7 @@ module Twitter
       # Returns the 20 most recent statuses posted by the specified user
       #
       # @see https://dev.twitter.com/docs/api/1/get/statuses/user_timeline
-      # @note This method can only return up to 3200 statuses. If the :include_rts option is set, only 3200 statuses, including retweets if they exist, can be returned.
+      # @note This method can only return up to 3200 statuses.
       # @rate_limited Yes
       # @requires_authentication No unless the user whose timeline you're trying to view is protected
       # @overload user_timeline(user, options={})
@@ -186,7 +185,6 @@ module Twitter
       #   @option options [Integer] :max_id Returns results with an ID less than (that is, older than) or equal to the specified ID.
       #   @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 200.
       #   @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
-      #   @option options [Boolean, String, Integer] :include_rts The timeline will contain native retweets (if they exist) in addition to the standard stream of tweets when set to true, 't' or 1.
       #   @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
       #   @option options [Boolean, String, Integer] :exclude_replies This parameter will prevent replies from appearing in the returned timeline. Using exclude_replies with the count parameter will mean you will receive up-to count tweets — this is because the count parameter retrieves that many tweets before filtering out retweets and replies.
       #   @return [Array<Twitter::Status>]
