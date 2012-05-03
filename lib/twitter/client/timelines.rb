@@ -49,23 +49,6 @@ module Twitter
         end
       end
 
-      # Returns the 20 most recent statuses, including retweets if they exist, from non-protected users
-      #
-      # @see https://dev.twitter.com/docs/api/1/get/statuses/public_timeline
-      # @note The public timeline is cached for 60 seconds. Requesting more frequently than that will not return any more data, and will count against your rate limit usage.
-      # @rate_limited Yes
-      # @requires_authentication No
-      # @param options [Hash] A customizable set of options.
-      # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
-      # @return [Array<Twitter::Status>]
-      # @example Return the 20 most recent statuses, including retweets if they exist, from non-protected users
-      #   Twitter.public_timeline
-      def public_timeline(options={})
-        get("/1/statuses/public_timeline.json", options).map do |status|
-          Twitter::Status.new(status)
-        end
-      end
-
       # Returns the 20 most recent retweets posted by the specified user
       #
       # @see https://dev.twitter.com/docs/api/1/get/statuses/retweeted_by_me
