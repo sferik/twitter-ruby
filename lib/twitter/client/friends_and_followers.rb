@@ -159,7 +159,6 @@ module Twitter
       # @param user [Integer, String] A Twitter user ID or screen name.
       # @param options [Hash] A customizable set of options.
       # @option options [Boolean] :follow (false) Enable notifications for the target user.
-      # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
       # @return [Twitter::User] The followed user.
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @example Follow @sferik
@@ -181,7 +180,6 @@ module Twitter
       # @requires_authentication Yes
       # @param user [Integer, String] A Twitter user ID or screen name.
       # @param options [Hash] A customizable set of options.
-      # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
       # @return [Twitter::User] The unfollowed user.
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @example Unfollow @sferik
@@ -203,7 +201,6 @@ module Twitter
       # @overload friendships(*users, options={})
       #   @param users [Array<Integer, String>, Set<Integer, String>] Twitter user IDs or screen names.
       #   @param options [Hash] A customizable set of options.
-      #   @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet
       #   @return [Array<Twitter::User>] The requested users.
       #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       #   @example Return extended information for @sferik and @pengwynn

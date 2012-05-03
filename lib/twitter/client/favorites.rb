@@ -14,7 +14,6 @@ module Twitter
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 100.
       #   @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID.
-      #   @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
       #   @return [Array<Twitter::Status>] favorite statuses.
       #   @example Return the 20 most recent favorite statuses for the authenticating user
       #     Twitter.favorites
@@ -46,7 +45,6 @@ module Twitter
       # @requires_authentication Yes
       # @param id [Integer] The numerical ID of the desired status.
       # @param options [Hash] A customizable set of options.
-      # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
       # @return [Twitter::Status] The favorited status.
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @example Favorite the status with the ID 25938088801
@@ -64,7 +62,6 @@ module Twitter
       # @requires_authentication Yes
       # @param id [Integer] The numerical ID of the desired status.
       # @param options [Hash] A customizable set of options.
-      # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
       # @return [Twitter::Status] The un-favorited status.
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @example Un-favorite the status with the ID 25938088801

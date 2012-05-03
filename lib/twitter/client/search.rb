@@ -13,7 +13,6 @@ module Twitter
       # @param q [String] A search term.
       # @param options [Hash] A customizable set of options.
       # @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 100.
-      # @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
       # @return [Array<Twitter::Status>] An array of statuses that contain images
       # @example Return recent statuses that contain images related to a query
       #   Twitter.images('twitter')
@@ -31,7 +30,6 @@ module Twitter
       # @param q [String] A search term.
       # @param options [Hash] A customizable set of options.
       # @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 100.
-      # @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
       # @return [Array<Twitter::Status>] An array of statuses that contain videos
       # @example Return recent statuses that contain videos related to a query
       #   Twitter.videos('twitter')
@@ -59,7 +57,6 @@ module Twitter
       # @option options [Integer] :rpp The number of tweets to return per page, up to a max of 100.
       # @option options [String] :until Optional. Returns tweets generated before the given date. Date should be formatted as YYYY-MM-DD.
       # @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID. There are limits to the number of Tweets which can be accessed through the API. If the limit of Tweets has occured since the since_id, the since_id will be forced to the oldest ID available.
-      # @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
       # @option options [Boolean, String, Integer] :with_twitter_user_id When set to either true, t or 1, the from_user_id, from_user_id_str, to_user_id, and to_user_id_str values in the response will map to "official" user IDs which will match those returned by the REST API.
       # @return [Array<Twitter::Status>] Return tweets that match a specified query
       # @example Returns tweets related to twitter
@@ -78,7 +75,6 @@ module Twitter
       # @param q [String] A search term.
       # @param options [Hash] A customizable set of options.
       # @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 100.
-      # @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
       # @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID.
       # @return [Array<Twitter::Status>] An array of statuses that contain videos
       # @example Return recent statuses related to twitter with images and videos embedded

@@ -15,7 +15,6 @@ module Twitter
       # @overload users(*users, options={})
       #   @param users [Array<Integer, String>, Set<Integer, String>] Twitter user IDs or screen names.
       #   @param options [Hash] A customizable set of options.
-      #   @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
       #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       #   @return [Array<Twitter::User>] The requested users.
       #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
@@ -58,7 +57,6 @@ module Twitter
       # @param options [Hash] A customizable set of options.
       # @option options [Integer] :per_page The number of people to retrieve. Maxiumum of 20 allowed per page.
       # @option options [Integer] :page Specifies the page of results to retrieve.
-      # @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
       # @return [Array<Twitter::User>]
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @example Return users that match "Erik Michaels-Ober"
@@ -77,7 +75,6 @@ module Twitter
       # @overload user(user, options={})
       #   @param user [Integer, String] A Twitter user ID or screen name.
       #   @param options [Hash] A customizable set of options.
-      #   @option options [Boolean, String, Integer] :include_entities Include {https://dev.twitter.com/docs/tweet-entities Tweet Entities} when set to true, 't' or 1.
       #   @return [Twitter::User] The requested user.
       #   @example Return extended information for @sferik
       #     Twitter.user('sferik')
@@ -119,7 +116,6 @@ module Twitter
       #   If getting this data of a protected user, you must authenticate (and be allowed to see that user).
       # @overload contributees(options={})
       #   @param options [Hash] A customizable set of options.
-      #   @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
       #   @option options [Boolean, String, Integer] :skip_status Do not include contributee's statuses when set to true, 't' or 1.
       #   @return [Array<Twitter::User>]
       #   @example Return the authenticated user's contributees
@@ -127,7 +123,6 @@ module Twitter
       ## @overload contributees(user, options={})
       #   @param user [Integer, String] A Twitter user ID or screen name.
       #   @param options [Hash] A customizable set of options.
-      #   @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
       #   @option options [Boolean, String, Integer] :skip_status Do not include contributee's statuses when set to true, 't' or 1.
       #   @return [Array<Twitter::User>]
       #   @example Return users @sferik can contribute to
@@ -152,7 +147,6 @@ module Twitter
       #   If getting this data of a protected user, you must authenticate (and be allowed to see that user).
       # @overload contributors(options={})
       #   @param options [Hash] A customizable set of options.
-      #   @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
       #   @option options [Boolean, String, Integer] :skip_status Do not include contributee's statuses when set to true, 't' or 1.
       #   @return [Array<Twitter::User>]
       #   @example Return the authenticated user's contributors
@@ -160,7 +154,6 @@ module Twitter
       ## @overload contributors(user, options={})
       #   @param user [Integer, String] A Twitter user ID or screen name.
       #   @param options [Hash] A customizable set of options.
-      #   @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
       #   @option options [Boolean, String, Integer] :skip_status Do not include contributee's statuses when set to true, 't' or 1.
       #   @return [Array<Twitter::User>]
       #   @example Return users who can contribute to @sferik's account
