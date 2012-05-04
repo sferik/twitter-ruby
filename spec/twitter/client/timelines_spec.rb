@@ -42,24 +42,6 @@ describe Twitter::Client do
     end
   end
 
-  describe ".public_timeline" do
-    before do
-      stub_get("/1/statuses/public_timeline.json").
-        to_return(:body => fixture("statuses.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-    end
-    it "should request the correct resource" do
-      @client.public_timeline
-      a_get("/1/statuses/public_timeline.json").
-        should have_been_made
-    end
-    it "should return the 20 most recent statuses, including retweets if they exist, from non-protected users" do
-      statuses = @client.public_timeline
-      statuses.should be_an Array
-      statuses.first.should be_a Twitter::Status
-      statuses.first.text.should == "Ruby is the best programming language for hiding the ugly bits."
-    end
-  end
-
   describe ".retweeted_by" do
     context "with a screen name passed" do
       before do
