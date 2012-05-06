@@ -38,6 +38,11 @@ module Twitter
       urls.map(&:expanded_url) unless urls.nil?
     end
 
+    # @return [String]
+    def from_user
+      @attrs['from_user'] || @attrs['screen_name']
+    end
+
     # @return [Twitter::Point, Twitter::Polygon]
     def geo
       @geo ||= Twitter::GeoFactory.new(@attrs['geo']) unless @attrs['geo'].nil?
@@ -88,6 +93,11 @@ module Twitter
     # @return [Twitter::Status]
     def retweeted_status
       @retweeted_status ||= self.class.new(@attrs['retweeted_status']) unless @attrs['retweeted_status'].nil?
+    end
+
+    # @return [String]
+    def screen_name
+      @attrs['screen_name'] || @attrs['from_user']
     end
 
     # @note Must include entities in your request for this method to work
