@@ -64,7 +64,7 @@ describe Twitter::Status do
       status.from_user.should == "sferik"
     end
     it "should return a screen name when screen_name is set" do
-      status = Twitter::Status.new('screen_name' => 'sferik')
+      status = Twitter::Status.new('user' => {'screen_name' => 'sferik'})
       status.from_user.should be_a String
       status.from_user.should == "sferik"
     end
@@ -180,23 +180,6 @@ describe Twitter::Status do
     it "should have text when retweeted_status is set" do
       status = Twitter::Status.new('retweeted_status' => {'text' => 'BOOSH'})
       status.retweeted_status.text.should == 'BOOSH'
-    end
-  end
-
-  describe "#screen_name" do
-    it "should return a screen name when screen_name is set" do
-      status = Twitter::Status.new('screen_name' => 'sferik')
-      status.screen_name.should be_a String
-      status.screen_name.should == "sferik"
-    end
-    it "should return a screen name when from_user is set" do
-      status = Twitter::Status.new('from_user' => 'sferik')
-      status.screen_name.should be_a String
-      status.screen_name.should == "sferik"
-    end
-    it "should return nil when not set" do
-      status = Twitter::Status.new
-      status.screen_name.should be_nil
     end
   end
 
