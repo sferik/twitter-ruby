@@ -57,6 +57,7 @@ module Twitter
       # @option options [Integer] :rpp The number of tweets to return per page, up to a max of 100.
       # @option options [String] :until Optional. Returns tweets generated before the given date. Date should be formatted as YYYY-MM-DD.
       # @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID. There are limits to the number of Tweets which can be accessed through the API. If the limit of Tweets has occured since the since_id, the since_id will be forced to the oldest ID available.
+      # @option options [Integer] :max_id Returns results with an ID less than (that is, older than) or equal to the specified ID.      
       # @option options [Boolean, String, Integer] :with_twitter_user_id When set to either true, t or 1, the from_user_id, from_user_id_str, to_user_id, and to_user_id_str values in the response will map to "official" user IDs which will match those returned by the REST API.
       # @return [Array<Twitter::Status>] Return tweets that match a specified query
       # @example Returns tweets related to twitter
