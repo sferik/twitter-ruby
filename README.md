@@ -161,8 +161,8 @@ Get your rate limit status
     Twitter.gateway = YOUR_GATEWAY_HOSTNAME # e.g 'gateway.example.com'
 
 ## Contributing
-In the spirit of [free software][free-sw], **everyone** is encouraged to help improve
-this project.
+In the spirit of [free software][free-sw], **everyone** is encouraged to help
+improve this project.
 
 [free-sw]: http://www.fsf.org/licensing/essays/free-sw.html
 
