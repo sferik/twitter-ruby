@@ -21,4 +21,9 @@ module Twitter
       new.respond_to?(method, include_private) || super(method, include_private)
     end
   end
+
+  # Delegate to Twitter::Client
+  def self.respond_to?(method)
+    return client.respond_to?(method) || super
+  end
 end
