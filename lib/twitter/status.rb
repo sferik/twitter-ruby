@@ -18,7 +18,7 @@ module Twitter
     include Twitter::Creatable
     lazy_attr_reader :favorited, :from_user, :from_user_id, :from_user_name, :id,
       :in_reply_to_screen_name, :in_reply_to_attrs_id, :in_reply_to_status_id,
-      :in_reply_to_user_id, :iso_language_code, :profile_image_url,
+      :in_reply_to_user_id, :iso_language_code, :profile_image_url, :profile_image_url_https,
       :retweet_count, :retweeted, :source, :text, :to_user, :to_user_id, :to_user_name,
       :truncated
     alias :favorited? :favorited
