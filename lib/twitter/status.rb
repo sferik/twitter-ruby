@@ -46,7 +46,7 @@ module Twitter
     # @return [String]
     # @note May be > 140 characters.
     def full_text
-      self.retweeted_status ? "RT @#{self.retweeted_status.user.screen_name}: #{self.retweeted_status.text}" : self.text
+      self.retweeted_status && self.retweeted_status.user ? "RT @#{self.retweeted_status.user.screen_name}: #{self.retweeted_status.text}" : self.text
     end
 
     # @return [Twitter::Point, Twitter::Polygon]

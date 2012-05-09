@@ -80,6 +80,11 @@ describe Twitter::Status do
       status.full_text.should be_a String
       status.full_text.should == "BOOSH"
     end
+    it "should return the text of a status without a user" do
+      status = Twitter::Status.new('text' => 'BOOSH', 'retweeted_status' => {'text' => 'BOOSH'})
+      status.full_text.should be_a String
+      status.full_text.should == "BOOSH"
+    end
     it "should return the full text of a retweeted status" do
       status = Twitter::Status.new('retweeted_status' => {'text' => 'BOOSH', 'user' => {'screen_name' => 'sferik'}})
       status.full_text.should be_a String
