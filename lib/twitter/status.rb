@@ -43,6 +43,12 @@ module Twitter
       @attrs['from_user'] || self.user && self.user.screen_name
     end
 
+    # @return [String]
+    # @note May be > 140 characters.
+    def full_text
+      self.retweeted_status ? "RT @#{self.retweeted_status.user.screen_name}: #{self.retweeted_status.text}" : self.text
+    end
+
     # @return [Twitter::Point, Twitter::Polygon]
     def geo
       @geo ||= Twitter::GeoFactory.new(@attrs['geo']) unless @attrs['geo'].nil?

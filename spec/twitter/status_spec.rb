@@ -74,6 +74,23 @@ describe Twitter::Status do
     end
   end
 
+  describe "#full_text" do
+    it "should return the text of a status" do
+      status = Twitter::Status.new('text' => 'BOOSH')
+      status.full_text.should be_a String
+      status.full_text.should == "BOOSH"
+    end
+    it "should return the full text of a retweeted status" do
+      status = Twitter::Status.new('retweeted_status' => {'text' => 'BOOSH', 'user' => {'screen_name' => 'sferik'}})
+      status.full_text.should be_a String
+      status.full_text.should == "RT @sferik: BOOSH"
+    end
+    it "should return nil when retweeted_status is not set" do
+      status = Twitter::Status.new
+      status.full_text.should be_nil
+    end
+  end
+
   describe "#geo" do
     it "should return a Twitter::Point when set" do
       status = Twitter::Status.new('geo' => {'type' => 'Point'})
@@ -167,13 +184,11 @@ describe Twitter::Status do
   end
 
   describe "#retweeted_status" do
-    before do
-      @a_retweeted_status = Twitter::Status.new('retweeted_status' => {'text' => 'BOOSH'})
-    end
     it "should return a Status when retweeted_status is set" do
-      @a_retweeted_status.retweeted_status.should be_a Twitter::Status
+      status = Twitter::Status.new('retweeted_status' => {'text' => 'BOOSH'})
+      status.retweeted_status.should be_a Twitter::Status
     end
-    it "should return nil when a retweeted_status is NOT set" do
+    it "should return nil when retweeted_status is not set" do
       status = Twitter::Status.new
       status.retweeted_status.should be_nil
     end
