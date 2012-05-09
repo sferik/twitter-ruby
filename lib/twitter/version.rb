@@ -13,7 +13,7 @@ module Twitter
 
     # @return [Integer]
     def self.patch
-      8
+      9
     end
 
     # @return [String, NilClass]
