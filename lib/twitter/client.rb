@@ -238,7 +238,7 @@ module Twitter
     # @example Return activity about me
     #   Twitter.activity_about_me
     def activity_about_me(options={})
-      get("/i/activity/about_me.json", options, :phoenix => true).map do |action|
+      get("/i/activity/about_me.json", options).map do |action|
         Twitter::ActionFactory.new(action)
       end
     end
@@ -256,7 +256,7 @@ module Twitter
     # @example Return activity by friends
     #   Twitter.activity_by_friends
     def activity_by_friends(options={})
-      get("/i/activity/by_friends.json", options, :phoenix => true).map do |action|
+      get("/i/activity/by_friends.json", options).map do |action|
         Twitter::ActionFactory.new(action)
       end
     end
@@ -752,7 +752,7 @@ module Twitter
     # @example Enable rewteets and devise notifications for @sferik
     #   Twitter.no_retweet_ids
     def no_retweet_ids(options={})
-      get("/1/friendships/no_retweet_ids.json", options, :phoenix => true)
+      get("/1/friendships/no_retweet_ids.json", options)
     end
 
     # Allows the authenticating user to accept the specified user's follow request
@@ -1740,40 +1740,6 @@ module Twitter
       Twitter::SavedSearch.new(saved_search)
     end
 
-    # Returns recent statuses that contain images related to a query
-    #
-    # @note Undocumented
-    # @rate_limited Yes
-    # @requires_authentication No
-    # @param q [String] A search term.
-    # @param options [Hash] A customizable set of options.
-    # @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 100.
-    # @return [Array<Twitter::Status>] An array of statuses that contain images
-    # @example Return recent statuses that contain images related to a query
-    #   Twitter.images('twitter')
-    def images(q, options={})
-      get("/i/search/image_facets.json", options.merge(:q => q), :phoenix => true).map do |status|
-        Twitter::Status.new(status)
-      end
-    end
-
-    # Returns recent statuses that contain videos related to a query
-    #
-    # @note Undocumented
-    # @rate_limited Yes
-    # @requires_authentication No
-    # @param q [String] A search term.
-    # @param options [Hash] A customizable set of options.
-    # @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 100.
-    # @return [Array<Twitter::Status>] An array of statuses that contain videos
-    # @example Return recent statuses that contain videos related to a query
-    #   Twitter.videos('twitter')
-    def videos(q, options={})
-      get("/i/search/video_facets.json", options.merge(:q => q), :phoenix => true).map do |status|
-        Twitter::Status.new(status)
-      end
-    end
-
     # Returns tweets that match a specified query.
     #
     # @see https://dev.twitter.com/docs/api/1/get/search
@@ -1820,7 +1786,7 @@ module Twitter
     # @example Return recent statuses related to twitter with images and videos embedded
     #   Twitter.phoenix_search('twitter')
     def phoenix_search(q, options={})
-      get("/phoenix_search.phoenix", options.merge(:q => q), :phoenix => true)['statuses'].map do |status|
+      get("/phoenix_search.phoenix", options.merge(:q => q))['statuses'].map do |status|
         Twitter::Status.new(status)
       end
     end
@@ -2320,24 +2286,6 @@ module Twitter
     def update_with_media(status, image, options={})
       status = post("/1/statuses/update_with_media.json", options.merge('media[]' => image, 'status' => status), :endpoint => media_endpoint)
       Twitter::Status.new(status)
-    end
-
-    # Returns the canonical version of a URL shortened by Twitter
-    #
-    # @note Undocumented
-    # @rate_limited Yes
-    # @requires_authentication Yes
-    # @overload resolve(urls, options={})
-    #   @param urls [String] A list of shortened URLs.
-    #   @param options [Hash] A customizable set of options.
-    #   @return [Hash] A hash of URLs with the shortened URLs as the key
-    #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-    #   @example Return the canonical version of a URL shortened by Twitter
-    #     Twitter.resolve('http://t.co/uw5bn1w', 'http://t.co/dXvMz9i')
-    #     Twitter.resolve(['http://t.co/uw5bn1w', 'http://t.co/dXvMz9i']) # Same as above
-    def resolve(*args)
-      options = args.last.is_a?(Hash) ? args.pop : {}
-      get("/1/urls/resolve.json", options.merge("urls[]" => args), :phoenix => true)
     end
 
     # Returns extended information for up to 100 users

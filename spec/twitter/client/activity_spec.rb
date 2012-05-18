@@ -14,7 +14,6 @@ describe Twitter::Client do
     it "should request the correct resource" do
       @client.activity_about_me
       a_get("/i/activity/about_me.json").
-        with(:headers => {'X-Phx' => 'true'}).
         should have_been_made
     end
     it "should return activity about me" do
@@ -31,7 +30,6 @@ describe Twitter::Client do
     it "should request the correct resource" do
       @client.activity_by_friends
       a_get("/i/activity/by_friends.json").
-        with(:headers => {'X-Phx' => 'true'}).
         should have_been_made
     end
     it "should return activity by friends" do

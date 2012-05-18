@@ -2,7 +2,6 @@ require 'faraday'
 require 'twitter/core_ext/hash'
 require 'twitter/request/gateway'
 require 'twitter/request/multipart_with_file'
-require 'twitter/request/phoenix'
 require 'twitter/request/oauth'
 require 'twitter/response/parse_json'
 require 'twitter/response/raise_client_error'
@@ -27,7 +26,6 @@ module Twitter
         :url => options.fetch(:endpoint, endpoint),
       }
       @connection ||=Faraday.new(default_options.deep_merge(connection_options)) do |builder|
-        builder.use Twitter::Request::Phoenix
         builder.use Twitter::Request::MultipartWithFile
         builder.use Twitter::Request::TwitterOAuth, credentials if credentials?
         builder.use Faraday::Request::Multipart
