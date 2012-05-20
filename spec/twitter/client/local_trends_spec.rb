@@ -20,7 +20,7 @@ describe Twitter::Client do
       it "should return the top 10 trending topics for a specific WOEID" do
         matching_trends = @client.local_trends(2487956)
         matching_trends.should be_an Array
-        matching_trends.first.should be_an Twitter::Trend
+        matching_trends.first.should be_a Twitter::Trend
         matching_trends.first.name.should == "#sevenwordsaftersex"
       end
     end

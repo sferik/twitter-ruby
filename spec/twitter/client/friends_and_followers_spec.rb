@@ -10,13 +10,13 @@ describe Twitter::Client do
     context "with a screen_name passed" do
       before do
         stub_get("/1/followers/ids.json").
-          with(:query => {:screen_name => "sferik", :cursor => "-1"}).
+          with(:query => {:cursor => "-1", :screen_name => "sferik"}).
           to_return(:body => fixture("id_list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "should request the correct resource" do
         @client.follower_ids("sferik")
         a_get("/1/followers/ids.json").
-          with(:query => {:screen_name => "sferik", :cursor => "-1"}).
+          with(:query => {:cursor => "-1", :screen_name => "sferik"}).
           should have_been_made
       end
       it "should return an array of numeric IDs for every user following the specified user" do
@@ -51,13 +51,13 @@ describe Twitter::Client do
     context "with a screen_name passed" do
       before do
         stub_get("/1/friends/ids.json").
-          with(:query => {:screen_name => "sferik", :cursor => "-1"}).
+          with(:query => {:cursor => "-1", :screen_name => "sferik"}).
           to_return(:body => fixture("id_list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "should request the correct resource" do
         @client.friend_ids("sferik")
         a_get("/1/friends/ids.json").
-          with(:query => {:screen_name => "sferik", :cursor => "-1"}).
+          with(:query => {:cursor => "-1", :screen_name => "sferik"}).
           should have_been_made
       end
       it "should return an array of numeric IDs for every user the specified user is following" do

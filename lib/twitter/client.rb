@@ -469,7 +469,7 @@ module Twitter
     #     Twitter.favorites('sferik')
     def favorites(*args)
       options = args.last.is_a?(Hash) ? args.pop : {}
-      if user = args.first
+      if user = args.pop
         get("/1/favorites/#{user}.json", options)
       else
         get("/1/favorites.json", options)
@@ -538,7 +538,7 @@ module Twitter
     def follower_ids(*args)
       options = {:cursor => -1}
       options.merge!(args.last.is_a?(Hash) ? args.pop : {})
-      user = args.first
+      user = args.pop
       options.merge_user!(user)
       cursor = get("/1/followers/ids.json", options)
       Twitter::Cursor.new(cursor, 'ids')
@@ -570,7 +570,7 @@ module Twitter
     def friend_ids(*args)
       options = {:cursor => -1}
       options.merge!(args.last.is_a?(Hash) ? args.pop : {})
-      user = args.first
+      user = args.pop
       options.merge_user!(user)
       cursor = get("/1/friends/ids.json", options)
       Twitter::Cursor.new(cursor, 'ids')
@@ -1463,7 +1463,7 @@ module Twitter
     #     Twitter.lists(7505382)
     def lists(*args)
       options = {:cursor => -1}.merge(args.last.is_a?(Hash) ? args.pop : {})
-      user = args.first
+      user = args.pop
       options.merge_user!(user) if user
       cursor = get("/1/lists.json", options)
       Twitter::Cursor.new(cursor, 'lists', Twitter::List)
@@ -1831,7 +1831,7 @@ module Twitter
     #     Twitter.suggestions("art-design")
     def suggestions(*args)
       options = args.last.is_a?(Hash) ? args.pop : {}
-      if slug = args.first
+      if slug = args.pop
         suggestion = get("/1/users/suggestions/#{slug}.json", options)
         Twitter::Suggestion.new(suggestion)
       else
@@ -2473,6 +2473,38 @@ module Twitter
       get("/1/users/recommendations.json", options).map do |recommendation|
         Twitter::User.new(recommendation['user'])
       end
+    end
+
+    # @note Undocumented
+    # @rate_limited Yes
+    # @requires_authentication Yes
+    #
+    # @overload following_followers_of(options={})
+    #   Returns users following followers of the specified user
+    #
+    #   @param options [Hash] A customizable set of options.
+    #     @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
+    #     @return [Twitter::Cursor]
+    #   @example Return users follow followers of @sferik
+    #     Twitter.following_followers_of
+    #
+    # @overload following_followers_of(user, options={})
+    #   Returns users following followers of the authenticated user
+    #
+    #   @param user [Integer, String] A Twitter user ID or screen name.
+    #   @param options [Hash] A customizable set of options.
+    #     @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
+    #     @return [Twitter::Cursor]
+    #   @example Return users follow followers of @sferik
+    #     Twitter.following_followers_of('sferik')
+    #     Twitter.following_followers_of(7505382)  # Same as above
+    def following_followers_of(*args)
+      options = {:cursor => -1}
+      options.merge!(args.last.is_a?(Hash) ? args.pop : {})
+      user = args.pop || self.current_user.screen_name
+      options.merge_user!(user)
+      cursor = get("/users/following_followers_of.json", options)
+      Twitter::Cursor.new(cursor, 'users', Twitter::User)
     end
 
   end

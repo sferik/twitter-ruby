@@ -19,7 +19,7 @@ describe Twitter::Client do
     it "should return the 20 most recent direct messages sent to the authenticating user" do
       direct_messages = @client.direct_messages
       direct_messages.should be_an Array
-      direct_messages.first.should be_an Twitter::DirectMessage
+      direct_messages.first.should be_a Twitter::DirectMessage
       direct_messages.first.sender.name.should == "Erik Michaels-Ober"
     end
   end
@@ -37,7 +37,7 @@ describe Twitter::Client do
     it "should return the 20 most recent direct messages sent by the authenticating user" do
       direct_messages = @client.direct_messages_sent
       direct_messages.should be_an Array
-      direct_messages.first.should be_an Twitter::DirectMessage
+      direct_messages.first.should be_a Twitter::DirectMessage
       direct_messages.first.sender.name.should == "Erik Michaels-Ober"
     end
   end
@@ -54,7 +54,7 @@ describe Twitter::Client do
     end
     it "should return the deleted message" do
       direct_message = @client.direct_message_destroy(1825785544)
-      direct_message.should be_an Twitter::DirectMessage
+      direct_message.should be_a Twitter::DirectMessage
       direct_message.text.should == "Creating a fixture for the Twitter gem"
     end
   end
@@ -73,7 +73,7 @@ describe Twitter::Client do
     end
     it "should return the sent message" do
       direct_message = @client.direct_message_create("pengwynn", "Creating a fixture for the Twitter gem")
-      direct_message.should be_an Twitter::DirectMessage
+      direct_message.should be_a Twitter::DirectMessage
       direct_message.text.should == "Creating a fixture for the Twitter gem"
     end
   end
@@ -90,7 +90,7 @@ describe Twitter::Client do
     end
     it "should return the 20 most recent direct messages sent to the authenticating user" do
       direct_messages = @client.direct_message(1825786345)
-      direct_messages.should be_an Twitter::DirectMessage
+      direct_messages.should be_a Twitter::DirectMessage
       direct_messages.sender.name.should == "Erik Michaels-Ober"
     end
   end

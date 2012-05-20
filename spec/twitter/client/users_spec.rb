@@ -347,4 +347,49 @@ describe Twitter::Client do
     end
   end
 
+  describe ".following_followers_of" do
+    context "with a screen_name passed" do
+      before do
+        stub_get("/users/following_followers_of.json").
+          with(:query => {:cursor => "-1", :screen_name => "sferik"}).
+          to_return(:body => fixture("users_list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      end
+      it "should request the correct resource" do
+        @client.following_followers_of("sferik")
+        a_get("/users/following_followers_of.json").
+          with(:query => {:cursor => "-1", :screen_name => "sferik"}).
+          should have_been_made
+      end
+      it "should return an array of numeric IDs for every user following the specified user" do
+        following_followers_of = @client.following_followers_of("sferik")
+        following_followers_of.should be_a Twitter::Cursor
+        following_followers_of.users.should be_an Array
+        following_followers_of.users.first.should be_a Twitter::User
+      end
+    end
+    context "without arguments passed" do
+      before do
+        stub_get("/1/account/verify_credentials.json").
+          to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        stub_get("/users/following_followers_of.json").
+          with(:query => {:cursor => "-1", :screen_name => "sferik"}).
+          to_return(:body => fixture("users_list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      end
+      it "should request the correct resource" do
+        @client.following_followers_of
+        a_get("/1/account/verify_credentials.json").
+          should have_been_made
+        a_get("/users/following_followers_of.json").
+          with(:query => {:cursor => "-1", :screen_name => "sferik"}).
+          should have_been_made
+      end
+      it "should return an array of numeric IDs for every user following the specified user" do
+        following_followers_of = @client.following_followers_of
+        following_followers_of.should be_a Twitter::Cursor
+        following_followers_of.users.should be_an Array
+        following_followers_of.users.first.should be_a Twitter::User
+      end
+    end
+  end
+
 end

@@ -20,7 +20,7 @@ describe Twitter::Client do
       it "should return the 20 most recent favorite statuses for the authenticating user or user specified by the ID parameter" do
         favorites = @client.favorites("sferik")
         favorites.should be_an Array
-        favorites.first.should be_an Twitter::Status
+        favorites.first.should be_a Twitter::Status
         favorites.first.user.name.should == "Zach Brock"
       end
     end
@@ -37,7 +37,7 @@ describe Twitter::Client do
       it "should return the 20 most recent favorite statuses for the authenticating user or user specified by the ID parameter" do
         favorites = @client.favorites
         favorites.should be_an Array
-        favorites.first.should be_an Twitter::Status
+        favorites.first.should be_a Twitter::Status
         favorites.first.user.name.should == "Zach Brock"
       end
     end
@@ -55,7 +55,7 @@ describe Twitter::Client do
     end
     it "should return the favorite status when successful" do
       status = @client.favorite(25938088801)
-      status.should be_an Twitter::Status
+      status.should be_a Twitter::Status
       status.text.should == "@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!"
     end
   end
@@ -72,7 +72,7 @@ describe Twitter::Client do
     end
     it "should return the un-favorite status when successful" do
       status = @client.unfavorite(25938088801)
-      status.should be_an Twitter::Status
+      status.should be_a Twitter::Status
       status.text.should == "@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!"
     end
   end
