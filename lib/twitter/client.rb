@@ -297,7 +297,7 @@ module Twitter
     # @see https://dev.twitter.com/docs/api/1/get/blocks/exists
     # @requires_authentication Yes
     # @rate_limited Yes
-    # @param user [Integer, String] A Twitter user ID or screen name.
+    # @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
     # @param options [Hash] A customizable set of options.
     # @return [Boolean] true if the authenticating user is blocking the target user, otherwise false.
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
@@ -318,7 +318,7 @@ module Twitter
     # @note Destroys a friendship to the blocked user if it exists.
     # @rate_limited Yes
     # @requires_authentication Yes
-    # @param user [Integer, String] A Twitter user ID or screen name.
+    # @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
     # @param options [Hash] A customizable set of options.
     # @return [Twitter::User] The blocked user.
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
@@ -336,7 +336,7 @@ module Twitter
     # @see https://dev.twitter.com/docs/api/1/post/blocks/destroy
     # @rate_limited No
     # @requires_authentication Yes
-    # @param user [Integer, String] A Twitter user ID or screen name.
+    # @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
     # @param options [Hash] A customizable set of options.
     # @return [Twitter::User] The un-blocked user.
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
@@ -413,7 +413,7 @@ module Twitter
     # @see https://dev.twitter.com/docs/api/1/post/direct_messages/new
     # @rate_limited No
     # @requires_authentication Yes
-    # @param user [Integer, String] A Twitter user ID or screen name.
+    # @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
     # @param text [String] The text of your direct message, up to 140 characters.
     # @param options [Hash] A customizable set of options.
     # @return [Twitter::DirectMessage] The sent message.
@@ -460,7 +460,7 @@ module Twitter
     # @overload favorites(user, options={})
     #   Returns the 20 most recent favorite statuses for the specified user
     #
-    #   @param user [Integer, String] A Twitter user ID or screen name.
+    #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
     #   @param options [Hash] A customizable set of options.
     #   @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 100.
     #   @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID.
@@ -528,7 +528,7 @@ module Twitter
     # @overload follower_ids(user, options={})
     #   Returns an array of numeric IDs for every user following the specified user
     #
-    #   @param user [Integer, String] A Twitter user ID or screen name.
+    #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
     #   @param options [Hash] A customizable set of options.
     #   @option options [Integer] :cursor (-1) Breaks the results into pages. This is recommended for users who are following many users. Provide a value of -1 to begin paging. Provide values as returned in the response body's next_cursor and previous_cursor attributes to page back and forth in the list.
     #   @return [Twitter::Cursor]
@@ -560,7 +560,7 @@ module Twitter
     # @overload friend_ids(user, options={})
     #   Returns an array of numeric IDs for every user the specified user is following
     #
-    #   @param user [Integer, String] A Twitter user ID or screen name.
+    #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
     #   @param options [Hash] A customizable set of options.
     #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
     #   @return [Twitter::Cursor]
@@ -582,14 +582,18 @@ module Twitter
     # @note Consider using {Twitter::Client::FriendsAndFollowers#friendship} instead of this method.
     # @rate_limited Yes
     # @requires_authentication No unless user_a or user_b is protected
-    # @param user_a [Integer, String] The ID or screen_name of the subject user.
-    # @param user_b [Integer, String] The ID or screen_name of the user to test for following.
+    # @param user_a [Integer, String, Twitter::User] The Twitter user ID, screen name, or object of the subject user.
+    # @param user_b [Integer, String, Twitter::User] The Twitter user ID, screen name, or object of the user to test for following.
     # @param options [Hash] A customizable set of options.
     # @return [Boolean] true if user_a follows user_b, otherwise false.
     # @example Return true if @sferik follows @pengwynn
     #   Twitter.friendship?('sferik', 'pengwynn')
+    #   Twitter.friendship?('sferik', 14100886)   # Same as above
+    #   Twitter.friendship?(7505382, 14100886)    # Same as above
     def friendship?(user_a, user_b, options={})
-      get("/1/friendships/exists.json", options.merge(:user_a => user_a, :user_b => user_b))
+      options.merge_user!(user_a, nil, "a")
+      options.merge_user!(user_b, nil, "b")
+      get("/1/friendships/exists.json", options)
     end
 
     # Returns an array of numeric IDs for every user who has a pending request to follow the authenticating user
@@ -631,24 +635,19 @@ module Twitter
     # @see https://dev.twitter.com/docs/api/1/get/friendships/show
     # @rate_limited Yes
     # @requires_authentication No
+    # @param source [Integer, String, Twitter::User] The Twitter user ID, screen name, or object of the source user.
+    # @param target [Integer, String, Twitter::User] The Twitter user ID, screen name, or object of the target user.
     # @param options [Hash] A customizable set of options.
     # @return [Twitter::Relationship]
     # @example Return the relationship between @sferik and @pengwynn
     #   Twitter.friendship('sferik', 'pengwynn')
-    #   Twitter.friendship(7505382, 14100886)
+    #   Twitter.friendship('sferik', 14100886)   # Same as above
+    #   Twitter.friendship(7505382, 14100886)    # Same as above
     def friendship(source, target, options={})
-      case source
-      when Integer
-        options[:source_id] = source
-      when String
-        options[:source_screen_name] = source
-      end
-      case target
-      when Integer
-        options[:target_id] = target
-      when String
-        options[:target_screen_name] = target
-      end
+      options.merge_user!(source, "source")
+      options[:source_id] = options.delete(:source_user_id) unless options[:source_user_id].nil?
+      options.merge_user!(target, "target")
+      options[:target_id] = options.delete(:target_user_id) unless options[:target_user_id].nil?
       relationship = get("/1/friendships/show.json", options)['relationship']
       Twitter::Relationship.new(relationship)
     end
@@ -660,7 +659,7 @@ module Twitter
     # @see https://dev.twitter.com/docs/api/1/post/friendships/create
     # @rate_limited No
     # @requires_authentication Yes
-    # @param user [Integer, String] A Twitter user ID or screen name.
+    # @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
     # @param options [Hash] A customizable set of options.
     # @option options [Boolean] :follow (false) Enable notifications for the target user.
     # @return [Twitter::User] The followed user.
@@ -682,7 +681,7 @@ module Twitter
     # @see https://dev.twitter.com/docs/api/1/post/friendships/destroy
     # @rate_limited No
     # @requires_authentication Yes
-    # @param user [Integer, String] A Twitter user ID or screen name.
+    # @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
     # @param options [Hash] A customizable set of options.
     # @return [Twitter::User] The unfollowed user.
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
@@ -703,7 +702,7 @@ module Twitter
     # @param options [Hash] A customizable set of options.
     # @return [Twitter::Relationship]
     # @overload friendships(*users, options={})
-    #   @param users [Array<Integer, String>, Set<Integer, String>] Twitter user IDs or screen names.
+    #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
     #   @param options [Hash] A customizable set of options.
     #   @return [Array<Twitter::User>] The requested users.
     #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
@@ -725,7 +724,7 @@ module Twitter
     # @see https://dev.twitter.com/docs/api/1/post/friendships/update
     # @rate_limited No
     # @requires_authentication Yes
-    # @param user [Integer, String] Twitter user ID or screen name.
+    # @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
     # @param options [Hash] A customizable set of options.
     # @option options [Boolean] :device Enable/disable device notifications from the target user.
     # @option options [Boolean] :retweets Enable/disable retweets from the target user.
@@ -744,7 +743,7 @@ module Twitter
     # @see https://dev.twitter.com/docs/api/1/get/friendships/no_retweet_ids
     # @rate_limited Yes
     # @requires_authentication Yes
-    # @param user [Integer, String] Twitter user ID or screen name.
+    # @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
     # @param options [Hash] A customizable set of options.
     # @option options [Boolean] :stringify_ids Many programming environments will not consume our ids due to their size. Provide this option to have ids returned as strings instead. Read more about Twitter IDs, JSON and Snowflake.
     # @return [Array<Integer>]
@@ -760,7 +759,7 @@ module Twitter
     # @note Undocumented
     # @rate_limited No
     # @requires_authentication Yes
-    # @param user [Integer, String] A Twitter user ID or screen name.
+    # @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
     # @param options [Hash] A customizable set of options.
     # @return [Twitter::User] The accepted user.
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
@@ -777,7 +776,7 @@ module Twitter
     # @note Undocumented
     # @rate_limited No
     # @requires_authentication Yes
-    # @param user [Integer, String] A Twitter user ID or screen name.
+    # @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
     # @param options [Hash] A customizable set of options.
     # @return [Twitter::User] The denied user.
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
@@ -851,7 +850,7 @@ module Twitter
     #   @example Return all lists the authenticating user subscribes to
     #     Twitter.lists_subscribed_to
     # @overload lists_subscribed_to(user, options={})
-    #   @param user [Integer, String] A Twitter user ID or screen name.
+    #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
     #   @param options [Hash] A customizable set of options.
     #   @return [Array<Twitter::List>]
     #   @example Return all lists the specified user subscribes to
@@ -883,7 +882,7 @@ module Twitter
     #     Twitter.list_timeline('presidents')
     #     Twitter.list_timeline(8863586)
     # @overload list_timeline(user, list, options={})
-    #   @param user [Integer, String] A Twitter user ID or screen name.
+    #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
     #   @param list [Integer, String] The list_id or slug of the list.
     #   @param options [Hash] A customizable set of options.
     #   @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID.
@@ -922,7 +921,7 @@ module Twitter
     #     Twitter.list_remove_member('presidents', 'BarackObama')
     #     Twitter.list_remove_member(8863586, 'BarackObama')
     # @overload list_remove_member(user, list, user_to_remove, options={})
-    #   @param user [Integer, String] A Twitter user ID or screen name.
+    #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
     #   @param list [Integer, String] The list_id or slug of the list.
     #   @param user_to_remove [Integer, String] The user id or screen name of the list member to remove.
     #   @param options [Hash] A customizable set of options.
@@ -958,7 +957,7 @@ module Twitter
     #   @example List the lists the authenticated user has been added to
     #     Twitter.memberships
     # @overload memberships(user, options={})
-    #   @param user [Integer, String] A Twitter user ID or screen name.
+    #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
     #   @param options [Hash] A customizable set of options.
     #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
     #   @return [Twitter::Cursor]
@@ -990,7 +989,7 @@ module Twitter
     #     Twitter.list_subscribers('presidents')
     #     Twitter.list_subscribers(8863586)
     # @overload list_subscribers(user, list, options={})
-    #   @param user [Integer, String] A Twitter user ID or screen name.
+    #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
     #   @param list [Integer, String] The list_id or slug of the list.
     #   @param options [Hash] A customizable set of options.
     #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
@@ -1023,7 +1022,7 @@ module Twitter
     #   @example List the lists the authenticated user follows
     #     Twitter.subscriptions
     # @overload subscriptions(user, options={})
-    #   @param user [Integer, String] A Twitter user ID or screen name.
+    #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
     #   @param options [Hash] A customizable set of options.
     #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
     #   @return [Twitter::Cursor]
@@ -1054,7 +1053,7 @@ module Twitter
     #     Twitter.list_subscribe('presidents')
     #     Twitter.list_subscribe(8863586)
     # @overload list_subscribe(user, list, options={})
-    #   @param user [Integer, String] A Twitter user ID or screen name.
+    #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
     #   @param list [Integer, String] The list_id or slug of the list.
     #   @param options [Hash] A customizable set of options.
     #   @return [Twitter::List] The specified list.
@@ -1080,7 +1079,7 @@ module Twitter
     # @requires_authentication Yes
     # @overload list_subscriber?(list, user_to_check, options={})
     #   @param list [Integer, String] The list_id or slug of the list.
-    #   @param user_to_check [Integer, String] The user ID or screen_name of the list member.
+    #   @param user_to_check [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
     #   @param options [Hash] A customizable set of options.
     #   @return [Boolean] true if user is a subscriber of the specified list, otherwise false.
     #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
@@ -1089,9 +1088,9 @@ module Twitter
     #     Twitter.list_subscriber?(8863586, 813286)
     #     Twitter.list_subscriber?('presidents', 'BarackObama')
     # @overload list_subscriber?(user, list, user_to_check, options={})
-    #   @param user [Integer, String] A Twitter user ID or screen name.
+    #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
     #   @param list [Integer, String] The list_id or slug of the list.
-    #   @param user_to_check [Integer, String] The user ID or screen_name of the list member.
+    #   @param user_to_check [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
     #   @param options [Hash] A customizable set of options.
     #   @return [Boolean] true if user is a subscriber of the specified list, otherwise false.
     #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
@@ -1129,7 +1128,7 @@ module Twitter
     #     Twitter.list_unsubscribe('presidents')
     #     Twitter.list_unsubscribe(8863586)
     # @overload list_unsubscribe(user, list, options={})
-    #   @param user [Integer, String] A Twitter user ID or screen name.
+    #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
     #   @param list [Integer, String] The list_id or slug of the list.
     #   @param options [Hash] A customizable set of options.
     #   @return [Twitter::List] The specified list.
@@ -1154,9 +1153,9 @@ module Twitter
     # @note Lists are limited to having 500 members, and you are limited to adding up to 100 members to a list at a time with this method.
     # @rate_limited No
     # @requires_authentication Yes
-    # @overload list_add_members(list, users_to_add, options={})
+    # @overload list_add_members(list, users, options={})
     #   @param list [Integer, String] The list_id or slug of the list.
-    #   @param users_to_add [Array] The user IDs and/or screen names to add.
+    #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
     #   @param options [Hash] A customizable set of options.
     #   @return [Twitter::List] The list.
     #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
@@ -1165,10 +1164,10 @@ module Twitter
     #     Twitter.list_add_members('presidents', [813286, 18755393])
     #     Twitter.list_add_members(8863586, ['BarackObama', 'pengwynn'])
     #     Twitter.list_add_members(8863586, [813286, 18755393])
-    # @overload list_add_members(user, list, users_to_add, options={})
-    #   @param user [Integer, String] A Twitter user ID or screen name.
+    # @overload list_add_members(user, list, users, options={})
+    #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
     #   @param list [Integer, String] The list_id or slug of the list.
-    #   @param users_to_add [Array] The user IDs and/or screen names to add.
+    #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
     #   @param options [Hash] A customizable set of options.
     #   @return [Twitter::List] The list.
     #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
@@ -1181,8 +1180,8 @@ module Twitter
     #     Twitter.list_add_members(7505382, 8863586, [813286, 18755393])
     def list_add_members(*args)
       options = args.last.is_a?(Hash) ? args.pop : {}
-      users_to_add = args.pop
-      options.merge_users!(Array(users_to_add))
+      users = args.pop
+      options.merge_users!(Array(users))
       list = args.pop
       options.merge_list!(list)
       owner = args.pop || self.current_user.screen_name
@@ -1196,9 +1195,9 @@ module Twitter
     # @see https://dev.twitter.com/docs/api/1/post/lists/members/destroy_all
     # @rate_limited No
     # @requires_authentication Yes
-    # @overload list_remove_members(list, users_to_remove, options={})
+    # @overload list_remove_members(list, users, options={})
     #   @param list [Integer, String] The list_id or slug of the list.
-    #   @param users_to_remove [Array] The user IDs and/or screen names to remove.
+    #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
     #   @param options [Hash] A customizable set of options.
     #   @return [Twitter::List] The list.
     #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
@@ -1207,10 +1206,10 @@ module Twitter
     #     Twitter.list_remove_members('presidents', [813286, 18755393])
     #     Twitter.list_remove_members(8863586, ['BarackObama', 'pengwynn'])
     #     Twitter.list_remove_members(8863586, [813286, 18755393])
-    # @overload list_remove_members(user, list, users_to_remove, options={})
-    #   @param user [Integer, String] A Twitter user ID or screen name.
+    # @overload list_remove_members(user, list, users, options={})
+    #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
     #   @param list [Integer, String] The list_id or slug of the list.
-    #   @param users_to_remove [Array] The user IDs and/or screen names to remove.
+    #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
     #   @param options [Hash] A customizable set of options.
     #   @return [Twitter::List] The list.
     #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
@@ -1223,8 +1222,8 @@ module Twitter
     #     Twitter.list_remove_members(7505382, 8863586, [813286, 18755393])
     def list_remove_members(*args)
       options = args.last.is_a?(Hash) ? args.pop : {}
-      users_to_remove = args.pop
-      options.merge_users!(Array(users_to_remove))
+      users = args.pop
+      options.merge_users!(Array(users))
       list = args.pop
       options.merge_list!(list)
       owner = args.pop || self.current_user.screen_name
@@ -1248,7 +1247,7 @@ module Twitter
     #     Twitter.list_member?('presidents', 813286)
     #     Twitter.list_member?(8863586, 'BarackObama')
     # @overload list_member?(user, list, user_to_check, options={})
-    #   @param user [Integer, String] A Twitter user ID or screen name.
+    #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
     #   @param list [Integer, String] The list_id or slug of the list.
     #   @param user_to_check [Integer, String] The user ID or screen name of the list member.
     #   @param options [Hash] A customizable set of options.
@@ -1287,7 +1286,7 @@ module Twitter
     #     Twitter.list_members('presidents')
     #     Twitter.list_members(8863586)
     # @overload list_members(user, list, options={})
-    #   @param user [Integer, String] A Twitter user ID or screen name.
+    #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
     #   @param list [Integer, String] The list_id or slug of the list.
     #   @param options [Hash] A customizable set of options.
     #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
@@ -1324,7 +1323,7 @@ module Twitter
     #     Twitter.list_add_member('presidents', 813286)
     #     Twitter.list_add_member(8863586, 813286)
     # @overload list_add_member(user, list, user_to_add, options={})
-    #   @param user [Integer, String] A Twitter user ID or screen name.
+    #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
     #   @param list [Integer, String] The list_id or slug of the list.
     #   @param user_to_add [Integer, String] The user id or screen name to add to the list.
     #   @param options [Hash] A customizable set of options.
@@ -1362,7 +1361,7 @@ module Twitter
     #     Twitter.list_destroy('presidents')
     #     Twitter.list_destroy(8863586)
     # @overload list_destroy(user, list, options={})
-    #   @param user [Integer, String] A Twitter user ID or screen name.
+    #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
     #   @param list [Integer, String] The list_id or slug of the list.
     #   @param options [Hash] A customizable set of options.
     #   @return [Twitter::List] The deleted list.
@@ -1398,7 +1397,7 @@ module Twitter
     #     Twitter.list_update('presidents', :description => "Presidents of the United States of America")
     #     Twitter.list_update(8863586, :description => "Presidents of the United States of America")
     # @overload list_update(user, list, options={})
-    #   @param user [Integer, String] A Twitter user ID or screen name.
+    #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
     #   @param list [Integer, String] The list_id or slug for the list.
     #   @param options [Hash] A customizable set of options.
     #   @option options [String] :mode ('public') Whether your list is public or private. Values can be 'public' or 'private'.
@@ -1453,7 +1452,7 @@ module Twitter
     #   @example List the authenticated user's lists
     #     Twitter.lists
     # @overload lists(user, options={})
-    #   @param user [Integer, String] A Twitter user ID or screen name.
+    #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
     #   @param options [Hash] A customizable set of options.
     #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
     #   @return [Twitter::Cursor]
@@ -1484,7 +1483,7 @@ module Twitter
     #     Twitter.list('presidents')
     #     Twitter.list(8863586)
     # @overload list(user, list, options={})
-    #   @param user [Integer, String] A Twitter user ID or screen name.
+    #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
     #   @param list [Integer, String] The list_id or slug of the list.
     #   @param options [Hash] A customizable set of options.
     #   @return [Twitter::List] The specified list.
@@ -1544,7 +1543,7 @@ module Twitter
     # @see https://dev.twitter.com/docs/api/1/post/notifications/follow
     # @rate_limited No
     # @requires_authentication Yes
-    # @param user [Integer, String] A Twitter user ID or screen name.
+    # @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
     # @param options [Hash] A customizable set of options.
     # @return [Twitter::User] The specified user.
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
@@ -1562,7 +1561,7 @@ module Twitter
     # @see https://dev.twitter.com/docs/api/1/post/notifications/leave
     # @rate_limited No
     # @requires_authentication Yes
-    # @param user [Integer, String] A Twitter user ID or screen name.
+    # @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
     # @param options [Hash] A customizable set of options.
     # @return [Twitter::User] The specified user.
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
@@ -1759,7 +1758,7 @@ module Twitter
     # @option options [String] :until Optional. Returns tweets generated before the given date. Date should be formatted as YYYY-MM-DD.
     # @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID. There are limits to the number of Tweets which can be accessed through the API. If the limit of Tweets has occured since the since_id, the since_id will be forced to the oldest ID available.
     # @option options [Integer] :max_id Returns results with an ID less than (that is, older than) or equal to the specified ID.
-    # @option options [Boolean, String, Integer] :with_twitter_user_id When set to either true, t or 1, the from_user_id, from_user_id_str, to_user_id, and to_user_id_str values in the response will map to "official" user IDs which will match those returned by the REST API.
+    # @option options [Boolean, String, Integer] :with_twitter_user_id When set to either true, t or 1, the from_user_id and to_user_id values in the response will map to "official" user IDs which will match those returned by the REST API.
     # @return [Array<Twitter::Status>] Return tweets that match a specified query
     # @example Returns tweets related to twitter
     #   Twitter.search('twitter')
@@ -1796,7 +1795,7 @@ module Twitter
     # @see https://dev.twitter.com/docs/api/1/post/report_spam
     # @rate_limited Yes
     # @requires_authentication No
-    # @param user [Integer, String] A Twitter user ID or screen name.
+    # @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
     # @param options [Hash] A customizable set of options.
     # @return [Twitter::User] The reported user.
     # @example Report @spam for spam
@@ -1917,7 +1916,7 @@ module Twitter
     #   @example Return the 20 most recent retweets posted by the authenticating user
     #     Twitter.retweeted_by('sferik')
     # @overload retweeted_by(user, options={})
-    #   @param user [Integer, String] A Twitter user ID or screen name.
+    #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
     #   @param options [Hash] A customizable set of options.
     #   @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID.
     #   @option options [Integer] :max_id Returns results with an ID less than (that is, older than) or equal to the specified ID.
@@ -1956,7 +1955,7 @@ module Twitter
     #   @example Return the 20 most recent retweets posted by users followed by the authenticating user
     #     Twitter.retweeted_to
     # @overload retweeted_to(user, options={})
-    #   @param user [Integer, String] A Twitter user ID or screen name.
+    #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
     #   @param options [Hash] A customizable set of options.
     #   @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID.
     #   @option options [Integer] :max_id Returns results with an ID less than (that is, older than) or equal to the specified ID.
@@ -2005,7 +2004,7 @@ module Twitter
     # @rate_limited Yes
     # @requires_authentication No unless the user whose timeline you're trying to view is protected
     # @overload user_timeline(user, options={})
-    #   @param user [Integer, String] A Twitter user ID or screen name.
+    #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
     #   @param options [Hash] A customizable set of options.
     #   @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID.
     #   @option options [Integer] :max_id Returns results with an ID less than (that is, older than) or equal to the specified ID.
@@ -2033,7 +2032,7 @@ module Twitter
     # @rate_limited Yes
     # @requires_authentication No unless the user whose timeline you're trying to view is protected
     # @overload media_timeline(user, options={})
-    #   @param user [Integer, String] A Twitter user ID or screen name.
+    #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
     #   @param options [Hash] A customizable set of options.
     #   @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 200.
     #   @option options [Boolean] :filter Include possibly sensitive media when set to false, 'f' or 0.
@@ -2294,7 +2293,7 @@ module Twitter
     # @rate_limited Yes
     # @requires_authentication Yes
     # @overload users(*users, options={})
-    #   @param users [Array<Integer, String>, Set<Integer, String>] Twitter user IDs or screen names.
+    #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
     #   @param options [Hash] A customizable set of options.
     #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     #   @return [Array<Twitter::User>] The requested users.
@@ -2316,8 +2315,13 @@ module Twitter
     # @see https://dev.twitter.com/docs/api/1/get/users/profile_image/:screen_name
     # @rate_limited No
     # @requires_authentication No
+    # @overload profile_image(options={})
+    #   @param options [Hash] A customizable set of options.
+    #   @option options [String] :size ('normal') Specifies the size of image to fetch. Valid options include: 'bigger' (73px by 73px), 'normal' (48px by 48px), and 'mini' (24px by 24px).
+    #   @example Return the URL for the 24px by 24px version of @sferik's profile image
+    #     Twitter.profile_image(:size => 'mini')
     # @overload profile_image(screen_name, options={})
-    #   @param screen_name [String] The screen name of the user for whom to return results for.
+    #   @param user [String, Twitter::User] A Twitter screen name or object.
     #   @param options [Hash] A customizable set of options.
     #   @option options [String] :size ('normal') Specifies the size of image to fetch. Valid options include: 'bigger' (73px by 73px), 'normal' (48px by 48px), and 'mini' (24px by 24px).
     #   @example Return the URL for the 24px by 24px version of @sferik's profile image
@@ -2325,8 +2329,9 @@ module Twitter
     # @return [String] The URL for the requested user's profile image.
     def profile_image(*args)
       options = args.last.is_a?(Hash) ? args.pop : {}
-      screen_name = args.pop || self.current_user.screen_name
-      get("/1/users/profile_image/#{screen_name}", options, :raw => true).headers['location']
+      user = args.pop || self.current_user.screen_name
+      user = user.screen_name if user.is_a?(Twitter::User)
+      get("/1/users/profile_image/#{user}", options, :raw => true).headers['location']
     end
 
     # Returns users that match the given query
@@ -2354,7 +2359,7 @@ module Twitter
     # @rate_limited Yes
     # @requires_authentication No
     # @overload user(user, options={})
-    #   @param user [Integer, String] A Twitter user ID or screen name.
+    #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
     #   @param options [Hash] A customizable set of options.
     #   @return [Twitter::User] The requested user.
     #   @example Return extended information for @sferik
@@ -2373,7 +2378,7 @@ module Twitter
 
     # Returns true if the specified user exists
     #
-    # @param user [Integer, String] A Twitter user ID or screen name.
+    # @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
     # @return [Boolean] true if the user exists, otherwise false.
     # @example Return true if @sferik exists
     #     Twitter.user?('sferik')
@@ -2401,8 +2406,8 @@ module Twitter
     #   @return [Array<Twitter::User>]
     #   @example Return the authenticated user's contributees
     #     Twitter.contributees
-    ## @overload contributees(user, options={})
-    #   @param user [Integer, String] A Twitter user ID or screen name.
+    # @overload contributees(user, options={})
+    #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
     #   @param options [Hash] A customizable set of options.
     #   @option options [Boolean, String, Integer] :skip_status Do not include contributee's statuses when set to true, 't' or 1.
     #   @return [Array<Twitter::User>]
@@ -2432,8 +2437,8 @@ module Twitter
     #   @return [Array<Twitter::User>]
     #   @example Return the authenticated user's contributors
     #     Twitter.contributors
-    ## @overload contributors(user, options={})
-    #   @param user [Integer, String] A Twitter user ID or screen name.
+    # @overload contributors(user, options={})
+    #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
     #   @param options [Hash] A customizable set of options.
     #   @option options [Boolean, String, Integer] :skip_status Do not include contributee's statuses when set to true, 't' or 1.
     #   @return [Array<Twitter::User>]
@@ -2455,15 +2460,22 @@ module Twitter
     # @note {https://dev.twitter.com/discussions/1120 Undocumented}
     # @rate_limited Yes
     # @requires_authentication Yes
-    # @param options [Hash] A customizable set of options.
-    # @option options [Integer] :limit (20) Specifies the number of records to retrieve.
-    # @option options [String] :excluded Comma-separated list of user IDs to exclude.
-    # @option options [String] :screen_name Find users similar to this screen_name
-    # @option options [Integer] :user_id Find users similar to this user ID.
+    # @overload recommendations(options={})
+    #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
+    #   @param options [Hash] A customizable set of options.
+    #   @option options [Integer] :limit (20) Specifies the number of records to retrieve.
+    #   @option options [String] :excluded Comma-separated list of user IDs to exclude.
+    #   @example Return recommended users for the authenticated user
+    #     Twitter.recommendations
+    # @overload recommendations(user, options={})
+    #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
+    #   @param options [Hash] A customizable set of options.
+    #   @option options [Integer] :limit (20) Specifies the number of records to retrieve.
+    #   @option options [String] :excluded Comma-separated list of user IDs to exclude.
+    #   @example Return recommended users for the authenticated user
+    #     Twitter.recommendations("sferik")
     # @return [Array<Twitter::User>]
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-    # @example Return recommended users for the authenticated user
-    #   Twitter.recommendations
     def recommendations(*args)
       options = {}
       options.merge!(args.last.is_a?(Hash) ? args.pop : {})
@@ -2491,7 +2503,7 @@ module Twitter
     # @overload following_followers_of(user, options={})
     #   Returns users following followers of the authenticated user
     #
-    #   @param user [Integer, String] A Twitter user ID or screen name.
+    #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
     #   @param options [Hash] A customizable set of options.
     #     @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
     #     @return [Twitter::Cursor]

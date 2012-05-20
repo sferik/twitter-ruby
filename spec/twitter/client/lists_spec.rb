@@ -76,32 +76,6 @@ describe Twitter::Client do
           should have_been_made
       end
     end
-    context "with an Integer list_id passed" do
-      before do
-        stub_get("/1/lists/statuses.json").
-          with(:query => {:owner_screen_name => 'sferik', :list_id => '12345678'}).
-          to_return(:body => fixture("statuses.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-      end
-      it "should request the correct resource" do
-        @client.list_timeline("sferik", 12345678)
-        a_get("/1/lists/statuses.json").
-          with(:query => {:owner_screen_name => 'sferik', :list_id => '12345678'}).
-          should have_been_made
-      end
-    end
-    context "with an Integer user_id passed" do
-      before do
-        stub_get("/1/lists/statuses.json").
-          with(:query => {:owner_id => '12345678', :slug => 'presidents'}).
-          to_return(:body => fixture("statuses.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-      end
-      it "should request the correct resource" do
-        @client.list_timeline(12345678, 'presidents')
-        a_get("/1/lists/statuses.json").
-          with(:query => {:owner_id => '12345678', :slug => 'presidents'}).
-          should have_been_made
-      end
-    end
   end
 
   describe ".list_remove_member" do
@@ -121,45 +95,6 @@ describe Twitter::Client do
         list = @client.list_remove_member("sferik", "presidents", 813286)
         list.should be_a Twitter::List
         list.name.should == "presidents"
-      end
-    end
-    context "with an Integer user_id passed" do
-      before do
-        stub_post("/1/lists/members/destroy.json").
-          with(:body => {:owner_id => '12345678', :slug => 'presidents', :user_id => "813286"}).
-          to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-      end
-      it "should request the correct resource" do
-        @client.list_remove_member(12345678, "presidents", 813286)
-        a_post("/1/lists/members/destroy.json").
-          with(:body => {:owner_id => '12345678', :slug => 'presidents', :user_id => "813286"}).
-          should have_been_made
-      end
-    end
-    context "with an Integer list_id passed" do
-      before do
-        stub_post("/1/lists/members/destroy.json").
-          with(:body => {:owner_screen_name => 'sferik', :list_id => '12345678', :user_id => "813286"}).
-          to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-      end
-      it "should request the correct resource" do
-        @client.list_remove_member('sferik', 12345678, 813286)
-        a_post("/1/lists/members/destroy.json").
-          with(:body => {:owner_screen_name => 'sferik', :list_id => '12345678', :user_id => "813286"}).
-          should have_been_made
-      end
-    end
-    context "with a screen name to remove" do
-      before do
-        stub_post("/1/lists/members/destroy.json").
-          with(:body => {:owner_screen_name => 'sferik', :slug => 'presidents', :screen_name => "erebor"}).
-          to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-      end
-      it "should request the correct resource" do
-        @client.list_remove_member('sferik', 'presidents', 'erebor')
-        a_post("/1/lists/members/destroy.json").
-          with(:body => {:owner_screen_name => 'sferik', :slug => 'presidents', :screen_name => "erebor"}).
-          should have_been_made
       end
     end
     context "without a screen name passed" do
@@ -215,19 +150,6 @@ describe Twitter::Client do
           should have_been_made
       end
     end
-    context "with an Integer user_id passed" do
-      before do
-        stub_get("/1/lists/memberships.json").
-          with(:query => {:user_id => '12345678', :cursor => "-1"}).
-          to_return(:body => fixture("lists.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-      end
-      it "should request the correct resource" do
-        @client.memberships(12345678)
-        a_get("/1/lists/memberships.json").
-          with(:query => {:user_id => '12345678', :cursor => "-1"}).
-          should have_been_made
-      end
-    end
   end
 
   describe ".list_subscribers" do
@@ -249,32 +171,6 @@ describe Twitter::Client do
         list_subscribers.users.should be_an Array
         list_subscribers.users.first.should be_a Twitter::User
         list_subscribers.users.first.name.should == "Erik Michaels-Ober"
-      end
-    end
-    context "with an Integer user passed" do
-      before do
-        stub_get("/1/lists/subscribers.json").
-          with(:query => {:owner_id => '12345678', :slug => 'presidents', :cursor => "-1"}).
-          to_return(:body => fixture("users_list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-      end
-      it "should request the correct resource" do
-        @client.list_subscribers(12345678, "presidents")
-        a_get("/1/lists/subscribers.json").
-          with(:query => {:owner_id => '12345678', :slug => 'presidents', :cursor => "-1"}).
-          should have_been_made
-      end
-    end
-    context "with an Integer list_id passed" do
-      before do
-        stub_get("/1/lists/subscribers.json").
-          with(:query => {:owner_screen_name => 'sferik', :list_id => '12345678', :cursor => "-1"}).
-          to_return(:body => fixture("users_list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-      end
-      it "should request the correct resource" do
-        @client.list_subscribers('sferik', 12345678)
-        a_get("/1/lists/subscribers.json").
-          with(:query => {:owner_screen_name => 'sferik', :list_id => '12345678', :cursor => "-1"}).
-          should have_been_made
       end
     end
     context "without a screen name passed" do
@@ -330,19 +226,6 @@ describe Twitter::Client do
           should have_been_made
       end
     end
-    context "with an Integer user_id passed" do
-      before do
-        stub_get("/1/lists/subscriptions.json").
-          with(:query => {:user_id => '12345678', :cursor => "-1"}).
-          to_return(:body => fixture("lists.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-      end
-      it "should request the correct resource" do
-        @client.subscriptions(12345678)
-        a_get("/1/lists/subscriptions.json").
-          with(:query => {:user_id => '12345678', :cursor => "-1"}).
-          should have_been_made
-      end
-    end
   end
 
   describe ".list_subscribe" do
@@ -362,32 +245,6 @@ describe Twitter::Client do
         list = @client.list_subscribe("sferik", "presidents")
         list.should be_a Twitter::List
         list.name.should == "presidents"
-      end
-    end
-    context "with an Integer user_id passed" do
-      before do
-        stub_post("/1/lists/subscribers/create.json").
-          with(:body => {:owner_id => '12345678', :slug => 'presidents'}).
-          to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-      end
-      it "should request the correct resource" do
-        @client.list_subscribe(12345678, "presidents")
-        a_post("/1/lists/subscribers/create.json").
-          with(:body => {:owner_id => '12345678', :slug => 'presidents'}).
-          should have_been_made
-      end
-    end
-    context "with an Integer list_id passed" do
-      before do
-        stub_post("/1/lists/subscribers/create.json").
-          with(:body => {:owner_screen_name => 'sferik', :list_id => '12345678'}).
-          to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-      end
-      it "should request the correct resource" do
-        @client.list_subscribe('sferik', 12345678)
-        a_post("/1/lists/subscribers/create.json").
-          with(:body => {:owner_screen_name => 'sferik', :list_id => '12345678'}).
-          should have_been_made
       end
     end
     context "without a screen name passed" do
@@ -439,7 +296,7 @@ describe Twitter::Client do
         list_subscriber.should be_false
       end
     end
-    context "with an Integer owner_id passed" do
+    context "with a owner ID passed" do
       before do
         stub_get("/1/lists/subscribers/show.json").
           with(:query => {:owner_id => '12345678', :slug => 'presidents', :user_id => '813286'}).
@@ -452,7 +309,7 @@ describe Twitter::Client do
           should have_been_made
       end
     end
-    context "with an Integer list_id passed" do
+    context "with a list ID passed" do
       before do
         stub_get("/1/lists/subscribers/show.json").
           with(:query => {:owner_screen_name => 'sferik', :list_id => '12345678', :user_id => '813286'}).
@@ -514,32 +371,6 @@ describe Twitter::Client do
         list.name.should == "presidents"
       end
     end
-    context "with an Integer user_id passed" do
-      before do
-        stub_post("/1/lists/subscribers/destroy.json").
-          with(:body => {:owner_id => '12345678', :slug => 'presidents'}).
-          to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-      end
-      it "should request the correct resource" do
-        @client.list_unsubscribe(12345678, "presidents")
-        a_post("/1/lists/subscribers/destroy.json").
-          with(:body => {:owner_id => '12345678', :slug => 'presidents'}).
-          should have_been_made
-      end
-    end
-    context "with an Integer list_id passed" do
-      before do
-        stub_post("/1/lists/subscribers/destroy.json").
-          with(:body => {:owner_screen_name => 'sferik', :list_id => '12345678'}).
-          to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-      end
-      it "should request the correct resource" do
-        @client.list_unsubscribe('sferik', 12345678)
-        a_post("/1/lists/subscribers/destroy.json").
-          with(:body => {:owner_screen_name => 'sferik', :list_id => '12345678'}).
-          should have_been_made
-      end
-    end
     context "without a screen name passed" do
       before do
         stub_get("/1/account/verify_credentials.json").
@@ -574,32 +405,6 @@ describe Twitter::Client do
         list = @client.list_add_members("sferik", "presidents", [813286, 18755393])
         list.should be_a Twitter::List
         list.name.should == "presidents"
-      end
-    end
-    context "with an Integer user_id passed" do
-      before do
-        stub_post("/1/lists/members/create_all.json").
-          with(:body => {:owner_id => '12345678', :slug => 'presidents', :user_id => "813286,18755393"}).
-          to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-      end
-      it "should request the correct resource" do
-        @client.list_add_members(12345678, "presidents", [813286, 18755393])
-        a_post("/1/lists/members/create_all.json").
-          with(:body => {:owner_id => '12345678', :slug => 'presidents', :user_id => "813286,18755393"}).
-          should have_been_made
-      end
-    end
-    context "with an Integer list_id passed" do
-      before do
-        stub_post("/1/lists/members/create_all.json").
-          with(:body => {:owner_screen_name => 'sferik', :list_id => '12345678', :user_id => "813286,18755393"}).
-          to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-      end
-      it "should request the correct resource" do
-        @client.list_add_members('sferik', 12345678, [813286, 18755393])
-        a_post("/1/lists/members/create_all.json").
-          with(:body => {:owner_screen_name => 'sferik', :list_id => '12345678', :user_id => "813286,18755393"}).
-          should have_been_made
       end
     end
     context "with a combination of member IDs and member screen names to add" do
@@ -649,32 +454,6 @@ describe Twitter::Client do
         list = @client.list_remove_members("sferik", "presidents", [813286, 18755393])
         list.should be_a Twitter::List
         list.name.should == "presidents"
-      end
-    end
-    context "with an Integer user_id passed" do
-      before do
-        stub_post("/1/lists/members/destroy_all.json").
-          with(:body => {:owner_id => '12345678', :slug => 'presidents', :user_id => "813286,18755393"}).
-          to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-      end
-      it "should request the correct resource" do
-        @client.list_remove_members(12345678, "presidents", [813286, 18755393])
-        a_post("/1/lists/members/destroy_all.json").
-          with(:body => {:owner_id => '12345678', :slug => 'presidents', :user_id => "813286,18755393"}).
-          should have_been_made
-      end
-    end
-    context "with an Integer list_id passed" do
-      before do
-        stub_post("/1/lists/members/destroy_all.json").
-          with(:body => {:owner_screen_name => 'sferik', :list_id => '12345678', :user_id => "813286,18755393"}).
-          to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-      end
-      it "should request the correct resource" do
-        @client.list_remove_members('sferik', 12345678, [813286, 18755393])
-        a_post("/1/lists/members/destroy_all.json").
-          with(:body => {:owner_screen_name => 'sferik', :list_id => '12345678', :user_id => "813286,18755393"}).
-          should have_been_made
       end
     end
     context "with a combination of member IDs and member screen names to add" do
@@ -739,7 +518,7 @@ describe Twitter::Client do
         list_member.should be_false
       end
     end
-    context "with an Integer owner_id passed" do
+    context "with an owner ID passed" do
       before do
         stub_get("/1/lists/members/show.json").
           with(:query => {:owner_id => '12345678', :slug => 'presidents', :user_id => '813286'}).
@@ -752,7 +531,7 @@ describe Twitter::Client do
           should have_been_made
       end
     end
-    context "with an Integer list_id passed" do
+    context "with a list ID passed" do
       before do
         stub_get("/1/lists/members/show.json").
           with(:query => {:owner_screen_name => 'sferik', :list_id => '12345678', :user_id => '813286'}).
@@ -816,19 +595,6 @@ describe Twitter::Client do
         list_members.users.first.name.should == "Erik Michaels-Ober"
       end
     end
-    context "with an Integer user_id passed" do
-      before do
-        stub_get("/1/lists/members.json").
-          with(:query => {:owner_id => '12345678', :slug => 'presidents', :cursor => "-1"}).
-          to_return(:body => fixture("users_list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-      end
-      it "should request the correct resource" do
-        @client.list_members(12345678, 'presidents')
-        a_get("/1/lists/members.json").
-          with(:query => {:owner_id => '12345678', :slug => 'presidents', :cursor => "-1"}).
-          should have_been_made
-      end
-    end
     context "without a screen name passed" do
       before do
         stub_get("/1/account/verify_credentials.json").
@@ -863,32 +629,6 @@ describe Twitter::Client do
         list = @client.list_add_member("sferik", "presidents", 813286)
         list.should be_a Twitter::List
         list.name.should == "presidents"
-      end
-    end
-    context "with an Integer user_id passed" do
-      before do
-        stub_post("/1/lists/members/create.json").
-          with(:body => {:owner_id => '12345678', :slug => 'presidents', :user_id => "813286"}).
-          to_return(:body => fixture("users_list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-      end
-      it "should request the correct resource" do
-        @client.list_add_member(12345678, 'presidents', 813286)
-        a_post("/1/lists/members/create.json").
-          with(:body => {:owner_id => '12345678', :slug => 'presidents', :user_id => "813286"}).
-          should have_been_made
-      end
-    end
-    context "with an Integer list_id passed" do
-      before do
-        stub_post("/1/lists/members/create.json").
-          with(:body => {:owner_screen_name => 'sferik', :list_id => '12345678', :user_id => "813286"}).
-          to_return(:body => fixture("users_list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-      end
-      it "should request the correct resource" do
-        @client.list_add_member('sferik', 12345678, 813286)
-        a_post("/1/lists/members/create.json").
-          with(:body => {:owner_screen_name => 'sferik', :list_id => '12345678', :user_id => "813286"}).
-          should have_been_made
       end
     end
     context "without a screen name passed" do
@@ -942,7 +682,7 @@ describe Twitter::Client do
           should have_been_made
       end
     end
-    context "with an Integer list_id passed" do
+    context "with a list ID passed" do
       before do
         stub_delete("/1/lists/destroy.json").
           with(:query => {:owner_screen_name => 'sferik', :list_id => '12345678'}).
@@ -952,19 +692,6 @@ describe Twitter::Client do
         @client.list_destroy("sferik", 12345678)
         a_delete("/1/lists/destroy.json").
           with(:query => {:owner_screen_name => 'sferik', :list_id => '12345678'}).
-          should have_been_made
-      end
-    end
-    context "with an Integer user_id passed" do
-      before do
-        stub_delete("/1/lists/destroy.json").
-          with(:query => {:owner_id => '12345678', :slug => 'presidents'}).
-          to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-      end
-      it "should request the correct resource" do
-        @client.list_destroy(12345678, 'presidents')
-        a_delete("/1/lists/destroy.json").
-          with(:query => {:owner_id => '12345678', :slug => 'presidents'}).
           should have_been_made
       end
     end
@@ -1004,7 +731,7 @@ describe Twitter::Client do
           should have_been_made
       end
     end
-    context "with an Integer list_id passed" do
+    context "with a list ID passed" do
       before do
         stub_post("/1/lists/update.json").
           with(:body => {:owner_screen_name => 'sferik', :list_id => '12345678', :description => "Presidents of the United States of America"}).
@@ -1014,19 +741,6 @@ describe Twitter::Client do
         @client.list_update("sferik", 12345678, :description => "Presidents of the United States of America")
         a_post("/1/lists/update.json").
           with(:body => {:owner_screen_name => 'sferik', :list_id => '12345678', :description => "Presidents of the United States of America"}).
-          should have_been_made
-      end
-    end
-    context "with an Integer user_id passed" do
-      before do
-        stub_post("/1/lists/update.json").
-          with(:body => {:owner_id => '12345678', :slug => 'presidents', :description => "Presidents of the United States of America"}).
-          to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-      end
-      it "should request the correct resource" do
-        @client.list_update(12345678, 'presidents', :description => "Presidents of the United States of America")
-        a_post("/1/lists/update.json").
-          with(:body => {:owner_id => '12345678', :slug => 'presidents', :description => "Presidents of the United States of America"}).
           should have_been_made
       end
     end
@@ -1066,26 +780,6 @@ describe Twitter::Client do
       end
       it "should return the updated list" do
         lists = @client.lists("sferik")
-        lists.should be_a Twitter::Cursor
-        lists.lists.should be_an Array
-        lists.lists.first.should be_a Twitter::List
-        lists.lists.first.name.should == "Rubyists"
-      end
-    end
-    context "with an Integer user id passed" do
-      before do
-        stub_get("/1/lists.json").
-          with(:query => {:user_id => '12345678', :cursor => "-1"}).
-          to_return(:body => fixture("lists.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-      end
-      it "should request the correct resource" do
-        @client.lists(12345678)
-        a_get("/1/lists.json").
-          with(:query => {:user_id => '12345678', :cursor => "-1"}).
-          should have_been_made
-      end
-      it "should return the updated list" do
-        lists = @client.lists(12345678)
         lists.should be_a Twitter::Cursor
         lists.lists.should be_an Array
         lists.lists.first.should be_a Twitter::List
@@ -1133,6 +827,49 @@ describe Twitter::Client do
         list.name.should == "presidents"
       end
     end
+    context "with a user ID passed" do
+      before do
+        stub_get("/1/lists/show.json").
+          with(:query => {:owner_id => '12345678', :slug => 'presidents'}).
+          to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      end
+      it "should request the correct resource" do
+        @client.list(12345678, 'presidents')
+        a_get("/1/lists/show.json").
+          with(:query => {:owner_id => '12345678', :slug => 'presidents'}).
+          should have_been_made
+      end
+    end
+    context "with a user object passed" do
+      context "with a user ID" do
+        before do
+          stub_get("/1/lists/show.json").
+            with(:query => {:owner_id => '12345678', :slug => 'presidents'}).
+            to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        end
+        it "should request the correct resource" do
+          user = Twitter::User.new('id' => '12345678')
+          @client.list(user, 'presidents')
+          a_get("/1/lists/show.json").
+            with(:query => {:owner_id => '12345678', :slug => 'presidents'}).
+            should have_been_made
+        end
+      end
+      context "with a screen name" do
+        before do
+          stub_get("/1/lists/show.json").
+            with(:query => {:owner_screen_name => 'sferik', :slug => 'presidents'}).
+            to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        end
+        it "should request the correct resource" do
+          user = Twitter::User.new('screen_name' => 'sferik')
+          @client.list(user, "presidents")
+          a_get("/1/lists/show.json").
+            with(:query => {:owner_screen_name => 'sferik', :slug => 'presidents'}).
+            should have_been_made
+        end
+      end
+    end
     context "without a screen name passed" do
       before do
         stub_get("/1/account/verify_credentials.json").
@@ -1148,7 +885,7 @@ describe Twitter::Client do
           should have_been_made
       end
     end
-    context "with an Integer list_id passed" do
+    context "with a list ID passed" do
       before do
         stub_get("/1/lists/show.json").
           with(:query => {:owner_screen_name => 'sferik', :list_id => '12345678'}).
@@ -1158,19 +895,6 @@ describe Twitter::Client do
         @client.list("sferik", 12345678)
         a_get("/1/lists/show.json").
           with(:query => {:owner_screen_name => 'sferik', :list_id => '12345678'}).
-          should have_been_made
-      end
-    end
-    context "with an Integer user_id passed" do
-      before do
-        stub_get("/1/lists/show.json").
-          with(:query => {:owner_id => '12345678', :slug => 'presidents'}).
-          to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-      end
-      it "should request the correct resource" do
-        @client.list(12345678, 'presidents')
-        a_get("/1/lists/show.json").
-          with(:query => {:owner_id => '12345678', :slug => 'presidents'}).
           should have_been_made
       end
     end

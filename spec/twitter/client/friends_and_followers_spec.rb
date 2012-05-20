@@ -89,27 +89,74 @@ describe Twitter::Client do
   end
 
   describe ".friendship?" do
-    before do
-      stub_get("/1/friendships/exists.json").
-        with(:query => {:user_a => "sferik", :user_b => "pengwynn"}).
-        to_return(:body => fixture("true.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-      stub_get("/1/friendships/exists.json").
-        with(:query => {:user_a => "pengwynn", :user_b => "sferik"}).
-        to_return(:body => fixture("false.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+    context "with screen names passed" do
+      before do
+        stub_get("/1/friendships/exists.json").
+          with(:query => {:screen_name_a => "sferik", :screen_name_b => "pengwynn"}).
+          to_return(:body => fixture("true.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        stub_get("/1/friendships/exists.json").
+          with(:query => {:screen_name_a => "pengwynn", :screen_name_b => "sferik"}).
+          to_return(:body => fixture("false.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      end
+      it "should request the correct resource" do
+        @client.friendship?("sferik", "pengwynn")
+        a_get("/1/friendships/exists.json").
+          with(:query => {:screen_name_a => "sferik", :screen_name_b => "pengwynn"}).
+          should have_been_made
+      end
+      it "should return true if user A follows user B" do
+        friendship = @client.friendship?("sferik", "pengwynn")
+        friendship.should be_true
+      end
+      it "should return false if user A does not follow user B" do
+        friendship = @client.friendship?("pengwynn", "sferik")
+        friendship.should be_false
+      end
     end
-    it "should request the correct resource" do
-      @client.friendship?("sferik", "pengwynn")
-      a_get("/1/friendships/exists.json").
-        with(:query => {:user_a => "sferik", :user_b => "pengwynn"}).
-        should have_been_made
+    context "with user IDs passed" do
+      before do
+        stub_get("/1/friendships/exists.json").
+          with(:query => {:user_id_a => "7505382", :user_id_b => "14100886"}).
+          to_return(:body => fixture("true.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      end
+      it "should request the correct resource" do
+        @client.friendship?(7505382, 14100886)
+        a_get("/1/friendships/exists.json").
+          with(:query => {:user_id_a => "7505382", :user_id_b => "14100886"}).
+          should have_been_made
+      end
     end
-    it "should return true if user_a follows user_b" do
-      friendship = @client.friendship?("sferik", "pengwynn")
-      friendship.should be_true
-    end
-    it "should return false if user_a does not follows user_b" do
-      friendship = @client.friendship?("pengwynn", "sferik")
-      friendship.should be_false
+    context "with user objects passed" do
+      context "with screen names" do
+        before do
+          stub_get("/1/friendships/exists.json").
+            with(:query => {:screen_name_a => "sferik", :screen_name_b => "pengwynn"}).
+            to_return(:body => fixture("true.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        end
+        it "should request the correct resource" do
+          user1 = Twitter::User.new('screen_name' => 'sferik')
+          user2 = Twitter::User.new('screen_name' => 'pengwynn')
+          @client.friendship?(user1, user2)
+          a_get("/1/friendships/exists.json").
+            with(:query => {:screen_name_a => "sferik", :screen_name_b => "pengwynn"}).
+            should have_been_made
+        end
+      end
+      context "with user IDs" do
+        before do
+          stub_get("/1/friendships/exists.json").
+            with(:query => {:user_id_a => "7505382", :user_id_b => "14100886"}).
+            to_return(:body => fixture("true.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        end
+        it "should request the correct resource" do
+          user1 = Twitter::User.new('id' => '7505382')
+          user2 = Twitter::User.new('id' => '14100886')
+          @client.friendship?(user1, user2)
+          a_get("/1/friendships/exists.json").
+            with(:query => {:user_id_a => "7505382", :user_id_b => "14100886"}).
+            should have_been_made
+        end
+      end
     end
   end
 
@@ -196,6 +243,38 @@ describe Twitter::Client do
         a_get("/1/friendships/show.json").
           with(:query => {:source_id => "7505382", :target_id => "14100886"}).
           should have_been_made
+      end
+    end
+    context "with user objects passed" do
+      context "with screen names" do
+        before do
+          stub_get("/1/friendships/show.json").
+            with(:query => {:source_screen_name => "sferik", :target_screen_name => "pengwynn"}).
+            to_return(:body => fixture("relationship.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        end
+        it "should request the correct resource" do
+          user1 = Twitter::User.new('screen_name' => 'sferik')
+          user2 = Twitter::User.new('screen_name' => 'pengwynn')
+          @client.friendship(user1, user2)
+          a_get("/1/friendships/show.json").
+            with(:query => {:source_screen_name => "sferik", :target_screen_name => "pengwynn"}).
+            should have_been_made
+        end
+      end
+      context "with user IDs" do
+        before do
+          stub_get("/1/friendships/show.json").
+            with(:query => {:source_id => "7505382", :target_id => "14100886"}).
+            to_return(:body => fixture("relationship.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        end
+        it "should request the correct resource" do
+          user1 = Twitter::User.new('id' => '7505382')
+          user2 = Twitter::User.new('id' => '14100886')
+          @client.friendship(user1, user2)
+          a_get("/1/friendships/show.json").
+            with(:query => {:source_id => "7505382", :target_id => "14100886"}).
+            should have_been_made
+        end
       end
     end
   end

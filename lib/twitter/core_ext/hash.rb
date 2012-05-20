@@ -18,30 +18,42 @@ class Hash
 
   # Take a single user ID or screen name and merge it into self with the correct key
   #
-  # @param user_id_or_screen_name [Integer, String] A Twitter user ID or screen_name.
+  # @param user[Integer, String, Twitter::User] A Twitter user ID, screen_name, or object.
   # @return [Hash]
-  def merge_user!(user_id_or_screen_name)
-    case user_id_or_screen_name
+  def merge_user!(user, prefix=nil, suffix=nil)
+    case user
     when Integer
-      self[:user_id] = user_id_or_screen_name
+      self[[prefix, "user_id", suffix].compact.join("_").to_sym] = user
     when String
-      self[:screen_name] = user_id_or_screen_name
+      self[[prefix, "screen_name", suffix].compact.join("_").to_sym] = user
+    when Twitter::User
+      if user.id
+        self[[prefix, "user_id", suffix].compact.join("_").to_sym] = user.id
+      elsif user.screen_name
+        self[[prefix, "screen_name", suffix].compact.join("_").to_sym] = user.screen_name
+      end
     end
     self
   end
 
   # Take a multiple user IDs and screen names and merge them into self with the correct keys
   #
-  # @param users_id_or_screen_names [Array] An array of Twitter user IDs or screen_names.
+  # @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen_names, or objects.
   # @return [Hash]
-  def merge_users!(user_ids_or_screen_names)
+  def merge_users!(*users)
     user_ids, screen_names = [], []
-    user_ids_or_screen_names.flatten.each do |user_id_or_screen_name|
-      case user_id_or_screen_name
+    users.flatten.each do |user|
+      case user
       when Integer
-        user_ids << user_id_or_screen_name
+        user_ids << user
       when String
-        screen_names << user_id_or_screen_name
+        screen_names << user
+      when Twitter::User
+        if user.id
+          user_ids << user.id
+        elsif user.screen_name
+          screen_names << user.screen_name
+        end
       end
     end
     self[:user_id] = user_ids.join(',') unless user_ids.empty?
@@ -52,15 +64,11 @@ class Hash
   # Take a single owner ID or owner screen name and merge it into self with the correct key
   # (for Twitter API endpoints that want :owner_id and :owner_screen_name)
   #
-  # @param owner_id_or_owner_screen_name [Integer, String] A Twitter user ID or screen_name.
+  # @param user[Integer, String, Twitter::User] A Twitter user ID, screen_name, or object.
   # @return [Hash]
-  def merge_owner!(owner_id_or_owner_screen_name)
-    case owner_id_or_owner_screen_name
-    when Integer
-      self[:owner_id] = owner_id_or_owner_screen_name
-    when String
-      self[:owner_screen_name] = owner_id_or_owner_screen_name
-    end
+  def merge_owner!(user)
+    self.merge_user!(user, "owner")
+    self[:owner_id] = self.delete(:owner_user_id) unless self[:owner_user_id].nil?
     self
   end
 
