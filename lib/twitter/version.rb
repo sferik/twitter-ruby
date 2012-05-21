@@ -8,7 +8,7 @@ module Twitter
 
     # @return [Integer]
     def self.minor
-      3
+      4
     end
 
     # @return [Integer]
