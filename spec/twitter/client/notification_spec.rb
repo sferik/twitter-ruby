@@ -6,7 +6,7 @@ describe Twitter::Client do
     @client = Twitter::Client.new
   end
 
-  describe ".enable_notifications" do
+  describe "#enable_notifications" do
     before do
       stub_post("/1/notifications/follow.json").
         with(:body => {:screen_name => "sferik"}).
@@ -25,7 +25,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".disable_notifications" do
+  describe "#disable_notifications" do
     before do
       stub_post("/1/notifications/leave.json").
         with(:body => {:screen_name => "sferik"}).

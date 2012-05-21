@@ -6,7 +6,7 @@ describe Twitter::Client do
     @client = Twitter::Client.new
   end
 
-  describe ".report_spam" do
+  describe "#report_spam" do
     before do
       stub_post("/1/report_spam.json").
         with(:body => {:screen_name => "sferik"}).

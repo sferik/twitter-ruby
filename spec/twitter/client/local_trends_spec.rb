@@ -6,7 +6,7 @@ describe Twitter::Client do
     @client = Twitter::Client.new
   end
 
-  describe ".local_trends" do
+  describe "#local_trends" do
     context "with woeid passed" do
       before do
         stub_get("/1/trends/2487956.json").
@@ -37,7 +37,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".trend_locations" do
+  describe "#trend_locations" do
     before do
       stub_get("/1/trends/available.json").
         to_return(:body => fixture("locations.json"), :headers => {:content_type => "application/json; charset=utf-8"})

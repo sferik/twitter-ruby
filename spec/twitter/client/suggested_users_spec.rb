@@ -6,7 +6,7 @@ describe Twitter::Client do
     @client = Twitter::Client.new
   end
 
-  describe ".suggestions" do
+  describe "#suggestions" do
     context "with a category slug passed" do
       before do
         stub_get("/1/users/suggestions/art-design.json").
@@ -44,7 +44,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".suggest_users" do
+  describe "#suggest_users" do
     before do
       stub_get("/1/users/suggestions/art-design/members.json").
         to_return(:body => fixture("members.json"), :headers => {:content_type => "application/json; charset=utf-8"})

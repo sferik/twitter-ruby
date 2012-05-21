@@ -2030,7 +2030,7 @@ module Twitter
     # @see https://dev.twitter.com/docs/api/1/get/statuses/user_timeline
     # @note This method can only return up to 3200 statuses.
     # @rate_limited Yes
-    # @requires_authentication No unless the user whose timeline you're trying to view is protected
+    # @requires_authentication No, unless the user whose timeline you're trying to view is protected
     # @overload user_timeline(user, options={})
     #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
     #   @param options [Hash] A customizable set of options.
@@ -2058,7 +2058,7 @@ module Twitter
     # @note This method can only return up to the 100 most recent images.
     # @note Images will not be returned from tweets posted before January 1, 2010.
     # @rate_limited Yes
-    # @requires_authentication No unless the user whose timeline you're trying to view is protected
+    # @requires_authentication No, unless the user whose timeline you're trying to view is protected
     # @overload media_timeline(user, options={})
     #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
     #   @param options [Hash] A customizable set of options.
@@ -2191,7 +2191,7 @@ module Twitter
     #
     # @see https://dev.twitter.com/docs/api/1/get/statuses/show/:id
     # @rate_limited Yes
-    # @requires_authentication No unless the author of the status is protected
+    # @requires_authentication No, unless the author of the status is protected
     # @param id [Integer] The numerical ID of the desired status.
     # @param options [Hash] A customizable set of options.
     # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
@@ -2207,7 +2207,7 @@ module Twitter
     #
     # @see https://dev.twitter.com/docs/api/1/get/statuses/oembed
     # @rate_limited Yes
-    # @requires_authentication No unless the author of the status is protected
+    # @requires_authentication No, unless the author of the status is protected
     # @param id [Integer] The numerical ID of the desired status to be embedded.
     # @param url [String] The url to the status to be embedded. ex: https://twitter.com/#!/twitter/status/25938088801
     # @param options [Hash] A customizable set of options.

@@ -6,7 +6,7 @@ describe Twitter::Client do
     @client = Twitter::Client.new
   end
 
-  describe ".retweeters_of" do
+  describe "#retweeters_of" do
     context "with ids_only passed" do
       before do
         stub_get("/1/statuses/27467028175/retweeted_by/ids.json").
@@ -42,7 +42,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".retweets" do
+  describe "#retweets" do
     before do
       stub_get("/1/statuses/retweets/28561922516.json").
         to_return(:body => fixture("retweets.json"), :headers => {:content_type => "application/json; charset=utf-8"})
@@ -60,7 +60,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".status" do
+  describe "#status" do
     before do
       stub_get("/1/statuses/show/25938088801.json").
         to_return(:body => fixture("status.json"), :headers => {:content_type => "application/json; charset=utf-8"})
@@ -77,7 +77,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".status_destroy" do
+  describe "#status_destroy" do
     before do
       stub_delete("/1/statuses/destroy/25938088801.json").
         to_return(:body => fixture("status.json"), :headers => {:content_type => "application/json; charset=utf-8"})
@@ -94,7 +94,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".retweet" do
+  describe "#retweet" do
     before do
       stub_post("/1/statuses/retweet/28561922516.json").
         to_return(:body => fixture("retweet.json"), :headers => {:content_type => "application/json; charset=utf-8"})
@@ -113,7 +113,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".update" do
+  describe "#update" do
     before do
       stub_post("/1/statuses/update.json").
         with(:body => {:status => "@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!"}).
@@ -132,7 +132,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".update_with_media" do
+  describe "#update_with_media" do
     before do
       stub_post("/1/statuses/update_with_media.json", Twitter.media_endpoint).
         to_return(:body => fixture("status_with_media.json"), :headers => {:content_type => "application/json; charset=utf-8"})
@@ -152,7 +152,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".oembed" do
+  describe "#oembed" do
     context "with id passed" do
       before do
         stub_get("/1/statuses/oembed.json?id=25938088801").

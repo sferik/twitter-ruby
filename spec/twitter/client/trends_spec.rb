@@ -6,7 +6,7 @@ describe Twitter::Client do
     @client = Twitter::Client.new
   end
 
-  describe ".trends_daily" do
+  describe "#trends_daily" do
     before do
       stub_get("/1/trends/daily.json").
         with(:query => {:date => "2010-10-24"}).
@@ -27,7 +27,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".trends_weekly" do
+  describe "#trends_weekly" do
     before do
       stub_get("/1/trends/weekly.json").
         with(:query => {:date => "2010-10-24"}).

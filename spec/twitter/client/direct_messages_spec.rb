@@ -6,7 +6,7 @@ describe Twitter::Client do
     @client = Twitter::Client.new
   end
 
-  describe ".direct_messages" do
+  describe "#direct_messages" do
     before do
       stub_get("/1/direct_messages.json").
         to_return(:body => fixture("direct_messages.json"), :headers => {:content_type => "application/json; charset=utf-8"})
@@ -24,7 +24,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".direct_messages_sent" do
+  describe "#direct_messages_sent" do
     before do
       stub_get("/1/direct_messages/sent.json").
         to_return(:body => fixture("direct_messages.json"), :headers => {:content_type => "application/json; charset=utf-8"})
@@ -42,7 +42,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".direct_message_destroy" do
+  describe "#direct_message_destroy" do
     before do
       stub_delete("/1/direct_messages/destroy/1825785544.json").
         to_return(:body => fixture("direct_message.json"), :headers => {:content_type => "application/json; charset=utf-8"})
@@ -59,7 +59,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".direct_message_create" do
+  describe "#direct_message_create" do
     before do
       stub_post("/1/direct_messages/new.json").
         with(:body => {:screen_name => "pengwynn", :text => "Creating a fixture for the Twitter gem"}).
@@ -78,7 +78,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".direct_message" do
+  describe "#direct_message" do
     before do
       stub_get("/1/direct_messages/show/1825786345.json").
         to_return(:body => fixture("direct_message.json"), :headers => {:content_type => "application/json; charset=utf-8"})

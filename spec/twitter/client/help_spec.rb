@@ -6,7 +6,7 @@ describe Twitter::Client do
     @client = Twitter::Client.new
   end
 
-  describe ".configuration" do
+  describe "#configuration" do
     before do
       stub_get("/1/help/configuration.json").
         to_return(:body => fixture("configuration.json"), :headers => {:content_type => "application/json; charset=utf-8"})
@@ -23,7 +23,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".languages" do
+  describe "#languages" do
     before do
       stub_get("/1/help/languages.json").
         to_return(:body => fixture("languages.json"), :headers => {:content_type => "application/json; charset=utf-8"})

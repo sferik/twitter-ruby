@@ -6,7 +6,7 @@ describe Twitter::Client do
     @client = Twitter::Client.new
   end
 
-  describe ".blocking" do
+  describe "#blocking" do
     before do
       stub_get("/1/blocks/blocking.json").
         to_return(:body => fixture("users.json"), :headers => {:content_type => "application/json; charset=utf-8"})
@@ -24,7 +24,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".blocked_ids" do
+  describe "#blocked_ids" do
     before do
       stub_get("/1/blocks/blocking/ids.json").
         to_return(:body => fixture("ids.json"), :headers => {:content_type => "application/json; charset=utf-8"})
@@ -41,7 +41,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".block?" do
+  describe "#block?" do
     before do
       stub_get("/1/blocks/exists.json").
         with(:query => {:screen_name => "sferik"}).
@@ -66,7 +66,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".block" do
+  describe "#block" do
     before do
       stub_post("/1/blocks/create.json").
         with(:body => {:screen_name => "sferik"}).
@@ -84,7 +84,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".unblock" do
+  describe "#unblock" do
     before do
       stub_delete("/1/blocks/destroy.json").
         with(:query => {:screen_name => "sferik"}).

@@ -6,7 +6,7 @@ describe Twitter::Client do
     @client = Twitter::Client.new
   end
 
-  describe ".home_timeline" do
+  describe "#home_timeline" do
     before do
       stub_get("/1/statuses/home_timeline.json").
         to_return(:body => fixture("statuses.json"), :headers => {:content_type => "application/json; charset=utf-8"})
@@ -24,7 +24,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".mentions" do
+  describe "#mentions" do
     before do
       stub_get("/1/statuses/mentions.json").
         to_return(:body => fixture("statuses.json"), :headers => {:content_type => "application/json; charset=utf-8"})
@@ -42,7 +42,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".retweeted_by" do
+  describe "#retweeted_by" do
     context "with a screen name passed" do
       before do
         stub_get("/1/statuses/retweeted_by_user.json").
@@ -75,7 +75,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".retweeted_to" do
+  describe "#retweeted_to" do
     context "with a screen name passed" do
       before do
         stub_get("/1/statuses/retweeted_to_user.json").
@@ -108,7 +108,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".retweets_of_me" do
+  describe "#retweets_of_me" do
     before do
       stub_get("/1/statuses/retweets_of_me.json").
         to_return(:body => fixture("statuses.json"), :headers => {:content_type => "application/json; charset=utf-8"})
@@ -126,7 +126,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".user_timeline" do
+  describe "#user_timeline" do
     context "with a screen name passed" do
       before do
         stub_get("/1/statuses/user_timeline.json").
@@ -159,7 +159,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".media_timeline" do
+  describe "#media_timeline" do
     context "with a screen name passed" do
       before do
         stub_get("/1/statuses/media_timeline.json").
@@ -192,7 +192,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".network_timeline" do
+  describe "#network_timeline" do
     before do
       stub_get("/i/statuses/network_timeline.json").
         to_return(:body => fixture("statuses.json"), :headers => {:content_type => "application/json; charset=utf-8"})

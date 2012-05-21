@@ -6,7 +6,7 @@ describe Twitter::Client do
     @client = Twitter::Client.new
   end
 
-  describe ".search" do
+  describe "#search" do
     before do
       stub_get("/search.json", Twitter.search_endpoint).
         with(:query => {:q => "twitter"}).
@@ -40,7 +40,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".phoenix_search" do
+  describe "#phoenix_search" do
     before do
       stub_get("/phoenix_search.phoenix").
         with(:query => {:q => "twitter"}).

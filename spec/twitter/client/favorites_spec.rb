@@ -6,7 +6,7 @@ describe Twitter::Client do
     @client = Twitter::Client.new
   end
 
-  describe ".favorites" do
+  describe "#favorites" do
     context "with a screen name passed" do
       before do
         stub_get("/1/favorites/sferik.json").
@@ -43,7 +43,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".favorite" do
+  describe "#favorite" do
     before do
       stub_post("/1/favorites/create/25938088801.json").
         to_return(:body => fixture("status.json"), :headers => {:content_type => "application/json; charset=utf-8"})
@@ -60,7 +60,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".unfavorite" do
+  describe "#unfavorite" do
     before do
       stub_delete("/1/favorites/destroy/25938088801.json").
         to_return(:body => fixture("status.json"), :headers => {:content_type => "application/json; charset=utf-8"})

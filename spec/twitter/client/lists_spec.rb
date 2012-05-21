@@ -6,7 +6,7 @@ describe Twitter::Client do
     @client = Twitter::Client.new
   end
 
-  describe ".lists_subscribed_to" do
+  describe "#lists_subscribed_to" do
     context "with a screen name passed" do
       before do
         stub_get("/1/lists/all.json").
@@ -41,7 +41,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".list_timeline" do
+  describe "#list_timeline" do
     context "with a screen name passed" do
       before do
         stub_get("/1/lists/statuses.json").
@@ -78,7 +78,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".list_remove_member" do
+  describe "#list_remove_member" do
     context "with a screen name passed" do
       before do
         stub_post("/1/lists/members/destroy.json").
@@ -114,7 +114,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".memberships" do
+  describe "#memberships" do
     context "with a screen name passed" do
       before do
         stub_get("/1/lists/memberships.json").
@@ -152,7 +152,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".list_subscribers" do
+  describe "#list_subscribers" do
     context "with a screen name passed" do
       before do
         stub_get("/1/lists/subscribers.json").
@@ -190,7 +190,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".subscriptions" do
+  describe "#subscriptions" do
     context "with a screen name passed" do
       before do
         stub_get("/1/lists/subscriptions.json").
@@ -228,7 +228,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".list_subscribe" do
+  describe "#list_subscribe" do
     context "with a screen name passed" do
       before do
         stub_post("/1/lists/subscribers/create.json").
@@ -264,7 +264,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".list_subscriber?" do
+  describe "#list_subscriber?" do
     context "with a screen name passed" do
       before do
         stub_get("/1/lists/subscribers/show.json").
@@ -382,7 +382,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".list_unsubscribe" do
+  describe "#list_unsubscribe" do
     context "with a screen name passed" do
       before do
         stub_post("/1/lists/subscribers/destroy.json").
@@ -418,7 +418,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".list_add_members" do
+  describe "#list_add_members" do
     context "with a screen name passed" do
       before do
         stub_post("/1/lists/members/create_all.json").
@@ -467,7 +467,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".list_remove_members" do
+  describe "#list_remove_members" do
     context "with a screen name passed" do
       before do
         stub_post("/1/lists/members/destroy_all.json").
@@ -516,7 +516,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".list_member?" do
+  describe "#list_member?" do
     context "with a screen name passed" do
       before do
         stub_get("/1/lists/members/show.json").
@@ -634,7 +634,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".list_members" do
+  describe "#list_members" do
     context "with a screen name passed" do
       before do
         stub_get("/1/lists/members.json").
@@ -672,7 +672,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".list_add_member" do
+  describe "#list_add_member" do
     context "with a screen name passed" do
       before do
         stub_post("/1/lists/members/create.json").
@@ -708,7 +708,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".list_destroy" do
+  describe "#list_destroy" do
     context "with a screen name passed" do
       before do
         stub_delete("/1/lists/destroy.json").
@@ -787,7 +787,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".list_update" do
+  describe "#list_update" do
     context "with a screen name passed" do
       before do
         stub_post("/1/lists/update.json").
@@ -866,7 +866,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".list_create" do
+  describe "#list_create" do
     before do
       stub_post("/1/lists/create.json").
         with(:body => {:name => "presidents"}).
@@ -885,7 +885,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".lists" do
+  describe "#lists" do
     context "with a screen name passed" do
       before do
         stub_get("/1/lists.json").
@@ -928,7 +928,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".list" do
+  describe "#list" do
     context "with a screen name passed" do
       before do
         stub_get("/1/lists/show.json").

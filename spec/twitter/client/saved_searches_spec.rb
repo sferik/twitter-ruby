@@ -6,7 +6,7 @@ describe Twitter::Client do
     @client = Twitter::Client.new
   end
 
-  describe ".saved_searches" do
+  describe "#saved_searches" do
     before do
       stub_get("/1/saved_searches.json").
         to_return(:body => fixture("saved_searches.json"), :headers => {:content_type => "application/json; charset=utf-8"})
@@ -24,7 +24,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".saved_search" do
+  describe "#saved_search" do
     before do
       stub_get("/1/saved_searches/show/16129012.json").
         to_return(:body => fixture("saved_search.json"), :headers => {:content_type => "application/json; charset=utf-8"})
@@ -41,7 +41,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".saved_search_create" do
+  describe "#saved_search_create" do
     before do
       stub_post("/1/saved_searches/create.json").
         with(:body => {:query => "twitter"}).
@@ -60,7 +60,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".saved_search_destroy" do
+  describe "#saved_search_destroy" do
     before do
       stub_delete("/1/saved_searches/destroy/16129012.json").
         to_return(:body => fixture("saved_search.json"), :headers => {:content_type => "application/json; charset=utf-8"})

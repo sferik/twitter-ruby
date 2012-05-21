@@ -6,7 +6,7 @@ describe Twitter::Client do
     @client = Twitter::Client.new
   end
 
-  describe ".users" do
+  describe "#users" do
     context "with screen names passed" do
       before do
         stub_get("/1/users/lookup.json").
@@ -114,7 +114,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".profile_image" do
+  describe "#profile_image" do
     context "with a screen name passed" do
       before do
         stub_get("/1/users/profile_image/sferik").
@@ -159,7 +159,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".user_search" do
+  describe "#user_search" do
     before do
       stub_get("/1/users/search.json").
         with(:query => {:q => "Erik Michaels-Ober"}).
@@ -179,7 +179,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".user" do
+  describe "#user" do
     context "with a screen name passed" do
       before do
         stub_get("/1/users/show.json").
@@ -280,7 +280,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".user?" do
+  describe "#user?" do
     before do
       stub_get("/1/users/show.json").
         with(:query => {:screen_name => "sferik"}).
@@ -305,7 +305,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".contributees" do
+  describe "#contributees" do
     context "with a screen name passed" do
       before do
         stub_get("/1/users/contributees.json").
@@ -348,7 +348,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".contributors" do
+  describe "#contributors" do
     context "with a screen name passed" do
       before do
         stub_get("/1/account/verify_credentials.json").
@@ -393,7 +393,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".recommendations" do
+  describe "#recommendations" do
     context "with a screen name passed" do
       before do
         stub_get("/1/users/recommendations.json").
@@ -438,7 +438,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".following_followers_of" do
+  describe "#following_followers_of" do
     context "with a screen_name passed" do
       before do
         stub_get("/users/following_followers_of.json").

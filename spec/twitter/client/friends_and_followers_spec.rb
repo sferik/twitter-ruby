@@ -6,7 +6,7 @@ describe Twitter::Client do
     @client = Twitter::Client.new
   end
 
-  describe ".follower_ids" do
+  describe "#follower_ids" do
     context "with a screen_name passed" do
       before do
         stub_get("/1/followers/ids.json").
@@ -47,7 +47,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".friend_ids" do
+  describe "#friend_ids" do
     context "with a screen_name passed" do
       before do
         stub_get("/1/friends/ids.json").
@@ -88,7 +88,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".friendship?" do
+  describe "#friendship?" do
     context "with screen names passed" do
       before do
         stub_get("/1/friendships/exists.json").
@@ -160,7 +160,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".friendships_incoming" do
+  describe "#friendships_incoming" do
     before do
       stub_get("/1/friendships/incoming.json").
         with(:query => {:cursor => "-1"}).
@@ -180,7 +180,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".friendships_outgoing" do
+  describe "#friendships_outgoing" do
     before do
       stub_get("/1/friendships/outgoing.json").
         with(:query => {:cursor => "-1"}).
@@ -200,7 +200,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".friendship" do
+  describe "#friendship" do
     context "with screen names passed" do
       before do
         stub_get("/1/friendships/show.json").
@@ -279,7 +279,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".follow" do
+  describe "#follow" do
     context "with :follow => true passed" do
       before do
         stub_post("/1/friendships/create.json").
@@ -336,7 +336,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".unfollow" do
+  describe "#unfollow" do
     before do
       stub_delete("/1/friendships/destroy.json").
         with(:query => {:screen_name => "sferik"}).
@@ -355,7 +355,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".friendships" do
+  describe "#friendships" do
     context "with screen names passed" do
       before do
         stub_get("/1/friendships/lookup.json").
@@ -417,7 +417,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".friendships" do
+  describe "#friendships" do
     context "with screen names passed" do
       before do
         stub_get("/1/friendships/lookup.json").
@@ -479,7 +479,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".friendship_update" do
+  describe "#friendship_update" do
     before do
       stub_post("/1/friendships/update.json").
         with(:body => {:screen_name => "sferik", :retweets => "true"}).
@@ -498,7 +498,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".no_retweet_ids" do
+  describe "#no_retweet_ids" do
     before do
       stub_get("/1/friendships/no_retweet_ids.json").
         to_return(:body => fixture("ids.json"), :headers => {:content_type => "application/json; charset=utf-8"})
@@ -516,7 +516,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".accept" do
+  describe "#accept" do
     before do
       stub_post("/1/friendships/accept.json").
         with(:body => {:screen_name => "sferik"}).
@@ -535,7 +535,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".deny" do
+  describe "#deny" do
     before do
       stub_post("/1/friendships/deny.json").
         with(:body => {:screen_name => "sferik"}).

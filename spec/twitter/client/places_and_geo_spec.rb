@@ -6,7 +6,7 @@ describe Twitter::Client do
     @client = Twitter::Client.new
   end
 
-  describe ".places_nearby" do
+  describe "#places_nearby" do
     before do
       stub_get("/1/geo/search.json").
         with(:query => {:ip => "74.125.19.104"}).
@@ -25,7 +25,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".places_similar" do
+  describe "#places_similar" do
     before do
       stub_get("/1/geo/similar_places.json").
         with(:query => {:lat => "37.7821120598956", :long => "-122.400612831116", :name => "Twitter HQ"}).
@@ -44,7 +44,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".reverse_geocode" do
+  describe "#reverse_geocode" do
     before do
       stub_get("/1/geo/reverse_geocode.json").
         with(:query => {:lat => "37.7821120598956", :long => "-122.400612831116"}).
@@ -63,7 +63,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".place" do
+  describe "#place" do
     before do
       stub_get("/1/geo/id/247f43d441defc03.json").
         to_return(:body => fixture("place.json"), :headers => {:content_type => "application/json; charset=utf-8"})
@@ -79,7 +79,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".place_create" do
+  describe "#place_create" do
     before do
       stub_post("/1/geo/place.json").
         with(:body => {:name => "@sferik's Apartment", :token => "22ff5b1f7159032cf69218c4d8bb78bc", :contained_within => "41bcb736f84a799e", :lat => "37.783699", :long => "-122.393581"}).

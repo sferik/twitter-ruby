@@ -6,7 +6,7 @@ describe Twitter::Client do
     @client = Twitter::Client.new
   end
 
-  describe ".privacy" do
+  describe "#privacy" do
     before do
       stub_get("/1/legal/privacy.json").
         to_return(:body => fixture("privacy.json"), :headers => {:content_type => "application/json; charset=utf-8"})
@@ -22,7 +22,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".tos" do
+  describe "#tos" do
     before do
       stub_get("/1/legal/tos.json").
         to_return(:body => fixture("tos.json"), :headers => {:content_type => "application/json; charset=utf-8"})

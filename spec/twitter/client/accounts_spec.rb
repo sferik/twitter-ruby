@@ -6,7 +6,7 @@ describe Twitter::Client do
     @client = Twitter::Client.new
   end
 
-  describe ".rate_limit_status" do
+  describe "#rate_limit_status" do
     before do
       stub_get("/1/account/rate_limit_status.json").
         to_return(:body => fixture("rate_limit_status.json"), :headers => {:content_type => "application/json; charset=utf-8"})
@@ -23,7 +23,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".verify_credentials" do
+  describe "#verify_credentials" do
     before do
       stub_get("/1/account/verify_credentials.json").
         to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
@@ -40,7 +40,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".end_session" do
+  describe "#end_session" do
     before do
       stub_post("/1/account/end_session.json").
         to_return(:body => fixture("end_session.json"), :headers => {:content_type => "application/json; charset=utf-8"})
@@ -56,7 +56,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".update_delivery_device" do
+  describe "#update_delivery_device" do
     before do
       stub_post("/1/account/update_delivery_device.json").
         with(:body => {:device => "sms"}).
@@ -75,7 +75,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".update_profile" do
+  describe "#update_profile" do
     before do
       stub_post("/1/account/update_profile.json").
         with(:body => {:url => "http://github.com/sferik/"}).
@@ -94,7 +94,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".update_profile_background_image" do
+  describe "#update_profile_background_image" do
     before do
       stub_post("/1/account/update_profile_background_image.json").
         to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
@@ -111,7 +111,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".update_profile_colors" do
+  describe "#update_profile_colors" do
     before do
       stub_post("/1/account/update_profile_colors.json").
         with(:body => {:profile_background_color => "000000"}).
@@ -130,7 +130,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".update_profile_image" do
+  describe "#update_profile_image" do
     before do
       stub_post("/1/account/update_profile_image.json").
         to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
@@ -147,7 +147,7 @@ describe Twitter::Client do
     end
   end
 
-  describe ".settings" do
+  describe "#settings" do
     before do
       stub_get("/1/account/settings.json").
         to_return(:body => fixture("settings.json"), :headers => {:content_type => "application/json; charset=utf-8"})
