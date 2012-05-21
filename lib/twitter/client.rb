@@ -872,7 +872,7 @@ module Twitter
     # @rate_limited Yes
     # @requires_authentication No
     # @overload list_timeline(list, options={})
-    #   @param list [Integer, String] The list_id or slug of the list.
+    #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, or object.
     #   @param options [Hash] A customizable set of options.
     #   @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID.
     #   @option options [Integer] :max_id Returns results with an ID less than (that is, older than) or equal to the specified ID.
@@ -883,7 +883,7 @@ module Twitter
     #     Twitter.list_timeline(8863586)
     # @overload list_timeline(user, list, options={})
     #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
-    #   @param list [Integer, String] The list_id or slug of the list.
+    #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, or object.
     #   @param options [Hash] A customizable set of options.
     #   @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID.
     #   @option options [Integer] :max_id Returns results with an ID less than (that is, older than) or equal to the specified ID.
@@ -898,8 +898,10 @@ module Twitter
       options = args.last.is_a?(Hash) ? args.pop : {}
       list = args.pop
       options.merge_list!(list)
-      owner = args.pop || self.current_user.screen_name
-      options.merge_owner!(owner)
+      unless options[:owner_id] || options[:owner_screen_name]
+        owner = args.pop || self.current_user.screen_name
+        options.merge_owner!(owner)
+      end
       get("/1/lists/statuses.json", options).map do |status|
         Twitter::Status.new(status)
       end
@@ -911,7 +913,7 @@ module Twitter
     # @rate_limited No
     # @requires_authentication Yes
     # @overload list_remove_member(list, user_to_remove, options={})
-    #   @param list [Integer, String] The list_id or slug of the list.
+    #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, or object.
     #   @param user_to_remove [Integer, String] The user id or screen name of the list member to remove.
     #   @param options [Hash] A customizable set of options.
     #   @return [Twitter::List] The list.
@@ -922,7 +924,7 @@ module Twitter
     #     Twitter.list_remove_member(8863586, 'BarackObama')
     # @overload list_remove_member(user, list, user_to_remove, options={})
     #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
-    #   @param list [Integer, String] The list_id or slug of the list.
+    #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, or object.
     #   @param user_to_remove [Integer, String] The user id or screen name of the list member to remove.
     #   @param options [Hash] A customizable set of options.
     #   @return [Twitter::List] The list.
@@ -938,8 +940,10 @@ module Twitter
       options.merge_user!(user_to_remove)
       list = args.pop
       options.merge_list!(list)
-      owner = args.pop || self.current_user.screen_name
-      options.merge_owner!(owner)
+      unless options[:owner_id] || options[:owner_screen_name]
+        owner = args.pop || self.current_user.screen_name
+        options.merge_owner!(owner)
+      end
       list = post("/1/lists/members/destroy.json", options)
       Twitter::List.new(list)
     end
@@ -980,7 +984,7 @@ module Twitter
     # @rate_limited Yes
     # @requires_authentication Supported
     # @overload list_subscribers(list, options={})
-    #   @param list [Integer, String] The list_id or slug of the list.
+    #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, or object.
     #   @param options [Hash] A customizable set of options.
     #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
     #   @return [Twitter::Cursor] The subscribers of the specified list.
@@ -990,7 +994,7 @@ module Twitter
     #     Twitter.list_subscribers(8863586)
     # @overload list_subscribers(user, list, options={})
     #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
-    #   @param list [Integer, String] The list_id or slug of the list.
+    #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, or object.
     #   @param options [Hash] A customizable set of options.
     #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
     #   @return [Twitter::Cursor] The subscribers of the specified list.
@@ -1003,8 +1007,10 @@ module Twitter
       options = {:cursor => -1}.merge(args.last.is_a?(Hash) ? args.pop : {})
       list = args.pop
       options.merge_list!(list)
-      owner = args.pop || self.current_user.screen_name
-      options.merge_owner!(owner)
+      unless options[:owner_id] || options[:owner_screen_name]
+        owner = args.pop || self.current_user.screen_name
+        options.merge_owner!(owner)
+      end
       cursor = get("/1/lists/subscribers.json", options)
       Twitter::Cursor.new(cursor, 'users', Twitter::User)
     end
@@ -1045,7 +1051,7 @@ module Twitter
     # @rate_limited No
     # @requires_authentication Yes
     # @overload list_subscribe(list, options={})
-    #   @param list [Integer, String] The list_id or slug of the list.
+    #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, or object.
     #   @param options [Hash] A customizable set of options.
     #   @return [Twitter::List] The specified list.
     #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
@@ -1054,7 +1060,7 @@ module Twitter
     #     Twitter.list_subscribe(8863586)
     # @overload list_subscribe(user, list, options={})
     #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
-    #   @param list [Integer, String] The list_id or slug of the list.
+    #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, or object.
     #   @param options [Hash] A customizable set of options.
     #   @return [Twitter::List] The specified list.
     #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
@@ -1066,8 +1072,10 @@ module Twitter
       options = args.last.is_a?(Hash) ? args.pop : {}
       list = args.pop
       options.merge_list!(list)
-      owner = args.pop || self.current_user.screen_name
-      options.merge_owner!(owner)
+      unless options[:owner_id] || options[:owner_screen_name]
+        owner = args.pop || self.current_user.screen_name
+        options.merge_owner!(owner)
+      end
       list = post("/1/lists/subscribers/create.json", options)
       Twitter::List.new(list)
     end
@@ -1078,7 +1086,7 @@ module Twitter
     # @rate_limited Yes
     # @requires_authentication Yes
     # @overload list_subscriber?(list, user_to_check, options={})
-    #   @param list [Integer, String] The list_id or slug of the list.
+    #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, or object.
     #   @param user_to_check [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
     #   @param options [Hash] A customizable set of options.
     #   @return [Boolean] true if user is a subscriber of the specified list, otherwise false.
@@ -1089,7 +1097,7 @@ module Twitter
     #     Twitter.list_subscriber?('presidents', 'BarackObama')
     # @overload list_subscriber?(user, list, user_to_check, options={})
     #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
-    #   @param list [Integer, String] The list_id or slug of the list.
+    #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, or object.
     #   @param user_to_check [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
     #   @param options [Hash] A customizable set of options.
     #   @return [Boolean] true if user is a subscriber of the specified list, otherwise false.
@@ -1106,8 +1114,10 @@ module Twitter
       options.merge_user!(user_to_check)
       list = args.pop
       options.merge_list!(list)
-      owner = args.pop || self.current_user.screen_name
-      options.merge_owner!(owner)
+      unless options[:owner_id] || options[:owner_screen_name]
+        owner = args.pop || self.current_user.screen_name
+        options.merge_owner!(owner)
+      end
       get("/1/lists/subscribers/show.json", options, :raw => true)
       true
     rescue Twitter::Error::NotFound, Twitter::Error::Forbidden
@@ -1120,7 +1130,7 @@ module Twitter
     # @rate_limited No
     # @requires_authentication Yes
     # @overload list_unsubscribe(list, options={})
-    #   @param list [Integer, String] The list_id or slug of the list.
+    #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, or object.
     #   @param options [Hash] A customizable set of options.
     #   @return [Twitter::List] The specified list.
     #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
@@ -1129,7 +1139,7 @@ module Twitter
     #     Twitter.list_unsubscribe(8863586)
     # @overload list_unsubscribe(user, list, options={})
     #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
-    #   @param list [Integer, String] The list_id or slug of the list.
+    #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, or object.
     #   @param options [Hash] A customizable set of options.
     #   @return [Twitter::List] The specified list.
     #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
@@ -1141,8 +1151,10 @@ module Twitter
       options = args.last.is_a?(Hash) ? args.pop : {}
       list = args.pop
       options.merge_list!(list)
-      owner = args.pop || self.current_user.screen_name
-      options.merge_owner!(owner)
+      unless options[:owner_id] || options[:owner_screen_name]
+        owner = args.pop || self.current_user.screen_name
+        options.merge_owner!(owner)
+      end
       list = post("/1/lists/subscribers/destroy.json", options)
       Twitter::List.new(list)
     end
@@ -1154,7 +1166,7 @@ module Twitter
     # @rate_limited No
     # @requires_authentication Yes
     # @overload list_add_members(list, users, options={})
-    #   @param list [Integer, String] The list_id or slug of the list.
+    #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, or object.
     #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
     #   @param options [Hash] A customizable set of options.
     #   @return [Twitter::List] The list.
@@ -1166,7 +1178,7 @@ module Twitter
     #     Twitter.list_add_members(8863586, [813286, 18755393])
     # @overload list_add_members(user, list, users, options={})
     #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
-    #   @param list [Integer, String] The list_id or slug of the list.
+    #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, or object.
     #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
     #   @param options [Hash] A customizable set of options.
     #   @return [Twitter::List] The list.
@@ -1184,8 +1196,10 @@ module Twitter
       options.merge_users!(Array(users))
       list = args.pop
       options.merge_list!(list)
-      owner = args.pop || self.current_user.screen_name
-      options.merge_owner!(owner)
+      unless options[:owner_id] || options[:owner_screen_name]
+        owner = args.pop || self.current_user.screen_name
+        options.merge_owner!(owner)
+      end
       list = post("/1/lists/members/create_all.json", options)
       Twitter::List.new(list)
     end
@@ -1196,7 +1210,7 @@ module Twitter
     # @rate_limited No
     # @requires_authentication Yes
     # @overload list_remove_members(list, users, options={})
-    #   @param list [Integer, String] The list_id or slug of the list.
+    #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, or object.
     #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
     #   @param options [Hash] A customizable set of options.
     #   @return [Twitter::List] The list.
@@ -1208,7 +1222,7 @@ module Twitter
     #     Twitter.list_remove_members(8863586, [813286, 18755393])
     # @overload list_remove_members(user, list, users, options={})
     #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
-    #   @param list [Integer, String] The list_id or slug of the list.
+    #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, or object.
     #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
     #   @param options [Hash] A customizable set of options.
     #   @return [Twitter::List] The list.
@@ -1226,8 +1240,10 @@ module Twitter
       options.merge_users!(Array(users))
       list = args.pop
       options.merge_list!(list)
-      owner = args.pop || self.current_user.screen_name
-      options.merge_owner!(owner)
+      unless options[:owner_id] || options[:owner_screen_name]
+        owner = args.pop || self.current_user.screen_name
+        options.merge_owner!(owner)
+      end
       list = post("/1/lists/members/destroy_all.json", options)
       Twitter::List.new(list)
     end
@@ -1238,7 +1254,7 @@ module Twitter
     # @requires_authentication Yes
     # @rate_limited Yes
     # @overload list_member?(list, user_to_check, options={})
-    #   @param list [Integer, String] The list_id or slug of the list.
+    #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, or object.
     #   @param user_to_check [Integer, String] The user ID or screen name of the list member.
     #   @param options [Hash] A customizable set of options.
     #   @return [Boolean] true if user is a member of the specified list, otherwise false.
@@ -1248,7 +1264,7 @@ module Twitter
     #     Twitter.list_member?(8863586, 'BarackObama')
     # @overload list_member?(user, list, user_to_check, options={})
     #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
-    #   @param list [Integer, String] The list_id or slug of the list.
+    #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, or object.
     #   @param user_to_check [Integer, String] The user ID or screen name of the list member.
     #   @param options [Hash] A customizable set of options.
     #   @return [Boolean] true if user is a member of the specified list, otherwise false.
@@ -1263,8 +1279,10 @@ module Twitter
       options.merge_user!(user_to_check)
       list = args.pop
       options.merge_list!(list)
-      owner = args.pop || self.current_user.screen_name
-      options.merge_owner!(owner)
+      unless options[:owner_id] || options[:owner_screen_name]
+        owner = args.pop || self.current_user.screen_name
+        options.merge_owner!(owner)
+      end
       get("/1/lists/members/show.json", options, :raw => true)
       true
     rescue Twitter::Error::NotFound, Twitter::Error::Forbidden
@@ -1277,7 +1295,7 @@ module Twitter
     # @rate_limited Yes
     # @requires_authentication Yes
     # @overload list_members(list, options={})
-    #   @param list [Integer, String] The list_id or slug of the list.
+    #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, or object.
     #   @param options [Hash] A customizable set of options.
     #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
     #   @return [Twitter::Cursor]
@@ -1287,7 +1305,7 @@ module Twitter
     #     Twitter.list_members(8863586)
     # @overload list_members(user, list, options={})
     #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
-    #   @param list [Integer, String] The list_id or slug of the list.
+    #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, or object.
     #   @param options [Hash] A customizable set of options.
     #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
     #   @return [Twitter::Cursor]
@@ -1301,8 +1319,10 @@ module Twitter
       options = {:cursor => -1}.merge(args.last.is_a?(Hash) ? args.pop : {})
       list = args.pop
       options.merge_list!(list)
-      owner = args.pop || self.current_user.screen_name
-      options.merge_owner!(owner)
+      unless options[:owner_id] || options[:owner_screen_name]
+        owner = args.pop || self.current_user.screen_name
+        options.merge_owner!(owner)
+      end
       cursor = get("/1/lists/members.json", options)
       Twitter::Cursor.new(cursor, 'users', Twitter::User)
     end
@@ -1314,7 +1334,7 @@ module Twitter
     # @rate_limited No
     # @requires_authentication Yes
     # @overload list_add_member(list, user_to_add, options={})
-    #   @param list [Integer, String] The list_id or slug of the list.
+    #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, or object.
     #   @param user_to_add [Integer, String] The user id or screen name to add to the list.
     #   @param options [Hash] A customizable set of options.
     #   @return [Twitter::List] The list.
@@ -1324,7 +1344,7 @@ module Twitter
     #     Twitter.list_add_member(8863586, 813286)
     # @overload list_add_member(user, list, user_to_add, options={})
     #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
-    #   @param list [Integer, String] The list_id or slug of the list.
+    #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, or object.
     #   @param user_to_add [Integer, String] The user id or screen name to add to the list.
     #   @param options [Hash] A customizable set of options.
     #   @return [Twitter::List] The list.
@@ -1340,8 +1360,10 @@ module Twitter
       options.merge_user!(user_to_add)
       list = args.pop
       options.merge_list!(list)
-      owner = args.pop || self.current_user.screen_name
-      options.merge_owner!(owner)
+      unless options[:owner_id] || options[:owner_screen_name]
+        owner = args.pop || self.current_user.screen_name
+        options.merge_owner!(owner)
+      end
       list = post("/1/lists/members/create.json", options)
       Twitter::List.new(list)
     end
@@ -1353,7 +1375,7 @@ module Twitter
     # @rate_limited No
     # @requires_authentication Yes
     # @overload list_destroy(list, options={})
-    #   @param list [Integer, String] The list_id or slug of the list.
+    #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, or object.
     #   @param options [Hash] A customizable set of options.
     #   @return [Twitter::List] The deleted list.
     #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
@@ -1362,7 +1384,7 @@ module Twitter
     #     Twitter.list_destroy(8863586)
     # @overload list_destroy(user, list, options={})
     #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
-    #   @param list [Integer, String] The list_id or slug of the list.
+    #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, or object.
     #   @param options [Hash] A customizable set of options.
     #   @return [Twitter::List] The deleted list.
     #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
@@ -1375,8 +1397,10 @@ module Twitter
       options = args.last.is_a?(Hash) ? args.pop : {}
       list = args.pop
       options.merge_list!(list)
-      owner = args.pop || self.current_user.screen_name
-      options.merge_owner!(owner)
+      unless options[:owner_id] || options[:owner_screen_name]
+        owner = args.pop || self.current_user.screen_name
+        options.merge_owner!(owner)
+      end
       list = delete("/1/lists/destroy.json", options)
       Twitter::List.new(list)
     end
@@ -1387,7 +1411,7 @@ module Twitter
     # @rate_limited No
     # @requires_authentication Yes
     # @overload list_update(list, options={})
-    #   @param list [Integer, String] The list_id or slug for the list.
+    #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, or object.
     #   @param options [Hash] A customizable set of options.
     #   @option options [String] :mode ('public') Whether your list is public or private. Values can be 'public' or 'private'.
     #   @option options [String] :description The description to give the list.
@@ -1398,7 +1422,7 @@ module Twitter
     #     Twitter.list_update(8863586, :description => "Presidents of the United States of America")
     # @overload list_update(user, list, options={})
     #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
-    #   @param list [Integer, String] The list_id or slug for the list.
+    #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, or object.
     #   @param options [Hash] A customizable set of options.
     #   @option options [String] :mode ('public') Whether your list is public or private. Values can be 'public' or 'private'.
     #   @option options [String] :description The description to give the list.
@@ -1413,8 +1437,10 @@ module Twitter
       options = args.last.is_a?(Hash) ? args.pop : {}
       list = args.pop
       options.merge_list!(list)
-      owner = args.pop || self.current_user.screen_name
-      options.merge_owner!(owner)
+      unless options[:owner_id] || options[:owner_screen_name]
+        owner = args.pop || self.current_user.screen_name
+        options.merge_owner!(owner)
+      end
       list = post("/1/lists/update.json", options)
       Twitter::List.new(list)
     end
@@ -1475,7 +1501,7 @@ module Twitter
     # @rate_limited Yes
     # @requires_authentication Yes
     # @overload list(list, options={})
-    #   @param list [Integer, String] The list_id or slug of the list.
+    #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, or object.
     #   @param options [Hash] A customizable set of options.
     #   @return [Twitter::List] The specified list.
     #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
@@ -1484,7 +1510,7 @@ module Twitter
     #     Twitter.list(8863586)
     # @overload list(user, list, options={})
     #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
-    #   @param list [Integer, String] The list_id or slug of the list.
+    #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, or object.
     #   @param options [Hash] A customizable set of options.
     #   @return [Twitter::List] The specified list.
     #   @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
@@ -1497,8 +1523,10 @@ module Twitter
       options = args.last.is_a?(Hash) ? args.pop : {}
       list = args.pop
       options.merge_list!(list)
-      owner = args.pop || self.current_user.screen_name
-      options.merge_owner!(owner)
+      unless options[:owner_id] || options[:owner_screen_name]
+        owner = args.pop || self.current_user.screen_name
+        options.merge_owner!(owner)
+      end
       list = get("/1/lists/show.json", options)
       Twitter::List.new(list)
     end

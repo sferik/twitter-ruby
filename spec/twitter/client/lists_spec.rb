@@ -322,6 +322,36 @@ describe Twitter::Client do
           should have_been_made
       end
     end
+    context "with a list object passed" do
+      context "with a slug" do
+        before do
+          stub_get("/1/lists/subscribers/show.json").
+            with(:query => {:owner_screen_name => 'sferik', :slug => 'presidents', :user_id => '813286'}).
+            to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        end
+        it "should request the correct resource" do
+          list = Twitter::List.new('slug' => 'presidents', 'user' => {'screen_name' => 'sferik'})
+          @client.list_subscriber?(list, 813286)
+          a_get("/1/lists/subscribers/show.json").
+            with(:query => {:owner_screen_name => 'sferik', :slug => 'presidents', :user_id => '813286'}).
+            should have_been_made
+        end
+      end
+      context "with a list ID" do
+        before do
+          stub_get("/1/lists/subscribers/show.json").
+            with(:query => {:owner_screen_name => 'sferik', :list_id => '12345678', :user_id => '813286'}).
+            to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        end
+        it "should request the correct resource" do
+          list = Twitter::List.new('id' => 12345678, 'user' => {'screen_name' => 'sferik'})
+          @client.list_subscriber?(list, 813286)
+          a_get("/1/lists/subscribers/show.json").
+            with(:query => {:owner_screen_name => 'sferik', :list_id => '12345678', :user_id => '813286'}).
+            should have_been_made
+        end
+      end
+    end
     context "with a screen name passed for user_to_check" do
       before do
         stub_get("/1/lists/subscribers/show.json").
@@ -544,6 +574,36 @@ describe Twitter::Client do
           should have_been_made
       end
     end
+    context "with a list object passed" do
+      context "with a slug" do
+        before do
+          stub_get("/1/lists/members/show.json").
+            with(:query => {:owner_screen_name => 'sferik', :slug => 'presidents', :user_id => '813286'}).
+            to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        end
+        it "should request the correct resource" do
+          list = Twitter::List.new('slug' => 'presidents', 'user' => {'screen_name' => 'sferik'})
+          @client.list_member?(list, 813286)
+          a_get("/1/lists/members/show.json").
+            with(:query => {:owner_screen_name => 'sferik', :slug => 'presidents', :user_id => '813286'}).
+            should have_been_made
+        end
+      end
+      context "with a list ID" do
+        before do
+          stub_get("/1/lists/members/show.json").
+            with(:query => {:owner_screen_name => 'sferik', :list_id => '12345678', :user_id => '813286'}).
+            to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        end
+        it "should request the correct resource" do
+          list = Twitter::List.new('id' => 12345678, 'user' => {'screen_name' => 'sferik'})
+          @client.list_member?(list, 813286)
+          a_get("/1/lists/members/show.json").
+            with(:query => {:owner_screen_name => 'sferik', :list_id => '12345678', :user_id => '813286'}).
+            should have_been_made
+        end
+      end
+    end
     context "with a screen name passed for user_to_check" do
       before do
         stub_get("/1/lists/members/show.json").
@@ -695,6 +755,36 @@ describe Twitter::Client do
           should have_been_made
       end
     end
+    context "with a list object passed" do
+      context "with a slug" do
+        before do
+          stub_delete("/1/lists/destroy.json").
+            with(:query => {:owner_screen_name => 'sferik', :slug => 'presidents'}).
+            to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        end
+        it "should request the correct resource" do
+          list = Twitter::List.new('slug' => 'presidents', 'user' => {'screen_name' => 'sferik'})
+          @client.list_destroy(list)
+          a_delete("/1/lists/destroy.json").
+            with(:query => {:owner_screen_name => 'sferik', :slug => 'presidents'}).
+            should have_been_made
+        end
+      end
+      context "with a list ID" do
+        before do
+          stub_delete("/1/lists/destroy.json").
+            with(:query => {:owner_screen_name => 'sferik', :list_id => '12345678'}).
+            to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        end
+        it "should request the correct resource" do
+          list = Twitter::List.new('id' => '12345678', 'user' => {'screen_name' => 'sferik'})
+          @client.list_destroy(list)
+          a_delete("/1/lists/destroy.json").
+            with(:query => {:owner_screen_name => 'sferik', :list_id => '12345678'}).
+            should have_been_made
+        end
+      end
+    end
   end
 
   describe ".list_update" do
@@ -742,6 +832,36 @@ describe Twitter::Client do
         a_post("/1/lists/update.json").
           with(:body => {:owner_screen_name => 'sferik', :list_id => '12345678', :description => "Presidents of the United States of America"}).
           should have_been_made
+      end
+    end
+    context "with a list object passed" do
+      context "with a slug" do
+        before do
+          stub_post("/1/lists/update.json").
+            with(:body => {:owner_screen_name => 'sferik', :slug => "presidents", :description => "Presidents of the United States of America"}).
+            to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        end
+        it "should request the correct resource" do
+          list = Twitter::List.new('slug' => 'presidents', 'user' => {'screen_name' => 'sferik'})
+          @client.list_update(list, :description => "Presidents of the United States of America")
+          a_post("/1/lists/update.json").
+            with(:body => {:owner_screen_name => 'sferik', :slug => "presidents", :description => "Presidents of the United States of America"}).
+            should have_been_made
+        end
+      end
+      context "with a list ID" do
+        before do
+          stub_post("/1/lists/update.json").
+            with(:body => {:owner_screen_name => 'sferik', :list_id => '12345678', :description => "Presidents of the United States of America"}).
+            to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        end
+        it "should request the correct resource" do
+          list = Twitter::List.new('id' => '12345678', 'user' => {'screen_name' => 'sferik'})
+          @client.list_update(list, :description => "Presidents of the United States of America")
+          a_post("/1/lists/update.json").
+            with(:body => {:owner_screen_name => 'sferik', :list_id => '12345678', :description => "Presidents of the United States of America"}).
+            should have_been_made
+        end
       end
     end
   end
@@ -896,6 +1016,36 @@ describe Twitter::Client do
         a_get("/1/lists/show.json").
           with(:query => {:owner_screen_name => 'sferik', :list_id => '12345678'}).
           should have_been_made
+      end
+    end
+    context "with a list object passed" do
+      context "with a slug" do
+        before do
+          stub_get("/1/lists/show.json").
+            with(:query => {:owner_screen_name => 'sferik', :slug => 'presidents'}).
+            to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        end
+        it "should request the correct resource" do
+          list = Twitter::List.new('slug' => 'presidents', 'user' => {'screen_name' => 'sferik'})
+          @client.list(list)
+          a_get("/1/lists/show.json").
+            with(:query => {:owner_screen_name => 'sferik', :slug => 'presidents'}).
+            should have_been_made
+        end
+      end
+      context "with a list ID" do
+        before do
+          stub_get("/1/lists/show.json").
+            with(:query => {:owner_screen_name => 'sferik', :list_id => '12345678'}).
+            to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        end
+        it "should request the correct resource" do
+          list = Twitter::List.new('id' => '12345678', 'user' => {'screen_name' => 'sferik'})
+          @client.list(list)
+          a_get("/1/lists/show.json").
+            with(:query => {:owner_screen_name => 'sferik', :list_id => '12345678'}).
+            should have_been_made
+        end
       end
     end
   end

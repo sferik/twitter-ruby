@@ -16,7 +16,38 @@ class Hash
     target
   end
 
-  # Take a single user ID or screen name and merge it into self with the correct key
+  # Take a list and merge it into the hash with the correct key
+  #
+  # @param list [Integer, String, Twitter::List] A Twitter list ID, slug, or object.
+  # @return [Hash]
+  def merge_list!(list)
+    case list
+    when Integer
+      self[:list_id] = list
+    when String
+      self[:slug] = list
+    when Twitter::List
+      if list.id
+        self[:list_id] = list.id
+      elsif list.slug
+        self[:slug] = list.slug
+      end
+      self.merge_owner!(list.user)
+    end
+    self
+  end
+
+  # Take an owner and merge it into the hash with the correct key
+  #
+  # @param user[Integer, String, Twitter::User] A Twitter user ID, screen_name, or object.
+  # @return [Hash]
+  def merge_owner!(user)
+    self.merge_user!(user, "owner")
+    self[:owner_id] = self.delete(:owner_user_id) unless self[:owner_user_id].nil?
+    self
+  end
+
+  # Take a user and merge it into the hash with the correct key
   #
   # @param user[Integer, String, Twitter::User] A Twitter user ID, screen_name, or object.
   # @return [Hash]
@@ -36,7 +67,7 @@ class Hash
     self
   end
 
-  # Take a multiple user IDs and screen names and merge them into self with the correct keys
+  # Take a multiple users and merge them into the hash with the correct keys
   #
   # @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen_names, or objects.
   # @return [Hash]
@@ -58,31 +89,6 @@ class Hash
     end
     self[:user_id] = user_ids.join(',') unless user_ids.empty?
     self[:screen_name] = screen_names.join(',') unless screen_names.empty?
-    self
-  end
-
-  # Take a single owner ID or owner screen name and merge it into self with the correct key
-  # (for Twitter API endpoints that want :owner_id and :owner_screen_name)
-  #
-  # @param user[Integer, String, Twitter::User] A Twitter user ID, screen_name, or object.
-  # @return [Hash]
-  def merge_owner!(user)
-    self.merge_user!(user, "owner")
-    self[:owner_id] = self.delete(:owner_user_id) unless self[:owner_user_id].nil?
-    self
-  end
-
-  # Take a single list ID or slug and merge it into self with the correct key
-  #
-  # @param list_id_or_slug [Integer, String] A Twitter list ID or slug.
-  # @return [Hash]
-  def merge_list!(list_id_or_screen_name)
-    case list_id_or_screen_name
-    when Integer
-      self[:list_id] = list_id_or_screen_name
-    when String
-      self[:slug] = list_id_or_screen_name
-    end
     self
   end
 
