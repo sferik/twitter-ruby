@@ -2203,6 +2203,40 @@ module Twitter
       Twitter::Status.new(status)
     end
 
+    # Returns activity summary for a single status, specified by ID
+    #
+    # @note Undocumented
+    # @rate_limited Yes
+    # @requires_authentication Yes
+    # @param id [Integer] The numerical ID of the desired status.
+    # @param options [Hash] A customizable set of options.
+    # @return [Twitter::Status] The requested status.
+    # @example Return activity summary for the status with the ID 25938088801
+    #   Twitter.status_activity(25938088801)
+    def status_activity(id, options={})
+      status = get("/i/statuses/#{id}/activity/summary.json", options)
+      status.merge!('id' => id)
+      Twitter::Status.new(status)
+    end
+
+    # Returns a single status with activity summary, specified by ID
+    #
+    # @see https://dev.twitter.com/docs/api/1/get/statuses/show/:id
+    # @rate_limited Yes
+    # @requires_authentication Yes
+    # @param id [Integer] The numerical ID of the desired status.
+    # @param options [Hash] A customizable set of options.
+    # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
+    # @return [Twitter::Status] The requested status.
+    # @example Return the status with activity summary with the ID 25938088801
+    #   Twitter.status_with_activity(25938088801)
+    def status_with_activity(id, options={})
+      activity = get("/i/statuses/#{id}/activity/summary.json", options)
+      status = get("/1/statuses/show/#{id}.json", options)
+      status.merge!(activity)
+      Twitter::Status.new(status)
+    end
+
     # Returns an oEmbed version of a single status, specified by ID or url to the tweet
     #
     # @see https://dev.twitter.com/docs/api/1/get/statuses/oembed

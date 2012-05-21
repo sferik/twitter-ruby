@@ -57,6 +57,18 @@ describe Twitter::Status do
     end
   end
 
+  describe "#favoriters_count" do
+    it "should return the count of favoriters when favoriters_count is set" do
+      status = Twitter::Status.new('favoriters_count' => '1')
+      status.favoriters_count.should be_a String
+      status.favoriters_count.should == "1"
+    end
+    it "should return nil when not set" do
+      status = Twitter::Status.new
+      status.favoriters_count.should be_nil
+    end
+  end
+
   describe "#from_user" do
     it "should return a screen name when from_user is set" do
       status = Twitter::Status.new('from_user' => 'sferik')
@@ -185,6 +197,30 @@ describe Twitter::Status do
     it "should return nil when not set" do
       status = Twitter::Status.new
       status.place.should be_nil
+    end
+  end
+
+  describe "#repliers_count" do
+    it "should return the count of favoriters when repliers_count is set" do
+      status = Twitter::Status.new('repliers_count' => '1')
+      status.repliers_count.should be_a String
+      status.repliers_count.should == "1"
+    end
+    it "should return nil when not set" do
+      status = Twitter::Status.new
+      status.repliers_count.should be_nil
+    end
+  end
+
+  describe "#retweeters_count" do
+    it "should return the count of favoriters when retweeters_count is set" do
+      status = Twitter::Status.new('retweeters_count' => '1')
+      status.retweeters_count.should be_a String
+      status.retweeters_count.should == "1"
+    end
+    it "should return nil when not set" do
+      status = Twitter::Status.new
+      status.retweeters_count.should be_nil
     end
   end
 
