@@ -78,15 +78,27 @@ equivalent are considered equal, even if they don't occupy the same address in
 memory, for example:
 
     Twitter.user("sferik") == Twitter.user("sferik") #=> true
-    Twitter.user("sferik") == Twitter.user(7505382) #=> true
+    Twitter.user("sferik") == Twitter.user(7505382)  #=> true
 
 In previous versions of this gem, both of the above statements would have
-returned false. We've stopped short of implementing a true identity map, such
-that:
+returned false. A true identity map may be implemented in future versions of
+this library.
 
-    Twitter.user("sferik").object_id == Twitter.user("sferik").object_id
+As of version 2.4, `Twitter::User` objects can be used interchangeably with
+user IDs or screen names, for example:
 
-A true identity map may be implemented in future versions of this library.
+    user = Twitter.user("sferik")
+
+    Twitter.follow("sferik")
+    Twitter.follow(user)     # Same as above
+
+Also, as of version 2.4, `Twitter::List` objects can be used interchangeably
+with list IDs or slugs, for example:
+
+    list = Twitter.list("sferik", "presidents")
+
+    Twitter.list_timeline("sferik", "presidents")
+    Twitter.list_timeline(list)
 
 ### Additional Notes
 * All deprecated methods have been removed.
