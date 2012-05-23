@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 require 'twitter/action_factory'
 require 'twitter/authenticatable'
 require 'twitter/config'
@@ -25,6 +26,7 @@ require 'twitter/reply'
 require 'twitter/request'
 require 'twitter/retweet'
 require 'twitter/saved_search'
+require 'twitter/search_results'
 require 'twitter/settings'
 require 'twitter/size'
 require 'twitter/status'
@@ -1787,17 +1789,12 @@ module Twitter
     # @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID. There are limits to the number of Tweets which can be accessed through the API. If the limit of Tweets has occured since the since_id, the since_id will be forced to the oldest ID available.
     # @option options [Integer] :max_id Returns results with an ID less than (that is, older than) or equal to the specified ID.
     # @option options [Boolean, String, Integer] :with_twitter_user_id When set to either true, t or 1, the from_user_id and to_user_id values in the response will map to "official" user IDs which will match those returned by the REST API.
-    # @return [Array<Twitter::Status>] Return tweets that match a specified query
+    # @return <Twitter::SearchResults> Return tweets that match a specified query with search metadata
     # @example Returns tweets related to twitter
     #   Twitter.search('twitter')
     def search(q, options={})
-      if results = get("/search.json", options.merge(:q => q), :endpoint => search_endpoint)['results']
-        results.map do |status|
-          Twitter::Status.new(status)
-        end
-      else
-        []
-      end
+      response = get("/search.json", options.merge(:q => q), :endpoint => search_endpoint)
+      Twitter::SearchResults.new(response)
     end
 
     # Returns recent statuses related to a query with images and videos embedded
