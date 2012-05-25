@@ -1891,7 +1891,7 @@ module Twitter
     # @option options [Integer] :max_id Returns results with an ID less than (that is, older than) or equal to the specified ID.
     # @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 200.
     # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
-    # @option options [Boolean, String, Integer] :exclude_replies This parameter will prevent replies from appearing in the returned timeline. Using exclude_replies with the count parameter will mean you will receive up-to count tweets — this is because the count parameter retrieves that many tweets before filtering out retweets and replies.
+    # @option options [Boolean, String, Integer] :exclude_replies This parameter will prevent replies from appearing in the returned timeline. Using exclude_replies with the count parameter will mean you will receive up-to count tweets - this is because the count parameter retrieves that many tweets before filtering out retweets and replies.
     # @return [Array<Twitter::Status>]
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @example Return the 20 most recent statuses, including retweets if they exist, posted by the authenticating user and the users they follow
@@ -2034,7 +2034,7 @@ module Twitter
     #   @option options [Integer] :max_id Returns results with an ID less than (that is, older than) or equal to the specified ID.
     #   @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 200.
     #   @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
-    #   @option options [Boolean, String, Integer] :exclude_replies This parameter will prevent replies from appearing in the returned timeline. Using exclude_replies with the count parameter will mean you will receive up-to count tweets — this is because the count parameter retrieves that many tweets before filtering out retweets and replies.
+    #   @option options [Boolean, String, Integer] :exclude_replies This parameter will prevent replies from appearing in the returned timeline. Using exclude_replies with the count parameter will mean you will receive up-to count tweets - this is because the count parameter retrieves that many tweets before filtering out retweets and replies.
     #   @return [Array<Twitter::Status>]
     #   @example Return the 20 most recent statuses posted by @sferik
     #     Twitter.user_timeline('sferik')
@@ -2083,7 +2083,7 @@ module Twitter
     # @option options [Integer] :max_id Returns results with an ID less than (that is, older than) or equal to the specified ID.
     # @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 200.
     # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
-    # @option options [Boolean, String, Integer] :exclude_replies This parameter will prevent replies from appearing in the returned timeline. Using exclude_replies with the count parameter will mean you will receive up-to count tweets — this is because the count parameter retrieves that many tweets before filtering out retweets and replies.
+    # @option options [Boolean, String, Integer] :exclude_replies This parameter will prevent replies from appearing in the returned timeline. Using exclude_replies with the count parameter will mean you will receive up-to count tweets - this is because the count parameter retrieves that many tweets before filtering out retweets and replies.
     # @return [Array<Twitter::Status>]
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @example Return the 20 most recent statuses from the authenticating user's network
