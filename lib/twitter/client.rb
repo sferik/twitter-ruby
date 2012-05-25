@@ -1788,7 +1788,7 @@ module Twitter
     # @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID. There are limits to the number of Tweets which can be accessed through the API. If the limit of Tweets has occured since the since_id, the since_id will be forced to the oldest ID available.
     # @option options [Integer] :max_id Returns results with an ID less than (that is, older than) or equal to the specified ID.
     # @option options [Boolean, String, Integer] :with_twitter_user_id When set to either true, t or 1, the from_user_id and to_user_id values in the response will map to "official" user IDs which will match those returned by the REST API.
-    # @return <Twitter::SearchResults> Return tweets that match a specified query with search metadata
+    # @return [Twitter::SearchResults] Return tweets that match a specified query with search metadata
     # @example Returns tweets related to twitter
     #   Twitter.search('twitter')
     def search(q, options={})
