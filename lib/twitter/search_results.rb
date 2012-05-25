@@ -3,14 +3,11 @@ require 'twitter/base'
 module Twitter
   class SearchResults < Twitter::Base
 
-    lazy_attr_reader :results, :completed_in, :max_id, :max_id_str, :next_path, :page,
-      :query, :refresh_url, :results_per_page, :since_id, :since_id_str
-
-
     # @return [Array<Twitter::Status>]
     def results
       @results ||= (@attrs['results'] || []).map{ |status| Twitter::Status.new(status) }
     end
+    alias :collection :results
 
     # @return [Float]
     def completed_in
