@@ -20,6 +20,7 @@ describe Twitter::Client do
     end
     it "should return recent statuses related to a query with images and videos embedded" do
       search = @client.search('twitter')
+      search.should be_a Twitter::SearchResults
       search.results.should be_an Array
       search.results.first.should be_a Twitter::Status
       search.results.first.text.should == "@KaiserKuo from not too far away your new twitter icon looks like Vader."
