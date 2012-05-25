@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 require 'twitter/action_factory'
 require 'twitter/authenticatable'
 require 'twitter/config'
