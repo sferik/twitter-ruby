@@ -1,5 +1,22 @@
 class Hash
 
+  # Return a hash that includes everything but the given keys.
+  #
+  # @param keys [Array, Set]
+  # @return [Hash]
+  def except(*keys)
+    dup.except!(*keys)
+  end
+
+  # Replaces the hash without the given keys.
+  #
+  # @param keys [Array, Set]
+  # @return [Hash]
+  def except!(*keys)
+    keys.each{|key| delete(key)}
+    self
+  end
+
   # Merges self with another hash, recursively
   #
   # @param hash [Hash] The hash to merge

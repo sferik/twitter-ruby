@@ -1,6 +1,6 @@
-require 'active_support/core_ext/hash/except'
 require 'twitter/authenticatable'
 require 'twitter/base'
+require 'twitter/core_ext/hash'
 require 'twitter/creatable'
 require 'twitter/status'
 
