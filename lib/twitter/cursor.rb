@@ -1,5 +1,5 @@
-require 'active_support/core_ext/kernel/singleton_class'
 require 'twitter/base'
+require 'twitter/core_ext/kernel'
 
 module Twitter
   class Cursor < Twitter::Base
@@ -23,7 +23,7 @@ module Twitter
           item
         end
       end
-      singleton_class.class_eval do
+      class_eval do
         alias_method method.to_sym, :collection
       end
     end
