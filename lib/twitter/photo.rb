@@ -1,4 +1,3 @@
-require 'active_support/core_ext/enumerable'
 require 'twitter/base'
 require 'twitter/size'
 
@@ -15,8 +14,9 @@ module Twitter
 
     # @return [Array<Twitter::Size>]
     def sizes
-      @sizes ||= Array(@attrs['sizes']).each_with_object({}) do |(key, value), object|
+      @sizes ||= Array(@attrs['sizes']).inject({}) do |object, (key, value)|
         object[key] = Twitter::Size.new(value)
+        object
       end
     end
 
