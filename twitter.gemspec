@@ -15,13 +15,15 @@ Gem::Specification.new do |gem|
   gem.authors = ["John Nunemaker", "Wynn Netherland", "Erik Michaels-Ober", "Steve Richert"]
   gem.description = %q{A Ruby wrapper for the Twitter API.}
   gem.email = ['nunemaker@gmail.com', 'wynn.netherland@gmail.com', 'sferik@gmail.com', 'steve.richert@gmail.com']
-  gem.executables = `git ls-files -- bin/*`.split("\n").map{|f| File.basename(f)}
-  gem.files = `git ls-files`.split("\n")
+  gem.files = %w(LICENSE.md README.md Rakefile twitter.gemspec)
+  gem.files += Dir.glob("lib/**/*.rb")
+  gem.files += Dir.glob("spec/**/*")
   gem.homepage = 'https://github.com/jnunemaker/twitter'
   gem.name = 'twitter'
   gem.require_paths = ['lib']
   gem.required_rubygems_version = Gem::Requirement.new('>= 1.3.6')
   gem.summary = %q{Twitter API wrapper}
   gem.test_files = `git ls-files -- {test,spec,features}/*`.split("\n")
+  gem.test_files = Dir.glob("spec/**/*")
   gem.version = Twitter::Version.to_s
 end
