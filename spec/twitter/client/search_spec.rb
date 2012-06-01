@@ -20,9 +20,15 @@ describe Twitter::Client do
     end
     it "should return recent statuses related to a query with images and videos embedded" do
       search = @client.search('twitter')
-      search.should be_an Array
-      search.first.should be_a Twitter::Status
-      search.first.text.should == "@KaiserKuo from not too far away your new twitter icon looks like Vader."
+      search.should be_a Twitter::SearchResults
+      search.results.should be_an Array
+      search.results.first.should be_a Twitter::Status
+      search.results.first.text.should == "@KaiserKuo from not too far away your new twitter icon looks like Vader."
+    end
+
+    it "should return the max_id value for a search result" do
+      search = @client.search('twitter')
+      search.max_id.should eq(28857935752)
     end
 
     context "when search API responds a malformed result" do
@@ -34,8 +40,8 @@ describe Twitter::Client do
 
       it "should not fail and return blank Array" do
         search = @client.search('twitter')
-        search.should be_an Array
-        search.should have(0).items
+        search.results.should be_an Array
+        search.results.should have(0).items
       end
     end
   end

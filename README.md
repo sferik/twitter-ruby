@@ -138,13 +138,21 @@ Return the text of the Tweet at https://twitter.com/sferik/statuses/27558893223
     Twitter.status(27558893223).text
 Find the 3 most recent marriage proposals to [@justinbieber][justinbieber]
 
-    Twitter.search("to:justinbieber marry me", :rpp => 3, :result_type => "recent").map do |status|
+    Twitter.search("to:justinbieber marry me", :rpp => 3, :result_type => "recent").results.map do |status|
       "#{status.from_user}: #{status.text}"
     end
 
 Let's find a Japanese-language Tweet tagged #ruby (no retweets)
 
-    Twitter.search("#ruby -rt", :lang => "ja", :rpp => 1).first.text
+    Twitter.search("#ruby -rt", :lang => "ja", :rpp => 1).results.first.text
+
+The search result object returned by `Twitter::Client#search` includes some metadata about the search
+results:
+
+    Twitter.search("to:justinbieber marry me", :rpp => 3, :result_type => "recent").max_id => 28857935752
+
+The `max_id` attribute can be used in your next search query as the `:since_id` parameter to only return newer
+tweets.
 
 Certain methods require authentication. To get your Twitter OAuth credentials,
 register an app at http://dev.twitter.com/apps
