@@ -7,8 +7,8 @@ A Ruby wrapper for the Twitter API.
 ## Installation
     gem install twitter
 
-Looking for the Twitter command-line interface? It was [removed] from this gem
-in version 0.5.0 and now is [maintained][] as a separate project called `t`.
+Looking for the Twitter command-line interface? It was [removed][] from this
+gem in version 0.5.0 and now is [maintained][] as a separate project:
 
     gem install t
 
@@ -22,12 +22,12 @@ in version 0.5.0 and now is [maintained][] as a separate project called `t`.
 
 ## Follow @gem on Twitter
 You should [follow @gem][follow] on Twitter for announcements and updates about
-the gem.
+this library.
 
 [follow]: https://twitter.com/gem
 
 ## Mailing List
-Please direct any questions about the library to the [mailing list].
+Please direct questions about the library to the [mailing list].
 
 [mailing list]: https://groups.google.com/group/ruby-twitter-gem
 
@@ -37,86 +37,42 @@ wiki][apps]!
 
 [apps]: https://github.com/jnunemaker/twitter/wiki/apps
 
-## What's new in version 2?
-This version introduces a number of new classes, notably:
+## What's new in version 3?
 
-    Twitter::Configuration	Twitter::List		Twitter::Polygon			Twitter::Settings
-    Twitter::Cursor			Twitter::Metadata	Twitter::RateLimitStatus	Twitter::Size
-    Twitter::DirectMessage	Twitter::Mention	Twitter::Relationship		Twitter::Status
-    Twitter::Favorite		Twitter::Photo		Twitter::Reply				Twitter::Suggestion
-    Twitter::Follow			Twitter::Place		Twitter::Retweet			Twitter::Trend
-    Twitter::Language		Twitter::Point		Twitter::SavedSearch		Twitter::User
+The Active Support dependency has been removed!
 
-These classes (plus Ruby primitives) have replaced all instances of
-`Hashie::Mash`. This allows us to remove the gem's dependency on [hashie][] and
-eliminate a layer in the middleware stack.
+This version introduces an identity map, which ensures that the same objects
+only get initialized once:
 
-[hashie]: https://github.com/intridea/hashie
+    Twitter.user("sferik").object_id == Twitter.user("sferik").object_id #=> true
 
-This should have the effect of making object instantiation and method
-invocation faster and less susceptible to typos. For example, if you typed
-`Twitter.user("sferik").loctaion`, a `Hashie::Mash` would return `nil` instead
-of raising a `NoMethodError`.
+(In all previous versions of this gem, this statement would have returned
+false.)
 
-Another benefit of these new objects is instance methods like `created_at` now
-return a `Time` instead of a `String`. This should make the objects easier to
-work with and better fulfills the promise of this library as a Ruby wrapper for
-the Twitter API.
+The `Twitter::Client#search` now returns a `Twitter::SearchResult` object,
+which contains metadata and a results array. In the previous major version,
+this method returned an array of `Twitter::Status` objects, which is now
+accessible by sending the `results` message to a `Twitter::SearchResults`
+object.
 
-Any instance method that returns a boolean can now be called with a trailing
-question mark, for example:
+    # Version 2
+    Twitter::Client.search("query").each do |status|
+      puts status.full_text
+    end
 
-    Twitter.user("sferik").protected?
+    # Version 3
+    Twitter::Client.search("query").results.each do |status|
+      puts status.full_text
+    end
 
-The `Twitter::Search` class has been replaced by the `Twitter::Client#search`
-method. This unifies the library's interfaces and will make the code easier to
-maintain over time. As a result, you can no longer build queries by chaining
-methods (ARel-style). The new syntax is more consistent and concise.
+The `Twitter::Status#expanded_urls` method has been removed. Use
+`Twitter::Status#urls` instead.
 
-This version also introduces object equivalence, so objects that are logically
-equivalent are considered equal, even if they don't occupy the same address in
-memory, for example:
+This library is now more SOLID! In the previous version, [the `Twitter::Cursor`
+class violated the Liskov substitution principle][lsp]. This came back to bite
+us when trying to implement the identity map. We regret the error.
 
-    Twitter.user("sferik") == Twitter.user("sferik") #=> true
-    Twitter.user("sferik") == Twitter.user(7505382)  #=> true
-
-In previous versions of this gem, both of the above statements would have
-returned false. A true identity map may be implemented in future versions of
-this library.
-
-As of version 2.4, `Twitter::User` objects can be used interchangeably with
-user IDs or screen names, for example:
-
-    user = Twitter.user("sferik")
-
-    Twitter.follow("sferik")
-    Twitter.follow(user)     # Same as above
-
-Also, as of version 2.4, `Twitter::List` objects can be used interchangeably
-with list IDs or slugs, for example:
-
-    list = Twitter.list("sferik", "presidents")
-
-    Twitter.list_timeline("sferik", "presidents")
-    Twitter.list_timeline(list)
-
-### Additional Notes
-* All deprecated methods have been removed.
-* `Twitter::Client#totals` has been removed. Use `Twitter::Client#user`
-  instead.
-* `Twitter.faraday_options` has been renamed to `Twitter.connection_options`.
-* `Twitter::Client#friendships` now takes up to 3 arguments instead of 1.
-* Support for the XML response format has been removed. This decision was
-  guided largely by Twitter, which has started removing XML responses available
-  for [some resources][trends]. This allows us to remove the gem's dependency
-  on [multi_xml][]. Using JSON is faster than XML, both in terms of parsing
-  speed and time over the wire.
-* All error classes have been moved inside the `Twitter::Error` namespace. If
-  you were previously rescuing `Twitter::NotFound` you'll need to change that
-  to `Twitter::Error::NotFound`.
-
-[trends]: https://dev.twitter.com/blog/changing-trends-api
-[multi_xml]: https://github.com/sferik/multi_xml
+[lsp]: https://github.com/jnunemaker/twitter/commit/9e6823b614d1af94089f51400ebd637ca04bab9d
 
 ## <a href="performance"></a>Performance
 You can improve performance by preloading a faster JSON parsing library. By
@@ -198,15 +154,8 @@ Here are some ways *you* can contribute:
 * by refactoring code
 * by fixing [issues][]
 * by reviewing patches
-* [financially][]
 
 [issues]: https://github.com/jnunemaker/twitter/issues
-[financially]: http://pledgie.com/campaigns/1193
-
-All contributors will be added to the [history][] and will receive the respect
-and gratitude of the community.
-
-[history]: https://github.com/jnunemaker/twitter/blob/master/HISTORY.md
 
 ## Submitting an Issue
 We use the [GitHub issue tracker][issues] to track bugs and features. Before
