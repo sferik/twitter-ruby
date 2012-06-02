@@ -1,12 +1,10 @@
-require 'twitter/base'
 require 'twitter/core_ext/kernel'
 
 module Twitter
-  class Cursor < Twitter::Base
+  class Cursor
     attr_reader :collection
-    lazy_attr_reader :next_cursor, :previous_cursor
-    alias :next :next_cursor
-    alias :previous :previous_cursor
+    attr_accessor :attrs
+    alias :to_hash :attrs
 
     # Initializes a new Cursor object
     #
@@ -15,7 +13,7 @@ module Twitter
     # @params klass [Class] The class to instantiate object in the collection
     # @return [Twitter::Cursor]
     def initialize(attrs, method, klass=nil)
-      super(attrs)
+      @attrs = attrs
       @collection = Array(attrs[method.to_s]).map do |item|
         if klass
           klass.new(item)
@@ -27,6 +25,16 @@ module Twitter
         alias_method method.to_sym, :collection
       end
     end
+
+    def next_cursor
+      @attrs['next_cursor']
+    end
+    alias :next :next_cursor
+
+    def previous_cursor
+      @attrs['previous_cursor']
+    end
+    alias :previous :previous_cursor
 
     # @return [Boolean]
     def first?
