@@ -1,7 +1,11 @@
+require 'twitter/identity_map'
+
 module Twitter
   class Base
     attr_accessor :attrs
     alias :to_hash :attrs
+
+    @@identity_map = IdentityMap.new
 
     # Define methods that retrieve the value from an initialized instance variable Hash, using the attribute as a key
     #
@@ -19,12 +23,18 @@ module Twitter
       end
     end
 
+    def self.new(attrs={})
+      @@identity_map[self.name] ||= {}
+      @@identity_map[self.name][Marshal.dump(attrs)] || super(attrs)
+    end
+
     # Initializes a new Base object
     #
     # @param attrs [Hash]
     # @return [Twitter::Base]
     def initialize(attrs={})
-      @attrs = attrs.dup
+      @attrs = attrs
+      @@identity_map[self.class.name][Marshal.dump(attrs)] = self
     end
 
     # Initializes a new Base object
