@@ -40,23 +40,6 @@ describe Twitter::Status do
     end
   end
 
-  describe "#expanded_urls" do
-    it "should return the expanded urls" do
-      urls = [{'expanded_url' => 'http://example.com'}]
-      expanded_urls = Twitter::Status.new('entities' => {'urls' => urls}).expanded_urls
-      expanded_urls.should be_an Array
-      expanded_urls.first.should == "http://example.com"
-    end
-    it "should return nil when not set" do
-      expanded_urls = Twitter::Status.new.expanded_urls
-      expanded_urls.should be_nil
-    end
-    it "should warn when not set" do
-      Twitter::Status.new.expanded_urls
-      $stderr.string.should =~ /\[DEPRECATION\] Twitter::Status#expanded_urls it deprecated\. Use Twitter::Status#urls instead\./
-    end
-  end
-
   describe "#favoriters_count" do
     it "should return the count of favoriters when favoriters_count is set" do
       status = Twitter::Status.new('favoriters_count' => '1')

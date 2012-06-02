@@ -32,13 +32,6 @@ module Twitter
       super || (other.class == self.class && other.id == self.id)
     end
 
-    # @note Must include entities in your request for this method to work
-    # @return [Array<String>]
-    def expanded_urls
-      warn "#{Kernel.caller.first}: [DEPRECATION] Twitter::Status#expanded_urls it deprecated. Use Twitter::Status#urls instead."
-      urls.map(&:expanded_url) unless urls.nil?
-    end
-
     # @note If favoriters_count is > 50 it will return the string 50+.
     # @return [String]
     def favoriters_count
