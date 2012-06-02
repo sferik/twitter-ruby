@@ -3,12 +3,12 @@ module Twitter
 
     # @return [Integer]
     def self.major
-      2
+      3
     end
 
     # @return [Integer]
     def self.minor
-      5
+      0
     end
 
     # @return [Integer]
@@ -18,7 +18,7 @@ module Twitter
 
     # @return [String, NilClass]
     def self.pre
-      nil
+      "rc.1"
     end
 
     # @return [String]
