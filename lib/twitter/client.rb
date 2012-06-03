@@ -676,9 +676,14 @@ module Twitter
       friend_ids = self.friend_ids.ids
       user_ids = self.users(args).map(&:id)
       (user_ids - friend_ids).threaded_map do |user|
-        user = post("/1/friendships/create.json", options.merge_user(user))
-        Twitter::User.new(user)
-      end
+        begin
+          user = post("/1/friendships/create.json", options.merge_user(user))
+          Twitter::User.new(user)
+        rescue Twitter::Error::Forbidden
+          # This error will be raised if the user doesn't have permission to
+          # follow list_member, for whatever reason.
+        end
+      end.compact
     end
     alias :friendship_create :follow
 
@@ -700,9 +705,14 @@ module Twitter
       # so only send follow if it's true
       options.merge!(:follow => true) if options.delete(:follow)
       args.threaded_map do |user|
-        user = post("/1/friendships/create.json", options.merge_user(user))
-        Twitter::User.new(user)
-      end
+        begin
+          user = post("/1/friendships/create.json", options.merge_user(user))
+          Twitter::User.new(user)
+        rescue Twitter::Error::Forbidden
+          # This error will be raised if the user doesn't have permission to
+          # follow list_member, for whatever reason.
+        end
+      end.compact
     end
     alias :friendship_create! :follow!
 
