@@ -28,22 +28,31 @@ module Twitter
       @@identity_map[self.name][Marshal.dump(attrs)] || super(attrs)
     end
 
-    # Initializes a new Base object
+    # Initializes a new object
     #
     # @param attrs [Hash]
     # @return [Twitter::Base]
     def initialize(attrs={})
-      @attrs = attrs
+      self.update(attrs)
       @@identity_map[self.class.name][Marshal.dump(attrs)] = self
     end
 
-    # Initializes a new Base object
+    # Fetches an attribute of an object using hash notation
     #
     # @param method [String, Symbol] Message to send to the object
     def [](method)
       self.__send__(method.to_sym)
     rescue NoMethodError
       nil
+    end
+
+    # Update the attributes of an object
+    #
+    # @param attrs [Hash]
+    # @return [Twitter::Base]
+    def update(attrs)
+      @attrs = attrs
+      self
     end
 
   end

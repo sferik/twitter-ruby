@@ -661,7 +661,7 @@ module Twitter
     # @see https://dev.twitter.com/docs/api/1/post/friendships/create
     # @rate_limited No
     # @requires_authentication Yes
-    # @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
+    # @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
     # @param options [Hash] A customizable set of options.
     # @option options [Boolean] :follow (false) Enable notifications for the target user.
     # @return [Twitter::User] The followed user.
@@ -692,7 +692,7 @@ module Twitter
     # @see https://dev.twitter.com/docs/api/1/post/friendships/create
     # @rate_limited No
     # @requires_authentication Yes
-    # @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
+    # @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
     # @param options [Hash] A customizable set of options.
     # @option options [Boolean] :follow (false) Enable notifications for the target user.
     # @return [Array<Twitter::User>] The followed users.
@@ -721,7 +721,7 @@ module Twitter
     # @see https://dev.twitter.com/docs/api/1/post/friendships/destroy
     # @rate_limited No
     # @requires_authentication Yes
-    # @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
+    # @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
     # @param options [Hash] A customizable set of options.
     # @return [Array<Twitter::User>] The unfollowed users.
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
