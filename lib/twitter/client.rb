@@ -40,12 +40,12 @@ module Twitter
   # @note All methods have been separated into modules and follow the same grouping used in {http://dev.twitter.com/doc the Twitter API Documentation}.
   # @see http://dev.twitter.com/pages/every_developer
   class Client
-
     include Twitter::Authenticatable
     include Twitter::Connection
     include Twitter::Request
-
     attr_accessor *Config::VALID_OPTIONS_KEYS
+
+    MAX_USERS_PER_REQUEST = 100
 
     # Initializes a new API object
     #
@@ -2402,11 +2402,11 @@ module Twitter
     #     Twitter.users(7505382, 14100886)    # Same as above
     def users(*args)
       options = args.last.is_a?(Hash) ? args.pop : {}
-      users = args
-      options.merge_users!(Array(users))
-      get("/1/users/lookup.json", options).map do |user|
-        Twitter::User.new(user)
-      end
+      args.each_slice(MAX_USERS_PER_REQUEST).threaded_map do |users|
+        get("/1/users/lookup.json", options.merge_users(Array(users))).map do |user|
+          Twitter::User.new(user)
+        end
+      end.flatten
     end
 
     # Access the profile image in various sizes for the user with the indicated screen name

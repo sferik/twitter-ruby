@@ -96,6 +96,14 @@ class Hash
   #
   # @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen_names, or objects.
   # @return [Hash]
+  def merge_users(*users)
+    self.dup.merge_users!(users)
+  end
+
+  # Take a multiple users and merge them into the hash with the correct keys
+  #
+  # @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen_names, or objects.
+  # @return [Hash]
   def merge_users!(*users)
     user_ids, screen_names = [], []
     users.flatten.each do |user|
