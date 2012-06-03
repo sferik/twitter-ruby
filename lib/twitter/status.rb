@@ -1,4 +1,3 @@
-require 'twitter/base'
 require 'twitter/client'
 require 'twitter/core_ext/hash'
 require 'twitter/creatable'
@@ -6,6 +5,7 @@ require 'twitter/entity/hashtag'
 require 'twitter/entity/url'
 require 'twitter/entity/user_mention'
 require 'twitter/geo_factory'
+require 'twitter/identifiable'
 require 'twitter/media_factory'
 require 'twitter/metadata'
 require 'twitter/oembed'
@@ -13,11 +13,10 @@ require 'twitter/place'
 require 'twitter/user'
 
 module Twitter
-  class Status < Twitter::Base
-
+  class Status < Twitter::Identifiable
     include Twitter::Creatable
     lazy_attr_reader :favorited, :favoriters, :from_user, :from_user_id,
-      :from_user_name, :id, :in_reply_to_screen_name, :in_reply_to_attrs_id,
+      :from_user_name, :in_reply_to_screen_name, :in_reply_to_attrs_id,
       :in_reply_to_status_id, :in_reply_to_user_id, :iso_language_code,
       :profile_image_url, :profile_image_url_https, :repliers, :retweeted,
       :retweeters, :source, :text, :to_user, :to_user_id, :to_user_name,

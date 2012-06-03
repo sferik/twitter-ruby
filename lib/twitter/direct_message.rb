@@ -1,11 +1,11 @@
-require 'twitter/base'
 require 'twitter/creatable'
+require 'twitter/identifiable'
 require 'twitter/user'
 
 module Twitter
-  class DirectMessage < Twitter::Base
+  class DirectMessage < Twitter::Identifiable
     include Twitter::Creatable
-    lazy_attr_reader :id, :text
+    lazy_attr_reader :text
 
     # @param other [Twiter::DirectMessage]
     # @return [Boolean]

@@ -1,9 +1,9 @@
-require 'twitter/base'
+require 'twitter/identifiable'
 require 'twitter/size'
 
 module Twitter
-  class Photo < Twitter::Base
-    lazy_attr_reader :display_url, :expanded_url, :id, :indices, :media_url,
+  class Photo < Twitter::Identifiable
+    lazy_attr_reader :display_url, :expanded_url, :indices, :media_url,
       :media_url_https, :url
 
     # @param other [Twiter::Photo]

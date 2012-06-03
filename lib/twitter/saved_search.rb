@@ -1,10 +1,10 @@
-require 'twitter/base'
 require 'twitter/creatable'
+require 'twitter/identifiable'
 
 module Twitter
-  class SavedSearch < Twitter::Base
+  class SavedSearch < Twitter::Identifiable
     include Twitter::Creatable
-    lazy_attr_reader :id, :name, :position, :query
+    lazy_attr_reader :name, :position, :query
 
     # @param other [Twiter::SavedSearch]
     # @return [Boolean]

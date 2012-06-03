@@ -5,7 +5,7 @@ class Hash
   # @param keys [Array, Set]
   # @return [Hash]
   def except(*keys)
-    dup.except!(*keys)
+    self.dup.except!(keys)
   end
 
   # Replaces the hash without the given keys.

@@ -1,11 +1,11 @@
-require 'twitter/base'
 require 'twitter/creatable'
+require 'twitter/identifiable'
 require 'twitter/user'
 
 module Twitter
-  class List < Twitter::Base
+  class List < Twitter::Identifiable
     include Twitter::Creatable
-    lazy_attr_reader :description, :following, :full_name, :id, :member_count,
+    lazy_attr_reader :description, :following, :full_name, :member_count,
       :mode, :name, :slug, :subscriber_count, :uri
     alias :following? :following
 

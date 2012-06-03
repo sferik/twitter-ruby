@@ -62,7 +62,7 @@ module Twitter
     #
     # @return [Twitter::User]
     def current_user
-      @current_user ||= Twitter::User.new(self.verify_credentials)
+      @current_user ||= Twitter::User.new(self.verify_credentials.attrs)
     end
 
     # Returns the remaining number of API requests available to the requesting user

@@ -1,17 +1,17 @@
 require 'twitter/authenticatable'
-require 'twitter/base'
 require 'twitter/core_ext/hash'
 require 'twitter/creatable'
+require 'twitter/identifiable'
 require 'twitter/status'
 
 module Twitter
-  class User < Twitter::Base
+  class User < Twitter::Identifiable
     include Twitter::Authenticatable
     include Twitter::Creatable
     lazy_attr_reader :all_replies, :blocking, :can_dm, :connections,
       :contributors_enabled, :default_profile, :default_profile_image,
       :description, :favourites_count, :follow_request_sent, :followed_by,
-      :followers_count, :following, :friends_count, :geo_enabled, :id,
+      :followers_count, :following, :friends_count, :geo_enabled,
       :is_translator, :lang, :listed_count, :location, :marked_spam, :name,
       :notifications, :notifications_enabled, :profile_background_color,
       :profile_background_image_url, :profile_background_image_url_https,

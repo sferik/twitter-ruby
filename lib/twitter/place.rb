@@ -1,10 +1,10 @@
-require 'twitter/base'
 require 'twitter/geo_factory'
+require 'twitter/identifiable'
 
 module Twitter
-  class Place < Twitter::Base
-    lazy_attr_reader :attributes, :country, :full_name, :id, :name, :url,
-      :woeid
+  class Place < Twitter::Identifiable
+    lazy_attr_reader :attributes, :country, :full_name, :name, :url, :woeid
+    alias :woe_id :woeid
 
     # @param other [Twiter::Place]
     # @return [Boolean]
