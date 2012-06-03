@@ -24,8 +24,8 @@ module Twitter
     end
 
     def self.new(attrs={})
-      @@identity_map[self.name] ||= {}
-      @@identity_map[self.name][Marshal.dump(attrs)] || super(attrs)
+      @@identity_map[self] ||= {}
+      @@identity_map[self][Marshal.dump(attrs)] || super(attrs)
     end
 
     # Initializes a new object
@@ -34,7 +34,7 @@ module Twitter
     # @return [Twitter::Base]
     def initialize(attrs={})
       self.update(attrs)
-      @@identity_map[self.class.name][Marshal.dump(attrs)] = self
+      @@identity_map[self.class][Marshal.dump(attrs)] = self
     end
 
     # Fetches an attribute of an object using hash notation
