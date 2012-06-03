@@ -4,7 +4,7 @@ module Twitter
   class Point < Twitter::Base
     lazy_attr_reader :coordinates
 
-    # @param other [Twiter::Point]
+    # @param other [Twitter::Point]
     # @return [Boolean]
     def ==(other)
       super || (other.class == self.class && other.coordinates == self.coordinates)

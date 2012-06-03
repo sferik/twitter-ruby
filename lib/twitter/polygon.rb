@@ -4,7 +4,7 @@ module Twitter
   class Polygon < Twitter::Base
     lazy_attr_reader :coordinates
 
-    # @param other [Twiter::Polygon]
+    # @param other [Twitter::Polygon]
     # @return [Boolean]
     def ==(other)
       super || (other.class == self.class && other.coordinates == self.coordinates)

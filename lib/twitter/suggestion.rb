@@ -5,7 +5,7 @@ module Twitter
   class Suggestion < Twitter::Base
     lazy_attr_reader :name, :size, :slug
 
-    # @param other [Twiter::Suggestion]
+    # @param other [Twitter::Suggestion]
     # @return [Boolean]
     def ==(other)
       super || (other.class == self.class && other.slug == self.slug)

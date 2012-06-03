@@ -7,7 +7,7 @@ module Twitter
     include Twitter::Creatable
     lazy_attr_reader :text
 
-    # @param other [Twiter::DirectMessage]
+    # @param other [Twitter::DirectMessage]
     # @return [Boolean]
     def ==(other)
       super || (other.class == self.class && other.id == self.id)

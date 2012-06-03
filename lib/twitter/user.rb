@@ -50,7 +50,7 @@ module Twitter
     alias :verified? :verified
     alias :want_retweets? :want_retweets
 
-    # @param other [Twiter::User]
+    # @param other [Twitter::User]
     # @return [Boolean]
     def ==(other)
       super || (other.class == self.class && other.id == self.id)

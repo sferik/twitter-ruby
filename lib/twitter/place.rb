@@ -6,7 +6,7 @@ module Twitter
     lazy_attr_reader :attributes, :country, :full_name, :name, :url, :woeid
     alias :woe_id :woeid
 
-    # @param other [Twiter::Place]
+    # @param other [Twitter::Place]
     # @return [Boolean]
     def ==(other)
       super || (other.class == self.class && other.id == self.id)

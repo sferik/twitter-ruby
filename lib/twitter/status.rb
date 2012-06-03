@@ -25,7 +25,7 @@ module Twitter
     alias :retweeted? :retweeted
     alias :truncated? :truncated
 
-    # @param other [Twiter::Status]
+    # @param other [Twitter::Status]
     # @return [Boolean]
     def ==(other)
       super || (other.class == self.class && other.id == self.id)
