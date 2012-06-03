@@ -41,6 +41,14 @@ wiki][apps]!
 
 The Active Support dependency has been removed!
 
+The `Twitter::Client#follow` and `Twitter::Client#unfollow` methods now accept
+multiple users as arguments and return an array instead of a `Twitter::User`.
+Additionally, the `Twitter::Client#follow` method now checks to make sure the
+user isn't already being followed. If you don't wish to perform that check
+(which requires an extra HTTP request), you can use the new
+`Twitter::Client#follow!` method instead. **Note**: This may re-send an email
+notification to the user, even if they are already being followed.
+
 This version introduces an identity map, which ensures that the same objects
 only get initialized once:
 

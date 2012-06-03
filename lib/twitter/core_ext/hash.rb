@@ -68,6 +68,14 @@ class Hash
   #
   # @param user[Integer, String, Twitter::User] A Twitter user ID, screen_name, or object.
   # @return [Hash]
+  def merge_user(user, prefix=nil, suffix=nil)
+    self.dup.merge_user!(user, prefix, suffix)
+  end
+
+  # Take a user and merge it into the hash with the correct key
+  #
+  # @param user[Integer, String, Twitter::User] A Twitter user ID, screen_name, or object.
+  # @return [Hash]
   def merge_user!(user, prefix=nil, suffix=nil)
     case user
     when Integer

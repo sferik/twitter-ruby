@@ -25,7 +25,7 @@ module Twitter
         :ssl => {:verify => false},
         :url => options.fetch(:endpoint, endpoint),
       }
-      @connection ||=Faraday.new(default_options.deep_merge(connection_options)) do |builder|
+      @connection ||= Faraday.new(default_options.deep_merge(connection_options)) do |builder|
         builder.use Twitter::Request::MultipartWithFile
         builder.use Twitter::Request::TwitterOAuth, credentials if credentials?
         builder.use Faraday::Request::Multipart

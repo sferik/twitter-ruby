@@ -282,20 +282,117 @@ describe Twitter::Client do
   describe "#follow" do
     context "with :follow => true passed" do
       before do
+        stub_get("/1/friends/ids.json").
+          with(:query => {:cursor => "-1"}).
+          to_return(:body => fixture("id_list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        stub_get("/1/users/lookup.json").
+          with(:query => {:screen_name => "sferik,pengwynn"}).
+          to_return(:body => fixture("friendships.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        stub_post("/1/friendships/create.json").
+          with(:body => {:user_id => "7505382", :follow => "true"}).
+          to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      end
+      it "should request the correct resource" do
+        @client.follow("sferik", "pengwynn", :follow => true)
+        a_get("/1/friends/ids.json").
+          with(:query => {:cursor => "-1"}).
+          should have_been_made
+        a_get("/1/users/lookup.json").
+          with(:query => {:screen_name => "sferik,pengwynn"}).
+          should have_been_made
+        a_post("/1/friendships/create.json").
+          with(:body => {:user_id => "7505382", :follow => "true"}).
+          should have_been_made
+      end
+      it "should return the befriended user" do
+        users = @client.follow("sferik", "pengwynn", :follow => true)
+        users.should be_an Array
+        users.first.should be_a Twitter::User
+        users.first.name.should == "Erik Michaels-Ober"
+      end
+    end
+    context "with :follow => false passed" do
+      before do
+        stub_get("/1/friends/ids.json").
+          with(:query => {:cursor => "-1"}).
+          to_return(:body => fixture("id_list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        stub_get("/1/users/lookup.json").
+          with(:query => {:screen_name => "sferik,pengwynn"}).
+          to_return(:body => fixture("friendships.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        stub_post("/1/friendships/create.json").
+          with(:body => {:user_id => "7505382"}).
+          to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      end
+      it "should request the correct resource" do
+        @client.follow("sferik", "pengwynn", :follow => false)
+        a_get("/1/friends/ids.json").
+          with(:query => {:cursor => "-1"}).
+          should have_been_made
+        a_get("/1/users/lookup.json").
+          with(:query => {:screen_name => "sferik,pengwynn"}).
+          should have_been_made
+        a_post("/1/friendships/create.json").
+          with(:body => {:user_id => "7505382"}).
+          should have_been_made
+      end
+      it "should return the befriended user" do
+        users = @client.follow("sferik", "pengwynn", :follow => false)
+        users.should be_an Array
+        users.first.should be_a Twitter::User
+        users.first.name.should == "Erik Michaels-Ober"
+      end
+    end
+    context "without :follow passed" do
+      before do
+        stub_get("/1/friends/ids.json").
+          with(:query => {:cursor => "-1"}).
+          to_return(:body => fixture("id_list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        stub_get("/1/users/lookup.json").
+          with(:query => {:screen_name => "sferik,pengwynn"}).
+          to_return(:body => fixture("friendships.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        stub_post("/1/friendships/create.json").
+          with(:body => {:user_id => "7505382"}).
+          to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      end
+      it "should request the correct resource" do
+        @client.follow("sferik", "pengwynn")
+        a_get("/1/friends/ids.json").
+          with(:query => {:cursor => "-1"}).
+          should have_been_made
+        a_get("/1/users/lookup.json").
+          with(:query => {:screen_name => "sferik,pengwynn"}).
+          should have_been_made
+        a_post("/1/friendships/create.json").
+          with(:body => {:user_id => "7505382"}).
+          should have_been_made
+      end
+      it "should return the befriended user" do
+        users = @client.follow("sferik", "pengwynn")
+        users.should be_an Array
+        users.first.should be_a Twitter::User
+        users.first.name.should == "Erik Michaels-Ober"
+      end
+    end
+  end
+
+  describe "#follow!" do
+    context "with :follow => true passed" do
+      before do
         stub_post("/1/friendships/create.json").
           with(:body => {:screen_name => "sferik", :follow => "true"}).
           to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "should request the correct resource" do
-        @client.follow("sferik", :follow => true)
+        @client.follow!("sferik", :follow => true)
         a_post("/1/friendships/create.json").
           with(:body => {:screen_name => "sferik", :follow => "true"}).
           should have_been_made
       end
       it "should return the befriended user" do
-        user = @client.follow("sferik", :follow => true)
-        user.should be_a Twitter::User
-        user.name.should == "Erik Michaels-Ober"
+        users = @client.follow!("sferik", :follow => true)
+        users.should be_an Array
+        users.first.should be_a Twitter::User
+        users.first.name.should == "Erik Michaels-Ober"
       end
     end
     context "with :follow => false passed" do
@@ -305,15 +402,16 @@ describe Twitter::Client do
           to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "should request the correct resource" do
-        @client.follow("sferik", :follow => false)
+        @client.follow!("sferik", :follow => false)
         a_post("/1/friendships/create.json").
           with(:body => {:screen_name => "sferik"}).
           should have_been_made
       end
       it "should return the befriended user" do
-        user = @client.follow("sferik", :follow => false)
-        user.should be_a Twitter::User
-        user.name.should == "Erik Michaels-Ober"
+        users = @client.follow!("sferik", :follow => false)
+        users.should be_an Array
+        users.first.should be_a Twitter::User
+        users.first.name.should == "Erik Michaels-Ober"
       end
     end
     context "without :follow passed" do
@@ -323,15 +421,16 @@ describe Twitter::Client do
           to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "should request the correct resource" do
-        @client.follow("sferik")
+        @client.follow!("sferik")
         a_post("/1/friendships/create.json").
           with(:body => {:screen_name => "sferik"}).
           should have_been_made
       end
       it "should return the befriended user" do
-        user = @client.follow("sferik")
-        user.should be_a Twitter::User
-        user.name.should == "Erik Michaels-Ober"
+        users = @client.follow!("sferik")
+        users.should be_an Array
+        users.first.should be_a Twitter::User
+        users.first.name.should == "Erik Michaels-Ober"
       end
     end
   end
@@ -349,9 +448,10 @@ describe Twitter::Client do
         should have_been_made
     end
     it "should return the unfollowed" do
-      user = @client.friendship_destroy("sferik")
-      user.should be_a Twitter::User
-      user.name.should == "Erik Michaels-Ober"
+      users = @client.friendship_destroy("sferik")
+      users.should be_an Array
+      users.first.should be_a Twitter::User
+      users.first.name.should == "Erik Michaels-Ober"
     end
   end
 

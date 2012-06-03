@@ -3,6 +3,7 @@ require 'twitter/authenticatable'
 require 'twitter/config'
 require 'twitter/configuration'
 require 'twitter/connection'
+require 'twitter/core_ext/enumerable'
 require 'twitter/core_ext/hash'
 require 'twitter/cursor'
 require 'twitter/direct_message'
@@ -655,7 +656,7 @@ module Twitter
     alias :friendship_show :friendship
     alias :relationship :friendship
 
-    # Allows the authenticating user to follow the specified user
+    # Allows the authenticating user to follow the specified users, unless they are already followed
     #
     # @see https://dev.twitter.com/docs/api/1/post/friendships/create
     # @rate_limited No
@@ -667,31 +668,61 @@ module Twitter
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @example Follow @sferik
     #   Twitter.follow('sferik')
-    def follow(user, options={})
-      options.merge_user!(user)
+    def follow(*args)
+      options = args.last.is_a?(Hash) ? args.pop : {}
       # Twitter always turns on notifications if the "follow" option is present, even if it's set to false
       # so only send follow if it's true
       options.merge!(:follow => true) if options.delete(:follow)
-      user = post("/1/friendships/create.json", options)
-      Twitter::User.new(user)
+      friend_ids = self.friend_ids.ids
+      user_ids = self.users(args).map(&:id)
+      (user_ids - friend_ids).threaded_map do |user|
+        user = post("/1/friendships/create.json", options.merge_user(user))
+        Twitter::User.new(user)
+      end
     end
     alias :friendship_create :follow
 
-    # Allows the authenticating user to unfollow the specified user
+    # Allows the authenticating user to follow the specified users
+    #
+    # @see https://dev.twitter.com/docs/api/1/post/friendships/create
+    # @rate_limited No
+    # @requires_authentication Yes
+    # @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
+    # @param options [Hash] A customizable set of options.
+    # @option options [Boolean] :follow (false) Enable notifications for the target user.
+    # @return [Array<Twitter::User>] The followed users.
+    # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+    # @example Follow @sferik
+    #   Twitter.follow!('sferik')
+    def follow!(*args)
+      options = args.last.is_a?(Hash) ? args.pop : {}
+      # Twitter always turns on notifications if the "follow" option is present, even if it's set to false
+      # so only send follow if it's true
+      options.merge!(:follow => true) if options.delete(:follow)
+      args.threaded_map do |user|
+        user = post("/1/friendships/create.json", options.merge_user(user))
+        Twitter::User.new(user)
+      end
+    end
+    alias :friendship_create! :follow!
+
+    # Allows the authenticating user to unfollow the specified users
     #
     # @see https://dev.twitter.com/docs/api/1/post/friendships/destroy
     # @rate_limited No
     # @requires_authentication Yes
     # @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
     # @param options [Hash] A customizable set of options.
-    # @return [Twitter::User] The unfollowed user.
+    # @return [Array<Twitter::User>] The unfollowed users.
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @example Unfollow @sferik
     #   Twitter.unfollow('sferik')
-    def unfollow(user, options={})
-      options.merge_user!(user)
-      user = delete("/1/friendships/destroy.json", options)
-      Twitter::User.new(user)
+    def unfollow(*args)
+      options = args.last.is_a?(Hash) ? args.pop : {}
+      args.threaded_map do |user|
+        user = delete("/1/friendships/destroy.json", options.merge_user(user))
+        Twitter::User.new(user)
+      end
     end
     alias :friendship_destroy :unfollow
 

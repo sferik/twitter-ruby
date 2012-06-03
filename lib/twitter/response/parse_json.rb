@@ -6,16 +6,16 @@ module Twitter
     class ParseJson < Faraday::Response::Middleware
 
       def parse(body)
-          case body
-          when ''
-            nil
-          when 'true'
-            true
-          when 'false'
-            false
-          else
-            MultiJson.load(body)
-          end
+        case body
+        when ''
+          nil
+        when 'true'
+          true
+        when 'false'
+          false
+        else
+          MultiJson.load(body)
+        end
       end
 
       def on_complete(env)
