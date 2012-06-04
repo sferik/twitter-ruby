@@ -16,6 +16,7 @@ module Twitter
     # @param options [Hash] A hash of options
     # @return [Faraday::Connection]
     def connection(options={})
+      url = options.fetch(:endpoint, endpoint)
       default_options = {
         :headers => {
           :accept => 'application/json',
@@ -23,9 +24,10 @@ module Twitter
         },
         :proxy => proxy,
         :ssl => {:verify => false},
-        :url => options.fetch(:endpoint, endpoint),
+        :url => url,
       }
-      @connection ||= Faraday.new(default_options.deep_merge(connection_options)) do |builder|
+      @connections ||= {}
+      @connections[url] ||= Faraday.new(default_options.deep_merge(connection_options)) do |builder|
         builder.use Twitter::Request::MultipartWithFile
         builder.use Twitter::Request::TwitterOAuth, credentials if credentials?
         builder.use Faraday::Request::Multipart
