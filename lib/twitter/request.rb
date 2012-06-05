@@ -1,3 +1,5 @@
+require 'uri'
+
 module Twitter
   # Defines HTTP request methods
   module Request
@@ -20,15 +22,20 @@ module Twitter
 
     # Perform an HTTP request
     def request(method, path, params, options)
-      response = connection(options).run_request(method, nil, nil, nil) do |request|
+      if url = options[:endpoint]
+        url = URI(url) unless url.respond_to? :host
+        path = url + path
+      end
+      response = connection.run_request(method.to_sym, path, nil, nil) do |request|
         request.options[:raw] = true if options[:raw]
-        case method.to_sym
-        when :delete, :get
-          request.url(path, params)
-        when :post
-          request.path = path
-          request.body = params unless params.empty?
+        unless params.empty?
+          if :post == request.method
+            request.body = params
+          else
+            request.params.update params
+          end
         end
+        yield request if block_given?
       end
       options[:raw] ? response : response.body
     end
