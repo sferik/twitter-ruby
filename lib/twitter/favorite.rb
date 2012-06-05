@@ -4,7 +4,7 @@ require 'twitter/user'
 
 module Twitter
   class Favorite < Twitter::Action
-    lazy_attr_reader :target_objects
+        attr_reader :target_objects
 
     # A collection of users who favorited a status
     #

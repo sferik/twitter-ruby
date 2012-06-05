@@ -3,7 +3,7 @@ require 'twitter/identifiable'
 
 module Twitter
   class Place < Twitter::Identifiable
-    lazy_attr_reader :attributes, :country, :full_name, :name, :url, :woeid
+        attr_reader :attributes, :country, :full_name, :name, :url, :woeid
     alias :woe_id :woeid
 
     # @param other [Twitter::Place]

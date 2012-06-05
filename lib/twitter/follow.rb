@@ -3,7 +3,7 @@ require 'twitter/user'
 
 module Twitter
   class Follow < Twitter::Action
-    lazy_attr_reader :target_objects
+        attr_reader :target_objects
 
     # A collection of users who followed a user
     #

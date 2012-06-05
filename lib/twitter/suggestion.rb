@@ -3,7 +3,7 @@ require 'twitter/user'
 
 module Twitter
   class Suggestion < Twitter::Base
-    lazy_attr_reader :name, :size, :slug
+        attr_reader :name, :size, :slug
 
     # @param other [Twitter::Suggestion]
     # @return [Boolean]

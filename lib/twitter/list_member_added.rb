@@ -4,7 +4,7 @@ require 'twitter/user'
 
 module Twitter
   class ListMemberAdded < Twitter::Action
-    lazy_attr_reader :target_objects
+        attr_reader :target_objects
 
     # A collection of users who added a user to a list
     #

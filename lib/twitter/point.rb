@@ -2,7 +2,7 @@ require 'twitter/base'
 
 module Twitter
   class Point < Twitter::Base
-    lazy_attr_reader :coordinates
+        attr_reader :coordinates
 
     # @param other [Twitter::Point]
     # @return [Boolean]

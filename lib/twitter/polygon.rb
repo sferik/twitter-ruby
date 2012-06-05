@@ -2,7 +2,7 @@ require 'twitter/base'
 
 module Twitter
   class Polygon < Twitter::Base
-    lazy_attr_reader :coordinates
+        attr_reader :coordinates
 
     # @param other [Twitter::Polygon]
     # @return [Boolean]
