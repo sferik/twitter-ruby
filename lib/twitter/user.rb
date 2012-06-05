@@ -29,24 +29,26 @@ module Twitter
     alias :follow_request_sent? :follow_request_sent
     alias :following? :following
     alias :followed_by? :followed_by
-    alias :favorites :favourites_count
+    alias :favorite_count:favourites_count
     alias :favorites_count :favourites_count
-    alias :favourites :favourites_count
-    alias :followers :followers_count
-    alias :friends :friends_count
+    alias :favourite_count:favourites_count
+    alias :follower_count :followers_count
+    alias :friend_count :friends_count
     alias :geo_enabled? :geo_enabled
     alias :is_translator? :is_translator
-    alias :listed :listed_count
     alias :marked_spam? :marked_spam
     alias :notifications? :notifications
     alias :notifications_enabled? :notifications_enabled
     alias :profile_background_tile? :profile_background_tile
     alias :profile_use_background_image? :profile_use_background_image
     alias :protected? :protected
-    alias :statuses :statuses_count
+    alias :status_count :statuses_count
     alias :translator :is_translator
     alias :translator? :is_translator
-    alias :updates :statuses_count
+    alias :tweet_count :statuses_count
+    alias :tweets_count :statuses_count
+    alias :update_count :statuses_count
+    alias :updates_count :statuses_count
     alias :verified? :verified
     alias :want_retweets? :want_retweets
 

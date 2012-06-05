@@ -429,6 +429,7 @@ module Twitter
       Twitter::DirectMessage.new(direct_message)
     end
     alias :d :direct_message_create
+    alias :m :direct_message_create
 
     # Returns a single direct message, specified by id.
     #
