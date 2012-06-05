@@ -41,11 +41,34 @@ wiki][apps]!
 
 The Active Support dependency has been removed!
 
-The `Twitter::Client#follow` and `Twitter::Client#unfollow` methods now accept
-multiple users as arguments and return an array instead of a `Twitter::User`.
+The following methods now accept multiple users or ids as arguments and return
+arrays:
+
+* `Twitter::Client#accept`
+* `Twitter::Client#block`
+* `Twitter::Client#deny`
+* `Twitter::Client#direct_message`
+* `Twitter::Client#direct_message_destroy`
+* `Twitter::Client#disable_notifications`
+* `Twitter::Client#enable_notifications`
+* `Twitter::Client#favorite`
+* `Twitter::Client#follow`
+* `Twitter::Client#oembed`
+* `Twitter::Client#report_spam`
+* `Twitter::Client#retweet`
+* `Twitter::Client#saved_search`
+* `Twitter::Client#saved_search_destroy`
+* `Twitter::Client#status`
+* `Twitter::Client#status_activity`
+* `Twitter::Client#status_destroy`
+* `Twitter::Client#status_with_activity`
+* `Twitter::Client#unblock`
+* `Twitter::Client#unfavorite`
+* `Twitter::Client#unfollow`
+
 Additionally, the `Twitter::Client#follow` method now checks to make sure the
 user isn't already being followed. If you don't wish to perform that check
-(which requires an extra HTTP request), you can use the new
+(which does require an extra HTTP request), you can use the new
 `Twitter::Client#follow!` method instead. **Note**: This may re-send an email
 notification to the user, even if they are already being followed.
 

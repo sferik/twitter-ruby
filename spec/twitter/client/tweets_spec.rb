@@ -71,9 +71,10 @@ describe Twitter::Client do
         should have_been_made
     end
     it "should return a single status" do
-      status = @client.status(25938088801)
-      status.should be_a Twitter::Status
-      status.text.should == "@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!"
+      statuses = @client.status(25938088801)
+      statuses.should be_an Array
+      statuses.first.should be_a Twitter::Status
+      statuses.first.text.should == "@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!"
     end
   end
 
@@ -88,9 +89,10 @@ describe Twitter::Client do
         should have_been_made
     end
     it "should return a single status" do
-      status = @client.status_activity(25938088801)
-      status.should be_a Twitter::Status
-      status.retweeters_count.should == "1"
+      statuses = @client.status_activity(25938088801)
+      statuses.should be_an Array
+      statuses.first.should be_a Twitter::Status
+      statuses.first.retweeters_count.should == "1"
     end
   end
 
@@ -109,10 +111,11 @@ describe Twitter::Client do
         should have_been_made
     end
     it "should return a single status" do
-      status = @client.status_with_activity(25938088801)
-      status.should be_a Twitter::Status
-      status.text.should == "@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!"
-      status.retweeters_count.should == "1"
+      statuses = @client.status_with_activity(25938088801)
+      statuses.should be_an Array
+      statuses.first.should be_a Twitter::Status
+      statuses.first.text.should == "@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!"
+      statuses.first.retweeters_count.should == "1"
     end
   end
 
@@ -127,9 +130,10 @@ describe Twitter::Client do
         should have_been_made
     end
     it "should return a single status" do
-      status = @client.status_destroy(25938088801)
-      status.should be_a Twitter::Status
-      status.text.should == "@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!"
+      statuses = @client.status_destroy(25938088801)
+      statuses.should be_an Array
+      statuses.first.should be_a Twitter::Status
+      statuses.first.text.should == "@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!"
     end
   end
 
@@ -144,11 +148,12 @@ describe Twitter::Client do
         should have_been_made
     end
     it "should return the original Tweet with retweet details embedded" do
-      status = @client.retweet(28561922516)
-      status.should be_a Twitter::Status
-      status.text.should == "As for the Series, I'm for the Giants. Fuck Texas, fuck Nolan Ryan, fuck George Bush."
-      status.retweeted_status.text.should == "RT @gruber: As for the Series, I'm for the Giants. Fuck Texas, fuck Nolan Ryan, fuck George Bush."
-      status.retweeted_status.id.should_not == status.id
+      statuses = @client.retweet(28561922516)
+      statuses.should be_an Array
+      statuses.first.should be_a Twitter::Status
+      statuses.first.text.should == "As for the Series, I'm for the Giants. Fuck Texas, fuck Nolan Ryan, fuck George Bush."
+      statuses.first.retweeted_status.text.should == "RT @gruber: As for the Series, I'm for the Giants. Fuck Texas, fuck Nolan Ryan, fuck George Bush."
+      statuses.first.retweeted_status.id.should_not == statuses.first.id
     end
   end
 
@@ -203,8 +208,9 @@ describe Twitter::Client do
           should have_been_made
       end
       it "should return an OEmbed instance" do
-        oembed = @client.oembed(25938088801)
-        oembed.should be_a Twitter::OEmbed
+        oembeds = @client.oembed(25938088801)
+        oembeds.should be_an Array
+        oembeds.first.should be_a Twitter::OEmbed
       end
     end
     context "with url passed" do
@@ -218,8 +224,9 @@ describe Twitter::Client do
           should have_been_made
       end
       it "should return an OEmbed instance" do
-        oembed = @client.oembed('https://twitter.com/#!/twitter/status/25938088801')
-        oembed.should be_a Twitter::OEmbed
+        oembeds = @client.oembed('https://twitter.com/#!/twitter/status/25938088801')
+        oembeds.should be_an Array
+        oembeds.first.should be_a Twitter::OEmbed
       end
     end
 

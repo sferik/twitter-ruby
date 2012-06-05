@@ -54,9 +54,10 @@ describe Twitter::Client do
         should have_been_made
     end
     it "should return the favorite status when successful" do
-      status = @client.favorite(25938088801)
-      status.should be_a Twitter::Status
-      status.text.should == "@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!"
+      statuses = @client.favorite(25938088801)
+      statuses.should be_an Array
+      statuses.first.should be_a Twitter::Status
+      statuses.first.text.should == "@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!"
     end
   end
 
@@ -71,9 +72,10 @@ describe Twitter::Client do
         should have_been_made
     end
     it "should return the un-favorite status when successful" do
-      status = @client.unfavorite(25938088801)
-      status.should be_a Twitter::Status
-      status.text.should == "@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!"
+      statuses = @client.unfavorite(25938088801)
+      statuses.should be_an Array
+      statuses.first.should be_a Twitter::Status
+      statuses.first.text.should == "@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!"
     end
   end
 

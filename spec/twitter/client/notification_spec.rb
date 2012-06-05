@@ -19,9 +19,10 @@ describe Twitter::Client do
         should have_been_made
     end
     it "should return the specified user when successful" do
-      user = @client.enable_notifications("sferik")
-      user.should be_a Twitter::User
-      user.name.should == "Erik Michaels-Ober"
+      users = @client.enable_notifications("sferik")
+      users.should be_an Array
+      users.first.should be_a Twitter::User
+      users.first.name.should == "Erik Michaels-Ober"
     end
   end
 
@@ -38,9 +39,10 @@ describe Twitter::Client do
         should have_been_made
     end
     it "should return the specified user when successful" do
-      user = @client.disable_notifications("sferik")
-      user.should be_a Twitter::User
-      user.name.should == "Erik Michaels-Ober"
+      users = @client.disable_notifications("sferik")
+      users.should be_an Array
+      users.first.should be_a Twitter::User
+      users.first.name.should == "Erik Michaels-Ober"
     end
   end
 

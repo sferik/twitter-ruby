@@ -56,7 +56,7 @@ describe Twitter::Client do
     end
     it "should return users in a given category of the Twitter suggested user list and return their most recent status if they are not a protected user" do
       suggest_users = @client.suggest_users("art-design")
-      suggest_users.should be_a Array
+      suggest_users.should be_an Array
       suggest_users.first.should be_a Twitter::User
       suggest_users.first.name.should == "OMGFacts"
     end

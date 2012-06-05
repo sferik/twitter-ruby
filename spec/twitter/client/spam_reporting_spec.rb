@@ -19,9 +19,10 @@ describe Twitter::Client do
         should have_been_made
     end
     it "should return the specified user" do
-      user = @client.report_spam("sferik")
-      user.should be_a Twitter::User
-      user.name.should == "Erik Michaels-Ober"
+      users = @client.report_spam("sferik")
+      users.should be_an Array
+      users.first.should be_a Twitter::User
+      users.first.name.should == "Erik Michaels-Ober"
     end
   end
 

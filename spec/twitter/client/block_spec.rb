@@ -78,9 +78,10 @@ describe Twitter::Client do
         should have_been_made
     end
     it "should return the blocked user" do
-      user = @client.block("sferik")
-      user.should be_a Twitter::User
-      user.name.should == "Erik Michaels-Ober"
+      users = @client.block("sferik")
+      users.should be_an Array
+      users.first.should be_a Twitter::User
+      users.first.name.should == "Erik Michaels-Ober"
     end
   end
 
@@ -97,9 +98,10 @@ describe Twitter::Client do
         should have_been_made
     end
     it "should return the un-blocked user" do
-      user = @client.unblock("sferik")
-      user.should be_a Twitter::User
-      user.name.should == "Erik Michaels-Ober"
+      users = @client.unblock("sferik")
+      users.should be_an Array
+      users.first.should be_a Twitter::User
+      users.first.name.should == "Erik Michaels-Ober"
     end
   end
 

@@ -629,9 +629,10 @@ describe Twitter::Client do
         should have_been_made
     end
     it "should return the accepted user" do
-      user = @client.accept("sferik")
-      user.should be_a Twitter::User
-      user.name.should == "Erik Michaels-Ober"
+      users = @client.accept("sferik")
+      users.should be_an Array
+      users.first.should be_a Twitter::User
+      users.first.name.should == "Erik Michaels-Ober"
     end
   end
 
@@ -648,9 +649,10 @@ describe Twitter::Client do
         should have_been_made
     end
     it "should return the denied user" do
-      user = @client.deny("sferik")
-      user.should be_a Twitter::User
-      user.name.should == "Erik Michaels-Ober"
+      users = @client.deny("sferik")
+      users.should be_an Array
+      users.first.should be_a Twitter::User
+      users.first.name.should == "Erik Michaels-Ober"
     end
   end
 
