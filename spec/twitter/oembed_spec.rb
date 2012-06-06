@@ -43,9 +43,9 @@ describe Twitter::OEmbed do
       oembed.height.should == 200
     end
 
-    it "should return it as a Fixnum" do
+    it "should return it as an Integer" do
       oembed = Twitter::OEmbed.new('height' => 200)
-      oembed.height.should be_a Fixnum
+      oembed.height.should be_an Integer
     end
 
     it "should return nil when not set" do
@@ -108,9 +108,9 @@ describe Twitter::OEmbed do
       oembed.width.should == 550
     end
 
-    it "should return it as a Fixnum" do
+    it "should return it as an Integer" do
       oembed = Twitter::OEmbed.new('width' => 550)
-      oembed.width.should be_a Fixnum
+      oembed.width.should be_an Integer
     end
 
     it "should return nil when not set" do

@@ -15,22 +15,31 @@ module Twitter
 
     # @return [Time]
     def ratelimit_reset
-      Time.at(@http_headers.values_at('x-ratelimit-reset', 'X-RateLimit-Reset').detect{|value| value}.to_i)
+      reset = @http_headers.values_at('x-ratelimit-reset', 'X-RateLimit-Reset').compact.first
+      Time.at(reset.to_i) if reset
+    end
+
+    # @return [String]
+    def ratelimit_class
+      @http_headers.values_at('x-ratelimit-class', 'X-RateLimit-Class').compact.first
     end
 
     # @return [Integer]
     def ratelimit_limit
-      @http_headers.values_at('x-ratelimit-limit', 'X-RateLimit-Limit').detect{|value| value}.to_i
+      limit = @http_headers.values_at('x-ratelimit-limit', 'X-RateLimit-Limit').compact.first
+      limit.to_i if limit
     end
 
     # @return [Integer]
     def ratelimit_remaining
-      @http_headers.values_at('x-ratelimit-remaining', 'X-RateLimit-Remaining').detect{|value| value}.to_i
+      remaining = @http_headers.values_at('x-ratelimit-remaining', 'X-RateLimit-Remaining').compact.first
+      remaining.to_i if remaining
     end
 
     # @return [Integer]
     def retry_after
-      [(ratelimit_reset - Time.now).ceil, 0].max
+      reset = ratelimit_reset
+      [(ratelimit_reset - Time.now).ceil, 0].max if reset
     end
 
   end
