@@ -89,11 +89,8 @@ object.
 The `Twitter::Status#expanded_urls` method has been removed. Use
 `Twitter::Status#urls` instead.
 
-This library is now more SOLID! In the previous version, [the `Twitter::Cursor`
-class violated the Liskov substitution principle][lsp]. This came back to bite
-us when trying to implement the identity map. We regret the error.
-
-[lsp]: https://github.com/jnunemaker/twitter/commit/9e6823b614d1af94089f51400ebd637ca04bab9d
+Support for API proxies via `gateway` configuration has been removed. This
+still be implemented by inserting custom Faraday middleware.
 
 ## <a href="performance"></a>Performance
 You can improve performance by preloading a faster JSON parsing library. By
@@ -145,10 +142,6 @@ Get your rate limit status
 
 [sferik]: https://twitter.com/sferik
 [justinbieber]: https://twitter.com/justinbieber
-
-## Configuration for API Proxy Services
-
-    Twitter.gateway = YOUR_GATEWAY_HOSTNAME # e.g 'gateway.example.com'
 
 ## Contributing
 In the spirit of [free software][free-sw], **everyone** is encouraged to help
