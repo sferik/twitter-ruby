@@ -11,7 +11,6 @@ describe Faraday::Response do
     403 => Twitter::Error::Forbidden,
     404 => Twitter::Error::NotFound,
     406 => Twitter::Error::NotAcceptable,
-    420 => Twitter::Error::EnhanceYourCalm,
     500 => Twitter::Error::InternalServerError,
     502 => Twitter::Error::BadGateway,
     503 => Twitter::Error::ServiceUnavailable,

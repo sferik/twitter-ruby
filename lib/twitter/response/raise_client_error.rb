@@ -1,6 +1,5 @@
 require 'faraday'
 require 'twitter/error/bad_request'
-require 'twitter/error/enhance_your_calm'
 require 'twitter/error/forbidden'
 require 'twitter/error/not_acceptable'
 require 'twitter/error/not_found'
@@ -22,8 +21,6 @@ module Twitter
           raise Twitter::Error::NotFound.new(error_body(env[:body]), env[:response_headers])
         when 406
           raise Twitter::Error::NotAcceptable.new(error_body(env[:body]), env[:response_headers])
-        when 420
-          raise Twitter::Error::EnhanceYourCalm.new(error_body(env[:body]), env[:response_headers])
         end
       end
 
