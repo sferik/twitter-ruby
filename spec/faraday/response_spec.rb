@@ -32,7 +32,7 @@ describe Faraday::Response do
       end
     else
       [nil, "error", "errors"].each do |body|
-        context "when HTTP status is #{status} and body is #{body||='nil'}" do
+        context "when HTTP status is #{status} and body is #{body || 'nil'}" do
           before do
             body_message = '{"'+body+'":"test"}' unless body.nil?
             stub_get("/1/statuses/user_timeline.json").
