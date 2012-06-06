@@ -52,6 +52,10 @@ arrays:
     Twitter::Client#disable_notifications   Twitter::Client#saved_search            Twitter::Client#unfavorite
     Twitter::Client#enable_notifications    Twitter::Client#saved_search_destroy    Twitter::Client#unfollow
 
+Whenever more than one user or id is passed to any of these methods, HTTP
+requests are made in parallel using multiple threads, resulting in dramatically
+better performance than calling these methods multiple times in serial.
+
 Additionally, the `Twitter::Client#follow` method now checks to make sure the
 user isn't already being followed. If you don't wish to perform that check
 (which does require an extra HTTP request), you can use the new
