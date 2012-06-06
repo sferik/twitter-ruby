@@ -92,6 +92,11 @@ The `Twitter::Status#expanded_urls` method has been removed. Use
 Support for API proxies via `gateway` configuration has been removed. This
 still be implemented by inserting custom Faraday middleware.
 
+The `Twitter::Error::EnhanceYourCalm` class has been removed, since all Search
+API requests are made via api.twitter.com, which does not return HTTP 420. When
+you hit your rate limit, Twitter returns HTTP 400, which raises a
+`Twitter::Error::BadRequest`.
+
 ## <a href="performance"></a>Performance
 You can improve performance by preloading a faster JSON parsing library. By
 default, JSON will be parsed with [okjson][]. For faster JSON parsing, we
