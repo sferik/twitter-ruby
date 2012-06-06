@@ -25,9 +25,6 @@ module Twitter
     # @see http://developer.typepad.com/typepad-twitter-api/twitter-api.html
     DEFAULT_ENDPOINT = 'https://api.twitter.com'
 
-    # The gateway server if none is set
-    DEFAULT_GATEWAY = nil
-
     # This endpoint will be used by default when updating statuses with media
     DEFAULT_MEDIA_ENDPOINT = 'https://upload.twitter.com'
 
@@ -56,7 +53,6 @@ module Twitter
       :consumer_key,
       :consumer_secret,
       :endpoint,
-      :gateway,
       :oauth_token,
       :oauth_token_secret,
       :proxy,
@@ -92,7 +88,6 @@ module Twitter
       self.consumer_key       = DEFAULT_CONSUMER_KEY
       self.consumer_secret    = DEFAULT_CONSUMER_SECRET
       self.endpoint           = DEFAULT_ENDPOINT
-      self.gateway            = DEFAULT_GATEWAY
       self.media_endpoint     = DEFAULT_MEDIA_ENDPOINT
       self.oauth_token        = DEFAULT_OAUTH_TOKEN
       self.oauth_token_secret = DEFAULT_OAUTH_TOKEN_SECRET

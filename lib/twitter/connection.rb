@@ -1,6 +1,5 @@
 require 'faraday'
 require 'twitter/core_ext/hash'
-require 'twitter/request/gateway'
 require 'twitter/request/multipart_with_file'
 require 'twitter/request/oauth'
 require 'twitter/response/parse_json'
@@ -32,11 +31,10 @@ module Twitter
         builder.use Twitter::Request::OAuth, credentials if credentials?
         builder.use Faraday::Request::Multipart
         builder.use Faraday::Request::UrlEncoded
-        builder.use Twitter::Request::Gateway, gateway if gateway
         builder.use Twitter::Response::RaiseClientError
         builder.use Twitter::Response::ParseJson
         builder.use Twitter::Response::RaiseServerError
-        builder.adapter(adapter)
+        builder.adapter adapter
       end
     end
 
