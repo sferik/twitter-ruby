@@ -44,27 +44,17 @@ The Active Support dependency has been removed!
 The following methods now accept multiple users or ids as arguments and return
 arrays:
 
-* `Twitter::Client#accept`
-* `Twitter::Client#block`
-* `Twitter::Client#deny`
-* `Twitter::Client#direct_message`
-* `Twitter::Client#direct_message_destroy`
-* `Twitter::Client#disable_notifications`
-* `Twitter::Client#enable_notifications`
-* `Twitter::Client#favorite`
-* `Twitter::Client#follow`
-* `Twitter::Client#oembed`
-* `Twitter::Client#report_spam`
-* `Twitter::Client#retweet`
-* `Twitter::Client#saved_search`
-* `Twitter::Client#saved_search_destroy`
-* `Twitter::Client#status`
-* `Twitter::Client#status_activity`
-* `Twitter::Client#status_destroy`
-* `Twitter::Client#status_with_activity`
-* `Twitter::Client#unblock`
-* `Twitter::Client#unfavorite`
-* `Twitter::Client#unfollow`
+    Twitter::Client#accept                  Twitter::Client#retweet
+    Twitter::Client#block                   Twitter::Client#saved_search
+    Twitter::Client#deny                    Twitter::Client#saved_search_destroy
+    Twitter::Client#direct_message          Twitter::Client#status
+    Twitter::Client#direct_message_destroy  Twitter::Client#status_activity
+    Twitter::Client#disable_notifications   Twitter::Client#status_destroy
+    Twitter::Client#enable_notifications    Twitter::Client#status_with_activity
+    Twitter::Client#favorite                Twitter::Client#unblock
+    Twitter::Client#follow                  Twitter::Client#unfavorite
+    Twitter::Client#oembed                  Twitter::Client#unfollow
+    Twitter::Client#report_spam
 
 Additionally, the `Twitter::Client#follow` method now checks to make sure the
 user isn't already being followed. If you don't wish to perform that check
