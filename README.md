@@ -44,17 +44,13 @@ The Active Support dependency has been removed!
 The following methods now accept multiple users or ids as arguments and return
 arrays:
 
-    Twitter::Client#accept                  Twitter::Client#retweet
-    Twitter::Client#block                   Twitter::Client#saved_search
-    Twitter::Client#deny                    Twitter::Client#saved_search_destroy
-    Twitter::Client#direct_message          Twitter::Client#status
-    Twitter::Client#direct_message_destroy  Twitter::Client#status_activity
-    Twitter::Client#disable_notifications   Twitter::Client#status_destroy
-    Twitter::Client#enable_notifications    Twitter::Client#status_with_activity
-    Twitter::Client#favorite                Twitter::Client#unblock
-    Twitter::Client#follow                  Twitter::Client#unfavorite
-    Twitter::Client#oembed                  Twitter::Client#unfollow
-    Twitter::Client#report_spam
+    Twitter::Client#accept                  Twitter::Client#favorite                Twitter::Client#status
+    Twitter::Client#block                   Twitter::Client#follow                  Twitter::Client#status_activity
+    Twitter::Client#deny                    Twitter::Client#oembed                  Twitter::Client#status_destroy
+    Twitter::Client#direct_message          Twitter::Client#report_spam             Twitter::Client#status_with_activity
+    Twitter::Client#direct_message_destroy  Twitter::Client#retweet                 Twitter::Client#unblock
+    Twitter::Client#disable_notifications   Twitter::Client#saved_search            Twitter::Client#unfavorite
+    Twitter::Client#enable_notifications    Twitter::Client#saved_search_destroy    Twitter::Client#unfollow
 
 Additionally, the `Twitter::Client#follow` method now checks to make sure the
 user isn't already being followed. If you don't wish to perform that check
