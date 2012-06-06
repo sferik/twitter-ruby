@@ -3,7 +3,7 @@ require 'simple_oauth'
 
 module Twitter
   module Request
-    class TwitterOAuth < Faraday::Middleware
+    class OAuth < Faraday::Middleware
 
       def call(env)
         params = env[:body] || {}

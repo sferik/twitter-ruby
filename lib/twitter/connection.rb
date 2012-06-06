@@ -29,7 +29,7 @@ module Twitter
 
       @connection = Faraday.new(default_options.deep_merge(connection_options)) do |builder|
         builder.use Twitter::Request::MultipartWithFile
-        builder.use Twitter::Request::TwitterOAuth, credentials if credentials?
+        builder.use Twitter::Request::OAuth, credentials if credentials?
         builder.use Faraday::Request::Multipart
         builder.use Faraday::Request::UrlEncoded
         builder.use Twitter::Request::Gateway, gateway if gateway
