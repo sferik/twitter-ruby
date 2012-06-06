@@ -182,16 +182,16 @@ describe Twitter::Client do
         to_return(:body => fixture("status_with_media.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "should request the correct resource" do
-      @client.update_with_media("You always have options", fixture("me.jpeg"))
+      @client.update_with_media("You always have options", fixture("pbjt.gif"))
       a_post("/1/statuses/update_with_media.json", Twitter.media_endpoint).
         should have_been_made
     end
     it "should return a single status" do
-      status = @client.update_with_media("You always have options", fixture("me.jpeg"))
+      status = @client.update_with_media("You always have options", fixture("pbjt.gif"))
       status.text.should include("You always have options")
     end
     it 'should return the media as an entity' do
-      status = @client.update_with_media("You always have options", fixture("me.jpeg"))
+      status = @client.update_with_media("You always have options", fixture("pbjt.gif"))
       status.media.should be
     end
   end
