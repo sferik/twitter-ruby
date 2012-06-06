@@ -140,7 +140,8 @@ Read the most recent Tweet in your timeline
     Twitter.home_timeline.first.text
 Get your rate limit status
 
-    Twitter.rate_limit_status.remaining_hits.to_s + " Twitter API request(s) remaining this hour"
+    rate_limit_status = Twitter.rate_limit_status
+    "#{rate_limit_status.remaining_hits} Twitter API request(s) remaining for the next #{((rate_limit_status.reset_time - Time.now) / 60).floor} minutes and #{((rate_limit_status.reset_time - Time.now) % 60).round} seconds"
 
 [sferik]: https://twitter.com/sferik
 [justinbieber]: https://twitter.com/justinbieber
