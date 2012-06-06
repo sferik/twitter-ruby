@@ -5,7 +5,7 @@ module Twitter
   module Config
 
     # The HTTP connection adapter that will be used to connect if none is set
-    DEFAULT_ADAPTER = :net_http
+    DEFAULT_ADAPTER = :net_http_persistent
 
     # The Faraday connection options if none is set
     DEFAULT_CONNECTION_OPTIONS = {}
