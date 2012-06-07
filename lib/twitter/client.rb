@@ -706,9 +706,13 @@ module Twitter
       # Twitter always turns on notifications if the "follow" option is present, even if it's set to false
       # so only send follow if it's true
       options.merge!(:follow => true) if options.delete(:follow)
-      friend_ids = self.friend_ids.ids
-      user_ids = self.users(args).map(&:id)
-      (user_ids - friend_ids).threaded_map do |user|
+      friend_ids = Thread.new do
+        self.friend_ids.ids
+      end
+      user_ids = Thread.new do
+        self.users(args).map(&:id)
+      end
+      (user_ids.value - friend_ids.value).threaded_map do |user|
         begin
           user = post("/1/friendships/create.json", options.merge_user(user))
           Twitter::User.new(user)
