@@ -3,7 +3,7 @@ require 'twitter/size'
 
 module Twitter
   class Photo < Twitter::Identifiable
-        attr_reader :display_url, :expanded_url, :indices, :media_url,
+    attr_reader :display_url, :expanded_url, :indices, :media_url,
       :media_url_https, :url
 
     # @param other [Twitter::Photo]

@@ -3,6 +3,7 @@ require 'uri'
 module Twitter
   # Defines HTTP request methods
   module Request
+
     # Perform an HTTP DELETE request
     def delete(path, params={}, options={})
       request(:delete, path, params, options)

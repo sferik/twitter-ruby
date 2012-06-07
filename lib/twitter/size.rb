@@ -2,7 +2,7 @@ require 'twitter/base'
 
 module Twitter
   class Size < Twitter::Base
-        attr_reader :h, :resize, :w
+    attr_reader :h, :resize, :w
     alias :height :h
     alias :width :w
 

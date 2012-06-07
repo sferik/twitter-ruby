@@ -2,7 +2,7 @@ require 'twitter/base'
 
 module Twitter
   class SearchResults < Twitter::Base
-        attr_reader :completed_in, :max_id, :next_page, :page, :query,
+    attr_reader :completed_in, :max_id, :next_page, :page, :query,
       :refresh_url, :results_per_page, :since_id
 
     # @return [Array<Twitter::Status>]

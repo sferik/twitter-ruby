@@ -5,7 +5,7 @@ require 'twitter/user'
 module Twitter
   class DirectMessage < Twitter::Identifiable
     include Twitter::Creatable
-        attr_reader :text
+    attr_reader :text
 
     # @param other [Twitter::DirectMessage]
     # @return [Boolean]

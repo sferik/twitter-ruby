@@ -5,7 +5,7 @@ require 'twitter/user'
 module Twitter
   class List < Twitter::Identifiable
     include Twitter::Creatable
-        attr_reader :description, :following, :full_name, :member_count,
+    attr_reader :description, :following, :full_name, :member_count,
       :mode, :name, :slug, :subscriber_count, :uri
     alias :following? :following
 

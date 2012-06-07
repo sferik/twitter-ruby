@@ -15,7 +15,7 @@ require 'twitter/user'
 module Twitter
   class Status < Twitter::Identifiable
     include Twitter::Creatable
-        attr_reader :favorited, :favoriters, :favoriters_count, :from_user,
+    attr_reader :favorited, :favoriters, :favoriters_count, :from_user,
       :from_user_id, :from_user_name, :in_reply_to_screen_name,
       :in_reply_to_attrs_id, :in_reply_to_status_id, :in_reply_to_user_id,
       :iso_language_code, :profile_image_url, :profile_image_url_https,
@@ -96,6 +96,13 @@ module Twitter
     def retweeted_status
       @retweeted_status ||= self.class.new(@attrs['retweeted_status']) unless @attrs['retweeted_status'].nil?
     end
+
+    # @note If retweeters_count is > 50 it will return the string 50+.
+    # @return [String]
+    def retweeters_count
+      @attrs['retweet_count'] || @attrs['retweeters_count']
+    end
+    alias :retweet_count :retweeters_count
 
     # @note Must include entities in your request for this method to work
     # @return [Array<Twitter::Entity::Url>]
