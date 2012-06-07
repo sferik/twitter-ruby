@@ -44,13 +44,12 @@ The Active Support dependency has been removed!
 The following methods now accept multiple users or ids as arguments and return
 arrays:
 
-    Twitter::Client#accept                  Twitter::Client#favorite                Twitter::Client#status
-    Twitter::Client#block                   Twitter::Client#follow                  Twitter::Client#status_activity
-    Twitter::Client#deny                    Twitter::Client#oembed                  Twitter::Client#status_destroy
-    Twitter::Client#direct_message          Twitter::Client#report_spam             Twitter::Client#status_with_activity
-    Twitter::Client#direct_message_destroy  Twitter::Client#retweet                 Twitter::Client#unblock
-    Twitter::Client#disable_notifications   Twitter::Client#saved_search            Twitter::Client#unfavorite
-    Twitter::Client#enable_notifications    Twitter::Client#saved_search_destroy    Twitter::Client#unfollow
+    Twitter::Client#accept                  Twitter::Client#enable_notifications    Twitter::Client#saved_search
+    Twitter::Client#block                   Twitter::Client#favorite                Twitter::Client#saved_search_destroy
+    Twitter::Client#deny                    Twitter::Client#follow                  Twitter::Client#status_destroy
+    Twitter::Client#direct_message          Twitter::Client#oembed                  Twitter::Client#unblock
+    Twitter::Client#direct_message_destroy  Twitter::Client#report_spam             Twitter::Client#unfavorite
+    Twitter::Client#disable_notifications   Twitter::Client#retweet                 Twitter::Client#unfollow
 
 Whenever more than one user or id is passed to any of these methods, HTTP
 requests are made in parallel using multiple threads, resulting in dramatically

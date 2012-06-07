@@ -2264,6 +2264,23 @@ module Twitter
       end
     end
 
+    # Returns a status
+    #
+    # @see https://dev.twitter.com/docs/api/1/get/statuses/show/:id
+    # @rate_limited Yes
+    # @requires_authentication No, unless the author of the status is protected
+    # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+    # @return [Twitter::Status] The requested status.
+    # @param id [Integer] A Twitter status ID.
+    # @param options [Hash] A customizable set of options.
+    # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
+    # @example Return the status with the ID 25938088801
+    #   Twitter.status(25938088801)
+    def status(id, options={})
+      status = get("/1/statuses/show/#{id}.json", options)
+      Twitter::Status.new(status)
+    end
+
     # Returns statuses
     #
     # @see https://dev.twitter.com/docs/api/1/get/statuses/show/:id
@@ -2271,20 +2288,37 @@ module Twitter
     # @requires_authentication No, unless the author of the status is protected
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Array<Twitter::Status>] The requested statuses.
-    # @overload status(*ids)
+    # @overload statuses(*ids)
     #   @param ids [Array<Integer>, Set<Integer>] An array of Twitter status IDs.
     #   @example Return the status with the ID 25938088801
-    #     Twitter.status(25938088801)
-    # @overload status(*ids, options)
+    #     Twitter.statuses(25938088801)
+    # @overload statuses(*ids, options)
     #   @param ids [Array<Integer>, Set<Integer>] An array of Twitter status IDs.
     #   @param options [Hash] A customizable set of options.
     #   @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
-    def status(*args)
+    def statuses(*args)
       options = args.extract_options!
       args.flatten.threaded_map do |id|
         status = get("/1/statuses/show/#{id}.json", options)
         Twitter::Status.new(status)
       end
+    end
+
+    # Returns activity summary for a status
+    #
+    # @note Undocumented
+    # @rate_limited Yes
+    # @requires_authentication Yes
+    # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+    # @return [Twitter::Status] The requested status.
+    # @param id [Integer] A Twitter status ID.
+    # @param options [Hash] A customizable set of options.
+    # @example Return activity summary for the status with the ID 25938088801
+    #   Twitter.status_activity(25938088801)
+    def status_activity(id, options={})
+      status = get("/i/statuses/#{id}/activity/summary.json", options)
+      status.merge!('id' => id)
+      Twitter::Status.new(status)
     end
 
     # Returns activity summary for statuses
@@ -2294,20 +2328,38 @@ module Twitter
     # @requires_authentication Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Array<Twitter::Status>] The requested statuses.
-    # @overload status_activity(*ids)
+    # @overload statuses_activity(*ids)
     #   @param ids [Array<Integer>, Set<Integer>] An array of Twitter status IDs.
     #   @example Return activity summary for the status with the ID 25938088801
-    #     Twitter.status_activity(25938088801)
-    # @overload status_activity(*ids, options)
+    #     Twitter.statuses_activity(25938088801)
+    # @overload statuses_activity(*ids, options)
     #   @param ids [Array<Integer>, Set<Integer>] An array of Twitter status IDs.
     #   @param options [Hash] A customizable set of options.
-    def status_activity(*args)
+    def statuses_activity(*args)
       options = args.extract_options!
       args.flatten.threaded_map do |id|
         status = get("/i/statuses/#{id}/activity/summary.json", options)
         status.merge!('id' => id)
         Twitter::Status.new(status)
       end
+    end
+
+    # Returns status with activity summary
+    #
+    # @see https://dev.twitter.com/docs/api/1/get/statuses/show/:id
+    # @rate_limited Yes
+    # @requires_authentication Yes
+    # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+    # @return [Twitter::Status] The requested status.
+    # @param id [Integer] A Twitter status ID.
+    # @param options [Hash] A customizable set of options.
+    # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
+    # @example Return the status with activity summary with the ID 25938088801
+    #   Twitter.status_with_activity(25938088801)
+    def status_with_activity(id, options={})
+      activity = get("/i/statuses/#{id}/activity/summary.json", options)
+      status = get("/1/statuses/show/#{id}.json", options)
+      Twitter::Status.new(status.merge(activity))
     end
 
     # Returns statuses with activity summary
@@ -2317,15 +2369,15 @@ module Twitter
     # @requires_authentication Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Array<Twitter::Status>] The requested statuses.
-    # @overload status_with_activity(*ids)
+    # @overload statuses_with_activity(*ids)
     #   @param ids [Array<Integer>, Set<Integer>] An array of Twitter status IDs.
     #   @example Return the status with activity summary with the ID 25938088801
-    #     Twitter.status_with_activity(25938088801)
-    # @overload status_with_activity(*ids, options)
+    #     Twitter.statuses_with_activity(25938088801)
+    # @overload statuses_with_activity(*ids, options)
     #   @param ids [Array<Integer>, Set<Integer>] An array of Twitter status IDs.
     #   @param options [Hash] A customizable set of options.
     #   @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
-    def status_with_activity(*args)
+    def statuses_with_activity(*args)
       options = args.extract_options!
       args.flatten.threaded_map do |id|
         activity = get("/i/statuses/#{id}/activity/summary.json", options)

@@ -70,8 +70,25 @@ describe Twitter::Client do
       a_get("/1/statuses/show/25938088801.json").
         should have_been_made
     end
+    it "should return a status" do
+      status = @client.status(25938088801)
+      status.should be_a Twitter::Status
+      status.text.should == "@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!"
+    end
+  end
+
+  describe "#statuses" do
+    before do
+      stub_get("/1/statuses/show/25938088801.json").
+        to_return(:body => fixture("status.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+    end
+    it "should request the correct resource" do
+      @client.statuses(25938088801)
+      a_get("/1/statuses/show/25938088801.json").
+        should have_been_made
+    end
     it "should return an array of statuses" do
-      statuses = @client.status(25938088801)
+      statuses = @client.statuses(25938088801)
       statuses.should be_an Array
       statuses.first.should be_a Twitter::Status
       statuses.first.text.should == "@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!"
@@ -88,8 +105,25 @@ describe Twitter::Client do
       a_get("/i/statuses/25938088801/activity/summary.json").
         should have_been_made
     end
+    it "should return a status" do
+      status = @client.status_activity(25938088801)
+      status.should be_a Twitter::Status
+      status.retweeters_count.should == "1"
+    end
+  end
+
+  describe "#statuses_activity" do
+    before do
+      stub_get("/i/statuses/25938088801/activity/summary.json").
+        to_return(:body => fixture("activity_summary.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+    end
+    it "should request the correct resource" do
+      @client.statuses_activity(25938088801)
+      a_get("/i/statuses/25938088801/activity/summary.json").
+        should have_been_made
+    end
     it "should return an array of statuses" do
-      statuses = @client.status_activity(25938088801)
+      statuses = @client.statuses_activity(25938088801)
       statuses.should be_an Array
       statuses.first.should be_a Twitter::Status
       statuses.first.retweeters_count.should == "1"
@@ -110,8 +144,30 @@ describe Twitter::Client do
       a_get("/1/statuses/show/25938088801.json").
         should have_been_made
     end
+    it "should return a status" do
+      status = @client.status_with_activity(25938088801)
+      status.should be_a Twitter::Status
+      status.text.should == "@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!"
+      status.retweeters_count.should == "1"
+    end
+  end
+
+  describe "#statuses_with_activity" do
+    before do
+      stub_get("/i/statuses/25938088801/activity/summary.json").
+        to_return(:body => fixture("activity_summary.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      stub_get("/1/statuses/show/25938088801.json").
+        to_return(:body => fixture("status.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+    end
+    it "should request the correct resource" do
+      @client.statuses_with_activity(25938088801)
+      a_get("/i/statuses/25938088801/activity/summary.json").
+        should have_been_made
+      a_get("/1/statuses/show/25938088801.json").
+        should have_been_made
+    end
     it "should return an array of statuses" do
-      statuses = @client.status_with_activity(25938088801)
+      statuses = @client.statuses_with_activity(25938088801)
       statuses.should be_an Array
       statuses.first.should be_a Twitter::Status
       statuses.first.text.should == "@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!"
