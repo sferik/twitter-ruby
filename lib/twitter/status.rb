@@ -82,7 +82,7 @@ module Twitter
     # @return [Twitter::OEmbed]
     def oembed(options={})
       @client ||= Twitter::Client.new
-      @client.oembed(@attrs['id'], options).first unless @attrs['id'].nil?
+      @client.oembed(@attrs['id'], options) unless @attrs['id'].nil?
     end
 
     # @return [Twitter::Place]

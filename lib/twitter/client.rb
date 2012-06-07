@@ -374,8 +374,8 @@ module Twitter
     # @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 200.
     # @option options [Integer] :page Specifies the page of results to retrieve.
     # @example Return the 20 most recent direct messages sent to the authenticating user
-    #   Twitter.direct_messages
-    def direct_messages(options={})
+    #   Twitter.direct_messages_received
+    def direct_messages_received(options={})
       get("/1/direct_messages.json", options).map do |direct_message|
         Twitter::DirectMessage.new(direct_message)
       end
@@ -446,26 +446,61 @@ module Twitter
     alias :d :direct_message_create
     alias :m :direct_message_create
 
-    # Returns direct messages
+    # Returns a direct message
     #
     # @see https://dev.twitter.com/docs/api/1/get/direct_messages/show/%3Aid
     # @note This method requires an access token with RWD (read, write & direct message) permissions. Consult The Application Permission Model for more information.
     # @rate_limited Yes
     # @requires_authentication Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+    # @return [Twitter::DirectMessage] The requested messages.
+    # @param id [Integer] A Twitter status IDs.
+    # @param options [Hash] A customizable set of options.
+    # @example Return the direct message with the id 1825786345
+    #   Twitter.direct_message(1825786345)
+    def direct_message(id, options={})
+      direct_message = get("/1/direct_messages/show/#{id}.json", options)
+      Twitter::DirectMessage.new(direct_message)
+    end
+
+    # @note This method requires an access token with RWD (read, write & direct message) permissions. Consult The Application Permission Model for more information.
+    # @rate_limited Yes
+    # @requires_authentication Yes
+    # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Array<Twitter::DirectMessage>] The requested messages.
-    # @overload direct_message(*ids)
+    # @overload direct_messages(options={})
+    #   Returns the 20 most recent direct messages sent to the authenticating user
+    #
+    #   @see https://dev.twitter.com/docs/api/1/get/direct_messages
+    #   @param options [Hash] A customizable set of options.
+    #   @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID.
+    #   @option options [Integer] :max_id Returns results with an ID less than (that is, older than) or equal to the specified ID.
+    #   @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 200.
+    #   @option options [Integer] :page Specifies the page of results to retrieve.
+    #   @example Return the 20 most recent direct messages sent to the authenticating user
+    #     Twitter.direct_messages
+    # @overload direct_messages(*ids)
+    #   Returns direct messages
+    #
+    #   @see https://dev.twitter.com/docs/api/1/get/direct_messages/show/%3Aid
     #   @param ids [Array<Integer>, Set<Integer>] An array of Twitter status IDs.
     #   @example Return the direct message with the id 1825786345
-    #     Twitter.direct_message(1825786345)
-    # @overload direct_message(*ids, options)
+    #     Twitter.direct_messages(1825786345)
+    # @overload direct_messages(*ids, options)
+    #   Returns direct messages
+    #
+    #   @see https://dev.twitter.com/docs/api/1/get/direct_messages/show/%3Aid
     #   @param ids [Array<Integer>, Set<Integer>] An array of Twitter status IDs.
     #   @param options [Hash] A customizable set of options.
-    def direct_message(*args)
+    def direct_messages(*args)
       options = args.extract_options!
-      args.flatten.threaded_map do |id|
-        direct_message = get("/1/direct_messages/show/#{id}.json", options)
-        Twitter::DirectMessage.new(direct_message)
+      if args.empty?
+        self.direct_messages_received(options)
+      else
+        args.flatten.threaded_map do |id|
+          direct_message = get("/1/direct_messages/show/#{id}.json", options)
+          Twitter::DirectMessage.new(direct_message)
+        end
       end
     end
 
@@ -1774,19 +1809,41 @@ module Twitter
       Twitter::Place.new(place)
     end
 
-    # Returns the authenticated user's saved search queries
-    #
-    # @see https://dev.twitter.com/docs/api/1/get/saved_searches
     # @rate_limited Yes
     # @requires_authentication Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-    # @return [Array<Twitter::SavedSearch>] Saved search queries.
-    # @param options [Hash] A customizable set of options.
-    # @example Return the authenticated user's saved search queries
-    #   Twitter.saved_searches
-    def saved_searches(options={})
-      get("/1/saved_searches.json", options).map do |saved_search|
-        Twitter::SavedSearch.new(saved_search)
+    # @return [Array<Twitter::SavedSearch>] The saved searches.
+    # @overload saved_search(options={})
+    #   Returns the authenticated user's saved search queries
+    #
+    #   @see https://dev.twitter.com/docs/api/1/get/saved_searches
+    #   @param options [Hash] A customizable set of options.
+    #   @example Return the authenticated user's saved search queries
+    #     Twitter.saved_searches
+    # @overload saved_search(*ids)
+    #   Retrieve the data for saved searches owned by the authenticating user
+    #
+    #   @see https://dev.twitter.com/docs/api/1/get/saved_searches/show/:id
+    #   @param ids [Array<Integer>, Set<Integer>] An array of Twitter status IDs.
+    #   @example Retrieve the data for a saved search owned by the authenticating user with the ID 16129012
+    #     Twitter.saved_search(16129012)
+    # @overload saved_search(*ids, options)
+    #   Retrieve the data for saved searches owned by the authenticating user
+    #
+    #   @see https://dev.twitter.com/docs/api/1/get/saved_searches/show/:id
+    #   @param ids [Array<Integer>, Set<Integer>] An array of Twitter status IDs.
+    #   @param options [Hash] A customizable set of options.
+    def saved_searches(*args)
+      options = args.extract_options!
+      if args.empty?
+        get("/1/saved_searches.json", options).map do |saved_search|
+          Twitter::SavedSearch.new(saved_search)
+        end
+      else
+        args.flatten.threaded_map do |id|
+          saved_search = get("/1/saved_searches/show/#{id}.json", options)
+          Twitter::SavedSearch.new(saved_search)
+        end
       end
     end
 
@@ -1796,20 +1853,14 @@ module Twitter
     # @rate_limited Yes
     # @requires_authentication Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-    # @return [Array<Twitter::SavedSearch>] The saved searches.
-    # @overload saved_search(*ids)
-    #   @param ids [Array<Integer>, Set<Integer>] An array of Twitter status IDs.
-    #   @example Retrieve the data for a saved search owned by the authenticating user with the ID 16129012
-    #     Twitter.saved_search(16129012)
-    # @overload saved_search(*ids, options)
-    #   @param ids [Array<Integer>, Set<Integer>] An array of Twitter status IDs.
-    #   @param options [Hash] A customizable set of options.
-    def saved_search(*args)
-      options = args.extract_options!
-      args.flatten.threaded_map do |id|
-        saved_search = get("/1/saved_searches/show/#{id}.json", options)
-        Twitter::SavedSearch.new(saved_search)
-      end
+    # @return [Twitter::SavedSearch] The saved searches.
+    # @param id [Integer] A Twitter status IDs.
+    # @param options [Hash] A customizable set of options.
+    # @example Retrieve the data for a saved search owned by the authenticating user with the ID 16129012
+    #   Twitter.saved_search(16129012)
+    def saved_search(id, options={})
+      saved_search = get("/1/saved_searches/show/#{id}.json", options)
+      Twitter::SavedSearch.new(saved_search)
     end
 
     # Creates a saved search for the authenticated user
@@ -2390,6 +2441,29 @@ module Twitter
       end
     end
 
+    # Returns oEmbed for status
+    #
+    # @see https://dev.twitter.com/docs/api/1/get/statuses/oembed
+    # @rate_limited Yes
+    # @requires_authentication No, unless the author of the status is protected
+    # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+    # @return [Twitter::OEmbed] OEmbed for the requested status.
+    # @param id [Integer, String] A Twitter status ID.
+    # @param options [Hash] A customizable set of options.
+    # @option options [Integer] :maxwidth The maximum width in pixels that the embed should be rendered at. This value is constrained to be between 250 and 550 pixels.
+    # @option options [Boolean, String, Integer] :hide_media Specifies whether the embedded Tweet should automatically expand images which were uploaded via {https://dev.twitter.com/docs/api/1/post/statuses/update_with_media POST statuses/update_with_media}. When set to either true, t or 1 images will not be expanded. Defaults to false.
+    # @option options [Boolean, String, Integer] :hide_thread Specifies whether the embedded Tweet should automatically show the original message in the case that the embedded Tweet is a reply. When set to either true, t or 1 the original Tweet will not be shown. Defaults to false.
+    # @option options [Boolean, String, Integer] :omit_script Specifies whether the embedded Tweet HTML should include a `<script>` element pointing to widgets.js. In cases where a page already includes widgets.js, setting this value to true will prevent a redundant script element from being included. When set to either true, t or 1 the `<script>` element will not be included in the embed HTML, meaning that pages must include a reference to widgets.js manually. Defaults to false.
+    # @option options [String] :align Specifies whether the embedded Tweet should be left aligned, right aligned, or centered in the page. Valid values are left, right, center, and none. Defaults to none, meaning no alignment styles are specified for the Tweet.
+    # @option options [String] :related A value for the TWT related parameter, as described in {https://dev.twitter.com/docs/intents Web Intents}. This value will be forwarded to all Web Intents calls.
+    # @option options [String] :lang Language code for the rendered embed. This will affect the text and localization of the rendered HTML.
+    # @example Return oEmbeds for status with activity summary with the ID 25938088801
+    #   Twitter.status_with_activity(25938088801)
+    def oembed(id, options={})
+      oembed = get("/1/statuses/oembed.json?id=#{id}", options)
+      Twitter::OEmbed.new(oembed)
+    end
+
     # Returns oEmbeds for statuses
     #
     # @see https://dev.twitter.com/docs/api/1/get/statuses/oembed
@@ -2411,18 +2485,10 @@ module Twitter
     #   @option options [String] :align Specifies whether the embedded Tweet should be left aligned, right aligned, or centered in the page. Valid values are left, right, center, and none. Defaults to none, meaning no alignment styles are specified for the Tweet.
     #   @option options [String] :related A value for the TWT related parameter, as described in {https://dev.twitter.com/docs/intents Web Intents}. This value will be forwarded to all Web Intents calls.
     #   @option options [String] :lang Language code for the rendered embed. This will affect the text and localization of the rendered HTML.
-    def oembed(*args)
+    def oembeds(*args)
       options = args.extract_options!
-      args.flatten.threaded_map do |id_or_url|
-        case id_or_url
-        when Integer
-          id = id_or_url
-          oembed = get("/1/statuses/oembed.json?id=#{id}", options)
-        when String
-          url = id_or_url
-          escaped_url = URI.escape(url, Regexp.new("[^#{URI::PATTERN::UNRESERVED}]"))
-          oembed = get("/1/statuses/oembed.json?url=#{escaped_url}", options)
-        end
+      args.flatten.threaded_map do |id|
+        oembed = get("/1/statuses/oembed.json?id=#{id}", options)
         Twitter::OEmbed.new(oembed)
       end
     end

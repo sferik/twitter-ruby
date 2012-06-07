@@ -254,39 +254,36 @@ describe Twitter::Client do
   end
 
   describe "#oembed" do
-    context "with id passed" do
-      before do
-        stub_get("/1/statuses/oembed.json?id=25938088801").
-          to_return(:body => fixture("oembed.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-      end
-      it "should request the correct resource" do
-        @client.oembed(25938088801)
-        a_get("/1/statuses/oembed.json?id=25938088801").
-          should have_been_made
-      end
-      it "should return an array of OEmbed instances" do
-        oembeds = @client.oembed(25938088801)
-        oembeds.should be_an Array
-        oembeds.first.should be_a Twitter::OEmbed
-      end
+    before do
+      stub_get("/1/statuses/oembed.json?id=25938088801").
+        to_return(:body => fixture("oembed.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
-    context "with url passed" do
-      before do
-        stub_get("/1/statuses/oembed.json?url=https%3A%2F%2Ftwitter.com%2F%23!%2Ftwitter%2Fstatus%2F25938088801").
-          to_return(:body => fixture("oembed.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-      end
-      it "should request the correct resource" do
-        @client.oembed('https://twitter.com/#!/twitter/status/25938088801')
-        a_get("/1/statuses/oembed.json?url=https%3A%2F%2Ftwitter.com%2F%23!%2Ftwitter%2Fstatus%2F25938088801").
-          should have_been_made
-      end
-      it "should return an array of OEmbed instances" do
-        oembeds = @client.oembed('https://twitter.com/#!/twitter/status/25938088801')
-        oembeds.should be_an Array
-        oembeds.first.should be_a Twitter::OEmbed
-      end
+    it "should request the correct resource" do
+      @client.oembed(25938088801)
+      a_get("/1/statuses/oembed.json?id=25938088801").
+        should have_been_made
     end
+    it "should return an array of OEmbed instances" do
+      oembed = @client.oembed(25938088801)
+      oembed.should be_a Twitter::OEmbed
+    end
+  end
 
+  describe "#oembeds" do
+    before do
+      stub_get("/1/statuses/oembed.json?id=25938088801").
+        to_return(:body => fixture("oembed.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+    end
+    it "should request the correct resource" do
+      @client.oembeds(25938088801)
+      a_get("/1/statuses/oembed.json?id=25938088801").
+        should have_been_made
+    end
+    it "should return an array of OEmbed instances" do
+      oembeds = @client.oembeds(25938088801)
+      oembeds.should be_an Array
+      oembeds.first.should be_a Twitter::OEmbed
+    end
   end
 
 end

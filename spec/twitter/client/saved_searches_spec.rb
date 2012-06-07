@@ -7,20 +7,39 @@ describe Twitter::Client do
   end
 
   describe "#saved_searches" do
-    before do
-      stub_get("/1/saved_searches.json").
-        to_return(:body => fixture("saved_searches.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+    context "with ids passed" do
+      before do
+        stub_get("/1/saved_searches/show/16129012.json").
+          to_return(:body => fixture("saved_search.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      end
+      it "should request the correct resource" do
+        @client.saved_searches(16129012)
+        a_get("/1/saved_searches/show/16129012.json").
+          should have_been_made
+      end
+      it "should return an array of saved searches" do
+        saved_searches = @client.saved_searches(16129012)
+        saved_searches.should be_an Array
+        saved_searches.first.should be_a Twitter::SavedSearch
+        saved_searches.first.name.should == "twitter"
+      end
     end
-    it "should request the correct resource" do
-      @client.saved_searches
-      a_get("/1/saved_searches.json").
-        should have_been_made
-    end
-    it "should return the authenticated user's saved search queries" do
-      saved_searches = @client.saved_searches
-      saved_searches.should be_an Array
-      saved_searches.first.should be_a Twitter::SavedSearch
-      saved_searches.first.name.should == "twitter"
+    context "without ids passed" do
+      before do
+        stub_get("/1/saved_searches.json").
+          to_return(:body => fixture("saved_searches.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      end
+      it "should request the correct resource" do
+        @client.saved_searches
+        a_get("/1/saved_searches.json").
+          should have_been_made
+      end
+      it "should return the authenticated user's saved search queries" do
+        saved_searches = @client.saved_searches
+        saved_searches.should be_an Array
+        saved_searches.first.should be_a Twitter::SavedSearch
+        saved_searches.first.name.should == "twitter"
+      end
     end
   end
 
@@ -34,11 +53,10 @@ describe Twitter::Client do
       a_get("/1/saved_searches/show/16129012.json").
         should have_been_made
     end
-    it "should return an array of saved searches" do
-      saved_searches = @client.saved_search(16129012)
-      saved_searches.should be_an Array
-      saved_searches.first.should be_a Twitter::SavedSearch
-      saved_searches.first.name.should == "twitter"
+    it "should return a saved search" do
+      saved_search = @client.saved_search(16129012)
+      saved_search.should be_a Twitter::SavedSearch
+      saved_search.name.should == "twitter"
     end
   end
 
