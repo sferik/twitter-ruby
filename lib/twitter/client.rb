@@ -1268,13 +1268,15 @@ module Twitter
     #     Twitter.list_add_members(7505382, 8863586, [813286, 18755393])
     def list_add_members(*args)
       options = args.extract_options!
-      options.merge_users!(Array(args.pop))
+      members = args.pop
       options.merge_list!(args.pop)
       unless options[:owner_id] || options[:owner_screen_name]
         owner = args.pop || self.current_user.screen_name
         options.merge_owner!(owner)
       end
-      list = post("/1/lists/members/create_all.json", options)
+      list = members.flatten.each_slice(MAX_USERS_PER_REQUEST).threaded_map do |users|
+        post("/1/lists/members/create_all.json", options.merge_users(users))
+      end.first
       Twitter::List.new(list)
     end
 
@@ -1308,13 +1310,15 @@ module Twitter
     #     Twitter.list_remove_members(7505382, 8863586, [813286, 18755393])
     def list_remove_members(*args)
       options = args.extract_options!
-      options.merge_users!(Array(args.pop))
+      members = args.pop
       options.merge_list!(args.pop)
       unless options[:owner_id] || options[:owner_screen_name]
         owner = args.pop || self.current_user.screen_name
         options.merge_owner!(owner)
       end
-      list = post("/1/lists/members/destroy_all.json", options)
+      list = members.flatten.each_slice(MAX_USERS_PER_REQUEST).threaded_map do |users|
+        list = post("/1/lists/members/destroy_all.json", options.merge_users(users))
+      end.first
       Twitter::List.new(list)
     end
 
@@ -2538,7 +2542,7 @@ module Twitter
     def users(*args)
       options = args.extract_options!
       args.flatten.each_slice(MAX_USERS_PER_REQUEST).threaded_map do |users|
-        get("/1/users/lookup.json", options.merge_users(Array(users))).map do |user|
+        get("/1/users/lookup.json", options.merge_users(users)).map do |user|
           Twitter::User.new(user)
         end
       end.flatten
