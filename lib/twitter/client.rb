@@ -331,7 +331,7 @@ module Twitter
     #   @param options [Hash] A customizable set of options.
     def block(*args)
       options = args.extract_options!
-      args.threaded_map do |user|
+      args.flatten.threaded_map do |user|
         user = post("/1/blocks/create.json", options.merge_user(user))
         Twitter::User.new(user)
       end
@@ -354,7 +354,7 @@ module Twitter
     #   @param options [Hash] A customizable set of options.
     def unblock(*args)
       options = args.extract_options!
-      args.threaded_map do |user|
+      args.flatten.threaded_map do |user|
         user = delete("/1/blocks/destroy.json", options.merge_user(user))
         Twitter::User.new(user)
       end
@@ -419,7 +419,7 @@ module Twitter
     #   @param options [Hash] A customizable set of options.
     def direct_message_destroy(*args)
       options = args.extract_options!
-      args.threaded_map do |id|
+      args.flatten.threaded_map do |id|
         direct_message = delete("/1/direct_messages/destroy/#{id}.json", options)
         Twitter::DirectMessage.new(direct_message)
       end
@@ -463,7 +463,7 @@ module Twitter
     #   @param options [Hash] A customizable set of options.
     def direct_message(*args)
       options = args.extract_options!
-      args.threaded_map do |id|
+      args.flatten.threaded_map do |id|
         direct_message = get("/1/direct_messages/show/#{id}.json", options)
         Twitter::DirectMessage.new(direct_message)
       end
@@ -517,7 +517,7 @@ module Twitter
     #   @param options [Hash] A customizable set of options.
     def favorite(*args)
       options = args.extract_options!
-      args.threaded_map do |id|
+      args.flatten.threaded_map do |id|
         status = post("/1/favorites/create/#{id}.json", options)
         Twitter::Status.new(status)
       end
@@ -540,7 +540,7 @@ module Twitter
     #   @param options [Hash] A customizable set of options.
     def unfavorite(*args)
       options = args.extract_options!
-      args.threaded_map do |id|
+      args.flatten.threaded_map do |id|
         status = delete("/1/favorites/destroy/#{id}.json", options)
         Twitter::Status.new(status)
       end
@@ -740,7 +740,7 @@ module Twitter
       # Twitter always turns on notifications if the "follow" option is present, even if it's set to false
       # so only send follow if it's true
       options.merge!(:follow => true) if options.delete(:follow)
-      args.threaded_map do |user|
+      args.flatten.threaded_map do |user|
         begin
           user = post("/1/friendships/create.json", options.merge_user(user))
           Twitter::User.new(user)
@@ -768,7 +768,7 @@ module Twitter
     #   @param options [Hash] A customizable set of options.
     def unfollow(*args)
       options = args.extract_options!
-      args.threaded_map do |user|
+      args.flatten.threaded_map do |user|
         user = delete("/1/friendships/destroy.json", options.merge_user(user))
         Twitter::User.new(user)
       end
@@ -793,8 +793,7 @@ module Twitter
     #   @param options [Hash] A customizable set of options.
     def friendships(*args)
       options = args.extract_options!
-      users = args
-      options.merge_users!(Array(users))
+      options.merge_users!(Array(args))
       get("/1/friendships/lookup.json", options).map do |user|
         Twitter::User.new(user)
       end
@@ -851,7 +850,7 @@ module Twitter
     #   @param options [Hash] A customizable set of options.
     def accept(*args)
       options = args.extract_options!
-      args.threaded_map do |user|
+      args.flatten.threaded_map do |user|
         user = post("/1/friendships/accept.json", options.merge_user(user))
         Twitter::User.new(user)
       end
@@ -873,7 +872,7 @@ module Twitter
     #   @param options [Hash] A customizable set of options.
     def deny(*args)
       options = args.extract_options!
-      args.threaded_map do |user|
+      args.flatten.threaded_map do |user|
         user = post("/1/friendships/deny.json", options.merge_user(user))
         Twitter::User.new(user)
       end
@@ -1265,10 +1264,8 @@ module Twitter
     #     Twitter.list_add_members(7505382, 8863586, [813286, 18755393])
     def list_add_members(*args)
       options = args.extract_options!
-      users = args.pop
-      options.merge_users!(Array(users))
-      list = args.pop
-      options.merge_list!(list)
+      options.merge_users!(Array(args.pop))
+      options.merge_list!(args.pop)
       unless options[:owner_id] || options[:owner_screen_name]
         owner = args.pop || self.current_user.screen_name
         options.merge_owner!(owner)
@@ -1307,10 +1304,8 @@ module Twitter
     #     Twitter.list_remove_members(7505382, 8863586, [813286, 18755393])
     def list_remove_members(*args)
       options = args.extract_options!
-      users = args.pop
-      options.merge_users!(Array(users))
-      list = args.pop
-      options.merge_list!(list)
+      options.merge_users!(Array(args.pop))
+      options.merge_list!(args.pop)
       unless options[:owner_id] || options[:owner_screen_name]
         owner = args.pop || self.current_user.screen_name
         options.merge_owner!(owner)
@@ -1640,7 +1635,7 @@ module Twitter
     #   @param options [Hash] A customizable set of options.
     def enable_notifications(*args)
       options = args.extract_options!
-      args.threaded_map do |user|
+      args.flatten.threaded_map do |user|
         user = post("/1/notifications/follow.json", options.merge_user(user))
         Twitter::User.new(user)
       end
@@ -1663,7 +1658,7 @@ module Twitter
     #   @param options [Hash] A customizable set of options.
     def disable_notifications(*args)
       options = args.extract_options!
-      args.threaded_map do |user|
+      args.flatten.threaded_map do |user|
         user = post("/1/notifications/leave.json", options.merge_user(user))
         Twitter::User.new(user)
       end
@@ -1803,7 +1798,7 @@ module Twitter
     #   @param options [Hash] A customizable set of options.
     def saved_search(*args)
       options = args.extract_options!
-      args.threaded_map do |id|
+      args.flatten.threaded_map do |id|
         saved_search = get("/1/saved_searches/show/#{id}.json", options)
         Twitter::SavedSearch.new(saved_search)
       end
@@ -1842,7 +1837,7 @@ module Twitter
     #   @param options [Hash] A customizable set of options.
     def saved_search_destroy(*args)
       options = args.extract_options!
-      args.threaded_map do |id|
+      args.flatten.threaded_map do |id|
         saved_search = delete("/1/saved_searches/destroy/#{id}.json", options)
         Twitter::SavedSearch.new(saved_search)
       end
@@ -1910,7 +1905,7 @@ module Twitter
     #   @param options [Hash] A customizable set of options.
     def report_spam(*args)
       options = args.extract_options!
-      args.threaded_map do |user|
+      args.flatten.threaded_map do |user|
         user = post("/1/report_spam.json", options.merge_user(user))
         Twitter::User.new(user)
       end
@@ -2282,7 +2277,7 @@ module Twitter
     #   @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
     def status(*args)
       options = args.extract_options!
-      args.threaded_map do |id|
+      args.flatten.threaded_map do |id|
         status = get("/1/statuses/show/#{id}.json", options)
         Twitter::Status.new(status)
       end
@@ -2304,7 +2299,7 @@ module Twitter
     #   @param options [Hash] A customizable set of options.
     def status_activity(*args)
       options = args.extract_options!
-      args.threaded_map do |id|
+      args.flatten.threaded_map do |id|
         status = get("/i/statuses/#{id}/activity/summary.json", options)
         status.merge!('id' => id)
         Twitter::Status.new(status)
@@ -2328,7 +2323,7 @@ module Twitter
     #   @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
     def status_with_activity(*args)
       options = args.extract_options!
-      args.threaded_map do |id|
+      args.flatten.threaded_map do |id|
         activity = get("/i/statuses/#{id}/activity/summary.json", options)
         status = get("/1/statuses/show/#{id}.json", options)
         Twitter::Status.new(status.merge(activity))
@@ -2358,7 +2353,7 @@ module Twitter
     #   @option options [String] :lang Language code for the rendered embed. This will affect the text and localization of the rendered HTML.
     def oembed(*args)
       options = args.extract_options!
-      args.threaded_map do |id_or_url|
+      args.flatten.threaded_map do |id_or_url|
         case id_or_url
         when Integer
           id = id_or_url
@@ -2390,7 +2385,7 @@ module Twitter
     #   @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
     def status_destroy(*args)
       options = args.extract_options!
-      args.threaded_map do |id|
+      args.flatten.threaded_map do |id|
         status = delete("/1/statuses/destroy/#{id}.json", options)
         Twitter::Status.new(status)
       end
@@ -2413,7 +2408,7 @@ module Twitter
     #   @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
     def retweet(*args)
       options = args.extract_options!
-      args.threaded_map do |id|
+      args.flatten.threaded_map do |id|
         new_status = post("/1/statuses/retweet/#{id}.json", options)
         orig_status = new_status.delete('retweeted_status')
         orig_status['retweeted_status'] = new_status
@@ -2486,7 +2481,7 @@ module Twitter
     #   @param options [Hash] A customizable set of options.
     def users(*args)
       options = args.extract_options!
-      args.each_slice(MAX_USERS_PER_REQUEST).threaded_map do |users|
+      args.flatten.each_slice(MAX_USERS_PER_REQUEST).threaded_map do |users|
         get("/1/users/lookup.json", options.merge_users(Array(users))).map do |user|
           Twitter::User.new(user)
         end
