@@ -3,6 +3,7 @@ require 'twitter/authenticatable'
 require 'twitter/config'
 require 'twitter/configuration'
 require 'twitter/connection'
+require 'twitter/core_ext/array'
 require 'twitter/core_ext/enumerable'
 require 'twitter/core_ext/hash'
 require 'twitter/cursor'
@@ -329,7 +330,7 @@ module Twitter
     #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
     #   @param options [Hash] A customizable set of options.
     def block(*args)
-      options = args.last.is_a?(Hash) ? args.pop : {}
+      options = args.extract_options!
       args.threaded_map do |user|
         user = post("/1/blocks/create.json", options.merge_user(user))
         Twitter::User.new(user)
@@ -352,7 +353,7 @@ module Twitter
     #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
     #   @param options [Hash] A customizable set of options.
     def unblock(*args)
-      options = args.last.is_a?(Hash) ? args.pop : {}
+      options = args.extract_options!
       args.threaded_map do |user|
         user = delete("/1/blocks/destroy.json", options.merge_user(user))
         Twitter::User.new(user)
@@ -417,7 +418,7 @@ module Twitter
     #   @param ids [Array<Integer>, Set<Integer>] An array of Twitter status IDs.
     #   @param options [Hash] A customizable set of options.
     def direct_message_destroy(*args)
-      options = args.last.is_a?(Hash) ? args.pop : {}
+      options = args.extract_options!
       args.threaded_map do |id|
         direct_message = delete("/1/direct_messages/destroy/#{id}.json", options)
         Twitter::DirectMessage.new(direct_message)
@@ -461,7 +462,7 @@ module Twitter
     #   @param ids [Array<Integer>, Set<Integer>] An array of Twitter status IDs.
     #   @param options [Hash] A customizable set of options.
     def direct_message(*args)
-      options = args.last.is_a?(Hash) ? args.pop : {}
+      options = args.extract_options!
       args.threaded_map do |id|
         direct_message = get("/1/direct_messages/show/#{id}.json", options)
         Twitter::DirectMessage.new(direct_message)
@@ -490,7 +491,7 @@ module Twitter
     #   @example Return the 20 most recent favorite statuses for @sferik
     #     Twitter.favorites('sferik')
     def favorites(*args)
-      options = args.last.is_a?(Hash) ? args.pop : {}
+      options = args.extract_options!
       if user = args.pop
         get("/1/favorites/#{user}.json", options)
       else
@@ -515,7 +516,7 @@ module Twitter
     #   @param ids [Array<Integer>, Set<Integer>] An array of Twitter status IDs.
     #   @param options [Hash] A customizable set of options.
     def favorite(*args)
-      options = args.last.is_a?(Hash) ? args.pop : {}
+      options = args.extract_options!
       args.threaded_map do |id|
         status = post("/1/favorites/create/#{id}.json", options)
         Twitter::Status.new(status)
@@ -538,7 +539,7 @@ module Twitter
     #   @param ids [Array<Integer>, Set<Integer>] An array of Twitter status IDs.
     #   @param options [Hash] A customizable set of options.
     def unfavorite(*args)
-      options = args.last.is_a?(Hash) ? args.pop : {}
+      options = args.extract_options!
       args.threaded_map do |id|
         status = delete("/1/favorites/destroy/#{id}.json", options)
         Twitter::Status.new(status)
@@ -569,7 +570,7 @@ module Twitter
     #     Twitter.follower_ids(7505382)  # Same as above
     def follower_ids(*args)
       options = {:cursor => -1}
-      options.merge!(args.last.is_a?(Hash) ? args.pop : {})
+      options.merge!(args.extract_options!)
       user = args.pop
       options.merge_user!(user)
       cursor = get("/1/followers/ids.json", options)
@@ -599,7 +600,7 @@ module Twitter
     #     Twitter.friend_ids(7505382)  # Same as above
     def friend_ids(*args)
       options = {:cursor => -1}
-      options.merge!(args.last.is_a?(Hash) ? args.pop : {})
+      options.merge!(args.extract_options!)
       user = args.pop
       options.merge_user!(user)
       cursor = get("/1/friends/ids.json", options)
@@ -701,7 +702,7 @@ module Twitter
     #   @param options [Hash] A customizable set of options.
     #   @option options [Boolean] :follow (false) Enable notifications for the target user.
     def follow(*args)
-      options = args.last.is_a?(Hash) ? args.pop : {}
+      options = args.extract_options!
       # Twitter always turns on notifications if the "follow" option is present, even if it's set to false
       # so only send follow if it's true
       options.merge!(:follow => true) if options.delete(:follow)
@@ -735,7 +736,7 @@ module Twitter
     #   @param options [Hash] A customizable set of options.
     #   @option options [Boolean] :follow (false) Enable notifications for the target user.
     def follow!(*args)
-      options = args.last.is_a?(Hash) ? args.pop : {}
+      options = args.extract_options!
       # Twitter always turns on notifications if the "follow" option is present, even if it's set to false
       # so only send follow if it's true
       options.merge!(:follow => true) if options.delete(:follow)
@@ -766,7 +767,7 @@ module Twitter
     #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
     #   @param options [Hash] A customizable set of options.
     def unfollow(*args)
-      options = args.last.is_a?(Hash) ? args.pop : {}
+      options = args.extract_options!
       args.threaded_map do |user|
         user = delete("/1/friendships/destroy.json", options.merge_user(user))
         Twitter::User.new(user)
@@ -791,7 +792,7 @@ module Twitter
     #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
     #   @param options [Hash] A customizable set of options.
     def friendships(*args)
-      options = args.last.is_a?(Hash) ? args.pop : {}
+      options = args.extract_options!
       users = args
       options.merge_users!(Array(users))
       get("/1/friendships/lookup.json", options).map do |user|
@@ -849,7 +850,7 @@ module Twitter
     #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
     #   @param options [Hash] A customizable set of options.
     def accept(*args)
-      options = args.last.is_a?(Hash) ? args.pop : {}
+      options = args.extract_options!
       args.threaded_map do |user|
         user = post("/1/friendships/accept.json", options.merge_user(user))
         Twitter::User.new(user)
@@ -871,7 +872,7 @@ module Twitter
     #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
     #   @param options [Hash] A customizable set of options.
     def deny(*args)
-      options = args.last.is_a?(Hash) ? args.pop : {}
+      options = args.extract_options!
       args.threaded_map do |user|
         user = post("/1/friendships/deny.json", options.merge_user(user))
         Twitter::User.new(user)
@@ -946,7 +947,7 @@ module Twitter
     #     Twitter.lists_subscribed_to('sferik')
     #     Twitter.lists_subscribed_to(8863586)
     def lists_subscribed_to(*args)
-      options = args.last.is_a?(Hash) ? args.pop : {}
+      options = args.extract_options!
       if user = args.pop
         options.merge_user!(user)
       end
@@ -983,7 +984,7 @@ module Twitter
     #     Twitter.list_timeline(7505382, 'presidents')
     #     Twitter.list_timeline(7505382, 8863586)
     def list_timeline(*args)
-      options = args.last.is_a?(Hash) ? args.pop : {}
+      options = args.extract_options!
       list = args.pop
       options.merge_list!(list)
       unless options[:owner_id] || options[:owner_screen_name]
@@ -1021,7 +1022,7 @@ module Twitter
     #     Twitter.list_remove_member('sferik', 8863586, 'BarackObama')
     #     Twitter.list_remove_member(7505382, 'presidents', 813286)
     def list_remove_member(*args)
-      options = args.last.is_a?(Hash) ? args.pop : {}
+      options = args.extract_options!
       user_to_remove = args.pop
       options.merge_user!(user_to_remove)
       list = args.pop
@@ -1054,7 +1055,7 @@ module Twitter
     #     Twitter.memberships('sferik')
     #     Twitter.memberships(7505382)
     def memberships(*args)
-      options = {:cursor => -1}.merge(args.last.is_a?(Hash) ? args.pop : {})
+      options = {:cursor => -1}.merge(args.extract_options!)
       if user = args.pop
         options.merge_user!(user)
       end
@@ -1086,7 +1087,7 @@ module Twitter
     #     Twitter.list_subscribers('sferik', 8863586)
     #     Twitter.list_subscribers(7505382, 'presidents')
     def list_subscribers(*args)
-      options = {:cursor => -1}.merge(args.last.is_a?(Hash) ? args.pop : {})
+      options = {:cursor => -1}.merge(args.extract_options!)
       list = args.pop
       options.merge_list!(list)
       unless options[:owner_id] || options[:owner_screen_name]
@@ -1117,7 +1118,7 @@ module Twitter
     #     Twitter.subscriptions('sferik')
     #     Twitter.subscriptions(7505382)
     def subscriptions(*args)
-      options = {:cursor => -1}.merge(args.last.is_a?(Hash) ? args.pop : {})
+      options = {:cursor => -1}.merge(args.extract_options!)
       if user = args.pop
         options.merge_user!(user)
       end
@@ -1147,7 +1148,7 @@ module Twitter
     #     Twitter.list_subscribe('sferik', 8863586)
     #     Twitter.list_subscribe(7505382, 'presidents')
     def list_subscribe(*args)
-      options = args.last.is_a?(Hash) ? args.pop : {}
+      options = args.extract_options!
       list = args.pop
       options.merge_list!(list)
       unless options[:owner_id] || options[:owner_screen_name]
@@ -1185,7 +1186,7 @@ module Twitter
     #     Twitter.list_subscriber?('sferik', 'presidents', 'BarackObama')
     # @return [Boolean] true if user is a subscriber of the specified list, otherwise false.
     def list_subscriber?(*args)
-      options = args.last.is_a?(Hash) ? args.pop : {}
+      options = args.extract_options!
       user_to_check = args.pop
       options.merge_user!(user_to_check)
       list = args.pop
@@ -1222,7 +1223,7 @@ module Twitter
     #     Twitter.list_unsubscribe('sferik', 8863586)
     #     Twitter.list_unsubscribe(7505382, 'presidents')
     def list_unsubscribe(*args)
-      options = args.last.is_a?(Hash) ? args.pop : {}
+      options = args.extract_options!
       list = args.pop
       options.merge_list!(list)
       unless options[:owner_id] || options[:owner_screen_name]
@@ -1263,7 +1264,7 @@ module Twitter
     #     Twitter.list_add_members(7505382, 8863586, ['BarackObama', 'pengwynn'])
     #     Twitter.list_add_members(7505382, 8863586, [813286, 18755393])
     def list_add_members(*args)
-      options = args.last.is_a?(Hash) ? args.pop : {}
+      options = args.extract_options!
       users = args.pop
       options.merge_users!(Array(users))
       list = args.pop
@@ -1305,7 +1306,7 @@ module Twitter
     #     Twitter.list_remove_members(7505382, 8863586, ['BarackObama', 'pengwynn'])
     #     Twitter.list_remove_members(7505382, 8863586, [813286, 18755393])
     def list_remove_members(*args)
-      options = args.last.is_a?(Hash) ? args.pop : {}
+      options = args.extract_options!
       users = args.pop
       options.merge_users!(Array(users))
       list = args.pop
@@ -1342,7 +1343,7 @@ module Twitter
     #     Twitter.list_member?('sferik', 8863586, 'BarackObama')
     #     Twitter.list_member?(7505382, 'presidents', 813286)
     def list_member?(*args)
-      options = args.last.is_a?(Hash) ? args.pop : {}
+      options = args.extract_options!
       user_to_check = args.pop
       options.merge_user!(user_to_check)
       list = args.pop
@@ -1382,7 +1383,7 @@ module Twitter
     #     Twitter.list_members(7505382, 'presidents')
     #     Twitter.list_members(7505382, 8863586)
     def list_members(*args)
-      options = {:cursor => -1}.merge(args.last.is_a?(Hash) ? args.pop : {})
+      options = {:cursor => -1}.merge(args.extract_options!)
       list = args.pop
       options.merge_list!(list)
       unless options[:owner_id] || options[:owner_screen_name]
@@ -1419,7 +1420,7 @@ module Twitter
     #     Twitter.list_add_member(7505382, 'presidents', 813286)
     #     Twitter.list_add_member(7505382, 8863586, 813286)
     def list_add_member(*args)
-      options = args.last.is_a?(Hash) ? args.pop : {}
+      options = args.extract_options!
       user_to_add = args.pop
       options.merge_user!(user_to_add)
       list = args.pop
@@ -1456,7 +1457,7 @@ module Twitter
     #     Twitter.list_destroy(7505382, 'presidents')
     #     Twitter.list_destroy(7505382, 8863586)
     def list_destroy(*args)
-      options = args.last.is_a?(Hash) ? args.pop : {}
+      options = args.extract_options!
       list = args.pop
       options.merge_list!(list)
       unless options[:owner_id] || options[:owner_screen_name]
@@ -1494,7 +1495,7 @@ module Twitter
     #     Twitter.list_update('sferik', 8863586, :description => "Presidents of the United States of America")
     #     Twitter.list_update(7505382, 8863586, :description => "Presidents of the United States of America")
     def list_update(*args)
-      options = args.last.is_a?(Hash) ? args.pop : {}
+      options = args.extract_options!
       list = args.pop
       options.merge_list!(list)
       unless options[:owner_id] || options[:owner_screen_name]
@@ -1545,7 +1546,7 @@ module Twitter
     #     Twitter.lists('sferik')
     #     Twitter.lists(7505382)
     def lists(*args)
-      options = {:cursor => -1}.merge(args.last.is_a?(Hash) ? args.pop : {})
+      options = {:cursor => -1}.merge(args.extract_options!)
       user = args.pop
       options.merge_user!(user) if user
       cursor = get("/1/lists.json", options)
@@ -1576,7 +1577,7 @@ module Twitter
     #     Twitter.list(7505382, 'presidents')
     #     Twitter.list(7505382, 8863586)
     def list(*args)
-      options = args.last.is_a?(Hash) ? args.pop : {}
+      options = args.extract_options!
       list = args.pop
       options.merge_list!(list)
       unless options[:owner_id] || options[:owner_screen_name]
@@ -1638,7 +1639,7 @@ module Twitter
     #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
     #   @param options [Hash] A customizable set of options.
     def enable_notifications(*args)
-      options = args.last.is_a?(Hash) ? args.pop : {}
+      options = args.extract_options!
       args.threaded_map do |user|
         user = post("/1/notifications/follow.json", options.merge_user(user))
         Twitter::User.new(user)
@@ -1661,7 +1662,7 @@ module Twitter
     #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
     #   @param options [Hash] A customizable set of options.
     def disable_notifications(*args)
-      options = args.last.is_a?(Hash) ? args.pop : {}
+      options = args.extract_options!
       args.threaded_map do |user|
         user = post("/1/notifications/leave.json", options.merge_user(user))
         Twitter::User.new(user)
@@ -1801,7 +1802,7 @@ module Twitter
     #   @param ids [Array<Integer>, Set<Integer>] An array of Twitter status IDs.
     #   @param options [Hash] A customizable set of options.
     def saved_search(*args)
-      options = args.last.is_a?(Hash) ? args.pop : {}
+      options = args.extract_options!
       args.threaded_map do |id|
         saved_search = get("/1/saved_searches/show/#{id}.json", options)
         Twitter::SavedSearch.new(saved_search)
@@ -1840,7 +1841,7 @@ module Twitter
     #   @param ids [Array<Integer>, Set<Integer>] An array of Twitter status IDs.
     #   @param options [Hash] A customizable set of options.
     def saved_search_destroy(*args)
-      options = args.last.is_a?(Hash) ? args.pop : {}
+      options = args.extract_options!
       args.threaded_map do |id|
         saved_search = delete("/1/saved_searches/destroy/#{id}.json", options)
         Twitter::SavedSearch.new(saved_search)
@@ -1908,7 +1909,7 @@ module Twitter
     #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
     #   @param options [Hash] A customizable set of options.
     def report_spam(*args)
-      options = args.last.is_a?(Hash) ? args.pop : {}
+      options = args.extract_options!
       args.threaded_map do |user|
         user = post("/1/report_spam.json", options.merge_user(user))
         Twitter::User.new(user)
@@ -1936,7 +1937,7 @@ module Twitter
     #   @example Return the users in the Art & Design category
     #     Twitter.suggestions("art-design")
     def suggestions(*args)
-      options = args.last.is_a?(Hash) ? args.pop : {}
+      options = args.extract_options!
       if slug = args.pop
         suggestion = get("/1/users/suggestions/#{slug}.json", options)
         Twitter::Suggestion.new(suggestion)
@@ -2032,7 +2033,7 @@ module Twitter
     #   @example Return the 20 most recent retweets posted by the authenticating user
     #     Twitter.retweeted_by
     def retweeted_by(*args)
-      options = args.last.is_a?(Hash) ? args.pop : {}
+      options = args.extract_options!
       if user = args.pop
         options.merge_user!(user)
         get("/1/statuses/retweeted_by_user.json", options)
@@ -2069,7 +2070,7 @@ module Twitter
     #   @example Return the 20 most recent retweets posted by users followed by the authenticating user
     #     Twitter.retweeted_to('sferik')
     def retweeted_to(*args)
-      options = args.last.is_a?(Hash) ? args.pop : {}
+      options = args.extract_options!
       if user = args.pop
         options.merge_user!(user)
         get("/1/statuses/retweeted_to_user.json", options)
@@ -2119,7 +2120,7 @@ module Twitter
     #   @example Return the 20 most recent statuses posted by @sferik
     #     Twitter.user_timeline('sferik')
     def user_timeline(*args)
-      options = args.last.is_a?(Hash) ? args.pop : {}
+      options = args.extract_options!
       if user = args.pop
         options.merge_user!(user)
       end
@@ -2145,7 +2146,7 @@ module Twitter
     #   @example Return the 20 most recent statuses posted by @sferik
     #     Twitter.media_timeline('sferik')
     def media_timeline(*args)
-      options = args.last.is_a?(Hash) ? args.pop : {}
+      options = args.extract_options!
       if user = args.pop
         options.merge_user!(user)
       end
@@ -2280,7 +2281,7 @@ module Twitter
     #   @param options [Hash] A customizable set of options.
     #   @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
     def status(*args)
-      options = args.last.is_a?(Hash) ? args.pop : {}
+      options = args.extract_options!
       args.threaded_map do |id|
         status = get("/1/statuses/show/#{id}.json", options)
         Twitter::Status.new(status)
@@ -2302,7 +2303,7 @@ module Twitter
     #   @param ids [Array<Integer>, Set<Integer>] An array of Twitter status IDs.
     #   @param options [Hash] A customizable set of options.
     def status_activity(*args)
-      options = args.last.is_a?(Hash) ? args.pop : {}
+      options = args.extract_options!
       args.threaded_map do |id|
         status = get("/i/statuses/#{id}/activity/summary.json", options)
         status.merge!('id' => id)
@@ -2326,7 +2327,7 @@ module Twitter
     #   @param options [Hash] A customizable set of options.
     #   @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
     def status_with_activity(*args)
-      options = args.last.is_a?(Hash) ? args.pop : {}
+      options = args.extract_options!
       args.threaded_map do |id|
         activity = get("/i/statuses/#{id}/activity/summary.json", options)
         status = get("/1/statuses/show/#{id}.json", options)
@@ -2356,7 +2357,7 @@ module Twitter
     #   @option options [String] :related A value for the TWT related parameter, as described in {https://dev.twitter.com/docs/intents Web Intents}. This value will be forwarded to all Web Intents calls.
     #   @option options [String] :lang Language code for the rendered embed. This will affect the text and localization of the rendered HTML.
     def oembed(*args)
-      options = args.last.is_a?(Hash) ? args.pop : {}
+      options = args.extract_options!
       args.threaded_map do |id_or_url|
         case id_or_url
         when Integer
@@ -2388,7 +2389,7 @@ module Twitter
     #   @param options [Hash] A customizable set of options.
     #   @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
     def status_destroy(*args)
-      options = args.last.is_a?(Hash) ? args.pop : {}
+      options = args.extract_options!
       args.threaded_map do |id|
         status = delete("/1/statuses/destroy/#{id}.json", options)
         Twitter::Status.new(status)
@@ -2411,7 +2412,7 @@ module Twitter
     #   @param options [Hash] A customizable set of options.
     #   @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
     def retweet(*args)
-      options = args.last.is_a?(Hash) ? args.pop : {}
+      options = args.extract_options!
       args.threaded_map do |id|
         new_status = post("/1/statuses/retweet/#{id}.json", options)
         orig_status = new_status.delete('retweeted_status')
@@ -2484,7 +2485,7 @@ module Twitter
     #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
     #   @param options [Hash] A customizable set of options.
     def users(*args)
-      options = args.last.is_a?(Hash) ? args.pop : {}
+      options = args.extract_options!
       args.each_slice(MAX_USERS_PER_REQUEST).threaded_map do |users|
         get("/1/users/lookup.json", options.merge_users(Array(users))).map do |user|
           Twitter::User.new(user)
@@ -2510,7 +2511,7 @@ module Twitter
     #   @example Return the URL for the 24px by 24px version of @sferik's profile image
     #     Twitter.profile_image('sferik', :size => 'mini')
     def profile_image(*args)
-      options = args.last.is_a?(Hash) ? args.pop : {}
+      options = args.extract_options!
       user = args.pop || self.current_user.screen_name
       user = user.screen_name if user.is_a?(Twitter::User)
       get("/1/users/profile_image/#{user}", options, :raw => true).headers['location']
@@ -2554,7 +2555,7 @@ module Twitter
     #     Twitter.user('sferik')
     #     Twitter.user(7505382)  # Same as above
     def user(*args)
-      options = args.last.is_a?(Hash) ? args.pop : {}
+      options = args.extract_options!
       if user = args.pop
         options.merge_user!(user)
         user = get("/1/users/show.json", options)
@@ -2601,8 +2602,7 @@ module Twitter
     #     Twitter.contributees('sferik')
     #     Twitter.contributees(7505382)  # Same as above
     def contributees(*args)
-      options = {}
-      options.merge!(args.last.is_a?(Hash) ? args.pop : {})
+      options = args.extract_options!
       user = args.pop || self.current_user.screen_name
       options.merge_user!(user)
       get("/1/users/contributees.json", options).map do |user|
@@ -2630,8 +2630,7 @@ module Twitter
     #     Twitter.contributors('sferik')
     #     Twitter.contributors(7505382)  # Same as above
     def contributors(*args)
-      options = {}
-      options.merge!(args.last.is_a?(Hash) ? args.pop : {})
+      options = args.extract_options!
       user = args.pop || self.current_user.screen_name
       options.merge_user!(user)
       get("/1/users/contributors.json", options).map do |user|
@@ -2661,8 +2660,7 @@ module Twitter
     #   @example Return recommended users for the authenticated user
     #     Twitter.recommendations("sferik")
     def recommendations(*args)
-      options = {}
-      options.merge!(args.last.is_a?(Hash) ? args.pop : {})
+      options = args.extract_options!
       user = args.pop || self.current_user.screen_name
       options.merge_user!(user)
       options[:excluded] = options[:excluded].join(',') if options[:excluded].is_a?(Array)
@@ -2696,7 +2694,7 @@ module Twitter
     #     Twitter.following_followers_of(7505382)  # Same as above
     def following_followers_of(*args)
       options = {:cursor => -1}
-      options.merge!(args.last.is_a?(Hash) ? args.pop : {})
+      options.merge!(args.extract_options!)
       user = args.pop || self.current_user.screen_name
       options.merge_user!(user)
       cursor = get("/users/following_followers_of.json", options)
