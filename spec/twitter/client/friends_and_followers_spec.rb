@@ -304,7 +304,7 @@ describe Twitter::Client do
           with(:body => {:user_id => "7505382", :follow => "true"}).
           should have_been_made
       end
-      it "should return the befriended user" do
+      it "should return an array of befriended users" do
         users = @client.follow("sferik", "pengwynn", :follow => true)
         users.should be_an Array
         users.first.should be_a Twitter::User
@@ -335,7 +335,7 @@ describe Twitter::Client do
           with(:body => {:user_id => "7505382"}).
           should have_been_made
       end
-      it "should return the befriended user" do
+      it "should return an array of befriended users" do
         users = @client.follow("sferik", "pengwynn", :follow => false)
         users.should be_an Array
         users.first.should be_a Twitter::User
@@ -366,7 +366,7 @@ describe Twitter::Client do
           with(:body => {:user_id => "7505382"}).
           should have_been_made
       end
-      it "should return the befriended user" do
+      it "should return an array of befriended users" do
         users = @client.follow("sferik", "pengwynn")
         users.should be_an Array
         users.first.should be_a Twitter::User
@@ -388,7 +388,7 @@ describe Twitter::Client do
           with(:body => {:screen_name => "sferik", :follow => "true"}).
           should have_been_made
       end
-      it "should return the befriended user" do
+      it "should return an array of befriended users" do
         users = @client.follow!("sferik", :follow => true)
         users.should be_an Array
         users.first.should be_a Twitter::User
@@ -407,7 +407,7 @@ describe Twitter::Client do
           with(:body => {:screen_name => "sferik"}).
           should have_been_made
       end
-      it "should return the befriended user" do
+      it "should return an array of befriended users" do
         users = @client.follow!("sferik", :follow => false)
         users.should be_an Array
         users.first.should be_a Twitter::User
@@ -426,7 +426,7 @@ describe Twitter::Client do
           with(:body => {:screen_name => "sferik"}).
           should have_been_made
       end
-      it "should return the befriended user" do
+      it "should return an array of befriended users" do
         users = @client.follow!("sferik")
         users.should be_an Array
         users.first.should be_a Twitter::User
@@ -447,7 +447,7 @@ describe Twitter::Client do
         with(:query => {:screen_name => "sferik"}).
         should have_been_made
     end
-    it "should return the unfollowed" do
+    it "should return an array of unfollowed users" do
       users = @client.friendship_destroy("sferik")
       users.should be_an Array
       users.first.should be_a Twitter::User
@@ -628,7 +628,7 @@ describe Twitter::Client do
         with(:body => {:screen_name => "sferik"}).
         should have_been_made
     end
-    it "should return the accepted user" do
+    it "should return an array of accepted users" do
       users = @client.accept("sferik")
       users.should be_an Array
       users.first.should be_a Twitter::User
@@ -648,7 +648,7 @@ describe Twitter::Client do
         with(:body => {:screen_name => "sferik"}).
         should have_been_made
     end
-    it "should return the denied user" do
+    it "should return an array of denied users" do
       users = @client.deny("sferik")
       users.should be_an Array
       users.first.should be_a Twitter::User

@@ -70,7 +70,7 @@ describe Twitter::Client do
       a_get("/1/statuses/show/25938088801.json").
         should have_been_made
     end
-    it "should return a single status" do
+    it "should return an array of statuses" do
       statuses = @client.status(25938088801)
       statuses.should be_an Array
       statuses.first.should be_a Twitter::Status
@@ -88,7 +88,7 @@ describe Twitter::Client do
       a_get("/i/statuses/25938088801/activity/summary.json").
         should have_been_made
     end
-    it "should return a single status" do
+    it "should return an array of statuses" do
       statuses = @client.status_activity(25938088801)
       statuses.should be_an Array
       statuses.first.should be_a Twitter::Status
@@ -110,7 +110,7 @@ describe Twitter::Client do
       a_get("/1/statuses/show/25938088801.json").
         should have_been_made
     end
-    it "should return a single status" do
+    it "should return an array of statuses" do
       statuses = @client.status_with_activity(25938088801)
       statuses.should be_an Array
       statuses.first.should be_a Twitter::Status
@@ -129,7 +129,7 @@ describe Twitter::Client do
       a_delete("/1/statuses/destroy/25938088801.json").
         should have_been_made
     end
-    it "should return a single status" do
+    it "should return an array of statuses" do
       statuses = @client.status_destroy(25938088801)
       statuses.should be_an Array
       statuses.first.should be_a Twitter::Status
@@ -147,7 +147,7 @@ describe Twitter::Client do
       a_post("/1/statuses/retweet/28561922516.json").
         should have_been_made
     end
-    it "should return the original Tweet with retweet details embedded" do
+    it "should return an array of tweets with retweet details embedded" do
       statuses = @client.retweet(28561922516)
       statuses.should be_an Array
       statuses.first.should be_a Twitter::Status
@@ -188,6 +188,7 @@ describe Twitter::Client do
     end
     it "should return a single status" do
       status = @client.update_with_media("You always have options", fixture("pbjt.gif"))
+      status.should be_a Twitter::Status
       status.text.should include("You always have options")
     end
     it 'should return the media as an entity' do
@@ -207,7 +208,7 @@ describe Twitter::Client do
         a_get("/1/statuses/oembed.json?id=25938088801").
           should have_been_made
       end
-      it "should return an OEmbed instance" do
+      it "should return an array of OEmbed instances" do
         oembeds = @client.oembed(25938088801)
         oembeds.should be_an Array
         oembeds.first.should be_a Twitter::OEmbed
@@ -223,7 +224,7 @@ describe Twitter::Client do
         a_get("/1/statuses/oembed.json?url=https%3A%2F%2Ftwitter.com%2F%23!%2Ftwitter%2Fstatus%2F25938088801").
           should have_been_made
       end
-      it "should return an OEmbed instance" do
+      it "should return an array of OEmbed instances" do
         oembeds = @client.oembed('https://twitter.com/#!/twitter/status/25938088801')
         oembeds.should be_an Array
         oembeds.first.should be_a Twitter::OEmbed

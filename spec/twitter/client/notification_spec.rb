@@ -18,7 +18,7 @@ describe Twitter::Client do
         with(:body => {:screen_name => "sferik"}).
         should have_been_made
     end
-    it "should return the specified user when successful" do
+    it "should return an array of users" do
       users = @client.enable_notifications("sferik")
       users.should be_an Array
       users.first.should be_a Twitter::User
@@ -38,7 +38,7 @@ describe Twitter::Client do
         with(:body => {:screen_name => "sferik"}).
         should have_been_made
     end
-    it "should return the specified user when successful" do
+    it "should return an array of users" do
       users = @client.disable_notifications("sferik")
       users.should be_an Array
       users.first.should be_a Twitter::User

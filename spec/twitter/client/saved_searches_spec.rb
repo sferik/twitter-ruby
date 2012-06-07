@@ -34,7 +34,7 @@ describe Twitter::Client do
       a_get("/1/saved_searches/show/16129012.json").
         should have_been_made
     end
-    it "should return the data for a saved search owned by the authenticating user specified by the given id" do
+    it "should return an array of saved searches" do
       saved_searches = @client.saved_search(16129012)
       saved_searches.should be_an Array
       saved_searches.first.should be_a Twitter::SavedSearch
@@ -71,7 +71,7 @@ describe Twitter::Client do
       a_delete("/1/saved_searches/destroy/16129012.json").
         should have_been_made
     end
-    it "should return the deleted saved search" do
+    it "should return an array of deleted saved searches" do
       saved_searches = @client.saved_search_destroy(16129012)
       saved_searches.should be_an Array
       saved_searches.first.should be_a Twitter::SavedSearch

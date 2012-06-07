@@ -53,7 +53,7 @@ describe Twitter::Client do
       a_post("/1/favorites/create/25938088801.json").
         should have_been_made
     end
-    it "should return the favorite status when successful" do
+    it "should return an array of favorited statuses" do
       statuses = @client.favorite(25938088801)
       statuses.should be_an Array
       statuses.first.should be_a Twitter::Status
@@ -71,7 +71,7 @@ describe Twitter::Client do
       a_delete("/1/favorites/destroy/25938088801.json").
         should have_been_made
     end
-    it "should return the un-favorite status when successful" do
+    it "should return an array of un-favorited statuses" do
       statuses = @client.unfavorite(25938088801)
       statuses.should be_an Array
       statuses.first.should be_a Twitter::Status

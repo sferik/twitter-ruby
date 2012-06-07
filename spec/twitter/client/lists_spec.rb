@@ -898,7 +898,7 @@ describe Twitter::Client do
           with(:query => {:screen_name => 'sferik', :cursor => "-1"}).
           should have_been_made
       end
-      it "should return the updated list" do
+      it "should return the requested lists" do
         lists = @client.lists("sferik")
         lists.should be_a Twitter::Cursor
         lists.lists.should be_an Array
@@ -918,7 +918,7 @@ describe Twitter::Client do
           with(:query => {:cursor => "-1"}).
           should have_been_made
       end
-      it "should return the updated list" do
+      it "should return the requested list" do
         lists = @client.lists
         lists.should be_a Twitter::Cursor
         lists.lists.should be_an Array

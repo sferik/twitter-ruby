@@ -38,10 +38,10 @@ describe Twitter::Client do
           to_return(:body => fixture("/search_malformed.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
 
-      it "should not fail and return blank Array" do
+      it "should return an empty array" do
         search = @client.search('twitter')
         search.results.should be_an Array
-        search.results.should have(0).items
+        search.results.should be_empty
       end
     end
   end

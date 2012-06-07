@@ -18,7 +18,7 @@ describe Twitter::Client do
         with(:body => {:screen_name => "sferik"}).
         should have_been_made
     end
-    it "should return the specified user" do
+    it "should return an array of users" do
       users = @client.report_spam("sferik")
       users.should be_an Array
       users.first.should be_a Twitter::User

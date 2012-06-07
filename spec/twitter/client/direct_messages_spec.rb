@@ -52,7 +52,7 @@ describe Twitter::Client do
       a_delete("/1/direct_messages/destroy/1825785544.json").
         should have_been_made
     end
-    it "should return the deleted message" do
+    it "should return an array of deleted messages" do
       direct_messages = @client.direct_message_destroy(1825785544)
       direct_messages.should be_an Array
       direct_messages.first.should be_a Twitter::DirectMessage

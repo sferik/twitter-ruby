@@ -77,7 +77,7 @@ describe Twitter::Client do
       a_post("/1/blocks/create.json").
         should have_been_made
     end
-    it "should return the blocked user" do
+    it "should return an array of blocked users" do
       users = @client.block("sferik")
       users.should be_an Array
       users.first.should be_a Twitter::User
@@ -97,7 +97,7 @@ describe Twitter::Client do
         with(:query => {:screen_name => "sferik"}).
         should have_been_made
     end
-    it "should return the un-blocked user" do
+    it "should return an array of un-blocked users" do
       users = @client.unblock("sferik")
       users.should be_an Array
       users.first.should be_a Twitter::User
