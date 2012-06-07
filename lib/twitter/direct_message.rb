@@ -15,12 +15,12 @@ module Twitter
 
     # @return [Twitter::User]
     def recipient
-      @recipient ||= Twitter::User.new(@attrs['recipient']) unless @attrs['recipient'].nil?
+      @recipient ||= Twitter::User.get_or_new(@attrs['recipient']) unless @attrs['recipient'].nil?
     end
 
     # @return [Twitter::User]
     def sender
-      @sender ||= Twitter::User.new(@attrs['sender']) unless @attrs['sender'].nil?
+      @sender ||= Twitter::User.get_or_new(@attrs['sender']) unless @attrs['sender'].nil?
     end
 
   end

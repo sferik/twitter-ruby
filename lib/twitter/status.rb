@@ -55,7 +55,7 @@ module Twitter
     def hashtags
       @hashtags ||= unless @attrs['entities'].nil?
         Array(@attrs['entities']['hashtags']).map do |hashtag|
-          Twitter::Entity::Hashtag.new(hashtag)
+          Twitter::Entity::Hashtag.get_or_new(hashtag)
         end
       else
         warn "#{Kernel.caller.first}: To get hashtags, you must pass `:include_entities => true` when requesting the Twitter::Status."
@@ -76,7 +76,7 @@ module Twitter
 
     # @return [Twitter::Metadata]
     def metadata
-      @metadata ||= Twitter::Metadata.new(@attrs['metadata']) unless @attrs['metadata'].nil?
+      @metadata ||= Twitter::Metadata.get_or_new(@attrs['metadata']) unless @attrs['metadata'].nil?
     end
 
     # @return [Twitter::OEmbed]
@@ -87,14 +87,14 @@ module Twitter
 
     # @return [Twitter::Place]
     def place
-      @place ||= Twitter::Place.new(@attrs['place']) unless @attrs['place'].nil?
+      @place ||= Twitter::Place.get_or_new(@attrs['place']) unless @attrs['place'].nil?
     end
 
     # If this status is itself a retweet, the original tweet is available here.
     #
     # @return [Twitter::Status]
     def retweeted_status
-      @retweeted_status ||= self.class.new(@attrs['retweeted_status']) unless @attrs['retweeted_status'].nil?
+      @retweeted_status ||= self.class.get_or_new(@attrs['retweeted_status']) unless @attrs['retweeted_status'].nil?
     end
 
     # @note If retweeters_count is > 50 it will return the string 50+.
@@ -109,7 +109,7 @@ module Twitter
     def urls
       @urls ||= unless @attrs['entities'].nil?
         Array(@attrs['entities']['urls']).map do |url|
-          Twitter::Entity::Url.new(url)
+          Twitter::Entity::Url.get_or_new(url)
         end
       else
         warn "#{Kernel.caller.first}: To get URLs, you must pass `:include_entities => true` when requesting the Twitter::Status."
@@ -118,7 +118,7 @@ module Twitter
 
     # @return [Twitter::User]
     def user
-      @user ||= Twitter::User.new(@attrs.dup['user'].merge('status' => @attrs.except('user'))) unless @attrs['user'].nil?
+      @user ||= Twitter::User.get_or_new(@attrs.dup['user'].merge('status' => @attrs.except('user'))) unless @attrs['user'].nil?
     end
 
     # @note Must include entities in your request for this method to work
@@ -126,7 +126,7 @@ module Twitter
     def user_mentions
       @user_mentions ||= unless @attrs['entities'].nil?
         Array(@attrs['entities']['user_mentions']).map do |user_mention|
-          Twitter::Entity::UserMention.new(user_mention)
+          Twitter::Entity::UserMention.get_or_new(user_mention)
         end
       else
         warn "#{Kernel.caller.first}: To get user mentions, you must pass `:include_entities => true` when requesting the Twitter::Status."

@@ -16,7 +16,7 @@ module Twitter
       @attrs = attrs
       @collection = Array(attrs[method.to_s]).map do |item|
         if klass
-          klass.new(item)
+          klass.get_or_new(item)
         else
           item
         end

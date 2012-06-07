@@ -18,7 +18,7 @@ module Twitter
     def self.new(action={})
       type = action.delete('action')
       if type
-        Twitter.const_get(camelize(type).to_sym).new(action)
+        Twitter.const_get(camelize(type).to_sym).get_or_new(action)
       else
         raise ArgumentError, "argument must have an 'action' key"
       end

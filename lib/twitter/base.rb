@@ -23,9 +23,13 @@ module Twitter
       end
     end
 
-    def self.new(attrs={})
+    def self.get(attrs={})
       @@identity_map[self] ||= {}
-      @@identity_map[self][Marshal.dump(attrs)] || super(attrs)
+      @@identity_map[self][Marshal.dump(attrs)]
+    end
+
+    def self.get_or_new(attrs={})
+      self.get(attrs) || self.new(attrs)
     end
 
     # Initializes a new object
@@ -34,6 +38,7 @@ module Twitter
     # @return [Twitter::Base]
     def initialize(attrs={})
       self.update(attrs)
+      @@identity_map[self.class] ||= {}
       @@identity_map[self.class][Marshal.dump(attrs)] = self
     end
 

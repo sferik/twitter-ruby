@@ -12,7 +12,7 @@ module Twitter
     def self.new(geo={})
       type = geo.delete('type')
       if type
-        Twitter.const_get(type.capitalize.to_sym).new(geo)
+        Twitter.const_get(type.capitalize.to_sym).get_or_new(geo)
       else
         raise ArgumentError, "argument must have a 'type' key"
       end

@@ -11,7 +11,7 @@ module Twitter
     def self.new(media={})
       type = media.delete('type')
       if type
-        Twitter.const_get(type.capitalize.to_sym).new(media)
+        Twitter.const_get(type.capitalize.to_sym).get_or_new(media)
       else
         raise ArgumentError, "argument must have a 'type' key"
       end

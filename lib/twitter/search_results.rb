@@ -7,7 +7,7 @@ module Twitter
 
     # @return [Array<Twitter::Status>]
     def results
-      @results ||= Array(@attrs['results']).map{|status| Twitter::Status.new(status)}
+      @results ||= Array(@attrs['results']).map{|status| Twitter::Status.get_or_new(status)}
     end
     alias :collection :results
 

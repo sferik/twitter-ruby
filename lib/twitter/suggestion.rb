@@ -14,7 +14,7 @@ module Twitter
     # @return [Array<Twitter::User>]
     def users
       @users = Array(@attrs['users']).map do |user|
-        Twitter::User.new(user)
+        Twitter::User.get_or_new(user)
       end
     end
 
