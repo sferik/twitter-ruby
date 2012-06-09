@@ -77,12 +77,12 @@ this method returned an array of `Twitter::Status` objects, which is now
 accessible by sending the `results` message to a `Twitter::SearchResults`
 object.
 
-    # Version 2
+##### Version 2
     Twitter::Client.search("query").each do |status|
       puts status.full_text
     end
 
-    # Version 3
+##### Version 3
     Twitter::Client.search("query").results.each do |status|
       puts status.full_text
     end
@@ -90,8 +90,8 @@ object.
 The `Twitter::Status#expanded_urls` method has been removed. Use
 `Twitter::Status#urls` instead.
 
-Support for API proxies via `gateway` configuration has been removed. This
-still be implemented by inserting custom Faraday middleware.
+Support for API gateways via `gateway` configuration has been removed. This
+may still be implemented by inserting custom Faraday middleware.
 
 The `Twitter::Error::EnhanceYourCalm` class has been removed, since all Search
 API requests are made via api.twitter.com, which does not return HTTP 420. When

@@ -11,10 +11,10 @@ module Twitter
     DEFAULT_CONNECTION_OPTIONS = {}
 
     # The consumer key if none is set
-    DEFAULT_CONSUMER_KEY = nil
+    DEFAULT_CONSUMER_KEY = ENV['TWITTER_CONSUMER_KEY']
 
     # The consumer secret if none is set
-    DEFAULT_CONSUMER_SECRET = nil
+    DEFAULT_CONSUMER_SECRET = ENV['TWITTER_CONSUMER_SECRET']
 
     # The endpoint that will be used to connect if none is set
     #
@@ -29,10 +29,10 @@ module Twitter
     DEFAULT_MEDIA_ENDPOINT = 'https://upload.twitter.com'
 
     # The oauth token if none is set
-    DEFAULT_OAUTH_TOKEN = nil
+    DEFAULT_OAUTH_TOKEN = ENV['TWITTER_OAUTH_TOKEN']
 
     # The oauth token secret if none is set
-    DEFAULT_OAUTH_TOKEN_SECRET = nil
+    DEFAULT_OAUTH_TOKEN_SECRET = ENV['TWITTER_OAUTH_TOKEN_SECRET']
 
     # The proxy server if none is set
     DEFAULT_PROXY = nil
