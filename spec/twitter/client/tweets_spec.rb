@@ -237,19 +237,65 @@ describe Twitter::Client do
       stub_post("/1/statuses/update_with_media.json", Twitter.media_endpoint).
         to_return(:body => fixture("status_with_media.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
-    it "should request the correct resource" do
-      @client.update_with_media("You always have options", fixture("pbjt.gif"))
-      a_post("/1/statuses/update_with_media.json", Twitter.media_endpoint).
-        should have_been_made
+    context "a gif image" do
+      it "should request the correct resource" do
+        @client.update_with_media("You always have options", fixture("pbjt.gif"))
+        a_post("/1/statuses/update_with_media.json", Twitter.media_endpoint).
+          should have_been_made
+      end
+      it "should return a single status" do
+        status = @client.update_with_media("You always have options", fixture("pbjt.gif"))
+        status.should be_a Twitter::Status
+        status.text.should include("You always have options")
+      end
+      it 'should return the media as an entity' do
+        status = @client.update_with_media("You always have options", fixture("pbjt.gif"))
+        status.media.should be
+      end
     end
-    it "should return a single status" do
-      status = @client.update_with_media("You always have options", fixture("pbjt.gif"))
-      status.should be_a Twitter::Status
-      status.text.should include("You always have options")
+    context "a jpe image" do
+      it "should request the correct resource" do
+        @client.update_with_media("You always have options", fixture("wildcomet2.jpe"))
+        a_post("/1/statuses/update_with_media.json", Twitter.media_endpoint).
+          should have_been_made
+      end
+      it 'should return the media as an entity' do
+        status = @client.update_with_media("You always have options", fixture("wildcomet2.jpe"))
+        status.media.should be
+      end
     end
-    it 'should return the media as an entity' do
-      status = @client.update_with_media("You always have options", fixture("pbjt.gif"))
-      status.media.should be
+    context "a jpeg image" do
+      it "should request the correct resource" do
+        @client.update_with_media("You always have options", fixture("me.jpeg"))
+        a_post("/1/statuses/update_with_media.json", Twitter.media_endpoint).
+          should have_been_made
+      end
+      it 'should return the media as an entity' do
+        status = @client.update_with_media("You always have options", fixture("me.jpeg"))
+        status.media.should be
+      end
+    end
+    context "a png image" do
+      it "should request the correct resource" do
+        @client.update_with_media("You always have options", fixture("we_concept_bg2.png"))
+        a_post("/1/statuses/update_with_media.json", Twitter.media_endpoint).
+          should have_been_made
+      end
+      it 'should return the media as an entity' do
+        status = @client.update_with_media("You always have options", fixture("we_concept_bg2.png"))
+        status.media.should be
+      end
+    end
+    context "an IO" do
+      it "should request the correct resource" do
+        @client.update_with_media("You always have options", {'io' => StringIO.new, 'type' => 'gif'})
+        a_post("/1/statuses/update_with_media.json", Twitter.media_endpoint).
+          should have_been_made
+      end
+      it 'should return the media as an entity' do
+        status = @client.update_with_media("You always have options", {'io' => StringIO.new, 'type' => 'gif'})
+        status.media.should be
+      end
     end
   end
 
