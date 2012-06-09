@@ -39,7 +39,17 @@ wiki][apps]!
 
 ## What's new in version 3?
 
+### Dependencies
+
 The Active Support dependency has been removed!
+
+The default HTTP adapter has been changed to `net-http-persistent`, which
+offers full support for persistent connections, reconnection, and retry
+according to [RFC 2616][].
+
+[RFC 2616]: http://www.ietf.org/rfc/rfc2616.txt
+
+### Methods
 
 The following methods now accept multiple users or ids as arguments and return
 arrays:
@@ -63,6 +73,26 @@ user isn't already being followed. If you don't wish to perform that check
 `Twitter::Client#follow!` method instead. **Note**: This may re-send an email
 notification to the user, even if they are already being followed.
 
+The `Twitter::Client#search` now returns a `Twitter::SearchResult` object,
+which contains metadata and a results array. In the previous major version,
+this method returned an array of `Twitter::Status` objects, which is now
+accessible by sending the `results` message to a `Twitter::SearchResults`
+object.
+
+##### Version 2
+    Twitter::Client.search("query").map(&:full_text)
+
+##### Version 3
+    Twitter::Client.search("query").results.map(&:full_text)
+
+The `Twitter::Status#expanded_urls` method has been removed. Use
+`Twitter::Status#urls` instead.
+
+Support for API gateways via `gateway` configuration has been also removed.
+This functionality may be replicated by inserting custom Faraday middleware.
+
+### Identity Map
+
 This version introduces an identity map, which ensures that the same objects
 only get initialized once:
 
@@ -71,27 +101,7 @@ only get initialized once:
 (In all previous versions of this gem, this statement would have returned
 false.)
 
-The `Twitter::Client#search` now returns a `Twitter::SearchResult` object,
-which contains metadata and a results array. In the previous major version,
-this method returned an array of `Twitter::Status` objects, which is now
-accessible by sending the `results` message to a `Twitter::SearchResults`
-object.
-
-##### Version 2
-    Twitter::Client.search("query").each do |status|
-      puts status.full_text
-    end
-
-##### Version 3
-    Twitter::Client.search("query").results.each do |status|
-      puts status.full_text
-    end
-
-The `Twitter::Status#expanded_urls` method has been removed. Use
-`Twitter::Status#urls` instead.
-
-Support for API gateways via `gateway` configuration has been removed. This
-may still be implemented by inserting custom Faraday middleware.
+### Errors
 
 Any Faraday client errors are captured and re-raised as a
 `Twitter::Error::ClientError`, so there's no longer a need to separately rescue
@@ -102,7 +112,7 @@ API requests are made via api.twitter.com, which does not return HTTP 420. When
 you hit your rate limit, Twitter returns HTTP 400, which raises a
 `Twitter::Error::BadRequest`.
 
-## <a href="performance"></a>Performance
+## Performance
 You can improve performance by preloading a faster JSON parsing library. By
 default, JSON will be parsed with [okjson][]. For faster JSON parsing, we
 recommend [Oj][].
