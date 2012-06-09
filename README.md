@@ -93,6 +93,10 @@ The `Twitter::Status#expanded_urls` method has been removed. Use
 Support for API gateways via `gateway` configuration has been removed. This
 may still be implemented by inserting custom Faraday middleware.
 
+Any Faraday client errors are captured and re-raised as a
+`Twitter::Error::ClientError`, so there's no longer a need to separately rescue
+`Faraday::Error::ClientError`.
+
 The `Twitter::Error::EnhanceYourCalm` class has been removed, since all Search
 API requests are made via api.twitter.com, which does not return HTTP 420. When
 you hit your rate limit, Twitter returns HTTP 400, which raises a

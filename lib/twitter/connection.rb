@@ -36,6 +36,8 @@ module Twitter
         builder.use Twitter::Response::RaiseServerError
         builder.adapter adapter
       end
+    rescue Faraday::Error::ClientError
+      raise Twitter::ClientError
     end
 
   end
