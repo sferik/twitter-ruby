@@ -2,6 +2,21 @@ require 'helper'
 
 describe Twitter::Error do
 
+  describe "#initialize" do
+    it "should wrap another error class" do
+      begin
+        raise Faraday::Error::ClientError.new("Oups")
+      rescue Faraday::Error::ClientError
+        begin
+          raise Twitter::Error
+        rescue Twitter::Error => error
+          error.message.should == "Oups"
+          error.wrapped_exception.class.should == Faraday::Error::ClientError
+        end
+      end
+    end
+  end
+
   describe "#ratelimit_reset" do
     it "should return a Time when X-RateLimit-Reset header is set" do
       error = Twitter::Error.new("Error", {'X-RateLimit-Reset' => "1339019097"})

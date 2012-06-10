@@ -11,10 +11,10 @@ describe Twitter::Connection do
     it "looks like Faraday connection" do
       subject.connection.should respond_to(:run_request)
     end
-
     it "memoizes the connection" do
       c1, c2 = subject.connection, subject.connection
       c1.object_id.should == c2.object_id
     end
   end
+
 end
