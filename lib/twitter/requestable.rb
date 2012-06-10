@@ -54,8 +54,6 @@ module Twitter
         builder.use Twitter::Response::RaiseServerError
         builder.adapter adapter
       end
-    rescue Faraday::Error::ClientError
-      raise Twitter::ClientError
     end
 
     # Perform an HTTP request
@@ -76,6 +74,8 @@ module Twitter
         yield request if block_given?
       end
       options[:raw] ? response : response.body
+    rescue Faraday::Error::ClientError
+      raise Twitter::Error::ClientError
     end
 
   end

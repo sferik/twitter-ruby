@@ -17,4 +17,15 @@ describe Twitter::Requestable do
     end
   end
 
+  describe "#request" do
+    before do
+      subject.stub!(:connection).and_raise(Faraday::Error::ClientError.new("Oups"))
+    end
+    it "catches Faraday errors" do
+      lambda do
+        subject.request(:get, "/path", {}, {})
+      end.should raise_error(Twitter::Error::ClientError, "Oups")
+    end
+  end
+
 end
