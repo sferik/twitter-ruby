@@ -112,6 +112,21 @@ API requests are made via api.twitter.com, which does not return HTTP 420. When
 you hit your rate limit, Twitter returns HTTP 400, which raises a
 `Twitter::Error::BadRequest`.
 
+### Additional notes
+
+This will be the last major version of this library to support Ruby 1.8.
+Requiring Ruby 1.9 will allow us to remove [various][each_with_object]
+[hacks][singleton_class] put in place to maintain Ruby 1.8 compatibility.
+[The first stable version of Ruby 1.9 was released on August 19, 2010.][ruby192]
+If you haven't found the opportunity to upgrade your Ruby interpreter since
+then, let this be your nudge. Once version 4 of this library is released, all
+previous versions will cease to be supported, even if critical security
+vulnerabilities are discovered.
+
+[each_with_object]: https://github.com/jnunemaker/twitter/commit/6052252a07baf7aefe0f100bba0abd2cbb7139bb
+[singleton_class]: https://github.com/jnunemaker/twitter/commit/2ed9db21c87d1218b15373e42a36ad536b07dcbb
+[ruby192]: http://blade.nagaokaut.ac.jp/cgi-bin/scat.rb/ruby/ruby-talk/367983
+
 ## Performance
 You can improve performance by preloading a faster JSON parsing library. By
 default, JSON will be parsed with [okjson][]. For faster JSON parsing, we
