@@ -5,9 +5,27 @@ require 'twitter/request/oauth'
 require 'twitter/response/parse_json'
 require 'twitter/response/raise_client_error'
 require 'twitter/response/raise_server_error'
+require 'uri'
 
 module Twitter
-  module Connection
+  # Defines HTTP request methods
+  module Requestable
+
+    # Perform an HTTP DELETE request
+    def delete(path, params={}, options={})
+      request(:delete, path, params, options)
+    end
+
+    # Perform an HTTP GET request
+    def get(path, params={}, options={})
+      request(:get, path, params, options)
+    end
+
+    # Perform an HTTP POST request
+    def post(path, params={}, options={})
+      request(:post, path, params, options)
+    end
+
   private
 
     # Returns a Faraday::Connection object
@@ -38,6 +56,26 @@ module Twitter
       end
     rescue Faraday::Error::ClientError
       raise Twitter::ClientError
+    end
+
+    # Perform an HTTP request
+    def request(method, path, params, options)
+      if url = options[:endpoint]
+        url = URI(url) unless url.respond_to? :host
+        path = url + path
+      end
+      response = connection.run_request(method.to_sym, path, nil, nil) do |request|
+        request.options[:raw] = true if options[:raw]
+        unless params.empty?
+          if :post == request.method
+            request.body = params
+          else
+            request.params.update params
+          end
+        end
+        yield request if block_given?
+      end
+      options[:raw] ? response : response.body
     end
 
   end

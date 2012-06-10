@@ -1,9 +1,9 @@
 require 'helper'
 
-describe Twitter::Connection do
+describe Twitter::Requestable do
   subject do
     client = Twitter::Client.new
-    client.class_eval{ public *Twitter::Connection.private_instance_methods }
+    client.class_eval{ public *Twitter::Requestable.private_instance_methods }
     client
   end
 
