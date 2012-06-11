@@ -91,6 +91,16 @@ The `Twitter::Status#expanded_urls` method has been removed. Use
 Support for API gateways via `gateway` configuration has been also removed.
 This functionality may be replicated by inserting custom Faraday middleware.
 
+### Authentication
+
+This library now attempts to pull credentials from `ENV` if they are not
+otherwise specified. In `bash`:
+
+    export TWITTER_CONSUMER_KEY=YOUR_CONSUMER_KEY
+    export TWITTER_CONSUMER_SECRET=YOUR_CONSUMER_SECRET
+    export TWITTER_OAUTH_TOKEN=YOUR_OAUTH_TOKEN
+    export TWITTER_OAUTH_TOKEN_SECRET=YOUR_OAUTH_TOKEN_SECRET
+
 ### Identity Map
 
 This version introduces an identity map, which ensures that the same objects
