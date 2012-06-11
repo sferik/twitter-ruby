@@ -32,13 +32,12 @@ describe Twitter::Client do
         @configuration = {
           :consumer_key => 'CK',
           :consumer_secret => 'CS',
+          :endpoint => 'http://tumblr.com/',
+          :media_endpoint => 'https://upload.twitter.com/',
+          :middleware => Proc.new{},
           :oauth_token => 'OT',
           :oauth_token_secret => 'OS',
-          :adapter => :typhoeus,
-          :endpoint => 'http://tumblr.com/',
           :proxy => 'http://erik:sekret@proxy.example.com:8080',
-          :search_endpoint => 'http://google.com/',
-          :media_endpoint => 'https://upload.twitter.com/',
           :user_agent => 'Custom User Agent',
           :connection_options => {:timeout => 10},
         }

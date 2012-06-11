@@ -38,19 +38,6 @@ describe Twitter do
     end
   end
 
-  describe ".adapter" do
-    it "should return the default adapter" do
-      Twitter.adapter.should == Twitter::Config::DEFAULT_ADAPTER
-    end
-  end
-
-  describe ".adapter=" do
-    it "should set the adapter" do
-      Twitter.adapter = :typhoeus
-      Twitter.adapter.should == :typhoeus
-    end
-  end
-
   describe ".endpoint" do
     it "should return the default endpoint" do
       Twitter.endpoint.should == Twitter::Config::DEFAULT_ENDPOINT

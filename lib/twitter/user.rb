@@ -1,4 +1,3 @@
-require 'twitter/authenticatable'
 require 'twitter/core_ext/hash'
 require 'twitter/creatable'
 require 'twitter/identifiable'
@@ -6,7 +5,6 @@ require 'twitter/status'
 
 module Twitter
   class User < Twitter::Identifiable
-    include Twitter::Authenticatable
     include Twitter::Creatable
     attr_reader :all_replies, :blocking, :can_dm, :connections,
       :contributors_enabled, :default_profile, :default_profile_image,

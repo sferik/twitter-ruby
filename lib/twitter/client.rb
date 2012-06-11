@@ -1924,7 +1924,7 @@ module Twitter
     # @example Returns tweets related to twitter
     #   Twitter.search('twitter')
     def search(q, options={})
-      response = get("/search.json", options.merge(:q => q), :endpoint => search_endpoint)
+      response = get("/search.json", options.merge(:q => q))
       Twitter::SearchResults.get_or_new(response)
     end
 

@@ -8,13 +8,13 @@ describe Twitter::Client do
 
   describe "#search" do
     before do
-      stub_get("/search.json", Twitter.search_endpoint).
+      stub_get("/search.json").
         with(:query => {:q => "twitter"}).
         to_return(:body => fixture("/search.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "should request the correct resource" do
       @client.search('twitter')
-      a_get("/search.json", Twitter.search_endpoint).
+      a_get("/search.json").
         with(:query => {:q => "twitter"}).
         should have_been_made
     end
@@ -33,7 +33,7 @@ describe Twitter::Client do
 
     context "when search API responds a malformed result" do
       before do
-        stub_get("/search.json", Twitter.search_endpoint).
+        stub_get("/search.json").
           with(:query => {:q => "twitter"}).
           to_return(:body => fixture("/search_malformed.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end

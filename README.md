@@ -43,12 +43,6 @@ wiki][apps]!
 
 The Active Support dependency has been removed!
 
-The default HTTP adapter has been changed to `net-http-persistent`, which
-offers full support for persistent connections, reconnection, and retry
-according to [RFC 2616][].
-
-[RFC 2616]: http://www.ietf.org/rfc/rfc2616.txt
-
 ### Methods
 
 The following methods now accept multiple users or ids as arguments and return
@@ -90,6 +84,21 @@ The `Twitter::Status#expanded_urls` method has been removed. Use
 
 Support for API gateways via `gateway` configuration has been also removed.
 This functionality may be replicated by inserting custom Faraday middleware.
+
+### Configuration
+
+The Faraday middleware stack is now fully configurable. As a result, we've
+removed `adapter` configuration. If you would like to change the default
+adapter, you can do so in one of two ways:
+
+    Faraday.default_adapter = :some_other_adapter
+
+or
+
+    Twitter.middleware = Proc.new do |builder|
+      # Specify any other middleware you want to use here
+      builder.adapter :some_other_adapter
+    end
 
 ### Authentication
 

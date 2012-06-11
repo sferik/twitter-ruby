@@ -1,11 +1,13 @@
+require 'faraday'
+require 'twitter/request/multipart_with_file'
+require 'twitter/response/parse_json'
+require 'twitter/response/raise_client_error'
+require 'twitter/response/raise_server_error'
 require 'twitter/version'
 
 module Twitter
   # Defines constants and methods related to configuration
   module Config
-
-    # The HTTP connection adapter that will be used to connect if none is set
-    DEFAULT_ADAPTER = :net_http_persistent
 
     # The Faraday connection options if none is set
     DEFAULT_CONNECTION_OPTIONS = {}
@@ -28,6 +30,17 @@ module Twitter
     # This endpoint will be used by default when updating statuses with media
     DEFAULT_MEDIA_ENDPOINT = 'https://upload.twitter.com'
 
+    # The middleware stack if none is set
+    DEFAULT_MIDDLEWARE = Proc.new do |builder|
+      builder.use Twitter::Request::MultipartWithFile
+      builder.use Faraday::Request::Multipart
+      builder.use Faraday::Request::UrlEncoded
+      builder.use Twitter::Response::RaiseClientError
+      builder.use Twitter::Response::ParseJson
+      builder.use Twitter::Response::RaiseServerError
+      builder.adapter Faraday.default_adapter
+    end
+
     # The oauth token if none is set
     DEFAULT_OAUTH_TOKEN = ENV['TWITTER_OAUTH_TOKEN']
 
@@ -37,28 +50,21 @@ module Twitter
     # The proxy server if none is set
     DEFAULT_PROXY = nil
 
-    # The search endpoint that will be used to connect if none is set
-    #
-    # @note This is configurable in case you want to use HTTP instead of HTTPS or use a Twitter-compatible endpoint.
-    # @see http://status.net/wiki/Twitter-compatible_API
-    DEFAULT_SEARCH_ENDPOINT = 'https://search.twitter.com'
-
     # The value sent in the 'User-Agent' header if none is set
     DEFAULT_USER_AGENT = "Twitter Ruby Gem #{Twitter::Version}"
 
     # An array of valid keys in the options hash when configuring a {Twitter::Client}
     VALID_OPTIONS_KEYS = [
-      :adapter,
       :connection_options,
       :consumer_key,
       :consumer_secret,
       :endpoint,
+      :media_endpoint,
+      :middleware,
       :oauth_token,
       :oauth_token_secret,
       :proxy,
-      :search_endpoint,
       :user_agent,
-      :media_endpoint
     ]
 
     attr_accessor *VALID_OPTIONS_KEYS
@@ -83,16 +89,15 @@ module Twitter
 
     # Reset all configuration options to defaults
     def reset
-      self.adapter            = DEFAULT_ADAPTER
       self.connection_options = DEFAULT_CONNECTION_OPTIONS
       self.consumer_key       = DEFAULT_CONSUMER_KEY
       self.consumer_secret    = DEFAULT_CONSUMER_SECRET
       self.endpoint           = DEFAULT_ENDPOINT
       self.media_endpoint     = DEFAULT_MEDIA_ENDPOINT
+      self.middleware         = DEFAULT_MIDDLEWARE
       self.oauth_token        = DEFAULT_OAUTH_TOKEN
       self.oauth_token_secret = DEFAULT_OAUTH_TOKEN_SECRET
       self.proxy              = DEFAULT_PROXY
-      self.search_endpoint    = DEFAULT_SEARCH_ENDPOINT
       self.user_agent         = DEFAULT_USER_AGENT
       self
     end

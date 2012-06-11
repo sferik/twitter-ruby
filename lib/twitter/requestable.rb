@@ -1,10 +1,6 @@
 require 'faraday'
+require 'simple_oauth'
 require 'twitter/core_ext/hash'
-require 'twitter/request/multipart_with_file'
-require 'twitter/request/oauth'
-require 'twitter/response/parse_json'
-require 'twitter/response/raise_client_error'
-require 'twitter/response/raise_server_error'
 require 'uri'
 
 module Twitter
@@ -41,28 +37,29 @@ module Twitter
         },
         :proxy => proxy,
         :ssl => {:verify => false},
-        :url => endpoint,
       }
 
-      @connection = Faraday.new(default_options.deep_merge(connection_options)) do |builder|
-        builder.use Twitter::Request::MultipartWithFile
-        builder.use Twitter::Request::OAuth, credentials if credentials?
-        builder.use Faraday::Request::Multipart
-        builder.use Faraday::Request::UrlEncoded
-        builder.use Twitter::Response::RaiseClientError
-        builder.use Twitter::Response::ParseJson
-        builder.use Twitter::Response::RaiseServerError
-        builder.adapter adapter
-      end
+      options = default_options.deep_merge(connection_options)
+
+      @connection = Faraday.new(endpoint, options, &middleware)
     end
 
     # Perform an HTTP request
     def request(method, path, params, options)
-      if url = options[:endpoint]
-        url = URI(url) unless url.respond_to? :host
-        path = url + path
+      uri = options[:endpoint] || endpoint
+      uri = URI(uri) unless uri.respond_to?(:host)
+      uri += path
+      headers = {}
+      if credentials?
+        signature_params = params
+        params.values.each do |value|
+          signature_params = {} if value.is_a?(Hash)
+        end
+        header = SimpleOAuth::Header.new(method, uri, signature_params, credentials)
+        headers['Authorization'] = header.to_s
       end
-      response = connection.run_request(method.to_sym, path, nil, nil) do |request|
+
+      response = connection.run_request(method.to_sym, path, nil, headers) do |request|
         request.options[:raw] = true if options[:raw]
         unless params.empty?
           if :post == request.method
@@ -73,6 +70,7 @@ module Twitter
         end
         yield request if block_given?
       end
+
       options[:raw] ? response : response.body
     rescue Faraday::Error::ClientError
       raise Twitter::Error::ClientError
