@@ -41,7 +41,7 @@ module Twitter
 
       options = default_options.deep_merge(connection_options)
 
-      @connection = Faraday.new(endpoint, options, &middleware)
+      @connection = Faraday.new(endpoint, options.merge(:builder => middleware))
     end
 
     # Perform an HTTP request
