@@ -59,6 +59,7 @@ module Twitter
         headers['Authorization'] = header.to_s
       end
 
+      connection.url_prefix = options[:endpoint] || endpoint
       response = connection.run_request(method.to_sym, path, nil, headers) do |request|
         request.options[:raw] = true if options[:raw]
         unless params.empty?
