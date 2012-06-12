@@ -64,6 +64,12 @@ describe Twitter do
     end
   end
 
+  describe '.middleware' do
+    it "should return a Faraday::Builder" do
+      Twitter.middleware.should be_kind_of(Faraday::Builder)
+    end
+  end
+
   describe ".configure" do
     Twitter::Config::VALID_OPTIONS_KEYS.each do |key|
       it "should set the #{key}" do

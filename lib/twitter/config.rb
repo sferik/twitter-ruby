@@ -31,7 +31,7 @@ module Twitter
     DEFAULT_MEDIA_ENDPOINT = 'https://upload.twitter.com'
 
     # The middleware stack if none is set
-    DEFAULT_MIDDLEWARE = Proc.new do |builder|
+    DEFAULT_MIDDLEWARE = Faraday::Builder.new(&Proc.new { |builder|
       builder.use Twitter::Request::MultipartWithFile
       builder.use Faraday::Request::Multipart
       builder.use Faraday::Request::UrlEncoded
@@ -39,7 +39,7 @@ module Twitter
       builder.use Twitter::Response::ParseJson
       builder.use Twitter::Response::RaiseServerError
       builder.adapter Faraday.default_adapter
-    end
+    })
 
     # The oauth token if none is set
     DEFAULT_OAUTH_TOKEN = ENV['TWITTER_OAUTH_TOKEN']
