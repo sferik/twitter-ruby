@@ -87,18 +87,29 @@ This functionality may be replicated by inserting custom Faraday middleware.
 
 ### Configuration
 
-The Faraday middleware stack is now fully configurable. As a result, we've
-removed `adapter` configuration. If you would like to change the default
-adapter, you can do so in one of two ways:
+The Faraday middleware stack is now fully configurable and is exposed as a 
+`Faraday::Builder` which can be manipulated in place:
+
+    Twitter.middleware.insert_after Twitter::Response::RaiseClientError, CustomMiddleware
+    
+Likewise, the middleware stack can be replaced in it's entirety:
+
+    Twitter.middleware = Faraday::Builder.new(&Proc.new { |builder|
+      # Specify a middleware stack here
+    })
+
+As part of these configuration changes we've removed `adapter` configuration. 
+If you would like to change the adapter used, you can do so by setting Faraday's
+`default_adapter`:
 
     Faraday.default_adapter = :some_other_adapter
+    
+The adapter can also be configured as part of the middleware stack:
 
-or
-
-    Twitter.middleware = Proc.new do |builder|
-      # Specify any other middleware you want to use here
+    Twitter.middleware = Faraday::Builder.new(&Proc.new { |builder|
+      # Specify a middleware stack here
       builder.adapter :some_other_adapter
-    end
+    })
 
 ### Authentication
 
