@@ -12,17 +12,17 @@ describe Twitter::Status do
   end
 
   describe "#==" do
-    it "should return true when ids and classes are equal" do
+    it "returns true when ids and classes are equal" do
       status = Twitter::Status.new('id' => 1)
       other = Twitter::Status.new('id' => 1)
       (status == other).should be_true
     end
-    it "should return false when classes are not equal" do
+    it "returns false when classes are not equal" do
       status = Twitter::Status.new('id' => 1)
       other = Twitter::User.new('id' => 1)
       (status == other).should be_false
     end
-    it "should return false when ids are not equal" do
+    it "returns false when ids are not equal" do
       status = Twitter::Status.new('id' => 1)
       other = Twitter::Status.new('id' => 2)
       (status == other).should be_false
@@ -30,68 +30,68 @@ describe Twitter::Status do
   end
 
   describe "#created_at" do
-    it "should return a Time when set" do
+    it "returns a Time when set" do
       status = Twitter::Status.new('created_at' => "Mon Jul 16 12:59:01 +0000 2007")
       status.created_at.should be_a Time
     end
-    it "should return nil when not set" do
+    it "returns nil when not set" do
       status = Twitter::Status.new
       status.created_at.should be_nil
     end
   end
 
   describe "#from_user" do
-    it "should return a screen name when from_user is set" do
+    it "returns a screen name when from_user is set" do
       status = Twitter::Status.new('from_user' => 'sferik')
       status.from_user.should be_a String
       status.from_user.should == "sferik"
     end
-    it "should return a screen name when screen_name is set" do
+    it "returns a screen name when screen_name is set" do
       status = Twitter::Status.new('user' => {'screen_name' => 'sferik'})
       status.from_user.should be_a String
       status.from_user.should == "sferik"
     end
-    it "should return nil when not set" do
+    it "returns nil when not set" do
       status = Twitter::Status.new
       status.from_user.should be_nil
     end
   end
 
   describe "#full_text" do
-    it "should return the text of a status" do
+    it "returns the text of a status" do
       status = Twitter::Status.new('text' => 'BOOSH')
       status.full_text.should be_a String
       status.full_text.should == "BOOSH"
     end
-    it "should return the text of a status without a user" do
+    it "returns the text of a status without a user" do
       status = Twitter::Status.new('text' => 'BOOSH', 'retweeted_status' => {'text' => 'BOOSH'})
       status.full_text.should be_a String
       status.full_text.should == "BOOSH"
     end
-    it "should return the full text of a retweeted status" do
+    it "returns the full text of a retweeted status" do
       status = Twitter::Status.new('retweeted_status' => {'text' => 'BOOSH', 'user' => {'screen_name' => 'sferik'}})
       status.full_text.should be_a String
       status.full_text.should == "RT @sferik: BOOSH"
     end
-    it "should return nil when retweeted_status is not set" do
+    it "returns nil when retweeted_status is not set" do
       status = Twitter::Status.new
       status.full_text.should be_nil
     end
   end
 
   describe "#geo" do
-    it "should return a Twitter::Point when set" do
+    it "returns a Twitter::Point when set" do
       status = Twitter::Status.new('geo' => {'type' => 'Point'})
       status.geo.should be_a Twitter::Point
     end
-    it "should return nil when not set" do
+    it "returns nil when not set" do
       status = Twitter::Status.new
       status.geo.should be_nil
     end
   end
 
   describe "#hashtags" do
-    it "should return an Array of Entity::Hashtag when entities are set" do
+    it "returns an Array of Entity::Hashtag when entities are set" do
       hashtags_hash = [{'text' => 'twitter',
           'indices' => [10, 33]}]
       hashtags = Twitter::Status.new('entities' => {'hashtags' => hashtags_hash}).hashtags
@@ -100,38 +100,38 @@ describe Twitter::Status do
       hashtags.first.indices.should == [10, 33]
       hashtags.first.text.should == 'twitter'
     end
-    it "should return nil when not set" do
+    it "returns nil when not set" do
       hashtags = Twitter::Status.new.hashtags
       hashtags.should be_nil
     end
-    it "should warn when not set" do
+    it "warns when not set" do
       Twitter::Status.new.hashtags
       $stderr.string.should =~ /To get hashtags, you must pass `:include_entities => true` when requesting the Twitter::Status\./
     end
   end
 
   describe "#media" do
-    it "should return media" do
+    it "returns media" do
       media = Twitter::Status.new('entities' => {'media' => [{'type' => 'photo'}]}).media
       media.should be_an Array
       media.first.should be_a Twitter::Photo
     end
-    it "should return nil when not set" do
+    it "returns nil when not set" do
       media = Twitter::Status.new.media
       media.should be_nil
     end
-    it "should warn when not set" do
+    it "warns when not set" do
       Twitter::Status.new.media
       $stderr.string.should =~ /To get media, you must pass `:include_entities => true` when requesting the Twitter::Status\./
     end
   end
 
   describe "#metadata" do
-    it "should return a User when user is set" do
+    it "returns a User when user is set" do
       metadata = Twitter::Status.new('metadata' => {}).metadata
       metadata.should be_a Twitter::Metadata
     end
-    it "should return nil when user is not set" do
+    it "returns nil when user is not set" do
       metadata = Twitter::Status.new.metadata
       metadata.should be_nil
     end
@@ -143,17 +143,17 @@ describe Twitter::Status do
         to_return(:body => fixture("oembed.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       @status = Twitter::Status.new('id' => 25938088801)
     end
-    it "should request the correct resource" do
+    it "requests the correct resource" do
       @status.oembed
       a_get("/1/statuses/oembed.json?id=25938088801").
         should have_been_made
     end
-    it "should return an OEmbed instance" do
+    it "returns an OEmbed instance" do
       oembed = @status.oembed
       oembed.should be_a Twitter::OEmbed
     end
     context "without an id" do
-      it "should return nil" do
+      it "returns nil" do
         status = Twitter::Status.new
         status.oembed.should be_nil
       end
@@ -161,50 +161,50 @@ describe Twitter::Status do
   end
 
   describe "#place" do
-    it "should return a Twitter::Place when set" do
+    it "returns a Twitter::Place when set" do
       status = Twitter::Status.new('place' => {})
       status.place.should be_a Twitter::Place
     end
-    it "should return nil when not set" do
+    it "returns nil when not set" do
       status = Twitter::Status.new
       status.place.should be_nil
     end
   end
 
   describe "#retweeters_count" do
-    it "should return the count of favoriters when retweet_count is set" do
+    it "returns the count of favoriters when retweet_count is set" do
       status = Twitter::Status.new('retweet_count' => '1')
       status.retweeters_count.should be_a String
       status.retweeters_count.should == "1"
     end
-    it "should return the count of favoriters when retweeters_count is set" do
+    it "returns the count of favoriters when retweeters_count is set" do
       status = Twitter::Status.new('retweeters_count' => '1')
       status.retweeters_count.should be_a String
       status.retweeters_count.should == "1"
     end
-    it "should return nil when not set" do
+    it "returns nil when not set" do
       status = Twitter::Status.new
       status.retweeters_count.should be_nil
     end
   end
 
   describe "#retweeted_status" do
-    it "should return a Status when retweeted_status is set" do
+    it "returns a Status when retweeted_status is set" do
       status = Twitter::Status.new('retweeted_status' => {'text' => 'BOOSH'})
       status.retweeted_status.should be_a Twitter::Status
     end
-    it "should return nil when retweeted_status is not set" do
+    it "returns nil when retweeted_status is not set" do
       status = Twitter::Status.new
       status.retweeted_status.should be_nil
     end
-    it "should have text when retweeted_status is set" do
+    it "has text when retweeted_status is set" do
       status = Twitter::Status.new('retweeted_status' => {'text' => 'BOOSH'})
       status.retweeted_status.text.should == 'BOOSH'
     end
   end
 
   describe "#urls" do
-    it "should return an Array of Entity::Url when entities are set" do
+    it "returns an Array of Entity::Url when entities are set" do
       urls_hash = [{'url' => 'http://example.com/t.co',
           'expanded_url' => 'http://example.com/expanded',
           'display_url' => 'example.com/expanded',
@@ -215,26 +215,26 @@ describe Twitter::Status do
       urls.first.indices.should == [10, 33]
       urls.first.display_url.should == 'example.com/expanded'
     end
-    it "should return nil when not set" do
+    it "returns nil when not set" do
       urls = Twitter::Status.new.urls
       urls.should be_nil
     end
-    it "should warn when not set" do
+    it "warns when not set" do
       Twitter::Status.new.urls
       $stderr.string.should =~ /To get URLs, you must pass `:include_entities => true` when requesting the Twitter::Status\./
     end
   end
 
   describe "#user" do
-    it "should return a User when user is set" do
+    it "returns a User when user is set" do
       user = Twitter::Status.new('user' => {}).user
       user.should be_a Twitter::User
     end
-    it "should return nil when user is not set" do
+    it "returns nil when user is not set" do
       user = Twitter::Status.new.user
       user.should be_nil
     end
-    it "should have a status when status is set" do
+    it "has a status when status is set" do
       user = Twitter::Status.new('text' => 'Tweet text.', 'user' => {}).user
       user.status.should be_a Twitter::Status
       user.status.text.should == 'Tweet text.'
@@ -242,7 +242,7 @@ describe Twitter::Status do
   end
 
   describe "#user_mentions" do
-    it "should return an Array of Entity::User_Mention when entities are set" do
+    it "returns an Array of Entity::User_Mention when entities are set" do
       user_mentions_hash = [{'screen_name'=>'sferik',
           'name'=>'Erik Michaels-Ober',
           'id_str'=>'7505382',
@@ -254,11 +254,11 @@ describe Twitter::Status do
       user_mentions.first.indices.should == [0, 6]
       user_mentions.first.screen_name.should == 'sferik'
     end
-    it "should return nil when not set" do
+    it "returns nil when not set" do
       user_mentions = Twitter::Status.new.user_mentions
       user_mentions.should be_nil
     end
-    it "should warn when not set" do
+    it "warns when not set" do
       Twitter::Status.new.user_mentions
       $stderr.string.should =~ /To get user mentions, you must pass `:include_entities => true` when requesting the Twitter::Status\./
     end

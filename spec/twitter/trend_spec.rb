@@ -7,11 +7,11 @@ describe Twitter::Trend do
   end
 
   describe "#==" do
-    it "should return true when names are equal" do
+    it "returns true when names are equal" do
       other = Twitter::Trend.new('name' => '#sevenwordsaftersex')
       (@trend == other).should be_true
     end
-    it "should return false when coordinates are not equal" do
+    it "returns false when coordinates are not equal" do
       other = Twitter::Trend.new('name' => '#sixwordsaftersex')
       (@trend == other).should be_false
     end

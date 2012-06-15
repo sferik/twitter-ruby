@@ -23,7 +23,7 @@ describe Faraday::Response do
             to_return(:status => status)
         end
 
-        it "should raise #{exception.name} error" do
+        it "raises #{exception.name}" do
           lambda do
             @client.user_timeline('sferik')
           end.should raise_error(exception)
@@ -39,7 +39,7 @@ describe Faraday::Response do
               to_return(:status => status, :body => body_message)
           end
 
-          it "should raise #{exception.name} error" do
+          it "raises #{exception.name}" do
             lambda do
               @client.user_timeline('sferik')
             end.should raise_error(exception)
@@ -55,7 +55,7 @@ describe Faraday::Response do
         with(:query => {:screen_name => "not_on_twitter"}).
         to_return(:status => 404, :body => fixture('no_user_matches.json'))
     end
-    it "should raise Twitter::Error::NotFound" do
+    it "raises Twitter::Error::NotFound" do
       lambda do
         @client.users('not_on_twitter')
       end.should raise_error(Twitter::Error::NotFound)

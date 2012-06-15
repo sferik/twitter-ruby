@@ -12,13 +12,13 @@ describe Twitter::Client do
         with(:query => {:date => "2010-10-24"}).
         to_return(:body => fixture("trends_daily.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
-    it "should request the correct resource" do
+    it "requests the correct resource" do
       @client.trends_daily(Date.parse("2010-10-24"))
       a_get("/1/trends/daily.json").
         with(:query => {:date => "2010-10-24"}).
         should have_been_made
     end
-    it "should return the top 20 trending topics for each hour in a given day" do
+    it "returns the top 20 trending topics for each hour in a given day" do
       trends = @client.trends_daily(Date.parse("2010-10-24"))
       trends.should be_a Hash
       trends["2010-10-24 17:00"].should be_an Array
@@ -33,13 +33,13 @@ describe Twitter::Client do
         with(:query => {:date => "2010-10-24"}).
         to_return(:body => fixture("trends_weekly.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
-    it "should request the correct resource" do
+    it "requests the correct resource" do
       @client.trends_weekly(Date.parse("2010-10-24"))
       a_get("/1/trends/weekly.json").
         with(:query => {:date => "2010-10-24"}).
         should have_been_made
     end
-    it "should return the top 30 trending topics for each day in a given week" do
+    it "returns the top 30 trending topics for each day in a given week" do
       trends = @client.trends_weekly(Date.parse("2010-10-24"))
       trends.should be_a Hash
       trends["2010-10-24"].should be_an Array
