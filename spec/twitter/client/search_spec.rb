@@ -12,13 +12,13 @@ describe Twitter::Client do
         with(:query => {:q => "twitter"}).
         to_return(:body => fixture("/search.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
-    it "should request the correct resource" do
+    it "requests the correct resource" do
       @client.search('twitter')
       a_get("/search.json").
         with(:query => {:q => "twitter"}).
         should have_been_made
     end
-    it "should return recent statuses related to a query with images and videos embedded" do
+    it "returns recent statuses related to a query with images and videos embedded" do
       search = @client.search('twitter')
       search.should be_a Twitter::SearchResults
       search.results.should be_an Array
@@ -26,7 +26,7 @@ describe Twitter::Client do
       search.results.first.text.should == "@KaiserKuo from not too far away your new twitter icon looks like Vader."
     end
 
-    it "should return the max_id value for a search result" do
+    it "returns the max_id value for a search result" do
       search = @client.search('twitter')
       search.max_id.should eq(28857935752)
     end
@@ -38,7 +38,7 @@ describe Twitter::Client do
           to_return(:body => fixture("/search_malformed.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
 
-      it "should return an empty array" do
+      it "returns an empty array" do
         search = @client.search('twitter')
         search.results.should be_an Array
         search.results.should be_empty
@@ -52,13 +52,13 @@ describe Twitter::Client do
         with(:query => {:q => "twitter"}).
         to_return(:body => fixture("phoenix_search.phoenix"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
-    it "should request the correct resource" do
+    it "requests the correct resource" do
       @client.phoenix_search('twitter')
       a_get("/phoenix_search.phoenix").
         with(:query => {:q => "twitter"}).
         should have_been_made
     end
-    it "should return recent statuses related to a query with images and videos embedded" do
+    it "returns recent statuses related to a query with images and videos embedded" do
       search = @client.phoenix_search('twitter')
       search.should be_an Array
       search.first.should be_a Twitter::Status

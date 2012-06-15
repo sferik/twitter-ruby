@@ -11,12 +11,12 @@ describe Twitter::Client do
       stub_get("/1/help/configuration.json").
         to_return(:body => fixture("configuration.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
-    it "should request the correct resource" do
+    it "requests the correct resource" do
       @client.configuration
       a_get("/1/help/configuration.json").
         should have_been_made
     end
-    it "should return Twitter's current configuration" do
+    it "returns Twitter's current configuration" do
       configuration = @client.configuration
       configuration.should be_a Twitter::Configuration
       configuration.characters_reserved_per_media.should == 20
@@ -28,12 +28,12 @@ describe Twitter::Client do
       stub_get("/1/help/languages.json").
         to_return(:body => fixture("languages.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
-    it "should request the correct resource" do
+    it "requests the correct resource" do
       @client.languages
       a_get("/1/help/languages.json").
         should have_been_made
     end
-    it "should return the list of languages supported by Twitter" do
+    it "returns the list of languages supported by Twitter" do
       languages = @client.languages
       languages.should be_an Array
       languages.first.should be_a Twitter::Language

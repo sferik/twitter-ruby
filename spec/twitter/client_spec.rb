@@ -19,7 +19,7 @@ describe Twitter::Client do
       Twitter.reset
     end
 
-    it "should inherit module configuration" do
+    it "inherits the module configuration" do
       api = Twitter::Client.new
       @keys.each do |key|
         api.send(key).should == key
@@ -44,7 +44,7 @@ describe Twitter::Client do
       end
 
       context "during initialization" do
-        it "should override module configuration" do
+        it "overrides the module configuration" do
           api = Twitter::Client.new(@configuration)
           @keys.each do |key|
             api.send(key).should == @configuration[key]
@@ -53,7 +53,7 @@ describe Twitter::Client do
       end
 
       context "after initilization" do
-        it "should override module configuration after initialization" do
+        it "overrides the module configuration after initialization" do
           api = Twitter::Client.new
           @configuration.each do |key, value|
             api.send("#{key}=", value)
@@ -67,7 +67,7 @@ describe Twitter::Client do
     end
   end
 
-  it "should not cache the screen name across clients" do
+  it "does not cache the screen name across clients" do
     stub_get("/1/account/verify_credentials.json").
       to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     client1 = Twitter::Client.new
@@ -78,7 +78,7 @@ describe Twitter::Client do
     client2.current_user.screen_name.should == 'pengwynn'
   end
 
-  it "should recursively merge connection options" do
+  it "recursively merges connection options" do
     stub_get("/1/statuses/user_timeline.json").
       with(:query => {:screen_name => "sferik"}, :headers => {"Accept" => "application/json", "User-Agent" => "Custom User Agent"}).
       to_return(:body => fixture("statuses.json"), :headers => {:content_type => "application/json; charset=utf-8"})

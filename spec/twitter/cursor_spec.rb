@@ -7,7 +7,7 @@ describe Twitter::Cursor do
       before do
         @cursor = Twitter::Cursor.new({'previous_cursor' => 0}, 'ids')
       end
-      it "should return true" do
+      it "returns true" do
         @cursor.first?.should be_true
       end
     end
@@ -15,7 +15,7 @@ describe Twitter::Cursor do
       before do
         @cursor = Twitter::Cursor.new({'previous_cursor' => 1}, 'ids')
       end
-      it "should return true" do
+      it "returns true" do
         @cursor.first?.should be_false
       end
     end
@@ -26,7 +26,7 @@ describe Twitter::Cursor do
       before do
         @cursor = Twitter::Cursor.new({'next_cursor' => 0}, 'ids')
       end
-      it "should return true" do
+      it "returns true" do
         @cursor.last?.should be_true
       end
     end
@@ -34,7 +34,7 @@ describe Twitter::Cursor do
       before do
         @cursor = Twitter::Cursor.new({'next_cursor' => 1}, 'ids')
       end
-      it "should return false" do
+      it "returns false" do
         @cursor.last?.should be_false
       end
     end

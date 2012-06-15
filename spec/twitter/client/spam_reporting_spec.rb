@@ -12,13 +12,13 @@ describe Twitter::Client do
         with(:body => {:screen_name => "sferik"}).
         to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
-    it "should request the correct resource" do
+    it "requests the correct resource" do
       @client.report_spam("sferik")
       a_post("/1/report_spam.json").
         with(:body => {:screen_name => "sferik"}).
         should have_been_made
     end
-    it "should return an array of users" do
+    it "returns an array of users" do
       users = @client.report_spam("sferik")
       users.should be_an Array
       users.first.should be_a Twitter::User
