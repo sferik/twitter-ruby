@@ -12,12 +12,12 @@ describe Twitter::Client do
         stub_get("/1/favorites/sferik.json").
           to_return(:body => fixture("favorites.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
-      it "should request the correct resource" do
+      it "requests the correct resource" do
         @client.favorites("sferik")
         a_get("/1/favorites/sferik.json").
           should have_been_made
       end
-      it "should return the 20 most recent favorite statuses for the authenticating user or user specified by the ID parameter" do
+      it "returns the 20 most recent favorite statuses for the authenticating user or user specified by the ID parameter" do
         favorites = @client.favorites("sferik")
         favorites.should be_an Array
         favorites.first.should be_a Twitter::Status
@@ -29,12 +29,12 @@ describe Twitter::Client do
         stub_get("/1/favorites.json").
           to_return(:body => fixture("favorites.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
-      it "should request the correct resource" do
+      it "requests the correct resource" do
         @client.favorites
         a_get("/1/favorites.json").
           should have_been_made
       end
-      it "should return the 20 most recent favorite statuses for the authenticating user or user specified by the ID parameter" do
+      it "returns the 20 most recent favorite statuses for the authenticating user or user specified by the ID parameter" do
         favorites = @client.favorites
         favorites.should be_an Array
         favorites.first.should be_a Twitter::Status
@@ -48,12 +48,12 @@ describe Twitter::Client do
       stub_post("/1/favorites/create/25938088801.json").
         to_return(:body => fixture("status.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
-    it "should request the correct resource" do
+    it "requests the correct resource" do
       @client.favorite(25938088801)
       a_post("/1/favorites/create/25938088801.json").
         should have_been_made
     end
-    it "should return an array of favorited statuses" do
+    it "returns an array of favorited statuses" do
       statuses = @client.favorite(25938088801)
       statuses.should be_an Array
       statuses.first.should be_a Twitter::Status
@@ -66,12 +66,12 @@ describe Twitter::Client do
       stub_delete("/1/favorites/destroy/25938088801.json").
         to_return(:body => fixture("status.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
-    it "should request the correct resource" do
+    it "requests the correct resource" do
       @client.unfavorite(25938088801)
       a_delete("/1/favorites/destroy/25938088801.json").
         should have_been_made
     end
-    it "should return an array of un-favorited statuses" do
+    it "returns an array of un-favorited statuses" do
       statuses = @client.unfavorite(25938088801)
       statuses.should be_an Array
       statuses.first.should be_a Twitter::Status

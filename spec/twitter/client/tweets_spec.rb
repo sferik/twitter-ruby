@@ -12,12 +12,12 @@ describe Twitter::Client do
         stub_get("/1/statuses/27467028175/retweeted_by/ids.json").
           to_return(:body => fixture("ids.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
-      it "should request the correct resource" do
+      it "requests the correct resource" do
         @client.retweeters_of(27467028175, :ids_only => true)
         a_get("/1/statuses/27467028175/retweeted_by/ids.json").
           should have_been_made
       end
-      it "should return an array of numeric user IDs of retweeters of a status" do
+      it "returns an array of numeric user IDs of retweeters of a status" do
         ids = @client.retweeters_of(27467028175, :ids_only => true)
         ids.should be_an Array
         ids.first.should == 47
@@ -28,12 +28,12 @@ describe Twitter::Client do
         stub_get("/1/statuses/27467028175/retweeted_by.json").
           to_return(:body => fixture("retweeters_of.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
-      it "should request the correct resource" do
+      it "requests the correct resource" do
         @client.retweeters_of(27467028175)
         a_get("/1/statuses/27467028175/retweeted_by.json").
           should have_been_made
       end
-      it "should return an array of user of retweeters of a status" do
+      it "returns an array of user of retweeters of a status" do
         users = @client.retweeters_of(27467028175)
         users.should be_an Array
         users.first.should be_a Twitter::User
@@ -47,12 +47,12 @@ describe Twitter::Client do
       stub_get("/1/statuses/retweets/28561922516.json").
         to_return(:body => fixture("retweets.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
-    it "should request the correct resource" do
+    it "requests the correct resource" do
       @client.retweets(28561922516)
       a_get("/1/statuses/retweets/28561922516.json").
         should have_been_made
     end
-    it "should return up to 100 of the first retweets of a given tweet" do
+    it "returns up to 100 of the first retweets of a given tweet" do
       statuses = @client.retweets(28561922516)
       statuses.should be_an Array
       statuses.first.should be_a Twitter::Status
@@ -65,12 +65,12 @@ describe Twitter::Client do
       stub_get("/1/statuses/show/25938088801.json").
         to_return(:body => fixture("status.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
-    it "should request the correct resource" do
+    it "requests the correct resource" do
       @client.status(25938088801)
       a_get("/1/statuses/show/25938088801.json").
         should have_been_made
     end
-    it "should return a status" do
+    it "returns a status" do
       status = @client.status(25938088801)
       status.should be_a Twitter::Status
       status.text.should == "@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!"
@@ -82,12 +82,12 @@ describe Twitter::Client do
       stub_get("/1/statuses/show/25938088801.json").
         to_return(:body => fixture("status.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
-    it "should request the correct resource" do
+    it "requests the correct resource" do
       @client.statuses(25938088801)
       a_get("/1/statuses/show/25938088801.json").
         should have_been_made
     end
-    it "should return an array of statuses" do
+    it "returns an array of statuses" do
       statuses = @client.statuses(25938088801)
       statuses.should be_an Array
       statuses.first.should be_a Twitter::Status
@@ -100,12 +100,12 @@ describe Twitter::Client do
       stub_get("/i/statuses/25938088801/activity/summary.json").
         to_return(:body => fixture("activity_summary.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
-    it "should request the correct resource" do
+    it "requests the correct resource" do
       @client.status_activity(25938088801)
       a_get("/i/statuses/25938088801/activity/summary.json").
         should have_been_made
     end
-    it "should return a status" do
+    it "returns a status" do
       status = @client.status_activity(25938088801)
       status.should be_a Twitter::Status
       status.retweeters_count.should == "1"
@@ -117,12 +117,12 @@ describe Twitter::Client do
       stub_get("/i/statuses/25938088801/activity/summary.json").
         to_return(:body => fixture("activity_summary.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
-    it "should request the correct resource" do
+    it "requests the correct resource" do
       @client.statuses_activity(25938088801)
       a_get("/i/statuses/25938088801/activity/summary.json").
         should have_been_made
     end
-    it "should return an array of statuses" do
+    it "returns an array of statuses" do
       statuses = @client.statuses_activity(25938088801)
       statuses.should be_an Array
       statuses.first.should be_a Twitter::Status
@@ -137,14 +137,14 @@ describe Twitter::Client do
       stub_get("/1/statuses/show/25938088801.json").
         to_return(:body => fixture("status.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
-    it "should request the correct resource" do
+    it "requests the correct resource" do
       @client.status_with_activity(25938088801)
       a_get("/i/statuses/25938088801/activity/summary.json").
         should have_been_made
       a_get("/1/statuses/show/25938088801.json").
         should have_been_made
     end
-    it "should return a status" do
+    it "returns a status" do
       status = @client.status_with_activity(25938088801)
       status.should be_a Twitter::Status
       status.text.should == "@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!"
@@ -159,14 +159,14 @@ describe Twitter::Client do
       stub_get("/1/statuses/show/25938088801.json").
         to_return(:body => fixture("status.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
-    it "should request the correct resource" do
+    it "requests the correct resource" do
       @client.statuses_with_activity(25938088801)
       a_get("/i/statuses/25938088801/activity/summary.json").
         should have_been_made
       a_get("/1/statuses/show/25938088801.json").
         should have_been_made
     end
-    it "should return an array of statuses" do
+    it "returns an array of statuses" do
       statuses = @client.statuses_with_activity(25938088801)
       statuses.should be_an Array
       statuses.first.should be_a Twitter::Status
@@ -180,12 +180,12 @@ describe Twitter::Client do
       stub_delete("/1/statuses/destroy/25938088801.json").
         to_return(:body => fixture("status.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
-    it "should request the correct resource" do
+    it "requests the correct resource" do
       @client.status_destroy(25938088801)
       a_delete("/1/statuses/destroy/25938088801.json").
         should have_been_made
     end
-    it "should return an array of statuses" do
+    it "returns an array of statuses" do
       statuses = @client.status_destroy(25938088801)
       statuses.should be_an Array
       statuses.first.should be_a Twitter::Status
@@ -198,12 +198,12 @@ describe Twitter::Client do
       stub_post("/1/statuses/retweet/28561922516.json").
         to_return(:body => fixture("retweet.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
-    it "should request the correct resource" do
+    it "requests the correct resource" do
       @client.retweet(28561922516)
       a_post("/1/statuses/retweet/28561922516.json").
         should have_been_made
     end
-    it "should return an array of tweets with retweet details embedded" do
+    it "returns an array of tweets with retweet details embedded" do
       statuses = @client.retweet(28561922516)
       statuses.should be_an Array
       statuses.first.should be_a Twitter::Status
@@ -219,13 +219,13 @@ describe Twitter::Client do
         with(:body => {:status => "@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!"}).
         to_return(:body => fixture("status.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
-    it "should request the correct resource" do
+    it "requests the correct resource" do
       @client.update("@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!")
       a_post("/1/statuses/update.json").
         with(:body => {:status => "@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!"}).
         should have_been_made
     end
-    it "should return a single status" do
+    it "returns a single status" do
       status = @client.update("@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!")
       status.should be_a Twitter::Status
       status.text.should == "@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!"
@@ -238,61 +238,61 @@ describe Twitter::Client do
         to_return(:body => fixture("status_with_media.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     context "a gif image" do
-      it "should request the correct resource" do
+      it "requests the correct resource" do
         @client.update_with_media("You always have options", fixture("pbjt.gif"))
         a_post("/1/statuses/update_with_media.json", Twitter.media_endpoint).
           should have_been_made
       end
-      it "should return a single status" do
+      it "returns a single status" do
         status = @client.update_with_media("You always have options", fixture("pbjt.gif"))
         status.should be_a Twitter::Status
         status.text.should include("You always have options")
       end
-      it 'should return the media as an entity' do
+      it 'returns the media as an entity' do
         status = @client.update_with_media("You always have options", fixture("pbjt.gif"))
         status.media.should be
       end
     end
     context "a jpe image" do
-      it "should request the correct resource" do
+      it "requests the correct resource" do
         @client.update_with_media("You always have options", fixture("wildcomet2.jpe"))
         a_post("/1/statuses/update_with_media.json", Twitter.media_endpoint).
           should have_been_made
       end
-      it 'should return the media as an entity' do
+      it 'returns the media as an entity' do
         status = @client.update_with_media("You always have options", fixture("wildcomet2.jpe"))
         status.media.should be
       end
     end
     context "a jpeg image" do
-      it "should request the correct resource" do
+      it "requests the correct resource" do
         @client.update_with_media("You always have options", fixture("me.jpeg"))
         a_post("/1/statuses/update_with_media.json", Twitter.media_endpoint).
           should have_been_made
       end
-      it 'should return the media as an entity' do
+      it 'returns the media as an entity' do
         status = @client.update_with_media("You always have options", fixture("me.jpeg"))
         status.media.should be
       end
     end
     context "a png image" do
-      it "should request the correct resource" do
+      it "requests the correct resource" do
         @client.update_with_media("You always have options", fixture("we_concept_bg2.png"))
         a_post("/1/statuses/update_with_media.json", Twitter.media_endpoint).
           should have_been_made
       end
-      it 'should return the media as an entity' do
+      it 'returns the media as an entity' do
         status = @client.update_with_media("You always have options", fixture("we_concept_bg2.png"))
         status.media.should be
       end
     end
     context "an IO" do
-      it "should request the correct resource" do
+      it "requests the correct resource" do
         @client.update_with_media("You always have options", {'io' => StringIO.new, 'type' => 'gif'})
         a_post("/1/statuses/update_with_media.json", Twitter.media_endpoint).
           should have_been_made
       end
-      it 'should return the media as an entity' do
+      it 'returns the media as an entity' do
         status = @client.update_with_media("You always have options", {'io' => StringIO.new, 'type' => 'gif'})
         status.media.should be
       end
@@ -304,12 +304,12 @@ describe Twitter::Client do
       stub_get("/1/statuses/oembed.json?id=25938088801").
         to_return(:body => fixture("oembed.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
-    it "should request the correct resource" do
+    it "requests the correct resource" do
       @client.oembed(25938088801)
       a_get("/1/statuses/oembed.json?id=25938088801").
         should have_been_made
     end
-    it "should return an array of OEmbed instances" do
+    it "returns an array of OEmbed instances" do
       oembed = @client.oembed(25938088801)
       oembed.should be_a Twitter::OEmbed
     end
@@ -320,12 +320,12 @@ describe Twitter::Client do
       stub_get("/1/statuses/oembed.json?id=25938088801").
         to_return(:body => fixture("oembed.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
-    it "should request the correct resource" do
+    it "requests the correct resource" do
       @client.oembeds(25938088801)
       a_get("/1/statuses/oembed.json?id=25938088801").
         should have_been_made
     end
-    it "should return an array of OEmbed instances" do
+    it "returns an array of OEmbed instances" do
       oembeds = @client.oembeds(25938088801)
       oembeds.should be_an Array
       oembeds.first.should be_a Twitter::OEmbed
