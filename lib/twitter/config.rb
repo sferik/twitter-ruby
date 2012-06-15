@@ -31,14 +31,18 @@ module Twitter
     DEFAULT_MEDIA_ENDPOINT = 'https://upload.twitter.com'
 
     # The middleware stack if none is set
+    #
+    # @note Faraday's middleware stack implementation is comparable to that of Rack middleware.  The order of middleware is important: the first middleware on the list wraps all others, while the last middleware is the innermost one.
+    # @see https://github.com/technoweenie/faraday#advanced-middleware-usage
+    # @see http://mislav.uniqpath.com/2011/07/faraday-advanced-http/
     DEFAULT_MIDDLEWARE = Faraday::Builder.new(&Proc.new { |builder|
-      builder.use Twitter::Request::MultipartWithFile
-      builder.use Faraday::Request::Multipart
-      builder.use Faraday::Request::UrlEncoded
-      builder.use Twitter::Response::RaiseClientError
-      builder.use Twitter::Response::ParseJson
-      builder.use Twitter::Response::RaiseServerError
-      builder.adapter Faraday.default_adapter
+      builder.use Twitter::Request::MultipartWithFile   # convert file uploads to Faraday::UploadIO objects
+      builder.use Faraday::Request::Multipart           # checks for files in the payload
+      builder.use Faraday::Request::UrlEncoded          # convert request params as "www-form-urlencoded"
+      builder.use Twitter::Response::RaiseClientError   # handle 4xx server responses
+      builder.use Twitter::Response::ParseJson          # parse JSON response bodies using MultiJson
+      builder.use Twitter::Response::RaiseServerError   # handle 5xx server responses
+      builder.adapter Faraday.default_adapter           # set Faraday's HTTP adapter
     })
 
     # The oauth token if none is set
