@@ -11,7 +11,7 @@ describe Twitter::SearchResults do
     it "is an empty array if no search results passed" do
       search_results = Twitter::SearchResults.new
       search_results.results.should be_a Array
-      search_results.results.should == []
+      search_results.results.should eq []
     end
   end
 

@@ -20,7 +20,7 @@ describe Twitter::Client do
       it "returns an array of numeric user IDs of retweeters of a status" do
         ids = @client.retweeters_of(27467028175, :ids_only => true)
         ids.should be_an Array
-        ids.first.should == 47
+        ids.first.should eq 47
       end
     end
     context "without ids_only passed" do
@@ -37,7 +37,7 @@ describe Twitter::Client do
         users = @client.retweeters_of(27467028175)
         users.should be_an Array
         users.first.should be_a Twitter::User
-        users.first.name.should == "Dave W Baldwin"
+        users.first.name.should eq "Dave W Baldwin"
       end
     end
   end
@@ -56,7 +56,7 @@ describe Twitter::Client do
       statuses = @client.retweets(28561922516)
       statuses.should be_an Array
       statuses.first.should be_a Twitter::Status
-      statuses.first.text.should == "RT @gruber: As for the Series, I'm for the Giants. Fuck Texas, fuck Nolan Ryan, fuck George Bush."
+      statuses.first.text.should eq "RT @gruber: As for the Series, I'm for the Giants. Fuck Texas, fuck Nolan Ryan, fuck George Bush."
     end
   end
 
@@ -73,7 +73,7 @@ describe Twitter::Client do
     it "returns a status" do
       status = @client.status(25938088801)
       status.should be_a Twitter::Status
-      status.text.should == "@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!"
+      status.text.should eq "@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!"
     end
   end
 
@@ -91,7 +91,7 @@ describe Twitter::Client do
       statuses = @client.statuses(25938088801)
       statuses.should be_an Array
       statuses.first.should be_a Twitter::Status
-      statuses.first.text.should == "@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!"
+      statuses.first.text.should eq "@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!"
     end
   end
 
@@ -108,7 +108,7 @@ describe Twitter::Client do
     it "returns a status" do
       status = @client.status_activity(25938088801)
       status.should be_a Twitter::Status
-      status.retweeters_count.should == "1"
+      status.retweeters_count.should eq 1
     end
   end
 
@@ -126,7 +126,7 @@ describe Twitter::Client do
       statuses = @client.statuses_activity(25938088801)
       statuses.should be_an Array
       statuses.first.should be_a Twitter::Status
-      statuses.first.retweeters_count.should == "1"
+      statuses.first.retweeters_count.should eq 1
     end
   end
 
@@ -147,8 +147,8 @@ describe Twitter::Client do
     it "returns a status" do
       status = @client.status_with_activity(25938088801)
       status.should be_a Twitter::Status
-      status.text.should == "@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!"
-      status.retweeters_count.should == "1"
+      status.text.should eq "@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!"
+      status.retweeters_count.should eq 1
     end
   end
 
@@ -170,8 +170,8 @@ describe Twitter::Client do
       statuses = @client.statuses_with_activity(25938088801)
       statuses.should be_an Array
       statuses.first.should be_a Twitter::Status
-      statuses.first.text.should == "@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!"
-      statuses.first.retweeters_count.should == "1"
+      statuses.first.text.should eq "@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!"
+      statuses.first.retweeters_count.should eq 1
     end
   end
 
@@ -189,7 +189,7 @@ describe Twitter::Client do
       statuses = @client.status_destroy(25938088801)
       statuses.should be_an Array
       statuses.first.should be_a Twitter::Status
-      statuses.first.text.should == "@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!"
+      statuses.first.text.should eq "@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!"
     end
   end
 
@@ -207,8 +207,8 @@ describe Twitter::Client do
       statuses = @client.retweet(28561922516)
       statuses.should be_an Array
       statuses.first.should be_a Twitter::Status
-      statuses.first.text.should == "As for the Series, I'm for the Giants. Fuck Texas, fuck Nolan Ryan, fuck George Bush."
-      statuses.first.retweeted_status.text.should == "RT @gruber: As for the Series, I'm for the Giants. Fuck Texas, fuck Nolan Ryan, fuck George Bush."
+      statuses.first.text.should eq "As for the Series, I'm for the Giants. Fuck Texas, fuck Nolan Ryan, fuck George Bush."
+      statuses.first.retweeted_status.text.should eq "RT @gruber: As for the Series, I'm for the Giants. Fuck Texas, fuck Nolan Ryan, fuck George Bush."
       statuses.first.retweeted_status.id.should_not == statuses.first.id
     end
   end
@@ -228,7 +228,7 @@ describe Twitter::Client do
     it "returns a single status" do
       status = @client.update("@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!")
       status.should be_a Twitter::Status
-      status.text.should == "@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!"
+      status.text.should eq "@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!"
     end
   end
 

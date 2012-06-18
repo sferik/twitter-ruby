@@ -21,7 +21,7 @@ describe Twitter::Client do
         matching_trends = @client.local_trends(2487956)
         matching_trends.should be_an Array
         matching_trends.first.should be_a Twitter::Trend
-        matching_trends.first.name.should == "#sevenwordsaftersex"
+        matching_trends.first.name.should eq "#sevenwordsaftersex"
       end
     end
     context "without arguments passed" do
@@ -51,7 +51,7 @@ describe Twitter::Client do
       locations = @client.trend_locations
       locations.should be_an Array
       locations.first.should be_a Twitter::Place
-      locations.first.name.should == "Ireland"
+      locations.first.name.should eq "Ireland"
     end
   end
 

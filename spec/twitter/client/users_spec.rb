@@ -23,7 +23,7 @@ describe Twitter::Client do
         users = @client.users("sferik", "pengwynn")
         users.should be_an Array
         users.first.should be_a Twitter::User
-        users.first.name.should == "Erik Michaels-Ober"
+        users.first.name.should eq "Erik Michaels-Ober"
       end
     end
     context "with numeric screen names passed" do
@@ -125,7 +125,7 @@ describe Twitter::Client do
         a_get("/1/users/profile_image/sferik").
           with(:status => 302).
           should have_been_made
-        profile_image.should == "http://a0.twimg.com/profile_images/323331048/me_normal.jpg"
+        profile_image.should eq "http://a0.twimg.com/profile_images/323331048/me_normal.jpg"
       end
     end
     context "without a screen name passed" do
@@ -140,7 +140,7 @@ describe Twitter::Client do
         a_get("/1/users/profile_image/sferik").
           with(:status => 302).
           should have_been_made
-        profile_image.should == "http://a0.twimg.com/profile_images/323331048/me_normal.jpg"
+        profile_image.should eq "http://a0.twimg.com/profile_images/323331048/me_normal.jpg"
       end
     end
     context "with a user object passed" do
@@ -154,7 +154,7 @@ describe Twitter::Client do
         a_get("/1/users/profile_image/sferik").
           with(:status => 302).
           should have_been_made
-        profile_image.should == "http://a0.twimg.com/profile_images/323331048/me_normal.jpg"
+        profile_image.should eq "http://a0.twimg.com/profile_images/323331048/me_normal.jpg"
       end
     end
   end
@@ -175,7 +175,7 @@ describe Twitter::Client do
       user_search = @client.user_search("Erik Michaels-Ober")
       user_search.should be_an Array
       user_search.first.should be_a Twitter::User
-      user_search.first.name.should == "Erik Michaels-Ober"
+      user_search.first.name.should eq "Erik Michaels-Ober"
     end
   end
 
@@ -195,7 +195,7 @@ describe Twitter::Client do
       it "returns extended information of a given user" do
         user = @client.user("sferik")
         user.should be_a Twitter::User
-        user.name.should == "Erik Michaels-Ober"
+        user.name.should eq "Erik Michaels-Ober"
       end
     end
     context "with a screen name including '@' passed" do
@@ -322,7 +322,7 @@ describe Twitter::Client do
         contributees = @client.contributees("sferik")
         contributees.should be_an Array
         contributees.first.should be_a Twitter::User
-        contributees.first.name.should == "Twitter API"
+        contributees.first.name.should eq "Twitter API"
       end
     end
     context "without arguments passed" do
@@ -343,7 +343,7 @@ describe Twitter::Client do
         contributees = @client.contributees
         contributees.should be_an Array
         contributees.first.should be_a Twitter::User
-        contributees.first.name.should == "Twitter API"
+        contributees.first.name.should eq "Twitter API"
       end
     end
   end
@@ -367,7 +367,7 @@ describe Twitter::Client do
         contributors = @client.contributors("sferik")
         contributors.should be_an Array
         contributors.first.should be_a Twitter::User
-        contributors.first.name.should == "Biz Stone"
+        contributors.first.name.should eq "Biz Stone"
       end
     end
     context "without arguments passed" do
@@ -388,7 +388,7 @@ describe Twitter::Client do
         contributors = @client.contributors
         contributors.should be_an Array
         contributors.first.should be_a Twitter::User
-        contributors.first.name.should == "Biz Stone"
+        contributors.first.name.should eq "Biz Stone"
       end
     end
   end
@@ -410,7 +410,7 @@ describe Twitter::Client do
         recommendations = @client.recommendations("sferik")
         recommendations.should be_an Array
         recommendations.first.should be_a Twitter::User
-        recommendations.first.name.should == "John Trupiano"
+        recommendations.first.name.should eq "John Trupiano"
       end
     end
     context "without arguments passed" do
@@ -433,7 +433,7 @@ describe Twitter::Client do
         recommendations = @client.recommendations
         recommendations.should be_an Array
         recommendations.first.should be_a Twitter::User
-        recommendations.first.name.should == "John Trupiano"
+        recommendations.first.name.should eq "John Trupiano"
       end
     end
   end

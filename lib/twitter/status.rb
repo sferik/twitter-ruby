@@ -15,16 +15,13 @@ require 'twitter/user'
 module Twitter
   class Status < Twitter::Identifiable
     include Twitter::Creatable
-    attr_reader :favorited, :favoriters, :favoriters_count, :from_user,
-      :from_user_id, :from_user_name, :in_reply_to_screen_name,
-      :in_reply_to_attrs_id, :in_reply_to_status_id, :in_reply_to_user_id,
-      :iso_language_code, :profile_image_url, :profile_image_url_https,
-      :repliers, :repliers_count, :retweeted, :retweeters, :retweeters_count,
-      :source, :text, :to_user, :to_user_id, :to_user_name, :truncated
+    attr_reader :favorited, :favoriters, :from_user, :from_user_id,
+      :from_user_name, :in_reply_to_screen_name, :in_reply_to_attrs_id,
+      :in_reply_to_status_id, :in_reply_to_user_id, :iso_language_code,
+      :profile_image_url, :profile_image_url_https, :repliers, :retweeted,
+      :retweeters, :source, :text, :to_user, :to_user_id, :to_user_name,
+      :truncated
     alias :favorited? :favorited
-    alias :favorite_count :favoriters_count
-    alias :reply_count :repliers_count
-    alias :retweet_count :retweeters_count
     alias :retweeted? :retweeted
     alias :truncated? :truncated
 
@@ -33,6 +30,13 @@ module Twitter
     def ==(other)
       super || (other.class == self.class && other.id == self.id)
     end
+
+    # @return [Integer]
+    def favoriters_count
+      @favoriters_count ||= @attrs['favoriters_count']
+      @favoriters_count.to_i if @favoriters_count
+    end
+    alias :favorite_count :favoriters_count
 
     # @return [String]
     def from_user
@@ -90,6 +94,13 @@ module Twitter
       @place ||= Twitter::Place.get_or_new(@attrs['place']) unless @attrs['place'].nil?
     end
 
+    # @return [Integer]
+    def repliers_count
+      @repliers_count ||= @attrs['repliers_count']
+      @repliers_count.to_i if @repliers_count
+    end
+    alias :reply_count :repliers_count
+
     # If this status is itself a retweet, the original tweet is available here.
     #
     # @return [Twitter::Status]
@@ -97,10 +108,10 @@ module Twitter
       @retweeted_status ||= self.class.get_or_new(@attrs['retweeted_status']) unless @attrs['retweeted_status'].nil?
     end
 
-    # @note If retweeters_count is > 50 it will return the string 50+.
     # @return [String]
     def retweeters_count
-      @attrs['retweet_count'] || @attrs['retweeters_count']
+      @retweeters_count ||= (@attrs['retweet_count'] || @attrs['retweeters_count'])
+      @retweeters_count.to_i if @retweeters_count
     end
     alias :retweet_count :retweeters_count
 

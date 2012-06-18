@@ -19,7 +19,7 @@ describe Twitter::Client do
     it "returns the remaining number of API requests available to the requesting user before the API limit is reached" do
       rate_limit_status = @client.rate_limit_status
       rate_limit_status.should be_a Twitter::RateLimitStatus
-      rate_limit_status.remaining_hits.should == 19993
+      rate_limit_status.remaining_hits.should eq 19993
     end
   end
 
@@ -36,7 +36,7 @@ describe Twitter::Client do
     it "returns the requesting user" do
       user = @client.verify_credentials
       user.should be_a Twitter::User
-      user.name.should == "Erik Michaels-Ober"
+      user.name.should eq "Erik Michaels-Ober"
     end
   end
 
@@ -52,7 +52,7 @@ describe Twitter::Client do
     end
     it "returns a null cookie" do
       end_session = @client.end_session
-      end_session['error'].should == "Logged out."
+      end_session['error'].should eq "Logged out."
     end
   end
 
@@ -71,7 +71,7 @@ describe Twitter::Client do
     it "returns a user" do
       user = @client.update_delivery_device("sms")
       user.should be_a Twitter::User
-      user.name.should == "Erik Michaels-Ober"
+      user.name.should eq "Erik Michaels-Ober"
     end
   end
 
@@ -90,7 +90,7 @@ describe Twitter::Client do
     it "returns a user" do
       user = @client.update_profile(:url => "http://github.com/sferik/")
       user.should be_a Twitter::User
-      user.name.should == "Erik Michaels-Ober"
+      user.name.should eq "Erik Michaels-Ober"
     end
   end
 
@@ -107,7 +107,7 @@ describe Twitter::Client do
     it "returns a user" do
       user = @client.update_profile_background_image(fixture("we_concept_bg2.png"))
       user.should be_a Twitter::User
-      user.name.should == "Erik Michaels-Ober"
+      user.name.should eq "Erik Michaels-Ober"
     end
   end
 
@@ -126,7 +126,7 @@ describe Twitter::Client do
     it "returns a user" do
       user = @client.update_profile_colors(:profile_background_color => "000000")
       user.should be_a Twitter::User
-      user.name.should == "Erik Michaels-Ober"
+      user.name.should eq "Erik Michaels-Ober"
     end
   end
 
@@ -143,7 +143,7 @@ describe Twitter::Client do
     it "returns a user" do
       user = @client.update_profile_image(fixture("me.jpeg"))
       user.should be_a Twitter::User
-      user.name.should == "Erik Michaels-Ober"
+      user.name.should eq "Erik Michaels-Ober"
     end
   end
 
@@ -163,7 +163,7 @@ describe Twitter::Client do
     it "returns settings" do
       settings = @client.settings
       settings.should be_a Twitter::Settings
-      settings.language.should == 'en'
+      settings.language.should eq 'en'
     end
     it "requests the correct resource on POST" do
       @client.settings(:trend_location_woeid => "23424803")
@@ -174,7 +174,7 @@ describe Twitter::Client do
     it "returns settings" do
       settings = @client.settings(:trend_location_woeid => "23424803")
       settings.should be_a Twitter::Settings
-      settings.language.should == 'en'
+      settings.language.should eq 'en'
     end
   end
 

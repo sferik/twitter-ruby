@@ -19,13 +19,13 @@ describe Twitter::Point do
 
   describe "#latitude" do
     it "returns the latitude" do
-      @point.latitude.should == -122.399983
+      @point.latitude.should eq -122.399983
     end
   end
 
   describe "#longitude" do
     it "returns the longitude" do
-      @point.longitude.should == 37.788299
+      @point.longitude.should eq 37.788299
     end
   end
 

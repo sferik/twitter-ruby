@@ -40,16 +40,28 @@ describe Twitter::Status do
     end
   end
 
+  describe "#favoriters_count" do
+    it "returns the count of favoriters when favoriters_count is set" do
+      status = Twitter::Status.new('favoriters_count' => '1')
+      status.favoriters_count.should be_an Integer
+      status.favoriters_count.should eq 1
+    end
+    it "returns nil when not set" do
+      status = Twitter::Status.new
+      status.favoriters_count.should be_nil
+    end
+  end
+
   describe "#from_user" do
     it "returns a screen name when from_user is set" do
       status = Twitter::Status.new('from_user' => 'sferik')
       status.from_user.should be_a String
-      status.from_user.should == "sferik"
+      status.from_user.should eq "sferik"
     end
     it "returns a screen name when screen_name is set" do
       status = Twitter::Status.new('user' => {'screen_name' => 'sferik'})
       status.from_user.should be_a String
-      status.from_user.should == "sferik"
+      status.from_user.should eq "sferik"
     end
     it "returns nil when not set" do
       status = Twitter::Status.new
@@ -61,17 +73,17 @@ describe Twitter::Status do
     it "returns the text of a status" do
       status = Twitter::Status.new('text' => 'BOOSH')
       status.full_text.should be_a String
-      status.full_text.should == "BOOSH"
+      status.full_text.should eq "BOOSH"
     end
     it "returns the text of a status without a user" do
       status = Twitter::Status.new('text' => 'BOOSH', 'retweeted_status' => {'text' => 'BOOSH'})
       status.full_text.should be_a String
-      status.full_text.should == "BOOSH"
+      status.full_text.should eq "BOOSH"
     end
     it "returns the full text of a retweeted status" do
       status = Twitter::Status.new('retweeted_status' => {'text' => 'BOOSH', 'user' => {'screen_name' => 'sferik'}})
       status.full_text.should be_a String
-      status.full_text.should == "RT @sferik: BOOSH"
+      status.full_text.should eq "RT @sferik: BOOSH"
     end
     it "returns nil when retweeted_status is not set" do
       status = Twitter::Status.new
@@ -97,8 +109,8 @@ describe Twitter::Status do
       hashtags = Twitter::Status.new('entities' => {'hashtags' => hashtags_hash}).hashtags
       hashtags.should be_an Array
       hashtags.first.should be_an Twitter::Entity::Hashtag
-      hashtags.first.indices.should == [10, 33]
-      hashtags.first.text.should == 'twitter'
+      hashtags.first.indices.should eq [10, 33]
+      hashtags.first.text.should eq 'twitter'
     end
     it "returns nil when not set" do
       hashtags = Twitter::Status.new.hashtags
@@ -171,16 +183,28 @@ describe Twitter::Status do
     end
   end
 
+  describe "#repliers_count" do
+    it "returns the count of favoriters when repliers_count is set" do
+      status = Twitter::Status.new('repliers_count' => '1')
+      status.repliers_count.should be_an Integer
+      status.repliers_count.should eq 1
+    end
+    it "returns nil when not set" do
+      status = Twitter::Status.new
+      status.repliers_count.should be_nil
+    end
+  end
+
   describe "#retweeters_count" do
     it "returns the count of favoriters when retweet_count is set" do
       status = Twitter::Status.new('retweet_count' => '1')
-      status.retweeters_count.should be_a String
-      status.retweeters_count.should == "1"
+      status.retweeters_count.should be_an Integer
+      status.retweeters_count.should eq 1
     end
     it "returns the count of favoriters when retweeters_count is set" do
       status = Twitter::Status.new('retweeters_count' => '1')
-      status.retweeters_count.should be_a String
-      status.retweeters_count.should == "1"
+      status.retweeters_count.should be_an Integer
+      status.retweeters_count.should eq 1
     end
     it "returns nil when not set" do
       status = Twitter::Status.new
@@ -199,7 +223,7 @@ describe Twitter::Status do
     end
     it "has text when retweeted_status is set" do
       status = Twitter::Status.new('retweeted_status' => {'text' => 'BOOSH'})
-      status.retweeted_status.text.should == 'BOOSH'
+      status.retweeted_status.text.should eq 'BOOSH'
     end
   end
 
@@ -212,8 +236,8 @@ describe Twitter::Status do
       urls = Twitter::Status.new('entities' => {'urls' => urls_hash}).urls
       urls.should be_an Array
       urls.first.should be_an Twitter::Entity::Url
-      urls.first.indices.should == [10, 33]
-      urls.first.display_url.should == 'example.com/expanded'
+      urls.first.indices.should eq [10, 33]
+      urls.first.display_url.should eq 'example.com/expanded'
     end
     it "returns nil when not set" do
       urls = Twitter::Status.new.urls
@@ -237,7 +261,7 @@ describe Twitter::Status do
     it "has a status when status is set" do
       user = Twitter::Status.new('text' => 'Tweet text.', 'user' => {}).user
       user.status.should be_a Twitter::Status
-      user.status.text.should == 'Tweet text.'
+      user.status.text.should eq 'Tweet text.'
     end
   end
 
@@ -251,8 +275,8 @@ describe Twitter::Status do
       user_mentions = Twitter::Status.new('entities' => {'user_mentions' => user_mentions_hash}).user_mentions
       user_mentions.should be_an Array
       user_mentions.first.should be_an Twitter::Entity::UserMention
-      user_mentions.first.indices.should == [0, 6]
-      user_mentions.first.screen_name.should == 'sferik'
+      user_mentions.first.indices.should eq [0, 6]
+      user_mentions.first.screen_name.should eq 'sferik'
     end
     it "returns nil when not set" do
       user_mentions = Twitter::Status.new.user_mentions

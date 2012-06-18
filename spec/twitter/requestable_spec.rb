@@ -13,7 +13,7 @@ describe Twitter::Requestable do
     end
     it "memoizes the connection" do
       c1, c2 = subject.connection, subject.connection
-      c1.object_id.should == c2.object_id
+      c1.object_id.should eq c2.object_id
     end
   end
 

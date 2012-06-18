@@ -20,7 +20,7 @@ describe Twitter::Client do
       users = @client.blocking
       users.should be_an Array
       users.first.should be_a Twitter::User
-      users.first.name.should == "Erik Michaels-Ober"
+      users.first.name.should eq "Erik Michaels-Ober"
     end
   end
 
@@ -37,7 +37,7 @@ describe Twitter::Client do
     it "returns an array of numeric user IDs the authenticating user is blocking" do
       ids = @client.blocked_ids
       ids.should be_an Array
-      ids.first.should == 47
+      ids.first.should eq 47
     end
   end
 
@@ -81,7 +81,7 @@ describe Twitter::Client do
       users = @client.block("sferik")
       users.should be_an Array
       users.first.should be_a Twitter::User
-      users.first.name.should == "Erik Michaels-Ober"
+      users.first.name.should eq "Erik Michaels-Ober"
     end
   end
 
@@ -101,7 +101,7 @@ describe Twitter::Client do
       users = @client.unblock("sferik")
       users.should be_an Array
       users.first.should be_a Twitter::User
-      users.first.name.should == "Erik Michaels-Ober"
+      users.first.name.should eq "Erik Michaels-Ober"
     end
   end
 

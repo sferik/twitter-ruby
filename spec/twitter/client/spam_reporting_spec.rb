@@ -22,7 +22,7 @@ describe Twitter::Client do
       users = @client.report_spam("sferik")
       users.should be_an Array
       users.first.should be_a Twitter::User
-      users.first.name.should == "Erik Michaels-Ober"
+      users.first.name.should eq "Erik Michaels-Ober"
     end
   end
 

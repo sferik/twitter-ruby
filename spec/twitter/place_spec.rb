@@ -34,11 +34,11 @@ describe Twitter::Place do
   describe "#country_code" do
     it "returns a country code when set with country_code" do
       place = Twitter::Place.new('country_code' => 'US')
-      place.country_code.should == 'US'
+      place.country_code.should eq 'US'
     end
     it "returns a country code when set with countryCode" do
       place = Twitter::Place.new('countryCode' => 'US')
-      place.country_code.should == 'US'
+      place.country_code.should eq 'US'
     end
     it "returns nil when not set" do
       place = Twitter::Place.new
@@ -49,7 +49,7 @@ describe Twitter::Place do
   describe "#parent_id" do
     it "returns a parent ID when set with parentid" do
       place = Twitter::Place.new('parentid' => 1)
-      place.parent_id.should == 1
+      place.parent_id.should eq 1
     end
     it "returns nil when not set" do
       place = Twitter::Place.new
@@ -60,11 +60,11 @@ describe Twitter::Place do
   describe "#place_type" do
     it "returns a place type when set with place_type" do
       place = Twitter::Place.new('place_type' => 'city')
-      place.place_type.should == 'city'
+      place.place_type.should eq 'city'
     end
     it "returns a place type when set with placeType[name]" do
       place = Twitter::Place.new('placeType' => {'name' => 'Town'})
-      place.place_type.should == 'Town'
+      place.place_type.should eq 'Town'
     end
     it "returns nil when not set" do
       place = Twitter::Place.new

@@ -21,7 +21,7 @@ describe Twitter::Client do
         saved_searches = @client.saved_searches(16129012)
         saved_searches.should be_an Array
         saved_searches.first.should be_a Twitter::SavedSearch
-        saved_searches.first.name.should == "twitter"
+        saved_searches.first.name.should eq "twitter"
       end
     end
     context "without ids passed" do
@@ -38,7 +38,7 @@ describe Twitter::Client do
         saved_searches = @client.saved_searches
         saved_searches.should be_an Array
         saved_searches.first.should be_a Twitter::SavedSearch
-        saved_searches.first.name.should == "twitter"
+        saved_searches.first.name.should eq "twitter"
       end
     end
   end
@@ -56,7 +56,7 @@ describe Twitter::Client do
     it "returns a saved search" do
       saved_search = @client.saved_search(16129012)
       saved_search.should be_a Twitter::SavedSearch
-      saved_search.name.should == "twitter"
+      saved_search.name.should eq "twitter"
     end
   end
 
@@ -75,7 +75,7 @@ describe Twitter::Client do
     it "returns the created saved search" do
       saved_search = @client.saved_search_create("twitter")
       saved_search.should be_a Twitter::SavedSearch
-      saved_search.name.should == "twitter"
+      saved_search.name.should eq "twitter"
     end
   end
 
@@ -93,7 +93,7 @@ describe Twitter::Client do
       saved_searches = @client.saved_search_destroy(16129012)
       saved_searches.should be_an Array
       saved_searches.first.should be_a Twitter::SavedSearch
-      saved_searches.first.name.should == "twitter"
+      saved_searches.first.name.should eq "twitter"
     end
   end
 

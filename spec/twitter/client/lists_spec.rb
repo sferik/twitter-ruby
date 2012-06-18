@@ -23,7 +23,7 @@ describe Twitter::Client do
         lists = @client.lists_subscribed_to("sferik")
         lists.should be_an Array
         lists.first.should be_a Twitter::List
-        lists.first.name.should == "Rubyists"
+        lists.first.name.should eq "Rubyists"
       end
     end
     context "without a screen name passed" do
@@ -58,7 +58,7 @@ describe Twitter::Client do
         statuses = @client.list_timeline("sferik", "presidents")
         statuses.should be_an Array
         statuses.first.should be_a Twitter::Status
-        statuses.first.text.should == "Ruby is the best programming language for hiding the ugly bits."
+        statuses.first.text.should eq "Ruby is the best programming language for hiding the ugly bits."
       end
     end
     context "without a screen name passed" do
@@ -94,7 +94,7 @@ describe Twitter::Client do
       it "returns the list" do
         list = @client.list_remove_member("sferik", "presidents", 813286)
         list.should be_a Twitter::List
-        list.name.should == "presidents"
+        list.name.should eq "presidents"
       end
     end
     context "without a screen name passed" do
@@ -132,7 +132,7 @@ describe Twitter::Client do
         memberships.should be_a Twitter::Cursor
         memberships.lists.should be_an Array
         memberships.lists.first.should be_a Twitter::List
-        memberships.lists.first.name.should == "Rubyists"
+        memberships.lists.first.name.should eq "Rubyists"
       end
     end
     context "without a screen name passed" do
@@ -170,7 +170,7 @@ describe Twitter::Client do
         list_subscribers.should be_a Twitter::Cursor
         list_subscribers.users.should be_an Array
         list_subscribers.users.first.should be_a Twitter::User
-        list_subscribers.users.first.name.should == "Erik Michaels-Ober"
+        list_subscribers.users.first.name.should eq "Erik Michaels-Ober"
       end
     end
     context "without a screen name passed" do
@@ -208,7 +208,7 @@ describe Twitter::Client do
         subscriptions.should be_a Twitter::Cursor
         subscriptions.lists.should be_an Array
         subscriptions.lists.first.should be_a Twitter::List
-        subscriptions.lists.first.name.should == "Rubyists"
+        subscriptions.lists.first.name.should eq "Rubyists"
       end
     end
     context "without a screen name passed" do
@@ -244,7 +244,7 @@ describe Twitter::Client do
       it "returns the specified list" do
         list = @client.list_subscribe("sferik", "presidents")
         list.should be_a Twitter::List
-        list.name.should == "presidents"
+        list.name.should eq "presidents"
       end
     end
     context "without a screen name passed" do
@@ -398,7 +398,7 @@ describe Twitter::Client do
       it "returns the specified list" do
         list = @client.list_unsubscribe("sferik", "presidents")
         list.should be_a Twitter::List
-        list.name.should == "presidents"
+        list.name.should eq "presidents"
       end
     end
     context "without a screen name passed" do
@@ -434,7 +434,7 @@ describe Twitter::Client do
       it "returns the list" do
         list = @client.list_add_members("sferik", "presidents", [813286, 18755393])
         list.should be_a Twitter::List
-        list.name.should == "presidents"
+        list.name.should eq "presidents"
       end
     end
     context "with a combination of member IDs and member screen names to add" do
@@ -483,7 +483,7 @@ describe Twitter::Client do
       it "returns the list" do
         list = @client.list_remove_members("sferik", "presidents", [813286, 18755393])
         list.should be_a Twitter::List
-        list.name.should == "presidents"
+        list.name.should eq "presidents"
       end
     end
     context "with a combination of member IDs and member screen names to add" do
@@ -652,7 +652,7 @@ describe Twitter::Client do
         list_members.should be_a Twitter::Cursor
         list_members.users.should be_an Array
         list_members.users.first.should be_a Twitter::User
-        list_members.users.first.name.should == "Erik Michaels-Ober"
+        list_members.users.first.name.should eq "Erik Michaels-Ober"
       end
     end
     context "without a screen name passed" do
@@ -688,7 +688,7 @@ describe Twitter::Client do
       it "returns the list" do
         list = @client.list_add_member("sferik", "presidents", 813286)
         list.should be_a Twitter::List
-        list.name.should == "presidents"
+        list.name.should eq "presidents"
       end
     end
     context "without a screen name passed" do
@@ -724,7 +724,7 @@ describe Twitter::Client do
       it "returns the deleted list" do
         list = @client.list_destroy("sferik", "presidents")
         list.should be_a Twitter::List
-        list.name.should == "presidents"
+        list.name.should eq "presidents"
       end
     end
     context "without a screen name passed" do
@@ -803,7 +803,7 @@ describe Twitter::Client do
       it "returns the updated list" do
         list = @client.list_update("sferik", "presidents", :description => "Presidents of the United States of America")
         list.should be_a Twitter::List
-        list.name.should == "presidents"
+        list.name.should eq "presidents"
       end
     end
     context "without a screen name passed" do
@@ -881,7 +881,7 @@ describe Twitter::Client do
     it "returns the created list" do
       list = @client.list_create("presidents")
       list.should be_a Twitter::List
-      list.name.should == "presidents"
+      list.name.should eq "presidents"
     end
   end
 
@@ -903,7 +903,7 @@ describe Twitter::Client do
         lists.should be_a Twitter::Cursor
         lists.lists.should be_an Array
         lists.lists.first.should be_a Twitter::List
-        lists.lists.first.name.should == "Rubyists"
+        lists.lists.first.name.should eq "Rubyists"
       end
     end
     context "without arguments passed" do
@@ -923,7 +923,7 @@ describe Twitter::Client do
         lists.should be_a Twitter::Cursor
         lists.lists.should be_an Array
         lists.lists.first.should be_a Twitter::List
-        lists.lists.first.name.should == "Rubyists"
+        lists.lists.first.name.should eq "Rubyists"
       end
     end
   end
@@ -944,7 +944,7 @@ describe Twitter::Client do
       it "returns the updated list" do
         list = @client.list("sferik", "presidents")
         list.should be_a Twitter::List
-        list.name.should == "presidents"
+        list.name.should eq "presidents"
       end
     end
     context "with a user ID passed" do

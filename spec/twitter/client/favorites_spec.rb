@@ -21,7 +21,7 @@ describe Twitter::Client do
         favorites = @client.favorites("sferik")
         favorites.should be_an Array
         favorites.first.should be_a Twitter::Status
-        favorites.first.user.name.should == "Zach Brock"
+        favorites.first.user.name.should eq "Zach Brock"
       end
     end
     context "without arguments passed" do
@@ -38,7 +38,7 @@ describe Twitter::Client do
         favorites = @client.favorites
         favorites.should be_an Array
         favorites.first.should be_a Twitter::Status
-        favorites.first.user.name.should == "Zach Brock"
+        favorites.first.user.name.should eq "Zach Brock"
       end
     end
   end
@@ -57,7 +57,7 @@ describe Twitter::Client do
       statuses = @client.favorite(25938088801)
       statuses.should be_an Array
       statuses.first.should be_a Twitter::Status
-      statuses.first.text.should == "@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!"
+      statuses.first.text.should eq "@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!"
     end
   end
 
@@ -75,7 +75,7 @@ describe Twitter::Client do
       statuses = @client.unfavorite(25938088801)
       statuses.should be_an Array
       statuses.first.should be_a Twitter::Status
-      statuses.first.text.should == "@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!"
+      statuses.first.text.should eq "@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!"
     end
   end
 

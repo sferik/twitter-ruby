@@ -21,7 +21,7 @@ describe Twitter::Client do
     it "returns nearby places" do
       places = @client.places_nearby(:ip => "74.125.19.104")
       places.should be_an Array
-      places.first.name.should == "Bernal Heights"
+      places.first.name.should eq "Bernal Heights"
     end
   end
 
@@ -40,7 +40,7 @@ describe Twitter::Client do
     it "returns similar places" do
       places = @client.places_similar(:lat => "37.7821120598956", :long => "-122.400612831116", :name => "Twitter HQ")
       places.should be_an Array
-      places.first.name.should == "Bernal Heights"
+      places.first.name.should eq "Bernal Heights"
     end
   end
 
@@ -59,7 +59,7 @@ describe Twitter::Client do
     it "returns places" do
       places = @client.reverse_geocode(:lat => "37.7821120598956", :long => "-122.400612831116")
       places.should be_an Array
-      places.first.name.should == "Bernal Heights"
+      places.first.name.should eq "Bernal Heights"
     end
   end
 
@@ -75,7 +75,7 @@ describe Twitter::Client do
     end
     it "returns a place" do
       place = @client.place("247f43d441defc03")
-      place.name.should == "Twitter HQ"
+      place.name.should eq "Twitter HQ"
     end
   end
 
@@ -93,7 +93,7 @@ describe Twitter::Client do
     end
     it "returns a place" do
       place = @client.place_create(:name => "@sferik's Apartment", :token => "22ff5b1f7159032cf69218c4d8bb78bc", :contained_within => "41bcb736f84a799e", :lat => "37.783699", :long => "-122.393581")
-      place.name.should == "Twitter HQ"
+      place.name.should eq "Twitter HQ"
     end
   end
 

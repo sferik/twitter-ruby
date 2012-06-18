@@ -20,7 +20,7 @@ describe Twitter::Client do
       it "returns the users in a given category of the Twitter suggested user list" do
         suggestion = @client.suggestions("art-design")
         suggestion.should be_a Twitter::Suggestion
-        suggestion.name.should == "Art & Design"
+        suggestion.name.should eq "Art & Design"
         suggestion.users.should be_an Array
         suggestion.users.first.should be_a Twitter::User
       end
@@ -39,7 +39,7 @@ describe Twitter::Client do
         suggestions = @client.suggestions
         suggestions.should be_an Array
         suggestions.first.should be_a Twitter::Suggestion
-        suggestions.first.name.should == "Art & Design"
+        suggestions.first.name.should eq "Art & Design"
       end
     end
   end
@@ -58,7 +58,7 @@ describe Twitter::Client do
       suggest_users = @client.suggest_users("art-design")
       suggest_users.should be_an Array
       suggest_users.first.should be_a Twitter::User
-      suggest_users.first.name.should == "OMGFacts"
+      suggest_users.first.name.should eq "OMGFacts"
     end
   end
 

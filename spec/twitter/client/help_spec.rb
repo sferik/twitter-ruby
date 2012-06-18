@@ -19,7 +19,7 @@ describe Twitter::Client do
     it "returns Twitter's current configuration" do
       configuration = @client.configuration
       configuration.should be_a Twitter::Configuration
-      configuration.characters_reserved_per_media.should == 20
+      configuration.characters_reserved_per_media.should eq 20
     end
   end
 
@@ -37,7 +37,7 @@ describe Twitter::Client do
       languages = @client.languages
       languages.should be_an Array
       languages.first.should be_a Twitter::Language
-      languages.first.name.should == "Portuguese"
+      languages.first.name.should eq "Portuguese"
     end
   end
 

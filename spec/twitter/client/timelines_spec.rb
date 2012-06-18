@@ -20,7 +20,7 @@ describe Twitter::Client do
       statuses = @client.home_timeline
       statuses.should be_an Array
       statuses.first.should be_a Twitter::Status
-      statuses.first.text.should == "Ruby is the best programming language for hiding the ugly bits."
+      statuses.first.text.should eq "Ruby is the best programming language for hiding the ugly bits."
     end
   end
 
@@ -38,7 +38,7 @@ describe Twitter::Client do
       statuses = @client.mentions
       statuses.should be_an Array
       statuses.first.should be_a Twitter::Status
-      statuses.first.text.should == "Ruby is the best programming language for hiding the ugly bits."
+      statuses.first.text.should eq "Ruby is the best programming language for hiding the ugly bits."
     end
   end
 
@@ -59,7 +59,7 @@ describe Twitter::Client do
         statuses = @client.retweeted_by("sferik")
         statuses.should be_an Array
         statuses.first.should be_a Twitter::Status
-        statuses.first.text.should == "Ruby is the best programming language for hiding the ugly bits."
+        statuses.first.text.should eq "Ruby is the best programming language for hiding the ugly bits."
       end
     end
     context "without a screen name passed" do
@@ -92,7 +92,7 @@ describe Twitter::Client do
         statuses = @client.retweeted_to("sferik")
         statuses.should be_an Array
         statuses.first.should be_a Twitter::Status
-        statuses.first.text.should == "Ruby is the best programming language for hiding the ugly bits."
+        statuses.first.text.should eq "Ruby is the best programming language for hiding the ugly bits."
       end
     end
     context "without a screen name passed" do
@@ -122,7 +122,7 @@ describe Twitter::Client do
       statuses = @client.retweets_of_me
       statuses.should be_an Array
       statuses.first.should be_a Twitter::Status
-      statuses.first.text.should == "Ruby is the best programming language for hiding the ugly bits."
+      statuses.first.text.should eq "Ruby is the best programming language for hiding the ugly bits."
     end
   end
 
@@ -143,7 +143,7 @@ describe Twitter::Client do
         statuses = @client.user_timeline("sferik")
         statuses.should be_an Array
         statuses.first.should be_a Twitter::Status
-        statuses.first.text.should == "Ruby is the best programming language for hiding the ugly bits."
+        statuses.first.text.should eq "Ruby is the best programming language for hiding the ugly bits."
       end
     end
     context "without a screen name passed" do
@@ -176,7 +176,7 @@ describe Twitter::Client do
         statuses = @client.media_timeline("sferik")
         statuses.should be_an Array
         statuses.first.should be_a Twitter::Status
-        statuses.first.text.should == "Google is throwing up a question mark for Sunday's weather in Boston. At least they're being honest. http://t.co/Jh7bAhS"
+        statuses.first.text.should eq "Google is throwing up a question mark for Sunday's weather in Boston. At least they're being honest. http://t.co/Jh7bAhS"
       end
     end
     context "without a screen name passed" do
@@ -206,7 +206,7 @@ describe Twitter::Client do
       statuses = @client.network_timeline
       statuses.should be_an Array
       statuses.first.should be_a Twitter::Status
-      statuses.first.text.should == "Ruby is the best programming language for hiding the ugly bits."
+      statuses.first.text.should eq "Ruby is the best programming language for hiding the ugly bits."
     end
   end
 

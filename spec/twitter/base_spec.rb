@@ -22,13 +22,13 @@ describe Twitter::Base do
   describe "#to_hash" do
     it "returns a hash" do
       @base.to_hash.should be_a Hash
-      @base.to_hash['id'].should == 1
+      @base.to_hash['id'].should eq 1
     end
   end
 
   describe "identical objects" do
     it "have the same object_id" do
-      @base.object_id.should == Twitter::Base.get('id' => 1).object_id
+      @base.object_id.should eq Twitter::Base.get('id' => 1).object_id
     end
   end
 

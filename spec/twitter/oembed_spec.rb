@@ -4,7 +4,7 @@ describe Twitter::OEmbed do
   describe "#author_url" do
     it "returns the author's url" do
       oembed = Twitter::OEmbed.new('author_url' => 'https://twitter.com/sferik')
-      oembed.author_url.should == "https://twitter.com/sferik"
+      oembed.author_url.should eq "https://twitter.com/sferik"
     end
 
     it "returns nil when not set" do
@@ -16,7 +16,7 @@ describe Twitter::OEmbed do
   describe "#author_name" do
     it "returns the author's name" do
       oembed = Twitter::OEmbed.new('author_name' => 'Erik Michaels-Ober')
-      oembed.author_name.should == "Erik Michaels-Ober"
+      oembed.author_name.should eq "Erik Michaels-Ober"
     end
 
     it "returns nil when not set" do
@@ -28,7 +28,7 @@ describe Twitter::OEmbed do
   describe "#cache_age" do
     it "returns the cache_age" do
       oembed = Twitter::OEmbed.new('cache_age' => '31536000000')
-      oembed.cache_age.should == "31536000000"
+      oembed.cache_age.should eq "31536000000"
     end
 
     it "returns nil when not set" do
@@ -40,7 +40,7 @@ describe Twitter::OEmbed do
   describe "#height" do
     it "returns the height" do
       oembed = Twitter::OEmbed.new('height' => 200)
-      oembed.height.should == 200
+      oembed.height.should eq 200
     end
 
     it "returns it as an Integer" do
@@ -57,7 +57,7 @@ describe Twitter::OEmbed do
   describe "#html" do
     it "returns the html" do
       oembed = Twitter::OEmbed.new('html' => '<blockquote>all my <b>witty tweet</b> stuff here</blockquote>')
-      oembed.html.should == "<blockquote>all my <b>witty tweet</b> stuff here</blockquote>"
+      oembed.html.should eq "<blockquote>all my <b>witty tweet</b> stuff here</blockquote>"
     end
 
     it "returns nil when not set" do
@@ -69,7 +69,7 @@ describe Twitter::OEmbed do
   describe "#provider_name" do
     it "returns the provider_name" do
       oembed = Twitter::OEmbed.new('provider_name' => 'Twitter')
-      oembed.provider_name.should == "Twitter"
+      oembed.provider_name.should eq "Twitter"
     end
 
     it "returns nil when not set" do
@@ -81,7 +81,7 @@ describe Twitter::OEmbed do
   describe "#provider_url" do
     it "returns the provider_url" do
       oembed = Twitter::OEmbed.new('provider_url' => 'http://twitter.com')
-      oembed.provider_url.should == "http://twitter.com"
+      oembed.provider_url.should eq "http://twitter.com"
     end
 
     it "returns nil when not set" do
@@ -93,7 +93,7 @@ describe Twitter::OEmbed do
   describe "#type" do
     it "returns the type" do
       oembed = Twitter::OEmbed.new('type' => 'rich')
-      oembed.type.should == "rich"
+      oembed.type.should eq "rich"
     end
 
     it "returns nil when not set" do
@@ -105,7 +105,7 @@ describe Twitter::OEmbed do
   describe "#width" do
     it "returns the width" do
       oembed = Twitter::OEmbed.new('width' => 550)
-      oembed.width.should == 550
+      oembed.width.should eq 550
     end
 
     it "returns it as an Integer" do
@@ -122,7 +122,7 @@ describe Twitter::OEmbed do
   describe "#url" do
     it "returns the url" do
       oembed = Twitter::OEmbed.new('url' => 'https://twitter.com/twitterapi/status/133640144317198338')
-      oembed.url.should == "https://twitter.com/twitterapi/status/133640144317198338"
+      oembed.url.should eq "https://twitter.com/twitterapi/status/133640144317198338"
     end
 
     it "returns nil when not set" do
@@ -134,7 +134,7 @@ describe Twitter::OEmbed do
   describe "#version" do
     it "returns the version" do
       oembed = Twitter::OEmbed.new('version' => '1.0')
-      oembed.version.should == "1.0"
+      oembed.version.should eq "1.0"
     end
 
     it "returns nil when not set" do

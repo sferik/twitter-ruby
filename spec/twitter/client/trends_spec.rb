@@ -23,7 +23,7 @@ describe Twitter::Client do
       trends.should be_a Hash
       trends["2010-10-24 17:00"].should be_an Array
       trends["2010-10-24 17:00"].first.should be_a Twitter::Trend
-      trends["2010-10-24 17:00"].first.name.should == "#bigbangcomeback"
+      trends["2010-10-24 17:00"].first.name.should eq "#bigbangcomeback"
     end
   end
 
@@ -44,7 +44,7 @@ describe Twitter::Client do
       trends.should be_a Hash
       trends["2010-10-24"].should be_an Array
       trends["2010-10-24"].first.should be_a Twitter::Trend
-      trends["2010-10-24"].first.name.should == "#youcantbeuglyand"
+      trends["2010-10-24"].first.name.should eq "#youcantbeuglyand"
     end
   end
 

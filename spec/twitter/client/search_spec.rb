@@ -23,7 +23,7 @@ describe Twitter::Client do
       search.should be_a Twitter::SearchResults
       search.results.should be_an Array
       search.results.first.should be_a Twitter::Status
-      search.results.first.text.should == "@KaiserKuo from not too far away your new twitter icon looks like Vader."
+      search.results.first.text.should eq "@KaiserKuo from not too far away your new twitter icon looks like Vader."
     end
 
     it "returns the max_id value for a search result" do
@@ -62,7 +62,7 @@ describe Twitter::Client do
       search = @client.phoenix_search('twitter')
       search.should be_an Array
       search.first.should be_a Twitter::Status
-      search.first.text.should == "looking at twitter trends just makes me realize how little i really understand about mankind."
+      search.first.text.should eq "looking at twitter trends just makes me realize how little i really understand about mankind."
     end
   end
 

@@ -18,7 +18,7 @@ describe Twitter::Client do
     end
     it "returns Twitter's Privacy Policy" do
       privacy = @client.privacy
-      privacy.split.first.should == "Twitter"
+      privacy.split.first.should eq "Twitter"
     end
   end
 
@@ -34,7 +34,7 @@ describe Twitter::Client do
     end
     it "returns Twitter's Terms of Service" do
       tos = @client.tos
-      tos.split.first.should == "Terms"
+      tos.split.first.should eq "Terms"
     end
   end
 

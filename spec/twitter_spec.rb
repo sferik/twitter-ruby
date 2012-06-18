@@ -21,7 +21,7 @@ describe Twitter do
     end
 
     it "returns the same results as a client" do
-      Twitter.user_timeline('sferik').should == Twitter::Client.new.user_timeline('sferik')
+      Twitter.user_timeline('sferik').should eq Twitter::Client.new.user_timeline('sferik')
     end
 
   end
@@ -40,27 +40,27 @@ describe Twitter do
 
   describe ".endpoint" do
     it "returns the default endpoint" do
-      Twitter.endpoint.should == Twitter::Config::DEFAULT_ENDPOINT
+      Twitter.endpoint.should eq Twitter::Config::DEFAULT_ENDPOINT
     end
   end
 
   describe ".endpoint=" do
     it "sets the endpoint" do
       Twitter.endpoint = 'http://tumblr.com/'
-      Twitter.endpoint.should == 'http://tumblr.com/'
+      Twitter.endpoint.should eq 'http://tumblr.com/'
     end
   end
 
   describe ".user_agent" do
     it "returns the default user agent" do
-      Twitter.user_agent.should == Twitter::Config::DEFAULT_USER_AGENT
+      Twitter.user_agent.should eq Twitter::Config::DEFAULT_USER_AGENT
     end
   end
 
   describe ".user_agent=" do
     it "sets the user_agent" do
       Twitter.user_agent = 'Custom User Agent'
-      Twitter.user_agent.should == 'Custom User Agent'
+      Twitter.user_agent.should eq 'Custom User Agent'
     end
   end
 
@@ -75,7 +75,7 @@ describe Twitter do
       it "sets the #{key}" do
         Twitter.configure do |config|
           config.send("#{key}=", key)
-          Twitter.send(key).should == key
+          Twitter.send(key).should eq key
         end
       end
     end

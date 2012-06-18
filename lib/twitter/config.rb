@@ -20,7 +20,7 @@ module Twitter
 
     # The endpoint that will be used to connect if none is set
     #
-    # @note This is configurable in case you want to use HTTP instead of HTTPS, specify a different API version, or use a Twitter-compatible endpoint.
+    # @note This is configurable in case you want to use HTTP instead of HTTPS or use a Twitter-compatible endpoint.
     # @see http://status.net/wiki/Twitter-compatible_API
     # @see http://en.blog.wordpress.com/2009/12/12/twitter-api/
     # @see http://staff.tumblr.com/post/287703110/api

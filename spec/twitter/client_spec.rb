@@ -22,7 +22,7 @@ describe Twitter::Client do
     it "inherits the module configuration" do
       api = Twitter::Client.new
       @keys.each do |key|
-        api.send(key).should == key
+        api.send(key).should eq key
       end
     end
 
@@ -47,7 +47,7 @@ describe Twitter::Client do
         it "overrides the module configuration" do
           api = Twitter::Client.new(@configuration)
           @keys.each do |key|
-            api.send(key).should == @configuration[key]
+            api.send(key).should eq @configuration[key]
           end
         end
       end
@@ -59,7 +59,7 @@ describe Twitter::Client do
             api.send("#{key}=", value)
           end
           @keys.each do |key|
-            api.send(key).should == @configuration[key]
+            api.send(key).should eq @configuration[key]
           end
         end
       end
@@ -71,11 +71,11 @@ describe Twitter::Client do
     stub_get("/1/account/verify_credentials.json").
       to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     client1 = Twitter::Client.new
-    client1.current_user.screen_name.should == 'sferik'
+    client1.current_user.screen_name.should eq 'sferik'
     stub_get("/1/account/verify_credentials.json").
       to_return(:body => fixture("pengwynn.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     client2 = Twitter::Client.new
-    client2.current_user.screen_name.should == 'pengwynn'
+    client2.current_user.screen_name.should eq 'pengwynn'
   end
 
   it "recursively merges connection options" do
