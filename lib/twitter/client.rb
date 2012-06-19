@@ -51,9 +51,8 @@ module Twitter
     # @param attrs [Hash]
     # @return [Twitter::Client]
     def initialize(attrs={})
-      attrs = Twitter.options.merge(attrs)
-      Config::VALID_OPTIONS_KEYS.each do |key|
-        instance_variable_set("@#{key}".to_sym, attrs[key])
+      Twitter.options.merge(attrs).each do |key, value|
+        self.send("#{key}=", value)
       end
     end
 
@@ -61,7 +60,7 @@ module Twitter
     #
     # @return [Twitter::User]
     def current_user
-      @current_user ||= Twitter::User.get_or_new(self.verify_credentials.attrs)
+      Twitter::User.get_or_new(self.verify_credentials.attrs)
     end
 
     # Returns the remaining number of API requests available to the requesting user
