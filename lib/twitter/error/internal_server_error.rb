@@ -1,7 +1,9 @@
 require 'twitter/error/server_error'
 
 module Twitter
-  # Raised when Twitter returns the HTTP status code 500
-  class Error::InternalServerError < Twitter::Error::ServerError
+  module Error
+    # Raised when Twitter returns the HTTP status code 500
+    class InternalServerError < Twitter::Error::ServerError
+    end
   end
 end

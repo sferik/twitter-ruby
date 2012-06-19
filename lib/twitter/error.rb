@@ -1,25 +1,15 @@
 module Twitter
-  # Custom error class for rescuing from all Twitter errors
-  class Error < StandardError
-    attr_reader :http_headers, :wrapped_exception
+  module Error
+    attr_reader :http_headers
 
     # Initializes a new Error object
     #
-    # @param exception [Exception, String]
+    # @param message [String]
     # @param http_headers [Hash]
     # @return [Twitter::Error]
-    def initialize(exception=$!, http_headers={})
-      @http_headers = http_headers
-      if exception.respond_to?(:backtrace)
-        super(exception.message)
-        @wrapped_exception = exception
-      else
-        super(exception.to_s)
-      end
-    end
-
-    def backtrace
-      @wrapped_exception ? @wrapped_exception.backtrace : super
+    def initialize(message, http_headers)
+      @http_headers = Hash[http_headers]
+      super(message)
     end
 
     # @return [Time]

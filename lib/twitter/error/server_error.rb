@@ -1,7 +1,10 @@
 require 'twitter/error'
 
 module Twitter
-  # Raised when Twitter returns a 5xx HTTP status code
-  class Error::ServerError < Twitter::Error
+  module Error
+    # Raised when Twitter returns a 5xx HTTP status code
+    class ServerError < StandardError
+      include Twitter::Error
+    end
   end
 end

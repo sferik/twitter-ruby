@@ -3,7 +3,7 @@ require 'helper'
 describe Twitter::Requestable do
   subject do
     client = Twitter::Client.new
-    client.class_eval{ public *Twitter::Requestable.private_instance_methods }
+    client.class_eval{public *Twitter::Requestable.private_instance_methods}
     client
   end
 
@@ -24,7 +24,7 @@ describe Twitter::Requestable do
     it "catches Faraday errors" do
       lambda do
         subject.request(:get, "/path", {}, {})
-      end.should raise_error(Twitter::Error::ClientError, "Oups")
+      end.should raise_error(Twitter::Error, "Oups")
     end
   end
 
