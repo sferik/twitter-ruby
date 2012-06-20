@@ -322,10 +322,8 @@ module Twitter
     #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
     #   @param options [Hash] A customizable set of options.
     def block(*args)
-      options = args.extract_options!
-      args.flatten.threaded_map do |user|
-        user = post("/1/blocks/create.json", options.merge_user(user))
-        Twitter::User.get_or_new(user)
+      url_to_user(args) do |options|
+        post("/1/blocks/create.json", options)
       end
     end
 
@@ -345,10 +343,8 @@ module Twitter
     #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
     #   @param options [Hash] A customizable set of options.
     def unblock(*args)
-      options = args.extract_options!
-      args.flatten.threaded_map do |user|
-        user = delete("/1/blocks/destroy.json", options.merge_user(user))
-        Twitter::User.get_or_new(user)
+      url_to_user(args) do |options|
+        delete("/1/blocks/destroy.json", options)
       end
     end
 
@@ -543,10 +539,8 @@ module Twitter
     #   @param ids [Array<Integer>, Set<Integer>] An array of Twitter status IDs.
     #   @param options [Hash] A customizable set of options.
     def favorite(*args)
-      options = args.extract_options!
-      args.flatten.threaded_map do |id|
-        status = post("/1/favorites/create/#{id}.json", options)
-        Twitter::Status.get_or_new(status)
+      url_to_status(args) do |id, options|
+        post("/1/favorites/create/#{id}.json", options)
       end
     end
     alias :favorite_create :favorite
@@ -566,10 +560,8 @@ module Twitter
     #   @param ids [Array<Integer>, Set<Integer>] An array of Twitter status IDs.
     #   @param options [Hash] A customizable set of options.
     def unfavorite(*args)
-      options = args.extract_options!
-      args.flatten.threaded_map do |id|
-        status = delete("/1/favorites/destroy/#{id}.json", options)
-        Twitter::Status.get_or_new(status)
+      url_to_status(args) do |id, options|
+        delete("/1/favorites/destroy/#{id}.json", options)
       end
     end
     alias :favorite_destroy :unfavorite
@@ -739,15 +731,7 @@ module Twitter
       user_ids = Thread.new do
         self.users(args).map(&:id)
       end
-      (user_ids.value - friend_ids.value).threaded_map do |user|
-        begin
-          user = post("/1/friendships/create.json", options.merge_user(user))
-          Twitter::User.get_or_new(user)
-        rescue Twitter::Error::Forbidden
-          # This error will be raised if the user doesn't have permission to
-          # follow list_member, for whatever reason.
-        end
-      end.compact
+      follow!(user_ids.value - friend_ids.value, options)
     end
     alias :friendship_create :follow
 
@@ -798,10 +782,8 @@ module Twitter
     #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
     #   @param options [Hash] A customizable set of options.
     def unfollow(*args)
-      options = args.extract_options!
-      args.flatten.threaded_map do |user|
-        user = delete("/1/friendships/destroy.json", options.merge_user(user))
-        Twitter::User.get_or_new(user)
+      url_to_user(args) do |options|
+        delete("/1/friendships/destroy.json", options)
       end
     end
     alias :friendship_destroy :unfollow
@@ -880,10 +862,8 @@ module Twitter
     #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
     #   @param options [Hash] A customizable set of options.
     def accept(*args)
-      options = args.extract_options!
-      args.flatten.threaded_map do |user|
-        user = post("/1/friendships/accept.json", options.merge_user(user))
-        Twitter::User.get_or_new(user)
+      url_to_user(args) do |options|
+        post("/1/friendships/accept.json", options)
       end
     end
 
@@ -902,10 +882,8 @@ module Twitter
     #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
     #   @param options [Hash] A customizable set of options.
     def deny(*args)
-      options = args.extract_options!
-      args.flatten.threaded_map do |user|
-        user = post("/1/friendships/deny.json", options.merge_user(user))
-        Twitter::User.get_or_new(user)
+      url_to_user(args) do |options|
+        post("/1/friendships/deny.json", options)
       end
     end
 
@@ -1178,15 +1156,9 @@ module Twitter
     #     Twitter.list_subscribe('sferik', 8863586)
     #     Twitter.list_subscribe(7505382, 'presidents')
     def list_subscribe(*args)
-      options = args.extract_options!
-      list = args.pop
-      options.merge_list!(list)
-      unless options[:owner_id] || options[:owner_screen_name]
-        owner = args.pop || self.current_user.screen_name
-        options.merge_owner!(owner)
+      url_to_list(args) do |options|
+        post("/1/lists/subscribers/create.json", options)
       end
-      list = post("/1/lists/subscribers/create.json", options)
-      Twitter::List.get_or_new(list)
     end
 
     # Check if a user is a subscriber of the specified list
@@ -1253,15 +1225,9 @@ module Twitter
     #     Twitter.list_unsubscribe('sferik', 8863586)
     #     Twitter.list_unsubscribe(7505382, 'presidents')
     def list_unsubscribe(*args)
-      options = args.extract_options!
-      list = args.pop
-      options.merge_list!(list)
-      unless options[:owner_id] || options[:owner_screen_name]
-        owner = args.pop || self.current_user.screen_name
-        options.merge_owner!(owner)
+      url_to_list(args) do |options|
+        post("/1/lists/subscribers/destroy.json", options)
       end
-      list = post("/1/lists/subscribers/destroy.json", options)
-      Twitter::List.get_or_new(list)
     end
 
     # Adds specified members to a list
@@ -1487,15 +1453,9 @@ module Twitter
     #     Twitter.list_destroy(7505382, 'presidents')
     #     Twitter.list_destroy(7505382, 8863586)
     def list_destroy(*args)
-      options = args.extract_options!
-      list = args.pop
-      options.merge_list!(list)
-      unless options[:owner_id] || options[:owner_screen_name]
-        owner = args.pop || self.current_user.screen_name
-        options.merge_owner!(owner)
+      url_to_list(args) do |options|
+        delete("/1/lists/destroy.json", options)
       end
-      list = delete("/1/lists/destroy.json", options)
-      Twitter::List.get_or_new(list)
     end
 
     # Updates the specified list
@@ -1525,15 +1485,9 @@ module Twitter
     #     Twitter.list_update('sferik', 8863586, :description => "Presidents of the United States of America")
     #     Twitter.list_update(7505382, 8863586, :description => "Presidents of the United States of America")
     def list_update(*args)
-      options = args.extract_options!
-      list = args.pop
-      options.merge_list!(list)
-      unless options[:owner_id] || options[:owner_screen_name]
-        owner = args.pop || self.current_user.screen_name
-        options.merge_owner!(owner)
+      url_to_list(args) do |options|
+        post("/1/lists/update.json", options)
       end
-      list = post("/1/lists/update.json", options)
-      Twitter::List.get_or_new(list)
     end
 
     # Creates a new list for the authenticated user
@@ -1607,15 +1561,9 @@ module Twitter
     #     Twitter.list(7505382, 'presidents')
     #     Twitter.list(7505382, 8863586)
     def list(*args)
-      options = args.extract_options!
-      list = args.pop
-      options.merge_list!(list)
-      unless options[:owner_id] || options[:owner_screen_name]
-        owner = args.pop || self.current_user.screen_name
-        options.merge_owner!(owner)
+      url_to_list(args) do |options|
+        get("/1/lists/show.json", options)
       end
-      list = get("/1/lists/show.json", options)
-      Twitter::List.get_or_new(list)
     end
 
     # Returns the top 10 trending topics for a specific WOEID
@@ -1669,10 +1617,8 @@ module Twitter
     #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
     #   @param options [Hash] A customizable set of options.
     def enable_notifications(*args)
-      options = args.extract_options!
-      args.flatten.threaded_map do |user|
-        user = post("/1/notifications/follow.json", options.merge_user(user))
-        Twitter::User.get_or_new(user)
+      url_to_user(args) do |options|
+        post("/1/notifications/follow.json", options)
       end
     end
 
@@ -1692,10 +1638,8 @@ module Twitter
     #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
     #   @param options [Hash] A customizable set of options.
     def disable_notifications(*args)
-      options = args.extract_options!
-      args.flatten.threaded_map do |user|
-        user = post("/1/notifications/leave.json", options.merge_user(user))
-        Twitter::User.get_or_new(user)
+      url_to_user(args) do |options|
+        post("/1/notifications/leave.json", options)
       end
     end
 
@@ -1879,11 +1823,11 @@ module Twitter
     # @requires_authentication Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Array<Twitter::SavedSearch>] The deleted saved searches.
-    # @override saved_search_destroy(*ids)
+    # @overload saved_search_destroy(*ids)
     #   @param ids [Array<Integer>, Set<Integer>] An array of Twitter status IDs.
     #   @example Destroys a saved search for the authenticated user with the ID 16129012
     #     Twitter.saved_search_destroy(16129012)
-    # @override saved_search_destroy(*ids, options)
+    # @overload saved_search_destroy(*ids, options)
     #   @param ids [Array<Integer>, Set<Integer>] An array of Twitter status IDs.
     #   @param options [Hash] A customizable set of options.
     def saved_search_destroy(*args)
@@ -1955,10 +1899,8 @@ module Twitter
     #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
     #   @param options [Hash] A customizable set of options.
     def report_spam(*args)
-      options = args.extract_options!
-      args.flatten.threaded_map do |user|
-        user = post("/1/report_spam.json", options.merge_user(user))
-        Twitter::User.get_or_new(user)
+      url_to_user(args) do |options|
+        post("/1/report_spam.json", options)
       end
     end
 
@@ -2344,10 +2286,8 @@ module Twitter
     #   @param options [Hash] A customizable set of options.
     #   @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
     def statuses(*args)
-      options = args.extract_options!
-      args.flatten.threaded_map do |id|
-        status = get("/1/statuses/show/#{id}.json", options)
-        Twitter::Status.get_or_new(status)
+      url_to_status(args) do |id, options|
+        get("/1/statuses/show/#{id}.json", options)
       end
     end
 
@@ -2385,9 +2325,7 @@ module Twitter
     def statuses_activity(*args)
       options = args.extract_options!
       args.flatten.threaded_map do |id|
-        status = get("/i/statuses/#{id}/activity/summary.json", options)
-        status.merge!('id' => id)
-        Twitter::Status.get_or_new(status)
+        status_activity(id, options)
       end
     end
 
@@ -2427,9 +2365,7 @@ module Twitter
     def statuses_with_activity(*args)
       options = args.extract_options!
       args.flatten.threaded_map do |id|
-        activity = get("/i/statuses/#{id}/activity/summary.json", options)
-        status = get("/1/statuses/show/#{id}.json", options)
-        Twitter::Status.get_or_new(status.merge(activity))
+        status_with_activity(id, options)
       end
     end
 
@@ -2502,10 +2438,8 @@ module Twitter
     #   @param options [Hash] A customizable set of options.
     #   @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
     def status_destroy(*args)
-      options = args.extract_options!
-      args.flatten.threaded_map do |id|
-        status = delete("/1/statuses/destroy/#{id}.json", options)
-        Twitter::Status.get_or_new(status)
+      url_to_status(args) do |id, options|
+        delete("/1/statuses/destroy/#{id}.json", options)
       end
     end
 
@@ -2812,6 +2746,36 @@ module Twitter
       options.merge_user!(user)
       cursor = get("/users/following_followers_of.json", options)
       Twitter::Cursor.new(cursor, 'users', Twitter::User)
+    end
+
+  private
+
+    def url_to_list(args, &block)
+      options = args.extract_options!
+      list = args.pop
+      options.merge_list!(list)
+      unless options[:owner_id] || options[:owner_screen_name]
+        owner = args.pop || self.current_user.screen_name
+        options.merge_owner!(owner)
+      end
+      list = yield(options)
+      Twitter::List.get_or_new(list)
+    end
+
+    def url_to_status(args, &block)
+      options = args.extract_options!
+      args.flatten.threaded_map do |id|
+        status = yield(id, options)
+        Twitter::Status.get_or_new(status)
+      end
+    end
+
+    def url_to_user(args, &block)
+      options = args.extract_options!
+      args.flatten.threaded_map do |user|
+        user = yield(options.merge_user(user))
+        Twitter::User.get_or_new(user)
+      end
     end
 
   end

@@ -1,22 +1,8 @@
-require 'twitter/base'
-require 'twitter/creatable'
-require 'twitter/status'
-require 'twitter/user'
+require 'twitter/action/status'
 
 module Twitter
   module Action
-    class Reply < Twitter::Base
-      include Twitter::Creatable
-      attr_reader :max_position, :min_position
-
-      # A collection of users who replies to a user
-      #
-      # @return [Array<Twitter::User>]
-      def sources
-        @sources = Array(@attrs['sources']).map do |user|
-          Twitter::User.get_or_new(user)
-        end
-      end
+    class Reply < Twitter::Action::Status
 
       # A collection of statuses that reply to a user
       #
