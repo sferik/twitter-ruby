@@ -6,12 +6,6 @@ module Twitter
     attr_reader :attributes, :country, :full_name, :name, :url, :woeid
     alias :woe_id :woeid
 
-    # @param other [Twitter::Place]
-    # @return [Boolean]
-    def ==(other)
-      super || (other.class == self.class && other.id == self.id)
-    end
-
     # @return [Twitter::Point, Twitter::Polygon]
     def bounding_box
       @bounding_box ||= Twitter::GeoFactory.new(@attrs['bounding_box']) unless @attrs['bounding_box'].nil?

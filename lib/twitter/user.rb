@@ -50,12 +50,6 @@ module Twitter
     alias :verified? :verified
     alias :want_retweets? :want_retweets
 
-    # @param other [Twitter::User]
-    # @return [Boolean]
-    def ==(other)
-      super || (other.class == self.class && other.id == self.id)
-    end
-
     # @return [Twitter::Status]
     def status
       @status ||= Twitter::Status.get_or_new(@attrs.dup['status'].merge('user' => @attrs.except('status'))) unless @attrs['status'].nil?

@@ -6,12 +6,6 @@ module Twitter
     attr_reader :display_url, :expanded_url, :indices, :media_url,
       :media_url_https, :url
 
-    # @param other [Twitter::Photo]
-    # @return [Boolean]
-    def ==(other)
-      super || (other.class == self.class && other.id == self.id)
-    end
-
     # @return [Array<Twitter::Size>]
     def sizes
       @sizes ||= Array(@attrs['sizes']).inject({}) do |object, (key, value)|

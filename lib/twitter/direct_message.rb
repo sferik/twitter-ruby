@@ -7,12 +7,6 @@ module Twitter
     include Twitter::Creatable
     attr_reader :text
 
-    # @param other [Twitter::DirectMessage]
-    # @return [Boolean]
-    def ==(other)
-      super || (other.class == self.class && other.id == self.id)
-    end
-
     # @return [Twitter::User]
     def recipient
       @recipient ||= Twitter::User.get_or_new(@attrs['recipient']) unless @attrs['recipient'].nil?

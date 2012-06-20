@@ -25,12 +25,6 @@ module Twitter
     alias :retweeted? :retweeted
     alias :truncated? :truncated
 
-    # @param other [Twitter::Status]
-    # @return [Boolean]
-    def ==(other)
-      super || (other.class == self.class && other.id == self.id)
-    end
-
     # @return [Integer]
     def favoriters_count
       @favoriters_count ||= @attrs['favoriters_count']
