@@ -18,7 +18,7 @@ describe Twitter::Client do
     end
     it "returns activity about me" do
       activity_about_me = @client.activity_about_me
-      activity_about_me.first.should be_a Twitter::Mention
+      activity_about_me.first.should be_a Twitter::Action::Mention
     end
   end
 
@@ -34,7 +34,7 @@ describe Twitter::Client do
     end
     it "returns activity by friends" do
       activity_by_friends = @client.activity_by_friends
-      activity_by_friends.first.should be_a Twitter::Favorite
+      activity_by_friends.first.should be_a Twitter::Action::Favorite
     end
   end
 

@@ -1,10 +1,10 @@
-require 'twitter/favorite'
-require 'twitter/follow'
+require 'twitter/action/favorite'
+require 'twitter/action/follow'
+require 'twitter/action/list_member_added'
+require 'twitter/action/mention'
+require 'twitter/action/reply'
+require 'twitter/action/retweet'
 require 'twitter/inflector'
-require 'twitter/list_member_added'
-require 'twitter/mention'
-require 'twitter/reply'
-require 'twitter/retweet'
 
 module Twitter
   class ActionFactory
@@ -14,11 +14,11 @@ module Twitter
     #
     # @param attrs [Hash]
     # @raise [ArgumentError] Error raised when supplied argument is missing an 'action' key.
-    # @return [Twitter::Favorite, Twitter::Follow, Twitter::ListMemberAdded, Twitter::Mention, Twitter::Reply, Twitter::Retweet]
+    # @return [Twitter::Action::Favorite, Twitter::Action::Follow, Twitter::Action::ListMemberAdded, Twitter::Action::Mention, Twitter::Action::Reply, Twitter::Action::Retweet]
     def self.new(action={})
       type = action.delete('action')
       if type
-        Twitter.const_get(camelize(type).to_sym).get_or_new(action)
+        Twitter::Action.const_get(camelize(type).to_sym).get_or_new(action)
       else
         raise ArgumentError, "argument must have an 'action' key"
       end
