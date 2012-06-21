@@ -8,14 +8,9 @@ module Twitter
     class RaiseServerError < Faraday::Response::Middleware
 
       def on_complete(env)
-        case env[:status].to_i
-        when 500
-          raise Twitter::Error::InternalServerError.new("Something is technically wrong.", env[:response_headers])
-        when 502
-          raise Twitter::Error::BadGateway.new("Twitter is down or being upgraded.", env[:response_headers])
-        when 503
-          raise Twitter::Error::ServiceUnavailable.new("(__-){ Twitter is over capacity.", env[:response_headers])
-        end
+        status_code = env[:status].to_i
+        error_class = Twitter::Error::ServerError.errors[status_code]
+        raise error_class.from_env(env) if error_class
       end
 
     end

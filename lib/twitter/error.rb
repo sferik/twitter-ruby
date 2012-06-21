@@ -2,12 +2,34 @@ module Twitter
   module Error
     attr_reader :http_headers
 
+    module ClassMethods
+
+      def errors
+        return @errors if defined? @errors
+        array = descendants.map do |klass|
+          [klass.const_get(:HTTP_STATUS_CODE), klass]
+        end.flatten
+        @errors = Hash[*array]
+      end
+
+    private
+
+      def descendants
+        ObjectSpace.each_object(::Class).select{|klass| klass < self}
+      end
+
+    end
+
+    def self.included(base)
+      base.extend(ClassMethods)
+    end
+
     # Initializes a new Error object
     #
     # @param message [String]
     # @param http_headers [Hash]
     # @return [Twitter::Error]
-    def initialize(message, http_headers)
+    def initialize(message=nil, http_headers={})
       @http_headers = Hash[http_headers]
       super(message)
     end
