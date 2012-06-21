@@ -5,45 +5,35 @@ describe Faraday::Response do
     @client = Twitter::Client.new
   end
 
-  {
-    400 => Twitter::Error::BadRequest,
-    401 => Twitter::Error::Unauthorized,
-    403 => Twitter::Error::Forbidden,
-    404 => Twitter::Error::NotFound,
-    406 => Twitter::Error::NotAcceptable,
-    500 => Twitter::Error::InternalServerError,
-    502 => Twitter::Error::BadGateway,
-    503 => Twitter::Error::ServiceUnavailable,
-  }.each do |status, exception|
-    if (status >= 500)
-      context "when HTTP status is #{status}" do
+  Twitter::Error::ServerError.errors.each do |status, exception|
+    context "when HTTP status is #{status}" do
+      before do
+        stub_get("/1/statuses/user_timeline.json").
+          with(:query => {:screen_name => 'sferik'}).
+          to_return(:status => status)
+      end
+
+      it "raises #{exception.name}" do
+        lambda do
+          @client.user_timeline('sferik')
+        end.should raise_error(exception)
+      end
+    end
+  end
+
+  Twitter::Error::ClientError.errors.each do |status, exception|
+    [nil, "error", "errors"].each do |body|
+      context "when HTTP status is #{status} and body is #{body || 'nil'}" do
         before do
+          body_message = '{"' + body + '":"test"}' unless body.nil?
           stub_get("/1/statuses/user_timeline.json").
             with(:query => {:screen_name => 'sferik'}).
-            to_return(:status => status)
+            to_return(:status => status, :body => body_message)
         end
-
         it "raises #{exception.name}" do
           lambda do
             @client.user_timeline('sferik')
           end.should raise_error(exception)
-        end
-      end
-    else
-      [nil, "error", "errors"].each do |body|
-        context "when HTTP status is #{status} and body is #{body || 'nil'}" do
-          before do
-            body_message = '{"'+body+'":"test"}' unless body.nil?
-            stub_get("/1/statuses/user_timeline.json").
-              with(:query => {:screen_name => 'sferik'}).
-              to_return(:status => status, :body => body_message)
-          end
-
-          it "raises #{exception.name}" do
-            lambda do
-              @client.user_timeline('sferik')
-            end.should raise_error(exception)
-          end
         end
       end
     end
@@ -61,4 +51,5 @@ describe Faraday::Response do
       end.should raise_error(Twitter::Error::NotFound)
     end
   end
+
 end
