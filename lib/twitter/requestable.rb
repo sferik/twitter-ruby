@@ -51,9 +51,11 @@ module Twitter
       uri += path
       headers = {}
       if credentials?
-        signature_params = params
-        params.values.each do |value|
-          signature_params = {} if value.is_a?(Hash)
+        # When posting a file, don't sign any params
+        signature_params = if :post == method.to_sym && params.values.any?{|value| value.is_a?(File) || (value.is_a?(Hash) && (value['io'].is_a?(IO) || value['io'].is_a?(StringIO)))}
+          {}
+        else
+          params
         end
         header = SimpleOAuth::Header.new(method, uri, signature_params, credentials)
         headers['Authorization'] = header.to_s

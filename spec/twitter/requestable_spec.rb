@@ -1,9 +1,10 @@
 require 'helper'
 
 describe Twitter::Requestable do
+
   subject do
     client = Twitter::Client.new
-    client.class_eval{ public *Twitter::Requestable.private_instance_methods }
+    client.class_eval{public *Twitter::Requestable.private_instance_methods}
     client
   end
 
@@ -19,9 +20,26 @@ describe Twitter::Requestable do
 
   describe "#request" do
     before do
-      subject.stub!(:connection).and_raise(Faraday::Error::ClientError.new("Oups"))
+      @client = Twitter::Client.new({:consumer_key => "CK", :consumer_secret => "CS", :oauth_token => "OT", :oauth_token_secret => "OS"})
+    end
+    it "encodes the entire body when no uploaded media is present" do
+      stub_post("/1/statuses/update.json").
+        with(:body => {:status => "Update"}).
+        to_return(:body => fixture("status.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      @client.update("Update")
+      a_post("/1/statuses/update.json").
+        with(:body => {:status => "Update"}).
+        should have_been_made
+    end
+    it "encodes none of the body when uploaded media is present" do
+      stub_post("/1/statuses/update_with_media.json", Twitter.media_endpoint).
+        to_return(:body => fixture("status_with_media.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      @client.update_with_media("Update", fixture("pbjt.gif"))
+      a_post("/1/statuses/update_with_media.json", Twitter.media_endpoint).
+        should have_been_made
     end
     it "catches Faraday errors" do
+      subject.stub!(:connection).and_raise(Faraday::Error::ClientError.new("Oups"))
       lambda do
         subject.request(:get, "/path", {}, {})
       end.should raise_error(Twitter::Error::ClientError, "Oups")
