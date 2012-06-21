@@ -1,37 +1,37 @@
 module Twitter
-  module Error
-    attr_reader :http_headers
+  # Custom error class for rescuing from all Twitter errors
+  class Error < StandardError
+    attr_reader :http_headers, :wrapped_exception
 
-    module ClassMethods
-
-      def errors
-        return @errors if defined? @errors
-        array = descendants.map do |klass|
-          [klass.const_get(:HTTP_STATUS_CODE), klass]
-        end.flatten
-        @errors = Hash[*array]
-      end
-
-    private
-
-      def descendants
-        ObjectSpace.each_object(::Class).select{|klass| klass < self}
-      end
-
+    def self.errors
+      return @errors if defined? @errors
+      array = descendants.map do |klass|
+        [klass.const_get(:HTTP_STATUS_CODE), klass]
+      end.flatten
+      @errors = Hash[*array]
     end
 
-    def self.included(base)
-      base.extend(ClassMethods)
+    def self.descendants
+      ObjectSpace.each_object(::Class).select{|klass| klass < self}
     end
 
     # Initializes a new Error object
     #
-    # @param message [String]
+    # @param exception [Exception, String]
     # @param http_headers [Hash]
     # @return [Twitter::Error]
-    def initialize(message=nil, http_headers={})
-      @http_headers = Hash[http_headers]
-      super(message)
+    def initialize(exception=$!, http_headers={})
+      @http_headers = http_headers
+      if exception.respond_to?(:backtrace)
+        super(exception.message)
+        @wrapped_exception = exception
+      else
+        super(exception.to_s)
+      end
+    end
+
+    def backtrace
+      @wrapped_exception ? @wrapped_exception.backtrace : super
     end
 
     # @return [Time]

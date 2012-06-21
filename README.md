@@ -87,23 +87,23 @@ This functionality may be replicated by inserting custom Faraday middleware.
 
 ### Configuration
 
-The Faraday middleware stack is now fully configurable and is exposed as a
+The Faraday middleware stack is now fully configurable and is exposed as a 
 `Faraday::Builder` which can be manipulated in place:
 
     Twitter.middleware.insert_after Twitter::Response::RaiseClientError, CustomMiddleware
-
+    
 Likewise, the middleware stack can be replaced in it's entirety:
 
     Twitter.middleware = Faraday::Builder.new(&Proc.new { |builder|
       # Specify a middleware stack here
     })
 
-As part of these configuration changes we've removed `adapter` configuration.
+As part of these configuration changes we've removed `adapter` configuration. 
 If you would like to change the adapter used, you can do so by setting Faraday's
 `default_adapter`:
 
     Faraday.default_adapter = :some_other_adapter
-
+    
 The adapter can also be configured as part of the middleware stack:
 
     Twitter.middleware = Faraday::Builder.new(&Proc.new { |builder|
@@ -133,23 +133,9 @@ false.)
 
 ### Errors
 
-All HTTP errors are now tagged with the `Twitter::Error` module. There's a
-distinct possibility you've written application code like this to prevent an
-HTTP error from crashing your entire application:
-
-    begin
-      # Make Twitter requests
-    rescue Faraday::Error::ClientError, EOFError, Errno::ECONNABORTED, Errno::ECONNREFUSED, Errno::ECONNRESET, Errno::EINVAL, Net::HTTPBadResponse, Net::HTTPHeaderSyntaxError, Net::ProtocolError, SocketError => error
-      log.error(error.message)
-    end
-
-This code can now be replaced with:
-
-    begin
-      # Make Twitter requests
-    rescue Twitter::Error
-      log.error(error.message)
-    end
+Any Faraday client errors are captured and re-raised as a
+`Twitter::Error::ClientError`, so there's no longer a need to separately rescue
+`Faraday::Error::ClientError`.
 
 The `Twitter::Error::EnhanceYourCalm` class has been removed, since all Search
 API requests are made via api.twitter.com, which does not return HTTP 420. When

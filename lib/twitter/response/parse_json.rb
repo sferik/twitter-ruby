@@ -23,6 +23,7 @@ module Twitter
           env[:body] = parse(env[:body]) unless env[:request][:raw] || [204, 304].include?(env[:status])
         end
       end
+
     end
   end
 end

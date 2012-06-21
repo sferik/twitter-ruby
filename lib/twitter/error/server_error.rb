@@ -1,13 +1,12 @@
 require 'twitter/error'
 
 module Twitter
-  module Error
+  class Error
     # Raised when Twitter returns a 5xx HTTP status code
-    class ServerError < StandardError
-      include Twitter::Error
+    class ServerError < Twitter::Error
       MESSAGE = "Server Error"
 
-      # Create a new error from a HTTP environment
+      # Create a new error from an HTTP environment
       #
       # @param env [Hash]
       # @return [Twitter::Error]

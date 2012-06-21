@@ -1,17 +1,16 @@
 require 'twitter/error'
 
 module Twitter
-  module Error
+  class Error
     # Raised when Twitter returns a 4xx HTTP status code or there's an error in Faraday
-    class ClientError < StandardError
-      include Twitter::Error
+    class ClientError < Twitter::Error
 
-      # Create a new error from a HTTP environment
+      # Create a new error from an HTTP environment
       #
       # @param env [Hash]
       # @return [Twitter::Error]
       def self.from_env(env)
-        new(error_body(env[:message]), env[:response_headers])
+        new(error_body(env[:body]), env[:response_headers])
       end
 
     private

@@ -73,9 +73,8 @@ module Twitter
       end
 
       options[:raw] ? response : response.body
-    rescue StandardError => error
-      error.extend(Twitter::Error)
-      raise
+    rescue Faraday::Error::ClientError
+      raise Twitter::Error::ClientError
     end
 
   end
