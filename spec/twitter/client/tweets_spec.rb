@@ -130,51 +130,6 @@ describe Twitter::Client do
     end
   end
 
-  describe "#status_with_activity" do
-    before do
-      stub_get("/i/statuses/25938088801/activity/summary.json").
-        to_return(:body => fixture("activity_summary.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-      stub_get("/1/statuses/show/25938088801.json").
-        to_return(:body => fixture("status.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-    end
-    it "requests the correct resource" do
-      @client.status_with_activity(25938088801)
-      a_get("/i/statuses/25938088801/activity/summary.json").
-        should have_been_made
-      a_get("/1/statuses/show/25938088801.json").
-        should have_been_made
-    end
-    it "returns a status" do
-      status = @client.status_with_activity(25938088801)
-      status.should be_a Twitter::Status
-      status.text.should eq "@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!"
-      status.retweeters_count.should eq 1
-    end
-  end
-
-  describe "#statuses_with_activity" do
-    before do
-      stub_get("/i/statuses/25938088801/activity/summary.json").
-        to_return(:body => fixture("activity_summary.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-      stub_get("/1/statuses/show/25938088801.json").
-        to_return(:body => fixture("status.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-    end
-    it "requests the correct resource" do
-      @client.statuses_with_activity(25938088801)
-      a_get("/i/statuses/25938088801/activity/summary.json").
-        should have_been_made
-      a_get("/1/statuses/show/25938088801.json").
-        should have_been_made
-    end
-    it "returns an array of statuses" do
-      statuses = @client.statuses_with_activity(25938088801)
-      statuses.should be_an Array
-      statuses.first.should be_a Twitter::Status
-      statuses.first.text.should eq "@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!"
-      statuses.first.retweeters_count.should eq 1
-    end
-  end
-
   describe "#status_destroy" do
     before do
       stub_delete("/1/statuses/destroy/25938088801.json").

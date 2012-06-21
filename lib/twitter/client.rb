@@ -2329,46 +2329,6 @@ module Twitter
       end
     end
 
-    # Returns status with activity summary
-    #
-    # @see https://dev.twitter.com/docs/api/1/get/statuses/show/:id
-    # @rate_limited Yes
-    # @requires_authentication Yes
-    # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-    # @return [Twitter::Status] The requested status.
-    # @param id [Integer] A Twitter status ID.
-    # @param options [Hash] A customizable set of options.
-    # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
-    # @example Return the status with activity summary with the ID 25938088801
-    #   Twitter.status_with_activity(25938088801)
-    def status_with_activity(id, options={})
-      activity = get("/i/statuses/#{id}/activity/summary.json", options)
-      status = get("/1/statuses/show/#{id}.json", options)
-      Twitter::Status.get_or_new(status.merge(activity))
-    end
-
-    # Returns statuses with activity summary
-    #
-    # @see https://dev.twitter.com/docs/api/1/get/statuses/show/:id
-    # @rate_limited Yes
-    # @requires_authentication Yes
-    # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-    # @return [Array<Twitter::Status>] The requested statuses.
-    # @overload statuses_with_activity(*ids)
-    #   @param ids [Array<Integer>, Set<Integer>] An array of Twitter status IDs.
-    #   @example Return the status with activity summary with the ID 25938088801
-    #     Twitter.statuses_with_activity(25938088801)
-    # @overload statuses_with_activity(*ids, options)
-    #   @param ids [Array<Integer>, Set<Integer>] An array of Twitter status IDs.
-    #   @param options [Hash] A customizable set of options.
-    #   @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
-    def statuses_with_activity(*args)
-      options = args.extract_options!
-      args.flatten.threaded_map do |id|
-        status_with_activity(id, options)
-      end
-    end
-
     # Returns oEmbed for status
     #
     # @see https://dev.twitter.com/docs/api/1/get/statuses/oembed

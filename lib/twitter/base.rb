@@ -56,7 +56,8 @@ module Twitter
     # @param attrs [Hash]
     # @return [Twitter::Base]
     def update(attrs)
-      @attrs = attrs
+      @attrs ||= {}
+      @attrs.merge!(attrs)
       self
     end
 
