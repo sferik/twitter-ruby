@@ -3,7 +3,7 @@ require 'twitter/identity_map'
 module Twitter
   class Base
     attr_accessor :attrs
-    alias :to_hash :attrs
+    alias to_hash attrs
 
     @@identity_map = IdentityMap.new
 

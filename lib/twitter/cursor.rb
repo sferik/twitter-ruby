@@ -4,7 +4,7 @@ module Twitter
   class Cursor
     attr_reader :collection
     attr_accessor :attrs
-    alias :to_hash :attrs
+    alias to_hash attrs
 
     # Initializes a new Cursor object
     #
@@ -29,24 +29,24 @@ module Twitter
     def next_cursor
       @attrs['next_cursor']
     end
-    alias :next :next_cursor
+    alias next next_cursor
 
     def previous_cursor
       @attrs['previous_cursor']
     end
-    alias :previous :previous_cursor
+    alias previous previous_cursor
 
     # @return [Boolean]
     def first?
       previous_cursor.zero?
     end
-    alias :first :first?
+    alias first first?
 
     # @return [Boolean]
     def last?
       next_cursor.zero?
     end
-    alias :last :last?
+    alias last last?
 
   end
 end

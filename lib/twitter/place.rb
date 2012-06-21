@@ -4,7 +4,7 @@ require 'twitter/identifiable'
 module Twitter
   class Place < Twitter::Identifiable
     attr_reader :attributes, :country, :full_name, :name, :url, :woeid
-    alias :woe_id :woeid
+    alias woe_id woeid
 
     # @return [Twitter::Point, Twitter::Polygon]
     def bounding_box

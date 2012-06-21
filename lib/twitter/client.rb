@@ -431,8 +431,8 @@ module Twitter
       direct_message = post("/1/direct_messages/new.json", options.merge(:text => text))
       Twitter::DirectMessage.get_or_new(direct_message)
     end
-    alias :d :direct_message_create
-    alias :m :direct_message_create
+    alias d direct_message_create
+    alias m direct_message_create
 
     # Returns a direct message
     #
@@ -543,7 +543,9 @@ module Twitter
         post("/1/favorites/create/#{id}.json", options)
       end
     end
-    alias :favorite_create :favorite
+    alias favorite_create favorite
+    alias fave favorite
+    alias fav favorite
 
     # Un-favorites the specified statuses as the authenticating user
     #
@@ -564,7 +566,7 @@ module Twitter
         delete("/1/favorites/destroy/#{id}.json", options)
       end
     end
-    alias :favorite_destroy :unfavorite
+    alias favorite_destroy unfavorite
 
     # @see https://dev.twitter.com/docs/api/1/get/followers/ids
     # @rate_limited Yes
@@ -702,8 +704,8 @@ module Twitter
       relationship = get("/1/friendships/show.json", options)['relationship']
       Twitter::Relationship.get_or_new(relationship)
     end
-    alias :friendship_show :friendship
-    alias :relationship :friendship
+    alias friendship_show friendship
+    alias relationship friendship
 
     # Allows the authenticating user to follow the specified users, unless they are already followed
     #
@@ -733,7 +735,7 @@ module Twitter
       end
       follow!(user_ids.value - friend_ids.value, options)
     end
-    alias :friendship_create :follow
+    alias friendship_create follow
 
     # Allows the authenticating user to follow the specified users
     #
@@ -765,7 +767,7 @@ module Twitter
         end
       end.compact
     end
-    alias :friendship_create! :follow!
+    alias friendship_create! follow!
 
     # Allows the authenticating user to unfollow the specified users
     #
@@ -786,7 +788,7 @@ module Twitter
         delete("/1/friendships/destroy.json", options)
       end
     end
-    alias :friendship_destroy :unfollow
+    alias friendship_destroy unfollow
 
     # Returns the relationship of the authenticating user to the comma separated list of up to 100 screen_names or user_ids provided. Values for connections can be: following, following_requested, followed_by, none.
     #
@@ -1582,7 +1584,7 @@ module Twitter
         Twitter::Trend.get_or_new(trend)
       end
     end
-    alias :trends :local_trends
+    alias trends local_trends
 
     # Returns the locations that Twitter has trending topic information for
     #
@@ -1666,7 +1668,7 @@ module Twitter
         Twitter::Place.get_or_new(place)
       end
     end
-    alias :geo_search :places_nearby
+    alias geo_search places_nearby
 
     # Locates places near the given coordinates which are similar in name
     #

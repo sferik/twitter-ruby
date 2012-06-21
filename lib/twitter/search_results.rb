@@ -9,7 +9,7 @@ module Twitter
     def results
       @results ||= Array(@attrs['results']).map{|status| Twitter::Status.get_or_new(status)}
     end
-    alias :collection :results
+    alias collection results
 
   end
 end

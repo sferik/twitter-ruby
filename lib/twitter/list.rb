@@ -7,7 +7,7 @@ module Twitter
     include Twitter::Creatable
     attr_reader :description, :following, :full_name, :member_count,
       :mode, :name, :slug, :subscriber_count, :uri
-    alias :following? :following
+    alias following? following
 
     # @return [Twitter::User]
     def user

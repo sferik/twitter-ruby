@@ -21,16 +21,16 @@ module Twitter
       :profile_image_url, :profile_image_url_https, :repliers, :retweeted,
       :retweeters, :source, :text, :to_user, :to_user_id, :to_user_name,
       :truncated
-    alias :favorited? :favorited
-    alias :retweeted? :retweeted
-    alias :truncated? :truncated
+    alias favorited? favorited
+    alias retweeted? retweeted
+    alias truncated? truncated
 
     # @return [Integer]
     def favoriters_count
       @favoriters_count ||= @attrs['favoriters_count']
       @favoriters_count.to_i if @favoriters_count
     end
-    alias :favorite_count :favoriters_count
+    alias favorite_count favoriters_count
 
     # @return [String]
     def from_user
@@ -93,7 +93,7 @@ module Twitter
       @repliers_count ||= @attrs['repliers_count']
       @repliers_count.to_i if @repliers_count
     end
-    alias :reply_count :repliers_count
+    alias reply_count repliers_count
 
     # If this status is itself a retweet, the original tweet is available here.
     #
@@ -107,7 +107,7 @@ module Twitter
       @retweeters_count ||= (@attrs['retweet_count'] || @attrs['retweeters_count'])
       @retweeters_count.to_i if @retweeters_count
     end
-    alias :retweet_count :retweeters_count
+    alias retweet_count retweeters_count
 
     # @note Must include entities in your request for this method to work
     # @return [Array<Twitter::Entity::Url>]
