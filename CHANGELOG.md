@@ -1,6 +1,3 @@
-HISTORY
-=======
-
 2.5.0 - November 18, 2011
 -------------------------
 * [Remove `Active Support` dependency](https://github.com/jnunemaker/twitter/compare/v2.4.0...v2.5.0)
