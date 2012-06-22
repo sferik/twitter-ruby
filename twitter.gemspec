@@ -17,7 +17,7 @@ Gem::Specification.new do |gem|
   gem.authors = ["John Nunemaker", "Wynn Netherland", "Erik Michaels-Ober", "Steve Richert"]
   gem.description = %q{A Ruby wrapper for the Twitter API.}
   gem.email = ['nunemaker@gmail.com', 'wynn.netherland@gmail.com', 'sferik@gmail.com', 'steve.richert@gmail.com']
-  gem.files = %w(LICENSE.md README.md Rakefile twitter.gemspec)
+  gem.files = %w(CHANGELOG.md LICENSE.md README.md Rakefile twitter.gemspec)
   gem.files += Dir.glob("lib/**/*.rb")
   gem.files += Dir.glob("spec/**/*")
   gem.homepage = 'https://github.com/jnunemaker/twitter'
