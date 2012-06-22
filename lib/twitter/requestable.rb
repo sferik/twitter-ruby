@@ -35,8 +35,10 @@ module Twitter
           :accept => 'application/json',
           :user_agent => user_agent,
         },
+        :open_timeout => 5,
         :proxy => proxy,
         :ssl => {:verify => false},
+        :timeout => 10,
       }
 
       options = default_options.deep_merge(connection_options)
