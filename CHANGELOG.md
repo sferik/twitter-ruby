@@ -1,5 +1,5 @@
-2.5.0 - November 18, 2011
--------------------------
+2.5.0 - June 1, 2012
+--------------------
 * [Remove `Active Support` dependency](https://github.com/jnunemaker/twitter/compare/v2.4.0...v2.5.0)
 
 2.4.0 - May 21, 2012
@@ -46,8 +46,6 @@
 * [All error classes have been moved inside the Twitter::Error namespace](https://github.com/jnunemaker/twitter/commit/1245742f030415ebf5f1054e85fe93bca85cddfb)
 * [Remove support for XML response format](https://github.com/jnunemaker/twitter/commit/e60b9cac2b14d11dcc703c87b9a74328c173f35a)
 * [Remove all deprecated methods](https://github.com/jnunemaker/twitter/commit/5f59f1935d31df2756fd5bc43ae0f7e57879a5a4)
-
-
 
 1.7.2 - September 22, 2011
 --------------------------
