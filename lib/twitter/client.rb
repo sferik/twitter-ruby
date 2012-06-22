@@ -51,13 +51,6 @@ module Twitter
       end
     end
 
-    # Returns the configured screen name or the screen name of the authenticated user
-    #
-    # @return [Twitter::User]
-    def current_user
-      Twitter::User.get_or_new(self.verify_credentials.attrs)
-    end
-
     # Returns the remaining number of API requests available to the requesting user
     #
     # @see https://dev.twitter.com/docs/api/1/get/account/rate_limit_status
@@ -86,6 +79,7 @@ module Twitter
       user = get("/1/account/verify_credentials.json", options)
       Twitter::User.get_or_new(user)
     end
+    alias current_user verify_credentials
 
     # Ends the session of the authenticating user
     #
@@ -998,7 +992,7 @@ module Twitter
       list = args.pop
       options.merge_list!(list)
       unless options[:owner_id] || options[:owner_screen_name]
-        owner = args.pop || self.current_user.screen_name
+        owner = args.pop || self.verify_credentials.screen_name
         options.merge_owner!(owner)
       end
       get("/1/lists/statuses.json", options).map do |status|
@@ -1038,7 +1032,7 @@ module Twitter
       list = args.pop
       options.merge_list!(list)
       unless options[:owner_id] || options[:owner_screen_name]
-        owner = args.pop || self.current_user.screen_name
+        owner = args.pop || self.verify_credentials.screen_name
         options.merge_owner!(owner)
       end
       list = post("/1/lists/members/destroy.json", options)
@@ -1101,7 +1095,7 @@ module Twitter
       list = args.pop
       options.merge_list!(list)
       unless options[:owner_id] || options[:owner_screen_name]
-        owner = args.pop || self.current_user.screen_name
+        owner = args.pop || self.verify_credentials.screen_name
         options.merge_owner!(owner)
       end
       cursor = get("/1/lists/subscribers.json", options)
@@ -1196,7 +1190,7 @@ module Twitter
       list = args.pop
       options.merge_list!(list)
       unless options[:owner_id] || options[:owner_screen_name]
-        owner = args.pop || self.current_user.screen_name
+        owner = args.pop || self.verify_credentials.screen_name
         options.merge_owner!(owner)
       end
       get("/1/lists/subscribers/show.json", options, :raw => true)
@@ -1266,7 +1260,7 @@ module Twitter
       members = args.pop
       options.merge_list!(args.pop)
       unless options[:owner_id] || options[:owner_screen_name]
-        owner = args.pop || self.current_user.screen_name
+        owner = args.pop || self.verify_credentials.screen_name
         options.merge_owner!(owner)
       end
       list = members.flatten.each_slice(MAX_USERS_PER_REQUEST).threaded_map do |users|
@@ -1308,7 +1302,7 @@ module Twitter
       members = args.pop
       options.merge_list!(args.pop)
       unless options[:owner_id] || options[:owner_screen_name]
-        owner = args.pop || self.current_user.screen_name
+        owner = args.pop || self.verify_credentials.screen_name
         options.merge_owner!(owner)
       end
       list = members.flatten.each_slice(MAX_USERS_PER_REQUEST).threaded_map do |users|
@@ -1347,7 +1341,7 @@ module Twitter
       list = args.pop
       options.merge_list!(list)
       unless options[:owner_id] || options[:owner_screen_name]
-        owner = args.pop || self.current_user.screen_name
+        owner = args.pop || self.verify_credentials.screen_name
         options.merge_owner!(owner)
       end
       get("/1/lists/members/show.json", options, :raw => true)
@@ -1385,7 +1379,7 @@ module Twitter
       list = args.pop
       options.merge_list!(list)
       unless options[:owner_id] || options[:owner_screen_name]
-        owner = args.pop || self.current_user.screen_name
+        owner = args.pop || self.verify_credentials.screen_name
         options.merge_owner!(owner)
       end
       cursor = get("/1/lists/members.json", options)
@@ -1424,7 +1418,7 @@ module Twitter
       list = args.pop
       options.merge_list!(list)
       unless options[:owner_id] || options[:owner_screen_name]
-        owner = args.pop || self.current_user.screen_name
+        owner = args.pop || self.verify_credentials.screen_name
         options.merge_owner!(owner)
       end
       list = post("/1/lists/members/create.json", options)
@@ -2424,9 +2418,9 @@ module Twitter
       options = args.extract_options!
       args.flatten.threaded_map do |id|
         new_status = post("/1/statuses/retweet/#{id}.json", options)
-        orig_status = new_status.delete('retweeted_status')
-        orig_status['retweeted_status'] = new_status
-        Twitter::Status.get_or_new(orig_status)
+        retweeted_status = new_status.delete('retweeted_status')
+        retweeted_status['retweeted_status'] = new_status
+        Twitter::Status.get_or_new(retweeted_status)
       end
     end
 
@@ -2521,7 +2515,7 @@ module Twitter
     #     Twitter.profile_image('sferik', :size => 'mini')
     def profile_image(*args)
       options = args.extract_options!
-      user = args.pop || self.current_user.screen_name
+      user = args.pop || self.verify_credentials.screen_name
       user = user.screen_name if user.is_a?(Twitter::User)
       get("/1/users/profile_image/#{user}", options, :raw => true).headers['location']
     end
@@ -2568,10 +2562,10 @@ module Twitter
       if user = args.pop
         options.merge_user!(user)
         user = get("/1/users/show.json", options)
+        Twitter::User.get_or_new(user)
       else
-        user = get("/1/account/verify_credentials.json", options)
+        self.verify_credentials
       end
-      Twitter::User.get_or_new(user)
     end
 
     # Returns true if the specified user exists
@@ -2612,7 +2606,7 @@ module Twitter
     #     Twitter.contributees(7505382)  # Same as above
     def contributees(*args)
       options = args.extract_options!
-      user = args.pop || self.current_user.screen_name
+      user = args.pop || self.verify_credentials.screen_name
       options.merge_user!(user)
       get("/1/users/contributees.json", options).map do |user|
         Twitter::User.get_or_new(user)
@@ -2640,7 +2634,7 @@ module Twitter
     #     Twitter.contributors(7505382)  # Same as above
     def contributors(*args)
       options = args.extract_options!
-      user = args.pop || self.current_user.screen_name
+      user = args.pop || self.verify_credentials.screen_name
       options.merge_user!(user)
       get("/1/users/contributors.json", options).map do |user|
         Twitter::User.get_or_new(user)
@@ -2670,7 +2664,7 @@ module Twitter
     #     Twitter.recommendations("sferik")
     def recommendations(*args)
       options = args.extract_options!
-      user = args.pop || self.current_user.screen_name
+      user = args.pop || self.verify_credentials.screen_name
       options.merge_user!(user)
       options[:excluded] = options[:excluded].join(',') if options[:excluded].is_a?(Array)
       get("/1/users/recommendations.json", options).map do |recommendation|
@@ -2704,7 +2698,7 @@ module Twitter
     def following_followers_of(*args)
       options = {:cursor => -1}
       options.merge!(args.extract_options!)
-      user = args.pop || self.current_user.screen_name
+      user = args.pop || self.verify_credentials.screen_name
       options.merge_user!(user)
       cursor = get("/users/following_followers_of.json", options)
       Twitter::Cursor.new(cursor, 'users', Twitter::User)
@@ -2717,7 +2711,7 @@ module Twitter
       list = args.pop
       options.merge_list!(list)
       unless options[:owner_id] || options[:owner_screen_name]
-        owner = args.pop || self.current_user.screen_name
+        owner = args.pop || self.verify_credentials.screen_name
         options.merge_owner!(owner)
       end
       list = yield(options)
