@@ -39,10 +39,6 @@ wiki][apps]!
 
 ## What's new in version 3?
 
-### Dependencies
-
-The Active Support dependency has been removed!
-
 ### Methods
 
 The following methods now accept multiple users or ids as arguments and return
