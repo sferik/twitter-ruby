@@ -51,19 +51,6 @@ describe Twitter do
     end
   end
 
-  describe ".user_agent" do
-    it "returns the default user agent" do
-      Twitter.user_agent.should eq Twitter::Config::DEFAULT_USER_AGENT
-    end
-  end
-
-  describe ".user_agent=" do
-    it "sets the user_agent" do
-      Twitter.user_agent = 'Custom User Agent'
-      Twitter.user_agent.should eq 'Custom User Agent'
-    end
-  end
-
   describe '.middleware' do
     it "returns a Faraday::Builder" do
       Twitter.middleware.should be_kind_of(Faraday::Builder)

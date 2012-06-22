@@ -10,7 +10,15 @@ module Twitter
   module Config
 
     # The Faraday connection options if none is set
-    DEFAULT_CONNECTION_OPTIONS = {}
+    DEFAULT_CONNECTION_OPTIONS = {
+      :headers => {
+        :accept => 'application/json',
+        :user_agent => "Twitter Ruby Gem #{Twitter::Version}"
+      },
+      :open_timeout => 5,
+      :ssl => {:verify => false},
+      :timeout => 10,
+    }
 
     # The consumer key if none is set
     DEFAULT_CONSUMER_KEY = ENV['TWITTER_CONSUMER_KEY']
@@ -51,12 +59,6 @@ module Twitter
     # The oauth token secret if none is set
     DEFAULT_OAUTH_TOKEN_SECRET = ENV['TWITTER_OAUTH_TOKEN_SECRET']
 
-    # The proxy server if none is set
-    DEFAULT_PROXY = nil
-
-    # The value sent in the 'User-Agent' header if none is set
-    DEFAULT_USER_AGENT = "Twitter Ruby Gem #{Twitter::Version}"
-
     # An array of valid keys in the options hash when configuring a {Twitter::Client}
     VALID_OPTIONS_KEYS = [
       :connection_options,
@@ -67,8 +69,6 @@ module Twitter
       :middleware,
       :oauth_token,
       :oauth_token_secret,
-      :proxy,
-      :user_agent,
     ]
 
     attr_accessor *VALID_OPTIONS_KEYS
@@ -101,8 +101,6 @@ module Twitter
       self.middleware         = DEFAULT_MIDDLEWARE
       self.oauth_token        = DEFAULT_OAUTH_TOKEN
       self.oauth_token_secret = DEFAULT_OAUTH_TOKEN_SECRET
-      self.proxy              = DEFAULT_PROXY
-      self.user_agent         = DEFAULT_USER_AGENT
       self
     end
 

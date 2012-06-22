@@ -29,21 +29,7 @@ module Twitter
     # @return [Faraday::Connection]
     def connection
       return @connection if defined? @connection
-
-      default_options = {
-        :headers => {
-          :accept => 'application/json',
-          :user_agent => user_agent,
-        },
-        :open_timeout => 5,
-        :proxy => proxy,
-        :ssl => {:verify => false},
-        :timeout => 10,
-      }
-
-      options = default_options.deep_merge(connection_options)
-
-      @connection = Faraday.new(endpoint, options.merge(:builder => middleware))
+      @connection = Faraday.new(endpoint, connection_options.merge(:builder => middleware))
     end
 
     # Perform an HTTP request
