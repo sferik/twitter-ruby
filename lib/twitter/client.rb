@@ -1,6 +1,6 @@
 require 'twitter/action_factory'
 require 'twitter/authenticatable'
-require 'twitter/config'
+require 'twitter/configurable'
 require 'twitter/configuration'
 require 'twitter/core_ext/array'
 require 'twitter/core_ext/enumerable'
@@ -37,7 +37,7 @@ module Twitter
   class Client
     include Twitter::Authenticatable
     include Twitter::Requestable
-    attr_accessor *Config::VALID_OPTIONS_KEYS
+    attr_accessor *Configurable::VALID_OPTIONS_KEYS
 
     MAX_USERS_PER_REQUEST = 100
 

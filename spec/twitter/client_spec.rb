@@ -2,7 +2,7 @@ require 'helper'
 
 describe Twitter::Client do
   before do
-    @keys = Twitter::Config::VALID_OPTIONS_KEYS
+    @keys = Twitter::Configurable::VALID_OPTIONS_KEYS
   end
 
   context "with module configuration" do
@@ -69,11 +69,11 @@ describe Twitter::Client do
     stub_get("/1/account/verify_credentials.json").
       to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     client1 = Twitter::Client.new
-    client1.current_user.screen_name.should eq 'sferik'
+    client1.verify_credentials.screen_name.should eq 'sferik'
     stub_get("/1/account/verify_credentials.json").
       to_return(:body => fixture("pengwynn.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     client2 = Twitter::Client.new
-    client2.current_user.screen_name.should eq 'pengwynn'
+    client2.verify_credentials.screen_name.should eq 'pengwynn'
   end
 
 end

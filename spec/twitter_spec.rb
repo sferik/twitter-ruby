@@ -40,7 +40,7 @@ describe Twitter do
 
   describe ".endpoint" do
     it "returns the default endpoint" do
-      Twitter.endpoint.should eq Twitter::Config::DEFAULT_ENDPOINT
+      Twitter.endpoint.should eq Twitter::Configurable::DEFAULT_ENDPOINT
     end
   end
 
@@ -58,7 +58,7 @@ describe Twitter do
   end
 
   describe ".configure" do
-    Twitter::Config::VALID_OPTIONS_KEYS.each do |key|
+    Twitter::Configurable::VALID_OPTIONS_KEYS.each do |key|
       it "sets the #{key}" do
         Twitter.configure do |config|
           config.send("#{key}=", key)

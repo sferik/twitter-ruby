@@ -7,7 +7,7 @@ require 'twitter/version'
 
 module Twitter
   # Defines constants and methods related to configuration
-  module Config
+  module Configurable
 
     # The Faraday connection options if none is set
     DEFAULT_CONNECTION_OPTIONS = {
