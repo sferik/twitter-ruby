@@ -17,6 +17,7 @@ require 'twitter/photo'
 require 'twitter/place'
 require 'twitter/point'
 require 'twitter/polygon'
+require 'twitter/rate_limit'
 require 'twitter/rate_limit_status'
 require 'twitter/relationship'
 require 'twitter/requestable'
@@ -61,8 +62,8 @@ module Twitter
     # @example Return the remaining number of API requests available to the requesting user
     #   Twitter.rate_limit_status
     def rate_limit_status(options={})
-      rate_limit_status = get("/1/account/rate_limit_status.json", options)
-      Twitter::RateLimitStatus.get_or_new(rate_limit_status)
+      response = get("/1/account/rate_limit_status.json", options)
+      Twitter::RateLimitStatus.from_response(response)
     end
 
     # Returns the requesting user if authentication was successful, otherwise raises {Twitter::Error::Unauthorized}
@@ -76,8 +77,8 @@ module Twitter
     # @example Return the requesting user if authentication was successful
     #   Twitter.verify_credentials
     def verify_credentials(options={})
-      user = get("/1/account/verify_credentials.json", options)
-      Twitter::User.get_or_new(user)
+      response = get("/1/account/verify_credentials.json", options)
+      Twitter::User.from_response(response)
     end
     alias current_user verify_credentials
 
@@ -92,7 +93,7 @@ module Twitter
     # @example End the session of the authenticating user
     #   Twitter.end_session
     def end_session(options={})
-      post("/1/account/end_session.json", options)
+      post("/1/account/end_session.json", options)[:body]
     end
 
     # Sets which device Twitter delivers updates to for the authenticating user
@@ -107,8 +108,8 @@ module Twitter
     # @example Turn SMS updates on for the authenticating user
     #   Twitter.update_delivery_device('sms')
     def update_delivery_device(device, options={})
-      user = post("/1/account/update_delivery_device.json", options.merge(:device => device))
-      Twitter::User.get_or_new(user)
+      response = post("/1/account/update_delivery_device.json", options.merge(:device => device))
+      Twitter::User.from_response(response)
     end
 
     # Sets values that users are able to set under the "Account" tab of their settings page
@@ -127,8 +128,8 @@ module Twitter
     # @example Set authenticating user's name to Erik Michaels-Ober
     #   Twitter.update_profile(:name => "Erik Michaels-Ober")
     def update_profile(options={})
-      user = post("/1/account/update_profile.json", options)
-      Twitter::User.get_or_new(user)
+      response = post("/1/account/update_profile.json", options)
+      Twitter::User.from_response(response)
     end
 
     # Updates the authenticating user's profile background image
@@ -138,14 +139,15 @@ module Twitter
     # @requires_authentication Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Twitter::User] The authenticated user.
-    # @param image [String] The background image for the profile. Must be a valid GIF, JPG, or PNG image of less than 800 kilobytes in size. Images with width larger than 2048 pixels will be scaled down.
+    # @param image [File, Hash] The background image for the profile. Must be a valid GIF, JPG, or PNG image of less than 800 kilobytes in size. Images with width larger than 2048 pixels will be scaled down.
     # @param options [Hash] A customizable set of options.
     # @option options [Boolean] :tile Whether or not to tile the background image. If set to true the background image will be displayed tiled. The image will not be tiled otherwise.
     # @example Update the authenticating user's profile background image
-    #   Twitter.update_profile_background_image(File.get_or_new("we_concept_bg2.png"))
+    #   Twitter.update_profile_background_image(File.new("we_concept_bg2.png"))
+    #   Twitter.update_profile_background_image('io' => StringIO.new(pic), 'type' => 'jpg')
     def update_profile_background_image(image, options={})
-      user = post("/1/account/update_profile_background_image.json", options.merge(:image => image))
-      Twitter::User.get_or_new(user)
+      response = post("/1/account/update_profile_background_image.json", options.merge(:image => image))
+      Twitter::User.from_response(response)
     end
 
     # Sets one or more hex values that control the color scheme of the authenticating user's profile
@@ -164,8 +166,8 @@ module Twitter
     # @example Set authenticating user's profile background to black
     #   Twitter.update_profile_colors(:profile_background_color => '000000')
     def update_profile_colors(options={})
-      user = post("/1/account/update_profile_colors.json", options)
-      Twitter::User.get_or_new(user)
+      response = post("/1/account/update_profile_colors.json", options)
+      Twitter::User.from_response(response)
     end
 
     # Updates the authenticating user's profile image
@@ -176,13 +178,14 @@ module Twitter
     # @requires_authentication Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Twitter::User] The authenticated user.
-    # @param image [String] The avatar image for the profile. Must be a valid GIF, JPG, or PNG image of less than 700 kilobytes in size. Images with width larger than 500 pixels will be scaled down. Animated GIFs will be converted to a static GIF of the first frame, removing the animation.
+    # @param image [File, Hash] The avatar image for the profile. Must be a valid GIF, JPG, or PNG image of less than 700 kilobytes in size. Images with width larger than 500 pixels will be scaled down. Animated GIFs will be converted to a static GIF of the first frame, removing the animation.
     # @param options [Hash] A customizable set of options.
     # @example Update the authenticating user's profile image
-    #   Twitter.update_profile_image(File.get_or_new("me.jpeg"))
+    #   Twitter.update_profile_image(File.new("me.jpeg"))
+    #   Twitter.update_profile_image('io' => StringIO.new(pic), 'type' => 'jpg')
     def update_profile_image(image, options={})
-      user = post("/1/account/update_profile_image.json", options.merge(:image => image))
-      Twitter::User.get_or_new(user)
+      response = post("/1/account/update_profile_image.json", options.merge(:image => image))
+      Twitter::User.from_response(response)
     end
 
     # Updates the authenticating user's settings.
@@ -204,12 +207,12 @@ module Twitter
     # @example Return the settings for the authenticating user.
     #   Twitter.settings
     def settings(options={})
-      settings = if options.size.zero?
+      response = if options.size.zero?
         get("/1/account/settings.json", options)
       else
         post("/1/account/settings.json", options)
       end
-      Twitter::Settings.get_or_new(settings)
+      Twitter::Settings.from_response(response)
     end
 
     # Returns activity about me
@@ -225,7 +228,9 @@ module Twitter
     # @example Return activity about me
     #   Twitter.activity_about_me
     def activity_about_me(options={})
-      get("/i/activity/about_me.json", options).map do |action|
+      response = get("/i/activity/about_me.json", options)
+      Twitter::RateLimit.instance.update(response[:response_headers])
+      response[:body].map do |action|
         Twitter::ActionFactory.new(action)
       end
     end
@@ -243,7 +248,9 @@ module Twitter
     # @example Return activity by friends
     #   Twitter.activity_by_friends
     def activity_by_friends(options={})
-      get("/i/activity/by_friends.json", options).map do |action|
+      response = get("/i/activity/by_friends.json", options)
+      Twitter::RateLimit.instance.update(response[:response_headers])
+      response[:body].map do |action|
         Twitter::ActionFactory.new(action)
       end
     end
@@ -260,8 +267,10 @@ module Twitter
     # @example Return an array of user objects that the authenticating user is blocking
     #   Twitter.blocking
     def blocking(options={})
-      get("/1/blocks/blocking.json", options).map do |user|
-        Twitter::User.get_or_new(user)
+      response = get("/1/blocks/blocking.json", options)
+      Twitter::RateLimit.instance.update(response[:response_headers])
+      response[:body].map do |user|
+        Twitter::User.fetch_or_new(user)
       end
     end
 
@@ -276,7 +285,7 @@ module Twitter
     # @example Return an array of numeric user ids the authenticating user is blocking
     #   Twitter.blocking_ids
     def blocked_ids(options={})
-      get("/1/blocks/blocking/ids.json", options)
+      get("/1/blocks/blocking/ids.json", options)[:body]
     end
 
     # Returns true if the authenticating user is blocking a target user
@@ -293,7 +302,7 @@ module Twitter
     #   Twitter.block?(7505382)  # Same as above
     def block?(user, options={})
       options.merge_user!(user)
-      get("/1/blocks/exists.json", options, :raw => true)
+      get("/1/blocks/exists.json", options)
       true
     rescue Twitter::Error::NotFound
       false
@@ -358,8 +367,10 @@ module Twitter
     # @example Return the 20 most recent direct messages sent to the authenticating user
     #   Twitter.direct_messages_received
     def direct_messages_received(options={})
-      get("/1/direct_messages.json", options).map do |direct_message|
-        Twitter::DirectMessage.get_or_new(direct_message)
+      response = get("/1/direct_messages.json", options)
+      Twitter::RateLimit.instance.update(response[:response_headers])
+      response[:body].map do |direct_message|
+        Twitter::DirectMessage.fetch_or_new(direct_message)
       end
     end
 
@@ -379,8 +390,10 @@ module Twitter
     # @example Return the 20 most recent direct messages sent by the authenticating user
     #   Twitter.direct_messages_sent
     def direct_messages_sent(options={})
-      get("/1/direct_messages/sent.json", options).map do |direct_message|
-        Twitter::DirectMessage.get_or_new(direct_message)
+      response = get("/1/direct_messages/sent.json", options)
+      Twitter::RateLimit.instance.update(response[:response_headers])
+      response[:body].map do |direct_message|
+        Twitter::DirectMessage.fetch_or_new(direct_message)
       end
     end
 
@@ -402,8 +415,8 @@ module Twitter
     def direct_message_destroy(*args)
       options = args.extract_options!
       args.flatten.threaded_map do |id|
-        direct_message = delete("/1/direct_messages/destroy/#{id}.json", options)
-        Twitter::DirectMessage.get_or_new(direct_message)
+        response = delete("/1/direct_messages/destroy/#{id}.json", options)
+        Twitter::DirectMessage.from_response(response)
       end
     end
 
@@ -422,8 +435,8 @@ module Twitter
     #   Twitter.direct_message_create(7505382, "I'm sending you this message via @gem!")  # Same as above
     def direct_message_create(user, text, options={})
       options.merge_user!(user)
-      direct_message = post("/1/direct_messages/new.json", options.merge(:text => text))
-      Twitter::DirectMessage.get_or_new(direct_message)
+      response = post("/1/direct_messages/new.json", options.merge(:text => text))
+      Twitter::DirectMessage.from_response(response)
     end
     alias d direct_message_create
     alias m direct_message_create
@@ -441,8 +454,8 @@ module Twitter
     # @example Return the direct message with the id 1825786345
     #   Twitter.direct_message(1825786345)
     def direct_message(id, options={})
-      direct_message = get("/1/direct_messages/show/#{id}.json", options)
-      Twitter::DirectMessage.get_or_new(direct_message)
+      response = get("/1/direct_messages/show/#{id}.json", options)
+      Twitter::DirectMessage.from_response(response)
     end
 
     # @note This method requires an access token with RWD (read, write & direct message) permissions. Consult The Application Permission Model for more information.
@@ -480,8 +493,8 @@ module Twitter
         self.direct_messages_received(options)
       else
         args.flatten.threaded_map do |id|
-          direct_message = get("/1/direct_messages/show/#{id}.json", options)
-          Twitter::DirectMessage.get_or_new(direct_message)
+          response = get("/1/direct_messages/show/#{id}.json", options)
+          Twitter::DirectMessage.from_response(response)
         end
       end
     end
@@ -509,12 +522,14 @@ module Twitter
     #     Twitter.favorites('sferik')
     def favorites(*args)
       options = args.extract_options!
-      if user = args.pop
+      response = if user = args.pop
         get("/1/favorites/#{user}.json", options)
       else
         get("/1/favorites.json", options)
-      end.map do |status|
-        Twitter::Status.get_or_new(status)
+      end
+      Twitter::RateLimit.instance.update(response[:response_headers])
+      response[:body].map do |status|
+        Twitter::Status.fetch_or_new(status)
       end
     end
 
@@ -588,8 +603,8 @@ module Twitter
       options.merge!(args.extract_options!)
       user = args.pop
       options.merge_user!(user)
-      cursor = get("/1/followers/ids.json", options)
-      Twitter::Cursor.new(cursor, 'ids')
+      response = get("/1/followers/ids.json", options)
+      Twitter::Cursor.from_response(response)
     end
 
     # @see https://dev.twitter.com/docs/api/1/get/friends/ids
@@ -618,8 +633,8 @@ module Twitter
       options.merge!(args.extract_options!)
       user = args.pop
       options.merge_user!(user)
-      cursor = get("/1/friends/ids.json", options)
-      Twitter::Cursor.new(cursor, 'ids')
+      response = get("/1/friends/ids.json", options)
+      Twitter::Cursor.from_response(response)
     end
 
     # Test for the existence of friendship between two users
@@ -640,7 +655,7 @@ module Twitter
     def friendship?(user_a, user_b, options={})
       options.merge_user!(user_a, nil, "a")
       options.merge_user!(user_b, nil, "b")
-      get("/1/friendships/exists.json", options)
+      get("/1/friendships/exists.json", options)[:body]
     end
 
     # Returns an array of numeric IDs for every user who has a pending request to follow the authenticating user
@@ -656,8 +671,8 @@ module Twitter
     #   Twitter.friendships_incoming
     def friendships_incoming(options={})
       options = {:cursor => -1}.merge(options)
-      cursor = get("/1/friendships/incoming.json", options)
-      Twitter::Cursor.new(cursor, 'ids')
+      response = get("/1/friendships/incoming.json", options)
+      Twitter::Cursor.from_response(response)
     end
 
     # Returns an array of numeric IDs for every protected user for whom the authenticating user has a pending follow request
@@ -673,8 +688,8 @@ module Twitter
     #   Twitter.friendships_outgoing
     def friendships_outgoing(options={})
       options = {:cursor => -1}.merge(options)
-      cursor = get("/1/friendships/outgoing.json", options)
-      Twitter::Cursor.new(cursor, 'ids')
+      response = get("/1/friendships/outgoing.json", options)
+      Twitter::Cursor.from_response(response)
     end
 
     # Returns detailed information about the relationship between two users
@@ -695,8 +710,8 @@ module Twitter
       options[:source_id] = options.delete(:source_user_id) unless options[:source_user_id].nil?
       options.merge_user!(target, "target")
       options[:target_id] = options.delete(:target_user_id) unless options[:target_user_id].nil?
-      relationship = get("/1/friendships/show.json", options)['relationship']
-      Twitter::Relationship.get_or_new(relationship)
+      response = get("/1/friendships/show.json", options)
+      Twitter::Relationship.from_response(response)
     end
     alias friendship_show friendship
     alias relationship friendship
@@ -753,8 +768,8 @@ module Twitter
       options.merge!(:follow => true) if options.delete(:follow)
       args.flatten.threaded_map do |user|
         begin
-          user = post("/1/friendships/create.json", options.merge_user(user))
-          Twitter::User.get_or_new(user)
+          response = post("/1/friendships/create.json", options.merge_user(user))
+          Twitter::User.from_response(response)
         rescue Twitter::Error::Forbidden
           # This error will be raised if the user doesn't have permission to
           # follow list_member, for whatever reason.
@@ -803,8 +818,10 @@ module Twitter
     def friendships(*args)
       options = args.extract_options!
       options.merge_users!(Array(args))
-      get("/1/friendships/lookup.json", options).map do |user|
-        Twitter::User.get_or_new(user)
+      response = get("/1/friendships/lookup.json", options)
+      Twitter::RateLimit.instance.update(response[:response_headers])
+      response[:body].map do |user|
+        Twitter::User.fetch_or_new(user)
       end
     end
 
@@ -823,8 +840,8 @@ module Twitter
     #   Twitter.friendship_update('sferik', :device => true, :retweets => true)
     def friendship_update(user, options={})
       options.merge_user!(user)
-      relationship = post("/1/friendships/update.json", options)['relationship']
-      Twitter::Relationship.get_or_new(relationship)
+      response = post("/1/friendships/update.json", options)
+      Twitter::Relationship.from_response(response)
     end
 
     # Returns an array of user_ids that the currently authenticated user does not want to see retweets from.
@@ -840,7 +857,7 @@ module Twitter
     # @example Enable rewteets and devise notifications for @sferik
     #   Twitter.no_retweet_ids
     def no_retweet_ids(options={})
-      get("/1/friendships/no_retweet_ids.json", options)
+      get("/1/friendships/no_retweet_ids.json", options)[:body]
     end
 
     # Allows the authenticating user to accept the specified users' follow requests
@@ -892,8 +909,8 @@ module Twitter
     # @example Return the current configuration used by Twitter
     #   Twitter.configuration
     def configuration(options={})
-      configuration = get("/1/help/configuration.json", options)
-      Twitter::Configuration.get_or_new(configuration)
+      response = get("/1/help/configuration.json", options)
+      Twitter::Configuration.from_response(response)
     end
 
     # Returns the list of languages supported by Twitter
@@ -905,8 +922,10 @@ module Twitter
     # @example Return the list of languages Twitter supports
     #   Twitter.languages
     def languages(options={})
-      get("/1/help/languages.json", options).map do |language|
-        Twitter::Language.get_or_new(language)
+      response = get("/1/help/languages.json", options)
+      Twitter::RateLimit.instance.update(response[:response_headers])
+      response[:body].map do |language|
+        Twitter::Language.fetch_or_new(language)
       end
     end
 
@@ -919,7 +938,7 @@ module Twitter
     # @example Return {https://twitter.com/privacy Twitter's Privacy Policy}
     #   Twitter.privacy
     def privacy(options={})
-      get("/1/legal/privacy.json", options)['privacy']
+      get("/1/legal/privacy.json", options)[:body]['privacy']
     end
 
     # Returns {https://twitter.com/tos Twitter's Terms of Service}
@@ -931,7 +950,7 @@ module Twitter
     # @example Return {https://twitter.com/tos Twitter's Terms of Service}
     #   Twitter.tos
     def tos(options={})
-      get("/1/legal/tos.json", options)['tos']
+      get("/1/legal/tos.json", options)[:body]['tos']
     end
 
     # Returns all lists the authenticating or specified user subscribes to, including their own
@@ -955,8 +974,10 @@ module Twitter
       if user = args.pop
         options.merge_user!(user)
       end
-      get("/1/lists/all.json", options).map do |list|
-        Twitter::List.get_or_new(list)
+      response = get("/1/lists/all.json", options)
+      Twitter::RateLimit.instance.update(response[:response_headers])
+      response[:body].map do |list|
+        Twitter::List.fetch_or_new(list)
       end
     end
 
@@ -995,8 +1016,10 @@ module Twitter
         owner = args.pop || self.verify_credentials.screen_name
         options.merge_owner!(owner)
       end
-      get("/1/lists/statuses.json", options).map do |status|
-        Twitter::Status.get_or_new(status)
+      response = get("/1/lists/statuses.json", options)
+      Twitter::RateLimit.instance.update(response[:response_headers])
+      response[:body].map do |status|
+        Twitter::Status.fetch_or_new(status)
       end
     end
 
@@ -1035,8 +1058,8 @@ module Twitter
         owner = args.pop || self.verify_credentials.screen_name
         options.merge_owner!(owner)
       end
-      list = post("/1/lists/members/destroy.json", options)
-      Twitter::List.get_or_new(list)
+      response = post("/1/lists/members/destroy.json", options)
+      Twitter::List.from_response(response)
     end
 
     # List the lists the specified user has been added to
@@ -1063,8 +1086,8 @@ module Twitter
       if user = args.pop
         options.merge_user!(user)
       end
-      cursor = get("/1/lists/memberships.json", options)
-      Twitter::Cursor.new(cursor, 'lists', Twitter::List)
+      response = get("/1/lists/memberships.json", options)
+      Twitter::Cursor.from_response(response, 'lists', Twitter::List)
     end
 
     # Returns the subscribers of the specified list
@@ -1098,8 +1121,8 @@ module Twitter
         owner = args.pop || self.verify_credentials.screen_name
         options.merge_owner!(owner)
       end
-      cursor = get("/1/lists/subscribers.json", options)
-      Twitter::Cursor.new(cursor, 'users', Twitter::User)
+      response = get("/1/lists/subscribers.json", options)
+      Twitter::Cursor.from_response(response, 'users', Twitter::User)
     end
 
     # List the lists the specified user follows
@@ -1126,8 +1149,8 @@ module Twitter
       if user = args.pop
         options.merge_user!(user)
       end
-      cursor = get("/1/lists/subscriptions.json", options)
-      Twitter::Cursor.new(cursor, 'lists', Twitter::List)
+      response = get("/1/lists/subscriptions.json", options)
+      Twitter::Cursor.from_response(response, 'lists', Twitter::List)
     end
 
     # Make the authenticated user follow the specified list
@@ -1193,7 +1216,7 @@ module Twitter
         owner = args.pop || self.verify_credentials.screen_name
         options.merge_owner!(owner)
       end
-      get("/1/lists/subscribers/show.json", options, :raw => true)
+      get("/1/lists/subscribers/show.json", options)
       true
     rescue Twitter::Error::NotFound, Twitter::Error::Forbidden
       false
@@ -1263,10 +1286,10 @@ module Twitter
         owner = args.pop || self.verify_credentials.screen_name
         options.merge_owner!(owner)
       end
-      list = members.flatten.each_slice(MAX_USERS_PER_REQUEST).threaded_map do |users|
+      response = members.flatten.each_slice(MAX_USERS_PER_REQUEST).threaded_map do |users|
         post("/1/lists/members/create_all.json", options.merge_users(users))
-      end.first
-      Twitter::List.get_or_new(list)
+      end.last
+      Twitter::List.from_response(response)
     end
 
     # Removes specified members from the list
@@ -1305,10 +1328,10 @@ module Twitter
         owner = args.pop || self.verify_credentials.screen_name
         options.merge_owner!(owner)
       end
-      list = members.flatten.each_slice(MAX_USERS_PER_REQUEST).threaded_map do |users|
+      response = members.flatten.each_slice(MAX_USERS_PER_REQUEST).threaded_map do |users|
         list = post("/1/lists/members/destroy_all.json", options.merge_users(users))
-      end.first
-      Twitter::List.get_or_new(list)
+      end.last
+      Twitter::List.from_response(response)
     end
 
     # Check if a user is a member of the specified list
@@ -1344,7 +1367,7 @@ module Twitter
         owner = args.pop || self.verify_credentials.screen_name
         options.merge_owner!(owner)
       end
-      get("/1/lists/members/show.json", options, :raw => true)
+      get("/1/lists/members/show.json", options)
       true
     rescue Twitter::Error::NotFound, Twitter::Error::Forbidden
       false
@@ -1382,8 +1405,8 @@ module Twitter
         owner = args.pop || self.verify_credentials.screen_name
         options.merge_owner!(owner)
       end
-      cursor = get("/1/lists/members.json", options)
-      Twitter::Cursor.new(cursor, 'users', Twitter::User)
+      response = get("/1/lists/members.json", options)
+      Twitter::Cursor.from_response(response, 'users', Twitter::User)
     end
 
     # Add a member to a list
@@ -1421,8 +1444,8 @@ module Twitter
         owner = args.pop || self.verify_credentials.screen_name
         options.merge_owner!(owner)
       end
-      list = post("/1/lists/members/create.json", options)
-      Twitter::List.get_or_new(list)
+      response = post("/1/lists/members/create.json", options)
+      Twitter::List.from_response(response)
     end
 
     # Deletes the specified list
@@ -1501,8 +1524,8 @@ module Twitter
     # @example Create a list named 'presidents'
     #   Twitter.list_create('presidents')
     def list_create(name, options={})
-      list = post("/1/lists/create.json", options.merge(:name => name))
-      Twitter::List.get_or_new(list)
+      response = post("/1/lists/create.json", options.merge(:name => name))
+      Twitter::List.from_response(response)
     end
 
     # List the lists of the specified user
@@ -1529,8 +1552,8 @@ module Twitter
       options = {:cursor => -1}.merge(args.extract_options!)
       user = args.pop
       options.merge_user!(user) if user
-      cursor = get("/1/lists.json", options)
-      Twitter::Cursor.new(cursor, 'lists', Twitter::List)
+      response = get("/1/lists.json", options)
+      Twitter::Cursor.from_response(response, 'lists', Twitter::List)
     end
 
     # Show the specified list
@@ -1574,8 +1597,9 @@ module Twitter
     # @example Return the top 10 trending topics for San Francisco
     #   Twitter.local_trends(2487956)
     def local_trends(woeid=1, options={})
-      get("/1/trends/#{woeid}.json", options).first['trends'].map do |trend|
-        Twitter::Trend.get_or_new(trend)
+      response = get("/1/trends/#{woeid}.json", options)
+      response[:body].first['trends'].map do |trend|
+        Twitter::Trend.fetch_or_new(trend)
       end
     end
     alias trends local_trends
@@ -1592,8 +1616,10 @@ module Twitter
     # @example Return the locations that Twitter has trending topic information for
     #   Twitter.trend_locations
     def trend_locations(options={})
-      get("/1/trends/available.json", options).map do |place|
-        Twitter::Place.get_or_new(place)
+      response = get("/1/trends/available.json", options)
+      Twitter::RateLimit.instance.update(response[:response_headers])
+      response[:body].map do |place|
+        Twitter::Place.fetch_or_new(place)
       end
     end
 
@@ -1658,8 +1684,9 @@ module Twitter
     # @example Return an array of places near the IP address 74.125.19.104
     #   Twitter.places_nearby(:ip => "74.125.19.104")
     def places_nearby(options={})
-      get("/1/geo/search.json", options)['result']['places'].map do |place|
-        Twitter::Place.get_or_new(place)
+      response = get("/1/geo/search.json", options)
+      response[:body]['result']['places'].map do |place|
+        Twitter::Place.fetch_or_new(place)
       end
     end
     alias geo_search places_nearby
@@ -1680,8 +1707,9 @@ module Twitter
     # @example Return an array of places similar to Twitter HQ
     #   Twitter.places_similar(:lat => "37.7821120598956", :long => "-122.400612831116", :name => "Twitter HQ")
     def places_similar(options={})
-      get("/1/geo/similar_places.json", options)['result']['places'].map do |place|
-        Twitter::Place.get_or_new(place)
+      response = get("/1/geo/similar_places.json", options)
+      response[:body]['result']['places'].map do |place|
+        Twitter::Place.fetch_or_new(place)
       end
     end
 
@@ -1701,8 +1729,9 @@ module Twitter
     # @example Return an array of places within the specified region
     #   Twitter.reverse_geocode(:lat => "37.7821120598956", :long => "-122.400612831116")
     def reverse_geocode(options={})
-      get("/1/geo/reverse_geocode.json", options)['result']['places'].map do |place|
-        Twitter::Place.get_or_new(place)
+      response = get("/1/geo/reverse_geocode.json", options)
+      response[:body]['result']['places'].map do |place|
+        Twitter::Place.fetch_or_new(place)
       end
     end
 
@@ -1717,8 +1746,8 @@ module Twitter
     # @example Return all the information about Twitter HQ
     #   Twitter.place("247f43d441defc03")
     def place(place_id, options={})
-      place = get("/1/geo/id/#{place_id}.json", options)
-      Twitter::Place.get_or_new(place)
+      response = get("/1/geo/id/#{place_id}.json", options)
+      Twitter::Place.from_response(response)
     end
 
     # Creates a new place at the given latitude and longitude
@@ -1737,8 +1766,8 @@ module Twitter
     # @example Create a new place
     #   Twitter.place_create(:name => "@sferik's Apartment", :token => "22ff5b1f7159032cf69218c4d8bb78bc", :contained_within => "41bcb736f84a799e", :lat => "37.783699", :long => "-122.393581")
     def place_create(options={})
-      place = post("/1/geo/place.json", options)
-      Twitter::Place.get_or_new(place)
+      response = post("/1/geo/place.json", options)
+      Twitter::Place.from_response(response)
     end
 
     # @rate_limited Yes
@@ -1768,13 +1797,15 @@ module Twitter
     def saved_searches(*args)
       options = args.extract_options!
       if args.empty?
-        get("/1/saved_searches.json", options).map do |saved_search|
-          Twitter::SavedSearch.get_or_new(saved_search)
+        response = get("/1/saved_searches.json", options)
+        Twitter::RateLimit.instance.update(response[:response_headers])
+        response[:body].map do |saved_search|
+          Twitter::SavedSearch.fetch_or_new(saved_search)
         end
       else
         args.flatten.threaded_map do |id|
-          saved_search = get("/1/saved_searches/show/#{id}.json", options)
-          Twitter::SavedSearch.get_or_new(saved_search)
+          response = get("/1/saved_searches/show/#{id}.json", options)
+          Twitter::SavedSearch.from_response(response)
         end
       end
     end
@@ -1791,8 +1822,8 @@ module Twitter
     # @example Retrieve the data for a saved search owned by the authenticating user with the ID 16129012
     #   Twitter.saved_search(16129012)
     def saved_search(id, options={})
-      saved_search = get("/1/saved_searches/show/#{id}.json", options)
-      Twitter::SavedSearch.get_or_new(saved_search)
+      response = get("/1/saved_searches/show/#{id}.json", options)
+      Twitter::SavedSearch.from_response(response)
     end
 
     # Creates a saved search for the authenticated user
@@ -1807,8 +1838,8 @@ module Twitter
     # @example Create a saved search for the authenticated user with the query "twitter"
     #   Twitter.saved_search_create("twitter")
     def saved_search_create(query, options={})
-      saved_search = post("/1/saved_searches/create.json", options.merge(:query => query))
-      Twitter::SavedSearch.get_or_new(saved_search)
+      response = post("/1/saved_searches/create.json", options.merge(:query => query))
+      Twitter::SavedSearch.from_response(response)
     end
 
     # Destroys saved searches for the authenticated user
@@ -1829,8 +1860,8 @@ module Twitter
     def saved_search_destroy(*args)
       options = args.extract_options!
       args.flatten.threaded_map do |id|
-        saved_search = delete("/1/saved_searches/destroy/#{id}.json", options)
-        Twitter::SavedSearch.get_or_new(saved_search)
+        response = delete("/1/saved_searches/destroy/#{id}.json", options)
+        Twitter::SavedSearch.from_response(response)
       end
     end
 
@@ -1859,7 +1890,7 @@ module Twitter
     #   Twitter.search('twitter')
     def search(q, options={})
       response = get("/search.json", options.merge(:q => q))
-      Twitter::SearchResults.get_or_new(response)
+      Twitter::SearchResults.from_response(response)
     end
 
     # Returns recent statuses related to a query with images and videos embedded
@@ -1875,8 +1906,9 @@ module Twitter
     # @example Return recent statuses related to twitter with images and videos embedded
     #   Twitter.phoenix_search('twitter')
     def phoenix_search(q, options={})
-      get("/phoenix_search.phoenix", options.merge(:q => q))['statuses'].map do |status|
-        Twitter::Status.get_or_new(status)
+      response = get("/phoenix_search.phoenix", options.merge(:q => q))
+      response[:body]['statuses'].map do |status|
+        Twitter::Status.fetch_or_new(status)
       end
     end
 
@@ -1923,11 +1955,13 @@ module Twitter
     def suggestions(*args)
       options = args.extract_options!
       if slug = args.pop
-        suggestion = get("/1/users/suggestions/#{slug}.json", options)
-        Twitter::Suggestion.get_or_new(suggestion)
+        response = get("/1/users/suggestions/#{slug}.json", options)
+        Twitter::Suggestion.from_response(response)
       else
-        get("/1/users/suggestions.json", options).map do |suggestion|
-          Twitter::Suggestion.get_or_new(suggestion)
+        response = get("/1/users/suggestions.json", options)
+        Twitter::RateLimit.instance.update(response[:response_headers])
+        response[:body].map do |suggestion|
+          Twitter::Suggestion.fetch_or_new(suggestion)
         end
       end
     end
@@ -1943,8 +1977,10 @@ module Twitter
     # @example Return the users in the Art & Design category and their most recent status if they are not a protected user
     #   Twitter.suggest_users("art-design")
     def suggest_users(slug, options={})
-      get("/1/users/suggestions/#{slug}/members.json", options).map do |user|
-        Twitter::User.get_or_new(user)
+      response = get("/1/users/suggestions/#{slug}/members.json", options)
+      Twitter::RateLimit.instance.update(response[:response_headers])
+      response[:body].map do |user|
+        Twitter::User.fetch_or_new(user)
       end
     end
 
@@ -1965,8 +2001,10 @@ module Twitter
     # @example Return the 20 most recent statuses, including retweets if they exist, posted by the authenticating user and the users they follow
     #   Twitter.home_timeline
     def home_timeline(options={})
-      get("/1/statuses/home_timeline.json", options).map do |status|
-        Twitter::Status.get_or_new(status)
+      response = get("/1/statuses/home_timeline.json", options)
+      Twitter::RateLimit.instance.update(response[:response_headers])
+      response[:body].map do |status|
+        Twitter::Status.fetch_or_new(status)
       end
     end
 
@@ -1986,8 +2024,10 @@ module Twitter
     # @example Return the 20 most recent mentions (statuses containing @username) for the authenticating user
     #   Twitter.mentions
     def mentions(options={})
-      get("/1/statuses/mentions.json", options).map do |status|
-        Twitter::Status.get_or_new(status)
+      response = get("/1/statuses/mentions.json", options)
+      Twitter::RateLimit.instance.update(response[:response_headers])
+      response[:body].map do |status|
+        Twitter::Status.fetch_or_new(status)
       end
     end
 
@@ -2018,13 +2058,15 @@ module Twitter
     #     Twitter.retweeted_by
     def retweeted_by(*args)
       options = args.extract_options!
-      if user = args.pop
+      response = if user = args.pop
         options.merge_user!(user)
         get("/1/statuses/retweeted_by_user.json", options)
       else
         get("/1/statuses/retweeted_by_me.json", options)
-      end.map do |status|
-        Twitter::Status.get_or_new(status)
+      end
+      Twitter::RateLimit.instance.update(response[:response_headers])
+      response[:body].map do |status|
+        Twitter::Status.fetch_or_new(status)
       end
     end
 
@@ -2055,13 +2097,15 @@ module Twitter
     #     Twitter.retweeted_to('sferik')
     def retweeted_to(*args)
       options = args.extract_options!
-      if user = args.pop
+      response = if user = args.pop
         options.merge_user!(user)
         get("/1/statuses/retweeted_to_user.json", options)
       else
         get("/1/statuses/retweeted_to_me.json", options)
-      end.map do |status|
-        Twitter::Status.get_or_new(status)
+      end
+      Twitter::RateLimit.instance.update(response[:response_headers])
+      response[:body].map do |status|
+        Twitter::Status.fetch_or_new(status)
       end
     end
 
@@ -2080,8 +2124,10 @@ module Twitter
     # @example Return the 20 most recent tweets of the authenticated user that have been retweeted by others
     #   Twitter.retweets_of_me
     def retweets_of_me(options={})
-      get("/1/statuses/retweets_of_me.json", options).map do |status|
-        Twitter::Status.get_or_new(status)
+      response = get("/1/statuses/retweets_of_me.json", options)
+      Twitter::RateLimit.instance.update(response[:response_headers])
+      response[:body].map do |status|
+        Twitter::Status.fetch_or_new(status)
       end
     end
 
@@ -2108,8 +2154,10 @@ module Twitter
       if user = args.pop
         options.merge_user!(user)
       end
-      get("/1/statuses/user_timeline.json", options).map do |status|
-        Twitter::Status.get_or_new(status)
+      response = get("/1/statuses/user_timeline.json", options)
+      Twitter::RateLimit.instance.update(response[:response_headers])
+      response[:body].map do |status|
+        Twitter::Status.fetch_or_new(status)
       end
     end
 
@@ -2134,8 +2182,10 @@ module Twitter
       if user = args.pop
         options.merge_user!(user)
       end
-      get("/1/statuses/media_timeline.json", options).map do |status|
-        Twitter::Status.get_or_new(status)
+      response = get("/1/statuses/media_timeline.json", options)
+      Twitter::RateLimit.instance.update(response[:response_headers])
+      response[:body].map do |status|
+        Twitter::Status.fetch_or_new(status)
       end
     end
 
@@ -2155,8 +2205,10 @@ module Twitter
     # @example Return the 20 most recent statuses from the authenticating user's network
     #   Twitter.network_timeline
     def network_timeline(options={})
-      get("/i/statuses/network_timeline.json", options).map do |status|
-        Twitter::Status.get_or_new(status)
+      response = get("/i/statuses/network_timeline.json", options)
+      Twitter::RateLimit.instance.update(response[:response_headers])
+      response[:body].map do |status|
+        Twitter::Status.fetch_or_new(status)
       end
     end
 
@@ -2172,11 +2224,12 @@ module Twitter
     # @example Return the top 20 trending topics for each hour of October 24, 2010
     #   Twitter.trends_daily(Date.parse("2010-10-24"))
     def trends_daily(date=Date.today, options={})
+      response = get("/1/trends/daily.json", options.merge(:date => date.strftime('%Y-%m-%d')))
       trends = {}
-      get("/1/trends/daily.json", options.merge(:date => date.strftime('%Y-%m-%d')))['trends'].each do |key, value|
+      response[:body]['trends'].each do |key, value|
         trends[key] = []
         value.each do |trend|
-          trends[key] << Twitter::Trend.get_or_new(trend)
+          trends[key] << Twitter::Trend.fetch_or_new(trend)
         end
       end
       trends
@@ -2194,11 +2247,12 @@ module Twitter
     # @example Return the top ten topics that are currently trending on Twitter
     #   Twitter.trends_weekly(Date.parse("2010-10-24"))
     def trends_weekly(date=Date.today, options={})
+      response = get("/1/trends/weekly.json", options.merge(:date => date.strftime('%Y-%m-%d')))
       trends = {}
-      get("/1/trends/weekly.json", options.merge(:date => date.strftime('%Y-%m-%d')))['trends'].each do |key, value|
+      response[:body]['trends'].each do |key, value|
         trends[key] = []
         value.each do |trend|
-          trends[key] << Twitter::Trend.get_or_new(trend)
+          trends[key] << Twitter::Trend.fetch_or_new(trend)
         end
       end
       trends
@@ -2222,10 +2276,12 @@ module Twitter
     #   Twitter.retweeters_of(28561922516)
     def retweeters_of(id, options={})
       if ids_only = !!options.delete(:ids_only)
-        get("/1/statuses/#{id}/retweeted_by/ids.json", options)
+        get("/1/statuses/#{id}/retweeted_by/ids.json", options)[:body]
       else
-        get("/1/statuses/#{id}/retweeted_by.json", options).map do |user|
-          Twitter::User.get_or_new(user)
+        response = get("/1/statuses/#{id}/retweeted_by.json", options)
+        Twitter::RateLimit.instance.update(response[:response_headers])
+        response[:body].map do |user|
+          Twitter::User.fetch_or_new(user)
         end
       end
     end
@@ -2244,8 +2300,10 @@ module Twitter
     # @example Return up to 100 of the first retweets of the status with the ID 28561922516
     #   Twitter.retweets(28561922516)
     def retweets(id, options={})
-      get("/1/statuses/retweets/#{id}.json", options).map do |status|
-        Twitter::Status.get_or_new(status)
+      response = get("/1/statuses/retweets/#{id}.json", options)
+      Twitter::RateLimit.instance.update(response[:response_headers])
+      response[:body].map do |status|
+        Twitter::Status.fetch_or_new(status)
       end
     end
 
@@ -2262,8 +2320,8 @@ module Twitter
     # @example Return the status with the ID 25938088801
     #   Twitter.status(25938088801)
     def status(id, options={})
-      status = get("/1/statuses/show/#{id}.json", options)
-      Twitter::Status.get_or_new(status)
+      response = get("/1/statuses/show/#{id}.json", options)
+      Twitter::Status.from_response(response)
     end
 
     # Returns statuses
@@ -2299,9 +2357,9 @@ module Twitter
     # @example Return activity summary for the status with the ID 25938088801
     #   Twitter.status_activity(25938088801)
     def status_activity(id, options={})
-      status = get("/i/statuses/#{id}/activity/summary.json", options)
-      status.merge!('id' => id)
-      Twitter::Status.get_or_new(status)
+      response = get("/i/statuses/#{id}/activity/summary.json", options)
+      response[:body].merge!('id' => id) if response[:body]
+      Twitter::Status.from_response(response)
     end
 
     # Returns activity summary for statuses
@@ -2344,8 +2402,8 @@ module Twitter
     # @example Return oEmbeds for status with activity summary with the ID 25938088801
     #   Twitter.status_with_activity(25938088801)
     def oembed(id, options={})
-      oembed = get("/1/statuses/oembed.json?id=#{id}", options)
-      Twitter::OEmbed.get_or_new(oembed)
+      response = get("/1/statuses/oembed.json?id=#{id}", options)
+      Twitter::OEmbed.from_response(response)
     end
 
     # Returns oEmbeds for statuses
@@ -2372,8 +2430,8 @@ module Twitter
     def oembeds(*args)
       options = args.extract_options!
       args.flatten.threaded_map do |id|
-        oembed = get("/1/statuses/oembed.json?id=#{id}", options)
-        Twitter::OEmbed.get_or_new(oembed)
+        response = get("/1/statuses/oembed.json?id=#{id}", options)
+        Twitter::OEmbed.from_response(response)
       end
     end
 
@@ -2417,10 +2475,11 @@ module Twitter
     def retweet(*args)
       options = args.extract_options!
       args.flatten.threaded_map do |id|
-        new_status = post("/1/statuses/retweet/#{id}.json", options)
-        retweeted_status = new_status.delete('retweeted_status')
-        retweeted_status['retweeted_status'] = new_status
-        Twitter::Status.get_or_new(retweeted_status)
+        response = post("/1/statuses/retweet/#{id}.json", options)
+        retweeted_status = response.dup
+        retweeted_status[:body] = response[:body].delete('retweeted_status')
+        retweeted_status[:body]['retweeted_status'] = response[:body]
+        Twitter::Status.from_response(retweeted_status)
       end
     end
 
@@ -2443,8 +2502,8 @@ module Twitter
     # @example Update the authenticating user's status
     #   Twitter.update("I'm tweeting with @gem!")
     def update(status, options={})
-      status = post("/1/statuses/update.json", options.merge(:status => status))
-      Twitter::Status.get_or_new(status)
+      response = post("/1/statuses/update.json", options.merge(:status => status))
+      Twitter::Status.from_response(response)
     end
 
     # Updates with media the authenticating user's status
@@ -2456,7 +2515,7 @@ module Twitter
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Twitter::Status] The created status.
     # @param status [String] The text of your status update, up to 140 characters.
-    # @param media [File] A File object with your picture (PNG, JPEG or GIF)
+    # @param media [File, Hash] A File object with your picture (PNG, JPEG or GIF)
     # @param options [Hash] A customizable set of options.
     # @option options [Integer] :in_reply_to_status_id The ID of an existing status that the update is in reply to.
     # @option options [Float] :lat The latitude of the location this tweet refers to. This option will be ignored unless it is inside the range -90.0 to +90.0 (North is positive) inclusive. It will also be ignored if there isn't a corresponding :long option.
@@ -2465,11 +2524,11 @@ module Twitter
     # @option options [String] :display_coordinates Whether or not to put a pin on the exact coordinates a tweet has been sent from.
     # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
     # @example Update the authenticating user's status
-    #   Twitter.update_with_media("I'm tweeting with @gem!", File.get_or_new('my_awesome_pic.jpeg'))
-    #   Twitter.update_with_media("I'm tweeting with @gem!", {'io' => StringIO.get_or_new(pic), 'type' => 'jpg'})
-    def update_with_media(status, image, options={})
-      status = post("/1/statuses/update_with_media.json", options.merge('media[]' => image, 'status' => status), :endpoint => media_endpoint)
-      Twitter::Status.get_or_new(status)
+    #   Twitter.update_with_media("I'm tweeting with @gem!", File.new('my_awesome_pic.jpeg'))
+    #   Twitter.update_with_media("I'm tweeting with @gem!", {'io' => StringIO.new(pic), 'type' => 'jpg'})
+    def update_with_media(status, media, options={})
+      response = post("/1/statuses/update_with_media.json", options.merge('media[]' => media, 'status' => status), :endpoint => media_endpoint)
+      Twitter::Status.from_response(response)
     end
 
     # Returns extended information for up to 100 users
@@ -2490,34 +2549,12 @@ module Twitter
     def users(*args)
       options = args.extract_options!
       args.flatten.each_slice(MAX_USERS_PER_REQUEST).threaded_map do |users|
-        get("/1/users/lookup.json", options.merge_users(users)).map do |user|
-          Twitter::User.get_or_new(user)
+        response = get("/1/users/lookup.json", options.merge_users(users))
+        Twitter::RateLimit.instance.update(response[:response_headers])
+        response[:body].map do |user|
+          Twitter::User.fetch_or_new(user)
         end
       end.flatten
-    end
-
-    # Access the profile image in various sizes for the user with the indicated screen name
-    #
-    # @see https://dev.twitter.com/docs/api/1/get/users/profile_image/:screen_name
-    # @rate_limited No
-    # @requires_authentication No
-    # @return [String] The URL for the requested user's profile image.
-    # @overload profile_image(options={})
-    #   @param options [Hash] A customizable set of options.
-    #   @option options [String] :size ('normal') Specifies the size of image to fetch. Valid options include: 'bigger' (73px by 73px), 'normal' (48px by 48px), and 'mini' (24px by 24px).
-    #   @example Return the URL for the 24px by 24px version of @sferik's profile image
-    #     Twitter.profile_image(:size => 'mini')
-    # @overload profile_image(screen_name, options={})
-    #   @param user [String, Twitter::User] A Twitter screen name or object.
-    #   @param options [Hash] A customizable set of options.
-    #   @option options [String] :size ('normal') Specifies the size of image to fetch. Valid options include: 'bigger' (73px by 73px), 'normal' (48px by 48px), and 'mini' (24px by 24px).
-    #   @example Return the URL for the 24px by 24px version of @sferik's profile image
-    #     Twitter.profile_image('sferik', :size => 'mini')
-    def profile_image(*args)
-      options = args.extract_options!
-      user = args.pop || self.verify_credentials.screen_name
-      user = user.screen_name if user.is_a?(Twitter::User)
-      get("/1/users/profile_image/#{user}", options, :raw => true).headers['location']
     end
 
     # Returns users that match the given query
@@ -2534,8 +2571,10 @@ module Twitter
     # @example Return users that match "Erik Michaels-Ober"
     #   Twitter.user_search("Erik Michaels-Ober")
     def user_search(query, options={})
-      get("/1/users/search.json", options.merge(:q => query)).map do |user|
-        Twitter::User.get_or_new(user)
+      response = get("/1/users/search.json", options.merge(:q => query))
+      Twitter::RateLimit.instance.update(response[:response_headers])
+      response[:body].map do |user|
+        Twitter::User.fetch_or_new(user)
       end
     end
 
@@ -2561,8 +2600,8 @@ module Twitter
       options = args.extract_options!
       if user = args.pop
         options.merge_user!(user)
-        user = get("/1/users/show.json", options)
-        Twitter::User.get_or_new(user)
+        response = get("/1/users/show.json", options)
+        Twitter::User.from_response(response)
       else
         self.verify_credentials
       end
@@ -2579,7 +2618,7 @@ module Twitter
     #   Twitter.user?(7505382)  # Same as above
     def user?(user, options={})
       options.merge_user!(user)
-      get("/1/users/show.json", options, :raw => true)
+      get("/1/users/show.json", options)
       true
     rescue Twitter::Error::NotFound
       false
@@ -2608,8 +2647,10 @@ module Twitter
       options = args.extract_options!
       user = args.pop || self.verify_credentials.screen_name
       options.merge_user!(user)
-      get("/1/users/contributees.json", options).map do |user|
-        Twitter::User.get_or_new(user)
+      response = get("/1/users/contributees.json", options)
+      Twitter::RateLimit.instance.update(response[:response_headers])
+      response[:body].map do |user|
+        Twitter::User.fetch_or_new(user)
       end
     end
 
@@ -2636,8 +2677,10 @@ module Twitter
       options = args.extract_options!
       user = args.pop || self.verify_credentials.screen_name
       options.merge_user!(user)
-      get("/1/users/contributors.json", options).map do |user|
-        Twitter::User.get_or_new(user)
+      response = get("/1/users/contributors.json", options)
+      Twitter::RateLimit.instance.update(response[:response_headers])
+      response[:body].map do |user|
+        Twitter::User.fetch_or_new(user)
       end
     end
 
@@ -2667,8 +2710,10 @@ module Twitter
       user = args.pop || self.verify_credentials.screen_name
       options.merge_user!(user)
       options[:excluded] = options[:excluded].join(',') if options[:excluded].is_a?(Array)
-      get("/1/users/recommendations.json", options).map do |recommendation|
-        Twitter::User.get_or_new(recommendation['user'])
+      response = get("/1/users/recommendations.json", options)
+      Twitter::RateLimit.instance.update(response[:response_headers])
+      response[:body].map do |recommendation|
+        Twitter::User.fetch_or_new(recommendation['user'])
       end
     end
 
@@ -2700,8 +2745,8 @@ module Twitter
       options.merge!(args.extract_options!)
       user = args.pop || self.verify_credentials.screen_name
       options.merge_user!(user)
-      cursor = get("/users/following_followers_of.json", options)
-      Twitter::Cursor.new(cursor, 'users', Twitter::User)
+      response = get("/users/following_followers_of.json", options)
+      Twitter::Cursor.from_response(response, 'users', Twitter::User)
     end
 
   private
@@ -2714,23 +2759,23 @@ module Twitter
         owner = args.pop || self.verify_credentials.screen_name
         options.merge_owner!(owner)
       end
-      list = yield(options)
-      Twitter::List.get_or_new(list)
+      response = yield(options)
+      Twitter::List.from_response(response)
     end
 
     def url_to_status(args, &block)
       options = args.extract_options!
       args.flatten.threaded_map do |id|
-        status = yield(id, options)
-        Twitter::Status.get_or_new(status)
+        response = yield(id, options)
+        Twitter::Status.from_response(response)
       end
     end
 
     def url_to_user(args, &block)
       options = args.extract_options!
       args.flatten.threaded_map do |user|
-        user = yield(options.merge_user(user))
-        Twitter::User.get_or_new(user)
+        response = yield(options.merge_user(user))
+        Twitter::User.from_response(response)
       end
     end
 

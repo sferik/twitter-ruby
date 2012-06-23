@@ -17,11 +17,11 @@ module Twitter
       # Initializes a new ServerError object
       #
       # @param message [String]
-      # @param http_headers [Hash]
+      # @param response_headers [Hash]
       # @return [Twitter::Error::ServerError]
-      def initialize(message=nil, http_headers={})
+      def initialize(message=nil, response_headers={})
         message ||= self.class.const_get(:MESSAGE)
-        super(message, http_headers)
+        super(message, response_headers)
       end
 
     end

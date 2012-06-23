@@ -2,7 +2,7 @@ require 'helper'
 
 describe Twitter do
   after do
-    Twitter.reset
+    Twitter.reset!
   end
 
   context "when delegating to a client" do

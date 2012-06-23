@@ -52,7 +52,7 @@ module Twitter
 
     # @return [Twitter::Status]
     def status
-      @status ||= Twitter::Status.get_or_new(@attrs.dup['status'].merge('user' => @attrs.except('status'))) unless @attrs['status'].nil?
+      @status ||= Twitter::Status.fetch_or_new(@attrs.dup['status'].merge('user' => @attrs.except('status'))) unless @attrs['status'].nil?
     end
 
   end

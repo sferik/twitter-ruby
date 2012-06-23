@@ -16,7 +16,7 @@ describe Twitter::Client do
     end
 
     after do
-      Twitter.reset
+      Twitter.reset!
     end
 
     it "inherits the module configuration" do

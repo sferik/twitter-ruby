@@ -1,3 +1,5 @@
+require 'helper'
+
 describe Twitter::Polygon do
 
   before do

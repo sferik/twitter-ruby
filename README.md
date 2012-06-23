@@ -38,9 +38,7 @@ wiki][apps]!
 [apps]: https://github.com/jnunemaker/twitter/wiki/apps
 
 ## What's new in version 3?
-
 ### Methods
-
 The following methods now accept multiple users or ids as arguments and return
 arrays:
 
@@ -56,6 +54,8 @@ better performance than calling these methods multiple times in serial.
 
 The `Twitter::Client#direct_messages` method has been renamed to
 `Twitter::Client#direct_messages_received`.
+
+The `Twitter::Client#profile_image` method has been removed.
 
 Additionally, the `Twitter::Client#follow` method now checks to make sure the
 user isn't already being followed. If you don't wish to perform that check
@@ -78,11 +78,7 @@ object.
 The `Twitter::Status#expanded_urls` method has been removed. Use
 `Twitter::Status#urls` instead.
 
-Support for API gateways via `gateway` configuration has been also removed.
-This functionality may be replicated by inserting custom Faraday middleware.
-
 ### Configuration
-
 The Faraday middleware stack is now fully configurable and is exposed as a
 `Faraday::Builder` which can be manipulated in place:
 
@@ -107,6 +103,9 @@ The adapter can also be configured as part of the middleware stack:
       builder.adapter :some_other_adapter
     })
 
+Support for API gateways via `gateway` configuration has removed. This
+functionality may be replicated by inserting custom Faraday middleware.
+
 The `proxy` and `user_agent` configuration have also been removed. These can be
 set via the `connection_options` configuration.
 
@@ -114,7 +113,6 @@ set via the `connection_options` configuration.
     Twitter.connection_options[:headers][:user_agent] = 'Custom User Agent'
 
 ### Authentication
-
 This library now attempts to pull credentials from `ENV` if they are not
 otherwise specified. In `bash`:
 
@@ -124,7 +122,6 @@ otherwise specified. In `bash`:
     export TWITTER_OAUTH_TOKEN_SECRET=YOUR_OAUTH_TOKEN_SECRET
 
 ### Identity Map
-
 This version introduces an identity map, which ensures that the same objects
 only get initialized once:
 
@@ -134,7 +131,6 @@ only get initialized once:
 false.)
 
 ### Errors
-
 Any Faraday client errors are captured and re-raised as a
 `Twitter::Error::ClientError`, so there's no longer a need to separately rescue
 `Faraday::Error::ClientError`.
@@ -144,8 +140,18 @@ API requests are made via api.twitter.com, which does not return HTTP 420. When
 you hit your rate limit, Twitter returns HTTP 400, which raises a
 `Twitter::Error::BadRequest`.
 
-### Additional notes
+All `Twitter::Error.ratelimit` methods (including `Twitter::Error.retry_at`)
+have been replaced by the `Twitter::RateLimit` singleton class. After making
+any request, you can check the `Twitter::RateLimit` object for your current
+rate limit status.
 
+    rate_limit = Twitter::RateLimit.instance
+    rate_limit.limit     #=> 150
+    rate_limit.remaining #=> 149
+    rate_limit.reset_at  #=> 2012-06-23 20:04:36 -0700
+    rate_limit.reset_in  #=> 3540 (seconds)
+
+### Additional notes
 This will be the last major version of this library to support Ruby 1.8.
 Requiring Ruby 1.9 will allow us to remove [various][each_with_object]
 [hacks][singleton_class] put in place to maintain Ruby 1.8 compatibility.

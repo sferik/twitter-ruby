@@ -6,7 +6,7 @@ describe Twitter::Client do
     @client = Twitter::Client.new
   end
 
-  describe "#about_me" do
+  describe "#activity_about_me" do
     before do
       stub_get("/i/activity/about_me.json").
         to_return(:body => fixture("about_me.json"), :headers => {:content_type => "application/json; charset=utf-8"})
@@ -22,7 +22,7 @@ describe Twitter::Client do
     end
   end
 
-  describe "#by_friends" do
+  describe "#activity_by_friends" do
     before do
       stub_get("/i/activity/by_friends.json").
         to_return(:body => fixture("by_friends.json"), :headers => {:content_type => "application/json; charset=utf-8"})

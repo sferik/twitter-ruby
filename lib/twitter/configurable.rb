@@ -16,6 +16,7 @@ module Twitter
         :user_agent => "Twitter Ruby Gem #{Twitter::Version}"
       },
       :open_timeout => 5,
+      :raw => true,
       :ssl => {:verify => false},
       :timeout => 10,
     }
@@ -75,7 +76,7 @@ module Twitter
 
     # When this module is extended, set all configuration options to their default values
     def self.extended(base)
-      base.reset
+      base.reset!
     end
 
     # Convenience method to allow configuration options to be set in a block
@@ -92,7 +93,7 @@ module Twitter
     end
 
     # Reset all configuration options to defaults
-    def reset
+    def reset!
       self.connection_options = DEFAULT_CONNECTION_OPTIONS
       self.consumer_key       = DEFAULT_CONSUMER_KEY
       self.consumer_secret    = DEFAULT_CONSUMER_SECRET

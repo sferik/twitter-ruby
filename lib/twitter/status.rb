@@ -15,12 +15,11 @@ require 'twitter/user'
 module Twitter
   class Status < Twitter::Identifiable
     include Twitter::Creatable
-    attr_reader :favorited, :favoriters, :from_user, :from_user_id,
-      :from_user_name, :in_reply_to_screen_name, :in_reply_to_attrs_id,
-      :in_reply_to_status_id, :in_reply_to_user_id, :iso_language_code,
-      :profile_image_url, :profile_image_url_https, :repliers, :retweeted,
-      :retweeters, :source, :text, :to_user, :to_user_id, :to_user_name,
-      :truncated
+    attr_reader :favorited, :favoriters, :from_user_id, :from_user_name,
+      :in_reply_to_screen_name, :in_reply_to_attrs_id, :in_reply_to_status_id,
+      :in_reply_to_user_id, :iso_language_code, :profile_image_url,
+      :profile_image_url_https, :repliers, :retweeted, :retweeters, :source,
+      :text, :to_user, :to_user_id, :to_user_name, :truncated
     alias favorited? favorited
     alias retweeted? retweeted
     alias truncated? truncated
@@ -53,7 +52,7 @@ module Twitter
     def hashtags
       @hashtags ||= unless @attrs['entities'].nil?
         Array(@attrs['entities']['hashtags']).map do |hashtag|
-          Twitter::Entity::Hashtag.get_or_new(hashtag)
+          Twitter::Entity::Hashtag.fetch_or_new(hashtag)
         end
       else
         warn "#{Kernel.caller.first}: To get hashtags, you must pass `:include_entities => true` when requesting the Twitter::Status."
@@ -74,7 +73,7 @@ module Twitter
 
     # @return [Twitter::Metadata]
     def metadata
-      @metadata ||= Twitter::Metadata.get_or_new(@attrs['metadata']) unless @attrs['metadata'].nil?
+      @metadata ||= Twitter::Metadata.fetch_or_new(@attrs['metadata']) unless @attrs['metadata'].nil?
     end
 
     # @return [Twitter::OEmbed]
@@ -85,7 +84,7 @@ module Twitter
 
     # @return [Twitter::Place]
     def place
-      @place ||= Twitter::Place.get_or_new(@attrs['place']) unless @attrs['place'].nil?
+      @place ||= Twitter::Place.fetch_or_new(@attrs['place']) unless @attrs['place'].nil?
     end
 
     # @return [Integer]
@@ -99,7 +98,7 @@ module Twitter
     #
     # @return [Twitter::Status]
     def retweeted_status
-      @retweeted_status ||= self.class.get_or_new(@attrs['retweeted_status']) unless @attrs['retweeted_status'].nil?
+      @retweeted_status ||= self.class.fetch_or_new(@attrs['retweeted_status']) unless @attrs['retweeted_status'].nil?
     end
 
     # @return [String]
@@ -114,7 +113,7 @@ module Twitter
     def urls
       @urls ||= unless @attrs['entities'].nil?
         Array(@attrs['entities']['urls']).map do |url|
-          Twitter::Entity::Url.get_or_new(url)
+          Twitter::Entity::Url.fetch_or_new(url)
         end
       else
         warn "#{Kernel.caller.first}: To get URLs, you must pass `:include_entities => true` when requesting the Twitter::Status."
@@ -123,7 +122,7 @@ module Twitter
 
     # @return [Twitter::User]
     def user
-      @user ||= Twitter::User.get_or_new(@attrs.dup['user'].merge('status' => @attrs.except('user'))) unless @attrs['user'].nil?
+      @user ||= Twitter::User.fetch_or_new(@attrs.dup['user'].merge('status' => @attrs.except('user'))) unless @attrs['user'].nil?
     end
 
     # @note Must include entities in your request for this method to work
@@ -131,7 +130,7 @@ module Twitter
     def user_mentions
       @user_mentions ||= unless @attrs['entities'].nil?
         Array(@attrs['entities']['user_mentions']).map do |user_mention|
-          Twitter::Entity::UserMention.get_or_new(user_mention)
+          Twitter::Entity::UserMention.fetch_or_new(user_mention)
         end
       else
         warn "#{Kernel.caller.first}: To get user mentions, you must pass `:include_entities => true` when requesting the Twitter::Status."

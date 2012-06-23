@@ -20,7 +20,7 @@ module Twitter
 
       def on_complete(env)
         if respond_to? :parse
-          env[:body] = parse(env[:body]) unless env[:request][:raw] || [204, 304].include?(env[:status])
+          env[:body] = parse(env[:body]) unless [204, 304].include?(env[:status])
         end
       end
 

@@ -114,51 +114,6 @@ describe Twitter::Client do
     end
   end
 
-  describe "#profile_image" do
-    context "with a screen name passed" do
-      before do
-        stub_get("/1/users/profile_image/sferik").
-          to_return(fixture("profile_image.text"))
-      end
-      it "redirects to the correct resource" do
-        profile_image = @client.profile_image("sferik")
-        a_get("/1/users/profile_image/sferik").
-          with(:status => 302).
-          should have_been_made
-        profile_image.should eq "http://a0.twimg.com/profile_images/323331048/me_normal.jpg"
-      end
-    end
-    context "without a screen name passed" do
-      before do
-        stub_get("/1/account/verify_credentials.json").
-          to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-        stub_get("/1/users/profile_image/sferik").
-          to_return(fixture("profile_image.text"))
-      end
-      it "redirects to the correct resource" do
-        profile_image = @client.profile_image
-        a_get("/1/users/profile_image/sferik").
-          with(:status => 302).
-          should have_been_made
-        profile_image.should eq "http://a0.twimg.com/profile_images/323331048/me_normal.jpg"
-      end
-    end
-    context "with a user object passed" do
-      before do
-        stub_get("/1/users/profile_image/sferik").
-          to_return(fixture("profile_image.text"))
-      end
-      it "redirects to the correct resource" do
-        user = Twitter::User.new('screen_name' => 'sferik')
-        profile_image = @client.profile_image(user)
-        a_get("/1/users/profile_image/sferik").
-          with(:status => 302).
-          should have_been_made
-        profile_image.should eq "http://a0.twimg.com/profile_images/323331048/me_normal.jpg"
-      end
-    end
-  end
-
   describe "#user_search" do
     before do
       stub_get("/1/users/search.json").

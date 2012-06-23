@@ -1,8 +1,10 @@
 require 'twitter/identity_map'
+require 'twitter/rate_limit'
 
 module Twitter
   class Base
-    attr_accessor :attrs
+    attr_reader :attrs
+    alias body attrs
     alias to_hash attrs
 
     @@identity_map = IdentityMap.new
@@ -23,21 +25,27 @@ module Twitter
       end
     end
 
-    def self.get(attrs={})
+    def self.fetch(attrs)
       @@identity_map[self] ||= {}
       @@identity_map[self][Marshal.dump(attrs)]
     end
 
-    def self.get_or_new(attrs={})
-      self.get(attrs) || self.new(attrs)
+    def self.from_response(response={})
+      self.fetch(response[:body]) || self.new(response[:body], response[:response_headers])
+    end
+
+    def self.fetch_or_new(attrs={})
+      self.fetch(attrs) || self.new(attrs)
     end
 
     # Initializes a new object
     #
     # @param attrs [Hash]
+    # @param response_headers [Hash]
     # @return [Twitter::Base]
-    def initialize(attrs={})
+    def initialize(attrs={}, response_headers={})
       self.update(attrs)
+      self.update_rate_limit(response_headers) unless response_headers.empty?
       @@identity_map[self.class] ||= {}
       @@identity_map[self.class][Marshal.dump(attrs)] = self
     end
@@ -46,7 +54,7 @@ module Twitter
     #
     # @param method [String, Symbol] Message to send to the object
     def [](method)
-      self.__send__(method.to_sym)
+      self.send(method.to_sym)
     rescue NoMethodError
       nil
     end
@@ -57,8 +65,16 @@ module Twitter
     # @return [Twitter::Base]
     def update(attrs)
       @attrs ||= {}
-      @attrs.merge!(attrs)
+      @attrs.update(attrs)
       self
+    end
+
+    # Update the RateLimit object
+    #
+    # @param response_headers [Hash]
+    # @return [Twitter::RateLimit]
+    def update_rate_limit(response_headers)
+      Twitter::RateLimit.instance.update(response_headers)
     end
 
   end

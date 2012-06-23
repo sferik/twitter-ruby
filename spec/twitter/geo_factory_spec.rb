@@ -13,7 +13,7 @@ describe Twitter::GeoFactory do
     end
     it "raises an ArgumentError when type is not specified" do
       lambda do
-        Twitter::GeoFactory.new({})
+        Twitter::GeoFactory.new
       end.should raise_error(ArgumentError, "argument must have a 'type' key")
     end
   end

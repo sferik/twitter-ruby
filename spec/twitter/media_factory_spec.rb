@@ -9,7 +9,7 @@ describe Twitter::MediaFactory do
     end
     it "raises an ArgumentError when type is not specified" do
       lambda do
-        Twitter::MediaFactory.new({})
+        Twitter::MediaFactory.new
       end.should raise_error(ArgumentError, "argument must have a 'type' key")
     end
   end

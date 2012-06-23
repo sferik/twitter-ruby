@@ -3,22 +3,21 @@ require 'twitter/base'
 module Twitter
   class Identifiable < Base
 
-    def self.get(attrs={})
+    def self.fetch(attrs)
+      id = attrs['id']
       @@identity_map[self] ||= {}
-      attrs['id'] && @@identity_map[self][attrs['id']] && @@identity_map[self][attrs['id']].update(attrs) || super
-    end
-
-    def self.get_or_new(attrs={})
-      self.get(attrs) || self.new(attrs)
+      id && @@identity_map[self][id] && @@identity_map[self][id].update(attrs) || super(attrs)
     end
 
     # Initializes a new object
     #
     # @param attrs [Hash]
+    # @param response_headers [Hash]
     # @return [Twitter::Base]
-    def initialize(attrs={})
+    def initialize(attrs={}, response_headers={})
       if attrs['id']
         self.update(attrs)
+        self.update_rate_limit(response_headers) unless response_headers.empty?
         @@identity_map[self.class] ||= {}
         @@identity_map[self.class][attrs['id']] = self
       else

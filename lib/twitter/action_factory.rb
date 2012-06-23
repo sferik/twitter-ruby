@@ -15,10 +15,9 @@ module Twitter
     # @param attrs [Hash]
     # @raise [ArgumentError] Error raised when supplied argument is missing an 'action' key.
     # @return [Twitter::Action::Favorite, Twitter::Action::Follow, Twitter::Action::ListMemberAdded, Twitter::Action::Mention, Twitter::Action::Reply, Twitter::Action::Retweet]
-    def self.new(action={})
-      type = action.delete('action')
-      if type
-        Twitter::Action.const_get(camelize(type).to_sym).get_or_new(action)
+    def self.new(attrs={})
+      if type = attrs.delete('action')
+        Twitter::Action.const_get(camelize(type).to_sym).fetch_or_new(attrs)
       else
         raise ArgumentError, "argument must have an 'action' key"
       end

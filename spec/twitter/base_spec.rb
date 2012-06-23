@@ -28,7 +28,7 @@ describe Twitter::Base do
 
   describe "identical objects" do
     it "have the same object_id" do
-      @base.object_id.should eq Twitter::Base.get('id' => 1).object_id
+      @base.object_id.should eq Twitter::Base.fetch('id' => 1).object_id
     end
   end
 

@@ -37,7 +37,7 @@ module Twitter
       uri = options[:endpoint] || endpoint
       uri = URI(uri) unless uri.respond_to?(:host)
       uri += path
-      headers = {}
+      request_headers = {}
       if credentials?
         # When posting a file, don't sign any params
         signature_params = if :post == method.to_sym && params.values.any?{|value| value.is_a?(File) || (value.is_a?(Hash) && (value['io'].is_a?(IO) || value['io'].is_a?(StringIO)))}
@@ -45,13 +45,12 @@ module Twitter
         else
           params
         end
-        header = SimpleOAuth::Header.new(method, uri, signature_params, credentials)
-        headers['Authorization'] = header.to_s
+        authorization = SimpleOAuth::Header.new(method, uri, signature_params, credentials)
+        request_headers['Authorization'] = authorization.to_s
       end
 
       connection.url_prefix = options[:endpoint] || endpoint
-      response = connection.run_request(method.to_sym, path, nil, headers) do |request|
-        request.options[:raw] = true if options[:raw]
+      connection.run_request(method.to_sym, path, nil, request_headers) do |request|
         unless params.empty?
           if :post == request.method
             request.body = params
@@ -60,9 +59,7 @@ module Twitter
           end
         end
         yield request if block_given?
-      end
-
-      options[:raw] ? response : response.body
+      end.env
     rescue Faraday::Error::ClientError
       raise Twitter::Error::ClientError
     end

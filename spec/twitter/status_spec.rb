@@ -104,8 +104,12 @@ describe Twitter::Status do
 
   describe "#hashtags" do
     it "returns an Array of Entity::Hashtag when entities are set" do
-      hashtags_hash = [{'text' => 'twitter',
-          'indices' => [10, 33]}]
+      hashtags_hash = [
+        {
+          'text' => 'twitter',
+          'indices' => [10, 33],
+        }
+      ]
       hashtags = Twitter::Status.new('entities' => {'hashtags' => hashtags_hash}).hashtags
       hashtags.should be_an Array
       hashtags.first.should be_an Twitter::Entity::Hashtag
@@ -229,10 +233,14 @@ describe Twitter::Status do
 
   describe "#urls" do
     it "returns an Array of Entity::Url when entities are set" do
-      urls_hash = [{'url' => 'http://example.com/t.co',
+      urls_hash = [
+        {
+          'url' => 'http://example.com/t.co',
           'expanded_url' => 'http://example.com/expanded',
           'display_url' => 'example.com/expanded',
-          'indices' => [10, 33]}]
+          'indices' => [10, 33],
+        }
+      ]
       urls = Twitter::Status.new('entities' => {'urls' => urls_hash}).urls
       urls.should be_an Array
       urls.first.should be_an Twitter::Entity::Url
@@ -266,12 +274,16 @@ describe Twitter::Status do
   end
 
   describe "#user_mentions" do
-    it "returns an Array of Entity::User_Mention when entities are set" do
-      user_mentions_hash = [{'screen_name'=>'sferik',
-          'name'=>'Erik Michaels-Ober',
-          'id_str'=>'7505382',
-          'indices'=>[0, 6],
-          'id'=>7505382}]
+    it "returns an Array of Entity::UserMention when entities are set" do
+      user_mentions_hash = [
+        {
+          'screen_name' => 'sferik',
+          'name' => 'Erik Michaels-Ober',
+          'id_str' => '7505382',
+          'indices' => [0, 6],
+          'id' => 7505382,
+        }
+      ]
       user_mentions = Twitter::Status.new('entities' => {'user_mentions' => user_mentions_hash}).user_mentions
       user_mentions.should be_an Array
       user_mentions.first.should be_an Twitter::Entity::UserMention
