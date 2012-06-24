@@ -86,11 +86,11 @@ object.
 
 ### Configuration
 The Faraday middleware stack is now fully configurable and is exposed as a
-`Faraday::Builder` which can be manipulated in place:
+`Faraday::Builder` which can be modified in-place:
 
     Twitter.middleware.insert_after Twitter::Response::RaiseClientError, CustomMiddleware
 
-Likewise, the middleware stack can be replaced in it's entirety:
+Likewise, the middleware stack can be replaced in its entirety:
 
     Twitter.middleware = Faraday::Builder.new(&Proc.new{|builder|
       # Specify a middleware stack here
@@ -170,6 +170,26 @@ vulnerabilities are discovered.
 [each_with_object]: https://github.com/jnunemaker/twitter/commit/6052252a07baf7aefe0f100bba0abd2cbb7139bb
 [singleton_class]: https://github.com/jnunemaker/twitter/commit/2ed9db21c87d1218b15373e42a36ad536b07dcbb
 [ruby192]: http://blade.nagaokaut.ac.jp/cgi-bin/scat.rb/ruby/ruby-talk/367983
+
+Here are some fun facts about the 3.0 release:
+
+* The entire library is implemented in just 2,214 source lines of code
+* With over 5,000 lines of specs, the spec-to-code ratio is over 2.3:1
+* The spec suite contains 600 examples and runs in under 3 seconds on a MacBook
+* This project has 100% C0 code coverage (the tests execute every line of
+  source code at least once)
+* At the time of release, this library is comprehensive: you can request all
+  documented Twitter REST API resources that respond with JSON (over 100)
+* This is the first multithreaded release (requests are made in parallel)
+* This gem works on every major Ruby implementation, including JRuby and
+  Rubinius
+* The first version was released on November 26, 2006 (over 5 years ago)
+* This gem has just three dependencies: `faraday`, `multi_json`, and
+  `simple_oauth`
+* Previous versions of this gem have been [downloaded over half a million
+  times][stats]
+
+[stats]: http://rubygems.org/gems/twitter/stats
 
 ## Performance
 You can improve performance by preloading a faster JSON parsing library. By
