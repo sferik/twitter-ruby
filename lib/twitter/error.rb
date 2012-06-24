@@ -36,6 +36,8 @@ module Twitter
       @wrapped_exception ? @wrapped_exception.backtrace : super
     end
 
+  protected
+
     # Update the RateLimit object
     #
     # @param response_headers [Hash]

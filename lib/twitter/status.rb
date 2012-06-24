@@ -44,7 +44,7 @@ module Twitter
 
     # @return [Twitter::Point, Twitter::Polygon]
     def geo
-      @geo ||= Twitter::GeoFactory.new(@attrs[:geo]) unless @attrs[:geo].nil?
+      @geo ||= Twitter::GeoFactory.fetch_or_new(@attrs[:geo]) unless @attrs[:geo].nil?
     end
 
     # @note Must include entities in your request for this method to work
@@ -64,7 +64,7 @@ module Twitter
     def media
       @media ||= unless @attrs[:entities].nil?
         Array(@attrs[:entities][:media]).map do |media|
-          Twitter::MediaFactory.new(media)
+          Twitter::MediaFactory.fetch_or_new(media)
         end
       else
         warn "#{Kernel.caller.first}: To get media, you must pass `:include_entities => true` when requesting the Twitter::Status."

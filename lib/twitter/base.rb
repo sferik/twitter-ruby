@@ -69,6 +69,8 @@ module Twitter
       self
     end
 
+  protected
+
     # Update the RateLimit object
     #
     # @param response_headers [Hash]
