@@ -1450,7 +1450,7 @@ module Twitter
         options.merge_owner!(owner)
       end
       response = members.flatten.each_slice(MAX_USERS_PER_REQUEST).threaded_map do |users|
-        list = post("/1/lists/members/destroy_all.json", options.merge_users(users))
+        post("/1/lists/members/destroy_all.json", options.merge_users(users))
       end.last
       Twitter::List.from_response(response)
     end
