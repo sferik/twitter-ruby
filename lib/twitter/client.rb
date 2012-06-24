@@ -41,6 +41,134 @@ module Twitter
     attr_accessor *Configurable::VALID_OPTIONS_KEYS
 
     MAX_USERS_PER_REQUEST = 100
+    METHOD_RATE_LIMITED = {
+      :accept => false,
+      :activity_about_me => true,
+      :activity_by_friends => true,
+      :block => true,
+      :block? => true,
+      :blocked_ids => true,
+      :blocking => true,
+      :configuration => true,
+      :contributees => true,
+      :contributors => true,
+      :current_user => true,
+      :d => false,
+      :deny => false,
+      :direct_message => true,
+      :direct_message_create => false,
+      :direct_message_destroy => false,
+      :direct_messages => true,
+      :direct_messages_received => true,
+      :direct_messages_sent => true,
+      :disable_notifications => false,
+      :enable_notifications => false,
+      :end_session => false,
+      :fav => false,
+      :fave => false,
+      :favorite => false,
+      :favorite_create => false,
+      :favorite_destroy => false,
+      :favorites => true,
+      :follow => false,
+      :follow! => false,
+      :follower_ids => true,
+      :following_followers_of => true,
+      :friend_ids => true,
+      :friendship => true,
+      :friendship? => true,
+      :friendship_create => false,
+      :friendship_create! => false,
+      :friendship_destroy => false,
+      :friendship_show => true,
+      :friendship_update => false,
+      :friendships => true,
+      :friendships_incoming => true,
+      :friendships_outgoing => true,
+      :geo_search => true,
+      :home_timeline => true,
+      :initialize => false,
+      :languages => true,
+      :list => true,
+      :list_add_member => false,
+      :list_add_members => false,
+      :list_create => false,
+      :list_destroy => false,
+      :list_member? => true,
+      :list_members => true,
+      :list_remove_member => false,
+      :list_remove_members => false,
+      :list_subscribe => false,
+      :list_subscriber? => true,
+      :list_subscribers => true,
+      :list_timeline => true,
+      :list_unsubscribe => false,
+      :list_update => false,
+      :lists => true,
+      :lists_subscribed_to => true,
+      :local_trends => true,
+      :m => false,
+      :media_timeline => true,
+      :memberships => true,
+      :mentions => true,
+      :network_timeline => true,
+      :no_retweet_ids => true,
+      :oembed => true,
+      :oembeds => true,
+      :phoenix_search => true,
+      :place => true,
+      :place_create => true,
+      :places_nearby => true,
+      :places_similar => true,
+      :privacy => true,
+      :rate_limit_status => false,
+      :rate_limited? => false,
+      :recommendations => true,
+      :relationship => true,
+      :report_spam => true,
+      :retweet => true,
+      :retweeted_by => true,
+      :retweeted_to => true,
+      :retweeters_of => true,
+      :retweets => true,
+      :retweets_of_me => true,
+      :reverse_geocode => true,
+      :saved_search => true,
+      :saved_search_create => false,
+      :saved_search_destroy => false,
+      :saved_searches => true,
+      :search => true,
+      :settings => true,
+      :status => true,
+      :status_activity => true,
+      :status_destroy => false,
+      :statuses => true,
+      :statuses_activity => true,
+      :subscriptions => true,
+      :suggest_users => true,
+      :suggestions => true,
+      :tos => true,
+      :trend_locations => true,
+      :trends => true,
+      :trends_daily => true,
+      :trends_weekly => true,
+      :unblock => false,
+      :unfavorite => false,
+      :unfollow => false,
+      :update => false,
+      :update_delivery_device => false,
+      :update_profile => false,
+      :update_profile_background_image => false,
+      :update_profile_colors => false,
+      :update_profile_image => false,
+      :update_with_media => false,
+      :user => true,
+      :user? => true,
+      :user_search => true,
+      :user_timeline => true,
+      :users => true,
+      :verify_credentials => true,
+    }
 
     # Initializes a new API object
     #
@@ -52,11 +180,23 @@ module Twitter
       end
     end
 
+    # Check whether a method is rate limited
+    #
+    # @param method [Symbol]
+    # @return [Boolean]
+    def rate_limited?(method)
+      method_rate_limited = METHOD_RATE_LIMITED[method.to_sym]
+      if method_rate_limited.nil?
+        raise NameError.new("no method `#{method}' for #{self.class}")
+      end
+      method_rate_limited
+    end
+
     # Returns the remaining number of API requests available to the requesting user
     #
     # @see https://dev.twitter.com/docs/api/1/get/account/rate_limit_status
     # @rate_limited No
-    # @requires_authentication No
+    # @authentication_required No
     # @return [Twitter::RateLimitStatus]
     # @param options [Hash] A customizable set of options.
     # @example Return the remaining number of API requests available to the requesting user
@@ -70,7 +210,7 @@ module Twitter
     #
     # @see https://dev.twitter.com/docs/api/1/get/account/verify_credentials
     # @rate_limited Yes
-    # @requires_authentication Yes
+    # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Twitter::User] The authenticated user.
     # @param options [Hash] A customizable set of options.
@@ -86,7 +226,7 @@ module Twitter
     #
     # @see https://dev.twitter.com/docs/api/1/post/account/end_session
     # @rate_limited No
-    # @requires_authentication Yes
+    # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Hash]
     # @param options [Hash] A customizable set of options.
@@ -100,7 +240,7 @@ module Twitter
     #
     # @see https://dev.twitter.com/docs/api/1/post/account/update_delivery_device
     # @rate_limited No
-    # @requires_authentication Yes
+    # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Twitter::User] The authenticated user.
     # @param device [String] Must be one of: 'sms', 'none'.
@@ -117,7 +257,7 @@ module Twitter
     # @see https://dev.twitter.com/docs/api/1/post/account/update_profile
     # @note Only the options specified will be updated.
     # @rate_limited No
-    # @requires_authentication Yes
+    # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Twitter::User] The authenticated user.
     # @param options [Hash] A customizable set of options.
@@ -136,7 +276,7 @@ module Twitter
     #
     # @see https://dev.twitter.com/docs/api/1/post/account/update_profile_background_image
     # @rate_limited No
-    # @requires_authentication Yes
+    # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Twitter::User] The authenticated user.
     # @param image [File, Hash] The background image for the profile. Must be a valid GIF, JPG, or PNG image of less than 800 kilobytes in size. Images with width larger than 2048 pixels will be scaled down.
@@ -154,7 +294,7 @@ module Twitter
     #
     # @see https://dev.twitter.com/docs/api/1/post/account/update_profile_colors
     # @rate_limited No
-    # @requires_authentication Yes
+    # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Twitter::User] The authenticated user.
     # @param options [Hash] A customizable set of options.
@@ -175,7 +315,7 @@ module Twitter
     # @see https://dev.twitter.com/docs/api/1/post/account/update_profile_image
     # @note This method asynchronously processes the uploaded file before updating the user's profile image URL. You can either update your local cache the next time you request the user's information, or, at least 5 seconds after uploading the image, ask for the updated URL using {Twitter::Client::User#profile_image}.
     # @rate_limited No
-    # @requires_authentication Yes
+    # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Twitter::User] The authenticated user.
     # @param image [File, Hash] The avatar image for the profile. Must be a valid GIF, JPG, or PNG image of less than 700 kilobytes in size. Images with width larger than 500 pixels will be scaled down. Animated GIFs will be converted to a static GIF of the first frame, removing the animation.
@@ -194,7 +334,7 @@ module Twitter
     # @see https://dev.twitter.com/docs/api/1/post/account/settings
     # @see https://dev.twitter.com/docs/api/1/get/account/settings
     # @rate_limited Yes
-    # @requires_authentication Yes
+    # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Twitter::Settings]
     # @param options [Hash] A customizable set of options.
@@ -219,7 +359,7 @@ module Twitter
     #
     # @note Undocumented
     # @rate_limited Yes
-    # @requires_authentication Yes
+    # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Array] An array of actions
     # @param options [Hash] A customizable set of options.
@@ -237,7 +377,7 @@ module Twitter
     #
     # @note Undocumented
     # @rate_limited Yes
-    # @requires_authentication Yes
+    # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid./
     # @return [Array] An array of actions
     # @param options [Hash] A customizable set of options.
@@ -255,7 +395,7 @@ module Twitter
     #
     # @see https://dev.twitter.com/docs/api/1/get/blocks/blocking
     # @rate_limited Yes
-    # @requires_authentication Yes
+    # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Array<Twitter::User>] User objects that the authenticating user is blocking.
     # @param options [Hash] A customizable set of options.
@@ -272,7 +412,7 @@ module Twitter
     #
     # @see https://dev.twitter.com/docs/api/1/get/blocks/blocking/ids
     # @rate_limited Yes
-    # @requires_authentication Yes
+    # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Array] Numeric user ids the authenticating user is blocking.
     # @param options [Hash] A customizable set of options.
@@ -286,7 +426,7 @@ module Twitter
     #
     # @see https://dev.twitter.com/docs/api/1/get/blocks/exists
     # @rate_limited Yes
-    # @requires_authentication Yes
+    # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Boolean] true if the authenticating user is blocking the target user, otherwise false.
     # @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
@@ -307,7 +447,7 @@ module Twitter
     # @see https://dev.twitter.com/docs/api/1/post/blocks/create
     # @note Destroys a friendship to the blocked user if it exists.
     # @rate_limited Yes
-    # @requires_authentication Yes
+    # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Array<Twitter::User>] The blocked users.
     # @overload block(*users)
@@ -328,7 +468,7 @@ module Twitter
     #
     # @see https://dev.twitter.com/docs/api/1/post/blocks/destroy
     # @rate_limited No
-    # @requires_authentication Yes
+    # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Array<Twitter::User>] The un-blocked users.
     # @overload unblock(*users)
@@ -350,7 +490,7 @@ module Twitter
     # @see https://dev.twitter.com/docs/api/1/get/direct_messages
     # @note This method requires an access token with RWD (read, write & direct message) permissions. Consult The Application Permission Model for more information.
     # @rate_limited Yes
-    # @requires_authentication Yes
+    # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Array<Twitter::DirectMessage>] Direct messages sent to the authenticating user.
     # @param options [Hash] A customizable set of options.
@@ -371,7 +511,7 @@ module Twitter
     # @see https://dev.twitter.com/docs/api/1/get/direct_messages/sent
     # @note This method requires an access token with RWD (read, write & direct message) permissions. Consult The Application Permission Model for more information.
     # @rate_limited Yes
-    # @requires_authentication Yes
+    # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Array<Twitter::DirectMessage>] Direct messages sent by the authenticating user.
     # @param options [Hash] A customizable set of options.
@@ -392,7 +532,7 @@ module Twitter
     # @see https://dev.twitter.com/docs/api/1/post/direct_messages/destroy/:id
     # @note This method requires an access token with RWD (read, write & direct message) permissions. Consult The Application Permission Model for more information.
     # @rate_limited No
-    # @requires_authentication Yes
+    # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Array<Twitter::DirectMessage>] Deleted direct message.
     # @overload direct_message_destroy(*ids)
@@ -414,7 +554,7 @@ module Twitter
     #
     # @see https://dev.twitter.com/docs/api/1/post/direct_messages/new
     # @rate_limited No
-    # @requires_authentication Yes
+    # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Twitter::DirectMessage] The sent message.
     # @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
@@ -436,7 +576,7 @@ module Twitter
     # @see https://dev.twitter.com/docs/api/1/get/direct_messages/show/%3Aid
     # @note This method requires an access token with RWD (read, write & direct message) permissions. Consult The Application Permission Model for more information.
     # @rate_limited Yes
-    # @requires_authentication Yes
+    # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Twitter::DirectMessage] The requested messages.
     # @param id [Integer] A Twitter status IDs.
@@ -450,7 +590,7 @@ module Twitter
 
     # @note This method requires an access token with RWD (read, write & direct message) permissions. Consult The Application Permission Model for more information.
     # @rate_limited Yes
-    # @requires_authentication Yes
+    # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Array<Twitter::DirectMessage>] The requested messages.
     # @overload direct_messages(options={})
@@ -491,7 +631,7 @@ module Twitter
 
     # @see https://dev.twitter.com/docs/api/1/get/favorites
     # @rate_limited Yes
-    # @requires_authentication No
+    # @authentication_required No
     # @return [Array<Twitter::Status>] favorite statuses.
     # @overload favorites(options={})
     #   Returns the 20 most recent favorite statuses for the authenticating user
@@ -525,7 +665,7 @@ module Twitter
     #
     # @see https://dev.twitter.com/docs/api/1/post/favorites/create/:id
     # @rate_limited No
-    # @requires_authentication Yes
+    # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Array<Twitter::Status>] The favorited statuses.
     # @overload favorite(*ids)
@@ -540,15 +680,15 @@ module Twitter
         post("/1/favorites/create/#{id}.json", options)
       end
     end
-    alias favorite_create favorite
-    alias fave favorite
     alias fav favorite
+    alias fave favorite
+    alias favorite_create favorite
 
     # Un-favorites the specified statuses as the authenticating user
     #
     # @see https://dev.twitter.com/docs/api/1/post/favorites/destroy/:id
     # @rate_limited No
-    # @requires_authentication Yes
+    # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Array<Twitter::Status>] The un-favorited statuses.
     # @overload unfavorite(*ids)
@@ -567,7 +707,7 @@ module Twitter
 
     # @see https://dev.twitter.com/docs/api/1/get/followers/ids
     # @rate_limited Yes
-    # @requires_authentication No unless requesting it from a protected user
+    # @authentication_required No unless requesting it from a protected user
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Twitter::Cursor]
     # @overload follower_ids(options={})
@@ -597,7 +737,7 @@ module Twitter
 
     # @see https://dev.twitter.com/docs/api/1/get/friends/ids
     # @rate_limited Yes
-    # @requires_authentication No unless requesting it from a protected user
+    # @authentication_required No unless requesting it from a protected user
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Twitter::Cursor]
     # @overload friend_ids(options={})
@@ -630,7 +770,7 @@ module Twitter
     # @see https://dev.twitter.com/docs/api/1/get/friendships/exists
     # @note Consider using {Twitter::Client::FriendsAndFollowers#friendship} instead of this method.
     # @rate_limited Yes
-    # @requires_authentication No unless user_a or user_b is protected
+    # @authentication_required No unless user_a or user_b is protected
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Boolean] true if user_a follows user_b, otherwise false.
     # @param user_a [Integer, String, Twitter::User] The Twitter user ID, screen name, or object of the subject user.
@@ -650,7 +790,7 @@ module Twitter
     #
     # @see https://dev.twitter.com/docs/api/1/get/friendships/incoming
     # @rate_limited Yes
-    # @requires_authentication Yes
+    # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Twitter::Cursor]
     # @param options [Hash] A customizable set of options.
@@ -667,7 +807,7 @@ module Twitter
     #
     # @see https://dev.twitter.com/docs/api/1/get/friendships/outgoing
     # @rate_limited Yes
-    # @requires_authentication Yes
+    # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Twitter::Cursor]
     # @param options [Hash] A customizable set of options.
@@ -684,7 +824,7 @@ module Twitter
     #
     # @see https://dev.twitter.com/docs/api/1/get/friendships/show
     # @rate_limited Yes
-    # @requires_authentication No
+    # @authentication_required No
     # @return [Twitter::Relationship]
     # @param source [Integer, String, Twitter::User] The Twitter user ID, screen name, or object of the source user.
     # @param target [Integer, String, Twitter::User] The Twitter user ID, screen name, or object of the target user.
@@ -708,7 +848,7 @@ module Twitter
     #
     # @see https://dev.twitter.com/docs/api/1/post/friendships/create
     # @rate_limited No
-    # @requires_authentication Yes
+    # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Array<Twitter::User>] The followed users.
     # @overload(*users)
@@ -738,7 +878,7 @@ module Twitter
     #
     # @see https://dev.twitter.com/docs/api/1/post/friendships/create
     # @rate_limited No
-    # @requires_authentication Yes
+    # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Array<Twitter::User>] The followed users.
     # @overload follow!(*users)
@@ -770,7 +910,7 @@ module Twitter
     #
     # @see https://dev.twitter.com/docs/api/1/post/friendships/destroy
     # @rate_limited No
-    # @requires_authentication Yes
+    # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Array<Twitter::User>] The unfollowed users.
     # @overload unfollow(*users)
@@ -791,7 +931,7 @@ module Twitter
     #
     # @see https://dev.twitter.com/docs/api/1/get/friendships/lookup
     # @rate_limited Yes
-    # @requires_authentication Yes
+    # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Array<Twitter::User>] The requested users.
     # @overload friendships(*users)
@@ -815,7 +955,7 @@ module Twitter
     #
     # @see https://dev.twitter.com/docs/api/1/post/friendships/update
     # @rate_limited No
-    # @requires_authentication Yes
+    # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Twitter::Relationship]
     # @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
@@ -834,7 +974,7 @@ module Twitter
     #
     # @see https://dev.twitter.com/docs/api/1/get/friendships/no_retweet_ids
     # @rate_limited Yes
-    # @requires_authentication Yes
+    # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Array<Integer>]
     # @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
@@ -850,7 +990,7 @@ module Twitter
     #
     # @note Undocumented
     # @rate_limited No
-    # @requires_authentication Yes
+    # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Array<Twitter::User>] The accepted users.
     # @overload accept(*users)
@@ -870,7 +1010,7 @@ module Twitter
     #
     # @note Undocumented
     # @rate_limited No
-    # @requires_authentication Yes
+    # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Array<Twitter::User>] The denied users.
     # @overload deny(*users)
@@ -890,7 +1030,7 @@ module Twitter
     #
     # @see https://dev.twitter.com/docs/api/1/get/help/configuration
     # @rate_limited Yes
-    # @requires_authentication No
+    # @authentication_required No
     # @return [Twitter::Configuration] Twitter's configuration.
     # @example Return the current configuration used by Twitter
     #   Twitter.configuration
@@ -903,7 +1043,7 @@ module Twitter
     #
     # @see https://dev.twitter.com/docs/api/1/get/help/languages
     # @rate_limited Yes
-    # @requires_authentication No
+    # @authentication_required No
     # @return [Array<Twitter::Language>]
     # @example Return the list of languages Twitter supports
     #   Twitter.languages
@@ -917,7 +1057,7 @@ module Twitter
     #
     # @see https://dev.twitter.com/docs/api/1/get/legal/privacy
     # @rate_limited Yes
-    # @requires_authentication No
+    # @authentication_required No
     # @return [String]
     # @example Return {https://twitter.com/privacy Twitter's Privacy Policy}
     #   Twitter.privacy
@@ -929,7 +1069,7 @@ module Twitter
     #
     # @see https://dev.twitter.com/docs/api/1/get/legal/tos
     # @rate_limited Yes
-    # @requires_authentication No
+    # @authentication_required No
     # @return [String]
     # @example Return {https://twitter.com/tos Twitter's Terms of Service}
     #   Twitter.tos
@@ -941,7 +1081,7 @@ module Twitter
     #
     # @see https://dev.twitter.com/docs/api/1/get/lists/all
     # @rate_limited Yes
-    # @requires_authentication Supported
+    # @authentication_required Supported
     # @return [Array<Twitter::List>]
     # @overload lists_subscribed_to(options={})
     #   @param options [Hash] A customizable set of options.
@@ -967,7 +1107,7 @@ module Twitter
     #
     # @see https://dev.twitter.com/docs/api/1/get/lists/statuses
     # @rate_limited Yes
-    # @requires_authentication No
+    # @authentication_required No
     # @return [Array<Twitter::Status>]
     # @overload list_timeline(list, options={})
     #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, or object.
@@ -1007,7 +1147,7 @@ module Twitter
     #
     # @see https://dev.twitter.com/docs/api/1/post/lists/members/destroy
     # @rate_limited No
-    # @requires_authentication Yes
+    # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Twitter::List] The list.
     # @overload list_remove_member(list, user_to_remove, options={})
@@ -1046,7 +1186,7 @@ module Twitter
     #
     # @see https://dev.twitter.com/docs/api/1/get/lists/memberships
     # @rate_limited Yes
-    # @requires_authentication Supported
+    # @authentication_required Supported
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Twitter::Cursor]
     # @overload memberships(options={})
@@ -1074,7 +1214,7 @@ module Twitter
     #
     # @see https://dev.twitter.com/docs/api/1/get/lists/subscribers
     # @rate_limited Yes
-    # @requires_authentication Supported
+    # @authentication_required Supported
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Twitter::Cursor] The subscribers of the specified list.
     # @overload list_subscribers(list, options={})
@@ -1109,7 +1249,7 @@ module Twitter
     #
     # @see https://dev.twitter.com/docs/api/1/get/lists/subscriptions
     # @rate_limited Yes
-    # @requires_authentication Supported
+    # @authentication_required Supported
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Twitter::Cursor]
     # @overload subscriptions(options={})
@@ -1137,7 +1277,7 @@ module Twitter
     #
     # @see https://dev.twitter.com/docs/api/1/post/lists/subscribers/create
     # @rate_limited No
-    # @requires_authentication Yes
+    # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Twitter::List] The specified list.
     # @overload list_subscribe(list, options={})
@@ -1164,7 +1304,7 @@ module Twitter
     #
     # @see https://dev.twitter.com/docs/api/1/get/lists/subscribers/show
     # @rate_limited Yes
-    # @requires_authentication Yes
+    # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Boolean] true if user is a subscriber of the specified list, otherwise false.
     # @overload list_subscriber?(list, user_to_check, options={})
@@ -1206,7 +1346,7 @@ module Twitter
     #
     # @see https://dev.twitter.com/docs/api/1/post/lists/subscribers/destroy
     # @rate_limited No
-    # @requires_authentication Yes
+    # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Twitter::List] The specified list.
     # @overload list_unsubscribe(list, options={})
@@ -1234,7 +1374,7 @@ module Twitter
     # @see https://dev.twitter.com/docs/api/1/post/lists/members/create_all
     # @note Lists are limited to having 500 members, and you are limited to adding up to 100 members to a list at a time with this method.
     # @rate_limited No
-    # @requires_authentication Yes
+    # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Twitter::List] The list.
     # @overload list_add_members(list, users, options={})
@@ -1276,7 +1416,7 @@ module Twitter
     #
     # @see https://dev.twitter.com/docs/api/1/post/lists/members/destroy_all
     # @rate_limited No
-    # @requires_authentication Yes
+    # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Twitter::List] The list.
     # @overload list_remove_members(list, users, options={})
@@ -1317,7 +1457,7 @@ module Twitter
     # Check if a user is a member of the specified list
     #
     # @see https://dev.twitter.com/docs/api/1/get/lists/members/show
-    # @requires_authentication Yes
+    # @authentication_required Yes
     # @rate_limited Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Boolean] true if user is a member of the specified list, otherwise false.
@@ -1357,7 +1497,7 @@ module Twitter
     #
     # @see https://dev.twitter.com/docs/api/1/get/lists/members
     # @rate_limited Yes
-    # @requires_authentication Yes
+    # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Twitter::Cursor]
     # @overload list_members(list, options={})
@@ -1394,7 +1534,7 @@ module Twitter
     # @see https://dev.twitter.com/docs/api/1/post/lists/members/create
     # @note Lists are limited to having 500 members.
     # @rate_limited No
-    # @requires_authentication Yes
+    # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Twitter::List] The list.
     # @overload list_add_member(list, user_to_add, options={})
@@ -1433,7 +1573,7 @@ module Twitter
     # @see https://dev.twitter.com/docs/api/1/post/lists/destroy
     # @note Must be owned by the authenticated user.
     # @rate_limited No
-    # @requires_authentication Yes
+    # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Twitter::List] The deleted list.
     # @overload list_destroy(list, options={})
@@ -1461,7 +1601,7 @@ module Twitter
     #
     # @see https://dev.twitter.com/docs/api/1/post/lists/update
     # @rate_limited No
-    # @requires_authentication Yes
+    # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Twitter::List] The created list.
     # @overload list_update(list, options={})
@@ -1494,7 +1634,7 @@ module Twitter
     # @see https://dev.twitter.com/docs/api/1/post/lists/create
     # @note Accounts are limited to 20 lists.
     # @rate_limited No
-    # @requires_authentication Yes
+    # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Twitter::List] The created list.
     # @param name [String] The name for the list.
@@ -1513,7 +1653,7 @@ module Twitter
     # @see https://dev.twitter.com/docs/api/1/get/lists
     # @note Private lists will be included if the authenticated user is the same as the user whose lists are being returned.
     # @rate_limited Yes
-    # @requires_authentication Yes
+    # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Twitter::Cursor]
     # @overload lists(options={})
@@ -1541,7 +1681,7 @@ module Twitter
     # @see https://dev.twitter.com/docs/api/1/get/lists/show
     # @note Private lists will only be shown if the authenticated user owns the specified list.
     # @rate_limited Yes
-    # @requires_authentication Yes
+    # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Twitter::List] The specified list.
     # @overload list(list, options={})
@@ -1569,7 +1709,7 @@ module Twitter
     #
     # @see https://dev.twitter.com/docs/api/1/get/trends/:woeid
     # @rate_limited Yes
-    # @requires_authentication No
+    # @authentication_required No
     # @param woeid [Integer] The {https://developer.yahoo.com/geo/geoplanet Yahoo! Where On Earth ID} of the location to return trending information for. WOEIDs can be retrieved by calling {Twitter::Client::LocalTrends#trend_locations}. Global information is available by using 1 as the WOEID.
     # @param options [Hash] A customizable set of options.
     # @option options [String] :exclude Setting this equal to 'hashtags' will remove all hashtags from the trends list.
@@ -1586,7 +1726,7 @@ module Twitter
     #
     # @see https://dev.twitter.com/docs/api/1/get/trends/available
     # @rate_limited Yes
-    # @requires_authentication No
+    # @authentication_required No
     # @param options [Hash] A customizable set of options.
     # @option options [Float] :lat If provided with a :long option the available trend locations will be sorted by distance, nearest to furthest, to the co-ordinate pair. The valid ranges for latitude are -90.0 to +90.0 (North is positive) inclusive.
     # @option options [Float] :long If provided with a :lat option the available trend locations will be sorted by distance, nearest to furthest, to the co-ordinate pair. The valid ranges for longitude are -180.0 to +180.0 (East is positive) inclusive.
@@ -1603,7 +1743,7 @@ module Twitter
     #
     # @see https://dev.twitter.com/docs/api/1/post/notifications/follow
     # @rate_limited No
-    # @requires_authentication Yes
+    # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Array<Twitter::User>] The specified users.
     # @overload enable_notifications(*users)
@@ -1624,7 +1764,7 @@ module Twitter
     #
     # @see https://dev.twitter.com/docs/api/1/post/notifications/leave
     # @rate_limited No
-    # @requires_authentication Yes
+    # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Array<Twitter::User>] The specified users.
     # @overload disable_notifications(*users)
@@ -1645,7 +1785,7 @@ module Twitter
     #
     # @see https://dev.twitter.com/docs/api/1/get/geo/search
     # @rate_limited Yes
-    # @requires_authentication No
+    # @authentication_required No
     # @param options [Hash] A customizable set of options.
     # @option options [Float] :lat The latitude to search around. This option will be ignored unless it is inside the range -90.0 to +90.0 (North is positive) inclusive. It will also be ignored if there isn't a corresponding :long option.
     # @option options [Float] :long The longitude to search around. The valid range for longitude is -180.0 to +180.0 (East is positive) inclusive. This option will be ignored if outside that range, if it is not a number, if geo_enabled is disabled, or if there not a corresponding :lat option.
@@ -1670,7 +1810,7 @@ module Twitter
     # @see https://dev.twitter.com/docs/api/1/get/geo/similar_places
     # @note Conceptually, you would use this method to get a list of known places to choose from first. Then, if the desired place doesn't exist, make a request to {Twitter::Client::Geo#place} to create a new one. The token contained in the response is the token necessary to create a new place.
     # @rate_limited Yes
-    # @requires_authentication No
+    # @authentication_required No
     # @param options [Hash] A customizable set of options.
     # @option options [Float] :lat The latitude to search around. This option will be ignored unless it is inside the range -90.0 to +90.0 (North is positive) inclusive. It will also be ignored if there isn't a corresponding :long option.
     # @option options [Float] :long The longitude to search around. The valid range for longitude is -180.0 to +180.0 (East is positive) inclusive. This option will be ignored if outside that range, if it is not a number, if geo_enabled is disabled, or if there not a corresponding :lat option.
@@ -1690,7 +1830,7 @@ module Twitter
     # @see https://dev.twitter.com/docs/api/1/get/geo/reverse_geocode
     # @note This request is an informative call and will deliver generalized results about geography.
     # @rate_limited Yes
-    # @requires_authentication No
+    # @authentication_required No
     # @param options [Hash] A customizable set of options.
     # @option options [Float] :lat The latitude to search around. This option will be ignored unless it is inside the range -90.0 to +90.0 (North is positive) inclusive. It will also be ignored if there isn't a corresponding :long option.
     # @option options [Float] :long The longitude to search around. The valid range for longitude is -180.0 to +180.0 (East is positive) inclusive. This option will be ignored if outside that range, if it is not a number, if geo_enabled is disabled, or if there not a corresponding :lat option.
@@ -1709,7 +1849,7 @@ module Twitter
     #
     # @see https://dev.twitter.com/docs/api/1/get/geo/id/:place_id
     # @rate_limited Yes
-    # @requires_authentication No
+    # @authentication_required No
     # @param place_id [String] A place in the world. These IDs can be retrieved from {Twitter::Client::Geo#reverse_geocode}.
     # @param options [Hash] A customizable set of options.
     # @return [Twitter::Place] The requested place.
@@ -1724,7 +1864,7 @@ module Twitter
     #
     # @see https://dev.twitter.com/docs/api/1/post/geo/place
     # @rate_limited Yes
-    # @requires_authentication No
+    # @authentication_required No
     # @param options [Hash] A customizable set of options.
     # @option options [String] :name The name a place is known as.
     # @option options [String] :contained_within This is the place_id which you would like to restrict the search results to. Setting this value means only places within the given place_id will be found.
@@ -1741,7 +1881,7 @@ module Twitter
     end
 
     # @rate_limited Yes
-    # @requires_authentication Yes
+    # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Array<Twitter::SavedSearch>] The saved searches.
     # @overload saved_search(options={})
@@ -1782,7 +1922,7 @@ module Twitter
     #
     # @see https://dev.twitter.com/docs/api/1/get/saved_searches/show/:id
     # @rate_limited Yes
-    # @requires_authentication Yes
+    # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Twitter::SavedSearch] The saved searches.
     # @param id [Integer] A Twitter status IDs.
@@ -1798,7 +1938,7 @@ module Twitter
     #
     # @see https://dev.twitter.com/docs/api/1/post/saved_searches/create
     # @rate_limited No
-    # @requires_authentication Yes
+    # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Twitter::SavedSearch] The created saved search.
     # @param query [String] The query of the search the user would like to save.
@@ -1815,7 +1955,7 @@ module Twitter
     # @see https://dev.twitter.com/docs/api/1/post/saved_searches/destroy/:id
     # @note The search specified by ID must be owned by the authenticating user.
     # @rate_limited No
-    # @requires_authentication Yes
+    # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Array<Twitter::SavedSearch>] The deleted saved searches.
     # @overload saved_search_destroy(*ids)
@@ -1840,7 +1980,7 @@ module Twitter
     # @see https://dev.twitter.com/docs/history-rest-search-api
     # @note As of April 1st 2010, the Search API provides an option to retrieve "popular tweets" in addition to real-time search results. In an upcoming release, this will become the default and clients that don't want to receive popular tweets in their search results will have to explicitly opt-out. See the result_type parameter below for more information.
     # @rate_limited Yes
-    # @requires_authentication No
+    # @authentication_required No
     # @param q [String] A search term.
     # @param options [Hash] A customizable set of options.
     # @option options [String] :geocode Returns tweets by users located within a given radius of the given latitude/longitude. The location is preferentially taking from the Geotagging API, but will fall back to their Twitter profile. The parameter value is specified by "latitude,longitude,radius", where radius units must be specified as either "mi" (miles) or "km" (kilometers). Note that you cannot use the near operator via the API to geocode arbitrary locations; however you can use this geocode parameter to search near geocodes directly.
@@ -1865,7 +2005,7 @@ module Twitter
     #
     # @note Undocumented
     # @rate_limited Yes
-    # @requires_authentication No
+    # @authentication_required No
     # @param q [String] A search term.
     # @param options [Hash] A customizable set of options.
     # @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 100.
@@ -1882,7 +2022,7 @@ module Twitter
     #
     # @see https://dev.twitter.com/docs/api/1/post/report_spam
     # @rate_limited Yes
-    # @requires_authentication No
+    # @authentication_required No
     # @return [Array<Twitter::User>] The reported users.
     # @overload report_spam(*users)
     #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
@@ -1899,12 +2039,12 @@ module Twitter
     end
 
     # @return [Array<Twitter::Suggestion>]
+    # @rate_limited Yes
+    # @authentication_required No
     # @overload suggestions(options={})
     #   Returns the list of suggested user categories
     #
     #   @see https://dev.twitter.com/docs/api/1/get/users/suggestions
-    #   @rate_limited Yes
-    #   @requires_authentication No
     #   @param options [Hash] A customizable set of options.
     #   @example Return the list of suggested user categories
     #     Twitter.suggestions
@@ -1912,8 +2052,6 @@ module Twitter
     #   Returns the users in a given category
     #
     #   @see https://dev.twitter.com/docs/api/1/get/users/suggestions/:slug
-    #   @rate_limited Yes
-    #   @requires_authentication No
     #   @param slug [String] The short name of list or a category.
     #   @param options [Hash] A customizable set of options.
     #   @example Return the users in the Art & Design category
@@ -1934,7 +2072,7 @@ module Twitter
     #
     # @see https://dev.twitter.com/docs/api/1/get/users/suggestions/:slug/members
     # @rate_limited Yes
-    # @requires_authentication No
+    # @authentication_required No
     # @param slug [String] The short name of list or a category.
     # @param options [Hash] A customizable set of options.
     # @return [Array<Twitter::User>]
@@ -1951,7 +2089,7 @@ module Twitter
     # @see https://dev.twitter.com/docs/api/1/get/statuses/home_timeline
     # @note This method can only return up to 800 statuses, including retweets.
     # @rate_limited Yes
-    # @requires_authentication Yes
+    # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Array<Twitter::Status>]
     # @param options [Hash] A customizable set of options.
@@ -1973,7 +2111,7 @@ module Twitter
     # @see https://dev.twitter.com/docs/api/1/get/statuses/mentions
     # @note This method can only return up to 800 statuses.
     # @rate_limited Yes
-    # @requires_authentication Yes
+    # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Array<Twitter::Status>]
     # @param options [Hash] A customizable set of options.
@@ -1994,7 +2132,7 @@ module Twitter
     # @see https://dev.twitter.com/docs/api/1/get/statuses/retweeted_by_me
     # @see https://dev.twitter.com/docs/api/1/get/statuses/retweeted_by_user
     # @rate_limited Yes
-    # @requires_authentication Supported
+    # @authentication_required Supported
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Array<Twitter::Status>]
     # @overload retweeted_by(options={})
@@ -2031,7 +2169,7 @@ module Twitter
     # @see https://dev.twitter.com/docs/api/1/get/statuses/retweeted_to_me
     # @see https://dev.twitter.com/docs/api/1/get/statuses/retweeted_to_user
     # @rate_limited Yes
-    # @requires_authentication Supported
+    # @authentication_required Supported
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Array<Twitter::Status>]
     # @overload retweeted_to(options={})
@@ -2067,7 +2205,7 @@ module Twitter
     #
     # @see https://dev.twitter.com/docs/api/1/get/statuses/retweets_of_me
     # @rate_limited Yes
-    # @requires_authentication Yes
+    # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Array<Twitter::Status>]
     # @param options [Hash] A customizable set of options.
@@ -2088,7 +2226,7 @@ module Twitter
     # @see https://dev.twitter.com/docs/api/1/get/statuses/user_timeline
     # @note This method can only return up to 3200 statuses.
     # @rate_limited Yes
-    # @requires_authentication No, unless the user whose timeline you're trying to view is protected
+    # @authentication_required No, unless the user whose timeline you're trying to view is protected
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Array<Twitter::Status>]
     # @overload user_timeline(user, options={})
@@ -2117,7 +2255,7 @@ module Twitter
     # @note This method can only return up to the 100 most recent images.
     # @note Images will not be returned from tweets posted before January 1, 2010.
     # @rate_limited Yes
-    # @requires_authentication No, unless the user whose timeline you're trying to view is protected
+    # @authentication_required No, unless the user whose timeline you're trying to view is protected
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Array<Twitter::Status>]
     # @overload media_timeline(user, options={})
@@ -2141,7 +2279,7 @@ module Twitter
     #
     # @note Undocumented
     # @rate_limited Yes
-    # @requires_authentication Yes
+    # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Array<Twitter::Status>]
     # @param options [Hash] A customizable set of options.
@@ -2162,7 +2300,7 @@ module Twitter
     #
     # @see https://dev.twitter.com/docs/api/1/get/trends/daily
     # @rate_limited Yes
-    # @requires_authentication No
+    # @authentication_required No
     # @param date [Date] The start date for the report. A 404 error will be thrown if the date is older than the available search index (7-10 days). Dates in the future will be forced to the current date.
     # @param options [Hash] A customizable set of options.
     # @option options [String] :exclude Setting this equal to 'hashtags' will remove all hashtags from the trends list.
@@ -2185,7 +2323,7 @@ module Twitter
     #
     # @see https://dev.twitter.com/docs/api/1/get/trends/weekly
     # @rate_limited Yes
-    # @requires_authentication No
+    # @authentication_required No
     # @param date [Date] The start date for the report. A 404 error will be thrown if the date is older than the available search index (7-10 days). Dates in the future will be forced to the current date.
     # @param options [Hash] A customizable set of options.
     # @option options [String] :exclude Setting this equal to 'hashtags' will remove all hashtags from the trends list.
@@ -2209,7 +2347,7 @@ module Twitter
     # @see https://dev.twitter.com/docs/api/1/get/statuses/:id/retweeted_by
     # @see https://dev.twitter.com/docs/api/1/get/statuses/:id/retweeted_by/ids
     # @rate_limited Yes
-    # @requires_authentication Yes
+    # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Array]
     # @param id [Integer] The numerical ID of the desired status.
@@ -2234,7 +2372,7 @@ module Twitter
     #
     # @see https://dev.twitter.com/docs/api/1/get/statuses/retweets/:id
     # @rate_limited Yes
-    # @requires_authentication Yes
+    # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Array<Twitter::Status>]
     # @param id [Integer] The numerical ID of the desired status.
@@ -2253,7 +2391,7 @@ module Twitter
     #
     # @see https://dev.twitter.com/docs/api/1/get/statuses/show/:id
     # @rate_limited Yes
-    # @requires_authentication No, unless the author of the status is protected
+    # @authentication_required No, unless the author of the status is protected
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Twitter::Status] The requested status.
     # @param id [Integer] A Twitter status ID.
@@ -2270,7 +2408,7 @@ module Twitter
     #
     # @see https://dev.twitter.com/docs/api/1/get/statuses/show/:id
     # @rate_limited Yes
-    # @requires_authentication No, unless the author of the status is protected
+    # @authentication_required No, unless the author of the status is protected
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Array<Twitter::Status>] The requested statuses.
     # @overload statuses(*ids)
@@ -2291,7 +2429,7 @@ module Twitter
     #
     # @note Undocumented
     # @rate_limited Yes
-    # @requires_authentication Yes
+    # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Twitter::Status] The requested status.
     # @param id [Integer] A Twitter status ID.
@@ -2308,7 +2446,7 @@ module Twitter
     #
     # @note Undocumented
     # @rate_limited Yes
-    # @requires_authentication Yes
+    # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Array<Twitter::Status>] The requested statuses.
     # @overload statuses_activity(*ids)
@@ -2329,7 +2467,7 @@ module Twitter
     #
     # @see https://dev.twitter.com/docs/api/1/get/statuses/oembed
     # @rate_limited Yes
-    # @requires_authentication No, unless the author of the status is protected
+    # @authentication_required No, unless the author of the status is protected
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Twitter::OEmbed] OEmbed for the requested status.
     # @param id [Integer, String] A Twitter status ID.
@@ -2352,7 +2490,7 @@ module Twitter
     #
     # @see https://dev.twitter.com/docs/api/1/get/statuses/oembed
     # @rate_limited Yes
-    # @requires_authentication No, unless the author of the status is protected
+    # @authentication_required No, unless the author of the status is protected
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Array<Twitter::OEmbed>] OEmbeds for the requested statuses.
     # @overload oembed(*ids_or_urls)
@@ -2382,7 +2520,7 @@ module Twitter
     # @see https://dev.twitter.com/docs/api/1/post/statuses/destroy/:id
     # @note The authenticating user must be the author of the specified status.
     # @rate_limited No
-    # @requires_authentication Yes
+    # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Array<Twitter::Status>] The deleted statuses.
     # @overload status_destroy(*ids)
@@ -2403,7 +2541,7 @@ module Twitter
     #
     # @see https://dev.twitter.com/docs/api/1/post/statuses/retweet/:id
     # @rate_limited Yes
-    # @requires_authentication Yes
+    # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Array<Twitter::Status>] The original tweets with retweet details embedded.
     # @overload retweet(*ids)
@@ -2430,7 +2568,7 @@ module Twitter
     # @see https://dev.twitter.com/docs/api/1/post/statuses/update
     # @note A status update with text identical to the authenticating user's current status will be ignored to prevent duplicates.
     # @rate_limited No
-    # @requires_authentication Yes
+    # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Twitter::Status] The created status.
     # @param status [String] The text of your status update, up to 140 characters.
@@ -2453,7 +2591,7 @@ module Twitter
     # @see http://dev.twitter.com/docs/api/1/post/statuses/update_with_media
     # @note A status update with text/media identical to the authenticating user's current status will NOT be ignored
     # @rate_limited No
-    # @requires_authentication Yes
+    # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Twitter::Status] The created status.
     # @param status [String] The text of your status update, up to 140 characters.
@@ -2477,7 +2615,7 @@ module Twitter
     #
     # @see https://dev.twitter.com/docs/api/1/get/users/lookup
     # @rate_limited Yes
-    # @requires_authentication Yes
+    # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Array<Twitter::User>] The requested users.
     # @overload users(*users)
@@ -2501,7 +2639,7 @@ module Twitter
     #
     # @see https://dev.twitter.com/docs/api/1/get/users/search
     # @rate_limited Yes
-    # @requires_authentication Yes
+    # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Array<Twitter::User>]
     # @param query [String] The search query to run against people search.
@@ -2518,7 +2656,7 @@ module Twitter
 
     # @see https://dev.twitter.com/docs/api/1/get/users/show
     # @rate_limited Yes
-    # @requires_authentication No
+    # @authentication_required No
     # @return [Twitter::User] The requested user.
     # @overload user(options={})
     #   Returns extended information for the authenticated user
@@ -2547,7 +2685,7 @@ module Twitter
 
     # Returns true if the specified user exists
     #
-    # @requires_authentication No
+    # @authentication_required No
     # @rate_limited Yes
     # @return [Boolean] true if the user exists, otherwise false.
     # @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
@@ -2566,7 +2704,7 @@ module Twitter
     #
     # @see http://dev.twitter.com/docs/api/1/get/users/contributees
     # @rate_limited Yes
-    # @requires_authentication No unless requesting it from a protected user
+    # @authentication_required No unless requesting it from a protected user
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Array<Twitter::User>]
     # @overload contributees(options={})
@@ -2594,7 +2732,7 @@ module Twitter
     #
     # @see http://dev.twitter.com/docs/api/1/get/users/contributors
     # @rate_limited Yes
-    # @requires_authentication No unless requesting it from a protected user
+    # @authentication_required No unless requesting it from a protected user
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Array<Twitter::User>]
     # @overload contributors(options={})
@@ -2622,7 +2760,7 @@ module Twitter
     #
     # @note {https://dev.twitter.com/discussions/1120 Undocumented}
     # @rate_limited Yes
-    # @requires_authentication Yes
+    # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Array<Twitter::User>]
     # @overload recommendations(options={})
@@ -2653,7 +2791,7 @@ module Twitter
 
     # @note Undocumented
     # @rate_limited Yes
-    # @requires_authentication Yes
+    # @authentication_required Yes
     #
     # @overload following_followers_of(options={})
     #   Returns users following followers of the specified user

@@ -76,4 +76,21 @@ describe Twitter::Client do
     client2.verify_credentials.screen_name.should eq 'pengwynn'
   end
 
+  describe "#rate_limited?" do
+    before do
+      @client = Twitter::Client.new
+    end
+    it "returns true for rate limited methods" do
+      @client.rate_limited?(:user).should be_true
+    end
+    it "returns false for rate limited methods" do
+      @client.rate_limited?(:rate_limit_status).should be_false
+    end
+    it "returns for rate limited methods" do
+      lambda do
+        @client.rate_limited?(:foo)
+      end.should raise_error(NameError, "no method `foo' for Twitter::Client")
+    end
+  end
+
 end
