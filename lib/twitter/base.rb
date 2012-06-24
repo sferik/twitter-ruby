@@ -31,7 +31,7 @@ module Twitter
     end
 
     def self.from_response(response={})
-      self.fetch(response[:body]) || self.new(response[:body], response[:response_headers])
+      self.fetch(response[:body]) || self.new(response[:body])
     end
 
     def self.fetch_or_new(attrs={})
@@ -41,11 +41,9 @@ module Twitter
     # Initializes a new object
     #
     # @param attrs [Hash]
-    # @param response_headers [Hash]
     # @return [Twitter::Base]
-    def initialize(attrs={}, response_headers={})
+    def initialize(attrs={})
       self.update(attrs)
-      self.update_rate_limit(response_headers) unless response_headers.empty?
       @@identity_map[self.class] ||= {}
       @@identity_map[self.class][Marshal.dump(attrs)] = self
     end
@@ -67,16 +65,6 @@ module Twitter
       @attrs ||= {}
       @attrs.update(attrs)
       self
-    end
-
-  protected
-
-    # Update the RateLimit object
-    #
-    # @param response_headers [Hash]
-    # @return [Twitter::RateLimit]
-    def update_rate_limit(response_headers)
-      Twitter::RateLimit.instance.update(response_headers)
     end
 
   end

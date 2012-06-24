@@ -45,10 +45,9 @@ module Twitter
 
     # Update the attributes of a Relationship
     #
-    # @param attrs [Hash]
+    # @param response_headers [Hash]
     # @return [Twitter::RateLimit]
     def update(response_headers)
-      @response_headers || self.reset!
       @response_headers.update(response_headers)
       self
     end

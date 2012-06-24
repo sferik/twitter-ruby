@@ -14,17 +14,15 @@ module Twitter
     # @params klass [Class] The class to instantiate object in the collection
     # @return [Twitter::Cursor]
     def self.from_response(response={}, method=:ids, klass=nil)
-      self.new(response[:body], response[:response_headers], method, klass)
+      self.new(response[:body], method, klass)
     end
 
     # Initializes a new Cursor
     #
     # @param attrs [Hash]
-    # @param response_headers [Hash]
     # @return [Twitter::Base]
-    def initialize(attrs={}, response_headers={}, method=:ids, klass=nil)
+    def initialize(attrs={}, method=:ids, klass=nil)
       self.update(attrs)
-      self.update_rate_limit(response_headers) unless response_headers.empty?
       @collection = Array(attrs[method.to_sym]).map do |item|
         if klass
           klass.fetch_or_new(item)
@@ -67,16 +65,6 @@ module Twitter
       @attrs ||= {}
       @attrs.update(attrs)
       self
-    end
-
-  protected
-
-    # Update the RateLimit object
-    #
-    # @param response_headers [Hash]
-    # @return [Twitter::RateLimit]
-    def update_rate_limit(response_headers)
-      Twitter::RateLimit.instance.update(response_headers)
     end
 
   end

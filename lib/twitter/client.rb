@@ -370,7 +370,6 @@ module Twitter
     #   Twitter.activity_about_me
     def activity_about_me(options={})
       response = get("/i/activity/about_me.json", options)
-      update_rate_limit(response[:response_headers])
       collection_from_array(response[:body], Twitter::ActionFactory)
     end
 
@@ -388,7 +387,6 @@ module Twitter
     #   Twitter.activity_by_friends
     def activity_by_friends(options={})
       response = get("/i/activity/by_friends.json", options)
-      update_rate_limit(response[:response_headers])
       collection_from_array(response[:body], Twitter::ActionFactory)
     end
 
@@ -405,7 +403,6 @@ module Twitter
     #   Twitter.blocking
     def blocking(options={})
       response = get("/1/blocks/blocking.json", options)
-      update_rate_limit(response[:response_headers])
       collection_from_array(response[:body], Twitter::User)
     end
 
@@ -503,7 +500,6 @@ module Twitter
     #   Twitter.direct_messages_received
     def direct_messages_received(options={})
       response = get("/1/direct_messages.json", options)
-      update_rate_limit(response[:response_headers])
       collection_from_array(response[:body], Twitter::DirectMessage)
     end
 
@@ -524,7 +520,6 @@ module Twitter
     #   Twitter.direct_messages_sent
     def direct_messages_sent(options={})
       response = get("/1/direct_messages/sent.json", options)
-      update_rate_limit(response[:response_headers])
       collection_from_array(response[:body], Twitter::DirectMessage)
     end
 
@@ -658,7 +653,6 @@ module Twitter
       else
         get("/1/favorites.json", options)
       end
-      update_rate_limit(response[:response_headers])
       collection_from_array(response[:body], Twitter::Status)
     end
 
@@ -948,7 +942,6 @@ module Twitter
       options = args.extract_options!
       options.merge_users!(Array(args))
       response = get("/1/friendships/lookup.json", options)
-      update_rate_limit(response[:response_headers])
       collection_from_array(response[:body], Twitter::User)
     end
 
@@ -1050,7 +1043,6 @@ module Twitter
     #   Twitter.languages
     def languages(options={})
       response = get("/1/help/languages.json", options)
-      update_rate_limit(response[:response_headers])
       collection_from_array(response[:body], Twitter::Language)
     end
 
@@ -1100,7 +1092,6 @@ module Twitter
         options.merge_user!(user)
       end
       response = get("/1/lists/all.json", options)
-      update_rate_limit(response[:response_headers])
       collection_from_array(response[:body], Twitter::List)
     end
 
@@ -1140,7 +1131,6 @@ module Twitter
         options.merge_owner!(owner)
       end
       response = get("/1/lists/statuses.json", options)
-      update_rate_limit(response[:response_headers])
       collection_from_array(response[:body], Twitter::Status)
     end
 
@@ -1736,7 +1726,6 @@ module Twitter
     #   Twitter.trend_locations
     def trend_locations(options={})
       response = get("/1/trends/available.json", options)
-      update_rate_limit(response[:response_headers])
       collection_from_array(response[:body], Twitter::Place)
     end
 
@@ -1909,7 +1898,6 @@ module Twitter
       options = args.extract_options!
       if args.empty?
         response = get("/1/saved_searches.json", options)
-        update_rate_limit(response[:response_headers])
         collection_from_array(response[:body], Twitter::SavedSearch)
       else
         args.flatten.threaded_map do |id|
@@ -2064,7 +2052,6 @@ module Twitter
         Twitter::Suggestion.from_response(response)
       else
         response = get("/1/users/suggestions.json", options)
-        update_rate_limit(response[:response_headers])
         collection_from_array(response[:body], Twitter::Suggestion)
       end
     end
@@ -2081,7 +2068,6 @@ module Twitter
     #   Twitter.suggest_users("art-design")
     def suggest_users(slug, options={})
       response = get("/1/users/suggestions/#{slug}/members.json", options)
-      update_rate_limit(response[:response_headers])
       collection_from_array(response[:body], Twitter::User)
     end
 
@@ -2103,7 +2089,6 @@ module Twitter
     #   Twitter.home_timeline
     def home_timeline(options={})
       response = get("/1/statuses/home_timeline.json", options)
-      update_rate_limit(response[:response_headers])
       collection_from_array(response[:body], Twitter::Status)
     end
 
@@ -2124,7 +2109,6 @@ module Twitter
     #   Twitter.mentions
     def mentions(options={})
       response = get("/1/statuses/mentions.json", options)
-      update_rate_limit(response[:response_headers])
       collection_from_array(response[:body], Twitter::Status)
     end
 
@@ -2161,7 +2145,6 @@ module Twitter
       else
         get("/1/statuses/retweeted_by_me.json", options)
       end
-      update_rate_limit(response[:response_headers])
       collection_from_array(response[:body], Twitter::Status)
     end
 
@@ -2198,7 +2181,6 @@ module Twitter
       else
         get("/1/statuses/retweeted_to_me.json", options)
       end
-      update_rate_limit(response[:response_headers])
       collection_from_array(response[:body], Twitter::Status)
     end
 
@@ -2218,7 +2200,6 @@ module Twitter
     #   Twitter.retweets_of_me
     def retweets_of_me(options={})
       response = get("/1/statuses/retweets_of_me.json", options)
-      update_rate_limit(response[:response_headers])
       collection_from_array(response[:body], Twitter::Status)
     end
 
@@ -2246,7 +2227,6 @@ module Twitter
         options.merge_user!(user)
       end
       response = get("/1/statuses/user_timeline.json", options)
-      update_rate_limit(response[:response_headers])
       collection_from_array(response[:body], Twitter::Status)
     end
 
@@ -2272,7 +2252,6 @@ module Twitter
         options.merge_user!(user)
       end
       response = get("/1/statuses/media_timeline.json", options)
-      update_rate_limit(response[:response_headers])
       collection_from_array(response[:body], Twitter::Status)
     end
 
@@ -2293,7 +2272,6 @@ module Twitter
     #   Twitter.network_timeline
     def network_timeline(options={})
       response = get("/i/statuses/network_timeline.json", options)
-      update_rate_limit(response[:response_headers])
       collection_from_array(response[:body], Twitter::Status)
     end
 
@@ -2364,7 +2342,6 @@ module Twitter
         get("/1/statuses/#{id}/retweeted_by/ids.json", options)[:body]
       else
         response = get("/1/statuses/#{id}/retweeted_by.json", options)
-        update_rate_limit(response[:response_headers])
         collection_from_array(response[:body], Twitter::User)
       end
     end
@@ -2384,7 +2361,6 @@ module Twitter
     #   Twitter.retweets(28561922516)
     def retweets(id, options={})
       response = get("/1/statuses/retweets/#{id}.json", options)
-      update_rate_limit(response[:response_headers])
       collection_from_array(response[:body], Twitter::Status)
     end
 
@@ -2631,7 +2607,6 @@ module Twitter
       options = args.extract_options!
       args.flatten.each_slice(MAX_USERS_PER_REQUEST).threaded_map do |users|
         response = get("/1/users/lookup.json", options.merge_users(users))
-        update_rate_limit(response[:response_headers])
         collection_from_array(response[:body], Twitter::User)
       end.flatten
     end
@@ -2651,7 +2626,6 @@ module Twitter
     #   Twitter.user_search("Erik Michaels-Ober")
     def user_search(query, options={})
       response = get("/1/users/search.json", options.merge(:q => query))
-      update_rate_limit(response[:response_headers])
       collection_from_array(response[:body], Twitter::User)
     end
 
@@ -2725,7 +2699,6 @@ module Twitter
       user = args.pop || self.verify_credentials.screen_name
       options.merge_user!(user)
       response = get("/1/users/contributees.json", options)
-      update_rate_limit(response[:response_headers])
       collection_from_array(response[:body], Twitter::User)
     end
 
@@ -2753,7 +2726,6 @@ module Twitter
       user = args.pop || self.verify_credentials.screen_name
       options.merge_user!(user)
       response = get("/1/users/contributors.json", options)
-      update_rate_limit(response[:response_headers])
       collection_from_array(response[:body], Twitter::User)
     end
 
@@ -2784,7 +2756,6 @@ module Twitter
       options.merge_user!(user)
       options[:excluded] = options[:excluded].join(',') if options[:excluded].is_a?(Array)
       response = get("/1/users/recommendations.json", options)
-      update_rate_limit(response[:response_headers])
       response[:body].map do |recommendation|
         Twitter::User.fetch_or_new(recommendation[:user])
       end
@@ -2856,14 +2827,6 @@ module Twitter
         response = yield(options.merge_user(user))
         Twitter::User.from_response(response)
       end
-    end
-
-    # Update the RateLimit object
-    #
-    # @param response_headers [Hash]
-    # @return [Twitter::RateLimit]
-    def update_rate_limit(response_headers)
-      Twitter::RateLimit.instance.update(response_headers)
     end
 
   end

@@ -6,22 +6,13 @@ module Twitter
     class ServerError < Twitter::Error
       MESSAGE = "Server Error"
 
-      # Create a new error from an HTTP environment
-      #
-      # @param env [Hash]
-      # @return [Twitter::Error]
-      def self.from_env(env)
-        new(nil, env[:response_headers])
-      end
-
       # Initializes a new ServerError object
       #
       # @param message [String]
-      # @param response_headers [Hash]
       # @return [Twitter::Error::ServerError]
-      def initialize(message=nil, response_headers={})
+      def initialize(message=nil)
         message ||= self.class.const_get(:MESSAGE)
-        super(message, response_headers)
+        super(message)
       end
 
     end

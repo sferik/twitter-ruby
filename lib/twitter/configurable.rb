@@ -3,6 +3,7 @@ require 'twitter/request/multipart_with_file'
 require 'twitter/response/parse_json'
 require 'twitter/response/raise_client_error'
 require 'twitter/response/raise_server_error'
+require 'twitter/response/rate_limit'
 require 'twitter/version'
 
 module Twitter
@@ -45,13 +46,14 @@ module Twitter
     # @see https://github.com/technoweenie/faraday#advanced-middleware-usage
     # @see http://mislav.uniqpath.com/2011/07/faraday-advanced-http/
     DEFAULT_MIDDLEWARE = Faraday::Builder.new(&Proc.new { |builder|
-      builder.use Twitter::Request::MultipartWithFile   # convert file uploads to Faraday::UploadIO objects
-      builder.use Faraday::Request::Multipart           # checks for files in the payload
-      builder.use Faraday::Request::UrlEncoded          # convert request params as "www-form-urlencoded"
-      builder.use Twitter::Response::RaiseClientError   # handle 4xx server responses
-      builder.use Twitter::Response::ParseJson          # parse JSON response bodies using MultiJson
-      builder.use Twitter::Response::RaiseServerError   # handle 5xx server responses
-      builder.adapter Faraday.default_adapter           # set Faraday's HTTP adapter
+      builder.use Twitter::Request::MultipartWithFile   # Convert file uploads to Faraday::UploadIO objects
+      builder.use Faraday::Request::Multipart           # Checks for files in the payload
+      builder.use Faraday::Request::UrlEncoded          # Convert request params as "www-form-urlencoded"
+      builder.use Twitter::Response::RaiseClientError   # Handle 4xx server responses
+      builder.use Twitter::Response::ParseJson          # Parse JSON response bodies using MultiJson
+      builder.use Twitter::Response::RaiseServerError   # Handle 5xx server responses
+      builder.use Twitter::Response::RateLimit          # Update RateLimit object
+      builder.adapter Faraday.default_adapter           # Set Faraday's HTTP adapter
     })
 
     # The oauth token if none is set

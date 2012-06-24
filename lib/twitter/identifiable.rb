@@ -12,12 +12,10 @@ module Twitter
     # Initializes a new object
     #
     # @param attrs [Hash]
-    # @param response_headers [Hash]
     # @return [Twitter::Base]
-    def initialize(attrs={}, response_headers={})
+    def initialize(attrs={})
       if attrs[:id]
         self.update(attrs)
-        self.update_rate_limit(response_headers) unless response_headers.empty?
         @@identity_map[self.class] ||= {}
         @@identity_map[self.class][attrs[:id]] = self
       else

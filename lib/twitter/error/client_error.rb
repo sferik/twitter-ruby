@@ -7,21 +7,21 @@ module Twitter
 
       # Create a new error from an HTTP environment
       #
-      # @param env [Hash]
+      # @param body [Hash]
       # @return [Twitter::Error]
-      def self.from_env(env)
-        new(error_body(env[:body]), env[:response_headers])
+      def self.from_response_body(body)
+        new(parse_error(body))
       end
 
     private
 
-      def self.error_body(message)
-        if message.nil?
+      def self.parse_error(body)
+        if body.nil?
           ''
-        elsif message[:error]
-          message[:error]
-        elsif message[:errors]
-          first = Array(message[:errors]).first
+        elsif body[:error]
+          body[:error]
+        elsif body[:errors]
+          first = Array(body[:errors]).first
           if first.kind_of?(Hash)
             first[:message].chomp
           else
