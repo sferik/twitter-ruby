@@ -89,7 +89,7 @@ describe Twitter::Client do
     it "returns for rate limited methods" do
       lambda do
         @client.rate_limited?(:foo)
-      end.should raise_error(NameError, "no method `foo' for Twitter::Client")
+      end.should raise_error(ArgumentError, "no method `foo' for Twitter::Client")
     end
   end
 

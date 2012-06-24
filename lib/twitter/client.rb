@@ -182,12 +182,13 @@ module Twitter
 
     # Check whether a method is rate limited
     #
-    # @param method [Symbol]
+    # @raise [ArgumentError] Error raised when supplied argument is not a key in the METHOD_RATE_LIMITED hash.
     # @return [Boolean]
+    # @param method [Symbol]
     def rate_limited?(method)
       method_rate_limited = METHOD_RATE_LIMITED[method.to_sym]
       if method_rate_limited.nil?
-        raise NameError.new("no method `#{method}' for #{self.class}")
+        raise ArgumentError.new("no method `#{method}' for #{self.class}")
       end
       method_rate_limited
     end
