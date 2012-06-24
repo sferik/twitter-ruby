@@ -61,8 +61,9 @@ The `Twitter::Client#direct_messages` method has been renamed to
 The `Twitter::Status#expanded_urls` method has been removed. Use
 `Twitter::Status#urls` instead.
 
-The `Twitter::Client#profile_image` method has been removed without
-replacement.
+The `Twitter::Client#profile_image` method has been removed. Use
+`Twitter::User#profile_image_url` (or `Twitter::User#profile_image_url_https`)
+instead.
 
 The `Twitter::Client#follow` method now checks to make sure the user isn't
 already being followed. If you don't wish to perform that check (which does
