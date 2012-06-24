@@ -1,8 +1,9 @@
-# The Twitter Ruby Gem [![Build Status](https://secure.travis-ci.org/jnunemaker/twitter.png?branch=master)][travis] [![Dependency Status](https://gemnasium.com/jnunemaker/twitter.png?travis)][gemnasium]
+# The Twitter Ruby Gem [![Build Status](https://secure.travis-ci.org/jnunemaker/twitter.png?branch=master)][travis] [![Dependency Status](https://gemnasium.com/jnunemaker/twitter.png?travis)][gemnasium] [![Code Climate](https://codeclimate.com/badge.png)][codeclimate]
 A Ruby wrapper for the Twitter API.
 
 [travis]: http://travis-ci.org/jnunemaker/twitter
 [gemnasium]: https://gemnasium.com/jnunemaker/twitter
+[codeclimate]: https://codeclimate.com/github/jnunemaker/twitter
 
 ## Installation
     gem install twitter
