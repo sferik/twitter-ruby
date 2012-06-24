@@ -58,7 +58,17 @@ better performance than calling these methods multiple times in serial.
 The `Twitter::Client#direct_messages` method has been renamed to
 `Twitter::Client#direct_messages_received`.
 
-The `Twitter::Client#profile_image` method has been removed.
+The `Twitter::Status#expanded_urls` method has been removed. Use
+`Twitter::Status#urls` instead.
+
+The `Twitter::Client#profile_image` method has been removed without
+replacement.
+
+The `Twitter::Client#follow` method now checks to make sure the user isn't
+already being followed. If you don't wish to perform that check (which does
+require an extra HTTP request), you can use the new `Twitter::Client#follow!`
+method instead. **Note**: This may re-send an email notification to the user,
+even if they are already being followed.
 
 The `Twitter::Client#search` now returns a `Twitter::SearchResult` object,
 which contains metadata and a results array. In the previous major version,
@@ -66,20 +76,11 @@ this method returned an array of `Twitter::Status` objects, which is now
 accessible by sending the `results` message to a `Twitter::SearchResults`
 object.
 
-Additionally, the `Twitter::Client#follow` method now checks to make sure the
-user isn't already being followed. If you don't wish to perform that check
-(which does require an extra HTTP request), you can use the new
-`Twitter::Client#follow!` method instead. **Note**: This may re-send an email
-notification to the user, even if they are already being followed.
-
 ##### Version 2
     Twitter::Client.search("query").map(&:full_text)
 
 ##### Version 3
     Twitter::Client.search("query").results.map(&:full_text)
-
-The `Twitter::Status#expanded_urls` method has been removed. Use
-`Twitter::Status#urls` instead.
 
 ### Configuration
 The Faraday middleware stack is now fully configurable and is exposed as a
