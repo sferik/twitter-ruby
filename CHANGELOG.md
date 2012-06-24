@@ -1,3 +1,21 @@
+3.0.0 - June 26, 2012
+---------------------
+* [All returned hashes now use symbols as keys instead of strings](https://github.com/jnunemaker/twitter/commit/d5b5d8788dc0c0cef6f2c28e6fa2dc6ffcf389eb)
+* [Methods allow multiple arguments and return an array](https://github.com/jnunemaker/twitter/commit/78adf3833ebfcafda48d31dee7befdcfa76f2971)
+* [`Twitter::Client#users` can now return more than `Twitter::User` 100 objects](https://github.com/jnunemaker/twitter/commit/296a8847aa9bea0881369649a91e38fc2e9b3076)
+* [Remove deprecated `Twitter::Status#expanded_urls` method](https://github.com/jnunemaker/twitter/commit/50d2613b1ade92c820f553d6e8389a49ec53dac1)
+* [Check to make sure the user is not already being followed](https://github.com/jnunemaker/twitter/commit/24ffbca370f6957bc9a6c43cb6a1ee55cade7bb8)
+* [The `Twitter::Client#search` now returns a `Twitter::SearchResult` object](https://github.com/jnunemaker/twitter/pull/261/files) ([@wjlroe](http://twitter.com/wjlroe))
+* [Define middleware as a Faraday builder](https://github.com/jnunemaker/twitter/commit/2bd5010fc38b235ee9cc09b75e1ae89f23409f94)
+* [Remove untested gateway middleware](https://github.com/jnunemaker/twitter/commit/7e501a99fe15ba9be69d2b791fc1d99c1904542b)
+* [Remove explicit proxy and user agent configuration](https://github.com/jnunemaker/twitter/commit/f6e647f73eaa0f39b4306256789ded414ea9a8c2)
+* [Attempt to get credentials from the environment, when not specified](https://github.com/jnunemaker/twitter/commit/32e3fde7ccc7aea15b24159302d7c0fd934a6a0a)
+* [Add identity map](https://github.com/jnunemaker/twitter/commit/218479f71c861db79ccce8e12c4cb59d0a63cc77)
+* [Faraday client errors are captured and re-raised as `Twitter::Error::ClientError`](https://github.com/jnunemaker/twitter/commit/ccf3ddeb4cae937fdf3335546c17884472855149)
+* [Remove `Twitter::Error::EnhanceYourCalm`](https://github.com/jnunemaker/twitter/commit/fbcf8f1b932f79799db3256d66805339312937bc)
+* [All `Twitter::Error.ratelimit` methods (including `Twitter::Error.retry_at`) have been replaced by the `Twitter::RateLimit` class](https://github.com/jnunemaker/twitter/commit/4c63a7378305df791b6fbcd3d3beb83ccd360f95)
+* [Set default timeout options](https://github.com/jnunemaker/twitter/commit/bb8a15d60e930233050e96964823b2f569e0943f)
+
 2.5.0 - June 1, 2012
 --------------------
 * [Remove `Active Support` dependency](https://github.com/jnunemaker/twitter/compare/v2.4.0...v2.5.0)
