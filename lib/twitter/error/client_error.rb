@@ -18,12 +18,12 @@ module Twitter
       def self.error_body(message)
         if message.nil?
           ''
-        elsif message['error']
-          message['error']
-        elsif message['errors']
-          first = Array(message['errors']).first
+        elsif message[:error]
+          message[:error]
+        elsif message[:errors]
+          first = Array(message[:errors]).first
           if first.kind_of?(Hash)
-            first['message'].chomp
+            first[:message].chomp
           else
             first.chomp
           end

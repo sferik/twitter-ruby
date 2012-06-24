@@ -14,12 +14,12 @@ module Twitter
         when 'false'
           false
         else
-          MultiJson.load(body)
+          MultiJson.load(body, :symbolize_keys => true)
         end
       end
 
       def on_complete(env)
-        if respond_to? :parse
+        if respond_to?(:parse)
           env[:body] = parse(env[:body]) unless [204, 304].include?(env[:status])
         end
       end

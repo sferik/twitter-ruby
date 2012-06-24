@@ -4,33 +4,33 @@ describe Twitter::ActionFactory do
 
   describe ".new" do
     it "generates a Favorite" do
-      action = Twitter::ActionFactory.new('action' => 'favorite')
+      action = Twitter::ActionFactory.new(:action => 'favorite')
       action.should be_a Twitter::Action::Favorite
     end
     it "generates a Follow" do
-      action = Twitter::ActionFactory.new('action' => 'follow')
+      action = Twitter::ActionFactory.new(:action => 'follow')
       action.should be_a Twitter::Action::Follow
     end
     it "generates a ListMemberAdded" do
-      action = Twitter::ActionFactory.new('action' => 'list_member_added')
+      action = Twitter::ActionFactory.new(:action => 'list_member_added')
       action.should be_a Twitter::Action::ListMemberAdded
     end
     it "generates a Mention" do
-      action = Twitter::ActionFactory.new('action' => 'mention')
+      action = Twitter::ActionFactory.new(:action => 'mention')
       action.should be_a Twitter::Action::Mention
     end
     it "generates a Reply" do
-      action = Twitter::ActionFactory.new('action' => 'reply')
+      action = Twitter::ActionFactory.new(:action => 'reply')
       action.should be_a Twitter::Action::Reply
     end
     it "generates a Retweet" do
-      action = Twitter::ActionFactory.new('action' => 'retweet')
+      action = Twitter::ActionFactory.new(:action => 'retweet')
       action.should be_a Twitter::Action::Retweet
     end
     it "raises an ArgumentError when action is not specified" do
       lambda do
         Twitter::ActionFactory.new
-      end.should raise_error(ArgumentError, "argument must have an 'action' key")
+      end.should raise_error(ArgumentError, "argument must have an :action key")
     end
   end
 

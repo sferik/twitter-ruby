@@ -4,7 +4,7 @@ describe Twitter::SearchResults do
 
   describe "#results" do
     it "contains twitter status objects" do
-      search_results = Twitter::SearchResults.new('results' => [{'text' => 'tweet!'}])
+      search_results = Twitter::SearchResults.new(:results => [{:text => 'tweet!'}])
       search_results.results.should be_a Array
       search_results.results.first.should be_a Twitter::Status
     end

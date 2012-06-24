@@ -330,7 +330,7 @@ describe Twitter::Client do
             to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
         end
         it "requests the correct resource" do
-          list = Twitter::List.new('slug' => 'presidents', 'user' => {'screen_name' => 'sferik'})
+          list = Twitter::List.new(:slug => 'presidents', :user => {:screen_name => 'sferik'})
           @client.list_subscriber?(list, 813286)
           a_get("/1/lists/subscribers/show.json").
             with(:query => {:owner_screen_name => 'sferik', :slug => 'presidents', :user_id => '813286'}).
@@ -344,7 +344,7 @@ describe Twitter::Client do
             to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
         end
         it "requests the correct resource" do
-          list = Twitter::List.new('id' => 12345678, 'user' => {'screen_name' => 'sferik'})
+          list = Twitter::List.new(:id => 12345678, :user => {:screen_name => 'sferik'})
           @client.list_subscriber?(list, 813286)
           a_get("/1/lists/subscribers/show.json").
             with(:query => {:owner_screen_name => 'sferik', :list_id => '12345678', :user_id => '813286'}).
@@ -582,7 +582,7 @@ describe Twitter::Client do
             to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
         end
         it "requests the correct resource" do
-          list = Twitter::List.new('slug' => 'presidents', 'user' => {'screen_name' => 'sferik'})
+          list = Twitter::List.new(:slug => 'presidents', :user => {:screen_name => 'sferik'})
           @client.list_member?(list, 813286)
           a_get("/1/lists/members/show.json").
             with(:query => {:owner_screen_name => 'sferik', :slug => 'presidents', :user_id => '813286'}).
@@ -596,7 +596,7 @@ describe Twitter::Client do
             to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
         end
         it "requests the correct resource" do
-          list = Twitter::List.new('id' => 12345678, 'user' => {'screen_name' => 'sferik'})
+          list = Twitter::List.new(:id => 12345678, :user => {:screen_name => 'sferik'})
           @client.list_member?(list, 813286)
           a_get("/1/lists/members/show.json").
             with(:query => {:owner_screen_name => 'sferik', :list_id => '12345678', :user_id => '813286'}).
@@ -763,7 +763,7 @@ describe Twitter::Client do
             to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
         end
         it "requests the correct resource" do
-          list = Twitter::List.new('slug' => 'presidents', 'user' => {'screen_name' => 'sferik'})
+          list = Twitter::List.new(:slug => 'presidents', :user => {:screen_name => 'sferik'})
           @client.list_destroy(list)
           a_delete("/1/lists/destroy.json").
             with(:query => {:owner_screen_name => 'sferik', :slug => 'presidents'}).
@@ -777,7 +777,7 @@ describe Twitter::Client do
             to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
         end
         it "requests the correct resource" do
-          list = Twitter::List.new('id' => '12345678', 'user' => {'screen_name' => 'sferik'})
+          list = Twitter::List.new(:id => '12345678', :user => {:screen_name => 'sferik'})
           @client.list_destroy(list)
           a_delete("/1/lists/destroy.json").
             with(:query => {:owner_screen_name => 'sferik', :list_id => '12345678'}).
@@ -842,7 +842,7 @@ describe Twitter::Client do
             to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
         end
         it "requests the correct resource" do
-          list = Twitter::List.new('slug' => 'presidents', 'user' => {'screen_name' => 'sferik'})
+          list = Twitter::List.new(:slug => 'presidents', :user => {:screen_name => 'sferik'})
           @client.list_update(list, :description => "Presidents of the United States of America")
           a_post("/1/lists/update.json").
             with(:body => {:owner_screen_name => 'sferik', :slug => "presidents", :description => "Presidents of the United States of America"}).
@@ -856,7 +856,7 @@ describe Twitter::Client do
             to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
         end
         it "requests the correct resource" do
-          list = Twitter::List.new('id' => '12345678', 'user' => {'screen_name' => 'sferik'})
+          list = Twitter::List.new(:id => '12345678', :user => {:screen_name => 'sferik'})
           @client.list_update(list, :description => "Presidents of the United States of America")
           a_post("/1/lists/update.json").
             with(:body => {:owner_screen_name => 'sferik', :list_id => '12345678', :description => "Presidents of the United States of America"}).
@@ -968,7 +968,7 @@ describe Twitter::Client do
             to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
         end
         it "requests the correct resource" do
-          user = Twitter::User.new('id' => '12345678')
+          user = Twitter::User.new(:id => '12345678')
           @client.list(user, 'presidents')
           a_get("/1/lists/show.json").
             with(:query => {:owner_id => '12345678', :slug => 'presidents'}).
@@ -982,7 +982,7 @@ describe Twitter::Client do
             to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
         end
         it "requests the correct resource" do
-          user = Twitter::User.new('screen_name' => 'sferik')
+          user = Twitter::User.new(:screen_name => 'sferik')
           @client.list(user, "presidents")
           a_get("/1/lists/show.json").
             with(:query => {:owner_screen_name => 'sferik', :slug => 'presidents'}).
@@ -1026,7 +1026,7 @@ describe Twitter::Client do
             to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
         end
         it "requests the correct resource" do
-          list = Twitter::List.new('slug' => 'presidents', 'user' => {'screen_name' => 'sferik'})
+          list = Twitter::List.new(:slug => 'presidents', :user => {:screen_name => 'sferik'})
           @client.list(list)
           a_get("/1/lists/show.json").
             with(:query => {:owner_screen_name => 'sferik', :slug => 'presidents'}).
@@ -1040,7 +1040,7 @@ describe Twitter::Client do
             to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
         end
         it "requests the correct resource" do
-          list = Twitter::List.new('id' => '12345678', 'user' => {'screen_name' => 'sferik'})
+          list = Twitter::List.new(:id => '12345678', :user => {:screen_name => 'sferik'})
           @client.list(list)
           a_get("/1/lists/show.json").
             with(:query => {:owner_screen_name => 'sferik', :list_id => '12345678'}).

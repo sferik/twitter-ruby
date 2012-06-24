@@ -243,12 +243,12 @@ describe Twitter::Client do
     end
     context "an IO" do
       it "requests the correct resource" do
-        @client.update_with_media("You always have options", {'io' => StringIO.new, 'type' => 'gif'})
+        @client.update_with_media("You always have options", {:io => StringIO.new, :type => 'gif'})
         a_post("/1/statuses/update_with_media.json", Twitter.media_endpoint).
           should have_been_made
       end
       it 'returns the media as an entity' do
-        status = @client.update_with_media("You always have options", {'io' => StringIO.new, 'type' => 'gif'})
+        status = @client.update_with_media("You always have options", {:io => StringIO.new, :type => 'gif'})
         status.media.should be
       end
     end

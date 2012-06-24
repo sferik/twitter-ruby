@@ -9,8 +9,8 @@ module Twitter
           env[:body].each do |key, value|
             if value.is_a?(File)
               env[:body][key] = Faraday::UploadIO.new(value, mime_type(value.path), value.path)
-            elsif value.is_a?(Hash) && (value['io'].is_a?(IO) || value['io'].is_a?(StringIO))
-              env[:body][key] = Faraday::UploadIO.new(value['io'], mime_type('.' + value['type']), '')
+            elsif value.is_a?(Hash) && (value[:io].is_a?(IO) || value[:io].is_a?(StringIO))
+              env[:body][key] = Faraday::UploadIO.new(value[:io], mime_type('.' + value[:type]), '')
             end
           end
         end

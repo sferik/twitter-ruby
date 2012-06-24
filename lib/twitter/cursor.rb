@@ -13,7 +13,7 @@ module Twitter
     # @params method [String, Symbol] The name of the method to return the collection
     # @params klass [Class] The class to instantiate object in the collection
     # @return [Twitter::Cursor]
-    def self.from_response(response={}, method='ids', klass=nil)
+    def self.from_response(response={}, method=:ids, klass=nil)
       self.new(response[:body], response[:response_headers], method, klass)
     end
 
@@ -22,10 +22,10 @@ module Twitter
     # @param attrs [Hash]
     # @param response_headers [Hash]
     # @return [Twitter::Base]
-    def initialize(attrs={}, response_headers={}, method='ids', klass=nil)
+    def initialize(attrs={}, response_headers={}, method=:ids, klass=nil)
       self.update(attrs)
       self.update_rate_limit(response_headers) unless response_headers.empty?
-      @collection = Array(attrs[method.to_s]).map do |item|
+      @collection = Array(attrs[method.to_sym]).map do |item|
         if klass
           klass.fetch_or_new(item)
         else
@@ -38,12 +38,12 @@ module Twitter
     end
 
     def next_cursor
-      @attrs['next_cursor']
+      @attrs[:next_cursor]
     end
     alias next next_cursor
 
     def previous_cursor
-      @attrs['previous_cursor']
+      @attrs[:previous_cursor]
     end
     alias previous previous_cursor
 

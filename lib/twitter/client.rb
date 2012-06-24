@@ -144,7 +144,7 @@ module Twitter
     # @option options [Boolean] :tile Whether or not to tile the background image. If set to true the background image will be displayed tiled. The image will not be tiled otherwise.
     # @example Update the authenticating user's profile background image
     #   Twitter.update_profile_background_image(File.new("we_concept_bg2.png"))
-    #   Twitter.update_profile_background_image('io' => StringIO.new(pic), 'type' => 'jpg')
+    #   Twitter.update_profile_background_image(:io => StringIO.new(pic), :type => 'jpg')
     def update_profile_background_image(image, options={})
       response = post("/1/account/update_profile_background_image.json", options.merge(:image => image))
       Twitter::User.from_response(response)
@@ -182,7 +182,7 @@ module Twitter
     # @param options [Hash] A customizable set of options.
     # @example Update the authenticating user's profile image
     #   Twitter.update_profile_image(File.new("me.jpeg"))
-    #   Twitter.update_profile_image('io' => StringIO.new(pic), 'type' => 'jpg')
+    #   Twitter.update_profile_image(:io => StringIO.new(pic), :type => 'jpg')
     def update_profile_image(image, options={})
       response = post("/1/account/update_profile_image.json", options.merge(:image => image))
       Twitter::User.from_response(response)
@@ -938,7 +938,7 @@ module Twitter
     # @example Return {https://twitter.com/privacy Twitter's Privacy Policy}
     #   Twitter.privacy
     def privacy(options={})
-      get("/1/legal/privacy.json", options)[:body]['privacy']
+      get("/1/legal/privacy.json", options)[:body][:privacy]
     end
 
     # Returns {https://twitter.com/tos Twitter's Terms of Service}
@@ -950,7 +950,7 @@ module Twitter
     # @example Return {https://twitter.com/tos Twitter's Terms of Service}
     #   Twitter.tos
     def tos(options={})
-      get("/1/legal/tos.json", options)[:body]['tos']
+      get("/1/legal/tos.json", options)[:body][:tos]
     end
 
     # Returns all lists the authenticating or specified user subscribes to, including their own
@@ -1598,7 +1598,7 @@ module Twitter
     #   Twitter.local_trends(2487956)
     def local_trends(woeid=1, options={})
       response = get("/1/trends/#{woeid}.json", options)
-      response[:body].first['trends'].map do |trend|
+      response[:body].first[:trends].map do |trend|
         Twitter::Trend.fetch_or_new(trend)
       end
     end
@@ -1685,7 +1685,7 @@ module Twitter
     #   Twitter.places_nearby(:ip => "74.125.19.104")
     def places_nearby(options={})
       response = get("/1/geo/search.json", options)
-      response[:body]['result']['places'].map do |place|
+      response[:body][:result][:places].map do |place|
         Twitter::Place.fetch_or_new(place)
       end
     end
@@ -1708,7 +1708,7 @@ module Twitter
     #   Twitter.places_similar(:lat => "37.7821120598956", :long => "-122.400612831116", :name => "Twitter HQ")
     def places_similar(options={})
       response = get("/1/geo/similar_places.json", options)
-      response[:body]['result']['places'].map do |place|
+      response[:body][:result][:places].map do |place|
         Twitter::Place.fetch_or_new(place)
       end
     end
@@ -1730,7 +1730,7 @@ module Twitter
     #   Twitter.reverse_geocode(:lat => "37.7821120598956", :long => "-122.400612831116")
     def reverse_geocode(options={})
       response = get("/1/geo/reverse_geocode.json", options)
-      response[:body]['result']['places'].map do |place|
+      response[:body][:result][:places].map do |place|
         Twitter::Place.fetch_or_new(place)
       end
     end
@@ -1907,7 +1907,7 @@ module Twitter
     #   Twitter.phoenix_search('twitter')
     def phoenix_search(q, options={})
       response = get("/phoenix_search.phoenix", options.merge(:q => q))
-      response[:body]['statuses'].map do |status|
+      response[:body][:statuses].map do |status|
         Twitter::Status.fetch_or_new(status)
       end
     end
@@ -2226,7 +2226,7 @@ module Twitter
     def trends_daily(date=Date.today, options={})
       response = get("/1/trends/daily.json", options.merge(:date => date.strftime('%Y-%m-%d')))
       trends = {}
-      response[:body]['trends'].each do |key, value|
+      response[:body][:trends].each do |key, value|
         trends[key] = []
         value.each do |trend|
           trends[key] << Twitter::Trend.fetch_or_new(trend)
@@ -2249,7 +2249,7 @@ module Twitter
     def trends_weekly(date=Date.today, options={})
       response = get("/1/trends/weekly.json", options.merge(:date => date.strftime('%Y-%m-%d')))
       trends = {}
-      response[:body]['trends'].each do |key, value|
+      response[:body][:trends].each do |key, value|
         trends[key] = []
         value.each do |trend|
           trends[key] << Twitter::Trend.fetch_or_new(trend)
@@ -2358,7 +2358,7 @@ module Twitter
     #   Twitter.status_activity(25938088801)
     def status_activity(id, options={})
       response = get("/i/statuses/#{id}/activity/summary.json", options)
-      response[:body].merge!('id' => id) if response[:body]
+      response[:body].merge!(:id => id) if response[:body]
       Twitter::Status.from_response(response)
     end
 
@@ -2477,8 +2477,8 @@ module Twitter
       args.flatten.threaded_map do |id|
         response = post("/1/statuses/retweet/#{id}.json", options)
         retweeted_status = response.dup
-        retweeted_status[:body] = response[:body].delete('retweeted_status')
-        retweeted_status[:body]['retweeted_status'] = response[:body]
+        retweeted_status[:body] = response[:body].delete(:retweeted_status)
+        retweeted_status[:body][:retweeted_status] = response[:body]
         Twitter::Status.from_response(retweeted_status)
       end
     end
@@ -2525,7 +2525,7 @@ module Twitter
     # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
     # @example Update the authenticating user's status
     #   Twitter.update_with_media("I'm tweeting with @gem!", File.new('my_awesome_pic.jpeg'))
-    #   Twitter.update_with_media("I'm tweeting with @gem!", {'io' => StringIO.new(pic), 'type' => 'jpg'})
+    #   Twitter.update_with_media("I'm tweeting with @gem!", {:io => StringIO.new(pic), :type => 'jpg'})
     def update_with_media(status, media, options={})
       response = post("/1/statuses/update_with_media.json", options.merge('media[]' => media, 'status' => status), :endpoint => media_endpoint)
       Twitter::Status.from_response(response)
@@ -2713,7 +2713,7 @@ module Twitter
       response = get("/1/users/recommendations.json", options)
       Twitter::RateLimit.instance.update(response[:response_headers])
       response[:body].map do |recommendation|
-        Twitter::User.fetch_or_new(recommendation['user'])
+        Twitter::User.fetch_or_new(recommendation[:user])
       end
     end
 

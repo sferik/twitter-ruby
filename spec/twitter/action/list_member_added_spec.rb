@@ -4,7 +4,7 @@ describe Twitter::Action::ListMemberAdded do
 
   describe "#sources" do
     it "returns a collection of users who added a user to a list" do
-      sources = Twitter::Action::ListMemberAdded.new('sources' => [{}]).sources
+      sources = Twitter::Action::ListMemberAdded.new(:sources => [{}]).sources
       sources.should be_an Array
       sources.first.should be_a Twitter::User
     end
@@ -16,7 +16,7 @@ describe Twitter::Action::ListMemberAdded do
 
   describe "#target_objects" do
     it "returns a collection of lists that were added to" do
-      targets = Twitter::Action::ListMemberAdded.new('target_objects' => [{}]).target_objects
+      targets = Twitter::Action::ListMemberAdded.new(:target_objects => [{}]).target_objects
       targets.should be_an Array
       targets.first.should be_a Twitter::List
     end
@@ -28,7 +28,7 @@ describe Twitter::Action::ListMemberAdded do
 
   describe "#targets" do
     it "returns a collection of users who were added to a list" do
-      targets = Twitter::Action::ListMemberAdded.new('targets' => [{}]).targets
+      targets = Twitter::Action::ListMemberAdded.new(:targets => [{}]).targets
       targets.should be_an Array
       targets.first.should be_a Twitter::User
     end

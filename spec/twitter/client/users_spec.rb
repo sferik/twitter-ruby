@@ -73,8 +73,8 @@ describe Twitter::Client do
             to_return(:body => fixture("users.json"), :headers => {:content_type => "application/json; charset=utf-8"})
         end
         it "requests the correct resource" do
-          user1 = Twitter::User.new('id' => '7505382')
-          user2 = Twitter::User.new('id' => '14100886')
+          user1 = Twitter::User.new(:id => '7505382')
+          user2 = Twitter::User.new(:id => '14100886')
           @client.users(user1, user2)
           a_get("/1/users/lookup.json").
             with(:query => {:user_id => "7505382,14100886"}).
@@ -88,8 +88,8 @@ describe Twitter::Client do
             to_return(:body => fixture("users.json"), :headers => {:content_type => "application/json; charset=utf-8"})
         end
         it "requests the correct resource" do
-          user1 = Twitter::User.new('screen_name' => 'sferik')
-          user2 = Twitter::User.new('screen_name' => 'pengwynn')
+          user1 = Twitter::User.new(:screen_name => 'sferik')
+          user2 = Twitter::User.new(:screen_name => 'pengwynn')
           @client.users(user1, user2)
           a_get("/1/users/lookup.json").
             with(:query => {:screen_name => "sferik,pengwynn"}).
@@ -103,8 +103,8 @@ describe Twitter::Client do
             to_return(:body => fixture("users.json"), :headers => {:content_type => "application/json; charset=utf-8"})
         end
         it "requests the correct resource" do
-          user1 = Twitter::User.new('screen_name' => 'sferik')
-          user2 = Twitter::User.new('id' => '14100886')
+          user1 = Twitter::User.new(:screen_name => 'sferik')
+          user2 = Twitter::User.new(:id => '14100886')
           @client.users(user1, user2)
           a_get("/1/users/lookup.json").
             with(:query => {:screen_name => "sferik", :user_id => "14100886"}).
@@ -200,7 +200,7 @@ describe Twitter::Client do
             to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
         end
         it "requests the correct resource" do
-          user = Twitter::User.new('id' => 7505382)
+          user = Twitter::User.new(:id => 7505382)
           @client.user(user)
           a_get("/1/users/show.json").
             with(:query => {:user_id => "7505382"}).
@@ -214,7 +214,7 @@ describe Twitter::Client do
             to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
         end
         it "requests the correct resource" do
-          user = Twitter::User.new('screen_name' => 'sferik')
+          user = Twitter::User.new(:screen_name => 'sferik')
           @client.user(user)
           a_get("/1/users/show.json").
             with(:query => {:screen_name => "sferik"}).

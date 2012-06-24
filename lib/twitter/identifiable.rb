@@ -4,7 +4,7 @@ module Twitter
   class Identifiable < Base
 
     def self.fetch(attrs)
-      id = attrs['id']
+      id = attrs[:id]
       @@identity_map[self] ||= {}
       id && @@identity_map[self][id] && @@identity_map[self][id].update(attrs) || super(attrs)
     end
@@ -15,11 +15,11 @@ module Twitter
     # @param response_headers [Hash]
     # @return [Twitter::Base]
     def initialize(attrs={}, response_headers={})
-      if attrs['id']
+      if attrs[:id]
         self.update(attrs)
         self.update_rate_limit(response_headers) unless response_headers.empty?
         @@identity_map[self.class] ||= {}
-        @@identity_map[self.class][attrs['id']] = self
+        @@identity_map[self.class][attrs[:id]] = self
       else
         super
       end
@@ -33,7 +33,7 @@ module Twitter
 
     # @return [Integer]
     def id
-      @attrs['id']
+      @attrs[:id]
     end
 
   end

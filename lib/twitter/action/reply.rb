@@ -8,7 +8,7 @@ module Twitter
       #
       # @return [Array<Twitter::Status>]
       def target_objects
-        @target_objects = Array(@attrs['target_objects']).map do |status|
+        @target_objects = Array(@attrs[:target_objects]).map do |status|
           Twitter::Status.fetch_or_new(status)
         end
       end
@@ -17,7 +17,7 @@ module Twitter
       #
       # @return [Array<Twitter::Status>]
       def targets
-        @targets = Array(@attrs['targets']).map do |status|
+        @targets = Array(@attrs[:targets]).map do |status|
           Twitter::Status.fetch_or_new(status)
         end
       end

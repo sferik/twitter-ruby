@@ -19,7 +19,7 @@ module Twitter
       attrs.each do |attribute|
         class_eval do
           define_method attribute do
-            @attrs[attribute.to_s]
+            @attrs[attribute.to_sym]
           end
         end
       end

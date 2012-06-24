@@ -3,7 +3,7 @@ require 'helper'
 describe Twitter::OEmbed do
   describe "#author_url" do
     it "returns the author's url" do
-      oembed = Twitter::OEmbed.new('author_url' => 'https://twitter.com/sferik')
+      oembed = Twitter::OEmbed.new(:author_url => 'https://twitter.com/sferik')
       oembed.author_url.should eq "https://twitter.com/sferik"
     end
 
@@ -15,7 +15,7 @@ describe Twitter::OEmbed do
 
   describe "#author_name" do
     it "returns the author's name" do
-      oembed = Twitter::OEmbed.new('author_name' => 'Erik Michaels-Ober')
+      oembed = Twitter::OEmbed.new(:author_name => 'Erik Michaels-Ober')
       oembed.author_name.should eq "Erik Michaels-Ober"
     end
 
@@ -27,7 +27,7 @@ describe Twitter::OEmbed do
 
   describe "#cache_age" do
     it "returns the cache_age" do
-      oembed = Twitter::OEmbed.new('cache_age' => '31536000000')
+      oembed = Twitter::OEmbed.new(:cache_age => '31536000000')
       oembed.cache_age.should eq "31536000000"
     end
 
@@ -39,12 +39,12 @@ describe Twitter::OEmbed do
 
   describe "#height" do
     it "returns the height" do
-      oembed = Twitter::OEmbed.new('height' => 200)
+      oembed = Twitter::OEmbed.new(:height => 200)
       oembed.height.should eq 200
     end
 
     it "returns it as an Integer" do
-      oembed = Twitter::OEmbed.new('height' => 200)
+      oembed = Twitter::OEmbed.new(:height => 200)
       oembed.height.should be_an Integer
     end
 
@@ -56,7 +56,7 @@ describe Twitter::OEmbed do
 
   describe "#html" do
     it "returns the html" do
-      oembed = Twitter::OEmbed.new('html' => '<blockquote>all my <b>witty tweet</b> stuff here</blockquote>')
+      oembed = Twitter::OEmbed.new(:html => '<blockquote>all my <b>witty tweet</b> stuff here</blockquote>')
       oembed.html.should eq "<blockquote>all my <b>witty tweet</b> stuff here</blockquote>"
     end
 
@@ -68,7 +68,7 @@ describe Twitter::OEmbed do
 
   describe "#provider_name" do
     it "returns the provider_name" do
-      oembed = Twitter::OEmbed.new('provider_name' => 'Twitter')
+      oembed = Twitter::OEmbed.new(:provider_name => 'Twitter')
       oembed.provider_name.should eq "Twitter"
     end
 
@@ -80,7 +80,7 @@ describe Twitter::OEmbed do
 
   describe "#provider_url" do
     it "returns the provider_url" do
-      oembed = Twitter::OEmbed.new('provider_url' => 'http://twitter.com')
+      oembed = Twitter::OEmbed.new(:provider_url => 'http://twitter.com')
       oembed.provider_url.should eq "http://twitter.com"
     end
 
@@ -92,7 +92,7 @@ describe Twitter::OEmbed do
 
   describe "#type" do
     it "returns the type" do
-      oembed = Twitter::OEmbed.new('type' => 'rich')
+      oembed = Twitter::OEmbed.new(:type => 'rich')
       oembed.type.should eq "rich"
     end
 
@@ -104,12 +104,12 @@ describe Twitter::OEmbed do
 
   describe "#width" do
     it "returns the width" do
-      oembed = Twitter::OEmbed.new('width' => 550)
+      oembed = Twitter::OEmbed.new(:width => 550)
       oembed.width.should eq 550
     end
 
     it "returns it as an Integer" do
-      oembed = Twitter::OEmbed.new('width' => 550)
+      oembed = Twitter::OEmbed.new(:width => 550)
       oembed.width.should be_an Integer
     end
 
@@ -121,7 +121,7 @@ describe Twitter::OEmbed do
 
   describe "#url" do
     it "returns the url" do
-      oembed = Twitter::OEmbed.new('url' => 'https://twitter.com/twitterapi/status/133640144317198338')
+      oembed = Twitter::OEmbed.new(:url => 'https://twitter.com/twitterapi/status/133640144317198338')
       oembed.url.should eq "https://twitter.com/twitterapi/status/133640144317198338"
     end
 
@@ -133,7 +133,7 @@ describe Twitter::OEmbed do
 
   describe "#version" do
     it "returns the version" do
-      oembed = Twitter::OEmbed.new('version' => '1.0')
+      oembed = Twitter::OEmbed.new(:version => '1.0')
       oembed.version.should eq "1.0"
     end
 

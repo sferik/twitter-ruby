@@ -4,7 +4,7 @@ describe Twitter::Action::Reply do
 
   describe "#sources" do
     it "returns a collection of users who replied to a user" do
-      sources = Twitter::Action::Reply.new('sources' => [{}]).sources
+      sources = Twitter::Action::Reply.new(:sources => [{}]).sources
       sources.should be_an Array
       sources.first.should be_a Twitter::User
     end
@@ -16,7 +16,7 @@ describe Twitter::Action::Reply do
 
   describe "#target_objects" do
     it "returns a collection of statuses that reply to a user" do
-      targets = Twitter::Action::Reply.new('target_objects' => [{}]).target_objects
+      targets = Twitter::Action::Reply.new(:target_objects => [{}]).target_objects
       targets.should be_an Array
       targets.first.should be_a Twitter::Status
     end
@@ -28,7 +28,7 @@ describe Twitter::Action::Reply do
 
   describe "#targets" do
     it "returns a collection that contains the replied-to status" do
-      targets = Twitter::Action::Reply.new('targets' => [{}]).targets
+      targets = Twitter::Action::Reply.new(:targets => [{}]).targets
       targets.should be_an Array
       targets.first.should be_a Twitter::Status
     end

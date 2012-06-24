@@ -38,6 +38,9 @@ wiki][apps]!
 [apps]: https://github.com/jnunemaker/twitter/wiki/apps
 
 ## What's new in version 3?
+### Hashes
+All returned hashes now use symbols as keys instead of strings.
+
 ### Methods
 The following methods now accept multiple users or ids as arguments and return
 arrays:
@@ -57,17 +60,17 @@ The `Twitter::Client#direct_messages` method has been renamed to
 
 The `Twitter::Client#profile_image` method has been removed.
 
-Additionally, the `Twitter::Client#follow` method now checks to make sure the
-user isn't already being followed. If you don't wish to perform that check
-(which does require an extra HTTP request), you can use the new
-`Twitter::Client#follow!` method instead. **Note**: This may re-send an email
-notification to the user, even if they are already being followed.
-
 The `Twitter::Client#search` now returns a `Twitter::SearchResult` object,
 which contains metadata and a results array. In the previous major version,
 this method returned an array of `Twitter::Status` objects, which is now
 accessible by sending the `results` message to a `Twitter::SearchResults`
 object.
+
+Additionally, the `Twitter::Client#follow` method now checks to make sure the
+user isn't already being followed. If you don't wish to perform that check
+(which does require an extra HTTP request), you can use the new
+`Twitter::Client#follow!` method instead. **Note**: This may re-send an email
+notification to the user, even if they are already being followed.
 
 ##### Version 2
     Twitter::Client.search("query").map(&:full_text)

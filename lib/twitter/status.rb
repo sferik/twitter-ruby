@@ -26,14 +26,14 @@ module Twitter
 
     # @return [Integer]
     def favoriters_count
-      @favoriters_count ||= @attrs['favoriters_count']
+      @favoriters_count ||= @attrs[:favoriters_count]
       @favoriters_count.to_i if @favoriters_count
     end
     alias favorite_count favoriters_count
 
     # @return [String]
     def from_user
-      @attrs['from_user'] || self.user && self.user.screen_name
+      @attrs[:from_user] || self.user && self.user.screen_name
     end
 
     # @return [String]
@@ -44,14 +44,14 @@ module Twitter
 
     # @return [Twitter::Point, Twitter::Polygon]
     def geo
-      @geo ||= Twitter::GeoFactory.new(@attrs['geo']) unless @attrs['geo'].nil?
+      @geo ||= Twitter::GeoFactory.new(@attrs[:geo]) unless @attrs[:geo].nil?
     end
 
     # @note Must include entities in your request for this method to work
     # @return [Array<Twitter::Entity::Hashtag>]
     def hashtags
-      @hashtags ||= unless @attrs['entities'].nil?
-        Array(@attrs['entities']['hashtags']).map do |hashtag|
+      @hashtags ||= unless @attrs[:entities].nil?
+        Array(@attrs[:entities][:hashtags]).map do |hashtag|
           Twitter::Entity::Hashtag.fetch_or_new(hashtag)
         end
       else
@@ -62,8 +62,8 @@ module Twitter
     # @note Must include entities in your request for this method to work
     # @return [Array]
     def media
-      @media ||= unless @attrs['entities'].nil?
-        Array(@attrs['entities']['media']).map do |media|
+      @media ||= unless @attrs[:entities].nil?
+        Array(@attrs[:entities][:media]).map do |media|
           Twitter::MediaFactory.new(media)
         end
       else
@@ -73,23 +73,23 @@ module Twitter
 
     # @return [Twitter::Metadata]
     def metadata
-      @metadata ||= Twitter::Metadata.fetch_or_new(@attrs['metadata']) unless @attrs['metadata'].nil?
+      @metadata ||= Twitter::Metadata.fetch_or_new(@attrs[:metadata]) unless @attrs[:metadata].nil?
     end
 
     # @return [Twitter::OEmbed]
     def oembed(options={})
       @client ||= Twitter::Client.new
-      @client.oembed(@attrs['id'], options) unless @attrs['id'].nil?
+      @client.oembed(@attrs[:id], options) unless @attrs[:id].nil?
     end
 
     # @return [Twitter::Place]
     def place
-      @place ||= Twitter::Place.fetch_or_new(@attrs['place']) unless @attrs['place'].nil?
+      @place ||= Twitter::Place.fetch_or_new(@attrs[:place]) unless @attrs[:place].nil?
     end
 
     # @return [Integer]
     def repliers_count
-      @repliers_count ||= @attrs['repliers_count']
+      @repliers_count ||= @attrs[:repliers_count]
       @repliers_count.to_i if @repliers_count
     end
     alias reply_count repliers_count
@@ -98,12 +98,12 @@ module Twitter
     #
     # @return [Twitter::Status]
     def retweeted_status
-      @retweeted_status ||= self.class.fetch_or_new(@attrs['retweeted_status']) unless @attrs['retweeted_status'].nil?
+      @retweeted_status ||= self.class.fetch_or_new(@attrs[:retweeted_status]) unless @attrs[:retweeted_status].nil?
     end
 
     # @return [String]
     def retweeters_count
-      @retweeters_count ||= (@attrs['retweet_count'] || @attrs['retweeters_count'])
+      @retweeters_count ||= (@attrs[:retweet_count] || @attrs[:retweeters_count])
       @retweeters_count.to_i if @retweeters_count
     end
     alias retweet_count retweeters_count
@@ -111,8 +111,8 @@ module Twitter
     # @note Must include entities in your request for this method to work
     # @return [Array<Twitter::Entity::Url>]
     def urls
-      @urls ||= unless @attrs['entities'].nil?
-        Array(@attrs['entities']['urls']).map do |url|
+      @urls ||= unless @attrs[:entities].nil?
+        Array(@attrs[:entities][:urls]).map do |url|
           Twitter::Entity::Url.fetch_or_new(url)
         end
       else
@@ -122,14 +122,14 @@ module Twitter
 
     # @return [Twitter::User]
     def user
-      @user ||= Twitter::User.fetch_or_new(@attrs.dup['user'].merge('status' => @attrs.except('user'))) unless @attrs['user'].nil?
+      @user ||= Twitter::User.fetch_or_new(@attrs.dup[:user].merge(:status => @attrs.except(:user))) unless @attrs[:user].nil?
     end
 
     # @note Must include entities in your request for this method to work
     # @return [Array<Twitter::Entity::UserMention>]
     def user_mentions
-      @user_mentions ||= unless @attrs['entities'].nil?
-        Array(@attrs['entities']['user_mentions']).map do |user_mention|
+      @user_mentions ||= unless @attrs[:entities].nil?
+        Array(@attrs[:entities][:user_mentions]).map do |user_mention|
           Twitter::Entity::UserMention.fetch_or_new(user_mention)
         end
       else

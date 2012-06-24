@@ -4,7 +4,7 @@ describe Twitter::Action::Follow do
 
   describe "#sources" do
     it "returns a collection of users who followed a user" do
-      sources = Twitter::Action::Follow.new('sources' => [{}]).sources
+      sources = Twitter::Action::Follow.new(:sources => [{}]).sources
       sources.should be_an Array
       sources.first.should be_a Twitter::User
     end
@@ -16,7 +16,7 @@ describe Twitter::Action::Follow do
 
   describe "#targets" do
     it "returns a collection containing the followed user" do
-      targets = Twitter::Action::Follow.new('targets' => [{}]).targets
+      targets = Twitter::Action::Follow.new(:targets => [{}]).targets
       targets.should be_an Array
       targets.first.should be_a Twitter::User
     end

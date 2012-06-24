@@ -40,13 +40,13 @@ module Twitter
       request_headers = {}
       if credentials?
         # When posting a file, don't sign any params
-        signature_params = if :post == method.to_sym && params.values.any?{|value| value.is_a?(File) || (value.is_a?(Hash) && (value['io'].is_a?(IO) || value['io'].is_a?(StringIO)))}
+        signature_params = if :post == method.to_sym && params.values.any?{|value| value.is_a?(File) || (value.is_a?(Hash) && (value[:io].is_a?(IO) || value[:io].is_a?(StringIO)))}
           {}
         else
           params
         end
         authorization = SimpleOAuth::Header.new(method, uri, signature_params, credentials)
-        request_headers['Authorization'] = authorization.to_s
+        request_headers[:authorization] = authorization.to_s
       end
 
       connection.url_prefix = options[:endpoint] || endpoint

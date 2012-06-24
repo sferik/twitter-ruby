@@ -21,9 +21,9 @@ describe Twitter::Client do
     it "returns the top 20 trending topics for each hour in a given day" do
       trends = @client.trends_daily(Date.parse("2010-10-24"))
       trends.should be_a Hash
-      trends["2010-10-24 17:00"].should be_an Array
-      trends["2010-10-24 17:00"].first.should be_a Twitter::Trend
-      trends["2010-10-24 17:00"].first.name.should eq "#bigbangcomeback"
+      trends["2010-10-24 17:00".to_sym].should be_an Array
+      trends["2010-10-24 17:00".to_sym].first.should be_a Twitter::Trend
+      trends["2010-10-24 17:00".to_sym].first.name.should eq "#bigbangcomeback"
     end
   end
 
@@ -42,9 +42,9 @@ describe Twitter::Client do
     it "returns the top 30 trending topics for each day in a given week" do
       trends = @client.trends_weekly(Date.parse("2010-10-24"))
       trends.should be_a Hash
-      trends["2010-10-24"].should be_an Array
-      trends["2010-10-24"].first.should be_a Twitter::Trend
-      trends["2010-10-24"].first.name.should eq "#youcantbeuglyand"
+      trends["2010-10-24".to_sym].should be_an Array
+      trends["2010-10-24".to_sym].first.should be_a Twitter::Trend
+      trends["2010-10-24".to_sym].first.name.should eq "#youcantbeuglyand"
     end
   end
 

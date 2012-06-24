@@ -52,7 +52,7 @@ describe Twitter::Client do
     end
     it "returns a null cookie" do
       end_session = @client.end_session
-      end_session['error'].should eq "Logged out."
+      end_session[:error].should eq "Logged out."
     end
   end
 
