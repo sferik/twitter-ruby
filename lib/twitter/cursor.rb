@@ -10,8 +10,8 @@ module Twitter
     # Initializes a new Cursor object
     #
     # @param response [Hash]
-    # @params method [String, Symbol] The name of the method to return the collection
-    # @params klass [Class] The class to instantiate object in the collection
+    # @param method [String, Symbol] The name of the method to return the collection
+    # @param klass [Class] The class to instantiate object in the collection
     # @return [Twitter::Cursor]
     def self.from_response(response={}, method=:ids, klass=nil)
       self.new(response[:body], method, klass)
@@ -59,7 +59,7 @@ module Twitter
 
     # Update the attributes of an object
     #
-    # @param response [Hash]
+    # @param attrs [Hash]
     # @return [Twitter::Cursor]
     def update(attrs)
       @attrs ||= {}

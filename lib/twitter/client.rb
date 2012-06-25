@@ -971,7 +971,6 @@ module Twitter
     # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Array<Integer>]
-    # @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
     # @param options [Hash] A customizable set of options.
     # @option options [Boolean] :stringify_ids Many programming environments will not consume our ids due to their size. Provide this option to have ids returned as strings instead. Read more about Twitter IDs, JSON and Snowflake.
     # @example Enable rewteets and devise notifications for @sferik

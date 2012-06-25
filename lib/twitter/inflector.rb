@@ -3,7 +3,7 @@ module Twitter
 
     # Converts a snake_case string to CamelCase
     #
-    # @params string [String]
+    # @param string [String]
     # @return [String]
     def camelize(string)
       string.split('_').map(&:capitalize).join
