@@ -37,8 +37,8 @@ module Twitter
   # @see http://dev.twitter.com/pages/every_developer
   class Client
     include Twitter::Authenticatable
+    include Twitter::Configurable
     include Twitter::Requestable
-    attr_accessor *Configurable::VALID_OPTIONS_KEYS
 
     MAX_USERS_PER_REQUEST = 100
     METHOD_RATE_LIMITED = {

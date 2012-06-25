@@ -20,9 +20,9 @@ describe Twitter::Client do
     end
 
     it "inherits the module configuration" do
-      api = Twitter::Client.new
+      client = Twitter::Client.new
       @keys.each do |key|
-        api.send(key).should eq key
+        client.send(key).should eq key
       end
     end
 
@@ -43,21 +43,21 @@ describe Twitter::Client do
 
       context "during initialization" do
         it "overrides the module configuration" do
-          api = Twitter::Client.new(@configuration)
+          client = Twitter::Client.new(@configuration)
           @keys.each do |key|
-            api.send(key).should eq @configuration[key]
+            client.send(key).should eq @configuration[key]
           end
         end
       end
 
       context "after initilization" do
         it "overrides the module configuration after initialization" do
-          api = Twitter::Client.new
+          client = Twitter::Client.new
           @configuration.each do |key, value|
-            api.send("#{key}=", value)
+            client.send("#{key}=", value)
           end
           @keys.each do |key|
-            api.send(key).should eq @configuration[key]
+            client.send(key).should eq @configuration[key]
           end
         end
       end

@@ -9,6 +9,9 @@ require 'twitter/version'
 module Twitter
   # Defines constants and methods related to configuration
   module Configurable
+    attr_accessor :connection_options, :consumer_key, :consumer_secret,
+      :endpoint, :media_endpoint, :middleware, :oauth_token,
+      :oauth_token_secret
 
     # The Faraday connection options if none is set
     DEFAULT_CONNECTION_OPTIONS = {
@@ -74,8 +77,6 @@ module Twitter
       :oauth_token_secret,
     ]
 
-    attr_accessor *VALID_OPTIONS_KEYS
-
     # When this module is extended, set all configuration options to their default values
     def self.extended(base)
       base.reset!
@@ -90,7 +91,9 @@ module Twitter
     # Create a hash of options and their values
     def options
       options = {}
-      VALID_OPTIONS_KEYS.each{|k| options[k] = send(k)}
+      VALID_OPTIONS_KEYS.each do |key|
+        options[key] = send(key)
+      end
       options
     end
 

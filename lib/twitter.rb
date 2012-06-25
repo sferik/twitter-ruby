@@ -2,8 +2,9 @@ require 'twitter/client'
 require 'twitter/configurable'
 
 module Twitter
-  extend Configurable
+  extend Twitter::Configurable
   class << self
+
     # Alias for Twitter::Client.new
     #
     # @return [Twitter::Client]
