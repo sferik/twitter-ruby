@@ -1,11 +1,12 @@
+require 'faraday'
 require 'twitter/action_factory'
-require 'twitter/authenticatable'
 require 'twitter/configurable'
 require 'twitter/configuration'
 require 'twitter/core_ext/array'
 require 'twitter/core_ext/enumerable'
 require 'twitter/core_ext/hash'
 require 'twitter/cursor'
+require 'twitter/default'
 require 'twitter/direct_message'
 require 'twitter/error/forbidden'
 require 'twitter/error/not_found'
@@ -20,7 +21,6 @@ require 'twitter/polygon'
 require 'twitter/rate_limit'
 require 'twitter/rate_limit_status'
 require 'twitter/relationship'
-require 'twitter/requestable'
 require 'twitter/saved_search'
 require 'twitter/search_results'
 require 'twitter/settings'
@@ -29,6 +29,8 @@ require 'twitter/status'
 require 'twitter/suggestion'
 require 'twitter/trend'
 require 'twitter/user'
+require 'simple_oauth'
+require 'uri'
 
 module Twitter
   # Wrapper for the Twitter REST API
@@ -36,10 +38,7 @@ module Twitter
   # @note All methods have been separated into modules and follow the same grouping used in {http://dev.twitter.com/doc the Twitter API Documentation}.
   # @see http://dev.twitter.com/pages/every_developer
   class Client
-    include Twitter::Authenticatable
     include Twitter::Configurable
-    include Twitter::Requestable
-
     MAX_USERS_PER_REQUEST = 100
     METHOD_RATE_LIMITED = {
       :accept => false,
@@ -170,13 +169,13 @@ module Twitter
       :verify_credentials => true,
     }
 
-    # Initializes a new API object
+    # Initializes a new Client object
     #
-    # @param attrs [Hash]
+    # @param options [Hash]
     # @return [Twitter::Client]
-    def initialize(attrs={})
-      Twitter.options.merge(attrs).each do |key, value|
-        self.send("#{key}=", value)
+    def initialize(options={})
+      Twitter::Configurable.keys.each do |key|
+        instance_variable_set("@#{key}", options[key] || Twitter::Default.const_get(key.to_s.upcase.to_sym))
       end
     end
 
@@ -457,7 +456,7 @@ module Twitter
     #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
     #   @param options [Hash] A customizable set of options.
     def block(*args)
-      user_from_response(args) do |options|
+      users_from_response(args) do |options|
         post("/1/blocks/create.json", options)
       end
     end
@@ -478,7 +477,7 @@ module Twitter
     #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
     #   @param options [Hash] A customizable set of options.
     def unblock(*args)
-      user_from_response(args) do |options|
+      users_from_response(args) do |options|
         delete("/1/blocks/destroy.json", options)
       end
     end
@@ -671,7 +670,7 @@ module Twitter
     #   @param ids [Array<Integer>, Set<Integer>] An array of Twitter status IDs.
     #   @param options [Hash] A customizable set of options.
     def favorite(*args)
-      status_from_response(args) do |id, options|
+      statuses_from_response(args) do |id, options|
         post("/1/favorites/create/#{id}.json", options)
       end
     end
@@ -694,7 +693,7 @@ module Twitter
     #   @param ids [Array<Integer>, Set<Integer>] An array of Twitter status IDs.
     #   @param options [Hash] A customizable set of options.
     def unfavorite(*args)
-      status_from_response(args) do |id, options|
+      statuses_from_response(args) do |id, options|
         delete("/1/favorites/destroy/#{id}.json", options)
       end
     end
@@ -916,7 +915,7 @@ module Twitter
     #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
     #   @param options [Hash] A customizable set of options.
     def unfollow(*args)
-      user_from_response(args) do |options|
+      users_from_response(args) do |options|
         delete("/1/friendships/destroy.json", options)
       end
     end
@@ -994,7 +993,7 @@ module Twitter
     #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
     #   @param options [Hash] A customizable set of options.
     def accept(*args)
-      user_from_response(args) do |options|
+      users_from_response(args) do |options|
         post("/1/friendships/accept.json", options)
       end
     end
@@ -1014,7 +1013,7 @@ module Twitter
     #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
     #   @param options [Hash] A customizable set of options.
     def deny(*args)
-      user_from_response(args) do |options|
+      users_from_response(args) do |options|
         post("/1/friendships/deny.json", options)
       end
     end
@@ -1744,7 +1743,7 @@ module Twitter
     #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
     #   @param options [Hash] A customizable set of options.
     def enable_notifications(*args)
-      user_from_response(args) do |options|
+      users_from_response(args) do |options|
         post("/1/notifications/follow.json", options)
       end
     end
@@ -1765,7 +1764,7 @@ module Twitter
     #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
     #   @param options [Hash] A customizable set of options.
     def disable_notifications(*args)
-      user_from_response(args) do |options|
+      users_from_response(args) do |options|
         post("/1/notifications/leave.json", options)
       end
     end
@@ -2021,7 +2020,7 @@ module Twitter
     #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
     #   @param options [Hash] A customizable set of options.
     def report_spam(*args)
-      user_from_response(args) do |options|
+      users_from_response(args) do |options|
         post("/1/report_spam.json", options)
       end
     end
@@ -2396,7 +2395,7 @@ module Twitter
     #   @param options [Hash] A customizable set of options.
     #   @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
     def statuses(*args)
-      status_from_response(args) do |id, options|
+      statuses_from_response(args) do |id, options|
         get("/1/statuses/show/#{id}.json", options)
       end
     end
@@ -2508,7 +2507,7 @@ module Twitter
     #   @param options [Hash] A customizable set of options.
     #   @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
     def status_destroy(*args)
-      status_from_response(args) do |id, options|
+      statuses_from_response(args) do |id, options|
         delete("/1/statuses/destroy/#{id}.json", options)
       end
     end
@@ -2583,7 +2582,7 @@ module Twitter
     #   Twitter.update_with_media("I'm tweeting with @gem!", File.new('my_awesome_pic.jpeg'))
     #   Twitter.update_with_media("I'm tweeting with @gem!", {:io => StringIO.new(pic), :type => 'jpg'})
     def update_with_media(status, media, options={})
-      response = post("/1/statuses/update_with_media.json", options.merge('media[]' => media, 'status' => status), :endpoint => media_endpoint)
+      response = post("/1/statuses/update_with_media.json", options.merge('media[]' => media, 'status' => status), :endpoint => @media_endpoint)
       Twitter::Status.from_response(response)
     end
 
@@ -2792,6 +2791,33 @@ module Twitter
       Twitter::Cursor.from_response(response, 'users', Twitter::User)
     end
 
+    # Perform an HTTP DELETE request
+    def delete(path, params={}, options={})
+      request(:delete, path, params, options)
+    end
+
+    # Perform an HTTP GET request
+    def get(path, params={}, options={})
+      request(:get, path, params, options)
+    end
+
+    # Perform an HTTP POST request
+    def post(path, params={}, options={})
+      request(:post, path, params, options)
+    end
+
+    # Perform an HTTP UPDATE request
+    def put(path, params={}, options={})
+      request(:put, path, params, options)
+    end
+
+    # Check whether credentials are present
+    #
+    # @return [Boolean]
+    def credentials?
+      credentials.values.all?
+    end
+
   private
 
     def collection_from_array(array, klass)
@@ -2812,7 +2838,7 @@ module Twitter
       Twitter::List.from_response(response)
     end
 
-    def status_from_response(args, &block)
+    def statuses_from_response(args, &block)
       options = args.extract_options!
       args.flatten.threaded_map do |id|
         response = yield(id, options)
@@ -2820,12 +2846,63 @@ module Twitter
       end
     end
 
-    def user_from_response(args, &block)
+    def users_from_response(args, &block)
       options = args.extract_options!
       args.flatten.threaded_map do |user|
         response = yield(options.merge_user(user))
         Twitter::User.from_response(response)
       end
+    end
+
+    # Returns a Faraday::Connection object
+    #
+    # @return [Faraday::Connection]
+    def connection
+      @connection ||= Faraday.new(@endpoint, @connection_options.merge(:builder => @middleware))
+    end
+
+    # Perform an HTTP request
+    def request(method, path, params, options)
+      uri = options[:endpoint] || @endpoint
+      uri = URI(uri) unless uri.respond_to?(:host)
+      uri += path
+      request_headers = {}
+      if self.credentials?
+        # When posting a file, don't sign any params
+        signature_params = if [:post, :put].include?(method.to_sym) && params.values.any?{|value| value.is_a?(File) || (value.is_a?(Hash) && (value[:io].is_a?(IO) || value[:io].is_a?(StringIO)))}
+          {}
+        else
+          params
+        end
+        authorization = SimpleOAuth::Header.new(method, uri, signature_params, credentials)
+        request_headers[:authorization] = authorization.to_s
+      end
+      connection.url_prefix = options[:endpoint] || @endpoint
+      connection.run_request(method.to_sym, path, nil, request_headers) do |request|
+        unless params.empty?
+          case request.method
+          when :post, :put
+            request.body = params
+          else
+            request.params.update(params)
+          end
+        end
+        yield request if block_given?
+      end.env
+    rescue Faraday::Error::ClientError
+      raise Twitter::Error::ClientError
+    end
+
+    # Credentials hash
+    #
+    # @return [Hash]
+    def credentials
+      {
+        :consumer_key => @consumer_key,
+        :consumer_secret => @consumer_secret,
+        :token => @oauth_token,
+        :token_secret => @oauth_token_secret,
+      }
     end
 
   end

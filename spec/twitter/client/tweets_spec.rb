@@ -189,13 +189,13 @@ describe Twitter::Client do
 
   describe "#update_with_media" do
     before do
-      stub_post("/1/statuses/update_with_media.json", Twitter.media_endpoint).
+      stub_post("/1/statuses/update_with_media.json", "https://upload.twitter.com").
         to_return(:body => fixture("status_with_media.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     context "a gif image" do
       it "requests the correct resource" do
         @client.update_with_media("You always have options", fixture("pbjt.gif"))
-        a_post("/1/statuses/update_with_media.json", Twitter.media_endpoint).
+        a_post("/1/statuses/update_with_media.json", "https://upload.twitter.com").
           should have_been_made
       end
       it "returns a single status" do
@@ -211,7 +211,7 @@ describe Twitter::Client do
     context "a jpe image" do
       it "requests the correct resource" do
         @client.update_with_media("You always have options", fixture("wildcomet2.jpe"))
-        a_post("/1/statuses/update_with_media.json", Twitter.media_endpoint).
+        a_post("/1/statuses/update_with_media.json", "https://upload.twitter.com").
           should have_been_made
       end
       it 'returns the media as an entity' do
@@ -222,7 +222,7 @@ describe Twitter::Client do
     context "a jpeg image" do
       it "requests the correct resource" do
         @client.update_with_media("You always have options", fixture("me.jpeg"))
-        a_post("/1/statuses/update_with_media.json", Twitter.media_endpoint).
+        a_post("/1/statuses/update_with_media.json", "https://upload.twitter.com").
           should have_been_made
       end
       it 'returns the media as an entity' do
@@ -233,7 +233,7 @@ describe Twitter::Client do
     context "a png image" do
       it "requests the correct resource" do
         @client.update_with_media("You always have options", fixture("we_concept_bg2.png"))
-        a_post("/1/statuses/update_with_media.json", Twitter.media_endpoint).
+        a_post("/1/statuses/update_with_media.json", "https://upload.twitter.com").
           should have_been_made
       end
       it 'returns the media as an entity' do
@@ -244,7 +244,7 @@ describe Twitter::Client do
     context "an IO" do
       it "requests the correct resource" do
         @client.update_with_media("You always have options", {:io => StringIO.new, :type => 'gif'})
-        a_post("/1/statuses/update_with_media.json", Twitter.media_endpoint).
+        a_post("/1/statuses/update_with_media.json", "https://upload.twitter.com").
           should have_been_made
       end
       it 'returns the media as an entity' do

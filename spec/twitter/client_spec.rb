@@ -1,15 +1,18 @@
 require 'helper'
 
 describe Twitter::Client do
-  before do
-    @keys = Twitter::Configurable::VALID_OPTIONS_KEYS
+
+  subject do
+    client = Twitter::Client.new
+    client.class_eval{public *Twitter::Client.private_instance_methods}
+    client
   end
 
   context "with module configuration" do
 
     before do
       Twitter.configure do |config|
-        @keys.each do |key|
+        Twitter::Configurable.keys.each do |key|
           config.send("#{key}=", key)
         end
       end
@@ -19,10 +22,10 @@ describe Twitter::Client do
       Twitter.reset!
     end
 
-    it "inherits the module configuration" do
+    it "doesn't inherit the module configuration" do
       client = Twitter::Client.new
-      @keys.each do |key|
-        client.send(key).should eq key
+      Twitter::Configurable.keys.each do |key|
+        client.instance_variable_get("@#{key}").should_not eq key
       end
     end
 
@@ -34,7 +37,7 @@ describe Twitter::Client do
           :consumer_key => 'CK',
           :consumer_secret => 'CS',
           :endpoint => 'http://tumblr.com/',
-          :media_endpoint => 'https://upload.twitter.com/',
+          :media_endpoint => 'https://upload.twitter.com',
           :middleware => Proc.new{},
           :oauth_token => 'OT',
           :oauth_token_secret => 'OS',
@@ -44,8 +47,8 @@ describe Twitter::Client do
       context "during initialization" do
         it "overrides the module configuration" do
           client = Twitter::Client.new(@configuration)
-          @keys.each do |key|
-            client.send(key).should eq @configuration[key]
+          Twitter::Configurable.keys.each do |key|
+            client.instance_variable_get("@#{key}").should eq @configuration[key]
           end
         end
       end
@@ -53,11 +56,13 @@ describe Twitter::Client do
       context "after initilization" do
         it "overrides the module configuration after initialization" do
           client = Twitter::Client.new
-          @configuration.each do |key, value|
-            client.send("#{key}=", value)
+          client.configure do |config|
+            @configuration.each do |key, value|
+              config.send("#{key}=", value)
+            end
           end
-          @keys.each do |key|
-            client.send(key).should eq @configuration[key]
+          Twitter::Configurable.keys.each do |key|
+            client.instance_variable_get("@#{key}").should eq @configuration[key]
           end
         end
       end
@@ -86,10 +91,79 @@ describe Twitter::Client do
     it "returns false for rate limited methods" do
       @client.rate_limited?(:rate_limit_status).should be_false
     end
-    it "returns for rate limited methods" do
+    it "raises an ArgumentError for non-existant methods" do
       lambda do
         @client.rate_limited?(:foo)
       end.should raise_error(ArgumentError, "no method `foo' for Twitter::Client")
+    end
+  end
+
+  describe "#put" do
+    before do
+      @client = Twitter::Client.new
+      stub_put("/custom/put").
+        with(:body => {:updated => "object"})
+    end
+    it "allows custom put requests" do
+      @client.put("/custom/put", {:updated => "object"})
+      a_put("/custom/put").
+        with(:body => {:updated => "object"}).
+        should have_been_made
+    end
+  end
+
+  describe "#credentials?" do
+    it "returns true if all credentials are present" do
+      client = Twitter::Client.new(:consumer_key => 'CK', :consumer_secret => 'CS', :oauth_token => 'OT', :oauth_token_secret => 'OS')
+      client.credentials?.should be_true
+    end
+    it "returns false if any credentials are missing" do
+      client = Twitter::Client.new(:consumer_key => 'CK', :consumer_secret => 'CS', :oauth_token => 'OT')
+      client.credentials?.should be_false
+    end
+  end
+
+  describe "#connection" do
+    it "looks like Faraday connection" do
+      subject.connection.should respond_to(:run_request)
+    end
+    it "memoizes the connection" do
+      c1, c2 = subject.connection, subject.connection
+      c1.object_id.should eq c2.object_id
+    end
+  end
+
+  describe "#request" do
+    before do
+      @client = Twitter::Client.new({:consumer_key => "CK", :consumer_secret => "CS", :oauth_token => "OT", :oauth_token_secret => "OS"})
+    end
+    it "encodes the entire body when no uploaded media is present" do
+      stub_post("/1/statuses/update.json").
+        with(:body => {:status => "Update"}).
+        to_return(:body => fixture("status.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      @client.update("Update")
+      a_post("/1/statuses/update.json").
+        with(:body => {:status => "Update"}).
+        should have_been_made
+    end
+    it "encodes none of the body when uploaded media is present" do
+      stub_post("/1/statuses/update_with_media.json", "https://upload.twitter.com").
+        to_return(:body => fixture("status_with_media.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      @client.update_with_media("Update", fixture("pbjt.gif"))
+      a_post("/1/statuses/update_with_media.json", "https://upload.twitter.com").
+        should have_been_made
+    end
+    it "catches Faraday errors" do
+      subject.stub!(:connection).and_raise(Faraday::Error::ClientError.new("Oups"))
+      lambda do
+        subject.request(:get, "/path", {}, {})
+      end.should raise_error(Twitter::Error::ClientError, "Oups")
+    end
+  end
+
+  Twitter::Configurable::CONFIG_KEYS.each do |key|
+    it "has a default #{key.to_s.gsub('_', ' ')}" do
+      subject.send(key).should eq Twitter::Default.const_get(key.to_s.upcase.to_sym)
     end
   end
 

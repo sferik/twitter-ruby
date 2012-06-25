@@ -86,34 +86,26 @@ object.
 
 ### Configuration
 The Faraday middleware stack is now fully configurable and is exposed as a
-`Faraday::Builder` which can be modified in-place:
+`Faraday::Builder`. You can modify the default middleware in-place:
 
     Twitter.middleware.insert_after Twitter::Response::RaiseClientError, CustomMiddleware
 
-Likewise, the middleware stack can be replaced in its entirety:
+You can no longer set a custom adapter via `Twitter::Config#adapter=`, however a
+custom adapter may be set as part of a custom middleware stack:
 
-    Twitter.middleware = Faraday::Builder.new(&Proc.new{|builder|
-      # Specify a middleware stack here
-    })
-
-As part of these configuration changes we've removed `adapter` configuration.
-If you would like to change the adapter used, you can do so by setting Faraday's
-`default_adapter`:
-
-    Faraday.default_adapter = :some_other_adapter
-
-The adapter can also be configured as part of the middleware stack:
-
-    Twitter.middleware = Faraday::Builder.new(&Proc.new { |builder|
-      # Specify a middleware stack here
-      builder.adapter :some_other_adapter
-    })
+    Twitter.middleware = Faraday::Builder.new(
+      &Proc.new do |builder|
+        # Specify a middleware stack here
+        builder.adapter :some_other_adapter
+      end
+    )
 
 Support for API gateways via `gateway` configuration has removed. This
 functionality may be replicated by inserting custom Faraday middleware.
 
-The `proxy` and `user_agent` configuration have also been removed. These can be
-set via the `connection_options` configuration.
+The `Twitter::Conif#proxy=` and `Twitter::Config#user_agent=` setters have also
+been removed. These options can be set by modifying the default connection
+options:
 
     Twitter.connection_options[:proxy] = 'http://erik:sekret@proxy.example.com:8080'
     Twitter.connection_options[:headers][:user_agent] = 'Custom User Agent'
@@ -173,9 +165,9 @@ vulnerabilities are discovered.
 
 Here are some fun facts about the 3.0 release:
 
-* The entire library is implemented in just 2,175 source lines of code
+* The entire library is implemented in just 2,170 source lines of code
 * With over 5,000 lines of specs, the spec-to-code ratio is over 2.3:1
-* The spec suite contains 600 examples and runs in under 3 seconds on a MacBook
+* The spec suite contains 607 examples and runs in under 3 seconds on a MacBook
 * This project has 100% C0 code coverage (the tests execute every line of
   source code at least once)
 * At the time of release, this library is comprehensive: you can request all

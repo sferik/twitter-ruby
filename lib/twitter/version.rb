@@ -1,29 +1,17 @@
 module Twitter
   class Version
+    MAJOR = 3 unless defined? MAJOR
+    MINOR = 0 unless defined? MINOR
+    PATCH = 0 unless defined? PATCH
+    PRE = "rc.3" unless defined? PRE
 
-    # @return [Integer]
-    def self.major
-      3
-    end
+    class << self
 
-    # @return [Integer]
-    def self.minor
-      0
-    end
+      # @return [String]
+      def to_s
+        [MAJOR, MINOR, PATCH, PRE].compact.join('.')
+      end
 
-    # @return [Integer]
-    def self.patch
-      0
-    end
-
-    # @return [String, NilClass]
-    def self.pre
-      "rc.3"
-    end
-
-    # @return [String]
-    def self.to_s
-      [major, minor, patch, pre].compact.join('.')
     end
 
   end
