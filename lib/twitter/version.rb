@@ -3,7 +3,7 @@ module Twitter
     MAJOR = 3 unless defined? MAJOR
     MINOR = 0 unless defined? MINOR
     PATCH = 0 unless defined? PATCH
-    PRE = "rc.4" unless defined? PRE
+    PRE = nil unless defined? PRE
 
     class << self
 
