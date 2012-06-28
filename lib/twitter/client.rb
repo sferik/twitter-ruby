@@ -214,6 +214,7 @@ module Twitter
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Twitter::User] The authenticated user.
     # @param options [Hash] A customizable set of options.
+    # @option options [Boolean, String, Integer] :skip_status Do not include user's statuses when set to true, 't' or 1.
     # @example Return the requesting user if authentication was successful
     #   Twitter.verify_credentials
     def verify_credentials(options={})
@@ -2652,7 +2653,7 @@ module Twitter
         response = get("/1/users/show.json", options)
         Twitter::User.from_response(response)
       else
-        self.verify_credentials
+        self.verify_credentials(options)
       end
     end
 
