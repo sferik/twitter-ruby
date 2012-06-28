@@ -1,4 +1,4 @@
-3.0.0 - June 26, 2012
+3.0.0 - June 28, 2012
 ---------------------
 * [All returned hashes now use symbols as keys instead of strings](https://github.com/jnunemaker/twitter/commit/d5b5d8788dc0c0cef6f2c28e6fa2dc6ffcf389eb)
 * [Methods allow multiple arguments and return an array](https://github.com/jnunemaker/twitter/commit/78adf3833ebfcafda48d31dee7befdcfa76f2971)
