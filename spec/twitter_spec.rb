@@ -6,6 +6,27 @@ describe Twitter do
     Twitter.reset!
   end
 
+  context "when delegating to a client" do
+
+    before do
+      stub_get("/1/statuses/user_timeline.json").
+        with(:query => {:screen_name => "sferik"}).
+        to_return(:body => fixture("statuses.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+    end
+
+    it "requests the correct resource" do
+      Twitter.user_timeline('sferik')
+      a_get("/1/statuses/user_timeline.json").
+        with(:query => {:screen_name => "sferik"}).
+        should have_been_made
+    end
+
+    it "returns the same results as a client" do
+      Twitter.user_timeline('sferik').should eq Twitter::Client.new.user_timeline('sferik')
+    end
+
+  end
+
   describe '.respond_to?' do
     it "delegates to Twitter::Client" do
       Twitter.respond_to?(:user).should be_true
