@@ -223,14 +223,29 @@ describe Twitter::Client do
       end
     end
     context "without a screen name or user ID passed" do
-      before do
-        stub_get("/1/account/verify_credentials.json").
-          to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      context "without options passed" do
+        before do
+          stub_get("/1/account/verify_credentials.json").
+            to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        end
+        it "requests the correct resource" do
+          @client.user
+          a_get("/1/account/verify_credentials.json").
+            should have_been_made
+        end
       end
-      it "requests the correct resource" do
-        @client.user
-        a_get("/1/account/verify_credentials.json").
-          should have_been_made
+      context "with options passed" do
+        before do
+          stub_get("/1/account/verify_credentials.json").
+            with(:query => {:skip_status => "true"}).
+            to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        end
+        it "requests the correct resource" do
+          @client.user(:skip_status => true)
+          a_get("/1/account/verify_credentials.json").
+            with(:query => {:skip_status => "true"}).
+            should have_been_made
+        end
       end
     end
   end
