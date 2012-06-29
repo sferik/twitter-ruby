@@ -3,19 +3,34 @@ require 'helper'
 describe Twitter::SavedSearch do
 
   describe "#==" do
-    it "returns true when ids and classes are equal" do
-      saved_search = Twitter::SavedSearch.new(:id => 1)
-      other = Twitter::SavedSearch.new(:id => 1)
-      (saved_search == other).should be_true
-    end
-    it "returns false when classes are not equal" do
-      saved_search = Twitter::SavedSearch.new(:id => 1)
-      other = Twitter::User.new(:id => 1)
+    it "returns false for empty objects" do
+      saved_search = Twitter::SavedSearch.new
+      other = Twitter::SavedSearch.new
       (saved_search == other).should be_false
     end
-    it "returns false when ids are not equal" do
+    it "returns true when objects IDs are the same" do
+      saved_search = Twitter::SavedSearch.new(:id => 1, :name => "foo")
+      other = Twitter::SavedSearch.new(:id => 1, :name => "bar")
+      (saved_search == other).should be_true
+    end
+    it "returns false when objects IDs are different" do
       saved_search = Twitter::SavedSearch.new(:id => 1)
       other = Twitter::SavedSearch.new(:id => 2)
+      (saved_search == other).should be_false
+    end
+    it "returns false when classes are different" do
+      saved_search = Twitter::SavedSearch.new(:id => 1)
+      other = Twitter::Identifiable.new(:id => 1)
+      (saved_search == other).should be_false
+    end
+    it "returns true when objects non-ID attributes are the same" do
+      saved_search = Twitter::SavedSearch.new(:name => "foo")
+      other = Twitter::SavedSearch.new(:name => "foo")
+      (saved_search == other).should be_true
+    end
+    it "returns false when objects non-ID attributes are different" do
+      saved_search = Twitter::SavedSearch.new(:name => "foo")
+      other = Twitter::SavedSearch.new(:name => "bar")
       (saved_search == other).should be_false
     end
   end

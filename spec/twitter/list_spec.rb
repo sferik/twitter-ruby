@@ -3,19 +3,34 @@ require 'helper'
 describe Twitter::List do
 
   describe "#==" do
-    it "returns true when ids and classes are equal" do
-      list = Twitter::List.new(:id => 1)
-      other = Twitter::List.new(:id => 1)
-      (list == other).should be_true
-    end
-    it "returns false when classes are not equal" do
-      list = Twitter::List.new(:id => 1)
-      other = Twitter::User.new(:id => 1)
+    it "returns false for empty objects" do
+      list = Twitter::List.new
+      other = Twitter::List.new
       (list == other).should be_false
     end
-    it "returns false when ids are not equal" do
+    it "returns true when objects IDs are the same" do
+      list = Twitter::List.new(:id => 1, :slug => "foo")
+      other = Twitter::List.new(:id => 1, :slug => "bar")
+      (list == other).should be_true
+    end
+    it "returns false when objects IDs are different" do
       list = Twitter::List.new(:id => 1)
       other = Twitter::List.new(:id => 2)
+      (list == other).should be_false
+    end
+    it "returns false when classes are different" do
+      list = Twitter::List.new(:id => 1)
+      other = Twitter::Identifiable.new(:id => 1)
+      (list == other).should be_false
+    end
+    it "returns true when objects non-ID attributes are the same" do
+      list = Twitter::List.new(:slug => "foo")
+      other = Twitter::List.new(:slug => "foo")
+      (list == other).should be_true
+    end
+    it "returns false when objects non-ID attributes are different" do
+      list = Twitter::List.new(:slug => "foo")
+      other = Twitter::List.new(:slug => "bar")
       (list == other).should be_false
     end
   end

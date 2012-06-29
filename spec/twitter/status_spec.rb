@@ -12,19 +12,34 @@ describe Twitter::Status do
   end
 
   describe "#==" do
-    it "returns true when ids and classes are equal" do
-      status = Twitter::Status.new(:id => 1)
-      other = Twitter::Status.new(:id => 1)
-      (status == other).should be_true
-    end
-    it "returns false when classes are not equal" do
-      status = Twitter::Status.new(:id => 1)
-      other = Twitter::User.new(:id => 1)
+    it "returns false for empty objects" do
+      status = Twitter::Status.new
+      other = Twitter::Status.new
       (status == other).should be_false
     end
-    it "returns false when ids are not equal" do
+    it "returns true when objects IDs are the same" do
+      status = Twitter::Status.new(:id => 1, :text => "foo")
+      other = Twitter::Status.new(:id => 1, :text => "bar")
+      (status == other).should be_true
+    end
+    it "returns false when objects IDs are different" do
       status = Twitter::Status.new(:id => 1)
       other = Twitter::Status.new(:id => 2)
+      (status == other).should be_false
+    end
+    it "returns false when classes are different" do
+      status = Twitter::Status.new(:id => 1)
+      other = Twitter::Identifiable.new(:id => 1)
+      (status == other).should be_false
+    end
+    it "returns true when objects non-ID attributes are the same" do
+      status = Twitter::Status.new(:text => "foo")
+      other = Twitter::Status.new(:text => "foo")
+      (status == other).should be_true
+    end
+    it "returns false when objects non-ID attributes are different" do
+      status = Twitter::Status.new(:text => "foo")
+      other = Twitter::Status.new(:text => "bar")
       (status == other).should be_false
     end
   end
@@ -112,7 +127,7 @@ describe Twitter::Status do
       ]
       hashtags = Twitter::Status.new(:entities => {:hashtags => hashtags_hash}).hashtags
       hashtags.should be_an Array
-      hashtags.first.should be_an Twitter::Entity::Hashtag
+      hashtags.first.should be_a Twitter::Entity::Hashtag
       hashtags.first.indices.should eq [10, 33]
       hashtags.first.text.should eq 'twitter'
     end
@@ -243,7 +258,7 @@ describe Twitter::Status do
       ]
       urls = Twitter::Status.new(:entities => {:urls => urls_hash}).urls
       urls.should be_an Array
-      urls.first.should be_an Twitter::Entity::Url
+      urls.first.should be_a Twitter::Entity::Url
       urls.first.indices.should eq [10, 33]
       urls.first.display_url.should eq 'example.com/expanded'
     end
@@ -286,7 +301,7 @@ describe Twitter::Status do
       ]
       user_mentions = Twitter::Status.new(:entities => {:user_mentions => user_mentions_hash}).user_mentions
       user_mentions.should be_an Array
-      user_mentions.first.should be_an Twitter::Entity::UserMention
+      user_mentions.first.should be_a Twitter::Entity::UserMention
       user_mentions.first.indices.should eq [0, 6]
       user_mentions.first.screen_name.should eq 'sferik'
     end

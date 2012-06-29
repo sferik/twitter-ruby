@@ -3,19 +3,34 @@ require 'helper'
 describe Twitter::DirectMessage do
 
   describe "#==" do
-    it "returns true when ids and classes are equal" do
-      direct_message = Twitter::DirectMessage.new(:id => 1)
-      other = Twitter::DirectMessage.new(:id => 1)
-      (direct_message == other).should be_true
-    end
-    it "returns false when classes are not equal" do
-      direct_message = Twitter::DirectMessage.new(:id => 1)
-      other = Twitter::User.new(:id => 1)
+    it "returns false for empty objects" do
+      direct_message = Twitter::DirectMessage.new
+      other = Twitter::DirectMessage.new
       (direct_message == other).should be_false
     end
-    it "returns false when ids are not equal" do
+    it "returns true when objects IDs are the same" do
+      direct_message = Twitter::DirectMessage.new(:id => 1, :text => "foo")
+      other = Twitter::DirectMessage.new(:id => 1, :text => "bar")
+      (direct_message == other).should be_true
+    end
+    it "returns false when objects IDs are different" do
       direct_message = Twitter::DirectMessage.new(:id => 1)
       other = Twitter::DirectMessage.new(:id => 2)
+      (direct_message == other).should be_false
+    end
+    it "returns false when classes are different" do
+      direct_message = Twitter::DirectMessage.new(:id => 1)
+      other = Twitter::Identifiable.new(:id => 1)
+      (direct_message == other).should be_false
+    end
+    it "returns true when objects non-ID attributes are the same" do
+      direct_message = Twitter::DirectMessage.new(:text => "foo")
+      other = Twitter::DirectMessage.new(:text => "foo")
+      (direct_message == other).should be_true
+    end
+    it "returns false when objects non-ID attributes are different" do
+      direct_message = Twitter::DirectMessage.new(:text => "foo")
+      other = Twitter::DirectMessage.new(:text => "bar")
       (direct_message == other).should be_false
     end
   end

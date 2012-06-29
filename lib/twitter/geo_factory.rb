@@ -1,5 +1,5 @@
-require 'twitter/point'
-require 'twitter/polygon'
+require 'twitter/geo/point'
+require 'twitter/geo/polygon'
 
 module Twitter
   class GeoFactory

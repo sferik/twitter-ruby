@@ -3,19 +3,34 @@ require 'helper'
 describe Twitter::Place do
 
   describe "#==" do
-    it "returns true when ids and classes are equal" do
-      place = Twitter::Place.new(:id => 1)
-      other = Twitter::Place.new(:id => 1)
-      (place == other).should be_true
-    end
-    it "returns false when classes are not equal" do
-      place = Twitter::Place.new(:id => 1)
-      other = Twitter::User.new(:id => 1)
+    it "returns false for empty objects" do
+      place = Twitter::Place.new
+      other = Twitter::Place.new
       (place == other).should be_false
     end
-    it "returns false when ids are not equal" do
+    it "returns true when objects IDs are the same" do
+      place = Twitter::Place.new(:id => 1, :name => "foo")
+      other = Twitter::Place.new(:id => 1, :name => "bar")
+      (place == other).should be_true
+    end
+    it "returns false when objects IDs are different" do
       place = Twitter::Place.new(:id => 1)
       other = Twitter::Place.new(:id => 2)
+      (place == other).should be_false
+    end
+    it "returns false when classes are different" do
+      place = Twitter::Place.new(:id => 1)
+      other = Twitter::Identifiable.new(:id => 1)
+      (place == other).should be_false
+    end
+    it "returns true when objects non-ID attributes are the same" do
+      place = Twitter::Place.new(:name => "foo")
+      other = Twitter::Place.new(:name => "foo")
+      (place == other).should be_true
+    end
+    it "returns false when objects non-ID attributes are different" do
+      place = Twitter::Place.new(:name => "foo")
+      other = Twitter::Place.new(:name => "bar")
       (place == other).should be_false
     end
   end

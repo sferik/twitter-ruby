@@ -3,19 +3,34 @@ require 'helper'
 describe Twitter::User do
 
   describe "#==" do
-    it "returns true when ids and classes are equal" do
-      user = Twitter::User.new(:id => 1)
-      other = Twitter::User.new(:id => 1)
-      (user == other).should be_true
-    end
-    it "returns false when classes are not equal" do
-      user = Twitter::User.new(:id => 1)
-      other = Twitter::Status.new(:id => 1)
+    it "returns false for empty objects" do
+      user = Twitter::User.new
+      other = Twitter::User.new
       (user == other).should be_false
     end
-    it "returns false when ids are not equal" do
+    it "returns true when objects IDs are the same" do
+      user = Twitter::User.new(:id => 1, :screen_name => "foo")
+      other = Twitter::User.new(:id => 1, :screen_name => "bar")
+      (user == other).should be_true
+    end
+    it "returns false when objects IDs are different" do
       user = Twitter::User.new(:id => 1)
       other = Twitter::User.new(:id => 2)
+      (user == other).should be_false
+    end
+    it "returns false when classes are different" do
+      user = Twitter::User.new(:id => 1)
+      other = Twitter::Identifiable.new(:id => 1)
+      (user == other).should be_false
+    end
+    it "returns true when objects non-ID attributes are the same" do
+      user = Twitter::User.new(:screen_name => "foo")
+      other = Twitter::User.new(:screen_name => "foo")
+      (user == other).should be_true
+    end
+    it "returns false when objects non-ID attributes are different" do
+      user = Twitter::User.new(:screen_name => "foo")
+      other = Twitter::User.new(:screen_name => "bar")
       (user == other).should be_false
     end
   end

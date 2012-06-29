@@ -1,6 +1,40 @@
 require 'helper'
 
 describe Twitter::OEmbed do
+
+  describe "#==" do
+    it "returns false for empty objects" do
+      oembed = Twitter::OEmbed.new
+      other = Twitter::OEmbed.new
+      (oembed == other).should be_false
+    end
+    it "returns true when objects IDs are the same" do
+      oembed = Twitter::OEmbed.new(:id => 1, :type => "foo")
+      other = Twitter::OEmbed.new(:id => 1, :type => "bar")
+      (oembed == other).should be_true
+    end
+    it "returns false when objects IDs are different" do
+      oembed = Twitter::OEmbed.new(:id => 1)
+      other = Twitter::OEmbed.new(:id => 2)
+      (oembed == other).should be_false
+    end
+    it "returns false when classes are different" do
+      oembed = Twitter::OEmbed.new(:id => 1)
+      other = Twitter::Identifiable.new(:id => 1)
+      (oembed == other).should be_false
+    end
+    it "returns true when objects non-ID attributes are the same" do
+      oembed = Twitter::OEmbed.new(:type => "foo")
+      other = Twitter::OEmbed.new(:type => "foo")
+      (oembed == other).should be_true
+    end
+    it "returns false when objects non-ID attributes are different" do
+      oembed = Twitter::OEmbed.new(:type => "foo")
+      other = Twitter::OEmbed.new(:type => "bar")
+      (oembed == other).should be_false
+    end
+  end
+
   describe "#author_url" do
     it "returns the author's url" do
       oembed = Twitter::OEmbed.new(:author_url => 'https://twitter.com/sferik')

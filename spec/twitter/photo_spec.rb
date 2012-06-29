@@ -3,19 +3,34 @@ require 'helper'
 describe Twitter::Photo do
 
   describe "#==" do
-    it "returns true when ids and classes are equal" do
-      photo = Twitter::Photo.new(:id => 1)
-      other = Twitter::Photo.new(:id => 1)
-      (photo == other).should be_true
-    end
-    it "returns false when classes are not equal" do
-      photo = Twitter::Photo.new(:id => 1)
-      other = Twitter::User.new(:id => 1)
+    it "returns false for empty objects" do
+      photo = Twitter::Photo.new
+      other = Twitter::Photo.new
       (photo == other).should be_false
     end
-    it "returns false when ids are not equal" do
+    it "returns true when objects IDs are the same" do
+      photo = Twitter::Photo.new(:id => 1, :url => "foo")
+      other = Twitter::Photo.new(:id => 1, :url => "bar")
+      (photo == other).should be_true
+    end
+    it "returns false when objects IDs are different" do
       photo = Twitter::Photo.new(:id => 1)
       other = Twitter::Photo.new(:id => 2)
+      (photo == other).should be_false
+    end
+    it "returns false when classes are different" do
+      photo = Twitter::Photo.new(:id => 1)
+      other = Twitter::Identifiable.new(:id => 1)
+      (photo == other).should be_false
+    end
+    it "returns true when objects non-ID attributes are the same" do
+      photo = Twitter::Photo.new(:url => "foo")
+      other = Twitter::Photo.new(:url => "foo")
+      (photo == other).should be_true
+    end
+    it "returns false when objects non-ID attributes are different" do
+      photo = Twitter::Photo.new(:url => "foo")
+      other = Twitter::Photo.new(:url => "bar")
       (photo == other).should be_false
     end
   end

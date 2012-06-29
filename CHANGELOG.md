@@ -1,3 +1,7 @@
+3.1.0 - June 30, 2012
+---------------------
+* [Make object equality more strict](https://github.com/jnunemaker/twitter/commit/537a5463d568e9a07ef5de5ce4dcad701b068ff3)
+
 3.0.0 - June 28, 2012
 ---------------------
 * [All returned hashes now use symbols as keys instead of strings](https://github.com/jnunemaker/twitter/commit/d5b5d8788dc0c0cef6f2c28e6fa2dc6ffcf389eb)

@@ -67,5 +67,13 @@ module Twitter
       self
     end
 
+  protected
+
+    # @param other [Twitter::Base]
+    # @return [Boolean]
+    def attrs_equal(other)
+      self.class == other.class && !other.attrs.empty? && self.attrs == other.attrs
+    end
+
   end
 end
