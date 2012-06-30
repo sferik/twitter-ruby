@@ -1,6 +1,10 @@
-3.1.0 - June 30, 2012
+3.0.2 - June 30, 2012
 ---------------------
 * [Make object equality more strict](https://github.com/jnunemaker/twitter/commit/537a5463d568e9a07ef5de5ce4dcad701b068ff3)
+
+3.0.1 - June 28, 2012
+---------------------
+* [Pass options from Twitter::Client.user to Twitter::Client.verify_credentials](https://github.com/jnunemaker/twitter/commit/8d99cfdbc7614690769c1682664cbe8cd9ea9c93)
 
 3.0.0 - June 28, 2012
 ---------------------
