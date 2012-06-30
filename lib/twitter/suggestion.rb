@@ -8,7 +8,7 @@ module Twitter
     # @param other [Twitter::Suggestion]
     # @return [Boolean]
     def ==(other)
-      super || self.slug_equal(other) || self.attrs_equal(other)
+      super || self.attr_equal(:slug, other) || self.attrs_equal(other)
     end
 
     # @return [Array<Twitter::User>]
@@ -16,14 +16,6 @@ module Twitter
       @users ||= Array(@attrs[:users]).map do |user|
         Twitter::User.fetch_or_new(user)
       end unless @attrs[:users].nil?
-    end
-
-  protected
-
-    # @param other [Twitter::Suggestion]
-    # @return [Boolean]
-    def slug_equal(other)
-      self.class == other.class && !other.slug.nil? && self.slug == other.slug
     end
 
   end

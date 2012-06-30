@@ -69,6 +69,13 @@ module Twitter
 
   protected
 
+    # @param attr [Symbol]
+    # @param other [Twitter::Base]
+    # @return [Boolean]
+    def attr_equal(attr, other)
+      self.class == other.class && !other.send(attr).nil? && self.send(attr) == other.send(attr)
+    end
+
     # @param other [Twitter::Base]
     # @return [Boolean]
     def attrs_equal(other)
