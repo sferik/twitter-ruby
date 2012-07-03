@@ -1,4 +1,5 @@
 require 'twitter/photo'
+require 'twitter/core_ext/string'
 
 module Twitter
   class MediaFactory
@@ -10,7 +11,7 @@ module Twitter
     # @return [Twitter::Photo]
     def self.fetch_or_new(attrs={})
       if type = attrs.delete(:type)
-        Twitter.const_get(type.capitalize.to_sym).fetch_or_new(attrs)
+        Twitter.const_get(type.camelize.to_sym).fetch_or_new(attrs)
       else
         raise ArgumentError, "argument must have a :type key"
       end
