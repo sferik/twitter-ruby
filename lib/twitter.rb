@@ -27,7 +27,7 @@ module Twitter
 
     def reset!
       Twitter::Configurable.keys.each do |key|
-        instance_variable_set("@#{key}", Twitter::Default.const_get(key.to_s.upcase.to_sym))
+        instance_variable_set("@#{key}", Twitter::Default.options[key])
       end
       self
     end

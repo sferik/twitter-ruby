@@ -11,8 +11,7 @@ module Twitter
       # @param message [String]
       # @return [Twitter::Error::ServerError]
       def initialize(message=nil)
-        message ||= self.class.const_get(:MESSAGE)
-        super(message)
+        super(message || self.class.const_get(:MESSAGE))
       end
 
     end

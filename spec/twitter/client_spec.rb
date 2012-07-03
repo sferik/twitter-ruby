@@ -163,7 +163,7 @@ describe Twitter::Client do
 
   Twitter::Configurable::CONFIG_KEYS.each do |key|
     it "has a default #{key.to_s.gsub('_', ' ')}" do
-      subject.send(key).should eq Twitter::Default.const_get(key.to_s.upcase.to_sym)
+      subject.send(key).should eq Twitter::Default.options[key]
     end
   end
 

@@ -6,11 +6,7 @@ module Twitter
     attr_reader :wrapped_exception
 
     def self.errors
-      return @errors if defined? @errors
-      array = descendants.map do |klass|
-        [klass.const_get(:HTTP_STATUS_CODE), klass]
-      end.flatten
-      @errors = Hash[*array]
+      @errors ||= Hash[descendants.map{|klass| [klass.const_get(:HTTP_STATUS_CODE), klass]}]
     end
 
     def self.descendants
