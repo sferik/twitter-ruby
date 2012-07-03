@@ -1,5 +1,6 @@
 require 'faraday'
 require 'twitter/error/bad_request'
+require 'twitter/error/enhance_your_calm'
 require 'twitter/error/forbidden'
 require 'twitter/error/not_acceptable'
 require 'twitter/error/not_found'

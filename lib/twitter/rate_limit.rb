@@ -27,6 +27,7 @@ module Twitter
       remaining.to_i if remaining
     end
 
+    # @return [Twitter::RateLimit]
     def reset!
       @response_headers = {}
       self
@@ -41,6 +42,12 @@ module Twitter
     # @return [Integer]
     def reset_in
       [(reset_at - Time.now).ceil, 0].max if reset_at
+    end
+
+    # @return [Integer]
+    def retry_after
+      retry_after = @response_headers.values_at('retry-after', 'Retry-After').compact.first
+      retry_after.to_i if retry_after
     end
 
     # Update the attributes of a Relationship
