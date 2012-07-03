@@ -22,10 +22,10 @@ describe Twitter::Client do
       Twitter.reset!
     end
 
-    it "doesn't inherit the module configuration" do
+    it "inherits the module configuration" do
       client = Twitter::Client.new
       Twitter::Configurable.keys.each do |key|
-        client.instance_variable_get("@#{key}").should_not eq key
+        client.instance_variable_get("@#{key}").should eq key
       end
     end
 

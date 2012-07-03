@@ -13,6 +13,14 @@ module Twitter
       Twitter::Client.new(options)
     end
 
+    def options
+      @options = {}
+      Twitter::Configurable.keys.each do |key|
+        @options[key] = instance_variable_get("@#{key}")
+      end
+      @options
+    end
+
     def respond_to?(method, include_private=false)
       self.client.respond_to?(method, include_private) || super
     end
@@ -30,14 +38,6 @@ module Twitter
     def method_missing(method, *args, &block)
       return super unless self.client.respond_to?(method)
       self.client.send(method, *args, &block)
-    end
-
-    def options
-      @options = {}
-      Twitter::Configurable.keys.each do |key|
-        @options[key] = instance_variable_get("@#{key}")
-      end
-      @options
     end
 
   end

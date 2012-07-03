@@ -173,7 +173,8 @@ module Twitter
     # @return [Twitter::Client]
     def initialize(options={})
       Twitter::Configurable.keys.each do |key|
-        instance_variable_set("@#{key}", options[key] || Twitter::Default.const_get(key.to_s.upcase.to_sym))
+        value = options[key] || Twitter.options[key] || Twitter::Default.const_get(key.to_s.upcase.to_sym)
+        instance_variable_set("@#{key}", value)
       end
     end
 
