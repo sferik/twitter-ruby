@@ -28,11 +28,7 @@ class Hash
     when String
       self[:slug] = list
     when Twitter::List
-      if list.id
-        self[:list_id] = list.id
-      elsif list.slug
-        self[:slug] = list.slug
-      end
+      self[:list_id] = list.id
       self.merge_owner!(list.user)
     end
     self
@@ -67,11 +63,7 @@ class Hash
     when String
       self[[prefix, "screen_name", suffix].compact.join("_").to_sym] = user
     when Twitter::User
-      if user.id
-        self[[prefix, "user_id", suffix].compact.join("_").to_sym] = user.id
-      elsif user.screen_name
-        self[[prefix, "screen_name", suffix].compact.join("_").to_sym] = user.screen_name
-      end
+      self[[prefix, "user_id", suffix].compact.join("_").to_sym] = user.id
     end
     self
   end
@@ -97,11 +89,7 @@ class Hash
       when String
         screen_names << user
       when Twitter::User
-        if user.id
-          user_ids << user.id
-        elsif user.screen_name
-          screen_names << user.screen_name
-        end
+        user_ids << user.id
       end
     end
     self[:user_id] = user_ids.join(',') unless user_ids.empty?

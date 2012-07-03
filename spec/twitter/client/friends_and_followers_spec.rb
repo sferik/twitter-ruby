@@ -127,35 +127,18 @@ describe Twitter::Client do
       end
     end
     context "with user objects passed" do
-      context "with screen names" do
-        before do
-          stub_get("/1/friendships/exists.json").
-            with(:query => {:screen_name_a => "sferik", :screen_name_b => "pengwynn"}).
-            to_return(:body => fixture("true.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-        end
-        it "requests the correct resource" do
-          user1 = Twitter::User.new(:screen_name => 'sferik')
-          user2 = Twitter::User.new(:screen_name => 'pengwynn')
-          @client.friendship?(user1, user2)
-          a_get("/1/friendships/exists.json").
-            with(:query => {:screen_name_a => "sferik", :screen_name_b => "pengwynn"}).
-            should have_been_made
-        end
+      before do
+        stub_get("/1/friendships/exists.json").
+          with(:query => {:user_id_a => "7505382", :user_id_b => "14100886"}).
+          to_return(:body => fixture("true.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
-      context "with user IDs" do
-        before do
-          stub_get("/1/friendships/exists.json").
-            with(:query => {:user_id_a => "7505382", :user_id_b => "14100886"}).
-            to_return(:body => fixture("true.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-        end
-        it "requests the correct resource" do
-          user1 = Twitter::User.new(:id => '7505382')
-          user2 = Twitter::User.new(:id => '14100886')
-          @client.friendship?(user1, user2)
-          a_get("/1/friendships/exists.json").
-            with(:query => {:user_id_a => "7505382", :user_id_b => "14100886"}).
-            should have_been_made
-        end
+      it "requests the correct resource" do
+        user1 = Twitter::User.new(:id => '7505382')
+        user2 = Twitter::User.new(:id => '14100886')
+        @client.friendship?(user1, user2)
+        a_get("/1/friendships/exists.json").
+          with(:query => {:user_id_a => "7505382", :user_id_b => "14100886"}).
+          should have_been_made
       end
     end
   end
@@ -246,35 +229,18 @@ describe Twitter::Client do
       end
     end
     context "with user objects passed" do
-      context "with screen names" do
-        before do
-          stub_get("/1/friendships/show.json").
-            with(:query => {:source_screen_name => "sferik", :target_screen_name => "pengwynn"}).
-            to_return(:body => fixture("relationship.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-        end
-        it "requests the correct resource" do
-          user1 = Twitter::User.new(:screen_name => 'sferik')
-          user2 = Twitter::User.new(:screen_name => 'pengwynn')
-          @client.friendship(user1, user2)
-          a_get("/1/friendships/show.json").
-            with(:query => {:source_screen_name => "sferik", :target_screen_name => "pengwynn"}).
-            should have_been_made
-        end
+      before do
+        stub_get("/1/friendships/show.json").
+          with(:query => {:source_id => "7505382", :target_id => "14100886"}).
+          to_return(:body => fixture("relationship.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
-      context "with user IDs" do
-        before do
-          stub_get("/1/friendships/show.json").
-            with(:query => {:source_id => "7505382", :target_id => "14100886"}).
-            to_return(:body => fixture("relationship.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-        end
-        it "requests the correct resource" do
-          user1 = Twitter::User.new(:id => '7505382')
-          user2 = Twitter::User.new(:id => '14100886')
-          @client.friendship(user1, user2)
-          a_get("/1/friendships/show.json").
-            with(:query => {:source_id => "7505382", :target_id => "14100886"}).
-            should have_been_made
-        end
+      it "requests the correct resource" do
+        user1 = Twitter::User.new(:id => '7505382')
+        user2 = Twitter::User.new(:id => '14100886')
+        @client.friendship(user1, user2)
+        a_get("/1/friendships/show.json").
+          with(:query => {:source_id => "7505382", :target_id => "14100886"}).
+          should have_been_made
       end
     end
   end

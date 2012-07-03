@@ -4,7 +4,7 @@ describe Twitter::Action::Mention do
 
   describe "#sources" do
     it "returns a collection of users who mentioned a user" do
-      sources = Twitter::Action::Mention.new(:sources => [{}]).sources
+      sources = Twitter::Action::Mention.new(:sources => [{:id => 7505382}]).sources
       sources.should be_an Array
       sources.first.should be_a Twitter::User
     end
@@ -16,7 +16,7 @@ describe Twitter::Action::Mention do
 
   describe "#source" do
     it "returns the user who mentioned a user" do
-      source = Twitter::Action::Mention.new(:sources => [{}]).source
+      source = Twitter::Action::Mention.new(:sources => [{:id => 7505382}]).source
       source.should be_a Twitter::User
     end
     it "returns nil when not set" do
@@ -27,7 +27,7 @@ describe Twitter::Action::Mention do
 
   describe "#target_objects" do
     it "returns a collection of statuses that mention a user" do
-      targets = Twitter::Action::Mention.new(:target_objects => [{}]).target_objects
+      targets = Twitter::Action::Mention.new(:target_objects => [{:id => 25938088801}]).target_objects
       targets.should be_an Array
       targets.first.should be_a Twitter::Status
     end
@@ -39,7 +39,7 @@ describe Twitter::Action::Mention do
 
   describe "#targets" do
     it "returns a collection containing the mentioned user" do
-      targets = Twitter::Action::Mention.new(:targets => [{}]).targets
+      targets = Twitter::Action::Mention.new(:targets => [{:id => 7505382}]).targets
       targets.should be_an Array
       targets.first.should be_a Twitter::User
     end

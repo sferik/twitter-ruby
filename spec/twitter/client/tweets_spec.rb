@@ -256,12 +256,14 @@ describe Twitter::Client do
 
   describe "#oembed" do
     before do
-      stub_get("/1/statuses/oembed.json?id=25938088801").
+      stub_get("/1/statuses/oembed.json").
+        with(:query => {:id => "25938088801"}).
         to_return(:body => fixture("oembed.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
       @client.oembed(25938088801)
-      a_get("/1/statuses/oembed.json?id=25938088801").
+      a_get("/1/statuses/oembed.json").
+        with(:query => {:id => "25938088801"}).
         should have_been_made
     end
     it "returns an array of OEmbed instances" do
@@ -272,12 +274,14 @@ describe Twitter::Client do
 
   describe "#oembeds" do
     before do
-      stub_get("/1/statuses/oembed.json?id=25938088801").
+      stub_get("/1/statuses/oembed.json").
+        with(:query => {:id => "25938088801"}).
         to_return(:body => fixture("oembed.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
       @client.oembeds(25938088801)
-      a_get("/1/statuses/oembed.json?id=25938088801").
+      a_get("/1/statuses/oembed.json").
+        with(:query => {:id => "25938088801"}).
         should have_been_made
     end
     it "returns an array of OEmbed instances" do

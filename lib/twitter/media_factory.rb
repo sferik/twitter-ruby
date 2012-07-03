@@ -1,5 +1,5 @@
-require 'twitter/photo'
 require 'twitter/core_ext/string'
+require 'twitter/media/photo'
 
 module Twitter
   class MediaFactory

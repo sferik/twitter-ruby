@@ -1,8 +1,8 @@
-require 'twitter/identifiable'
+require 'twitter/base'
 
 module Twitter
-  class OEmbed < Twitter::Identifiable
-    attr_reader :author_name,:author_url, :cache_age, :height, :html,
-      :provider_name, :provider_url, :type, :width, :url, :version
+  class OEmbed < Twitter::Base
+    attr_reader :author_name, :author_url, :cache_age, :height, :html,
+      :provider_name, :provider_url, :type, :url, :version, :width
   end
 end

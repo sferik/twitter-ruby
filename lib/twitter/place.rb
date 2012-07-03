@@ -1,8 +1,8 @@
 require 'twitter/geo_factory'
-require 'twitter/identifiable'
+require 'twitter/identity'
 
 module Twitter
-  class Place < Twitter::Identifiable
+  class Place < Twitter::Identity
     attr_reader :attributes, :country, :full_name, :name, :url, :woeid
     alias woe_id woeid
 
@@ -24,6 +24,10 @@ module Twitter
     # @return [String]
     def place_type
       @place_type ||= @attrs[:place_type] || @attrs[:placeType] && @attrs[:placeType][:name]
+    end
+
+    def id
+      @attrs[:id] || @attrs[:woeid]
     end
 
   end

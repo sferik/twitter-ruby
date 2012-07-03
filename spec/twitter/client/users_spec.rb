@@ -66,50 +66,18 @@ describe Twitter::Client do
       end
     end
     context "with user objects passed" do
-      context "with user IDs" do
-        before do
-          stub_get("/1/users/lookup.json").
-            with(:query => {:user_id => "7505382,14100886"}).
-            to_return(:body => fixture("users.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-        end
-        it "requests the correct resource" do
-          user1 = Twitter::User.new(:id => '7505382')
-          user2 = Twitter::User.new(:id => '14100886')
-          @client.users(user1, user2)
-          a_get("/1/users/lookup.json").
-            with(:query => {:user_id => "7505382,14100886"}).
-            should have_been_made
-        end
+      before do
+        stub_get("/1/users/lookup.json").
+          with(:query => {:user_id => "7505382,14100886"}).
+          to_return(:body => fixture("users.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
-      context "with screen_names IDs" do
-        before do
-          stub_get("/1/users/lookup.json").
-            with(:query => {:screen_name => "sferik,pengwynn"}).
-            to_return(:body => fixture("users.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-        end
-        it "requests the correct resource" do
-          user1 = Twitter::User.new(:screen_name => 'sferik')
-          user2 = Twitter::User.new(:screen_name => 'pengwynn')
-          @client.users(user1, user2)
-          a_get("/1/users/lookup.json").
-            with(:query => {:screen_name => "sferik,pengwynn"}).
-            should have_been_made
-        end
-      end
-      context "with both screen names and user IDs" do
-        before do
-          stub_get("/1/users/lookup.json").
-            with(:query => {:screen_name => "sferik", :user_id => "14100886"}).
-            to_return(:body => fixture("users.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-        end
-        it "requests the correct resource" do
-          user1 = Twitter::User.new(:screen_name => 'sferik')
-          user2 = Twitter::User.new(:id => '14100886')
-          @client.users(user1, user2)
-          a_get("/1/users/lookup.json").
-            with(:query => {:screen_name => "sferik", :user_id => "14100886"}).
-            should have_been_made
-        end
+      it "requests the correct resource" do
+        user1 = Twitter::User.new(:id => '7505382')
+        user2 = Twitter::User.new(:id => '14100886')
+        @client.users(user1, user2)
+        a_get("/1/users/lookup.json").
+          with(:query => {:user_id => "7505382,14100886"}).
+          should have_been_made
       end
     end
   end
@@ -193,59 +161,43 @@ describe Twitter::Client do
       end
     end
     context "with a user object passed" do
-      context "with a user ID" do
-        before do
-          stub_get("/1/users/show.json").
-            with(:query => {:user_id => "7505382"}).
-            to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-        end
-        it "requests the correct resource" do
-          user = Twitter::User.new(:id => 7505382)
-          @client.user(user)
-          a_get("/1/users/show.json").
-            with(:query => {:user_id => "7505382"}).
-            should have_been_made
-        end
+      before do
+        stub_get("/1/users/show.json").
+          with(:query => {:user_id => "7505382"}).
+          to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
-      context "with a screen_name" do
-        before do
-          stub_get("/1/users/show.json").
-            with(:query => {:screen_name => "sferik"}).
-            to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-        end
-        it "requests the correct resource" do
-          user = Twitter::User.new(:screen_name => 'sferik')
-          @client.user(user)
-          a_get("/1/users/show.json").
-            with(:query => {:screen_name => "sferik"}).
-            should have_been_made
-        end
+      it "requests the correct resource" do
+        user = Twitter::User.new(:id => 7505382)
+        @client.user(user)
+        a_get("/1/users/show.json").
+          with(:query => {:user_id => "7505382"}).
+          should have_been_made
       end
     end
-    context "without a screen name or user ID passed" do
-      context "without options passed" do
-        before do
-          stub_get("/1/account/verify_credentials.json").
-            to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-        end
-        it "requests the correct resource" do
-          @client.user
-          a_get("/1/account/verify_credentials.json").
-            should have_been_made
-        end
+  end
+  context "without a screen name or user ID passed" do
+    context "without options passed" do
+      before do
+        stub_get("/1/account/verify_credentials.json").
+          to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
-      context "with options passed" do
-        before do
-          stub_get("/1/account/verify_credentials.json").
-            with(:query => {:skip_status => "true"}).
-            to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-        end
-        it "requests the correct resource" do
-          @client.user(:skip_status => true)
-          a_get("/1/account/verify_credentials.json").
-            with(:query => {:skip_status => "true"}).
-            should have_been_made
-        end
+      it "requests the correct resource" do
+        @client.user
+        a_get("/1/account/verify_credentials.json").
+          should have_been_made
+      end
+    end
+    context "with options passed" do
+      before do
+        stub_get("/1/account/verify_credentials.json").
+          with(:query => {:skip_status => "true"}).
+          to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      end
+      it "requests the correct resource" do
+        @client.user(:skip_status => true)
+        a_get("/1/account/verify_credentials.json").
+          with(:query => {:skip_status => "true"}).
+          should have_been_made
       end
     end
   end

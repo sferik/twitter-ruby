@@ -1,7 +1,7 @@
 require 'twitter/base'
 
 module Twitter
-  class Identifiable < Base
+  class Identity < Base
 
     def self.fetch(attrs)
       id = attrs[:id]
@@ -12,18 +12,19 @@ module Twitter
     # Initializes a new object
     #
     # @param attrs [Hash]
+    # @raise [ArgumentError] Error raised when supplied argument is missing an :id key.
     # @return [Twitter::Base]
     def initialize(attrs={})
-      if attrs[:id]
-        self.update(attrs)
+      self.update(attrs)
+      if self.id
         @@identity_map[self.class] ||= {}
-        @@identity_map[self.class][attrs[:id]] = self
+        @@identity_map[self.class][self.id] = self
       else
-        super
+        raise ArgumentError, "argument must have an :id key"
       end
     end
 
-    # @param other [Twitter::Identifiable]
+    # @param other [Twitter::Identity]
     # @return [Boolean]
     def ==(other)
       super || self.attr_equal(:id, other) || self.attrs_equal(other)

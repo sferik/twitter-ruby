@@ -133,11 +133,6 @@ Any Faraday client errors are captured and re-raised as a
 `Twitter::Error::ClientError`, so there's no longer a need to separately rescue
 `Faraday::Error::ClientError`.
 
-The `Twitter::Error::EnhanceYourCalm` class has been removed, since all Search
-API requests are made via api.twitter.com, which does not return HTTP 420. When
-you hit your rate limit, Twitter returns HTTP 400, which raises a
-`Twitter::Error::BadRequest`.
-
 All `Twitter::Error.ratelimit` methods (including `Twitter::Error.retry_at`)
 have been replaced by the `Twitter::RateLimit` singleton class. After making
 any request, you can check the `Twitter::RateLimit` object for your current
@@ -165,9 +160,9 @@ vulnerabilities are discovered.
 
 Here are some fun facts about the 3.0 release:
 
-* The entire library is implemented in just 2,194 lines of code
-* With almost 5,500 lines of specs, the spec-to-code ratio is over 2.5:1
-* The spec suite contains 668 examples and runs in under 3 seconds on a MacBook
+* The entire library is implemented in just 2,201 lines of code
+* With over 5,000 lines of specs, the spec-to-code ratio is well over 2:1
+* The spec suite contains 631 examples and runs in under 2 seconds on a MacBook
 * This project has 100% C0 code coverage (the tests execute every line of
   source code at least once)
 * At the time of release, this library is comprehensive: you can request all

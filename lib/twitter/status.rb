@@ -5,7 +5,7 @@ require 'twitter/entity/hashtag'
 require 'twitter/entity/url'
 require 'twitter/entity/user_mention'
 require 'twitter/geo_factory'
-require 'twitter/identifiable'
+require 'twitter/identity'
 require 'twitter/media_factory'
 require 'twitter/metadata'
 require 'twitter/oembed'
@@ -13,7 +13,7 @@ require 'twitter/place'
 require 'twitter/user'
 
 module Twitter
-  class Status < Twitter::Identifiable
+  class Status < Twitter::Identity
     include Twitter::Creatable
     attr_reader :favorited, :favoriters, :from_user_id, :from_user_name,
       :in_reply_to_screen_name, :in_reply_to_attrs_id, :in_reply_to_status_id,

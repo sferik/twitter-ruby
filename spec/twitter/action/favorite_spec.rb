@@ -4,7 +4,7 @@ describe Twitter::Action::Favorite do
 
   describe "#sources" do
     it "returns a collection of users who favorited a status" do
-      sources = Twitter::Action::Favorite.new(:sources => [{}]).sources
+      sources = Twitter::Action::Favorite.new(:sources => [{:id => 7505382}]).sources
       sources.should be_an Array
       sources.first.should be_a Twitter::User
     end
@@ -16,7 +16,7 @@ describe Twitter::Action::Favorite do
 
   describe "#targets" do
     it "returns a collection containing the favorited status" do
-      targets = Twitter::Action::Favorite.new(:targets => [{}]).targets
+      targets = Twitter::Action::Favorite.new(:targets => [{:id => 25938088801}]).targets
       targets.should be_an Array
       targets.first.should be_a Twitter::Status
     end

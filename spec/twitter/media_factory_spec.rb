@@ -4,7 +4,7 @@ describe Twitter::MediaFactory do
 
   describe ".new" do
     it "generates a Photo" do
-      media = Twitter::MediaFactory.fetch_or_new(:type => 'photo')
+      media = Twitter::MediaFactory.fetch_or_new(:id => 1, :type => 'photo')
       media.should be_a Twitter::Photo
     end
     it "raises an ArgumentError when type is not specified" do

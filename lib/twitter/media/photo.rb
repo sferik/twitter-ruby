@@ -1,8 +1,8 @@
-require 'twitter/identifiable'
+require 'twitter/identity'
 require 'twitter/size'
 
 module Twitter
-  class Photo < Twitter::Identifiable
+  class Photo < Twitter::Identity
     attr_reader :display_url, :expanded_url, :indices, :media_url,
       :media_url_https, :url
 

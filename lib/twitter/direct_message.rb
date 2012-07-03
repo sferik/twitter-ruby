@@ -1,9 +1,9 @@
 require 'twitter/creatable'
-require 'twitter/identifiable'
+require 'twitter/identity'
 require 'twitter/user'
 
 module Twitter
-  class DirectMessage < Twitter::Identifiable
+  class DirectMessage < Twitter::Identity
     include Twitter::Creatable
     attr_reader :text
 

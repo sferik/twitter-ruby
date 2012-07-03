@@ -1,8 +1,8 @@
 require 'twitter/creatable'
-require 'twitter/identifiable'
+require 'twitter/identity'
 
 module Twitter
-  class SavedSearch < Twitter::Identifiable
+  class SavedSearch < Twitter::Identity
     include Twitter::Creatable
     attr_reader :name, :position, :query
   end
