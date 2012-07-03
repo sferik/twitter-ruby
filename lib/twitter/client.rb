@@ -1983,7 +1983,7 @@ module Twitter
     # @example Returns tweets related to twitter
     #   Twitter.search('twitter')
     def search(q, options={})
-      response = get("/search.json", options.merge(:q => q))
+      response = get("/search.json", options.merge(:q => q), :endpoint => @search_endpoint)
       Twitter::SearchResults.from_response(response)
     end
 

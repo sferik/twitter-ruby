@@ -37,10 +37,11 @@ describe Twitter::Client do
           :consumer_key => 'CK',
           :consumer_secret => 'CS',
           :endpoint => 'http://tumblr.com/',
-          :media_endpoint => 'https://upload.twitter.com',
+          :media_endpoint => 'http://upload.twitter.com',
           :middleware => Proc.new{},
           :oauth_token => 'OT',
           :oauth_token_secret => 'OS',
+          :search_endpoint => 'http://search.twitter.com',
         }
       end
 

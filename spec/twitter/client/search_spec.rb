@@ -8,13 +8,13 @@ describe Twitter::Client do
 
   describe "#search" do
     before do
-      stub_get("/search.json").
+      stub_get("/search.json", "https://search.twitter.com").
         with(:query => {:q => "twitter"}).
         to_return(:body => fixture("/search.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
       @client.search('twitter')
-      a_get("/search.json").
+      a_get("/search.json", "https://search.twitter.com").
         with(:query => {:q => "twitter"}).
         should have_been_made
     end
@@ -25,7 +25,6 @@ describe Twitter::Client do
       search.results.first.should be_a Twitter::Status
       search.results.first.text.should eq "@KaiserKuo from not too far away your new twitter icon looks like Vader."
     end
-
     it "returns the max_id value for a search result" do
       search = @client.search('twitter')
       search.max_id.should eq(28857935752)
@@ -33,7 +32,7 @@ describe Twitter::Client do
 
     context "when search API responds a malformed result" do
       before do
-        stub_get("/search.json").
+        stub_get("/search.json", "https://search.twitter.com").
           with(:query => {:q => "twitter"}).
           to_return(:body => fixture("/search_malformed.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end

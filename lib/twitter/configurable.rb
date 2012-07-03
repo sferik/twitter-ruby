@@ -12,6 +12,7 @@ module Twitter
       :endpoint,
       :media_endpoint,
       :middleware,
+      :search_endpoint,
     ] unless defined? CONFIG_KEYS
 
     attr_accessor *CONFIG_KEYS

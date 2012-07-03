@@ -28,6 +28,10 @@ module Twitter
         @media_endpoint ||= 'https://upload.twitter.com'
       end
 
+      def search_endpoint
+        @search_endpoint ||= 'https://search.twitter.com'
+      end
+
       def connection_options
         @connection_options ||= {
           :headers => {
