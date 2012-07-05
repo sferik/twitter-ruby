@@ -4,7 +4,7 @@ class String
   #
   # @return [String]
   def camelize
-    self.split('_').map(&:capitalize).join
+    self.gsub(/\/(.?)/){"::#{$1.upcase}"}.gsub(/(?:^|_)(.)/){$1.upcase}
   end unless method_defined?(:camelize)
 
 end
