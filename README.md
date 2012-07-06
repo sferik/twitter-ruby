@@ -1,9 +1,9 @@
-# The Twitter Ruby Gem [![Build Status](https://secure.travis-ci.org/jnunemaker/twitter.png?branch=master)][travis] [![Dependency Status](https://gemnasium.com/jnunemaker/twitter.png?travis)][gemnasium] [![Code Climate](https://codeclimate.com/badge.png)][codeclimate]
+# The Twitter Ruby Gem [![Build Status](https://secure.travis-ci.org/sferik/twitter.png?branch=master)][travis] [![Dependency Status](https://gemnasium.com/sferik/twitter.png?travis)][gemnasium] [![Code Climate](https://codeclimate.com/badge.png)][codeclimate]
 A Ruby wrapper for the Twitter API.
 
-[travis]: http://travis-ci.org/jnunemaker/twitter
-[gemnasium]: https://gemnasium.com/jnunemaker/twitter
-[codeclimate]: https://codeclimate.com/github/jnunemaker/twitter
+[travis]: http://travis-ci.org/sferik/twitter
+[gemnasium]: https://gemnasium.com/sferik/twitter
+[codeclimate]: https://codeclimate.com/github/sferik/twitter
 
 ## Installation
     gem install twitter
@@ -13,7 +13,7 @@ gem in version 0.5.0 and now is [maintained][] as a separate project:
 
     gem install t
 
-[removed]: https://github.com/jnunemaker/twitter/commit/dd2445e3e2c97f38b28a3f32ea902536b3897adf
+[removed]: https://github.com/sferik/twitter/commit/dd2445e3e2c97f38b28a3f32ea902536b3897adf
 [maintained]: https://github.com/sferik/t
 
 ## Documentation
@@ -36,7 +36,7 @@ Please direct questions about the library to the [mailing list].
 Does your project or organization use this gem? Add it to the [apps
 wiki][apps]!
 
-[apps]: https://github.com/jnunemaker/twitter/wiki/apps
+[apps]: https://github.com/sferik/twitter/wiki/apps
 
 ## What's new in version 3?
 ### Hashes
@@ -154,8 +154,8 @@ then, let this be your nudge. Once version 4 of this library is released, all
 previous versions will cease to be supported, even if critical security
 vulnerabilities are discovered.
 
-[each_with_object]: https://github.com/jnunemaker/twitter/commit/6052252a07baf7aefe0f100bba0abd2cbb7139bb
-[singleton_class]: https://github.com/jnunemaker/twitter/commit/2ed9db21c87d1218b15373e42a36ad536b07dcbb
+[each_with_object]: https://github.com/sferik/twitter/commit/6052252a07baf7aefe0f100bba0abd2cbb7139bb
+[singleton_class]: https://github.com/sferik/twitter/commit/2ed9db21c87d1218b15373e42a36ad536b07dcbb
 [ruby192]: http://blade.nagaokaut.ac.jp/cgi-bin/scat.rb/ruby/ruby-talk/367983
 
 Here are some fun facts about the 3.0 release:
@@ -248,7 +248,7 @@ Here are some ways *you* can contribute:
 * by fixing [issues][]
 * by reviewing patches
 
-[issues]: https://github.com/jnunemaker/twitter/issues
+[issues]: https://github.com/sferik/twitter/issues
 
 ## Submitting an Issue
 We use the [GitHub issue tracker][issues] to track bugs and features. Before
@@ -310,4 +310,4 @@ time of a major release, support for that Ruby version may be dropped.
 Copyright (c) 2006-2012 John Nunemaker, Wynn Netherland, Erik Michaels-Ober, Steve Richert.
 See [LICENSE][] for details.
 
-[license]: https://github.com/jnunemaker/twitter/blob/master/LICENSE.md
+[license]: https://github.com/sferik/twitter/blob/master/LICENSE.md

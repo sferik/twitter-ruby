@@ -20,7 +20,7 @@ Gem::Specification.new do |gem|
   gem.files = %w(CHANGELOG.md LICENSE.md README.md Rakefile twitter.gemspec)
   gem.files += Dir.glob("lib/**/*.rb")
   gem.files += Dir.glob("spec/**/*")
-  gem.homepage = 'https://github.com/jnunemaker/twitter'
+  gem.homepage = 'https://github.com/sferik/twitter'
   gem.name = 'twitter'
   gem.require_paths = ['lib']
   gem.required_rubygems_version = Gem::Requirement.new('>= 1.3.6')
