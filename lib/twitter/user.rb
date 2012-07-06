@@ -50,9 +50,41 @@ module Twitter
     alias verified? verified
     alias want_retweets? want_retweets
 
+    # @return [String]
+    def profile_image_url(size=:normal)
+      # The profile image URL comes in looking like like this:
+      # http://a0.twimg.com/profile_images/1759857427/image1326743606_normal.png
+      # It can be converted to any of the following sizes:
+      # http://a0.twimg.com/profile_images/1759857427/image1326743606.png
+      # http://a0.twimg.com/profile_images/1759857427/image1326743606_mini.png
+      # http://a0.twimg.com/profile_images/1759857427/image1326743606_bigger.png
+      @attrs[:profile_image_url].sub(/_normal(\.gif|\.jpe?g|\.png)$/, profile_image_suffix(size)) unless @attrs[:profile_image_url].nil?
+    end
+
+    # @return [String]
+    def profile_image_url_https(size=:normal)
+      # The profile image URL comes in looking like like this:
+      # https://a0.twimg.com/profile_images/1759857427/image1326743606_normal.png
+      # It can be converted to any of the following sizes:
+      # https://a0.twimg.com/profile_images/1759857427/image1326743606.png
+      # https://a0.twimg.com/profile_images/1759857427/image1326743606_mini.png
+      # https://a0.twimg.com/profile_images/1759857427/image1326743606_bigger.png
+      @attrs[:profile_image_url_https].sub(/_normal(\.gif|\.jpe?g|\.png)$/, profile_image_suffix(size)) unless @attrs[:profile_image_url_https].nil?
+    end
+
     # @return [Twitter::Status]
     def status
       @status ||= Twitter::Status.fetch_or_new(@attrs.dup[:status].merge(:user => @attrs.except(:status))) unless @attrs[:status].nil?
+    end
+
+  private
+
+    def profile_image_suffix(size)
+      if :original == size.to_sym
+        "\\1"
+      else
+        "_#{size}\\1"
+      end
     end
 
   end

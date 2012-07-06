@@ -59,12 +59,12 @@ better performance than calling these methods multiple times in serial.
 The `Twitter::Client#direct_messages` method has been renamed to
 `Twitter::Client#direct_messages_received`.
 
-The `Twitter::Status#expanded_urls` method has been removed. Use
-`Twitter::Status#urls` instead.
-
 The `Twitter::Client#profile_image` method has been removed. Use
 `Twitter::User#profile_image_url` (or `Twitter::User#profile_image_url_https`)
 instead.
+
+The `Twitter::Status#expanded_urls` method has been removed. Use
+`Twitter::Status#urls` instead.
 
 The `Twitter::Client#follow` method now checks to make sure the user isn't
 already being followed. If you don't wish to perform that check (which does
@@ -111,13 +111,13 @@ options:
     Twitter.connection_options[:headers][:user_agent] = 'Custom User Agent'
 
 ### Authentication
-This library now attempts to pull credentials from `ENV` if they are not
-otherwise specified. In `bash`:
+This library now attempts to pull credentials from from the following
+environment variables:
 
-    export TWITTER_CONSUMER_KEY=YOUR_CONSUMER_KEY
-    export TWITTER_CONSUMER_SECRET=YOUR_CONSUMER_SECRET
-    export TWITTER_OAUTH_TOKEN=YOUR_OAUTH_TOKEN
-    export TWITTER_OAUTH_TOKEN_SECRET=YOUR_OAUTH_TOKEN_SECRET
+    TWITTER_CONSUMER_KEY
+    TWITTER_CONSUMER_SECRET
+    TWITTER_OAUTH_TOKEN
+    TWITTER_OAUTH_TOKEN_SECRET
 
 ### Identity Map
 This version introduces an identity map, which ensures that the same objects
@@ -160,9 +160,9 @@ vulnerabilities are discovered.
 
 Here are some fun facts about the 3.0 release:
 
-* The entire library is implemented in just 2,201 lines of code
+* The entire library is implemented in just 2,216 lines of code
 * With over 5,000 lines of specs, the spec-to-code ratio is well over 2:1
-* The spec suite contains 631 examples and runs in under 2 seconds on a MacBook
+* The spec suite contains 643 examples and runs in under 2 seconds on a MacBook
 * This project has 100% C0 code coverage (the tests execute every line of
   source code at least once)
 * At the time of release, this library is comprehensive: you can request all
@@ -171,7 +171,7 @@ Here are some fun facts about the 3.0 release:
 * This gem works on every major Ruby implementation, including JRuby and
   Rubinius
 * The first version was released on November 26, 2006 (over 5 years ago)
-* This gem has just three dependencies: `faraday`, `multi_json`, and
+* This gem has only three dependencies: `faraday`, `multi_json`, and
   `simple_oauth`
 * Previous versions of this gem have been [downloaded over half a million
   times][stats]
