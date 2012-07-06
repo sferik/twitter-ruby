@@ -1,9 +1,7 @@
-3.0.2 - June 30, 2012
----------------------
+3.1.0 - July 6, 2012
+--------------------
+* [Add size option to `Twitter::User#profile_image_url` and `Twitter::User#profile_image_url_https`](https://github.com/sferik/twitter/commit/bd4c63c327308572f2d4b7ae266216d50ee35beb)
 * [Make object equality more strict](https://github.com/sferik/twitter/commit/537a5463d568e9a07ef5de5ce4dcad701b068ff3)
-
-3.0.1 - June 28, 2012
----------------------
 * [Pass options from Twitter::Client.user to Twitter::Client.verify_credentials](https://github.com/sferik/twitter/commit/8d99cfdbc7614690769c1682664cbe8cd9ea9c93)
 
 3.0.0 - June 28, 2012
