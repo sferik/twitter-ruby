@@ -307,7 +307,7 @@ timely fashion. If critical issues for a particular implementation exist at the
 time of a major release, support for that Ruby version may be dropped.
 
 ## Copyright
-Copyright (c) 2011 John Nunemaker, Wynn Netherland, Erik Michaels-Ober, Steve Richert.
+Copyright (c) 2006-2012 John Nunemaker, Wynn Netherland, Erik Michaels-Ober, Steve Richert.
 See [LICENSE][] for details.
 
 [license]: https://github.com/jnunemaker/twitter/blob/master/LICENSE.md
