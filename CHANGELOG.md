@@ -6,21 +6,21 @@
 
 3.0.0 - June 28, 2012
 ---------------------
-* [All returned hashes now use symbols as keys instead of strings](https://github.com/sferik/twitter/commit/d5b5d8788dc0c0cef6f2c28e6fa2dc6ffcf389eb)
-* [Methods allow multiple arguments and return an array](https://github.com/sferik/twitter/commit/78adf3833ebfcafda48d31dee7befdcfa76f2971)
-* [`Twitter::Client#users` can now return more than `Twitter::User` 100 objects](https://github.com/sferik/twitter/commit/296a8847aa9bea0881369649a91e38fc2e9b3076)
-* [Remove deprecated `Twitter::Status#expanded_urls` method](https://github.com/sferik/twitter/commit/50d2613b1ade92c820f553d6e8389a49ec53dac1)
-* [Check to make sure the user is not already being followed](https://github.com/sferik/twitter/commit/24ffbca370f6957bc9a6c43cb6a1ee55cade7bb8)
-* [The `Twitter::Client#search` now returns a `Twitter::SearchResult` object](https://github.com/sferik/twitter/pull/261/files) ([@wjlroe](http://twitter.com/wjlroe))
-* [Define middleware as a Faraday builder](https://github.com/sferik/twitter/commit/2bd5010fc38b235ee9cc09b75e1ae89f23409f94)
-* [Remove untested gateway middleware](https://github.com/sferik/twitter/commit/7e501a99fe15ba9be69d2b791fc1d99c1904542b)
+* [All returned hashes now use `Symbol` keys instead of `String` keys](https://github.com/sferik/twitter/commit/d5b5d8788dc0c0cef6f2c28e6fa2dc6ffcf389eb)
+* [`Twitter::Client` methods now allow multiple arguments and return an `Array`](https://github.com/sferik/twitter/commit/78adf3833ebfcafda48d31dee7befdcfa76f2971)
+* [`Twitter::Client#users` can now return more than 100 `Twitter::User` objects](https://github.com/sferik/twitter/commit/296a8847aa9bea0881369649a91e38fc2e9b3076)
+* [`Twitter::Client#search` now returns a `Twitter::SearchResult` object instead of an array of `Twitter::Status` objects](https://github.com/sferik/twitter/pull/261/files) ([@wjlroe](http://twitter.com/wjlroe))
+* [`Twitter::Client#follow` now checks to make sure a user is not already being followed before following](https://github.com/sferik/twitter/commit/24ffbca370f6957bc9a6c43cb6a1ee55cade7bb8)
+* [Add `Twitter::Client#follow!` to follow a user without checking whether they are already being followed](https://github.com/sferik/twitter/commit/24ffbca370f6957bc9a6c43cb6a1ee55cade7bb8)
+* [Add an identity map](https://github.com/sferik/twitter/commit/218479f71c861db79ccce8e12c4cb59d0a63cc77)
+* [Attempt to pull credentials from the environment when not specified](https://github.com/sferik/twitter/commit/32e3fde7ccc7aea15b24159302d7c0fd934a6a0a)
+* [Add default timeout options](https://github.com/sferik/twitter/commit/bb8a15d60e930233050e96964823b2f569e0943f)
+* [Middleware is now specified as a `Faraday::Builder`](https://github.com/sferik/twitter/commit/2bd5010fc38b235ee9cc09b75e1ae89f23409f94)
+* [Faraday errors are now captured and re-raised as a `Twitter::Error::ClientError`](https://github.com/sferik/twitter/commit/ccf3ddeb4cae937fdf3335546c17884472855149)
+* [Replace `Twitter::Error.ratelimit` methods with the singleton `Twitter::RateLimit` class](https://github.com/sferik/twitter/commit/4c63a7378305df791b6fbcd3d3beb83ccd360f95)
 * [Remove explicit proxy and user agent configuration](https://github.com/sferik/twitter/commit/f6e647f73eaa0f39b4306256789ded414ea9a8c2)
-* [Attempt to get credentials from the environment, when not specified](https://github.com/sferik/twitter/commit/32e3fde7ccc7aea15b24159302d7c0fd934a6a0a)
-* [Add identity map](https://github.com/sferik/twitter/commit/218479f71c861db79ccce8e12c4cb59d0a63cc77)
-* [Faraday client errors are captured and re-raised as `Twitter::Error::ClientError`](https://github.com/sferik/twitter/commit/ccf3ddeb4cae937fdf3335546c17884472855149)
-* [Remove `Twitter::Error::EnhanceYourCalm`](https://github.com/sferik/twitter/commit/fbcf8f1b932f79799db3256d66805339312937bc)
-* [All `Twitter::Error.ratelimit` methods (including `Twitter::Error.retry_at`) have been replaced by the `Twitter::RateLimit` class](https://github.com/sferik/twitter/commit/4c63a7378305df791b6fbcd3d3beb83ccd360f95)
-* [Set default timeout options](https://github.com/sferik/twitter/commit/bb8a15d60e930233050e96964823b2f569e0943f)
+* [Remove untested gateway middleware](https://github.com/sferik/twitter/commit/7e501a99fe15ba9be69d2b791fc1d99c1904542b)
+* [Remove deprecated `Twitter::Status#expanded_urls` method](https://github.com/sferik/twitter/commit/50d2613b1ade92c820f553d6e8389a49ec53dac1)
 
 2.5.0 - June 1, 2012
 --------------------
