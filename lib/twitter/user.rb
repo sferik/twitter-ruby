@@ -50,6 +50,9 @@ module Twitter
     alias verified? verified
     alias want_retweets? want_retweets
 
+    # Return the URL to the user's profile image
+    #
+    # @param size [String, Symbol] The size of the image. Must be one of: 'mini', 'normal', 'bigger' or 'original'
     # @return [String]
     def profile_image_url(size=:normal)
       # The profile image URL comes in looking like like this:
@@ -61,6 +64,9 @@ module Twitter
       @attrs[:profile_image_url].sub(/_normal(\.gif|\.jpe?g|\.png)$/, profile_image_suffix(size)) unless @attrs[:profile_image_url].nil?
     end
 
+    # Return the secure URL to the user's profile image
+    #
+    # @param size [String, Symbol] The size of the image. Must be one of: 'mini', 'normal', 'bigger' or 'original'
     # @return [String]
     def profile_image_url_https(size=:normal)
       # The profile image URL comes in looking like like this:
