@@ -6,7 +6,7 @@ class Hash
   # @return [Hash]
   def except(*keys)
     self.dup.except!(*keys)
-  end unless respond_to?(:except)
+  end unless method_defined?(:except)
 
   # Replaces the hash without the given keys.
   #
@@ -15,7 +15,7 @@ class Hash
   def except!(*keys)
     keys.each{|key| delete(key)}
     self
-  end unless respond_to?(:except!)
+  end unless method_defined?(:except!)
 
   # Take a list and merge it into the hash with the correct key
   #
