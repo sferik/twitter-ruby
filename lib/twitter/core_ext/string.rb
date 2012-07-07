@@ -5,6 +5,6 @@ class String
   # @return [String]
   def camelize
     self.gsub(/\/(.?)/){"::#{$1.upcase}"}.gsub(/(?:^|_)(.)/){$1.upcase}
-  end unless respond_to?(:camelize)
+  end unless method_defined?(:camelize)
 
 end
