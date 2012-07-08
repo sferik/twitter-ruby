@@ -111,7 +111,7 @@ options:
     Twitter.connection_options[:headers][:user_agent] = 'Custom User Agent'
 
 ### Authentication
-This library now attempts to pull credentials from from the following
+This library now attempts to pull credentials from the following
 environment variables:
 
     TWITTER_CONSUMER_KEY
