@@ -31,7 +31,7 @@ module Twitter
     end
 
     def self.from_response(response={})
-      self.fetch(response[:body]) || self.new(response[:body])
+      self.fetch_or_new(response[:body])
     end
 
     def self.fetch_or_new(attrs={})
