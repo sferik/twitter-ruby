@@ -3,7 +3,7 @@ require 'helper'
 describe Twitter::Base do
 
   before do
-    @base = Twitter::Base.new(:id => 1)
+    @base = Twitter::Base.store(:id => 1)
   end
 
   describe "#[]" do
@@ -32,4 +32,19 @@ describe Twitter::Base do
     end
   end
 
+  describe '.fetch' do
+    it 'returns existing objects' do
+      Twitter::Base.fetch(:id => 1).should be
+    end
+
+    it "retuns nil for objects that don't exist" do
+      Twitter::Base.fetch(:id => 2).should_not be
+    end
+  end
+
+  describe '.store' do
+    it 'stores Twitter::Base objects' do
+      Twitter::Base.store(:id => 1).should be_a Twitter::Base
+    end
+  end
 end

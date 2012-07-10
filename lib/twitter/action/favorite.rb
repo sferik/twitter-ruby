@@ -10,7 +10,7 @@ module Twitter
       # @return [Array<Twitter::Status>]
       def targets
         @targets = Array(@attrs[:targets]).map do |status|
-          Twitter::Status.fetch_or_new(status)
+          Twitter::Status.fetch_or_store(status)
         end
       end
 

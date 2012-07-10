@@ -25,17 +25,40 @@ module Twitter
       end
     end
 
+    # Retrieves an object from the identity map.
+    #
+    # @param attrs [Hash]
+    # @return [Twitter::Base]
     def self.fetch(attrs)
       @@identity_map[self] ||= {}
       @@identity_map[self][Marshal.dump(attrs)]
     end
 
-    def self.from_response(response={})
-      self.fetch_or_new(response[:body])
+    # Stores an object in the identity map and returns the newly created
+    # object.
+    #
+    # @param attrs [Hash]
+    # @return [Twitter::Base]
+    def self.store(attrs)
+      @@identity_map[self] ||= {}
+      @@identity_map[self][Marshal.dump(attrs)] = self.new(attrs)
     end
 
-    def self.fetch_or_new(attrs={})
-      self.fetch(attrs) || self.new(attrs)
+    # Returns a new object based on the response hash
+    #
+    # @param attrs [Hash]
+    # @return [Twitter::Base]
+    def self.from_response(response={})
+      self.fetch_or_store(response[:body])
+    end
+
+    # Retrieves an object from the identity map, or stores it in the
+    # identity map if it doesn't already exist.
+    #
+    # @param attrs [Hash]
+    # @return [Twitter::Base]
+    def self.fetch_or_store(attrs={})
+      self.fetch(attrs) || self.store(attrs)
     end
 
     # Initializes a new object
@@ -44,8 +67,6 @@ module Twitter
     # @return [Twitter::Base]
     def initialize(attrs={})
       self.update(attrs)
-      @@identity_map[self.class] ||= {}
-      @@identity_map[self.class][Marshal.dump(attrs)] = self
     end
 
     # Fetches an attribute of an object using hash notation
