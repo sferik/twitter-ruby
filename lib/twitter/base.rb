@@ -31,7 +31,12 @@ module Twitter
     # @return [Twitter::Base]
     def self.fetch(attrs)
       @@identity_map[self] ||= {}
-      @@identity_map[self][Marshal.dump(attrs)]
+      if object = @@identity_map[self][Marshal.dump(attrs)]
+        return object
+      end
+
+      return yield if block_given?
+      raise Twitter::IdentityMapKeyError, 'key not found'
     end
 
     # Stores an object in the identity map and returns the newly created
@@ -39,9 +44,9 @@ module Twitter
     #
     # @param attrs [Hash]
     # @return [Twitter::Base]
-    def self.store(attrs)
+    def self.store(object)
       @@identity_map[self] ||= {}
-      @@identity_map[self][Marshal.dump(attrs)] = self.new(attrs)
+      @@identity_map[self][Marshal.dump(object.attrs)] = object
     end
 
     # Returns a new object based on the response hash
@@ -58,7 +63,10 @@ module Twitter
     # @param attrs [Hash]
     # @return [Twitter::Base]
     def self.fetch_or_store(attrs={})
-      self.fetch(attrs) || self.store(attrs)
+      self.fetch(attrs) do
+        object = self.new(attrs)
+        self.store(object)
+      end
     end
 
     # Initializes a new object
