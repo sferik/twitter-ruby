@@ -3,7 +3,8 @@ require 'helper'
 describe Twitter::Base do
 
   before do
-    @base = Twitter::Base.new(:id => 1)
+    object = Twitter::Base.new(:id => 1)
+    @base = Twitter::Base.store(object)
   end
 
   describe "#[]" do
@@ -32,4 +33,34 @@ describe Twitter::Base do
     end
   end
 
+  describe '.fetch' do
+    it 'returns existing objects' do
+      Twitter::Base.fetch(:id => 1).should be
+    end
+
+    it "raises an error on objects that don't exist" do
+      lambda {
+        Twitter::Base.fetch(:id => 6)
+      }.should raise_error(Twitter::IdentityMapKeyError)
+    end
+  end
+
+  describe '.store' do
+    it 'stores Twitter::Base objects' do
+      object = Twitter::Base.new(:id => 4)
+      Twitter::Base.store(object).should be_a Twitter::Base
+    end
+  end
+
+  describe '.fetch_or_create' do
+    it 'returns existing objects' do
+      Twitter::Base.fetch_or_create(:id => 1).should be
+    end
+
+    it 'creates new objects and stores them' do
+      Twitter::Base.fetch_or_create(:id => 2).should be
+
+      Twitter::Base.fetch(:id => 2).should be
+    end
+  end
 end

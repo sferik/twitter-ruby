@@ -9,6 +9,15 @@ module Twitter
       id && @@identity_map[self][id] && @@identity_map[self][id].update(attrs) || super(attrs)
     end
 
+    # Stores an object in the identity map.
+    #
+    # @param attrs [Hash]
+    # @return [Twitter::Base]
+    def self.store(object)
+      @@identity_map[self] ||= {}
+      object.id && @@identity_map[self][object.id] = object || super(object)
+    end
+
     # Initializes a new object
     #
     # @param attrs [Hash]
@@ -16,12 +25,7 @@ module Twitter
     # @return [Twitter::Base]
     def initialize(attrs={})
       self.update(attrs)
-      if self.id
-        @@identity_map[self.class] ||= {}
-        @@identity_map[self.class][self.id] = self
-      else
-        raise ArgumentError, "argument must have an :id key"
-      end
+      raise ArgumentError, "argument must have an :id key" unless self.id
     end
 
     # @param other [Twitter::Identity]
