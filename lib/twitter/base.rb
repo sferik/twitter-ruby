@@ -78,7 +78,7 @@ module Twitter
 
     # Alias for backwards compatability
     class << self
-      alias fetch_or_store fetch_or_create
+      alias fetch_or_new fetch_or_create
     end
 
     # Initializes a new object
