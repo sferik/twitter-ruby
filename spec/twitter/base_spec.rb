@@ -52,13 +52,13 @@ describe Twitter::Base do
     end
   end
 
-  describe '.fetch_or_store' do
+  describe '.fetch_or_create' do
     it 'returns existing objects' do
-      Twitter::Base.fetch_or_store(:id => 1).should be
+      Twitter::Base.fetch_or_create(:id => 1).should be
     end
 
     it 'creates new objects and stores them' do
-      Twitter::Base.fetch_or_store(:id => 2).should be
+      Twitter::Base.fetch_or_create(:id => 2).should be
 
       Twitter::Base.fetch(:id => 2).should be
     end

@@ -10,9 +10,9 @@ module Twitter
     # @param attrs [Hash]
     # @raise [ArgumentError] Error raised when supplied argument is missing a :type key.
     # @return [Twitter::Point, Twitter::Polygon]
-    def self.fetch_or_store(attrs={})
+    def self.fetch_or_create(attrs={})
       if type = attrs.delete(:type)
-        Twitter.const_get(type.camelize.to_sym).fetch_or_store(attrs)
+        Twitter.const_get(type.camelize.to_sym).fetch_or_create(attrs)
       else
         raise ArgumentError, "argument must have a :type key"
       end

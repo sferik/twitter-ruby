@@ -39,8 +39,7 @@ module Twitter
       raise Twitter::IdentityMapKeyError, 'key not found'
     end
 
-    # Stores an object in the identity map and returns the newly created
-    # object.
+    # Stores an object in the identity map.
     #
     # @param attrs [Hash]
     # @return [Twitter::Base]
@@ -49,12 +48,21 @@ module Twitter
       @@identity_map[self][Marshal.dump(object.attrs)] = object
     end
 
+    # Creates a new object and stores it in the identity map.
+    #
+    # @param attrs [Hash]
+    # @return [Twitter::Base]
+    def self.create(attrs={})
+      object = self.new(attrs)
+      self.store(object)
+    end
+
     # Returns a new object based on the response hash
     #
     # @param attrs [Hash]
     # @return [Twitter::Base]
     def self.from_response(response={})
-      self.fetch_or_store(response[:body])
+      self.fetch_or_create(response[:body])
     end
 
     # Retrieves an object from the identity map, or stores it in the
@@ -62,11 +70,15 @@ module Twitter
     #
     # @param attrs [Hash]
     # @return [Twitter::Base]
-    def self.fetch_or_store(attrs={})
+    def self.fetch_or_create(attrs={})
       self.fetch(attrs) do
-        object = self.new(attrs)
-        self.store(object)
+        self.create(attrs)
       end
+    end
+
+    # Alias for backwards compatability
+    class << self
+      alias fetch_or_store fetch_or_create
     end
 
     # Initializes a new object

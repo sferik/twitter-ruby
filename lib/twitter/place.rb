@@ -8,7 +8,7 @@ module Twitter
 
     # @return [Twitter::Point, Twitter::Polygon]
     def bounding_box
-      @bounding_box ||= Twitter::GeoFactory.fetch_or_store(@attrs[:bounding_box]) unless @attrs[:bounding_box].nil?
+      @bounding_box ||= Twitter::GeoFactory.fetch_or_create(@attrs[:bounding_box]) unless @attrs[:bounding_box].nil?
     end
 
     # @return [String]

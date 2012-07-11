@@ -4,16 +4,16 @@ describe Twitter::GeoFactory do
 
   describe ".new" do
     it "generates a Point" do
-      geo = Twitter::GeoFactory.fetch_or_store(:type => 'Point')
+      geo = Twitter::GeoFactory.fetch_or_create(:type => 'Point')
       geo.should be_a Twitter::Point
     end
     it "generates a Polygon" do
-      geo = Twitter::GeoFactory.fetch_or_store(:type => 'Polygon')
+      geo = Twitter::GeoFactory.fetch_or_create(:type => 'Polygon')
       geo.should be_a Twitter::Polygon
     end
     it "raises an ArgumentError when type is not specified" do
       lambda do
-        Twitter::GeoFactory.fetch_or_store
+        Twitter::GeoFactory.fetch_or_create
       end.should raise_error(ArgumentError, "argument must have a :type key")
     end
   end
