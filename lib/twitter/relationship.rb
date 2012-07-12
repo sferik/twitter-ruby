@@ -1,17 +1,18 @@
 require 'twitter/base'
-require 'twitter/user'
+require 'twitter/source_user'
+require 'twitter/target_user'
 
 module Twitter
   class Relationship < Twitter::Base
 
     # @return [Twitter::User]
     def source
-      @source ||= Twitter::User.fetch_or_create(@attrs[:source]) unless @attrs[:source].nil?
+      @source ||= Twitter::SourceUser.fetch_or_create(@attrs[:source]) unless @attrs[:source].nil?
     end
 
     # @return [Twitter::User]
     def target
-      @target ||= Twitter::User.fetch_or_create(@attrs[:target]) unless @attrs[:target].nil?
+      @target ||= Twitter::TargetUser.fetch_or_create(@attrs[:target]) unless @attrs[:target].nil?
     end
 
     # Update the attributes of a Relationship

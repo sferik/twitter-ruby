@@ -160,9 +160,9 @@ vulnerabilities are discovered.
 
 Here are some fun facts about the 3.0 release:
 
-* The entire library is implemented in just 2,216 lines of code
+* The entire library is implemented in just 2,245 lines of code
 * With over 5,000 lines of specs, the spec-to-code ratio is well over 2:1
-* The spec suite contains 643 examples and runs in under 2 seconds on a MacBook
+* The spec suite contains 657 examples and runs in under 2 seconds on a MacBook
 * This project has 100% C0 code coverage (the tests execute every line of
   source code at least once)
 * At the time of release, this library is comprehensive: you can request all
