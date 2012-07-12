@@ -1,5 +1,4 @@
 require 'twitter/base'
-require 'twitter/rate_limit'
 require 'twitter/user'
 
 module Twitter

@@ -1,5 +1,4 @@
 require 'twitter/core_ext/kernel'
-require 'twitter/rate_limit'
 
 module Twitter
   class Cursor

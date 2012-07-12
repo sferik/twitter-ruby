@@ -1,5 +1,4 @@
 require 'twitter/identity_map'
-require 'twitter/rate_limit'
 
 module Twitter
   class Base
