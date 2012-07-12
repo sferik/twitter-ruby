@@ -5,6 +5,7 @@ require 'twitter/status'
 
 module Twitter
   class User < BasicUser
+    PROFILE_IMAGE_SUFFIX_REGEX = /_normal(\.gif|\.jpe?g|\.png)$/
     include Twitter::Creatable
     attr_reader :connections, :contributors_enabled, :default_profile,
       :default_profile_image, :description, :favourites_count,
@@ -51,7 +52,7 @@ module Twitter
       # http://a0.twimg.com/profile_images/1759857427/image1326743606.png
       # http://a0.twimg.com/profile_images/1759857427/image1326743606_mini.png
       # http://a0.twimg.com/profile_images/1759857427/image1326743606_bigger.png
-      @attrs[:profile_image_url].sub(/_normal(\.gif|\.jpe?g|\.png)$/, profile_image_suffix(size)) unless @attrs[:profile_image_url].nil?
+      resize_profile_image_url(@attrs[:profile_image_url], size) unless @attrs[:profile_image_url].nil?
     end
 
     # Return the secure URL to the user's profile image
@@ -65,7 +66,7 @@ module Twitter
       # https://a0.twimg.com/profile_images/1759857427/image1326743606.png
       # https://a0.twimg.com/profile_images/1759857427/image1326743606_mini.png
       # https://a0.twimg.com/profile_images/1759857427/image1326743606_bigger.png
-      @attrs[:profile_image_url_https].sub(/_normal(\.gif|\.jpe?g|\.png)$/, profile_image_suffix(size)) unless @attrs[:profile_image_url_https].nil?
+      resize_profile_image_url(@attrs[:profile_image_url_https], size) unless @attrs[:profile_image_url_https].nil?
     end
 
     # @return [Twitter::Status]
@@ -74,6 +75,10 @@ module Twitter
     end
 
   private
+
+    def resize_profile_image_url(url, size)
+      url.sub(PROFILE_IMAGE_SUFFIX_REGEX, profile_image_suffix(size))
+    end
 
     def profile_image_suffix(size)
       if :original == size.to_sym
