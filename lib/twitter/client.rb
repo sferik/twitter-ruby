@@ -2287,7 +2287,7 @@ module Twitter
       response[:body][:trends].each do |key, value|
         trends[key] = []
         value.each do |trend|
-          trends[key] << Twitter::Trend.fetch_or_create(trend)
+          trends[key] << Twitter::Trend.fetch_or_new(trend)
         end
       end
       trends
@@ -2310,7 +2310,7 @@ module Twitter
       response[:body][:trends].each do |key, value|
         trends[key] = []
         value.each do |trend|
-          trends[key] << Twitter::Trend.fetch_or_create(trend)
+          trends[key] << Twitter::Trend.fetch_or_new(trend)
         end
       end
       trends
@@ -2753,7 +2753,7 @@ module Twitter
       options[:excluded] = options[:excluded].join(',') if options[:excluded].is_a?(Array)
       response = get("/1/users/recommendations.json", options)
       response[:body].map do |recommendation|
-        Twitter::User.fetch_or_create(recommendation[:user])
+        Twitter::User.fetch_or_new(recommendation[:user])
       end
     end
 
@@ -2820,7 +2820,7 @@ module Twitter
 
     def collection_from_array(array, klass)
       array.map do |element|
-        klass.fetch_or_create(element)
+        klass.fetch_or_new(element)
       end
     end
 

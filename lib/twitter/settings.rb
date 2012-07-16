@@ -10,7 +10,7 @@ module Twitter
 
     # @return [Twitter::Place]
     def trend_location
-      @trend_location ||= Twitter::Place.fetch_or_create(@attrs[:trend_location].first) unless @attrs[:trend_location].nil? || @attrs[:trend_location].empty?
+      @trend_location ||= Twitter::Place.fetch_or_new(@attrs[:trend_location].first) unless @attrs[:trend_location].nil? || @attrs[:trend_location].empty?
     end
 
   end

@@ -61,7 +61,7 @@ module Twitter
     # @param attrs [Hash]
     # @return [Twitter::Base]
     def self.from_response(response={})
-      self.fetch_or_create(response[:body])
+      self.fetch_or_new(response[:body])
     end
 
     # Retrieves an object from the identity map, or stores it in the
@@ -69,7 +69,7 @@ module Twitter
     #
     # @param attrs [Hash]
     # @return [Twitter::Base]
-    def self.fetch_or_create(attrs={})
+    def self.fetch_or_new(attrs={})
       self.fetch(attrs) do
         self.create(attrs)
       end
@@ -77,7 +77,7 @@ module Twitter
 
     # Alias for backwards compatability
     class << self
-      alias fetch_or_new fetch_or_create
+      alias fetch_or_create fetch_or_new
     end
 
     # Initializes a new object
