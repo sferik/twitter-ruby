@@ -53,10 +53,4 @@ describe Twitter do
     end
   end
 
-  Twitter::Configurable::CONFIG_KEYS.each do |key|
-    it "has a default #{key.to_s.gsub('_', ' ')}" do
-      Twitter.send(key).should eq Twitter::Default.options[key]
-    end
-  end
-
 end
