@@ -1,12 +1,8 @@
-require 'twitter/identity_map'
-
 module Twitter
   class Base
     attr_reader :attrs
     alias body attrs
     alias to_hash attrs
-
-    @@identity_map = IdentityMap.new
 
     # Define methods that retrieve the value from an initialized instance variable Hash, using the attribute as a key
     #
@@ -29,8 +25,10 @@ module Twitter
     # @param attrs [Hash]
     # @return [Twitter::Base]
     def self.fetch(attrs)
-      @@identity_map[self] ||= {}
-      if object = @@identity_map[self][Marshal.dump(attrs)]
+      return unless Twitter.identity_map
+
+      Twitter.identity_map[self] ||= {}
+      if object = Twitter.identity_map[self][Marshal.dump(attrs)]
         return object
       end
 
@@ -43,17 +41,10 @@ module Twitter
     # @param attrs [Hash]
     # @return [Twitter::Base]
     def self.store(object)
-      @@identity_map[self] ||= {}
-      @@identity_map[self][Marshal.dump(object.attrs)] = object
-    end
+      return object unless Twitter.identity_map
 
-    # Creates a new object and stores it in the identity map.
-    #
-    # @param attrs [Hash]
-    # @return [Twitter::Base]
-    def self.create(attrs={})
-      object = self.new(attrs)
-      self.store(object)
+      Twitter.identity_map[self] ||= {}
+      Twitter.identity_map[self][Marshal.dump(object.attrs)] = object
     end
 
     # Returns a new object based on the response hash
@@ -61,7 +52,7 @@ module Twitter
     # @param attrs [Hash]
     # @return [Twitter::Base]
     def self.from_response(response={})
-      self.fetch_or_create(response[:body])
+      self.fetch_or_new(response[:body])
     end
 
     # Retrieves an object from the identity map, or stores it in the
@@ -69,15 +60,13 @@ module Twitter
     #
     # @param attrs [Hash]
     # @return [Twitter::Base]
-    def self.fetch_or_create(attrs={})
-      self.fetch(attrs) do
-        self.create(attrs)
-      end
-    end
+    def self.fetch_or_new(attrs={})
+      return self.new(attrs) unless Twitter.identity_map
 
-    # Alias for backwards compatability
-    class << self
-      alias fetch_or_new fetch_or_create
+      self.fetch(attrs) do
+        object = self.new(attrs)
+        self.store(object)
+      end
     end
 
     # Initializes a new object

@@ -7,12 +7,12 @@ module Twitter
 
     # @return [Twitter::User]
     def source
-      @source ||= Twitter::SourceUser.fetch_or_create(@attrs[:source]) unless @attrs[:source].nil?
+      @source ||= Twitter::SourceUser.fetch_or_new(@attrs[:source]) unless @attrs[:source].nil?
     end
 
     # @return [Twitter::User]
     def target
-      @target ||= Twitter::TargetUser.fetch_or_create(@attrs[:target]) unless @attrs[:target].nil?
+      @target ||= Twitter::TargetUser.fetch_or_new(@attrs[:target]) unless @attrs[:target].nil?
     end
 
     # Update the attributes of a Relationship

@@ -14,7 +14,7 @@ module Twitter
     # @return [Array<Twitter::User>]
     def users
       @users ||= Array(@attrs[:users]).map do |user|
-        Twitter::User.fetch_or_create(user)
+        Twitter::User.fetch_or_new(user)
       end unless @attrs[:users].nil?
     end
 

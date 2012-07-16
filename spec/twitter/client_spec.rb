@@ -42,6 +42,7 @@ describe Twitter::Client do
           :oauth_token => 'OT',
           :oauth_token_secret => 'OS',
           :search_endpoint => 'http://search.twitter.com',
+          :identity_map => ::Hash
         }
       end
 

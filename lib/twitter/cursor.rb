@@ -24,7 +24,7 @@ module Twitter
       self.update(attrs)
       @collection = Array(attrs[method.to_sym]).map do |item|
         if klass
-          klass.fetch_or_create(item)
+          klass.fetch_or_new(item)
         else
           item
         end

@@ -9,12 +9,12 @@ module Twitter
 
     # @return [Twitter::User]
     def recipient
-      @recipient ||= Twitter::User.fetch_or_create(@attrs[:recipient]) unless @attrs[:recipient].nil?
+      @recipient ||= Twitter::User.fetch_or_new(@attrs[:recipient]) unless @attrs[:recipient].nil?
     end
 
     # @return [Twitter::User]
     def sender
-      @sender ||= Twitter::User.fetch_or_create(@attrs[:sender]) unless @attrs[:sender].nil?
+      @sender ||= Twitter::User.fetch_or_new(@attrs[:sender]) unless @attrs[:sender].nil?
     end
 
   end

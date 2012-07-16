@@ -1,5 +1,6 @@
 require 'faraday'
 require 'twitter/configurable'
+require 'twitter/identity_map'
 require 'twitter/request/multipart_with_file'
 require 'twitter/response/parse_json'
 require 'twitter/response/raise_client_error'
@@ -61,6 +62,10 @@ module Twitter
             builder.adapter Faraday.default_adapter         # Set Faraday's HTTP adapter
           end
         )
+      end
+
+      def identity_map
+        @identity_map ||= Twitter::IdentityMap.new
       end
 
       def consumer_key
