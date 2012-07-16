@@ -4,9 +4,16 @@ module Twitter
   class Identity < Base
 
     def self.fetch(attrs)
+      return unless Twitter.identity_map
+
       id = attrs[:id]
-      @@identity_map[self] ||= {}
-      id && @@identity_map[self][id] && @@identity_map[self][id].update(attrs) || super(attrs)
+      Twitter.identity_map[self] ||= {}
+      if id && Twitter.identity_map[self][id]
+        return Twitter.identity_map[self][id].update(attrs)
+      end
+
+      return yield if block_given?
+      raise Twitter::IdentityMapKeyError, 'key not found'
     end
 
     # Stores an object in the identity map.
@@ -14,8 +21,8 @@ module Twitter
     # @param attrs [Hash]
     # @return [Twitter::Base]
     def self.store(object)
-      @@identity_map[self] ||= {}
-      object.id && @@identity_map[self][object.id] = object || super(object)
+      Twitter.identity_map[self] ||= {}
+      object.id && Twitter.identity_map[self][object.id] = object || super(object)
     end
 
     # Initializes a new object

@@ -65,7 +65,7 @@ module Twitter
       end
 
       def identity_map
-        @identity_map ||= Twitter::IdentityMap.new({})
+        @identity_map ||= Twitter::IdentityMap.new
       end
 
       def consumer_key

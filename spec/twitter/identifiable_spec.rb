@@ -10,6 +10,19 @@ describe Twitter::Identity do
     end
   end
 
+  describe '.fetch' do
+    it 'returns existing objects' do
+      Twitter::Identity.store(Twitter::Identity.new(:id => 1))
+      Twitter::Identity.fetch(:id => 1).should be
+    end
+
+    it "raises an error on objects that don't exist" do
+      lambda {
+        Twitter::Identity.fetch(:id => 6)
+      }.should raise_error(Twitter::IdentityMapKeyError)
+    end
+  end
+
   describe "#==" do
     it "returns true when objects IDs are the same" do
       one = Twitter::Identity.new(:id => 1, :screen_name => "sferik")
