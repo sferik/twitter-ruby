@@ -1,3 +1,10 @@
+3.2.0
+-----
+* [Make identity map configurable](https://github.com/sferik/twitter/pull/288)
+* [Decouple identity map from object instantiation](https://github.com/sferik/twitter/pull/286)
+* [Make `IdentityMapKeyError` inherit from `IndexError`](https://github.com/sferik/twitter/commit/5503704c8601fa533299e22b49040cd073b85a6a)
+* [Break up `Twitter::User` class into `Twitter::BasicUser`, `Twitter::SourceUser`, `Twitter::TargetUser`, and `Twitter::User`](https://github.com/sferik/twitter/commit/9d4f1e5dc4001adb124d07584f64322555e0e73c)
+
 3.1.0
 -----
 * [Add size option to `Twitter::User#profile_image_url` and `Twitter::User#profile_image_url_https`](https://github.com/sferik/twitter/commit/bd4c63c327308572f2d4b7ae266216d50ee35beb)
