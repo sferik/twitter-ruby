@@ -13,6 +13,7 @@ module Twitter
       :media_endpoint,
       :middleware,
       :search_endpoint,
+      :identity_map
     ] unless defined? CONFIG_KEYS
 
     attr_accessor *CONFIG_KEYS
