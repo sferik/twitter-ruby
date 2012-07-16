@@ -69,11 +69,6 @@ module Twitter
       end
     end
 
-    # Alias for backwards compatability
-    class << self
-      alias fetch_or_create fetch_or_new
-    end
-
     # Initializes a new object
     #
     # @param attrs [Hash]
