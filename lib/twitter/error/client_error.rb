@@ -9,8 +9,8 @@ module Twitter
       #
       # @param body [Hash]
       # @return [Twitter::Error]
-      def self.from_response_body(body)
-        new(parse_error(body))
+      def self.from_response(response={})
+        new(parse_error(response[:body]), response[:response_headers])
       end
 
     private

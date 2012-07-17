@@ -1,7 +1,6 @@
 module Twitter
   class Base
     attr_reader :attrs
-    alias body attrs
     alias to_hash attrs
 
     # Define methods that retrieve the value from an initialized instance variable Hash, using the attribute as a key
@@ -74,7 +73,7 @@ module Twitter
     # @param attrs [Hash]
     # @return [Twitter::Base]
     def initialize(attrs={})
-      self.update(attrs)
+      @attrs = attrs
     end
 
     # Fetches an attribute of an object using hash notation
@@ -91,7 +90,6 @@ module Twitter
     # @param attrs [Hash]
     # @return [Twitter::Base]
     def update(attrs)
-      @attrs ||= {}
       @attrs.update(attrs)
       self
     end

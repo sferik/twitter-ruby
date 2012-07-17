@@ -8,7 +8,7 @@ describe Twitter::Relationship do
       source.should be_a Twitter::SourceUser
     end
     it "returns nil when source is not set" do
-      source = Twitter::Relationship.new.source
+      source = Twitter::Relationship.new(:relationship => {}).source
       source.should be_nil
     end
   end
@@ -19,8 +19,16 @@ describe Twitter::Relationship do
       target.should be_a Twitter::TargetUser
     end
     it "returns nil when target is not set" do
-      target = Twitter::Relationship.new.target
+      target = Twitter::Relationship.new(:relationship => {}).target
       target.should be_nil
+    end
+  end
+
+  describe "#update" do
+    it "updates a relationship" do
+      relationship = Twitter::Relationship.new(:relationship => {:target => {:id => 7505382}})
+      relationship.update(:relationship => {:target => {:id => 14100886}})
+      relationship.target.id.should eq 14100886
     end
   end
 

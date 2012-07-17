@@ -5,7 +5,6 @@ require 'twitter/request/multipart_with_file'
 require 'twitter/response/parse_json'
 require 'twitter/response/raise_client_error'
 require 'twitter/response/raise_server_error'
-require 'twitter/response/rate_limit'
 require 'twitter/version'
 
 module Twitter
@@ -58,7 +57,6 @@ module Twitter
             builder.use Twitter::Response::RaiseClientError # Handle 4xx server responses
             builder.use Twitter::Response::ParseJson        # Parse JSON response bodies using MultiJson
             builder.use Twitter::Response::RaiseServerError # Handle 5xx server responses
-            builder.use Twitter::Response::RateLimit        # Update RateLimit object
             builder.adapter Faraday.default_adapter         # Set Faraday's HTTP adapter
           end
         )

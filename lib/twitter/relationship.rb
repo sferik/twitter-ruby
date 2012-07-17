@@ -5,6 +5,14 @@ require 'twitter/target_user'
 module Twitter
   class Relationship < Twitter::Base
 
+    # Initializes a new object
+    #
+    # @param attrs [Hash]
+    # @return [Twitter::Relationship]
+    def initialize(attrs={})
+      @attrs = attrs[:relationship]
+    end
+
     # @return [Twitter::User]
     def source
       @source ||= Twitter::SourceUser.fetch_or_new(@attrs[:source]) unless @attrs[:source].nil?
@@ -20,7 +28,6 @@ module Twitter
     # @param attrs [Hash]
     # @return [Twitter::Relationship]
     def update(attrs)
-      @attrs ||= {}
       @attrs.update(attrs[:relationship]) unless attrs[:relationship].nil?
       self
     end

@@ -40,6 +40,23 @@ describe Twitter do
     it "returns a Twitter::Client" do
       Twitter.client.should be_a Twitter::Client
     end
+
+    context "when the options don't change" do
+      it "caches the client" do
+        Twitter.client.should eq Twitter.client
+      end
+    end
+    context "when the options change" do
+      it "busts the cache" do
+        client1 = Twitter.client
+        Twitter.configure do |config|
+          config.consumer_key = 'abc'
+          config.consumer_secret = '123'
+        end
+        client2 = Twitter.client
+        client1.should_not eq client2
+      end
+    end
   end
 
   describe ".configure" do

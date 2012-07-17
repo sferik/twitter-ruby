@@ -19,9 +19,9 @@ module Twitter
     # Initializes a new Cursor
     #
     # @param attrs [Hash]
-    # @return [Twitter::Base]
+    # @return [Twitter::Cursor]
     def initialize(attrs={}, method=:ids, klass=nil)
-      self.update(attrs)
+      @attrs = attrs
       @collection = Array(attrs[method.to_sym]).map do |item|
         if klass
           klass.fetch_or_new(item)
@@ -55,16 +55,6 @@ module Twitter
       next_cursor.zero?
     end
     alias last last?
-
-    # Update the attributes of an object
-    #
-    # @param attrs [Hash]
-    # @return [Twitter::Cursor]
-    def update(attrs)
-      @attrs ||= {}
-      @attrs.update(attrs)
-      self
-    end
 
   end
 end

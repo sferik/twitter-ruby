@@ -19,7 +19,7 @@ module Twitter
     # Stores an object in the identity map.
     #
     # @param attrs [Hash]
-    # @return [Twitter::Base]
+    # @return [Twitter::Identity]
     def self.store(object)
       Twitter.identity_map[self] ||= {}
       object.id && Twitter.identity_map[self][object.id] = object || super(object)
@@ -29,9 +29,9 @@ module Twitter
     #
     # @param attrs [Hash]
     # @raise [ArgumentError] Error raised when supplied argument is missing an :id key.
-    # @return [Twitter::Base]
+    # @return [Twitter::Identity]
     def initialize(attrs={})
-      self.update(attrs)
+      super
       raise ArgumentError, "argument must have an :id key" unless self.id
     end
 

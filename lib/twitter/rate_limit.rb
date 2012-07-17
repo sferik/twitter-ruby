@@ -1,47 +1,45 @@
-require 'singleton'
-
 module Twitter
   class RateLimit
-    include Singleton
-    attr_accessor :response_headers
-    alias headers response_headers
+    attr_reader :attrs
+    alias to_hash attrs
 
-    def initialize
-      self.reset!
+    # @deprecated This method exists to provide backwards compatibility to when
+    #   Twitter::RateLimit was a singleton. Safe to remove in version 4.
+    def self.instance
+      Twitter.rate_limit
+    end
+
+    # @return [Twitter::RateLimit]
+    def initialize(attrs={})
+      @attrs = attrs
     end
 
     # @return [String]
     def class
-      @response_headers.values_at('x-ratelimit-class', 'X-RateLimit-Class').compact.first
+      @attrs.values_at('x-ratelimit-class', 'X-RateLimit-Class').compact.first
     end
 
     # @return [Integer]
     def limit
-      limit = @response_headers.values_at('x-ratelimit-limit', 'X-RateLimit-Limit').compact.first
+      limit = @attrs.values_at('x-ratelimit-limit', 'X-RateLimit-Limit').compact.first
       limit.to_i if limit
     end
 
     # @return [Integer]
     def remaining
-      remaining = @response_headers.values_at('x-ratelimit-remaining', 'X-RateLimit-Remaining').compact.first
+      remaining = @attrs.values_at('x-ratelimit-remaining', 'X-RateLimit-Remaining').compact.first
       remaining.to_i if remaining
-    end
-
-    # @return [Twitter::RateLimit]
-    def reset!
-      @response_headers = {}
-      self
     end
 
     # @return [Time]
     def reset_at
-      reset = @response_headers.values_at('x-ratelimit-reset', 'X-RateLimit-Reset').compact.first
+      reset = @attrs.values_at('x-ratelimit-reset', 'X-RateLimit-Reset').compact.first
       Time.at(reset.to_i) if reset
     end
 
     # @return [Integer]
     def reset_in
-      if retry_after = @response_headers.values_at('retry-after', 'Retry-After').compact.first
+      if retry_after = @attrs.values_at('retry-after', 'Retry-After').compact.first
         retry_after.to_i
       elsif reset_at
         [(reset_at - Time.now).ceil, 0].max
@@ -51,10 +49,10 @@ module Twitter
 
     # Update the attributes of a Relationship
     #
-    # @param response_headers [Hash]
+    # @param attrs [Hash]
     # @return [Twitter::RateLimit]
-    def update(response_headers)
-      @response_headers.update(response_headers)
+    def update(attrs)
+      @attrs.update(attrs)
       self
     end
 

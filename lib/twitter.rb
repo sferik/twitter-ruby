@@ -10,9 +10,14 @@ module Twitter
     #
     # @return [Twitter::Client]
     def client
-      Twitter::Client.new(options)
+      if @client && @client.options == self.options
+        @client
+      else
+        @client = Twitter::Client.new(options)
+      end
     end
 
+    # @return [Hash]
     def options
       @options = {}
       Twitter::Configurable.keys.each do |key|

@@ -15,6 +15,7 @@ require 'twitter/list'
 require 'twitter/metadata'
 require 'twitter/oembed'
 require 'twitter/place'
+require 'twitter/rate_limit'
 require 'twitter/rate_limit_status'
 require 'twitter/relationship'
 require 'twitter/saved_search'
@@ -35,6 +36,7 @@ module Twitter
   # @see http://dev.twitter.com/pages/every_developer
   class Client
     include Twitter::Configurable
+    attr_reader :rate_limit
     MAX_USERS_PER_REQUEST = 100
     METHOD_RATE_LIMITED = {
       :accept => false,
@@ -173,6 +175,16 @@ module Twitter
       Twitter::Configurable.keys.each do |key|
         instance_variable_set("@#{key}", options[key] || Twitter.options[key])
       end
+      @rate_limit = Twitter::RateLimit.new
+    end
+
+    # @return [Hash]
+    def options
+      @options = {}
+      Twitter::Configurable.keys.each do |key|
+        @options[key] = instance_variable_get("@#{key}")
+      end
+      @options
     end
 
     # Check whether a method is rate limited
@@ -2876,7 +2888,7 @@ module Twitter
         request_headers[:authorization] = authorization.to_s
       end
       connection.url_prefix = options[:endpoint] || @endpoint
-      connection.run_request(method.to_sym, path, nil, request_headers) do |request|
+      response = connection.run_request(method.to_sym, path, nil, request_headers) do |request|
         unless params.empty?
           case request.method
           when :post, :put
@@ -2887,6 +2899,8 @@ module Twitter
         end
         yield request if block_given?
       end.env
+      @rate_limit.update(response[:response_headers])
+      response
     rescue Faraday::Error::ClientError
       raise Twitter::Error::ClientError
     end
