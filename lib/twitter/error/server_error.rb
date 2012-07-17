@@ -8,7 +8,7 @@ module Twitter
 
       # Create a new error from an HTTP environment
       #
-      # @param body [Hash]
+      # @param response [Hash]
       # @return [Twitter::Error]
       def self.from_response(response={})
         new(nil, response[:response_headers])
@@ -17,6 +17,7 @@ module Twitter
       # Initializes a new ServerError object
       #
       # @param message [String]
+      # @param response_headers [Hash]
       # @return [Twitter::Error::ServerError]
       def initialize(message=nil, response_headers={})
         super((message || self.class.const_get(:MESSAGE)), response_headers)

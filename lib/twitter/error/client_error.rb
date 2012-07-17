@@ -7,7 +7,7 @@ module Twitter
 
       # Create a new error from an HTTP environment
       #
-      # @param body [Hash]
+      # @param response [Hash]
       # @return [Twitter::Error]
       def self.from_response(response={})
         new(parse_error(response[:body]), response[:response_headers])

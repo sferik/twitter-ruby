@@ -73,9 +73,6 @@ describe Twitter::RateLimit do
       rate_limit = Twitter::RateLimit.new
       rate_limit.reset_in.should be_nil
     end
-  end
-
-  describe "#retry_after" do
     it "returns an Integer when Retry-After header is set" do
       rate_limit = Twitter::RateLimit.new('Retry-After' => "1339019097")
       rate_limit.retry_after.should be_an Integer

@@ -70,4 +70,24 @@ describe Twitter do
     end
   end
 
+  describe ".credentials?" do
+    it "returns true if all credentials are present" do
+      Twitter.configure do |config|
+        config.consumer_key = 'CK'
+        config.consumer_secret = 'CS'
+        config.oauth_token = 'OT'
+        config.oauth_token_secret = 'OS'
+      end
+      Twitter.credentials?.should be_true
+    end
+    it "returns false if any credentials are missing" do
+      Twitter.configure do |config|
+        config.consumer_key = 'CK'
+        config.consumer_secret = 'CS'
+        config.oauth_token = 'OT'
+      end
+      Twitter.credentials?.should be_false
+    end
+  end
+
 end

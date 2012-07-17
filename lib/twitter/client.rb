@@ -173,18 +173,9 @@ module Twitter
     # @return [Twitter::Client]
     def initialize(options={})
       Twitter::Configurable.keys.each do |key|
-        instance_variable_set("@#{key}", options[key] || Twitter.options[key])
+        instance_variable_set("@#{key}", options[key] || Twitter.instance_variable_get("@#{key}"))
       end
       @rate_limit = Twitter::RateLimit.new
-    end
-
-    # @return [Hash]
-    def options
-      @options = {}
-      Twitter::Configurable.keys.each do |key|
-        @options[key] = instance_variable_get("@#{key}")
-      end
-      @options
     end
 
     # Check whether a method is rate limited
@@ -2821,13 +2812,6 @@ module Twitter
       request(:put, path, params, options)
     end
 
-    # Check whether credentials are present
-    #
-    # @return [Boolean]
-    def credentials?
-      credentials.values.all?
-    end
-
   private
 
     def collection_from_array(array, klass)
@@ -2903,18 +2887,6 @@ module Twitter
       response
     rescue Faraday::Error::ClientError
       raise Twitter::Error::ClientError
-    end
-
-    # Credentials hash
-    #
-    # @return [Hash]
-    def credentials
-      {
-        :consumer_key => @consumer_key,
-        :consumer_secret => @consumer_secret,
-        :token => @oauth_token,
-        :token_secret => @oauth_token_secret,
-      }
     end
 
   end

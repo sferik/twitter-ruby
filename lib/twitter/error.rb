@@ -3,10 +3,12 @@ module Twitter
   class Error < StandardError
     attr_reader :rate_limit, :wrapped_exception
 
+    # @return [Hash]
     def self.errors
       @errors ||= Hash[descendants.map{|klass| [klass.const_get(:HTTP_STATUS_CODE), klass]}]
     end
 
+    # @return [Array]
     def self.descendants
       ObjectSpace.each_object(::Class).select{|klass| klass < self}
     end
@@ -14,6 +16,7 @@ module Twitter
     # Initializes a new Error object
     #
     # @param exception [Exception, String]
+    # @param response_headers [Hash]
     # @return [Twitter::Error]
     def initialize(exception=$!, response_headers={})
       @rate_limit = Twitter::RateLimit.new(response_headers)

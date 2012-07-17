@@ -1,6 +1,5 @@
 require 'twitter/client'
 require 'twitter/configurable'
-require 'twitter/default'
 
 module Twitter
   class << self
@@ -10,33 +9,16 @@ module Twitter
     #
     # @return [Twitter::Client]
     def client
-      if @client && @client.options == self.options
+      if @client && @client.cache_key == options.hash
         @client
       else
         @client = Twitter::Client.new(options)
       end
     end
 
-    # @return [Hash]
-    def options
-      @options = {}
-      Twitter::Configurable.keys.each do |key|
-        @options[key] = instance_variable_get("@#{key}")
-      end
-      @options
-    end
-
     def respond_to?(method, include_private=false)
       self.client.respond_to?(method, include_private) || super
     end
-
-    def reset!
-      Twitter::Configurable.keys.each do |key|
-        instance_variable_set("@#{key}", Twitter::Default.options[key])
-      end
-      self
-    end
-    alias setup reset!
 
   private
 
