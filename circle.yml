@@ -1,6 +1,0 @@
-machine:
-  ruby:
-    version: 1.9.3
-test:
-  post:
-    - bundle exec rake spec
