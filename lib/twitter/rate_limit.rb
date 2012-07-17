@@ -41,14 +41,13 @@ module Twitter
 
     # @return [Integer]
     def reset_in
-      [(reset_at - Time.now).ceil, 0].max if reset_at
+      if retry_after = @response_headers.values_at('retry-after', 'Retry-After').compact.first
+        retry_after.to_i
+      elsif reset_at
+        [(reset_at - Time.now).ceil, 0].max
+      end
     end
-
-    # @return [Integer]
-    def retry_after
-      retry_after = @response_headers.values_at('retry-after', 'Retry-After').compact.first
-      retry_after.to_i if retry_after
-    end
+    alias retry_after reset_in
 
     # Update the attributes of a Relationship
     #
