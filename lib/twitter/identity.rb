@@ -7,9 +7,8 @@ module Twitter
       return unless Twitter.identity_map
 
       id = attrs[:id]
-      Twitter.identity_map[self] ||= {}
-      if id && Twitter.identity_map[self][id]
-        return Twitter.identity_map[self][id].update(attrs)
+      if id && object = Twitter.identity_map.fetch(self, id)
+        return object.update(attrs)
       end
 
       return yield if block_given?
@@ -21,8 +20,8 @@ module Twitter
     # @param attrs [Hash]
     # @return [Twitter::Identity]
     def self.store(object)
-      Twitter.identity_map[self] ||= {}
-      object.id && Twitter.identity_map[self][object.id] = object || super(object)
+      return object unless Twitter.identity_map
+      Twitter.identity_map.store(object.id, object)
     end
 
     # Initializes a new object

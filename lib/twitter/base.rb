@@ -25,12 +25,9 @@ module Twitter
     # @return [Twitter::Base]
     def self.fetch(attrs)
       return unless Twitter.identity_map
-
-      Twitter.identity_map[self] ||= {}
-      if object = Twitter.identity_map[self][Marshal.dump(attrs)]
+      if object = Twitter.identity_map.fetch(self, Marshal.dump(attrs))
         return object
       end
-
       return yield if block_given?
       raise Twitter::IdentityMapKeyError, 'key not found'
     end
@@ -41,9 +38,7 @@ module Twitter
     # @return [Twitter::Base]
     def self.store(object)
       return object unless Twitter.identity_map
-
-      Twitter.identity_map[self] ||= {}
-      Twitter.identity_map[self][Marshal.dump(object.attrs)] = object
+      Twitter.identity_map.store(Marshal.dump(object.attrs), object)
     end
 
     # Returns a new object based on the response hash
