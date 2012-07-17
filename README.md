@@ -72,10 +72,10 @@ require an extra HTTP request), you can use the new `Twitter::Client#follow!`
 method instead. **Note**: This may re-send an email notification to the user,
 even if they are already being followed.
 
-The `Twitter::Client#search` now returns a `Twitter::SearchResult` object,
-which contains metadata and a results array. In the previous major version,
-this method returned an array of `Twitter::Status` objects, which is now
-accessible by sending the `results` message to a `Twitter::SearchResults`
+The `Twitter::Client#search` method now returns a `Twitter::SearchResult`
+object, which contains metadata and a results array. In the previous major
+version, this method returned an array of `Twitter::Status` objects, which is
+now accessible by sending the `results` message to a `Twitter::SearchResults`
 object.
 
 ##### Version 2
@@ -133,15 +133,16 @@ Any Faraday client errors are captured and re-raised as a
 `Twitter::Error::ClientError`, so there's no longer a need to separately rescue
 `Faraday::Error::ClientError`.
 
-All `Twitter::Error.ratelimit` methods (including `Twitter::Error.retry_at`)
-have been replaced by the `Twitter::RateLimit` singleton class. After making
-any request, you can check the `Twitter::RateLimit` object for your current
-rate limit status.
+All `Twitter::Error` rate limit methods (including `Twitter::Error.retry_at`)
+have been replaced by the `Twitter::Error#rate_limit` method, which returns a
+`Twitter::RateLimit` instance. Likewise, there is now a
+`Twitter::Client#rate_limit` method, which gets updated after each request.
 
-    rate_limit = Twitter::RateLimit.instance
+    Twitter.user("sferik") # Any API request will fetch rate limit information
+    rate_limit = Twitter.rate_limit
     rate_limit.limit     #=> 150
     rate_limit.remaining #=> 149
-    rate_limit.reset_at  #=> 2012-06-23 20:04:36 -0700
+    rate_limit.reset_at  #=> 2012-07-16 12:34:56 -0700
     rate_limit.reset_in  #=> 3540 (seconds)
 
 ### Additional notes
