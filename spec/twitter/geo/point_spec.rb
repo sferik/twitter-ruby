@@ -1,23 +1,23 @@
 require 'helper'
 
-describe Twitter::Point do
+describe Twitter::Geo::Point do
 
   before do
-    @point = Twitter::Point.new(:coordinates => [-122.399983, 37.788299])
+    @point = Twitter::Geo::Point.new(:coordinates => [-122.399983, 37.788299])
   end
 
   describe "#==" do
     it "returns false for empty objects" do
-      point = Twitter::Point.new
-      other = Twitter::Point.new
+      point = Twitter::Geo::Point.new
+      other = Twitter::Geo::Point.new
       (point == other).should be_false
     end
     it "returns true when objects coordinates are the same" do
-      other = Twitter::Point.new(:coordinates => [-122.399983, 37.788299])
+      other = Twitter::Geo::Point.new(:coordinates => [-122.399983, 37.788299])
       (@point == other).should be_true
     end
     it "returns false when objects coordinates are different" do
-      other = Twitter::Point.new(:coordinates => [37.788299, -122.399983])
+      other = Twitter::Geo::Point.new(:coordinates => [37.788299, -122.399983])
       (@point == other).should be_false
     end
     it "returns false when classes are different" do

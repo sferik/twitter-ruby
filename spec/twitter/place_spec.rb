@@ -23,7 +23,7 @@ describe Twitter::Place do
   describe "#bounding_box" do
     it "returns a Twitter::Place when set" do
       place = Twitter::Place.new(:id => "247f43d441defc03", :bounding_box => {:type => 'Polygon', :coordinates => [[[-122.40348192, 37.77752898], [-122.387436, 37.77752898], [-122.387436, 37.79448597], [-122.40348192, 37.79448597]]]})
-      place.bounding_box.should be_a Twitter::Polygon
+      place.bounding_box.should be_a Twitter::Geo::Polygon
     end
     it "returns nil when not set" do
       place = Twitter::Place.new(:id => "247f43d441defc03")

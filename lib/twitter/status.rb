@@ -42,7 +42,7 @@ module Twitter
       self.retweeted_status && self.retweeted_status.user ? "RT @#{self.retweeted_status.user.screen_name}: #{self.retweeted_status.text}" : self.text
     end
 
-    # @return [Twitter::Point, Twitter::Polygon]
+    # @return [Twitter::Geo::Point, Twitter::Geo::Polygon]
     def geo
       @geo ||= Twitter::GeoFactory.fetch_or_new(@attrs[:geo]) unless @attrs[:geo].nil?
     end

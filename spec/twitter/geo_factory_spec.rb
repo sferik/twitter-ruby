@@ -5,11 +5,11 @@ describe Twitter::GeoFactory do
   describe ".new" do
     it "generates a Point" do
       geo = Twitter::GeoFactory.fetch_or_new(:type => 'Point')
-      geo.should be_a Twitter::Point
+      geo.should be_a Twitter::Geo::Point
     end
     it "generates a Polygon" do
       geo = Twitter::GeoFactory.fetch_or_new(:type => 'Polygon')
-      geo.should be_a Twitter::Polygon
+      geo.should be_a Twitter::Geo::Polygon
     end
     it "raises an ArgumentError when type is not specified" do
       lambda do

@@ -92,9 +92,9 @@ describe Twitter::Status do
   end
 
   describe "#geo" do
-    it "returns a Twitter::Point when set" do
+    it "returns a Twitter::Geo::Point when set" do
       status = Twitter::Status.new(:id => 28669546014, :geo => {:id => 1, :type => 'Point'})
-      status.geo.should be_a Twitter::Point
+      status.geo.should be_a Twitter::Geo::Point
     end
     it "returns nil when not set" do
       status = Twitter::Status.new(:id => 28669546014)
