@@ -19,13 +19,21 @@ module Twitter
       end
     end
 
+    # return [Twitter::IdentityMap]
+    def self.identity_map
+      return unless Twitter.identity_map
+      @identity_map = Twitter.identity_map.new if @identity_map_class != Twitter.identity_map
+      @identity_map_class = Twitter.identity_map
+      @identity_map
+    end
+
     # Retrieves an object from the identity map.
     #
     # @param attrs [Hash]
     # @return [Twitter::Base]
     def self.fetch(attrs)
-      return unless Twitter.identity_map
-      if object = Twitter.identity_map.fetch(self, Marshal.dump(attrs))
+      return unless identity_map
+      if object = identity_map.fetch(Marshal.dump(attrs))
         return object
       end
       return yield if block_given?
@@ -37,8 +45,8 @@ module Twitter
     # @param attrs [Hash]
     # @return [Twitter::Base]
     def self.store(object)
-      return object unless Twitter.identity_map
-      Twitter.identity_map.store(Marshal.dump(object.attrs), object)
+      return object unless identity_map
+      identity_map.store(Marshal.dump(object.attrs), object)
     end
 
     # Returns a new object based on the response hash
@@ -55,7 +63,7 @@ module Twitter
     # @param attrs [Hash]
     # @return [Twitter::Base]
     def self.fetch_or_new(attrs={})
-      return self.new(attrs) unless Twitter.identity_map
+      return self.new(attrs) unless identity_map
 
       self.fetch(attrs) do
         object = self.new(attrs)

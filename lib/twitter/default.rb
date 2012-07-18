@@ -22,7 +22,7 @@ module Twitter
       :ssl => {:verify => false},
       :timeout => 10,
     } unless defined? CONNECTION_OPTIONS
-    IDENTITY_MAP = Twitter::IdentityMap.new unless defined? IDENTITY_MAP
+    IDENTITY_MAP = Twitter::IdentityMap unless defined? IDENTITY_MAP
     MIDDLEWARE = Faraday::Builder.new(
       &Proc.new do |builder|
         builder.use Twitter::Request::MultipartWithFile # Convert file uploads to Faraday::UploadIO objects

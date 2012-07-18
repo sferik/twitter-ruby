@@ -4,19 +4,17 @@ module Twitter
   # See: http://www.martinfowler.com/eaaCatalog/identityMap.html
   class IdentityMap < Hash
 
-    # @param klass
-    # @param key
+    # @param id
     # @return [Object]
-    def fetch(klass, key)
-      self[klass] && self[klass][key]
+    def fetch(id)
+      self[id]
     end
 
-    # @param key
+    # @param id
     # @param object
     # @return [Object]
-    def store(key, object)
-      self[object.class] ||= {}
-      self[object.class][key] = object
+    def store(id, object)
+      self[id] = object
     end
 
   end

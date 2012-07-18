@@ -4,10 +4,10 @@ module Twitter
   class Identity < Base
 
     def self.fetch(attrs)
-      return unless Twitter.identity_map
+      return unless identity_map
 
       id = attrs[:id]
-      if id && object = Twitter.identity_map.fetch(self, id)
+      if id  && object = identity_map.fetch(id)
         return object.update(attrs)
       end
 
@@ -20,8 +20,8 @@ module Twitter
     # @param attrs [Hash]
     # @return [Twitter::Identity]
     def self.store(object)
-      return object unless Twitter.identity_map
-      Twitter.identity_map.store(object.id, object)
+      return object unless identity_map
+      identity_map.store(object.id, object)
     end
 
     # Initializes a new object

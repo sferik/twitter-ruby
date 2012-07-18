@@ -8,40 +8,34 @@ module Twitter
       @database = Database.new(":memory:")
     end
 
-    # @param klass
-    # @param key
+    # @param id
     # @return [Object]
-    def fetch(klass, key)
-      table = table_from_class(klass)
-      create_table(table)
-      statement = @database.prepare("SELECT object FROM #{table} WHERE key = :key")
-      row = statement.execute!(:key => key).first
+    def fetch(id)
+      create_table
+      @select ||= @database.prepare("SELECT object FROM identity_map WHERE id = :id")
+      row = @select.execute!(:id => id).first
       Marshal.load(row.first) unless row.nil?
     end
 
-    # @param key
+    # @param id
     # @param object
     # @return [Object]
-    def store(key, object)
-      table = table_from_class(object.class)
-      create_table(table)
-      statement = @database.prepare("INSERT INTO #{table}(key, object) VALUES (:key, :object)")
-      statement.execute(:key => key, :object => Blob.new(Marshal.dump(object)))
+    def store(id, object)
+      create_table
+      @insert ||= @database.prepare("INSERT INTO identity_map(id, object) VALUES (:id, :object)")
+      @insert.execute(:id => id, :object => Blob.new(Marshal.dump(object)))
       object
+    rescue SQLite3::ConstraintException
+      @delete ||= @database.prepare("DELETE FROM identity_map WHERE id = :id")
+      @delete.execute(:id => id)
+      retry
     end
 
   private
 
-    # @params klass [Class]
-    # @return [String]
-    def table_from_class(klass)
-      klass.to_s.downcase.gsub("::", "__")
-    end
-
-    # @param table [Class]
-    def create_table(table)
-      @database.execute("CREATE TABLE IF NOT EXISTS #{table}(key VARCHAR NOT NULl, object BLOB)")
-      @database.execute("CREATE UNIQUE INDEX IF NOT EXISTS #{table}_unique_key ON #{table}(key)")
+    def create_table
+      @database.execute("CREATE TABLE IF NOT EXISTS identity_map(id VARCHAR NOT NULl, object BLOB)")
+      @database.execute("CREATE UNIQUE INDEX IF NOT EXISTS index_identity_map_on_id ON identity_map(id)")
     end
 
   end

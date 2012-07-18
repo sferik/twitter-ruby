@@ -71,7 +71,7 @@ describe Twitter::Base do
       Twitter.identity_map = false
     end
     after(:all) do
-      Twitter.identity_map = Twitter::IdentityMap.new
+      Twitter.identity_map = Twitter::IdentityMap
     end
 
     describe '.fetch' do
