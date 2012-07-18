@@ -130,7 +130,7 @@ describe Twitter::Status do
     it "returns media" do
       media = Twitter::Status.new(:id => 28669546014, :entities => {:media => [{:id => 1, :type => 'photo'}]}).media
       media.should be_an Array
-      media.first.should be_a Twitter::Photo
+      media.first.should be_a Twitter::Media::Photo
     end
     it "returns nil when not set" do
       media = Twitter::Status.new(:id => 28669546014).media
