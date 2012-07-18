@@ -8,29 +8,9 @@ describe Twitter::Base do
       @base = Twitter::Base.store(object)
     end
 
-    describe "#[]" do
-      it "calls methods using [] with symbol" do
-        @base[:object_id].should be_an Integer
-      end
-      it "calls methods using [] with string" do
-        @base['object_id'].should be_an Integer
-      end
-      it "returns nil for missing method" do
-        @base[:foo].should be_nil
-        @base['foo'].should be_nil
-      end
-    end
-
-    describe "#to_hash" do
-      it "returns a hash" do
-        @base.to_hash.should be_a Hash
-        @base.to_hash[:id].should eq 1
-      end
-    end
-
-    describe "identical objects" do
-      it "have the same object_id" do
-        @base.object_id.should eq Twitter::Base.fetch(:id => 1).object_id
+    describe '.identity_map' do
+      it 'returns an instance of the identity map' do
+        Twitter::Base.identity_map.should be_a Twitter::IdentityMap
       end
     end
 
@@ -57,13 +37,38 @@ describe Twitter::Base do
       it 'returns existing objects' do
         Twitter::Base.fetch_or_new(:id => 1).should be
       end
-
       it 'creates new objects and stores them' do
         Twitter::Base.fetch_or_new(:id => 2).should be
-
         Twitter::Base.fetch(:id => 2).should be
       end
     end
+
+    describe "#[]" do
+      it "calls methods using [] with symbol" do
+        @base[:object_id].should be_an Integer
+      end
+      it "calls methods using [] with string" do
+        @base['object_id'].should be_an Integer
+      end
+      it "returns nil for missing method" do
+        @base[:foo].should be_nil
+        @base['foo'].should be_nil
+      end
+    end
+
+    describe "#to_hash" do
+      it "returns a hash" do
+        @base.to_hash.should be_a Hash
+        @base.to_hash[:id].should eq 1
+      end
+    end
+
+    describe "identical objects" do
+      it "have the same object_id" do
+        @base.object_id.should eq Twitter::Base.fetch(:id => 1).object_id
+      end
+    end
+
   end
 
   context 'identity map disabled' do
@@ -72,6 +77,12 @@ describe Twitter::Base do
     end
     after(:all) do
       Twitter.identity_map = Twitter::IdentityMap
+    end
+
+    describe '.identity_map' do
+      it 'returns nil' do
+        Twitter::Base.identity_map.should be_nil
+      end
     end
 
     describe '.fetch' do
@@ -93,4 +104,19 @@ describe Twitter::Base do
       end
     end
   end
+
+  context 'custom identity map enabled' do
+    after(:all) do
+      Twitter.identity_map = Twitter::IdentityMap
+    end
+
+    describe '.identity_map' do
+      it 'returns an instance of the custom identity map' do
+        Twitter::Base.identity_map.should be_a Twitter::IdentityMap
+        Twitter.identity_map = Hash
+        Twitter::Base.identity_map.should_not be_a Twitter::IdentityMap
+      end
+    end
+  end
+
 end
