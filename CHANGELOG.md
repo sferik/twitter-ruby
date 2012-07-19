@@ -1,8 +1,12 @@
+3.3.1
+-----
+* [Fix authentication bug](https://github.com/sferik/twitter/commit/b1fc6eac21293f2f87df9ca6684c30ef8155137f)
+
 3.3.0
 -----
 * [Refactor `Twitter::RateLimit` class to be non-global](https://github.com/sferik/twitter/commit/6e9da0d0b8ae61e077eb631514922635a78951a7)
 * [Combine `Twitter::RateLimit#retry_after` and `Twitter::RateLimit#reset_in` into a single method](https://github.com/sferik/twitter/commit/1702f05a60016013c198626339c57d53031cb17d)
-* [Create proper interface for `Twitter::IdentityMap`](https://github.com/sferik/twitter/commit/86df78eae28364f3b5aac8bb5eca52d516187aa8)
+* [Create proper interface for `Twitter::IdentityMap`](https://github.com/sferik/twitter/commit/8996c37a17484dd8ffe0d6a0ab278eb0b4e5e1ca)
 * [Move `Twitter::Point` and `Twitter::Polygon` classes under `Twitter::Geo` namespace](https://github.com/sferik/twitter/commit/059cc5545195f99ba1b484e8359b7246f29be37e)
 * [Move `Twitter::Photo` class under `Twitter::Media` namespace](https://github.com/sferik/twitter/commit/979ed718c6c31140a5698cbb6c7bd311b799f39e)
 
