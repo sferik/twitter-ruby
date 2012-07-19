@@ -3,7 +3,7 @@ require 'helper'
 describe Twitter::Client do
 
   subject do
-    client = Twitter::Client.new
+    client = Twitter::Client.new(:consumer_key => "CK", :consumer_secret => "CS", :oauth_token => "OT", :oauth_token_secret => "OS")
     client.class_eval{public *Twitter::Client.private_instance_methods}
     client
   end
@@ -92,30 +92,26 @@ describe Twitter::Client do
   end
 
   describe "#rate_limited?" do
-    before do
-      @client = Twitter::Client.new
-    end
     it "returns true for rate limited methods" do
-      @client.rate_limited?(:user).should be_true
+      subject.rate_limited?(:user).should be_true
     end
     it "returns false for rate limited methods" do
-      @client.rate_limited?(:rate_limit_status).should be_false
+      subject.rate_limited?(:rate_limit_status).should be_false
     end
     it "raises an ArgumentError for non-existant methods" do
       lambda do
-        @client.rate_limited?(:foo)
+        subject.rate_limited?(:foo)
       end.should raise_error(ArgumentError, "no method `foo' for Twitter::Client")
     end
   end
 
   describe "#put" do
     before do
-      @client = Twitter::Client.new
       stub_put("/custom/put").
         with(:body => {:updated => "object"})
     end
     it "allows custom put requests" do
-      @client.put("/custom/put", {:updated => "object"})
+      subject.put("/custom/put", {:updated => "object"})
       a_put("/custom/put").
         with(:body => {:updated => "object"}).
         should have_been_made
@@ -144,14 +140,11 @@ describe Twitter::Client do
   end
 
   describe "#request" do
-    before do
-      @client = Twitter::Client.new({:consumer_key => "CK", :consumer_secret => "CS", :oauth_token => "OT", :oauth_token_secret => "OS"})
-    end
     it "encodes the entire body when no uploaded media is present" do
       stub_post("/1/statuses/update.json").
         with(:body => {:status => "Update"}).
         to_return(:body => fixture("status.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-      @client.update("Update")
+      subject.update("Update")
       a_post("/1/statuses/update.json").
         with(:body => {:status => "Update"}).
         should have_been_made
@@ -159,15 +152,28 @@ describe Twitter::Client do
     it "encodes none of the body when uploaded media is present" do
       stub_post("/1/statuses/update_with_media.json", "https://upload.twitter.com").
         to_return(:body => fixture("status_with_media.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-      @client.update_with_media("Update", fixture("pbjt.gif"))
+      subject.update_with_media("Update", fixture("pbjt.gif"))
       a_post("/1/statuses/update_with_media.json", "https://upload.twitter.com").
         should have_been_made
     end
     it "catches Faraday errors" do
       subject.stub!(:connection).and_raise(Faraday::Error::ClientError.new("Oups"))
       lambda do
-        subject.request(:get, "/path", {}, {})
+        subject.request(:get, "/path")
       end.should raise_error(Twitter::Error::ClientError, "Oups")
+    end
+  end
+
+  describe "#auth_header" do
+    it "creates the correct auth headers" do
+      uri = URI("https://api.twitter.com/1/direct_messages.json")
+      authorization = subject.auth_header(:get, uri)
+      authorization.options[:signature_method].should == "HMAC-SHA1"
+      authorization.options[:version].should == "1.0"
+      authorization.options[:consumer_key].should == "CK"
+      authorization.options[:consumer_secret].should == "CS"
+      authorization.options[:token].should == "OT"
+      authorization.options[:token_secret].should == "OS"
     end
   end
 

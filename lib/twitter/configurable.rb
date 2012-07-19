@@ -58,10 +58,16 @@ module Twitter
   private
 
     # @return [Hash]
-    # @note After Ruby 1.8 is deprecated, can be rewritten as:
-    #   options.select{|key| AUTH_KEYS.include?(key)}
+    # @todo In version 4, rename to oauth_token to token and oauth_token_secret
+    #   to token_secret and rewrite as:
+    #     options.select{|key| AUTH_KEYS.include?(key)}
     def credentials
-      Hash[options.select{|key, value| AUTH_KEYS.include?(key)}]
+      {
+        :consumer_key => @consumer_key,
+        :consumer_secret => @consumer_secret,
+        :token => @oauth_token,
+        :token_secret => @oauth_token_secret,
+      }
     end
 
     # @return [Hash]
