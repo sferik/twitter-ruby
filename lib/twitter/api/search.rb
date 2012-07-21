@@ -7,9 +7,11 @@ module Twitter
       include Twitter::API::Utils
 
       def self.included(klass)
-        klass.class_variable_get(:@@rate_limited).merge!(
-          :search => true,
-          :phoenix_search => true,
+        klass.send(:class_variable_get, :@@rate_limited).merge!(
+          {
+            :search => true,
+            :phoenix_search => true,
+          }
         )
       end
 

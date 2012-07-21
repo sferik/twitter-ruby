@@ -13,17 +13,19 @@ module Twitter
       MAX_USERS_PER_REQUEST = 100
 
       def self.included(klass)
-        klass.class_variable_get(:@@rate_limited).merge!(
-          :suggestions => true,
-          :suggest_users => true,
-          :users => true,
-          :user_search => true,
-          :user => true,
-          :user? => true,
-          :contributees => true,
-          :contributors => true,
-          :recommendations => true,
-          :following_followers_of => true,
+        klass.send(:class_variable_get, :@@rate_limited).merge!(
+          {
+            :suggestions => true,
+            :suggest_users => true,
+            :users => true,
+            :user_search => true,
+            :user => true,
+            :user? => true,
+            :contributees => true,
+            :contributors => true,
+            :recommendations => true,
+            :following_followers_of => true,
+          }
         )
       end
 

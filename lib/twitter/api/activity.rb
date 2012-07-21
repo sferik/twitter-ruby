@@ -7,9 +7,11 @@ module Twitter
       include Twitter::API::Utils
 
       def self.included(klass)
-        klass.class_variable_get(:@@rate_limited).merge!(
-          :activity_about_me => true,
-          :activity_by_friends => true,
+        klass.send(:class_variable_get, :@@rate_limited).merge!(
+          {
+            :activity_about_me => true,
+            :activity_by_friends => true,
+          }
         )
       end
 

@@ -7,13 +7,15 @@ module Twitter
       include Twitter::API::Utils
 
       def self.included(klass)
-        klass.class_variable_get(:@@rate_limited).merge!(
-          :places_nearby => true,
-          :geo_search => true,
-          :places_similar => true,
-          :reverse_geocode => true,
-          :place => true,
-          :place_create => true,
+        klass.send(:class_variable_get, :@@rate_limited).merge!(
+          {
+            :places_nearby => true,
+            :geo_search => true,
+            :places_similar => true,
+            :reverse_geocode => true,
+            :place => true,
+            :place_create => true,
+          }
         )
       end
 

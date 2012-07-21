@@ -7,12 +7,14 @@ module Twitter
       include Twitter::API::Utils
 
       def self.included(klass)
-        klass.class_variable_get(:@@rate_limited).merge!(
-          :blocking => true,
-          :blocked_ids => true,
-          :block? => true,
-          :block => true,
-          :unblock => false,
+        klass.send(:class_variable_get, :@@rate_limited).merge!(
+          {
+            :blocking => true,
+            :blocked_ids => true,
+            :block? => true,
+            :block => true,
+            :unblock => false,
+          }
         )
       end
 

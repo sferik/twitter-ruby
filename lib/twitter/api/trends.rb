@@ -8,12 +8,14 @@ module Twitter
       include Twitter::API::Utils
 
       def self.included(klass)
-        klass.class_variable_get(:@@rate_limited).merge!(
-          :local_trends => true,
-          :trends => true,
-          :trend_locations => true,
-          :trends_daily => true,
-          :trends_weekly => true,
+        klass.send(:class_variable_get, :@@rate_limited).merge!(
+          {
+            :local_trends => true,
+            :trends => true,
+            :trend_locations => true,
+            :trends_daily => true,
+            :trends_weekly => true,
+          }
         )
       end
 

@@ -12,26 +12,28 @@ module Twitter
       MAX_USERS_PER_REQUEST = 100
 
       def self.included(klass)
-        klass.class_variable_get(:@@rate_limited).merge!(
-          :lists_subscribed_to => true,
-          :list_timeline => true,
-          :list_remove_member => false,
-          :memberships => true,
-          :list_subscribers => true,
-          :subscriptions => true,
-          :list_subscribe => false,
-          :list_subscriber? => true,
-          :list_unsubscribe => false,
-          :list_add_members => false,
-          :list_remove_members => false,
-          :list_member? => true,
-          :list_members => true,
-          :list_add_member => false,
-          :list_destroy => false,
-          :list_update => false,
-          :list_create => false,
-          :lists => true,
-          :list => true,
+        klass.send(:class_variable_get, :@@rate_limited).merge!(
+          {
+            :lists_subscribed_to => true,
+            :list_timeline => true,
+            :list_remove_member => false,
+            :memberships => true,
+            :list_subscribers => true,
+            :subscriptions => true,
+            :list_subscribe => false,
+            :list_subscriber? => true,
+            :list_unsubscribe => false,
+            :list_add_members => false,
+            :list_remove_members => false,
+            :list_member? => true,
+            :list_members => true,
+            :list_add_member => false,
+            :list_destroy => false,
+            :list_update => false,
+            :list_create => false,
+            :lists => true,
+            :list => true,
+          }
         )
       end
 

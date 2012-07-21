@@ -6,9 +6,11 @@ module Twitter
       include Twitter::API::Utils
 
       def self.included(klass)
-        klass.class_variable_get(:@@rate_limited).merge!(
-          :enable_notifications => false,
-          :disable_notifications => false,
+        klass.send(:class_variable_get, :@@rate_limited).merge!(
+          {
+            :enable_notifications => false,
+            :disable_notifications => false,
+          }
         )
       end
 

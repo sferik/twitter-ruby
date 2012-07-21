@@ -9,11 +9,13 @@ module Twitter
       include Twitter::API::Utils
 
       def self.included(klass)
-        klass.class_variable_get(:@@rate_limited).merge!(
-          :saved_searches => true,
-          :saved_search => true,
-          :saved_search_create => false,
-          :saved_search_destroy => false,
+        klass.send(:class_variable_get, :@@rate_limited).merge!(
+          {
+            :saved_searches => true,
+            :saved_search => true,
+            :saved_search_create => false,
+            :saved_search_destroy => false,
+          }
         )
       end
 

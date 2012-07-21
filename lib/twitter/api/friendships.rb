@@ -12,26 +12,28 @@ module Twitter
       include Twitter::API::Utils
 
       def self.included(klass)
-        klass.class_variable_get(:@@rate_limited).merge!(
-          :follower_ids => true,
-          :friend_ids => true,
-          :friendship? => true,
-          :friendships_incoming => true,
-          :friendships_outgoing => true,
-          :friendship => true,
-          :friendship_show => true,
-          :relationship => true,
-          :follow => false,
-          :friendship_create => false,
-          :follow! => false,
-          :friendship_create! => false,
-          :unfollow => false,
-          :friendship_destroy => false,
-          :friendships => true,
-          :friendship_update => true,
-          :no_retweet_ids => true,
-          :accept => false,
-          :deny => false,
+        klass.send(:class_variable_get, :@@rate_limited).merge!(
+          {
+            :follower_ids => true,
+            :friend_ids => true,
+            :friendship? => true,
+            :friendships_incoming => true,
+            :friendships_outgoing => true,
+            :friendship => true,
+            :friendship_show => true,
+            :relationship => true,
+            :follow => false,
+            :friendship_create => false,
+            :follow! => false,
+            :friendship_create! => false,
+            :unfollow => false,
+            :friendship_destroy => false,
+            :friendships => true,
+            :friendship_update => true,
+            :no_retweet_ids => true,
+            :accept => false,
+            :deny => false,
+          }
         )
       end
 

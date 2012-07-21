@@ -6,8 +6,10 @@ module Twitter
       include Twitter::API::Utils
 
       def self.included(klass)
-        klass.class_variable_get(:@@rate_limited).merge!(
-          :report_spam => true,
+        klass.send(:class_variable_get, :@@rate_limited).merge!(
+          {
+            :report_spam => true,
+          }
         )
       end
 

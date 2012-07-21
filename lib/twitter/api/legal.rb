@@ -3,9 +3,11 @@ module Twitter
     module Legal
 
       def self.included(klass)
-        klass.class_variable_get(:@@rate_limited).merge!(
-          :privacy => true,
-          :tos => true,
+        klass.send(:class_variable_get, :@@rate_limited).merge!(
+          {
+            :privacy => true,
+            :tos => true,
+          }
         )
       end
 

@@ -8,9 +8,11 @@ module Twitter
       include Twitter::API::Utils
 
       def self.included(klass)
-        klass.class_variable_get(:@@rate_limited).merge!(
-          :configuration => true,
-          :languages => true,
+        klass.send(:class_variable_get, :@@rate_limited).merge!(
+          {
+            :configuration => true,
+            :languages => true,
+          }
         )
       end
 

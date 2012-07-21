@@ -7,17 +7,19 @@ module Twitter
     module Account
 
       def self.included(klass)
-        klass.class_variable_get(:@@rate_limited).merge!(
-          :rate_limit_status => false,
-          :verify_credentials => true,
-          :current_user => true,
-          :end_session => false,
-          :update_delivery_device => false,
-          :update_profile => false,
-          :update_profile_background_image => false,
-          :update_profile_colors => false,
-          :update_profile_image => false,
-          :settings => true,
+        klass.send(:class_variable_get, :@@rate_limited).merge!(
+          {
+            :rate_limit_status => false,
+            :verify_credentials => true,
+            :current_user => true,
+            :end_session => false,
+            :update_delivery_device => false,
+            :update_profile => false,
+            :update_profile_background_image => false,
+            :update_profile_colors => false,
+            :update_profile_image => false,
+            :settings => true,
+          }
         )
       end
 

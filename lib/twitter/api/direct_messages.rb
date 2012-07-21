@@ -10,15 +10,17 @@ module Twitter
       include Twitter::API::Utils
 
       def self.included(klass)
-        klass.class_variable_get(:@@rate_limited).merge!(
-          :direct_messages_received => true,
-          :direct_messages_sent => true,
-          :direct_message_destroy => false,
-          :direct_message_create => false,
-          :d => false,
-          :m => false,
-          :direct_message => true,
-          :direct_messages => true,
+        klass.send(:class_variable_get, :@@rate_limited).merge!(
+          {
+            :direct_messages_received => true,
+            :direct_messages_sent => true,
+            :direct_message_destroy => false,
+            :direct_message_create => false,
+            :d => false,
+            :m => false,
+            :direct_message => true,
+            :direct_messages => true,
+          }
         )
       end
 
