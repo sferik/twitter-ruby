@@ -25,7 +25,7 @@ describe Twitter::Client do
     it "inherits the module configuration" do
       client = Twitter::Client.new
       Twitter::Configurable.keys.each do |key|
-        client.instance_variable_get("@#{key}").should eq key
+        client.instance_variable_get(:"@#{key}").should eq key
       end
     end
 
@@ -50,7 +50,7 @@ describe Twitter::Client do
         it "overrides the module configuration" do
           client = Twitter::Client.new(@configuration)
           Twitter::Configurable.keys.each do |key|
-            client.instance_variable_get("@#{key}").should eq @configuration[key]
+            client.instance_variable_get(:"@#{key}").should eq @configuration[key]
           end
         end
       end
@@ -64,7 +64,7 @@ describe Twitter::Client do
             end
           end
           Twitter::Configurable.keys.each do |key|
-            client.instance_variable_get("@#{key}").should eq @configuration[key]
+            client.instance_variable_get(:"@#{key}").should eq @configuration[key]
           end
         end
       end
@@ -168,12 +168,12 @@ describe Twitter::Client do
     it "creates the correct auth headers" do
       uri = URI("https://api.twitter.com/1/direct_messages.json")
       authorization = subject.auth_header(:get, uri)
-      authorization.options[:signature_method].should == "HMAC-SHA1"
-      authorization.options[:version].should == "1.0"
-      authorization.options[:consumer_key].should == "CK"
-      authorization.options[:consumer_secret].should == "CS"
-      authorization.options[:token].should == "OT"
-      authorization.options[:token_secret].should == "OS"
+      authorization.options[:signature_method].should eq "HMAC-SHA1"
+      authorization.options[:version].should eq "1.0"
+      authorization.options[:consumer_key].should eq "CK"
+      authorization.options[:consumer_secret].should eq "CS"
+      authorization.options[:token].should eq "OT"
+      authorization.options[:token_secret].should eq "OS"
     end
   end
 

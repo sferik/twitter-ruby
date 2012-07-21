@@ -1,6 +1,6 @@
 require 'helper'
 
-describe Twitter::Client do
+describe Twitter::API::Friendships do
 
   before do
     @client = Twitter::Client.new

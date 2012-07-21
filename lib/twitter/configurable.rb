@@ -49,7 +49,7 @@ module Twitter
 
     def reset!
       Twitter::Configurable.keys.each do |key|
-        instance_variable_set("@#{key}", Twitter::Default.options[key])
+        instance_variable_set(:"@#{key}", Twitter::Default.options[key])
       end
       self
     end
@@ -72,7 +72,7 @@ module Twitter
 
     # @return [Hash]
     def options
-      Hash[Twitter::Configurable.keys.map{|key| [key, instance_variable_get("@#{key}")]}]
+      Hash[Twitter::Configurable.keys.map{|key| [key, instance_variable_get(:"@#{key}")]}]
     end
 
   end

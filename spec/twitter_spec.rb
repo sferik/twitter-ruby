@@ -65,7 +65,7 @@ describe Twitter do
         Twitter.configure do |config|
           config.send("#{key}=", key)
         end
-        Twitter.instance_variable_get("@#{key}").should eq key
+        Twitter.instance_variable_get(:"@#{key}").should eq key
       end
     end
   end
