@@ -42,7 +42,7 @@ module Twitter
 
     # Stores an object in the identity map.
     #
-    # @param attrs [Hash]
+    # @param object [Object]
     # @return [Twitter::Base]
     def self.store(object)
       return object unless identity_map
@@ -51,7 +51,7 @@ module Twitter
 
     # Returns a new object based on the response hash
     #
-    # @param attrs [Hash]
+    # @param response [Hash]
     # @return [Twitter::Base]
     def self.from_response(response={})
       self.fetch_or_new(response[:body])

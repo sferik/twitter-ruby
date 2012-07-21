@@ -17,7 +17,7 @@ module Twitter
 
     # Stores an object in the identity map.
     #
-    # @param attrs [Hash]
+    # @param object [Object]
     # @return [Twitter::Identity]
     def self.store(object)
       return object unless identity_map
