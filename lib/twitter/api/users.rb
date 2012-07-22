@@ -364,7 +364,7 @@ module Twitter
         options = args.extract_options!
         user = args.pop || self.verify_credentials.screen_name
         options.merge_user!(user)
-        response = self.send(method, url, options)
+        response = self.send(method.to_sym, url, options)
         collection_from_array(response[:body], Twitter::User)
       end
 

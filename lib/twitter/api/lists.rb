@@ -185,9 +185,7 @@ module Twitter
       #     Twitter.list_subscribers('sferik', 8863586)
       #     Twitter.list_subscribers(7505382, 'presidents')
       def list_subscribers(*args)
-        list_users(args) do |options|
-          get("/1/lists/subscribers.json", options)
-        end
+        list_users(:get, "/1/lists/subscribers.json", args)
       end
 
       # List the lists the specified user follows
@@ -270,9 +268,7 @@ module Twitter
       #     Twitter.list_subscriber?('sferik', 'presidents', 'BarackObama')
       # @return [Boolean] true if user is a subscriber of the specified list, otherwise false.
       def list_subscriber?(*args)
-        list_user?(args) do |options|
-          get("/1/lists/subscribers/show.json", options)
-        end
+        list_user?(:get, "/1/lists/subscribers/show.json", args)
       end
 
       # Unsubscribes the authenticated user form the specified list
@@ -389,9 +385,7 @@ module Twitter
       #     Twitter.list_member?('sferik', 8863586, 'BarackObama')
       #     Twitter.list_member?(7505382, 'presidents', 813286)
       def list_member?(*args)
-        list_user?(args) do |options|
-          get("/1/lists/members/show.json", options)
-        end
+        list_user?(:get, "/1/lists/members/show.json", args)
       end
 
       # Returns the members of the specified list
@@ -419,9 +413,7 @@ module Twitter
       #     Twitter.list_members(7505382, 'presidents')
       #     Twitter.list_members(7505382, 8863586)
       def list_members(*args)
-        list_users(args) do |options|
-          get("/1/lists/members.json", options)
-        end
+        list_users(:get, "/1/lists/members.json", args)
       end
 
       # Add a member to a list
@@ -596,7 +588,7 @@ module Twitter
           owner = args.pop || self.verify_credentials.screen_name
           options.merge_owner!(owner)
         end
-        response = self.send(method, url, options)
+        response = self.send(method.to_sym, url, options)
         Twitter::List.from_response(response)
       end
 
@@ -609,12 +601,12 @@ module Twitter
           options.merge_owner!(owner)
         end
         response = members.flatten.each_slice(MAX_USERS_PER_REQUEST).threaded_map do |users|
-          self.send(method, url, options.merge_users(users))
+          self.send(method.to_sym, url, options.merge_users(users))
         end.last
         Twitter::List.from_response(response)
       end
 
-      def list_user?(args, &block)
+      def list_user?(method, url, args)
         options = args.extract_options!
         user_to_check = args.pop
         options.merge_user!(user_to_check)
@@ -624,13 +616,13 @@ module Twitter
           owner = args.pop || self.verify_credentials.screen_name
           options.merge_owner!(owner)
         end
-        yield(options)
+        self.send(method.to_sym, url, options)
         true
       rescue Twitter::Error::NotFound, Twitter::Error::Forbidden
         false
       end
 
-      def list_users(args, &block)
+      def list_users(method, url, args)
         options = {:cursor => -1}.merge(args.extract_options!)
         list = args.pop
         options.merge_list!(list)
@@ -638,7 +630,7 @@ module Twitter
           owner = args.pop || self.verify_credentials.screen_name
           options.merge_owner!(owner)
         end
-        response = yield(options)
+        response = self.send(method.to_sym, url, options)
         Twitter::Cursor.from_response(response, 'users', Twitter::User)
       end
 
@@ -650,7 +642,7 @@ module Twitter
           owner = args.pop || self.verify_credentials.screen_name
           options.merge_owner!(owner)
         end
-        response = self.send(method, url, options)
+        response = self.send(method.to_sym, url, options)
         Twitter::List.from_response(response)
       end
 
