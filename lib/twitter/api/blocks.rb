@@ -1,5 +1,6 @@
 require 'twitter/api/utils'
 require 'twitter/core_ext/hash'
+require 'twitter/error/not_found'
 
 module Twitter
   module API

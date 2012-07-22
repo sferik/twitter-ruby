@@ -3,6 +3,7 @@ require 'twitter/core_ext/array'
 require 'twitter/core_ext/enumerable'
 require 'twitter/core_ext/hash'
 require 'twitter/cursor'
+require 'twitter/error/forbidden'
 require 'twitter/relationship'
 require 'twitter/user'
 
