@@ -280,19 +280,9 @@ module Twitter
       #     Twitter.list_subscriber?('sferik', 'presidents', 'BarackObama')
       # @return [Boolean] true if user is a subscriber of the specified list, otherwise false.
       def list_subscriber?(*args)
-        options = args.extract_options!
-        user_to_check = args.pop
-        options.merge_user!(user_to_check)
-        list = args.pop
-        options.merge_list!(list)
-        unless options[:owner_id] || options[:owner_screen_name]
-          owner = args.pop || self.verify_credentials.screen_name
-          options.merge_owner!(owner)
+        list_user?(args) do |options|
+          get("/1/lists/subscribers/show.json", options)
         end
-        get("/1/lists/subscribers/show.json", options)
-        true
-      rescue Twitter::Error::NotFound, Twitter::Error::Forbidden
-        false
       end
 
       # Unsubscribes the authenticated user form the specified list
@@ -415,19 +405,9 @@ module Twitter
       #     Twitter.list_member?('sferik', 8863586, 'BarackObama')
       #     Twitter.list_member?(7505382, 'presidents', 813286)
       def list_member?(*args)
-        options = args.extract_options!
-        user_to_check = args.pop
-        options.merge_user!(user_to_check)
-        list = args.pop
-        options.merge_list!(list)
-        unless options[:owner_id] || options[:owner_screen_name]
-          owner = args.pop || self.verify_credentials.screen_name
-          options.merge_owner!(owner)
+        list_user?(args) do |options|
+          get("/1/lists/members/show.json", options)
         end
-        get("/1/lists/members/show.json", options)
-        true
-      rescue Twitter::Error::NotFound, Twitter::Error::Forbidden
-        false
       end
 
       # Returns the members of the specified list
@@ -662,6 +642,22 @@ module Twitter
           yield(options.merge_users(users))
         end.last
         Twitter::List.from_response(response)
+      end
+
+      def list_user?(args, &block)
+        options = args.extract_options!
+        user_to_check = args.pop
+        options.merge_user!(user_to_check)
+        list = args.pop
+        options.merge_list!(list)
+        unless options[:owner_id] || options[:owner_screen_name]
+          owner = args.pop || self.verify_credentials.screen_name
+          options.merge_owner!(owner)
+        end
+        yield(options)
+        true
+      rescue Twitter::Error::NotFound, Twitter::Error::Forbidden
+        false
       end
 
       def list_from_response(args, &block)
