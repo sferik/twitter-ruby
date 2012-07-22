@@ -272,11 +272,7 @@ module Twitter
       #     Twitter.contributees('sferik')
       #     Twitter.contributees(7505382)  # Same as above
       def contributees(*args)
-        options = args.extract_options!
-        user = args.pop || self.verify_credentials.screen_name
-        options.merge_user!(user)
-        response = get("/1/users/contributees.json", options)
-        collection_from_array(response[:body], Twitter::User)
+        delegates("/1/users/contributees.json", args)
       end
 
       # Returns an array of users who can contribute to the specified account
@@ -299,11 +295,7 @@ module Twitter
       #     Twitter.contributors('sferik')
       #     Twitter.contributors(7505382)  # Same as above
       def contributors(*args)
-        options = args.extract_options!
-        user = args.pop || self.verify_credentials.screen_name
-        options.merge_user!(user)
-        response = get("/1/users/contributors.json", options)
-        collection_from_array(response[:body], Twitter::User)
+        delegates("/1/users/contributors.json", args)
       end
 
       # Returns recommended users for the authenticated user
@@ -371,6 +363,14 @@ module Twitter
       end
 
       private
+
+      def delegates(url, args)
+        options = args.extract_options!
+        user = args.pop || self.verify_credentials.screen_name
+        options.merge_user!(user)
+        response = get(url, options)
+        collection_from_array(response[:body], Twitter::User)
+      end
 
       def exists?(url, user, options)
         options.merge_user!(user)
