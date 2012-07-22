@@ -14,10 +14,10 @@ module Twitter
         end
       end
 
-      def users_from_response(args, &block)
+      def users_from_response(url, args)
         options = args.extract_options!
         args.flatten.threaded_map do |user|
-          response = yield(options.merge_user(user))
+          response = post(url, options.merge_user(user))
           Twitter::User.from_response(response)
         end
       end

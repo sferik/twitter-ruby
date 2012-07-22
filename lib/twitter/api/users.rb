@@ -98,9 +98,7 @@ module Twitter
       #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
       #   @param options [Hash] A customizable set of options.
       def block(*args)
-        users_from_response(args) do |options|
-          post("/1/blocks/create.json", options)
-        end
+        users_from_response("/1/blocks/create.json", args)
       end
 
       # Un-blocks the users specified by the authenticating user
@@ -119,9 +117,7 @@ module Twitter
       #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
       #   @param options [Hash] A customizable set of options.
       def unblock(*args)
-        users_from_response(args) do |options|
-          delete("/1/blocks/destroy.json", options)
-        end
+        users_from_response("/1/blocks/destroy.json", args)
       end
 
       # @return [Array<Twitter::Suggestion>]
