@@ -78,11 +78,7 @@ module Twitter
       #   Twitter.block?('sferik')
       #   Twitter.block?(7505382)  # Same as above
       def block?(user, options={})
-        options.merge_user!(user)
-        get("/1/blocks/exists.json", options)
-        true
-      rescue Twitter::Error::NotFound
-        false
+        exists?("/1/blocks/exists.json", user, options)
       end
 
       # Blocks the users specified by the authenticating user
@@ -253,11 +249,7 @@ module Twitter
       #   Twitter.user?('sferik')
       #   Twitter.user?(7505382)  # Same as above
       def user?(user, options={})
-        options.merge_user!(user)
-        get("/1/users/show.json", options)
-        true
-      rescue Twitter::Error::NotFound
-        false
+        exists?("/1/users/show.json", user, options)
       end
 
       # Returns an array of users that the specified user can contribute to
@@ -376,6 +368,16 @@ module Twitter
         options.merge_user!(user)
         response = get("/users/following_followers_of.json", options)
         Twitter::Cursor.from_response(response, 'users', Twitter::User)
+      end
+
+      private
+
+      def exists?(url, user, options)
+        options.merge_user!(user)
+        get(url, options)
+        true
+      rescue Twitter::Error::NotFound
+        false
       end
 
     end
