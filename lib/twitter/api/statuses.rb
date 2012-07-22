@@ -90,9 +90,7 @@ module Twitter
       #   @param ids [Array<Integer>, Set<Integer>] An array of Twitter status IDs.
       #   @param options [Hash] A customizable set of options.
       def favorite(*args)
-        statuses_from_response(args) do |id, options|
-          post("/1/favorites/create/#{id}.json", options)
-        end
+        statuses_from_response(:post, "/1/favorites/create", args)
       end
       alias fav favorite
       alias fave favorite
@@ -113,9 +111,7 @@ module Twitter
       #   @param ids [Array<Integer>, Set<Integer>] An array of Twitter status IDs.
       #   @param options [Hash] A customizable set of options.
       def unfavorite(*args)
-        statuses_from_response(args) do |id, options|
-          delete("/1/favorites/destroy/#{id}.json", options)
-        end
+        statuses_from_response(:delete, "/1/favorites/destroy", args)
       end
       alias favorite_destroy unfavorite
 
@@ -399,9 +395,7 @@ module Twitter
       #   @param options [Hash] A customizable set of options.
       #   @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       def statuses(*args)
-        statuses_from_response(args) do |id, options|
-          get("/1/statuses/show/#{id}.json", options)
-        end
+        statuses_from_response(:get, "/1/statuses/show", args)
       end
 
       # Returns activity summary for a status
@@ -511,9 +505,7 @@ module Twitter
       #   @param options [Hash] A customizable set of options.
       #   @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       def status_destroy(*args)
-        statuses_from_response(args) do |id, options|
-          delete("/1/statuses/destroy/#{id}.json", options)
-        end
+        statuses_from_response(:delete, "/1/statuses/destroy", args)
       end
 
       # Retweets tweets
@@ -592,10 +584,10 @@ module Twitter
 
     private
 
-      def statuses_from_response(args, &block)
+      def statuses_from_response(method, url, args)
         options = args.extract_options!
         args.flatten.threaded_map do |id|
-          response = yield(id, options)
+          response = self.send(method, url + "/#{id}.json", options)
           Twitter::Status.from_response(response)
         end
       end
