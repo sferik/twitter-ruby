@@ -1,7 +1,6 @@
 require 'faraday'
 require 'twitter/api/account'
 require 'twitter/api/activity'
-require 'twitter/api/blocks'
 require 'twitter/api/direct_messages'
 require 'twitter/api/friendships'
 require 'twitter/api/geo'
@@ -30,7 +29,6 @@ module Twitter
     @@rate_limited = {}
     include Twitter::API::Account
     include Twitter::API::Activity
-    include Twitter::API::Blocks
     include Twitter::API::DirectMessages
     include Twitter::API::Friendships
     include Twitter::API::Geo

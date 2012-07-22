@@ -89,7 +89,7 @@ module Twitter
     private
 
       def trends_periodically(date, options, &block)
-        response = yield(options.merge(:date => date.strftime('%Y-%m-%d'))
+        response = yield(options.merge(:date => date.strftime('%Y-%m-%d')))
         trends = {}
         response[:body][:trends].each do |key, value|
           trends[key] = []
