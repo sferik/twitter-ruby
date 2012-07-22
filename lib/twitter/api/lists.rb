@@ -330,9 +330,7 @@ module Twitter
       #     Twitter.list_add_members(7505382, 8863586, ['BarackObama', 'pengwynn'])
       #     Twitter.list_add_members(7505382, 8863586, [813286, 18755393])
       def list_add_members(*args)
-        list_modify_members(args) do |options|
-          post("/1/lists/members/create_all.json", options)
-        end
+        list_modify_members(:post, "/1/lists/members/create_all.json", args)
       end
 
       # Removes specified members from the list
@@ -364,9 +362,7 @@ module Twitter
       #     Twitter.list_remove_members(7505382, 8863586, ['BarackObama', 'pengwynn'])
       #     Twitter.list_remove_members(7505382, 8863586, [813286, 18755393])
       def list_remove_members(*args)
-        list_modify_members(args) do |options|
-          post("/1/lists/members/destroy_all.json", options)
-        end
+        list_modify_members(:post, "/1/lists/members/destroy_all.json", args)
       end
 
       # Check if a user is a member of the specified list
@@ -604,7 +600,7 @@ module Twitter
         Twitter::List.from_response(response)
       end
 
-      def list_modify_members(args, &block)
+      def list_modify_members(method, url, args)
         options = args.extract_options!
         members = args.pop
         options.merge_list!(args.pop)
@@ -613,7 +609,7 @@ module Twitter
           options.merge_owner!(owner)
         end
         response = members.flatten.each_slice(MAX_USERS_PER_REQUEST).threaded_map do |users|
-          yield(options.merge_users(users))
+          self.send(method, url, options.merge_users(users))
         end.last
         Twitter::List.from_response(response)
       end
