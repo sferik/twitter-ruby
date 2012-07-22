@@ -30,7 +30,7 @@ module Twitter
       #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
       #   @param options [Hash] A customizable set of options.
       def enable_notifications(*args)
-        users_from_response("/1/notifications/follow.json", args)
+        users_from_response(:post, "/1/notifications/follow.json", args)
       end
 
       # Disables notifications for updates from the specified users to the authenticating user
@@ -49,7 +49,7 @@ module Twitter
       #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
       #   @param options [Hash] A customizable set of options.
       def disable_notifications(*args)
-        users_from_response("/1/notifications/leave.json", args)
+        users_from_response(:post, "/1/notifications/leave.json", args)
       end
 
     end

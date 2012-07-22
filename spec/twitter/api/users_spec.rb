@@ -87,14 +87,14 @@ describe Twitter::API::Users do
 
   describe "#unblock" do
     before do
-      stub_post("/1/blocks/destroy.json").
-        with(:body => {:screen_name => "sferik"}).
+      stub_delete("/1/blocks/destroy.json").
+        with(:query => {:screen_name => "sferik"}).
         to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
       @client.unblock("sferik")
-      a_post("/1/blocks/destroy.json").
-        with(:body => {:screen_name => "sferik"}).
+      a_delete("/1/blocks/destroy.json").
+        with(:query => {:screen_name => "sferik"}).
         should have_been_made
     end
     it "returns an array of un-blocked users" do

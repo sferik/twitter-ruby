@@ -254,7 +254,7 @@ module Twitter
       #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
       #   @param options [Hash] A customizable set of options.
       def unfollow(*args)
-        users_from_response("/1/friendships/destroy.json", args)
+        users_from_response(:delete, "/1/friendships/destroy.json", args)
       end
       alias friendship_destroy unfollow
 
@@ -330,7 +330,7 @@ module Twitter
       #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
       #   @param options [Hash] A customizable set of options.
       def accept(*args)
-        users_from_response("/1/friendships/accept.json", args)
+        users_from_response(:post, "/1/friendships/accept.json", args)
       end
 
       # Allows the authenticating user to deny the specified users' follow requests
@@ -348,7 +348,7 @@ module Twitter
       #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
       #   @param options [Hash] A customizable set of options.
       def deny(*args)
-        users_from_response("/1/friendships/deny.json", args)
+        users_from_response(:post, "/1/friendships/deny.json", args)
       end
 
     end

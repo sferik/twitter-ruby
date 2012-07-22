@@ -242,9 +242,7 @@ module Twitter
       #     Twitter.list_subscribe('sferik', 8863586)
       #     Twitter.list_subscribe(7505382, 'presidents')
       def list_subscribe(*args)
-        list_from_response(args) do |options|
-          post("/1/lists/subscribers/create.json", options)
-        end
+        list_from_response(:post, "/1/lists/subscribers/create.json", args)
       end
 
       # Check if a user is a subscriber of the specified list
@@ -301,9 +299,7 @@ module Twitter
       #     Twitter.list_unsubscribe('sferik', 8863586)
       #     Twitter.list_unsubscribe(7505382, 'presidents')
       def list_unsubscribe(*args)
-        list_from_response(args) do |options|
-          post("/1/lists/subscribers/destroy.json", options)
-        end
+        list_from_response(:post, "/1/lists/subscribers/destroy.json", args)
       end
 
       # Adds specified members to a list
@@ -489,9 +485,7 @@ module Twitter
       #     Twitter.list_destroy(7505382, 'presidents')
       #     Twitter.list_destroy(7505382, 8863586)
       def list_destroy(*args)
-        list_from_response(args) do |options|
-          delete("/1/lists/destroy.json", options)
-        end
+        list_from_response(:delete, "/1/lists/destroy.json", args)
       end
 
       # Updates the specified list
@@ -521,9 +515,7 @@ module Twitter
       #     Twitter.list_update('sferik', 8863586, :description => "Presidents of the United States of America")
       #     Twitter.list_update(7505382, 8863586, :description => "Presidents of the United States of America")
       def list_update(*args)
-        list_from_response(args) do |options|
-          post("/1/lists/update.json", options)
-        end
+        list_from_response(:post, "/1/lists/update.json", args)
       end
 
       # Creates a new list for the authenticated user
@@ -597,9 +589,7 @@ module Twitter
       #     Twitter.list(7505382, 'presidents')
       #     Twitter.list(7505382, 8863586)
       def list(*args)
-        list_from_response(args) do |options|
-          get("/1/lists/show.json", options)
-        end
+        list_from_response(:get, "/1/lists/show.json", args)
       end
 
     private
@@ -660,7 +650,7 @@ module Twitter
         Twitter::Cursor.from_response(response, 'users', Twitter::User)
       end
 
-      def list_from_response(args, &block)
+      def list_from_response(method, url, args)
         options = args.extract_options!
         list = args.pop
         options.merge_list!(list)
@@ -668,7 +658,7 @@ module Twitter
           owner = args.pop || self.verify_credentials.screen_name
           options.merge_owner!(owner)
         end
-        response = yield(options)
+        response = self.send(method, url, options)
         Twitter::List.from_response(response)
       end
 

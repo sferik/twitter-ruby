@@ -98,7 +98,7 @@ module Twitter
       #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
       #   @param options [Hash] A customizable set of options.
       def block(*args)
-        users_from_response("/1/blocks/create.json", args)
+        users_from_response(:post, "/1/blocks/create.json", args)
       end
 
       # Un-blocks the users specified by the authenticating user
@@ -117,7 +117,7 @@ module Twitter
       #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
       #   @param options [Hash] A customizable set of options.
       def unblock(*args)
-        users_from_response("/1/blocks/destroy.json", args)
+        users_from_response(:delete, "/1/blocks/destroy.json", args)
       end
 
       # @return [Array<Twitter::Suggestion>]
@@ -268,7 +268,7 @@ module Twitter
       #     Twitter.contributees('sferik')
       #     Twitter.contributees(7505382)  # Same as above
       def contributees(*args)
-        delegates("/1/users/contributees.json", args)
+        delegates(:get, "/1/users/contributees.json", args)
       end
 
       # Returns an array of users who can contribute to the specified account
@@ -291,7 +291,7 @@ module Twitter
       #     Twitter.contributors('sferik')
       #     Twitter.contributors(7505382)  # Same as above
       def contributors(*args)
-        delegates("/1/users/contributors.json", args)
+        delegates(:get, "/1/users/contributors.json", args)
       end
 
       # Returns recommended users for the authenticated user
@@ -360,11 +360,11 @@ module Twitter
 
       private
 
-      def delegates(url, args)
+      def delegates(method, url, args)
         options = args.extract_options!
         user = args.pop || self.verify_credentials.screen_name
         options.merge_user!(user)
-        response = get(url, options)
+        response = self.send(method, url, options)
         collection_from_array(response[:body], Twitter::User)
       end
 

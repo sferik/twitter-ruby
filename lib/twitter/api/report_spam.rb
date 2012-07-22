@@ -28,7 +28,7 @@ module Twitter
       #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
       #   @param options [Hash] A customizable set of options.
       def report_spam(*args)
-        users_from_response("/1/report_spam.json", args)
+        users_from_response(:post, "/1/report_spam.json", args)
       end
 
     end
