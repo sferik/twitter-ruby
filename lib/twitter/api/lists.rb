@@ -130,17 +130,9 @@ module Twitter
       #     Twitter.list_remove_member('sferik', 8863586, 'BarackObama')
       #     Twitter.list_remove_member(7505382, 'presidents', 813286)
       def list_remove_member(*args)
-        options = args.extract_options!
-        user_to_remove = args.pop
-        options.merge_user!(user_to_remove)
-        list = args.pop
-        options.merge_list!(list)
-        unless options[:owner_id] || options[:owner_screen_name]
-          owner = args.pop || self.verify_credentials.screen_name
-          options.merge_owner!(owner)
+        list_modify_member(args) do |options|
+          post("/1/lists/members/destroy.json", options)
         end
-        response = post("/1/lists/members/destroy.json", options)
-        Twitter::List.from_response(response)
       end
 
       # List the lists the specified user has been added to
@@ -500,17 +492,9 @@ module Twitter
       #     Twitter.list_add_member(7505382, 'presidents', 813286)
       #     Twitter.list_add_member(7505382, 8863586, 813286)
       def list_add_member(*args)
-        options = args.extract_options!
-        user_to_add = args.pop
-        options.merge_user!(user_to_add)
-        list = args.pop
-        options.merge_list!(list)
-        unless options[:owner_id] || options[:owner_screen_name]
-          owner = args.pop || self.verify_credentials.screen_name
-          options.merge_owner!(owner)
+        list_modify_member(args) do |options|
+          post("/1/lists/members/create.json", options)
         end
-        response = post("/1/lists/members/create.json", options)
-        Twitter::List.from_response(response)
       end
 
       # Deletes the specified list
@@ -651,6 +635,20 @@ module Twitter
       end
 
     private
+
+      def list_modify_member(args, &block)
+        options = args.extract_options!
+        user_to_add = args.pop
+        options.merge_user!(user_to_add)
+        list = args.pop
+        options.merge_list!(list)
+        unless options[:owner_id] || options[:owner_screen_name]
+          owner = args.pop || self.verify_credentials.screen_name
+          options.merge_owner!(owner)
+        end
+        response = yield(options)
+        Twitter::List.from_response(response)
+      end
 
       def list_modify_members(args, &block)
         options = args.extract_options!
