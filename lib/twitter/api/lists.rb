@@ -360,17 +360,9 @@ module Twitter
       #     Twitter.list_add_members(7505382, 8863586, ['BarackObama', 'pengwynn'])
       #     Twitter.list_add_members(7505382, 8863586, [813286, 18755393])
       def list_add_members(*args)
-        options = args.extract_options!
-        members = args.pop
-        options.merge_list!(args.pop)
-        unless options[:owner_id] || options[:owner_screen_name]
-          owner = args.pop || self.verify_credentials.screen_name
-          options.merge_owner!(owner)
+        list_modify_members(args) do |options|
+          post("/1/lists/members/create_all.json", options)
         end
-        response = members.flatten.each_slice(MAX_USERS_PER_REQUEST).threaded_map do |users|
-          post("/1/lists/members/create_all.json", options.merge_users(users))
-        end.last
-        Twitter::List.from_response(response)
       end
 
       # Removes specified members from the list
@@ -402,17 +394,9 @@ module Twitter
       #     Twitter.list_remove_members(7505382, 8863586, ['BarackObama', 'pengwynn'])
       #     Twitter.list_remove_members(7505382, 8863586, [813286, 18755393])
       def list_remove_members(*args)
-        options = args.extract_options!
-        members = args.pop
-        options.merge_list!(args.pop)
-        unless options[:owner_id] || options[:owner_screen_name]
-          owner = args.pop || self.verify_credentials.screen_name
-          options.merge_owner!(owner)
+        list_modify_members(args) do |options|
+          post("/1/lists/members/destroy_all.json", options)
         end
-        response = members.flatten.each_slice(MAX_USERS_PER_REQUEST).threaded_map do |users|
-          post("/1/lists/members/destroy_all.json", options.merge_users(users))
-        end.last
-        Twitter::List.from_response(response)
       end
 
       # Check if a user is a member of the specified list
@@ -667,6 +651,20 @@ module Twitter
       end
 
     private
+
+      def list_modify_members(args, &block)
+        options = args.extract_options!
+        members = args.pop
+        options.merge_list!(args.pop)
+        unless options[:owner_id] || options[:owner_screen_name]
+          owner = args.pop || self.verify_credentials.screen_name
+          options.merge_owner!(owner)
+        end
+        response = members.flatten.each_slice(MAX_USERS_PER_REQUEST).threaded_map do |users|
+          yield(options.merge_users(users))
+        end.last
+        Twitter::List.from_response(response)
+      end
 
       def list_from_response(args, &block)
         options = args.extract_options!
