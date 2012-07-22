@@ -64,9 +64,7 @@ module Twitter
       # @example Return the top 20 trending topics for each hour of October 24, 2010
       #   Twitter.trends_daily(Date.parse("2010-10-24"))
       def trends_daily(date=Date.today, options={})
-        trends_periodically(date, options) do |opts|
-          get("/1/trends/daily.json", opts)
-        end
+        trends_periodically("/1/trends/daily.json", date, options)
       end
 
       # Returns the top 30 trending topics for each day in a given week
@@ -81,15 +79,13 @@ module Twitter
       # @example Return the top ten topics that are currently trending on Twitter
       #   Twitter.trends_weekly(Date.parse("2010-10-24"))
       def trends_weekly(date=Date.today, options={})
-        trends_periodically(date, options) do |opts|
-          get("/1/trends/weekly.json", opts)
-        end
+        trends_periodically("/1/trends/weekly.json", date, options)
       end
 
     private
 
-      def trends_periodically(date, options, &block)
-        response = yield(options.merge(:date => date.strftime('%Y-%m-%d')))
+      def trends_periodically(url, date, options)
+        response = get(url, options.merge(:date => date.strftime('%Y-%m-%d')))
         trends = {}
         response[:body][:trends].each do |key, value|
           trends[key] = []
