@@ -130,9 +130,7 @@ module Twitter
       #     Twitter.list_remove_member('sferik', 8863586, 'BarackObama')
       #     Twitter.list_remove_member(7505382, 'presidents', 813286)
       def list_remove_member(*args)
-        list_modify_member(args) do |options|
-          post("/1/lists/members/destroy.json", options)
-        end
+        list_modify_member(:post, "/1/lists/members/destroy.json", args)
       end
 
       # List the lists the specified user has been added to
@@ -456,9 +454,7 @@ module Twitter
       #     Twitter.list_add_member(7505382, 'presidents', 813286)
       #     Twitter.list_add_member(7505382, 8863586, 813286)
       def list_add_member(*args)
-        list_modify_member(args) do |options|
-          post("/1/lists/members/create.json", options)
-        end
+        list_modify_member(:post, "/1/lists/members/create.json", args)
       end
 
       # Deletes the specified list
@@ -594,7 +590,7 @@ module Twitter
 
     private
 
-      def list_modify_member(args, &block)
+      def list_modify_member(method, url, args)
         options = args.extract_options!
         user_to_add = args.pop
         options.merge_user!(user_to_add)
@@ -604,7 +600,7 @@ module Twitter
           owner = args.pop || self.verify_credentials.screen_name
           options.merge_owner!(owner)
         end
-        response = yield(options)
+        response = self.send(method, url, options)
         Twitter::List.from_response(response)
       end
 
