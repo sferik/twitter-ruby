@@ -187,15 +187,9 @@ module Twitter
       #     Twitter.list_subscribers('sferik', 8863586)
       #     Twitter.list_subscribers(7505382, 'presidents')
       def list_subscribers(*args)
-        options = {:cursor => -1}.merge(args.extract_options!)
-        list = args.pop
-        options.merge_list!(list)
-        unless options[:owner_id] || options[:owner_screen_name]
-          owner = args.pop || self.verify_credentials.screen_name
-          options.merge_owner!(owner)
+        list_users(args) do |options|
+          get("/1/lists/subscribers.json", options)
         end
-        response = get("/1/lists/subscribers.json", options)
-        Twitter::Cursor.from_response(response, 'users', Twitter::User)
       end
 
       # List the lists the specified user follows
@@ -435,15 +429,9 @@ module Twitter
       #     Twitter.list_members(7505382, 'presidents')
       #     Twitter.list_members(7505382, 8863586)
       def list_members(*args)
-        options = {:cursor => -1}.merge(args.extract_options!)
-        list = args.pop
-        options.merge_list!(list)
-        unless options[:owner_id] || options[:owner_screen_name]
-          owner = args.pop || self.verify_credentials.screen_name
-          options.merge_owner!(owner)
+        list_users(args) do |options|
+          get("/1/lists/members.json", options)
         end
-        response = get("/1/lists/members.json", options)
-        Twitter::Cursor.from_response(response, 'users', Twitter::User)
       end
 
       # Add a member to a list
@@ -658,6 +646,18 @@ module Twitter
         true
       rescue Twitter::Error::NotFound, Twitter::Error::Forbidden
         false
+      end
+
+      def list_users(args, &block)
+        options = {:cursor => -1}.merge(args.extract_options!)
+        list = args.pop
+        options.merge_list!(list)
+        unless options[:owner_id] || options[:owner_screen_name]
+          owner = args.pop || self.verify_credentials.screen_name
+          options.merge_owner!(owner)
+        end
+        response = yield(options)
+        Twitter::Cursor.from_response(response, 'users', Twitter::User)
       end
 
       def list_from_response(args, &block)
