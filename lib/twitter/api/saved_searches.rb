@@ -46,8 +46,7 @@ module Twitter
       def saved_searches(*args)
         options = args.extract_options!
         if args.empty?
-          response = get("/1/saved_searches.json", options)
-          collection_from_array(response[:body], Twitter::SavedSearch)
+          collection_from_response(:get, "/1/saved_searches.json", options, Twitter::SavedSearch)
         else
           args.flatten.threaded_map do |id|
             response = get("/1/saved_searches/show/#{id}.json", options)

@@ -38,8 +38,7 @@ module Twitter
       # @example Return the list of languages Twitter supports
       #   Twitter.languages
       def languages(options={})
-        response = get("/1/help/languages.json", options)
-        collection_from_array(response[:body], Twitter::Language)
+        collection_from_response(:get, "/1/help/languages.json", options, Twitter::Language)
       end
 
     end

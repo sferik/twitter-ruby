@@ -47,8 +47,7 @@ module Twitter
       # @example Return an array of user objects that the authenticating user is blocking
       #   Twitter.blocking
       def blocking(options={})
-        response = get("/1/blocks/blocking.json", options)
-        collection_from_array(response[:body], Twitter::User)
+        collection_from_response(:get, "/1/blocks/blocking.json", options, Twitter::User)
       end
 
       # Returns an array of numeric user ids the authenticating user is blocking
@@ -144,8 +143,7 @@ module Twitter
           response = get("/1/users/suggestions/#{slug}.json", options)
           Twitter::Suggestion.from_response(response)
         else
-          response = get("/1/users/suggestions.json", options)
-          collection_from_array(response[:body], Twitter::Suggestion)
+          collection_from_response(:get, "/1/users/suggestions.json", options, Twitter::Suggestion)
         end
       end
 
@@ -160,8 +158,7 @@ module Twitter
       # @example Return the users in the Art & Design category and their most recent status if they are not a protected user
       #   Twitter.suggest_users("art-design")
       def suggest_users(slug, options={})
-        response = get("/1/users/suggestions/#{slug}/members.json", options)
-        collection_from_array(response[:body], Twitter::User)
+        collection_from_response(:get, "/1/users/suggestions/#{slug}/members.json", options, Twitter::User)
       end
 
       # Returns extended information for up to 100 users
@@ -182,8 +179,7 @@ module Twitter
       def users(*args)
         options = args.extract_options!
         args.flatten.each_slice(MAX_USERS_PER_REQUEST).threaded_map do |users|
-          response = get("/1/users/lookup.json", options.merge_users(users))
-          collection_from_array(response[:body], Twitter::User)
+          collection_from_response(:get, "/1/users/lookup.json", options.merge_users(users), Twitter::User)
         end.flatten
       end
 
@@ -201,8 +197,7 @@ module Twitter
       # @example Return users that match "Erik Michaels-Ober"
       #   Twitter.user_search("Erik Michaels-Ober")
       def user_search(query, options={})
-        response = get("/1/users/search.json", options.merge(:q => query))
-        collection_from_array(response[:body], Twitter::User)
+        collection_from_response(:get, "/1/users/search.json", options.merge(:q => query), Twitter::User)
       end
 
       # @see https://dev.twitter.com/docs/api/1/get/users/show
@@ -364,8 +359,7 @@ module Twitter
         options = args.extract_options!
         user = args.pop || self.verify_credentials.screen_name
         options.merge_user!(user)
-        response = self.send(method.to_sym, url, options)
-        collection_from_array(response[:body], Twitter::User)
+        collection_from_response(method.to_sym, url, options, Twitter::User)
       end
 
       def exists?(url, user, options)

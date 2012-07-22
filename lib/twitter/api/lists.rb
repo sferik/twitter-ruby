@@ -61,8 +61,7 @@ module Twitter
         if user = args.pop
           options.merge_user!(user)
         end
-        response = get("/1/lists/all.json", options)
-        collection_from_array(response[:body], Twitter::List)
+        collection_from_response(:get, "/1/lists/all.json", options, Twitter::List)
       end
 
       # Show tweet timeline for members of the specified list
@@ -100,8 +99,7 @@ module Twitter
           owner = args.pop || self.verify_credentials.screen_name
           options.merge_owner!(owner)
         end
-        response = get("/1/lists/statuses.json", options)
-        collection_from_array(response[:body], Twitter::Status)
+        collection_from_response(:get, "/1/lists/statuses.json", options, Twitter::Status)
       end
 
       # Removes the specified member from the list

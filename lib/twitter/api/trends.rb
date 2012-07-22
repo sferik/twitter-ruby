@@ -48,8 +48,7 @@ module Twitter
       # @example Return the locations that Twitter has trending topic information for
       #   Twitter.trend_locations
       def trend_locations(options={})
-        response = get("/1/trends/available.json", options)
-        collection_from_array(response[:body], Twitter::Place)
+        collection_from_response(:get, "/1/trends/available.json", options, Twitter::Place)
       end
 
       # Returns the top 20 trending topics for each hour in a given day

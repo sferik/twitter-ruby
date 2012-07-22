@@ -8,6 +8,10 @@ module Twitter
     module Utils
     private
 
+      def collection_from_response(method, url, options, klass)
+        collection_from_array(self.send(method.to_sym, url, options)[:body], klass)
+      end
+
       def collection_from_array(array, klass)
         array.map do |element|
           klass.fetch_or_new(element)

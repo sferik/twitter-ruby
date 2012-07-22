@@ -277,8 +277,7 @@ module Twitter
       def friendships(*args)
         options = args.extract_options!
         options.merge_users!(Array(args))
-        response = get("/1/friendships/lookup.json", options)
-        collection_from_array(response[:body], Twitter::User)
+        collection_from_response(:get, "/1/friendships/lookup.json", options, Twitter::User)
       end
 
       # Allows one to enable or disable retweets and device notifications from the specified user.

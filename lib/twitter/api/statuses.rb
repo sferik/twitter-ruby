@@ -67,12 +67,12 @@ module Twitter
       #     Twitter.favorites('sferik')
       def favorites(*args)
         options = args.extract_options!
-        response = if user = args.pop
-          get("/1/favorites/#{user}.json", options)
+        url = if user = args.pop
+          "/1/favorites/#{user}.json"
         else
-          get("/1/favorites.json", options)
+          "/1/favorites.json"
         end
-        collection_from_array(response[:body], Twitter::Status)
+        collection_from_response(:get, url, options, Twitter::Status)
       end
 
       # Favorites the specified statuses as the authenticating user
@@ -132,8 +132,7 @@ module Twitter
       # @example Return the 20 most recent statuses, including retweets if they exist, posted by the authenticating user and the users they follow
       #   Twitter.home_timeline
       def home_timeline(options={})
-        response = get("/1/statuses/home_timeline.json", options)
-        collection_from_array(response[:body], Twitter::Status)
+        collection_from_response(:get, "/1/statuses/home_timeline.json", options, Twitter::Status)
       end
 
       # Returns the 20 most recent mentions (statuses containing @username) for the authenticating user
@@ -152,8 +151,7 @@ module Twitter
       # @example Return the 20 most recent mentions (statuses containing @username) for the authenticating user
       #   Twitter.mentions
       def mentions(options={})
-        response = get("/1/statuses/mentions.json", options)
-        collection_from_array(response[:body], Twitter::Status)
+        collection_from_response(:get, "/1/statuses/mentions.json", options, Twitter::Status)
       end
 
       # Returns the 20 most recent retweets posted by the specified user
@@ -183,13 +181,13 @@ module Twitter
       #     Twitter.retweeted_by
       def retweeted_by(*args)
         options = args.extract_options!
-        response = if user = args.pop
+        url = if user = args.pop
           options.merge_user!(user)
-          get("/1/statuses/retweeted_by_user.json", options)
+          "/1/statuses/retweeted_by_user.json"
         else
-          get("/1/statuses/retweeted_by_me.json", options)
+          "/1/statuses/retweeted_by_me.json"
         end
-        collection_from_array(response[:body], Twitter::Status)
+        collection_from_response(:get, url, options, Twitter::Status)
       end
 
       # Returns the 20 most recent retweets posted by users the specified user follows
@@ -219,13 +217,13 @@ module Twitter
       #     Twitter.retweeted_to('sferik')
       def retweeted_to(*args)
         options = args.extract_options!
-        response = if user = args.pop
+        url = if user = args.pop
           options.merge_user!(user)
-          get("/1/statuses/retweeted_to_user.json", options)
+          "/1/statuses/retweeted_to_user.json"
         else
-          get("/1/statuses/retweeted_to_me.json", options)
+          "/1/statuses/retweeted_to_me.json"
         end
-        collection_from_array(response[:body], Twitter::Status)
+        collection_from_response(:get, url, options, Twitter::Status)
       end
 
       # Returns the 20 most recent tweets of the authenticated user that have been retweeted by others
@@ -243,8 +241,7 @@ module Twitter
       # @example Return the 20 most recent tweets of the authenticated user that have been retweeted by others
       #   Twitter.retweets_of_me
       def retweets_of_me(options={})
-        response = get("/1/statuses/retweets_of_me.json", options)
-        collection_from_array(response[:body], Twitter::Status)
+        collection_from_response(:get, "/1/statuses/retweets_of_me.json", options, Twitter::Status)
       end
 
       # Returns the 20 most recent statuses posted by the specified user
@@ -270,8 +267,7 @@ module Twitter
         if user = args.pop
           options.merge_user!(user)
         end
-        response = get("/1/statuses/user_timeline.json", options)
-        collection_from_array(response[:body], Twitter::Status)
+        collection_from_response(:get, "/1/statuses/user_timeline.json", options, Twitter::Status)
       end
 
       # Returns the 20 most recent images posted by the specified user
@@ -295,8 +291,7 @@ module Twitter
         if user = args.pop
           options.merge_user!(user)
         end
-        response = get("/1/statuses/media_timeline.json", options)
-        collection_from_array(response[:body], Twitter::Status)
+        collection_from_response(:get, "/1/statuses/media_timeline.json", options, Twitter::Status)
       end
 
       # Returns the 20 most recent statuses from the authenticating user's network
@@ -315,8 +310,7 @@ module Twitter
       # @example Return the 20 most recent statuses from the authenticating user's network
       #   Twitter.network_timeline
       def network_timeline(options={})
-        response = get("/i/statuses/network_timeline.json", options)
-        collection_from_array(response[:body], Twitter::Status)
+        collection_from_response(:get, "/i/statuses/network_timeline.json", options, Twitter::Status)
       end
 
       # Show up to 100 users who retweeted the status
@@ -339,8 +333,7 @@ module Twitter
         if ids_only = !!options.delete(:ids_only)
           get("/1/statuses/#{id}/retweeted_by/ids.json", options)[:body]
         else
-          response = get("/1/statuses/#{id}/retweeted_by.json", options)
-          collection_from_array(response[:body], Twitter::User)
+          collection_from_response(:get, "/1/statuses/#{id}/retweeted_by.json", options, Twitter::User)
         end
       end
 
@@ -358,8 +351,7 @@ module Twitter
       # @example Return up to 100 of the first retweets of the status with the ID 28561922516
       #   Twitter.retweets(28561922516)
       def retweets(id, options={})
-        response = get("/1/statuses/retweets/#{id}.json", options)
-        collection_from_array(response[:body], Twitter::Status)
+        collection_from_response(:get, "/1/statuses/retweets/#{id}.json", options, Twitter::Status)
       end
 
       # Returns a status
