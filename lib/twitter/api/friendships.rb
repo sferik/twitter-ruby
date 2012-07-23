@@ -2,7 +2,6 @@ require 'twitter/api/utils'
 require 'twitter/core_ext/array'
 require 'twitter/core_ext/enumerable'
 require 'twitter/core_ext/hash'
-require 'twitter/cursor'
 require 'twitter/error/forbidden'
 require 'twitter/relationship'
 require 'twitter/user'
@@ -64,8 +63,7 @@ module Twitter
         options.merge!(args.extract_options!)
         user = args.pop
         options.merge_user!(user)
-        response = get("/1/followers/ids.json", options)
-        Twitter::Cursor.from_response(response)
+        cursor_from_response(:ids, nil, :get, "/1/followers/ids.json", options)
       end
 
       # @see https://dev.twitter.com/docs/api/1/get/friends/ids
@@ -94,8 +92,7 @@ module Twitter
         options.merge!(args.extract_options!)
         user = args.pop
         options.merge_user!(user)
-        response = get("/1/friends/ids.json", options)
-        Twitter::Cursor.from_response(response)
+        cursor_from_response(:ids, nil, :get, "/1/friends/ids.json", options)
       end
 
       # Test for the existence of friendship between two users
@@ -132,8 +129,7 @@ module Twitter
       #   Twitter.friendships_incoming
       def friendships_incoming(options={})
         options = {:cursor => -1}.merge(options)
-        response = get("/1/friendships/incoming.json", options)
-        Twitter::Cursor.from_response(response)
+        cursor_from_response(:ids, nil, :get, "/1/friendships/incoming.json", options)
       end
 
       # Returns an array of numeric IDs for every protected user for whom the authenticating user has a pending follow request
@@ -149,8 +145,7 @@ module Twitter
       #   Twitter.friendships_outgoing
       def friendships_outgoing(options={})
         options = {:cursor => -1}.merge(options)
-        response = get("/1/friendships/outgoing.json", options)
-        Twitter::Cursor.from_response(response)
+        cursor_from_response(:ids, nil, :get, "/1/friendships/outgoing.json", options)
       end
 
       # Returns detailed information about the relationship between two users
@@ -171,8 +166,7 @@ module Twitter
         options[:source_id] = options.delete(:source_user_id) unless options[:source_user_id].nil?
         options.merge_user!(target, "target")
         options[:target_id] = options.delete(:target_user_id) unless options[:target_user_id].nil?
-        response = get("/1/friendships/show.json", options)
-        Twitter::Relationship.from_response(response)
+        object_from_response(Twitter::Relationship, :get, "/1/friendships/show.json", options)
       end
       alias friendship_show friendship
       alias relationship friendship
@@ -197,13 +191,13 @@ module Twitter
         # Twitter always turns on notifications if the "follow" option is present, even if it's set to false
         # so only send follow if it's true
         options.merge!(:follow => true) if options.delete(:follow)
-        friend_ids = Thread.new do
-          self.friend_ids.ids
+        existing_friends = Thread.new do
+          friend_ids.ids
         end
-        user_ids = Thread.new do
-          self.users(args).map(&:id)
+        new_friends = Thread.new do
+          users(args).map(&:id)
         end
-        follow!(user_ids.value - friend_ids.value, options)
+        follow!(new_friends.value - existing_friends.value, options)
       end
       alias friendship_create follow
 
@@ -229,8 +223,7 @@ module Twitter
         options.merge!(:follow => true) if options.delete(:follow)
         args.flatten.threaded_map do |user|
           begin
-            response = post("/1/friendships/create.json", options.merge_user(user))
-            Twitter::User.from_response(response)
+            object_from_response(Twitter::User, :post, "/1/friendships/create.json", options.merge_user(user))
           rescue Twitter::Error::Forbidden
             # This error will be raised if the user doesn't have permission to
             # follow list_member, for whatever reason.
@@ -277,7 +270,7 @@ module Twitter
       def friendships(*args)
         options = args.extract_options!
         options.merge_users!(Array(args))
-        collection_from_response(:get, "/1/friendships/lookup.json", options, Twitter::User)
+        collection_from_response(Twitter::User, :get, "/1/friendships/lookup.json", options)
       end
 
       # Allows one to enable or disable retweets and device notifications from the specified user.
@@ -295,8 +288,7 @@ module Twitter
       #   Twitter.friendship_update('sferik', :device => true, :retweets => true)
       def friendship_update(user, options={})
         options.merge_user!(user)
-        response = post("/1/friendships/update.json", options)
-        Twitter::Relationship.from_response(response)
+        object_from_response(Twitter::Relationship, :post, "/1/friendships/update.json", options)
       end
 
       # Returns an array of user_ids that the currently authenticated user does not want to see retweets from.

@@ -1,3 +1,4 @@
+require 'twitter/api/utils'
 require 'twitter/rate_limit_status'
 require 'twitter/settings'
 require 'twitter/user'
@@ -5,6 +6,7 @@ require 'twitter/user'
 module Twitter
   module API
     module Account
+      include Twitter::API::Utils
 
       def self.included(klass)
         klass.send(:class_variable_get, :@@rate_limited).merge!(
@@ -33,8 +35,7 @@ module Twitter
       # @example Return the remaining number of API requests available to the requesting user
       #   Twitter.rate_limit_status
       def rate_limit_status(options={})
-        response = get("/1/account/rate_limit_status.json", options)
-        Twitter::RateLimitStatus.from_response(response)
+        object_from_response(Twitter::RateLimitStatus, :get, "/1/account/rate_limit_status.json", options)
       end
 
       # Returns the requesting user if authentication was successful, otherwise raises {Twitter::Error::Unauthorized}
@@ -49,8 +50,7 @@ module Twitter
       # @example Return the requesting user if authentication was successful
       #   Twitter.verify_credentials
       def verify_credentials(options={})
-        response = get("/1/account/verify_credentials.json", options)
-        Twitter::User.from_response(response)
+        object_from_response(Twitter::User, :get, "/1/account/verify_credentials.json", options)
       end
       alias current_user verify_credentials
 
@@ -80,8 +80,7 @@ module Twitter
       # @example Turn SMS updates on for the authenticating user
       #   Twitter.update_delivery_device('sms')
       def update_delivery_device(device, options={})
-        response = post("/1/account/update_delivery_device.json", options.merge(:device => device))
-        Twitter::User.from_response(response)
+        object_from_response(Twitter::User, :post, "/1/account/update_delivery_device.json", options.merge(:device => device))
       end
 
       # Sets values that users are able to set under the "Account" tab of their settings page
@@ -100,8 +99,7 @@ module Twitter
       # @example Set authenticating user's name to Erik Michaels-Ober
       #   Twitter.update_profile(:name => "Erik Michaels-Ober")
       def update_profile(options={})
-        response = post("/1/account/update_profile.json", options)
-        Twitter::User.from_response(response)
+        object_from_response(Twitter::User, :post, "/1/account/update_profile.json", options)
       end
 
       # Updates the authenticating user's profile background image
@@ -118,8 +116,7 @@ module Twitter
       #   Twitter.update_profile_background_image(File.new("we_concept_bg2.png"))
       #   Twitter.update_profile_background_image(:io => StringIO.new(pic), :type => 'jpg')
       def update_profile_background_image(image, options={})
-        response = post("/1/account/update_profile_background_image.json", options.merge(:image => image))
-        Twitter::User.from_response(response)
+        object_from_response(Twitter::User, :post, "/1/account/update_profile_background_image.json", options.merge(:image => image))
       end
 
       # Sets one or more hex values that control the color scheme of the authenticating user's profile
@@ -138,8 +135,7 @@ module Twitter
       # @example Set authenticating user's profile background to black
       #   Twitter.update_profile_colors(:profile_background_color => '000000')
       def update_profile_colors(options={})
-        response = post("/1/account/update_profile_colors.json", options)
-        Twitter::User.from_response(response)
+        object_from_response(Twitter::User, :post, "/1/account/update_profile_colors.json", options)
       end
 
       # Updates the authenticating user's profile image
@@ -156,8 +152,7 @@ module Twitter
       #   Twitter.update_profile_image(File.new("me.jpeg"))
       #   Twitter.update_profile_image(:io => StringIO.new(pic), :type => 'jpg')
       def update_profile_image(image, options={})
-        response = post("/1/account/update_profile_image.json", options.merge(:image => image))
-        Twitter::User.from_response(response)
+        object_from_response(Twitter::User, :post, "/1/account/update_profile_image.json", options.merge(:image => image))
       end
 
       # Updates the authenticating user's settings.
@@ -179,12 +174,8 @@ module Twitter
       # @example Return the settings for the authenticating user.
       #   Twitter.settings
       def settings(options={})
-        response = if options.size.zero?
-          get("/1/account/settings.json", options)
-        else
-          post("/1/account/settings.json", options)
-        end
-        Twitter::Settings.from_response(response)
+        method = options.size.zero? ? :get : :post
+        object_from_response(Twitter::Settings, method, "1/account/settings.json", options)
       end
 
     end

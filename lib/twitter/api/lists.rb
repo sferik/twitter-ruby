@@ -61,7 +61,7 @@ module Twitter
         if user = args.pop
           options.merge_user!(user)
         end
-        collection_from_response(:get, "/1/lists/all.json", options, Twitter::List)
+        collection_from_response(Twitter::List, :get, "/1/lists/all.json", options)
       end
 
       # Show tweet timeline for members of the specified list
@@ -96,10 +96,10 @@ module Twitter
         list = args.pop
         options.merge_list!(list)
         unless options[:owner_id] || options[:owner_screen_name]
-          owner = args.pop || self.verify_credentials.screen_name
+          owner = args.pop || verify_credentials.screen_name
           options.merge_owner!(owner)
         end
-        collection_from_response(:get, "/1/lists/statuses.json", options, Twitter::Status)
+        collection_from_response(Twitter::Status, :get, "/1/lists/statuses.json", options)
       end
 
       # Removes the specified member from the list
@@ -155,8 +155,7 @@ module Twitter
         if user = args.pop
           options.merge_user!(user)
         end
-        response = get("/1/lists/memberships.json", options)
-        Twitter::Cursor.from_response(response, 'lists', Twitter::List)
+        cursor_from_response(:lists, Twitter::List, :get, "/1/lists/memberships.json", options)
       end
 
       # Returns the subscribers of the specified list
@@ -210,8 +209,7 @@ module Twitter
         if user = args.pop
           options.merge_user!(user)
         end
-        response = get("/1/lists/subscriptions.json", options)
-        Twitter::Cursor.from_response(response, 'lists', Twitter::List)
+        cursor_from_response(:lists, Twitter::List, :get, "/1/lists/subscriptions.json", options)
       end
 
       # Make the authenticated user follow the specified list
@@ -515,8 +513,7 @@ module Twitter
       # @example Create a list named 'presidents'
       #   Twitter.list_create('presidents')
       def list_create(name, options={})
-        response = post("/1/lists/create.json", options.merge(:name => name))
-        Twitter::List.from_response(response)
+        object_from_response(Twitter::List, :post, "/1/lists/create.json", options.merge(:name => name))
       end
 
       # List the lists of the specified user
@@ -543,8 +540,7 @@ module Twitter
         options = {:cursor => -1}.merge(args.extract_options!)
         user = args.pop
         options.merge_user!(user) if user
-        response = get("/1/lists.json", options)
-        Twitter::Cursor.from_response(response, 'lists', Twitter::List)
+        cursor_from_response(:lists, Twitter::List, :get, "/1/lists.json", options)
       end
 
       # Show the specified list
@@ -583,11 +579,10 @@ module Twitter
         list = args.pop
         options.merge_list!(list)
         unless options[:owner_id] || options[:owner_screen_name]
-          owner = args.pop || self.verify_credentials.screen_name
+          owner = args.pop || verify_credentials.screen_name
           options.merge_owner!(owner)
         end
-        response = self.send(method.to_sym, url, options)
-        Twitter::List.from_response(response)
+        object_from_response(Twitter::List, method, url, options)
       end
 
       def list_modify_members(method, url, args)
@@ -595,13 +590,12 @@ module Twitter
         members = args.pop
         options.merge_list!(args.pop)
         unless options[:owner_id] || options[:owner_screen_name]
-          owner = args.pop || self.verify_credentials.screen_name
+          owner = args.pop || verify_credentials.screen_name
           options.merge_owner!(owner)
         end
-        response = members.flatten.each_slice(MAX_USERS_PER_REQUEST).threaded_map do |users|
-          self.send(method.to_sym, url, options.merge_users(users))
+        members.flatten.each_slice(MAX_USERS_PER_REQUEST).threaded_map do |users|
+          object_from_response(Twitter::List, method, url, options.merge_users(users))
         end.last
-        Twitter::List.from_response(response)
       end
 
       def list_user?(method, url, args)
@@ -611,10 +605,10 @@ module Twitter
         list = args.pop
         options.merge_list!(list)
         unless options[:owner_id] || options[:owner_screen_name]
-          owner = args.pop || self.verify_credentials.screen_name
+          owner = args.pop || verify_credentials.screen_name
           options.merge_owner!(owner)
         end
-        self.send(method.to_sym, url, options)
+        send(method.to_sym, url, options)
         true
       rescue Twitter::Error::NotFound, Twitter::Error::Forbidden
         false
@@ -625,11 +619,10 @@ module Twitter
         list = args.pop
         options.merge_list!(list)
         unless options[:owner_id] || options[:owner_screen_name]
-          owner = args.pop || self.verify_credentials.screen_name
+          owner = args.pop || verify_credentials.screen_name
           options.merge_owner!(owner)
         end
-        response = self.send(method.to_sym, url, options)
-        Twitter::Cursor.from_response(response, 'users', Twitter::User)
+        cursor_from_response(:users, Twitter::User, method.to_sym, url, options)
       end
 
       def list_from_response(method, url, args)
@@ -637,11 +630,10 @@ module Twitter
         list = args.pop
         options.merge_list!(list)
         unless options[:owner_id] || options[:owner_screen_name]
-          owner = args.pop || self.verify_credentials.screen_name
+          owner = args.pop || verify_credentials.screen_name
           options.merge_owner!(owner)
         end
-        response = self.send(method.to_sym, url, options)
-        Twitter::List.from_response(response)
+        object_from_response(Twitter::List, method, url, options)
       end
 
     end

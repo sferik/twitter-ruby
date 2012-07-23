@@ -40,7 +40,7 @@ module Twitter
       # @example Return the 20 most recent direct messages sent to the authenticating user
       #   Twitter.direct_messages_received
       def direct_messages_received(options={})
-        collection_from_response(:get, "/1/direct_messages.json", options, Twitter::DirectMessage)
+        collection_from_response(Twitter::DirectMessage, :get, "/1/direct_messages.json", options)
       end
 
       # Returns the 20 most recent direct messages sent by the authenticating user
@@ -59,7 +59,7 @@ module Twitter
       # @example Return the 20 most recent direct messages sent by the authenticating user
       #   Twitter.direct_messages_sent
       def direct_messages_sent(options={})
-        collection_from_response(:get, "/1/direct_messages/sent.json", options, Twitter::DirectMessage)
+        collection_from_response(Twitter::DirectMessage, :get, "/1/direct_messages/sent.json", options)
       end
 
       # Destroys direct messages
@@ -80,8 +80,7 @@ module Twitter
       def direct_message_destroy(*args)
         options = args.extract_options!
         args.flatten.threaded_map do |id|
-          response = delete("/1/direct_messages/destroy/#{id}.json", options)
-          Twitter::DirectMessage.from_response(response)
+          object_from_response(Twitter::DirectMessage, :delete, "/1/direct_messages/destroy/#{id}.json", options)
         end
       end
 
@@ -100,8 +99,7 @@ module Twitter
       #   Twitter.direct_message_create(7505382, "I'm sending you this message via @gem!")  # Same as above
       def direct_message_create(user, text, options={})
         options.merge_user!(user)
-        response = post("/1/direct_messages/new.json", options.merge(:text => text))
-        Twitter::DirectMessage.from_response(response)
+        object_from_response(Twitter::DirectMessage, :post, "/1/direct_messages/new.json", options.merge(:text => text))
       end
       alias d direct_message_create
       alias m direct_message_create
@@ -119,8 +117,7 @@ module Twitter
       # @example Return the direct message with the id 1825786345
       #   Twitter.direct_message(1825786345)
       def direct_message(id, options={})
-        response = get("/1/direct_messages/show/#{id}.json", options)
-        Twitter::DirectMessage.from_response(response)
+        object_from_response(Twitter::DirectMessage, :get, "/1/direct_messages/show/#{id}.json", options)
       end
 
       # @note This method requires an access token with RWD (read, write & direct message) permissions. Consult The Application Permission Model for more information.
@@ -155,11 +152,10 @@ module Twitter
       def direct_messages(*args)
         options = args.extract_options!
         if args.empty?
-          self.direct_messages_received(options)
+          direct_messages_received(options)
         else
           args.flatten.threaded_map do |id|
-            response = get("/1/direct_messages/show/#{id}.json", options)
-            Twitter::DirectMessage.from_response(response)
+            object_from_response(Twitter::DirectMessage, :get, "/1/direct_messages/show/#{id}.json", options)
           end
         end
       end

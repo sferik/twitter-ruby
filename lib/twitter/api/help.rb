@@ -25,8 +25,7 @@ module Twitter
       # @example Return the current configuration used by Twitter
       #   Twitter.configuration
       def configuration(options={})
-        response = get("/1/help/configuration.json", options)
-        Twitter::Configuration.from_response(response)
+        object_from_response(Twitter::Configuration, :get, "/1/help/configuration.json", options)
       end
 
       # Returns the list of languages supported by Twitter
@@ -38,7 +37,7 @@ module Twitter
       # @example Return the list of languages Twitter supports
       #   Twitter.languages
       def languages(options={})
-        collection_from_response(:get, "/1/help/languages.json", options, Twitter::Language)
+        collection_from_response(Twitter::Language, :get, "/1/help/languages.json", options)
       end
 
     end

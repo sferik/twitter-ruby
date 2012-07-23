@@ -1,5 +1,6 @@
 require 'twitter/api/utils'
 require 'twitter/search_results'
+require 'twitter/status'
 
 module Twitter
   module API
@@ -39,8 +40,7 @@ module Twitter
       # @example Returns tweets related to twitter
       #   Twitter.search('twitter')
       def search(q, options={})
-        response = get("/search.json", options.merge(:q => q), :endpoint => @search_endpoint)
-        Twitter::SearchResults.from_response(response)
+        object_from_response(Twitter::SearchResults, :get, "/search.json", options.merge(:q => q), :endpoint => @search_endpoint)
       end
 
       # Returns recent statuses related to a query with images and videos embedded
@@ -66,8 +66,8 @@ module Twitter
       # @param options [Hash]
       # @param klass [Class]
       # @return [Array]
-      def search_collection_from_response(method, url, options, klass=Twitter::Status)
-        collection_from_array(self.send(method.to_sym, url, options)[:body][:statuses], klass)
+      def search_collection_from_response(method, url, options)
+        collection_from_array(Twitter::Status, send(method.to_sym, url, options)[:body][:statuses])
       end
 
     end

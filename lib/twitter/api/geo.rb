@@ -91,8 +91,7 @@ module Twitter
       # @example Return all the information about Twitter HQ
       #   Twitter.place("247f43d441defc03")
       def place(place_id, options={})
-        response = get("/1/geo/id/#{place_id}.json", options)
-        Twitter::Place.from_response(response)
+        object_from_response(Twitter::Place, :get, "/1/geo/id/#{place_id}.json", options)
       end
 
       # Creates a new place at the given latitude and longitude
@@ -111,19 +110,18 @@ module Twitter
       # @example Create a new place
       #   Twitter.place_create(:name => "@sferik's Apartment", :token => "22ff5b1f7159032cf69218c4d8bb78bc", :contained_within => "41bcb736f84a799e", :lat => "37.783699", :long => "-122.393581")
       def place_create(options={})
-        response = post("/1/geo/place.json", options)
-        Twitter::Place.from_response(response)
+        object_from_response(Twitter::Place, :post, "/1/geo/place.json", options)
       end
 
     private
 
+      # @param klass [Class]
       # @param method [Symbol]
       # @param url [String]
       # @param options [Hash]
-      # @param klass [Class]
       # @return [Array]
-      def geo_collection_from_response(method, url, options, klass=Twitter::Place)
-        collection_from_array(self.send(method.to_sym, url, options)[:body][:result][:places], klass)
+      def geo_collection_from_response(method, url, options)
+        collection_from_array(Twitter::Place, send(method.to_sym, url, options)[:body][:result][:places])
       end
 
     end

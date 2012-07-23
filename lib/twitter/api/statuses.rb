@@ -2,6 +2,7 @@ require 'twitter/api/utils'
 require 'twitter/core_ext/array'
 require 'twitter/core_ext/enumerable'
 require 'twitter/core_ext/hash'
+require 'twitter/oembed'
 require 'twitter/status'
 
 module Twitter
@@ -72,7 +73,7 @@ module Twitter
         else
           "/1/favorites.json"
         end
-        collection_from_response(:get, url, options, Twitter::Status)
+        collection_from_response(Twitter::Status, :get, url, options)
       end
 
       # Favorites the specified statuses as the authenticating user
@@ -132,7 +133,7 @@ module Twitter
       # @example Return the 20 most recent statuses, including retweets if they exist, posted by the authenticating user and the users they follow
       #   Twitter.home_timeline
       def home_timeline(options={})
-        collection_from_response(:get, "/1/statuses/home_timeline.json", options, Twitter::Status)
+        collection_from_response(Twitter::Status, :get, "/1/statuses/home_timeline.json", options)
       end
 
       # Returns the 20 most recent mentions (statuses containing @username) for the authenticating user
@@ -151,7 +152,7 @@ module Twitter
       # @example Return the 20 most recent mentions (statuses containing @username) for the authenticating user
       #   Twitter.mentions
       def mentions(options={})
-        collection_from_response(:get, "/1/statuses/mentions.json", options, Twitter::Status)
+        collection_from_response(Twitter::Status, :get, "/1/statuses/mentions.json", options)
       end
 
       # Returns the 20 most recent retweets posted by the specified user
@@ -187,7 +188,7 @@ module Twitter
         else
           "/1/statuses/retweeted_by_me.json"
         end
-        collection_from_response(:get, url, options, Twitter::Status)
+        collection_from_response(Twitter::Status, :get, url, options)
       end
 
       # Returns the 20 most recent retweets posted by users the specified user follows
@@ -223,7 +224,7 @@ module Twitter
         else
           "/1/statuses/retweeted_to_me.json"
         end
-        collection_from_response(:get, url, options, Twitter::Status)
+        collection_from_response(Twitter::Status, :get, url, options)
       end
 
       # Returns the 20 most recent tweets of the authenticated user that have been retweeted by others
@@ -241,7 +242,7 @@ module Twitter
       # @example Return the 20 most recent tweets of the authenticated user that have been retweeted by others
       #   Twitter.retweets_of_me
       def retweets_of_me(options={})
-        collection_from_response(:get, "/1/statuses/retweets_of_me.json", options, Twitter::Status)
+        collection_from_response(Twitter::Status, :get, "/1/statuses/retweets_of_me.json", options)
       end
 
       # Returns the 20 most recent statuses posted by the specified user
@@ -267,7 +268,7 @@ module Twitter
         if user = args.pop
           options.merge_user!(user)
         end
-        collection_from_response(:get, "/1/statuses/user_timeline.json", options, Twitter::Status)
+        collection_from_response(Twitter::Status, :get, "/1/statuses/user_timeline.json", options)
       end
 
       # Returns the 20 most recent images posted by the specified user
@@ -291,7 +292,7 @@ module Twitter
         if user = args.pop
           options.merge_user!(user)
         end
-        collection_from_response(:get, "/1/statuses/media_timeline.json", options, Twitter::Status)
+        collection_from_response(Twitter::Status, :get, "/1/statuses/media_timeline.json", options)
       end
 
       # Returns the 20 most recent statuses from the authenticating user's network
@@ -310,7 +311,7 @@ module Twitter
       # @example Return the 20 most recent statuses from the authenticating user's network
       #   Twitter.network_timeline
       def network_timeline(options={})
-        collection_from_response(:get, "/i/statuses/network_timeline.json", options, Twitter::Status)
+        collection_from_response(Twitter::Status, :get, "/i/statuses/network_timeline.json", options)
       end
 
       # Show up to 100 users who retweeted the status
@@ -333,7 +334,7 @@ module Twitter
         if ids_only = !!options.delete(:ids_only)
           get("/1/statuses/#{id}/retweeted_by/ids.json", options)[:body]
         else
-          collection_from_response(:get, "/1/statuses/#{id}/retweeted_by.json", options, Twitter::User)
+          collection_from_response(Twitter::User, :get, "/1/statuses/#{id}/retweeted_by.json", options)
         end
       end
 
@@ -351,7 +352,7 @@ module Twitter
       # @example Return up to 100 of the first retweets of the status with the ID 28561922516
       #   Twitter.retweets(28561922516)
       def retweets(id, options={})
-        collection_from_response(:get, "/1/statuses/retweets/#{id}.json", options, Twitter::Status)
+        collection_from_response(Twitter::Status, :get, "/1/statuses/retweets/#{id}.json", options)
       end
 
       # Returns a status
@@ -367,8 +368,7 @@ module Twitter
       # @example Return the status with the ID 25938088801
       #   Twitter.status(25938088801)
       def status(id, options={})
-        response = get("/1/statuses/show/#{id}.json", options)
-        Twitter::Status.from_response(response)
+        object_from_response(Twitter::Status, :get, "/1/statuses/show/#{id}.json", options)
       end
 
       # Returns statuses
@@ -447,8 +447,7 @@ module Twitter
       # @example Return oEmbeds for status with activity summary with the ID 25938088801
       #   Twitter.status_with_activity(25938088801)
       def oembed(id, options={})
-        response = get("/1/statuses/oembed.json?id=#{id}", options)
-        Twitter::OEmbed.from_response(response)
+        object_from_response(Twitter::OEmbed, :get, "/1/statuses/oembed.json?id=#{id}", options)
       end
 
       # Returns oEmbeds for statuses
@@ -475,8 +474,7 @@ module Twitter
       def oembeds(*args)
         options = args.extract_options!
         args.flatten.threaded_map do |id|
-          response = get("/1/statuses/oembed.json?id=#{id}", options)
-          Twitter::OEmbed.from_response(response)
+          object_from_response(Twitter::OEmbed, :get, "/1/statuses/oembed.json?id=#{id}", options)
         end
       end
 
@@ -545,8 +543,7 @@ module Twitter
       # @example Update the authenticating user's status
       #   Twitter.update("I'm tweeting with @gem!")
       def update(status, options={})
-        response = post("/1/statuses/update.json", options.merge(:status => status))
-        Twitter::Status.from_response(response)
+        object_from_response(Twitter::Status, :post, "/1/statuses/update.json", options.merge(:status => status))
       end
 
       # Updates with media the authenticating user's status
@@ -570,8 +567,7 @@ module Twitter
       #   Twitter.update_with_media("I'm tweeting with @gem!", File.new('my_awesome_pic.jpeg'))
       #   Twitter.update_with_media("I'm tweeting with @gem!", {:io => StringIO.new(pic), :type => 'jpg'})
       def update_with_media(status, media, options={})
-        response = post("/1/statuses/update_with_media.json", options.merge('media[]' => media, 'status' => status), :endpoint => @media_endpoint)
-        Twitter::Status.from_response(response)
+        object_from_response(Twitter::Status, :post, "/1/statuses/update_with_media.json", options.merge('media[]' => media, 'status' => status), :endpoint => @media_endpoint)
       end
 
     private
@@ -579,8 +575,7 @@ module Twitter
       def statuses_from_response(method, url, args)
         options = args.extract_options!
         args.flatten.threaded_map do |id|
-          response = self.send(method.to_sym, url + "/#{id}.json", options)
-          Twitter::Status.from_response(response)
+          object_from_response(Twitter::Status, method, url + "/#{id}.json", options)
         end
       end
 

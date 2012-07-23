@@ -46,11 +46,10 @@ module Twitter
       def saved_searches(*args)
         options = args.extract_options!
         if args.empty?
-          collection_from_response(:get, "/1/saved_searches.json", options, Twitter::SavedSearch)
+          collection_from_response(Twitter::SavedSearch, :get, "/1/saved_searches.json", options)
         else
           args.flatten.threaded_map do |id|
-            response = get("/1/saved_searches/show/#{id}.json", options)
-            Twitter::SavedSearch.from_response(response)
+            object_from_response(Twitter::SavedSearch, :get, "/1/saved_searches/show/#{id}.json", options)
           end
         end
       end
@@ -67,8 +66,7 @@ module Twitter
       # @example Retrieve the data for a saved search owned by the authenticating user with the ID 16129012
       #   Twitter.saved_search(16129012)
       def saved_search(id, options={})
-        response = get("/1/saved_searches/show/#{id}.json", options)
-        Twitter::SavedSearch.from_response(response)
+        object_from_response(Twitter::SavedSearch, :get, "/1/saved_searches/show/#{id}.json", options)
       end
 
       # Creates a saved search for the authenticated user
@@ -83,8 +81,7 @@ module Twitter
       # @example Create a saved search for the authenticated user with the query "twitter"
       #   Twitter.saved_search_create("twitter")
       def saved_search_create(query, options={})
-        response = post("/1/saved_searches/create.json", options.merge(:query => query))
-        Twitter::SavedSearch.from_response(response)
+        object_from_response(Twitter::SavedSearch, :post, "/1/saved_searches/create.json", options.merge(:query => query))
       end
 
       # Destroys saved searches for the authenticated user
@@ -105,8 +102,7 @@ module Twitter
       def saved_search_destroy(*args)
         options = args.extract_options!
         args.flatten.threaded_map do |id|
-          response = delete("/1/saved_searches/destroy/#{id}.json", options)
-          Twitter::SavedSearch.from_response(response)
+          object_from_response(Twitter::SavedSearch, :delete, "/1/saved_searches/destroy/#{id}.json", options)
         end
       end
 

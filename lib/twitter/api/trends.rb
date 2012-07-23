@@ -32,7 +32,7 @@ module Twitter
       #   Twitter.local_trends(2487956)
       def local_trends(woeid=1, options={})
         response = get("/1/trends/#{woeid}.json", options)
-        collection_from_array(response[:body].first[:trends], Twitter::Trend)
+        collection_from_array(Twitter::Trend, response[:body].first[:trends])
       end
       alias trends local_trends
 
@@ -48,7 +48,7 @@ module Twitter
       # @example Return the locations that Twitter has trending topic information for
       #   Twitter.trend_locations
       def trend_locations(options={})
-        collection_from_response(:get, "/1/trends/available.json", options, Twitter::Place)
+        collection_from_response(Twitter::Place, :get, "/1/trends/available.json", options)
       end
 
       # Returns the top 20 trending topics for each hour in a given day

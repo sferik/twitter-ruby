@@ -28,7 +28,7 @@ module Twitter
       # @example Return activity about me
       #   Twitter.activity_about_me
       def activity_about_me(options={})
-        collection_from_response(:get, "/i/activity/about_me.json", options, Twitter::ActionFactory)
+        collection_from_response(Twitter::ActionFactory, :get, "/i/activity/about_me.json", options)
       end
 
       # Returns activity by friends
@@ -44,7 +44,7 @@ module Twitter
       # @example Return activity by friends
       #   Twitter.activity_by_friends
       def activity_by_friends(options={})
-        collection_from_response(:get, "/i/activity/by_friends.json", options, Twitter::ActionFactory)
+        collection_from_response(Twitter::ActionFactory, :get, "/i/activity/by_friends.json", options)
       end
 
     end
