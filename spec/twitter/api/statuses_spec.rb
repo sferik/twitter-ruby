@@ -1,6 +1,6 @@
 require 'helper'
 
-describe Twitter::API::Statuses do
+describe Twitter::API do
 
   before do
     @client = Twitter::Client.new

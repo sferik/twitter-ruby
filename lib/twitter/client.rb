@@ -1,19 +1,5 @@
 require 'faraday'
-require 'twitter/api/account'
-require 'twitter/api/activity'
-require 'twitter/api/direct_messages'
-require 'twitter/api/friendships'
-require 'twitter/api/geo'
-require 'twitter/api/help'
-require 'twitter/api/legal'
-require 'twitter/api/lists'
-require 'twitter/api/notifications'
-require 'twitter/api/report_spam'
-require 'twitter/api/saved_searches'
-require 'twitter/api/search'
-require 'twitter/api/statuses'
-require 'twitter/api/trends'
-require 'twitter/api/users'
+require 'twitter/api'
 require 'twitter/configurable'
 require 'twitter/error/client_error'
 require 'twitter/rate_limit'
@@ -26,24 +12,8 @@ module Twitter
   # @note All methods have been separated into modules and follow the same grouping used in {http://dev.twitter.com/doc the Twitter API Documentation}.
   # @see http://dev.twitter.com/pages/every_developer
   class Client
-    @@rate_limited = {}
-    include Twitter::API::Account
-    include Twitter::API::Activity
-    include Twitter::API::DirectMessages
-    include Twitter::API::Friendships
-    include Twitter::API::Geo
-    include Twitter::API::Help
-    include Twitter::API::Legal
-    include Twitter::API::Lists
-    include Twitter::API::Notifications
-    include Twitter::API::ReportSpam
-    include Twitter::API::SavedSearches
-    include Twitter::API::Search
-    include Twitter::API::Statuses
-    include Twitter::API::Trends
-    include Twitter::API::Users
+    include Twitter::API
     include Twitter::Configurable
-
     attr_reader :rate_limit
 
     # Initializes a new Client object
@@ -55,19 +25,6 @@ module Twitter
         instance_variable_set(:"@#{key}", options[key] || Twitter.instance_variable_get(:"@#{key}"))
       end
       @rate_limit = Twitter::RateLimit.new
-    end
-
-    # Check whether a method is rate limited
-    #
-    # @raise [ArgumentError] Error raised when supplied argument is not a key in the METHOD_RATE_LIMITED hash.
-    # @return [Boolean]
-    # @param method [Symbol]
-    def rate_limited?(method)
-      method_rate_limited = @@rate_limited[method.to_sym]
-      if method_rate_limited.nil?
-        raise ArgumentError.new("no method `#{method}' for #{self.class}")
-      end
-      method_rate_limited
     end
 
     # Perform an HTTP DELETE request
