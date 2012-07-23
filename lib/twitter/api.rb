@@ -409,10 +409,7 @@ module Twitter
     #   @param ids [Array<Integer>, Set<Integer>] An array of Twitter status IDs.
     #   @param options [Hash] A customizable set of options.
     def direct_message_destroy(*args)
-      options = args.extract_options!
-      args.flatten.threaded_map do |id|
-        object_from_response(Twitter::DirectMessage, :delete, "/1/direct_messages/destroy/#{id}.json", options)
-      end
+      destroy(Twitter::DirectMessage, :delete, "/1/direct_messages/destroy", args)
     end
 
     # Sends a new direct message to the specified user from the authenticating user
@@ -1581,10 +1578,7 @@ module Twitter
     #   @param ids [Array<Integer>, Set<Integer>] An array of Twitter status IDs.
     #   @param options [Hash] A customizable set of options.
     def saved_search_destroy(*args)
-      options = args.extract_options!
-      args.flatten.threaded_map do |id|
-        object_from_response(Twitter::SavedSearch, :delete, "/1/saved_searches/destroy/#{id}.json", options)
-      end
+      destroy(Twitter::SavedSearch, :delete, "/1/saved_searches/destroy", args)
     end
 
     # Returns tweets that match a specified query.
@@ -2564,16 +2558,16 @@ module Twitter
       collection_from_array(klass, send(request_method.to_sym, url, params, options)[:body])
     end
 
-    def list_from_response(method, url, args)
+    def list_from_response(request_method, url, args)
       options = merge_list(args)
       merge_owner(options, args)
-      object_from_response(Twitter::List, method, url, options)
+      object_from_response(Twitter::List, request_method, url, options)
     end
 
-    def statuses_from_response(method, url, args)
+    def statuses_from_response(request_method, url, args)
       options = args.extract_options!
       args.flatten.threaded_map do |id|
-        object_from_response(Twitter::Status, method, url + "/#{id}.json", options)
+        object_from_response(Twitter::Status, request_method, url + "/#{id}.json", options)
       end
     end
 
@@ -2588,22 +2582,20 @@ module Twitter
       end
     end
 
-    # @param klass [Class]
-    # @param method [Symbol]
+    # @param request_method [Symbol]
     # @param url [String]
     # @param options [Hash]
     # @return [Array]
-    def geo_collection_from_response(method, url, options)
-      collection_from_array(Twitter::Place, send(method.to_sym, url, options)[:body][:result][:places])
+    def geo_collection_from_response(request_method, url, options)
+      collection_from_array(Twitter::Place, send(request_method.to_sym, url, options)[:body][:result][:places])
     end
 
-    # @param method [Symbol]
+    # @param request_method [Symbol]
     # @param url [String]
     # @param options [Hash]
-    # @param klass [Class]
     # @return [Array]
-    def search_collection_from_response(method, url, options)
-      collection_from_array(Twitter::Status, send(method.to_sym, url, options)[:body][:statuses])
+    def search_collection_from_response(request_method, url, options)
+      collection_from_array(Twitter::Status, send(request_method.to_sym, url, options)[:body][:statuses])
     end
 
     # @param klass [Class]
@@ -2615,43 +2607,55 @@ module Twitter
       end
     end
 
-    def list_modify_member(method, url, args)
+    # @param klass [Class]
+    # @param request_method [Symbol]
+    # @param url [String]
+    # @param args [Array]
+    # @return [Array]
+    def destroy(klass, request_method, url, args)
+      options = args.extract_options!
+      args.flatten.threaded_map do |id|
+        object_from_response(klass, request_method, url + "/#{id}.json", options)
+      end
+    end
+
+    def list_modify_member(request_method, url, args)
       options = args.extract_options!
       user_to_add = args.pop
       options.merge_user!(user_to_add)
       list = args.pop
       options.merge_list!(list)
       merge_owner(options, args)
-      object_from_response(Twitter::List, method, url, options)
+      object_from_response(Twitter::List, request_method, url, options)
     end
 
-    def list_modify_members(method, url, args)
+    def list_modify_members(request_method, url, args)
       options = args.extract_options!
       members = args.pop
       options.merge_list!(args.pop)
       merge_owner(options, args)
       members.flatten.each_slice(MAX_USERS_PER_REQUEST).threaded_map do |users|
-        object_from_response(Twitter::List, method, url, options.merge_users(users))
+        object_from_response(Twitter::List, request_method, url, options.merge_users(users))
       end.last
     end
 
-    def list_user?(method, url, args)
+    def list_user?(request_method, url, args)
       options = args.extract_options!
       user_to_check = args.pop
       options.merge_user!(user_to_check)
       list = args.pop
       options.merge_list!(list)
       merge_owner(options, args)
-      send(method.to_sym, url, options)
+      send(request_method.to_sym, url, options)
       true
     rescue Twitter::Error::NotFound, Twitter::Error::Forbidden
       false
     end
 
-    def list_users(method, url, args)
+    def list_users(request_method, url, args)
       options = merge_list_into_cursor(args)
       merge_owner(options, args)
-      cursor_from_response(:users, Twitter::User, method.to_sym, url, options)
+      cursor_from_response(:users, Twitter::User, request_method, url, options)
     end
 
     def trends_periodically(url, date, options)
@@ -2666,11 +2670,11 @@ module Twitter
       trends
     end
 
-    def delegates(method, url, args)
+    def delegates(request_method, url, args)
       options = args.extract_options!
       user = args.pop || verify_credentials.screen_name
       options.merge_user!(user)
-      collection_from_response(Twitter::User, method.to_sym, url, options)
+      collection_from_response(Twitter::User, request_method, url, options)
     end
 
     def exists?(url, user, options)
@@ -2688,18 +2692,22 @@ module Twitter
       end
     end
 
-    def merge_list(args)
+    def merge(args)
       options = args.extract_options!
-      list = args.pop
-      options.merge_list!(list) unless list.nil?
+      yield(options, args.pop)
       options
     end
 
+    def merge_list(args)
+      merge(args) do |options, list|
+        options.merge_list!(list) unless list.nil?
+      end
+    end
+
     def merge_user(args)
-      options = args.extract_options!
-      user = args.pop
-      options.merge_user!(user) unless user.nil?
-      options
+      merge(args) do |options, user|
+        options.merge_user!(user) unless user.nil?
+      end
     end
 
     def merge_user_into_cursor(args)
