@@ -6,7 +6,7 @@ module Twitter
     attr_reader :attributes, :country, :full_name, :name, :url, :woeid
     alias woe_id woeid
 
-    # @return [Twitter::Geo::Point, Twitter::Geo::Polygon]
+    # @return [Twitter::Geo]
     def bounding_box
       @bounding_box ||= Twitter::GeoFactory.fetch_or_new(@attrs[:bounding_box])
     end

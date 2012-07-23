@@ -4,7 +4,7 @@ require 'twitter/creatable'
 require 'twitter/status'
 
 module Twitter
-  class User < BasicUser
+  class User < Twitter::BasicUser
     PROFILE_IMAGE_SUFFIX_REGEX = /_normal(\.gif|\.jpe?g|\.png)$/
     include Twitter::Creatable
     attr_reader :connections, :contributors_enabled, :default_profile,
@@ -71,8 +71,7 @@ module Twitter
 
     # @return [Twitter::Status]
     def status
-      return if @attrs[:status].nil?
-      @status ||= Twitter::Status.fetch_or_new(@attrs.dup[:status].merge(:user => @attrs.except(:status)))
+      @status ||= Twitter::Status.fetch_or_new(@attrs.dup[:status].merge(:user => @attrs.except(:status))) unless @attrs[:status].nil?
     end
 
   private

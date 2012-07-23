@@ -1,7 +1,7 @@
 require 'twitter/base'
 
 module Twitter
-  class Identity < Base
+  class Identity < Twitter::Base
 
     def self.fetch(attrs)
       return unless identity_map

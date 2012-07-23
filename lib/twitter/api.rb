@@ -510,7 +510,9 @@ module Twitter
     #     Twitter.follower_ids('sferik')
     #     Twitter.follower_ids(7505382)  # Same as above
     def follower_ids(*args)
-      options = merge_user_into_cursor(args)
+      options = args.extract_options!
+      merge_default_cursor!(options)
+      options.merge_user!(args.pop)
       cursor_from_response(:ids, nil, :get, "/1/followers/ids.json", options)
     end
 
@@ -536,7 +538,9 @@ module Twitter
     #     Twitter.friend_ids('sferik')
     #     Twitter.friend_ids(7505382)  # Same as above
     def friend_ids(*args)
-      options = merge_user_into_cursor(args)
+      options = args.extract_options!
+      merge_default_cursor!(options)
+      options.merge_user!(args.pop)
       cursor_from_response(:ids, nil, :get, "/1/friends/ids.json", options)
     end
 
@@ -944,7 +948,8 @@ module Twitter
     #     Twitter.lists_subscribed_to('sferik')
     #     Twitter.lists_subscribed_to(8863586)
     def lists_subscribed_to(*args)
-      options = merge_user(args)
+      options = args.extract_options!
+      options.merge_user!(args.pop)
       collection_from_response(Twitter::List, :get, "/1/lists/all.json", options)
     end
 
@@ -976,8 +981,9 @@ module Twitter
     #     Twitter.list_timeline(7505382, 'presidents')
     #     Twitter.list_timeline(7505382, 8863586)
     def list_timeline(*args)
-      options = merge_list(args)
-      merge_owner(options, args)
+      options = args.extract_options!
+      options.merge_list!(args.pop)
+      options.merge_owner!(args.pop || verify_credentials.screen_name) unless options[:owner_id] || options[:owner_screen_name]
       collection_from_response(Twitter::Status, :get, "/1/lists/statuses.json", options)
     end
 
@@ -1030,7 +1036,9 @@ module Twitter
     #     Twitter.memberships('sferik')
     #     Twitter.memberships(7505382)
     def memberships(*args)
-      options = merge_user_into_cursor(args)
+      options = args.extract_options!
+      merge_default_cursor!(options)
+      options.merge_user!(args.pop)
       cursor_from_response(:lists, Twitter::List, :get, "/1/lists/memberships.json", options)
     end
 
@@ -1081,7 +1089,9 @@ module Twitter
     #     Twitter.subscriptions('sferik')
     #     Twitter.subscriptions(7505382)
     def subscriptions(*args)
-      options = merge_user_into_cursor(args)
+      options = args.extract_options!
+      merge_default_cursor!(options)
+      options.merge_user!(args.pop)
       cursor_from_response(:lists, Twitter::List, :get, "/1/lists/subscriptions.json", options)
     end
 
@@ -1410,7 +1420,9 @@ module Twitter
     #     Twitter.lists('sferik')
     #     Twitter.lists(7505382)
     def lists(*args)
-      options = merge_user_into_cursor(args)
+      options = args.extract_options!
+      merge_default_cursor!(options)
+      options.merge_user!(args.pop)
       cursor_from_response(:lists, Twitter::List, :get, "/1/lists.json", options)
     end
 
@@ -1846,7 +1858,8 @@ module Twitter
     #   @example Return the 20 most recent statuses posted by @sferik
     #     Twitter.user_timeline('sferik')
     def user_timeline(*args)
-      options = merge_user(args)
+      options = args.extract_options!
+      options.merge_user!(args.pop)
       collection_from_response(Twitter::Status, :get, "/1/statuses/user_timeline.json", options)
     end
 
@@ -1867,7 +1880,8 @@ module Twitter
     #   @example Return the 20 most recent statuses posted by @sferik
     #     Twitter.media_timeline('sferik')
     def media_timeline(*args)
-      options = merge_user(args)
+      options = args.extract_options!
+      options.merge_user!(args.pop)
       collection_from_response(Twitter::Status, :get, "/1/statuses/media_timeline.json", options)
     end
 
@@ -2250,7 +2264,7 @@ module Twitter
     #   Twitter.block?('sferik')
     #   Twitter.block?(7505382)  # Same as above
     def block?(user, options={})
-      exists?("/1/blocks/exists.json", user, options)
+      exists?(:get, "/1/blocks/exists.json", user, options)
     end
 
     # Blocks the users specified by the authenticating user
@@ -2411,7 +2425,7 @@ module Twitter
     #   Twitter.user?('sferik')
     #   Twitter.user?(7505382)  # Same as above
     def user?(user, options={})
-      exists?("/1/users/show.json", user, options)
+      exists?(:get, "/1/users/show.json", user, options)
     end
 
     # Returns an array of users that the specified user can contribute to
@@ -2483,8 +2497,7 @@ module Twitter
     #     Twitter.recommendations("sferik")
     def recommendations(*args)
       options = args.extract_options!
-      user = args.pop || verify_credentials.screen_name
-      options.merge_user!(user)
+      options.merge_user!(args.pop || verify_credentials.screen_name)
       options[:excluded] = options[:excluded].join(',') if options[:excluded].is_a?(Array)
       response = get("/1/users/recommendations.json", options)
       response[:body].map do |recommendation|
@@ -2516,14 +2529,48 @@ module Twitter
     #     Twitter.following_followers_of('sferik')
     #     Twitter.following_followers_of(7505382)  # Same as above
     def following_followers_of(*args)
-      options = {:cursor => DEFAULT_CURSOR}
-      options.merge!(args.extract_options!)
-      user = args.pop || verify_credentials.screen_name
-      options.merge_user!(user)
+      options = args.extract_options!
+      merge_default_cursor!(options)
+      options.merge_user!(args.pop || verify_credentials.screen_name)
       cursor_from_response(:users, Twitter::User, :get, "/users/following_followers_of.json", options)
     end
 
   private
+
+    # @param klass [Class]
+    # @param array [Array]
+    # @return [Array]
+    def collection_from_array(klass, array)
+      array.map do |element|
+        klass.fetch_or_new(element)
+      end
+    end
+
+    # @param klass [Class]
+    # @param request_method [Symbol]
+    # @param url [String]
+    # @param params [Hash]
+    # @param options [Hash]
+    # @return [Array]
+    def collection_from_response(klass, request_method, url, params={}, options={})
+      collection_from_array(klass, send(request_method.to_sym, url, params, options)[:body])
+    end
+
+    # @param request_method [Symbol]
+    # @param url [String]
+    # @param options [Hash]
+    # @return [Array]
+    def geo_collection_from_response(request_method, url, options)
+      collection_from_array(Twitter::Place, send(request_method.to_sym, url, options)[:body][:result][:places])
+    end
+
+    # @param request_method [Symbol]
+    # @param url [String]
+    # @param options [Hash]
+    # @return [Array]
+    def search_collection_from_response(request_method, url, options)
+      collection_from_array(Twitter::Status, send(request_method.to_sym, url, options)[:body][:statuses])
+    end
 
     # @param klass [Class]
     # @param request_method [Symbol]
@@ -2548,22 +2595,21 @@ module Twitter
       Twitter::Cursor.from_response(response, method.to_sym, klass)
     end
 
-    # @param klass [Class]
     # @param request_method [Symbol]
     # @param url [String]
-    # @param params [Hash]
-    # @param options [Hash]
-    # @return [Array]
-    def collection_from_response(klass, request_method, url, params={}, options={})
-      collection_from_array(klass, send(request_method.to_sym, url, params, options)[:body])
-    end
-
+    # @param args [Array]
+    # @return [Array<Twitter::User>]
     def list_from_response(request_method, url, args)
-      options = merge_list(args)
-      merge_owner(options, args)
+      options = args.extract_options!
+      options.merge_list!(args.pop)
+      options.merge_owner!(args.pop || verify_credentials.screen_name) unless options[:owner_id] || options[:owner_screen_name]
       object_from_response(Twitter::List, request_method, url, options)
     end
 
+    # @param request_method [Symbol]
+    # @param url [String]
+    # @param args [Array]
+    # @return [Array<Twitter::User>]
     def statuses_from_response(request_method, url, args)
       options = args.extract_options!
       args.flatten.threaded_map do |id|
@@ -2582,29 +2628,12 @@ module Twitter
       end
     end
 
-    # @param request_method [Symbol]
-    # @param url [String]
-    # @param options [Hash]
-    # @return [Array]
-    def geo_collection_from_response(request_method, url, options)
-      collection_from_array(Twitter::Place, send(request_method.to_sym, url, options)[:body][:result][:places])
-    end
-
-    # @param request_method [Symbol]
-    # @param url [String]
-    # @param options [Hash]
-    # @return [Array]
-    def search_collection_from_response(request_method, url, options)
-      collection_from_array(Twitter::Status, send(request_method.to_sym, url, options)[:body][:statuses])
-    end
-
-    # @param klass [Class]
-    # @param array [Array]
-    # @return [Array]
-    def collection_from_array(klass, array)
-      array.map do |element|
-        klass.fetch_or_new(element)
-      end
+    def list_users(request_method, url, args)
+      options = args.extract_options!
+      merge_default_cursor!(options)
+      options.merge_list!(args.pop)
+      options.merge_owner!(args.pop || verify_credentials.screen_name) unless options[:owner_id] || options[:owner_screen_name]
+      cursor_from_response(:users, Twitter::User, request_method, url, options)
     end
 
     # @param klass [Class]
@@ -2619,13 +2648,41 @@ module Twitter
       end
     end
 
+    def delegates(request_method, url, args)
+      options = args.extract_options!
+      options.merge_user!(args.pop || verify_credentials.screen_name)
+      collection_from_response(Twitter::User, request_method, url, options)
+    end
+
+    # @param request_method [Symbol]
+    # @param url [String]
+    # @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
+    # @param params [Hash]
+    # @return [Boolean]
+    def exists?(request_method, url, user, params={}, options={})
+      params.merge_user!(user)
+      send(request_method.to_sym, url, params, options)
+      true
+    rescue Twitter::Error::NotFound
+      false
+    end
+
+    def list_user?(request_method, url, args)
+      options = args.extract_options!
+      options.merge_user!(args.pop)
+      options.merge_list!(args.pop)
+      options.merge_owner!(args.pop || verify_credentials.screen_name) unless options[:owner_id] || options[:owner_screen_name]
+      send(request_method.to_sym, url, options)
+      true
+    rescue Twitter::Error::NotFound, Twitter::Error::Forbidden
+      false
+    end
+
     def list_modify_member(request_method, url, args)
       options = args.extract_options!
-      user_to_add = args.pop
-      options.merge_user!(user_to_add)
-      list = args.pop
-      options.merge_list!(list)
-      merge_owner(options, args)
+      options.merge_user!(args.pop)
+      options.merge_list!(args.pop)
+      options.merge_owner!(args.pop || verify_credentials.screen_name) unless options[:owner_id] || options[:owner_screen_name]
       object_from_response(Twitter::List, request_method, url, options)
     end
 
@@ -2633,29 +2690,10 @@ module Twitter
       options = args.extract_options!
       members = args.pop
       options.merge_list!(args.pop)
-      merge_owner(options, args)
+      options.merge_owner!(args.pop || verify_credentials.screen_name) unless options[:owner_id] || options[:owner_screen_name]
       members.flatten.each_slice(MAX_USERS_PER_REQUEST).threaded_map do |users|
         object_from_response(Twitter::List, request_method, url, options.merge_users(users))
       end.last
-    end
-
-    def list_user?(request_method, url, args)
-      options = args.extract_options!
-      user_to_check = args.pop
-      options.merge_user!(user_to_check)
-      list = args.pop
-      options.merge_list!(list)
-      merge_owner(options, args)
-      send(request_method.to_sym, url, options)
-      true
-    rescue Twitter::Error::NotFound, Twitter::Error::Forbidden
-      false
-    end
-
-    def list_users(request_method, url, args)
-      options = merge_list_into_cursor(args)
-      merge_owner(options, args)
-      cursor_from_response(:users, Twitter::User, request_method, url, options)
     end
 
     def trends_periodically(url, date, options)
@@ -2670,52 +2708,8 @@ module Twitter
       trends
     end
 
-    def delegates(request_method, url, args)
-      options = args.extract_options!
-      user = args.pop || verify_credentials.screen_name
-      options.merge_user!(user)
-      collection_from_response(Twitter::User, request_method, url, options)
-    end
-
-    def exists?(url, user, options)
-      options.merge_user!(user)
-      get(url, options)
-      true
-    rescue Twitter::Error::NotFound
-      false
-    end
-
-    def merge_owner(options, args)
-      unless options[:owner_id] || options[:owner_screen_name]
-        owner = args.pop || verify_credentials.screen_name
-        options.merge_owner!(owner)
-      end
-    end
-
-    def merge(args)
-      options = args.extract_options!
-      yield(options, args.pop)
-      options
-    end
-
-    def merge_list(args)
-      merge(args) do |options, list|
-        options.merge_list!(list) unless list.nil?
-      end
-    end
-
-    def merge_user(args)
-      merge(args) do |options, user|
-        options.merge_user!(user) unless user.nil?
-      end
-    end
-
-    def merge_user_into_cursor(args)
-      {:cursor => DEFAULT_CURSOR}.merge(merge_user(args))
-    end
-
-    def merge_list_into_cursor(args)
-      {:cursor => DEFAULT_CURSOR}.merge(merge_list(args))
+    def merge_default_cursor!(options)
+      options.merge!(:cursor => DEFAULT_CURSOR) unless options[:cursor]
     end
 
   end

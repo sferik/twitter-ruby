@@ -42,7 +42,7 @@ module Twitter
       retweeted_status && retweeted_status.user ? "RT @#{retweeted_status.user.screen_name}: #{retweeted_status.text}" : text
     end
 
-    # @return [Twitter::Geo::Point, Twitter::Geo::Polygon]
+    # @return [Twitter::Geo]
     def geo
       @geo ||= Twitter::GeoFactory.fetch_or_new(@attrs[:geo])
     end
@@ -66,8 +66,7 @@ module Twitter
 
     # @return [Twitter::OEmbed]
     def oembed(options={})
-      @client ||= Twitter::Client.new
-      @client.oembed(@attrs[:id], options) unless @attrs[:id].nil?
+      @oembed ||= Twitter.oembed(@attrs[:id], options)
     end
 
     # @return [Twitter::Place]
@@ -104,8 +103,7 @@ module Twitter
 
     # @return [Twitter::User]
     def user
-      return if @attrs[:user].nil?
-      @user ||= Twitter::User.fetch_or_new(@attrs.dup[:user].merge(:status => @attrs.except(:user)))
+      @user ||= Twitter::User.fetch_or_new(@attrs.dup[:user].merge(:status => @attrs.except(:user))) unless @attrs[:user].nil?
     end
 
     # @note Must include entities in your request for this method to work

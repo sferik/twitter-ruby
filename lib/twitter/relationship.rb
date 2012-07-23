@@ -13,12 +13,12 @@ module Twitter
       @attrs = attrs[:relationship]
     end
 
-    # @return [Twitter::User]
+    # @return [Twitter::SourceUser]
     def source
       @source ||= Twitter::SourceUser.fetch_or_new(@attrs[:source])
     end
 
-    # @return [Twitter::User]
+    # @return [Twitter::TargetUser]
     def target
       @target ||= Twitter::TargetUser.fetch_or_new(@attrs[:target])
     end

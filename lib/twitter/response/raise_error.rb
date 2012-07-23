@@ -1,19 +1,27 @@
 require 'faraday'
+require 'twitter/error/bad_gateway'
 require 'twitter/error/bad_request'
 require 'twitter/error/enhance_your_calm'
 require 'twitter/error/forbidden'
+require 'twitter/error/internal_server_error'
 require 'twitter/error/not_acceptable'
 require 'twitter/error/not_found'
+require 'twitter/error/service_unavailable'
 require 'twitter/error/unauthorized'
 
 module Twitter
   module Response
-    class RaiseClientError < Faraday::Response::Middleware
+    class RaiseError < Faraday::Response::Middleware
 
       def on_complete(env)
         status_code = env[:status].to_i
-        error_class = Twitter::Error::ClientError.errors[status_code]
+        error_class = @klass.errors[status_code]
         raise error_class.from_response(env) if error_class
+      end
+
+      def initialize(app, klass)
+        @klass = klass
+        super(app)
       end
 
     end

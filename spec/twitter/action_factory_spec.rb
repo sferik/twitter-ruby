@@ -34,7 +34,7 @@ describe Twitter::ActionFactory do
     it "raises an ArgumentError when action is not specified" do
       lambda do
         Twitter::ActionFactory.fetch_or_new
-      end.should raise_error(ArgumentError, "argument must have an :action key")
+      end.should raise_error(ArgumentError, "argument must have :action key")
     end
   end
 
