@@ -62,7 +62,7 @@ module Twitter
       uri = URI(uri) unless uri.respond_to?(:host)
       uri += path
       request_headers = {}
-      if self.credentials?
+      if credentials?
         authorization = auth_header(method, uri, params)
         request_headers[:authorization] = authorization.to_s
       end

@@ -116,9 +116,9 @@ describe Twitter::Status do
       hashtags.first.indices.should eq [10, 33]
       hashtags.first.text.should eq 'twitter'
     end
-    it "returns nil when not set" do
+    it "is empty when not set" do
       hashtags = Twitter::Status.new(:id => 28669546014).hashtags
-      hashtags.should be_nil
+      hashtags.should be_empty
     end
     it "warns when not set" do
       Twitter::Status.new(:id => 28669546014).hashtags
@@ -132,9 +132,9 @@ describe Twitter::Status do
       media.should be_an Array
       media.first.should be_a Twitter::Media::Photo
     end
-    it "returns nil when not set" do
+    it "is empty when not set" do
       media = Twitter::Status.new(:id => 28669546014).media
-      media.should be_nil
+      media.should be_empty
     end
     it "warns when not set" do
       Twitter::Status.new(:id => 28669546014).media
@@ -238,9 +238,9 @@ describe Twitter::Status do
       urls.first.indices.should eq [10, 33]
       urls.first.display_url.should eq 'example.com/expanded'
     end
-    it "returns nil when not set" do
+    it "is empty when not set" do
       urls = Twitter::Status.new(:id => 28669546014).urls
-      urls.should be_nil
+      urls.should be_empty
     end
     it "warns when not set" do
       Twitter::Status.new(:id => 28669546014).urls
@@ -280,9 +280,9 @@ describe Twitter::Status do
       user_mentions.first.indices.should eq [0, 6]
       user_mentions.first.screen_name.should eq 'sferik'
     end
-    it "returns nil when not set" do
+    it "is empty when not set" do
       user_mentions = Twitter::Status.new(:id => 28669546014).user_mentions
-      user_mentions.should be_nil
+      user_mentions.should be_empty
     end
     it "warns when not set" do
       Twitter::Status.new(:id => 28669546014).user_mentions

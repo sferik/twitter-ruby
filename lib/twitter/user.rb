@@ -71,7 +71,8 @@ module Twitter
 
     # @return [Twitter::Status]
     def status
-      @status ||= Twitter::Status.fetch_or_new(@attrs.dup[:status].merge(:user => @attrs.except(:status))) unless @attrs[:status].nil?
+      return if @attrs[:status].nil?
+      @status ||= Twitter::Status.fetch_or_new(@attrs.dup[:status].merge(:user => @attrs.except(:status)))
     end
 
   private

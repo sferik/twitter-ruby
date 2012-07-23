@@ -10,6 +10,7 @@ module Twitter
     # @raise [ArgumentError] Error raised when supplied argument is missing a :type key.
     # @return [Twitter::Media::Photo]
     def self.fetch_or_new(attrs={})
+      return unless attrs
       if type = attrs.delete(:type)
         Twitter::Media.const_get(type.camelize.to_sym).fetch_or_new(attrs)
       else

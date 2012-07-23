@@ -8,7 +8,7 @@ module Twitter
     # @param other [Twitter::Geo]
     # @return [Boolean]
     def ==(other)
-      super || self.attr_equal(:coordinates, other) || self.attrs_equal(other)
+      super || attr_equal(:coordinates, other) || attrs_equal(other)
     end
 
   end

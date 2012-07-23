@@ -7,9 +7,9 @@ module Twitter
 
     # Define methods that retrieve the value from an initialized instance variable Hash, using the attribute as a key
     #
-    # @overload self.    attr_reader(attr)
+    # @overload self.attr_reader(attr)
     #   @param attr [Symbol]
-    # @overload self.    attr_reader(attrs)
+    # @overload self.attr_reader(attrs)
     #   @param attrs [Array<Symbol>]
     def self.attr_reader(*attrs)
       attrs.each do |attribute|
@@ -56,7 +56,7 @@ module Twitter
     # @param response [Hash]
     # @return [Twitter::Base]
     def self.from_response(response={})
-      self.fetch_or_new(response[:body])
+      fetch_or_new(response[:body])
     end
 
     # Retrieves an object from the identity map, or stores it in the
@@ -65,11 +65,12 @@ module Twitter
     # @param attrs [Hash]
     # @return [Twitter::Base]
     def self.fetch_or_new(attrs={})
-      return self.new(attrs) unless identity_map
+      return unless attrs
+      return new(attrs) unless identity_map
 
-      self.fetch(attrs) do
-        object = self.new(attrs)
-        self.store(object)
+      fetch(attrs) do
+        object = new(attrs)
+        store(object)
       end
     end
 
@@ -85,7 +86,7 @@ module Twitter
     #
     # @param method [String, Symbol] Message to send to the object
     def [](method)
-      self.send(method.to_sym)
+      send(method.to_sym)
     rescue NoMethodError
       nil
     end
@@ -105,13 +106,13 @@ module Twitter
     # @param other [Twitter::Base]
     # @return [Boolean]
     def attr_equal(attr, other)
-      self.class == other.class && !other.send(attr).nil? && self.send(attr) == other.send(attr)
+      self.class == other.class && !other.send(attr).nil? && send(attr) == other.send(attr)
     end
 
     # @param other [Twitter::Base]
     # @return [Boolean]
     def attrs_equal(other)
-      self.class == other.class && !other.attrs.empty? && self.attrs == other.attrs
+      self.class == other.class && !other.attrs.empty? && attrs == other.attrs
     end
 
   end

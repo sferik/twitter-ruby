@@ -41,9 +41,9 @@ describe Twitter::Suggestion do
       users.should be_an Array
       users.first.should be_a Twitter::User
     end
-    it "returns nil when status is not set" do
+    it "is empty when not set" do
       users = Twitter::Suggestion.new.users
-      users.should be_nil
+      users.should be_empty
     end
   end
 

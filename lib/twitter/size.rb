@@ -9,7 +9,7 @@ module Twitter
     # @param other [Twitter::Size]
     # @return [Boolean]
     def ==(other)
-      super || self.size_equal(other) || self.attrs_equal(other)
+      super || size_equal(other) || attrs_equal(other)
     end
 
   protected
@@ -17,7 +17,7 @@ module Twitter
     # @param other [Twitter::Size]
     # @return [Boolean]
     def size_equal(other)
-      self.class == other.class && !other.h.nil? && self.h == other.h && !other.w.nil? && self.w == other.w
+      self.class == other.class && !other.h.nil? && h == other.h && !other.w.nil? && w == other.w
     end
 
   end

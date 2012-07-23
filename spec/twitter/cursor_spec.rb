@@ -2,6 +2,18 @@ require 'helper'
 
 describe Twitter::Cursor do
 
+  describe "#collection" do
+    it "returns a collection" do
+      collection = Twitter::Cursor.new(:ids => [1, 2, 3, 4, 5]).collection
+      collection.should be_an Array
+      collection.first.should be_a Fixnum
+    end
+    it "is empty when not set" do
+      collection = Twitter::Cursor.new.collection
+      collection.should be_empty
+    end
+  end
+
   describe "#first?" do
     context "when previous cursor equals zero" do
       before do

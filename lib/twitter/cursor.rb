@@ -3,7 +3,6 @@ require 'twitter/core_ext/kernel'
 module Twitter
   class Cursor
     attr_reader :attrs, :collection
-    alias body attrs
     alias to_hash attrs
 
     # Initializes a new Cursor object
@@ -13,7 +12,7 @@ module Twitter
     # @param klass [Class] The class to instantiate object in the collection
     # @return [Twitter::Cursor]
     def self.from_response(response={}, method=:ids, klass=nil)
-      self.new(response[:body], method, klass)
+      new(response[:body], method, klass)
     end
 
     # Initializes a new Cursor

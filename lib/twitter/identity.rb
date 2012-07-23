@@ -31,13 +31,13 @@ module Twitter
     # @return [Twitter::Identity]
     def initialize(attrs={})
       super
-      raise ArgumentError, "argument must have an :id key" unless self.id
+      raise ArgumentError, "argument must have an :id key" unless id
     end
 
     # @param other [Twitter::Identity]
     # @return [Boolean]
     def ==(other)
-      super || self.attr_equal(:id, other) || self.attrs_equal(other)
+      super || attr_equal(:id, other) || attrs_equal(other)
     end
 
     # @return [Integer]

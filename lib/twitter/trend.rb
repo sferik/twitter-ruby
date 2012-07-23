@@ -7,7 +7,7 @@ module Twitter
     # @param other [Twitter::Trend]
     # @return [Boolean]
     def ==(other)
-      super || self.attr_equal(:name, other) || self.attrs_equal(other)
+      super || attr_equal(:name, other) || attrs_equal(other)
     end
 
   end
