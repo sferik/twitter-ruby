@@ -22,6 +22,7 @@ require 'twitter/user'
 
 module Twitter
   module API
+    DEFAULT_CURSOR = -1
     MAX_USERS_PER_REQUEST = 100
     METHOD_RATE_LIMITED = {
       :accept => false,
@@ -109,8 +110,12 @@ module Twitter
       :relationship => true,
       :report_spam => true,
       :retweet => true,
-      :retweeted_by => true,
+      :retweeted_by => false,
+      :retweeted_by_me => true,
+      :retweeted_by_user => false,
       :retweeted_to => true,
+      :retweeted_to_me => true,
+      :retweeted_to_user => true,
       :retweeters_of => true,
       :retweets => true,
       :retweets_of_me => true,
@@ -508,10 +513,7 @@ module Twitter
     #     Twitter.follower_ids('sferik')
     #     Twitter.follower_ids(7505382)  # Same as above
     def follower_ids(*args)
-      options = {:cursor => -1}
-      options.merge!(args.extract_options!)
-      user = args.pop
-      options.merge_user!(user)
+      options = merge_user_into_cursor(args)
       cursor_from_response(:ids, nil, :get, "/1/followers/ids.json", options)
     end
 
@@ -537,10 +539,7 @@ module Twitter
     #     Twitter.friend_ids('sferik')
     #     Twitter.friend_ids(7505382)  # Same as above
     def friend_ids(*args)
-      options = {:cursor => -1}
-      options.merge!(args.extract_options!)
-      user = args.pop
-      options.merge_user!(user)
+      options = merge_user_into_cursor(args)
       cursor_from_response(:ids, nil, :get, "/1/friends/ids.json", options)
     end
 
@@ -577,8 +576,7 @@ module Twitter
     # @example Return an array of numeric IDs for every user who has a pending request to follow the authenticating user
     #   Twitter.friendships_incoming
     def friendships_incoming(options={})
-      options = {:cursor => -1}.merge(options)
-      cursor_from_response(:ids, nil, :get, "/1/friendships/incoming.json", options)
+      cursor_from_response(:ids, nil, :get, "/1/friendships/incoming.json", {:cursor => DEFAULT_CURSOR}.merge(options))
     end
 
     # Returns an array of numeric IDs for every protected user for whom the authenticating user has a pending follow request
@@ -593,8 +591,7 @@ module Twitter
     # @example Return an array of numeric IDs for every protected user for whom the authenticating user has a pending follow request
     #   Twitter.friendships_outgoing
     def friendships_outgoing(options={})
-      options = {:cursor => -1}.merge(options)
-      cursor_from_response(:ids, nil, :get, "/1/friendships/outgoing.json", options)
+      cursor_from_response(:ids, nil, :get, "/1/friendships/outgoing.json", {:cursor => DEFAULT_CURSOR}.merge(options))
     end
 
     # Returns detailed information about the relationship between two users
@@ -950,10 +947,7 @@ module Twitter
     #     Twitter.lists_subscribed_to('sferik')
     #     Twitter.lists_subscribed_to(8863586)
     def lists_subscribed_to(*args)
-      options = args.extract_options!
-      if user = args.pop
-        options.merge_user!(user)
-      end
+      options = merge_user(args)
       collection_from_response(Twitter::List, :get, "/1/lists/all.json", options)
     end
 
@@ -985,13 +979,8 @@ module Twitter
     #     Twitter.list_timeline(7505382, 'presidents')
     #     Twitter.list_timeline(7505382, 8863586)
     def list_timeline(*args)
-      options = args.extract_options!
-      list = args.pop
-      options.merge_list!(list)
-      unless options[:owner_id] || options[:owner_screen_name]
-        owner = args.pop || verify_credentials.screen_name
-        options.merge_owner!(owner)
-      end
+      options = merge_list(args)
+      merge_owner(options, args)
       collection_from_response(Twitter::Status, :get, "/1/lists/statuses.json", options)
     end
 
@@ -1044,10 +1033,7 @@ module Twitter
     #     Twitter.memberships('sferik')
     #     Twitter.memberships(7505382)
     def memberships(*args)
-      options = {:cursor => -1}.merge(args.extract_options!)
-      if user = args.pop
-        options.merge_user!(user)
-      end
+      options = merge_user_into_cursor(args)
       cursor_from_response(:lists, Twitter::List, :get, "/1/lists/memberships.json", options)
     end
 
@@ -1098,10 +1084,7 @@ module Twitter
     #     Twitter.subscriptions('sferik')
     #     Twitter.subscriptions(7505382)
     def subscriptions(*args)
-      options = {:cursor => -1}.merge(args.extract_options!)
-      if user = args.pop
-        options.merge_user!(user)
-      end
+      options = merge_user_into_cursor(args)
       cursor_from_response(:lists, Twitter::List, :get, "/1/lists/subscriptions.json", options)
     end
 
@@ -1430,9 +1413,7 @@ module Twitter
     #     Twitter.lists('sferik')
     #     Twitter.lists(7505382)
     def lists(*args)
-      options = {:cursor => -1}.merge(args.extract_options!)
-      user = args.pop
-      options.merge_user!(user) if user
+      options = merge_user_into_cursor(args)
       cursor_from_response(:lists, Twitter::List, :get, "/1/lists.json", options)
     end
 
@@ -1761,74 +1742,77 @@ module Twitter
 
     # Returns the 20 most recent retweets posted by the specified user
     #
-    # @see https://dev.twitter.com/docs/api/1/get/statuses/retweeted_by_me
     # @see https://dev.twitter.com/docs/api/1/get/statuses/retweeted_by_user
-    # @rate_limited Yes
+    # @rate_limited No
     # @authentication_required Supported
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Array<Twitter::Status>]
-    # @overload retweeted_by(options={})
-    #   @param options [Hash] A customizable set of options.
-    #   @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID.
-    #   @option options [Integer] :max_id Returns results with an ID less than (that is, older than) or equal to the specified ID.
-    #   @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 200.
-    #   @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
-    #   @example Return the 20 most recent retweets posted by the authenticating user
-    #     Twitter.retweeted_by('sferik')
-    # @overload retweeted_by(user, options={})
-    #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
-    #   @param options [Hash] A customizable set of options.
-    #   @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID.
-    #   @option options [Integer] :max_id Returns results with an ID less than (that is, older than) or equal to the specified ID.
-    #   @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 200.
-    #   @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
-    #   @example Return the 20 most recent retweets posted by the authenticating user
-    #     Twitter.retweeted_by
-    def retweeted_by(*args)
-      options = args.extract_options!
-      url = if user = args.pop
-        options.merge_user!(user)
-        "/1/statuses/retweeted_by_user.json"
-      else
-        "/1/statuses/retweeted_by_me.json"
-      end
-      collection_from_response(Twitter::Status, :get, url, options)
+    # @param options [Hash] A customizable set of options.
+    # @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID.
+    # @option options [Integer] :max_id Returns results with an ID less than (that is, older than) or equal to the specified ID.
+    # @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 200.
+    # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
+    # @example Return the 20 most recent retweets posted by the authenticating user
+    #   Twitter.retweeted_by_user('sferik')
+    def retweeted_by_user(user, options={})
+      collection_from_response(Twitter::Status, :get, "/1/statuses/retweeted_by_user.json", options.merge_user!(user))
+    end
+    alias retweeted_by retweeted_by_user
+
+    # Returns the 20 most recent retweets posted by the authenticating user
+    #
+    # @see https://dev.twitter.com/docs/api/1/get/statuses/retweeted_by_me
+    # @rate_limited Yes
+    # @authentication_required Yes
+    # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+    # @return [Array<Twitter::Status>]
+    # @param options [Hash] A customizable set of options.
+    # @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID.
+    # @option options [Integer] :max_id Returns results with an ID less than (that is, older than) or equal to the specified ID.
+    # @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 200.
+    # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
+    # @example Return the 20 most recent retweets posted by the authenticating user
+    #   Twitter.retweeted_by_me
+    def retweeted_by_me(options={})
+      collection_from_response(Twitter::Status, :get, "/1/statuses/retweeted_by_me.json", options)
     end
 
     # Returns the 20 most recent retweets posted by users the specified user follows
     #
-    # @see https://dev.twitter.com/docs/api/1/get/statuses/retweeted_to_me
     # @see https://dev.twitter.com/docs/api/1/get/statuses/retweeted_to_user
     # @rate_limited Yes
     # @authentication_required Supported
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Array<Twitter::Status>]
-    # @overload retweeted_to(options={})
-    #   @param options [Hash] A customizable set of options.
-    #   @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID.
-    #   @option options [Integer] :max_id Returns results with an ID less than (that is, older than) or equal to the specified ID.
-    #   @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 200.
-    #   @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
-    #   @example Return the 20 most recent retweets posted by users followed by the authenticating user
-    #     Twitter.retweeted_to
-    # @overload retweeted_to(user, options={})
-    #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
-    #   @param options [Hash] A customizable set of options.
-    #   @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID.
-    #   @option options [Integer] :max_id Returns results with an ID less than (that is, older than) or equal to the specified ID.
-    #   @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 200.
-    #   @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
-    #   @example Return the 20 most recent retweets posted by users followed by the authenticating user
-    #     Twitter.retweeted_to('sferik')
-    def retweeted_to(*args)
-      options = args.extract_options!
-      url = if user = args.pop
-        options.merge_user!(user)
-        "/1/statuses/retweeted_to_user.json"
-      else
-        "/1/statuses/retweeted_to_me.json"
-      end
-      collection_from_response(Twitter::Status, :get, url, options)
+    # @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
+    # @param options [Hash] A customizable set of options.
+    # @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID.
+    # @option options [Integer] :max_id Returns results with an ID less than (that is, older than) or equal to the specified ID.
+    # @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 200.
+    # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
+    # @example Return the 20 most recent retweets posted by users followed by the specified user
+    #   Twitter.retweeted_to_user('sferik')
+    def retweeted_to_user(user, options={})
+      collection_from_response(Twitter::Status, :get, "/1/statuses/retweeted_to_user.json", options.merge_user!(user))
+    end
+    alias retweeted_to retweeted_to_user
+
+    # Returns the 20 most recent retweets posted by users the authenticating user follow.
+    #
+    # @see https://dev.twitter.com/docs/api/1/get/statuses/retweeted_to_me
+    # @rate_limited Yes
+    # @authentication_required Yes
+    # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+    # @return [Array<Twitter::Status>]
+    # @param options [Hash] A customizable set of options.
+    # @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID.
+    # @option options [Integer] :max_id Returns results with an ID less than (that is, older than) or equal to the specified ID.
+    # @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 200.
+    # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
+    # @example Return the 20 most recent retweets posted by users followed by the authenticating user
+    #   Twitter.retweeted_to_me
+    def retweeted_to_me(options={})
+      collection_from_response(Twitter::Status, :get, "/1/statuses/retweeted_to_me.json", options)
     end
 
     # Returns the 20 most recent tweets of the authenticated user that have been retweeted by others
@@ -1868,10 +1852,7 @@ module Twitter
     #   @example Return the 20 most recent statuses posted by @sferik
     #     Twitter.user_timeline('sferik')
     def user_timeline(*args)
-      options = args.extract_options!
-      if user = args.pop
-        options.merge_user!(user)
-      end
+      options = merge_user(args)
       collection_from_response(Twitter::Status, :get, "/1/statuses/user_timeline.json", options)
     end
 
@@ -1892,10 +1873,7 @@ module Twitter
     #   @example Return the 20 most recent statuses posted by @sferik
     #     Twitter.media_timeline('sferik')
     def media_timeline(*args)
-      options = args.extract_options!
-      if user = args.pop
-        options.merge_user!(user)
-      end
+      options = merge_user(args)
       collection_from_response(Twitter::Status, :get, "/1/statuses/media_timeline.json", options)
     end
 
@@ -2544,7 +2522,7 @@ module Twitter
     #     Twitter.following_followers_of('sferik')
     #     Twitter.following_followers_of(7505382)  # Same as above
     def following_followers_of(*args)
-      options = {:cursor => -1}
+      options = {:cursor => DEFAULT_CURSOR}
       options.merge!(args.extract_options!)
       user = args.pop || verify_credentials.screen_name
       options.merge_user!(user)
@@ -2586,12 +2564,16 @@ module Twitter
       collection_from_array(klass, send(request_method.to_sym, url, params, options)[:body])
     end
 
-    # @param klass [Class]
-    # @param array [Array]
-    # @return [Array]
-    def collection_from_array(klass, array)
-      array.map do |element|
-        klass.fetch_or_new(element)
+    def list_from_response(method, url, args)
+      options = merge_list(args)
+      merge_owner(options, args)
+      object_from_response(Twitter::List, method, url, options)
+    end
+
+    def statuses_from_response(method, url, args)
+      options = args.extract_options!
+      args.flatten.threaded_map do |id|
+        object_from_response(Twitter::Status, method, url + "/#{id}.json", options)
       end
     end
 
@@ -2624,16 +2606,22 @@ module Twitter
       collection_from_array(Twitter::Status, send(method.to_sym, url, options)[:body][:statuses])
     end
 
+    # @param klass [Class]
+    # @param array [Array]
+    # @return [Array]
+    def collection_from_array(klass, array)
+      array.map do |element|
+        klass.fetch_or_new(element)
+      end
+    end
+
     def list_modify_member(method, url, args)
       options = args.extract_options!
       user_to_add = args.pop
       options.merge_user!(user_to_add)
       list = args.pop
       options.merge_list!(list)
-      unless options[:owner_id] || options[:owner_screen_name]
-        owner = args.pop || verify_credentials.screen_name
-        options.merge_owner!(owner)
-      end
+      merge_owner(options, args)
       object_from_response(Twitter::List, method, url, options)
     end
 
@@ -2641,10 +2629,7 @@ module Twitter
       options = args.extract_options!
       members = args.pop
       options.merge_list!(args.pop)
-      unless options[:owner_id] || options[:owner_screen_name]
-        owner = args.pop || verify_credentials.screen_name
-        options.merge_owner!(owner)
-      end
+      merge_owner(options, args)
       members.flatten.each_slice(MAX_USERS_PER_REQUEST).threaded_map do |users|
         object_from_response(Twitter::List, method, url, options.merge_users(users))
       end.last
@@ -2656,10 +2641,7 @@ module Twitter
       options.merge_user!(user_to_check)
       list = args.pop
       options.merge_list!(list)
-      unless options[:owner_id] || options[:owner_screen_name]
-        owner = args.pop || verify_credentials.screen_name
-        options.merge_owner!(owner)
-      end
+      merge_owner(options, args)
       send(method.to_sym, url, options)
       true
     rescue Twitter::Error::NotFound, Twitter::Error::Forbidden
@@ -2667,32 +2649,9 @@ module Twitter
     end
 
     def list_users(method, url, args)
-      options = {:cursor => -1}.merge(args.extract_options!)
-      list = args.pop
-      options.merge_list!(list)
-      unless options[:owner_id] || options[:owner_screen_name]
-        owner = args.pop || verify_credentials.screen_name
-        options.merge_owner!(owner)
-      end
+      options = merge_list_into_cursor(args)
+      merge_owner(options, args)
       cursor_from_response(:users, Twitter::User, method.to_sym, url, options)
-    end
-
-    def list_from_response(method, url, args)
-      options = args.extract_options!
-      list = args.pop
-      options.merge_list!(list)
-      unless options[:owner_id] || options[:owner_screen_name]
-        owner = args.pop || verify_credentials.screen_name
-        options.merge_owner!(owner)
-      end
-      object_from_response(Twitter::List, method, url, options)
-    end
-
-    def statuses_from_response(method, url, args)
-      options = args.extract_options!
-      args.flatten.threaded_map do |id|
-        object_from_response(Twitter::Status, method, url + "/#{id}.json", options)
-      end
     end
 
     def trends_periodically(url, date, options)
@@ -2720,6 +2679,35 @@ module Twitter
       true
     rescue Twitter::Error::NotFound
       false
+    end
+
+    def merge_owner(options, args)
+      unless options[:owner_id] || options[:owner_screen_name]
+        owner = args.pop || verify_credentials.screen_name
+        options.merge_owner!(owner)
+      end
+    end
+
+    def merge_list(args)
+      options = args.extract_options!
+      list = args.pop
+      options.merge_list!(list) unless list.nil?
+      options
+    end
+
+    def merge_user(args)
+      options = args.extract_options!
+      user = args.pop
+      options.merge_user!(user) unless user.nil?
+      options
+    end
+
+    def merge_user_into_cursor(args)
+      {:cursor => DEFAULT_CURSOR}.merge(merge_user(args))
+    end
+
+    def merge_list_into_cursor(args)
+      {:cursor => DEFAULT_CURSOR}.merge(merge_list(args))
     end
 
   end

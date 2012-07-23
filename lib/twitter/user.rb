@@ -52,7 +52,7 @@ module Twitter
       # http://a0.twimg.com/profile_images/1759857427/image1326743606.png
       # http://a0.twimg.com/profile_images/1759857427/image1326743606_mini.png
       # http://a0.twimg.com/profile_images/1759857427/image1326743606_bigger.png
-      resize_profile_image_url(@attrs[:profile_image_url], size) unless @attrs[:profile_image_url].nil?
+      resize_profile_image_url(@attrs[:profile_image_url], size)
     end
 
     # Return the secure URL to the user's profile image
@@ -66,7 +66,7 @@ module Twitter
       # https://a0.twimg.com/profile_images/1759857427/image1326743606.png
       # https://a0.twimg.com/profile_images/1759857427/image1326743606_mini.png
       # https://a0.twimg.com/profile_images/1759857427/image1326743606_bigger.png
-      resize_profile_image_url(@attrs[:profile_image_url_https], size) unless @attrs[:profile_image_url_https].nil?
+      resize_profile_image_url(@attrs[:profile_image_url_https], size)
     end
 
     # @return [Twitter::Status]
@@ -77,6 +77,7 @@ module Twitter
   private
 
     def resize_profile_image_url(url, size)
+      return if url.nil?
       url.sub(PROFILE_IMAGE_SUFFIX_REGEX, profile_image_suffix(size))
     end
 
