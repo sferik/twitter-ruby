@@ -244,7 +244,7 @@ describe Twitter::Status do
     end
     it "warns when not set" do
       Twitter::Status.new(:id => 28669546014).urls
-      $stderr.string.should =~ /To get URLs, you must pass `:include_entities => true` when requesting the Twitter::Status\./
+      $stderr.string.should =~ /To get urls, you must pass `:include_entities => true` when requesting the Twitter::Status\./
     end
   end
 

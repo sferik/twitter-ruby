@@ -50,27 +50,13 @@ module Twitter
     # @note Must include entities in your request for this method to work
     # @return [Array<Twitter::Entity::Hashtag>]
     def hashtags
-      if @attrs[:entities].nil?
-        warn "#{Kernel.caller.first}: To get hashtags, you must pass `:include_entities => true` when requesting the Twitter::Status."
-        []
-      else
-        @hashtags ||= Array(@attrs[:entities][:hashtags]).map do |hashtag|
-          Twitter::Entity::Hashtag.fetch_or_new(hashtag)
-        end
-      end
+      @hashtags ||= entities(Twitter::Entity::Hashtag, :hashtags)
     end
 
     # @note Must include entities in your request for this method to work
     # @return [Array<Twitter::Media>]
     def media
-      if @attrs[:entities].nil?
-        warn "#{Kernel.caller.first}: To get media, you must pass `:include_entities => true` when requesting the Twitter::Status."
-        []
-      else
-        @media ||= Array(@attrs[:entities][:media]).map do |media|
-          Twitter::MediaFactory.fetch_or_new(media)
-        end
-      end
+      @media ||= entities(Twitter::MediaFactory, :media)
     end
 
     # @return [Twitter::Metadata]
@@ -113,14 +99,7 @@ module Twitter
     # @note Must include entities in your request for this method to work
     # @return [Array<Twitter::Entity::Url>]
     def urls
-      if @attrs[:entities].nil?
-        warn "#{Kernel.caller.first}: To get URLs, you must pass `:include_entities => true` when requesting the Twitter::Status."
-        []
-      else
-        @urls ||= Array(@attrs[:entities][:urls]).map do |url|
-          Twitter::Entity::Url.fetch_or_new(url)
-        end
-      end
+      @urls ||= entities(Twitter::Entity::Url, :urls)
     end
 
     # @return [Twitter::User]
@@ -132,12 +111,20 @@ module Twitter
     # @note Must include entities in your request for this method to work
     # @return [Array<Twitter::Entity::UserMention>]
     def user_mentions
+      @user_mentions ||= entities(Twitter::Entity::UserMention, :user_mentions)
+    end
+
+  private
+
+    # @param klass [Class]
+    # @param method [Symbol]
+    def entities(klass, method)
       if @attrs[:entities].nil?
-        warn "#{Kernel.caller.first}: To get user mentions, you must pass `:include_entities => true` when requesting the Twitter::Status."
+        warn "#{Kernel.caller.first}: To get #{method.to_s.tr('_', ' ')}, you must pass `:include_entities => true` when requesting the #{self.class.name}."
         []
       else
-        @user_mentions ||= Array(@attrs[:entities][:user_mentions]).map do |user_mention|
-          Twitter::Entity::UserMention.fetch_or_new(user_mention)
+        Array(@attrs[:entities][method.to_sym]).map do |user_mention|
+          klass.fetch_or_new(user_mention)
         end
       end
     end
