@@ -56,8 +56,18 @@ module Twitter
       # @example Return recent statuses related to twitter with images and videos embedded
       #   Twitter.phoenix_search('twitter')
       def phoenix_search(q, options={})
-        response = get("/phoenix_search.phoenix", options.merge(:q => q))
-        collection_from_array(response[:body][:statuses], Twitter::Status)
+        search_collection_from_response(:get, "/phoenix_search.phoenix", options.merge(:q => q))
+      end
+
+    private
+
+      # @param method [Symbol]
+      # @param url [String]
+      # @param options [Hash]
+      # @param klass [Class]
+      # @return [Array]
+      def search_collection_from_response(method, url, options, klass=Twitter::Status)
+        collection_from_array(self.send(method.to_sym, url, options)[:body][:statuses], klass)
       end
 
     end

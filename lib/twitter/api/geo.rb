@@ -38,8 +38,7 @@ module Twitter
       # @example Return an array of places near the IP address 74.125.19.104
       #   Twitter.places_nearby(:ip => "74.125.19.104")
       def places_nearby(options={})
-        response = get("/1/geo/search.json", options)
-        collection_from_array(response[:body][:result][:places], Twitter::Place)
+        geo_collection_from_response(:get, "/1/geo/search.json", options)
       end
       alias geo_search places_nearby
 
@@ -59,8 +58,7 @@ module Twitter
       # @example Return an array of places similar to Twitter HQ
       #   Twitter.places_similar(:lat => "37.7821120598956", :long => "-122.400612831116", :name => "Twitter HQ")
       def places_similar(options={})
-        response = get("/1/geo/similar_places.json", options)
-        collection_from_array(response[:body][:result][:places], Twitter::Place)
+        geo_collection_from_response(:get, "/1/geo/similar_places.json", options)
       end
 
       # Searches for up to 20 places that can be used as a place_id
@@ -79,8 +77,7 @@ module Twitter
       # @example Return an array of places within the specified region
       #   Twitter.reverse_geocode(:lat => "37.7821120598956", :long => "-122.400612831116")
       def reverse_geocode(options={})
-        response = get("/1/geo/reverse_geocode.json", options)
-        collection_from_array(response[:body][:result][:places], Twitter::Place)
+        geo_collection_from_response(:get, "/1/geo/reverse_geocode.json", options)
       end
 
       # Returns all the information about a known place
@@ -116,6 +113,17 @@ module Twitter
       def place_create(options={})
         response = post("/1/geo/place.json", options)
         Twitter::Place.from_response(response)
+      end
+
+    private
+
+      # @param method [Symbol]
+      # @param url [String]
+      # @param options [Hash]
+      # @param klass [Class]
+      # @return [Array]
+      def geo_collection_from_response(method, url, options, klass=Twitter::Place)
+        collection_from_array(self.send(method.to_sym, url, options)[:body][:result][:places], klass)
       end
 
     end
