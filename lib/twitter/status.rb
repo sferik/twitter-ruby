@@ -21,6 +21,8 @@ module Twitter
       :profile_image_url_https, :repliers, :retweeted, :retweeters, :source,
       :text, :to_user, :to_user_id, :to_user_name, :truncated
     alias favorited? favorited
+    alias favourited favorited
+    alias favourited? favorited
     alias retweeted? retweeted
     alias truncated? truncated
 
@@ -30,6 +32,8 @@ module Twitter
       favoriters_count.to_i if favoriters_count
     end
     alias favorite_count favoriters_count
+    alias favourite_count favoriters_count
+    alias favouriters_count favoriters_count
 
     # @return [String]
     def from_user
