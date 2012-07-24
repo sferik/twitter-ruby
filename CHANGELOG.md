@@ -1,3 +1,7 @@
+3.4.0
+-----
+* [Refactor retweeted_to and retweeted_by into multiple methods](https://github.com/sferik/twitter/commit/7600cc3d529599cefc8d9c715e5f308ac4ca7319)
+
 3.3.1
 -----
 * [Fix authentication bug](https://github.com/sferik/twitter/commit/b1fc6eac21293f2f87df9ca6684c30ef8155137f)
