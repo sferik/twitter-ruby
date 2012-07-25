@@ -1036,10 +1036,7 @@ module Twitter
     #     Twitter.memberships('sferik')
     #     Twitter.memberships(7505382)
     def memberships(*args)
-      options = args.extract_options!
-      merge_default_cursor!(options)
-      options.merge_user!(args.pop)
-      cursor_from_response(:lists, Twitter::List, :get, "/1/lists/memberships.json", options)
+      lists_from_response(:get, "/1/lists/memberships.json", args)
     end
 
     # Returns the subscribers of the specified list
@@ -1089,10 +1086,7 @@ module Twitter
     #     Twitter.subscriptions('sferik')
     #     Twitter.subscriptions(7505382)
     def subscriptions(*args)
-      options = args.extract_options!
-      merge_default_cursor!(options)
-      options.merge_user!(args.pop)
-      cursor_from_response(:lists, Twitter::List, :get, "/1/lists/subscriptions.json", options)
+      lists_from_response(:get, "/1/lists/subscriptions.json", args)
     end
 
     # Make the authenticated user follow the specified list
@@ -1420,10 +1414,7 @@ module Twitter
     #     Twitter.lists('sferik')
     #     Twitter.lists(7505382)
     def lists(*args)
-      options = args.extract_options!
-      merge_default_cursor!(options)
-      options.merge_user!(args.pop)
-      cursor_from_response(:lists, Twitter::List, :get, "/1/lists.json", options)
+      lists_from_response(:get, "/1/lists.json", args)
     end
 
     # Show the specified list
@@ -2610,6 +2601,17 @@ module Twitter
       options.merge_list!(args.pop)
       options.merge_owner!(args.pop || verify_credentials.screen_name) unless options[:owner_id] || options[:owner_screen_name]
       object_from_response(Twitter::List, request_method, url, options)
+    end
+
+    # @param request_method [Symbol]
+    # @param url [String]
+    # @param args [Array]
+    # @return [Array<Twitter::List>]
+    def lists_from_response(request_method, url, args)
+      options = args.extract_options!
+      merge_default_cursor!(options)
+      options.merge_user!(args.pop)
+      cursor_from_response(:lists, Twitter::List, request_method, url, options)
     end
 
     # @param request_method [Symbol]
