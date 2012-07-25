@@ -688,7 +688,7 @@ module Twitter
     #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
     #   @param options [Hash] A customizable set of options.
     def unfollow(*args)
-      users_from_response(:delete, "/1/friendships/destroy.json", args)
+      threaded_users_from_response(:delete, "/1/friendships/destroy.json", args)
     end
     alias friendship_destroy unfollow
 
@@ -762,7 +762,7 @@ module Twitter
     #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
     #   @param options [Hash] A customizable set of options.
     def accept(*args)
-      users_from_response(:post, "/1/friendships/accept.json", args)
+      threaded_users_from_response(:post, "/1/friendships/accept.json", args)
     end
 
     # Allows the authenticating user to deny the specified users' follow requests
@@ -780,7 +780,7 @@ module Twitter
     #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
     #   @param options [Hash] A customizable set of options.
     def deny(*args)
-      users_from_response(:post, "/1/friendships/deny.json", args)
+      threaded_users_from_response(:post, "/1/friendships/deny.json", args)
     end
 
     # Search for places that can be attached to a {Twitter::API::Statuses#update}
@@ -942,9 +942,7 @@ module Twitter
     #     Twitter.lists_subscribed_to('sferik')
     #     Twitter.lists_subscribed_to(8863586)
     def lists_subscribed_to(*args)
-      options = args.extract_options!
-      options.merge_user!(args.pop)
-      collection_from_response(Twitter::List, :get, "/1/lists/all.json", options)
+      objects_from_response(Twitter::List, :get, "/1/lists/all.json", args)
     end
 
     # Show tweet timeline for members of the specified list
@@ -1454,7 +1452,7 @@ module Twitter
     #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
     #   @param options [Hash] A customizable set of options.
     def enable_notifications(*args)
-      users_from_response(:post, "/1/notifications/follow.json", args)
+      threaded_users_from_response(:post, "/1/notifications/follow.json", args)
     end
 
     # Disables notifications for updates from the specified users to the authenticating user
@@ -1473,7 +1471,7 @@ module Twitter
     #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
     #   @param options [Hash] A customizable set of options.
     def disable_notifications(*args)
-      users_from_response(:post, "/1/notifications/leave.json", args)
+      threaded_users_from_response(:post, "/1/notifications/leave.json", args)
     end
 
     # The users specified are blocked by the authenticated user and reported as spammers
@@ -1491,7 +1489,7 @@ module Twitter
     #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
     #   @param options [Hash] A customizable set of options.
     def report_spam(*args)
-      users_from_response(:post, "/1/report_spam.json", args)
+      threaded_users_from_response(:post, "/1/report_spam.json", args)
     end
 
     # @rate_limited Yes
@@ -1667,7 +1665,7 @@ module Twitter
     #   @param ids [Array<Integer>, Set<Integer>] An array of Twitter status IDs.
     #   @param options [Hash] A customizable set of options.
     def favorite(*args)
-      statuses_from_response(:post, "/1/favorites/create", args)
+      threaded_statuses_from_response(:post, "/1/favorites/create", args)
     end
     alias fav favorite
     alias fave favorite
@@ -1688,7 +1686,7 @@ module Twitter
     #   @param ids [Array<Integer>, Set<Integer>] An array of Twitter status IDs.
     #   @param options [Hash] A customizable set of options.
     def unfavorite(*args)
-      statuses_from_response(:delete, "/1/favorites/destroy", args)
+      threaded_statuses_from_response(:delete, "/1/favorites/destroy", args)
     end
     alias favorite_destroy unfavorite
 
@@ -1849,9 +1847,7 @@ module Twitter
     #   @example Return the 20 most recent statuses posted by @sferik
     #     Twitter.user_timeline('sferik')
     def user_timeline(*args)
-      options = args.extract_options!
-      options.merge_user!(args.pop)
-      collection_from_response(Twitter::Status, :get, "/1/statuses/user_timeline.json", options)
+      objects_from_response(Twitter::Status, :get, "/1/statuses/user_timeline.json", args)
     end
 
     # Returns the 20 most recent images posted by the specified user
@@ -1871,9 +1867,7 @@ module Twitter
     #   @example Return the 20 most recent statuses posted by @sferik
     #     Twitter.media_timeline('sferik')
     def media_timeline(*args)
-      options = args.extract_options!
-      options.merge_user!(args.pop)
-      collection_from_response(Twitter::Status, :get, "/1/statuses/media_timeline.json", options)
+      objects_from_response(Twitter::Status, :get, "/1/statuses/media_timeline.json", args)
     end
 
     # Returns the 20 most recent statuses from the authenticating user's network
@@ -1968,7 +1962,7 @@ module Twitter
     #   @param options [Hash] A customizable set of options.
     #   @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
     def statuses(*args)
-      statuses_from_response(:get, "/1/statuses/show", args)
+      threaded_statuses_from_response(:get, "/1/statuses/show", args)
     end
 
     # Returns activity summary for a status
@@ -2076,7 +2070,7 @@ module Twitter
     #   @param options [Hash] A customizable set of options.
     #   @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
     def status_destroy(*args)
-      statuses_from_response(:delete, "/1/statuses/destroy", args)
+      threaded_statuses_from_response(:delete, "/1/statuses/destroy", args)
     end
 
     # Retweets tweets
@@ -2275,7 +2269,7 @@ module Twitter
     #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
     #   @param options [Hash] A customizable set of options.
     def block(*args)
-      users_from_response(:post, "/1/blocks/create.json", args)
+      threaded_users_from_response(:post, "/1/blocks/create.json", args)
     end
 
     # Un-blocks the users specified by the authenticating user
@@ -2294,7 +2288,7 @@ module Twitter
     #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
     #   @param options [Hash] A customizable set of options.
     def unblock(*args)
-      users_from_response(:delete, "/1/blocks/destroy.json", args)
+      threaded_users_from_response(:delete, "/1/blocks/destroy.json", args)
     end
 
     # @return [Array<Twitter::Suggestion>]
@@ -2439,7 +2433,7 @@ module Twitter
     #     Twitter.contributees('sferik')
     #     Twitter.contributees(7505382)  # Same as above
     def contributees(*args)
-      delegates(:get, "/1/users/contributees.json", args)
+      users_from_response(:get, "/1/users/contributees.json", args)
     end
 
     # Returns an array of users who can contribute to the specified account
@@ -2462,7 +2456,7 @@ module Twitter
     #     Twitter.contributors('sferik')
     #     Twitter.contributors(7505382)  # Same as above
     def contributors(*args)
-      delegates(:get, "/1/users/contributors.json", args)
+      users_from_response(:get, "/1/users/contributors.json", args)
     end
 
     # Returns recommended users for the authenticated user
@@ -2574,6 +2568,17 @@ module Twitter
       klass.from_response(response)
     end
 
+    # @param klass [Class]
+    # @param request_method [Symbol]
+    # @param url [String]
+    # @param args [Array]
+    # @return [Array]
+    def objects_from_response(klass, request_method, url, args)
+      options = args.extract_options!
+      options.merge_user!(args.pop)
+      collection_from_response(klass, request_method, url, options)
+    end
+
     # @param request_method [Symbol]
     # @param url [String]
     # @param args [Array]
@@ -2623,7 +2628,17 @@ module Twitter
     # @param url [String]
     # @param args [Array]
     # @return [Array<Twitter::User>]
-    def statuses_from_response(request_method, url, args)
+    def users_from_response(request_method, url, args)
+      options = args.extract_options!
+      options.merge_user!(args.pop || verify_credentials.screen_name)
+      collection_from_response(Twitter::User, request_method, url, options)
+    end
+
+    # @param request_method [Symbol]
+    # @param url [String]
+    # @param args [Array]
+    # @return [Array<Twitter::Status>]
+    def threaded_statuses_from_response(request_method, url, args)
       options = args.extract_options!
       args.flatten.threaded_map do |id|
         object_from_response(Twitter::Status, request_method, url + "/#{id}.json", options)
@@ -2634,7 +2649,7 @@ module Twitter
     # @param url [String]
     # @param args [Array]
     # @return [Array<Twitter::User>]
-    def users_from_response(request_method, url, args)
+    def threaded_users_from_response(request_method, url, args)
       options = args.extract_options!
       args.flatten.threaded_map do |user|
         object_from_response(Twitter::User, request_method, url, options.merge_user(user))
@@ -2659,12 +2674,6 @@ module Twitter
       args.flatten.threaded_map do |id|
         object_from_response(klass, request_method, url + "/#{id}.json", options)
       end
-    end
-
-    def delegates(request_method, url, args)
-      options = args.extract_options!
-      options.merge_user!(args.pop || verify_credentials.screen_name)
-      collection_from_response(Twitter::User, request_method, url, options)
     end
 
     # @param request_method [Symbol]
