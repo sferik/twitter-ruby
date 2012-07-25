@@ -510,10 +510,7 @@ module Twitter
     #     Twitter.follower_ids('sferik')
     #     Twitter.follower_ids(7505382)  # Same as above
     def follower_ids(*args)
-      options = args.extract_options!
-      merge_default_cursor!(options)
-      options.merge_user!(args.pop)
-      cursor_from_response(:ids, nil, :get, "/1/followers/ids.json", options)
+      ids_from_response(:get, "/1/followers/ids.json", args)
     end
 
     # @see https://dev.twitter.com/docs/api/1/get/friends/ids
@@ -538,10 +535,7 @@ module Twitter
     #     Twitter.friend_ids('sferik')
     #     Twitter.friend_ids(7505382)  # Same as above
     def friend_ids(*args)
-      options = args.extract_options!
-      merge_default_cursor!(options)
-      options.merge_user!(args.pop)
-      cursor_from_response(:ids, nil, :get, "/1/friends/ids.json", options)
+      ids_from_response(:get, "/1/friends/ids.json", args)
     end
 
     # Test for the existence of friendship between two users
@@ -2578,6 +2572,17 @@ module Twitter
     def object_from_response(klass, request_method, url, params={}, options={})
       response = send(request_method.to_sym, url, params, options)
       klass.from_response(response)
+    end
+
+    # @param request_method [Symbol]
+    # @param url [String]
+    # @param args [Array]
+    # @return [Array<Integer>]
+    def ids_from_response(request_method, url, args)
+      options = args.extract_options!
+      merge_default_cursor!(options)
+      options.merge_user!(args.pop)
+      cursor_from_response(:ids, nil, request_method, url, options)
     end
 
     # @param method [Symbol]
