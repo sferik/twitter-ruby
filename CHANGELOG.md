@@ -1,3 +1,9 @@
+3.4.1
+-----
+* [Prevent MultiJson::DecodeError error from bubbling up](https://github.com/sferik/twitter/commit/d870b7b8605e48bb0cd40e4b60684705ec06a846)
+* [Add British aliases for "favorite" methods on `Twitter::Status`](https://github.com/sferik/twitter/commit/07b1f410a8865ea3736d53d637fb513b4731a3ec)
+* [Correctly handle `nil` response body](https://github.com/sferik/twitter/commit/7fc785fa2ad43187fee2ba4808ffb3d09e8533dc)
+
 3.4.0
 -----
 * [Refactor retweeted_to and retweeted_by into multiple methods](https://github.com/sferik/twitter/commit/7600cc3d529599cefc8d9c715e5f308ac4ca7319)
