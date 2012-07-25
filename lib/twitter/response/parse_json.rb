@@ -7,7 +7,7 @@ module Twitter
 
       def parse(body)
         case body
-        when ''
+        when '', nil
           nil
         when 'true'
           true
