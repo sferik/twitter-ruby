@@ -58,6 +58,8 @@ module Twitter
     end
 
     # Perform an HTTP request
+    #
+    # @raise [Twitter::Error::ClientError, Twitter::Error::DecodeError]
     def request(method, path, params={}, options={})
       uri = options[:endpoint] || @endpoint
       uri = URI(uri) unless uri.respond_to?(:host)
