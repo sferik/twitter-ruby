@@ -319,8 +319,8 @@ module Twitter
     # @example Return the settings for the authenticating user.
     #   Twitter.settings
     def settings(options={})
-      method = options.size.zero? ? :get : :post
-      object_from_response(Twitter::Settings, method, "1/account/settings.json", options)
+      request_method = options.size.zero? ? :get : :post
+      object_from_response(Twitter::Settings, request_method, "1/account/settings.json", options)
     end
 
     # Returns activity about me

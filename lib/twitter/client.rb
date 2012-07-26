@@ -2,6 +2,7 @@ require 'faraday'
 require 'twitter/api'
 require 'twitter/configurable'
 require 'twitter/error/client_error'
+require 'twitter/error/decode_error'
 require 'twitter/rate_limit'
 require 'simple_oauth'
 require 'uri'
@@ -82,6 +83,8 @@ module Twitter
       response
     rescue Faraday::Error::ClientError
       raise Twitter::Error::ClientError
+    rescue MultiJson::DecodeError
+      raise Twitter::Error::DecodeError
     end
 
     def auth_header(method, uri, params={})
