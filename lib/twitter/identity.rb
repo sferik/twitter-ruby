@@ -1,4 +1,5 @@
 require 'twitter/base'
+require 'twitter/error/identity_map_key_error'
 
 module Twitter
   class Identity < Twitter::Base
@@ -12,7 +13,7 @@ module Twitter
       end
 
       return yield if block_given?
-      raise Twitter::IdentityMapKeyError, 'key not found'
+      raise Twitter::Error::IdentityMapKeyError, "key not found"
     end
 
     # Stores an object in the identity map.

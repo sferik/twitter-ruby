@@ -19,7 +19,7 @@ describe Twitter::Identity do
     it "raises an error on objects that don't exist" do
       lambda {
         Twitter::Identity.fetch(:id => 6)
-      }.should raise_error(Twitter::IdentityMapKeyError)
+      }.should raise_error(Twitter::Error::IdentityMapKeyError)
     end
   end
 
