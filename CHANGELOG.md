@@ -1,3 +1,10 @@
+3.5.0
+-----
+* [Add `Twitter::API#related_results`](https://github.com/sferik/twitter/commit/15fb81202dde3bbf4d64407cb79163095603cdbe)
+* [Alias `Twitter::API#status_destroy` to `Twitter::API#tweet_destroy`](https://github.com/sferik/twitter/commit/ec16ed28538b2cf828183999df90da1942b7bcd6)
+* [Alias `Twitter::API#status_activity` to `Twitter::API#tweet_activity`](https://github.com/sferik/twitter/commit/ccbdc6776a6780277e6ec813d3ed579f42440631)
+* [Move `IdentityMapKeyError` under `Twitter::Error` namespace](https://github.com/sferik/twitter/commit/f1491d2fe1827140ea42b2618d0a25dc03110394)
+
 3.4.1
 -----
 * [Prevent MultiJson::DecodeError error from bubbling up](https://github.com/sferik/twitter/commit/d870b7b8605e48bb0cd40e4b60684705ec06a846)
