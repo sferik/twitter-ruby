@@ -139,6 +139,7 @@ module Twitter
       :trends => true,
       :trends_daily => true,
       :trends_weekly => true,
+      :tweet_activity => true,
       :unblock => false,
       :unfavorite => false,
       :unfollow => false,
@@ -1981,6 +1982,7 @@ module Twitter
       response[:body].merge!(:id => id) if response[:body]
       Twitter::Status.from_response(response)
     end
+    alias tweet_activity status_activity
 
     # Returns activity summary for statuses
     #
