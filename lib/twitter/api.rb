@@ -140,6 +140,7 @@ module Twitter
       :trends_daily => true,
       :trends_weekly => true,
       :tweet_activity => true,
+      :tweet_destroy => false,
       :unblock => false,
       :unfavorite => false,
       :unfollow => false,
@@ -2074,6 +2075,7 @@ module Twitter
     def status_destroy(*args)
       threaded_statuses_from_response(:delete, "/1/statuses/destroy", args)
     end
+    alias tweet_destroy status_destroy
 
     # Retweets tweets
     #
