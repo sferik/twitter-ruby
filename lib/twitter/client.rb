@@ -1,4 +1,5 @@
 require 'faraday'
+require 'multi_json'
 require 'twitter/api'
 require 'twitter/configurable'
 require 'twitter/error/client_error'

@@ -106,6 +106,9 @@ module Twitter
       :privacy => true,
       :rate_limit_status => false,
       :rate_limited? => false,
+      :related_results => true,
+      :related_statuses => true,
+      :related_tweets => true,
       :recommendations => true,
       :relationship => true,
       :report_spam => true,
@@ -1966,6 +1969,24 @@ module Twitter
     def statuses(*args)
       threaded_statuses_from_response(:get, "/1/statuses/show", args)
     end
+
+    # Returns tweets related to a given status
+    #
+    # @note {https://dev.twitter.com/discussions/293 Undocumented}
+    # @rate_limited Yes
+    # @authentication_required No, unless the author of the status is protected
+    # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+    # @return [Array<Twitter::Status>]
+    # @param id [Integer] A Twitter status ID.
+    # @param options [Hash] A customizable set of options.
+    # @example Returns tweets related to the status with the ID 25938088801
+    #   Twitter.related_results(25938088801)
+    def related_results(id, options={})
+      array = get("/1/related_results/show/#{id}.json")[:body][0][:results].select{|result| result[:kind].capitalize == "Tweet"}.map{|result| result[:value]}
+      collection_from_array(Twitter::Status, array)
+    end
+    alias related_statuses related_results
+    alias related_tweets related_results
 
     # Returns activity summary for a status
     #
