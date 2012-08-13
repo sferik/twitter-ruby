@@ -79,7 +79,7 @@ describe Twitter::API do
         users = @client.users("sferik", "pengwynn")
         users.should be_an Array
         users.first.should be_a Twitter::User
-        users.first.name.should eq "Erik Michaels-Ober"
+        users.first.id.should eq 7505382
       end
     end
     context "with numeric screen names passed" do
@@ -154,7 +154,7 @@ describe Twitter::API do
       user_search = @client.user_search("Erik Michaels-Ober")
       user_search.should be_an Array
       user_search.first.should be_a Twitter::User
-      user_search.first.name.should eq "Erik Michaels-Ober"
+      user_search.first.id.should eq 7505382
     end
   end
 
@@ -174,7 +174,7 @@ describe Twitter::API do
       it "returns extended information of a given user" do
         user = @client.user("sferik")
         user.should be_a Twitter::User
-        user.name.should eq "Erik Michaels-Ober"
+        user.id.should eq 7505382
       end
     end
     context "with a screen name including '@' passed" do

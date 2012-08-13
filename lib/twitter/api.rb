@@ -3,12 +3,14 @@ require 'twitter/configuration'
 require 'twitter/core_ext/array'
 require 'twitter/core_ext/enumerable'
 require 'twitter/core_ext/hash'
+require 'twitter/core_ext/kernel'
 require 'twitter/cursor'
 require 'twitter/direct_message'
 require 'twitter/error/forbidden'
 require 'twitter/error/not_found'
 require 'twitter/language'
 require 'twitter/list'
+require 'twitter/oembed'
 require 'twitter/place'
 require 'twitter/rate_limit_status'
 require 'twitter/relationship'
@@ -166,12 +168,10 @@ module Twitter
     #
     # @raise [ArgumentError] Error raised when supplied argument is not a key in the METHOD_RATE_LIMITED hash.
     # @return [Boolean]
-    # @param method [Symbol]
-    def rate_limited?(method)
-      method_rate_limited = METHOD_RATE_LIMITED[method.to_sym]
-      if method_rate_limited.nil?
-        raise ArgumentError.new("no method `#{method}' for #{self.class}")
-      end
+    # @param method_name [Symbol]
+    def rate_limited?(method_name)
+      method_rate_limited = METHOD_RATE_LIMITED[method_name.to_sym]
+      raise ArgumentError.new("no method `#{method_name}' for #{self.class}") if method_rate_limited.nil?
       method_rate_limited
     end
 
@@ -2612,19 +2612,19 @@ module Twitter
       options = args.extract_options!
       merge_default_cursor!(options)
       options.merge_user!(args.pop)
-      cursor_from_response(:ids, nil, request_method, url, options)
+      cursor_from_response(:ids, nil, request_method, url, options, {}, calling_method)
     end
 
-    # @param method [Symbol]
+    # @param collection_name [Symbol]
     # @param klass [Class]
     # @param request_method [Symbol]
     # @param url [String]
     # @param params [Hash]
     # @param options [Hash]
     # @return [Twitter::Cursor]
-    def cursor_from_response(method, klass, request_method, url, params={}, options={})
+    def cursor_from_response(collection_name, klass, request_method, url, params={}, options={}, method_name=calling_method)
       response = send(request_method.to_sym, url, params, options)
-      Twitter::Cursor.from_response(response, method.to_sym, klass)
+      Twitter::Cursor.from_response(response, collection_name.to_sym, klass, self, method_name, params)
     end
 
     # @param request_method [Symbol]
@@ -2646,7 +2646,7 @@ module Twitter
       options = args.extract_options!
       merge_default_cursor!(options)
       options.merge_user!(args.pop)
-      cursor_from_response(:lists, Twitter::List, request_method, url, options)
+      cursor_from_response(:lists, Twitter::List, request_method, url, options, {}, calling_method)
     end
 
     # @param request_method [Symbol]
@@ -2686,7 +2686,7 @@ module Twitter
       merge_default_cursor!(options)
       options.merge_list!(args.pop)
       options.merge_owner!(args.pop || verify_credentials.screen_name) unless options[:owner_id] || options[:owner_screen_name]
-      cursor_from_response(:users, Twitter::User, request_method, url, options)
+      cursor_from_response(:users, Twitter::User, request_method, url, options, {}, calling_method)
     end
 
     # @param klass [Class]

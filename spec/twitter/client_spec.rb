@@ -76,11 +76,11 @@ describe Twitter::Client do
     stub_get("/1/account/verify_credentials.json").
       to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     client1 = Twitter::Client.new
-    client1.verify_credentials.screen_name.should eq 'sferik'
+    client1.verify_credentials.id.should eq 7505382
     stub_get("/1/account/verify_credentials.json").
       to_return(:body => fixture("pengwynn.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     client2 = Twitter::Client.new
-    client2.verify_credentials.screen_name.should eq 'pengwynn'
+    client2.verify_credentials.id.should eq 14100886
   end
 
   describe "#initalize" do

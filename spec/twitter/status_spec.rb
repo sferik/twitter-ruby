@@ -278,7 +278,7 @@ describe Twitter::Status do
       user_mentions.should be_an Array
       user_mentions.first.should be_a Twitter::Entity::UserMention
       user_mentions.first.indices.should eq [0, 6]
-      user_mentions.first.screen_name.should eq 'sferik'
+      user_mentions.first.id.should eq 7505382
     end
     it "is empty when not set" do
       user_mentions = Twitter::Status.new(:id => 28669546014).user_mentions

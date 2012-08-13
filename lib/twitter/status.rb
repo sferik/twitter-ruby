@@ -1,4 +1,3 @@
-require 'twitter/client'
 require 'twitter/core_ext/hash'
 require 'twitter/creatable'
 require 'twitter/entity/hashtag'
@@ -8,7 +7,6 @@ require 'twitter/geo_factory'
 require 'twitter/identity'
 require 'twitter/media_factory'
 require 'twitter/metadata'
-require 'twitter/oembed'
 require 'twitter/place'
 require 'twitter/user'
 
@@ -68,6 +66,7 @@ module Twitter
       @metadata ||= Twitter::Metadata.fetch_or_new(@attrs[:metadata])
     end
 
+    # @deprecated This method will be removed in version 4.
     # @return [Twitter::OEmbed]
     def oembed(options={})
       @oembed ||= Twitter.oembed(@attrs[:id], options)

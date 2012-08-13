@@ -109,7 +109,7 @@ describe Twitter::User do
     it "includes a User when user is set" do
       status = Twitter::User.new(:id => 7505382, :screen_name => 'sferik', :status => {:id => 25938088801}).status
       status.user.should be_a Twitter::User
-      status.user.screen_name.should eq 'sferik'
+      status.user.id.should eq 7505382
     end
   end
 

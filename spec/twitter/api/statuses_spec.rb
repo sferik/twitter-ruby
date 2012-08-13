@@ -21,7 +21,7 @@ describe Twitter::API do
         favorites = @client.favorites("sferik")
         favorites.should be_an Array
         favorites.first.should be_a Twitter::Status
-        favorites.first.user.name.should eq "Zach Brock"
+        favorites.first.user.id.should eq 2404341
       end
     end
     context "without arguments passed" do
@@ -38,7 +38,7 @@ describe Twitter::API do
         favorites = @client.favorites
         favorites.should be_an Array
         favorites.first.should be_a Twitter::Status
-        favorites.first.user.name.should eq "Zach Brock"
+        favorites.first.user.id.should eq 2404341
       end
     end
   end

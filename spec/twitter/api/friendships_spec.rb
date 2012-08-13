@@ -23,7 +23,7 @@ describe Twitter::API do
         follower_ids = @client.follower_ids("sferik")
         follower_ids.should be_a Twitter::Cursor
         follower_ids.ids.should be_an Array
-        follower_ids.ids.first.should eq 146197851
+        follower_ids.ids.first.should eq 14100886
       end
     end
     context "without arguments passed" do
@@ -42,7 +42,7 @@ describe Twitter::API do
         follower_ids = @client.follower_ids
         follower_ids.should be_a Twitter::Cursor
         follower_ids.ids.should be_an Array
-        follower_ids.ids.first.should eq 146197851
+        follower_ids.ids.first.should eq 14100886
       end
     end
   end
@@ -64,7 +64,7 @@ describe Twitter::API do
         friend_ids = @client.friend_ids("sferik")
         friend_ids.should be_a Twitter::Cursor
         friend_ids.ids.should be_an Array
-        friend_ids.ids.first.should eq 146197851
+        friend_ids.ids.first.should eq 14100886
       end
     end
     context "without arguments passed" do
@@ -83,7 +83,7 @@ describe Twitter::API do
         friend_ids = @client.friend_ids
         friend_ids.should be_a Twitter::Cursor
         friend_ids.ids.should be_an Array
-        friend_ids.ids.first.should eq 146197851
+        friend_ids.ids.first.should eq 14100886
       end
     end
   end
@@ -159,7 +159,7 @@ describe Twitter::API do
       friendships_incoming = @client.friendships_incoming
       friendships_incoming.should be_a Twitter::Cursor
       friendships_incoming.ids.should be_an Array
-      friendships_incoming.ids.first.should eq 146197851
+      friendships_incoming.ids.first.should eq 14100886
     end
   end
 
@@ -179,7 +179,7 @@ describe Twitter::API do
       friendships_outgoing = @client.friendships_outgoing
       friendships_outgoing.should be_a Twitter::Cursor
       friendships_outgoing.ids.should be_an Array
-      friendships_outgoing.ids.first.should eq 146197851
+      friendships_outgoing.ids.first.should eq 14100886
     end
   end
 
@@ -199,7 +199,7 @@ describe Twitter::API do
       it "returns detailed information about the relationship between two users" do
         relationship = @client.friendship("sferik", "pengwynn")
         relationship.should be_a Twitter::Relationship
-        relationship.source.screen_name.should eq "sferik"
+        relationship.source.id.should eq 7505382
       end
     end
     context "with numeric screen names passed" do
@@ -274,7 +274,7 @@ describe Twitter::API do
         users = @client.follow("sferik", "pengwynn", :follow => true)
         users.should be_an Array
         users.first.should be_a Twitter::User
-        users.first.name.should eq "Erik Michaels-Ober"
+        users.first.id.should eq 7505382
       end
     end
     context "with :follow => false passed" do
@@ -305,7 +305,7 @@ describe Twitter::API do
         users = @client.follow("sferik", "pengwynn", :follow => false)
         users.should be_an Array
         users.first.should be_a Twitter::User
-        users.first.name.should eq "Erik Michaels-Ober"
+        users.first.id.should eq 7505382
       end
     end
     context "without :follow passed" do
@@ -336,7 +336,7 @@ describe Twitter::API do
         users = @client.follow("sferik", "pengwynn")
         users.should be_an Array
         users.first.should be_a Twitter::User
-        users.first.name.should eq "Erik Michaels-Ober"
+        users.first.id.should eq 7505382
       end
     end
   end
@@ -358,7 +358,7 @@ describe Twitter::API do
         users = @client.follow!("sferik", :follow => true)
         users.should be_an Array
         users.first.should be_a Twitter::User
-        users.first.name.should eq "Erik Michaels-Ober"
+        users.first.id.should eq 7505382
       end
     end
     context "with :follow => false passed" do
@@ -377,7 +377,7 @@ describe Twitter::API do
         users = @client.follow!("sferik", :follow => false)
         users.should be_an Array
         users.first.should be_a Twitter::User
-        users.first.name.should eq "Erik Michaels-Ober"
+        users.first.id.should eq 7505382
       end
     end
     context "without :follow passed" do
@@ -396,7 +396,7 @@ describe Twitter::API do
         users = @client.follow!("sferik")
         users.should be_an Array
         users.first.should be_a Twitter::User
-        users.first.name.should eq "Erik Michaels-Ober"
+        users.first.id.should eq 7505382
       end
     end
   end
@@ -417,7 +417,7 @@ describe Twitter::API do
       users = @client.friendship_destroy("sferik")
       users.should be_an Array
       users.first.should be_a Twitter::User
-      users.first.name.should eq "Erik Michaels-Ober"
+      users.first.id.should eq 7505382
     end
   end
 
@@ -438,7 +438,7 @@ describe Twitter::API do
         friendships = @client.friendships("sferik", "pengwynn")
         friendships.should be_an Array
         friendships.first.should be_a Twitter::User
-        friendships.first.name.should eq "Erik Michaels-Ober"
+        friendships.first.id.should eq 7505382
         friendships.first.connections.should eq ["none"]
       end
     end
@@ -500,7 +500,7 @@ describe Twitter::API do
         friendships = @client.friendships("sferik", "pengwynn")
         friendships.should be_an Array
         friendships.first.should be_a Twitter::User
-        friendships.first.name.should eq "Erik Michaels-Ober"
+        friendships.first.id.should eq 7505382
         friendships.first.connections.should eq ["none"]
       end
     end
@@ -560,7 +560,7 @@ describe Twitter::API do
     it "returns detailed information about the relationship between two users" do
       relationship = @client.friendship_update("sferik", :retweets => true)
       relationship.should be_a Twitter::Relationship
-      relationship.source.screen_name.should eq "sferik"
+      relationship.source.id.should eq 7505382
     end
   end
 
@@ -598,7 +598,7 @@ describe Twitter::API do
       users = @client.accept("sferik")
       users.should be_an Array
       users.first.should be_a Twitter::User
-      users.first.name.should eq "Erik Michaels-Ober"
+      users.first.id.should eq 7505382
     end
   end
 
@@ -618,7 +618,7 @@ describe Twitter::API do
       users = @client.deny("sferik")
       users.should be_an Array
       users.first.should be_a Twitter::User
-      users.first.name.should eq "Erik Michaels-Ober"
+      users.first.id.should eq 7505382
     end
   end
 

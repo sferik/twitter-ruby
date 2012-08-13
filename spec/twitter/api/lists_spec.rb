@@ -170,7 +170,7 @@ describe Twitter::API do
         list_subscribers.should be_a Twitter::Cursor
         list_subscribers.users.should be_an Array
         list_subscribers.users.first.should be_a Twitter::User
-        list_subscribers.users.first.name.should eq "Erik Michaels-Ober"
+        list_subscribers.users.first.id.should eq 7505382
       end
     end
     context "without a screen name passed" do
@@ -620,7 +620,7 @@ describe Twitter::API do
         list_members.should be_a Twitter::Cursor
         list_members.users.should be_an Array
         list_members.users.first.should be_a Twitter::User
-        list_members.users.first.name.should eq "Erik Michaels-Ober"
+        list_members.users.first.id.should eq 7505382
       end
     end
     context "without a screen name passed" do

@@ -22,7 +22,7 @@ describe Twitter::API do
       users = @client.report_spam("sferik")
       users.should be_an Array
       users.first.should be_a Twitter::User
-      users.first.name.should eq "Erik Michaels-Ober"
+      users.first.id.should eq 7505382
     end
   end
 

@@ -20,7 +20,7 @@ describe Twitter::API do
       direct_messages = @client.direct_messages_received
       direct_messages.should be_an Array
       direct_messages.first.should be_a Twitter::DirectMessage
-      direct_messages.first.sender.name.should eq "Erik Michaels-Ober"
+      direct_messages.first.sender.id.should eq 7505382
     end
   end
 
@@ -38,7 +38,7 @@ describe Twitter::API do
       direct_messages = @client.direct_messages_sent
       direct_messages.should be_an Array
       direct_messages.first.should be_a Twitter::DirectMessage
-      direct_messages.first.sender.name.should eq "Erik Michaels-Ober"
+      direct_messages.first.sender.id.should eq 7505382
     end
   end
 
@@ -56,7 +56,7 @@ describe Twitter::API do
       direct_messages = @client.direct_message_destroy(1825785544)
       direct_messages.should be_an Array
       direct_messages.first.should be_a Twitter::DirectMessage
-      direct_messages.first.sender.name.should eq "Erik Michaels-Ober"
+      direct_messages.first.sender.id.should eq 7505382
     end
   end
 
@@ -92,7 +92,7 @@ describe Twitter::API do
     it "returns the specified direct message" do
       direct_message = @client.direct_message(1825786345)
       direct_message.should be_a Twitter::DirectMessage
-      direct_message.sender.name.should eq "Erik Michaels-Ober"
+      direct_message.sender.id.should eq 7505382
     end
   end
 
@@ -111,7 +111,7 @@ describe Twitter::API do
         direct_messages = @client.direct_messages(1825786345)
         direct_messages.should be_an Array
         direct_messages.first.should be_a Twitter::DirectMessage
-        direct_messages.first.sender.name.should eq "Erik Michaels-Ober"
+        direct_messages.first.sender.id.should eq 7505382
       end
     end
     context "without ids passed" do
@@ -128,7 +128,7 @@ describe Twitter::API do
         direct_messages = @client.direct_messages
         direct_messages.should be_an Array
         direct_messages.first.should be_a Twitter::DirectMessage
-        direct_messages.first.sender.name.should eq "Erik Michaels-Ober"
+        direct_messages.first.sender.id.should eq 7505382
       end
     end
   end

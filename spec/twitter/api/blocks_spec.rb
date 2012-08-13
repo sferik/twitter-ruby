@@ -20,7 +20,7 @@ describe Twitter::API do
       users = @client.blocking
       users.should be_an Array
       users.first.should be_a Twitter::User
-      users.first.name.should eq "Erik Michaels-Ober"
+      users.first.id.should eq 7505382
     end
   end
 
@@ -81,7 +81,7 @@ describe Twitter::API do
       users = @client.block("sferik")
       users.should be_an Array
       users.first.should be_a Twitter::User
-      users.first.name.should eq "Erik Michaels-Ober"
+      users.first.id.should eq 7505382
     end
   end
 
@@ -101,7 +101,7 @@ describe Twitter::API do
       users = @client.unblock("sferik")
       users.should be_an Array
       users.first.should be_a Twitter::User
-      users.first.name.should eq "Erik Michaels-Ober"
+      users.first.id.should eq 7505382
     end
   end
 
