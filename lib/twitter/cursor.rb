@@ -45,20 +45,24 @@ module Twitter
       end
     end
 
+    # @param collection [Array]
+    # @param cursor [Integer]
+    # @return [Array]
+    def all(collection=collection, cursor=next_cursor)
+      cursor = @client.send(@method_name.to_sym, @method_options.merge(:cursor => cursor))
+      collection += cursor.collection
+      cursor.last? ? collection.flatten : all(collection, cursor.next_cursor)
+    end
+
+    # @return [Enumerable]
     def each
-      cursor = self
-      results = collection
-      until cursor.last?
-        cursor = @client.send(@method_name.to_sym, @method_options.merge(:cursor => cursor.next_cursor))
-        results += cursor.collection
-      end
-      results.each do |result|
-        yield result
+      all(collection, next_cursor).each do |element|
+        yield element
       end
     end
 
     def next_cursor
-      @attrs[:next_cursor]
+      @attrs[:next_cursor] || -1
     end
     alias next next_cursor
 
