@@ -18,11 +18,11 @@ describe Twitter::API do
         with(:query => {:q => "twitter"}).
         should have_been_made
     end
-    it "returns recent statuses related to a query with images and videos embedded" do
+    it "returns recent Tweets related to a query with images and videos embedded" do
       search = @client.search('twitter')
       search.should be_a Twitter::SearchResults
       search.results.should be_an Array
-      search.results.first.should be_a Twitter::Status
+      search.results.first.should be_a Twitter::Tweet
       search.results.first.text.should eq "@KaiserKuo from not too far away your new twitter icon looks like Vader."
     end
     it "returns the max_id value for a search result" do
@@ -57,10 +57,10 @@ describe Twitter::API do
         with(:query => {:q => "twitter"}).
         should have_been_made
     end
-    it "returns recent statuses related to a query with images and videos embedded" do
+    it "returns recent Tweets related to a query with images and videos embedded" do
       search = @client.phoenix_search('twitter')
       search.should be_an Array
-      search.first.should be_a Twitter::Status
+      search.first.should be_a Twitter::Tweet
       search.first.text.should eq "looking at twitter trends just makes me realize how little i really understand about mankind."
     end
   end

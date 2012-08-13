@@ -15,10 +15,10 @@ describe Twitter::Action::Reply do
   end
 
   describe "#target_objects" do
-    it "returns a collection of statuses that reply to a user" do
+    it "returns a collection of Tweets that reply to a user" do
       targets = Twitter::Action::Reply.new(:target_objects => [{:id => 25938088801}]).target_objects
       targets.should be_an Array
-      targets.first.should be_a Twitter::Status
+      targets.first.should be_a Twitter::Tweet
     end
     it "is empty when not set" do
       targets = Twitter::Action::Reply.new.target_objects
@@ -30,7 +30,7 @@ describe Twitter::Action::Reply do
     it "returns a collection that contains the replied-to status" do
       targets = Twitter::Action::Reply.new(:targets => [{:id => 25938088801}]).targets
       targets.should be_an Array
-      targets.first.should be_a Twitter::Status
+      targets.first.should be_a Twitter::Tweet
     end
     it "is empty when not set" do
       targets = Twitter::Action::Reply.new.targets

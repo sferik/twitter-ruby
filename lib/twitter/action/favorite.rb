@@ -1,16 +1,16 @@
-require 'twitter/action/status'
+require 'twitter/action/tweet'
 
 module Twitter
   module Action
-    class Favorite < Twitter::Action::Status
+    class Favorite < Twitter::Action::Tweet
       attr_reader :target_objects
 
-      # A collection containing the favorited status
+      # A collection containing the favorited tweet
       #
-      # @return [Array<Twitter::Status>]
+      # @return [Array<Twitter::Tweet>]
       def targets
-        @targets = Array(@attrs[:targets]).map do |status|
-          Twitter::Status.fetch_or_new(status)
+        @targets = Array(@attrs[:targets]).map do |tweet|
+          Twitter::Tweet.fetch_or_new(tweet)
         end
       end
 

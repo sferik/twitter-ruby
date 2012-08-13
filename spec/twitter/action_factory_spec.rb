@@ -27,10 +27,6 @@ describe Twitter::ActionFactory do
       action = Twitter::ActionFactory.fetch_or_new(:action => 'retweet')
       action.should be_a Twitter::Action::Retweet
     end
-    it "generates a Status" do
-      action = Twitter::ActionFactory.fetch_or_new(:action => 'status')
-      action.should be_a Twitter::Action::Status
-    end
     it "raises an ArgumentError when action is not specified" do
       lambda do
         Twitter::ActionFactory.fetch_or_new

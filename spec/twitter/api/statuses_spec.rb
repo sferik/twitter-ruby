@@ -17,10 +17,10 @@ describe Twitter::API do
         a_get("/1/favorites/sferik.json").
           should have_been_made
       end
-      it "returns the 20 most recent favorite statuses for the authenticating user or user specified by the ID parameter" do
+      it "returns the 20 most recent favorite Tweets for the authenticating user or user specified by the ID parameter" do
         favorites = @client.favorites("sferik")
         favorites.should be_an Array
-        favorites.first.should be_a Twitter::Status
+        favorites.first.should be_a Twitter::Tweet
         favorites.first.user.id.should eq 2404341
       end
     end
@@ -34,10 +34,10 @@ describe Twitter::API do
         a_get("/1/favorites.json").
           should have_been_made
       end
-      it "returns the 20 most recent favorite statuses for the authenticating user or user specified by the ID parameter" do
+      it "returns the 20 most recent favorite Tweets for the authenticating user or user specified by the ID parameter" do
         favorites = @client.favorites
         favorites.should be_an Array
-        favorites.first.should be_a Twitter::Status
+        favorites.first.should be_a Twitter::Tweet
         favorites.first.user.id.should eq 2404341
       end
     end
@@ -53,11 +53,11 @@ describe Twitter::API do
       a_post("/1/favorites/create/25938088801.json").
         should have_been_made
     end
-    it "returns an array of favorited statuses" do
-      statuses = @client.favorite(25938088801)
-      statuses.should be_an Array
-      statuses.first.should be_a Twitter::Status
-      statuses.first.text.should eq "@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!"
+    it "returns an array of favorited Tweets" do
+      tweets = @client.favorite(25938088801)
+      tweets.should be_an Array
+      tweets.first.should be_a Twitter::Tweet
+      tweets.first.text.should eq "@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!"
     end
   end
 
@@ -71,11 +71,11 @@ describe Twitter::API do
       a_delete("/1/favorites/destroy/25938088801.json").
         should have_been_made
     end
-    it "returns an array of un-favorited statuses" do
-      statuses = @client.unfavorite(25938088801)
-      statuses.should be_an Array
-      statuses.first.should be_a Twitter::Status
-      statuses.first.text.should eq "@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!"
+    it "returns an array of un-favorited Tweets" do
+      tweets = @client.unfavorite(25938088801)
+      tweets.should be_an Array
+      tweets.first.should be_a Twitter::Tweet
+      tweets.first.text.should eq "@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!"
     end
   end
 
@@ -89,11 +89,11 @@ describe Twitter::API do
       a_get("/1/statuses/home_timeline.json").
         should have_been_made
     end
-    it "returns the 20 most recent statuses, including retweets if they exist, posted by the authenticating user and the user's they follow" do
-      statuses = @client.home_timeline
-      statuses.should be_an Array
-      statuses.first.should be_a Twitter::Status
-      statuses.first.text.should eq "Ruby is the best programming language for hiding the ugly bits."
+    it "returns the 20 most recent Tweets, including retweets if they exist, posted by the authenticating user and the user's they follow" do
+      tweets = @client.home_timeline
+      tweets.should be_an Array
+      tweets.first.should be_a Twitter::Tweet
+      tweets.first.text.should eq "Ruby is the best programming language for hiding the ugly bits."
     end
   end
 
@@ -108,10 +108,10 @@ describe Twitter::API do
         should have_been_made
     end
     it "returns the 20 most recent mentions (status containing @username) for the authenticating user" do
-      statuses = @client.mentions
-      statuses.should be_an Array
-      statuses.first.should be_a Twitter::Status
-      statuses.first.text.should eq "Ruby is the best programming language for hiding the ugly bits."
+      tweets = @client.mentions
+      tweets.should be_an Array
+      tweets.first.should be_a Twitter::Tweet
+      tweets.first.text.should eq "Ruby is the best programming language for hiding the ugly bits."
     end
   end
 
@@ -128,10 +128,10 @@ describe Twitter::API do
         should have_been_made
     end
     it "returns the 20 most recent retweets posted by the authenticating user" do
-      statuses = @client.retweeted_by_user("sferik")
-      statuses.should be_an Array
-      statuses.first.should be_a Twitter::Status
-      statuses.first.text.should eq "Ruby is the best programming language for hiding the ugly bits."
+      tweets = @client.retweeted_by_user("sferik")
+      tweets.should be_an Array
+      tweets.first.should be_a Twitter::Tweet
+      tweets.first.text.should eq "Ruby is the best programming language for hiding the ugly bits."
     end
   end
 
@@ -146,10 +146,10 @@ describe Twitter::API do
         should have_been_made
     end
     it "returns the 20 most recent retweets posted by the authenticating user" do
-      statuses = @client.retweeted_by_me
-      statuses.should be_an Array
-      statuses.first.should be_a Twitter::Status
-      statuses.first.text.should eq "Ruby is the best programming language for hiding the ugly bits."
+      tweets = @client.retweeted_by_me
+      tweets.should be_an Array
+      tweets.first.should be_a Twitter::Tweet
+      tweets.first.text.should eq "Ruby is the best programming language for hiding the ugly bits."
     end
   end
 
@@ -166,10 +166,10 @@ describe Twitter::API do
         should have_been_made
     end
     it "returns the 20 most recent retweets posted by users the specified user follow" do
-      statuses = @client.retweeted_to_user("sferik")
-      statuses.should be_an Array
-      statuses.first.should be_a Twitter::Status
-      statuses.first.text.should eq "Ruby is the best programming language for hiding the ugly bits."
+      tweets = @client.retweeted_to_user("sferik")
+      tweets.should be_an Array
+      tweets.first.should be_a Twitter::Tweet
+      tweets.first.text.should eq "Ruby is the best programming language for hiding the ugly bits."
     end
   end
 
@@ -184,10 +184,10 @@ describe Twitter::API do
         should have_been_made
     end
     it "returns the 20 most recent retweets posted by users the authenticating user follow" do
-      statuses = @client.retweeted_to_me
-      statuses.should be_an Array
-      statuses.first.should be_a Twitter::Status
-      statuses.first.text.should eq "Ruby is the best programming language for hiding the ugly bits."
+      tweets = @client.retweeted_to_me
+      tweets.should be_an Array
+      tweets.first.should be_a Twitter::Tweet
+      tweets.first.text.should eq "Ruby is the best programming language for hiding the ugly bits."
     end
   end
 
@@ -202,10 +202,10 @@ describe Twitter::API do
         should have_been_made
     end
     it "returns the 20 most recent tweets of the authenticated user that have been retweeted by others" do
-      statuses = @client.retweets_of_me
-      statuses.should be_an Array
-      statuses.first.should be_a Twitter::Status
-      statuses.first.text.should eq "Ruby is the best programming language for hiding the ugly bits."
+      tweets = @client.retweets_of_me
+      tweets.should be_an Array
+      tweets.first.should be_a Twitter::Tweet
+      tweets.first.text.should eq "Ruby is the best programming language for hiding the ugly bits."
     end
   end
 
@@ -222,11 +222,11 @@ describe Twitter::API do
           with(:query => {:screen_name => "sferik"}).
           should have_been_made
       end
-      it "returns the 20 most recent statuses posted by the user specified by screen name or user id" do
-        statuses = @client.user_timeline("sferik")
-        statuses.should be_an Array
-        statuses.first.should be_a Twitter::Status
-        statuses.first.text.should eq "Ruby is the best programming language for hiding the ugly bits."
+      it "returns the 20 most recent Tweets posted by the user specified by screen name or user id" do
+        tweets = @client.user_timeline("sferik")
+        tweets.should be_an Array
+        tweets.first.should be_a Twitter::Tweet
+        tweets.first.text.should eq "Ruby is the best programming language for hiding the ugly bits."
       end
     end
     context "without a screen name passed" do
@@ -256,10 +256,10 @@ describe Twitter::API do
           should have_been_made
       end
       it "returns the 20 most recent images posted by the user specified by screen name or user id" do
-        statuses = @client.media_timeline("sferik")
-        statuses.should be_an Array
-        statuses.first.should be_a Twitter::Status
-        statuses.first.text.should eq "Google is throwing up a question mark for Sunday's weather in Boston. At least they're being honest. http://t.co/Jh7bAhS"
+        tweets = @client.media_timeline("sferik")
+        tweets.should be_an Array
+        tweets.first.should be_a Twitter::Tweet
+        tweets.first.text.should eq "Google is throwing up a question mark for Sunday's weather in Boston. At least they're being honest. http://t.co/Jh7bAhS"
       end
     end
     context "without a screen name passed" do
@@ -286,10 +286,10 @@ describe Twitter::API do
         should have_been_made
     end
     it "returns the 20 most recent tweets of the authenticated user that have been retweeted by others" do
-      statuses = @client.network_timeline
-      statuses.should be_an Array
-      statuses.first.should be_a Twitter::Status
-      statuses.first.text.should eq "Ruby is the best programming language for hiding the ugly bits."
+      tweets = @client.network_timeline
+      tweets.should be_an Array
+      tweets.first.should be_a Twitter::Tweet
+      tweets.first.text.should eq "Ruby is the best programming language for hiding the ugly bits."
     end
   end
 
@@ -304,7 +304,7 @@ describe Twitter::API do
         a_get("/1/statuses/27467028175/retweeted_by/ids.json").
           should have_been_made
       end
-      it "returns an array of numeric user IDs of retweeters of a status" do
+      it "returns an array of numeric user IDs of retweeters of a Tweet" do
         ids = @client.retweeters_of(27467028175, :ids_only => true)
         ids.should be_an Array
         ids.first.should eq 47
@@ -320,7 +320,7 @@ describe Twitter::API do
         a_get("/1/statuses/27467028175/retweeted_by.json").
           should have_been_made
       end
-      it "returns an array of user of retweeters of a status" do
+      it "returns an array of user of retweeters of a Tweet" do
         users = @client.retweeters_of(27467028175)
         users.should be_an Array
         users.first.should be_a Twitter::User
@@ -340,10 +340,10 @@ describe Twitter::API do
         should have_been_made
     end
     it "returns up to 100 of the first retweets of a given tweet" do
-      statuses = @client.retweets(28561922516)
-      statuses.should be_an Array
-      statuses.first.should be_a Twitter::Status
-      statuses.first.text.should eq "RT @gruber: As for the Series, I'm for the Giants. Fuck Texas, fuck Nolan Ryan, fuck George Bush."
+      tweets = @client.retweets(28561922516)
+      tweets.should be_an Array
+      tweets.first.should be_a Twitter::Tweet
+      tweets.first.text.should eq "RT @gruber: As for the Series, I'm for the Giants. Fuck Texas, fuck Nolan Ryan, fuck George Bush."
     end
   end
 
@@ -357,10 +357,10 @@ describe Twitter::API do
       a_get("/1/statuses/show/25938088801.json").
         should have_been_made
     end
-    it "returns a status" do
-      status = @client.status(25938088801)
-      status.should be_a Twitter::Status
-      status.text.should eq "@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!"
+    it "returns a Tweet" do
+      tweet = @client.status(25938088801)
+      tweet.should be_a Twitter::Tweet
+      tweet.text.should eq "@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!"
     end
   end
 
@@ -374,11 +374,11 @@ describe Twitter::API do
       a_get("/1/statuses/show/25938088801.json").
         should have_been_made
     end
-    it "returns an array of statuses" do
-      statuses = @client.statuses(25938088801)
-      statuses.should be_an Array
-      statuses.first.should be_a Twitter::Status
-      statuses.first.text.should eq "@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!"
+    it "returns an array of Tweets" do
+      tweets = @client.statuses(25938088801)
+      tweets.should be_an Array
+      tweets.first.should be_a Twitter::Tweet
+      tweets.first.text.should eq "@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!"
     end
   end
 
@@ -392,11 +392,11 @@ describe Twitter::API do
       a_get("/1/related_results/show/233338791128096768.json").
         should have_been_made
     end
-    it "returns statuses related to a given tweet" do
-      statuses = @client.related_results(233338791128096768)
-      statuses.should be_an Array
-      statuses.last.should be_a Twitter::Status
-      statuses.last.text.should eq "@sferik @al3x @eurucamp awesome, let's grab beers &amp; kebabs :)"
+    it "returns Tweets related to a given tweet" do
+      tweets = @client.related_results(233338791128096768)
+      tweets.should be_an Array
+      tweets.last.should be_a Twitter::Tweet
+      tweets.last.text.should eq "@sferik @al3x @eurucamp awesome, let's grab beers &amp; kebabs :)"
     end
   end
 
@@ -410,10 +410,10 @@ describe Twitter::API do
       a_get("/i/statuses/25938088801/activity/summary.json").
         should have_been_made
     end
-    it "returns a status" do
-      status = @client.status_activity(25938088801)
-      status.should be_a Twitter::Status
-      status.retweeters_count.should eq 1
+    it "returns a Tweet" do
+      tweet = @client.status_activity(25938088801)
+      tweet.should be_a Twitter::Tweet
+      tweet.retweeters_count.should eq 1
     end
   end
 
@@ -427,11 +427,11 @@ describe Twitter::API do
       a_get("/i/statuses/25938088801/activity/summary.json").
         should have_been_made
     end
-    it "returns an array of statuses" do
-      statuses = @client.statuses_activity(25938088801)
-      statuses.should be_an Array
-      statuses.first.should be_a Twitter::Status
-      statuses.first.retweeters_count.should eq 1
+    it "returns an array of Tweets" do
+      tweets = @client.statuses_activity(25938088801)
+      tweets.should be_an Array
+      tweets.first.should be_a Twitter::Tweet
+      tweets.first.retweeters_count.should eq 1
     end
   end
 
@@ -445,11 +445,11 @@ describe Twitter::API do
       a_delete("/1/statuses/destroy/25938088801.json").
         should have_been_made
     end
-    it "returns an array of statuses" do
-      statuses = @client.status_destroy(25938088801)
-      statuses.should be_an Array
-      statuses.first.should be_a Twitter::Status
-      statuses.first.text.should eq "@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!"
+    it "returns an array of Tweets" do
+      tweets = @client.status_destroy(25938088801)
+      tweets.should be_an Array
+      tweets.first.should be_a Twitter::Tweet
+      tweets.first.text.should eq "@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!"
     end
   end
 
@@ -463,17 +463,17 @@ describe Twitter::API do
       a_post("/1/statuses/retweet/28561922516.json").
         should have_been_made
     end
-    it "returns an array of tweets with retweet details embedded" do
-      statuses = @client.retweet(28561922516)
-      statuses.should be_an Array
-      statuses.first.should be_a Twitter::Status
-      statuses.first.text.should eq "As for the Series, I'm for the Giants. Fuck Texas, fuck Nolan Ryan, fuck George Bush."
-      statuses.first.retweeted_status.text.should eq "RT @gruber: As for the Series, I'm for the Giants. Fuck Texas, fuck Nolan Ryan, fuck George Bush."
-      statuses.first.retweeted_status.id.should_not == statuses.first.id
+    it "returns an array of Tweets with retweet details embedded" do
+      tweets = @client.retweet(28561922516)
+      tweets.should be_an Array
+      tweets.first.should be_a Twitter::Tweet
+      tweets.first.text.should eq "As for the Series, I'm for the Giants. Fuck Texas, fuck Nolan Ryan, fuck George Bush."
+      tweets.first.retweeted_tweet.text.should eq "RT @gruber: As for the Series, I'm for the Giants. Fuck Texas, fuck Nolan Ryan, fuck George Bush."
+      tweets.first.retweeted_tweet.id.should_not == tweets.first.id
     end
   end
 
-  describe "#update" do
+  describe "#tweet" do
     before do
       stub_post("/1/statuses/update.json").
         with(:body => {:status => "@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!"}).
@@ -485,10 +485,10 @@ describe Twitter::API do
         with(:body => {:status => "@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!"}).
         should have_been_made
     end
-    it "returns a single status" do
-      status = @client.update("@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!")
-      status.should be_a Twitter::Status
-      status.text.should eq "@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!"
+    it "returns a Tweet" do
+      tweet = @client.update("@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!")
+      tweet.should be_a Twitter::Tweet
+      tweet.text.should eq "@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!"
     end
   end
 
@@ -503,14 +503,14 @@ describe Twitter::API do
         a_post("/1/statuses/update_with_media.json", "https://upload.twitter.com").
           should have_been_made
       end
-      it "returns a single status" do
-        status = @client.update_with_media("You always have options", fixture("pbjt.gif"))
-        status.should be_a Twitter::Status
-        status.text.should include("You always have options")
+      it "returns a Tweet" do
+        tweet = @client.update_with_media("You always have options", fixture("pbjt.gif"))
+        tweet.should be_a Twitter::Tweet
+        tweet.text.should include("You always have options")
       end
       it 'returns the media as an entity' do
-        status = @client.update_with_media("You always have options", fixture("pbjt.gif"))
-        status.media.should be
+        tweet = @client.update_with_media("You always have options", fixture("pbjt.gif"))
+        tweet.media.should be
       end
     end
     context "a jpe image" do
@@ -520,8 +520,8 @@ describe Twitter::API do
           should have_been_made
       end
       it 'returns the media as an entity' do
-        status = @client.update_with_media("You always have options", fixture("wildcomet2.jpe"))
-        status.media.should be
+        tweet = @client.update_with_media("You always have options", fixture("wildcomet2.jpe"))
+        tweet.media.should be
       end
     end
     context "a jpeg image" do
@@ -531,8 +531,8 @@ describe Twitter::API do
           should have_been_made
       end
       it 'returns the media as an entity' do
-        status = @client.update_with_media("You always have options", fixture("me.jpeg"))
-        status.media.should be
+        tweet = @client.update_with_media("You always have options", fixture("me.jpeg"))
+        tweet.media.should be
       end
     end
     context "a png image" do
@@ -542,8 +542,8 @@ describe Twitter::API do
           should have_been_made
       end
       it 'returns the media as an entity' do
-        status = @client.update_with_media("You always have options", fixture("we_concept_bg2.png"))
-        status.media.should be
+        tweet = @client.update_with_media("You always have options", fixture("we_concept_bg2.png"))
+        tweet.media.should be
       end
     end
     context "an IO" do
@@ -553,8 +553,8 @@ describe Twitter::API do
           should have_been_made
       end
       it 'returns the media as an entity' do
-        status = @client.update_with_media("You always have options", {:io => StringIO.new, :type => 'gif'})
-        status.media.should be
+        tweet = @client.update_with_media("You always have options", {:io => StringIO.new, :type => 'gif'})
+        tweet.media.should be
       end
     end
   end

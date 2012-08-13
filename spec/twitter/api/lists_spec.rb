@@ -55,10 +55,10 @@ describe Twitter::API do
           should have_been_made
       end
       it "returns the timeline for members of the specified list" do
-        statuses = @client.list_timeline("sferik", "presidents")
-        statuses.should be_an Array
-        statuses.first.should be_a Twitter::Status
-        statuses.first.text.should eq "Ruby is the best programming language for hiding the ugly bits."
+        tweets = @client.list_timeline("sferik", "presidents")
+        tweets.should be_an Array
+        tweets.first.should be_a Twitter::Tweet
+        tweets.first.text.should eq "Ruby is the best programming language for hiding the ugly bits."
       end
     end
     context "without a screen name passed" do

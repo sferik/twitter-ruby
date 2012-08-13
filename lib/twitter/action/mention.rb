@@ -1,6 +1,6 @@
 require 'twitter/base'
 require 'twitter/creatable'
-require 'twitter/status'
+require 'twitter/tweet'
 require 'twitter/user'
 
 module Twitter
@@ -25,12 +25,12 @@ module Twitter
         @source = sources.first
       end
 
-      # A collection of statuses that mention a user
+      # A collection of tweets that mention a user
       #
-      # @return [Array<Twitter::Status>]
+      # @return [Array<Twitter::Tweet>]
       def target_objects
-        @target_objects = Array(@attrs[:target_objects]).map do |status|
-          Twitter::Status.fetch_or_new(status)
+        @target_objects = Array(@attrs[:target_objects]).map do |tweet|
+          Twitter::Tweet.fetch_or_new(tweet)
         end
       end
 

@@ -26,10 +26,10 @@ describe Twitter::Action::Mention do
   end
 
   describe "#target_objects" do
-    it "returns a collection of statuses that mention a user" do
+    it "returns a collection of Tweets that mention a user" do
       targets = Twitter::Action::Mention.new(:target_objects => [{:id => 25938088801}]).target_objects
       targets.should be_an Array
-      targets.first.should be_a Twitter::Status
+      targets.first.should be_a Twitter::Tweet
     end
     it "is empty when not set" do
       targets = Twitter::Action::Mention.new.target_objects

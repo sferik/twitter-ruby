@@ -1,11 +1,11 @@
 require 'twitter/base'
 require 'twitter/creatable'
-require 'twitter/status'
+require 'twitter/tweet'
 require 'twitter/user'
 
 module Twitter
   module Action
-    class Status < Twitter::Base
+    class Tweet < Twitter::Base
       include Twitter::Creatable
       attr_reader :max_position, :min_position
 
@@ -17,5 +17,6 @@ module Twitter
       end
 
     end
+    Status = Tweet
   end
 end

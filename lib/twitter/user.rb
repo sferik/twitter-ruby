@@ -1,7 +1,7 @@
 require 'twitter/basic_user'
 require 'twitter/core_ext/hash'
 require 'twitter/creatable'
-require 'twitter/status'
+require 'twitter/tweet'
 
 module Twitter
   class User < Twitter::BasicUser
@@ -69,9 +69,9 @@ module Twitter
       resize_profile_image_url(@attrs[:profile_image_url_https], size)
     end
 
-    # @return [Twitter::Status]
+    # @return [Twitter::Tweet]
     def status
-      @status ||= Twitter::Status.fetch_or_new(@attrs.dup[:status].merge(:user => @attrs.except(:status))) unless @attrs[:status].nil?
+      @status ||= Twitter::Tweet.fetch_or_new(@attrs.dup[:status].merge(:user => @attrs.except(:status))) unless @attrs[:status].nil?
     end
 
   private

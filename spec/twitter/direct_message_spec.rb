@@ -36,7 +36,7 @@ describe Twitter::DirectMessage do
       recipient = Twitter::DirectMessage.new(:id => 1825786345, :recipient => {:id => 7505382}).recipient
       recipient.should be_a Twitter::User
     end
-    it "returns nil when status is not set" do
+    it "returns nil when recipient is not set" do
       recipient = Twitter::DirectMessage.new(:id => 1825786345).recipient
       recipient.should be_nil
     end
@@ -47,7 +47,7 @@ describe Twitter::DirectMessage do
       sender = Twitter::DirectMessage.new(:id => 1825786345, :sender => {:id => 7505382}).sender
       sender.should be_a Twitter::User
     end
-    it "returns nil when status is not set" do
+    it "returns nil when sender is not set" do
       sender = Twitter::DirectMessage.new(:id => 1825786345).sender
       sender.should be_nil
     end

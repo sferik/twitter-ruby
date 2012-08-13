@@ -1,15 +1,15 @@
-require 'twitter/action/status'
+require 'twitter/action/tweet'
 
 module Twitter
   module Action
-    class Retweet < Twitter::Action::Status
+    class Retweet < Twitter::Action::Tweet
 
       # A collection of retweets
       #
-      # @return [Array<Twitter::Status>]
+      # @return [Array<Twitter::Tweet>]
       def target_objects
-        @target_objects = Array(@attrs[:target_objects]).map do |status|
-          Twitter::Status.fetch_or_new(status)
+        @target_objects = Array(@attrs[:target_objects]).map do |tweet|
+          Twitter::Tweet.fetch_or_new(tweet)
         end
       end
 

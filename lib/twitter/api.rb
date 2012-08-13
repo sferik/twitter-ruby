@@ -17,9 +17,9 @@ require 'twitter/relationship'
 require 'twitter/saved_search'
 require 'twitter/search_results'
 require 'twitter/settings'
-require 'twitter/status'
 require 'twitter/suggestion'
 require 'twitter/trend'
+require 'twitter/tweet'
 require 'twitter/user'
 
 module Twitter
@@ -196,7 +196,7 @@ module Twitter
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Twitter::User] The authenticated user.
     # @param options [Hash] A customizable set of options.
-    # @option options [Boolean, String, Integer] :skip_status Do not include user's statuses when set to true, 't' or 1.
+    # @option options [Boolean, String, Integer] :skip_status Do not include user's Tweets when set to true, 't' or 1.
     # @example Return the requesting user if authentication was successful
     #   Twitter.verify_credentials
     def verify_credentials(options={})
@@ -407,11 +407,11 @@ module Twitter
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Array<Twitter::DirectMessage>] Deleted direct message.
     # @overload direct_message_destroy(*ids)
-    #   @param ids [Array<Integer>, Set<Integer>] An array of Twitter status IDs.
+    #   @param ids [Array<Integer>, Set<Integer>] An array of Tweet IDs.
     #   @example Destroys the direct message with the ID 1825785544
     #     Twitter.direct_message_destroy(1825785544)
     # @overload direct_message_destroy(*ids, options)
-    #   @param ids [Array<Integer>, Set<Integer>] An array of Twitter status IDs.
+    #   @param ids [Array<Integer>, Set<Integer>] An array of Tweet IDs.
     #   @param options [Hash] A customizable set of options.
     def direct_message_destroy(*args)
       destroy(Twitter::DirectMessage, :delete, "/1/direct_messages/destroy", args)
@@ -445,7 +445,7 @@ module Twitter
     # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Twitter::DirectMessage] The requested messages.
-    # @param id [Integer] A Twitter status IDs.
+    # @param id [Integer] A Tweet IDs.
     # @param options [Hash] A customizable set of options.
     # @example Return the direct message with the id 1825786345
     #   Twitter.direct_message(1825786345)
@@ -473,14 +473,14 @@ module Twitter
     #   Returns direct messages
     #
     #   @see https://dev.twitter.com/docs/api/1/get/direct_messages/show/%3Aid
-    #   @param ids [Array<Integer>, Set<Integer>] An array of Twitter status IDs.
+    #   @param ids [Array<Integer>, Set<Integer>] An array of Tweet IDs.
     #   @example Return the direct message with the id 1825786345
     #     Twitter.direct_messages(1825786345)
     # @overload direct_messages(*ids, options)
     #   Returns direct messages
     #
     #   @see https://dev.twitter.com/docs/api/1/get/direct_messages/show/%3Aid
-    #   @param ids [Array<Integer>, Set<Integer>] An array of Twitter status IDs.
+    #   @param ids [Array<Integer>, Set<Integer>] An array of Tweet IDs.
     #   @param options [Hash] A customizable set of options.
     def direct_messages(*args)
       options = args.extract_options!
@@ -955,7 +955,7 @@ module Twitter
     # @see https://dev.twitter.com/docs/api/1/get/lists/statuses
     # @rate_limited Yes
     # @authentication_required No
-    # @return [Array<Twitter::Status>]
+    # @return [Array<Twitter::Tweet>]
     # @overload list_timeline(list, options={})
     #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, or object.
     #   @param options [Hash] A customizable set of options.
@@ -981,7 +981,7 @@ module Twitter
       options = args.extract_options!
       options.merge_list!(args.pop)
       options.merge_owner!(args.pop || verify_credentials.screen_name) unless options[:owner_id] || options[:owner_screen_name]
-      collection_from_response(Twitter::Status, :get, "/1/lists/statuses.json", options)
+      collection_from_response(Twitter::Tweet, :get, "/1/lists/statuses.json", options)
     end
 
     # Removes the specified member from the list
@@ -1512,14 +1512,14 @@ module Twitter
     #   Retrieve the data for saved searches owned by the authenticating user
     #
     #   @see https://dev.twitter.com/docs/api/1/get/saved_searches/show/:id
-    #   @param ids [Array<Integer>, Set<Integer>] An array of Twitter status IDs.
+    #   @param ids [Array<Integer>, Set<Integer>] An array of Tweet IDs.
     #   @example Retrieve the data for a saved search owned by the authenticating user with the ID 16129012
     #     Twitter.saved_search(16129012)
     # @overload saved_search(*ids, options)
     #   Retrieve the data for saved searches owned by the authenticating user
     #
     #   @see https://dev.twitter.com/docs/api/1/get/saved_searches/show/:id
-    #   @param ids [Array<Integer>, Set<Integer>] An array of Twitter status IDs.
+    #   @param ids [Array<Integer>, Set<Integer>] An array of Tweet IDs.
     #   @param options [Hash] A customizable set of options.
     def saved_searches(*args)
       options = args.extract_options!
@@ -1539,7 +1539,7 @@ module Twitter
     # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Twitter::SavedSearch] The saved searches.
-    # @param id [Integer] A Twitter status IDs.
+    # @param id [Integer] A Tweet IDs.
     # @param options [Hash] A customizable set of options.
     # @example Retrieve the data for a saved search owned by the authenticating user with the ID 16129012
     #   Twitter.saved_search(16129012)
@@ -1571,11 +1571,11 @@ module Twitter
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Array<Twitter::SavedSearch>] The deleted saved searches.
     # @overload saved_search_destroy(*ids)
-    #   @param ids [Array<Integer>, Set<Integer>] An array of Twitter status IDs.
+    #   @param ids [Array<Integer>, Set<Integer>] An array of Tweet IDs.
     #   @example Destroys a saved search for the authenticated user with the ID 16129012
     #     Twitter.saved_search_destroy(16129012)
     # @overload saved_search_destroy(*ids, options)
-    #   @param ids [Array<Integer>, Set<Integer>] An array of Twitter status IDs.
+    #   @param ids [Array<Integer>, Set<Integer>] An array of Tweet IDs.
     #   @param options [Hash] A customizable set of options.
     def saved_search_destroy(*args)
       destroy(Twitter::SavedSearch, :delete, "/1/saved_searches/destroy", args)
@@ -1608,7 +1608,7 @@ module Twitter
       object_from_response(Twitter::SearchResults, :get, "/search.json", options.merge(:q => q), :endpoint => @search_endpoint)
     end
 
-    # Returns recent statuses related to a query with images and videos embedded
+    # Returns recent Tweets related to a query with images and videos embedded
     #
     # @note Undocumented
     # @rate_limited Yes
@@ -1617,8 +1617,8 @@ module Twitter
     # @param options [Hash] A customizable set of options.
     # @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 100.
     # @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID.
-    # @return [Array<Twitter::Status>] An array of statuses that contain videos
-    # @example Return recent statuses related to twitter with images and videos embedded
+    # @return [Array<Twitter::Tweet>] An array of Tweets that contain videos
+    # @example Return recent Tweets related to twitter with images and videos embedded
     #   Twitter.phoenix_search('twitter')
     def phoenix_search(q, options={})
       search_collection_from_response(:get, "/phoenix_search.phoenix", options.merge(:q => q))
@@ -1627,23 +1627,23 @@ module Twitter
     # @see https://dev.twitter.com/docs/api/1/get/favorites
     # @rate_limited Yes
     # @authentication_required No
-    # @return [Array<Twitter::Status>] favorite statuses.
+    # @return [Array<Twitter::Tweet>] favorite Tweets.
     # @overload favorites(options={})
-    #   Returns the 20 most recent favorite statuses for the authenticating user
+    #   Returns the 20 most recent favorite Tweets for the authenticating user
     #
     #   @param options [Hash] A customizable set of options.
     #   @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 100.
     #   @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID.
-    #   @example Return the 20 most recent favorite statuses for the authenticating user
+    #   @example Return the 20 most recent favorite Tweets for the authenticating user
     #     Twitter.favorites
     # @overload favorites(user, options={})
-    #   Returns the 20 most recent favorite statuses for the specified user
+    #   Returns the 20 most recent favorite Tweets for the specified user
     #
     #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
     #   @param options [Hash] A customizable set of options.
     #   @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 100.
     #   @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID.
-    #   @example Return the 20 most recent favorite statuses for @sferik
+    #   @example Return the 20 most recent favorite Tweets for @sferik
     #     Twitter.favorites('sferik')
     def favorites(*args)
       options = args.extract_options!
@@ -1652,57 +1652,57 @@ module Twitter
       else
         "/1/favorites.json"
       end
-      collection_from_response(Twitter::Status, :get, url, options)
+      collection_from_response(Twitter::Tweet, :get, url, options)
     end
 
-    # Favorites the specified statuses as the authenticating user
+    # Favorites the specified Tweets as the authenticating user
     #
     # @see https://dev.twitter.com/docs/api/1/post/favorites/create/:id
     # @rate_limited No
     # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-    # @return [Array<Twitter::Status>] The favorited statuses.
+    # @return [Array<Twitter::Tweet>] The favorited Tweets.
     # @overload favorite(*ids)
-    #   @param ids [Array<Integer>, Set<Integer>] An array of Twitter status IDs.
-    #   @example Favorite the status with the ID 25938088801
+    #   @param ids [Array<Integer>, Set<Integer>] An array of Tweet IDs.
+    #   @example Favorite the Tweet with the ID 25938088801
     #     Twitter.favorite(25938088801)
     # @overload favorite(*ids, options)
-    #   @param ids [Array<Integer>, Set<Integer>] An array of Twitter status IDs.
+    #   @param ids [Array<Integer>, Set<Integer>] An array of Tweet IDs.
     #   @param options [Hash] A customizable set of options.
     def favorite(*args)
-      threaded_statuses_from_response(:post, "/1/favorites/create", args)
+      threaded_tweets_from_response(:post, "/1/favorites/create", args)
     end
     alias fav favorite
     alias fave favorite
     alias favorite_create favorite
 
-    # Un-favorites the specified statuses as the authenticating user
+    # Un-favorites the specified Tweets as the authenticating user
     #
     # @see https://dev.twitter.com/docs/api/1/post/favorites/destroy/:id
     # @rate_limited No
     # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-    # @return [Array<Twitter::Status>] The un-favorited statuses.
+    # @return [Array<Twitter::Tweet>] The un-favorited Tweets.
     # @overload unfavorite(*ids)
-    #   @param ids [Array<Integer>, Set<Integer>] An array of Twitter status IDs.
-    #   @example Un-favorite the status with the ID 25938088801
+    #   @param ids [Array<Integer>, Set<Integer>] An array of Tweet IDs.
+    #   @example Un-favorite the tweet with the ID 25938088801
     #     Twitter.unfavorite(25938088801)
     # @overload unfavorite(*ids, options)
-    #   @param ids [Array<Integer>, Set<Integer>] An array of Twitter status IDs.
+    #   @param ids [Array<Integer>, Set<Integer>] An array of Tweet IDs.
     #   @param options [Hash] A customizable set of options.
     def unfavorite(*args)
-      threaded_statuses_from_response(:delete, "/1/favorites/destroy", args)
+      threaded_tweets_from_response(:delete, "/1/favorites/destroy", args)
     end
     alias favorite_destroy unfavorite
 
-    # Returns the 20 most recent statuses, including retweets if they exist, posted by the authenticating user and the users they follow
+    # Returns the 20 most recent Tweets, including retweets if they exist, posted by the authenticating user and the users they follow
     #
     # @see https://dev.twitter.com/docs/api/1/get/statuses/home_timeline
-    # @note This method can only return up to 800 statuses, including retweets.
+    # @note This method can only return up to 800 Tweets, including retweets.
     # @rate_limited Yes
     # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-    # @return [Array<Twitter::Status>]
+    # @return [Array<Twitter::Tweet>]
     # @param options [Hash] A customizable set of options.
     # @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID.
     # @option options [Integer] :max_id Returns results with an ID less than (that is, older than) or equal to the specified ID.
@@ -1712,20 +1712,20 @@ module Twitter
     # @option options [Boolean, String, Integer] :include_rts Specifies that the timeline should include native retweets in addition to regular tweets. Note: If you're using the trim_user parameter in conjunction with include_rts, the retweets will no longer contain a full user object.
     # @option options [Boolean, String, Integer] :include_entities Specifies that each tweet should include an 'entities' node including metadata about the tweet such as: user_mentions, urls, and hashtags.
     # @option options [Boolean] :contributor_details Specifies that the contributors element should be enhanced to include the screen_name of the contributor.
-    # @example Return the 20 most recent statuses, including retweets if they exist, posted by the authenticating user and the users they follow
+    # @example Return the 20 most recent Tweets, including retweets if they exist, posted by the authenticating user and the users they follow
     #   Twitter.home_timeline
     def home_timeline(options={})
-      collection_from_response(Twitter::Status, :get, "/1/statuses/home_timeline.json", options)
+      collection_from_response(Twitter::Tweet, :get, "/1/statuses/home_timeline.json", options)
     end
 
     # Returns the 20 most recent mentions (statuses containing @username) for the authenticating user
     #
     # @see https://dev.twitter.com/docs/api/1/get/statuses/mentions
-    # @note This method can only return up to 800 statuses.
+    # @note This method can only return up to 800 Tweets.
     # @rate_limited Yes
     # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-    # @return [Array<Twitter::Status>]
+    # @return [Array<Twitter::Tweet>]
     # @param options [Hash] A customizable set of options.
     # @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID.
     # @option options [Integer] :max_id Returns results with an ID less than (that is, older than) or equal to the specified ID.
@@ -1734,7 +1734,7 @@ module Twitter
     # @example Return the 20 most recent mentions (statuses containing @username) for the authenticating user
     #   Twitter.mentions
     def mentions(options={})
-      collection_from_response(Twitter::Status, :get, "/1/statuses/mentions.json", options)
+      collection_from_response(Twitter::Tweet, :get, "/1/statuses/mentions.json", options)
     end
 
     # Returns the 20 most recent retweets posted by the specified user
@@ -1743,7 +1743,7 @@ module Twitter
     # @rate_limited No
     # @authentication_required Supported
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-    # @return [Array<Twitter::Status>]
+    # @return [Array<Twitter::Tweet>]
     # @param options [Hash] A customizable set of options.
     # @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID.
     # @option options [Integer] :max_id Returns results with an ID less than (that is, older than) or equal to the specified ID.
@@ -1752,7 +1752,7 @@ module Twitter
     # @example Return the 20 most recent retweets posted by the authenticating user
     #   Twitter.retweeted_by_user('sferik')
     def retweeted_by_user(user, options={})
-      collection_from_response(Twitter::Status, :get, "/1/statuses/retweeted_by_user.json", options.merge_user!(user))
+      collection_from_response(Twitter::Tweet, :get, "/1/statuses/retweeted_by_user.json", options.merge_user!(user))
     end
     alias retweeted_by retweeted_by_user
 
@@ -1762,7 +1762,7 @@ module Twitter
     # @rate_limited Yes
     # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-    # @return [Array<Twitter::Status>]
+    # @return [Array<Twitter::Tweet>]
     # @param options [Hash] A customizable set of options.
     # @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID.
     # @option options [Integer] :max_id Returns results with an ID less than (that is, older than) or equal to the specified ID.
@@ -1771,7 +1771,7 @@ module Twitter
     # @example Return the 20 most recent retweets posted by the authenticating user
     #   Twitter.retweeted_by_me
     def retweeted_by_me(options={})
-      collection_from_response(Twitter::Status, :get, "/1/statuses/retweeted_by_me.json", options)
+      collection_from_response(Twitter::Tweet, :get, "/1/statuses/retweeted_by_me.json", options)
     end
 
     # Returns the 20 most recent retweets posted by users the specified user follows
@@ -1780,7 +1780,7 @@ module Twitter
     # @rate_limited Yes
     # @authentication_required Supported
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-    # @return [Array<Twitter::Status>]
+    # @return [Array<Twitter::Tweet>]
     # @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
     # @param options [Hash] A customizable set of options.
     # @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID.
@@ -1790,7 +1790,7 @@ module Twitter
     # @example Return the 20 most recent retweets posted by users followed by the specified user
     #   Twitter.retweeted_to_user('sferik')
     def retweeted_to_user(user, options={})
-      collection_from_response(Twitter::Status, :get, "/1/statuses/retweeted_to_user.json", options.merge_user!(user))
+      collection_from_response(Twitter::Tweet, :get, "/1/statuses/retweeted_to_user.json", options.merge_user!(user))
     end
     alias retweeted_to retweeted_to_user
 
@@ -1800,7 +1800,7 @@ module Twitter
     # @rate_limited Yes
     # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-    # @return [Array<Twitter::Status>]
+    # @return [Array<Twitter::Tweet>]
     # @param options [Hash] A customizable set of options.
     # @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID.
     # @option options [Integer] :max_id Returns results with an ID less than (that is, older than) or equal to the specified ID.
@@ -1809,7 +1809,7 @@ module Twitter
     # @example Return the 20 most recent retweets posted by users followed by the authenticating user
     #   Twitter.retweeted_to_me
     def retweeted_to_me(options={})
-      collection_from_response(Twitter::Status, :get, "/1/statuses/retweeted_to_me.json", options)
+      collection_from_response(Twitter::Tweet, :get, "/1/statuses/retweeted_to_me.json", options)
     end
 
     # Returns the 20 most recent tweets of the authenticated user that have been retweeted by others
@@ -1818,7 +1818,7 @@ module Twitter
     # @rate_limited Yes
     # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-    # @return [Array<Twitter::Status>]
+    # @return [Array<Twitter::Tweet>]
     # @param options [Hash] A customizable set of options.
     # @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID.
     # @option options [Integer] :max_id Returns results with an ID less than (that is, older than) or equal to the specified ID.
@@ -1827,17 +1827,17 @@ module Twitter
     # @example Return the 20 most recent tweets of the authenticated user that have been retweeted by others
     #   Twitter.retweets_of_me
     def retweets_of_me(options={})
-      collection_from_response(Twitter::Status, :get, "/1/statuses/retweets_of_me.json", options)
+      collection_from_response(Twitter::Tweet, :get, "/1/statuses/retweets_of_me.json", options)
     end
 
-    # Returns the 20 most recent statuses posted by the specified user
+    # Returns the 20 most recent Tweets posted by the specified user
     #
     # @see https://dev.twitter.com/docs/api/1/get/statuses/user_timeline
-    # @note This method can only return up to 3200 statuses.
+    # @note This method can only return up to 3200 Tweets.
     # @rate_limited Yes
     # @authentication_required No, unless the user whose timeline you're trying to view is protected
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-    # @return [Array<Twitter::Status>]
+    # @return [Array<Twitter::Tweet>]
     # @overload user_timeline(user, options={})
     #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
     #   @param options [Hash] A customizable set of options.
@@ -1849,10 +1849,10 @@ module Twitter
     #   @option options [Boolean, String, Integer] :include_rts Specifies that the timeline should include native retweets in addition to regular tweets. Note: If you're using the trim_user parameter in conjunction with include_rts, the retweets will no longer contain a full user object.
     #   @option options [Boolean, String, Integer] :include_entities Specifies that each tweet should include an 'entities' node including metadata about the tweet such as: user_mentions, urls, and hashtags.
     #   @option options [Boolean] :contributor_details Specifies that the contributors element should be enhanced to include the screen_name of the contributor.
-    #   @example Return the 20 most recent statuses posted by @sferik
+    #   @example Return the 20 most recent Tweets posted by @sferik
     #     Twitter.user_timeline('sferik')
     def user_timeline(*args)
-      objects_from_response(Twitter::Status, :get, "/1/statuses/user_timeline.json", args)
+      objects_from_response(Twitter::Tweet, :get, "/1/statuses/user_timeline.json", args)
     end
 
     # Returns the 20 most recent images posted by the specified user
@@ -1863,38 +1863,38 @@ module Twitter
     # @rate_limited Yes
     # @authentication_required No, unless the user whose timeline you're trying to view is protected
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-    # @return [Array<Twitter::Status>]
+    # @return [Array<Twitter::Tweet>]
     # @overload media_timeline(user, options={})
     #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
     #   @param options [Hash] A customizable set of options.
     #   @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 200.
     #   @option options [Boolean] :filter Include possibly sensitive media when set to false, 'f' or 0.
-    #   @example Return the 20 most recent statuses posted by @sferik
+    #   @example Return the 20 most recent Tweets posted by @sferik
     #     Twitter.media_timeline('sferik')
     def media_timeline(*args)
-      objects_from_response(Twitter::Status, :get, "/1/statuses/media_timeline.json", args)
+      objects_from_response(Twitter::Tweet, :get, "/1/statuses/media_timeline.json", args)
     end
 
-    # Returns the 20 most recent statuses from the authenticating user's network
+    # Returns the 20 most recent Tweets from the authenticating user's network
     #
     # @note Undocumented
     # @rate_limited Yes
     # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-    # @return [Array<Twitter::Status>]
+    # @return [Array<Twitter::Tweet>]
     # @param options [Hash] A customizable set of options.
     # @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID.
     # @option options [Integer] :max_id Returns results with an ID less than (that is, older than) or equal to the specified ID.
     # @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 200.
     # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
     # @option options [Boolean, String, Integer] :exclude_replies This parameter will prevent replies from appearing in the returned timeline. Using exclude_replies with the count parameter will mean you will receive up-to count tweets - this is because the count parameter retrieves that many tweets before filtering out retweets and replies.
-    # @example Return the 20 most recent statuses from the authenticating user's network
+    # @example Return the 20 most recent Tweets from the authenticating user's network
     #   Twitter.network_timeline
     def network_timeline(options={})
-      collection_from_response(Twitter::Status, :get, "/i/statuses/network_timeline.json", options)
+      collection_from_response(Twitter::Tweet, :get, "/i/statuses/network_timeline.json", options)
     end
 
-    # Show up to 100 users who retweeted the status
+    # Show up to 100 users who retweeted the Tweet
     #
     # @see https://dev.twitter.com/docs/api/1/get/statuses/:id/retweeted_by
     # @see https://dev.twitter.com/docs/api/1/get/statuses/:id/retweeted_by/ids
@@ -1902,13 +1902,13 @@ module Twitter
     # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Array]
-    # @param id [Integer] The numerical ID of the desired status.
+    # @param id [Integer] The numerical ID of the desired Tweet.
     # @param options [Hash] A customizable set of options.
     # @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 100.
     # @option options [Integer] :page Specifies the page of results to retrieve.
     # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
     # @option options [Boolean] :ids_only ('false') Only return user ids instead of full user objects.
-    # @example Show up to 100 users who retweeted the status with the ID 28561922516
+    # @example Show up to 100 users who retweeted the Tweet with the ID 28561922516
     #   Twitter.retweeters_of(28561922516)
     def retweeters_of(id, options={})
       if ids_only = !!options.delete(:ids_only)
@@ -1924,101 +1924,101 @@ module Twitter
     # @rate_limited Yes
     # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-    # @return [Array<Twitter::Status>]
-    # @param id [Integer] The numerical ID of the desired status.
+    # @return [Array<Twitter::Tweet>]
+    # @param id [Integer] The numerical ID of the desired Tweet.
     # @param options [Hash] A customizable set of options.
     # @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 100.
     # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
-    # @example Return up to 100 of the first retweets of the status with the ID 28561922516
+    # @example Return up to 100 of the first retweets of the Tweet with the ID 28561922516
     #   Twitter.retweets(28561922516)
     def retweets(id, options={})
-      collection_from_response(Twitter::Status, :get, "/1/statuses/retweets/#{id}.json", options)
+      collection_from_response(Twitter::Tweet, :get, "/1/statuses/retweets/#{id}.json", options)
     end
 
-    # Returns a status
+    # Returns a Tweet
     #
     # @see https://dev.twitter.com/docs/api/1/get/statuses/show/:id
     # @rate_limited Yes
-    # @authentication_required No, unless the author of the status is protected
+    # @authentication_required No, unless the author of the Tweet is protected
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-    # @return [Twitter::Status] The requested status.
-    # @param id [Integer] A Twitter status ID.
+    # @return [Twitter::Tweet] The requested Tweet.
+    # @param id [Integer] A Tweet ID.
     # @param options [Hash] A customizable set of options.
     # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
-    # @example Return the status with the ID 25938088801
+    # @example Return the Tweet with the ID 25938088801
     #   Twitter.status(25938088801)
     def status(id, options={})
-      object_from_response(Twitter::Status, :get, "/1/statuses/show/#{id}.json", options)
+      object_from_response(Twitter::Tweet, :get, "/1/statuses/show/#{id}.json", options)
     end
 
-    # Returns statuses
+    # Returns Tweets
     #
     # @see https://dev.twitter.com/docs/api/1/get/statuses/show/:id
     # @rate_limited Yes
-    # @authentication_required No, unless the author of the status is protected
+    # @authentication_required No, unless the author of the Tweet is protected
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-    # @return [Array<Twitter::Status>] The requested statuses.
+    # @return [Array<Twitter::Tweet>] The requested Tweets.
     # @overload statuses(*ids)
-    #   @param ids [Array<Integer>, Set<Integer>] An array of Twitter status IDs.
-    #   @example Return the status with the ID 25938088801
+    #   @param ids [Array<Integer>, Set<Integer>] An array of Tweet IDs.
+    #   @example Return the Tweet with the ID 25938088801
     #     Twitter.statuses(25938088801)
     # @overload statuses(*ids, options)
-    #   @param ids [Array<Integer>, Set<Integer>] An array of Twitter status IDs.
+    #   @param ids [Array<Integer>, Set<Integer>] An array of Tweet IDs.
     #   @param options [Hash] A customizable set of options.
     #   @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
     def statuses(*args)
-      threaded_statuses_from_response(:get, "/1/statuses/show", args)
+      threaded_tweets_from_response(:get, "/1/statuses/show", args)
     end
 
-    # Returns tweets related to a given status
+    # Returns tweets related to a given Tweet
     #
     # @note {https://dev.twitter.com/discussions/293 Undocumented}
     # @rate_limited Yes
-    # @authentication_required No, unless the author of the status is protected
+    # @authentication_required No, unless the author of the Tweet is protected
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-    # @return [Array<Twitter::Status>]
-    # @param id [Integer] A Twitter status ID.
+    # @return [Array<Twitter::Tweet>]
+    # @param id [Integer] A Tweet ID.
     # @param options [Hash] A customizable set of options.
-    # @example Returns tweets related to the status with the ID 25938088801
+    # @example Returns tweets related to the Tweet with the ID 25938088801
     #   Twitter.related_results(25938088801)
     def related_results(id, options={})
       array = get("/1/related_results/show/#{id}.json")[:body][0][:results].select{|result| result[:kind].capitalize == "Tweet"}.map{|result| result[:value]}
-      collection_from_array(Twitter::Status, array)
+      collection_from_array(Twitter::Tweet, array)
     end
     alias related_statuses related_results
     alias related_tweets related_results
 
-    # Returns activity summary for a status
+    # Returns activity summary for a Tweet
     #
     # @note Undocumented
     # @rate_limited Yes
     # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-    # @return [Twitter::Status] The requested status.
-    # @param id [Integer] A Twitter status ID.
+    # @return [Twitter::Tweet] The requested Tweet.
+    # @param id [Integer] A Tweet ID.
     # @param options [Hash] A customizable set of options.
-    # @example Return activity summary for the status with the ID 25938088801
+    # @example Return activity summary for the Tweet with the ID 25938088801
     #   Twitter.status_activity(25938088801)
     def status_activity(id, options={})
       response = get("/i/statuses/#{id}/activity/summary.json", options)
       response[:body].merge!(:id => id) if response[:body]
-      Twitter::Status.from_response(response)
+      Twitter::Tweet.from_response(response)
     end
     alias tweet_activity status_activity
 
-    # Returns activity summary for statuses
+    # Returns activity summary for Tweets
     #
     # @note Undocumented
     # @rate_limited Yes
     # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-    # @return [Array<Twitter::Status>] The requested statuses.
+    # @return [Array<Twitter::Tweet>] The requested Tweets.
     # @overload statuses_activity(*ids)
-    #   @param ids [Array<Integer>, Set<Integer>] An array of Twitter status IDs.
-    #   @example Return activity summary for the status with the ID 25938088801
+    #   @param ids [Array<Integer>, Set<Integer>] An array of Tweet IDs.
+    #   @example Return activity summary for the Tweet with the ID 25938088801
     #     Twitter.statuses_activity(25938088801)
     # @overload statuses_activity(*ids, options)
-    #   @param ids [Array<Integer>, Set<Integer>] An array of Twitter status IDs.
+    #   @param ids [Array<Integer>, Set<Integer>] An array of Tweet IDs.
     #   @param options [Hash] A customizable set of options.
     def statuses_activity(*args)
       options = args.extract_options!
@@ -2027,14 +2027,14 @@ module Twitter
       end
     end
 
-    # Returns oEmbed for status
+    # Returns oEmbed for a Tweet
     #
     # @see https://dev.twitter.com/docs/api/1/get/statuses/oembed
     # @rate_limited Yes
-    # @authentication_required No, unless the author of the status is protected
+    # @authentication_required No, unless the author of the Tweet is protected
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-    # @return [Twitter::OEmbed] OEmbed for the requested status.
-    # @param id [Integer, String] A Twitter status ID.
+    # @return [Twitter::OEmbed] OEmbed for the requested Tweet.
+    # @param id [Integer, String] A Tweet ID.
     # @param options [Hash] A customizable set of options.
     # @option options [Integer] :maxwidth The maximum width in pixels that the embed should be rendered at. This value is constrained to be between 250 and 550 pixels.
     # @option options [Boolean, String, Integer] :hide_media Specifies whether the embedded Tweet should automatically expand images which were uploaded via {https://dev.twitter.com/docs/api/1/post/statuses/update_with_media POST statuses/update_with_media}. When set to either true, t or 1 images will not be expanded. Defaults to false.
@@ -2043,25 +2043,25 @@ module Twitter
     # @option options [String] :align Specifies whether the embedded Tweet should be left aligned, right aligned, or centered in the page. Valid values are left, right, center, and none. Defaults to none, meaning no alignment styles are specified for the Tweet.
     # @option options [String] :related A value for the TWT related parameter, as described in {https://dev.twitter.com/docs/intents Web Intents}. This value will be forwarded to all Web Intents calls.
     # @option options [String] :lang Language code for the rendered embed. This will affect the text and localization of the rendered HTML.
-    # @example Return oEmbeds for status with activity summary with the ID 25938088801
+    # @example Return oEmbeds for Tweet with the ID 25938088801
     #   Twitter.status_with_activity(25938088801)
     def oembed(id, options={})
       object_from_response(Twitter::OEmbed, :get, "/1/statuses/oembed.json?id=#{id}", options)
     end
 
-    # Returns oEmbeds for statuses
+    # Returns oEmbeds for Tweets
     #
     # @see https://dev.twitter.com/docs/api/1/get/statuses/oembed
     # @rate_limited Yes
-    # @authentication_required No, unless the author of the status is protected
+    # @authentication_required No, unless the author of the Tweet is protected
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-    # @return [Array<Twitter::OEmbed>] OEmbeds for the requested statuses.
+    # @return [Array<Twitter::OEmbed>] OEmbeds for the requested Tweets.
     # @overload oembed(*ids_or_urls)
-    #   @param ids_or_urls [Array<Integer, String>, Set<Integer, String>] An array of Twitter status IDs or URLs.
-    #   @example Return oEmbeds for status with activity summary with the ID 25938088801
+    #   @param ids_or_urls [Array<Integer, String>, Set<Integer, String>] An array of Tweet IDs or URLs.
+    #   @example Return oEmbeds for Tweets with the ID 25938088801
     #     Twitter.status_with_activity(25938088801)
     # @overload oembed(*ids_or_urls, options)
-    #   @param ids_or_urls [Array<Integer, String>, Set<Integer, String>] An array of Twitter status IDs or URLs.
+    #   @param ids_or_urls [Array<Integer, String>, Set<Integer, String>] An array of Tweet IDs or URLs.
     #   @param options [Hash] A customizable set of options.
     #   @option options [Integer] :maxwidth The maximum width in pixels that the embed should be rendered at. This value is constrained to be between 250 and 550 pixels.
     #   @option options [Boolean, String, Integer] :hide_media Specifies whether the embedded Tweet should automatically expand images which were uploaded via {https://dev.twitter.com/docs/api/1/post/statuses/update_with_media POST statuses/update_with_media}. When set to either true, t or 1 images will not be expanded. Defaults to false.
@@ -2077,24 +2077,24 @@ module Twitter
       end
     end
 
-    # Destroys the specified statuses
+    # Destroys the specified Tweets
     #
     # @see https://dev.twitter.com/docs/api/1/post/statuses/destroy/:id
-    # @note The authenticating user must be the author of the specified status.
+    # @note The authenticating user must be the author of the specified Tweets.
     # @rate_limited No
     # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-    # @return [Array<Twitter::Status>] The deleted statuses.
+    # @return [Array<Twitter::Tweet>] The deleted Tweets.
     # @overload status_destroy(*ids)
-    #   @param ids [Array<Integer>, Set<Integer>] An array of Twitter status IDs.
-    #   @example Destroy the status with the ID 25938088801
+    #   @param ids [Array<Integer>, Set<Integer>] An array of Tweet IDs.
+    #   @example Destroy the Tweet with the ID 25938088801
     #     Twitter.status_destroy(25938088801)
     # @overload status_destroy(*ids, options)
-    #   @param ids [Array<Integer>, Set<Integer>] An array of Twitter status IDs.
+    #   @param ids [Array<Integer>, Set<Integer>] An array of Tweet IDs.
     #   @param options [Hash] A customizable set of options.
     #   @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
     def status_destroy(*args)
-      threaded_statuses_from_response(:delete, "/1/statuses/destroy", args)
+      threaded_tweets_from_response(:delete, "/1/statuses/destroy", args)
     end
     alias tweet_destroy status_destroy
 
@@ -2104,13 +2104,13 @@ module Twitter
     # @rate_limited Yes
     # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-    # @return [Array<Twitter::Status>] The original tweets with retweet details embedded.
+    # @return [Array<Twitter::Tweet>] The original tweets with retweet details embedded.
     # @overload retweet(*ids)
-    #   @param ids [Array<Integer>, Set<Integer>] An array of Twitter status IDs.
-    #   @example Retweet the status with the ID 28561922516
+    #   @param ids [Array<Integer>, Set<Integer>] An array of Tweet IDs.
+    #   @example Retweet the Tweet with the ID 28561922516
     #     Twitter.retweet(28561922516)
     # @overload retweet(*ids, options)
-    #   @param ids [Array<Integer>, Set<Integer>] An array of Twitter status IDs.
+    #   @param ids [Array<Integer>, Set<Integer>] An array of Tweet IDs.
     #   @param options [Hash] A customizable set of options.
     #   @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
     def retweet(*args)
@@ -2120,7 +2120,7 @@ module Twitter
         retweeted_status = response.dup
         retweeted_status[:body] = response[:body].delete(:retweeted_status)
         retweeted_status[:body][:retweeted_status] = response[:body]
-        Twitter::Status.from_response(retweeted_status)
+        Twitter::Tweet.from_response(retweeted_status)
       end
     end
 
@@ -2131,7 +2131,7 @@ module Twitter
     # @rate_limited No
     # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-    # @return [Twitter::Status] The created status.
+    # @return [Twitter::Tweet] The created Tweet.
     # @param status [String] The text of your status update, up to 140 characters.
     # @param options [Hash] A customizable set of options.
     # @option options [Integer] :in_reply_to_status_id The ID of an existing status that the update is in reply to.
@@ -2143,21 +2143,21 @@ module Twitter
     # @example Update the authenticating user's status
     #   Twitter.update("I'm tweeting with @gem!")
     def update(status, options={})
-      object_from_response(Twitter::Status, :post, "/1/statuses/update.json", options.merge(:status => status))
+      object_from_response(Twitter::Tweet, :post, "/1/statuses/update.json", options.merge(:status => status))
     end
 
-    # Updates with media the authenticating user's status
+    # Updates the authenticating user's status with media
     #
     # @see http://dev.twitter.com/docs/api/1/post/statuses/update_with_media
     # @note A status update with text/media identical to the authenticating user's current status will NOT be ignored
     # @rate_limited No
     # @authentication_required Yes
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-    # @return [Twitter::Status] The created status.
+    # @return [Twitter::Tweet] The created Tweet.
     # @param status [String] The text of your status update, up to 140 characters.
     # @param media [File, Hash] A File object with your picture (PNG, JPEG or GIF)
     # @param options [Hash] A customizable set of options.
-    # @option options [Integer] :in_reply_to_status_id The ID of an existing status that the update is in reply to.
+    # @option options [Integer] :in_reply_to_status_id The ID of an existing Tweet that the update is in reply to.
     # @option options [Float] :lat The latitude of the location this tweet refers to. This option will be ignored unless it is inside the range -90.0 to +90.0 (North is positive) inclusive. It will also be ignored if there isn't a corresponding :long option.
     # @option options [Float] :long The longitude of the location this tweet refers to. The valid ranges for longitude is -180.0 to +180.0 (East is positive) inclusive. This option will be ignored if outside that range, if it is not a number, if geo_enabled is disabled, or if there not a corresponding :lat option.
     # @option options [String] :place_id A place in the world. These IDs can be retrieved from {Twitter::API::Geo#reverse_geocode}.
@@ -2167,7 +2167,7 @@ module Twitter
     #   Twitter.update_with_media("I'm tweeting with @gem!", File.new('my_awesome_pic.jpeg'))
     #   Twitter.update_with_media("I'm tweeting with @gem!", {:io => StringIO.new(pic), :type => 'jpg'})
     def update_with_media(status, media, options={})
-      object_from_response(Twitter::Status, :post, "/1/statuses/update_with_media.json", options.merge('media[]' => media, 'status' => status), :endpoint => @media_endpoint)
+      object_from_response(Twitter::Tweet, :post, "/1/statuses/update_with_media.json", options.merge('media[]' => media, 'status' => status), :endpoint => @media_endpoint)
     end
 
     # Returns the top 10 trending topics for a specific WOEID
@@ -2343,7 +2343,7 @@ module Twitter
       end
     end
 
-    # Access the users in a given category of the Twitter suggested user list and return their most recent status if they are not a protected user
+    # Access the users in a given category of the Twitter suggested user list and return their most recent Tweet if they are not a protected user
     #
     # @see https://dev.twitter.com/docs/api/1/get/users/suggestions/:slug/members
     # @rate_limited Yes
@@ -2351,7 +2351,7 @@ module Twitter
     # @param slug [String] The short name of list or a category.
     # @param options [Hash] A customizable set of options.
     # @return [Array<Twitter::User>]
-    # @example Return the users in the Art & Design category and their most recent status if they are not a protected user
+    # @example Return the users in the Art & Design category and their most recent Tweet if they are not a protected user
     #   Twitter.suggest_users("art-design")
     def suggest_users(slug, options={})
       collection_from_response(Twitter::User, :get, "/1/users/suggestions/#{slug}/members.json", options)
@@ -2404,7 +2404,7 @@ module Twitter
     #   Returns extended information for the authenticated user
     #
     #   @param options [Hash] A customizable set of options.
-    #   @option options [Boolean, String, Integer] :skip_status Do not include user's statuses when set to true, 't' or 1.
+    #   @option options [Boolean, String, Integer] :skip_status Do not include user's Tweets when set to true, 't' or 1.
     #   @example Return extended information for the authenticated user
     #     Twitter.user
     # @overload user(user, options={})
@@ -2447,13 +2447,13 @@ module Twitter
     # @return [Array<Twitter::User>]
     # @overload contributees(options={})
     #   @param options [Hash] A customizable set of options.
-    #   @option options [Boolean, String, Integer] :skip_status Do not include contributee's statuses when set to true, 't' or 1.
+    #   @option options [Boolean, String, Integer] :skip_status Do not include contributee's Tweets when set to true, 't' or 1.
     #   @example Return the authenticated user's contributees
     #     Twitter.contributees
     # @overload contributees(user, options={})
     #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
     #   @param options [Hash] A customizable set of options.
-    #   @option options [Boolean, String, Integer] :skip_status Do not include contributee's statuses when set to true, 't' or 1.
+    #   @option options [Boolean, String, Integer] :skip_status Do not include contributee's Tweets when set to true, 't' or 1.
     #   @example Return users @sferik can contribute to
     #     Twitter.contributees('sferik')
     #     Twitter.contributees(7505382)  # Same as above
@@ -2470,13 +2470,13 @@ module Twitter
     # @return [Array<Twitter::User>]
     # @overload contributors(options={})
     #   @param options [Hash] A customizable set of options.
-    #   @option options [Boolean, String, Integer] :skip_status Do not include contributee's statuses when set to true, 't' or 1.
+    #   @option options [Boolean, String, Integer] :skip_status Do not include contributee's Tweets when set to true, 't' or 1.
     #   @example Return the authenticated user's contributors
     #     Twitter.contributors
     # @overload contributors(user, options={})
     #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
     #   @param options [Hash] A customizable set of options.
-    #   @option options [Boolean, String, Integer] :skip_status Do not include contributee's statuses when set to true, 't' or 1.
+    #   @option options [Boolean, String, Integer] :skip_status Do not include contributee's Tweets when set to true, 't' or 1.
     #   @example Return users who can contribute to @sferik's account
     #     Twitter.contributors('sferik')
     #     Twitter.contributors(7505382)  # Same as above
@@ -2579,7 +2579,7 @@ module Twitter
     # @param options [Hash]
     # @return [Array]
     def search_collection_from_response(request_method, url, options)
-      collection_from_array(Twitter::Status, send(request_method.to_sym, url, options)[:body][:statuses])
+      collection_from_array(Twitter::Tweet, send(request_method.to_sym, url, options)[:body][:statuses])
     end
 
     # @param klass [Class]
@@ -2662,11 +2662,11 @@ module Twitter
     # @param request_method [Symbol]
     # @param url [String]
     # @param args [Array]
-    # @return [Array<Twitter::Status>]
-    def threaded_statuses_from_response(request_method, url, args)
+    # @return [Array<Twitter::Tweet>]
+    def threaded_tweets_from_response(request_method, url, args)
       options = args.extract_options!
       args.flatten.threaded_map do |id|
-        object_from_response(Twitter::Status, request_method, url + "/#{id}.json", options)
+        object_from_response(Twitter::Tweet, request_method, url + "/#{id}.json", options)
       end
     end
 

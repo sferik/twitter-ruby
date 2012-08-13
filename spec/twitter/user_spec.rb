@@ -99,17 +99,17 @@ describe Twitter::User do
 
   describe "#status" do
     it "returns a Status when status is set" do
-      status = Twitter::User.new(:id => 7505382, :status => {:id => 25938088801}).status
-      status.should be_a Twitter::Status
+      tweet = Twitter::User.new(:id => 7505382, :status => {:id => 25938088801}).status
+      tweet.should be_a Twitter::Tweet
     end
     it "returns nil when status is not set" do
-      status = Twitter::User.new(:id => 7505382).status
-      status.should be_nil
+      tweet = Twitter::User.new(:id => 7505382).status
+      tweet.should be_nil
     end
     it "includes a User when user is set" do
-      status = Twitter::User.new(:id => 7505382, :screen_name => 'sferik', :status => {:id => 25938088801}).status
-      status.user.should be_a Twitter::User
-      status.user.id.should eq 7505382
+      tweet = Twitter::User.new(:id => 7505382, :screen_name => 'sferik', :status => {:id => 25938088801}).status
+      tweet.user.should be_a Twitter::User
+      tweet.user.id.should eq 7505382
     end
   end
 

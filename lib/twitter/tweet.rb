@@ -11,13 +11,14 @@ require 'twitter/place'
 require 'twitter/user'
 
 module Twitter
-  class Status < Twitter::Identity
+  class Tweet < Twitter::Identity
     include Twitter::Creatable
     attr_reader :favorited, :favoriters, :from_user_id, :from_user_name,
       :in_reply_to_screen_name, :in_reply_to_attrs_id, :in_reply_to_status_id,
       :in_reply_to_user_id, :iso_language_code, :profile_image_url,
       :profile_image_url_https, :repliers, :retweeted, :retweeters, :source,
       :text, :to_user, :to_user_id, :to_user_name, :truncated
+    alias in_reply_to_tweet_id in_reply_to_status_id
     alias favorited? favorited
     alias favourited favorited
     alias favourited? favorited
@@ -84,12 +85,13 @@ module Twitter
     end
     alias reply_count repliers_count
 
-    # If this status is itself a retweet, the original tweet is available here.
+    # If this Tweet is a retweet, the original Tweet is available here.
     #
-    # @return [Twitter::Status]
+    # @return [Twitter::Tweet]
     def retweeted_status
       @retweeted_status ||= self.class.fetch_or_new(@attrs[:retweeted_status])
     end
+    alias retweeted_tweet retweeted_status
 
     # @return [String]
     def retweeters_count
@@ -131,4 +133,6 @@ module Twitter
     end
 
   end
+
+  Status = Tweet
 end
