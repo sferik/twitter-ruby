@@ -111,8 +111,16 @@ options:
     Twitter.connection_options[:headers][:user_agent] = 'Custom User Agent'
 
 ### Authentication
-This library now attempts to pull credentials from the following
-environment variables:
+Configure a threadsafe Twitter client:
+
+    Twitter.configure do |config|
+      config.consumer_key = YOUR_CONSUMER_KEY
+      config.consumer_secret = YOUR_SECRET_KEY
+    end
+
+    twitter_client = Twitter.client(:oauth_token => OAUTH_TOKEN_FOR_USER, :oauth_token_secret => OAUTH_SECRET_FOR_USER)
+
+If not supplied, this library pulls credentials from environment variables:
 
     TWITTER_CONSUMER_KEY
     TWITTER_CONSUMER_SECRET
@@ -123,7 +131,7 @@ environment variables:
 This version introduces an identity map, which ensures that the same objects
 only get initialized once:
 
-    Twitter.user("sferik").object_id == Twitter.user("sferik").object_id #=> true
+    twitter_client.user("sferik").object_id == twitter_client.user("sferik").object_id #=> true
 
 (In all previous versions of this gem, this statement would have returned
 false.)
@@ -138,8 +146,8 @@ have been replaced by the `Twitter::Error#rate_limit` method, which returns a
 `Twitter::RateLimit` instance. Likewise, there is now a
 `Twitter::Client#rate_limit` method, which gets updated after each request.
 
-    Twitter.user("sferik") # Any API request will fetch rate limit information
-    rate_limit = Twitter.rate_limit
+    twitter_client.user("sferik") # Any API request will fetch rate limit information
+    rate_limit = twitter_client.rate_limit
     rate_limit.limit     #=> 150
     rate_limit.remaining #=> 149
     rate_limit.reset_at  #=> 2012-07-16 12:34:56 -0700
@@ -189,59 +197,38 @@ recommend [Oj][].
 [oj]: https://rubygems.org/gems/oj
 
 ## Usage Examples
+
 Return [@sferik][sferik]'s location
 
-    Twitter.user("sferik").location
+    twitter_client.user("sferik").location
 Return [@sferik][sferik]'s most recent Tweet
 
-    Twitter.user_timeline("sferik").first.text
+    twitter_client.user_timeline("sferik").first.text
 Return the text of the Tweet at https://twitter.com/sferik/statuses/27558893223
 
-    Twitter.status(27558893223).text
+    twitter_client.status(27558893223).text
 Find the 3 most recent marriage proposals to [@justinbieber][justinbieber]
 
-    Twitter.search("to:justinbieber marry me", :rpp => 3, :result_type => "recent").results.map do |status|
+    twitter_client.search("to:justinbieber marry me", :rpp => 3, :result_type => "recent").results.map do |status|
       "#{status.from_user}: #{status.text}"
     end
 
 Let's find a Japanese-language Tweet tagged #ruby (no retweets)
 
-    Twitter.search("#ruby -rt", :lang => "ja", :rpp => 1).results.first.text
+    twitter_client.search("#ruby -rt", :lang => "ja", :rpp => 1).results.first.text
 
 Certain methods require authentication. To get your Twitter OAuth credentials,
 register an app at http://dev.twitter.com/apps
 
-If you will always be authenticating as a single user, you can use:
-
-    Twitter.configure do |config|
-      config.consumer_key = YOUR_CONSUMER_KEY
-      config.consumer_secret = YOUR_CONSUMER_SECRET
-      config.oauth_token = YOUR_OAUTH_TOKEN
-      config.oauth_token_secret = YOUR_OAUTH_TOKEN_SECRET
-    end
-
-If you will be authenticating as multiple users, this is not threadsafe. Instead, you need to create a separate object for each user. First create your global config:
-
-    Twitter.configure do |config|
-      config.consumer_key = YOUR_CONSUMER_KEY
-      config.consumer_secret = YOUR_SECRET_KEY
-    end
-
-Then create per-user objects as needed. This ensures that your requests are made with the correct oauth keys regardless of the thread that calls them:
-
-    user_client = Twitter.client(:oauth_token => OAUTH_TOKEN_FOR_USER, :oauth_token_secret => OAUTH_SECRET_FOR_USER)
-
-You can now perform threadsafe actions on `user_client`.
-
 Update your status
 
-    Twitter.update("I'm tweeting with @gem!")
+    twitter_client.update("I'm tweeting with @gem!")
 Read the most recent Tweet in your timeline
 
-    Twitter.home_timeline.first.text
+    twitter_client.home_timeline.first.text
 Get your rate limit status
 
-    rate_limit_status = Twitter.rate_limit_status
+    rate_limit_status = twitter_client.rate_limit_status
     "#{rate_limit_status.remaining_hits} Twitter API request(s) remaining for the next #{((rate_limit_status.reset_time - Time.now) / 60).floor} minutes and #{((rate_limit_status.reset_time - Time.now) % 60).round} seconds"
 
 [sferik]: https://twitter.com/sferik
