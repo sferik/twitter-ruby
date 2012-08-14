@@ -1,3 +1,9 @@
+3.6.0
+-----
+* [Rename Twitter::Status to Twitter::Tweet](https://github.com/sferik/twitter/commit/6d25887ecd371b9deaf4b70bc2f2ee1e6bff98bc)
+* [Make Twitter::Cursor an Enumerable](https://github.com/sferik/twitter/commit/2582f2ed3518a11bcad150778da18618dd9a0d37)
+* [Always define respond_to_missing? when overriding method_missing](https://github.com/sferik/twitter/commit/23cfaf9dec4bc58fd9b3fd8366fb0e087c7f1e51)
+
 3.5.0
 -----
 * [Add `Twitter::API#related_results`](https://github.com/sferik/twitter/commit/15fb81202dde3bbf4d64407cb79163095603cdbe)
