@@ -211,12 +211,28 @@ Let's find a Japanese-language Tweet tagged #ruby (no retweets)
 Certain methods require authentication. To get your Twitter OAuth credentials,
 register an app at http://dev.twitter.com/apps
 
+If you will always be authenticating as a single user, you can use:
+
     Twitter.configure do |config|
       config.consumer_key = YOUR_CONSUMER_KEY
       config.consumer_secret = YOUR_CONSUMER_SECRET
       config.oauth_token = YOUR_OAUTH_TOKEN
       config.oauth_token_secret = YOUR_OAUTH_TOKEN_SECRET
     end
+
+If you will be authenticating as multiple users, this is not threadsafe. Instead, you need to create a separate object for each user. First create your global config:
+
+    Twitter.configure do |config|
+      config.consumer_key = YOUR_CONSUMER_KEY
+      config.consumer_secret = YOUR_SECRET_KEY
+    end
+
+Then create per-user objects as needed. This ensures that your requests are made with the correct oauth keys regardless of the thread that calls them:
+
+    user_client = Twitter.client(:oauth_token => OAUTH_TOKEN_FOR_USER, :oauth_token_secret => OAUTH_SECRET_FOR_USER)
+
+You can now perform threadsafe actions on `user_client`.
+
 Update your status
 
     Twitter.update("I'm tweeting with @gem!")
