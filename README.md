@@ -84,7 +84,65 @@ object.
 ##### Version 3
     Twitter::Client.search("query").results.map(&:full_text)
 
-### Configuration
+## Configuration
+
+### Global Configuration
+
+Most examples show a global configuration for simplicity:
+
+    Twitter.configure do |config|
+      config.consumer_key = YOUR_CONSUMER_KEY
+      config.consumer_secret = YOUR_CONSUMER_SECRET
+      config.oauth_token = YOUR_OAUTH_TOKEN
+      config.oauth_token_secret = YOUR_OAUTH_TOKEN_SECRET
+    end
+
+Subsequent requests can be made, like so:
+
+    Twitter.update("I'm tweeting with @gem!")
+
+### Threadsafe Configuration
+
+Multithreaded applications that make requests on behalf of multiple
+Twitter users should avoid setting user credentials globally. Instead, they should
+instantiate per-user objects and make calls directly off of those objects. This approach
+is threadsafe and eliminates the possibility of posting updates on behalf of the wrong
+user during a race condition.
+
+To do this, you can still specify the `consumer_key` and `consumer_secret` globally.
+In a Rails application, you can put this in `config/initiliazers/twitter.rb`):
+
+    Twitter.configure do |config|
+      config.consumer_key = YOUR_CONSUMER_KEY
+      config.consumer_secret = YOUR_CONSUMER_SECRET
+    end
+
+When you create the `Twitter::Client` objects, you can pass in your user's credentials:
+
+    @client = Twitter::Client.new(
+      :oauth_token => "a user's OAuth token",
+      :oauth_token_secret => "a user's OAuth secret"
+    )
+
+Now you can make threadsafe requests as the authenticated user, like so:
+
+    @client.update("Tweeting as the authenticated user!")
+
+If you prefer, you can specify all configuration options when initializing a
+`Twitter::Client`:
+
+    @client = Twitter::Client.new(
+      :consumer_key => "a consumer key",
+      :consumer_secret => "a consumer secret",
+      :oauth_token => "a user's OAuth token",
+      :oauth_token_secret => "a user's OAuth secret"
+    )
+
+This may be useful if you're using multiple consumer key/secret pairs for some
+reason (e.g. to work around rate limiting).
+
+### Middleware
+
 The Faraday middleware stack is now fully configurable and is exposed as a
 `Faraday::Builder`. You can modify the default middleware in-place:
 
@@ -145,41 +203,6 @@ have been replaced by the `Twitter::Error#rate_limit` method, which returns a
     rate_limit.reset_at  #=> 2012-07-16 12:34:56 -0700
     rate_limit.reset_in  #=> 3540 (seconds)
 
-### Additional notes
-This will be the last major version of this library to support Ruby 1.8.
-Requiring Ruby 1.9 will allow us to [remove][class_variable_get]
-[various][each_with_object] [hacks][singleton_class] put in place to maintain
-Ruby 1.8 compatibility. [The first stable version of Ruby 1.9 was released on
-August 19, 2010.][ruby192] If you haven't found the opportunity to upgrade your
-Ruby interpreter since then, let this be your nudge. Once version 4 of this
-library is released, all previous versions will cease to be supported, even if
-critical security vulnerabilities are discovered.
-
-[class_variable_get]: https://github.com/sferik/twitter/commit/88c5a0513d1b58a1d4ae1a1e3deeb012c9d19547
-[each_with_object]: https://github.com/sferik/twitter/commit/6052252a07baf7aefe0f100bba0abd2cbb7139bb
-[singleton_class]: https://github.com/sferik/twitter/commit/2ed9db21c87d1218b15373e42a36ad536b07dcbb
-[ruby192]: http://blade.nagaokaut.ac.jp/cgi-bin/scat.rb/ruby/ruby-talk/367983
-
-Here are some fun facts about the 3.0 release:
-
-* The entire library is implemented in just 2,000 lines of code
-* With over 5,000 lines of specs, the spec-to-code ratio is over 2.5:1
-* The spec suite contains 674 examples and runs in under 2 seconds on a MacBook
-* This project has 100% C0 code coverage (the tests execute every line of
-  source code at least once)
-* At the time of release, this library is comprehensive: you can request all
-  documented Twitter REST API resources that respond with JSON (over 100)
-* This is the first multithreaded release (requests are made in parallel)
-* This gem works on every major Ruby implementation, including JRuby and
-  Rubinius
-* The first version was released on November 26, 2006 (over 5 years ago)
-* This gem has only three dependencies: `faraday`, `multi_json`, and
-  `simple_oauth`
-* Previous versions of this gem have been [downloaded over half a million
-  times][stats]
-
-[stats]: http://rubygems.org/gems/twitter/stats
-
 ## Performance
 You can improve performance by preloading a faster JSON parsing library. By
 default, JSON will be parsed with [okjson][]. For faster JSON parsing, we
@@ -230,6 +253,41 @@ Get your rate limit status
 
 [sferik]: https://twitter.com/sferik
 [justinbieber]: https://twitter.com/justinbieber
+
+## Additional notes
+This will be the last major version of this library to support Ruby 1.8.
+Requiring Ruby 1.9 will allow us to [remove][class_variable_get]
+[various][each_with_object] [hacks][singleton_class] put in place to maintain
+Ruby 1.8 compatibility. [The first stable version of Ruby 1.9 was released on
+August 19, 2010.][ruby192] If you haven't found the opportunity to upgrade your
+Ruby interpreter since then, let this be your nudge. Once version 4 of this
+library is released, all previous versions will cease to be supported, even if
+critical security vulnerabilities are discovered.
+
+[class_variable_get]: https://github.com/sferik/twitter/commit/88c5a0513d1b58a1d4ae1a1e3deeb012c9d19547
+[each_with_object]: https://github.com/sferik/twitter/commit/6052252a07baf7aefe0f100bba0abd2cbb7139bb
+[singleton_class]: https://github.com/sferik/twitter/commit/2ed9db21c87d1218b15373e42a36ad536b07dcbb
+[ruby192]: http://blade.nagaokaut.ac.jp/cgi-bin/scat.rb/ruby/ruby-talk/367983
+
+Here are some fun facts about the 3.0 release:
+
+* The entire library is implemented in just 2,000 lines of code
+* With over 5,000 lines of specs, the spec-to-code ratio is over 2.5:1
+* The spec suite contains 674 examples and runs in under 2 seconds on a MacBook
+* This project has 100% C0 code coverage (the tests execute every line of
+  source code at least once)
+* At the time of release, this library is comprehensive: you can request all
+  documented Twitter REST API resources that respond with JSON (over 100)
+* This is the first multithreaded release (requests are made in parallel)
+* This gem works on every major Ruby implementation, including JRuby and
+  Rubinius
+* The first version was released on November 26, 2006 (over 5 years ago)
+* This gem has only three dependencies: `faraday`, `multi_json`, and
+  `simple_oauth`
+* Previous versions of this gem have been [downloaded over half a million
+  times][stats]
+
+[stats]: http://rubygems.org/gems/twitter/stats
 
 ## Contributing
 In the spirit of [free software][free-sw], **everyone** is encouraged to help
