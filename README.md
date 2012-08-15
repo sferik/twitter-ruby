@@ -85,6 +85,64 @@ object.
     Twitter::Client.search("query").results.map(&:full_text)
 
 ### Configuration
+
+#### Global Configuration
+
+Most examples show a global configuration for simplicity:
+
+    Twitter.configure do |config|
+      config.consumer_key = YOUR_CONSUMER_KEY
+      config.consumer_secret = YOUR_CONSUMER_SECRET
+      config.oauth_token = YOUR_OAUTH_TOKEN
+      config.oauth_token_secret = YOUR_OAUTH_TOKEN_SECRET
+    end
+
+Subsequent requests can be made, like so:
+
+    Twitter.update("I'm tweeting with @gem!")
+
+#### Threadsafe Configuration
+
+Multithreaded applications that make requests on behalf of multiple
+Twitter users should avoid setting user credentials globally. Instead, they should
+instantiate per-user objects and make calls directly off of those objects. This approach
+is threadsafe and eliminates the possibility of posting updates on behalf of the wrong
+user during a race condition.
+
+To do this, you can still specify the `consumer_key` and `consumer_secret` globally.
+In a Rails application, you can put this in `config/initiliazers/twitter.rb`):
+
+    Twitter.configure do |config|
+      config.consumer_key = YOUR_CONSUMER_KEY
+      config.consumer_secret = YOUR_CONSUMER_SECRET
+    end
+
+When you create the `Twitter::Client` objects, you can pass in your user's credentials:
+
+    @client = Twitter::Client.new(
+      :oauth_token => "a user's OAuth token",
+      :oauth_token_secret => "a user's OAuth secret"
+    )
+
+Now you can make threadsafe requests as the authenticated user, like so:
+
+    @client.update("Tweeting as the authenticated user!")
+
+If you prefer, you can specify all configuration options when initializing a
+`Twitter::Client`:
+
+    @client = Twitter::Client.new(
+      :consumer_key => "a consumer key",
+      :consumer_secret => "a consumer secret",
+      :oauth_token => "a user's OAuth token",
+      :oauth_token_secret => "a user's OAuth secret"
+    )
+
+This may be useful if you're using multiple consumer key/secret pairs for some
+reason (e.g. to work around rate limiting).
+
+#### Middleware
+
 The Faraday middleware stack is now fully configurable and is exposed as a
 `Faraday::Builder`. You can modify the default middleware in-place:
 
