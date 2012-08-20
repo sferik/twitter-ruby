@@ -222,6 +222,26 @@ describe Twitter::Tweet do
     end
   end
 
+  describe "#entities?" do
+    it "returns false if there are no entities set" do
+      tweet = Twitter::Tweet.new(:id => 28669546014)
+      tweet.entities?.should be_false
+    end
+
+    it "returns true if there are entities set" do
+      urls_hash = [
+        {
+          :url => 'http://example.com/t.co',
+          :expanded_url => 'http://example.com/expanded',
+          :display_url => 'example.com/expanded',
+          :indices => [10, 33],
+        }
+      ]
+      tweet = Twitter::Tweet.new(:id => 28669546014, :entities => {:urls => urls_hash})
+      tweet.entities?.should be_true
+    end
+  end
+
   describe "#urls" do
     it "returns an Array of Entity::Url when entities are set" do
       urls_hash = [
