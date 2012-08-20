@@ -117,18 +117,22 @@ module Twitter
       @user_mentions ||= entities(Twitter::Entity::UserMention, :user_mentions)
     end
 
+    def entities?
+      !@attrs[:entities].nil?
+    end
+
   private
 
     # @param klass [Class]
     # @param method [Symbol]
     def entities(klass, method)
-      if @attrs[:entities].nil?
-        warn "#{Kernel.caller.first}: To get #{method.to_s.tr('_', ' ')}, you must pass `:include_entities => true` when requesting the #{self.class.name}."
-        []
-      else
+      if entities?
         Array(@attrs[:entities][method.to_sym]).map do |user_mention|
           klass.fetch_or_new(user_mention)
         end
+      else
+        warn "#{Kernel.caller.first}: To get #{method.to_s.tr('_', ' ')}, you must pass `:include_entities => true` when requesting the #{self.class.name}."
+        []
       end
     end
 
