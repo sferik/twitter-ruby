@@ -7,7 +7,7 @@ module Twitter
 
       def parse(body)
         case body
-        when '', nil
+        when /\A^\s*$\z/, nil
           nil
         when 'true'
           true
