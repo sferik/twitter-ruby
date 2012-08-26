@@ -111,10 +111,6 @@ module Twitter
       @user ||= Twitter::User.fetch_or_new(@attrs.dup[:user].merge(:status => @attrs.except(:user))) if user?
     end
 
-    def user?
-      !@attrs[:user].nil?
-    end
-
     # @note Must include entities in your request for this method to work
     # @return [Array<Twitter::Entity::UserMention>]
     def user_mentions
@@ -138,6 +134,10 @@ module Twitter
         warn "#{Kernel.caller.first}: To get #{method.to_s.tr('_', ' ')}, you must pass `:include_entities => true` when requesting the #{self.class.name}."
         []
       end
+    end
+
+    def user?
+      !@attrs[:user].nil?
     end
 
   end

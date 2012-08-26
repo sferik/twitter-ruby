@@ -113,4 +113,15 @@ describe Twitter::User do
     end
   end
 
+  describe "#status?" do
+    it "returns true when status is set" do
+      tweet = Twitter::User.new(:id => 7505382, :status => {:id => 25938088801}).status?
+      tweet.should be_true
+    end
+    it "returns false when status is not set" do
+      tweet = Twitter::User.new(:id => 7505382).status?
+      tweet.should be_false
+    end
+  end
+
 end

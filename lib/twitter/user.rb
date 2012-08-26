@@ -71,7 +71,11 @@ module Twitter
 
     # @return [Twitter::Tweet]
     def status
-      @status ||= Twitter::Tweet.fetch_or_new(@attrs.dup[:status].merge(:user => @attrs.except(:status))) unless @attrs[:status].nil?
+      @status ||= Twitter::Tweet.fetch_or_new(@attrs.dup[:status].merge(:user => @attrs.except(:status))) if status?
+    end
+
+    def status?
+      !@attrs[:status].nil?
     end
 
   private

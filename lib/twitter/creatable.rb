@@ -7,10 +7,12 @@ module Twitter
     #
     # @return [Time]
     def created_at
-      @created_at ||= Time.parse(@attrs[:created_at]) if created_at?
+      @created_at ||= Time.parse(@attrs[:created_at]) if created?
     end
 
-    def created_at?
+  private
+
+    def created?
       !@attrs[:created_at].nil?
     end
 

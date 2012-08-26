@@ -11,6 +11,8 @@ module Twitter
       @reset_time ||= Time.parse(@attrs[:reset_time]) if reset_time?
     end
 
+  private
+
     def reset_time?
       !@attrs[:reset_time].nil?
     end
