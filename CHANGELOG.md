@@ -1,3 +1,12 @@
+3.7.0
+-----
+* [Remove support for `IO` hash syntax](https://github.com/sferik/twitter/commit/bfe842d714a77b8edda90d0e2b547be434dc0148)
+* [Allow `Tempfile` to be passed to `Twitter::API#update_with_media`](https://github.com/sferik/twitter/commit/79dc8197250f0416a9a44524be0aaea9d3f31d83)
+* [Set `Content-Type` header to `multipart/form-data` when uploading a file](https://github.com/sferik/twitter/commit/24f759b7a128de2bceff27ee0e4699e8d927e5a5)
+* [Do not attempt to parse bodies that only contain spaces](https://github.com/sferik/twitter/commit/2a191ea051b20a492a3325413dcdca11b593ba50)
+* [Add `Twitter::Tweet#entities?` method](https://github.com/sferik/twitter/commit/43221b1d5fc1a3333a4718c79fd95f9ad42f143e)
+* [Add `Twitter::User#status?` method](https://github.com/sferik/twitter/commit/255dc305ed886ac1e062b96001cb09484e5ad98d)
+
 3.6.0
 -----
 * [Rename Twitter::Status to Twitter::Tweet](https://github.com/sferik/twitter/commit/6d25887ecd371b9deaf4b70bc2f2ee1e6bff98bc)
