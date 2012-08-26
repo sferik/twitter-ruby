@@ -506,11 +506,7 @@ describe Twitter::API do
       it "returns a Tweet" do
         tweet = @client.update_with_media("You always have options", fixture("pbjt.gif"))
         tweet.should be_a Twitter::Tweet
-        tweet.text.should include("You always have options")
-      end
-      it 'returns the media as an entity' do
-        tweet = @client.update_with_media("You always have options", fixture("pbjt.gif"))
-        tweet.media.should be
+        tweet.text.should eq "You always have options http://t.co/CBYa7Ri"
       end
     end
     context "a jpe image" do
@@ -519,20 +515,12 @@ describe Twitter::API do
         a_post("/1/statuses/update_with_media.json", "https://upload.twitter.com").
           should have_been_made
       end
-      it 'returns the media as an entity' do
-        tweet = @client.update_with_media("You always have options", fixture("wildcomet2.jpe"))
-        tweet.media.should be
-      end
     end
     context "a jpeg image" do
       it "requests the correct resource" do
         @client.update_with_media("You always have options", fixture("me.jpeg"))
         a_post("/1/statuses/update_with_media.json", "https://upload.twitter.com").
           should have_been_made
-      end
-      it 'returns the media as an entity' do
-        tweet = @client.update_with_media("You always have options", fixture("me.jpeg"))
-        tweet.media.should be
       end
     end
     context "a png image" do
@@ -541,20 +529,26 @@ describe Twitter::API do
         a_post("/1/statuses/update_with_media.json", "https://upload.twitter.com").
           should have_been_made
       end
-      it 'returns the media as an entity' do
-        tweet = @client.update_with_media("You always have options", fixture("we_concept_bg2.png"))
-        tweet.media.should be
+    end
+    context "a Tempfile" do
+      it "requests the correct resource" do
+        @client.update_with_media("You always have options", Tempfile.new("tmp"))
+        a_post("/1/statuses/update_with_media.json", "https://upload.twitter.com").
+          should have_been_made
       end
     end
     context "an IO" do
       it "requests the correct resource" do
-        @client.update_with_media("You always have options", {:io => StringIO.new, :type => 'gif'})
+        @client.update_with_media("You always have options", {:io => IO.sysopen(fixture_path + "/we_concept_bg2.png"), :type => 'png'})
         a_post("/1/statuses/update_with_media.json", "https://upload.twitter.com").
           should have_been_made
       end
-      it 'returns the media as an entity' do
-        tweet = @client.update_with_media("You always have options", {:io => StringIO.new, :type => 'gif'})
-        tweet.media.should be
+    end
+    context "a StringIO" do
+      it "requests the correct resource" do
+        @client.update_with_media("You always have options", {:io => StringIO.new, :type => 'png'})
+        a_post("/1/statuses/update_with_media.json", "https://upload.twitter.com").
+          should have_been_made
       end
     end
   end

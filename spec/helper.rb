@@ -7,6 +7,8 @@ end
 
 require 'twitter'
 require 'rspec'
+require 'stringio'
+require 'tempfile'
 require 'timecop'
 require 'webmock/rspec'
 
