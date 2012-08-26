@@ -8,7 +8,11 @@ module Twitter
     #
     # @return [Time]
     def reset_time
-      @reset_time ||= Time.parse(@attrs[:reset_time]) unless @attrs[:reset_time].nil?
+      @reset_time ||= Time.parse(@attrs[:reset_time]) if reset_time?
+    end
+
+    def reset_time?
+      !@attrs[:reset_time].nil?
     end
 
   end
