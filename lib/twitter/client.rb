@@ -92,7 +92,7 @@ module Twitter
 
     def auth_header(method, uri, params={})
       # When posting a file, don't sign any params
-      signature_params = [:post, :put].include?(method.to_sym) && params.values.any?{|value| value.respond_to?(:to_io) || (value.is_a?(Hash) && (value[:io].is_a?(IO) || value[:io].is_a?(StringIO)))} ? {} : params
+      signature_params = [:post, :put].include?(method.to_sym) && params.values.any?{|value| value.respond_to?(:to_io)} ? {} : params
       SimpleOAuth::Header.new(method, uri, signature_params, credentials)
     end
 

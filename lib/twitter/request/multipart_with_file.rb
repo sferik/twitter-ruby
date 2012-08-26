@@ -15,9 +15,6 @@ module Twitter
             if value.respond_to?(:to_io)
               env[:body][key] = Faraday::UploadIO.new(value, mime_type(value.path), value.path)
               env[:request_headers][CONTENT_TYPE] = self.class.mime_type
-            elsif value.is_a?(Hash) && (value[:io].is_a?(IO) || value[:io].is_a?(StringIO))
-              env[:body][key] = Faraday::UploadIO.new(value[:io], mime_type('.' + value[:type]), '')
-              env[:request_headers][CONTENT_TYPE] = self.class.mime_type
             end
           end
         end

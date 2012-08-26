@@ -264,7 +264,6 @@ module Twitter
     # @option options [Boolean] :tile Whether or not to tile the background image. If set to true the background image will be displayed tiled. The image will not be tiled otherwise.
     # @example Update the authenticating user's profile background image
     #   Twitter.update_profile_background_image(File.new("we_concept_bg2.png"))
-    #   Twitter.update_profile_background_image(:io => StringIO.new(pic), :type => 'jpg')
     def update_profile_background_image(image, options={})
       object_from_response(Twitter::User, :post, "/1/account/update_profile_background_image.json", options.merge(:image => image))
     end
@@ -300,7 +299,6 @@ module Twitter
     # @param options [Hash] A customizable set of options.
     # @example Update the authenticating user's profile image
     #   Twitter.update_profile_image(File.new("me.jpeg"))
-    #   Twitter.update_profile_image(:io => StringIO.new(pic), :type => 'jpg')
     def update_profile_image(image, options={})
       object_from_response(Twitter::User, :post, "/1/account/update_profile_image.json", options.merge(:image => image))
     end
@@ -2165,7 +2163,6 @@ module Twitter
     # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
     # @example Update the authenticating user's status
     #   Twitter.update_with_media("I'm tweeting with @gem!", File.new('my_awesome_pic.jpeg'))
-    #   Twitter.update_with_media("I'm tweeting with @gem!", {:io => StringIO.new(pic), :type => 'jpg'})
     def update_with_media(status, media, options={})
       object_from_response(Twitter::Tweet, :post, "/1/statuses/update_with_media.json", options.merge('media[]' => media, 'status' => status), :endpoint => @media_endpoint)
     end

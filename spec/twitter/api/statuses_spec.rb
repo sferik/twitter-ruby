@@ -537,20 +537,6 @@ describe Twitter::API do
           should have_been_made
       end
     end
-    context "an IO" do
-      it "requests the correct resource" do
-        @client.update_with_media("You always have options", {:io => IO.sysopen(fixture_path + "/we_concept_bg2.png"), :type => 'png'})
-        a_post("/1/statuses/update_with_media.json", "https://upload.twitter.com").
-          should have_been_made
-      end
-    end
-    context "a StringIO" do
-      it "requests the correct resource" do
-        @client.update_with_media("You always have options", {:io => StringIO.new, :type => 'png'})
-        a_post("/1/statuses/update_with_media.json", "https://upload.twitter.com").
-          should have_been_made
-      end
-    end
   end
 
   describe "#oembed" do
