@@ -108,7 +108,11 @@ module Twitter
 
     # @return [Twitter::User]
     def user
-      @user ||= Twitter::User.fetch_or_new(@attrs.dup[:user].merge(:status => @attrs.except(:user))) unless @attrs[:user].nil?
+      @user ||= Twitter::User.fetch_or_new(@attrs.dup[:user].merge(:status => @attrs.except(:user))) if user?
+    end
+
+    def user?
+      !@attrs[:user].nil?
     end
 
     # @note Must include entities in your request for this method to work
