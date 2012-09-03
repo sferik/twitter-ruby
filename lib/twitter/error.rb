@@ -20,16 +20,12 @@ module Twitter
     # @return [Twitter::Error]
     def initialize(exception=$!, response_headers={})
       @rate_limit = Twitter::RateLimit.new(response_headers)
-      if exception.respond_to?(:backtrace)
-        super(exception.message)
-        @wrapped_exception = exception
-      else
-        super(exception.to_s)
-      end
+      @wrapped_exception = exception
+      exception.respond_to?(:backtrace) ? super(exception.message) : super(exception.to_s)
     end
 
     def backtrace
-      @wrapped_exception ? @wrapped_exception.backtrace : super
+      @wrapped_exception.respond_to?(:backtrace) ? @wrapped_exception.backtrace : super
     end
 
   end
