@@ -9,11 +9,8 @@ module Twitter
     #
     # @return [Twitter::Client]
     def client
-      if @client && @client.cache_key == options.hash
-        @client
-      else
-        @client = Twitter::Client.new(options)
-      end
+      @client = Twitter::Client.new(options) unless defined?(@client) && @client.cache_key == options.hash
+      @client
     end
 
     def respond_to_missing?(method_name, include_private=false); client.respond_to?(method_name, include_private); end if RUBY_VERSION >= "1.9"
