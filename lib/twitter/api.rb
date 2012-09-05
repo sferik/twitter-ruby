@@ -959,7 +959,7 @@ module Twitter
     #   @param options [Hash] A customizable set of options.
     #   @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID.
     #   @option options [Integer] :max_id Returns results with an ID less than (that is, older than) or equal to the specified ID.
-    #   @option options [Integer] :per_page The number of results to retrieve.
+    #   @option options [Integer] :count The number of results to retrieve.
     #   @example Show tweet timeline for members of the authenticated user's "presidents" list
     #     Twitter.list_timeline('presidents')
     #     Twitter.list_timeline(8863586)
@@ -969,7 +969,7 @@ module Twitter
     #   @param options [Hash] A customizable set of options.
     #   @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID.
     #   @option options [Integer] :max_id Returns results with an ID less than (that is, older than) or equal to the specified ID.
-    #   @option options [Integer] :per_page The number of results to retrieve.
+    #   @option options [Integer] :count The number of results to retrieve.
     #   @example Show tweet timeline for members of @sferik's "presidents" list
     #     Twitter.list_timeline('sferik', 'presidents')
     #     Twitter.list_timeline('sferik', 8863586)
@@ -2385,7 +2385,7 @@ module Twitter
     # @return [Array<Twitter::User>]
     # @param query [String] The search query to run against people search.
     # @param options [Hash] A customizable set of options.
-    # @option options [Integer] :per_page The number of people to retrieve. Maxiumum of 20 allowed per page.
+    # @option options [Integer] :count The number of people to retrieve. Maxiumum of 20 allowed per page.
     # @option options [Integer] :page Specifies the page of results to retrieve.
     # @example Return users that match "Erik Michaels-Ober"
     #   Twitter.user_search("Erik Michaels-Ober")
