@@ -44,12 +44,12 @@ describe Twitter::API do
 
   describe "#direct_message_destroy" do
     before do
-      stub_delete("/1.1/direct_messages/destroy/1825785544.json").
+      stub_post("/1.1/direct_messages/destroy/1825785544.json").
         to_return(:body => fixture("direct_message.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
       @client.direct_message_destroy(1825785544)
-      a_delete("/1.1/direct_messages/destroy/1825785544.json").
+      a_post("/1.1/direct_messages/destroy/1825785544.json").
         should have_been_made
     end
     it "returns an array of deleted messages" do

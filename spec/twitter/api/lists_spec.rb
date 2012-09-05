@@ -679,14 +679,14 @@ describe Twitter::API do
   describe "#list_destroy" do
     context "with a screen name passed" do
       before do
-        stub_delete("/1.1/lists/destroy.json").
-          with(:query => {:owner_screen_name => 'sferik', :slug => 'presidents'}).
+        stub_post("/1.1/lists/destroy.json").
+          with(:body => {:owner_screen_name => 'sferik', :slug => 'presidents'}).
           to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.list_destroy("sferik", "presidents")
-        a_delete("/1.1/lists/destroy.json").
-          with(:query => {:owner_screen_name => 'sferik', :slug => 'presidents'}).
+        a_post("/1.1/lists/destroy.json").
+          with(:body => {:owner_screen_name => 'sferik', :slug => 'presidents'}).
           should have_been_made
       end
       it "returns the deleted list" do
@@ -699,41 +699,41 @@ describe Twitter::API do
       before do
         stub_get("/1.1/account/verify_credentials.json").
           to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-        stub_delete("/1.1/lists/destroy.json").
-          with(:query => {:owner_screen_name => 'sferik', :slug => 'presidents'}).
+        stub_post("/1.1/lists/destroy.json").
+          with(:body => {:owner_screen_name => 'sferik', :slug => 'presidents'}).
           to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.list_destroy("presidents")
-        a_delete("/1.1/lists/destroy.json").
-          with(:query => {:owner_screen_name => 'sferik', :slug => 'presidents'}).
+        a_post("/1.1/lists/destroy.json").
+          with(:body => {:owner_screen_name => 'sferik', :slug => 'presidents'}).
           should have_been_made
       end
     end
     context "with a list ID passed" do
       before do
-        stub_delete("/1.1/lists/destroy.json").
-          with(:query => {:owner_screen_name => 'sferik', :list_id => '12345678'}).
+        stub_post("/1.1/lists/destroy.json").
+          with(:body => {:owner_screen_name => 'sferik', :list_id => '12345678'}).
           to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.list_destroy("sferik", 12345678)
-        a_delete("/1.1/lists/destroy.json").
-          with(:query => {:owner_screen_name => 'sferik', :list_id => '12345678'}).
+        a_post("/1.1/lists/destroy.json").
+          with(:body => {:owner_screen_name => 'sferik', :list_id => '12345678'}).
           should have_been_made
       end
     end
     context "with a list object passed" do
       before do
-        stub_delete("/1.1/lists/destroy.json").
-          with(:query => {:owner_id => '7505382', :list_id => '12345678'}).
+        stub_post("/1.1/lists/destroy.json").
+          with(:body => {:owner_id => '7505382', :list_id => '12345678'}).
           to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         list = Twitter::List.new(:id => '12345678', :user => {:id => 7505382, :screen_name => 'sferik'})
         @client.list_destroy(list)
-        a_delete("/1.1/lists/destroy.json").
-          with(:query => {:owner_id => '7505382', :list_id => '12345678'}).
+        a_post("/1.1/lists/destroy.json").
+          with(:body => {:owner_id => '7505382', :list_id => '12345678'}).
           should have_been_made
       end
     end

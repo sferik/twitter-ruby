@@ -105,6 +105,19 @@ describe Twitter::Client do
     end
   end
 
+  describe "#delete" do
+    before do
+      stub_delete("/custom/delete").
+        with(:query => {:deleted => "object"})
+    end
+    it "allows custom put requests" do
+      subject.delete("/custom/delete", {:deleted => "object"})
+      a_delete("/custom/delete").
+        with(:query => {:deleted => "object"}).
+        should have_been_made
+    end
+  end
+
   describe "#put" do
     before do
       stub_put("/custom/put").

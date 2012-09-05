@@ -412,7 +412,7 @@ module Twitter
     #   @param ids [Array<Integer>, Set<Integer>] An array of Tweet IDs.
     #   @param options [Hash] A customizable set of options.
     def direct_message_destroy(*args)
-      destroy(Twitter::DirectMessage, :delete, "/1.1/direct_messages/destroy", args)
+      destroy(Twitter::DirectMessage, :post, "/1.1/direct_messages/destroy", args)
     end
 
     # Sends a new direct message to the specified user from the authenticating user
@@ -691,7 +691,7 @@ module Twitter
     #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
     #   @param options [Hash] A customizable set of options.
     def unfollow(*args)
-      threaded_users_from_response(:delete, "/1.1/friendships/destroy.json", args)
+      threaded_users_from_response(:post, "/1.1/friendships/destroy.json", args)
     end
     alias friendship_destroy unfollow
 
@@ -1337,7 +1337,7 @@ module Twitter
     #     Twitter.list_destroy(7505382, 'presidents')
     #     Twitter.list_destroy(7505382, 8863586)
     def list_destroy(*args)
-      list_from_response(:delete, "/1.1/lists/destroy.json", args)
+      list_from_response(:post, "/1.1/lists/destroy.json", args)
     end
 
     # Updates the specified list
@@ -1576,7 +1576,7 @@ module Twitter
     #   @param ids [Array<Integer>, Set<Integer>] An array of Tweet IDs.
     #   @param options [Hash] A customizable set of options.
     def saved_search_destroy(*args)
-      destroy(Twitter::SavedSearch, :delete, "/1.1/saved_searches/destroy", args)
+      destroy(Twitter::SavedSearch, :post, "/1.1/saved_searches/destroy", args)
     end
 
     # Returns tweets that match a specified query.
@@ -1689,7 +1689,7 @@ module Twitter
     #   @param ids [Array<Integer>, Set<Integer>] An array of Tweet IDs.
     #   @param options [Hash] A customizable set of options.
     def unfavorite(*args)
-      threaded_tweets_from_response(:delete, "/1.1/favorites/destroy", args)
+      threaded_tweets_from_response(:post, "/1.1/favorites/destroy", args)
     end
     alias favorite_destroy unfavorite
 
@@ -2092,7 +2092,7 @@ module Twitter
     #   @param options [Hash] A customizable set of options.
     #   @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
     def status_destroy(*args)
-      threaded_tweets_from_response(:delete, "/1.1/statuses/destroy", args)
+      threaded_tweets_from_response(:post, "/1.1/statuses/destroy", args)
     end
     alias tweet_destroy status_destroy
 
@@ -2310,7 +2310,7 @@ module Twitter
     #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
     #   @param options [Hash] A customizable set of options.
     def unblock(*args)
-      threaded_users_from_response(:delete, "/1.1/blocks/destroy.json", args)
+      threaded_users_from_response(:post, "/1.1/blocks/destroy.json", args)
     end
 
     # @return [Array<Twitter::Suggestion>]

@@ -403,14 +403,14 @@ describe Twitter::API do
 
   describe "#unfollow" do
     before do
-      stub_delete("/1.1/friendships/destroy.json").
-        with(:query => {:screen_name => "sferik"}).
+      stub_post("/1.1/friendships/destroy.json").
+        with(:body => {:screen_name => "sferik"}).
         to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
       @client.unfollow("sferik")
-      a_delete("/1.1/friendships/destroy.json").
-        with(:query => {:screen_name => "sferik"}).
+      a_post("/1.1/friendships/destroy.json").
+        with(:body => {:screen_name => "sferik"}).
         should have_been_made
     end
     it "returns an array of unfollowed users" do

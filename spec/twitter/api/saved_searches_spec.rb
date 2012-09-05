@@ -81,12 +81,12 @@ describe Twitter::API do
 
   describe "#saved_search_destroy" do
     before do
-      stub_delete("/1.1/saved_searches/destroy/16129012.json").
+      stub_post("/1.1/saved_searches/destroy/16129012.json").
         to_return(:body => fixture("saved_search.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
       @client.saved_search_destroy(16129012)
-      a_delete("/1.1/saved_searches/destroy/16129012.json").
+      a_post("/1.1/saved_searches/destroy/16129012.json").
         should have_been_made
     end
     it "returns an array of deleted saved searches" do

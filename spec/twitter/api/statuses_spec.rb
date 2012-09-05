@@ -63,12 +63,12 @@ describe Twitter::API do
 
   describe "#unfavorite" do
     before do
-      stub_delete("/1.1/favorites/destroy/25938088801.json").
+      stub_post("/1.1/favorites/destroy/25938088801.json").
         to_return(:body => fixture("status.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
       @client.unfavorite(25938088801)
-      a_delete("/1.1/favorites/destroy/25938088801.json").
+      a_post("/1.1/favorites/destroy/25938088801.json").
         should have_been_made
     end
     it "returns an array of un-favorited Tweets" do
@@ -437,12 +437,12 @@ describe Twitter::API do
 
   describe "#status_destroy" do
     before do
-      stub_delete("/1.1/statuses/destroy/25938088801.json").
+      stub_post("/1.1/statuses/destroy/25938088801.json").
         to_return(:body => fixture("status.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
       @client.status_destroy(25938088801)
-      a_delete("/1.1/statuses/destroy/25938088801.json").
+      a_post("/1.1/statuses/destroy/25938088801.json").
         should have_been_made
     end
     it "returns an array of Tweets" do
