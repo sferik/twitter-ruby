@@ -8,13 +8,13 @@ describe Twitter::API do
 
   describe "#report_spam" do
     before do
-      stub_post("/1/report_spam.json").
+      stub_post("/1.1/report_spam.json").
         with(:body => {:screen_name => "sferik"}).
         to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
       @client.report_spam("sferik")
-      a_post("/1/report_spam.json").
+      a_post("/1.1/report_spam.json").
         with(:body => {:screen_name => "sferik"}).
         should have_been_made
     end

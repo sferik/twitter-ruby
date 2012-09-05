@@ -73,11 +73,11 @@ describe Twitter::Client do
   end
 
   it "does not cache the screen name across clients" do
-    stub_get("/1/account/verify_credentials.json").
+    stub_get("/1.1/account/verify_credentials.json").
       to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     client1 = Twitter::Client.new
     client1.verify_credentials.id.should eq 7505382
-    stub_get("/1/account/verify_credentials.json").
+    stub_get("/1.1/account/verify_credentials.json").
       to_return(:body => fixture("pengwynn.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     client2 = Twitter::Client.new
     client2.verify_credentials.id.should eq 14100886
@@ -141,19 +141,19 @@ describe Twitter::Client do
 
   describe "#request" do
     it "encodes the entire body when no uploaded media is present" do
-      stub_post("/1/statuses/update.json").
+      stub_post("/1.1/statuses/update.json").
         with(:body => {:status => "Update"}).
         to_return(:body => fixture("status.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       subject.update("Update")
-      a_post("/1/statuses/update.json").
+      a_post("/1.1/statuses/update.json").
         with(:body => {:status => "Update"}).
         should have_been_made
     end
     it "encodes none of the body when uploaded media is present" do
-      stub_post("/1/statuses/update_with_media.json", "https://upload.twitter.com").
+      stub_post("/1.1/statuses/update_with_media.json", "https://upload.twitter.com").
         to_return(:body => fixture("status_with_media.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       subject.update_with_media("Update", fixture("pbjt.gif"))
-      a_post("/1/statuses/update_with_media.json", "https://upload.twitter.com").
+      a_post("/1.1/statuses/update_with_media.json", "https://upload.twitter.com").
         should have_been_made
     end
     it "catches Faraday errors" do
@@ -172,7 +172,7 @@ describe Twitter::Client do
 
   describe "#auth_header" do
     it "creates the correct auth headers" do
-      uri = URI("https://api.twitter.com/1/direct_messages.json")
+      uri = URI("https://api.twitter.com/1.1/direct_messages.json")
       authorization = subject.auth_header(:get, uri)
       authorization.options[:signature_method].should eq "HMAC-SHA1"
       authorization.options[:version].should eq "1.0"

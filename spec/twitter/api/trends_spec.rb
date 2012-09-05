@@ -9,12 +9,12 @@ describe Twitter::API do
   describe "#local_trends" do
     context "with woeid passed" do
       before do
-        stub_get("/1/trends/2487956.json").
+        stub_get("/1.1/trends/2487956.json").
           to_return(:body => fixture("matching_trends.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.local_trends(2487956)
-        a_get("/1/trends/2487956.json").
+        a_get("/1.1/trends/2487956.json").
           should have_been_made
       end
       it "returns the top 10 trending topics for a specific WOEID" do
@@ -26,12 +26,12 @@ describe Twitter::API do
     end
     context "without arguments passed" do
       before do
-        stub_get("/1/trends/1.json").
+        stub_get("/1.1/trends/1.json").
           to_return(:body => fixture("matching_trends.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.local_trends
-        a_get("/1/trends/1.json").
+        a_get("/1.1/trends/1.json").
           should have_been_made
       end
     end
@@ -39,12 +39,12 @@ describe Twitter::API do
 
   describe "#trend_locations" do
     before do
-      stub_get("/1/trends/available.json").
+      stub_get("/1.1/trends/available.json").
         to_return(:body => fixture("locations.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
       @client.trend_locations
-      a_get("/1/trends/available.json").
+      a_get("/1.1/trends/available.json").
         should have_been_made
     end
     it "returns the locations that Twitter has trending topic information for" do
@@ -57,13 +57,13 @@ describe Twitter::API do
 
   describe "#trends_daily" do
     before do
-      stub_get("/1/trends/daily.json").
+      stub_get("/1.1/trends/daily.json").
         with(:query => {:date => "2010-10-24"}).
         to_return(:body => fixture("trends_daily.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
       @client.trends_daily(Date.parse("2010-10-24"))
-      a_get("/1/trends/daily.json").
+      a_get("/1.1/trends/daily.json").
         with(:query => {:date => "2010-10-24"}).
         should have_been_made
     end
@@ -78,13 +78,13 @@ describe Twitter::API do
 
   describe "#trends_weekly" do
     before do
-      stub_get("/1/trends/weekly.json").
+      stub_get("/1.1/trends/weekly.json").
         with(:query => {:date => "2010-10-24"}).
         to_return(:body => fixture("trends_weekly.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
       @client.trends_weekly(Date.parse("2010-10-24"))
-      a_get("/1/trends/weekly.json").
+      a_get("/1.1/trends/weekly.json").
         with(:query => {:date => "2010-10-24"}).
         should have_been_made
     end

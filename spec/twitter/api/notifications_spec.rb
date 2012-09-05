@@ -8,13 +8,13 @@ describe Twitter::API do
 
   describe "#enable_notifications" do
     before do
-      stub_post("/1/notifications/follow.json").
+      stub_post("/1.1/notifications/follow.json").
         with(:body => {:screen_name => "sferik"}).
         to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
       @client.enable_notifications("sferik")
-      a_post("/1/notifications/follow.json").
+      a_post("/1.1/notifications/follow.json").
         with(:body => {:screen_name => "sferik"}).
         should have_been_made
     end
@@ -28,13 +28,13 @@ describe Twitter::API do
 
   describe "#disable_notifications" do
     before do
-      stub_post("/1/notifications/leave.json").
+      stub_post("/1.1/notifications/leave.json").
         with(:body => {:screen_name => "sferik"}).
         to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
       @client.disable_notifications("sferik")
-      a_post("/1/notifications/leave.json").
+      a_post("/1.1/notifications/leave.json").
         with(:body => {:screen_name => "sferik"}).
         should have_been_made
     end

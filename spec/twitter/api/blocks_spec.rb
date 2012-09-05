@@ -8,12 +8,12 @@ describe Twitter::API do
 
   describe "#blocking" do
     before do
-      stub_get("/1/blocks/blocking.json").
+      stub_get("/1.1/blocks/blocking.json").
         to_return(:body => fixture("users.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
       @client.blocking
-      a_get("/1/blocks/blocking.json").
+      a_get("/1.1/blocks/blocking.json").
         should have_been_made
     end
     it "returns an array of user objects that the authenticating user is blocking" do
@@ -26,12 +26,12 @@ describe Twitter::API do
 
   describe "#blocked_ids" do
     before do
-      stub_get("/1/blocks/blocking/ids.json").
+      stub_get("/1.1/blocks/blocking/ids.json").
         to_return(:body => fixture("ids.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
       @client.blocked_ids
-      a_get("/1/blocks/blocking/ids.json").
+      a_get("/1.1/blocks/blocking/ids.json").
         should have_been_made
     end
     it "returns an array of numeric user IDs the authenticating user is blocking" do
@@ -43,16 +43,16 @@ describe Twitter::API do
 
   describe "#block?" do
     before do
-      stub_get("/1/blocks/exists.json").
+      stub_get("/1.1/blocks/exists.json").
         with(:query => {:screen_name => "sferik"}).
         to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-      stub_get("/1/blocks/exists.json").
+      stub_get("/1.1/blocks/exists.json").
         with(:query => {:screen_name => "pengwynn"}).
         to_return(:body => fixture("not_found.json"), :status => 404, :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
       @client.block?("sferik")
-      a_get("/1/blocks/exists.json").
+      a_get("/1.1/blocks/exists.json").
         with(:query => {:screen_name => "sferik"}).
         should have_been_made
     end
@@ -68,13 +68,13 @@ describe Twitter::API do
 
   describe "#block" do
     before do
-      stub_post("/1/blocks/create.json").
+      stub_post("/1.1/blocks/create.json").
         with(:body => {:screen_name => "sferik"}).
         to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
       @client.block("sferik")
-      a_post("/1/blocks/create.json").
+      a_post("/1.1/blocks/create.json").
         should have_been_made
     end
     it "returns an array of blocked users" do
@@ -87,13 +87,13 @@ describe Twitter::API do
 
   describe "#unblock" do
     before do
-      stub_delete("/1/blocks/destroy.json").
+      stub_delete("/1.1/blocks/destroy.json").
         with(:query => {:screen_name => "sferik"}).
         to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
       @client.unblock("sferik")
-      a_delete("/1/blocks/destroy.json").
+      a_delete("/1.1/blocks/destroy.json").
         with(:query => {:screen_name => "sferik"}).
         should have_been_made
     end

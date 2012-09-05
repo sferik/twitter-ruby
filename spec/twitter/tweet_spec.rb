@@ -155,13 +155,13 @@ describe Twitter::Tweet do
 
   describe "#oembed" do
     before do
-      stub_get("/1/statuses/oembed.json?id=25938088801").
+      stub_get("/1.1/statuses/oembed.json?id=25938088801").
         to_return(:body => fixture("oembed.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       @tweet = Twitter::Tweet.new(:id => 25938088801)
     end
     it "requests the correct resource" do
       @tweet.oembed
-      a_get("/1/statuses/oembed.json?id=25938088801").
+      a_get("/1.1/statuses/oembed.json?id=25938088801").
         should have_been_made
     end
     it "returns an OEmbed instance" do

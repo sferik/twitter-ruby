@@ -8,12 +8,12 @@ describe Twitter::API do
 
   describe "#configuration" do
     before do
-      stub_get("/1/help/configuration.json").
+      stub_get("/1.1/help/configuration.json").
         to_return(:body => fixture("configuration.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
       @client.configuration
-      a_get("/1/help/configuration.json").
+      a_get("/1.1/help/configuration.json").
         should have_been_made
     end
     it "returns Twitter's current configuration" do
@@ -25,12 +25,12 @@ describe Twitter::API do
 
   describe "#languages" do
     before do
-      stub_get("/1/help/languages.json").
+      stub_get("/1.1/help/languages.json").
         to_return(:body => fixture("languages.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
       @client.languages
-      a_get("/1/help/languages.json").
+      a_get("/1.1/help/languages.json").
         should have_been_made
     end
     it "returns the list of languages supported by Twitter" do

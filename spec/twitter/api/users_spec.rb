@@ -9,12 +9,12 @@ describe Twitter::API do
   describe "#suggestions" do
     context "with a category slug passed" do
       before do
-        stub_get("/1/users/suggestions/art-design.json").
+        stub_get("/1.1/users/suggestions/art-design.json").
           to_return(:body => fixture("category.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.suggestions("art-design")
-        a_get("/1/users/suggestions/art-design.json").
+        a_get("/1.1/users/suggestions/art-design.json").
           should have_been_made
       end
       it "returns the users in a given category of the Twitter suggested user list" do
@@ -27,12 +27,12 @@ describe Twitter::API do
     end
     context "without arguments passed" do
       before do
-        stub_get("/1/users/suggestions.json").
+        stub_get("/1.1/users/suggestions.json").
           to_return(:body => fixture("suggestions.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.suggestions
-        a_get("/1/users/suggestions.json").
+        a_get("/1.1/users/suggestions.json").
           should have_been_made
       end
       it "returns the list of suggested user categories" do
@@ -46,12 +46,12 @@ describe Twitter::API do
 
   describe "#suggest_users" do
     before do
-      stub_get("/1/users/suggestions/art-design/members.json").
+      stub_get("/1.1/users/suggestions/art-design/members.json").
         to_return(:body => fixture("members.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
       @client.suggest_users("art-design")
-      a_get("/1/users/suggestions/art-design/members.json").
+      a_get("/1.1/users/suggestions/art-design/members.json").
         should have_been_made
     end
     it "returns users in a given category of the Twitter suggested user list and return their most recent status if they are not a protected user" do
@@ -65,13 +65,13 @@ describe Twitter::API do
   describe "#users" do
     context "with screen names passed" do
       before do
-        stub_get("/1/users/lookup.json").
+        stub_get("/1.1/users/lookup.json").
           with(:query => {:screen_name => "sferik,pengwynn"}).
           to_return(:body => fixture("users.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.users("sferik", "pengwynn")
-        a_get("/1/users/lookup.json").
+        a_get("/1.1/users/lookup.json").
           with(:query => {:screen_name => "sferik,pengwynn"}).
           should have_been_made
       end
@@ -84,46 +84,46 @@ describe Twitter::API do
     end
     context "with numeric screen names passed" do
       before do
-        stub_get("/1/users/lookup.json").
+        stub_get("/1.1/users/lookup.json").
           with(:query => {:screen_name => "0,311"}).
           to_return(:body => fixture("users.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.users("0", "311")
-        a_get("/1/users/lookup.json").
+        a_get("/1.1/users/lookup.json").
           with(:query => {:screen_name => "0,311"}).
           should have_been_made
       end
     end
     context "with user IDs passed" do
       before do
-        stub_get("/1/users/lookup.json").
+        stub_get("/1.1/users/lookup.json").
           with(:query => {:user_id => "7505382,14100886"}).
           to_return(:body => fixture("users.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.users(7505382, 14100886)
-        a_get("/1/users/lookup.json").
+        a_get("/1.1/users/lookup.json").
           with(:query => {:user_id => "7505382,14100886"}).
           should have_been_made
       end
     end
     context "with both screen names and user IDs passed" do
       before do
-        stub_get("/1/users/lookup.json").
+        stub_get("/1.1/users/lookup.json").
           with(:query => {:screen_name => "sferik", :user_id => "14100886"}).
           to_return(:body => fixture("users.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.users("sferik", 14100886)
-        a_get("/1/users/lookup.json").
+        a_get("/1.1/users/lookup.json").
           with(:query => {:screen_name => "sferik", :user_id => "14100886"}).
           should have_been_made
       end
     end
     context "with user objects passed" do
       before do
-        stub_get("/1/users/lookup.json").
+        stub_get("/1.1/users/lookup.json").
           with(:query => {:user_id => "7505382,14100886"}).
           to_return(:body => fixture("users.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
@@ -131,7 +131,7 @@ describe Twitter::API do
         user1 = Twitter::User.new(:id => '7505382')
         user2 = Twitter::User.new(:id => '14100886')
         @client.users(user1, user2)
-        a_get("/1/users/lookup.json").
+        a_get("/1.1/users/lookup.json").
           with(:query => {:user_id => "7505382,14100886"}).
           should have_been_made
       end
@@ -140,13 +140,13 @@ describe Twitter::API do
 
   describe "#user_search" do
     before do
-      stub_get("/1/users/search.json").
+      stub_get("/1.1/users/search.json").
         with(:query => {:q => "Erik Michaels-Ober"}).
         to_return(:body => fixture("user_search.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
       @client.user_search("Erik Michaels-Ober")
-      a_get("/1/users/search.json").
+      a_get("/1.1/users/search.json").
         with(:query => {:q => "Erik Michaels-Ober"}).
         should have_been_made
     end
@@ -161,13 +161,13 @@ describe Twitter::API do
   describe "#user" do
     context "with a screen name passed" do
       before do
-        stub_get("/1/users/show.json").
+        stub_get("/1.1/users/show.json").
           with(:query => {:screen_name => "sferik"}).
           to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.user("sferik")
-        a_get("/1/users/show.json").
+        a_get("/1.1/users/show.json").
           with(:query => {:screen_name => "sferik"}).
           should have_been_made
       end
@@ -179,53 +179,53 @@ describe Twitter::API do
     end
     context "with a screen name including '@' passed" do
       before do
-        stub_get("/1/users/show.json").
+        stub_get("/1.1/users/show.json").
           with(:query => {:screen_name => "@sferik"}).
           to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.user("@sferik")
-        a_get("/1/users/show.json").
+        a_get("/1.1/users/show.json").
           with(:query => {:screen_name => "@sferik"}).
           should have_been_made
       end
     end
     context "with a numeric screen name passed" do
       before do
-        stub_get("/1/users/show.json").
+        stub_get("/1.1/users/show.json").
           with(:query => {:screen_name => "0"}).
           to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.user("0")
-        a_get("/1/users/show.json").
+        a_get("/1.1/users/show.json").
           with(:query => {:screen_name => "0"}).
           should have_been_made
       end
     end
     context "with a user ID passed" do
       before do
-        stub_get("/1/users/show.json").
+        stub_get("/1.1/users/show.json").
           with(:query => {:user_id => "7505382"}).
           to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.user(7505382)
-        a_get("/1/users/show.json").
+        a_get("/1.1/users/show.json").
           with(:query => {:user_id => "7505382"}).
           should have_been_made
       end
     end
     context "with a user object passed" do
       before do
-        stub_get("/1/users/show.json").
+        stub_get("/1.1/users/show.json").
           with(:query => {:user_id => "7505382"}).
           to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         user = Twitter::User.new(:id => 7505382)
         @client.user(user)
-        a_get("/1/users/show.json").
+        a_get("/1.1/users/show.json").
           with(:query => {:user_id => "7505382"}).
           should have_been_made
       end
@@ -234,24 +234,24 @@ describe Twitter::API do
   context "without a screen name or user ID passed" do
     context "without options passed" do
       before do
-        stub_get("/1/account/verify_credentials.json").
+        stub_get("/1.1/account/verify_credentials.json").
           to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.user
-        a_get("/1/account/verify_credentials.json").
+        a_get("/1.1/account/verify_credentials.json").
           should have_been_made
       end
     end
     context "with options passed" do
       before do
-        stub_get("/1/account/verify_credentials.json").
+        stub_get("/1.1/account/verify_credentials.json").
           with(:query => {:skip_status => "true"}).
           to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.user(:skip_status => true)
-        a_get("/1/account/verify_credentials.json").
+        a_get("/1.1/account/verify_credentials.json").
           with(:query => {:skip_status => "true"}).
           should have_been_made
       end
@@ -260,16 +260,16 @@ describe Twitter::API do
 
   describe "#user?" do
     before do
-      stub_get("/1/users/show.json").
+      stub_get("/1.1/users/show.json").
         with(:query => {:screen_name => "sferik"}).
         to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-      stub_get("/1/users/show.json").
+      stub_get("/1.1/users/show.json").
         with(:query => {:screen_name => "pengwynn"}).
         to_return(:body => fixture("not_found.json"), :status => 404, :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
       @client.user?("sferik")
-      a_get("/1/users/show.json").
+      a_get("/1.1/users/show.json").
         with(:query => {:screen_name => "sferik"}).
         should have_been_made
     end
@@ -286,13 +286,13 @@ describe Twitter::API do
   describe "#contributees" do
     context "with a screen name passed" do
       before do
-        stub_get("/1/users/contributees.json").
+        stub_get("/1.1/users/contributees.json").
           with(:query => {:screen_name => "sferik"}).
           to_return(:body => fixture("contributees.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.contributees("sferik")
-        a_get("/1/users/contributees.json").
+        a_get("/1.1/users/contributees.json").
           with(:query => {:screen_name => "sferik"}).
           should have_been_made
       end
@@ -305,15 +305,15 @@ describe Twitter::API do
     end
     context "without arguments passed" do
       before do
-        stub_get("/1/account/verify_credentials.json").
+        stub_get("/1.1/account/verify_credentials.json").
           to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-        stub_get("/1/users/contributees.json").
+        stub_get("/1.1/users/contributees.json").
           with(:query => {:screen_name => "sferik"}).
           to_return(:body => fixture("contributees.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.contributees
-        a_get("/1/users/contributees.json").
+        a_get("/1.1/users/contributees.json").
           with(:query => {:screen_name => "sferik"}).
           should have_been_made
       end
@@ -329,15 +329,15 @@ describe Twitter::API do
   describe "#contributors" do
     context "with a screen name passed" do
       before do
-        stub_get("/1/account/verify_credentials.json").
+        stub_get("/1.1/account/verify_credentials.json").
           to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-        stub_get("/1/users/contributors.json").
+        stub_get("/1.1/users/contributors.json").
           with(:query => {:screen_name => "sferik"}).
           to_return(:body => fixture("contributors.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.contributors("sferik")
-        a_get("/1/users/contributors.json").
+        a_get("/1.1/users/contributors.json").
           with(:query => {:screen_name => "sferik"}).
           should have_been_made
       end
@@ -350,15 +350,15 @@ describe Twitter::API do
     end
     context "without arguments passed" do
       before do
-        stub_get("/1/account/verify_credentials.json").
+        stub_get("/1.1/account/verify_credentials.json").
           to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-        stub_get("/1/users/contributors.json").
+        stub_get("/1.1/users/contributors.json").
           with(:query => {:screen_name => "sferik"}).
           to_return(:body => fixture("contributors.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.contributors
-        a_get("/1/users/contributors.json").
+        a_get("/1.1/users/contributors.json").
           with(:query => {:screen_name => "sferik"}).
           should have_been_made
       end
@@ -374,13 +374,13 @@ describe Twitter::API do
   describe "#recommendations" do
     context "with a screen name passed" do
       before do
-        stub_get("/1/users/recommendations.json").
+        stub_get("/1.1/users/recommendations.json").
           with(:query => {:screen_name => "sferik"}).
           to_return(:body => fixture("recommendations.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.recommendations("sferik")
-        a_get("/1/users/recommendations.json").
+        a_get("/1.1/users/recommendations.json").
           with(:query => {:screen_name => "sferik"}).
           should have_been_made
       end
@@ -393,17 +393,17 @@ describe Twitter::API do
     end
     context "without arguments passed" do
       before do
-        stub_get("/1/account/verify_credentials.json").
+        stub_get("/1.1/account/verify_credentials.json").
           to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-        stub_get("/1/users/recommendations.json").
+        stub_get("/1.1/users/recommendations.json").
           with(:query => {:screen_name => "sferik"}).
           to_return(:body => fixture("recommendations.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.recommendations
-        a_get("/1/account/verify_credentials.json").
+        a_get("/1.1/account/verify_credentials.json").
           should have_been_made
-        a_get("/1/users/recommendations.json").
+        a_get("/1.1/users/recommendations.json").
           with(:query => {:screen_name => "sferik"}).
           should have_been_made
       end
@@ -438,7 +438,7 @@ describe Twitter::API do
     end
     context "without arguments passed" do
       before do
-        stub_get("/1/account/verify_credentials.json").
+        stub_get("/1.1/account/verify_credentials.json").
           to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
         stub_get("/users/following_followers_of.json").
           with(:query => {:cursor => "-1", :screen_name => "sferik"}).
@@ -446,7 +446,7 @@ describe Twitter::API do
       end
       it "requests the correct resource" do
         @client.following_followers_of
-        a_get("/1/account/verify_credentials.json").
+        a_get("/1.1/account/verify_credentials.json").
           should have_been_made
         a_get("/users/following_followers_of.json").
           with(:query => {:cursor => "-1", :screen_name => "sferik"}).

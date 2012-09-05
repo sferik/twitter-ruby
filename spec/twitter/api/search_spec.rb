@@ -10,7 +10,7 @@ describe Twitter::API do
     before do
       stub_get("/search.json", "https://search.twitter.com").
         with(:query => {:q => "twitter"}).
-        to_return(:body => fixture("/search.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        to_return(:body => fixture("search.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
       @client.search('twitter')

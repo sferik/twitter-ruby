@@ -9,12 +9,12 @@ describe Twitter::API do
   describe "#favorites" do
     context "with a screen name passed" do
       before do
-        stub_get("/1/favorites/sferik.json").
+        stub_get("/1.1/favorites/sferik.json").
           to_return(:body => fixture("favorites.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.favorites("sferik")
-        a_get("/1/favorites/sferik.json").
+        a_get("/1.1/favorites/sferik.json").
           should have_been_made
       end
       it "returns the 20 most recent favorite Tweets for the authenticating user or user specified by the ID parameter" do
@@ -26,12 +26,12 @@ describe Twitter::API do
     end
     context "without arguments passed" do
       before do
-        stub_get("/1/favorites.json").
+        stub_get("/1.1/favorites.json").
           to_return(:body => fixture("favorites.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.favorites
-        a_get("/1/favorites.json").
+        a_get("/1.1/favorites.json").
           should have_been_made
       end
       it "returns the 20 most recent favorite Tweets for the authenticating user or user specified by the ID parameter" do
@@ -45,12 +45,12 @@ describe Twitter::API do
 
   describe "#favorite" do
     before do
-      stub_post("/1/favorites/create/25938088801.json").
+      stub_post("/1.1/favorites/create/25938088801.json").
         to_return(:body => fixture("status.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
       @client.favorite(25938088801)
-      a_post("/1/favorites/create/25938088801.json").
+      a_post("/1.1/favorites/create/25938088801.json").
         should have_been_made
     end
     it "returns an array of favorited Tweets" do
@@ -63,12 +63,12 @@ describe Twitter::API do
 
   describe "#unfavorite" do
     before do
-      stub_delete("/1/favorites/destroy/25938088801.json").
+      stub_delete("/1.1/favorites/destroy/25938088801.json").
         to_return(:body => fixture("status.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
       @client.unfavorite(25938088801)
-      a_delete("/1/favorites/destroy/25938088801.json").
+      a_delete("/1.1/favorites/destroy/25938088801.json").
         should have_been_made
     end
     it "returns an array of un-favorited Tweets" do
@@ -81,12 +81,12 @@ describe Twitter::API do
 
   describe "#home_timeline" do
     before do
-      stub_get("/1/statuses/home_timeline.json").
+      stub_get("/1.1/statuses/home_timeline.json").
         to_return(:body => fixture("statuses.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
       @client.home_timeline
-      a_get("/1/statuses/home_timeline.json").
+      a_get("/1.1/statuses/home_timeline.json").
         should have_been_made
     end
     it "returns the 20 most recent Tweets, including retweets if they exist, posted by the authenticating user and the user's they follow" do
@@ -99,12 +99,12 @@ describe Twitter::API do
 
   describe "#mentions" do
     before do
-      stub_get("/1/statuses/mentions.json").
+      stub_get("/1.1/statuses/mentions.json").
         to_return(:body => fixture("statuses.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
       @client.mentions
-      a_get("/1/statuses/mentions.json").
+      a_get("/1.1/statuses/mentions.json").
         should have_been_made
     end
     it "returns the 20 most recent mentions (status containing @username) for the authenticating user" do
@@ -117,13 +117,13 @@ describe Twitter::API do
 
   describe "#retweeted_by_user" do
     before do
-      stub_get("/1/statuses/retweeted_by_user.json").
+      stub_get("/1.1/statuses/retweeted_by_user.json").
         with(:query => {:screen_name => "sferik"}).
         to_return(:body => fixture("statuses.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
       @client.retweeted_by_user("sferik")
-      a_get("/1/statuses/retweeted_by_user.json").
+      a_get("/1.1/statuses/retweeted_by_user.json").
         with(:query => {:screen_name => "sferik"}).
         should have_been_made
     end
@@ -137,12 +137,12 @@ describe Twitter::API do
 
   describe "retweeted_by_me" do
     before do
-      stub_get("/1/statuses/retweeted_by_me.json").
+      stub_get("/1.1/statuses/retweeted_by_me.json").
         to_return(:body => fixture("statuses.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
       @client.retweeted_by_me
-      a_get("/1/statuses/retweeted_by_me.json").
+      a_get("/1.1/statuses/retweeted_by_me.json").
         should have_been_made
     end
     it "returns the 20 most recent retweets posted by the authenticating user" do
@@ -155,13 +155,13 @@ describe Twitter::API do
 
   describe "#retweeted_to_user" do
     before do
-      stub_get("/1/statuses/retweeted_to_user.json").
+      stub_get("/1.1/statuses/retweeted_to_user.json").
         with(:query => {:screen_name => "sferik"}).
         to_return(:body => fixture("statuses.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
       @client.retweeted_to_user("sferik")
-      a_get("/1/statuses/retweeted_to_user.json").
+      a_get("/1.1/statuses/retweeted_to_user.json").
         with(:query => {:screen_name => "sferik"}).
         should have_been_made
     end
@@ -175,12 +175,12 @@ describe Twitter::API do
 
   describe "#retweeted_to_me" do
     before do
-      stub_get("/1/statuses/retweeted_to_me.json").
+      stub_get("/1.1/statuses/retweeted_to_me.json").
         to_return(:body => fixture("statuses.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
       @client.retweeted_to_me
-      a_get("/1/statuses/retweeted_to_me.json").
+      a_get("/1.1/statuses/retweeted_to_me.json").
         should have_been_made
     end
     it "returns the 20 most recent retweets posted by users the authenticating user follow" do
@@ -193,12 +193,12 @@ describe Twitter::API do
 
   describe "#retweets_of_me" do
     before do
-      stub_get("/1/statuses/retweets_of_me.json").
+      stub_get("/1.1/statuses/retweets_of_me.json").
         to_return(:body => fixture("statuses.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
       @client.retweets_of_me
-      a_get("/1/statuses/retweets_of_me.json").
+      a_get("/1.1/statuses/retweets_of_me.json").
         should have_been_made
     end
     it "returns the 20 most recent tweets of the authenticated user that have been retweeted by others" do
@@ -212,13 +212,13 @@ describe Twitter::API do
   describe "#user_timeline" do
     context "with a screen name passed" do
       before do
-        stub_get("/1/statuses/user_timeline.json").
+        stub_get("/1.1/statuses/user_timeline.json").
           with(:query => {:screen_name => "sferik"}).
           to_return(:body => fixture("statuses.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.user_timeline("sferik")
-        a_get("/1/statuses/user_timeline.json").
+        a_get("/1.1/statuses/user_timeline.json").
           with(:query => {:screen_name => "sferik"}).
           should have_been_made
       end
@@ -231,12 +231,12 @@ describe Twitter::API do
     end
     context "without a screen name passed" do
       before do
-        stub_get("/1/statuses/user_timeline.json").
+        stub_get("/1.1/statuses/user_timeline.json").
           to_return(:body => fixture("statuses.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.user_timeline
-        a_get("/1/statuses/user_timeline.json").
+        a_get("/1.1/statuses/user_timeline.json").
           should have_been_made
       end
     end
@@ -245,13 +245,13 @@ describe Twitter::API do
   describe "#media_timeline" do
     context "with a screen name passed" do
       before do
-        stub_get("/1/statuses/media_timeline.json").
+        stub_get("/1.1/statuses/media_timeline.json").
           with(:query => {:screen_name => "sferik"}).
           to_return(:body => fixture("media_timeline.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.media_timeline("sferik")
-        a_get("/1/statuses/media_timeline.json").
+        a_get("/1.1/statuses/media_timeline.json").
           with(:query => {:screen_name => "sferik"}).
           should have_been_made
       end
@@ -264,12 +264,12 @@ describe Twitter::API do
     end
     context "without a screen name passed" do
       before do
-        stub_get("/1/statuses/media_timeline.json").
+        stub_get("/1.1/statuses/media_timeline.json").
           to_return(:body => fixture("media_timeline.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.media_timeline
-        a_get("/1/statuses/media_timeline.json").
+        a_get("/1.1/statuses/media_timeline.json").
           should have_been_made
       end
     end
@@ -296,12 +296,12 @@ describe Twitter::API do
   describe "#retweeters_of" do
     context "with ids_only passed" do
       before do
-        stub_get("/1/statuses/27467028175/retweeted_by/ids.json").
+        stub_get("/1.1/statuses/27467028175/retweeted_by/ids.json").
           to_return(:body => fixture("ids.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.retweeters_of(27467028175, :ids_only => true)
-        a_get("/1/statuses/27467028175/retweeted_by/ids.json").
+        a_get("/1.1/statuses/27467028175/retweeted_by/ids.json").
           should have_been_made
       end
       it "returns an array of numeric user IDs of retweeters of a Tweet" do
@@ -312,12 +312,12 @@ describe Twitter::API do
     end
     context "without ids_only passed" do
       before do
-        stub_get("/1/statuses/27467028175/retweeted_by.json").
+        stub_get("/1.1/statuses/27467028175/retweeted_by.json").
           to_return(:body => fixture("retweeters_of.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.retweeters_of(27467028175)
-        a_get("/1/statuses/27467028175/retweeted_by.json").
+        a_get("/1.1/statuses/27467028175/retweeted_by.json").
           should have_been_made
       end
       it "returns an array of user of retweeters of a Tweet" do
@@ -331,12 +331,12 @@ describe Twitter::API do
 
   describe "#retweets" do
     before do
-      stub_get("/1/statuses/retweets/28561922516.json").
+      stub_get("/1.1/statuses/retweets/28561922516.json").
         to_return(:body => fixture("retweets.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
       @client.retweets(28561922516)
-      a_get("/1/statuses/retweets/28561922516.json").
+      a_get("/1.1/statuses/retweets/28561922516.json").
         should have_been_made
     end
     it "returns up to 100 of the first retweets of a given tweet" do
@@ -349,12 +349,12 @@ describe Twitter::API do
 
   describe "#status" do
     before do
-      stub_get("/1/statuses/show/25938088801.json").
+      stub_get("/1.1/statuses/show/25938088801.json").
         to_return(:body => fixture("status.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
       @client.status(25938088801)
-      a_get("/1/statuses/show/25938088801.json").
+      a_get("/1.1/statuses/show/25938088801.json").
         should have_been_made
     end
     it "returns a Tweet" do
@@ -366,12 +366,12 @@ describe Twitter::API do
 
   describe "#statuses" do
     before do
-      stub_get("/1/statuses/show/25938088801.json").
+      stub_get("/1.1/statuses/show/25938088801.json").
         to_return(:body => fixture("status.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
       @client.statuses(25938088801)
-      a_get("/1/statuses/show/25938088801.json").
+      a_get("/1.1/statuses/show/25938088801.json").
         should have_been_made
     end
     it "returns an array of Tweets" do
@@ -384,12 +384,12 @@ describe Twitter::API do
 
   describe "#related_results" do
     before do
-      stub_get("/1/related_results/show/233338791128096768.json").
+      stub_get("/1.1/related_results/show/233338791128096768.json").
         to_return(:body => fixture("related_results.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
       @client.related_results(233338791128096768)
-      a_get("/1/related_results/show/233338791128096768.json").
+      a_get("/1.1/related_results/show/233338791128096768.json").
         should have_been_made
     end
     it "returns Tweets related to a given tweet" do
@@ -437,12 +437,12 @@ describe Twitter::API do
 
   describe "#status_destroy" do
     before do
-      stub_delete("/1/statuses/destroy/25938088801.json").
+      stub_delete("/1.1/statuses/destroy/25938088801.json").
         to_return(:body => fixture("status.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
       @client.status_destroy(25938088801)
-      a_delete("/1/statuses/destroy/25938088801.json").
+      a_delete("/1.1/statuses/destroy/25938088801.json").
         should have_been_made
     end
     it "returns an array of Tweets" do
@@ -455,12 +455,12 @@ describe Twitter::API do
 
   describe "#retweet" do
     before do
-      stub_post("/1/statuses/retweet/28561922516.json").
+      stub_post("/1.1/statuses/retweet/28561922516.json").
         to_return(:body => fixture("retweet.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
       @client.retweet(28561922516)
-      a_post("/1/statuses/retweet/28561922516.json").
+      a_post("/1.1/statuses/retweet/28561922516.json").
         should have_been_made
     end
     it "returns an array of Tweets with retweet details embedded" do
@@ -475,13 +475,13 @@ describe Twitter::API do
 
   describe "#tweet" do
     before do
-      stub_post("/1/statuses/update.json").
+      stub_post("/1.1/statuses/update.json").
         with(:body => {:status => "@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!"}).
         to_return(:body => fixture("status.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
       @client.update("@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!")
-      a_post("/1/statuses/update.json").
+      a_post("/1.1/statuses/update.json").
         with(:body => {:status => "@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!"}).
         should have_been_made
     end
@@ -494,13 +494,13 @@ describe Twitter::API do
 
   describe "#update_with_media" do
     before do
-      stub_post("/1/statuses/update_with_media.json", "https://upload.twitter.com").
+      stub_post("/1.1/statuses/update_with_media.json", "https://upload.twitter.com").
         to_return(:body => fixture("status_with_media.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     context "a gif image" do
       it "requests the correct resource" do
         @client.update_with_media("You always have options", fixture("pbjt.gif"))
-        a_post("/1/statuses/update_with_media.json", "https://upload.twitter.com").
+        a_post("/1.1/statuses/update_with_media.json", "https://upload.twitter.com").
           should have_been_made
       end
       it "returns a Tweet" do
@@ -512,28 +512,28 @@ describe Twitter::API do
     context "a jpe image" do
       it "requests the correct resource" do
         @client.update_with_media("You always have options", fixture("wildcomet2.jpe"))
-        a_post("/1/statuses/update_with_media.json", "https://upload.twitter.com").
+        a_post("/1.1/statuses/update_with_media.json", "https://upload.twitter.com").
           should have_been_made
       end
     end
     context "a jpeg image" do
       it "requests the correct resource" do
         @client.update_with_media("You always have options", fixture("me.jpeg"))
-        a_post("/1/statuses/update_with_media.json", "https://upload.twitter.com").
+        a_post("/1.1/statuses/update_with_media.json", "https://upload.twitter.com").
           should have_been_made
       end
     end
     context "a png image" do
       it "requests the correct resource" do
         @client.update_with_media("You always have options", fixture("we_concept_bg2.png"))
-        a_post("/1/statuses/update_with_media.json", "https://upload.twitter.com").
+        a_post("/1.1/statuses/update_with_media.json", "https://upload.twitter.com").
           should have_been_made
       end
     end
     context "a Tempfile" do
       it "requests the correct resource" do
         @client.update_with_media("You always have options", Tempfile.new("tmp"))
-        a_post("/1/statuses/update_with_media.json", "https://upload.twitter.com").
+        a_post("/1.1/statuses/update_with_media.json", "https://upload.twitter.com").
           should have_been_made
       end
     end
@@ -541,13 +541,13 @@ describe Twitter::API do
 
   describe "#oembed" do
     before do
-      stub_get("/1/statuses/oembed.json").
+      stub_get("/1.1/statuses/oembed.json").
         with(:query => {:id => "25938088801"}).
         to_return(:body => fixture("oembed.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
       @client.oembed(25938088801)
-      a_get("/1/statuses/oembed.json").
+      a_get("/1.1/statuses/oembed.json").
         with(:query => {:id => "25938088801"}).
         should have_been_made
     end
@@ -559,13 +559,13 @@ describe Twitter::API do
 
   describe "#oembeds" do
     before do
-      stub_get("/1/statuses/oembed.json").
+      stub_get("/1.1/statuses/oembed.json").
         with(:query => {:id => "25938088801"}).
         to_return(:body => fixture("oembed.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
       @client.oembeds(25938088801)
-      a_get("/1/statuses/oembed.json").
+      a_get("/1.1/statuses/oembed.json").
         with(:query => {:id => "25938088801"}).
         should have_been_made
     end

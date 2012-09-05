@@ -9,12 +9,12 @@ describe Twitter::API do
   describe "#saved_searches" do
     context "with ids passed" do
       before do
-        stub_get("/1/saved_searches/show/16129012.json").
+        stub_get("/1.1/saved_searches/show/16129012.json").
           to_return(:body => fixture("saved_search.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.saved_searches(16129012)
-        a_get("/1/saved_searches/show/16129012.json").
+        a_get("/1.1/saved_searches/show/16129012.json").
           should have_been_made
       end
       it "returns an array of saved searches" do
@@ -26,12 +26,12 @@ describe Twitter::API do
     end
     context "without ids passed" do
       before do
-        stub_get("/1/saved_searches.json").
+        stub_get("/1.1/saved_searches.json").
           to_return(:body => fixture("saved_searches.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.saved_searches
-        a_get("/1/saved_searches.json").
+        a_get("/1.1/saved_searches.json").
           should have_been_made
       end
       it "returns the authenticated user's saved search queries" do
@@ -45,12 +45,12 @@ describe Twitter::API do
 
   describe "#saved_search" do
     before do
-      stub_get("/1/saved_searches/show/16129012.json").
+      stub_get("/1.1/saved_searches/show/16129012.json").
         to_return(:body => fixture("saved_search.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
       @client.saved_search(16129012)
-      a_get("/1/saved_searches/show/16129012.json").
+      a_get("/1.1/saved_searches/show/16129012.json").
         should have_been_made
     end
     it "returns a saved search" do
@@ -62,13 +62,13 @@ describe Twitter::API do
 
   describe "#saved_search_create" do
     before do
-      stub_post("/1/saved_searches/create.json").
+      stub_post("/1.1/saved_searches/create.json").
         with(:body => {:query => "twitter"}).
         to_return(:body => fixture("saved_search.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
       @client.saved_search_create("twitter")
-      a_post("/1/saved_searches/create.json").
+      a_post("/1.1/saved_searches/create.json").
         with(:body => {:query => "twitter"}).
         should have_been_made
     end
@@ -81,12 +81,12 @@ describe Twitter::API do
 
   describe "#saved_search_destroy" do
     before do
-      stub_delete("/1/saved_searches/destroy/16129012.json").
+      stub_delete("/1.1/saved_searches/destroy/16129012.json").
         to_return(:body => fixture("saved_search.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
       @client.saved_search_destroy(16129012)
-      a_delete("/1/saved_searches/destroy/16129012.json").
+      a_delete("/1.1/saved_searches/destroy/16129012.json").
         should have_been_made
     end
     it "returns an array of deleted saved searches" do
