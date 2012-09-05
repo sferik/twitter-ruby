@@ -251,8 +251,8 @@ describe Twitter::API do
         stub_get("/1.1/friends/ids.json").
           with(:query => {:cursor => "-1"}).
           to_return(:body => fixture("id_list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-        stub_get("/1.1/users/lookup.json").
-          with(:query => {:screen_name => "sferik,pengwynn"}).
+        stub_post("/1.1/users/lookup.json").
+          with(:body => {:screen_name => "sferik,pengwynn"}).
           to_return(:body => fixture("friendships.json"), :headers => {:content_type => "application/json; charset=utf-8"})
         stub_post("/1.1/friendships/create.json").
           with(:body => {:user_id => "7505382", :follow => "true"}).
@@ -263,8 +263,8 @@ describe Twitter::API do
         a_get("/1.1/friends/ids.json").
           with(:query => {:cursor => "-1"}).
           should have_been_made
-        a_get("/1.1/users/lookup.json").
-          with(:query => {:screen_name => "sferik,pengwynn"}).
+        a_post("/1.1/users/lookup.json").
+          with(:body => {:screen_name => "sferik,pengwynn"}).
           should have_been_made
         a_post("/1.1/friendships/create.json").
           with(:body => {:user_id => "7505382", :follow => "true"}).
@@ -282,8 +282,8 @@ describe Twitter::API do
         stub_get("/1.1/friends/ids.json").
           with(:query => {:cursor => "-1"}).
           to_return(:body => fixture("id_list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-        stub_get("/1.1/users/lookup.json").
-          with(:query => {:screen_name => "sferik,pengwynn"}).
+        stub_post("/1.1/users/lookup.json").
+          with(:body => {:screen_name => "sferik,pengwynn"}).
           to_return(:body => fixture("friendships.json"), :headers => {:content_type => "application/json; charset=utf-8"})
         stub_post("/1.1/friendships/create.json").
           with(:body => {:user_id => "7505382"}).
@@ -294,8 +294,8 @@ describe Twitter::API do
         a_get("/1.1/friends/ids.json").
           with(:query => {:cursor => "-1"}).
           should have_been_made
-        a_get("/1.1/users/lookup.json").
-          with(:query => {:screen_name => "sferik,pengwynn"}).
+        a_post("/1.1/users/lookup.json").
+          with(:body => {:screen_name => "sferik,pengwynn"}).
           should have_been_made
         a_post("/1.1/friendships/create.json").
           with(:body => {:user_id => "7505382"}).
@@ -313,8 +313,8 @@ describe Twitter::API do
         stub_get("/1.1/friends/ids.json").
           with(:query => {:cursor => "-1"}).
           to_return(:body => fixture("id_list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-        stub_get("/1.1/users/lookup.json").
-          with(:query => {:screen_name => "sferik,pengwynn"}).
+        stub_post("/1.1/users/lookup.json").
+          with(:body => {:screen_name => "sferik,pengwynn"}).
           to_return(:body => fixture("friendships.json"), :headers => {:content_type => "application/json; charset=utf-8"})
         stub_post("/1.1/friendships/create.json").
           with(:body => {:user_id => "7505382"}).
@@ -325,8 +325,8 @@ describe Twitter::API do
         a_get("/1.1/friends/ids.json").
           with(:query => {:cursor => "-1"}).
           should have_been_made
-        a_get("/1.1/users/lookup.json").
-          with(:query => {:screen_name => "sferik,pengwynn"}).
+        a_post("/1.1/users/lookup.json").
+          with(:body => {:screen_name => "sferik,pengwynn"}).
           should have_been_made
         a_post("/1.1/friendships/create.json").
           with(:body => {:user_id => "7505382"}).

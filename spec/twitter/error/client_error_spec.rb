@@ -26,8 +26,8 @@ describe Twitter::Error::ClientError do
 
   context "when response status is 404 from lookup" do
     before do
-      stub_get("/1.1/users/lookup.json").
-        with(:query => {:screen_name => "not_on_twitter"}).
+      stub_post("/1.1/users/lookup.json").
+        with(:body => {:screen_name => "not_on_twitter"}).
         to_return(:status => 404, :body => fixture('no_user_matches.json'))
     end
     it "raises Twitter::Error::NotFound" do
