@@ -991,7 +991,7 @@ module Twitter
     def list_timeline(*args)
       options = args.extract_options!
       options.merge_list!(args.pop)
-      options.merge_owner!(args.pop || verify_credentials.screen_name) unless options[:owner_id] || options[:owner_screen_name]
+      options.merge_owner!(args.pop || screen_name) unless options[:owner_id] || options[:owner_screen_name]
       collection_from_response(Twitter::Tweet, :get, "/1.1/lists/statuses.json", options)
     end
 
@@ -2527,7 +2527,7 @@ module Twitter
     #     Twitter.recommendations("sferik")
     def recommendations(*args)
       options = args.extract_options!
-      options.merge_user!(args.pop || verify_credentials.screen_name)
+      options.merge_user!(args.pop || screen_name)
       options[:excluded] = options[:excluded].join(',') if options[:excluded].is_a?(Array)
       response = get("/1.1/users/recommendations.json", options)
       response[:body].map do |recommendation|
@@ -2562,7 +2562,7 @@ module Twitter
     def following_followers_of(*args)
       options = args.extract_options!
       merge_default_cursor!(options)
-      options.merge_user!(args.pop || verify_credentials.screen_name)
+      options.merge_user!(args.pop || screen_name)
       cursor_from_response(:users, Twitter::User, :get, "/users/following_followers_of.json", options)
     end
 
@@ -2659,7 +2659,7 @@ module Twitter
     def list_from_response(request_method, url, args)
       options = args.extract_options!
       options.merge_list!(args.pop)
-      options.merge_owner!(args.pop || verify_credentials.screen_name) unless options[:owner_id] || options[:owner_screen_name]
+      options.merge_owner!(args.pop || screen_name) unless options[:owner_id] || options[:owner_screen_name]
       object_from_response(Twitter::List, request_method, url, options)
     end
 
@@ -2680,7 +2680,7 @@ module Twitter
     # @return [Array<Twitter::User>]
     def users_from_response(request_method, url, args)
       options = args.extract_options!
-      options.merge_user!(args.pop || verify_credentials.screen_name)
+      options.merge_user!(args.pop || screen_name)
       collection_from_response(Twitter::User, request_method, url, options)
     end
 
@@ -2710,7 +2710,7 @@ module Twitter
       options = args.extract_options!
       merge_default_cursor!(options)
       options.merge_list!(args.pop)
-      options.merge_owner!(args.pop || verify_credentials.screen_name) unless options[:owner_id] || options[:owner_screen_name]
+      options.merge_owner!(args.pop || screen_name) unless options[:owner_id] || options[:owner_screen_name]
       cursor_from_response(:users, Twitter::User, request_method, url, options, {}, calling_method)
     end
 
@@ -2743,7 +2743,7 @@ module Twitter
       options = args.extract_options!
       options.merge_user!(args.pop)
       options.merge_list!(args.pop)
-      options.merge_owner!(args.pop || verify_credentials.screen_name) unless options[:owner_id] || options[:owner_screen_name]
+      options.merge_owner!(args.pop || screen_name) unless options[:owner_id] || options[:owner_screen_name]
       send(request_method.to_sym, url, options)
       true
     rescue Twitter::Error::NotFound, Twitter::Error::Forbidden
@@ -2754,7 +2754,7 @@ module Twitter
       options = args.extract_options!
       options.merge_user!(args.pop)
       options.merge_list!(args.pop)
-      options.merge_owner!(args.pop || verify_credentials.screen_name) unless options[:owner_id] || options[:owner_screen_name]
+      options.merge_owner!(args.pop || screen_name) unless options[:owner_id] || options[:owner_screen_name]
       object_from_response(Twitter::List, request_method, url, options)
     end
 
@@ -2762,7 +2762,7 @@ module Twitter
       options = args.extract_options!
       members = args.pop
       options.merge_list!(args.pop)
-      options.merge_owner!(args.pop || verify_credentials.screen_name) unless options[:owner_id] || options[:owner_screen_name]
+      options.merge_owner!(args.pop || screen_name) unless options[:owner_id] || options[:owner_screen_name]
       members.flatten.each_slice(MAX_USERS_PER_REQUEST).threaded_map do |users|
         object_from_response(Twitter::List, request_method, url, options.merge_users(users))
       end.last
@@ -2782,6 +2782,10 @@ module Twitter
 
     def merge_default_cursor!(options)
       options.merge!(:cursor => DEFAULT_CURSOR) unless options[:cursor]
+    end
+
+    def screen_name
+      @screen_name ||= verify_credentials.screen_name
     end
 
   end
