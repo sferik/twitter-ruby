@@ -14,36 +14,27 @@ module Twitter
       @attrs = attrs
     end
 
-    # @return [String]
-    def class
-      @attrs.values_at('x-ratelimit-class', 'X-RateLimit-Class').compact.first
-    end
-
     # @return [Integer]
     def limit
-      limit = @attrs.values_at('x-ratelimit-limit', 'X-RateLimit-Limit').compact.first
+      limit = @attrs['x-rate-limit-limit']
       limit.to_i if limit
     end
 
     # @return [Integer]
     def remaining
-      remaining = @attrs.values_at('x-ratelimit-remaining', 'X-RateLimit-Remaining').compact.first
+      remaining = @attrs['x-rate-limit-remaining']
       remaining.to_i if remaining
     end
 
     # @return [Time]
     def reset_at
-      reset = @attrs.values_at('x-ratelimit-reset', 'X-RateLimit-Reset').compact.first
+      reset = @attrs['x-rate-limit-reset']
       Time.at(reset.to_i) if reset
     end
 
     # @return [Integer]
     def reset_in
-      if retry_after = @attrs.values_at('retry-after', 'Retry-After').compact.first
-        retry_after.to_i
-      elsif reset_at
-        [(reset_at - Time.now).ceil, 0].max
-      end
+      [(reset_at - Time.now).ceil, 0].max if reset_at
     end
     alias retry_after reset_in
 
