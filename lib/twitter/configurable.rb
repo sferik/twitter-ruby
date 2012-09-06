@@ -3,7 +3,7 @@ require 'twitter/default'
 module Twitter
   module Configurable
     attr_writer :consumer_key, :consumer_secret, :oauth_token, :oauth_token_secret
-    attr_accessor :endpoint, :media_endpoint, :search_endpoint, :connection_options, :identity_map, :middleware
+    attr_accessor :endpoint, :media_endpoint, :connection_options, :identity_map, :middleware
 
     class << self
 
@@ -15,7 +15,6 @@ module Twitter
           :oauth_token_secret,
           :endpoint,
           :media_endpoint,
-          :search_endpoint,
           :connection_options,
           :identity_map,
           :middleware,

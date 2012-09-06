@@ -12,7 +12,6 @@ module Twitter
   module Default
     ENDPOINT = 'https://api.twitter.com' unless defined? ENDPOINT
     MEDIA_ENDPOINT = 'https://upload.twitter.com' unless defined? MEDIA_ENDPOINT
-    SEARCH_ENDPOINT = 'https://search.twitter.com' unless defined? SEARCH_ENDPOINT
     CONNECTION_OPTIONS = {
       :headers => {
         :accept => 'application/json',
@@ -83,11 +82,6 @@ module Twitter
       # @return [String]
       def media_endpoint
         MEDIA_ENDPOINT
-      end
-
-      # @return [String]
-      def search_endpoint
-        SEARCH_ENDPOINT
       end
 
       # @return [Hash]
