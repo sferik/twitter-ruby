@@ -28,7 +28,7 @@ describe Twitter::Geo::Point do
 
   describe "#latitude" do
     it "returns the latitude" do
-      @point.latitude.should eq -122.399983
+      @point.latitude.should eq(-122.399983)
     end
   end
 
