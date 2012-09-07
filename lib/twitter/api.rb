@@ -46,7 +46,6 @@ module Twitter
       :direct_messages => true,
       :direct_messages_received => true,
       :direct_messages_sent => true,
-      :end_session => false,
       :fav => false,
       :fave => false,
       :favorite => false,
@@ -203,20 +202,6 @@ module Twitter
       object_from_response(Twitter::User, :get, "/1.1/account/verify_credentials.json", options)
     end
     alias current_user verify_credentials
-
-    # Ends the session of the authenticating user
-    #
-    # @see https://dev.twitter.com/docs/api/1.1/post/account/end_session
-    # @rate_limited No
-    # @authentication_required Requires user context
-    # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-    # @return [Hash]
-    # @param options [Hash] A customizable set of options.
-    # @example End the session of the authenticating user
-    #   Twitter.end_session
-    def end_session(options={})
-      post("/1.1/account/end_session.json", options)[:body]
-    end
 
     # Sets which device Twitter delivers updates to for the authenticating user
     #
