@@ -96,6 +96,7 @@ module Twitter
       :media_timeline => true,
       :memberships => true,
       :mentions => true,
+      :mentions_timeline => true,
       :network_timeline => true,
       :no_retweet_ids => true,
       :oembed => true,
@@ -177,7 +178,7 @@ module Twitter
 
     # Returns the remaining number of API requests available to the requesting user
     #
-    # @see https://dev.twitter.com/docs/api/1.1/get/account/rate_limit_status
+    # @see https://dev.twitter.com/docs/api/1.1/get/application/rate_limit_status
     # @rate_limited No
     # @authentication_required Requires user context
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
@@ -186,7 +187,7 @@ module Twitter
     # @example Return the remaining number of API requests available to the requesting user
     #   Twitter.rate_limit_status
     def rate_limit_status(options={})
-      object_from_response(Twitter::RateLimitStatus, :get, "/1.1/account/rate_limit_status.json", options)
+      object_from_response(Twitter::RateLimitStatus, :get, "/1.1/application/rate_limit_status.json", options)
     end
 
     # Returns the requesting user if authentication was successful, otherwise raises {Twitter::Error::Unauthorized}
@@ -413,7 +414,10 @@ module Twitter
     #   @param ids [Array<Integer>, Set<Integer>] An array of Tweet IDs.
     #   @param options [Hash] A customizable set of options.
     def direct_message_destroy(*args)
-      destroy(Twitter::DirectMessage, :post, "/1.1/direct_messages/destroy", args)
+      options = args.extract_options!
+      args.flatten.threaded_map do |id|
+        object_from_response(Twitter::DirectMessage, :post, "/1.1/direct_messages/destroy.json", options.merge(:id => id))
+      end
     end
 
     # Sends a new direct message to the specified user from the authenticating user
@@ -438,7 +442,7 @@ module Twitter
 
     # Returns a direct message
     #
-    # @see https://dev.twitter.com/docs/api/1.1/get/direct_messages/show/%3Aid
+    # @see https://dev.twitter.com/docs/api/1.1/get/direct_messages/show
     # @note This method requires an access token with RWD (read, write & direct message) permissions. Consult The Application Permission Model for more information.
     # @rate_limited Yes
     # @authentication_required Requires user context
@@ -449,7 +453,8 @@ module Twitter
     # @example Return the direct message with the id 1825786345
     #   Twitter.direct_message(1825786345)
     def direct_message(id, options={})
-      object_from_response(Twitter::DirectMessage, :get, "/1.1/direct_messages/show/#{id}.json", options)
+      options.merge!(:id => id)
+      object_from_response(Twitter::DirectMessage, :get, "/1.1/direct_messages/show.json", options)
     end
 
     # @note This method requires an access token with RWD (read, write & direct message) permissions. Consult The Application Permission Model for more information.
@@ -915,7 +920,7 @@ module Twitter
 
     # Returns {https://twitter.com/privacy Twitter's Privacy Policy}
     #
-    # @see https://dev.twitter.com/docs/api/1.1/get/legal/privacy
+    # @see https://dev.twitter.com/docs/api/1.1/get/help/privacy
     # @rate_limited Yes
     # @authentication_required Requires user context
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
@@ -923,12 +928,12 @@ module Twitter
     # @example Return {https://twitter.com/privacy Twitter's Privacy Policy}
     #   Twitter.privacy
     def privacy(options={})
-      get("/1.1/legal/privacy.json", options)[:body][:privacy]
+      get("/1.1/help/privacy.json", options)[:body][:privacy]
     end
 
     # Returns {https://twitter.com/tos Twitter's Terms of Service}
     #
-    # @see https://dev.twitter.com/docs/api/1.1/get/legal/tos
+    # @see https://dev.twitter.com/docs/api/1.1/get/help/tos
     # @rate_limited Yes
     # @authentication_required Requires user context
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
@@ -936,7 +941,7 @@ module Twitter
     # @example Return {https://twitter.com/tos Twitter's Terms of Service}
     #   Twitter.tos
     def tos(options={})
-      get("/1.1/legal/tos.json", options)[:body][:tos]
+      get("/1.1/help/tos.json", options)[:body][:tos]
     end
 
     # Returns all lists the authenticating or specified user subscribes to, including their own
@@ -1516,7 +1521,7 @@ module Twitter
     # @overload saved_search(options={})
     #   Returns the authenticated user's saved search queries
     #
-    #   @see https://dev.twitter.com/docs/api/1.1/get/saved_searches
+    #   @see https://dev.twitter.com/docs/api/1.1/get/saved_searches/list
     #   @param options [Hash] A customizable set of options.
     #   @example Return the authenticated user's saved search queries
     #     Twitter.saved_searches
@@ -1536,7 +1541,7 @@ module Twitter
     def saved_searches(*args)
       options = args.extract_options!
       if args.empty?
-        collection_from_response(Twitter::SavedSearch, :get, "/1.1/saved_searches.json", options)
+        collection_from_response(Twitter::SavedSearch, :get, "/1.1/saved_searches/list.json", options)
       else
         args.flatten.threaded_map do |id|
           object_from_response(Twitter::SavedSearch, :get, "/1.1/saved_searches/show/#{id}.json", options)
@@ -1590,7 +1595,10 @@ module Twitter
     #   @param ids [Array<Integer>, Set<Integer>] An array of Tweet IDs.
     #   @param options [Hash] A customizable set of options.
     def saved_search_destroy(*args)
-      destroy(Twitter::SavedSearch, :post, "/1.1/saved_searches/destroy", args)
+      options = args.extract_options!
+      args.flatten.threaded_map do |id|
+        object_from_response(Twitter::SavedSearch, :post, "/1.1/saved_searches/destroy/#{id}.json", options)
+      end
     end
 
     # Returns tweets that match a specified query.
@@ -1671,7 +1679,7 @@ module Twitter
 
     # Favorites the specified Tweets as the authenticating user
     #
-    # @see https://dev.twitter.com/docs/api/1.1/post/favorites/create/:id
+    # @see https://dev.twitter.com/docs/api/1.1/post/favorites/create
     # @rate_limited No
     # @authentication_required Requires user context
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
@@ -1684,7 +1692,10 @@ module Twitter
     #   @param ids [Array<Integer>, Set<Integer>] An array of Tweet IDs.
     #   @param options [Hash] A customizable set of options.
     def favorite(*args)
-      threaded_tweets_from_response(:post, "/1.1/favorites/create", args)
+      options = args.extract_options!
+      args.flatten.threaded_map do |id|
+        object_from_response(Twitter::Tweet, :post, "/1.1/favorites/create.json", options.merge(:id => id))
+      end
     end
     alias fav favorite
     alias fave favorite
@@ -1692,7 +1703,7 @@ module Twitter
 
     # Un-favorites the specified Tweets as the authenticating user
     #
-    # @see https://dev.twitter.com/docs/api/1.1/post/favorites/destroy/:id
+    # @see https://dev.twitter.com/docs/api/1.1/post/favorites/destroy
     # @rate_limited No
     # @authentication_required Requires user context
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
@@ -1705,7 +1716,10 @@ module Twitter
     #   @param ids [Array<Integer>, Set<Integer>] An array of Tweet IDs.
     #   @param options [Hash] A customizable set of options.
     def unfavorite(*args)
-      threaded_tweets_from_response(:post, "/1.1/favorites/destroy", args)
+      options = args.extract_options!
+      args.flatten.threaded_map do |id|
+        object_from_response(Twitter::Tweet, :post, "/1.1/favorites/destroy.json", options.merge(:id => id))
+      end
     end
     alias favorite_destroy unfavorite
 
@@ -1734,7 +1748,7 @@ module Twitter
 
     # Returns the 20 most recent mentions (statuses containing @username) for the authenticating user
     #
-    # @see https://dev.twitter.com/docs/api/1.1/get/statuses/mentions
+    # @see https://dev.twitter.com/docs/api/1.1/get/statuses/mentions_timeline
     # @note This method can only return up to 800 Tweets.
     # @rate_limited Yes
     # @authentication_required Requires user context
@@ -1747,9 +1761,10 @@ module Twitter
     # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
     # @example Return the 20 most recent mentions (statuses containing @username) for the authenticating user
     #   Twitter.mentions
-    def mentions(options={})
-      collection_from_response(Twitter::Tweet, :get, "/1.1/statuses/mentions.json", options)
+    def mentions_timeline(options={})
+      collection_from_response(Twitter::Tweet, :get, "/1.1/statuses/mentions_timeline.json", options)
     end
+    alias mentions mentions_timeline
 
     # Returns the 20 most recent retweets posted by the specified user
     #
@@ -2185,18 +2200,19 @@ module Twitter
 
     # Returns the top 10 trending topics for a specific WOEID
     #
-    # @see https://dev.twitter.com/docs/api/1.1/get/trends/:woeid
+    # @see https://dev.twitter.com/docs/api/1.1/get/trends/place
     # @rate_limited Yes
     # @authentication_required Requires user context
-    # @param woeid [Integer] The {https://developer.yahoo.com/geo/geoplanet Yahoo! Where On Earth ID} of the location to return trending information for. WOEIDs can be retrieved by calling {Twitter::API::Trends#trend_locations}. Global information is available by using 1 as the WOEID.
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+    # @param id [Integer] The {https://developer.yahoo.com/geo/geoplanet Yahoo! Where On Earth ID} of the location to return trending information for. WOEIDs can be retrieved by calling {Twitter::API::Trends#trend_locations}. Global information is available by using 1 as the WOEID.
     # @param options [Hash] A customizable set of options.
     # @option options [String] :exclude Setting this equal to 'hashtags' will remove all hashtags from the trends list.
     # @return [Array<Twitter::Trend>]
     # @example Return the top 10 trending topics for San Francisco
     #   Twitter.local_trends(2487956)
-    def local_trends(woeid=1, options={})
-      response = get("/1.1/trends/#{woeid}.json", options)
+    def local_trends(id=1, options={})
+      options.merge!(:id => id)
+      response = get("/1.1/trends/place.json", options)
       collection_from_array(Twitter::Trend, response[:body].first[:trends])
     end
     alias trends local_trends
@@ -2251,7 +2267,7 @@ module Twitter
 
     # Returns an array of user objects that the authenticating user is blocking
     #
-    # @see https://dev.twitter.com/docs/api/1.1/get/blocks/blocking
+    # @see https://dev.twitter.com/docs/api/1.1/get/blocks/list
     # @rate_limited Yes
     # @authentication_required Requires user context
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
@@ -2261,12 +2277,12 @@ module Twitter
     # @example Return an array of user objects that the authenticating user is blocking
     #   Twitter.blocking
     def blocking(options={})
-      collection_from_response(Twitter::User, :get, "/1.1/blocks/blocking.json", options)
+      collection_from_response(Twitter::User, :get, "/1.1/blocks/list.json", options)
     end
 
     # Returns an array of numeric user ids the authenticating user is blocking
     #
-    # @see https://dev.twitter.com/docs/api/1.1/get/blocks/blocking/ids
+    # @see https://dev.twitter.com/docs/api/1.1/get/blocks/ids
     # @rate_limited Yes
     # @authentication_required Requires user context
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
@@ -2275,7 +2291,7 @@ module Twitter
     # @example Return an array of numeric user ids the authenticating user is blocking
     #   Twitter.blocking_ids
     def blocked_ids(options={})
-      get("/1.1/blocks/blocking/ids.json", options)[:body]
+      get("/1.1/blocks/ids.json", options)[:body]
     end
 
     # Returns true if the authenticating user is blocking a target user
@@ -2712,18 +2728,6 @@ module Twitter
       options.merge_list!(args.pop)
       options.merge_owner!(args.pop || screen_name) unless options[:owner_id] || options[:owner_screen_name]
       cursor_from_response(:users, Twitter::User, request_method, url, options, {}, calling_method)
-    end
-
-    # @param klass [Class]
-    # @param request_method [Symbol]
-    # @param url [String]
-    # @param args [Array]
-    # @return [Array]
-    def destroy(klass, request_method, url, args)
-      options = args.extract_options!
-      args.flatten.threaded_map do |id|
-        object_from_response(klass, request_method, url + "/#{id}.json", options)
-      end
     end
 
     # @param request_method [Symbol]

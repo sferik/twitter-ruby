@@ -44,12 +44,14 @@ describe Twitter::API do
 
   describe "#direct_message_destroy" do
     before do
-      stub_post("/1.1/direct_messages/destroy/1825785544.json").
+      stub_post("/1.1/direct_messages/destroy.json").
+        with(:body => {:id => "1825785544"}).
         to_return(:body => fixture("direct_message.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
       @client.direct_message_destroy(1825785544)
-      a_post("/1.1/direct_messages/destroy/1825785544.json").
+      a_post("/1.1/direct_messages/destroy.json").
+        with(:body => {:id => "1825785544"}).
         should have_been_made
     end
     it "returns an array of deleted messages" do
@@ -81,12 +83,14 @@ describe Twitter::API do
 
   describe "#direct_message" do
     before do
-      stub_get("/1.1/direct_messages/show/1825786345.json").
+      stub_get("/1.1/direct_messages/show.json").
+        with(:query => {:id => "1825786345"}).
         to_return(:body => fixture("direct_message.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
       @client.direct_message(1825786345)
-      a_get("/1.1/direct_messages/show/1825786345.json").
+      a_get("/1.1/direct_messages/show.json").
+        with(:query => {:id => "1825786345"}).
         should have_been_made
     end
     it "returns the specified direct message" do
