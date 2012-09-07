@@ -3,12 +3,6 @@ module Twitter
     attr_reader :attrs
     alias to_hash attrs
 
-    # @deprecated This method exists to provide backwards compatibility to when
-    #   Twitter::RateLimit was a singleton. Safe to remove in version 4.
-    def self.instance
-      Twitter.rate_limit
-    end
-
     # @return [Twitter::RateLimit]
     def initialize(attrs={})
       @attrs = attrs

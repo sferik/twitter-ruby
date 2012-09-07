@@ -2,13 +2,6 @@ require 'helper'
 
 describe Twitter::RateLimit do
 
-  describe ".instance" do
-    it "delegates to Twitter.rate_limit" do
-      rate_limit = Twitter::RateLimit.instance
-      rate_limit.should eq Twitter.rate_limit
-    end
-  end
-
   describe "#limit" do
     it "returns an Integer when x-rate-limit-limit header is set" do
       rate_limit = Twitter::RateLimit.new('x-rate-limit-limit' => "150")
