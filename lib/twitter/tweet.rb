@@ -79,6 +79,10 @@ module Twitter
     end
     alias reply_count repliers_count
 
+    def retweet?
+      !!retweeted_status
+    end
+
     # If this Tweet is a retweet, the original Tweet is available here.
     #
     # @return [Twitter::Tweet]
@@ -86,6 +90,7 @@ module Twitter
       @retweeted_status ||= self.class.fetch_or_new(@attrs[:retweeted_status])
     end
     alias retweeted_tweet retweeted_status
+    alias retweet retweeted_status
 
     # @return [String]
     def retweeters_count
