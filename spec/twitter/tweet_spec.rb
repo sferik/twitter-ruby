@@ -176,6 +176,29 @@ describe Twitter::Tweet do
     end
   end
 
+  describe "#retweet?" do
+    it "returns true when there is a retweeted status" do
+      tweet = Twitter::Tweet.new(:id => 28669546014, :retweeted_status => {:id => 28561922516, :text => 'BOOSH'})
+      tweet.retweet?.should be_true
+    end
+    it "returns false when retweeted_status is not set" do
+      tweet = Twitter::Tweet.new(:id => 28669546014)
+      tweet.retweet?.should be_false
+    end
+  end
+
+  describe "#retweeted_status" do
+    it "has text when retweeted_status is set" do
+      tweet = Twitter::Tweet.new(:id => 28669546014, :retweeted_status => {:id => 28561922516, :text => 'BOOSH'})
+      tweet.retweeted_tweet.should be_a Twitter::Tweet
+      tweet.retweeted_tweet.text.should eq 'BOOSH'
+    end
+    it "returns nil when retweeted_status is not set" do
+      tweet = Twitter::Tweet.new(:id => 28669546014)
+      tweet.retweeted_tweet.should be_nil
+    end
+  end
+
   describe "#retweeters_count" do
     it "returns the count of favoriters when retweet_count is set" do
       tweet = Twitter::Tweet.new(:id => 28669546014, :retweet_count => '1')
@@ -190,18 +213,6 @@ describe Twitter::Tweet do
     it "returns nil when not set" do
       tweet = Twitter::Tweet.new(:id => 28669546014)
       tweet.retweeters_count.should be_nil
-    end
-  end
-
-  describe "#retweeted_status" do
-    it "has text when retweeted_status is set" do
-      tweet = Twitter::Tweet.new(:id => 28669546014, :retweeted_status => {:id => 28561922516, :text => 'BOOSH'})
-      tweet.retweeted_tweet.should be_a Twitter::Tweet
-      tweet.retweeted_tweet.text.should eq 'BOOSH'
-    end
-    it "returns nil when retweeted_status is not set" do
-      tweet = Twitter::Tweet.new(:id => 28669546014)
-      tweet.retweeted_tweet.should be_nil
     end
   end
 
