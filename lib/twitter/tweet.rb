@@ -67,12 +67,6 @@ module Twitter
       @metadata ||= Twitter::Metadata.fetch_or_new(@attrs[:metadata])
     end
 
-    # @deprecated This method will be removed in version 4.
-    # @return [Twitter::OEmbed]
-    def oembed(options={})
-      @oembed ||= Twitter.oembed(@attrs[:id], options)
-    end
-
     # @return [Twitter::Place]
     def place
       @place ||= Twitter::Place.fetch_or_new(@attrs[:place])
