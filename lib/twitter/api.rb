@@ -46,8 +46,6 @@ module Twitter
       :direct_messages => true,
       :direct_messages_received => true,
       :direct_messages_sent => true,
-      :disable_notifications => false,
-      :enable_notifications => false,
       :end_session => false,
       :fav => false,
       :fave => false,
@@ -476,14 +474,14 @@ module Twitter
     # @overload direct_messages(*ids)
     #   Returns direct messages
     #
-    #   @see https://dev.twitter.com/docs/api/1.1/get/direct_messages/show/%3Aid
+    #   @see https://dev.twitter.com/docs/api/1.1/get/direct_messages/show/:id
     #   @param ids [Array<Integer>, Set<Integer>] An array of Tweet IDs.
     #   @example Return the direct message with the id 1825786345
     #     Twitter.direct_messages(1825786345)
     # @overload direct_messages(*ids, options)
     #   Returns direct messages
     #
-    #   @see https://dev.twitter.com/docs/api/1.1/get/direct_messages/show/%3Aid
+    #   @see https://dev.twitter.com/docs/api/1.1/get/direct_messages/show/:id
     #   @param ids [Array<Integer>, Set<Integer>] An array of Tweet IDs.
     #   @param options [Hash] A customizable set of options.
     def direct_messages(*args)
@@ -1457,44 +1455,6 @@ module Twitter
       list_from_response(:get, "/1.1/lists/show.json", args)
     end
 
-    # Enables device notifications for updates from the specified users to the authenticating user
-    #
-    # @see https://dev.twitter.com/docs/api/1.1/post/notifications/follow
-    # @rate_limited No
-    # @authentication_required Requires user context
-    # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-    # @return [Array<Twitter::User>] The specified users.
-    # @overload enable_notifications(*users)
-    #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
-    #   @example Enable device notifications for updates from @sferik
-    #     Twitter.enable_notifications('sferik')
-    #     Twitter.enable_notifications(7505382)  # Same as above
-    # @overload enable_notifications(*users, options)
-    #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
-    #   @param options [Hash] A customizable set of options.
-    def enable_notifications(*args)
-      threaded_users_from_response(:post, "/1.1/notifications/follow.json", args)
-    end
-
-    # Disables notifications for updates from the specified users to the authenticating user
-    #
-    # @see https://dev.twitter.com/docs/api/1.1/post/notifications/leave
-    # @rate_limited No
-    # @authentication_required Requires user context
-    # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-    # @return [Array<Twitter::User>] The specified users.
-    # @overload disable_notifications(*users)
-    #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
-    #   @example Disable device notifications for updates from @sferik
-    #     Twitter.disable_notifications('sferik')
-    #     Twitter.disable_notifications(7505382)  # Same as above
-    # @overload disable_notifications(*users, options)
-    #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
-    #   @param options [Hash] A customizable set of options.
-    def disable_notifications(*args)
-      threaded_users_from_response(:post, "/1.1/notifications/leave.json", args)
-    end
-
     # The users specified are blocked by the authenticated user and reported as spammers
     #
     # @see https://dev.twitter.com/docs/api/1.1/post/report_spam
@@ -2177,7 +2137,7 @@ module Twitter
 
     # Updates the authenticating user's status with media
     #
-    # @see http://dev.twitter.com/docs/api/1.1/post/statuses/update_with_media
+    # @see https://dev.twitter.com/docs/api/1.1/post/statuses/update_with_media
     # @note A status update with text/media identical to the authenticating user's current status will NOT be ignored
     # @rate_limited No
     # @authentication_required Requires user context
@@ -2476,7 +2436,7 @@ module Twitter
 
     # Returns an array of users that the specified user can contribute to
     #
-    # @see http://dev.twitter.com/docs/api/1.1/get/users/contributees
+    # @see https://dev.twitter.com/docs/api/1.1/get/users/contributees
     # @rate_limited Yes
     # @authentication_required Requires user context
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
@@ -2499,7 +2459,7 @@ module Twitter
 
     # Returns an array of users who can contribute to the specified account
     #
-    # @see http://dev.twitter.com/docs/api/1.1/get/users/contributors
+    # @see https://dev.twitter.com/docs/api/1.1/get/users/contributors
     # @rate_limited Yes
     # @authentication_required Requires user context
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
