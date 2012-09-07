@@ -7,7 +7,7 @@ module Twitter
   module Action
     class ListMemberAdded < Twitter::Base
       include Twitter::Creatable
-      attr_reader :max_position, :min_position, :target_objects
+      attr_reader :max_position, :min_position
 
       # A collection of users who added a user to a list
       #
