@@ -23,22 +23,6 @@ describe Twitter::API do
     end
   end
 
-  describe "#end_session" do
-    before do
-      stub_post("/1.1/account/end_session.json").
-        to_return(:body => fixture("end_session.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-    end
-    it "requests the correct resource" do
-      @client.end_session
-      a_post("/1.1/account/end_session.json").
-        should have_been_made
-    end
-    it "returns a null cookie" do
-      end_session = @client.end_session
-      end_session[:error].should eq "Logged out."
-    end
-  end
-
   describe "#update_delivery_device" do
     before do
       stub_post("/1.1/account/update_delivery_device.json").
