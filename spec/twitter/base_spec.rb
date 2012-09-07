@@ -4,8 +4,13 @@ describe Twitter::Base do
 
   context 'identity map enabled' do
     before do
+      Twitter.identity_map = Twitter::IdentityMap
       object = Twitter::Base.new(:id => 1)
       @base = Twitter::Base.store(object)
+    end
+
+    after do
+      Twitter.identity_map = false
     end
 
     describe '.identity_map' do
@@ -101,20 +106,6 @@ describe Twitter::Base do
       it 'creates new objects' do
         Twitter::Base.fetch_or_new(:id => 2).should be
         Twitter.identity_map.should be_false
-      end
-    end
-  end
-
-  context 'custom identity map enabled' do
-    after(:all) do
-      Twitter.identity_map = Twitter::IdentityMap
-    end
-
-    describe '.identity_map' do
-      it 'returns an instance of the custom identity map' do
-        Twitter::Base.identity_map.should be_a Twitter::IdentityMap
-        Twitter.identity_map = Hash
-        Twitter::Base.identity_map.should_not be_a Twitter::IdentityMap
       end
     end
   end
