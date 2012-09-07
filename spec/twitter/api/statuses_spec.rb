@@ -45,12 +45,14 @@ describe Twitter::API do
 
   describe "#favorite" do
     before do
-      stub_post("/1.1/favorites/create/25938088801.json").
+      stub_post("/1.1/favorites/create.json").
+        with(:body => {:id => "25938088801"}).
         to_return(:body => fixture("status.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
       @client.favorite(25938088801)
-      a_post("/1.1/favorites/create/25938088801.json").
+      a_post("/1.1/favorites/create.json").
+        with(:body => {:id => "25938088801"}).
         should have_been_made
     end
     it "returns an array of favorited Tweets" do
@@ -63,12 +65,14 @@ describe Twitter::API do
 
   describe "#unfavorite" do
     before do
-      stub_post("/1.1/favorites/destroy/25938088801.json").
+      stub_post("/1.1/favorites/destroy.json").
+        with(:body => {:id => "25938088801"}).
         to_return(:body => fixture("status.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
       @client.unfavorite(25938088801)
-      a_post("/1.1/favorites/destroy/25938088801.json").
+      a_post("/1.1/favorites/destroy.json").
+        with(:body => {:id => "25938088801"}).
         should have_been_made
     end
     it "returns an array of un-favorited Tweets" do
@@ -97,18 +101,18 @@ describe Twitter::API do
     end
   end
 
-  describe "#mentions" do
+  describe "#mentions_timeline" do
     before do
-      stub_get("/1.1/statuses/mentions.json").
+      stub_get("/1.1/statuses/mentions_timeline.json").
         to_return(:body => fixture("statuses.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
-      @client.mentions
-      a_get("/1.1/statuses/mentions.json").
+      @client.mentions_timeline
+      a_get("/1.1/statuses/mentions_timeline.json").
         should have_been_made
     end
     it "returns the 20 most recent mentions (status containing @username) for the authenticating user" do
-      tweets = @client.mentions
+      tweets = @client.mentions_timeline
       tweets.should be_an Array
       tweets.first.should be_a Twitter::Tweet
       tweets.first.text.should eq "Ruby is the best programming language for hiding the ugly bits."

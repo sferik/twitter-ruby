@@ -26,12 +26,12 @@ describe Twitter::API do
     end
     context "without ids passed" do
       before do
-        stub_get("/1.1/saved_searches.json").
+        stub_get("/1.1/saved_searches/list.json").
           to_return(:body => fixture("saved_searches.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.saved_searches
-        a_get("/1.1/saved_searches.json").
+        a_get("/1.1/saved_searches/list.json").
           should have_been_made
       end
       it "returns the authenticated user's saved search queries" do

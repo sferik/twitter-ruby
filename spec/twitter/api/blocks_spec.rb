@@ -8,12 +8,12 @@ describe Twitter::API do
 
   describe "#blocking" do
     before do
-      stub_get("/1.1/blocks/blocking.json").
+      stub_get("/1.1/blocks/list.json").
         to_return(:body => fixture("users.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
       @client.blocking
-      a_get("/1.1/blocks/blocking.json").
+      a_get("/1.1/blocks/list.json").
         should have_been_made
     end
     it "returns an array of user objects that the authenticating user is blocking" do
@@ -26,12 +26,12 @@ describe Twitter::API do
 
   describe "#blocked_ids" do
     before do
-      stub_get("/1.1/blocks/blocking/ids.json").
+      stub_get("/1.1/blocks/ids.json").
         to_return(:body => fixture("ids.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
       @client.blocked_ids
-      a_get("/1.1/blocks/blocking/ids.json").
+      a_get("/1.1/blocks/ids.json").
         should have_been_made
     end
     it "returns an array of numeric user IDs the authenticating user is blocking" do

@@ -9,12 +9,14 @@ describe Twitter::API do
   describe "#local_trends" do
     context "with woeid passed" do
       before do
-        stub_get("/1.1/trends/2487956.json").
+        stub_get("/1.1/trends/place.json").
+          with(:query => {:id => "2487956"}).
           to_return(:body => fixture("matching_trends.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.local_trends(2487956)
-        a_get("/1.1/trends/2487956.json").
+        a_get("/1.1/trends/place.json").
+          with(:query => {:id => "2487956"}).
           should have_been_made
       end
       it "returns the top 10 trending topics for a specific WOEID" do
@@ -26,12 +28,14 @@ describe Twitter::API do
     end
     context "without arguments passed" do
       before do
-        stub_get("/1.1/trends/1.json").
+        stub_get("/1.1/trends/place.json").
+          with(:query => {:id => "1"}).
           to_return(:body => fixture("matching_trends.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.local_trends
-        a_get("/1.1/trends/1.json").
+        a_get("/1.1/trends/place.json").
+          with(:query => {:id => "1"}).
           should have_been_made
       end
     end
