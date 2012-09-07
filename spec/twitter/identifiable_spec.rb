@@ -10,16 +10,26 @@ describe Twitter::Identity do
     end
   end
 
-  describe '.fetch' do
-    it 'returns existing objects' do
-      Twitter::Identity.store(Twitter::Identity.new(:id => 1))
-      Twitter::Identity.fetch(:id => 1).should be
+  context 'identity map enabled' do
+    before do
+      Twitter.identity_map = Twitter::IdentityMap
     end
 
-    it "raises an error on objects that don't exist" do
-      lambda {
-        Twitter::Identity.fetch(:id => 6)
-      }.should raise_error(Twitter::Error::IdentityMapKeyError)
+    after do
+      Twitter.identity_map = false
+    end
+
+    describe '.fetch' do
+      it 'returns existing objects' do
+        Twitter::Identity.store(Twitter::Identity.new(:id => 1))
+        Twitter::Identity.fetch(:id => 1).should be
+      end
+
+      it "raises an error on objects that don't exist" do
+        lambda {
+          Twitter::Identity.fetch(:id => 6)
+        }.should raise_error(Twitter::Error::IdentityMapKeyError)
+      end
     end
   end
 
