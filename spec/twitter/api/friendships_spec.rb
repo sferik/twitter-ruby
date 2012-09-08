@@ -564,35 +564,6 @@ describe Twitter::API do
     end
   end
 
-  describe "#no_retweet_ids" do
-    before do
-      stub_get("/1/friendships/no_retweet_ids.json").
-        to_return(:body => fixture("ids.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-    end
-    before :each do
-      @old_stderr = $stderr
-      $stderr = StringIO.new
-    end
-    after :each do
-      $stderr = @old_stderr
-    end
-    it "requests the correct resource" do
-      @client.no_retweet_ids
-      a_get("/1/friendships/no_retweet_ids.json").
-        should have_been_made
-    end
-    it "returns detailed information about the relationship between two users" do
-      no_retweet_ids = @client.no_retweet_ids
-      no_retweet_ids.should be_an Array
-      no_retweet_ids.first.should be_an Integer
-      no_retweet_ids.first.should eq 47
-    end
-    it "should warn when called" do
-      @client.no_retweet_ids
-      $stderr.string.should =~ /\[DEPRECATION\] Twitter::API#no_retweet_ids has been deprecated without replacement and will stop working on March 5, 2013\./
-    end
-  end
-
   describe "#accept" do
     before do
       stub_post("/1.1/friendships/accept.json").

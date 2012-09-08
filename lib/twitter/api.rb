@@ -97,7 +97,6 @@ module Twitter
       :mentions => true,
       :mentions_timeline => true,
       :network_timeline => true,
-      :no_retweet_ids => true,
       :oembed => true,
       :oembeds => true,
       :phoenix_search => true,
@@ -118,9 +117,7 @@ module Twitter
       :retweeted_by => true,
       :retweeted_by_me => true,
       :retweeted_by_user => true,
-      :retweeted_to => true,
       :retweeted_to_me => true,
-      :retweeted_to_user => true,
       :retweeters_of => true,
       :retweets => true,
       :retweets_of_me => true,
@@ -145,8 +142,6 @@ module Twitter
       :trends_available => true,
       :trends_closest => true,
       :trends_place => true,
-      :trends_daily => true,
-      :trends_weekly => true,
       :tweet_activity => true,
       :tweet_destroy => false,
       :unblock => false,
@@ -729,23 +724,6 @@ module Twitter
     def friendship_update(user, options={})
       options.merge_user!(user)
       object_from_response(Twitter::Relationship, :post, "/1.1/friendships/update.json", options)
-    end
-
-    # Returns an array of user_ids that the currently authenticated user does not want to see retweets from.
-    #
-    # @deprecated This method has been deprecated without replacement and will stop working on March 5, 2013.
-    # @see https://dev.twitter.com/docs/api/1/get/friendships/no_retweet_ids
-    # @rate_limited Yes
-    # @authentication_required Requires user context
-    # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-    # @return [Array<Integer>]
-    # @param options [Hash] A customizable set of options.
-    # @option options [Boolean] :stringify_ids Many programming environments will not consume our ids due to their size. Provide this option to have ids returned as strings instead. Read more about Twitter IDs, JSON and Snowflake.
-    # @example Enable rewteets and devise notifications for @sferik
-    #   Twitter.no_retweet_ids
-    def no_retweet_ids(options={})
-      warn "#{Kernel.caller.first}: [DEPRECATION] Twitter::API#no_retweet_ids has been deprecated without replacement and will stop working on March 5, 2013."
-      get("/1/friendships/no_retweet_ids.json", options)[:body].map(&:to_i)
     end
 
     # Allows the authenticating user to accept the specified users' follow requests
@@ -1743,30 +1721,6 @@ module Twitter
     end
     alias retweeted_by retweeted_by_user
 
-    # Returns the 20 most recent retweets posted by users the specified user follows
-    #
-    # @deprecated This method has been deprecated without replacement and will stop working on March 5, 2013.
-    # @see https://dev.twitter.com/docs/api/1/get/statuses/retweeted_to_user
-    # @rate_limited Yes
-    # @authentication_required Requires user context
-    # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-    # @return [Array<Twitter::Tweet>]
-    # @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
-    # @param options [Hash] A customizable set of options.
-    # @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID.
-    # @option options [Integer] :max_id Returns results with an ID less than (that is, older than) or equal to the specified ID.
-    # @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 200.
-    # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
-    # @option options [Boolean, String, Integer] :include_entities Specifies that each tweet should include an 'entities' node including metadata about the tweet such as: user_mentions, urls, and hashtags.
-    # @example Return the 20 most recent retweets posted by users followed by the specified user
-    #   Twitter.retweeted_to_user('sferik')
-    def retweeted_to_user(user, options={})
-      warn "#{Kernel.caller.first}: [DEPRECATION] Twitter::API#retweeted_to_user has been deprecated without replacement and will stop working on March 5, 2013."
-      options.merge_user!(user)
-      collection_from_response(Twitter::Tweet, :get, "/1/statuses/retweeted_to_user.json", options)
-    end
-    alias retweeted_to retweeted_to_user
-
     # Returns the 20 most recent retweets posted by users the authenticating user follow.
     #
     # @see https://dev.twitter.com/docs/api/1.1/get/statuses/home_timeline
@@ -2203,42 +2157,6 @@ module Twitter
     #   Twitter.trends_closest
     def trends_closest(options={})
       collection_from_response(Twitter::Place, :get, "/1.1/trends/closest.json", options)
-    end
-
-    # Returns the top 20 trending topics for each hour in a given day
-    #
-    # @deprecated This method has been deprecated without replacement and will stop working on March 5, 2013.
-    # @see https://dev.twitter.com/docs/api/1/get/trends/daily
-    # @rate_limited Yes
-    # @authentication_required Requires user context
-    # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-    # @param date [Date] The start date for the report. A 404 error will be thrown if the date is older than the available search index (7-10 days). Dates in the future will be forced to the current date.
-    # @param options [Hash] A customizable set of options.
-    # @option options [String] :exclude Setting this equal to 'hashtags' will remove all hashtags from the trends list.
-    # @return [Hash]
-    # @example Return the top 20 trending topics for each hour of October 24, 2010
-    #   Twitter.trends_daily(Date.parse("2010-10-24"))
-    def trends_daily(date=Date.today, options={})
-      warn "#{Kernel.caller.first}: [DEPRECATION] Twitter::API#trends_daily has been deprecated without replacement and will stop working on March 5, 2013."
-      trends_periodically("/1/trends/daily.json", date, options)
-    end
-
-    # Returns the top 30 trending topics for each day in a given week
-    #
-    # @deprecated This method has been deprecated without replacement and will stop working on March 5, 2013.
-    # @see https://dev.twitter.com/docs/api/1/get/trends/weekly
-    # @rate_limited Yes
-    # @authentication_required Requires user context
-    # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-    # @param date [Date] The start date for the report. A 404 error will be thrown if the date is older than the available search index (7-10 days). Dates in the future will be forced to the current date.
-    # @param options [Hash] A customizable set of options.
-    # @option options [String] :exclude Setting this equal to 'hashtags' will remove all hashtags from the trends list.
-    # @return [Hash]
-    # @example Return the top ten topics that are currently trending on Twitter
-    #   Twitter.trends_weekly(Date.parse("2010-10-24"))
-    def trends_weekly(date=Date.today, options={})
-      warn "#{Kernel.caller.first}: [DEPRECATION] Twitter::API#trends_weekly has been deprecated without replacement and will stop working on March 5, 2013."
-      trends_periodically("/1/trends/weekly.json", date, options)
     end
 
     # Returns an array of user objects that the authenticating user is blocking
@@ -2774,18 +2692,6 @@ module Twitter
       members.flatten.each_slice(MAX_USERS_PER_REQUEST).threaded_map do |users|
         object_from_response(Twitter::List, request_method, url, options.merge_users(users))
       end.last
-    end
-
-    def trends_periodically(url, date, options)
-      response = get(url, options.merge(:date => date.strftime('%Y-%m-%d')))
-      trends = {}
-      response[:body][:trends].each do |key, value|
-        trends[key] = []
-        value.each do |trend|
-          trends[key] << Twitter::Trend.fetch_or_new(trend)
-        end
-      end
-      trends
     end
 
     def merge_default_cursor!(options)

@@ -173,37 +173,6 @@ describe Twitter::API do
     end
   end
 
-  describe "#retweeted_to_user" do
-    before do
-      stub_get("/1/statuses/retweeted_to_user.json").
-        with(:query => {:screen_name => "sferik"}).
-        to_return(:body => fixture("statuses.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-    end
-    before :each do
-      @old_stderr = $stderr
-      $stderr = StringIO.new
-    end
-    after :each do
-      $stderr = @old_stderr
-    end
-    it "requests the correct resource" do
-      @client.retweeted_to_user("sferik")
-      a_get("/1/statuses/retweeted_to_user.json").
-        with(:query => {:screen_name => "sferik"}).
-        should have_been_made
-    end
-    it "returns the 20 most recent retweets posted by users the specified user follow" do
-      tweets = @client.retweeted_to_user("sferik")
-      tweets.should be_an Array
-      tweets.first.should be_a Twitter::Tweet
-      tweets.first.text.should eq "Happy Birthday @imdane. Watch out for those @rally pranksters!"
-    end
-    it "should warn when called" do
-      @client.retweeted_to_user("sferik")
-      $stderr.string.should =~ /\[DEPRECATION\] Twitter::API#retweeted_to_user has been deprecated without replacement and will stop working on March 5, 2013\./
-    end
-  end
-
   describe "#retweeted_to_me" do
     before do
       stub_get("/1.1/statuses/home_timeline.json").
