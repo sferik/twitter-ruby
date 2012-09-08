@@ -15,10 +15,10 @@ describe Twitter::Cursor do
       @client = Twitter::Client.new
       stub_get("/1.1/followers/ids.json").
         with(:query => {:cursor => "-1", :screen_name => "sferik"}).
-        to_return(:body => fixture("id_list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        to_return(:body => fixture("ids_list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       stub_get("/1.1/followers/ids.json").
         with(:query => {:cursor => "1305102810874389703", :screen_name => "sferik"}).
-        to_return(:body => fixture("id_list2.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        to_return(:body => fixture("ids_list2.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resources" do
       @client.follower_ids("sferik").all
@@ -40,10 +40,10 @@ describe Twitter::Cursor do
       @client = Twitter::Client.new
       stub_get("/1.1/followers/ids.json").
         with(:query => {:cursor => "-1", :screen_name => "sferik"}).
-        to_return(:body => fixture("id_list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        to_return(:body => fixture("ids_list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       stub_get("/1.1/followers/ids.json").
         with(:query => {:cursor => "1305102810874389703", :screen_name => "sferik"}).
-        to_return(:body => fixture("id_list2.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        to_return(:body => fixture("ids_list2.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resources" do
       @client.follower_ids("sferik").each{}

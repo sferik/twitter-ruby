@@ -6,41 +6,6 @@ describe Twitter::API do
     @client = Twitter::Client.new
   end
 
-  describe "#lists_subscribed_to" do
-    context "with a screen name passed" do
-      before do
-        stub_get("/1.1/lists/all.json").
-          with(:query => {:screen_name => "sferik"}).
-          to_return(:body => fixture("all.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-      end
-      it "requests the correct resource" do
-        @client.lists_subscribed_to("sferik")
-        a_get("/1.1/lists/all.json").
-          with(:query => {:screen_name => "sferik"}).
-          should have_been_made
-      end
-      it "returns the lists the specified user subscribes to" do
-        lists = @client.lists_subscribed_to("sferik")
-        lists.should be_an Array
-        lists.first.should be_a Twitter::List
-        lists.first.name.should eq "Rubyists"
-      end
-    end
-    context "without a screen name passed" do
-      before do
-        stub_get("/1.1/account/verify_credentials.json").
-          to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-        stub_get("/1.1/lists/all.json").
-          to_return(:body => fixture("all.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-      end
-      it "requests the correct resource" do
-        @client.lists_subscribed_to
-        a_get("/1.1/lists/all.json").
-          should have_been_made
-      end
-    end
-  end
-
   describe "#list_timeline" do
     context "with a screen name passed" do
       before do
@@ -58,7 +23,7 @@ describe Twitter::API do
         tweets = @client.list_timeline("sferik", "presidents")
         tweets.should be_an Array
         tweets.first.should be_a Twitter::Tweet
-        tweets.first.text.should eq "Ruby is the best programming language for hiding the ugly bits."
+        tweets.first.text.should eq "Happy Birthday @imdane. Watch out for those @rally pranksters!"
       end
     end
     context "without a screen name passed" do
@@ -822,45 +787,23 @@ describe Twitter::API do
   end
 
   describe "#lists" do
-    context "with a screen name passed" do
-      before do
-        stub_get("/1.1/lists.json").
-          with(:query => {:screen_name => 'sferik', :cursor => "-1"}).
-          to_return(:body => fixture("lists.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-      end
-      it "requests the correct resource" do
-        @client.lists("sferik")
-        a_get("/1.1/lists.json").
-          with(:query => {:screen_name => 'sferik', :cursor => "-1"}).
-          should have_been_made
-      end
-      it "returns the requested lists" do
-        lists = @client.lists("sferik")
-        lists.should be_a Twitter::Cursor
-        lists.lists.should be_an Array
-        lists.lists.first.should be_a Twitter::List
-        lists.lists.first.name.should eq "Rubyists"
-      end
+    before do
+      stub_get("/1.1/lists/list.json").
+        with(:query => {:cursor => "-1"}).
+        to_return(:body => fixture("lists.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
-    context "without arguments passed" do
-      before do
-        stub_get("/1.1/lists.json").
-          with(:query => {:cursor => "-1"}).
-          to_return(:body => fixture("lists.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-      end
-      it "requests the correct resource" do
-        @client.lists
-        a_get("/1.1/lists.json").
-          with(:query => {:cursor => "-1"}).
-          should have_been_made
-      end
-      it "returns the requested list" do
-        lists = @client.lists
-        lists.should be_a Twitter::Cursor
-        lists.lists.should be_an Array
-        lists.lists.first.should be_a Twitter::List
-        lists.lists.first.name.should eq "Rubyists"
-      end
+    it "requests the correct resource" do
+      @client.lists
+      a_get("/1.1/lists/list.json").
+        with(:query => {:cursor => "-1"}).
+        should have_been_made
+    end
+    it "returns the requested list" do
+      lists = @client.lists
+      lists.should be_a Twitter::Cursor
+      lists.lists.should be_an Array
+      lists.lists.first.should be_a Twitter::List
+      lists.lists.first.name.should eq "Rubyists"
     end
   end
 

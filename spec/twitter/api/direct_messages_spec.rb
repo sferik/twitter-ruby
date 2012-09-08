@@ -103,12 +103,14 @@ describe Twitter::API do
   describe "#direct_messages" do
     context "with ids passed" do
       before do
-        stub_get("/1.1/direct_messages/show/1825786345.json").
+        stub_get("/1.1/direct_messages/show.json").
+          with(:query => {:id => "1825786345"}).
           to_return(:body => fixture("direct_message.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.direct_messages(1825786345)
-        a_get("/1.1/direct_messages/show/1825786345.json").
+        a_get("/1.1/direct_messages/show.json").
+          with(:query => {:id => "1825786345"}).
           should have_been_made
       end
       it "returns an array of direct messages" do

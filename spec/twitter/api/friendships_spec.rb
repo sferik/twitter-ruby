@@ -11,7 +11,7 @@ describe Twitter::API do
       before do
         stub_get("/1.1/followers/ids.json").
           with(:query => {:cursor => "-1", :screen_name => "sferik"}).
-          to_return(:body => fixture("id_list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+          to_return(:body => fixture("ids_list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.follower_ids("sferik")
@@ -30,7 +30,7 @@ describe Twitter::API do
       before do
         stub_get("/1.1/followers/ids.json").
           with(:query => {:cursor => "-1"}).
-          to_return(:body => fixture("id_list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+          to_return(:body => fixture("ids_list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.follower_ids
@@ -52,7 +52,7 @@ describe Twitter::API do
       before do
         stub_get("/1.1/friends/ids.json").
           with(:query => {:cursor => "-1", :screen_name => "sferik"}).
-          to_return(:body => fixture("id_list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+          to_return(:body => fixture("ids_list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.friend_ids("sferik")
@@ -71,7 +71,7 @@ describe Twitter::API do
       before do
         stub_get("/1.1/friends/ids.json").
           with(:query => {:cursor => "-1"}).
-          to_return(:body => fixture("id_list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+          to_return(:body => fixture("ids_list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.friend_ids
@@ -91,17 +91,17 @@ describe Twitter::API do
   describe "#friendship?" do
     context "with screen names passed" do
       before do
-        stub_get("/1.1/friendships/exists.json").
-          with(:query => {:screen_name_a => "sferik", :screen_name_b => "pengwynn"}).
-          to_return(:body => fixture("true.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-        stub_get("/1.1/friendships/exists.json").
-          with(:query => {:screen_name_a => "pengwynn", :screen_name_b => "sferik"}).
-          to_return(:body => fixture("false.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        stub_get("/1.1/friendships/show.json").
+          with(:query => {:source_screen_name => "sferik", :target_screen_name => "pengwynn"}).
+          to_return(:body => fixture("following.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        stub_get("/1.1/friendships/show.json").
+          with(:query => {:source_screen_name => "pengwynn", :target_screen_name => "sferik"}).
+          to_return(:body => fixture("not_following.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.friendship?("sferik", "pengwynn")
-        a_get("/1.1/friendships/exists.json").
-          with(:query => {:screen_name_a => "sferik", :screen_name_b => "pengwynn"}).
+        a_get("/1.1/friendships/show.json").
+          with(:query => {:source_screen_name => "sferik", :target_screen_name => "pengwynn"}).
           should have_been_made
       end
       it "returns true if user A follows user B" do
@@ -115,29 +115,29 @@ describe Twitter::API do
     end
     context "with user IDs passed" do
       before do
-        stub_get("/1.1/friendships/exists.json").
-          with(:query => {:user_id_a => "7505382", :user_id_b => "14100886"}).
-          to_return(:body => fixture("true.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        stub_get("/1.1/friendships/show.json").
+          with(:query => {:source_id => "7505382", :target_id => "14100886"}).
+          to_return(:body => fixture("following.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.friendship?(7505382, 14100886)
-        a_get("/1.1/friendships/exists.json").
-          with(:query => {:user_id_a => "7505382", :user_id_b => "14100886"}).
+        a_get("/1.1/friendships/show.json").
+          with(:query => {:source_id => "7505382", :target_id => "14100886"}).
           should have_been_made
       end
     end
     context "with user objects passed" do
       before do
-        stub_get("/1.1/friendships/exists.json").
-          with(:query => {:user_id_a => "7505382", :user_id_b => "14100886"}).
-          to_return(:body => fixture("true.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        stub_get("/1.1/friendships/show.json").
+          with(:query => {:source_id => "7505382", :target_id => "14100886"}).
+          to_return(:body => fixture("following.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         user1 = Twitter::User.new(:id => '7505382')
         user2 = Twitter::User.new(:id => '14100886')
         @client.friendship?(user1, user2)
-        a_get("/1.1/friendships/exists.json").
-          with(:query => {:user_id_a => "7505382", :user_id_b => "14100886"}).
+        a_get("/1.1/friendships/show.json").
+          with(:query => {:source_id => "7505382", :target_id => "14100886"}).
           should have_been_made
       end
     end
@@ -147,7 +147,7 @@ describe Twitter::API do
     before do
       stub_get("/1.1/friendships/incoming.json").
         with(:query => {:cursor => "-1"}).
-        to_return(:body => fixture("id_list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        to_return(:body => fixture("ids_list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
       @client.friendships_incoming
@@ -167,7 +167,7 @@ describe Twitter::API do
     before do
       stub_get("/1.1/friendships/outgoing.json").
         with(:query => {:cursor => "-1"}).
-        to_return(:body => fixture("id_list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        to_return(:body => fixture("ids_list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
       @client.friendships_outgoing
@@ -188,7 +188,7 @@ describe Twitter::API do
       before do
         stub_get("/1.1/friendships/show.json").
           with(:query => {:source_screen_name => "sferik", :target_screen_name => "pengwynn"}).
-          to_return(:body => fixture("relationship.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+          to_return(:body => fixture("following.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.friendship("sferik", "pengwynn")
@@ -206,7 +206,7 @@ describe Twitter::API do
       before do
         stub_get("/1.1/friendships/show.json").
           with(:query => {:source_screen_name => "0", :target_screen_name => "311"}).
-          to_return(:body => fixture("relationship.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+          to_return(:body => fixture("following.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.friendship("0", "311")
@@ -219,7 +219,7 @@ describe Twitter::API do
       before do
         stub_get("/1.1/friendships/show.json").
           with(:query => {:source_id => "7505382", :target_id => "14100886"}).
-          to_return(:body => fixture("relationship.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+          to_return(:body => fixture("following.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.friendship(7505382, 14100886)
@@ -232,7 +232,7 @@ describe Twitter::API do
       before do
         stub_get("/1.1/friendships/show.json").
           with(:query => {:source_id => "7505382", :target_id => "14100886"}).
-          to_return(:body => fixture("relationship.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+          to_return(:body => fixture("following.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         user1 = Twitter::User.new(:id => '7505382')
@@ -250,7 +250,7 @@ describe Twitter::API do
       before do
         stub_get("/1.1/friends/ids.json").
           with(:query => {:cursor => "-1"}).
-          to_return(:body => fixture("id_list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+          to_return(:body => fixture("ids_list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
         stub_post("/1.1/users/lookup.json").
           with(:body => {:screen_name => "sferik,pengwynn"}).
           to_return(:body => fixture("friendships.json"), :headers => {:content_type => "application/json; charset=utf-8"})
@@ -281,7 +281,7 @@ describe Twitter::API do
       before do
         stub_get("/1.1/friends/ids.json").
           with(:query => {:cursor => "-1"}).
-          to_return(:body => fixture("id_list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+          to_return(:body => fixture("ids_list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
         stub_post("/1.1/users/lookup.json").
           with(:body => {:screen_name => "sferik,pengwynn"}).
           to_return(:body => fixture("friendships.json"), :headers => {:content_type => "application/json; charset=utf-8"})
@@ -312,7 +312,7 @@ describe Twitter::API do
       before do
         stub_get("/1.1/friends/ids.json").
           with(:query => {:cursor => "-1"}).
-          to_return(:body => fixture("id_list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+          to_return(:body => fixture("ids_list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
         stub_post("/1.1/users/lookup.json").
           with(:body => {:screen_name => "sferik,pengwynn"}).
           to_return(:body => fixture("friendships.json"), :headers => {:content_type => "application/json; charset=utf-8"})
@@ -549,7 +549,7 @@ describe Twitter::API do
     before do
       stub_post("/1.1/friendships/update.json").
         with(:body => {:screen_name => "sferik", :retweets => "true"}).
-        to_return(:body => fixture("relationship.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        to_return(:body => fixture("following.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
       @client.friendship_update("sferik", :retweets => true)
@@ -566,12 +566,19 @@ describe Twitter::API do
 
   describe "#no_retweet_ids" do
     before do
-      stub_get("/1.1/friendships/no_retweet_ids.json").
+      stub_get("/1/friendships/no_retweet_ids.json").
         to_return(:body => fixture("ids.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+    end
+    before :each do
+      @old_stderr = $stderr
+      $stderr = StringIO.new
+    end
+    after :each do
+      $stderr = @old_stderr
     end
     it "requests the correct resource" do
       @client.no_retweet_ids
-      a_get("/1.1/friendships/no_retweet_ids.json").
+      a_get("/1/friendships/no_retweet_ids.json").
         should have_been_made
     end
     it "returns detailed information about the relationship between two users" do
@@ -579,6 +586,10 @@ describe Twitter::API do
       no_retweet_ids.should be_an Array
       no_retweet_ids.first.should be_an Integer
       no_retweet_ids.first.should eq 47
+    end
+    it "should warn when called" do
+      @client.no_retweet_ids
+      $stderr.string.should =~ /\[DEPRECATION\] Twitter::API#no_retweet_ids has been deprecated without replacement and will stop working on March 5, 2013\./
     end
   end
 

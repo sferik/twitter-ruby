@@ -9,10 +9,6 @@ module Twitter
         case body
         when /\A^\s*$\z/, nil
           nil
-        when 'true'
-          true
-        when 'false'
-          false
         else
           MultiJson.load(body, :symbolize_keys => true)
         end

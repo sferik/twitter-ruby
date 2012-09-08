@@ -48,22 +48,22 @@ class Hash
   #
   # @param user[Integer, String, Twitter::User] A Twitter user ID, screen_name, or object.
   # @return [Hash]
-  def merge_user(user, prefix=nil, suffix=nil)
-    self.dup.merge_user!(user, prefix, suffix)
+  def merge_user(user, prefix=nil)
+    self.dup.merge_user!(user, prefix)
   end
 
   # Take a user and merge it into the hash with the correct key
   #
   # @param user[Integer, String, Twitter::User] A Twitter user ID, screen_name, or object.
   # @return [Hash]
-  def merge_user!(user, prefix=nil, suffix=nil)
+  def merge_user!(user, prefix=nil)
     case user
     when Integer
-      self[[prefix, "user_id", suffix].compact.join("_").to_sym] = user
+      self[[prefix, "user_id"].compact.join("_").to_sym] = user
     when String
-      self[[prefix, "screen_name", suffix].compact.join("_").to_sym] = user
+      self[[prefix, "screen_name"].compact.join("_").to_sym] = user
     when Twitter::User
-      self[[prefix, "user_id", suffix].compact.join("_").to_sym] = user.id
+      self[[prefix, "user_id"].compact.join("_").to_sym] = user.id
     end
     self
   end

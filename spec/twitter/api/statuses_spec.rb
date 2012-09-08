@@ -9,12 +9,14 @@ describe Twitter::API do
   describe "#favorites" do
     context "with a screen name passed" do
       before do
-        stub_get("/1.1/favorites/sferik.json").
+        stub_get("/1.1/favorites/list.json").
+          with(:query => {:screen_name => "sferik"}).
           to_return(:body => fixture("favorites.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.favorites("sferik")
-        a_get("/1.1/favorites/sferik.json").
+        a_get("/1.1/favorites/list.json").
+          with(:query => {:screen_name => "sferik"}).
           should have_been_made
       end
       it "returns the 20 most recent favorite Tweets for the authenticating user or user specified by the ID parameter" do
@@ -26,12 +28,12 @@ describe Twitter::API do
     end
     context "without arguments passed" do
       before do
-        stub_get("/1.1/favorites.json").
+        stub_get("/1.1/favorites/list.json").
           to_return(:body => fixture("favorites.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.favorites
-        a_get("/1.1/favorites.json").
+        a_get("/1.1/favorites/list.json").
           should have_been_made
       end
       it "returns the 20 most recent favorite Tweets for the authenticating user or user specified by the ID parameter" do
@@ -97,7 +99,7 @@ describe Twitter::API do
       tweets = @client.home_timeline
       tweets.should be_an Array
       tweets.first.should be_a Twitter::Tweet
-      tweets.first.text.should eq "Ruby is the best programming language for hiding the ugly bits."
+      tweets.first.text.should eq "Happy Birthday @imdane. Watch out for those @rally pranksters!"
     end
   end
 
@@ -115,57 +117,78 @@ describe Twitter::API do
       tweets = @client.mentions_timeline
       tweets.should be_an Array
       tweets.first.should be_a Twitter::Tweet
-      tweets.first.text.should eq "Ruby is the best programming language for hiding the ugly bits."
+      tweets.first.text.should eq "Happy Birthday @imdane. Watch out for those @rally pranksters!"
     end
   end
 
   describe "#retweeted_by_user" do
     before do
-      stub_get("/1.1/statuses/retweeted_by_user.json").
-        with(:query => {:screen_name => "sferik"}).
+      stub_get("/1.1/statuses/user_timeline.json").
+        with(:query => {:include_rts => "true", :screen_name => "sferik", :count => "200"}).
+        to_return(:body => fixture("statuses.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      stub_get("/1.1/statuses/user_timeline.json").
+        with(:query => {:include_rts => "true", :screen_name => "sferik", :count => "200", :max_id => "244102729860009983"}).
         to_return(:body => fixture("statuses.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
       @client.retweeted_by_user("sferik")
-      a_get("/1.1/statuses/retweeted_by_user.json").
-        with(:query => {:screen_name => "sferik"}).
+      a_get("/1.1/statuses/user_timeline.json").
+        with(:query => {:include_rts => "true", :screen_name => "sferik", :count => "200"}).
         should have_been_made
+      a_get("/1.1/statuses/user_timeline.json").
+        with(:query => {:include_rts => "true", :screen_name => "sferik", :count => "200", :max_id => "244102729860009983"}).
+        should have_been_made.times(3)
     end
     it "returns the 20 most recent retweets posted by the authenticating user" do
       tweets = @client.retweeted_by_user("sferik")
       tweets.should be_an Array
       tweets.first.should be_a Twitter::Tweet
-      tweets.first.text.should eq "Ruby is the best programming language for hiding the ugly bits."
+      tweets.first.text.should eq "RT @olivercameron: Mosaic looks cool: http://t.co/A8013C9k"
     end
   end
 
-  describe "retweeted_by_me" do
+  describe "#retweeted_by_me" do
     before do
-      stub_get("/1.1/statuses/retweeted_by_me.json").
+      stub_get("/1.1/statuses/user_timeline.json").
+        with(:query => {:include_rts => "true", :count => "200"}).
+        to_return(:body => fixture("statuses.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      stub_get("/1.1/statuses/user_timeline.json").
+        with(:query => {:include_rts => "true", :count => "200", :max_id => "244102729860009983"}).
         to_return(:body => fixture("statuses.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
       @client.retweeted_by_me
-      a_get("/1.1/statuses/retweeted_by_me.json").
+      a_get("/1.1/statuses/user_timeline.json").
+        with(:query => {:include_rts => "true", :count => "200"}).
         should have_been_made
+      a_get("/1.1/statuses/user_timeline.json").
+        with(:query => {:include_rts => "true", :count => "200", :max_id => "244102729860009983"}).
+        should have_been_made.times(3)
     end
     it "returns the 20 most recent retweets posted by the authenticating user" do
       tweets = @client.retweeted_by_me
       tweets.should be_an Array
       tweets.first.should be_a Twitter::Tweet
-      tweets.first.text.should eq "Ruby is the best programming language for hiding the ugly bits."
+      tweets.first.text.should eq "RT @olivercameron: Mosaic looks cool: http://t.co/A8013C9k"
     end
   end
 
   describe "#retweeted_to_user" do
     before do
-      stub_get("/1.1/statuses/retweeted_to_user.json").
+      stub_get("/1/statuses/retweeted_to_user.json").
         with(:query => {:screen_name => "sferik"}).
         to_return(:body => fixture("statuses.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
+    before :each do
+      @old_stderr = $stderr
+      $stderr = StringIO.new
+    end
+    after :each do
+      $stderr = @old_stderr
+    end
     it "requests the correct resource" do
       @client.retweeted_to_user("sferik")
-      a_get("/1.1/statuses/retweeted_to_user.json").
+      a_get("/1/statuses/retweeted_to_user.json").
         with(:query => {:screen_name => "sferik"}).
         should have_been_made
     end
@@ -173,43 +196,63 @@ describe Twitter::API do
       tweets = @client.retweeted_to_user("sferik")
       tweets.should be_an Array
       tweets.first.should be_a Twitter::Tweet
-      tweets.first.text.should eq "Ruby is the best programming language for hiding the ugly bits."
+      tweets.first.text.should eq "Happy Birthday @imdane. Watch out for those @rally pranksters!"
+    end
+    it "should warn when called" do
+      @client.retweeted_to_user("sferik")
+      $stderr.string.should =~ /\[DEPRECATION\] Twitter::API#retweeted_to_user has been deprecated without replacement and will stop working on March 5, 2013\./
     end
   end
 
   describe "#retweeted_to_me" do
     before do
-      stub_get("/1.1/statuses/retweeted_to_me.json").
+      stub_get("/1.1/statuses/home_timeline.json").
+        with(:query => {:include_rts => "true", :count => "200"}).
+        to_return(:body => fixture("statuses.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      stub_get("/1.1/statuses/home_timeline.json").
+        with(:query => {:include_rts => "true", :count => "200", :max_id => "244102729860009983"}).
         to_return(:body => fixture("statuses.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
       @client.retweeted_to_me
-      a_get("/1.1/statuses/retweeted_to_me.json").
+      stub_get("/1.1/statuses/home_timeline.json").
+        with(:query => {:include_rts => "true", :count => "200"}).
         should have_been_made
+      stub_get("/1.1/statuses/home_timeline.json").
+        with(:query => {:include_rts => "true", :count => "200", :max_id => "244102729860009983"}).
+        should have_been_made.times(3)
     end
     it "returns the 20 most recent retweets posted by users the authenticating user follow" do
       tweets = @client.retweeted_to_me
       tweets.should be_an Array
       tweets.first.should be_a Twitter::Tweet
-      tweets.first.text.should eq "Ruby is the best programming language for hiding the ugly bits."
+      tweets.first.text.should eq "RT @olivercameron: Mosaic looks cool: http://t.co/A8013C9k"
     end
   end
 
   describe "#retweets_of_me" do
     before do
-      stub_get("/1.1/statuses/retweets_of_me.json").
+      stub_get("/1.1/statuses/user_timeline.json").
+        with(:query => {:include_rts => "false", :count => "200"}).
+        to_return(:body => fixture("statuses.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      stub_get("/1.1/statuses/user_timeline.json").
+        with(:query => {:include_rts => "false", :count => "200", :max_id => "244102490646278145"}).
         to_return(:body => fixture("statuses.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
       @client.retweets_of_me
-      a_get("/1.1/statuses/retweets_of_me.json").
+      a_get("/1.1/statuses/user_timeline.json").
+        with(:query => {:include_rts => "false", :count => "200"}).
+        should have_been_made
+      a_get("/1.1/statuses/user_timeline.json").
+        with(:query => {:include_rts => "false", :count => "200", :max_id => "244102490646278145"}).
         should have_been_made
     end
     it "returns the 20 most recent tweets of the authenticated user that have been retweeted by others" do
       tweets = @client.retweets_of_me
       tweets.should be_an Array
       tweets.first.should be_a Twitter::Tweet
-      tweets.first.text.should eq "Ruby is the best programming language for hiding the ugly bits."
+      tweets.first.text.should eq "RT @olivercameron: Mosaic looks cool: http://t.co/A8013C9k"
     end
   end
 
@@ -230,7 +273,7 @@ describe Twitter::API do
         tweets = @client.user_timeline("sferik")
         tweets.should be_an Array
         tweets.first.should be_a Twitter::Tweet
-        tweets.first.text.should eq "Ruby is the best programming language for hiding the ugly bits."
+        tweets.first.text.should eq "Happy Birthday @imdane. Watch out for those @rally pranksters!"
       end
     end
     context "without a screen name passed" do
@@ -293,42 +336,42 @@ describe Twitter::API do
       tweets = @client.network_timeline
       tweets.should be_an Array
       tweets.first.should be_a Twitter::Tweet
-      tweets.first.text.should eq "Ruby is the best programming language for hiding the ugly bits."
+      tweets.first.text.should eq "Happy Birthday @imdane. Watch out for those @rally pranksters!"
     end
   end
 
   describe "#retweeters_of" do
     context "with ids_only passed" do
       before do
-        stub_get("/1.1/statuses/27467028175/retweeted_by/ids.json").
-          to_return(:body => fixture("ids.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        stub_get("/1.1/statuses/retweets/28561922516.json").
+          to_return(:body => fixture("retweets.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
-        @client.retweeters_of(27467028175, :ids_only => true)
-        a_get("/1.1/statuses/27467028175/retweeted_by/ids.json").
+        @client.retweeters_of(28561922516, :ids_only => true)
+        a_get("/1.1/statuses/retweets/28561922516.json").
           should have_been_made
       end
       it "returns an array of numeric user IDs of retweeters of a Tweet" do
-        ids = @client.retweeters_of(27467028175, :ids_only => true)
+        ids = @client.retweeters_of(28561922516, :ids_only => true)
         ids.should be_an Array
-        ids.first.should eq 47
+        ids.first.should eq 7505382
       end
     end
     context "without ids_only passed" do
       before do
-        stub_get("/1.1/statuses/27467028175/retweeted_by.json").
-          to_return(:body => fixture("retweeters_of.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        stub_get("/1.1/statuses/retweets/28561922516.json").
+          to_return(:body => fixture("retweets.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
-        @client.retweeters_of(27467028175)
-        a_get("/1.1/statuses/27467028175/retweeted_by.json").
+        @client.retweeters_of(28561922516)
+        a_get("/1.1/statuses/retweets/28561922516.json").
           should have_been_made
       end
       it "returns an array of user of retweeters of a Tweet" do
-        users = @client.retweeters_of(27467028175)
+        users = @client.retweeters_of(28561922516)
         users.should be_an Array
         users.first.should be_a Twitter::User
-        users.first.name.should eq "Dave W Baldwin"
+        users.first.id.should eq 7505382
       end
     end
   end
