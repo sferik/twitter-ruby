@@ -32,7 +32,7 @@ module Twitter
     end
     alias retry_after reset_in
 
-    # Update the attributes of a Relationship
+    # Update the attributes of a RateLimit
     #
     # @param attrs [Hash]
     # @return [Twitter::RateLimit]

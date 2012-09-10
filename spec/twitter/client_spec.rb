@@ -82,14 +82,6 @@ describe Twitter::Client do
     client2.verify_credentials.id.should eq 14100886
   end
 
-  describe "#initalize" do
-    it "returns a different rate limit object for a new client" do
-      client1 = Twitter::Client.new
-      client2 = Twitter::Client.new
-      client1.rate_limit.should_not eq client2.rate_limit
-    end
-  end
-
   describe "#delete" do
     before do
       stub_delete("/custom/delete").

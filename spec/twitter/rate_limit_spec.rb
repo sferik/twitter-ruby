@@ -56,4 +56,21 @@ describe Twitter::RateLimit do
     end
   end
 
+  describe "#update" do
+    before do
+      Timecop.freeze(Time.utc(2012, 6, 6, 17, 22, 0))
+    end
+    after do
+      Timecop.return
+    end
+    it "updates a rate limit" do
+      rate_limit = Twitter::RateLimit.new('x-rate-limit-reset' => "1339019097")
+      rate_limit.reset_in.should be_an Integer
+      rate_limit.reset_in.should eq 15777
+      rate_limit.update({'x-rate-limit-reset' => "1339019098"})
+      rate_limit.reset_in.should be_an Integer
+      rate_limit.reset_in.should eq 15778
+    end
+  end
+
 end

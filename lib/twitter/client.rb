@@ -4,7 +4,6 @@ require 'twitter/api'
 require 'twitter/configurable'
 require 'twitter/error/client_error'
 require 'twitter/error/decode_error'
-require 'twitter/rate_limit'
 require 'simple_oauth'
 require 'uri'
 
@@ -16,7 +15,6 @@ module Twitter
   class Client
     include Twitter::API
     include Twitter::Configurable
-    attr_reader :rate_limit
 
     # Initializes a new Client object
     #
@@ -26,7 +24,6 @@ module Twitter
       Twitter::Configurable.keys.each do |key|
         instance_variable_set(:"@#{key}", options[key] || Twitter.instance_variable_get(:"@#{key}"))
       end
-      @rate_limit = Twitter::RateLimit.new
     end
 
     # Perform an HTTP DELETE request
@@ -82,7 +79,6 @@ module Twitter
         end
         yield request if block_given?
       end.env
-      @rate_limit.update(response[:response_headers])
       response
     rescue Faraday::Error::ClientError
       raise Twitter::Error::ClientError
