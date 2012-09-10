@@ -12,7 +12,6 @@ require 'twitter/language'
 require 'twitter/list'
 require 'twitter/oembed'
 require 'twitter/place'
-require 'twitter/rate_limit_status'
 require 'twitter/relationship'
 require 'twitter/saved_search'
 require 'twitter/search_results'
@@ -28,20 +27,6 @@ module Twitter
     DEFAULT_TWEETS_PER_REQUEST = 20
     MAX_USERS_PER_REQUEST = 100
     MAX_TWEETS_PER_REQUEST = 200
-
-    # Returns the remaining number of API requests available to the requesting user
-    #
-    # @see https://dev.twitter.com/docs/api/1.1/get/application/rate_limit_status
-    # @rate_limited No
-    # @authentication_required Requires user context
-    # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-    # @return [Twitter::RateLimitStatus]
-    # @param options [Hash] A customizable set of options.
-    # @example Return the remaining number of API requests available to the requesting user
-    #   Twitter.rate_limit_status
-    def rate_limit_status(options={})
-      object_from_response(Twitter::RateLimitStatus, :get, "/1.1/application/rate_limit_status.json", options)
-    end
 
     # Returns the requesting user if authentication was successful, otherwise raises {Twitter::Error::Unauthorized}
     #
