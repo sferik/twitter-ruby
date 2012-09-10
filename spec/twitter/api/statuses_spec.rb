@@ -510,13 +510,13 @@ describe Twitter::API do
 
   describe "#update_with_media" do
     before do
-      stub_post("/1.1/statuses/update_with_media.json", "https://upload.twitter.com").
+      stub_post("/1.1/statuses/update_with_media.json").
         to_return(:body => fixture("status_with_media.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     context "a gif image" do
       it "requests the correct resource" do
         @client.update_with_media("You always have options", fixture("pbjt.gif"))
-        a_post("/1.1/statuses/update_with_media.json", "https://upload.twitter.com").
+        a_post("/1.1/statuses/update_with_media.json").
           should have_been_made
       end
       it "returns a Tweet" do
@@ -528,28 +528,28 @@ describe Twitter::API do
     context "a jpe image" do
       it "requests the correct resource" do
         @client.update_with_media("You always have options", fixture("wildcomet2.jpe"))
-        a_post("/1.1/statuses/update_with_media.json", "https://upload.twitter.com").
+        a_post("/1.1/statuses/update_with_media.json").
           should have_been_made
       end
     end
     context "a jpeg image" do
       it "requests the correct resource" do
         @client.update_with_media("You always have options", fixture("me.jpeg"))
-        a_post("/1.1/statuses/update_with_media.json", "https://upload.twitter.com").
+        a_post("/1.1/statuses/update_with_media.json").
           should have_been_made
       end
     end
     context "a png image" do
       it "requests the correct resource" do
         @client.update_with_media("You always have options", fixture("we_concept_bg2.png"))
-        a_post("/1.1/statuses/update_with_media.json", "https://upload.twitter.com").
+        a_post("/1.1/statuses/update_with_media.json").
           should have_been_made
       end
     end
     context "a Tempfile" do
       it "requests the correct resource" do
         @client.update_with_media("You always have options", Tempfile.new("tmp"))
-        a_post("/1.1/statuses/update_with_media.json", "https://upload.twitter.com").
+        a_post("/1.1/statuses/update_with_media.json").
           should have_been_made
       end
     end

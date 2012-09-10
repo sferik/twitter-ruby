@@ -1961,7 +1961,7 @@ module Twitter
     # @example Update the authenticating user's status
     #   Twitter.update_with_media("I'm tweeting with @gem!", File.new('my_awesome_pic.jpeg'))
     def update_with_media(status, media, options={})
-      object_from_response(Twitter::Tweet, :post, "/1.1/statuses/update_with_media.json", options.merge('media[]' => media, 'status' => status), :endpoint => @media_endpoint)
+      object_from_response(Twitter::Tweet, :post, "/1.1/statuses/update_with_media.json", options.merge('media[]' => media, 'status' => status))
     end
 
     # Returns the top 10 trending topics for a specific WOEID

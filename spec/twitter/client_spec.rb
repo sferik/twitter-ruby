@@ -37,7 +37,6 @@ describe Twitter::Client do
           :consumer_key => 'CK',
           :consumer_secret => 'CS',
           :endpoint => 'http://tumblr.com/',
-          :media_endpoint => 'http://upload.twitter.com',
           :middleware => Proc.new{},
           :oauth_token => 'OT',
           :oauth_token_secret => 'OS',
@@ -140,10 +139,10 @@ describe Twitter::Client do
         should have_been_made
     end
     it "encodes none of the body when uploaded media is present" do
-      stub_post("/1.1/statuses/update_with_media.json", "https://upload.twitter.com").
+      stub_post("/1.1/statuses/update_with_media.json").
         to_return(:body => fixture("status_with_media.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       subject.update_with_media("Update", fixture("pbjt.gif"))
-      a_post("/1.1/statuses/update_with_media.json", "https://upload.twitter.com").
+      a_post("/1.1/statuses/update_with_media.json").
         should have_been_made
     end
     it "catches Faraday errors" do

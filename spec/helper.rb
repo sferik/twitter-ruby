@@ -12,36 +12,36 @@ require 'tempfile'
 require 'timecop'
 require 'webmock/rspec'
 
-def a_delete(path, endpoint='https://api.twitter.com')
-  a_request(:delete, endpoint + path)
+def a_delete(path)
+  a_request(:delete, 'https://api.twitter.com' + path)
 end
 
-def a_get(path, endpoint='https://api.twitter.com')
-  a_request(:get, endpoint + path)
+def a_get(path)
+  a_request(:get, 'https://api.twitter.com' + path)
 end
 
-def a_post(path, endpoint='https://api.twitter.com')
-  a_request(:post, endpoint + path)
+def a_post(path)
+  a_request(:post, 'https://api.twitter.com' + path)
 end
 
-def a_put(path, endpoint='https://api.twitter.com')
-  a_request(:put, endpoint + path)
+def a_put(path)
+  a_request(:put, 'https://api.twitter.com' + path)
 end
 
-def stub_delete(path, endpoint='https://api.twitter.com')
-  stub_request(:delete, endpoint + path)
+def stub_delete(path)
+  stub_request(:delete, 'https://api.twitter.com' + path)
 end
 
-def stub_get(path, endpoint='https://api.twitter.com')
-  stub_request(:get, endpoint + path)
+def stub_get(path)
+  stub_request(:get, 'https://api.twitter.com' + path)
 end
 
-def stub_post(path, endpoint='https://api.twitter.com')
-  stub_request(:post, endpoint + path)
+def stub_post(path)
+  stub_request(:post, 'https://api.twitter.com' + path)
 end
 
-def stub_put(path, endpoint='https://api.twitter.com')
-  stub_request(:put, endpoint + path)
+def stub_put(path)
+  stub_request(:put, 'https://api.twitter.com' + path)
 end
 
 def fixture_path
