@@ -90,20 +90,6 @@ describe Twitter::Client do
     end
   end
 
-  describe "#rate_limited?" do
-    it "returns true for rate limited methods" do
-      subject.rate_limited?(:user).should be_true
-    end
-    it "returns false for rate limited methods" do
-      subject.rate_limited?(:rate_limit_status).should be_false
-    end
-    it "raises an ArgumentError for non-existant methods" do
-      lambda do
-        subject.rate_limited?(:foo)
-      end.should raise_error(ArgumentError, "no method `foo' for Twitter::Client")
-    end
-  end
-
   describe "#delete" do
     before do
       stub_delete("/custom/delete").
