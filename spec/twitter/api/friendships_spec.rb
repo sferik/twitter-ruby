@@ -564,44 +564,4 @@ describe Twitter::API do
     end
   end
 
-  describe "#accept" do
-    before do
-      stub_post("/1.1/friendships/accept.json").
-        with(:body => {:screen_name => "sferik"}).
-        to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-    end
-    it "requests the correct resource" do
-      @client.accept("sferik")
-      a_post("/1.1/friendships/accept.json").
-        with(:body => {:screen_name => "sferik"}).
-        should have_been_made
-    end
-    it "returns an array of accepted users" do
-      users = @client.accept("sferik")
-      users.should be_an Array
-      users.first.should be_a Twitter::User
-      users.first.id.should eq 7505382
-    end
-  end
-
-  describe "#deny" do
-    before do
-      stub_post("/1.1/friendships/deny.json").
-        with(:body => {:screen_name => "sferik"}).
-        to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-    end
-    it "requests the correct resource" do
-      @client.deny("sferik")
-      a_post("/1.1/friendships/deny.json").
-        with(:body => {:screen_name => "sferik"}).
-        should have_been_made
-    end
-    it "returns an array of denied users" do
-      users = @client.deny("sferik")
-      users.should be_an Array
-      users.first.should be_a Twitter::User
-      users.first.id.should eq 7505382
-    end
-  end
-
 end

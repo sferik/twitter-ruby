@@ -567,42 +567,6 @@ module Twitter
       object_from_response(Twitter::Relationship, :post, "/1.1/friendships/update.json", options)
     end
 
-    # Allows the authenticating user to accept the specified users' follow requests
-    #
-    # @note Undocumented
-    # @rate_limited No
-    # @authentication_required Requires user context
-    # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-    # @return [Array<Twitter::User>] The accepted users.
-    # @overload accept(*users)
-    #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
-    #   @example Accept @sferik's follow request
-    #     Twitter.accept('sferik')
-    # @overload accept(*users, options)
-    #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
-    #   @param options [Hash] A customizable set of options.
-    def accept(*args)
-      threaded_users_from_response(:post, "/1.1/friendships/accept.json", args)
-    end
-
-    # Allows the authenticating user to deny the specified users' follow requests
-    #
-    # @note Undocumented
-    # @rate_limited No
-    # @authentication_required Requires user context
-    # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-    # @return [Array<Twitter::User>] The denied users.
-    # @overload deny(*users)
-    #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
-    #   @example Deny @sferik's follow request
-    #     Twitter.deny('sferik')
-    # @overload deny(*users, options)
-    #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
-    #   @param options [Hash] A customizable set of options.
-    def deny(*args)
-      threaded_users_from_response(:post, "/1.1/friendships/deny.json", args)
-    end
-
     # Search for places that can be attached to a {Twitter::API::Statuses#update}
     #
     # @see https://dev.twitter.com/docs/api/1.1/get/geo/search
@@ -1750,24 +1714,6 @@ module Twitter
       threaded_tweets_from_response(:get, "/1.1/statuses/show", args)
     end
 
-    # Returns tweets related to a given Tweet
-    #
-    # @note {https://dev.twitter.com/discussions/293 Undocumented}
-    # @rate_limited Yes
-    # @authentication_required Requires user context
-    # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-    # @return [Array<Twitter::Tweet>]
-    # @param id [Integer] A Tweet ID.
-    # @param options [Hash] A customizable set of options.
-    # @example Returns tweets related to the Tweet with the ID 25938088801
-    #   Twitter.related_results(25938088801)
-    def related_results(id, options={})
-      array = get("/1.1/related_results/show/#{id}.json")[:body][0][:results].select{|result| result[:kind].capitalize == "Tweet"}.map{|result| result[:value]}
-      collection_from_array(Twitter::Tweet, array)
-    end
-    alias related_statuses related_results
-    alias related_tweets related_results
-
     # Returns activity summary for a Tweet
     #
     # @note Undocumented
@@ -2267,37 +2213,6 @@ module Twitter
     #     Twitter.contributors(7505382)  # Same as above
     def contributors(*args)
       users_from_response(:get, "/1.1/users/contributors.json", args)
-    end
-
-    # Returns recommended users for the authenticated user
-    #
-    # @note {https://dev.twitter.com/discussions/1120 Undocumented}
-    # @rate_limited Yes
-    # @authentication_required Requires user context
-    # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-    # @return [Array<Twitter::User>]
-    # @overload recommendations(options={})
-    #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
-    #   @param options [Hash] A customizable set of options.
-    #   @option options [Integer] :limit (20) Specifies the number of records to retrieve.
-    #   @option options [String] :excluded Comma-separated list of user IDs to exclude.
-    #   @example Return recommended users for the authenticated user
-    #     Twitter.recommendations
-    # @overload recommendations(user, options={})
-    #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
-    #   @param options [Hash] A customizable set of options.
-    #   @option options [Integer] :limit (20) Specifies the number of records to retrieve.
-    #   @option options [String] :excluded Comma-separated list of user IDs to exclude.
-    #   @example Return recommended users for the authenticated user
-    #     Twitter.recommendations("sferik")
-    def recommendations(*args)
-      options = args.extract_options!
-      options.merge_user!(args.pop || screen_name)
-      options[:excluded] = options[:excluded].join(',') if options[:excluded].is_a?(Array)
-      response = get("/1.1/users/recommendations.json", options)
-      response[:body].map do |recommendation|
-        Twitter::User.fetch_or_new(recommendation[:user])
-      end
     end
 
     # @note Undocumented

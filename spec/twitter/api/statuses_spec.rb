@@ -398,24 +398,6 @@ describe Twitter::API do
     end
   end
 
-  describe "#related_results" do
-    before do
-      stub_get("/1.1/related_results/show/233338791128096768.json").
-        to_return(:body => fixture("related_results.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-    end
-    it "requests the correct resource" do
-      @client.related_results(233338791128096768)
-      a_get("/1.1/related_results/show/233338791128096768.json").
-        should have_been_made
-    end
-    it "returns Tweets related to a given tweet" do
-      tweets = @client.related_results(233338791128096768)
-      tweets.should be_an Array
-      tweets.last.should be_a Twitter::Tweet
-      tweets.last.text.should eq "@sferik @al3x @eurucamp awesome, let's grab beers &amp; kebabs :)"
-    end
-  end
-
   describe "#status_activity" do
     before do
       stub_get("/i/statuses/25938088801/activity/summary.json").
