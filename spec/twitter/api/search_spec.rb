@@ -23,11 +23,11 @@ describe Twitter::API do
       search.should be_a Twitter::SearchResults
       search.results.should be_an Array
       search.results.first.should be_a Twitter::Tweet
-      search.results.first.text.should eq "@KaiserKuo from not too far away your new twitter icon looks like Vader."
+      search.results.first.text.should eq "Bubble Mailer #freebandnames"
     end
     it "returns the max_id value for a search result" do
       search = @client.search('twitter')
-      search.max_id.should eq(28857935752)
+      search.max_id.should eq(250126199840518145)
     end
 
     context "when search API responds a malformed result" do

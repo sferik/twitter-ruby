@@ -1524,7 +1524,6 @@ module Twitter
         select_retweets(user_timeline(options.merge(count_options)))
       end
     end
-    alias retweeted_by retweeted_by_user
 
     # Returns the 20 most recent retweets posted by users the authenticating user follow.
     #
