@@ -1,11 +1,12 @@
 require 'faraday'
 require 'twitter/error/bad_gateway'
 require 'twitter/error/bad_request'
-require 'twitter/error/enhance_your_calm'
 require 'twitter/error/forbidden'
+require 'twitter/error/gateway_timeout'
 require 'twitter/error/internal_server_error'
 require 'twitter/error/not_acceptable'
 require 'twitter/error/not_found'
+require 'twitter/error/rate_limited'
 require 'twitter/error/service_unavailable'
 require 'twitter/error/unauthorized'
 

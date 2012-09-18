@@ -6,5 +6,6 @@ module Twitter
     class RateLimited < Twitter::Error::ClientError
       HTTP_STATUS_CODE = 429
     end
+    EnhanceYourCalm = RateLimited
   end
 end
