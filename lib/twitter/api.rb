@@ -1620,25 +1620,6 @@ module Twitter
       objects_from_response(Twitter::Tweet, :get, "/1.1/statuses/media_timeline.json", args)
     end
 
-    # Returns the 20 most recent Tweets from the authenticating user's network
-    #
-    # @note Undocumented
-    # @rate_limited Yes
-    # @authentication_required Requires user context
-    # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-    # @return [Array<Twitter::Tweet>]
-    # @param options [Hash] A customizable set of options.
-    # @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID.
-    # @option options [Integer] :max_id Returns results with an ID less than (that is, older than) or equal to the specified ID.
-    # @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 200.
-    # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
-    # @option options [Boolean, String, Integer] :exclude_replies This parameter will prevent replies from appearing in the returned timeline. Using exclude_replies with the count parameter will mean you will receive up-to count tweets - this is because the count parameter retrieves that many tweets before filtering out retweets and replies.
-    # @example Return the 20 most recent Tweets from the authenticating user's network
-    #   Twitter.network_timeline
-    def network_timeline(options={})
-      collection_from_response(Twitter::Tweet, :get, "/i/statuses/network_timeline.json", options)
-    end
-
     # Show up to 100 users who retweeted the Tweet
     #
     # @see https://dev.twitter.com/docs/api/1.1/get/statuses/retweets/:id

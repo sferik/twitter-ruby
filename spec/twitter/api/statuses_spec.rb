@@ -291,24 +291,6 @@ describe Twitter::API do
     end
   end
 
-  describe "#network_timeline" do
-    before do
-      stub_get("/i/statuses/network_timeline.json").
-        to_return(:body => fixture("statuses.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-    end
-    it "requests the correct resource" do
-      @client.network_timeline
-      a_get("/i/statuses/network_timeline.json").
-        should have_been_made
-    end
-    it "returns the 20 most recent tweets of the authenticated user that have been retweeted by others" do
-      tweets = @client.network_timeline
-      tweets.should be_an Array
-      tweets.first.should be_a Twitter::Tweet
-      tweets.first.text.should eq "Happy Birthday @imdane. Watch out for those @rally pranksters!"
-    end
-  end
-
   describe "#retweeters_of" do
     context "with ids_only passed" do
       before do
