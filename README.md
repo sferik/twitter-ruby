@@ -63,7 +63,7 @@ Twitter:
 
 Despite the removal of certain underlying functionality in Twitter API v1.1,
 this library aims to preserve backward-compatibility wherever possible. For
-example, despite the remove of the [`GET
+example, despite the removal of the [`GET
 statuses/retweeted_by_user`][retweeted_by_user] resource, the
 `Twitter::API#retweeted_by_user` method continues to exist, implemented by
 making multiple requests to the [`GET statuses/user_timeline`][user_timeline]
@@ -292,9 +292,8 @@ Twitter.update("I'm tweeting with @gem!")
 ###### Read the most recent Tweet in your timeline
 ```ruby
 Twitter.home_timeline.first.text
-
-For more usage examples, please see the full [documentation][].
 ```
+For more usage examples, please see the full [documentation][].
 
 ## Performance
 You can improve performance by loading a faster JSON parsing library. By
