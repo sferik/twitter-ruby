@@ -1,34 +1,41 @@
-# The Twitter Ruby Gem [![Build Status](https://secure.travis-ci.org/sferik/twitter.png?branch=master)][travis] [![Dependency Status](https://gemnasium.com/sferik/twitter.png?travis)][gemnasium] [![Code Climate](https://codeclimate.com/badge.png)][codeclimate]
-A Ruby wrapper for the Twitter API.
+# The Twitter Ruby Gem
+[![Build Status](https://secure.travis-ci.org/sferik/twitter.png?branch=master)][travis]
+[![Dependency Status](https://gemnasium.com/sferik/twitter.png?travis)][gemnasium]
+[![Code Climate](https://codeclimate.com/badge.png)][codeclimate]
 
 [travis]: http://travis-ci.org/sferik/twitter
 [gemnasium]: https://gemnasium.com/sferik/twitter
 [codeclimate]: https://codeclimate.com/github/sferik/twitter
 
+#### A Ruby interface to the Twitter API.
+
 ## Installation
-    gem install twitter
+```sh
+gem install twitter
+```
 
 Looking for the Twitter command-line interface? It was [removed][] from this
-gem in version 0.5.0 and now is [maintained][] as a separate project:
+gem in version 0.5.0 and now exists as a [separate project][separate]:
 
-    gem install t
-
+```sh
+gem install t
+```
 [removed]: https://github.com/sferik/twitter/commit/dd2445e3e2c97f38b28a3f32ea902536b3897adf
-[maintained]: https://github.com/sferik/t
+[separate]: https://github.com/sferik/t
 
 ## Documentation
 [http://rdoc.info/gems/twitter][documentation]
 
 [documentation]: http://rdoc.info/gems/twitter
 
-## Follow @gem on Twitter
+## Announcements
 You should [follow @gem][follow] on Twitter for announcements and updates about
 this library.
 
 [follow]: https://twitter.com/gem
 
 ## Mailing List
-Please direct questions about the library to the [mailing list].
+Please direct questions about this library to the [mailing list].
 
 [mailing list]: https://groups.google.com/group/ruby-twitter-gem
 
@@ -38,229 +45,272 @@ wiki][apps]!
 
 [apps]: https://github.com/sferik/twitter/wiki/apps
 
-## What's new in version 3?
-### Hashes
-All returned hashes now use symbols as keys instead of strings.
+## What's new in version 4?
 
-### Methods
-The following methods now accept multiple users or ids as arguments and return
-arrays:
+### Twitter API v1.1
 
-    Twitter::Client#accept                  Twitter::Client#enable_notifications    Twitter::Client#saved_search_destroy
-    Twitter::Client#block                   Twitter::Client#favorite                Twitter::Client#status_destroy
-    Twitter::Client#deny                    Twitter::Client#follow                  Twitter::Client#unblock
-    Twitter::Client#direct_message_destroy  Twitter::Client#report_spam             Twitter::Client#unfavorite
-    Twitter::Client#disable_notifications   Twitter::Client#retweet                 Twitter::Client#unfollow
+Version 4 of this library targets Twitter API v1.1. To understand the
+implications of this change, please read the following announcements from
+Twitter:
 
-Whenever more than one user or id is passed to any of these methods, HTTP
-requests are made in parallel using multiple threads, resulting in dramatically
-better performance than calling these methods multiple times in serial.
+* [Changes coming in Version 1.1 of the Twitter API][coming]
+* [Current status: API v1.1][status]
+* [Overview: Version 1.1 of the Twitter API][overview]
 
-The `Twitter::Client#direct_messages` method has been renamed to
-`Twitter::Client#direct_messages_received`.
+[coming]: https://dev.twitter.com/blog/changes-coming-to-twitter-api
+[status]: https://dev.twitter.com/blog/current-status-api-v1.1
+[overview]: https://dev.twitter.com/docs/api/1.1/overview
 
-The `Twitter::Client#profile_image` method has been removed. Use
-`Twitter::User#profile_image_url` (or `Twitter::User#profile_image_url_https`)
-instead.
+Despite the removal of certain underlying functionality in Twitter API v1.1,
+this library aims to preserve backward-compatibility wherever possible. For
+example, despite the remove of the [`GET
+statuses/retweeted_by_user`][retweeted_by_user] resource, the
+`Twitter::API#retweeted_by_user` method continues to exist, implemented by
+making multiple requests to the [`GET statuses/user_timeline`][user_timeline]
+resource. As a result, there is no longer a one-to-one correlation between
+method calls and Twitter API requests. In fact, it's possible for a single
+method call to exceed the Twitter API rate limit for a resource. If you think
+this might cause a problem for your application, feel free to [join the
+discussion][discussion].
 
-The `Twitter::Status#expanded_urls` method has been removed. Use
-`Twitter::Status#urls` instead.
+[retweeted_by_user]: https://dev.twitter.com/docs/api/1/get/statuses/retweeted_by_user
+[user_timeline]: https://dev.twitter.com/docs/api/1.1/get/statuses/user_timeline
+[discussion]: https://dev.twitter.com/discussions/10644
 
-The `Twitter::Client#follow` method now checks to make sure the user isn't
-already being followed. If you don't wish to perform that check (which does
-require an extra HTTP request), you can use the new `Twitter::Client#follow!`
-method instead. **Note**: This may re-send an email notification to the user,
-even if they are already being followed.
+### Rate Limiting
 
-The `Twitter::Client#search` method now returns a `Twitter::SearchResult`
-object, which contains metadata and a results array. In the previous major
-version, this method returned an array of `Twitter::Status` objects, which is
-now accessible by sending the `results` message to a `Twitter::SearchResults`
-object.
+Another consequence of Twitter API v1.1 is that the
+`Twitter::Client#rate_limit` method has been removed, since the concept of a
+client-wide rate limit no longer exists. Rate limits are now applied on a
+per-resource level, however, since there is no longer a one-to-one mapping
+between methods and Twitter API resources, it's not entirely obvious how rate
+limit information should be exposed. I've decided to go back to the pre-3.0.0
+behavior of including rate limit information on `Twitter::Error` objects.
+Here's an example of how to handle rate limits:
 
-##### Version 2
-    Twitter::Client.search("query").map(&:full_text)
+```ruby
+MAX_ATTEMPTS = 3
+num_attempts = 0
+begin
+  num_attempts += 1
+  retweets = Twitter.retweeted_by_user("sferik")
+rescue Twitter::Error::RateLimited => error
+  if num_attempts <= MAX_ATTEMPTS
+    # NOTE: Your process could go to sleep for up to 15 minutes but if you
+    # retry any sooner, it will almost certainly fail with the same exception.
+    sleep error.rate_limit.reset_in
+    retry
+  else
+    raise
+  end
+end
+```
+### Methods Missing
 
-##### Version 3
-    Twitter::Client.search("query").results.map(&:full_text)
+As a consequence of moving to Twitter API v1.1, the following methods from
+version 3 are no longer available in version 4:
+
+* `Twitter::API#accept`
+* `Twitter::API#deny`
+* `Twitter::API#disable_notifications`
+* `Twitter::API#enable_notifications`
+* `Twitter::API#end_session`
+* `Twitter::API#no_retweet_ids`
+* `Twitter::API#rate_limit_status`
+* `Twitter::API#rate_limited?`
+* `Twitter::API#recommendations`
+* `Twitter::API#related_results`
+* `Twitter::API#retweeted_to_user`
+* `Twitter::API#trends_daily`
+* `Twitter::API#trends_weekly`
+* `Twitter::Client#rate_limit`
+* `Twitter::RateLimit#class`
+
+### Custom Endpoints
+
+The `Twitter::API#update_with_media` method no longer uses the custom
+`upload.twitter.com` endpoint, so `media_endpoint` configuration has been
+removed. Likewise, the `Twitter::API#search` method no longer uses the custom
+`search.twitter.com` endpoint, so `search_endpoint` configuration has also been
+removed.
+
+### Errors
+
+It's worth mentioning two new error classes:
+
+* `Twitter::Error::GatewayTimeout`
+* `Twitter::Error::RateLimited`
+
+In previous versions of this library, rate limit errors were indicated by
+raising either `Twitter::Error::BadRequest` or
+`Twitter::Error::EnhanceYourCalm` (for the Search API). As of version 4, the
+library will raise `Twitter::Error::RateLimited` for all rate limit errors. The
+`Twitter::Error::EnhanceYourCalm` class has been aliased to
+`Twitter::Error::RateLimited`.
+
+### Identity Map
+
+In version 4, the identity map is [disabled by default][disabled]. If you want
+to enable this feature, you can use the [default identity map][default] or
+[write a custom identity map][custom].
+
+```ruby
+Twitter.identity_map = Twitter::IdentityMap
+```
+
+[disabled]: https://github.com/sferik/twitter/commit/c6c5960bea998abdc3e82cbb8dd68766a2df52e1
+[default]: https://github.com/sferik/twitter/blob/master/lib/twitter/identity_map.rb
+[custom]: https://github.com/sferik/twitter/blob/master/etc/sqlite_identity_map.rb
 
 ## Configuration
 
-### Global Configuration
+Applications that make requests on behalf of one Twitter user at a time can
+pass global configuration options as a block to the `Twitter.configure` method.
 
-Most examples show a global configuration for simplicity:
+```ruby
+Twitter.configure do |config|
+  config.consumer_key = YOUR_CONSUMER_KEY
+  config.consumer_secret = YOUR_CONSUMER_SECRET
+  config.oauth_token = YOUR_OAUTH_TOKEN
+  config.oauth_token_secret = YOUR_OAUTH_TOKEN_SECRET
+end
+```
 
-    Twitter.configure do |config|
-      config.consumer_key = YOUR_CONSUMER_KEY
-      config.consumer_secret = YOUR_CONSUMER_SECRET
-      config.oauth_token = YOUR_OAUTH_TOKEN
-      config.oauth_token_secret = YOUR_OAUTH_TOKEN_SECRET
-    end
+Alternately, you can set the following environment variables:
 
-Subsequent requests can be made, like so:
+```sh
+TWITTER_CONSUMER_KEY
+TWITTER_CONSUMER_SECRET
+TWITTER_OAUTH_TOKEN
+TWITTER_OAUTH_TOKEN_SECRET
+```
 
-    Twitter.update("I'm tweeting with @gem!")
+After configuration, requests can be made like so:
+
+```ruby
+Twitter.update("I'm tweeting with @gem!")
+```
 
 ### Threadsafe Configuration
 
-Multithreaded applications that make requests on behalf of multiple
-Twitter users should avoid setting user credentials globally. Instead, they should
-instantiate per-user objects and make calls directly off of those objects. This approach
-is threadsafe and eliminates the possibility of posting updates on behalf of the wrong
-user during a race condition.
+Applications that make requests on behalf of multiple Twitter users should
+avoid using global configuration. Instead, instantiate a `Twitter::Client` for
+each user, passing in the user's token/secret pair as a `Hash`.
 
-To do this, you can still specify the `consumer_key` and `consumer_secret` globally.
-In a Rails application, you can put this in `config/initiliazers/twitter.rb`):
+You can still specify the `consumer_key` and `consumer_secret` globally. (In a
+Rails application, this could go in `config/initiliazers/twitter.rb`.)
 
-    Twitter.configure do |config|
-      config.consumer_key = YOUR_CONSUMER_KEY
-      config.consumer_secret = YOUR_CONSUMER_SECRET
-    end
+```ruby
+Twitter.configure do |config|
+  config.consumer_key = YOUR_CONSUMER_KEY
+  config.consumer_secret = YOUR_CONSUMER_SECRET
+end
+```
 
-When you create the `Twitter::Client` objects, you can pass in your user's credentials:
+Then, for each user's token/secret pair, instantiate a `Twitter::Client`:
 
-    @client = Twitter::Client.new(
-      :oauth_token => "a user's OAuth token",
-      :oauth_token_secret => "a user's OAuth secret"
-    )
+```ruby
+@erik = Twitter::Client.new(
+  :oauth_token => "Erik's OAuth token",
+  :oauth_token_secret => "Erik's OAuth secret"
+)
 
-Now you can make threadsafe requests as the authenticated user, like so:
+@john = Twitter::Client.new(
+  :oauth_token => "John's OAuth token",
+  :oauth_token_secret => "John's OAuth secret"
+)
+```
 
-    @client.update("Tweeting as the authenticated user!")
+You can now make threadsafe requests as the authenticated user like so:
 
-If you prefer, you can specify all configuration options when initializing a
-`Twitter::Client`:
+```ruby
+@erik.update("Tweeting as Erik!")
+@john.update("Tweeting as John!")
+```
 
-    @client = Twitter::Client.new(
-      :consumer_key => "a consumer key",
-      :consumer_secret => "a consumer secret",
-      :oauth_token => "a user's OAuth token",
-      :oauth_token_secret => "a user's OAuth secret"
-    )
+Or, if you prefer, you can specify all configuration options when instantiating
+a `Twitter::Client`:
 
-This may be useful if you're using multiple consumer key/secret pairs for some
-reason (e.g. to work around rate limiting).
+```ruby
+@client = Twitter::Client.new(
+  :consumer_key => "a consumer key",
+  :consumer_secret => "a consumer secret",
+  :oauth_token => "a user's OAuth token",
+  :oauth_token_secret => "a user's OAuth secret"
+)
+```
+
+This may be useful if you're using multiple consumer key/secret pairs.
 
 ### Middleware
 
-The Faraday middleware stack is now fully configurable and is exposed as a
-`Faraday::Builder`. You can modify the default middleware in-place:
+The Faraday middleware stack is fully configurable and is exposed as a
+`Faraday::Builder` object. You can modify the default middleware in-place:
 
-    Twitter.middleware.insert_after Twitter::Response::RaiseClientError, CustomMiddleware
+```ruby
+Twitter.middleware.insert_after Twitter::Response::RaiseClientError, CustomMiddleware
+```
 
-You can no longer set a custom adapter via `Twitter::Config#adapter=`, however a
-custom adapter may be set as part of a custom middleware stack:
+A custom adapter may be set as part of a custom middleware stack:
 
-    Twitter.middleware = Faraday::Builder.new(
-      &Proc.new do |builder|
-        # Specify a middleware stack here
-        builder.adapter :some_other_adapter
-      end
-    )
+```ruby
+Twitter.middleware = Faraday::Builder.new(
+  &Proc.new do |builder|
+    # Specify a middleware stack here
+    builder.adapter :some_other_adapter
+  end
+)
+```
 
-Support for API gateways via `gateway` configuration has removed. This
-functionality may be replicated by inserting custom Faraday middleware.
+## Usage Examples
+###### Return a user's location
+```ruby
+Twitter.user("sferik").location
+```
+###### Return a user's most recent Tweet
+```ruby
+Twitter.user_timeline("sferik").first.text
+```
+###### Return the text of a Tweet
+```ruby
+Twitter.status(27558893223).text
+```
+###### Find the 3 most recent marriage proposals to @justinbieber
+```ruby
+Twitter.search("to:justinbieber marry me", :count => 3, :result_type => "recent").results.map do |status|
+  "#{status.from_user}: #{status.text}"
+end
+```
+###### Find a Japanese-language Tweet tagged #ruby (excluding retweets)
+```ruby
+Twitter.search("#ruby -rt", :lang => "ja", :count => 1).results.first.text
+```
+###### Update your status
+```ruby
+Twitter.update("I'm tweeting with @gem!")
+```
+###### Read the most recent Tweet in your timeline
+```ruby
+Twitter.home_timeline.first.text
 
-The `Twitter::Conif#proxy=` and `Twitter::Config#user_agent=` setters have also
-been removed. These options can be set by modifying the default connection
-options:
-
-    Twitter.connection_options[:proxy] = 'http://erik:sekret@proxy.example.com:8080'
-    Twitter.connection_options[:headers][:user_agent] = 'Custom User Agent'
-
-### Authentication
-This library now attempts to pull credentials from the following
-environment variables:
-
-    TWITTER_CONSUMER_KEY
-    TWITTER_CONSUMER_SECRET
-    TWITTER_OAUTH_TOKEN
-    TWITTER_OAUTH_TOKEN_SECRET
-
-### Identity Map
-This version introduces an identity map, which ensures that the same objects
-only get initialized once:
-
-    Twitter.user("sferik").object_id == Twitter.user("sferik").object_id #=> true
-
-(In all previous versions of this gem, this statement would have returned
-false.)
-
-### Errors
-Any Faraday client errors are captured and re-raised as a
-`Twitter::Error::ClientError`, so there's no longer a need to separately rescue
-`Faraday::Error::ClientError`.
-
-All `Twitter::Error` rate limit methods (including `Twitter::Error.retry_at`)
-have been replaced by the `Twitter::Error#rate_limit` method, which returns a
-`Twitter::RateLimit` instance. Likewise, there is now a
-`Twitter::Client#rate_limit` method, which gets updated after each request.
-
-    Twitter.user("sferik") # Any API request will fetch rate limit information
-    rate_limit = Twitter.rate_limit
-    rate_limit.limit     #=> 150
-    rate_limit.remaining #=> 149
-    rate_limit.reset_at  #=> 2012-07-16 12:34:56 -0700
-    rate_limit.reset_in  #=> 3540 (seconds)
+For more usage examples, please see the full [documentation][].
+```
 
 ## Performance
-You can improve performance by preloading a faster JSON parsing library. By
+You can improve performance by loading a faster JSON parsing library. By
 default, JSON will be parsed with [okjson][]. For faster JSON parsing, we
 recommend [Oj][].
 
 [okjson]: https://github.com/ddollar/okjson
 [oj]: https://rubygems.org/gems/oj
 
-## Usage Examples
-Return [@sferik][sferik]'s location
-
-    Twitter.user("sferik").location
-Return [@sferik][sferik]'s most recent Tweet
-
-    Twitter.user_timeline("sferik").first.text
-Return the text of the Tweet at https://twitter.com/sferik/statuses/27558893223
-
-    Twitter.status(27558893223).text
-Find the 3 most recent marriage proposals to [@justinbieber][justinbieber]
-
-    Twitter.search("to:justinbieber marry me", :rpp => 3, :result_type => "recent").results.map do |status|
-      "#{status.from_user}: #{status.text}"
-    end
-
-Let's find a Japanese-language Tweet tagged #ruby (no retweets)
-
-    Twitter.search("#ruby -rt", :lang => "ja", :rpp => 1).results.first.text
-
-Certain methods require authentication. To get your Twitter OAuth credentials,
-register an app at http://dev.twitter.com/apps
-
-    Twitter.configure do |config|
-      config.consumer_key = YOUR_CONSUMER_KEY
-      config.consumer_secret = YOUR_CONSUMER_SECRET
-      config.oauth_token = YOUR_OAUTH_TOKEN
-      config.oauth_token_secret = YOUR_OAUTH_TOKEN_SECRET
-    end
-Update your status
-
-    Twitter.update("I'm tweeting with @gem!")
-Read the most recent Tweet in your timeline
-
-    Twitter.home_timeline.first.text
-Get your rate limit status
-
-    rate_limit_status = Twitter.rate_limit_status
-    "#{rate_limit_status.remaining_hits} Twitter API request(s) remaining for the next #{((rate_limit_status.reset_time - Time.now) / 60).floor} minutes and #{((rate_limit_status.reset_time - Time.now) % 60).round} seconds"
-
-[sferik]: https://twitter.com/sferik
-[justinbieber]: https://twitter.com/justinbieber
-
-## Additional notes
+## Additional Notes
 This will be the last major version of this library to support Ruby 1.8.
 Requiring Ruby 1.9 will allow us to [remove][class_variable_get]
 [various][each_with_object] [hacks][singleton_class] put in place to maintain
 Ruby 1.8 compatibility. [The first stable version of Ruby 1.9 was released on
 August 19, 2010.][ruby192] If you haven't found the opportunity to upgrade your
-Ruby interpreter since then, let this be your nudge. Once version 4 of this
+Ruby interpreter since then, let this be your nudge. Once version 5 of this
 library is released, all previous versions will cease to be supported, even if
 critical security vulnerabilities are discovered.
 
@@ -269,25 +319,25 @@ critical security vulnerabilities are discovered.
 [singleton_class]: https://github.com/sferik/twitter/commit/2ed9db21c87d1218b15373e42a36ad536b07dcbb
 [ruby192]: http://blade.nagaokaut.ac.jp/cgi-bin/scat.rb/ruby/ruby-talk/367983
 
-Here are some fun facts about the 3.0 release:
+## Stats
 
-* The entire library is implemented in just 2,000 lines of code
+Here are some fun facts about this library:
+
+* It is implemented in just 2,000 lines of Ruby code
 * With over 5,000 lines of specs, the spec-to-code ratio is over 2.5:1
-* The spec suite contains 634 examples and runs in under 2 seconds on a MacBook
-* This project has 100% C0 code coverage (the tests execute every line of
+* The spec suite contains over 600 examples and runs in under 2 seconds
+* It has 100% C0 code coverage (the tests execute every line of
   source code at least once)
-* At the time of release, this library is comprehensive: you can request all
-  documented Twitter REST API resources that respond with JSON (over 100)
-* This is the first multithreaded release (requests are made in parallel)
+* It is comprehensive: you can request all documented Twitter REST API resources (over 100 resources)
 * This gem works on every major Ruby implementation, including JRuby and
   Rubinius
-* The first version was released on November 26, 2006 (over 5 years ago)
-* This gem has only three dependencies: `faraday`, `multi_json`, and
+* The first version was released on November 26, 2006
+* This gem has just three runtime dependencies: `faraday`, `multi_json`, and
   `simple_oauth`
 * Previous versions of this gem have been [downloaded over half a million
   times][stats]
 
-[stats]: http://rubygems.org/gems/twitter/stats
+[stats]: https://rubygems.org/gems/twitter
 
 ## Contributing
 In the spirit of [free software][free-sw], **everyone** is encouraged to help
