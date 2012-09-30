@@ -2101,6 +2101,7 @@ module Twitter
     # @see https://dev.twitter.com/docs/api/1/post/statuses/retweet/:id
     # @rate_limited Yes
     # @authentication_required Yes
+    # @raise [Twitter::Error::Forbidden] Error raised when tweet has already been retweeted.
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Array<Twitter::Tweet>] The original tweets with retweet details embedded.
     # @overload retweet(*ids)
