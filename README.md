@@ -136,10 +136,11 @@ removed.
 
 ### Errors
 
-It's worth mentioning two new error classes:
+It's worth mentioning new error classes:
 
 * `Twitter::Error::GatewayTimeout`
 * `Twitter::Error::RateLimited`
+* `Twitter::Error::UnprocessableEntity`
 
 In previous versions of this library, rate limit errors were indicated by
 raising either `Twitter::Error::BadRequest` or

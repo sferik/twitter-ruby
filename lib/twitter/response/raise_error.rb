@@ -9,6 +9,7 @@ require 'twitter/error/not_found'
 require 'twitter/error/rate_limited'
 require 'twitter/error/service_unavailable'
 require 'twitter/error/unauthorized'
+require 'twitter/error/unprocessable_entity'
 
 module Twitter
   module Response
