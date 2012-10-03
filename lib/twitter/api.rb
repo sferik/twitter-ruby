@@ -85,7 +85,7 @@ module Twitter
     # @authentication_required Requires user context
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Twitter::User] The authenticated user.
-    # @param image [File, Hash] The background image for the profile. Must be a valid GIF, JPG, or PNG image of less than 800 kilobytes in size. Images with width larger than 2048 pixels will be scaled down.
+    # @param image [File] The background image for the profile, base64-encoded. Must be a valid GIF, JPG, or PNG image of less than 800 kilobytes in size. Images with width larger than 2048 pixels will be forcibly scaled down. The image must be provided as raw multipart data, not a URL.
     # @param options [Hash] A customizable set of options.
     # @option options [Boolean] :tile Whether or not to tile the background image. If set to true the background image will be displayed tiled. The image will not be tiled otherwise.
     # @example Update the authenticating user's profile background image
@@ -116,17 +116,55 @@ module Twitter
     # Updates the authenticating user's profile image
     #
     # @see https://dev.twitter.com/docs/api/1.1/post/account/update_profile_image
-    # @note This method asynchronously processes the uploaded file before updating the user's profile image URL. You can either update your local cache the next time you request the user's information, or, at least 5 seconds after uploading the image, ask for the updated URL using {Twitter::User#profile_image_url}.
+    # @note Updates the authenticating user's profile image. Note that this method expects raw multipart data, not a URL to an image.
+    # @note This method asynchronously processes the uploaded file before updating the user's profile image URL. You can either update your local cache the next time you request the user's information, or, at least 5 seconds after uploading the image, ask for the updated URL using GET users/show.
     # @rate_limited No
     # @authentication_required Requires user context
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Twitter::User] The authenticated user.
-    # @param image [File, Hash] The avatar image for the profile. Must be a valid GIF, JPG, or PNG image of less than 700 kilobytes in size. Images with width larger than 500 pixels will be scaled down. Animated GIFs will be converted to a static GIF of the first frame, removing the animation.
+    # @param image [File] The avatar image for the profile, base64-encoded. Must be a valid GIF, JPG, or PNG image of less than 700 kilobytes in size. Images with width larger than 500 pixels will be scaled down. Animated GIFs will be converted to a static GIF of the first frame, removing the animation.
     # @param options [Hash] A customizable set of options.
     # @example Update the authenticating user's profile image
     #   Twitter.update_profile_image(File.new("me.jpeg"))
     def update_profile_image(image, options={})
       object_from_response(Twitter::User, :post, "/1.1/account/update_profile_image.json", options.merge(:image => image))
+    end
+
+    # Updates the authenticating user's profile banner image
+    #
+    # @see https://dev.twitter.com/docs/api/1.1/post/account/update_profile_banner
+    # @note Uploads a profile banner on behalf of the authenticating user. For best results, upload an <5MB image that is exactly 1252px by 626px. Images will be resized for a number of display options. Users with an uploaded profile banner will have a profile_banner_url node in their Users objects. More information about sizing variations can be found in User Profile Images and Banners.
+    # @note Profile banner images are processed asynchronously. The profile_banner_url and its variant sizes will not necessary be available directly after upload.
+    # @rate_limited No
+    # @authentication_required Requires user context
+    # @raise [Twitter::Error::BadRequest] Error raised when either an image was not provided or the image data could not be processed.
+    # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+    # @raise [Twitter::Error::UnprocessableEntity] Error raised when the image could not be resized or is too large.
+    # @return [nil]
+    # @param image [File] The Base64-encoded or raw image data being uploaded as the user's new profile banner.
+    # @param options [Hash] A customizable set of options.
+    # @option options [Integer] :width The width of the preferred section of the image being uploaded in pixels. Use with height, offset_left, and offset_top to select the desired region of the image to use.
+    # @option options [Integer] :height The height of the preferred section of the image being uploaded in pixels. Use with width, offset_left, and offset_top to select the desired region of the image to use.
+    # @option options [Integer] :offset_left The number of pixels by which to offset the uploaded image from the left. Use with height, width, and offset_top to select the desired region of the image to use.
+    # @option options [Integer] :offset_top The number of pixels by which to offset the uploaded image from the top. Use with height, width, and offset_left to select the desired region of the image to use.
+    # @example Update the authenticating user's profile banner
+    #   Twitter.update_profile_banner(File.new("me.jpeg"))
+    def update_profile_banner(banner, options={})
+      post("/1.1/account/update_profile_banner.json", options.merge(:banner => banner))[:body]
+    end
+
+    # Removes the authenticating user's profile banner image
+    #
+    # @see https://dev.twitter.com/docs/api/1.1/post/account/remove_profile_banner
+    # @rate_limited No
+    # @authentication_required Requires user context
+    # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+    # @return [nil]
+    # @param options [Hash] A customizable set of options.
+    # @example Remove the authenticating user's profile banner image
+    #   Twitter.remove_profile_banner
+    def remove_profile_banner(options={})
+      post("/1.1/account/remove_profile_banner.json", options)[:body]
     end
 
     # Updates the authenticating user's settings.
