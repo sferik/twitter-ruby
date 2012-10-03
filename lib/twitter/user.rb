@@ -41,18 +41,33 @@ module Twitter
     alias updates_count statuses_count
     alias verified? verified
 
+    # Return the URL to the user's profile banner image
+    #
+    # @param size [String, Symbol] The size of the image. Must be one of: 'mobile', 'mobile_retina', 'web', 'web_retina', 'ipad', or 'ipad_retina'
+    # @return [String]
+    def profile_banner_url(size=:web)
+      insecure_url([@attrs[:profile_banner_url], size].join('/')) if profile_banner_url?
+    end
+
+    # Return the secure URL to the user's profile banner image
+    #
+    # @param size [String, Symbol] The size of the image. Must be one of: 'mobile', 'mobile_retina', 'web', 'web_retina', 'ipad', or 'ipad_retina'
+    # @return [String]
+    def profile_banner_url_https(size=:web)
+      [@attrs[:profile_banner_url], size].join('/') if profile_banner_url?
+    end
+
+    def profile_banner_url?
+      !@attrs[:profile_banner_url].nil?
+    end
+    alias profile_banner_url_https? profile_banner_url?
+
     # Return the URL to the user's profile image
     #
     # @param size [String, Symbol] The size of the image. Must be one of: 'mini', 'normal', 'bigger' or 'original'
     # @return [String]
     def profile_image_url(size=:normal)
-      # The profile image URL comes in looking like like this:
-      # http://a0.twimg.com/profile_images/1759857427/image1326743606_normal.png
-      # It can be converted to any of the following sizes:
-      # http://a0.twimg.com/profile_images/1759857427/image1326743606.png
-      # http://a0.twimg.com/profile_images/1759857427/image1326743606_mini.png
-      # http://a0.twimg.com/profile_images/1759857427/image1326743606_bigger.png
-      resize_profile_image_url(@attrs[:profile_image_url], size)
+      insecure_url(profile_image_url_https(size)) if profile_image_url?
     end
 
     # Return the secure URL to the user's profile image
@@ -66,8 +81,13 @@ module Twitter
       # https://a0.twimg.com/profile_images/1759857427/image1326743606.png
       # https://a0.twimg.com/profile_images/1759857427/image1326743606_mini.png
       # https://a0.twimg.com/profile_images/1759857427/image1326743606_bigger.png
-      resize_profile_image_url(@attrs[:profile_image_url_https], size)
+      resize_profile_image_url(@attrs[:profile_image_url_https], size) if profile_image_url?
     end
+
+    def profile_image_url?
+      !@attrs[:profile_image_url_https].nil?
+    end
+    alias profile_image_url_https? profile_image_url?
 
     # @return [Twitter::Tweet]
     def status
@@ -80,8 +100,11 @@ module Twitter
 
   private
 
+    def insecure_url(url)
+      url.sub(/^https/i, 'http')
+    end
+
     def resize_profile_image_url(url, size)
-      return if url.nil?
       url.sub(PROFILE_IMAGE_SUFFIX_REGEX, profile_image_suffix(size))
     end
 
