@@ -176,6 +176,17 @@ describe Twitter::Tweet do
     end
   end
 
+  describe "#reply?" do
+    it "returns true when there is an in-reply-to status" do
+      tweet = Twitter::Tweet.new(:id => 28669546014, :in_reply_to_status_id => 114749583439036416)
+      tweet.reply?.should be_true
+    end
+    it "returns false when in_reply_to_status_id is not set" do
+      tweet = Twitter::Tweet.new(:id => 28669546014)
+      tweet.reply?.should be_false
+    end
+  end
+
   describe "#retweet?" do
     it "returns true when there is a retweeted status" do
       tweet = Twitter::Tweet.new(:id => 28669546014, :retweeted_status => {:id => 28561922516, :text => 'BOOSH'})

@@ -79,6 +79,11 @@ module Twitter
     end
     alias reply_count repliers_count
 
+    # @return [Boolean]
+    def reply?
+      !!in_reply_to_status_id
+    end
+
     def retweet?
       !!retweeted_status
     end
