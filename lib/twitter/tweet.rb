@@ -90,6 +90,7 @@ module Twitter
       !!in_reply_to_status_id
     end
 
+    # @return [Boolean]
     def retweet?
       !!retweeted_status
     end
@@ -126,6 +127,7 @@ module Twitter
       @user_mentions ||= entities(Twitter::Entity::UserMention, :user_mentions)
     end
 
+    # @return [Boolean]
     def entities?
       !@attrs[:entities].nil?
     end
