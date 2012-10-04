@@ -316,6 +316,12 @@ Twitter.search("#ruby -rt", :lang => "ja", :count => 1).results.first.text
 ```
 For more usage examples, please see the full [documentation][].
 
+## Streaming
+
+To access the Twitter Streaming API, we recommend [TweetStream][].
+
+[tweetstream]: https://github.com/intridea/tweetstream
+
 ## Performance
 You can improve performance by loading a faster JSON parsing library. By
 default, JSON will be parsed with [okjson][]. For faster JSON parsing, we
