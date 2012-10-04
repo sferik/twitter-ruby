@@ -7,7 +7,7 @@
 [gemnasium]: https://gemnasium.com/sferik/twitter
 [codeclimate]: https://codeclimate.com/github/sferik/twitter
 
-#### A Ruby interface to the Twitter API.
+A Ruby interface to the Twitter API.
 
 ## Installation
 ```sh
@@ -192,7 +192,7 @@ After configuration, requests can be made like so:
 Twitter.update("I'm tweeting with @gem!")
 ```
 
-### Threadsafe Configuration
+### Thread Safety
 
 Applications that make requests on behalf of multiple Twitter users should
 avoid using global configuration. Instead, instantiate a `Twitter::Client` for
@@ -225,8 +225,8 @@ Then, for each user's token/secret pair, instantiate a `Twitter::Client`:
 You can now make threadsafe requests as the authenticated user like so:
 
 ```ruby
-@erik.update("Tweeting as Erik!")
-@john.update("Tweeting as John!")
+Thread.new{@erik.update("Tweeting as Erik!")}
+Thread.new{@john.update("Tweeting as John!")}
 ```
 
 Or, if you prefer, you can specify all configuration options when instantiating
@@ -264,35 +264,55 @@ Twitter.middleware = Faraday::Builder.new(
 ```
 
 ## Usage Examples
-###### Return a user's location
+**Tweet (as the authenticated user)**
+
 ```ruby
-Twitter.user("sferik").location
+Twitter.update("I'm tweeting with @gem!")
 ```
-###### Return a user's most recent Tweet
+**Follow a user (by screen name or user ID)**
+
 ```ruby
-Twitter.user_timeline("sferik").first.text
+Twitter.follow("gem")
+Twitter.follow(213747670)
 ```
-###### Return the text of a Tweet
+**Fetch a user (by screen name or user ID)**
+
 ```ruby
-Twitter.status(27558893223).text
+Twitter.user("gem")
+Twitter.user(213747670)
 ```
-###### Find the 3 most recent marriage proposals to @justinbieber
+**Fetch the timeline of Tweets by a user**
+
+```ruby
+Twitter.user_timeline("gem")
+Twitter.user_timeline(213747670)
+```
+**Fetch the timeline of Tweets from the authenticated user's home page**
+
+```ruby
+Twitter.home_timeline
+```
+**Fetch the timeline of Tweets mentioning the authenticated user**
+
+```ruby
+Twitter.mentions_timeline
+```
+**Fetch a particular Tweet by ID**
+
+```ruby
+Twitter.status(27558893223)
+```
+**Find the 3 most recent marriage proposals to @justinbieber**
+
 ```ruby
 Twitter.search("to:justinbieber marry me", :count => 3, :result_type => "recent").results.map do |status|
   "#{status.from_user}: #{status.text}"
 end
 ```
-###### Find a Japanese-language Tweet tagged #ruby (excluding retweets)
+**Find a Japanese-language Tweet tagged #ruby (excluding retweets)**
+
 ```ruby
 Twitter.search("#ruby -rt", :lang => "ja", :count => 1).results.first.text
-```
-###### Update your status
-```ruby
-Twitter.update("I'm tweeting with @gem!")
-```
-###### Read the most recent Tweet in your timeline
-```ruby
-Twitter.home_timeline.first.text
 ```
 For more usage examples, please see the full [documentation][].
 
@@ -304,22 +324,7 @@ recommend [Oj][].
 [okjson]: https://github.com/ddollar/okjson
 [oj]: https://rubygems.org/gems/oj
 
-## Additional Notes
-This will be the last major version of this library to support Ruby 1.8.
-Requiring Ruby 1.9 will allow us to [remove][class_variable_get]
-[various][each_with_object] [hacks][singleton_class] put in place to maintain
-Ruby 1.8 compatibility. [The first stable version of Ruby 1.9 was released on
-August 19, 2010.][ruby192] If you haven't found the opportunity to upgrade your
-Ruby interpreter since then, let this be your nudge. Once version 5 of this
-library is released, all previous versions will cease to be supported, even if
-critical security vulnerabilities are discovered.
-
-[class_variable_get]: https://github.com/sferik/twitter/commit/88c5a0513d1b58a1d4ae1a1e3deeb012c9d19547
-[each_with_object]: https://github.com/sferik/twitter/commit/6052252a07baf7aefe0f100bba0abd2cbb7139bb
-[singleton_class]: https://github.com/sferik/twitter/commit/2ed9db21c87d1218b15373e42a36ad536b07dcbb
-[ruby192]: http://blade.nagaokaut.ac.jp/cgi-bin/scat.rb/ruby/ruby-talk/367983
-
-## Stats
+## Statistics
 
 Here are some fun facts about this library:
 
@@ -407,6 +412,21 @@ run and pass on that implementation. When something breaks on your
 implementation, you will be personally responsible for providing patches in a
 timely fashion. If critical issues for a particular implementation exist at the
 time of a major release, support for that Ruby version may be dropped.
+
+## Additional Notes
+This will be the last major version of this library to support Ruby 1.8.
+Requiring Ruby 1.9 will allow us to [remove][class_variable_get]
+[various][each_with_object] [hacks][singleton_class] put in place to maintain
+Ruby 1.8 compatibility. [The first stable version of Ruby 1.9 was released on
+August 19, 2010.][ruby192] If you haven't found the opportunity to upgrade your
+Ruby interpreter since then, let this be your nudge. Once version 5 of this
+library is released, all previous versions will cease to be supported, even if
+critical security vulnerabilities are discovered.
+
+[class_variable_get]: https://github.com/sferik/twitter/commit/88c5a0513d1b58a1d4ae1a1e3deeb012c9d19547
+[each_with_object]: https://github.com/sferik/twitter/commit/6052252a07baf7aefe0f100bba0abd2cbb7139bb
+[singleton_class]: https://github.com/sferik/twitter/commit/2ed9db21c87d1218b15373e42a36ad536b07dcbb
+[ruby192]: http://blade.nagaokaut.ac.jp/cgi-bin/scat.rb/ruby/ruby-talk/367983
 
 ## Copyright
 Copyright (c) 2006-2012 John Nunemaker, Wynn Netherland, Erik Michaels-Ober, Steve Richert.
