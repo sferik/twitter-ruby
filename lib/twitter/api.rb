@@ -830,12 +830,14 @@ module Twitter
     # @overload memberships(options={})
     #   @param options [Hash] A customizable set of options.
     #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
+    #   @option options [Boolean, String, Integer] :filter_to_owned_lists When set to true, t or 1, will return just lists the authenticating user owns, and the user represented by user_id or screen_name is a member of.
     #   @example List the lists the authenticated user has been added to
     #     Twitter.memberships
     # @overload memberships(user, options={})
     #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
     #   @param options [Hash] A customizable set of options.
     #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
+    #   @option options [Boolean, String, Integer] :filter_to_owned_lists When set to true, t or 1, will return just lists the authenticating user owns, and the user represented by user_id or screen_name is a member of.
     #   @example List the lists that @sferik has been added to
     #     Twitter.memberships('sferik')
     #     Twitter.memberships(7505382)

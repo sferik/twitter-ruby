@@ -84,7 +84,7 @@ describe Twitter::API do
       before do
         stub_get("/1.1/lists/memberships.json").
           with(:query => {:screen_name => 'pengwynn', :cursor => "-1"}).
-          to_return(:body => fixture("lists.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+          to_return(:body => fixture("memberships.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.memberships("pengwynn")
@@ -97,7 +97,7 @@ describe Twitter::API do
         memberships.should be_a Twitter::Cursor
         memberships.lists.should be_an Array
         memberships.lists.first.should be_a Twitter::List
-        memberships.lists.first.name.should eq "Rubyists"
+        memberships.lists.first.name.should eq "developer"
       end
     end
     context "without a screen name passed" do
@@ -106,7 +106,7 @@ describe Twitter::API do
           to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
         stub_get("/1.1/lists/memberships.json").
           with(:query => {:cursor => "-1"}).
-          to_return(:body => fixture("lists.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+          to_return(:body => fixture("memberships.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.memberships
@@ -160,7 +160,7 @@ describe Twitter::API do
       before do
         stub_get("/1.1/lists/subscriptions.json").
           with(:query => {:screen_name => 'pengwynn', :cursor => "-1"}).
-          to_return(:body => fixture("lists.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+          to_return(:body => fixture("subscriptions.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.subscriptions("pengwynn")
@@ -182,7 +182,7 @@ describe Twitter::API do
           to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
         stub_get("/1.1/lists/subscriptions.json").
           with(:query => {:cursor => "-1"}).
-          to_return(:body => fixture("lists.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+          to_return(:body => fixture("subscriptions.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.subscriptions
