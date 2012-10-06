@@ -15,7 +15,6 @@
 * [Remove notification methods; use `Twitter::API#friendship_update` instead](https://github.com/sferik/twitter/commit/3b2d2b86599b4d054e7daa0d69b5e088cd776450)
 * [Remove `Twitter::API#end_session`](https://github.com/sferik/twitter/commit/23668bc68209a032e9193ade1cdf6d8462980954)
 * [Add `Twitter::Tweet#retweet?` method and `Twitter::Tweet#retweet` alias](https://github.com/sferik/twitter/commit/1e6ad051f488cae7bf18a45eea8008b448323fe4)
-* [Do not attempt to parse redirects](https://github.com/sferik/twitter/commit/282971088c0942e38bcd3635d3cf8cd05da5d1c4) ([@twoism](http://twitter.com/twoism))
 * [Major changes for Twitter API v1.1](https://github.com/sferik/twitter/commit/eab13be653c1b54aa679dbf16f252a2b6977b80e)
 * [Remove `Twitter::API#no_retweet_ids`](https://github.com/sferik/twitter/commit/e179ab6d81c1c4931b67940463f414693671fb96)
 * [Remove `Twitter::API#retweeted_to_user`](https://github.com/sferik/twitter/commit/e179ab6d81c1c4931b67940463f414693671fb96)
@@ -29,6 +28,14 @@
 * [Remove `Twitter::API#related_results`](https://github.com/sferik/twitter/commit/e4bcec169faafb78772e60d6cdeb5583a40f32e3)
 * [Remove `Twitter::API#recommendations`](https://github.com/sferik/twitter/commit/e4bcec169faafb78772e60d6cdeb5583a40f32e3)
 * [Remove `Twitter::API#network_timeline`](https://github.com/sferik/twitter/commit/93c65f25eafb3051a86140ab7e980d03431040f1)
+
+3.8.0
+-----
+* [Do not attempt to parse redirects](https://github.com/sferik/twitter/commit/30ee1c733cfea091f60b18a51d01eab1d0cc6f30) ([@twoism](http://twitter.com/twoism))
+* [Add profile banner methods to `Twitter::User` class](https://github.com/sferik/twitter/commit/d0200d72e71639ad3e7f7e2b7243889f2f39e8b3)
+* [Add `Twitter::Error::UnprocessableEntity`](https://github.com/sferik/twitter/commit/fca4d174e8237655c82992edf67fcc846497fd54)
+* [Add `Twitter::API#update_profile_banner` and `Twitter::API#remove_profile_banner`](https://github.com/sferik/twitter/commit/74b17f58549b06885ab49c56271cb571886e67f0)
+* [Add `Twitter::Tweet#reply?`](https://github.com/sferik/twitter/commit/029d815815c99a7921a9b396c6c45b9f4cbd8fc3)
 
 3.7.0
 -----
