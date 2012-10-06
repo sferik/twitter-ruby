@@ -1,3 +1,11 @@
+3.8.0
+-----
+* [Do not attempt to parse redirects](https://github.com/sferik/twitter/commit/30ee1c733cfea091f60b18a51d01eab1d0cc6f30) ([@twoism](http://twitter.com/twoism))
+* [Add profile banner methods to `Twitter::User` class](https://github.com/sferik/twitter/commit/d0200d72e71639ad3e7f7e2b7243889f2f39e8b3)
+* [Add `Twitter::Error::UnprocessableEntity`](https://github.com/sferik/twitter/commit/fca4d174e8237655c82992edf67fcc846497fd54)
+* [Add `Twitter::API#update_profile_banner` and `Twitter::API#remove_profile_banner`](https://github.com/sferik/twitter/commit/74b17f58549b06885ab49c56271cb571886e67f0)
+* [Add `Twitter::Tweet#reply?`](https://github.com/sferik/twitter/commit/029d815815c99a7921a9b396c6c45b9f4cbd8fc3)
+
 3.7.0
 -----
 * [Remove support for `IO` hash syntax](https://github.com/sferik/twitter/commit/bfe842d714a77b8edda90d0e2b547be434dc0148)
