@@ -789,21 +789,18 @@ describe Twitter::API do
   describe "#lists" do
     before do
       stub_get("/1.1/lists/list.json").
-        with(:query => {:cursor => "-1"}).
         to_return(:body => fixture("lists.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
       @client.lists
       a_get("/1.1/lists/list.json").
-        with(:query => {:cursor => "-1"}).
         should have_been_made
     end
     it "returns the requested list" do
       lists = @client.lists
-      lists.should be_a Twitter::Cursor
-      lists.lists.should be_an Array
-      lists.lists.first.should be_a Twitter::List
-      lists.lists.first.name.should eq "Rubyists"
+      lists.should be_an Array
+      lists.first.should be_a Twitter::List
+      lists.first.name.should eq "Rubyists"
     end
   end
 

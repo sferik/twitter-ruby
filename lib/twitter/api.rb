@@ -1197,20 +1197,25 @@ module Twitter
       object_from_response(Twitter::List, :post, "/1.1/lists/create.json", options.merge(:name => name))
     end
 
-    # List the lists of the specified user
-    # Returns all lists the authenticating or specified user subscribes to, including their own.
+    # Returns all lists the authenticating or specified user subscribes to, including their own
     #
     # @see https://dev.twitter.com/docs/api/1.1/get/lists/list
     # @rate_limited Yes
     # @authentication_required Requires user context
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-    # @return [Twitter::Cursor]
-    # @param options [Hash] A customizable set of options.
-    # @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
-    # @example List the authenticated user's lists
-    #   Twitter.lists
+    # @return [Array<Twitter::List>]
+    # @overload memberships(options={})
+    #   @param options [Hash] A customizable set of options.
+    #   @example Returns all lists the authenticating user subscribes to
+    #     Twitter.lists
+    # @overload memberships(user, options={})
+    #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
+    #   @param options [Hash] A customizable set of options.
+    #   @example Returns all lists that @sferik subscribes to
+    #     Twitter.lists('sferik')
+    #     Twitter.lists(7505382)
     def lists(*args)
-      lists_from_response(:get, "/1.1/lists/list.json", args)
+      objects_from_response(Twitter::List, :get, "/1.1/lists/list.json", args)
     end
     alias lists_subscribed_to lists
 
