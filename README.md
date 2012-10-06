@@ -94,7 +94,7 @@ num_attempts = 0
 begin
   num_attempts += 1
   retweets = Twitter.retweeted_by_user("sferik")
-rescue Twitter::Error::RateLimited => error
+rescue Twitter::Error::TooManyRequests => error
   if num_attempts <= MAX_ATTEMPTS
     # NOTE: Your process could go to sleep for up to 15 minutes but if you
     # retry any sooner, it will almost certainly fail with the same exception.
@@ -139,15 +139,15 @@ removed.
 It's worth mentioning new error classes:
 
 * `Twitter::Error::GatewayTimeout`
-* `Twitter::Error::RateLimited`
+* `Twitter::Error::TooManyRequests`
 * `Twitter::Error::UnprocessableEntity`
 
 In previous versions of this library, rate limit errors were indicated by
 raising either `Twitter::Error::BadRequest` or
 `Twitter::Error::EnhanceYourCalm` (for the Search API). As of version 4, the
-library will raise `Twitter::Error::RateLimited` for all rate limit errors. The
-`Twitter::Error::EnhanceYourCalm` class has been aliased to
-`Twitter::Error::RateLimited`.
+library will raise `Twitter::Error::TooManyRequests` for all rate limit errors.
+The `Twitter::Error::EnhanceYourCalm` class has been aliased to
+`Twitter::Error::TooManyRequests`.
 
 ### Identity Map
 
