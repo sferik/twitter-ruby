@@ -165,8 +165,25 @@ Twitter.identity_map = Twitter::IdentityMap
 
 ## Configuration
 
-Applications that make requests on behalf of one Twitter user at a time can
-pass global configuration options as a block to the `Twitter.configure` method.
+Twitter API v1.1 requires you to authenticate via OAuth, so you'll need a
+registered Twitter application. To register a new application, sign-in using
+your Twitter account and the fill out the form at
+http://dev.twitter.com/apps/new. If you've previously registered a Twitter
+application, it will be listed at http://dev.twitter.com/apps. Once you've
+registered an application, make sure to set the correct access level, otherwise
+you may see the error:
+
+    Read-only application cannot POST
+
+Your new application will be assigned a consumer key/secret pair and you will
+be assigned an OAuth access token/secret pair for that application. You'll need
+to configure these values before you make a request or else you'll get the
+error:
+
+    Bad Authentication data
+
+Applications that make requests on behalf of a single Twitter user can pass
+global configuration options as a block to the `Twitter.configure` method.
 
 ```ruby
 Twitter.configure do |config|
@@ -195,11 +212,9 @@ Twitter.update("I'm tweeting with @gem!")
 ### Thread Safety
 
 Applications that make requests on behalf of multiple Twitter users should
-avoid using global configuration. Instead, instantiate a `Twitter::Client` for
-each user, passing in the user's token/secret pair as a `Hash`.
-
-You can still specify the `consumer_key` and `consumer_secret` globally. (In a
-Rails application, this could go in `config/initiliazers/twitter.rb`.)
+avoid using global configuration. In this case, you may still specify the
+`consumer_key` and `consumer_secret` globally. (In a Rails application, this
+could go in `config/initiliazers/twitter.rb`.)
 
 ```ruby
 Twitter.configure do |config|
@@ -208,25 +223,26 @@ Twitter.configure do |config|
 end
 ```
 
-Then, for each user's token/secret pair, instantiate a `Twitter::Client`:
+Then, for each user's access token/secret pair, instantiate a
+`Twitter::Client`:
 
 ```ruby
-@erik = Twitter::Client.new(
-  :oauth_token => "Erik's OAuth token",
-  :oauth_token_secret => "Erik's OAuth secret"
+@client_erik = Twitter::Client.new(
+  :oauth_token => "Erik's access token",
+  :oauth_token_secret => "Erik's access secret"
 )
 
-@john = Twitter::Client.new(
-  :oauth_token => "John's OAuth token",
-  :oauth_token_secret => "John's OAuth secret"
+@client_john = Twitter::Client.new(
+  :oauth_token => "John's access token",
+  :oauth_token_secret => "John's access secret"
 )
 ```
 
-You can now make threadsafe requests as the authenticated user like so:
+You can now make threadsafe requests as the authenticated user:
 
 ```ruby
-Thread.new{@erik.update("Tweeting as Erik!")}
-Thread.new{@john.update("Tweeting as John!")}
+Thread.new{@client_erik.update("Tweeting as Erik!")}
+Thread.new{@client_john.update("Tweeting as John!")}
 ```
 
 Or, if you prefer, you can specify all configuration options when instantiating
@@ -234,10 +250,10 @@ a `Twitter::Client`:
 
 ```ruby
 @client = Twitter::Client.new(
-  :consumer_key => "a consumer key",
-  :consumer_secret => "a consumer secret",
-  :oauth_token => "a user's OAuth token",
-  :oauth_token_secret => "a user's OAuth secret"
+  :consumer_key => "an application's consumer key",
+  :consumer_secret => "an application's consumer secret",
+  :oauth_token => "a user's access token",
+  :oauth_token_secret => "a user's access secret"
 )
 ```
 
@@ -264,6 +280,9 @@ Twitter.middleware = Faraday::Builder.new(
 ```
 
 ## Usage Examples
+All examples require an authenticated Twitter client. See the section on <a
+href="#configuration">configuration</a> above.
+
 **Tweet (as the authenticated user)**
 
 ```ruby
