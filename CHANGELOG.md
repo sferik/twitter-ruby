@@ -1,3 +1,7 @@
+4.1.0
+-----
+* [Handle new API v1.1 list response format](https://github.com/sferik/twitter/commit/2aace25fcf946de995e5ce1788f24ad35bc79438)
+
 4.0.0
 -----
 * [Update all endpoints to Twitter API v1.1](https://github.com/sferik/twitter/commit/f55471a03dd0a428d5c0aa57a3c34809dbfde5cf)
