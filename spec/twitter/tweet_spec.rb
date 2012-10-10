@@ -122,7 +122,7 @@ describe Twitter::Tweet do
     end
     it "warns when not set" do
       Twitter::Tweet.new(:id => 28669546014).hashtags
-      $stderr.string.should =~ /To get hashtags, you must pass `:include_entities => true` when requesting the Twitter::Tweet\./
+      $stderr.string.should match /To get hashtags, you must pass `:include_entities => true` when requesting the Twitter::Tweet\./
     end
   end
 
@@ -138,7 +138,7 @@ describe Twitter::Tweet do
     end
     it "warns when not set" do
       Twitter::Tweet.new(:id => 28669546014).media
-      $stderr.string.should =~ /To get media, you must pass `:include_entities => true` when requesting the Twitter::Tweet\./
+      $stderr.string.should match /To get media, you must pass `:include_entities => true` when requesting the Twitter::Tweet\./
     end
   end
 
@@ -269,7 +269,7 @@ describe Twitter::Tweet do
     end
     it "warns when not set" do
       Twitter::Tweet.new(:id => 28669546014).urls
-      $stderr.string.should =~ /To get urls, you must pass `:include_entities => true` when requesting the Twitter::Tweet\./
+      $stderr.string.should match /To get urls, you must pass `:include_entities => true` when requesting the Twitter::Tweet\./
     end
   end
 
@@ -311,7 +311,7 @@ describe Twitter::Tweet do
     end
     it "warns when not set" do
       Twitter::Tweet.new(:id => 28669546014).user_mentions
-      $stderr.string.should =~ /To get user mentions, you must pass `:include_entities => true` when requesting the Twitter::Tweet\./
+      $stderr.string.should match /To get user mentions, you must pass `:include_entities => true` when requesting the Twitter::Tweet\./
     end
   end
 

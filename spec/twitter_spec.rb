@@ -27,7 +27,7 @@ describe Twitter do
 
   end
 
-  describe '.respond_to?' do
+  describe ".respond_to?" do
     it "delegates to Twitter::Client" do
       Twitter.respond_to?(:user).should be_true
     end

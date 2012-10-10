@@ -2,7 +2,7 @@ require 'helper'
 
 describe Twitter::Base do
 
-  context 'identity map enabled' do
+  context "identity map enabled" do
     before do
       Twitter.identity_map = Twitter::IdentityMap
       object = Twitter::Base.new(:id => 1)
@@ -13,14 +13,14 @@ describe Twitter::Base do
       Twitter.identity_map = false
     end
 
-    describe '.identity_map' do
-      it 'returns an instance of the identity map' do
+    describe ".identity_map" do
+      it "returns an instance of the identity map" do
         Twitter::Base.identity_map.should be_a Twitter::IdentityMap
       end
     end
 
-    describe '.fetch' do
-      it 'returns existing objects' do
+    describe ".fetch" do
+      it "returns existing objects" do
         Twitter::Base.fetch(:id => 1).should be
       end
 
@@ -31,18 +31,18 @@ describe Twitter::Base do
       end
     end
 
-    describe '.store' do
-      it 'stores Twitter::Base objects' do
+    describe ".store" do
+      it "stores Twitter::Base objects" do
         object = Twitter::Base.new(:id => 4)
         Twitter::Base.store(object).should be_a Twitter::Base
       end
     end
 
-    describe '.fetch_or_new' do
-      it 'returns existing objects' do
+    describe ".fetch_or_new" do
+      it "returns existing objects" do
         Twitter::Base.fetch_or_new(:id => 1).should be
       end
-      it 'creates new objects and stores them' do
+      it "creates new objects and stores them" do
         Twitter::Base.fetch_or_new(:id => 2).should be
         Twitter::Base.fetch(:id => 2).should be
       end
@@ -76,7 +76,7 @@ describe Twitter::Base do
 
   end
 
-  context 'identity map disabled' do
+  context "identity map disabled" do
     before(:all) do
       Twitter.identity_map = false
     end
@@ -84,26 +84,26 @@ describe Twitter::Base do
       Twitter.identity_map = Twitter::IdentityMap
     end
 
-    describe '.identity_map' do
-      it 'returns nil' do
+    describe ".identity_map" do
+      it "returns nil" do
         Twitter::Base.identity_map.should be_nil
       end
     end
 
-    describe '.fetch' do
-      it 'returns nil' do
+    describe ".fetch" do
+      it "returns nil" do
         Twitter::Base.fetch(:id => 1).should be_nil
       end
     end
 
-    describe '.store' do
-      it 'returns an instance of the object' do
+    describe ".store" do
+      it "returns an instance of the object" do
         Twitter::Base.store(Twitter::Base.new(:id => 1)).should be_a Twitter::Base
       end
     end
 
-    describe '.fetch_or_new' do
-      it 'creates new objects' do
+    describe ".fetch_or_new" do
+      it "creates new objects" do
         Twitter::Base.fetch_or_new(:id => 2).should be
         Twitter.identity_map.should be_false
       end

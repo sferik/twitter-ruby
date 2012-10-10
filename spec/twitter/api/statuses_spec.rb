@@ -449,7 +449,7 @@ describe Twitter::API do
       tweets.first.should be_a Twitter::Tweet
       tweets.first.text.should eq "As for the Series, I'm for the Giants. Fuck Texas, fuck Nolan Ryan, fuck George Bush."
       tweets.first.retweeted_tweet.text.should eq "RT @gruber: As for the Series, I'm for the Giants. Fuck Texas, fuck Nolan Ryan, fuck George Bush."
-      tweets.first.retweeted_tweet.id.should_not == tweets.first.id
+      tweets.first.retweeted_tweet.id.should_not eq tweets.first.id
     end
   end
 
