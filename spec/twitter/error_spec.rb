@@ -10,8 +10,8 @@ describe Twitter::Error do
         begin
           raise Twitter::Error
         rescue Twitter::Error => error
-          error.message.should eq "Oups"
-          error.wrapped_exception.class.should eq Faraday::Error::ClientError
+          expect(error.message).to eq "Oups"
+          expect(error.wrapped_exception.class).to eq Faraday::Error::ClientError
         end
       end
     end

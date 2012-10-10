@@ -15,90 +15,90 @@ describe Twitter::Tweet do
     it "returns true when objects IDs are the same" do
       tweet = Twitter::Tweet.new(:id => 1, :text => "foo")
       other = Twitter::Tweet.new(:id => 1, :text => "bar")
-      (tweet == other).should be_true
+      expect(tweet == other).to be_true
     end
     it "returns false when objects IDs are different" do
       tweet = Twitter::Tweet.new(:id => 1)
       other = Twitter::Tweet.new(:id => 2)
-      (tweet == other).should be_false
+      expect(tweet == other).to be_false
     end
     it "returns false when classes are different" do
       tweet = Twitter::Tweet.new(:id => 1)
       other = Twitter::Identity.new(:id => 1)
-      (tweet == other).should be_false
+      expect(tweet == other).to be_false
     end
   end
 
   describe "#created_at" do
     it "returns a Time when set" do
       tweet = Twitter::Tweet.new(:id => 28669546014, :created_at => "Mon Jul 16 12:59:01 +0000 2007")
-      tweet.created_at.should be_a Time
+      expect(tweet.created_at).to be_a Time
     end
     it "returns nil when not set" do
       tweet = Twitter::Tweet.new(:id => 28669546014)
-      tweet.created_at.should be_nil
+      expect(tweet.created_at).to be_nil
     end
   end
 
   describe "#favoriters_count" do
     it "returns the count of favoriters when favoriters_count is set" do
       tweet = Twitter::Tweet.new(:id => 28669546014, :favoriters_count => '1')
-      tweet.favoriters_count.should be_an Integer
-      tweet.favoriters_count.should eq 1
+      expect(tweet.favoriters_count).to be_an Integer
+      expect(tweet.favoriters_count).to eq 1
     end
     it "returns nil when not set" do
       tweet = Twitter::Tweet.new(:id => 28669546014)
-      tweet.favoriters_count.should be_nil
+      expect(tweet.favoriters_count).to be_nil
     end
   end
 
   describe "#from_user" do
     it "returns a screen name when from_user is set" do
       tweet = Twitter::Tweet.new(:id => 28669546014, :from_user => 'sferik')
-      tweet.from_user.should be_a String
-      tweet.from_user.should eq "sferik"
+      expect(tweet.from_user).to be_a String
+      expect(tweet.from_user).to eq "sferik"
     end
     it "returns a screen name when screen_name is set" do
       tweet = Twitter::Tweet.new(:id => 28669546014, :user => {:id => 7505382, :screen_name => 'sferik'})
-      tweet.from_user.should be_a String
-      tweet.from_user.should eq "sferik"
+      expect(tweet.from_user).to be_a String
+      expect(tweet.from_user).to eq "sferik"
     end
     it "returns nil when not set" do
       tweet = Twitter::Tweet.new(:id => 28669546014)
-      tweet.from_user.should be_nil
+      expect(tweet.from_user).to be_nil
     end
   end
 
   describe "#full_text" do
     it "returns the text of a Tweet" do
       tweet = Twitter::Tweet.new(:id => 28669546014, :text => 'BOOSH')
-      tweet.full_text.should be_a String
-      tweet.full_text.should eq "BOOSH"
+      expect(tweet.full_text).to be_a String
+      expect(tweet.full_text).to eq "BOOSH"
     end
     it "returns the text of a Tweet without a user" do
       tweet = Twitter::Tweet.new(:id => 28669546014, :text => 'BOOSH', :retweeted_status => {:id => 28561922517, :text => 'BOOSH'})
-      tweet.full_text.should be_a String
-      tweet.full_text.should eq "BOOSH"
+      expect(tweet.full_text).to be_a String
+      expect(tweet.full_text).to eq "BOOSH"
     end
     it "returns the full text of a retweeted Tweet" do
       tweet = Twitter::Tweet.new(:id => 28669546014, :retweeted_status => {:id => 28561922516, :text => 'BOOSH', :user => {:id => 7505382, :screen_name => 'sferik'}})
-      tweet.full_text.should be_a String
-      tweet.full_text.should eq "RT @sferik: BOOSH"
+      expect(tweet.full_text).to be_a String
+      expect(tweet.full_text).to eq "RT @sferik: BOOSH"
     end
     it "returns nil when retweeted_status is not set" do
       tweet = Twitter::Tweet.new(:id => 28669546014)
-      tweet.full_text.should be_nil
+      expect(tweet.full_text).to be_nil
     end
   end
 
   describe "#geo" do
     it "returns a Twitter::Geo::Point when set" do
       tweet = Twitter::Tweet.new(:id => 28669546014, :geo => {:id => 1, :type => 'Point'})
-      tweet.geo.should be_a Twitter::Geo::Point
+      expect(tweet.geo).to be_a Twitter::Geo::Point
     end
     it "returns nil when not set" do
       tweet = Twitter::Tweet.new(:id => 28669546014)
-      tweet.geo.should be_nil
+      expect(tweet.geo).to be_nil
     end
   end
 
@@ -111,126 +111,126 @@ describe Twitter::Tweet do
         }
       ]
       hashtags = Twitter::Tweet.new(:id => 28669546014, :entities => {:hashtags => hashtags_hash}).hashtags
-      hashtags.should be_an Array
-      hashtags.first.should be_a Twitter::Entity::Hashtag
-      hashtags.first.indices.should eq [10, 33]
-      hashtags.first.text.should eq 'twitter'
+      expect(hashtags).to be_an Array
+      expect(hashtags.first).to be_a Twitter::Entity::Hashtag
+      expect(hashtags.first.indices).to eq [10, 33]
+      expect(hashtags.first.text).to eq 'twitter'
     end
     it "is empty when not set" do
       hashtags = Twitter::Tweet.new(:id => 28669546014).hashtags
-      hashtags.should be_empty
+      expect(hashtags).to be_empty
     end
     it "warns when not set" do
       Twitter::Tweet.new(:id => 28669546014).hashtags
-      $stderr.string.should match /To get hashtags, you must pass `:include_entities => true` when requesting the Twitter::Tweet\./
+      expect($stderr.string).to match /To get hashtags, you must pass `:include_entities => true` when requesting the Twitter::Tweet\./
     end
   end
 
   describe "#media" do
     it "returns media" do
       media = Twitter::Tweet.new(:id => 28669546014, :entities => {:media => [{:id => 1, :type => 'photo'}]}).media
-      media.should be_an Array
-      media.first.should be_a Twitter::Media::Photo
+      expect(media).to be_an Array
+      expect(media.first).to be_a Twitter::Media::Photo
     end
     it "is empty when not set" do
       media = Twitter::Tweet.new(:id => 28669546014).media
-      media.should be_empty
+      expect(media).to be_empty
     end
     it "warns when not set" do
       Twitter::Tweet.new(:id => 28669546014).media
-      $stderr.string.should match /To get media, you must pass `:include_entities => true` when requesting the Twitter::Tweet\./
+      expect($stderr.string).to match /To get media, you must pass `:include_entities => true` when requesting the Twitter::Tweet\./
     end
   end
 
   describe "#metadata" do
     it "returns a User when user is set" do
       metadata = Twitter::Tweet.new(:id => 28669546014, :metadata => {}).metadata
-      metadata.should be_a Twitter::Metadata
+      expect(metadata).to be_a Twitter::Metadata
     end
     it "returns nil when user is not set" do
       metadata = Twitter::Tweet.new(:id => 28669546014).metadata
-      metadata.should be_nil
+      expect(metadata).to be_nil
     end
   end
 
   describe "#place" do
     it "returns a Twitter::Place when set" do
       tweet = Twitter::Tweet.new(:id => 28669546014, :place => {:id => "247f43d441defc03"})
-      tweet.place.should be_a Twitter::Place
+      expect(tweet.place).to be_a Twitter::Place
     end
     it "returns nil when not set" do
       tweet = Twitter::Tweet.new(:id => 28669546014)
-      tweet.place.should be_nil
+      expect(tweet.place).to be_nil
     end
   end
 
   describe "#repliers_count" do
     it "returns the count of favoriters when repliers_count is set" do
       tweet = Twitter::Tweet.new(:id => 28669546014, :repliers_count => '1')
-      tweet.repliers_count.should be_an Integer
-      tweet.repliers_count.should eq 1
+      expect(tweet.repliers_count).to be_an Integer
+      expect(tweet.repliers_count).to eq 1
     end
     it "returns nil when not set" do
       tweet = Twitter::Tweet.new(:id => 28669546014)
-      tweet.repliers_count.should be_nil
+      expect(tweet.repliers_count).to be_nil
     end
   end
 
   describe "#reply?" do
     it "returns true when there is an in-reply-to status" do
       tweet = Twitter::Tweet.new(:id => 28669546014, :in_reply_to_status_id => 114749583439036416)
-      tweet.reply?.should be_true
+      expect(tweet.reply?).to be_true
     end
     it "returns false when in_reply_to_status_id is not set" do
       tweet = Twitter::Tweet.new(:id => 28669546014)
-      tweet.reply?.should be_false
+      expect(tweet.reply?).to be_false
     end
   end
 
   describe "#retweet?" do
     it "returns true when there is a retweeted status" do
       tweet = Twitter::Tweet.new(:id => 28669546014, :retweeted_status => {:id => 28561922516, :text => 'BOOSH'})
-      tweet.retweet?.should be_true
+      expect(tweet.retweet?).to be_true
     end
     it "returns false when retweeted_status is not set" do
       tweet = Twitter::Tweet.new(:id => 28669546014)
-      tweet.retweet?.should be_false
+      expect(tweet.retweet?).to be_false
     end
   end
 
   describe "#retweeted_status" do
     it "has text when retweeted_status is set" do
       tweet = Twitter::Tweet.new(:id => 28669546014, :retweeted_status => {:id => 28561922516, :text => 'BOOSH'})
-      tweet.retweeted_tweet.should be_a Twitter::Tweet
-      tweet.retweeted_tweet.text.should eq 'BOOSH'
+      expect(tweet.retweeted_tweet).to be_a Twitter::Tweet
+      expect(tweet.retweeted_tweet.text).to eq 'BOOSH'
     end
     it "returns nil when retweeted_status is not set" do
       tweet = Twitter::Tweet.new(:id => 28669546014)
-      tweet.retweeted_tweet.should be_nil
+      expect(tweet.retweeted_tweet).to be_nil
     end
   end
 
   describe "#retweeters_count" do
     it "returns the count of favoriters when retweet_count is set" do
       tweet = Twitter::Tweet.new(:id => 28669546014, :retweet_count => '1')
-      tweet.retweeters_count.should be_an Integer
-      tweet.retweeters_count.should eq 1
+      expect(tweet.retweeters_count).to be_an Integer
+      expect(tweet.retweeters_count).to eq 1
     end
     it "returns the count of favoriters when retweeters_count is set" do
       tweet = Twitter::Tweet.new(:id => 28669546014, :retweeters_count => '1')
-      tweet.retweeters_count.should be_an Integer
-      tweet.retweeters_count.should eq 1
+      expect(tweet.retweeters_count).to be_an Integer
+      expect(tweet.retweeters_count).to eq 1
     end
     it "returns nil when not set" do
       tweet = Twitter::Tweet.new(:id => 28669546014)
-      tweet.retweeters_count.should be_nil
+      expect(tweet.retweeters_count).to be_nil
     end
   end
 
   describe "#entities?" do
     it "returns false if there are no entities set" do
       tweet = Twitter::Tweet.new(:id => 28669546014)
-      tweet.entities?.should be_false
+      expect(tweet.entities?).to be_false
     end
 
     it "returns true if there are entities set" do
@@ -243,7 +243,7 @@ describe Twitter::Tweet do
         }
       ]
       tweet = Twitter::Tweet.new(:id => 28669546014, :entities => {:urls => urls_hash})
-      tweet.entities?.should be_true
+      expect(tweet.entities?).to be_true
     end
   end
 
@@ -258,33 +258,33 @@ describe Twitter::Tweet do
         }
       ]
       urls = Twitter::Tweet.new(:id => 28669546014, :entities => {:urls => urls_hash}).urls
-      urls.should be_an Array
-      urls.first.should be_a Twitter::Entity::Url
-      urls.first.indices.should eq [10, 33]
-      urls.first.display_url.should eq 'example.com/expanded'
+      expect(urls).to be_an Array
+      expect(urls.first).to be_a Twitter::Entity::Url
+      expect(urls.first.indices).to eq [10, 33]
+      expect(urls.first.display_url).to eq 'example.com/expanded'
     end
     it "is empty when not set" do
       urls = Twitter::Tweet.new(:id => 28669546014).urls
-      urls.should be_empty
+      expect(urls).to be_empty
     end
     it "warns when not set" do
       Twitter::Tweet.new(:id => 28669546014).urls
-      $stderr.string.should match /To get urls, you must pass `:include_entities => true` when requesting the Twitter::Tweet\./
+      expect($stderr.string).to match /To get urls, you must pass `:include_entities => true` when requesting the Twitter::Tweet\./
     end
   end
 
   describe "#user" do
     it "returns a User when user is set" do
       user = Twitter::Tweet.new(:id => 28669546014, :user => {:id => 7505382}).user
-      user.should be_a Twitter::User
+      expect(user).to be_a Twitter::User
     end
     it "returns nil when user is not set" do
       user = Twitter::Tweet.new(:id => 28669546014).user
-      user.should be_nil
+      expect(user).to be_nil
     end
     it "has a status when status is set" do
       user = Twitter::Tweet.new(:id => 28669546014, :text => 'Tweet text.', :user => {:id => 7505382}).user
-      user.status.should be_a Twitter::Tweet
+      expect(user.status).to be_a Twitter::Tweet
     end
   end
 
@@ -300,18 +300,18 @@ describe Twitter::Tweet do
         }
       ]
       user_mentions = Twitter::Tweet.new(:id => 28669546014, :entities => {:user_mentions => user_mentions_hash}).user_mentions
-      user_mentions.should be_an Array
-      user_mentions.first.should be_a Twitter::Entity::UserMention
-      user_mentions.first.indices.should eq [0, 6]
-      user_mentions.first.id.should eq 7505382
+      expect(user_mentions).to be_an Array
+      expect(user_mentions.first).to be_a Twitter::Entity::UserMention
+      expect(user_mentions.first.indices).to eq [0, 6]
+      expect(user_mentions.first.id).to eq 7505382
     end
     it "is empty when not set" do
       user_mentions = Twitter::Tweet.new(:id => 28669546014).user_mentions
-      user_mentions.should be_empty
+      expect(user_mentions).to be_empty
     end
     it "warns when not set" do
       Twitter::Tweet.new(:id => 28669546014).user_mentions
-      $stderr.string.should match /To get user mentions, you must pass `:include_entities => true` when requesting the Twitter::Tweet\./
+      expect($stderr.string).to match /To get user mentions, you must pass `:include_entities => true` when requesting the Twitter::Tweet\./
     end
   end
 

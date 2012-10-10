@@ -15,62 +15,60 @@ describe Twitter::Base do
 
     describe ".identity_map" do
       it "returns an instance of the identity map" do
-        Twitter::Base.identity_map.should be_a Twitter::IdentityMap
+        expect(Twitter::Base.identity_map).to be_a Twitter::IdentityMap
       end
     end
 
     describe ".fetch" do
       it "returns existing objects" do
-        Twitter::Base.fetch(:id => 1).should be
+        expect(Twitter::Base.fetch(:id => 1)).to be
       end
 
       it "raises an error on objects that don't exist" do
-        lambda {
-          Twitter::Base.fetch(:id => 6)
-        }.should raise_error(Twitter::Error::IdentityMapKeyError)
+        expect{Twitter::Base.fetch(:id => 6)}.to raise_error(Twitter::Error::IdentityMapKeyError)
       end
     end
 
     describe ".store" do
       it "stores Twitter::Base objects" do
         object = Twitter::Base.new(:id => 4)
-        Twitter::Base.store(object).should be_a Twitter::Base
+        expect(Twitter::Base.store(object)).to be_a Twitter::Base
       end
     end
 
     describe ".fetch_or_new" do
       it "returns existing objects" do
-        Twitter::Base.fetch_or_new(:id => 1).should be
+        expect(Twitter::Base.fetch_or_new(:id => 1)).to be
       end
       it "creates new objects and stores them" do
-        Twitter::Base.fetch_or_new(:id => 2).should be
-        Twitter::Base.fetch(:id => 2).should be
+        expect(Twitter::Base.fetch_or_new(:id => 2)).to be
+        expect(Twitter::Base.fetch(:id => 2)).to be
       end
     end
 
     describe "#[]" do
       it "calls methods using [] with symbol" do
-        @base[:object_id].should be_an Integer
+        expect(@base[:object_id]).to be_an Integer
       end
       it "calls methods using [] with string" do
-        @base['object_id'].should be_an Integer
+        expect(@base['object_id']).to be_an Integer
       end
       it "returns nil for missing method" do
-        @base[:foo].should be_nil
-        @base['foo'].should be_nil
+        expect(@base[:foo]).to be_nil
+        expect(@base['foo']).to be_nil
       end
     end
 
     describe "#to_hash" do
       it "returns a hash" do
-        @base.to_hash.should be_a Hash
-        @base.to_hash[:id].should eq 1
+        expect(@base.to_hash).to be_a Hash
+        expect(@base.to_hash[:id]).to eq 1
       end
     end
 
     describe "identical objects" do
       it "have the same object_id" do
-        @base.object_id.should eq Twitter::Base.fetch(:id => 1).object_id
+        expect(@base.object_id).to eq Twitter::Base.fetch(:id => 1).object_id
       end
     end
 
@@ -86,26 +84,26 @@ describe Twitter::Base do
 
     describe ".identity_map" do
       it "returns nil" do
-        Twitter::Base.identity_map.should be_nil
+        expect(Twitter::Base.identity_map).to be_nil
       end
     end
 
     describe ".fetch" do
       it "returns nil" do
-        Twitter::Base.fetch(:id => 1).should be_nil
+        expect(Twitter::Base.fetch(:id => 1)).to be_nil
       end
     end
 
     describe ".store" do
       it "returns an instance of the object" do
-        Twitter::Base.store(Twitter::Base.new(:id => 1)).should be_a Twitter::Base
+        expect(Twitter::Base.store(Twitter::Base.new(:id => 1))).to be_a Twitter::Base
       end
     end
 
     describe ".fetch_or_new" do
       it "creates new objects" do
-        Twitter::Base.fetch_or_new(:id => 2).should be
-        Twitter.identity_map.should be_false
+        expect(Twitter::Base.fetch_or_new(:id => 2)).to be
+        expect(Twitter.identity_map).to be_false
       end
     end
   end

@@ -12,6 +12,12 @@ require 'tempfile'
 require 'timecop'
 require 'webmock/rspec'
 
+RSpec.configure do |config|
+  config.expect_with :rspec do |c|
+    c.syntax = :expect
+  end
+end
+
 def a_delete(path)
   a_request(:delete, 'https://api.twitter.com' + path)
 end
