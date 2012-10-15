@@ -2,10 +2,12 @@
 [![Build Status](https://secure.travis-ci.org/sferik/twitter.png?branch=master)][travis]
 [![Dependency Status](https://gemnasium.com/sferik/twitter.png?travis)][gemnasium]
 [![Code Climate](https://codeclimate.com/badge.png)][codeclimate]
+[![Click here to make a donation](http://www.pledgie.com/campaigns/18388.png)][pledgie]
 
 [travis]: http://travis-ci.org/sferik/twitter
 [gemnasium]: https://gemnasium.com/sferik/twitter
 [codeclimate]: https://codeclimate.com/github/sferik/twitter
+[pledgie]: http://pledgie.com/campaigns/18388
 
 A Ruby interface to the Twitter API.
 

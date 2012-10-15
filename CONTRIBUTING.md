@@ -16,8 +16,10 @@ inconsistent whitespace)
 * by refactoring code
 * by fixing [issues][]
 * by reviewing patches
+* [financially][pledgie]
 
 [issues]: https://github.com/sferik/twitter/issues
+[pledgie]: http://pledgie.com/campaigns/18388
 
 ## Submitting an Issue
 We use the [GitHub issue tracker][issues] to track bugs and features. Before
