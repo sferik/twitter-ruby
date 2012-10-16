@@ -1,0 +1,414 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Twitter by sferik</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1 class="header">Twitter</h1>
+        <p class="header">A Ruby wrapper for Twitter API</p>
+
+        <ul>
+          <li class="download"><a class="buttons" href="https://github.com/sferik/twitter/zipball/master">Download ZIP</a></li>
+          <li class="download"><a class="buttons" href="https://github.com/sferik/twitter/tarball/master">Download TAR</a></li>
+          <li><a class="buttons github" href="https://github.com/sferik/twitter">View On GitHub</a></li>
+        </ul>
+
+        <p class="header">This project is maintained by <a class="header name" href="https://github.com/sferik">sferik</a></p>
+
+
+      </header>
+      <section>
+        <h1>The Twitter Ruby Gem</h1>
+
+<p><a href="http://travis-ci.org/sferik/twitter"><img src="https://secure.travis-ci.org/sferik/twitter.png?branch=master" alt="Build Status"></a>
+<a href="https://gemnasium.com/sferik/twitter"><img src="https://gemnasium.com/sferik/twitter.png?travis" alt="Dependency Status"></a>
+<a href="https://codeclimate.com/github/sferik/twitter"><img src="https://codeclimate.com/badge.png" alt="Code Climate"></a>
+<a href="http://pledgie.com/campaigns/18388"><img src="http://www.pledgie.com/campaigns/17330.png" alt="Click here to make a donation"></a></p>
+
+<p>A Ruby interface to the Twitter API.</p>
+
+<h2>Installation</h2>
+
+<div class="highlight"><pre>gem install twitter
+</pre></div>
+
+<p>Looking for the Twitter command-line interface? It was <a href="https://github.com/sferik/twitter/commit/dd2445e3e2c97f38b28a3f32ea902536b3897adf">removed</a> from this
+gem in version 0.5.0 and now exists as a <a href="https://github.com/sferik/t">separate project</a>:</p>
+
+<div class="highlight"><pre>gem install t
+</pre></div>
+
+<h2>Documentation</h2>
+
+<p><a href="http://rdoc.info/gems/twitter">http://rdoc.info/gems/twitter</a></p>
+
+<h2>Announcements</h2>
+
+<p>You should <a href="https://twitter.com/gem">follow @gem</a> on Twitter for announcements and updates about
+this library.</p>
+
+<h2>Mailing List</h2>
+
+<p>Please direct questions about this library to the <a href="https://groups.google.com/group/ruby-twitter-gem">mailing list</a>.</p>
+
+<h2>Apps Wiki</h2>
+
+<p>Does your project or organization use this gem? Add it to the <a href="https://github.com/sferik/twitter/wiki/apps">apps
+wiki</a>!</p>
+
+<h2>What's new in version 4?</h2>
+
+<h3>Twitter API v1.1</h3>
+
+<p>Version 4 of this library targets Twitter API v1.1. To understand the
+implications of this change, please read the following announcements from
+Twitter:</p>
+
+<ul>
+<li><a href="https://dev.twitter.com/blog/changes-coming-to-twitter-api">Changes coming in Version 1.1 of the Twitter API</a></li>
+<li><a href="https://dev.twitter.com/blog/current-status-api-v1.1">Current status: API v1.1</a></li>
+<li><a href="https://dev.twitter.com/docs/api/1.1/overview">Overview: Version 1.1 of the Twitter API</a></li>
+</ul><p>Despite the removal of certain underlying functionality in Twitter API v1.1,
+this library aims to preserve backward-compatibility wherever possible. For
+example, despite the removal of the <a href="https://dev.twitter.com/docs/api/1/get/statuses/retweeted_by_user"><code>GET
+statuses/retweeted_by_user</code></a> resource, the
+<code>Twitter::API#retweeted_by_user</code> method continues to exist, implemented by
+making multiple requests to the <a href="https://dev.twitter.com/docs/api/1.1/get/statuses/user_timeline"><code>GET statuses/user_timeline</code></a>
+resource. As a result, there is no longer a one-to-one correlation between
+method calls and Twitter API requests. In fact, it's possible for a single
+method call to exceed the Twitter API rate limit for a resource. If you think
+this might cause a problem for your application, feel free to <a href="https://dev.twitter.com/discussions/10644">join the
+discussion</a>.</p>
+
+<h3>Rate Limiting</h3>
+
+<p>Another consequence of Twitter API v1.1 is that the
+<code>Twitter::Client#rate_limit</code> method has been removed, since the concept of a
+client-wide rate limit no longer exists. Rate limits are now applied on a
+per-resource level, however, since there is no longer a one-to-one mapping
+between methods and Twitter API resources, it's not entirely obvious how rate
+limit information should be exposed. I've decided to go back to the pre-3.0.0
+behavior of including rate limit information on <code>Twitter::Error</code> objects.
+Here's an example of how to handle rate limits:</p>
+
+<div class="highlight"><pre><span class="no">MAX_ATTEMPTS</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">num_attempts</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">begin</span>
+  <span class="n">num_attempts</span> <span class="o">+=</span> <span class="mi">1</span>
+  <span class="n">retweets</span> <span class="o">=</span> <span class="no">Twitter</span><span class="o">.</span><span class="n">retweeted_by_user</span><span class="p">(</span><span class="s2">"sferik"</span><span class="p">)</span>
+<span class="k">rescue</span> <span class="no">Twitter</span><span class="o">::</span><span class="no">Error</span><span class="o">::</span><span class="no">TooManyRequests</span> <span class="o">=&gt;</span> <span class="n">error</span>
+  <span class="k">if</span> <span class="n">num_attempts</span> <span class="o">&lt;=</span> <span class="no">MAX_ATTEMPTS</span>
+    <span class="c1"># NOTE: Your process could go to sleep for up to 15 minutes but if you</span>
+    <span class="c1"># retry any sooner, it will almost certainly fail with the same exception.</span>
+    <span class="nb">sleep</span> <span class="n">error</span><span class="o">.</span><span class="n">rate_limit</span><span class="o">.</span><span class="n">reset_in</span>
+    <span class="k">retry</span>
+  <span class="k">else</span>
+    <span class="k">raise</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</pre></div>
+
+<h3>Methods Missing</h3>
+
+<p>As a consequence of moving to Twitter API v1.1, the following methods from
+version 3 are no longer available in version 4:</p>
+
+<ul>
+<li><code>Twitter::API#accept</code></li>
+<li><code>Twitter::API#deny</code></li>
+<li><code>Twitter::API#disable_notifications</code></li>
+<li><code>Twitter::API#enable_notifications</code></li>
+<li><code>Twitter::API#end_session</code></li>
+<li><code>Twitter::API#no_retweet_ids</code></li>
+<li><code>Twitter::API#rate_limit_status</code></li>
+<li><code>Twitter::API#rate_limited?</code></li>
+<li><code>Twitter::API#recommendations</code></li>
+<li><code>Twitter::API#related_results</code></li>
+<li><code>Twitter::API#retweeted_to_user</code></li>
+<li><code>Twitter::API#trends_daily</code></li>
+<li><code>Twitter::API#trends_weekly</code></li>
+<li><code>Twitter::Client#rate_limit</code></li>
+<li><code>Twitter::RateLimit#class</code></li>
+</ul><h3>Custom Endpoints</h3>
+
+<p>The <code>Twitter::API#update_with_media</code> method no longer uses the custom
+<code>upload.twitter.com</code> endpoint, so <code>media_endpoint</code> configuration has been
+removed. Likewise, the <code>Twitter::API#search</code> method no longer uses the custom
+<code>search.twitter.com</code> endpoint, so <code>search_endpoint</code> configuration has also been
+removed.</p>
+
+<h3>Errors</h3>
+
+<p>It's worth mentioning new error classes:</p>
+
+<ul>
+<li><code>Twitter::Error::GatewayTimeout</code></li>
+<li><code>Twitter::Error::TooManyRequests</code></li>
+<li><code>Twitter::Error::UnprocessableEntity</code></li>
+</ul><p>In previous versions of this library, rate limit errors were indicated by
+raising either <code>Twitter::Error::BadRequest</code> or
+<code>Twitter::Error::EnhanceYourCalm</code> (for the Search API). As of version 4, the
+library will raise <code>Twitter::Error::TooManyRequests</code> for all rate limit errors.
+The <code>Twitter::Error::EnhanceYourCalm</code> class has been aliased to
+<code>Twitter::Error::TooManyRequests</code>.</p>
+
+<h3>Identity Map</h3>
+
+<p>In version 4, the identity map is <a href="https://github.com/sferik/twitter/commit/c6c5960bea998abdc3e82cbb8dd68766a2df52e1">disabled by default</a>. If you want
+to enable this feature, you can use the <a href="https://github.com/sferik/twitter/blob/master/lib/twitter/identity_map.rb">default identity map</a> or
+<a href="https://github.com/sferik/twitter/blob/master/etc/sqlite_identity_map.rb">write a custom identity map</a>.</p>
+
+<div class="highlight"><pre><span class="no">Twitter</span><span class="o">.</span><span class="n">identity_map</span> <span class="o">=</span> <span class="no">Twitter</span><span class="o">::</span><span class="no">IdentityMap</span>
+</pre></div>
+
+<h2>Configuration</h2>
+
+<p>Twitter API v1.1 requires you to authenticate via OAuth, so you'll need a
+registered Twitter application. To register a new application, sign-in using
+your Twitter account and the fill out the form at
+<a href="http://dev.twitter.com/apps/new">http://dev.twitter.com/apps/new</a>. If you've previously registered a Twitter
+application, it will be listed at <a href="http://dev.twitter.com/apps">http://dev.twitter.com/apps</a>. Once you've
+registered an application, make sure to set the correct access level, otherwise
+you may see the error:</p>
+
+<pre><code>Read-only application cannot POST
+</code></pre>
+
+<p>Your new application will be assigned a consumer key/secret pair and you will
+be assigned an OAuth access token/secret pair for that application. You'll need
+to configure these values before you make a request or else you'll get the
+error:</p>
+
+<pre><code>Bad Authentication data
+</code></pre>
+
+<p>Applications that make requests on behalf of a single Twitter user can pass
+global configuration options as a block to the <code>Twitter.configure</code> method.</p>
+
+<div class="highlight"><pre><span class="no">Twitter</span><span class="o">.</span><span class="n">configure</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
+  <span class="n">config</span><span class="o">.</span><span class="n">consumer_key</span> <span class="o">=</span> <span class="no">YOUR_CONSUMER_KEY</span>
+  <span class="n">config</span><span class="o">.</span><span class="n">consumer_secret</span> <span class="o">=</span> <span class="no">YOUR_CONSUMER_SECRET</span>
+  <span class="n">config</span><span class="o">.</span><span class="n">oauth_token</span> <span class="o">=</span> <span class="no">YOUR_OAUTH_TOKEN</span>
+  <span class="n">config</span><span class="o">.</span><span class="n">oauth_token_secret</span> <span class="o">=</span> <span class="no">YOUR_OAUTH_TOKEN_SECRET</span>
+<span class="k">end</span>
+</pre></div>
+
+<p>Alternately, you can set the following environment variables:</p>
+
+<div class="highlight"><pre>TWITTER_CONSUMER_KEY
+TWITTER_CONSUMER_SECRET
+TWITTER_OAUTH_TOKEN
+TWITTER_OAUTH_TOKEN_SECRET
+</pre></div>
+
+<p>After configuration, requests can be made like so:</p>
+
+<div class="highlight"><pre><span class="no">Twitter</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="s2">"I'm tweeting with @gem!"</span><span class="p">)</span>
+</pre></div>
+
+<h3>Thread Safety</h3>
+
+<p>Applications that make requests on behalf of multiple Twitter users should
+avoid using global configuration. In this case, you may still specify the
+<code>consumer_key</code> and <code>consumer_secret</code> globally. (In a Rails application, this
+could go in <code>config/initiliazers/twitter.rb</code>.)</p>
+
+<div class="highlight"><pre><span class="no">Twitter</span><span class="o">.</span><span class="n">configure</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
+  <span class="n">config</span><span class="o">.</span><span class="n">consumer_key</span> <span class="o">=</span> <span class="no">YOUR_CONSUMER_KEY</span>
+  <span class="n">config</span><span class="o">.</span><span class="n">consumer_secret</span> <span class="o">=</span> <span class="no">YOUR_CONSUMER_SECRET</span>
+<span class="k">end</span>
+</pre></div>
+
+<p>Then, for each user's access token/secret pair, instantiate a
+<code>Twitter::Client</code>:</p>
+
+<div class="highlight"><pre><span class="vi">@client_erik</span> <span class="o">=</span> <span class="no">Twitter</span><span class="o">::</span><span class="no">Client</span><span class="o">.</span><span class="n">new</span><span class="p">(</span>
+  <span class="ss">:oauth_token</span> <span class="o">=&gt;</span> <span class="s2">"Erik's access token"</span><span class="p">,</span>
+  <span class="ss">:oauth_token_secret</span> <span class="o">=&gt;</span> <span class="s2">"Erik's access secret"</span>
+<span class="p">)</span>
+
+<span class="vi">@client_john</span> <span class="o">=</span> <span class="no">Twitter</span><span class="o">::</span><span class="no">Client</span><span class="o">.</span><span class="n">new</span><span class="p">(</span>
+  <span class="ss">:oauth_token</span> <span class="o">=&gt;</span> <span class="s2">"John's access token"</span><span class="p">,</span>
+  <span class="ss">:oauth_token_secret</span> <span class="o">=&gt;</span> <span class="s2">"John's access secret"</span>
+<span class="p">)</span>
+</pre></div>
+
+<p>You can now make threadsafe requests as the authenticated user:</p>
+
+<div class="highlight"><pre><span class="no">Thread</span><span class="o">.</span><span class="n">new</span><span class="p">{</span><span class="vi">@client_erik</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="s2">"Tweeting as Erik!"</span><span class="p">)}</span>
+<span class="no">Thread</span><span class="o">.</span><span class="n">new</span><span class="p">{</span><span class="vi">@client_john</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="s2">"Tweeting as John!"</span><span class="p">)}</span>
+</pre></div>
+
+<p>Or, if you prefer, you can specify all configuration options when instantiating
+a <code>Twitter::Client</code>:</p>
+
+<div class="highlight"><pre><span class="vi">@client</span> <span class="o">=</span> <span class="no">Twitter</span><span class="o">::</span><span class="no">Client</span><span class="o">.</span><span class="n">new</span><span class="p">(</span>
+  <span class="ss">:consumer_key</span> <span class="o">=&gt;</span> <span class="s2">"an application's consumer key"</span><span class="p">,</span>
+  <span class="ss">:consumer_secret</span> <span class="o">=&gt;</span> <span class="s2">"an application's consumer secret"</span><span class="p">,</span>
+  <span class="ss">:oauth_token</span> <span class="o">=&gt;</span> <span class="s2">"a user's access token"</span><span class="p">,</span>
+  <span class="ss">:oauth_token_secret</span> <span class="o">=&gt;</span> <span class="s2">"a user's access secret"</span>
+<span class="p">)</span>
+</pre></div>
+
+<p>This may be useful if you're using multiple consumer key/secret pairs.</p>
+
+<h3>Middleware</h3>
+
+<p>The Faraday middleware stack is fully configurable and is exposed as a
+<code>Faraday::Builder</code> object. You can modify the default middleware in-place:</p>
+
+<div class="highlight"><pre><span class="no">Twitter</span><span class="o">.</span><span class="n">middleware</span><span class="o">.</span><span class="n">insert_after</span> <span class="no">Twitter</span><span class="o">::</span><span class="no">Response</span><span class="o">::</span><span class="no">RaiseClientError</span><span class="p">,</span> <span class="no">CustomMiddleware</span>
+</pre></div>
+
+<p>A custom adapter may be set as part of a custom middleware stack:</p>
+
+<div class="highlight"><pre><span class="no">Twitter</span><span class="o">.</span><span class="n">middleware</span> <span class="o">=</span> <span class="no">Faraday</span><span class="o">::</span><span class="no">Builder</span><span class="o">.</span><span class="n">new</span><span class="p">(</span>
+  <span class="o">&amp;</span><span class="no">Proc</span><span class="o">.</span><span class="n">new</span> <span class="k">do</span> <span class="o">|</span><span class="n">builder</span><span class="o">|</span>
+    <span class="c1"># Specify a middleware stack here</span>
+    <span class="n">builder</span><span class="o">.</span><span class="n">adapter</span> <span class="ss">:some_other_adapter</span>
+  <span class="k">end</span>
+<span class="p">)</span>
+</pre></div>
+
+<h2>Usage Examples</h2>
+
+<p>All examples require an authenticated Twitter client. See the section on <a href="#configuration">configuration</a> above.</p>
+
+<p><strong>Tweet (as the authenticated user)</strong></p>
+
+<div class="highlight"><pre><span class="no">Twitter</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="s2">"I'm tweeting with @gem!"</span><span class="p">)</span>
+</pre></div>
+
+<p><strong>Follow a user (by screen name or user ID)</strong></p>
+
+<div class="highlight"><pre><span class="no">Twitter</span><span class="o">.</span><span class="n">follow</span><span class="p">(</span><span class="s2">"gem"</span><span class="p">)</span>
+<span class="no">Twitter</span><span class="o">.</span><span class="n">follow</span><span class="p">(</span><span class="mi">213747670</span><span class="p">)</span>
+</pre></div>
+
+<p><strong>Fetch a user (by screen name or user ID)</strong></p>
+
+<div class="highlight"><pre><span class="no">Twitter</span><span class="o">.</span><span class="n">user</span><span class="p">(</span><span class="s2">"gem"</span><span class="p">)</span>
+<span class="no">Twitter</span><span class="o">.</span><span class="n">user</span><span class="p">(</span><span class="mi">213747670</span><span class="p">)</span>
+</pre></div>
+
+<p><strong>Fetch the timeline of Tweets by a user</strong></p>
+
+<div class="highlight"><pre><span class="no">Twitter</span><span class="o">.</span><span class="n">user_timeline</span><span class="p">(</span><span class="s2">"gem"</span><span class="p">)</span>
+<span class="no">Twitter</span><span class="o">.</span><span class="n">user_timeline</span><span class="p">(</span><span class="mi">213747670</span><span class="p">)</span>
+</pre></div>
+
+<p><strong>Fetch the timeline of Tweets from the authenticated user's home page</strong></p>
+
+<div class="highlight"><pre><span class="no">Twitter</span><span class="o">.</span><span class="n">home_timeline</span>
+</pre></div>
+
+<p><strong>Fetch the timeline of Tweets mentioning the authenticated user</strong></p>
+
+<div class="highlight"><pre><span class="no">Twitter</span><span class="o">.</span><span class="n">mentions_timeline</span>
+</pre></div>
+
+<p><strong>Fetch a particular Tweet by ID</strong></p>
+
+<div class="highlight"><pre><span class="no">Twitter</span><span class="o">.</span><span class="n">status</span><span class="p">(</span><span class="mi">27558893223</span><span class="p">)</span>
+</pre></div>
+
+<p><strong>Find the 3 most recent marriage proposals to <a href="https://github.com/justinbieber" class="user-mention">@justinbieber</a></strong></p>
+
+<div class="highlight"><pre><span class="no">Twitter</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">"to:justinbieber marry me"</span><span class="p">,</span> <span class="ss">:count</span> <span class="o">=&gt;</span> <span class="mi">3</span><span class="p">,</span> <span class="ss">:result_type</span> <span class="o">=&gt;</span> <span class="s2">"recent"</span><span class="p">)</span><span class="o">.</span><span class="n">results</span><span class="o">.</span><span class="n">map</span> <span class="k">do</span> <span class="o">|</span><span class="n">status</span><span class="o">|</span>
+  <span class="s2">"</span><span class="si">#{</span><span class="n">status</span><span class="o">.</span><span class="n">from_user</span><span class="si">}</span><span class="s2">: </span><span class="si">#{</span><span class="n">status</span><span class="o">.</span><span class="n">text</span><span class="si">}</span><span class="s2">"</span>
+<span class="k">end</span>
+</pre></div>
+
+<p><strong>Find a Japanese-language Tweet tagged #ruby (excluding retweets)</strong></p>
+
+<div class="highlight"><pre><span class="no">Twitter</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">"#ruby -rt"</span><span class="p">,</span> <span class="ss">:lang</span> <span class="o">=&gt;</span> <span class="s2">"ja"</span><span class="p">,</span> <span class="ss">:count</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">results</span><span class="o">.</span><span class="n">first</span><span class="o">.</span><span class="n">text</span>
+</pre></div>
+
+<p>For more usage examples, please see the full <a href="http://rdoc.info/gems/twitter">documentation</a>.</p>
+
+<h2>Streaming</h2>
+
+<p>To access the Twitter Streaming API, we recommend <a href="https://github.com/intridea/tweetstream">TweetStream</a>.</p>
+
+<h2>Performance</h2>
+
+<p>You can improve performance by loading a faster JSON parsing library. By
+default, JSON will be parsed with <a href="https://github.com/ddollar/okjson">okjson</a>. For faster JSON parsing, we
+recommend <a href="https://rubygems.org/gems/oj">Oj</a>.</p>
+
+<h2>Statistics</h2>
+
+<p>Here are some fun facts about this library:</p>
+
+<ul>
+<li>It is implemented in just 2,000 lines of Ruby code</li>
+<li>With over 4,000 lines of specs, the spec-to-code ratio is over 2:1</li>
+<li>The spec suite contains over 600 examples and runs in under 2 seconds</li>
+<li>It has 100% C0 code coverage (the tests execute every line of
+source code at least once)</li>
+<li>It is comprehensive: you can request all documented Twitter REST API resources (over 100 resources)</li>
+<li>This gem works on every major Ruby implementation, including JRuby and
+Rubinius</li>
+<li>The first version was released on November 26, 2006</li>
+<li>This gem has just three runtime dependencies: <code>faraday</code>, <code>multi_json</code>, and
+<code>simple_oauth</code>
+</li>
+<li>Previous versions of this gem have been <a href="https://rubygems.org/gems/twitter">downloaded over half a million
+times</a>
+</li>
+</ul><h2>Supported Ruby Versions</h2>
+
+<p>This library aims to support and is <a href="http://travis-ci.org/sferik/twitter">tested against</a> the following Ruby
+version:</p>
+
+<ul>
+<li>Ruby 1.8.7</li>
+<li>Ruby 1.9.2</li>
+<li>Ruby 1.9.3</li>
+</ul><p>This library may inadvertently work (or seem to work) on other Ruby
+implementations, however support will only be provided for the versions listed
+above.</p>
+
+<p>If you would like this library to support another Ruby version, you may
+volunteer to be a maintainer. Being a maintainer entails making sure all tests
+run and pass on that implementation. When something breaks on your
+implementation, you will be personally responsible for providing patches in a
+timely fashion. If critical issues for a particular implementation exist at the
+time of a major release, support for that Ruby version may be dropped.</p>
+
+<h2>Additional Notes</h2>
+
+<p>This will be the last major version of this library to support Ruby 1.8.
+Requiring Ruby 1.9 will allow us to <a href="https://github.com/sferik/twitter/commit/88c5a0513d1b58a1d4ae1a1e3deeb012c9d19547">remove</a>
+<a href="https://github.com/sferik/twitter/commit/6052252a07baf7aefe0f100bba0abd2cbb7139bb">various</a> <a href="https://github.com/sferik/twitter/commit/2ed9db21c87d1218b15373e42a36ad536b07dcbb">hacks</a> put in place to maintain
+Ruby 1.8 compatibility. <a href="http://blade.nagaokaut.ac.jp/cgi-bin/scat.rb/ruby/ruby-talk/367983">The first stable version of Ruby 1.9 was released on
+August 19, 2010.</a> If you haven't found the opportunity to upgrade your
+Ruby interpreter since then, let this be your nudge. Once version 5 of this
+library is released, all previous versions will cease to be supported, even if
+critical security vulnerabilities are discovered.</p>
+
+<h2>Copyright</h2>
+
+<p>Copyright (c) 2006-2012 John Nunemaker, Wynn Netherland, Erik Michaels-Ober, Steve Richert.
+See <a href="https://github.com/sferik/twitter/blob/master/LICENSE.md">LICENSE</a> for details.</p>
+      </section>
+      <footer>
+        <p><small>Hosted on <a href="https://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+		
+  </body>
+</html>
