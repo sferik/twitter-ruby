@@ -71,7 +71,7 @@ wiki</a>!</p>
 
 <h2>What's new in version 4?</h2>
 
-<h3>Twitter API v1.1</h3>
+<h4>Twitter API v1.1</h4>
 
 <p>Version 4 of this library targets Twitter API v1.1. To understand the
 implications of this change, please read the following announcements from
@@ -93,7 +93,7 @@ method call to exceed the Twitter API rate limit for a resource. If you think
 this might cause a problem for your application, feel free to <a href="https://dev.twitter.com/discussions/10644">join the
 discussion</a>.</p>
 
-<h3>Rate Limiting</h3>
+<h4>Rate Limiting</h4>
 
 <p>Another consequence of Twitter API v1.1 is that the
 <code>Twitter::Client#rate_limit</code> method has been removed, since the concept of a
@@ -121,7 +121,7 @@ Here's an example of how to handle rate limits:</p>
 <span class="k">end</span>
 </pre></div>
 
-<h3>Methods Missing</h3>
+<h4>Methods Missing</h4>
 
 <p>As a consequence of moving to Twitter API v1.1, the following methods from
 version 3 are no longer available in version 4:</p>
@@ -142,7 +142,7 @@ version 3 are no longer available in version 4:</p>
 <li><code>Twitter::API#trends_weekly</code></li>
 <li><code>Twitter::Client#rate_limit</code></li>
 <li><code>Twitter::RateLimit#class</code></li>
-</ul><h3>Custom Endpoints</h3>
+</ul><h4>Custom Endpoints</h4>
 
 <p>The <code>Twitter::API#update_with_media</code> method no longer uses the custom
 <code>upload.twitter.com</code> endpoint, so <code>media_endpoint</code> configuration has been
@@ -150,7 +150,7 @@ removed. Likewise, the <code>Twitter::API#search</code> method no longer uses th
 <code>search.twitter.com</code> endpoint, so <code>search_endpoint</code> configuration has also been
 removed.</p>
 
-<h3>Errors</h3>
+<h4>Errors</h4>
 
 <p>It's worth mentioning new error classes:</p>
 
@@ -165,7 +165,7 @@ library will raise <code>Twitter::Error::TooManyRequests</code> for all rate lim
 The <code>Twitter::Error::EnhanceYourCalm</code> class has been aliased to
 <code>Twitter::Error::TooManyRequests</code>.</p>
 
-<h3>Identity Map</h3>
+<h4>Identity Map</h4>
 
 <p>In version 4, the identity map is <a href="https://github.com/sferik/twitter/commit/c6c5960bea998abdc3e82cbb8dd68766a2df52e1">disabled by default</a>. If you want
 to enable this feature, you can use the <a href="https://github.com/sferik/twitter/blob/master/lib/twitter/identity_map.rb">default identity map</a> or
@@ -219,7 +219,7 @@ TWITTER_OAUTH_TOKEN_SECRET
 <div class="highlight"><pre><span class="no">Twitter</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="s2">"I'm tweeting with @gem!"</span><span class="p">)</span>
 </pre></div>
 
-<h3>Thread Safety</h3>
+<h4>Thread Safety</h4>
 
 <p>Applications that make requests on behalf of multiple Twitter users should
 avoid using global configuration. In this case, you may still specify the
@@ -265,7 +265,7 @@ a <code>Twitter::Client</code>:</p>
 
 <p>This may be useful if you're using multiple consumer key/secret pairs.</p>
 
-<h3>Middleware</h3>
+<h4>Middleware</h4>
 
 <p>The Faraday middleware stack is fully configurable and is exposed as a
 <code>Faraday::Builder</code> object. You can modify the default middleware in-place:</p>
