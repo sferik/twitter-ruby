@@ -49,7 +49,7 @@ wiki][apps]!
 
 ## What's new in version 4?
 
-### Twitter API v1.1
+#### Twitter API v1.1
 
 Version 4 of this library targets Twitter API v1.1. To understand the
 implications of this change, please read the following announcements from
@@ -79,7 +79,7 @@ discussion][discussion].
 [user_timeline]: https://dev.twitter.com/docs/api/1.1/get/statuses/user_timeline
 [discussion]: https://dev.twitter.com/discussions/10644
 
-### Rate Limiting
+#### Rate Limiting
 
 Another consequence of Twitter API v1.1 is that the
 `Twitter::Client#rate_limit` method has been removed, since the concept of a
@@ -107,7 +107,7 @@ rescue Twitter::Error::TooManyRequests => error
   end
 end
 ```
-### Methods Missing
+#### Methods Missing
 
 As a consequence of moving to Twitter API v1.1, the following methods from
 version 3 are no longer available in version 4:
@@ -128,7 +128,7 @@ version 3 are no longer available in version 4:
 * `Twitter::Client#rate_limit`
 * `Twitter::RateLimit#class`
 
-### Custom Endpoints
+#### Custom Endpoints
 
 The `Twitter::API#update_with_media` method no longer uses the custom
 `upload.twitter.com` endpoint, so `media_endpoint` configuration has been
@@ -136,7 +136,7 @@ removed. Likewise, the `Twitter::API#search` method no longer uses the custom
 `search.twitter.com` endpoint, so `search_endpoint` configuration has also been
 removed.
 
-### Errors
+#### Errors
 
 It's worth mentioning new error classes:
 
@@ -151,7 +151,7 @@ library will raise `Twitter::Error::TooManyRequests` for all rate limit errors.
 The `Twitter::Error::EnhanceYourCalm` class has been aliased to
 `Twitter::Error::TooManyRequests`.
 
-### Identity Map
+#### Identity Map
 
 In version 4, the identity map is [disabled by default][disabled]. If you want
 to enable this feature, you can use the [default identity map][default] or
@@ -211,7 +211,7 @@ After configuration, requests can be made like so:
 Twitter.update("I'm tweeting with @gem!")
 ```
 
-### Thread Safety
+#### Thread Safety
 
 Applications that make requests on behalf of multiple Twitter users should
 avoid using global configuration. In this case, you may still specify the
@@ -261,7 +261,7 @@ a `Twitter::Client`:
 
 This may be useful if you're using multiple consumer key/secret pairs.
 
-### Middleware
+#### Middleware
 
 The Faraday middleware stack is fully configurable and is exposed as a
 `Faraday::Builder` object. You can modify the default middleware in-place:
