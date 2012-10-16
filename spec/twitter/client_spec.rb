@@ -53,7 +53,7 @@ describe Twitter::Client do
         end
       end
 
-      context "after initilization" do
+      context "after initialization" do
         it "overrides the module configuration after initialization" do
           client = Twitter::Client.new
           client.configure do |config|
