@@ -22,6 +22,7 @@ module Twitter
     alias favorited? favorited
     alias favourited favorited
     alias favourited? favorited
+    alias favouriters favoriters
     alias retweeted? retweeted
     alias truncated? truncated
 
@@ -31,7 +32,9 @@ module Twitter
       favoriters_count.to_i if favoriters_count
     end
     alias favorite_count favoriters_count
+    alias favorites_count favoriters_count
     alias favourite_count favoriters_count
+    alias favourites_count favoriters_count
     alias favouriters_count favoriters_count
 
     # @return [String]

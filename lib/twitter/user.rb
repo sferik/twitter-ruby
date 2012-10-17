@@ -22,8 +22,10 @@ module Twitter
     alias default_profile_image? default_profile_image
     alias follow_request_sent? follow_request_sent
     alias favorite_count favourites_count
+    alias favoriters_count favourites_count
     alias favorites_count favourites_count
     alias favourite_count favourites_count
+    alias favouriters_count favourites_count
     alias follower_count followers_count
     alias friend_count friends_count
     alias geo_enabled? geo_enabled

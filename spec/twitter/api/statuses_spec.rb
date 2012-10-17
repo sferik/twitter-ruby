@@ -51,7 +51,7 @@ describe Twitter::API do
       tweets = @client.favorite(25938088801)
       expect(tweets).to be_an Array
       expect(tweets.first).to be_a Twitter::Tweet
-      expect(tweets.first.text).to eq "@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!"
+      expect(tweets.first.text).to eq "The problem with your code is that it's doing exactly what you told it to do."
     end
   end
 
@@ -67,7 +67,7 @@ describe Twitter::API do
       tweets = @client.unfavorite(25938088801)
       expect(tweets).to be_an Array
       expect(tweets.first).to be_a Twitter::Tweet
-      expect(tweets.first.text).to eq "@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!"
+      expect(tweets.first.text).to eq "The problem with your code is that it's doing exactly what you told it to do."
     end
   end
 
@@ -288,7 +288,7 @@ describe Twitter::API do
     it "returns a Tweet" do
       tweet = @client.status(25938088801)
       expect(tweet).to be_a Twitter::Tweet
-      expect(tweet.text).to eq "@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!"
+      expect(tweet.text).to eq "The problem with your code is that it's doing exactly what you told it to do."
     end
   end
 
@@ -304,7 +304,7 @@ describe Twitter::API do
       tweets = @client.statuses(25938088801)
       expect(tweets).to be_an Array
       expect(tweets.first).to be_a Twitter::Tweet
-      expect(tweets.first.text).to eq "@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!"
+      expect(tweets.first.text).to eq "The problem with your code is that it's doing exactly what you told it to do."
     end
   end
 
@@ -351,7 +351,7 @@ describe Twitter::API do
       tweets = @client.status_destroy(25938088801)
       expect(tweets).to be_an Array
       expect(tweets.first).to be_a Twitter::Tweet
-      expect(tweets.first.text).to eq "@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!"
+      expect(tweets.first.text).to eq "The problem with your code is that it's doing exactly what you told it to do."
     end
   end
 
@@ -375,16 +375,16 @@ describe Twitter::API do
 
   describe "#tweet" do
     before do
-      stub_post("/1.1/statuses/update.json").with(:body => {:status => "@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!"}).to_return(:body => fixture("status.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      stub_post("/1.1/statuses/update.json").with(:body => {:status => "The problem with your code is that it's doing exactly what you told it to do."}).to_return(:body => fixture("status.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
-      @client.update("@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!")
-      expect(a_post("/1.1/statuses/update.json").with(:body => {:status => "@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!"})).to have_been_made
+      @client.update("The problem with your code is that it's doing exactly what you told it to do.")
+      expect(a_post("/1.1/statuses/update.json").with(:body => {:status => "The problem with your code is that it's doing exactly what you told it to do."})).to have_been_made
     end
     it "returns a Tweet" do
-      tweet = @client.update("@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!")
+      tweet = @client.update("The problem with your code is that it's doing exactly what you told it to do.")
       expect(tweet).to be_a Twitter::Tweet
-      expect(tweet.text).to eq "@noradio working on implementing #NewTwitter API methods in the twitter gem. Twurl is making it easy. Thank you!"
+      expect(tweet.text).to eq "The problem with your code is that it's doing exactly what you told it to do."
     end
   end
 
