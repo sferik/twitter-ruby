@@ -1,3 +1,8 @@
+4.1.1
+-----
+* [Fix bug in `Twitter::Tweet#full_text`](https://github.com/sferik/twitter/commit/9646a5bed6d2d119b1cc1d5757113988de2516d6)
+* [Add `Twitter::Tweet#favouriters`, `Twitter::User#favoriters_count`, and `Twitter::User#favouriters_count` aliases](https://github.com/sferik/twitter/commit/60fce1ea0cdf8239262ca46588b4fe766f07288e)
+
 4.1.0
 -----
 * [Handle new API v1.1 list response format](https://github.com/sferik/twitter/commit/2aace25fcf946de995e5ce1788f24ad35bc79438)
