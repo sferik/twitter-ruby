@@ -6,8 +6,8 @@ module Twitter
       CONTENT_TYPE = 'Content-Type'.freeze
       class << self
         attr_accessor :mime_type
+        mime_type = 'multipart/form-data'.freeze
       end
-      self.mime_type = 'multipart/form-data'.freeze
 
       def call(env)
         if env[:body].is_a?(Hash)

@@ -6,13 +6,13 @@ module Twitter
 
       # @return [Integer]
       def latitude
-        self.coordinates[0]
+        coordinates[0]
       end
       alias lat latitude
 
       # @return [Integer]
       def longitude
-        self.coordinates[1]
+        coordinates[1]
       end
       alias long longitude
       alias lng longitude

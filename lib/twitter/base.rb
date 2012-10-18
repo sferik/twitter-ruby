@@ -8,10 +8,7 @@ module Twitter
 
     # Define methods that retrieve the value from an initialized instance variable Hash, using the attribute as a key
     #
-    # @overload self.attr_reader(attr)
-    #   @param attr [Symbol]
-    # @overload self.attr_reader(attrs)
-    #   @param attrs [Array<Symbol>]
+    # @param attrs [Array, Set, Symbol]
     def self.attr_reader(*attrs)
       attrs.each do |attribute|
         class_eval do
