@@ -81,7 +81,7 @@ describe Twitter::Tweet do
       expect(tweet.full_text).to eq "BOOSH"
     end
     it "returns the full text of a retweeted Tweet" do
-      tweet = Twitter::Tweet.new(:id => 28669546014, :retweeted_status => {:id => 28561922516, :text => 'BOOSH', :user => {:id => 7505382, :screen_name => 'sferik'}})
+      tweet = Twitter::Tweet.new(:id => 28669546014, :text => 'RT @sferik: BOOSH', :retweeted_status => {:id => 28561922516, :text => 'BOOSH'})
       expect(tweet.full_text).to be_a String
       expect(tweet.full_text).to eq "RT @sferik: BOOSH"
     end

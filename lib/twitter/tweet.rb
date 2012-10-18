@@ -45,7 +45,12 @@ module Twitter
     # @return [String]
     # @note May be > 140 characters.
     def full_text
-      retweeted_status && retweeted_status.user ? "RT @#{retweeted_status.user.screen_name}: #{retweeted_status.text}" : text
+      if retweeted_status
+        prefix = text[/\A(RT @[a-z0-9_]{1,20}: )/i, 1]
+        [prefix, retweeted_status.text].compact.join
+      else
+        text
+      end
     end
 
     # @return [Twitter::Geo]
