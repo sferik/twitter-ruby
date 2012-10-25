@@ -216,7 +216,7 @@ Twitter.update("I'm tweeting with @gem!")
 Applications that make requests on behalf of multiple Twitter users should
 avoid using global configuration. In this case, you may still specify the
 `consumer_key` and `consumer_secret` globally. (In a Rails application, this
-could go in `config/initiliazers/twitter.rb`.)
+could go in `config/initializers/twitter.rb`.)
 
 ```ruby
 Twitter.configure do |config|
