@@ -55,6 +55,22 @@ describe Twitter::API do
     end
   end
 
+  describe "#favorite!" do
+    before do
+      stub_post("/1.1/favorites/create.json").with(:body => {:id => "25938088801"}).to_return(:body => fixture("status.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+    end
+    it "requests the correct resource" do
+      @client.favorite!(25938088801)
+      expect(a_post("/1.1/favorites/create.json").with(:body => {:id => "25938088801"})).to have_been_made
+    end
+    it "returns an array of favorited Tweets" do
+      tweets = @client.favorite!(25938088801)
+      expect(tweets).to be_an Array
+      expect(tweets.first).to be_a Twitter::Tweet
+      expect(tweets.first.text).to eq "The problem with your code is that it's doing exactly what you told it to do."
+    end
+  end
+
   describe "#unfavorite" do
     before do
       stub_post("/1.1/favorites/destroy.json").with(:body => {:id => "25938088801"}).to_return(:body => fixture("status.json"), :headers => {:content_type => "application/json; charset=utf-8"})

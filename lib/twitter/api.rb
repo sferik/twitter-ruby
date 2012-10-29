@@ -1444,12 +1444,40 @@ module Twitter
     def favorite(*args)
       options = args.extract_options!
       args.flatten.threaded_map do |id|
-        object_from_response(Twitter::Tweet, :post, "/1.1/favorites/create.json", options.merge(:id => id))
-      end
+        begin
+          object_from_response(Twitter::Tweet, :post, "/1.1/favorites/create.json", options.merge(:id => id))
+        rescue Twitter::Error::Forbidden
+        end
+      end.compact
     end
     alias fav favorite
     alias fave favorite
     alias favorite_create favorite
+
+    # Favorites the specified Tweets as the authenticating user and raises an error if one has already been favorited
+    #
+    # @see https://dev.twitter.com/docs/api/1.1/post/favorites/create
+    # @rate_limited No
+    # @authentication_required Requires user context
+    # @raise [Twitter::Error::Forbidden] Error raised when tweet has already been favorited.
+    # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+    # @return [Array<Twitter::Tweet>] The favorited Tweets.
+    # @overload favorite(*ids)
+    #   @param ids [Array<Integer>, Set<Integer>] An array of Tweet IDs.
+    #   @example Favorite the Tweet with the ID 25938088801
+    #     Twitter.favorite(25938088801)
+    # @overload favorite(*ids, options)
+    #   @param ids [Array<Integer>, Set<Integer>] An array of Tweet IDs.
+    #   @param options [Hash] A customizable set of options.
+    def favorite!(*args)
+      options = args.extract_options!
+      args.flatten.threaded_map do |id|
+        object_from_response(Twitter::Tweet, :post, "/1.1/favorites/create.json", options.merge(:id => id))
+      end
+    end
+    alias fav! favorite!
+    alias fave! favorite!
+    alias favorite_create! favorite!
 
     # Un-favorites the specified Tweets as the authenticating user
     #
