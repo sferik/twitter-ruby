@@ -373,6 +373,24 @@ describe Twitter::API do
     end
   end
 
+  describe "#retweet!" do
+    before do
+      stub_post("/1.1/statuses/retweet/28561922516.json").to_return(:body => fixture("retweet.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+    end
+    it "requests the correct resource" do
+      @client.retweet!(28561922516)
+      expect(a_post("/1.1/statuses/retweet/28561922516.json")).to have_been_made
+    end
+    it "returns an array of Tweets with retweet details embedded" do
+      tweets = @client.retweet!(28561922516)
+      expect(tweets).to be_an Array
+      expect(tweets.first).to be_a Twitter::Tweet
+      expect(tweets.first.text).to eq "As for the Series, I'm for the Giants. Fuck Texas, fuck Nolan Ryan, fuck George Bush."
+      expect(tweets.first.retweeted_tweet.text).to eq "RT @gruber: As for the Series, I'm for the Giants. Fuck Texas, fuck Nolan Ryan, fuck George Bush."
+      expect(tweets.first.retweeted_tweet.id).not_to eq tweets.first.id
+    end
+  end
+
   describe "#tweet" do
     before do
       stub_post("/1.1/statuses/update.json").with(:body => {:status => "The problem with your code is that it's doing exactly what you told it to do."}).to_return(:body => fixture("status.json"), :headers => {:content_type => "application/json; charset=utf-8"})

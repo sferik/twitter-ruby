@@ -1847,7 +1847,36 @@ module Twitter
     end
     alias tweet_destroy status_destroy
 
-    # Retweets tweets
+    # Retweets the specified Tweets as the authenticating user
+    #
+    # @see https://dev.twitter.com/docs/api/1.1/post/statuses/retweet/:id
+    # @rate_limited Yes
+    # @authentication_required Requires user context
+    # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+    # @return [Array<Twitter::Tweet>] The original tweets with retweet details embedded.
+    # @overload retweet(*ids)
+    #   @param ids [Array<Integer>, Set<Integer>] An array of Tweet IDs.
+    #   @example Retweet the Tweet with the ID 28561922516
+    #     Twitter.retweet(28561922516)
+    # @overload retweet(*ids, options)
+    #   @param ids [Array<Integer>, Set<Integer>] An array of Tweet IDs.
+    #   @param options [Hash] A customizable set of options.
+    #   @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
+    def retweet(*args)
+      options = args.extract_options!
+      args.flatten.threaded_map do |id|
+        begin
+          response = post("/1.1/statuses/retweet/#{id}.json", options)
+          retweeted_status = response.dup
+          retweeted_status[:body] = response[:body].delete(:retweeted_status)
+          retweeted_status[:body][:retweeted_status] = response[:body]
+          Twitter::Tweet.from_response(retweeted_status)
+        rescue Twitter::Error::Forbidden
+        end
+      end.compact
+    end
+
+    # Retweets the specified Tweets as the authenticating user and raises an error if one has already been retweeted
     #
     # @see https://dev.twitter.com/docs/api/1.1/post/statuses/retweet/:id
     # @rate_limited Yes
@@ -1863,7 +1892,7 @@ module Twitter
     #   @param ids [Array<Integer>, Set<Integer>] An array of Tweet IDs.
     #   @param options [Hash] A customizable set of options.
     #   @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
-    def retweet(*args)
+    def retweet!(*args)
       options = args.extract_options!
       args.flatten.threaded_map do |id|
         response = post("/1.1/statuses/retweet/#{id}.json", options)
