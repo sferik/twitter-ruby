@@ -371,6 +371,14 @@ describe Twitter::API do
       expect(tweets.first.retweeted_tweet.text).to eq "RT @gruber: As for the Series, I'm for the Giants. Fuck Texas, fuck Nolan Ryan, fuck George Bush."
       expect(tweets.first.retweeted_tweet.id).not_to eq tweets.first.id
     end
+    context "already retweeted" do
+      before do
+        stub_post("/1.1/statuses/retweet/28561922516.json").to_return(:status => 403, :body => fixture("already_retweeted.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      end
+      it "does not raise an error" do
+        expect{@client.retweet(28561922516)}.not_to raise_error
+      end
+    end
   end
 
   describe "#retweet!" do
@@ -388,6 +396,22 @@ describe Twitter::API do
       expect(tweets.first.text).to eq "As for the Series, I'm for the Giants. Fuck Texas, fuck Nolan Ryan, fuck George Bush."
       expect(tweets.first.retweeted_tweet.text).to eq "RT @gruber: As for the Series, I'm for the Giants. Fuck Texas, fuck Nolan Ryan, fuck George Bush."
       expect(tweets.first.retweeted_tweet.id).not_to eq tweets.first.id
+    end
+    context "fobidden" do
+      before do
+        stub_post("/1.1/statuses/retweet/28561922516.json").to_return(:status => 403, :headers => {:content_type => "application/json; charset=utf-8"})
+      end
+      it "raises a Forbidden error" do
+        expect{@client.retweet!(28561922516)}.to raise_error(Twitter::Error::Forbidden)
+      end
+    end
+    context "already retweeted" do
+      before do
+        stub_post("/1.1/statuses/retweet/28561922516.json").to_return(:status => 403, :body => fixture("already_retweeted.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      end
+      it "raises an AlreadyRetweeted error" do
+        expect{@client.retweet!(28561922516)}.to raise_error(Twitter::Error::AlreadyRetweeted, "Tweet with the ID 28561922516 has already been retweeted by the authenticated user.")
+      end
     end
   end
 

@@ -6,6 +6,7 @@ require 'twitter/core_ext/hash'
 require 'twitter/core_ext/kernel'
 require 'twitter/cursor'
 require 'twitter/direct_message'
+require 'twitter/error/already_retweeted'
 require 'twitter/error/forbidden'
 require 'twitter/error/not_found'
 require 'twitter/language'
@@ -1871,7 +1872,8 @@ module Twitter
           retweeted_status[:body] = response[:body].delete(:retweeted_status)
           retweeted_status[:body][:retweeted_status] = response[:body]
           Twitter::Tweet.from_response(retweeted_status)
-        rescue Twitter::Error::Forbidden
+        rescue Twitter::Error::Forbidden => error
+          raise unless error.message == Twitter::Error::AlreadyRetweeted::MESSAGE
         end
       end.compact
     end
@@ -1881,7 +1883,7 @@ module Twitter
     # @see https://dev.twitter.com/docs/api/1.1/post/statuses/retweet/:id
     # @rate_limited Yes
     # @authentication_required Requires user context
-    # @raise [Twitter::Error::Forbidden] Error raised when tweet has already been retweeted.
+    # @raise [Twitter::Error::AlreadyRetweeted] Error raised when tweet has already been retweeted.
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Array<Twitter::Tweet>] The original tweets with retweet details embedded.
     # @overload retweet(*ids)
@@ -1895,12 +1897,20 @@ module Twitter
     def retweet!(*args)
       options = args.extract_options!
       args.flatten.threaded_map do |id|
-        response = post("/1.1/statuses/retweet/#{id}.json", options)
-        retweeted_status = response.dup
-        retweeted_status[:body] = response[:body].delete(:retweeted_status)
-        retweeted_status[:body][:retweeted_status] = response[:body]
-        Twitter::Tweet.from_response(retweeted_status)
-      end
+        begin
+          response = post("/1.1/statuses/retweet/#{id}.json", options)
+          retweeted_status = response.dup
+          retweeted_status[:body] = response[:body].delete(:retweeted_status)
+          retweeted_status[:body][:retweeted_status] = response[:body]
+          Twitter::Tweet.from_response(retweeted_status)
+        rescue Twitter::Error::Forbidden => error
+          if error.message == "sharing is not permissible for this status (Share validations failed)"
+            raise Twitter::Error::AlreadyRetweeted.new("Tweet with the ID #{id} has already been retweeted by the authenticated user.")
+          else
+            raise
+          end
+        end
+      end.compact
     end
 
     # Updates the authenticating user's status
