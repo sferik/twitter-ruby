@@ -6,6 +6,7 @@ require 'twitter/core_ext/hash'
 require 'twitter/core_ext/kernel'
 require 'twitter/cursor'
 require 'twitter/direct_message'
+require 'twitter/error/already_favorited'
 require 'twitter/error/already_retweeted'
 require 'twitter/error/forbidden'
 require 'twitter/error/not_found'
@@ -1446,7 +1447,8 @@ module Twitter
       args.flatten.threaded_map do |id|
         begin
           object_from_response(Twitter::Tweet, :post, "/1.1/favorites/create.json", options.merge(:id => id))
-        rescue Twitter::Error::Forbidden
+        rescue Twitter::Error::Forbidden => error
+          raise unless error.message == Twitter::Error::AlreadyFavorited::MESSAGE
         end
       end.compact
     end
@@ -1459,7 +1461,7 @@ module Twitter
     # @see https://dev.twitter.com/docs/api/1.1/post/favorites/create
     # @rate_limited No
     # @authentication_required Requires user context
-    # @raise [Twitter::Error::Forbidden] Error raised when tweet has already been favorited.
+    # @raise [Twitter::Error::AlreadyFavorited] Error raised when tweet has already been favorited.
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Array<Twitter::Tweet>] The favorited Tweets.
     # @overload favorite(*ids)
@@ -1472,7 +1474,15 @@ module Twitter
     def favorite!(*args)
       options = args.extract_options!
       args.flatten.threaded_map do |id|
-        object_from_response(Twitter::Tweet, :post, "/1.1/favorites/create.json", options.merge(:id => id))
+        begin
+          object_from_response(Twitter::Tweet, :post, "/1.1/favorites/create.json", options.merge(:id => id))
+        rescue Twitter::Error::Forbidden => error
+          if error.message == "You have already favorited this status"
+            raise Twitter::Error::AlreadyFavorited.new("Tweet with the ID #{id} has already been favorited by the authenticated user.")
+          else
+            raise
+          end
+        end
       end
     end
     alias fav! favorite!

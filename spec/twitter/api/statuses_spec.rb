@@ -53,6 +53,14 @@ describe Twitter::API do
       expect(tweets.first).to be_a Twitter::Tweet
       expect(tweets.first.text).to eq "The problem with your code is that it's doing exactly what you told it to do."
     end
+    context "already favorited" do
+      before do
+        stub_post("/1.1/favorites/create.json").with(:body => {:id => "25938088801"}).to_return(:status => 403, :body => fixture("already_favorited.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      end
+      it "does not raises an error" do
+        expect{@client.favorite(25938088801)}.not_to raise_error
+      end
+    end
   end
 
   describe "#favorite!" do
@@ -68,6 +76,22 @@ describe Twitter::API do
       expect(tweets).to be_an Array
       expect(tweets.first).to be_a Twitter::Tweet
       expect(tweets.first.text).to eq "The problem with your code is that it's doing exactly what you told it to do."
+    end
+    context "forbidden" do
+      before do
+        stub_post("/1.1/favorites/create.json").with(:body => {:id => "25938088801"}).to_return(:status => 403, :headers => {:content_type => "application/json; charset=utf-8"})
+      end
+      it "raises a Forbidden error" do
+        expect{@client.favorite!(25938088801)}.to raise_error(Twitter::Error::Forbidden)
+      end
+    end
+    context "already favorited" do
+      before do
+        stub_post("/1.1/favorites/create.json").with(:body => {:id => "25938088801"}).to_return(:status => 403, :body => fixture("already_favorited.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      end
+      it "raises an AlreadyFavorited error" do
+        expect{@client.favorite!(25938088801)}.to raise_error(Twitter::Error::AlreadyFavorited, "Tweet with the ID 25938088801 has already been favorited by the authenticated user.")
+      end
     end
   end
 
