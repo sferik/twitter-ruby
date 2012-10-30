@@ -1374,7 +1374,7 @@ module Twitter
     # @option options [String] :until Optional. Returns tweets generated before the given date. Date should be formatted as YYYY-MM-DD.
     # @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID. There are limits to the number of Tweets which can be accessed through the API. If the limit of Tweets has occured since the since_id, the since_id will be forced to the oldest ID available.
     # @option options [Integer] :max_id Returns results with an ID less than (that is, older than) or equal to the specified ID.
-    # @option options [Boolean, String, Integer] :include_entities Specifies that each tweet should include an 'entities' node including metadata about the tweet such as: user_mentions, urls, and hashtags.
+    # @option options [Boolean, String, Integer] :include_entities The tweet entities node will be disincluded when set to false.
     # @return [Twitter::SearchResults] Return tweets that match a specified query with search metadata
     # @example Returns tweets related to twitter
     #   Twitter.search('twitter')
@@ -1527,7 +1527,7 @@ module Twitter
     # @option options [Boolean, String, Integer] :exclude_replies This parameter will prevent replies from appearing in the returned timeline. Using exclude_replies with the count parameter will mean you will receive up-to count tweets - this is because the count parameter retrieves that many tweets before filtering out retweets and replies.
     # @option options [Boolean, String, Integer] :include_rts Specifies that the timeline should include native retweets in addition to regular tweets. Note: If you're using the trim_user parameter in conjunction with include_rts, the retweets will no longer contain a full user object.
     # @option options [Boolean, String, Integer] :contributor_details Specifies that the contributors element should be enhanced to include the screen_name of the contributor.
-    # @option options [Boolean, String, Integer] :include_entities Specifies that each tweet should include an 'entities' node including metadata about the tweet such as: user_mentions, urls, and hashtags.
+    # @option options [Boolean, String, Integer] :include_entities The tweet entities node will be disincluded when set to false.
     # @example Return the 20 most recent Tweets, including retweets if they exist, posted by the authenticating user and the users they follow
     #   Twitter.home_timeline
     def home_timeline(options={})
@@ -1622,7 +1622,7 @@ module Twitter
     # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
     # @option options [Boolean, String, Integer] :exclude_replies This parameter will prevent replies from appearing in the returned timeline. Using exclude_replies with the count parameter will mean you will receive up-to count tweets - this is because the count parameter retrieves that many tweets before filtering out retweets and replies.
     # @option options [Boolean, String, Integer] :contributor_details Specifies that the contributors element should be enhanced to include the screen_name of the contributor.
-    # @option options [Boolean, String, Integer] :include_entities Specifies that each tweet should include an 'entities' node including metadata about the tweet such as: user_mentions, urls, and hashtags.
+    # @option options [Boolean, String, Integer] :include_entities The tweet entities node will be disincluded when set to false.
     # @example Return the 20 most recent retweets posted by users followed by the authenticating user
     #   Twitter.retweeted_to_me
     def retweeted_to_me(options={})
@@ -1635,27 +1635,22 @@ module Twitter
 
     # Returns the 20 most recent tweets of the authenticated user that have been retweeted by others
     #
-    # @see https://dev.twitter.com/docs/api/1.1/get/statuses/user_timeline
-    # @note This method can only return up to 3,200 Tweets.
+    # @see https://dev.twitter.com/docs/api/1.1/get/statuses/retweets_of_me
     # @rate_limited Yes
     # @authentication_required Requires user context
     # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
     # @return [Array<Twitter::Tweet>]
     # @param options [Hash] A customizable set of options.
+    # @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 200.
     # @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID.
     # @option options [Integer] :max_id Returns results with an ID less than (that is, older than) or equal to the specified ID.
-    # @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 200.
     # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
-    # @option options [Boolean, String, Integer] :exclude_replies This parameter will prevent replies from appearing in the returned timeline. Using exclude_replies with the count parameter will mean you will receive up-to count tweets - this is because the count parameter retrieves that many tweets before filtering out retweets and replies.
-    # @option options [Boolean, String, Integer] :contributor_details Specifies that the contributors element should be enhanced to include the screen_name of the contributor.
+    # @option options [Boolean, String, Integer] :include_entities The tweet entities node will be disincluded when set to false.
+    # @option options [Boolean, String, Integer] :include_user_entities The user entities node will be disincluded when set to false.
     # @example Return the 20 most recent tweets of the authenticated user that have been retweeted by others
     #   Twitter.retweets_of_me
     def retweets_of_me(options={})
-      options[:include_rts] = false
-      count = options[:count] || DEFAULT_TWEETS_PER_REQUEST
-      collect_with_count(count) do |count_options|
-        user_timeline(options.merge(count_options)).select{|tweet| tweet.retweet_count.to_i > 0}
-      end
+      collection_from_response(Twitter::Tweet, :get, "/1.1/statuses/retweets_of_me.json", options)
     end
 
     # Returns the 20 most recent Tweets posted by the specified user

@@ -199,19 +199,17 @@ describe Twitter::API do
 
   describe "#retweets_of_me" do
     before do
-      stub_get("/1.1/statuses/user_timeline.json").with(:query => {:include_rts => "false", :count => "200"}).to_return(:body => fixture("statuses.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-      stub_get("/1.1/statuses/user_timeline.json").with(:query => {:include_rts => "false", :count => "200", :max_id => "244102490646278145"}).to_return(:body => fixture("statuses.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      stub_get("/1.1/statuses/retweets_of_me.json").to_return(:body => fixture("statuses.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
       @client.retweets_of_me
-      expect(a_get("/1.1/statuses/user_timeline.json").with(:query => {:include_rts => "false", :count => "200"})).to have_been_made
-      expect(a_get("/1.1/statuses/user_timeline.json").with(:query => {:include_rts => "false", :count => "200", :max_id => "244102490646278145"})).to have_been_made
+      expect(a_get("/1.1/statuses/retweets_of_me.json")).to have_been_made
     end
     it "returns the 20 most recent tweets of the authenticated user that have been retweeted by others" do
       tweets = @client.retweets_of_me
       expect(tweets).to be_an Array
       expect(tweets.first).to be_a Twitter::Tweet
-      expect(tweets.first.text).to eq "RT @olivercameron: Mosaic looks cool: http://t.co/A8013C9k"
+      expect(tweets.first.text).to eq "Happy Birthday @imdane. Watch out for those @rally pranksters!"
     end
   end
 
