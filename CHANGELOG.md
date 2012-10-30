@@ -1,3 +1,11 @@
+4.2.0
+-----
+* [Use new resource for `Twitter::API#retweets_of_me`](https://github.com/sferik/twitter/commit/d88ca1e91af06e748c31dcda287326028cf28258)
+* [`Twitter::API#favorite` no longer raises `Twitter::Error::Forbidden`](https://github.com/sferik/twitter/commit/65c01133a96106a6b0c61bc16cb2ffec38fa5e25)
+* [`Twitter::API#retweet` no longer raises `Twitter::Error::Forbidden`](https://github.com/sferik/twitter/commit/f1322ab12c573229ea3dc8decda2e2ea8b36fc31)
+* [Add `Twitter::Error::AlreadyFavorited`](https://github.com/sferik/twitter/commit/34710927e00d4dc5abc049bfc198bdd337fba1bd)
+* [Add `Twitter::Error::AlreadyRetweeted`](https://github.com/sferik/twitter/commit/2a231a0888dcd65dbef2dc92571e06d50f845cca)
+
 4.1.2
 -----
 * [Add abort_on_exception to `Enumerable#threaded_map`](https://github.com/sferik/twitter/commit/15c9a7c221f24226c1003b76b287d2b2ed9306cb) ([@aheaven87](http://twitter.com/aheaven87))
