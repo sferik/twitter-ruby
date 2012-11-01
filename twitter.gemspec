@@ -23,6 +23,7 @@ Gem::Specification.new do |spec|
   spec.homepage = 'https://github.com/sferik/twitter'
   spec.name = 'twitter'
   spec.require_paths = ['lib']
+  spec.executables = ["twitter-cli"]
   spec.required_rubygems_version = Gem::Requirement.new('>= 1.3.6')
   spec.summary = spec.description
   spec.test_files = Dir.glob("spec/**/*")
