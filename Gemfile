@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
+source :rubygems
 
 platforms :jruby do
   gem 'jruby-openssl', '~> 0.7'
