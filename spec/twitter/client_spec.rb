@@ -83,7 +83,7 @@ describe Twitter::Client do
     before do
       stub_delete("/custom/delete").with(:query => {:deleted => "object"})
     end
-    it "allows custom put requests" do
+    it "allows custom delete requests" do
       subject.delete("/custom/delete", {:deleted => "object"})
       expect(a_delete("/custom/delete").with(:query => {:deleted => "object"})).to have_been_made
     end
