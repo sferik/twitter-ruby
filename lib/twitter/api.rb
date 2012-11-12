@@ -14,6 +14,7 @@ require 'twitter/language'
 require 'twitter/list'
 require 'twitter/oembed'
 require 'twitter/place'
+require 'twitter/profile_banner'
 require 'twitter/relationship'
 require 'twitter/saved_search'
 require 'twitter/search_results'
@@ -167,6 +168,28 @@ module Twitter
     #   Twitter.remove_profile_banner
     def remove_profile_banner(options={})
       post("/1.1/account/remove_profile_banner.json", options)[:body]
+    end
+
+    # Returns the available size variations of the specified user's profile banner.
+    #
+    # @see https://dev.twitter.com/docs/api/1.1/get/users/profile_banner
+    # @note If the user has not uploaded a profile banner, a HTTP 404 will be served instead.
+    # @rate_limited Yes
+    # @authentication_required Requires user context
+    # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+    # @return [Twitter::ProfileBanner]
+    # @overload profile_banner(options={})
+    #   @example Return the authenticated user's profile banner
+    #     Twitter.profile_banner
+    # @overload profile_banner(user, options={})
+    #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
+    #   @example Return the specified user's profile banner
+    #     Twitter.profile_banner('sferik')
+    #     Twitter.profile_banner(7505382)  # Same as above
+    def profile_banner(*args)
+      options = args.extract_options!
+      options.merge_user!(args.pop || screen_name)
+      object_from_response(Twitter::ProfileBanner, :get, "/1.1/users/profile_banner.json", options)
     end
 
     # Updates the authenticating user's settings.

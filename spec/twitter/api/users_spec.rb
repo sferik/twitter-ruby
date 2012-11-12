@@ -325,4 +325,39 @@ describe Twitter::API do
     end
   end
 
+  describe '#profile_banner' do
+    context "with a screen_name passed" do
+      before do
+        stub_get("/1.1/users/profile_banner.json").with(:query => {:screen_name => "sferik"}).to_return(:body => fixture("profile_banner.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      end
+      it "requests the correct resource" do
+        @client.profile_banner('sferik')
+        expect(a_get("/1.1/users/profile_banner.json").with(:query => {:screen_name => "sferik"})).to have_been_made
+      end
+      it "returns a user's profile banner" do
+        banner = @client.profile_banner('sferik')
+        expect(banner).to be_an Twitter::ProfileBanner
+        expect(banner.sizes).to be_a Hash
+        expect(banner.sizes[:mobile].height).to eq 160
+      end
+    end
+    context "without arguments passed" do
+      before do
+        stub_get("/1.1/account/verify_credentials.json").to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        stub_get("/1.1/users/profile_banner.json").with(:query => {:screen_name => "sferik"}).to_return(:body => fixture("profile_banner.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      end
+      it "requests the correct resource" do
+        @client.profile_banner
+        expect(a_get("/1.1/account/verify_credentials.json")).to have_been_made
+        expect(a_get("/1.1/users/profile_banner.json").with(:query => {:screen_name => "sferik"})).to have_been_made
+      end
+      it "returns an array of numeric IDs for every user following the specified user" do
+        banner = @client.profile_banner
+        expect(banner).to be_an Twitter::ProfileBanner
+        expect(banner.sizes).to be_a Hash
+        expect(banner.sizes[:mobile].height).to eq 160
+      end
+    end
+  end
+
 end
