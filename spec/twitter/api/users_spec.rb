@@ -336,7 +336,7 @@ describe Twitter::API do
       end
       it "returns a user's profile banner" do
         banner = @client.profile_banner('sferik')
-        expect(banner).to be_an Twitter::ProfileBanner
+        expect(banner).to be_a Twitter::ProfileBanner
         expect(banner.sizes).to be_a Hash
         expect(banner.sizes[:mobile].height).to eq 160
       end
@@ -353,7 +353,7 @@ describe Twitter::API do
       end
       it "returns an array of numeric IDs for every user following the specified user" do
         banner = @client.profile_banner
-        expect(banner).to be_an Twitter::ProfileBanner
+        expect(banner).to be_a Twitter::ProfileBanner
         expect(banner.sizes).to be_a Hash
         expect(banner.sizes[:mobile].height).to eq 160
       end
