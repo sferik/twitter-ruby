@@ -21,6 +21,7 @@ Gem::Specification.new do |spec|
   spec.files += Dir.glob("lib/**/*.rb")
   spec.files += Dir.glob("spec/**/*")
   spec.homepage = 'http://sferik.github.com/twitter/'
+  spec.licenses = ['MIT']
   spec.name = 'twitter'
   spec.require_paths = ['lib']
   spec.required_rubygems_version = Gem::Requirement.new('>= 1.3.6')
