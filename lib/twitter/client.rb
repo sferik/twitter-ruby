@@ -27,23 +27,23 @@ module Twitter
     end
 
     # Perform an HTTP DELETE request
-    def delete(path, params={}, options={})
-      request(:delete, path, params, options)
+    def delete(path, params={})
+      request(:delete, path, params)
     end
 
     # Perform an HTTP GET request
-    def get(path, params={}, options={})
-      request(:get, path, params, options)
+    def get(path, params={})
+      request(:get, path, params)
     end
 
     # Perform an HTTP POST request
-    def post(path, params={}, options={})
-      request(:post, path, params, options)
+    def post(path, params={})
+      request(:post, path, params)
     end
 
     # Perform an HTTP UPDATE request
-    def put(path, params={}, options={})
-      request(:put, path, params, options)
+    def put(path, params={})
+      request(:put, path, params)
     end
 
   private
@@ -58,16 +58,15 @@ module Twitter
     # Perform an HTTP request
     #
     # @raise [Twitter::Error::ClientError, Twitter::Error::DecodeError]
-    def request(method, path, params={}, options={})
-      uri = options[:endpoint] || @endpoint
-      uri = URI(uri) unless uri.respond_to?(:host)
+    def request(method, path, params={})
+      uri = URI(@endpoint) unless uri.respond_to?(:host)
       uri += path
       request_headers = {}
       if credentials?
         authorization = auth_header(method, uri, params)
         request_headers[:authorization] = authorization.to_s
       end
-      connection.url_prefix = options[:endpoint] || @endpoint
+      connection.url_prefix = @endpoint
       response = connection.run_request(method.to_sym, path, nil, request_headers) do |request|
         unless params.empty?
           case request.method

@@ -2413,24 +2413,24 @@ module Twitter
     # @param params [Hash]
     # @param options [Hash]
     # @return [Array]
-    def collection_from_response(klass, request_method, url, params={}, options={})
-      collection_from_array(klass, send(request_method.to_sym, url, params, options)[:body])
+    def collection_from_response(klass, request_method, url, params={})
+      collection_from_array(klass, send(request_method.to_sym, url, params)[:body])
     end
 
     # @param request_method [Symbol]
     # @param url [String]
     # @param options [Hash]
     # @return [Array]
-    def geo_collection_from_response(request_method, url, options)
-      collection_from_array(Twitter::Place, send(request_method.to_sym, url, options)[:body][:result][:places])
+    def geo_collection_from_response(request_method, url, params={})
+      collection_from_array(Twitter::Place, send(request_method.to_sym, url, params)[:body][:result][:places])
     end
 
     # @param request_method [Symbol]
     # @param url [String]
     # @param options [Hash]
     # @return [Array]
-    def search_collection_from_response(request_method, url, options)
-      collection_from_array(Twitter::Tweet, send(request_method.to_sym, url, options)[:body][:statuses])
+    def search_collection_from_response(request_method, url, params)
+      collection_from_array(Twitter::Tweet, send(request_method.to_sym, url, params)[:body][:statuses])
     end
 
     # @param klass [Class]
@@ -2439,8 +2439,8 @@ module Twitter
     # @param params [Hash]
     # @param options [Hash]
     # @return [Object]
-    def object_from_response(klass, request_method, url, params={}, options={})
-      response = send(request_method.to_sym, url, params, options)
+    def object_from_response(klass, request_method, url, params={})
+      response = send(request_method.to_sym, url, params)
       klass.from_response(response)
     end
 
@@ -2463,7 +2463,7 @@ module Twitter
       options = args.extract_options!
       merge_default_cursor!(options)
       options.merge_user!(args.pop)
-      cursor_from_response(:ids, nil, request_method, url, options, {}, calling_method)
+      cursor_from_response(:ids, nil, request_method, url, options, calling_method)
     end
 
     # @param collection_name [Symbol]
@@ -2473,8 +2473,8 @@ module Twitter
     # @param params [Hash]
     # @param options [Hash]
     # @return [Twitter::Cursor]
-    def cursor_from_response(collection_name, klass, request_method, url, params={}, options={}, method_name=calling_method)
-      response = send(request_method.to_sym, url, params, options)
+    def cursor_from_response(collection_name, klass, request_method, url, params={}, method_name=calling_method)
+      response = send(request_method.to_sym, url, params)
       Twitter::Cursor.from_response(response, collection_name.to_sym, klass, self, method_name, params)
     end
 
@@ -2497,7 +2497,7 @@ module Twitter
       options = args.extract_options!
       merge_default_cursor!(options)
       options.merge_user!(args.pop)
-      cursor_from_response(:lists, Twitter::List, request_method, url, options, {}, calling_method)
+      cursor_from_response(:lists, Twitter::List, request_method, url, options, calling_method)
     end
 
     # @param request_method [Symbol]
@@ -2537,7 +2537,7 @@ module Twitter
       merge_default_cursor!(options)
       options.merge_list!(args.pop)
       options.merge_owner!(args.pop || screen_name) unless options[:owner_id] || options[:owner_screen_name]
-      cursor_from_response(:users, Twitter::User, request_method, url, options, {}, calling_method)
+      cursor_from_response(:users, Twitter::User, request_method, url, options, calling_method)
     end
 
     def list_user?(request_method, url, args)
