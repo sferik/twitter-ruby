@@ -1,3 +1,7 @@
+4.3.0
+-----
+* [Add Twitter::API#profile_banner](https://github.com/sferik/twitter/commit/5879ef3fcc486ac3849426ef0d44ee0288ed9599)
+
 4.2.0
 -----
 * [Use new resource for `Twitter::API#retweets_of_me`](https://github.com/sferik/twitter/commit/d88ca1e91af06e748c31dcda287326028cf28258)
