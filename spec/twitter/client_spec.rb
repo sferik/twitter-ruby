@@ -132,8 +132,8 @@ describe Twitter::Client do
       expect(a_post("/1.1/statuses/update_with_media.json")).to have_been_made
     end
     it "catches Faraday errors" do
-      subject.stub!(:connection).and_raise(Faraday::Error::ClientError.new("Oups"))
-      expect{subject.request(:get, "/path")}.to raise_error(Twitter::Error::ClientError, "Oups")
+      subject.stub!(:connection).and_raise(Faraday::Error::ClientError.new("Oops"))
+      expect{subject.request(:get, "/path")}.to raise_error(Twitter::Error::ClientError, "Oops")
     end
     it "catches MultiJson::DecodeError errors" do
       subject.stub!(:connection).and_raise(MultiJson::DecodeError.new("unexpected token", [], "<!DOCTYPE html>"))
@@ -143,7 +143,7 @@ describe Twitter::Client do
 
   describe "#auth_header" do
     it "creates the correct auth headers" do
-      uri = URI("https://api.twitter.com/1.1/direct_messages.json")
+      uri = "/1.1/direct_messages.json"
       authorization = subject.auth_header(:get, uri)
       expect(authorization.options[:signature_method]).to eq "HMAC-SHA1"
       expect(authorization.options[:version]).to eq "1.0"
