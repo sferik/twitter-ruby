@@ -176,7 +176,7 @@ module Twitter
           begin
             post_retweet(id, options)
           rescue Twitter::Error::Forbidden => error
-            if error.message == "sharing is not permissible for this status (Share validations failed)"
+            if error.message == Twitter::Error::AlreadyRetweeted::MESSAGE
               raise Twitter::Error::AlreadyRetweeted.new("Tweet with the ID #{id} has already been retweeted by the authenticated user.")
             else
               raise
