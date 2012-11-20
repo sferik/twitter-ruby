@@ -147,11 +147,7 @@ module Twitter
         options = args.extract_options!
         args.flatten.threaded_map do |id|
           begin
-            response = post("/1.1/statuses/retweet/#{id}.json", options)
-            retweeted_status = response.dup
-            retweeted_status[:body] = response[:body].delete(:retweeted_status)
-            retweeted_status[:body][:retweeted_status] = response[:body]
-            Twitter::Tweet.from_response(retweeted_status)
+            post_retweet(id, options)
           rescue Twitter::Error::Forbidden => error
             raise unless error.message == Twitter::Error::AlreadyRetweeted::MESSAGE
           end
@@ -178,11 +174,7 @@ module Twitter
         options = args.extract_options!
         args.flatten.threaded_map do |id|
           begin
-            response = post("/1.1/statuses/retweet/#{id}.json", options)
-            retweeted_status = response.dup
-            retweeted_status[:body] = response[:body].delete(:retweeted_status)
-            retweeted_status[:body][:retweeted_status] = response[:body]
-            Twitter::Tweet.from_response(retweeted_status)
+            post_retweet(id, options)
           rescue Twitter::Error::Forbidden => error
             if error.message == "sharing is not permissible for this status (Share validations failed)"
               raise Twitter::Error::AlreadyRetweeted.new("Tweet with the ID #{id} has already been retweeted by the authenticated user.")
@@ -277,6 +269,14 @@ module Twitter
         args.flatten.threaded_map do |id|
           object_from_response(Twitter::Tweet, request_method, url + "/#{id}.json", options)
         end
+      end
+
+      def post_retweet(id, options)
+        response = post("/1.1/statuses/retweet/#{id}.json", options)
+        retweeted_status = response.dup
+        retweeted_status[:body] = response[:body].delete(:retweeted_status)
+        retweeted_status[:body][:retweeted_status] = response[:body]
+        Twitter::Tweet.from_response(retweeted_status)
       end
 
     end
