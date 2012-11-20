@@ -111,11 +111,7 @@ module Twitter
           begin
             object_from_response(Twitter::Tweet, :post, "/1.1/favorites/create.json", options.merge(:id => id))
           rescue Twitter::Error::Forbidden => error
-            if error.message == Twitter::Error::AlreadyFavorited::MESSAGE
-              raise Twitter::Error::AlreadyFavorited.new("Tweet with the ID #{id} has already been favorited by the authenticated user.")
-            else
-              raise
-            end
+            handle_forbidden_error(Twitter::Error::AlreadyFavorited, error)
           end
         end
       end

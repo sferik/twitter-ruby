@@ -176,11 +176,7 @@ module Twitter
           begin
             post_retweet(id, options)
           rescue Twitter::Error::Forbidden => error
-            if error.message == Twitter::Error::AlreadyRetweeted::MESSAGE
-              raise Twitter::Error::AlreadyRetweeted.new("Tweet with the ID #{id} has already been retweeted by the authenticated user.")
-            else
-              raise
-            end
+            handle_forbidden_error(Twitter::Error::AlreadyRetweeted, error)
           end
         end.compact
       end

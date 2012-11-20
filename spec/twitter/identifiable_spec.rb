@@ -4,7 +4,7 @@ describe Twitter::Identity do
 
   describe "#initialize" do
     it "raises an ArgumentError when type is not specified" do
-      expect{Twitter::Identity.new}.to raise_error(ArgumentError, "argument must have an :id key")
+      expect{Twitter::Identity.new}.to raise_error ArgumentError
     end
   end
 
@@ -24,7 +24,7 @@ describe Twitter::Identity do
       end
 
       it "raises an error on objects that don't exist" do
-        expect{Twitter::Identity.fetch(:id => 6)}.to raise_error(Twitter::Error::IdentityMapKeyError)
+        expect{Twitter::Identity.fetch(:id => 6)}.to raise_error Twitter::Error::IdentityMapKeyError
       end
     end
   end

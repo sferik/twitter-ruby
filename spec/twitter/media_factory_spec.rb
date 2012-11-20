@@ -8,7 +8,7 @@ describe Twitter::MediaFactory do
       expect(media).to be_a Twitter::Media::Photo
     end
     it "raises an ArgumentError when type is not specified" do
-      expect{Twitter::MediaFactory.fetch_or_new}.to raise_error(ArgumentError, "argument must have :type key")
+      expect{Twitter::MediaFactory.fetch_or_new}.to raise_error ArgumentError
     end
   end
 

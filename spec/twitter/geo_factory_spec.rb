@@ -12,7 +12,7 @@ describe Twitter::GeoFactory do
       expect(geo).to be_a Twitter::Geo::Polygon
     end
     it "raises an ArgumentError when type is not specified" do
-      expect{Twitter::GeoFactory.fetch_or_new}.to raise_error(ArgumentError, "argument must have :type key")
+      expect{Twitter::GeoFactory.fetch_or_new}.to raise_error ArgumentError
     end
   end
 

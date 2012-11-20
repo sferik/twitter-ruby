@@ -28,7 +28,7 @@ describe Twitter::ActionFactory do
       expect(action).to be_a Twitter::Action::Retweet
     end
     it "raises an ArgumentError when action is not specified" do
-      expect{Twitter::ActionFactory.fetch_or_new}.to raise_error(ArgumentError, "argument must have :action key")
+      expect{Twitter::ActionFactory.fetch_or_new}.to raise_error ArgumentError
     end
   end
 

@@ -163,7 +163,7 @@ describe Twitter::API::Tweets do
         stub_post("/1.1/statuses/retweet/28561922516.json").to_return(:status => 403, :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "raises a Forbidden error" do
-        expect{@client.retweet!(28561922516)}.to raise_error(Twitter::Error::Forbidden)
+        expect{@client.retweet!(28561922516)}.to raise_error Twitter::Error::Forbidden
       end
     end
     context "already retweeted" do
@@ -171,7 +171,7 @@ describe Twitter::API::Tweets do
         stub_post("/1.1/statuses/retweet/28561922516.json").to_return(:status => 403, :body => fixture("already_retweeted.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "raises an AlreadyRetweeted error" do
-        expect{@client.retweet!(28561922516)}.to raise_error(Twitter::Error::AlreadyRetweeted, "Tweet with the ID 28561922516 has already been retweeted by the authenticated user.")
+        expect{@client.retweet!(28561922516)}.to raise_error Twitter::Error::AlreadyRetweeted
       end
     end
   end

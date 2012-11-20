@@ -25,7 +25,7 @@ describe Twitter::Base do
       end
 
       it "raises an error on objects that don't exist" do
-        expect{Twitter::Base.fetch(:id => 6)}.to raise_error(Twitter::Error::IdentityMapKeyError)
+        expect{Twitter::Base.fetch(:id => 6)}.to raise_error Twitter::Error::IdentityMapKeyError
       end
     end
 

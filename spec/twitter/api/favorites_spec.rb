@@ -98,7 +98,7 @@ describe Twitter::API::Favorites do
         stub_post("/1.1/favorites/create.json").with(:body => {:id => "25938088801"}).to_return(:status => 403, :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "raises a Forbidden error" do
-        expect{@client.favorite!(25938088801)}.to raise_error(Twitter::Error::Forbidden)
+        expect{@client.favorite!(25938088801)}.to raise_error Twitter::Error::Forbidden
       end
     end
     context "already favorited" do
@@ -106,7 +106,7 @@ describe Twitter::API::Favorites do
         stub_post("/1.1/favorites/create.json").with(:body => {:id => "25938088801"}).to_return(:status => 403, :body => fixture("already_favorited.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "raises an AlreadyFavorited error" do
-        expect{@client.favorite!(25938088801)}.to raise_error(Twitter::Error::AlreadyFavorited, "Tweet with the ID 25938088801 has already been favorited by the authenticated user.")
+        expect{@client.favorite!(25938088801)}.to raise_error Twitter::Error::AlreadyFavorited
       end
     end
   end

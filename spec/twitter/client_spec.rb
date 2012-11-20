@@ -133,11 +133,11 @@ describe Twitter::Client do
     end
     it "catches Faraday errors" do
       subject.stub!(:connection).and_raise(Faraday::Error::ClientError.new("Oops"))
-      expect{subject.request(:get, "/path")}.to raise_error(Twitter::Error::ClientError, "Oops")
+      expect{subject.request(:get, "/path")}.to raise_error Twitter::Error::ClientError
     end
     it "catches MultiJson::DecodeError errors" do
       subject.stub!(:connection).and_raise(MultiJson::DecodeError.new("unexpected token", [], "<!DOCTYPE html>"))
-      expect{subject.request(:get, "/path")}.to raise_error(Twitter::Error::DecodeError, "unexpected token")
+      expect{subject.request(:get, "/path")}.to raise_error Twitter::Error::DecodeError
     end
   end
 
