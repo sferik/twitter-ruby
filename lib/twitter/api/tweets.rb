@@ -41,10 +41,12 @@ module Twitter
       # @example Show up to 100 users who retweeted the Tweet with the ID 28561922516
       #   Twitter.retweeters_of(28561922516)
       def retweeters_of(id, options={})
-        if ids_only = !!options.delete(:ids_only)
-          retweets(id, options).map(&:user).map(&:id)
+        ids_only = !!options.delete(:ids_only)
+        retweeters = retweets(id, options).map(&:user)
+        if ids_only
+          retweeters.map(&:id)
         else
-          retweets(id, options).map(&:user)
+          retweeters
         end
       end
 
