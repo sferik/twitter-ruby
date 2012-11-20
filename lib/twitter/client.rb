@@ -27,7 +27,6 @@ module Twitter
   # @note All methods have been separated into modules and follow the same grouping used in {http://dev.twitter.com/doc the Twitter API Documentation}.
   # @see http://dev.twitter.com/pages/every_developer
   class Client
-    include Twitter::API
     include Twitter::API::DirectMessages
     include Twitter::API::Favorites
     include Twitter::API::FriendsAndFollowers
