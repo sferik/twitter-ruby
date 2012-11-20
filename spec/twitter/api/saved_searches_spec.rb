@@ -1,6 +1,6 @@
 require 'helper'
 
-describe Twitter::API do
+describe Twitter::API::SavedSearches do
 
   before do
     @client = Twitter::Client.new

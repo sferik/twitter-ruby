@@ -1,6 +1,20 @@
 require 'faraday'
 require 'multi_json'
-require 'twitter/api'
+require 'twitter/api/direct_messages'
+require 'twitter/api/favorites'
+require 'twitter/api/friends_and_followers'
+require 'twitter/api/help'
+require 'twitter/api/lists'
+require 'twitter/api/places_and_geo'
+require 'twitter/api/saved_searches'
+require 'twitter/api/search'
+require 'twitter/api/spam_reporting'
+require 'twitter/api/suggested_users'
+require 'twitter/api/timelines'
+require 'twitter/api/trends'
+require 'twitter/api/tweets'
+require 'twitter/api/undocumented'
+require 'twitter/api/users'
 require 'twitter/configurable'
 require 'twitter/error/client_error'
 require 'twitter/error/decode_error'
@@ -14,6 +28,21 @@ module Twitter
   # @see http://dev.twitter.com/pages/every_developer
   class Client
     include Twitter::API
+    include Twitter::API::DirectMessages
+    include Twitter::API::Favorites
+    include Twitter::API::FriendsAndFollowers
+    include Twitter::API::Help
+    include Twitter::API::Lists
+    include Twitter::API::PlacesAndGeo
+    include Twitter::API::SavedSearches
+    include Twitter::API::Search
+    include Twitter::API::SpamReporting
+    include Twitter::API::SuggestedUsers
+    include Twitter::API::Timelines
+    include Twitter::API::Trends
+    include Twitter::API::Tweets
+    include Twitter::API::Undocumented
+    include Twitter::API::Users
     include Twitter::Configurable
 
     # Initializes a new Client object

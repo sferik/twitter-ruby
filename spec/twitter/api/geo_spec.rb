@@ -1,38 +1,22 @@
 require 'helper'
 
-describe Twitter::API do
+describe Twitter::API::PlacesAndGeo do
 
   before do
     @client = Twitter::Client.new
   end
 
-  describe "#places_nearby" do
+  describe "#place" do
     before do
-      stub_get("/1.1/geo/search.json").with(:query => {:ip => "74.125.19.104"}).to_return(:body => fixture("places.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      stub_get("/1.1/geo/id/247f43d441defc03.json").to_return(:body => fixture("place.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
-      @client.places_nearby(:ip => "74.125.19.104")
-      expect(a_get("/1.1/geo/search.json").with(:query => {:ip => "74.125.19.104"})).to have_been_made
+      @client.place("247f43d441defc03")
+      expect(a_get("/1.1/geo/id/247f43d441defc03.json")).to have_been_made
     end
-    it "returns nearby places" do
-      places = @client.places_nearby(:ip => "74.125.19.104")
-      expect(places).to be_an Array
-      expect(places.first.name).to eq "Bernal Heights"
-    end
-  end
-
-  describe "#places_similar" do
-    before do
-      stub_get("/1.1/geo/similar_places.json").with(:query => {:lat => "37.7821120598956", :long => "-122.400612831116", :name => "Twitter HQ"}).to_return(:body => fixture("places.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-    end
-    it "requests the correct resource" do
-      @client.places_similar(:lat => "37.7821120598956", :long => "-122.400612831116", :name => "Twitter HQ")
-      expect(a_get("/1.1/geo/similar_places.json").with(:query => {:lat => "37.7821120598956", :long => "-122.400612831116", :name => "Twitter HQ"})).to have_been_made
-    end
-    it "returns similar places" do
-      places = @client.places_similar(:lat => "37.7821120598956", :long => "-122.400612831116", :name => "Twitter HQ")
-      expect(places).to be_an Array
-      expect(places.first.name).to eq "Bernal Heights"
+    it "returns a place" do
+      place = @client.place("247f43d441defc03")
+      expect(place.name).to eq "Twitter HQ"
     end
   end
 
@@ -51,17 +35,33 @@ describe Twitter::API do
     end
   end
 
-  describe "#place" do
+  describe "#geo_search" do
     before do
-      stub_get("/1.1/geo/id/247f43d441defc03.json").to_return(:body => fixture("place.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      stub_get("/1.1/geo/search.json").with(:query => {:ip => "74.125.19.104"}).to_return(:body => fixture("places.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
-      @client.place("247f43d441defc03")
-      expect(a_get("/1.1/geo/id/247f43d441defc03.json")).to have_been_made
+      @client.geo_search(:ip => "74.125.19.104")
+      expect(a_get("/1.1/geo/search.json").with(:query => {:ip => "74.125.19.104"})).to have_been_made
     end
-    it "returns a place" do
-      place = @client.place("247f43d441defc03")
-      expect(place.name).to eq "Twitter HQ"
+    it "returns nearby places" do
+      places = @client.geo_search(:ip => "74.125.19.104")
+      expect(places).to be_an Array
+      expect(places.first.name).to eq "Bernal Heights"
+    end
+  end
+
+  describe "#similar_places" do
+    before do
+      stub_get("/1.1/geo/similar_places.json").with(:query => {:lat => "37.7821120598956", :long => "-122.400612831116", :name => "Twitter HQ"}).to_return(:body => fixture("places.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+    end
+    it "requests the correct resource" do
+      @client.similar_places(:lat => "37.7821120598956", :long => "-122.400612831116", :name => "Twitter HQ")
+      expect(a_get("/1.1/geo/similar_places.json").with(:query => {:lat => "37.7821120598956", :long => "-122.400612831116", :name => "Twitter HQ"})).to have_been_made
+    end
+    it "returns similar places" do
+      places = @client.similar_places(:lat => "37.7821120598956", :long => "-122.400612831116", :name => "Twitter HQ")
+      expect(places).to be_an Array
+      expect(places.first.name).to eq "Bernal Heights"
     end
   end
 

@@ -10,7 +10,7 @@ module Enumerable
     end
   end
 
-  private
+private
 
   def abort_on_exception
     initial_abort_on_exception = Thread.abort_on_exception
