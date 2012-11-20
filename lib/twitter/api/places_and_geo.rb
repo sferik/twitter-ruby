@@ -109,11 +109,11 @@ module Twitter
     private
 
       # @param request_method [Symbol]
-      # @param url [String]
+      # @param path [String]
       # @param options [Hash]
       # @return [Array]
-      def geo_collection_from_response(request_method, url, params={})
-        collection_from_array(Twitter::Place, send(request_method.to_sym, url, params)[:body][:result][:places])
+      def geo_collection_from_response(request_method, path, params={})
+        collection_from_array(Twitter::Place, send(request_method.to_sym, path, params)[:body][:result][:places])
       end
 
     end

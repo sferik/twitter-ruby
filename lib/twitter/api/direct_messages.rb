@@ -118,10 +118,7 @@ module Twitter
       #   @param ids [Array<Integer>, Set<Integer>] An array of Tweet IDs.
       #   @param options [Hash] A customizable set of options.
       def direct_message_destroy(*args)
-        options = args.extract_options!
-        args.flatten.threaded_map do |id|
-          object_from_response(Twitter::DirectMessage, :post, "/1.1/direct_messages/destroy.json", options.merge(:id => id))
-        end
+        threaded_object_from_response(Twitter::DirectMessage, :post, "/1.1/direct_messages/destroy.json", args)
       end
 
       # Sends a new direct message to the specified user from the authenticating user

@@ -261,13 +261,13 @@ module Twitter
     private
 
       # @param request_method [Symbol]
-      # @param url [String]
+      # @param path [String]
       # @param args [Array]
       # @return [Array<Twitter::Tweet>]
-      def threaded_tweets_from_response(request_method, url, args)
+      def threaded_tweets_from_response(request_method, path, args)
         options = args.extract_options!
         args.flatten.threaded_map do |id|
-          object_from_response(Twitter::Tweet, request_method, url + "/#{id}.json", options)
+          object_from_response(Twitter::Tweet, request_method, path + "/#{id}.json", options)
         end
       end
 

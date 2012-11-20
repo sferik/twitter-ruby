@@ -507,61 +507,61 @@ module Twitter
     private
 
       # @param request_method [Symbol]
-      # @param url [String]
+      # @param path [String]
       # @param args [Array]
       # @return [Array<Twitter::User>]
-      def list_from_response(request_method, url, args)
+      def list_from_response(request_method, path, args)
         options = args.extract_options!
         options.merge_list!(args.pop)
         options.merge_owner!(args.pop || screen_name) unless options[:owner_id] || options[:owner_screen_name]
-        object_from_response(Twitter::List, request_method, url, options)
+        object_from_response(Twitter::List, request_method, path, options)
       end
 
       # @param request_method [Symbol]
-      # @param url [String]
+      # @param path [String]
       # @param args [Array]
       # @return [Array<Twitter::List>]
-      def lists_from_response(request_method, url, args)
+      def lists_from_response(request_method, path, args)
         options = args.extract_options!
         merge_default_cursor!(options)
         options.merge_user!(args.pop)
-        cursor_from_response(:lists, Twitter::List, request_method, url, options, calling_method)
+        cursor_from_response(:lists, Twitter::List, request_method, path, options, calling_method)
       end
 
-      def list_users(request_method, url, args)
+      def list_users(request_method, path, args)
         options = args.extract_options!
         merge_default_cursor!(options)
         options.merge_list!(args.pop)
         options.merge_owner!(args.pop || screen_name) unless options[:owner_id] || options[:owner_screen_name]
-        cursor_from_response(:users, Twitter::User, request_method, url, options, calling_method)
+        cursor_from_response(:users, Twitter::User, request_method, path, options, calling_method)
       end
 
-      def list_user?(request_method, url, args)
+      def list_user?(request_method, path, args)
         options = args.extract_options!
         options.merge_user!(args.pop)
         options.merge_list!(args.pop)
         options.merge_owner!(args.pop || screen_name) unless options[:owner_id] || options[:owner_screen_name]
-        send(request_method.to_sym, url, options)
+        send(request_method.to_sym, path, options)
         true
       rescue Twitter::Error::NotFound, Twitter::Error::Forbidden
         false
       end
 
-      def list_modify_member(request_method, url, args)
+      def list_modify_member(request_method, path, args)
         options = args.extract_options!
         options.merge_user!(args.pop)
         options.merge_list!(args.pop)
         options.merge_owner!(args.pop || screen_name) unless options[:owner_id] || options[:owner_screen_name]
-        object_from_response(Twitter::List, request_method, url, options)
+        object_from_response(Twitter::List, request_method, path, options)
       end
 
-      def list_modify_members(request_method, url, args)
+      def list_modify_members(request_method, path, args)
         options = args.extract_options!
         members = args.pop
         options.merge_list!(args.pop)
         options.merge_owner!(args.pop || screen_name) unless options[:owner_id] || options[:owner_screen_name]
         members.flatten.each_slice(MAX_USERS_PER_REQUEST).threaded_map do |users|
-          object_from_response(Twitter::List, request_method, url, options.merge_users(users))
+          object_from_response(Twitter::List, request_method, path, options.merge_users(users))
         end.last
       end
 
