@@ -99,10 +99,8 @@ module Twitter
       # @example Return the 20 most recent retweets posted by the authenticating user
       #   Twitter.retweeted_by_me
       def retweeted_by_me(options={})
-        options[:include_rts] = true
-        count = options[:count] || DEFAULT_TWEETS_PER_REQUEST
-        collect_with_count(count) do |count_options|
-          select_retweets(user_timeline(options.merge(count_options)))
+        retweets_from_timeline(options) do |options|
+          user_timeline(options)
         end
       end
 
@@ -148,10 +146,8 @@ module Twitter
       # @example Return the 20 most recent retweets posted by users followed by the authenticating user
       #   Twitter.retweeted_to_me
       def retweeted_to_me(options={})
-        options[:include_rts] = true
-        count = options[:count] || DEFAULT_TWEETS_PER_REQUEST
-        collect_with_count(count) do |count_options|
-          select_retweets(home_timeline(options.merge(count_options)))
+        retweets_from_timeline(options) do |options|
+          home_timeline(options)
         end
       end
 
@@ -200,6 +196,14 @@ module Twitter
             tweets
           end
         end.flatten.compact[0...count]
+      end
+
+      def retweets_from_timeline(options)
+        options[:include_rts] = true
+        count = options[:count] || DEFAULT_TWEETS_PER_REQUEST
+        collect_with_count(count) do |count_options|
+          select_retweets(yield(options.merge(count_options)))
+        end
       end
 
       # @param tweets [Array]
