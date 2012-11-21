@@ -1,5 +1,4 @@
 require 'twitter/core_ext/enumerable'
-require 'twitter/core_ext/hash'
 require 'twitter/core_ext/kernel'
 require 'twitter/cursor'
 require 'twitter/user'

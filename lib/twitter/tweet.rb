@@ -1,8 +1,8 @@
-require 'twitter/core_ext/hash'
 require 'twitter/creatable'
 require 'twitter/entity/hashtag'
 require 'twitter/entity/url'
 require 'twitter/entity/user_mention'
+require 'twitter/exceptable'
 require 'twitter/geo_factory'
 require 'twitter/identity'
 require 'twitter/media_factory'
@@ -13,6 +13,7 @@ require 'twitter/user'
 module Twitter
   class Tweet < Twitter::Identity
     include Twitter::Creatable
+    include Twitter::Exceptable
     attr_reader :favorited, :favoriters, :from_user_id, :from_user_name,
       :in_reply_to_screen_name, :in_reply_to_attrs_id, :in_reply_to_status_id,
       :in_reply_to_user_id, :iso_language_code, :profile_image_url,
@@ -121,7 +122,7 @@ module Twitter
 
     # @return [Twitter::User]
     def user
-      @user ||= Twitter::User.fetch_or_new(@attrs.dup[:user].merge(:status => @attrs.except(:user))) if user?
+      @user ||= Twitter::User.fetch_or_new(@attrs.dup[:user].merge(:status => except(@attrs, :user))) if user?
     end
 
     # @note Must include entities in your request for this method to work

@@ -1,12 +1,13 @@
 require 'twitter/basic_user'
-require 'twitter/core_ext/hash'
 require 'twitter/creatable'
+require 'twitter/exceptable'
 require 'twitter/tweet'
 
 module Twitter
   class User < Twitter::BasicUser
     PROFILE_IMAGE_SUFFIX_REGEX = /_normal(\.gif|\.jpe?g|\.png)$/
     include Twitter::Creatable
+    include Twitter::Exceptable
     attr_reader :connections, :contributors_enabled, :default_profile,
       :default_profile_image, :description, :favourites_count,
       :follow_request_sent, :followers_count, :friends_count, :geo_enabled,
@@ -93,7 +94,7 @@ module Twitter
 
     # @return [Twitter::Tweet]
     def status
-      @status ||= Twitter::Tweet.fetch_or_new(@attrs.dup[:status].merge(:user => @attrs.except(:status))) if status?
+      @status ||= Twitter::Tweet.fetch_or_new(@attrs.dup[:status].merge(:user => except(@attrs, :status))) if status?
     end
 
     def status?
