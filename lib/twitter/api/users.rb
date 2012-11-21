@@ -421,7 +421,6 @@ module Twitter
         object_from_response(Twitter::ProfileBanner, :get, "/1.1/users/profile_banner.json", options)
       end
 
-
     end
   end
 end

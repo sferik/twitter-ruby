@@ -10,14 +10,12 @@ module Twitter
       end
 
       def call(env)
-        if env[:body].is_a?(Hash)
-          env[:body].each do |key, value|
-            if value.respond_to?(:to_io)
-              env[:body][key] = Faraday::UploadIO.new(value, mime_type(value.path), value.path)
-              env[:request_headers][CONTENT_TYPE] = self.class.mime_type
-            end
+        env[:body].each do |key, value|
+          if value.respond_to?(:to_io)
+            env[:body][key] = Faraday::UploadIO.new(value, mime_type(value.path), value.path)
+            env[:request_headers][CONTENT_TYPE] = self.class.mime_type
           end
-        end
+        end if env[:body].is_a?(::Hash)
         @app.call(env)
       end
 
