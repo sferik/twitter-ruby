@@ -10,7 +10,7 @@ require 'twitter/version'
 
 module Twitter
   module Default
-    ENDPOINT = 'https://api.twitter.com' unless defined? ENDPOINT
+    ENDPOINT = 'https://api.twitter.com' unless defined? Twitter::Default::ENDPOINT
     CONNECTION_OPTIONS = {
       :headers => {
         :accept => 'application/json',
@@ -20,8 +20,8 @@ module Twitter
       :raw => true,
       :ssl => {:verify => false},
       :timeout => 10,
-    } unless defined? CONNECTION_OPTIONS
-    IDENTITY_MAP = false unless defined? IDENTITY_MAP
+    } unless defined? Twitter::Default::CONNECTION_OPTIONS
+    IDENTITY_MAP = false unless defined? Twitter::Default::IDENTITY_MAP
     MIDDLEWARE = Faraday::Builder.new do |builder|
       # Convert file uploads to Faraday::UploadIO objects
       builder.use Twitter::Request::MultipartWithFile
@@ -37,7 +37,7 @@ module Twitter
       builder.use Twitter::Response::RaiseError, Twitter::Error::ServerError
       # Set Faraday's HTTP adapter
       builder.adapter Faraday.default_adapter
-    end
+    end unless defined? Twitter::Default::MIDDLEWARE
 
     class << self
 
