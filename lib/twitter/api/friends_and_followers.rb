@@ -76,7 +76,7 @@ module Twitter
       #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
       #   @param options [Hash] A customizable set of options.
       def friendships(*args)
-        options = args.extract_options!
+        options = extract_options!(args)
         options.merge_users!(Array(args))
         collection_from_response(Twitter::User, :get, "/1.1/friendships/lookup.json", options)
       end
@@ -129,7 +129,7 @@ module Twitter
       #   @param options [Hash] A customizable set of options.
       #   @option options [Boolean] :follow (false) Enable notifications for the target user.
       def follow(*args)
-        options = args.extract_options!
+        options = extract_options!(args)
         # Twitter always turns on notifications if the "follow" option is present, even if it's set to false
         # so only send follow if it's true
         options[:follow] = true if !!options.delete(:follow)
@@ -159,7 +159,7 @@ module Twitter
       #   @param options [Hash] A customizable set of options.
       #   @option options [Boolean] :follow (false) Enable notifications for the target user.
       def follow!(*args)
-        options = args.extract_options!
+        options = extract_options!(args)
         # Twitter always turns on notifications if the "follow" option is present, even if it's set to false
         # so only send follow if it's true
         options[:follow] = true if !!options.delete(:follow)

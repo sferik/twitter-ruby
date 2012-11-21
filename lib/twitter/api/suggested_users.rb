@@ -27,7 +27,7 @@ module Twitter
       #   @example Return the users in the Art & Design category
       #     Twitter.suggestions("art-design")
       def suggestions(*args)
-        options = args.extract_options!
+        options = extract_options!(args)
         if slug = args.pop
           object_from_response(Twitter::Suggestion, :get, "/1.1/users/suggestions/#{slug}.json", options)
         else

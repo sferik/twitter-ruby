@@ -31,7 +31,7 @@ module Twitter
       #   @param ids [Array<Integer>, Set<Integer>] An array of Tweet IDs.
       #   @param options [Hash] A customizable set of options.
       def saved_searches(*args)
-        options = args.extract_options!
+        options = extract_options!(args)
         if args.empty?
           collection_from_response(Twitter::SavedSearch, :get, "/1.1/saved_searches/list.json", options)
         else
@@ -87,7 +87,7 @@ module Twitter
       #   @param ids [Array<Integer>, Set<Integer>] An array of Tweet IDs.
       #   @param options [Hash] A customizable set of options.
       def saved_search_destroy(*args)
-        options = args.extract_options!
+        options = extract_options!(args)
         args.flatten.threaded_map do |id|
           object_from_response(Twitter::SavedSearch, :post, "/1.1/saved_searches/destroy/#{id}.json", options)
         end

@@ -92,7 +92,7 @@ module Twitter
       #   @param ids [Array<Integer>, Set<Integer>] An array of Tweet IDs.
       #   @param options [Hash] A customizable set of options.
       def direct_messages(*args)
-        options = args.extract_options!
+        options = extract_options!(args)
         if args.empty?
           direct_messages_received(options)
         else

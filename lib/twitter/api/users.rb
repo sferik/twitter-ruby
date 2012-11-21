@@ -245,7 +245,7 @@ module Twitter
       #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
       #   @param options [Hash] A customizable set of options.
       def users(*args)
-        options = args.extract_options!
+        options = extract_options!(args)
         args.flatten.each_slice(MAX_USERS_PER_REQUEST).threaded_map do |users|
           collection_from_response(Twitter::User, :post, "/1.1/users/lookup.json", options.merge_users(users))
         end.flatten
@@ -272,7 +272,7 @@ module Twitter
       #     Twitter.user('sferik')
       #     Twitter.user(7505382)  # Same as above
       def user(*args)
-        options = args.extract_options!
+        options = extract_options!(args)
         if user = args.pop
           options.merge_user!(user)
           object_from_response(Twitter::User, :get, "/1.1/users/show.json", options)
@@ -416,7 +416,7 @@ module Twitter
       #     Twitter.profile_banner('sferik')
       #     Twitter.profile_banner(7505382)  # Same as above
       def profile_banner(*args)
-        options = args.extract_options!
+        options = extract_options!(args)
         options.merge_user!(args.pop || screen_name)
         object_from_response(Twitter::ProfileBanner, :get, "/1.1/users/profile_banner.json", options)
       end

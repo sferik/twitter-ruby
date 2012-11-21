@@ -32,7 +32,7 @@ module Twitter
       #   @example Return the 20 most recent favorite Tweets for @sferik
       #     Twitter.favorites('sferik')
       def favorites(*args)
-        options = args.extract_options!
+        options = extract_options!(args)
         if user = args.pop
           options.merge_user!(user)
         end
@@ -76,7 +76,7 @@ module Twitter
       #   @param ids [Array<Integer>, Set<Integer>] An array of Tweet IDs.
       #   @param options [Hash] A customizable set of options.
       def favorite(*args)
-        options = args.extract_options!
+        options = extract_options!(args)
         args.flatten.threaded_map do |id|
           begin
             object_from_response(Twitter::Tweet, :post, "/1.1/favorites/create.json", options.merge(:id => id))
@@ -106,7 +106,7 @@ module Twitter
       #   @param ids [Array<Integer>, Set<Integer>] An array of Tweet IDs.
       #   @param options [Hash] A customizable set of options.
       def favorite!(*args)
-        options = args.extract_options!
+        options = extract_options!(args)
         args.flatten.threaded_map do |id|
           begin
             object_from_response(Twitter::Tweet, :post, "/1.1/favorites/create.json", options.merge(:id => id))

@@ -63,7 +63,7 @@ module Twitter
       #     Twitter.list_timeline(7505382, 'presidents')
       #     Twitter.list_timeline(7505382, 8863586)
       def list_timeline(*args)
-        options = args.extract_options!
+        options = extract_options!(args)
         options.merge_list!(args.pop)
         options.merge_owner!(args.pop || screen_name) unless options[:owner_id] || options[:owner_screen_name]
         collection_from_response(Twitter::Tweet, :get, "/1.1/lists/statuses.json", options)
@@ -511,7 +511,7 @@ module Twitter
       # @param args [Array]
       # @return [Array<Twitter::User>]
       def list_from_response(request_method, path, args)
-        options = args.extract_options!
+        options = extract_options!(args)
         options.merge_list!(args.pop)
         options.merge_owner!(args.pop || screen_name) unless options[:owner_id] || options[:owner_screen_name]
         object_from_response(Twitter::List, request_method, path, options)
@@ -522,14 +522,14 @@ module Twitter
       # @param args [Array]
       # @return [Array<Twitter::List>]
       def lists_from_response(request_method, path, args)
-        options = args.extract_options!
+        options = extract_options!(args)
         merge_default_cursor!(options)
         options.merge_user!(args.pop)
         cursor_from_response(:lists, Twitter::List, request_method, path, options, calling_method)
       end
 
       def list_users(request_method, path, args)
-        options = args.extract_options!
+        options = extract_options!(args)
         merge_default_cursor!(options)
         options.merge_list!(args.pop)
         options.merge_owner!(args.pop || screen_name) unless options[:owner_id] || options[:owner_screen_name]
@@ -537,7 +537,7 @@ module Twitter
       end
 
       def list_user?(request_method, path, args)
-        options = args.extract_options!
+        options = extract_options!(args)
         options.merge_user!(args.pop)
         options.merge_list!(args.pop)
         options.merge_owner!(args.pop || screen_name) unless options[:owner_id] || options[:owner_screen_name]
@@ -548,7 +548,7 @@ module Twitter
       end
 
       def list_modify_member(request_method, path, args)
-        options = args.extract_options!
+        options = extract_options!(args)
         options.merge_user!(args.pop)
         options.merge_list!(args.pop)
         options.merge_owner!(args.pop || screen_name) unless options[:owner_id] || options[:owner_screen_name]
@@ -556,7 +556,7 @@ module Twitter
       end
 
       def list_modify_members(request_method, path, args)
-        options = args.extract_options!
+        options = extract_options!(args)
         members = args.pop
         options.merge_list!(args.pop)
         options.merge_owner!(args.pop || screen_name) unless options[:owner_id] || options[:owner_screen_name]

@@ -66,7 +66,7 @@ module Twitter
       #     Twitter.following_followers_of('sferik')
       #     Twitter.following_followers_of(7505382)  # Same as above
       def following_followers_of(*args)
-        options = args.extract_options!
+        options = extract_options!(args)
         merge_default_cursor!(options)
         options.merge_user!(args.pop || screen_name)
         cursor_from_response(:users, Twitter::User, :get, "/users/following_followers_of.json", options)
@@ -105,7 +105,7 @@ module Twitter
       #   @param ids [Array<Integer>, Set<Integer>] An array of Tweet IDs.
       #   @param options [Hash] A customizable set of options.
       def statuses_activity(*args)
-        options = args.extract_options!
+        options = extract_options!(args)
         args.flatten.threaded_map do |id|
           status_activity(id, options)
         end
