@@ -17,33 +17,6 @@ class Hash
     self
   end unless method_defined?(:except!)
 
-  # Take a list and merge it into the hash with the correct key
-  #
-  # @param list [Integer, String, Twitter::List] A Twitter list ID, slug, or object.
-  # @return [Hash]
-  def merge_list!(list)
-    case list
-    when Integer
-      self[:list_id] = list
-    when String
-      self[:slug] = list
-    when Twitter::List
-      self[:list_id] = list.id
-      self.merge_owner!(list.user)
-    end
-    self
-  end
-
-  # Take an owner and merge it into the hash with the correct key
-  #
-  # @param user[Integer, String, Twitter::User] A Twitter user ID, screen_name, or object.
-  # @return [Hash]
-  def merge_owner!(user)
-    self.merge_user!(user, "owner")
-    self[:owner_id] = self.delete(:owner_user_id) unless self[:owner_user_id].nil?
-    self
-  end
-
   # Take a user and merge it into the hash with the correct key
   #
   # @param user[Integer, String, Twitter::User] A Twitter user ID, screen_name, or object.

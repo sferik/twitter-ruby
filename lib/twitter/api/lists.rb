@@ -64,8 +64,8 @@ module Twitter
       #     Twitter.list_timeline(7505382, 8863586)
       def list_timeline(*args)
         options = extract_options!(args)
-        options.merge_list!(args.pop)
-        options.merge_owner!(args.pop || screen_name) unless options[:owner_id] || options[:owner_screen_name]
+        merge_list!(options, args.pop)
+        merge_owner!(options, args.pop || screen_name) unless options[:owner_id] || options[:owner_screen_name]
         collection_from_response(Twitter::Tweet, :get, "/1.1/lists/statuses.json", options)
       end
 
@@ -512,8 +512,8 @@ module Twitter
       # @return [Array<Twitter::User>]
       def list_from_response(request_method, path, args)
         options = extract_options!(args)
-        options.merge_list!(args.pop)
-        options.merge_owner!(args.pop || screen_name) unless options[:owner_id] || options[:owner_screen_name]
+        merge_list!(options, args.pop)
+        merge_owner!(options, args.pop || screen_name) unless options[:owner_id] || options[:owner_screen_name]
         object_from_response(Twitter::List, request_method, path, options)
       end
 
@@ -531,16 +531,16 @@ module Twitter
       def list_users(request_method, path, args)
         options = extract_options!(args)
         merge_default_cursor!(options)
-        options.merge_list!(args.pop)
-        options.merge_owner!(args.pop || screen_name) unless options[:owner_id] || options[:owner_screen_name]
+        merge_list!(options, args.pop)
+        merge_owner!(options, args.pop || screen_name) unless options[:owner_id] || options[:owner_screen_name]
         cursor_from_response(:users, Twitter::User, request_method, path, options, calling_method)
       end
 
       def list_user?(request_method, path, args)
         options = extract_options!(args)
         options.merge_user!(args.pop)
-        options.merge_list!(args.pop)
-        options.merge_owner!(args.pop || screen_name) unless options[:owner_id] || options[:owner_screen_name]
+        merge_list!(options, args.pop)
+        merge_owner!(options, args.pop || screen_name) unless options[:owner_id] || options[:owner_screen_name]
         send(request_method.to_sym, path, options)
         true
       rescue Twitter::Error::NotFound, Twitter::Error::Forbidden
@@ -550,19 +550,48 @@ module Twitter
       def list_modify_member(request_method, path, args)
         options = extract_options!(args)
         options.merge_user!(args.pop)
-        options.merge_list!(args.pop)
-        options.merge_owner!(args.pop || screen_name) unless options[:owner_id] || options[:owner_screen_name]
+        merge_list!(options, args.pop)
+        merge_owner!(options, args.pop || screen_name) unless options[:owner_id] || options[:owner_screen_name]
         object_from_response(Twitter::List, request_method, path, options)
       end
 
       def list_modify_members(request_method, path, args)
         options = extract_options!(args)
         members = args.pop
-        options.merge_list!(args.pop)
-        options.merge_owner!(args.pop || screen_name) unless options[:owner_id] || options[:owner_screen_name]
+        merge_list!(options, args.pop)
+        merge_owner!(options, args.pop || screen_name) unless options[:owner_id] || options[:owner_screen_name]
         members.flatten.each_slice(MAX_USERS_PER_REQUEST).threaded_map do |users|
           object_from_response(Twitter::List, request_method, path, options.merge_users(users))
         end.last
+      end
+
+      # Take a list and merge it into the hash with the correct key
+      #
+      # @param hash [Hash]
+      # @param list [Integer, String, Twitter::List] A Twitter list ID, slug, or object.
+      # @return [Hash]
+      def merge_list!(hash, list)
+        case list
+        when Integer
+          hash[:list_id] = list
+        when String
+          hash[:slug] = list
+        when Twitter::List
+          hash[:list_id] = list.id
+          merge_owner!(hash, list.user)
+        end
+        hash
+      end
+
+      # Take an owner and merge it into the hash with the correct key
+      #
+      # @param hash [Hash]
+      # @param user[Integer, String, Twitter::User] A Twitter user ID, screen_name, or object.
+      # @return [Hash]
+      def merge_owner!(hash, user)
+        hash.merge_user!(user, "owner")
+        hash[:owner_id] = hash.delete(:owner_user_id) unless hash[:owner_user_id].nil?
+        hash
       end
 
     end
