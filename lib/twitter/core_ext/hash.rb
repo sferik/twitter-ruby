@@ -17,30 +17,6 @@ class Hash
     self
   end unless method_defined?(:except!)
 
-  # Take a user and merge it into the hash with the correct key
-  #
-  # @param user[Integer, String, Twitter::User] A Twitter user ID, screen_name, or object.
-  # @return [Hash]
-  def merge_user(user, prefix=nil)
-    self.dup.merge_user!(user, prefix)
-  end
-
-  # Take a user and merge it into the hash with the correct key
-  #
-  # @param user[Integer, String, Twitter::User] A Twitter user ID, screen_name, or object.
-  # @return [Hash]
-  def merge_user!(user, prefix=nil)
-    case user
-    when Integer
-      self[[prefix, "user_id"].compact.join("_").to_sym] = user
-    when String
-      self[[prefix, "screen_name"].compact.join("_").to_sym] = user
-    when Twitter::User
-      self[[prefix, "user_id"].compact.join("_").to_sym] = user.id
-    end
-    self
-  end
-
   # Take a multiple users and merge them into the hash with the correct keys
   #
   # @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen_names, or objects.

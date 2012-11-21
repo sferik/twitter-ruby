@@ -135,7 +135,7 @@ module Twitter
       #   Twitter.direct_message_create('sferik', "I'm sending you this message via @gem!")
       #   Twitter.direct_message_create(7505382, "I'm sending you this message via @gem!")  # Same as above
       def direct_message_create(user, text, options={})
-        options.merge_user!(user)
+        merge_user!(options, user)
         options[:text] = text
         object_from_response(Twitter::DirectMessage, :post, "/1.1/direct_messages/new.json", options)
       end

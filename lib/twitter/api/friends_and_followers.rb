@@ -165,7 +165,7 @@ module Twitter
         options[:follow] = true if !!options.delete(:follow)
         args.flatten.threaded_map do |user|
           begin
-            options.merge_user!(user)
+            merge_user!(options, user)
             object_from_response(Twitter::User, :post, "/1.1/friendships/create.json", options)
           rescue Twitter::Error::Forbidden
             # This error will be raised if the user doesn't have permission to
@@ -208,7 +208,7 @@ module Twitter
       # @example Enable rewteets and devise notifications for @sferik
       #   Twitter.friendship_update('sferik', :device => true, :retweets => true)
       def friendship_update(user, options={})
-        options.merge_user!(user)
+        merge_user!(options, user)
         object_from_response(Twitter::Relationship, :post, "/1.1/friendships/update.json", options)
       end
 
@@ -227,9 +227,9 @@ module Twitter
       #   Twitter.friendship('sferik', 14100886)   # Same as above
       #   Twitter.friendship(7505382, 14100886)    # Same as above
       def friendship(source, target, options={})
-        options.merge_user!(source, "source")
+        merge_user!(options, source, "source")
         options[:source_id] = options.delete(:source_user_id) unless options[:source_user_id].nil?
-        options.merge_user!(target, "target")
+        merge_user!(options, target, "target")
         options[:target_id] = options.delete(:target_user_id) unless options[:target_user_id].nil?
         object_from_response(Twitter::Relationship, :get, "/1.1/friendships/show.json", options)
       end

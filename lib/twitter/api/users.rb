@@ -274,7 +274,7 @@ module Twitter
       def user(*args)
         options = extract_options!(args)
         if user = args.pop
-          options.merge_user!(user)
+          merge_user!(options, user)
           object_from_response(Twitter::User, :get, "/1.1/users/show.json", options)
         else
           verify_credentials(options)
@@ -292,7 +292,7 @@ module Twitter
       #   Twitter.user?('sferik')
       #   Twitter.user?(7505382)  # Same as above
       def user?(user, options={})
-        options.merge_user!(user)
+        merge_user!(options, user)
         get("/1.1/users/show.json", options)
         true
       rescue Twitter::Error::NotFound
@@ -417,7 +417,7 @@ module Twitter
       #     Twitter.profile_banner(7505382)  # Same as above
       def profile_banner(*args)
         options = extract_options!(args)
-        options.merge_user!(args.pop || screen_name)
+        merge_user!(options, args.pop || screen_name)
         object_from_response(Twitter::ProfileBanner, :get, "/1.1/users/profile_banner.json", options)
       end
 

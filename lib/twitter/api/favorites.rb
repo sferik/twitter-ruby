@@ -34,7 +34,7 @@ module Twitter
       def favorites(*args)
         options = extract_options!(args)
         if user = args.pop
-          options.merge_user!(user)
+          merge_user!(options, user)
         end
         collection_from_response(Twitter::Tweet, :get, "/1.1/favorites/list.json", options)
       end

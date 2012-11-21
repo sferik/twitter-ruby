@@ -524,7 +524,7 @@ module Twitter
       def lists_from_response(request_method, path, args)
         options = extract_options!(args)
         merge_default_cursor!(options)
-        options.merge_user!(args.pop)
+        merge_user!(options, args.pop)
         cursor_from_response(:lists, Twitter::List, request_method, path, options, calling_method)
       end
 
@@ -538,7 +538,7 @@ module Twitter
 
       def list_user?(request_method, path, args)
         options = extract_options!(args)
-        options.merge_user!(args.pop)
+        merge_user!(options, args.pop)
         merge_list!(options, args.pop)
         merge_owner!(options, args.pop || screen_name) unless options[:owner_id] || options[:owner_screen_name]
         send(request_method.to_sym, path, options)
@@ -549,7 +549,7 @@ module Twitter
 
       def list_modify_member(request_method, path, args)
         options = extract_options!(args)
-        options.merge_user!(args.pop)
+        merge_user!(options, args.pop)
         merge_list!(options, args.pop)
         merge_owner!(options, args.pop || screen_name) unless options[:owner_id] || options[:owner_screen_name]
         object_from_response(Twitter::List, request_method, path, options)
@@ -589,7 +589,7 @@ module Twitter
       # @param user[Integer, String, Twitter::User] A Twitter user ID, screen_name, or object.
       # @return [Hash]
       def merge_owner!(hash, user)
-        hash.merge_user!(user, "owner")
+        merge_user!(hash, user, "owner")
         hash[:owner_id] = hash.delete(:owner_user_id) unless hash[:owner_user_id].nil?
         hash
       end

@@ -49,7 +49,7 @@ module Twitter
       # @return [Array]
       def objects_from_response(klass, request_method, path, args)
         options = extract_options!(args)
-        options.merge_user!(args.pop)
+        merge_user!(options, args.pop)
         collection_from_response(klass, request_method, path, options)
       end
 
@@ -60,7 +60,7 @@ module Twitter
       def ids_from_response(request_method, path, args)
         options = extract_options!(args)
         merge_default_cursor!(options)
-        options.merge_user!(args.pop)
+        merge_user!(options, args.pop)
         cursor_from_response(:ids, nil, request_method, path, options, calling_method)
       end
 
@@ -82,7 +82,7 @@ module Twitter
       # @return [Array<Twitter::User>]
       def users_from_response(request_method, path, args)
         options = extract_options!(args)
-        options.merge_user!(args.pop || screen_name)
+        merge_user!(options, args.pop || screen_name)
         collection_from_response(Twitter::User, request_method, path, options)
       end
 
@@ -93,7 +93,7 @@ module Twitter
       def threaded_users_from_response(request_method, path, args)
         options = extract_options!(args)
         args.flatten.threaded_map do |user|
-          object_from_response(Twitter::User, request_method, path, options.merge_user(user))
+          object_from_response(Twitter::User, request_method, path, merge_user(options, user))
         end
       end
 
@@ -127,6 +127,32 @@ module Twitter
 
       def extract_options!(array)
         array.last.is_a?(::Hash) ? array.pop : {}
+      end
+
+      # Take a user and merge it into the hash with the correct key
+      #
+      # @param hash [Hash]
+      # @param user [Integer, String, Twitter::User] A Twitter user ID, screen_name, or object.
+      # @return [Hash]
+      def merge_user(hash, user, prefix=nil)
+        merge_user!(hash.dup, user, prefix)
+      end
+
+      # Take a user and merge it into the hash with the correct key
+      #
+      # @param hash [Hash]
+      # @param user [Integer, String, Twitter::User] A Twitter user ID, screen_name, or object.
+      # @return [Hash]
+      def merge_user!(hash, user, prefix=nil)
+        case user
+        when Integer
+          hash[[prefix, "user_id"].compact.join("_").to_sym] = user
+        when String
+          hash[[prefix, "screen_name"].compact.join("_").to_sym] = user
+        when Twitter::User
+          hash[[prefix, "user_id"].compact.join("_").to_sym] = user.id
+        end
+        hash
       end
 
     end
