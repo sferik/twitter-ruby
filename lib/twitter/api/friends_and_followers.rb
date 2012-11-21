@@ -77,7 +77,7 @@ module Twitter
       #   @param options [Hash] A customizable set of options.
       def friendships(*args)
         options = extract_options!(args)
-        options.merge_users!(Array(args))
+        merge_users!(options, Array(args))
         collection_from_response(Twitter::User, :get, "/1.1/friendships/lookup.json", options)
       end
 

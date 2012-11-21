@@ -155,6 +155,37 @@ module Twitter
         hash
       end
 
+      # Take a multiple users and merge them into the hash with the correct keys
+      #
+      # @param hash [Hash]
+      # @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen_names, or objects.
+      # @return [Hash]
+      def merge_users(hash, users)
+        merge_users!(hash.dup, users)
+      end
+
+      # Take a multiple users and merge them into the hash with the correct keys
+      #
+      # @param hash [Hash]
+      # @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen_names, or objects.
+      # @return [Hash]
+      def merge_users!(hash, users)
+        user_ids, screen_names = [], []
+        users.flatten.each do |user|
+          case user
+          when Integer
+            user_ids << user
+          when String
+            screen_names << user
+          when Twitter::User
+            user_ids << user.id
+          end
+        end
+        hash[:user_id] = user_ids.join(',') unless user_ids.empty?
+        hash[:screen_name] = screen_names.join(',') unless screen_names.empty?
+        hash
+      end
+
     end
   end
 end

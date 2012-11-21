@@ -561,7 +561,7 @@ module Twitter
         merge_list!(options, args.pop)
         merge_owner!(options, args.pop || screen_name) unless options[:owner_id] || options[:owner_screen_name]
         members.flatten.each_slice(MAX_USERS_PER_REQUEST).threaded_map do |users|
-          object_from_response(Twitter::List, request_method, path, options.merge_users(users))
+          object_from_response(Twitter::List, request_method, path, merge_users(options, users))
         end.last
       end
 

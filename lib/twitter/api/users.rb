@@ -247,7 +247,7 @@ module Twitter
       def users(*args)
         options = extract_options!(args)
         args.flatten.each_slice(MAX_USERS_PER_REQUEST).threaded_map do |users|
-          collection_from_response(Twitter::User, :post, "/1.1/users/lookup.json", options.merge_users(users))
+          collection_from_response(Twitter::User, :post, "/1.1/users/lookup.json", merge_users(options, users))
         end.flatten
       end
 
