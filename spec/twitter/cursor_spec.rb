@@ -23,7 +23,7 @@ describe Twitter::Cursor do
     end
     it "fetches all" do
       follower_ids = @client.follower_ids("sferik").all
-      expect(follower_ids.size).to eq 5993
+      expect(follower_ids.size).to eq 6
     end
   end
 
@@ -41,7 +41,7 @@ describe Twitter::Cursor do
     it "iterates" do
       count = 0
       @client.follower_ids("sferik").each{count += 1}
-      expect(count).to eq 5993
+      expect(count).to eq 6
     end
   end
 
