@@ -10,13 +10,14 @@ module Twitter
     #
     # @param attrs [Array, Set, Symbol]
     def self.attr_reader(*attrs)
-      attrs.each do |attribute|
-        class_eval do
+      mod = Module.new do
+        attrs.each do |attribute|
           define_method attribute do
             @attrs[attribute.to_sym]
           end
         end
       end
+      send(:include, mod)
     end
 
     # return [Twitter::IdentityMap]
