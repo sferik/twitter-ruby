@@ -2,7 +2,6 @@ require 'faraday'
 require 'twitter/configurable'
 require 'twitter/error/client_error'
 require 'twitter/error/server_error'
-require 'twitter/identity_map'
 require 'twitter/request/multipart_with_file'
 require 'twitter/response/parse_json'
 require 'twitter/response/raise_error'
@@ -66,7 +65,7 @@ module Twitter
         ENV['TWITTER_OAUTH_TOKEN_SECRET']
       end
 
-      # @note This is configurable in case you want to use HTTP instead of HTTPS or use a Twitter-compatible endpoint.
+      # @note This is configurable in case you want to use a Twitter-compatible endpoint.
       # @see http://status.net/wiki/Twitter-compatible_API
       # @see http://en.blog.wordpress.com/2009/12/12/twitter-api/
       # @see http://staff.tumblr.com/post/287703110/api
@@ -76,12 +75,10 @@ module Twitter
         ENDPOINT
       end
 
-      # @return [Hash]
       def connection_options
         CONNECTION_OPTIONS
       end
 
-      # @return [Twitter::IdentityMap]
       def identity_map
         IDENTITY_MAP
       end
