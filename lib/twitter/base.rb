@@ -14,6 +14,7 @@ module Twitter
           end
         end
       end
+      const_set(:Attributes, mod)
       include mod
     end
 
