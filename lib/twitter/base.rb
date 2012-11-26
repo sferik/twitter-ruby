@@ -17,7 +17,7 @@ module Twitter
           end
         end
       end
-      send(:include, mod)
+      include mod
     end
 
     # return [Twitter::IdentityMap]
