@@ -3,9 +3,6 @@ require 'twitter/error/identity_map_key_error'
 
 module Twitter
   class Base
-    attr_reader :attrs
-    alias to_hash attrs
-
     # Define methods that retrieve the value from an initialized instance variable Hash, using the attribute as a key
     #
     # @param attrs [Array, Set, Symbol]
@@ -88,6 +85,14 @@ module Twitter
     rescue NoMethodError
       nil
     end
+
+    # Retrieve the attributes of an object
+    #
+    # @return [Hash]
+    def attrs
+      @attrs
+    end
+    alias to_hash attrs
 
     # Update the attributes of an object
     #
