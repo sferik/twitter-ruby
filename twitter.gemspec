@@ -7,6 +7,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'simple_oauth', '~> 0.1.6'
   spec.add_development_dependency 'json'
   spec.add_development_dependency 'pry'
+  spec.add_development_dependency 'pry-nav'
   spec.add_development_dependency 'rake'
   spec.add_development_dependency 'redcarpet'
   spec.add_development_dependency 'rspec'
