@@ -12,6 +12,9 @@ module Twitter
           define_method attribute do
             @attrs[attribute.to_sym]
           end
+          define_method "#{attribute}?" do
+            !!@attrs[attribute.to_sym]
+          end
         end
       end
       const_set(:Attributes, mod)

@@ -20,12 +20,9 @@ module Twitter
       :profile_image_url_https, :repliers, :retweeted, :retweeters, :source,
       :text, :to_user, :to_user_id, :to_user_name, :truncated
     alias in_reply_to_tweet_id in_reply_to_status_id
-    alias favorited? favorited
     alias favourited favorited
-    alias favourited? favorited
+    alias favourited? favorited?
     alias favouriters favoriters
-    alias retweeted? retweeted
-    alias truncated? truncated
 
     # @return [Boolean]
     def entities?
