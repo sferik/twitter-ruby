@@ -1,6 +1,8 @@
 module Twitter
   module Exceptable
 
+  private
+
     # Return a hash that includes everything but the given keys.
     #
     # @param klass [Class]
