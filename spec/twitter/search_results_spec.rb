@@ -74,6 +74,17 @@ describe Twitter::SearchResults do
     end
   end
 
+  describe "#search_metadata?" do
+    it "returns true when search_metadata is set" do
+      search_metadata = Twitter::SearchResults.new(:search_metadata => {}).search_metadata?
+      expect(search_metadata).to be_true
+    end
+    it "returns false when search_metadata is not set" do
+      search_metadata = Twitter::SearchResults.new.search_metadata?
+      expect(search_metadata).to be_false
+    end
+  end
+
   describe "#since_id" do
     it "returns an ID" do
       since_id = Twitter::SearchResults.new(:search_metadata => {:since_id => 250126199840518145}).since_id
