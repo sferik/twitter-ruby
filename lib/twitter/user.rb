@@ -94,7 +94,7 @@ module Twitter
 
     # @return [Twitter::Tweet]
     def status
-      @status ||= Twitter::Tweet.fetch_or_new(@attrs.dup[:status].merge(:user => except(@attrs, :status))) if status?
+      @status ||= fetch_or_new_without_self(Twitter::Tweet, @attrs, :status, :user)
     end
 
     def status?

@@ -27,6 +27,11 @@ module Twitter
     alias retweeted? retweeted
     alias truncated? truncated
 
+    # @return [Boolean]
+    def entities?
+      !@attrs[:entities].nil?
+    end
+
     # @return [Integer]
     def favoriters_count
       favoriters_count = @attrs[:favoriters_count]
@@ -122,7 +127,7 @@ module Twitter
 
     # @return [Twitter::User]
     def user
-      @user ||= Twitter::User.fetch_or_new(@attrs.dup[:user].merge(:status => except(@attrs, :user))) if user?
+      @user ||= fetch_or_new_without_self(Twitter::User, @attrs, :user, :status)
     end
 
     # @note Must include entities in your request for this method to work
@@ -131,28 +136,23 @@ module Twitter
       @user_mentions ||= entities(Twitter::Entity::UserMention, :user_mentions)
     end
 
-    # @return [Boolean]
-    def entities?
-      !@attrs[:entities].nil?
+    def user?
+      !@attrs[:user].nil?
     end
 
   private
 
     # @param klass [Class]
-    # @param method [Symbol]
-    def entities(klass, method)
+    # @param key [Symbol]
+    def entities(klass, key)
       if entities?
-        Array(@attrs[:entities][method.to_sym]).map do |user_mention|
+        Array(@attrs[:entities][key.to_sym]).map do |user_mention|
           klass.fetch_or_new(user_mention)
         end
       else
-        warn "#{Kernel.caller.first}: To get #{method.to_s.tr('_', ' ')}, you must pass `:include_entities => true` when requesting the #{self.class.name}."
+        warn "#{Kernel.caller.first}: To get #{key.to_s.tr('_', ' ')}, you must pass `:include_entities => true` when requesting the #{self.class.name}."
         []
       end
-    end
-
-    def user?
-      !@attrs[:user].nil?
     end
 
   end

@@ -288,6 +288,17 @@ describe Twitter::Tweet do
     end
   end
 
+  describe "#user?" do
+    it "returns true when status is set" do
+      user = Twitter::Tweet.new(:id => 28669546014, :user => {:id => 7505382}).user?
+      expect(user).to be_true
+    end
+    it "returns false when status is not set" do
+      user = Twitter::Tweet.new(:id => 28669546014).user?
+      expect(user).to be_false
+    end
+  end
+
   describe "#user_mentions" do
     it "returns an Array of Entity::UserMention when entities are set" do
       user_mentions_hash = [
