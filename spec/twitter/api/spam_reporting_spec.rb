@@ -8,11 +8,11 @@ describe Twitter::API::SpamReporting do
 
   describe "#report_spam" do
     before do
-      stub_post("/1.1/report_spam.json").with(:body => {:screen_name => "sferik"}).to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      stub_post("/1.1/users/report_spam.json").with(:body => {:screen_name => "sferik"}).to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
       @client.report_spam("sferik")
-      expect(a_post("/1.1/report_spam.json").with(:body => {:screen_name => "sferik"})).to have_been_made
+      expect(a_post("/1.1/users/report_spam.json").with(:body => {:screen_name => "sferik"})).to have_been_made
     end
     it "returns an array of users" do
       users = @client.report_spam("sferik")
