@@ -15,9 +15,9 @@ private
   def abort_on_exception
     initial_abort_on_exception = Thread.abort_on_exception
     Thread.abort_on_exception ||= true
-    value = yield
+    yield
+  ensure
     Thread.abort_on_exception = initial_abort_on_exception
-    value
   end
 
 end
