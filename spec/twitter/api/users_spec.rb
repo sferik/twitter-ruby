@@ -285,57 +285,115 @@ describe Twitter::API::Users do
   end
 
   describe "#users" do
-    context "with screen names passed" do
-      before do
-        stub_post("/1.1/users/lookup.json").with(:body => {:screen_name => "sferik,pengwynn"}).to_return(:body => fixture("users.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+    context "using a post request" do
+      context "with screen names passed" do
+        before do
+          stub_post("/1.1/users/lookup.json").with(:body => {:screen_name => "sferik,pengwynn"}).to_return(:body => fixture("users.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        end
+        it "requests the correct resource" do
+          @client.users("sferik", "pengwynn")
+          expect(a_post("/1.1/users/lookup.json").with(:body => {:screen_name => "sferik,pengwynn"})).to have_been_made
+        end
+        it "returns up to 100 users worth of extended information" do
+          users = @client.users("sferik", "pengwynn")
+          expect(users).to be_an Array
+          expect(users.first).to be_a Twitter::User
+          expect(users.first.id).to eq 7505382
+        end
       end
-      it "requests the correct resource" do
-        @client.users("sferik", "pengwynn")
-        expect(a_post("/1.1/users/lookup.json").with(:body => {:screen_name => "sferik,pengwynn"})).to have_been_made
+      context "with numeric screen names passed" do
+        before do
+          stub_post("/1.1/users/lookup.json").with(:body => {:screen_name => "0,311"}).to_return(:body => fixture("users.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        end
+        it "requests the correct resource" do
+          @client.users("0", "311")
+          expect(a_post("/1.1/users/lookup.json").with(:body => {:screen_name => "0,311"})).to have_been_made
+        end
       end
-      it "returns up to 100 users worth of extended information" do
-        users = @client.users("sferik", "pengwynn")
-        expect(users).to be_an Array
-        expect(users.first).to be_a Twitter::User
-        expect(users.first.id).to eq 7505382
+      context "with user IDs passed" do
+        before do
+          stub_post("/1.1/users/lookup.json").with(:body => {:user_id => "7505382,14100886"}).to_return(:body => fixture("users.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        end
+        it "requests the correct resource" do
+          @client.users(7505382, 14100886)
+          expect(a_post("/1.1/users/lookup.json").with(:body => {:user_id => "7505382,14100886"})).to have_been_made
+        end
+      end
+      context "with both screen names and user IDs passed" do
+        before do
+          stub_post("/1.1/users/lookup.json").with(:body => {:screen_name => "sferik", :user_id => "14100886"}).to_return(:body => fixture("users.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        end
+        it "requests the correct resource" do
+          @client.users("sferik", 14100886)
+          expect(a_post("/1.1/users/lookup.json").with(:body => {:screen_name => "sferik", :user_id => "14100886"})).to have_been_made
+        end
+      end
+      context "with user objects passed" do
+        before do
+          stub_post("/1.1/users/lookup.json").with(:body => {:user_id => "7505382,14100886"}).to_return(:body => fixture("users.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        end
+        it "requests the correct resource" do
+          user1 = Twitter::User.new(:id => '7505382')
+          user2 = Twitter::User.new(:id => '14100886')
+          @client.users(user1, user2)
+          expect(a_post("/1.1/users/lookup.json").with(:body => {:user_id => "7505382,14100886"})).to have_been_made
+        end
       end
     end
-    context "with numeric screen names passed" do
-      before do
-        stub_post("/1.1/users/lookup.json").with(:body => {:screen_name => "0,311"}).to_return(:body => fixture("users.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+
+    context "using a get request" do
+      context "with screen names passed" do
+        before do
+          stub_get("/1.1/users/lookup.json").with(:query => {:screen_name => "sferik,pengwynn"}).to_return(:body => fixture("users.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        end
+        it "requests the correct resource" do
+          @client.users("sferik", "pengwynn", method: :get)
+          expect(a_get("/1.1/users/lookup.json").with(:query => {:screen_name => "sferik,pengwynn"})).to have_been_made
+        end
+        it "returns up to 100 users worth of extended information" do
+          users = @client.users("sferik", "pengwynn", method: :get)
+          expect(users).to be_an Array
+          expect(users.first).to be_a Twitter::User
+          expect(users.first.id).to eq 7505382
+        end
       end
-      it "requests the correct resource" do
-        @client.users("0", "311")
-        expect(a_post("/1.1/users/lookup.json").with(:body => {:screen_name => "0,311"})).to have_been_made
+      context "with numeric screen names passed" do
+        before do
+          stub_get("/1.1/users/lookup.json").with(:query => {:screen_name => "0,311"}).to_return(:body => fixture("users.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        end
+        it "requests the correct resource" do
+          @client.users("0", "311", method: :get)
+          expect(a_get("/1.1/users/lookup.json").with(:query => {:screen_name => "0,311"})).to have_been_made
+        end
       end
-    end
-    context "with user IDs passed" do
-      before do
-        stub_post("/1.1/users/lookup.json").with(:body => {:user_id => "7505382,14100886"}).to_return(:body => fixture("users.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      context "with user IDs passed" do
+        before do
+          stub_get("/1.1/users/lookup.json").with(:query => {:user_id => "7505382,14100886"}).to_return(:body => fixture("users.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        end
+        it "requests the correct resource" do
+          @client.users(7505382, 14100886, method: :get)
+          expect(a_get("/1.1/users/lookup.json").with(:query => {:user_id => "7505382,14100886"})).to have_been_made
+        end
       end
-      it "requests the correct resource" do
-        @client.users(7505382, 14100886)
-        expect(a_post("/1.1/users/lookup.json").with(:body => {:user_id => "7505382,14100886"})).to have_been_made
+      context "with both screen names and user IDs passed" do
+        before do
+          stub_get("/1.1/users/lookup.json").with(:query => {:screen_name => "sferik", :user_id => "14100886"}).to_return(:body => fixture("users.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        end
+        it "requests the correct resource" do
+          @client.users("sferik", 14100886, method: :get)
+          expect(a_get("/1.1/users/lookup.json").with(:query => {:screen_name => "sferik", :user_id => "14100886"})).to have_been_made
+        end
       end
-    end
-    context "with both screen names and user IDs passed" do
-      before do
-        stub_post("/1.1/users/lookup.json").with(:body => {:screen_name => "sferik", :user_id => "14100886"}).to_return(:body => fixture("users.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-      end
-      it "requests the correct resource" do
-        @client.users("sferik", 14100886)
-        expect(a_post("/1.1/users/lookup.json").with(:body => {:screen_name => "sferik", :user_id => "14100886"})).to have_been_made
-      end
-    end
-    context "with user objects passed" do
-      before do
-        stub_post("/1.1/users/lookup.json").with(:body => {:user_id => "7505382,14100886"}).to_return(:body => fixture("users.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-      end
-      it "requests the correct resource" do
-        user1 = Twitter::User.new(:id => '7505382')
-        user2 = Twitter::User.new(:id => '14100886')
-        @client.users(user1, user2)
-        expect(a_post("/1.1/users/lookup.json").with(:body => {:user_id => "7505382,14100886"})).to have_been_made
+      context "with user objects passed" do
+        before do
+          stub_get("/1.1/users/lookup.json").with(:query => {:user_id => "7505382,14100886"}).to_return(:body => fixture("users.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        end
+        it "requests the correct resource" do
+          user1 = Twitter::User.new(:id => '7505382')
+          user2 = Twitter::User.new(:id => '14100886')
+          @client.users(user1, user2, method: :get)
+          expect(a_get("/1.1/users/lookup.json").with(:query => {:user_id => "7505382,14100886"})).to have_been_made
+        end
       end
     end
   end
