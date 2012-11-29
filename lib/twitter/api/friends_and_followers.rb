@@ -253,7 +253,66 @@ module Twitter
       def friendship?(source, target, options={})
         friendship(source, target, options).source.following?
       end
+      
+      
+      # Returns a cursored collection of user objects for users following the specified user.
+      #
+      # @see https://dev.twitter.com/docs/api/1.1/get/followers/list
+      # @rate_limited Yes
+      # @authentication_required Requires user context
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @return [Twitter::Cursor]
+      # @overload friend_ids(options={})
+      #   Returns an array of numeric IDs for every user the authenticated user is following
+      #
+      #   @param options [Hash] A customizable set of options.
+      #   @option options [Integer] :cursor (-1) Breaks the results into pages. This is recommended for users who are following many users. Provide a value of -1 to begin paging. Provide values as returned in the response body's next_cursor and previous_cursor attributes to page back and forth in the list.
+      #   @example Return the authenticated user's friends' IDs
+      #     Twitter.friend_ids
+      # @overload friend_ids(user, options={})
+      #   Returns an array of numeric IDs for every user the specified user is following
+      #
+      #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
+      #   @param options [Hash] A customizable set of options.
+      #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
+      # @example Return the cursored collection of users following @sferik
+      #   Twitter.followers('sferik')
+      #   Twitter.followers(7505382)    # Same as above
+      def followers(*args)
+        merge_default_cursor!(options)
+        cursor_from_response(:get, "/1.1/followers/list.json", args)
+      end
 
+
+      # Returns a cursored collection of user objects for every user the specified user is following (otherwise known as their "friends").
+      #
+      # @see https://dev.twitter.com/docs/api/1.1/get/friendships/show
+      # @rate_limited Yes
+      # @authentication_required Requires user context
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @return [Twitter::Cursor]
+      # @overload friend_ids(options={})
+      #   Returns an array of numeric IDs for every user the authenticated user is following
+      #
+      #   @param options [Hash] A customizable set of options.
+      #   @option options [Integer] :cursor (-1) Breaks the results into pages. This is recommended for users who are following many users. Provide a value of -1 to begin paging. Provide values as returned in the response body's next_cursor and previous_cursor attributes to page back and forth in the list.
+      #   @example Return the authenticated user's friends' IDs
+      #     Twitter.friend_ids
+      # @overload friend_ids(user, options={})
+      #   Returns an array of numeric IDs for every user the specified user is following
+      #
+      #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
+      #   @param options [Hash] A customizable set of options.
+      #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
+      # @example Return the cursored collection of users @sferik is following
+      #   Twitter.friends('sferik')
+      #   Twitter.friends(7505382)    # Same as above
+      def friends(*args)
+        options = extract_options!(args)
+        merge_user!(options, args.pop || screen_name)
+        merge_default_cursor!(options)
+        cursor_from_response(:users, Twitter::User, :get, "/1.1/friends/list.json", options)
+      end
     end
   end
 end

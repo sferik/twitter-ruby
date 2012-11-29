@@ -421,5 +421,77 @@ describe Twitter::API::FriendsAndFollowers do
       end
     end
   end
+  
+  
+  
+  
+  describe "#friend_ids" do
+    context "with a screen_name passed" do
+      before do
+        stub_get("/1.1/friends/ids.json").with(:query => {:cursor => "-1", :screen_name => "sferik"}).to_return(:body => fixture("ids_list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      end
+      it "requests the correct resource" do
+        @client.friend_ids("sferik")
+        expect(a_get("/1.1/friends/ids.json").with(:query => {:cursor => "-1", :screen_name => "sferik"})).to have_been_made
+      end
+      it "returns an array of numeric IDs for every user the specified user is following" do
+        friend_ids = @client.friend_ids("sferik")
+        expect(friend_ids).to be_a Twitter::Cursor
+        expect(friend_ids.ids).to be_an Array
+        expect(friend_ids.ids.first).to eq 14100886
+      end
+    end
+    context "without arguments passed" do
+      before do
+        stub_get("/1.1/friends/ids.json").with(:query => {:cursor => "-1"}).to_return(:body => fixture("ids_list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      end
+      it "requests the correct resource" do
+        @client.friend_ids
+        expect(a_get("/1.1/friends/ids.json").with(:query => {:cursor => "-1"})).to have_been_made
+      end
+      it "returns an array of numeric IDs for every user the specified user is following" do
+        friend_ids = @client.friend_ids
+        expect(friend_ids).to be_a Twitter::Cursor
+        expect(friend_ids.ids).to be_an Array
+        expect(friend_ids.ids.first).to eq 14100886
+      end
+    end
+  end
+  
+
+  
+  describe "#followers" do
+  end
+  
+  describe "#friends" do
+    context "with a screen_name passed" do
+      before do
+        stub_get("/1.1/friends/list.json").with(:query => {:cursor => "-1", :screen_name => "sferik"}).to_return(:body => fixture("friends_list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      end
+      it "requests the correct resource" do
+        @client.friends("sferik")
+        expect(a_get("/1.1/friends/list.json").with(:query => {:cursor => "-1", :screen_name => "sferik"})).to have_been_made
+      end
+      # it "returns an array of followers with details for every user the specified user is following" do
+      #        friends = @client.friends
+      #        
+      #      end
+      #    end
+      #    context "without arguments passed" do
+      #      before do
+      #        stub_get("/1.1/friends/list.json").with(:query => {:cursor => "-1"}).to_return(:body => fixture("friends_list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      #      end
+      #      it "requests the correct resource" do
+      #        @client.friends
+      #        expect(a_get("/1.1/friends/list.json").with(:query => {:cursor => "-1"})).to have_been_made
+      #      end
+      #      it "returns an array of followers with details for every user the specified user is following" do
+      #        friends = @client.friends
+      #        expect(friends.first).to be_a Twitter::User
+      #        expect(friends).to be_an Array
+      #      end
+    end
+  end
+  
 
 end
