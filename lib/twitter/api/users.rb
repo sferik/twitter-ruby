@@ -244,6 +244,8 @@ module Twitter
       # @overload users(*users, options)
       #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
       #   @param options [Hash] A customizable set of options.
+      #   @option options [Symbol, String] :method Requests users via a GET request instead of the standard POST request if set to ':get'.
+      #   @option options [Boolean] :include_entities The tweet entities node will be disincluded when set to false.
       #   @example Return extended information for @sferik and @pengwynn
       #     Twitter.users('sferik', 'pengwynn', :method => :get)  # Retrieve users with a GET request
       #     Twitter.users(7505382, 14100886, {:method => :get})   # Same as above
