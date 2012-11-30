@@ -7,7 +7,7 @@ describe Twitter::API::FriendsAndFollowers do
   end
 
   describe "#friend_ids" do
-    context "with a screen_name passed" do
+    context "with a screen name passed" do
       before do
         stub_get("/1.1/friends/ids.json").with(:query => {:cursor => "-1", :screen_name => "sferik"}).to_return(:body => fixture("ids_list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
@@ -40,7 +40,7 @@ describe Twitter::API::FriendsAndFollowers do
   end
 
   describe "#follower_ids" do
-    context "with a screen_name passed" do
+    context "with a screen name passed" do
       before do
         stub_get("/1.1/followers/ids.json").with(:query => {:cursor => "-1", :screen_name => "sferik"}).to_return(:body => fixture("ids_list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
@@ -439,7 +439,7 @@ describe Twitter::API::FriendsAndFollowers do
         expect(followers.users.first).to be_a Twitter::User
       end
     end
-    context "with user_id passed" do
+    context "with a user ID passed" do
       before do
         stub_get("/1.1/followers/list.json").with(:query => {:cursor => "-1", :user_id => "14100886"}).to_return(:body => fixture("followers_list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
@@ -471,8 +471,6 @@ describe Twitter::API::FriendsAndFollowers do
       end
     end
   end
-  
-
 
   describe "#friends" do
     context "with a screen_name passed" do
@@ -491,7 +489,7 @@ describe Twitter::API::FriendsAndFollowers do
         expect(friends.users.first).to be_a Twitter::User
       end
     end
-    context "with user_id passed" do
+    context "with a user ID passed" do
       before do
         stub_get("/1.1/friends/list.json").with(:query => {:cursor => "-1", :user_id => "14100886"}).to_return(:body => fixture("friends_list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
@@ -523,4 +521,5 @@ describe Twitter::API::FriendsAndFollowers do
       end
     end
   end
+
 end
