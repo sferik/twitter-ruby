@@ -347,11 +347,11 @@ describe Twitter::API::Users do
           stub_get("/1.1/users/lookup.json").with(:query => {:screen_name => "sferik,pengwynn"}).to_return(:body => fixture("users.json"), :headers => {:content_type => "application/json; charset=utf-8"})
         end
         it "requests the correct resource" do
-          @client.users("sferik", "pengwynn", method: :get)
+          @client.users("sferik", "pengwynn", :method => :get)
           expect(a_get("/1.1/users/lookup.json").with(:query => {:screen_name => "sferik,pengwynn"})).to have_been_made
         end
         it "returns up to 100 users worth of extended information" do
-          users = @client.users("sferik", "pengwynn", method: :get)
+          users = @client.users("sferik", "pengwynn", :method => :get)
           expect(users).to be_an Array
           expect(users.first).to be_a Twitter::User
           expect(users.first.id).to eq 7505382
@@ -362,7 +362,7 @@ describe Twitter::API::Users do
           stub_get("/1.1/users/lookup.json").with(:query => {:screen_name => "0,311"}).to_return(:body => fixture("users.json"), :headers => {:content_type => "application/json; charset=utf-8"})
         end
         it "requests the correct resource" do
-          @client.users("0", "311", method: :get)
+          @client.users("0", "311", :method => :get)
           expect(a_get("/1.1/users/lookup.json").with(:query => {:screen_name => "0,311"})).to have_been_made
         end
       end
@@ -371,7 +371,7 @@ describe Twitter::API::Users do
           stub_get("/1.1/users/lookup.json").with(:query => {:user_id => "7505382,14100886"}).to_return(:body => fixture("users.json"), :headers => {:content_type => "application/json; charset=utf-8"})
         end
         it "requests the correct resource" do
-          @client.users(7505382, 14100886, method: :get)
+          @client.users(7505382, 14100886, :method => :get)
           expect(a_get("/1.1/users/lookup.json").with(:query => {:user_id => "7505382,14100886"})).to have_been_made
         end
       end
@@ -380,7 +380,7 @@ describe Twitter::API::Users do
           stub_get("/1.1/users/lookup.json").with(:query => {:screen_name => "sferik", :user_id => "14100886"}).to_return(:body => fixture("users.json"), :headers => {:content_type => "application/json; charset=utf-8"})
         end
         it "requests the correct resource" do
-          @client.users("sferik", 14100886, method: :get)
+          @client.users("sferik", 14100886, :method => :get)
           expect(a_get("/1.1/users/lookup.json").with(:query => {:screen_name => "sferik", :user_id => "14100886"})).to have_been_made
         end
       end
@@ -391,7 +391,7 @@ describe Twitter::API::Users do
         it "requests the correct resource" do
           user1 = Twitter::User.new(:id => '7505382')
           user2 = Twitter::User.new(:id => '14100886')
-          @client.users(user1, user2, method: :get)
+          @client.users(user1, user2, :method => :get)
           expect(a_get("/1.1/users/lookup.json").with(:query => {:user_id => "7505382,14100886"})).to have_been_made
         end
       end

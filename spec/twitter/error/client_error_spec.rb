@@ -35,7 +35,7 @@ describe Twitter::Error::ClientError do
         stub_get("/1.1/users/lookup.json").with(:query => {:screen_name => "not_on_twitter"}).to_return(:status => 404, :body => fixture('no_user_matches.json'))
       end
       it "raises Twitter::Error::NotFound" do
-        expect{@client.users('not_on_twitter', method: :get)}.to raise_error Twitter::Error::NotFound
+        expect{@client.users('not_on_twitter', :method => :get)}.to raise_error Twitter::Error::NotFound
       end
     end
   end
