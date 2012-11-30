@@ -239,15 +239,22 @@ module Twitter
       # @overload users(*users)
       #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
       #   @example Return extended information for @sferik and @pengwynn
-      #     Twitter.users('sferik', 'pengwynn')
-      #     Twitter.users(7505382, 14100886)    # Same as above
+      #     Twitter.users('sferik', 'pengwynn')  # Retrieve users with a POST request using screen_names
+      #     Twitter.users(7505382, 14100886)     # Same as above using twitter_ids
       # @overload users(*users, options)
       #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
       #   @param options [Hash] A customizable set of options.
+      #   @option options [Symbol, String] :method Requests users via a GET request instead of the standard POST request if set to ':get'.
+      #   @option options [Boolean] :include_entities The tweet entities node will be disincluded when set to false.
+      #   @example Return extended information for @sferik and @pengwynn
+      #     Twitter.users('sferik', 'pengwynn', :method => :get)  # Retrieve users with a GET request
+      #     Twitter.users(7505382, 14100886, {:method => :get})   # Same as above
+      #     Twitter.users(7505382, 14100886, {:method => :get, :include_entities => false}) # See Twitter API documentation
       def users(*args)
         options = extract_options!(args)
+        method = options.delete(:method) || :post
         args.flatten.each_slice(MAX_USERS_PER_REQUEST).threaded_map do |users|
-          collection_from_response(Twitter::User, :post, "/1.1/users/lookup.json", merge_users(options, users))
+          collection_from_response(Twitter::User, method, "/1.1/users/lookup.json", merge_users(options, users))
         end.flatten
       end
 
