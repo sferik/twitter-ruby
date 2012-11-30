@@ -1,3 +1,16 @@
+4.4.0
+-----
+* [Add `Twitter::API::FriendsAndFollowers#friends` and `Twitter::API::FriendsAndFollowers#followers`](https://github.com/sferik/twitter/commit/03e1512a8e5e589771414aaf46db34718f1469ce) ([@tibbon](https://twitter.com/tibbon))
+* [Add `method` parameter to `Twitter::API::Users#users`](https://github.com/sferik/twitter/commit/4885c8df5f36fcbe39bd435ef12b6e0bed06dcb5) ([@thomasjklemm](https://twitter.com/thomasjklemm))
+* [Correct endpoint of `Twitter::Client#report_spam` method](https://github.com/sferik/twitter/commit/e59c0c4c31a9f7eed3d202c276628a3ea0df6d28) ([@uasi](https://twitter.com/uasi))
+* [Refactor `Twitter::Request` class](https://github.com/sferik/twitter/commit/2d70b64674bdc204c85c47327afa571f9641e545)
+* [Remove `Array` core extensions](https://github.com/sferik/twitter/commit/2d00f99f4ac43e13e24bf90fcc813252175273f2)
+* [Remove `String` core extensions](https://github.com/sferik/twitter/commit/5a9144c3f5104a7ee13b4c50f32cf71151004023)
+* [Remove `Hash` core extensions](https://github.com/sferik/twitter/commit/0a8591efce268119e29623317382a1f2de2d0aa6)
+* [Do not `require 'identity_map'` by default](https://github.com/sferik/twitter/commit/da38eec199222ae2292650313ce153e2b3986369)
+* [Automatically define inquirer methods](https://github.com/sferik/twitter/commit/a6da19baf82656af118a4ec27e845b46c22a3d7e)
+
+
 4.3.0
 -----
 * [Add Twitter::API#profile_banner](https://github.com/sferik/twitter/commit/5879ef3fcc486ac3849426ef0d44ee0288ed9599)
