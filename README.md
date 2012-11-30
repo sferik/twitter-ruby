@@ -302,6 +302,20 @@ Twitter.follow(213747670)
 Twitter.user("gem")
 Twitter.user(213747670)
 ```
+**Fetch a cursored list of followers with profile details (by screen name or user ID, or by implict authenticated user)**
+
+```ruby
+Twitter.followers("gem")
+Twitter.followers(213747670)
+Twitter.followers
+```
+**Fetch a cursored list of friends with profile details (by screen name or user ID, or by implict authenticated user)**
+
+```ruby
+Twitter.friends("gem")
+Twitter.friends(213747670)
+Twitter.friends
+```
 **Fetch the timeline of Tweets by a user**
 
 ```ruby
