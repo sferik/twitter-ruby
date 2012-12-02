@@ -28,7 +28,7 @@ describe Twitter::Geo::Point do
 
   describe "#latitude" do
     it "returns the latitude" do
-      expect(@point.latitude).to eq -122.399983
+      expect(@point.latitude).to eq(-122.399983)
     end
   end
 
