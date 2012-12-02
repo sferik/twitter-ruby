@@ -3,9 +3,7 @@ require 'helper'
 describe Twitter::Client do
 
   subject do
-    client = Twitter::Client.new(:consumer_key => "CK", :consumer_secret => "CS", :oauth_token => "OT", :oauth_token_secret => "OS")
-    client.class_eval{public *Twitter::Client.private_instance_methods}
-    client
+    Twitter::Client.new(:consumer_key => "CK", :consumer_secret => "CS", :oauth_token => "OT", :oauth_token_secret => "OS")
   end
 
   context "with module configuration" do
@@ -112,10 +110,10 @@ describe Twitter::Client do
 
   describe "#connection" do
     it "looks like Faraday connection" do
-      expect(subject.connection).to respond_to(:run_request)
+      expect(subject.send(:connection)).to respond_to(:run_request)
     end
     it "memoizes the connection" do
-      c1, c2 = subject.connection, subject.connection
+      c1, c2 = subject.send(:connection), subject.send(:connection)
       expect(c1.object_id).to eq c2.object_id
     end
   end
@@ -133,18 +131,18 @@ describe Twitter::Client do
     end
     it "catches Faraday errors" do
       subject.stub!(:connection).and_raise(Faraday::Error::ClientError.new("Oops"))
-      expect{subject.request(:get, "/path")}.to raise_error Twitter::Error::ClientError
+      expect{subject.send(:request, :get, "/path")}.to raise_error Twitter::Error::ClientError
     end
     it "catches MultiJson::DecodeError errors" do
       subject.stub!(:connection).and_raise(MultiJson::DecodeError.new("unexpected token", [], "<!DOCTYPE html>"))
-      expect{subject.request(:get, "/path")}.to raise_error Twitter::Error::DecodeError
+      expect{subject.send(:request, :get, "/path")}.to raise_error Twitter::Error::DecodeError
     end
   end
 
   describe "#auth_header" do
     it "creates the correct auth headers" do
       uri = "/1.1/direct_messages.json"
-      authorization = subject.auth_header(:get, uri)
+      authorization = subject.send(:auth_header, :get, uri)
       expect(authorization.options[:signature_method]).to eq "HMAC-SHA1"
       expect(authorization.options[:version]).to eq "1.0"
       expect(authorization.options[:consumer_key]).to eq "CK"
