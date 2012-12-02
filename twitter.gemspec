@@ -4,7 +4,7 @@ require File.expand_path('../lib/twitter/version', __FILE__)
 Gem::Specification.new do |spec|
   spec.add_dependency 'faraday', '~> 0.8'
   spec.add_dependency 'multi_json', '~> 1.3'
-  spec.add_dependency 'simple_oauth', '~> 0.1.6'
+  spec.add_dependency 'simple_oauth', '~> 0.2'
   spec.add_development_dependency 'oj'
   spec.add_development_dependency 'pry'
   spec.add_development_dependency 'pry-nav'
