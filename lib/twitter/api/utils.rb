@@ -24,7 +24,6 @@ module Twitter
       # @param request_method [Symbol]
       # @param path [String]
       # @param params [Hash]
-      # @param options [Hash]
       # @return [Array]
       def collection_from_response(klass, request_method, path, params={})
         collection_from_array(klass, send(request_method.to_sym, path, params)[:body])
@@ -34,7 +33,6 @@ module Twitter
       # @param request_method [Symbol]
       # @param path [String]
       # @param params [Hash]
-      # @param options [Hash]
       # @return [Object]
       def object_from_response(klass, request_method, path, params={})
         response = send(request_method.to_sym, path, params)
@@ -68,7 +66,7 @@ module Twitter
       # @param request_method [Symbol]
       # @param path [String]
       # @param params [Hash]
-      # @param options [Hash]
+      # @param method_name [Symbol]
       # @return [Twitter::Cursor]
       def cursor_from_response(collection_name, klass, request_method, path, params={}, method_name=calling_method)
         response = send(request_method.to_sym, path, params)

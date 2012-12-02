@@ -158,9 +158,10 @@ module Twitter
       # @authentication_required Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Array] Numeric user ids the authenticating user is blocking.
-      # @param options [Hash] A customizable set of options.
       # @example Return an array of numeric user ids the authenticating user is blocking
       #   Twitter.blocking_ids
+      # @overload block(options={})
+      #   @param options [Hash] A customizable set of options.
       def blocked_ids(*args)
         ids_from_response(:get, "/1.1/blocks/ids.json", args)
       end
@@ -394,7 +395,7 @@ module Twitter
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @raise [Twitter::Error::UnprocessableEntity] Error raised when the image could not be resized or is too large.
       # @return [nil]
-      # @param image [File] The Base64-encoded or raw image data being uploaded as the user's new profile banner.
+      # @param banner [File] The Base64-encoded or raw image data being uploaded as the user's new profile banner.
       # @param options [Hash] A customizable set of options.
       # @option options [Integer] :width The width of the preferred section of the image being uploaded in pixels. Use with height, offset_left, and offset_top to select the desired region of the image to use.
       # @option options [Integer] :height The height of the preferred section of the image being uploaded in pixels. Use with width, offset_left, and offset_top to select the desired region of the image to use.

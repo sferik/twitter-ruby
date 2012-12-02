@@ -88,7 +88,6 @@ module Twitter
       # @authentication_required Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Array<Twitter::Tweet>]
-      # @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
       # @param options [Hash] A customizable set of options.
       # @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID.
       # @option options [Integer] :max_id Returns results with an ID less than (that is, older than) or equal to the specified ID.
