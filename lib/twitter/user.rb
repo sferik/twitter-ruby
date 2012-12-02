@@ -1,7 +1,6 @@
 require 'twitter/basic_user'
 require 'twitter/creatable'
 require 'twitter/exceptable'
-require 'twitter/tweet'
 
 module Twitter
   class User < Twitter::BasicUser

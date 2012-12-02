@@ -1,4 +1,3 @@
-require 'twitter/geo_factory'
 require 'twitter/identity'
 
 module Twitter

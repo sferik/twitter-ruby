@@ -1,14 +1,6 @@
 require 'twitter/creatable'
-require 'twitter/entity/hashtag'
-require 'twitter/entity/url'
-require 'twitter/entity/user_mention'
 require 'twitter/exceptable'
-require 'twitter/geo_factory'
 require 'twitter/identity'
-require 'twitter/media_factory'
-require 'twitter/metadata'
-require 'twitter/place'
-require 'twitter/user'
 
 module Twitter
   class Tweet < Twitter::Identity

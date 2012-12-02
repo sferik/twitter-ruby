@@ -1,5 +1,4 @@
 require 'twitter/base'
-require 'twitter/tweet'
 
 module Twitter
   class SearchResults < Twitter::Base

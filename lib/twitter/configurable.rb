@@ -1,5 +1,3 @@
-require 'twitter/default'
-
 module Twitter
   module Configurable
     attr_writer :consumer_key, :consumer_secret, :oauth_token, :oauth_token_secret

@@ -1,7 +1,5 @@
 require 'twitter/base'
 require 'twitter/creatable'
-require 'twitter/tweet'
-require 'twitter/user'
 
 module Twitter
   module Action

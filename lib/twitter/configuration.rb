@@ -1,5 +1,4 @@
 require 'twitter/base'
-require 'twitter/size'
 
 module Twitter
   class Configuration < Twitter::Base

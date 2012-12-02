@@ -1,5 +1,4 @@
 require 'twitter/base'
-require 'twitter/place'
 
 module Twitter
   class Settings < Twitter::Base

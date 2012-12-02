@@ -1,5 +1,4 @@
 require 'twitter/base'
-require 'twitter/user'
 
 module Twitter
   class Suggestion < Twitter::Base

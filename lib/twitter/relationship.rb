@@ -1,6 +1,4 @@
 require 'twitter/base'
-require 'twitter/source_user'
-require 'twitter/target_user'
 
 module Twitter
   class Relationship < Twitter::Base

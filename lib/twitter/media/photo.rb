@@ -1,5 +1,4 @@
 require 'twitter/identity'
-require 'twitter/size'
 
 module Twitter
   module Media

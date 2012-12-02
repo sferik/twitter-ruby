@@ -1,6 +1,5 @@
 require 'twitter/creatable'
 require 'twitter/identity'
-require 'twitter/user'
 
 module Twitter
   class List < Twitter::Identity
