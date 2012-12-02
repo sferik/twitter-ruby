@@ -3,17 +3,12 @@ require 'faraday'
 module Twitter
   module Request
     class MultipartWithFile < Faraday::Middleware
-      CONTENT_TYPE = 'Content-Type'.freeze
-      class << self
-        attr_accessor :mime_type
-        mime_type = 'multipart/form-data'.freeze
-      end
+      CONTENT_TYPE = 'Content-Type'
 
       def call(env)
         env[:body].each do |key, value|
           if value.respond_to?(:to_io)
             env[:body][key] = Faraday::UploadIO.new(value, mime_type(value.path), value.path)
-            env[:request_headers][CONTENT_TYPE] = self.class.mime_type
           end
         end if env[:body].is_a?(::Hash)
         @app.call(env)
