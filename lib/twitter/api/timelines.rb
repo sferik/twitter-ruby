@@ -99,8 +99,8 @@ module Twitter
       # @example Return the 20 most recent retweets posted by the authenticating user
       #   Twitter.retweeted_by_me
       def retweeted_by_me(options={})
-        retweets_from_timeline(options) do |options|
-          user_timeline(options)
+        retweets_from_timeline(options) do |opts|
+          user_timeline(opts)
         end
       end
 
@@ -146,8 +146,8 @@ module Twitter
       # @example Return the 20 most recent retweets posted by users followed by the authenticating user
       #   Twitter.retweeted_to_me
       def retweeted_to_me(options={})
-        retweets_from_timeline(options) do |options|
-          home_timeline(options)
+        retweets_from_timeline(options) do |opts|
+          home_timeline(opts)
         end
       end
 
