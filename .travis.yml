@@ -1,12 +1,4 @@
 language: ruby
-matrix:
-  allow_failures:
-    - rvm: 1.8.7
-    - rvm: ruby-head
-    - rvm: jruby-18mode
-    - rvm: jruby-19mode
-    - rvm: rbx-18mode
-    - rvm: rbx-19mode
 env:
   - JRUBY_OPTS=-Xcext.enabled=true
 rvm:
@@ -15,9 +7,13 @@ rvm:
   - rbx-18mode
   - rbx-19mode
   - 1.8.7
-  - 1.9.2
   - 1.9.3
   - ruby-head
+matrix:
+  allow_failures:
+    - rvm: 1.8.7
+    - rvm: jruby-18mode
+    - rvm: jruby-19mode
 notifications:
   email:
     - sferik@gmail.com
