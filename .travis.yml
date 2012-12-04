@@ -7,6 +7,8 @@ matrix:
     - rvm: jruby-19mode
     - rvm: rbx-18mode
     - rvm: rbx-19mode
+env:
+  - JRUBY_OPTS=-Xcext.enabled=true
 rvm:
   - jruby-18mode
   - jruby-19mode
