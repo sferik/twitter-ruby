@@ -1,9 +1,8 @@
 module Enumerable
 
   def threaded_map
-    threads = []
-    each do |object|
-      threads << Thread.new { yield object }
+    threads = map do |object|
+      Thread.new { yield object }
     end
     threads.map(&:value)
   end
