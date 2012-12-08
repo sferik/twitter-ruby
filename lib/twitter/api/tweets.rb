@@ -119,7 +119,7 @@ module Twitter
       # @option options [Integer] :in_reply_to_status_id The ID of an existing status that the update is in reply to.
       # @option options [Float] :lat The latitude of the location this tweet refers to. This option will be ignored unless it is inside the range -90.0 to +90.0 (North is positive) inclusive. It will also be ignored if there isn't a corresponding :long option.
       # @option options [Float] :long The longitude of the location this tweet refers to. The valid ranges for longitude is -180.0 to +180.0 (East is positive) inclusive. This option will be ignored if outside that range, if it is not a number, if geo_enabled is disabled, or if there not a corresponding :lat option.
-      # @option options [String] :place_id A place in the world. These IDs can be retrieved from {Twitter::API::Geo#reverse_geocode}.
+      # @option options [String] :place_id A place in the world. These IDs can be retrieved from {Twitter::API::PlacesAndGeo#reverse_geocode}.
       # @option options [String] :display_coordinates Whether or not to put a pin on the exact coordinates a tweet has been sent from.
       # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       # @example Update the authenticating user's status
@@ -195,7 +195,7 @@ module Twitter
       # @option options [Integer] :in_reply_to_status_id The ID of an existing Tweet that the update is in reply to.
       # @option options [Float] :lat The latitude of the location this tweet refers to. This option will be ignored unless it is inside the range -90.0 to +90.0 (North is positive) inclusive. It will also be ignored if there isn't a corresponding :long option.
       # @option options [Float] :long The longitude of the location this tweet refers to. The valid ranges for longitude is -180.0 to +180.0 (East is positive) inclusive. This option will be ignored if outside that range, if it is not a number, if geo_enabled is disabled, or if there not a corresponding :lat option.
-      # @option options [String] :place_id A place in the world. These IDs can be retrieved from {Twitter::API::Geo#reverse_geocode}.
+      # @option options [String] :place_id A place in the world. These IDs can be retrieved from {Twitter::API::PlacesAndGeo#reverse_geocode}.
       # @option options [String] :display_coordinates Whether or not to put a pin on the exact coordinates a tweet has been sent from.
       # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       # @example Update the authenticating user's status

@@ -248,9 +248,8 @@ module Twitter
       #   @option options [Symbol, String] :method Requests users via a GET request instead of the standard POST request if set to ':get'.
       #   @option options [Boolean] :include_entities The tweet entities node will be disincluded when set to false.
       #   @example Return extended information for @sferik and @pengwynn
-      #     Twitter.users('sferik', 'pengwynn', :method => :get)  # Retrieve users with a GET request
-      #     Twitter.users(7505382, 14100886, {:method => :get})   # Same as above
-      #     Twitter.users(7505382, 14100886, {:method => :get, :include_entities => false}) # See Twitter API documentation
+      #     Twitter.users('sferik', 'pengwynn', :method => :get) # Retrieve users with a GET request
+      #     Twitter.users(7505382, 14100886, :method => :get)    # Same as above
       def users(*args)
         options = extract_options!(args)
         method = options.delete(:method) || :post

@@ -12,7 +12,7 @@ module Twitter
       # @rate_limited Yes
       # @authentication_required Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-      # @param place_id [String] A place in the world. These IDs can be retrieved from {Twitter::API::Geo#reverse_geocode}.
+      # @param place_id [String] A place in the world. These IDs can be retrieved from {Twitter::API::PlacesAndGeo#reverse_geocode}.
       # @param options [Hash] A customizable set of options.
       # @return [Twitter::Place] The requested place.
       # @example Return all the information about Twitter HQ
@@ -41,7 +41,7 @@ module Twitter
         geo_collection_from_response(:get, "/1.1/geo/reverse_geocode.json", options)
       end
 
-      # Search for places that can be attached to a {Twitter::API::Statuses#update}
+      # Search for places that can be attached to a {Twitter::API::Tweets#update}
       #
       # @see https://dev.twitter.com/docs/api/1.1/get/geo/search
       # @rate_limited Yes
@@ -68,7 +68,7 @@ module Twitter
       # Locates places near the given coordinates which are similar in name
       #
       # @see https://dev.twitter.com/docs/api/1.1/get/geo/similar_places
-      # @note Conceptually, you would use this method to get a list of known places to choose from first. Then, if the desired place doesn't exist, make a request to {Twitter::API::Geo#place} to create a new one. The token contained in the response is the token necessary to create a new place.
+      # @note Conceptually, you would use this method to get a list of known places to choose from first. Then, if the desired place doesn't exist, make a request to {Twitter::API::PlacesAndGeo#place} to create a new one. The token contained in the response is the token necessary to create a new place.
       # @rate_limited Yes
       # @authentication_required Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
@@ -95,7 +95,7 @@ module Twitter
       # @param options [Hash] A customizable set of options.
       # @option options [String] :name The name a place is known as.
       # @option options [String] :contained_within This is the place_id which you would like to restrict the search results to. Setting this value means only places within the given place_id will be found.
-      # @option options [String] :token The token found in the response from {Twitter::API::Geo#places_similar}.
+      # @option options [String] :token The token found in the response from {Twitter::API::PlacesAndGeo#places_similar}.
       # @option options [Float] :lat The latitude to search around. This option will be ignored unless it is inside the range -90.0 to +90.0 (North is positive) inclusive. It will also be ignored if there isn't a corresponding :long option.
       # @option options [Float] :long The longitude to search around. The valid range for longitude is -180.0 to +180.0 (East is positive) inclusive. This option will be ignored if outside that range, if it is not a number, if geo_enabled is disabled, or if there not a corresponding :lat option.
       # @option options [String] :"attribute:street_address" This option searches for places which have this given street address. There are other well-known and application-specific attributes available. Custom attributes are also permitted.
