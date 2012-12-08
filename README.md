@@ -371,7 +371,7 @@ Here are some fun facts about this library:
 
 * It is implemented in just 2,000 lines of Ruby code
 * With over 4,000 lines of specs, the spec-to-code ratio is over 2:1
-* The spec suite contains 700 examples and runs in about 2 seconds
+* The spec suite contains over 700 examples and runs in about 5 seconds
 * It has 100% C0 code coverage (the tests execute every line of
   source code at least once)
 * It is comprehensive: you can request all documented Twitter REST API
