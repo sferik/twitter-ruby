@@ -1,3 +1,7 @@
+4.4.1
+-----
+* [Do not modify `Thread.abort_on_exception`](https://github.com/sferik/twitter/commit/6de998ced1f3dce97a24e500ecf2348192ae9316)
+
 4.4.0
 -----
 * [Add `Twitter::API::FriendsAndFollowers#friends` and `Twitter::API::FriendsAndFollowers#followers`](https://github.com/sferik/twitter/commit/03e1512a8e5e589771414aaf46db34718f1469ce) ([@tibbon](https://twitter.com/tibbon))
