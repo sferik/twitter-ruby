@@ -8,12 +8,8 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'json'
   spec.add_development_dependency 'kramdown'
   spec.add_development_dependency 'pry'
-  spec.add_development_dependency 'rake'
-  spec.add_development_dependency 'rspec'
+  spec.add_development_dependency 'pry-debugger'
   spec.add_development_dependency 'simplecov'
-  spec.add_development_dependency 'timecop'
-  spec.add_development_dependency 'webmock'
-  spec.add_development_dependency 'yard'
   spec.authors = ["John Nunemaker", "Wynn Netherland", "Erik Michaels-Ober", "Steve Richert"]
   spec.description = %q{A Ruby interface to the Twitter API.}
   spec.email = ['nunemaker@gmail.com', 'wynn.netherland@gmail.com', 'sferik@gmail.com', 'steve.richert@gmail.com']
