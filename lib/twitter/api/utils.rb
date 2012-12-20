@@ -79,7 +79,7 @@ module Twitter
       # @return [Array<Twitter::User>]
       def users_from_response(request_method, path, args)
         options = extract_options!(args)
-        merge_user!(options, args.pop || screen_name)
+        merge_user!(options, args.pop || screen_name) unless options[:user_id] || options[:screen_name]
         collection_from_response(Twitter::User, request_method, path, options)
       end
 

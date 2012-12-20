@@ -186,6 +186,16 @@ describe Twitter::API::Users do
       expect(blocking.users.first).to be_a Twitter::User
       expect(blocking.users.first.id).to eq 7505382
     end
+    context "with all" do
+      before do
+        stub_get("/1.1/blocks/list.json").with(:query => {:cursor => "1322801608223717003"}).to_return(:body => fixture("users_list2.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      end
+      it "requests the correct resource" do
+        @client.blocking.all
+        expect(a_get("/1.1/blocks/list.json").with(:query => {:cursor => "-1"})).to have_been_made
+        expect(a_get("/1.1/blocks/list.json").with(:query => {:cursor => "1322801608223717003"})).to have_been_made
+      end
+    end
   end
 
   describe "#blocked_ids" do
@@ -201,6 +211,16 @@ describe Twitter::API::Users do
       expect(blocked_ids).to be_a Twitter::Cursor
       expect(blocked_ids.ids).to be_an Array
       expect(blocked_ids.ids.first).to eq 14100886
+    end
+    context "with all" do
+      before do
+        stub_get("/1.1/blocks/ids.json").with(:query => {:cursor => "1305102810874389703"}).to_return(:body => fixture("ids_list2.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      end
+      it "requests the correct resource" do
+        @client.blocked_ids.all
+        expect(a_get("/1.1/blocks/ids.json").with(:query => {:cursor => "-1"})).to have_been_made
+        expect(a_get("/1.1/blocks/ids.json").with(:query => {:cursor => "1305102810874389703"})).to have_been_made
+      end
     end
   end
 
@@ -531,12 +551,6 @@ describe Twitter::API::Users do
         @client.contributees(7505382)
         expect(a_get("/1.1/users/contributees.json").with(:query => {:user_id => "7505382"})).to have_been_made
       end
-      it "returns a user's contributees" do
-        contributees = @client.contributees(7505382)
-        expect(contributees).to be_an Array
-        expect(contributees.first).to be_a Twitter::User
-        expect(contributees.first.name).to eq "Twitter API"
-      end
     end
     context "without arguments passed" do
       before do
@@ -579,12 +593,6 @@ describe Twitter::API::Users do
       it "requests the correct resource" do
         @client.contributors(7505382)
         expect(a_get("/1.1/users/contributors.json").with(:query => {:user_id => "7505382"})).to have_been_made
-      end
-      it "returns a user's contributors" do
-        contributors = @client.contributors(7505382)
-        expect(contributors).to be_an Array
-        expect(contributors.first).to be_a Twitter::User
-        expect(contributors.first.name).to eq "Biz Stone"
       end
     end
     context "without arguments passed" do
@@ -656,12 +664,6 @@ describe Twitter::API::Users do
       it "requests the correct resource" do
         @client.profile_banner(7505382)
         expect(a_get("/1.1/users/profile_banner.json").with(:query => {:user_id => "7505382"})).to have_been_made
-      end
-      it "returns a user's profile banner" do
-        banner = @client.profile_banner(7505382)
-        expect(banner).to be_a Twitter::ProfileBanner
-        expect(banner.sizes).to be_a Hash
-        expect(banner.sizes[:mobile].height).to eq 160
       end
     end
     context "without arguments passed" do

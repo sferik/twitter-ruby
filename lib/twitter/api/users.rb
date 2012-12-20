@@ -424,7 +424,7 @@ module Twitter
       #     Twitter.profile_banner(7505382)  # Same as above
       def profile_banner(*args)
         options = extract_options!(args)
-        merge_user!(options, args.pop || screen_name)
+        merge_user!(options, args.pop || screen_name) unless options[:user_id] || options[:screen_name]
         object_from_response(Twitter::ProfileBanner, :get, "/1.1/users/profile_banner.json", options)
       end
 
