@@ -120,7 +120,7 @@ module Twitter
       #     Twitter.memberships('sferik')
       #     Twitter.memberships(7505382)
       def memberships(*args)
-        lists_from_response(:get, "/1.1/lists/memberships.json", args, :memberships)
+        cursor_object_from_response(:lists, Twitter::List, :get, "/1.1/lists/memberships.json", args, :memberships)
       end
 
       # Returns the subscribers of the specified list
@@ -469,7 +469,7 @@ module Twitter
       #     Twitter.subscriptions('sferik')
       #     Twitter.subscriptions(7505382)
       def subscriptions(*args)
-        lists_from_response(:get, "/1.1/lists/subscriptions.json", args, :subscriptions)
+        cursor_object_from_response(:lists, Twitter::List, :get, "/1.1/lists/subscriptions.json", args, :subscriptions)
       end
 
       # Removes specified members from the list
@@ -515,17 +515,6 @@ module Twitter
         merge_list!(options, args.pop)
         merge_owner!(options, args.pop || screen_name) unless options[:owner_id] || options[:owner_screen_name]
         object_from_response(Twitter::List, request_method, path, options)
-      end
-
-      # @param request_method [Symbol]
-      # @param path [String]
-      # @param args [Array]
-      # @return [Array<Twitter::List>]
-      def lists_from_response(request_method, path, args, calling_method)
-        options = extract_options!(args)
-        merge_default_cursor!(options)
-        merge_user!(options, args.pop || screen_name) unless options[:user_id] || options[:screen_name]
-        cursor_from_response(:lists, Twitter::List, request_method, path, options, calling_method)
       end
 
       def list_users(request_method, path, args, calling_method)

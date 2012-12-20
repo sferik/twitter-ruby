@@ -282,7 +282,7 @@ module Twitter
       #   Twitter.followers('sferik')
       #   Twitter.followers(7505382)    # Same as above
       def followers(*args)
-        friends_or_followers_from_response(:get, "/1.1/followers/list.json", args, :followers)
+        cursor_object_from_response(:users, Twitter::User, :get, "/1.1/followers/list.json", args, :followers)
       end
 
       # Returns a cursored collection of user objects for every user the specified user is following (otherwise known as their "friends").
@@ -313,22 +313,9 @@ module Twitter
       #   Twitter.friends('sferik')
       #   Twitter.friends(7505382)    # Same as above
       def friends(*args)
-        friends_or_followers_from_response(:get, "/1.1/friends/list.json", args, :friends)
+        cursor_object_from_response(:users, Twitter::User, :get, "/1.1/friends/list.json", args, :friends)
       end
       alias following friends
-
-    private
-
-      # @param request_method [Symbol]
-      # @param path [String]
-      # @param args [Array]
-      # @return [Array<Integer>]
-      def friends_or_followers_from_response(request_method, path, args, calling_method)
-        options = extract_options!(args)
-        merge_default_cursor!(options)
-        merge_user!(options, args.pop || screen_name) unless options[:user_id] || options[:screen_name]
-        cursor_from_response(:users, Twitter::User, request_method, path, options, calling_method)
-      end
 
     end
   end

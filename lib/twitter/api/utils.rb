@@ -54,11 +54,25 @@ module Twitter
       # @param path [String]
       # @param args [Array]
       # @return [Array<Integer>]
-      def ids_from_response(request_method, path, args, calling_method)
+      def ids_from_response(request_method, path, args, method_name)
         options = extract_options!(args)
         merge_default_cursor!(options)
         merge_user!(options, args.pop)
-        cursor_from_response(:ids, nil, request_method, path, options, calling_method)
+        cursor_from_response(:ids, nil, request_method, path, options, method_name)
+      end
+
+      # @param collection_name [Symbol]
+      # @param klass [Class]
+      # @param request_method [Symbol]
+      # @param path [String]
+      # @param args [Array]
+      # @param method_name [Symbol]
+      # @return [Twitter::Cursor]
+      def cursor_object_from_response(collection_name, klass, request_method, path, args, method_name)
+        options = extract_options!(args)
+        merge_default_cursor!(options)
+        merge_user!(options, args.pop || screen_name) unless options[:user_id] || options[:screen_name]
+        cursor_from_response(collection_name, klass, request_method, path, options, method_name)
       end
 
       # @param collection_name [Symbol]
