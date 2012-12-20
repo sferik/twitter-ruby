@@ -68,7 +68,7 @@ module Twitter
       def following_followers_of(*args)
         options = extract_options!(args)
         merge_default_cursor!(options)
-        merge_user!(options, args.pop || screen_name)
+        merge_user!(options, args.pop || screen_name) unless options[:user_id] || options[:screen_name]
         cursor_from_response(:users, Twitter::User, :get, "/users/following_followers_of.json", options)
       end
 
