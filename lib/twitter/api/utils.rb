@@ -54,7 +54,7 @@ module Twitter
       # @param path [String]
       # @param args [Array]
       # @return [Array<Integer>]
-      def ids_from_response(request_method, path, args)
+      def ids_from_response(request_method, path, args, calling_method)
         options = extract_options!(args)
         merge_default_cursor!(options)
         merge_user!(options, args.pop)
@@ -68,7 +68,7 @@ module Twitter
       # @param params [Hash]
       # @param method_name [Symbol]
       # @return [Twitter::Cursor]
-      def cursor_from_response(collection_name, klass, request_method, path, params={}, method_name=calling_method)
+      def cursor_from_response(collection_name, klass, request_method, path, params, method_name)
         response = send(request_method.to_sym, path, params)
         Twitter::Cursor.from_response(response, collection_name.to_sym, klass, self, method_name, params)
       end

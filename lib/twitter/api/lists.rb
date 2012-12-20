@@ -120,7 +120,7 @@ module Twitter
       #     Twitter.memberships('sferik')
       #     Twitter.memberships(7505382)
       def memberships(*args)
-        lists_from_response(:get, "/1.1/lists/memberships.json", args)
+        lists_from_response(:get, "/1.1/lists/memberships.json", args, :memberships)
       end
 
       # Returns the subscribers of the specified list
@@ -147,7 +147,7 @@ module Twitter
       #     Twitter.list_subscribers('sferik', 8863586)
       #     Twitter.list_subscribers(7505382, 'presidents')
       def list_subscribers(*args)
-        list_users(:get, "/1.1/lists/subscribers.json", args)
+        list_users(:get, "/1.1/lists/subscribers.json", args, :list_subscribers)
       end
 
       # Make the authenticated user follow the specified list
@@ -315,7 +315,7 @@ module Twitter
       #     Twitter.list_members(7505382, 'presidents')
       #     Twitter.list_members(7505382, 8863586)
       def list_members(*args)
-        list_users(:get, "/1.1/lists/members.json", args)
+        list_users(:get, "/1.1/lists/members.json", args, :list_members)
       end
 
       # Add a member to a list
@@ -469,7 +469,7 @@ module Twitter
       #     Twitter.subscriptions('sferik')
       #     Twitter.subscriptions(7505382)
       def subscriptions(*args)
-        lists_from_response(:get, "/1.1/lists/subscriptions.json", args)
+        lists_from_response(:get, "/1.1/lists/subscriptions.json", args, :subscriptions)
       end
 
       # Removes specified members from the list
@@ -521,14 +521,14 @@ module Twitter
       # @param path [String]
       # @param args [Array]
       # @return [Array<Twitter::List>]
-      def lists_from_response(request_method, path, args)
+      def lists_from_response(request_method, path, args, calling_method)
         options = extract_options!(args)
         merge_default_cursor!(options)
         merge_user!(options, args.pop || screen_name) unless options[:user_id] || options[:screen_name]
         cursor_from_response(:lists, Twitter::List, request_method, path, options, calling_method)
       end
 
-      def list_users(request_method, path, args)
+      def list_users(request_method, path, args, calling_method)
         options = extract_options!(args)
         merge_default_cursor!(options)
         merge_list!(options, args.pop)

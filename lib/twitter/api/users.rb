@@ -148,7 +148,7 @@ module Twitter
       #   Twitter.blocking
       def blocking(options={})
         merge_default_cursor!(options)
-        cursor_from_response(:users, Twitter::User, :get, "/1.1/blocks/list.json", options)
+        cursor_from_response(:users, Twitter::User, :get, "/1.1/blocks/list.json", options, :blocking)
       end
 
       # Returns an array of numeric user ids the authenticating user is blocking
@@ -163,7 +163,7 @@ module Twitter
       # @overload block(options={})
       #   @param options [Hash] A customizable set of options.
       def blocked_ids(*args)
-        ids_from_response(:get, "/1.1/blocks/ids.json", args)
+        ids_from_response(:get, "/1.1/blocks/ids.json", args, :blocked_ids)
       end
 
       # Returns true if the authenticating user is blocking a target user

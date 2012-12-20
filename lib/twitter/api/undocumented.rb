@@ -69,7 +69,7 @@ module Twitter
         options = extract_options!(args)
         merge_default_cursor!(options)
         merge_user!(options, args.pop || screen_name) unless options[:user_id] || options[:screen_name]
-        cursor_from_response(:users, Twitter::User, :get, "/users/following_followers_of.json", options)
+        cursor_from_response(:users, Twitter::User, :get, "/users/following_followers_of.json", options, :following_followers_of)
       end
 
       # Returns activity summary for a Tweet
