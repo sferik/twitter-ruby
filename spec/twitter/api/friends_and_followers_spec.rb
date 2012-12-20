@@ -440,7 +440,6 @@ describe Twitter::API::FriendsAndFollowers do
       end
       context "when authenticated as someone else" do
         before do
-          stub_get("/1.1/account/verify_credentials.json").to_return(:body => fixture("nbraem.json"), :headers => {:content_type => "application/json; charset=utf-8"})
           stub_get("/1.1/followers/list.json").with(:query => {:cursor => "-1", :screen_name => "sferik"}).to_return(:body => fixture("followers_list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
           stub_get("/1.1/followers/list.json").with(:query => {:cursor => "1419103567112105362", :screen_name => "sferik"}).to_return(:body => fixture("followers_list2.json"), :headers => {:content_type => "application/json; charset=utf-8"})
         end
@@ -467,7 +466,6 @@ describe Twitter::API::FriendsAndFollowers do
       end
       context "when authenticated as someone else" do
         before do
-          stub_get("/1.1/account/verify_credentials.json").to_return(:body => fixture("nbraem.json"), :headers => {:content_type => "application/json; charset=utf-8"})
           stub_get("/1.1/followers/list.json").with(:query => {:cursor => "-1", :user_id => "14100886"}).to_return(:body => fixture("followers_list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
           stub_get("/1.1/followers/list.json").with(:query => {:cursor => "1419103567112105362", :user_id => "14100886"}).to_return(:body => fixture("followers_list2.json"), :headers => {:content_type => "application/json; charset=utf-8"})
         end
@@ -514,7 +512,6 @@ describe Twitter::API::FriendsAndFollowers do
       end
       context "when authenticated as someone else" do
         before do
-          stub_get("/1.1/account/verify_credentials.json").to_return(:body => fixture("nbraem.json"), :headers => {:content_type => "application/json; charset=utf-8"})
           stub_get("/1.1/friends/list.json").with(:query => {:cursor => "-1", :screen_name => "sferik"}).to_return(:body => fixture("friends_list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
           stub_get("/1.1/friends/list.json").with(:query => {:cursor => "1418947360875712729", :screen_name => "sferik"}).to_return(:body => fixture("friends_list2.json"), :headers => {:content_type => "application/json; charset=utf-8"})
         end
@@ -541,7 +538,6 @@ describe Twitter::API::FriendsAndFollowers do
       end
       context "when authenticated as someone else" do
         before do
-          stub_get("/1.1/account/verify_credentials.json").to_return(:body => fixture("nbraem.json"), :headers => {:content_type => "application/json; charset=utf-8"})
           stub_get("/1.1/friends/list.json").with(:query => {:cursor => "-1", :user_id => "14100886"}).to_return(:body => fixture("friends_list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
           stub_get("/1.1/friends/list.json").with(:query => {:cursor => "1418947360875712729", :user_id => "14100886"}).to_return(:body => fixture("friends_list2.json"), :headers => {:content_type => "application/json; charset=utf-8"})
         end
