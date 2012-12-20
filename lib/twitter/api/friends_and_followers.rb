@@ -326,7 +326,7 @@ module Twitter
       def friends_or_followers_from_response(request_method, path, args)
         options = extract_options!(args)
         merge_default_cursor!(options)
-        merge_user!(options, args.pop || screen_name) if options[:screen_name].nil? and options[:user_id].nil?
+        merge_user!(options, args.pop || screen_name) unless options[:user_id] || options[:screen_name]
         cursor_from_response(:users, Twitter::User, request_method, path, options, calling_method)
       end
 
