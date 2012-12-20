@@ -473,8 +473,8 @@ describe Twitter::API::FriendsAndFollowers do
         end
         it "requests the correct resources" do
           @client.followers(14100886).each{}
-          expect(a_get("/1.1/followers/list.json").with(:query => {:cursor => "-1", :screen_name => "sferik"})).to have_been_made
-          expect(a_get("/1.1/followers/list.json").with(:query => {:cursor => "1419103567112105362", :screen_name => "sferik"})).to have_been_made
+          expect(a_get("/1.1/followers/list.json").with(:query => {:cursor => "-1", :user_id => "14100886"})).to have_been_made
+          expect(a_get("/1.1/followers/list.json").with(:query => {:cursor => "1419103567112105362", :user_id => "14100886"})).to have_been_made
         end
       end
     end
@@ -547,8 +547,8 @@ describe Twitter::API::FriendsAndFollowers do
         end
         it "requests the correct resources" do
           @client.friends(14100886).each{}
-          expect(a_get("/1.1/friends/list.json").with(:query => {:cursor => "-1", :screen_name => "sferik"})).to have_been_made
-          expect(a_get("/1.1/friends/list.json").with(:query => {:cursor => "1418947360875712729", :screen_name => "sferik"})).to have_been_made
+          expect(a_get("/1.1/friends/list.json").with(:query => {:cursor => "-1", :user_id => "14100886"})).to have_been_made
+          expect(a_get("/1.1/friends/list.json").with(:query => {:cursor => "1418947360875712729", :user_id => "14100886"})).to have_been_made
         end
       end
     end
