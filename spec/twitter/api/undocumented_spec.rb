@@ -50,6 +50,21 @@ describe Twitter::API::Undocumented do
         expect(following_followers_of.users.first).to be_a Twitter::User
       end
     end
+    context "with a user ID passed" do
+      before do
+        stub_get("/users/following_followers_of.json").with(:query => {:cursor => "-1", :user_id => "7505382"}).to_return(:body => fixture("users_list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      end
+      it "requests the correct resource" do
+        @client.following_followers_of(7505382)
+        expect(a_get("/users/following_followers_of.json").with(:query => {:cursor => "-1", :user_id => "7505382"})).to have_been_made
+      end
+      it "returns an array of numeric IDs for every user following the specified user" do
+        following_followers_of = @client.following_followers_of(7505382)
+        expect(following_followers_of).to be_a Twitter::Cursor
+        expect(following_followers_of.users).to be_an Array
+        expect(following_followers_of.users.first).to be_a Twitter::User
+      end
+    end
     context "without arguments passed" do
       before do
         stub_get("/1.1/account/verify_credentials.json").to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
