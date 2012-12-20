@@ -524,7 +524,7 @@ module Twitter
       def lists_from_response(request_method, path, args)
         options = extract_options!(args)
         merge_default_cursor!(options)
-        merge_user!(options, args.pop)
+        merge_user!(options, args.pop || screen_name) unless options[:user_id] || options[:screen_name]
         cursor_from_response(:lists, Twitter::List, request_method, path, options, calling_method)
       end
 

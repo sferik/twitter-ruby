@@ -93,6 +93,16 @@ describe Twitter::API::Lists do
         expect(memberships.lists.first).to be_a Twitter::List
         expect(memberships.lists.first.name).to eq "developer"
       end
+      context "with all" do
+        before do
+          stub_get("/1.1/lists/memberships.json").with(:query => {:screen_name => "sferik", :cursor => "1401037770457540712"}).to_return(:body => fixture("memberships2.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        end
+        it "requests the correct resource" do
+          @client.memberships("sferik").all
+          expect(a_get("/1.1/lists/memberships.json").with(:query => {:screen_name => "sferik", :cursor => "-1"})).to have_been_made
+          expect(a_get("/1.1/lists/memberships.json").with(:query => {:screen_name => "sferik", :cursor => "1401037770457540712"})).to have_been_made
+        end
+      end
     end
     context "with a user ID passed" do
       before do
@@ -102,22 +112,35 @@ describe Twitter::API::Lists do
         @client.memberships(7505382)
         expect(a_get("/1.1/lists/memberships.json").with(:query => {:user_id => "7505382", :cursor => "-1"})).to have_been_made
       end
-      it "returns the lists the specified user has been added to" do
-        memberships = @client.memberships(7505382)
-        expect(memberships).to be_a Twitter::Cursor
-        expect(memberships.lists).to be_an Array
-        expect(memberships.lists.first).to be_a Twitter::List
-        expect(memberships.lists.first.name).to eq "developer"
+      context "with all" do
+        before do
+          stub_get("/1.1/lists/memberships.json").with(:query => {:user_id => "7505382", :cursor => "1401037770457540712"}).to_return(:body => fixture("memberships2.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        end
+        it "requests the correct resource" do
+          @client.memberships(7505382).all
+          expect(a_get("/1.1/lists/memberships.json").with(:query => {:user_id => "7505382", :cursor => "-1"})).to have_been_made
+          expect(a_get("/1.1/lists/memberships.json").with(:query => {:user_id => "7505382", :cursor => "1401037770457540712"})).to have_been_made
+        end
       end
     end
     context "without a screen name passed" do
       before do
         stub_get("/1.1/account/verify_credentials.json").to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-        stub_get("/1.1/lists/memberships.json").with(:query => {:cursor => "-1"}).to_return(:body => fixture("memberships.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        stub_get("/1.1/lists/memberships.json").with(:query => {:screen_name => "sferik", :cursor => "-1"}).to_return(:body => fixture("memberships.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.memberships
-        expect(a_get("/1.1/lists/memberships.json").with(:query => {:cursor => "-1"})).to have_been_made
+        expect(a_get("/1.1/lists/memberships.json").with(:query => {:screen_name => "sferik", :cursor => "-1"})).to have_been_made
+      end
+      context "with all" do
+        before do
+          stub_get("/1.1/lists/memberships.json").with(:query => {:screen_name => "sferik", :cursor => "1401037770457540712"}).to_return(:body => fixture("memberships2.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        end
+        it "requests the correct resource" do
+          @client.memberships.all
+          expect(a_get("/1.1/lists/memberships.json").with(:query => {:screen_name => "sferik", :cursor => "-1"})).to have_been_made
+          expect(a_get("/1.1/lists/memberships.json").with(:query => {:screen_name => "sferik", :cursor => "1401037770457540712"})).to have_been_made
+        end
       end
     end
   end
@@ -138,6 +161,16 @@ describe Twitter::API::Lists do
         expect(list_subscribers.users.first).to be_a Twitter::User
         expect(list_subscribers.users.first.id).to eq 7505382
       end
+      context "with all" do
+        before do
+          stub_get("/1.1/lists/subscribers.json").with(:query => {:owner_screen_name => "sferik", :slug => "presidents", :cursor => "1322801608223717003"}).to_return(:body => fixture("users_list2.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        end
+        it "requests the correct resource" do
+          @client.list_subscribers("sferik", "presidents").all
+          expect(a_get("/1.1/lists/subscribers.json").with(:query => {:owner_screen_name => "sferik", :slug => "presidents", :cursor => "-1"})).to have_been_made
+          expect(a_get("/1.1/lists/subscribers.json").with(:query => {:owner_screen_name => "sferik", :slug => "presidents", :cursor => "1322801608223717003"})).to have_been_made
+        end
+      end
     end
     context "with a user ID passed" do
       before do
@@ -147,12 +180,15 @@ describe Twitter::API::Lists do
         @client.list_subscribers(7505382, "presidents")
         expect(a_get("/1.1/lists/subscribers.json").with(:query => {:owner_id => "7505382", :slug => "presidents", :cursor => "-1"})).to have_been_made
       end
-      it "returns the subscribers of the specified list" do
-        list_subscribers = @client.list_subscribers(7505382, "presidents")
-        expect(list_subscribers).to be_a Twitter::Cursor
-        expect(list_subscribers.users).to be_an Array
-        expect(list_subscribers.users.first).to be_a Twitter::User
-        expect(list_subscribers.users.first.id).to eq 7505382
+      context "with all" do
+        before do
+          stub_get("/1.1/lists/subscribers.json").with(:query => {:owner_id => "7505382", :slug => "presidents", :cursor => "1322801608223717003"}).to_return(:body => fixture("users_list2.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        end
+        it "requests the correct resource" do
+          @client.list_subscribers(7505382, "presidents").all
+          expect(a_get("/1.1/lists/subscribers.json").with(:query => {:owner_id => "7505382", :slug => "presidents", :cursor => "-1"})).to have_been_made
+          expect(a_get("/1.1/lists/subscribers.json").with(:query => {:owner_id => "7505382", :slug => "presidents", :cursor => "1322801608223717003"})).to have_been_made
+        end
       end
     end
     context "without a screen name passed" do
@@ -163,6 +199,16 @@ describe Twitter::API::Lists do
       it "requests the correct resource" do
         @client.list_subscribers("presidents")
         expect(a_get("/1.1/lists/subscribers.json").with(:query => {:owner_screen_name => "sferik", :slug => "presidents", :cursor => "-1"})).to have_been_made
+      end
+      context "with all" do
+        before do
+          stub_get("/1.1/lists/subscribers.json").with(:query => {:owner_screen_name => "sferik", :slug => "presidents", :cursor => "1322801608223717003"}).to_return(:body => fixture("users_list2.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        end
+        it "requests the correct resource" do
+          @client.list_subscribers("presidents").all
+          expect(a_get("/1.1/lists/subscribers.json").with(:query => {:owner_screen_name => "sferik", :slug => "presidents", :cursor => "-1"})).to have_been_made
+          expect(a_get("/1.1/lists/subscribers.json").with(:query => {:owner_screen_name => "sferik", :slug => "presidents", :cursor => "1322801608223717003"})).to have_been_made
+        end
       end
     end
   end
@@ -419,6 +465,16 @@ describe Twitter::API::Lists do
         expect(list_members.users.first).to be_a Twitter::User
         expect(list_members.users.first.id).to eq 7505382
       end
+      context "with all" do
+        before do
+          stub_get("/1.1/lists/members.json").with(:query => {:owner_screen_name => "sferik", :slug => "presidents", :cursor => "1322801608223717003"}).to_return(:body => fixture("users_list2.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        end
+        it "requests the correct resource" do
+          @client.list_members("sferik", "presidents").all
+          expect(a_get("/1.1/lists/members.json").with(:query => {:owner_screen_name => "sferik", :slug => "presidents", :cursor => "-1"})).to have_been_made
+          expect(a_get("/1.1/lists/members.json").with(:query => {:owner_screen_name => "sferik", :slug => "presidents", :cursor => "1322801608223717003"})).to have_been_made
+        end
+      end
     end
     context "with a user ID passed" do
       before do
@@ -428,12 +484,15 @@ describe Twitter::API::Lists do
         @client.list_members(7505382, "presidents")
         expect(a_get("/1.1/lists/members.json").with(:query => {:owner_id => "7505382", :slug => "presidents", :cursor => "-1"})).to have_been_made
       end
-      it "returns the members of the specified list" do
-        list_members = @client.list_members(7505382, "presidents")
-        expect(list_members).to be_a Twitter::Cursor
-        expect(list_members.users).to be_an Array
-        expect(list_members.users.first).to be_a Twitter::User
-        expect(list_members.users.first.id).to eq 7505382
+      context "with all" do
+        before do
+          stub_get("/1.1/lists/members.json").with(:query => {:owner_id => "7505382", :slug => "presidents", :cursor => "1322801608223717003"}).to_return(:body => fixture("users_list2.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        end
+        it "requests the correct resource" do
+          @client.list_members(7505382, "presidents").all
+          expect(a_get("/1.1/lists/members.json").with(:query => {:owner_id => "7505382", :slug => "presidents", :cursor => "-1"})).to have_been_made
+          expect(a_get("/1.1/lists/members.json").with(:query => {:owner_id => "7505382", :slug => "presidents", :cursor => "1322801608223717003"})).to have_been_made
+        end
       end
     end
     context "without a screen name passed" do
@@ -444,6 +503,16 @@ describe Twitter::API::Lists do
       it "requests the correct resource" do
         @client.list_members("presidents")
         expect(a_get("/1.1/lists/members.json").with(:query => {:owner_screen_name => "sferik", :slug => "presidents", :cursor => "-1"})).to have_been_made
+      end
+      context "with all" do
+        before do
+          stub_get("/1.1/lists/members.json").with(:query => {:owner_screen_name => "sferik", :slug => "presidents", :cursor => "1322801608223717003"}).to_return(:body => fixture("users_list2.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        end
+        it "requests the correct resource" do
+          @client.list_members("presidents").all
+          expect(a_get("/1.1/lists/members.json").with(:query => {:owner_screen_name => "sferik", :slug => "presidents", :cursor => "-1"})).to have_been_made
+          expect(a_get("/1.1/lists/members.json").with(:query => {:owner_screen_name => "sferik", :slug => "presidents", :cursor => "1322801608223717003"})).to have_been_made
+        end
       end
     end
   end
@@ -663,6 +732,16 @@ describe Twitter::API::Lists do
         expect(subscriptions.lists.first).to be_a Twitter::List
         expect(subscriptions.lists.first.name).to eq "Rubyists"
       end
+      context "with all" do
+        before do
+          stub_get("/1.1/lists/subscriptions.json").with(:query => {:screen_name => "sferik", :cursor => "1401037770457540712"}).to_return(:body => fixture("subscriptions2.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        end
+        it "requests the correct resource" do
+          @client.subscriptions("sferik").all
+          expect(a_get("/1.1/lists/subscriptions.json").with(:query => {:screen_name => "sferik", :cursor => "-1"})).to have_been_made
+          expect(a_get("/1.1/lists/subscriptions.json").with(:query => {:screen_name => "sferik", :cursor => "1401037770457540712"})).to have_been_made
+        end
+      end
     end
     context "with a user ID passed" do
       before do
@@ -672,22 +751,35 @@ describe Twitter::API::Lists do
         @client.subscriptions(7505382)
         expect(a_get("/1.1/lists/subscriptions.json").with(:query => {:user_id => "7505382", :cursor => "-1"})).to have_been_made
       end
-      it "returns the lists the specified user follows" do
-        subscriptions = @client.subscriptions(7505382)
-        expect(subscriptions).to be_a Twitter::Cursor
-        expect(subscriptions.lists).to be_an Array
-        expect(subscriptions.lists.first).to be_a Twitter::List
-        expect(subscriptions.lists.first.name).to eq "Rubyists"
+      context "with all" do
+        before do
+          stub_get("/1.1/lists/subscriptions.json").with(:query => {:user_id => "7505382", :cursor => "1401037770457540712"}).to_return(:body => fixture("subscriptions2.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        end
+        it "requests the correct resource" do
+          @client.subscriptions(7505382).all
+          expect(a_get("/1.1/lists/subscriptions.json").with(:query => {:user_id => "7505382", :cursor => "-1"})).to have_been_made
+          expect(a_get("/1.1/lists/subscriptions.json").with(:query => {:user_id => "7505382", :cursor => "1401037770457540712"})).to have_been_made
+        end
       end
     end
     context "without a screen name passed" do
       before do
         stub_get("/1.1/account/verify_credentials.json").to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-        stub_get("/1.1/lists/subscriptions.json").with(:query => {:cursor => "-1"}).to_return(:body => fixture("subscriptions.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        stub_get("/1.1/lists/subscriptions.json").with(:query => {:screen_name => "sferik", :cursor => "-1"}).to_return(:body => fixture("subscriptions.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.subscriptions
-        expect(a_get("/1.1/lists/subscriptions.json").with(:query => {:cursor => "-1"})).to have_been_made
+        expect(a_get("/1.1/lists/subscriptions.json").with(:query => {:screen_name => "sferik", :cursor => "-1"})).to have_been_made
+      end
+      context "with all" do
+        before do
+          stub_get("/1.1/lists/subscriptions.json").with(:query => {:screen_name => "sferik", :cursor => "1401037770457540712"}).to_return(:body => fixture("subscriptions2.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        end
+        it "requests the correct resource" do
+          @client.subscriptions.all
+          expect(a_get("/1.1/lists/subscriptions.json").with(:query => {:screen_name => "sferik", :cursor => "-1"})).to have_been_made
+          expect(a_get("/1.1/lists/subscriptions.json").with(:query => {:screen_name => "sferik", :cursor => "1401037770457540712"})).to have_been_made
+        end
       end
     end
   end
@@ -714,11 +806,6 @@ describe Twitter::API::Lists do
       it "requests the correct resource" do
         @client.list_remove_members(7505382, "presidents", [813286, 18755393])
         expect(a_post("/1.1/lists/members/destroy_all.json").with(:body => {:owner_id => "7505382", :slug => "presidents", :user_id => "813286,18755393"})).to have_been_made
-      end
-      it "returns the list" do
-        list = @client.list_remove_members(7505382, "presidents", [813286, 18755393])
-        expect(list).to be_a Twitter::List
-        expect(list.name).to eq "presidents"
       end
     end
     context "with a combination of member IDs and member screen names to add" do
