@@ -93,7 +93,6 @@ module Twitter
       # @example Return an array of numeric IDs for every user who has a pending request to follow the authenticating user
       #   Twitter.friendships_incoming
       def friendships_incoming(options={})
-        merge_default_cursor!(options)
         cursor_from_response(:ids, nil, :get, "/1.1/friendships/incoming.json", options, :friendships_incoming)
       end
 
@@ -109,7 +108,6 @@ module Twitter
       # @example Return an array of numeric IDs for every protected user for whom the authenticating user has a pending follow request
       #   Twitter.friendships_outgoing
       def friendships_outgoing(options={})
-        merge_default_cursor!(options)
         cursor_from_response(:ids, nil, :get, "/1.1/friendships/outgoing.json", options, :friendships_outgoing)
       end
 

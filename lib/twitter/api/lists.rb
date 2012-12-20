@@ -519,7 +519,6 @@ module Twitter
 
       def list_users(request_method, path, args, calling_method)
         options = extract_options!(args)
-        merge_default_cursor!(options)
         merge_list!(options, args.pop)
         merge_owner!(options, args.pop || screen_name) unless options[:owner_id] || options[:owner_screen_name]
         cursor_from_response(:users, Twitter::User, request_method, path, options, calling_method)

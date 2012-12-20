@@ -147,7 +147,6 @@ module Twitter
       # @example Return an array of user objects that the authenticating user is blocking
       #   Twitter.blocking
       def blocking(options={})
-        merge_default_cursor!(options)
         cursor_from_response(:users, Twitter::User, :get, "/1.1/blocks/list.json", options, :blocking)
       end
 
