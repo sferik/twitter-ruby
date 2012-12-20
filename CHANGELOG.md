@@ -1,3 +1,9 @@
+4.4.2
+-----
+* [Fix to `Twitter::API::FriendsAndFollowers#friends` and `Twitter::API::FriendsAndFollowers#followers`](https://github.com/sferik/twitter/commit/d97438f5de89a1a15ad8ff5e67e8e0c7d412911f) ([@nbraem](https://twitter.com/nbraem))
+* [Alias `Twitter::DirectMessage#text` to `Twitter::DirectMessage#full_text`](https://github.com/sferik/twitter/commit/dde92816beac5076507b3c0fb5b036222e2a4889)
+* [Remove `Kernel#calling_method`](https://github.com/sferik/twitter/commit/045d6e17178520641509f884ed4ce4e4f2f765fb)
+
 4.4.1
 -----
 * [Do not modify `Thread.abort_on_exception`](https://github.com/sferik/twitter/commit/6de998ced1f3dce97a24e500ecf2348192ae9316)
