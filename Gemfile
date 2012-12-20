@@ -8,6 +8,7 @@ platforms :jruby do
 end
 
 group :test do
+  gem 'json', :platforms => :ruby_18
   gem 'rspec'
   gem 'timecop'
   gem 'webmock'
