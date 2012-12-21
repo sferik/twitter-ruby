@@ -22,7 +22,7 @@ module Twitter
       # @example Return activity about me
       #   Twitter.activity_about_me
       def activity_about_me(options={})
-        collection_from_response(Twitter::ActionFactory, :get, "/i/activity/about_me.json", options)
+        objects_from_response(Twitter::ActionFactory, :get, "/i/activity/about_me.json", options)
       end
 
       # Returns activity by friends
@@ -38,7 +38,7 @@ module Twitter
       # @example Return activity by friends
       #   Twitter.activity_by_friends
       def activity_by_friends(options={})
-        collection_from_response(Twitter::ActionFactory, :get, "/i/activity/by_friends.json", options)
+        objects_from_response(Twitter::ActionFactory, :get, "/i/activity/by_friends.json", options)
       end
 
       # @note Undocumented
@@ -66,9 +66,7 @@ module Twitter
       #     Twitter.following_followers_of('sferik')
       #     Twitter.following_followers_of(7505382)  # Same as above
       def following_followers_of(*args)
-        options = extract_options!(args)
-        merge_user!(options, args.pop || screen_name) unless options[:user_id] || options[:screen_name]
-        cursor_from_response(:users, Twitter::User, :get, "/users/following_followers_of.json", options, :following_followers_of)
+        cursor_from_response_with_user(:users, Twitter::User, :get, "/users/following_followers_of.json", args, :following_followers_of)
       end
 
       # Returns activity summary for a Tweet

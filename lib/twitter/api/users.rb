@@ -162,7 +162,9 @@ module Twitter
       # @overload block(options={})
       #   @param options [Hash] A customizable set of options.
       def blocked_ids(*args)
-        ids_from_response(:get, "/1.1/blocks/ids.json", args, :blocked_ids)
+        options = extract_options!(args)
+        merge_user!(options, args.pop)
+        cursor_from_response(:ids, nil, :get, "/1.1/blocks/ids.json", options, :blocked_ids)
       end
 
       # Returns true if the authenticating user is blocking a target user
@@ -207,7 +209,7 @@ module Twitter
       #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
       #   @param options [Hash] A customizable set of options.
       def block(*args)
-        threaded_users_from_response(:post, "/1.1/blocks/create.json", args)
+        threaded_user_objects_from_response(:post, "/1.1/blocks/create.json", args)
       end
 
       # Un-blocks the users specified by the authenticating user
@@ -226,7 +228,7 @@ module Twitter
       #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
       #   @param options [Hash] A customizable set of options.
       def unblock(*args)
-        threaded_users_from_response(:post, "/1.1/blocks/destroy.json", args)
+        threaded_user_objects_from_response(:post, "/1.1/blocks/destroy.json", args)
       end
 
       # Returns extended information for up to 100 users
@@ -253,7 +255,7 @@ module Twitter
         options = extract_options!(args)
         method = options.delete(:method) || :post
         args.flatten.each_slice(MAX_USERS_PER_REQUEST).threaded_map do |users|
-          collection_from_response(Twitter::User, method, "/1.1/users/lookup.json", merge_users(options, users))
+          objects_from_response(Twitter::User, method, "/1.1/users/lookup.json", merge_users(options, users))
         end.flatten
       end
 
@@ -319,7 +321,7 @@ module Twitter
       # @example Return users that match "Erik Michaels-Ober"
       #   Twitter.user_search("Erik Michaels-Ober")
       def user_search(query, options={})
-        collection_from_response(Twitter::User, :get, "/1.1/users/search.json", options.merge(:q => query))
+        objects_from_response(Twitter::User, :get, "/1.1/users/search.json", options.merge(:q => query))
       end
 
       # Returns an array of users that the specified user can contribute to
@@ -342,7 +344,7 @@ module Twitter
       #     Twitter.contributees('sferik')
       #     Twitter.contributees(7505382)  # Same as above
       def contributees(*args)
-        users_from_response(:get, "/1.1/users/contributees.json", args)
+        user_objects_from_response(:get, "/1.1/users/contributees.json", args)
       end
 
       # Returns an array of users who can contribute to the specified account
@@ -365,7 +367,7 @@ module Twitter
       #     Twitter.contributors('sferik')
       #     Twitter.contributors(7505382)  # Same as above
       def contributors(*args)
-        users_from_response(:get, "/1.1/users/contributors.json", args)
+        user_objects_from_response(:get, "/1.1/users/contributors.json", args)
       end
 
       # Removes the authenticating user's profile banner image

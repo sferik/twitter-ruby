@@ -30,7 +30,7 @@ module Twitter
       #     Twitter.lists('sferik')
       #     Twitter.lists(7505382)
       def lists(*args)
-        objects_from_response(Twitter::List, :get, "/1.1/lists/list.json", args)
+        objects_from_response_with_user(Twitter::List, :get, "/1.1/lists/list.json", args)
       end
       alias lists_subscribed_to lists
 
@@ -66,7 +66,7 @@ module Twitter
         options = extract_options!(args)
         merge_list!(options, args.pop)
         merge_owner!(options, args.pop || screen_name) unless options[:owner_id] || options[:owner_screen_name]
-        collection_from_response(Twitter::Tweet, :get, "/1.1/lists/statuses.json", options)
+        objects_from_response(Twitter::Tweet, :get, "/1.1/lists/statuses.json", options)
       end
 
       # Removes the specified member from the list
@@ -95,7 +95,7 @@ module Twitter
       #     Twitter.list_remove_member('sferik', 8863586, 'BarackObama')
       #     Twitter.list_remove_member(7505382, 'presidents', 813286)
       def list_remove_member(*args)
-        list_modify_member(:post, "/1.1/lists/members/destroy.json", args)
+        list_from_response_with_user(:post, "/1.1/lists/members/destroy.json", args)
       end
 
       # List the lists the specified user has been added to
@@ -120,7 +120,7 @@ module Twitter
       #     Twitter.memberships('sferik')
       #     Twitter.memberships(7505382)
       def memberships(*args)
-        cursor_object_from_response(:lists, Twitter::List, :get, "/1.1/lists/memberships.json", args, :memberships)
+        cursor_from_response_with_user(:lists, Twitter::List, :get, "/1.1/lists/memberships.json", args, :memberships)
       end
 
       # Returns the subscribers of the specified list
@@ -147,7 +147,7 @@ module Twitter
       #     Twitter.list_subscribers('sferik', 8863586)
       #     Twitter.list_subscribers(7505382, 'presidents')
       def list_subscribers(*args)
-        list_users(:get, "/1.1/lists/subscribers.json", args, :list_subscribers)
+        cursor_from_response_with_list(:get, "/1.1/lists/subscribers.json", args, :list_subscribers)
       end
 
       # Make the authenticated user follow the specified list
@@ -260,7 +260,7 @@ module Twitter
       #     Twitter.list_add_members(7505382, 8863586, ['BarackObama', 'pengwynn'])
       #     Twitter.list_add_members(7505382, 8863586, [813286, 18755393])
       def list_add_members(*args)
-        list_modify_members(:post, "/1.1/lists/members/create_all.json", args)
+        list_from_response_with_users(:post, "/1.1/lists/members/create_all.json", args)
       end
 
       # Check if a user is a member of the specified list
@@ -315,7 +315,7 @@ module Twitter
       #     Twitter.list_members(7505382, 'presidents')
       #     Twitter.list_members(7505382, 8863586)
       def list_members(*args)
-        list_users(:get, "/1.1/lists/members.json", args, :list_members)
+        cursor_from_response_with_list(:get, "/1.1/lists/members.json", args, :list_members)
       end
 
       # Add a member to a list
@@ -344,7 +344,7 @@ module Twitter
       #     Twitter.list_add_member(7505382, 'presidents', 813286)
       #     Twitter.list_add_member(7505382, 8863586, 813286)
       def list_add_member(*args)
-        list_modify_member(:post, "/1.1/lists/members/create.json", args)
+        list_from_response_with_user(:post, "/1.1/lists/members/create.json", args)
       end
 
       # Deletes the specified list
@@ -469,7 +469,7 @@ module Twitter
       #     Twitter.subscriptions('sferik')
       #     Twitter.subscriptions(7505382)
       def subscriptions(*args)
-        cursor_object_from_response(:lists, Twitter::List, :get, "/1.1/lists/subscriptions.json", args, :subscriptions)
+        cursor_from_response_with_user(:lists, Twitter::List, :get, "/1.1/lists/subscriptions.json", args, :subscriptions)
       end
 
       # Removes specified members from the list
@@ -501,7 +501,7 @@ module Twitter
       #     Twitter.list_remove_members(7505382, 8863586, ['BarackObama', 'pengwynn'])
       #     Twitter.list_remove_members(7505382, 8863586, [813286, 18755393])
       def list_remove_members(*args)
-        list_modify_members(:post, "/1.1/lists/members/destroy_all.json", args)
+        list_from_response_with_users(:post, "/1.1/lists/members/destroy_all.json", args)
       end
 
     private
@@ -517,7 +517,7 @@ module Twitter
         object_from_response(Twitter::List, request_method, path, options)
       end
 
-      def list_users(request_method, path, args, calling_method)
+      def cursor_from_response_with_list(request_method, path, args, calling_method)
         options = extract_options!(args)
         merge_list!(options, args.pop)
         merge_owner!(options, args.pop || screen_name) unless options[:owner_id] || options[:owner_screen_name]
@@ -535,7 +535,7 @@ module Twitter
         false
       end
 
-      def list_modify_member(request_method, path, args)
+      def list_from_response_with_user(request_method, path, args)
         options = extract_options!(args)
         merge_user!(options, args.pop)
         merge_list!(options, args.pop)
@@ -543,7 +543,7 @@ module Twitter
         object_from_response(Twitter::List, request_method, path, options)
       end
 
-      def list_modify_members(request_method, path, args)
+      def list_from_response_with_users(request_method, path, args)
         options = extract_options!(args)
         members = args.pop
         merge_list!(options, args.pop)

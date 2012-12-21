@@ -33,7 +33,7 @@ module Twitter
       def saved_searches(*args)
         options = extract_options!(args)
         if args.empty?
-          collection_from_response(Twitter::SavedSearch, :get, "/1.1/saved_searches/list.json", options)
+          objects_from_response(Twitter::SavedSearch, :get, "/1.1/saved_searches/list.json", options)
         else
           args.flatten.threaded_map do |id|
             saved_search(id)

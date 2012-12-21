@@ -38,7 +38,7 @@ module Twitter
       # @example Return an array of places within the specified region
       #   Twitter.reverse_geocode(:lat => "37.7821120598956", :long => "-122.400612831116")
       def reverse_geocode(options={})
-        geo_collection_from_response(:get, "/1.1/geo/reverse_geocode.json", options)
+        geo_objects_from_response(:get, "/1.1/geo/reverse_geocode.json", options)
       end
 
       # Search for places that can be attached to a {Twitter::API::Tweets#update}
@@ -61,7 +61,7 @@ module Twitter
       # @example Return an array of places near the IP address 74.125.19.104
       #   Twitter.geo_search(:ip => "74.125.19.104")
       def geo_search(options={})
-        geo_collection_from_response(:get, "/1.1/geo/search.json", options)
+        geo_objects_from_response(:get, "/1.1/geo/search.json", options)
       end
       alias places_nearby geo_search
 
@@ -82,7 +82,7 @@ module Twitter
       # @example Return an array of places similar to Twitter HQ
       #   Twitter.similar_places(:lat => "37.7821120598956", :long => "-122.400612831116", :name => "Twitter HQ")
       def similar_places(options={})
-        geo_collection_from_response(:get, "/1.1/geo/similar_places.json", options)
+        geo_objects_from_response(:get, "/1.1/geo/similar_places.json", options)
       end
       alias places_similar similar_places
 
@@ -112,8 +112,8 @@ module Twitter
       # @param path [String]
       # @param params [Hash]
       # @return [Array]
-      def geo_collection_from_response(request_method, path, params={})
-        collection_from_array(Twitter::Place, send(request_method.to_sym, path, params)[:body][:result][:places])
+      def geo_objects_from_response(request_method, path, params={})
+        objects_from_array(Twitter::Place, send(request_method.to_sym, path, params)[:body][:result][:places])
       end
 
     end

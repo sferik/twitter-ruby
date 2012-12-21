@@ -22,7 +22,7 @@ module Twitter
       def trends(id=1, options={})
         options[:id] = id
         response = get("/1.1/trends/place.json", options)
-        collection_from_array(Twitter::Trend, response[:body].first[:trends])
+        objects_from_array(Twitter::Trend, response[:body].first[:trends])
       end
       alias local_trends trends
       alias trends_place trends
@@ -38,7 +38,7 @@ module Twitter
       # @example Return the locations that Twitter has trending topic information for
       #   Twitter.trends_available
       def trends_available(options={})
-        collection_from_response(Twitter::Place, :get, "/1.1/trends/available.json", options)
+        objects_from_response(Twitter::Place, :get, "/1.1/trends/available.json", options)
       end
       alias trend_locations trends_available
 
@@ -55,7 +55,7 @@ module Twitter
       # @example Return the locations that Twitter has trending topic information for
       #   Twitter.trends_closest
       def trends_closest(options={})
-        collection_from_response(Twitter::Place, :get, "/1.1/trends/closest.json", options)
+        objects_from_response(Twitter::Place, :get, "/1.1/trends/closest.json", options)
       end
 
     end

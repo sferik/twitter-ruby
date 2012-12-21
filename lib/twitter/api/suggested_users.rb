@@ -31,7 +31,7 @@ module Twitter
         if slug = args.pop
           object_from_response(Twitter::Suggestion, :get, "/1.1/users/suggestions/#{slug}.json", options)
         else
-          collection_from_response(Twitter::Suggestion, :get, "/1.1/users/suggestions.json", options)
+          objects_from_response(Twitter::Suggestion, :get, "/1.1/users/suggestions.json", options)
         end
       end
 
@@ -46,7 +46,7 @@ module Twitter
       # @example Return the users in the Art & Design category and their most recent Tweet if they are not a protected user
       #   Twitter.suggest_users("art-design")
       def suggest_users(slug, options={})
-        collection_from_response(Twitter::User, :get, "/1.1/users/suggestions/#{slug}/members.json", options)
+        objects_from_response(Twitter::User, :get, "/1.1/users/suggestions/#{slug}/members.json", options)
       end
 
     end

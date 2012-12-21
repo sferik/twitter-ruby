@@ -11,99 +11,54 @@ module Twitter
 
     private
 
-      # @param klass [Class]
-      # @param array [Array]
-      # @return [Array]
-      def collection_from_array(klass, array)
-        array.map do |element|
-          klass.fetch_or_new(element)
-        end
-      end
-
-      # @param klass [Class]
-      # @param request_method [Symbol]
-      # @param path [String]
-      # @param params [Hash]
-      # @return [Array]
-      def collection_from_response(klass, request_method, path, params={})
-        collection_from_array(klass, send(request_method.to_sym, path, params)[:body])
-      end
-
-      # @param klass [Class]
-      # @param request_method [Symbol]
-      # @param path [String]
-      # @param params [Hash]
-      # @return [Object]
-      def object_from_response(klass, request_method, path, params={})
-        response = send(request_method.to_sym, path, params)
-        klass.from_response(response)
-      end
-
-      # @param klass [Class]
-      # @param request_method [Symbol]
-      # @param path [String]
-      # @param args [Array]
-      # @return [Array]
-      def objects_from_response(klass, request_method, path, args)
-        options = extract_options!(args)
-        merge_user!(options, args.pop)
-        collection_from_response(klass, request_method, path, options)
-      end
-
-      # @param request_method [Symbol]
-      # @param path [String]
-      # @param args [Array]
-      # @return [Array<Integer>]
-      def ids_from_response(request_method, path, args, method_name)
-        options = extract_options!(args)
-        merge_user!(options, args.pop)
-        cursor_from_response(:ids, nil, request_method, path, options, method_name)
-      end
-
-      # @param collection_name [Symbol]
-      # @param klass [Class]
-      # @param request_method [Symbol]
-      # @param path [String]
-      # @param args [Array]
-      # @param method_name [Symbol]
-      # @return [Twitter::Cursor]
-      def cursor_object_from_response(collection_name, klass, request_method, path, args, method_name)
-        options = extract_options!(args)
-        merge_user!(options, args.pop || screen_name) unless options[:user_id] || options[:screen_name]
-        cursor_from_response(collection_name, klass, request_method, path, options, method_name)
-      end
-
-      # @param collection_name [Symbol]
-      # @param klass [Class]
-      # @param request_method [Symbol]
-      # @param path [String]
-      # @param params [Hash]
-      # @param method_name [Symbol]
-      # @return [Twitter::Cursor]
-      def cursor_from_response(collection_name, klass, request_method, path, params, method_name)
-        merge_default_cursor!(params)
-        response = send(request_method.to_sym, path, params)
-        Twitter::Cursor.from_response(response, collection_name.to_sym, klass, self, method_name, params)
-      end
-
       # @param request_method [Symbol]
       # @param path [String]
       # @param args [Array]
       # @return [Array<Twitter::User>]
-      def users_from_response(request_method, path, args)
-        options = extract_options!(args)
-        merge_user!(options, args.pop || screen_name) unless options[:user_id] || options[:screen_name]
-        collection_from_response(Twitter::User, request_method, path, options)
-      end
-
-      # @param request_method [Symbol]
-      # @param path [String]
-      # @param args [Array]
-      # @return [Array<Twitter::User>]
-      def threaded_users_from_response(request_method, path, args)
+      def threaded_user_objects_from_response(request_method, path, args)
         options = extract_options!(args)
         args.flatten.threaded_map do |user|
           object_from_response(Twitter::User, request_method, path, merge_user(options, user))
+        end
+      end
+
+      # @param request_method [Symbol]
+      # @param path [String]
+      # @param args [Array]
+      # @return [Array<Twitter::User>]
+      def user_objects_from_response(request_method, path, args)
+        options = extract_options!(args)
+        merge_user!(options, args.pop || screen_name) unless options[:user_id] || options[:screen_name]
+        objects_from_response(Twitter::User, request_method, path, options)
+      end
+
+      # @param klass [Class]
+      # @param request_method [Symbol]
+      # @param path [String]
+      # @param args [Array]
+      # @return [Array]
+      def objects_from_response_with_user(klass, request_method, path, args)
+        options = extract_options!(args)
+        merge_user!(options, args.pop)
+        objects_from_response(klass, request_method, path, options)
+      end
+
+      # @param klass [Class]
+      # @param request_method [Symbol]
+      # @param path [String]
+      # @param options [Hash]
+      # @return [Array]
+      def objects_from_response(klass, request_method, path, options={})
+        response = send(request_method.to_sym, path, options)[:body]
+        objects_from_array(klass, response)
+      end
+
+      # @param klass [Class]
+      # @param array [Array]
+      # @return [Array]
+      def objects_from_array(klass, array)
+        array.map do |element|
+          klass.fetch_or_new(element)
         end
       end
 
@@ -117,6 +72,42 @@ module Twitter
         args.flatten.threaded_map do |id|
           object_from_response(klass, request_method, path, options.merge(:id => id))
         end
+      end
+
+      # @param klass [Class]
+      # @param request_method [Symbol]
+      # @param path [String]
+      # @param options [Hash]
+      # @return [Object]
+      def object_from_response(klass, request_method, path, options={})
+        response = send(request_method.to_sym, path, options)
+        klass.from_response(response)
+      end
+
+      # @param collection_name [Symbol]
+      # @param klass [Class]
+      # @param request_method [Symbol]
+      # @param path [String]
+      # @param args [Array]
+      # @param method_name [Symbol]
+      # @return [Twitter::Cursor]
+      def cursor_from_response_with_user(collection_name, klass, request_method, path, args, method_name)
+        options = extract_options!(args)
+        merge_user!(options, args.pop || screen_name) unless options[:user_id] || options[:screen_name]
+        cursor_from_response(collection_name, klass, request_method, path, options, method_name)
+      end
+
+      # @param collection_name [Symbol]
+      # @param klass [Class]
+      # @param request_method [Symbol]
+      # @param path [String]
+      # @param options [Hash]
+      # @param method_name [Symbol]
+      # @return [Twitter::Cursor]
+      def cursor_from_response(collection_name, klass, request_method, path, options, method_name)
+        merge_default_cursor!(options)
+        response = send(request_method.to_sym, path, options)
+        Twitter::Cursor.from_response(response, collection_name.to_sym, klass, self, method_name, options)
       end
 
       def handle_forbidden_error(klass, error)
