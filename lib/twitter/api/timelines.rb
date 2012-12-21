@@ -25,7 +25,7 @@ module Twitter
       # @example Return the 20 most recent mentions (statuses containing @username) for the authenticating user
       #   Twitter.mentions
       def mentions_timeline(options={})
-        collection_from_response(Twitter::Tweet, :get, "/1.1/statuses/mentions_timeline.json", options)
+        objects_from_response(Twitter::Tweet, :get, "/1.1/statuses/mentions_timeline.json", options)
       end
       alias mentions mentions_timeline
 
@@ -50,7 +50,7 @@ module Twitter
       #   @example Return the 20 most recent Tweets posted by @sferik
       #     Twitter.user_timeline('sferik')
       def user_timeline(*args)
-        objects_from_response(Twitter::Tweet, :get, "/1.1/statuses/user_timeline.json", args)
+        objects_from_response_with_user(Twitter::Tweet, :get, "/1.1/statuses/user_timeline.json", args)
       end
 
       # Returns the 20 most recent retweets posted by the specified user
@@ -123,7 +123,7 @@ module Twitter
       # @example Return the 20 most recent Tweets, including retweets if they exist, posted by the authenticating user and the users they follow
       #   Twitter.home_timeline
       def home_timeline(options={})
-        collection_from_response(Twitter::Tweet, :get, "/1.1/statuses/home_timeline.json", options)
+        objects_from_response(Twitter::Tweet, :get, "/1.1/statuses/home_timeline.json", options)
       end
 
       # Returns the 20 most recent retweets posted by users the authenticating user follow.
@@ -167,7 +167,7 @@ module Twitter
       # @example Return the 20 most recent tweets of the authenticated user that have been retweeted by others
       #   Twitter.retweets_of_me
       def retweets_of_me(options={})
-        collection_from_response(Twitter::Tweet, :get, "/1.1/statuses/retweets_of_me.json", options)
+        objects_from_response(Twitter::Tweet, :get, "/1.1/statuses/retweets_of_me.json", options)
       end
 
     private

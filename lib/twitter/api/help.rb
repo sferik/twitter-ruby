@@ -30,7 +30,7 @@ module Twitter
       # @example Return the list of languages Twitter supports
       #   Twitter.languages
       def languages(options={})
-        collection_from_response(Twitter::Language, :get, "/1.1/help/languages.json", options)
+        objects_from_response(Twitter::Language, :get, "/1.1/help/languages.json", options)
       end
 
       # Returns {https://twitter.com/privacy Twitter's Privacy Policy}

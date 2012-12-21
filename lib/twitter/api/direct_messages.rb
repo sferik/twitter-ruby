@@ -23,7 +23,7 @@ module Twitter
       # @example Return the 20 most recent direct messages sent to the authenticating user
       #   Twitter.direct_messages_received
       def direct_messages_received(options={})
-        collection_from_response(Twitter::DirectMessage, :get, "/1.1/direct_messages.json", options)
+        objects_from_response(Twitter::DirectMessage, :get, "/1.1/direct_messages.json", options)
       end
 
       # Returns the 20 most recent direct messages sent by the authenticating user
@@ -42,7 +42,7 @@ module Twitter
       # @example Return the 20 most recent direct messages sent by the authenticating user
       #   Twitter.direct_messages_sent
       def direct_messages_sent(options={})
-        collection_from_response(Twitter::DirectMessage, :get, "/1.1/direct_messages/sent.json", options)
+        objects_from_response(Twitter::DirectMessage, :get, "/1.1/direct_messages/sent.json", options)
       end
 
       # Returns a direct message

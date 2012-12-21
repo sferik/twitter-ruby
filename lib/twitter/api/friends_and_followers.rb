@@ -31,7 +31,7 @@ module Twitter
       #     Twitter.friend_ids('sferik')
       #     Twitter.friend_ids(7505382)  # Same as above
       def friend_ids(*args)
-        ids_from_response(:get, "/1.1/friends/ids.json", args, :friend_ids)
+        cursor_from_response_with_user(:ids, nil, :get, "/1.1/friends/ids.json", args, :friend_ids)
       end
 
       # @see https://dev.twitter.com/docs/api/1.1/get/followers/ids
@@ -56,7 +56,7 @@ module Twitter
       #     Twitter.follower_ids('sferik')
       #     Twitter.follower_ids(7505382)  # Same as above
       def follower_ids(*args)
-        ids_from_response(:get, "/1.1/followers/ids.json", args, :follower_ids)
+        cursor_from_response_with_user(:ids, nil, :get, "/1.1/followers/ids.json", args, :follower_ids)
       end
 
       # Returns the relationship of the authenticating user to the comma separated list of up to 100 screen_names or user_ids provided. Values for connections can be: following, following_requested, followed_by, none.
@@ -78,7 +78,7 @@ module Twitter
       def friendships(*args)
         options = extract_options!(args)
         merge_users!(options, Array(args))
-        collection_from_response(Twitter::User, :get, "/1.1/friendships/lookup.json", options)
+        objects_from_response(Twitter::User, :get, "/1.1/friendships/lookup.json", options)
       end
 
       # Returns an array of numeric IDs for every user who has a pending request to follow the authenticating user
@@ -188,7 +188,7 @@ module Twitter
       #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
       #   @param options [Hash] A customizable set of options.
       def unfollow(*args)
-        threaded_users_from_response(:post, "/1.1/friendships/destroy.json", args)
+        threaded_user_objects_from_response(:post, "/1.1/friendships/destroy.json", args)
       end
       alias friendship_destroy unfollow
 
@@ -280,7 +280,7 @@ module Twitter
       #   Twitter.followers('sferik')
       #   Twitter.followers(7505382)    # Same as above
       def followers(*args)
-        cursor_object_from_response(:users, Twitter::User, :get, "/1.1/followers/list.json", args, :followers)
+        cursor_from_response_with_user(:users, Twitter::User, :get, "/1.1/followers/list.json", args, :followers)
       end
 
       # Returns a cursored collection of user objects for every user the specified user is following (otherwise known as their "friends").
@@ -311,7 +311,7 @@ module Twitter
       #   Twitter.friends('sferik')
       #   Twitter.friends(7505382)    # Same as above
       def friends(*args)
-        cursor_object_from_response(:users, Twitter::User, :get, "/1.1/friends/list.json", args, :friends)
+        cursor_from_response_with_user(:users, Twitter::User, :get, "/1.1/friends/list.json", args, :friends)
       end
       alias following friends
 

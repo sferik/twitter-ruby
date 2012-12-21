@@ -23,7 +23,7 @@ module Twitter
       # @example Return up to 100 of the first retweets of the Tweet with the ID 28561922516
       #   Twitter.retweets(28561922516)
       def retweets(id, options={})
-        collection_from_response(Twitter::Tweet, :get, "/1.1/statuses/retweets/#{id}.json", options)
+        objects_from_response(Twitter::Tweet, :get, "/1.1/statuses/retweets/#{id}.json", options)
       end
 
       # Show up to 100 users who retweeted the Tweet
