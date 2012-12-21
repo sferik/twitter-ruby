@@ -7,9 +7,8 @@ module Twitter
     #
     # @return [Array<Twitter::Size>]
     def sizes
-      @sizes ||= Array(@attrs[:sizes]).inject({}) do |object, (key, value)|
+      @sizes ||= Array(@attrs[:sizes]).each_with_object({}) do |(key, value), object|
         object[key] = Twitter::Size.fetch_or_new(value)
-        object
       end
     end
 
