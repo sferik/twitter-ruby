@@ -125,7 +125,7 @@ describe Twitter::Client do
       expect(a_post("/1.1/statuses/update.json").with(:body => {:status => "Update"})).to have_been_made
     end
     it "encodes none of the body when uploaded media is present" do
-      stub_post("/1.1/statuses/update_with_media.json").to_return(:body => fixture("status_with_media.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      stub_post("/1.1/statuses/update_with_media.json")
       subject.update_with_media("Update", fixture("pbjt.gif"))
       expect(a_post("/1.1/statuses/update_with_media.json")).to have_been_made
     end

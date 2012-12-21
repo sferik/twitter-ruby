@@ -167,7 +167,7 @@ describe Twitter::API::Users do
       suggest_users = @client.suggest_users("art-design")
       expect(suggest_users).to be_an Array
       expect(suggest_users.first).to be_a Twitter::User
-      expect(suggest_users.first.name).to eq "OMGFacts"
+      expect(suggest_users.first.id).to eq 13
     end
   end
 
@@ -573,7 +573,7 @@ describe Twitter::API::Users do
   describe "#contributors" do
     context "with a screen name passed" do
       before do
-        stub_get("/1.1/users/contributors.json").with(:query => {:screen_name => "sferik"}).to_return(:body => fixture("contributors.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        stub_get("/1.1/users/contributors.json").with(:query => {:screen_name => "sferik"}).to_return(:body => fixture("members.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.contributors("sferik")
@@ -583,12 +583,12 @@ describe Twitter::API::Users do
         contributors = @client.contributors("sferik")
         expect(contributors).to be_an Array
         expect(contributors.first).to be_a Twitter::User
-        expect(contributors.first.name).to eq "Biz Stone"
+        expect(contributors.first.id).to eq 13
       end
     end
     context "with a user ID passed" do
       before do
-        stub_get("/1.1/users/contributors.json").with(:query => {:user_id => "7505382"}).to_return(:body => fixture("contributors.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        stub_get("/1.1/users/contributors.json").with(:query => {:user_id => "7505382"}).to_return(:body => fixture("members.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.contributors(7505382)
@@ -598,7 +598,7 @@ describe Twitter::API::Users do
     context "without arguments passed" do
       before do
         stub_get("/1.1/account/verify_credentials.json").to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-        stub_get("/1.1/users/contributors.json").with(:query => {:screen_name => "sferik"}).to_return(:body => fixture("contributors.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        stub_get("/1.1/users/contributors.json").with(:query => {:screen_name => "sferik"}).to_return(:body => fixture("members.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.contributors
@@ -608,7 +608,7 @@ describe Twitter::API::Users do
         contributors = @client.contributors
         expect(contributors).to be_an Array
         expect(contributors.first).to be_a Twitter::User
-        expect(contributors.first.name).to eq "Biz Stone"
+        expect(contributors.first.id).to eq 13
       end
     end
   end

@@ -9,7 +9,7 @@ describe Twitter::API::Favorites do
   describe "#favorites" do
     context "with a screen name passed" do
       before do
-        stub_get("/1.1/favorites/list.json").with(:query => {:screen_name => "sferik"}).to_return(:body => fixture("favorites.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        stub_get("/1.1/favorites/list.json").with(:query => {:screen_name => "sferik"}).to_return(:body => fixture("user_timeline.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.favorites("sferik")
@@ -19,12 +19,12 @@ describe Twitter::API::Favorites do
         favorites = @client.favorites("sferik")
         expect(favorites).to be_an Array
         expect(favorites.first).to be_a Twitter::Tweet
-        expect(favorites.first.user.id).to eq 2404341
+        expect(favorites.first.user.id).to eq 7505382
       end
     end
     context "without arguments passed" do
       before do
-        stub_get("/1.1/favorites/list.json").to_return(:body => fixture("favorites.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        stub_get("/1.1/favorites/list.json").to_return(:body => fixture("user_timeline.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.favorites
@@ -34,7 +34,7 @@ describe Twitter::API::Favorites do
         favorites = @client.favorites
         expect(favorites).to be_an Array
         expect(favorites.first).to be_a Twitter::Tweet
-        expect(favorites.first.user.id).to eq 2404341
+        expect(favorites.first.user.id).to eq 7505382
       end
     end
   end
