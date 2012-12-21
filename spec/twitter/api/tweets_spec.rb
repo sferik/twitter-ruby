@@ -178,17 +178,17 @@ describe Twitter::API::Tweets do
 
   describe "#update_with_media" do
     before do
-      stub_post("/1.1/statuses/update_with_media.json").to_return(:body => fixture("status_with_media.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      stub_post("/1.1/statuses/update_with_media.json").to_return(:body => fixture("status.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     context "a gif image" do
       it "requests the correct resource" do
-        @client.update_with_media("You always have options", fixture("pbjt.gif"))
+        @client.update_with_media("The problem with your code is that it's doing exactly what you told it to do.", fixture("pbjt.gif"))
         expect(a_post("/1.1/statuses/update_with_media.json")).to have_been_made
       end
       it "returns a Tweet" do
-        tweet = @client.update_with_media("You always have options", fixture("pbjt.gif"))
+        tweet = @client.update_with_media("The problem with your code is that it's doing exactly what you told it to do.", fixture("pbjt.gif"))
         expect(tweet).to be_a Twitter::Tweet
-        expect(tweet.text).to eq "You always have options http://t.co/CBYa7Ri"
+        expect(tweet.text).to eq "The problem with your code is that it's doing exactly what you told it to do."
       end
     end
     context "a jpe image" do

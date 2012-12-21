@@ -52,7 +52,7 @@ describe Twitter::API::SuggestedUsers do
       suggest_users = @client.suggest_users("art-design")
       expect(suggest_users).to be_an Array
       expect(suggest_users.first).to be_a Twitter::User
-      expect(suggest_users.first.name).to eq "OMGFacts"
+      expect(suggest_users.first.id).to eq 13
     end
   end
 
