@@ -1,4 +1,3 @@
-require 'twitter/core_ext/kernel'
 require 'twitter/error/identity_map_key_error'
 
 module Twitter

@@ -40,7 +40,7 @@ module Twitter
           item
         end
       end
-      class_eval do
+      singleton_class.class_eval do
         alias_method(collection_name.to_sym, :collection)
       end
     end
