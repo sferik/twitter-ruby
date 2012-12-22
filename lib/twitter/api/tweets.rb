@@ -1,3 +1,4 @@
+require 'twitter/api/arguments'
 require 'twitter/api/utils'
 require 'twitter/error/already_retweeted'
 require 'twitter/error/forbidden'
@@ -144,10 +145,10 @@ module Twitter
       #   @param options [Hash] A customizable set of options.
       #   @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       def retweet(*args)
-        options = extract_options!(args)
-        args.flatten.threaded_map do |id|
+        arguments = Twitter::API::Arguments.new(args)
+        arguments.flatten.threaded_map do |id|
           begin
-            post_retweet(id, options)
+            post_retweet(id, arguments.options)
           rescue Twitter::Error::Forbidden => error
             raise unless error.message == Twitter::Error::AlreadyRetweeted::MESSAGE
           end
@@ -171,10 +172,10 @@ module Twitter
       #   @param options [Hash] A customizable set of options.
       #   @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       def retweet!(*args)
-        options = extract_options!(args)
-        args.flatten.threaded_map do |id|
+        arguments = Twitter::API::Arguments.new(args)
+        arguments.flatten.threaded_map do |id|
           begin
-            post_retweet(id, options)
+            post_retweet(id, arguments.options)
           rescue Twitter::Error::Forbidden => error
             handle_forbidden_error(Twitter::Error::AlreadyRetweeted, error)
           end
@@ -248,9 +249,9 @@ module Twitter
       #   @option options [String] :related A value for the TWT related parameter, as described in {https://dev.twitter.com/docs/intents Web Intents}. This value will be forwarded to all Web Intents calls.
       #   @option options [String] :lang Language code for the rendered embed. This will affect the text and localization of the rendered HTML.
       def oembeds(*args)
-        options = extract_options!(args)
-        args.flatten.threaded_map do |id|
-          object_from_response(Twitter::OEmbed, :get, "/1.1/statuses/oembed.json?id=#{id}", options)
+        arguments = Twitter::API::Arguments.new(args)
+        arguments.flatten.threaded_map do |id|
+          object_from_response(Twitter::OEmbed, :get, "/1.1/statuses/oembed.json?id=#{id}", arguments.options)
         end
       end
 
@@ -261,9 +262,9 @@ module Twitter
       # @param args [Array]
       # @return [Array<Twitter::Tweet>]
       def threaded_tweets_from_response(request_method, path, args)
-        options = extract_options!(args)
-        args.flatten.threaded_map do |id|
-          object_from_response(Twitter::Tweet, request_method, path + "/#{id}.json", options)
+        arguments = Twitter::API::Arguments.new(args)
+        arguments.flatten.threaded_map do |id|
+          object_from_response(Twitter::Tweet, request_method, path + "/#{id}.json", arguments.options)
         end
       end
 

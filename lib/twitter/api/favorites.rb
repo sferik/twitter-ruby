@@ -1,3 +1,4 @@
+require 'twitter/api/arguments'
 require 'twitter/api/utils'
 require 'twitter/error/already_favorited'
 require 'twitter/error/forbidden'
@@ -32,11 +33,11 @@ module Twitter
       #   @example Return the 20 most recent favorite Tweets for @sferik
       #     Twitter.favorites('sferik')
       def favorites(*args)
-        options = extract_options!(args)
-        if user = args.pop
-          merge_user!(options, user)
+        arguments = Twitter::API::Arguments.new(args)
+        if user = arguments.pop
+          merge_user!(arguments.options, user)
         end
-        objects_from_response(Twitter::Tweet, :get, "/1.1/favorites/list.json", options)
+        objects_from_response(Twitter::Tweet, :get, "/1.1/favorites/list.json", arguments.options)
       end
       alias favourites favorites
 
@@ -76,10 +77,10 @@ module Twitter
       #   @param ids [Array<Integer>, Set<Integer>] An array of Tweet IDs.
       #   @param options [Hash] A customizable set of options.
       def favorite(*args)
-        options = extract_options!(args)
-        args.flatten.threaded_map do |id|
+        arguments = Twitter::API::Arguments.new(args)
+        arguments.flatten.threaded_map do |id|
           begin
-            object_from_response(Twitter::Tweet, :post, "/1.1/favorites/create.json", options.merge(:id => id))
+            object_from_response(Twitter::Tweet, :post, "/1.1/favorites/create.json", arguments.options.merge(:id => id))
           rescue Twitter::Error::Forbidden => error
             raise unless error.message == Twitter::Error::AlreadyFavorited::MESSAGE
           end
@@ -106,10 +107,10 @@ module Twitter
       #   @param ids [Array<Integer>, Set<Integer>] An array of Tweet IDs.
       #   @param options [Hash] A customizable set of options.
       def favorite!(*args)
-        options = extract_options!(args)
-        args.flatten.threaded_map do |id|
+        arguments = Twitter::API::Arguments.new(args)
+        arguments.flatten.threaded_map do |id|
           begin
-            object_from_response(Twitter::Tweet, :post, "/1.1/favorites/create.json", options.merge(:id => id))
+            object_from_response(Twitter::Tweet, :post, "/1.1/favorites/create.json", arguments.options.merge(:id => id))
           rescue Twitter::Error::Forbidden => error
             handle_forbidden_error(Twitter::Error::AlreadyFavorited, error)
           end

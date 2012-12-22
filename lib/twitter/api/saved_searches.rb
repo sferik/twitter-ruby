@@ -1,3 +1,4 @@
+require 'twitter/api/arguments'
 require 'twitter/api/utils'
 require 'twitter/saved_search'
 
@@ -31,12 +32,12 @@ module Twitter
       #   @param ids [Array<Integer>, Set<Integer>] An array of Tweet IDs.
       #   @param options [Hash] A customizable set of options.
       def saved_searches(*args)
-        options = extract_options!(args)
-        if args.empty?
-          objects_from_response(Twitter::SavedSearch, :get, "/1.1/saved_searches/list.json", options)
+        arguments = Twitter::API::Arguments.new(args)
+        if arguments.empty?
+          objects_from_response(Twitter::SavedSearch, :get, "/1.1/saved_searches/list.json", arguments.options)
         else
-          args.flatten.threaded_map do |id|
-            saved_search(id)
+          arguments.flatten.threaded_map do |id|
+            saved_search(id, arguments.options)
           end
         end
       end
@@ -87,9 +88,9 @@ module Twitter
       #   @param ids [Array<Integer>, Set<Integer>] An array of Tweet IDs.
       #   @param options [Hash] A customizable set of options.
       def saved_search_destroy(*args)
-        options = extract_options!(args)
-        args.flatten.threaded_map do |id|
-          object_from_response(Twitter::SavedSearch, :post, "/1.1/saved_searches/destroy/#{id}.json", options)
+        arguments = Twitter::API::Arguments.new(args)
+        arguments.flatten.threaded_map do |id|
+          object_from_response(Twitter::SavedSearch, :post, "/1.1/saved_searches/destroy/#{id}.json", arguments.options)
         end
       end
 
