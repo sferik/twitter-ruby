@@ -72,10 +72,8 @@ module Twitter
       # @example Return the 20 most recent retweets posted by @sferik
       #   Twitter.retweeted_by_user('sferik')
       def retweeted_by_user(user, options={})
-        options[:include_rts] = true
-        count = options[:count] || DEFAULT_TWEETS_PER_REQUEST
-        collect_with_count(count) do |count_options|
-          select_retweets(user_timeline(user, options.merge(count_options)))
+        retweets_from_timeline(options) do |opts|
+          user_timeline(user, opts)
         end
       end
       alias retweeted_by retweeted_by_user
