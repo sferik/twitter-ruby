@@ -1,4 +1,4 @@
-require 'twitter/core_ext/enumerable'
+require 'twitter/api/arguments'
 require 'twitter/cursor'
 require 'twitter/user'
 
@@ -15,9 +15,9 @@ module Twitter
       # @param args [Array]
       # @return [Array<Twitter::User>]
       def threaded_user_objects_from_response(request_method, path, args)
-        options = extract_options!(args)
-        args.flatten.threaded_map do |user|
-          object_from_response(Twitter::User, request_method, path, merge_user(options, user))
+        arguments = Twitter::API::Arguments.new(args)
+        arguments.flatten.threaded_map do |user|
+          object_from_response(Twitter::User, request_method, path, merge_user(arguments.options, user))
         end
       end
 
@@ -26,9 +26,9 @@ module Twitter
       # @param args [Array]
       # @return [Array<Twitter::User>]
       def user_objects_from_response(request_method, path, args)
-        options = extract_options!(args)
-        merge_user!(options, args.pop || screen_name) unless options[:user_id] || options[:screen_name]
-        objects_from_response(Twitter::User, request_method, path, options)
+        arguments = Twitter::API::Arguments.new(args)
+        merge_user!(arguments.options, arguments.pop || screen_name) unless arguments.options[:user_id] || arguments.options[:screen_name]
+        objects_from_response(Twitter::User, request_method, path, arguments.options)
       end
 
       # @param klass [Class]
@@ -37,9 +37,9 @@ module Twitter
       # @param args [Array]
       # @return [Array]
       def objects_from_response_with_user(klass, request_method, path, args)
-        options = extract_options!(args)
-        merge_user!(options, args.pop)
-        objects_from_response(klass, request_method, path, options)
+        arguments = Twitter::API::Arguments.new(args)
+        merge_user!(arguments.options, arguments.pop)
+        objects_from_response(klass, request_method, path, arguments.options)
       end
 
       # @param klass [Class]
@@ -67,9 +67,9 @@ module Twitter
       # @param args [Array]
       # @return [Array]
       def threaded_object_from_response(klass, request_method, path, args)
-        options = extract_options!(args)
-        args.flatten.threaded_map do |id|
-          object_from_response(klass, request_method, path, options.merge(:id => id))
+        arguments = Twitter::API::Arguments.new(args)
+        arguments.flatten.threaded_map do |id|
+          object_from_response(klass, request_method, path, arguments.options.merge(:id => id))
         end
       end
 
@@ -91,9 +91,9 @@ module Twitter
       # @param method_name [Symbol]
       # @return [Twitter::Cursor]
       def cursor_from_response_with_user(collection_name, klass, request_method, path, args, method_name)
-        options = extract_options!(args)
-        merge_user!(options, args.pop || screen_name) unless options[:user_id] || options[:screen_name]
-        cursor_from_response(collection_name, klass, request_method, path, options, method_name)
+        arguments = Twitter::API::Arguments.new(args)
+        merge_user!(arguments.options, arguments.pop || screen_name) unless arguments.options[:user_id] || arguments.options[:screen_name]
+        cursor_from_response(collection_name, klass, request_method, path, arguments.options, method_name)
       end
 
       # @param collection_name [Symbol]
@@ -123,10 +123,6 @@ module Twitter
 
       def screen_name
         @screen_name ||= verify_credentials.screen_name
-      end
-
-      def extract_options!(array)
-        array.last.is_a?(::Hash) ? array.pop : {}
       end
 
       # Take a user and merge it into the hash with the correct key

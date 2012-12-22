@@ -1,3 +1,4 @@
+require 'twitter/api/arguments'
 require 'twitter/api/utils'
 require 'twitter/cursor'
 require 'twitter/error/forbidden'
@@ -76,9 +77,9 @@ module Twitter
       #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
       #   @param options [Hash] A customizable set of options.
       def friendships(*args)
-        options = extract_options!(args)
-        merge_users!(options, Array(args))
-        objects_from_response(Twitter::User, :get, "/1.1/friendships/lookup.json", options)
+        arguments = Twitter::API::Arguments.new(args)
+        merge_users!(arguments.options, arguments)
+        objects_from_response(Twitter::User, :get, "/1.1/friendships/lookup.json", arguments.options)
       end
 
       # Returns an array of numeric IDs for every user who has a pending request to follow the authenticating user
@@ -127,17 +128,17 @@ module Twitter
       #   @param options [Hash] A customizable set of options.
       #   @option options [Boolean] :follow (false) Enable notifications for the target user.
       def follow(*args)
-        options = extract_options!(args)
+        arguments = Twitter::API::Arguments.new(args)
         # Twitter always turns on notifications if the "follow" option is present, even if it's set to false
         # so only send follow if it's true
-        options[:follow] = true if !!options.delete(:follow)
+        arguments.options[:follow] = true if !!arguments.options.delete(:follow)
         existing_friends = Thread.new do
           friend_ids.ids
         end
         new_friends = Thread.new do
           users(args).map(&:id)
         end
-        follow!(new_friends.value - existing_friends.value, options)
+        follow!(new_friends.value - existing_friends.value, arguments.options)
       end
       alias friendship_create follow
 
@@ -157,14 +158,13 @@ module Twitter
       #   @param options [Hash] A customizable set of options.
       #   @option options [Boolean] :follow (false) Enable notifications for the target user.
       def follow!(*args)
-        options = extract_options!(args)
+        arguments = Twitter::API::Arguments.new(args)
         # Twitter always turns on notifications if the "follow" option is present, even if it's set to false
         # so only send follow if it's true
-        options[:follow] = true if !!options.delete(:follow)
-        args.flatten.threaded_map do |user|
+        arguments.options[:follow] = true if !!arguments.options.delete(:follow)
+        arguments.flatten.threaded_map do |user|
           begin
-            merge_user!(options, user)
-            object_from_response(Twitter::User, :post, "/1.1/friendships/create.json", options)
+            object_from_response(Twitter::User, :post, "/1.1/friendships/create.json", merge_user(arguments.options, user))
           rescue Twitter::Error::Forbidden
             # This error will be raised if the user doesn't have permission to
             # follow list_member, for whatever reason.

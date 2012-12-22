@@ -1,3 +1,4 @@
+require 'twitter/api/arguments'
 require 'twitter/api/utils'
 require 'twitter/direct_message'
 require 'twitter/user'
@@ -92,12 +93,12 @@ module Twitter
       #   @param ids [Array<Integer>, Set<Integer>] An array of Tweet IDs.
       #   @param options [Hash] A customizable set of options.
       def direct_messages(*args)
-        options = extract_options!(args)
-        if args.empty?
-          direct_messages_received(options)
+        arguments = Twitter::API::Arguments.new(args)
+        if arguments.empty?
+          direct_messages_received(arguments.options)
         else
-          args.flatten.threaded_map do |id|
-            direct_message(id, options)
+          arguments.flatten.threaded_map do |id|
+            direct_message(id, arguments.options)
           end
         end
       end

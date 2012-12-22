@@ -1,3 +1,4 @@
+require 'twitter/api/arguments'
 require 'twitter/api/utils'
 require 'twitter/suggestion'
 require 'twitter/user'
@@ -27,11 +28,11 @@ module Twitter
       #   @example Return the users in the Art & Design category
       #     Twitter.suggestions("art-design")
       def suggestions(*args)
-        options = extract_options!(args)
-        if slug = args.pop
-          object_from_response(Twitter::Suggestion, :get, "/1.1/users/suggestions/#{slug}.json", options)
+        arguments = Twitter::API::Arguments.new(args)
+        if slug = arguments.pop
+          object_from_response(Twitter::Suggestion, :get, "/1.1/users/suggestions/#{slug}.json", arguments.options)
         else
-          objects_from_response(Twitter::Suggestion, :get, "/1.1/users/suggestions.json", options)
+          objects_from_response(Twitter::Suggestion, :get, "/1.1/users/suggestions.json", arguments.options)
         end
       end
 

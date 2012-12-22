@@ -1,4 +1,6 @@
+require 'twitter/api/arguments'
 require 'twitter/api/utils'
+require 'twitter/core_ext/enumerable'
 require 'twitter/cursor'
 require 'twitter/error/forbidden'
 require 'twitter/error/not_found'
@@ -63,10 +65,10 @@ module Twitter
       #     Twitter.list_timeline(7505382, 'presidents')
       #     Twitter.list_timeline(7505382, 8863586)
       def list_timeline(*args)
-        options = extract_options!(args)
-        merge_list!(options, args.pop)
-        merge_owner!(options, args.pop || screen_name) unless options[:owner_id] || options[:owner_screen_name]
-        objects_from_response(Twitter::Tweet, :get, "/1.1/lists/statuses.json", options)
+        arguments = Twitter::API::Arguments.new(args)
+        merge_list!(arguments.options, arguments.pop)
+        merge_owner!(arguments.options, arguments.pop || screen_name) unless arguments.options[:owner_id] || arguments.options[:owner_screen_name]
+        objects_from_response(Twitter::Tweet, :get, "/1.1/lists/statuses.json", arguments.options)
       end
 
       # Removes the specified member from the list
@@ -511,45 +513,45 @@ module Twitter
       # @param args [Array]
       # @return [Array<Twitter::User>]
       def list_from_response(request_method, path, args)
-        options = extract_options!(args)
-        merge_list!(options, args.pop)
-        merge_owner!(options, args.pop || screen_name) unless options[:owner_id] || options[:owner_screen_name]
-        object_from_response(Twitter::List, request_method, path, options)
+        arguments = Twitter::API::Arguments.new(args)
+        merge_list!(arguments.options, arguments.pop)
+        merge_owner!(arguments.options, arguments.pop || screen_name) unless arguments.options[:owner_id] || arguments.options[:owner_screen_name]
+        object_from_response(Twitter::List, request_method, path, arguments.options)
       end
 
       def cursor_from_response_with_list(request_method, path, args, calling_method)
-        options = extract_options!(args)
-        merge_list!(options, args.pop)
-        merge_owner!(options, args.pop || screen_name) unless options[:owner_id] || options[:owner_screen_name]
-        cursor_from_response(:users, Twitter::User, request_method, path, options, calling_method)
+        arguments = Twitter::API::Arguments.new(args)
+        merge_list!(arguments.options, arguments.pop)
+        merge_owner!(arguments.options, arguments.pop || screen_name) unless arguments.options[:owner_id] || arguments.options[:owner_screen_name]
+        cursor_from_response(:users, Twitter::User, request_method, path, arguments.options, calling_method)
       end
 
       def list_user?(request_method, path, args)
-        options = extract_options!(args)
-        merge_user!(options, args.pop)
-        merge_list!(options, args.pop)
-        merge_owner!(options, args.pop || screen_name) unless options[:owner_id] || options[:owner_screen_name]
-        send(request_method.to_sym, path, options)
+        arguments = Twitter::API::Arguments.new(args)
+        merge_user!(arguments.options, arguments.pop)
+        merge_list!(arguments.options, arguments.pop)
+        merge_owner!(arguments.options, arguments.pop || screen_name) unless arguments.options[:owner_id] || arguments.options[:owner_screen_name]
+        send(request_method.to_sym, path, arguments.options)
         true
       rescue Twitter::Error::NotFound, Twitter::Error::Forbidden
         false
       end
 
       def list_from_response_with_user(request_method, path, args)
-        options = extract_options!(args)
-        merge_user!(options, args.pop)
-        merge_list!(options, args.pop)
-        merge_owner!(options, args.pop || screen_name) unless options[:owner_id] || options[:owner_screen_name]
-        object_from_response(Twitter::List, request_method, path, options)
+        arguments = Twitter::API::Arguments.new(args)
+        merge_user!(arguments.options, arguments.pop)
+        merge_list!(arguments.options, arguments.pop)
+        merge_owner!(arguments.options, arguments.pop || screen_name) unless arguments.options[:owner_id] || arguments.options[:owner_screen_name]
+        object_from_response(Twitter::List, request_method, path, arguments.options)
       end
 
       def list_from_response_with_users(request_method, path, args)
-        options = extract_options!(args)
-        members = args.pop
-        merge_list!(options, args.pop)
-        merge_owner!(options, args.pop || screen_name) unless options[:owner_id] || options[:owner_screen_name]
+        arguments = Twitter::API::Arguments.new(args)
+        members = arguments.pop
+        merge_list!(arguments.options, arguments.pop)
+        merge_owner!(arguments.options, arguments.pop || screen_name) unless arguments.options[:owner_id] || arguments.options[:owner_screen_name]
         members.flatten.each_slice(MAX_USERS_PER_REQUEST).threaded_map do |users|
-          object_from_response(Twitter::List, request_method, path, merge_users(options, users))
+          object_from_response(Twitter::List, request_method, path, merge_users(arguments.options, users))
         end.last
       end
 

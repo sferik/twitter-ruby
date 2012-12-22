@@ -1,4 +1,5 @@
 require 'twitter/action_factory'
+require 'twitter/api/arguments'
 require 'twitter/api/utils'
 require 'twitter/cursor'
 require 'twitter/tweet'
@@ -102,9 +103,9 @@ module Twitter
       #   @param ids [Array<Integer>, Set<Integer>] An array of Tweet IDs.
       #   @param options [Hash] A customizable set of options.
       def statuses_activity(*args)
-        options = extract_options!(args)
-        args.flatten.threaded_map do |id|
-          status_activity(id, options)
+        arguments = Twitter::API::Arguments.new(args)
+        arguments.flatten.threaded_map do |id|
+          status_activity(id, arguments.options)
         end
       end
 
