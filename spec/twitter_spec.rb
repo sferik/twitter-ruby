@@ -64,6 +64,30 @@ describe Twitter do
         expect(Twitter.instance_variable_get(:"@#{key}")).to eq key
       end
     end
+
+    context "when invalid credentials are provided" do
+      it "raises a ConfigurationError exception" do
+        expect {
+          Twitter.configure do |config|
+            config.consumer_key = [12345, 54321]
+            config.consumer_secret = 'valid_data'
+          end
+        }.to raise_exception(Twitter::Error::ConfigurationError)
+      end
+    end
+
+    context "when no credentials are provided" do
+      it "does not raise an exception" do
+        expect {
+          Twitter.configure do |config|
+            config.consumer_key = nil
+            config.consumer_secret = nil
+            config.oauth_token = nil
+            config.oauth_token_secret = nil
+          end
+        }.to_not raise_exception(Twitter::Error::ConfigurationError)
+      end
+    end
   end
 
   describe ".credentials?" do
