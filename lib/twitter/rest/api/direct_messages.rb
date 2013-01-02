@@ -88,7 +88,7 @@ module Twitter
           if arguments.empty?
             direct_messages_received(arguments.options)
           else
-            arguments.flatten.threaded_map do |id|
+            arguments.flatten.pmap do |id|
               direct_message(id, arguments.options)
             end
           end
@@ -108,7 +108,7 @@ module Twitter
         #   @param ids [Enumerable<Integer>] A collection of direct message IDs.
         #   @param options [Hash] A customizable set of options.
         def direct_message_destroy(*args)
-          threaded_object_from_response(Twitter::DirectMessage, :post, "/1.1/direct_messages/destroy.json", args)
+          parallel_objects_from_response(Twitter::DirectMessage, :post, "/1.1/direct_messages/destroy.json", args)
         end
 
         # Sends a new direct message to the specified user from the authenticating user

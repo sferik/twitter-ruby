@@ -1,10 +1,12 @@
+require 'celluloid'
+
 module Enumerable
 
-  def threaded_map
-    threads = map do |object|
-      Thread.new { yield object }
+  def pmap(&block)
+    futures = map do |elem|
+      Celluloid::Future.new(elem, &block)
     end
-    threads.map(&:value)
+    futures.map(&:value)
   end
 
 end
