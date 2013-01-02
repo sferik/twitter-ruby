@@ -22,7 +22,7 @@ module Twitter
       #   @param users [Enumerable<Integer, String, Twitter::User>] A collection of Twitter user IDs, screen names, or objects.
       #   @param options [Hash] A customizable set of options.
       def report_spam(*args)
-        threaded_user_objects_from_response(:post, "/1.1/users/report_spam.json", args)
+        parallel_user_objects_from_response(:post, "/1.1/users/report_spam.json", args)
       end
 
     end

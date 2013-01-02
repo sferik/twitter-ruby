@@ -577,7 +577,7 @@ module Twitter
         members = arguments.pop
         merge_list!(arguments.options, arguments.pop)
         merge_owner!(arguments.options, arguments.pop)
-        members.flatten.each_slice(MAX_USERS_PER_REQUEST).threaded_map do |users|
+        members.flatten.each_slice(MAX_USERS_PER_REQUEST).pmap do |users|
           object_from_response(Twitter::List, request_method, path, merge_users(arguments.options, users))
         end.last
       end

@@ -87,7 +87,7 @@ module Twitter
       #   @param options [Hash] A customizable set of options.
       #   @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       def statuses(*args)
-        threaded_tweets_from_response(:get, "/1.1/statuses/show", args)
+        parallel_tweets_from_response(:get, "/1.1/statuses/show", args)
       end
 
       # Destroys the specified Tweets
@@ -107,7 +107,7 @@ module Twitter
       #   @param options [Hash] A customizable set of options.
       #   @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       def status_destroy(*args)
-        threaded_tweets_from_response(:post, "/1.1/statuses/destroy", args)
+        parallel_tweets_from_response(:post, "/1.1/statuses/destroy", args)
       end
       alias tweet_destroy status_destroy
 
@@ -152,7 +152,7 @@ module Twitter
       #   @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       def retweet(*args)
         arguments = Twitter::API::Arguments.new(args)
-        arguments.flatten.threaded_map do |tweet|
+        arguments.flatten.pmap do |tweet|
           id = extract_id(tweet)
           begin
             post_retweet(id, arguments.options)
@@ -180,7 +180,7 @@ module Twitter
       #   @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       def retweet!(*args)
         arguments = Twitter::API::Arguments.new(args)
-        arguments.flatten.threaded_map do |tweet|
+        arguments.flatten.pmap do |tweet|
           id = extract_id(tweet)
           begin
             post_retweet(id, arguments.options)
@@ -261,7 +261,7 @@ module Twitter
       #   @option options [String] :lang Language code for the rendered embed. This will affect the text and localization of the rendered HTML.
       def oembeds(*args)
         arguments = Twitter::API::Arguments.new(args)
-        arguments.flatten.threaded_map do |tweet|
+        arguments.flatten.pmap do |tweet|
           id = extract_id(tweet)
           oembed(id, arguments.options)
         end
@@ -295,9 +295,9 @@ module Twitter
       # @param path [String]
       # @param args [Array]
       # @return [Array<Twitter::Tweet>]
-      def threaded_tweets_from_response(request_method, path, args)
+      def parallel_tweets_from_response(request_method, path, args)
         arguments = Twitter::API::Arguments.new(args)
-        arguments.flatten.threaded_map do |tweet|
+        arguments.flatten.pmap do |tweet|
           id = extract_id(tweet)
           object_from_response(Twitter::Tweet, request_method, path + "/#{id}.json", arguments.options)
         end

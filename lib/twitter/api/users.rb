@@ -215,7 +215,7 @@ module Twitter
       #   @param users [Enumerable<Integer, String, Twitter::User>] A collection of Twitter user IDs, screen names, or objects.
       #   @param options [Hash] A customizable set of options.
       def block(*args)
-        threaded_user_objects_from_response(:post, "/1.1/blocks/create.json", args)
+        parallel_user_objects_from_response(:post, "/1.1/blocks/create.json", args)
       end
 
       # Un-blocks the users specified by the authenticating user
@@ -234,7 +234,7 @@ module Twitter
       #   @param users [Enumerable<Integer, String, Twitter::User>] A collection of Twitter user IDs, screen names, or objects.
       #   @param options [Hash] A customizable set of options.
       def unblock(*args)
-        threaded_user_objects_from_response(:post, "/1.1/blocks/destroy.json", args)
+        parallel_user_objects_from_response(:post, "/1.1/blocks/destroy.json", args)
       end
 
       # Returns extended information for up to 100 users
@@ -260,7 +260,7 @@ module Twitter
       def users(*args)
         arguments = Twitter::API::Arguments.new(args)
         method = arguments.options.delete(:method) || :post
-        arguments.flatten.each_slice(MAX_USERS_PER_REQUEST).threaded_map do |users|
+        arguments.flatten.each_slice(MAX_USERS_PER_REQUEST).pmap do |users|
           objects_from_response(Twitter::User, method, "/1.1/users/lookup.json", merge_users(arguments.options, users))
         end.flatten
       end
