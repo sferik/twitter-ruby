@@ -1,9 +1,12 @@
+require 'forwardable'
 require 'twitter/error/configuration_error'
 
 module Twitter
   module Configurable
+    extend Forwardable
     attr_writer :consumer_key, :consumer_secret, :oauth_token, :oauth_token_secret
     attr_accessor :endpoint, :connection_options, :identity_map, :middleware
+    def_delegator :options, :hash
 
     class << self
 
@@ -35,11 +38,6 @@ module Twitter
     # @return [Boolean]
     def credentials?
       credentials.values.all?
-    end
-
-    # @return [Fixnum]
-    def cache_key
-      options.hash
     end
 
     def reset!

@@ -1,20 +1,23 @@
+require 'forwardable'
 require 'twitter/creatable'
 require 'twitter/exceptable'
 require 'twitter/identity'
 
 module Twitter
   class Tweet < Twitter::Identity
+    extend Forwardable
     include Twitter::Creatable
     include Twitter::Exceptable
     attr_reader :favorited, :favoriters, :from_user_id, :from_user_name,
       :in_reply_to_screen_name, :in_reply_to_attrs_id, :in_reply_to_status_id,
-      :in_reply_to_user_id, :iso_language_code, :profile_image_url,
-      :profile_image_url_https, :repliers, :retweeted, :retweeters, :source,
-      :text, :to_user, :to_user_id, :to_user_name, :truncated
+      :in_reply_to_user_id, :iso_language_code, :repliers, :retweeted,
+      :retweeters, :source, :text, :to_user, :to_user_id, :to_user_name,
+      :truncated
     alias in_reply_to_tweet_id in_reply_to_status_id
     alias favourited favorited
     alias favourited? favorited?
     alias favouriters favoriters
+    def_delegators :user, :profile_image_url, :profile_image_url_https
 
     # @return [Boolean]
     def entities?

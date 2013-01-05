@@ -38,7 +38,7 @@ module Twitter
     #
     # @return [Twitter::Client]
     def client
-      @client = Twitter::Client.new(options) unless defined?(@client) && @client.cache_key == options.hash
+      @client = Twitter::Client.new(options) unless defined?(@client) && @client.hash == options.hash
       @client
     end
 
