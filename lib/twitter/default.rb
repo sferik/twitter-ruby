@@ -1,4 +1,5 @@
 require 'faraday'
+require 'faraday/request/multipart'
 require 'twitter/configurable'
 require 'twitter/error/client_error'
 require 'twitter/error/server_error'
@@ -13,12 +14,15 @@ module Twitter
     CONNECTION_OPTIONS = {
       :headers => {
         :accept => 'application/json',
-        :user_agent => "Twitter Ruby Gem #{Twitter::Version}"
+        :user_agent => "Twitter Ruby Gem #{Twitter::Version}",
       },
-      :open_timeout => 5,
-      :raw => true,
-      :ssl => {:verify => false},
-      :timeout => 10,
+      :request => {
+        :open_timeout => 5,
+        :timeout => 10,
+      },
+      :ssl => {
+        :verify => false
+      },
     } unless defined? Twitter::Default::CONNECTION_OPTIONS
     IDENTITY_MAP = false unless defined? Twitter::Default::IDENTITY_MAP
     MIDDLEWARE = Faraday::Builder.new do |builder|
