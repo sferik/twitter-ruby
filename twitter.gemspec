@@ -7,7 +7,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'simple_oauth', '~> 0.2'
   spec.add_development_dependency 'kramdown'
   spec.add_development_dependency 'pry'
-  spec.add_development_dependency 'pry-debugger'
   spec.add_development_dependency 'simplecov'
   spec.authors = ["John Nunemaker", "Wynn Netherland", "Erik Michaels-Ober", "Steve Richert"]
   spec.description = %q{A Ruby interface to the Twitter API.}

@@ -1,10 +1,11 @@
 source :rubygems
 
+gem 'jruby-openssl', :platforms => :jruby
 gem 'rake'
 gem 'yard'
 
-platforms :jruby do
-  gem 'jruby-openssl', '~> 0.7'
+group :development do
+  gem 'pry-debugger', :platforms => :mri
 end
 
 group :test do
