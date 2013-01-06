@@ -1,3 +1,10 @@
+4.4.3
+-----
+* [Add `Twitter::API::Arguments` class; remove `extract_options!` helper method](https://github.com/sferik/twitter/commit/65972c599ced8da27fbbfa72aeead92464355583)
+* [Ensure credentials set via `Twitter.configure` are of a valid type](https://github.com/sferik/twitter/commit/fc152dbe56b99639896bcaaf7fe158659e8c50b9)
+* [Delegate `Twitter::Tweet#profile_image_url` and `Twitter::Tweet#profile_image_url_https` to `Twitter::Tweet#user`](https://github.com/sferik/twitter/commit/7bd6f8f589a91a8c82363d07da77ec012890c6cb)
+* [Fix timeout bug; lock `faraday` dependency to version < 0.10](https://github.com/sferik/twitter/commit/01e2781e4a78137ca4e5e6d3e4faf2552ee9ec76)
+
 4.4.2
 -----
 * [Fix to `Twitter::API::FriendsAndFollowers#friends` and `Twitter::API::FriendsAndFollowers#followers`](https://github.com/sferik/twitter/commit/d97438f5de89a1a15ad8ff5e67e8e0c7d412911f) ([@nbraem](https://twitter.com/nbraem))
