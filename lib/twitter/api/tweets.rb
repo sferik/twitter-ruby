@@ -163,11 +163,11 @@ module Twitter
       # @raise [Twitter::Error::AlreadyRetweeted] Error raised when tweet has already been retweeted.
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Array<Twitter::Tweet>] The original tweets with retweet details embedded.
-      # @overload retweet(*ids)
+      # @overload retweet!(*ids)
       #   @param ids [Array<Integer>, Set<Integer>] An array of Tweet IDs.
       #   @example Retweet the Tweet with the ID 28561922516
-      #     Twitter.retweet(28561922516)
-      # @overload retweet(*ids, options)
+      #     Twitter.retweet!(28561922516)
+      # @overload retweet!(*ids, options)
       #   @param ids [Array<Integer>, Set<Integer>] An array of Tweet IDs.
       #   @param options [Hash] A customizable set of options.
       #   @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.

@@ -21,11 +21,11 @@ module Twitter
       # @authentication_required Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Array<Twitter::List>]
-      # @overload memberships(options={})
+      # @overload lists(options={})
       #   @param options [Hash] A customizable set of options.
       #   @example Returns all lists the authenticating user subscribes to
       #     Twitter.lists
-      # @overload memberships(user, options={})
+      # @overload lists(user, options={})
       #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
       #   @param options [Hash] A customizable set of options.
       #   @example Returns all lists that @sferik subscribes to
