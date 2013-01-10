@@ -267,7 +267,7 @@ The Faraday middleware stack is fully configurable and is exposed as a
 `Faraday::Builder` object. You can modify the default middleware in-place:
 
 ```ruby
-Twitter.middleware.insert_after Twitter::Response::RaiseClientError, CustomMiddleware
+Twitter.middleware.insert_after Twitter::Response::RaiseError, CustomMiddleware
 ```
 
 A custom adapter may be set as part of a custom middleware stack:
