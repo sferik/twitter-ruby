@@ -12,7 +12,7 @@ module Twitter
 
       # @see https://dev.twitter.com/docs/api/1.1/get/favorites/list
       # @rate_limited Yes
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Array<Twitter::Tweet>] favorite Tweets.
       # @overload favorites(options={})
@@ -45,7 +45,7 @@ module Twitter
       #
       # @see https://dev.twitter.com/docs/api/1.1/post/favorites/destroy
       # @rate_limited No
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Array<Twitter::Tweet>] The un-favorited Tweets.
       # @overload unfavorite(*ids)
@@ -66,7 +66,7 @@ module Twitter
       #
       # @see https://dev.twitter.com/docs/api/1.1/post/favorites/create
       # @rate_limited No
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Array<Twitter::Tweet>] The favorited Tweets.
       # @overload favorite(*ids)
@@ -95,7 +95,7 @@ module Twitter
       #
       # @see https://dev.twitter.com/docs/api/1.1/post/favorites/create
       # @rate_limited No
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::AlreadyFavorited] Error raised when tweet has already been favorited.
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Array<Twitter::Tweet>] The favorited Tweets.

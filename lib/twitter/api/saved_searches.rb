@@ -8,7 +8,7 @@ module Twitter
       include Twitter::API::Utils
 
       # @rate_limited Yes
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Array<Twitter::SavedSearch>] The saved searches.
       # @overload saved_search(options={})
@@ -46,7 +46,7 @@ module Twitter
       #
       # @see https://dev.twitter.com/docs/api/1.1/get/saved_searches/show/:id
       # @rate_limited Yes
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Twitter::SavedSearch] The saved searches.
       # @param id [Integer] A Tweet IDs.
@@ -61,7 +61,7 @@ module Twitter
       #
       # @see https://dev.twitter.com/docs/api/1.1/post/saved_searches/create
       # @rate_limited No
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Twitter::SavedSearch] The created saved search.
       # @param query [String] The query of the search the user would like to save.
@@ -77,7 +77,7 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1.1/post/saved_searches/destroy/:id
       # @note The search specified by ID must be owned by the authenticating user.
       # @rate_limited No
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Array<Twitter::SavedSearch>] The deleted saved searches.
       # @overload saved_search_destroy(*ids)

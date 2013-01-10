@@ -14,7 +14,7 @@ module Twitter
       #
       # @note Undocumented
       # @rate_limited Yes
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Array] An array of actions
       # @param options [Hash] A customizable set of options.
@@ -30,7 +30,7 @@ module Twitter
       #
       # @note Undocumented
       # @rate_limited Yes
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid./
       # @return [Array] An array of actions
       # @param options [Hash] A customizable set of options.
@@ -44,7 +44,7 @@ module Twitter
 
       # @note Undocumented
       # @rate_limited Yes
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       #
       # @overload following_followers_of(options={})
@@ -74,7 +74,7 @@ module Twitter
       #
       # @note Undocumented
       # @rate_limited Yes
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Twitter::Tweet] The requested Tweet.
       # @param id [Integer] A Tweet ID.
@@ -92,7 +92,7 @@ module Twitter
       #
       # @note Undocumented
       # @rate_limited Yes
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Array<Twitter::Tweet>] The requested Tweets.
       # @overload statuses_activity(*ids)

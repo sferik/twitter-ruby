@@ -10,7 +10,7 @@ module Twitter
       #
       # @see https://dev.twitter.com/docs/api/1.1/get/geo/id/:place_id
       # @rate_limited Yes
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @param place_id [String] A place in the world. These IDs can be retrieved from {Twitter::API::PlacesAndGeo#reverse_geocode}.
       # @param options [Hash] A customizable set of options.
@@ -26,7 +26,7 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1.1/get/geo/reverse_geocode
       # @note This request is an informative call and will deliver generalized results about geography.
       # @rate_limited Yes
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @param options [Hash] A customizable set of options.
       # @option options [Float] :lat The latitude to search around. This option will be ignored unless it is inside the range -90.0 to +90.0 (North is positive) inclusive. It will also be ignored if there isn't a corresponding :long option.
@@ -45,7 +45,7 @@ module Twitter
       #
       # @see https://dev.twitter.com/docs/api/1.1/get/geo/search
       # @rate_limited Yes
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @param options [Hash] A customizable set of options.
       # @option options [Float] :lat The latitude to search around. This option will be ignored unless it is inside the range -90.0 to +90.0 (North is positive) inclusive. It will also be ignored if there isn't a corresponding :long option.
@@ -70,7 +70,7 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1.1/get/geo/similar_places
       # @note Conceptually, you would use this method to get a list of known places to choose from first. Then, if the desired place doesn't exist, make a request to {Twitter::API::PlacesAndGeo#place} to create a new one. The token contained in the response is the token necessary to create a new place.
       # @rate_limited Yes
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @param options [Hash] A customizable set of options.
       # @option options [Float] :lat The latitude to search around. This option will be ignored unless it is inside the range -90.0 to +90.0 (North is positive) inclusive. It will also be ignored if there isn't a corresponding :long option.
@@ -90,7 +90,7 @@ module Twitter
       #
       # @see https://dev.twitter.com/docs/api/1.1/post/geo/place
       # @rate_limited Yes
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @param options [Hash] A customizable set of options.
       # @option options [String] :name The name a place is known as.

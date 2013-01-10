@@ -13,7 +13,7 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1.1/get/direct_messages
       # @note This method requires an access token with RWD (read, write & direct message) permissions. Consult The Application Permission Model for more information.
       # @rate_limited Yes
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Array<Twitter::DirectMessage>] Direct messages sent to the authenticating user.
       # @param options [Hash] A customizable set of options.
@@ -32,7 +32,7 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1.1/get/direct_messages/sent
       # @note This method requires an access token with RWD (read, write & direct message) permissions. Consult The Application Permission Model for more information.
       # @rate_limited Yes
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Array<Twitter::DirectMessage>] Direct messages sent by the authenticating user.
       # @param options [Hash] A customizable set of options.
@@ -51,7 +51,7 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1.1/get/direct_messages/show
       # @note This method requires an access token with RWD (read, write & direct message) permissions. Consult The Application Permission Model for more information.
       # @rate_limited Yes
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Twitter::DirectMessage] The requested messages.
       # @param id [Integer] A Tweet IDs.
@@ -65,7 +65,7 @@ module Twitter
 
       # @note This method requires an access token with RWD (read, write & direct message) permissions. Consult The Application Permission Model for more information.
       # @rate_limited Yes
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Array<Twitter::DirectMessage>] The requested messages.
       # @overload direct_messages(options={})
@@ -108,7 +108,7 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1.1/post/direct_messages/destroy
       # @note This method requires an access token with RWD (read, write & direct message) permissions. Consult The Application Permission Model for more information.
       # @rate_limited No
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Array<Twitter::DirectMessage>] Deleted direct message.
       # @overload direct_message_destroy(*ids)
@@ -126,7 +126,7 @@ module Twitter
       #
       # @see https://dev.twitter.com/docs/api/1.1/post/direct_messages/new
       # @rate_limited No
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Twitter::DirectMessage] The sent message.
       # @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.

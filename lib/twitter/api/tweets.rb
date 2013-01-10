@@ -14,7 +14,7 @@ module Twitter
       #
       # @see https://dev.twitter.com/docs/api/1.1/get/statuses/retweets/:id
       # @rate_limited Yes
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Array<Twitter::Tweet>]
       # @param id [Integer] The numerical ID of the desired Tweet.
@@ -31,7 +31,7 @@ module Twitter
       #
       # @see https://dev.twitter.com/docs/api/1.1/get/statuses/retweets/:id
       # @rate_limited Yes
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Array]
       # @param id [Integer] The numerical ID of the desired Tweet.
@@ -55,7 +55,7 @@ module Twitter
       #
       # @see https://dev.twitter.com/docs/api/1.1/get/statuses/show/:id
       # @rate_limited Yes
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Twitter::Tweet] The requested Tweet.
       # @param id [Integer] A Tweet ID.
@@ -71,7 +71,7 @@ module Twitter
       #
       # @see https://dev.twitter.com/docs/api/1.1/get/statuses/show/:id
       # @rate_limited Yes
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Array<Twitter::Tweet>] The requested Tweets.
       # @overload statuses(*ids)
@@ -91,7 +91,7 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1.1/post/statuses/destroy/:id
       # @note The authenticating user must be the author of the specified Tweets.
       # @rate_limited No
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Array<Twitter::Tweet>] The deleted Tweets.
       # @overload status_destroy(*ids)
@@ -112,7 +112,7 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1.1/post/statuses/update
       # @note A status update with text identical to the authenticating user's current status will be ignored to prevent duplicates.
       # @rate_limited No
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Twitter::Tweet] The created Tweet.
       # @param status [String] The text of your status update, up to 140 characters.
@@ -133,7 +133,7 @@ module Twitter
       #
       # @see https://dev.twitter.com/docs/api/1.1/post/statuses/retweet/:id
       # @rate_limited Yes
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Array<Twitter::Tweet>] The original tweets with retweet details embedded.
       # @overload retweet(*ids)
@@ -159,7 +159,7 @@ module Twitter
       #
       # @see https://dev.twitter.com/docs/api/1.1/post/statuses/retweet/:id
       # @rate_limited Yes
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::AlreadyRetweeted] Error raised when tweet has already been retweeted.
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Array<Twitter::Tweet>] The original tweets with retweet details embedded.
@@ -187,7 +187,7 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1.1/post/statuses/update_with_media
       # @note A status update with text/media identical to the authenticating user's current status will NOT be ignored
       # @rate_limited No
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Twitter::Tweet] The created Tweet.
       # @param status [String] The text of your status update, up to 140 characters.
@@ -209,7 +209,7 @@ module Twitter
       #
       # @see https://dev.twitter.com/docs/api/1.1/get/statuses/oembed
       # @rate_limited Yes
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Twitter::OEmbed] OEmbed for the requested Tweet.
       # @param id [Integer, String] A Tweet ID.
@@ -231,7 +231,7 @@ module Twitter
       #
       # @see https://dev.twitter.com/docs/api/1.1/get/statuses/oembed
       # @rate_limited Yes
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Array<Twitter::OEmbed>] OEmbeds for the requested Tweets.
       # @overload oembed(*ids_or_urls)

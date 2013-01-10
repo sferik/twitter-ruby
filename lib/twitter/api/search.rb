@@ -12,7 +12,7 @@ module Twitter
       # @see https://dev.twitter.com/docs/using-search
       # @note Please note that Twitter's search service and, by extension, the Search API is not meant to be an exhaustive source of Tweets. Not all Tweets will be indexed or made available via the search interface.
       # @rate_limited Yes
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @param q [String] A search term.
       # @param options [Hash] A customizable set of options.
@@ -26,7 +26,7 @@ module Twitter
       # @option options [Integer] :max_id Returns results with an ID less than (that is, older than) or equal to the specified ID.
       # @option options [Boolean, String, Integer] :include_entities The tweet entities node will be disincluded when set to false.
       # @return [Twitter::SearchResults] Return tweets that match a specified query with search metadata
-      # @example Returns tweets related to twitter
+      # @example Return tweets related to twitter
       #   Twitter.search('twitter')
       def search(q, options={})
         object_from_response(Twitter::SearchResults, :get, "/1.1/search/tweets.json", options.merge(:q => q))

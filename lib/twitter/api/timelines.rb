@@ -14,7 +14,7 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1.1/get/statuses/mentions_timeline
       # @note This method can only return up to 800 Tweets.
       # @rate_limited Yes
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Array<Twitter::Tweet>]
       # @param options [Hash] A customizable set of options.
@@ -34,7 +34,7 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1.1/get/statuses/user_timeline
       # @note This method can only return up to 3,200 Tweets.
       # @rate_limited Yes
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Array<Twitter::Tweet>]
       # @overload user_timeline(user, options={})
@@ -58,7 +58,7 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1.1/get/statuses/user_timeline
       # @note This method can only return up to 3,200 Tweets.
       # @rate_limited Yes
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Array<Twitter::Tweet>]
       # @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
@@ -83,7 +83,7 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1.1/get/statuses/user_timeline
       # @note This method can only return up to 3,200 Tweets.
       # @rate_limited Yes
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Array<Twitter::Tweet>]
       # @param options [Hash] A customizable set of options.
@@ -106,7 +106,7 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1.1/get/statuses/home_timeline
       # @note This method can only return up to 800 Tweets, including retweets.
       # @rate_limited Yes
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Array<Twitter::Tweet>]
       # @param options [Hash] A customizable set of options.
@@ -129,7 +129,7 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1.1/get/statuses/home_timeline
       # @note This method can only return up to 800 Tweets, including retweets.
       # @rate_limited Yes
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Array<Twitter::Tweet>]
       # @param options [Hash] A customizable set of options.
@@ -152,7 +152,7 @@ module Twitter
       #
       # @see https://dev.twitter.com/docs/api/1.1/get/statuses/retweets_of_me
       # @rate_limited Yes
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Array<Twitter::Tweet>]
       # @param options [Hash] A customizable set of options.

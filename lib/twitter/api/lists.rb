@@ -18,17 +18,17 @@ module Twitter
       #
       # @see https://dev.twitter.com/docs/api/1.1/get/lists/list
       # @rate_limited Yes
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Array<Twitter::List>]
       # @overload lists(options={})
       #   @param options [Hash] A customizable set of options.
-      #   @example Returns all lists the authenticating user subscribes to
+      #   @example Return all lists the authenticating user subscribes to
       #     Twitter.lists
       # @overload lists(user, options={})
       #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
       #   @param options [Hash] A customizable set of options.
-      #   @example Returns all lists that @sferik subscribes to
+      #   @example Return all lists that @sferik subscribes to
       #     Twitter.lists('sferik')
       #     Twitter.lists(7505382)
       def lists(*args)
@@ -40,7 +40,7 @@ module Twitter
       #
       # @see https://dev.twitter.com/docs/api/1.1/get/lists/statuses
       # @rate_limited Yes
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Array<Twitter::Tweet>]
       # @overload list_timeline(list, options={})
@@ -75,7 +75,7 @@ module Twitter
       #
       # @see https://dev.twitter.com/docs/api/1.1/post/lists/members/destroy
       # @rate_limited No
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Twitter::List] The list.
       # @overload list_remove_member(list, user_to_remove, options={})
@@ -104,7 +104,7 @@ module Twitter
       #
       # @see https://dev.twitter.com/docs/api/1.1/get/lists/memberships
       # @rate_limited Yes
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Twitter::Cursor]
       # @overload memberships(options={})
@@ -129,7 +129,7 @@ module Twitter
       #
       # @see https://dev.twitter.com/docs/api/1.1/get/lists/subscribers
       # @rate_limited Yes
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Twitter::Cursor] The subscribers of the specified list.
       # @overload list_subscribers(list, options={})
@@ -156,7 +156,7 @@ module Twitter
       #
       # @see https://dev.twitter.com/docs/api/1.1/post/lists/subscribers/create
       # @rate_limited No
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Twitter::List] The specified list.
       # @overload list_subscribe(list, options={})
@@ -181,7 +181,7 @@ module Twitter
       #
       # @see https://dev.twitter.com/docs/api/1.1/get/lists/subscribers/show
       # @rate_limited Yes
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Boolean] true if user is a subscriber of the specified list, otherwise false.
       # @overload list_subscriber?(list, user_to_check, options={})
@@ -211,7 +211,7 @@ module Twitter
       #
       # @see https://dev.twitter.com/docs/api/1.1/post/lists/subscribers/destroy
       # @rate_limited No
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Twitter::List] The specified list.
       # @overload list_unsubscribe(list, options={})
@@ -237,7 +237,7 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1.1/post/lists/members/create_all
       # @note Lists are limited to having 500 members, and you are limited to adding up to 100 members to a list at a time with this method.
       # @rate_limited No
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Twitter::List] The list.
       # @overload list_add_members(list, users, options={})
@@ -268,7 +268,7 @@ module Twitter
       # Check if a user is a member of the specified list
       #
       # @see https://dev.twitter.com/docs/api/1.1/get/lists/members/show
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @rate_limited Yes
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Boolean] true if user is a member of the specified list, otherwise false.
@@ -296,7 +296,7 @@ module Twitter
       #
       # @see https://dev.twitter.com/docs/api/1.1/get/lists/members
       # @rate_limited Yes
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Twitter::Cursor]
       # @overload list_members(list, options={})
@@ -325,7 +325,7 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1.1/post/lists/members/create
       # @note Lists are limited to having 500 members.
       # @rate_limited No
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Twitter::List] The list.
       # @overload list_add_member(list, user_to_add, options={})
@@ -354,7 +354,7 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1.1/post/lists/destroy
       # @note Must be owned by the authenticated user.
       # @rate_limited No
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Twitter::List] The deleted list.
       # @overload list_destroy(list, options={})
@@ -380,7 +380,7 @@ module Twitter
       #
       # @see https://dev.twitter.com/docs/api/1.1/post/lists/update
       # @rate_limited No
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Twitter::List] The created list.
       # @overload list_update(list, options={})
@@ -411,7 +411,7 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1.1/post/lists/create
       # @note Accounts are limited to 20 lists.
       # @rate_limited No
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Twitter::List] The created list.
       # @param name [String] The name for the list.
@@ -429,7 +429,7 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1.1/get/lists/show
       # @note Private lists will only be shown if the authenticated user owns the specified list.
       # @rate_limited Yes
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Twitter::List] The specified list.
       # @overload list(list, options={})
@@ -455,7 +455,7 @@ module Twitter
       #
       # @see https://dev.twitter.com/docs/api/1.1/get/lists/subscriptions
       # @rate_limited Yes
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Twitter::Cursor]
       # @overload subscriptions(options={})
@@ -478,7 +478,7 @@ module Twitter
       #
       # @see https://dev.twitter.com/docs/api/1.1/post/lists/members/destroy_all
       # @rate_limited No
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Twitter::List] The list.
       # @overload list_remove_members(list, users, options={})

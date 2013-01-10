@@ -11,7 +11,7 @@ module Twitter
       #
       # @see https://dev.twitter.com/docs/api/1.1/get/trends/place
       # @rate_limited Yes
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @param id [Integer] The {https://developer.yahoo.com/geo/geoplanet Yahoo! Where On Earth ID} of the location to return trending information for. WOEIDs can be retrieved by calling {Twitter::API::Trends#trend_locations}. Global information is available by using 1 as the WOEID.
       # @param options [Hash] A customizable set of options.
@@ -31,7 +31,7 @@ module Twitter
       #
       # @see https://dev.twitter.com/docs/api/1.1/get/trends/available
       # @rate_limited Yes
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @param options [Hash] A customizable set of options.
       # @return [Array<Twitter::Place>]
@@ -46,7 +46,7 @@ module Twitter
       #
       # @see https://dev.twitter.com/docs/api/1.1/get/trends/closest
       # @rate_limited Yes
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @param options [Hash] A customizable set of options.
       # @option options [Float] :lat If provided with a :long option the available trend locations will be sorted by distance, nearest to furthest, to the co-ordinate pair. The valid ranges for latitude are -90.0 to +90.0 (North is positive) inclusive.

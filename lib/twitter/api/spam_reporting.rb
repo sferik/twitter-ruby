@@ -10,7 +10,7 @@ module Twitter
       #
       # @see https://dev.twitter.com/docs/api/1.1/post/users/report_spam
       # @rate_limited Yes
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Array<Twitter::User>] The reported users.
       # @overload report_spam(*users)

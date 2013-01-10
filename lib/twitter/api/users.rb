@@ -18,7 +18,7 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1.1/post/account/settings
       # @see https://dev.twitter.com/docs/api/1.1/get/account/settings
       # @rate_limited Yes
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Twitter::Settings]
       # @param options [Hash] A customizable set of options.
@@ -39,7 +39,7 @@ module Twitter
       #
       # @see https://dev.twitter.com/docs/api/1.1/get/account/verify_credentials
       # @rate_limited Yes
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Twitter::User] The authenticated user.
       # @param options [Hash] A customizable set of options.
@@ -55,7 +55,7 @@ module Twitter
       #
       # @see https://dev.twitter.com/docs/api/1.1/post/account/update_delivery_device
       # @rate_limited No
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Twitter::User] The authenticated user.
       # @param device [String] Must be one of: 'sms', 'none'.
@@ -71,7 +71,7 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1.1/post/account/update_profile
       # @note Only the options specified will be updated.
       # @rate_limited No
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Twitter::User] The authenticated user.
       # @param options [Hash] A customizable set of options.
@@ -89,7 +89,7 @@ module Twitter
       #
       # @see https://dev.twitter.com/docs/api/1.1/post/account/update_profile_background_image
       # @rate_limited No
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Twitter::User] The authenticated user.
       # @param image [File] The background image for the profile, base64-encoded. Must be a valid GIF, JPG, or PNG image of less than 800 kilobytes in size. Images with width larger than 2048 pixels will be forcibly scaled down. The image must be provided as raw multipart data, not a URL.
@@ -105,7 +105,7 @@ module Twitter
       #
       # @see https://dev.twitter.com/docs/api/1.1/post/account/update_profile_colors
       # @rate_limited No
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Twitter::User] The authenticated user.
       # @param options [Hash] A customizable set of options.
@@ -126,7 +126,7 @@ module Twitter
       # @note Updates the authenticating user's profile image. Note that this method expects raw multipart data, not a URL to an image.
       # @note This method asynchronously processes the uploaded file before updating the user's profile image URL. You can either update your local cache the next time you request the user's information, or, at least 5 seconds after uploading the image, ask for the updated URL using GET users/show.
       # @rate_limited No
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Twitter::User] The authenticated user.
       # @param image [File] The avatar image for the profile, base64-encoded. Must be a valid GIF, JPG, or PNG image of less than 700 kilobytes in size. Images with width larger than 500 pixels will be scaled down. Animated GIFs will be converted to a static GIF of the first frame, removing the animation.
@@ -141,7 +141,7 @@ module Twitter
       #
       # @see https://dev.twitter.com/docs/api/1.1/get/blocks/list
       # @rate_limited Yes
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Array<Twitter::User>] User objects that the authenticating user is blocking.
       # @param options [Hash] A customizable set of options.
@@ -156,7 +156,7 @@ module Twitter
       #
       # @see https://dev.twitter.com/docs/api/1.1/get/blocks/ids
       # @rate_limited Yes
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Array] Numeric user ids the authenticating user is blocking.
       # @example Return an array of numeric user ids the authenticating user is blocking
@@ -173,7 +173,7 @@ module Twitter
       #
       # @see https://dev.twitter.com/docs/api/1.1/get/blocks/ids
       # @rate_limited Yes
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Boolean] true if the authenticating user is blocking the target user, otherwise false.
       # @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
@@ -199,7 +199,7 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1.1/post/blocks/create
       # @note Destroys a friendship to the blocked user if it exists.
       # @rate_limited Yes
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Array<Twitter::User>] The blocked users.
       # @overload block(*users)
@@ -218,7 +218,7 @@ module Twitter
       #
       # @see https://dev.twitter.com/docs/api/1.1/post/blocks/destroy
       # @rate_limited No
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Array<Twitter::User>] The un-blocked users.
       # @overload unblock(*users)
@@ -237,7 +237,7 @@ module Twitter
       #
       # @see https://dev.twitter.com/docs/api/1.1/get/users/lookup
       # @rate_limited Yes
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Array<Twitter::User>] The requested users.
       # @overload users(*users)
@@ -263,7 +263,7 @@ module Twitter
 
       # @see https://dev.twitter.com/docs/api/1.1/get/users/show
       # @rate_limited Yes
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Twitter::User] The requested user.
       # @overload user(options={})
@@ -294,7 +294,7 @@ module Twitter
       # Returns true if the specified user exists
       #
       # @rate_limited Yes
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Boolean] true if the user exists, otherwise false.
       # @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
@@ -313,7 +313,7 @@ module Twitter
       #
       # @see https://dev.twitter.com/docs/api/1.1/get/users/search
       # @rate_limited Yes
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Array<Twitter::User>]
       # @param query [String] The search query to run against people search.
@@ -330,7 +330,7 @@ module Twitter
       #
       # @see https://dev.twitter.com/docs/api/1.1/get/users/contributees
       # @rate_limited Yes
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Array<Twitter::User>]
       # @overload contributees(options={})
@@ -353,7 +353,7 @@ module Twitter
       #
       # @see https://dev.twitter.com/docs/api/1.1/get/users/contributors
       # @rate_limited Yes
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Array<Twitter::User>]
       # @overload contributors(options={})
@@ -376,7 +376,7 @@ module Twitter
       #
       # @see https://dev.twitter.com/docs/api/1.1/post/account/remove_profile_banner
       # @rate_limited No
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [nil]
       # @param options [Hash] A customizable set of options.
@@ -392,7 +392,7 @@ module Twitter
       # @note Uploads a profile banner on behalf of the authenticating user. For best results, upload an <5MB image that is exactly 1252px by 626px. Images will be resized for a number of display options. Users with an uploaded profile banner will have a profile_banner_url node in their Users objects. More information about sizing variations can be found in User Profile Images and Banners.
       # @note Profile banner images are processed asynchronously. The profile_banner_url and its variant sizes will not necessary be available directly after upload.
       # @rate_limited No
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::BadRequest] Error raised when either an image was not provided or the image data could not be processed.
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @raise [Twitter::Error::UnprocessableEntity] Error raised when the image could not be resized or is too large.
@@ -414,7 +414,7 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1.1/get/users/profile_banner
       # @note If the user has not uploaded a profile banner, a HTTP 404 will be served instead.
       # @rate_limited Yes
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Twitter::ProfileBanner]
       # @overload profile_banner(options={})

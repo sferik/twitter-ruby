@@ -10,7 +10,7 @@ module Twitter
 
       # @return [Array<Twitter::Suggestion>]
       # @rate_limited Yes
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @overload suggestions(options={})
       #   Returns the list of suggested user categories
@@ -40,7 +40,7 @@ module Twitter
       #
       # @see https://dev.twitter.com/docs/api/1.1/get/users/suggestions/:slug/members
       # @rate_limited Yes
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @param slug [String] The short name of list or a category.
       # @param options [Hash] A customizable set of options.
       # @return [Array<Twitter::User>]

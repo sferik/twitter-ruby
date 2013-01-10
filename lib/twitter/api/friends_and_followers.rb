@@ -12,7 +12,7 @@ module Twitter
 
       # @see https://dev.twitter.com/docs/api/1.1/get/friends/ids
       # @rate_limited Yes
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Twitter::Cursor]
       # @overload friend_ids(options={})
@@ -37,7 +37,7 @@ module Twitter
 
       # @see https://dev.twitter.com/docs/api/1.1/get/followers/ids
       # @rate_limited Yes
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Twitter::Cursor]
       # @overload follower_ids(options={})
@@ -64,7 +64,7 @@ module Twitter
       #
       # @see https://dev.twitter.com/docs/api/1.1/get/friendships/lookup
       # @rate_limited Yes
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Array<Twitter::User>] The requested users.
       # @overload friendships(*users)
@@ -86,7 +86,7 @@ module Twitter
       #
       # @see https://dev.twitter.com/docs/api/1.1/get/friendships/incoming
       # @rate_limited Yes
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Twitter::Cursor]
       # @param options [Hash] A customizable set of options.
@@ -101,7 +101,7 @@ module Twitter
       #
       # @see https://dev.twitter.com/docs/api/1.1/get/friendships/outgoing
       # @rate_limited Yes
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Twitter::Cursor]
       # @param options [Hash] A customizable set of options.
@@ -116,7 +116,7 @@ module Twitter
       #
       # @see https://dev.twitter.com/docs/api/1.1/post/friendships/create
       # @rate_limited No
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Array<Twitter::User>] The followed users.
       # @overload follow(*users)
@@ -146,7 +146,7 @@ module Twitter
       #
       # @see https://dev.twitter.com/docs/api/1.1/post/friendships/create
       # @rate_limited No
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Array<Twitter::User>] The followed users.
       # @overload follow!(*users)
@@ -177,7 +177,7 @@ module Twitter
       #
       # @see https://dev.twitter.com/docs/api/1.1/post/friendships/destroy
       # @rate_limited No
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Array<Twitter::User>] The unfollowed users.
       # @overload unfollow(*users)
@@ -196,7 +196,7 @@ module Twitter
       #
       # @see https://dev.twitter.com/docs/api/1.1/post/friendships/update
       # @rate_limited No
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Twitter::Relationship]
       # @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
@@ -214,7 +214,7 @@ module Twitter
       #
       # @see https://dev.twitter.com/docs/api/1.1/get/friendships/show
       # @rate_limited Yes
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Twitter::Relationship]
       # @param source [Integer, String, Twitter::User] The Twitter user ID, screen name, or object of the source user.
@@ -238,7 +238,7 @@ module Twitter
       #
       # @see https://dev.twitter.com/docs/api/1.1/get/friendships/show
       # @rate_limited Yes
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Boolean] true if user_a follows user_b, otherwise false.
       # @param source [Integer, String, Twitter::User] The Twitter user ID, screen name, or object of the source user.
@@ -256,7 +256,7 @@ module Twitter
       #
       # @see https://dev.twitter.com/docs/api/1.1/get/followers/list
       # @rate_limited Yes
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Twitter::Cursor]
       # @overload friend_ids(options={})
@@ -287,7 +287,7 @@ module Twitter
       #
       # @see https://dev.twitter.com/docs/api/1.1/get/friendships/show
       # @rate_limited Yes
-      # @authentication_required Requires user context
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Twitter::Cursor]
       # @overload friend_ids(options={})

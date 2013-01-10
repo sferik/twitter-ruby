@@ -1,7 +1,7 @@
 --no-private
 --protected
 --tag rate_limited:"Rate Limited?"
---tag authentication_required:"Authentication Required?"
+--tag authentication:"Authentication"
 --markup markdown
 -
 CHANGELOG.md
