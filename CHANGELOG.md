@@ -1,3 +1,8 @@
+4.4.4
+-----
+* [Fix documentation bugs](https://github.com/sferik/twitter/commit/45213d16efda0bd78e8c4c3c80892b824393e37c)
+* [Relax `multi_json` dependency](https://github.com/sferik/twitter/commit/46327e740a03ec783cb62863d40eef5efa68c0cb)
+
 4.4.3
 -----
 * [Add `Twitter::API::Arguments` class; remove `extract_options!` helper method](https://github.com/sferik/twitter/commit/65972c599ced8da27fbbfa72aeead92464355583)
