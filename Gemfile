@@ -5,7 +5,7 @@ gem 'rake'
 gem 'yard'
 
 group :development do
-  gem 'pry-debugger', :platforms => :mri
+  gem 'pry-debugger', :platforms => :mri_19
 end
 
 group :test do
