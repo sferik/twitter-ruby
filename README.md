@@ -395,6 +395,7 @@ version:
 * Ruby 1.8.7
 * Ruby 1.9.2
 * Ruby 1.9.3
+* Ruby 2.0.0
 
 This library may inadvertently work (or seem to work) on other Ruby
 implementations, however support will only be provided for the versions listed

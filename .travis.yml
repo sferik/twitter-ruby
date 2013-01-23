@@ -6,8 +6,9 @@ rvm:
   - rbx-18mode
   - rbx-19mode
   - 1.8.7
+  - 1.9.2
   - 1.9.3
-  - ruby-head
+  - 2.0.0
 notifications:
   email:
     - sferik@gmail.com
