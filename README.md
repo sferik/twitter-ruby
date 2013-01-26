@@ -119,7 +119,6 @@ version 3 are no longer available in version 4:
 * `Twitter::API#disable_notifications`
 * `Twitter::API#enable_notifications`
 * `Twitter::API#end_session`
-* `Twitter::API#no_retweet_ids`
 * `Twitter::API#rate_limit_status`
 * `Twitter::API#rate_limited?`
 * `Twitter::API#recommendations`
@@ -318,6 +317,13 @@ Twitter.friends("gem")
 Twitter.friends(213747670)
 Twitter.friends
 ```
+
+**Fetch a collection of user_ids that the currently authenticated user does not want to receive retweets from**
+
+```ruby
+Twitter.no_retweet_ids
+````
+
 **Fetch the timeline of Tweets by a user**
 
 ```ruby
