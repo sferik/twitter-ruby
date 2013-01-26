@@ -1,3 +1,7 @@
+4.5.0
+-----
+* [Add no_retweet_ids](https://github.com/sferik/twitter/commit/cab8d6ebf3afdbd24463932262798a132d70a6f1)
+
 4.4.4
 -----
 * [Fix documentation bugs](https://github.com/sferik/twitter/commit/45213d16efda0bd78e8c4c3c80892b824393e37c)
