@@ -1,6 +1,6 @@
 4.5.0
 -----
-* [Add no_retweet_ids](https://github.com/sferik/twitter/commit/cab8d6ebf3afdbd24463932262798a132d70a6f1)
+* [Add no_retweet_ids](https://github.com/sferik/twitter/commit/cab8d6ebf3afdbd24463932262798a132d70a6f1) ([@tibbon](https://twitter.com/tibbon))
 
 4.4.4
 -----
