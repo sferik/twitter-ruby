@@ -668,4 +668,23 @@ describe Twitter::API::FriendsAndFollowers do
     end
   end
 
+  describe "#no_retweet_ids" do
+    before do
+      stub_get("/1.1/friendships/no_retweets/ids.json").to_return(:body => fixture("ids.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+    end
+    it "requests the correct resource" do
+      @client.no_retweet_ids
+      expect(a_get("/1.1/friendships/no_retweets/ids.json")).to have_been_made
+    end
+    it "requests the correct resource when the alias is called" do
+      @client.no_retweets_ids
+      expect(a_get("/1.1/friendships/no_retweets/ids.json")).to have_been_made
+    end
+    it "returns users ids of those that do not wish to be retweeted" do
+      no_retweet_ids = @client.no_retweet_ids
+      expect(no_retweet_ids).to be_an Array
+      expect(no_retweet_ids.first).to be_an Integer
+      expect(no_retweet_ids.first).to eq 47
+    end
+  end
 end
