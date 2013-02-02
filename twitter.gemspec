@@ -1,5 +1,7 @@
-# encoding: utf-8
-require File.expand_path('../lib/twitter/version', __FILE__)
+# coding: utf-8
+lib = File.expand_path('../lib', __FILE__)
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+require 'twitter/version'
 
 Gem::Specification.new do |spec|
   spec.add_dependency 'faraday', ['~> 0.8', '< 0.10']
