@@ -18,7 +18,7 @@ Gem::Specification.new do |spec|
   spec.licenses = ['MIT']
   spec.name = 'twitter'
   spec.require_paths = ['lib']
-  spec.required_rubygems_version = Gem::Requirement.new('>= 1.3.6')
+  spec.required_rubygems_version = '>= 1.3.6'
   spec.summary = spec.description
   spec.test_files = Dir.glob("spec/**/*")
   spec.version = Twitter::Version
