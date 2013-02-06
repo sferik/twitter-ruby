@@ -22,7 +22,7 @@ module Twitter
           body[:error]
         elsif body[:errors]
           first = Array(body[:errors]).first
-          if first.kind_of?(Hash)
+          if first.is_a?(Hash)
             first[:message].chomp
           else
             first.chomp

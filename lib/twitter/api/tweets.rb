@@ -212,7 +212,7 @@ module Twitter
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Twitter::OEmbed] OEmbed for the requested Tweet.
-      # @param id [Integer, String] A Tweet ID.
+      # @param id_or_url [Integer, String] A Tweet ID or URL.
       # @param options [Hash] A customizable set of options.
       # @option options [Integer] :maxwidth The maximum width in pixels that the embed should be rendered at. This value is constrained to be between 250 and 550 pixels.
       # @option options [Boolean, String, Integer] :hide_media Specifies whether the embedded Tweet should automatically expand images which were uploaded via {https://dev.twitter.com/docs/api/1.1/post/statuses/update_with_media POST statuses/update_with_media}. When set to either true, t or 1 images will not be expanded. Defaults to false.
@@ -223,9 +223,9 @@ module Twitter
       # @option options [String] :lang Language code for the rendered embed. This will affect the text and localization of the rendered HTML.
       # @example Return oEmbeds for Tweet with the ID 25938088801
       #   Twitter.status_with_activity(25938088801)
-      def oembed(id, options={})
-        lookup = ( id.kind_of?(String) and id =~ /^https?:\/\//i ) ? "url" : "id"
-        object_from_response(Twitter::OEmbed, :get, "/1.1/statuses/oembed.json?#{lookup}=#{id}", options)
+      def oembed(id_or_url, options={})
+        key = id_or_url.is_a?(String) && id_or_url.match(%r{^https?://}i) ? "url" : "id"
+        object_from_response(Twitter::OEmbed, :get, "/1.1/statuses/oembed.json?#{key}=#{id_or_url}", options)
       end
 
       # Returns oEmbeds for Tweets
@@ -251,8 +251,8 @@ module Twitter
       #   @option options [String] :lang Language code for the rendered embed. This will affect the text and localization of the rendered HTML.
       def oembeds(*args)
         arguments = Twitter::API::Arguments.new(args)
-        arguments.flatten.threaded_map do |id|
-          oembed(id, arguments.options)
+        arguments.flatten.threaded_map do |id_or_url|
+          oembed(id_or_url, arguments.options)
         end
       end
 

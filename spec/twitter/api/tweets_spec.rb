@@ -226,7 +226,7 @@ describe Twitter::API::Tweets do
       @client.oembed(25938088801)
       expect(a_get("/1.1/statuses/oembed.json").with(:query => {:id => "25938088801"})).to have_been_made
     end
-    it "requests the correct resource when a url is given" do
+    it "requests the correct resource when a URL is given" do
       @client.oembed("https://twitter.com/sferik/status/25938088801")
       expect(a_get("/1.1/statuses/oembed.json").with(:query => {:url => "https://twitter.com/sferik/status/25938088801"}))
     end
@@ -245,7 +245,7 @@ describe Twitter::API::Tweets do
       @client.oembeds(25938088801)
       expect(a_get("/1.1/statuses/oembed.json").with(:query => {:id => "25938088801"})).to have_been_made
     end
-    it "requests the correct resource when a url is given" do
+    it "requests the correct resource when a URL is given" do
       @client.oembeds("https://twitter.com/sferik/status/25938088801")
       expect(a_get("/1.1/statuses/oembed.json").with(:query => {:url => "https://twitter.com/sferik/status/25938088801"})).to have_been_made
     end
