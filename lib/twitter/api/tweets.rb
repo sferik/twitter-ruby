@@ -224,7 +224,8 @@ module Twitter
       # @example Return oEmbeds for Tweet with the ID 25938088801
       #   Twitter.status_with_activity(25938088801)
       def oembed(id, options={})
-        object_from_response(Twitter::OEmbed, :get, "/1.1/statuses/oembed.json?id=#{id}", options)
+        lookup = ( id.kind_of?(String) and id =~ /^https?:\/\//i ) ? "url" : "id"
+        object_from_response(Twitter::OEmbed, :get, "/1.1/statuses/oembed.json?#{lookup}=#{id}", options)
       end
 
       # Returns oEmbeds for Tweets
@@ -251,7 +252,7 @@ module Twitter
       def oembeds(*args)
         arguments = Twitter::API::Arguments.new(args)
         arguments.flatten.threaded_map do |id|
-          object_from_response(Twitter::OEmbed, :get, "/1.1/statuses/oembed.json?id=#{id}", arguments.options)
+          oembed(id, arguments.options)
         end
       end
 
