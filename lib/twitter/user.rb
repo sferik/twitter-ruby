@@ -16,7 +16,7 @@ module Twitter
       :profile_link_color, :profile_sidebar_border_color,
       :profile_sidebar_fill_color, :profile_text_color,
       :profile_use_background_image, :protected, :statuses_count, :time_zone,
-      :url, :utc_offset, :verified
+      :url, :utc_offset, :verified, :entities
     alias favorite_count favourites_count
     alias favoriters_count favourites_count
     alias favorites_count favourites_count
