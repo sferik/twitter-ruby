@@ -104,13 +104,13 @@ describe Twitter::Tweet do
 
   describe "#hashtags" do
     it "returns an Array of Entity::Hashtag when entities are set" do
-      hashtags_hash = [
+      hashtags_array = [
         {
           :text => 'twitter',
           :indices => [10, 33],
         }
       ]
-      hashtags = Twitter::Tweet.new(:id => 28669546014, :entities => {:hashtags => hashtags_hash}).hashtags
+      hashtags = Twitter::Tweet.new(:id => 28669546014, :entities => {:hashtags => hashtags_array}).hashtags
       expect(hashtags).to be_an Array
       expect(hashtags.first).to be_a Twitter::Entity::Hashtag
       expect(hashtags.first.indices).to eq [10, 33]
@@ -234,7 +234,7 @@ describe Twitter::Tweet do
     end
 
     it "returns true if there are entities set" do
-      urls_hash = [
+      urls_array = [
         {
           :url => 'http://example.com/t.co',
           :expanded_url => 'http://example.com/expanded',
@@ -242,14 +242,14 @@ describe Twitter::Tweet do
           :indices => [10, 33],
         }
       ]
-      tweet = Twitter::Tweet.new(:id => 28669546014, :entities => {:urls => urls_hash})
+      tweet = Twitter::Tweet.new(:id => 28669546014, :entities => {:urls => urls_array})
       expect(tweet.entities?).to be_true
     end
   end
 
   describe "#urls" do
     it "returns an Array of Entity::Url when entities are set" do
-      urls_hash = [
+      urls_array = [
         {
           :url => 'http://example.com/t.co',
           :expanded_url => 'http://example.com/expanded',
@@ -257,7 +257,7 @@ describe Twitter::Tweet do
           :indices => [10, 33],
         }
       ]
-      urls = Twitter::Tweet.new(:id => 28669546014, :entities => {:urls => urls_hash}).urls
+      urls = Twitter::Tweet.new(:id => 28669546014, :entities => {:urls => urls_array}).urls
       expect(urls).to be_an Array
       expect(urls.first).to be_a Twitter::Entity::Url
       expect(urls.first.indices).to eq [10, 33]
@@ -301,7 +301,7 @@ describe Twitter::Tweet do
 
   describe "#user_mentions" do
     it "returns an Array of Entity::UserMention when entities are set" do
-      user_mentions_hash = [
+      user_mentions_array = [
         {
           :screen_name => 'sferik',
           :name => 'Erik Michaels-Ober',
@@ -310,7 +310,7 @@ describe Twitter::Tweet do
           :id => 7505382,
         }
       ]
-      user_mentions = Twitter::Tweet.new(:id => 28669546014, :entities => {:user_mentions => user_mentions_hash}).user_mentions
+      user_mentions = Twitter::Tweet.new(:id => 28669546014, :entities => {:user_mentions => user_mentions_array}).user_mentions
       expect(user_mentions).to be_an Array
       expect(user_mentions.first).to be_a Twitter::Entity::UserMention
       expect(user_mentions.first.indices).to eq [0, 6]

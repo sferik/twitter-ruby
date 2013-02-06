@@ -138,8 +138,8 @@ module Twitter
     # @param key [Symbol]
     def entities(klass, key)
       if entities?
-        Array(@attrs[:entities][key.to_sym]).map do |user_mention|
-          klass.fetch_or_new(user_mention)
+        Array(@attrs[:entities][key.to_sym]).map do |entity|
+          klass.fetch_or_new(entity)
         end
       else
         warn "#{Kernel.caller.first}: To get #{key.to_s.tr('_', ' ')}, you must pass `:include_entities => true` when requesting the #{self.class.name}."

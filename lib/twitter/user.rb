@@ -32,6 +32,13 @@ module Twitter
     alias update_count statuses_count
     alias updates_count statuses_count
 
+    # @return [Array<Twitter::Entity::Url>]
+    def description_urls
+      @description_urls ||= Array(@attrs[:entities][:description][:urls]).map do |entity|
+        Twitter::Entity::Url.fetch_or_new(entity)
+      end
+    end
+
     # Return the URL to the user's profile banner image
     #
     # @param size [String, Symbol] The size of the image. Must be one of: 'mobile', 'mobile_retina', 'web', 'web_retina', 'ipad', or 'ipad_retina'

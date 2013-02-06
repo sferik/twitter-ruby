@@ -31,6 +31,28 @@ describe Twitter::User do
     end
   end
 
+  describe "#description_urls" do
+    it "returns an Array of Entity::Url" do
+      urls_array = [
+        {
+          :url => 'http://example.com/t.co',
+          :expanded_url => 'http://example.com/expanded',
+          :display_url => 'example.com/expanded',
+          :indices => [10, 33],
+        }
+      ]
+      description_urls = Twitter::User.new(:id => 7505382, :entities => {:description => {:urls => urls_array}}).description_urls
+      expect(description_urls).to be_an Array
+      expect(description_urls.first).to be_a Twitter::Entity::Url
+      expect(description_urls.first.indices).to eq [10, 33]
+      expect(description_urls.first.display_url).to eq 'example.com/expanded'
+    end
+    it "is empty when not set" do
+      description_urls = Twitter::User.new(:id => 7505382, :entities => {:description => {:urls => []}}).description_urls
+      expect(description_urls).to be_empty
+    end
+  end
+
   describe "#profile_banner_url" do
     it "returns a String when profile_banner_url is set" do
       user = Twitter::User.new(:id => 7505382, :profile_banner_url => "https://si0.twimg.com/profile_banners/7505382/1348266581")
