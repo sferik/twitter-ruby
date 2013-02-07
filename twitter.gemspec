@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'simple_oauth', '~> 0.2'
   spec.add_development_dependency 'bundler', '~> 1.0'
   spec.authors = ["John Nunemaker", "Wynn Netherland", "Erik Michaels-Ober", "Steve Richert"]
-  spec.cert_chain  = ['public_cert.pem']
+  spec.cert_chain  = ['certs/sferik.pem']
   spec.description = %q{A Ruby interface to the Twitter API.}
   spec.email = ['nunemaker@gmail.com', 'wynn.netherland@gmail.com', 'sferik@gmail.com', 'steve.richert@gmail.com']
   spec.files = %w(.yardopts CHANGELOG.md CONTRIBUTING.md LICENSE.md README.md Rakefile twitter.gemspec)
