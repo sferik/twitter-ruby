@@ -14,18 +14,23 @@
 A Ruby interface to the Twitter API.
 
 ## Installation
-```sh
-gem install twitter
-```
+    gem install twitter
+
+To ensure the code you're installing hasn't been tampered with, it's
+recommended that you verify the signature. To do this, you need to add my
+public key as a trusted certificate (you only need to do this once):
+
+    gem cert --add <(curl -Ls https://gist.github.com/sferik/4701180/raw/public_cert.pem)
+
+Then, install the gem with the high security trust policy:
+
+    gem install twitter -P HighSecurity
 
 Looking for the Twitter command-line interface? It was [removed][] from this
-gem in version 0.5.0 and now exists as a [separate project][separate]:
+gem in version 0.5.0 and now exists as a [separate project][t].
 
-```sh
-gem install t
-```
 [removed]: https://github.com/sferik/twitter/commit/dd2445e3e2c97f38b28a3f32ea902536b3897adf
-[separate]: https://github.com/sferik/t
+[t]: https://github.com/sferik/t
 
 ## Documentation
 [http://rdoc.info/gems/twitter][documentation]
@@ -50,9 +55,7 @@ wiki][apps]!
 [apps]: https://github.com/sferik/twitter/wiki/apps
 
 ## What's new in version 4?
-
 #### Twitter API v1.1
-
 Version 4 of this library targets Twitter API v1.1. To understand the
 implications of this change, please read the following announcements from
 Twitter:
@@ -82,7 +85,6 @@ discussion][discussion].
 [discussion]: https://dev.twitter.com/discussions/10644
 
 #### Rate Limiting
-
 Another consequence of Twitter API v1.1 is that the
 `Twitter::Client#rate_limit` method has been removed, since the concept of a
 client-wide rate limit no longer exists. Rate limits are now applied on a
@@ -110,7 +112,6 @@ rescue Twitter::Error::TooManyRequests => error
 end
 ```
 #### Methods Missing
-
 As a consequence of moving to Twitter API v1.1, the following methods from
 version 3 are no longer available in version 4:
 
@@ -130,7 +131,6 @@ version 3 are no longer available in version 4:
 * `Twitter::RateLimit#class`
 
 #### Custom Endpoints
-
 The `Twitter::API#update_with_media` method no longer uses the custom
 `upload.twitter.com` endpoint, so `media_endpoint` configuration has been
 removed. Likewise, the `Twitter::API#search` method no longer uses the custom
@@ -138,7 +138,6 @@ removed. Likewise, the `Twitter::API#search` method no longer uses the custom
 removed.
 
 #### Errors
-
 It's worth mentioning new error classes:
 
 * `Twitter::Error::GatewayTimeout`
@@ -153,7 +152,6 @@ The `Twitter::Error::EnhanceYourCalm` class has been aliased to
 `Twitter::Error::TooManyRequests`.
 
 #### Identity Map
-
 In version 4, the identity map is [disabled by default][disabled]. If you want
 to enable this feature, you can use the [default identity map][default] or
 [write a custom identity map][custom].
@@ -167,7 +165,6 @@ Twitter.identity_map = Twitter::IdentityMap
 [custom]: https://github.com/sferik/twitter/blob/master/etc/sqlite_identity_map.rb
 
 ## Configuration
-
 Twitter API v1.1 requires you to authenticate via OAuth, so you'll need a
 registered Twitter application. To register a new application, sign-in using
 your Twitter account and the fill out the form at
@@ -199,12 +196,10 @@ end
 
 Alternately, you can set the following environment variables:
 
-```sh
-TWITTER_CONSUMER_KEY
-TWITTER_CONSUMER_SECRET
-TWITTER_OAUTH_TOKEN
-TWITTER_OAUTH_TOKEN_SECRET
-```
+    TWITTER_CONSUMER_KEY
+    TWITTER_CONSUMER_SECRET
+    TWITTER_OAUTH_TOKEN
+    TWITTER_OAUTH_TOKEN_SECRET
 
 After configuration, requests can be made like so:
 
@@ -213,7 +208,6 @@ Twitter.update("I'm tweeting with @gem!")
 ```
 
 #### Thread Safety
-
 Applications that make requests on behalf of multiple Twitter users should
 avoid using global configuration. In this case, you may still specify the
 `consumer_key` and `consumer_secret` globally. (In a Rails application, this
@@ -263,7 +257,6 @@ a `Twitter::Client`:
 This may be useful if you're using multiple consumer key/secret pairs.
 
 #### Middleware
-
 The Faraday middleware stack is fully configurable and is exposed as a
 `Faraday::Builder` object. You can modify the default middleware in-place:
 
@@ -360,7 +353,6 @@ Twitter.search("#ruby -rt", :lang => "ja", :count => 1).results.first.text
 For more usage examples, please see the full [documentation][].
 
 ## Streaming
-
 To access the Twitter Streaming API, we recommend [TweetStream][].
 
 [tweetstream]: https://github.com/intridea/tweetstream
@@ -374,7 +366,6 @@ recommend [Oj][].
 [oj]: https://rubygems.org/gems/oj
 
 ## Statistics
-
 Here are some fun facts about this library:
 
 * It is implemented in just 2,000 lines of Ruby code
@@ -415,7 +406,6 @@ timely fashion. If critical issues for a particular implementation exist at the
 time of a major release, support for that Ruby version may be dropped.
 
 ## Versioning
-
 This library aims to adhere to [Semantic Versioning 2.0.0][semver]. Violations
 of this scheme should be reported as bugs. Specifically, if a minor or patch
 version is released that breaks backward compatibility, that version should be
