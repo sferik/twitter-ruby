@@ -224,12 +224,12 @@ Then, for each user's access token/secret pair, instantiate a
 `Twitter::Client`:
 
 ```ruby
-@client_erik = Twitter::Client.new(
+erik = Twitter::Client.new(
   :oauth_token => "Erik's access token",
   :oauth_token_secret => "Erik's access secret"
 )
 
-@client_john = Twitter::Client.new(
+john = Twitter::Client.new(
   :oauth_token => "John's access token",
   :oauth_token_secret => "John's access secret"
 )
@@ -238,15 +238,15 @@ Then, for each user's access token/secret pair, instantiate a
 You can now make threadsafe requests as the authenticated user:
 
 ```ruby
-Thread.new{@client_erik.update("Tweeting as Erik!")}
-Thread.new{@client_john.update("Tweeting as John!")}
+Thread.new{erik.update("Tweeting as Erik!")}
+Thread.new{john.update("Tweeting as John!")}
 ```
 
 Or, if you prefer, you can specify all configuration options when instantiating
 a `Twitter::Client`:
 
 ```ruby
-@client = Twitter::Client.new(
+client = Twitter::Client.new(
   :consumer_key => "an application's consumer key",
   :consumer_secret => "an application's consumer secret",
   :oauth_token => "a user's access token",
