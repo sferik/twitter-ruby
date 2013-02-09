@@ -438,7 +438,7 @@ critical security vulnerabilities are discovered.
 [ruby192]: http://blade.nagaokaut.ac.jp/cgi-bin/scat.rb/ruby/ruby-talk/367983
 
 ## Copyright
-Copyright (c) 2006-2012 John Nunemaker, Wynn Netherland, Erik Michaels-Ober, Steve Richert.
+Copyright (c) 2006-2013 John Nunemaker, Wynn Netherland, Erik Michaels-Ober, Steve Richert.
 See [LICENSE][] for details.
 
 [license]: LICENSE.md
