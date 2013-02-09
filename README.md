@@ -161,8 +161,8 @@ Twitter.identity_map = Twitter::IdentityMap
 ```
 
 [disabled]: https://github.com/sferik/twitter/commit/c6c5960bea998abdc3e82cbb8dd68766a2df52e1
-[default]: https://github.com/sferik/twitter/blob/master/lib/twitter/identity_map.rb
-[custom]: https://github.com/sferik/twitter/blob/master/etc/sqlite_identity_map.rb
+[default]: lib/twitter/identity_map.rb
+[custom]: etc/sqlite_identity_map.rb
 
 ## Configuration
 Twitter API v1.1 requires you to authenticate via OAuth, so you'll need a
@@ -441,4 +441,4 @@ critical security vulnerabilities are discovered.
 Copyright (c) 2006-2012 John Nunemaker, Wynn Netherland, Erik Michaels-Ober, Steve Richert.
 See [LICENSE][] for details.
 
-[license]: https://github.com/sferik/twitter/blob/master/LICENSE.md
+[license]: LICENSE.md
