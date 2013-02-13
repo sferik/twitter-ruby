@@ -115,7 +115,7 @@ module Twitter
       # Allows the authenticating user to follow the specified users, unless they are already followed
       #
       # @see https://dev.twitter.com/docs/api/1.1/post/friendships/create
-      # @rate_limited No
+      # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Array<Twitter::User>] The followed users.
@@ -330,7 +330,7 @@ module Twitter
         get("/1.1/friendships/no_retweets/ids.json", options)[:body].map(&:to_i)
       end
       alias no_retweets_ids no_retweet_ids
-      
+
     end
   end
 end
