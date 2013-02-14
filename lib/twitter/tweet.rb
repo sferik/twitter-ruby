@@ -10,9 +10,8 @@ module Twitter
     include Twitter::Exceptable
     attr_reader :favorited, :favoriters, :from_user_id, :from_user_name,
       :in_reply_to_screen_name, :in_reply_to_attrs_id, :in_reply_to_status_id,
-      :in_reply_to_user_id, :iso_language_code, :repliers, :retweeted,
-      :retweeters, :source, :text, :to_user, :to_user_id, :to_user_name,
-      :truncated
+      :in_reply_to_user_id, :lang, :repliers, :retweeted, :retweeters, :source,
+      :text, :to_user, :to_user_id, :to_user_name, :truncated
     alias in_reply_to_tweet_id in_reply_to_status_id
     alias favourited favorited
     alias favourited? favorited?
@@ -38,6 +37,10 @@ module Twitter
     # @return [String]
     def from_user
       @attrs[:from_user] || user && user.screen_name
+    end
+
+    def filter_level
+      @attrs[:filter_level] || "none"
     end
 
     # @return [String]
