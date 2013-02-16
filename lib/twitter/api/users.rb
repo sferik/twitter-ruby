@@ -270,6 +270,7 @@ module Twitter
       #   Returns extended information for the authenticated user
       #
       #   @param options [Hash] A customizable set of options.
+      #   @option options [Boolean] :include_entities The tweet entities node will be disincluded when set to false.
       #   @option options [Boolean, String, Integer] :skip_status Do not include user's Tweets when set to true, 't' or 1.
       #   @example Return extended information for the authenticated user
       #     Twitter.user
@@ -278,6 +279,8 @@ module Twitter
       #
       #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
       #   @param options [Hash] A customizable set of options.
+      #   @option options [Boolean] :include_entities The tweet entities node will be disincluded when set to false.
+      #   @option options [Boolean, String, Integer] :skip_status Do not include user's Tweets when set to true, 't' or 1.
       #   @example Return extended information for @sferik
       #     Twitter.user('sferik')
       #     Twitter.user(7505382)  # Same as above
