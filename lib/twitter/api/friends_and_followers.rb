@@ -259,7 +259,7 @@ module Twitter
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Twitter::Cursor]
-      # @overload friend_ids(options={})
+      # @overload followers(options={})
       #   Returns an array of numeric IDs for every user the authenticated user is following
       #
       #   @param options [Hash] A customizable set of options.
@@ -267,8 +267,8 @@ module Twitter
       #   @option options [Boolean, String, Integer] :skip_status Do not include contributee's Tweets when set to true, 't' or 1.
       #   @option options [Boolean, String, Integer] :include_user_entities The user entities node will be disincluded when set to false.
       #   @example Return the authenticated user's friends' IDs
-      #     Twitter.friend_ids
-      # @overload friend_ids(user, options={})
+      #     Twitter.followers
+      # @overload followers(user, options={})
       #   Returns an array of numeric IDs for every user the specified user is following
       #
       #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
@@ -290,7 +290,7 @@ module Twitter
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Twitter::Cursor]
-      # @overload friend_ids(options={})
+      # @overload friends(options={})
       #   Returns an array of numeric IDs for every user the authenticated user is following
       #
       #   @param options [Hash] A customizable set of options.
@@ -298,8 +298,8 @@ module Twitter
       #   @option options [Boolean, String, Integer] :skip_status Do not include contributee's Tweets when set to true, 't' or 1.
       #   @option options [Boolean, String, Integer] :include_user_entities The user entities node will be disincluded when set to false.
       #   @example Return the authenticated user's friends' IDs
-      #     Twitter.friend_ids
-      # @overload friend_ids(user, options={})
+      #     Twitter.friends
+      # @overload friends(user, options={})
       #   Returns an array of numeric IDs for every user the specified user is following
       #
       #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
