@@ -1,9 +1,11 @@
-unless ENV['CI']
-  require 'simplecov'
-  SimpleCov.start do
-    add_filter 'spec'
-  end
-end
+require 'simplecov'
+require 'coveralls'
+
+SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
+  SimpleCov::Formatter::HTMLFormatter,
+  Coveralls::SimpleCov::Formatter
+]
+SimpleCov.start
 
 require 'twitter'
 require 'twitter/identity_map'
@@ -12,6 +14,8 @@ require 'stringio'
 require 'tempfile'
 require 'timecop'
 require 'webmock/rspec'
+
+WebMock.disable_net_connect!(:allow => 'coveralls.io')
 
 RSpec.configure do |config|
   config.expect_with :rspec do |c|
