@@ -52,14 +52,14 @@ describe Twitter::API::PlacesAndGeo do
 
   describe "#similar_places" do
     before do
-      stub_get("/1.1/geo/similar_places.json").with(:query => {:lat => "37.7821120598956", :long => "-122.400612831116", :name => "Twitter HQ"}).to_return(:body => fixture("places.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      stub_get("/1.1/geo/similar_places.json").with(:query => {:lat => "37.7821120598956", :long => "-122.400612831116", :name => "Twitter+HQ"}).to_return(:body => fixture("places.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
       @client.similar_places(:lat => "37.7821120598956", :long => "-122.400612831116", :name => "Twitter HQ")
-      expect(a_get("/1.1/geo/similar_places.json").with(:query => {:lat => "37.7821120598956", :long => "-122.400612831116", :name => "Twitter HQ"})).to have_been_made
+      expect(a_get("/1.1/geo/similar_places.json").with(:query => {:lat => "37.7821120598956", :long => "-122.400612831116", :name => "Twitter+HQ"})).to have_been_made
     end
     it "returns similar places" do
-      places = @client.similar_places(:lat => "37.7821120598956", :long => "-122.400612831116", :name => "Twitter HQ")
+      places = @client.similar_places(:lat => "37.7821120598956", :long => "-122.400612831116", :name => "Twitter+HQ")
       expect(places).to be_an Array
       expect(places.first.name).to eq "Bernal Heights"
     end
