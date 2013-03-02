@@ -52,11 +52,11 @@ describe Twitter::API::PlacesAndGeo do
 
   describe "#similar_places" do
     before do
-      stub_get("/1.1/geo/similar_places.json").with(:query => {:lat => "37.7821120598956", :long => "-122.400612831116", :name => "Twitter+HQ"}).to_return(:body => fixture("places.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      stub_get("/1.1/geo/similar_places.json").with(:query => {:lat => "37.7821120598956", :long => "-122.400612831116", :name => "Twitter HQ"}).to_return(:body => fixture("places.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
       @client.similar_places(:lat => "37.7821120598956", :long => "-122.400612831116", :name => "Twitter HQ")
-      expect(a_get("/1.1/geo/similar_places.json").with(:query => {:lat => "37.7821120598956", :long => "-122.400612831116", :name => "Twitter+HQ"})).to have_been_made
+      expect(a_get("/1.1/geo/similar_places.json").with(:query => {:lat => "37.7821120598956", :long => "-122.400612831116", :name => "Twitter HQ"})).to have_been_made
     end
     it "returns similar places" do
       places = @client.similar_places(:lat => "37.7821120598956", :long => "-122.400612831116", :name => "Twitter HQ")
@@ -67,11 +67,11 @@ describe Twitter::API::PlacesAndGeo do
 
   describe "#place_create" do
     before do
-      stub_post("/1.1/geo/place.json").with(:body => {:name => "@sferik's+Apartment", :token => "22ff5b1f7159032cf69218c4d8bb78bc", :contained_within => "41bcb736f84a799e", :lat => "37.783699", :long => "-122.393581"}).to_return(:body => fixture("place.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      stub_post("/1.1/geo/place.json").with(:body => {:name => "@sferik's Apartment", :token => "22ff5b1f7159032cf69218c4d8bb78bc", :contained_within => "41bcb736f84a799e", :lat => "37.783699", :long => "-122.393581"}).to_return(:body => fixture("place.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
       @client.place_create(:name => "@sferik's Apartment", :token => "22ff5b1f7159032cf69218c4d8bb78bc", :contained_within => "41bcb736f84a799e", :lat => "37.783699", :long => "-122.393581")
-      expect(a_post("/1.1/geo/place.json").with(:body => {:name => "@sferik's+Apartment", :token => "22ff5b1f7159032cf69218c4d8bb78bc", :contained_within => "41bcb736f84a799e", :lat => "37.783699", :long => "-122.393581"})).to have_been_made
+      expect(a_post("/1.1/geo/place.json").with(:body => {:name => "@sferik's Apartment", :token => "22ff5b1f7159032cf69218c4d8bb78bc", :contained_within => "41bcb736f84a799e", :lat => "37.783699", :long => "-122.393581"})).to have_been_made
     end
     it "returns a place" do
       place = @client.place_create(:name => "@sferik's Apartment", :token => "22ff5b1f7159032cf69218c4d8bb78bc", :contained_within => "41bcb736f84a799e", :lat => "37.783699", :long => "-122.393581")

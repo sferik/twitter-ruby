@@ -593,11 +593,11 @@ describe Twitter::API::Lists do
   describe "#list_update" do
     context "with a screen name passed" do
       before do
-        stub_post("/1.1/lists/update.json").with(:body => {:owner_screen_name => "sferik", :slug => "presidents", :description => "Presidents+of+the+United+States+of+America"}).to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        stub_post("/1.1/lists/update.json").with(:body => {:owner_screen_name => "sferik", :slug => "presidents", :description => "Presidents of the United States of America"}).to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.list_update("sferik", "presidents", :description => "Presidents of the United States of America")
-        expect(a_post("/1.1/lists/update.json").with(:body => {:owner_screen_name => "sferik", :slug => "presidents", :description => "Presidents+of+the+United+States+of+America"})).to have_been_made
+        expect(a_post("/1.1/lists/update.json").with(:body => {:owner_screen_name => "sferik", :slug => "presidents", :description => "Presidents of the United States of America"})).to have_been_made
       end
       it "returns the updated list" do
         list = @client.list_update("sferik", "presidents", :description => "Presidents of the United States of America")
@@ -608,30 +608,30 @@ describe Twitter::API::Lists do
     context "without a screen name passed" do
       before do
         stub_get("/1.1/account/verify_credentials.json").to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-        stub_post("/1.1/lists/update.json").with(:body => {:owner_screen_name => "sferik", :slug => "presidents", :description => "Presidents+of+the+United+States+of+America"}).to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        stub_post("/1.1/lists/update.json").with(:body => {:owner_screen_name => "sferik", :slug => "presidents", :description => "Presidents of the United States of America"}).to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.list_update("presidents", :description => "Presidents of the United States of America")
-        expect(a_post("/1.1/lists/update.json").with(:body => {:owner_screen_name => "sferik", :slug => "presidents", :description => "Presidents+of+the+United+States+of+America"})).to have_been_made
+        expect(a_post("/1.1/lists/update.json").with(:body => {:owner_screen_name => "sferik", :slug => "presidents", :description => "Presidents of the United States of America"})).to have_been_made
       end
     end
     context "with a list ID passed" do
       before do
-        stub_post("/1.1/lists/update.json").with(:body => {:owner_screen_name => "sferik", :list_id => "12345678", :description => "Presidents+of+the+United+States+of+America"}).to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        stub_post("/1.1/lists/update.json").with(:body => {:owner_screen_name => "sferik", :list_id => "12345678", :description => "Presidents of the United States of America"}).to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.list_update("sferik", 12345678, :description => "Presidents of the United States of America")
-        expect(a_post("/1.1/lists/update.json").with(:body => {:owner_screen_name => "sferik", :list_id => "12345678", :description => "Presidents+of+the+United+States+of+America"})).to have_been_made
+        expect(a_post("/1.1/lists/update.json").with(:body => {:owner_screen_name => "sferik", :list_id => "12345678", :description => "Presidents of the United States of America"})).to have_been_made
       end
     end
     context "with a list object passed" do
       before do
-        stub_post("/1.1/lists/update.json").with(:body => {:owner_id => "7505382", :list_id => "12345678", :description => "Presidents+of+the+United+States+of+America"}).to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        stub_post("/1.1/lists/update.json").with(:body => {:owner_id => "7505382", :list_id => "12345678", :description => "Presidents of the United States of America"}).to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         list = Twitter::List.new(:id => "12345678", :user => {:id => 7505382, :screen_name => "sferik"})
         @client.list_update(list, :description => "Presidents of the United States of America")
-        expect(a_post("/1.1/lists/update.json").with(:body => {:owner_id => "7505382", :list_id => "12345678", :description => "Presidents+of+the+United+States+of+America"})).to have_been_made
+        expect(a_post("/1.1/lists/update.json").with(:body => {:owner_id => "7505382", :list_id => "12345678", :description => "Presidents of the United States of America"})).to have_been_made
       end
     end
   end

@@ -103,11 +103,11 @@ describe Twitter::API::Tweets do
 
   describe "#tweet" do
     before do
-      stub_post("/1.1/statuses/update.json").with(:body => {:status => "The+problem+with+your+code+is+that+it's+doing+exactly+what+you+told+it+to+do."}).to_return(:body => fixture("status.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      stub_post("/1.1/statuses/update.json").with(:body => {:status => "The problem with your code is that it's doing exactly what you told it to do."}).to_return(:body => fixture("status.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
       @client.update("The problem with your code is that it's doing exactly what you told it to do.")
-      expect(a_post("/1.1/statuses/update.json").with(:body => {:status => "The+problem+with+your+code+is+that+it's+doing+exactly+what+you+told+it+to+do."})).to have_been_made
+      expect(a_post("/1.1/statuses/update.json").with(:body => {:status => "The problem with your code is that it's doing exactly what you told it to do."})).to have_been_made
     end
     it "returns a Tweet" do
       tweet = @client.update("The problem with your code is that it's doing exactly what you told it to do.")

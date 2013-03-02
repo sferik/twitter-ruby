@@ -104,11 +104,11 @@ describe Twitter::API::DirectMessages do
 
   describe "#direct_message_create" do
     before do
-      stub_post("/1.1/direct_messages/new.json").with(:body => {:screen_name => "pengwynn", :text => "Creating+a+fixture+for+the+Twitter+gem"}).to_return(:body => fixture("direct_message.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      stub_post("/1.1/direct_messages/new.json").with(:body => {:screen_name => "pengwynn", :text => "Creating a fixture for the Twitter gem"}).to_return(:body => fixture("direct_message.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
       @client.direct_message_create("pengwynn", "Creating a fixture for the Twitter gem")
-      expect(a_post("/1.1/direct_messages/new.json").with(:body => {:screen_name => "pengwynn", :text => "Creating+a+fixture+for+the+Twitter+gem"})).to have_been_made
+      expect(a_post("/1.1/direct_messages/new.json").with(:body => {:screen_name => "pengwynn", :text => "Creating a fixture for the Twitter gem"})).to have_been_made
     end
     it "returns the sent message" do
       direct_message = @client.direct_message_create("pengwynn", "Creating a fixture for the Twitter gem")
