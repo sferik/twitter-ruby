@@ -513,11 +513,11 @@ describe Twitter::API::Users do
 
   describe "#user_search" do
     before do
-      stub_get("/1.1/users/search.json").with(:query => {:q => "Erik+Michaels-Ober"}).to_return(:body => fixture("user_search.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      stub_get("/1.1/users/search.json").with(:query => {:q => "Erik Michaels-Ober"}).to_return(:body => fixture("user_search.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
       @client.user_search("Erik Michaels-Ober")
-      expect(a_get("/1.1/users/search.json").with(:query => {:q => "Erik+Michaels-Ober"})).to have_been_made
+      expect(a_get("/1.1/users/search.json").with(:query => {:q => "Erik Michaels-Ober"})).to have_been_made
     end
     it "returns an array of user search results" do
       user_search = @client.user_search("Erik Michaels-Ober")

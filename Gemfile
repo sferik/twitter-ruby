@@ -16,7 +16,7 @@ group :test do
   gem 'rspec', '>= 2.11'
   gem 'simplecov', :require => false
   gem 'timecop'
-  gem 'webmock', '>= 1.10.1'
+  gem 'webmock'
 end
 
 gemspec
