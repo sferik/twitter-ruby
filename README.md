@@ -35,6 +35,27 @@ gem in version 0.5.0 and now exists as a [separate project][t].
 [removed]: https://github.com/sferik/twitter/commit/dd2445e3e2c97f38b28a3f32ea902536b3897adf
 [t]: https://github.com/sferik/t
 
+## Quick Start Guide
+
+So you want to get up and tweeting as soon as possible?
+
+First, set up your authentication (you get this from twitter)
+```ruby
+Twitter.configure do |config|
+  config.consumer_key = YOUR_CONSUMER_KEY
+  config.consumer_secret = YOUR_CONSUMER_SECRET
+  config.oauth_token = YOUR_OAUTH_TOKEN
+  config.oauth_token_secret = YOUR_OAUTH_TOKEN_SECRET
+end
+```
+
+Second, tweet away!
+```ruby
+Twitter.update("I'm tweeting from the twitter gem!")
+```
+
+For more detailed information, keep reading!
+
 ## Documentation
 [http://rdoc.info/gems/twitter][documentation]
 
