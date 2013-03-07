@@ -78,116 +78,6 @@ wiki][apps]!
 
 [apps]: https://github.com/sferik/twitter/wiki/apps
 
-## What's new in version 4?
-#### Twitter API v1.1
-Version 4 of this library targets Twitter API v1.1. To understand the
-implications of this change, please read the following announcements from
-Twitter:
-
-* [Changes coming in Version 1.1 of the Twitter API][coming]
-* [Current status: API v1.1][status]
-* [Overview: Version 1.1 of the Twitter API][overview]
-
-[coming]: https://dev.twitter.com/blog/changes-coming-to-twitter-api
-[status]: https://dev.twitter.com/blog/current-status-api-v1.1
-[overview]: https://dev.twitter.com/docs/api/1.1/overview
-
-Despite the removal of certain underlying functionality in Twitter API v1.1,
-this library aims to preserve backward-compatibility wherever possible. For
-example, despite the removal of the [`GET
-statuses/retweeted_by_user`][retweeted_by_user] resource, the
-`Twitter::API#retweeted_by_user` method continues to exist, implemented by
-making multiple requests to the [`GET statuses/user_timeline`][user_timeline]
-resource. As a result, there is no longer a one-to-one correlation between
-method calls and Twitter API requests. In fact, it's possible for a single
-method call to exceed the Twitter API rate limit for a resource. If you think
-this might cause a problem for your application, feel free to [join the
-discussion][discussion].
-
-[retweeted_by_user]: https://dev.twitter.com/docs/api/1/get/statuses/retweeted_by_user
-[user_timeline]: https://dev.twitter.com/docs/api/1.1/get/statuses/user_timeline
-[discussion]: https://dev.twitter.com/discussions/10644
-
-#### Rate Limiting
-Another consequence of Twitter API v1.1 is that the
-`Twitter::Client#rate_limit` method has been removed, since the concept of a
-client-wide rate limit no longer exists. Rate limits are now applied on a
-per-resource level, however, since there is no longer a one-to-one mapping
-between methods and Twitter API resources, it's not entirely obvious how rate
-limit information should be exposed. I've decided to go back to the pre-3.0.0
-behavior of including rate limit information on `Twitter::Error` objects.
-Here's an example of how to handle rate limits:
-
-```ruby
-MAX_ATTEMPTS = 3
-num_attempts = 0
-begin
-  num_attempts += 1
-  retweets = Twitter.retweeted_by_user("sferik")
-rescue Twitter::Error::TooManyRequests => error
-  if num_attempts <= MAX_ATTEMPTS
-    # NOTE: Your process could go to sleep for up to 15 minutes but if you
-    # retry any sooner, it will almost certainly fail with the same exception.
-    sleep error.rate_limit.reset_in
-    retry
-  else
-    raise
-  end
-end
-```
-#### Methods Missing
-As a consequence of moving to Twitter API v1.1, the following methods from
-version 3 are no longer available in version 4:
-
-* `Twitter::API#accept`
-* `Twitter::API#deny`
-* `Twitter::API#disable_notifications`
-* `Twitter::API#enable_notifications`
-* `Twitter::API#end_session`
-* `Twitter::API#rate_limit_status`
-* `Twitter::API#rate_limited?`
-* `Twitter::API#recommendations`
-* `Twitter::API#related_results`
-* `Twitter::API#retweeted_to_user`
-* `Twitter::API#trends_daily`
-* `Twitter::API#trends_weekly`
-* `Twitter::Client#rate_limit`
-* `Twitter::RateLimit#class`
-
-#### Custom Endpoints
-The `Twitter::API#update_with_media` method no longer uses the custom
-`upload.twitter.com` endpoint, so `media_endpoint` configuration has been
-removed. Likewise, the `Twitter::API#search` method no longer uses the custom
-`search.twitter.com` endpoint, so `search_endpoint` configuration has also been
-removed.
-
-#### Errors
-It's worth mentioning new error classes:
-
-* `Twitter::Error::GatewayTimeout`
-* `Twitter::Error::TooManyRequests`
-* `Twitter::Error::UnprocessableEntity`
-
-In previous versions of this library, rate limit errors were indicated by
-raising either `Twitter::Error::BadRequest` or
-`Twitter::Error::EnhanceYourCalm` (for the Search API). As of version 4, the
-library will raise `Twitter::Error::TooManyRequests` for all rate limit errors.
-The `Twitter::Error::EnhanceYourCalm` class has been aliased to
-`Twitter::Error::TooManyRequests`.
-
-#### Identity Map
-In version 4, the identity map is [disabled by default][disabled]. If you want
-to enable this feature, you can use the [default identity map][default] or
-[write a custom identity map][custom].
-
-```ruby
-Twitter.identity_map = Twitter::IdentityMap
-```
-
-[disabled]: https://github.com/sferik/twitter/commit/c6c5960bea998abdc3e82cbb8dd68766a2df52e1
-[default]: lib/twitter/identity_map.rb
-[custom]: etc/sqlite_identity_map.rb
-
 ## Configuration
 Twitter API v1.1 requires you to authenticate via OAuth, so you'll need a
 registered Twitter application. To register a new application, sign-in using
@@ -445,6 +335,116 @@ Constraint][pvc] with two digits of precision. For example:
 
 [semver]: http://semver.org/
 [pvc]: http://docs.rubygems.org/read/chapter/16#page74
+
+## What's new in version 4?
+#### Twitter API v1.1
+Version 4 of this library targets Twitter API v1.1. To understand the
+implications of this change, please read the following announcements from
+Twitter:
+
+* [Changes coming in Version 1.1 of the Twitter API][coming]
+* [Current status: API v1.1][status]
+* [Overview: Version 1.1 of the Twitter API][overview]
+
+[coming]: https://dev.twitter.com/blog/changes-coming-to-twitter-api
+[status]: https://dev.twitter.com/blog/current-status-api-v1.1
+[overview]: https://dev.twitter.com/docs/api/1.1/overview
+
+Despite the removal of certain underlying functionality in Twitter API v1.1,
+this library aims to preserve backward-compatibility wherever possible. For
+example, despite the removal of the [`GET
+statuses/retweeted_by_user`][retweeted_by_user] resource, the
+`Twitter::API#retweeted_by_user` method continues to exist, implemented by
+making multiple requests to the [`GET statuses/user_timeline`][user_timeline]
+resource. As a result, there is no longer a one-to-one correlation between
+method calls and Twitter API requests. In fact, it's possible for a single
+method call to exceed the Twitter API rate limit for a resource. If you think
+this might cause a problem for your application, feel free to [join the
+discussion][discussion].
+
+[retweeted_by_user]: https://dev.twitter.com/docs/api/1/get/statuses/retweeted_by_user
+[user_timeline]: https://dev.twitter.com/docs/api/1.1/get/statuses/user_timeline
+[discussion]: https://dev.twitter.com/discussions/10644
+
+#### Rate Limiting
+Another consequence of Twitter API v1.1 is that the
+`Twitter::Client#rate_limit` method has been removed, since the concept of a
+client-wide rate limit no longer exists. Rate limits are now applied on a
+per-resource level, however, since there is no longer a one-to-one mapping
+between methods and Twitter API resources, it's not entirely obvious how rate
+limit information should be exposed. I've decided to go back to the pre-3.0.0
+behavior of including rate limit information on `Twitter::Error` objects.
+Here's an example of how to handle rate limits:
+
+```ruby
+MAX_ATTEMPTS = 3
+num_attempts = 0
+begin
+  num_attempts += 1
+  retweets = Twitter.retweeted_by_user("sferik")
+rescue Twitter::Error::TooManyRequests => error
+  if num_attempts <= MAX_ATTEMPTS
+    # NOTE: Your process could go to sleep for up to 15 minutes but if you
+    # retry any sooner, it will almost certainly fail with the same exception.
+    sleep error.rate_limit.reset_in
+    retry
+  else
+    raise
+  end
+end
+```
+#### Methods Missing
+As a consequence of moving to Twitter API v1.1, the following methods from
+version 3 are no longer available in version 4:
+
+* `Twitter::API#accept`
+* `Twitter::API#deny`
+* `Twitter::API#disable_notifications`
+* `Twitter::API#enable_notifications`
+* `Twitter::API#end_session`
+* `Twitter::API#rate_limit_status`
+* `Twitter::API#rate_limited?`
+* `Twitter::API#recommendations`
+* `Twitter::API#related_results`
+* `Twitter::API#retweeted_to_user`
+* `Twitter::API#trends_daily`
+* `Twitter::API#trends_weekly`
+* `Twitter::Client#rate_limit`
+* `Twitter::RateLimit#class`
+
+#### Custom Endpoints
+The `Twitter::API#update_with_media` method no longer uses the custom
+`upload.twitter.com` endpoint, so `media_endpoint` configuration has been
+removed. Likewise, the `Twitter::API#search` method no longer uses the custom
+`search.twitter.com` endpoint, so `search_endpoint` configuration has also been
+removed.
+
+#### Errors
+It's worth mentioning new error classes:
+
+* `Twitter::Error::GatewayTimeout`
+* `Twitter::Error::TooManyRequests`
+* `Twitter::Error::UnprocessableEntity`
+
+In previous versions of this library, rate limit errors were indicated by
+raising either `Twitter::Error::BadRequest` or
+`Twitter::Error::EnhanceYourCalm` (for the Search API). As of version 4, the
+library will raise `Twitter::Error::TooManyRequests` for all rate limit errors.
+The `Twitter::Error::EnhanceYourCalm` class has been aliased to
+`Twitter::Error::TooManyRequests`.
+
+#### Identity Map
+In version 4, the identity map is [disabled by default][disabled]. If you want
+to enable this feature, you can use the [default identity map][default] or
+[write a custom identity map][custom].
+
+```ruby
+Twitter.identity_map = Twitter::IdentityMap
+```
+
+[disabled]: https://github.com/sferik/twitter/commit/c6c5960bea998abdc3e82cbb8dd68766a2df52e1
+[default]: lib/twitter/identity_map.rb
+[custom]: etc/sqlite_identity_map.rb
 
 ## Additional Notes
 This will be the last major version of this library to support Ruby 1.8.
