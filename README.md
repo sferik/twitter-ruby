@@ -29,19 +29,13 @@ Then, install the gem with the high security trust policy:
 
     gem install twitter -P HighSecurity
 
-## CLI
-
-Looking for the Twitter command-line interface? It was [removed][] from this
-gem in version 0.5.0 and now exists as a [separate project][t].
-
-[removed]: https://github.com/sferik/twitter/commit/dd2445e3e2c97f38b28a3f32ea902536b3897adf
-[t]: https://github.com/sferik/t
-
 ## Quick Start Guide
+So you want to get up and tweeting as fast as possible?
 
-So you want to get up and tweeting as soon as possible?
+First, [register your application with Twitter][register].
 
-First, set up your authentication (you get this from twitter)
+Then, copy and paste in your OAuth data.
+
 ```ruby
 Twitter.configure do |config|
   config.consumer_key = YOUR_CONSUMER_KEY
@@ -51,12 +45,23 @@ Twitter.configure do |config|
 end
 ```
 
-Second, tweet away!
+That's it! You're ready to Tweet:
 ```ruby
-Twitter.update("I'm tweeting from the twitter gem!")
+Twitter.update("I'm tweeting with @gem!")
 ```
 
-For more detailed information, keep reading!
+For more examples of how to use the gem, read the [documentation][] or see [Usage Examples][] below.
+
+[register]: https://dev.twitter.com/apps/new
+[Usage Examples]: #usage-examples
+
+## CLI
+
+Looking for the Twitter command-line interface? It was [removed][] from this
+gem in version 0.5.0 and now exists as a [separate project][t].
+
+[removed]: https://github.com/sferik/twitter/commit/dd2445e3e2c97f38b28a3f32ea902536b3897adf
+[t]: https://github.com/sferik/t
 
 ## Documentation
 [http://rdoc.info/gems/twitter][documentation]
@@ -81,13 +86,10 @@ wiki][apps]!
 [apps]: https://github.com/sferik/twitter/wiki/apps
 
 ## Configuration
-Twitter API v1.1 requires you to authenticate via OAuth, so you'll need a
-registered Twitter application. To register a new application, sign-in using
-your Twitter account and the fill out the form at
-http://dev.twitter.com/apps/new. If you've previously registered a Twitter
-application, it will be listed at http://dev.twitter.com/apps. Once you've
-registered an application, make sure to set the correct access level, otherwise
-you may see the error:
+Twitter API v1.1 requires you to authenticate via OAuth, so you'll need to
+[register your application with Twitter][register]. Once you've registered an
+application, make sure to set the correct access level, otherwise you may see
+the error:
 
     Read-only application cannot POST
 
