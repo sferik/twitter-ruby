@@ -29,6 +29,8 @@ Then, install the gem with the high security trust policy:
 
     gem install twitter -P HighSecurity
 
+## CLI
+
 Looking for the Twitter command-line interface? It was [removed][] from this
 gem in version 0.5.0 and now exists as a [separate project][t].
 
