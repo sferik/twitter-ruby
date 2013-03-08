@@ -1,3 +1,10 @@
+4.6.0
+-----
+* [Make `Twitter::Base#attrs` call methods if they exist](https://github.com/sferik/twitter/commit/ff4f2daccd1acdfddcea7139d4dd6490b55129db)
+* [Allow `Twitter::API::Tweets#oembed` and `Twitter::API::Tweets#oembeds` to take a URL](https://github.com/sferik/twitter/commit/0d986fa4b0c254e8c816bce086c3f6648d8fd3d7) ([@bshelton229](https://twitter.com/bshelton229))
+* [Add `Twitter::Tweet#filter_level` and `Twitter##Tweet#lang` attribute readers](https://github.com/sferik/twitter/commit/283aafbe1219e55f19a76517d9edce497001fca2)
+* [Add "Quick Start Guide" to the `README`](https://github.com/sferik/twitter/commit/afc24ee1bd07f19ef7fb8fd6b85aede34f3ab156) ([@coreyhaines](https://twitter.com/coreyhaines))
+
 4.5.0
 -----
 * [Add no_retweet_ids](https://github.com/sferik/twitter/commit/cab8d6ebf3afdbd24463932262798a132d70a6f1) ([@tibbon](https://twitter.com/tibbon))
