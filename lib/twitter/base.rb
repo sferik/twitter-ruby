@@ -94,7 +94,11 @@ module Twitter
     # @return [Hash]
     def attrs
       @attrs.inject({}) do |attrs, (key, value)|
-        attrs.merge!(key => respond_to?(key) ? send(key) : value)
+        if value.respond_to?(:attrs)
+          attrs.merge!(key => value.attrs)
+        else
+          attrs.merge!(key => respond_to?(key) ? send(key) : value)
+        end
       end
     end
     alias to_hash attrs
