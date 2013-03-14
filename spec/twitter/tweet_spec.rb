@@ -69,6 +69,18 @@ describe Twitter::Tweet do
     end
   end
 
+  describe "#filter_level" do
+    it "returns the filter level when filter_level is set" do
+      tweet = Twitter::Tweet.new(:id => 28669546014, :filter_level => 'high')
+      expect(tweet.filter_level).to be_a String
+      expect(tweet.filter_level).to eq "high"
+    end
+    it "returns \"none\" when not set" do
+      tweet = Twitter::Tweet.new(:id => 28669546014)
+      expect(tweet.filter_level).to eq "none"
+    end
+  end
+
   describe "#full_text" do
     it "returns the text of a Tweet" do
       tweet = Twitter::Tweet.new(:id => 28669546014, :text => 'BOOSH')
