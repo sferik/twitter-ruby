@@ -77,7 +77,7 @@ this library.
 ## Mailing List
 Please direct questions about this library to the [mailing list].
 
-[mailing list]: https://groups.google.com/group/ruby-twitter-gem
+[mailing list]: https://groups.google.com/group/twitter-ruby-gem
 
 ## Apps Wiki
 Does your project or organization use this gem? Add it to the [apps
