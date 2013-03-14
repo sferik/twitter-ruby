@@ -1,3 +1,7 @@
+4.6.1
+-----
+* [Convert nested classes in `Twitter::Base#attrs`](https://github.com/sferik/twitter/commit/e56c34c640189eb8b25a16994676a5e82b783cb3) ([@anno](https://twitter.com/anno))
+
 4.6.0
 -----
 * [Make `Twitter::Base#attrs` call methods if they exist](https://github.com/sferik/twitter/commit/ff4f2daccd1acdfddcea7139d4dd6490b55129db)
