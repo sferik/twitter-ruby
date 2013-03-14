@@ -97,7 +97,7 @@ module Twitter
         if value.respond_to?(:attrs)
           attrs.merge!(key => value.attrs)
         else
-          attrs.merge!(key => respond_to?(key) ? send(key) : value)
+          attrs.merge!(key => respond_to?(key) && method(key).arity.zero? ? send(key) : value)
         end
       end
     end
