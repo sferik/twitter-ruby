@@ -96,5 +96,20 @@ describe Twitter::SearchResults do
       expect(since_id).to be_nil
     end
   end
+  
+  describe "#next_results?" do
+    it "returns true when next_results is set" do
+      next_results = Twitter::SearchResults.new(:search_metadata => {:next_results => "?"}).next_results?
+      expect(next_results).to be_true
+    end
+    it "returns false when next_results is not set" do
+      next_results = Twitter::SearchResults.new(:search_metadata => {}).next_results?
+      expect(next_results).to be_false
+    end
+    it "returns false is search_metadata is not set" do
+      next_results = Twitter::SearchResults.new().next_results?
+      expect(next_results).to be_false
+    end
+  end
 
 end
