@@ -32,6 +32,7 @@ module Twitter
     include Twitter::API::FriendsAndFollowers
     include Twitter::API::Help
     include Twitter::API::Lists
+    include Twitter::API::OAuth
     include Twitter::API::PlacesAndGeo
     include Twitter::API::SavedSearches
     include Twitter::API::Search

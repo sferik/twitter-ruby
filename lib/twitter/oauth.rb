@@ -1,6 +1,6 @@
 module Twitter
   module API
-    module Oauth
+    module OAuth
       
       def token
       end
