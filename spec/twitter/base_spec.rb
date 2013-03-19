@@ -112,11 +112,6 @@ describe Twitter::Base do
     it 'returns a hash of attributes' do
       expect(Twitter::Base.new(:id => 1).attrs).to eq({:id => 1})
     end
-
-    it 'converts nested classes' do
-      base = Twitter::Base.new(:id => 2, :user => Twitter::User.new(:id => 4))
-      expect(base.attrs).to eq({:id => 2, :user => {:id => 4}})
-    end
   end
 
 end
