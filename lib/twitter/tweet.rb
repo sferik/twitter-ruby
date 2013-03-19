@@ -8,11 +8,16 @@ module Twitter
     extend Forwardable
     include Twitter::Creatable
     include Twitter::Exceptable
-    attr_reader :favorited, :favoriters, :from_user_id, :from_user_name,
-      :in_reply_to_screen_name, :in_reply_to_attrs_id, :in_reply_to_status_id,
-      :in_reply_to_user_id, :lang, :repliers, :retweeted, :retweeters, :source,
-      :text, :to_user, :to_user_id, :to_user_name, :truncated
+    attr_reader :favorite_count, :favorited, :favoriters, :from_user_id,
+      :from_user_name, :in_reply_to_screen_name, :in_reply_to_attrs_id,
+      :in_reply_to_status_id, :in_reply_to_user_id, :lang, :repliers,
+      :retweeted, :retweeters, :source, :text, :to_user, :to_user_id,
+      :to_user_name, :truncated
     alias in_reply_to_tweet_id in_reply_to_status_id
+    alias favorites_count favorite_count
+    alias favourite_count favorite_count
+    alias favourites_count favorite_count
+    alias favouriters_count favorite_count
     alias favourited favorited
     alias favourited? favorited?
     alias favouriters favoriters
@@ -28,11 +33,6 @@ module Twitter
       favoriters_count = @attrs[:favoriters_count]
       favoriters_count.to_i if favoriters_count
     end
-    alias favorite_count favoriters_count
-    alias favorites_count favoriters_count
-    alias favourite_count favoriters_count
-    alias favourites_count favoriters_count
-    alias favouriters_count favoriters_count
 
     # @return [String]
     def from_user
