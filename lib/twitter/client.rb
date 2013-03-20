@@ -5,6 +5,7 @@ require 'twitter/api/favorites'
 require 'twitter/api/friends_and_followers'
 require 'twitter/api/help'
 require 'twitter/api/lists'
+require 'twitter/api/oauth'
 require 'twitter/api/places_and_geo'
 require 'twitter/api/saved_searches'
 require 'twitter/api/search'
@@ -32,6 +33,7 @@ module Twitter
     include Twitter::API::FriendsAndFollowers
     include Twitter::API::Help
     include Twitter::API::Lists
+    include Twitter::API::OAuth
     include Twitter::API::PlacesAndGeo
     include Twitter::API::SavedSearches
     include Twitter::API::Search
