@@ -1,3 +1,9 @@
+4.6.2
+-----
+* [Fix `SystemStackError: stack level too deep` when converting to JSON](https://github.com/sferik/twitter/issues/368)
+* [Add `Twitter::Tweet#favorite_count`](https://github.com/sferik/twitter/commit/de8a356d0d5e757bfe383b58744efa1c2d842b79)
+* [Add `Twitter::SearchResults#next_results?`](https://github.com/sferik/twitter/commit/d951db4bdaa1ef72383f2026ec6236a289ee9074) ([@KentonWhite](https://twitter.com/KentonWhite))
+
 4.6.1
 -----
 * [Convert nested classes in `Twitter::Base#attrs`](https://github.com/sferik/twitter/commit/e56c34c640189eb8b25a16994676a5e82b783cb3) ([@anno](https://twitter.com/anno))
@@ -6,7 +12,7 @@
 -----
 * [Make `Twitter::Base#attrs` call methods if they exist](https://github.com/sferik/twitter/commit/ff4f2daccd1acdfddcea7139d4dd6490b55129db)
 * [Allow `Twitter::API::Tweets#oembed` and `Twitter::API::Tweets#oembeds` to take a URL](https://github.com/sferik/twitter/commit/0d986fa4b0c254e8c816bce086c3f6648d8fd3d7) ([@bshelton229](https://twitter.com/bshelton229))
-* [Add `Twitter::Tweet#filter_level` and `Twitter##Tweet#lang` attribute readers](https://github.com/sferik/twitter/commit/283aafbe1219e55f19a76517d9edce497001fca2)
+* [Add `Twitter::Tweet#filter_level` and `Twitter::Tweet#lang` attribute readers](https://github.com/sferik/twitter/commit/283aafbe1219e55f19a76517d9edce497001fca2)
 * [Add "Quick Start Guide" to the `README`](https://github.com/sferik/twitter/commit/afc24ee1bd07f19ef7fb8fd6b85aede34f3ab156) ([@coreyhaines](https://twitter.com/coreyhaines))
 
 4.5.0
