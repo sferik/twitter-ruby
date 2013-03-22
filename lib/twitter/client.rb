@@ -91,7 +91,11 @@ module Twitter
     #
     # @return [Faraday::Connection]
     def connection
-      @connection ||= Faraday.new(@endpoint, @connection_options.merge(:builder => @middleware))
+      @connection ||= begin
+        connection_options = {:builder => @middleware}
+        connection_options[:ssl] = {:verify => true} if @endpoint[0..4] == 'https'
+        Faraday.new(@endpoint, @connection_options.merge(connection_options))
+      end
     end
 
     def auth_header(method, path, params={})
