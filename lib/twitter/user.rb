@@ -96,6 +96,11 @@ module Twitter
       !@attrs[:status].nil?
     end
 
+    # @return [String]
+    def id_str
+      @attrs[:id_str]
+    end
+
   private
 
     def insecure_url(url)

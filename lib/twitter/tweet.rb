@@ -135,6 +135,21 @@ module Twitter
       !@attrs[:user].nil?
     end
 
+    # @return [String]
+    def id_str
+      @attrs[:id_str]
+    end
+
+    # @return [String]
+    def in_reply_to_status_id_str
+      @attrs[:in_reply_to_status_id_str]
+    end
+
+    # @return [String]
+    def in_reply_to_user_id_str
+      @attrs[:in_reply_to_user_id_str]
+    end
+
   private
 
     # @param klass [Class]

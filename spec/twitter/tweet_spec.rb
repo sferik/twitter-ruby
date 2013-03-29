@@ -338,4 +338,37 @@ describe Twitter::Tweet do
     end
   end
 
+  describe "#id_str" do
+    it "returns the id_str of the Tweet when set" do
+      tweet = Twitter::Tweet.new(:id => 28669546014, :id_str => '28669546014')
+      expect(tweet.id_str).to eq('28669546014')
+    end
+    it "returns nil when not set" do
+      tweet = Twitter::Tweet.new(:id => 28669546014)
+      expect(tweet.id_str).to be_nil
+    end
+  end
+
+  describe "#in_reply_to_status_id_str" do
+    it "returns the in_reply_to_status_id_str of the Tweet when set" do
+      tweet = Twitter::Tweet.new(:id => 28669546014, :in_reply_to_status_id_str => '222221331344')
+      expect(tweet.in_reply_to_status_id_str).to eq('222221331344')
+    end
+    it "returns nil when not set" do
+      tweet = Twitter::Tweet.new(:id => 28669546014)
+      expect(tweet.in_reply_to_status_id_str).to be_nil
+    end
+  end
+
+  describe "#in_reply_to_user_id_str" do
+    it "returns the in_reply_to_user_id_str of the Tweet when set" do
+      tweet = Twitter::Tweet.new(:id => 28669546014, :in_reply_to_user_id_str => '1133234561')
+      expect(tweet.in_reply_to_user_id_str).to eq('1133234561')
+    end
+    it "returns nil when not set" do
+      tweet = Twitter::Tweet.new(:id => 28669546014)
+      expect(tweet.in_reply_to_user_id_str).to be_nil
+    end
+  end
+
 end
