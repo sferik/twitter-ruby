@@ -258,4 +258,15 @@ describe Twitter::User do
     end
   end
 
+  describe "#id_str" do
+    it "returns the id_str of the User when set" do
+      user = Twitter::User.new(:id => 7505382, :id_str => '7505382')
+      expect(user.id_str).to eq('7505382')
+    end
+    it "returns nil when not set" do
+      user = Twitter::User.new(:id => 7505382)
+      expect(user.id_str).to be_nil
+    end
+  end
+
 end
