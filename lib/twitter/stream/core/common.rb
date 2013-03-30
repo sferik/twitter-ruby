@@ -3,8 +3,9 @@ module Twitter
     module Common
 
       def self.included(base)
-        base.attr_accessor :request
       end
+
+      attr_accessor :request
 
       def initialize(options)
         @callbacks = {}
