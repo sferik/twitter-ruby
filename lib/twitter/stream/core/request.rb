@@ -95,7 +95,11 @@ module Twitter
       end
 
       def oauth_header
-        SimpleOAuth::Header.new(@options[:method], full_uri, params, @options[:oauth])
+        if get?
+          SimpleOAuth::Header.new(@options[:method], full_uri, {}, @options[:oauth])
+        else
+          SimpleOAuth::Header.new(@options[:method], full_uri, params, @options[:oauth])
+        end
       end
 
       def proxy_uri
