@@ -16,7 +16,7 @@ module Twitter
         @reconnect_manager = Twitter::Stream::ReconnectManager.new
         client_context = OpenSSL::SSL::SSLContext.new
         @parser        = Http::Parser.new(self)
-        client         = TCPSocket.new(Resolv.getaddress(host), port)
+        client         = Celluloid::IO::TCPSocket.new(host, port)
         @ssl_client    = Celluloid::IO::SSLSocket.new(client, client_context)
         @response      = Response.new
       end
