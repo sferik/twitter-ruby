@@ -14,22 +14,18 @@ module Twitter
 
       def initialize(host, port)
         @reconnect_manager = Twitter::Stream::ReconnectManager.new
-        client_context = OpenSSL::SSL::SSLContext.new
-        @parser        = Http::Parser.new(self)
-        client         = Celluloid::IO::TCPSocket.new(host, port)
-        @ssl_client    = Celluloid::IO::SSLSocket.new(client, client_context)
-        @response      = Response.new
+        client_context     = OpenSSL::SSL::SSLContext.new
+        @parser            = Http::Parser.new(self)
+        client             = Celluloid::IO::TCPSocket.new(host, port)
+        @ssl_client        = Celluloid::IO::SSLSocket.new(client, client_context)
+        @response          = Response.new
       end
 
       def on_headers_complete(headers)
-        @response_code  = @parser.status_code
-
-        if @response_code.to_i == 200
-          @reconnect_manager.reset
-          return
-        end
+        @response_code  = @parser.status_code.to_i
 
         case @response_code
+        when 200 then @reconnect_manager.reset
         when 401 then @stream_client.invoke_callback(:unauthorized)
         when 403 then @stream_client.invoke_callback(:forbidden)
         when 404 then @stream_client.invoke_callback(:not_found)
