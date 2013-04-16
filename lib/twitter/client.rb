@@ -101,8 +101,12 @@ module Twitter
     end
 
     def auth_header(method, path, params={})
-      uri = URI(@endpoint + path)
-      SimpleOAuth::Header.new(method, uri, params, credentials)
+      if application_only_auth?
+        "Bearer #{@bearer_token}"
+      else
+        uri = URI(@endpoint + path)
+        SimpleOAuth::Header.new(method, uri, params, credentials)
+      end
     end
 
   end

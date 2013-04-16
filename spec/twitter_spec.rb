@@ -91,7 +91,13 @@ describe Twitter do
   end
 
   describe ".credentials?" do
-    it "returns true if all credentials are present" do
+    it "returns true if only bearer_token is supplied" do
+      Twitter.configure do |config|
+        config.bearer_token = 'BT'
+      end
+      expect(Twitter.credentials?).to be_true
+    end
+    it "returns true if all oauth credentials are present" do
       Twitter.configure do |config|
         config.consumer_key = 'CK'
         config.consumer_secret = 'CS'

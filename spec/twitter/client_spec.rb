@@ -38,6 +38,7 @@ describe Twitter::Client do
           :middleware => Proc.new{},
           :oauth_token => 'OT',
           :oauth_token_secret => 'OS',
+          :bearer_token => 'BT',
           :identity_map => ::Hash
         }
       end
@@ -149,6 +150,18 @@ describe Twitter::Client do
       expect(authorization.options[:consumer_secret]).to eq "CS"
       expect(authorization.options[:token]).to eq "OT"
       expect(authorization.options[:token_secret]).to eq "OS"
+    end
+  end
+
+  describe "#auth_header" do
+    subject do
+      Twitter::Client.new(:bearer_token => "BT")
+    end
+
+    it "creates the correct auth headers with supplied bearer_token" do
+      uri = "/1.1/direct_messages.json"
+      authorization = subject.send(:auth_header, :get, uri)
+      expect(authorization).to eq "Bearer BT"
     end
   end
 
