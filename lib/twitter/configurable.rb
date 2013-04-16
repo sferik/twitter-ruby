@@ -1,5 +1,6 @@
 require 'forwardable'
 require 'twitter/error/configuration_error'
+require 'base64'
 
 module Twitter
   module Configurable
@@ -53,6 +54,11 @@ module Twitter
     def application_only_auth?
       not @bearer_token.nil?
     end
+
+    def encoded_bearer_token_credentials
+      Base64.strict_encode64("#{@consumer_key}:#{@consumer_secret}")
+    end
+
     # @return [Hash]
     def credentials
       {
