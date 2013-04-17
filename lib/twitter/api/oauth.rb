@@ -5,9 +5,25 @@ module Twitter
   module API
     module OAuth
       include Twitter::API::Utils
+
+      # Allows a registered application to obtain an OAuth 2 Bearer Token, which can be used to make API requests
+      # on an application's own behalf, without a user context.
+      #
+      # Only one bearer token may exist outstanding for an application, and repeated requests to this method 
+      # will yield the same already-existent token until it has been invalidated.
+      #
+      # @see https://dev.twitter.com/docs/api/1.1/post/oauth2/token
+      # @rate_limited No
+      # @authentication Required
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @return [Twitter::Token] The Bearer Token. token_type should be 'bearer'.
+      # @example Generate a Bearer Token
+      #   client = Twitter::Client.new :consumer_key => "abc", :consumer_secret => 'def'
+      #   bearer_token = client.token
       def token
         object_from_response(Twitter::Token, :bearer_request, "/oauth2/token", :grant_type => "client_credentials")
       end
+
       # Allows a registered application to revoke an issued OAuth 2 Bearer Token by presenting its client credentials.
       #
       # @see https://dev.twitter.com/docs/api/1.1/post/oauth2/invalidate_token
@@ -20,19 +36,6 @@ module Twitter
       #   Twitter.invalidate_token("AAAA%2FAAA%3DAAAAAAAA")
       def invalidate_token(access_token)
         object_from_response(Twitter::Token, :post, "/oauth2/invalidate_token", :access_token => access_token)
-      end
-
-    private
-      def bearer_request(path, params={})
-        connection.send(:post, path, params) do |request|
-          request.headers[:accept] = "*/*"
-          request.headers[:authorization] = "Basic #{encoded_bearer_token_credentials}"
-          request.headers[:content_type] = "application/x-www-form-urlencoded; charset=UTF-8"
-        end.env
-      rescue Faraday::Error::ClientError
-        raise Twitter::Error::ClientError
-      rescue MultiJson::DecodeError
-        raise Twitter::Error::DecodeError
       end
     end
   end

@@ -52,11 +52,7 @@ module Twitter
 
   private
     def application_only_auth?
-      not @bearer_token.nil?
-    end
-
-    def encoded_bearer_token_credentials
-      Base64.strict_encode64("#{@consumer_key}:#{@consumer_secret}")
+      !!@bearer_token
     end
 
     # @return [Hash]

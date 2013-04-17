@@ -89,6 +89,18 @@ module Twitter
       raise Twitter::Error::DecodeError
     end
 
+    def bearer_request(path, params={})
+      connection.send(:post, path, params) do |request|
+        request.headers[:authorization] = bearer_token_credentials_auth_header
+        request.headers[:content_type] = "application/x-www-form-urlencoded; charset=UTF-8"
+        request.headers[:accept] = "*/*"
+      end.env
+    rescue Faraday::Error::ClientError
+      raise Twitter::Error::ClientError
+    rescue MultiJson::DecodeError
+      raise Twitter::Error::DecodeError
+    end
+
     # Returns a Faraday::Connection object
     #
     # @return [Faraday::Connection]
@@ -100,9 +112,24 @@ module Twitter
       end
     end
 
+    # Generates authentication header for a bearer token request
+    #
+    # @return [String]
+    def bearer_token_credentials_auth_header
+      credentials = Base64.strict_encode64("#{@consumer_key}:#{@consumer_secret}")
+      "Basic #{credentials}"
+    end
+
+    # Generates authentication header for when the :bearer_token is supplied
+    #
+    # @return [String]
+    def bearer_token_auth_header
+      "Bearer #{@bearer_token}"
+    end
+
     def auth_header(method, path, params={})
       if application_only_auth?
-        "Bearer #{@bearer_token}"
+        bearer_token_auth_header
       else
         uri = URI(@endpoint + path)
         SimpleOAuth::Header.new(method, uri, params, credentials)
