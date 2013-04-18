@@ -20,6 +20,7 @@ require 'twitter/configurable'
 require 'twitter/error/client_error'
 require 'twitter/error/decode_error'
 require 'simple_oauth'
+require 'base64'
 require 'uri'
 
 module Twitter

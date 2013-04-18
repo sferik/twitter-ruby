@@ -1,6 +1,5 @@
 require 'forwardable'
 require 'twitter/error/configuration_error'
-require 'base64'
 
 module Twitter
   module Configurable
