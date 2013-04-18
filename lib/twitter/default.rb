@@ -69,6 +69,11 @@ module Twitter
         ENV['TWITTER_OAUTH_TOKEN_SECRET']
       end
 
+      # @return [String]
+      def bearer_token
+        ENV['TWITTER_BEARER_TOKEN']
+      end
+
       # @note This is configurable in case you want to use a Twitter-compatible endpoint.
       # @see http://status.net/wiki/Twitter-compatible_API
       # @see http://en.blog.wordpress.com/2009/12/12/twitter-api/
