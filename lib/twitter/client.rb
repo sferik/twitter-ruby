@@ -78,23 +78,34 @@ module Twitter
     end
 
   private
-
-    def request(method, path, params={}, signature_params=params)
-      connection.send(method.to_sym, path, params) do |request|
-        request.headers[:authorization] = auth_header(method.to_sym, path, signature_params).to_s
-      end.env
-    rescue Faraday::Error::ClientError
-      raise Twitter::Error::ClientError
-    rescue MultiJson::DecodeError
-      raise Twitter::Error::DecodeError
+    # Returns a proc that can be used to setup the Faraday::Request headers
+    #
+    # @param method [Symbol]
+    # @param path [String]
+    # @param params [Hash]
+    # @return [Proc]
+    def request_setup(method, path, params)
+      if params.delete :bearer_token_request
+        Proc.new do |request|
+          request.headers[:authorization] = bearer_token_credentials_auth_header
+          request.headers[:content_type] = 'application/x-www-form-urlencoded; charset=UTF-8'
+          request.headers[:accept] = '*/*' # It is important we set this, otherwise we get an error.
+        end
+      elsif application_only_auth?
+        Proc.new do |request|
+          request.headers[:authorization] = bearer_auth_header
+        end
+      else
+        Proc.new do |request|
+          uri = URI(@endpoint + path)
+          request.headers[:authorization] = oauth_auth_header(method, path, params).to_s
+        end
+      end
     end
 
-    def bearer_request(path, params={})
-      connection.send(:post, path, params) do |request|
-        request.headers[:authorization] = bearer_token_credentials_auth_header
-        request.headers[:content_type] = "application/x-www-form-urlencoded; charset=UTF-8"
-        request.headers[:accept] = "*/*"
-      end.env
+    def request(method, path, params={}, signature_params=params)
+      request_setup = request_setup(method, path, params)
+      connection.send(method.to_sym, path, params, &request_setup).env
     rescue Faraday::Error::ClientError
       raise Twitter::Error::ClientError
     rescue MultiJson::DecodeError
@@ -116,25 +127,17 @@ module Twitter
     #
     # @return [String]
     def bearer_token_credentials_auth_header
-      credentials = Base64.strict_encode64("#{@consumer_key}:#{@consumer_secret}")
-      "Basic #{credentials}"
+      basic_auth_token = Base64.strict_encode64("#{@consumer_key}:#{@consumer_secret}")
+      "Basic #{basic_auth_token}"
     end
 
-    # Generates authentication header for when the :bearer_token is supplied
-    #
-    # @return [String]
-    def bearer_token_auth_header
+    def bearer_auth_header
       "Bearer #{@bearer_token}"
     end
 
-    def auth_header(method, path, params={})
-      if application_only_auth?
-        bearer_token_auth_header
-      else
-        uri = URI(@endpoint + path)
-        SimpleOAuth::Header.new(method, uri, params, credentials)
-      end
+    def oauth_auth_header(method, path, params={})
+      uri = URI(@endpoint + path)
+      SimpleOAuth::Header.new(method, uri, params, credentials)
     end
-
-  end
+end
 end

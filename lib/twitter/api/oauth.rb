@@ -21,7 +21,7 @@ module Twitter
       #   client = Twitter::Client.new :consumer_key => "abc", :consumer_secret => 'def'
       #   bearer_token = client.token
       def token
-        object_from_response(Twitter::Token, :bearer_request, "/oauth2/token", :grant_type => "client_credentials")
+        object_from_response(Twitter::Token, :post, "/oauth2/token", :grant_type => "client_credentials", :bearer_token_request => true)
       end
 
       # Allows a registered application to revoke an issued OAuth 2 Bearer Token by presenting its client credentials.

@@ -140,10 +140,10 @@ describe Twitter::Client do
     end
   end
 
-  describe "#auth_header" do
+  describe "#oauth_auth_header" do
     it "creates the correct auth headers" do
       uri = "/1.1/direct_messages.json"
-      authorization = subject.send(:auth_header, :get, uri)
+      authorization = subject.send(:oauth_auth_header, :get, uri)
       expect(authorization.options[:signature_method]).to eq "HMAC-SHA1"
       expect(authorization.options[:version]).to eq "1.0"
       expect(authorization.options[:consumer_key]).to eq "CK"
@@ -153,16 +153,23 @@ describe Twitter::Client do
     end
   end
 
-  describe "#auth_header" do
+  describe "#bearer_auth_header" do
     subject do
       Twitter::Client.new(:bearer_token => "BT")
     end
 
     it "creates the correct auth headers with supplied bearer_token" do
       uri = "/1.1/direct_messages.json"
-      authorization = subject.send(:auth_header, :get, uri)
+      authorization = subject.send(:bearer_auth_header)
       expect(authorization).to eq "Bearer BT"
     end
   end
 
+  describe "#bearer_token_credentials_auth_header" do
+    it "creates the correct auth header with supplied consumer_key and consumer_secret" do
+      uri = "/1.1/direct_messages.json"
+      authorization = subject.send(:bearer_token_credentials_auth_header)
+      expect(authorization).to eq "Basic #{Base64.strict_encode64("CK:CS")}"
+    end
+  end
 end
