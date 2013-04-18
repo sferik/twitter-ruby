@@ -138,5 +138,5 @@ module Twitter
       uri = URI(@endpoint + path)
       SimpleOAuth::Header.new(method, uri, params, credentials)
     end
-end
+  end
 end
