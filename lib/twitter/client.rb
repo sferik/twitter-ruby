@@ -97,7 +97,6 @@ module Twitter
         end
       else
         Proc.new do |request|
-          uri = URI(@endpoint + path)
           request.headers[:authorization] = oauth_auth_header(method, path, params).to_s
         end
       end
