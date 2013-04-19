@@ -27,6 +27,21 @@ module Twitter
       alias local_trends trends
       alias trends_place trends
 
+      # Return the trends and the other meta info as_of createed_at and location_name
+      #
+      # @see https://dev.twitter.com/docs/api/1.1/get/trends/place
+      def trends_with_meta(id=1, options={})
+        options[:id] = id
+        response = get("/1.1/trends/place.json", options)
+        trends_with_meta = Hash.new
+        trends_with_meta["values"] = objects_from_array(Twitter::Trend, response[:body].first[:trends])
+        trends_with_meta["as_of"] =response[:body].first[:as_of]
+        trends_with_meta["created_at"] =response[:body].first[:created_at]
+        trends_with_meta["location_name"] =response[:body].first[:locations].first[:name]
+        trends_with_meta["location_woeid"] =response[:body].first[:locations].first[:woeid]
+      end
+
+
       # Returns the locations that Twitter has trending topic information for
       #
       # @see https://dev.twitter.com/docs/api/1.1/get/trends/available
