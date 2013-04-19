@@ -111,5 +111,20 @@ describe Twitter::SearchResults do
       expect(next_results).to be_false
     end
   end
+  
+  describe "#next_results" do
+    let(:next_results) {Twitter::SearchResults.new(:search_metadata => 
+        {:next_results => "?max_id=249279667666817023&q=%23freebandnames&count=4&include_entities=1&result_type=mixed"
+      }).next_results
+    }
+
+    it "returns a hash of query parameters" do
+      expect(next_results).to be_a Hash
+    end
+    
+    it "returns a max_id" do
+      expect(next_results[:max_id]).to eq "249279667666817023"
+    end
+  end
 
 end
