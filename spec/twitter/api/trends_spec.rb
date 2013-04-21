@@ -36,7 +36,8 @@ describe Twitter::API::Trends do
   describe "#trends_with_meta" do
     context "with woeid passed" do
       before do
-        stub_get("/1.1/trends/place.json").with(:query => {:id => "2487956"}).to_return(:body => fixture("matching_trends.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        stub_get("/1.1/trends/place.json").with(:query => {:id => "2487956"}).to_return(:body => fixture("matching_trends.json"),
+          :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.trends_with_meta(2487956)
@@ -48,8 +49,8 @@ describe Twitter::API::Trends do
         expect(matching_trends).to be_an Hash
         expect(matching_trends["as_of"]).to eq("2010-10-25T14:49:50Z")
         expect(matching_trends["created_at"]).to eq "2010-10-25T14:41:13Z"
-       # expect(matching_trends["locations_name"]).to eq "Mon, 25 Oct 2010 15:50:02 +0000"
-       # expect(matching_trends["locations_woid"]).to eq "2487956"
+        expect(matching_trends["locations_name"]).to eq "Worldwide"
+        expect(matching_trends["locations_woeid"]).to eq "1"
          expect(matching_trends["trends"].first.name).to eq "#sevenwordsaftersex"
       end
     end

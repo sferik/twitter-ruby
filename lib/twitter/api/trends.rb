@@ -35,21 +35,23 @@ module Twitter
         response = get("/1.1/trends/place.json", options)
         puts "trends_with_meta>response class"+response.class.inspect
         puts  "trends_with_meta>response keys"+response.keys.inspect
-        puts  "trends_with_meta>response  > body"+response[:body].class.inspect
-        puts  "trends_with_meta>response  > body"+response[:body].inspect
-        puts  "trends_with_meta>response as_of  > body"+response[:body].first[:as_of].class.inspect
-        # puts  "trends_with_meta>response as_of > body"+response[:body].first[:as_of].inspect
+        # puts  "trends_with_meta>response  > body"+response[:body].class.inspect
+        # puts  "trends_with_meta>response  > body"+response[:body].inspect
+        puts  "trends_with_meta>response as_of  > body as_of"+response[:body].first[:as_of].class.inspect
+       puts  "trends_with_meta>response as_of > body as_of"+response[:body].first[:as_of].inspect
 
+        puts  "trends_with_meta>response as_of  > body locations "+response[:body].first[:locations].class.inspect
+        puts  "trends_with_meta>response as_of > body locations"+response[:body].first[:locations].inspect
 
-        #puts "trends_with_meta>response"+response.inspect
+        puts  "trends_with_meta>response as_of  > body locations woeid"+response[:body].first[:locations].first[:woeid].class.inspect
+        puts  "trends_with_meta>response as_of > body locations woeid="+response[:body].first[:locations].first[:woeid].to_s
 
         trends_with_meta = Hash.new
         trends_with_meta["trends"] = objects_from_array(Twitter::Trend, response[:body].first[:trends])
         trends_with_meta["as_of"] = response[:body].first[:as_of]
-       #trends_with_meta["as_of"] = "Mon, 25 Oct 2010 15:50:02 +0000"
         trends_with_meta["created_at"] =response[:body].first[:created_at]
-       # trends_with_meta["locations_name"] =response[:body].first[:locations].first[:name]
-       # trends_with_meta["locations_woeid"] =response[:body].first[:locations].first[:woeid]
+        trends_with_meta["locations_name"] =response[:body].first[:locations].first[:name]
+        trends_with_meta["locations_woeid"] =response[:body].first[:locations].first[:woeid].to_s
         return trends_with_meta
       end
 
