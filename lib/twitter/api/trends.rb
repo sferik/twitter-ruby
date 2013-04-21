@@ -39,11 +39,11 @@ module Twitter
       # @return [Hash<Twitter::Trend>]
       # @example Return the top 10 trending topics for San Francisco
       #   t = Twitter.trends(2487956)
-      #   t["trends"].first.name) => "#sevenwordsaftersex"
-      #   t["as_of"] = "2010-10-25T14:49:50Z"
-      #   t["created_at"] = "2010-10-25T14:41:13Z"
-      #   t["locations_name"]) = "Worldwide"
-      #   t["locations_woeid"] = "1"
+      #   t["trends"].first.name => "#sevenwordsaftersex"
+      #   t["as_of"] => "2010-10-25T14:49:50Z"
+      #   t["created_at"] => "2010-10-25T14:41:13Z"
+      #   t["locations_name"] => "Worldwide"
+      #   t["locations_woeid"] => "1"
       def trends_with_meta(id=1, options={})
         options[:id] = id
         response = get("/1.1/trends/place.json", options)
