@@ -22,7 +22,16 @@ module Twitter
       def trends(id=1, options={})
         options[:id] = id
         response = get("/1.1/trends/place.json", options)
-        objects_from_array(Twitter::Trend, response[:body].first[:trends])
+        obj = Object.new
+        class << obj
+            attr_accessor :values, :as_of, :created_at, :locations_name, :locations_woeid
+        end
+        obj.values = objects_from_array(Twitter::Trend, response[:body].first[:trends])
+        obj.as_of = response[:body].first[:as_of]
+        obj.created_at =response[:body].first[:created_at]
+        obj.locations_name =response[:body].first[:locations].first[:name]
+        obj.locations_woeid =response[:body].first[:locations].first[:woeid].to_s
+        obj
       end
       alias local_trends trends
       alias trends_place trends

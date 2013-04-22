@@ -17,9 +17,16 @@ describe Twitter::API::Trends do
       end
       it "returns the top 10 trending topics for a specific WOEID" do
         matching_trends = @client.trends(2487956)
-        expect(matching_trends).to be_an Array
-        expect(matching_trends.first).to be_a Twitter::Trend
-        expect(matching_trends.first.name).to eq "#sevenwordsaftersex"
+        puts "matching_trends="+matching_trends.class.inspect
+        puts "matching_trends="+matching_trends.inspect
+        expect(matching_trends).to be_an Object
+        expect(matching_trends.values).to be_an Array
+        expect(matching_trends.values.first).to be_a Twitter::Trend
+        expect(matching_trends.values.first.name).to eq "#sevenwordsaftersex"
+        expect(matching_trends.as_of).to eq "2010-10-25T14:49:50Z"
+        expect(matching_trends.created_at).to eq "2010-10-25T14:41:13Z"
+        expect(matching_trends.locations_name).to eq "Worldwide"
+        expect(matching_trends.locations_woeid).to eq "1"
       end
     end
     context "without arguments passed" do
