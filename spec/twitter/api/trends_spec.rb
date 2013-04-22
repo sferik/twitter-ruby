@@ -17,8 +17,6 @@ describe Twitter::API::Trends do
       end
       it "returns the top 10 trending topics for a specific WOEID" do
         matching_trends = @client.trends(2487956)
-        puts "matching_trends="+matching_trends.class.inspect
-        puts "matching_trends="+matching_trends.inspect
         expect(matching_trends).to be_an Object
         expect(matching_trends.values).to be_an Array
         expect(matching_trends.values.first).to be_a Twitter::Trend
