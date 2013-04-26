@@ -40,6 +40,26 @@ describe Twitter::Tweet do
     end
   end
 
+  describe "#entities?" do
+    it "returns false if there are no entities set" do
+      tweet = Twitter::Tweet.new(:id => 28669546014)
+      expect(tweet.entities?).to be_false
+    end
+
+    it "returns true if there are entities set" do
+      urls_array = [
+        {
+          :url => 'http://example.com/t.co',
+          :expanded_url => 'http://example.com/expanded',
+          :display_url => 'example.com/expanded',
+          :indices => [10, 33],
+        }
+      ]
+      tweet = Twitter::Tweet.new(:id => 28669546014, :entities => {:urls => urls_array})
+      expect(tweet.entities?).to be_true
+    end
+  end
+
   describe "#favoriters_count" do
     it "returns the count of favoriters when favoriters_count is set" do
       tweet = Twitter::Tweet.new(:id => 28669546014, :favoriters_count => '1')
@@ -239,23 +259,26 @@ describe Twitter::Tweet do
     end
   end
 
-  describe "#entities?" do
-    it "returns false if there are no entities set" do
-      tweet = Twitter::Tweet.new(:id => 28669546014)
-      expect(tweet.entities?).to be_false
-    end
-
-    it "returns true if there are entities set" do
-      urls_array = [
-        {
-          :url => 'http://example.com/t.co',
-          :expanded_url => 'http://example.com/expanded',
-          :display_url => 'example.com/expanded',
-          :indices => [10, 33],
-        }
+  describe "#symbols" do
+    it "returns an Array of Entity::Symbol when symbols are set" do
+      symbols_array = [
+        { :text => 'PEP', :indices => [114, 118] },
+        { :text => 'COKE', :indices => [128, 133] }
       ]
-      tweet = Twitter::Tweet.new(:id => 28669546014, :entities => {:urls => urls_array})
-      expect(tweet.entities?).to be_true
+      symbols = Twitter::Tweet.new(:id => 28669546014, :entities => {:symbols => symbols_array}).symbols
+      expect(symbols).to be_an Array
+      expect(symbols.size).to eq 2
+      expect(symbols.first).to be_a Twitter::Entity::Symbol
+      expect(symbols.first.indices).to eq [114, 118]
+      expect(symbols.first.text).to eq 'PEP'
+    end
+    it "is empty when not set" do
+      symbols = Twitter::Tweet.new(:id => 28669546014).symbols
+      expect(symbols).to be_empty
+    end
+    it "warns when not set" do
+      Twitter::Tweet.new(:id => 28669546014).symbols
+      expect($stderr.string).to match(/To get symbols, you must pass `:include_entities => true` when requesting the Twitter::Tweet\./)
     end
   end
 

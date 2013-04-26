@@ -115,6 +115,12 @@ module Twitter
     alias retweet_count retweeters_count
 
     # @note Must include entities in your request for this method to work
+    # @return [Array<Twitter::Entity::Symbol>]
+    def symbols
+      @symbols ||= entities(Twitter::Entity::Symbol, :symbols)
+    end
+
+    # @note Must include entities in your request for this method to work
     # @return [Array<Twitter::Entity::Url>]
     def urls
       @urls ||= entities(Twitter::Entity::Url, :urls)
