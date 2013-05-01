@@ -49,20 +49,27 @@ module Twitter
     end
     alias setup reset!
 
-  private
-    def application_only_auth?
+    # @return [Hash]
+    def credentials
+      { :consumer_key     => @consumer_key,
+        :consumer_secret  => @consumer_secret,
+        :token            => @oauth_token,
+        :token_secret     => @oauth_token_secret }
+    end
+
+  protected
+    # @return [Boolean]
+    def bearer_token?
       !!@bearer_token
     end
 
-    # @return [Hash]
-    def credentials
-      {
-        :consumer_key => @consumer_key,
-        :consumer_secret => @consumer_secret,
-        :token => @oauth_token,
-        :token_secret => @oauth_token_secret,
-      }
+    # @return [Boolean]
+    def user_token?
+      !!@oauth_token
     end
+
+  private
+
 
     # @return [Hash]
     def options
