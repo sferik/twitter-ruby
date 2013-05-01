@@ -86,18 +86,20 @@ module Twitter
     # @param params [Hash]
     # @return [Proc]
     def request_setup(method, path, params)
-      if params.delete :bearer_token_request
-        Proc.new do |request|
+      Proc.new do |request|
+        if params.delete(:bearer_token_request)
           request.headers[:authorization] = bearer_token_credentials_auth_header
           request.headers[:content_type] = 'application/x-www-form-urlencoded; charset=UTF-8'
           request.headers[:accept] = '*/*' # It is important we set this, otherwise we get an error.
-        end
-      elsif application_only_auth?
-        Proc.new do |request|
+        elsif params.delete(:app_auth) || !user_token?
+          unless bearer_token?
+            @bearer_token = app_token[:access_token]
+            if Twitter.instance_variable_get('@client')
+              Twitter.instance_variable_set(:"@bearer_token", @bearer_token)
+            end
+          end
           request.headers[:authorization] = bearer_auth_header
-        end
-      else
-        Proc.new do |request|
+        else
           request.headers[:authorization] = oauth_auth_header(method, path, params).to_s
         end
       end
