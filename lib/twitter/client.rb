@@ -94,9 +94,7 @@ module Twitter
         elsif params.delete(:app_auth) || !user_token?
           unless bearer_token?
             @bearer_token = app_token[:access_token]
-            if Twitter.instance_variable_get('@client')
-              Twitter.instance_variable_set(:"@bearer_token", @bearer_token)
-            end
+            Twitter.bearer_token = @bearer_token if Twitter.client?
           end
           request.headers[:authorization] = bearer_auth_header
         else
