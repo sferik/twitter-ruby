@@ -13,29 +13,29 @@ describe Twitter::API::OAuth do
       stub_request(:post, @oauth2_token_url).with(:body => "grant_type=client_credentials").to_return(:body => '{"token_type" : "bearer", "access_token" : "AAAA%2FAAA%3DAAAAAAAA"}', :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
-      @client.app_token
+      @client.get_bearer_token
       expect(a_request(:post, @oauth2_token_url).with(:body => {:grant_type => "client_credentials"})).to have_been_made
     end
     it "requests with the correct headers" do
-      @client.app_token
+      @client.get_bearer_token
       expect(a_request(:post, @oauth2_token_url).with(:headers => {
           :content_type => "application/x-www-form-urlencoded; charset=UTF-8",
           :accept => "*/*"
         })).to have_been_made
     end
     it "returns the bearer token" do
-      app_token = @client.app_token
-      expect(app_token.access_token).to eq "AAAA%2FAAA%3DAAAAAAAA"
-      expect(app_token.token_type).to eq "bearer"
+      bearer_token = @client.get_bearer_token
+      expect(bearer_token.access_token).to eq "AAAA%2FAAA%3DAAAAAAAA"
+      expect(bearer_token.token_type).to eq "bearer"
     end
   end
 
   describe "#invalidate_token" do
     before do
       stub_post("/oauth2/invalidate_token").with(:body => {:access_token => "AAAA%2FAAA%3DAAAAAAAA"}).to_return(:body => '{"access_token" : "AAAA%2FAAA%3DAAAAAAAA"}', :headers => {:content_type => "application/json; charset=utf-8"})
+      @client.bearer_token = "AAAA%2FAAA%3DAAAAAAAA"
     end
     it "requests the correct resource" do
-      @client.bearer_token = "AAAA%2FAAA%3DAAAAAAAA"
       @client.invalidate_token("AAAA%2FAAA%3DAAAAAAAA")
       expect(a_post("/oauth2/invalidate_token").with(:body => {:access_token => "AAAA%2FAAA%3DAAAAAAAA"})).to have_been_made
     end

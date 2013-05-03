@@ -95,8 +95,8 @@ module Twitter
           request.headers[:accept] = '*/*' # It is important we set this, otherwise we get an error.
         elsif params.delete(:app_auth) || !user_token?
           unless bearer_token?
-            @bearer_token = app_token[:access_token]
-            Twitter.bearer_token = @bearer_token if Twitter.client?
+            @bearer_token = get_bearer_token[:access_token]
+            Twitter.client.bearer_token = @bearer_token if Twitter.client?
           end
           request.headers[:authorization] = bearer_auth_header
         else
