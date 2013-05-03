@@ -1,10 +1,10 @@
 require 'faraday'
 require 'multi_json'
+require 'twitter/api/application'
 require 'twitter/api/direct_messages'
 require 'twitter/api/favorites'
 require 'twitter/api/friends_and_followers'
 require 'twitter/api/help'
-require 'twitter/api/application'
 require 'twitter/api/lists'
 require 'twitter/api/oauth'
 require 'twitter/api/places_and_geo'
@@ -30,11 +30,11 @@ module Twitter
   # @note All methods have been separated into modules and follow the same grouping used in {http://dev.twitter.com/doc the Twitter API Documentation}.
   # @see http://dev.twitter.com/pages/every_developer
   class Client
+    include Twitter::API::Application
     include Twitter::API::DirectMessages
     include Twitter::API::Favorites
     include Twitter::API::FriendsAndFollowers
     include Twitter::API::Help
-    include Twitter::API::Application
     include Twitter::API::Lists
     include Twitter::API::OAuth
     include Twitter::API::PlacesAndGeo
