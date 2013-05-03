@@ -6,6 +6,8 @@ gem 'yard'
 
 group :development do
   gem 'kramdown'
+  gem 'pry'
+  gem 'pry-debugger', :platforms => :mri_19
 end
 
 group :test do
@@ -15,11 +17,6 @@ group :test do
   gem 'simplecov', :require => false
   gem 'timecop'
   gem 'webmock'
-end
-
-group :development, :test do
-  gem 'pry'
-  gem 'pry-debugger', :platforms => :mri_19
 end
 
 gemspec

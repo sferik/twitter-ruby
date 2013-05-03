@@ -14,7 +14,6 @@ require 'stringio'
 require 'tempfile'
 require 'timecop'
 require 'webmock/rspec'
-require 'pry'
 
 WebMock.disable_net_connect!(:allow => 'coveralls.io')
 
