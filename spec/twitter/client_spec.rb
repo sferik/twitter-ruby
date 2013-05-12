@@ -120,16 +120,16 @@ describe Twitter::Client do
     end
   end
 
-  # describe "#credentials?" do
-  #   it "returns true if all credentials are present" do
-  #     client = Twitter::Client.new(:consumer_key => 'CK', :consumer_secret => 'CS', :oauth_token => 'OT', :oauth_token_secret => 'OS')
-  #     expect(client.credentials?).to be_true
-  #   end
-  #   it "returns false if any credentials are missing" do
-  #     client = Twitter::Client.new(:consumer_key => 'CK', :consumer_secret => 'CS', :oauth_token => 'OT')
-  #     expect(client.credentials?).to be_false
-  #   end
-  # end
+  describe "#credentials?" do
+    it "returns true if all credentials are present" do
+      client = Twitter::Client.new(:consumer_key => 'CK', :consumer_secret => 'CS', :oauth_token => 'OT', :oauth_token_secret => 'OS')
+      expect(client.credentials?).to be_true
+    end
+    it "returns false if any credentials are missing" do
+      client = Twitter::Client.new(:consumer_key => 'CK', :consumer_secret => 'CS', :oauth_token => 'OT')
+      expect(client.credentials?).to be_false
+    end
+  end
 
   describe "#connection" do
     it "looks like Faraday connection" do

@@ -4,7 +4,7 @@ require 'twitter/error/configuration_error'
 module Twitter
   module Configurable
     extend Forwardable
-    attr_accessor :consumer_key, :consumer_secret, :oauth_token, :oauth_token_secret, :bearer_token
+    attr_writer :consumer_key, :consumer_secret, :oauth_token, :oauth_token_secret, :bearer_token
     attr_accessor :endpoint, :connection_options, :identity_map, :middleware
     def_delegator :options, :hash
 
@@ -44,12 +44,9 @@ module Twitter
     end
     alias setup reset!
 
-    # @return [Hash]
-    def credentials
-      { :consumer_key     => @consumer_key,
-        :consumer_secret  => @consumer_secret,
-        :token            => @oauth_token,
-        :token_secret     => @oauth_token_secret }
+    # @return [Boolean]
+    def user_token?
+      !!(@oauth_token && @oauth_token_secret)
     end
 
     # @return [Boolean]
@@ -58,16 +55,21 @@ module Twitter
     end
 
     # @return [Boolean]
-    def user_token?
-      !!(@oauth_token && @oauth_token_secret)
-    end
-
-    # @return [Boolean]
     def credentials?
       credentials.values.all? || bearer_token?
     end
 
   private
+
+    # @return [Hash]
+    def credentials
+      {
+        :consumer_key    => @consumer_key,
+        :consumer_secret => @consumer_secret,
+        :token           => @oauth_token,
+        :token_secret    => @oauth_token_secret,
+      }
+    end
 
     # @return [Hash]
     def options

@@ -1,6 +1,5 @@
 require 'faraday'
 require 'multi_json'
-require 'twitter/api/application'
 require 'twitter/api/direct_messages'
 require 'twitter/api/favorites'
 require 'twitter/api/friends_and_followers'
@@ -30,7 +29,6 @@ module Twitter
   # @note All methods have been separated into modules and follow the same grouping used in {http://dev.twitter.com/doc the Twitter API Documentation}.
   # @see http://dev.twitter.com/pages/every_developer
   class Client
-    include Twitter::API::Application
     include Twitter::API::DirectMessages
     include Twitter::API::Favorites
     include Twitter::API::FriendsAndFollowers
@@ -95,7 +93,7 @@ module Twitter
           request.headers[:accept] = '*/*' # It is important we set this, otherwise we get an error.
         elsif params.delete(:app_auth) || !user_token?
           unless bearer_token?
-            @bearer_token = get_bearer_token[:access_token]
+            @bearer_token = token[:access_token]
             Twitter.client.bearer_token = @bearer_token if Twitter.client?
           end
           request.headers[:authorization] = bearer_auth_header

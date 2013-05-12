@@ -46,7 +46,7 @@ module Twitter
     def since_id
       @attrs[:search_metadata][:since_id] if search_metadata?
     end
-    
+
     # @return [Boolean]
     def next_results?
       !@attrs[:search_metadata][:next_results].nil? if search_metadata?

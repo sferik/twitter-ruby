@@ -13,18 +13,18 @@ describe Twitter::API::OAuth do
       stub_request(:post, @oauth2_token_url).with(:body => "grant_type=client_credentials").to_return(:body => '{"token_type" : "bearer", "access_token" : "AAAA%2FAAA%3DAAAAAAAA"}', :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
-      @client.get_bearer_token
+      @client.token
       expect(a_request(:post, @oauth2_token_url).with(:body => {:grant_type => "client_credentials"})).to have_been_made
     end
     it "requests with the correct headers" do
-      @client.get_bearer_token
+      @client.token
       expect(a_request(:post, @oauth2_token_url).with(:headers => {
           :content_type => "application/x-www-form-urlencoded; charset=UTF-8",
           :accept => "*/*"
         })).to have_been_made
     end
     it "returns the bearer token" do
-      bearer_token = @client.get_bearer_token
+      bearer_token = @client.token
       expect(bearer_token.access_token).to eq "AAAA%2FAAA%3DAAAAAAAA"
       expect(bearer_token.token_type).to eq "bearer"
     end

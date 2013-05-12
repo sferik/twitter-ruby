@@ -96,7 +96,7 @@ describe Twitter::SearchResults do
       expect(since_id).to be_nil
     end
   end
-  
+
   describe "#next_results?" do
     it "returns true when next_results is set" do
       next_results = Twitter::SearchResults.new(:search_metadata => {:next_results => "?"}).next_results?
@@ -111,9 +111,9 @@ describe Twitter::SearchResults do
       expect(next_results).to be_false
     end
   end
-  
+
   describe "#next_results" do
-    let(:next_results) {Twitter::SearchResults.new(:search_metadata => 
+    let(:next_results) {Twitter::SearchResults.new(:search_metadata =>
         {:next_results => "?max_id=249279667666817023&q=%23freebandnames&count=4&include_entities=1&result_type=mixed"
       }).next_results
     }
@@ -121,7 +121,7 @@ describe Twitter::SearchResults do
     it "returns a hash of query parameters" do
       expect(next_results).to be_a Hash
     end
-    
+
     it "returns a max_id" do
       expect(next_results[:max_id]).to eq "249279667666817023"
     end
