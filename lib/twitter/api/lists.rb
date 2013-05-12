@@ -23,11 +23,13 @@ module Twitter
       # @return [Array<Twitter::List>]
       # @overload lists(options={})
       #   @param options [Hash] A customizable set of options.
+      #   @option options [Boolean] :reverse Set this to true if you would like owned lists to be returned first.
       #   @example Return all lists the authenticating user subscribes to
       #     Twitter.lists
       # @overload lists(user, options={})
       #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
       #   @param options [Hash] A customizable set of options.
+      #   @option options [Boolean] :reverse Set this to true if you would like owned lists to be returned first.
       #   @example Return all lists that @sferik subscribes to
       #     Twitter.lists('sferik')
       #     Twitter.lists(7505382)
@@ -505,6 +507,30 @@ module Twitter
       def list_remove_members(*args)
         list_from_response_with_users(:post, "/1.1/lists/members/destroy_all.json", args)
       end
+
+      # Returns the lists owned by the specified Twitter user
+      #
+      # @see https://dev.twitter.com/docs/api/1.1/get/lists/ownerships
+      # @rate_limited Yes
+      # @authentication Requires user context
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @return [Array<Twitter::List>]
+      # @overload lists_owned(options={})
+      #   @param options [Hash] A customizable set of options.
+      #   @option options [Integer] :count The amount of results to return per page. Defaults to 20. No more than 1000 results will ever be returned in a single page.
+      #   @example Return all lists the authenticating user owns
+      #     Twitter.lists_owend
+      # @overload lists_owned(user, options={})
+      #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
+      #   @param options [Hash] A customizable set of options.
+      #   @option options [Integer] :count The amount of results to return per page. Defaults to 20. No more than 1000 results will ever be returned in a single page.
+      #   @example Return all lists that @sferik owns
+      #     Twitter.lists_owned('sferik')
+      #     Twitter.lists_owned(7505382)
+      def lists_owned(*args)
+        cursor_from_response_with_user(:lists, Twitter::List, :get, "/1.1/lists/ownerships.json", args, :lists_owned)
+      end
+      alias lists_ownerships lists_owned
 
     private
 

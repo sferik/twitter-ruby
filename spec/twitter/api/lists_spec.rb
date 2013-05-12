@@ -829,4 +829,40 @@ describe Twitter::API::Lists do
     end
   end
 
+  describe "#lists_owned" do
+    context "with a screen name passed" do
+      before do
+        stub_get("/1.1/lists/ownerships.json").with(:query => {:screen_name => "sferik", :cursor => "-1"}).to_return(:body => fixture("ownerships.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      end
+      it "requests the correct resource" do
+        @client.lists_owned("sferik")
+        expect(a_get("/1.1/lists/ownerships.json").with(:query => {:screen_name => "sferik", :cursor => "-1"})).to have_been_made
+      end
+      it "returns the requested list" do
+        lists = @client.lists_owned("sferik")
+        expect(lists).to be_a Twitter::Cursor
+        expect(lists.lists).to be_an Array
+        expect(lists.lists.first).to be_a Twitter::List
+        expect(lists.lists.first.name).to eq "My favstar.fm list"
+      end
+    end
+    context "without a screen name passed" do
+      before do
+        stub_get("/1.1/account/verify_credentials.json").to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        stub_get("/1.1/lists/ownerships.json").with(:query => {:screen_name => "sferik", :cursor => "-1"}).to_return(:body => fixture("ownerships.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      end
+      it "requests the correct resource" do
+        @client.lists_owned
+        expect(a_get("/1.1/lists/ownerships.json").with(:query => {:screen_name => "sferik", :cursor => "-1"})).to have_been_made
+      end
+      it "returns the requested list" do
+        lists = @client.lists_owned
+        expect(lists).to be_a Twitter::Cursor
+        expect(lists.lists).to be_an Array
+        expect(lists.lists.first).to be_a Twitter::List
+        expect(lists.lists.first.name).to eq "My favstar.fm list"
+      end
+    end
+  end
+
 end
