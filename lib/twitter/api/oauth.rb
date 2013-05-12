@@ -19,11 +19,10 @@ module Twitter
       # @return [Twitter::Token] The Bearer Token. token_type should be 'bearer'.
       # @example Generate a Bearer Token
       #   client = Twitter::Client.new :consumer_key => "abc", :consumer_secret => 'def'
-      #   bearer_token = client.token
-      def token
+      #   bearer_token = client.get_bearer_token
+      def get_bearer_token
         object_from_response(Twitter::Token, :post, "/oauth2/token", :grant_type => "client_credentials", :bearer_token_request => true)
       end
-      alias bearer_token token
 
       # Allows a registered application to revoke an issued OAuth 2 Bearer Token by presenting its client credentials.
       #
