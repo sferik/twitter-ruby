@@ -23,7 +23,7 @@ To ensure the code you're installing hasn't been tampered with, it's
 recommended that you verify the signature. To do this, you need to add my
 public key as a trusted certificate (you only need to do this once):
 
-    gem cert --add <(curl -Ls https://gist.github.com/sferik/4701180/raw/public_cert.pem)
+    gem cert --add <(curl -Ls https://raw.github.com/sferik/twitter/master/certs/sferik.pem)
 
 Then, install the gem with the high security trust policy:
 
