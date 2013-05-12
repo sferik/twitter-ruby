@@ -98,16 +98,38 @@ describe Twitter::Client do
     end
   end
 
-  describe "#credentials?" do
-    it "returns true if all credentials are present" do
+  describe "#user_token?" do
+    it "returns true if the user token/secret are present" do
       client = Twitter::Client.new(:consumer_key => 'CK', :consumer_secret => 'CS', :oauth_token => 'OT', :oauth_token_secret => 'OS')
-      expect(client.credentials?).to be_true
+      expect(client.user_token?).to be_true
     end
-    it "returns false if any credentials are missing" do
+    it "returns false if the user token/secret are not completely present" do
       client = Twitter::Client.new(:consumer_key => 'CK', :consumer_secret => 'CS', :oauth_token => 'OT')
-      expect(client.credentials?).to be_false
+      expect(client.user_token?).to be_false
     end
   end
+
+  describe "#bearer_token?" do
+    it "returns true if the app token is present" do
+      client = Twitter::Client.new(:consumer_key => 'CK', :consumer_secret => 'CS', :bearer_token => 'BT')
+      expect(client.bearer_token?).to be_true
+    end
+    it "returns false if the bearer_token is not present" do
+      client = Twitter::Client.new(:consumer_key => 'CK', :consumer_secret => 'CS')
+      expect(client.bearer_token?).to be_false
+    end
+  end
+
+  # describe "#credentials?" do
+  #   it "returns true if all credentials are present" do
+  #     client = Twitter::Client.new(:consumer_key => 'CK', :consumer_secret => 'CS', :oauth_token => 'OT', :oauth_token_secret => 'OS')
+  #     expect(client.credentials?).to be_true
+  #   end
+  #   it "returns false if any credentials are missing" do
+  #     client = Twitter::Client.new(:consumer_key => 'CK', :consumer_secret => 'CS', :oauth_token => 'OT')
+  #     expect(client.credentials?).to be_false
+  #   end
+  # end
 
   describe "#connection" do
     it "looks like Faraday connection" do

@@ -43,6 +43,13 @@ module Twitter
       @client
     end
 
+    # Has a client been initialized on the Twitter module
+    #
+    # @return [Boolean]
+    def client?
+      !!@client
+    end
+
     def respond_to_missing?(method_name, include_private=false); client.respond_to?(method_name, include_private); end if RUBY_VERSION >= "1.9"
     def respond_to?(method_name, include_private=false); client.respond_to?(method_name, include_private) || super; end if RUBY_VERSION < "1.9"
 
