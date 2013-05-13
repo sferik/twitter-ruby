@@ -40,7 +40,7 @@ Ideally, a bug report should include a pull request with failing specs.
 6. Run `bundle exec rake spec`. If your specs fail, return to step 5.
 7. Run `open coverage/index.html`. If your changes are not completely covered
    by your tests, return to step 3.
-8  Run `RUBYOPT=W2 bundle exec rake spec 2>&1 | grep twitter`. If your changes
+8.  Run `RUBYOPT=W2 bundle exec rake spec 2>&1 | grep twitter`. If your changes
    produce any warnings, return to step 5.
 9. Add documentation for your feature or bug fix.
 10. Run `bundle exec rake yard`. If your changes are not 100% documented, go
