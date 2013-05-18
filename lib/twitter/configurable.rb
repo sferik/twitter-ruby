@@ -4,8 +4,8 @@ require 'twitter/error/configuration_error'
 module Twitter
   module Configurable
     extend Forwardable
-    attr_writer :consumer_key, :consumer_secret, :oauth_token, :oauth_token_secret, :bearer_token
-    attr_accessor :endpoint, :connection_options, :identity_map, :middleware
+    attr_writer :consumer_secret, :oauth_token, :oauth_token_secret, :bearer_token
+    attr_accessor :consumer_key, :endpoint, :connection_options, :identity_map, :middleware
     def_delegator :options, :hash
 
     class << self
