@@ -21,7 +21,7 @@ module Twitter
         :timeout => 10,
       },
       :ssl => {
-        :verify => false
+        :verify => true
       },
     } unless defined? Twitter::Default::CONNECTION_OPTIONS
     IDENTITY_MAP = false unless defined? Twitter::Default::IDENTITY_MAP
