@@ -315,16 +315,14 @@ module Twitter
       end
       alias following friends
 
-      # Returns a collection of user_ids that the currently authenticated user does not want to receive retweets from.
-      # =>
+      # Returns a collection of user IDs that the currently authenticated user does not want to receive retweets from.
       # @see https://dev.twitter.com/docs/api/1.1/get/friendships/no_retweets/ids
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Array<Integer>]
       # @param options [Hash] A customizable set of options.
-      # @option options [Boolean] :stringify_ids Many programming environments will not consume our ids due to their size. Provide this option to have ids returned as strings instead. Read more about Twitter IDs, JSON and Snowflake.
-      # @example Enable rewteets and devise notifications for @sferik
+      # @example Return a collection of user IDs that the currently authenticated user does not want to receive retweets from
       #   Twitter.no_retweet_ids
       def no_retweet_ids(options={})
         get("/1.1/friendships/no_retweets/ids.json", options)[:body].map(&:to_i)
