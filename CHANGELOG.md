@@ -1,3 +1,15 @@
+4.7.0
+-----
+* [Add support for application-only authentication](https://github.com/sferik/twitter/pull/387) ([@paracycle](https://twitter.com/paracycle))
+* [Add support for `Twitter::Entity::Symbol` entities](https://github.com/sferik/twitter/commit/a14a0cdc57ad5d7760392f71a280c7100a5b5936) ([@anno](https://twitter.com/anno))
+* [Add `Twitter::API::OAuth#invalidate_token`](https://github.com/sferik/twitter/pull/372) ([@terenceponce](https://twitter.com/terenceponce))
+* [Add `Twitter::API::Lists#lists_owned` method](https://github.com/sferik/twitter/commit/9e97b51c20aabf4485a91ae7db697ee3be131a89)
+* [Add `Twitter::API::Tweets#retweeters_ids` method](https://github.com/sferik/twitter/commit/8cf5b2ddf3d2647084496c7c3f205b2468d84cbe)
+* [Add `Twitter::SearchResults#next_results`](https://github.com/sferik/twitter/pull/365) ([@KentonWhite](https://twitter.com/KentonWhite))
+* [Make consumer_key readable](https://github.com/sferik/twitter/commit/a318869c4827d6add781730cfb67fd2bdca5c584)
+* [Loosen required_rubygems_version for compatibility with Ubuntu 10.04](https://github.com/sferik/twitter/commit/41bd5655c2e7eca813807d742cb7fdec8f0bb027)
+* [Remove default SSL configuration options and override](https://github.com/sferik/twitter/commit/113b14bc05a9f8e513245fda057e7f16f8965357)
+
 4.6.2
 -----
 * [Fix `SystemStackError: stack level too deep` when converting to JSON](https://github.com/sferik/twitter/issues/368)
