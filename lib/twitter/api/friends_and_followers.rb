@@ -260,7 +260,7 @@ module Twitter
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Twitter::Cursor]
       # @overload followers(options={})
-      #   Returns an array of numeric IDs for every user the authenticated user is following
+      #   Returns a cursored collection of user objects for users following the authenticated user.
       #
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. This is recommended for users who are following many users. Provide a value of -1 to begin paging. Provide values as returned in the response body's next_cursor and previous_cursor attributes to page back and forth in the list.
@@ -269,7 +269,7 @@ module Twitter
       #   @example Return the authenticated user's friends' IDs
       #     Twitter.followers
       # @overload followers(user, options={})
-      #   Returns an array of numeric IDs for every user the specified user is following
+      #   Returns a cursored collection of user objects for users following the specified user.
       #
       #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
       #   @param options [Hash] A customizable set of options.
@@ -291,7 +291,7 @@ module Twitter
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Twitter::Cursor]
       # @overload friends(options={})
-      #   Returns an array of numeric IDs for every user the authenticated user is following
+      #   Returns a cursored collection of user objects for every user the authenticated user is following (otherwise known as their "friends").
       #
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. This is recommended for users who are following many users. Provide a value of -1 to begin paging. Provide values as returned in the response body's next_cursor and previous_cursor attributes to page back and forth in the list.
@@ -300,7 +300,7 @@ module Twitter
       #   @example Return the authenticated user's friends' IDs
       #     Twitter.friends
       # @overload friends(user, options={})
-      #   Returns an array of numeric IDs for every user the specified user is following
+      #   Returns a cursored collection of user objects for every user the specified user is following (otherwise known as their "friends").
       #
       #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
       #   @param options [Hash] A customizable set of options.
