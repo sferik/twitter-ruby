@@ -256,6 +256,21 @@ module Twitter
         end
       end
 
+      # Returns a collection of user IDs belonging to users who have retweeted the specified Tweet.
+      # @see https://dev.twitter.com/docs/api/1.1/get/statuses/retweeters/ids
+      # @rate_limited Yes
+      # @authentication Required
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @return [Array<Integer>]
+      # @param options [Hash] A customizable set of options.
+      # @example Return a collection of user IDs belonging to users who have retweeted the specified Tweet
+      #   Twitter.retweeters_ids(25938088801)
+      def retweeters_ids(*args)
+        arguments = Twitter::API::Arguments.new(args)
+        arguments.options[:id] ||= arguments.first
+        cursor_from_response(:ids, nil, :get, "/1.1/statuses/retweeters/ids.json", arguments.options, :retweeters_ids)
+      end
+
     private
 
       # @param request_method [Symbol]

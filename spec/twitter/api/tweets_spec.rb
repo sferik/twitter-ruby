@@ -256,4 +256,30 @@ describe Twitter::API::Tweets do
     end
   end
 
+  describe "#retweeters_ids" do
+    before do
+      stub_get("/1.1/statuses/retweeters/ids.json").with(:query => {:id => "25938088801", :cursor => "-1"}).to_return(:body => fixture("ids_list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+    end
+    it "requests the correct resource" do
+      @client.retweeters_ids(25938088801)
+      expect(a_get("/1.1/statuses/retweeters/ids.json").with(:query => {:id => "25938088801", :cursor => "-1"})).to have_been_made
+    end
+    it "returns a collection of user IDs belonging to users who have retweeted the specified Tweet" do
+      retweeters_ids = @client.retweeters_ids(25938088801)
+      expect(retweeters_ids).to be_a Twitter::Cursor
+      expect(retweeters_ids.ids).to be_an Array
+      expect(retweeters_ids.ids.first).to eq 14100886
+    end
+    context "with all" do
+      before do
+        stub_get("/1.1/statuses/retweeters/ids.json").with(:query => {:id => "25938088801", :cursor => "1305102810874389703"}).to_return(:body => fixture("ids_list2.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      end
+      it "requests the correct resource" do
+        @client.retweeters_ids(25938088801).all
+        expect(a_get("/1.1/statuses/retweeters/ids.json").with(:query => {:id => "25938088801", :cursor => "-1"})).to have_been_made
+        expect(a_get("/1.1/statuses/retweeters/ids.json").with(:query => {:id => "25938088801", :cursor => "1305102810874389703"})).to have_been_made
+      end
+    end
+  end
+
 end
