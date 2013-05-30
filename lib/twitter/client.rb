@@ -79,6 +79,7 @@ module Twitter
     end
 
   private
+
     # Returns a proc that can be used to setup the Faraday::Request headers
     #
     # @param method [Symbol]
@@ -116,11 +117,7 @@ module Twitter
     #
     # @return [Faraday::Connection]
     def connection
-      @connection ||= begin
-        connection_options = {:builder => @middleware}
-        connection_options[:ssl] = {:verify => true} if @endpoint[0..4] == 'https'
-        Faraday.new(@endpoint, @connection_options.merge(connection_options))
-      end
+      @connection ||= Faraday.new(@endpoint, @connection_options.merge(:builder => @middleware))
     end
 
     # Generates authentication header for a bearer token request

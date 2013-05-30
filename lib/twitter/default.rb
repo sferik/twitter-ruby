@@ -20,9 +20,6 @@ module Twitter
         :open_timeout => 5,
         :timeout => 10,
       },
-      :ssl => {
-        :verify => false
-      },
     } unless defined? Twitter::Default::CONNECTION_OPTIONS
     IDENTITY_MAP = false unless defined? Twitter::Default::IDENTITY_MAP
     MIDDLEWARE = Faraday::Builder.new do |builder|
