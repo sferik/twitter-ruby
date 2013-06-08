@@ -127,4 +127,19 @@ describe Twitter::SearchResults do
     end
   end
 
+  describe "#refresh_url" do
+    let(:refresh_url) {Twitter::SearchResults.new(:search_metadata =>
+        {:refresh_url => "?since_id=249279667666817023&q=%23freebandnames&count=4&include_entities=1&result_type=recent"
+      }).refresh_url
+    }
+
+    it "returns a hash of query parameters" do
+      expect(refresh_url).to be_a Hash
+    end
+
+    it "returns a since_id" do
+      expect(refresh_url[:since_id]).to eq "249279667666817023"
+    end
+  end
+
 end
