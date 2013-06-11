@@ -173,6 +173,32 @@ describe Twitter::Client do
       expect(authorization.options[:token]).to eq "OT"
       expect(authorization.options[:token_secret]).to eq "OS"
     end
+    it "submits the correct auth header when no media is persent" do
+      # We use static values for nounce and timestamp to get a stable signature
+      secret = {:consumer_key => 'CK', :consumer_secret => 'CS',
+                :token => 'OT', :token_secret => 'OS',
+                :nonce => 'b6ebe4c2a11af493f8a2290fe1296965', :timestamp => '1370968658'}
+      header = {"Authorization" => /oauth_signature="FbthwmgGq02iQw%2FuXGEWaL6V6eM%3D"/}
+
+      subject.stub(:credentials).and_return(secret)
+      stub_post("/1.1/statuses/update.json")
+      subject.update("Just a test")
+      expect(a_post("/1.1/statuses/update.json").
+             with(:headers => header)).to have_been_made
+    end
+    it "submits the correct auth header when media is persent" do
+      # We use static values for nounce and timestamp to get a stable signature
+      secret = {:consumer_key => 'CK', :consumer_secret => 'CS',
+                :token => 'OT', :token_secret => 'OS',
+                :nonce => 'e08201ad0dab4897c99445056feefd95', :timestamp => '1370967652'}
+      header = {"Authorization" => /oauth_signature="9ziouUPwZT9IWWRbJL8r0BerKYA%3D"/}
+
+      subject.stub(:credentials).and_return(secret)
+      stub_post("/1.1/statuses/update_with_media.json")
+      subject.update_with_media("Just a test", fixture("pbjt.gif"))
+      expect(a_post("/1.1/statuses/update_with_media.json").
+             with(:headers => header)).to have_been_made
+    end
   end
 
   describe "#bearer_auth_header" do
