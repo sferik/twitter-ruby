@@ -8,7 +8,7 @@ describe Twitter::API::OAuth do
 
   describe "#token" do
     before do
-      # WebMock treats Basic Auth differently so we have to chack against the full url with credentials.
+      # WebMock treats Basic Auth differently so we have to chack against the full URL with credentials.
       @oauth2_token_url = "https://CK:CS@api.twitter.com/oauth2/token"
       stub_request(:post, @oauth2_token_url).with(:body => "grant_type=client_credentials").to_return(:body => fixture("bearer_token.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end

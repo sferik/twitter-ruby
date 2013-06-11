@@ -63,8 +63,8 @@ module Twitter
       Faraday::Utils.parse_nested_query(@attrs[:search_metadata][:next_results][1..-1]).inject({}) { |memo, (k,v)| memo[k.to_sym] = v; memo} if next_results?
     end
     alias next_page next_results
-    
-    # Returns a Hash of query parameters for the refresh url in the search
+
+    # Returns a Hash of query parameters for the refresh URL in the search
     #
     # Returned Hash can be merged into the previous search options list
     # to easily access the refresh page
