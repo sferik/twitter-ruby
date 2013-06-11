@@ -173,7 +173,7 @@ describe Twitter::Client do
       expect(authorization.options[:token]).to eq "OT"
       expect(authorization.options[:token_secret]).to eq "OS"
     end
-    it "submits the correct auth header when no media is persent" do
+    it "submits the correct auth header when no media is present" do
       # We use static values for nounce and timestamp to get a stable signature
       secret = {:consumer_key => 'CK', :consumer_secret => 'CS',
                 :token => 'OT', :token_secret => 'OS',
@@ -186,7 +186,7 @@ describe Twitter::Client do
       expect(a_post("/1.1/statuses/update.json").
              with(:headers => header)).to have_been_made
     end
-    it "submits the correct auth header when media is persent" do
+    it "submits the correct auth header when media is present" do
       # We use static values for nounce and timestamp to get a stable signature
       secret = {:consumer_key => 'CK', :consumer_secret => 'CS',
                 :token => 'OT', :token_secret => 'OS',
