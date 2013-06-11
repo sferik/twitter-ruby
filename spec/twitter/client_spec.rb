@@ -191,7 +191,7 @@ describe Twitter::Client do
     it "creates the correct auth header with supplied consumer_key and consumer_secret" do
       uri = "/1.1/direct_messages.json"
       authorization = subject.send(:bearer_token_credentials_auth_header)
-      expect(authorization).to eq "Basic #{Base64.strict_encode64("CK:CS")}"
+      expect(authorization).to eq "Basic Q0s6Q1M="
     end
   end
 end
