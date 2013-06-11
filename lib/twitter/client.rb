@@ -85,7 +85,7 @@ module Twitter
     # @param path [String]
     # @param params [Hash]
     # @return [Proc]
-    def request_setup(method, path, params)
+    def request_setup(method, path, params, signature_params)
       Proc.new do |request|
         if params.delete(:bearer_token_request)
           request.headers[:authorization] = bearer_token_credentials_auth_header
@@ -98,13 +98,13 @@ module Twitter
           end
           request.headers[:authorization] = bearer_auth_header
         else
-          request.headers[:authorization] = oauth_auth_header(method, path, params).to_s
+          request.headers[:authorization] = oauth_auth_header(method, path, signature_params).to_s
         end
       end
     end
 
     def request(method, path, params={}, signature_params=params)
-      request_setup = request_setup(method, path, params)
+      request_setup = request_setup(method, path, params, signature_params)
       connection.send(method.to_sym, path, params, &request_setup).env
     rescue Faraday::Error::ClientError
       raise Twitter::Error::ClientError
