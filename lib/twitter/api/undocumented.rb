@@ -10,38 +10,6 @@ module Twitter
     module Undocumented
       include Twitter::API::Utils
 
-      # Returns activity about me
-      #
-      # @note Undocumented
-      # @rate_limited Yes
-      # @authentication Requires user context
-      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-      # @return [Array] An array of actions
-      # @param options [Hash] A customizable set of options.
-      # @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 100.
-      # @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID.
-      # @example Return activity about me
-      #   Twitter.activity_about_me
-      def activity_about_me(options={})
-        objects_from_response(Twitter::ActionFactory, :get, "/i/activity/about_me.json", options)
-      end
-
-      # Returns activity by friends
-      #
-      # @note Undocumented
-      # @rate_limited Yes
-      # @authentication Requires user context
-      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid./
-      # @return [Array] An array of actions
-      # @param options [Hash] A customizable set of options.
-      # @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 100.
-      # @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID.
-      # @example Return activity by friends
-      #   Twitter.activity_by_friends
-      def activity_by_friends(options={})
-        objects_from_response(Twitter::ActionFactory, :get, "/i/activity/by_friends.json", options)
-      end
-
       # @note Undocumented
       # @rate_limited Yes
       # @authentication Requires user context
