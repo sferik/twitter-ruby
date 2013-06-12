@@ -1,3 +1,10 @@
+4.8.0
+-----
+* [Add `Twitter::SearchResults#refresh_url`](https://github.com/sferik/twitter/commit/6bf08c008de139aad3ec173461e8633bfa5a3bd8) ([@mustafaturan](https://twitter.com/mustafaturan))
+* [Fix issue with wrong signature being generated when multipart data is posted](https://github.com/sferik/twitter/commit/65ab90a6d51755e5901434a3568f8163ca3e262f) ([@mustafaturan](https://twitter.com/mustafaturan))
+* [Restore compatibility with Ruby 1.8.7](https://github.com/sferik/twitter/commit/fb63970c1bd19792955d092a38b6adf53b558ec7)
+* [Remove undocumented methods, retired in the APIpocalypse](https://github.com/sferik/twitter/commit/cf6a91f8df833dce5bffc7a0292402860e7d4da7)
+
 4.7.0
 -----
 * [Add support for application-only authentication](https://github.com/sferik/twitter/pull/387) ([@paracycle](https://twitter.com/paracycle))
