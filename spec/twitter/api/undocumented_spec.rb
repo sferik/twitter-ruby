@@ -111,4 +111,19 @@ describe Twitter::API::Undocumented do
     end
   end
 
+  describe "#statuses_activity" do
+    before do
+      stub_request(:get, "https://cdn.api.twitter.com/1/urls/count.json").with(:query => {:url => "http://twitter.com"}).to_return(:body => fixture("count.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+    end
+    it "requests the correct resource" do
+      @client.tweet_count("http://twitter.com")
+      expect(a_request(:get, "https://cdn.api.twitter.com/1/urls/count.json").with(:query => {:url => "http://twitter.com"})).to have_been_made
+    end
+    it "returns a Tweet count" do
+      tweet_count = @client.tweet_count("http://twitter.com")
+      expect(tweet_count).to be_an Integer
+      expect(tweet_count).to eq 13845465
+    end
+  end
+
 end
