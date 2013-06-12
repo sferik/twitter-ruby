@@ -1,3 +1,5 @@
+require 'twitter/rate_limit'
+
 module Twitter
   # Custom error class for rescuing from all Twitter errors
   class Error < StandardError
