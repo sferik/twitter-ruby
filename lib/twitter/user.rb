@@ -4,7 +4,7 @@ require 'twitter/exceptable'
 
 module Twitter
   class User < Twitter::BasicUser
-    PROFILE_IMAGE_SUFFIX_REGEX = /_normal(\.gif|\.jpe?g|\.png)$/
+    PROFILE_IMAGE_SUFFIX_REGEX = /_normal(\.gif|\.jpe?g|\.png)$/i
     include Twitter::Creatable
     include Twitter::Exceptable
     attr_reader :connections, :contributors_enabled, :default_profile,

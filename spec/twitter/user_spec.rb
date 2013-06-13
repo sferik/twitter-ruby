@@ -185,6 +185,14 @@ describe Twitter::User do
         expect(user.profile_image_url(:mini)).to eq "http://a0.twimg.com/profile_images/1759857427/image1326743606_mini.png"
       end
     end
+    context "with capitalized file extension" do
+      it "returns the correct image" do
+        user = Twitter::User.new(:id => 7505382, :profile_image_url_https => "https://si0.twimg.com/profile_images/67759670/DSCN2136_normal.JPG")
+        expect(user.profile_image_url(:original)).to eq "http://si0.twimg.com/profile_images/67759670/DSCN2136.JPG"
+        expect(user.profile_image_url(:bigger)).to eq "http://si0.twimg.com/profile_images/67759670/DSCN2136_bigger.JPG"
+        expect(user.profile_image_url(:mini)).to eq "http://si0.twimg.com/profile_images/67759670/DSCN2136_mini.JPG"
+      end
+    end
   end
 
   describe "#profile_image_url_https" do
@@ -216,6 +224,14 @@ describe Twitter::User do
       it "returns the mini-sized image" do
         user = Twitter::User.new(:id => 7505382, :profile_image_url_https => "https://a0.twimg.com/profile_images/1759857427/image1326743606_normal.png")
         expect(user.profile_image_url_https(:mini)).to eq "https://a0.twimg.com/profile_images/1759857427/image1326743606_mini.png"
+      end
+    end
+    context "with capitalized file extension" do
+      it "returns the correct image" do
+        user = Twitter::User.new(:id => 7505382, :profile_image_url_https => "https://si0.twimg.com/profile_images/67759670/DSCN2136_normal.JPG")
+        expect(user.profile_image_url_https(:original)).to eq "https://si0.twimg.com/profile_images/67759670/DSCN2136.JPG"
+        expect(user.profile_image_url_https(:bigger)).to eq "https://si0.twimg.com/profile_images/67759670/DSCN2136_bigger.JPG"
+        expect(user.profile_image_url_https(:mini)).to eq "https://si0.twimg.com/profile_images/67759670/DSCN2136_mini.JPG"
       end
     end
   end
