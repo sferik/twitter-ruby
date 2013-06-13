@@ -44,6 +44,13 @@ describe Twitter::API::OAuth do
       expect(token.access_token).to eq "AAAA%2FAAA%3DAAAAAAAA"
       expect(token.token_type).to eq nil
     end
+    context "with a token" do
+      it "requests the correct resource" do
+        token = Twitter::Token.new(:access_token => "AAAA%2FAAA%3DAAAAAAAA")
+        @client.invalidate_token(token)
+        expect(a_post("/oauth2/invalidate_token").with(:body => {:access_token => "AAAA%2FAAA%3DAAAAAAAA"})).to have_been_made
+      end
+    end
   end
 
 end
