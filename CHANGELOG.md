@@ -1,3 +1,10 @@
+4.8.1
+-----
+* [Ignore case of profile image extension](https://github.com/sferik/twitter/commit/73760610e959ae868de23de3da661d237fbcb106)
+* [Allow use of Twitter::Token in place of bearer token string](https://github.com/sferik/twitter/commit/13596bc60db36ecaf5a1df09ecb322d85d8c2922)
+* [Add Twitter::API::Undocumented#tweet_count](https://github.com/sferik/twitter/commit/795458a25ec7b143a995e7f2f2043e523c11961c)
+* [Add missing dependencies](https://github.com/sferik/twitter/commit/e07e034472df8b7aa44c779371cf1e25d8caa77d) ([@tmatilai](https://twitter.com/tmatilai))
+
 4.8.0
 -----
 * [Add `Twitter::SearchResults#refresh_url`](https://github.com/sferik/twitter/commit/6bf08c008de139aad3ec173461e8633bfa5a3bd8) ([@mustafaturan](https://twitter.com/mustafaturan))
