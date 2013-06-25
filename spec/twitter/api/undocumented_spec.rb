@@ -80,38 +80,7 @@ describe Twitter::API::Undocumented do
     end
   end
 
-  describe "#status_activity" do
-    before do
-      stub_get("/i/statuses/25938088801/activity/summary.json").to_return(:body => fixture("activity_summary.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-    end
-    it "requests the correct resource" do
-      @client.status_activity(25938088801)
-      expect(a_get("/i/statuses/25938088801/activity/summary.json")).to have_been_made
-    end
-    it "returns a Tweet" do
-      tweet = @client.status_activity(25938088801)
-      expect(tweet).to be_a Twitter::Tweet
-      expect(tweet.retweeters_count).to eq 1
-    end
-  end
-
-  describe "#statuses_activity" do
-    before do
-      stub_get("/i/statuses/25938088801/activity/summary.json").to_return(:body => fixture("activity_summary.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-    end
-    it "requests the correct resource" do
-      @client.statuses_activity(25938088801)
-      expect(a_get("/i/statuses/25938088801/activity/summary.json")).to have_been_made
-    end
-    it "returns an array of Tweets" do
-      tweets = @client.statuses_activity(25938088801)
-      expect(tweets).to be_an Array
-      expect(tweets.first).to be_a Twitter::Tweet
-      expect(tweets.first.retweeters_count).to eq 1
-    end
-  end
-
-  describe "#statuses_activity" do
+  describe "#tweet_count" do
     before do
       stub_request(:get, "https://cdn.api.twitter.com/1/urls/count.json").with(:query => {:url => "http://twitter.com"}).to_return(:body => fixture("count.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end

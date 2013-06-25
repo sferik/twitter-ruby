@@ -38,45 +38,6 @@ module Twitter
         cursor_from_response_with_user(:users, Twitter::User, :get, "/users/following_followers_of.json", args, :following_followers_of)
       end
 
-      # Returns activity summary for a Tweet
-      #
-      # @note Undocumented
-      # @rate_limited Yes
-      # @authentication Requires user context
-      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-      # @return [Twitter::Tweet] The requested Tweet.
-      # @param id [Integer] A Tweet ID.
-      # @param options [Hash] A customizable set of options.
-      # @example Return activity summary for the Tweet with the ID 25938088801
-      #   Twitter.status_activity(25938088801)
-      def status_activity(id, options={})
-        response = get("/i/statuses/#{id}/activity/summary.json", options)
-        response[:body].merge!(:id => id) if response[:body]
-        Twitter::Tweet.from_response(response)
-      end
-      alias tweet_activity status_activity
-
-      # Returns activity summary for Tweets
-      #
-      # @note Undocumented
-      # @rate_limited Yes
-      # @authentication Requires user context
-      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-      # @return [Array<Twitter::Tweet>] The requested Tweets.
-      # @overload statuses_activity(*ids)
-      #   @param ids [Array<Integer>, Set<Integer>] An array of Tweet IDs.
-      #   @example Return activity summary for the Tweet with the ID 25938088801
-      #     Twitter.statuses_activity(25938088801)
-      # @overload statuses_activity(*ids, options)
-      #   @param ids [Array<Integer>, Set<Integer>] An array of Tweet IDs.
-      #   @param options [Hash] A customizable set of options.
-      def statuses_activity(*args)
-        arguments = Twitter::API::Arguments.new(args)
-        arguments.flatten.threaded_map do |id|
-          status_activity(id, arguments.options)
-        end
-      end
-
       # Returns Tweets count for a URL
       #
       # @note Undocumented
