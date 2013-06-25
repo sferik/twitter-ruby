@@ -60,18 +60,6 @@ describe Twitter::Tweet do
     end
   end
 
-  describe "#favoriters_count" do
-    it "returns the count of favoriters when favoriters_count is set" do
-      tweet = Twitter::Tweet.new(:id => 28669546014, :favoriters_count => '1')
-      expect(tweet.favoriters_count).to be_an Integer
-      expect(tweet.favoriters_count).to eq 1
-    end
-    it "returns nil when not set" do
-      tweet = Twitter::Tweet.new(:id => 28669546014)
-      expect(tweet.favoriters_count).to be_nil
-    end
-  end
-
   describe "#from_user" do
     it "returns a screen name when from_user is set" do
       tweet = Twitter::Tweet.new(:id => 28669546014, :from_user => 'sferik')
@@ -196,18 +184,6 @@ describe Twitter::Tweet do
     end
   end
 
-  describe "#repliers_count" do
-    it "returns the count of favoriters when repliers_count is set" do
-      tweet = Twitter::Tweet.new(:id => 28669546014, :repliers_count => '1')
-      expect(tweet.repliers_count).to be_an Integer
-      expect(tweet.repliers_count).to eq 1
-    end
-    it "returns nil when not set" do
-      tweet = Twitter::Tweet.new(:id => 28669546014)
-      expect(tweet.repliers_count).to be_nil
-    end
-  end
-
   describe "#reply?" do
     it "returns true when there is an in-reply-to status" do
       tweet = Twitter::Tweet.new(:id => 28669546014, :in_reply_to_status_id => 114749583439036416)
@@ -239,23 +215,6 @@ describe Twitter::Tweet do
     it "returns nil when retweeted_status is not set" do
       tweet = Twitter::Tweet.new(:id => 28669546014)
       expect(tweet.retweeted_tweet).to be_nil
-    end
-  end
-
-  describe "#retweeters_count" do
-    it "returns the count of favoriters when retweet_count is set" do
-      tweet = Twitter::Tweet.new(:id => 28669546014, :retweet_count => '1')
-      expect(tweet.retweeters_count).to be_an Integer
-      expect(tweet.retweeters_count).to eq 1
-    end
-    it "returns the count of favoriters when retweeters_count is set" do
-      tweet = Twitter::Tweet.new(:id => 28669546014, :retweeters_count => '1')
-      expect(tweet.retweeters_count).to be_an Integer
-      expect(tweet.retweeters_count).to eq 1
-    end
-    it "returns nil when not set" do
-      tweet = Twitter::Tweet.new(:id => 28669546014)
-      expect(tweet.retweeters_count).to be_nil
     end
   end
 

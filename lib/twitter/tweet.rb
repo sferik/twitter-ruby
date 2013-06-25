@@ -8,30 +8,24 @@ module Twitter
     extend Forwardable
     include Twitter::Creatable
     include Twitter::Exceptable
-    attr_reader :favorite_count, :favorited, :favoriters, :from_user_id,
-      :from_user_name, :in_reply_to_screen_name, :in_reply_to_attrs_id,
-      :in_reply_to_status_id, :in_reply_to_user_id, :lang, :repliers,
-      :retweeted, :retweeters, :source, :text, :to_user, :to_user_id,
-      :to_user_name, :truncated
+    attr_reader :favorite_count, :favorited, :from_user_id, :from_user_name,
+      :in_reply_to_screen_name, :in_reply_to_attrs_id, :in_reply_to_status_id,
+      :in_reply_to_user_id, :lang, :retweet_count, :retweeted, :source, :text,
+      :to_user, :to_user_id, :to_user_name, :truncated
     alias in_reply_to_tweet_id in_reply_to_status_id
     alias favorites_count favorite_count
     alias favourite_count favorite_count
     alias favourites_count favorite_count
+    alias favoriters_count favorite_count
     alias favouriters_count favorite_count
     alias favourited favorited
     alias favourited? favorited?
-    alias favouriters favoriters
+    alias retweeters_count retweet_count
     def_delegators :user, :profile_image_url, :profile_image_url_https
 
     # @return [Boolean]
     def entities?
       !@attrs[:entities].nil?
-    end
-
-    # @return [Integer]
-    def favoriters_count
-      favoriters_count = @attrs[:favoriters_count]
-      favoriters_count.to_i if favoriters_count
     end
 
     # @return [String]
@@ -81,13 +75,6 @@ module Twitter
       @place ||= Twitter::Place.fetch_or_new(@attrs[:place])
     end
 
-    # @return [Integer]
-    def repliers_count
-      repliers_count = @attrs[:repliers_count]
-      repliers_count.to_i if repliers_count
-    end
-    alias reply_count repliers_count
-
     # @return [Boolean]
     def reply?
       !!in_reply_to_status_id
@@ -106,13 +93,6 @@ module Twitter
     end
     alias retweeted_tweet retweeted_status
     alias retweet retweeted_status
-
-    # @return [String]
-    def retweeters_count
-      retweeters_count = (@attrs[:retweet_count] || @attrs[:retweeters_count])
-      retweeters_count.to_i if retweeters_count
-    end
-    alias retweet_count retweeters_count
 
     # @note Must include entities in your request for this method to work
     # @return [Array<Twitter::Entity::Symbol>]
