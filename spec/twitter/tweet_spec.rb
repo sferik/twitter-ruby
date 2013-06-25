@@ -146,6 +146,32 @@ describe Twitter::Tweet do
     end
   end
 
+  describe "#html" do
+    it "expands entities into links" do
+      tweet = Twitter::Tweet.new(:id => 28669546014, :entities => {
+          :hashtags => [{:text => 'hashtag1'}, {:text => 'hashtag2'}],
+          :urls => [{:url => 'http://example.com/1'}, {:url => 'http://example.com/2'}],
+          :user_mentions => [{:screen_name => 'tweeter1'}, {:screen_name => 'tweeter2'}]
+        })
+      tweet.stub(:full_text).and_return("@tweeter1 @tweeter2 some text http://example.com/1 http://example.com/2 #hashtag1 #hashtag2")
+      expect(tweet.html).to match(%r(
+        \A
+        <a\shref="https://twitter.com/tweeter1">@tweeter1</a>\s
+        <a\shref="https://twitter.com/tweeter2">@tweeter2</a>\s
+        some\stext\s
+        <a\shref="http://example.com/1">http://example.com/1</a>\s
+        <a\shref="http://example.com/2">http://example.com/2</a>\s
+        <a\shref="https://twitter.com/#hashtag1">#hashtag1</a>\s<a\shref="https://twitter.com/#hashtag2">#hashtag2</a>\Z
+        )x)
+    end
+
+    it "works when there are no entities" do
+      tweet = Twitter::Tweet.new(:id => 28669546014)
+      tweet.stub(:full_text).and_return("this is a plain text tweet")
+      expect(tweet.html).to eq("this is a plain text tweet")
+    end
+  end
+
   describe "#media" do
     it "returns media" do
       media = Twitter::Tweet.new(:id => 28669546014, :entities => {:media => [{:id => 1, :type => 'photo'}]}).media

@@ -59,6 +59,23 @@ module Twitter
       @hashtags ||= entities(Twitter::Entity::Hashtag, :hashtags)
     end
 
+    # @return [String]
+    def html
+      @html ||= begin
+        html_tweet = full_text
+        urls.each do |url|
+          html_tweet.gsub!(url.url, %Q(<a href="#{url.url}">#{url.url}</a>))
+        end
+        user_mentions.each do |mention|
+          html_tweet.gsub!("@#{mention.screen_name}", %Q(<a href="https://twitter.com/#{mention.screen_name}">@#{mention.screen_name}</a>))
+        end
+        hashtags.each do |hashtag|
+          html_tweet.gsub!("##{hashtag.text}", %Q(<a href="https://twitter.com/##{hashtag.text}">##{hashtag.text}</a>))
+        end
+        html_tweet
+      end
+    end
+
     # @note Must include entities in your request for this method to work
     # @return [Array<Twitter::Media>]
     def media
