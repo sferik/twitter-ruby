@@ -57,6 +57,7 @@ module Twitter
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @raise [Twitter::Error::Forbidden] Error raised when supplied status is over 140 characters.
       # @return [Twitter::Tweet] The requested Tweet.
       # @param id [Integer] A Tweet ID.
       # @param options [Hash] A customizable set of options.
