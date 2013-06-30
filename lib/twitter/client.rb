@@ -1,5 +1,5 @@
 require 'faraday'
-require 'multi_json'
+require 'json'
 require 'twitter/api/direct_messages'
 require 'twitter/api/favorites'
 require 'twitter/api/friends_and_followers'
@@ -18,7 +18,7 @@ require 'twitter/api/undocumented'
 require 'twitter/api/users'
 require 'twitter/configurable'
 require 'twitter/error/client_error'
-require 'twitter/error/decode_error'
+require 'twitter/error/parser_error'
 require 'simple_oauth'
 require 'base64'
 require 'uri'
@@ -109,8 +109,8 @@ module Twitter
       connection.send(method.to_sym, path, params, &request_setup).env
     rescue Faraday::Error::ClientError
       raise Twitter::Error::ClientError
-    rescue MultiJson::DecodeError
-      raise Twitter::Error::DecodeError
+    rescue JSON::ParserError
+      raise Twitter::Error::ParserError
     end
 
     # Returns a Faraday::Connection object

@@ -296,8 +296,7 @@ Here are some fun facts about this library:
 * This gem works on every major Ruby implementation, including JRuby and
   Rubinius
 * The first version was released on November 26, 2006
-* This gem has just three runtime dependencies: `faraday`, `multi_json`, and
-  `simple_oauth`
+* This gem has just two runtime dependencies: `faraday`, and `simple_oauth`
 * Previous versions of this gem have been [downloaded over half a million
   times][stats]
 

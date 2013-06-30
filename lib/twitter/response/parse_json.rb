@@ -1,5 +1,5 @@
 require 'faraday'
-require 'multi_json'
+require 'json'
 
 module Twitter
   module Response
@@ -10,7 +10,7 @@ module Twitter
         when /\A^\s*$\z/, nil
           nil
         else
-          MultiJson.decode(body, symbolize_keys: true)
+          JSON.parse(body, symbolize_names: true)
         end
       end
 
