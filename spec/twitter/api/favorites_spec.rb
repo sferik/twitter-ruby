@@ -9,11 +9,11 @@ describe Twitter::API::Favorites do
   describe "#favorites" do
     context "with a screen name passed" do
       before do
-        stub_get("/1.1/favorites/list.json").with(:query => {:screen_name => "sferik"}).to_return(:body => fixture("user_timeline.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        stub_get("/1.1/favorites/list.json").with(query: {screen_name: "sferik"}).to_return(body: fixture("user_timeline.json"), headers: {content_type: "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.favorites("sferik")
-        expect(a_get("/1.1/favorites/list.json").with(:query => {:screen_name => "sferik"})).to have_been_made
+        expect(a_get("/1.1/favorites/list.json").with(query: {screen_name: "sferik"})).to have_been_made
       end
       it "returns the 20 most recent favorite Tweets for the authenticating user or user specified by the ID parameter" do
         favorites = @client.favorites("sferik")
@@ -24,7 +24,7 @@ describe Twitter::API::Favorites do
     end
     context "without arguments passed" do
       before do
-        stub_get("/1.1/favorites/list.json").to_return(:body => fixture("user_timeline.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        stub_get("/1.1/favorites/list.json").to_return(body: fixture("user_timeline.json"), headers: {content_type: "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.favorites
@@ -41,11 +41,11 @@ describe Twitter::API::Favorites do
 
   describe "#unfavorite" do
     before do
-      stub_post("/1.1/favorites/destroy.json").with(:body => {:id => "25938088801"}).to_return(:body => fixture("status.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      stub_post("/1.1/favorites/destroy.json").with(body: {id: "25938088801"}).to_return(body: fixture("status.json"), headers: {content_type: "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
       @client.unfavorite(25938088801)
-      expect(a_post("/1.1/favorites/destroy.json").with(:body => {:id => "25938088801"})).to have_been_made
+      expect(a_post("/1.1/favorites/destroy.json").with(body: {id: "25938088801"})).to have_been_made
     end
     it "returns an array of un-favorited Tweets" do
       tweets = @client.unfavorite(25938088801)
@@ -57,11 +57,11 @@ describe Twitter::API::Favorites do
 
   describe "#favorite" do
     before do
-      stub_post("/1.1/favorites/create.json").with(:body => {:id => "25938088801"}).to_return(:body => fixture("status.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      stub_post("/1.1/favorites/create.json").with(body: {id: "25938088801"}).to_return(body: fixture("status.json"), headers: {content_type: "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
       @client.favorite(25938088801)
-      expect(a_post("/1.1/favorites/create.json").with(:body => {:id => "25938088801"})).to have_been_made
+      expect(a_post("/1.1/favorites/create.json").with(body: {id: "25938088801"})).to have_been_made
     end
     it "returns an array of favorited Tweets" do
       tweets = @client.favorite(25938088801)
@@ -71,7 +71,7 @@ describe Twitter::API::Favorites do
     end
     context "already favorited" do
       before do
-        stub_post("/1.1/favorites/create.json").with(:body => {:id => "25938088801"}).to_return(:status => 403, :body => fixture("already_favorited.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        stub_post("/1.1/favorites/create.json").with(body: {id: "25938088801"}).to_return(status: 403, body: fixture("already_favorited.json"), headers: {content_type: "application/json; charset=utf-8"})
       end
       it "does not raises an error" do
         expect{@client.favorite(25938088801)}.not_to raise_error
@@ -81,11 +81,11 @@ describe Twitter::API::Favorites do
 
   describe "#favorite!" do
     before do
-      stub_post("/1.1/favorites/create.json").with(:body => {:id => "25938088801"}).to_return(:body => fixture("status.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      stub_post("/1.1/favorites/create.json").with(body: {id: "25938088801"}).to_return(body: fixture("status.json"), headers: {content_type: "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
       @client.favorite!(25938088801)
-      expect(a_post("/1.1/favorites/create.json").with(:body => {:id => "25938088801"})).to have_been_made
+      expect(a_post("/1.1/favorites/create.json").with(body: {id: "25938088801"})).to have_been_made
     end
     it "returns an array of favorited Tweets" do
       tweets = @client.favorite!(25938088801)
@@ -95,7 +95,7 @@ describe Twitter::API::Favorites do
     end
     context "forbidden" do
       before do
-        stub_post("/1.1/favorites/create.json").with(:body => {:id => "25938088801"}).to_return(:status => 403, :headers => {:content_type => "application/json; charset=utf-8"})
+        stub_post("/1.1/favorites/create.json").with(body: {id: "25938088801"}).to_return(status: 403, headers: {content_type: "application/json; charset=utf-8"})
       end
       it "raises a Forbidden error" do
         expect{@client.favorite!(25938088801)}.to raise_error Twitter::Error::Forbidden
@@ -103,7 +103,7 @@ describe Twitter::API::Favorites do
     end
     context "already favorited" do
       before do
-        stub_post("/1.1/favorites/create.json").with(:body => {:id => "25938088801"}).to_return(:status => 403, :body => fixture("already_favorited.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        stub_post("/1.1/favorites/create.json").with(body: {id: "25938088801"}).to_return(status: 403, body: fixture("already_favorited.json"), headers: {content_type: "application/json; charset=utf-8"})
       end
       it "raises an AlreadyFavorited error" do
         expect{@client.favorite!(25938088801)}.to raise_error Twitter::Error::AlreadyFavorited

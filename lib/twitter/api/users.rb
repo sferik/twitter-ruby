@@ -63,7 +63,7 @@ module Twitter
       # @example Turn SMS updates on for the authenticating user
       #   Twitter.update_delivery_device('sms')
       def update_delivery_device(device, options={})
-        object_from_response(Twitter::User, :post, "/1.1/account/update_delivery_device.json", options.merge(:device => device))
+        object_from_response(Twitter::User, :post, "/1.1/account/update_delivery_device.json", options.merge(device: device))
       end
 
       # Sets values that users are able to set under the "Account" tab of their settings page
@@ -80,7 +80,7 @@ module Twitter
       # @option options [String] :location The city or country describing where the user of the account is located. The contents are not normalized or geocoded in any way. Maximum of 30 characters.
       # @option options [String] :description A description of the user owning the account. Maximum of 160 characters.
       # @example Set authenticating user's name to Erik Michaels-Ober
-      #   Twitter.update_profile(:name => "Erik Michaels-Ober")
+      #   Twitter.update_profile(name: "Erik Michaels-Ober")
       def update_profile(options={})
         object_from_response(Twitter::User, :post, "/1.1/account/update_profile.json", options)
       end
@@ -98,7 +98,7 @@ module Twitter
       # @example Update the authenticating user's profile background image
       #   Twitter.update_profile_background_image(File.new("we_concept_bg2.png"))
       def update_profile_background_image(image, options={})
-        object_from_response(Twitter::User, :post, "/1.1/account/update_profile_background_image.json", options.merge(:image => image))
+        object_from_response(Twitter::User, :post, "/1.1/account/update_profile_background_image.json", options.merge(image: image))
       end
 
       # Sets one or more hex values that control the color scheme of the authenticating user's profile
@@ -115,7 +115,7 @@ module Twitter
       # @option options [String] :profile_sidebar_fill_color Profile sidebar's background color.
       # @option options [String] :profile_sidebar_border_color Profile sidebar's border color.
       # @example Set authenticating user's profile background to black
-      #   Twitter.update_profile_colors(:profile_background_color => '000000')
+      #   Twitter.update_profile_colors(profile_background_color: '000000')
       def update_profile_colors(options={})
         object_from_response(Twitter::User, :post, "/1.1/account/update_profile_colors.json", options)
       end
@@ -134,7 +134,7 @@ module Twitter
       # @example Update the authenticating user's profile image
       #   Twitter.update_profile_image(File.new("me.jpeg"))
       def update_profile_image(image, options={})
-        object_from_response(Twitter::User, :post, "/1.1/account/update_profile_image.json", options.merge(:image => image))
+        object_from_response(Twitter::User, :post, "/1.1/account/update_profile_image.json", options.merge(image: image))
       end
 
       # Returns an array of user objects that the authenticating user is blocking
@@ -251,8 +251,8 @@ module Twitter
       #   @option options [Symbol, String] :method Requests users via a GET request instead of the standard POST request if set to ':get'.
       #   @option options [Boolean] :include_entities The tweet entities node will be disincluded when set to false.
       #   @example Return extended information for @sferik and @pengwynn
-      #     Twitter.users('sferik', 'pengwynn', :method => :get) # Retrieve users with a GET request
-      #     Twitter.users(7505382, 14100886, :method => :get)    # Same as above
+      #     Twitter.users('sferik', 'pengwynn', method: :get) # Retrieve users with a GET request
+      #     Twitter.users(7505382, 14100886, method: :get)    # Same as above
       def users(*args)
         arguments = Twitter::API::Arguments.new(args)
         method = arguments.options.delete(:method) || :post
@@ -326,7 +326,7 @@ module Twitter
       # @example Return users that match "Erik Michaels-Ober"
       #   Twitter.user_search("Erik Michaels-Ober")
       def user_search(query, options={})
-        objects_from_response(Twitter::User, :get, "/1.1/users/search.json", options.merge(:q => query))
+        objects_from_response(Twitter::User, :get, "/1.1/users/search.json", options.merge(q: query))
       end
 
       # Returns an array of users that the specified user can contribute to
@@ -409,7 +409,7 @@ module Twitter
       # @example Update the authenticating user's profile banner
       #   Twitter.update_profile_banner(File.new("me.jpeg"))
       def update_profile_banner(banner, options={})
-        post("/1.1/account/update_profile_banner.json", options.merge(:banner => banner))[:body]
+        post("/1.1/account/update_profile_banner.json", options.merge(banner: banner))[:body]
       end
 
       # Returns the available size variations of the specified user's profile banner.

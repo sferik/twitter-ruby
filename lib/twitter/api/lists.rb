@@ -391,8 +391,8 @@ module Twitter
       #   @option options [String] :mode ('public') Whether your list is public or private. Values can be 'public' or 'private'.
       #   @option options [String] :description The description to give the list.
       #   @example Update the authenticated user's "presidents" list to have the description "Presidents of the United States of America"
-      #     Twitter.list_update('presidents', :description => "Presidents of the United States of America")
-      #     Twitter.list_update(8863586, :description => "Presidents of the United States of America")
+      #     Twitter.list_update('presidents', description: "Presidents of the United States of America")
+      #     Twitter.list_update(8863586, description: "Presidents of the United States of America")
       # @overload list_update(user, list, options={})
       #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
       #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, or object.
@@ -400,10 +400,10 @@ module Twitter
       #   @option options [String] :mode ('public') Whether your list is public or private. Values can be 'public' or 'private'.
       #   @option options [String] :description The description to give the list.
       #   @example Update the @sferik's "presidents" list to have the description "Presidents of the United States of America"
-      #     Twitter.list_update('sferik', 'presidents', :description => "Presidents of the United States of America")
-      #     Twitter.list_update(7505382, 'presidents', :description => "Presidents of the United States of America")
-      #     Twitter.list_update('sferik', 8863586, :description => "Presidents of the United States of America")
-      #     Twitter.list_update(7505382, 8863586, :description => "Presidents of the United States of America")
+      #     Twitter.list_update('sferik', 'presidents', description: "Presidents of the United States of America")
+      #     Twitter.list_update(7505382, 'presidents', description: "Presidents of the United States of America")
+      #     Twitter.list_update('sferik', 8863586, description: "Presidents of the United States of America")
+      #     Twitter.list_update(7505382, 8863586, description: "Presidents of the United States of America")
       def list_update(*args)
         list_from_response(:post, "/1.1/lists/update.json", args)
       end
@@ -423,7 +423,7 @@ module Twitter
       # @example Create a list named 'presidents'
       #   Twitter.list_create('presidents')
       def list_create(name, options={})
-        object_from_response(Twitter::List, :post, "/1.1/lists/create.json", options.merge(:name => name))
+        object_from_response(Twitter::List, :post, "/1.1/lists/create.json", options.merge(name: name))
       end
 
       # Show the specified list

@@ -17,7 +17,7 @@ module Twitter
     def fetch(id)
       create_table
       @select ||= @database.prepare("SELECT object_id FROM identity_map WHERE id = :id")
-      row = @select.execute!(:id => id).first
+      row = @select.execute!(id: id).first
       ObjectSpace._id2ref(row.first) unless row.nil?
     end
 
@@ -27,11 +27,11 @@ module Twitter
     def store(id, object)
       create_table
       @insert ||= @database.prepare("INSERT INTO identity_map(id, object_id) VALUES (:id, :object_id)")
-      @insert.execute(:id => id, :object_id => object.object_id)
+      @insert.execute(id: id, object_id: object.object_id)
       object
     rescue SQLite3::ConstraintException
       @delete ||= @database.prepare("DELETE FROM identity_map WHERE id = :id")
-      @delete.execute(:id => id)
+      @delete.execute(id: id)
       retry
     end
 

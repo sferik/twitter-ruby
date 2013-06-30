@@ -8,11 +8,11 @@ describe Twitter::API::Search do
 
   describe "#search" do
     before do
-      stub_get("/1.1/search/tweets.json").with(:query => {:q => "twitter"}).to_return(:body => fixture("search.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      stub_get("/1.1/search/tweets.json").with(query: {q: "twitter"}).to_return(body: fixture("search.json"), headers: {content_type: "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
       @client.search("twitter")
-      expect(a_get("/1.1/search/tweets.json").with(:query => {:q => "twitter"})).to have_been_made
+      expect(a_get("/1.1/search/tweets.json").with(query: {q: "twitter"})).to have_been_made
     end
     it "returns recent Tweets related to a query with images and videos embedded" do
       search = @client.search("twitter")
@@ -28,7 +28,7 @@ describe Twitter::API::Search do
 
     context "when search API responds a malformed result" do
       before do
-        stub_get("/1.1/search/tweets.json").with(:query => {:q => "twitter"}).to_return(:body => fixture("/search_malformed.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        stub_get("/1.1/search/tweets.json").with(query: {q: "twitter"}).to_return(body: fixture("/search_malformed.json"), headers: {content_type: "application/json; charset=utf-8"})
       end
 
       it "returns an empty array" do

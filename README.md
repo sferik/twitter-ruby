@@ -143,13 +143,13 @@ Then, for each user's access token/secret pair, instantiate a
 
 ```ruby
 erik = Twitter::Client.new(
-  :oauth_token => "Erik's access token",
-  :oauth_token_secret => "Erik's access secret"
+  oauth_token: "Erik's access token",
+  oauth_token_secret: "Erik's access secret",
 )
 
 john = Twitter::Client.new(
-  :oauth_token => "John's access token",
-  :oauth_token_secret => "John's access secret"
+  oauth_token: "John's access token",
+  oauth_token_secret: "John's access secret",
 )
 ```
 
@@ -165,10 +165,10 @@ a `Twitter::Client`:
 
 ```ruby
 client = Twitter::Client.new(
-  :consumer_key => "an application's consumer key",
-  :consumer_secret => "an application's consumer secret",
-  :oauth_token => "a user's access token",
-  :oauth_token_secret => "a user's access secret"
+  consumer_key: "an application's consumer key",
+  consumer_secret: "an application's consumer secret",
+  oauth_token: "a user's access token",
+  oauth_token_secret: "a user's access secret",
 )
 ```
 
@@ -259,14 +259,14 @@ Twitter.status(27558893223)
 **Find the 3 most recent marriage proposals to @justinbieber**
 
 ```ruby
-Twitter.search("to:justinbieber marry me", :count => 3, :result_type => "recent").results.map do |status|
+Twitter.search("to:justinbieber marry me", count: 3, result_type: "recent").results.map do |status|
   "#{status.from_user}: #{status.text}"
 end
 ```
 **Find a Japanese-language Tweet tagged #ruby (excluding retweets)**
 
 ```ruby
-Twitter.search("#ruby -rt", :lang => "ja", :count => 1).results.first.text
+Twitter.search("#ruby -rt", lang: "ja", count: 1).results.first.text
 ```
 For more usage examples, please see the full [documentation][].
 
@@ -448,21 +448,6 @@ Twitter.identity_map = Twitter::IdentityMap
 [disabled]: https://github.com/sferik/twitter/commit/c6c5960bea998abdc3e82cbb8dd68766a2df52e1
 [default]: lib/twitter/identity_map.rb
 [custom]: etc/sqlite_identity_map.rb
-
-## Additional Notes
-This will be the last major version of this library to support Ruby 1.8.
-Requiring Ruby 1.9 will allow us to [remove][class_variable_get]
-[various][each_with_object] [hacks][singleton_class] put in place to maintain
-Ruby 1.8 compatibility. [The first stable version of Ruby 1.9 was released on
-August 19, 2010.][ruby192] If you haven't found the opportunity to upgrade your
-Ruby interpreter since then, let this be your nudge. Once version 5 of this
-library is released, all previous versions will cease to be supported, even if
-critical security vulnerabilities are discovered.
-
-[class_variable_get]: https://github.com/sferik/twitter/commit/88c5a0513d1b58a1d4ae1a1e3deeb012c9d19547
-[each_with_object]: https://github.com/sferik/twitter/commit/6052252a07baf7aefe0f100bba0abd2cbb7139bb
-[singleton_class]: https://github.com/sferik/twitter/commit/2ed9db21c87d1218b15373e42a36ad536b07dcbb
-[ruby192]: http://blade.nagaokaut.ac.jp/cgi-bin/scat.rb/ruby/ruby-talk/367983
 
 ## Copyright
 Copyright (c) 2006-2013 John Nunemaker, Wynn Netherland, Erik Michaels-Ober, Steve Richert.

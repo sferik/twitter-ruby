@@ -29,7 +29,7 @@ module Twitter
       # @example Return tweets related to twitter
       #   Twitter.search('twitter')
       def search(q, options={})
-        object_from_response(Twitter::SearchResults, :get, "/1.1/search/tweets.json", options.merge(:q => q))
+        object_from_response(Twitter::SearchResults, :get, "/1.1/search/tweets.json", options.merge(q: q))
       end
 
     end

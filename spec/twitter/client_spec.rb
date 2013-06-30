@@ -3,7 +3,7 @@ require 'helper'
 describe Twitter::Client do
 
   subject do
-    Twitter::Client.new(:consumer_key => "CK", :consumer_secret => "CS", :oauth_token => "OT", :oauth_token_secret => "OS")
+    Twitter::Client.new(consumer_key: "CK", consumer_secret: "CS", oauth_token: "OT", oauth_token_secret: "OS")
   end
 
   context "with module configuration" do
@@ -31,15 +31,15 @@ describe Twitter::Client do
 
       before do
         @configuration = {
-          :connection_options => {:timeout => 10},
-          :consumer_key => 'CK',
-          :consumer_secret => 'CS',
-          :endpoint => 'http://tumblr.com/',
-          :middleware => Proc.new{},
-          :oauth_token => 'OT',
-          :oauth_token_secret => 'OS',
-          :bearer_token => 'BT',
-          :identity_map => ::Hash
+          connection_options: {timeout: 10},
+          consumer_key: 'CK',
+          consumer_secret: 'CS',
+          endpoint: 'http://tumblr.com/',
+          middleware: Proc.new{},
+          oauth_token: 'OT',
+          oauth_token_secret: 'OS',
+          bearer_token: 'BT',
+          identity_map: ::Hash
         }
       end
 
@@ -70,63 +70,63 @@ describe Twitter::Client do
   end
 
   it "does not cache the screen name across clients" do
-    stub_get("/1.1/account/verify_credentials.json").to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+    stub_get("/1.1/account/verify_credentials.json").to_return(body: fixture("sferik.json"), headers: {content_type: "application/json; charset=utf-8"})
     client1 = Twitter::Client.new
     expect(client1.verify_credentials.id).to eq 7505382
-    stub_get("/1.1/account/verify_credentials.json").to_return(:body => fixture("pengwynn.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+    stub_get("/1.1/account/verify_credentials.json").to_return(body: fixture("pengwynn.json"), headers: {content_type: "application/json; charset=utf-8"})
     client2 = Twitter::Client.new
     expect(client2.verify_credentials.id).to eq 14100886
   end
 
   describe "#delete" do
     before do
-      stub_delete("/custom/delete").with(:query => {:deleted => "object"})
+      stub_delete("/custom/delete").with(query: {deleted: "object"})
     end
     it "allows custom delete requests" do
-      subject.delete("/custom/delete", {:deleted => "object"})
-      expect(a_delete("/custom/delete").with(:query => {:deleted => "object"})).to have_been_made
+      subject.delete("/custom/delete", {deleted: "object"})
+      expect(a_delete("/custom/delete").with(query: {deleted: "object"})).to have_been_made
     end
   end
 
   describe "#put" do
     before do
-      stub_put("/custom/put").with(:body => {:updated => "object"})
+      stub_put("/custom/put").with(body: {updated: "object"})
     end
     it "allows custom put requests" do
-      subject.put("/custom/put", {:updated => "object"})
-      expect(a_put("/custom/put").with(:body => {:updated => "object"})).to have_been_made
+      subject.put("/custom/put", {updated: "object"})
+      expect(a_put("/custom/put").with(body: {updated: "object"})).to have_been_made
     end
   end
 
   describe "#user_token?" do
     it "returns true if the user token/secret are present" do
-      client = Twitter::Client.new(:consumer_key => 'CK', :consumer_secret => 'CS', :oauth_token => 'OT', :oauth_token_secret => 'OS')
+      client = Twitter::Client.new(consumer_key: 'CK', consumer_secret: 'CS', oauth_token: 'OT', oauth_token_secret: 'OS')
       expect(client.user_token?).to be_true
     end
     it "returns false if the user token/secret are not completely present" do
-      client = Twitter::Client.new(:consumer_key => 'CK', :consumer_secret => 'CS', :oauth_token => 'OT')
+      client = Twitter::Client.new(consumer_key: 'CK', consumer_secret: 'CS', oauth_token: 'OT')
       expect(client.user_token?).to be_false
     end
   end
 
   describe "#bearer_token?" do
     it "returns true if the app token is present" do
-      client = Twitter::Client.new(:consumer_key => 'CK', :consumer_secret => 'CS', :bearer_token => 'BT')
+      client = Twitter::Client.new(consumer_key: 'CK', consumer_secret: 'CS', bearer_token: 'BT')
       expect(client.bearer_token?).to be_true
     end
     it "returns false if the bearer_token is not present" do
-      client = Twitter::Client.new(:consumer_key => 'CK', :consumer_secret => 'CS')
+      client = Twitter::Client.new(consumer_key: 'CK', consumer_secret: 'CS')
       expect(client.bearer_token?).to be_false
     end
   end
 
   describe "#credentials?" do
     it "returns true if all credentials are present" do
-      client = Twitter::Client.new(:consumer_key => 'CK', :consumer_secret => 'CS', :oauth_token => 'OT', :oauth_token_secret => 'OS')
+      client = Twitter::Client.new(consumer_key: 'CK', consumer_secret: 'CS', oauth_token: 'OT', oauth_token_secret: 'OS')
       expect(client.credentials?).to be_true
     end
     it "returns false if any credentials are missing" do
-      client = Twitter::Client.new(:consumer_key => 'CK', :consumer_secret => 'CS', :oauth_token => 'OT')
+      client = Twitter::Client.new(consumer_key: 'CK', consumer_secret: 'CS', oauth_token: 'OT')
       expect(client.credentials?).to be_false
     end
   end
@@ -143,9 +143,9 @@ describe Twitter::Client do
 
   describe "#request" do
     it "encodes the entire body when no uploaded media is present" do
-      stub_post("/1.1/statuses/update.json").with(:body => {:status => "Update"}).to_return(:body => fixture("status.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      stub_post("/1.1/statuses/update.json").with(body: {status: "Update"}).to_return(body: fixture("status.json"), headers: {content_type: "application/json; charset=utf-8"})
       subject.update("Update")
-      expect(a_post("/1.1/statuses/update.json").with(:body => {:status => "Update"})).to have_been_made
+      expect(a_post("/1.1/statuses/update.json").with(body: {status: "Update"})).to have_been_made
     end
     it "encodes none of the body when uploaded media is present" do
       stub_post("/1.1/statuses/update_with_media.json")
@@ -175,35 +175,35 @@ describe Twitter::Client do
     end
     it "submits the correct auth header when no media is present" do
       # We use static values for nounce and timestamp to get a stable signature
-      secret = {:consumer_key => 'CK', :consumer_secret => 'CS',
-                :token => 'OT', :token_secret => 'OS',
-                :nonce => 'b6ebe4c2a11af493f8a2290fe1296965', :timestamp => '1370968658'}
+      secret = {consumer_key: 'CK', consumer_secret: 'CS',
+                token: 'OT', token_secret: 'OS',
+                nonce: 'b6ebe4c2a11af493f8a2290fe1296965', timestamp: '1370968658'}
       header = {"Authorization" => /oauth_signature="FbthwmgGq02iQw%2FuXGEWaL6V6eM%3D"/}
 
       subject.stub(:credentials).and_return(secret)
       stub_post("/1.1/statuses/update.json")
       subject.update("Just a test")
       expect(a_post("/1.1/statuses/update.json").
-             with(:headers => header)).to have_been_made
+             with(headers: header)).to have_been_made
     end
     it "submits the correct auth header when media is present" do
       # We use static values for nounce and timestamp to get a stable signature
-      secret = {:consumer_key => 'CK', :consumer_secret => 'CS',
-                :token => 'OT', :token_secret => 'OS',
-                :nonce => 'e08201ad0dab4897c99445056feefd95', :timestamp => '1370967652'}
+      secret = {consumer_key: 'CK', consumer_secret: 'CS',
+                token: 'OT', token_secret: 'OS',
+                nonce: 'e08201ad0dab4897c99445056feefd95', timestamp: '1370967652'}
       header = {"Authorization" => /oauth_signature="9ziouUPwZT9IWWRbJL8r0BerKYA%3D"/}
 
       subject.stub(:credentials).and_return(secret)
       stub_post("/1.1/statuses/update_with_media.json")
       subject.update_with_media("Just a test", fixture("pbjt.gif"))
       expect(a_post("/1.1/statuses/update_with_media.json").
-             with(:headers => header)).to have_been_made
+             with(headers: header)).to have_been_made
     end
   end
 
   describe "#bearer_auth_header" do
     subject do
-      Twitter::Client.new(:bearer_token => "BT")
+      Twitter::Client.new(bearer_token: "BT")
     end
 
     it "creates the correct auth headers with supplied bearer_token" do
