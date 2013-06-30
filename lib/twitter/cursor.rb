@@ -2,7 +2,9 @@ module Twitter
   class Cursor
     include Enumerable
     attr_reader :attrs, :collection
+    alias to_h attrs
     alias to_hash attrs
+    alias to_hsh attrs
 
     # Initializes a new Cursor object
     #

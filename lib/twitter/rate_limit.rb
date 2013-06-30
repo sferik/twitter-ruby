@@ -1,12 +1,5 @@
 module Twitter
-  class RateLimit
-    attr_reader :attrs
-    alias to_hash attrs
-
-    # @return [Twitter::RateLimit]
-    def initialize(attrs={})
-      @attrs = attrs
-    end
+  class RateLimit < Twitter::Base
 
     # @return [Integer]
     def limit
@@ -31,15 +24,6 @@ module Twitter
       [(reset_at - Time.now).ceil, 0].max if reset_at
     end
     alias retry_after reset_in
-
-    # Update the attributes of a RateLimit
-    #
-    # @param attrs [Hash]
-    # @return [Twitter::RateLimit]
-    def update(attrs)
-      @attrs.update(attrs)
-      self
-    end
 
   end
 end

@@ -1,5 +1,14 @@
+require 'forwardable'
+
 module Twitter
   class Base
+    extend Forwardable
+    attr_reader :attrs
+    alias to_h attrs
+    alias to_hash attrs
+    alias to_hsh attrs
+    def_delegators :attrs, :delete, :update
+
     # Define methods that retrieve the value from an initialized instance variable Hash, using the attribute as a key
     #
     # @param attrs [Array, Set, Symbol]
@@ -18,7 +27,7 @@ module Twitter
       include mod
     end
 
-    # Returns a new object based on the response hash
+    # Construct an object from the response hash
     #
     # @param response [Hash]
     # @return [Twitter::Base]
@@ -43,24 +52,20 @@ module Twitter
       nil
     end
 
-    # Retrieve the attributes of an object
+    # Create a new object from another object
     #
-    # @return [Hash]
-    def attrs
-      @attrs
-    end
-    alias to_hash attrs
-
-    # Update the attributes of an object
-    #
-    # @param attrs [Hash]
-    # @return [Twitter::Base]
-    def update(attrs)
-      @attrs.update(attrs)
-      self
+    # @param klass [Class]
+    # @param key1 [Symbol]
+    # @param key2 [Symbol]
+    def new_without_self(klass, key1, key2)
+      if @attrs[key1]
+        attrs = @attrs.dup
+        value = attrs.delete(key1)
+        klass.new(value.update(key2 => attrs))
+      end
     end
 
-  protected
+  private
 
     # @param attr [Symbol]
     # @param other [Twitter::Base]

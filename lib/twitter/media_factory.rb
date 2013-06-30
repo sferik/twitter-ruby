@@ -4,7 +4,7 @@ require 'twitter/media/photo'
 module Twitter
   class MediaFactory < Twitter::Factory
 
-    # Instantiates a new media object
+    # Construct a new media object
     #
     # @param attrs [Hash]
     # @raise [ArgumentError] Error raised when supplied argument is missing a :type key.

@@ -1,13 +1,11 @@
 require 'forwardable'
 require 'twitter/creatable'
-require 'twitter/exceptable'
 require 'twitter/identity'
 
 module Twitter
   class Tweet < Twitter::Identity
     extend Forwardable
     include Twitter::Creatable
-    include Twitter::Exceptable
     attr_reader :favorite_count, :favorited, :from_user_id, :from_user_name,
       :in_reply_to_screen_name, :in_reply_to_attrs_id, :in_reply_to_status_id,
       :in_reply_to_user_id, :lang, :retweet_count, :retweeted, :source, :text,
@@ -108,7 +106,7 @@ module Twitter
 
     # @return [Twitter::User]
     def user
-      @user ||= new_without_self(Twitter::User, @attrs, :user, :status)
+      @user ||= new_without_self(Twitter::User, :user, :status)
     end
 
     # @note Must include entities in your request for this method to work

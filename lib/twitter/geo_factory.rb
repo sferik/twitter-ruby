@@ -5,7 +5,7 @@ require 'twitter/geo/polygon'
 module Twitter
   class GeoFactory < Twitter::Factory
 
-    # Instantiates a new geo object
+    # Construct a new geo object
     #
     # @param attrs [Hash]
     # @raise [ArgumentError] Error raised when supplied argument is missing a :type key.

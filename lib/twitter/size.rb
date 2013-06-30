@@ -12,7 +12,7 @@ module Twitter
       super || size_equal(other) || attrs_equal(other)
     end
 
-  protected
+  private
 
     # @param other [Twitter::Size]
     # @return [Boolean]

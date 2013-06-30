@@ -1,7 +1,7 @@
 module Twitter
   class Factory
 
-    # Instantiates a new action object
+    # Construct a new action object
     #
     # @param attrs [Hash]
     # @raise [ArgumentError] Error raised when supplied argument is missing an :action key.

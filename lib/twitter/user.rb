@@ -1,12 +1,10 @@
 require 'twitter/basic_user'
 require 'twitter/creatable'
-require 'twitter/exceptable'
 
 module Twitter
   class User < Twitter::BasicUser
     PROFILE_IMAGE_SUFFIX_REGEX = /_normal(\.gif|\.jpe?g|\.png)$/i
     include Twitter::Creatable
-    include Twitter::Exceptable
     attr_reader :connections, :contributors_enabled, :default_profile,
       :default_profile_image, :description, :favourites_count,
       :follow_request_sent, :followers_count, :friends_count, :geo_enabled,
@@ -89,7 +87,7 @@ module Twitter
 
     # @return [Twitter::Tweet]
     def status
-      @status ||= new_without_self(Twitter::Tweet, @attrs, :status, :user)
+      @status ||= new_without_self(Twitter::Tweet, :status, :user)
     end
 
     def status?
