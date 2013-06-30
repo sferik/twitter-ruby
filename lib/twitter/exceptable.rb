@@ -9,8 +9,8 @@ module Twitter
     # @param hash [Hash]
     # @param key1 [Symbol]
     # @param key2 [Symbol]
-    def fetch_or_new_without_self(klass, hash, key1, key2)
-      klass.fetch_or_new(hash.dup[key1].merge(key2 => except(hash, key1))) unless hash[key1].nil?
+    def new_without_self(klass, hash, key1, key2)
+      klass.new(hash.dup[key1].merge(key2 => except(hash, key1))) unless hash[key1].nil?
     end
 
     # Return a hash that includes everything but the given keys.

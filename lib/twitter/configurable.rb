@@ -6,7 +6,7 @@ module Twitter
   module Configurable
     extend Forwardable
     attr_writer :consumer_secret, :oauth_token, :oauth_token_secret, :bearer_token
-    attr_accessor :consumer_key, :endpoint, :connection_options, :identity_map, :middleware
+    attr_accessor :consumer_key, :endpoint, :connection_options, :middleware
     def_delegator :options, :hash
 
     class << self
@@ -20,7 +20,6 @@ module Twitter
           :bearer_token,
           :endpoint,
           :connection_options,
-          :identity_map,
           :middleware,
         ]
       end

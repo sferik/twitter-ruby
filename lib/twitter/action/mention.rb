@@ -12,7 +12,7 @@ module Twitter
       # @return [Array<Twitter::User>]
       def sources
         @sources = Array(@attrs[:sources]).map do |user|
-          Twitter::User.fetch_or_new(user)
+          Twitter::User.new(user)
         end
       end
 
@@ -28,7 +28,7 @@ module Twitter
       # @return [Array<Twitter::Tweet>]
       def target_objects
         @target_objects = Array(@attrs[:target_objects]).map do |tweet|
-          Twitter::Tweet.fetch_or_new(tweet)
+          Twitter::Tweet.new(tweet)
         end
       end
 
@@ -37,7 +37,7 @@ module Twitter
       # @return [Array<Twitter::User>]
       def targets
         @targets = Array(@attrs[:targets]).map do |user|
-          Twitter::User.fetch_or_new(user)
+          Twitter::User.new(user)
         end
       end
 

@@ -11,7 +11,7 @@ module Twitter
       # @return [Array<Twitter::Size>]
       def sizes
         @sizes ||= Array(@attrs[:sizes]).each_with_object({}) do |(key, value), object|
-          object[key] = Twitter::Size.fetch_or_new(value)
+          object[key] = Twitter::Size.new(value)
         end
       end
 

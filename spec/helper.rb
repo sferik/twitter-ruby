@@ -8,7 +8,6 @@ SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
 SimpleCov.start
 
 require 'twitter'
-require 'twitter/identity_map'
 require 'rspec'
 require 'stringio'
 require 'tempfile'

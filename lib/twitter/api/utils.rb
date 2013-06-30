@@ -57,7 +57,7 @@ module Twitter
       # @return [Array]
       def objects_from_array(klass, array)
         array.map do |element|
-          klass.fetch_or_new(element)
+          klass.new(element)
         end
       end
 

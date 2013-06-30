@@ -14,7 +14,7 @@ module Twitter
     # @param attrs [Hash]
     # @raise [ArgumentError] Error raised when supplied argument is missing an :action key.
     # @return [Twitter::Action]
-    def self.fetch_or_new(attrs={})
+    def self.new(attrs={})
       super(:action, Twitter::Action, attrs)
     end
 

@@ -50,7 +50,7 @@ module Twitter
 
     # @return [Twitter::Geo]
     def geo
-      @geo ||= Twitter::GeoFactory.fetch_or_new(@attrs[:geo])
+      @geo ||= Twitter::GeoFactory.new(@attrs[:geo]) unless @attrs[:geo].nil?
     end
 
     # @note Must include entities in your request for this method to work
@@ -67,12 +67,12 @@ module Twitter
 
     # @return [Twitter::Metadata]
     def metadata
-      @metadata ||= Twitter::Metadata.fetch_or_new(@attrs[:metadata])
+      @metadata ||= Twitter::Metadata.new(@attrs[:metadata]) unless @attrs[:metadata].nil?
     end
 
     # @return [Twitter::Place]
     def place
-      @place ||= Twitter::Place.fetch_or_new(@attrs[:place])
+      @place ||= Twitter::Place.new(@attrs[:place]) unless @attrs[:place].nil?
     end
 
     # @return [Boolean]
@@ -89,7 +89,7 @@ module Twitter
     #
     # @return [Twitter::Tweet]
     def retweeted_status
-      @retweeted_status ||= self.class.fetch_or_new(@attrs[:retweeted_status])
+      @retweeted_status ||= self.class.new(@attrs[:retweeted_status]) unless @attrs[:retweeted_status].nil?
     end
     alias retweeted_tweet retweeted_status
     alias retweet retweeted_status
@@ -108,7 +108,7 @@ module Twitter
 
     # @return [Twitter::User]
     def user
-      @user ||= fetch_or_new_without_self(Twitter::User, @attrs, :user, :status)
+      @user ||= new_without_self(Twitter::User, @attrs, :user, :status)
     end
 
     # @note Must include entities in your request for this method to work
@@ -128,7 +128,7 @@ module Twitter
     def entities(klass, key)
       if entities?
         Array(@attrs[:entities][key.to_sym]).map do |entity|
-          klass.fetch_or_new(entity)
+          klass.new(entity)
         end
       else
         warn "#{Kernel.caller.first}: To get #{key.to_s.tr('_', ' ')}, you must pass `include_entities: true` when requesting the #{self.class.name}."

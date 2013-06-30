@@ -8,27 +8,6 @@ describe Twitter::Identity do
     end
   end
 
-  context "identity map enabled" do
-    before do
-      Twitter.identity_map = Twitter::IdentityMap
-    end
-
-    after do
-      Twitter.identity_map = false
-    end
-
-    describe ".fetch" do
-      it "returns existing objects" do
-        Twitter::Identity.store(Twitter::Identity.new(id: 1))
-        expect(Twitter::Identity.fetch(id: 1)).to be
-      end
-
-      it "raises an error on objects that don't exist" do
-        expect{Twitter::Identity.fetch(id: 6)}.to raise_error Twitter::Error::IdentityMapKeyError
-      end
-    end
-  end
-
   describe "#==" do
     it "returns true when objects IDs are the same" do
       one = Twitter::Identity.new(id: 1, screen_name: "sferik")

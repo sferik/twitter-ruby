@@ -10,7 +10,7 @@ module Twitter
       # @return [Array<Twitter::User>]
       def sources
         @sources = Array(@attrs[:sources]).map do |user|
-          Twitter::User.fetch_or_new(user)
+          Twitter::User.new(user)
         end
       end
 

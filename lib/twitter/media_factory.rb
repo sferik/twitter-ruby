@@ -9,7 +9,7 @@ module Twitter
     # @param attrs [Hash]
     # @raise [ArgumentError] Error raised when supplied argument is missing a :type key.
     # @return [Twitter::Media]
-    def self.fetch_or_new(attrs={})
+    def self.new(attrs={})
       super(:type, Twitter::Media, attrs)
     end
 

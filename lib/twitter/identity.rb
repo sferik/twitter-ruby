@@ -1,29 +1,7 @@
 require 'twitter/base'
-require 'twitter/error/identity_map_key_error'
 
 module Twitter
   class Identity < Twitter::Base
-
-    def self.fetch(attrs)
-      return unless identity_map
-
-      id = attrs[:id]
-      if id  && object = identity_map.fetch(id)
-        return object.update(attrs)
-      end
-
-      return yield if block_given?
-      raise Twitter::Error::IdentityMapKeyError, "key not found"
-    end
-
-    # Stores an object in the identity map.
-    #
-    # @param object [Object]
-    # @return [Twitter::Identity]
-    def self.store(object)
-      return object unless identity_map
-      identity_map.store(object.id, object)
-    end
 
     # Initializes a new object
     #

@@ -33,7 +33,7 @@ module Twitter
       @method_options = method_options
       @collection = Array(attrs[collection_name.to_sym]).map do |item|
         if klass
-          klass.fetch_or_new(item)
+          klass.new(item)
         else
           item
         end

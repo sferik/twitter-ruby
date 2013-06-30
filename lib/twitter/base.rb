@@ -1,5 +1,3 @@
-require 'twitter/error/identity_map_key_error'
-
 module Twitter
   class Base
     # Define methods that retrieve the value from an initialized instance variable Hash, using the attribute as a key
@@ -20,56 +18,12 @@ module Twitter
       include mod
     end
 
-    # return [Twitter::IdentityMap]
-    def self.identity_map
-      return unless Twitter.identity_map
-      @identity_map = Twitter.identity_map.new unless defined?(@identity_map) && @identity_map.class == Twitter.identity_map
-      @identity_map
-    end
-
-    # Retrieves an object from the identity map.
-    #
-    # @param attrs [Hash]
-    # @return [Twitter::Base]
-    def self.fetch(attrs)
-      return unless identity_map
-      if object = identity_map.fetch(Marshal.dump(attrs))
-        return object
-      end
-      return yield if block_given?
-      raise Twitter::Error::IdentityMapKeyError, "key not found"
-    end
-
-    # Stores an object in the identity map.
-    #
-    # @param object [Object]
-    # @return [Twitter::Base]
-    def self.store(object)
-      return object unless identity_map
-      identity_map.store(Marshal.dump(object.attrs), object)
-    end
-
     # Returns a new object based on the response hash
     #
     # @param response [Hash]
     # @return [Twitter::Base]
     def self.from_response(response={})
-      fetch_or_new(response[:body])
-    end
-
-    # Retrieves an object from the identity map, or stores it in the
-    # identity map if it doesn't already exist.
-    #
-    # @param attrs [Hash]
-    # @return [Twitter::Base]
-    def self.fetch_or_new(attrs={})
-      return unless attrs
-      return new(attrs) unless identity_map
-
-      fetch(attrs) do
-        object = new(attrs)
-        store(object)
-      end
+      new(response[:body])
     end
 
     # Initializes a new object
@@ -77,7 +31,7 @@ module Twitter
     # @param attrs [Hash]
     # @return [Twitter::Base]
     def initialize(attrs={})
-      @attrs = attrs
+      @attrs = attrs || {}
     end
 
     # Fetches an attribute of an object using hash notation

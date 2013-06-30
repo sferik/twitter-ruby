@@ -35,7 +35,7 @@ module Twitter
     # @return [Array<Twitter::Entity::Url>]
     def description_urls
       @description_urls ||= Array(@attrs[:entities][:description][:urls]).map do |entity|
-        Twitter::Entity::Url.fetch_or_new(entity)
+        Twitter::Entity::Url.new(entity)
       end
     end
 
@@ -89,7 +89,7 @@ module Twitter
 
     # @return [Twitter::Tweet]
     def status
-      @status ||= fetch_or_new_without_self(Twitter::Tweet, @attrs, :status, :user)
+      @status ||= new_without_self(Twitter::Tweet, @attrs, :status, :user)
     end
 
     def status?

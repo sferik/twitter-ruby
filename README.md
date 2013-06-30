@@ -435,19 +435,6 @@ library will raise `Twitter::Error::TooManyRequests` for all rate limit errors.
 The `Twitter::Error::EnhanceYourCalm` class has been aliased to
 `Twitter::Error::TooManyRequests`.
 
-#### Identity Map
-In version 4, the identity map is [disabled by default][disabled]. If you want
-to enable this feature, you can use the [default identity map][default] or
-[write a custom identity map][custom].
-
-```ruby
-Twitter.identity_map = Twitter::IdentityMap
-```
-
-[disabled]: https://github.com/sferik/twitter/commit/c6c5960bea998abdc3e82cbb8dd68766a2df52e1
-[default]: lib/twitter/identity_map.rb
-[custom]: etc/sqlite_identity_map.rb
-
 ## Copyright
 Copyright (c) 2006-2013 John Nunemaker, Wynn Netherland, Erik Michaels-Ober, Steve Richert.
 See [LICENSE][] for details.

@@ -39,7 +39,6 @@ describe Twitter::Client do
           oauth_token: 'OT',
           oauth_token_secret: 'OS',
           bearer_token: 'BT',
-          identity_map: ::Hash
         }
       end
 
@@ -148,7 +147,7 @@ describe Twitter::Client do
       expect(a_post("/1.1/statuses/update.json").with(body: {status: "Update"})).to have_been_made
     end
     it "encodes none of the body when uploaded media is present" do
-      stub_post("/1.1/statuses/update_with_media.json")
+      stub_post("/1.1/statuses/update_with_media.json").to_return(body: fixture("status.json"), headers: {content_type: "application/json; charset=utf-8"})
       subject.update_with_media("Update", fixture("pbjt.gif"))
       expect(a_post("/1.1/statuses/update_with_media.json")).to have_been_made
     end
@@ -181,7 +180,7 @@ describe Twitter::Client do
       header = {"Authorization" => /oauth_signature="FbthwmgGq02iQw%2FuXGEWaL6V6eM%3D"/}
 
       subject.stub(:credentials).and_return(secret)
-      stub_post("/1.1/statuses/update.json")
+      stub_post("/1.1/statuses/update.json").with(body: {status: "Just a test"}).to_return(body: fixture("status.json"), headers: {content_type: "application/json; charset=utf-8"})
       subject.update("Just a test")
       expect(a_post("/1.1/statuses/update.json").
              with(headers: header)).to have_been_made
@@ -194,7 +193,7 @@ describe Twitter::Client do
       header = {"Authorization" => /oauth_signature="9ziouUPwZT9IWWRbJL8r0BerKYA%3D"/}
 
       subject.stub(:credentials).and_return(secret)
-      stub_post("/1.1/statuses/update_with_media.json")
+      stub_post("/1.1/statuses/update_with_media.json").to_return(body: fixture("status.json"), headers: header)
       subject.update_with_media("Just a test", fixture("pbjt.gif"))
       expect(a_post("/1.1/statuses/update_with_media.json").
              with(headers: header)).to have_been_made

@@ -8,7 +8,7 @@ module Twitter
 
     # @return [Twitter::Place]
     def trend_location
-      @trend_location ||= Twitter::Place.fetch_or_new(Array(@attrs[:trend_location]).first)
+      @trend_location ||= Twitter::Place.new(Array(@attrs[:trend_location]).first) unless @attrs[:trend_location].nil?
     end
 
   end
