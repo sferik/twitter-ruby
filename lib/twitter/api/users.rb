@@ -32,7 +32,11 @@ module Twitter
       #   Twitter.settings
       def settings(options={})
         request_method = options.size.zero? ? :get : :post
-        object_from_response(Twitter::Settings, request_method, "/1.1/account/settings.json", options)
+        settings = object_from_response(Twitter::Settings, request_method, "/1.1/account/settings.json", options)
+        # https://dev.twitter.com/issues/59
+        trend_location = Array(settings.attrs[:trend_location]).first
+        settings.update(trend_location: trend_location)
+        settings
       end
 
       # Returns the requesting user if authentication was successful, otherwise raises {Twitter::Error::Unauthorized}

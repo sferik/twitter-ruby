@@ -1,4 +1,5 @@
 require 'forwardable'
+require 'twitter/null_object'
 
 module Twitter
   class Base
@@ -62,6 +63,20 @@ module Twitter
         attrs = @attrs.dup
         value = attrs.delete(key1)
         klass.new(value.update(key2 => attrs))
+      else
+        NullObject.new
+      end
+    end
+
+    # Create a new object (or NullObject) from attributes
+    #
+    # @param klass [Class]
+    # @param key [Symbol]
+    def new_or_null_object(klass, key)
+      if @attrs[key]
+        klass.new(@attrs[key])
+      else
+        NullObject.new
       end
     end
 

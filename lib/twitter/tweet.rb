@@ -10,7 +10,6 @@ module Twitter
       :in_reply_to_screen_name, :in_reply_to_attrs_id, :in_reply_to_status_id,
       :in_reply_to_user_id, :lang, :retweet_count, :retweeted, :source, :text,
       :to_user, :to_user_id, :to_user_name, :truncated
-    alias in_reply_to_tweet_id in_reply_to_status_id
     alias favorites_count favorite_count
     alias favourite_count favorite_count
     alias favourites_count favorite_count
@@ -18,6 +17,7 @@ module Twitter
     alias favouriters_count favorite_count
     alias favourited favorited
     alias favourited? favorited?
+    alias in_reply_to_tweet_id in_reply_to_status_id
     alias retweeters_count retweet_count
     def_delegators :user, :profile_image_url, :profile_image_url_https
 
@@ -38,7 +38,7 @@ module Twitter
     # @return [String]
     # @note May be > 140 characters.
     def full_text
-      if retweeted_status
+      if retweeted_status?
         prefix = text[/\A(RT @[a-z0-9_]{1,20}: )/i, 1]
         [prefix, retweeted_status.text].compact.join
       else
@@ -48,7 +48,7 @@ module Twitter
 
     # @return [Twitter::Geo]
     def geo
-      @geo ||= Twitter::GeoFactory.new(@attrs[:geo]) unless @attrs[:geo].nil?
+      @geo ||= new_or_null_object(Twitter::GeoFactory, :geo)
     end
 
     # @note Must include entities in your request for this method to work
@@ -65,12 +65,12 @@ module Twitter
 
     # @return [Twitter::Metadata]
     def metadata
-      @metadata ||= Twitter::Metadata.new(@attrs[:metadata]) unless @attrs[:metadata].nil?
+      @metadata ||= new_or_null_object(Twitter::Metadata, :metadata)
     end
 
     # @return [Twitter::Place]
     def place
-      @place ||= Twitter::Place.new(@attrs[:place]) unless @attrs[:place].nil?
+      @place ||= new_or_null_object(Twitter::Place, :place)
     end
 
     # @return [Boolean]
@@ -79,18 +79,21 @@ module Twitter
     end
 
     # @return [Boolean]
-    def retweet?
+    def retweeted_status?
       !!retweeted_status
     end
+    alias retweet? retweeted_status?
+    alias retweeted? retweeted_status?
+    alias retweeted_tweet? retweeted_status?
 
     # If this Tweet is a retweet, the original Tweet is available here.
     #
     # @return [Twitter::Tweet]
     def retweeted_status
-      @retweeted_status ||= self.class.new(@attrs[:retweeted_status]) unless @attrs[:retweeted_status].nil?
+      @retweeted_status ||= new_or_null_object(self.class, :retweeted_status)
     end
-    alias retweeted_tweet retweeted_status
     alias retweet retweeted_status
+    alias retweeted_tweet retweeted_status
 
     # @note Must include entities in your request for this method to work
     # @return [Array<Twitter::Entity::Symbol>]
