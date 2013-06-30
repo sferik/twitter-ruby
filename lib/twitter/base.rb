@@ -64,7 +64,7 @@ module Twitter
         value = attrs.delete(key1)
         klass.new(value.update(key2 => attrs))
       else
-        NullObject.new
+        Twitter::NullObject.new
       end
     end
 
@@ -76,7 +76,7 @@ module Twitter
       if @attrs[key]
         klass.new(@attrs[key])
       else
-        NullObject.new
+        Twitter::NullObject.new
       end
     end
 
