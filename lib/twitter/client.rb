@@ -20,6 +20,7 @@ require 'twitter/configurable'
 require 'twitter/error/client_error'
 require 'twitter/error/decode_error'
 require 'simple_oauth'
+require 'base64'
 require 'uri'
 
 module Twitter
@@ -123,12 +124,8 @@ module Twitter
     #
     # @return [String]
     def bearer_token_credentials_auth_header
-      basic_auth_token = encode_value("#{@consumer_key}:#{@consumer_secret}")
+      basic_auth_token = Base64.strict_encode64("#{@consumer_key}:#{@consumer_secret}")
       "Basic #{basic_auth_token}"
-    end
-
-    def encode_value(value)
-      [value].pack("m0").gsub("\n", '')
     end
 
     def bearer_auth_header
