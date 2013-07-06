@@ -9,28 +9,28 @@ describe Twitter::Size do
       expect(size == other).to be_false
     end
     it "returns true when objects height and width are the same" do
-      size = Twitter::Size.new(h: 1, w: 1, resize: true)
-      other = Twitter::Size.new(h: 1, w: 1, resize: false)
+      size = Twitter::Size.new(:h => 1, :w => 1, :resize => true)
+      other = Twitter::Size.new(:h => 1, :w => 1, :resize => false)
       expect(size == other).to be_true
     end
     it "returns false when objects height or width are different" do
-      size = Twitter::Size.new(h: 1, w: 1)
-      other = Twitter::Size.new(h: 1, w: 2)
+      size = Twitter::Size.new(:h => 1, :w => 1)
+      other = Twitter::Size.new(:h => 1, :w => 2)
       expect(size == other).to be_false
     end
     it "returns false when classes are different" do
-      size = Twitter::Size.new(h: 1, w: 1)
-      other = Twitter::Base.new(h: 1, w: 1)
+      size = Twitter::Size.new(:h => 1, :w => 1)
+      other = Twitter::Base.new(:h => 1, :w => 1)
       expect(size == other).to be_false
     end
     it "returns true when objects non-height and width attributes are the same" do
-      size = Twitter::Size.new(resize: true)
-      other = Twitter::Size.new(resize: true)
+      size = Twitter::Size.new(:resize => true)
+      other = Twitter::Size.new(:resize => true)
       expect(size == other).to be_true
     end
     it "returns false when objects non-height and width attributes are different" do
-      size = Twitter::Size.new(resize: true)
-      other = Twitter::Size.new(resize: false)
+      size = Twitter::Size.new(:resize => true)
+      other = Twitter::Size.new(:resize => false)
       expect(size == other).to be_false
     end
   end

@@ -49,8 +49,8 @@ module Twitter
       # @example Return Tweet count for http://twitter.com
       #   Twitter.tweet_count("http://twitter.com/")
       def tweet_count(url, options={})
-        connection = Faraday.new("https://cdn.api.twitter.com", @connection_options.merge(builder: @middleware))
-        connection.get("/1/urls/count.json", options.merge(url: url)).body[:count]
+        connection = Faraday.new("https://cdn.api.twitter.com", @connection_options.merge(:builder => @middleware))
+        connection.get("/1/urls/count.json", options.merge(:url => url)).body[:count]
       end
 
     end

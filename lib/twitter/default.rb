@@ -12,13 +12,13 @@ module Twitter
   module Default
     ENDPOINT = 'https://api.twitter.com' unless defined? Twitter::Default::ENDPOINT
     CONNECTION_OPTIONS = {
-      headers: {
-        accept: 'application/json',
-        user_agent: "Twitter Ruby Gem #{Twitter::Version}",
+      :headers => {
+        :accept => 'application/json',
+        :user_agent => "Twitter Ruby Gem #{Twitter::Version}",
       },
-      request: {
-        open_timeout: 5,
-        timeout: 10,
+      :request => {
+        :open_timeout => 5,
+        :timeout => 10,
       },
     } unless defined? Twitter::Default::CONNECTION_OPTIONS
     MIDDLEWARE = Faraday::Builder.new do |builder|

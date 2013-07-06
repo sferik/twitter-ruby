@@ -4,7 +4,7 @@ describe Twitter::Action::Retweet do
 
   describe "#sources" do
     it "returns a collection of users who retweeted a user" do
-      sources = Twitter::Action::Retweet.new(sources: [{id: 7505382}]).sources
+      sources = Twitter::Action::Retweet.new(:sources => [{:id => 7505382}]).sources
       expect(sources).to be_an Array
       expect(sources.first).to be_a Twitter::User
     end
@@ -16,7 +16,7 @@ describe Twitter::Action::Retweet do
 
   describe "#target_objects" do
     it "returns a collection of retweets" do
-      targets = Twitter::Action::Retweet.new(target_objects: [{id: 25938088801}]).target_objects
+      targets = Twitter::Action::Retweet.new(:target_objects => [{:id => 25938088801}]).target_objects
       expect(targets).to be_an Array
       expect(targets.first).to be_a Twitter::Tweet
     end
@@ -28,7 +28,7 @@ describe Twitter::Action::Retweet do
 
   describe "#targets" do
     it "returns a collection containing the retweeted user" do
-      targets = Twitter::Action::Retweet.new(targets: [{id: 7505382}]).targets
+      targets = Twitter::Action::Retweet.new(:targets => [{:id => 7505382}]).targets
       expect(targets).to be_an Array
       expect(targets.first).to be_a Twitter::User
     end

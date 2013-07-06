@@ -18,10 +18,10 @@ module Twitter
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Twitter::Token] The Bearer Token. token_type should be 'bearer'.
       # @example Generate a Bearer Token
-      #   client = Twitter::Client.new(consumer_key: "abc", consumer_secret: "def")
+      #   client = Twitter::Client.new(:consumer_key => "abc", :consumer_secret => 'def')
       #   bearer_token = client.token
       def token
-        object_from_response(Twitter::Token, :post, "/oauth2/token", grant_type: "client_credentials", bearer_token_request: true)
+        object_from_response(Twitter::Token, :post, "/oauth2/token", :grant_type => "client_credentials", :bearer_token_request => true)
       end
       alias bearer_token token
 
@@ -37,7 +37,7 @@ module Twitter
       #   Twitter.invalidate_token("AAAA%2FAAA%3DAAAAAAAA")
       def invalidate_token(access_token)
         access_token = access_token.access_token if access_token.is_a?(Twitter::Token)
-        object_from_response(Twitter::Token, :post, "/oauth2/invalidate_token", access_token: access_token)
+        object_from_response(Twitter::Token, :post, "/oauth2/invalidate_token", :access_token => access_token)
       end
     end
   end

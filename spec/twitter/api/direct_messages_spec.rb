@@ -8,7 +8,7 @@ describe Twitter::API::DirectMessages do
 
   describe "#direct_messages_received" do
     before do
-      stub_get("/1.1/direct_messages.json").to_return(body: fixture("direct_messages.json"), headers: {content_type: "application/json; charset=utf-8"})
+      stub_get("/1.1/direct_messages.json").to_return(:body => fixture("direct_messages.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
       @client.direct_messages_received
@@ -24,7 +24,7 @@ describe Twitter::API::DirectMessages do
 
   describe "#direct_messages_sent" do
     before do
-      stub_get("/1.1/direct_messages/sent.json").to_return(body: fixture("direct_messages.json"), headers: {content_type: "application/json; charset=utf-8"})
+      stub_get("/1.1/direct_messages/sent.json").to_return(:body => fixture("direct_messages.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
       @client.direct_messages_sent
@@ -40,11 +40,11 @@ describe Twitter::API::DirectMessages do
 
   describe "#direct_message" do
     before do
-      stub_get("/1.1/direct_messages/show.json").with(query: {id: "1825786345"}).to_return(body: fixture("direct_message.json"), headers: {content_type: "application/json; charset=utf-8"})
+      stub_get("/1.1/direct_messages/show.json").with(:query => {:id => "1825786345"}).to_return(:body => fixture("direct_message.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
       @client.direct_message(1825786345)
-      expect(a_get("/1.1/direct_messages/show.json").with(query: {id: "1825786345"})).to have_been_made
+      expect(a_get("/1.1/direct_messages/show.json").with(:query => {:id => "1825786345"})).to have_been_made
     end
     it "returns the specified direct message" do
       direct_message = @client.direct_message(1825786345)
@@ -56,11 +56,11 @@ describe Twitter::API::DirectMessages do
   describe "#direct_messages" do
     context "with ids passed" do
       before do
-        stub_get("/1.1/direct_messages/show.json").with(query: {id: "1825786345"}).to_return(body: fixture("direct_message.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/1.1/direct_messages/show.json").with(:query => {:id => "1825786345"}).to_return(:body => fixture("direct_message.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.direct_messages(1825786345)
-        expect(a_get("/1.1/direct_messages/show.json").with(query: {id: "1825786345"})).to have_been_made
+        expect(a_get("/1.1/direct_messages/show.json").with(:query => {:id => "1825786345"})).to have_been_made
       end
       it "returns an array of direct messages" do
         direct_messages = @client.direct_messages(1825786345)
@@ -71,7 +71,7 @@ describe Twitter::API::DirectMessages do
     end
     context "without ids passed" do
       before do
-        stub_get("/1.1/direct_messages.json").to_return(body: fixture("direct_messages.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/1.1/direct_messages.json").to_return(:body => fixture("direct_messages.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.direct_messages
@@ -88,11 +88,11 @@ describe Twitter::API::DirectMessages do
 
   describe "#direct_message_destroy" do
     before do
-      stub_post("/1.1/direct_messages/destroy.json").with(body: {id: "1825785544"}).to_return(body: fixture("direct_message.json"), headers: {content_type: "application/json; charset=utf-8"})
+      stub_post("/1.1/direct_messages/destroy.json").with(:body => {:id => "1825785544"}).to_return(:body => fixture("direct_message.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
       @client.direct_message_destroy(1825785544)
-      expect(a_post("/1.1/direct_messages/destroy.json").with(body: {id: "1825785544"})).to have_been_made
+      expect(a_post("/1.1/direct_messages/destroy.json").with(:body => {:id => "1825785544"})).to have_been_made
     end
     it "returns an array of deleted messages" do
       direct_messages = @client.direct_message_destroy(1825785544)
@@ -104,11 +104,11 @@ describe Twitter::API::DirectMessages do
 
   describe "#direct_message_create" do
     before do
-      stub_post("/1.1/direct_messages/new.json").with(body: {screen_name: "pengwynn", text: "Creating a fixture for the Twitter gem"}).to_return(body: fixture("direct_message.json"), headers: {content_type: "application/json; charset=utf-8"})
+      stub_post("/1.1/direct_messages/new.json").with(:body => {:screen_name => "pengwynn", :text => "Creating a fixture for the Twitter gem"}).to_return(:body => fixture("direct_message.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
       @client.direct_message_create("pengwynn", "Creating a fixture for the Twitter gem")
-      expect(a_post("/1.1/direct_messages/new.json").with(body: {screen_name: "pengwynn", text: "Creating a fixture for the Twitter gem"})).to have_been_made
+      expect(a_post("/1.1/direct_messages/new.json").with(:body => {:screen_name => "pengwynn", :text => "Creating a fixture for the Twitter gem"})).to have_been_made
     end
     it "returns the sent message" do
       direct_message = @client.direct_message_create("pengwynn", "Creating a fixture for the Twitter gem")

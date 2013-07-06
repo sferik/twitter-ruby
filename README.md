@@ -143,13 +143,13 @@ Then, for each user's access token/secret pair, instantiate a
 
 ```ruby
 erik = Twitter::Client.new(
-  oauth_token: "Erik's access token",
-  oauth_token_secret: "Erik's access secret",
+  :oauth_token => "Erik's access token",
+  :oauth_token_secret => "Erik's access secret"
 )
 
 john = Twitter::Client.new(
-  oauth_token: "John's access token",
-  oauth_token_secret: "John's access secret",
+  :oauth_token => "John's access token",
+  :oauth_token_secret => "John's access secret"
 )
 ```
 
@@ -165,10 +165,10 @@ a `Twitter::Client`:
 
 ```ruby
 client = Twitter::Client.new(
-  consumer_key: "an application's consumer key",
-  consumer_secret: "an application's consumer secret",
-  oauth_token: "a user's access token",
-  oauth_token_secret: "a user's access secret",
+  :consumer_key => "an application's consumer key",
+  :consumer_secret => "an application's consumer secret",
+  :oauth_token => "a user's access token",
+  :oauth_token_secret => "a user's access secret"
 )
 ```
 
@@ -259,14 +259,14 @@ Twitter.status(27558893223)
 **Find the 3 most recent marriage proposals to @justinbieber**
 
 ```ruby
-Twitter.search("to:justinbieber marry me", count: 3, result_type: "recent").results.map do |status|
+Twitter.search("to:justinbieber marry me", :count => 3, :result_type => "recent").results.map do |status|
   "#{status.from_user}: #{status.text}"
 end
 ```
 **Find a Japanese-language Tweet tagged #ruby (excluding retweets)**
 
 ```ruby
-Twitter.search("#ruby -rt", lang: "ja", count: 1).results.first.text
+Twitter.search("#ruby -rt", :lang => "ja", :count => 1).results.first.text
 ```
 For more usage examples, please see the full [documentation][].
 

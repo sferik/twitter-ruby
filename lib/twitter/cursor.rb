@@ -49,7 +49,7 @@ module Twitter
     # @param cursor [Integer]
     # @return [Array]
     def all(collection=collection, cursor=next_cursor)
-      cursor = @client.send(@method_name.to_sym, @method_options.merge(cursor: cursor))
+      cursor = @client.send(@method_name.to_sym, @method_options.merge(:cursor => cursor))
       collection += cursor.collection
       cursor.last? ? collection.flatten : all(collection, cursor.next_cursor)
     end

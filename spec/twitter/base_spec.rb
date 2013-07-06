@@ -2,7 +2,7 @@ require 'helper'
 
 describe Twitter::Base do
   before do
-    @base = Twitter::Base.new(id: 1)
+    @base = Twitter::Base.new(:id => 1)
   end
 
   describe "#[]" do
@@ -20,13 +20,13 @@ describe Twitter::Base do
 
   describe "#attrs" do
     it 'returns a hash of attributes' do
-      expect(@base.attrs).to eq({id: 1})
+      expect(@base.attrs).to eq({:id => 1})
     end
   end
 
   describe "#delete" do
     it 'deletes an attribute and returns its value' do
-      base = Twitter::Base.new(id: 1)
+      base = Twitter::Base.new(:id => 1)
       expect(base.delete(:id)).to eq(1)
       expect(base.attrs[:id]).to be_nil
     end
@@ -34,8 +34,8 @@ describe Twitter::Base do
 
   describe "#update" do
     it 'returns a hash of attributes' do
-      base = Twitter::Base.new(id: 1)
-      base.update(id: 2)
+      base = Twitter::Base.new(:id => 1)
+      base.update(:id => 2)
       expect(base.attrs[:id]).to eq(2)
     end
   end

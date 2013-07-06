@@ -117,7 +117,7 @@ module Twitter
     #
     # @return [Faraday::Connection]
     def connection
-      @connection ||= Faraday.new(@endpoint, @connection_options.merge(builder: @middleware))
+      @connection ||= Faraday.new(@endpoint, @connection_options.merge(:builder => @middleware))
     end
 
     # Generates authentication header for a bearer token request

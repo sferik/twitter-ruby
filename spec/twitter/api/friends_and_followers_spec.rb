@@ -9,11 +9,11 @@ describe Twitter::API::FriendsAndFollowers do
   describe "#friend_ids" do
     context "with a screen name passed" do
       before do
-        stub_get("/1.1/friends/ids.json").with(query: {cursor: "-1", screen_name: "sferik"}).to_return(body: fixture("ids_list.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/1.1/friends/ids.json").with(:query => {:cursor => "-1", :screen_name => "sferik"}).to_return(:body => fixture("ids_list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.friend_ids("sferik")
-        expect(a_get("/1.1/friends/ids.json").with(query: {cursor: "-1", screen_name: "sferik"})).to have_been_made
+        expect(a_get("/1.1/friends/ids.json").with(:query => {:cursor => "-1", :screen_name => "sferik"})).to have_been_made
       end
       it "returns an array of numeric IDs for every user the specified user is following" do
         friend_ids = @client.friend_ids("sferik")
@@ -23,43 +23,43 @@ describe Twitter::API::FriendsAndFollowers do
       end
       context "with all" do
         before do
-          stub_get("/1.1/friends/ids.json").with(query: {cursor: "1305102810874389703", screen_name: "sferik"}).to_return(body: fixture("ids_list2.json"), headers: {content_type: "application/json; charset=utf-8"})
+          stub_get("/1.1/friends/ids.json").with(:query => {:cursor => "1305102810874389703", :screen_name => "sferik"}).to_return(:body => fixture("ids_list2.json"), :headers => {:content_type => "application/json; charset=utf-8"})
         end
         it "requests the correct resource" do
           @client.friend_ids("sferik").all
-          expect(a_get("/1.1/friends/ids.json").with(query: {cursor: "-1", screen_name: "sferik"})).to have_been_made
-          expect(a_get("/1.1/friends/ids.json").with(query: {cursor: "1305102810874389703", screen_name: "sferik"})).to have_been_made
+          expect(a_get("/1.1/friends/ids.json").with(:query => {:cursor => "-1", :screen_name => "sferik"})).to have_been_made
+          expect(a_get("/1.1/friends/ids.json").with(:query => {:cursor => "1305102810874389703", :screen_name => "sferik"})).to have_been_made
         end
       end
     end
     context "with a user ID passed" do
       before do
-        stub_get("/1.1/friends/ids.json").with(query: {cursor: "-1", user_id: "7505382"}).to_return(body: fixture("ids_list.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/1.1/friends/ids.json").with(:query => {:cursor => "-1", :user_id => "7505382"}).to_return(:body => fixture("ids_list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.friend_ids(7505382)
-        expect(a_get("/1.1/friends/ids.json").with(query: {cursor: "-1", user_id: "7505382"})).to have_been_made
+        expect(a_get("/1.1/friends/ids.json").with(:query => {:cursor => "-1", :user_id => "7505382"})).to have_been_made
       end
       context "with all" do
         before do
-          stub_get("/1.1/friends/ids.json").with(query: {cursor: "1305102810874389703", user_id: "7505382"}).to_return(body: fixture("ids_list2.json"), headers: {content_type: "application/json; charset=utf-8"})
+          stub_get("/1.1/friends/ids.json").with(:query => {:cursor => "1305102810874389703", :user_id => "7505382"}).to_return(:body => fixture("ids_list2.json"), :headers => {:content_type => "application/json; charset=utf-8"})
         end
         it "requests the correct resource" do
           @client.friend_ids(7505382).all
-          expect(a_get("/1.1/friends/ids.json").with(query: {cursor: "-1", user_id: "7505382"})).to have_been_made
-          expect(a_get("/1.1/friends/ids.json").with(query: {cursor: "1305102810874389703", user_id: "7505382"})).to have_been_made
+          expect(a_get("/1.1/friends/ids.json").with(:query => {:cursor => "-1", :user_id => "7505382"})).to have_been_made
+          expect(a_get("/1.1/friends/ids.json").with(:query => {:cursor => "1305102810874389703", :user_id => "7505382"})).to have_been_made
         end
       end
     end
     context "without arguments passed" do
       before do
-        stub_get("/1.1/account/verify_credentials.json").to_return(body: fixture("sferik.json"), headers: {content_type: "application/json; charset=utf-8"})
-        stub_get("/1.1/friends/ids.json").with(query: {cursor: "-1", screen_name: "sferik"}).to_return(body: fixture("ids_list.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/1.1/account/verify_credentials.json").to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        stub_get("/1.1/friends/ids.json").with(:query => {:cursor => "-1", :screen_name => "sferik"}).to_return(:body => fixture("ids_list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.friend_ids
         expect(a_get("/1.1/account/verify_credentials.json")).to have_been_made
-        expect(a_get("/1.1/friends/ids.json").with(query: {cursor: "-1", screen_name: "sferik"})).to have_been_made
+        expect(a_get("/1.1/friends/ids.json").with(:query => {:cursor => "-1", :screen_name => "sferik"})).to have_been_made
       end
       it "returns an array of numeric IDs for every user the specified user is following" do
         friend_ids = @client.friend_ids
@@ -69,13 +69,13 @@ describe Twitter::API::FriendsAndFollowers do
       end
       context "with all" do
         before do
-          stub_get("/1.1/friends/ids.json").with(query: {cursor: "1305102810874389703", screen_name: "sferik"}).to_return(body: fixture("ids_list2.json"), headers: {content_type: "application/json; charset=utf-8"})
+          stub_get("/1.1/friends/ids.json").with(:query => {:cursor => "1305102810874389703", :screen_name => "sferik"}).to_return(:body => fixture("ids_list2.json"), :headers => {:content_type => "application/json; charset=utf-8"})
         end
         it "requests the correct resource" do
           @client.friend_ids.all
           expect(a_get("/1.1/account/verify_credentials.json")).to have_been_made
-          expect(a_get("/1.1/friends/ids.json").with(query: {cursor: "-1", screen_name: "sferik"})).to have_been_made
-          expect(a_get("/1.1/friends/ids.json").with(query: {cursor: "1305102810874389703", screen_name: "sferik"})).to have_been_made
+          expect(a_get("/1.1/friends/ids.json").with(:query => {:cursor => "-1", :screen_name => "sferik"})).to have_been_made
+          expect(a_get("/1.1/friends/ids.json").with(:query => {:cursor => "1305102810874389703", :screen_name => "sferik"})).to have_been_made
         end
       end
     end
@@ -84,11 +84,11 @@ describe Twitter::API::FriendsAndFollowers do
   describe "#follower_ids" do
     context "with a screen name passed" do
       before do
-        stub_get("/1.1/followers/ids.json").with(query: {cursor: "-1", screen_name: "sferik"}).to_return(body: fixture("ids_list.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/1.1/followers/ids.json").with(:query => {:cursor => "-1", :screen_name => "sferik"}).to_return(:body => fixture("ids_list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.follower_ids("sferik")
-        expect(a_get("/1.1/followers/ids.json").with(query: {cursor: "-1", screen_name: "sferik"})).to have_been_made
+        expect(a_get("/1.1/followers/ids.json").with(:query => {:cursor => "-1", :screen_name => "sferik"})).to have_been_made
       end
       it "returns an array of numeric IDs for every user following the specified user" do
         follower_ids = @client.follower_ids("sferik")
@@ -98,43 +98,43 @@ describe Twitter::API::FriendsAndFollowers do
       end
       context "with all" do
         before do
-          stub_get("/1.1/followers/ids.json").with(query: {cursor: "1305102810874389703", screen_name: "sferik"}).to_return(body: fixture("ids_list2.json"), headers: {content_type: "application/json; charset=utf-8"})
+          stub_get("/1.1/followers/ids.json").with(:query => {:cursor => "1305102810874389703", :screen_name => "sferik"}).to_return(:body => fixture("ids_list2.json"), :headers => {:content_type => "application/json; charset=utf-8"})
         end
         it "requests the correct resource" do
           @client.follower_ids("sferik").all
-          expect(a_get("/1.1/followers/ids.json").with(query: {cursor: "-1", screen_name: "sferik"})).to have_been_made
-          expect(a_get("/1.1/followers/ids.json").with(query: {cursor: "1305102810874389703", screen_name: "sferik"})).to have_been_made
+          expect(a_get("/1.1/followers/ids.json").with(:query => {:cursor => "-1", :screen_name => "sferik"})).to have_been_made
+          expect(a_get("/1.1/followers/ids.json").with(:query => {:cursor => "1305102810874389703", :screen_name => "sferik"})).to have_been_made
         end
       end
     end
     context "with a user ID passed" do
       before do
-        stub_get("/1.1/followers/ids.json").with(query: {cursor: "-1", user_id: "7505382"}).to_return(body: fixture("ids_list.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/1.1/followers/ids.json").with(:query => {:cursor => "-1", :user_id => "7505382"}).to_return(:body => fixture("ids_list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.follower_ids(7505382)
-        expect(a_get("/1.1/followers/ids.json").with(query: {cursor: "-1", user_id: "7505382"})).to have_been_made
+        expect(a_get("/1.1/followers/ids.json").with(:query => {:cursor => "-1", :user_id => "7505382"})).to have_been_made
       end
       context "with all" do
         before do
-          stub_get("/1.1/followers/ids.json").with(query: {cursor: "1305102810874389703", user_id: "7505382"}).to_return(body: fixture("ids_list2.json"), headers: {content_type: "application/json; charset=utf-8"})
+          stub_get("/1.1/followers/ids.json").with(:query => {:cursor => "1305102810874389703", :user_id => "7505382"}).to_return(:body => fixture("ids_list2.json"), :headers => {:content_type => "application/json; charset=utf-8"})
         end
         it "requests the correct resource" do
           @client.follower_ids(7505382).all
-          expect(a_get("/1.1/followers/ids.json").with(query: {cursor: "-1", user_id: "7505382"})).to have_been_made
-          expect(a_get("/1.1/followers/ids.json").with(query: {cursor: "1305102810874389703", user_id: "7505382"})).to have_been_made
+          expect(a_get("/1.1/followers/ids.json").with(:query => {:cursor => "-1", :user_id => "7505382"})).to have_been_made
+          expect(a_get("/1.1/followers/ids.json").with(:query => {:cursor => "1305102810874389703", :user_id => "7505382"})).to have_been_made
         end
       end
     end
     context "without arguments passed" do
       before do
-        stub_get("/1.1/account/verify_credentials.json").to_return(body: fixture("sferik.json"), headers: {content_type: "application/json; charset=utf-8"})
-        stub_get("/1.1/followers/ids.json").with(query: {cursor: "-1", screen_name: "sferik"}).to_return(body: fixture("ids_list.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/1.1/account/verify_credentials.json").to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        stub_get("/1.1/followers/ids.json").with(:query => {:cursor => "-1", :screen_name => "sferik"}).to_return(:body => fixture("ids_list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.follower_ids
         expect(a_get("/1.1/account/verify_credentials.json")).to have_been_made
-        expect(a_get("/1.1/followers/ids.json").with(query: {cursor: "-1", screen_name: "sferik"})).to have_been_made
+        expect(a_get("/1.1/followers/ids.json").with(:query => {:cursor => "-1", :screen_name => "sferik"})).to have_been_made
       end
       it "returns an array of numeric IDs for every user following the specified user" do
         follower_ids = @client.follower_ids
@@ -144,13 +144,13 @@ describe Twitter::API::FriendsAndFollowers do
       end
       context "with all" do
         before do
-          stub_get("/1.1/followers/ids.json").with(query: {cursor: "1305102810874389703", screen_name: "sferik"}).to_return(body: fixture("ids_list2.json"), headers: {content_type: "application/json; charset=utf-8"})
+          stub_get("/1.1/followers/ids.json").with(:query => {:cursor => "1305102810874389703", :screen_name => "sferik"}).to_return(:body => fixture("ids_list2.json"), :headers => {:content_type => "application/json; charset=utf-8"})
         end
         it "requests the correct resource" do
           @client.follower_ids.all
           expect(a_get("/1.1/account/verify_credentials.json")).to have_been_made
-          expect(a_get("/1.1/followers/ids.json").with(query: {cursor: "-1", screen_name: "sferik"})).to have_been_made
-          expect(a_get("/1.1/followers/ids.json").with(query: {cursor: "1305102810874389703", screen_name: "sferik"})).to have_been_made
+          expect(a_get("/1.1/followers/ids.json").with(:query => {:cursor => "-1", :screen_name => "sferik"})).to have_been_made
+          expect(a_get("/1.1/followers/ids.json").with(:query => {:cursor => "1305102810874389703", :screen_name => "sferik"})).to have_been_made
         end
       end
     end
@@ -159,11 +159,11 @@ describe Twitter::API::FriendsAndFollowers do
   describe "#friendships" do
     context "with screen names passed" do
       before do
-        stub_get("/1.1/friendships/lookup.json").with(query: {screen_name: "sferik,pengwynn"}).to_return(body: fixture("friendships.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/1.1/friendships/lookup.json").with(:query => {:screen_name => "sferik,pengwynn"}).to_return(:body => fixture("friendships.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.friendships("sferik", "pengwynn")
-        expect(a_get("/1.1/friendships/lookup.json").with(query: {screen_name: "sferik,pengwynn"})).to have_been_made
+        expect(a_get("/1.1/friendships/lookup.json").with(:query => {:screen_name => "sferik,pengwynn"})).to have_been_made
       end
       it "returns up to 100 users worth of extended information" do
         friendships = @client.friendships("sferik", "pengwynn")
@@ -175,29 +175,29 @@ describe Twitter::API::FriendsAndFollowers do
     end
     context "with numeric screen names passed" do
       before do
-        stub_get("/1.1/friendships/lookup.json").with(query: {screen_name: "0,311"}).to_return(body: fixture("friendships.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/1.1/friendships/lookup.json").with(:query => {:screen_name => "0,311"}).to_return(:body => fixture("friendships.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.friendships("0", "311")
-        expect(a_get("/1.1/friendships/lookup.json").with(query: {screen_name: "0,311"})).to have_been_made
+        expect(a_get("/1.1/friendships/lookup.json").with(:query => {:screen_name => "0,311"})).to have_been_made
       end
     end
     context "with user IDs passed" do
       before do
-        stub_get("/1.1/friendships/lookup.json").with(query: {user_id: "7505382,14100886"}).to_return(body: fixture("friendships.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/1.1/friendships/lookup.json").with(:query => {:user_id => "7505382,14100886"}).to_return(:body => fixture("friendships.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.friendships(7505382, 14100886)
-        expect(a_get("/1.1/friendships/lookup.json").with(query: {user_id: "7505382,14100886"})).to have_been_made
+        expect(a_get("/1.1/friendships/lookup.json").with(:query => {:user_id => "7505382,14100886"})).to have_been_made
       end
     end
     context "with both screen names and user IDs passed" do
       before do
-        stub_get("/1.1/friendships/lookup.json").with(query: {screen_name: "sferik", user_id: "14100886"}).to_return(body: fixture("friendships.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/1.1/friendships/lookup.json").with(:query => {:screen_name => "sferik", :user_id => "14100886"}).to_return(:body => fixture("friendships.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.friendships("sferik", 14100886)
-        expect(a_get("/1.1/friendships/lookup.json").with(query: {screen_name: "sferik", user_id: "14100886"})).to have_been_made
+        expect(a_get("/1.1/friendships/lookup.json").with(:query => {:screen_name => "sferik", :user_id => "14100886"})).to have_been_made
       end
     end
   end
@@ -205,11 +205,11 @@ describe Twitter::API::FriendsAndFollowers do
   describe "#friendships" do
     context "with screen names passed" do
       before do
-        stub_get("/1.1/friendships/lookup.json").with(query: {screen_name: "sferik,pengwynn"}).to_return(body: fixture("friendships.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/1.1/friendships/lookup.json").with(:query => {:screen_name => "sferik,pengwynn"}).to_return(:body => fixture("friendships.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.friendships("sferik", "pengwynn")
-        expect(a_get("/1.1/friendships/lookup.json").with(query: {screen_name: "sferik,pengwynn"})).to have_been_made
+        expect(a_get("/1.1/friendships/lookup.json").with(:query => {:screen_name => "sferik,pengwynn"})).to have_been_made
       end
       it "returns up to 100 users worth of extended information" do
         friendships = @client.friendships("sferik", "pengwynn")
@@ -221,40 +221,40 @@ describe Twitter::API::FriendsAndFollowers do
     end
     context "with numeric screen names passed" do
       before do
-        stub_get("/1.1/friendships/lookup.json").with(query: {screen_name: "0,311"}).to_return(body: fixture("friendships.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/1.1/friendships/lookup.json").with(:query => {:screen_name => "0,311"}).to_return(:body => fixture("friendships.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.friendships("0", "311")
-        expect(a_get("/1.1/friendships/lookup.json").with(query: {screen_name: "0,311"})).to have_been_made
+        expect(a_get("/1.1/friendships/lookup.json").with(:query => {:screen_name => "0,311"})).to have_been_made
       end
     end
     context "with user IDs passed" do
       before do
-        stub_get("/1.1/friendships/lookup.json").with(query: {user_id: "7505382,14100886"}).to_return(body: fixture("friendships.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/1.1/friendships/lookup.json").with(:query => {:user_id => "7505382,14100886"}).to_return(:body => fixture("friendships.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.friendships(7505382, 14100886)
-        expect(a_get("/1.1/friendships/lookup.json").with(query: {user_id: "7505382,14100886"})).to have_been_made
+        expect(a_get("/1.1/friendships/lookup.json").with(:query => {:user_id => "7505382,14100886"})).to have_been_made
       end
     end
     context "with both screen names and user IDs passed" do
       before do
-        stub_get("/1.1/friendships/lookup.json").with(query: {screen_name: "sferik", user_id: "14100886"}).to_return(body: fixture("friendships.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/1.1/friendships/lookup.json").with(:query => {:screen_name => "sferik", :user_id => "14100886"}).to_return(:body => fixture("friendships.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.friendships("sferik", 14100886)
-        expect(a_get("/1.1/friendships/lookup.json").with(query: {screen_name: "sferik", user_id: "14100886"})).to have_been_made
+        expect(a_get("/1.1/friendships/lookup.json").with(:query => {:screen_name => "sferik", :user_id => "14100886"})).to have_been_made
       end
     end
   end
 
   describe "#friendships_incoming" do
     before do
-      stub_get("/1.1/friendships/incoming.json").with(query: {cursor: "-1"}).to_return(body: fixture("ids_list.json"), headers: {content_type: "application/json; charset=utf-8"})
+      stub_get("/1.1/friendships/incoming.json").with(:query => {:cursor => "-1"}).to_return(:body => fixture("ids_list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
       @client.friendships_incoming
-      expect(a_get("/1.1/friendships/incoming.json").with(query: {cursor: "-1"})).to have_been_made
+      expect(a_get("/1.1/friendships/incoming.json").with(:query => {:cursor => "-1"})).to have_been_made
     end
     it "returns an array of numeric IDs for every user who has a pending request to follow the authenticating user" do
       friendships_incoming = @client.friendships_incoming
@@ -264,22 +264,22 @@ describe Twitter::API::FriendsAndFollowers do
     end
     context "with all" do
       before do
-        stub_get("/1.1/friendships/incoming.json").with(query: {cursor: "1305102810874389703"}).to_return(body: fixture("ids_list2.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/1.1/friendships/incoming.json").with(:query => {:cursor => "1305102810874389703"}).to_return(:body => fixture("ids_list2.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.friendships_incoming.all
-        expect(a_get("/1.1/friendships/incoming.json").with(query: {cursor: "1305102810874389703"})).to have_been_made
+        expect(a_get("/1.1/friendships/incoming.json").with(:query => {:cursor => "1305102810874389703"})).to have_been_made
       end
     end
   end
 
   describe "#friendships_outgoing" do
     before do
-      stub_get("/1.1/friendships/outgoing.json").with(query: {cursor: "-1"}).to_return(body: fixture("ids_list.json"), headers: {content_type: "application/json; charset=utf-8"})
+      stub_get("/1.1/friendships/outgoing.json").with(:query => {:cursor => "-1"}).to_return(:body => fixture("ids_list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
       @client.friendships_outgoing
-      expect(a_get("/1.1/friendships/outgoing.json").with(query: {cursor: "-1"})).to have_been_made
+      expect(a_get("/1.1/friendships/outgoing.json").with(:query => {:cursor => "-1"})).to have_been_made
     end
     it "returns an array of numeric IDs for every protected user for whom the authenticating user has a pending follow request" do
       friendships_outgoing = @client.friendships_outgoing
@@ -289,95 +289,95 @@ describe Twitter::API::FriendsAndFollowers do
     end
     context "with all" do
       before do
-        stub_get("/1.1/friendships/outgoing.json").with(query: {cursor: "1305102810874389703"}).to_return(body: fixture("ids_list2.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/1.1/friendships/outgoing.json").with(:query => {:cursor => "1305102810874389703"}).to_return(:body => fixture("ids_list2.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.friendships_outgoing.all
-        expect(a_get("/1.1/friendships/outgoing.json").with(query: {cursor: "1305102810874389703"})).to have_been_made
+        expect(a_get("/1.1/friendships/outgoing.json").with(:query => {:cursor => "1305102810874389703"})).to have_been_made
       end
     end
   end
 
   describe "#follow" do
-    context "with follow: \"true\" passed" do
+    context "with :follow => true passed" do
       before do
-        stub_get("/1.1/account/verify_credentials.json").to_return(body: fixture("sferik.json"), headers: {content_type: "application/json; charset=utf-8"})
-        stub_get("/1.1/friends/ids.json").with(query: {cursor: "-1", screen_name: "sferik"}).to_return(body: fixture("ids_list.json"), headers: {content_type: "application/json; charset=utf-8"})
-        stub_post("/1.1/users/lookup.json").with(body: {screen_name: "sferik,pengwynn"}).to_return(body: fixture("friendships.json"), headers: {content_type: "application/json; charset=utf-8"})
-        stub_post("/1.1/friendships/create.json").with(body: {user_id: "7505382", follow: "true"}).to_return(body: fixture("sferik.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/1.1/account/verify_credentials.json").to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        stub_get("/1.1/friends/ids.json").with(:query => {:cursor => "-1", :screen_name => "sferik"}).to_return(:body => fixture("ids_list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        stub_post("/1.1/users/lookup.json").with(:body => {:screen_name => "sferik,pengwynn"}).to_return(:body => fixture("friendships.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        stub_post("/1.1/friendships/create.json").with(:body => {:user_id => "7505382", :follow => "true"}).to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
-        @client.follow("sferik", "pengwynn", follow: true)
+        @client.follow("sferik", "pengwynn", :follow => true)
         expect(a_get("/1.1/account/verify_credentials.json")).to have_been_made
-        expect(a_get("/1.1/friends/ids.json").with(query: {cursor: "-1", screen_name: "sferik"})).to have_been_made
-        expect(a_post("/1.1/users/lookup.json").with(body: {screen_name: "sferik,pengwynn"})).to have_been_made
-        expect(a_post("/1.1/friendships/create.json").with(body: {user_id: "7505382", follow: "true"})).to have_been_made
+        expect(a_get("/1.1/friends/ids.json").with(:query => {:cursor => "-1", :screen_name => "sferik"})).to have_been_made
+        expect(a_post("/1.1/users/lookup.json").with(:body => {:screen_name => "sferik,pengwynn"})).to have_been_made
+        expect(a_post("/1.1/friendships/create.json").with(:body => {:user_id => "7505382", :follow => "true"})).to have_been_made
       end
       it "returns an array of befriended users" do
-        users = @client.follow("sferik", "pengwynn", follow: true)
+        users = @client.follow("sferik", "pengwynn", :follow => true)
         expect(users).to be_an Array
         expect(users.first).to be_a Twitter::User
         expect(users.first.id).to eq 7505382
       end
     end
-    context "with follow: \"false\" passed" do
+    context "with :follow => false passed" do
       before do
-        stub_get("/1.1/account/verify_credentials.json").to_return(body: fixture("sferik.json"), headers: {content_type: "application/json; charset=utf-8"})
-        stub_get("/1.1/friends/ids.json").with(query: {cursor: "-1", screen_name: "sferik"}).to_return(body: fixture("ids_list.json"), headers: {content_type: "application/json; charset=utf-8"})
-        stub_post("/1.1/users/lookup.json").with(body: {screen_name: "sferik,pengwynn"}).to_return(body: fixture("friendships.json"), headers: {content_type: "application/json; charset=utf-8"})
-        stub_post("/1.1/friendships/create.json").with(body: {user_id: "7505382"}).to_return(body: fixture("sferik.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/1.1/account/verify_credentials.json").to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        stub_get("/1.1/friends/ids.json").with(:query => {:cursor => "-1", :screen_name => "sferik"}).to_return(:body => fixture("ids_list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        stub_post("/1.1/users/lookup.json").with(:body => {:screen_name => "sferik,pengwynn"}).to_return(:body => fixture("friendships.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        stub_post("/1.1/friendships/create.json").with(:body => {:user_id => "7505382"}).to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
-        @client.follow("sferik", "pengwynn", follow: false)
+        @client.follow("sferik", "pengwynn", :follow => false)
         expect(a_get("/1.1/account/verify_credentials.json")).to have_been_made
-        expect(a_get("/1.1/friends/ids.json").with(query: {cursor: "-1", screen_name: "sferik"})).to have_been_made
-        expect(a_post("/1.1/users/lookup.json").with(body: {screen_name: "sferik,pengwynn"})).to have_been_made
-        expect(a_post("/1.1/friendships/create.json").with(body: {user_id: "7505382"})).to have_been_made
+        expect(a_get("/1.1/friends/ids.json").with(:query => {:cursor => "-1", :screen_name => "sferik"})).to have_been_made
+        expect(a_post("/1.1/users/lookup.json").with(:body => {:screen_name => "sferik,pengwynn"})).to have_been_made
+        expect(a_post("/1.1/friendships/create.json").with(:body => {:user_id => "7505382"})).to have_been_made
       end
     end
     context "without :follow passed" do
       before do
-        stub_get("/1.1/account/verify_credentials.json").to_return(body: fixture("sferik.json"), headers: {content_type: "application/json; charset=utf-8"})
-        stub_get("/1.1/friends/ids.json").with(query: {cursor: "-1", screen_name: "sferik"}).to_return(body: fixture("ids_list.json"), headers: {content_type: "application/json; charset=utf-8"})
-        stub_post("/1.1/users/lookup.json").with(body: {screen_name: "sferik,pengwynn"}).to_return(body: fixture("friendships.json"), headers: {content_type: "application/json; charset=utf-8"})
-        stub_post("/1.1/friendships/create.json").with(body: {user_id: "7505382"}).to_return(body: fixture("sferik.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/1.1/account/verify_credentials.json").to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        stub_get("/1.1/friends/ids.json").with(:query => {:cursor => "-1", :screen_name => "sferik"}).to_return(:body => fixture("ids_list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        stub_post("/1.1/users/lookup.json").with(:body => {:screen_name => "sferik,pengwynn"}).to_return(:body => fixture("friendships.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        stub_post("/1.1/friendships/create.json").with(:body => {:user_id => "7505382"}).to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.follow("sferik", "pengwynn")
         expect(a_get("/1.1/account/verify_credentials.json")).to have_been_made
-        expect(a_get("/1.1/friends/ids.json").with(query: {cursor: "-1", screen_name: "sferik"})).to have_been_made
-        expect(a_post("/1.1/users/lookup.json").with(body: {screen_name: "sferik,pengwynn"})).to have_been_made
-        expect(a_post("/1.1/friendships/create.json").with(body: {user_id: "7505382"})).to have_been_made
+        expect(a_get("/1.1/friends/ids.json").with(:query => {:cursor => "-1", :screen_name => "sferik"})).to have_been_made
+        expect(a_post("/1.1/users/lookup.json").with(:body => {:screen_name => "sferik,pengwynn"})).to have_been_made
+        expect(a_post("/1.1/friendships/create.json").with(:body => {:user_id => "7505382"})).to have_been_made
       end
     end
   end
 
   describe "#follow!" do
-    context "with follow: \"true\" passed" do
+    context "with :follow => true passed" do
       before do
-        stub_post("/1.1/friendships/create.json").with(body: {screen_name: "sferik", follow: "true"}).to_return(body: fixture("sferik.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_post("/1.1/friendships/create.json").with(:body => {:screen_name => "sferik", :follow => "true"}).to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
-        @client.follow!("sferik", follow: true)
-        expect(a_post("/1.1/friendships/create.json").with(body: {screen_name: "sferik", follow: "true"})).to have_been_made
+        @client.follow!("sferik", :follow => true)
+        expect(a_post("/1.1/friendships/create.json").with(:body => {:screen_name => "sferik", :follow => "true"})).to have_been_made
       end
       it "returns an array of befriended users" do
-        users = @client.follow!("sferik", follow: true)
+        users = @client.follow!("sferik", :follow => true)
         expect(users).to be_an Array
         expect(users.first).to be_a Twitter::User
         expect(users.first.id).to eq 7505382
       end
     end
-    context "with follow: \"false\" passed" do
+    context "with :follow => false passed" do
       before do
-        stub_post("/1.1/friendships/create.json").with(body: {screen_name: "sferik"}).to_return(body: fixture("sferik.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_post("/1.1/friendships/create.json").with(:body => {:screen_name => "sferik"}).to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
-        @client.follow!("sferik", follow: false)
-        expect(a_post("/1.1/friendships/create.json").with(body: {screen_name: "sferik"})).to have_been_made
+        @client.follow!("sferik", :follow => false)
+        expect(a_post("/1.1/friendships/create.json").with(:body => {:screen_name => "sferik"})).to have_been_made
       end
       it "returns an array of befriended users" do
-        users = @client.follow!("sferik", follow: false)
+        users = @client.follow!("sferik", :follow => false)
         expect(users).to be_an Array
         expect(users.first).to be_a Twitter::User
         expect(users.first.id).to eq 7505382
@@ -385,11 +385,11 @@ describe Twitter::API::FriendsAndFollowers do
     end
     context "without :follow passed" do
       before do
-        stub_post("/1.1/friendships/create.json").with(body: {screen_name: "sferik"}).to_return(body: fixture("sferik.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_post("/1.1/friendships/create.json").with(:body => {:screen_name => "sferik"}).to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.follow!("sferik")
-        expect(a_post("/1.1/friendships/create.json").with(body: {screen_name: "sferik"})).to have_been_made
+        expect(a_post("/1.1/friendships/create.json").with(:body => {:screen_name => "sferik"})).to have_been_made
       end
       it "returns an array of befriended users" do
         users = @client.follow!("sferik")
@@ -402,11 +402,11 @@ describe Twitter::API::FriendsAndFollowers do
 
   describe "#unfollow" do
     before do
-      stub_post("/1.1/friendships/destroy.json").with(body: {screen_name: "sferik"}).to_return(body: fixture("sferik.json"), headers: {content_type: "application/json; charset=utf-8"})
+      stub_post("/1.1/friendships/destroy.json").with(:body => {:screen_name => "sferik"}).to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
       @client.unfollow("sferik")
-      expect(a_post("/1.1/friendships/destroy.json").with(body: {screen_name: "sferik"})).to have_been_made
+      expect(a_post("/1.1/friendships/destroy.json").with(:body => {:screen_name => "sferik"})).to have_been_made
     end
     it "returns an array of unfollowed users" do
       users = @client.friendship_destroy("sferik")
@@ -418,14 +418,14 @@ describe Twitter::API::FriendsAndFollowers do
 
   describe "#friendship_update" do
     before do
-      stub_post("/1.1/friendships/update.json").with(body: {screen_name: "sferik", retweets: "true"}).to_return(body: fixture("following.json"), headers: {content_type: "application/json; charset=utf-8"})
+      stub_post("/1.1/friendships/update.json").with(:body => {:screen_name => "sferik", :retweets => "true"}).to_return(:body => fixture("following.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
-      @client.friendship_update("sferik", retweets: true)
-      expect(a_post("/1.1/friendships/update.json").with(body: {screen_name: "sferik", retweets: "true"})).to have_been_made
+      @client.friendship_update("sferik", :retweets => true)
+      expect(a_post("/1.1/friendships/update.json").with(:body => {:screen_name => "sferik", :retweets => "true"})).to have_been_made
     end
     it "returns detailed information about the relationship between two users" do
-      relationship = @client.friendship_update("sferik", retweets: true)
+      relationship = @client.friendship_update("sferik", :retweets => true)
       expect(relationship).to be_a Twitter::Relationship
       expect(relationship.source.id).to eq 7505382
     end
@@ -434,11 +434,11 @@ describe Twitter::API::FriendsAndFollowers do
   describe "#friendship" do
     context "with screen names passed" do
       before do
-        stub_get("/1.1/friendships/show.json").with(query: {source_screen_name: "sferik", target_screen_name: "pengwynn"}).to_return(body: fixture("following.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/1.1/friendships/show.json").with(:query => {:source_screen_name => "sferik", :target_screen_name => "pengwynn"}).to_return(:body => fixture("following.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.friendship("sferik", "pengwynn")
-        expect(a_get("/1.1/friendships/show.json").with(query: {source_screen_name: "sferik", target_screen_name: "pengwynn"})).to have_been_made
+        expect(a_get("/1.1/friendships/show.json").with(:query => {:source_screen_name => "sferik", :target_screen_name => "pengwynn"})).to have_been_made
       end
       it "returns detailed information about the relationship between two users" do
         relationship = @client.friendship("sferik", "pengwynn")
@@ -448,31 +448,31 @@ describe Twitter::API::FriendsAndFollowers do
     end
     context "with numeric screen names passed" do
       before do
-        stub_get("/1.1/friendships/show.json").with(query: {source_screen_name: "0", target_screen_name: "311"}).to_return(body: fixture("following.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/1.1/friendships/show.json").with(:query => {:source_screen_name => "0", :target_screen_name => "311"}).to_return(:body => fixture("following.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.friendship("0", "311")
-        expect(a_get("/1.1/friendships/show.json").with(query: {source_screen_name: "0", target_screen_name: "311"})).to have_been_made
+        expect(a_get("/1.1/friendships/show.json").with(:query => {:source_screen_name => "0", :target_screen_name => "311"})).to have_been_made
       end
     end
     context "with user IDs passed" do
       before do
-        stub_get("/1.1/friendships/show.json").with(query: {source_id: "7505382", target_id: "14100886"}).to_return(body: fixture("following.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/1.1/friendships/show.json").with(:query => {:source_id => "7505382", :target_id => "14100886"}).to_return(:body => fixture("following.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.friendship(7505382, 14100886)
-        expect(a_get("/1.1/friendships/show.json").with(query: {source_id: "7505382", target_id: "14100886"})).to have_been_made
+        expect(a_get("/1.1/friendships/show.json").with(:query => {:source_id => "7505382", :target_id => "14100886"})).to have_been_made
       end
     end
     context "with user objects passed" do
       before do
-        stub_get("/1.1/friendships/show.json").with(query: {source_id: "7505382", target_id: "14100886"}).to_return(body: fixture("following.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/1.1/friendships/show.json").with(:query => {:source_id => "7505382", :target_id => "14100886"}).to_return(:body => fixture("following.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
-        user1 = Twitter::User.new(id: "7505382")
-        user2 = Twitter::User.new(id: "14100886")
+        user1 = Twitter::User.new(:id => "7505382")
+        user2 = Twitter::User.new(:id => "14100886")
         @client.friendship(user1, user2)
-        expect(a_get("/1.1/friendships/show.json").with(query: {source_id: "7505382", target_id: "14100886"})).to have_been_made
+        expect(a_get("/1.1/friendships/show.json").with(:query => {:source_id => "7505382", :target_id => "14100886"})).to have_been_made
       end
     end
   end
@@ -480,12 +480,12 @@ describe Twitter::API::FriendsAndFollowers do
   describe "#friendship?" do
     context "with screen names passed" do
       before do
-        stub_get("/1.1/friendships/show.json").with(query: {source_screen_name: "sferik", target_screen_name: "pengwynn"}).to_return(body: fixture("following.json"), headers: {content_type: "application/json; charset=utf-8"})
-        stub_get("/1.1/friendships/show.json").with(query: {source_screen_name: "pengwynn", target_screen_name: "sferik"}).to_return(body: fixture("not_following.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/1.1/friendships/show.json").with(:query => {:source_screen_name => "sferik", :target_screen_name => "pengwynn"}).to_return(:body => fixture("following.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        stub_get("/1.1/friendships/show.json").with(:query => {:source_screen_name => "pengwynn", :target_screen_name => "sferik"}).to_return(:body => fixture("not_following.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.friendship?("sferik", "pengwynn")
-        expect(a_get("/1.1/friendships/show.json").with(query: {source_screen_name: "sferik", target_screen_name: "pengwynn"})).to have_been_made
+        expect(a_get("/1.1/friendships/show.json").with(:query => {:source_screen_name => "sferik", :target_screen_name => "pengwynn"})).to have_been_made
       end
       it "returns true if user A follows user B" do
         friendship = @client.friendship?("sferik", "pengwynn")
@@ -498,22 +498,22 @@ describe Twitter::API::FriendsAndFollowers do
     end
     context "with user IDs passed" do
       before do
-        stub_get("/1.1/friendships/show.json").with(query: {source_id: "7505382", target_id: "14100886"}).to_return(body: fixture("following.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/1.1/friendships/show.json").with(:query => {:source_id => "7505382", :target_id => "14100886"}).to_return(:body => fixture("following.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.friendship?(7505382, 14100886)
-        expect(a_get("/1.1/friendships/show.json").with(query: {source_id: "7505382", target_id: "14100886"})).to have_been_made
+        expect(a_get("/1.1/friendships/show.json").with(:query => {:source_id => "7505382", :target_id => "14100886"})).to have_been_made
       end
     end
     context "with user objects passed" do
       before do
-        stub_get("/1.1/friendships/show.json").with(query: {source_id: "7505382", target_id: "14100886"}).to_return(body: fixture("following.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/1.1/friendships/show.json").with(:query => {:source_id => "7505382", :target_id => "14100886"}).to_return(:body => fixture("following.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
-        user1 = Twitter::User.new(id: "7505382")
-        user2 = Twitter::User.new(id: "14100886")
+        user1 = Twitter::User.new(:id => "7505382")
+        user2 = Twitter::User.new(:id => "14100886")
         @client.friendship?(user1, user2)
-        expect(a_get("/1.1/friendships/show.json").with(query: {source_id: "7505382", target_id: "14100886"})).to have_been_made
+        expect(a_get("/1.1/friendships/show.json").with(:query => {:source_id => "7505382", :target_id => "14100886"})).to have_been_made
       end
     end
   end
@@ -521,11 +521,11 @@ describe Twitter::API::FriendsAndFollowers do
   describe "#followers" do
     context "with a screen_name passed" do
       before do
-        stub_get("/1.1/followers/list.json").with(query: {cursor: "-1", screen_name: "sferik"}).to_return(body: fixture("followers_list.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/1.1/followers/list.json").with(:query => {:cursor => "-1", :screen_name => "sferik"}).to_return(:body => fixture("followers_list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.followers("sferik")
-        expect(a_get("/1.1/followers/list.json").with(query: {cursor: "-1", screen_name: "sferik"})).to have_been_made
+        expect(a_get("/1.1/followers/list.json").with(:query => {:cursor => "-1", :screen_name => "sferik"})).to have_been_made
       end
       it "returns a cursor of followers with details for every user the specified user is followed by" do
         followers = @client.followers("sferik")
@@ -535,43 +535,43 @@ describe Twitter::API::FriendsAndFollowers do
       end
       context "with all" do
         before do
-          stub_get("/1.1/followers/list.json").with(query: {cursor: "1419103567112105362", screen_name: "sferik"}).to_return(body: fixture("followers_list2.json"), headers: {content_type: "application/json; charset=utf-8"})
+          stub_get("/1.1/followers/list.json").with(:query => {:cursor => "1419103567112105362", :screen_name => "sferik"}).to_return(:body => fixture("followers_list2.json"), :headers => {:content_type => "application/json; charset=utf-8"})
         end
         it "requests the correct resource" do
           @client.followers("sferik").all
-          expect(a_get("/1.1/followers/list.json").with(query: {cursor: "-1", screen_name: "sferik"})).to have_been_made
-          expect(a_get("/1.1/followers/list.json").with(query: {cursor: "1419103567112105362", screen_name: "sferik"})).to have_been_made
+          expect(a_get("/1.1/followers/list.json").with(:query => {:cursor => "-1", :screen_name => "sferik"})).to have_been_made
+          expect(a_get("/1.1/followers/list.json").with(:query => {:cursor => "1419103567112105362", :screen_name => "sferik"})).to have_been_made
         end
       end
     end
     context "with a user ID passed" do
       before do
-        stub_get("/1.1/followers/list.json").with(query: {cursor: "-1", user_id: "7505382"}).to_return(body: fixture("followers_list.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/1.1/followers/list.json").with(:query => {:cursor => "-1", :user_id => "7505382"}).to_return(:body => fixture("followers_list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.followers(7505382)
-        expect(a_get("/1.1/followers/list.json").with(query: {cursor: "-1", user_id: "7505382"})).to have_been_made
+        expect(a_get("/1.1/followers/list.json").with(:query => {:cursor => "-1", :user_id => "7505382"})).to have_been_made
       end
       context "with all" do
         before do
-          stub_get("/1.1/followers/list.json").with(query: {cursor: "1419103567112105362", user_id: "7505382"}).to_return(body: fixture("followers_list2.json"), headers: {content_type: "application/json; charset=utf-8"})
+          stub_get("/1.1/followers/list.json").with(:query => {:cursor => "1419103567112105362", :user_id => "7505382"}).to_return(:body => fixture("followers_list2.json"), :headers => {:content_type => "application/json; charset=utf-8"})
         end
         it "requests the correct resource" do
           @client.followers(7505382).all
-          expect(a_get("/1.1/followers/list.json").with(query: {cursor: "-1", user_id: "7505382"})).to have_been_made
-          expect(a_get("/1.1/followers/list.json").with(query: {cursor: "1419103567112105362", user_id: "7505382"})).to have_been_made
+          expect(a_get("/1.1/followers/list.json").with(:query => {:cursor => "-1", :user_id => "7505382"})).to have_been_made
+          expect(a_get("/1.1/followers/list.json").with(:query => {:cursor => "1419103567112105362", :user_id => "7505382"})).to have_been_made
         end
       end
     end
     context "without arguments passed" do
       before do
-        stub_get("/1.1/account/verify_credentials.json").to_return(body: fixture("sferik.json"), headers: {content_type: "application/json; charset=utf-8"})
-        stub_get("/1.1/followers/list.json").with(query: {cursor: "-1", screen_name: "sferik"}).to_return(body: fixture("followers_list.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/1.1/account/verify_credentials.json").to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        stub_get("/1.1/followers/list.json").with(:query => {:cursor => "-1", :screen_name => "sferik"}).to_return(:body => fixture("followers_list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.followers
         expect(a_get("/1.1/account/verify_credentials.json")).to have_been_made
-        expect(a_get("/1.1/followers/list.json").with(query: {cursor: "-1", screen_name: "sferik"})).to have_been_made
+        expect(a_get("/1.1/followers/list.json").with(:query => {:cursor => "-1", :screen_name => "sferik"})).to have_been_made
       end
       it "returns a cursor of followers with details for every user the specified user is followed by" do
         followers = @client.followers
@@ -581,13 +581,13 @@ describe Twitter::API::FriendsAndFollowers do
       end
       context "with all" do
         before do
-          stub_get("/1.1/followers/list.json").with(query: {cursor: "1419103567112105362", screen_name: "sferik"}).to_return(body: fixture("followers_list2.json"), headers: {content_type: "application/json; charset=utf-8"})
+          stub_get("/1.1/followers/list.json").with(:query => {:cursor => "1419103567112105362", :screen_name => "sferik"}).to_return(:body => fixture("followers_list2.json"), :headers => {:content_type => "application/json; charset=utf-8"})
         end
         it "requests the correct resource" do
           @client.followers.all
           expect(a_get("/1.1/account/verify_credentials.json")).to have_been_made
-          expect(a_get("/1.1/followers/list.json").with(query: {cursor: "-1", screen_name: "sferik"})).to have_been_made
-          expect(a_get("/1.1/followers/list.json").with(query: {cursor: "1419103567112105362", screen_name: "sferik"})).to have_been_made
+          expect(a_get("/1.1/followers/list.json").with(:query => {:cursor => "-1", :screen_name => "sferik"})).to have_been_made
+          expect(a_get("/1.1/followers/list.json").with(:query => {:cursor => "1419103567112105362", :screen_name => "sferik"})).to have_been_made
         end
       end
     end
@@ -596,11 +596,11 @@ describe Twitter::API::FriendsAndFollowers do
   describe "#friends" do
     context "with a screen_name passed" do
       before do
-        stub_get("/1.1/friends/list.json").with(query: {cursor: "-1", screen_name: "sferik"}).to_return(body: fixture("friends_list.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/1.1/friends/list.json").with(:query => {:cursor => "-1", :screen_name => "sferik"}).to_return(:body => fixture("friends_list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.friends("sferik")
-        expect(a_get("/1.1/friends/list.json").with(query: {cursor: "-1", screen_name: "sferik"})).to have_been_made
+        expect(a_get("/1.1/friends/list.json").with(:query => {:cursor => "-1", :screen_name => "sferik"})).to have_been_made
       end
       it "returns a cursor of friends with details for every user the specified user is following" do
         friends = @client.friends("sferik")
@@ -610,43 +610,43 @@ describe Twitter::API::FriendsAndFollowers do
       end
       context "with all" do
         before do
-          stub_get("/1.1/friends/list.json").with(query: {cursor: "1418947360875712729", screen_name: "sferik"}).to_return(body: fixture("friends_list2.json"), headers: {content_type: "application/json; charset=utf-8"})
+          stub_get("/1.1/friends/list.json").with(:query => {:cursor => "1418947360875712729", :screen_name => "sferik"}).to_return(:body => fixture("friends_list2.json"), :headers => {:content_type => "application/json; charset=utf-8"})
         end
         it "requests the correct resource" do
           @client.friends("sferik").all
-          expect(a_get("/1.1/friends/list.json").with(query: {cursor: "-1", screen_name: "sferik"})).to have_been_made
-          expect(a_get("/1.1/friends/list.json").with(query: {cursor: "1418947360875712729", screen_name: "sferik"})).to have_been_made
+          expect(a_get("/1.1/friends/list.json").with(:query => {:cursor => "-1", :screen_name => "sferik"})).to have_been_made
+          expect(a_get("/1.1/friends/list.json").with(:query => {:cursor => "1418947360875712729", :screen_name => "sferik"})).to have_been_made
         end
       end
     end
     context "with a user ID passed" do
       before do
-        stub_get("/1.1/friends/list.json").with(query: {cursor: "-1", user_id: "7505382"}).to_return(body: fixture("friends_list.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/1.1/friends/list.json").with(:query => {:cursor => "-1", :user_id => "7505382"}).to_return(:body => fixture("friends_list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.friends(7505382)
-        expect(a_get("/1.1/friends/list.json").with(query: {cursor: "-1", user_id: "7505382"})).to have_been_made
+        expect(a_get("/1.1/friends/list.json").with(:query => {:cursor => "-1", :user_id => "7505382"})).to have_been_made
       end
       context "with all" do
         before do
-          stub_get("/1.1/friends/list.json").with(query: {cursor: "1418947360875712729", user_id: "7505382"}).to_return(body: fixture("friends_list2.json"), headers: {content_type: "application/json; charset=utf-8"})
+          stub_get("/1.1/friends/list.json").with(:query => {:cursor => "1418947360875712729", :user_id => "7505382"}).to_return(:body => fixture("friends_list2.json"), :headers => {:content_type => "application/json; charset=utf-8"})
         end
         it "requests the correct resource" do
           @client.friends(7505382).all
-          expect(a_get("/1.1/friends/list.json").with(query: {cursor: "-1", user_id: "7505382"})).to have_been_made
-          expect(a_get("/1.1/friends/list.json").with(query: {cursor: "1418947360875712729", user_id: "7505382"})).to have_been_made
+          expect(a_get("/1.1/friends/list.json").with(:query => {:cursor => "-1", :user_id => "7505382"})).to have_been_made
+          expect(a_get("/1.1/friends/list.json").with(:query => {:cursor => "1418947360875712729", :user_id => "7505382"})).to have_been_made
         end
       end
     end
     context "without arguments passed" do
       before do
-        stub_get("/1.1/account/verify_credentials.json").to_return(body: fixture("sferik.json"), headers: {content_type: "application/json; charset=utf-8"})
-        stub_get("/1.1/friends/list.json").with(query: {cursor: "-1", screen_name: "sferik"}).to_return(body: fixture("friends_list.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/1.1/account/verify_credentials.json").to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        stub_get("/1.1/friends/list.json").with(:query => {:cursor => "-1", :screen_name => "sferik"}).to_return(:body => fixture("friends_list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.friends
         expect(a_get("/1.1/account/verify_credentials.json")).to have_been_made
-        expect(a_get("/1.1/friends/list.json").with(query: {cursor: "-1", screen_name: "sferik"})).to have_been_made
+        expect(a_get("/1.1/friends/list.json").with(:query => {:cursor => "-1", :screen_name => "sferik"})).to have_been_made
       end
       it "returns a cursor of friends with details for every user the specified user is following" do
         friends = @client.friends
@@ -656,13 +656,13 @@ describe Twitter::API::FriendsAndFollowers do
       end
       context "with all" do
         before do
-          stub_get("/1.1/friends/list.json").with(query: {cursor: "1418947360875712729", screen_name: "sferik"}).to_return(body: fixture("friends_list2.json"), headers: {content_type: "application/json; charset=utf-8"})
+          stub_get("/1.1/friends/list.json").with(:query => {:cursor => "1418947360875712729", :screen_name => "sferik"}).to_return(:body => fixture("friends_list2.json"), :headers => {:content_type => "application/json; charset=utf-8"})
         end
         it "requests the correct resource" do
           @client.friends.all
           expect(a_get("/1.1/account/verify_credentials.json")).to have_been_made
-          expect(a_get("/1.1/friends/list.json").with(query: {cursor: "-1", screen_name: "sferik"})).to have_been_made
-          expect(a_get("/1.1/friends/list.json").with(query: {cursor: "1418947360875712729", screen_name: "sferik"})).to have_been_made
+          expect(a_get("/1.1/friends/list.json").with(:query => {:cursor => "-1", :screen_name => "sferik"})).to have_been_made
+          expect(a_get("/1.1/friends/list.json").with(:query => {:cursor => "1418947360875712729", :screen_name => "sferik"})).to have_been_made
         end
       end
     end
@@ -670,7 +670,7 @@ describe Twitter::API::FriendsAndFollowers do
 
   describe "#no_retweet_ids" do
     before do
-      stub_get("/1.1/friendships/no_retweets/ids.json").to_return(body: fixture("ids.json"), headers: {content_type: "application/json; charset=utf-8"})
+      stub_get("/1.1/friendships/no_retweets/ids.json").to_return(:body => fixture("ids.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
       @client.no_retweet_ids

@@ -204,7 +204,7 @@ module Twitter
       # @option options [Boolean] :device Enable/disable device notifications from the target user.
       # @option options [Boolean] :retweets Enable/disable retweets from the target user.
       # @example Enable rewteets and devise notifications for @sferik
-      #   Twitter.friendship_update('sferik', device: true, retweets: true)
+      #   Twitter.friendship_update('sferik', :device => true, :retweets => true)
       def friendship_update(user, options={})
         merge_user!(options, user)
         object_from_response(Twitter::Relationship, :post, "/1.1/friendships/update.json", options)

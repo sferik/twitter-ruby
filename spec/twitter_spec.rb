@@ -9,12 +9,12 @@ describe Twitter do
   context "when delegating to a client" do
 
     before do
-      stub_get("/1.1/statuses/user_timeline.json").with(query: {screen_name: "sferik"}).to_return(body: fixture("statuses.json"), headers: {content_type: "application/json; charset=utf-8"})
+      stub_get("/1.1/statuses/user_timeline.json").with(:query => {:screen_name => "sferik"}).to_return(:body => fixture("statuses.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
 
     it "requests the correct resource" do
       Twitter.user_timeline('sferik')
-      expect(a_get("/1.1/statuses/user_timeline.json").with(query: {screen_name: "sferik"})).to have_been_made
+      expect(a_get("/1.1/statuses/user_timeline.json").with(:query => {:screen_name => "sferik"})).to have_been_made
     end
 
     it "returns the same results as a client" do

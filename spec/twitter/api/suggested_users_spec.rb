@@ -9,7 +9,7 @@ describe Twitter::API::SuggestedUsers do
   describe "#suggestions" do
     context "with a category slug passed" do
       before do
-        stub_get("/1.1/users/suggestions/art-design.json").to_return(body: fixture("category.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/1.1/users/suggestions/art-design.json").to_return(:body => fixture("category.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.suggestions("art-design")
@@ -25,7 +25,7 @@ describe Twitter::API::SuggestedUsers do
     end
     context "without arguments passed" do
       before do
-        stub_get("/1.1/users/suggestions.json").to_return(body: fixture("suggestions.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/1.1/users/suggestions.json").to_return(:body => fixture("suggestions.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
         @client.suggestions
@@ -42,7 +42,7 @@ describe Twitter::API::SuggestedUsers do
 
   describe "#suggest_users" do
     before do
-      stub_get("/1.1/users/suggestions/art-design/members.json").to_return(body: fixture("members.json"), headers: {content_type: "application/json; charset=utf-8"})
+      stub_get("/1.1/users/suggestions/art-design/members.json").to_return(:body => fixture("members.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
       @client.suggest_users("art-design")

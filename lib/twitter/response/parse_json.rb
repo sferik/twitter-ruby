@@ -10,7 +10,7 @@ module Twitter
         when /\A^\s*$\z/, nil
           nil
         else
-          JSON.parse(body, symbolize_names: true)
+          JSON.parse(body, :symbolize_names => true)
         end
       end
 

@@ -80,7 +80,7 @@ module Twitter
         arguments = Twitter::API::Arguments.new(args)
         arguments.flatten.threaded_map do |id|
           begin
-            object_from_response(Twitter::Tweet, :post, "/1.1/favorites/create.json", arguments.options.merge(id: id))
+            object_from_response(Twitter::Tweet, :post, "/1.1/favorites/create.json", arguments.options.merge(:id => id))
           rescue Twitter::Error::Forbidden => error
             raise unless error.message == Twitter::Error::AlreadyFavorited::MESSAGE
           end
@@ -110,7 +110,7 @@ module Twitter
         arguments = Twitter::API::Arguments.new(args)
         arguments.flatten.threaded_map do |id|
           begin
-            object_from_response(Twitter::Tweet, :post, "/1.1/favorites/create.json", arguments.options.merge(id: id))
+            object_from_response(Twitter::Tweet, :post, "/1.1/favorites/create.json", arguments.options.merge(:id => id))
           rescue Twitter::Error::Forbidden => error
             handle_forbidden_error(Twitter::Error::AlreadyFavorited, error)
           end

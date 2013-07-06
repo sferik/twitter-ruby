@@ -69,7 +69,7 @@ module Twitter
       # @example Create a saved search for the authenticated user with the query "twitter"
       #   Twitter.saved_search_create("twitter")
       def saved_search_create(query, options={})
-        object_from_response(Twitter::SavedSearch, :post, "/1.1/saved_searches/create.json", options.merge(query: query))
+        object_from_response(Twitter::SavedSearch, :post, "/1.1/saved_searches/create.json", options.merge(:query => query))
       end
 
       # Destroys saved searches for the authenticated user

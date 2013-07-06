@@ -4,7 +4,7 @@ describe Twitter::Action::Favorite do
 
   describe "#sources" do
     it "returns a collection of users who favorited a Tweet" do
-      sources = Twitter::Action::Favorite.new(sources: [{id: 7505382}]).sources
+      sources = Twitter::Action::Favorite.new(:sources => [{:id => 7505382}]).sources
       expect(sources).to be_an Array
       expect(sources.first).to be_a Twitter::User
     end
@@ -16,7 +16,7 @@ describe Twitter::Action::Favorite do
 
   describe "#targets" do
     it "returns a collection containing the favorited Tweet" do
-      targets = Twitter::Action::Favorite.new(targets: [{id: 25938088801}]).targets
+      targets = Twitter::Action::Favorite.new(:targets => [{:id => 25938088801}]).targets
       expect(targets).to be_an Array
       expect(targets.first).to be_a Twitter::Tweet
     end

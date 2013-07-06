@@ -127,7 +127,7 @@ module Twitter
       # @example Update the authenticating user's status
       #   Twitter.update("I'm tweeting with @gem!")
       def update(status, options={})
-        object_from_response(Twitter::Tweet, :post, "/1.1/statuses/update.json", options.merge(status: status))
+        object_from_response(Twitter::Tweet, :post, "/1.1/statuses/update.json", options.merge(:status => status))
       end
 
       # Retweets the specified Tweets as the authenticating user
@@ -267,7 +267,7 @@ module Twitter
       # @overload retweeters_ids(options)
       #   @param options [Hash] A customizable set of options.
       #   @example Return a collection of user IDs belonging to users who have retweeted the specified Tweet
-      #     Twitter.retweeters_ids(id: 25938088801)
+      #     Twitter.retweeters_ids({:id => 25938088801})
       # @overload retweeters_ids(id, options={})
       #   @param id [Integer] The numerical ID of the desired Tweet.
       #   @param options [Hash] A customizable set of options.

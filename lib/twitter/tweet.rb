@@ -132,7 +132,7 @@ module Twitter
           klass.new(entity)
         end
       else
-        warn "#{Kernel.caller.first}: To get #{key.to_s.tr('_', ' ')}, you must pass `include_entities: true` when requesting the #{self.class.name}."
+        warn "#{Kernel.caller.first}: To get #{key.to_s.tr('_', ' ')}, you must pass `:include_entities => true` when requesting the #{self.class.name}."
         []
       end
     end

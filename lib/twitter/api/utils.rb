@@ -69,7 +69,7 @@ module Twitter
       def threaded_object_from_response(klass, request_method, path, args)
         arguments = Twitter::API::Arguments.new(args)
         arguments.flatten.threaded_map do |id|
-          object_from_response(klass, request_method, path, arguments.options.merge(id: id))
+          object_from_response(klass, request_method, path, arguments.options.merge(:id => id))
         end
       end
 
