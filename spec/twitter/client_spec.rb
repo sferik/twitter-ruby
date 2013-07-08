@@ -152,11 +152,11 @@ describe Twitter::Client do
       expect(a_post("/1.1/statuses/update_with_media.json")).to have_been_made
     end
     it "catches Faraday errors" do
-      subject.stub!(:connection).and_raise(Faraday::Error::ClientError.new("Oops"))
+      subject.stub(:connection).and_raise(Faraday::Error::ClientError.new("Oops"))
       expect{subject.send(:request, :get, "/path")}.to raise_error Twitter::Error::ClientError
     end
     it "catches JSON::ParserError errors" do
-      subject.stub!(:connection).and_raise(JSON::ParserError.new("unexpected token"))
+      subject.stub(:connection).and_raise(JSON::ParserError.new("unexpected token"))
       expect{subject.send(:request, :get, "/path")}.to raise_error Twitter::Error::ParserError
     end
   end

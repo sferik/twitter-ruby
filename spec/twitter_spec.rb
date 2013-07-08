@@ -85,7 +85,7 @@ describe Twitter do
             config.oauth_token = nil
             config.oauth_token_secret = nil
           end
-        }.to_not raise_exception(Twitter::Error::ConfigurationError)
+        }.not_to raise_error
       end
     end
   end
