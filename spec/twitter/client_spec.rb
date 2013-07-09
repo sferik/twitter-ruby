@@ -152,11 +152,11 @@ describe Twitter::Client do
       expect(a_post("/1.1/statuses/update_with_media.json")).to have_been_made
     end
     it "catches Faraday errors" do
-      subject.stub(:connection).and_raise(Faraday::Error::ClientError.new("Oops"))
+      allow(subject).to receive(:connection).and_raise(Faraday::Error::ClientError.new("Oops"))
       expect{subject.send(:request, :get, "/path")}.to raise_error Twitter::Error::ClientError
     end
     it "catches JSON::ParserError errors" do
-      subject.stub(:connection).and_raise(JSON::ParserError.new("unexpected token"))
+      allow(subject).to receive(:connection).and_raise(JSON::ParserError.new("unexpected token"))
       expect{subject.send(:request, :get, "/path")}.to raise_error Twitter::Error::ParserError
     end
   end
@@ -179,7 +179,7 @@ describe Twitter::Client do
                 :nonce => 'b6ebe4c2a11af493f8a2290fe1296965', :timestamp => '1370968658'}
       header = {"Authorization" => /oauth_signature="FbthwmgGq02iQw%2FuXGEWaL6V6eM%3D"/}
 
-      subject.stub(:credentials).and_return(secret)
+      allow(subject).to receive(:credentials).and_return(secret)
       stub_post("/1.1/statuses/update.json").with(:body => {:status => "Just a test"}).to_return(:body => fixture("status.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       subject.update("Just a test")
       expect(a_post("/1.1/statuses/update.json").
@@ -192,7 +192,7 @@ describe Twitter::Client do
                 :nonce => 'e08201ad0dab4897c99445056feefd95', :timestamp => '1370967652'}
       header = {"Authorization" => /oauth_signature="9ziouUPwZT9IWWRbJL8r0BerKYA%3D"/}
 
-      subject.stub(:credentials).and_return(secret)
+      allow(subject).to receive(:credentials).and_return(secret)
       stub_post("/1.1/statuses/update_with_media.json").to_return(:body => fixture("status.json"), :headers => header)
       subject.update_with_media("Just a test", fixture("pbjt.gif"))
       expect(a_post("/1.1/statuses/update_with_media.json").
