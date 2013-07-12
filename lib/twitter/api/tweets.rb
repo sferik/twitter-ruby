@@ -257,7 +257,7 @@ module Twitter
         end
       end
 
-      # Returns a collection of user IDs belonging to users who have retweeted the specified Tweet.
+      # Returns a collection of up to 100 user IDs belonging to users who have retweeted the tweet specified by the id parameter.
       #
       # @see https://dev.twitter.com/docs/api/1.1/get/statuses/retweeters/ids
       # @rate_limited Yes
@@ -266,12 +266,12 @@ module Twitter
       # @return [Array<Integer>]
       # @overload retweeters_ids(options)
       #   @param options [Hash] A customizable set of options.
-      #   @example Return a collection of user IDs belonging to users who have retweeted the specified Tweet
+      #   @example Return a collection of up to 100 user IDs belonging to users who have retweeted the tweet specified by the id parameter
       #     Twitter.retweeters_ids({:id => 25938088801})
       # @overload retweeters_ids(id, options={})
       #   @param id [Integer] The numerical ID of the desired Tweet.
       #   @param options [Hash] A customizable set of options.
-      #   @example Return a collection of user IDs belonging to users who have retweeted the specified Tweet
+      #   @example Return a collection of up to 100 user IDs belonging to users who have retweeted the tweet specified by the id parameter
       #     Twitter.retweeters_ids(25938088801)
       def retweeters_ids(*args)
         arguments = Twitter::API::Arguments.new(args)

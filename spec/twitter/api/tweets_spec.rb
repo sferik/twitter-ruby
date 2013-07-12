@@ -264,7 +264,7 @@ describe Twitter::API::Tweets do
       @client.retweeters_ids(25938088801)
       expect(a_get("/1.1/statuses/retweeters/ids.json").with(:query => {:id => "25938088801", :cursor => "-1"})).to have_been_made
     end
-    it "returns a collection of user IDs belonging to users who have retweeted the specified Tweet" do
+    it "returns a collection of up to 100 user IDs belonging to users who have retweeted the tweet specified by the id parameter" do
       retweeters_ids = @client.retweeters_ids(25938088801)
       expect(retweeters_ids).to be_a Twitter::Cursor
       expect(retweeters_ids.ids).to be_an Array
