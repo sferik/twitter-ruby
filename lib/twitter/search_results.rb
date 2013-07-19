@@ -34,9 +34,10 @@ module Twitter
 
     # @return [Integer]
     def results_per_page
-      @attrs[:search_metadata][:results_per_page] if search_metadata?
+      @attrs[:search_metadata][:count] if search_metadata?
     end
     alias rpp results_per_page
+    alias count results_per_page
 
     def search_metadata?
       !@attrs[:search_metadata].nil?
