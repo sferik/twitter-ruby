@@ -64,7 +64,7 @@ describe Twitter::SearchResults do
 
   describe "#results_per_page" do
     it "returns the number of results per page" do
-      results_per_page = Twitter::SearchResults.new(:search_metadata => {:results_per_page => 4}).results_per_page
+      results_per_page = Twitter::SearchResults.new(:search_metadata => {:count => 4}).results_per_page
       expect(results_per_page).to be_an Integer
       expect(results_per_page).to eq 4
     end
