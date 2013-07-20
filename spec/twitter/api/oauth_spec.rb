@@ -3,7 +3,7 @@ require 'helper'
 describe Twitter::API::OAuth do
 
   before do
-    @client = Twitter::Client.new(:consumer_key => 'CK', :consumer_secret => 'CS')
+    @client = Twitter::Client.new(:consumer_key => "CK", :consumer_secret => "CS")
   end
 
   describe "#token" do

@@ -22,7 +22,7 @@ describe Twitter::Place do
 
   describe "#bounding_box" do
     it "returns a Twitter::Place when set" do
-      place = Twitter::Place.new(:id => "247f43d441defc03", :bounding_box => {:type => 'Polygon', :coordinates => [[[-122.40348192, 37.77752898], [-122.387436, 37.77752898], [-122.387436, 37.79448597], [-122.40348192, 37.79448597]]]})
+      place = Twitter::Place.new(:id => "247f43d441defc03", :bounding_box => {:type => "Polygon", :coordinates => [[[-122.40348192, 37.77752898], [-122.387436, 37.77752898], [-122.387436, 37.79448597], [-122.40348192, 37.79448597]]]})
       expect(place.bounding_box).to be_a Twitter::Geo::Polygon
     end
     it "returns nil when not set" do
@@ -33,12 +33,12 @@ describe Twitter::Place do
 
   describe "#country_code" do
     it "returns a country code when set with country_code" do
-      place = Twitter::Place.new(:id => "247f43d441defc03", :country_code => 'US')
-      expect(place.country_code).to eq 'US'
+      place = Twitter::Place.new(:id => "247f43d441defc03", :country_code => "US")
+      expect(place.country_code).to eq "US"
     end
     it "returns a country code when set with countryCode" do
-      place = Twitter::Place.new(:id => "247f43d441defc03", :countryCode => 'US')
-      expect(place.country_code).to eq 'US'
+      place = Twitter::Place.new(:id => "247f43d441defc03", :countryCode => "US")
+      expect(place.country_code).to eq "US"
     end
     it "returns nil when not set" do
       place = Twitter::Place.new(:id => "247f43d441defc03")
@@ -59,12 +59,12 @@ describe Twitter::Place do
 
   describe "#place_type" do
     it "returns a place type when set with place_type" do
-      place = Twitter::Place.new(:id => "247f43d441defc03", :place_type => 'city')
-      expect(place.place_type).to eq 'city'
+      place = Twitter::Place.new(:id => "247f43d441defc03", :place_type => "city")
+      expect(place.place_type).to eq "city"
     end
     it "returns a place type when set with placeType[name]" do
-      place = Twitter::Place.new(:id => "247f43d441defc03", :placeType => {:name => 'Town'})
-      expect(place.place_type).to eq 'Town'
+      place = Twitter::Place.new(:id => "247f43d441defc03", :placeType => {:name => "Town"})
+      expect(place.place_type).to eq "Town"
     end
     it "returns nil when not set" do
       place = Twitter::Place.new(:id => "247f43d441defc03")

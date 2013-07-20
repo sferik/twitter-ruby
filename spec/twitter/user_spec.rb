@@ -35,9 +35,9 @@ describe Twitter::User do
     it "returns an Array of Entity::Url" do
       urls_array = [
         {
-          :url => 'http://example.com/t.co',
-          :expanded_url => 'http://example.com/expanded',
-          :display_url => 'example.com/expanded',
+          :url => "http://example.com/t.co",
+          :expanded_url => "http://example.com/expanded",
+          :display_url => "example.com/expanded",
           :indices => [10, 33],
         }
       ]
@@ -45,7 +45,7 @@ describe Twitter::User do
       expect(description_urls).to be_an Array
       expect(description_urls.first).to be_a Twitter::Entity::Url
       expect(description_urls.first.indices).to eq [10, 33]
-      expect(description_urls.first.display_url).to eq 'example.com/expanded'
+      expect(description_urls.first.display_url).to eq "example.com/expanded"
     end
     it "is empty when not set" do
       description_urls = Twitter::User.new(:id => 7505382, :entities => {:description => {:urls => []}}).description_urls
@@ -257,7 +257,7 @@ describe Twitter::User do
       expect(tweet).to be_nil
     end
     it "includes a User when user is set" do
-      tweet = Twitter::User.new(:id => 7505382, :screen_name => 'sferik', :status => {:id => 25938088801}).status
+      tweet = Twitter::User.new(:id => 7505382, :screen_name => "sferik", :status => {:id => 25938088801}).status
       expect(tweet.user).to be_a Twitter::User
       expect(tweet.user.id).to eq 7505382
     end

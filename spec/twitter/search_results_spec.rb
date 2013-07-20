@@ -4,7 +4,7 @@ describe Twitter::SearchResults do
 
   describe "#statuses" do
     it "returns an array of Tweets" do
-      statuses = Twitter::SearchResults.new(:statuses => [{:id => 25938088801, :text => 'tweet!'}]).statuses
+      statuses = Twitter::SearchResults.new(:statuses => [{:id => 25938088801, :text => "tweet!"}]).statuses
       expect(statuses).to be_an Array
       expect(statuses.first).to be_a Twitter::Tweet
     end

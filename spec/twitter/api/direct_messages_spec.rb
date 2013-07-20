@@ -117,7 +117,7 @@ describe Twitter::API::DirectMessages do
     end
     context "with a URI object passed" do
       it "requests the correct resource" do
-        user = URI.parse('https://twitter.com/pengwynn')
+        user = URI.parse("https://twitter.com/pengwynn")
         @client.direct_message_create(user, "Creating a fixture for the Twitter gem")
         expect(a_post("/1.1/direct_messages/new.json").with(:body => {:screen_name => "pengwynn", :text => "Creating a fixture for the Twitter gem"})).to have_been_made
       end

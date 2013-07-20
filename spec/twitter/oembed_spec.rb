@@ -4,7 +4,7 @@ describe Twitter::OEmbed do
 
   describe "#author_url" do
     it "returns the author's url" do
-      oembed = Twitter::OEmbed.new(:author_url => 'https://twitter.com/sferik')
+      oembed = Twitter::OEmbed.new(:author_url => "https://twitter.com/sferik")
       expect(oembed.author_url).to eq "https://twitter.com/sferik"
     end
 
@@ -16,7 +16,7 @@ describe Twitter::OEmbed do
 
   describe "#author_name" do
     it "returns the author's name" do
-      oembed = Twitter::OEmbed.new(:author_name => 'Erik Michaels-Ober')
+      oembed = Twitter::OEmbed.new(:author_name => "Erik Michaels-Ober")
       expect(oembed.author_name).to eq "Erik Michaels-Ober"
     end
 
@@ -28,7 +28,7 @@ describe Twitter::OEmbed do
 
   describe "#cache_age" do
     it "returns the cache_age" do
-      oembed = Twitter::OEmbed.new(:cache_age => '31536000000')
+      oembed = Twitter::OEmbed.new(:cache_age => "31536000000")
       expect(oembed.cache_age).to eq "31536000000"
     end
 
@@ -57,7 +57,7 @@ describe Twitter::OEmbed do
 
   describe "#html" do
     it "returns the html" do
-      oembed = Twitter::OEmbed.new(:html => '<blockquote>all my <b>witty tweet</b> stuff here</blockquote>')
+      oembed = Twitter::OEmbed.new(:html => "<blockquote>all my <b>witty tweet</b> stuff here</blockquote>")
       expect(oembed.html).to eq "<blockquote>all my <b>witty tweet</b> stuff here</blockquote>"
     end
 
@@ -69,7 +69,7 @@ describe Twitter::OEmbed do
 
   describe "#provider_name" do
     it "returns the provider_name" do
-      oembed = Twitter::OEmbed.new(:provider_name => 'Twitter')
+      oembed = Twitter::OEmbed.new(:provider_name => "Twitter")
       expect(oembed.provider_name).to eq "Twitter"
     end
 
@@ -81,7 +81,7 @@ describe Twitter::OEmbed do
 
   describe "#provider_url" do
     it "returns the provider_url" do
-      oembed = Twitter::OEmbed.new(:provider_url => 'http://twitter.com')
+      oembed = Twitter::OEmbed.new(:provider_url => "http://twitter.com")
       expect(oembed.provider_url).to eq "http://twitter.com"
     end
 
@@ -93,7 +93,7 @@ describe Twitter::OEmbed do
 
   describe "#type" do
     it "returns the type" do
-      oembed = Twitter::OEmbed.new(:type => 'rich')
+      oembed = Twitter::OEmbed.new(:type => "rich")
       expect(oembed.type).to eq "rich"
     end
 
@@ -122,7 +122,7 @@ describe Twitter::OEmbed do
 
   describe "#url" do
     it "returns the url" do
-      oembed = Twitter::OEmbed.new(:url => 'https://twitter.com/twitterapi/status/133640144317198338')
+      oembed = Twitter::OEmbed.new(:url => "https://twitter.com/twitterapi/status/133640144317198338")
       expect(oembed.url).to eq "https://twitter.com/twitterapi/status/133640144317198338"
     end
 
@@ -134,7 +134,7 @@ describe Twitter::OEmbed do
 
   describe "#version" do
     it "returns the version" do
-      oembed = Twitter::OEmbed.new(:version => '1.0')
+      oembed = Twitter::OEmbed.new(:version => "1.0")
       expect(oembed.version).to eq "1.0"
     end
 

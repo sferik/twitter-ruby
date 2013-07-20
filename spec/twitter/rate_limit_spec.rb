@@ -4,7 +4,7 @@ describe Twitter::RateLimit do
 
   describe "#limit" do
     it "returns an Integer when x-rate-limit-limit header is set" do
-      rate_limit = Twitter::RateLimit.new('x-rate-limit-limit' => "150")
+      rate_limit = Twitter::RateLimit.new("x-rate-limit-limit" => "150")
       expect(rate_limit.limit).to be_an Integer
       expect(rate_limit.limit).to eq 150
     end
@@ -16,7 +16,7 @@ describe Twitter::RateLimit do
 
   describe "#remaining" do
     it "returns an Integer when x-rate-limit-remaining header is set" do
-      rate_limit = Twitter::RateLimit.new('x-rate-limit-remaining' => "149")
+      rate_limit = Twitter::RateLimit.new("x-rate-limit-remaining" => "149")
       expect(rate_limit.remaining).to be_an Integer
       expect(rate_limit.remaining).to eq 149
     end
@@ -28,7 +28,7 @@ describe Twitter::RateLimit do
 
   describe "#reset_at" do
     it "returns a Time when x-rate-limit-reset header is set" do
-      rate_limit = Twitter::RateLimit.new('x-rate-limit-reset' => "1339019097")
+      rate_limit = Twitter::RateLimit.new("x-rate-limit-reset" => "1339019097")
       expect(rate_limit.reset_at).to be_a Time
       expect(rate_limit.reset_at).to eq Time.at(1339019097)
     end
@@ -46,7 +46,7 @@ describe Twitter::RateLimit do
       Timecop.return
     end
     it "returns an Integer when x-rate-limit-reset header is set" do
-      rate_limit = Twitter::RateLimit.new('x-rate-limit-reset' => "1339019097")
+      rate_limit = Twitter::RateLimit.new("x-rate-limit-reset" => "1339019097")
       expect(rate_limit.reset_in).to be_an Integer
       expect(rate_limit.reset_in).to eq 15777
     end
@@ -64,10 +64,10 @@ describe Twitter::RateLimit do
       Timecop.return
     end
     it "updates a rate limit" do
-      rate_limit = Twitter::RateLimit.new('x-rate-limit-reset' => "1339019097")
+      rate_limit = Twitter::RateLimit.new("x-rate-limit-reset" => "1339019097")
       expect(rate_limit.reset_in).to be_an Integer
       expect(rate_limit.reset_in).to eq 15777
-      rate_limit.update({'x-rate-limit-reset' => "1339019098"})
+      rate_limit.update({"x-rate-limit-reset" => "1339019098"})
       expect(rate_limit.reset_in).to be_an Integer
       expect(rate_limit.reset_in).to eq 15778
     end

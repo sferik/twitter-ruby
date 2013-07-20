@@ -32,13 +32,13 @@ describe Twitter::Client do
       before do
         @configuration = {
           :connection_options => {:timeout => 10},
-          :consumer_key => 'CK',
-          :consumer_secret => 'CS',
-          :endpoint => 'http://tumblr.com/',
+          :consumer_key => "CK",
+          :consumer_secret => "CS",
+          :endpoint => "http://tumblr.com/",
           :middleware => Proc.new{},
-          :oauth_token => 'OT',
-          :oauth_token_secret => 'OS',
-          :bearer_token => 'BT',
+          :oauth_token => "OT",
+          :oauth_token_secret => "OS",
+          :bearer_token => "BT",
         }
       end
 
@@ -99,33 +99,33 @@ describe Twitter::Client do
 
   describe "#user_token?" do
     it "returns true if the user token/secret are present" do
-      client = Twitter::Client.new(:consumer_key => 'CK', :consumer_secret => 'CS', :oauth_token => 'OT', :oauth_token_secret => 'OS')
+      client = Twitter::Client.new(:consumer_key => "CK", :consumer_secret => "CS", :oauth_token => "OT", :oauth_token_secret => "OS")
       expect(client.user_token?).to be_true
     end
     it "returns false if the user token/secret are not completely present" do
-      client = Twitter::Client.new(:consumer_key => 'CK', :consumer_secret => 'CS', :oauth_token => 'OT')
+      client = Twitter::Client.new(:consumer_key => "CK", :consumer_secret => "CS", :oauth_token => "OT")
       expect(client.user_token?).to be_false
     end
   end
 
   describe "#bearer_token?" do
     it "returns true if the app token is present" do
-      client = Twitter::Client.new(:consumer_key => 'CK', :consumer_secret => 'CS', :bearer_token => 'BT')
+      client = Twitter::Client.new(:consumer_key => "CK", :consumer_secret => "CS", :bearer_token => "BT")
       expect(client.bearer_token?).to be_true
     end
     it "returns false if the bearer_token is not present" do
-      client = Twitter::Client.new(:consumer_key => 'CK', :consumer_secret => 'CS')
+      client = Twitter::Client.new(:consumer_key => "CK", :consumer_secret => "CS")
       expect(client.bearer_token?).to be_false
     end
   end
 
   describe "#credentials?" do
     it "returns true if all credentials are present" do
-      client = Twitter::Client.new(:consumer_key => 'CK', :consumer_secret => 'CS', :oauth_token => 'OT', :oauth_token_secret => 'OS')
+      client = Twitter::Client.new(:consumer_key => "CK", :consumer_secret => "CS", :oauth_token => "OT", :oauth_token_secret => "OS")
       expect(client.credentials?).to be_true
     end
     it "returns false if any credentials are missing" do
-      client = Twitter::Client.new(:consumer_key => 'CK', :consumer_secret => 'CS', :oauth_token => 'OT')
+      client = Twitter::Client.new(:consumer_key => "CK", :consumer_secret => "CS", :oauth_token => "OT")
       expect(client.credentials?).to be_false
     end
   end
@@ -174,9 +174,9 @@ describe Twitter::Client do
     end
     it "submits the correct auth header when no media is present" do
       # We use static values for nounce and timestamp to get a stable signature
-      secret = {:consumer_key => 'CK', :consumer_secret => 'CS',
-                :token => 'OT', :token_secret => 'OS',
-                :nonce => 'b6ebe4c2a11af493f8a2290fe1296965', :timestamp => '1370968658'}
+      secret = {:consumer_key => "CK", :consumer_secret => "CS",
+                :token => "OT", :token_secret => "OS",
+                :nonce => "b6ebe4c2a11af493f8a2290fe1296965", :timestamp => "1370968658"}
       header = {"Authorization" => /oauth_signature="FbthwmgGq02iQw%2FuXGEWaL6V6eM%3D"/}
 
       allow(subject).to receive(:credentials).and_return(secret)
@@ -187,9 +187,9 @@ describe Twitter::Client do
     end
     it "submits the correct auth header when media is present" do
       # We use static values for nounce and timestamp to get a stable signature
-      secret = {:consumer_key => 'CK', :consumer_secret => 'CS',
-                :token => 'OT', :token_secret => 'OS',
-                :nonce => 'e08201ad0dab4897c99445056feefd95', :timestamp => '1370967652'}
+      secret = {:consumer_key => "CK", :consumer_secret => "CS",
+                :token => "OT", :token_secret => "OS",
+                :nonce => "e08201ad0dab4897c99445056feefd95", :timestamp => "1370967652"}
       header = {"Authorization" => /oauth_signature="9ziouUPwZT9IWWRbJL8r0BerKYA%3D"/}
 
       allow(subject).to receive(:credentials).and_return(secret)

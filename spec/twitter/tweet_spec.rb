@@ -49,9 +49,9 @@ describe Twitter::Tweet do
     it "returns true if there are entities set" do
       urls_array = [
         {
-          :url => 'http://example.com/t.co',
-          :expanded_url => 'http://example.com/expanded',
-          :display_url => 'example.com/expanded',
+          :url => "http://example.com/t.co",
+          :expanded_url => "http://example.com/expanded",
+          :display_url => "example.com/expanded",
           :indices => [10, 33],
         }
       ]
@@ -62,12 +62,12 @@ describe Twitter::Tweet do
 
   describe "#from_user" do
     it "returns a screen name when from_user is set" do
-      tweet = Twitter::Tweet.new(:id => 28669546014, :from_user => 'sferik')
+      tweet = Twitter::Tweet.new(:id => 28669546014, :from_user => "sferik")
       expect(tweet.from_user).to be_a String
       expect(tweet.from_user).to eq "sferik"
     end
     it "returns a screen name when screen_name is set" do
-      tweet = Twitter::Tweet.new(:id => 28669546014, :user => {:id => 7505382, :screen_name => 'sferik'})
+      tweet = Twitter::Tweet.new(:id => 28669546014, :user => {:id => 7505382, :screen_name => "sferik"})
       expect(tweet.from_user).to be_a String
       expect(tweet.from_user).to eq "sferik"
     end
@@ -79,7 +79,7 @@ describe Twitter::Tweet do
 
   describe "#filter_level" do
     it "returns the filter level when filter_level is set" do
-      tweet = Twitter::Tweet.new(:id => 28669546014, :filter_level => 'high')
+      tweet = Twitter::Tweet.new(:id => 28669546014, :filter_level => "high")
       expect(tweet.filter_level).to be_a String
       expect(tweet.filter_level).to eq "high"
     end
@@ -91,17 +91,17 @@ describe Twitter::Tweet do
 
   describe "#full_text" do
     it "returns the text of a Tweet" do
-      tweet = Twitter::Tweet.new(:id => 28669546014, :text => 'BOOSH')
+      tweet = Twitter::Tweet.new(:id => 28669546014, :text => "BOOSH")
       expect(tweet.full_text).to be_a String
       expect(tweet.full_text).to eq "BOOSH"
     end
     it "returns the text of a Tweet without a user" do
-      tweet = Twitter::Tweet.new(:id => 28669546014, :text => 'BOOSH', :retweeted_status => {:id => 28561922517, :text => 'BOOSH'})
+      tweet = Twitter::Tweet.new(:id => 28669546014, :text => "BOOSH", :retweeted_status => {:id => 28561922517, :text => "BOOSH"})
       expect(tweet.full_text).to be_a String
       expect(tweet.full_text).to eq "BOOSH"
     end
     it "returns the full text of a retweeted Tweet" do
-      tweet = Twitter::Tweet.new(:id => 28669546014, :text => 'RT @sferik: BOOSH', :retweeted_status => {:id => 25938088801, :text => 'BOOSH'})
+      tweet = Twitter::Tweet.new(:id => 28669546014, :text => "RT @sferik: BOOSH", :retweeted_status => {:id => 25938088801, :text => "BOOSH"})
       expect(tweet.full_text).to be_a String
       expect(tweet.full_text).to eq "RT @sferik: BOOSH"
     end
@@ -113,7 +113,7 @@ describe Twitter::Tweet do
 
   describe "#geo" do
     it "returns a Twitter::Geo::Point when set" do
-      tweet = Twitter::Tweet.new(:id => 28669546014, :geo => {:id => 1, :type => 'Point'})
+      tweet = Twitter::Tweet.new(:id => 28669546014, :geo => {:id => 1, :type => "Point"})
       expect(tweet.geo).to be_a Twitter::Geo::Point
     end
     it "returns nil when not set" do
@@ -126,7 +126,7 @@ describe Twitter::Tweet do
     it "returns an Array of Entity::Hashtag when entities are set" do
       hashtags_array = [
         {
-          :text => 'twitter',
+          :text => "twitter",
           :indices => [10, 33],
         }
       ]
@@ -134,7 +134,7 @@ describe Twitter::Tweet do
       expect(hashtags).to be_an Array
       expect(hashtags.first).to be_a Twitter::Entity::Hashtag
       expect(hashtags.first.indices).to eq [10, 33]
-      expect(hashtags.first.text).to eq 'twitter'
+      expect(hashtags.first.text).to eq "twitter"
     end
     it "is empty when not set" do
       hashtags = Twitter::Tweet.new(:id => 28669546014).hashtags
@@ -148,7 +148,7 @@ describe Twitter::Tweet do
 
   describe "#media" do
     it "returns media" do
-      media = Twitter::Tweet.new(:id => 28669546014, :entities => {:media => [{:id => 1, :type => 'photo'}]}).media
+      media = Twitter::Tweet.new(:id => 28669546014, :entities => {:media => [{:id => 1, :type => "photo"}]}).media
       expect(media).to be_an Array
       expect(media.first).to be_a Twitter::Media::Photo
     end
@@ -197,7 +197,7 @@ describe Twitter::Tweet do
 
   describe "#retweet?" do
     it "returns true when there is a retweeted status" do
-      tweet = Twitter::Tweet.new(:id => 28669546014, :retweeted_status => {:id => 25938088801, :text => 'BOOSH'})
+      tweet = Twitter::Tweet.new(:id => 28669546014, :retweeted_status => {:id => 25938088801, :text => "BOOSH"})
       expect(tweet.retweet?).to be_true
     end
     it "returns false when retweeted_status is not set" do
@@ -208,9 +208,9 @@ describe Twitter::Tweet do
 
   describe "#retweeted_status" do
     it "has text when retweeted_status is set" do
-      tweet = Twitter::Tweet.new(:id => 28669546014, :retweeted_status => {:id => 25938088801, :text => 'BOOSH'})
+      tweet = Twitter::Tweet.new(:id => 28669546014, :retweeted_status => {:id => 25938088801, :text => "BOOSH"})
       expect(tweet.retweeted_tweet).to be_a Twitter::Tweet
-      expect(tweet.retweeted_tweet.text).to eq 'BOOSH'
+      expect(tweet.retweeted_tweet.text).to eq "BOOSH"
     end
     it "returns nil when retweeted_status is not set" do
       tweet = Twitter::Tweet.new(:id => 28669546014)
@@ -221,15 +221,15 @@ describe Twitter::Tweet do
   describe "#symbols" do
     it "returns an Array of Entity::Symbol when symbols are set" do
       symbols_array = [
-        { :text => 'PEP', :indices => [114, 118] },
-        { :text => 'COKE', :indices => [128, 133] }
+        { :text => "PEP", :indices => [114, 118] },
+        { :text => "COKE", :indices => [128, 133] }
       ]
       symbols = Twitter::Tweet.new(:id => 28669546014, :entities => {:symbols => symbols_array}).symbols
       expect(symbols).to be_an Array
       expect(symbols.size).to eq 2
       expect(symbols.first).to be_a Twitter::Entity::Symbol
       expect(symbols.first.indices).to eq [114, 118]
-      expect(symbols.first.text).to eq 'PEP'
+      expect(symbols.first.text).to eq "PEP"
     end
     it "is empty when not set" do
       symbols = Twitter::Tweet.new(:id => 28669546014).symbols
@@ -245,9 +245,9 @@ describe Twitter::Tweet do
     it "returns an Array of Entity::Url when entities are set" do
       urls_array = [
         {
-          :url => 'http://example.com/t.co',
-          :expanded_url => 'http://example.com/expanded',
-          :display_url => 'example.com/expanded',
+          :url => "http://example.com/t.co",
+          :expanded_url => "http://example.com/expanded",
+          :display_url => "example.com/expanded",
           :indices => [10, 33],
         }
       ]
@@ -255,7 +255,7 @@ describe Twitter::Tweet do
       expect(urls).to be_an Array
       expect(urls.first).to be_a Twitter::Entity::Url
       expect(urls.first.indices).to eq [10, 33]
-      expect(urls.first.display_url).to eq 'example.com/expanded'
+      expect(urls.first.display_url).to eq "example.com/expanded"
     end
     it "is empty when not set" do
       urls = Twitter::Tweet.new(:id => 28669546014).urls
@@ -277,7 +277,7 @@ describe Twitter::Tweet do
       expect(user).to be_nil
     end
     it "has a status when status is set" do
-      user = Twitter::Tweet.new(:id => 28669546014, :text => 'Tweet text.', :user => {:id => 7505382}).user
+      user = Twitter::Tweet.new(:id => 28669546014, :text => "Tweet text.", :user => {:id => 7505382}).user
       expect(user.status).to be_a Twitter::Tweet
     end
   end
@@ -297,9 +297,9 @@ describe Twitter::Tweet do
     it "returns an Array of Entity::UserMention when entities are set" do
       user_mentions_array = [
         {
-          :screen_name => 'sferik',
-          :name => 'Erik Michaels-Ober',
-          :id_str => '7505382',
+          :screen_name => "sferik",
+          :name => "Erik Michaels-Ober",
+          :id_str => "7505382",
           :indices => [0, 6],
           :id => 7505382,
         }

@@ -23,7 +23,7 @@ describe Twitter::API::Favorites do
       end
       context "with a URI object passed" do
         it "requests the correct resource" do
-          user = URI.parse('https://twitter.com/sferik')
+          user = URI.parse("https://twitter.com/sferik")
           @client.favorites(user)
           expect(a_get("/1.1/favorites/list.json").with(:query => {:screen_name => "sferik"})).to have_been_made
         end
