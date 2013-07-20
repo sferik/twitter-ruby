@@ -44,11 +44,23 @@ describe Twitter::API::Lists do
           expect(a_get("/1.1/lists/statuses.json").with(:query => {:owner_screen_name => "sferik", :slug => "presidents"})).to have_been_made
         end
       end
+      context "with a URI string passed" do
+        it "requests the correct resource" do
+          @client.list_timeline("https://twitter.com/sferik/presidents")
+          expect(a_get("/1.1/lists/statuses.json").with(:query => {:owner_screen_name => "sferik", :slug => "presidents"})).to have_been_made
+        end
+      end
       context "with URI objects passed" do
         it "requests the correct resource" do
           user = URI.parse("https://twitter.com/sferik")
           list = URI.parse("https://twitter.com/sferik/presidents")
           @client.list_timeline(user, list)
+          expect(a_get("/1.1/lists/statuses.json").with(:query => {:owner_screen_name => "sferik", :slug => "presidents"})).to have_been_made
+        end
+      end
+      context "with URI strings passed" do
+        it "requests the correct resource" do
+          @client.list_timeline("https://twitter.com/sferik", "https://twitter.com/sferik/presidents")
           expect(a_get("/1.1/lists/statuses.json").with(:query => {:owner_screen_name => "sferik", :slug => "presidents"})).to have_been_made
         end
       end

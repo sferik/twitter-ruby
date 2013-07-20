@@ -122,6 +122,12 @@ describe Twitter::API::DirectMessages do
         expect(a_post("/1.1/direct_messages/new.json").with(:body => {:screen_name => "pengwynn", :text => "Creating a fixture for the Twitter gem"})).to have_been_made
       end
     end
+    context "with a URI string passed" do
+      it "requests the correct resource" do
+        @client.direct_message_create("https://twitter.com/pengwynn", "Creating a fixture for the Twitter gem")
+        expect(a_post("/1.1/direct_messages/new.json").with(:body => {:screen_name => "pengwynn", :text => "Creating a fixture for the Twitter gem"})).to have_been_made
+      end
+    end
   end
 
 end

@@ -28,6 +28,12 @@ describe Twitter::API::Favorites do
           expect(a_get("/1.1/favorites/list.json").with(:query => {:screen_name => "sferik"})).to have_been_made
         end
       end
+      context "with a URI string passed" do
+        it "requests the correct resource" do
+          @client.favorites("https://twitter.com/sferik")
+          expect(a_get("/1.1/favorites/list.json").with(:query => {:screen_name => "sferik"})).to have_been_made
+        end
+      end
     end
     context "without arguments passed" do
       before do

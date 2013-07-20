@@ -13,6 +13,7 @@ module Twitter
     module Lists
       include Twitter::API::Utils
       MAX_USERS_PER_REQUEST = 100
+      URI_SUBSTRING = "://"
 
       # Returns all lists the authenticating or specified user subscribes to, including their own
       #
@@ -591,7 +592,13 @@ module Twitter
         when Integer
           hash[:list_id] = list
         when String
-          hash[:slug] = list
+          if list[URI_SUBSTRING]
+            list = list.split("/")
+            hash[:slug] = list.pop
+            hash[:owner_screen_name] = list.pop
+          else
+            hash[:slug] = list
+          end
         when URI
           list = list.path.split("/")
           hash[:slug] = list.pop

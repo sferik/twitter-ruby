@@ -8,6 +8,7 @@ module Twitter
     module Utils
 
       DEFAULT_CURSOR = -1
+      URI_SUBSTRING = "://"
 
     private
 
@@ -163,7 +164,11 @@ module Twitter
         when Integer
           hash[[prefix, "user_id"].compact.join("_").to_sym] = user
         when String
-          hash[[prefix, "screen_name"].compact.join("_").to_sym] = user
+          if user[URI_SUBSTRING]
+            hash[[prefix, "screen_name"].compact.join("_").to_sym] = user.split("/").last
+          else
+            hash[[prefix, "screen_name"].compact.join("_").to_sym] = user
+          end
         when URI
           hash[[prefix, "screen_name"].compact.join("_").to_sym] = user.path.split("/").last
         when Twitter::User
@@ -193,7 +198,11 @@ module Twitter
           when Integer
             user_ids << user
           when String
-            screen_names << user
+            if user[URI_SUBSTRING]
+              screen_names << user.split("/").last
+            else
+              screen_names << user
+            end
           when URI
             screen_names << user.path.split("/").last
           when Twitter::User
