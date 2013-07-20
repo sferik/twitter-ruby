@@ -83,14 +83,14 @@ module Twitter
       #   Returns direct messages
       #
       #   @see https://dev.twitter.com/docs/api/1.1/get/direct_messages/show
-      #   @param ids [Array<Integer>, Set<Integer>] An array of direct message IDs.
+      #   @param ids [Enumerable<Integer>] A collection of direct message IDs.
       #   @example Return the direct message with the id 1825786345
       #     Twitter.direct_messages(1825786345)
       # @overload direct_messages(*ids, options)
       #   Returns direct messages
       #
       #   @see https://dev.twitter.com/docs/api/1.1/get/direct_messages/show
-      #   @param ids [Array<Integer>, Set<Integer>] An array of direct message IDs.
+      #   @param ids [Enumerable<Integer>] A collection of direct message IDs.
       #   @param options [Hash] A customizable set of options.
       def direct_messages(*args)
         arguments = Twitter::API::Arguments.new(args)
@@ -112,11 +112,11 @@ module Twitter
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Array<Twitter::DirectMessage>] Deleted direct message.
       # @overload direct_message_destroy(*ids)
-      #   @param ids [Array<Integer>, Set<Integer>] An array of direct message IDs.
+      #   @param ids [Enumerable<Integer>] A collection of direct message IDs.
       #   @example Destroys the direct message with the ID 1825785544
       #     Twitter.direct_message_destroy(1825785544)
       # @overload direct_message_destroy(*ids, options)
-      #   @param ids [Array<Integer>, Set<Integer>] An array of direct message IDs.
+      #   @param ids [Enumerable<Integer>] A collection of direct message IDs.
       #   @param options [Hash] A customizable set of options.
       def direct_message_destroy(*args)
         threaded_object_from_response(Twitter::DirectMessage, :post, "/1.1/direct_messages/destroy.json", args)

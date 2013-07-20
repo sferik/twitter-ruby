@@ -22,14 +22,14 @@ module Twitter
       #   Retrieve the data for saved searches owned by the authenticating user
       #
       #   @see https://dev.twitter.com/docs/api/1.1/get/saved_searches/show/:id
-      #   @param ids [Array<Integer>, Set<Integer>] An array of saved search IDs.
+      #   @param ids [Enumerable<Integer>] A collection of saved search IDs.
       #   @example Retrieve the data for a saved search owned by the authenticating user with the ID 16129012
       #     Twitter.saved_search(16129012)
       # @overload saved_search(*ids, options)
       #   Retrieve the data for saved searches owned by the authenticating user
       #
       #   @see https://dev.twitter.com/docs/api/1.1/get/saved_searches/show/:id
-      #   @param ids [Array<Integer>, Set<Integer>] An array of saved search IDs.
+      #   @param ids [Enumerable<Integer>] A collection of saved search IDs.
       #   @param options [Hash] A customizable set of options.
       def saved_searches(*args)
         arguments = Twitter::API::Arguments.new(args)
@@ -81,11 +81,11 @@ module Twitter
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Array<Twitter::SavedSearch>] The deleted saved searches.
       # @overload saved_search_destroy(*ids)
-      #   @param ids [Array<Integer>, Set<Integer>] An array of saved search IDs.
+      #   @param ids [Enumerable<Integer>] A collection of saved search IDs.
       #   @example Destroys a saved search for the authenticated user with the ID 16129012
       #     Twitter.saved_search_destroy(16129012)
       # @overload saved_search_destroy(*ids, options)
-      #   @param ids [Array<Integer>, Set<Integer>] An array of saved search IDs.
+      #   @param ids [Enumerable<Integer>] A collection of saved search IDs.
       #   @param options [Hash] A customizable set of options.
       def saved_search_destroy(*args)
         arguments = Twitter::API::Arguments.new(args)

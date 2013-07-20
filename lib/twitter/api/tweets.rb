@@ -78,11 +78,11 @@ module Twitter
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Array<Twitter::Tweet>] The requested Tweets.
       # @overload statuses(*ids)
-      #   @param ids [Array<Integer>, Set<Integer>] An array of Tweet IDs.
+      #   @param ids [Enumerable<Integer>] A collection of Tweet IDs.
       #   @example Return the Tweet with the ID 25938088801
       #     Twitter.statuses(25938088801)
       # @overload statuses(*ids, options)
-      #   @param ids [Array<Integer>, Set<Integer>] An array of Tweet IDs.
+      #   @param ids [Enumerable<Integer>] A collection of Tweet IDs.
       #   @param options [Hash] A customizable set of options.
       #   @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       def statuses(*args)
@@ -98,11 +98,11 @@ module Twitter
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Array<Twitter::Tweet>] The deleted Tweets.
       # @overload status_destroy(*ids)
-      #   @param ids [Array<Integer>, Set<Integer>] An array of Tweet IDs.
+      #   @param ids [Enumerable<Integer>] A collection of Tweet IDs.
       #   @example Destroy the Tweet with the ID 25938088801
       #     Twitter.status_destroy(25938088801)
       # @overload status_destroy(*ids, options)
-      #   @param ids [Array<Integer>, Set<Integer>] An array of Tweet IDs.
+      #   @param ids [Enumerable<Integer>] A collection of Tweet IDs.
       #   @param options [Hash] A customizable set of options.
       #   @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       def status_destroy(*args)
@@ -140,11 +140,11 @@ module Twitter
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Array<Twitter::Tweet>] The original tweets with retweet details embedded.
       # @overload retweet(*ids)
-      #   @param ids [Array<Integer>, Set<Integer>] An array of Tweet IDs.
+      #   @param ids [Enumerable<Integer>] A collection of Tweet IDs.
       #   @example Retweet the Tweet with the ID 28561922516
       #     Twitter.retweet(28561922516)
       # @overload retweet(*ids, options)
-      #   @param ids [Array<Integer>, Set<Integer>] An array of Tweet IDs.
+      #   @param ids [Enumerable<Integer>] A collection of Tweet IDs.
       #   @param options [Hash] A customizable set of options.
       #   @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       def retweet(*args)
@@ -167,11 +167,11 @@ module Twitter
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Array<Twitter::Tweet>] The original tweets with retweet details embedded.
       # @overload retweet!(*ids)
-      #   @param ids [Array<Integer>, Set<Integer>] An array of Tweet IDs.
+      #   @param ids [Enumerable<Integer>] A collection of Tweet IDs.
       #   @example Retweet the Tweet with the ID 28561922516
       #     Twitter.retweet!(28561922516)
       # @overload retweet!(*ids, options)
-      #   @param ids [Array<Integer>, Set<Integer>] An array of Tweet IDs.
+      #   @param ids [Enumerable<Integer>] A collection of Tweet IDs.
       #   @param options [Hash] A customizable set of options.
       #   @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       def retweet!(*args)
@@ -239,11 +239,11 @@ module Twitter
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Array<Twitter::OEmbed>] OEmbeds for the requested Tweets.
       # @overload oembed(*ids_or_urls)
-      #   @param ids_or_urls [Array<Integer, String>, Set<Integer, String>] An array of Tweet IDs or URLs.
+      #   @param ids_or_urls [Enumerable<Integer, String>] A collection of Tweet IDs or URLs.
       #   @example Return oEmbeds for Tweets with the ID 25938088801
       #     Twitter.status_with_activity(25938088801)
       # @overload oembed(*ids_or_urls, options)
-      #   @param ids_or_urls [Array<Integer, String>, Set<Integer, String>] An array of Tweet IDs or URLs.
+      #   @param ids_or_urls [Enumerable<Integer, String>] A collection of Tweet IDs or URLs.
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :maxwidth The maximum width in pixels that the embed should be rendered at. This value is constrained to be between 250 and 550 pixels.
       #   @option options [Boolean, String, Integer] :hide_media Specifies whether the embedded Tweet should automatically expand images which were uploaded via {https://dev.twitter.com/docs/api/1.1/post/statuses/update_with_media POST statuses/update_with_media}. When set to either true, t or 1 images will not be expanded. Defaults to false.

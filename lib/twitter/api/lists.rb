@@ -244,7 +244,7 @@ module Twitter
       # @return [Twitter::List] The list.
       # @overload list_add_members(list, users, options={})
       #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, or object.
-      #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
+      #   @param users [Enumerable<Integer, String, Twitter::User>] A collection of Twitter user IDs, screen names, or objects.
       #   @param options [Hash] A customizable set of options.
       #   @example Add @BarackObama and @pengwynn to the authenticated user's "presidents" list
       #     Twitter.list_add_members('presidents', ['BarackObama', 'pengwynn'])
@@ -254,7 +254,7 @@ module Twitter
       # @overload list_add_members(user, list, users, options={})
       #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
       #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, or object.
-      #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
+      #   @param users [Enumerable<Integer, String, Twitter::User>] A collection of Twitter user IDs, screen names, or objects.
       #   @param options [Hash] A customizable set of options.
       #   @example Add @BarackObama and @pengwynn to @sferik's "presidents" list
       #     Twitter.list_add_members('sferik', 'presidents', ['BarackObama', 'pengwynn'])
@@ -485,7 +485,7 @@ module Twitter
       # @return [Twitter::List] The list.
       # @overload list_remove_members(list, users, options={})
       #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, or object.
-      #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
+      #   @param users [Enumerable<Integer, String, Twitter::User>] A collection of Twitter user IDs, screen names, or objects.
       #   @param options [Hash] A customizable set of options.
       #   @example Remove @BarackObama and @pengwynn from the authenticated user's "presidents" list
       #     Twitter.list_remove_members('presidents', ['BarackObama', 'pengwynn'])
@@ -495,7 +495,7 @@ module Twitter
       # @overload list_remove_members(user, list, users, options={})
       #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
       #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, or object.
-      #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
+      #   @param users [Enumerable<Integer, String, Twitter::User>] A collection of Twitter user IDs, screen names, or objects.
       #   @param options [Hash] A customizable set of options.
       #   @example Remove @BarackObama and @pengwynn from @sferik's "presidents" list
       #     Twitter.list_remove_members('sferik', 'presidents', ['BarackObama', 'pengwynn'])

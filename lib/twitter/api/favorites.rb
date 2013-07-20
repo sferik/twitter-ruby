@@ -49,11 +49,11 @@ module Twitter
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Array<Twitter::Tweet>] The un-favorited Tweets.
       # @overload unfavorite(*ids)
-      #   @param ids [Array<Integer>, Set<Integer>] An array of Tweet IDs.
+      #   @param ids [Enumerable<Integer>] A collection of Tweet IDs.
       #   @example Un-favorite the tweet with the ID 25938088801
       #     Twitter.unfavorite(25938088801)
       # @overload unfavorite(*ids, options)
-      #   @param ids [Array<Integer>, Set<Integer>] An array of Tweet IDs.
+      #   @param ids [Enumerable<Integer>] A collection of Tweet IDs.
       #   @param options [Hash] A customizable set of options.
       def unfavorite(*args)
         threaded_object_from_response(Twitter::Tweet, :post, "/1.1/favorites/destroy.json", args)
@@ -70,11 +70,11 @@ module Twitter
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Array<Twitter::Tweet>] The favorited Tweets.
       # @overload favorite(*ids)
-      #   @param ids [Array<Integer>, Set<Integer>] An array of Tweet IDs.
+      #   @param ids [Enumerable<Integer>] A collection of Tweet IDs.
       #   @example Favorite the Tweet with the ID 25938088801
       #     Twitter.favorite(25938088801)
       # @overload favorite(*ids, options)
-      #   @param ids [Array<Integer>, Set<Integer>] An array of Tweet IDs.
+      #   @param ids [Enumerable<Integer>] A collection of Tweet IDs.
       #   @param options [Hash] A customizable set of options.
       def favorite(*args)
         arguments = Twitter::API::Arguments.new(args)
@@ -100,11 +100,11 @@ module Twitter
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Array<Twitter::Tweet>] The favorited Tweets.
       # @overload favorite(*ids)
-      #   @param ids [Array<Integer>, Set<Integer>] An array of Tweet IDs.
+      #   @param ids [Enumerable<Integer>] A collection of Tweet IDs.
       #   @example Favorite the Tweet with the ID 25938088801
       #     Twitter.favorite(25938088801)
       # @overload favorite(*ids, options)
-      #   @param ids [Array<Integer>, Set<Integer>] An array of Tweet IDs.
+      #   @param ids [Enumerable<Integer>] A collection of Tweet IDs.
       #   @param options [Hash] A customizable set of options.
       def favorite!(*args)
         arguments = Twitter::API::Arguments.new(args)
