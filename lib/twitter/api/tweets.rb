@@ -24,7 +24,7 @@ module Twitter
       # @example Return up to 100 of the first retweets of the Tweet with the ID 28561922516
       #   Twitter.retweets(28561922516)
       def retweets(tweet, options={})
-        id = extract_tweet_id(tweet)
+        id = extract_id(tweet)
         objects_from_response(Twitter::Tweet, :get, "/1.1/statuses/retweets/#{id}.json", options)
       end
 
@@ -66,7 +66,7 @@ module Twitter
       # @example Return the Tweet with the ID 25938088801
       #   Twitter.status(25938088801)
       def status(tweet, options={})
-        id = extract_tweet_id(tweet)
+        id = extract_id(tweet)
         object_from_response(Twitter::Tweet, :get, "/1.1/statuses/show/#{id}.json", options)
       end
 
@@ -77,12 +77,12 @@ module Twitter
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Array<Twitter::Tweet>] The requested Tweets.
-      # @overload statuses(*ids)
-      #   @param ids [Enumerable<Integer>] A collection of Tweet IDs.
+      # @overload statuses(*tweets)
+      #   @param tweets [Enumerable<Integer, String, URI, Twitter::Tweet>] A collection of Tweet IDs, URIs, or objects.
       #   @example Return the Tweet with the ID 25938088801
       #     Twitter.statuses(25938088801)
-      # @overload statuses(*ids, options)
-      #   @param ids [Enumerable<Integer>] A collection of Tweet IDs.
+      # @overload statuses(*tweets, options)
+      #   @param tweets [Enumerable<Integer, String, URI, Twitter::Tweet>] A collection of Tweet IDs, URIs, or objects.
       #   @param options [Hash] A customizable set of options.
       #   @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       def statuses(*args)
@@ -97,12 +97,12 @@ module Twitter
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Array<Twitter::Tweet>] The deleted Tweets.
-      # @overload status_destroy(*ids)
-      #   @param ids [Enumerable<Integer>] A collection of Tweet IDs.
+      # @overload status_destroy(*tweets)
+      #   @param tweets [Enumerable<Integer, String, URI, Twitter::Tweet>] A collection of Tweet IDs, URIs, or objects.
       #   @example Destroy the Tweet with the ID 25938088801
       #     Twitter.status_destroy(25938088801)
-      # @overload status_destroy(*ids, options)
-      #   @param ids [Enumerable<Integer>] A collection of Tweet IDs.
+      # @overload status_destroy(*tweets, options)
+      #   @param tweets [Enumerable<Integer, String, URI, Twitter::Tweet>] A collection of Tweet IDs, URIs, or objects.
       #   @param options [Hash] A customizable set of options.
       #   @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       def status_destroy(*args)
@@ -139,17 +139,18 @@ module Twitter
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Array<Twitter::Tweet>] The original tweets with retweet details embedded.
-      # @overload retweet(*ids)
-      #   @param ids [Enumerable<Integer>] A collection of Tweet IDs.
+      # @overload retweet(*tweets)
+      #   @param tweets [Enumerable<Integer, String, URI, Twitter::Tweet>] A collection of Tweet IDs, URIs, or objects.
       #   @example Retweet the Tweet with the ID 28561922516
       #     Twitter.retweet(28561922516)
-      # @overload retweet(*ids, options)
-      #   @param ids [Enumerable<Integer>] A collection of Tweet IDs.
+      # @overload retweet(*tweets, options)
+      #   @param tweets [Enumerable<Integer, String, URI, Twitter::Tweet>] A collection of Tweet IDs, URIs, or objects.
       #   @param options [Hash] A customizable set of options.
       #   @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       def retweet(*args)
         arguments = Twitter::API::Arguments.new(args)
-        arguments.flatten.threaded_map do |id|
+        arguments.flatten.threaded_map do |tweet|
+          id = extract_id(tweet)
           begin
             post_retweet(id, arguments.options)
           rescue Twitter::Error::Forbidden => error
@@ -166,17 +167,18 @@ module Twitter
       # @raise [Twitter::Error::AlreadyRetweeted] Error raised when tweet has already been retweeted.
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Array<Twitter::Tweet>] The original tweets with retweet details embedded.
-      # @overload retweet!(*ids)
-      #   @param ids [Enumerable<Integer>] A collection of Tweet IDs.
+      # @overload retweet!(*tweets)
+      #   @param tweets [Enumerable<Integer, String, URI, Twitter::Tweet>] A collection of Tweet IDs, URIs, or objects.
       #   @example Retweet the Tweet with the ID 28561922516
       #     Twitter.retweet!(28561922516)
-      # @overload retweet!(*ids, options)
-      #   @param ids [Enumerable<Integer>] A collection of Tweet IDs.
+      # @overload retweet!(*tweets, options)
+      #   @param tweets [Enumerable<Integer, String, URI, Twitter::Tweet>] A collection of Tweet IDs, URIs, or objects.
       #   @param options [Hash] A customizable set of options.
       #   @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       def retweet!(*args)
         arguments = Twitter::API::Arguments.new(args)
-        arguments.flatten.threaded_map do |id|
+        arguments.flatten.threaded_map do |tweet|
+          id = extract_id(tweet)
           begin
             post_retweet(id, arguments.options)
           rescue Twitter::Error::Forbidden => error
@@ -227,7 +229,7 @@ module Twitter
       # @example Return oEmbeds for Tweet with the ID 25938088801
       #   Twitter.status_with_activity(25938088801)
       def oembed(tweet, options={})
-        options[:id] = extract_tweet_id(tweet)
+        options[:id] = extract_id(tweet)
         object_from_response(Twitter::OEmbed, :get, "/1.1/statuses/oembed.json", options)
       end
 
@@ -238,12 +240,12 @@ module Twitter
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Array<Twitter::OEmbed>] OEmbeds for the requested Tweets.
-      # @overload oembed(*ids_or_urls)
-      #   @param ids_or_urls [Enumerable<Integer, String>] A collection of Tweet IDs or URLs.
+      # @overload oembed(*tweets)
+      #   @param tweets [Enumerable<Integer, String, URI, Twitter::Tweet>] A collection of Tweet IDs, URIs, or objects.
       #   @example Return oEmbeds for Tweets with the ID 25938088801
       #     Twitter.status_with_activity(25938088801)
-      # @overload oembed(*ids_or_urls, options)
-      #   @param ids_or_urls [Enumerable<Integer, String>] A collection of Tweet IDs or URLs.
+      # @overload oembed(*tweets, options)
+      #   @param tweets [Enumerable<Integer, String, URI, Twitter::Tweet>] A collection of Tweet IDs, URIs, or objects.
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :maxwidth The maximum width in pixels that the embed should be rendered at. This value is constrained to be between 250 and 550 pixels.
       #   @option options [Boolean, String, Integer] :hide_media Specifies whether the embedded Tweet should automatically expand images which were uploaded via {https://dev.twitter.com/docs/api/1.1/post/statuses/update_with_media POST statuses/update_with_media}. When set to either true, t or 1 images will not be expanded. Defaults to false.
@@ -254,8 +256,9 @@ module Twitter
       #   @option options [String] :lang Language code for the rendered embed. This will affect the text and localization of the rendered HTML.
       def oembeds(*args)
         arguments = Twitter::API::Arguments.new(args)
-        arguments.flatten.threaded_map do |id_or_url|
-          oembed(id_or_url, arguments.options)
+        arguments.flatten.threaded_map do |tweet|
+          id = extract_id(tweet)
+          oembed(id, arguments.options)
         end
       end
 
@@ -277,28 +280,11 @@ module Twitter
       #     Twitter.retweeters_ids(25938088801)
       def retweeters_ids(*args)
         arguments = Twitter::API::Arguments.new(args)
-        arguments.options[:id] ||= extract_tweet_id(arguments.first)
+        arguments.options[:id] ||= extract_id(arguments.first)
         cursor_from_response(:ids, nil, :get, "/1.1/statuses/retweeters/ids.json", arguments.options, :retweeters_ids)
       end
 
     private
-
-      # Take a URI string or Tweet object and convert it to an id.
-      #
-      # @param tweet [Integer, String, URI, Twitter::Tweet] A Tweet ID, URI, or object.
-      # @return [Integer]
-      def extract_tweet_id(tweet)
-        case tweet
-        when Integer
-          tweet
-        when String
-          tweet.split('/').last.to_i
-        when URI
-          tweet.path.split('/').last.to_i
-        when Twitter::Tweet
-          tweet.id
-        end
-      end
 
       # @param request_method [Symbol]
       # @param path [String]
@@ -306,13 +292,14 @@ module Twitter
       # @return [Array<Twitter::Tweet>]
       def threaded_tweets_from_response(request_method, path, args)
         arguments = Twitter::API::Arguments.new(args)
-        arguments.flatten.threaded_map do |id|
+        arguments.flatten.threaded_map do |tweet|
+          id = extract_id(tweet)
           object_from_response(Twitter::Tweet, request_method, path + "/#{id}.json", arguments.options)
         end
       end
 
       def post_retweet(tweet, options)
-        id = extract_tweet_id(tweet)
+        id = extract_id(tweet)
         response = post("/1.1/statuses/retweet/#{id}.json", options)
         retweeted_status = response.dup
         retweeted_status[:body] = response[:body].delete(:retweeted_status)

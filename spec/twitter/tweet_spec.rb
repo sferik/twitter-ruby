@@ -101,7 +101,7 @@ describe Twitter::Tweet do
       expect(tweet.full_text).to eq "BOOSH"
     end
     it "returns the full text of a retweeted Tweet" do
-      tweet = Twitter::Tweet.new(:id => 28669546014, :text => 'RT @sferik: BOOSH', :retweeted_status => {:id => 28561922516, :text => 'BOOSH'})
+      tweet = Twitter::Tweet.new(:id => 28669546014, :text => 'RT @sferik: BOOSH', :retweeted_status => {:id => 25938088801, :text => 'BOOSH'})
       expect(tweet.full_text).to be_a String
       expect(tweet.full_text).to eq "RT @sferik: BOOSH"
     end
@@ -197,7 +197,7 @@ describe Twitter::Tweet do
 
   describe "#retweet?" do
     it "returns true when there is a retweeted status" do
-      tweet = Twitter::Tweet.new(:id => 28669546014, :retweeted_status => {:id => 28561922516, :text => 'BOOSH'})
+      tweet = Twitter::Tweet.new(:id => 28669546014, :retweeted_status => {:id => 25938088801, :text => 'BOOSH'})
       expect(tweet.retweet?).to be_true
     end
     it "returns false when retweeted_status is not set" do
@@ -208,7 +208,7 @@ describe Twitter::Tweet do
 
   describe "#retweeted_status" do
     it "has text when retweeted_status is set" do
-      tweet = Twitter::Tweet.new(:id => 28669546014, :retweeted_status => {:id => 28561922516, :text => 'BOOSH'})
+      tweet = Twitter::Tweet.new(:id => 28669546014, :retweeted_status => {:id => 25938088801, :text => 'BOOSH'})
       expect(tweet.retweeted_tweet).to be_a Twitter::Tweet
       expect(tweet.retweeted_tweet.text).to eq 'BOOSH'
     end

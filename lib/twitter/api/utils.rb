@@ -11,6 +11,23 @@ module Twitter
 
     private
 
+      # Take a URI string or Twitter::Identity object and return its ID
+      #
+      # @param object [Integer, String, URI, Twitter::Identity] An ID, URI, or object.
+      # @return [Integer]
+      def extract_id(object)
+        case object
+        when Integer
+          object
+        when String
+          object.split('/').last.to_i
+        when URI
+          object.path.split('/').last.to_i
+        when Twitter::Identity
+          object.id
+        end
+      end
+
       # @param request_method [Symbol]
       # @param path [String]
       # @param args [Array]
@@ -69,7 +86,8 @@ module Twitter
       # @return [Array]
       def threaded_object_from_response(klass, request_method, path, args)
         arguments = Twitter::API::Arguments.new(args)
-        arguments.flatten.threaded_map do |id|
+        arguments.flatten.threaded_map do |object|
+          id = extract_id(object)
           object_from_response(klass, request_method, path, arguments.options.merge(:id => id))
         end
       end

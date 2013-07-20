@@ -53,6 +53,26 @@ describe Twitter::API::Favorites do
       expect(tweets.first).to be_a Twitter::Tweet
       expect(tweets.first.text).to eq "The problem with your code is that it's doing exactly what you told it to do."
     end
+    context "with a URI object passed" do
+      it "requests the correct resource" do
+        tweet = URI.parse("https://twitter.com/sferik/status/25938088801")
+        @client.unfavorite(tweet)
+        expect(a_post("/1.1/favorites/destroy.json").with(:body => {:id => "25938088801"})).to have_been_made
+      end
+    end
+    context "with a URI string passed" do
+      it "requests the correct resource" do
+        @client.unfavorite("https://twitter.com/sferik/status/25938088801")
+        expect(a_post("/1.1/favorites/destroy.json").with(:body => {:id => "25938088801"})).to have_been_made
+      end
+    end
+    context "with a Tweet passed" do
+      it "requests the correct resource" do
+        tweet = Twitter::Tweet.new(:id => 25938088801)
+        @client.unfavorite(tweet)
+        expect(a_post("/1.1/favorites/destroy.json").with(:body => {:id => "25938088801"})).to have_been_made
+      end
+    end
   end
 
   describe "#favorite" do
@@ -75,6 +95,26 @@ describe Twitter::API::Favorites do
       end
       it "does not raises an error" do
         expect{@client.favorite(25938088801)}.not_to raise_error
+      end
+    end
+    context "with a URI object passed" do
+      it "requests the correct resource" do
+        tweet = URI.parse("https://twitter.com/sferik/status/25938088801")
+        @client.favorite(tweet)
+        expect(a_post("/1.1/favorites/create.json").with(:body => {:id => "25938088801"})).to have_been_made
+      end
+    end
+    context "with a URI string passed" do
+      it "requests the correct resource" do
+        @client.favorite("https://twitter.com/sferik/status/25938088801")
+        expect(a_post("/1.1/favorites/create.json").with(:body => {:id => "25938088801"})).to have_been_made
+      end
+    end
+    context "with a Tweet passed" do
+      it "requests the correct resource" do
+        tweet = Twitter::Tweet.new(:id => 25938088801)
+        @client.favorite(tweet)
+        expect(a_post("/1.1/favorites/create.json").with(:body => {:id => "25938088801"})).to have_been_made
       end
     end
   end
@@ -107,6 +147,26 @@ describe Twitter::API::Favorites do
       end
       it "raises an AlreadyFavorited error" do
         expect{@client.favorite!(25938088801)}.to raise_error Twitter::Error::AlreadyFavorited
+      end
+    end
+    context "with a URI object passed" do
+      it "requests the correct resource" do
+        tweet = URI.parse("https://twitter.com/sferik/status/25938088801")
+        @client.favorite!(tweet)
+        expect(a_post("/1.1/favorites/create.json").with(:body => {:id => "25938088801"})).to have_been_made
+      end
+    end
+    context "with a URI string passed" do
+      it "requests the correct resource" do
+        @client.favorite!("https://twitter.com/sferik/status/25938088801")
+        expect(a_post("/1.1/favorites/create.json").with(:body => {:id => "25938088801"})).to have_been_made
+      end
+    end
+    context "with a Tweet passed" do
+      it "requests the correct resource" do
+        tweet = Twitter::Tweet.new(:id => 25938088801)
+        @client.favorite!(tweet)
+        expect(a_post("/1.1/favorites/create.json").with(:body => {:id => "25938088801"})).to have_been_made
       end
     end
   end

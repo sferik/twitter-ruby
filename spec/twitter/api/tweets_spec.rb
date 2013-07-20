@@ -147,6 +147,26 @@ describe Twitter::API::Tweets do
       expect(tweets.first).to be_a Twitter::Tweet
       expect(tweets.first.text).to eq "The problem with your code is that it's doing exactly what you told it to do."
     end
+    context "with a URI object passed" do
+      it "requests the correct resource" do
+        tweet = URI.parse("https://twitter.com/sferik/status/25938088801")
+        @client.statuses(tweet)
+        expect(a_get("/1.1/statuses/show/25938088801.json")).to have_been_made
+      end
+    end
+    context "with a URI string passed" do
+      it "requests the correct resource" do
+        @client.statuses("https://twitter.com/sferik/status/25938088801")
+        expect(a_get("/1.1/statuses/show/25938088801.json")).to have_been_made
+      end
+    end
+    context "with a Tweet passed" do
+      it "requests the correct resource" do
+        tweet = Twitter::Tweet.new(:id => 25938088801)
+        @client.statuses(tweet)
+        expect(a_get("/1.1/statuses/show/25938088801.json")).to have_been_made
+      end
+    end
   end
 
   describe "#status_destroy" do
@@ -162,6 +182,26 @@ describe Twitter::API::Tweets do
       expect(tweets).to be_an Array
       expect(tweets.first).to be_a Twitter::Tweet
       expect(tweets.first.text).to eq "The problem with your code is that it's doing exactly what you told it to do."
+    end
+    context "with a URI object passed" do
+      it "requests the correct resource" do
+        tweet = URI.parse("https://twitter.com/sferik/status/25938088801")
+        @client.status_destroy(tweet)
+        expect(a_post("/1.1/statuses/destroy/25938088801.json")).to have_been_made
+      end
+    end
+    context "with a URI string passed" do
+      it "requests the correct resource" do
+        @client.status_destroy("https://twitter.com/sferik/status/25938088801")
+        expect(a_post("/1.1/statuses/destroy/25938088801.json")).to have_been_made
+      end
+    end
+    context "with a Tweet passed" do
+      it "requests the correct resource" do
+        tweet = Twitter::Tweet.new(:id => 25938088801)
+        @client.status_destroy(tweet)
+        expect(a_post("/1.1/statuses/destroy/25938088801.json")).to have_been_made
+      end
     end
   end
 
@@ -376,6 +416,26 @@ describe Twitter::API::Tweets do
       oembeds = @client.oembeds(25938088801)
       expect(oembeds).to be_an Array
       expect(oembeds.first).to be_a Twitter::OEmbed
+    end
+    context "with a URI object passed" do
+      it "requests the correct resource" do
+        tweet = URI.parse("https://twitter.com/sferik/status/25938088801")
+        @client.oembeds(tweet)
+        expect(a_get("/1.1/statuses/oembed.json").with(:query => {:id => "25938088801"})).to have_been_made
+      end
+    end
+    context "with a URI string passed" do
+      it "requests the correct resource" do
+        @client.oembeds("https://twitter.com/sferik/status/25938088801")
+        expect(a_get("/1.1/statuses/oembed.json").with(:query => {:id => "25938088801"})).to have_been_made
+      end
+    end
+    context "with a Tweet passed" do
+      it "requests the correct resource" do
+        tweet = Twitter::Tweet.new(:id => 25938088801)
+        @client.oembeds(tweet)
+        expect(a_get("/1.1/statuses/oembed.json").with(:query => {:id => "25938088801"})).to have_been_made
+      end
     end
   end
 

@@ -48,12 +48,12 @@ module Twitter
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Array<Twitter::Tweet>] The un-favorited Tweets.
-      # @overload unfavorite(*ids)
-      #   @param ids [Enumerable<Integer>] A collection of Tweet IDs.
+      # @overload unfavorite(*tweets)
+      #   @param tweets [Enumerable<Integer, String, URI, Twitter::Tweet>] A collection of Tweet IDs, URIs, or objects.
       #   @example Un-favorite the tweet with the ID 25938088801
       #     Twitter.unfavorite(25938088801)
-      # @overload unfavorite(*ids, options)
-      #   @param ids [Enumerable<Integer>] A collection of Tweet IDs.
+      # @overload unfavorite(*tweets, options)
+      #   @param tweets [Enumerable<Integer, String, URI, Twitter::Tweet>] A collection of Tweet IDs, URIs, or objects.
       #   @param options [Hash] A customizable set of options.
       def unfavorite(*args)
         threaded_object_from_response(Twitter::Tweet, :post, "/1.1/favorites/destroy.json", args)
@@ -69,16 +69,17 @@ module Twitter
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Array<Twitter::Tweet>] The favorited Tweets.
-      # @overload favorite(*ids)
-      #   @param ids [Enumerable<Integer>] A collection of Tweet IDs.
+      # @overload favorite(*tweets)
+      #   @param tweets [Enumerable<Integer, String, URI, Twitter::Tweet>] A collection of Tweet IDs, URIs, or objects.
       #   @example Favorite the Tweet with the ID 25938088801
       #     Twitter.favorite(25938088801)
-      # @overload favorite(*ids, options)
-      #   @param ids [Enumerable<Integer>] A collection of Tweet IDs.
+      # @overload favorite(*tweets, options)
+      #   @param tweets [Enumerable<Integer, String, URI, Twitter::Tweet>] A collection of Tweet IDs, URIs, or objects.
       #   @param options [Hash] A customizable set of options.
       def favorite(*args)
         arguments = Twitter::API::Arguments.new(args)
-        arguments.flatten.threaded_map do |id|
+        arguments.flatten.threaded_map do |tweet|
+          id = extract_id(tweet)
           begin
             object_from_response(Twitter::Tweet, :post, "/1.1/favorites/create.json", arguments.options.merge(:id => id))
           rescue Twitter::Error::Forbidden => error
@@ -99,16 +100,17 @@ module Twitter
       # @raise [Twitter::Error::AlreadyFavorited] Error raised when tweet has already been favorited.
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Array<Twitter::Tweet>] The favorited Tweets.
-      # @overload favorite(*ids)
-      #   @param ids [Enumerable<Integer>] A collection of Tweet IDs.
+      # @overload favorite(*tweets)
+      #   @param tweets [Enumerable<Integer, String, URI, Twitter::Tweet>] A collection of Tweet IDs, URIs, or objects.
       #   @example Favorite the Tweet with the ID 25938088801
       #     Twitter.favorite(25938088801)
-      # @overload favorite(*ids, options)
-      #   @param ids [Enumerable<Integer>] A collection of Tweet IDs.
+      # @overload favorite(*tweets, options)
+      #   @param tweets [Enumerable<Integer, String, URI, Twitter::Tweet>] A collection of Tweet IDs, URIs, or objects.
       #   @param options [Hash] A customizable set of options.
       def favorite!(*args)
         arguments = Twitter::API::Arguments.new(args)
-        arguments.flatten.threaded_map do |id|
+        arguments.flatten.threaded_map do |tweet|
+          id = extract_id(tweet)
           begin
             object_from_response(Twitter::Tweet, :post, "/1.1/favorites/create.json", arguments.options.merge(:id => id))
           rescue Twitter::Error::Forbidden => error
