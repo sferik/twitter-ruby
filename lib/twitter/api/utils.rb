@@ -1,6 +1,7 @@
 require 'twitter/api/arguments'
 require 'twitter/cursor'
 require 'twitter/user'
+require 'uri'
 
 module Twitter
   module API

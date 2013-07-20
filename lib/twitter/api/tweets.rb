@@ -17,13 +17,14 @@ module Twitter
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Array<Twitter::Tweet>]
-      # @param id [Integer] The numerical ID of the desired Tweet.
+      # @param tweet [Integer, String, URI, Twitter::Tweet] A Tweet ID, URI, or object.
       # @param options [Hash] A customizable set of options.
       # @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 100.
       # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       # @example Return up to 100 of the first retweets of the Tweet with the ID 28561922516
       #   Twitter.retweets(28561922516)
-      def retweets(id, options={})
+      def retweets(tweet, options={})
+        id = extract_tweet_id(tweet)
         objects_from_response(Twitter::Tweet, :get, "/1.1/statuses/retweets/#{id}.json", options)
       end
 
@@ -34,16 +35,16 @@ module Twitter
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Array]
-      # @param id [Integer] The numerical ID of the desired Tweet.
+      # @param tweet [Integer, String, URI, Twitter::Tweet] A Tweet ID, URI, or object.
       # @param options [Hash] A customizable set of options.
       # @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 100.
       # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       # @option options [Boolean] :ids_only ('false') Only return user ids instead of full user objects.
       # @example Show up to 100 users who retweeted the Tweet with the ID 28561922516
       #   Twitter.retweeters_of(28561922516)
-      def retweeters_of(id, options={})
+      def retweeters_of(tweet, options={})
         ids_only = !!options.delete(:ids_only)
-        retweeters = retweets(id, options).map(&:user)
+        retweeters = retweets(tweet, options).map(&:user)
         if ids_only
           retweeters.map(&:id)
         else
@@ -59,12 +60,13 @@ module Twitter
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @raise [Twitter::Error::Forbidden] Error raised when supplied status is over 140 characters.
       # @return [Twitter::Tweet] The requested Tweet.
-      # @param id [Integer] A Tweet ID.
+      # @param tweet [Integer, String, URI, Twitter::Tweet] A Tweet ID, URI, or object.
       # @param options [Hash] A customizable set of options.
       # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       # @example Return the Tweet with the ID 25938088801
       #   Twitter.status(25938088801)
-      def status(id, options={})
+      def status(tweet, options={})
+        id = extract_tweet_id(tweet)
         object_from_response(Twitter::Tweet, :get, "/1.1/statuses/show/#{id}.json", options)
       end
 
@@ -213,7 +215,7 @@ module Twitter
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Twitter::OEmbed] OEmbed for the requested Tweet.
-      # @param id_or_url [Integer, String] A Tweet ID or URL.
+      # @param tweet [Integer, String, URI, Twitter::Tweet] A Tweet ID, URI, or object.
       # @param options [Hash] A customizable set of options.
       # @option options [Integer] :maxwidth The maximum width in pixels that the embed should be rendered at. This value is constrained to be between 250 and 550 pixels.
       # @option options [Boolean, String, Integer] :hide_media Specifies whether the embedded Tweet should automatically expand images which were uploaded via {https://dev.twitter.com/docs/api/1.1/post/statuses/update_with_media POST statuses/update_with_media}. When set to either true, t or 1 images will not be expanded. Defaults to false.
@@ -224,9 +226,9 @@ module Twitter
       # @option options [String] :lang Language code for the rendered embed. This will affect the text and localization of the rendered HTML.
       # @example Return oEmbeds for Tweet with the ID 25938088801
       #   Twitter.status_with_activity(25938088801)
-      def oembed(id_or_url, options={})
-        key = id_or_url.is_a?(String) && id_or_url.match(%r{^https?://}i) ? "url" : "id"
-        object_from_response(Twitter::OEmbed, :get, "/1.1/statuses/oembed.json?#{key}=#{id_or_url}", options)
+      def oembed(tweet, options={})
+        options[:id] = extract_tweet_id(tweet)
+        object_from_response(Twitter::OEmbed, :get, "/1.1/statuses/oembed.json", options)
       end
 
       # Returns oEmbeds for Tweets
@@ -269,17 +271,34 @@ module Twitter
       #   @example Return a collection of up to 100 user IDs belonging to users who have retweeted the tweet specified by the id parameter
       #     Twitter.retweeters_ids({:id => 25938088801})
       # @overload retweeters_ids(id, options={})
-      #   @param id [Integer] The numerical ID of the desired Tweet.
+      #   @param tweet [Integer, String, URI, Twitter::Tweet] A Tweet ID, URI, or object.
       #   @param options [Hash] A customizable set of options.
       #   @example Return a collection of up to 100 user IDs belonging to users who have retweeted the tweet specified by the id parameter
       #     Twitter.retweeters_ids(25938088801)
       def retweeters_ids(*args)
         arguments = Twitter::API::Arguments.new(args)
-        arguments.options[:id] ||= arguments.first
+        arguments.options[:id] ||= extract_tweet_id(arguments.first)
         cursor_from_response(:ids, nil, :get, "/1.1/statuses/retweeters/ids.json", arguments.options, :retweeters_ids)
       end
 
     private
+
+      # Take a URI string or Tweet object and convert it to an id.
+      #
+      # @param tweet [Integer, String, URI, Twitter::Tweet] A Tweet ID, URI, or object.
+      # @return [Integer]
+      def extract_tweet_id(tweet)
+        case tweet
+        when Integer
+          tweet
+        when String
+          tweet.split('/').last.to_i
+        when URI
+          tweet.path.split('/').last.to_i
+        when Twitter::Tweet
+          tweet.id
+        end
+      end
 
       # @param request_method [Symbol]
       # @param path [String]
@@ -292,7 +311,8 @@ module Twitter
         end
       end
 
-      def post_retweet(id, options)
+      def post_retweet(tweet, options)
+        id = extract_tweet_id(tweet)
         response = post("/1.1/statuses/retweet/#{id}.json", options)
         retweeted_status = response.dup
         retweeted_status[:body] = response[:body].delete(:retweeted_status)
