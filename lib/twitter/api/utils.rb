@@ -20,9 +20,9 @@ module Twitter
         when Integer
           object
         when String
-          object.split('/').last.to_i
+          object.split("/").last.to_i
         when URI
-          object.path.split('/').last.to_i
+          object.path.split("/").last.to_i
         when Twitter::Identity
           object.id
         end
@@ -147,7 +147,7 @@ module Twitter
       # Take a user and merge it into the hash with the correct key
       #
       # @param hash [Hash]
-      # @param user [Integer, String, Twitter::User] A Twitter user ID, screen_name, or object.
+      # @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, URI, or object.
       # @return [Hash]
       def merge_user(hash, user, prefix=nil)
         merge_user!(hash.dup, user, prefix)
@@ -156,7 +156,7 @@ module Twitter
       # Take a user and merge it into the hash with the correct key
       #
       # @param hash [Hash]
-      # @param user [Integer, String, Twitter::User] A Twitter user ID, screen_name, or object.
+      # @param user [Integer, String, URI, Twitter::User] A Twitter user ID, screen name, URI, or object.
       # @return [Hash]
       def merge_user!(hash, user, prefix=nil)
         case user
@@ -164,6 +164,8 @@ module Twitter
           hash[[prefix, "user_id"].compact.join("_").to_sym] = user
         when String
           hash[[prefix, "screen_name"].compact.join("_").to_sym] = user
+        when URI
+          hash[[prefix, "screen_name"].compact.join("_").to_sym] = user.path.split("/").last
         when Twitter::User
           hash[[prefix, "user_id"].compact.join("_").to_sym] = user.id
         end
@@ -182,7 +184,7 @@ module Twitter
       # Take a multiple users and merge them into the hash with the correct keys
       #
       # @param hash [Hash]
-      # @param users [Enumerable<Integer, String, Twitter::User>] A collection of Twitter user IDs, screen_names, or objects.
+      # @param users [Enumerable<Integer, String, URI, Twitter::User>] A collection of Twitter user IDs, screen_names, URIs, or objects.
       # @return [Hash]
       def merge_users!(hash, users)
         user_ids, screen_names = [], []
@@ -192,6 +194,8 @@ module Twitter
             user_ids << user
           when String
             screen_names << user
+          when URI
+            screen_names << user.path.split("/").last
           when Twitter::User
             user_ids << user.id
           end

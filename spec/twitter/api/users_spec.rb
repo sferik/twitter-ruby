@@ -320,6 +320,14 @@ describe Twitter::API::Users do
           expect(users.first).to be_a Twitter::User
           expect(users.first.id).to eq 7505382
         end
+        context "with URI objects passed" do
+          it "requests the correct resource" do
+            sferik = URI.parse("https://twitter.com/sferik")
+            pengwynn = URI.parse("https://twitter.com/pengwynn")
+            @client.users(sferik, pengwynn)
+            expect(a_post("/1.1/users/lookup.json").with(:body => {:screen_name => "sferik,pengwynn"})).to have_been_made
+          end
+        end
       end
       context "with numeric screen names passed" do
         before do
@@ -360,7 +368,6 @@ describe Twitter::API::Users do
         end
       end
     end
-
     context "using a get request" do
       context "with screen names passed" do
         before do
@@ -375,6 +382,14 @@ describe Twitter::API::Users do
           expect(users).to be_an Array
           expect(users.first).to be_a Twitter::User
           expect(users.first.id).to eq 7505382
+        end
+        context "with URI objects passed" do
+          it "requests the correct resource" do
+            sferik = URI.parse("https://twitter.com/sferik")
+            pengwynn = URI.parse("https://twitter.com/pengwynn")
+            @client.users(sferik, pengwynn, :method => :get)
+            expect(a_get("/1.1/users/lookup.json").with(:query => {:screen_name => "sferik,pengwynn"})).to have_been_made
+          end
         end
       end
       context "with numeric screen names passed" do

@@ -21,6 +21,13 @@ describe Twitter::API::Favorites do
         expect(favorites.first).to be_a Twitter::Tweet
         expect(favorites.first.user.id).to eq 7505382
       end
+      context "with a URI object passed" do
+        it "requests the correct resource" do
+          user = URI.parse('https://twitter.com/sferik')
+          @client.favorites(user)
+          expect(a_get("/1.1/favorites/list.json").with(:query => {:screen_name => "sferik"})).to have_been_made
+        end
+      end
     end
     context "without arguments passed" do
       before do

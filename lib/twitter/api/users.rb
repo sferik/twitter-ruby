@@ -180,7 +180,7 @@ module Twitter
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Boolean] true if the authenticating user is blocking the target user, otherwise false.
-      # @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
+      # @param user [Integer, String, URI, Twitter::User] A Twitter user ID, screen name, URI, or object.
       # @param options [Hash] A customizable set of options.
       # @example Check whether the authenticating user is blocking @sferik
       #   Twitter.block?('sferik')
@@ -190,7 +190,7 @@ module Twitter
         user_id = case user
         when Integer
           user
-        when String
+        when String, URI
           user(user).id
         when Twitter::User
           user.id
@@ -281,7 +281,7 @@ module Twitter
       # @overload user(user, options={})
       #   Returns extended information for a given user
       #
-      #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
+      #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, URI, or object.
       #   @param options [Hash] A customizable set of options.
       #   @option options [Boolean] :include_entities The tweet entities node will be disincluded when set to false.
       #   @option options [Boolean, String, Integer] :skip_status Do not include user's Tweets when set to true, 't' or 1.
@@ -304,7 +304,7 @@ module Twitter
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Boolean] true if the user exists, otherwise false.
-      # @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
+      # @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, URI, or object.
       # @example Return true if @sferik exists
       #   Twitter.user?('sferik')
       #   Twitter.user?(7505382)  # Same as above
@@ -346,7 +346,7 @@ module Twitter
       #   @example Return the authenticated user's contributees
       #     Twitter.contributees
       # @overload contributees(user, options={})
-      #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
+      #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, URI, or object.
       #   @param options [Hash] A customizable set of options.
       #   @option options [Boolean, String, Integer] :skip_status Do not include contributee's Tweets when set to true, 't' or 1.
       #   @example Return users @sferik can contribute to
@@ -369,7 +369,7 @@ module Twitter
       #   @example Return the authenticated user's contributors
       #     Twitter.contributors
       # @overload contributors(user, options={})
-      #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
+      #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, URI, or object.
       #   @param options [Hash] A customizable set of options.
       #   @option options [Boolean, String, Integer] :skip_status Do not include contributee's Tweets when set to true, 't' or 1.
       #   @example Return users who can contribute to @sferik's account
@@ -428,7 +428,7 @@ module Twitter
       #   @example Return the authenticated user's profile banner
       #     Twitter.profile_banner
       # @overload profile_banner(user, options={})
-      #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
+      #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, URI, or object.
       #   @example Return the specified user's profile banner
       #     Twitter.profile_banner('sferik')
       #     Twitter.profile_banner(7505382)  # Same as above

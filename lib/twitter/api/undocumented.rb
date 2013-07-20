@@ -27,7 +27,7 @@ module Twitter
       # @overload following_followers_of(user, options={})
       #   Returns users following followers of the authenticated user
       #
-      #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
+      #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, URI, or object.
       #   @param options [Hash] A customizable set of options.
       #     @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
       #     @return [Twitter::Cursor]

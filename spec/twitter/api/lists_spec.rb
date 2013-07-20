@@ -37,6 +37,21 @@ describe Twitter::API::Lists do
         expect(tweets.first).to be_a Twitter::Tweet
         expect(tweets.first.text).to eq "Happy Birthday @imdane. Watch out for those @rally pranksters!"
       end
+      context "with a URI object passed" do
+        it "requests the correct resource" do
+          list = URI.parse("https://twitter.com/sferik/presidents")
+          @client.list_timeline(list)
+          expect(a_get("/1.1/lists/statuses.json").with(:query => {:owner_screen_name => "sferik", :slug => "presidents"})).to have_been_made
+        end
+      end
+      context "with URI objects passed" do
+        it "requests the correct resource" do
+          user = URI.parse("https://twitter.com/sferik")
+          list = URI.parse("https://twitter.com/sferik/presidents")
+          @client.list_timeline(user, list)
+          expect(a_get("/1.1/lists/statuses.json").with(:query => {:owner_screen_name => "sferik", :slug => "presidents"})).to have_been_made
+        end
+      end
     end
     context "without a screen name passed" do
       before do
