@@ -18,6 +18,13 @@ describe Twitter::Cursor do
       @client.follower_ids("sferik").each{count += 1}
       expect(count).to eq 6
     end
+    context "with start" do
+      it "iterates" do
+        count = 0
+        @client.follower_ids("sferik").each(5){count += 1}
+        expect(count).to eq 1
+      end
+    end
   end
 
   describe "#first?" do

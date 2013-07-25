@@ -37,18 +37,20 @@ module Twitter
       @request_method = request_method.to_sym
       @path = path
       @options = options
+      @collection = []
       set_attrs(attrs)
     end
 
     # @return [Enumerator]
-    def each(&block)
+    def each(start = 0, &block)
       return to_enum(:each) unless block_given?
-      @page.each do |element|
+      Array(@collection[start..-1]).each do |element|
         yield element
       end
       unless last?
+        start = [@collection.size, start].max
         fetch_next_page
-        each(&block)
+        each(start, &block)
       end
       self
     end
@@ -82,8 +84,8 @@ module Twitter
 
     def set_attrs(attrs)
       @attrs = attrs
-      @page = Array(attrs[@key]).map do |element|
-        @klass ? @klass.new(element) : element
+      Array(attrs[@key]).each do |element|
+        @collection << (@klass ? @klass.new(element) : element)
       end
     end
 
