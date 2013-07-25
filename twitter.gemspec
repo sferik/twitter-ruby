@@ -7,7 +7,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'faraday', ['~> 0.8', '< 0.10']
   spec.add_dependency 'simple_oauth', '~> 0.2'
   spec.add_development_dependency 'bundler', '~> 1.0'
-  spec.authors = ["John Nunemaker", "Wynn Netherland", "Erik Michaels-Ober", "Steve Richert", "Steve Agalloco"]
+  spec.authors = ["Erik Michaels-Ober", "John Nunemaker", "Wynn Netherland", "Steve Richert", "Steve Agalloco"]
   spec.cert_chain  = ['certs/sferik.pem']
   spec.description = %q{A Ruby interface to the Twitter API.}
   spec.email = ['nunemaker@gmail.com', 'wynn.netherland@gmail.com', 'sferik@gmail.com', 'steve.richert@gmail.com', 'steve.agalloco@gmail.com']

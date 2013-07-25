@@ -436,7 +436,7 @@ The `Twitter::Error::EnhanceYourCalm` class has been aliased to
 `Twitter::Error::TooManyRequests`.
 
 ## Copyright
-Copyright (c) 2006-2013 John Nunemaker, Wynn Netherland, Erik Michaels-Ober, Steve Richert.
+Copyright (c) 2006-2013 Erik Michaels-Ober, John Nunemaker, Wynn Netherland, Steve Richert, Steve Agalloco.
 See [LICENSE][] for details.
 
 [license]: LICENSE.md
