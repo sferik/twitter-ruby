@@ -85,6 +85,154 @@ wiki][apps]!
 
 [apps]: https://github.com/sferik/twitter/wiki/apps
 
+## What's new in version 5?
+### Cursors
+The `Twitter::Cursor` class has been completely redesigned with a focus on
+simplicity and performance.
+
+[cursors]: https://dev.twitter.com/docs/misc/cursoring
+
+<table>
+  <thead>
+    <tr>
+      <th>Notes</th>
+      <th colspan="2">Version 4</th>
+      <th colspan="2">Version 5</th>
+    </th>
+    <tr>
+      <th></th>
+      <th>Code</th>
+      <th>HTTP GETs</th>
+      <th>Code</th>
+      <th>HTTP GETs</th>
+    </th>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        Are you at the start of the cursor?
+      </td>
+      <td>
+        <pre><code lang="ruby">Twitter.followers.first</code></pre>
+      </td>
+      <td>
+        <em>Θ(1)</em>
+      </td>
+      <td>
+        <pre><code lang="ruby">Twitter.followers.first?</code></pre>
+      </td>
+      <td>
+        <em>Θ(1)</em>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Return your most recent follower.
+      </td>
+      <td>
+        <pre><code lang="ruby">Twitter.followers.users.first</code></pre>
+      </td>
+      <td>
+        <em>Θ(1)</em>
+      </td>
+      <td>
+        <pre><code lang="ruby">Twitter.followers.first</code></pre>
+      </td>
+      <td>
+        <em>Θ(1)</em>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Return an array of all your followers.
+      </td>
+      <td>
+        <pre><code lang="ruby">Twitter.followers.all</code></pre>
+      </td>
+      <td>
+        <em>Θ(n+1)</em>
+      </td>
+      <td>
+        <pre><code lang="ruby">Twitter.followers.to_a</code></pre>
+      </td>
+      <td>
+        <em>Θ(n)</em>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Collect your most recent 20 followers.
+      </td>
+      <td>
+        <pre><code lang="ruby">Twitter.followers.take(20)</code></pre>
+      </td>
+      <td>
+        <em>Θ(n+1)</em>
+      </td>
+      <td>
+        <pre><code lang="ruby">Twitter.followers.take(20)</code></pre>
+      </td>
+      <td>
+        <em>Θ(1)</em>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Return the lowest user ID of your followers (5 times).
+      </td>
+      <td>
+        <pre><code lang="ruby">5.times do
+  Twitter.follower_ids.min
+end</code></pre>
+      </td>
+      <td>
+        <em>Θ(5n+1)</em>
+      </td>
+      <td>
+        <pre><code lang="ruby">5.times do
+  Twitter.follower_ids.min
+end</code></pre>
+      </td>
+      <td>
+        <em>Θ(1)</em>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+Keep in mind, eliminating a single HTTP request to the Twitter API will reduce
+the latency of your application by [about 500 ms][status], so these are
+significant performance gains.
+
+[status]: https://dev.twitter.com/status
+
+That last example might seem contrived ("Why would I call `#min` 5 times?") but
+it applies to any [`Enumerable`][enumerable] method you might call on a cursor,
+including: `#all?`, `#any?`, `#collect`, `#count`, `#detect`, `#each`,
+`#include?`, `#inject`, `#reject`, `#reverse_each`, `#select`, `#sort`,
+`#sort_by`, `#take` and `#to_a`. In version 4, each time you called one of
+those methods, it would perform *n* HTTP requests. In version 5, it only will
+perform those HTTP requests the first time one of those methods is called. Each
+subsequent call fetches data from a [collection cache][cache].
+
+[enumerable]: http://ruby-doc.org/core-2.0/Enumerable.html
+[cache]: https://github.com/sferik/twitter/commit/7d8b2727af9400643ac397207185fd54e3f6387b
+
+The performance picture actually looks even **better** than the table above
+indicates. In version 5, calling `Twitter::Cursor#each` (or any
+[`Enumerable`][enumerable] method) starts yielding results immediately and
+continues yielding as each response comes back from the server. In version 4,
+`#each` made a series of requests and waited for the last one to complete
+before yielding any data.
+
+Here is a complete list of the API changes to `Twitter::Cursor`:
+
+* `#first` has been replaced by `#first?`.
+* `#first` now returns the first element in the collection, as perscribed by `Enumerable`.
+* `#last` has been replaced by `#last?`.
+* `#all` has been replaced by `#to_a`.
+* `#collection` and its many, dynamic aliases have all been removed.
+
 ## Configuration
 Twitter API v1.1 requires you to authenticate via OAuth, so you'll need to
 [register your application with Twitter][register]. Once you've registered an
@@ -125,7 +273,7 @@ After configuration, requests can be made like so:
 Twitter.update("I'm tweeting with @gem!")
 ```
 
-#### Thread Safety
+### Thread Safety
 Applications that make requests on behalf of multiple Twitter users should
 avoid using global configuration. In this case, you may still specify the
 `consumer_key` and `consumer_secret` globally. (In a Rails application, this
@@ -174,7 +322,7 @@ client = Twitter::Client.new(
 
 This may be useful if you're using multiple consumer key/secret pairs.
 
-#### Middleware
+### Middleware
 The Faraday middleware stack is fully configurable and is exposed as a
 `Faraday::Builder` object. You can modify the default middleware in-place:
 
@@ -337,103 +485,6 @@ Constraint][pvc] with two digits of precision. For example:
 
 [semver]: http://semver.org/
 [pvc]: http://docs.rubygems.org/read/chapter/16#page74
-
-## What's new in version 4?
-#### Twitter API v1.1
-Version 4 of this library targets Twitter API v1.1. To understand the
-implications of this change, please read the following announcements from
-Twitter:
-
-* [Changes coming in Version 1.1 of the Twitter API][coming]
-* [Current status: API v1.1][status]
-* [Overview: Version 1.1 of the Twitter API][overview]
-
-[coming]: https://dev.twitter.com/blog/changes-coming-to-twitter-api
-[status]: https://dev.twitter.com/blog/current-status-api-v1.1
-[overview]: https://dev.twitter.com/docs/api/1.1/overview
-
-Despite the removal of certain underlying functionality in Twitter API v1.1,
-this library aims to preserve backward-compatibility wherever possible. For
-example, despite the removal of the [`GET
-statuses/retweeted_by_user`][retweeted_by_user] resource, the
-`Twitter::API#retweeted_by_user` method continues to exist, implemented by
-making multiple requests to the [`GET statuses/user_timeline`][user_timeline]
-resource. As a result, there is no longer a one-to-one correlation between
-method calls and Twitter API requests. In fact, it's possible for a single
-method call to exceed the Twitter API rate limit for a resource. If you think
-this might cause a problem for your application, feel free to [join the
-discussion][discussion].
-
-[retweeted_by_user]: https://dev.twitter.com/docs/api/1/get/statuses/retweeted_by_user
-[user_timeline]: https://dev.twitter.com/docs/api/1.1/get/statuses/user_timeline
-[discussion]: https://dev.twitter.com/discussions/10644
-
-#### Rate Limiting
-Another consequence of Twitter API v1.1 is that the
-`Twitter::Client#rate_limit` method has been removed, since the concept of a
-client-wide rate limit no longer exists. Rate limits are now applied on a
-per-resource level, however, since there is no longer a one-to-one mapping
-between methods and Twitter API resources, it's not entirely obvious how rate
-limit information should be exposed. I've decided to go back to the pre-3.0.0
-behavior of including rate limit information on `Twitter::Error` objects.
-Here's an example of how to handle rate limits:
-
-```ruby
-MAX_ATTEMPTS = 3
-num_attempts = 0
-begin
-  num_attempts += 1
-  retweets = Twitter.retweeted_by_user("sferik")
-rescue Twitter::Error::TooManyRequests => error
-  if num_attempts <= MAX_ATTEMPTS
-    # NOTE: Your process could go to sleep for up to 15 minutes but if you
-    # retry any sooner, it will almost certainly fail with the same exception.
-    sleep error.rate_limit.reset_in
-    retry
-  else
-    raise
-  end
-end
-```
-#### Methods Missing
-As a consequence of moving to Twitter API v1.1, the following methods from
-version 3 are no longer available in version 4:
-
-* `Twitter::API#accept`
-* `Twitter::API#deny`
-* `Twitter::API#disable_notifications`
-* `Twitter::API#enable_notifications`
-* `Twitter::API#end_session`
-* `Twitter::API#rate_limit_status`
-* `Twitter::API#rate_limited?`
-* `Twitter::API#recommendations`
-* `Twitter::API#related_results`
-* `Twitter::API#retweeted_to_user`
-* `Twitter::API#trends_daily`
-* `Twitter::API#trends_weekly`
-* `Twitter::Client#rate_limit`
-* `Twitter::RateLimit#class`
-
-#### Custom Endpoints
-The `Twitter::API#update_with_media` method no longer uses the custom
-`upload.twitter.com` endpoint, so `media_endpoint` configuration has been
-removed. Likewise, the `Twitter::API#search` method no longer uses the custom
-`search.twitter.com` endpoint, so `search_endpoint` configuration has also been
-removed.
-
-#### Errors
-It's worth mentioning new error classes:
-
-* `Twitter::Error::GatewayTimeout`
-* `Twitter::Error::TooManyRequests`
-* `Twitter::Error::UnprocessableEntity`
-
-In previous versions of this library, rate limit errors were indicated by
-raising either `Twitter::Error::BadRequest` or
-`Twitter::Error::EnhanceYourCalm` (for the Search API). As of version 4, the
-library will raise `Twitter::Error::TooManyRequests` for all rate limit errors.
-The `Twitter::Error::EnhanceYourCalm` class has been aliased to
-`Twitter::Error::TooManyRequests`.
 
 ## Copyright
 Copyright (c) 2006-2013 John Nunemaker, Wynn Netherland, Erik Michaels-Ober, Steve Richert.
