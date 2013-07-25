@@ -1,7 +1,7 @@
 module Twitter
   class Cursor
     include Enumerable
-    attr_reader :attrs, :collection
+    attr_reader :attrs
     alias to_h attrs
     alias to_hash attrs
     alias to_hsh attrs
@@ -9,56 +9,50 @@ module Twitter
     # Initializes a new Cursor object
     #
     # @param response [Hash]
-    # @param collection_name [String, Symbol] The name of the method to return the collection
-    # @param klass [Class] The class to instantiate object in the collection
+    # @param key [String, Symbol] The key to fetch the data from the response
+    # @param klass [Class] The class to instantiate objects in the response
     # @param client [Twitter::Client]
-    # @param method_name [String, Symbol]
-    # @param method_options [Hash]
+    # @param request_method [String, Symbol]
+    # @param path [String]
+    # @param options [Hash]
     # @return [Twitter::Cursor]
-    def self.from_response(response, collection_name, klass, client, method_name, method_options)
-      new(response[:body], collection_name, klass, client, method_name, method_options)
+    def self.from_response(response, key, klass, client, request_method, path, options)
+      new(response[:body], key, klass, client, request_method, path, options)
     end
 
     # Initializes a new Cursor
     #
     # @param attrs [Hash]
-    # @param collection_name [String, Symbol] The name of the method to return the collection
-    # @param klass [Class] The class to instantiate object in the collection
+    # @param key [String, Symbol] The key to fetch the data from the response
+    # @param klass [Class] The class to instantiate objects in the response
     # @param client [Twitter::Client]
-    # @param method_name [String, Symbol]
-    # @param method_options [Hash]
+    # @param request_method [String, Symbol]
+    # @param path [String]
+    # @param options [Hash]
     # @return [Twitter::Cursor]
-    def initialize(attrs, collection_name, klass, client, method_name, method_options)
-      @attrs = attrs
+    def initialize(attrs, key, klass, client, request_method, path, options)
+      @key = key.to_sym
+      @klass = klass
       @client = client
-      @method_name = method_name
-      @method_options = method_options
-      @collection = Array(attrs[collection_name.to_sym]).map do |item|
-        if klass
-          klass.new(item)
-        else
-          item
-        end
-      end
-      singleton_class.class_eval do
-        alias_method(collection_name.to_sym, :collection)
-      end
+      @request_method = request_method.to_sym
+      @path = path
+      @options = options
+      @collection = []
+      set_attrs(attrs)
     end
 
-    # @param collection [Array]
-    # @param cursor [Integer]
-    # @return [Array]
-    def all(collection=collection, cursor=next_cursor)
-      cursor = @client.send(@method_name.to_sym, @method_options.merge(:cursor => cursor))
-      collection += cursor.collection
-      cursor.last? ? collection.flatten : all(collection, cursor.next_cursor)
-    end
-
-    # @return [Enumerable]
-    def each
-      all(collection, next_cursor).each do |element|
+    # @return [Enumerator]
+    def each(start = 0, &block)
+      return to_enum(:each) unless block_given?
+      Array(@collection[start..-1]).each do |element|
         yield element
       end
+      unless last?
+        start = [@collection.size, start].max
+        fetch_next_page
+        each(start, &block)
+      end
+      self
     end
 
     def next_cursor
@@ -75,13 +69,25 @@ module Twitter
     def first?
       previous_cursor.zero?
     end
-    alias first first?
 
     # @return [Boolean]
     def last?
       next_cursor.zero?
     end
-    alias last last?
+
+  private
+
+    def fetch_next_page
+      response = @client.send(@request_method, @path, @options.merge(:cursor => next_cursor))
+      set_attrs(response[:body])
+    end
+
+    def set_attrs(attrs)
+      @attrs = attrs
+      Array(attrs[@key]).each do |element|
+        @collection << (@klass ? @klass.new(element) : element)
+      end
+    end
 
   end
 end

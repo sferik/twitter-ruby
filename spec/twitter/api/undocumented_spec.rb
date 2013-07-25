@@ -18,15 +18,14 @@ describe Twitter::API::Undocumented do
       it "returns an array of numeric IDs for every user following the specified user" do
         following_followers_of = @client.following_followers_of("sferik")
         expect(following_followers_of).to be_a Twitter::Cursor
-        expect(following_followers_of.users).to be_an Array
-        expect(following_followers_of.users.first).to be_a Twitter::User
+        expect(following_followers_of.first).to be_a Twitter::User
       end
-      context "with all" do
+      context "with each" do
         before do
           stub_get("/users/following_followers_of.json").with(:query => {:cursor => "1322801608223717003", :screen_name => "sferik"}).to_return(:body => fixture("users_list2.json"), :headers => {:content_type => "application/json; charset=utf-8"})
         end
         it "requests the correct resource" do
-          @client.following_followers_of("sferik").all
+          @client.following_followers_of("sferik").each{}
           expect(a_get("/users/following_followers_of.json").with(:query => {:cursor => "-1", :screen_name => "sferik"})).to have_been_made
           expect(a_get("/users/following_followers_of.json").with(:query => {:cursor => "1322801608223717003", :screen_name => "sferik"})).to have_been_made
         end
@@ -40,12 +39,12 @@ describe Twitter::API::Undocumented do
         @client.following_followers_of(7505382)
         expect(a_get("/users/following_followers_of.json").with(:query => {:cursor => "-1", :user_id => "7505382"})).to have_been_made
       end
-      context "with all" do
+      context "with each" do
         before do
           stub_get("/users/following_followers_of.json").with(:query => {:cursor => "1322801608223717003", :user_id => "7505382"}).to_return(:body => fixture("users_list2.json"), :headers => {:content_type => "application/json; charset=utf-8"})
         end
         it "requests the correct resource" do
-          @client.following_followers_of(7505382).all
+          @client.following_followers_of(7505382).each{}
           expect(a_get("/users/following_followers_of.json").with(:query => {:cursor => "-1", :user_id => "7505382"})).to have_been_made
           expect(a_get("/users/following_followers_of.json").with(:query => {:cursor => "1322801608223717003", :user_id => "7505382"})).to have_been_made
         end
@@ -64,15 +63,14 @@ describe Twitter::API::Undocumented do
       it "returns an array of numeric IDs for every user following the specified user" do
         following_followers_of = @client.following_followers_of
         expect(following_followers_of).to be_a Twitter::Cursor
-        expect(following_followers_of.users).to be_an Array
-        expect(following_followers_of.users.first).to be_a Twitter::User
+        expect(following_followers_of.first).to be_a Twitter::User
       end
-      context "with all" do
+      context "with each" do
         before do
           stub_get("/users/following_followers_of.json").with(:query => {:cursor => "1322801608223717003", :screen_name => "sferik"}).to_return(:body => fixture("users_list2.json"), :headers => {:content_type => "application/json; charset=utf-8"})
         end
         it "requests the correct resource" do
-          @client.following_followers_of.all
+          @client.following_followers_of.each{}
           expect(a_get("/users/following_followers_of.json").with(:query => {:cursor => "-1", :screen_name => "sferik"})).to have_been_made
           expect(a_get("/users/following_followers_of.json").with(:query => {:cursor => "1322801608223717003", :screen_name => "sferik"})).to have_been_made
         end

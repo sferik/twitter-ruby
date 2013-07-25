@@ -108,12 +108,11 @@ module Twitter
       # @param request_method [Symbol]
       # @param path [String]
       # @param args [Array]
-      # @param method_name [Symbol]
       # @return [Twitter::Cursor]
-      def cursor_from_response_with_user(collection_name, klass, request_method, path, args, method_name)
+      def cursor_from_response_with_user(collection_name, klass, request_method, path, args)
         arguments = Twitter::API::Arguments.new(args)
         merge_user!(arguments.options, arguments.pop || screen_name) unless arguments.options[:user_id] || arguments.options[:screen_name]
-        cursor_from_response(collection_name, klass, request_method, path, arguments.options, method_name)
+        cursor_from_response(collection_name, klass, request_method, path, arguments.options)
       end
 
       # @param collection_name [Symbol]
@@ -121,12 +120,11 @@ module Twitter
       # @param request_method [Symbol]
       # @param path [String]
       # @param options [Hash]
-      # @param method_name [Symbol]
       # @return [Twitter::Cursor]
-      def cursor_from_response(collection_name, klass, request_method, path, options, method_name)
+      def cursor_from_response(collection_name, klass, request_method, path, options)
         merge_default_cursor!(options)
         response = send(request_method.to_sym, path, options)
-        Twitter::Cursor.from_response(response, collection_name.to_sym, klass, self, method_name, options)
+        Twitter::Cursor.from_response(response, collection_name.to_sym, klass, self, request_method, path, options)
       end
 
       def handle_forbidden_error(klass, error)

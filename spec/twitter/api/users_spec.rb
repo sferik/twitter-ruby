@@ -182,16 +182,15 @@ describe Twitter::API::Users do
     it "returns an array of user objects that the authenticating user is blocking" do
       blocking = @client.blocking
       expect(blocking).to be_a Twitter::Cursor
-      expect(blocking.users).to be_an Array
-      expect(blocking.users.first).to be_a Twitter::User
-      expect(blocking.users.first.id).to eq 7505382
+      expect(blocking.first).to be_a Twitter::User
+      expect(blocking.first.id).to eq 7505382
     end
-    context "with all" do
+    context "with each" do
       before do
         stub_get("/1.1/blocks/list.json").with(:query => {:cursor => "1322801608223717003"}).to_return(:body => fixture("users_list2.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
-        @client.blocking.all
+        @client.blocking.each{}
         expect(a_get("/1.1/blocks/list.json").with(:query => {:cursor => "-1"})).to have_been_made
         expect(a_get("/1.1/blocks/list.json").with(:query => {:cursor => "1322801608223717003"})).to have_been_made
       end
@@ -209,15 +208,14 @@ describe Twitter::API::Users do
     it "returns an array of numeric user IDs the authenticating user is blocking" do
       blocked_ids = @client.blocked_ids
       expect(blocked_ids).to be_a Twitter::Cursor
-      expect(blocked_ids.ids).to be_an Array
-      expect(blocked_ids.ids.first).to eq 14100886
+      expect(blocked_ids.first).to eq 20009713
     end
-    context "with all" do
+    context "with each" do
       before do
         stub_get("/1.1/blocks/ids.json").with(:query => {:cursor => "1305102810874389703"}).to_return(:body => fixture("ids_list2.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
-        @client.blocked_ids.all
+        @client.blocked_ids.each{}
         expect(a_get("/1.1/blocks/ids.json").with(:query => {:cursor => "-1"})).to have_been_made
         expect(a_get("/1.1/blocks/ids.json").with(:query => {:cursor => "1305102810874389703"})).to have_been_made
       end

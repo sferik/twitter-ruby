@@ -125,7 +125,7 @@ module Twitter
       #     Twitter.memberships('sferik')
       #     Twitter.memberships(7505382)
       def memberships(*args)
-        cursor_from_response_with_user(:lists, Twitter::List, :get, "/1.1/lists/memberships.json", args, :memberships)
+        cursor_from_response_with_user(:lists, Twitter::List, :get, "/1.1/lists/memberships.json", args)
       end
 
       # Returns the subscribers of the specified list
@@ -152,7 +152,7 @@ module Twitter
       #     Twitter.list_subscribers('sferik', 8863586)
       #     Twitter.list_subscribers(7505382, 'presidents')
       def list_subscribers(*args)
-        cursor_from_response_with_list(:get, "/1.1/lists/subscribers.json", args, :list_subscribers)
+        cursor_from_response_with_list(:get, "/1.1/lists/subscribers.json", args)
       end
 
       # Make the authenticated user follow the specified list
@@ -320,7 +320,7 @@ module Twitter
       #     Twitter.list_members(7505382, 'presidents')
       #     Twitter.list_members(7505382, 8863586)
       def list_members(*args)
-        cursor_from_response_with_list(:get, "/1.1/lists/members.json", args, :list_members)
+        cursor_from_response_with_list(:get, "/1.1/lists/members.json", args)
       end
 
       # Add a member to a list
@@ -474,7 +474,7 @@ module Twitter
       #     Twitter.subscriptions('sferik')
       #     Twitter.subscriptions(7505382)
       def subscriptions(*args)
-        cursor_from_response_with_user(:lists, Twitter::List, :get, "/1.1/lists/subscriptions.json", args, :subscriptions)
+        cursor_from_response_with_user(:lists, Twitter::List, :get, "/1.1/lists/subscriptions.json", args)
       end
 
       # Removes specified members from the list
@@ -529,7 +529,7 @@ module Twitter
       #     Twitter.lists_owned('sferik')
       #     Twitter.lists_owned(7505382)
       def lists_owned(*args)
-        cursor_from_response_with_user(:lists, Twitter::List, :get, "/1.1/lists/ownerships.json", args, :lists_owned)
+        cursor_from_response_with_user(:lists, Twitter::List, :get, "/1.1/lists/ownerships.json", args)
       end
       alias lists_ownerships lists_owned
 
@@ -546,11 +546,11 @@ module Twitter
         object_from_response(Twitter::List, request_method, path, arguments.options)
       end
 
-      def cursor_from_response_with_list(request_method, path, args, calling_method)
+      def cursor_from_response_with_list(request_method, path, args)
         arguments = Twitter::API::Arguments.new(args)
         merge_list!(arguments.options, arguments.pop)
         merge_owner!(arguments.options, arguments.pop)
-        cursor_from_response(:users, Twitter::User, request_method, path, arguments.options, calling_method)
+        cursor_from_response(:users, Twitter::User, request_method, path, arguments.options)
       end
 
       def list_user?(request_method, path, args)
