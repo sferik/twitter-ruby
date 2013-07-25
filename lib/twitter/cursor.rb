@@ -43,10 +43,6 @@ module Twitter
       end
     end
 
-    def all
-      map{|element| element}
-    end
-
     # @return [Enumerator]
     def each(&block)
       return to_enum(:each) unless block_given?

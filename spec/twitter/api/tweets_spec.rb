@@ -453,12 +453,12 @@ describe Twitter::API::Tweets do
       expect(retweeters_ids.ids).to be_an Array
       expect(retweeters_ids.ids.first).to eq 14100886
     end
-    context "with all" do
+    context "with each" do
       before do
         stub_get("/1.1/statuses/retweeters/ids.json").with(:query => {:id => "25938088801", :cursor => "1305102810874389703"}).to_return(:body => fixture("ids_list2.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
-        @client.retweeters_ids(25938088801).all
+        @client.retweeters_ids(25938088801).each{}
         expect(a_get("/1.1/statuses/retweeters/ids.json").with(:query => {:id => "25938088801", :cursor => "-1"})).to have_been_made
         expect(a_get("/1.1/statuses/retweeters/ids.json").with(:query => {:id => "25938088801", :cursor => "1305102810874389703"})).to have_been_made
       end
