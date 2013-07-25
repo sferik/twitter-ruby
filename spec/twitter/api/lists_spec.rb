@@ -116,9 +116,8 @@ describe Twitter::API::Lists do
       it "returns the lists the specified user has been added to" do
         memberships = @client.memberships("sferik")
         expect(memberships).to be_a Twitter::Cursor
-        expect(memberships.lists).to be_an Array
-        expect(memberships.lists.first).to be_a Twitter::List
-        expect(memberships.lists.first.name).to eq "developer"
+        expect(memberships.first).to be_a Twitter::List
+        expect(memberships.first.name).to eq "developer"
       end
       context "with each" do
         before do
@@ -184,9 +183,8 @@ describe Twitter::API::Lists do
       it "returns the subscribers of the specified list" do
         list_subscribers = @client.list_subscribers("sferik", "presidents")
         expect(list_subscribers).to be_a Twitter::Cursor
-        expect(list_subscribers.users).to be_an Array
-        expect(list_subscribers.users.first).to be_a Twitter::User
-        expect(list_subscribers.users.first.id).to eq 7505382
+        expect(list_subscribers.first).to be_a Twitter::User
+        expect(list_subscribers.first.id).to eq 7505382
       end
       context "with each" do
         before do
@@ -488,9 +486,8 @@ describe Twitter::API::Lists do
       it "returns the members of the specified list" do
         list_members = @client.list_members("sferik", "presidents")
         expect(list_members).to be_a Twitter::Cursor
-        expect(list_members.users).to be_an Array
-        expect(list_members.users.first).to be_a Twitter::User
-        expect(list_members.users.first.id).to eq 7505382
+        expect(list_members.first).to be_a Twitter::User
+        expect(list_members.first.id).to eq 7505382
       end
       context "with each" do
         before do
@@ -755,9 +752,8 @@ describe Twitter::API::Lists do
       it "returns the lists the specified user follows" do
         subscriptions = @client.subscriptions("sferik")
         expect(subscriptions).to be_a Twitter::Cursor
-        expect(subscriptions.lists).to be_an Array
-        expect(subscriptions.lists.first).to be_a Twitter::List
-        expect(subscriptions.lists.first.name).to eq "Rubyists"
+        expect(subscriptions.first).to be_a Twitter::List
+        expect(subscriptions.first.name).to eq "Rubyists"
       end
       context "with each" do
         before do
@@ -868,9 +864,8 @@ describe Twitter::API::Lists do
       it "returns the requested list" do
         lists = @client.lists_owned("sferik")
         expect(lists).to be_a Twitter::Cursor
-        expect(lists.lists).to be_an Array
-        expect(lists.lists.first).to be_a Twitter::List
-        expect(lists.lists.first.name).to eq "My favstar.fm list"
+        expect(lists.first).to be_a Twitter::List
+        expect(lists.first.name).to eq "My favstar.fm list"
       end
     end
     context "without a screen name passed" do
@@ -885,9 +880,8 @@ describe Twitter::API::Lists do
       it "returns the requested list" do
         lists = @client.lists_owned
         expect(lists).to be_a Twitter::Cursor
-        expect(lists.lists).to be_an Array
-        expect(lists.lists.first).to be_a Twitter::List
-        expect(lists.lists.first.name).to eq "My favstar.fm list"
+        expect(lists.first).to be_a Twitter::List
+        expect(lists.first.name).to eq "My favstar.fm list"
       end
     end
   end

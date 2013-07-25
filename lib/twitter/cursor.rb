@@ -1,7 +1,7 @@
 module Twitter
   class Cursor
     include Enumerable
-    attr_reader :attrs, :collection
+    attr_reader :attrs
     alias to_h attrs
     alias to_hash attrs
     alias to_hsh attrs
@@ -9,48 +9,45 @@ module Twitter
     # Initializes a new Cursor object
     #
     # @param response [Hash]
-    # @param collection_name [String, Symbol] The name of the method to return the collection
-    # @param klass [Class] The class to instantiate object in the collection
+    # @param key [String, Symbol] The key to fetch the data from the response
+    # @param klass [Class] The class to instantiate objects in the response
     # @param client [Twitter::Client]
     # @param request_method [String, Symbol]
     # @param path [String]
     # @param options [Hash]
     # @return [Twitter::Cursor]
-    def self.from_response(response, collection_name, klass, client, request_method, path, options)
-      new(response[:body], collection_name, klass, client, request_method, path, options)
+    def self.from_response(response, key, klass, client, request_method, path, options)
+      new(response[:body], key, klass, client, request_method, path, options)
     end
 
     # Initializes a new Cursor
     #
     # @param attrs [Hash]
-    # @param collection_name [String, Symbol] The name of the method to return the collection
-    # @param klass [Class] The class to instantiate object in the collection
+    # @param key [String, Symbol] The key to fetch the data from the response
+    # @param klass [Class] The class to instantiate objects in the response
     # @param client [Twitter::Client]
     # @param request_method [String, Symbol]
     # @param path [String]
     # @param options [Hash]
     # @return [Twitter::Cursor]
-    def initialize(attrs, collection_name, klass, client, request_method, path, options)
-      @collection_name = collection_name.to_sym
+    def initialize(attrs, key, klass, client, request_method, path, options)
+      @key = key.to_sym
       @klass = klass
       @client = client
       @request_method = request_method.to_sym
       @path = path
       @options = options
       set_attrs(attrs)
-      singleton_class.class_eval do
-        alias_method(collection_name.to_sym, :collection)
-      end
     end
 
     # @return [Enumerator]
     def each(&block)
       return to_enum(:each) unless block_given?
-      @collection.each do |element|
+      @page.each do |element|
         yield element
       end
       unless last?
-        fetch_next
+        fetch_next_page
         each(&block)
       end
       self
@@ -78,14 +75,14 @@ module Twitter
 
   private
 
-    def fetch_next
+    def fetch_next_page
       response = @client.send(@request_method, @path, @options.merge(:cursor => next_cursor))
       set_attrs(response[:body])
     end
 
     def set_attrs(attrs)
       @attrs = attrs
-      @collection = Array(attrs[@collection_name]).map do |element|
+      @page = Array(attrs[@key]).map do |element|
         @klass ? @klass.new(element) : element
       end
     end

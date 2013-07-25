@@ -2,14 +2,6 @@ require 'helper'
 
 describe Twitter::Cursor do
 
-  describe "#collection" do
-    it "returns a collection" do
-      collection = Twitter::Cursor.new({:ids => [1, 2, 3, 4, 5]}, :ids, nil, Twitter::Client.new, :get, "/1.1/followers/ids.json", {}).collection
-      expect(collection).to be_an Array
-      expect(collection.first).to be_a Fixnum
-    end
-  end
-
   describe "#each" do
     before do
       @client = Twitter::Client.new
