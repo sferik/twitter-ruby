@@ -153,7 +153,7 @@ module Twitter
       # @example Return an array of user objects that the authenticating user is blocking
       #   Twitter.blocking
       def blocking(options={})
-        cursor_from_response(:users, Twitter::User, :get, "/1.1/blocks/list.json", options, :blocking)
+        cursor_from_response(:users, Twitter::User, :get, "/1.1/blocks/list.json", options)
       end
 
       # Returns an array of numeric user ids the authenticating user is blocking
@@ -170,7 +170,7 @@ module Twitter
       def blocked_ids(*args)
         arguments = Twitter::API::Arguments.new(args)
         merge_user!(arguments.options, arguments.pop)
-        cursor_from_response(:ids, nil, :get, "/1.1/blocks/ids.json", arguments.options, :blocked_ids)
+        cursor_from_response(:ids, nil, :get, "/1.1/blocks/ids.json", arguments.options)
       end
 
       # Returns true if the authenticating user is blocking a target user

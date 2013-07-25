@@ -12,11 +12,12 @@ module Twitter
     # @param collection_name [String, Symbol] The name of the method to return the collection
     # @param klass [Class] The class to instantiate object in the collection
     # @param client [Twitter::Client]
-    # @param method_name [String, Symbol]
-    # @param method_options [Hash]
+    # @param request_method [String, Symbol]
+    # @param path [String]
+    # @param options [Hash]
     # @return [Twitter::Cursor]
-    def self.from_response(response, collection_name, klass, client, method_name, method_options)
-      new(response[:body], collection_name, klass, client, method_name, method_options)
+    def self.from_response(response, collection_name, klass, client, request_method, path, options)
+      new(response[:body], collection_name, klass, client, request_method, path, options)
     end
 
     # Initializes a new Cursor
@@ -25,40 +26,38 @@ module Twitter
     # @param collection_name [String, Symbol] The name of the method to return the collection
     # @param klass [Class] The class to instantiate object in the collection
     # @param client [Twitter::Client]
-    # @param method_name [String, Symbol]
-    # @param method_options [Hash]
+    # @param request_method [String, Symbol]
+    # @param path [String]
+    # @param options [Hash]
     # @return [Twitter::Cursor]
-    def initialize(attrs, collection_name, klass, client, method_name, method_options)
-      @attrs = attrs
+    def initialize(attrs, collection_name, klass, client, request_method, path, options)
+      @collection_name = collection_name.to_sym
+      @klass = klass
       @client = client
-      @method_name = method_name
-      @method_options = method_options
-      @collection = Array(attrs[collection_name.to_sym]).map do |item|
-        if klass
-          klass.new(item)
-        else
-          item
-        end
-      end
+      @request_method = request_method.to_sym
+      @path = path
+      @options = options
+      set_attrs(attrs)
       singleton_class.class_eval do
         alias_method(collection_name.to_sym, :collection)
       end
     end
 
-    # @param collection [Array]
-    # @param cursor [Integer]
-    # @return [Array]
-    def all(collection=collection, cursor=next_cursor)
-      cursor = @client.send(@method_name.to_sym, @method_options.merge(:cursor => cursor))
-      collection += cursor.collection
-      cursor.last? ? collection.flatten : all(collection, cursor.next_cursor)
+    def all
+      map{|element| element}
     end
 
-    # @return [Enumerable]
-    def each
-      all(collection, next_cursor).each do |element|
+    # @return [Enumerator]
+    def each(&block)
+      return to_enum(:each) unless block_given?
+      @collection.each do |element|
         yield element
       end
+      unless last?
+        fetch_next
+        each(&block)
+      end
+      self
     end
 
     def next_cursor
@@ -75,13 +74,25 @@ module Twitter
     def first?
       previous_cursor.zero?
     end
-    alias first first?
 
     # @return [Boolean]
     def last?
       next_cursor.zero?
     end
-    alias last last?
+
+  private
+
+    def fetch_next
+      response = @client.send(@request_method, @path, @options.merge(:cursor => next_cursor))
+      set_attrs(response[:body])
+    end
+
+    def set_attrs(attrs)
+      @attrs = attrs
+      @collection = Array(attrs[@collection_name]).map do |element|
+        @klass ? @klass.new(element) : element
+      end
+    end
 
   end
 end

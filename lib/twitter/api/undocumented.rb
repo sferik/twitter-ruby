@@ -35,7 +35,7 @@ module Twitter
       #     Twitter.following_followers_of('sferik')
       #     Twitter.following_followers_of(7505382)  # Same as above
       def following_followers_of(*args)
-        cursor_from_response_with_user(:users, Twitter::User, :get, "/users/following_followers_of.json", args, :following_followers_of)
+        cursor_from_response_with_user(:users, Twitter::User, :get, "/users/following_followers_of.json", args)
       end
 
       # Returns Tweets count for a URL

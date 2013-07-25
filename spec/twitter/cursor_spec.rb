@@ -4,7 +4,7 @@ describe Twitter::Cursor do
 
   describe "#collection" do
     it "returns a collection" do
-      collection = Twitter::Cursor.new({:ids => [1, 2, 3, 4, 5]}, :ids, nil, Twitter::Client.new, :follower_ids, {}).collection
+      collection = Twitter::Cursor.new({:ids => [1, 2, 3, 4, 5]}, :ids, nil, Twitter::Client.new, :get, "/1.1/followers/ids.json", {}).collection
       expect(collection).to be_an Array
       expect(collection.first).to be_a Fixnum
     end
@@ -48,7 +48,7 @@ describe Twitter::Cursor do
   describe "#first?" do
     context "when previous cursor equals zero" do
       before do
-        @cursor = Twitter::Cursor.new({:previous_cursor => 0}, :ids, nil, Twitter::Client.new, :follower_ids, {})
+        @cursor = Twitter::Cursor.new({:previous_cursor => 0}, :ids, nil, Twitter::Client.new, :get, "/1.1/followers/ids.json", {})
       end
       it "returns true" do
         expect(@cursor.first?).to be_true
@@ -56,7 +56,7 @@ describe Twitter::Cursor do
     end
     context "when previous cursor does not equal zero" do
       before do
-        @cursor = Twitter::Cursor.new({:previous_cursor => 1}, :ids, nil, Twitter::Client.new, :follower_ids, {})
+        @cursor = Twitter::Cursor.new({:previous_cursor => 1}, :ids, nil, Twitter::Client.new, :get, "/1.1/followers/ids.json", {})
       end
       it "returns true" do
         expect(@cursor.first?).to be_false
@@ -67,7 +67,7 @@ describe Twitter::Cursor do
   describe "#last?" do
     context "when next cursor equals zero" do
       before do
-        @cursor = Twitter::Cursor.new({:next_cursor => 0}, :ids, nil, Twitter::Client.new, :follower_ids, {})
+        @cursor = Twitter::Cursor.new({:next_cursor => 0}, :ids, nil, Twitter::Client.new, :get, "/1.1/followers/ids.json", {})
       end
       it "returns true" do
         expect(@cursor.last?).to be_true
@@ -75,7 +75,7 @@ describe Twitter::Cursor do
     end
     context "when next cursor does not equal zero" do
       before do
-        @cursor = Twitter::Cursor.new({:next_cursor => 1}, :ids, nil, Twitter::Client.new, :follower_ids, {})
+        @cursor = Twitter::Cursor.new({:next_cursor => 1}, :ids, nil, Twitter::Client.new, :get, "/1.1/followers/ids.json", {})
       end
       it "returns false" do
         expect(@cursor.last?).to be_false
