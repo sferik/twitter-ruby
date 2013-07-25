@@ -133,7 +133,7 @@ module Twitter
         # so only send follow if it's true
         arguments.options[:follow] = true if !!arguments.options.delete(:follow)
         existing_friends = Thread.new do
-          friend_ids.ids
+          friend_ids.to_a
         end
         new_friends = Thread.new do
           users(args).map(&:id)

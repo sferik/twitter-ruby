@@ -450,8 +450,7 @@ describe Twitter::API::Tweets do
     it "returns a collection of up to 100 user IDs belonging to users who have retweeted the tweet specified by the id parameter" do
       retweeters_ids = @client.retweeters_ids(25938088801)
       expect(retweeters_ids).to be_a Twitter::Cursor
-      expect(retweeters_ids.ids).to be_an Array
-      expect(retweeters_ids.ids.first).to eq 14100886
+      expect(retweeters_ids.first).to eq 20009713
     end
     context "with each" do
       before do

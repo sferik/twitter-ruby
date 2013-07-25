@@ -182,9 +182,8 @@ describe Twitter::API::Users do
     it "returns an array of user objects that the authenticating user is blocking" do
       blocking = @client.blocking
       expect(blocking).to be_a Twitter::Cursor
-      expect(blocking.users).to be_an Array
-      expect(blocking.users.first).to be_a Twitter::User
-      expect(blocking.users.first.id).to eq 7505382
+      expect(blocking.first).to be_a Twitter::User
+      expect(blocking.first.id).to eq 7505382
     end
     context "with each" do
       before do
@@ -209,8 +208,7 @@ describe Twitter::API::Users do
     it "returns an array of numeric user IDs the authenticating user is blocking" do
       blocked_ids = @client.blocked_ids
       expect(blocked_ids).to be_a Twitter::Cursor
-      expect(blocked_ids.ids).to be_an Array
-      expect(blocked_ids.ids.first).to eq 14100886
+      expect(blocked_ids.first).to eq 20009713
     end
     context "with each" do
       before do

@@ -18,8 +18,7 @@ describe Twitter::API::Undocumented do
       it "returns an array of numeric IDs for every user following the specified user" do
         following_followers_of = @client.following_followers_of("sferik")
         expect(following_followers_of).to be_a Twitter::Cursor
-        expect(following_followers_of.users).to be_an Array
-        expect(following_followers_of.users.first).to be_a Twitter::User
+        expect(following_followers_of.first).to be_a Twitter::User
       end
       context "with each" do
         before do
@@ -64,8 +63,7 @@ describe Twitter::API::Undocumented do
       it "returns an array of numeric IDs for every user following the specified user" do
         following_followers_of = @client.following_followers_of
         expect(following_followers_of).to be_a Twitter::Cursor
-        expect(following_followers_of.users).to be_an Array
-        expect(following_followers_of.users.first).to be_a Twitter::User
+        expect(following_followers_of.first).to be_a Twitter::User
       end
       context "with each" do
         before do
