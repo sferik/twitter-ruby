@@ -32,7 +32,7 @@ module Twitter
       #     Twitter.friend_ids('sferik')
       #     Twitter.friend_ids(7505382)  # Same as above
       def friend_ids(*args)
-        cursor_from_response_with_user(:ids, nil, :get, "/1.1/friends/ids.json", args, :friend_ids)
+        cursor_from_response_with_user(:ids, nil, :get, "/1.1/friends/ids.json", args)
       end
 
       # @see https://dev.twitter.com/docs/api/1.1/get/followers/ids
@@ -57,7 +57,7 @@ module Twitter
       #     Twitter.follower_ids('sferik')
       #     Twitter.follower_ids(7505382)  # Same as above
       def follower_ids(*args)
-        cursor_from_response_with_user(:ids, nil, :get, "/1.1/followers/ids.json", args, :follower_ids)
+        cursor_from_response_with_user(:ids, nil, :get, "/1.1/followers/ids.json", args)
       end
 
       # Returns the relationship of the authenticating user to the comma separated list of up to 100 screen_names or user_ids provided. Values for connections can be: following, following_requested, followed_by, none.
@@ -94,7 +94,7 @@ module Twitter
       # @example Return an array of numeric IDs for every user who has a pending request to follow the authenticating user
       #   Twitter.friendships_incoming
       def friendships_incoming(options={})
-        cursor_from_response(:ids, nil, :get, "/1.1/friendships/incoming.json", options, :friendships_incoming)
+        cursor_from_response(:ids, nil, :get, "/1.1/friendships/incoming.json", options)
       end
 
       # Returns an array of numeric IDs for every protected user for whom the authenticating user has a pending follow request
@@ -109,7 +109,7 @@ module Twitter
       # @example Return an array of numeric IDs for every protected user for whom the authenticating user has a pending follow request
       #   Twitter.friendships_outgoing
       def friendships_outgoing(options={})
-        cursor_from_response(:ids, nil, :get, "/1.1/friendships/outgoing.json", options, :friendships_outgoing)
+        cursor_from_response(:ids, nil, :get, "/1.1/friendships/outgoing.json", options)
       end
 
       # Allows the authenticating user to follow the specified users, unless they are already followed
@@ -280,7 +280,7 @@ module Twitter
       #   Twitter.followers('sferik')
       #   Twitter.followers(7505382)    # Same as above
       def followers(*args)
-        cursor_from_response_with_user(:users, Twitter::User, :get, "/1.1/followers/list.json", args, :followers)
+        cursor_from_response_with_user(:users, Twitter::User, :get, "/1.1/followers/list.json", args)
       end
 
       # Returns a cursored collection of user objects for every user the specified user is following (otherwise known as their "friends").
@@ -311,7 +311,7 @@ module Twitter
       #   Twitter.friends('sferik')
       #   Twitter.friends(7505382)    # Same as above
       def friends(*args)
-        cursor_from_response_with_user(:users, Twitter::User, :get, "/1.1/friends/list.json", args, :friends)
+        cursor_from_response_with_user(:users, Twitter::User, :get, "/1.1/friends/list.json", args)
       end
       alias following friends
 

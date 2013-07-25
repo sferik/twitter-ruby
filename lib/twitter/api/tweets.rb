@@ -281,7 +281,7 @@ module Twitter
       def retweeters_ids(*args)
         arguments = Twitter::API::Arguments.new(args)
         arguments.options[:id] ||= extract_id(arguments.first)
-        cursor_from_response(:ids, nil, :get, "/1.1/statuses/retweeters/ids.json", arguments.options, :retweeters_ids)
+        cursor_from_response(:ids, nil, :get, "/1.1/statuses/retweeters/ids.json", arguments.options)
       end
 
     private
