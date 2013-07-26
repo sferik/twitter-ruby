@@ -1,10 +1,8 @@
-require 'forwardable'
 require 'twitter/creatable'
 require 'twitter/identity'
 
 module Twitter
   class Tweet < Twitter::Identity
-    extend Forwardable
     include Twitter::Creatable
     attr_reader :favorite_count, :favorited, :from_user_id, :from_user_name,
       :in_reply_to_screen_name, :in_reply_to_attrs_id, :in_reply_to_status_id,
@@ -19,7 +17,6 @@ module Twitter
     alias favourited? favorited?
     alias in_reply_to_tweet_id in_reply_to_status_id
     alias retweeters_count retweet_count
-    def_delegators :user, :profile_image_url, :profile_image_url_https
 
     # @return [Boolean]
     def entities?
