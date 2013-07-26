@@ -6,7 +6,7 @@ module Twitter
     alias to_hash attrs
     alias to_hsh attrs
 
-    # Initializes a new Cursor object
+    # Construct a new Cursor object from a response hash
     #
     # @param response [Hash]
     # @param key [String, Symbol] The key to fetch the data from the response

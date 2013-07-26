@@ -2,15 +2,21 @@ require 'helper'
 
 describe Twitter::SearchResults do
 
-  describe "#statuses" do
-    it "returns an array of Tweets" do
-      statuses = Twitter::SearchResults.new(:statuses => [{:id => 25938088801, :text => "tweet!"}]).statuses
-      expect(statuses).to be_an Array
-      expect(statuses.first).to be_a Twitter::Tweet
+  describe "#each" do
+    before do
+      @search_results = Twitter::SearchResults.new(:statuses => [{:id => 1}, {:id => 2}, {:id => 3}, {:id => 4}, {:id => 5}, {:id => 6}])
     end
-    it "is empty when not set" do
-      statuses = Twitter::SearchResults.new.statuses
-      expect(statuses).to be_empty
+    it "iterates" do
+      count = 0
+      @search_results.each{count += 1}
+      expect(count).to eq 6
+    end
+    context "with start" do
+      it "iterates" do
+        count = 0
+        @search_results.each(5){count += 1}
+        expect(count).to eq 1
+      end
     end
   end
 

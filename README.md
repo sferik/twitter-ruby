@@ -238,6 +238,13 @@ Here is a list of the interface changes to `Twitter::Cursor`:
 * `#all` has been replaced by `#to_a`.
 * `#collection` and its aliases have been removed.
 
+### Search Results
+The `Twitter::SearchResults` class has also been redesigned to have an
+[`Enumerable`][enumerable] interface. The `#statuses` method and its aliases
+(`#collection` and `#results`) have been replaced by `#to_a`. Additionally,
+this class no longer inherits from `Twitter::Base`. As a result, the `#[]`
+method has been removed without replacement.
+
 ## Configuration
 Twitter API v1.1 requires you to authenticate via OAuth, so you'll need to
 [register your application with Twitter][register]. Once you've registered an
@@ -412,14 +419,14 @@ Twitter.status(27558893223)
 **Collect the 3 most recent marriage proposals to @justinbieber**
 
 ```ruby
-Twitter.search("to:justinbieber marry me", :count => 3, :result_type => "recent").results.collect do |status|
-  "#{status.from_user}: #{status.text}"
+Twitter.search("to:justinbieber marry me", :count => 3, :result_type => "recent").collect do |tweet|
+  "#{tweet.from_user}: #{tweet.text}"
 end
 ```
 **Find a Japanese-language Tweet tagged #ruby (excluding retweets)**
 
 ```ruby
-Twitter.search("#ruby -rt", :lang => "ja", :count => 1).results.first.text
+Twitter.search("#ruby -rt", :lang => "ja").first.text
 ```
 For more usage examples, please see the full [documentation][].
 

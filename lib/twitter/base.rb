@@ -28,7 +28,7 @@ module Twitter
       include mod
     end
 
-    # Construct an object from the response hash
+    # Construct an object from a response hash
     #
     # @param response [Hash]
     # @return [Twitter::Base]

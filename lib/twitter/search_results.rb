@@ -1,16 +1,38 @@
-require 'twitter/base'
-
 module Twitter
-  class SearchResults < Twitter::Base
+  class SearchResults
+    include Enumerable
+    attr_reader :attrs
+    alias to_h attrs
+    alias to_hash attrs
+    alias to_hsh attrs
 
-    # @return [Array<Twitter::Tweet>]
-    def statuses
-      @results ||= Array(@attrs[:statuses]).map do |tweet|
+    # Construct a new SearchResults object from a response hash
+    #
+    # @param response [Hash]
+    # @return [Twitter::Base]
+    def self.from_response(response={})
+      new(response[:body])
+    end
+
+    # Initializes a new SearchResults object
+    #
+    # @param attrs [Hash]
+    # @return [Twitter::Base]
+    def initialize(attrs={})
+      @attrs = attrs
+      @collection = Array(@attrs[:statuses]).map do |tweet|
         Twitter::Tweet.new(tweet)
       end
     end
-    alias collection statuses
-    alias results statuses
+
+    # @return [Enumerator]
+    def each(start = 0, &block)
+      return to_enum(:each) unless block_given?
+      Array(@collection[start..-1]).each do |element|
+        yield element
+      end
+      self
+    end
 
     # @return [Float]
     def completed_in
