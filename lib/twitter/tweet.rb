@@ -4,10 +4,9 @@ require 'twitter/identity'
 module Twitter
   class Tweet < Twitter::Identity
     include Twitter::Creatable
-    attr_reader :favorite_count, :favorited, :from_user_id, :from_user_name,
-      :in_reply_to_screen_name, :in_reply_to_attrs_id, :in_reply_to_status_id,
-      :in_reply_to_user_id, :lang, :retweet_count, :retweeted, :source, :text,
-      :to_user, :to_user_id, :to_user_name, :truncated
+    attr_reader :favorite_count, :favorited, :in_reply_to_screen_name,
+      :in_reply_to_attrs_id, :in_reply_to_status_id, :in_reply_to_user_id,
+      :lang, :retweet_count, :retweeted, :source, :text, :truncated
     alias favorites_count favorite_count
     alias favourite_count favorite_count
     alias favourites_count favorite_count
@@ -21,11 +20,6 @@ module Twitter
     # @return [Boolean]
     def entities?
       !@attrs[:entities].nil?
-    end
-
-    # @return [String]
-    def from_user
-      @attrs[:from_user] || user && user.screen_name
     end
 
     def filter_level

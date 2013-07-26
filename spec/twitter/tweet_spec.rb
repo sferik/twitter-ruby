@@ -60,23 +60,6 @@ describe Twitter::Tweet do
     end
   end
 
-  describe "#from_user" do
-    it "returns a screen name when from_user is set" do
-      tweet = Twitter::Tweet.new(:id => 28669546014, :from_user => "sferik")
-      expect(tweet.from_user).to be_a String
-      expect(tweet.from_user).to eq "sferik"
-    end
-    it "returns a screen name when screen_name is set" do
-      tweet = Twitter::Tweet.new(:id => 28669546014, :user => {:id => 7505382, :screen_name => "sferik"})
-      expect(tweet.from_user).to be_a String
-      expect(tweet.from_user).to eq "sferik"
-    end
-    it "returns nil when not set" do
-      tweet = Twitter::Tweet.new(:id => 28669546014)
-      expect(tweet.from_user).to be_nil
-    end
-  end
-
   describe "#filter_level" do
     it "returns the filter level when filter_level is set" do
       tweet = Twitter::Tweet.new(:id => 28669546014, :filter_level => "high")

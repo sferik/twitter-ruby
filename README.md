@@ -245,6 +245,21 @@ The `Twitter::SearchResults` class has also been redesigned to have an
 this class no longer inherits from `Twitter::Base`. As a result, the `#[]`
 method has been removed without replacement.
 
+### Users
+The `Twitter::User` object has been cleaned up. The following methods have been
+removed:
+
+* `#from_user`
+* `#from_user_id`
+* `#from_user_name`
+* `#to_user`
+* `$to_user_id`
+* `to_user_name`
+* `profile_image_url`
+* `profile_image_url_https`
+
+These attributes can be accessed through the `#user` method.
+
 ## Configuration
 Twitter API v1.1 requires you to authenticate via OAuth, so you'll need to
 [register your application with Twitter][register]. Once you've registered an
@@ -420,7 +435,7 @@ Twitter.status(27558893223)
 
 ```ruby
 Twitter.search("to:justinbieber marry me", :count => 3, :result_type => "recent").collect do |tweet|
-  "#{tweet.from_user}: #{tweet.text}"
+  "#{tweet.user.screen_name}: #{tweet.text}"
 end
 ```
 **Find a Japanese-language Tweet tagged #ruby (excluding retweets)**
