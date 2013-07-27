@@ -1,6 +1,6 @@
 require 'twitter/api/utils'
 require 'twitter/place'
-require 'twitter/trend'
+require 'twitter/trend_results'
 
 module Twitter
   module API
@@ -21,8 +21,7 @@ module Twitter
       #   Twitter.trends(2487956)
       def trends(id=1, options={})
         options[:id] = id
-        response = get("/1.1/trends/place.json", options)
-        objects_from_array(Twitter::Trend, response[:body].first[:trends])
+        object_from_response(Twitter::TrendResults, :get, "/1.1/trends/place.json", options)
       end
       alias local_trends trends
       alias trends_place trends

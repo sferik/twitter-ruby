@@ -245,6 +245,13 @@ The `Twitter::SearchResults` class has also been redesigned to have an
 this class no longer inherits from `Twitter::Base`. As a result, the `#[]`
 method has been removed without replacement.
 
+### Trend Results
+The `Twitter::API::Trends#trends method now returns an
+[`Enumerable`][enumerable] `Twitter::TrendResults` object instead of an array.
+This object exposes the recency of the trend (via `#as_of`), when the trend
+started (via `#created_at`), and the location of the trend (via `#location`).
+This information was previously unavailable.
+
 ### Users
 The `Twitter::User` object has been cleaned up. The following methods have been
 removed:

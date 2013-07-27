@@ -17,7 +17,7 @@ describe Twitter::API::Trends do
       end
       it "returns the top 10 trending topics for a specific WOEID" do
         matching_trends = @client.trends(2487956)
-        expect(matching_trends).to be_an Array
+        expect(matching_trends).to be_a Twitter::TrendResults
         expect(matching_trends.first).to be_a Twitter::Trend
         expect(matching_trends.first.name).to eq "#sevenwordsaftersex"
       end
