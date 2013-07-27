@@ -27,6 +27,36 @@ module Twitter
       alias local_trends trends
       alias trends_place trends
 
+      # Return the trends and the other meta info as_of, created_at, and location_name, location_woeid
+      #
+      # @see https://dev.twitter.com/docs/api/1.1/get/trends/place
+      # @rate_limited Yes
+      # @authentication Requires user context
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @param id [Integer] The {https://developer.yahoo.com/geo/geoplanet Yahoo! Where On Earth ID} of the location to return trending information for. WOEIDs can be retrieved by calling {Twitter::API::Trends#trend_locations}. Global information is available by using 1 as the WOEID.
+      # @param options [Hash] A customizable set of options.
+      # @option options [String] :exclude Setting this equal to 'hashtags' will remove all hashtags from the trends list.
+      # @return [Hash<Twitter::Trend>]
+      # @example Return the top 10 trending topics for San Francisco
+      #   t = Twitter.trends(2487956)
+      #   t["trends"].first.name => "#sevenwordsaftersex"
+      #   t["as_of"] => "2010-10-25T14:49:50Z"
+      #   t["created_at"] => "2010-10-25T14:41:13Z"
+      #   t["locations_name"] => "Worldwide"
+      #   t["locations_woeid"] => "1"
+      def trends_with_meta(id=1, options={})
+        options[:id] = id
+        response = get("/1.1/trends/place.json", options)
+        trends_with_meta = Hash.new
+        trends_with_meta["trends"] = objects_from_array(Twitter::Trend, response[:body].first[:trends])
+        trends_with_meta["as_of"] = response[:body].first[:as_of]
+        trends_with_meta["created_at"] =response[:body].first[:created_at]
+        trends_with_meta["locations_name"] =response[:body].first[:locations].first[:name]
+        trends_with_meta["locations_woeid"] =response[:body].first[:locations].first[:woeid].to_s
+        return trends_with_meta
+      end
+
+
       # Returns the locations that Twitter has trending topic information for
       #
       # @see https://dev.twitter.com/docs/api/1.1/get/trends/available

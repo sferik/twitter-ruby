@@ -33,6 +33,38 @@ describe Twitter::API::Trends do
     end
   end
 
+  describe "#trends_with_meta" do
+    context "with woeid passed" do
+      before do
+        stub_get("/1.1/trends/place.json").with(:query => {:id => "2487956"}).to_return(:body => fixture("matching_trends.json"),
+          :headers => {:content_type => "application/json; charset=utf-8"})
+      end
+      it "requests the correct resource" do
+        @client.trends_with_meta(2487956)
+        expect(a_get("/1.1/trends/place.json").with(:query => {:id => "2487956"})).to have_been_made
+      end
+
+      it "returns the top 10 trending topics for a specific WOEID" do
+        matching_trends = @client.trends_with_meta(2487956)
+        expect(matching_trends).to be_an Hash
+        expect(matching_trends["as_of"]).to eq("2010-10-25T14:49:50Z")
+        expect(matching_trends["created_at"]).to eq "2010-10-25T14:41:13Z"
+        expect(matching_trends["locations_name"]).to eq "Worldwide"
+        expect(matching_trends["locations_woeid"]).to eq "1"
+         expect(matching_trends["trends"].first.name).to eq "#sevenwordsaftersex"
+      end
+    end
+    context "without arguments passed" do
+      before do
+        stub_get("/1.1/trends/place.json").with(:query => {:id => "1"}).to_return(:body => fixture("matching_trends.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      end
+      it "requests the correct resource" do
+        @client.trends_with_meta
+        expect(a_get("/1.1/trends/place.json").with(:query => {:id => "1"})).to have_been_made
+      end
+    end
+  end
+
   describe "#trends_available" do
     before do
       stub_get("/1.1/trends/available.json").to_return(:body => fixture("locations.json"), :headers => {:content_type => "application/json; charset=utf-8"})
