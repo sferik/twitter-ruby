@@ -9,7 +9,7 @@ module Twitter
 
     # @return [Twitter::User]
     def user
-      @user ||= new_or_null_object(Twitter::User, :user)
+      new_or_null_object(Twitter::User, :user)
     end
 
   end

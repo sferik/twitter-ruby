@@ -73,11 +73,14 @@ module Twitter
     # @param klass [Class]
     # @param key [Symbol]
     def new_or_null_object(klass, key)
-      if @attrs[key]
+      ivar = :"@#{key}"
+      return instance_variable_get(ivar) if instance_variable_defined?(ivar)
+      object = if @attrs[key]
         klass.new(@attrs[key])
       else
         Twitter::NullObject.new
       end
+      instance_variable_set(ivar, object)
     end
 
   private

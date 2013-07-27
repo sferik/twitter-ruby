@@ -7,7 +7,7 @@ module Twitter
 
     # @return [Twitter::Geo]
     def bounding_box
-      @bounding_box ||= new_or_null_object(Twitter::GeoFactory, :bounding_box)
+      new_or_null_object(Twitter::GeoFactory, :bounding_box)
     end
 
     # @return [String]

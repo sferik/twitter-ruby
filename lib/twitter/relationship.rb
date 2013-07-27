@@ -13,12 +13,12 @@ module Twitter
 
     # @return [Twitter::SourceUser]
     def source
-      @source ||= new_or_null_object(Twitter::SourceUser, :source)
+      new_or_null_object(Twitter::SourceUser, :source)
     end
 
     # @return [Twitter::TargetUser]
     def target
-      @target ||= new_or_null_object(Twitter::TargetUser, :target)
+      new_or_null_object(Twitter::TargetUser, :target)
     end
 
     # Update the attributes of a Relationship

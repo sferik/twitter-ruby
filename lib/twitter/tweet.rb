@@ -39,7 +39,7 @@ module Twitter
 
     # @return [Twitter::Geo]
     def geo
-      @geo ||= new_or_null_object(Twitter::GeoFactory, :geo)
+      new_or_null_object(Twitter::GeoFactory, :geo)
     end
 
     # @note Must include entities in your request for this method to work
@@ -56,12 +56,12 @@ module Twitter
 
     # @return [Twitter::Metadata]
     def metadata
-      @metadata ||= new_or_null_object(Twitter::Metadata, :metadata)
+      new_or_null_object(Twitter::Metadata, :metadata)
     end
 
     # @return [Twitter::Place]
     def place
-      @place ||= new_or_null_object(Twitter::Place, :place)
+      new_or_null_object(Twitter::Place, :place)
     end
 
     # @return [Boolean]
@@ -81,7 +81,7 @@ module Twitter
     #
     # @return [Twitter::Tweet]
     def retweeted_status
-      @retweeted_status ||= new_or_null_object(self.class, :retweeted_status)
+      new_or_null_object(self.class, :retweeted_status)
     end
     alias retweet retweeted_status
     alias retweeted_tweet retweeted_status

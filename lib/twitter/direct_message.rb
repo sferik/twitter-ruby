@@ -9,12 +9,12 @@ module Twitter
 
     # @return [Twitter::User]
     def recipient
-      @recipient ||= new_or_null_object(Twitter::User, :recipient)
+      new_or_null_object(Twitter::User, :recipient)
     end
 
     # @return [Twitter::User]
     def sender
-      @sender ||= new_or_null_object(Twitter::User, :sender)
+      new_or_null_object(Twitter::User, :sender)
     end
 
   end
