@@ -31,4 +31,15 @@ describe Twitter::SavedSearch do
     end
   end
 
+  describe "#created?" do
+    it "returns true when created_at is set" do
+      saved_search = Twitter::SavedSearch.new(:id => 16129012, :created_at => "Mon Jul 16 12:59:01 +0000 2007")
+      expect(saved_search.created?).to be_true
+    end
+    it "returns false when created_at is not set" do
+      saved_search = Twitter::SavedSearch.new(:id => 16129012)
+      expect(saved_search.created?).to be_false
+    end
+  end
+
 end

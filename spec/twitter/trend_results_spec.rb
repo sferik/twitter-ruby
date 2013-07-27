@@ -24,6 +24,17 @@ describe Twitter::TrendResults do
     end
   end
 
+  describe "#created?" do
+    it "returns true when created_at is set" do
+      trend_result = Twitter::TrendResults.new(:id => 1, :created_at => "2012-08-24T23:24:14Z")
+      expect(trend_result.created?).to be_true
+    end
+    it "returns false when created_at is not set" do
+      trend_result = Twitter::TrendResults.new(:id => 1)
+      expect(trend_result.created?).to be_false
+    end
+  end
+
   describe "#each" do
     before do
       @trend_results = Twitter::TrendResults.new(:trends => [{:id => 1}, {:id => 2}, {:id => 3}, {:id => 4}, {:id => 5}, {:id => 6}])

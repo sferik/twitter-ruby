@@ -10,8 +10,6 @@ module Twitter
       @created_at ||= Time.parse(@attrs[:created_at]) if created?
     end
 
-  private
-
     def created?
       !@attrs[:created_at].nil?
     end

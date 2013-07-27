@@ -13,4 +13,15 @@ describe Twitter::Action do
     end
   end
 
+  describe "#created?" do
+    it "returns true when created_at is set" do
+      user = Twitter::User.new(:id => 7505382, :created_at => "Mon Jul 16 12:59:01 +0000 2007")
+      expect(user.created?).to be_true
+    end
+    it "returns false when created_at is not set" do
+      user = Twitter::User.new(:id => 7505382)
+      expect(user.created?).to be_false
+    end
+  end
+
 end

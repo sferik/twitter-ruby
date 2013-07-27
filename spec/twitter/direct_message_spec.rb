@@ -31,6 +31,17 @@ describe Twitter::DirectMessage do
     end
   end
 
+  describe "#created?" do
+    it "returns true when created_at is set" do
+      direct_message = Twitter::DirectMessage.new(:id => 1825786345, :created_at => "Mon Jul 16 12:59:01 +0000 2007")
+      expect(direct_message.created?).to be_true
+    end
+    it "returns false when created_at is not set" do
+      direct_message = Twitter::DirectMessage.new(:id => 1825786345)
+      expect(direct_message.created?).to be_false
+    end
+  end
+
   describe "#recipient" do
     it "returns a User when recipient is set" do
       recipient = Twitter::DirectMessage.new(:id => 1825786345, :recipient => {:id => 7505382}).recipient

@@ -31,6 +31,17 @@ describe Twitter::List do
     end
   end
 
+  describe "#created?" do
+    it "returns true when created_at is set" do
+      user = Twitter::List.new(:id => 8863586, :created_at => "Mon Jul 16 12:59:01 +0000 2007")
+      expect(user.created?).to be_true
+    end
+    it "returns false when created_at is not set" do
+      user = Twitter::List.new(:id => 8863586)
+      expect(user.created?).to be_false
+    end
+  end
+
   describe "#user" do
     it "returns a User when user is set" do
       user = Twitter::List.new(:id => 8863586, :user => {:id => 7505382}).user

@@ -40,6 +40,17 @@ describe Twitter::Tweet do
     end
   end
 
+  describe "#created?" do
+    it "returns true when created_at is set" do
+      tweet = Twitter::Tweet.new(:id => 28669546014, :created_at => "Mon Jul 16 12:59:01 +0000 2007")
+      expect(tweet.created?).to be_true
+    end
+    it "returns false when created_at is not set" do
+      tweet = Twitter::Tweet.new(:id => 28669546014)
+      expect(tweet.created?).to be_false
+    end
+  end
+
   describe "#entities?" do
     it "returns false if there are no entities set" do
       tweet = Twitter::Tweet.new(:id => 28669546014)
