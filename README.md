@@ -216,9 +216,9 @@ The last example might seem contrived ("Why would I need to call
 `#all?`, `#collect`, `#count`, `#each`, `#inject`, `#max`, `#min`, `#reject`,
 `#reverse_each`, `#select`, `#sort`, `#sort_by`, and `#to_a`. In version 4,
 each time you called one of those methods, it would perform *n+1* HTTP
-requests. In version 5, it only will perform those HTTP requests the first time
+requests. In version 5, it will only perform those HTTP requests the first time
 one of those methods is called. Each subsequent call fetches data from a
-[cache][].
+[cache][cache].
 
 [enumerable]: http://ruby-doc.org/core-2.0/Enumerable.html
 [cache]: https://github.com/sferik/twitter/commit/7d8b2727af9400643ac397207185fd54e3f6387b
@@ -233,7 +233,7 @@ before yielding any data.
 Here is a list of the interface changes to `Twitter::Cursor`:
 
 * `#first` has been replaced by `#first?`.
-* `#first` now returns the first element in the collection, as perscribed by `Enumerable`.
+* `#first` now returns the first element in the collection, as prescribed by `Enumerable`.
 * `#last` has been replaced by `#last?`.
 * `#all` has been replaced by `#to_a`.
 * `#collection` and its aliases have been removed.
@@ -246,7 +246,7 @@ this class no longer inherits from `Twitter::Base`. As a result, the `#[]`
 method has been removed without replacement.
 
 ### Trend Results
-The `Twitter::API::Trends#trends method now returns an
+The `Twitter::API::Trends#trends` method now returns an
 [`Enumerable`][enumerable] `Twitter::TrendResults` object instead of an array.
 This object exposes the recency of the trend (via `#as_of`), when the trend
 started (via `#created_at`), and the location of the trend (via `#location`).
