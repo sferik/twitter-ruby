@@ -7,7 +7,7 @@ module Twitter
     module Trends
       include Twitter::API::Utils
 
-      # Returns the top 10 trending topics for a specific WOEID
+      # Returns the top 10 trending topics for a specific WOEID, and as_of, created_at, and location_name, location_woeid
       #
       # @see https://dev.twitter.com/docs/api/1.1/get/trends/place
       # @rate_limited Yes
@@ -16,13 +16,31 @@ module Twitter
       # @param id [Integer] The {https://developer.yahoo.com/geo/geoplanet Yahoo! Where On Earth ID} of the location to return trending information for. WOEIDs can be retrieved by calling {Twitter::API::Trends#trend_locations}. Global information is available by using 1 as the WOEID.
       # @param options [Hash] A customizable set of options.
       # @option options [String] :exclude Setting this equal to 'hashtags' will remove all hashtags from the trends list.
-      # @return [Array<Twitter::Trend>]
+      # @return [Object]
       # @example Return the top 10 trending topics for San Francisco
-      #   Twitter.trends(2487956)
+      #   t = Twitter.trends(2487956)
+      #   t.trends.first.name => "#sevenwordsaftersex"
+      #   t.as_of => "2010-10-25T14:49:50Z"
+      #   t.created_at => "2010-10-25T14:41:13Z"
+      #   t.locations_name => "San Francisco"
+      #   t.locations_woeid => "2487956"
       def trends(id=1, options={})
         options[:id] = id
         response = get("/1.1/trends/place.json", options)
-        objects_from_array(Twitter::Trend, response[:body].first[:trends])
+        values = objects_from_array(Twitter::Trend, response[:body].first[:trends])
+        obj = Object.new
+        class << obj
+            attr_accessor :trends, :as_of, :created_at, :locations_name, :locations_woeid
+            def populate(response, values)
+              self.trends =  values
+              self.as_of = response[:body].first[:as_of]
+              self.created_at =response[:body].first[:created_at]
+              self.locations_name =response[:body].first[:locations].first[:name]
+              self.locations_woeid =response[:body].first[:locations].first[:woeid].to_s
+            end
+        end
+        obj.populate(response, values)
+        obj
       end
       alias local_trends trends
       alias trends_place trends
