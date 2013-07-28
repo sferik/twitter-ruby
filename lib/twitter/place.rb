@@ -2,8 +2,7 @@ require 'twitter/identity'
 
 module Twitter
   class Place < Twitter::Identity
-    attr_reader :attributes, :country, :full_name, :name, :url, :woeid
-    alias uri url
+    attr_reader :attributes, :country, :full_name, :name, :woeid
     alias woe_id woeid
     object_attr_reader :GeoFactory, :bounding_box
     object_attr_reader :Place, :contained_within
@@ -30,9 +29,22 @@ module Twitter
       end
     end
 
+    # return [Integer]
     def id
       @attrs[:id] || @attrs[:woeid]
     end
+
+    # @return [URI] The URI to the place.
+    def uri
+      @uri ||= ::URI.parse(@attrs[:url]) if uri?
+    end
+    alias url uri
+
+    # return [Boolean]
+    def uri?
+      !!@attrs[:url]
+    end
+    alias url? uri?
 
   end
 end

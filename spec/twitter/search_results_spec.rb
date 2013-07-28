@@ -119,22 +119,18 @@ describe Twitter::SearchResults do
   end
 
   describe "#next_results" do
-    let(:next_results) {Twitter::SearchResults.new(:search_metadata => {:next_results => "?max_id=249279667666817023&q=%23freebandnames&count=4&include_entities=1&result_type=mixed"}).next_results}
     it "returns a hash of query parameters" do
-      expect(next_results).to be_a Hash
-    end
-    it "returns a max_id" do
-      expect(next_results[:max_id]).to eq "249279667666817023"
+      search_results = Twitter::SearchResults.new(:search_metadata => {:next_results => "?max_id=249279667666817023&q=%23freebandnames&count=4&include_entities=1&result_type=mixed"})
+      expect(search_results.next_results).to be_a Hash
+      expect(search_results.next_results[:max_id]).to eq "249279667666817023"
     end
   end
 
-  describe "#refresh_url" do
-    let(:refresh_url) {Twitter::SearchResults.new(:search_metadata => {:refresh_url => "?since_id=249279667666817023&q=%23freebandnames&count=4&include_entities=1&result_type=recent"}).refresh_url}
+  describe "#refresh_results" do
     it "returns a hash of query parameters" do
-      expect(refresh_url).to be_a Hash
-    end
-    it "returns a since_id" do
-      expect(refresh_url[:since_id]).to eq "249279667666817023"
+      search_results = Twitter::SearchResults.new(:search_metadata => {:refresh_url => "?since_id=249279667666817023&q=%23freebandnames&count=4&include_entities=1&result_type=recent"})
+      expect(search_results.refresh_results).to be_a Hash
+      expect(search_results.refresh_results[:since_id]).to eq "249279667666817023"
     end
   end
 

@@ -128,7 +128,7 @@ describe Twitter::Tweet do
   end
 
   describe "#hashtags" do
-    it "returns an Array of Entity::Hashtag when entities are set" do
+    it "returns an array of Entity::Hashtag when entities are set" do
       hashtags_array = [
         {
           :text => "twitter",
@@ -257,7 +257,7 @@ describe Twitter::Tweet do
   end
 
   describe "#symbols" do
-    it "returns an Array of Entity::Symbol when symbols are set" do
+    it "returns an array of Entity::Symbol when symbols are set" do
       symbols_array = [
         { :text => "PEP", :indices => [114, 118] },
         { :text => "COKE", :indices => [128, 133] }
@@ -279,8 +279,8 @@ describe Twitter::Tweet do
     end
   end
 
-  describe "#urls" do
-    it "returns an Array of Entity::Url when entities are set" do
+  describe "#uris" do
+    it "returns an array of Entity::URIs when entities are set" do
       urls_array = [
         {
           :url => "http://example.com/t.co",
@@ -289,15 +289,16 @@ describe Twitter::Tweet do
           :indices => [10, 33],
         }
       ]
-      urls = Twitter::Tweet.new(:id => 28669546014, :entities => {:urls => urls_array}).urls
-      expect(urls).to be_an Array
-      expect(urls.first).to be_a Twitter::Entity::Url
-      expect(urls.first.indices).to eq [10, 33]
-      expect(urls.first.display_url).to eq "example.com/expanded"
+      tweet = Twitter::Tweet.new(:id => 28669546014, :entities => {:urls => urls_array})
+      expect(tweet.uris).to be_an Array
+      expect(tweet.uris.first).to be_a Twitter::Entity::URI
+      expect(tweet.uris.first.indices).to eq [10, 33]
+      expect(tweet.uris.first.display_uri).to be_a URI
+      expect(tweet.uris.first.display_uri.to_s).to eq "example.com/expanded"
     end
     it "is empty when not set" do
-      urls = Twitter::Tweet.new(:id => 28669546014).urls
-      expect(urls).to be_empty
+      tweet = Twitter::Tweet.new(:id => 28669546014)
+      expect(tweet.uris).to be_empty
     end
     it "warns when not set" do
       Twitter::Tweet.new(:id => 28669546014).urls
@@ -305,10 +306,11 @@ describe Twitter::Tweet do
     end
   end
 
-  describe "#url" do
-    it "returns the URL to the tweet" do
+  describe "#uri" do
+    it "returns the URI to the tweet" do
       tweet = Twitter::Tweet.new(:id => 28669546014, :user => {:id => 7505382, :screen_name => "sferik"})
-      expect(tweet.url).to eq "https://twitter.com/sferik/status/28669546014"
+      expect(tweet.uri).to be_a URI
+      expect(tweet.uri.to_s).to eq "https://twitter.com/sferik/status/28669546014"
     end
   end
 
@@ -339,7 +341,7 @@ describe Twitter::Tweet do
   end
 
   describe "#user_mentions" do
-    it "returns an Array of Entity::UserMention when entities are set" do
+    it "returns an array of Entity::UserMention when entities are set" do
       user_mentions_array = [
         {
           :screen_name => "sferik",

@@ -91,6 +91,13 @@ describe Twitter::API::Undocumented do
       expect(tweet_count).to be_an Integer
       expect(tweet_count).to eq 13845465
     end
+    context "with a URI" do
+      it "requests the correct resource" do
+        uri = URI.parse("http://twitter.com")
+        @client.tweet_count(uri)
+        expect(a_request(:get, "https://cdn.api.twitter.com/1/urls/count.json").with(:query => {:url => "http://twitter.com"})).to have_been_made
+      end
+    end
   end
 
 end

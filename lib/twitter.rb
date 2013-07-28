@@ -8,7 +8,7 @@ require 'twitter/direct_message'
 require 'twitter/entity'
 require 'twitter/entity/hashtag'
 require 'twitter/entity/symbol'
-require 'twitter/entity/url'
+require 'twitter/entity/uri'
 require 'twitter/entity/user_mention'
 require 'twitter/geo_factory'
 require 'twitter/language'
@@ -30,6 +30,7 @@ require 'twitter/target_user'
 require 'twitter/trend'
 require 'twitter/tweet'
 require 'twitter/user'
+require 'uri'
 
 module Twitter
   class << self

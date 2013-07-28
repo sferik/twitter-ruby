@@ -85,11 +85,11 @@ module Twitter
     #
     # @note Returned Hash can be merged into the previous search options list to easily access the refresh page.
     # @return [Hash] The parameters needed to refresh the page.
-    def refresh_url
+    def refresh_results
       query_string = strip_first_character(@attrs[:search_metadata][:refresh_url])
       query_string_to_hash(query_string)
     end
-    alias refresh_page refresh_url
+    alias refresh_page refresh_results
 
   private
 

@@ -18,11 +18,11 @@ module Twitter
       # @return [Integer]
       def extract_id(object)
         case object
-        when Integer
+        when ::Integer
           object
-        when String
+        when ::String
           object.split("/").last.to_i
-        when URI
+        when ::URI
           object.path.split("/").last.to_i
         when Twitter::Identity
           object.id
@@ -167,7 +167,7 @@ module Twitter
           else
             hash[[prefix, "screen_name"].compact.join("_").to_sym] = user
           end
-        when URI
+        when ::URI
           hash[[prefix, "screen_name"].compact.join("_").to_sym] = user.path.split("/").last
         when Twitter::User
           hash[[prefix, "user_id"].compact.join("_").to_sym] = user.id
@@ -201,7 +201,7 @@ module Twitter
             else
               screen_names << user
             end
-          when URI
+          when ::URI
             screen_names << user.path.split("/").last
           when Twitter::User
             user_ids << user.id

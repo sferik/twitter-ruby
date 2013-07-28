@@ -76,18 +76,19 @@ module Twitter
     end
 
     # @return [String] The URL to the tweet.
-    def url(protocol="https")
-      "#{protocol}://twitter.com/#{user.screen_name}/status/#{id}"
+    def uri
+      @uri ||= ::URI.parse("https://twitter.com/#{user.screen_name}/status/#{id}")
     end
-    alias uri url
+    alias url uri
 
     # @note Must include entities in your request for this method to work
-    # @return [Array<Twitter::Entity::Url>]
-    def urls
-      memoize(:urls) do
-        entities(Twitter::Entity::Url, :urls)
+    # @return [Array<Twitter::Entity::URI>]
+    def uris
+      memoize(:uris) do
+        entities(Twitter::Entity::URI, :urls)
       end
     end
+    alias urls uris
 
     # @note Must include entities in your request for this method to work
     # @return [Array<Twitter::Entity::UserMention>]

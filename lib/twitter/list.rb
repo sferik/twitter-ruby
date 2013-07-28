@@ -8,23 +8,23 @@ module Twitter
       :mode, :name, :slug, :subscriber_count
     object_attr_reader :User, :user
 
-    # @return [String] The URL to the list members.
-    def members_url(protocol="https")
-      "#{protocol}://twitter.com/#{user.screen_name}/#{slug}/members"
+    # @return [URI] The URI to the list members.
+    def members_uri
+      @members_uri ||= ::URI.parse("https://twitter.com/#{user.screen_name}/#{slug}/members")
     end
-    alias members_uri members_url
+    alias members_url members_uri
 
-    # @return [String] The URL to the list subscribers.
-    def subscribers_url(protocol="https")
-      "#{protocol}://twitter.com/#{user.screen_name}/#{slug}/subscribers"
+    # @return [URI] The URI to the list subscribers.
+    def subscribers_uri
+      @subscribers_uri ||= ::URI.parse("https://twitter.com/#{user.screen_name}/#{slug}/subscribers")
     end
-    alias subscribers_uri subscribers_url
+    alias subscribers_url subscribers_uri
 
-    # @return [String] The URL to the list.
-    def url(protocol="https")
-      "#{protocol}://twitter.com/#{user.screen_name}/#{slug}"
+    # @return [URI] The URI to the list.
+    def uri
+      @uri ||= ::URI.parse("https://twitter.com/#{user.screen_name}/#{slug}")
     end
-    alias uri url
+    alias url uri
 
   end
 end

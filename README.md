@@ -200,23 +200,23 @@ end</code></pre>
   </tbody>
 </table>
 
-In the examples above, *n* is dependent on the number of people the
-authenticated user follows on Twitter (divided by 20, the number of friends you
-can fetch per request). So, if the user followers 85 people, calling
-`Twitter.friends.take(20)` would make 6 HTTP requests in version 4. In version
+In the examples above, *n* varies with the number of people the authenticated
+user follows on Twitter. This resource returns up to 20 friends per HTTP GET,
+so if the authenticated user follows 200 people, calling
+`Twitter.friends.take(20)` would make 11 HTTP requests in version 4. In version
 5, it makes just 1 HTTP request. Keep in mind, eliminating a single HTTP
 request to the Twitter API will reduce the latency of your application by
 [about 500 ms][status].
 
 [status]: https://dev.twitter.com/status
 
-The last example might seem contrived ("Why would I need to call
+The last example might seem contrived ("Why would I call
 `Twitter.friends.take(20)` twice?") but it applies to any
 [`Enumerable`][enumerable] method you might call on a cursor, including:
 `#all?`, `#collect`, `#count`, `#each`, `#inject`, `#max`, `#min`, `#reject`,
 `#reverse_each`, `#select`, `#sort`, `#sort_by`, and `#to_a`. In version 4,
 each time you called one of those methods, it would perform *n+1* HTTP
-requests. In version 5, it will only perform those HTTP requests the first time
+requests. In version 5, it only performs those HTTP requests the first time any
 one of those methods is called. Each subsequent call fetches data from a
 [cache][].
 
@@ -232,10 +232,10 @@ before yielding any data.
 
 Here is a list of the interface changes to `Twitter::Cursor`:
 
+* `#all` has been replaced by `#to_a`.
+* `#last` has been replaced by `#last?`.
 * `#first` has been replaced by `#first?`.
 * `#first` now returns the first element in the collection, as prescribed by `Enumerable`.
-* `#last` has been replaced by `#last?`.
-* `#all` has been replaced by `#to_a`.
 * `#collection` and its aliases have been removed.
 
 ### Search Results
@@ -243,23 +243,24 @@ The `Twitter::SearchResults` class has also been redesigned to have an
 [`Enumerable`][enumerable] interface. The `#statuses` method and its aliases
 (`#collection` and `#results`) have been replaced by `#to_a`. Additionally,
 this class no longer inherits from `Twitter::Base`. As a result, the `#[]`
-method has been removed without replacement.
+method has been removed.
 
 ### Trend Results
 The `Twitter.trends` method now returns an [`Enumerable`][enumerable]
-`Twitter::TrendResults` object instead of an array. This object exposes the
-recency of the trend (via `#as_of`), when the trend started (via
-`#created_at`), and the location of the trend (via `#location`). This
-information was previously unavailable.
+`Twitter::TrendResults` object instead of an array. This object provides
+methods to determinte the recency of the trend (`#as_of`), when the trend
+started (`#created_at`), and the location of the trend (`#location`). This data
+was previously unavailable.
 
 ### Geo Results
-The `Twitter.reverse_geocode`, `Twitter.geo_search`, and
+Similarly, the `Twitter.reverse_geocode`, `Twitter.geo_search`, and
 `Twitter.similar_places` methods now return an [`Enumerable`][enumerable]
-`Twitter::GeoResults` object instead of an array. This object exposes the token
-to create a new place (via `#token`), which was previously unavailable.
+`Twitter::GeoResults` object instead of an array. This object provides access
+to the  token to create a new place (`#token`), which was previously
+unavailable.
 
-### Users
-The `Twitter::User` object has been cleaned up. The following methods have been
+### Tweets
+The `Twitter::Tweet` object has been cleaned up. The following methods have been
 removed:
 
 * `#from_user`
@@ -271,17 +272,14 @@ removed:
 * `#profile_image_url`
 * `#profile_image_url_https`
 
-These attributes can be accessed through the `#user` method.
+These attributes can be accessed on the `Twitter::User` object, returned
+through the `#user` method.
 
 ### Null Objects
 In version 4, methods you would expect to return a `Twitter` object would
-return `nil` if that object was missing. This may have resulted in errors like
-this:
-
-    NoMethodError: undefined method for nil:NilClass
-
-To prevent such errors, you may have introduced checks for the truthiness of
-the response, for example:
+return `nil` if that object was missing. This may have resulted in a
+`NoMethodError`. To prevent such errors, you may have introduced checks for the
+truthiness of the response, for example:
 
 ```ruby
 status = Twitter.status(55709764298092545)
@@ -306,23 +304,18 @@ elsif status.geo?
 end
 ```
 
-### URL Methods
-`Twitter::List`, `Twitter::Tweet`, and `Twitter::User` objects all have `#url`
-methods, which generate an HTTPS URL to twitter.com. You may specify a
-different protocol by passing it to the `#url` method. For example:
+### URI Methods
+The `Twitter::List`, `Twitter::Tweet`, and `Twitter::User` objects all have a
+`#uri` method, which returnis an HTTPS URI to twitter.com. This clobbers the
+`Twitter::List#uri` method, which previously returned the list URI's path (not
+a URI).
 
-```ruby
-status = Twitter.status(55709764298092545)
-status.url #=> https://twitter.com/sferik/status/55709764298092545
-status.url("http") #=> http://twitter.com/sferik/status/55709764298092545
-```
+These methods are aliased to `#url` for users who prefer that nomenclature.
+`Twitter::User` previously had a `#url` method, which returned the user's
+website. This URI is now available via the `#website` method.
 
-`Twitter::User` previously had a method called `#url`, which returned the URL
-to the user's website. This URL is now accessible via the `#website` method.
-
-These methods are aliased to `#uri`, for users who prefer that nomenclature.
-This clobbers the `Twitter::List#uri` method, which previously returned the
-list's path (not a full URI).
+All `#uri` methods now return `URI` objects instead of strings. To convert a
+`URI` object to a string, call `#to_s` on it.
 
 ## Configuration
 Twitter API v1.1 requires you to authenticate via OAuth, so you'll need to
@@ -525,9 +518,9 @@ recommend [Oj][].
 ## Statistics
 Here are some fun facts about this library:
 
-* It is implemented in just 2,000 lines of Ruby code
-* With over 5,000 lines of specs, the spec-to-code ratio is about 2.5:1
-* The spec suite contains over 800 examples and runs in about 5 seconds
+* It is implemented in just 2,500 lines of Ruby code
+* With over 6,250 lines of specs, the spec-to-code ratio is about 2.5:1
+* The spec suite contains over 900 examples and runs in about 5 seconds
 * It has 100% C0 code coverage (the tests execute every line of
   source code at least once)
 * It is comprehensive: you can request all documented Twitter REST API

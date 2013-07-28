@@ -38,19 +38,19 @@ module Twitter
         cursor_from_response_with_user(:users, Twitter::User, :get, "/users/following_followers_of.json", args)
       end
 
-      # Returns Tweets count for a URL
+      # Returns Tweets count for a URI
       #
       # @note Undocumented
       # @rate_limited No
       # @authentication Not required
       # @return [Integer]
-      # @param url [Integer] A URL.
+      # @param uri [String, URI] A URI.
       # @param options [Hash] A customizable set of options.
       # @example Return Tweet count for http://twitter.com
       #   Twitter.tweet_count("http://twitter.com/")
-      def tweet_count(url, options={})
+      def tweet_count(uri, options={})
         connection = Faraday.new("https://cdn.api.twitter.com", @connection_options.merge(:builder => @middleware))
-        connection.get("/1/urls/count.json", options.merge(:url => url)).body[:count]
+        connection.get("/1/urls/count.json", options.merge(:url => uri.to_s)).body[:count]
       end
 
     end

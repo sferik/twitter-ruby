@@ -22,6 +22,8 @@ module Twitter
     alias favouriters_count favourites_count
     alias follower_count followers_count
     alias friend_count friends_count
+    alias profile_background_image_uri profile_background_image_url
+    alias profile_background_image_uri_https profile_background_image_url_https
     alias status_count statuses_count
     alias translator is_translator
     alias translator? is_translator?
@@ -35,82 +37,97 @@ module Twitter
     alias tweeted? status?
 
     # @return [Array<Twitter::Entity::Url>]
-    def description_urls
+    def description_uris
       memoize(:description_urls) do
         Array(@attrs[:entities][:description][:urls]).map do |entity|
           Twitter::Entity::Url.new(entity)
         end
       end
     end
+    alias description_urls description_uris
 
     # Return the URL to the user's profile banner image
     #
     # @param size [String, Symbol] The size of the image. Must be one of: 'mobile', 'mobile_retina', 'web', 'web_retina', 'ipad', or 'ipad_retina'
     # @return [String]
-    def profile_banner_url(size=:web)
-      insecure_url([@attrs[:profile_banner_url], size].join('/')) if profile_banner_url?
+    def profile_banner_uri(size=:web)
+      ::URI.parse(insecure_uri([@attrs[:profile_banner_url], size].join('/'))) if profile_banner_uri?
     end
+    alias profile_banner_url profile_banner_uri
 
     # Return the secure URL to the user's profile banner image
     #
     # @param size [String, Symbol] The size of the image. Must be one of: 'mobile', 'mobile_retina', 'web', 'web_retina', 'ipad', or 'ipad_retina'
     # @return [String]
-    def profile_banner_url_https(size=:web)
-      [@attrs[:profile_banner_url], size].join('/') if profile_banner_url?
+    def profile_banner_uri_https(size=:web)
+      ::URI.parse([@attrs[:profile_banner_url], size].join('/')) if profile_banner_uri?
     end
+    alias profile_banner_url_https profile_banner_uri_https
 
-    def profile_banner_url?
+    def profile_banner_uri?
       !!@attrs[:profile_banner_url]
     end
-    alias profile_banner_url_https? profile_banner_url?
+    alias profile_banner_url? profile_banner_uri?
+    alias profile_banner_uri_https? profile_banner_uri?
+    alias profile_banner_url_https? profile_banner_uri?
 
     # Return the URL to the user's profile image
     #
     # @param size [String, Symbol] The size of the image. Must be one of: 'mini', 'normal', 'bigger' or 'original'
     # @return [String]
-    def profile_image_url(size=:normal)
-      insecure_url(profile_image_url_https(size)) if profile_image_url?
+    def profile_image_uri(size=:normal)
+      ::URI.parse(insecure_uri(profile_image_uri_https(size))) if profile_image_uri?
     end
+    alias profile_image_url profile_image_uri
 
     # Return the secure URL to the user's profile image
     #
     # @param size [String, Symbol] The size of the image. Must be one of: 'mini', 'normal', 'bigger' or 'original'
     # @return [String]
-    def profile_image_url_https(size=:normal)
+    def profile_image_uri_https(size=:normal)
       # The profile image URL comes in looking like like this:
       # https://a0.twimg.com/profile_images/1759857427/image1326743606_normal.png
       # It can be converted to any of the following sizes:
       # https://a0.twimg.com/profile_images/1759857427/image1326743606.png
       # https://a0.twimg.com/profile_images/1759857427/image1326743606_mini.png
       # https://a0.twimg.com/profile_images/1759857427/image1326743606_bigger.png
-      resize_profile_image_url(@attrs[:profile_image_url_https], size) if profile_image_url?
+      ::URI.parse(resize_profile_image_uri(@attrs[:profile_image_url_https], size)) if profile_image_uri?
     end
+    alias profile_image_url_https profile_image_uri_https
 
-    def profile_image_url?
+    def profile_image_uri?
       !!@attrs[:profile_image_url_https]
     end
-    alias profile_image_url_https? profile_image_url?
+    alias profile_image_url? profile_image_uri?
+    alias profile_image_uri_https? profile_image_uri?
+    alias profile_image_url_https? profile_image_uri?
 
     # @return [String] The URL to the user.
-    def url(protocol="https")
-      "#{protocol}://twitter.com/#{screen_name}"
+    def uri
+      @uri ||= ::URI.parse("https://twitter.com/#{screen_name}")
     end
-    alias uri url
+    alias url uri
 
     # @return [String] The URL to the user's website.
     def website
-      @attrs[:url]
+      @website ||= ::URI.parse(@attrs[:url]) if website?
+    end
+
+    def website?
+      !!@attrs[:url]
     end
 
   private
 
-    def insecure_url(url)
-      url.sub(/^https/i, 'http')
+    def insecure_uri(uri)
+      uri.to_s.sub(/^https/i, 'http')
     end
+    alias insecure_url insecure_uri
 
-    def resize_profile_image_url(url, size)
-      url.sub(PROFILE_IMAGE_SUFFIX_REGEX, profile_image_suffix(size))
+    def resize_profile_image_uri(uri, size)
+      uri.sub(PROFILE_IMAGE_SUFFIX_REGEX, profile_image_suffix(size))
     end
+    alias resize_profile_image_url resize_profile_image_uri
 
     def profile_image_suffix(size)
       if :original == size.to_sym

@@ -105,4 +105,27 @@ describe Twitter::Place do
     end
   end
 
+  describe "#uri" do
+    it "returns a URI when the url is set" do
+      place = Twitter::Place.new(:id => "247f43d441defc03", :url => "https://api.twitter.com/1.1/geo/id/247f43d441defc03.json")
+      expect(place.uri).to be_a URI
+      expect(place.uri.to_s).to eq "https://api.twitter.com/1.1/geo/id/247f43d441defc03.json"
+    end
+    it "returns nil when the url is not set" do
+      place = Twitter::Place.new(:id => "247f43d441defc03")
+      expect(place.uri).to be_nil
+    end
+  end
+
+  describe "#uri?" do
+    it "returns true when the url is set" do
+      place = Twitter::Place.new(:id => "247f43d441defc03", :url => "https://api.twitter.com/1.1/geo/id/247f43d441defc03.json")
+      expect(place.uri).to be_true
+    end
+    it "returns false when the url is not set" do
+      place = Twitter::Place.new(:id => "247f43d441defc03")
+      expect(place.uri).to be_false
+    end
+  end
+
 end

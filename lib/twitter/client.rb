@@ -137,7 +137,7 @@ module Twitter
     end
 
     def oauth_auth_header(method, path, params={})
-      uri = URI(@endpoint + path)
+      uri = ::URI.parse(@endpoint + path)
       SimpleOAuth::Header.new(method, uri, params, credentials)
     end
   end

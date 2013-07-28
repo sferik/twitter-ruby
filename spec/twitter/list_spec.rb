@@ -22,44 +22,44 @@ describe Twitter::List do
 
   describe "#created_at" do
     it "returns a Time when created_at is set" do
-      user = Twitter::List.new(:id => 8863586, :created_at => "Mon Jul 16 12:59:01 +0000 2007")
-      expect(user.created_at).to be_a Time
+      list = Twitter::List.new(:id => 8863586, :created_at => "Mon Jul 16 12:59:01 +0000 2007")
+      expect(list.created_at).to be_a Time
     end
     it "returns nil when created_at is not set" do
-      user = Twitter::List.new(:id => 8863586)
-      expect(user.created_at).to be_nil
+      list = Twitter::List.new(:id => 8863586)
+      expect(list.created_at).to be_nil
     end
   end
 
   describe "#created?" do
     it "returns true when created_at is set" do
-      user = Twitter::List.new(:id => 8863586, :created_at => "Mon Jul 16 12:59:01 +0000 2007")
-      expect(user.created?).to be_true
+      list = Twitter::List.new(:id => 8863586, :created_at => "Mon Jul 16 12:59:01 +0000 2007")
+      expect(list.created?).to be_true
     end
     it "returns false when created_at is not set" do
-      user = Twitter::List.new(:id => 8863586)
-      expect(user.created?).to be_false
+      list = Twitter::List.new(:id => 8863586)
+      expect(list.created?).to be_false
     end
   end
 
-  describe "#members_url" do
-    it "returns the URL to the list members" do
+  describe "#members_uri" do
+    it "returns the URI to the list members" do
       list = Twitter::List.new(:id => 8863586, :slug => "presidents", :user => {:id => 7505382, :screen_name => "sferik"})
-      expect(list.members_url).to eq "https://twitter.com/sferik/presidents/members"
+      expect(list.members_uri.to_s).to eq "https://twitter.com/sferik/presidents/members"
     end
   end
 
-  describe "#subscribers_url" do
-    it "returns the URL to the list subscribers" do
+  describe "#subscribers_uri" do
+    it "returns the URI to the list subscribers" do
       list = Twitter::List.new(:id => 8863586, :slug => "presidents", :user => {:id => 7505382, :screen_name => "sferik"})
-      expect(list.subscribers_url).to eq "https://twitter.com/sferik/presidents/subscribers"
+      expect(list.subscribers_uri.to_s).to eq "https://twitter.com/sferik/presidents/subscribers"
     end
   end
 
-  describe "#url" do
-    it "returns the URL to the list" do
+  describe "#uri" do
+    it "returns the URI to the list" do
       list = Twitter::List.new(:id => 8863586, :slug => "presidents", :user => {:id => 7505382, :screen_name => "sferik"})
-      expect(list.url).to eq "https://twitter.com/sferik/presidents"
+      expect(list.uri.to_s).to eq "https://twitter.com/sferik/presidents"
     end
   end
 
