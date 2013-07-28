@@ -122,17 +122,17 @@ module Twitter
 
     # @return [Twitter::User]
     def user
-      @user ||= new_without_self(Twitter::User, :user, :status)
+      new_without_self(Twitter::User, :user, :status)
+    end
+
+    def user?
+      !user.nil?
     end
 
     # @note Must include entities in your request for this method to work
     # @return [Array<Twitter::Entity::UserMention>]
     def user_mentions
       @user_mentions ||= entities(Twitter::Entity::UserMention, :user_mentions)
-    end
-
-    def user?
-      !@attrs[:user].nil?
     end
 
   private

@@ -87,12 +87,12 @@ module Twitter
 
     # @return [Twitter::Tweet]
     def status
-      @status ||= new_without_self(Twitter::Tweet, :status, :user)
+      new_without_self(Twitter::Tweet, :status, :user)
     end
     alias tweet status
 
     def status?
-      !@attrs[:status].nil?
+      !status.nil?
     end
     alias tweet? status?
     alias tweeted? status?

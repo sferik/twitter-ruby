@@ -276,12 +276,12 @@ describe Twitter::User do
 
   describe "#status?" do
     it "returns true when status is set" do
-      tweet = Twitter::User.new(:id => 7505382, :status => {:id => 25938088801}).status?
-      expect(tweet).to be_true
+      user = Twitter::User.new(:id => 7505382, :status => {:id => 25938088801})
+      expect(user.status?).to be_true
     end
     it "returns false when status is not set" do
-      tweet = Twitter::User.new(:id => 7505382).status?
-      expect(tweet).to be_false
+      user = Twitter::User.new(:id => 7505382)
+      expect(user.status?).to be_false
     end
   end
 

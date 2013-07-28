@@ -59,13 +59,16 @@ module Twitter
     # @param key1 [Symbol]
     # @param key2 [Symbol]
     def new_without_self(klass, key1, key2)
-      if @attrs[key1]
+      ivar = :"@#{key1}"
+      return instance_variable_get(ivar) if instance_variable_defined?(ivar)
+      object = if @attrs[key1]
         attrs = @attrs.dup
         value = attrs.delete(key1)
         klass.new(value.update(key2 => attrs))
       else
         Twitter::NullObject.new
       end
+      instance_variable_set(ivar, object)
     end
 
     # Create a new object (or NullObject) from attributes
