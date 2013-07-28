@@ -1,4 +1,5 @@
 require 'twitter/api/utils'
+require 'twitter/geo_results'
 require 'twitter/place'
 
 module Twitter
@@ -38,7 +39,7 @@ module Twitter
       # @example Return an array of places within the specified region
       #   Twitter.reverse_geocode(:lat => "37.7821120598956", :long => "-122.400612831116")
       def reverse_geocode(options={})
-        geo_objects_from_response(:get, "/1.1/geo/reverse_geocode.json", options)
+        object_from_response(Twitter::GeoResults, :get, "/1.1/geo/reverse_geocode.json", options)
       end
 
       # Search for places that can be attached to a {Twitter::API::Tweets#update}
@@ -61,7 +62,7 @@ module Twitter
       # @example Return an array of places near the IP address 74.125.19.104
       #   Twitter.geo_search(:ip => "74.125.19.104")
       def geo_search(options={})
-        geo_objects_from_response(:get, "/1.1/geo/search.json", options)
+        object_from_response(Twitter::GeoResults, :get, "/1.1/geo/search.json", options)
       end
       alias places_nearby geo_search
 
@@ -82,7 +83,7 @@ module Twitter
       # @example Return an array of places similar to Twitter HQ
       #   Twitter.similar_places(:lat => "37.7821120598956", :long => "-122.400612831116", :name => "Twitter HQ")
       def similar_places(options={})
-        geo_objects_from_response(:get, "/1.1/geo/similar_places.json", options)
+        object_from_response(Twitter::GeoResults, :get, "/1.1/geo/similar_places.json", options)
       end
       alias places_similar similar_places
 
@@ -104,16 +105,6 @@ module Twitter
       #   Twitter.place_create(:name => "@sferik's Apartment", :token => "22ff5b1f7159032cf69218c4d8bb78bc", :contained_within => "41bcb736f84a799e", :lat => "37.783699", :long => "-122.393581")
       def place_create(options={})
         object_from_response(Twitter::Place, :post, "/1.1/geo/place.json", options)
-      end
-
-    private
-
-      # @param request_method [Symbol]
-      # @param path [String]
-      # @param params [Hash]
-      # @return [Array]
-      def geo_objects_from_response(request_method, path, params={})
-        objects_from_array(Twitter::Place, send(request_method.to_sym, path, params)[:body][:result][:places])
       end
 
     end

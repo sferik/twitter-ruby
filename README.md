@@ -218,7 +218,7 @@ The last example might seem contrived ("Why would I need to call
 each time you called one of those methods, it would perform *n+1* HTTP
 requests. In version 5, it will only perform those HTTP requests the first time
 one of those methods is called. Each subsequent call fetches data from a
-[cache][cache].
+[cache][].
 
 [enumerable]: http://ruby-doc.org/core-2.0/Enumerable.html
 [cache]: https://github.com/sferik/twitter/commit/7d8b2727af9400643ac397207185fd54e3f6387b
@@ -251,6 +251,14 @@ The `Twitter::API::Trends#trends` method now returns an
 This object exposes the recency of the trend (via `#as_of`), when the trend
 started (via `#created_at`), and the location of the trend (via `#location`).
 This information was previously unavailable.
+
+### Geo Results
+The `Twitter::API::PlacesAndGeo#reverse_geocode`,
+`Twitter::API::PlacesAndGeo#geo_search`, and
+`Twitter::API::PlacesAndGeo#similar_places` methods now return an
+[`Enumerable`][enumerable] `Twitter::GeoResults` object instead of an array.
+This object exposes the token to create a new place (via `#token`), which was
+previously unavailable.
 
 ### Users
 The `Twitter::User` object has been cleaned up. The following methods have been
@@ -300,7 +308,7 @@ elsif status.geo?
 end
 ```
 
-### URL methods
+### URL Methods
 `Twitter::List`, `Twitter::Tweet`, and `Twitter::User` objects all have `#url`
 methods, which generate an HTTPS URL to twitter.com. You may specify a
 different protocol by passing it to the `#url` method. For example:
@@ -312,8 +320,7 @@ status.url("http") #=> http://twitter.com/sferik/status/55709764298092545
 ```
 
 `Twitter::User` previously had a method called `#url`, which returned the URL
-to the user's website. The URL is now accessible via the `#website` method.
-
+to the user's website. This URL is now accessible via the `#website` method.
 
 These methods are aliased to `#uri`, for users who prefer that nomenclature.
 This clobbers the `Twitter::List#uri` method, which previously returned the

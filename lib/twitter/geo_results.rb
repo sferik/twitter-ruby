@@ -2,7 +2,7 @@ require 'twitter/creatable'
 require 'twitter/null_object'
 
 module Twitter
-  class TrendResults
+  class GeoResults
     include Enumerable
     include Twitter::Creatable
     attr_reader :attrs
@@ -15,17 +15,17 @@ module Twitter
     # @param response [Hash]
     # @return [Twitter::Base]
     def self.from_response(response={})
-      new(response[:body].first)
+      new(response[:body])
     end
 
     # Initializes a new SearchResults object
     #
     # @param attrs [Hash]
-    # @return [Twitter::TrendResults]
+    # @return [Twitter::GeoResults]
     def initialize(attrs={})
       @attrs = attrs
-      @collection = Array(@attrs[:trends]).map do |trend|
-        Twitter::Trend.new(trend)
+      @collection = Array(@attrs[:result][:places]).map do |place|
+        Twitter::Place.new(place)
       end
     end
 
@@ -38,25 +38,9 @@ module Twitter
       self
     end
 
-    # Time when the object was created on Twitter
-    #
-    # @return [Time]
-    def as_of
-      @as_of ||= Time.parse(@attrs[:as_of]) unless @attrs[:as_of].nil?
-    end
-
-    # @return [Twitter::Place, NullObject]
-    def location
-      @location ||= if location?
-        Twitter::Place.new(@attrs[:locations].first)
-      else
-        Twitter::NullObject.new
-      end
-    end
-
-    # @return [Boolean]
-    def location?
-      !@attrs[:locations].nil? && !@attrs[:locations].first.nil?
+    # @return [String]
+    def token
+      @attrs[:token]
     end
 
   end

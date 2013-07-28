@@ -17,7 +17,7 @@ module Twitter
     # Initializes a new SearchResults object
     #
     # @param attrs [Hash]
-    # @return [Twitter::Base]
+    # @return [Twitter::SearchResults]
     def initialize(attrs={})
       @attrs = attrs
       @collection = Array(@attrs[:statuses]).map do |tweet|

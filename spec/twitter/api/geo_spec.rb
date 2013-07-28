@@ -30,7 +30,7 @@ describe Twitter::API::PlacesAndGeo do
     end
     it "returns places" do
       places = @client.reverse_geocode(:lat => "37.7821120598956", :long => "-122.400612831116")
-      expect(places).to be_an Array
+      expect(places).to be_a Twitter::GeoResults
       expect(places.first.name).to eq "Bernal Heights"
     end
   end
@@ -45,7 +45,7 @@ describe Twitter::API::PlacesAndGeo do
     end
     it "returns nearby places" do
       places = @client.geo_search(:ip => "74.125.19.104")
-      expect(places).to be_an Array
+      expect(places).to be_a Twitter::GeoResults
       expect(places.first.name).to eq "Bernal Heights"
     end
   end
@@ -60,7 +60,7 @@ describe Twitter::API::PlacesAndGeo do
     end
     it "returns similar places" do
       places = @client.similar_places(:lat => "37.7821120598956", :long => "-122.400612831116", :name => "Twitter HQ")
-      expect(places).to be_an Array
+      expect(places).to be_a Twitter::GeoResults
       expect(places.first.name).to eq "Bernal Heights"
     end
   end

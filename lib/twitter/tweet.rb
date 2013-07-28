@@ -81,16 +81,8 @@ module Twitter
 
     # @return [Boolean]
     def reply?
-      !!in_reply_to_status_id
+      !in_reply_to_status_id.nil?
     end
-
-    # @return [Boolean]
-    def retweeted_status?
-      !!retweeted_status
-    end
-    alias retweet? retweeted_status?
-    alias retweeted? retweeted_status?
-    alias retweeted_tweet? retweeted_status?
 
     # If this Tweet is a retweet, the original Tweet is available here.
     #
@@ -106,6 +98,7 @@ module Twitter
       !retweeted_status.nil?
     end
     alias retweet? retweeted_status?
+    alias retweeted? retweeted_status?
     alias retweeted_tweet? retweeted_status?
 
     # @note Must include entities in your request for this method to work
