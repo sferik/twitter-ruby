@@ -1,10 +1,8 @@
-require 'twitter/creatable'
-require 'twitter/null_object'
+require 'twitter/enumerable'
 
 module Twitter
   class GeoResults
-    include Enumerable
-    include Twitter::Creatable
+    include Twitter::Enumerable
     attr_reader :attrs
     alias to_h attrs
     alias to_hash attrs
@@ -27,15 +25,6 @@ module Twitter
       @collection = Array(@attrs[:result][:places]).map do |place|
         Twitter::Place.new(place)
       end
-    end
-
-    # @return [Enumerator]
-    def each(start = 0, &block)
-      return to_enum(:each) unless block_given?
-      Array(@collection[start..-1]).each do |element|
-        yield element
-      end
-      self
     end
 
     # @return [String]

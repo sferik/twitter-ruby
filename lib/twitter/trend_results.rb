@@ -1,10 +1,11 @@
 require 'twitter/creatable'
+require 'twitter/enumerable'
 require 'twitter/null_object'
 
 module Twitter
   class TrendResults
-    include Enumerable
     include Twitter::Creatable
+    include Twitter::Enumerable
     attr_reader :attrs
     alias to_h attrs
     alias to_hash attrs
@@ -27,15 +28,6 @@ module Twitter
       @collection = Array(@attrs[:trends]).map do |trend|
         Twitter::Trend.new(trend)
       end
-    end
-
-    # @return [Enumerator]
-    def each(start = 0, &block)
-      return to_enum(:each) unless block_given?
-      Array(@collection[start..-1]).each do |element|
-        yield element
-      end
-      self
     end
 
     # Time when the object was created on Twitter
