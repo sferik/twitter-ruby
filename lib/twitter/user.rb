@@ -14,7 +14,7 @@ module Twitter
       :profile_link_color, :profile_sidebar_border_color,
       :profile_sidebar_fill_color, :profile_text_color,
       :profile_use_background_image, :protected, :statuses_count, :time_zone,
-      :url, :utc_offset, :verified
+      :utc_offset, :verified
     alias favorite_count favourites_count
     alias favoriters_count favourites_count
     alias favorites_count favourites_count
@@ -96,6 +96,17 @@ module Twitter
     end
     alias tweet? status?
     alias tweeted? status?
+
+    # @return [String] The URL to the user.
+    def url(protocol="https")
+      "#{protocol}://twitter.com/#{screen_name}"
+    end
+    alias uri url
+
+    # @return [String] The URL to the user's website.
+    def website
+      @attrs[:url]
+    end
 
   private
 

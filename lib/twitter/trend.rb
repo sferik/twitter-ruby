@@ -3,6 +3,7 @@ require 'twitter/base'
 module Twitter
   class Trend < Twitter::Base
     attr_reader :events, :name, :promoted_content, :query, :url
+    alias uri url
 
     # @param other [Twitter::Trend]
     # @return [Boolean]

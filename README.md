@@ -278,7 +278,7 @@ To prevent such errors, you may have introduced checks for the truthiness of
 the response, for example:
 
 ```ruby
-status = client.status(55709764298092545)
+status = Twitter.status(55709764298092545)
 if status.place
   # Do something with the Twitter::Place object
 elsif status.geo
@@ -288,17 +288,36 @@ end
 In version 5, all such methods will return a `Twitter::NullObject` instead of
 `nil`. This should prevent `NoMethodError` but may result in unexpected
 behavior if you have truthiness checks in place, since everything is truthy in
-Ruby execpt `false` and `nil`. For these cases, there are now predicate
+Ruby except `false` and `nil`. For these cases, there are now predicate
 methods:
 
 ```ruby
-status = client.status(55709764298092545)
+status = Twitter.status(55709764298092545)
 if status.place?
   # Do something with the Twitter::Place object
 elsif status.geo?
   # Do something with the Twitter::Geo object
 end
 ```
+
+### URL methods
+`Twitter::List`, `Twitter::Tweet`, and `Twitter::User` objects all have `#url`
+methods, which generate an HTTPS URL to twitter.com. You may specify a
+different protocol by passing it to the `#url` method. For example:
+
+```ruby
+status = Twitter.status(55709764298092545)
+status.url #=> https://twitter.com/sferik/status/55709764298092545
+status.url("http") #=> http://twitter.com/sferik/status/55709764298092545
+```
+
+`Twitter::User` previously had a method called `#url`, which returned the URL
+to the user's website. The URL is now accessible via the `#website` method.
+
+
+These methods are aliased to `#uri`, for users who prefer that nomenclature.
+This clobbers the `Twitter::List#uri` method, which previously returned the
+list's path (not a full URI).
 
 ## Configuration
 Twitter API v1.1 requires you to authenticate via OAuth, so you'll need to

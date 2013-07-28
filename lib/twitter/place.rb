@@ -3,6 +3,7 @@ require 'twitter/identity'
 module Twitter
   class Place < Twitter::Identity
     attr_reader :attributes, :country, :full_name, :name, :url, :woeid
+    alias uri url
     alias woe_id woeid
 
     # @return [Twitter::Geo, Twitter::NullObject]

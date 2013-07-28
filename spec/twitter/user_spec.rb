@@ -285,4 +285,18 @@ describe Twitter::User do
     end
   end
 
+  describe "#url" do
+    it "returns the URL to the user" do
+      user = Twitter::User.new(:id => 7505382, :screen_name => "sferik")
+      expect(user.url).to eq "https://twitter.com/sferik"
+    end
+  end
+
+  describe "#website" do
+    it "returns the website of the user" do
+      user = Twitter::User.new(:id => 7505382, :url => "https://github.com/sferik")
+      expect(user.website).to eq "https://github.com/sferik"
+    end
+  end
+
 end

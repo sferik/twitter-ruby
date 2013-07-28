@@ -305,18 +305,25 @@ describe Twitter::Tweet do
     end
   end
 
+  describe "#url" do
+    it "returns the URL to the tweet" do
+      tweet = Twitter::Tweet.new(:id => 28669546014, :user => {:id => 7505382, :screen_name => "sferik"})
+      expect(tweet.url).to eq "https://twitter.com/sferik/status/28669546014"
+    end
+  end
+
   describe "#user" do
     it "returns a User when user is set" do
-      user = Twitter::Tweet.new(:id => 28669546014, :user => {:id => 7505382}).user
-      expect(user).to be_a Twitter::User
+      tweet = Twitter::Tweet.new(:id => 28669546014, :user => {:id => 7505382})
+      expect(tweet.user).to be_a Twitter::User
     end
     it "returns nil when user is not set" do
-      user = Twitter::Tweet.new(:id => 28669546014).user
-      expect(user).to be_nil
+      tweet = Twitter::Tweet.new(:id => 28669546014)
+      expect(tweet.user).to be_nil
     end
     it "has a status when status is set" do
-      user = Twitter::Tweet.new(:id => 28669546014, :text => "Tweet text.", :user => {:id => 7505382}).user
-      expect(user.status).to be_a Twitter::Tweet
+      tweet = Twitter::Tweet.new(:id => 28669546014, :text => "Tweet text.", :user => {:id => 7505382})
+      expect(tweet.user.status).to be_a Twitter::Tweet
     end
   end
 

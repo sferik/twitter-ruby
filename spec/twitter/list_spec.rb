@@ -42,6 +42,27 @@ describe Twitter::List do
     end
   end
 
+  describe "#members_url" do
+    it "returns the URL to the list members" do
+      list = Twitter::List.new(:id => 8863586, :slug => "presidents", :user => {:id => 7505382, :screen_name => "sferik"})
+      expect(list.members_url).to eq "https://twitter.com/sferik/presidents/members"
+    end
+  end
+
+  describe "#subscribers_url" do
+    it "returns the URL to the list subscribers" do
+      list = Twitter::List.new(:id => 8863586, :slug => "presidents", :user => {:id => 7505382, :screen_name => "sferik"})
+      expect(list.subscribers_url).to eq "https://twitter.com/sferik/presidents/subscribers"
+    end
+  end
+
+  describe "#url" do
+    it "returns the URL to the list" do
+      list = Twitter::List.new(:id => 8863586, :slug => "presidents", :user => {:id => 7505382, :screen_name => "sferik"})
+      expect(list.url).to eq "https://twitter.com/sferik/presidents"
+    end
+  end
+
   describe "#user" do
     it "returns a User when user is set" do
       list = Twitter::List.new(:id => 8863586, :user => {:id => 7505382})

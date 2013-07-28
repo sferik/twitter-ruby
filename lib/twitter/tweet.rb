@@ -114,6 +114,12 @@ module Twitter
       @symbols ||= entities(Twitter::Entity::Symbol, :symbols)
     end
 
+    # @return [String] The URL to the tweet.
+    def url(protocol="https")
+      "#{protocol}://twitter.com/#{user.screen_name}/status/#{id}"
+    end
+    alias uri url
+
     # @note Must include entities in your request for this method to work
     # @return [Array<Twitter::Entity::Url>]
     def urls
