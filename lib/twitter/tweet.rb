@@ -49,13 +49,17 @@ module Twitter
     # @note Must include entities in your request for this method to work
     # @return [Array<Twitter::Entity::Hashtag>]
     def hashtags
-      @hashtags ||= entities(Twitter::Entity::Hashtag, :hashtags)
+      memoize(:hashtags) do
+        entities(Twitter::Entity::Hashtag, :hashtags)
+      end
     end
 
     # @note Must include entities in your request for this method to work
     # @return [Array<Twitter::Media>]
     def media
-      @media ||= entities(Twitter::MediaFactory, :media)
+      memoize(:media) do
+        entities(Twitter::MediaFactory, :media)
+      end
     end
 
     # @return [Boolean]
@@ -66,7 +70,9 @@ module Twitter
     # @note Must include entities in your request for this method to work
     # @return [Array<Twitter::Entity::Symbol>]
     def symbols
-      @symbols ||= entities(Twitter::Entity::Symbol, :symbols)
+      memoize(:symbols) do
+        entities(Twitter::Entity::Symbol, :symbols)
+      end
     end
 
     # @return [String] The URL to the tweet.
@@ -78,13 +84,17 @@ module Twitter
     # @note Must include entities in your request for this method to work
     # @return [Array<Twitter::Entity::Url>]
     def urls
-      @urls ||= entities(Twitter::Entity::Url, :urls)
+      memoize(:urls) do
+        entities(Twitter::Entity::Url, :urls)
+      end
     end
 
     # @note Must include entities in your request for this method to work
     # @return [Array<Twitter::Entity::UserMention>]
     def user_mentions
-      @user_mentions ||= entities(Twitter::Entity::UserMention, :user_mentions)
+      memoize(:user_mentions) do
+        entities(Twitter::Entity::UserMention, :user_mentions)
+      end
     end
 
   private

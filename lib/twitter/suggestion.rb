@@ -12,8 +12,10 @@ module Twitter
 
     # @return [Array<Twitter::User>]
     def users
-      @users ||= Array(@attrs[:users]).map do |user|
-        Twitter::User.new(user)
+      memoize(:users) do
+        Array(@attrs[:users]).map do |user|
+          Twitter::User.new(user)
+        end
       end
     end
 

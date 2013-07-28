@@ -11,17 +11,23 @@ module Twitter
 
     # @return [String]
     def country_code
-      @country_code ||= @attrs[:country_code] || @attrs[:countryCode]
+      memoize(:country_code) do
+        @attrs[:country_code] || @attrs[:countryCode]
+      end
     end
 
     # @return [Integer]
     def parent_id
-      @parent_id ||= @attrs[:parentid]
+      memoize(:parent_id) do
+        @attrs[:parentid]
+      end
     end
 
     # @return [String]
     def place_type
-      @place_type ||= @attrs[:place_type] || @attrs[:placeType] && @attrs[:placeType][:name]
+      memoize(:place_type) do
+        @attrs[:place_type] || @attrs[:placeType] && @attrs[:placeType][:name]
+      end
     end
 
     def id

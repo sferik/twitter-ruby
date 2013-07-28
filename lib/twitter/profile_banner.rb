@@ -7,8 +7,10 @@ module Twitter
     #
     # @return [Array<Twitter::Size>]
     def sizes
-      @sizes ||= Array(@attrs[:sizes]).each_with_object({}) do |(key, value), object|
-        object[key] = Twitter::Size.new(value)
+      memoize(:sizes) do
+        Array(@attrs[:sizes]).each_with_object({}) do |(key, value), object|
+          object[key] = Twitter::Size.new(value)
+        end
       end
     end
 

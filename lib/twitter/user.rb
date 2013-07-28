@@ -36,8 +36,10 @@ module Twitter
 
     # @return [Array<Twitter::Entity::Url>]
     def description_urls
-      @description_urls ||= Array(@attrs[:entities][:description][:urls]).map do |entity|
-        Twitter::Entity::Url.new(entity)
+      memoize(:description_urls) do
+        Array(@attrs[:entities][:description][:urls]).map do |entity|
+          Twitter::Entity::Url.new(entity)
+        end
       end
     end
 
