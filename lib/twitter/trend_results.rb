@@ -45,6 +45,7 @@ module Twitter
       @as_of ||= Time.parse(@attrs[:as_of]) unless @attrs[:as_of].nil?
     end
 
+    # @return [Twitter::Place, NullObject]
     def location
       @location ||= if location?
         Twitter::Place.new(@attrs[:locations].first)
@@ -53,6 +54,7 @@ module Twitter
       end
     end
 
+    # @return [Boolean]
     def location?
       !@attrs[:locations].nil? && !@attrs[:locations].first.nil?
     end

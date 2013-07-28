@@ -6,9 +6,14 @@ module Twitter
       :language, :protected, :screen_name, :show_all_inline_media, :sleep_time,
       :time_zone
 
-    # @return [Twitter::Place]
+    # @return [Twitter::Place, Twitter::NullObject]
     def trend_location
       new_or_null_object(Twitter::Place, :trend_location)
+    end
+
+    # @return [Boolean]
+    def trend_location?
+      !trend_location.nil?
     end
 
   end

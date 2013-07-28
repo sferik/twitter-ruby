@@ -44,23 +44,45 @@ describe Twitter::DirectMessage do
 
   describe "#recipient" do
     it "returns a User when recipient is set" do
-      recipient = Twitter::DirectMessage.new(:id => 1825786345, :recipient => {:id => 7505382}).recipient
-      expect(recipient).to be_a Twitter::User
+      direct_message = Twitter::DirectMessage.new(:id => 1825786345, :recipient => {:id => 7505382})
+      expect(direct_message.recipient).to be_a Twitter::User
     end
     it "returns nil when recipient is not set" do
-      recipient = Twitter::DirectMessage.new(:id => 1825786345).recipient
-      expect(recipient).to be_nil
+      direct_message = Twitter::DirectMessage.new(:id => 1825786345)
+      expect(direct_message.recipient).to be_nil
+    end
+  end
+
+  describe "#recipient?" do
+    it "returns true when recipient is set" do
+      direct_message = Twitter::DirectMessage.new(:id => 1825786345, :recipient => {:id => 7505382})
+      expect(direct_message.recipient?).to be_true
+    end
+    it "returns false when recipient is not set" do
+      direct_message = Twitter::DirectMessage.new(:id => 1825786345)
+      expect(direct_message.recipient?).to be_false
     end
   end
 
   describe "#sender" do
     it "returns a User when sender is set" do
-      sender = Twitter::DirectMessage.new(:id => 1825786345, :sender => {:id => 7505382}).sender
-      expect(sender).to be_a Twitter::User
+      direct_message = Twitter::DirectMessage.new(:id => 1825786345, :sender => {:id => 7505382})
+      expect(direct_message.sender).to be_a Twitter::User
     end
     it "returns nil when sender is not set" do
-      sender = Twitter::DirectMessage.new(:id => 1825786345).sender
-      expect(sender).to be_nil
+      direct_message = Twitter::DirectMessage.new(:id => 1825786345)
+      expect(direct_message.sender).to be_nil
+    end
+  end
+
+  describe "#sender?" do
+    it "returns true when sender is set" do
+      direct_message = Twitter::DirectMessage.new(:id => 1825786345, :sender => {:id => 7505382})
+      expect(direct_message.sender?).to be_true
+    end
+    it "returns false when sender is not set" do
+      direct_message = Twitter::DirectMessage.new(:id => 1825786345)
+      expect(direct_message.sender?).to be_false
     end
   end
 

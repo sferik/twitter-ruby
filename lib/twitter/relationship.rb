@@ -11,14 +11,24 @@ module Twitter
       @attrs = attrs[:relationship]
     end
 
-    # @return [Twitter::SourceUser]
+    # @return [Twitter::SourceUser, Twitter::NullObject]
     def source
       new_or_null_object(Twitter::SourceUser, :source)
     end
 
-    # @return [Twitter::TargetUser]
+    # @return [Boolean]
+    def source?
+      !source.nil?
+    end
+
+    # @return [Twitter::TargetUser, Twitter::NullObject]
     def target
       new_or_null_object(Twitter::TargetUser, :target)
+    end
+
+    # @return [Boolean]
+    def target?
+      !target.nil?
     end
 
     # Update the attributes of a Relationship

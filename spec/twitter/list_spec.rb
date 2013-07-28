@@ -44,12 +44,23 @@ describe Twitter::List do
 
   describe "#user" do
     it "returns a User when user is set" do
-      user = Twitter::List.new(:id => 8863586, :user => {:id => 7505382}).user
-      expect(user).to be_a Twitter::User
+      list = Twitter::List.new(:id => 8863586, :user => {:id => 7505382})
+      expect(list.user).to be_a Twitter::User
     end
     it "returns nil when status is not set" do
-      user = Twitter::List.new(:id => 8863586).user
-      expect(user).to be_nil
+      list = Twitter::List.new(:id => 8863586)
+      expect(list.user).to be_nil
+    end
+  end
+
+  describe "#user?" do
+    it "returns true when user is set" do
+      list = Twitter::List.new(:id => 8863586, :user => {:id => 7505382})
+      expect(list.user?).to be_true
+    end
+    it "returns false when user is not set" do
+      list = Twitter::List.new(:id => 8863586)
+      expect(list.user?).to be_false
     end
   end
 

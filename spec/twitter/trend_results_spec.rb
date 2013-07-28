@@ -67,11 +67,11 @@ describe Twitter::TrendResults do
   describe "#location?" do
     it "returns true when location is set" do
       trend_result = Twitter::TrendResults.new(:id => 1, :locations => [{:name => "Worldwide", :woeid => 1}])
-      expect(trend_result.location).to be_true
+      expect(trend_result.location?).to be_true
     end
     it "returns false when location is not set" do
       trend_result = Twitter::TrendResults.new(:id => 1)
-      expect(trend_result.location).to be_false
+      expect(trend_result.location?).to be_false
     end
   end
 

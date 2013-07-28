@@ -7,9 +7,14 @@ module Twitter
     attr_reader :description, :following, :full_name, :member_count,
       :mode, :name, :slug, :subscriber_count, :uri
 
-    # @return [Twitter::User]
+    # @return [Twitter::User, Twitter::NullObject]
     def user
       new_or_null_object(Twitter::User, :user)
+    end
+
+    # @return [Boolean]
+    def user?
+      !user.nil?
     end
 
   end

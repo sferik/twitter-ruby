@@ -21,13 +21,24 @@ describe Twitter::Place do
   end
 
   describe "#bounding_box" do
-    it "returns a Twitter::Place when set" do
+    it "returns a Twitter::Place when bounding_box is set" do
       place = Twitter::Place.new(:id => "247f43d441defc03", :bounding_box => {:type => "Polygon", :coordinates => [[[-122.40348192, 37.77752898], [-122.387436, 37.77752898], [-122.387436, 37.79448597], [-122.40348192, 37.79448597]]]})
       expect(place.bounding_box).to be_a Twitter::Geo::Polygon
     end
-    it "returns nil when not set" do
+    it "returns nil when not bounding_box is not set" do
       place = Twitter::Place.new(:id => "247f43d441defc03")
       expect(place.bounding_box).to be_nil
+    end
+  end
+
+  describe "#bounding_box?" do
+    it "returns true when bounding_box is set" do
+      place = Twitter::Place.new(:id => "247f43d441defc03", :bounding_box => {:type => "Polygon", :coordinates => [[[-122.40348192, 37.77752898], [-122.387436, 37.77752898], [-122.387436, 37.79448597], [-122.40348192, 37.79448597]]]})
+      expect(place.bounding_box?).to be_true
+    end
+    it "returns false when bounding_box is not set" do
+      place = Twitter::Place.new(:id => "247f43d441defc03")
+      expect(place.bounding_box?).to be_false
     end
   end
 

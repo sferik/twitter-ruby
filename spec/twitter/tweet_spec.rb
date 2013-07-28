@@ -106,13 +106,24 @@ describe Twitter::Tweet do
   end
 
   describe "#geo" do
-    it "returns a Twitter::Geo::Point when set" do
+    it "returns a Twitter::Geo::Point when geo is set" do
       tweet = Twitter::Tweet.new(:id => 28669546014, :geo => {:id => 1, :type => "Point"})
       expect(tweet.geo).to be_a Twitter::Geo::Point
     end
-    it "returns nil when not set" do
+    it "returns nil when geo is not set" do
       tweet = Twitter::Tweet.new(:id => 28669546014)
       expect(tweet.geo).to be_nil
+    end
+  end
+
+  describe "#geo?" do
+    it "returns true when geo is set" do
+      tweet = Twitter::Tweet.new(:id => 28669546014, :geo => {:id => 1, :type => "Point"})
+      expect(tweet.geo?).to be_true
+    end
+    it "returns false when geo is not set" do
+      tweet = Twitter::Tweet.new(:id => 28669546014)
+      expect(tweet.geo?).to be_false
     end
   end
 
@@ -157,24 +168,46 @@ describe Twitter::Tweet do
   end
 
   describe "#metadata" do
-    it "returns a User when user is set" do
-      metadata = Twitter::Tweet.new(:id => 28669546014, :metadata => {}).metadata
-      expect(metadata).to be_a Twitter::Metadata
+    it "returns a Twitter::Metadata when metadata is set" do
+      tweet = Twitter::Tweet.new(:id => 28669546014, :metadata => {})
+      expect(tweet.metadata).to be_a Twitter::Metadata
     end
-    it "returns nil when user is not set" do
-      metadata = Twitter::Tweet.new(:id => 28669546014).metadata
-      expect(metadata).to be_nil
+    it "returns nil when metadata is not set" do
+      tweet = Twitter::Tweet.new(:id => 28669546014)
+      expect(tweet.metadata).to be_nil
+    end
+  end
+
+  describe "#metadata?" do
+    it "returns true when metadata is set" do
+      tweet = Twitter::Tweet.new(:id => 28669546014, :metadata => {})
+      expect(tweet.metadata?).to be_true
+    end
+    it "returns false when metadata is not set" do
+      tweet = Twitter::Tweet.new(:id => 28669546014)
+      expect(tweet.metadata?).to be_false
     end
   end
 
   describe "#place" do
-    it "returns a Twitter::Place when set" do
+    it "returns a Twitter::Place when place is set" do
       tweet = Twitter::Tweet.new(:id => 28669546014, :place => {:id => "247f43d441defc03"})
       expect(tweet.place).to be_a Twitter::Place
     end
-    it "returns nil when not set" do
+    it "returns nil when place is not set" do
       tweet = Twitter::Tweet.new(:id => 28669546014)
       expect(tweet.place).to be_nil
+    end
+  end
+
+  describe "#place?" do
+    it "returns true when place is set" do
+      tweet = Twitter::Tweet.new(:id => 28669546014, :place => {:id => "247f43d441defc03"})
+      expect(tweet.place?).to be_true
+    end
+    it "returns false when place is not set" do
+      tweet = Twitter::Tweet.new(:id => 28669546014)
+      expect(tweet.place?).to be_false
     end
   end
 
@@ -201,7 +234,7 @@ describe Twitter::Tweet do
   end
 
   describe "#retweeted_status" do
-    it "has text when retweeted_status is set" do
+    it "returns a Tweet when retweeted_status is set" do
       tweet = Twitter::Tweet.new(:id => 28669546014, :retweeted_status => {:id => 25938088801, :text => "BOOSH"})
       expect(tweet.retweeted_tweet).to be_a Twitter::Tweet
       expect(tweet.retweeted_tweet.text).to eq "BOOSH"
@@ -209,6 +242,17 @@ describe Twitter::Tweet do
     it "returns nil when retweeted_status is not set" do
       tweet = Twitter::Tweet.new(:id => 28669546014)
       expect(tweet.retweeted_tweet).to be_nil
+    end
+  end
+
+  describe "#retweeted_status?" do
+    it "returns true when retweeted_status is set" do
+      tweet = Twitter::Tweet.new(:id => 28669546014, :retweeted_status => {:id => 25938088801, :text => "BOOSH"})
+      expect(tweet.retweeted_status?).to be_true
+    end
+    it "returns false when retweeted_status is not set" do
+      tweet = Twitter::Tweet.new(:id => 28669546014)
+      expect(tweet.retweeted_status?).to be_false
     end
   end
 

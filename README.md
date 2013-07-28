@@ -260,12 +260,45 @@ removed:
 * `#from_user_id`
 * `#from_user_name`
 * `#to_user`
-* `$to_user_id`
-* `to_user_name`
-* `profile_image_url`
-* `profile_image_url_https`
+* `#to_user_id`
+* `#to_user_name`
+* `#profile_image_url`
+* `#profile_image_url_https`
 
 These attributes can be accessed through the `#user` method.
+
+### Null Objects
+In version 4, methods you would expect to return a `Twitter` object would
+return `nil` if that object was missing. This may have resulted in errors like
+this:
+
+    NoMethodError: undefined method for nil:NilClass
+
+To prevent such errors, you may have introduced checks for the truthiness of
+the response, for example:
+
+```ruby
+status = client.status(55709764298092545)
+if status.place
+  # Do something with the Twitter::Place object
+elsif status.geo
+  # Do something with the Twitter::Geo object
+end
+```
+In version 5, all such methods will return a `Twitter::NullObject` instead of
+`nil`. This should prevent `NoMethodError` but may result in unexpected
+behavior if you have truthiness checks in place, since everything is truthy in
+Ruby execpt `false` and `nil`. For these cases, there are now predicate
+methods:
+
+```ruby
+status = client.status(55709764298092545)
+if status.place?
+  # Do something with the Twitter::Place object
+elsif status.geo?
+  # Do something with the Twitter::Geo object
+end
+```
 
 ## Configuration
 Twitter API v1.1 requires you to authenticate via OAuth, so you'll need to
