@@ -246,19 +246,17 @@ this class no longer inherits from `Twitter::Base`. As a result, the `#[]`
 method has been removed without replacement.
 
 ### Trend Results
-The `Twitter::API::Trends#trends` method now returns an
-[`Enumerable`][enumerable] `Twitter::TrendResults` object instead of an array.
-This object exposes the recency of the trend (via `#as_of`), when the trend
-started (via `#created_at`), and the location of the trend (via `#location`).
-This information was previously unavailable.
+The `Twitter.trends` method now returns an [`Enumerable`][enumerable]
+`Twitter::TrendResults` object instead of an array. This object exposes the
+recency of the trend (via `#as_of`), when the trend started (via
+`#created_at`), and the location of the trend (via `#location`). This
+information was previously unavailable.
 
 ### Geo Results
-The `Twitter::API::PlacesAndGeo#reverse_geocode`,
-`Twitter::API::PlacesAndGeo#geo_search`, and
-`Twitter::API::PlacesAndGeo#similar_places` methods now return an
-[`Enumerable`][enumerable] `Twitter::GeoResults` object instead of an array.
-This object exposes the token to create a new place (via `#token`), which was
-previously unavailable.
+The `Twitter.reverse_geocode`, `Twitter.geo_search`, and
+`Twitter.similar_places` methods now return an [`Enumerable`][enumerable]
+`Twitter::GeoResults` object instead of an array. This object exposes the token
+to create a new place (via `#token`), which was previously unavailable.
 
 ### Users
 The `Twitter::User` object has been cleaned up. The following methods have been
