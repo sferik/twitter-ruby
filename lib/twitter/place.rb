@@ -16,6 +16,16 @@ module Twitter
       !bounding_box.nil?
     end
 
+    def contained_within
+      new_or_null_object(Twitter::Place, :contained_within)
+    end
+
+    # @return [Boolean]
+    def contained_within?
+      !contained_within.nil?
+    end
+    alias contained? contained_within?
+
     # @return [String]
     def country_code
       @country_code ||= @attrs[:country_code] || @attrs[:countryCode]
