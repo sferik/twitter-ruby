@@ -13,6 +13,17 @@ describe Twitter::TrendResults do
     end
   end
 
+  describe "#as_of?" do
+    it "returns true when as_of is set" do
+      trend_results = Twitter::TrendResults.new(:id => 1, :as_of => "2012-08-24T23:24:14Z")
+      expect(trend_results.as_of?).to be_true
+    end
+    it "returns false when as_of is not set" do
+      trend_results = Twitter::TrendResults.new(:id => 1)
+      expect(trend_results.as_of?).to be_false
+    end
+  end
+
   describe "#created_at" do
     it "returns a Time when created_at is set" do
       trend_results = Twitter::TrendResults.new(:id => 1, :created_at => "2012-08-24T23:24:14Z")

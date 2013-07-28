@@ -1,5 +1,4 @@
 require 'twitter/creatable'
-require 'twitter/identity'
 
 module Twitter
   class Tweet < Twitter::Identity
@@ -16,6 +15,16 @@ module Twitter
     alias favourited? favorited?
     alias in_reply_to_tweet_id in_reply_to_status_id
     alias retweeters_count retweet_count
+    object_attr_reader :GeoFactory, :geo
+    object_attr_reader :Metadata, :metadata
+    object_attr_reader :Place, :place
+    object_attr_reader :Tweet, :retweeted_status
+    alias retweet retweeted_status
+    alias retweeted_tweet retweeted_status
+    alias retweet? retweeted_status?
+    alias retweeted? retweeted_status?
+    alias retweeted_tweet? retweeted_status?
+    object_attr_reader :User, :user, :status
 
     # @return [Boolean]
     def entities?
@@ -37,16 +46,6 @@ module Twitter
       end
     end
 
-    # @return [Twitter::Geo]
-    def geo
-      new_or_null_object(Twitter::GeoFactory, :geo)
-    end
-
-    # @return [Boolean]
-    def geo?
-      !geo.nil?
-    end
-
     # @note Must include entities in your request for this method to work
     # @return [Array<Twitter::Entity::Hashtag>]
     def hashtags
@@ -59,47 +58,10 @@ module Twitter
       @media ||= entities(Twitter::MediaFactory, :media)
     end
 
-    # @return [Twitter::Metadata, Twitter::NullObject]
-    def metadata
-      new_or_null_object(Twitter::Metadata, :metadata)
-    end
-
-    # @return [Boolean]
-    def metadata?
-      !metadata.nil?
-    end
-
-    # @return [Twitter::Place, Twitter::NullObject]
-    def place
-      new_or_null_object(Twitter::Place, :place)
-    end
-
-    # @return [Boolean]
-    def place?
-      !place.nil?
-    end
-
     # @return [Boolean]
     def reply?
-      !in_reply_to_status_id.nil?
+      !!in_reply_to_status_id
     end
-
-    # If this Tweet is a retweet, the original Tweet is available here.
-    #
-    # @return [Twitter::Tweet]
-    def retweeted_status
-      new_or_null_object(self.class, :retweeted_status)
-    end
-    alias retweet retweeted_status
-    alias retweeted_tweet retweeted_status
-
-    # @return [Boolean]
-    def retweeted_status?
-      !retweeted_status.nil?
-    end
-    alias retweet? retweeted_status?
-    alias retweeted? retweeted_status?
-    alias retweeted_tweet? retweeted_status?
 
     # @note Must include entities in your request for this method to work
     # @return [Array<Twitter::Entity::Symbol>]
@@ -117,15 +79,6 @@ module Twitter
     # @return [Array<Twitter::Entity::Url>]
     def urls
       @urls ||= entities(Twitter::Entity::Url, :urls)
-    end
-
-    # @return [Twitter::User]
-    def user
-      new_without_self(Twitter::User, :user, :status)
-    end
-
-    def user?
-      !user.nil?
     end
 
     # @note Must include entities in your request for this method to work

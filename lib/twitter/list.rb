@@ -6,6 +6,7 @@ module Twitter
     include Twitter::Creatable
     attr_reader :description, :following, :full_name, :member_count,
       :mode, :name, :slug, :subscriber_count
+    object_attr_reader :User, :user
 
     # @return [String] The URL to the list members.
     def members_url(protocol="https")
@@ -24,16 +25,6 @@ module Twitter
       "#{protocol}://twitter.com/#{user.screen_name}/#{slug}"
     end
     alias uri url
-
-    # @return [Twitter::User, Twitter::NullObject]
-    def user
-      new_or_null_object(Twitter::User, :user)
-    end
-
-    # @return [Boolean]
-    def user?
-      !user.nil?
-    end
 
   end
 end

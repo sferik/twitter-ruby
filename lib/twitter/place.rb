@@ -5,25 +5,8 @@ module Twitter
     attr_reader :attributes, :country, :full_name, :name, :url, :woeid
     alias uri url
     alias woe_id woeid
-
-    # @return [Twitter::Geo, Twitter::NullObject]
-    def bounding_box
-      new_or_null_object(Twitter::GeoFactory, :bounding_box)
-    end
-
-    # @return [Boolean]
-    def bounding_box?
-      !bounding_box.nil?
-    end
-
-    def contained_within
-      new_or_null_object(Twitter::Place, :contained_within)
-    end
-
-    # @return [Boolean]
-    def contained_within?
-      !contained_within.nil?
-    end
+    object_attr_reader :GeoFactory, :bounding_box
+    object_attr_reader :Place, :contained_within
     alias contained? contained_within?
 
     # @return [String]

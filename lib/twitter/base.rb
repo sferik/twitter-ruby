@@ -36,6 +36,33 @@ module Twitter
       new(response[:body])
     end
 
+    # Create a new object (or NullObject) from attributes
+    #
+    # @param klass [Class]
+    # @param key1 [Symbol]
+    # @param key2 [Symbol]
+    def self.object_attr_reader(klass, key1, key2=nil)
+      define_method key1 do
+        ivar = :"@#{key1}"
+        return instance_variable_get(ivar) if instance_variable_defined?(ivar)
+        object = if @attrs[key1]
+          if key2.nil?
+            Twitter.const_get(klass).new(@attrs[key1])
+          else
+            attrs = @attrs.dup
+            value = attrs.delete(key1)
+            Twitter.const_get(klass).new(value.update(key2 => attrs))
+          end
+        else
+          Twitter::NullObject.new
+        end
+        instance_variable_set(ivar, object)
+      end
+      define_method "#{key1}?" do
+        !!self.send(key1)
+      end
+    end
+
     # Initializes a new object
     #
     # @param attrs [Hash]
@@ -51,39 +78,6 @@ module Twitter
       send(method.to_sym)
     rescue NoMethodError
       nil
-    end
-
-    # Create a new object from another object
-    #
-    # @param klass [Class]
-    # @param key1 [Symbol]
-    # @param key2 [Symbol]
-    def new_without_self(klass, key1, key2)
-      ivar = :"@#{key1}"
-      return instance_variable_get(ivar) if instance_variable_defined?(ivar)
-      object = if @attrs[key1]
-        attrs = @attrs.dup
-        value = attrs.delete(key1)
-        klass.new(value.update(key2 => attrs))
-      else
-        Twitter::NullObject.new
-      end
-      instance_variable_set(ivar, object)
-    end
-
-    # Create a new object (or NullObject) from attributes
-    #
-    # @param klass [Class]
-    # @param key [Symbol]
-    def new_or_null_object(klass, key)
-      ivar = :"@#{key}"
-      return instance_variable_get(ivar) if instance_variable_defined?(ivar)
-      object = if @attrs[key]
-        klass.new(@attrs[key])
-      else
-        Twitter::NullObject.new
-      end
-      instance_variable_set(ivar, object)
     end
 
   private

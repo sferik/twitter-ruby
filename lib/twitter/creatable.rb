@@ -11,7 +11,7 @@ module Twitter
     end
 
     def created?
-      !@attrs[:created_at].nil?
+      !!@attrs[:created_at]
     end
 
   end

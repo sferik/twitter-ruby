@@ -2,6 +2,8 @@ require 'twitter/base'
 
 module Twitter
   class Relationship < Twitter::Base
+    object_attr_reader :SourceUser, :source
+    object_attr_reader :TargetUser, :target
 
     # Initializes a new object
     #
@@ -9,26 +11,6 @@ module Twitter
     # @return [Twitter::Relationship]
     def initialize(attrs={})
       @attrs = attrs[:relationship]
-    end
-
-    # @return [Twitter::SourceUser, Twitter::NullObject]
-    def source
-      new_or_null_object(Twitter::SourceUser, :source)
-    end
-
-    # @return [Boolean]
-    def source?
-      !source.nil?
-    end
-
-    # @return [Twitter::TargetUser, Twitter::NullObject]
-    def target
-      new_or_null_object(Twitter::TargetUser, :target)
-    end
-
-    # @return [Boolean]
-    def target?
-      !target.nil?
     end
 
     # Update the attributes of a Relationship

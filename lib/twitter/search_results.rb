@@ -55,7 +55,7 @@ module Twitter
     alias count results_per_page
 
     def search_metadata?
-      !@attrs[:search_metadata].nil?
+      !!@attrs[:search_metadata]
     end
 
     # @return [Integer]

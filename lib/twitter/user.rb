@@ -29,6 +29,10 @@ module Twitter
     alias tweets_count statuses_count
     alias update_count statuses_count
     alias updates_count statuses_count
+    object_attr_reader :Tweet, :status, :user
+    alias tweet status
+    alias tweet? status?
+    alias tweeted? status?
 
     # @return [Array<Twitter::Entity::Url>]
     def description_urls
@@ -54,7 +58,7 @@ module Twitter
     end
 
     def profile_banner_url?
-      !@attrs[:profile_banner_url].nil?
+      !!@attrs[:profile_banner_url]
     end
     alias profile_banner_url_https? profile_banner_url?
 
@@ -81,21 +85,9 @@ module Twitter
     end
 
     def profile_image_url?
-      !@attrs[:profile_image_url_https].nil?
+      !!@attrs[:profile_image_url_https]
     end
     alias profile_image_url_https? profile_image_url?
-
-    # @return [Twitter::Tweet]
-    def status
-      new_without_self(Twitter::Tweet, :status, :user)
-    end
-    alias tweet status
-
-    def status?
-      !status.nil?
-    end
-    alias tweet? status?
-    alias tweeted? status?
 
     # @return [String] The URL to the user.
     def url(protocol="https")

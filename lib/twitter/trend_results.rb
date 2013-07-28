@@ -34,7 +34,11 @@ module Twitter
     #
     # @return [Time]
     def as_of
-      @as_of ||= Time.parse(@attrs[:as_of]) unless @attrs[:as_of].nil?
+      @as_of ||= Time.parse(@attrs[:as_of]) if as_of?
+    end
+
+    def as_of?
+      !!@attrs[:as_of]
     end
 
     # @return [Twitter::Place, NullObject]
