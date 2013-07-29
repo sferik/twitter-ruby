@@ -7,6 +7,7 @@ module Twitter
     object_attr_reader :GeoFactory, :bounding_box
     object_attr_reader :Place, :contained_within
     alias contained? contained_within?
+    uri_attr_reader :uri
 
     # @return [String]
     def country_code
@@ -33,18 +34,6 @@ module Twitter
     def id
       @attrs[:id] || @attrs[:woeid]
     end
-
-    # @return [URI] The URI to the place.
-    def uri
-      @uri ||= ::URI.parse(@attrs[:url]) if uri?
-    end
-    alias url uri
-
-    # return [Boolean]
-    def uri?
-      !!@attrs[:url]
-    end
-    alias url? uri?
 
   end
 end

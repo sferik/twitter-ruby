@@ -1,5 +1,6 @@
 require 'forwardable'
 require 'twitter/null_object'
+require 'uri'
 
 module Twitter
   class Base
@@ -10,7 +11,7 @@ module Twitter
     alias to_hsh attrs
     def_delegators :attrs, :delete, :update
 
-    # Define methods that retrieve the value from an initialized instance variable Hash, using the attribute as a key
+    # Define methods that retrieve the value from attributes
     #
     # @param attrs [Array, Symbol]
     def self.attr_reader(*attrs)
@@ -20,7 +21,7 @@ module Twitter
       end
     end
 
-    # Create a new object (or NullObject) from attributes
+    # Define object methods from attributes
     #
     # @param klass [Symbol]
     # @param key1 [Symbol]
@@ -28,6 +29,34 @@ module Twitter
     def self.object_attr_reader(klass, key1, key2=nil)
       define_attribute_method(key1, klass, key2)
       define_predicate_method(key1)
+    end
+
+    # Define URI methods from attributes
+    #
+    # @param attrs [Array, Symbol]
+    def self.uri_attr_reader(*attrs)
+      attrs.each do |uri_key|
+        array = uri_key.to_s.split("_")
+        index = array.index("uri")
+        array[index] = "url"
+        url_key = array.join("_").to_sym
+        define_uri_method(uri_key, url_key)
+        define_predicate_method(uri_key, url_key)
+        alias_method(url_key, uri_key)
+        alias_method("#{url_key}?", "#{uri_key}?")
+      end
+    end
+
+    # Dynamically define a method for a URI
+    #
+    # @param key1 [Symbol]
+    # @param key2 [Symbol]
+    def self.define_uri_method(key1, key2)
+      define_method(key1) do
+        memoize(key1) do
+          ::URI.parse(@attrs[key2]) if @attrs[key2]
+        end
+      end
     end
 
     # Dynamically define a method for an attribute
@@ -60,9 +89,9 @@ module Twitter
     # Dynamically define a predicate method for an attribute
     #
     # @param key [Symbol]
-    def self.define_predicate_method(key)
-      define_method(:"#{key}?") do
-        !!@attrs[key]
+    def self.define_predicate_method(key1, key2=key1)
+      define_method(:"#{key1}?") do
+        !!@attrs[key2]
       end
     end
 

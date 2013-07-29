@@ -170,14 +170,18 @@ module Twitter
 
     private
 
-      # @param collection [Array]
-      # @param max_id [Integer, NilClass]
+      def retweets_from_timeline(options)
+        options[:include_rts] = true
+        count = options[:count] || DEFAULT_TWEETS_PER_REQUEST
+        collect_with_count(count) do |count_options|
+          select_retweets(yield(options.merge(count_options)))
+        end
+      end
+
+      # @param tweets [Array]
       # @return [Array]
-      def collect_with_max_id(collection=[], max_id=nil, &block)
-        tweets = yield(max_id)
-        return collection if tweets.nil?
-        collection += tweets
-        tweets.empty? ? collection.flatten : collect_with_max_id(collection, tweets.last.id - 1, &block)
+      def select_retweets(tweets)
+        tweets.select(&:retweet?)
       end
 
       # @param count [Integer]
@@ -195,18 +199,14 @@ module Twitter
         end.flatten.compact[0...count]
       end
 
-      def retweets_from_timeline(options)
-        options[:include_rts] = true
-        count = options[:count] || DEFAULT_TWEETS_PER_REQUEST
-        collect_with_count(count) do |count_options|
-          select_retweets(yield(options.merge(count_options)))
-        end
-      end
-
-      # @param tweets [Array]
+      # @param collection [Array]
+      # @param max_id [Integer, NilClass]
       # @return [Array]
-      def select_retweets(tweets)
-        tweets.select(&:retweet?)
+      def collect_with_max_id(collection=[], max_id=nil, &block)
+        tweets = yield(max_id)
+        return collection if tweets.nil?
+        collection += tweets
+        tweets.empty? ? collection.flatten : collect_with_max_id(collection, tweets.last.id - 1, &block)
       end
 
     end

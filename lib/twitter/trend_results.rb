@@ -34,7 +34,7 @@ module Twitter
     #
     # @return [Time]
     def as_of
-      @as_of ||= Time.parse(@attrs[:as_of]) if as_of?
+      @as_of ||= Time.parse(@attrs[:as_of]) if @attrs[:as_of]
     end
 
     def as_of?

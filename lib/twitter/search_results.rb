@@ -29,43 +29,39 @@ module Twitter
 
     # @return [Float]
     def completed_in
-      @attrs[:search_metadata][:completed_in] if search_metadata?
+      @attrs[:search_metadata][:completed_in] if @attrs[:search_metadata]
     end
 
     # @return [Integer]
     def max_id
-      @attrs[:search_metadata][:max_id] if search_metadata?
+      @attrs[:search_metadata][:max_id] if @attrs[:search_metadata]
     end
 
     # @return [Integer]
     def page
-      @attrs[:search_metadata][:page] if search_metadata?
+      @attrs[:search_metadata][:page] if @attrs[:search_metadata]
     end
 
     # @return [String]
     def query
-      @attrs[:search_metadata][:query] if search_metadata?
+      @attrs[:search_metadata][:query] if @attrs[:search_metadata]
     end
 
     # @return [Integer]
     def results_per_page
-      @attrs[:search_metadata][:count] if search_metadata?
+      @attrs[:search_metadata][:count] if @attrs[:search_metadata]
     end
     alias rpp results_per_page
     alias count results_per_page
 
-    def search_metadata?
-      !!@attrs[:search_metadata]
-    end
-
     # @return [Integer]
     def since_id
-      @attrs[:search_metadata][:since_id] if search_metadata?
+      @attrs[:search_metadata][:since_id] if @attrs[:search_metadata]
     end
 
     # @return [Boolean]
     def next_results?
-      !@attrs[:search_metadata][:next_results].nil? if search_metadata?
+      !@attrs[:search_metadata][:next_results].nil? if @attrs[:search_metadata]
     end
     alias next_page? next_results?
 
