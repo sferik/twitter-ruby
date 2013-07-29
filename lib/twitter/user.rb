@@ -15,22 +15,11 @@ module Twitter
       :profile_sidebar_fill_color, :profile_text_color,
       :profile_use_background_image, :protected, :statuses_count, :time_zone,
       :utc_offset, :verified
-    alias favorite_count favourites_count
-    alias favoriters_count favourites_count
     alias favorites_count favourites_count
-    alias favourite_count favourites_count
-    alias favouriters_count favourites_count
-    alias follower_count followers_count
-    alias friend_count friends_count
     alias profile_background_image_uri profile_background_image_url
     alias profile_background_image_uri_https profile_background_image_url_https
-    alias status_count statuses_count
-    alias translator is_translator
-    alias translator? is_translator?
-    alias tweet_count statuses_count
+    alias translator? is_translator
     alias tweets_count statuses_count
-    alias update_count statuses_count
-    alias updates_count statuses_count
     object_attr_reader :Tweet, :status, :user
     alias tweet status
     alias tweet? status?
@@ -122,7 +111,6 @@ module Twitter
     def insecure_uri(uri)
       uri.to_s.sub(/^https/i, 'http')
     end
-    alias insecure_url insecure_uri
 
     def profile_image_suffix(size)
       if :original == size.to_sym

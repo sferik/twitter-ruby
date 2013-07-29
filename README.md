@@ -275,6 +275,22 @@ removed:
 These attributes can be accessed on the `Twitter::User` object, returned
 through the `#user` method.
 
+### Users
+The `Twitter::User` object has also been cleaned up. The following aliases have
+been removed:
+
+* `#favorite_count` (use `#favorites_count`)
+* `#favoriters_count` (use `#favorites_count`)
+* `#favourite_count` (use `#favourites_count`)
+* `#favouriters_count` (use `#favourites_count`)
+* `#follower_count` (use `#followers_count`)
+* `#friend_count` (use `#friends_count`)
+* `#status_count` (use `#statuses_count`)
+* `#tweet_count` (use `#tweets_count`)
+* `#update_count` (use `#tweets_count`)
+* `#updates_count` (use `#tweets_count`)
+* `#translator` (use `#translator?`)
+
 ### Null Objects
 In version 4, methods you would expect to return a `Twitter` object would
 return `nil` if that object was missing. This may have resulted in a
