@@ -1,5 +1,4 @@
 require 'forwardable'
-require 'twitter/default'
 require 'twitter/error/configuration_error'
 
 module Twitter

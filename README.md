@@ -529,7 +529,7 @@ Here are some fun facts about this library:
   Rubinius
 * The first version was released on November 26, 2006
 * This gem has just two runtime dependencies: `faraday`, and `simple_oauth`
-* Previous versions of this gem have been [downloaded over half a million
+* Previous versions of this gem have been [downloaded over a million
   times][stats]
 
 [stats]: https://rubygems.org/gems/twitter

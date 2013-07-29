@@ -1,6 +1,5 @@
 require 'faraday'
 require 'faraday/request/multipart'
-require 'twitter/configurable'
 require 'twitter/error/client_error'
 require 'twitter/error/server_error'
 require 'twitter/request/multipart_with_file'

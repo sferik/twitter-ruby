@@ -40,15 +40,15 @@ module Twitter
     #
     # @return [Twitter::Client]
     def client
-      @client = Twitter::Client.new(options) unless defined?(@client) && @client.hash == options.hash
-      @client
+      return @client if instance_variable_defined?(:"@client") && @client.hash == options.hash
+      @client = Twitter::Client.new(options)
     end
 
     # Has a client been initialized on the Twitter module
     #
     # @return [Boolean]
     def client?
-      !!@client
+      !!client
     end
 
     def respond_to_missing?(method_name, include_private=false)

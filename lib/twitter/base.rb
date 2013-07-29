@@ -62,7 +62,7 @@ module Twitter
     # @param key [Symbol]
     def self.define_predicate_method(key)
       define_method(:"#{key}?") do
-        !!send(key)
+        !!@attrs[key]
       end
     end
 

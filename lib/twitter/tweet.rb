@@ -22,7 +22,6 @@ module Twitter
     alias retweet retweeted_status
     alias retweeted_tweet retweeted_status
     alias retweet? retweeted_status?
-    alias retweeted? retweeted_status?
     alias retweeted_tweet? retweeted_status?
     object_attr_reader :User, :user, :status
 
@@ -64,7 +63,7 @@ module Twitter
 
     # @return [Boolean]
     def reply?
-      !!in_reply_to_status_id
+      !!@attrs[:in_reply_to_status_id]
     end
 
     # @note Must include entities in your request for this method to work
