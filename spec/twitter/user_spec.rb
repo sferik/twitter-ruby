@@ -305,4 +305,15 @@ describe Twitter::User do
     end
   end
 
+  describe "#website?" do
+    it "returns true when the url is set" do
+      user = Twitter::User.new(:id => 7505382, :url => "https://github.com/sferik")
+      expect(user.website?).to be_true
+    end
+    it "returns false when the url is not set" do
+      user = Twitter::User.new(:id => 7505382)
+      expect(user.website?).to be_false
+    end
+  end
+
 end
