@@ -1,3 +1,5 @@
+* [Add `Twitter::Error::AlreadyPosted`](…)
+
 4.8.1
 -----
 * [Ignore case of profile image extension](https://github.com/sferik/twitter/commit/73760610e959ae868de23de3da661d237fbcb106)
