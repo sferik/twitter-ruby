@@ -290,7 +290,7 @@ describe Twitter::API::Tweets do
       expect(tweets.first.retweeted_tweet.text).to eq "RT @gruber: As for the Series, I'm for the Giants. Fuck Texas, fuck Nolan Ryan, fuck George Bush."
       expect(tweets.first.retweeted_tweet.id).not_to eq tweets.first.id
     end
-    context "fobidden" do
+    context "forbidden" do
       before do
         stub_post("/1.1/statuses/retweet/25938088801.json").to_return(:status => 403, :headers => {:content_type => "application/json; charset=utf-8"})
       end
