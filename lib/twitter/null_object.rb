@@ -10,9 +10,5 @@ module Twitter
     end
     alias nil? null?
 
-    def !
-      true
-    end
-
   end
 end
