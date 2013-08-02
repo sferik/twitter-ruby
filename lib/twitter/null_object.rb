@@ -9,7 +9,7 @@ module Twitter
     end
 
     def method_missing(*args, &block)
-      nil
+      self
     end
 
     def respond_to_missing?(method_name, include_private=false)
