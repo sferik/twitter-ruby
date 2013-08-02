@@ -205,7 +205,7 @@ describe Twitter::API::Tweets do
     end
   end
 
-  describe "#tweet" do
+  describe "#update" do
     before do
       stub_post("/1.1/statuses/update.json").with(:body => {:status => "The problem with your code is that it's doing exactly what you told it to do."}).to_return(:body => fixture("status.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
@@ -365,6 +365,14 @@ describe Twitter::API::Tweets do
       it "requests the correct resource" do
         @client.update_with_media("You always have options", Tempfile.new("tmp"))
         expect(a_post("/1.1/statuses/update_with_media.json")).to have_been_made
+      end
+    end
+    context "already posted" do
+      before do
+        stub_post("/1.1/statuses/update_with_media.json").to_return(:status => 403, :body => fixture("already_posted.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      end
+      it "raises an AlreadyPosted error" do
+        expect{@client.update_with_media("The problem with your code is that it's doing exactly what you told it to do.", fixture("pbjt.gif"))}.to raise_error Twitter::Error::AlreadyPosted
       end
     end
   end
