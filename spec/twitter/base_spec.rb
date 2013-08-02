@@ -1,9 +1,6 @@
 require 'helper'
 
 describe Twitter::Base do
-  before do
-    @base = Twitter::Base.new(:id => 1)
-  end
 
   describe "#[]" do
     it "calls methods using [] with symbol" do
