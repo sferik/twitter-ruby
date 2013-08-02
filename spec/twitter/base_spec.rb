@@ -21,20 +21,4 @@ describe Twitter::Base do
     end
   end
 
-  describe "#delete" do
-    it "deletes an attribute and returns its value" do
-      base = Twitter::Base.new(:id => 1)
-      expect(base.delete(:id)).to eq(1)
-      expect(base.attrs[:id]).to be_nil
-    end
-  end
-
-  describe "#update" do
-    it "returns a hash of attributes" do
-      base = Twitter::Base.new(:id => 1)
-      base.update(:id => 2)
-      expect(base.attrs[:id]).to eq(2)
-    end
-  end
-
 end
