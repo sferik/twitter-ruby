@@ -76,18 +76,7 @@ describe Twitter do
       end
     end
 
-    context "when no credentials are provided" do
-      it "does not raise an exception" do
-        expect {
-          Twitter.configure do |config|
-            config.consumer_key = nil
-            config.consumer_secret = nil
-            config.oauth_token = nil
-            config.oauth_token_secret = nil
-          end
-        }.not_to raise_error
-      end
-    end
+
   end
 
   describe ".credentials?" do
