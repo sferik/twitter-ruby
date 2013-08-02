@@ -1,6 +1,7 @@
 require 'twitter/api/arguments'
 require 'twitter/api/utils'
 require 'twitter/error/already_retweeted'
+require 'twitter/error/already_posted'
 require 'twitter/error/forbidden'
 require 'twitter/oembed'
 require 'twitter/tweet'
@@ -130,6 +131,8 @@ module Twitter
       #   Twitter.update("I'm tweeting with @gem!")
       def update(status, options={})
         object_from_response(Twitter::Tweet, :post, "/1.1/statuses/update.json", options.merge(:status => status))
+      rescue Twitter::Error::Forbidden => error
+        handle_forbidden_error(Twitter::Error::AlreadyPosted, error)
       end
 
       # Retweets the specified Tweets as the authenticating user
@@ -208,6 +211,8 @@ module Twitter
       #   Twitter.update_with_media("I'm tweeting with @gem!", File.new('my_awesome_pic.jpeg'))
       def update_with_media(status, media, options={})
         object_from_response(Twitter::Tweet, :post, "/1.1/statuses/update_with_media.json", options.merge('media[]' => media, 'status' => status))
+      rescue Twitter::Error::Forbidden => error
+        handle_forbidden_error(Twitter::Error::AlreadyPosted, error)
       end
 
       # Returns oEmbed for a Tweet
