@@ -1,5 +1,8 @@
+require 'singleton'
+
 module Twitter
   class NullObject
+    include Singleton
 
     def method_missing(*args, &block)
       nil

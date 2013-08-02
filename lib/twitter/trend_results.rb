@@ -46,7 +46,7 @@ module Twitter
       @location ||= if location?
         Twitter::Place.new(@attrs[:locations].first)
       else
-        Twitter::NullObject.new
+        Twitter::NullObject.instance
       end
     end
 

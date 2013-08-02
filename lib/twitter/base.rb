@@ -79,7 +79,7 @@ module Twitter
                 Twitter.const_get(klass).new(value.update(key2 => attrs))
               end
             else
-              Twitter::NullObject.new
+              Twitter::NullObject.instance
             end
           end
         end
