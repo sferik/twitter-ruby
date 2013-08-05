@@ -10,26 +10,9 @@ module Twitter
       # @param response [Hash]
       # @return [Twitter::Error]
       def self.from_response(response={})
-        new(parse_error(response[:body]), response[:response_headers])
+        error, code = parse_error(response[:body])
+        new(error, response[:response_headers], code)
       end
-
-    private
-
-      def self.parse_error(body)
-        if body.nil?
-          ''
-        elsif body[:error]
-          body[:error]
-        elsif body[:errors]
-          first = Array(body[:errors]).first
-          if first.is_a?(Hash)
-            first[:message].chomp
-          else
-            first.chomp
-          end
-        end
-      end
-
     end
   end
 end
