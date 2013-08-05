@@ -93,10 +93,7 @@ module Twitter
           request.headers[:content_type] = 'application/x-www-form-urlencoded; charset=UTF-8'
           request.headers[:accept] = '*/*' # It is important we set this, otherwise we get an error.
         elsif params.delete(:app_auth) || !user_token?
-          unless bearer_token?
-            @bearer_token = token
-            Twitter.client.bearer_token = @bearer_token if Twitter.client?
-          end
+          @bearer_token = token unless bearer_token?
           request.headers[:authorization] = bearer_auth_header
         else
           request.headers[:authorization] = oauth_auth_header(method, path, signature_params).to_s
