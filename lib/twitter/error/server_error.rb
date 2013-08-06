@@ -11,7 +11,8 @@ module Twitter
       # @param response [Hash]
       # @return [Twitter::Error]
       def self.from_response(response={})
-        new(nil, response[:response_headers])
+        _, code = parse_error(response[:body])
+        new(nil, response[:response_headers], code)
       end
 
       # Initializes a new ServerError object
@@ -19,8 +20,8 @@ module Twitter
       # @param message [String]
       # @param response_headers [Hash]
       # @return [Twitter::Error::ServerError]
-      def initialize(message=nil, response_headers={})
-        super((message || self.class.const_get(:MESSAGE)), response_headers)
+      def initialize(message=nil, response_headers={}, code = nil)
+        super((message || self.class.const_get(:MESSAGE)), response_headers, code)
       end
 
     end
