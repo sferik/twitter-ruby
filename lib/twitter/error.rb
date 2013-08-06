@@ -5,14 +5,30 @@ module Twitter
   class Error < StandardError
     attr_reader :rate_limit, :wrapped_exception, :code
 
+    # Create a new error from an HTTP response
+    #
+    # @param response [Hash]
+    # @return [Twitter::Error]
+    def self.from_response(response={})
+      error, code = parse_error(response[:body])
+      new(error, response[:response_headers], code)
+    end
+
     # @return [Hash]
     def self.errors
-      @errors ||= Hash[descendants.map{|klass| [klass.const_get(:HTTP_STATUS_CODE), klass]}]
+      @errors ||= descendants.each_with_object({}) do |klass, hash|
+        hash[klass::HTTP_STATUS_CODE] = klass
+      end
     end
 
     # @return [Array]
     def self.descendants
-      ObjectSpace.each_object(::Class).select{|klass| klass < self}
+      @descendants ||= []
+    end
+
+    # @return [Array]
+    def self.inherited(descendant)
+      descendants << descendant
     end
 
     # Initializes a new Error object

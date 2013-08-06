@@ -29,10 +29,10 @@ module Twitter
       builder.use Faraday::Request::UrlEncoded
       # Handle 4xx server responses
       builder.use Twitter::Response::RaiseError, Twitter::Error::ClientError
-      # Parse JSON response bodies
-      builder.use Twitter::Response::ParseJson
       # Handle 5xx server responses
       builder.use Twitter::Response::RaiseError, Twitter::Error::ServerError
+      # Parse JSON response bodies
+      builder.use Twitter::Response::ParseJson
       # Set Faraday's HTTP adapter
       builder.adapter Faraday.default_adapter
     end unless defined? Twitter::Default::MIDDLEWARE

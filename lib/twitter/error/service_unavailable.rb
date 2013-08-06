@@ -5,7 +5,6 @@ module Twitter
     # Raised when Twitter returns the HTTP status code 503
     class ServiceUnavailable < Twitter::Error::ServerError
       HTTP_STATUS_CODE = 503
-      MESSAGE = "Twitter is over capacity."
     end
   end
 end
