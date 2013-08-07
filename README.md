@@ -181,16 +181,18 @@ simplicity and performance.
         Collect your 20 most recent friends (twice).
       </td>
       <td>
-        <pre><code lang="ruby">2.times.collect do
-  Twitter.friends.take(20)
+        <pre><code lang="ruby">friends = Twitter.friends
+2.times.collect do
+  friends.take(20)
 end</code></pre>
       </td>
       <td>
         <em>Θ(2n+2)</em>
       </td>
       <td>
-        <pre><code lang="ruby">2.times.collect do
-  Twitter.friends.take(20)
+        <pre><code lang="ruby">friends = Twitter.friends
+2.times.collect do
+  friends.take(20)
 end</code></pre>
       </td>
       <td>
