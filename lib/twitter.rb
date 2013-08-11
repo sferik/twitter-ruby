@@ -1,4 +1,5 @@
 require 'twitter/action_factory'
+require 'twitter/streaming'
 require 'twitter/client'
 require 'twitter/configurable'
 require 'twitter/configuration'

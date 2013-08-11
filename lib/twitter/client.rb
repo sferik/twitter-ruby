@@ -45,6 +45,7 @@ module Twitter
     include Twitter::API::Tweets
     include Twitter::API::Undocumented
     include Twitter::API::Users
+    include Twitter::Streaming
     include Twitter::Configurable
 
     # Initializes a new Client object
