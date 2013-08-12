@@ -6,6 +6,7 @@ describe Twitter::Streaming do
   end
 
   class FakeConnection
+    include Celluloid::IO
     def initialize(body)
       @body = body
     end

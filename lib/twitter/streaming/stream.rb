@@ -20,30 +20,31 @@ module Twitter
         }
       end
 
-      def user
-        user!.value
+      def user(&block)
+        user!(&block).value
       end
 
-      def user!
-        request({
+      def user!(&block)
+        options = {
           :method         => 'GET',
           :host           => 'userstream.twitter.com',
           :path           => '/1.1/user.json',
           :params         => {},
-        }) do |data|
+        }
+        request(options) do |data|
           begin
-            yield Tweet.new(data)
+            block.call(Twitter::Tweet.new(data))
           rescue
             p(:unknown => data)
           end
         end
       end
 
-      def track(*keywords)
-        track!.value
+      def track(*keywords, &block)
+        track!(keywords, &block).value
       end
 
-      def track!(*keywords)
+      def track!(*keywords, &block)
         options = {
           :method         => 'POST',
           :host           => 'stream.twitter.com',
@@ -52,8 +53,8 @@ module Twitter
         }
         request(options) do |data|
           begin
-            yield Tweet.new(data)
-          rescue
+            block.call(Twitter::Tweet.new(data))
+          rescue Exception => e
             p(:unknown => data)
           end
         end
