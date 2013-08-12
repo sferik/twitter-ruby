@@ -53,13 +53,6 @@ module Twitter
       !!@bearer_token
     end
 
-    # @return [Boolean]
-    def credentials?
-      credentials.values.all? || bearer_token?
-    end
-
-  private
-
     # @return [Hash]
     def credentials
       {
@@ -69,6 +62,13 @@ module Twitter
         :token_secret    => @oauth_token_secret,
       }
     end
+
+    # @return [Boolean]
+    def credentials?
+      credentials.values.all? || bearer_token?
+    end
+
+  private
 
     # @return [Hash]
     def options

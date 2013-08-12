@@ -13,8 +13,7 @@ module Twitter
           :proxy          => nil,
           :ssl            => {},
           :timeout        => 0,
-          # TODO: do not use send
-          :oauth          => @client.send(:credentials),
+          :oauth          => @client.credentials,
           :encoding       => nil,
           :auto_reconnect => true,
         }
