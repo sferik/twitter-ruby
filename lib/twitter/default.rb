@@ -9,11 +9,12 @@ require 'twitter/version'
 
 module Twitter
   module Default
-    ENDPOINT = 'https://api.twitter.com' unless defined? Twitter::Default::ENDPOINT
+    ENDPOINT = "https://api.twitter.com" unless defined? Twitter::Default::ENDPOINT
+    USER_AGENT = "Twitter Ruby Gem #{Twitter::Version}"
     CONNECTION_OPTIONS = {
       :headers => {
-        :accept => 'application/json',
-        :user_agent => "Twitter Ruby Gem #{Twitter::Version}",
+        :accept => "application/json",
+        :user_agent => USER_AGENT,
       },
       :request => {
         :open_timeout => 5,
@@ -44,29 +45,33 @@ module Twitter
         Hash[Twitter::Configurable.keys.map{|key| [key, send(key)]}]
       end
 
+      def user_agent
+        USER_AGENT
+      end
+
       # @return [String]
       def consumer_key
-        ENV['TWITTER_CONSUMER_KEY']
+        ENV["TWITTER_CONSUMER_KEY"]
       end
 
       # @return [String]
       def consumer_secret
-        ENV['TWITTER_CONSUMER_SECRET']
+        ENV["TWITTER_CONSUMER_SECRET"]
       end
 
       # @return [String]
       def oauth_token
-        ENV['TWITTER_OAUTH_TOKEN']
+        ENV["TWITTER_OAUTH_TOKEN"]
       end
 
       # @return [String]
       def oauth_token_secret
-        ENV['TWITTER_OAUTH_TOKEN_SECRET']
+        ENV["TWITTER_OAUTH_TOKEN_SECRET"]
       end
 
       # @return [String]
       def bearer_token
-        ENV['TWITTER_BEARER_TOKEN']
+        ENV["TWITTER_BEARER_TOKEN"]
       end
 
       # @note This is configurable in case you want to use a Twitter-compatible endpoint.

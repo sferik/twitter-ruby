@@ -8,8 +8,7 @@ module Twitter
         @request_options = {
           :port           => 443,
           :content_type   => 'application/x-www-form-urlencoded',
-          :headers        => {},
-          :user_agent     => 'Twitter Celluloid',
+          :user_agent     => @client.user_agent,
           :proxy          => nil,
           :ssl            => {},
           :timeout        => 0,

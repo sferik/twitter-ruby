@@ -31,6 +31,7 @@ describe Twitter::Client do
 
       before do
         @configuration = {
+          :bearer_token => "BT",
           :connection_options => {:timeout => 10},
           :consumer_key => "CK",
           :consumer_secret => "CS",
@@ -38,7 +39,7 @@ describe Twitter::Client do
           :middleware => Proc.new{},
           :oauth_token => "OT",
           :oauth_token_secret => "OS",
-          :bearer_token => "BT",
+          :user_agent => "Twitter Ruby Gem 1.0.0",
         }
       end
 
