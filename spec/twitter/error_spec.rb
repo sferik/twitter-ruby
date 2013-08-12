@@ -17,4 +17,10 @@ describe Twitter::Error do
     end
   end
 
+  describe "#errors" do
+    it "lists descendant errors" do
+      expect(Twitter::Error.errors).to have_key(403)
+    end
+  end
+
 end
