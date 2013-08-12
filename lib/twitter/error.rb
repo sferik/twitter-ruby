@@ -17,7 +17,8 @@ module Twitter
     # @return [Hash]
     def self.errors
       @errors ||= descendants.each_with_object({}) do |klass, hash|
-        hash[klass::HTTP_STATUS_CODE] = klass
+        hash[klass::HTTP_STATUS_CODE] = klass if defined?(klass::HTTP_STATUS_CODE)
+        hash.update(klass.errors)
       end
     end
 
