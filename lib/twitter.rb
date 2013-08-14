@@ -33,26 +33,27 @@ require 'twitter/user'
 require 'uri'
 
 module Twitter
-  class << self
-    include Twitter::Configurable
+  extend Twitter::Configurable
 
-    # Delegate to a Twitter::Client
-    #
-    # @return [Twitter::Client]
-    def client
-      return @client if instance_variable_defined?(:@client) && @client.hash == options.hash
-      @client = Twitter::Client.new(options)
-    end
-
-    def method_missing(method_name, *args, &block)
-      return super unless respond_to_missing?(method_name)
-      client.send(method_name, *args, &block)
-    end
-
-    def respond_to_missing?(method_name, include_private=false)
-      client.respond_to?(method_name, include_private)
-    end
-
+  # Delegate to a Twitter::Client
+  #
+  # @return [Twitter::Client]
+  def new
+    return @client if instance_variable_defined?(:@client) && @client.hash == options.hash
+    @client = Twitter::Client.new(options)
   end
+  module_function :new
+
+  def method_missing(method_name, *args, &block)
+    return super unless respond_to_missing?(method_name)
+    new.send(method_name, *args, &block)
+  end
+  module_function :method_missing
+
+  def respond_to_missing?(method_name, include_private=false)
+    new.respond_to?(method_name, include_private)
+  end
+  module_function :respond_to_missing?
+
   setup
 end

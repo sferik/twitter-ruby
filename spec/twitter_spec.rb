@@ -28,28 +28,28 @@ describe Twitter do
       expect(Twitter.respond_to?(:user)).to be_true
     end
     it "takes an optional argument" do
-      expect(Twitter.respond_to?(:client, true)).to be_true
+      expect(Twitter.respond_to?(:new, true)).to be_true
     end
   end
 
   describe ".client" do
     it "returns a Twitter::Client" do
-      expect(Twitter.client).to be_a Twitter::Client
+      expect(Twitter.new).to be_a Twitter::Client
     end
 
     context "when the options don't change" do
       it "caches the client" do
-        expect(Twitter.client).to eq Twitter.client
+        expect(Twitter.new).to eq Twitter.new
       end
     end
     context "when the options change" do
       it "busts the cache" do
-        client1 = Twitter.client
+        client1 = Twitter.new
         Twitter.configure do |config|
           config.consumer_key = 'abc'
           config.consumer_secret = '123'
         end
-        client2 = Twitter.client
+        client2 = Twitter.new
         expect(client1).not_to eq client2
       end
     end
