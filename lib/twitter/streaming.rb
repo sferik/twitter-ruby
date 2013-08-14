@@ -6,7 +6,6 @@ require 'resolv'
 
 require 'twitter/streaming/connection'
 require 'twitter/streaming/proxy'
-require 'twitter/streaming/request'
 require 'twitter/streaming/response'
 require 'twitter/streaming/stream'
 

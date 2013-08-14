@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'http', :path => '../http'
 gem 'jruby-openssl', :platforms => :jruby
 gem 'rake'
 gem 'yard'
