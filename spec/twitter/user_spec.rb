@@ -260,17 +260,17 @@ describe Twitter::User do
 
   describe "#status" do
     it "returns a Status when status is set" do
-      tweet = Twitter::User.new(:id => 7505382, :status => {:id => 25938088801}).status
-      expect(tweet).to be_a Twitter::Tweet
+      user = Twitter::User.new(:id => 7505382, :status => {:id => 25938088801})
+      expect(user.status).to be_a Twitter::Tweet
     end
     it "returns nil when status is not set" do
-      tweet = Twitter::User.new(:id => 7505382).status
-      expect(tweet).to be_nil
+      user = Twitter::User.new(:id => 7505382)
+      expect(user.status).to be_nil
     end
-    it "includes a User when user is set" do
-      tweet = Twitter::User.new(:id => 7505382, :screen_name => "sferik", :status => {:id => 25938088801}).status
-      expect(tweet.user).to be_a Twitter::User
-      expect(tweet.user.id).to eq(7505382)
+    it "has a user" do
+      user = Twitter::User.new(:id => 7505382, :status => {:id => 25938088801})
+      expect(user.status.user).to be_a Twitter::User
+      expect(user.status.user.id).to eq(7505382)
     end
   end
 

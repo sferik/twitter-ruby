@@ -392,6 +392,35 @@ describe Twitter::REST::API::FriendsAndFollowers do
         expect(users.first.id).to eq(7505382)
       end
     end
+    context "with a user object passed" do
+      before do
+        stub_post("/1.1/friendships/create.json").with(:body => {:user_id => "7505382"}).to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      end
+      it "requests the correct resources" do
+        user = Twitter::User.new(:id => "7505382")
+        @client.follow!(user)
+        expect(a_post("/1.1/friendships/create.json").with(:body => {:user_id => "7505382"})).to have_been_made
+      end
+    end
+    context "with a URI object passed" do
+      before do
+        stub_post("/1.1/friendships/create.json").with(:body => {:screen_name => "sferik"}).to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      end
+      it "requests the correct resource" do
+        user = URI.parse("https://twitter.com/sferik")
+        @client.follow!(user)
+        expect(a_post("/1.1/friendships/create.json").with(:body => {:screen_name => "sferik"})).to have_been_made
+      end
+    end
+    context "with a URI string passed" do
+      before do
+        stub_post("/1.1/friendships/create.json").with(:body => {:screen_name => "sferik"}).to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      end
+      it "requests the correct resource" do
+        @client.follow!("https://twitter.com/sferik")
+        expect(a_post("/1.1/friendships/create.json").with(:body => {:screen_name => "sferik"})).to have_been_made
+      end
+    end
   end
 
   describe "#unfollow" do

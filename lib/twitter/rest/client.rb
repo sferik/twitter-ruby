@@ -223,7 +223,7 @@ module Twitter
       end
 
       def bearer_auth_header
-        if bearer_token.is_a?(Twitter::Token) && bearer_token.token_type == "bearer"
+        if bearer_token.is_a?(Twitter::Token) && bearer_token.bearer?
           "Bearer #{bearer_token.access_token}"
         else
           "Bearer #{bearer_token}"

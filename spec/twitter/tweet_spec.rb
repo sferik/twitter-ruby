@@ -323,9 +323,10 @@ describe Twitter::Tweet do
       tweet = Twitter::Tweet.new(:id => 28669546014)
       expect(tweet.user).to be_nil
     end
-    it "has a status when status is set" do
+    it "has a status is set" do
       tweet = Twitter::Tweet.new(:id => 28669546014, :text => "Tweet text.", :user => {:id => 7505382})
       expect(tweet.user.status).to be_a Twitter::Tweet
+      expect(tweet.user.status.id).to eq 28669546014
     end
   end
 
