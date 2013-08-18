@@ -27,7 +27,7 @@ describe Twitter::REST::API::Search do
 
     context "when search API responds a malformed result" do
       before do
-        stub_get("/1.1/search/tweets.json").with(:query => {:q => "twitter"}).to_return(:body => fixture("/search_malformed.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+        stub_get("/1.1/search/tweets.json").with(:query => {:q => "twitter"}).to_return(:body => fixture("search_malformed.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
 
       it "returns an empty array" do
