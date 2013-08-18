@@ -63,10 +63,23 @@ module Twitter
         end
       end
 
+      # Set a Proc to be run when connection established.
+      def on_request(&block)
+        if block_given?
+          @on_request = block
+          self
+        elsif instance_variable_defined?(:@on_request)
+          @on_request
+        else
+          Proc.new {}
+        end
+      end
+
       def request(options, &block)
+        on_request.call
         # TODO: consider HTTP::Request
-        request    = Twitter::Streaming::Request.new(@request_options.merge(options))
-        response   = Twitter::Streaming::Response.new(block)
+        request  = Twitter::Streaming::Request.new(@request_options.merge(options))
+        response = Twitter::Streaming::Response.new(block)
         @connection.future.stream(request, response)
       end
 
