@@ -1,7 +1,9 @@
+require 'twitter/version'
+
 module Twitter
   class Client
     attr_writer :access_token, :access_token_secret, :consumer_key,
-      :consumer_secret
+      :consumer_secret, :user_agent
     alias oauth_token= access_token=
     alias oauth_token_secret= access_token_secret=
 
@@ -58,6 +60,10 @@ module Twitter
     # @return [Boolean]
     def user_token?
       !!(access_token && access_token_secret)
+    end
+
+    def user_agent
+      @user_agent ||= "Twitter Ruby Gem #{Twitter::Version}"
     end
 
     # @return [Hash]

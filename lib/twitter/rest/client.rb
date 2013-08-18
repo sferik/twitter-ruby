@@ -4,6 +4,8 @@ require 'faraday/request/multipart'
 require 'json'
 require 'simple_oauth'
 require 'twitter/client'
+require 'twitter/error'
+require 'twitter/error/configuration_error'
 require 'twitter/rest/api/direct_messages'
 require 'twitter/rest/api/favorites'
 require 'twitter/rest/api/friends_and_followers'
@@ -23,9 +25,6 @@ require 'twitter/rest/api/users'
 require 'twitter/rest/request/multipart_with_file'
 require 'twitter/rest/response/parse_json'
 require 'twitter/rest/response/raise_error'
-require 'twitter/error'
-require 'twitter/error/configuration_error'
-require 'twitter/version'
 require 'uri'
 
 module Twitter
@@ -69,7 +68,7 @@ module Twitter
         @connection_options ||= {
           :headers => {
             :accept => 'application/json',
-            :user_agent => "Twitter Ruby Gem #{Twitter::Version}",
+            :user_agent => user_agent,
           },
           :request => {
             :open_timeout => 5,
