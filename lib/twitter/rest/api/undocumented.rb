@@ -1,4 +1,3 @@
-require 'twitter/action_factory'
 require 'twitter/cursor'
 require 'twitter/rest/api/arguments'
 require 'twitter/rest/api/utils'

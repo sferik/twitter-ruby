@@ -1,4 +1,3 @@
-require 'twitter/action_factory'
 require 'twitter/configuration'
 require 'twitter/cursor'
 require 'twitter/direct_message'
