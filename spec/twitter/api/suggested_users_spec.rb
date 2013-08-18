@@ -3,7 +3,7 @@ require 'helper'
 describe Twitter::API::SuggestedUsers do
 
   before do
-    @client = Twitter::Client.new
+    @client = Twitter::Client.new(:consumer_key => "CK", :consumer_secret => "CS", :oauth_token => "OT", :oauth_token_secret => "OS")
   end
 
   describe "#suggestions" do
@@ -18,7 +18,7 @@ describe Twitter::API::SuggestedUsers do
       it "returns the users in a given category of the Twitter suggested user list" do
         suggestion = @client.suggestions("art-design")
         expect(suggestion).to be_a Twitter::Suggestion
-        expect(suggestion.name).to eq "Art & Design"
+        expect(suggestion.name).to eq("Art & Design")
         expect(suggestion.users).to be_an Array
         expect(suggestion.users.first).to be_a Twitter::User
       end
@@ -35,7 +35,7 @@ describe Twitter::API::SuggestedUsers do
         suggestions = @client.suggestions
         expect(suggestions).to be_an Array
         expect(suggestions.first).to be_a Twitter::Suggestion
-        expect(suggestions.first.name).to eq "Art & Design"
+        expect(suggestions.first.name).to eq("Art & Design")
       end
     end
   end
@@ -52,7 +52,7 @@ describe Twitter::API::SuggestedUsers do
       suggest_users = @client.suggest_users("art-design")
       expect(suggest_users).to be_an Array
       expect(suggest_users.first).to be_a Twitter::User
-      expect(suggest_users.first.id).to eq 13
+      expect(suggest_users.first.id).to eq(13)
     end
   end
 

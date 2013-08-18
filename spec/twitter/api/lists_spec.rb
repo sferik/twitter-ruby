@@ -3,7 +3,7 @@ require 'helper'
 describe Twitter::API::Lists do
 
   before do
-    @client = Twitter::Client.new
+    @client = Twitter::Client.new(:consumer_key => "CK", :consumer_secret => "CS", :oauth_token => "OT", :oauth_token_secret => "OS")
   end
 
   describe "#lists" do
@@ -18,7 +18,7 @@ describe Twitter::API::Lists do
       lists = @client.lists
       expect(lists).to be_an Array
       expect(lists.first).to be_a Twitter::List
-      expect(lists.first.name).to eq "Rubyists"
+      expect(lists.first.name).to eq("Rubyists")
     end
   end
 
@@ -35,7 +35,7 @@ describe Twitter::API::Lists do
         tweets = @client.list_timeline("sferik", "presidents")
         expect(tweets).to be_an Array
         expect(tweets.first).to be_a Twitter::Tweet
-        expect(tweets.first.text).to eq "Happy Birthday @imdane. Watch out for those @rally pranksters!"
+        expect(tweets.first.text).to eq("Happy Birthday @imdane. Watch out for those @rally pranksters!")
       end
       context "with a URI object passed" do
         it "requests the correct resource" do
@@ -89,7 +89,7 @@ describe Twitter::API::Lists do
       it "returns the list" do
         list = @client.list_remove_member("sferik", "presidents", 813286)
         expect(list).to be_a Twitter::List
-        expect(list.name).to eq "presidents"
+        expect(list.name).to eq("presidents")
       end
     end
     context "without a screen name passed" do
@@ -117,7 +117,7 @@ describe Twitter::API::Lists do
         memberships = @client.memberships("sferik")
         expect(memberships).to be_a Twitter::Cursor
         expect(memberships.first).to be_a Twitter::List
-        expect(memberships.first.name).to eq "developer"
+        expect(memberships.first.name).to eq("developer")
       end
       context "with each" do
         before do
@@ -184,7 +184,7 @@ describe Twitter::API::Lists do
         list_subscribers = @client.list_subscribers("sferik", "presidents")
         expect(list_subscribers).to be_a Twitter::Cursor
         expect(list_subscribers.first).to be_a Twitter::User
-        expect(list_subscribers.first.id).to eq 7505382
+        expect(list_subscribers.first.id).to eq(7505382)
       end
       context "with each" do
         before do
@@ -250,7 +250,7 @@ describe Twitter::API::Lists do
       it "returns the specified list" do
         list = @client.list_subscribe("sferik", "presidents")
         expect(list).to be_a Twitter::List
-        expect(list.name).to eq "presidents"
+        expect(list.name).to eq("presidents")
       end
     end
     context "without a screen name passed" do
@@ -350,7 +350,7 @@ describe Twitter::API::Lists do
       it "returns the specified list" do
         list = @client.list_unsubscribe("sferik", "presidents")
         expect(list).to be_a Twitter::List
-        expect(list.name).to eq "presidents"
+        expect(list.name).to eq("presidents")
       end
     end
     context "without a screen name passed" do
@@ -377,7 +377,7 @@ describe Twitter::API::Lists do
       it "returns the list" do
         list = @client.list_add_members("sferik", "presidents", [813286, 18755393])
         expect(list).to be_a Twitter::List
-        expect(list.name).to eq "presidents"
+        expect(list.name).to eq("presidents")
       end
     end
     context "with a combination of member IDs and member screen names to add" do
@@ -487,7 +487,7 @@ describe Twitter::API::Lists do
         list_members = @client.list_members("sferik", "presidents")
         expect(list_members).to be_a Twitter::Cursor
         expect(list_members.first).to be_a Twitter::User
-        expect(list_members.first.id).to eq 7505382
+        expect(list_members.first.id).to eq(7505382)
       end
       context "with each" do
         before do
@@ -553,7 +553,7 @@ describe Twitter::API::Lists do
       it "returns the list" do
         list = @client.list_add_member("sferik", "presidents", 813286)
         expect(list).to be_a Twitter::List
-        expect(list.name).to eq "presidents"
+        expect(list.name).to eq("presidents")
       end
     end
     context "without a screen name passed" do
@@ -580,7 +580,7 @@ describe Twitter::API::Lists do
       it "returns the deleted list" do
         list = @client.list_destroy("sferik", "presidents")
         expect(list).to be_a Twitter::List
-        expect(list.name).to eq "presidents"
+        expect(list.name).to eq("presidents")
       end
     end
     context "without a screen name passed" do
@@ -626,7 +626,7 @@ describe Twitter::API::Lists do
       it "returns the updated list" do
         list = @client.list_update("sferik", "presidents", :description => "Presidents of the United States of America")
         expect(list).to be_a Twitter::List
-        expect(list.name).to eq "presidents"
+        expect(list.name).to eq("presidents")
       end
     end
     context "without a screen name passed" do
@@ -671,7 +671,7 @@ describe Twitter::API::Lists do
     it "returns the created list" do
       list = @client.list_create("presidents")
       expect(list).to be_a Twitter::List
-      expect(list.name).to eq "presidents"
+      expect(list.name).to eq("presidents")
     end
   end
 
@@ -687,7 +687,7 @@ describe Twitter::API::Lists do
       it "returns the updated list" do
         list = @client.list("sferik", "presidents")
         expect(list).to be_a Twitter::List
-        expect(list.name).to eq "presidents"
+        expect(list.name).to eq("presidents")
       end
     end
     context "with a user ID passed" do
@@ -753,7 +753,7 @@ describe Twitter::API::Lists do
         subscriptions = @client.subscriptions("sferik")
         expect(subscriptions).to be_a Twitter::Cursor
         expect(subscriptions.first).to be_a Twitter::List
-        expect(subscriptions.first.name).to eq "Rubyists"
+        expect(subscriptions.first.name).to eq("Rubyists")
       end
       context "with each" do
         before do
@@ -819,7 +819,7 @@ describe Twitter::API::Lists do
       it "returns the list" do
         list = @client.list_remove_members("sferik", "presidents", [813286, 18755393])
         expect(list).to be_a Twitter::List
-        expect(list.name).to eq "presidents"
+        expect(list.name).to eq("presidents")
       end
     end
     context "with a user ID passed" do
@@ -865,7 +865,7 @@ describe Twitter::API::Lists do
         lists = @client.lists_owned("sferik")
         expect(lists).to be_a Twitter::Cursor
         expect(lists.first).to be_a Twitter::List
-        expect(lists.first.name).to eq "My favstar.fm list"
+        expect(lists.first.name).to eq("My favstar.fm list")
       end
     end
     context "without a screen name passed" do
@@ -881,7 +881,7 @@ describe Twitter::API::Lists do
         lists = @client.lists_owned
         expect(lists).to be_a Twitter::Cursor
         expect(lists.first).to be_a Twitter::List
-        expect(lists.first.name).to eq "My favstar.fm list"
+        expect(lists.first.name).to eq("My favstar.fm list")
       end
     end
   end

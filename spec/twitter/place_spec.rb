@@ -67,11 +67,11 @@ describe Twitter::Place do
   describe "#country_code" do
     it "returns a country code when set with country_code" do
       place = Twitter::Place.new(:id => "247f43d441defc03", :country_code => "US")
-      expect(place.country_code).to eq "US"
+      expect(place.country_code).to eq("US")
     end
     it "returns a country code when set with countryCode" do
       place = Twitter::Place.new(:id => "247f43d441defc03", :countryCode => "US")
-      expect(place.country_code).to eq "US"
+      expect(place.country_code).to eq("US")
     end
     it "returns nil when not set" do
       place = Twitter::Place.new(:id => "247f43d441defc03")
@@ -82,7 +82,7 @@ describe Twitter::Place do
   describe "#parent_id" do
     it "returns a parent ID when set with parentid" do
       place = Twitter::Place.new(:id => "247f43d441defc03", :parentid => 1)
-      expect(place.parent_id).to eq 1
+      expect(place.parent_id).to eq(1)
     end
     it "returns nil when not set" do
       place = Twitter::Place.new(:id => "247f43d441defc03")
@@ -93,11 +93,11 @@ describe Twitter::Place do
   describe "#place_type" do
     it "returns a place type when set with place_type" do
       place = Twitter::Place.new(:id => "247f43d441defc03", :place_type => "city")
-      expect(place.place_type).to eq "city"
+      expect(place.place_type).to eq("city")
     end
     it "returns a place type when set with placeType[name]" do
       place = Twitter::Place.new(:id => "247f43d441defc03", :placeType => {:name => "Town"})
-      expect(place.place_type).to eq "Town"
+      expect(place.place_type).to eq("Town")
     end
     it "returns nil when not set" do
       place = Twitter::Place.new(:id => "247f43d441defc03")
@@ -109,7 +109,7 @@ describe Twitter::Place do
     it "returns a URI when the url is set" do
       place = Twitter::Place.new(:id => "247f43d441defc03", :url => "https://api.twitter.com/1.1/geo/id/247f43d441defc03.json")
       expect(place.uri).to be_a URI
-      expect(place.uri.to_s).to eq "https://api.twitter.com/1.1/geo/id/247f43d441defc03.json"
+      expect(place.uri.to_s).to eq("https://api.twitter.com/1.1/geo/id/247f43d441defc03.json")
     end
     it "returns nil when the url is not set" do
       place = Twitter::Place.new(:id => "247f43d441defc03")

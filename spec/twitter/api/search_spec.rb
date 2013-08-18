@@ -3,7 +3,7 @@ require 'helper'
 describe Twitter::API::Search do
 
   before do
-    @client = Twitter::Client.new
+    @client = Twitter::Client.new(:consumer_key => "CK", :consumer_secret => "CS", :oauth_token => "OT", :oauth_token_secret => "OS")
   end
 
   describe "#search" do
@@ -18,11 +18,11 @@ describe Twitter::API::Search do
       search = @client.search("twitter")
       expect(search).to be_a Twitter::SearchResults
       expect(search.first).to be_a Twitter::Tweet
-      expect(search.first.text).to eq "Bubble Mailer #freebandnames"
+      expect(search.first.text).to eq("Bubble Mailer #freebandnames")
     end
     it "returns the max_id value for a search result" do
       search = @client.search("twitter")
-      expect(search.max_id).to eq 250126199840518145
+      expect(search.max_id).to eq(250126199840518145)
     end
 
     context "when search API responds a malformed result" do

@@ -45,21 +45,21 @@ describe Twitter::List do
   describe "#members_uri" do
     it "returns the URI to the list members" do
       list = Twitter::List.new(:id => 8863586, :slug => "presidents", :user => {:id => 7505382, :screen_name => "sferik"})
-      expect(list.members_uri.to_s).to eq "https://twitter.com/sferik/presidents/members"
+      expect(list.members_uri.to_s).to eq("https://twitter.com/sferik/presidents/members")
     end
   end
 
   describe "#subscribers_uri" do
     it "returns the URI to the list subscribers" do
       list = Twitter::List.new(:id => 8863586, :slug => "presidents", :user => {:id => 7505382, :screen_name => "sferik"})
-      expect(list.subscribers_uri.to_s).to eq "https://twitter.com/sferik/presidents/subscribers"
+      expect(list.subscribers_uri.to_s).to eq("https://twitter.com/sferik/presidents/subscribers")
     end
   end
 
   describe "#uri" do
     it "returns the URI to the list" do
       list = Twitter::List.new(:id => 8863586, :slug => "presidents", :user => {:id => 7505382, :screen_name => "sferik"})
-      expect(list.uri.to_s).to eq "https://twitter.com/sferik/presidents"
+      expect(list.uri.to_s).to eq("https://twitter.com/sferik/presidents")
     end
   end
 

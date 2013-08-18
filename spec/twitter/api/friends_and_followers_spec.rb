@@ -3,7 +3,7 @@ require 'helper'
 describe Twitter::API::FriendsAndFollowers do
 
   before do
-    @client = Twitter::Client.new
+    @client = Twitter::Client.new(:consumer_key => "CK", :consumer_secret => "CS", :oauth_token => "OT", :oauth_token_secret => "OS")
   end
 
   describe "#friend_ids" do
@@ -18,7 +18,7 @@ describe Twitter::API::FriendsAndFollowers do
       it "returns an array of numeric IDs for every user the specified user is following" do
         friend_ids = @client.friend_ids("sferik")
         expect(friend_ids).to be_a Twitter::Cursor
-        expect(friend_ids.first).to eq 20009713
+        expect(friend_ids.first).to eq(20009713)
       end
       context "with each" do
         before do
@@ -63,7 +63,7 @@ describe Twitter::API::FriendsAndFollowers do
       it "returns an array of numeric IDs for every user the specified user is following" do
         friend_ids = @client.friend_ids
         expect(friend_ids).to be_a Twitter::Cursor
-        expect(friend_ids.first).to eq 20009713
+        expect(friend_ids.first).to eq(20009713)
       end
       context "with each" do
         before do
@@ -91,7 +91,7 @@ describe Twitter::API::FriendsAndFollowers do
       it "returns an array of numeric IDs for every user following the specified user" do
         follower_ids = @client.follower_ids("sferik")
         expect(follower_ids).to be_a Twitter::Cursor
-        expect(follower_ids.first).to eq 20009713
+        expect(follower_ids.first).to eq(20009713)
       end
       context "with each" do
         before do
@@ -136,7 +136,7 @@ describe Twitter::API::FriendsAndFollowers do
       it "returns an array of numeric IDs for every user following the specified user" do
         follower_ids = @client.follower_ids
         expect(follower_ids).to be_a Twitter::Cursor
-        expect(follower_ids.first).to eq 20009713
+        expect(follower_ids.first).to eq(20009713)
       end
       context "with each" do
         before do
@@ -165,8 +165,8 @@ describe Twitter::API::FriendsAndFollowers do
         friendships = @client.friendships("sferik", "pengwynn")
         expect(friendships).to be_an Array
         expect(friendships.first).to be_a Twitter::User
-        expect(friendships.first.id).to eq 7505382
-        expect(friendships.first.connections).to eq ["none"]
+        expect(friendships.first.id).to eq(7505382)
+        expect(friendships.first.connections).to eq(["none"])
       end
     end
     context "with numeric screen names passed" do
@@ -211,8 +211,8 @@ describe Twitter::API::FriendsAndFollowers do
         friendships = @client.friendships("sferik", "pengwynn")
         expect(friendships).to be_an Array
         expect(friendships.first).to be_a Twitter::User
-        expect(friendships.first.id).to eq 7505382
-        expect(friendships.first.connections).to eq ["none"]
+        expect(friendships.first.id).to eq(7505382)
+        expect(friendships.first.connections).to eq(["none"])
       end
     end
     context "with numeric screen names passed" do
@@ -255,7 +255,7 @@ describe Twitter::API::FriendsAndFollowers do
     it "returns an array of numeric IDs for every user who has a pending request to follow the authenticating user" do
       friendships_incoming = @client.friendships_incoming
       expect(friendships_incoming).to be_a Twitter::Cursor
-      expect(friendships_incoming.first).to eq 20009713
+      expect(friendships_incoming.first).to eq(20009713)
     end
     context "with each" do
       before do
@@ -279,7 +279,7 @@ describe Twitter::API::FriendsAndFollowers do
     it "returns an array of numeric IDs for every protected user for whom the authenticating user has a pending follow request" do
       friendships_outgoing = @client.friendships_outgoing
       expect(friendships_outgoing).to be_a Twitter::Cursor
-      expect(friendships_outgoing.first).to eq 20009713
+      expect(friendships_outgoing.first).to eq(20009713)
     end
     context "with each" do
       before do
@@ -311,7 +311,7 @@ describe Twitter::API::FriendsAndFollowers do
         users = @client.follow("sferik", "pengwynn", :follow => true)
         expect(users).to be_an Array
         expect(users.first).to be_a Twitter::User
-        expect(users.first.id).to eq 7505382
+        expect(users.first.id).to eq(7505382)
       end
     end
     context "with :follow => false passed" do
@@ -359,7 +359,7 @@ describe Twitter::API::FriendsAndFollowers do
         users = @client.follow!("sferik", :follow => true)
         expect(users).to be_an Array
         expect(users.first).to be_a Twitter::User
-        expect(users.first.id).to eq 7505382
+        expect(users.first.id).to eq(7505382)
       end
     end
     context "with :follow => false passed" do
@@ -374,7 +374,7 @@ describe Twitter::API::FriendsAndFollowers do
         users = @client.follow!("sferik", :follow => false)
         expect(users).to be_an Array
         expect(users.first).to be_a Twitter::User
-        expect(users.first.id).to eq 7505382
+        expect(users.first.id).to eq(7505382)
       end
     end
     context "without :follow passed" do
@@ -389,7 +389,7 @@ describe Twitter::API::FriendsAndFollowers do
         users = @client.follow!("sferik")
         expect(users).to be_an Array
         expect(users.first).to be_a Twitter::User
-        expect(users.first.id).to eq 7505382
+        expect(users.first.id).to eq(7505382)
       end
     end
   end
@@ -406,7 +406,7 @@ describe Twitter::API::FriendsAndFollowers do
       users = @client.friendship_destroy("sferik")
       expect(users).to be_an Array
       expect(users.first).to be_a Twitter::User
-      expect(users.first.id).to eq 7505382
+      expect(users.first.id).to eq(7505382)
     end
   end
 
@@ -421,7 +421,7 @@ describe Twitter::API::FriendsAndFollowers do
     it "returns detailed information about the relationship between two users" do
       relationship = @client.friendship_update("sferik", :retweets => true)
       expect(relationship).to be_a Twitter::Relationship
-      expect(relationship.source.id).to eq 7505382
+      expect(relationship.source.id).to eq(7505382)
     end
   end
 
@@ -437,7 +437,7 @@ describe Twitter::API::FriendsAndFollowers do
       it "returns detailed information about the relationship between two users" do
         relationship = @client.friendship("sferik", "pengwynn")
         expect(relationship).to be_a Twitter::Relationship
-        expect(relationship.source.id).to eq 7505382
+        expect(relationship.source.id).to eq(7505382)
       end
     end
     context "with numeric screen names passed" do
@@ -674,7 +674,7 @@ describe Twitter::API::FriendsAndFollowers do
       no_retweet_ids = @client.no_retweet_ids
       expect(no_retweet_ids).to be_an Array
       expect(no_retweet_ids.first).to be_an Integer
-      expect(no_retweet_ids.first).to eq 47
+      expect(no_retweet_ids.first).to eq(47)
     end
   end
 end

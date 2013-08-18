@@ -75,11 +75,11 @@ describe Twitter::Tweet do
     it "returns the filter level when filter_level is set" do
       tweet = Twitter::Tweet.new(:id => 28669546014, :filter_level => "high")
       expect(tweet.filter_level).to be_a String
-      expect(tweet.filter_level).to eq "high"
+      expect(tweet.filter_level).to eq("high")
     end
     it "returns \"none\" when not set" do
       tweet = Twitter::Tweet.new(:id => 28669546014)
-      expect(tweet.filter_level).to eq "none"
+      expect(tweet.filter_level).to eq("none")
     end
   end
 
@@ -87,17 +87,17 @@ describe Twitter::Tweet do
     it "returns the text of a Tweet" do
       tweet = Twitter::Tweet.new(:id => 28669546014, :text => "BOOSH")
       expect(tweet.full_text).to be_a String
-      expect(tweet.full_text).to eq "BOOSH"
+      expect(tweet.full_text).to eq("BOOSH")
     end
     it "returns the text of a Tweet without a user" do
       tweet = Twitter::Tweet.new(:id => 28669546014, :text => "BOOSH", :retweeted_status => {:id => 28561922517, :text => "BOOSH"})
       expect(tweet.full_text).to be_a String
-      expect(tweet.full_text).to eq "BOOSH"
+      expect(tweet.full_text).to eq("BOOSH")
     end
     it "returns the full text of a retweeted Tweet" do
       tweet = Twitter::Tweet.new(:id => 28669546014, :text => "RT @sferik: BOOSH", :retweeted_status => {:id => 25938088801, :text => "BOOSH"})
       expect(tweet.full_text).to be_a String
-      expect(tweet.full_text).to eq "RT @sferik: BOOSH"
+      expect(tweet.full_text).to eq("RT @sferik: BOOSH")
     end
     it "returns nil when retweeted_status is not set" do
       tweet = Twitter::Tweet.new(:id => 28669546014)
@@ -138,8 +138,8 @@ describe Twitter::Tweet do
       hashtags = Twitter::Tweet.new(:id => 28669546014, :entities => {:hashtags => hashtags_array}).hashtags
       expect(hashtags).to be_an Array
       expect(hashtags.first).to be_a Twitter::Entity::Hashtag
-      expect(hashtags.first.indices).to eq [10, 33]
-      expect(hashtags.first.text).to eq "twitter"
+      expect(hashtags.first.indices).to eq([10, 33])
+      expect(hashtags.first.text).to eq("twitter")
     end
     it "is empty when not set" do
       hashtags = Twitter::Tweet.new(:id => 28669546014).hashtags
@@ -237,7 +237,7 @@ describe Twitter::Tweet do
     it "returns a Tweet when retweeted_status is set" do
       tweet = Twitter::Tweet.new(:id => 28669546014, :retweeted_status => {:id => 25938088801, :text => "BOOSH"})
       expect(tweet.retweeted_tweet).to be_a Twitter::Tweet
-      expect(tweet.retweeted_tweet.text).to eq "BOOSH"
+      expect(tweet.retweeted_tweet.text).to eq("BOOSH")
     end
     it "returns nil when retweeted_status is not set" do
       tweet = Twitter::Tweet.new(:id => 28669546014)
@@ -264,10 +264,10 @@ describe Twitter::Tweet do
       ]
       symbols = Twitter::Tweet.new(:id => 28669546014, :entities => {:symbols => symbols_array}).symbols
       expect(symbols).to be_an Array
-      expect(symbols.size).to eq 2
+      expect(symbols.size).to eq(2)
       expect(symbols.first).to be_a Twitter::Entity::Symbol
-      expect(symbols.first.indices).to eq [114, 118]
-      expect(symbols.first.text).to eq "PEP"
+      expect(symbols.first.indices).to eq([114, 118])
+      expect(symbols.first.text).to eq("PEP")
     end
     it "is empty when not set" do
       symbols = Twitter::Tweet.new(:id => 28669546014).symbols
@@ -292,9 +292,9 @@ describe Twitter::Tweet do
       tweet = Twitter::Tweet.new(:id => 28669546014, :entities => {:urls => urls_array})
       expect(tweet.uris).to be_an Array
       expect(tweet.uris.first).to be_a Twitter::Entity::URI
-      expect(tweet.uris.first.indices).to eq [10, 33]
+      expect(tweet.uris.first.indices).to eq([10, 33])
       expect(tweet.uris.first.display_uri).to be_a URI
-      expect(tweet.uris.first.display_uri.to_s).to eq "example.com/expanded"
+      expect(tweet.uris.first.display_uri.to_s).to eq("example.com/expanded")
     end
     it "is empty when not set" do
       tweet = Twitter::Tweet.new(:id => 28669546014)
@@ -310,7 +310,7 @@ describe Twitter::Tweet do
     it "returns the URI to the tweet" do
       tweet = Twitter::Tweet.new(:id => 28669546014, :user => {:id => 7505382, :screen_name => "sferik"})
       expect(tweet.uri).to be_a URI
-      expect(tweet.uri.to_s).to eq "https://twitter.com/sferik/status/28669546014"
+      expect(tweet.uri.to_s).to eq("https://twitter.com/sferik/status/28669546014")
     end
   end
 
@@ -354,8 +354,8 @@ describe Twitter::Tweet do
       user_mentions = Twitter::Tweet.new(:id => 28669546014, :entities => {:user_mentions => user_mentions_array}).user_mentions
       expect(user_mentions).to be_an Array
       expect(user_mentions.first).to be_a Twitter::Entity::UserMention
-      expect(user_mentions.first.indices).to eq [0, 6]
-      expect(user_mentions.first.id).to eq 7505382
+      expect(user_mentions.first.indices).to eq([0, 6])
+      expect(user_mentions.first.id).to eq(7505382)
     end
     it "is empty when not set" do
       user_mentions = Twitter::Tweet.new(:id => 28669546014).user_mentions

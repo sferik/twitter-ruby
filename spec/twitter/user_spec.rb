@@ -55,8 +55,8 @@ describe Twitter::User do
       user = Twitter::User.new(:id => 7505382, :entities => {:description => {:urls => urls_array}})
       expect(user.description_uris).to be_an Array
       expect(user.description_uris.first).to be_a Twitter::Entity::URI
-      expect(user.description_uris.first.indices).to eq [10, 33]
-      expect(user.description_uris.first.display_uri.to_s).to eq "example.com/expanded"
+      expect(user.description_uris.first.indices).to eq([10, 33])
+      expect(user.description_uris.first.display_uri.to_s).to eq("example.com/expanded")
     end
     it "is empty when not set" do
       user = Twitter::User.new(:id => 7505382, :entities => {:description => {:urls => []}})
@@ -75,36 +75,36 @@ describe Twitter::User do
     end
     it "returns the web-sized image" do
       user = Twitter::User.new(:id => 7505382, :profile_banner_url => "https://si0.twimg.com/profile_banners/7505382/1348266581")
-      expect(user.profile_banner_uri.to_s).to eq "http://si0.twimg.com/profile_banners/7505382/1348266581/web"
+      expect(user.profile_banner_uri.to_s).to eq("http://si0.twimg.com/profile_banners/7505382/1348266581/web")
     end
     context "with :web_retina passed" do
       it "returns the web retina-sized image" do
         user = Twitter::User.new(:id => 7505382, :profile_banner_url => "https://si0.twimg.com/profile_banners/7505382/1348266581")
-        expect(user.profile_banner_uri(:web_retina).to_s).to eq "http://si0.twimg.com/profile_banners/7505382/1348266581/web_retina"
+        expect(user.profile_banner_uri(:web_retina).to_s).to eq("http://si0.twimg.com/profile_banners/7505382/1348266581/web_retina")
       end
     end
     context "with :mobile passed" do
       it "returns the mobile-sized image" do
         user = Twitter::User.new(:id => 7505382, :profile_banner_url => "https://si0.twimg.com/profile_banners/7505382/1348266581")
-        expect(user.profile_banner_uri(:mobile).to_s).to eq "http://si0.twimg.com/profile_banners/7505382/1348266581/mobile"
+        expect(user.profile_banner_uri(:mobile).to_s).to eq("http://si0.twimg.com/profile_banners/7505382/1348266581/mobile")
       end
     end
     context "with :mobile_retina passed" do
       it "returns the mobile retina-sized image" do
         user = Twitter::User.new(:id => 7505382, :profile_banner_url => "https://si0.twimg.com/profile_banners/7505382/1348266581")
-        expect(user.profile_banner_uri(:mobile_retina).to_s).to eq "http://si0.twimg.com/profile_banners/7505382/1348266581/mobile_retina"
+        expect(user.profile_banner_uri(:mobile_retina).to_s).to eq("http://si0.twimg.com/profile_banners/7505382/1348266581/mobile_retina")
       end
     end
     context "with :ipad passed" do
       it "returns the mobile-sized image" do
         user = Twitter::User.new(:id => 7505382, :profile_banner_url => "https://si0.twimg.com/profile_banners/7505382/1348266581")
-        expect(user.profile_banner_uri(:ipad).to_s).to eq "http://si0.twimg.com/profile_banners/7505382/1348266581/ipad"
+        expect(user.profile_banner_uri(:ipad).to_s).to eq("http://si0.twimg.com/profile_banners/7505382/1348266581/ipad")
       end
     end
     context "with :ipad_retina passed" do
       it "returns the mobile retina-sized image" do
         user = Twitter::User.new(:id => 7505382, :profile_banner_url => "https://si0.twimg.com/profile_banners/7505382/1348266581")
-        expect(user.profile_banner_uri(:ipad_retina).to_s).to eq "http://si0.twimg.com/profile_banners/7505382/1348266581/ipad_retina"
+        expect(user.profile_banner_uri(:ipad_retina).to_s).to eq("http://si0.twimg.com/profile_banners/7505382/1348266581/ipad_retina")
       end
     end
   end
@@ -120,36 +120,36 @@ describe Twitter::User do
     end
     it "returns the web-sized image" do
       user = Twitter::User.new(:id => 7505382, :profile_banner_url => "https://si0.twimg.com/profile_banners/7505382/1348266581")
-      expect(user.profile_banner_uri_https.to_s).to eq "https://si0.twimg.com/profile_banners/7505382/1348266581/web"
+      expect(user.profile_banner_uri_https.to_s).to eq("https://si0.twimg.com/profile_banners/7505382/1348266581/web")
     end
     context "with :web_retina passed" do
       it "returns the web retina-sized image" do
         user = Twitter::User.new(:id => 7505382, :profile_banner_url => "https://si0.twimg.com/profile_banners/7505382/1348266581")
-        expect(user.profile_banner_uri_https(:web_retina).to_s).to eq "https://si0.twimg.com/profile_banners/7505382/1348266581/web_retina"
+        expect(user.profile_banner_uri_https(:web_retina).to_s).to eq("https://si0.twimg.com/profile_banners/7505382/1348266581/web_retina")
       end
     end
     context "with :mobile passed" do
       it "returns the mobile-sized image" do
         user = Twitter::User.new(:id => 7505382, :profile_banner_url => "https://si0.twimg.com/profile_banners/7505382/1348266581")
-        expect(user.profile_banner_uri_https(:mobile).to_s).to eq "https://si0.twimg.com/profile_banners/7505382/1348266581/mobile"
+        expect(user.profile_banner_uri_https(:mobile).to_s).to eq("https://si0.twimg.com/profile_banners/7505382/1348266581/mobile")
       end
     end
     context "with :mobile_retina passed" do
       it "returns the mobile retina-sized image" do
         user = Twitter::User.new(:id => 7505382, :profile_banner_url => "https://si0.twimg.com/profile_banners/7505382/1348266581")
-        expect(user.profile_banner_uri_https(:mobile_retina).to_s).to eq "https://si0.twimg.com/profile_banners/7505382/1348266581/mobile_retina"
+        expect(user.profile_banner_uri_https(:mobile_retina).to_s).to eq("https://si0.twimg.com/profile_banners/7505382/1348266581/mobile_retina")
       end
     end
     context "with :ipad passed" do
       it "returns the mobile-sized image" do
         user = Twitter::User.new(:id => 7505382, :profile_banner_url => "https://si0.twimg.com/profile_banners/7505382/1348266581")
-        expect(user.profile_banner_uri_https(:ipad).to_s).to eq "https://si0.twimg.com/profile_banners/7505382/1348266581/ipad"
+        expect(user.profile_banner_uri_https(:ipad).to_s).to eq("https://si0.twimg.com/profile_banners/7505382/1348266581/ipad")
       end
     end
     context "with :ipad_retina passed" do
       it "returns the mobile retina-sized image" do
         user = Twitter::User.new(:id => 7505382, :profile_banner_url => "https://si0.twimg.com/profile_banners/7505382/1348266581")
-        expect(user.profile_banner_uri_https(:ipad_retina).to_s).to eq "https://si0.twimg.com/profile_banners/7505382/1348266581/ipad_retina"
+        expect(user.profile_banner_uri_https(:ipad_retina).to_s).to eq("https://si0.twimg.com/profile_banners/7505382/1348266581/ipad_retina")
       end
     end
   end
@@ -176,32 +176,32 @@ describe Twitter::User do
     end
     it "returns the normal-sized image" do
       user = Twitter::User.new(:id => 7505382, :profile_image_url_https => "https://a0.twimg.com/profile_images/1759857427/image1326743606_normal.png")
-      expect(user.profile_image_uri.to_s).to eq "http://a0.twimg.com/profile_images/1759857427/image1326743606_normal.png"
+      expect(user.profile_image_uri.to_s).to eq("http://a0.twimg.com/profile_images/1759857427/image1326743606_normal.png")
     end
     context "with :original passed" do
       it "returns the original image" do
         user = Twitter::User.new(:id => 7505382, :profile_image_url_https => "https://a0.twimg.com/profile_images/1759857427/image1326743606_normal.png")
-        expect(user.profile_image_uri(:original).to_s).to eq "http://a0.twimg.com/profile_images/1759857427/image1326743606.png"
+        expect(user.profile_image_uri(:original).to_s).to eq("http://a0.twimg.com/profile_images/1759857427/image1326743606.png")
       end
     end
     context "with :bigger passed" do
       it "returns the bigger-sized image" do
         user = Twitter::User.new(:id => 7505382, :profile_image_url_https => "https://a0.twimg.com/profile_images/1759857427/image1326743606_normal.png")
-        expect(user.profile_image_uri(:bigger).to_s).to eq "http://a0.twimg.com/profile_images/1759857427/image1326743606_bigger.png"
+        expect(user.profile_image_uri(:bigger).to_s).to eq("http://a0.twimg.com/profile_images/1759857427/image1326743606_bigger.png")
       end
     end
     context "with :mini passed" do
       it "returns the mini-sized image" do
         user = Twitter::User.new(:id => 7505382, :profile_image_url_https => "https://a0.twimg.com/profile_images/1759857427/image1326743606_normal.png")
-        expect(user.profile_image_uri(:mini).to_s).to eq "http://a0.twimg.com/profile_images/1759857427/image1326743606_mini.png"
+        expect(user.profile_image_uri(:mini).to_s).to eq("http://a0.twimg.com/profile_images/1759857427/image1326743606_mini.png")
       end
     end
     context "with capitalized file extension" do
       it "returns the correct image" do
         user = Twitter::User.new(:id => 7505382, :profile_image_url_https => "https://si0.twimg.com/profile_images/67759670/DSCN2136_normal.JPG")
-        expect(user.profile_image_uri(:original).to_s).to eq "http://si0.twimg.com/profile_images/67759670/DSCN2136.JPG"
-        expect(user.profile_image_uri(:bigger).to_s).to eq "http://si0.twimg.com/profile_images/67759670/DSCN2136_bigger.JPG"
-        expect(user.profile_image_uri(:mini).to_s).to eq "http://si0.twimg.com/profile_images/67759670/DSCN2136_mini.JPG"
+        expect(user.profile_image_uri(:original).to_s).to eq("http://si0.twimg.com/profile_images/67759670/DSCN2136.JPG")
+        expect(user.profile_image_uri(:bigger).to_s).to eq("http://si0.twimg.com/profile_images/67759670/DSCN2136_bigger.JPG")
+        expect(user.profile_image_uri(:mini).to_s).to eq("http://si0.twimg.com/profile_images/67759670/DSCN2136_mini.JPG")
       end
     end
   end
@@ -217,32 +217,32 @@ describe Twitter::User do
     end
     it "returns the normal-sized image" do
       user = Twitter::User.new(:id => 7505382, :profile_image_url_https => "https://a0.twimg.com/profile_images/1759857427/image1326743606_normal.png")
-      expect(user.profile_image_uri_https.to_s).to eq "https://a0.twimg.com/profile_images/1759857427/image1326743606_normal.png"
+      expect(user.profile_image_uri_https.to_s).to eq("https://a0.twimg.com/profile_images/1759857427/image1326743606_normal.png")
     end
     context "with :original passed" do
       it "returns the original image" do
         user = Twitter::User.new(:id => 7505382, :profile_image_url_https => "https://a0.twimg.com/profile_images/1759857427/image1326743606_normal.png")
-        expect(user.profile_image_uri_https(:original).to_s).to eq "https://a0.twimg.com/profile_images/1759857427/image1326743606.png"
+        expect(user.profile_image_uri_https(:original).to_s).to eq("https://a0.twimg.com/profile_images/1759857427/image1326743606.png")
       end
     end
     context "with :bigger passed" do
       it "returns the bigger-sized image" do
         user = Twitter::User.new(:id => 7505382, :profile_image_url_https => "https://a0.twimg.com/profile_images/1759857427/image1326743606_normal.png")
-        expect(user.profile_image_uri_https(:bigger).to_s).to eq "https://a0.twimg.com/profile_images/1759857427/image1326743606_bigger.png"
+        expect(user.profile_image_uri_https(:bigger).to_s).to eq("https://a0.twimg.com/profile_images/1759857427/image1326743606_bigger.png")
       end
     end
     context "with :mini passed" do
       it "returns the mini-sized image" do
         user = Twitter::User.new(:id => 7505382, :profile_image_url_https => "https://a0.twimg.com/profile_images/1759857427/image1326743606_normal.png")
-        expect(user.profile_image_uri_https(:mini).to_s).to eq "https://a0.twimg.com/profile_images/1759857427/image1326743606_mini.png"
+        expect(user.profile_image_uri_https(:mini).to_s).to eq("https://a0.twimg.com/profile_images/1759857427/image1326743606_mini.png")
       end
     end
     context "with capitalized file extension" do
       it "returns the correct image" do
         user = Twitter::User.new(:id => 7505382, :profile_image_url_https => "https://si0.twimg.com/profile_images/67759670/DSCN2136_normal.JPG")
-        expect(user.profile_image_uri_https(:original).to_s).to eq "https://si0.twimg.com/profile_images/67759670/DSCN2136.JPG"
-        expect(user.profile_image_uri_https(:bigger).to_s).to eq "https://si0.twimg.com/profile_images/67759670/DSCN2136_bigger.JPG"
-        expect(user.profile_image_uri_https(:mini).to_s).to eq "https://si0.twimg.com/profile_images/67759670/DSCN2136_mini.JPG"
+        expect(user.profile_image_uri_https(:original).to_s).to eq("https://si0.twimg.com/profile_images/67759670/DSCN2136.JPG")
+        expect(user.profile_image_uri_https(:bigger).to_s).to eq("https://si0.twimg.com/profile_images/67759670/DSCN2136_bigger.JPG")
+        expect(user.profile_image_uri_https(:mini).to_s).to eq("https://si0.twimg.com/profile_images/67759670/DSCN2136_mini.JPG")
       end
     end
   end
@@ -270,7 +270,7 @@ describe Twitter::User do
     it "includes a User when user is set" do
       tweet = Twitter::User.new(:id => 7505382, :screen_name => "sferik", :status => {:id => 25938088801}).status
       expect(tweet.user).to be_a Twitter::User
-      expect(tweet.user.id).to eq 7505382
+      expect(tweet.user.id).to eq(7505382)
     end
   end
 
@@ -289,7 +289,7 @@ describe Twitter::User do
     it "returns the URI to the user" do
       user = Twitter::User.new(:id => 7505382, :screen_name => "sferik")
       expect(user.uri).to be_a URI
-      expect(user.uri.to_s).to eq "https://twitter.com/sferik"
+      expect(user.uri.to_s).to eq("https://twitter.com/sferik")
     end
   end
 
@@ -297,7 +297,7 @@ describe Twitter::User do
     it "returns a URI when the url is set" do
       user = Twitter::User.new(:id => 7505382, :url => "https://github.com/sferik")
       expect(user.website).to be_a URI
-      expect(user.website.to_s).to eq "https://github.com/sferik"
+      expect(user.website.to_s).to eq("https://github.com/sferik")
     end
     it "returns nil when the url is not set" do
       user = Twitter::User.new(:id => 7505382)

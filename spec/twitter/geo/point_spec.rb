@@ -34,7 +34,7 @@ describe Twitter::Geo::Point do
 
   describe "#longitude" do
     it "returns the longitude" do
-      expect(@point.longitude).to eq 37.788299
+      expect(@point.longitude).to eq(37.788299)
     end
   end
 

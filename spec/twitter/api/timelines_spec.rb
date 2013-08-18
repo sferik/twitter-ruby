@@ -3,7 +3,7 @@ require 'helper'
 describe Twitter::API::Timelines do
 
   before do
-    @client = Twitter::Client.new
+    @client = Twitter::Client.new(:consumer_key => "CK", :consumer_secret => "CS", :oauth_token => "OT", :oauth_token_secret => "OS")
   end
 
   describe "#mentions_timeline" do
@@ -18,7 +18,7 @@ describe Twitter::API::Timelines do
       tweets = @client.mentions_timeline
       expect(tweets).to be_an Array
       expect(tweets.first).to be_a Twitter::Tweet
-      expect(tweets.first.text).to eq "Happy Birthday @imdane. Watch out for those @rally pranksters!"
+      expect(tweets.first.text).to eq("Happy Birthday @imdane. Watch out for those @rally pranksters!")
     end
   end
 
@@ -35,7 +35,7 @@ describe Twitter::API::Timelines do
         tweets = @client.user_timeline("sferik")
         expect(tweets).to be_an Array
         expect(tweets.first).to be_a Twitter::Tweet
-        expect(tweets.first.text).to eq "Happy Birthday @imdane. Watch out for those @rally pranksters!"
+        expect(tweets.first.text).to eq("Happy Birthday @imdane. Watch out for those @rally pranksters!")
       end
     end
     context "without a screen name passed" do
@@ -63,7 +63,7 @@ describe Twitter::API::Timelines do
       tweets = @client.retweeted_by_user("sferik")
       expect(tweets).to be_an Array
       expect(tweets.first).to be_a Twitter::Tweet
-      expect(tweets.first.text).to eq "RT @olivercameron: Mosaic looks cool: http://t.co/A8013C9k"
+      expect(tweets.first.text).to eq("RT @olivercameron: Mosaic looks cool: http://t.co/A8013C9k")
     end
   end
 
@@ -81,7 +81,7 @@ describe Twitter::API::Timelines do
       tweets = @client.retweeted_by_me
       expect(tweets).to be_an Array
       expect(tweets.first).to be_a Twitter::Tweet
-      expect(tweets.first.text).to eq "RT @olivercameron: Mosaic looks cool: http://t.co/A8013C9k"
+      expect(tweets.first.text).to eq("RT @olivercameron: Mosaic looks cool: http://t.co/A8013C9k")
     end
   end
 
@@ -97,7 +97,7 @@ describe Twitter::API::Timelines do
       tweets = @client.home_timeline
       expect(tweets).to be_an Array
       expect(tweets.first).to be_a Twitter::Tweet
-      expect(tweets.first.text).to eq "Happy Birthday @imdane. Watch out for those @rally pranksters!"
+      expect(tweets.first.text).to eq("Happy Birthday @imdane. Watch out for those @rally pranksters!")
     end
   end
 
@@ -115,7 +115,7 @@ describe Twitter::API::Timelines do
       tweets = @client.retweeted_to_me
       expect(tweets).to be_an Array
       expect(tweets.first).to be_a Twitter::Tweet
-      expect(tweets.first.text).to eq "RT @olivercameron: Mosaic looks cool: http://t.co/A8013C9k"
+      expect(tweets.first.text).to eq("RT @olivercameron: Mosaic looks cool: http://t.co/A8013C9k")
     end
   end
 
@@ -131,7 +131,7 @@ describe Twitter::API::Timelines do
       tweets = @client.retweets_of_me
       expect(tweets).to be_an Array
       expect(tweets.first).to be_a Twitter::Tweet
-      expect(tweets.first.text).to eq "Happy Birthday @imdane. Watch out for those @rally pranksters!"
+      expect(tweets.first.text).to eq("Happy Birthday @imdane. Watch out for those @rally pranksters!")
     end
   end
 

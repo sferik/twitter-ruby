@@ -36,7 +36,7 @@ describe Twitter::Media::Photo do
     it "returns a URI when the display_url is set" do
       photo = Twitter::Media::Photo.new(:id => 1, :display_url => "http://pbs.twimg.com/media/BQD6MPOCEAAbCH0.png")
       expect(photo.display_uri).to be_a URI
-      expect(photo.display_uri.to_s).to eq "http://pbs.twimg.com/media/BQD6MPOCEAAbCH0.png"
+      expect(photo.display_uri.to_s).to eq("http://pbs.twimg.com/media/BQD6MPOCEAAbCH0.png")
     end
     it "returns nil when the display_url is not set" do
       photo = Twitter::Media::Photo.new(:id => 1)
@@ -59,7 +59,7 @@ describe Twitter::Media::Photo do
     it "returns a URI when the expanded_url is set" do
       photo = Twitter::Media::Photo.new(:id => 1, :expanded_url => "http://pbs.twimg.com/media/BQD6MPOCEAAbCH0.png")
       expect(photo.expanded_uri).to be_a URI
-      expect(photo.expanded_uri.to_s).to eq "http://pbs.twimg.com/media/BQD6MPOCEAAbCH0.png"
+      expect(photo.expanded_uri.to_s).to eq("http://pbs.twimg.com/media/BQD6MPOCEAAbCH0.png")
     end
     it "returns nil when the expanded_url is not set" do
       photo = Twitter::Media::Photo.new(:id => 1)
@@ -82,7 +82,7 @@ describe Twitter::Media::Photo do
     it "returns a URI when the media_url is set" do
       photo = Twitter::Media::Photo.new(:id => 1, :media_url => "http://pbs.twimg.com/media/BQD6MPOCEAAbCH0.png")
       expect(photo.media_uri).to be_a URI
-      expect(photo.media_uri.to_s).to eq "http://pbs.twimg.com/media/BQD6MPOCEAAbCH0.png"
+      expect(photo.media_uri.to_s).to eq("http://pbs.twimg.com/media/BQD6MPOCEAAbCH0.png")
     end
     it "returns nil when the media_url is not set" do
       photo = Twitter::Media::Photo.new(:id => 1)
@@ -105,7 +105,7 @@ describe Twitter::Media::Photo do
     it "returns a URI when the media_url_https is set" do
       photo = Twitter::Media::Photo.new(:id => 1, :media_url_https => "http://pbs.twimg.com/media/BQD6MPOCEAAbCH0.png")
       expect(photo.media_uri_https).to be_a URI
-      expect(photo.media_uri_https.to_s).to eq "http://pbs.twimg.com/media/BQD6MPOCEAAbCH0.png"
+      expect(photo.media_uri_https.to_s).to eq("http://pbs.twimg.com/media/BQD6MPOCEAAbCH0.png")
     end
     it "returns nil when the media_url_https is not set" do
       photo = Twitter::Media::Photo.new(:id => 1)
@@ -128,7 +128,7 @@ describe Twitter::Media::Photo do
     it "returns a URI when the url is set" do
       photo = Twitter::Media::Photo.new(:id => 1, :url => "http://pbs.twimg.com/media/BQD6MPOCEAAbCH0.png")
       expect(photo.uri).to be_a URI
-      expect(photo.uri.to_s).to eq "http://pbs.twimg.com/media/BQD6MPOCEAAbCH0.png"
+      expect(photo.uri.to_s).to eq("http://pbs.twimg.com/media/BQD6MPOCEAAbCH0.png")
     end
     it "returns nil when the url is not set" do
       photo = Twitter::Media::Photo.new(:id => 1)

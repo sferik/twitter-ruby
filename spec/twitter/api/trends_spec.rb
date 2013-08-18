@@ -3,7 +3,7 @@ require 'helper'
 describe Twitter::API::Trends do
 
   before do
-    @client = Twitter::Client.new
+    @client = Twitter::Client.new(:consumer_key => "CK", :consumer_secret => "CS", :oauth_token => "OT", :oauth_token_secret => "OS")
   end
 
   describe "#trends" do
@@ -19,7 +19,7 @@ describe Twitter::API::Trends do
         matching_trends = @client.trends(2487956)
         expect(matching_trends).to be_a Twitter::TrendResults
         expect(matching_trends.first).to be_a Twitter::Trend
-        expect(matching_trends.first.name).to eq "#sevenwordsaftersex"
+        expect(matching_trends.first.name).to eq("#sevenwordsaftersex")
       end
     end
     context "without arguments passed" do
@@ -45,7 +45,7 @@ describe Twitter::API::Trends do
       locations = @client.trends_available
       expect(locations).to be_an Array
       expect(locations.first).to be_a Twitter::Place
-      expect(locations.first.name).to eq "Ireland"
+      expect(locations.first.name).to eq("Ireland")
     end
   end
 
@@ -61,7 +61,7 @@ describe Twitter::API::Trends do
       locations = @client.trends_closest
       expect(locations).to be_an Array
       expect(locations.first).to be_a Twitter::Place
-      expect(locations.first.name).to eq "Ireland"
+      expect(locations.first.name).to eq("Ireland")
     end
   end
 

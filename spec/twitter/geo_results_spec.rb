@@ -9,13 +9,13 @@ describe Twitter::GeoResults do
     it "iterates" do
       count = 0
       @geo_results.each{count += 1}
-      expect(count).to eq 6
+      expect(count).to eq(6)
     end
     context "with start" do
       it "iterates" do
         count = 0
         @geo_results.each(5){count += 1}
-        expect(count).to eq 1
+        expect(count).to eq(1)
       end
     end
   end
@@ -24,7 +24,7 @@ describe Twitter::GeoResults do
     it "returns a String when token is set" do
       geo_results = Twitter::GeoResults.new(:result => {}, :token => "abc123")
       expect(geo_results.token).to be_a String
-      expect(geo_results.token).to eq "abc123"
+      expect(geo_results.token).to eq("abc123")
     end
     it "returns nil when token is not set" do
       geo_results = Twitter::GeoResults.new(:result => {})

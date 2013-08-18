@@ -3,7 +3,7 @@ require 'helper'
 describe Twitter::API::Tweets do
 
   before do
-    @client = Twitter::Client.new
+    @client = Twitter::Client.new(:consumer_key => "CK", :consumer_secret => "CS", :oauth_token => "OT", :oauth_token_secret => "OS")
   end
 
   describe "#retweets" do
@@ -19,7 +19,7 @@ describe Twitter::API::Tweets do
         tweets = @client.retweets(25938088801)
         expect(tweets).to be_an Array
         expect(tweets.first).to be_a Twitter::Tweet
-        expect(tweets.first.text).to eq "RT @gruber: As for the Series, I'm for the Giants. Fuck Texas, fuck Nolan Ryan, fuck George Bush."
+        expect(tweets.first.text).to eq("RT @gruber: As for the Series, I'm for the Giants. Fuck Texas, fuck Nolan Ryan, fuck George Bush.")
       end
     end
     context "with a URI object passed" do
@@ -57,7 +57,7 @@ describe Twitter::API::Tweets do
         it "returns an array of numeric user IDs of retweeters of a Tweet" do
           ids = @client.retweeters_of(25938088801, :ids_only => true)
           expect(ids).to be_an Array
-          expect(ids.first).to eq 7505382
+          expect(ids.first).to eq(7505382)
         end
       end
     end
@@ -73,7 +73,7 @@ describe Twitter::API::Tweets do
         users = @client.retweeters_of(25938088801)
         expect(users).to be_an Array
         expect(users.first).to be_a Twitter::User
-        expect(users.first.id).to eq 7505382
+        expect(users.first.id).to eq(7505382)
       end
       context "with a URI object passed" do
         it "requests the correct resource" do
@@ -109,7 +109,7 @@ describe Twitter::API::Tweets do
     it "returns a Tweet" do
       tweet = @client.status(25938088801)
       expect(tweet).to be_a Twitter::Tweet
-      expect(tweet.text).to eq "The problem with your code is that it's doing exactly what you told it to do."
+      expect(tweet.text).to eq("The problem with your code is that it's doing exactly what you told it to do.")
     end
     context "with a URI object passed" do
       it "requests the correct resource" do
@@ -145,7 +145,7 @@ describe Twitter::API::Tweets do
       tweets = @client.statuses(25938088801)
       expect(tweets).to be_an Array
       expect(tweets.first).to be_a Twitter::Tweet
-      expect(tweets.first.text).to eq "The problem with your code is that it's doing exactly what you told it to do."
+      expect(tweets.first.text).to eq("The problem with your code is that it's doing exactly what you told it to do.")
     end
     context "with a URI object passed" do
       it "requests the correct resource" do
@@ -181,7 +181,7 @@ describe Twitter::API::Tweets do
       tweets = @client.status_destroy(25938088801)
       expect(tweets).to be_an Array
       expect(tweets.first).to be_a Twitter::Tweet
-      expect(tweets.first.text).to eq "The problem with your code is that it's doing exactly what you told it to do."
+      expect(tweets.first.text).to eq("The problem with your code is that it's doing exactly what you told it to do.")
     end
     context "with a URI object passed" do
       it "requests the correct resource" do
@@ -216,7 +216,7 @@ describe Twitter::API::Tweets do
     it "returns a Tweet" do
       tweet = @client.update("The problem with your code is that it's doing exactly what you told it to do.")
       expect(tweet).to be_a Twitter::Tweet
-      expect(tweet.text).to eq "The problem with your code is that it's doing exactly what you told it to do."
+      expect(tweet.text).to eq("The problem with your code is that it's doing exactly what you told it to do.")
     end
     context "already posted" do
       before do
@@ -240,9 +240,9 @@ describe Twitter::API::Tweets do
       tweets = @client.retweet(25938088801)
       expect(tweets).to be_an Array
       expect(tweets.first).to be_a Twitter::Tweet
-      expect(tweets.first.text).to eq "As for the Series, I'm for the Giants. Fuck Texas, fuck Nolan Ryan, fuck George Bush."
-      expect(tweets.first.retweeted_tweet.text).to eq "RT @gruber: As for the Series, I'm for the Giants. Fuck Texas, fuck Nolan Ryan, fuck George Bush."
-      expect(tweets.first.retweeted_tweet.id).not_to eq tweets.first.id
+      expect(tweets.first.text).to eq("As for the Series, I'm for the Giants. Fuck Texas, fuck Nolan Ryan, fuck George Bush.")
+      expect(tweets.first.retweeted_tweet.text).to eq("RT @gruber: As for the Series, I'm for the Giants. Fuck Texas, fuck Nolan Ryan, fuck George Bush.")
+      expect(tweets.first.retweeted_tweet.id).not_to eq(tweets.first.id)
     end
     context "already retweeted" do
       before do
@@ -286,9 +286,9 @@ describe Twitter::API::Tweets do
       tweets = @client.retweet!(25938088801)
       expect(tweets).to be_an Array
       expect(tweets.first).to be_a Twitter::Tweet
-      expect(tweets.first.text).to eq "As for the Series, I'm for the Giants. Fuck Texas, fuck Nolan Ryan, fuck George Bush."
-      expect(tweets.first.retweeted_tweet.text).to eq "RT @gruber: As for the Series, I'm for the Giants. Fuck Texas, fuck Nolan Ryan, fuck George Bush."
-      expect(tweets.first.retweeted_tweet.id).not_to eq tweets.first.id
+      expect(tweets.first.text).to eq("As for the Series, I'm for the Giants. Fuck Texas, fuck Nolan Ryan, fuck George Bush.")
+      expect(tweets.first.retweeted_tweet.text).to eq("RT @gruber: As for the Series, I'm for the Giants. Fuck Texas, fuck Nolan Ryan, fuck George Bush.")
+      expect(tweets.first.retweeted_tweet.id).not_to eq(tweets.first.id)
     end
     context "forbidden" do
       before do
@@ -340,7 +340,7 @@ describe Twitter::API::Tweets do
       it "returns a Tweet" do
         tweet = @client.update_with_media("The problem with your code is that it's doing exactly what you told it to do.", fixture("pbjt.gif"))
         expect(tweet).to be_a Twitter::Tweet
-        expect(tweet.text).to eq "The problem with your code is that it's doing exactly what you told it to do."
+        expect(tweet.text).to eq("The problem with your code is that it's doing exactly what you told it to do.")
       end
     end
     context "a jpe image" do
@@ -466,7 +466,7 @@ describe Twitter::API::Tweets do
     it "returns a collection of up to 100 user IDs belonging to users who have retweeted the tweet specified by the id parameter" do
       retweeters_ids = @client.retweeters_ids(25938088801)
       expect(retweeters_ids).to be_a Twitter::Cursor
-      expect(retweeters_ids.first).to eq 20009713
+      expect(retweeters_ids.first).to eq(20009713)
     end
     context "with each" do
       before do

@@ -25,8 +25,8 @@ describe Twitter::API::OAuth do
     end
     it "returns the bearer token" do
       bearer_token = @client.token
-      expect(bearer_token.access_token).to eq "AAAA%2FAAA%3DAAAAAAAA"
-      expect(bearer_token.token_type).to eq "bearer"
+      expect(bearer_token.access_token).to eq("AAAA%2FAAA%3DAAAAAAAA")
+      expect(bearer_token.token_type).to eq("bearer")
     end
   end
 
@@ -41,8 +41,8 @@ describe Twitter::API::OAuth do
     end
     it "returns the invalidated token" do
       token = @client.invalidate_token("AAAA%2FAAA%3DAAAAAAAA")
-      expect(token.access_token).to eq "AAAA%2FAAA%3DAAAAAAAA"
-      expect(token.token_type).to eq nil
+      expect(token.access_token).to eq("AAAA%2FAAA%3DAAAAAAAA")
+      expect(token.token_type).to be_nil
     end
     context "with a token" do
       it "requests the correct resource" do

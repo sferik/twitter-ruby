@@ -9,13 +9,13 @@ describe Twitter::SearchResults do
     it "iterates" do
       count = 0
       @search_results.each{count += 1}
-      expect(count).to eq 6
+      expect(count).to eq(6)
     end
     context "with start" do
       it "iterates" do
         count = 0
         @search_results.each(5){count += 1}
-        expect(count).to eq 1
+        expect(count).to eq(1)
       end
     end
   end
@@ -24,7 +24,7 @@ describe Twitter::SearchResults do
     it "returns a number of seconds" do
       completed_in = Twitter::SearchResults.new(:search_metadata => {:completed_in => 0.029}).completed_in
       expect(completed_in).to be_a Float
-      expect(completed_in).to eq 0.029
+      expect(completed_in).to eq(0.029)
     end
     it "is nil when not set" do
       completed_in = Twitter::SearchResults.new.completed_in
@@ -36,7 +36,7 @@ describe Twitter::SearchResults do
     it "returns an ID" do
       max_id = Twitter::SearchResults.new(:search_metadata => {:max_id => 250126199840518145}).max_id
       expect(max_id).to be_an Integer
-      expect(max_id).to eq 250126199840518145
+      expect(max_id).to eq(250126199840518145)
     end
     it "is nil when not set" do
       max_id = Twitter::SearchResults.new.max_id
@@ -48,7 +48,7 @@ describe Twitter::SearchResults do
     it "returns page number" do
       page = Twitter::SearchResults.new(:search_metadata => {:page => 1}).page
       expect(page).to be_an Integer
-      expect(page).to eq 1
+      expect(page).to eq(1)
     end
     it "is nil when not set" do
       page = Twitter::SearchResults.new.page
@@ -60,7 +60,7 @@ describe Twitter::SearchResults do
     it "returns the query" do
       query = Twitter::SearchResults.new(:search_metadata => {:query => "%23freebandnames"}).query
       expect(query).to be_a String
-      expect(query).to eq "%23freebandnames"
+      expect(query).to eq("%23freebandnames")
     end
     it "is nil when not set" do
       query = Twitter::SearchResults.new.query
@@ -72,7 +72,7 @@ describe Twitter::SearchResults do
     it "returns the number of results per page" do
       results_per_page = Twitter::SearchResults.new(:search_metadata => {:count => 4}).results_per_page
       expect(results_per_page).to be_an Integer
-      expect(results_per_page).to eq 4
+      expect(results_per_page).to eq(4)
     end
     it "is nil when not set" do
       results_per_page = Twitter::SearchResults.new.results_per_page
@@ -84,7 +84,7 @@ describe Twitter::SearchResults do
     it "returns an ID" do
       since_id = Twitter::SearchResults.new(:search_metadata => {:since_id => 250126199840518145}).since_id
       expect(since_id).to be_an Integer
-      expect(since_id).to eq 250126199840518145
+      expect(since_id).to eq(250126199840518145)
     end
     it "is nil when not set" do
       since_id = Twitter::SearchResults.new.since_id
@@ -111,7 +111,7 @@ describe Twitter::SearchResults do
     it "returns a hash of query parameters" do
       search_results = Twitter::SearchResults.new(:search_metadata => {:next_results => "?max_id=249279667666817023&q=%23freebandnames&count=4&include_entities=1&result_type=mixed"})
       expect(search_results.next_results).to be_a Hash
-      expect(search_results.next_results[:max_id]).to eq "249279667666817023"
+      expect(search_results.next_results[:max_id]).to eq("249279667666817023")
     end
   end
 
@@ -119,7 +119,7 @@ describe Twitter::SearchResults do
     it "returns a hash of query parameters" do
       search_results = Twitter::SearchResults.new(:search_metadata => {:refresh_url => "?since_id=249279667666817023&q=%23freebandnames&count=4&include_entities=1&result_type=recent"})
       expect(search_results.refresh_results).to be_a Hash
-      expect(search_results.refresh_results[:since_id]).to eq "249279667666817023"
+      expect(search_results.refresh_results[:since_id]).to eq("249279667666817023")
     end
   end
 

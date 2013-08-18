@@ -3,7 +3,7 @@ require 'helper'
 describe Twitter::API::SavedSearches do
 
   before do
-    @client = Twitter::Client.new
+    @client = Twitter::Client.new(:consumer_key => "CK", :consumer_secret => "CS", :oauth_token => "OT", :oauth_token_secret => "OS")
   end
 
   describe "#saved_searches" do
@@ -19,7 +19,7 @@ describe Twitter::API::SavedSearches do
         saved_searches = @client.saved_searches(16129012)
         expect(saved_searches).to be_an Array
         expect(saved_searches.first).to be_a Twitter::SavedSearch
-        expect(saved_searches.first.name).to eq "twitter"
+        expect(saved_searches.first.name).to eq("twitter")
       end
     end
     context "without ids passed" do
@@ -34,7 +34,7 @@ describe Twitter::API::SavedSearches do
         saved_searches = @client.saved_searches
         expect(saved_searches).to be_an Array
         expect(saved_searches.first).to be_a Twitter::SavedSearch
-        expect(saved_searches.first.name).to eq "twitter"
+        expect(saved_searches.first.name).to eq("twitter")
       end
     end
   end
@@ -50,7 +50,7 @@ describe Twitter::API::SavedSearches do
     it "returns a saved search" do
       saved_search = @client.saved_search(16129012)
       expect(saved_search).to be_a Twitter::SavedSearch
-      expect(saved_search.name).to eq "twitter"
+      expect(saved_search.name).to eq("twitter")
     end
   end
 
@@ -65,7 +65,7 @@ describe Twitter::API::SavedSearches do
     it "returns the created saved search" do
       saved_search = @client.saved_search_create("twitter")
       expect(saved_search).to be_a Twitter::SavedSearch
-      expect(saved_search.name).to eq "twitter"
+      expect(saved_search.name).to eq("twitter")
     end
   end
 
@@ -81,7 +81,7 @@ describe Twitter::API::SavedSearches do
       saved_searches = @client.saved_search_destroy(16129012)
       expect(saved_searches).to be_an Array
       expect(saved_searches.first).to be_a Twitter::SavedSearch
-      expect(saved_searches.first.name).to eq "twitter"
+      expect(saved_searches.first.name).to eq("twitter")
     end
   end
 

@@ -3,7 +3,7 @@ require 'helper'
 describe Twitter::API::DirectMessages do
 
   before do
-    @client = Twitter::Client.new
+    @client = Twitter::Client.new(:consumer_key => "CK", :consumer_secret => "CS", :oauth_token => "OT", :oauth_token_secret => "OS")
   end
 
   describe "#direct_messages_received" do
@@ -18,7 +18,7 @@ describe Twitter::API::DirectMessages do
       direct_messages = @client.direct_messages_received
       expect(direct_messages).to be_an Array
       expect(direct_messages.first).to be_a Twitter::DirectMessage
-      expect(direct_messages.first.sender.id).to eq 7505382
+      expect(direct_messages.first.sender.id).to eq(7505382)
     end
   end
 
@@ -34,7 +34,7 @@ describe Twitter::API::DirectMessages do
       direct_messages = @client.direct_messages_sent
       expect(direct_messages).to be_an Array
       expect(direct_messages.first).to be_a Twitter::DirectMessage
-      expect(direct_messages.first.sender.id).to eq 7505382
+      expect(direct_messages.first.sender.id).to eq(7505382)
     end
   end
 
@@ -49,7 +49,7 @@ describe Twitter::API::DirectMessages do
     it "returns the specified direct message" do
       direct_message = @client.direct_message(1825786345)
       expect(direct_message).to be_a Twitter::DirectMessage
-      expect(direct_message.sender.id).to eq 7505382
+      expect(direct_message.sender.id).to eq(7505382)
     end
   end
 
@@ -66,7 +66,7 @@ describe Twitter::API::DirectMessages do
         direct_messages = @client.direct_messages(1825786345)
         expect(direct_messages).to be_an Array
         expect(direct_messages.first).to be_a Twitter::DirectMessage
-        expect(direct_messages.first.sender.id).to eq 7505382
+        expect(direct_messages.first.sender.id).to eq(7505382)
       end
     end
     context "without ids passed" do
@@ -81,7 +81,7 @@ describe Twitter::API::DirectMessages do
         direct_messages = @client.direct_messages
         expect(direct_messages).to be_an Array
         expect(direct_messages.first).to be_a Twitter::DirectMessage
-        expect(direct_messages.first.sender.id).to eq 7505382
+        expect(direct_messages.first.sender.id).to eq(7505382)
       end
     end
   end
@@ -98,7 +98,7 @@ describe Twitter::API::DirectMessages do
       direct_messages = @client.direct_message_destroy(1825785544)
       expect(direct_messages).to be_an Array
       expect(direct_messages.first).to be_a Twitter::DirectMessage
-      expect(direct_messages.first.sender.id).to eq 7505382
+      expect(direct_messages.first.sender.id).to eq(7505382)
     end
   end
 
@@ -113,7 +113,7 @@ describe Twitter::API::DirectMessages do
     it "returns the sent message" do
       direct_message = @client.direct_message_create("pengwynn", "Creating a fixture for the Twitter gem")
       expect(direct_message).to be_a Twitter::DirectMessage
-      expect(direct_message.text).to eq "Creating a fixture for the Twitter gem"
+      expect(direct_message.text).to eq("Creating a fixture for the Twitter gem")
     end
     context "with a URI object passed" do
       it "requests the correct resource" do

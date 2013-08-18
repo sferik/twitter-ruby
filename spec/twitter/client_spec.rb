@@ -23,7 +23,7 @@ describe Twitter::Client do
     it "inherits the module configuration" do
       client = Twitter::Client.new
       Twitter::Configurable.keys.each do |key|
-        expect(client.instance_variable_get(:"@#{key}")).to eq key
+        expect(client.instance_variable_get(:"@#{key}")).to eq(key)
       end
     end
 
@@ -46,7 +46,7 @@ describe Twitter::Client do
         it "overrides the module configuration" do
           client = Twitter::Client.new(@configuration)
           Twitter::Configurable.keys.each do |key|
-            expect(client.instance_variable_get(:"@#{key}")).to eq @configuration[key]
+            expect(client.instance_variable_get(:"@#{key}")).to eq(@configuration[key])
           end
         end
       end
@@ -60,7 +60,7 @@ describe Twitter::Client do
             end
           end
           Twitter::Configurable.keys.each do |key|
-            expect(client.instance_variable_get(:"@#{key}")).to eq @configuration[key]
+            expect(client.instance_variable_get(:"@#{key}")).to eq(@configuration[key])
           end
         end
       end
@@ -70,11 +70,10 @@ describe Twitter::Client do
 
   it "does not cache the screen name across clients" do
     stub_get("/1.1/account/verify_credentials.json").to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-    client1 = Twitter::Client.new
-    expect(client1.verify_credentials.id).to eq 7505382
+    user1 = Twitter::Client.new(:consumer_key => "CK", :consumer_secret => "CS", :oauth_token => "OT", :oauth_token_secret => "OS").current_user
     stub_get("/1.1/account/verify_credentials.json").to_return(:body => fixture("pengwynn.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-    client2 = Twitter::Client.new
-    expect(client2.verify_credentials.id).to eq 14100886
+    user2 = Twitter::Client.new(:consumer_key => "CK", :consumer_secret => "CS", :oauth_token => "OT", :oauth_token_secret => "OS").current_user
+    expect(user1).not_to eq(user2)
   end
 
   describe "#delete" do
@@ -136,7 +135,7 @@ describe Twitter::Client do
     end
     it "memoizes the connection" do
       c1, c2 = subject.send(:connection), subject.send(:connection)
-      expect(c1.object_id).to eq c2.object_id
+      expect(c1.object_id).to eq(c2.object_id)
     end
   end
 
@@ -165,12 +164,12 @@ describe Twitter::Client do
     it "creates the correct auth headers" do
       uri = "/1.1/direct_messages.json"
       authorization = subject.send(:oauth_auth_header, :get, uri)
-      expect(authorization.options[:signature_method]).to eq "HMAC-SHA1"
-      expect(authorization.options[:version]).to eq "1.0"
-      expect(authorization.options[:consumer_key]).to eq "CK"
-      expect(authorization.options[:consumer_secret]).to eq "CS"
-      expect(authorization.options[:token]).to eq "OT"
-      expect(authorization.options[:token_secret]).to eq "OS"
+      expect(authorization.options[:signature_method]).to eq("HMAC-SHA1")
+      expect(authorization.options[:version]).to eq("1.0")
+      expect(authorization.options[:consumer_key]).to eq("CK")
+      expect(authorization.options[:consumer_secret]).to eq("CS")
+      expect(authorization.options[:token]).to eq("OT")
+      expect(authorization.options[:token_secret]).to eq("OS")
     end
     it "submits the correct auth header when no media is present" do
       # We use static values for nounce and timestamp to get a stable signature
@@ -207,14 +206,14 @@ describe Twitter::Client do
 
     it "creates the correct auth headers with supplied bearer_token" do
       authorization = subject.send(:bearer_auth_header)
-      expect(authorization).to eq "Bearer BT"
+      expect(authorization).to eq("Bearer BT")
     end
   end
 
   describe "#bearer_token_credentials_auth_header" do
     it "creates the correct auth header with supplied consumer_key and consumer_secret" do
       authorization = subject.send(:bearer_token_credentials_auth_header)
-      expect(authorization).to eq "Basic Q0s6Q1M="
+      expect(authorization).to eq("Basic Q0s6Q1M=")
     end
   end
 end

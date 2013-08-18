@@ -3,7 +3,7 @@ require 'helper'
 describe Twitter::API::SpamReporting do
 
   before do
-    @client = Twitter::Client.new
+    @client = Twitter::Client.new(:consumer_key => "CK", :consumer_secret => "CS", :oauth_token => "OT", :oauth_token_secret => "OS")
   end
 
   describe "#report_spam" do
@@ -18,7 +18,7 @@ describe Twitter::API::SpamReporting do
       users = @client.report_spam("sferik")
       expect(users).to be_an Array
       expect(users.first).to be_a Twitter::User
-      expect(users.first.id).to eq 7505382
+      expect(users.first.id).to eq(7505382)
     end
   end
 

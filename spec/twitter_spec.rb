@@ -9,6 +9,12 @@ describe Twitter do
   context "when delegating to a client" do
 
     before do
+      Twitter.configure do |config|
+        config.consumer_key = 'CK'
+        config.consumer_secret = 'CS'
+        config.oauth_token = 'OT'
+        config.oauth_token_secret = 'OS'
+      end
       stub_get("/1.1/statuses/user_timeline.json").with(:query => {:screen_name => "sferik"}).to_return(:body => fixture("statuses.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
 
@@ -18,7 +24,7 @@ describe Twitter do
     end
 
     it "returns the same results as a client" do
-      expect(Twitter.user_timeline('sferik')).to eq Twitter::Client.new.user_timeline('sferik')
+      expect(Twitter.user_timeline('sferik')).to eq(Twitter::Client.new.user_timeline('sferik'))
     end
 
   end
@@ -39,7 +45,7 @@ describe Twitter do
 
     context "when the options don't change" do
       it "caches the client" do
-        expect(Twitter.new).to eq Twitter.new
+        expect(Twitter.new).to eq(Twitter.new)
       end
     end
     context "when the options change" do
@@ -50,7 +56,7 @@ describe Twitter do
           config.consumer_secret = '123'
         end
         client2 = Twitter.new
-        expect(client1).not_to eq client2
+        expect(client1).not_to eq(client2)
       end
     end
   end
@@ -61,7 +67,7 @@ describe Twitter do
         Twitter.configure do |config|
           config.send("#{key}=", key)
         end
-        expect(Twitter.instance_variable_get(:"@#{key}")).to eq key
+        expect(Twitter.instance_variable_get(:"@#{key}")).to eq(key)
       end
     end
 

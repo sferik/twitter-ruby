@@ -3,7 +3,7 @@ require 'helper'
 describe Twitter::API::Favorites do
 
   before do
-    @client = Twitter::Client.new
+    @client = Twitter::Client.new(:consumer_key => "CK", :consumer_secret => "CS", :oauth_token => "OT", :oauth_token_secret => "OS")
   end
 
   describe "#favorites" do
@@ -19,7 +19,7 @@ describe Twitter::API::Favorites do
         favorites = @client.favorites("sferik")
         expect(favorites).to be_an Array
         expect(favorites.first).to be_a Twitter::Tweet
-        expect(favorites.first.user.id).to eq 7505382
+        expect(favorites.first.user.id).to eq(7505382)
       end
       context "with a URI object passed" do
         it "requests the correct resource" do
@@ -47,7 +47,7 @@ describe Twitter::API::Favorites do
         favorites = @client.favorites
         expect(favorites).to be_an Array
         expect(favorites.first).to be_a Twitter::Tweet
-        expect(favorites.first.user.id).to eq 7505382
+        expect(favorites.first.user.id).to eq(7505382)
       end
     end
   end
@@ -64,7 +64,7 @@ describe Twitter::API::Favorites do
       tweets = @client.unfavorite(25938088801)
       expect(tweets).to be_an Array
       expect(tweets.first).to be_a Twitter::Tweet
-      expect(tweets.first.text).to eq "The problem with your code is that it's doing exactly what you told it to do."
+      expect(tweets.first.text).to eq("The problem with your code is that it's doing exactly what you told it to do.")
     end
     context "with a URI object passed" do
       it "requests the correct resource" do
@@ -100,7 +100,7 @@ describe Twitter::API::Favorites do
       tweets = @client.favorite(25938088801)
       expect(tweets).to be_an Array
       expect(tweets.first).to be_a Twitter::Tweet
-      expect(tweets.first.text).to eq "The problem with your code is that it's doing exactly what you told it to do."
+      expect(tweets.first.text).to eq("The problem with your code is that it's doing exactly what you told it to do.")
     end
     context "already favorited" do
       before do
@@ -144,7 +144,7 @@ describe Twitter::API::Favorites do
       tweets = @client.favorite!(25938088801)
       expect(tweets).to be_an Array
       expect(tweets.first).to be_a Twitter::Tweet
-      expect(tweets.first.text).to eq "The problem with your code is that it's doing exactly what you told it to do."
+      expect(tweets.first.text).to eq("The problem with your code is that it's doing exactly what you told it to do.")
     end
     context "forbidden" do
       before do

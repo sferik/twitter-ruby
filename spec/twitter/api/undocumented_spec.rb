@@ -3,7 +3,7 @@ require 'helper'
 describe Twitter::API::Undocumented do
 
   before do
-    @client = Twitter::Client.new
+    @client = Twitter::Client.new(:consumer_key => "CK", :consumer_secret => "CS", :oauth_token => "OT", :oauth_token_secret => "OS")
   end
 
   describe "#following_followers_of" do
@@ -89,7 +89,7 @@ describe Twitter::API::Undocumented do
     it "returns a Tweet count" do
       tweet_count = @client.tweet_count("http://twitter.com")
       expect(tweet_count).to be_an Integer
-      expect(tweet_count).to eq 13845465
+      expect(tweet_count).to eq(13845465)
     end
     context "with a URI" do
       it "requests the correct resource" do

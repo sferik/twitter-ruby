@@ -3,7 +3,7 @@ require 'helper'
 describe Twitter::API::Help do
 
   before do
-    @client = Twitter::Client.new
+    @client = Twitter::Client.new(:consumer_key => "CK", :consumer_secret => "CS", :oauth_token => "OT", :oauth_token_secret => "OS")
   end
 
   describe "#configuration" do
@@ -17,7 +17,7 @@ describe Twitter::API::Help do
     it "returns Twitter's current configuration" do
       configuration = @client.configuration
       expect(configuration).to be_a Twitter::Configuration
-      expect(configuration.characters_reserved_per_media).to eq 20
+      expect(configuration.characters_reserved_per_media).to eq(20)
     end
   end
 
@@ -33,7 +33,7 @@ describe Twitter::API::Help do
       languages = @client.languages
       expect(languages).to be_an Array
       expect(languages.first).to be_a Twitter::Language
-      expect(languages.first.name).to eq "Portuguese"
+      expect(languages.first.name).to eq("Portuguese")
     end
   end
 
@@ -47,7 +47,7 @@ describe Twitter::API::Help do
     end
     it "returns Twitter's Privacy Policy" do
       privacy = @client.privacy
-      expect(privacy.split.first).to eq "Twitter"
+      expect(privacy.split.first).to eq("Twitter")
     end
   end
 
@@ -61,7 +61,7 @@ describe Twitter::API::Help do
     end
     it "returns Twitter's Terms of Service" do
       tos = @client.tos
-      expect(tos.split.first).to eq "Terms"
+      expect(tos.split.first).to eq("Terms")
     end
   end
 

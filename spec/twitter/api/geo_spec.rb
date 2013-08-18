@@ -3,7 +3,7 @@ require 'helper'
 describe Twitter::API::PlacesAndGeo do
 
   before do
-    @client = Twitter::Client.new
+    @client = Twitter::Client.new(:consumer_key => "CK", :consumer_secret => "CS", :oauth_token => "OT", :oauth_token_secret => "OS")
   end
 
   describe "#place" do
@@ -16,7 +16,7 @@ describe Twitter::API::PlacesAndGeo do
     end
     it "returns a place" do
       place = @client.place("247f43d441defc03")
-      expect(place.name).to eq "Twitter HQ"
+      expect(place.name).to eq("Twitter HQ")
     end
   end
 
@@ -31,7 +31,7 @@ describe Twitter::API::PlacesAndGeo do
     it "returns places" do
       places = @client.reverse_geocode(:lat => "37.7821120598956", :long => "-122.400612831116")
       expect(places).to be_a Twitter::GeoResults
-      expect(places.first.name).to eq "Bernal Heights"
+      expect(places.first.name).to eq("Bernal Heights")
     end
   end
 
@@ -46,7 +46,7 @@ describe Twitter::API::PlacesAndGeo do
     it "returns nearby places" do
       places = @client.geo_search(:ip => "74.125.19.104")
       expect(places).to be_a Twitter::GeoResults
-      expect(places.first.name).to eq "Bernal Heights"
+      expect(places.first.name).to eq("Bernal Heights")
     end
   end
 
@@ -61,7 +61,7 @@ describe Twitter::API::PlacesAndGeo do
     it "returns similar places" do
       places = @client.similar_places(:lat => "37.7821120598956", :long => "-122.400612831116", :name => "Twitter HQ")
       expect(places).to be_a Twitter::GeoResults
-      expect(places.first.name).to eq "Bernal Heights"
+      expect(places.first.name).to eq("Bernal Heights")
     end
   end
 
@@ -75,7 +75,7 @@ describe Twitter::API::PlacesAndGeo do
     end
     it "returns a place" do
       place = @client.place_create(:name => "@sferik's Apartment", :token => "22ff5b1f7159032cf69218c4d8bb78bc", :contained_within => "41bcb736f84a799e", :lat => "37.783699", :long => "-122.393581")
-      expect(place.name).to eq "Twitter HQ"
+      expect(place.name).to eq("Twitter HQ")
     end
   end
 

@@ -3,7 +3,7 @@ require 'helper'
 describe Twitter::Error do
 
   before do
-    @client = Twitter::Client.new
+    @client = Twitter::Client.new(:consumer_key => "CK", :consumer_secret => "CS", :oauth_token => "OT", :oauth_token_secret => "OS")
   end
 
   describe "#initialize" do
@@ -14,8 +14,8 @@ describe Twitter::Error do
         begin
           raise Twitter::Error
         rescue Twitter::Error => error
-          expect(error.message).to eq "Oops"
-          expect(error.wrapped_exception.class).to eq Faraday::Error::ClientError
+          expect(error.message).to eq("Oops")
+          expect(error.wrapped_exception.class).to eq(Faraday::Error::ClientError)
         end
       end
     end
@@ -44,7 +44,7 @@ describe Twitter::Error do
           end
           it "raises #{exception.name}" do
             expect{@client.user_timeline("sferik")}.to raise_error { |error|
-              expect(error.code).to eq nil
+              expect(error.code).to be_nil
             }
           end
           context "when error code is 187" do
@@ -54,7 +54,7 @@ describe Twitter::Error do
             end
             it "raises #{exception.name}" do
               expect{@client.user_timeline("sferik")}.to raise_error { |error|
-                expect(error.code).to eq 187
+                expect(error.code).to eq(187)
               }
             end
           end

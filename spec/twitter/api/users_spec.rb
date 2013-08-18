@@ -3,7 +3,7 @@ require 'helper'
 describe Twitter::API::Users do
 
   before do
-    @client = Twitter::Client.new
+    @client = Twitter::Client.new(:consumer_key => "CK", :consumer_secret => "CS", :oauth_token => "OT", :oauth_token_secret => "OS")
   end
 
   describe "#settings" do
@@ -18,7 +18,7 @@ describe Twitter::API::Users do
     it "returns settings" do
       settings = @client.settings
       expect(settings).to be_a Twitter::Settings
-      expect(settings.language).to eq "en"
+      expect(settings.language).to eq("en")
     end
     it "requests the correct resource on POST" do
       @client.settings(:trend_location_woeid => "23424803")
@@ -27,7 +27,7 @@ describe Twitter::API::Users do
     it "returns settings" do
       settings = @client.settings(:trend_location_woeid => "23424803")
       expect(settings).to be_a Twitter::Settings
-      expect(settings.language).to eq "en"
+      expect(settings.language).to eq("en")
     end
   end
 
@@ -42,7 +42,7 @@ describe Twitter::API::Users do
     it "returns the requesting user" do
       user = @client.verify_credentials
       expect(user).to be_a Twitter::User
-      expect(user.id).to eq 7505382
+      expect(user.id).to eq(7505382)
     end
   end
 
@@ -57,7 +57,7 @@ describe Twitter::API::Users do
     it "returns a user" do
       user = @client.update_delivery_device("sms")
       expect(user).to be_a Twitter::User
-      expect(user.id).to eq 7505382
+      expect(user.id).to eq(7505382)
     end
   end
 
@@ -72,7 +72,7 @@ describe Twitter::API::Users do
     it "returns a user" do
       user = @client.update_profile(:url => "http://github.com/sferik/")
       expect(user).to be_a Twitter::User
-      expect(user.id).to eq 7505382
+      expect(user.id).to eq(7505382)
     end
   end
 
@@ -87,7 +87,7 @@ describe Twitter::API::Users do
     it "returns a user" do
       user = @client.update_profile_background_image(fixture("we_concept_bg2.png"))
       expect(user).to be_a Twitter::User
-      expect(user.id).to eq 7505382
+      expect(user.id).to eq(7505382)
     end
   end
 
@@ -102,7 +102,7 @@ describe Twitter::API::Users do
     it "returns a user" do
       user = @client.update_profile_colors(:profile_background_color => "000000")
       expect(user).to be_a Twitter::User
-      expect(user.id).to eq 7505382
+      expect(user.id).to eq(7505382)
     end
   end
 
@@ -117,7 +117,7 @@ describe Twitter::API::Users do
     it "returns a user" do
       user = @client.update_profile_image(fixture("me.jpeg"))
       expect(user).to be_a Twitter::User
-      expect(user.id).to eq 7505382
+      expect(user.id).to eq(7505382)
     end
   end
 
@@ -133,7 +133,7 @@ describe Twitter::API::Users do
       it "returns the users in a given category of the Twitter suggested user list" do
         suggestion = @client.suggestions("art-design")
         expect(suggestion).to be_a Twitter::Suggestion
-        expect(suggestion.name).to eq "Art & Design"
+        expect(suggestion.name).to eq("Art & Design")
         expect(suggestion.users).to be_an Array
         expect(suggestion.users.first).to be_a Twitter::User
       end
@@ -150,7 +150,7 @@ describe Twitter::API::Users do
         suggestions = @client.suggestions
         expect(suggestions).to be_an Array
         expect(suggestions.first).to be_a Twitter::Suggestion
-        expect(suggestions.first.name).to eq "Art & Design"
+        expect(suggestions.first.name).to eq("Art & Design")
       end
     end
   end
@@ -167,7 +167,7 @@ describe Twitter::API::Users do
       suggest_users = @client.suggest_users("art-design")
       expect(suggest_users).to be_an Array
       expect(suggest_users.first).to be_a Twitter::User
-      expect(suggest_users.first.id).to eq 13
+      expect(suggest_users.first.id).to eq(13)
     end
   end
 
@@ -183,7 +183,7 @@ describe Twitter::API::Users do
       blocking = @client.blocking
       expect(blocking).to be_a Twitter::Cursor
       expect(blocking.first).to be_a Twitter::User
-      expect(blocking.first.id).to eq 7505382
+      expect(blocking.first.id).to eq(7505382)
     end
     context "with each" do
       before do
@@ -208,7 +208,7 @@ describe Twitter::API::Users do
     it "returns an array of numeric user IDs the authenticating user is blocking" do
       blocked_ids = @client.blocked_ids
       expect(blocked_ids).to be_a Twitter::Cursor
-      expect(blocked_ids.first).to eq 20009713
+      expect(blocked_ids.first).to eq(20009713)
     end
     context "with each" do
       before do
@@ -282,7 +282,7 @@ describe Twitter::API::Users do
       users = @client.block("sferik")
       expect(users).to be_an Array
       expect(users.first).to be_a Twitter::User
-      expect(users.first.id).to eq 7505382
+      expect(users.first.id).to eq(7505382)
     end
   end
 
@@ -298,7 +298,7 @@ describe Twitter::API::Users do
       users = @client.unblock("sferik")
       expect(users).to be_an Array
       expect(users.first).to be_a Twitter::User
-      expect(users.first.id).to eq 7505382
+      expect(users.first.id).to eq(7505382)
     end
   end
 
@@ -316,7 +316,7 @@ describe Twitter::API::Users do
           users = @client.users("sferik", "pengwynn")
           expect(users).to be_an Array
           expect(users.first).to be_a Twitter::User
-          expect(users.first.id).to eq 7505382
+          expect(users.first.id).to eq(7505382)
         end
         context "with URI objects passed" do
           it "requests the correct resource" do
@@ -385,7 +385,7 @@ describe Twitter::API::Users do
           users = @client.users("sferik", "pengwynn", :method => :get)
           expect(users).to be_an Array
           expect(users.first).to be_a Twitter::User
-          expect(users.first.id).to eq 7505382
+          expect(users.first.id).to eq(7505382)
         end
         context "with URI objects passed" do
           it "requests the correct resource" do
@@ -455,7 +455,7 @@ describe Twitter::API::Users do
       it "returns extended information of a given user" do
         user = @client.user("sferik")
         expect(user).to be_a Twitter::User
-        expect(user.id).to eq 7505382
+        expect(user.id).to eq(7505382)
       end
     end
     context "with a screen name including '@' passed" do
@@ -548,7 +548,7 @@ describe Twitter::API::Users do
       user_search = @client.user_search("Erik Michaels-Ober")
       expect(user_search).to be_an Array
       expect(user_search.first).to be_a Twitter::User
-      expect(user_search.first.id).to eq 7505382
+      expect(user_search.first.id).to eq(7505382)
     end
   end
 
@@ -565,7 +565,7 @@ describe Twitter::API::Users do
         contributees = @client.contributees("sferik")
         expect(contributees).to be_an Array
         expect(contributees.first).to be_a Twitter::User
-        expect(contributees.first.name).to eq "Twitter API"
+        expect(contributees.first.name).to eq("Twitter API")
       end
     end
     context "with a user ID passed" do
@@ -590,7 +590,7 @@ describe Twitter::API::Users do
         contributees = @client.contributees
         expect(contributees).to be_an Array
         expect(contributees.first).to be_a Twitter::User
-        expect(contributees.first.name).to eq "Twitter API"
+        expect(contributees.first.name).to eq("Twitter API")
       end
     end
   end
@@ -608,7 +608,7 @@ describe Twitter::API::Users do
         contributors = @client.contributors("sferik")
         expect(contributors).to be_an Array
         expect(contributors.first).to be_a Twitter::User
-        expect(contributors.first.id).to eq 13
+        expect(contributors.first.id).to eq(13)
       end
     end
     context "with a user ID passed" do
@@ -633,7 +633,7 @@ describe Twitter::API::Users do
         contributors = @client.contributors
         expect(contributors).to be_an Array
         expect(contributors.first).to be_a Twitter::User
-        expect(contributors.first.id).to eq 13
+        expect(contributors.first.id).to eq(13)
       end
     end
   end
@@ -679,7 +679,7 @@ describe Twitter::API::Users do
         banner = @client.profile_banner("sferik")
         expect(banner).to be_a Twitter::ProfileBanner
         expect(banner.sizes).to be_a Hash
-        expect(banner.sizes[:mobile].height).to eq 160
+        expect(banner.sizes[:mobile].height).to eq(160)
       end
     end
     context "with a user ID passed" do
@@ -705,7 +705,7 @@ describe Twitter::API::Users do
         banner = @client.profile_banner
         expect(banner).to be_a Twitter::ProfileBanner
         expect(banner.sizes).to be_a Hash
-        expect(banner.sizes[:mobile].height).to eq 160
+        expect(banner.sizes[:mobile].height).to eq(160)
       end
     end
   end

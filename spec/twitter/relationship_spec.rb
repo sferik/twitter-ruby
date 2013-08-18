@@ -50,7 +50,7 @@ describe Twitter::Relationship do
     it "updates a relationship" do
       relationship = Twitter::Relationship.new(:relationship => {:target => {:id => 7505382}})
       relationship.update(:relationship => {:target => {:id => 14100886}})
-      expect(relationship.target.id).to eq 14100886
+      expect(relationship.target.id).to eq(14100886)
     end
   end
 
