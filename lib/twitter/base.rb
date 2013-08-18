@@ -115,7 +115,7 @@ module Twitter
     #
     # @param method [String, Symbol] Message to send to the object
     def [](method)
-      send(method)
+      send(method.to_sym)
     rescue NoMethodError
       nil
     end
@@ -133,7 +133,7 @@ module Twitter
     # @param other [Twitter::Base]
     # @return [Boolean]
     def attr_equal(attr, other)
-      self.class == other.class && !other.send(attr).nil? && send(attr) == other.send(attr)
+      self.class == other.class && !other.send(attr.to_sym).nil? && send(attr.to_sym) == other.send(attr.to_sym)
     end
 
     # @param other [Twitter::Base]

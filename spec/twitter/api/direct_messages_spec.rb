@@ -3,7 +3,7 @@ require 'helper'
 describe Twitter::API::DirectMessages do
 
   before do
-    @client = Twitter::Client.new(:consumer_key => "CK", :consumer_secret => "CS", :oauth_token => "OT", :oauth_token_secret => "OS")
+    @client = Twitter::Client.new(:consumer_key => "CK", :consumer_secret => "CS", :access_token => "AT", :access_token_secret => "AS")
   end
 
   describe "#direct_messages_received" do

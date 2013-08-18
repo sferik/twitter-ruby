@@ -51,8 +51,8 @@ module Twitter
     include Twitter::API::Users
 
     attr_writer :bearer_token, :connection_options, :consumer_key,
-      :consumer_secret, :endpoint, :middleware, :oauth_token,
-      :oauth_token_secret
+      :consumer_secret, :endpoint, :middleware, :access_token,
+      :access_token_secret
 
     ENDPOINT = 'https://api.twitter.com'
 
@@ -67,13 +67,13 @@ module Twitter
     end
 
     # @return [String]
-    def oauth_token
-      @oauth_token || ENV['TWITTER_oauth_token']
+    def access_token
+      @access_token || ENV['TWITTER_access_token']
     end
 
     # @return [String]
-    def oauth_token_secret
-      @oauth_token_secret || ENV['TWITTER_oauth_token_SECRET']
+    def access_token_secret
+      @access_token_secret || ENV['TWITTER_access_token_SECRET']
     end
 
     # @return [String]
@@ -150,7 +150,7 @@ module Twitter
 
     # @return [Boolean]
     def user_token?
-      !!(oauth_token && oauth_token_secret)
+      !!(access_token && access_token_secret)
     end
 
     # @return [Boolean]
@@ -163,8 +163,8 @@ module Twitter
       {
         :consumer_key    => consumer_key,
         :consumer_secret => consumer_secret,
-        :token           => oauth_token,
-        :token_secret    => oauth_token_secret,
+        :token           => access_token,
+        :token_secret    => access_token_secret,
       }
     end
 

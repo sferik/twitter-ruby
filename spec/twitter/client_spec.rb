@@ -3,7 +3,7 @@ require 'helper'
 describe Twitter::Client do
 
   before do
-    @client = Twitter::Client.new(:consumer_key => "CK", :consumer_secret => "CS", :oauth_token => "OT", :oauth_token_secret => "OS")
+    @client = Twitter::Client.new(:consumer_key => "CK", :consumer_secret => "CS", :access_token => "AT", :access_token_secret => "AS")
   end
 
   describe ".new" do
@@ -30,20 +30,20 @@ describe Twitter::Client do
       expect(client.credentials?).to be_true
     end
     it "returns true if all OAuth credentials are present" do
-      client = Twitter::Client.new(:consumer_key => "CK", :consumer_secret => "CS", :oauth_token => "OT", :oauth_token_secret => "OS")
+      client = Twitter::Client.new(:consumer_key => "CK", :consumer_secret => "CS", :access_token => "AT", :access_token_secret => "AS")
       expect(client.credentials?).to be_true
     end
     it "returns false if any credentials are missing" do
-      client = Twitter::Client.new(:consumer_key => "CK", :consumer_secret => "CS", :oauth_token => "OT")
+      client = Twitter::Client.new(:consumer_key => "CK", :consumer_secret => "CS", :access_token => "AT")
       expect(client.credentials?).to be_false
     end
   end
 
   it "does not cache the screen name across clients" do
     stub_get("/1.1/account/verify_credentials.json").to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-    user1 = Twitter::Client.new(:consumer_key => "CK", :consumer_secret => "CS", :oauth_token => "OT", :oauth_token_secret => "OS").current_user
+    user1 = Twitter::Client.new(:consumer_key => "CK", :consumer_secret => "CS", :access_token => "AT", :access_token_secret => "AS").current_user
     stub_get("/1.1/account/verify_credentials.json").to_return(:body => fixture("pengwynn.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-    user2 = Twitter::Client.new(:consumer_key => "CK", :consumer_secret => "CS", :oauth_token => "OT", :oauth_token_secret => "OS").current_user
+    user2 = Twitter::Client.new(:consumer_key => "CK", :consumer_secret => "CS", :access_token => "AT", :access_token_secret => "AS").current_user
     expect(user1).not_to eq(user2)
   end
 
@@ -69,11 +69,11 @@ describe Twitter::Client do
 
   describe "#user_token?" do
     it "returns true if the user token/secret are present" do
-      client = Twitter::Client.new(:consumer_key => "CK", :consumer_secret => "CS", :oauth_token => "OT", :oauth_token_secret => "OS")
+      client = Twitter::Client.new(:consumer_key => "CK", :consumer_secret => "CS", :access_token => "AT", :access_token_secret => "AS")
       expect(client.user_token?).to be_true
     end
     it "returns false if the user token/secret are not completely present" do
-      client = Twitter::Client.new(:consumer_key => "CK", :consumer_secret => "CS", :oauth_token => "OT")
+      client = Twitter::Client.new(:consumer_key => "CK", :consumer_secret => "CS", :access_token => "AT")
       expect(client.user_token?).to be_false
     end
   end
@@ -91,11 +91,11 @@ describe Twitter::Client do
 
   describe "#credentials?" do
     it "returns true if all credentials are present" do
-      client = Twitter::Client.new(:consumer_key => "CK", :consumer_secret => "CS", :oauth_token => "OT", :oauth_token_secret => "OS")
+      client = Twitter::Client.new(:consumer_key => "CK", :consumer_secret => "CS", :access_token => "AT", :access_token_secret => "AS")
       expect(client.credentials?).to be_true
     end
     it "returns false if any credentials are missing" do
-      client = Twitter::Client.new(:consumer_key => "CK", :consumer_secret => "CS", :oauth_token => "OT")
+      client = Twitter::Client.new(:consumer_key => "CK", :consumer_secret => "CS", :access_token => "AT")
       expect(client.credentials?).to be_false
     end
   end
@@ -139,8 +139,8 @@ describe Twitter::Client do
       expect(authorization.options[:version]).to eq("1.0")
       expect(authorization.options[:consumer_key]).to eq("CK")
       expect(authorization.options[:consumer_secret]).to eq("CS")
-      expect(authorization.options[:token]).to eq("OT")
-      expect(authorization.options[:token_secret]).to eq("OS")
+      expect(authorization.options[:token]).to eq("AT")
+      expect(authorization.options[:token_secret]).to eq("AS")
     end
     it "submits the correct auth header when no media is present" do
       # We use static values for nounce and timestamp to get a stable signature
