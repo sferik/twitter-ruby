@@ -16,15 +16,11 @@ module Twitter
       #
       #   @see https://dev.twitter.com/docs/api/1.1/get/saved_searches/list
       #   @param options [Hash] A customizable set of options.
-      #   @example Return the authenticated user's saved search queries
-      #     Twitter.saved_searches
       # @overload saved_search(*ids)
       #   Retrieve the data for saved searches owned by the authenticating user
       #
       #   @see https://dev.twitter.com/docs/api/1.1/get/saved_searches/show/:id
       #   @param ids [Enumerable<Integer>] A collection of saved search IDs.
-      #   @example Retrieve the data for a saved search owned by the authenticating user with the ID 16129012
-      #     Twitter.saved_search(16129012)
       # @overload saved_search(*ids, options)
       #   Retrieve the data for saved searches owned by the authenticating user
       #
@@ -51,8 +47,6 @@ module Twitter
       # @return [Twitter::SavedSearch] The saved searches.
       # @param id [Integer] The ID of the saved search.
       # @param options [Hash] A customizable set of options.
-      # @example Retrieve the data for a saved search owned by the authenticating user with the ID 16129012
-      #   Twitter.saved_search(16129012)
       def saved_search(id, options={})
         object_from_response(Twitter::SavedSearch, :get, "/1.1/saved_searches/show/#{id}.json", options)
       end
@@ -66,8 +60,6 @@ module Twitter
       # @return [Twitter::SavedSearch] The created saved search.
       # @param query [String] The query of the search the user would like to save.
       # @param options [Hash] A customizable set of options.
-      # @example Create a saved search for the authenticated user with the query "twitter"
-      #   Twitter.saved_search_create("twitter")
       def saved_search_create(query, options={})
         object_from_response(Twitter::SavedSearch, :post, "/1.1/saved_searches/create.json", options.merge(:query => query))
       end
@@ -82,8 +74,6 @@ module Twitter
       # @return [Array<Twitter::SavedSearch>] The deleted saved searches.
       # @overload saved_search_destroy(*ids)
       #   @param ids [Enumerable<Integer>] A collection of saved search IDs.
-      #   @example Destroys a saved search for the authenticated user with the ID 16129012
-      #     Twitter.saved_search_destroy(16129012)
       # @overload saved_search_destroy(*ids, options)
       #   @param ids [Enumerable<Integer>] A collection of saved search IDs.
       #   @param options [Hash] A customizable set of options.

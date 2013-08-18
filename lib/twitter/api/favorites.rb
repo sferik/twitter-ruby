@@ -21,8 +21,6 @@ module Twitter
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 100.
       #   @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID.
-      #   @example Return the 20 most recent favorite Tweets for the authenticating user
-      #     Twitter.favorites
       # @overload favorites(user, options={})
       #   Returns the 20 most recent favorite Tweets for the specified user
       #
@@ -30,8 +28,6 @@ module Twitter
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 100.
       #   @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID.
-      #   @example Return the 20 most recent favorite Tweets for @sferik
-      #     Twitter.favorites('sferik')
       def favorites(*args)
         arguments = Twitter::API::Arguments.new(args)
         if user = arguments.pop
@@ -50,8 +46,6 @@ module Twitter
       # @return [Array<Twitter::Tweet>] The un-favorited Tweets.
       # @overload unfavorite(*tweets)
       #   @param tweets [Enumerable<Integer, String, URI, Twitter::Tweet>] A collection of Tweet IDs, URIs, or objects.
-      #   @example Un-favorite the tweet with the ID 25938088801
-      #     Twitter.unfavorite(25938088801)
       # @overload unfavorite(*tweets, options)
       #   @param tweets [Enumerable<Integer, String, URI, Twitter::Tweet>] A collection of Tweet IDs, URIs, or objects.
       #   @param options [Hash] A customizable set of options.
@@ -71,8 +65,6 @@ module Twitter
       # @return [Array<Twitter::Tweet>] The favorited Tweets.
       # @overload favorite(*tweets)
       #   @param tweets [Enumerable<Integer, String, URI, Twitter::Tweet>] A collection of Tweet IDs, URIs, or objects.
-      #   @example Favorite the Tweet with the ID 25938088801
-      #     Twitter.favorite(25938088801)
       # @overload favorite(*tweets, options)
       #   @param tweets [Enumerable<Integer, String, URI, Twitter::Tweet>] A collection of Tweet IDs, URIs, or objects.
       #   @param options [Hash] A customizable set of options.
@@ -102,8 +94,6 @@ module Twitter
       # @return [Array<Twitter::Tweet>] The favorited Tweets.
       # @overload favorite(*tweets)
       #   @param tweets [Enumerable<Integer, String, URI, Twitter::Tweet>] A collection of Tweet IDs, URIs, or objects.
-      #   @example Favorite the Tweet with the ID 25938088801
-      #     Twitter.favorite(25938088801)
       # @overload favorite(*tweets, options)
       #   @param tweets [Enumerable<Integer, String, URI, Twitter::Tweet>] A collection of Tweet IDs, URIs, or objects.
       #   @param options [Hash] A customizable set of options.

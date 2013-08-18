@@ -1,9 +1,7 @@
 require 'twitter/action_factory'
 require 'twitter/client'
-require 'twitter/configurable'
 require 'twitter/configuration'
 require 'twitter/cursor'
-require 'twitter/default'
 require 'twitter/direct_message'
 require 'twitter/entity'
 require 'twitter/entity/hashtag'
@@ -31,29 +29,3 @@ require 'twitter/trend'
 require 'twitter/tweet'
 require 'twitter/user'
 require 'uri'
-
-module Twitter
-  extend Twitter::Configurable
-
-  # Delegate to a Twitter::Client
-  #
-  # @return [Twitter::Client]
-  def new
-    return @client if instance_variable_defined?(:@client) && @client.hash == options.hash
-    @client = Twitter::Client.new(options)
-  end
-  module_function :new
-
-  def method_missing(method_name, *args, &block)
-    return super unless respond_to_missing?(method_name)
-    new.send(method_name, *args, &block)
-  end
-  module_function :method_missing
-
-  def respond_to_missing?(method_name, include_private=false)
-    new.respond_to?(method_name, include_private)
-  end
-  module_function :respond_to_missing?
-
-  setup
-end

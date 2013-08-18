@@ -17,16 +17,12 @@ module Twitter
       #
       #   @see https://dev.twitter.com/docs/api/1.1/get/users/suggestions
       #   @param options [Hash] A customizable set of options.
-      #   @example Return the list of suggested user categories
-      #     Twitter.suggestions
       # @overload suggestions(slug, options={})
       #   Returns the users in a given category
       #
       #   @see https://dev.twitter.com/docs/api/1.1/get/users/suggestions/:slug
       #   @param slug [String] The short name of list or a category.
       #   @param options [Hash] A customizable set of options.
-      #   @example Return the users in the Art & Design category
-      #     Twitter.suggestions("art-design")
       def suggestions(*args)
         arguments = Twitter::API::Arguments.new(args)
         if slug = arguments.pop
@@ -44,8 +40,6 @@ module Twitter
       # @param slug [String] The short name of list or a category.
       # @param options [Hash] A customizable set of options.
       # @return [Array<Twitter::User>]
-      # @example Return the users in the Art & Design category and their most recent Tweet if they are not a protected user
-      #   Twitter.suggest_users("art-design")
       def suggest_users(slug, options={})
         objects_from_response(Twitter::User, :get, "/1.1/users/suggestions/#{slug}/members.json", options)
       end

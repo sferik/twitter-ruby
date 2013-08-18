@@ -22,8 +22,6 @@ module Twitter
       # @param options [Hash] A customizable set of options.
       # @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 100.
       # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
-      # @example Return up to 100 of the first retweets of the Tweet with the ID 28561922516
-      #   Twitter.retweets(28561922516)
       def retweets(tweet, options={})
         id = extract_id(tweet)
         objects_from_response(Twitter::Tweet, :get, "/1.1/statuses/retweets/#{id}.json", options)
@@ -41,8 +39,6 @@ module Twitter
       # @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 100.
       # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       # @option options [Boolean] :ids_only ('false') Only return user ids instead of full user objects.
-      # @example Show up to 100 users who retweeted the Tweet with the ID 28561922516
-      #   Twitter.retweeters_of(28561922516)
       def retweeters_of(tweet, options={})
         ids_only = !!options.delete(:ids_only)
         retweeters = retweets(tweet, options).map(&:user)
@@ -64,8 +60,6 @@ module Twitter
       # @param tweet [Integer, String, URI, Twitter::Tweet] A Tweet ID, URI, or object.
       # @param options [Hash] A customizable set of options.
       # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
-      # @example Return the Tweet with the ID 25938088801
-      #   Twitter.status(25938088801)
       def status(tweet, options={})
         id = extract_id(tweet)
         object_from_response(Twitter::Tweet, :get, "/1.1/statuses/show/#{id}.json", options)
@@ -80,8 +74,6 @@ module Twitter
       # @return [Array<Twitter::Tweet>] The requested Tweets.
       # @overload statuses(*tweets)
       #   @param tweets [Enumerable<Integer, String, URI, Twitter::Tweet>] A collection of Tweet IDs, URIs, or objects.
-      #   @example Return the Tweet with the ID 25938088801
-      #     Twitter.statuses(25938088801)
       # @overload statuses(*tweets, options)
       #   @param tweets [Enumerable<Integer, String, URI, Twitter::Tweet>] A collection of Tweet IDs, URIs, or objects.
       #   @param options [Hash] A customizable set of options.
@@ -100,8 +92,6 @@ module Twitter
       # @return [Array<Twitter::Tweet>] The deleted Tweets.
       # @overload status_destroy(*tweets)
       #   @param tweets [Enumerable<Integer, String, URI, Twitter::Tweet>] A collection of Tweet IDs, URIs, or objects.
-      #   @example Destroy the Tweet with the ID 25938088801
-      #     Twitter.status_destroy(25938088801)
       # @overload status_destroy(*tweets, options)
       #   @param tweets [Enumerable<Integer, String, URI, Twitter::Tweet>] A collection of Tweet IDs, URIs, or objects.
       #   @param options [Hash] A customizable set of options.
@@ -127,8 +117,6 @@ module Twitter
       # @option options [String] :place_id A place in the world. These IDs can be retrieved from {Twitter::API::PlacesAndGeo#reverse_geocode}.
       # @option options [String] :display_coordinates Whether or not to put a pin on the exact coordinates a tweet has been sent from.
       # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
-      # @example Update the authenticating user's status
-      #   Twitter.update("I'm tweeting with @gem!")
       def update(status, options={})
         object_from_response(Twitter::Tweet, :post, "/1.1/statuses/update.json", options.merge(:status => status))
       rescue Twitter::Error::Forbidden => error
@@ -144,8 +132,6 @@ module Twitter
       # @return [Array<Twitter::Tweet>] The original tweets with retweet details embedded.
       # @overload retweet(*tweets)
       #   @param tweets [Enumerable<Integer, String, URI, Twitter::Tweet>] A collection of Tweet IDs, URIs, or objects.
-      #   @example Retweet the Tweet with the ID 28561922516
-      #     Twitter.retweet(28561922516)
       # @overload retweet(*tweets, options)
       #   @param tweets [Enumerable<Integer, String, URI, Twitter::Tweet>] A collection of Tweet IDs, URIs, or objects.
       #   @param options [Hash] A customizable set of options.
@@ -172,8 +158,6 @@ module Twitter
       # @return [Array<Twitter::Tweet>] The original tweets with retweet details embedded.
       # @overload retweet!(*tweets)
       #   @param tweets [Enumerable<Integer, String, URI, Twitter::Tweet>] A collection of Tweet IDs, URIs, or objects.
-      #   @example Retweet the Tweet with the ID 28561922516
-      #     Twitter.retweet!(28561922516)
       # @overload retweet!(*tweets, options)
       #   @param tweets [Enumerable<Integer, String, URI, Twitter::Tweet>] A collection of Tweet IDs, URIs, or objects.
       #   @param options [Hash] A customizable set of options.
@@ -207,8 +191,6 @@ module Twitter
       # @option options [String] :place_id A place in the world. These IDs can be retrieved from {Twitter::API::PlacesAndGeo#reverse_geocode}.
       # @option options [String] :display_coordinates Whether or not to put a pin on the exact coordinates a tweet has been sent from.
       # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
-      # @example Update the authenticating user's status
-      #   Twitter.update_with_media("I'm tweeting with @gem!", File.new('my_awesome_pic.jpeg'))
       def update_with_media(status, media, options={})
         object_from_response(Twitter::Tweet, :post, "/1.1/statuses/update_with_media.json", options.merge('media[]' => media, 'status' => status))
       rescue Twitter::Error::Forbidden => error
@@ -231,8 +213,6 @@ module Twitter
       # @option options [String] :align Specifies whether the embedded Tweet should be left aligned, right aligned, or centered in the page. Valid values are left, right, center, and none. Defaults to none, meaning no alignment styles are specified for the Tweet.
       # @option options [String] :related A value for the TWT related parameter, as described in {https://dev.twitter.com/docs/intents Web Intents}. This value will be forwarded to all Web Intents calls.
       # @option options [String] :lang Language code for the rendered embed. This will affect the text and localization of the rendered HTML.
-      # @example Return oEmbeds for Tweet with the ID 25938088801
-      #   Twitter.status_with_activity(25938088801)
       def oembed(tweet, options={})
         options[:id] = extract_id(tweet)
         object_from_response(Twitter::OEmbed, :get, "/1.1/statuses/oembed.json", options)
@@ -247,8 +227,6 @@ module Twitter
       # @return [Array<Twitter::OEmbed>] OEmbeds for the requested Tweets.
       # @overload oembed(*tweets)
       #   @param tweets [Enumerable<Integer, String, URI, Twitter::Tweet>] A collection of Tweet IDs, URIs, or objects.
-      #   @example Return oEmbeds for Tweets with the ID 25938088801
-      #     Twitter.status_with_activity(25938088801)
       # @overload oembed(*tweets, options)
       #   @param tweets [Enumerable<Integer, String, URI, Twitter::Tweet>] A collection of Tweet IDs, URIs, or objects.
       #   @param options [Hash] A customizable set of options.
@@ -276,13 +254,9 @@ module Twitter
       # @return [Array<Integer>]
       # @overload retweeters_ids(options)
       #   @param options [Hash] A customizable set of options.
-      #   @example Return a collection of up to 100 user IDs belonging to users who have retweeted the tweet specified by the id parameter
-      #     Twitter.retweeters_ids({:id => 25938088801})
       # @overload retweeters_ids(id, options={})
       #   @param tweet [Integer, String, URI, Twitter::Tweet] A Tweet ID, URI, or object.
       #   @param options [Hash] A customizable set of options.
-      #   @example Return a collection of up to 100 user IDs belonging to users who have retweeted the tweet specified by the id parameter
-      #     Twitter.retweeters_ids(25938088801)
       def retweeters_ids(*args)
         arguments = Twitter::API::Arguments.new(args)
         arguments.options[:id] ||= extract_id(arguments.first)

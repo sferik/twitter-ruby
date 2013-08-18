@@ -21,8 +21,6 @@ module Twitter
       # @option options [Integer] :max_id Returns results with an ID less than (that is, older than) or equal to the specified ID.
       # @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 200.
       # @option options [Integer] :page Specifies the page of results to retrieve.
-      # @example Return the 20 most recent direct messages sent to the authenticating user
-      #   Twitter.direct_messages_received
       def direct_messages_received(options={})
         objects_from_response(Twitter::DirectMessage, :get, "/1.1/direct_messages.json", options)
       end
@@ -40,8 +38,6 @@ module Twitter
       # @option options [Integer] :max_id Returns results with an ID less than (that is, older than) or equal to the specified ID.
       # @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 200.
       # @option options [Integer] :page Specifies the page of results to retrieve.
-      # @example Return the 20 most recent direct messages sent by the authenticating user
-      #   Twitter.direct_messages_sent
       def direct_messages_sent(options={})
         objects_from_response(Twitter::DirectMessage, :get, "/1.1/direct_messages/sent.json", options)
       end
@@ -56,8 +52,6 @@ module Twitter
       # @return [Twitter::DirectMessage] The requested messages.
       # @param id [Integer] A direct message ID.
       # @param options [Hash] A customizable set of options.
-      # @example Return the direct message with the id 1825786345
-      #   Twitter.direct_message(1825786345)
       def direct_message(id, options={})
         options[:id] = id
         object_from_response(Twitter::DirectMessage, :get, "/1.1/direct_messages/show.json", options)
@@ -77,15 +71,11 @@ module Twitter
       #   @option options [Integer] :max_id Returns results with an ID less than (that is, older than) or equal to the specified ID.
       #   @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 200.
       #   @option options [Integer] :page Specifies the page of results to retrieve.
-      #   @example Return the 20 most recent direct messages sent to the authenticating user
-      #     Twitter.direct_messages
       # @overload direct_messages(*ids)
       #   Returns direct messages
       #
       #   @see https://dev.twitter.com/docs/api/1.1/get/direct_messages/show
       #   @param ids [Enumerable<Integer>] A collection of direct message IDs.
-      #   @example Return the direct message with the id 1825786345
-      #     Twitter.direct_messages(1825786345)
       # @overload direct_messages(*ids, options)
       #   Returns direct messages
       #
@@ -113,8 +103,6 @@ module Twitter
       # @return [Array<Twitter::DirectMessage>] Deleted direct message.
       # @overload direct_message_destroy(*ids)
       #   @param ids [Enumerable<Integer>] A collection of direct message IDs.
-      #   @example Destroys the direct message with the ID 1825785544
-      #     Twitter.direct_message_destroy(1825785544)
       # @overload direct_message_destroy(*ids, options)
       #   @param ids [Enumerable<Integer>] A collection of direct message IDs.
       #   @param options [Hash] A customizable set of options.
@@ -132,9 +120,6 @@ module Twitter
       # @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, URI, or object.
       # @param text [String] The text of your direct message, up to 140 characters.
       # @param options [Hash] A customizable set of options.
-      # @example Send a direct message to @sferik from the authenticating user
-      #   Twitter.direct_message_create('sferik', "I'm sending you this message via @gem!")
-      #   Twitter.direct_message_create(7505382, "I'm sending you this message via @gem!")  # Same as above
       def direct_message_create(user, text, options={})
         merge_user!(options, user)
         options[:text] = text

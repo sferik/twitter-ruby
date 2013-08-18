@@ -21,8 +21,6 @@ module Twitter
       #   @param options [Hash] A customizable set of options.
       #     @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
       #     @return [Twitter::Cursor]
-      #   @example Return users follow followers of @sferik
-      #     Twitter.following_followers_of
       #
       # @overload following_followers_of(user, options={})
       #   Returns users following followers of the authenticated user
@@ -31,9 +29,6 @@ module Twitter
       #   @param options [Hash] A customizable set of options.
       #     @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
       #     @return [Twitter::Cursor]
-      #   @example Return users follow followers of @sferik
-      #     Twitter.following_followers_of('sferik')
-      #     Twitter.following_followers_of(7505382)  # Same as above
       def following_followers_of(*args)
         cursor_from_response_with_user(:users, Twitter::User, :get, "/users/following_followers_of.json", args)
       end
@@ -46,10 +41,8 @@ module Twitter
       # @return [Integer]
       # @param uri [String, URI] A URI.
       # @param options [Hash] A customizable set of options.
-      # @example Return Tweet count for http://twitter.com
-      #   Twitter.tweet_count("http://twitter.com/")
       def tweet_count(uri, options={})
-        connection = Faraday.new("https://cdn.api.twitter.com", @connection_options.merge(:builder => @middleware))
+        connection = Faraday.new("https://cdn.api.twitter.com", connection_options.merge(:builder => middleware))
         connection.get("/1/urls/count.json", options.merge(:url => uri.to_s)).body[:count]
       end
 

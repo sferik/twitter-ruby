@@ -33,8 +33,6 @@ module Twitter
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @param access_token [String, Twitter::Token] The bearer token to revoke.
       # @return [Twitter::Token] The invalidated token. token_type should be nil.
-      # @example Revoke a token
-      #   Twitter.invalidate_token("AAAA%2FAAA%3DAAAAAAAA")
       def invalidate_token(access_token)
         access_token = access_token.access_token if access_token.is_a?(Twitter::Token)
         object_from_response(Twitter::Token, :post, "/oauth2/invalidate_token", :access_token => access_token)
