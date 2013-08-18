@@ -1,7 +1,7 @@
-require 'twitter/rest/api/arguments'
-require 'twitter/rest/api/utils'
+require 'twitter/arguments'
 require 'twitter/error/already_favorited'
 require 'twitter/error/forbidden'
+require 'twitter/rest/api/utils'
 require 'twitter/tweet'
 require 'twitter/user'
 
@@ -30,7 +30,7 @@ module Twitter
         #   @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 100.
         #   @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID.
         def favorites(*args)
-          arguments = Twitter::REST::API::Arguments.new(args)
+          arguments = Twitter::Arguments.new(args)
           if user = arguments.pop
             merge_user!(arguments.options, user)
           end
@@ -70,7 +70,7 @@ module Twitter
         #   @param tweets [Enumerable<Integer, String, URI, Twitter::Tweet>] A collection of Tweet IDs, URIs, or objects.
         #   @param options [Hash] A customizable set of options.
         def favorite(*args)
-          arguments = Twitter::REST::API::Arguments.new(args)
+          arguments = Twitter::Arguments.new(args)
           arguments.flatten.pmap do |tweet|
             id = extract_id(tweet)
             begin
@@ -99,7 +99,7 @@ module Twitter
         #   @param tweets [Enumerable<Integer, String, URI, Twitter::Tweet>] A collection of Tweet IDs, URIs, or objects.
         #   @param options [Hash] A customizable set of options.
         def favorite!(*args)
-          arguments = Twitter::REST::API::Arguments.new(args)
+          arguments = Twitter::Arguments.new(args)
           arguments.flatten.pmap do |tweet|
             id = extract_id(tweet)
             begin

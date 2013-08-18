@@ -1,4 +1,4 @@
-require 'twitter/rest/api/arguments'
+require 'twitter/arguments'
 require 'twitter/rest/api/utils'
 require 'twitter/saved_search'
 
@@ -29,7 +29,7 @@ module Twitter
         #   @param ids [Enumerable<Integer>] A collection of saved search IDs.
         #   @param options [Hash] A customizable set of options.
         def saved_searches(*args)
-          arguments = Twitter::REST::API::Arguments.new(args)
+          arguments = Twitter::Arguments.new(args)
           if arguments.empty?
             objects_from_response(Twitter::SavedSearch, :get, "/1.1/saved_searches/list.json", arguments.options)
           else
@@ -79,7 +79,7 @@ module Twitter
         #   @param ids [Enumerable<Integer>] A collection of saved search IDs.
         #   @param options [Hash] A customizable set of options.
         def saved_search_destroy(*args)
-          arguments = Twitter::REST::API::Arguments.new(args)
+          arguments = Twitter::Arguments.new(args)
           arguments.flatten.pmap do |id|
             object_from_response(Twitter::SavedSearch, :post, "/1.1/saved_searches/destroy/#{id}.json", arguments.options)
           end

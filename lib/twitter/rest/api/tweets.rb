@@ -1,9 +1,9 @@
-require 'twitter/rest/api/arguments'
-require 'twitter/rest/api/utils'
-require 'twitter/error/already_retweeted'
+require 'twitter/arguments'
 require 'twitter/error/already_posted'
+require 'twitter/error/already_retweeted'
 require 'twitter/error/forbidden'
 require 'twitter/oembed'
+require 'twitter/rest/api/utils'
 require 'twitter/tweet'
 
 module Twitter
@@ -138,7 +138,7 @@ module Twitter
         #   @param options [Hash] A customizable set of options.
         #   @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
         def retweet(*args)
-          arguments = Twitter::REST::API::Arguments.new(args)
+          arguments = Twitter::Arguments.new(args)
           arguments.flatten.pmap do |tweet|
             id = extract_id(tweet)
             begin
@@ -164,7 +164,7 @@ module Twitter
         #   @param options [Hash] A customizable set of options.
         #   @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
         def retweet!(*args)
-          arguments = Twitter::REST::API::Arguments.new(args)
+          arguments = Twitter::Arguments.new(args)
           arguments.flatten.pmap do |tweet|
             id = extract_id(tweet)
             begin
@@ -239,7 +239,7 @@ module Twitter
         #   @option options [String] :related A value for the TWT related parameter, as described in {https://dev.twitter.com/docs/intents Web Intents}. This value will be forwarded to all Web Intents calls.
         #   @option options [String] :lang Language code for the rendered embed. This will affect the text and localization of the rendered HTML.
         def oembeds(*args)
-          arguments = Twitter::REST::API::Arguments.new(args)
+          arguments = Twitter::Arguments.new(args)
           arguments.flatten.pmap do |tweet|
             id = extract_id(tweet)
             oembed(id, arguments.options)
@@ -259,7 +259,7 @@ module Twitter
         #   @param tweet [Integer, String, URI, Twitter::Tweet] A Tweet ID, URI, or object.
         #   @param options [Hash] A customizable set of options.
         def retweeters_ids(*args)
-          arguments = Twitter::REST::API::Arguments.new(args)
+          arguments = Twitter::Arguments.new(args)
           arguments.options[:id] ||= extract_id(arguments.first)
           cursor_from_response(:ids, nil, :get, "/1.1/statuses/retweeters/ids.json", arguments.options)
         end
@@ -271,7 +271,7 @@ module Twitter
         # @param args [Array]
         # @return [Array<Twitter::Tweet>]
         def parallel_tweets_from_response(request_method, path, args)
-          arguments = Twitter::REST::API::Arguments.new(args)
+          arguments = Twitter::Arguments.new(args)
           arguments.flatten.pmap do |tweet|
             id = extract_id(tweet)
             object_from_response(Twitter::Tweet, request_method, path + "/#{id}.json", arguments.options)

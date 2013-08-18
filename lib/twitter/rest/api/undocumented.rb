@@ -1,5 +1,5 @@
+require 'twitter/arguments'
 require 'twitter/cursor'
-require 'twitter/rest/api/arguments'
 require 'twitter/rest/api/utils'
 require 'twitter/tweet'
 require 'twitter/user'

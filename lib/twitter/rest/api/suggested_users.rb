@@ -1,4 +1,4 @@
-require 'twitter/rest/api/arguments'
+require 'twitter/arguments'
 require 'twitter/rest/api/utils'
 require 'twitter/suggestion'
 require 'twitter/user'
@@ -25,7 +25,7 @@ module Twitter
         #   @param slug [String] The short name of list or a category.
         #   @param options [Hash] A customizable set of options.
         def suggestions(*args)
-          arguments = Twitter::REST::API::Arguments.new(args)
+          arguments = Twitter::Arguments.new(args)
           if slug = arguments.pop
             object_from_response(Twitter::Suggestion, :get, "/1.1/users/suggestions/#{slug}.json", arguments.options)
           else

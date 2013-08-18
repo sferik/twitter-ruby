@@ -1,5 +1,5 @@
+require 'twitter/arguments'
 require 'twitter/cursor'
-require 'twitter/rest/api/arguments'
 require 'twitter/user'
 require 'uri'
 
@@ -35,7 +35,7 @@ module Twitter
         # @param args [Array]
         # @return [Array<Twitter::User>]
         def parallel_user_objects_from_response(request_method, path, args)
-          arguments = Twitter::REST::API::Arguments.new(args)
+          arguments = Twitter::Arguments.new(args)
           arguments.flatten.pmap do |user|
             object_from_response(Twitter::User, request_method, path, merge_user(arguments.options, user))
           end
@@ -46,7 +46,7 @@ module Twitter
         # @param args [Array]
         # @return [Array<Twitter::User>]
         def user_objects_from_response(request_method, path, args)
-          arguments = Twitter::REST::API::Arguments.new(args)
+          arguments = Twitter::Arguments.new(args)
           merge_user!(arguments.options, arguments.pop || screen_name) unless arguments.options[:user_id] || arguments.options[:screen_name]
           objects_from_response(Twitter::User, request_method, path, arguments.options)
         end
@@ -57,7 +57,7 @@ module Twitter
         # @param args [Array]
         # @return [Array]
         def objects_from_response_with_user(klass, request_method, path, args)
-          arguments = Twitter::REST::API::Arguments.new(args)
+          arguments = Twitter::Arguments.new(args)
           merge_user!(arguments.options, arguments.pop)
           objects_from_response(klass, request_method, path, arguments.options)
         end
@@ -87,7 +87,7 @@ module Twitter
         # @param args [Array]
         # @return [Array]
         def parallel_objects_from_response(klass, request_method, path, args)
-          arguments = Twitter::REST::API::Arguments.new(args)
+          arguments = Twitter::Arguments.new(args)
           arguments.flatten.pmap do |object|
             id = extract_id(object)
             object_from_response(klass, request_method, path, arguments.options.merge(:id => id))
@@ -111,7 +111,7 @@ module Twitter
         # @param args [Array]
         # @return [Twitter::Cursor]
         def cursor_from_response_with_user(collection_name, klass, request_method, path, args)
-          arguments = Twitter::REST::API::Arguments.new(args)
+          arguments = Twitter::Arguments.new(args)
           merge_user!(arguments.options, arguments.pop || screen_name) unless arguments.options[:user_id] || arguments.options[:screen_name]
           cursor_from_response(collection_name, klass, request_method, path, arguments.options)
         end

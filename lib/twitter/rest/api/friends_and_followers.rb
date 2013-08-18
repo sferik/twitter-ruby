@@ -1,8 +1,8 @@
-require 'twitter/rest/api/arguments'
-require 'twitter/rest/api/utils'
+require 'twitter/arguments'
 require 'twitter/cursor'
 require 'twitter/error/forbidden'
 require 'twitter/relationship'
+require 'twitter/rest/api/utils'
 require 'twitter/user'
 
 module Twitter
@@ -64,7 +64,7 @@ module Twitter
         #   @param users [Enumerable<Integer, String, Twitter::User>] A collection of Twitter user IDs, screen names, or objects.
         #   @param options [Hash] A customizable set of options.
         def friendships(*args)
-          arguments = Twitter::REST::API::Arguments.new(args)
+          arguments = Twitter::Arguments.new(args)
           merge_users!(arguments.options, arguments)
           objects_from_response(Twitter::User, :get, "/1.1/friendships/lookup.json", arguments.options)
         end
@@ -109,7 +109,7 @@ module Twitter
         #   @param options [Hash] A customizable set of options.
         #   @option options [Boolean] :follow (false) Enable notifications for the target user.
         def follow(*args)
-          arguments = Twitter::REST::API::Arguments.new(args)
+          arguments = Twitter::Arguments.new(args)
           # Twitter always turns on notifications if the "follow" option is present, even if it's set to false
           # so only send follow if it's true
           arguments.options[:follow] = true if !!arguments.options.delete(:follow)
@@ -137,7 +137,7 @@ module Twitter
         #   @param options [Hash] A customizable set of options.
         #   @option options [Boolean] :follow (false) Enable notifications for the target user.
         def follow!(*args)
-          arguments = Twitter::REST::API::Arguments.new(args)
+          arguments = Twitter::Arguments.new(args)
           # Twitter always turns on notifications if the "follow" option is present, even if it's set to false
           # so only send follow if it's true
           arguments.options[:follow] = true if !!arguments.options.delete(:follow)

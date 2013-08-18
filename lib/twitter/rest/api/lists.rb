@@ -1,10 +1,10 @@
-require 'twitter/rest/api/arguments'
-require 'twitter/rest/api/utils'
+require 'twitter/arguments'
 require 'twitter/core_ext/enumerable'
 require 'twitter/cursor'
 require 'twitter/error/forbidden'
 require 'twitter/error/not_found'
 require 'twitter/list'
+require 'twitter/rest/api/utils'
 require 'twitter/tweet'
 require 'twitter/user'
 
@@ -56,7 +56,7 @@ module Twitter
         #   @option options [Integer] :max_id Returns results with an ID less than (that is, older than) or equal to the specified ID.
         #   @option options [Integer] :count The number of results to retrieve.
         def list_timeline(*args)
-          arguments = Twitter::REST::API::Arguments.new(args)
+          arguments = Twitter::Arguments.new(args)
           merge_list!(arguments.options, arguments.pop)
           merge_owner!(arguments.options, arguments.pop)
           objects_from_response(Twitter::Tweet, :get, "/1.1/lists/statuses.json", arguments.options)
@@ -401,21 +401,21 @@ module Twitter
         # @param args [Array]
         # @return [Array<Twitter::User>]
         def list_from_response(request_method, path, args)
-          arguments = Twitter::REST::API::Arguments.new(args)
+          arguments = Twitter::Arguments.new(args)
           merge_list!(arguments.options, arguments.pop)
           merge_owner!(arguments.options, arguments.pop)
           object_from_response(Twitter::List, request_method, path, arguments.options)
         end
 
         def cursor_from_response_with_list(request_method, path, args)
-          arguments = Twitter::REST::API::Arguments.new(args)
+          arguments = Twitter::Arguments.new(args)
           merge_list!(arguments.options, arguments.pop)
           merge_owner!(arguments.options, arguments.pop)
           cursor_from_response(:users, Twitter::User, request_method, path, arguments.options)
         end
 
         def list_user?(request_method, path, args)
-          arguments = Twitter::REST::API::Arguments.new(args)
+          arguments = Twitter::Arguments.new(args)
           merge_user!(arguments.options, arguments.pop)
           merge_list!(arguments.options, arguments.pop)
           merge_owner!(arguments.options, arguments.pop)
@@ -426,7 +426,7 @@ module Twitter
         end
 
         def list_from_response_with_user(request_method, path, args)
-          arguments = Twitter::REST::API::Arguments.new(args)
+          arguments = Twitter::Arguments.new(args)
           merge_user!(arguments.options, arguments.pop)
           merge_list!(arguments.options, arguments.pop)
           merge_owner!(arguments.options, arguments.pop)
@@ -434,7 +434,7 @@ module Twitter
         end
 
         def list_from_response_with_users(request_method, path, args)
-          arguments = Twitter::REST::API::Arguments.new(args)
+          arguments = Twitter::Arguments.new(args)
           members = arguments.pop
           merge_list!(arguments.options, arguments.pop)
           merge_owner!(arguments.options, arguments.pop)

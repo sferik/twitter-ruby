@@ -1,7 +1,7 @@
+require 'twitter/arguments'
 require 'twitter/core_ext/enumerable'
 require 'twitter/error/not_found'
 require 'twitter/profile_banner'
-require 'twitter/rest/api/arguments'
 require 'twitter/rest/api/utils'
 require 'twitter/settings'
 require 'twitter/user'
@@ -151,7 +151,7 @@ module Twitter
         # @overload block(options={})
         #   @param options [Hash] A customizable set of options.
         def blocked_ids(*args)
-          arguments = Twitter::REST::API::Arguments.new(args)
+          arguments = Twitter::Arguments.new(args)
           merge_user!(arguments.options, arguments.pop)
           cursor_from_response(:ids, nil, :get, "/1.1/blocks/ids.json", arguments.options)
         end
@@ -226,7 +226,7 @@ module Twitter
         #   @option options [Symbol, String] :method Requests users via a GET request instead of the standard POST request if set to ':get'.
         #   @option options [Boolean] :include_entities The tweet entities node will be disincluded when set to false.
         def users(*args)
-          arguments = Twitter::REST::API::Arguments.new(args)
+          arguments = Twitter::Arguments.new(args)
           method = arguments.options.delete(:method) || :post
           arguments.flatten.each_slice(MAX_USERS_PER_REQUEST).pmap do |users|
             objects_from_response(Twitter::User, method, "/1.1/users/lookup.json", merge_users(arguments.options, users))
@@ -252,7 +252,7 @@ module Twitter
         #   @option options [Boolean] :include_entities The tweet entities node will be disincluded when set to false.
         #   @option options [Boolean, String, Integer] :skip_status Do not include user's Tweets when set to true, 't' or 1.
         def user(*args)
-          arguments = Twitter::REST::API::Arguments.new(args)
+          arguments = Twitter::Arguments.new(args)
           if user = arguments.pop
             merge_user!(arguments.options, user)
             object_from_response(Twitter::User, :get, "/1.1/users/show.json", arguments.options)
@@ -372,7 +372,7 @@ module Twitter
         # @overload profile_banner(user, options={})
         #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, URI, or object.
         def profile_banner(*args)
-          arguments = Twitter::REST::API::Arguments.new(args)
+          arguments = Twitter::Arguments.new(args)
           merge_user!(arguments.options, arguments.pop || screen_name) unless arguments.options[:user_id] || arguments.options[:screen_name]
           object_from_response(Twitter::ProfileBanner, :get, "/1.1/users/profile_banner.json", arguments.options)
         end

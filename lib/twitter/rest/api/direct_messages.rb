@@ -1,6 +1,6 @@
-require 'twitter/rest/api/arguments'
-require 'twitter/rest/api/utils'
+require 'twitter/arguments'
 require 'twitter/direct_message'
+require 'twitter/rest/api/utils'
 require 'twitter/user'
 
 module Twitter
@@ -84,7 +84,7 @@ module Twitter
         #   @param ids [Enumerable<Integer>] A collection of direct message IDs.
         #   @param options [Hash] A customizable set of options.
         def direct_messages(*args)
-          arguments = Twitter::REST::API::Arguments.new(args)
+          arguments = Twitter::Arguments.new(args)
           if arguments.empty?
             direct_messages_received(arguments.options)
           else
