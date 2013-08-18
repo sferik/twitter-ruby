@@ -17,8 +17,7 @@ require 'twitter/api/tweets'
 require 'twitter/api/undocumented'
 require 'twitter/api/users'
 require 'twitter/configurable'
-require 'twitter/error/client_error'
-require 'twitter/error/parser_error'
+require 'twitter/error'
 require 'simple_oauth'
 require 'base64'
 require 'uri'
@@ -104,10 +103,8 @@ module Twitter
     def request(method, path, params={}, signature_params=params)
       request_setup = request_setup(method, path, params, signature_params)
       connection.send(method.to_sym, path, params, &request_setup).env
-    rescue Faraday::Error::ClientError
-      raise Twitter::Error::ClientError
-    rescue JSON::ParserError
-      raise Twitter::Error::ParserError
+    rescue Faraday::Error::ClientError, JSON::ParserError
+      raise Twitter::Error
     end
 
     # Returns a Faraday::Connection object

@@ -153,11 +153,11 @@ describe Twitter::Client do
     end
     it "catches Faraday errors" do
       allow(subject).to receive(:connection).and_raise(Faraday::Error::ClientError.new("Oops"))
-      expect{subject.send(:request, :get, "/path")}.to raise_error Twitter::Error::ClientError
+      expect{subject.send(:request, :get, "/path")}.to raise_error Twitter::Error
     end
     it "catches JSON::ParserError errors" do
       allow(subject).to receive(:connection).and_raise(JSON::ParserError.new("unexpected token"))
-      expect{subject.send(:request, :get, "/path")}.to raise_error Twitter::Error::ParserError
+      expect{subject.send(:request, :get, "/path")}.to raise_error Twitter::Error
     end
   end
 

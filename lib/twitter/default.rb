@@ -1,7 +1,6 @@
 require 'faraday'
 require 'faraday/request/multipart'
-require 'twitter/error/client_error'
-require 'twitter/error/server_error'
+require 'twitter/error'
 require 'twitter/request/multipart_with_file'
 require 'twitter/response/parse_json'
 require 'twitter/response/raise_error'
@@ -27,10 +26,8 @@ module Twitter
       builder.use Faraday::Request::Multipart
       # Convert request params to "www-form-urlencoded"
       builder.use Faraday::Request::UrlEncoded
-      # Handle 4xx server responses
-      builder.use Twitter::Response::RaiseError, Twitter::Error::ClientError
-      # Handle 5xx server responses
-      builder.use Twitter::Response::RaiseError, Twitter::Error::ServerError
+      # Handle error responses
+      builder.use Twitter::Response::RaiseError, Twitter::Error
       # Parse JSON response bodies
       builder.use Twitter::Response::ParseJson
       # Set Faraday's HTTP adapter
