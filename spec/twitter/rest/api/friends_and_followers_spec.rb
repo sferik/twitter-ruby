@@ -498,6 +498,26 @@ describe Twitter::REST::API::FriendsAndFollowers do
         expect(a_get("/1.1/friendships/show.json").with(:query => {:source_id => "7505382", :target_id => "14100886"})).to have_been_made
       end
     end
+    context "with URI objects passed" do
+      before do
+        stub_get("/1.1/friendships/show.json").with(:query => {:source_screen_name => "sferik", :target_screen_name => "pengwynn"}).to_return(:body => fixture("following.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      end
+      it "requests the correct resource" do
+        user1 = URI.parse("https://twitter.com/sferik")
+        user2 = URI.parse("https://twitter.com/pengwynn")
+        @client.friendship(user1, user2)
+        expect(a_get("/1.1/friendships/show.json").with(:query => {:source_screen_name => "sferik", :target_screen_name => "pengwynn"})).to have_been_made
+      end
+    end
+    context "with URI strings passed" do
+      before do
+        stub_get("/1.1/friendships/show.json").with(:query => {:source_screen_name => "sferik", :target_screen_name => "pengwynn"}).to_return(:body => fixture("following.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      end
+      it "requests the correct resource" do
+        @client.friendship("https://twitter.com/sferik", "https://twitter.com/pengwynn")
+        expect(a_get("/1.1/friendships/show.json").with(:query => {:source_screen_name => "sferik", :target_screen_name => "pengwynn"})).to have_been_made
+      end
+    end
   end
 
   describe "#friendship?" do
