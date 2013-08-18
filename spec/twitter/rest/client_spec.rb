@@ -171,12 +171,15 @@ describe Twitter::REST::Client do
   end
 
   describe "#bearer_auth_header" do
-    before do
-      @client = Twitter::REST::Client.new(:bearer_token => "BT")
-    end
-
     it "creates the correct auth headers with supplied bearer_token" do
-      authorization = @client.send(:bearer_auth_header)
+      client = Twitter::REST::Client.new(:bearer_token => "BT")
+      authorization = client.send(:bearer_auth_header)
+      expect(authorization).to eq("Bearer BT")
+    end
+    it "creates the correct auth headers with supplied bearer token" do
+      token = Twitter::Token.new(:token_type => "bearer", :access_token => "BT")
+      client = Twitter::REST::Client.new(:bearer_token => token)
+      authorization = client.send(:bearer_auth_header)
       expect(authorization).to eq("Bearer BT")
     end
   end
