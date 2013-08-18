@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.authors = ["Erik Michaels-Ober", "John Nunemaker", "Wynn Netherland", "Steve Richert", "Steve Agalloco"]
   spec.cert_chain  = ['certs/sferik.pem']
   spec.description = %q{A Ruby interface to the Twitter API.}
-  spec.email = ['nunemaker@gmail.com', 'wynn.netherland@gmail.com', 'sferik@gmail.com', 'steve.richert@gmail.com', 'steve.agalloco@gmail.com']
+  spec.email = ["sferik@gmail.com"]
   spec.files = %w(.yardopts CHANGELOG.md CONTRIBUTING.md LICENSE.md README.md Rakefile twitter.gemspec)
   spec.files += Dir.glob("lib/**/*.rb")
   spec.files += Dir.glob("spec/**/*")
