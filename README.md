@@ -29,32 +29,6 @@ Then, install the gem with the high security trust policy:
 
     gem install twitter -P HighSecurity
 
-## Quick Start Guide
-So you want to get up and tweeting as fast as possible?
-
-First, [register your application with Twitter][register].
-
-Then, copy and paste in your OAuth data.
-
-```ruby
-Twitter.configure do |config|
-  config.consumer_key = YOUR_CONSUMER_KEY
-  config.consumer_secret = YOUR_CONSUMER_SECRET
-  config.oauth_token = YOUR_OAUTH_TOKEN
-  config.oauth_token_secret = YOUR_OAUTH_TOKEN_SECRET
-end
-```
-
-That's it! You're ready to Tweet:
-```ruby
-Twitter.update("I'm tweeting with @gem!")
-```
-
-For more examples of how to use the gem, read the [documentation][] or see [Usage Examples][] below.
-
-[register]: https://dev.twitter.com/apps/new
-[Usage Examples]: #usage-examples
-
 ## CLI
 
 Looking for the Twitter command-line interface? It was [removed][] from this
@@ -86,6 +60,20 @@ wiki][apps]!
 [apps]: https://github.com/sferik/twitter/wiki/apps
 
 ## What's New in Version 5?
+### Configuration
+Twitter global configuration has been removed, since it was not threadsafe.
+Instead, you can configure a Twitter::Client by passing it a configuration
+block when it's initialized.
+
+```ruby
+client = Twitter::Client.new do |config|
+  config.consumer_key = YOUR_CONSUMER_KEY
+  config.consumer_secret = YOUR_CONSUMER_SECRET
+  config.oauth_token = YOUR_OAUTH_TOKEN
+  config.oauth_token_secret = YOUR_OAUTH_TOKEN_SECRET
+end
+```
+
 ### Cursors
 The `Twitter::Cursor` class has been completely redesigned with a focus on
 simplicity and performance.
@@ -113,13 +101,13 @@ simplicity and performance.
         Are you at the start of the cursor?
       </td>
       <td>
-        <pre><code lang="ruby">Twitter.friends.first</code></pre>
+        <pre><code lang="ruby">client.friends.first</code></pre>
       </td>
       <td>
         <em>Θ(1)</em>
       </td>
       <td>
-        <pre><code lang="ruby">Twitter.friends.first?</code></pre>
+        <pre><code lang="ruby">client.friends.first?</code></pre>
       </td>
       <td>
         <em>Θ(1)</em>
@@ -130,13 +118,13 @@ simplicity and performance.
         Return your most recent follower.
       </td>
       <td>
-        <pre><code lang="ruby">Twitter.friends.users.first</code></pre>
+        <pre><code lang="ruby">client.friends.users.first</code></pre>
       </td>
       <td>
         <em>Θ(1)</em>
       </td>
       <td>
-        <pre><code lang="ruby">Twitter.friends.first</code></pre>
+        <pre><code lang="ruby">client.friends.first</code></pre>
       </td>
       <td>
         <em>Θ(1)</em>
@@ -147,13 +135,13 @@ simplicity and performance.
         Return an array of all your friends.
       </td>
       <td>
-        <pre><code lang="ruby">Twitter.friends.all</code></pre>
+        <pre><code lang="ruby">client.friends.all</code></pre>
       </td>
       <td>
         <em>Θ(n+1)</em>
       </td>
       <td>
-        <pre><code lang="ruby">Twitter.friends.to_a</code></pre>
+        <pre><code lang="ruby">client.friends.to_a</code></pre>
       </td>
       <td>
         <em>Θ(n)</em>
@@ -164,13 +152,13 @@ simplicity and performance.
         Collect your 20 most recent friends.
       </td>
       <td>
-        <pre><code lang="ruby">Twitter.friends.take(20)</code></pre>
+        <pre><code lang="ruby">client.friends.take(20)</code></pre>
       </td>
       <td>
         <em>Θ(n+1)</em>
       </td>
       <td>
-        <pre><code lang="ruby">Twitter.friends.take(20)</code></pre>
+        <pre><code lang="ruby">client.friends.take(20)</code></pre>
       </td>
       <td>
         <em>Θ(1)</em>
@@ -181,7 +169,7 @@ simplicity and performance.
         Collect your 20 most recent friends (twice).
       </td>
       <td>
-        <pre><code lang="ruby">friends = Twitter.friends
+        <pre><code lang="ruby">friends = client.friends
 2.times.collect do
   friends.take(20)
 end</code></pre>
@@ -190,7 +178,7 @@ end</code></pre>
         <em>Θ(2n+2)</em>
       </td>
       <td>
-        <pre><code lang="ruby">friends = Twitter.friends
+        <pre><code lang="ruby">friends = client.friends
 2.times.collect do
   friends.take(20)
 end</code></pre>
@@ -205,7 +193,7 @@ end</code></pre>
 In the examples above, *n* varies with the number of people the authenticated
 user follows on Twitter. This resource returns up to 20 friends per HTTP GET,
 so if the authenticated user follows 200 people, calling
-`Twitter.friends.take(20)` would make 11 HTTP requests in version 4. In version
+`client.friends.take(20)` would make 11 HTTP requests in version 4. In version
 5, it makes just 1 HTTP request. Keep in mind, eliminating a single HTTP
 request to the Twitter API will reduce the latency of your application by
 [about 500 ms][status].
@@ -213,7 +201,7 @@ request to the Twitter API will reduce the latency of your application by
 [status]: https://dev.twitter.com/status
 
 The last example might seem contrived ("Why would I call
-`Twitter.friends.take(20)` twice?") but it applies to any
+`client.friends.take(20)` twice?") but it applies to any
 [`Enumerable`][enumerable] method you might call on a cursor, including:
 `#all?`, `#collect`, `#count`, `#each`, `#inject`, `#max`, `#min`, `#reject`,
 `#reverse_each`, `#select`, `#sort`, `#sort_by`, and `#to_a`. In version 4,
@@ -248,18 +236,17 @@ this class no longer inherits from `Twitter::Base`. As a result, the `#[]`
 method has been removed.
 
 ### Trend Results
-The `Twitter.trends` method now returns an [`Enumerable`][enumerable]
+The `#trends` method now returns an [`Enumerable`][enumerable]
 `Twitter::TrendResults` object instead of an array. This object provides
 methods to determinte the recency of the trend (`#as_of`), when the trend
 started (`#created_at`), and the location of the trend (`#location`). This data
 was previously unavailable.
 
 ### Geo Results
-Similarly, the `Twitter.reverse_geocode`, `Twitter.geo_search`, and
-`Twitter.similar_places` methods now return an [`Enumerable`][enumerable]
-`Twitter::GeoResults` object instead of an array. This object provides access
-to the  token to create a new place (`#token`), which was previously
-unavailable.
+Similarly, the `#reverse_geocode`, `#geo_search`, and `#similar_places` methods
+now return an [`Enumerable`][enumerable] `Twitter::GeoResults` object instead
+of an array. This object provides access to the token to create a new place
+(`#token`), which was previously unavailable.
 
 ### Tweets
 The `Twitter::Tweet` object has been cleaned up. The following methods have been
@@ -300,7 +287,7 @@ return `nil` if that object was missing. This may have resulted in a
 truthiness of the response, for example:
 
 ```ruby
-status = Twitter.status(55709764298092545)
+status = client.status(55709764298092545)
 if status.place
   # Do something with the Twitter::Place object
 elsif status.geo
@@ -314,7 +301,7 @@ Ruby except `false` and `nil`. For these cases, there are now predicate
 methods:
 
 ```ruby
-status = Twitter.status(55709764298092545)
+status = client.status(55709764298092545)
 if status.place?
   # Do something with the Twitter::Place object
 elsif status.geo?
@@ -350,11 +337,10 @@ error:
 
     Bad Authentication data
 
-Applications that make requests on behalf of a single Twitter user can pass
-global configuration options as a block to the `Twitter.configure` method.
+You can pass configuration options as a block to `Twitter::Client.new`.
 
 ```ruby
-Twitter.configure do |config|
+client = Twitter::Client.new do |config|
   config.consumer_key = YOUR_CONSUMER_KEY
   config.consumer_secret = YOUR_CONSUMER_SECRET
   config.oauth_token = YOUR_OAUTH_TOKEN
@@ -372,70 +358,21 @@ Alternately, you can set the following environment variables:
 After configuration, requests can be made like so:
 
 ```ruby
-Twitter.update("I'm tweeting with @gem!")
+client.update("I'm tweeting with @gem!")
 ```
-
-### Thread Safety
-Applications that make requests on behalf of multiple Twitter users should
-avoid using global configuration. In this case, you may still specify the
-`consumer_key` and `consumer_secret` globally. (In a Rails application, this
-could go in `config/initializers/twitter.rb`.)
-
-```ruby
-Twitter.configure do |config|
-  config.consumer_key = YOUR_CONSUMER_KEY
-  config.consumer_secret = YOUR_CONSUMER_SECRET
-end
-```
-
-Then, for each user's access token/secret pair, instantiate a
-`Twitter::Client`:
-
-```ruby
-erik = Twitter::Client.new(
-  :oauth_token => "Erik's access token",
-  :oauth_token_secret => "Erik's access secret"
-)
-
-john = Twitter::Client.new(
-  :oauth_token => "John's access token",
-  :oauth_token_secret => "John's access secret"
-)
-```
-
-You can now make threadsafe requests as the authenticated user:
-
-```ruby
-Thread.new{erik.update("Tweeting as Erik!")}
-Thread.new{john.update("Tweeting as John!")}
-```
-
-Or, if you prefer, you can specify all configuration options when instantiating
-a `Twitter::Client`:
-
-```ruby
-client = Twitter::Client.new(
-  :consumer_key => "an application's consumer key",
-  :consumer_secret => "an application's consumer secret",
-  :oauth_token => "a user's access token",
-  :oauth_token_secret => "a user's access secret"
-)
-```
-
-This may be useful if you're using multiple consumer key/secret pairs.
 
 ### Middleware
 The Faraday middleware stack is fully configurable and is exposed as a
 `Faraday::Builder` object. You can modify the default middleware in-place:
 
 ```ruby
-Twitter.middleware.insert_after Twitter::Response::RaiseError, CustomMiddleware
+client.middleware.insert_after Twitter::Response::RaiseError, CustomMiddleware
 ```
 
 A custom adapter may be set as part of a custom middleware stack:
 
 ```ruby
-Twitter.middleware = Faraday::Builder.new(
+client.middleware = Faraday::Builder.new(
   &Proc.new do |builder|
     # Specify a middleware stack here
     builder.adapter :some_other_adapter
@@ -445,78 +382,78 @@ Twitter.middleware = Faraday::Builder.new(
 
 ## Usage Examples
 All examples require an authenticated Twitter client. See the section on <a
-href="#configuration">configuration</a> above.
+href="#configuration">configuration</a>.
 
 **Tweet (as the authenticated user)**
 
 ```ruby
-Twitter.update("I'm tweeting with @gem!")
+client.update("I'm tweeting with @gem!")
 ```
 **Follow a user (by screen name or user ID)**
 
 ```ruby
-Twitter.follow("gem")
-Twitter.follow(213747670)
+client.follow("gem")
+client.follow(213747670)
 ```
 **Fetch a user (by screen name or user ID)**
 
 ```ruby
-Twitter.user("gem")
-Twitter.user(213747670)
+client.user("gem")
+client.user(213747670)
 ```
 **Fetch a cursored list of followers with profile details (by screen name or user ID, or by implict authenticated user)**
 
 ```ruby
-Twitter.followers("gem")
-Twitter.followers(213747670)
-Twitter.followers
+client.followers("gem")
+client.followers(213747670)
+client.followers
 ```
 **Fetch a cursored list of friends with profile details (by screen name or user ID, or by implict authenticated user)**
 
 ```ruby
-Twitter.friends("gem")
-Twitter.friends(213747670)
-Twitter.friends
+client.friends("gem")
+client.friends(213747670)
+client.friends
 ```
 
 **Fetch a collection of user_ids that the currently authenticated user does not want to receive retweets from**
 
 ```ruby
-Twitter.no_retweet_ids
+client.no_retweet_ids
 ````
 
 **Fetch the timeline of Tweets by a user**
 
 ```ruby
-Twitter.user_timeline("gem")
-Twitter.user_timeline(213747670)
+client.user_timeline("gem")
+client.user_timeline(213747670)
 ```
 **Fetch the timeline of Tweets from the authenticated user's home page**
 
 ```ruby
-Twitter.home_timeline
+client.home_timeline
 ```
 **Fetch the timeline of Tweets mentioning the authenticated user**
 
 ```ruby
-Twitter.mentions_timeline
+client.mentions_timeline
 ```
 **Fetch a particular Tweet by ID**
 
 ```ruby
-Twitter.status(27558893223)
+client.status(27558893223)
 ```
 **Collect the 3 most recent marriage proposals to @justinbieber**
 
 ```ruby
-Twitter.search("to:justinbieber marry me", :count => 3, :result_type => "recent").collect do |tweet|
+client.search("to:justinbieber marry me", :count => 3, :result_type => "recent").collect do |tweet|
   "#{tweet.user.screen_name}: #{tweet.text}"
 end
 ```
 **Find a Japanese-language Tweet tagged #ruby (excluding retweets)**
 
 ```ruby
-Twitter.search("#ruby -rt", :lang => "ja").first.text
+client.search("#ruby -rt", :lang => "ja").first.text
 ```
 For more usage examples, please see the full [documentation][].
 
