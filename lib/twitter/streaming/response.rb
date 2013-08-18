@@ -10,6 +10,7 @@ module Twitter
 
       def on_headers_complete(headers)
         # TODO: handle response codes
+        p(headers)
       end
 
       def on_body(data)

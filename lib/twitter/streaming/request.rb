@@ -6,7 +6,7 @@ module Twitter
     class Request
       attr_reader :proxy, :options
 
-      def initialize(options = {})
+      def initialize(options={})
         @options = options
         @proxy = Proxy.new(@options.delete(:proxy)) if @options[:proxy]
       end
