@@ -37,18 +37,14 @@ module Twitter
     # @param response_headers [Hash]
     # @param code [Integer]
     # @return [Twitter::Error]
-    def initialize(exception=$!, response_headers={}, code = nil)
+    def initialize(exception=$!, response_headers={}, code=nil)
       @rate_limit = Twitter::RateLimit.new(response_headers)
       @wrapped_exception = exception
       @code = code
-      exception.respond_to?(:backtrace) ? super(exception.message) : super(exception.to_s)
+      exception.respond_to?(:message) ? super(exception.message) : super(exception.to_s)
     end
 
-    def backtrace
-      @wrapped_exception.respond_to?(:backtrace) ? @wrapped_exception.backtrace : super
-    end
-
-    private
+  private
 
     def self.parse_error(body)
       if body.nil?

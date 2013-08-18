@@ -6,18 +6,24 @@ describe Twitter::Error do
     @client = Twitter::REST::Client.new(:consumer_key => "CK", :consumer_secret => "CS", :access_token => "AT", :access_token_secret => "AS")
   end
 
-  describe "#initialize" do
-    it "wraps another error class" do
-      begin
-        raise Faraday::Error::ClientError.new("Oops")
-      rescue Faraday::Error::ClientError
-        begin
-          raise Twitter::Error
-        rescue Twitter::Error => error
-          expect(error.message).to eq("Oops")
-          expect(error.wrapped_exception.class).to eq(Faraday::Error::ClientError)
-        end
-      end
+  describe "#message" do
+    it "returns the message of the wrapped exception" do
+      error = Twitter::Error.new(Faraday::Error::ClientError.new("Oops"))
+      expect(error.message).to eq("Oops")
+    end
+  end
+
+  describe "#rate_limit" do
+    it "returns the wrapped exception" do
+      error = Twitter::Error.new(Faraday::Error::ClientError.new("Oops"))
+      expect(error.rate_limit).to be_a Twitter::RateLimit
+    end
+  end
+
+  describe "#wrapped_exception" do
+    it "returns the wrapped exception" do
+      error = Twitter::Error.new(Faraday::Error::ClientError.new("Oops"))
+      expect(error.wrapped_exception.class).to eq(Faraday::Error::ClientError)
     end
   end
 
@@ -43,24 +49,20 @@ describe Twitter::Error do
             stub_get("/1.1/statuses/user_timeline.json").with(:query => {:screen_name => "sferik"}).to_return(:status => status, :body => body_message)
           end
           it "raises #{exception.name}" do
-            expect{@client.user_timeline("sferik")}.to raise_error { |error|
-              expect(error.code).to be_nil
-            }
+            expect{@client.user_timeline("sferik")}.to raise_error{|error| expect(error.code).to be_nil}
           end
           context "when error code is 187" do
             before do
-              body_message = '{"errors":[{"message":"Client Error","code": 187 }]}'
+              body_message = '{"errors":[{"message":"Client Error","code":187}]}'
               stub_get("/1.1/statuses/user_timeline.json").with(:query => {:screen_name => "sferik"}).to_return(:status => status, :body => body_message)
             end
             it "raises #{exception.name}" do
-              expect{@client.user_timeline("sferik")}.to raise_error { |error|
-                expect(error.code).to eq(187)
-              }
+              expect{@client.user_timeline("sferik")}.to raise_error{|error| expect(error.code).to eq(187)}
             end
           end
         end
       end
     end
-  end
 
+  end
 end
