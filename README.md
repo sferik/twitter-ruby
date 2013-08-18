@@ -67,10 +67,10 @@ block when it's initialized.
 
 ```ruby
 client = Twitter::REST::Client.new do |config|
-  config.consumer_key = YOUR_CONSUMER_KEY
-  config.consumer_secret = YOUR_CONSUMER_SECRET
-  config.oauth_token = YOUR_OAUTH_TOKEN
-  config.oauth_token_secret = YOUR_OAUTH_TOKEN_SECRET
+  config.consumer_key = YOUR_APP_CONSUMER_KEY
+  config.consumer_secret = YOUR_APP_CONSUMER_SECRET
+  config.access_token = A_USER_ACCESS_TOKEN
+  config.access_token_secret = A_USER_ACCESS_SECRET
 end
 ```
 
@@ -341,10 +341,10 @@ You can pass configuration options as a block to `Twitter::REST::Client.new`.
 
 ```ruby
 client = Twitter::REST::Client.new do |config|
-  config.consumer_key = YOUR_CONSUMER_KEY
-  config.consumer_secret = YOUR_CONSUMER_SECRET
-  config.oauth_token = YOUR_OAUTH_TOKEN
-  config.oauth_token_secret = YOUR_OAUTH_TOKEN_SECRET
+  config.consumer_key = YOUR_APP_CONSUMER_KEY
+  config.consumer_secret = YOUR_APP_CONSUMER_SECRET
+  config.access_token = A_USER_ACCESS_TOKEN
+  config.access_token_secret = A_USER_ACCESS_SECRET
 end
 ```
 
@@ -352,8 +352,8 @@ Alternately, you can set the following environment variables:
 
     TWITTER_CONSUMER_KEY
     TWITTER_CONSUMER_SECRET
-    TWITTER_OAUTH_TOKEN
-    TWITTER_OAUTH_TOKEN_SECRET
+    TWITTER_ACCESS_TOKEN
+    TWITTER_ACCESS_TOKEN_SECRET
 
 After configuration, requests can be made like so:
 

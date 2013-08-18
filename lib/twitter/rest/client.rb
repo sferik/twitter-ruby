@@ -51,9 +51,10 @@ module Twitter
       include Twitter::REST::API::Undocumented
       include Twitter::REST::API::Users
 
-      attr_writer :bearer_token, :connection_options, :consumer_key,
-        :consumer_secret, :endpoint, :middleware, :access_token,
-        :access_token_secret
+      attr_writer :access_token, :access_token_secret, :bearer_token,
+        :connection_options, :consumer_key, :consumer_secret, :middleware
+      alias oauth_token= access_token=
+      alias oauth_token_secret= access_token_secret=
 
       ENDPOINT = 'https://api.twitter.com'
 
@@ -69,13 +70,15 @@ module Twitter
 
       # @return [String]
       def access_token
-        @access_token || ENV['TWITTER_access_token']
+        @access_token || ENV['TWITTER_ACCESS_TOKEN'] || ENV['TWITTER_OAUTH_TOKEN']
       end
+      alias oauth_token access_token
 
       # @return [String]
       def access_token_secret
-        @access_token_secret || ENV['TWITTER_access_token_SECRET']
+        @access_token_secret || ENV['TWITTER_ACCESS_TOKEN_SECRET'] || ENV['TWITTER_OAUTH_TOKEN_SECRET']
       end
+      alias oauth_token_secret access_token_secret
 
       # @return [String]
       def bearer_token
