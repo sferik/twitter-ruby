@@ -58,7 +58,11 @@ module Twitter
 
       # @return [String]
       def bearer_token
-        @bearer_token || ENV['TWITTER_BEARER_TOKEN']
+        if instance_variable_defined?(:@bearer_token)
+          @bearer_token
+        else
+          ENV['TWITTER_BEARER_TOKEN']
+        end
       end
 
       def connection_options

@@ -19,23 +19,39 @@ module Twitter
 
     # @return [String]
     def consumer_key
-      @consumer_key || ENV['TWITTER_CONSUMER_KEY']
+      if instance_variable_defined?(:@consumer_key)
+        @consumer_key
+      else
+        ENV['TWITTER_CONSUMER_KEY']
+      end
     end
 
     # @return [String]
     def consumer_secret
-      @consumer_secret || ENV['TWITTER_CONSUMER_SECRET']
+      if instance_variable_defined?(:@consumer_secret)
+        @consumer_secret
+      else
+        ENV['TWITTER_CONSUMER_SECRET']
+      end
     end
 
     # @return [String]
     def access_token
-      @access_token || ENV['TWITTER_ACCESS_TOKEN'] || ENV['TWITTER_OAUTH_TOKEN']
+      if instance_variable_defined?(:@access_token)
+        @access_token
+      else
+        ENV['TWITTER_ACCESS_TOKEN'] || ENV['TWITTER_OAUTH_TOKEN']
+      end
     end
     alias oauth_token access_token
 
     # @return [String]
     def access_token_secret
-      @access_token_secret || ENV['TWITTER_ACCESS_TOKEN_SECRET'] || ENV['TWITTER_OAUTH_TOKEN_SECRET']
+      if instance_variable_defined?(:@access_token_secret)
+        @access_token_secret
+      else
+        ENV['TWITTER_ACCESS_TOKEN_SECRET'] || ENV['TWITTER_OAUTH_TOKEN_SECRET']
+      end
     end
     alias oauth_token_secret access_token_secret
 
