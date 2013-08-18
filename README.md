@@ -280,6 +280,11 @@ been removed:
 * `#updates_count` (use `#tweets_count`)
 * `#translator` (use `#translator?`)
 
+### Errors
+The `Twitter::Error::ClientError` and `Twitter::Error::ServerError` class
+hierarchy has been removed. All errors now inherit directly from
+`Twitter::Error`.
+
 ### Null Objects
 In version 4, methods you would expect to return a `Twitter` object would
 return `nil` if that object was missing. This may have resulted in a
