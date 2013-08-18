@@ -3,7 +3,7 @@ require 'helper'
 describe Twitter::Error do
 
   before do
-    @client = Twitter::Client.new(:consumer_key => "CK", :consumer_secret => "CS", :access_token => "AT", :access_token_secret => "AS")
+    @client = Twitter::REST::Client.new(:consumer_key => "CK", :consumer_secret => "CS", :access_token => "AT", :access_token_secret => "AS")
   end
 
   describe "#initialize" do

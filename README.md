@@ -62,11 +62,11 @@ wiki][apps]!
 ## What's New in Version 5?
 ### Configuration
 Twitter global configuration has been removed, since it was not threadsafe.
-Instead, you can configure a Twitter::Client by passing it a configuration
+Instead, you can configure a Twitter::REST::Client by passing it a configuration
 block when it's initialized.
 
 ```ruby
-client = Twitter::Client.new do |config|
+client = Twitter::REST::Client.new do |config|
   config.consumer_key = YOUR_CONSUMER_KEY
   config.consumer_secret = YOUR_CONSUMER_SECRET
   config.oauth_token = YOUR_OAUTH_TOKEN
@@ -337,10 +337,10 @@ error:
 
     Bad Authentication data
 
-You can pass configuration options as a block to `Twitter::Client.new`.
+You can pass configuration options as a block to `Twitter::REST::Client.new`.
 
 ```ruby
-client = Twitter::Client.new do |config|
+client = Twitter::REST::Client.new do |config|
   config.consumer_key = YOUR_CONSUMER_KEY
   config.consumer_secret = YOUR_CONSUMER_SECRET
   config.oauth_token = YOUR_OAUTH_TOKEN

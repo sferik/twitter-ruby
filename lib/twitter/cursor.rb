@@ -11,7 +11,7 @@ module Twitter
     # @param response [Hash]
     # @param key [String, Symbol] The key to fetch the data from the response
     # @param klass [Class] The class to instantiate objects in the response
-    # @param client [Twitter::Client]
+    # @param client [Twitter::REST::Client]
     # @param request_method [String, Symbol]
     # @param path [String]
     # @param options [Hash]
@@ -25,7 +25,7 @@ module Twitter
     # @param attrs [Hash]
     # @param key [String, Symbol] The key to fetch the data from the response
     # @param klass [Class] The class to instantiate objects in the response
-    # @param client [Twitter::Client]
+    # @param client [Twitter::REST::Client]
     # @param request_method [String, Symbol]
     # @param path [String]
     # @param options [Hash]
