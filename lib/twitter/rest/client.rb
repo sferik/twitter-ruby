@@ -2,7 +2,6 @@ require 'base64'
 require 'faraday'
 require 'faraday/request/multipart'
 require 'json'
-require 'simple_oauth'
 require 'twitter/client'
 require 'twitter/error'
 require 'twitter/error/configuration_error'
@@ -25,7 +24,6 @@ require 'twitter/rest/api/users'
 require 'twitter/rest/request/multipart_with_file'
 require 'twitter/rest/response/parse_json'
 require 'twitter/rest/response/raise_error'
-require 'uri'
 
 module Twitter
   module REST
@@ -65,7 +63,8 @@ module Twitter
       end
 
       def connection_options
-        @connection_options ||= {
+        {
+          :builder => middleware,
           :headers => {
             :accept => 'application/json',
             :user_agent => user_agent,
@@ -147,7 +146,7 @@ module Twitter
             @bearer_token = token unless bearer_token?
             request.headers[:authorization] = bearer_auth_header
           else
-            request.headers[:authorization] = oauth_auth_header(method, path, signature_params).to_s
+            request.headers[:authorization] = oauth_auth_header(method, ENDPOINT + path, signature_params).to_s
           end
         end
       end
@@ -163,7 +162,7 @@ module Twitter
       #
       # @return [Faraday::Connection]
       def connection
-        @connection ||= Faraday.new(ENDPOINT, connection_options.merge(:builder => middleware))
+        @connection ||= Faraday.new(ENDPOINT, connection_options)
       end
 
       # Generates authentication header for a bearer token request
@@ -180,11 +179,6 @@ module Twitter
         else
           "Bearer #{bearer_token}"
         end
-      end
-
-      def oauth_auth_header(method, path, params={})
-        uri = ::URI.parse(ENDPOINT + path)
-        SimpleOAuth::Header.new(method, uri, params, credentials)
       end
 
     end

@@ -133,7 +133,7 @@ describe Twitter::REST::Client do
 
   describe "#oauth_auth_header" do
     it "creates the correct auth headers" do
-      uri = "/1.1/direct_messages.json"
+      uri = Twitter::REST::Client::ENDPOINT + "/1.1/direct_messages.json"
       authorization = @client.send(:oauth_auth_header, :get, uri)
       expect(authorization.options[:signature_method]).to eq("HMAC-SHA1")
       expect(authorization.options[:version]).to eq("1.0")

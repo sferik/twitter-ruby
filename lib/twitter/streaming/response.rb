@@ -3,7 +3,7 @@ require 'buftok'
 module Twitter
   module Streaming
     class Response
-      def initialize(block)
+      def initialize(&block)
         @block     = block
         @tokenizer = BufferedTokenizer.new("\r\n")
       end

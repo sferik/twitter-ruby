@@ -5,8 +5,6 @@ require 'twitter/version'
 
 Gem::Specification.new do |spec|
   spec.add_dependency 'buftok', '~> 0.1.0'
-  spec.add_dependency 'celluloid', '~> 0.14.0'
-  spec.add_dependency 'celluloid-io', '~> 0.14.0'
   spec.add_dependency 'faraday', ['~> 0.8', '< 0.10']
   spec.add_dependency 'http_parser.rb', '~> 0.5'
   spec.add_dependency 'simple_oauth', '~> 0.2'

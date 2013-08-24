@@ -1,4 +1,6 @@
+require 'simple_oauth'
 require 'twitter/version'
+require 'uri'
 
 module Twitter
   class Client
@@ -93,6 +95,11 @@ module Twitter
         next if value.nil?
         raise(Error::ConfigurationError, "Invalid #{credential} specified: #{value.inspect} must be a string or symbol.") unless value.is_a?(String) || value.is_a?(Symbol)
       end
+    end
+
+    def oauth_auth_header(method, uri, params={})
+      uri = URI.parse(uri)
+      SimpleOAuth::Header.new(method, uri, params, credentials)
     end
 
   end

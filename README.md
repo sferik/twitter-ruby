@@ -67,12 +67,27 @@ block when it's initialized.
 
 ```ruby
 client = Twitter::REST::Client.new do |config|
-  config.consumer_key = YOUR_APP_CONSUMER_KEY
-  config.consumer_secret = YOUR_APP_CONSUMER_SECRET
-  config.access_token = A_USER_ACCESS_TOKEN
-  config.access_token_secret = A_USER_ACCESS_SECRET
+  config.consumer_key = "YOUR_CONSUMER_KEY"
+  config.consumer_secret = "YOUR_CONSUMER_SECRET"
+  config.access_token = "YOUR_ACCESS_TOKEN"
+  config.access_token_secret = "YOUR_ACCESS_SECRET"
 end
 ```
+
+### Streaming
+This library now supports the [Twitter Streaming API][streaming], in addition
+to the REST API.
+
+```ruby
+client = Twitter::Streaming::Client.new do |config|
+  config.consumer_key = "YOUR_CONSUMER_KEY"
+  config.consumer_secret = "YOUR_CONSUMER_SECRET"
+  config.access_token = "YOUR_ACCESS_TOKEN"
+  config.access_token_secret = "YOUR_ACCESS_SECRET"
+end
+```
+
+[streaming]: https://dev.twitter.com/docs/streaming-apis
 
 ### Cursors
 The `Twitter::Cursor` class has been completely redesigned with a focus on
@@ -461,38 +476,6 @@ end
 client.search("#ruby -rt", :lang => "ja").first.text
 ```
 For more usage examples, please see the full [documentation][].
-
-## Streaming
-To access the Twitter Streaming API, we recommend [TweetStream][].
-
-[tweetstream]: https://github.com/intridea/tweetstream
-
-## Performance
-You can improve performance by loading a faster JSON parsing library. By
-default, JSON will be parsed with [okjson][]. For faster JSON parsing, we
-recommend [Oj][].
-
-[okjson]: https://github.com/ddollar/okjson
-[oj]: https://rubygems.org/gems/oj
-
-## Statistics
-Here are some fun facts about this library:
-
-* It is implemented in just 2,500 lines of Ruby code
-* With over 6,250 lines of specs, the spec-to-code ratio is about 2.5:1
-* The spec suite contains over 900 examples and runs in about 5 seconds
-* It has 100% C0 code coverage (the tests execute every line of
-  source code at least once)
-* It is comprehensive: you can request all documented Twitter REST API
-  resources (over 100 resources)
-* This gem works on every major Ruby implementation, including JRuby and
-  Rubinius
-* The first version was released on November 26, 2006
-* This gem has just two runtime dependencies: `faraday`, and `simple_oauth`
-* Previous versions of this gem have been [downloaded over a million
-  times][stats]
-
-[stats]: https://rubygems.org/gems/twitter
 
 ## Supported Ruby Versions
 This library aims to support and is [tested against][travis] the following Ruby

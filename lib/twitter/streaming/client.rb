@@ -25,148 +25,51 @@ module Twitter
         }
       end
 
-      def firehose(options={}, &block)
-        firehose!(options, &block).value
+      def filter(*args, &block)
+        arguments = Twitter::Arguments.new(args)
+        request({
+          :method => 'POST',
+          :host   => 'stream.twitter.com',
+          :path   => '/1.1/statuses/filter.json',
+          :params => arguments.options,
+        }, &block)
       end
 
-      def firehose!(options={}, &block)
+      def firehose(options={}, &block)
         request({
           :method => 'GET',
           :host   => 'stream.twitter.com',
           :path   => '/1.1/statuses/firehose.json',
           :params => options,
-        }) do |data|
-          begin
-            block.call(Tweet.new(data)) if data[:id]
-          rescue StandardError => error
-            p(data)
-            p(error)
-          end
-        end
-      end
-
-      def follow(*args, &block)
-        follow!(*args, &block).value
-      end
-
-      def follow!(*args, &block)
-        arguments = Twitter::Arguments.new(args)
-        request({
-          :method => 'POST',
-          :host   => 'stream.twitter.com',
-          :path   => '/1.1/statuses/filter.json',
-          :params => arguments.options.merge(:follow => arguments.join(',')),
-        }) do |data|
-          begin
-            block.call(Tweet.new(data)) if data[:id]
-          rescue StandardError => error
-            p(data)
-            p(error)
-          end
-        end
-      end
-
-      def locations(*args, &block)
-        locations!(*args, &block).value
-      end
-
-      def locations!(*args, &block)
-        arguments = Twitter::Arguments.new(args)
-        request({
-          :method => 'POST',
-          :host   => 'stream.twitter.com',
-          :path   => '/1.1/statuses/filter.json',
-          :params => arguments.options.merge(:locations => arguments.join(',')),
-        }) do |data|
-          begin
-            block.call(Tweet.new(data)) if data[:id]
-          rescue StandardError => error
-            p(data)
-            p(error)
-          end
-        end
+        }, &block)
       end
 
       def sample(options={}, &block)
-        sample!(options, &block).value
-      end
-
-      def sample!(options={}, &block)
         request({
           :method => 'GET',
           :host   => 'stream.twitter.com',
           :path   => '/1.1/statuses/sample.json',
           :params => options,
-        }) do |data|
-          begin
-            block.call(Tweet.new(data)) if data[:id]
-          rescue StandardError => error
-            p(data)
-            p(error)
-          end
-        end
+        }, &block)
       end
 
       def site(*args, &block)
-        site!(*args, &block).value
-      end
-
-      def site!(*args, &block)
         arguments = Twitter::Arguments.new(args)
         request({
           :method => 'POST',
           :host   => 'sitestream.twitter.com',
           :path   => '/1.1/site.json',
           :params => arguments.options.merge(:follow => arguments.join(',')),
-        }) do |data|
-          begin
-            block.call(Tweet.new(data)) if data[:id]
-          rescue StandardError => error
-            p(data)
-            p(error)
-          end
-        end
-      end
-
-      def track(*args, &block)
-        track!(*args, &block).value
-      end
-
-      def track!(*args, &block)
-        arguments = Twitter::Arguments.new(args)
-        request({
-          :method => 'POST',
-          :host   => 'stream.twitter.com',
-          :path   => '/1.1/statuses/filter.json',
-          :params => arguments.options.merge(:track => arguments.join(',')),
-        }) do |data|
-          begin
-            block.call(Tweet.new(data)) if data[:id]
-          rescue StandardError => error
-            p(data)
-            p(error)
-          end
-        end
+        }, &block)
       end
 
       def user(options={}, &block)
-        user!(options, &block).value
-      end
-
-      def user!(options={}, &block)
         request({
           :method => 'GET',
           :host   => 'userstream.twitter.com',
           :path   => '/1.1/user.json',
           :params => options,
-        }) do |data|
-          begin
-            block.call(Tweet.new(data)) if data[:id]
-          rescue StandardError => error
-            p(data)
-            p(error)
-          end
-        end
+        }, &block)
       end
 
       # Set a Proc to be run when connection established.
@@ -185,8 +88,10 @@ module Twitter
         on_request.call
         # TODO: consider HTTP::Request
         request  = Twitter::Streaming::Request.new(@request_options.merge(options))
-        response = Twitter::Streaming::Response.new(block)
-        @connection.future.stream(request, response)
+        response = Twitter::Streaming::Response.new do |data|
+          yield(Tweet.new(data)) if data[:id]
+        end
+        @connection.stream(request, response)
       end
 
     end
