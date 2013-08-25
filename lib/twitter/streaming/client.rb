@@ -1,8 +1,7 @@
+require 'http'
 require 'twitter/arguments'
 require 'twitter/client'
 require 'twitter/streaming/connection'
-require 'twitter/streaming/proxy'
-require 'twitter/streaming/request'
 require 'twitter/streaming/response'
 
 module Twitter
@@ -13,63 +12,28 @@ module Twitter
       def initialize(options={}, &block)
         super
         @connection = Twitter::Streaming::Connection.new
-        @request_options = {
-          :auto_reconnect => true,
-          :content_type   => 'application/x-www-form-urlencoded',
-          :headers        => {},
-          :oauth          => credentials,
-          :port           => 443,
-          :ssl            => true,
-          :timeout        => 0,
-          :user_agent     => user_agent,
-        }
       end
 
       def filter(*args, &block)
         arguments = Twitter::Arguments.new(args)
-        request({
-          :method => 'POST',
-          :host   => 'stream.twitter.com',
-          :path   => '/1.1/statuses/filter.json',
-          :params => arguments.options,
-        }, &block)
+        request(:post, 'https://stream.twitter.com:443/1.1/statuses/filter.json', arguments.options, &block)
       end
 
       def firehose(options={}, &block)
-        request({
-          :method => 'GET',
-          :host   => 'stream.twitter.com',
-          :path   => '/1.1/statuses/firehose.json',
-          :params => options,
-        }, &block)
+        request(:get, 'https://stream.twitter.com:443/1.1/statuses/firehose.json', options, &block)
       end
 
       def sample(options={}, &block)
-        request({
-          :method => 'GET',
-          :host   => 'stream.twitter.com',
-          :path   => '/1.1/statuses/sample.json',
-          :params => options,
-        }, &block)
+        request(:get, 'https://stream.twitter.com:443/1.1/statuses/sample.json', options, &block)
       end
 
       def site(*args, &block)
         arguments = Twitter::Arguments.new(args)
-        request({
-          :method => 'POST',
-          :host   => 'sitestream.twitter.com',
-          :path   => '/1.1/site.json',
-          :params => arguments.options.merge(:follow => arguments.join(',')),
-        }, &block)
+        request(:post, 'https://sitestream.twitter.com:443/1.1/site.json', arguments.options.merge(:follow => arguments.join(',')), &block)
       end
 
       def user(options={}, &block)
-        request({
-          :method => 'GET',
-          :host   => 'userstream.twitter.com',
-          :path   => '/1.1/user.json',
-          :params => options,
-        }, &block)
+        request(:get, 'https://userstream.twitter.com:443/1.1/user.json', options, &block)
       end
 
       # Set a Proc to be run when connection established.
@@ -84,14 +48,21 @@ module Twitter
         end
       end
 
-      def request(options, &block)
+      def request(method, uri, params, &block)
         on_request.call
-        # TODO: consider HTTP::Request
-        request  = Twitter::Streaming::Request.new(@request_options.merge(options))
+        headers  = default_headers.merge(:authorization => oauth_auth_header(method, uri, params).to_s)
+        request  = HTTP::Request.new(method, uri, headers)
         response = Twitter::Streaming::Response.new do |data|
           yield(Tweet.new(data)) if data[:id]
         end
         @connection.stream(request, response)
+      end
+
+      def default_headers
+        @default_headers ||= {
+          :accept     => 'application/json',
+          :user_agent => user_agent,
+        }
       end
 
     end
