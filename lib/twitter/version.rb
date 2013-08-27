@@ -1,9 +1,9 @@
 module Twitter
   class Version
-    MAJOR = 4 unless defined? Twitter::Version::MAJOR
-    MINOR = 8 unless defined? Twitter::Version::MINOR
-    PATCH = 1 unless defined? Twitter::Version::PATCH
-    PRE = nil unless defined? Twitter::Version::PRE
+    MAJOR = 4
+    MINOR = 8
+    PATCH = 1
+    PRE = nil
 
     class << self
 
