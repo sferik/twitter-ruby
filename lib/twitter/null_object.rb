@@ -1,14 +1,14 @@
 require 'singleton'
 
 module Twitter
-  class NullObject
-    include Singleton
+  class NullObject < BasicObject
+    include ::Singleton
 
     def nil?
       true
     end
 
-    def method_missing(*args, &block)
+    def method_missing(method_name, *args, &block)
       self
     end
 
