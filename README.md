@@ -61,28 +61,43 @@ wiki][apps]!
 
 ## What's New in Version 5?
 ### Configuration
-Twitter global configuration has been removed, since it was not threadsafe.
-Instead, you can configure a Twitter::REST::Client by passing it a configuration
-block when it's initialized.
+Global configuration has been removed, as it was not threadsafe. Instead, you
+can configure a `Twitter::REST::Client` by passing it a block when it's
+initialized.
 
 ```ruby
 client = Twitter::REST::Client.new do |config|
-  config.consumer_key = "YOUR_CONSUMER_KEY"
-  config.consumer_secret = "YOUR_CONSUMER_SECRET"
-  config.access_token = "YOUR_ACCESS_TOKEN"
+  config.consumer_key        = "YOUR_CONSUMER_KEY"
+  config.consumer_secret     = "YOUR_CONSUMER_SECRET"
+  config.access_token        = "YOUR_ACCESS_TOKEN"
   config.access_token_secret = "YOUR_ACCESS_SECRET"
 end
 ```
+
+Alternately, you can configure a `Twitter::REST::Client` piecemeal, after it
+has been initialized, if that better suits your application:
+
+```ruby
+client = Twitter::REST::Client.new
+client.consumer_key        = "YOUR_CONSUMER_KEY"
+client.consumer_secret     = "YOUR_CONSUMER_SECRET"
+client.access_token        = "YOUR_ACCESS_TOKEN"
+client.access_token_secret = "YOUR_ACCESS_SECRET"
+```
+
+Note: `oauth_token` has been renamed to `access_token` and `oauth_token_secret`
+is now `access_token_secret` to conform to the terminology used in Twitter's
+developer documentation.
 
 ### Streaming
 This library now supports the [Twitter Streaming API][streaming], in addition
 to the REST API.
 
 ```ruby
-client = Twitter::Streaming::Client.new do |config|
-  config.consumer_key = "YOUR_CONSUMER_KEY"
-  config.consumer_secret = "YOUR_CONSUMER_SECRET"
-  config.access_token = "YOUR_ACCESS_TOKEN"
+client = Twitter::Streaming::Client.new do
+  config.consumer_key        = "YOUR_CONSUMER_KEY"
+  config.consumer_secret     = "YOUR_CONSUMER_SECRET"
+  config.access_token        = "YOUR_ACCESS_TOKEN"
   config.access_token_secret = "YOUR_ACCESS_SECRET"
 end
 ```
@@ -331,7 +346,7 @@ end
 
 ### URI Methods
 The `Twitter::List`, `Twitter::Tweet`, and `Twitter::User` objects all have a
-`#uri` method, which returnis an HTTPS URI to twitter.com. This clobbers the
+`#uri` method, which returns an HTTPS URI to twitter.com. This clobbers the
 `Twitter::List#uri` method, which previously returned the list URI's path (not
 a URI).
 
