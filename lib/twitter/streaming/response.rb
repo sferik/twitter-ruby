@@ -15,11 +15,10 @@ module Twitter
 
       def on_headers_complete(headers)
         # TODO: handle response codes
-        p(status_code: @parser.status_code, header: headers)
+        p(status_code: @parser.status_code, header: headers) unless @parser.status_code == 200
       end
 
       def on_body(data)
-        p(data: data)
         @tokenizer.extract(data).each do |line|
           next if line.empty?
           @block.call(JSON.parse(line, :symbolize_names => true))

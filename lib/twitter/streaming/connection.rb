@@ -15,8 +15,6 @@ module Twitter
         while body = ssl_client.readpartial(1024)
           response << body
         end
-      rescue EOFError
-        puts "Stream ended"
       end
 
     end

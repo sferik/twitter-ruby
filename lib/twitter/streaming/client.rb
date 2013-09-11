@@ -1,4 +1,4 @@
-require 'http'
+require 'http/request'
 require 'twitter/arguments'
 require 'twitter/client'
 require 'twitter/streaming/connection'
@@ -14,9 +14,8 @@ module Twitter
         @connection = Twitter::Streaming::Connection.new
       end
 
-      def filter(*args, &block)
-        arguments = Twitter::Arguments.new(args)
-        request(:post, 'https://stream.twitter.com:443/1.1/statuses/filter.json', arguments.options, &block)
+      def filter(options={}, &block)
+        request(:get, 'https://stream.twitter.com:443/1.1/statuses/filter.json', options, &block)
       end
 
       def firehose(options={}, &block)
@@ -29,7 +28,7 @@ module Twitter
 
       def site(*args, &block)
         arguments = Twitter::Arguments.new(args)
-        request(:post, 'https://sitestream.twitter.com:443/1.1/site.json', arguments.options.merge(:follow => arguments.join(',')), &block)
+        request(:get, 'https://sitestream.twitter.com:443/1.1/site.json', arguments.options.merge(:follow => arguments.join(',')), &block)
       end
 
       def user(options={}, &block)
@@ -48,19 +47,27 @@ module Twitter
         end
       end
 
+    private
+
       def request(method, uri, params, &block)
         on_request.call
         headers  = default_headers.merge(:authorization => oauth_auth_header(method, uri, params).to_s)
-        request  = HTTP::Request.new(method, uri, headers)
+        request  = HTTP::Request.new(method, uri + '?' + to_url_params(params), headers)
         response = Twitter::Streaming::Response.new do |data|
           yield(Tweet.new(data)) if data[:id]
         end
         @connection.stream(request, response)
       end
 
+      def to_url_params(params)
+        params.map do |param, value|
+          [param, URI.encode(value)].join("=")
+        end.sort.join('&')
+      end
+
       def default_headers
         @default_headers ||= {
-          :accept     => 'application/json',
+          :accept     => '*/*',
           :user_agent => user_agent,
         }
       end
