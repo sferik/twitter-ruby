@@ -1,3 +1,4 @@
+# -*- coding: UTF-8 -*-
 require 'helper'
 
 describe Twitter::User do
@@ -65,6 +66,10 @@ describe Twitter::User do
   end
 
   describe "#profile_banner_uri" do
+    it "accepts utf8 urls" do
+      user = Twitter::User.new(:id => 7505382, :profile_banner_url => "https://si0.twimg.com/profile_banners/7505382/1348266581©_normal.png")
+      expect(user.profile_banner_uri).to be_a URI
+    end
     it "returns a URI when profile_banner_url is set" do
       user = Twitter::User.new(:id => 7505382, :profile_banner_url => "https://si0.twimg.com/profile_banners/7505382/1348266581")
       expect(user.profile_banner_uri).to be_a URI
@@ -110,6 +115,10 @@ describe Twitter::User do
   end
 
   describe "#profile_banner_uri_https" do
+    it "accepts utf8 urls" do
+      user = Twitter::User.new(:id => 7505382, :profile_banner_url => "https://si0.twimg.com/profile_banners/7505382/1348266581©_normal.png")
+      expect(user.profile_banner_uri_https).to be_a URI
+    end
     it "returns a URI when profile_banner_url is set" do
       user = Twitter::User.new(:id => 7505382, :profile_banner_url => "https://si0.twimg.com/profile_banners/7505382/1348266581")
       expect(user.profile_banner_uri_https).to be_a URI
@@ -166,6 +175,10 @@ describe Twitter::User do
   end
 
   describe "#profile_image_uri" do
+    it "accepts utf8 urls" do
+      user = Twitter::User.new(:id => 7505382, :profile_image_url_https => "https://si0.twimg.com/profile_images/7505382/1348266581©_normal.png")
+      expect(user.profile_image_uri).to be_a URI
+    end
     it "returns a URI when profile_image_url_https is set" do
       user = Twitter::User.new(:id => 7505382, :profile_image_url_https => "https://a0.twimg.com/profile_images/1759857427/image1326743606_normal.png")
       expect(user.profile_image_uri).to be_a URI
@@ -207,6 +220,10 @@ describe Twitter::User do
   end
 
   describe "#profile_image_uri_https" do
+    it "accepts utf8 urls" do
+      user = Twitter::User.new(:id => 7505382, :profile_image_url_https => "https://si0.twimg.com/profile_images/7505382/1348266581©_normal.png")
+      expect(user.profile_image_uri_https).to be_a URI
+    end
     it "returns a URI when profile_image_url_https is set" do
       user = Twitter::User.new(:id => 7505382, :profile_image_url_https => "https://a0.twimg.com/profile_images/1759857427/image1326743606_normal.png")
       expect(user.profile_image_uri_https).to be_a URI
