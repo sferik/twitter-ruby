@@ -89,9 +89,34 @@ Note: `oauth_token` has been renamed to `access_token` and `oauth_token_secret`
 is now `access_token_secret` to conform to the terminology used in Twitter's
 developer documentation.
 
-### Streaming
-This library now supports the [Twitter Streaming API][streaming], in addition
-to the REST API.
+### Streaming (Experimental)
+This library now offers support for the [Twitter Streaming API][streaming]. We
+previously recommended using [TweetStream][] for this, however [TweetStream
+does not work on Ruby 2.0.0][bug].
+
+[streaming]: https://dev.twitter.com/docs/streaming-apis
+[tweetstream]: http://rubygems.org/gems/tweetstream
+[bug]: https://github.com/tweetstream/tweetstream/issues/117
+
+Unlike the rest of this library, this feature is not well tested and not
+recommended for production applications. That said, if you need to do Twitter
+streaming on Ruby 2.0.0, this is probably your best option. I've decided to
+ship it as an experimental feature and make it more robust over time. Patches
+in this area are particularly welcome.
+
+Hopefully, by the time version 6 is released, this gem can fully replace
+[TweetStream][], [em-twitter][], [twitterstream][], and [twitter-stream].
+Special thanks to [Steve Agalloco][spagalloco], [Tim Carey-Smith][halorgium],
+and [Tony Arcieri][tarcieri] for helping to develop this feature.
+
+[em-twitter]: http://rubygems.org/gems/em-twitter
+[twitterstream]: http://rubygems.org/gems/twitterstream
+[twitter-stream]: http://rubygems.org/gems/twitter-stream
+[spagalloco]: https://github.com/spagalloco
+[halorgium]: https://github.com/halorgium
+[tarcieri]: https://github.com/tarcieri
+
+**Configuration works just like `Twitter::REST::Client`**
 
 ```ruby
 client = Twitter::Streaming::Client.new do
@@ -102,7 +127,36 @@ client = Twitter::Streaming::Client.new do
 end
 ```
 
-[streaming]: https://dev.twitter.com/docs/streaming-apis
+**Stream mentions of coffee or tea**
+
+```ruby
+topics = ["coffee", "tea"]
+client.filter(:track => topics.join(",")) do |tweet|
+  puts tweet.text
+end
+```
+
+**Stream a random sample of all tweets**
+
+```ruby
+client.sample do |tweet|
+  puts tweet.text
+end
+```
+
+**Stream tweets for the authenticated user**
+
+```ruby
+client.user do |tweet|
+  puts tweet.text
+end
+```
+
+Currently, this library will only stream tweets. The goal is to eventually
+handle all [streaming message types][messages]. Patches that add support for a
+new message type would be appreciated.
+
+[messages]: https://dev.twitter.com/docs/streaming-apis/messages
 
 ### Cursors
 The `Twitter::Cursor` class has been completely redesigned with a focus on
@@ -362,6 +416,8 @@ Twitter API v1.1 requires you to authenticate via OAuth, so you'll need to
 [register your application with Twitter][register]. Once you've registered an
 application, make sure to set the correct access level, otherwise you may see
 the error:
+
+[register]: https://dev.twitter.com/apps
 
     Read-only application cannot POST
 
