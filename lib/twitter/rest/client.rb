@@ -169,7 +169,7 @@ module Twitter
       #
       # @return [String]
       def bearer_token_credentials_auth_header
-        basic_auth_token = Base64.strict_encode64("#{@consumer_key}:#{@consumer_secret}")
+        basic_auth_token = strict_encode64("#{@consumer_key}:#{@consumer_secret}")
         "Basic #{basic_auth_token}"
       end
 
@@ -179,6 +179,13 @@ module Twitter
         else
           "Bearer #{bearer_token}"
         end
+      end
+
+    private
+
+      # Base64.strict_encode64 is not available on Ruby 1.8.7
+      def strict_encode64(str)
+        Base64.encode64(str).gsub("\n", "")
       end
 
     end

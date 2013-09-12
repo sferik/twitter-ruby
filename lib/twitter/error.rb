@@ -32,8 +32,9 @@ module Twitter
 
     # @return [Hash]
     def self.errors
-      @errors ||= descendants.each_with_object({}) do |klass, hash|
+      @errors ||= descendants.inject({}) do |hash, klass|
         hash[klass::HTTP_STATUS_CODE] = klass
+        hash
       end
     end
 

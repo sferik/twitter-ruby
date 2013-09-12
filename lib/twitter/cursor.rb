@@ -1,3 +1,5 @@
+require 'twitter/core_ext/kernel'
+
 module Twitter
   class Cursor
     include Enumerable
