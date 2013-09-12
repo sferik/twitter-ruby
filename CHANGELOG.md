@@ -1,4 +1,32 @@
-* [Add `Twitter::Error::AlreadyPosted`](…)
+5.0.0
+-----
+* [Remove `Twitter::API::Undocumented#status_activity` and `#statuses_activity`](https://github.com/sferik/twitter/commit/7f970810af251b2fe80c38b30c54485c55bd2034)
+* [Remove `Twitter::Tweet#favoriters`, `#repliers`, `#repliers_count`, and `#retweeters`](https://github.com/sferik/twitter/commit/77cc963381a68e8299ef6c6b7a306b440666d792)
+* [Remove identity map](https://github.com/sferik/twitter/commit/ec7c2df78a200e2b0b1cd3a40983c6ce9dee552d)
+* [Remove `Twitter::Cursor#all`](https://github.com/sferik/twitter/commit/72be4148b973153c6d3044c406b768ad832555ff)
+* [Remove `Twitter::Cursor#collection`](https://github.com/sferik/twitter/commit/9ae4621610ba6c26950e6b77f950f698cdfc8dac)
+* [Remove `Twitter#from_user`](https://github.com/sferik/twitter/commit/d2ae9f1cc1f5224bcdff06cda65fabdf9e7fbcb3)
+* [Remove `ClientError`, `ServerError`, and `ParserError`](https://github.com/sferik/twitter/commit/72843948d8a6f66345adc254fa91cf1097592b22)
+* [Remove global configuration](https://github.com/sferik/twitter/commit/239c5a8462fabb8c8ef9ec6a4cdded34561d572d)
+* [Replace `multi_json` with `json`](https://github.com/sferik/twitter/commit/e5fc292fee078567664acf6be4ed31a8ad077780)
+* [Rename `oauth_token` to `access_token`](https://github.com/sferik/twitter/commit/d360f8015c487c4599460abd0dd0bc7e59a522a3)
+* [Move `Twitter::Arguments` out of `REST::API` namespace](https://github.com/sferik/twitter/commit/8faa15309d906dd46fccc1b914ea4aa7a5da7c2d)
+* [Move `Twitter::Client` into `REST` namespace](https://github.com/sferik/twitter/commit/5b8c3fd243227888fc0886b0bf864ecd3a018f99)
+* [Add `Twitter::Streaming::Client`](https://github.com/sferik/twitter/commit/23afe90aa494229a4389c3e51f753102b34fc551)
+* [Add `Twitter::Error::AlreadyPosted`](https://github.com/sferik/twitter/commit/e11d2a27dd0dfbbe16c812a81b9c2ab2852a7790)
+* [Add `#url` methods to `Twitter::List`, `Twitter::Tweet`, and `Twitter::User`](https://github.com/sferik/twitter/commit/a89ec0f4e81097cc303b6c204e0375eb57ffd614)
+* [Add `Twitter::Place#contained_within` and `#contained_within?`](https://github.com/sferik/twitter/commit/23cc247bd20001ecbafa544bfb4546bdfc630429)
+* [Add `Twitter::GeoResults`](https://github.com/sferik/twitter/commit/be1a0a1425a6700267aae0f94a8835bff24dad56)
+* [Add `NullObject`](https://github.com/sferik/twitter/commit/17880f491726cee77c1cbcf914887e95d5e6ae7e)
+* [Add predicate methods for any possible `NullObject`](https://github.com/sferik/twitter/commit/eac5522edededacfc2a22d6f6879da43b8136d41)
+* [Always return `URI` instead of `String`](https://github.com/sferik/twitter/commit/341f68d1a46667a820754d30ffa6ec2f50034afc)
+* [Allow `URI` as argument](https://github.com/sferik/twitter/commit/c207567e674f108e4074e12c9e7343fb74e8a97c)
+* [Allow `String` in addition to `URI` objects](https://github.com/sferik/twitter/commit/89a46fbd3560109da87d5f87262dcf6bd2a336c6)
+* [Collection caching](https://github.com/sferik/twitter/commit/d484d7d7d7a0956f9b4fa6791a911ed7c9522cba)
+* [Memoize result within `Twitter::Base#new_or_null_object`](https://github.com/sferik/twitter/commit/45dd18a9feadbb56a60cea76424dd466d3e80c5e)
+* [Implement `Twitter::Cursor#each` without making an extra HTTP request](https://github.com/sferik/twitter/commit/8eeff57f5c6d6ca0a6f1ff5ebc31e652a71fc150)
+* [Make `Twitter::SearchResults` enumerable](https://github.com/sferik/twitter/commit/d5ce8537164912e79dffc5a054ecd9ae6ecb8075)
+* [Fix `Twitter::SearchResults#rpp` return value](https://github.com/sferik/twitter/commit/28d73200490ac2755c3e68d8d273fbc64a8d7066)
 
 4.8.1
 -----
