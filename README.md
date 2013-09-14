@@ -119,7 +119,7 @@ and [Tony Arcieri][tarcieri] for helping to develop this feature.
 **Configuration works just like `Twitter::REST::Client`**
 
 ```ruby
-client = Twitter::Streaming::Client.new do
+client = Twitter::Streaming::Client.new do |config|
   config.consumer_key        = "YOUR_CONSUMER_KEY"
   config.consumer_secret     = "YOUR_CONSUMER_SECRET"
   config.access_token        = "YOUR_ACCESS_TOKEN"
@@ -432,10 +432,10 @@ You can pass configuration options as a block to `Twitter::REST::Client.new`.
 
 ```ruby
 client = Twitter::REST::Client.new do |config|
-  config.consumer_key = YOUR_APP_CONSUMER_KEY
-  config.consumer_secret = YOUR_APP_CONSUMER_SECRET
-  config.access_token = A_USER_ACCESS_TOKEN
-  config.access_token_secret = A_USER_ACCESS_SECRET
+  config.consumer_key        = "YOUR_CONSUMER_KEY"
+  config.consumer_secret     = "YOUR_CONSUMER_SECRET"
+  config.access_token        = "YOUR_ACCESS_TOKEN"
+  config.access_token_secret = "YOUR_ACCESS_SECRET"
 end
 ```
 
