@@ -1,4 +1,3 @@
-# coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'twitter/version'
@@ -6,7 +5,7 @@ require 'twitter/version'
 Gem::Specification.new do |spec|
   spec.add_dependency 'buftok', '~> 0.1.0'
   spec.add_dependency 'faraday', ['>= 0.8', '< 0.10']
-  spec.add_dependency 'http', ['>= 0.5.0.pre2', '< 0.6']
+  spec.add_dependency 'http', '~> 0.5.0'
   spec.add_dependency 'http_parser.rb', '~> 0.5.0'
   spec.add_dependency 'json', '~> 1.8'
   spec.add_dependency 'simple_oauth', '~> 0.2.0'
