@@ -1,5 +1,5 @@
 module Twitter
-  class Factory
+  class Creator
 
     def self.new(method, klass, attrs={})
       type = attrs.delete(method.to_sym)

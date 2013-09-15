@@ -1,9 +1,9 @@
-require 'twitter/factory'
+require 'twitter/creator'
 require 'twitter/geo/point'
 require 'twitter/geo/polygon'
 
 module Twitter
-  class GeoFactory < Twitter::Factory
+  class GeoCreator < Twitter::Creator
 
     # Construct a new geo object
     #

@@ -1,8 +1,8 @@
-require 'twitter/factory'
+require 'twitter/creator'
 require 'twitter/media/photo'
 
 module Twitter
-  class MediaFactory < Twitter::Factory
+  class MediaCreator < Twitter::Creator
 
     # Construct a new media object
     #
