@@ -36,12 +36,12 @@ module Twitter
       end
 
       # Set a Proc to be run when connection established.
-      def on_request(&block)
+      def before_request(&block)
         if block_given?
-          @on_request = block
+          @before_request = block
           self
-        elsif instance_variable_defined?(:@on_request)
-          @on_request
+        elsif instance_variable_defined?(:@before_request)
+          @before_request
         else
           Proc.new {}
         end
@@ -50,7 +50,7 @@ module Twitter
     private
 
       def request(method, uri, params, &block)
-        on_request.call
+        before_request.call
         headers  = default_headers.merge(:authorization => oauth_auth_header(method, uri, params).to_s)
         request  = HTTP::Request.new(method, uri + '?' + to_url_params(params), headers)
         response = Twitter::Streaming::Response.new do |data|
