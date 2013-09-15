@@ -14,7 +14,7 @@ module Twitter
     # @param options [Hash]
     # @return [Twitter::REST::Client]
     def initialize(options={})
-      options.each do |key, value|
+      for key, value in options
         send(:"#{key}=", value)
       end
       yield self if block_given?
@@ -91,7 +91,7 @@ module Twitter
     # @raise [Twitter::Error::ConfigurationError] Error is raised when
     #   supplied twitter credentials are not a String or Symbol.
     def validate_credential_type!
-      credentials.each do |credential, value|
+      for credential, value in credentials
         next if value.nil?
         raise(Error::ConfigurationError, "Invalid #{credential} specified: #{value.inspect} must be a string or symbol.") unless value.is_a?(String) || value.is_a?(Symbol)
       end

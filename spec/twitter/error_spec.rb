@@ -27,9 +27,9 @@ describe Twitter::Error do
     end
   end
 
-  Twitter::Error.errors.each do |status, exception|
+  for status, exception in Twitter::Error.errors
 
-    [nil, "error", "errors"].each do |body|
+    for body in [nil, "error", "errors"]
       context "when HTTP status is #{status} and body is #{body.inspect}" do
         before do
           body_message = '{"' + body + '":"Client Error"}' unless body.nil?

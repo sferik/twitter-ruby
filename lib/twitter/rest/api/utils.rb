@@ -192,7 +192,7 @@ module Twitter
         # @return [Hash]
         def merge_users!(hash, users)
           user_ids, screen_names = [], []
-          users.flatten.each do |user|
+          for user in users.flatten
             case user
             when Integer
               user_ids << user

@@ -5,7 +5,7 @@ module Twitter
     # @return [Enumerator]
     def each(start = 0, &block)
       return to_enum(:each) unless block_given?
-      Array(@collection[start..-1]).each do |element|
+      for element in Array(@collection[start..-1])
         yield element
       end
       self

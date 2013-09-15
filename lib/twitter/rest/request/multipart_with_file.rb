@@ -7,7 +7,7 @@ module Twitter
         CONTENT_TYPE = 'Content-Type'
 
         def call(env)
-          env[:body].each do |key, value|
+          for key, value in env[:body]
             if value.respond_to?(:to_io)
               env[:body][key] = Faraday::UploadIO.new(value, mime_type(value.path), value.path)
             end

@@ -15,7 +15,7 @@ module Twitter
     #
     # @param attrs [Array, Symbol]
     def self.attr_reader(*attrs)
-      attrs.each do |attr|
+      for attr in attrs
         define_attribute_method(attr)
         define_predicate_method(attr)
       end
@@ -35,7 +35,7 @@ module Twitter
     #
     # @param attrs [Array, Symbol]
     def self.uri_attr_reader(*attrs)
-      attrs.each do |uri_key|
+      for uri_key in attrs
         array = uri_key.to_s.split("_")
         index = array.index("uri")
         array[index] = "url"
