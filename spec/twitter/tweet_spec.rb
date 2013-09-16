@@ -57,6 +57,12 @@ describe Twitter::Tweet do
       expect(tweet.entities?).to be_false
     end
 
+    it "returns false if there are blank lists of entities set" do
+      urls_array = []
+      tweet = Twitter::Tweet.new(:id => 28669546014, :entities => {:urls => urls_array})
+      expect(tweet.entities?).to be_false
+    end
+
     it "returns true if there are entities set" do
       urls_array = [
         {

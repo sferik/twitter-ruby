@@ -27,7 +27,9 @@ module Twitter
 
     # @return [Boolean]
     def entities?
-      !@attrs[:entities].nil?
+      return false if @attrs[:entities].nil?
+
+      @attrs[:entities].any? { |k, v| !v.empty? }
     end
 
     def filter_level
