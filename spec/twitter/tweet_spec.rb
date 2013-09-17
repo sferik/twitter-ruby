@@ -58,8 +58,7 @@ describe Twitter::Tweet do
     end
 
     it "returns false if there are blank lists of entities set" do
-      urls_array = []
-      tweet = Twitter::Tweet.new(:id => 28669546014, :entities => {:urls => urls_array})
+      tweet = Twitter::Tweet.new(:id => 28669546014, :entities => {:urls => []})
       expect(tweet.entities?).to be_false
     end
 
