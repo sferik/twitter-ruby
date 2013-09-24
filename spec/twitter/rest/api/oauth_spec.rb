@@ -18,10 +18,7 @@ describe Twitter::REST::API::OAuth do
     end
     it "requests with the correct headers" do
       @client.token
-      expect(a_request(:post, @oauth2_token_url).with(:headers => {
-          :content_type => "application/x-www-form-urlencoded; charset=UTF-8",
-          :accept => "*/*"
-        })).to have_been_made
+      expect(a_request(:post, @oauth2_token_url).with(:headers => {:content_type => "application/x-www-form-urlencoded; charset=UTF-8", :accept => "*/*"})).to have_been_made
     end
     it "returns the bearer token" do
       bearer_token = @client.token

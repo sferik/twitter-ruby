@@ -124,17 +124,22 @@ module Twitter
 
     private
 
+      # Returns a Faraday::Connection object
+      #
+      # @return [Faraday::Connection]
+      def connection
+        @connection ||= Faraday.new(ENDPOINT, connection_options)
+      end
+
       def request(method, path, params={}, signature_params=params)
         response = connection.send(method.to_sym, path, params) do |request|
-          if params.delete(:bearer_token_request)
+        bearer_token_request = params.delete(:bearer_token_request)
+          if bearer_token_request
+            request.headers[:accept] = '*/*' # It is important we set this, otherwise we get an error.
             request.headers[:authorization] = bearer_token_credentials_auth_header
             request.headers[:content_type] = 'application/x-www-form-urlencoded; charset=UTF-8'
-            request.headers[:accept] = '*/*' # It is important we set this, otherwise we get an error.
-          elsif params.delete(:app_auth) || !user_token?
-            @bearer_token = token unless bearer_token?
-            request.headers[:authorization] = bearer_auth_header
           else
-            request.headers[:authorization] = oauth_auth_header(method, ENDPOINT + path, signature_params).to_s
+            request.headers[:authorization] = auth_token(method, path, params, signature_params)
           end
         end
         response.env
@@ -142,11 +147,13 @@ module Twitter
         raise Twitter::Error
       end
 
-      # Returns a Faraday::Connection object
-      #
-      # @return [Faraday::Connection]
-      def connection
-        @connection ||= Faraday.new(ENDPOINT, connection_options)
+      def auth_token(method, path, params={}, signature_params=params)
+        if !user_token?
+          @bearer_token = token unless bearer_token?
+          bearer_auth_header
+        else
+          oauth_auth_header(method, ENDPOINT + path, signature_params).to_s
+        end
       end
 
       # Generates authentication header for a bearer token request
