@@ -18,6 +18,7 @@ module Twitter
       :profile_use_background_image, :protected, :statuses_count, :time_zone,
       :utc_offset, :verified
     alias favorites_count favourites_count
+    remove_method :favourites_count
     alias profile_background_image_uri profile_background_image_url
     alias profile_background_image_uri_https profile_background_image_url_https
     alias translator? is_translator

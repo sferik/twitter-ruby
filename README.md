@@ -382,6 +382,13 @@ at the beginning:
 * `#saved_search_destroy` is now `#destroy_saved_search`
 * `#status_destroy` is now `#destroy_status`
 
+### Remove British English aliases
+Earlier versions of this library aliased `favourites` to `favorites`. These
+aliases have been removed. Ruby is implemented in American English. The
+`initialize` method is spelled with a "z", not an "s", and Ruby provides no
+alias. Likewise, this library does not provide aliases for Commonwealthers.
+Merica. :us:
+
 ### Errors
 The `Twitter::Error::ClientError` and `Twitter::Error::ServerError` class
 hierarchy has been removed. All errors now inherit directly from

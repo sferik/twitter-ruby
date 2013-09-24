@@ -7,12 +7,7 @@ module Twitter
       :in_reply_to_attrs_id, :in_reply_to_status_id, :in_reply_to_user_id,
       :lang, :retweet_count, :retweeted, :source, :text, :truncated
     alias favorites_count favorite_count
-    alias favourite_count favorite_count
-    alias favourites_count favorite_count
     alias favoriters_count favorite_count
-    alias favouriters_count favorite_count
-    alias favourited favorited
-    alias favourited? favorited?
     alias in_reply_to_tweet_id in_reply_to_status_id
     alias retweeters_count retweet_count
     object_attr_reader :GeoCreator, :geo
