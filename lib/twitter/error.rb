@@ -53,12 +53,16 @@ module Twitter
         elsif body[:error]
           [body[:error], nil]
         elsif body[:errors]
-          first = Array(body[:errors]).first
-          if first.is_a?(Hash)
-            [first[:message].chomp, first[:code]]
-          else
-            [first.chomp, nil]
-          end
+          extract_message_from_errors(body)
+        end
+      end
+
+      def extract_message_from_errors(body)
+        first = Array(body[:errors]).first
+        if first.is_a?(Hash)
+          [first[:message].chomp, first[:code]]
+        else
+          [first.chomp, nil]
         end
       end
 
