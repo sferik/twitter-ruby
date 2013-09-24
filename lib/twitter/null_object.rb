@@ -1,8 +1,5 @@
-require 'singleton'
-
 module Twitter
   class NullObject
-    include Singleton
 
     def nil?
       true
