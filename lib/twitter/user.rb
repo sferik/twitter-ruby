@@ -1,4 +1,5 @@
 require 'twitter/basic_user'
+require 'twitter/core_ext/uri'
 require 'twitter/creatable'
 
 module Twitter
@@ -39,7 +40,7 @@ module Twitter
     # @param size [String, Symbol] The size of the image. Must be one of: 'mobile', 'mobile_retina', 'web', 'web_retina', 'ipad', or 'ipad_retina'
     # @return [String]
     def profile_banner_uri(size=:web)
-      parse_encoded_uri(insecure_uri([@attrs[:profile_banner_url], size].join('/'))) if @attrs[:profile_banner_url]
+      parse_escaped_uri(insecure_uri([@attrs[:profile_banner_url], size].join('/'))) if @attrs[:profile_banner_url]
     end
     alias profile_banner_url profile_banner_uri
 
@@ -48,7 +49,7 @@ module Twitter
     # @param size [String, Symbol] The size of the image. Must be one of: 'mobile', 'mobile_retina', 'web', 'web_retina', 'ipad', or 'ipad_retina'
     # @return [String]
     def profile_banner_uri_https(size=:web)
-      parse_encoded_uri([@attrs[:profile_banner_url], size].join('/')) if @attrs[:profile_banner_url]
+      parse_escaped_uri([@attrs[:profile_banner_url], size].join('/')) if @attrs[:profile_banner_url]
     end
     alias profile_banner_url_https profile_banner_uri_https
 
@@ -64,7 +65,7 @@ module Twitter
     # @param size [String, Symbol] The size of the image. Must be one of: 'mini', 'normal', 'bigger' or 'original'
     # @return [String]
     def profile_image_uri(size=:normal)
-      parse_encoded_uri(insecure_uri(profile_image_uri_https(size))) if @attrs[:profile_image_url_https]
+      parse_escaped_uri(insecure_uri(profile_image_uri_https(size))) if @attrs[:profile_image_url_https]
     end
     alias profile_image_url profile_image_uri
 
@@ -79,7 +80,7 @@ module Twitter
       # https://a0.twimg.com/profile_images/1759857427/image1326743606.png
       # https://a0.twimg.com/profile_images/1759857427/image1326743606_mini.png
       # https://a0.twimg.com/profile_images/1759857427/image1326743606_bigger.png
-      parse_encoded_uri(@attrs[:profile_image_url_https].sub(PROFILE_IMAGE_SUFFIX_REGEX, profile_image_suffix(size))) if @attrs[:profile_image_url_https]
+      parse_escaped_uri(@attrs[:profile_image_url_https].sub(PROFILE_IMAGE_SUFFIX_REGEX, profile_image_suffix(size))) if @attrs[:profile_image_url_https]
     end
     alias profile_image_url_https profile_image_uri_https
 
@@ -111,8 +112,8 @@ module Twitter
 
   private
 
-    def parse_encoded_uri(uri)
-      URI.parse(URI.encode(uri))
+    def parse_escaped_uri(uri)
+      URI.parse(URI.parser.escape(uri))
     end
 
     def insecure_uri(uri)

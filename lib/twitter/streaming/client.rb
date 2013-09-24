@@ -1,6 +1,7 @@
 require 'http/request'
 require 'twitter/arguments'
 require 'twitter/client'
+require 'twitter/core_ext/uri'
 require 'twitter/streaming/connection'
 require 'twitter/streaming/response'
 
@@ -61,7 +62,7 @@ module Twitter
 
       def to_url_params(params)
         params.map do |param, value|
-          [param, URI.encode(value)].join("=")
+          [param, URI.parser.escape(value)].join("=")
         end.sort.join('&')
       end
 
