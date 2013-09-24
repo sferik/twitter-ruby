@@ -54,7 +54,7 @@ module Twitter
     def self.define_uri_method(key1, key2)
       define_method(key1) do
         memoize(key1) do
-          ::URI.parse(@attrs[key2]) if @attrs[key2]
+          URI.parse(@attrs[key2]) if @attrs[key2]
         end
       end
     end
@@ -79,7 +79,7 @@ module Twitter
                 Twitter.const_get(klass).new(value.update(key2 => attrs))
               end
             else
-              Twitter::NullObject.instance
+              NullObject.instance
             end
           end
         end

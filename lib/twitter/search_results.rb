@@ -23,7 +23,7 @@ module Twitter
     def initialize(attrs={})
       @attrs = attrs
       @collection = Array(@attrs[:statuses]).map do |tweet|
-        Twitter::Tweet.new(tweet)
+        Tweet.new(tweet)
       end
     end
 

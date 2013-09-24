@@ -10,7 +10,7 @@ module Twitter
     # @raise [ArgumentError] Error raised when supplied argument is missing a :type key.
     # @return [Twitter::Media]
     def self.new(attrs={})
-      super(:type, Twitter::Media, attrs)
+      super(:type, Media, attrs)
     end
 
   end

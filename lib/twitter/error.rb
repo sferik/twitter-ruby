@@ -48,7 +48,7 @@ module Twitter
     # @param code [Integer]
     # @return [Twitter::Error]
     def initialize(exception=$!, response_headers={}, code=nil)
-      @rate_limit = Twitter::RateLimit.new(response_headers)
+      @rate_limit = RateLimit.new(response_headers)
       @wrapped_exception = exception
       @code = code
       exception.respond_to?(:message) ? super(exception.message) : super(exception.to_s)

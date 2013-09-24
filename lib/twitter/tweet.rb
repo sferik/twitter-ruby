@@ -49,7 +49,7 @@ module Twitter
     # @return [Array<Twitter::Entity::Hashtag>]
     def hashtags
       memoize(:hashtags) do
-        entities(Twitter::Entity::Hashtag, :hashtags)
+        entities(Entity::Hashtag, :hashtags)
       end
     end
 
@@ -57,7 +57,7 @@ module Twitter
     # @return [Array<Twitter::Media>]
     def media
       memoize(:media) do
-        entities(Twitter::MediaCreator, :media)
+        entities(MediaCreator, :media)
       end
     end
 
@@ -70,13 +70,13 @@ module Twitter
     # @return [Array<Twitter::Entity::Symbol>]
     def symbols
       memoize(:symbols) do
-        entities(Twitter::Entity::Symbol, :symbols)
+        entities(Entity::Symbol, :symbols)
       end
     end
 
     # @return [String] The URL to the tweet.
     def uri
-      @uri ||= ::URI.parse("https://twitter.com/#{user.screen_name}/status/#{id}")
+      @uri ||= URI.parse("https://twitter.com/#{user.screen_name}/status/#{id}")
     end
     alias url uri
 
@@ -84,7 +84,7 @@ module Twitter
     # @return [Array<Twitter::Entity::URI>]
     def uris
       memoize(:uris) do
-        entities(Twitter::Entity::URI, :urls)
+        entities(Entity::URI, :urls)
       end
     end
     alias urls uris
@@ -93,7 +93,7 @@ module Twitter
     # @return [Array<Twitter::Entity::UserMention>]
     def user_mentions
       memoize(:user_mentions) do
-        entities(Twitter::Entity::UserMention, :user_mentions)
+        entities(Entity::UserMention, :user_mentions)
       end
     end
 

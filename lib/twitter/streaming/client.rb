@@ -11,7 +11,7 @@ module Twitter
 
       def initialize(options={}, &block)
         super
-        @connection = Twitter::Streaming::Connection.new
+        @connection = Streaming::Connection.new
       end
 
       def filter(options={}, &block)
@@ -27,7 +27,7 @@ module Twitter
       end
 
       def site(*args, &block)
-        arguments = Twitter::Arguments.new(args)
+        arguments = Arguments.new(args)
         request(:get, 'https://sitestream.twitter.com:443/1.1/site.json', arguments.options.merge(:follow => arguments.join(',')), &block)
       end
 
@@ -53,7 +53,7 @@ module Twitter
         before_request.call
         headers  = default_headers.merge(:authorization => oauth_auth_header(method, uri, params).to_s)
         request  = HTTP::Request.new(method, uri + '?' + to_url_params(params), headers)
-        response = Twitter::Streaming::Response.new do |data|
+        response = Streaming::Response.new do |data|
           yield(Tweet.new(data)) if data[:id]
         end
         @connection.stream(request, response)

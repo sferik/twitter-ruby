@@ -10,19 +10,19 @@ module Twitter
 
     # @return [URI] The URI to the list members.
     def members_uri
-      @members_uri ||= ::URI.parse("https://twitter.com/#{user.screen_name}/#{slug}/members")
+      @members_uri ||= URI.parse("https://twitter.com/#{user.screen_name}/#{slug}/members")
     end
     alias members_url members_uri
 
     # @return [URI] The URI to the list subscribers.
     def subscribers_uri
-      @subscribers_uri ||= ::URI.parse("https://twitter.com/#{user.screen_name}/#{slug}/subscribers")
+      @subscribers_uri ||= URI.parse("https://twitter.com/#{user.screen_name}/#{slug}/subscribers")
     end
     alias subscribers_url subscribers_uri
 
     # @return [URI] The URI to the list.
     def uri
-      @uri ||= ::URI.parse("https://twitter.com/#{user.screen_name}/#{slug}")
+      @uri ||= URI.parse("https://twitter.com/#{user.screen_name}/#{slug}")
     end
     alias url uri
 

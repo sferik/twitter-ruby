@@ -9,7 +9,7 @@ module Twitter
     def sizes
       memoize(:sizes) do
         Array(@attrs[:sizes]).inject({}) do |object, (key, value)|
-          object[key] = Twitter::Size.new(value)
+          object[key] = Size.new(value)
           object
         end
       end

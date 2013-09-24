@@ -11,7 +11,7 @@ module Twitter
       # @return [Array<Twitter::Size>]
       def sizes
         @sizes ||= Array(@attrs[:sizes]).inject({}) do |object, (key, value)|
-          object[key] = Twitter::Size.new(value)
+          object[key] = Size.new(value)
           object
         end
       end

@@ -25,11 +25,11 @@ module Twitter
     alias tweet? status?
     alias tweeted? status?
 
-    # @return [Array<Twitter::Entity::Url>]
+    # @return [Array<Twitter::Entity::URI>]
     def description_uris
       memoize(:description_urls) do
         Array(@attrs[:entities][:description][:urls]).map do |entity|
-          Twitter::Entity::Url.new(entity)
+          Entity::URI.new(entity)
         end
       end
     end
@@ -93,13 +93,13 @@ module Twitter
 
     # @return [String] The URL to the user.
     def uri
-      @uri ||= ::URI.parse("https://twitter.com/#{screen_name}")
+      @uri ||= URI.parse("https://twitter.com/#{screen_name}")
     end
     alias url uri
 
     # @return [String] The URL to the user's website.
     def website
-      @website ||= ::URI.parse(@attrs[:url]) if @attrs[:url]
+      @website ||= URI.parse(@attrs[:url]) if @attrs[:url]
     end
 
     def website?
@@ -109,7 +109,7 @@ module Twitter
   private
 
     def parse_encoded_uri(uri)
-      ::URI.parse(::URI.encode(uri))
+      URI.parse(URI.encode(uri))
     end
 
     def insecure_uri(uri)

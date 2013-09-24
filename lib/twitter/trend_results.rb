@@ -26,7 +26,7 @@ module Twitter
     def initialize(attrs={})
       @attrs = attrs
       @collection = Array(@attrs[:trends]).map do |trend|
-        Twitter::Trend.new(trend)
+        Trend.new(trend)
       end
     end
 
@@ -44,9 +44,9 @@ module Twitter
     # @return [Twitter::Place, NullObject]
     def location
       @location ||= if location?
-        Twitter::Place.new(@attrs[:locations].first)
+        Place.new(@attrs[:locations].first)
       else
-        Twitter::NullObject.instance
+        NullObject.instance
       end
     end
 

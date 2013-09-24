@@ -10,7 +10,7 @@ module Twitter
     def users
       memoize(:users) do
         Array(@attrs[:users]).map do |user|
-          Twitter::User.new(user)
+          User.new(user)
         end
       end
     end
