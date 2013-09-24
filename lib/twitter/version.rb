@@ -5,9 +5,13 @@ module Twitter
     PATCH = 0
     PRE = "rc.1"
 
-    # @return [String]
-    def self.to_s
-      [MAJOR, MINOR, PATCH, PRE].compact.join('.')
+    class << self
+
+      # @return [String]
+      def to_s
+        [MAJOR, MINOR, PATCH, PRE].compact.join('.')
+      end
+
     end
 
   end

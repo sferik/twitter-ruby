@@ -8,18 +8,22 @@ module Twitter
     alias to_hash attrs
     alias to_hsh attrs
 
-    # Construct a new Cursor object from a response hash
-    #
-    # @param response [Hash]
-    # @param key [String, Symbol] The key to fetch the data from the response
-    # @param klass [Class] The class to instantiate objects in the response
-    # @param client [Twitter::REST::Client]
-    # @param request_method [String, Symbol]
-    # @param path [String]
-    # @param options [Hash]
-    # @return [Twitter::Cursor]
-    def self.from_response(response, key, klass, client, request_method, path, options)
-      new(response[:body], key, klass, client, request_method, path, options)
+    class << self
+
+      # Construct a new Cursor object from a response hash
+      #
+      # @param response [Hash]
+      # @param key [String, Symbol] The key to fetch the data from the response
+      # @param klass [Class] The class to instantiate objects in the response
+      # @param client [Twitter::REST::Client]
+      # @param request_method [String, Symbol]
+      # @param path [String]
+      # @param options [Hash]
+      # @return [Twitter::Cursor]
+      def from_response(response, key, klass, client, request_method, path, options)
+        new(response[:body], key, klass, client, request_method, path, options)
+      end
+
     end
 
     # Initializes a new Cursor

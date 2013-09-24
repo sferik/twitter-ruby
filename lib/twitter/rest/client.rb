@@ -48,9 +48,7 @@ module Twitter
       include Twitter::REST::API::Tweets
       include Twitter::REST::API::Undocumented
       include Twitter::REST::API::Users
-
       attr_writer :bearer_token, :connection_options, :middleware
-
       ENDPOINT = 'https://api.twitter.com'
 
       # @return [String]

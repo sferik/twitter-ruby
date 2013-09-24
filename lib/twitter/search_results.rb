@@ -10,12 +10,16 @@ module Twitter
     alias to_hash attrs
     alias to_hsh attrs
 
-    # Construct a new SearchResults object from a response hash
-    #
-    # @param response [Hash]
-    # @return [Twitter::Base]
-    def self.from_response(response={})
-      new(response[:body])
+    class << self
+
+      # Construct a new SearchResults object from a response hash
+      #
+      # @param response [Hash]
+      # @return [Twitter::Base]
+      def from_response(response={})
+        new(response[:body])
+      end
+
     end
 
     # Initializes a new SearchResults object

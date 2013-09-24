@@ -10,8 +10,12 @@ module Twitter
         DEFAULT_CURSOR = -1
         URI_SUBSTRING = "://"
 
-        def self.included(base)
-          base.extend(ClassMethods)
+        class << self
+
+          def included(base)
+            base.extend(ClassMethods)
+          end
+
         end
 
         module ClassMethods
