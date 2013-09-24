@@ -26,8 +26,8 @@ module Twitter
         #   @param options [Hash] A customizable set of options.
         def suggestions(*args)
           arguments = Twitter::Arguments.new(args)
-          if slug = arguments.pop
-            object_from_response(Twitter::Suggestion, :get, "/1.1/users/suggestions/#{slug}.json", arguments.options)
+          if arguments.last
+            object_from_response(Twitter::Suggestion, :get, "/1.1/users/suggestions/#{arguments.pop}.json", arguments.options)
           else
             objects_from_response(Twitter::Suggestion, :get, "/1.1/users/suggestions.json", arguments.options)
           end

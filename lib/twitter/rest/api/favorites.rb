@@ -31,9 +31,7 @@ module Twitter
         #   @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID.
         def favorites(*args)
           arguments = Twitter::Arguments.new(args)
-          if user = arguments.pop
-            merge_user!(arguments.options, user)
-          end
+          merge_user!(arguments.options, arguments.pop) if arguments.last
           objects_from_response(Twitter::Tweet, :get, "/1.1/favorites/list.json", arguments.options)
         end
         alias favourites favorites

@@ -252,8 +252,8 @@ module Twitter
         #   @option options [Boolean, String, Integer] :skip_status Do not include user's Tweets when set to true, 't' or 1.
         def user(*args)
           arguments = Twitter::Arguments.new(args)
-          if user = arguments.pop
-            merge_user!(arguments.options, user)
+          if arguments.last
+            merge_user!(arguments.options, arguments.pop)
             object_from_response(Twitter::User, :get, "/1.1/users/show.json", arguments.options)
           else
             verify_credentials(arguments.options)

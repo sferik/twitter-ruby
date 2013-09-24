@@ -120,11 +120,7 @@ module Twitter
     end
 
     def profile_image_suffix(size)
-      if :original == size.to_sym
-        "\\1"
-      else
-        "_#{size}\\1"
-      end
+      :original == size.to_sym ? "\\1" : "_#{size}\\1"
     end
 
   end

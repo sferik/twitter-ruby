@@ -47,11 +47,7 @@ module Twitter
 
     # @return [Twitter::Place, NullObject]
     def location
-      if location?
-        Place.new(@attrs[:locations].first)
-      else
-        NullObject.new
-      end
+      location? ? Place.new(@attrs[:locations].first) : NullObject.new
     end
     memoize :location
 

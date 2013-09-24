@@ -55,11 +55,7 @@ module Twitter
 
       # @return [String]
       def bearer_token
-        if instance_variable_defined?(:@bearer_token)
-          @bearer_token
-        else
-          ENV['TWITTER_BEARER_TOKEN']
-        end
+        instance_variable_defined?(:@bearer_token) ? @bearer_token : ENV['TWITTER_BEARER_TOKEN']
       end
 
       def connection_options
@@ -174,11 +170,8 @@ module Twitter
       end
 
       def bearer_auth_header
-        if bearer_token.is_a?(Twitter::Token) && bearer_token.bearer?
-          "Bearer #{bearer_token.access_token}"
-        else
-          "Bearer #{bearer_token}"
-        end
+        token = bearer_token.is_a?(Twitter::Token) && bearer_token.bearer? ? bearer_token.access_token : bearer_token
+        "Bearer #{token}"
       end
 
     private

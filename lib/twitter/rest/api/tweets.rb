@@ -43,11 +43,7 @@ module Twitter
         def retweeters_of(tweet, options={})
           ids_only = !!options.delete(:ids_only)
           retweeters = retweets(tweet, options).map(&:user)
-          if ids_only
-            retweeters.map(&:id)
-          else
-            retweeters
-          end
+          ids_only ? retweeters.map(&:id) : retweeters
         end
 
         # Returns a Tweet
