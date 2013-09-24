@@ -1,3 +1,4 @@
+require 'adamantium'
 require 'forwardable'
 require 'twitter/null_object'
 require 'uri'
@@ -5,6 +6,7 @@ require 'uri'
 module Twitter
   class Base
     extend Forwardable
+    include Adamantium
     attr_reader :attrs
     alias to_h attrs
     alias to_hash attrs
@@ -54,6 +56,7 @@ module Twitter
       define_method(key1) do
         URI.parse(@attrs[key2]) if @attrs[key2]
       end
+      memoize key1
     end
 
     # Dynamically define a method for an attribute
@@ -75,10 +78,11 @@ module Twitter
               Twitter.const_get(klass).new(value.merge(key2 => attrs))
             end
           else
-            NullObject.instance
+            NullObject.new
           end
         end
       end
+      memoize key1
     end
 
     # Dynamically define a predicate method for an attribute
@@ -88,6 +92,7 @@ module Twitter
       define_method(:"#{key1}?") do
         !!@attrs[key2]
       end
+      memoize key1
     end
 
     # Construct an object from a response hash

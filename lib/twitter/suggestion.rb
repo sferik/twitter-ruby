@@ -12,6 +12,7 @@ module Twitter
         User.new(user)
       end
     end
+    memoize :users
 
   end
 end

@@ -1,7 +1,9 @@
+require 'adamantium'
 require 'twitter/enumerable'
 
 module Twitter
   class GeoResults
+    include Adamantium
     include Twitter::Enumerable
     attr_reader :attrs
     alias to_h attrs

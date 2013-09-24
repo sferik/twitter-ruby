@@ -1,9 +1,11 @@
+require 'adamantium'
 require 'twitter/creatable'
 require 'twitter/enumerable'
 require 'twitter/null_object'
 
 module Twitter
   class TrendResults
+    include Adamantium
     include Twitter::Creatable
     include Twitter::Enumerable
     attr_reader :attrs
@@ -34,26 +36,30 @@ module Twitter
     #
     # @return [Time]
     def as_of
-      @as_of ||= Time.parse(@attrs[:as_of]) if @attrs[:as_of]
+      Time.parse(@attrs[:as_of]) if @attrs[:as_of]
     end
+    memoize :as_of
 
     def as_of?
       !!@attrs[:as_of]
     end
+    memoize :as_of?
 
     # @return [Twitter::Place, NullObject]
     def location
-      @location ||= if location?
+      if location?
         Place.new(@attrs[:locations].first)
       else
         NullObject.new
       end
     end
+    memoize :location
 
     # @return [Boolean]
     def location?
       !@attrs[:locations].nil? && !@attrs[:locations].first.nil?
     end
+    memoize :location?
 
   end
 end

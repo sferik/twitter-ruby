@@ -29,10 +29,12 @@ module Twitter
     def entities?
       !@attrs[:entities].nil? && @attrs[:entities].any?{|_, array| !array.empty?}
     end
+    memoize :entities?
 
     def filter_level
       @attrs[:filter_level] || "none"
     end
+    memoize :filter_level
 
     # @return [String]
     # @note May be > 140 characters.
@@ -44,34 +46,40 @@ module Twitter
         text
       end
     end
+    memoize :full_text
 
     # @note Must include entities in your request for this method to work
     # @return [Array<Twitter::Entity::Hashtag>]
     def hashtags
       entities(Entity::Hashtag, :hashtags)
     end
+    memoize :hashtags
 
     # @note Must include entities in your request for this method to work
     # @return [Array<Twitter::Media>]
     def media
       entities(MediaCreator, :media)
     end
+    memoize :media
 
     # @return [Boolean]
     def reply?
       !!@attrs[:in_reply_to_status_id]
     end
+    memoize :reply?
 
     # @note Must include entities in your request for this method to work
     # @return [Array<Twitter::Entity::Symbol>]
     def symbols
       entities(Entity::Symbol, :symbols)
     end
+    memoize :symbols
 
     # @return [String] The URL to the tweet.
     def uri
       URI.parse("https://twitter.com/#{user.screen_name}/status/#{id}")
     end
+    memoize :uri
     alias url uri
 
     # @note Must include entities in your request for this method to work
@@ -79,6 +87,7 @@ module Twitter
     def uris
       entities(Entity::URI, :urls)
     end
+    memoize :uris
     alias urls uris
 
     # @note Must include entities in your request for this method to work
@@ -86,6 +95,7 @@ module Twitter
     def user_mentions
       entities(Entity::UserMention, :user_mentions)
     end
+    memoize :user_mentions
 
   private
 

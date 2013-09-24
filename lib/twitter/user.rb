@@ -31,6 +31,7 @@ module Twitter
         Entity::URI.new(entity)
       end
     end
+    memoize :description_uris
     alias description_urls description_uris
 
     # Return the URL to the user's profile banner image
@@ -85,6 +86,7 @@ module Twitter
     def profile_image_uri?
       !!@attrs[:profile_image_url_https]
     end
+    memoize :profile_image_uri?
     alias profile_image_url? profile_image_uri?
     alias profile_image_uri_https? profile_image_uri?
     alias profile_image_url_https? profile_image_uri?
@@ -93,16 +95,19 @@ module Twitter
     def uri
       URI.parse("https://twitter.com/#{screen_name}")
     end
+    memoize :uri
     alias url uri
 
     # @return [String] The URL to the user's website.
     def website
       URI.parse(@attrs[:url]) if @attrs[:url]
     end
+    memoize :website
 
     def website?
       !!@attrs[:url]
     end
+    memoize :website?
 
   private
 

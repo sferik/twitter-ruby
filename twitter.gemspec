@@ -3,6 +3,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'twitter/version'
 
 Gem::Specification.new do |spec|
+  spec.add_dependency 'adamantium', '~> 0.1.0'
   spec.add_dependency 'buftok', '~> 0.1.0'
   spec.add_dependency 'descendants_tracker', '~> 0.0.1'
   spec.add_dependency 'equalizer', '~> 0.0.7'

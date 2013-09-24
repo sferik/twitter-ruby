@@ -1,5 +1,8 @@
+require 'adamantium'
+
 module Twitter
   class NullObject
+    include Adamantium
 
     def nil?
       true

@@ -12,6 +12,7 @@ module Twitter
         object
       end
     end
+    memoize :sizes
 
   end
 end
