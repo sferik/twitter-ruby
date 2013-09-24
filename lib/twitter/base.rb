@@ -9,7 +9,6 @@ module Twitter
     alias to_h attrs
     alias to_hash attrs
     alias to_hsh attrs
-    def_delegators :attrs, :delete, :update
 
     # Define methods that retrieve the value from attributes
     #
@@ -73,7 +72,7 @@ module Twitter
             else
               attrs = @attrs.dup
               value = attrs.delete(key1)
-              Twitter.const_get(klass).new(value.update(key2 => attrs))
+              Twitter.const_get(klass).new(value.merge(key2 => attrs))
             end
           else
             NullObject.instance

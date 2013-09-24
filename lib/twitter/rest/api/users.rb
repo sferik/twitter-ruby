@@ -31,11 +31,10 @@ module Twitter
         # @option options [String] :lang The language which Twitter should render in for this user. The language must be specified by the appropriate two letter ISO 639-1 representation. Currently supported languages are provided by {https://dev.twitter.com/docs/api/1.1/get/help/languages GET help/languages}.
         def settings(options={})
           request_method = options.size.zero? ? :get : :post
-          settings = object_from_response(Twitter::Settings, request_method, "/1.1/account/settings.json", options)
+          response = send(request_method.to_sym, "/1.1/account/settings.json", options)
           # https://dev.twitter.com/issues/59
-          trend_location = Array(settings.attrs[:trend_location]).first
-          settings.update(:trend_location => trend_location)
-          settings
+          response.update(:trend_location => Array(response[:trend_location]).first)
+          Twitter::Settings.from_response(response)
         end
 
         # Returns the requesting user if authentication was successful, otherwise raises {Twitter::Error::Unauthorized}

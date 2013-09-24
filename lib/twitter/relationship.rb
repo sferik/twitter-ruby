@@ -13,14 +13,5 @@ module Twitter
       @attrs = attrs[:relationship]
     end
 
-    # Update the attributes of a Relationship
-    #
-    # @param attrs [Hash]
-    # @return [Twitter::Relationship]
-    def update(attrs)
-      @attrs.update(attrs[:relationship]) unless attrs[:relationship].nil?
-      self
-    end
-
   end
 end
