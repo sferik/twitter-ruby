@@ -1,9 +1,12 @@
+require 'descendants_tracker'
 require 'twitter/rate_limit'
 
 module Twitter
   # Custom error class for rescuing from all Twitter errors
   class Error < StandardError
     attr_reader :rate_limit, :wrapped_exception, :code
+
+    extend DescendantsTracker
 
     # If error code is missing see https://dev.twitter.com/docs/error-codes-responses
     module Codes
@@ -36,16 +39,6 @@ module Twitter
         hash[klass::HTTP_STATUS_CODE] = klass
         hash
       end
-    end
-
-    # @return [Array]
-    def self.descendants
-      @descendants ||= []
-    end
-
-    # @return [Array]
-    def self.inherited(descendant)
-      descendants << descendant
     end
 
     # Initializes a new Error object
