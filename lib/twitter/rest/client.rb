@@ -124,14 +124,8 @@ module Twitter
 
     private
 
-      # Returns a proc that can be used to setup the Faraday::Request headers
-      #
-      # @param method [Symbol]
-      # @param path [String]
-      # @param params [Hash]
-      # @return [Proc]
-      def request_setup(method, path, params, signature_params)
-        Proc.new do |request|
+      def request(method, path, params={}, signature_params=params)
+        response = connection.send(method.to_sym, path, params) do |request|
           if params.delete(:bearer_token_request)
             request.headers[:authorization] = bearer_token_credentials_auth_header
             request.headers[:content_type] = 'application/x-www-form-urlencoded; charset=UTF-8'
@@ -143,11 +137,7 @@ module Twitter
             request.headers[:authorization] = oauth_auth_header(method, ENDPOINT + path, signature_params).to_s
           end
         end
-      end
-
-      def request(method, path, params={}, signature_params=params)
-        request_setup = request_setup(method, path, params, signature_params)
-        connection.send(method.to_sym, path, params, &request_setup).env
+        response.env
       rescue Faraday::Error::ClientError, JSON::ParserError
         raise Twitter::Error
       end
