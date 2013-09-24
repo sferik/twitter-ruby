@@ -209,6 +209,13 @@ module Twitter
         # @param users [Enumerable<Integer, String, URI, Twitter::User>] A collection of Twitter user IDs, screen_names, URIs, or objects.
         # @return [Hash]
         def merge_users!(hash, users)
+          user_ids, screen_names = collect_user_ids_and_screen_names(users)
+          hash[:user_id] = user_ids.join(',') unless user_ids.empty?
+          hash[:screen_name] = screen_names.join(',') unless screen_names.empty?
+          hash
+        end
+
+        def collect_user_ids_and_screen_names(users)
           user_ids, screen_names = [], []
           for user in users.flatten
             case user
@@ -226,9 +233,7 @@ module Twitter
               user_ids << user.id
             end
           end
-          hash[:user_id] = user_ids.join(',') unless user_ids.empty?
-          hash[:screen_name] = screen_names.join(',') unless screen_names.empty?
-          hash
+          [user_ids, screen_names]
         end
 
       end
