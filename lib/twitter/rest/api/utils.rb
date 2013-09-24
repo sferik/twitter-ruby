@@ -174,18 +174,23 @@ module Twitter
         def merge_user!(hash, user, prefix=nil)
           case user
           when Integer
-            hash[[prefix, "user_id"].compact.join("_").to_sym] = user
+            set_compound_key("user_id", user, hash, prefix)
           when String
             if user[URI_SUBSTRING]
-              hash[[prefix, "screen_name"].compact.join("_").to_sym] = user.split("/").last
+              set_compound_key("screen_name", user.split("/").last, hash, prefix)
             else
-              hash[[prefix, "screen_name"].compact.join("_").to_sym] = user
+              set_compound_key("screen_name", user, hash, prefix)
             end
           when URI
-            hash[[prefix, "screen_name"].compact.join("_").to_sym] = user.path.split("/").last
+            set_compound_key("screen_name", user.path.split("/").last, hash, prefix)
           when Twitter::User
-            hash[[prefix, "user_id"].compact.join("_").to_sym] = user.id
+            set_compound_key("user_id", user.id, hash, prefix)
           end
+        end
+
+        def set_compound_key(key, value, hash, prefix=nil)
+          compound_key = [prefix, key].compact.join("_").to_sym
+          hash[compound_key] = value
           hash
         end
 
