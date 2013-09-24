@@ -7,8 +7,8 @@ describe Twitter::MediaCreator do
       media = Twitter::MediaCreator.new(:id => 1, :type => "photo")
       expect(media).to be_a Twitter::Media::Photo
     end
-    it "raises an ArgumentError when type is not specified" do
-      expect{Twitter::MediaCreator.new}.to raise_error ArgumentError
+    it "raises a KeyError when type is not specified" do
+      expect{Twitter::MediaCreator.new}.to raise_error KeyError
     end
   end
 
