@@ -24,21 +24,42 @@ module Twitter
       LOGIN_VERIFICATION_NEEDED    = 231
     end
 
-    # Create a new error from an HTTP response
-    #
-    # @param response [Hash]
-    # @return [Twitter::Error]
-    def self.from_response(response={})
-      error, code = parse_error(response[:body])
-      new(error, response[:response_headers], code)
-    end
+    class << self
 
-    # @return [Hash]
-    def self.errors
-      @errors ||= descendants.inject({}) do |hash, klass|
-        hash[klass::HTTP_STATUS_CODE] = klass
-        hash
+      # Create a new error from an HTTP response
+      #
+      # @param response [Hash]
+      # @return [Twitter::Error]
+      def from_response(response={})
+        error, code = parse_error(response[:body])
+        new(error, response[:response_headers], code)
       end
+
+      # @return [Hash]
+      def errors
+        @errors ||= descendants.inject({}) do |hash, klass|
+          hash[klass::HTTP_STATUS_CODE] = klass
+          hash
+        end
+      end
+
+    private
+
+      def parse_error(body)
+        if body.nil?
+          ['', nil]
+        elsif body[:error]
+          [body[:error], nil]
+        elsif body[:errors]
+          first = Array(body[:errors]).first
+          if first.is_a?(Hash)
+            [first[:message].chomp, first[:code]]
+          else
+            [first.chomp, nil]
+          end
+        end
+      end
+
     end
 
     # Initializes a new Error object
@@ -52,23 +73,6 @@ module Twitter
       @wrapped_exception = exception
       @code = code
       exception.respond_to?(:message) ? super(exception.message) : super(exception.to_s)
-    end
-
-  private
-
-    def self.parse_error(body)
-      if body.nil?
-        ['', nil]
-      elsif body[:error]
-        [body[:error], nil]
-      elsif body[:errors]
-        first = Array(body[:errors]).first
-        if first.is_a?(Hash)
-          [first[:message].chomp, first[:code]]
-        else
-          [first.chomp, nil]
-        end
-      end
     end
 
   end
