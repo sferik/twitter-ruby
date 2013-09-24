@@ -110,9 +110,6 @@ module Twitter
         #   @option options [Boolean] :follow (false) Enable notifications for the target user.
         def follow(*args)
           arguments = Twitter::Arguments.new(args)
-          # Twitter always turns on notifications if the "follow" option is present, even if it's set to false
-          # so only send follow if it's true
-          arguments.options[:follow] = true if !!arguments.options.delete(:follow)
           existing_friends = Thread.new do
             friend_ids.to_a
           end
@@ -138,9 +135,6 @@ module Twitter
         #   @option options [Boolean] :follow (false) Enable notifications for the target user.
         def follow!(*args)
           arguments = Twitter::Arguments.new(args)
-          # Twitter always turns on notifications if the "follow" option is present, even if it's set to false
-          # so only send follow if it's true
-          arguments.options[:follow] = true if !!arguments.options.delete(:follow)
           arguments.flatten.threaded_map do |user|
             begin
               object_from_response(Twitter::User, :post, "/1.1/friendships/create.json", merge_user(arguments.options, user))
