@@ -5,6 +5,7 @@ require 'twitter/creatable'
 module Twitter
   class User < Twitter::BasicUser
     PROFILE_IMAGE_SUFFIX_REGEX = /_normal(\.gif|\.jpe?g|\.png)$/i
+    PREDICATE_URI_METHOD_REGEX = /_uri\?$/
     include Twitter::Creatable
     attr_reader :connections, :contributors_enabled, :default_profile,
       :default_profile_image, :description, :favourites_count,
@@ -25,6 +26,22 @@ module Twitter
     alias tweet status
     alias tweet? status?
     alias tweeted? status?
+
+    class << self
+
+    private
+
+      def alias_predicate_uri_methods(method)
+        for replacement in %w(_url? _uri_https? _url_https?)
+          alias_method_sub(method, PREDICATE_URI_METHOD_REGEX, replacement)
+        end
+      end
+
+      def alias_method_sub(method, pattern, replacement)
+        alias_method(method.to_s.sub(pattern, replacement).to_sym, method)
+      end
+
+    end
 
     # @return [Array<Twitter::Entity::URI>]
     def description_uris
@@ -56,9 +73,8 @@ module Twitter
     def profile_banner_uri?
       !!@attrs[:profile_banner_url]
     end
-    alias profile_banner_url? profile_banner_uri?
-    alias profile_banner_uri_https? profile_banner_uri?
-    alias profile_banner_url_https? profile_banner_uri?
+    memoize :profile_banner_uri?
+    alias_predicate_uri_methods :profile_banner_uri?
 
     # Return the URL to the user's profile image
     #
@@ -88,9 +104,7 @@ module Twitter
       !!@attrs[:profile_image_url_https]
     end
     memoize :profile_image_uri?
-    alias profile_image_url? profile_image_uri?
-    alias profile_image_uri_https? profile_image_uri?
-    alias profile_image_url_https? profile_image_uri?
+    alias_predicate_uri_methods :profile_image_uri?
 
     # @return [String] The URL to the user.
     def uri
