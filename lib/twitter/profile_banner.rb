@@ -7,11 +7,9 @@ module Twitter
     #
     # @return [Array<Twitter::Size>]
     def sizes
-      memoize(:sizes) do
-        Array(@attrs[:sizes]).inject({}) do |object, (key, value)|
-          object[key] = Size.new(value)
-          object
-        end
+      Array(@attrs[:sizes]).inject({}) do |object, (key, value)|
+        object[key] = Size.new(value)
+        object
       end
     end
 

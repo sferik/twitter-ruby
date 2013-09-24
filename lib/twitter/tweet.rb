@@ -48,17 +48,13 @@ module Twitter
     # @note Must include entities in your request for this method to work
     # @return [Array<Twitter::Entity::Hashtag>]
     def hashtags
-      memoize(:hashtags) do
-        entities(Entity::Hashtag, :hashtags)
-      end
+      entities(Entity::Hashtag, :hashtags)
     end
 
     # @note Must include entities in your request for this method to work
     # @return [Array<Twitter::Media>]
     def media
-      memoize(:media) do
-        entities(MediaCreator, :media)
-      end
+      entities(MediaCreator, :media)
     end
 
     # @return [Boolean]
@@ -69,32 +65,26 @@ module Twitter
     # @note Must include entities in your request for this method to work
     # @return [Array<Twitter::Entity::Symbol>]
     def symbols
-      memoize(:symbols) do
-        entities(Entity::Symbol, :symbols)
-      end
+      entities(Entity::Symbol, :symbols)
     end
 
     # @return [String] The URL to the tweet.
     def uri
-      @uri ||= URI.parse("https://twitter.com/#{user.screen_name}/status/#{id}")
+      URI.parse("https://twitter.com/#{user.screen_name}/status/#{id}")
     end
     alias url uri
 
     # @note Must include entities in your request for this method to work
     # @return [Array<Twitter::Entity::URI>]
     def uris
-      memoize(:uris) do
-        entities(Entity::URI, :urls)
-      end
+      entities(Entity::URI, :urls)
     end
     alias urls uris
 
     # @note Must include entities in your request for this method to work
     # @return [Array<Twitter::Entity::UserMention>]
     def user_mentions
-      memoize(:user_mentions) do
-        entities(Entity::UserMention, :user_mentions)
-      end
+      entities(Entity::UserMention, :user_mentions)
     end
 
   private

@@ -11,11 +11,9 @@ module Twitter
     #
     # @return [Array<Twitter::Size>]
     def photo_sizes
-      memoize(:photo_sizes) do
-        Array(@attrs[:photo_sizes]).inject({}) do |object, (key, value)|
-          object[key] = Size.new(value)
-          object
-        end
+      Array(@attrs[:photo_sizes]).inject({}) do |object, (key, value)|
+        object[key] = Size.new(value)
+        object
       end
     end
 

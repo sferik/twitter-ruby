@@ -27,10 +27,8 @@ module Twitter
 
     # @return [Array<Twitter::Entity::URI>]
     def description_uris
-      memoize(:description_urls) do
-        Array(@attrs[:entities][:description][:urls]).map do |entity|
-          Entity::URI.new(entity)
-        end
+      Array(@attrs[:entities][:description][:urls]).map do |entity|
+        Entity::URI.new(entity)
       end
     end
     alias description_urls description_uris
@@ -93,13 +91,13 @@ module Twitter
 
     # @return [String] The URL to the user.
     def uri
-      @uri ||= URI.parse("https://twitter.com/#{screen_name}")
+      URI.parse("https://twitter.com/#{screen_name}")
     end
     alias url uri
 
     # @return [String] The URL to the user's website.
     def website
-      @website ||= URI.parse(@attrs[:url]) if @attrs[:url]
+      URI.parse(@attrs[:url]) if @attrs[:url]
     end
 
     def website?

@@ -53,9 +53,7 @@ module Twitter
     # @param key2 [Symbol]
     def self.define_uri_method(key1, key2)
       define_method(key1) do
-        memoize(key1) do
-          URI.parse(@attrs[key2]) if @attrs[key2]
-        end
+        URI.parse(@attrs[key2]) if @attrs[key2]
       end
     end
 
@@ -66,21 +64,19 @@ module Twitter
     # @param key2 [Symbol]
     def self.define_attribute_method(key1, klass=nil, key2=nil)
       define_method(key1) do
-        memoize(key1) do
-          if klass.nil?
-            @attrs[key1]
-          else
-            if @attrs[key1]
-              if key2.nil?
-                Twitter.const_get(klass).new(@attrs[key1])
-              else
-                attrs = @attrs.dup
-                value = attrs.delete(key1)
-                Twitter.const_get(klass).new(value.update(key2 => attrs))
-              end
+        if klass.nil?
+          @attrs[key1]
+        else
+          if @attrs[key1]
+            if key2.nil?
+              Twitter.const_get(klass).new(@attrs[key1])
             else
-              NullObject.instance
+              attrs = @attrs.dup
+              value = attrs.delete(key1)
+              Twitter.const_get(klass).new(value.update(key2 => attrs))
             end
+          else
+            NullObject.instance
           end
         end
       end
@@ -118,13 +114,6 @@ module Twitter
       send(method.to_sym)
     rescue NoMethodError
       nil
-    end
-
-    def memoize(key, &block)
-      ivar = :"@#{key}"
-      return instance_variable_get(ivar) if instance_variable_defined?(ivar)
-      result = block.call
-      instance_variable_set(ivar, result)
     end
 
   end
