@@ -337,6 +337,7 @@ module Twitter
         def remove_profile_banner(options={})
           post("/1.1/account/remove_profile_banner.json", options)[:body]
         end
+        deprecate_alias :profile_banner_remove, :remove_profile_banner
 
         # Updates the authenticating user's profile banner image
         #

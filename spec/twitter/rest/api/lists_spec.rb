@@ -77,17 +77,17 @@ describe Twitter::REST::API::Lists do
     end
   end
 
-  describe "#list_remove_member" do
+  describe "#remove_list_member" do
     context "with a screen name passed" do
       before do
         stub_post("/1.1/lists/members/destroy.json").with(:body => {:owner_screen_name => "sferik", :slug => "presidents", :user_id => "813286"}).to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
-        @client.list_remove_member("sferik", "presidents", 813286)
+        @client.remove_list_member("sferik", "presidents", 813286)
         expect(a_post("/1.1/lists/members/destroy.json").with(:body => {:owner_screen_name => "sferik", :slug => "presidents", :user_id => "813286"})).to have_been_made
       end
       it "returns the list" do
-        list = @client.list_remove_member("sferik", "presidents", 813286)
+        list = @client.remove_list_member("sferik", "presidents", 813286)
         expect(list).to be_a Twitter::List
         expect(list.name).to eq("presidents")
       end
@@ -98,7 +98,7 @@ describe Twitter::REST::API::Lists do
         stub_post("/1.1/lists/members/destroy.json").with(:body => {:owner_screen_name => "sferik", :slug => "presidents", :user_id => "813286"}).to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
-        @client.list_remove_member("presidents", 813286)
+        @client.remove_list_member("presidents", 813286)
         expect(a_post("/1.1/lists/members/destroy.json").with(:body => {:owner_screen_name => "sferik", :slug => "presidents", :user_id => "813286"})).to have_been_made
       end
     end
@@ -365,17 +365,17 @@ describe Twitter::REST::API::Lists do
     end
   end
 
-  describe "#list_add_members" do
+  describe "#add_list_members" do
     context "with a screen name passed" do
       before do
         stub_post("/1.1/lists/members/create_all.json").with(:body => {:owner_screen_name => "sferik", :slug => "presidents", :user_id => "813286,18755393"}).to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
-        @client.list_add_members("sferik", "presidents", [813286, 18755393])
+        @client.add_list_members("sferik", "presidents", [813286, 18755393])
         expect(a_post("/1.1/lists/members/create_all.json").with(:body => {:owner_screen_name => "sferik", :slug => "presidents", :user_id => "813286,18755393"})).to have_been_made
       end
       it "returns the list" do
-        list = @client.list_add_members("sferik", "presidents", [813286, 18755393])
+        list = @client.add_list_members("sferik", "presidents", [813286, 18755393])
         expect(list).to be_a Twitter::List
         expect(list.name).to eq("presidents")
       end
@@ -385,7 +385,7 @@ describe Twitter::REST::API::Lists do
         stub_post("/1.1/lists/members/create_all.json").with(:body => {:owner_screen_name => "sferik", :slug => "presidents", :user_id => "813286,18755393", :screen_name => "pengwynn,erebor"}).to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
-        @client.list_add_members("sferik", "presidents", [813286, "pengwynn", 18755393, "erebor"])
+        @client.add_list_members("sferik", "presidents", [813286, "pengwynn", 18755393, "erebor"])
         expect(a_post("/1.1/lists/members/create_all.json").with(:body => {:owner_screen_name => "sferik", :slug => "presidents", :user_id => "813286,18755393", :screen_name => "pengwynn,erebor"})).to have_been_made
       end
     end
@@ -395,7 +395,7 @@ describe Twitter::REST::API::Lists do
         stub_post("/1.1/lists/members/create_all.json").with(:body => {:owner_screen_name => "sferik", :slug => "presidents", :user_id => "813286,18755393"}).to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
-        @client.list_add_members("presidents", [813286, 18755393])
+        @client.add_list_members("presidents", [813286, 18755393])
         expect(a_post("/1.1/lists/members/create_all.json").with(:body => {:owner_screen_name => "sferik", :slug => "presidents", :user_id => "813286,18755393"})).to have_been_made
       end
     end
@@ -541,17 +541,17 @@ describe Twitter::REST::API::Lists do
     end
   end
 
-  describe "#list_add_member" do
+  describe "#add_list_member" do
     context "with a screen name passed" do
       before do
         stub_post("/1.1/lists/members/create.json").with(:body => {:owner_screen_name => "sferik", :slug => "presidents", :user_id => "813286"}).to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
-        @client.list_add_member("sferik", "presidents", 813286)
+        @client.add_list_member("sferik", "presidents", 813286)
         expect(a_post("/1.1/lists/members/create.json").with(:body => {:owner_screen_name => "sferik", :slug => "presidents", :user_id => "813286"})).to have_been_made
       end
       it "returns the list" do
-        list = @client.list_add_member("sferik", "presidents", 813286)
+        list = @client.add_list_member("sferik", "presidents", 813286)
         expect(list).to be_a Twitter::List
         expect(list.name).to eq("presidents")
       end
@@ -562,23 +562,23 @@ describe Twitter::REST::API::Lists do
         stub_post("/1.1/lists/members/create.json").with(:body => {:owner_screen_name => "sferik", :slug => "presidents", :user_id => "813286"}).to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
-        @client.list_add_member("presidents", 813286)
+        @client.add_list_member("presidents", 813286)
         expect(a_post("/1.1/lists/members/create.json").with(:body => {:owner_screen_name => "sferik", :slug => "presidents", :user_id => "813286"})).to have_been_made
       end
     end
   end
 
-  describe "#list_destroy" do
+  describe "#destroy_list" do
     context "with a screen name passed" do
       before do
         stub_post("/1.1/lists/destroy.json").with(:body => {:owner_screen_name => "sferik", :slug => "presidents"}).to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
-        @client.list_destroy("sferik", "presidents")
+        @client.destroy_list("sferik", "presidents")
         expect(a_post("/1.1/lists/destroy.json").with(:body => {:owner_screen_name => "sferik", :slug => "presidents"})).to have_been_made
       end
       it "returns the deleted list" do
-        list = @client.list_destroy("sferik", "presidents")
+        list = @client.destroy_list("sferik", "presidents")
         expect(list).to be_a Twitter::List
         expect(list.name).to eq("presidents")
       end
@@ -589,7 +589,7 @@ describe Twitter::REST::API::Lists do
         stub_post("/1.1/lists/destroy.json").with(:body => {:owner_screen_name => "sferik", :slug => "presidents"}).to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
-        @client.list_destroy("presidents")
+        @client.destroy_list("presidents")
         expect(a_post("/1.1/lists/destroy.json").with(:body => {:owner_screen_name => "sferik", :slug => "presidents"})).to have_been_made
       end
     end
@@ -598,7 +598,7 @@ describe Twitter::REST::API::Lists do
         stub_post("/1.1/lists/destroy.json").with(:body => {:owner_screen_name => "sferik", :list_id => "12345678"}).to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
-        @client.list_destroy("sferik", 12345678)
+        @client.destroy_list("sferik", 12345678)
         expect(a_post("/1.1/lists/destroy.json").with(:body => {:owner_screen_name => "sferik", :list_id => "12345678"})).to have_been_made
       end
     end
@@ -608,7 +608,7 @@ describe Twitter::REST::API::Lists do
       end
       it "requests the correct resource" do
         list = Twitter::List.new(:id => "12345678", :user => {:id => 7505382, :screen_name => "sferik"})
-        @client.list_destroy(list)
+        @client.destroy_list(list)
         expect(a_post("/1.1/lists/destroy.json").with(:body => {:owner_id => "7505382", :list_id => "12345678"})).to have_been_made
       end
     end
@@ -660,16 +660,16 @@ describe Twitter::REST::API::Lists do
     end
   end
 
-  describe "#list_create" do
+  describe "#create_list" do
     before do
       stub_post("/1.1/lists/create.json").with(:body => {:name => "presidents"}).to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
-      @client.list_create("presidents")
+      @client.create_list("presidents")
       expect(a_post("/1.1/lists/create.json").with(:body => {:name => "presidents"})).to have_been_made
     end
     it "returns the created list" do
-      list = @client.list_create("presidents")
+      list = @client.create_list("presidents")
       expect(list).to be_a Twitter::List
       expect(list.name).to eq("presidents")
     end
@@ -807,17 +807,17 @@ describe Twitter::REST::API::Lists do
     end
   end
 
-  describe "#list_remove_members" do
+  describe "#remove_list_members" do
     context "with a screen name passed" do
       before do
         stub_post("/1.1/lists/members/destroy_all.json").with(:body => {:owner_screen_name => "sferik", :slug => "presidents", :user_id => "813286,18755393"}).to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
-        @client.list_remove_members("sferik", "presidents", [813286, 18755393])
+        @client.remove_list_members("sferik", "presidents", [813286, 18755393])
         expect(a_post("/1.1/lists/members/destroy_all.json").with(:body => {:owner_screen_name => "sferik", :slug => "presidents", :user_id => "813286,18755393"})).to have_been_made
       end
       it "returns the list" do
-        list = @client.list_remove_members("sferik", "presidents", [813286, 18755393])
+        list = @client.remove_list_members("sferik", "presidents", [813286, 18755393])
         expect(list).to be_a Twitter::List
         expect(list.name).to eq("presidents")
       end
@@ -827,7 +827,7 @@ describe Twitter::REST::API::Lists do
         stub_post("/1.1/lists/members/destroy_all.json").with(:body => {:owner_id => "7505382", :slug => "presidents", :user_id => "813286,18755393"}).to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
-        @client.list_remove_members(7505382, "presidents", [813286, 18755393])
+        @client.remove_list_members(7505382, "presidents", [813286, 18755393])
         expect(a_post("/1.1/lists/members/destroy_all.json").with(:body => {:owner_id => "7505382", :slug => "presidents", :user_id => "813286,18755393"})).to have_been_made
       end
     end
@@ -836,7 +836,7 @@ describe Twitter::REST::API::Lists do
         stub_post("/1.1/lists/members/destroy_all.json").with(:body => {:owner_screen_name => "sferik", :slug => "presidents", :user_id => "813286,18755393", :screen_name => "pengwynn,erebor"}).to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
-        @client.list_remove_members("sferik", "presidents", [813286, "pengwynn", 18755393, "erebor"])
+        @client.remove_list_members("sferik", "presidents", [813286, "pengwynn", 18755393, "erebor"])
         expect(a_post("/1.1/lists/members/destroy_all.json").with(:body => {:owner_screen_name => "sferik", :slug => "presidents", :user_id => "813286,18755393", :screen_name => "pengwynn,erebor"})).to have_been_made
       end
     end
@@ -846,23 +846,23 @@ describe Twitter::REST::API::Lists do
         stub_post("/1.1/lists/members/destroy_all.json").with(:body => {:owner_screen_name => "sferik", :slug => "presidents", :user_id => "813286,18755393"}).to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
-        @client.list_remove_members("presidents", [813286, 18755393])
+        @client.remove_list_members("presidents", [813286, 18755393])
         expect(a_post("/1.1/lists/members/destroy_all.json").with(:body => {:owner_screen_name => "sferik", :slug => "presidents", :user_id => "813286,18755393"})).to have_been_made
       end
     end
   end
 
-  describe "#lists_owned" do
+  describe "#owned_lists" do
     context "with a screen name passed" do
       before do
         stub_get("/1.1/lists/ownerships.json").with(:query => {:screen_name => "sferik", :cursor => "-1"}).to_return(:body => fixture("ownerships.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
-        @client.lists_owned("sferik")
+        @client.owned_lists("sferik")
         expect(a_get("/1.1/lists/ownerships.json").with(:query => {:screen_name => "sferik", :cursor => "-1"})).to have_been_made
       end
       it "returns the requested list" do
-        lists = @client.lists_owned("sferik")
+        lists = @client.owned_lists("sferik")
         expect(lists).to be_a Twitter::Cursor
         expect(lists.first).to be_a Twitter::List
         expect(lists.first.name).to eq("My favstar.fm list")
@@ -874,11 +874,11 @@ describe Twitter::REST::API::Lists do
         stub_get("/1.1/lists/ownerships.json").with(:query => {:screen_name => "sferik", :cursor => "-1"}).to_return(:body => fixture("ownerships.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
-        @client.lists_owned
+        @client.owned_lists
         expect(a_get("/1.1/lists/ownerships.json").with(:query => {:screen_name => "sferik", :cursor => "-1"})).to have_been_made
       end
       it "returns the requested list" do
-        lists = @client.lists_owned
+        lists = @client.owned_lists
         expect(lists).to be_a Twitter::Cursor
         expect(lists.first).to be_a Twitter::List
         expect(lists.first.name).to eq("My favstar.fm list")

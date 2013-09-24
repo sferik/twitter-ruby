@@ -362,7 +362,7 @@ describe Twitter::REST::API::FriendsAndFollowers do
       expect(a_post("/1.1/friendships/destroy.json").with(:body => {:screen_name => "sferik"})).to have_been_made
     end
     it "returns an array of unfollowed users" do
-      users = @client.friendship_destroy("sferik")
+      users = @client.unfollow("sferik")
       expect(users).to be_an Array
       expect(users.first).to be_a Twitter::User
       expect(users.first.id).to eq(7505382)

@@ -102,14 +102,15 @@ module Twitter
         # @authentication Requires user context
         # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
         # @return [Array<Twitter::DirectMessage>] Deleted direct message.
-        # @overload direct_message_destroy(*ids)
+        # @overload destroy_direct_message(*ids)
         #   @param ids [Enumerable<Integer>] A collection of direct message IDs.
-        # @overload direct_message_destroy(*ids, options)
+        # @overload destroy_direct_message(*ids, options)
         #   @param ids [Enumerable<Integer>] A collection of direct message IDs.
         #   @param options [Hash] A customizable set of options.
-        def direct_message_destroy(*args)
+        def destroy_direct_message(*args)
           threaded_objects_from_response(Twitter::DirectMessage, :post, "/1.1/direct_messages/destroy.json", args)
         end
+        deprecate_alias :direct_message_destroy, :destroy_direct_message
 
         # Sends a new direct message to the specified user from the authenticating user
         #
@@ -121,13 +122,15 @@ module Twitter
         # @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, URI, or object.
         # @param text [String] The text of your direct message, up to 140 characters.
         # @param options [Hash] A customizable set of options.
-        def direct_message_create(user, text, options={})
+        def create_direct_message(user, text, options={})
           merge_user!(options, user)
           options[:text] = text
           object_from_response(Twitter::DirectMessage, :post, "/1.1/direct_messages/new.json", options)
         end
-        alias d direct_message_create
-        alias m direct_message_create
+        alias d create_direct_message
+        alias m create_direct_message
+        alias dm create_direct_message
+        deprecate_alias :direct_message_create, :create_direct_message
 
       end
     end

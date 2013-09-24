@@ -94,9 +94,10 @@ module Twitter
         # @option options [Float] :long The longitude to search around. The valid range for longitude is -180.0 to +180.0 (East is positive) inclusive. This option will be ignored if outside that range, if it is not a number, if geo_enabled is disabled, or if there not a corresponding :lat option.
         # @option options [String] :"attribute:street_address" This option searches for places which have this given street address. There are other well-known and application-specific attributes available. Custom attributes are also permitted.
         # @return [Twitter::Place] The created place.
-        def place_create(options={})
+        def create_place(options={})
           object_from_response(Twitter::Place, :post, "/1.1/geo/place.json", options)
         end
+        deprecate_alias :place_create, :create_place
 
       end
     end

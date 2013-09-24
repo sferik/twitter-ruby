@@ -69,18 +69,19 @@ module Twitter
         # @authentication Requires user context
         # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
         # @return [Twitter::List] The list.
-        # @overload list_remove_member(list, user_to_remove, options={})
+        # @overload remove_list_member(list, user_to_remove, options={})
         #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, URI, or object.
         #   @param user_to_remove [Integer, String] The user id or screen name of the list member to remove.
         #   @param options [Hash] A customizable set of options.
-        # @overload list_remove_member(user, list, user_to_remove, options={})
+        # @overload remove_list_member(user, list, user_to_remove, options={})
         #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, URI, or object.
         #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, URI, or object.
         #   @param user_to_remove [Integer, String] The user id or screen name of the list member to remove.
         #   @param options [Hash] A customizable set of options.
-        def list_remove_member(*args)
+        def remove_list_member(*args)
           list_from_response_with_user(:post, "/1.1/lists/members/destroy.json", args)
         end
+        deprecate_alias :list_remove_member, :remove_list_member
 
         # List the lists the specified user has been added to
         #
@@ -187,18 +188,19 @@ module Twitter
         # @authentication Requires user context
         # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
         # @return [Twitter::List] The list.
-        # @overload list_add_members(list, users, options={})
+        # @overload add_list_members(list, users, options={})
         #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, URI, or object.
         #   @param users [Enumerable<Integer, String, Twitter::User>] A collection of Twitter user IDs, screen names, or objects.
         #   @param options [Hash] A customizable set of options.
-        # @overload list_add_members(user, list, users, options={})
+        # @overload add_list_members(user, list, users, options={})
         #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, URI, or object.
         #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, URI, or object.
         #   @param users [Enumerable<Integer, String, Twitter::User>] A collection of Twitter user IDs, screen names, or objects.
         #   @param options [Hash] A customizable set of options.
-        def list_add_members(*args)
+        def add_list_members(*args)
           list_from_response_with_users(:post, "/1.1/lists/members/create_all.json", args)
         end
+        deprecate_alias :list_add_members, :add_list_members
 
         # Check if a user is a member of the specified list
         #
@@ -248,18 +250,19 @@ module Twitter
         # @authentication Requires user context
         # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
         # @return [Twitter::List] The list.
-        # @overload list_add_member(list, user_to_add, options={})
+        # @overload add_list_member(list, user_to_add, options={})
         #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, URI, or object.
         #   @param user_to_add [Integer, String] The user id or screen name to add to the list.
         #   @param options [Hash] A customizable set of options.
-        # @overload list_add_member(user, list, user_to_add, options={})
+        # @overload add_list_member(user, list, user_to_add, options={})
         #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, URI, or object.
         #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, URI, or object.
         #   @param user_to_add [Integer, String] The user id or screen name to add to the list.
         #   @param options [Hash] A customizable set of options.
-        def list_add_member(*args)
+        def add_list_member(*args)
           list_from_response_with_user(:post, "/1.1/lists/members/create.json", args)
         end
+        deprecate_alias :list_add_member, :add_list_member
 
         # Deletes the specified list
         #
@@ -269,16 +272,17 @@ module Twitter
         # @authentication Requires user context
         # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
         # @return [Twitter::List] The deleted list.
-        # @overload list_destroy(list, options={})
+        # @overload destroy_list(list, options={})
         #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, URI, or object.
         #   @param options [Hash] A customizable set of options.
-        # @overload list_destroy(user, list, options={})
+        # @overload destroy_list(user, list, options={})
         #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, URI, or object.
         #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, URI, or object.
         #   @param options [Hash] A customizable set of options.
-        def list_destroy(*args)
+        def destroy_list(*args)
           list_from_response(:post, "/1.1/lists/destroy.json", args)
         end
+        deprecate_alias :list_destroy, :destroy_list
 
         # Updates the specified list
         #
@@ -314,9 +318,10 @@ module Twitter
         # @param options [Hash] A customizable set of options.
         # @option options [String] :mode ('public') Whether your list is public or private. Values can be 'public' or 'private'.
         # @option options [String] :description The description to give the list.
-        def list_create(name, options={})
+        def create_list(name, options={})
           object_from_response(Twitter::List, :post, "/1.1/lists/create.json", options.merge(:name => name))
         end
+        deprecate_alias :list_create, :create_list
 
         # Show the specified list
         #
@@ -362,18 +367,19 @@ module Twitter
         # @authentication Requires user context
         # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
         # @return [Twitter::List] The list.
-        # @overload list_remove_members(list, users, options={})
+        # @overload remove_list_members(list, users, options={})
         #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, URI, or object.
         #   @param users [Enumerable<Integer, String, Twitter::User>] A collection of Twitter user IDs, screen names, or objects.
         #   @param options [Hash] A customizable set of options.
-        # @overload list_remove_members(user, list, users, options={})
+        # @overload remove_list_members(user, list, users, options={})
         #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, URI, or object.
         #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, URI, or object.
         #   @param users [Enumerable<Integer, String, Twitter::User>] A collection of Twitter user IDs, screen names, or objects.
         #   @param options [Hash] A customizable set of options.
-        def list_remove_members(*args)
+        def remove_list_members(*args)
           list_from_response_with_users(:post, "/1.1/lists/members/destroy_all.json", args)
         end
+        deprecate_alias :list_remove_members, :remove_list_members
 
         # Returns the lists owned by the specified Twitter user
         #
@@ -382,17 +388,18 @@ module Twitter
         # @authentication Requires user context
         # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
         # @return [Array<Twitter::List>]
-        # @overload lists_owned(options={})
+        # @overload owned_lists(options={})
         #   @param options [Hash] A customizable set of options.
         #   @option options [Integer] :count The amount of results to return per page. Defaults to 20. No more than 1000 results will ever be returned in a single page.
-        # @overload lists_owned(user, options={})
+        # @overload owned_lists(user, options={})
         #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, URI, or object.
         #   @param options [Hash] A customizable set of options.
         #   @option options [Integer] :count The amount of results to return per page. Defaults to 20. No more than 1000 results will ever be returned in a single page.
-        def lists_owned(*args)
+        def owned_lists(*args)
           cursor_from_response_with_user(:lists, Twitter::List, :get, "/1.1/lists/ownerships.json", args)
         end
-        alias lists_ownerships lists_owned
+        deprecate_alias :lists_ownerships, :owned_lists
+        deprecate_alias :lists_owned, :owned_lists
 
       private
 

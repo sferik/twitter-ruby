@@ -7,9 +7,25 @@ module Twitter
   module REST
     module API
       module Utils
-
         DEFAULT_CURSOR = -1
         URI_SUBSTRING = "://"
+
+        def self.included(base)
+          base.extend(ClassMethods)
+        end
+
+        module ClassMethods
+
+          private
+
+          def deprecate_alias(new_name, old_name)
+            define_method(new_name) do |*args, &block|
+              warn "#{Kernel.caller.first}: [DEPRECATION] ##{new_name} it deprecated. Use ##{old_name} instead."
+              send(old_name, *args, &block)
+            end
+          end
+
+        end
 
       private
 

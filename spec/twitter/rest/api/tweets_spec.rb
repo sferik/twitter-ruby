@@ -169,16 +169,16 @@ describe Twitter::REST::API::Tweets do
     end
   end
 
-  describe "#status_destroy" do
+  describe "#destroy_status" do
     before do
       stub_post("/1.1/statuses/destroy/25938088801.json").to_return(:body => fixture("status.json"), :headers => {:content_type => "application/json; charset=utf-8"})
     end
     it "requests the correct resource" do
-      @client.status_destroy(25938088801)
+      @client.destroy_status(25938088801)
       expect(a_post("/1.1/statuses/destroy/25938088801.json")).to have_been_made
     end
     it "returns an array of Tweets" do
-      tweets = @client.status_destroy(25938088801)
+      tweets = @client.destroy_status(25938088801)
       expect(tweets).to be_an Array
       expect(tweets.first).to be_a Twitter::Tweet
       expect(tweets.first.text).to eq("The problem with your code is that it's doing exactly what you told it to do.")
@@ -186,20 +186,20 @@ describe Twitter::REST::API::Tweets do
     context "with a URI object passed" do
       it "requests the correct resource" do
         tweet = URI.parse("https://twitter.com/sferik/status/25938088801")
-        @client.status_destroy(tweet)
+        @client.destroy_status(tweet)
         expect(a_post("/1.1/statuses/destroy/25938088801.json")).to have_been_made
       end
     end
     context "with a URI string passed" do
       it "requests the correct resource" do
-        @client.status_destroy("https://twitter.com/sferik/status/25938088801")
+        @client.destroy_status("https://twitter.com/sferik/status/25938088801")
         expect(a_post("/1.1/statuses/destroy/25938088801.json")).to have_been_made
       end
     end
     context "with a Tweet passed" do
       it "requests the correct resource" do
         tweet = Twitter::Tweet.new(:id => 25938088801)
-        @client.status_destroy(tweet)
+        @client.destroy_status(tweet)
         expect(a_post("/1.1/statuses/destroy/25938088801.json")).to have_been_made
       end
     end

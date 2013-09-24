@@ -118,7 +118,8 @@ module Twitter
           end
           follow!(new_friends.value - existing_friends.value, arguments.options)
         end
-        alias friendship_create follow
+        alias create_friendship follow
+        deprecate_alias :friendship_create, :follow
 
         # Allows the authenticating user to follow the specified users
         #
@@ -144,7 +145,8 @@ module Twitter
             end
           end.compact
         end
-        alias friendship_create! follow!
+        alias create_friendship! follow!
+        deprecate_alias :friendship_create!, :follow!
 
         # Allows the authenticating user to unfollow the specified users
         #
@@ -161,7 +163,8 @@ module Twitter
         def unfollow(*args)
           threaded_user_objects_from_response(:post, "/1.1/friendships/destroy.json", args)
         end
-        alias friendship_destroy unfollow
+        alias destroy_friendship unfollow
+        deprecate_alias :friendship_destroy, :unfollow
 
         # Allows one to enable or disable retweets and device notifications from the specified user.
         #

@@ -87,16 +87,18 @@ module Twitter
         # @authentication Requires user context
         # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
         # @return [Array<Twitter::Tweet>] The deleted Tweets.
-        # @overload status_destroy(*tweets)
+        # @overload destroy_status(*tweets)
         #   @param tweets [Enumerable<Integer, String, URI, Twitter::Tweet>] A collection of Tweet IDs, URIs, or objects.
-        # @overload status_destroy(*tweets, options)
+        # @overload destroy_status(*tweets, options)
         #   @param tweets [Enumerable<Integer, String, URI, Twitter::Tweet>] A collection of Tweet IDs, URIs, or objects.
         #   @param options [Hash] A customizable set of options.
         #   @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
-        def status_destroy(*args)
+        def destroy_status(*args)
           threaded_tweets_from_response(:post, "/1.1/statuses/destroy", args)
         end
-        alias tweet_destroy status_destroy
+        alias destroy_tweet destroy_status
+        deprecate_alias :status_destroy, :destroy_status
+        deprecate_alias :tweet_destroy, :destroy_status
 
         # Updates the authenticating user's status
         #

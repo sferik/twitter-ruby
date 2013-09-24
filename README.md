@@ -364,6 +364,24 @@ been removed:
 * `#updates_count` (use `#tweets_count`)
 * `#translator` (use `#translator?`)
 
+### More natural method names
+All create, destroy, add, and remove methods have been renamed to put the verb
+at the beginning:
+
+* `#direct_message_create` is now `#create_direct_message`
+* `#direct_message_destroy` is now `#destroy_direct_message`
+* `#list_create` is now `#create_list`
+* `#list_destroy` is now `#destroy_list`
+* `#list_remove_member` is now `#remove_list_member`
+* `#list_remove_members` is now `#remove_list_members`
+* `#list_add_member` is now `#remove_add_member`
+* `#list_add_members` is now `#remove_add_members`
+* `#lists_owned` is now `#owned_list`
+* `#place_create` is now `#create_place`
+* `#saved_search_create` is now `#create_saved_search`
+* `#saved_search_destroy` is now `#destroy_saved_search`
+* `#status_destroy` is now `#destroy_status`
+
 ### Errors
 The `Twitter::Error::ClientError` and `Twitter::Error::ServerError` class
 hierarchy has been removed. All errors now inherit directly from

@@ -61,9 +61,10 @@ module Twitter
         # @return [Twitter::SavedSearch] The created saved search.
         # @param query [String] The query of the search the user would like to save.
         # @param options [Hash] A customizable set of options.
-        def saved_search_create(query, options={})
+        def create_saved_search(query, options={})
           object_from_response(Twitter::SavedSearch, :post, "/1.1/saved_searches/create.json", options.merge(:query => query))
         end
+        deprecate_alias :saved_search_create, :create_saved_search
 
         # Destroys saved searches for the authenticated user
         #
@@ -73,17 +74,18 @@ module Twitter
         # @authentication Requires user context
         # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
         # @return [Array<Twitter::SavedSearch>] The deleted saved searches.
-        # @overload saved_search_destroy(*ids)
+        # @overload destroy_saved_search(*ids)
         #   @param ids [Enumerable<Integer>] A collection of saved search IDs.
-        # @overload saved_search_destroy(*ids, options)
+        # @overload destroy_saved_search(*ids, options)
         #   @param ids [Enumerable<Integer>] A collection of saved search IDs.
         #   @param options [Hash] A customizable set of options.
-        def saved_search_destroy(*args)
+        def destroy_saved_search(*args)
           arguments = Twitter::Arguments.new(args)
           arguments.flatten.threaded_map do |id|
             object_from_response(Twitter::SavedSearch, :post, "/1.1/saved_searches/destroy/#{id}.json", arguments.options)
           end
         end
+        deprecate_alias :saved_search_destroy, :destroy_saved_search
 
       end
     end
