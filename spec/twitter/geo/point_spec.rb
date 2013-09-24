@@ -7,10 +7,10 @@ describe Twitter::Geo::Point do
   end
 
   describe "#==" do
-    it "returns false for empty objects" do
+    it "returns true for empty objects" do
       point = Twitter::Geo::Point.new
       other = Twitter::Geo::Point.new
-      expect(point == other).to be_false
+      expect(point == other).to be_true
     end
     it "returns true when objects coordinates are the same" do
       other = Twitter::Geo::Point.new(:coordinates => [-122.399983, 37.788299])

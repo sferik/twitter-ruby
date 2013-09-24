@@ -127,20 +127,5 @@ module Twitter
       instance_variable_set(ivar, result)
     end
 
-  private
-
-    # @param attr [Symbol]
-    # @param other [Twitter::Base]
-    # @return [Boolean]
-    def attr_equal(attr, other)
-      self.class == other.class && !other.send(attr.to_sym).nil? && send(attr.to_sym) == other.send(attr.to_sym)
-    end
-
-    # @param other [Twitter::Base]
-    # @return [Boolean]
-    def attrs_equal(other)
-      self.class == other.class && !other.attrs.empty? && attrs == other.attrs
-    end
-
   end
 end

@@ -1,7 +1,10 @@
+require 'equalizer'
 require 'twitter/base'
 
 module Twitter
   class Identity < Twitter::Base
+    include Equalizer.new(:id)
+    attr_reader :id
 
     # Initializes a new object
     #
@@ -11,17 +14,6 @@ module Twitter
     def initialize(attrs={})
       super
       raise ArgumentError, "argument must have an :id key" unless id
-    end
-
-    # @param other [Twitter::Identity]
-    # @return [Boolean]
-    def ==(other)
-      super || attr_equal(:id, other) || attrs_equal(other)
-    end
-
-    # @return [Integer]
-    def id
-      @attrs[:id]
     end
 
   end
