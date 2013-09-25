@@ -239,7 +239,7 @@ simplicity and performance.
     </tr>
     <tr>
       <td>
-        Collect your 20 most recent friends (twice).
+        Collect your 20 most recent friends twice.
       </td>
       <td>
         <pre><code lang="ruby">friends = client.friends
@@ -334,7 +334,7 @@ removed:
 * `#profile_image_url`
 * `#profile_image_url_https`
 
-These attributes can be accessed on the `Twitter::User` object, returned
+These attributes can be accessed via the `Twitter::User` object, returned
 through the `#user` method.
 
 ### Users
@@ -343,8 +343,8 @@ been removed:
 
 * `#favorite_count` (use `#favorites_count`)
 * `#favoriters_count` (use `#favorites_count`)
-* `#favourite_count` (use `#favourites_count`)
-* `#favouriters_count` (use `#favourites_count`)
+* `#favourite_count` (use `#favorites_count`)
+* `#favouriters_count` (use `#favorites_count`)
 * `#follower_count` (use `#followers_count`)
 * `#friend_count` (use `#friends_count`)
 * `#status_count` (use `#statuses_count`)
@@ -352,6 +352,13 @@ been removed:
 * `#update_count` (use `#tweets_count`)
 * `#updates_count` (use `#tweets_count`)
 * `#translator` (use `#translator?`)
+
+### Remove British English aliases
+Earlier versions of this library aliased `favourites` to `favorites`. These
+aliases have been removed. Ruby is implemented in American English. The
+`initialize` method is spelled with a "z", not an "s", and Ruby provides no
+alias. Likewise, this library does not provide aliases for Commonwealthers.
+Merica. :us:
 
 ### More natural method names
 All create, destroy, add, and remove methods have been renamed to put the verb
@@ -370,13 +377,6 @@ at the beginning:
 * `#saved_search_create` is now `#create_saved_search`
 * `#saved_search_destroy` is now `#destroy_saved_search`
 * `#status_destroy` is now `#destroy_status`
-
-### Remove British English aliases
-Earlier versions of this library aliased `favourites` to `favorites`. These
-aliases have been removed. Ruby is implemented in American English. The
-`initialize` method is spelled with a "z", not an "s", and Ruby provides no
-alias. Likewise, this library does not provide aliases for Commonwealthers.
-Merica. :us:
 
 ### Errors
 The `Twitter::Error::ClientError` and `Twitter::Error::ServerError` class
