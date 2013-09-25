@@ -1,0 +1,153 @@
+digraph classes {
+	graph [rotate=0, rankdir="LR"]
+	node [fillcolor="#c4ddec", style="filled", fontname="Helvetica Neue"]
+	edge [color="#444444"]
+	ArgumentError [label="ArgumentError"]
+	Array [label="Array"]
+	Exception [label="Exception"]
+	Faraday__Middleware [label="Faraday::Middleware"]
+	Faraday__Response__Middleware [label="Faraday::Response::Middleware"]
+	Hash [label="Hash"]
+	StandardError [label="StandardError"]
+	Twitter__Arguments [label="Twitter::Arguments"]
+	Twitter__Base [label="Twitter::Base"]
+	Twitter__BasicUser [label="Twitter::BasicUser"]
+	Twitter__Client [label="Twitter::Client"]
+	Twitter__Configuration [label="Twitter::Configuration"]
+	Twitter__Creator [label="Twitter::Creator"]
+	Twitter__Cursor [label="Twitter::Cursor"]
+	Twitter__DirectMessage [label="Twitter::DirectMessage"]
+	Twitter__Entity [label="Twitter::Entity"]
+	Twitter__Entity__Hashtag [label="Twitter::Entity::Hashtag"]
+	Twitter__Entity__Symbol [label="Twitter::Entity::Symbol"]
+	Twitter__Entity__URI [label="Twitter::Entity::URI"]
+	Twitter__Entity__UserMention [label="Twitter::Entity::UserMention"]
+	Twitter__Error [label="Twitter::Error"]
+	Twitter__Error__AlreadyFavorited [label="Twitter::Error::AlreadyFavorited"]
+	Twitter__Error__AlreadyPosted [label="Twitter::Error::AlreadyPosted"]
+	Twitter__Error__AlreadyRetweeted [label="Twitter::Error::AlreadyRetweeted"]
+	Twitter__Error__BadGateway [label="Twitter::Error::BadGateway"]
+	Twitter__Error__BadRequest [label="Twitter::Error::BadRequest"]
+	Twitter__Error__ConfigurationError [label="Twitter::Error::ConfigurationError"]
+	Twitter__Error__Forbidden [label="Twitter::Error::Forbidden"]
+	Twitter__Error__GatewayTimeout [label="Twitter::Error::GatewayTimeout"]
+	Twitter__Error__InternalServerError [label="Twitter::Error::InternalServerError"]
+	Twitter__Error__NotAcceptable [label="Twitter::Error::NotAcceptable"]
+	Twitter__Error__NotFound [label="Twitter::Error::NotFound"]
+	Twitter__Error__ServiceUnavailable [label="Twitter::Error::ServiceUnavailable"]
+	Twitter__Error__TooManyRequests [label="Twitter::Error::TooManyRequests"]
+	Twitter__Error__Unauthorized [label="Twitter::Error::Unauthorized"]
+	Twitter__Error__UnprocessableEntity [label="Twitter::Error::UnprocessableEntity"]
+	Twitter__Geo [label="Twitter::Geo"]
+	Twitter__GeoCreator [label="Twitter::GeoCreator"]
+	Twitter__GeoResults [label="Twitter::GeoResults"]
+	Twitter__Geo__Point [label="Twitter::Geo::Point"]
+	Twitter__Geo__Polygon [label="Twitter::Geo::Polygon"]
+	Twitter__Identity [label="Twitter::Identity"]
+	Twitter__Language [label="Twitter::Language"]
+	Twitter__List [label="Twitter::List"]
+	Twitter__MediaCreator [label="Twitter::MediaCreator"]
+	Twitter__Media__Photo [label="Twitter::Media::Photo"]
+	Twitter__Memory [label="Twitter::Memory"]
+	Twitter__Metadata [label="Twitter::Metadata"]
+	Twitter__NullObject [label="Twitter::NullObject"]
+	Twitter__OEmbed [label="Twitter::OEmbed"]
+	Twitter__Place [label="Twitter::Place"]
+	Twitter__ProfileBanner [label="Twitter::ProfileBanner"]
+	Twitter__REST__Client [label="Twitter::REST::Client"]
+	Twitter__REST__Request__MultipartWithFile [label="Twitter::REST::Request::MultipartWithFile"]
+	Twitter__REST__Response__ParseJson [label="Twitter::REST::Response::ParseJson"]
+	Twitter__REST__Response__RaiseError [label="Twitter::REST::Response::RaiseError"]
+	Twitter__RateLimit [label="Twitter::RateLimit"]
+	Twitter__Relationship [label="Twitter::Relationship"]
+	Twitter__SavedSearch [label="Twitter::SavedSearch"]
+	Twitter__SearchResults [label="Twitter::SearchResults"]
+	Twitter__Settings [label="Twitter::Settings"]
+	Twitter__Size [label="Twitter::Size"]
+	Twitter__SourceUser [label="Twitter::SourceUser"]
+	Twitter__Streaming__Client [label="Twitter::Streaming::Client"]
+	Twitter__Streaming__Connection [label="Twitter::Streaming::Connection"]
+	Twitter__Streaming__Response [label="Twitter::Streaming::Response"]
+	Twitter__Suggestion [label="Twitter::Suggestion"]
+	Twitter__TargetUser [label="Twitter::TargetUser"]
+	Twitter__Token [label="Twitter::Token"]
+	Twitter__Trend [label="Twitter::Trend"]
+	Twitter__TrendResults [label="Twitter::TrendResults"]
+	Twitter__Tweet [label="Twitter::Tweet"]
+	Twitter__User [label="Twitter::User"]
+	Twitter__Version [label="5.0.0.rc.1"]
+	ArgumentError -> StandardError
+	Array -> Object
+	Exception -> Object
+	Faraday__Middleware -> Object
+	Faraday__Response__Middleware -> Faraday__Middleware
+	Hash -> Object
+	StandardError -> Exception
+	Twitter__Arguments -> Array
+	Twitter__Base -> Object
+	Twitter__BasicUser -> Twitter__Identity
+	Twitter__Client -> Object
+	Twitter__Configuration -> Twitter__Base
+	Twitter__Creator -> Object
+	Twitter__Cursor -> Object
+	Twitter__DirectMessage -> Twitter__Identity
+	Twitter__Entity -> Twitter__Base
+	Twitter__Entity__Hashtag -> Twitter__Entity
+	Twitter__Entity__Symbol -> Twitter__Entity
+	Twitter__Entity__URI -> Twitter__Entity
+	Twitter__Entity__UserMention -> Twitter__Entity
+	Twitter__Error -> StandardError
+	Twitter__Error__AlreadyFavorited -> Twitter__Error__Forbidden
+	Twitter__Error__AlreadyPosted -> Twitter__Error__Forbidden
+	Twitter__Error__AlreadyRetweeted -> Twitter__Error__Forbidden
+	Twitter__Error__BadGateway -> Twitter__Error
+	Twitter__Error__BadRequest -> Twitter__Error
+	Twitter__Error__ConfigurationError -> ArgumentError
+	Twitter__Error__Forbidden -> Twitter__Error
+	Twitter__Error__GatewayTimeout -> Twitter__Error
+	Twitter__Error__InternalServerError -> Twitter__Error
+	Twitter__Error__NotAcceptable -> Twitter__Error
+	Twitter__Error__NotFound -> Twitter__Error
+	Twitter__Error__ServiceUnavailable -> Twitter__Error
+	Twitter__Error__TooManyRequests -> Twitter__Error
+	Twitter__Error__Unauthorized -> Twitter__Error
+	Twitter__Error__UnprocessableEntity -> Twitter__Error
+	Twitter__Geo -> Twitter__Base
+	Twitter__GeoCreator -> Twitter__Creator
+	Twitter__GeoResults -> Object
+	Twitter__Geo__Point -> Twitter__Geo
+	Twitter__Geo__Polygon -> Twitter__Geo
+	Twitter__Identity -> Twitter__Base
+	Twitter__Language -> Twitter__Base
+	Twitter__List -> Twitter__Identity
+	Twitter__MediaCreator -> Twitter__Creator
+	Twitter__Media__Photo -> Twitter__Identity
+	Twitter__Memory -> Hash
+	Twitter__Metadata -> Twitter__Base
+	Twitter__NullObject -> Object
+	Twitter__OEmbed -> Twitter__Base
+	Twitter__Place -> Twitter__Base
+	Twitter__ProfileBanner -> Twitter__Base
+	Twitter__REST__Client -> Twitter__Client
+	Twitter__REST__Request__MultipartWithFile -> Faraday__Middleware
+	Twitter__REST__Response__ParseJson -> Faraday__Response__Middleware
+	Twitter__REST__Response__RaiseError -> Faraday__Response__Middleware
+	Twitter__RateLimit -> Twitter__Base
+	Twitter__Relationship -> Twitter__Base
+	Twitter__SavedSearch -> Twitter__Identity
+	Twitter__SearchResults -> Object
+	Twitter__Settings -> Twitter__Base
+	Twitter__Size -> Twitter__Base
+	Twitter__SourceUser -> Twitter__BasicUser
+	Twitter__Streaming__Client -> Twitter__Client
+	Twitter__Streaming__Connection -> Object
+	Twitter__Streaming__Response -> Object
+	Twitter__Suggestion -> Twitter__Base
+	Twitter__TargetUser -> Twitter__BasicUser
+	Twitter__Token -> Twitter__Base
+	Twitter__Trend -> Twitter__Base
+	Twitter__TrendResults -> Object
+	Twitter__Tweet -> Twitter__Identity
+	Twitter__User -> Twitter__BasicUser
+	Twitter__Version -> Object
+}

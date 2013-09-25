@@ -562,6 +562,20 @@ client.search("#ruby -rt", :lang => "ja").first.text
 ```
 For more usage examples, please see the full [documentation][].
 
+### Object Graph
+
+The library's object hierarchy looks like this:
+
+![Entity-relationship diagram][erd]
+
+[erd]: https://github.com/sferik/twitter/raw/master/etc/erd.png "Entity-relationship diagram"
+
+This entity-relationship diagram is generated programatically. If you add or
+remove any Twitter objects, please regenerate the ERD with the following
+command:
+
+    bundle exec rake erd
+
 ## Supported Ruby Versions
 This library aims to support and is [tested against][travis] the following Ruby
 implementations:
