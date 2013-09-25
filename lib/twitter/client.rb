@@ -4,15 +4,17 @@ require 'uri'
 
 module Twitter
   class Client
-    attr_writer :access_token, :access_token_secret, :consumer_key,
+    attr_accessor :access_token, :access_token_secret, :consumer_key,
       :consumer_secret, :user_agent
+    alias oauth_token access_token
     alias oauth_token= access_token=
+    alias oauth_token_secret access_token_secret
     alias oauth_token_secret= access_token_secret=
 
     # Initializes a new Client object
     #
     # @param options [Hash]
-    # @return [Twitter::REST::Client]
+    # @return [Twitter::Client]
     def initialize(options={})
       for key, value in options
         send(:"#{key}=", value)
@@ -20,28 +22,6 @@ module Twitter
       yield self if block_given?
       validate_credential_type!
     end
-
-    # @return [String]
-    def consumer_key
-      instance_variable_defined?(:@consumer_key) ? @consumer_key : ENV['TWITTER_CONSUMER_KEY']
-    end
-
-    # @return [String]
-    def consumer_secret
-      instance_variable_defined?(:@consumer_secret) ? @consumer_secret : ENV['TWITTER_CONSUMER_SECRET']
-    end
-
-    # @return [String]
-    def access_token
-      instance_variable_defined?(:@access_token) ? @access_token : ENV['TWITTER_ACCESS_TOKEN'] || ENV['TWITTER_OAUTH_TOKEN']
-    end
-    alias oauth_token access_token
-
-    # @return [String]
-    def access_token_secret
-      instance_variable_defined?(:@access_token_secret) ? @access_token_secret : ENV['TWITTER_ACCESS_TOKEN_SECRET'] || ENV['TWITTER_OAUTH_TOKEN_SECRET']
-    end
-    alias oauth_token_secret access_token_secret
 
     # @return [Boolean]
     def user_token?

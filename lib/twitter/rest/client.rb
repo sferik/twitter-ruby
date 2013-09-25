@@ -48,16 +48,12 @@ module Twitter
       include Twitter::REST::API::Tweets
       include Twitter::REST::API::Undocumented
       include Twitter::REST::API::Users
-      attr_writer :bearer_token, :connection_options, :middleware
+      attr_accessor :bearer_token
+      attr_writer :connection_options, :middleware
       ENDPOINT = 'https://api.twitter.com'
 
-      # @return [String]
-      def bearer_token
-        instance_variable_defined?(:@bearer_token) ? @bearer_token : ENV['TWITTER_BEARER_TOKEN']
-      end
-
       def connection_options
-        {
+        @connection_options ||= {
           :builder => middleware,
           :headers => {
             :accept => 'application/json',
@@ -168,8 +164,6 @@ module Twitter
         token = bearer_token.is_a?(Twitter::Token) && bearer_token.bearer? ? bearer_token.access_token : bearer_token
         "Bearer #{token}"
       end
-
-    private
 
       # Base64.strict_encode64 is not available on Ruby 1.8.7
       def strict_encode64(str)

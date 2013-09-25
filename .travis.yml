@@ -1,5 +1,3 @@
-before_install:
-  - rvm get head
 bundler_args: --without development
 language: ruby
 rvm:
