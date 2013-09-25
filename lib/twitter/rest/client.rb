@@ -11,6 +11,7 @@ require 'twitter/rest/api/friends_and_followers'
 require 'twitter/rest/api/help'
 require 'twitter/rest/api/lists'
 require 'twitter/rest/api/oauth'
+require 'twitter/rest/api/reverse_auth'
 require 'twitter/rest/api/places_and_geo'
 require 'twitter/rest/api/saved_searches'
 require 'twitter/rest/api/search'
@@ -38,6 +39,7 @@ module Twitter
       include Twitter::REST::API::Help
       include Twitter::REST::API::Lists
       include Twitter::REST::API::OAuth
+      include Twitter::REST::API::ReverseAuth
       include Twitter::REST::API::PlacesAndGeo
       include Twitter::REST::API::SavedSearches
       include Twitter::REST::API::Search
@@ -129,7 +131,7 @@ module Twitter
 
       def request(method, path, params={}, signature_params=params)
         response = connection.send(method.to_sym, path, params) do |request|
-        bearer_token_request = params.delete(:bearer_token_request)
+          bearer_token_request = params.delete(:bearer_token_request)
           if bearer_token_request
             request.headers[:accept] = '*/*' # It is important we set this, otherwise we get an error.
             request.headers[:authorization] = bearer_token_credentials_auth_header
