@@ -1,12 +1,12 @@
-require 'adamantium'
 require 'forwardable'
+require 'twitter/memoizable'
 require 'twitter/null_object'
 require 'uri'
 
 module Twitter
   class Base
     extend Forwardable
-    include Adamantium
+    include Twitter::Memoizable
     attr_reader :attrs
     alias to_h attrs
     alias to_hash attrs

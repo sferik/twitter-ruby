@@ -1,9 +1,7 @@
-require 'adamantium'
 require 'twitter/enumerable'
 
 module Twitter
   class SearchResults
-    include Adamantium
     include Twitter::Enumerable
     attr_reader :attrs
     alias to_h attrs

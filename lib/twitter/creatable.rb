@@ -1,9 +1,9 @@
-require 'adamantium'
 require 'time'
+require 'twitter/memoizable'
 
 module Twitter
   module Creatable
-    include Adamantium
+    include Twitter::Memoizable
 
     # Time when the object was created on Twitter
     #

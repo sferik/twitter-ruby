@@ -11,8 +11,8 @@ describe Twitter::GeoCreator do
       geo = Twitter::GeoCreator.new(:type => "Polygon")
       expect(geo).to be_a Twitter::Geo::Polygon
     end
-    it "raises a KeyError when type is not specified" do
-      expect{Twitter::GeoCreator.new}.to raise_error KeyError
+    it "raises an IndexError when type is not specified" do
+      expect{Twitter::GeoCreator.new}.to raise_error IndexError
     end
   end
 

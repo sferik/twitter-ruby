@@ -28,7 +28,6 @@
 * [Implement `Twitter::Cursor#each` without making an extra HTTP request](https://github.com/sferik/twitter/commit/8eeff57f5c6d6ca0a6f1ff5ebc31e652a71fc150)
 * [Make `Twitter::SearchResults` enumerable](https://github.com/sferik/twitter/commit/d5ce8537164912e79dffc5a054ecd9ae6ecb8075)
 * [Make `Twitter::Base` objects immutable](https://github.com/sferik/twitter/commit/69b1ef7edad32398b778c8449bc3605739a6c59a)
-* [Freeze and memoize `Twitter::Base` objects with `adamantium`](https://github.com/sferik/twitter/commit/c735bbccc3ff82f3a4e31c6ab09be4140f33d2b9)
 * [Missing key now raises `KeyError`, not `ArgumentError`](https://github.com/sferik/twitter/commit/f56698caff608527b9f3c2c3dd4c18306589cb3b)
 * [Use `equalizer` instead of manually overwriting #==](https://github.com/sferik/twitter/commit/a7ddf718b119e9c5fc8b87e6784e8c3304707a72)
 * [Give methods more natural names](https://github.com/sferik/twitter/commit/e593194fb7bd689fca561e6334db1e6af622590a)

@@ -1,14 +1,11 @@
 require 'descendants_tracker'
 require 'twitter/rate_limit'
-require 'adamantium'
 
 module Twitter
   # Custom error class for rescuing from all Twitter errors
   class Error < StandardError
-    include Adamantium
-    attr_reader :rate_limit, :wrapped_exception, :code
-
     extend DescendantsTracker
+    attr_reader :rate_limit, :wrapped_exception, :code
 
     # If error code is missing see https://dev.twitter.com/docs/error-codes-responses
     module Codes

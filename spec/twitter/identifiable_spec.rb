@@ -3,8 +3,8 @@ require 'helper'
 describe Twitter::Identity do
 
   describe "#initialize" do
-    it "raises a KeyError when id is not specified" do
-      expect{Twitter::Identity.new}.to raise_error KeyError
+    it "raises an IndexError when id is not specified" do
+      expect{Twitter::Identity.new}.to raise_error IndexError
     end
   end
 

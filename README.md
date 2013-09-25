@@ -353,13 +353,6 @@ been removed:
 * `#updates_count` (use `#tweets_count`)
 * `#translator` (use `#translator?`)
 
-### Frozen Objects
-All Twitter objects are immutable by default and will raise a `RuntimeError` if
-you attempt to modify them. Immutable objects have the benefit of being
-inherently thread-safe and simpler to understand and reason about. If you need
-to modify a Twitter object, just call `#dup` on it. No big deal. Memory is
-cheap and garbage collection is getting faster every day.
-
 ### More natural method names
 All create, destroy, add, and remove methods have been renamed to put the verb
 at the beginning:

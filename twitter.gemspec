@@ -3,7 +3,6 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'twitter/version'
 
 Gem::Specification.new do |spec|
-  spec.add_dependency 'adamantium', '~> 0.1.0'
   spec.add_dependency 'buftok', '~> 0.1.0'
   spec.add_dependency 'descendants_tracker', '~> 0.0.1'
   spec.add_dependency 'equalizer', '~> 0.0.7'
@@ -12,6 +11,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'http_parser.rb', '~> 0.5.0'
   spec.add_dependency 'json', '~> 1.8'
   spec.add_dependency 'simple_oauth', '~> 0.2.0'
+  spec.add_dependency 'thread_safe', '~> 0.1.3'
   spec.add_development_dependency 'bundler', '~> 1.0'
   spec.authors = ["Erik Michaels-Ober", "John Nunemaker", "Wynn Netherland", "Steve Richert", "Steve Agalloco"]
   spec.cert_chain  = ['certs/sferik.pem']

@@ -1,13 +1,13 @@
-require 'adamantium'
 require 'twitter/creatable'
 require 'twitter/enumerable'
+require 'twitter/memoizable'
 require 'twitter/null_object'
 
 module Twitter
   class TrendResults
-    include Adamantium
     include Twitter::Creatable
     include Twitter::Enumerable
+    include Twitter::Memoizable
     attr_reader :attrs
     alias to_h attrs
     alias to_hash attrs
