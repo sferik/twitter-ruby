@@ -75,7 +75,7 @@ digraph classes {
 	Twitter__TrendResults [label="Twitter::TrendResults"]
 	Twitter__Tweet [label="Twitter::Tweet"]
 	Twitter__User [label="Twitter::User"]
-	Twitter__Version [label="5.0.0.rc.1"]
+	Twitter__Version [label="Twitter::Version"]
 	ArgumentError -> StandardError
 	Array -> Object
 	Exception -> Object

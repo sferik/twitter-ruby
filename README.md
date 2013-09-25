@@ -562,9 +562,7 @@ client.search("#ruby -rt", :lang => "ja").first.text
 ```
 For more usage examples, please see the full [documentation][].
 
-### Object Graph
-
-The library's object hierarchy looks like this:
+## Object Graph
 
 ![Entity-relationship diagram][erd]
 

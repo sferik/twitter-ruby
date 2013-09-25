@@ -24,7 +24,7 @@ end
 twitter_objects.each do |klass|
   begin
     unless klass.nil? || klass.superclass.nil? || klass.name.empty?
-      nodes[nodize(klass)] = klass.to_s
+      nodes[nodize(klass)] = klass.name
       edges[nodize(klass)] = nodize(klass.superclass)
     end
     klass = klass.superclass
