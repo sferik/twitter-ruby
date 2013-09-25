@@ -74,17 +74,6 @@ client = Twitter::REST::Client.new do |config|
 end
 ```
 
-Alternately, you can configure a `Twitter::REST::Client` piecemeal, after it
-has been initialized, if that better suits your application:
-
-```ruby
-client = Twitter::REST::Client.new
-client.consumer_key        = "YOUR_CONSUMER_KEY"
-client.consumer_secret     = "YOUR_CONSUMER_SECRET"
-client.access_token        = "YOUR_ACCESS_TOKEN"
-client.access_token_secret = "YOUR_ACCESS_SECRET"
-```
-
 Note: `oauth_token` has been renamed to `access_token` and `oauth_token_secret`
 is now `access_token_secret` to conform to the terminology used in Twitter's
 developer documentation.
@@ -363,6 +352,13 @@ been removed:
 * `#update_count` (use `#tweets_count`)
 * `#updates_count` (use `#tweets_count`)
 * `#translator` (use `#translator?`)
+
+### Frozen Objects
+All Twitter objects are immutable by default and will raise a `RuntimeError` if
+you attempt to modify them. Immutable objects have the benefit of being
+inherently thread-safe and simpler to understand and reason about. If you need
+to modify a Twitter object, just call `#dup` on it. No big deal. Memory is
+cheap and garbage collection is getting faster every day.
 
 ### More natural method names
 All create, destroy, add, and remove methods have been renamed to put the verb

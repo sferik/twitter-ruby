@@ -8,6 +8,8 @@
 * [Remove `Twitter#from_user`](https://github.com/sferik/twitter/commit/d2ae9f1cc1f5224bcdff06cda65fabdf9e7fbcb3)
 * [Remove `ClientError`, `ServerError`, and `ParserError`](https://github.com/sferik/twitter/commit/72843948d8a6f66345adc254fa91cf1097592b22)
 * [Remove global configuration](https://github.com/sferik/twitter/commit/239c5a8462fabb8c8ef9ec6a4cdded34561d572d)
+* [Remove ability to configure client with environment variables](https://github.com/sferik/twitter/commit/17e958579f65abf8932841f20058a5989abb994f)
+* [Remove Brittish English aliases](https://github.com/sferik/twitter/commit/572813b373a1c3001ff6c1bb729f092434d17bab)
 * [Replace `multi_json` with `json`](https://github.com/sferik/twitter/commit/e5fc292fee078567664acf6be4ed31a8ad077780)
 * [Rename `oauth_token` to `access_token`](https://github.com/sferik/twitter/commit/d360f8015c487c4599460abd0dd0bc7e59a522a3)
 * [Move `Twitter::Arguments` out of `REST::API` namespace](https://github.com/sferik/twitter/commit/8faa15309d906dd46fccc1b914ea4aa7a5da7c2d)
@@ -23,9 +25,13 @@
 * [Allow `URI` as argument](https://github.com/sferik/twitter/commit/c207567e674f108e4074e12c9e7343fb74e8a97c)
 * [Allow `String` in addition to `URI` objects](https://github.com/sferik/twitter/commit/89a46fbd3560109da87d5f87262dcf6bd2a336c6)
 * [Collection caching](https://github.com/sferik/twitter/commit/d484d7d7d7a0956f9b4fa6791a911ed7c9522cba)
-* [Memoize result within `Twitter::Base#new_or_null_object`](https://github.com/sferik/twitter/commit/45dd18a9feadbb56a60cea76424dd466d3e80c5e)
 * [Implement `Twitter::Cursor#each` without making an extra HTTP request](https://github.com/sferik/twitter/commit/8eeff57f5c6d6ca0a6f1ff5ebc31e652a71fc150)
 * [Make `Twitter::SearchResults` enumerable](https://github.com/sferik/twitter/commit/d5ce8537164912e79dffc5a054ecd9ae6ecb8075)
+* [Make `Twitter::Base` objects immutable](https://github.com/sferik/twitter/commit/69b1ef7edad32398b778c8449bc3605739a6c59a)
+* [Freeze and memoize `Twitter::Base` objects with `adamantium`](https://github.com/sferik/twitter/commit/c735bbccc3ff82f3a4e31c6ab09be4140f33d2b9)
+* [Missing key now raises `KeyError`, not `ArgumentError`](https://github.com/sferik/twitter/commit/f56698caff608527b9f3c2c3dd4c18306589cb3b)
+* [Use `equalizer` instead of manually overwriting #==](https://github.com/sferik/twitter/commit/a7ddf718b119e9c5fc8b87e6784e8c3304707a72)
+* [Give methods more natural names](https://github.com/sferik/twitter/commit/e593194fb7bd689fca561e6334db1e6af622590a)
 * [Fix `Twitter::SearchResults#rpp` return value](https://github.com/sferik/twitter/commit/28d73200490ac2755c3e68d8d273fbc64a8d7066)
 
 4.8.1
