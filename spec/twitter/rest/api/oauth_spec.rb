@@ -50,4 +50,19 @@ describe Twitter::REST::API::OAuth do
     end
   end
 
+  describe "#reverse_token" do
+    #TODO MOCK ALL THE THINGS
+    it "requests the correct resource" do
+      pending('Must test with mocks')
+        WebMock.allow_net_connect!
+        client = Twitter::REST::Client.new do |config|
+          config.consumer_key        = ENV['TWITTER_CONSUMER_KEY']
+          config.consumer_secret     = ENV['TWITTER_CONSUMER_SECRET']
+        end
+        WebMock.disable_net_connect!
+        pp client.reverse_token
+    end
+
+  end
+
 end
