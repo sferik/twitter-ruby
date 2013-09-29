@@ -129,7 +129,7 @@ module Twitter
 
       def request(method, path, params={}, signature_params=params)
         response = connection.send(method.to_sym, path, params) do |request|
-        bearer_token_request = params.delete(:bearer_token_request)
+          bearer_token_request = params.delete(:bearer_token_request)
           if bearer_token_request
             request.headers[:accept] = '*/*' # It is important we set this, otherwise we get an error.
             request.headers[:authorization] = bearer_token_credentials_auth_header
