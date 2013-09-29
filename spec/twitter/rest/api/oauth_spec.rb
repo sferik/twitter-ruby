@@ -51,18 +51,17 @@ describe Twitter::REST::API::OAuth do
   end
 
   describe "#reverse_token" do
-    #TODO MOCK ALL THE THINGS
-    it "requests the correct resource" do
-      pending('Must test with mocks')
-        WebMock.allow_net_connect!
-        client = Twitter::REST::Client.new do |config|
-          config.consumer_key        = ENV['TWITTER_CONSUMER_KEY']
-          config.consumer_secret     = ENV['TWITTER_CONSUMER_SECRET']
-        end
-        WebMock.disable_net_connect!
-        pp client.reverse_token
+    before do
+      # WebMock treats Basic Auth differently so we have to chack against the full URL with credentials.
+      @oauth_request_token_url = "https://api.twitter.com/oauth/request_token?x_auth_mode=reverse_auth"
+      stub_request(:post, @oauth_request_token_url).to_return(:body => fixture('request_token.txt'), :headers => {:content_type => "text/html; charset=utf-8"})
     end
-
+    it "requests the correct resource" do
+      @client.reverse_token
+      expect(a_request(:post, @oauth_request_token_url).with(:params => {:x_auth_mode => "reverse_auth"})).to have_been_made
+    end
+    it "requests the correct resource" do
+      expect(@client.reverse_token).to eql fixture('request_token.txt').read
+    end
   end
-
 end

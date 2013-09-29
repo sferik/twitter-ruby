@@ -1,0 +1,6 @@
+OAuth oauth_signature="AAAAAAAAA",
+oauth_timestamp="1380473364", oauth_version="1.0",
+oauth_token="BBBBBBBBB",
+oauth_signature_method="HMAC-SHA1",
+oauth_consumer_key="CCCCCCCCCCC",
+oauth_nonce="DDDDDDDDDDD"
