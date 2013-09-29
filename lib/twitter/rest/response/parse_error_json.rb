@@ -1,24 +1,12 @@
-require 'faraday'
-require 'json'
+require 'twitter/rest/response/parse_json'
 
 module Twitter
   module REST
     module Response
-      class ParseErrorJson < Faraday::Response::Middleware
+      class ParseErrorJson < Twitter::REST::Response::ParseJson
 
-        def parse(body)
-          case body
-          when /\A^\s*$\z/, nil
-            nil
-          else
-            JSON.parse(body, :symbolize_names => true)
-          end
-        end
-
-        def on_complete(env)
-          if respond_to?(:parse)
-            env[:body] = parse(env[:body]) unless [200, 204, 301, 302, 304].include?(env[:status])
-          end
+        def unparsable_status_codes
+          super + [200]
         end
 
       end
