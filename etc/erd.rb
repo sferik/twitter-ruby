@@ -18,7 +18,7 @@ nodes = Hash.new
 edges = Hash.new
 
 twitter_objects = ObjectSpace.each_object(Class).select do |klass|
-  klass.name.start_with?(NAMESPACE)
+  klass.name.to_s.start_with?(NAMESPACE)
 end
 
 twitter_objects.each do |klass|
