@@ -4,7 +4,8 @@ module Twitter
   module Media
     class Photo < Twitter::Identity
       attr_reader :indices
-      uri_attr_reader :display_uri, :expanded_uri, :media_uri, :media_uri_https, :uri
+      uri_attr_reader :expanded_uri, :media_uri, :media_uri_https, :uri
+      display_uri_attr_reader :display_uri
 
       # Returns an array of photo sizes
       #

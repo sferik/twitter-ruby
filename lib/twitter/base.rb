@@ -42,6 +42,22 @@ module Twitter
         define_predicate_method(key1)
       end
 
+      # Define display URI methods from attributes
+      #
+      # @param attrs [Array, Symbol]
+      def display_uri_attr_reader(*attrs)
+        for uri_key in attrs
+          array = uri_key.to_s.split("_")
+          index = array.index("uri")
+          array[index] = "url"
+          url_key = array.join("_").to_sym
+          define_display_uri_method(uri_key, url_key)
+          define_predicate_method(uri_key, url_key)
+          alias_method(url_key, uri_key)
+          alias_method("#{url_key}?", "#{uri_key}?")
+        end
+      end
+
       # Define URI methods from attributes
       #
       # @param attrs [Array, Symbol]
@@ -59,6 +75,17 @@ module Twitter
       end
 
     private
+
+      # Dynamically define a method for a display URI
+      #
+      # @param key1 [Symbol]
+      # @param key2 [Symbol]
+      def define_display_uri_method(key1, key2)
+        define_method(key1) do
+            @attrs[key2] if @attrs[key2]
+        end
+        memoize(key1)
+      end
 
       # Dynamically define a method for a URI
       #
