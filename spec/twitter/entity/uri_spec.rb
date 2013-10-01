@@ -8,6 +8,11 @@ describe Twitter::Entity::URI do
       expect(uri.display_uri).to be_a URI
       expect(uri.display_uri.to_s).to eq("https://github.com/sferik")
     end
+    it "returns a URI when the display_url is set to a truncated version" do
+      uri = Twitter::Entity::URI.new(:display_url => "gawker.com/louis-c-k-s-ex…")
+      expect(uri.display_uri).to be_a URI
+      expect(uri.display_uri.to_s).to eq("gawker.com/louis-c-k-s-ex…")
+    end
     it "returns nil when the display_url is not set" do
       uri = Twitter::Entity::URI.new
       expect(uri.display_uri).to be_nil
