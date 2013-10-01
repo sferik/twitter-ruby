@@ -2,7 +2,7 @@ require 'thread_safe'
 
 module Twitter
 
-  Memory = Class.new(ThreadSafe::Hash)
+  Memory = Class.new(ThreadSafe::Cache)
 
   module Memoizable
 
@@ -48,7 +48,7 @@ module Twitter
       #
       # @return [Hash<Symbol, UnboundMethod>]
       def memoized_methods
-        @memoized_methods ||= ThreadSafe::Hash.new do |_, name|
+        @memoized_methods ||= ThreadSafe::Cache.new do |_, name|
           raise ArgumentError, "No method #{name.inspect} was memoized"
         end
       end
@@ -76,10 +76,9 @@ module Twitter
       def define_memoize_method(method)
         method_name = method.name.to_sym
         undef_method(method_name)
-        define_method(method_name) do ||
+        define_method(method_name) do
           memory.fetch(method_name) do
-            value = method.bind(self).call
-            store_memory(method_name, value)
+            memory[method_name] ||= method.bind(self).call
           end
         end
       end
@@ -93,20 +92,6 @@ module Twitter
     # @return [Hash]
     def memory
       @__memory ||= Memory.new
-    end
-
-    # Store the value in memory
-    #
-    # @param [Symbol] name
-    #   the method name
-    # @param [Object] value
-    #   the value to memoize
-    #
-    # @return [self]
-    #
-    # @return [value]
-    def store_memory(name, value)
-      memory[name] = value
     end
 
   end
