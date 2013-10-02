@@ -7,8 +7,10 @@ digraph classes {
 	Exception [label="Exception"]
 	Faraday__Middleware [label="Faraday::Middleware"]
 	Faraday__Response__Middleware [label="Faraday::Response::Middleware"]
-	Hash [label="Hash"]
 	StandardError [label="StandardError"]
+	ThreadSafe__Cache [label="ThreadSafe::Cache"]
+	ThreadSafe__NonConcurrentCacheBackend [label="ThreadSafe::NonConcurrentCacheBackend"]
+	ThreadSafe__SynchronizedCacheBackend [label="ThreadSafe::SynchronizedCacheBackend"]
 	Twitter__Arguments [label="Twitter::Arguments"]
 	Twitter__Base [label="Twitter::Base"]
 	Twitter__BasicUser [label="Twitter::BasicUser"]
@@ -56,6 +58,7 @@ digraph classes {
 	Twitter__ProfileBanner [label="Twitter::ProfileBanner"]
 	Twitter__REST__Client [label="Twitter::REST::Client"]
 	Twitter__REST__Request__MultipartWithFile [label="Twitter::REST::Request::MultipartWithFile"]
+	Twitter__REST__Response__ParseErrorJson [label="Twitter::REST::Response::ParseErrorJson"]
 	Twitter__REST__Response__ParseJson [label="Twitter::REST::Response::ParseJson"]
 	Twitter__REST__Response__RaiseError [label="Twitter::REST::Response::RaiseError"]
 	Twitter__RateLimit [label="Twitter::RateLimit"]
@@ -81,8 +84,10 @@ digraph classes {
 	Exception -> Object
 	Faraday__Middleware -> Object
 	Faraday__Response__Middleware -> Faraday__Middleware
-	Hash -> Object
 	StandardError -> Exception
+	ThreadSafe__Cache -> ThreadSafe__SynchronizedCacheBackend
+	ThreadSafe__NonConcurrentCacheBackend -> Object
+	ThreadSafe__SynchronizedCacheBackend -> ThreadSafe__NonConcurrentCacheBackend
 	Twitter__Arguments -> Array
 	Twitter__Base -> Object
 	Twitter__BasicUser -> Twitter__Identity
@@ -122,7 +127,7 @@ digraph classes {
 	Twitter__List -> Twitter__Identity
 	Twitter__MediaCreator -> Twitter__Creator
 	Twitter__Media__Photo -> Twitter__Identity
-	Twitter__Memory -> Hash
+	Twitter__Memory -> ThreadSafe__Cache
 	Twitter__Metadata -> Twitter__Base
 	Twitter__NullObject -> Object
 	Twitter__OEmbed -> Twitter__Base
@@ -130,6 +135,7 @@ digraph classes {
 	Twitter__ProfileBanner -> Twitter__Base
 	Twitter__REST__Client -> Twitter__Client
 	Twitter__REST__Request__MultipartWithFile -> Faraday__Middleware
+	Twitter__REST__Response__ParseErrorJson -> Twitter__REST__Response__ParseJson
 	Twitter__REST__Response__ParseJson -> Faraday__Response__Middleware
 	Twitter__REST__Response__RaiseError -> Faraday__Response__Middleware
 	Twitter__RateLimit -> Twitter__Base
