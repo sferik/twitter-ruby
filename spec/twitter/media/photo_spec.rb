@@ -33,9 +33,9 @@ describe Twitter::Media::Photo do
   end
 
   describe "#display_uri" do
-    it "returns a URI when the display_url is set" do
+    it "returns a String when the display_url is set" do
       photo = Twitter::Media::Photo.new(:id => 1, :display_url => "http://pbs.twimg.com/media/BQD6MPOCEAAbCH0.png")
-      expect(photo.display_uri).to be_a URI
+      expect(photo.display_uri).to be_a String
       expect(photo.display_uri.to_s).to eq("http://pbs.twimg.com/media/BQD6MPOCEAAbCH0.png")
     end
     it "returns nil when the display_url is not set" do

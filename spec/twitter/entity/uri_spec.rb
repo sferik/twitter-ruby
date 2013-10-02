@@ -1,12 +1,19 @@
+# encoding: utf-8
+
 require 'helper'
 
 describe Twitter::Entity::URI do
 
   describe "#display_uri" do
-    it "returns a URI when the display_url is set" do
+    it "returns a String when the display_url is set" do
       uri = Twitter::Entity::URI.new(:display_url => "https://github.com/sferik")
-      expect(uri.display_uri).to be_a URI
+      expect(uri.display_uri).to be_a String
       expect(uri.display_uri.to_s).to eq("https://github.com/sferik")
+    end
+    it "returns a String when the display_url is set to a truncated version" do
+      uri = Twitter::Entity::URI.new(:display_url => "gawker.com/louis-c-k-s-ex…")
+      expect(uri.display_uri).to be_a String
+      expect(uri.display_uri.to_s).to eq("gawker.com/louis-c-k-s-ex…")
     end
     it "returns nil when the display_url is not set" do
       uri = Twitter::Entity::URI.new
