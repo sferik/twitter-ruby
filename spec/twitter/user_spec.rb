@@ -49,7 +49,7 @@ describe Twitter::User do
         {
           :url => "http://example.com/t.co",
           :expanded_url => "http://example.com/expanded",
-          :display_url => "example.com/expanded",
+          :display_url => "example.com/expanded…",
           :indices => [10, 33],
         }
       ]
@@ -57,7 +57,7 @@ describe Twitter::User do
       expect(user.description_uris).to be_an Array
       expect(user.description_uris.first).to be_a Twitter::Entity::URI
       expect(user.description_uris.first.indices).to eq([10, 33])
-      expect(user.description_uris.first.display_uri.to_s).to eq("example.com/expanded")
+      expect(user.description_uris.first.display_uri).to eq("example.com/expanded…")
     end
     it "is empty when not set" do
       user = Twitter::User.new(:id => 7505382, :entities => {:description => {:urls => []}})

@@ -51,29 +51,21 @@ module Twitter
           index = array.index("uri")
           array[index] = "url"
           url_key = array.join("_").to_sym
-          if uri_key == :display_uri
-            define_display_uri_method(uri_key, url_key)
-          else
-            define_uri_method(uri_key, url_key)
-          end
-          define_predicate_method(uri_key, url_key)
+          define_uri_method(uri_key, url_key)
           alias_method(url_key, uri_key)
-          alias_method("#{url_key}?", "#{uri_key}?")
+          define_predicate_method(uri_key, url_key)
+          alias_method(:"#{url_key}?", :"#{uri_key}?")
         end
+      end
+
+      def display_uri_attr_reader
+        define_attribute_method(:display_url)
+        alias_method(:display_uri, :display_url)
+        define_predicate_method(:display_uri, :display_url)
+        alias_method(:display_url?, :display_uri?)
       end
 
     private
-
-      # Dynamically define a method for a display URI
-      #
-      # @param key1 [Symbol]
-      # @param key2 [Symbol]
-      def define_display_uri_method(key1, key2)
-        define_method(key1) do
-            @attrs[key2] if @attrs[key2]
-        end
-        memoize(key1)
-      end
 
       # Dynamically define a method for a URI
       #
@@ -114,7 +106,7 @@ module Twitter
         define_method(:"#{key1}?") do
           !!@attrs[key2]
         end
-        memoize key1
+        memoize(:"#{key1}?")
       end
 
     end
@@ -138,7 +130,7 @@ module Twitter
 
   private
 
-    def attrs_for_object(key1, key2)
+    def attrs_for_object(key1, key2=nil)
       if key2.nil?
         @attrs[key1]
       else

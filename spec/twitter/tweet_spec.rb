@@ -1,3 +1,4 @@
+# coding: utf-8
 require 'helper'
 
 describe Twitter::Tweet do
@@ -67,7 +68,7 @@ describe Twitter::Tweet do
         {
           :url => "http://example.com/t.co",
           :expanded_url => "http://example.com/expanded",
-          :display_url => "example.com/expanded",
+          :display_url => "example.com/expanded…",
           :indices => [10, 33],
         }
       ]
@@ -290,7 +291,7 @@ describe Twitter::Tweet do
         {
           :url => "http://example.com/t.co",
           :expanded_url => "http://example.com/expanded",
-          :display_url => "example.com/expanded",
+          :display_url => "example.com/expanded…",
           :indices => [10, 33],
         }
       ]
@@ -299,7 +300,7 @@ describe Twitter::Tweet do
       expect(tweet.uris.first).to be_a Twitter::Entity::URI
       expect(tweet.uris.first.indices).to eq([10, 33])
       expect(tweet.uris.first.display_uri).to be_a String
-      expect(tweet.uris.first.display_uri.to_s).to eq("example.com/expanded")
+      expect(tweet.uris.first.display_uri).to eq("example.com/expanded…")
     end
     it "is empty when not set" do
       tweet = Twitter::Tweet.new(:id => 28669546014)
