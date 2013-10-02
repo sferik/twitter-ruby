@@ -17,7 +17,18 @@ describe Twitter::Streaming::Client do
     end
   end
 
-  it "supports tracking keywords" do
+  it "#before_request" do
+    @client.connection = FakeConnection.new(fixture("track_streaming.json"))
+    var = false
+    @client.before_request do
+      var = true
+    end
+    expect(var).to be_false
+    @client.user{}
+    expect(var).to be_true
+  end
+
+  it "#filter" do
     @client.connection = FakeConnection.new(fixture("track_streaming.json"))
     tweets = []
     @client.filter(:track => "india") do |tweet|
@@ -28,7 +39,7 @@ describe Twitter::Streaming::Client do
     expect(tweets.first.text).to eq "The problem with your code is that it's doing exactly what you told it to do."
   end
 
-  it "supports firehose" do
+  it "#firehose" do
     @client.connection = FakeConnection.new(fixture("track_streaming.json"))
     tweets = []
     @client.firehose do |tweet|
@@ -39,7 +50,7 @@ describe Twitter::Streaming::Client do
     expect(tweets.first.text).to eq "The problem with your code is that it's doing exactly what you told it to do."
   end
 
-  it "supports sample" do
+  it "#sample" do
     @client.connection = FakeConnection.new(fixture("track_streaming.json"))
     tweets = []
     @client.sample do |tweet|
@@ -50,7 +61,7 @@ describe Twitter::Streaming::Client do
     expect(tweets.first.text).to eq "The problem with your code is that it's doing exactly what you told it to do."
   end
 
-  it "supports site streams" do
+  it "#site" do
     @client.connection = FakeConnection.new(fixture("track_streaming.json"))
     tweets = []
     @client.site(7505382) do |tweet|
@@ -61,7 +72,7 @@ describe Twitter::Streaming::Client do
     expect(tweets.first.text).to eq "The problem with your code is that it's doing exactly what you told it to do."
   end
 
-  it "supports user streams" do
+  it "#user" do
     @client.connection = FakeConnection.new(fixture("track_streaming.json"))
     tweets = []
     @client.user do |tweet|
