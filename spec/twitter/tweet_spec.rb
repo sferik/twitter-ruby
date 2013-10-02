@@ -298,7 +298,7 @@ describe Twitter::Tweet do
       expect(tweet.uris).to be_an Array
       expect(tweet.uris.first).to be_a Twitter::Entity::URI
       expect(tweet.uris.first.indices).to eq([10, 33])
-      expect(tweet.uris.first.display_uri).to be_a URI
+      expect(tweet.uris.first.display_uri).to be_a String
       expect(tweet.uris.first.display_uri.to_s).to eq("example.com/expanded")
     end
     it "is empty when not set" do

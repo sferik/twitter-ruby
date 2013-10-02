@@ -51,7 +51,11 @@ module Twitter
           index = array.index("uri")
           array[index] = "url"
           url_key = array.join("_").to_sym
-          define_uri_method(uri_key, url_key)
+          if uri_key == :display_uri
+            define_display_uri_method(uri_key, url_key)
+          else
+            define_uri_method(uri_key, url_key)
+          end
           define_predicate_method(uri_key, url_key)
           alias_method(url_key, uri_key)
           alias_method("#{url_key}?", "#{uri_key}?")
@@ -59,6 +63,17 @@ module Twitter
       end
 
     private
+
+      # Dynamically define a method for a display URI
+      #
+      # @param key1 [Symbol]
+      # @param key2 [Symbol]
+      def define_display_uri_method(key1, key2)
+        define_method(key1) do
+            @attrs[key2] if @attrs[key2]
+        end
+        memoize(key1)
+      end
 
       # Dynamically define a method for a URI
       #
