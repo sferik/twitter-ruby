@@ -15,7 +15,7 @@ module Twitter
       end
 
       def filter(options={}, &block)
-        request(:get, 'https://stream.twitter.com:443/1.1/statuses/filter.json', options, &block)
+        request(:post, 'https://stream.twitter.com:443/1.1/statuses/filter.json', options, &block)
       end
 
       def firehose(options={}, &block)
