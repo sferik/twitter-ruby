@@ -1,5 +1,5 @@
 module Twitter
-  class Creator
+  class Factory
 
     class << self
 

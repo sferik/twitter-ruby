@@ -10,7 +10,7 @@ module Twitter
     alias favoriters_count favorite_count
     alias in_reply_to_tweet_id in_reply_to_status_id
     alias retweeters_count retweet_count
-    object_attr_reader :GeoCreator, :geo
+    object_attr_reader :GeoFactory, :geo
     object_attr_reader :Metadata, :metadata
     object_attr_reader :Place, :place
     object_attr_reader :Tweet, :retweeted_status
@@ -53,7 +53,7 @@ module Twitter
     # @note Must include entities in your request for this method to work
     # @return [Array<Twitter::Media>]
     def media
-      entities(MediaCreator, :media)
+      entities(MediaFactory, :media)
     end
     memoize :media
 

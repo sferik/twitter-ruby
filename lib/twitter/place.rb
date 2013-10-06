@@ -6,8 +6,7 @@ module Twitter
     include Equalizer.new(:woeid)
     attr_reader :attributes, :country, :full_name, :name, :woeid
     alias woe_id woeid
-    alias id woeid
-    object_attr_reader :GeoCreator, :bounding_box
+    object_attr_reader :GeoFactory, :bounding_box
     object_attr_reader :Place, :contained_within
     alias contained? contained_within?
     uri_attr_reader :uri
