@@ -221,7 +221,7 @@ module Twitter
 
         def collect_user_ids_and_screen_names(users)
           user_ids, screen_names = [], []
-          for user in users.flatten
+          users.flatten.each do |user|
             case user
             when Integer
               user_ids << user

@@ -19,7 +19,7 @@ module Twitter
       end
 
       def on_body(data)
-        for line in @tokenizer.extract(data)
+        @tokenizer.extract(data).each do |line|
           next if line.empty?
           @block.call(JSON.parse(line, :symbolize_names => true))
         end
