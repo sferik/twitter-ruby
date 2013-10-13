@@ -133,7 +133,7 @@ client.sample do |tweet|
 end
 ```
 
-**Stream tweets for the authenticated user**
+**Stream tweets and direct messages for the authenticated user**
 
 ```ruby
 client.user do |tweet|
@@ -141,7 +141,7 @@ client.user do |tweet|
 end
 ```
 
-Currently, this library will only stream tweets. The goal is to eventually
+Currently, this library will only stream tweets and direct messages. The goal is to eventually
 handle all [streaming message types][messages]. Patches that add support for a
 new message type would be appreciated.
 
