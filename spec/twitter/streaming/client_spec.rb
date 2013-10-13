@@ -73,14 +73,16 @@ describe Twitter::Streaming::Client do
   end
 
   it "#user" do
-    @client.connection = FakeConnection.new(fixture("track_streaming.json"))
-    tweets = []
-    @client.user do |tweet|
-      tweets << tweet
+    @client.connection = FakeConnection.new(fixture("track_streaming_user.json"))
+    items = []
+    @client.user do |item|
+      items << item
     end
-    expect(tweets).to have(2).entries
-    expect(tweets.first).to be_a Twitter::Tweet
-    expect(tweets.first.text).to eq "The problem with your code is that it's doing exactly what you told it to do."
+    expect(items).to have(3).entries
+    expect(items.first).to be_a Twitter::Tweet
+    expect(items.first.text).to eq "The problem with your code is that it's doing exactly what you told it to do."
+    expect(items[2]).to be_a Twitter::DirectMessage
+    expect(items[2].text).to eq "hello bot"
   end
 
 end
