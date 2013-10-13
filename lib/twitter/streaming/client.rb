@@ -54,7 +54,9 @@ module Twitter
         headers  = default_headers.merge(:authorization => oauth_auth_header(method, uri, params).to_s)
         request  = HTTP::Request.new(method, uri + '?' + to_url_params(params), headers)
         response = Streaming::Response.new do |data|
-          yield(Tweet.new(data)) if data[:id]
+          if item = item_factory(data)
+            yield item
+          end
         end
         @connection.stream(request, response)
       end
@@ -72,6 +74,13 @@ module Twitter
         }
       end
 
+      def item_factory(data)
+        if data[:id]
+          Tweet.new(data)
+        elsif data[:direct_message]
+          DirectMessage.new(data[:direct_message])
+        end
+      end
     end
   end
 end
