@@ -1,25 +1,23 @@
 ## Contributing
 In the spirit of [free software][free-sw], **everyone** is encouraged to help
-improve this project.
+improve this project. Here are some ways *you* can contribute:
 
 [free-sw]: http://www.fsf.org/licensing/essays/free-sw.html
 
-Here are some ways *you* can contribute:
-
-* by using alpha, beta, and prerelease versions
-* by reporting bugs
-* by suggesting new features
-* by writing or editing documentation
-* by writing specifications
-* by writing code (**no patch is too small**: fix typos, add comments, clean up
-  inconsistent whitespace)
-* by refactoring code
-* by fixing [issues][]
-* by reviewing patches
-* [financially][pledgie]
+* Use alpha, beta, and pre-release versions.
+* Report bugs.
+* Suggest new features.
+* Write or edit documentation.
+* Write specifications.
+* Write code (**no patch is too small**: fix typos, add comments, clean up
+  inconsistent whitespace).
+* Refactor code.
+* Fix [issues][].
+* Review patches.
+* Financially pledge using [Pledgie][].
 
 [issues]: https://github.com/sferik/twitter/issues
-[pledgie]: http://pledgie.com/campaigns/18388
+[Pledgie]: http://pledgie.com/campaigns/18388
 
 ## Submitting an Issue
 We use the [GitHub issue tracker][issues] to track bugs and features. Before
