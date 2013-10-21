@@ -16,6 +16,7 @@
 * [Move `Twitter::Client` into `REST` namespace](https://github.com/sferik/twitter/commit/5b8c3fd243227888fc0886b0bf864ecd3a018f99)
 * [Add `Twitter::Streaming::Client`](https://github.com/sferik/twitter/commit/23afe90aa494229a4389c3e51f753102b34fc551)
 * [Add `Twitter::Error::AlreadyPosted`](https://github.com/sferik/twitter/commit/e11d2a27dd0dfbbe16c812a81b9c2ab2852a7790)
+* [Add `Twitter::REST::Client#reverse_token`](https://github.com/sferik/twitter/commit/39139c4df35b54b86fae29d1ac83a08f4aa293cd)
 * [Add `#url` methods to `Twitter::List`, `Twitter::Tweet`, and `Twitter::User`](https://github.com/sferik/twitter/commit/a89ec0f4e81097cc303b6c204e0375eb57ffd614)
 * [Add `Twitter::Place#contained_within` and `#contained_within?`](https://github.com/sferik/twitter/commit/23cc247bd20001ecbafa544bfb4546bdfc630429)
 * [Add `Twitter::GeoResults`](https://github.com/sferik/twitter/commit/be1a0a1425a6700267aae0f94a8835bff24dad56)
