@@ -61,6 +61,18 @@ describe Twitter::Streaming::Client do
     expect(tweets.first.text).to eq "The problem with your code is that it's doing exactly what you told it to do."
   end
 
+  it "#sample_raw" do
+    client = Twitter::Streaming::Client.new(:raw_data => true)
+    client.connection = FakeConnection.new(fixture("track_streaming.json"))
+    lines = []
+    client.sample do |line|
+      lines << line
+    end
+    expect(lines).to have(2).entries
+    expect(lines.first).to be_a String
+    expect(lines.first).to include "The problem with your code is that it's doing exactly what you told it to do."
+  end
+
   it "#site" do
     @client.connection = FakeConnection.new(fixture("track_streaming.json"))
     tweets = []

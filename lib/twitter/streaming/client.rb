@@ -7,6 +7,7 @@ require 'twitter/streaming/response'
 module Twitter
   module Streaming
     class Client < Twitter::Client
+      attr_accessor :raw_data
       attr_writer :connection
 
       def initialize(options={}, &block)
@@ -75,10 +76,15 @@ module Twitter
       end
 
       def item_factory(data)
-        if data[:id]
-          Tweet.new(data)
-        elsif data[:direct_message]
-          DirectMessage.new(data[:direct_message])
+        if @raw_data
+          data
+        else
+          json = JSON.parse(data, :symbolize_names => true)
+          if json[:id]
+            Tweet.new(json)
+          elsif json[:direct_message]
+            DirectMessage.new(json[:direct_message])
+          end
         end
       end
     end
