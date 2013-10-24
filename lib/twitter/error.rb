@@ -12,7 +12,7 @@ module Twitter
 
     # @return [Array]
     def self.descendants
-      ObjectSpace.each_object(::Class).select{|klass| klass < self}
+      ObjectSpace.each_object(class << self; self; end).select{|klass| klass < self}
     end
 
     # Initializes a new Error object

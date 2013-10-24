@@ -24,6 +24,10 @@ describe Twitter::Error do
       end
       expect(Twitter::Error.descendants).to include Twitter::Error::GatewayTimeout
     end
+
+    it "Does not include Twitter::Error in list of descendants" do
+      expect(Twitter::Error.descendants).to_not include Twitter::Error
+    end
   end
 
 end
