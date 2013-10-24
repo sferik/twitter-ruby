@@ -17,4 +17,13 @@ describe Twitter::Error do
     end
   end
 
+  describe ".descendants" do
+    it "Finds descendants of Twitter::Error" do
+      class ComparableObject
+        extend ::Comparable
+      end
+      expect(Twitter::Error.descendants).to include Twitter::Error::GatewayTimeout
+    end
+  end
+
 end
