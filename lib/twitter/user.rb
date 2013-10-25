@@ -70,6 +70,7 @@ module Twitter
     end
     alias profile_banner_url_https profile_banner_uri_https
 
+    # @return [Boolean]
     def profile_banner_uri?
       !!@attrs[:profile_banner_url]
     end

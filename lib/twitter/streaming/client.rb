@@ -9,28 +9,36 @@ module Twitter
     class Client < Twitter::Client
       attr_writer :connection
 
+      # Initializes a new Client object
+      #
+      # @return [Twitter::Streaming::Client]
       def initialize(options={}, &block)
         super
         @connection = Streaming::Connection.new
       end
 
+      # @yield [Twitter::Tweet] A stream of tweets.
       def filter(options={}, &block)
         request(:get, 'https://stream.twitter.com:443/1.1/statuses/filter.json', options, &block)
       end
 
+      # @yield [Twitter::Tweet] A stream of tweets.
       def firehose(options={}, &block)
         request(:get, 'https://stream.twitter.com:443/1.1/statuses/firehose.json', options, &block)
       end
 
+      # @yield [Twitter::Tweet] A stream of tweets.
       def sample(options={}, &block)
         request(:get, 'https://stream.twitter.com:443/1.1/statuses/sample.json', options, &block)
       end
 
+      # @yield [Twitter::Tweet] A stream of tweets.
       def site(*args, &block)
         arguments = Arguments.new(args)
         request(:get, 'https://sitestream.twitter.com:443/1.1/site.json', arguments.options.merge(:follow => arguments.join(',')), &block)
       end
 
+      # @yield [Twitter::Tweet] A stream of tweets.
       def user(options={}, &block)
         request(:get, 'https://userstream.twitter.com:443/1.1/user.json', options, &block)
       end

@@ -13,6 +13,7 @@ module Twitter
     end
     memoize :created_at
 
+    # @return [Boolean]
     def created?
       !!@attrs[:created_at]
     end

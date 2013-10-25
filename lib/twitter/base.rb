@@ -58,6 +58,7 @@ module Twitter
         end
       end
 
+      # Define display_uri attribute methods
       def display_uri_attr_reader
         define_attribute_method(:display_url)
         alias_method(:display_uri, :display_url)
@@ -101,7 +102,8 @@ module Twitter
 
       # Dynamically define a predicate method for an attribute
       #
-      # @param key [Symbol]
+      # @param key1 [Symbol]
+      # @param key2 [Symbol]
       def define_predicate_method(key1, key2=key1)
         define_method(:"#{key1}?") do
           !!@attrs[key2]

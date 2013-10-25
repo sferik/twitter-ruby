@@ -15,7 +15,7 @@ module Twitter
 
     class << self
 
-      # Construct a new SearchResults object from a response hash
+      # Construct a new TrendResults object from a response hash
       #
       # @param response [Hash]
       # @return [Twitter::Base]
@@ -25,7 +25,7 @@ module Twitter
 
     end
 
-    # Initializes a new SearchResults object
+    # Initializes a new TrendResults object
     #
     # @param attrs [Hash]
     # @return [Twitter::TrendResults]

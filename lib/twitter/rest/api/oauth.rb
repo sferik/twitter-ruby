@@ -40,12 +40,20 @@ module Twitter
           object_from_response(Twitter::Token, :post, "/oauth2/invalidate_token", :access_token => access_token)
         end
 
+        # Allows a registered application to revoke an issued OAuth 2 Bearer Token by presenting its client credentials.
+        #
+        # @see https://dev.twitter.com/docs/api/1.1/post/oauth2/invalidate_token
+        # @rate_limited No
+        # @authentication Required
+        # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+        # @return [String] The token string.
         def reverse_token
           conn = connection.dup
-          conn.builder.swap 4, Twitter::REST::Response::ParseErrorJson
-          conn.post('/oauth/request_token?x_auth_mode=reverse_auth') do |request|
+          conn.builder.swap(4, Twitter::REST::Response::ParseErrorJson)
+          response = conn.post('/oauth/request_token?x_auth_mode=reverse_auth') do |request|
             request.headers[:authorization] = oauth_auth_header(:post, 'https://api.twitter.com/oauth/request_token', :x_auth_mode => 'reverse_auth').to_s
-          end.body
+          end
+          response.body
         end
 
       end

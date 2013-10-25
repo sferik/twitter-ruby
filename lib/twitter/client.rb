@@ -28,6 +28,7 @@ module Twitter
       !!(access_token && access_token_secret)
     end
 
+    # @return [String]
     def user_agent
       @user_agent ||= "Twitter Ruby Gem #{Twitter::Version}"
     end

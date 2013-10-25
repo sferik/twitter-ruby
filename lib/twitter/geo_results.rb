@@ -10,7 +10,7 @@ module Twitter
 
     class << self
 
-      # Construct a new SearchResults object from a response hash
+      # Construct a new GeoResults object from a response hash
       #
       # @param response [Hash]
       # @return [Twitter::Base]
@@ -20,7 +20,7 @@ module Twitter
 
     end
 
-    # Initializes a new SearchResults object
+    # Initializes a new GeoResults object
     #
     # @param attrs [Hash]
     # @return [Twitter::GeoResults]

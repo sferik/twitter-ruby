@@ -3,6 +3,10 @@ require 'buftok'
 module Twitter
   module Streaming
     class Response
+
+      # Initializes a new Response object
+      #
+      # @return [Twitter::Streaming::Response]
       def initialize(&block)
         @block     = block
         @parser    = Http::Parser.new(self)

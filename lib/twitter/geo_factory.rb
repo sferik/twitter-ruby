@@ -10,7 +10,7 @@ module Twitter
       # Construct a new geo object
       #
       # @param attrs [Hash]
-      # @raise [ArgumentError] Error raised when supplied argument is missing a :type key.
+      # @raise [IndexError] Error raised when supplied argument is missing a :type key.
       # @return [Twitter::Geo]
       def new(attrs={})
         super(:type, Geo, attrs)
