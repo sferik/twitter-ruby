@@ -5,6 +5,8 @@ module Twitter
       def self.parse(data)
         if data[:id]
           Tweet.new(data)
+        elsif data[:event]
+          Event.new(data)
         elsif data[:direct_message]
           DirectMessage.new(data[:direct_message])
         elsif data[:friends]

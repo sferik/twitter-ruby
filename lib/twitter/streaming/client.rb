@@ -4,6 +4,7 @@ require 'twitter/client'
 require 'twitter/streaming/connection'
 require 'twitter/streaming/response'
 require 'twitter/streaming/message_parser'
+require 'twitter/streaming/event'
 require 'twitter/streaming/friend_list'
 
 module Twitter

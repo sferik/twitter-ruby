@@ -4,6 +4,7 @@ module Twitter
 
       attr_reader :friend_ids
 
+      # @param friend_ids [Array]
       def initialize(friend_ids)
         @friend_ids = friend_ids
       end
