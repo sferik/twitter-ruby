@@ -370,8 +370,8 @@ at the beginning:
 * `#list_destroy` is now `#destroy_list`
 * `#list_remove_member` is now `#remove_list_member`
 * `#list_remove_members` is now `#remove_list_members`
-* `#list_add_member` is now `#remove_add_member`
-* `#list_add_members` is now `#remove_add_members`
+* `#list_add_member` is now `#add_list_member`
+* `#list_add_members` is now `#add_list_members`
 * `#lists_owned` is now `#owned_list`
 * `#place_create` is now `#create_place`
 * `#saved_search_create` is now `#create_saved_search`
