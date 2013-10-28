@@ -133,17 +133,19 @@ client.sample do |tweet|
 end
 ```
 
-**Stream tweets and direct messages for the authenticated user**
+**Stream tweets, events and direct messages for the authenticated user**
 
 ```ruby
-client.user do |tweet|
-  puts tweet.text
+client.user do |message|
+  puts message 
 end
 ```
 
-Currently, this library will only stream tweets and direct messages. The goal is to eventually
-handle all [streaming message types][messages]. Patches that add support for a
-new message type would be appreciated.
+`message` can be one of
+ + Twitter::Tweet
+ + Twitter::DirectMessage
+ + Twitter::Streaming::Event
+ + Twitter::Streaming::FriendList
 
 [messages]: https://dev.twitter.com/docs/streaming-apis/messages
 
