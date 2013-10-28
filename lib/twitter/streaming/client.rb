@@ -3,6 +3,9 @@ require 'twitter/arguments'
 require 'twitter/client'
 require 'twitter/streaming/connection'
 require 'twitter/streaming/response'
+require 'twitter/streaming/message_parser'
+require 'twitter/streaming/event'
+require 'twitter/streaming/friend_list'
 
 module Twitter
   module Streaming
@@ -62,7 +65,7 @@ module Twitter
         headers  = default_headers.merge(:authorization => oauth_auth_header(method, uri, params).to_s)
         request  = HTTP::Request.new(method, uri + '?' + to_url_params(params), headers)
         response = Streaming::Response.new do |data|
-          if item = item_factory(data)
+          if item = Streaming::MessageParser.parse(data)
             yield item
           end
         end
@@ -80,14 +83,6 @@ module Twitter
           :accept     => '*/*',
           :user_agent => user_agent,
         }
-      end
-
-      def item_factory(data)
-        if data[:id]
-          Tweet.new(data)
-        elsif data[:direct_message]
-          DirectMessage.new(data[:direct_message])
-        end
       end
     end
   end

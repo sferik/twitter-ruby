@@ -78,11 +78,15 @@ describe Twitter::Streaming::Client do
     @client.user do |item|
       items << item
     end
-    expect(items).to have(3).entries
-    expect(items.first).to be_a Twitter::Tweet
-    expect(items.first.text).to eq "The problem with your code is that it's doing exactly what you told it to do."
-    expect(items[2]).to be_a Twitter::DirectMessage
-    expect(items[2].text).to eq "hello bot"
+    expect(items).to have(5).entries
+    expect(items[0]).to be_a Twitter::Streaming::FriendList
+    expect(items[0].friend_ids).to eq([488736931,311444249])
+    expect(items[1]).to be_a Twitter::Tweet
+    expect(items[1].text).to eq "The problem with your code is that it's doing exactly what you told it to do."
+    expect(items[3]).to be_a Twitter::DirectMessage
+    expect(items[3].text).to eq "hello bot"
+    expect(items[4]).to be_a Twitter::Streaming::Event
+    expect(items[4].name).to be(:follow)
   end
 
 end
