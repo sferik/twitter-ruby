@@ -80,25 +80,6 @@ module Twitter
         end
         alias places_similar similar_places
 
-        # Creates a new place at the given latitude and longitude
-        #
-        # @see https://dev.twitter.com/docs/api/1.1/post/geo/place
-        # @rate_limited Yes
-        # @authentication Requires user context
-        # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-        # @param options [Hash] A customizable set of options.
-        # @option options [String] :name The name a place is known as.
-        # @option options [String] :contained_within This is the place_id which you would like to restrict the search results to. Setting this value means only places within the given place_id will be found.
-        # @option options [String] :token The token found in the response from {Twitter::REST::API::PlacesAndGeo#places_similar}.
-        # @option options [Float] :lat The latitude to search around. This option will be ignored unless it is inside the range -90.0 to +90.0 (North is positive) inclusive. It will also be ignored if there isn't a corresponding :long option.
-        # @option options [Float] :long The longitude to search around. The valid range for longitude is -180.0 to +180.0 (East is positive) inclusive. This option will be ignored if outside that range, if it is not a number, if geo_enabled is disabled, or if there not a corresponding :lat option.
-        # @option options [String] :"attribute:street_address" This option searches for places which have this given street address. There are other well-known and application-specific attributes available. Custom attributes are also permitted.
-        # @return [Twitter::Place] The created place.
-        def create_place(options={})
-          object_from_response(Twitter::Place, :post, "/1.1/geo/place.json", options)
-        end
-        deprecate_alias :place_create, :create_place
-
       end
     end
   end
