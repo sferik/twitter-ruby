@@ -4,8 +4,7 @@ require 'uri'
 
 module Twitter
   class Client
-    attr_accessor :access_token, :access_token_secret, :consumer_key,
-      :consumer_secret, :user_agent
+    attr_accessor :access_token, :access_token_secret, :consumer_key, :consumer_secret
     alias oauth_token access_token
     alias oauth_token= access_token=
     alias oauth_token_secret access_token_secret
