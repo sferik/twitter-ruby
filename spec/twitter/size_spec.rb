@@ -6,12 +6,12 @@ describe Twitter::Size do
     it "returns true for empty objects" do
       size = Twitter::Size.new
       other = Twitter::Size.new
-      expect(size == other).to be_true
+      expect(size == other).to be true
     end
     it "returns true when objects height and width are the same" do
       size = Twitter::Size.new(:h => 1, :w => 1, :resize => true)
       other = Twitter::Size.new(:h => 1, :w => 1, :resize => false)
-      expect(size == other).to be_true
+      expect(size == other).to be true
     end
     it "returns false when objects height or width are different" do
       size = Twitter::Size.new(:h => 1, :w => 1)

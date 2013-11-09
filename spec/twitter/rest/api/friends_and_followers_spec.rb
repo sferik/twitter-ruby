@@ -462,7 +462,7 @@ describe Twitter::REST::API::FriendsAndFollowers do
       end
       it "returns true if user A follows user B" do
         friendship = @client.friendship?("sferik", "pengwynn")
-        expect(friendship).to be_true
+        expect(friendship).to be true
       end
       it "returns false if user A does not follow user B" do
         friendship = @client.friendship?("pengwynn", "sferik")

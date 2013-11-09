@@ -27,11 +27,11 @@ describe Twitter::REST::Client do
   describe ".credentials?" do
     it "returns true if only bearer_token is supplied" do
       client = Twitter::REST::Client.new(:bearer_token => "BT")
-      expect(client.credentials?).to be_true
+      expect(client.credentials?).to be true
     end
     it "returns true if all OAuth credentials are present" do
       client = Twitter::REST::Client.new(:consumer_key => "CK", :consumer_secret => "CS", :access_token => "AT", :access_token_secret => "AS")
-      expect(client.credentials?).to be_true
+      expect(client.credentials?).to be true
     end
     it "returns false if any credentials are missing" do
       client = Twitter::REST::Client.new(:consumer_key => "CK", :consumer_secret => "CS", :access_token => "AT")
@@ -70,7 +70,7 @@ describe Twitter::REST::Client do
   describe "#user_token?" do
     it "returns true if the user token/secret are present" do
       client = Twitter::REST::Client.new(:consumer_key => "CK", :consumer_secret => "CS", :access_token => "AT", :access_token_secret => "AS")
-      expect(client.user_token?).to be_true
+      expect(client.user_token?).to be true
     end
     it "returns false if the user token/secret are not completely present" do
       client = Twitter::REST::Client.new(:consumer_key => "CK", :consumer_secret => "CS", :access_token => "AT")
@@ -81,7 +81,7 @@ describe Twitter::REST::Client do
   describe "#bearer_token?" do
     it "returns true if the app token is present" do
       client = Twitter::REST::Client.new(:consumer_key => "CK", :consumer_secret => "CS", :bearer_token => "BT")
-      expect(client.bearer_token?).to be_true
+      expect(client.bearer_token?).to be true
     end
     it "returns false if the bearer_token is not present" do
       client = Twitter::REST::Client.new(:consumer_key => "CK", :consumer_secret => "CS")
@@ -92,7 +92,7 @@ describe Twitter::REST::Client do
   describe "#credentials?" do
     it "returns true if all credentials are present" do
       client = Twitter::REST::Client.new(:consumer_key => "CK", :consumer_secret => "CS", :access_token => "AT", :access_token_secret => "AS")
-      expect(client.credentials?).to be_true
+      expect(client.credentials?).to be true
     end
     it "returns false if any credentials are missing" do
       client = Twitter::REST::Client.new(:consumer_key => "CK", :consumer_secret => "CS", :access_token => "AT")

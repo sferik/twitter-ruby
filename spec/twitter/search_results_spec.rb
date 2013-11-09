@@ -95,7 +95,7 @@ describe Twitter::SearchResults do
   describe "#next_results?" do
     it "returns true when next_results is set" do
       next_results = Twitter::SearchResults.new(:search_metadata => {:next_results => "?"}).next_results?
-      expect(next_results).to be_true
+      expect(next_results).to be true
     end
     it "returns false when next_results is not set" do
       next_results = Twitter::SearchResults.new(:search_metadata => {}).next_results?

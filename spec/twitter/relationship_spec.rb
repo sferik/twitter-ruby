@@ -16,7 +16,7 @@ describe Twitter::Relationship do
   describe "#source?" do
     it "returns true when source is set" do
       relationship = Twitter::Relationship.new(:relationship => {:source => {:id => 7505382}})
-      expect(relationship.source?).to be_true
+      expect(relationship.source?).to be true
     end
     it "returns false when source is not set" do
       relationship = Twitter::Relationship.new(:relationship => {})
@@ -38,7 +38,7 @@ describe Twitter::Relationship do
   describe "#target?" do
     it "returns true when target is set" do
       relationship = Twitter::Relationship.new(:relationship => {:target => {:id => 7505382}})
-      expect(relationship.target?).to be_true
+      expect(relationship.target?).to be true
     end
     it "returns false when target is not set" do
       relationship = Twitter::Relationship.new(:relationship => {})

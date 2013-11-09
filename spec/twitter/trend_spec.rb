@@ -6,12 +6,12 @@ describe Twitter::Trend do
     it "returns true for empty objects" do
       trend = Twitter::Trend.new
       other = Twitter::Trend.new
-      expect(trend == other).to be_true
+      expect(trend == other).to be true
     end
     it "returns true when objects names are the same" do
       trend = Twitter::Trend.new(:name => "#sevenwordsaftersex", :query => "foo")
       other = Twitter::Trend.new(:name => "#sevenwordsaftersex", :query => "bar")
-      expect(trend == other).to be_true
+      expect(trend == other).to be true
     end
     it "returns false when objects names are different" do
       trend = Twitter::Trend.new(:name => "#sevenwordsaftersex")
@@ -40,7 +40,7 @@ describe Twitter::Trend do
   describe "#uri?" do
     it "returns true when the url is set" do
       trend = Twitter::Trend.new(:url => "https://api.twitter.com/1.1/geo/id/247f43d441defc03.json")
-      expect(trend.uri?).to be_true
+      expect(trend.uri?).to be true
     end
     it "returns false when the url is not set" do
       trend = Twitter::Trend.new

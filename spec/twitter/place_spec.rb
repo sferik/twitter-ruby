@@ -6,7 +6,7 @@ describe Twitter::Place do
     it "returns true when objects WOE IDs are the same" do
       place = Twitter::Place.new(:woeid => 1, :name => "foo")
       other = Twitter::Place.new(:woeid => 1, :name => "bar")
-      expect(place == other).to be_true
+      expect(place == other).to be true
     end
     it "returns false when objects WOE IDs are different" do
       place = Twitter::Place.new(:woeid => 1)
@@ -34,7 +34,7 @@ describe Twitter::Place do
   describe "#bounding_box?" do
     it "returns true when bounding_box is set" do
       place = Twitter::Place.new(:woeid => "247f43d441defc03", :bounding_box => {:type => "Polygon", :coordinates => [[[-122.40348192, 37.77752898], [-122.387436, 37.77752898], [-122.387436, 37.79448597], [-122.40348192, 37.79448597]]]})
-      expect(place.bounding_box?).to be_true
+      expect(place.bounding_box?).to be true
     end
     it "returns false when bounding_box is not set" do
       place = Twitter::Place.new(:woeid => "247f43d441defc03")
@@ -56,7 +56,7 @@ describe Twitter::Place do
   describe "#contained_within?" do
     it "returns true when contained_within is set" do
       place = Twitter::Place.new(:woeid => "247f43d441defc03", :contained_within => {:woeid => "247f43d441defc04"})
-      expect(place.contained?).to be_true
+      expect(place.contained?).to be true
     end
     it "returns false when contained_within is not set" do
       place = Twitter::Place.new(:woeid => "247f43d441defc03")
@@ -120,7 +120,7 @@ describe Twitter::Place do
   describe "#uri?" do
     it "returns true when the url is set" do
       place = Twitter::Place.new(:woeid => "247f43d441defc03", :url => "https://api.twitter.com/1.1/geo/id/247f43d441defc03.json")
-      expect(place.uri?).to be_true
+      expect(place.uri?).to be true
     end
     it "returns false when the url is not set" do
       place = Twitter::Place.new(:woeid => "247f43d441defc03")

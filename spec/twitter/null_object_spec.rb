@@ -8,7 +8,7 @@ describe Twitter::NullObject do
 
   describe "#nil?" do
     it "returns true" do
-      expect(@null_object.null?).to be_true
+      expect(@null_object.nil?).to be true
     end
   end
 
@@ -20,7 +20,7 @@ describe Twitter::NullObject do
 
   describe "#respond_to?" do
     it "returns true" do
-      expect(@null_object.respond_to?(:any)).to be_true
+      expect(@null_object.respond_to?(:any)).to be true
     end
   end
 

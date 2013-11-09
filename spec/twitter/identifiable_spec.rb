@@ -12,7 +12,7 @@ describe Twitter::Identity do
     it "returns true when objects IDs are the same" do
       one = Twitter::Identity.new(:id => 1, :screen_name => "sferik")
       two = Twitter::Identity.new(:id => 1, :screen_name => "garybernhardt")
-      expect(one == two).to be_true
+      expect(one == two).to be true
     end
     it "returns false when objects IDs are different" do
       one = Twitter::Identity.new(:id => 1)

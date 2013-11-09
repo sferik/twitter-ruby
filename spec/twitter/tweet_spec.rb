@@ -16,7 +16,7 @@ describe Twitter::Tweet do
     it "returns true when objects IDs are the same" do
       tweet = Twitter::Tweet.new(:id => 1, :text => "foo")
       other = Twitter::Tweet.new(:id => 1, :text => "bar")
-      expect(tweet == other).to be_true
+      expect(tweet == other).to be true
     end
     it "returns false when objects IDs are different" do
       tweet = Twitter::Tweet.new(:id => 1)
@@ -44,7 +44,7 @@ describe Twitter::Tweet do
   describe "#created?" do
     it "returns true when created_at is set" do
       tweet = Twitter::Tweet.new(:id => 28669546014, :created_at => "Mon Jul 16 12:59:01 +0000 2007")
-      expect(tweet.created?).to be_true
+      expect(tweet.created?).to be true
     end
     it "returns false when created_at is not set" do
       tweet = Twitter::Tweet.new(:id => 28669546014)
@@ -73,7 +73,7 @@ describe Twitter::Tweet do
         }
       ]
       tweet = Twitter::Tweet.new(:id => 28669546014, :entities => {:urls => urls_array})
-      expect(tweet.entities?).to be_true
+      expect(tweet.entities?).to be true
     end
   end
 
@@ -125,7 +125,7 @@ describe Twitter::Tweet do
   describe "#geo?" do
     it "returns true when geo is set" do
       tweet = Twitter::Tweet.new(:id => 28669546014, :geo => {:id => 1, :type => "Point"})
-      expect(tweet.geo?).to be_true
+      expect(tweet.geo?).to be true
     end
     it "returns false when geo is not set" do
       tweet = Twitter::Tweet.new(:id => 28669546014)
@@ -187,7 +187,7 @@ describe Twitter::Tweet do
   describe "#metadata?" do
     it "returns true when metadata is set" do
       tweet = Twitter::Tweet.new(:id => 28669546014, :metadata => {})
-      expect(tweet.metadata?).to be_true
+      expect(tweet.metadata?).to be true
     end
     it "returns false when metadata is not set" do
       tweet = Twitter::Tweet.new(:id => 28669546014)
@@ -209,7 +209,7 @@ describe Twitter::Tweet do
   describe "#place?" do
     it "returns true when place is set" do
       tweet = Twitter::Tweet.new(:id => 28669546014, :place => {:id => "247f43d441defc03"})
-      expect(tweet.place?).to be_true
+      expect(tweet.place?).to be true
     end
     it "returns false when place is not set" do
       tweet = Twitter::Tweet.new(:id => 28669546014)
@@ -220,7 +220,7 @@ describe Twitter::Tweet do
   describe "#reply?" do
     it "returns true when there is an in-reply-to status" do
       tweet = Twitter::Tweet.new(:id => 28669546014, :in_reply_to_status_id => 114749583439036416)
-      expect(tweet.reply?).to be_true
+      expect(tweet.reply?).to be true
     end
     it "returns false when in_reply_to_status_id is not set" do
       tweet = Twitter::Tweet.new(:id => 28669546014)
@@ -231,7 +231,7 @@ describe Twitter::Tweet do
   describe "#retweet?" do
     it "returns true when there is a retweeted status" do
       tweet = Twitter::Tweet.new(:id => 28669546014, :retweeted_status => {:id => 25938088801, :text => "BOOSH"})
-      expect(tweet.retweet?).to be_true
+      expect(tweet.retweet?).to be true
     end
     it "returns false when retweeted_status is not set" do
       tweet = Twitter::Tweet.new(:id => 28669546014)
@@ -254,7 +254,7 @@ describe Twitter::Tweet do
   describe "#retweeted_status?" do
     it "returns true when retweeted_status is set" do
       tweet = Twitter::Tweet.new(:id => 28669546014, :retweeted_status => {:id => 25938088801, :text => "BOOSH"})
-      expect(tweet.retweeted_status?).to be_true
+      expect(tweet.retweeted_status?).to be true
     end
     it "returns false when retweeted_status is not set" do
       tweet = Twitter::Tweet.new(:id => 28669546014)
@@ -339,7 +339,7 @@ describe Twitter::Tweet do
   describe "#user?" do
     it "returns true when status is set" do
       tweet = Twitter::Tweet.new(:id => 28669546014, :user => {:id => 7505382})
-      expect(tweet.user?).to be_true
+      expect(tweet.user?).to be true
     end
     it "returns false when status is not set" do
       tweet = Twitter::Tweet.new(:id => 28669546014)

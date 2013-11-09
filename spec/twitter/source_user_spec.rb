@@ -6,7 +6,7 @@ describe Twitter::SourceUser do
     it "returns true when objects IDs are the same" do
       saved_search = Twitter::SourceUser.new(:id => 1, :name => "foo")
       other = Twitter::SourceUser.new(:id => 1, :name => "bar")
-      expect(saved_search == other).to be_true
+      expect(saved_search == other).to be true
     end
     it "returns false when objects IDs are different" do
       saved_search = Twitter::SourceUser.new(:id => 1)

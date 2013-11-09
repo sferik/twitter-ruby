@@ -278,7 +278,7 @@ describe Twitter::REST::API::Lists do
       end
       it "returns true if the specified user subscribes to the specified list" do
         list_subscriber = @client.list_subscriber?("sferik", "presidents", 813286)
-        expect(list_subscriber).to be_true
+        expect(list_subscriber).to be true
       end
       it "returns false if the specified user does not subscribe to the specified list" do
         list_subscriber = @client.list_subscriber?("sferik", "presidents", 18755393)
@@ -414,7 +414,7 @@ describe Twitter::REST::API::Lists do
       end
       it "returns true if user is a list member" do
         list_member = @client.list_member?("sferik", "presidents", 813286)
-        expect(list_member).to be_true
+        expect(list_member).to be true
       end
       it "returns false if user is not a list member" do
         list_member = @client.list_member?("sferik", "presidents", 65493023)

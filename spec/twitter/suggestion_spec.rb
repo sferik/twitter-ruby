@@ -6,12 +6,12 @@ describe Twitter::Suggestion do
     it "returns true for empty objects" do
       suggestion = Twitter::Suggestion.new
       other = Twitter::Suggestion.new
-      expect(suggestion == other).to be_true
+      expect(suggestion == other).to be true
     end
     it "returns true when objects slugs are the same" do
       suggestion = Twitter::Suggestion.new(:slug => 1, :name => "foo")
       other = Twitter::Suggestion.new(:slug => 1, :name => "bar")
-      expect(suggestion == other).to be_true
+      expect(suggestion == other).to be true
     end
     it "returns false when objects slugs are different" do
       suggestion = Twitter::Suggestion.new(:slug => 1)

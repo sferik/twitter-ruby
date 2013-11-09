@@ -25,7 +25,7 @@ describe Twitter::Streaming::Client do
     end
     expect(var).to be false
     @client.user{}
-    expect(var).to be_true
+    expect(var).to be true
   end
 
   it "#filter" do

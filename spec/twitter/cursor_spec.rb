@@ -33,7 +33,7 @@ describe Twitter::Cursor do
         @cursor = Twitter::Cursor.new({:previous_cursor => 0}, :ids, nil, Twitter::REST::Client.new, :get, "/1.1/followers/ids.json", {})
       end
       it "returns true" do
-        expect(@cursor.first?).to be_true
+        expect(@cursor.first?).to be true
       end
     end
     context "when previous cursor does not equal zero" do
@@ -52,7 +52,7 @@ describe Twitter::Cursor do
         @cursor = Twitter::Cursor.new({:next_cursor => 0}, :ids, nil, Twitter::REST::Client.new, :get, "/1.1/followers/ids.json", {})
       end
       it "returns true" do
-        expect(@cursor.last?).to be_true
+        expect(@cursor.last?).to be true
       end
     end
     context "when next cursor does not equal zero" do

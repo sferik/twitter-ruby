@@ -6,7 +6,7 @@ describe Twitter::List do
     it "returns true when objects IDs are the same" do
       list = Twitter::List.new(:id => 1, :slug => "foo")
       other = Twitter::List.new(:id => 1, :slug => "bar")
-      expect(list == other).to be_true
+      expect(list == other).to be true
     end
     it "returns false when objects IDs are different" do
       list = Twitter::List.new(:id => 1)
@@ -34,7 +34,7 @@ describe Twitter::List do
   describe "#created?" do
     it "returns true when created_at is set" do
       list = Twitter::List.new(:id => 8863586, :created_at => "Mon Jul 16 12:59:01 +0000 2007")
-      expect(list.created?).to be_true
+      expect(list.created?).to be true
     end
     it "returns false when created_at is not set" do
       list = Twitter::List.new(:id => 8863586)
@@ -77,7 +77,7 @@ describe Twitter::List do
   describe "#user?" do
     it "returns true when user is set" do
       list = Twitter::List.new(:id => 8863586, :user => {:id => 7505382})
-      expect(list.user?).to be_true
+      expect(list.user?).to be true
     end
     it "returns false when user is not set" do
       list = Twitter::List.new(:id => 8863586)

@@ -18,7 +18,7 @@ describe Twitter::Entity::URI do
   describe "#display_uri?" do
     it "returns true when the display_url is set" do
       uri = Twitter::Entity::URI.new(:display_url => "example.com/expanded…")
-      expect(uri.display_uri?).to be_true
+      expect(uri.display_uri?).to be true
     end
     it "returns false when the display_url is not set" do
       uri = Twitter::Entity::URI.new
@@ -41,7 +41,7 @@ describe Twitter::Entity::URI do
   describe "#expanded_uri?" do
     it "returns true when the expanded_url is set" do
       uri = Twitter::Entity::URI.new(:expanded_url => "https://github.com/sferik")
-      expect(uri.expanded_uri?).to be_true
+      expect(uri.expanded_uri?).to be true
     end
     it "returns false when the expanded_url is not set" do
       uri = Twitter::Entity::URI.new
@@ -64,7 +64,7 @@ describe Twitter::Entity::URI do
   describe "#uri?" do
     it "returns true when the url is set" do
       uri = Twitter::Entity::URI.new(:url => "https://github.com/sferik")
-      expect(uri.uri?).to be_true
+      expect(uri.uri?).to be true
     end
     it "returns false when the url is not set" do
       uri = Twitter::Entity::URI.new

@@ -238,7 +238,7 @@ describe Twitter::REST::API::Users do
       end
       it "returns true if block exists" do
         block = @client.block?("pengwynn")
-        expect(block).to be_true
+        expect(block).to be true
       end
       it "returns false if block does not exist" do
         block = @client.block?("sferik")
@@ -528,7 +528,7 @@ describe Twitter::REST::API::Users do
     end
     it "returns true if user exists" do
       user = @client.user?("sferik")
-      expect(user).to be_true
+      expect(user).to be true
     end
     it "returns false if user does not exist" do
       user = @client.user?("pengwynn")

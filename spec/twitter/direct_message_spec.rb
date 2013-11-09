@@ -6,7 +6,7 @@ describe Twitter::DirectMessage do
     it "returns true when objects IDs are the same" do
       direct_message = Twitter::DirectMessage.new(:id => 1, :text => "foo")
       other = Twitter::DirectMessage.new(:id => 1, :text => "bar")
-      expect(direct_message == other).to be_true
+      expect(direct_message == other).to be true
     end
     it "returns false when objects IDs are different" do
       direct_message = Twitter::DirectMessage.new(:id => 1)
@@ -34,7 +34,7 @@ describe Twitter::DirectMessage do
   describe "#created?" do
     it "returns true when created_at is set" do
       direct_message = Twitter::DirectMessage.new(:id => 1825786345, :created_at => "Mon Jul 16 12:59:01 +0000 2007")
-      expect(direct_message.created?).to be_true
+      expect(direct_message.created?).to be true
     end
     it "returns false when created_at is not set" do
       direct_message = Twitter::DirectMessage.new(:id => 1825786345)
@@ -56,7 +56,7 @@ describe Twitter::DirectMessage do
   describe "#recipient?" do
     it "returns true when recipient is set" do
       direct_message = Twitter::DirectMessage.new(:id => 1825786345, :recipient => {:id => 7505382})
-      expect(direct_message.recipient?).to be_true
+      expect(direct_message.recipient?).to be true
     end
     it "returns false when recipient is not set" do
       direct_message = Twitter::DirectMessage.new(:id => 1825786345)
@@ -78,7 +78,7 @@ describe Twitter::DirectMessage do
   describe "#sender?" do
     it "returns true when sender is set" do
       direct_message = Twitter::DirectMessage.new(:id => 1825786345, :sender => {:id => 7505382})
-      expect(direct_message.sender?).to be_true
+      expect(direct_message.sender?).to be true
     end
     it "returns false when sender is not set" do
       direct_message = Twitter::DirectMessage.new(:id => 1825786345)

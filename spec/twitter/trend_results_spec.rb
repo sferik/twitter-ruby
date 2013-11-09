@@ -16,7 +16,7 @@ describe Twitter::TrendResults do
   describe "#as_of?" do
     it "returns true when as_of is set" do
       trend_results = Twitter::TrendResults.new(:id => 1, :as_of => "2012-08-24T23:24:14Z")
-      expect(trend_results.as_of?).to be_true
+      expect(trend_results.as_of?).to be true
     end
     it "returns false when as_of is not set" do
       trend_results = Twitter::TrendResults.new(:id => 1)
@@ -38,7 +38,7 @@ describe Twitter::TrendResults do
   describe "#created?" do
     it "returns true when created_at is set" do
       trend_results = Twitter::TrendResults.new(:id => 1, :created_at => "2012-08-24T23:24:14Z")
-      expect(trend_results.created?).to be_true
+      expect(trend_results.created?).to be true
     end
     it "returns false when created_at is not set" do
       trend_results = Twitter::TrendResults.new(:id => 1)
@@ -78,7 +78,7 @@ describe Twitter::TrendResults do
   describe "#location?" do
     it "returns true when location is set" do
       trend_results = Twitter::TrendResults.new(:id => 1, :locations => [{:name => "Worldwide", :woeid => 1}])
-      expect(trend_results.location?).to be_true
+      expect(trend_results.location?).to be true
     end
     it "returns false when location is not set" do
       trend_results = Twitter::TrendResults.new(:id => 1)
