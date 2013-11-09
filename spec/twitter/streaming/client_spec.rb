@@ -34,7 +34,7 @@ describe Twitter::Streaming::Client do
     @client.filter(:track => "india") do |tweet|
       tweets << tweet
     end
-    expect(tweets).to have(2).entries
+    expect(tweets.size).to eq(2)
     expect(tweets.first).to be_a Twitter::Tweet
     expect(tweets.first.text).to eq "The problem with your code is that it's doing exactly what you told it to do."
   end
@@ -45,7 +45,7 @@ describe Twitter::Streaming::Client do
     @client.firehose do |tweet|
       tweets << tweet
     end
-    expect(tweets).to have(2).entries
+    expect(tweets.size).to eq(2)
     expect(tweets.first).to be_a Twitter::Tweet
     expect(tweets.first.text).to eq "The problem with your code is that it's doing exactly what you told it to do."
   end
@@ -56,7 +56,7 @@ describe Twitter::Streaming::Client do
     @client.sample do |tweet|
       tweets << tweet
     end
-    expect(tweets).to have(2).entries
+    expect(tweets.size).to eq(2)
     expect(tweets.first).to be_a Twitter::Tweet
     expect(tweets.first.text).to eq "The problem with your code is that it's doing exactly what you told it to do."
   end
@@ -67,7 +67,7 @@ describe Twitter::Streaming::Client do
     @client.site(7505382) do |tweet|
       tweets << tweet
     end
-    expect(tweets).to have(2).entries
+    expect(tweets.size).to eq(2)
     expect(tweets.first).to be_a Twitter::Tweet
     expect(tweets.first.text).to eq "The problem with your code is that it's doing exactly what you told it to do."
   end
@@ -78,7 +78,7 @@ describe Twitter::Streaming::Client do
     @client.user do |item|
       items << item
     end
-    expect(items).to have(5).entries
+    expect(items.size).to eq(5)
     expect(items[0]).to be_a Twitter::Streaming::FriendList
     expect(items[0].friend_ids).to eq([488736931,311444249])
     expect(items[1]).to be_a Twitter::Tweet
