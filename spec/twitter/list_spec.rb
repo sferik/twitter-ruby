@@ -11,12 +11,12 @@ describe Twitter::List do
     it "returns false when objects IDs are different" do
       list = Twitter::List.new(:id => 1)
       other = Twitter::List.new(:id => 2)
-      expect(list == other).to be_false
+      expect(list == other).to be false
     end
     it "returns false when classes are different" do
       list = Twitter::List.new(:id => 1)
       other = Twitter::Identity.new(:id => 1)
-      expect(list == other).to be_false
+      expect(list == other).to be false
     end
   end
 
@@ -38,7 +38,7 @@ describe Twitter::List do
     end
     it "returns false when created_at is not set" do
       list = Twitter::List.new(:id => 8863586)
-      expect(list.created?).to be_false
+      expect(list.created?).to be false
     end
   end
 
@@ -81,7 +81,7 @@ describe Twitter::List do
     end
     it "returns false when user is not set" do
       list = Twitter::List.new(:id => 8863586)
-      expect(list.user?).to be_false
+      expect(list.user?).to be false
     end
   end
 

@@ -11,12 +11,12 @@ describe Twitter::BasicUser do
     it "returns false when objects IDs are different" do
       saved_search = Twitter::BasicUser.new(:id => 1)
       other = Twitter::BasicUser.new(:id => 2)
-      expect(saved_search == other).to be_false
+      expect(saved_search == other).to be false
     end
     it "returns false when classes are different" do
       saved_search = Twitter::BasicUser.new(:id => 1)
       other = Twitter::Identity.new(:id => 1)
-      expect(saved_search == other).to be_false
+      expect(saved_search == other).to be false
     end
   end
 

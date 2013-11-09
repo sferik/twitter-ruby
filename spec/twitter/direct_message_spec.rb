@@ -11,12 +11,12 @@ describe Twitter::DirectMessage do
     it "returns false when objects IDs are different" do
       direct_message = Twitter::DirectMessage.new(:id => 1)
       other = Twitter::DirectMessage.new(:id => 2)
-      expect(direct_message == other).to be_false
+      expect(direct_message == other).to be false
     end
     it "returns false when classes are different" do
       direct_message = Twitter::DirectMessage.new(:id => 1)
       other = Twitter::Identity.new(:id => 1)
-      expect(direct_message == other).to be_false
+      expect(direct_message == other).to be false
     end
   end
 
@@ -38,7 +38,7 @@ describe Twitter::DirectMessage do
     end
     it "returns false when created_at is not set" do
       direct_message = Twitter::DirectMessage.new(:id => 1825786345)
-      expect(direct_message.created?).to be_false
+      expect(direct_message.created?).to be false
     end
   end
 
@@ -60,7 +60,7 @@ describe Twitter::DirectMessage do
     end
     it "returns false when recipient is not set" do
       direct_message = Twitter::DirectMessage.new(:id => 1825786345)
-      expect(direct_message.recipient?).to be_false
+      expect(direct_message.recipient?).to be false
     end
   end
 
@@ -82,7 +82,7 @@ describe Twitter::DirectMessage do
     end
     it "returns false when sender is not set" do
       direct_message = Twitter::DirectMessage.new(:id => 1825786345)
-      expect(direct_message.sender?).to be_false
+      expect(direct_message.sender?).to be false
     end
   end
 

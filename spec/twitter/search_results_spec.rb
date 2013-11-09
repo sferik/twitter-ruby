@@ -99,11 +99,11 @@ describe Twitter::SearchResults do
     end
     it "returns false when next_results is not set" do
       next_results = Twitter::SearchResults.new(:search_metadata => {}).next_results?
-      expect(next_results).to be_false
+      expect(next_results).to be false
     end
     it "returns false is search_metadata is not set" do
       next_results = Twitter::SearchResults.new().next_results?
-      expect(next_results).to be_false
+      expect(next_results).to be false
     end
   end
 

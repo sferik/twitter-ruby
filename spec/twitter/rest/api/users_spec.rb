@@ -242,7 +242,7 @@ describe Twitter::REST::API::Users do
       end
       it "returns false if block does not exist" do
         block = @client.block?("sferik")
-        expect(block).to be_false
+        expect(block).to be false
       end
     end
     context "with a user ID passed" do
@@ -532,7 +532,7 @@ describe Twitter::REST::API::Users do
     end
     it "returns false if user does not exist" do
       user = @client.user?("pengwynn")
-      expect(user).to be_false
+      expect(user).to be false
     end
   end
 

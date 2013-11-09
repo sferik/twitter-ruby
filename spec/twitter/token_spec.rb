@@ -9,7 +9,7 @@ describe Twitter::Token do
     end
     it "returns false when token type is nil" do
       token = Twitter::Token.new
-      expect(token.bearer?).to be_false
+      expect(token.bearer?).to be false
     end
   end
 

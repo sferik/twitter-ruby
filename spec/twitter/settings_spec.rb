@@ -20,7 +20,7 @@ describe Twitter::Settings do
     end
     it "returns false when trend_location is not set" do
       settings = Twitter::Settings.new
-      expect(settings.trend_location?).to be_false
+      expect(settings.trend_location?).to be false
     end
   end
 

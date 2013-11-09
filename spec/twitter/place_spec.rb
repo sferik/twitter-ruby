@@ -11,12 +11,12 @@ describe Twitter::Place do
     it "returns false when objects WOE IDs are different" do
       place = Twitter::Place.new(:woeid => 1)
       other = Twitter::Place.new(:woeid => 2)
-      expect(place == other).to be_false
+      expect(place == other).to be false
     end
     it "returns false when classes are different" do
       place = Twitter::Place.new(:woeid => 1)
       other = Twitter::Base.new(:woeid => 1)
-      expect(place == other).to be_false
+      expect(place == other).to be false
     end
   end
 
@@ -38,7 +38,7 @@ describe Twitter::Place do
     end
     it "returns false when bounding_box is not set" do
       place = Twitter::Place.new(:woeid => "247f43d441defc03")
-      expect(place.bounding_box?).to be_false
+      expect(place.bounding_box?).to be false
     end
   end
 
@@ -60,7 +60,7 @@ describe Twitter::Place do
     end
     it "returns false when contained_within is not set" do
       place = Twitter::Place.new(:woeid => "247f43d441defc03")
-      expect(place.contained?).to be_false
+      expect(place.contained?).to be false
     end
   end
 
@@ -120,11 +120,11 @@ describe Twitter::Place do
   describe "#uri?" do
     it "returns true when the url is set" do
       place = Twitter::Place.new(:woeid => "247f43d441defc03", :url => "https://api.twitter.com/1.1/geo/id/247f43d441defc03.json")
-      expect(place.uri).to be_true
+      expect(place.uri?).to be_true
     end
     it "returns false when the url is not set" do
       place = Twitter::Place.new(:woeid => "247f43d441defc03")
-      expect(place.uri).to be_false
+      expect(place.uri?).to be false
     end
   end
 

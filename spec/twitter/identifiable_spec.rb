@@ -17,12 +17,12 @@ describe Twitter::Identity do
     it "returns false when objects IDs are different" do
       one = Twitter::Identity.new(:id => 1)
       two = Twitter::Identity.new(:id => 2)
-      expect(one == two).to be_false
+      expect(one == two).to be false
     end
     it "returns false when classes are different" do
       one = Twitter::Identity.new(:id => 1)
       two = Twitter::Base.new(:id => 1)
-      expect(one == two).to be_false
+      expect(one == two).to be false
     end
   end
 

@@ -18,11 +18,11 @@ describe Twitter::Geo::Point do
     end
     it "returns false when objects coordinates are different" do
       other = Twitter::Geo::Point.new(:coordinates => [37.788299, -122.399983])
-      expect(@point == other).to be_false
+      expect(@point == other).to be false
     end
     it "returns false when classes are different" do
       other = Twitter::Geo.new(:coordinates => [-122.399983, 37.788299])
-      expect(@point == other).to be_false
+      expect(@point == other).to be false
     end
   end
 

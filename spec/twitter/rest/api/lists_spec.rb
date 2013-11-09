@@ -282,11 +282,11 @@ describe Twitter::REST::API::Lists do
       end
       it "returns false if the specified user does not subscribe to the specified list" do
         list_subscriber = @client.list_subscriber?("sferik", "presidents", 18755393)
-        expect(list_subscriber).to be_false
+        expect(list_subscriber).to be false
       end
       it "returns false if user does not exist" do
         list_subscriber = @client.list_subscriber?("sferik", "presidents", 12345678)
-        expect(list_subscriber).to be_false
+        expect(list_subscriber).to be false
       end
     end
     context "with a owner ID passed" do
@@ -418,11 +418,11 @@ describe Twitter::REST::API::Lists do
       end
       it "returns false if user is not a list member" do
         list_member = @client.list_member?("sferik", "presidents", 65493023)
-        expect(list_member).to be_false
+        expect(list_member).to be false
       end
       it "returns false if user does not exist" do
         list_member = @client.list_member?("sferik", "presidents", 12345678)
-        expect(list_member).to be_false
+        expect(list_member).to be false
       end
     end
     context "with an owner ID passed" do

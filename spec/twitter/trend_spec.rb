@@ -16,12 +16,12 @@ describe Twitter::Trend do
     it "returns false when objects names are different" do
       trend = Twitter::Trend.new(:name => "#sevenwordsaftersex")
       other = Twitter::Trend.new(:name => "#sixwordsaftersex")
-      expect(trend == other).to be_false
+      expect(trend == other).to be false
     end
     it "returns false when classes are different" do
       trend = Twitter::Trend.new(:name => "#sevenwordsaftersex")
       other = Twitter::Base.new(:name => "#sevenwordsaftersex")
-      expect(trend == other).to be_false
+      expect(trend == other).to be false
     end
   end
 
@@ -44,7 +44,7 @@ describe Twitter::Trend do
     end
     it "returns false when the url is not set" do
       trend = Twitter::Trend.new
-      expect(trend.uri?).to be_false
+      expect(trend.uri?).to be false
     end
   end
 

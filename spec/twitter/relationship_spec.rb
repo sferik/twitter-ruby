@@ -20,7 +20,7 @@ describe Twitter::Relationship do
     end
     it "returns false when source is not set" do
       relationship = Twitter::Relationship.new(:relationship => {})
-      expect(relationship.source?).to be_false
+      expect(relationship.source?).to be false
     end
   end
 
@@ -42,7 +42,7 @@ describe Twitter::Relationship do
     end
     it "returns false when target is not set" do
       relationship = Twitter::Relationship.new(:relationship => {})
-      expect(relationship.target?).to be_false
+      expect(relationship.target?).to be false
     end
   end
 

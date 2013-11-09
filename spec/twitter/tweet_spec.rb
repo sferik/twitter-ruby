@@ -21,12 +21,12 @@ describe Twitter::Tweet do
     it "returns false when objects IDs are different" do
       tweet = Twitter::Tweet.new(:id => 1)
       other = Twitter::Tweet.new(:id => 2)
-      expect(tweet == other).to be_false
+      expect(tweet == other).to be false
     end
     it "returns false when classes are different" do
       tweet = Twitter::Tweet.new(:id => 1)
       other = Twitter::Identity.new(:id => 1)
-      expect(tweet == other).to be_false
+      expect(tweet == other).to be false
     end
   end
 
@@ -48,19 +48,19 @@ describe Twitter::Tweet do
     end
     it "returns false when created_at is not set" do
       tweet = Twitter::Tweet.new(:id => 28669546014)
-      expect(tweet.created?).to be_false
+      expect(tweet.created?).to be false
     end
   end
 
   describe "#entities?" do
     it "returns false if there are no entities set" do
       tweet = Twitter::Tweet.new(:id => 28669546014)
-      expect(tweet.entities?).to be_false
+      expect(tweet.entities?).to be false
     end
 
     it "returns false if there are blank lists of entities set" do
       tweet = Twitter::Tweet.new(:id => 28669546014, :entities => {:urls => []})
-      expect(tweet.entities?).to be_false
+      expect(tweet.entities?).to be false
     end
 
     it "returns true if there are entities set" do
@@ -129,7 +129,7 @@ describe Twitter::Tweet do
     end
     it "returns false when geo is not set" do
       tweet = Twitter::Tweet.new(:id => 28669546014)
-      expect(tweet.geo?).to be_false
+      expect(tweet.geo?).to be false
     end
   end
 
@@ -191,7 +191,7 @@ describe Twitter::Tweet do
     end
     it "returns false when metadata is not set" do
       tweet = Twitter::Tweet.new(:id => 28669546014)
-      expect(tweet.metadata?).to be_false
+      expect(tweet.metadata?).to be false
     end
   end
 
@@ -213,7 +213,7 @@ describe Twitter::Tweet do
     end
     it "returns false when place is not set" do
       tweet = Twitter::Tweet.new(:id => 28669546014)
-      expect(tweet.place?).to be_false
+      expect(tweet.place?).to be false
     end
   end
 
@@ -224,7 +224,7 @@ describe Twitter::Tweet do
     end
     it "returns false when in_reply_to_status_id is not set" do
       tweet = Twitter::Tweet.new(:id => 28669546014)
-      expect(tweet.reply?).to be_false
+      expect(tweet.reply?).to be false
     end
   end
 
@@ -235,7 +235,7 @@ describe Twitter::Tweet do
     end
     it "returns false when retweeted_status is not set" do
       tweet = Twitter::Tweet.new(:id => 28669546014)
-      expect(tweet.retweet?).to be_false
+      expect(tweet.retweet?).to be false
     end
   end
 
@@ -258,7 +258,7 @@ describe Twitter::Tweet do
     end
     it "returns false when retweeted_status is not set" do
       tweet = Twitter::Tweet.new(:id => 28669546014)
-      expect(tweet.retweeted_status?).to be_false
+      expect(tweet.retweeted_status?).to be false
     end
   end
 
@@ -343,7 +343,7 @@ describe Twitter::Tweet do
     end
     it "returns false when status is not set" do
       tweet = Twitter::Tweet.new(:id => 28669546014)
-      expect(tweet.user?).to be_false
+      expect(tweet.user?).to be false
     end
   end
 

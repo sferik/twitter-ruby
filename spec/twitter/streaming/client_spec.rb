@@ -23,7 +23,7 @@ describe Twitter::Streaming::Client do
     @client.before_request do
       var = true
     end
-    expect(var).to be_false
+    expect(var).to be false
     @client.user{}
     expect(var).to be_true
   end

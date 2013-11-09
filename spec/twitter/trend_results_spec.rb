@@ -20,7 +20,7 @@ describe Twitter::TrendResults do
     end
     it "returns false when as_of is not set" do
       trend_results = Twitter::TrendResults.new(:id => 1)
-      expect(trend_results.as_of?).to be_false
+      expect(trend_results.as_of?).to be false
     end
   end
 
@@ -42,7 +42,7 @@ describe Twitter::TrendResults do
     end
     it "returns false when created_at is not set" do
       trend_results = Twitter::TrendResults.new(:id => 1)
-      expect(trend_results.created?).to be_false
+      expect(trend_results.created?).to be false
     end
   end
 
@@ -82,7 +82,7 @@ describe Twitter::TrendResults do
     end
     it "returns false when location is not set" do
       trend_results = Twitter::TrendResults.new(:id => 1)
-      expect(trend_results.location?).to be_false
+      expect(trend_results.location?).to be false
     end
   end
 

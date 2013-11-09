@@ -466,7 +466,7 @@ describe Twitter::REST::API::FriendsAndFollowers do
       end
       it "returns false if user A does not follow user B" do
         friendship = @client.friendship?("pengwynn", "sferik")
-        expect(friendship).to be_false
+        expect(friendship).to be false
       end
     end
     context "with user IDs passed" do

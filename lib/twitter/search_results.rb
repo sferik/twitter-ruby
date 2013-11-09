@@ -65,7 +65,7 @@ module Twitter
 
     # @return [Boolean]
     def next_results?
-      !@attrs[:search_metadata][:next_results].nil? if @attrs[:search_metadata]
+      !!(@attrs[:search_metadata] && @attrs[:search_metadata][:next_results])
     end
     alias next_page? next_results?
 

@@ -11,12 +11,12 @@ describe Twitter::SavedSearch do
     it "returns false when objects IDs are different" do
       saved_search = Twitter::SavedSearch.new(:id => 1)
       other = Twitter::SavedSearch.new(:id => 2)
-      expect(saved_search == other).to be_false
+      expect(saved_search == other).to be false
     end
     it "returns false when classes are different" do
       saved_search = Twitter::SavedSearch.new(:id => 1)
       other = Twitter::Identity.new(:id => 1)
-      expect(saved_search == other).to be_false
+      expect(saved_search == other).to be false
     end
   end
 
@@ -38,7 +38,7 @@ describe Twitter::SavedSearch do
     end
     it "returns false when created_at is not set" do
       saved_search = Twitter::SavedSearch.new(:id => 16129012)
-      expect(saved_search.created?).to be_false
+      expect(saved_search.created?).to be false
     end
   end
 

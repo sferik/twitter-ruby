@@ -12,12 +12,12 @@ describe Twitter::Media::Photo do
     it "returns false when objects IDs are different" do
       photo = Twitter::Media::Photo.new(:id => 1)
       other = Twitter::Media::Photo.new(:id => 2)
-      expect(photo == other).to be_false
+      expect(photo == other).to be false
     end
     it "returns false when classes are different" do
       photo = Twitter::Media::Photo.new(:id => 1)
       other = Twitter::Identity.new(:id => 1)
-      expect(photo == other).to be_false
+      expect(photo == other).to be false
     end
   end
 
@@ -48,11 +48,11 @@ describe Twitter::Media::Photo do
   describe "#display_uri?" do
     it "returns true when the display_url is set" do
       photo = Twitter::Media::Photo.new(:id => 1, :display_url => "example.com/expanded…")
-      expect(photo.display_uri).to be_true
+      expect(photo.display_uri?).to be_true
     end
     it "returns false when the display_url is not set" do
       photo = Twitter::Media::Photo.new(:id => 1)
-      expect(photo.display_uri).to be_false
+      expect(photo.display_uri?).to be false
     end
   end
 
@@ -71,11 +71,11 @@ describe Twitter::Media::Photo do
   describe "#expanded_uri?" do
     it "returns true when the expanded_url is set" do
       photo = Twitter::Media::Photo.new(:id => 1, :expanded_url => "http://pbs.twimg.com/media/BQD6MPOCEAAbCH0.png")
-      expect(photo.expanded_uri).to be_true
+      expect(photo.expanded_uri?).to be_true
     end
     it "returns false when the expanded_url is not set" do
       photo = Twitter::Media::Photo.new(:id => 1)
-      expect(photo.expanded_uri).to be_false
+      expect(photo.expanded_uri?).to be false
     end
   end
 
@@ -94,11 +94,11 @@ describe Twitter::Media::Photo do
   describe "#media_uri?" do
     it "returns true when the media_url is set" do
       photo = Twitter::Media::Photo.new(:id => 1, :media_url => "http://pbs.twimg.com/media/BQD6MPOCEAAbCH0.png")
-      expect(photo.media_uri).to be_true
+      expect(photo.media_uri?).to be_true
     end
     it "returns false when the media_url is not set" do
       photo = Twitter::Media::Photo.new(:id => 1)
-      expect(photo.media_uri).to be_false
+      expect(photo.media_uri?).to be false
     end
   end
 
@@ -117,11 +117,11 @@ describe Twitter::Media::Photo do
   describe "#media_uri_https?" do
     it "returns true when the media_url_https is set" do
       photo = Twitter::Media::Photo.new(:id => 1, :media_url_https => "http://pbs.twimg.com/media/BQD6MPOCEAAbCH0.png")
-      expect(photo.media_uri_https).to be_true
+      expect(photo.media_uri_https?).to be_true
     end
     it "returns false when the media_url_https is not set" do
       photo = Twitter::Media::Photo.new(:id => 1)
-      expect(photo.media_uri_https).to be_false
+      expect(photo.media_uri_https?).to be false
     end
   end
 
@@ -140,11 +140,11 @@ describe Twitter::Media::Photo do
   describe "#uri?" do
     it "returns true when the url is set" do
       photo = Twitter::Media::Photo.new(:id => 1, :url => "http://pbs.twimg.com/media/BQD6MPOCEAAbCH0.png")
-      expect(photo.uri).to be_true
+      expect(photo.uri?).to be_true
     end
     it "returns false when the url is not set" do
       photo = Twitter::Media::Photo.new(:id => 1)
-      expect(photo.uri).to be_false
+      expect(photo.uri?).to be false
     end
   end
 

@@ -35,7 +35,7 @@ describe Twitter::REST::Client do
     end
     it "returns false if any credentials are missing" do
       client = Twitter::REST::Client.new(:consumer_key => "CK", :consumer_secret => "CS", :access_token => "AT")
-      expect(client.credentials?).to be_false
+      expect(client.credentials?).to be false
     end
   end
 
@@ -74,7 +74,7 @@ describe Twitter::REST::Client do
     end
     it "returns false if the user token/secret are not completely present" do
       client = Twitter::REST::Client.new(:consumer_key => "CK", :consumer_secret => "CS", :access_token => "AT")
-      expect(client.user_token?).to be_false
+      expect(client.user_token?).to be false
     end
   end
 
@@ -85,7 +85,7 @@ describe Twitter::REST::Client do
     end
     it "returns false if the bearer_token is not present" do
       client = Twitter::REST::Client.new(:consumer_key => "CK", :consumer_secret => "CS")
-      expect(client.bearer_token?).to be_false
+      expect(client.bearer_token?).to be false
     end
   end
 
@@ -96,7 +96,7 @@ describe Twitter::REST::Client do
     end
     it "returns false if any credentials are missing" do
       client = Twitter::REST::Client.new(:consumer_key => "CK", :consumer_secret => "CS", :access_token => "AT")
-      expect(client.credentials?).to be_false
+      expect(client.credentials?).to be false
     end
   end
 

@@ -21,7 +21,7 @@ describe Twitter::OEmbed do
     end
     it "returns false when the author_uri is not set" do
       oembed = Twitter::OEmbed.new
-      expect(oembed.author_uri?).to be_false
+      expect(oembed.author_uri?).to be false
     end
   end
 
@@ -103,7 +103,7 @@ describe Twitter::OEmbed do
     end
     it "returns false when the provider_uri is not set" do
       oembed = Twitter::OEmbed.new
-      expect(oembed.provider_uri?).to be_false
+      expect(oembed.provider_uri?).to be false
     end
   end
 
@@ -152,7 +152,7 @@ describe Twitter::OEmbed do
     end
     it "returns false when the url is not set" do
       oembed = Twitter::OEmbed.new
-      expect(oembed.uri?).to be_false
+      expect(oembed.uri?).to be false
     end
   end
 

@@ -16,12 +16,12 @@ describe Twitter::Suggestion do
     it "returns false when objects slugs are different" do
       suggestion = Twitter::Suggestion.new(:slug => 1)
       other = Twitter::Suggestion.new(:slug => 2)
-      expect(suggestion == other).to be_false
+      expect(suggestion == other).to be false
     end
     it "returns false when classes are different" do
       suggestion = Twitter::Suggestion.new(:slug => 1)
       other = Twitter::Base.new(:slug => 1)
-      expect(suggestion == other).to be_false
+      expect(suggestion == other).to be false
     end
   end
 

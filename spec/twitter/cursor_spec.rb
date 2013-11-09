@@ -41,7 +41,7 @@ describe Twitter::Cursor do
         @cursor = Twitter::Cursor.new({:previous_cursor => 1}, :ids, nil, Twitter::REST::Client.new, :get, "/1.1/followers/ids.json", {})
       end
       it "returns true" do
-        expect(@cursor.first?).to be_false
+        expect(@cursor.first?).to be false
       end
     end
   end
@@ -60,7 +60,7 @@ describe Twitter::Cursor do
         @cursor = Twitter::Cursor.new({:next_cursor => 1}, :ids, nil, Twitter::REST::Client.new, :get, "/1.1/followers/ids.json", {})
       end
       it "returns false" do
-        expect(@cursor.last?).to be_false
+        expect(@cursor.last?).to be false
       end
     end
   end

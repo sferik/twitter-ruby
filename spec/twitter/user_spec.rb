@@ -12,12 +12,12 @@ describe Twitter::User do
     it "returns false when objects IDs are different" do
       user = Twitter::User.new(:id => 1)
       other = Twitter::User.new(:id => 2)
-      expect(user == other).to be_false
+      expect(user == other).to be false
     end
     it "returns false when classes are different" do
       user = Twitter::User.new(:id => 1)
       other = Twitter::Identity.new(:id => 1)
-      expect(user == other).to be_false
+      expect(user == other).to be false
     end
   end
 
@@ -39,7 +39,7 @@ describe Twitter::User do
     end
     it "returns false when created_at is not set" do
       user = Twitter::User.new(:id => 7505382)
-      expect(user.created?).to be_false
+      expect(user.created?).to be false
     end
   end
 
@@ -170,7 +170,7 @@ describe Twitter::User do
     end
     it "returns false when status is not set" do
       user = Twitter::User.new(:id => 7505382)
-      expect(user.profile_banner_uri?).to be_false
+      expect(user.profile_banner_uri?).to be false
     end
   end
 
@@ -271,7 +271,7 @@ describe Twitter::User do
     end
     it "returns false when status is not set" do
       user = Twitter::User.new(:id => 7505382)
-      expect(user.profile_image_uri?).to be_false
+      expect(user.profile_image_uri?).to be false
     end
   end
 
@@ -298,7 +298,7 @@ describe Twitter::User do
     end
     it "returns false when status is not set" do
       user = Twitter::User.new(:id => 7505382)
-      expect(user.status?).to be_false
+      expect(user.status?).to be false
     end
   end
 
@@ -329,7 +329,7 @@ describe Twitter::User do
     end
     it "returns false when the url is not set" do
       user = Twitter::User.new(:id => 7505382)
-      expect(user.website?).to be_false
+      expect(user.website?).to be false
     end
   end
 
