@@ -10,6 +10,7 @@ module Twitter
     alias favoriters_count favorite_count
     alias in_reply_to_tweet_id in_reply_to_status_id
     alias retweeters_count retweet_count
+    attr_reader :deleted
     object_attr_reader :GeoFactory, :geo
     object_attr_reader :Metadata, :metadata
     object_attr_reader :Place, :place
@@ -30,6 +31,12 @@ module Twitter
       @attrs[:filter_level] || "none"
     end
     memoize :filter_level
+    
+    # @note Not a real entity
+    # @return [Boolean]
+    def deleted?
+      deleted == true
+    end
 
     # @return [String]
     # @note May be > 140 characters.
