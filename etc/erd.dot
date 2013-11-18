@@ -8,15 +8,11 @@ digraph classes {
 	Faraday__Middleware [label="Faraday::Middleware"]
 	Faraday__Response__Middleware [label="Faraday::Response::Middleware"]
 	StandardError [label="StandardError"]
-	ThreadSafe__Cache [label="ThreadSafe::Cache"]
-	ThreadSafe__NonConcurrentCacheBackend [label="ThreadSafe::NonConcurrentCacheBackend"]
-	ThreadSafe__SynchronizedCacheBackend [label="ThreadSafe::SynchronizedCacheBackend"]
 	Twitter__Arguments [label="Twitter::Arguments"]
 	Twitter__Base [label="Twitter::Base"]
 	Twitter__BasicUser [label="Twitter::BasicUser"]
 	Twitter__Client [label="Twitter::Client"]
 	Twitter__Configuration [label="Twitter::Configuration"]
-	Twitter__Creator [label="Twitter::Creator"]
 	Twitter__Cursor [label="Twitter::Cursor"]
 	Twitter__DirectMessage [label="Twitter::DirectMessage"]
 	Twitter__Entity [label="Twitter::Entity"]
@@ -40,17 +36,17 @@ digraph classes {
 	Twitter__Error__TooManyRequests [label="Twitter::Error::TooManyRequests"]
 	Twitter__Error__Unauthorized [label="Twitter::Error::Unauthorized"]
 	Twitter__Error__UnprocessableEntity [label="Twitter::Error::UnprocessableEntity"]
+	Twitter__Factory [label="Twitter::Factory"]
 	Twitter__Geo [label="Twitter::Geo"]
-	Twitter__GeoCreator [label="Twitter::GeoCreator"]
+	Twitter__GeoFactory [label="Twitter::GeoFactory"]
 	Twitter__GeoResults [label="Twitter::GeoResults"]
 	Twitter__Geo__Point [label="Twitter::Geo::Point"]
 	Twitter__Geo__Polygon [label="Twitter::Geo::Polygon"]
 	Twitter__Identity [label="Twitter::Identity"]
 	Twitter__Language [label="Twitter::Language"]
 	Twitter__List [label="Twitter::List"]
-	Twitter__MediaCreator [label="Twitter::MediaCreator"]
+	Twitter__MediaFactory [label="Twitter::MediaFactory"]
 	Twitter__Media__Photo [label="Twitter::Media::Photo"]
-	Twitter__Memory [label="Twitter::Memory"]
 	Twitter__Metadata [label="Twitter::Metadata"]
 	Twitter__NullObject [label="Twitter::NullObject"]
 	Twitter__OEmbed [label="Twitter::OEmbed"]
@@ -70,6 +66,9 @@ digraph classes {
 	Twitter__SourceUser [label="Twitter::SourceUser"]
 	Twitter__Streaming__Client [label="Twitter::Streaming::Client"]
 	Twitter__Streaming__Connection [label="Twitter::Streaming::Connection"]
+	Twitter__Streaming__Event [label="Twitter::Streaming::Event"]
+	Twitter__Streaming__FriendList [label="Twitter::Streaming::FriendList"]
+	Twitter__Streaming__MessageParser [label="Twitter::Streaming::MessageParser"]
 	Twitter__Streaming__Response [label="Twitter::Streaming::Response"]
 	Twitter__Suggestion [label="Twitter::Suggestion"]
 	Twitter__TargetUser [label="Twitter::TargetUser"]
@@ -85,15 +84,11 @@ digraph classes {
 	Faraday__Middleware -> Object
 	Faraday__Response__Middleware -> Faraday__Middleware
 	StandardError -> Exception
-	ThreadSafe__Cache -> ThreadSafe__SynchronizedCacheBackend
-	ThreadSafe__NonConcurrentCacheBackend -> Object
-	ThreadSafe__SynchronizedCacheBackend -> ThreadSafe__NonConcurrentCacheBackend
 	Twitter__Arguments -> Array
 	Twitter__Base -> Object
 	Twitter__BasicUser -> Twitter__Identity
 	Twitter__Client -> Object
 	Twitter__Configuration -> Twitter__Base
-	Twitter__Creator -> Object
 	Twitter__Cursor -> Object
 	Twitter__DirectMessage -> Twitter__Identity
 	Twitter__Entity -> Twitter__Base
@@ -117,17 +112,17 @@ digraph classes {
 	Twitter__Error__TooManyRequests -> Twitter__Error
 	Twitter__Error__Unauthorized -> Twitter__Error
 	Twitter__Error__UnprocessableEntity -> Twitter__Error
+	Twitter__Factory -> Object
 	Twitter__Geo -> Twitter__Base
-	Twitter__GeoCreator -> Twitter__Creator
+	Twitter__GeoFactory -> Twitter__Factory
 	Twitter__GeoResults -> Object
 	Twitter__Geo__Point -> Twitter__Geo
 	Twitter__Geo__Polygon -> Twitter__Geo
 	Twitter__Identity -> Twitter__Base
 	Twitter__Language -> Twitter__Base
 	Twitter__List -> Twitter__Identity
-	Twitter__MediaCreator -> Twitter__Creator
+	Twitter__MediaFactory -> Twitter__Factory
 	Twitter__Media__Photo -> Twitter__Identity
-	Twitter__Memory -> ThreadSafe__Cache
 	Twitter__Metadata -> Twitter__Base
 	Twitter__NullObject -> Object
 	Twitter__OEmbed -> Twitter__Base
@@ -147,6 +142,9 @@ digraph classes {
 	Twitter__SourceUser -> Twitter__BasicUser
 	Twitter__Streaming__Client -> Twitter__Client
 	Twitter__Streaming__Connection -> Object
+	Twitter__Streaming__Event -> Object
+	Twitter__Streaming__FriendList -> Object
+	Twitter__Streaming__MessageParser -> Object
 	Twitter__Streaming__Response -> Object
 	Twitter__Suggestion -> Twitter__Base
 	Twitter__TargetUser -> Twitter__BasicUser
