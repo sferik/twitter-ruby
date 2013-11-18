@@ -22,7 +22,7 @@ module Twitter
 
       # @yield [Twitter::Tweet] A stream of tweets.
       def filter(options={}, &block)
-        request(:get, 'https://stream.twitter.com:443/1.1/statuses/filter.json', options, &block)
+        request(:post, 'https://stream.twitter.com:443/1.1/statuses/filter.json', options, &block)
       end
 
       # @yield [Twitter::Tweet] A stream of tweets.
