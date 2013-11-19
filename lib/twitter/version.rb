@@ -3,7 +3,7 @@ module Twitter
     MAJOR = 5
     MINOR = 0
     PATCH = 0
-    PRE = "rc.1"
+    PRE = nil
 
     class << self
 
