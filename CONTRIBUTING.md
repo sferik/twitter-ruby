@@ -14,10 +14,10 @@ improve this project. Here are some ways *you* can contribute:
 * Refactor code.
 * Fix [issues][].
 * Review patches.
-* Financially pledge using [Pledgie][].
+* Financially pledge using [gittip][].
 
 [issues]: https://github.com/sferik/twitter/issues
-[Pledgie]: http://pledgie.com/campaigns/18388
+[gittip]: https://www.gittip.com/sferik/
 
 ## Submitting an Issue
 We use the [GitHub issue tracker][issues] to track bugs and features. Before

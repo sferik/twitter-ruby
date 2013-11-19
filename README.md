@@ -5,14 +5,14 @@
 [![Dependency Status](https://gemnasium.com/sferik/twitter.png?travis)][gemnasium]
 [![Code Climate](https://codeclimate.com/github/sferik/twitter.png)][codeclimate]
 [![Coverage Status](https://coveralls.io/repos/sferik/twitter/badge.png?branch=master)][coveralls]
-[![Click here to make a donation](http://www.pledgie.com/campaigns/18388.png)][pledgie]
+[![Gittip](http://img.shields.io/gittip/sferik.png)][gittip]
 
 [gem]: https://rubygems.org/gems/twitter
 [travis]: http://travis-ci.org/sferik/twitter
 [gemnasium]: https://gemnasium.com/sferik/twitter
 [codeclimate]: https://codeclimate.com/github/sferik/twitter
 [coveralls]: https://coveralls.io/r/sferik/twitter
-[pledgie]: http://pledgie.com/campaigns/18388
+[gittip]: https://www.gittip.com/sferik/
 
 A Ruby interface to the Twitter API.
 
@@ -137,7 +137,7 @@ end
 
 ```ruby
 client.user do |message|
-  puts message 
+  puts message
 end
 ```
 
