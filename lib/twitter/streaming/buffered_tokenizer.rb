@@ -10,7 +10,7 @@ module Twitter
         @buffer << data
         items = @buffer.split(@delimiter)
         if @buffer.end_with?(@delimiter)
-          @buffer.clear
+          @buffer = ''
           items
         else
           @buffer = items.pop
