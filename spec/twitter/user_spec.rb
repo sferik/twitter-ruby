@@ -168,7 +168,7 @@ describe Twitter::User do
       user = Twitter::User.new(:id => 7505382, :profile_banner_url => "https://si0.twimg.com/profile_banners/7505382/1348266581")
       expect(user.profile_banner_uri?).to be true
     end
-    it "returns false when status is not set" do
+    it "returns false when profile_banner_url is not set" do
       user = Twitter::User.new(:id => 7505382)
       expect(user.profile_banner_uri?).to be false
     end
@@ -265,11 +265,11 @@ describe Twitter::User do
   end
 
   describe "#profile_image_uri?" do
-    it "returns true when profile_banner_url is set" do
+    it "returns true when profile_image_url_https is set" do
       user = Twitter::User.new(:id => 7505382, :profile_image_url_https => "https://si0.twimg.com/profile_banners/7505382/1348266581")
       expect(user.profile_image_uri?).to be true
     end
-    it "returns false when status is not set" do
+    it "returns false when profile_image_url_https is not set" do
       user = Twitter::User.new(:id => 7505382)
       expect(user.profile_image_uri?).to be false
     end
