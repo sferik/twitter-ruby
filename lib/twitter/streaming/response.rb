@@ -1,4 +1,4 @@
-require 'buftok'
+require 'twitter/streaming/buffered_tokenizer'
 
 module Twitter
   module Streaming
