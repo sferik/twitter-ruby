@@ -177,7 +177,6 @@ simplicity and performance.</p>
 <th>Notes</th>
       <th colspan="2">Version 4</th>
       <th colspan="2">Version 5</th>
-    
     </tr>
 <tr>
 <th></th>
@@ -185,8 +184,7 @@ simplicity and performance.</p>
       <th>HTTP GETs</th>
       <th>Code</th>
       <th>HTTP GETs</th>
-    
-  </tr>
+    </tr>
 </thead>
 <tbody>
 <tr>
@@ -194,13 +192,13 @@ simplicity and performance.</p>
         Are you at the start of the cursor?
       </td>
       <td>
-        <pre><code lang="ruby">client.friends.first</code></pre>
+        <pre><code>client.friends.first</code></pre>
       </td>
       <td>
         <em>Θ(1)</em>
       </td>
       <td>
-        <pre><code lang="ruby">client.friends.first?</code></pre>
+        <pre><code>client.friends.first?</code></pre>
       </td>
       <td>
         <em>Θ(1)</em>
@@ -211,13 +209,13 @@ simplicity and performance.</p>
         Return your most recent follower.
       </td>
       <td>
-        <pre><code lang="ruby">client.friends.users.first</code></pre>
+        <pre><code>client.friends.users.first</code></pre>
       </td>
       <td>
         <em>Θ(1)</em>
       </td>
       <td>
-        <pre><code lang="ruby">client.friends.first</code></pre>
+        <pre><code>client.friends.first</code></pre>
       </td>
       <td>
         <em>Θ(1)</em>
@@ -228,13 +226,13 @@ simplicity and performance.</p>
         Return an array of all your friends.
       </td>
       <td>
-        <pre><code lang="ruby">client.friends.all</code></pre>
+        <pre><code>client.friends.all</code></pre>
       </td>
       <td>
         <em>Θ(n+1)</em>
       </td>
       <td>
-        <pre><code lang="ruby">client.friends.to_a</code></pre>
+        <pre><code>client.friends.to_a</code></pre>
       </td>
       <td>
         <em>Θ(n)</em>
@@ -245,13 +243,13 @@ simplicity and performance.</p>
         Collect your 20 most recent friends.
       </td>
       <td>
-        <pre><code lang="ruby">client.friends.take(20)</code></pre>
+        <pre><code>client.friends.take(20)</code></pre>
       </td>
       <td>
         <em>Θ(n+1)</em>
       </td>
       <td>
-        <pre><code lang="ruby">client.friends.take(20)</code></pre>
+        <pre><code>client.friends.take(20)</code></pre>
       </td>
       <td>
         <em>Θ(1)</em>
@@ -262,7 +260,7 @@ simplicity and performance.</p>
         Collect your 20 most recent friends twice.
       </td>
       <td>
-        <pre><code lang="ruby">friends = client.friends
+        <pre><code>friends = client.friends
 2.times.collect do
   friends.take(20)
 end</code></pre>
@@ -271,7 +269,7 @@ end</code></pre>
         <em>Θ(2n+2)</em>
       </td>
       <td>
-        <pre><code lang="ruby">friends = client.friends
+        <pre><code>friends = client.friends
 2.times.collect do
   friends.take(20)
 end</code></pre>
@@ -493,8 +491,8 @@ a URI).</p>
 <code>Twitter::User</code> previously had a <code>#url</code> method, which returned the user's
 website. This URI is now available via the <code>#website</code> method.</p>
 
-<p>All <code>#uri</code> methods now return <code>URI</code> objects instead of strings. To convert a
-<code>URI</code> object to a string, call <code>#to_s</code> on it.</p>
+<p>All <code>#uri</code> methods now return <code>Addressable::URI</code> objects instead of strings. To convert an
+<code>Addressable::URI</code> object to a string, call <code>#to_s</code> on it.</p>
 
 <h2>
 <a name="configuration-1" class="anchor" href="#configuration-1"><span class="octicon octicon-link"></span></a>Configuration</h2>
