@@ -1,9 +1,9 @@
 # Update
 
 All examples assume you have a configured Twitter REST `client`. Configuration
-examples can be found in [examples/configuration.rb][config].
+examples can be found in [examples/Configuration.rb][configuration].
 
-[config]: https://github.com/sferik/twitter/tree/master/examples/configuration.rb
+[configuration]: https://github.com/sferik/twitter/blob/master/examples/Configuration.md
 
 If the authenticated user has granted read/write permission to your
 application, you may tweet as them.
