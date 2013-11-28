@@ -185,7 +185,7 @@ module Twitter
             else
               set_compound_key("screen_name", user, hash, prefix)
             end
-          when URI
+          when URI, Addressable::URI
             set_compound_key("screen_name", user.path.split("/").last, hash, prefix)
           when Twitter::User
             set_compound_key("user_id", user.id, hash, prefix)

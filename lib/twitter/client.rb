@@ -62,7 +62,7 @@ module Twitter
     end
 
     def oauth_auth_header(method, uri, params={})
-      uri = URI.parse(uri)
+      uri = Addressable::URI.parse(uri)
       SimpleOAuth::Header.new(method, uri, params, credentials)
     end
 

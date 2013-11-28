@@ -310,12 +310,29 @@ describe Twitter::Tweet do
       Twitter::Tweet.new(:id => 28669546014).urls
       expect($stderr.string).to match(/To get urls, you must pass `:include_entities => true` when requesting the Twitter::Tweet\./)
     end
+
+    it "can handle strange urls" do
+      urls_array = [
+        {
+          :url => "http://with_underscore.example.com/t.co",
+          :expanded_url => "http://with_underscore.example.com/expanded",
+          :display_url => "with_underscore.example.com/expanded…",
+          :indices => [10, 33],
+        }
+      ]
+      tweet = Twitter::Tweet.new(:id => 28669546014, :entities => {:urls => urls_array})
+      uri = tweet.uris.first
+      expect{ uri.url }.to_not raise_error
+      expect{ uri.expanded_url }.to_not raise_error
+      expect{ uri.display_url }.to_not raise_error
+    end
+
   end
 
   describe "#uri" do
     it "returns the URI to the tweet" do
       tweet = Twitter::Tweet.new(:id => 28669546014, :user => {:id => 7505382, :screen_name => "sferik"})
-      expect(tweet.uri).to be_a URI
+      expect(tweet.uri).to be_a Addressable::URI
       expect(tweet.uri.to_s).to eq("https://twitter.com/sferik/status/28669546014")
     end
   end

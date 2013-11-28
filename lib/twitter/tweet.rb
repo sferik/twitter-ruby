@@ -79,7 +79,7 @@ module Twitter
 
     # @return [String] The URL to the tweet.
     def uri
-      URI.parse("https://twitter.com/#{user.screen_name}/status/#{id}")
+      Addressable::URI.parse("https://twitter.com/#{user.screen_name}/status/#{id}")
     end
     memoize :uri
     alias url uri
