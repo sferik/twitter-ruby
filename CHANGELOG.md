@@ -1,3 +1,7 @@
+5.1.1
+-----
+* [Custom equalizer for `Twitter::Place`](https://github.com/sferik/twitter/commit/79c76a9bed4f0170c8c09fe38ad4f0ee6aa4505e)
+
 5.1.0
 -----
 * [Use `Addressable::URI` everywhere](https://github.com/sferik/twitter/commit/97d7c68900c9974a1f6841f6eed2706df9030d64) ([@matthewrudy](https://twitter.com/matthewrudy))
