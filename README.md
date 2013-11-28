@@ -161,14 +161,14 @@ simplicity and performance.
       <th>Notes</th>
       <th colspan="2">Version 4</th>
       <th colspan="2">Version 5</th>
-    </th>
+    </tr>
     <tr>
       <th></th>
       <th>Code</th>
       <th>HTTP GETs</th>
       <th>Code</th>
       <th>HTTP GETs</th>
-    </th>
+    </tr>
   </thead>
   <tbody>
     <tr>
