@@ -176,13 +176,13 @@ simplicity and performance.
         Are you at the start of the cursor?
       </td>
       <td>
-        <pre><code lang="ruby">client.friends.first</code></pre>
+        <pre><code>client.friends.first</code></pre>
       </td>
       <td>
         <em>Θ(1)</em>
       </td>
       <td>
-        <pre><code lang="ruby">client.friends.first?</code></pre>
+        <pre><code>client.friends.first?</code></pre>
       </td>
       <td>
         <em>Θ(1)</em>
@@ -193,13 +193,13 @@ simplicity and performance.
         Return your most recent follower.
       </td>
       <td>
-        <pre><code lang="ruby">client.friends.users.first</code></pre>
+        <pre><code>client.friends.users.first</code></pre>
       </td>
       <td>
         <em>Θ(1)</em>
       </td>
       <td>
-        <pre><code lang="ruby">client.friends.first</code></pre>
+        <pre><code>client.friends.first</code></pre>
       </td>
       <td>
         <em>Θ(1)</em>
@@ -210,13 +210,13 @@ simplicity and performance.
         Return an array of all your friends.
       </td>
       <td>
-        <pre><code lang="ruby">client.friends.all</code></pre>
+        <pre><code>client.friends.all</code></pre>
       </td>
       <td>
         <em>Θ(n+1)</em>
       </td>
       <td>
-        <pre><code lang="ruby">client.friends.to_a</code></pre>
+        <pre><code>client.friends.to_a</code></pre>
       </td>
       <td>
         <em>Θ(n)</em>
@@ -227,13 +227,13 @@ simplicity and performance.
         Collect your 20 most recent friends.
       </td>
       <td>
-        <pre><code lang="ruby">client.friends.take(20)</code></pre>
+        <pre><code>client.friends.take(20)</code></pre>
       </td>
       <td>
         <em>Θ(n+1)</em>
       </td>
       <td>
-        <pre><code lang="ruby">client.friends.take(20)</code></pre>
+        <pre><code>client.friends.take(20)</code></pre>
       </td>
       <td>
         <em>Θ(1)</em>
@@ -244,7 +244,7 @@ simplicity and performance.
         Collect your 20 most recent friends twice.
       </td>
       <td>
-        <pre><code lang="ruby">friends = client.friends
+        <pre><code>friends = client.friends
 2.times.collect do
   friends.take(20)
 end</code></pre>
@@ -253,7 +253,7 @@ end</code></pre>
         <em>Θ(2n+2)</em>
       </td>
       <td>
-        <pre><code lang="ruby">friends = client.friends
+        <pre><code>friends = client.friends
 2.times.collect do
   friends.take(20)
 end</code></pre>
