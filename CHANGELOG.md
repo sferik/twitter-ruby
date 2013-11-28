@@ -1,3 +1,9 @@
+5.1.0
+-----
+* [Use `Addressable::URI` everywhere](https://github.com/sferik/twitter/commit/97d7c68900c9974a1f6841f6eed2706df9030d64) ([@matthewrudy](https://twitter.com/matthewrudy))
+* [Allow use of `Twitter::Place` instead of `place_id`](https://github.com/sferik/twitter/commit/c2b31dd2385fefa30a9ddccf15415a713cf5953a)
+* [Allow use of `Twitter::Tweet` instead of `in_reply_to_status_id`](https://github.com/sferik/twitter/commit/6b7d6c2b637a074c348a56a51fb1e02252482fb2)
+
 5.0.1
 -----
 * [Fix `buftok` delimiter handling](https://github.com/sferik/twitter/pull/484)
