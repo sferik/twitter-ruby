@@ -12,7 +12,6 @@
 -----
 * [Fix `buftok` delimiter handling](https://github.com/sferik/twitter/pull/484)
 * [Started handling streaming deletes](https://github.com/sferik/twitter/commit/8860b97bce4bc36086116f380a2771af3c199ea2)
-* [Replace `URI` with `adressable`](https://github.com/sferik/twitter/commit/7ea2f5390dc7456950f55c90aa4e48f29dcd4604)
 
 5.0.0
 -----
