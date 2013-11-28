@@ -169,7 +169,7 @@ module Twitter
           user_id = case user
           when Integer
             user
-          when String, URI
+          when String, URI, Addressable::URI
             user(user).id
           when Twitter::User
             user.id

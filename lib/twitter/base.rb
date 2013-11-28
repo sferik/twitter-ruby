@@ -74,7 +74,7 @@ module Twitter
       # @param key2 [Symbol]
       def define_uri_method(key1, key2)
         define_method(key1) do ||
-          URI.parse(@attrs[key2]) if @attrs[key2]
+          Addressable::URI.parse(@attrs[key2]) if @attrs[key2]
         end
         memoize(key1)
       end

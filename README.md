@@ -423,8 +423,8 @@ These methods are aliased to `#url` for users who prefer that nomenclature.
 `Twitter::User` previously had a `#url` method, which returned the user's
 website. This URI is now available via the `#website` method.
 
-All `#uri` methods now return `URI` objects instead of strings. To convert a
-`URI` object to a string, call `#to_s` on it.
+All `#uri` methods now return `Addressable::URI` objects instead of strings. To convert an
+`Addressable::URI` object to a string, call `#to_s` on it.
 
 ## Configuration
 Twitter API v1.1 requires you to authenticate via OAuth, so you'll need to

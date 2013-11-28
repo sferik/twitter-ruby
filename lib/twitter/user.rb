@@ -109,14 +109,14 @@ module Twitter
 
     # @return [String] The URL to the user.
     def uri
-      URI.parse("https://twitter.com/#{screen_name}")
+      Addressable::URI.parse("https://twitter.com/#{screen_name}")
     end
     memoize :uri
     alias url uri
 
     # @return [String] The URL to the user's website.
     def website
-      URI.parse(@attrs[:url]) if @attrs[:url]
+      Addressable::URI.parse(@attrs[:url]) if @attrs[:url]
     end
     memoize :website
 
@@ -128,7 +128,7 @@ module Twitter
   private
 
     def parse_encoded_uri(uri)
-      URI.parse(URI.encode(uri))
+      Addressable::URI.parse(URI.encode(uri))
     end
 
     def insecure_uri(uri)

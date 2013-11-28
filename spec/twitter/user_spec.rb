@@ -68,11 +68,11 @@ describe Twitter::User do
   describe "#profile_banner_uri" do
     it "accepts utf8 urls" do
       user = Twitter::User.new(:id => 7505382, :profile_banner_url => "https://si0.twimg.com/profile_banners/7505382/1348266581©_normal.png")
-      expect(user.profile_banner_uri).to be_a URI
+      expect(user.profile_banner_uri).to be_a Addressable::URI
     end
     it "returns a URI when profile_banner_url is set" do
       user = Twitter::User.new(:id => 7505382, :profile_banner_url => "https://si0.twimg.com/profile_banners/7505382/1348266581")
-      expect(user.profile_banner_uri).to be_a URI
+      expect(user.profile_banner_uri).to be_a Addressable::URI
     end
     it "returns nil when profile_banner_uri is not set" do
       user = Twitter::User.new(:id => 7505382)
@@ -117,11 +117,11 @@ describe Twitter::User do
   describe "#profile_banner_uri_https" do
     it "accepts utf8 urls" do
       user = Twitter::User.new(:id => 7505382, :profile_banner_url => "https://si0.twimg.com/profile_banners/7505382/1348266581©_normal.png")
-      expect(user.profile_banner_uri_https).to be_a URI
+      expect(user.profile_banner_uri_https).to be_a Addressable::URI
     end
     it "returns a URI when profile_banner_url is set" do
       user = Twitter::User.new(:id => 7505382, :profile_banner_url => "https://si0.twimg.com/profile_banners/7505382/1348266581")
-      expect(user.profile_banner_uri_https).to be_a URI
+      expect(user.profile_banner_uri_https).to be_a Addressable::URI
     end
     it "returns nil when created_at is not set" do
       user = Twitter::User.new(:id => 7505382)
@@ -177,11 +177,11 @@ describe Twitter::User do
   describe "#profile_image_uri" do
     it "accepts utf8 urls" do
       user = Twitter::User.new(:id => 7505382, :profile_image_url_https => "https://si0.twimg.com/profile_images/7505382/1348266581©_normal.png")
-      expect(user.profile_image_uri).to be_a URI
+      expect(user.profile_image_uri).to be_a Addressable::URI
     end
     it "returns a URI when profile_image_url_https is set" do
       user = Twitter::User.new(:id => 7505382, :profile_image_url_https => "https://a0.twimg.com/profile_images/1759857427/image1326743606_normal.png")
-      expect(user.profile_image_uri).to be_a URI
+      expect(user.profile_image_uri).to be_a Addressable::URI
     end
     it "returns nil when created_at is not set" do
       user = Twitter::User.new(:id => 7505382)
@@ -222,11 +222,11 @@ describe Twitter::User do
   describe "#profile_image_uri_https" do
     it "accepts utf8 urls" do
       user = Twitter::User.new(:id => 7505382, :profile_image_url_https => "https://si0.twimg.com/profile_images/7505382/1348266581©_normal.png")
-      expect(user.profile_image_uri_https).to be_a URI
+      expect(user.profile_image_uri_https).to be_a Addressable::URI
     end
     it "returns a URI when profile_image_url_https is set" do
       user = Twitter::User.new(:id => 7505382, :profile_image_url_https => "https://a0.twimg.com/profile_images/1759857427/image1326743606_normal.png")
-      expect(user.profile_image_uri_https).to be_a URI
+      expect(user.profile_image_uri_https).to be_a Addressable::URI
     end
     it "returns nil when created_at is not set" do
       user = Twitter::User.new(:id => 7505382)
@@ -305,7 +305,7 @@ describe Twitter::User do
   describe "#uri" do
     it "returns the URI to the user" do
       user = Twitter::User.new(:id => 7505382, :screen_name => "sferik")
-      expect(user.uri).to be_a URI
+      expect(user.uri).to be_a Addressable::URI
       expect(user.uri.to_s).to eq("https://twitter.com/sferik")
     end
   end
@@ -313,7 +313,7 @@ describe Twitter::User do
   describe "#website" do
     it "returns a URI when the url is set" do
       user = Twitter::User.new(:id => 7505382, :url => "https://github.com/sferik")
-      expect(user.website).to be_a URI
+      expect(user.website).to be_a Addressable::URI
       expect(user.website.to_s).to eq("https://github.com/sferik")
     end
     it "returns nil when the url is not set" do

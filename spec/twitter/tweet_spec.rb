@@ -332,7 +332,7 @@ describe Twitter::Tweet do
   describe "#uri" do
     it "returns the URI to the tweet" do
       tweet = Twitter::Tweet.new(:id => 28669546014, :user => {:id => 7505382, :screen_name => "sferik"})
-      expect(tweet.uri).to be_a URI
+      expect(tweet.uri).to be_a Addressable::URI
       expect(tweet.uri.to_s).to eq("https://twitter.com/sferik/status/28669546014")
     end
   end
