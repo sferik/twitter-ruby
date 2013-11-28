@@ -110,6 +110,7 @@ module Twitter
         # @return [Twitter::Tweet] The created Tweet.
         # @param status [String] The text of your status update, up to 140 characters.
         # @param options [Hash] A customizable set of options.
+        # @option options [Twitter::Tweet] :in_reply_to_status An existing status that the update is in reply to.
         # @option options [Integer] :in_reply_to_status_id The ID of an existing status that the update is in reply to.
         # @option options [Float] :lat The latitude of the location this tweet refers to. This option will be ignored unless it is inside the range -90.0 to +90.0 (North is positive) inclusive. It will also be ignored if there isn't a corresponding :long option.
         # @option options [Float] :long The longitude of the location this tweet refers to. The valid ranges for longitude is -180.0 to +180.0 (East is positive) inclusive. This option will be ignored if outside that range, if it is not a number, if geo_enabled is disabled, or if there not a corresponding :lat option.
@@ -119,6 +120,7 @@ module Twitter
         # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
         def update(status, options={})
           hash = options.dup
+          hash[:in_reply_to_status_id] = hash.delete(:in_reply_to_status).id unless hash[:in_reply_to_status].nil?
           hash[:place_id] = hash.delete(:place).id unless hash[:place].nil?
           object_from_response(Twitter::Tweet, :post, "/1.1/statuses/update.json", hash.merge(:status => status))
         rescue Twitter::Error::Forbidden => error
@@ -188,6 +190,7 @@ module Twitter
         # @param media [File, Hash] A File object with your picture (PNG, JPEG or GIF)
         # @param options [Hash] A customizable set of options.
         # @option options [Boolean, String, Integer] :possibly_sensitive Set to true for content which may not be suitable for every audience.
+        # @option options [Twitter::Tweet] :in_reply_to_status An existing status that the update is in reply to.
         # @option options [Integer] :in_reply_to_status_id The ID of an existing Tweet that the update is in reply to.
         # @option options [Float] :lat The latitude of the location this tweet refers to. This option will be ignored unless it is inside the range -90.0 to +90.0 (North is positive) inclusive. It will also be ignored if there isn't a corresponding :long option.
         # @option options [Float] :long The longitude of the location this tweet refers to. The valid ranges for longitude is -180.0 to +180.0 (East is positive) inclusive. This option will be ignored if outside that range, if it is not a number, if geo_enabled is disabled, or if there not a corresponding :lat option.
@@ -197,6 +200,7 @@ module Twitter
         # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
         def update_with_media(status, media, options={})
           hash = options.dup
+          hash[:in_reply_to_status_id] = hash.delete(:in_reply_to_status).id unless hash[:in_reply_to_status].nil?
           hash[:place_id] = hash.delete(:place).id unless hash[:place].nil?
           object_from_response(Twitter::Tweet, :post, "/1.1/statuses/update_with_media.json", hash.merge('media[]' => media, 'status' => status))
         rescue Twitter::Error::Forbidden => error
