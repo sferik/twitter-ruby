@@ -1,6 +1,6 @@
+require 'addressable/uri'
 require 'simple_oauth'
 require 'twitter/version'
-require 'uri'
 
 module Twitter
   class Client

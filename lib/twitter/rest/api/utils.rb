@@ -1,7 +1,7 @@
+require 'addressable/uri'
 require 'twitter/arguments'
 require 'twitter/cursor'
 require 'twitter/user'
-require 'uri'
 
 module Twitter
   module REST

@@ -1,7 +1,7 @@
+require 'addressable/uri'
 require 'forwardable'
 require 'memoizable'
 require 'twitter/null_object'
-require 'uri'
 
 module Twitter
   class Base
