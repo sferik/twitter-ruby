@@ -5,11 +5,11 @@ gem 'rake'
 gem 'yard'
 
 group :development do
-  gem 'kramdown'
   gem 'pry'
+  gem 'pry-debugger', :platforms => :mri_19
   gem 'pry-rescue'
   gem 'pry-stack_explorer', :platforms => :mri_19
-  gem 'pry-debugger', :platforms => :mri_19
+  gem 'redcarpet'
 end
 
 group :test do
