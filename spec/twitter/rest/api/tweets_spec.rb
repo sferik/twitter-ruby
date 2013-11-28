@@ -245,6 +245,25 @@ describe Twitter::REST::API::Tweets do
         expect(a_post("/1.1/statuses/update.json").with(:body => {:status => "The problem with your code is that it's doing exactly what you told it to do.", :in_reply_to_status_id => "1"})).to have_been_made
       end
     end
+    context "with a place" do
+      before do
+        @place = Twitter::Place.new(:woeid => "df51dec6f4ee2b2c")
+        stub_post("/1.1/statuses/update.json").with(:body => {:status => "The problem with your code is that it's doing exactly what you told it to do.", :place_id => "df51dec6f4ee2b2c"}).to_return(:body => fixture("status.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      end
+      it "requests the correct resource" do
+        @client.update("The problem with your code is that it's doing exactly what you told it to do.", :place => @place)
+        expect(a_post("/1.1/statuses/update.json").with(:body => {:status => "The problem with your code is that it's doing exactly what you told it to do.", :place_id => "df51dec6f4ee2b2c"})).to have_been_made
+      end
+    end
+    context "with a place ID" do
+      before do
+        stub_post("/1.1/statuses/update.json").with(:body => {:status => "The problem with your code is that it's doing exactly what you told it to do.", :place_id => "df51dec6f4ee2b2c"}).to_return(:body => fixture("status.json"), :headers => {:content_type => "application/json; charset=utf-8"})
+      end
+      it "requests the correct resource" do
+        @client.update("The problem with your code is that it's doing exactly what you told it to do.", :place_id => "df51dec6f4ee2b2c")
+        expect(a_post("/1.1/statuses/update.json").with(:body => {:status => "The problem with your code is that it's doing exactly what you told it to do.", :place_id => "df51dec6f4ee2b2c"})).to have_been_made
+      end
+    end
   end
 
   describe "#retweet" do
