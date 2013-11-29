@@ -1,7 +1,7 @@
 # Update
 
 All examples assume you have a configured Twitter REST `client`. Configuration
-examples can be found in [examples/Configuration.rb][configuration].
+examples can be found in [examples/Configuration.md][configuration].
 
 [configuration]: https://github.com/sferik/twitter/blob/master/examples/Configuration.md
 

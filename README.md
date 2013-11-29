@@ -42,6 +42,11 @@ gem in version 0.5.0 and now exists as a [separate project][t].
 
 [documentation]: http://rdoc.info/gems/twitter
 
+## Examples
+[https://github.com/sferik/twitter/tree/master/examples][examples]
+
+[examples]: https://github.com/sferik/twitter/tree/master/examples
+
 ## Announcements
 You should [follow @gem][follow] on Twitter for announcements and updates about
 this library.
