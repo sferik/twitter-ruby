@@ -320,9 +320,9 @@ describe Twitter::Tweet do
       ]
       tweet = Twitter::Tweet.new(:id => 28669546014, :entities => {:urls => urls_array})
       uri = tweet.uris.first
-      expect{ uri.url }.to_not raise_error
-      expect{ uri.expanded_url }.to_not raise_error
-      expect{ uri.display_url }.to_not raise_error
+      expect{ uri.url }.not_to raise_error
+      expect{ uri.expanded_url }.not_to raise_error
+      expect{ uri.display_url }.not_to raise_error
     end
   end
 

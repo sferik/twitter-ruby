@@ -2,6 +2,35 @@ require 'helper'
 
 describe Twitter::Place do
 
+  describe "#eql?" do
+    it "returns true when objects WOE IDs are the same" do
+      place = Twitter::Place.new(:woeid => 1, :name => "foo")
+      other = Twitter::Place.new(:woeid => 1, :name => "bar")
+      expect(place).to eql(other)
+    end
+    it "returns false when objects WOE IDs are different" do
+      place = Twitter::Place.new(:woeid => 1)
+      other = Twitter::Place.new(:woeid => 2)
+      expect(place).not_to eql(other)
+    end
+    it "returns false when classes are different" do
+      place = Twitter::Place.new(:woeid => 1)
+      other = Twitter::Base.new(:woeid => 1)
+      expect(place).not_to eql(other)
+    end
+  end
+
+  describe "#bounding_box" do
+    it "returns a Twitter::Geo when bounding_box is set" do
+      place = Twitter::Place.new(:woeid => "247f43d441defc03", :bounding_box => {:type => "Polygon", :coordinates => [[[-122.40348192, 37.77752898], [-122.387436, 37.77752898], [-122.387436, 37.79448597], [-122.40348192, 37.79448597]]]})
+      expect(place.bounding_box).to be_a Twitter::Geo::Polygon
+    end
+    it "returns nil when not bounding_box is not set" do
+      place = Twitter::Place.new(:woeid => "247f43d441defc03")
+      expect(place.bounding_box).to be_nil
+    end
+  end
+
   describe "#==" do
     it "returns true when objects WOE IDs are the same" do
       place = Twitter::Place.new(:woeid => 1, :name => "foo")
