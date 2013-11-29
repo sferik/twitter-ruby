@@ -25,9 +25,9 @@ public key as a trusted certificate (you only need to do this once):
 
     gem cert --add <(curl -Ls https://raw.github.com/sferik/twitter/master/certs/sferik.pem)
 
-Then, install the gem with the high security trust policy:
+Then, install the gem with the medium security trust policy:
 
-    gem install twitter -P HighSecurity
+    gem install twitter -P MediumSecurity
 
 ## CLI
 
