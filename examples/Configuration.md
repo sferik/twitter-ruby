@@ -1,8 +1,13 @@
 # Configuration
 
 Twitter API version 1.1 requires authentication on all requests. Some requests
-can be made with application-only authentication while other requests require
-user authentication.
+can be made with [application-only authentication][application-only] while
+other requests require [single-user authentication][single-user].
+
+[application-only]: https://dev.twitter.com/docs/auth/application-only-auth
+[single-user]: https://dev.twitter.com/docs/auth/oauth/single-user-with-examples
+
+## Application-only Authentication
 
 To start using the Twitter API, you need to [register your application with
 Twitter][register]. Registration requires you to answer some questions about
@@ -39,7 +44,7 @@ client = Twitter::REST::Client.new(config)
 ```
 
 Regardless of your configuration style, you should now be able to use this
-client to make any Twitter API request that does not require user
+client to make any Twitter API request that does not require single-user
 authentication. For example:
 
 ```ruby
@@ -69,9 +74,13 @@ client = Twitter::REST::Client.new do |config|
 end
 ```
 
+## Single-user Authentication
+
 Not all Twitter API resources are accessible with application-only
-authentication. Some resources require user authentication tokens, which you
-can obtain via oAuth.
+authentication. Some resources require single-user authentication tokens, which
+you can obtain from the [3-legged authorization][3-legged-authorization] flow.
+
+[3-legged-authorization]: https://dev.twitter.com/docs/auth/3-legged-authorization
 
 ```ruby
 client = Twitter::REST::Client.new do |config|
@@ -88,10 +97,13 @@ You can use this client to make any Twitter REST API request. For example:
 client.update("I'm tweeting with @gem!")
 ```
 
-Streaming clients are initialized just like REST clients:
+## Streaming Clients
+
+Streaming clients are initialized just like single-user authenticated REST
+clients:
 
 ```ruby
-client = Twitter::REST::Client.new do |config|
+client = Twitter::Streaming::Client.new do |config|
   config.consumer_key        = "YOUR_CONSUMER_KEY"
   config.consumer_secret     = "YOUR_CONSUMER_SECRET"
   config.access_token        = "YOUR_ACCESS_TOKEN"
