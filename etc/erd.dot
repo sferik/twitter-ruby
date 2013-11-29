@@ -66,6 +66,7 @@ digraph classes {
 	Twitter__SourceUser [label="Twitter::SourceUser"]
 	Twitter__Streaming__Client [label="Twitter::Streaming::Client"]
 	Twitter__Streaming__Connection [label="Twitter::Streaming::Connection"]
+	Twitter__Streaming__DeletedTweet [label="Twitter::Streaming::DeletedTweet"]
 	Twitter__Streaming__Event [label="Twitter::Streaming::Event"]
 	Twitter__Streaming__FriendList [label="Twitter::Streaming::FriendList"]
 	Twitter__Streaming__MessageParser [label="Twitter::Streaming::MessageParser"]
@@ -142,6 +143,7 @@ digraph classes {
 	Twitter__SourceUser -> Twitter__BasicUser
 	Twitter__Streaming__Client -> Twitter__Client
 	Twitter__Streaming__Connection -> Object
+	Twitter__Streaming__DeletedTweet -> Twitter__Identity
 	Twitter__Streaming__Event -> Object
 	Twitter__Streaming__FriendList -> Array
 	Twitter__Streaming__MessageParser -> Object

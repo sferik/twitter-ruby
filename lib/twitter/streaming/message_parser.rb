@@ -1,3 +1,9 @@
+require 'twitter/direct_message'
+require 'twitter/streaming/deleted_tweet'
+require 'twitter/streaming/event'
+require 'twitter/streaming/friend_list'
+require 'twitter/tweet'
+
 module Twitter
   module Streaming
     class MessageParser
@@ -13,10 +19,11 @@ module Twitter
           FriendList.new(data[:friends])
         elsif data[:delete]
           if data[:delete][:status]
-            Tweet.new(data[:delete][:status].merge(:deleted => true))
+            DeletedTweet.new(data[:delete][:status])
           end
         end
       end
+
     end
   end
 end

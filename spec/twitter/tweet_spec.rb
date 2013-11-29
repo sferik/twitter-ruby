@@ -62,7 +62,6 @@ describe Twitter::Tweet do
       tweet = Twitter::Tweet.new(:id => 28669546014, :entities => {:urls => []})
       expect(tweet.entities?).to be false
     end
-
     it "returns true if there are entities set" do
       urls_array = [
         {
@@ -310,7 +309,6 @@ describe Twitter::Tweet do
       Twitter::Tweet.new(:id => 28669546014).urls
       expect($stderr.string).to match(/To get urls, you must pass `:include_entities => true` when requesting the Twitter::Tweet\./)
     end
-
     it "can handle strange urls" do
       urls_array = [
         {
@@ -326,7 +324,6 @@ describe Twitter::Tweet do
       expect{ uri.expanded_url }.to_not raise_error
       expect{ uri.display_url }.to_not raise_error
     end
-
   end
 
   describe "#uri" do
