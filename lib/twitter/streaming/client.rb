@@ -18,27 +18,66 @@ module Twitter
         @connection = Streaming::Connection.new
       end
 
+      # Returns public statuses that match one or more filter predicates
+      #
+      # @see https://dev.twitter.com/docs/api/1.1/post/statuses/filter
+      # @see https://dev.twitter.com/docs/streaming-apis/parameters
+      # @note At least one predicate parameter (follow, locations, or track) must be specified.
+      # @param options [Hash] A customizable set of options.
+      # @option options [String] :follow A comma separated list of user IDs, indicating the users to return statuses for in the stream.
+      # @option options [String] :track Includes additional Tweets matching the specified keywords. Phrases of keywords are specified by a comma-separated list.
+      # @option options [String] :locations Includes additional Tweets falling within the specified bounding boxes.
       # @yield [Twitter::Tweet] A stream of tweets.
       def filter(options={}, &block)
         request(:post, 'https://stream.twitter.com:443/1.1/statuses/filter.json', options, &block)
       end
 
+      # Returns all public statuses
+      #
+      # @see https://dev.twitter.com/docs/api/1.1/get/statuses/firehose
+      # @see https://dev.twitter.com/docs/streaming-apis/parameters
+      # @note This endpoint requires special permission to access.
+      # @param options [Hash] A customizable set of options.
+      # @option options [Integer] :count The number of messages to backfill.
       # @yield [Twitter::Tweet] A stream of tweets.
       def firehose(options={}, &block)
         request(:get, 'https://stream.twitter.com:443/1.1/statuses/firehose.json', options, &block)
       end
 
+      # Returns a small random sample of all public statuses
+      #
+      # @see https://dev.twitter.com/docs/api/1.1/get/statuses/sample
+      # @see https://dev.twitter.com/docs/streaming-apis/parameters
       # @yield [Twitter::Tweet] A stream of tweets.
       def sample(options={}, &block)
         request(:get, 'https://stream.twitter.com:443/1.1/statuses/sample.json', options, &block)
       end
 
+      # Streams messages for a set of user
+      #
+      # @see https://dev.twitter.com/docs/api/1.1/get/site
+      # @see https://dev.twitter.com/docs/streaming-apis/streams/site
+      # @see https://dev.twitter.com/docs/streaming-apis/parameters
+      # @param follow [Enumerable<Integer, String, Twitter::User>] A list of user IDs, indicating the users to return statuses for in the stream.
+      # @param options [Hash] A customizable set of options.
+      # @option options [String] :with Specifies whether to return information for just the users specified in the follow parameter, or include messages from accounts they follow.
+      # @option options [String] :replies Specifies whether stall warnings should be delivered.
       # @yield [Twitter::Tweet] A stream of tweets.
       def site(*args, &block)
         arguments = Arguments.new(args)
         request(:get, 'https://sitestream.twitter.com:443/1.1/site.json', arguments.options.merge(:follow => arguments.join(',')), &block)
       end
 
+      # Streams messages for a single user
+      #
+      # @see https://dev.twitter.com/docs/api/1.1/get/user
+      # @see https://dev.twitter.com/docs/streaming-apis/streams/user
+      # @see https://dev.twitter.com/docs/streaming-apis/parameters
+      # @param options [Hash] A customizable set of options.
+      # @option options [String] :with Specifies whether to return information for just the users specified in the follow parameter, or include messages from accounts they follow.
+      # @option options [String] :replies Specifies whether stall warnings should be delivered.
+      # @option options [String] :track Includes additional Tweets matching the specified keywords. Phrases of keywords are specified by a comma-separated list.
+      # @option options [String] :locations Includes additional Tweets falling within the specified bounding boxes.
       # @yield [Twitter::Tweet] A stream of tweets.
       def user(options={}, &block)
         request(:get, 'https://userstream.twitter.com:443/1.1/user.json', options, &block)
