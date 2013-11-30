@@ -65,7 +65,8 @@ module Twitter
       # @yield [Twitter::Tweet] A stream of tweets.
       def site(*args, &block)
         arguments = Arguments.new(args)
-        request(:get, 'https://sitestream.twitter.com:443/1.1/site.json', arguments.options.merge(:follow => arguments.join(',')), &block)
+        user_ids = collect_user_ids(arguments)
+        request(:get, 'https://sitestream.twitter.com:443/1.1/site.json', arguments.options.merge(:follow => user_ids.join(',')), &block)
       end
 
       # Streams messages for a single user
@@ -121,6 +122,22 @@ module Twitter
           :user_agent => user_agent,
         }
       end
+
+      def collect_user_ids(users)
+        user_ids = []
+        users.flatten.each do |user|
+          case user
+          when Integer
+            user_ids << user
+          when String
+            user_ids << user.to_i
+          when Twitter::User
+            user_ids << user.id
+          end
+        end
+        user_ids
+      end
+
     end
   end
 end
