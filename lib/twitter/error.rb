@@ -20,6 +20,7 @@ module Twitter
       OAUTH_TIMESTAMP_OUT_OF_RANGE = 135
       FOLLOW_LIMIT_EXCEEDED        = 161
       PROTECTED_STATUS             = 179
+      OVER_UPDATE_LIMIT            = 185
       DUPLICATE_STATUS             = 187
       BAD_AUTHENTICATION_DATA      = 215
       LOGIN_VERIFICATION_NEEDED    = 231
