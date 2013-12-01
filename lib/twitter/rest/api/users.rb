@@ -146,7 +146,7 @@ module Twitter
         # @rate_limited Yes
         # @authentication Requires user context
         # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-        # @return [Array] Numeric user ids the authenticating user is blocking.
+        # @return [Twitter::Cursor] Numeric user IDs the authenticating user is blocking.
         # @overload block(options={})
         #   @param options [Hash] A customizable set of options.
         def blocked_ids(*args)

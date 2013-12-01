@@ -166,13 +166,13 @@ module Twitter
         end
 
         # @param tweets [Array]
-        # @return [Array]
+        # @return [Array<Twitter::Tweet>]
         def select_retweets(tweets)
           tweets.select(&:retweet?)
         end
 
         # @param count [Integer]
-        # @return [Array]
+        # @return [Array<Twitter::Tweet>]
         def collect_with_count(count, &block)
           options = {}
           options[:count] = MAX_TWEETS_PER_REQUEST
@@ -188,7 +188,7 @@ module Twitter
 
         # @param collection [Array]
         # @param max_id [Integer, NilClass]
-        # @return [Array]
+        # @return [Array<Twitter::Tweet>]
         def collect_with_max_id(collection=[], max_id=nil, &block)
           tweets = yield(max_id)
           return collection if tweets.nil?

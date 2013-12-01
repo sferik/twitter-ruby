@@ -261,7 +261,7 @@ module Twitter
         # @rate_limited Yes
         # @authentication Required
         # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-        # @return [Array<Integer>]
+        # @return [Twitter::Cursor]
         # @overload retweeters_ids(options)
         #   @param options [Hash] A customizable set of options.
         # @overload retweeters_ids(id, options={})
