@@ -2,6 +2,7 @@ require 'twitter/direct_message'
 require 'twitter/streaming/deleted_tweet'
 require 'twitter/streaming/event'
 require 'twitter/streaming/friend_list'
+require 'twitter/streaming/stall_warning'
 require 'twitter/tweet'
 
 module Twitter
@@ -17,10 +18,10 @@ module Twitter
           DirectMessage.new(data[:direct_message])
         elsif data[:friends]
           FriendList.new(data[:friends])
-        elsif data[:delete]
-          if data[:delete][:status]
-            DeletedTweet.new(data[:delete][:status])
-          end
+        elsif data[:delete] && data[:delete][:status]
+          DeletedTweet.new(data[:delete][:status])
+        elsif data[:warning]
+          StallWarning.new(data[:warning])
         end
       end
 

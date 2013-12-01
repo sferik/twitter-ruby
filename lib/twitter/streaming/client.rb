@@ -27,7 +27,7 @@ module Twitter
       # @option options [String] :follow A comma separated list of user IDs, indicating the users to return statuses for in the stream.
       # @option options [String] :track Includes additional Tweets matching the specified keywords. Phrases of keywords are specified by a comma-separated list.
       # @option options [String] :locations Includes additional Tweets falling within the specified bounding boxes.
-      # @yield [Twitter::Tweet, Twitter::Streaming::Event, Twitter::DirectMessage, Twitter::Streaming::FriendList, Twitter::Streaming::DeletedTweet] A stream of Twitter objects.
+      # @yield [Twitter::Tweet, Twitter::Streaming::Event, Twitter::DirectMessage, Twitter::Streaming::FriendList, Twitter::Streaming::DeletedTweet, Twitter::Streaming::StallWarning] A stream of Twitter objects.
       def filter(options={}, &block)
         request(:post, 'https://stream.twitter.com:443/1.1/statuses/filter.json', options, &block)
       end
@@ -39,7 +39,7 @@ module Twitter
       # @note This endpoint requires special permission to access.
       # @param options [Hash] A customizable set of options.
       # @option options [Integer] :count The number of messages to backfill.
-      # @yield [Twitter::Tweet, Twitter::Streaming::Event, Twitter::DirectMessage, Twitter::Streaming::FriendList, Twitter::Streaming::DeletedTweet] A stream of Twitter objects.
+      # @yield [Twitter::Tweet, Twitter::Streaming::Event, Twitter::DirectMessage, Twitter::Streaming::FriendList, Twitter::Streaming::DeletedTweet, Twitter::Streaming::StallWarning] A stream of Twitter objects.
       def firehose(options={}, &block)
         request(:get, 'https://stream.twitter.com:443/1.1/statuses/firehose.json', options, &block)
       end
@@ -48,7 +48,7 @@ module Twitter
       #
       # @see https://dev.twitter.com/docs/api/1.1/get/statuses/sample
       # @see https://dev.twitter.com/docs/streaming-apis/parameters
-      # @yield [Twitter::Tweet, Twitter::Streaming::Event, Twitter::DirectMessage, Twitter::Streaming::FriendList, Twitter::Streaming::DeletedTweet] A stream of Twitter objects.
+      # @yield [Twitter::Tweet, Twitter::Streaming::Event, Twitter::DirectMessage, Twitter::Streaming::FriendList, Twitter::Streaming::DeletedTweet, Twitter::Streaming::StallWarning] A stream of Twitter objects.
       def sample(options={}, &block)
         request(:get, 'https://stream.twitter.com:443/1.1/statuses/sample.json', options, &block)
       end
@@ -62,7 +62,7 @@ module Twitter
       # @param options [Hash] A customizable set of options.
       # @option options [String] :with Specifies whether to return information for just the users specified in the follow parameter, or include messages from accounts they follow.
       # @option options [String] :replies Specifies whether stall warnings should be delivered.
-      # @yield [Twitter::Tweet, Twitter::Streaming::Event, Twitter::DirectMessage, Twitter::Streaming::FriendList, Twitter::Streaming::DeletedTweet] A stream of Twitter objects.
+      # @yield [Twitter::Tweet, Twitter::Streaming::Event, Twitter::DirectMessage, Twitter::Streaming::FriendList, Twitter::Streaming::DeletedTweet, Twitter::Streaming::StallWarning] A stream of Twitter objects.
       def site(*args, &block)
         arguments = Arguments.new(args)
         user_ids = collect_user_ids(arguments)
@@ -79,7 +79,7 @@ module Twitter
       # @option options [String] :replies Specifies whether stall warnings should be delivered.
       # @option options [String] :track Includes additional Tweets matching the specified keywords. Phrases of keywords are specified by a comma-separated list.
       # @option options [String] :locations Includes additional Tweets falling within the specified bounding boxes.
-      # @yield [Twitter::Tweet, Twitter::Streaming::Event, Twitter::DirectMessage, Twitter::Streaming::FriendList, Twitter::Streaming::DeletedTweet] A stream of Twitter objects.
+      # @yield [Twitter::Tweet, Twitter::Streaming::Event, Twitter::DirectMessage, Twitter::Streaming::FriendList, Twitter::Streaming::DeletedTweet, Twitter::Streaming::StallWarning] A stream of Twitter objects.
       def user(options={}, &block)
         request(:get, 'https://userstream.twitter.com:443/1.1/user.json', options, &block)
       end

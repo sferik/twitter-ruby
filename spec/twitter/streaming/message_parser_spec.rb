@@ -43,6 +43,12 @@ describe Twitter::Streaming::MessageParser do
       expect(object).to be_a Twitter::Streaming::DeletedTweet
       expect(object.id).to eq(1)
     end
+    it "returns a stall warning if the data has a warning" do
+      data = {:warning => {:code => "FALLING_BEHIND"}}
+      object = subject.parse(data)
+      expect(object).to be_a Twitter::Streaming::StallWarning
+      expect(object.code).to eq("FALLING_BEHIND")
+    end
   end
 
 end

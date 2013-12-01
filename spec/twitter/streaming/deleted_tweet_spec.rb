@@ -20,11 +20,4 @@ describe Twitter::Streaming::DeletedTweet do
     end
   end
 
-  describe "#user_id" do
-    it "returns the user ID" do
-      deleted_tweet = Twitter::Streaming::DeletedTweet.new(:id => 1, :user_id => 1)
-      expect(deleted_tweet.user_id).to eq(1)
-    end
-  end
-
 end

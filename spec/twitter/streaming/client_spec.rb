@@ -77,7 +77,7 @@ describe Twitter::Streaming::Client do
     @client.user do |item|
       items << item
     end
-    expect(items.size).to eq(5)
+    expect(items.size).to eq(6)
     expect(items[0]).to be_a Twitter::Streaming::FriendList
     expect(items[0]).to eq([488736931,311444249])
     expect(items[1]).to be_a Twitter::Tweet
@@ -88,6 +88,8 @@ describe Twitter::Streaming::Client do
     expect(items[3].name).to eq(:follow)
     expect(items[4]).to be_a Twitter::Streaming::DeletedTweet
     expect(items[4].id).to eq(272691609211117568)
+    expect(items[5]).to be_a Twitter::Streaming::StallWarning
+    expect(items[5].code).to eq("FALLING_BEHIND")
   end
 
 end
