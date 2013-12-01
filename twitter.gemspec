@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'equalizer', '~> 0.0.7'
   spec.add_dependency 'faraday', ['>= 0.8', '< 0.10']
   spec.add_dependency 'http', '~> 0.5.0'
-  spec.add_dependency 'http_parser.rb', '~> 0.5.0'
+  spec.add_dependency 'http_parser.rb', '~> 0.6.0.beta.2'
   spec.add_dependency 'json', '~> 1.8'
   spec.add_dependency 'memoizable', '~> 0.2.0'
   spec.add_dependency 'simple_oauth', '~> 0.2.0'
