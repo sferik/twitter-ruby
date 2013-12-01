@@ -9,4 +9,5 @@ CONTRIBUTING.md
 LICENSE.md
 README.md
 examples/Configuration.md
+examples/RateLimiting.md
 examples/Update.md
