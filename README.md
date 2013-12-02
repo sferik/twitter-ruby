@@ -505,14 +505,14 @@ client.follow(213747670)
 client.user("gem")
 client.user(213747670)
 ```
-**Fetch a cursored list of followers with profile details (by screen name or user ID, or by implict authenticated user)**
+**Fetch a cursored list of followers with profile details (by screen name or user ID, or by implicit authenticated user)**
 
 ```ruby
 client.followers("gem")
 client.followers(213747670)
 client.followers
 ```
-**Fetch a cursored list of friends with profile details (by screen name or user ID, or by implict authenticated user)**
+**Fetch a cursored list of friends with profile details (by screen name or user ID, or by implicit authenticated user)**
 
 ```ruby
 client.friends("gem")
