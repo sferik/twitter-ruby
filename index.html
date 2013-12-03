@@ -53,9 +53,9 @@ public key as a trusted certificate (you only need to do this once):</p>
 <pre><code>gem cert --add &lt;(curl -Ls https://raw.github.com/sferik/twitter/master/certs/sferik.pem)
 </code></pre>
 
-<p>Then, install the gem with the high security trust policy:</p>
+<p>Then, install the gem with the medium security trust policy:</p>
 
-<pre><code>gem install twitter -P HighSecurity
+<pre><code>gem install twitter -P MediumSecurity
 </code></pre>
 
 <h2>
@@ -68,6 +68,11 @@ gem in version 0.5.0 and now exists as a <a href="https://github.com/sferik/t">s
 <a name="documentation" class="anchor" href="#documentation"><span class="octicon octicon-link"></span></a>Documentation</h2>
 
 <p><a href="http://rdoc.info/gems/twitter">http://rdoc.info/gems/twitter</a></p>
+
+<h2>
+<a name="examples" class="anchor" href="#examples"><span class="octicon octicon-link"></span></a>Examples</h2>
+
+<p><a href="https://github.com/sferik/twitter/tree/master/examples">https://github.com/sferik/twitter/tree/master/examples</a></p>
 
 <h2>
 <a name="announcements" class="anchor" href="#announcements"><span class="octicon octicon-link"></span></a>Announcements</h2>
@@ -569,14 +574,14 @@ error:</p>
 <span class="n">client</span><span class="o">.</span><span class="n">user</span><span class="p">(</span><span class="mi">213747670</span><span class="p">)</span>
 </pre></div>
 
-<p><strong>Fetch a cursored list of followers with profile details (by screen name or user ID, or by implict authenticated user)</strong></p>
+<p><strong>Fetch a cursored list of followers with profile details (by screen name or user ID, or by implicit authenticated user)</strong></p>
 
 <div class="highlight highlight-ruby"><pre><span class="n">client</span><span class="o">.</span><span class="n">followers</span><span class="p">(</span><span class="s2">"gem"</span><span class="p">)</span>
 <span class="n">client</span><span class="o">.</span><span class="n">followers</span><span class="p">(</span><span class="mi">213747670</span><span class="p">)</span>
 <span class="n">client</span><span class="o">.</span><span class="n">followers</span>
 </pre></div>
 
-<p><strong>Fetch a cursored list of friends with profile details (by screen name or user ID, or by implict authenticated user)</strong></p>
+<p><strong>Fetch a cursored list of friends with profile details (by screen name or user ID, or by implicit authenticated user)</strong></p>
 
 <div class="highlight highlight-ruby"><pre><span class="n">client</span><span class="o">.</span><span class="n">friends</span><span class="p">(</span><span class="s2">"gem"</span><span class="p">)</span>
 <span class="n">client</span><span class="o">.</span><span class="n">friends</span><span class="p">(</span><span class="mi">213747670</span><span class="p">)</span>
