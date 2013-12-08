@@ -21,13 +21,14 @@ twitter_objects = ObjectSpace.each_object(Class).select do |klass|
 end
 
 twitter_objects.each do |klass|
-  begin
+  loop do
     unless klass.nil? || klass.superclass.nil? || klass.name.empty?
       nodes[nodize(klass)] = klass.name
       edges[nodize(klass)] = nodize(klass.superclass)
     end
     klass = klass.superclass
-  end until klass.nil?
+    break if klass.nil?
+  end
 end
 
 edges.delete(nil)
