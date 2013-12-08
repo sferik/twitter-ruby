@@ -3,7 +3,8 @@ require 'twitter/base'
 module Twitter
   class Configuration < Twitter::Base
     attr_reader :characters_reserved_per_media, :max_media_per_upload,
-      :non_username_paths, :photo_size_limit, :short_url_length, :short_url_length_https
+                :non_username_paths, :photo_size_limit, :short_url_length,
+                :short_url_length_https
     alias_method :short_uri_length, :short_url_length
     alias_method :short_uri_length_https, :short_url_length_https
 
