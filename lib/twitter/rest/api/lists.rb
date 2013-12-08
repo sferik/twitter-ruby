@@ -23,10 +23,10 @@ module Twitter
         # @authentication Requires user context
         # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
         # @return [Array<Twitter::List>]
-        # @overload lists(options={})
+        # @overload lists(options = {})
         #   @param options [Hash] A customizable set of options.
         #   @option options [Boolean] :reverse Set this to true if you would like owned lists to be returned first.
-        # @overload lists(user, options={})
+        # @overload lists(user, options = {})
         #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, URI, or object.
         #   @param options [Hash] A customizable set of options.
         #   @option options [Boolean] :reverse Set this to true if you would like owned lists to be returned first.
@@ -42,13 +42,13 @@ module Twitter
         # @authentication Requires user context
         # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
         # @return [Array<Twitter::Tweet>]
-        # @overload list_timeline(list, options={})
+        # @overload list_timeline(list, options = {})
         #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, URI, or object.
         #   @param options [Hash] A customizable set of options.
         #   @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID.
         #   @option options [Integer] :max_id Returns results with an ID less than (that is, older than) or equal to the specified ID.
         #   @option options [Integer] :count The number of results to retrieve.
-        # @overload list_timeline(user, list, options={})
+        # @overload list_timeline(user, list, options = {})
         #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, URI, or object.
         #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, URI, or object.
         #   @param options [Hash] A customizable set of options.
@@ -69,11 +69,11 @@ module Twitter
         # @authentication Requires user context
         # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
         # @return [Twitter::List] The list.
-        # @overload remove_list_member(list, user_to_remove, options={})
+        # @overload remove_list_member(list, user_to_remove, options = {})
         #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, URI, or object.
         #   @param user_to_remove [Integer, String] The user id or screen name of the list member to remove.
         #   @param options [Hash] A customizable set of options.
-        # @overload remove_list_member(user, list, user_to_remove, options={})
+        # @overload remove_list_member(user, list, user_to_remove, options = {})
         #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, URI, or object.
         #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, URI, or object.
         #   @param user_to_remove [Integer, String] The user id or screen name of the list member to remove.
@@ -90,11 +90,11 @@ module Twitter
         # @authentication Requires user context
         # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
         # @return [Twitter::Cursor]
-        # @overload memberships(options={})
+        # @overload memberships(options = {})
         #   @param options [Hash] A customizable set of options.
         #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
         #   @option options [Boolean, String, Integer] :filter_to_owned_lists When set to true, t or 1, will return just lists the authenticating user owns, and the user represented by user_id or screen_name is a member of.
-        # @overload memberships(user, options={})
+        # @overload memberships(user, options = {})
         #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, URI, or object.
         #   @param options [Hash] A customizable set of options.
         #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
@@ -110,11 +110,11 @@ module Twitter
         # @authentication Requires user context
         # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
         # @return [Twitter::Cursor] The subscribers of the specified list.
-        # @overload list_subscribers(list, options={})
+        # @overload list_subscribers(list, options = {})
         #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, URI, or object.
         #   @param options [Hash] A customizable set of options.
         #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
-        # @overload list_subscribers(user, list, options={})
+        # @overload list_subscribers(user, list, options = {})
         #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, URI, or object.
         #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, URI, or object.
         #   @param options [Hash] A customizable set of options.
@@ -130,10 +130,10 @@ module Twitter
         # @authentication Requires user context
         # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
         # @return [Twitter::List] The specified list.
-        # @overload list_subscribe(list, options={})
+        # @overload list_subscribe(list, options = {})
         #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, URI, or object.
         #   @param options [Hash] A customizable set of options.
-        # @overload list_subscribe(user, list, options={})
+        # @overload list_subscribe(user, list, options = {})
         #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, URI, or object.
         #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, URI, or object.
         #   @param options [Hash] A customizable set of options.
@@ -148,11 +148,11 @@ module Twitter
         # @authentication Requires user context
         # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
         # @return [Boolean] true if user is a subscriber of the specified list, otherwise false.
-        # @overload list_subscriber?(list, user_to_check, options={})
+        # @overload list_subscriber?(list, user_to_check, options = {})
         #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, URI, or object.
         #   @param user_to_check [Integer, String, Twitter::User] A Twitter user ID, screen name, URI, or object.
         #   @param options [Hash] A customizable set of options.
-        # @overload list_subscriber?(user, list, user_to_check, options={})
+        # @overload list_subscriber?(user, list, user_to_check, options = {})
         #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, URI, or object.
         #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, URI, or object.
         #   @param user_to_check [Integer, String, Twitter::User] A Twitter user ID, screen name, URI, or object.
@@ -169,10 +169,10 @@ module Twitter
         # @authentication Requires user context
         # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
         # @return [Twitter::List] The specified list.
-        # @overload list_unsubscribe(list, options={})
+        # @overload list_unsubscribe(list, options = {})
         #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, URI, or object.
         #   @param options [Hash] A customizable set of options.
-        # @overload list_unsubscribe(user, list, options={})
+        # @overload list_unsubscribe(user, list, options = {})
         #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, URI, or object.
         #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, URI, or object.
         #   @param options [Hash] A customizable set of options.
@@ -188,11 +188,11 @@ module Twitter
         # @authentication Requires user context
         # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
         # @return [Twitter::List] The list.
-        # @overload add_list_members(list, users, options={})
+        # @overload add_list_members(list, users, options = {})
         #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, URI, or object.
         #   @param users [Enumerable<Integer, String, Twitter::User>] A collection of Twitter user IDs, screen names, or objects.
         #   @param options [Hash] A customizable set of options.
-        # @overload add_list_members(user, list, users, options={})
+        # @overload add_list_members(user, list, users, options = {})
         #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, URI, or object.
         #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, URI, or object.
         #   @param users [Enumerable<Integer, String, Twitter::User>] A collection of Twitter user IDs, screen names, or objects.
@@ -209,11 +209,11 @@ module Twitter
         # @rate_limited Yes
         # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
         # @return [Boolean] true if user is a member of the specified list, otherwise false.
-        # @overload list_member?(list, user_to_check, options={})
+        # @overload list_member?(list, user_to_check, options = {})
         #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, URI, or object.
         #   @param user_to_check [Integer, String] The user ID or screen name of the list member.
         #   @param options [Hash] A customizable set of options.
-        # @overload list_member?(user, list, user_to_check, options={})
+        # @overload list_member?(user, list, user_to_check, options = {})
         #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, URI, or object.
         #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, URI, or object.
         #   @param user_to_check [Integer, String] The user ID or screen name of the list member.
@@ -229,11 +229,11 @@ module Twitter
         # @authentication Requires user context
         # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
         # @return [Twitter::Cursor]
-        # @overload list_members(list, options={})
+        # @overload list_members(list, options = {})
         #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, URI, or object.
         #   @param options [Hash] A customizable set of options.
         #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
-        # @overload list_members(user, list, options={})
+        # @overload list_members(user, list, options = {})
         #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, URI, or object.
         #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, URI, or object.
         #   @param options [Hash] A customizable set of options.
@@ -250,11 +250,11 @@ module Twitter
         # @authentication Requires user context
         # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
         # @return [Twitter::List] The list.
-        # @overload add_list_member(list, user_to_add, options={})
+        # @overload add_list_member(list, user_to_add, options = {})
         #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, URI, or object.
         #   @param user_to_add [Integer, String] The user id or screen name to add to the list.
         #   @param options [Hash] A customizable set of options.
-        # @overload add_list_member(user, list, user_to_add, options={})
+        # @overload add_list_member(user, list, user_to_add, options = {})
         #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, URI, or object.
         #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, URI, or object.
         #   @param user_to_add [Integer, String] The user id or screen name to add to the list.
@@ -272,10 +272,10 @@ module Twitter
         # @authentication Requires user context
         # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
         # @return [Twitter::List] The deleted list.
-        # @overload destroy_list(list, options={})
+        # @overload destroy_list(list, options = {})
         #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, URI, or object.
         #   @param options [Hash] A customizable set of options.
-        # @overload destroy_list(user, list, options={})
+        # @overload destroy_list(user, list, options = {})
         #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, URI, or object.
         #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, URI, or object.
         #   @param options [Hash] A customizable set of options.
@@ -291,12 +291,12 @@ module Twitter
         # @authentication Requires user context
         # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
         # @return [Twitter::List] The created list.
-        # @overload list_update(list, options={})
+        # @overload list_update(list, options = {})
         #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, URI, or object.
         #   @param options [Hash] A customizable set of options.
         #   @option options [String] :mode ('public') Whether your list is public or private. Values can be 'public' or 'private'.
         #   @option options [String] :description The description to give the list.
-        # @overload list_update(user, list, options={})
+        # @overload list_update(user, list, options = {})
         #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, URI, or object.
         #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, URI, or object.
         #   @param options [Hash] A customizable set of options.
@@ -318,7 +318,7 @@ module Twitter
         # @param options [Hash] A customizable set of options.
         # @option options [String] :mode ('public') Whether your list is public or private. Values can be 'public' or 'private'.
         # @option options [String] :description The description to give the list.
-        def create_list(name, options={})
+        def create_list(name, options = {})
           object_from_response(Twitter::List, :post, "/1.1/lists/create.json", options.merge(:name => name))
         end
         deprecate_alias :list_create, :create_list
@@ -331,10 +331,10 @@ module Twitter
         # @authentication Requires user context
         # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
         # @return [Twitter::List] The specified list.
-        # @overload list(list, options={})
+        # @overload list(list, options = {})
         #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, URI, or object.
         #   @param options [Hash] A customizable set of options.
-        # @overload list(user, list, options={})
+        # @overload list(user, list, options = {})
         #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, URI, or object.
         #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, URI, or object.
         #   @param options [Hash] A customizable set of options.
@@ -349,10 +349,10 @@ module Twitter
         # @authentication Requires user context
         # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
         # @return [Twitter::Cursor]
-        # @overload subscriptions(options={})
+        # @overload subscriptions(options = {})
         #   @param options [Hash] A customizable set of options.
         #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
-        # @overload subscriptions(user, options={})
+        # @overload subscriptions(user, options = {})
         #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, URI, or object.
         #   @param options [Hash] A customizable set of options.
         #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
@@ -367,11 +367,11 @@ module Twitter
         # @authentication Requires user context
         # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
         # @return [Twitter::List] The list.
-        # @overload remove_list_members(list, users, options={})
+        # @overload remove_list_members(list, users, options = {})
         #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, URI, or object.
         #   @param users [Enumerable<Integer, String, Twitter::User>] A collection of Twitter user IDs, screen names, or objects.
         #   @param options [Hash] A customizable set of options.
-        # @overload remove_list_members(user, list, users, options={})
+        # @overload remove_list_members(user, list, users, options = {})
         #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, URI, or object.
         #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, URI, or object.
         #   @param users [Enumerable<Integer, String, Twitter::User>] A collection of Twitter user IDs, screen names, or objects.
@@ -388,10 +388,10 @@ module Twitter
         # @authentication Requires user context
         # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
         # @return [Array<Twitter::List>]
-        # @overload owned_lists(options={})
+        # @overload owned_lists(options = {})
         #   @param options [Hash] A customizable set of options.
         #   @option options [Integer] :count The amount of results to return per page. Defaults to 20. No more than 1000 results will ever be returned in a single page.
-        # @overload owned_lists(user, options={})
+        # @overload owned_lists(user, options = {})
         #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, URI, or object.
         #   @param options [Hash] A customizable set of options.
         #   @option options [Integer] :count The amount of results to return per page. Defaults to 20. No more than 1000 results will ever be returned in a single page.

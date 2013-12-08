@@ -14,7 +14,7 @@ module Twitter
       #
       # @param response [Hash]
       # @return [Twitter::Base]
-      def from_response(response={})
+      def from_response(response = {})
         new(response[:body])
       end
 
@@ -24,7 +24,7 @@ module Twitter
     #
     # @param attrs [Hash]
     # @return [Twitter::SearchResults]
-    def initialize(attrs={})
+    def initialize(attrs = {})
       @attrs = attrs
       @collection = Array(@attrs[:statuses]).map do |tweet|
         Tweet.new(tweet)

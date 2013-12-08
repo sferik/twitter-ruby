@@ -33,7 +33,7 @@ module Twitter
       #
       # @param response [Hash]
       # @return [Twitter::Error]
-      def from_response(response={})
+      def from_response(response = {})
         error, code = parse_error(response[:body])
         new(error, response[:response_headers], code)
       end
@@ -75,7 +75,7 @@ module Twitter
     # @param response_headers [Hash]
     # @param code [Integer]
     # @return [Twitter::Error]
-    def initialize(exception=$!, response_headers={}, code=nil)
+    def initialize(exception = $!, response_headers = {}, code = nil)
       @rate_limit = RateLimit.new(response_headers)
       @wrapped_exception = exception
       @code = code

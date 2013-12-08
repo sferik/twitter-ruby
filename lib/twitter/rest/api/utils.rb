@@ -87,7 +87,7 @@ module Twitter
         # @param path [String]
         # @param options [Hash]
         # @return [Array]
-        def objects_from_response(klass, request_method, path, options={})
+        def objects_from_response(klass, request_method, path, options = {})
           response = send(request_method.to_sym, path, options)[:body]
           objects_from_array(klass, response)
         end
@@ -119,7 +119,7 @@ module Twitter
         # @param path [String]
         # @param options [Hash]
         # @return [Object]
-        def object_from_response(klass, request_method, path, options={})
+        def object_from_response(klass, request_method, path, options = {})
           response = send(request_method.to_sym, path, options)
           klass.from_response(response)
         end
@@ -166,7 +166,7 @@ module Twitter
         # @param hash [Hash]
         # @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, URI, or object.
         # @return [Hash]
-        def merge_user(hash, user, prefix=nil)
+        def merge_user(hash, user, prefix = nil)
           merge_user!(hash.dup, user, prefix)
         end
 
@@ -175,7 +175,7 @@ module Twitter
         # @param hash [Hash]
         # @param user [Integer, String, URI, Twitter::User] A Twitter user ID, screen name, URI, or object.
         # @return [Hash]
-        def merge_user!(hash, user, prefix=nil)
+        def merge_user!(hash, user, prefix = nil)
           case user
           when Integer
             set_compound_key("user_id", user, hash, prefix)
@@ -192,7 +192,7 @@ module Twitter
           end
         end
 
-        def set_compound_key(key, value, hash, prefix=nil)
+        def set_compound_key(key, value, hash, prefix = nil)
           compound_key = [prefix, key].compact.join("_").to_sym
           hash[compound_key] = value
           hash

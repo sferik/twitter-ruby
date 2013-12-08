@@ -14,7 +14,7 @@ module Twitter
     #
     # @param options [Hash]
     # @return [Twitter::Client]
-    def initialize(options={})
+    def initialize(options = {})
       options.each do |key, value|
         send(:"#{key}=", value)
       end
@@ -61,7 +61,7 @@ module Twitter
       end
     end
 
-    def oauth_auth_header(method, uri, params={})
+    def oauth_auth_header(method, uri, params = {})
       uri = Addressable::URI.parse(uri)
       SimpleOAuth::Header.new(method, uri, params, credentials)
     end

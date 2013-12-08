@@ -29,7 +29,7 @@ module Twitter
         # @option options [Integer] :end_sleep_time The hour that sleep time should end if it is enabled. The value for this parameter should be provided in {http://en.wikipedia.org/wiki/ISO_8601 ISO8601} format (i.e. 00-23). The time is considered to be in the same timezone as the user's time_zone setting.
         # @option options [String] :time_zone The timezone dates and times should be displayed in for the user. The timezone must be one of the {http://api.rubyonrails.org/classes/ActiveSupport/TimeZone.html Rails TimeZone} names.
         # @option options [String] :lang The language which Twitter should render in for this user. The language must be specified by the appropriate two letter ISO 639-1 representation. Currently supported languages are provided by {https://dev.twitter.com/docs/api/1.1/get/help/languages GET help/languages}.
-        def settings(options={})
+        def settings(options = {})
           request_method = options.size.zero? ? :get : :post
           response = send(request_method.to_sym, "/1.1/account/settings.json", options)
           # https://dev.twitter.com/issues/59
@@ -46,7 +46,7 @@ module Twitter
         # @return [Twitter::User] The authenticated user.
         # @param options [Hash] A customizable set of options.
         # @option options [Boolean, String, Integer] :skip_status Do not include user's Tweets when set to true, 't' or 1.
-        def verify_credentials(options={})
+        def verify_credentials(options = {})
           object_from_response(Twitter::User, :get, "/1.1/account/verify_credentials.json", options)
         end
         alias current_user verify_credentials
@@ -60,7 +60,7 @@ module Twitter
         # @return [Twitter::User] The authenticated user.
         # @param device [String] Must be one of: 'sms', 'none'.
         # @param options [Hash] A customizable set of options.
-        def update_delivery_device(device, options={})
+        def update_delivery_device(device, options = {})
           object_from_response(Twitter::User, :post, "/1.1/account/update_delivery_device.json", options.merge(:device => device))
         end
 
@@ -77,7 +77,7 @@ module Twitter
         # @option options [String] :url URL associated with the profile. Will be prepended with "http://" if not present. Maximum of 100 characters.
         # @option options [String] :location The city or country describing where the user of the account is located. The contents are not normalized or geocoded in any way. Maximum of 30 characters.
         # @option options [String] :description A description of the user owning the account. Maximum of 160 characters.
-        def update_profile(options={})
+        def update_profile(options = {})
           object_from_response(Twitter::User, :post, "/1.1/account/update_profile.json", options)
         end
 
@@ -91,7 +91,7 @@ module Twitter
         # @param image [File] The background image for the profile, base64-encoded. Must be a valid GIF, JPG, or PNG image of less than 800 kilobytes in size. Images with width larger than 2048 pixels will be forcibly scaled down. The image must be provided as raw multipart data, not a URL.
         # @param options [Hash] A customizable set of options.
         # @option options [Boolean] :tile Whether or not to tile the background image. If set to true the background image will be displayed tiled. The image will not be tiled otherwise.
-        def update_profile_background_image(image, options={})
+        def update_profile_background_image(image, options = {})
           object_from_response(Twitter::User, :post, "/1.1/account/update_profile_background_image.json", options.merge(:image => image))
         end
 
@@ -108,7 +108,7 @@ module Twitter
         # @option options [String] :profile_link_color Profile link color.
         # @option options [String] :profile_sidebar_fill_color Profile sidebar's background color.
         # @option options [String] :profile_sidebar_border_color Profile sidebar's border color.
-        def update_profile_colors(options={})
+        def update_profile_colors(options = {})
           object_from_response(Twitter::User, :post, "/1.1/account/update_profile_colors.json", options)
         end
 
@@ -123,7 +123,7 @@ module Twitter
         # @return [Twitter::User] The authenticated user.
         # @param image [File] The avatar image for the profile, base64-encoded. Must be a valid GIF, JPG, or PNG image of less than 700 kilobytes in size. Images with width larger than 500 pixels will be scaled down. Animated GIFs will be converted to a static GIF of the first frame, removing the animation.
         # @param options [Hash] A customizable set of options.
-        def update_profile_image(image, options={})
+        def update_profile_image(image, options = {})
           object_from_response(Twitter::User, :post, "/1.1/account/update_profile_image.json", options.merge(:image => image))
         end
 
@@ -136,7 +136,7 @@ module Twitter
         # @return [Array<Twitter::User>] User objects that the authenticating user is blocking.
         # @param options [Hash] A customizable set of options.
         # @option options [Integer] :page Specifies the page of results to retrieve.
-        def blocking(options={})
+        def blocking(options = {})
           cursor_from_response(:users, Twitter::User, :get, "/1.1/blocks/list.json", options)
         end
 
@@ -147,7 +147,7 @@ module Twitter
         # @authentication Requires user context
         # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
         # @return [Twitter::Cursor] Numeric user IDs the authenticating user is blocking.
-        # @overload block(options={})
+        # @overload block(options = {})
         #   @param options [Hash] A customizable set of options.
         def blocked_ids(*args)
           arguments = Twitter::Arguments.new(args)
@@ -164,7 +164,7 @@ module Twitter
         # @return [Boolean] true if the authenticating user is blocking the target user, otherwise false.
         # @param user [Integer, String, URI, Twitter::User] A Twitter user ID, screen name, URI, or object.
         # @param options [Hash] A customizable set of options.
-        def block?(user, options={})
+        def block?(user, options = {})
           merge_default_cursor!(options)
           user_id = case user
           when Integer
@@ -237,13 +237,13 @@ module Twitter
         # @authentication Requires user context
         # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
         # @return [Twitter::User] The requested user.
-        # @overload user(options={})
+        # @overload user(options = {})
         #   Returns extended information for the authenticated user
         #
         #   @param options [Hash] A customizable set of options.
         #   @option options [Boolean] :include_entities The tweet entities node will be disincluded when set to false.
         #   @option options [Boolean, String, Integer] :skip_status Do not include user's Tweets when set to true, 't' or 1.
-        # @overload user(user, options={})
+        # @overload user(user, options = {})
         #   Returns extended information for a given user
         #
         #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, URI, or object.
@@ -267,7 +267,7 @@ module Twitter
         # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
         # @return [Boolean] true if the user exists, otherwise false.
         # @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, URI, or object.
-        def user?(user, options={})
+        def user?(user, options = {})
           merge_user!(options, user)
           get("/1.1/users/show.json", options)
           true
@@ -286,7 +286,7 @@ module Twitter
         # @param options [Hash] A customizable set of options.
         # @option options [Integer] :count The number of people to retrieve. Maxiumum of 20 allowed per page.
         # @option options [Integer] :page Specifies the page of results to retrieve.
-        def user_search(query, options={})
+        def user_search(query, options = {})
           objects_from_response(Twitter::User, :get, "/1.1/users/search.json", options.merge(:q => query))
         end
 
@@ -297,10 +297,10 @@ module Twitter
         # @authentication Requires user context
         # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
         # @return [Array<Twitter::User>]
-        # @overload contributees(options={})
+        # @overload contributees(options = {})
         #   @param options [Hash] A customizable set of options.
         #   @option options [Boolean, String, Integer] :skip_status Do not include contributee's Tweets when set to true, 't' or 1.
-        # @overload contributees(user, options={})
+        # @overload contributees(user, options = {})
         #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, URI, or object.
         #   @param options [Hash] A customizable set of options.
         #   @option options [Boolean, String, Integer] :skip_status Do not include contributee's Tweets when set to true, 't' or 1.
@@ -315,10 +315,10 @@ module Twitter
         # @authentication Requires user context
         # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
         # @return [Array<Twitter::User>]
-        # @overload contributors(options={})
+        # @overload contributors(options = {})
         #   @param options [Hash] A customizable set of options.
         #   @option options [Boolean, String, Integer] :skip_status Do not include contributee's Tweets when set to true, 't' or 1.
-        # @overload contributors(user, options={})
+        # @overload contributors(user, options = {})
         #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, URI, or object.
         #   @param options [Hash] A customizable set of options.
         #   @option options [Boolean, String, Integer] :skip_status Do not include contributee's Tweets when set to true, 't' or 1.
@@ -334,7 +334,7 @@ module Twitter
         # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
         # @return [nil]
         # @param options [Hash] A customizable set of options.
-        def remove_profile_banner(options={})
+        def remove_profile_banner(options = {})
           post("/1.1/account/remove_profile_banner.json", options)[:body]
         end
         deprecate_alias :profile_banner_remove, :remove_profile_banner
@@ -356,7 +356,7 @@ module Twitter
         # @option options [Integer] :height The height of the preferred section of the image being uploaded in pixels. Use with width, offset_left, and offset_top to select the desired region of the image to use.
         # @option options [Integer] :offset_left The number of pixels by which to offset the uploaded image from the left. Use with height, width, and offset_top to select the desired region of the image to use.
         # @option options [Integer] :offset_top The number of pixels by which to offset the uploaded image from the top. Use with height, width, and offset_left to select the desired region of the image to use.
-        def update_profile_banner(banner, options={})
+        def update_profile_banner(banner, options = {})
           post("/1.1/account/update_profile_banner.json", options.merge(:banner => banner))[:body]
         end
 
@@ -368,8 +368,8 @@ module Twitter
         # @authentication Requires user context
         # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
         # @return [Twitter::ProfileBanner]
-        # @overload profile_banner(options={})
-        # @overload profile_banner(user, options={})
+        # @overload profile_banner(options = {})
+        # @overload profile_banner(user, options = {})
         #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, URI, or object.
         def profile_banner(*args)
           arguments = Twitter::Arguments.new(args)
