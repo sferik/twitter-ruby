@@ -127,9 +127,9 @@ module Twitter
           options[:text] = text
           object_from_response(Twitter::DirectMessage, :post, "/1.1/direct_messages/new.json", options)
         end
-        alias d create_direct_message
-        alias m create_direct_message
-        alias dm create_direct_message
+        alias_method :d, :create_direct_message
+        alias_method :m, :create_direct_message
+        alias_method :dm, :create_direct_message
         deprecate_alias :direct_message_create, :create_direct_message
 
       end

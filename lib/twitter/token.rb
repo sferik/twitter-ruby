@@ -3,7 +3,7 @@ require 'twitter/base'
 module Twitter
   class Token < Twitter::Base
     attr_reader :access_token, :token_type
-    alias to_s access_token
+    alias_method :to_s, :access_token
 
     BEARER_TYPE = "bearer"
 

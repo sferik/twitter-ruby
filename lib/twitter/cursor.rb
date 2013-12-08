@@ -4,9 +4,9 @@ module Twitter
   class Cursor
     include Enumerable
     attr_reader :attrs
-    alias to_h attrs
-    alias to_hash attrs
-    alias to_hsh attrs
+    alias_method :to_h, :attrs
+    alias_method :to_hash, :attrs
+    alias_method :to_hsh, :attrs
 
     class << self
 
@@ -64,12 +64,12 @@ module Twitter
     def next_cursor
       @attrs[:next_cursor] || -1
     end
-    alias next next_cursor
+    alias_method :next, :next_cursor
 
     def previous_cursor
       @attrs[:previous_cursor]
     end
-    alias previous previous_cursor
+    alias_method :previous, :previous_cursor
 
     # @return [Boolean]
     def first?

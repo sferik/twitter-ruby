@@ -96,7 +96,7 @@ module Twitter
         def destroy_status(*args)
           threaded_tweets_from_response(:post, "/1.1/statuses/destroy", args)
         end
-        alias destroy_tweet destroy_status
+        alias_method :destroy_tweet, :destroy_status
         deprecate_alias :status_destroy, :destroy_status
         deprecate_alias :tweet_destroy, :destroy_status
 
