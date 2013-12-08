@@ -71,6 +71,7 @@ digraph classes {
 	Twitter__Streaming__FriendList [label="Twitter::Streaming::FriendList"]
 	Twitter__Streaming__MessageParser [label="Twitter::Streaming::MessageParser"]
 	Twitter__Streaming__Response [label="Twitter::Streaming::Response"]
+	Twitter__Streaming__StallWarning [label="Twitter::Streaming::StallWarning"]
 	Twitter__Suggestion [label="Twitter::Suggestion"]
 	Twitter__TargetUser [label="Twitter::TargetUser"]
 	Twitter__Token [label="Twitter::Token"]
@@ -148,6 +149,7 @@ digraph classes {
 	Twitter__Streaming__FriendList -> Array
 	Twitter__Streaming__MessageParser -> Object
 	Twitter__Streaming__Response -> Object
+	Twitter__Streaming__StallWarning -> Twitter__Base
 	Twitter__Suggestion -> Twitter__Base
 	Twitter__TargetUser -> Twitter__BasicUser
 	Twitter__Token -> Twitter__Base
