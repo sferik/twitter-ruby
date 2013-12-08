@@ -167,13 +167,13 @@ module Twitter
         def block?(user, options = {})
           merge_default_cursor!(options)
           user_id = case user
-          when Integer
-            user
-          when String, URI, Addressable::URI
-            user(user).id
-          when Twitter::User
-            user.id
-          end
+                    when Integer
+                      user
+                    when String, URI, Addressable::URI
+                      user(user).id
+                    when Twitter::User
+                      user.id
+                    end
           blocked_ids(options).map(&:to_i).include?(user_id)
         end
 
