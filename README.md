@@ -147,10 +147,10 @@ end
 ```
 
 `message` can be one of
- + Twitter::Tweet
- + Twitter::DirectMessage
- + Twitter::Streaming::Event
- + Twitter::Streaming::FriendList
+ + `Twitter::Tweet`
+ + `Twitter::DirectMessage`
+ + `Twitter::Streaming::Event`
+ + `Twitter::Streaming::FriendList`
 
 [messages]: https://dev.twitter.com/docs/streaming-apis/messages
 
