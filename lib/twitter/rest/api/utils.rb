@@ -150,7 +150,7 @@ module Twitter
 
         def handle_forbidden_error(klass, error)
           error = error.message == klass::MESSAGE ? klass.new : error
-          raise error
+          fail error
         end
 
         def merge_default_cursor!(options)
