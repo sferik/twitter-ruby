@@ -34,9 +34,9 @@ describe Twitter::SearchResults do
 
   describe '#max_id' do
     it 'returns an ID' do
-      max_id = Twitter::SearchResults.new(:search_metadata => {:max_id => 250126199840518145}).max_id
+      max_id = Twitter::SearchResults.new(:search_metadata => {:max_id => 250_126_199_840_518_145}).max_id
       expect(max_id).to be_an Integer
-      expect(max_id).to eq(250126199840518145)
+      expect(max_id).to eq(250_126_199_840_518_145)
     end
     it 'is nil when not set' do
       max_id = Twitter::SearchResults.new.max_id
@@ -82,9 +82,9 @@ describe Twitter::SearchResults do
 
   describe '#since_id' do
     it 'returns an ID' do
-      since_id = Twitter::SearchResults.new(:search_metadata => {:since_id => 250126199840518145}).since_id
+      since_id = Twitter::SearchResults.new(:search_metadata => {:since_id => 250_126_199_840_518_145}).since_id
       expect(since_id).to be_an Integer
-      expect(since_id).to eq(250126199840518145)
+      expect(since_id).to eq(250_126_199_840_518_145)
     end
     it 'is nil when not set' do
       since_id = Twitter::SearchResults.new.since_id

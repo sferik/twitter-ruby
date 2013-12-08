@@ -10,7 +10,7 @@ describe Twitter::REST::Client do
     context 'when invalid credentials are provided' do
       it 'raises a ConfigurationError exception' do
         expect {
-          Twitter::REST::Client.new(:consumer_key => [12345, 54321])
+          Twitter::REST::Client.new(:consumer_key => [12_345, 54_321])
         }.to raise_exception(Twitter::Error::ConfigurationError)
       end
     end

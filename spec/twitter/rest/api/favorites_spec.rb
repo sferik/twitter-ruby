@@ -19,7 +19,7 @@ describe Twitter::REST::API::Favorites do
         favorites = @client.favorites('sferik')
         expect(favorites).to be_an Array
         expect(favorites.first).to be_a Twitter::Tweet
-        expect(favorites.first.user.id).to eq(7505382)
+        expect(favorites.first.user.id).to eq(7_505_382)
       end
       context 'with a URI object passed' do
         it 'requests the correct resource' do
@@ -47,7 +47,7 @@ describe Twitter::REST::API::Favorites do
         favorites = @client.favorites
         expect(favorites).to be_an Array
         expect(favorites.first).to be_a Twitter::Tweet
-        expect(favorites.first.user.id).to eq(7505382)
+        expect(favorites.first.user.id).to eq(7_505_382)
       end
     end
   end
@@ -57,11 +57,11 @@ describe Twitter::REST::API::Favorites do
       stub_post('/1.1/favorites/destroy.json').with(:body => {:id => '25938088801'}).to_return(:body => fixture('status.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
     end
     it 'requests the correct resource' do
-      @client.unfavorite(25938088801)
+      @client.unfavorite(25_938_088_801)
       expect(a_post('/1.1/favorites/destroy.json').with(:body => {:id => '25938088801'})).to have_been_made
     end
     it 'returns an array of un-favorited Tweets' do
-      tweets = @client.unfavorite(25938088801)
+      tweets = @client.unfavorite(25_938_088_801)
       expect(tweets).to be_an Array
       expect(tweets.first).to be_a Twitter::Tweet
       expect(tweets.first.text).to eq("The problem with your code is that it's doing exactly what you told it to do.")
@@ -81,7 +81,7 @@ describe Twitter::REST::API::Favorites do
     end
     context 'with a Tweet passed' do
       it 'requests the correct resource' do
-        tweet = Twitter::Tweet.new(:id => 25938088801)
+        tweet = Twitter::Tweet.new(:id => 25_938_088_801)
         @client.unfavorite(tweet)
         expect(a_post('/1.1/favorites/destroy.json').with(:body => {:id => '25938088801'})).to have_been_made
       end
@@ -93,11 +93,11 @@ describe Twitter::REST::API::Favorites do
       stub_post('/1.1/favorites/create.json').with(:body => {:id => '25938088801'}).to_return(:body => fixture('status.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
     end
     it 'requests the correct resource' do
-      @client.favorite(25938088801)
+      @client.favorite(25_938_088_801)
       expect(a_post('/1.1/favorites/create.json').with(:body => {:id => '25938088801'})).to have_been_made
     end
     it 'returns an array of favorited Tweets' do
-      tweets = @client.favorite(25938088801)
+      tweets = @client.favorite(25_938_088_801)
       expect(tweets).to be_an Array
       expect(tweets.first).to be_a Twitter::Tweet
       expect(tweets.first.text).to eq("The problem with your code is that it's doing exactly what you told it to do.")
@@ -107,7 +107,7 @@ describe Twitter::REST::API::Favorites do
         stub_post('/1.1/favorites/create.json').with(:body => {:id => '25938088801'}).to_return(:status => 403, :body => fixture('already_favorited.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
       end
       it 'does not raises an error' do
-        expect{@client.favorite(25938088801)}.not_to raise_error
+        expect{@client.favorite(25_938_088_801)}.not_to raise_error
       end
     end
     context 'with a URI object passed' do
@@ -125,7 +125,7 @@ describe Twitter::REST::API::Favorites do
     end
     context 'with a Tweet passed' do
       it 'requests the correct resource' do
-        tweet = Twitter::Tweet.new(:id => 25938088801)
+        tweet = Twitter::Tweet.new(:id => 25_938_088_801)
         @client.favorite(tweet)
         expect(a_post('/1.1/favorites/create.json').with(:body => {:id => '25938088801'})).to have_been_made
       end
@@ -137,11 +137,11 @@ describe Twitter::REST::API::Favorites do
       stub_post('/1.1/favorites/create.json').with(:body => {:id => '25938088801'}).to_return(:body => fixture('status.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
     end
     it 'requests the correct resource' do
-      @client.favorite!(25938088801)
+      @client.favorite!(25_938_088_801)
       expect(a_post('/1.1/favorites/create.json').with(:body => {:id => '25938088801'})).to have_been_made
     end
     it 'returns an array of favorited Tweets' do
-      tweets = @client.favorite!(25938088801)
+      tweets = @client.favorite!(25_938_088_801)
       expect(tweets).to be_an Array
       expect(tweets.first).to be_a Twitter::Tweet
       expect(tweets.first.text).to eq("The problem with your code is that it's doing exactly what you told it to do.")
@@ -151,7 +151,7 @@ describe Twitter::REST::API::Favorites do
         stub_post('/1.1/favorites/create.json').with(:body => {:id => '25938088801'}).to_return(:status => 403, :headers => {:content_type => 'application/json; charset=utf-8'})
       end
       it 'raises a Forbidden error' do
-        expect{@client.favorite!(25938088801)}.to raise_error Twitter::Error::Forbidden
+        expect{@client.favorite!(25_938_088_801)}.to raise_error Twitter::Error::Forbidden
       end
     end
     context 'already favorited' do
@@ -159,7 +159,7 @@ describe Twitter::REST::API::Favorites do
         stub_post('/1.1/favorites/create.json').with(:body => {:id => '25938088801'}).to_return(:status => 403, :body => fixture('already_favorited.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
       end
       it 'raises an AlreadyFavorited error' do
-        expect{@client.favorite!(25938088801)}.to raise_error Twitter::Error::AlreadyFavorited
+        expect{@client.favorite!(25_938_088_801)}.to raise_error Twitter::Error::AlreadyFavorited
       end
     end
     context 'with a URI object passed' do
@@ -177,7 +177,7 @@ describe Twitter::REST::API::Favorites do
     end
     context 'with a Tweet passed' do
       it 'requests the correct resource' do
-        tweet = Twitter::Tweet.new(:id => 25938088801)
+        tweet = Twitter::Tweet.new(:id => 25_938_088_801)
         @client.favorite!(tweet)
         expect(a_post('/1.1/favorites/create.json').with(:body => {:id => '25938088801'})).to have_been_made
       end

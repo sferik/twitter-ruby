@@ -23,12 +23,12 @@ describe Twitter::Media::Photo do
 
   describe '#sizes' do
     it 'returns a hash of Sizes when sizes is set' do
-      sizes = Twitter::Media::Photo.new(:id => 110102452988157952, :sizes => {:small => {:h => 226, :w => 340, :resize => 'fit'}, :large => {:h => 466, :w => 700, :resize => 'fit'}, :medium => {:h => 399, :w => 600, :resize => 'fit'}, :thumb => {:h => 150, :w => 150, :resize => 'crop'}}).sizes
+      sizes = Twitter::Media::Photo.new(:id => 110_102_452_988_157_952, :sizes => {:small => {:h => 226, :w => 340, :resize => 'fit'}, :large => {:h => 466, :w => 700, :resize => 'fit'}, :medium => {:h => 399, :w => 600, :resize => 'fit'}, :thumb => {:h => 150, :w => 150, :resize => 'crop'}}).sizes
       expect(sizes).to be_a Hash
       expect(sizes[:small]).to be_a Twitter::Size
     end
     it 'is empty when sizes is not set' do
-      sizes = Twitter::Media::Photo.new(:id => 110102452988157952).sizes
+      sizes = Twitter::Media::Photo.new(:id => 110_102_452_988_157_952).sizes
       expect(sizes).to be_empty
     end
   end

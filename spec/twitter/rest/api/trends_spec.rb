@@ -12,11 +12,11 @@ describe Twitter::REST::API::Trends do
         stub_get('/1.1/trends/place.json').with(:query => {:id => '2487956'}).to_return(:body => fixture('matching_trends.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
       end
       it 'requests the correct resource' do
-        @client.trends(2487956)
+        @client.trends(2_487_956)
         expect(a_get('/1.1/trends/place.json').with(:query => {:id => '2487956'})).to have_been_made
       end
       it 'returns the top 10 trending topics for a specific WOEID' do
-        matching_trends = @client.trends(2487956)
+        matching_trends = @client.trends(2_487_956)
         expect(matching_trends).to be_a Twitter::TrendResults
         expect(matching_trends.first).to be_a Twitter::Trend
         expect(matching_trends.first.name).to eq('#sevenwordsaftersex')

@@ -30,7 +30,7 @@ describe Twitter::RateLimit do
     it 'returns a Time when x-rate-limit-reset header is set' do
       rate_limit = Twitter::RateLimit.new('x-rate-limit-reset' => '1339019097')
       expect(rate_limit.reset_at).to be_a Time
-      expect(rate_limit.reset_at).to eq(Time.at(1339019097))
+      expect(rate_limit.reset_at).to eq(Time.at(1_339_019_097))
     end
     it 'returns nil when x-rate-limit-reset header is not set' do
       rate_limit = Twitter::RateLimit.new
@@ -48,7 +48,7 @@ describe Twitter::RateLimit do
     it 'returns an Integer when x-rate-limit-reset header is set' do
       rate_limit = Twitter::RateLimit.new('x-rate-limit-reset' => '1339019097')
       expect(rate_limit.reset_in).to be_an Integer
-      expect(rate_limit.reset_in).to eq(15777)
+      expect(rate_limit.reset_in).to eq(15_777)
     end
     it 'returns nil when x-rate-limit-reset header is not set' do
       rate_limit = Twitter::RateLimit.new

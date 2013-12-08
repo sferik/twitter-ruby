@@ -22,22 +22,22 @@ describe Twitter::SavedSearch do
 
   describe '#created_at' do
     it 'returns a Time when created_at is set' do
-      saved_search = Twitter::SavedSearch.new(:id => 16129012, :created_at => 'Mon Jul 16 12:59:01 +0000 2007')
+      saved_search = Twitter::SavedSearch.new(:id => 16_129_012, :created_at => 'Mon Jul 16 12:59:01 +0000 2007')
       expect(saved_search.created_at).to be_a Time
     end
     it 'returns nil when created_at is not set' do
-      saved_search = Twitter::SavedSearch.new(:id => 16129012)
+      saved_search = Twitter::SavedSearch.new(:id => 16_129_012)
       expect(saved_search.created_at).to be_nil
     end
   end
 
   describe '#created?' do
     it 'returns true when created_at is set' do
-      saved_search = Twitter::SavedSearch.new(:id => 16129012, :created_at => 'Mon Jul 16 12:59:01 +0000 2007')
+      saved_search = Twitter::SavedSearch.new(:id => 16_129_012, :created_at => 'Mon Jul 16 12:59:01 +0000 2007')
       expect(saved_search.created?).to be true
     end
     it 'returns false when created_at is not set' do
-      saved_search = Twitter::SavedSearch.new(:id => 16129012)
+      saved_search = Twitter::SavedSearch.new(:id => 16_129_012)
       expect(saved_search.created?).to be false
     end
   end

@@ -12,11 +12,11 @@ describe Twitter::REST::API::SavedSearches do
         stub_get('/1.1/saved_searches/show/16129012.json').to_return(:body => fixture('saved_search.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
       end
       it 'requests the correct resource' do
-        @client.saved_searches(16129012)
+        @client.saved_searches(16_129_012)
         expect(a_get('/1.1/saved_searches/show/16129012.json')).to have_been_made
       end
       it 'returns an array of saved searches' do
-        saved_searches = @client.saved_searches(16129012)
+        saved_searches = @client.saved_searches(16_129_012)
         expect(saved_searches).to be_an Array
         expect(saved_searches.first).to be_a Twitter::SavedSearch
         expect(saved_searches.first.name).to eq('twitter')
@@ -44,11 +44,11 @@ describe Twitter::REST::API::SavedSearches do
       stub_get('/1.1/saved_searches/show/16129012.json').to_return(:body => fixture('saved_search.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
     end
     it 'requests the correct resource' do
-      @client.saved_search(16129012)
+      @client.saved_search(16_129_012)
       expect(a_get('/1.1/saved_searches/show/16129012.json')).to have_been_made
     end
     it 'returns a saved search' do
-      saved_search = @client.saved_search(16129012)
+      saved_search = @client.saved_search(16_129_012)
       expect(saved_search).to be_a Twitter::SavedSearch
       expect(saved_search.name).to eq('twitter')
     end
@@ -74,11 +74,11 @@ describe Twitter::REST::API::SavedSearches do
       stub_post('/1.1/saved_searches/destroy/16129012.json').to_return(:body => fixture('saved_search.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
     end
     it 'requests the correct resource' do
-      @client.destroy_saved_search(16129012)
+      @client.destroy_saved_search(16_129_012)
       expect(a_post('/1.1/saved_searches/destroy/16129012.json')).to have_been_made
     end
     it 'returns an array of deleted saved searches' do
-      saved_searches = @client.destroy_saved_search(16129012)
+      saved_searches = @client.destroy_saved_search(16_129_012)
       expect(saved_searches).to be_an Array
       expect(saved_searches.first).to be_a Twitter::SavedSearch
       expect(saved_searches.first.name).to eq('twitter')

@@ -27,7 +27,7 @@ describe Twitter::Suggestion do
 
   describe '#users' do
     it 'returns a User when user is set' do
-      users = Twitter::Suggestion.new(:users => [{:id => 7505382}]).users
+      users = Twitter::Suggestion.new(:users => [{:id => 7_505_382}]).users
       expect(users).to be_an Array
       expect(users.first).to be_a Twitter::User
     end

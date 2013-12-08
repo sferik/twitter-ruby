@@ -18,7 +18,7 @@ describe Twitter::REST::API::SpamReporting do
       users = @client.report_spam('sferik')
       expect(users).to be_an Array
       expect(users.first).to be_a Twitter::User
-      expect(users.first.id).to eq(7505382)
+      expect(users.first.id).to eq(7_505_382)
     end
   end
 
