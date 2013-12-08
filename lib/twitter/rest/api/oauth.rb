@@ -23,7 +23,7 @@ module Twitter
         #   client = Twitter::REST::Client.new(:consumer_key => "abc", :consumer_secret => 'def')
         #   bearer_token = client.token
         def token
-          object_from_response(Twitter::Token, :post, "/oauth2/token", :grant_type => "client_credentials", :bearer_token_request => true)
+          object_from_response(Twitter::Token, :post, '/oauth2/token', :grant_type => 'client_credentials', :bearer_token_request => true)
         end
         alias_method :bearer_token, :token
 
@@ -37,7 +37,7 @@ module Twitter
         # @return [Twitter::Token] The invalidated token. token_type should be nil.
         def invalidate_token(access_token)
           access_token = access_token.access_token if access_token.is_a?(Twitter::Token)
-          object_from_response(Twitter::Token, :post, "/oauth2/invalidate_token", :access_token => access_token)
+          object_from_response(Twitter::Token, :post, '/oauth2/invalidate_token', :access_token => access_token)
         end
 
         # Allows a registered application to revoke an issued OAuth 2 Bearer Token by presenting its client credentials.

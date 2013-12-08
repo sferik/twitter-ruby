@@ -31,7 +31,7 @@ module Twitter
         def saved_searches(*args)
           arguments = Twitter::Arguments.new(args)
           if arguments.empty?
-            objects_from_response(Twitter::SavedSearch, :get, "/1.1/saved_searches/list.json", arguments.options)
+            objects_from_response(Twitter::SavedSearch, :get, '/1.1/saved_searches/list.json', arguments.options)
           else
             arguments.flatten.threaded_map do |id|
               saved_search(id, arguments.options)
@@ -62,7 +62,7 @@ module Twitter
         # @param query [String] The query of the search the user would like to save.
         # @param options [Hash] A customizable set of options.
         def create_saved_search(query, options = {})
-          object_from_response(Twitter::SavedSearch, :post, "/1.1/saved_searches/create.json", options.merge(:query => query))
+          object_from_response(Twitter::SavedSearch, :post, '/1.1/saved_searches/create.json', options.merge(:query => query))
         end
         deprecate_alias :saved_search_create, :create_saved_search
 

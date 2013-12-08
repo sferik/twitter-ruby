@@ -5,7 +5,7 @@ require 'twitter'
 COLON = ':'.freeze
 UNDERSCORE = '_'.freeze
 TAB = "\t".freeze
-NAMESPACE = "Twitter::".freeze
+NAMESPACE = 'Twitter::'.freeze
 
 # Colons are invalid characters in DOT nodes.
 # Replace them with underscores.
@@ -48,4 +48,4 @@ end
 edges.sort.each do |child, parent|
   puts "#{child} -> #{parent}", 1
 end
-puts "}"
+puts '}'

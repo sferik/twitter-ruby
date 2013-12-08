@@ -32,7 +32,7 @@ module Twitter
         def favorites(*args)
           arguments = Twitter::Arguments.new(args)
           merge_user!(arguments.options, arguments.pop) if arguments.last
-          objects_from_response(Twitter::Tweet, :get, "/1.1/favorites/list.json", arguments.options)
+          objects_from_response(Twitter::Tweet, :get, '/1.1/favorites/list.json', arguments.options)
         end
 
         # Un-favorites the specified Tweets as the authenticating user
@@ -48,7 +48,7 @@ module Twitter
         #   @param tweets [Enumerable<Integer, String, URI, Twitter::Tweet>] A collection of Tweet IDs, URIs, or objects.
         #   @param options [Hash] A customizable set of options.
         def unfavorite(*args)
-          threaded_objects_from_response(Twitter::Tweet, :post, "/1.1/favorites/destroy.json", args)
+          threaded_objects_from_response(Twitter::Tweet, :post, '/1.1/favorites/destroy.json', args)
         end
         alias_method :destroy_favorite, :unfavorite
         deprecate_alias :favorite_destroy, :unfavorite
@@ -70,7 +70,7 @@ module Twitter
           arguments.flatten.threaded_map do |tweet|
             id = extract_id(tweet)
             begin
-              object_from_response(Twitter::Tweet, :post, "/1.1/favorites/create.json", arguments.options.merge(:id => id))
+              object_from_response(Twitter::Tweet, :post, '/1.1/favorites/create.json', arguments.options.merge(:id => id))
             rescue Twitter::Error::Forbidden => error
               raise unless error.message == Twitter::Error::AlreadyFavorited::MESSAGE
             end
@@ -98,7 +98,7 @@ module Twitter
           arguments.flatten.threaded_map do |tweet|
             id = extract_id(tweet)
             begin
-              object_from_response(Twitter::Tweet, :post, "/1.1/favorites/create.json", arguments.options.merge(:id => id))
+              object_from_response(Twitter::Tweet, :post, '/1.1/favorites/create.json', arguments.options.merge(:id => id))
             rescue Twitter::Error::Forbidden => error
               handle_forbidden_error(Twitter::Error::AlreadyFavorited, error)
             end

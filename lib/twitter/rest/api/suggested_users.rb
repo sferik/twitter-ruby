@@ -29,7 +29,7 @@ module Twitter
           if arguments.last
             object_from_response(Twitter::Suggestion, :get, "/1.1/users/suggestions/#{arguments.pop}.json", arguments.options)
           else
-            objects_from_response(Twitter::Suggestion, :get, "/1.1/users/suggestions.json", arguments.options)
+            objects_from_response(Twitter::Suggestion, :get, '/1.1/users/suggestions.json', arguments.options)
           end
         end
 

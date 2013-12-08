@@ -8,7 +8,7 @@ module Twitter
     module API
       module Utils
         DEFAULT_CURSOR = -1
-        URI_SUBSTRING = "://"
+        URI_SUBSTRING = '://'
 
         class << self
 
@@ -42,9 +42,9 @@ module Twitter
           when ::Integer
             object
           when ::String
-            object.split("/").last.to_i
+            object.split('/').last.to_i
           when URI
-            object.path.split("/").last.to_i
+            object.path.split('/').last.to_i
           when Twitter::Identity
             object.id
           end
@@ -178,22 +178,22 @@ module Twitter
         def merge_user!(hash, user, prefix = nil)
           case user
           when Integer
-            set_compound_key("user_id", user, hash, prefix)
+            set_compound_key('user_id', user, hash, prefix)
           when String
             if user[URI_SUBSTRING]
-              set_compound_key("screen_name", user.split("/").last, hash, prefix)
+              set_compound_key('screen_name', user.split('/').last, hash, prefix)
             else
-              set_compound_key("screen_name", user, hash, prefix)
+              set_compound_key('screen_name', user, hash, prefix)
             end
           when URI, Addressable::URI
-            set_compound_key("screen_name", user.path.split("/").last, hash, prefix)
+            set_compound_key('screen_name', user.path.split('/').last, hash, prefix)
           when Twitter::User
-            set_compound_key("user_id", user.id, hash, prefix)
+            set_compound_key('user_id', user.id, hash, prefix)
           end
         end
 
         def set_compound_key(key, value, hash, prefix = nil)
-          compound_key = [prefix, key].compact.join("_").to_sym
+          compound_key = [prefix, key].compact.join('_').to_sym
           hash[compound_key] = value
           hash
         end
@@ -227,12 +227,12 @@ module Twitter
               user_ids << user
             when String
               if user[URI_SUBSTRING]
-                screen_names << user.split("/").last
+                screen_names << user.split('/').last
               else
                 screen_names << user
               end
             when URI
-              screen_names << user.path.split("/").last
+              screen_names << user.path.split('/').last
             when Twitter::User
               user_ids << user.id
             end

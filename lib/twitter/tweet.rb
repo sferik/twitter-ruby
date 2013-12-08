@@ -28,7 +28,7 @@ module Twitter
     memoize :entities?
 
     def filter_level
-      @attrs[:filter_level] || "none"
+      @attrs[:filter_level] || 'none'
     end
     memoize :filter_level
 
