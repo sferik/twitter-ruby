@@ -5,10 +5,10 @@ require 'twitter/version'
 module Twitter
   class Client
     attr_accessor :access_token, :access_token_secret, :consumer_key, :consumer_secret
-    alias oauth_token access_token
-    alias oauth_token= access_token=
-    alias oauth_token_secret access_token_secret
-    alias oauth_token_secret= access_token_secret=
+    alias_method :oauth_token, :access_token
+    alias_method :oauth_token=, :access_token=
+    alias_method :oauth_token_secret, :access_token_secret
+    alias_method :oauth_token_secret=, :access_token_secret=
 
     # Initializes a new Client object
     #

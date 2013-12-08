@@ -59,7 +59,7 @@ module Twitter
         def geo_search(options = {})
           object_from_response(Twitter::GeoResults, :get, "/1.1/geo/search.json", options)
         end
-        alias places_nearby geo_search
+        alias_method :places_nearby, :geo_search
 
         # Locates places near the given coordinates which are similar in name
         #
@@ -78,7 +78,7 @@ module Twitter
         def similar_places(options = {})
           object_from_response(Twitter::GeoResults, :get, "/1.1/geo/similar_places.json", options)
         end
-        alias places_similar similar_places
+        alias_method :places_similar, :similar_places
 
       end
     end

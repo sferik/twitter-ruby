@@ -50,7 +50,7 @@ module Twitter
         def unfavorite(*args)
           threaded_objects_from_response(Twitter::Tweet, :post, "/1.1/favorites/destroy.json", args)
         end
-        alias destroy_favorite unfavorite
+        alias_method :destroy_favorite, :unfavorite
         deprecate_alias :favorite_destroy, :unfavorite
 
         # Favorites the specified Tweets as the authenticating user
@@ -76,8 +76,8 @@ module Twitter
             end
           end.compact
         end
-        alias fav favorite
-        alias fave favorite
+        alias_method :fav, :favorite
+        alias_method :fave, :favorite
         deprecate_alias :favorite_create, :favorite
 
         # Favorites the specified Tweets as the authenticating user and raises an error if one has already been favorited
@@ -104,9 +104,9 @@ module Twitter
             end
           end
         end
-        alias create_favorite! favorite!
-        alias fav! favorite!
-        alias fave! favorite!
+        alias_method :create_favorite!, :favorite!
+        alias_method :fav!, :favorite!
+        alias_method :fave!, :favorite!
         deprecate_alias :favorite_create!, :favorite!
 
       end

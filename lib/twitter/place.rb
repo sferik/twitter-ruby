@@ -4,10 +4,10 @@ require 'twitter/base'
 module Twitter
   class Place < Twitter::Base
     attr_reader :attributes, :country, :full_name, :name, :woeid
-    alias woe_id woeid
+    alias_method :woe_id, :woeid
     object_attr_reader :GeoFactory, :bounding_box
     object_attr_reader :Place, :contained_within
-    alias contained? contained_within?
+    alias_method :contained?, :contained_within?
     uri_attr_reader :uri
 
     # @param other [Twitter::Place]

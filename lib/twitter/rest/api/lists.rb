@@ -33,7 +33,7 @@ module Twitter
         def lists(*args)
           objects_from_response_with_user(Twitter::List, :get, "/1.1/lists/list.json", args)
         end
-        alias lists_subscribed_to lists
+        alias_method :lists_subscribed_to, :lists
 
         # Show tweet timeline for members of the specified list
         #

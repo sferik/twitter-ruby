@@ -49,7 +49,7 @@ module Twitter
         def verify_credentials(options = {})
           object_from_response(Twitter::User, :get, "/1.1/account/verify_credentials.json", options)
         end
-        alias current_user verify_credentials
+        alias_method :current_user, :verify_credentials
 
         # Sets which device Twitter delivers updates to for the authenticating user
         #
