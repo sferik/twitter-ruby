@@ -7,15 +7,16 @@ module Twitter
     PREDICATE_URI_METHOD_REGEX = /_uri\?$/
     include Twitter::Creatable
     attr_reader :connections, :contributors_enabled, :default_profile,
-      :default_profile_image, :description, :favourites_count,
-      :follow_request_sent, :followers_count, :friends_count, :geo_enabled,
-      :is_translator, :lang, :listed_count, :location, :name, :notifications,
-      :profile_background_color, :profile_background_image_url,
-      :profile_background_image_url_https, :profile_background_tile,
-      :profile_link_color, :profile_sidebar_border_color,
-      :profile_sidebar_fill_color, :profile_text_color,
-      :profile_use_background_image, :protected, :statuses_count, :time_zone,
-      :utc_offset, :verified
+                :default_profile_image, :description, :favourites_count,
+                :follow_request_sent, :followers_count, :friends_count,
+                :geo_enabled, :is_translator, :lang, :listed_count, :location,
+                :name, :notifications, :profile_background_color,
+                :profile_background_image_url,
+                :profile_background_image_url_https, :profile_background_tile,
+                :profile_link_color, :profile_sidebar_border_color,
+                :profile_sidebar_fill_color, :profile_text_color,
+                :profile_use_background_image, :protected, :statuses_count,
+                :time_zone, :utc_offset, :verified
     alias_method :favorites_count, :favourites_count
     remove_method :favourites_count
     alias_method :profile_background_image_uri, :profile_background_image_url

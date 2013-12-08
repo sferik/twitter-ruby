@@ -5,7 +5,7 @@ module Twitter
   class List < Twitter::Identity
     include Twitter::Creatable
     attr_reader :description, :following, :full_name, :member_count,
-      :mode, :name, :slug, :subscriber_count
+                :mode, :name, :slug, :subscriber_count
     object_attr_reader :User, :user
 
     # @return [Addressable::URI] The URI to the list members.
