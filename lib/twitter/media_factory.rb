@@ -11,7 +11,7 @@ module Twitter
       # @param attrs [Hash]
       # @raise [IndexError] Error raised when supplied argument is missing a :type key.
       # @return [Twitter::Media]
-      def new(attrs={})
+      def new(attrs = {})
         super(:type, Media, attrs)
       end
 

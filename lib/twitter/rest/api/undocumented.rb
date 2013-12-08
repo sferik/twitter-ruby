@@ -15,14 +15,14 @@ module Twitter
         # @authentication Requires user context
         # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
         #
-        # @overload following_followers_of(options={})
+        # @overload following_followers_of(options = {})
         #   Returns users following followers of the specified user
         #
         #   @param options [Hash] A customizable set of options.
         #     @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
         #     @return [Twitter::Cursor]
         #
-        # @overload following_followers_of(user, options={})
+        # @overload following_followers_of(user, options = {})
         #   Returns users following followers of the authenticated user
         #
         #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, URI, or object.
@@ -41,7 +41,7 @@ module Twitter
         # @return [Integer]
         # @param uri [String, URI] A URI.
         # @param options [Hash] A customizable set of options.
-        def tweet_count(uri, options={})
+        def tweet_count(uri, options = {})
           connection = Faraday.new("https://cdn.api.twitter.com", connection_options.merge(:builder => middleware))
           connection.get("/1/urls/count.json", options.merge(:url => uri.to_s)).body[:count]
         end

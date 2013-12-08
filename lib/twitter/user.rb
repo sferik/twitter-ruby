@@ -56,7 +56,7 @@ module Twitter
     #
     # @param size [String, Symbol] The size of the image. Must be one of: 'mobile', 'mobile_retina', 'web', 'web_retina', 'ipad', or 'ipad_retina'
     # @return [String]
-    def profile_banner_uri(size=:web)
+    def profile_banner_uri(size = :web)
       parse_encoded_uri(insecure_uri([@attrs[:profile_banner_url], size].join('/'))) if @attrs[:profile_banner_url]
     end
     alias profile_banner_url profile_banner_uri
@@ -65,7 +65,7 @@ module Twitter
     #
     # @param size [String, Symbol] The size of the image. Must be one of: 'mobile', 'mobile_retina', 'web', 'web_retina', 'ipad', or 'ipad_retina'
     # @return [String]
-    def profile_banner_uri_https(size=:web)
+    def profile_banner_uri_https(size = :web)
       parse_encoded_uri([@attrs[:profile_banner_url], size].join('/')) if @attrs[:profile_banner_url]
     end
     alias profile_banner_url_https profile_banner_uri_https
@@ -81,7 +81,7 @@ module Twitter
     #
     # @param size [String, Symbol] The size of the image. Must be one of: 'mini', 'normal', 'bigger' or 'original'
     # @return [String]
-    def profile_image_uri(size=:normal)
+    def profile_image_uri(size = :normal)
       parse_encoded_uri(insecure_uri(profile_image_uri_https(size))) if @attrs[:profile_image_url_https]
     end
     alias profile_image_url profile_image_uri
@@ -90,7 +90,7 @@ module Twitter
     #
     # @param size [String, Symbol] The size of the image. Must be one of: 'mini', 'normal', 'bigger' or 'original'
     # @return [String]
-    def profile_image_uri_https(size=:normal)
+    def profile_image_uri_https(size = :normal)
       # The profile image URL comes in looking like like this:
       # https://a0.twimg.com/profile_images/1759857427/image1326743606_normal.png
       # It can be converted to any of the following sizes:

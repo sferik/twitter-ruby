@@ -23,7 +23,7 @@ module Twitter
         # @param options [Hash] A customizable set of options.
         # @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 100.
         # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
-        def retweets(tweet, options={})
+        def retweets(tweet, options = {})
           id = extract_id(tweet)
           objects_from_response(Twitter::Tweet, :get, "/1.1/statuses/retweets/#{id}.json", options)
         end
@@ -40,7 +40,7 @@ module Twitter
         # @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 100.
         # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
         # @option options [Boolean] :ids_only ('false') Only return user ids instead of full user objects.
-        def retweeters_of(tweet, options={})
+        def retweeters_of(tweet, options = {})
           ids_only = !!options.delete(:ids_only)
           retweeters = retweets(tweet, options).map(&:user)
           ids_only ? retweeters.map(&:id) : retweeters
@@ -57,7 +57,7 @@ module Twitter
         # @param tweet [Integer, String, URI, Twitter::Tweet] A Tweet ID, URI, or object.
         # @param options [Hash] A customizable set of options.
         # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
-        def status(tweet, options={})
+        def status(tweet, options = {})
           id = extract_id(tweet)
           object_from_response(Twitter::Tweet, :get, "/1.1/statuses/show/#{id}.json", options)
         end
@@ -118,7 +118,7 @@ module Twitter
         # @option options [String] :place_id A place in the world. These IDs can be retrieved from {Twitter::REST::API::PlacesAndGeo#reverse_geocode}.
         # @option options [String] :display_coordinates Whether or not to put a pin on the exact coordinates a tweet has been sent from.
         # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
-        def update(status, options={})
+        def update(status, options = {})
           hash = options.dup
           hash[:in_reply_to_status_id] = hash.delete(:in_reply_to_status).id unless hash[:in_reply_to_status].nil?
           hash[:place_id] = hash.delete(:place).woeid unless hash[:place].nil?
@@ -198,7 +198,7 @@ module Twitter
         # @option options [String] :place_id A place in the world. These IDs can be retrieved from {Twitter::REST::API::PlacesAndGeo#reverse_geocode}.
         # @option options [String] :display_coordinates Whether or not to put a pin on the exact coordinates a tweet has been sent from.
         # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
-        def update_with_media(status, media, options={})
+        def update_with_media(status, media, options = {})
           hash = options.dup
           hash[:in_reply_to_status_id] = hash.delete(:in_reply_to_status).id unless hash[:in_reply_to_status].nil?
           hash[:place_id] = hash.delete(:place).woeid unless hash[:place].nil?
@@ -223,7 +223,7 @@ module Twitter
         # @option options [String] :align Specifies whether the embedded Tweet should be left aligned, right aligned, or centered in the page. Valid values are left, right, center, and none. Defaults to none, meaning no alignment styles are specified for the Tweet.
         # @option options [String] :related A value for the TWT related parameter, as described in {https://dev.twitter.com/docs/intents Web Intents}. This value will be forwarded to all Web Intents calls.
         # @option options [String] :lang Language code for the rendered embed. This will affect the text and localization of the rendered HTML.
-        def oembed(tweet, options={})
+        def oembed(tweet, options = {})
           options[:id] = extract_id(tweet)
           object_from_response(Twitter::OEmbed, :get, "/1.1/statuses/oembed.json", options)
         end
@@ -264,7 +264,7 @@ module Twitter
         # @return [Twitter::Cursor]
         # @overload retweeters_ids(options)
         #   @param options [Hash] A customizable set of options.
-        # @overload retweeters_ids(id, options={})
+        # @overload retweeters_ids(id, options = {})
         #   @param tweet [Integer, String, URI, Twitter::Tweet] A Tweet ID, URI, or object.
         #   @param options [Hash] A customizable set of options.
         def retweeters_ids(*args)

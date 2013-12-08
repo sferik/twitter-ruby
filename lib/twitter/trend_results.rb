@@ -19,7 +19,7 @@ module Twitter
       #
       # @param response [Hash]
       # @return [Twitter::Base]
-      def from_response(response={})
+      def from_response(response = {})
         new(response[:body].first)
       end
 
@@ -29,7 +29,7 @@ module Twitter
     #
     # @param attrs [Hash]
     # @return [Twitter::TrendResults]
-    def initialize(attrs={})
+    def initialize(attrs = {})
       @attrs = attrs
       @collection = Array(@attrs[:trends]).map do |trend|
         Trend.new(trend)

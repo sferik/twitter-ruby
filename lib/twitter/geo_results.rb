@@ -14,7 +14,7 @@ module Twitter
       #
       # @param response [Hash]
       # @return [Twitter::Base]
-      def from_response(response={})
+      def from_response(response = {})
         new(response[:body])
       end
 
@@ -24,7 +24,7 @@ module Twitter
     #
     # @param attrs [Hash]
     # @return [Twitter::GeoResults]
-    def initialize(attrs={})
+    def initialize(attrs = {})
       @attrs = attrs
       @collection = Array(@attrs[:result][:places]).map do |place|
         Place.new(place)

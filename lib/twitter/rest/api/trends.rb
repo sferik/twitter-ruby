@@ -18,7 +18,7 @@ module Twitter
         # @param options [Hash] A customizable set of options.
         # @option options [String] :exclude Setting this equal to 'hashtags' will remove all hashtags from the trends list.
         # @return [Array<Twitter::Trend>]
-        def trends(id=1, options={})
+        def trends(id = 1, options = {})
           options[:id] = id
           object_from_response(Twitter::TrendResults, :get, "/1.1/trends/place.json", options)
         end
@@ -33,7 +33,7 @@ module Twitter
         # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
         # @param options [Hash] A customizable set of options.
         # @return [Array<Twitter::Place>]
-        def trends_available(options={})
+        def trends_available(options = {})
           objects_from_response(Twitter::Place, :get, "/1.1/trends/available.json", options)
         end
         alias trend_locations trends_available
@@ -48,7 +48,7 @@ module Twitter
         # @option options [Float] :lat If provided with a :long option the available trend locations will be sorted by distance, nearest to furthest, to the co-ordinate pair. The valid ranges for latitude are -90.0 to +90.0 (North is positive) inclusive.
         # @option options [Float] :long If provided with a :lat option the available trend locations will be sorted by distance, nearest to furthest, to the co-ordinate pair. The valid ranges for longitude are -180.0 to +180.0 (East is positive) inclusive.
         # @return [Array<Twitter::Place>]
-        def trends_closest(options={})
+        def trends_closest(options = {})
           objects_from_response(Twitter::Place, :get, "/1.1/trends/closest.json", options)
         end
 
