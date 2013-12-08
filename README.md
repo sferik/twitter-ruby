@@ -141,7 +141,7 @@ end
 **Stream tweets, events, and direct messages for the authenticated user**
 
 ```ruby
-client.object do |object|
+client.user do |object|
   case object
   when Twitter::Tweet
     puts "It's a tweet!"
