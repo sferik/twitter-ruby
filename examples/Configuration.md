@@ -112,8 +112,8 @@ end
 ```
 
 ```ruby
-client.sample do |tweet|
-  puts tweet.text
+client.sample do |object|
+  puts object.text if object.is_a?(Twitter::Tweet)
 end
 ```
 

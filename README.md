@@ -125,40 +125,45 @@ end
 
 ```ruby
 topics = ["coffee", "tea"]
-client.filter(:track => topics.join(",")) do |tweet|
-  puts tweet.text
+client.filter(:track => topics.join(",")) do |object|
+  puts object.text if object.is_a?(Twitter::Tweet)
 end
 ```
 
 **Stream a random sample of all tweets**
 
 ```ruby
-client.sample do |tweet|
-  puts tweet.text
+client.sample do |object|
+  puts object.text if object.is_a?(Twitter::Tweet)
 end
 ```
 
-**Stream tweets, events and direct messages for the authenticated user**
+**Stream tweets, events, and direct messages for the authenticated user**
 
 ```ruby
-client.user do |message|
-  puts message
+client.object do |object|
+  case object
+  when Twitter::Tweet
+    puts "It's a tweet!"
+  when Twitter::DirectMessage
+    puts "It's a direct message!"
+  when Twitter::Streaming::StallWarning
+    warn "Falling behind!"
+  end
 end
 ```
 
-`message` can be one of
- + `Twitter::Tweet`
- + `Twitter::DirectMessage`
- + `Twitter::Streaming::Event`
- + `Twitter::Streaming::FriendList`
-
-[messages]: https://dev.twitter.com/docs/streaming-apis/messages
+An `object` may be one of the following:
+* Twitter::DirectMessage
+* Twitter::Streaming::DeletedTweet
+* Twitter::Streaming::Event
+* Twitter::Streaming::FriendList
+* Twitter::Streaming::StallWarning
+* Twitter::Tweet
 
 ### Cursors
 The `Twitter::Cursor` class has been completely redesigned with a focus on
 simplicity and performance.
-
-[cursors]: https://dev.twitter.com/docs/misc/cursoring
 
 <table>
   <thead>
