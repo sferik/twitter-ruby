@@ -22,7 +22,7 @@ describe Twitter::REST::API::Search do
     end
     it 'returns the max_id value for a search result' do
       search = @client.search('twitter')
-      expect(search.max_id).to eq(250126199840518145)
+      expect(search.max_id).to eq(250_126_199_840_518_145)
     end
 
     context 'when search API responds a malformed result' do

@@ -36,7 +36,7 @@ describe Twitter::REST::API::Undocumented do
         stub_get('/users/following_followers_of.json').with(:query => {:cursor => '-1', :user_id => '7505382'}).to_return(:body => fixture('users_list.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
       end
       it 'requests the correct resource' do
-        @client.following_followers_of(7505382)
+        @client.following_followers_of(7_505_382)
         expect(a_get('/users/following_followers_of.json').with(:query => {:cursor => '-1', :user_id => '7505382'})).to have_been_made
       end
       context 'with each' do
@@ -44,7 +44,7 @@ describe Twitter::REST::API::Undocumented do
           stub_get('/users/following_followers_of.json').with(:query => {:cursor => '1322801608223717003', :user_id => '7505382'}).to_return(:body => fixture('users_list2.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
         end
         it 'requests the correct resource' do
-          @client.following_followers_of(7505382).each{}
+          @client.following_followers_of(7_505_382).each{}
           expect(a_get('/users/following_followers_of.json').with(:query => {:cursor => '-1', :user_id => '7505382'})).to have_been_made
           expect(a_get('/users/following_followers_of.json').with(:query => {:cursor => '1322801608223717003', :user_id => '7505382'})).to have_been_made
         end
@@ -89,7 +89,7 @@ describe Twitter::REST::API::Undocumented do
     it 'returns a Tweet count' do
       tweet_count = @client.tweet_count('http://twitter.com')
       expect(tweet_count).to be_an Integer
-      expect(tweet_count).to eq(13845465)
+      expect(tweet_count).to eq(13_845_465)
     end
     context 'with a URI' do
       it 'requests the correct resource' do

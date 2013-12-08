@@ -63,7 +63,7 @@ describe Twitter::Streaming::Client do
   it '#site' do
     @client.connection = FakeConnection.new(fixture('track_streaming.json'))
     objects = []
-    @client.site(7505382) do |object|
+    @client.site(7_505_382) do |object|
       objects << object
     end
     expect(objects.size).to eq(2)
@@ -79,7 +79,7 @@ describe Twitter::Streaming::Client do
     end
     expect(objects.size).to eq(6)
     expect(objects[0]).to be_a Twitter::Streaming::FriendList
-    expect(objects[0]).to eq([488736931,311444249])
+    expect(objects[0]).to eq([488_736_931,311_444_249])
     expect(objects[1]).to be_a Twitter::Tweet
     expect(objects[1].text).to eq("The problem with your code is that it's doing exactly what you told it to do.")
     expect(objects[2]).to be_a Twitter::DirectMessage
@@ -87,7 +87,7 @@ describe Twitter::Streaming::Client do
     expect(objects[3]).to be_a Twitter::Streaming::Event
     expect(objects[3].name).to eq(:follow)
     expect(objects[4]).to be_a Twitter::Streaming::DeletedTweet
-    expect(objects[4].id).to eq(272691609211117568)
+    expect(objects[4].id).to eq(272_691_609_211_117_568)
     expect(objects[5]).to be_a Twitter::Streaming::StallWarning
     expect(objects[5].code).to eq('FALLING_BEHIND')
   end

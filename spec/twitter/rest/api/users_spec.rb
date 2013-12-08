@@ -42,7 +42,7 @@ describe Twitter::REST::API::Users do
     it 'returns the requesting user' do
       user = @client.verify_credentials
       expect(user).to be_a Twitter::User
-      expect(user.id).to eq(7505382)
+      expect(user.id).to eq(7_505_382)
     end
   end
 
@@ -57,7 +57,7 @@ describe Twitter::REST::API::Users do
     it 'returns a user' do
       user = @client.update_delivery_device('sms')
       expect(user).to be_a Twitter::User
-      expect(user.id).to eq(7505382)
+      expect(user.id).to eq(7_505_382)
     end
   end
 
@@ -72,7 +72,7 @@ describe Twitter::REST::API::Users do
     it 'returns a user' do
       user = @client.update_profile(:url => 'http://github.com/sferik/')
       expect(user).to be_a Twitter::User
-      expect(user.id).to eq(7505382)
+      expect(user.id).to eq(7_505_382)
     end
   end
 
@@ -87,7 +87,7 @@ describe Twitter::REST::API::Users do
     it 'returns a user' do
       user = @client.update_profile_background_image(fixture('we_concept_bg2.png'))
       expect(user).to be_a Twitter::User
-      expect(user.id).to eq(7505382)
+      expect(user.id).to eq(7_505_382)
     end
   end
 
@@ -102,7 +102,7 @@ describe Twitter::REST::API::Users do
     it 'returns a user' do
       user = @client.update_profile_colors(:profile_background_color => '000000')
       expect(user).to be_a Twitter::User
-      expect(user.id).to eq(7505382)
+      expect(user.id).to eq(7_505_382)
     end
   end
 
@@ -117,7 +117,7 @@ describe Twitter::REST::API::Users do
     it 'returns a user' do
       user = @client.update_profile_image(fixture('me.jpeg'))
       expect(user).to be_a Twitter::User
-      expect(user.id).to eq(7505382)
+      expect(user.id).to eq(7_505_382)
     end
   end
 
@@ -183,7 +183,7 @@ describe Twitter::REST::API::Users do
       blocking = @client.blocking
       expect(blocking).to be_a Twitter::Cursor
       expect(blocking.first).to be_a Twitter::User
-      expect(blocking.first.id).to eq(7505382)
+      expect(blocking.first.id).to eq(7_505_382)
     end
     context 'with each' do
       before do
@@ -208,7 +208,7 @@ describe Twitter::REST::API::Users do
     it 'returns an array of numeric user IDs the authenticating user is blocking' do
       blocked_ids = @client.blocked_ids
       expect(blocked_ids).to be_a Twitter::Cursor
-      expect(blocked_ids.first).to eq(20009713)
+      expect(blocked_ids.first).to eq(20_009_713)
     end
     context 'with each' do
       before do
@@ -251,7 +251,7 @@ describe Twitter::REST::API::Users do
         stub_get('/1.1/blocks/ids.json').with(:query => {:cursor => '1305102810874389703'}).to_return(:body => fixture('ids_list2.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
       end
       it 'requests the correct resources' do
-        @client.block?(7505382)
+        @client.block?(7_505_382)
         expect(a_get('/1.1/blocks/ids.json').with(:query => {:cursor => '-1'})).to have_been_made
         expect(a_get('/1.1/blocks/ids.json').with(:query => {:cursor => '1305102810874389703'})).to have_been_made
       end
@@ -282,7 +282,7 @@ describe Twitter::REST::API::Users do
       users = @client.block('sferik')
       expect(users).to be_an Array
       expect(users.first).to be_a Twitter::User
-      expect(users.first.id).to eq(7505382)
+      expect(users.first.id).to eq(7_505_382)
     end
   end
 
@@ -298,7 +298,7 @@ describe Twitter::REST::API::Users do
       users = @client.unblock('sferik')
       expect(users).to be_an Array
       expect(users.first).to be_a Twitter::User
-      expect(users.first.id).to eq(7505382)
+      expect(users.first.id).to eq(7_505_382)
     end
   end
 
@@ -316,7 +316,7 @@ describe Twitter::REST::API::Users do
           users = @client.users('sferik', 'pengwynn')
           expect(users).to be_an Array
           expect(users.first).to be_a Twitter::User
-          expect(users.first.id).to eq(7505382)
+          expect(users.first.id).to eq(7_505_382)
         end
         context 'with URI objects passed' do
           it 'requests the correct resource' do
@@ -347,7 +347,7 @@ describe Twitter::REST::API::Users do
           stub_post('/1.1/users/lookup.json').with(:body => {:user_id => '7505382,14100886'}).to_return(:body => fixture('users.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
         end
         it 'requests the correct resource' do
-          @client.users(7505382, 14100886)
+          @client.users(7_505_382, 14_100_886)
           expect(a_post('/1.1/users/lookup.json').with(:body => {:user_id => '7505382,14100886'})).to have_been_made
         end
       end
@@ -356,7 +356,7 @@ describe Twitter::REST::API::Users do
           stub_post('/1.1/users/lookup.json').with(:body => {:screen_name => 'sferik', :user_id => '14100886'}).to_return(:body => fixture('users.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
         end
         it 'requests the correct resource' do
-          @client.users('sferik', 14100886)
+          @client.users('sferik', 14_100_886)
           expect(a_post('/1.1/users/lookup.json').with(:body => {:screen_name => 'sferik', :user_id => '14100886'})).to have_been_made
         end
       end
@@ -385,7 +385,7 @@ describe Twitter::REST::API::Users do
           users = @client.users('sferik', 'pengwynn', :method => :get)
           expect(users).to be_an Array
           expect(users.first).to be_a Twitter::User
-          expect(users.first.id).to eq(7505382)
+          expect(users.first.id).to eq(7_505_382)
         end
         context 'with URI objects passed' do
           it 'requests the correct resource' do
@@ -416,7 +416,7 @@ describe Twitter::REST::API::Users do
           stub_get('/1.1/users/lookup.json').with(:query => {:user_id => '7505382,14100886'}).to_return(:body => fixture('users.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
         end
         it 'requests the correct resource' do
-          @client.users(7505382, 14100886, :method => :get)
+          @client.users(7_505_382, 14_100_886, :method => :get)
           expect(a_get('/1.1/users/lookup.json').with(:query => {:user_id => '7505382,14100886'})).to have_been_made
         end
       end
@@ -425,7 +425,7 @@ describe Twitter::REST::API::Users do
           stub_get('/1.1/users/lookup.json').with(:query => {:screen_name => 'sferik', :user_id => '14100886'}).to_return(:body => fixture('users.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
         end
         it 'requests the correct resource' do
-          @client.users('sferik', 14100886, :method => :get)
+          @client.users('sferik', 14_100_886, :method => :get)
           expect(a_get('/1.1/users/lookup.json').with(:query => {:screen_name => 'sferik', :user_id => '14100886'})).to have_been_made
         end
       end
@@ -455,7 +455,7 @@ describe Twitter::REST::API::Users do
       it 'returns extended information of a given user' do
         user = @client.user('sferik')
         expect(user).to be_a Twitter::User
-        expect(user.id).to eq(7505382)
+        expect(user.id).to eq(7_505_382)
       end
     end
     context 'with a screen name including "@" passed' do
@@ -481,7 +481,7 @@ describe Twitter::REST::API::Users do
         stub_get('/1.1/users/show.json').with(:query => {:user_id => '7505382'}).to_return(:body => fixture('sferik.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
       end
       it 'requests the correct resource' do
-        @client.user(7505382)
+        @client.user(7_505_382)
         expect(a_get('/1.1/users/show.json').with(:query => {:user_id => '7505382'})).to have_been_made
       end
     end
@@ -490,7 +490,7 @@ describe Twitter::REST::API::Users do
         stub_get('/1.1/users/show.json').with(:query => {:user_id => '7505382'}).to_return(:body => fixture('sferik.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
       end
       it 'requests the correct resource' do
-        user = Twitter::User.new(:id => 7505382)
+        user = Twitter::User.new(:id => 7_505_382)
         @client.user(user)
         expect(a_get('/1.1/users/show.json').with(:query => {:user_id => '7505382'})).to have_been_made
       end
@@ -548,7 +548,7 @@ describe Twitter::REST::API::Users do
       user_search = @client.user_search('Erik Michaels-Ober')
       expect(user_search).to be_an Array
       expect(user_search.first).to be_a Twitter::User
-      expect(user_search.first.id).to eq(7505382)
+      expect(user_search.first.id).to eq(7_505_382)
     end
   end
 
@@ -573,7 +573,7 @@ describe Twitter::REST::API::Users do
         stub_get('/1.1/users/contributees.json').with(:query => {:user_id => '7505382'}).to_return(:body => fixture('contributees.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
       end
       it 'requests the correct resource' do
-        @client.contributees(7505382)
+        @client.contributees(7_505_382)
         expect(a_get('/1.1/users/contributees.json').with(:query => {:user_id => '7505382'})).to have_been_made
       end
     end
@@ -616,7 +616,7 @@ describe Twitter::REST::API::Users do
         stub_get('/1.1/users/contributors.json').with(:query => {:user_id => '7505382'}).to_return(:body => fixture('members.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
       end
       it 'requests the correct resource' do
-        @client.contributors(7505382)
+        @client.contributors(7_505_382)
         expect(a_get('/1.1/users/contributors.json').with(:query => {:user_id => '7505382'})).to have_been_made
       end
     end
@@ -687,7 +687,7 @@ describe Twitter::REST::API::Users do
         stub_get('/1.1/users/profile_banner.json').with(:query => {:user_id => '7505382'}).to_return(:body => fixture('profile_banner.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
       end
       it 'requests the correct resource' do
-        @client.profile_banner(7505382)
+        @client.profile_banner(7_505_382)
         expect(a_get('/1.1/users/profile_banner.json').with(:query => {:user_id => '7505382'})).to have_been_made
       end
     end

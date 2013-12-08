@@ -18,7 +18,7 @@ describe Twitter::REST::API::FriendsAndFollowers do
       it 'returns an array of numeric IDs for every user the specified user is following' do
         friend_ids = @client.friend_ids('sferik')
         expect(friend_ids).to be_a Twitter::Cursor
-        expect(friend_ids.first).to eq(20009713)
+        expect(friend_ids.first).to eq(20_009_713)
       end
       context 'with each' do
         before do
@@ -36,7 +36,7 @@ describe Twitter::REST::API::FriendsAndFollowers do
         stub_get('/1.1/friends/ids.json').with(:query => {:cursor => '-1', :user_id => '7505382'}).to_return(:body => fixture('ids_list.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
       end
       it 'requests the correct resource' do
-        @client.friend_ids(7505382)
+        @client.friend_ids(7_505_382)
         expect(a_get('/1.1/friends/ids.json').with(:query => {:cursor => '-1', :user_id => '7505382'})).to have_been_made
       end
       context 'with each' do
@@ -44,7 +44,7 @@ describe Twitter::REST::API::FriendsAndFollowers do
           stub_get('/1.1/friends/ids.json').with(:query => {:cursor => '1305102810874389703', :user_id => '7505382'}).to_return(:body => fixture('ids_list2.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
         end
         it 'requests the correct resource' do
-          @client.friend_ids(7505382).each{}
+          @client.friend_ids(7_505_382).each{}
           expect(a_get('/1.1/friends/ids.json').with(:query => {:cursor => '-1', :user_id => '7505382'})).to have_been_made
           expect(a_get('/1.1/friends/ids.json').with(:query => {:cursor => '1305102810874389703', :user_id => '7505382'})).to have_been_made
         end
@@ -63,7 +63,7 @@ describe Twitter::REST::API::FriendsAndFollowers do
       it 'returns an array of numeric IDs for every user the specified user is following' do
         friend_ids = @client.friend_ids
         expect(friend_ids).to be_a Twitter::Cursor
-        expect(friend_ids.first).to eq(20009713)
+        expect(friend_ids.first).to eq(20_009_713)
       end
       context 'with each' do
         before do
@@ -91,7 +91,7 @@ describe Twitter::REST::API::FriendsAndFollowers do
       it 'returns an array of numeric IDs for every user following the specified user' do
         follower_ids = @client.follower_ids('sferik')
         expect(follower_ids).to be_a Twitter::Cursor
-        expect(follower_ids.first).to eq(20009713)
+        expect(follower_ids.first).to eq(20_009_713)
       end
       context 'with each' do
         before do
@@ -109,7 +109,7 @@ describe Twitter::REST::API::FriendsAndFollowers do
         stub_get('/1.1/followers/ids.json').with(:query => {:cursor => '-1', :user_id => '7505382'}).to_return(:body => fixture('ids_list.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
       end
       it 'requests the correct resource' do
-        @client.follower_ids(7505382)
+        @client.follower_ids(7_505_382)
         expect(a_get('/1.1/followers/ids.json').with(:query => {:cursor => '-1', :user_id => '7505382'})).to have_been_made
       end
       context 'with each' do
@@ -117,7 +117,7 @@ describe Twitter::REST::API::FriendsAndFollowers do
           stub_get('/1.1/followers/ids.json').with(:query => {:cursor => '1305102810874389703', :user_id => '7505382'}).to_return(:body => fixture('ids_list2.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
         end
         it 'requests the correct resource' do
-          @client.follower_ids(7505382).each{}
+          @client.follower_ids(7_505_382).each{}
           expect(a_get('/1.1/followers/ids.json').with(:query => {:cursor => '-1', :user_id => '7505382'})).to have_been_made
           expect(a_get('/1.1/followers/ids.json').with(:query => {:cursor => '1305102810874389703', :user_id => '7505382'})).to have_been_made
         end
@@ -136,7 +136,7 @@ describe Twitter::REST::API::FriendsAndFollowers do
       it 'returns an array of numeric IDs for every user following the specified user' do
         follower_ids = @client.follower_ids
         expect(follower_ids).to be_a Twitter::Cursor
-        expect(follower_ids.first).to eq(20009713)
+        expect(follower_ids.first).to eq(20_009_713)
       end
       context 'with each' do
         before do
@@ -165,7 +165,7 @@ describe Twitter::REST::API::FriendsAndFollowers do
         friendships = @client.friendships('sferik', 'pengwynn')
         expect(friendships).to be_an Array
         expect(friendships.first).to be_a Twitter::User
-        expect(friendships.first.id).to eq(7505382)
+        expect(friendships.first.id).to eq(7_505_382)
         expect(friendships.first.connections).to eq(['none'])
       end
     end
@@ -183,7 +183,7 @@ describe Twitter::REST::API::FriendsAndFollowers do
         stub_get('/1.1/friendships/lookup.json').with(:query => {:user_id => '7505382,14100886'}).to_return(:body => fixture('friendships.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
       end
       it 'requests the correct resource' do
-        @client.friendships(7505382, 14100886)
+        @client.friendships(7_505_382, 14_100_886)
         expect(a_get('/1.1/friendships/lookup.json').with(:query => {:user_id => '7505382,14100886'})).to have_been_made
       end
     end
@@ -192,7 +192,7 @@ describe Twitter::REST::API::FriendsAndFollowers do
         stub_get('/1.1/friendships/lookup.json').with(:query => {:screen_name => 'sferik', :user_id => '14100886'}).to_return(:body => fixture('friendships.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
       end
       it 'requests the correct resource' do
-        @client.friendships('sferik', 14100886)
+        @client.friendships('sferik', 14_100_886)
         expect(a_get('/1.1/friendships/lookup.json').with(:query => {:screen_name => 'sferik', :user_id => '14100886'})).to have_been_made
       end
     end
@@ -211,7 +211,7 @@ describe Twitter::REST::API::FriendsAndFollowers do
         friendships = @client.friendships('sferik', 'pengwynn')
         expect(friendships).to be_an Array
         expect(friendships.first).to be_a Twitter::User
-        expect(friendships.first.id).to eq(7505382)
+        expect(friendships.first.id).to eq(7_505_382)
         expect(friendships.first.connections).to eq(['none'])
       end
     end
@@ -229,7 +229,7 @@ describe Twitter::REST::API::FriendsAndFollowers do
         stub_get('/1.1/friendships/lookup.json').with(:query => {:user_id => '7505382,14100886'}).to_return(:body => fixture('friendships.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
       end
       it 'requests the correct resource' do
-        @client.friendships(7505382, 14100886)
+        @client.friendships(7_505_382, 14_100_886)
         expect(a_get('/1.1/friendships/lookup.json').with(:query => {:user_id => '7505382,14100886'})).to have_been_made
       end
     end
@@ -238,7 +238,7 @@ describe Twitter::REST::API::FriendsAndFollowers do
         stub_get('/1.1/friendships/lookup.json').with(:query => {:screen_name => 'sferik', :user_id => '14100886'}).to_return(:body => fixture('friendships.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
       end
       it 'requests the correct resource' do
-        @client.friendships('sferik', 14100886)
+        @client.friendships('sferik', 14_100_886)
         expect(a_get('/1.1/friendships/lookup.json').with(:query => {:screen_name => 'sferik', :user_id => '14100886'})).to have_been_made
       end
     end
@@ -255,7 +255,7 @@ describe Twitter::REST::API::FriendsAndFollowers do
     it 'returns an array of numeric IDs for every user who has a pending request to follow the authenticating user' do
       friendships_incoming = @client.friendships_incoming
       expect(friendships_incoming).to be_a Twitter::Cursor
-      expect(friendships_incoming.first).to eq(20009713)
+      expect(friendships_incoming.first).to eq(20_009_713)
     end
     context 'with each' do
       before do
@@ -279,7 +279,7 @@ describe Twitter::REST::API::FriendsAndFollowers do
     it 'returns an array of numeric IDs for every protected user for whom the authenticating user has a pending follow request' do
       friendships_outgoing = @client.friendships_outgoing
       expect(friendships_outgoing).to be_a Twitter::Cursor
-      expect(friendships_outgoing.first).to eq(20009713)
+      expect(friendships_outgoing.first).to eq(20_009_713)
     end
     context 'with each' do
       before do
@@ -320,7 +320,7 @@ describe Twitter::REST::API::FriendsAndFollowers do
       users = @client.follow!('sferik')
       expect(users).to be_an Array
       expect(users.first).to be_a Twitter::User
-      expect(users.first.id).to eq(7505382)
+      expect(users.first.id).to eq(7_505_382)
     end
   end
   context 'with a user object passed' do
@@ -365,7 +365,7 @@ describe Twitter::REST::API::FriendsAndFollowers do
       users = @client.unfollow('sferik')
       expect(users).to be_an Array
       expect(users.first).to be_a Twitter::User
-      expect(users.first.id).to eq(7505382)
+      expect(users.first.id).to eq(7_505_382)
     end
   end
 
@@ -380,7 +380,7 @@ describe Twitter::REST::API::FriendsAndFollowers do
     it 'returns detailed information about the relationship between two users' do
       relationship = @client.friendship_update('sferik', :retweets => true)
       expect(relationship).to be_a Twitter::Relationship
-      expect(relationship.source.id).to eq(7505382)
+      expect(relationship.source.id).to eq(7_505_382)
     end
   end
 
@@ -396,7 +396,7 @@ describe Twitter::REST::API::FriendsAndFollowers do
       it 'returns detailed information about the relationship between two users' do
         relationship = @client.friendship('sferik', 'pengwynn')
         expect(relationship).to be_a Twitter::Relationship
-        expect(relationship.source.id).to eq(7505382)
+        expect(relationship.source.id).to eq(7_505_382)
       end
     end
     context 'with numeric screen names passed' do
@@ -413,7 +413,7 @@ describe Twitter::REST::API::FriendsAndFollowers do
         stub_get('/1.1/friendships/show.json').with(:query => {:source_id => '7505382', :target_id => '14100886'}).to_return(:body => fixture('following.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
       end
       it 'requests the correct resource' do
-        @client.friendship(7505382, 14100886)
+        @client.friendship(7_505_382, 14_100_886)
         expect(a_get('/1.1/friendships/show.json').with(:query => {:source_id => '7505382', :target_id => '14100886'})).to have_been_made
       end
     end
@@ -474,7 +474,7 @@ describe Twitter::REST::API::FriendsAndFollowers do
         stub_get('/1.1/friendships/show.json').with(:query => {:source_id => '7505382', :target_id => '14100886'}).to_return(:body => fixture('following.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
       end
       it 'requests the correct resource' do
-        @client.friendship?(7505382, 14100886)
+        @client.friendship?(7_505_382, 14_100_886)
         expect(a_get('/1.1/friendships/show.json').with(:query => {:source_id => '7505382', :target_id => '14100886'})).to have_been_made
       end
     end
@@ -521,7 +521,7 @@ describe Twitter::REST::API::FriendsAndFollowers do
         stub_get('/1.1/followers/list.json').with(:query => {:cursor => '-1', :user_id => '7505382'}).to_return(:body => fixture('followers_list.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
       end
       it 'requests the correct resource' do
-        @client.followers(7505382)
+        @client.followers(7_505_382)
         expect(a_get('/1.1/followers/list.json').with(:query => {:cursor => '-1', :user_id => '7505382'})).to have_been_made
       end
       context 'with each' do
@@ -529,7 +529,7 @@ describe Twitter::REST::API::FriendsAndFollowers do
           stub_get('/1.1/followers/list.json').with(:query => {:cursor => '1419103567112105362', :user_id => '7505382'}).to_return(:body => fixture('followers_list2.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
         end
         it 'requests the correct resource' do
-          @client.followers(7505382).each{}
+          @client.followers(7_505_382).each{}
           expect(a_get('/1.1/followers/list.json').with(:query => {:cursor => '-1', :user_id => '7505382'})).to have_been_made
           expect(a_get('/1.1/followers/list.json').with(:query => {:cursor => '1419103567112105362', :user_id => '7505382'})).to have_been_made
         end
@@ -594,7 +594,7 @@ describe Twitter::REST::API::FriendsAndFollowers do
         stub_get('/1.1/friends/list.json').with(:query => {:cursor => '-1', :user_id => '7505382'}).to_return(:body => fixture('friends_list.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
       end
       it 'requests the correct resource' do
-        @client.friends(7505382)
+        @client.friends(7_505_382)
         expect(a_get('/1.1/friends/list.json').with(:query => {:cursor => '-1', :user_id => '7505382'})).to have_been_made
       end
       context 'with each' do
@@ -602,7 +602,7 @@ describe Twitter::REST::API::FriendsAndFollowers do
           stub_get('/1.1/friends/list.json').with(:query => {:cursor => '1418947360875712729', :user_id => '7505382'}).to_return(:body => fixture('friends_list2.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
         end
         it 'requests the correct resource' do
-          @client.friends(7505382).each{}
+          @client.friends(7_505_382).each{}
           expect(a_get('/1.1/friends/list.json').with(:query => {:cursor => '-1', :user_id => '7505382'})).to have_been_made
           expect(a_get('/1.1/friends/list.json').with(:query => {:cursor => '1418947360875712729', :user_id => '7505382'})).to have_been_made
         end
