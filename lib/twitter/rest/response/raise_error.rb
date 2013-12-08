@@ -19,7 +19,7 @@ module Twitter
         def on_complete(env)
           status_code = env[:status].to_i
           error_class = Twitter::Error.errors[status_code]
-          raise error_class.from_response(env) if error_class
+          fail error_class.from_response(env) if error_class
         end
 
       end
