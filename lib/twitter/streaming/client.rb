@@ -92,7 +92,7 @@ module Twitter
         elsif instance_variable_defined?(:@before_request)
           @before_request
         else
-          Proc.new {}
+          proc {}
         end
       end
 
