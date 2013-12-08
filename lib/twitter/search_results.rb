@@ -110,7 +110,7 @@ module Twitter
     # @example Remove the first character from a query string
     #   strip_first_character!("?foo=bar&baz=qux") #=> "foo=bar&baz=qux"
     def strip_first_character!(string)
-      string[0] = ""
+      string[0] = ''
       string
     end
 

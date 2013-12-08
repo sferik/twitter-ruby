@@ -76,7 +76,7 @@ module Twitter
         #   @param options [Hash] A customizable set of options.
         #   @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
         def statuses(*args)
-          threaded_tweets_from_response(:get, "/1.1/statuses/show", args)
+          threaded_tweets_from_response(:get, '/1.1/statuses/show', args)
         end
 
         # Destroys the specified Tweets
@@ -94,7 +94,7 @@ module Twitter
         #   @param options [Hash] A customizable set of options.
         #   @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
         def destroy_status(*args)
-          threaded_tweets_from_response(:post, "/1.1/statuses/destroy", args)
+          threaded_tweets_from_response(:post, '/1.1/statuses/destroy', args)
         end
         alias_method :destroy_tweet, :destroy_status
         deprecate_alias :status_destroy, :destroy_status
@@ -122,7 +122,7 @@ module Twitter
           hash = options.dup
           hash[:in_reply_to_status_id] = hash.delete(:in_reply_to_status).id unless hash[:in_reply_to_status].nil?
           hash[:place_id] = hash.delete(:place).woeid unless hash[:place].nil?
-          object_from_response(Twitter::Tweet, :post, "/1.1/statuses/update.json", hash.merge(:status => status))
+          object_from_response(Twitter::Tweet, :post, '/1.1/statuses/update.json', hash.merge(:status => status))
         rescue Twitter::Error::Forbidden => error
           handle_forbidden_error(Twitter::Error::AlreadyPosted, error)
         end
@@ -202,7 +202,7 @@ module Twitter
           hash = options.dup
           hash[:in_reply_to_status_id] = hash.delete(:in_reply_to_status).id unless hash[:in_reply_to_status].nil?
           hash[:place_id] = hash.delete(:place).woeid unless hash[:place].nil?
-          object_from_response(Twitter::Tweet, :post, "/1.1/statuses/update_with_media.json", hash.merge('media[]' => media, 'status' => status))
+          object_from_response(Twitter::Tweet, :post, '/1.1/statuses/update_with_media.json', hash.merge('media[]' => media, 'status' => status))
         rescue Twitter::Error::Forbidden => error
           handle_forbidden_error(Twitter::Error::AlreadyPosted, error)
         end
@@ -225,7 +225,7 @@ module Twitter
         # @option options [String] :lang Language code for the rendered embed. This will affect the text and localization of the rendered HTML.
         def oembed(tweet, options = {})
           options[:id] = extract_id(tweet)
-          object_from_response(Twitter::OEmbed, :get, "/1.1/statuses/oembed.json", options)
+          object_from_response(Twitter::OEmbed, :get, '/1.1/statuses/oembed.json', options)
         end
 
         # Returns oEmbeds for Tweets
@@ -270,7 +270,7 @@ module Twitter
         def retweeters_ids(*args)
           arguments = Twitter::Arguments.new(args)
           arguments.options[:id] ||= extract_id(arguments.first)
-          cursor_from_response(:ids, nil, :get, "/1.1/statuses/retweeters/ids.json", arguments.options)
+          cursor_from_response(:ids, nil, :get, '/1.1/statuses/retweeters/ids.json', arguments.options)
         end
 
       private

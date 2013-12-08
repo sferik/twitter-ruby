@@ -47,10 +47,10 @@ module Twitter
       # @param attrs [Array, Symbol]
       def uri_attr_reader(*attrs)
         attrs.each do |uri_key|
-          array = uri_key.to_s.split("_")
-          index = array.index("uri")
-          array[index] = "url"
-          url_key = array.join("_").to_sym
+          array = uri_key.to_s.split('_')
+          index = array.index('uri')
+          array[index] = 'url'
+          url_key = array.join('_').to_sym
           define_uri_method(uri_key, url_key)
           alias_method(url_key, uri_key)
           define_predicate_method(uri_key, url_key)

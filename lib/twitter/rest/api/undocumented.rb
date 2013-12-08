@@ -30,7 +30,7 @@ module Twitter
         #     @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
         #     @return [Twitter::Cursor]
         def following_followers_of(*args)
-          cursor_from_response_with_user(:users, Twitter::User, :get, "/users/following_followers_of.json", args)
+          cursor_from_response_with_user(:users, Twitter::User, :get, '/users/following_followers_of.json', args)
         end
 
         # Returns Tweets count for a URI
@@ -42,8 +42,8 @@ module Twitter
         # @param uri [String, URI] A URI.
         # @param options [Hash] A customizable set of options.
         def tweet_count(uri, options = {})
-          connection = Faraday.new("https://cdn.api.twitter.com", connection_options.merge(:builder => middleware))
-          connection.get("/1/urls/count.json", options.merge(:url => uri.to_s)).body[:count]
+          connection = Faraday.new('https://cdn.api.twitter.com', connection_options.merge(:builder => middleware))
+          connection.get('/1/urls/count.json', options.merge(:url => uri.to_s)).body[:count]
         end
 
       end

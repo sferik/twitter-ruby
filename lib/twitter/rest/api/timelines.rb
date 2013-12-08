@@ -24,7 +24,7 @@ module Twitter
         # @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 200.
         # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
         def mentions_timeline(options = {})
-          objects_from_response(Twitter::Tweet, :get, "/1.1/statuses/mentions_timeline.json", options)
+          objects_from_response(Twitter::Tweet, :get, '/1.1/statuses/mentions_timeline.json', options)
         end
         alias_method :mentions, :mentions_timeline
 
@@ -47,7 +47,7 @@ module Twitter
         #   @option options [Boolean, String, Integer] :contributor_details Specifies that the contributors element should be enhanced to include the screen_name of the contributor.
         #   @option options [Boolean, String, Integer] :include_rts Specifies that the timeline should include native retweets in addition to regular tweets. Note: If you're using the trim_user parameter in conjunction with include_rts, the retweets will no longer contain a full user object.
         def user_timeline(*args)
-          objects_from_response_with_user(Twitter::Tweet, :get, "/1.1/statuses/user_timeline.json", args)
+          objects_from_response_with_user(Twitter::Tweet, :get, '/1.1/statuses/user_timeline.json', args)
         end
 
         # Returns the 20 most recent retweets posted by the specified user
@@ -112,7 +112,7 @@ module Twitter
         # @option options [Boolean, String, Integer] :contributor_details Specifies that the contributors element should be enhanced to include the screen_name of the contributor.
         # @option options [Boolean, String, Integer] :include_entities The tweet entities node will be disincluded when set to false.
         def home_timeline(options = {})
-          objects_from_response(Twitter::Tweet, :get, "/1.1/statuses/home_timeline.json", options)
+          objects_from_response(Twitter::Tweet, :get, '/1.1/statuses/home_timeline.json', options)
         end
 
         # Returns the 20 most recent retweets posted by users the authenticating user follow.
@@ -152,7 +152,7 @@ module Twitter
         # @option options [Boolean, String, Integer] :include_entities The tweet entities node will be disincluded when set to false.
         # @option options [Boolean, String, Integer] :include_user_entities The user entities node will be disincluded when set to false.
         def retweets_of_me(options = {})
-          objects_from_response(Twitter::Tweet, :get, "/1.1/statuses/retweets_of_me.json", options)
+          objects_from_response(Twitter::Tweet, :get, '/1.1/statuses/retweets_of_me.json', options)
         end
 
       private

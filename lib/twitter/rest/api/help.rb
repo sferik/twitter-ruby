@@ -16,7 +16,7 @@ module Twitter
         # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
         # @return [Twitter::Configuration] Twitter's configuration.
         def configuration(options = {})
-          object_from_response(Twitter::Configuration, :get, "/1.1/help/configuration.json", options)
+          object_from_response(Twitter::Configuration, :get, '/1.1/help/configuration.json', options)
         end
 
         # Returns the list of languages supported by Twitter
@@ -27,7 +27,7 @@ module Twitter
         # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
         # @return [Array<Twitter::Language>]
         def languages(options = {})
-          objects_from_response(Twitter::Language, :get, "/1.1/help/languages.json", options)
+          objects_from_response(Twitter::Language, :get, '/1.1/help/languages.json', options)
         end
 
         # Returns {https://twitter.com/privacy Twitter's Privacy Policy}
@@ -38,7 +38,7 @@ module Twitter
         # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
         # @return [String]
         def privacy(options = {})
-          get("/1.1/help/privacy.json", options)[:body][:privacy]
+          get('/1.1/help/privacy.json', options)[:body][:privacy]
         end
 
         # Returns {https://twitter.com/tos Twitter's Terms of Service}
@@ -49,7 +49,7 @@ module Twitter
         # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
         # @return [String]
         def tos(options = {})
-          get("/1.1/help/tos.json", options)[:body][:tos]
+          get('/1.1/help/tos.json', options)[:body][:tos]
         end
 
       end

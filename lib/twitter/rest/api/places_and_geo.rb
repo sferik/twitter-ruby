@@ -36,7 +36,7 @@ module Twitter
         # @option options [Integer] :max_results A hint as to the number of results to return. This does not guarantee that the number of results returned will equal max_results, but instead informs how many "nearby" results to return. Ideally, only pass in the number of places you intend to display to the user here.
         # @return [Array<Twitter::Place>]
         def reverse_geocode(options = {})
-          object_from_response(Twitter::GeoResults, :get, "/1.1/geo/reverse_geocode.json", options)
+          object_from_response(Twitter::GeoResults, :get, '/1.1/geo/reverse_geocode.json', options)
         end
 
         # Search for places that can be attached to a {Twitter::REST::API::Tweets#update}
@@ -57,7 +57,7 @@ module Twitter
         # @option options [String] :"attribute:street_address" This option searches for places which have this given street address. There are other well-known and application-specific attributes available. Custom attributes are also permitted.
         # @return [Array<Twitter::Place>]
         def geo_search(options = {})
-          object_from_response(Twitter::GeoResults, :get, "/1.1/geo/search.json", options)
+          object_from_response(Twitter::GeoResults, :get, '/1.1/geo/search.json', options)
         end
         alias_method :places_nearby, :geo_search
 
@@ -76,7 +76,7 @@ module Twitter
         # @option options [String] :"attribute:street_address" This option searches for places which have this given street address. There are other well-known and application-specific attributes available. Custom attributes are also permitted.
         # @return [Array<Twitter::Place>]
         def similar_places(options = {})
-          object_from_response(Twitter::GeoResults, :get, "/1.1/geo/similar_places.json", options)
+          object_from_response(Twitter::GeoResults, :get, '/1.1/geo/similar_places.json', options)
         end
         alias_method :places_similar, :similar_places
 

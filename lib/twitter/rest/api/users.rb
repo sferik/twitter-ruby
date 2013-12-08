@@ -31,7 +31,7 @@ module Twitter
         # @option options [String] :lang The language which Twitter should render in for this user. The language must be specified by the appropriate two letter ISO 639-1 representation. Currently supported languages are provided by {https://dev.twitter.com/docs/api/1.1/get/help/languages GET help/languages}.
         def settings(options = {})
           request_method = options.size.zero? ? :get : :post
-          response = send(request_method.to_sym, "/1.1/account/settings.json", options)
+          response = send(request_method.to_sym, '/1.1/account/settings.json', options)
           # https://dev.twitter.com/issues/59
           response.update(:trend_location => Array(response[:trend_location]).first)
           Twitter::Settings.from_response(response)
@@ -47,7 +47,7 @@ module Twitter
         # @param options [Hash] A customizable set of options.
         # @option options [Boolean, String, Integer] :skip_status Do not include user's Tweets when set to true, 't' or 1.
         def verify_credentials(options = {})
-          object_from_response(Twitter::User, :get, "/1.1/account/verify_credentials.json", options)
+          object_from_response(Twitter::User, :get, '/1.1/account/verify_credentials.json', options)
         end
         alias_method :current_user, :verify_credentials
 
@@ -61,7 +61,7 @@ module Twitter
         # @param device [String] Must be one of: 'sms', 'none'.
         # @param options [Hash] A customizable set of options.
         def update_delivery_device(device, options = {})
-          object_from_response(Twitter::User, :post, "/1.1/account/update_delivery_device.json", options.merge(:device => device))
+          object_from_response(Twitter::User, :post, '/1.1/account/update_delivery_device.json', options.merge(:device => device))
         end
 
         # Sets values that users are able to set under the "Account" tab of their settings page
@@ -78,7 +78,7 @@ module Twitter
         # @option options [String] :location The city or country describing where the user of the account is located. The contents are not normalized or geocoded in any way. Maximum of 30 characters.
         # @option options [String] :description A description of the user owning the account. Maximum of 160 characters.
         def update_profile(options = {})
-          object_from_response(Twitter::User, :post, "/1.1/account/update_profile.json", options)
+          object_from_response(Twitter::User, :post, '/1.1/account/update_profile.json', options)
         end
 
         # Updates the authenticating user's profile background image
@@ -92,7 +92,7 @@ module Twitter
         # @param options [Hash] A customizable set of options.
         # @option options [Boolean] :tile Whether or not to tile the background image. If set to true the background image will be displayed tiled. The image will not be tiled otherwise.
         def update_profile_background_image(image, options = {})
-          object_from_response(Twitter::User, :post, "/1.1/account/update_profile_background_image.json", options.merge(:image => image))
+          object_from_response(Twitter::User, :post, '/1.1/account/update_profile_background_image.json', options.merge(:image => image))
         end
 
         # Sets one or more hex values that control the color scheme of the authenticating user's profile
@@ -109,7 +109,7 @@ module Twitter
         # @option options [String] :profile_sidebar_fill_color Profile sidebar's background color.
         # @option options [String] :profile_sidebar_border_color Profile sidebar's border color.
         def update_profile_colors(options = {})
-          object_from_response(Twitter::User, :post, "/1.1/account/update_profile_colors.json", options)
+          object_from_response(Twitter::User, :post, '/1.1/account/update_profile_colors.json', options)
         end
 
         # Updates the authenticating user's profile image
@@ -124,7 +124,7 @@ module Twitter
         # @param image [File] The avatar image for the profile, base64-encoded. Must be a valid GIF, JPG, or PNG image of less than 700 kilobytes in size. Images with width larger than 500 pixels will be scaled down. Animated GIFs will be converted to a static GIF of the first frame, removing the animation.
         # @param options [Hash] A customizable set of options.
         def update_profile_image(image, options = {})
-          object_from_response(Twitter::User, :post, "/1.1/account/update_profile_image.json", options.merge(:image => image))
+          object_from_response(Twitter::User, :post, '/1.1/account/update_profile_image.json', options.merge(:image => image))
         end
 
         # Returns an array of user objects that the authenticating user is blocking
@@ -137,7 +137,7 @@ module Twitter
         # @param options [Hash] A customizable set of options.
         # @option options [Integer] :page Specifies the page of results to retrieve.
         def blocking(options = {})
-          cursor_from_response(:users, Twitter::User, :get, "/1.1/blocks/list.json", options)
+          cursor_from_response(:users, Twitter::User, :get, '/1.1/blocks/list.json', options)
         end
 
         # Returns an array of numeric user ids the authenticating user is blocking
@@ -152,7 +152,7 @@ module Twitter
         def blocked_ids(*args)
           arguments = Twitter::Arguments.new(args)
           merge_user!(arguments.options, arguments.pop)
-          cursor_from_response(:ids, nil, :get, "/1.1/blocks/ids.json", arguments.options)
+          cursor_from_response(:ids, nil, :get, '/1.1/blocks/ids.json', arguments.options)
         end
 
         # Returns true if the authenticating user is blocking a target user
@@ -191,7 +191,7 @@ module Twitter
         #   @param users [Enumerable<Integer, String, Twitter::User>] A collection of Twitter user IDs, screen names, or objects.
         #   @param options [Hash] A customizable set of options.
         def block(*args)
-          threaded_user_objects_from_response(:post, "/1.1/blocks/create.json", args)
+          threaded_user_objects_from_response(:post, '/1.1/blocks/create.json', args)
         end
 
         # Un-blocks the users specified by the authenticating user
@@ -207,7 +207,7 @@ module Twitter
         #   @param users [Enumerable<Integer, String, Twitter::User>] A collection of Twitter user IDs, screen names, or objects.
         #   @param options [Hash] A customizable set of options.
         def unblock(*args)
-          threaded_user_objects_from_response(:post, "/1.1/blocks/destroy.json", args)
+          threaded_user_objects_from_response(:post, '/1.1/blocks/destroy.json', args)
         end
 
         # Returns extended information for up to 100 users
@@ -228,7 +228,7 @@ module Twitter
           arguments = Twitter::Arguments.new(args)
           method = arguments.options.delete(:method) || :post
           arguments.flatten.each_slice(MAX_USERS_PER_REQUEST).threaded_map do |users|
-            objects_from_response(Twitter::User, method, "/1.1/users/lookup.json", merge_users(arguments.options, users))
+            objects_from_response(Twitter::User, method, '/1.1/users/lookup.json', merge_users(arguments.options, users))
           end.flatten
         end
 
@@ -254,7 +254,7 @@ module Twitter
           arguments = Twitter::Arguments.new(args)
           if arguments.last
             merge_user!(arguments.options, arguments.pop)
-            object_from_response(Twitter::User, :get, "/1.1/users/show.json", arguments.options)
+            object_from_response(Twitter::User, :get, '/1.1/users/show.json', arguments.options)
           else
             verify_credentials(arguments.options)
           end
@@ -269,7 +269,7 @@ module Twitter
         # @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, URI, or object.
         def user?(user, options = {})
           merge_user!(options, user)
-          get("/1.1/users/show.json", options)
+          get('/1.1/users/show.json', options)
           true
         rescue Twitter::Error::NotFound
           false
@@ -287,7 +287,7 @@ module Twitter
         # @option options [Integer] :count The number of people to retrieve. Maxiumum of 20 allowed per page.
         # @option options [Integer] :page Specifies the page of results to retrieve.
         def user_search(query, options = {})
-          objects_from_response(Twitter::User, :get, "/1.1/users/search.json", options.merge(:q => query))
+          objects_from_response(Twitter::User, :get, '/1.1/users/search.json', options.merge(:q => query))
         end
 
         # Returns an array of users that the specified user can contribute to
@@ -305,7 +305,7 @@ module Twitter
         #   @param options [Hash] A customizable set of options.
         #   @option options [Boolean, String, Integer] :skip_status Do not include contributee's Tweets when set to true, 't' or 1.
         def contributees(*args)
-          user_objects_from_response(:get, "/1.1/users/contributees.json", args)
+          user_objects_from_response(:get, '/1.1/users/contributees.json', args)
         end
 
         # Returns an array of users who can contribute to the specified account
@@ -323,7 +323,7 @@ module Twitter
         #   @param options [Hash] A customizable set of options.
         #   @option options [Boolean, String, Integer] :skip_status Do not include contributee's Tweets when set to true, 't' or 1.
         def contributors(*args)
-          user_objects_from_response(:get, "/1.1/users/contributors.json", args)
+          user_objects_from_response(:get, '/1.1/users/contributors.json', args)
         end
 
         # Removes the authenticating user's profile banner image
@@ -335,7 +335,7 @@ module Twitter
         # @return [nil]
         # @param options [Hash] A customizable set of options.
         def remove_profile_banner(options = {})
-          post("/1.1/account/remove_profile_banner.json", options)[:body]
+          post('/1.1/account/remove_profile_banner.json', options)[:body]
         end
         deprecate_alias :profile_banner_remove, :remove_profile_banner
 
@@ -357,7 +357,7 @@ module Twitter
         # @option options [Integer] :offset_left The number of pixels by which to offset the uploaded image from the left. Use with height, width, and offset_top to select the desired region of the image to use.
         # @option options [Integer] :offset_top The number of pixels by which to offset the uploaded image from the top. Use with height, width, and offset_left to select the desired region of the image to use.
         def update_profile_banner(banner, options = {})
-          post("/1.1/account/update_profile_banner.json", options.merge(:banner => banner))[:body]
+          post('/1.1/account/update_profile_banner.json', options.merge(:banner => banner))[:body]
         end
 
         # Returns the available size variations of the specified user's profile banner.
@@ -374,7 +374,7 @@ module Twitter
         def profile_banner(*args)
           arguments = Twitter::Arguments.new(args)
           merge_user!(arguments.options, arguments.pop || screen_name) unless arguments.options[:user_id] || arguments.options[:screen_name]
-          object_from_response(Twitter::ProfileBanner, :get, "/1.1/users/profile_banner.json", arguments.options)
+          object_from_response(Twitter::ProfileBanner, :get, '/1.1/users/profile_banner.json', arguments.options)
         end
 
       end
