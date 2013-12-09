@@ -1,6 +1,5 @@
 module Twitter
   class NullObject
-
     # @return [TrueClass] This method always returns true.
     def nil?
       true
@@ -20,6 +19,5 @@ module Twitter
     def respond_to_missing?(method_name, include_private = false)
       true
     end if RUBY_VERSION >= '1.9'
-
   end
 end

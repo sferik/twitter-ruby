@@ -51,7 +51,6 @@ module Twitter
         def tos(options = {})
           get('/1.1/help/tos.json', options)[:body][:tos]
         end
-
       end
     end
   end

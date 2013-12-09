@@ -86,7 +86,6 @@ module Twitter
           end
         end
         deprecate_alias :saved_search_destroy, :destroy_saved_search
-
       end
     end
   end

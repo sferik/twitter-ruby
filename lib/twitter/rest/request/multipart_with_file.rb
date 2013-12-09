@@ -29,7 +29,6 @@ module Twitter
             'application/octet-stream'
           end
         end
-
       end
     end
   end

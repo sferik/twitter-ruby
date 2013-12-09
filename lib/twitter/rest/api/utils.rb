@@ -11,15 +11,12 @@ module Twitter
         URI_SUBSTRING = '://'
 
         class << self
-
           def included(base)
             base.extend(ClassMethods)
           end
-
         end
 
         module ClassMethods
-
           private
 
           def deprecate_alias(new_name, old_name)
@@ -28,7 +25,6 @@ module Twitter
               send(old_name, *args, &block)
             end
           end
-
         end
 
       private
@@ -76,7 +72,7 @@ module Twitter
         # @param path [String]
         # @param args [Array]
         # @return [Array]
-        def objects_from_response_with_user(klass, request_method, path, args)
+        def objects_from_response_with_user(klass, request_method, path, args) # rubocop:disable ParameterLists
           arguments = Twitter::Arguments.new(args)
           merge_user!(arguments.options, arguments.pop)
           objects_from_response(klass, request_method, path, arguments.options)
@@ -87,7 +83,7 @@ module Twitter
         # @param path [String]
         # @param options [Hash]
         # @return [Array]
-        def objects_from_response(klass, request_method, path, options = {})
+        def objects_from_response(klass, request_method, path, options = {}) # rubocop:disable ParameterLists
           response = send(request_method.to_sym, path, options)[:body]
           objects_from_array(klass, response)
         end
@@ -106,7 +102,7 @@ module Twitter
         # @param path [String]
         # @param args [Array]
         # @return [Array]
-        def threaded_objects_from_response(klass, request_method, path, args)
+        def threaded_objects_from_response(klass, request_method, path, args) # rubocop:disable ParameterLists
           arguments = Twitter::Arguments.new(args)
           arguments.flatten.threaded_map do |object|
             id = extract_id(object)
@@ -119,7 +115,7 @@ module Twitter
         # @param path [String]
         # @param options [Hash]
         # @return [Object]
-        def object_from_response(klass, request_method, path, options = {})
+        def object_from_response(klass, request_method, path, options = {}) # rubocop:disable ParameterLists
           response = send(request_method.to_sym, path, options)
           klass.from_response(response)
         end
@@ -130,7 +126,7 @@ module Twitter
         # @param path [String]
         # @param args [Array]
         # @return [Twitter::Cursor]
-        def cursor_from_response_with_user(collection_name, klass, request_method, path, args)
+        def cursor_from_response_with_user(collection_name, klass, request_method, path, args) # rubocop:disable ParameterLists
           arguments = Twitter::Arguments.new(args)
           merge_user!(arguments.options, arguments.pop || screen_name) unless arguments.options[:user_id] || arguments.options[:screen_name]
           cursor_from_response(collection_name, klass, request_method, path, arguments.options)
@@ -142,7 +138,7 @@ module Twitter
         # @param path [String]
         # @param options [Hash]
         # @return [Twitter::Cursor]
-        def cursor_from_response(collection_name, klass, request_method, path, options)
+        def cursor_from_response(collection_name, klass, request_method, path, options) # rubocop:disable ParameterLists
           merge_default_cursor!(options)
           response = send(request_method.to_sym, path, options)
           Twitter::Cursor.from_response(response, collection_name.to_sym, klass, self, request_method, path, options)
@@ -192,7 +188,7 @@ module Twitter
           end
         end
 
-        def set_compound_key(key, value, hash, prefix = nil)
+        def set_compound_key(key, value, hash, prefix = nil) # rubocop:disable ParameterLists
           compound_key = [prefix, key].compact.join('_').to_sym
           hash[compound_key] = value
           hash
@@ -219,7 +215,7 @@ module Twitter
           hash
         end
 
-        def collect_user_ids_and_screen_names(users)
+        def collect_user_ids_and_screen_names(users) # rubocop:disable MethodLength
           user_ids, screen_names = [], []
           users.flatten.each do |user|
             case user
@@ -239,7 +235,6 @@ module Twitter
           end
           [user_ids, screen_names]
         end
-
       end
     end
   end

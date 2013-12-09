@@ -18,6 +18,5 @@ module Twitter
       !!@attrs[:created_at]
     end
     memoize :created?
-
   end
 end

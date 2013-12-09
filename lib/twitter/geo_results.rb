@@ -9,7 +9,6 @@ module Twitter
     alias_method :to_hsh, :attrs
 
     class << self
-
       # Construct a new GeoResults object from a response hash
       #
       # @param response [Hash]
@@ -17,7 +16,6 @@ module Twitter
       def from_response(response = {})
         new(response[:body])
       end
-
     end
 
     # Initializes a new GeoResults object
@@ -35,6 +33,5 @@ module Twitter
     def token
       @attrs[:token]
     end
-
   end
 end

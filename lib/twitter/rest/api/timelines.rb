@@ -195,7 +195,6 @@ module Twitter
           collection += tweets
           tweets.empty? ? collection.flatten : collect_with_max_id(collection, tweets.last.id - 1, &block)
         end
-
       end
     end
   end

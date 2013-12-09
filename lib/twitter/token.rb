@@ -12,6 +12,5 @@ module Twitter
       @attrs[:token_type] == BEARER_TYPE
     end
     memoize :bearer?
-
   end
 end

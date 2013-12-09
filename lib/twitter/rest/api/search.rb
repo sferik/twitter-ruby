@@ -30,7 +30,6 @@ module Twitter
         def search(q, options = {})
           object_from_response(Twitter::SearchResults, :get, '/1.1/search/tweets.json', options.merge(:q => q))
         end
-
       end
     end
   end

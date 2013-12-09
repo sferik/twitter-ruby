@@ -3,7 +3,6 @@ require 'buftok'
 module Twitter
   module Streaming
     class Response
-
       # Initializes a new Response object
       #
       # @return [Twitter::Streaming::Response]
@@ -28,7 +27,6 @@ module Twitter
           @block.call(JSON.parse(line, :symbolize_names => true))
         end
       end
-
     end
   end
 end

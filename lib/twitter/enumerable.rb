@@ -10,6 +10,5 @@ module Twitter
       end
       self
     end
-
   end
 end

@@ -29,7 +29,6 @@ module Twitter
     alias_method :tweeted?, :status?
 
     class << self
-
     private
 
       def alias_predicate_uri_methods(method)
@@ -41,7 +40,6 @@ module Twitter
       def alias_method_sub(method, pattern, replacement)
         alias_method(method.to_s.sub(pattern, replacement).to_sym, method)
       end
-
     end
 
     # @return [Array<Twitter::Entity::URI>]
@@ -139,6 +137,5 @@ module Twitter
     def profile_image_suffix(size)
       :original == size.to_sym ? '\\1' : "_#{size}\\1"
     end
-
   end
 end

@@ -65,6 +65,5 @@ module Twitter
       uri = Addressable::URI.parse(uri)
       SimpleOAuth::Header.new(method, uri, params, credentials)
     end
-
   end
 end

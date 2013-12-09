@@ -28,7 +28,6 @@ module Twitter
     end
 
     class << self
-
       # Create a new error from an HTTP response
       #
       # @param response [Hash]
@@ -66,7 +65,6 @@ module Twitter
           [first.chomp, nil]
         end
       end
-
     end
 
     # Initializes a new Error object
@@ -75,12 +73,11 @@ module Twitter
     # @param response_headers [Hash]
     # @param code [Integer]
     # @return [Twitter::Error]
-    def initialize(exception = $!, response_headers = {}, code = nil)
+    def initialize(exception = $ERROR_INFO, response_headers = {}, code = nil) # rubocop:disable MethodLength
       @rate_limit = RateLimit.new(response_headers)
       @wrapped_exception = exception
       @code = code
       exception.respond_to?(:message) ? super(exception.message) : super(exception.to_s)
     end
-
   end
 end

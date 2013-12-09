@@ -98,13 +98,13 @@ module Twitter
 
     private
 
-      def request(method, uri, params, &block)
+      def request(method, uri, params, &block) # rubocop:disable ParameterLists
         before_request.call
         headers  = default_headers.merge(:authorization => oauth_auth_header(method, uri, params).to_s)
         request  = HTTP::Request.new(method, uri + '?' + to_url_params(params), headers)
         response = Streaming::Response.new do |data|
-          if item = Streaming::MessageParser.parse(data)
-            yield item
+          if item = Streaming::MessageParser.parse(data) # rubocop:disable AssignmentInCondition, IfUnlessModifier
+            block.call(item)
           end
         end
         @connection.stream(request, response)
@@ -137,7 +137,6 @@ module Twitter
         end
         user_ids
       end
-
     end
   end
 end

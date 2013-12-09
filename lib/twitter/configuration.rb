@@ -18,6 +18,5 @@ module Twitter
       end
     end
     memoize :photo_sizes
-
   end
 end

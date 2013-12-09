@@ -28,6 +28,5 @@ module Twitter
     end
     memoize :uri
     alias_method :url, :uri
-
   end
 end

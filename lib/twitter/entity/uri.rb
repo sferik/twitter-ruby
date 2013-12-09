@@ -7,8 +7,8 @@ module Twitter
       uri_attr_reader :expanded_uri, :uri
     end
 
-    Uri = URI
     URL = URI
-    Url = URI
+    Uri = URI # rubocop:disable ConstantName
+    Url = URI # rubocop:disable ConstantName
   end
 end

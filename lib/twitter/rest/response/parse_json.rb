@@ -5,7 +5,6 @@ module Twitter
   module REST
     module Response
       class ParseJson < Faraday::Response::Middleware
-
         def parse(body)
           case body
           when /\A^\s*$\z/, nil
@@ -24,7 +23,6 @@ module Twitter
         def unparsable_status_codes
           [204, 301, 302, 304]
         end
-
       end
     end
   end

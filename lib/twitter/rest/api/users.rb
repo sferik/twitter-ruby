@@ -376,7 +376,6 @@ module Twitter
           merge_user!(arguments.options, arguments.pop || screen_name) unless arguments.options[:user_id] || arguments.options[:screen_name]
           object_from_response(Twitter::ProfileBanner, :get, '/1.1/users/profile_banner.json', arguments.options)
         end
-
       end
     end
   end

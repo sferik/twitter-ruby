@@ -55,7 +55,6 @@ module Twitter
           end
           response.body
         end
-
       end
     end
   end

@@ -107,8 +107,6 @@ module Twitter
         []
       end
     end
-
   end
-
-  Status = Tweet
+  Status = Tweet # rubocop:disable ConstantName
 end

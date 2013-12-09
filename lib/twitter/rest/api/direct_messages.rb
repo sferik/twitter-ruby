@@ -131,7 +131,6 @@ module Twitter
         alias_method :m, :create_direct_message
         alias_method :dm, :create_direct_message
         deprecate_alias :direct_message_create, :create_direct_message
-
       end
     end
   end

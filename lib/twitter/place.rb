@@ -40,6 +40,5 @@ module Twitter
       @attrs[:place_type] || @attrs[:placeType] && @attrs[:placeType][:name] # rubocop:disable SymbolName
     end
     memoize :place_type
-
   end
 end
