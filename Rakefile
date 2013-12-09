@@ -25,4 +25,14 @@ end
 require 'yard'
 YARD::Rake::YardocTask.new
 
-task :default => [:spec, :rubocop]
+require 'yardstick/rake/measurement'
+Yardstick::Rake::Measurement.new do |measurement|
+  measurement.output = 'measurement/report.txt'
+end
+
+require 'yardstick/rake/verify'
+Yardstick::Rake::Verify.new do |verify|
+  verify.threshold = 60.1
+end
+
+task :default => [:spec, :rubocop, :verify_measurements]

@@ -15,6 +15,7 @@ group :development do
 end
 
 group :test do
+  gem 'backports'
   gem 'coveralls', :require => false
   gem 'mime-types', '~> 1.25', :platforms => :ruby_18
   gem 'rspec', '>= 2.14'
@@ -22,6 +23,7 @@ group :test do
   gem 'simplecov', :require => false
   gem 'timecop', '0.6.1'
   gem 'webmock'
+  gem 'yardstick'
 end
 
 platforms :rbx do

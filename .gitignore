@@ -1,11 +1,11 @@
 *.gem
-*.rbc
 *~
 .bundle
 .rvmrc
 .yardoc
+Gemfile.lock
 coverage/*
 doc/*
-Gemfile.lock
 log/*
+measurement/*
 pkg/*
