@@ -3,6 +3,6 @@ module Twitter
     class DeletedTweet < Twitter::Identity
       attr_reader :user_id
     end
-    DeletedStatus = DeletedTweet
+    DeletedStatus = DeletedTweet # rubocop:disable ConstantName
   end
 end

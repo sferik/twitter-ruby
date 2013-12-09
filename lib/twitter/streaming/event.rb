@@ -1,7 +1,6 @@
 module Twitter
   module Streaming
     class Event
-
       LIST_EVENTS = [
         :list_created, :list_destroyed, :list_updated, :list_member_added,
         :list_member_added, :list_member_removed, :list_user_subscribed,
@@ -31,7 +30,6 @@ module Twitter
           Twitter::Tweet.new(data)
         end
       end
-
     end
   end
 end

@@ -455,7 +455,7 @@ module Twitter
         # @param hash [Hash]
         # @param list [Integer, String, URI, Twitter::List] A Twitter list ID, slug, URI, or object.
         # @return [Hash]
-        def merge_list!(hash, list)
+        def merge_list!(hash, list) # rubocop:disable MethodLength
           case list
           when Integer
             hash[:list_id] = list
@@ -491,7 +491,6 @@ module Twitter
           end
           hash
         end
-
       end
     end
   end

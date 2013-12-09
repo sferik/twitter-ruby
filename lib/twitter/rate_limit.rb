@@ -1,6 +1,5 @@
 module Twitter
   class RateLimit < Twitter::Base
-
     # @return [Integer]
     def limit
       limit = @attrs['x-rate-limit-limit']
@@ -27,6 +26,5 @@ module Twitter
       [(reset_at - Time.now).ceil, 0].max if reset_at
     end
     alias_method :retry_after, :reset_in
-
   end
 end

@@ -108,7 +108,6 @@ module Twitter
         alias_method :fav!, :favorite!
         alias_method :fave!, :favorite!
         deprecate_alias :favorite_create!, :favorite!
-
       end
     end
   end

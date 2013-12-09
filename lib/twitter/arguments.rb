@@ -9,6 +9,5 @@ module Twitter
       @options = args.last.is_a?(::Hash) ? args.pop : {}
       super(args)
     end
-
   end
 end

@@ -79,7 +79,6 @@ module Twitter
           object_from_response(Twitter::GeoResults, :get, '/1.1/geo/similar_places.json', options)
         end
         alias_method :places_similar, :similar_places
-
       end
     end
   end

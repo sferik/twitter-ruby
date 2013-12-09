@@ -9,7 +9,6 @@ module Twitter
     alias_method :to_hsh, :attrs
 
     class << self
-
       # Construct a new SearchResults object from a response hash
       #
       # @param response [Hash]
@@ -17,7 +16,6 @@ module Twitter
       def from_response(response = {})
         new(response[:body])
       end
-
     end
 
     # Initializes a new SearchResults object
@@ -134,6 +132,5 @@ module Twitter
     def symbolize_keys(hash)
       Hash[hash.map { |key, value| [key.to_sym, value] }]
     end
-
   end
 end

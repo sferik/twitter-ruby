@@ -6,7 +6,7 @@ module Twitter
     class TooManyRequests < Twitter::Error
       HTTP_STATUS_CODE = 429
     end
-    EnhanceYourCalm = TooManyRequests
-    RateLimited = TooManyRequests
+    EnhanceYourCalm = TooManyRequests # rubocop:disable ConstantName
+    RateLimited = TooManyRequests # rubocop:disable ConstantName
   end
 end

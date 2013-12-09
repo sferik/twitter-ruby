@@ -51,7 +51,6 @@ module Twitter
         def trends_closest(options = {})
           objects_from_response(Twitter::Place, :get, '/1.1/trends/closest.json', options)
         end
-
       end
     end
   end

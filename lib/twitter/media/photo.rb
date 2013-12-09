@@ -17,7 +17,6 @@ module Twitter
         end
       end
       memoize :sizes
-
     end
   end
 end

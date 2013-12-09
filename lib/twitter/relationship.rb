@@ -12,6 +12,5 @@ module Twitter
     def initialize(attrs = {})
       @attrs = attrs[:relationship]
     end
-
   end
 end

@@ -142,6 +142,7 @@ module Twitter
             rescue Twitter::Error::Forbidden
               # This error will be raised if the user doesn't have permission to
               # follow list_member, for whatever reason.
+              next
             end
           end.compact
         end
@@ -280,7 +281,6 @@ module Twitter
           get('/1.1/friendships/no_retweets/ids.json', options)[:body].map(&:to_i)
         end
         alias_method :no_retweets_ids, :no_retweet_ids
-
       end
     end
   end

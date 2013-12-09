@@ -295,7 +295,6 @@ module Twitter
           retweeted_status[:body][:retweeted_status] = response[:body]
           Twitter::Tweet.from_response(retweeted_status)
         end
-
       end
     end
   end

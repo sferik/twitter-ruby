@@ -14,7 +14,6 @@ module Twitter
     alias_method :to_hsh, :attrs
 
     class << self
-
       # Construct a new TrendResults object from a response hash
       #
       # @param response [Hash]
@@ -22,7 +21,6 @@ module Twitter
       def from_response(response = {})
         new(response[:body].first)
       end
-
     end
 
     # Initializes a new TrendResults object
@@ -60,6 +58,5 @@ module Twitter
       !@attrs[:locations].nil? && !@attrs[:locations].first.nil?
     end
     memoize :location?
-
   end
 end

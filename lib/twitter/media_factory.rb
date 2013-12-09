@@ -3,9 +3,7 @@ require 'twitter/media/photo'
 
 module Twitter
   class MediaFactory < Twitter::Factory
-
     class << self
-
       # Construct a new media object
       #
       # @param attrs [Hash]
@@ -14,8 +12,6 @@ module Twitter
       def new(attrs = {})
         super(:type, Media, attrs)
       end
-
     end
-
   end
 end

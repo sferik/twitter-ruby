@@ -22,7 +22,6 @@ module Twitter
         def report_spam(*args)
           threaded_user_objects_from_response(:post, '/1.1/users/report_spam.json', args)
         end
-
       end
     end
   end

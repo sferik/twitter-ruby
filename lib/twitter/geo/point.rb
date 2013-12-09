@@ -3,7 +3,6 @@ require 'twitter/geo'
 module Twitter
   class Geo
     class Point < Twitter::Geo
-
       # @return [Integer]
       def latitude
         coordinates[0]
@@ -16,7 +15,6 @@ module Twitter
       end
       alias_method :long, :longitude
       alias_method :lng, :longitude
-
     end
   end
 end

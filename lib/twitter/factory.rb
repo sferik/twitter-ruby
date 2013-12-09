@@ -1,8 +1,6 @@
 module Twitter
   class Factory
-
     class << self
-
       # Construct a new object
       #
       # @param method [Symbol]
@@ -15,8 +13,6 @@ module Twitter
         const_name = type.gsub(/\/(.?)/) { "::#{Regexp.last_match[1].upcase}" }.gsub(/(?:^|_)(.)/) { Regexp.last_match[1].upcase }
         klass.const_get(const_name.to_sym).new(attrs)
       end
-
     end
-
   end
 end

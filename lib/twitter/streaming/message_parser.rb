@@ -8,8 +8,7 @@ require 'twitter/tweet'
 module Twitter
   module Streaming
     class MessageParser
-
-      def self.parse(data)
+      def self.parse(data) # rubocop:disable CyclomaticComplexity
         if data[:id]
           Tweet.new(data)
         elsif data[:event]
@@ -24,7 +23,6 @@ module Twitter
           StallWarning.new(data[:warning])
         end
       end
-
     end
   end
 end

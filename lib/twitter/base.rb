@@ -13,7 +13,6 @@ module Twitter
     alias_method :to_hsh, :attrs
 
     class << self
-
       # Construct an object from a response hash
       #
       # @param response [Hash]
@@ -110,7 +109,6 @@ module Twitter
         end
         memoize(:"#{key1}?")
       end
-
     end
 
     # Initializes a new object
@@ -140,6 +138,5 @@ module Twitter
         attrs.delete(key1).merge(key2 => attrs)
       end
     end
-
   end
 end

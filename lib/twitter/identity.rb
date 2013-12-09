@@ -15,6 +15,5 @@ module Twitter
       attrs.fetch(:id)
       super
     end
-
   end
 end

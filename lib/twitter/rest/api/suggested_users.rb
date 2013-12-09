@@ -44,7 +44,6 @@ module Twitter
         def suggest_users(slug, options = {})
           objects_from_response(Twitter::User, :get, "/1.1/users/suggestions/#{slug}/members.json", options)
         end
-
       end
     end
   end

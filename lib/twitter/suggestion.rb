@@ -13,6 +13,5 @@ module Twitter
       end
     end
     memoize :users
-
   end
 end

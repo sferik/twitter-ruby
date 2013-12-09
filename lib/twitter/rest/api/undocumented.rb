@@ -45,7 +45,6 @@ module Twitter
           connection = Faraday.new('https://cdn.api.twitter.com', connection_options.merge(:builder => middleware))
           connection.get('/1/urls/count.json', options.merge(:url => uri.to_s)).body[:count]
         end
-
       end
     end
   end
