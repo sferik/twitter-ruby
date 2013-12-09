@@ -21,4 +21,8 @@ group :test do
   gem 'webmock'
 end
 
+platforms :rbx do
+  gem 'rubysl-singleton', '~> 2.0'
+end
+
 gemspec
