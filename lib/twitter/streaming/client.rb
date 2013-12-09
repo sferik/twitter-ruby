@@ -112,7 +112,7 @@ module Twitter
 
       def to_url_params(params)
         params.map do |param, value|
-          [param, URI.encode(value)].join('=')
+          [param, URI.encode(value.to_s)].join('=')
         end.sort.join('&')
       end
 
