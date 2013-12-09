@@ -99,7 +99,7 @@ describe Twitter::Place do
       expect(place.country_code).to eq('US')
     end
     it 'returns a country code when set with countryCode' do
-      place = Twitter::Place.new(:woeid => '247f43d441defc03', :countryCode => 'US')
+      place = Twitter::Place.new(:woeid => '247f43d441defc03', :countryCode => 'US') # rubocop:disable SymbolName
       expect(place.country_code).to eq('US')
     end
     it 'returns nil when not set' do
@@ -125,7 +125,7 @@ describe Twitter::Place do
       expect(place.place_type).to eq('city')
     end
     it 'returns a place type when set with placeType[name]' do
-      place = Twitter::Place.new(:woeid => '247f43d441defc03', :placeType => {:name => 'Town'})
+      place = Twitter::Place.new(:woeid => '247f43d441defc03', :placeType => {:name => 'Town'}) # rubocop:disable SymbolName
       expect(place.place_type).to eq('Town')
     end
     it 'returns nil when not set' do

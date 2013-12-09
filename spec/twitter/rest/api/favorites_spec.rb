@@ -107,7 +107,7 @@ describe Twitter::REST::API::Favorites do
         stub_post('/1.1/favorites/create.json').with(:body => {:id => '25938088801'}).to_return(:status => 403, :body => fixture('already_favorited.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
       end
       it 'does not raises an error' do
-        expect{@client.favorite(25_938_088_801)}.not_to raise_error
+        expect { @client.favorite(25_938_088_801) }.not_to raise_error
       end
     end
     context 'with a URI object passed' do
@@ -151,7 +151,7 @@ describe Twitter::REST::API::Favorites do
         stub_post('/1.1/favorites/create.json').with(:body => {:id => '25938088801'}).to_return(:status => 403, :headers => {:content_type => 'application/json; charset=utf-8'})
       end
       it 'raises a Forbidden error' do
-        expect{@client.favorite!(25_938_088_801)}.to raise_error Twitter::Error::Forbidden
+        expect { @client.favorite!(25_938_088_801) }.to raise_error Twitter::Error::Forbidden
       end
     end
     context 'already favorited' do
@@ -159,7 +159,7 @@ describe Twitter::REST::API::Favorites do
         stub_post('/1.1/favorites/create.json').with(:body => {:id => '25938088801'}).to_return(:status => 403, :body => fixture('already_favorited.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
       end
       it 'raises an AlreadyFavorited error' do
-        expect{@client.favorite!(25_938_088_801)}.to raise_error Twitter::Error::AlreadyFavorited
+        expect { @client.favorite!(25_938_088_801) }.to raise_error Twitter::Error::AlreadyFavorited
       end
     end
     context 'with a URI object passed' do

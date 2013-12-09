@@ -8,13 +8,13 @@ describe Twitter::SearchResults do
     end
     it 'iterates' do
       count = 0
-      @search_results.each{count += 1}
+      @search_results.each { count += 1 }
       expect(count).to eq(6)
     end
     context 'with start' do
       it 'iterates' do
         count = 0
-        @search_results.each(5){count += 1}
+        @search_results.each(5) { count += 1 }
         expect(count).to eq(1)
       end
     end
@@ -102,7 +102,7 @@ describe Twitter::SearchResults do
       expect(next_results).to be false
     end
     it 'returns false is search_metadata is not set' do
-      next_results = Twitter::SearchResults.new().next_results?
+      next_results = Twitter::SearchResults.new.next_results?
       expect(next_results).to be false
     end
   end

@@ -9,6 +9,7 @@ describe Twitter::Streaming::Client do
     def initialize(body)
       @body = body
     end
+
     def stream(request, response)
       @body.each_line do |line|
         response.on_body(line)
@@ -23,7 +24,7 @@ describe Twitter::Streaming::Client do
       var = true
     end
     expect(var).to be false
-    @client.user{}
+    @client.user {}
     expect(var).to be true
   end
 
@@ -79,7 +80,7 @@ describe Twitter::Streaming::Client do
     end
     expect(objects.size).to eq(6)
     expect(objects[0]).to be_a Twitter::Streaming::FriendList
-    expect(objects[0]).to eq([488_736_931,311_444_249])
+    expect(objects[0]).to eq([488_736_931, 311_444_249])
     expect(objects[1]).to be_a Twitter::Tweet
     expect(objects[1].text).to eq("The problem with your code is that it's doing exactly what you told it to do.")
     expect(objects[2]).to be_a Twitter::DirectMessage

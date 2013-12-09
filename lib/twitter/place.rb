@@ -25,7 +25,7 @@ module Twitter
 
     # @return [String]
     def country_code
-      @attrs[:country_code] || @attrs[:countryCode]
+      @attrs[:country_code] || @attrs[:countryCode] # rubocop:disable SymbolName
     end
     memoize :country_code
 
@@ -37,7 +37,7 @@ module Twitter
 
     # @return [String]
     def place_type
-      @attrs[:place_type] || @attrs[:placeType] && @attrs[:placeType][:name]
+      @attrs[:place_type] || @attrs[:placeType] && @attrs[:placeType][:name] # rubocop:disable SymbolName
     end
     memoize :place_type
 

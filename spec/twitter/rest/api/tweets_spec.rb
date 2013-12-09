@@ -223,7 +223,7 @@ describe Twitter::REST::API::Tweets do
         stub_post('/1.1/statuses/update.json').to_return(:status => 403, :body => fixture('already_posted.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
       end
       it 'raises an AlreadyPosted error' do
-        expect{@client.update("The problem with your code is that it's doing exactly what you told it to do.")}.to raise_error Twitter::Error::AlreadyPosted
+        expect { @client.update("The problem with your code is that it's doing exactly what you told it to do.") }.to raise_error Twitter::Error::AlreadyPosted
       end
     end
     context 'with an in-reply-to status' do
@@ -287,7 +287,7 @@ describe Twitter::REST::API::Tweets do
         stub_post('/1.1/statuses/retweet/25938088801.json').to_return(:status => 403, :body => fixture('already_retweeted.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
       end
       it 'does not raise an error' do
-        expect{@client.retweet(25_938_088_801)}.not_to raise_error
+        expect { @client.retweet(25_938_088_801) }.not_to raise_error
       end
     end
     context 'with a URI object passed' do
@@ -333,7 +333,7 @@ describe Twitter::REST::API::Tweets do
         stub_post('/1.1/statuses/retweet/25938088801.json').to_return(:status => 403, :headers => {:content_type => 'application/json; charset=utf-8'})
       end
       it 'raises a Forbidden error' do
-        expect{@client.retweet!(25_938_088_801)}.to raise_error Twitter::Error::Forbidden
+        expect { @client.retweet!(25_938_088_801) }.to raise_error Twitter::Error::Forbidden
       end
     end
     context 'already retweeted' do
@@ -341,7 +341,7 @@ describe Twitter::REST::API::Tweets do
         stub_post('/1.1/statuses/retweet/25938088801.json').to_return(:status => 403, :body => fixture('already_retweeted.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
       end
       it 'raises an AlreadyRetweeted error' do
-        expect{@client.retweet!(25_938_088_801)}.to raise_error Twitter::Error::AlreadyRetweeted
+        expect { @client.retweet!(25_938_088_801) }.to raise_error Twitter::Error::AlreadyRetweeted
       end
     end
     context 'with a URI object passed' do
@@ -410,7 +410,7 @@ describe Twitter::REST::API::Tweets do
         stub_post('/1.1/statuses/update_with_media.json').to_return(:status => 403, :body => fixture('already_posted.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
       end
       it 'raises an AlreadyPosted error' do
-        expect{@client.update_with_media("The problem with your code is that it's doing exactly what you told it to do.", fixture('pbjt.gif'))}.to raise_error Twitter::Error::AlreadyPosted
+        expect { @client.update_with_media("The problem with your code is that it's doing exactly what you told it to do.", fixture('pbjt.gif')) }.to raise_error Twitter::Error::AlreadyPosted
       end
     end
   end
@@ -511,7 +511,7 @@ describe Twitter::REST::API::Tweets do
         stub_get('/1.1/statuses/retweeters/ids.json').with(:query => {:id => '25938088801', :cursor => '1305102810874389703'}).to_return(:body => fixture('ids_list2.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
       end
       it 'requests the correct resource' do
-        @client.retweeters_ids(25_938_088_801).each{}
+        @client.retweeters_ids(25_938_088_801).each {}
         expect(a_get('/1.1/statuses/retweeters/ids.json').with(:query => {:id => '25938088801', :cursor => '-1'})).to have_been_made
         expect(a_get('/1.1/statuses/retweeters/ids.json').with(:query => {:id => '25938088801', :cursor => '1305102810874389703'})).to have_been_made
       end

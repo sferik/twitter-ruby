@@ -36,7 +36,7 @@ describe Twitter::Error do
           stub_get('/1.1/statuses/user_timeline.json').with(:query => {:screen_name => 'sferik'}).to_return(:status => status, :body => body_message)
         end
         it "raises #{exception.name}" do
-          expect{@client.user_timeline('sferik')}.to raise_error exception
+          expect { @client.user_timeline('sferik') }.to raise_error exception
         end
       end
     end
@@ -49,7 +49,7 @@ describe Twitter::Error do
             stub_get('/1.1/statuses/user_timeline.json').with(:query => {:screen_name => 'sferik'}).to_return(:status => status, :body => body_message)
           end
           it "raises #{exception.name}" do
-            expect{@client.user_timeline('sferik')}.to raise_error{|error| expect(error.code).to be_nil}
+            expect { @client.user_timeline('sferik') }.to raise_error { |error| expect(error.code).to be_nil }
           end
           context 'when error code is 187' do
             before do
@@ -57,7 +57,7 @@ describe Twitter::Error do
               stub_get('/1.1/statuses/user_timeline.json').with(:query => {:screen_name => 'sferik'}).to_return(:status => status, :body => body_message)
             end
             it "raises #{exception.name}" do
-              expect{@client.user_timeline('sferik')}.to raise_error{|error| expect(error.code).to eq(187)}
+              expect { @client.user_timeline('sferik') }.to raise_error { |error| expect(error.code).to eq(187) }
             end
           end
         end
