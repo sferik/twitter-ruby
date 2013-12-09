@@ -21,7 +21,7 @@ module Twitter
 
           def deprecate_alias(new_name, old_name)
             define_method(new_name) do |*args, &block|
-              warn "#{Kernel.caller.first}: [DEPRECATION] ##{new_name} it deprecated. Use ##{old_name} instead."
+              warn "#{Kernel.caller.first}: [DEPRECATION] ##{new_name} is deprecated. Use ##{old_name} instead."
               send(old_name, *args, &block)
             end
           end
