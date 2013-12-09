@@ -9,17 +9,13 @@ describe Twitter::REST::Client do
   describe '.new' do
     context 'when invalid credentials are provided' do
       it 'raises a ConfigurationError exception' do
-        expect {
-          Twitter::REST::Client.new(:consumer_key => [12_345, 54_321])
-        }.to raise_exception(Twitter::Error::ConfigurationError)
+        expect { Twitter::REST::Client.new(:consumer_key => [12_345, 54_321]) }.to raise_exception(Twitter::Error::ConfigurationError)
       end
     end
 
     context 'when no credentials are provided' do
       it 'does not raise an exception' do
-        expect {
-          Twitter::REST::Client.new
-        }.not_to raise_error
+        expect { Twitter::REST::Client.new }.not_to raise_error
       end
     end
   end
@@ -52,7 +48,7 @@ describe Twitter::REST::Client do
       stub_delete('/custom/delete').with(:query => {:deleted => 'object'})
     end
     it 'allows custom delete requests' do
-      @client.delete('/custom/delete', {:deleted => 'object'})
+      @client.delete('/custom/delete', :deleted => 'object')
       expect(a_delete('/custom/delete').with(:query => {:deleted => 'object'})).to have_been_made
     end
   end
@@ -62,7 +58,7 @@ describe Twitter::REST::Client do
       stub_put('/custom/put').with(:body => {:updated => 'object'})
     end
     it 'allows custom put requests' do
-      @client.put('/custom/put', {:updated => 'object'})
+      @client.put('/custom/put', :updated => 'object')
       expect(a_put('/custom/put').with(:body => {:updated => 'object'})).to have_been_made
     end
   end
@@ -123,11 +119,11 @@ describe Twitter::REST::Client do
     end
     it 'catches Faraday errors' do
       allow(@client).to receive(:connection).and_raise(Faraday::Error::ClientError.new('Oops'))
-      expect{@client.send(:request, :get, '/path')}.to raise_error Twitter::Error
+      expect { @client.send(:request, :get, '/path') }.to raise_error Twitter::Error
     end
     it 'catches JSON::ParserError errors' do
       allow(@client).to receive(:connection).and_raise(JSON::ParserError.new('unexpected token'))
-      expect{@client.send(:request, :get, '/path')}.to raise_error Twitter::Error
+      expect { @client.send(:request, :get, '/path') }.to raise_error Twitter::Error
     end
   end
 

@@ -12,7 +12,7 @@ module Twitter
       # @return [Twitter::Base]
       def new(method, klass, attrs = {})
         type = attrs.fetch(method.to_sym)
-        const_name = type.gsub(/\/(.?)/){"::#{Regexp.last_match[1].upcase}"}.gsub(/(?:^|_)(.)/){Regexp.last_match[1].upcase}
+        const_name = type.gsub(/\/(.?)/) { "::#{Regexp.last_match[1].upcase}" }.gsub(/(?:^|_)(.)/) { Regexp.last_match[1].upcase }
         klass.const_get(const_name.to_sym).new(attrs)
       end
 

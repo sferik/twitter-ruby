@@ -132,7 +132,7 @@ module Twitter
     # @example Convert hash's keys to symbols
     #   symbolize_keys({"foo"=>"bar", "baz"=>"qux"}) #=> {:foo=>"bar", :baz=>"qux"}
     def symbolize_keys(hash)
-      Hash[hash.map{|key, value| [key.to_sym, value]}]
+      Hash[hash.map { |key, value| [key.to_sym, value] }]
     end
 
   end

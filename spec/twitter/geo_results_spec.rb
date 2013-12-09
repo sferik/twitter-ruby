@@ -8,13 +8,13 @@ describe Twitter::GeoResults do
     end
     it 'iterates' do
       count = 0
-      @geo_results.each{count += 1}
+      @geo_results.each { count += 1 }
       expect(count).to eq(6)
     end
     context 'with start' do
       it 'iterates' do
         count = 0
-        @geo_results.each(5){count += 1}
+        @geo_results.each(5) { count += 1 }
         expect(count).to eq(1)
       end
     end

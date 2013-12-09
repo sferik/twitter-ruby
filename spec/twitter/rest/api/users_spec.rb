@@ -190,7 +190,7 @@ describe Twitter::REST::API::Users do
         stub_get('/1.1/blocks/list.json').with(:query => {:cursor => '1322801608223717003'}).to_return(:body => fixture('users_list2.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
       end
       it 'requests the correct resource' do
-        @client.blocking.each{}
+        @client.blocking.each {}
         expect(a_get('/1.1/blocks/list.json').with(:query => {:cursor => '-1'})).to have_been_made
         expect(a_get('/1.1/blocks/list.json').with(:query => {:cursor => '1322801608223717003'})).to have_been_made
       end
@@ -215,7 +215,7 @@ describe Twitter::REST::API::Users do
         stub_get('/1.1/blocks/ids.json').with(:query => {:cursor => '1305102810874389703'}).to_return(:body => fixture('ids_list2.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
       end
       it 'requests the correct resource' do
-        @client.blocked_ids.each{}
+        @client.blocked_ids.each {}
         expect(a_get('/1.1/blocks/ids.json').with(:query => {:cursor => '-1'})).to have_been_made
         expect(a_get('/1.1/blocks/ids.json').with(:query => {:cursor => '1305102810874389703'})).to have_been_made
       end

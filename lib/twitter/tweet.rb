@@ -23,7 +23,7 @@ module Twitter
 
     # @return [Boolean]
     def entities?
-      !@attrs[:entities].nil? && @attrs[:entities].any?{|_, array| !array.empty?}
+      !@attrs[:entities].nil? && @attrs[:entities].any? { |_, array| !array.empty? }
     end
     memoize :entities?
 

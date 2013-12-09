@@ -52,13 +52,13 @@ describe Twitter::TrendResults do
     end
     it 'iterates' do
       count = 0
-      @trend_results.each{count += 1}
+      @trend_results.each { count += 1 }
       expect(count).to eq(6)
     end
     context 'with start' do
       it 'iterates' do
         count = 0
-        @trend_results.each(5){count += 1}
+        @trend_results.each(5) { count += 1 }
         expect(count).to eq(1)
       end
     end

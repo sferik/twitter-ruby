@@ -25,7 +25,7 @@ describe Twitter::REST::API::FriendsAndFollowers do
           stub_get('/1.1/friends/ids.json').with(:query => {:cursor => '1305102810874389703', :screen_name => 'sferik'}).to_return(:body => fixture('ids_list2.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
         end
         it 'requests the correct resource' do
-          @client.friend_ids('sferik').each{}
+          @client.friend_ids('sferik').each {}
           expect(a_get('/1.1/friends/ids.json').with(:query => {:cursor => '-1', :screen_name => 'sferik'})).to have_been_made
           expect(a_get('/1.1/friends/ids.json').with(:query => {:cursor => '1305102810874389703', :screen_name => 'sferik'})).to have_been_made
         end
@@ -44,7 +44,7 @@ describe Twitter::REST::API::FriendsAndFollowers do
           stub_get('/1.1/friends/ids.json').with(:query => {:cursor => '1305102810874389703', :user_id => '7505382'}).to_return(:body => fixture('ids_list2.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
         end
         it 'requests the correct resource' do
-          @client.friend_ids(7_505_382).each{}
+          @client.friend_ids(7_505_382).each {}
           expect(a_get('/1.1/friends/ids.json').with(:query => {:cursor => '-1', :user_id => '7505382'})).to have_been_made
           expect(a_get('/1.1/friends/ids.json').with(:query => {:cursor => '1305102810874389703', :user_id => '7505382'})).to have_been_made
         end
@@ -70,7 +70,7 @@ describe Twitter::REST::API::FriendsAndFollowers do
           stub_get('/1.1/friends/ids.json').with(:query => {:cursor => '1305102810874389703', :screen_name => 'sferik'}).to_return(:body => fixture('ids_list2.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
         end
         it 'requests the correct resource' do
-          @client.friend_ids.each{}
+          @client.friend_ids.each {}
           expect(a_get('/1.1/account/verify_credentials.json')).to have_been_made
           expect(a_get('/1.1/friends/ids.json').with(:query => {:cursor => '-1', :screen_name => 'sferik'})).to have_been_made
           expect(a_get('/1.1/friends/ids.json').with(:query => {:cursor => '1305102810874389703', :screen_name => 'sferik'})).to have_been_made
@@ -98,7 +98,7 @@ describe Twitter::REST::API::FriendsAndFollowers do
           stub_get('/1.1/followers/ids.json').with(:query => {:cursor => '1305102810874389703', :screen_name => 'sferik'}).to_return(:body => fixture('ids_list2.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
         end
         it 'requests the correct resource' do
-          @client.follower_ids('sferik').each{}
+          @client.follower_ids('sferik').each {}
           expect(a_get('/1.1/followers/ids.json').with(:query => {:cursor => '-1', :screen_name => 'sferik'})).to have_been_made
           expect(a_get('/1.1/followers/ids.json').with(:query => {:cursor => '1305102810874389703', :screen_name => 'sferik'})).to have_been_made
         end
@@ -117,7 +117,7 @@ describe Twitter::REST::API::FriendsAndFollowers do
           stub_get('/1.1/followers/ids.json').with(:query => {:cursor => '1305102810874389703', :user_id => '7505382'}).to_return(:body => fixture('ids_list2.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
         end
         it 'requests the correct resource' do
-          @client.follower_ids(7_505_382).each{}
+          @client.follower_ids(7_505_382).each {}
           expect(a_get('/1.1/followers/ids.json').with(:query => {:cursor => '-1', :user_id => '7505382'})).to have_been_made
           expect(a_get('/1.1/followers/ids.json').with(:query => {:cursor => '1305102810874389703', :user_id => '7505382'})).to have_been_made
         end
@@ -143,7 +143,7 @@ describe Twitter::REST::API::FriendsAndFollowers do
           stub_get('/1.1/followers/ids.json').with(:query => {:cursor => '1305102810874389703', :screen_name => 'sferik'}).to_return(:body => fixture('ids_list2.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
         end
         it 'requests the correct resource' do
-          @client.follower_ids.each{}
+          @client.follower_ids.each {}
           expect(a_get('/1.1/account/verify_credentials.json')).to have_been_made
           expect(a_get('/1.1/followers/ids.json').with(:query => {:cursor => '-1', :screen_name => 'sferik'})).to have_been_made
           expect(a_get('/1.1/followers/ids.json').with(:query => {:cursor => '1305102810874389703', :screen_name => 'sferik'})).to have_been_made
@@ -262,7 +262,7 @@ describe Twitter::REST::API::FriendsAndFollowers do
         stub_get('/1.1/friendships/incoming.json').with(:query => {:cursor => '1305102810874389703'}).to_return(:body => fixture('ids_list2.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
       end
       it 'requests the correct resource' do
-        @client.friendships_incoming.each{}
+        @client.friendships_incoming.each {}
         expect(a_get('/1.1/friendships/incoming.json').with(:query => {:cursor => '1305102810874389703'})).to have_been_made
       end
     end
@@ -286,7 +286,7 @@ describe Twitter::REST::API::FriendsAndFollowers do
         stub_get('/1.1/friendships/outgoing.json').with(:query => {:cursor => '1305102810874389703'}).to_return(:body => fixture('ids_list2.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
       end
       it 'requests the correct resource' do
-        @client.friendships_outgoing.each{}
+        @client.friendships_outgoing.each {}
         expect(a_get('/1.1/friendships/outgoing.json').with(:query => {:cursor => '1305102810874389703'})).to have_been_made
       end
     end
@@ -510,7 +510,7 @@ describe Twitter::REST::API::FriendsAndFollowers do
           stub_get('/1.1/followers/list.json').with(:query => {:cursor => '1419103567112105362', :screen_name => 'sferik'}).to_return(:body => fixture('followers_list2.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
         end
         it 'requests the correct resource' do
-          @client.followers('sferik').each{}
+          @client.followers('sferik').each {}
           expect(a_get('/1.1/followers/list.json').with(:query => {:cursor => '-1', :screen_name => 'sferik'})).to have_been_made
           expect(a_get('/1.1/followers/list.json').with(:query => {:cursor => '1419103567112105362', :screen_name => 'sferik'})).to have_been_made
         end
@@ -529,7 +529,7 @@ describe Twitter::REST::API::FriendsAndFollowers do
           stub_get('/1.1/followers/list.json').with(:query => {:cursor => '1419103567112105362', :user_id => '7505382'}).to_return(:body => fixture('followers_list2.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
         end
         it 'requests the correct resource' do
-          @client.followers(7_505_382).each{}
+          @client.followers(7_505_382).each {}
           expect(a_get('/1.1/followers/list.json').with(:query => {:cursor => '-1', :user_id => '7505382'})).to have_been_made
           expect(a_get('/1.1/followers/list.json').with(:query => {:cursor => '1419103567112105362', :user_id => '7505382'})).to have_been_made
         end
@@ -555,7 +555,7 @@ describe Twitter::REST::API::FriendsAndFollowers do
           stub_get('/1.1/followers/list.json').with(:query => {:cursor => '1419103567112105362', :screen_name => 'sferik'}).to_return(:body => fixture('followers_list2.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
         end
         it 'requests the correct resource' do
-          @client.followers.each{}
+          @client.followers.each {}
           expect(a_get('/1.1/account/verify_credentials.json')).to have_been_made
           expect(a_get('/1.1/followers/list.json').with(:query => {:cursor => '-1', :screen_name => 'sferik'})).to have_been_made
           expect(a_get('/1.1/followers/list.json').with(:query => {:cursor => '1419103567112105362', :screen_name => 'sferik'})).to have_been_made
@@ -583,7 +583,7 @@ describe Twitter::REST::API::FriendsAndFollowers do
           stub_get('/1.1/friends/list.json').with(:query => {:cursor => '1418947360875712729', :screen_name => 'sferik'}).to_return(:body => fixture('friends_list2.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
         end
         it 'requests the correct resource' do
-          @client.friends('sferik').each{}
+          @client.friends('sferik').each {}
           expect(a_get('/1.1/friends/list.json').with(:query => {:cursor => '-1', :screen_name => 'sferik'})).to have_been_made
           expect(a_get('/1.1/friends/list.json').with(:query => {:cursor => '1418947360875712729', :screen_name => 'sferik'})).to have_been_made
         end
@@ -602,7 +602,7 @@ describe Twitter::REST::API::FriendsAndFollowers do
           stub_get('/1.1/friends/list.json').with(:query => {:cursor => '1418947360875712729', :user_id => '7505382'}).to_return(:body => fixture('friends_list2.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
         end
         it 'requests the correct resource' do
-          @client.friends(7_505_382).each{}
+          @client.friends(7_505_382).each {}
           expect(a_get('/1.1/friends/list.json').with(:query => {:cursor => '-1', :user_id => '7505382'})).to have_been_made
           expect(a_get('/1.1/friends/list.json').with(:query => {:cursor => '1418947360875712729', :user_id => '7505382'})).to have_been_made
         end
@@ -628,7 +628,7 @@ describe Twitter::REST::API::FriendsAndFollowers do
           stub_get('/1.1/friends/list.json').with(:query => {:cursor => '1418947360875712729', :screen_name => 'sferik'}).to_return(:body => fixture('friends_list2.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
         end
         it 'requests the correct resource' do
-          @client.friends.each{}
+          @client.friends.each {}
           expect(a_get('/1.1/account/verify_credentials.json')).to have_been_made
           expect(a_get('/1.1/friends/list.json').with(:query => {:cursor => '-1', :screen_name => 'sferik'})).to have_been_made
           expect(a_get('/1.1/friends/list.json').with(:query => {:cursor => '1418947360875712729', :screen_name => 'sferik'})).to have_been_made

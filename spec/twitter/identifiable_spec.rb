@@ -4,7 +4,7 @@ describe Twitter::Identity do
 
   describe '#initialize' do
     it 'raises an IndexError when id is not specified' do
-      expect{Twitter::Identity.new}.to raise_error IndexError
+      expect { Twitter::Identity.new }.to raise_error IndexError
     end
   end
 

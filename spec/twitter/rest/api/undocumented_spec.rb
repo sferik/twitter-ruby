@@ -25,7 +25,7 @@ describe Twitter::REST::API::Undocumented do
           stub_get('/users/following_followers_of.json').with(:query => {:cursor => '1322801608223717003', :screen_name => 'sferik'}).to_return(:body => fixture('users_list2.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
         end
         it 'requests the correct resource' do
-          @client.following_followers_of('sferik').each{}
+          @client.following_followers_of('sferik').each {}
           expect(a_get('/users/following_followers_of.json').with(:query => {:cursor => '-1', :screen_name => 'sferik'})).to have_been_made
           expect(a_get('/users/following_followers_of.json').with(:query => {:cursor => '1322801608223717003', :screen_name => 'sferik'})).to have_been_made
         end
@@ -44,7 +44,7 @@ describe Twitter::REST::API::Undocumented do
           stub_get('/users/following_followers_of.json').with(:query => {:cursor => '1322801608223717003', :user_id => '7505382'}).to_return(:body => fixture('users_list2.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
         end
         it 'requests the correct resource' do
-          @client.following_followers_of(7_505_382).each{}
+          @client.following_followers_of(7_505_382).each {}
           expect(a_get('/users/following_followers_of.json').with(:query => {:cursor => '-1', :user_id => '7505382'})).to have_been_made
           expect(a_get('/users/following_followers_of.json').with(:query => {:cursor => '1322801608223717003', :user_id => '7505382'})).to have_been_made
         end
@@ -70,7 +70,7 @@ describe Twitter::REST::API::Undocumented do
           stub_get('/users/following_followers_of.json').with(:query => {:cursor => '1322801608223717003', :screen_name => 'sferik'}).to_return(:body => fixture('users_list2.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
         end
         it 'requests the correct resource' do
-          @client.following_followers_of.each{}
+          @client.following_followers_of.each {}
           expect(a_get('/users/following_followers_of.json').with(:query => {:cursor => '-1', :screen_name => 'sferik'})).to have_been_made
           expect(a_get('/users/following_followers_of.json').with(:query => {:cursor => '1322801608223717003', :screen_name => 'sferik'})).to have_been_made
         end
