@@ -17,8 +17,6 @@ module Twitter
         end
 
         module ClassMethods
-          private
-
           def deprecate_alias(new_name, old_name)
             define_method(new_name) do |*args, &block|
               warn "#{Kernel.caller.first}: [DEPRECATION] ##{new_name} is deprecated. Use ##{old_name} instead."
