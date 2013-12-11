@@ -27,16 +27,8 @@ group :test do
 end
 
 platforms :rbx do
-  gem 'rubinius-coverage', '~> 2.0'
-  gem 'rubysl-base64', '~> 2.0'
-  gem 'rubysl-bigdecimal', '~> 2.0'
-  gem 'rubysl-coverage', '~> 2.0'
-  gem 'rubysl-e2mmap', '~> 2.0'
-  gem 'rubysl-irb', '~> 2.0'
-  gem 'rubysl-logger', '~> 2.0'
-  gem 'rubysl-net-http', '~> 2.0'
-  gem 'rubysl-rexml', '~> 2.0'
-  gem 'rubysl-singleton', '~> 2.0'
+  gem 'rubinius-coverage'
+  gem 'rubysl'
 end
 
 gemspec
