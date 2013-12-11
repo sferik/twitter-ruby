@@ -14,7 +14,7 @@ module Twitter
         # @rate_limited Yes
         # @authentication Requires user context
         # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-        # @param id [Integer] The {https://developer.yahoo.com/geo/geoplanet Yahoo! Where On Earth ID} of the location to return trending information for. WOEIDs can be retrieved by calling {Twitter::REST::API::Trends#trend_locations}. Global information is available by using 1 as the WOEID.
+        # @param id [Integer] The {https://developer.yahoo.com/geo/geoplanet Yahoo! Where On Earth ID} of the location to return trending information for. WOEIDs can be retrieved by calling {Twitter::REST::API::Trends#trends_available}. Global information is available by using 1 as the WOEID.
         # @param options [Hash] A customizable set of options.
         # @option options [String] :exclude Setting this equal to 'hashtags' will remove all hashtags from the trends list.
         # @return [Array<Twitter::Trend>]
