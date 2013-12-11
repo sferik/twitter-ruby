@@ -1,21 +1,14 @@
 require 'simplecov'
 require 'coveralls'
 
-def jruby?(platform = RUBY_PLATFORM)
-  'java' == platform
-end
-
-def rubinius?(platform = defined?(RUBY_ENGINE) && RUBY_ENGINE)
-  'rbx' == platform
-end
-
 SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
   SimpleCov::Formatter::HTMLFormatter,
   Coveralls::SimpleCov::Formatter
 ]
 
 SimpleCov.start do
-  minimum_coverage(rubinius? ? 99.68 : 99.73)
+  add_filter '/spec/'
+  minimum_coverage(99.07)
 end
 
 require 'twitter'
