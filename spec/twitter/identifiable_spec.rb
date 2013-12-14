@@ -26,4 +26,11 @@ describe Twitter::Identity do
     end
   end
 
+  it 'can be serialized with Marshal' do
+    identity = Twitter::Tweet.new(:id => 1, :screen_name => 'sferik')
+    marshaled_identity = Marshal.dump(identity)
+    unmarshaled_identity = Marshal.load(marshaled_identity)
+    expect(identity == unmarshaled_identity).to be true
+  end
+
 end
