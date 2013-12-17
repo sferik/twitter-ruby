@@ -15,5 +15,20 @@ module Twitter
       attrs.fetch(:id)
       super
     end
+
+    # Serializes an object
+    #
+    # @return [String]
+    def marshal_dump
+      to_hash
+    end
+
+    # Converts serialized data into an object
+    #
+    # @param attrs [Hash]
+    # @return [Twitter::Identity]
+    def marshal_load(attrs = {})
+      initialize(attrs)
+    end
   end
 end
