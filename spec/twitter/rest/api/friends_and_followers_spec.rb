@@ -352,6 +352,14 @@ describe Twitter::REST::API::FriendsAndFollowers do
       expect(a_post('/1.1/friendships/create.json').with(:body => {:screen_name => 'sferik'})).to have_been_made
     end
   end
+  context 'with a forbidden error' do
+    before do
+      stub_post('/1.1/friendships/create.json').with(:body => {:screen_name => 'sferik'}).to_return(:status => 403, :body => fixture('forbidden.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
+    end
+    it 'raises an exception' do
+      expect { @client.follow!('sferik') }.to raise_error(Twitter::Error::Forbidden)
+    end
+  end
 
   describe '#unfollow' do
     before do

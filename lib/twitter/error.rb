@@ -19,6 +19,7 @@ module Twitter
       OVER_CAPACITY                = 130
       INTERNAL_ERROR               = 131
       OAUTH_TIMESTAMP_OUT_OF_RANGE = 135
+      FOLLOW_ALREADY_REQUESTED     = 160
       FOLLOW_LIMIT_EXCEEDED        = 161
       PROTECTED_STATUS             = 179
       OVER_UPDATE_LIMIT            = 185

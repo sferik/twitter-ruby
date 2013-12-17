@@ -137,13 +137,7 @@ module Twitter
         def follow!(*args)
           arguments = Twitter::Arguments.new(args)
           arguments.flatten.threaded_map do |user|
-            begin
-              object_from_response(Twitter::User, :post, '/1.1/friendships/create.json', merge_user(arguments.options, user))
-            rescue Twitter::Error::Forbidden
-              # This error will be raised if the user doesn't have permission to
-              # follow list_member, for whatever reason.
-              next
-            end
+            object_from_response(Twitter::User, :post, '/1.1/friendships/create.json', merge_user(arguments.options, user))
           end.compact
         end
         alias_method :create_friendship!, :follow!
