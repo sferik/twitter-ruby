@@ -2,6 +2,7 @@ require 'twitter/arguments'
 require 'twitter/direct_message'
 require 'twitter/rest/api/utils'
 require 'twitter/user'
+require 'twitter/utils'
 
 module Twitter
   module REST
@@ -88,7 +89,7 @@ module Twitter
           if arguments.empty?
             direct_messages_received(arguments.options)
           else
-            Util.parallel_map(arguments.flatten) do |id|
+            Twitter::Utils.parallel_map(arguments.flatten) do |id|
               direct_message(id, arguments.options)
             end
           end

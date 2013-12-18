@@ -6,6 +6,7 @@ require 'twitter/list'
 require 'twitter/rest/api/utils'
 require 'twitter/tweet'
 require 'twitter/user'
+require 'twitter/utils'
 
 module Twitter
   module REST
@@ -444,7 +445,7 @@ module Twitter
           members = arguments.pop
           merge_list!(arguments.options, arguments.pop)
           merge_owner!(arguments.options, arguments.pop)
-          Util.parallel_map(members.flatten.each_slice(MAX_USERS_PER_REQUEST)) do |users|
+          Twitter::Utils.parallel_map(members.flatten.each_slice(MAX_USERS_PER_REQUEST)) do |users|
             object_from_response(Twitter::List, request_method, path, merge_users(arguments.options, users))
           end.last
         end

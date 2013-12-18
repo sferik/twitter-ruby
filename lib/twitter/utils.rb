@@ -1,5 +1,5 @@
 module Twitter
-  module Util
+  module Utils
     class << self
       def parallel_map(enumerable)
         # Don't bother spawning a new thread if there's only one item

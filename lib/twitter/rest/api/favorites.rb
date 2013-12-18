@@ -4,6 +4,7 @@ require 'twitter/error/forbidden'
 require 'twitter/rest/api/utils'
 require 'twitter/tweet'
 require 'twitter/user'
+require 'twitter/utils'
 
 module Twitter
   module REST
@@ -67,7 +68,7 @@ module Twitter
         #   @param options [Hash] A customizable set of options.
         def favorite(*args)
           arguments = Twitter::Arguments.new(args)
-          Util.parallel_map(arguments.flatten) do |tweet|
+          Twitter::Utils.parallel_map(arguments.flatten) do |tweet|
             id = extract_id(tweet)
             begin
               object_from_response(Twitter::Tweet, :post, '/1.1/favorites/create.json', arguments.options.merge(:id => id))
@@ -95,7 +96,7 @@ module Twitter
         #   @param options [Hash] A customizable set of options.
         def favorite!(*args)
           arguments = Twitter::Arguments.new(args)
-          Util.parallel_map(arguments.flatten) do |tweet|
+          Twitter::Utils.parallel_map(arguments.flatten) do |tweet|
             id = extract_id(tweet)
             begin
               object_from_response(Twitter::Tweet, :post, '/1.1/favorites/create.json', arguments.options.merge(:id => id))

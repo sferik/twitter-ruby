@@ -4,6 +4,7 @@ require 'twitter/profile_banner'
 require 'twitter/rest/api/utils'
 require 'twitter/settings'
 require 'twitter/user'
+require 'twitter/utils'
 
 module Twitter
   module REST
@@ -226,7 +227,7 @@ module Twitter
         def users(*args)
           arguments = Twitter::Arguments.new(args)
           method = arguments.options.delete(:method) || :post
-          Util.parallel_map(arguments.flatten.each_slice(MAX_USERS_PER_REQUEST)) do |users|
+          Twitter::Utils.parallel_map(arguments.flatten.each_slice(MAX_USERS_PER_REQUEST)) do |users|
             objects_from_response(Twitter::User, method, '/1.1/users/lookup.json', merge_users(arguments.options, users))
           end.flatten
         end

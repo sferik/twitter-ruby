@@ -5,6 +5,7 @@ require 'twitter/error/forbidden'
 require 'twitter/oembed'
 require 'twitter/rest/api/utils'
 require 'twitter/tweet'
+require 'twitter/utils'
 
 module Twitter
   module REST
@@ -142,7 +143,7 @@ module Twitter
         #   @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
         def retweet(*args)
           arguments = Twitter::Arguments.new(args)
-          Util.parallel_map(arguments.flatten) do |tweet|
+          Twitter::Utils.parallel_map(arguments.flatten) do |tweet|
             id = extract_id(tweet)
             begin
               post_retweet(id, arguments.options)
@@ -168,7 +169,7 @@ module Twitter
         #   @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
         def retweet!(*args)
           arguments = Twitter::Arguments.new(args)
-          Util.parallel_map(arguments.flatten) do |tweet|
+          Twitter::Utils.parallel_map(arguments.flatten) do |tweet|
             id = extract_id(tweet)
             begin
               post_retweet(id, arguments.options)
@@ -249,7 +250,7 @@ module Twitter
         #   @option options [String] :lang Language code for the rendered embed. This will affect the text and localization of the rendered HTML.
         def oembeds(*args)
           arguments = Twitter::Arguments.new(args)
-          Util.parallel_map(arguments.flatten) do |tweet|
+          Twitter::Utils.parallel_map(arguments.flatten) do |tweet|
             id = extract_id(tweet)
             oembed(id, arguments.options)
           end
@@ -281,7 +282,7 @@ module Twitter
         # @return [Array<Twitter::Tweet>]
         def threaded_tweets_from_response(request_method, path, args)
           arguments = Twitter::Arguments.new(args)
-          Util.parallel_map(arguments.flatten) do |tweet|
+          Twitter::Utils.parallel_map(arguments.flatten) do |tweet|
             id = extract_id(tweet)
             object_from_response(Twitter::Tweet, request_method, path + "/#{id}.json", arguments.options)
           end
