@@ -1,5 +1,4 @@
 require 'twitter/arguments'
-require 'twitter/core_ext/enumerable'
 require 'twitter/cursor'
 require 'twitter/error/forbidden'
 require 'twitter/error/not_found'
