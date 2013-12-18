@@ -88,7 +88,7 @@ module Twitter
           if arguments.empty?
             direct_messages_received(arguments.options)
           else
-            arguments.flatten.threaded_map do |id|
+            Util.threaded_map(arguments.flatten) do |id|
               direct_message(id, arguments.options)
             end
           end
