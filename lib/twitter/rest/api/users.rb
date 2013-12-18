@@ -226,7 +226,7 @@ module Twitter
         def users(*args)
           arguments = Twitter::Arguments.new(args)
           method = arguments.options.delete(:method) || :post
-          Util.threaded_map(arguments.flatten.each_slice(MAX_USERS_PER_REQUEST)) do |users|
+          Util.parallel_map(arguments.flatten.each_slice(MAX_USERS_PER_REQUEST)) do |users|
             objects_from_response(Twitter::User, method, '/1.1/users/lookup.json', merge_users(arguments.options, users))
           end.flatten
         end
