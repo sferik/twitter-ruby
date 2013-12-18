@@ -1,5 +1,4 @@
 require 'twitter/arguments'
-require 'twitter/core_ext/enumerable'
 require 'twitter/error/not_found'
 require 'twitter/profile_banner'
 require 'twitter/rest/api/utils'
@@ -227,7 +226,7 @@ module Twitter
         def users(*args)
           arguments = Twitter::Arguments.new(args)
           method = arguments.options.delete(:method) || :post
-          arguments.flatten.each_slice(MAX_USERS_PER_REQUEST).threaded_map do |users|
+          Util.threaded_map(arguments.flatten.each_slice(MAX_USERS_PER_REQUEST)) do |users|
             objects_from_response(Twitter::User, method, '/1.1/users/lookup.json', merge_users(arguments.options, users))
           end.flatten
         end

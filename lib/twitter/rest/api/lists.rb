@@ -1,5 +1,4 @@
 require 'twitter/arguments'
-require 'twitter/core_ext/enumerable'
 require 'twitter/cursor'
 require 'twitter/error/forbidden'
 require 'twitter/error/not_found'
@@ -445,7 +444,7 @@ module Twitter
           members = arguments.pop
           merge_list!(arguments.options, arguments.pop)
           merge_owner!(arguments.options, arguments.pop)
-          members.flatten.each_slice(MAX_USERS_PER_REQUEST).threaded_map do |users|
+          Util.threaded_map(members.flatten.each_slice(MAX_USERS_PER_REQUEST)) do |users|
             object_from_response(Twitter::List, request_method, path, merge_users(arguments.options, users))
           end.last
         end
