@@ -129,8 +129,6 @@ module Twitter
           case user
           when Integer
             user_ids << user
-          when String
-            user_ids << user.to_i
           when Twitter::User
             user_ids << user.id
           end
