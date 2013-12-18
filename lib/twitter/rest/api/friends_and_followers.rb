@@ -137,7 +137,7 @@ module Twitter
         #   @option options [Boolean] :follow (false) Enable notifications for the target user.
         def follow!(*args)
           arguments = Twitter::Arguments.new(args)
-          Twitter::Utils.parallel_map(arguments.flatten) do |user|
+          Twitter::Utils.parallel_map(arguments) do |user|
             object_from_response(Twitter::User, :post, '/1.1/friendships/create.json', merge_user(arguments.options, user))
           end.compact
         end

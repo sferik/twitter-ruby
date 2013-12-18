@@ -441,12 +441,13 @@ module Twitter
         end
 
         def list_from_response_with_users(request_method, path, args)
-          arguments = Twitter::Arguments.new(args)
+          arguments = args.dup
+          options = arguments.last.is_a?(::Hash) ? arguments.pop : {}
           members = arguments.pop
-          merge_list!(arguments.options, arguments.pop)
-          merge_owner!(arguments.options, arguments.pop)
+          merge_list!(options, arguments.pop)
+          merge_owner!(options, arguments.pop)
           Twitter::Utils.parallel_map(members.flatten.each_slice(MAX_USERS_PER_REQUEST)) do |users|
-            object_from_response(Twitter::List, request_method, path, merge_users(arguments.options, users))
+            object_from_response(Twitter::List, request_method, path, merge_users(options, users))
           end.last
         end
 

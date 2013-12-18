@@ -51,7 +51,7 @@ module Twitter
         # @return [Array<Twitter::User>]
         def threaded_user_objects_from_response(request_method, path, args)
           arguments = Twitter::Arguments.new(args)
-          Twitter::Utils.parallel_map(arguments.flatten) do |user|
+          Twitter::Utils.parallel_map(arguments) do |user|
             object_from_response(Twitter::User, request_method, path, merge_user(arguments.options, user))
           end
         end
@@ -103,7 +103,7 @@ module Twitter
         # @return [Array]
         def threaded_objects_from_response(klass, request_method, path, args) # rubocop:disable ParameterLists
           arguments = Twitter::Arguments.new(args)
-          Twitter::Utils.parallel_map(arguments.flatten) do |object|
+          Twitter::Utils.parallel_map(arguments) do |object|
             id = extract_id(object)
             object_from_response(klass, request_method, path, arguments.options.merge(:id => id))
           end
