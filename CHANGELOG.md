@@ -1,3 +1,9 @@
+5.3.0
+-----
+* [Add `UNABLE_TO_VERIFY_CREDENTIALS` error code](https://github.com/sferik/twitter/commit/6a47e715ef7935cd36a2f78ed877deb3c09af162)
+* [Don't suppress `Twitter::Error::Forbidden` in #follow and #follow!](https://github.com/sferik/twitter/commit/b949c0400dabc6774419025e7b131d0a18447c3a)
+* [Update memoizable dependency to ~> 0.3.1](https://github.com/sferik/twitter/pull/501)
+
 5.2.0
 -----
 * [Replace `URI` with `adressable`](https://github.com/sferik/twitter/commit/7ea2f5390dc7456950f55c90aa4e48f29dcd4604)
