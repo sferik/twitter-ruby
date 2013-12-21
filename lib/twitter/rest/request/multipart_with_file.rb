@@ -5,6 +5,9 @@ module Twitter
     module Request
       class MultipartWithFile < Faraday::Middleware
         CONTENT_TYPE = 'Content-Type'
+        GIF_REGEX = /\.gif$/i
+        JPEG_REGEX = /\.jpe?g/i
+        PNG_REGEX = /\.png$/i
 
         def call(env)
           env[:body].each do |key, value|
@@ -19,11 +22,11 @@ module Twitter
 
         def mime_type(path)
           case path
-          when /\.jpe?g/i
-            'image/jpeg'
-          when /\.gif$/i
+          when GIF_REGEX
             'image/gif'
-          when /\.png$/i
+          when JPEG_REGEX
+            'image/jpeg'
+          when PNG_REGEX
             'image/png'
           else
             'application/octet-stream'

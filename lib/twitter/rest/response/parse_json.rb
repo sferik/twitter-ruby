@@ -5,9 +5,11 @@ module Twitter
   module REST
     module Response
       class ParseJson < Faraday::Response::Middleware
+        WHITESPACE_REGEX = /\A^\s*$\z/
+
         def parse(body)
           case body
-          when /\A^\s*$\z/, nil
+          when WHITESPACE_REGEX, nil
             nil
           else
             JSON.parse(body, :symbolize_names => true)
