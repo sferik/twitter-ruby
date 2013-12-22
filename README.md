@@ -19,16 +19,6 @@ A Ruby interface to the Twitter API.
 ## Installation
     gem install twitter
 
-To ensure the code you're installing hasn't been tampered with, it's
-recommended that you verify the signature. To do this, you need to add my
-public key as a trusted certificate (you only need to do this once):
-
-    gem cert --add <(curl -Ls https://raw.github.com/sferik/twitter/master/certs/sferik.pem)
-
-Then, install the gem with the medium security trust policy:
-
-    gem install twitter -P MediumSecurity
-
 ## CLI
 
 Looking for the Twitter command-line interface? It was [removed][] from this
