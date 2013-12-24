@@ -1,3 +1,7 @@
+5.4.1
+-----
+* [Default to maximum number of tweets per request](https://github.com/sferik/twitter/commit/1e41b5d4dde8678f5968b57dafe9da63b092646c)
+
 5.4.0
 -----
 * [Fix enumerable search interface](https://github.com/sferik/twitter/commit/e14cc3391ebe8229184e9e83806c870df3baa24c)
