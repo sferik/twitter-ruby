@@ -7,27 +7,34 @@ describe Twitter::REST::API::Search do
   end
 
   describe '#search' do
-    before do
-      stub_get('/1.1/search/tweets.json').with(:query => {:q => '#freebandnames'}).to_return(:body => fixture('search.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
-    end
-    it 'requests the correct resource' do
-      @client.search('#freebandnames')
-      expect(a_get('/1.1/search/tweets.json').with(:query => {:q => '#freebandnames'})).to have_been_made
-    end
-    it 'returns recent Tweets related to a query with images and videos embedded' do
-      search = @client.search('#freebandnames')
-      expect(search).to be_a Twitter::SearchResults
-      expect(search.first).to be_a Twitter::Tweet
-      expect(search.first.text).to eq('@Just_Reboot #FreeBandNames mono surround')
-    end
-    context 'when search API responds a malformed result' do
+    context 'without count specified' do
       before do
-        stub_get('/1.1/search/tweets.json').with(:query => {:q => '#freebandnames'}).to_return(:body => fixture('search_malformed.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
+        stub_get('/1.1/search/tweets.json').with(:query => {:q => '#freebandnames', :count => '100'}).to_return(:body => fixture('search.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
       end
-      it 'returns an empty array' do
+      it 'requests the correct resource' do
+        @client.search('#freebandnames')
+        expect(a_get('/1.1/search/tweets.json').with(:query => {:q => '#freebandnames', :count => '100'})).to have_been_made
+      end
+      it 'returns recent Tweets related to a query with images and videos embedded' do
         search = @client.search('#freebandnames')
-        expect(search.to_a).to be_an Array
-        expect(search.to_a).to be_empty
+        expect(search).to be_a Twitter::SearchResults
+        expect(search.first).to be_a Twitter::Tweet
+        expect(search.first.text).to eq('@Just_Reboot #FreeBandNames mono surround')
+      end
+    end
+    context 'with count specified' do
+      before do
+        stub_get('/1.1/search/tweets.json').with(:query => {:q => '#freebandnames', :count => '3'}).to_return(:body => fixture('search.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
+      end
+      it 'requests the correct resource' do
+        @client.search('#freebandnames', :count => 3)
+        expect(a_get('/1.1/search/tweets.json').with(:query => {:q => '#freebandnames', :count => '3'})).to have_been_made
+      end
+      it 'returns recent Tweets related to a query with images and videos embedded' do
+        search = @client.search('#freebandnames', :count => 3)
+        expect(search).to be_a Twitter::SearchResults
+        expect(search.first).to be_a Twitter::Tweet
+        expect(search.first.text).to eq('@Just_Reboot #FreeBandNames mono surround')
       end
     end
   end

@@ -6,6 +6,7 @@ module Twitter
     module API
       module Search
         include Twitter::REST::API::Utils
+        MAX_TWEETS_PER_REQUEST = 100
 
         # Returns tweets that match a specified query.
         #
@@ -28,6 +29,7 @@ module Twitter
         # @option options [Boolean, String, Integer] :include_entities The tweet entities node will be disincluded when set to false.
         # @return [Twitter::SearchResults] Return tweets that match a specified query with search metadata
         def search(q, options = {})
+          options[:count] ||= MAX_TWEETS_PER_REQUEST
           search_results_from_response(:get, '/1.1/search/tweets.json', options.merge(:q => q))
         end
 
