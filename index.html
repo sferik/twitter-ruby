@@ -46,18 +46,6 @@
 <pre><code>gem install twitter
 </code></pre>
 
-<p>To ensure the code you're installing hasn't been tampered with, it's
-recommended that you verify the signature. To do this, you need to add my
-public key as a trusted certificate (you only need to do this once):</p>
-
-<pre><code>gem cert --add &lt;(curl -Ls https://raw.github.com/sferik/twitter/master/certs/sferik.pem)
-</code></pre>
-
-<p>Then, install the gem with the medium security trust policy:</p>
-
-<pre><code>gem install twitter -P MediumSecurity
-</code></pre>
-
 <h2>
 <a name="cli" class="anchor" href="#cli"><span class="octicon octicon-link"></span></a>CLI</h2>
 
@@ -101,7 +89,7 @@ wiki</a>!</p>
 can configure a <code>Twitter::REST::Client</code> by passing it a block when it's
 initialized.</p>
 
-<div class="highlight highlight-ruby"><pre><span class="n">client</span> <span class="o">=</span> <span class="ss">Twitter</span><span class="p">:</span><span class="ss">:REST</span><span class="o">::</span><span class="no">Client</span><span class="o">.</span><span class="n">new</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
+<div class="highlight highlight-ruby"><pre><span class="n">client</span> <span class="o">=</span> <span class="no">Twitter</span><span class="o">::</span><span class="no">REST</span><span class="o">::</span><span class="no">Client</span><span class="o">.</span><span class="n">new</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
   <span class="n">config</span><span class="o">.</span><span class="n">consumer_key</span>        <span class="o">=</span> <span class="s2">"YOUR_CONSUMER_KEY"</span>
   <span class="n">config</span><span class="o">.</span><span class="n">consumer_secret</span>     <span class="o">=</span> <span class="s2">"YOUR_CONSUMER_SECRET"</span>
   <span class="n">config</span><span class="o">.</span><span class="n">access_token</span>        <span class="o">=</span> <span class="s2">"YOUR_ACCESS_TOKEN"</span>
@@ -133,7 +121,7 @@ and <a href="https://github.com/tarcieri">Tony Arcieri</a> for helping to develo
 
 <p><strong>Configuration works just like <code>Twitter::REST::Client</code></strong></p>
 
-<div class="highlight highlight-ruby"><pre><span class="n">client</span> <span class="o">=</span> <span class="ss">Twitter</span><span class="p">:</span><span class="ss">:Streaming</span><span class="o">::</span><span class="no">Client</span><span class="o">.</span><span class="n">new</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
+<div class="highlight highlight-ruby"><pre><span class="n">client</span> <span class="o">=</span> <span class="no">Twitter</span><span class="o">::</span><span class="no">Streaming</span><span class="o">::</span><span class="no">Client</span><span class="o">.</span><span class="n">new</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
   <span class="n">config</span><span class="o">.</span><span class="n">consumer_key</span>        <span class="o">=</span> <span class="s2">"YOUR_CONSUMER_KEY"</span>
   <span class="n">config</span><span class="o">.</span><span class="n">consumer_secret</span>     <span class="o">=</span> <span class="s2">"YOUR_CONSUMER_SECRET"</span>
   <span class="n">config</span><span class="o">.</span><span class="n">access_token</span>        <span class="o">=</span> <span class="s2">"YOUR_ACCESS_TOKEN"</span>
@@ -144,32 +132,41 @@ and <a href="https://github.com/tarcieri">Tony Arcieri</a> for helping to develo
 <p><strong>Stream mentions of coffee or tea</strong></p>
 
 <div class="highlight highlight-ruby"><pre><span class="n">topics</span> <span class="o">=</span> <span class="o">[</span><span class="s2">"coffee"</span><span class="p">,</span> <span class="s2">"tea"</span><span class="o">]</span>
-<span class="n">client</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="ss">:track</span> <span class="o">=&gt;</span> <span class="n">topics</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">","</span><span class="p">))</span> <span class="k">do</span> <span class="o">|</span><span class="n">tweet</span><span class="o">|</span>
-  <span class="nb">puts</span> <span class="n">tweet</span><span class="o">.</span><span class="n">text</span>
+<span class="n">client</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="ss">:track</span> <span class="o">=&gt;</span> <span class="n">topics</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">","</span><span class="p">))</span> <span class="k">do</span> <span class="o">|</span><span class="n">object</span><span class="o">|</span>
+  <span class="nb">puts</span> <span class="n">object</span><span class="o">.</span><span class="n">text</span> <span class="k">if</span> <span class="n">object</span><span class="o">.</span><span class="n">is_a?</span><span class="p">(</span><span class="no">Twitter</span><span class="o">::</span><span class="no">Tweet</span><span class="p">)</span>
 <span class="k">end</span>
 </pre></div>
 
 <p><strong>Stream a random sample of all tweets</strong></p>
 
-<div class="highlight highlight-ruby"><pre><span class="n">client</span><span class="o">.</span><span class="n">sample</span> <span class="k">do</span> <span class="o">|</span><span class="n">tweet</span><span class="o">|</span>
-  <span class="nb">puts</span> <span class="n">tweet</span><span class="o">.</span><span class="n">text</span>
+<div class="highlight highlight-ruby"><pre><span class="n">client</span><span class="o">.</span><span class="n">sample</span> <span class="k">do</span> <span class="o">|</span><span class="n">object</span><span class="o">|</span>
+  <span class="nb">puts</span> <span class="n">object</span><span class="o">.</span><span class="n">text</span> <span class="k">if</span> <span class="n">object</span><span class="o">.</span><span class="n">is_a?</span><span class="p">(</span><span class="no">Twitter</span><span class="o">::</span><span class="no">Tweet</span><span class="p">)</span>
 <span class="k">end</span>
 </pre></div>
 
-<p><strong>Stream tweets, events and direct messages for the authenticated user</strong></p>
+<p><strong>Stream tweets, events, and direct messages for the authenticated user</strong></p>
 
-<div class="highlight highlight-ruby"><pre><span class="n">client</span><span class="o">.</span><span class="n">user</span> <span class="k">do</span> <span class="o">|</span><span class="n">message</span><span class="o">|</span>
-  <span class="nb">puts</span> <span class="n">message</span>
+<div class="highlight highlight-ruby"><pre><span class="n">client</span><span class="o">.</span><span class="n">user</span> <span class="k">do</span> <span class="o">|</span><span class="n">object</span><span class="o">|</span>
+  <span class="k">case</span> <span class="n">object</span>
+  <span class="k">when</span> <span class="no">Twitter</span><span class="o">::</span><span class="no">Tweet</span>
+    <span class="nb">puts</span> <span class="s2">"It's a tweet!"</span>
+  <span class="k">when</span> <span class="no">Twitter</span><span class="o">::</span><span class="no">DirectMessage</span>
+    <span class="nb">puts</span> <span class="s2">"It's a direct message!"</span>
+  <span class="k">when</span> <span class="no">Twitter</span><span class="o">::</span><span class="no">Streaming</span><span class="o">::</span><span class="no">StallWarning</span>
+    <span class="nb">warn</span> <span class="s2">"Falling behind!"</span>
+  <span class="k">end</span>
 <span class="k">end</span>
 </pre></div>
 
-<p><code>message</code> can be one of</p>
+<p>An <code>object</code> may be one of the following:</p>
 
 <ul>
-<li>Twitter::Tweet</li>
 <li>Twitter::DirectMessage</li>
+<li>Twitter::Streaming::DeletedTweet</li>
 <li>Twitter::Streaming::Event</li>
 <li>Twitter::Streaming::FriendList</li>
+<li>Twitter::Streaming::StallWarning</li>
+<li>Twitter::Tweet</li>
 </ul><h3>
 <a name="cursors" class="anchor" href="#cursors"><span class="octicon octicon-link"></span></a>Cursors</h3>
 
@@ -520,7 +517,7 @@ error:</p>
 
 <p>You can pass configuration options as a block to <code>Twitter::REST::Client.new</code>.</p>
 
-<div class="highlight highlight-ruby"><pre><span class="n">client</span> <span class="o">=</span> <span class="ss">Twitter</span><span class="p">:</span><span class="ss">:REST</span><span class="o">::</span><span class="no">Client</span><span class="o">.</span><span class="n">new</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
+<div class="highlight highlight-ruby"><pre><span class="n">client</span> <span class="o">=</span> <span class="no">Twitter</span><span class="o">::</span><span class="no">REST</span><span class="o">::</span><span class="no">Client</span><span class="o">.</span><span class="n">new</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
   <span class="n">config</span><span class="o">.</span><span class="n">consumer_key</span>        <span class="o">=</span> <span class="s2">"YOUR_CONSUMER_KEY"</span>
   <span class="n">config</span><span class="o">.</span><span class="n">consumer_secret</span>     <span class="o">=</span> <span class="s2">"YOUR_CONSUMER_SECRET"</span>
   <span class="n">config</span><span class="o">.</span><span class="n">access_token</span>        <span class="o">=</span> <span class="s2">"YOUR_ACCESS_TOKEN"</span>
@@ -539,12 +536,12 @@ error:</p>
 <p>The Faraday middleware stack is fully configurable and is exposed as a
 <code>Faraday::Builder</code> object. You can modify the default middleware in-place:</p>
 
-<div class="highlight highlight-ruby"><pre><span class="n">client</span><span class="o">.</span><span class="n">middleware</span><span class="o">.</span><span class="n">insert_after</span> <span class="ss">Twitter</span><span class="p">:</span><span class="ss">:Response</span><span class="o">::</span><span class="no">RaiseError</span><span class="p">,</span> <span class="no">CustomMiddleware</span>
+<div class="highlight highlight-ruby"><pre><span class="n">client</span><span class="o">.</span><span class="n">middleware</span><span class="o">.</span><span class="n">insert_after</span> <span class="no">Twitter</span><span class="o">::</span><span class="no">Response</span><span class="o">::</span><span class="no">RaiseError</span><span class="p">,</span> <span class="no">CustomMiddleware</span>
 </pre></div>
 
 <p>A custom adapter may be set as part of a custom middleware stack:</p>
 
-<div class="highlight highlight-ruby"><pre><span class="n">client</span><span class="o">.</span><span class="n">middleware</span> <span class="o">=</span> <span class="ss">Faraday</span><span class="p">:</span><span class="ss">:Builder</span><span class="o">.</span><span class="n">new</span><span class="p">(</span>
+<div class="highlight highlight-ruby"><pre><span class="n">client</span><span class="o">.</span><span class="n">middleware</span> <span class="o">=</span> <span class="no">Faraday</span><span class="o">::</span><span class="no">Builder</span><span class="o">.</span><span class="n">new</span><span class="p">(</span>
   <span class="o">&amp;</span><span class="no">Proc</span><span class="o">.</span><span class="n">new</span> <span class="k">do</span> <span class="o">|</span><span class="n">builder</span><span class="o">|</span>
     <span class="c1"># Specify a middleware stack here</span>
     <span class="n">builder</span><span class="o">.</span><span class="n">adapter</span> <span class="ss">:some_other_adapter</span>
@@ -644,25 +641,25 @@ command:</p>
 <a name="supported-ruby-versions" class="anchor" href="#supported-ruby-versions"><span class="octicon octicon-link"></span></a>Supported Ruby Versions</h2>
 
 <p>This library aims to support and is <a href="http://travis-ci.org/sferik/twitter">tested against</a> the following Ruby
-implementations:</p>
+versions:</p>
 
 <ul>
 <li>Ruby 1.8.7</li>
 <li>Ruby 1.9.2</li>
 <li>Ruby 1.9.3</li>
 <li>Ruby 2.0.0</li>
-</ul><p>If something doesn't work on one of these interpreters, it's a bug.</p>
+</ul><p>If something doesn't work on one of these versions, it's a bug.</p>
 
-<p>This library may inadvertently work (or seem to work) on other Ruby
-implementations, however support will only be provided for the versions listed
-above.</p>
+<p>This library may inadvertently work (or seem to work) on other Ruby versions,
+however support will only be provided for the versions listed above.</p>
 
-<p>If you would like this library to support another Ruby version, you may
-volunteer to be a maintainer. Being a maintainer entails making sure all tests
-run and pass on that implementation. When something breaks on your
-implementation, you will be responsible for providing patches in a timely
-fashion. If critical issues for a particular implementation exist at the time
-of a major release, support for that Ruby version may be dropped.</p>
+<p>If you would like this library to support another Ruby version or
+implementation, you may volunteer to be a maintainer. Being a maintainer
+entails making sure all tests run and pass on that implementation. When
+something breaks on your implementation, you will be responsible for providing
+patches in a timely fashion. If critical issues for a particular implementation
+exist at the time of a major release, support for that Ruby version may be
+dropped.</p>
 
 <h2>
 <a name="versioning" class="anchor" href="#versioning"><span class="octicon octicon-link"></span></a>Versioning</h2>
