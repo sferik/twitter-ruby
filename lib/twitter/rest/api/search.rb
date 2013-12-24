@@ -28,7 +28,14 @@ module Twitter
         # @option options [Boolean, String, Integer] :include_entities The tweet entities node will be disincluded when set to false.
         # @return [Twitter::SearchResults] Return tweets that match a specified query with search metadata
         def search(q, options = {})
-          object_from_response(Twitter::SearchResults, :get, '/1.1/search/tweets.json', options.merge(:q => q))
+          search_results_from_response(:get, '/1.1/search/tweets.json', options.merge(:q => q))
+        end
+
+      private
+
+        def search_results_from_response(request_method, path, options = {}) # rubocop:disable ParameterLists
+          response = send(request_method.to_sym, path, options)
+          Twitter::SearchResults.from_response(response, self, request_method, path, options)
         end
       end
     end

@@ -1,6 +1,8 @@
+require 'twitter/enumerable'
+
 module Twitter
   class Cursor
-    include Enumerable
+    include Twitter::Enumerable
     attr_reader :attrs
     alias_method :to_h, :attrs
     alias_method :to_hash, :attrs
@@ -32,7 +34,7 @@ module Twitter
     # @param path [String]
     # @param options [Hash]
     # @return [Twitter::Cursor]
-    def initialize(attrs, key, klass, client, request_method, path, options) # rubocop:disable ParameterLists
+    def initialize(attrs, key, klass, client, request_method, path, options = {}) # rubocop:disable ParameterLists
       @key = key.to_sym
       @klass = klass
       @client = client
@@ -43,41 +45,17 @@ module Twitter
       set_attrs(attrs)
     end
 
-    # @return [Enumerator]
-    def each(start = 0, &block)
-      return to_enum(:each) unless block_given?
-      Array(@collection[start..-1]).each do |element|
-        yield element
-      end
-      unless last?
-        start = [@collection.size, start].max
-        fetch_next_page
-        each(start, &block)
-      end
-      self
-    end
+  private
 
     def next_cursor
       @attrs[:next_cursor] || -1
     end
     alias_method :next, :next_cursor
 
-    def previous_cursor
-      @attrs[:previous_cursor]
-    end
-    alias_method :previous, :previous_cursor
-
-    # @return [Boolean]
-    def first?
-      previous_cursor.zero?
-    end
-
     # @return [Boolean]
     def last?
       next_cursor.zero?
     end
-
-  private
 
     def fetch_next_page
       response = @client.send(@request_method, @path, @options.merge(:cursor => next_cursor))

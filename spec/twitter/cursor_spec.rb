@@ -27,42 +27,4 @@ describe Twitter::Cursor do
     end
   end
 
-  describe '#first?' do
-    context 'when previous cursor equals zero' do
-      before do
-        @cursor = Twitter::Cursor.new({:previous_cursor => 0}, :ids, nil, Twitter::REST::Client.new, :get, '/1.1/followers/ids.json', {})
-      end
-      it 'returns true' do
-        expect(@cursor.first?).to be true
-      end
-    end
-    context 'when previous cursor does not equal zero' do
-      before do
-        @cursor = Twitter::Cursor.new({:previous_cursor => 1}, :ids, nil, Twitter::REST::Client.new, :get, '/1.1/followers/ids.json', {})
-      end
-      it 'returns true' do
-        expect(@cursor.first?).to be false
-      end
-    end
-  end
-
-  describe '#last?' do
-    context 'when next cursor equals zero' do
-      before do
-        @cursor = Twitter::Cursor.new({:next_cursor => 0}, :ids, nil, Twitter::REST::Client.new, :get, '/1.1/followers/ids.json', {})
-      end
-      it 'returns true' do
-        expect(@cursor.last?).to be true
-      end
-    end
-    context 'when next cursor does not equal zero' do
-      before do
-        @cursor = Twitter::Cursor.new({:next_cursor => 1}, :ids, nil, Twitter::REST::Client.new, :get, '/1.1/followers/ids.json', {})
-      end
-      it 'returns false' do
-        expect(@cursor.last?).to be false
-      end
-    end
-  end
-
 end

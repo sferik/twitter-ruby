@@ -12,53 +12,36 @@ module Twitter
       # Construct a new SearchResults object from a response hash
       #
       # @param response [Hash]
-      # @return [Twitter::Base]
-      def from_response(response = {})
-        new(response[:body])
+      # @param client [Twitter::REST::Client]
+      # @param path [String]
+      # @return [Twitter::SearchResults]
+      def from_response(response, client, request_method, path, options) # rubocop:disable ParameterLists
+        new(response[:body], client, request_method, path, options)
       end
     end
 
     # Initializes a new SearchResults object
     #
     # @param attrs [Hash]
+    # @param client [Twitter::REST::Client]
+    # @param request_method [String, Symbol]
+    # @param path [String]
+    # @param options [Hash]
     # @return [Twitter::SearchResults]
-    def initialize(attrs = {})
-      @attrs = attrs
-      @collection = Array(@attrs[:statuses]).map do |tweet|
-        Tweet.new(tweet)
-      end
+    def initialize(attrs, client, request_method, path, options = {}) # rubocop:disable ParameterLists
+      @client = client
+      @request_method = request_method.to_sym
+      @path = path
+      @options = options
+      @collection = []
+      set_attrs(attrs)
     end
 
-    # @return [Float]
-    def completed_in
-      @attrs[:search_metadata][:completed_in] if @attrs[:search_metadata]
-    end
+  private
 
-    # @return [Integer]
-    def max_id
-      @attrs[:search_metadata][:max_id] if @attrs[:search_metadata]
-    end
-
-    # @return [Integer]
-    def page
-      @attrs[:search_metadata][:page] if @attrs[:search_metadata]
-    end
-
-    # @return [String]
-    def query
-      @attrs[:search_metadata][:query] if @attrs[:search_metadata]
-    end
-
-    # @return [Integer]
-    def results_per_page
-      @attrs[:search_metadata][:count] if @attrs[:search_metadata]
-    end
-    alias_method :rpp, :results_per_page
-    alias_method :count, :results_per_page
-
-    # @return [Integer]
-    def since_id
-      @attrs[:search_metadata][:since_id] if @attrs[:search_metadata]
+    # @return [Boolean]
+    def last?
+      !next_results?
     end
 
     # @return [Boolean]
@@ -66,6 +49,7 @@ module Twitter
       !!(@attrs[:search_metadata] && @attrs[:search_metadata][:next_results])
     end
     alias_method :next_page?, :next_results?
+    alias_method :next?, :next_results?
 
     # Returns a Hash of query parameters for the next result in the search
     #
@@ -78,18 +62,19 @@ module Twitter
       end
     end
     alias_method :next_page, :next_results
+    alias_method :next, :next_results
 
-    # Returns a Hash of query parameters for the refresh URL in the search
-    #
-    # @note Returned Hash can be merged into the previous search options list to easily access the refresh page.
-    # @return [Hash] The parameters needed to refresh the page.
-    def refresh_results
-      query_string = strip_first_character(@attrs[:search_metadata][:refresh_url])
-      query_string_to_hash(query_string)
+    def fetch_next_page
+      response = @client.send(@request_method, @path, next_page)
+      set_attrs(response[:body])
     end
-    alias_method :refresh_page, :refresh_results
 
-  private
+    def set_attrs(attrs)
+      @attrs = attrs
+      Array(@attrs[:statuses]).map do |tweet|
+        @collection << Tweet.new(tweet)
+      end
+    end
 
     # Returns the string with the first character removed
     #
