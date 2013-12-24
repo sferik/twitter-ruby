@@ -1,3 +1,7 @@
+5.4.0
+-----
+* [Fix enumerable search interface](https://github.com/sferik/twitter/commit/e14cc3391ebe8229184e9e83806c870df3baa24c)
+
 5.3.1
 -----
 * [Add `Twitter::Utils` module](https://github.com/sferik/twitter/commit/a1f47fbf19b859c8e680a0a92eff5e225a015090) ([@charliesome](https://twitter.com/charliesome))
