@@ -1,3 +1,11 @@
+5.3.1
+-----
+* [Add `Twitter::Utils` module](https://github.com/sferik/twitter/commit/a1f47fbf19b859c8e680a0a92eff5e225a015090) ([@charliesome](https://twitter.com/charliesome))
+* [Remove `Enumerable` monkey patch](https://github.com/sferik/twitter/commit/818b28d1621e843c0c6f9ef471076f4125623e52) ([@charliesome](https://twitter.com/charliesome))
+* [Don't spawning a new thread if there's only one element](https://github.com/sferik/twitter/commit/c01ea8309c16eb77eeb368452df1dadd1e405532)
+* [Introduce meaningful constant names](https://github.com/sferik/twitter/commit/215c80890d702535de83d8f849885a95ec153920) ([@futuresanta](https://twitter.com/futuresanta))
+* [Automatically flatten `Twitter::Arguments`](https://github.com/sferik/twitter/commit/a556028ace04cb00c3c2b9cb8f72f792a86f04d6)
+
 5.3.0
 -----
 * [Add `UNABLE_TO_VERIFY_CREDENTIALS` error code](https://github.com/sferik/twitter/commit/6a47e715ef7935cd36a2f78ed877deb3c09af162)
