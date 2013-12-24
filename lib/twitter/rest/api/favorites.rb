@@ -17,13 +17,13 @@ module Twitter
         # @authentication Requires user context
         # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
         # @return [Array<Twitter::Tweet>] favorite Tweets.
-        # @overload favorites(options={})
+        # @overload favorites(options = {})
         #   Returns the 20 most recent favorite Tweets for the authenticating user
         #
         #   @param options [Hash] A customizable set of options.
         #   @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 100.
         #   @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID.
-        # @overload favorites(user, options={})
+        # @overload favorites(user, options = {})
         #   Returns the 20 most recent favorite Tweets for the specified user
         #
         #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, URI, or object.
