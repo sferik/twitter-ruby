@@ -7,8 +7,7 @@ gem 'yard'
 group :development do
   gem 'pry'
   gem 'pry-rescue'
-  platforms :ruby_19, :ruby_20 do
-    gem 'pry-debugger'
+  platforms :ruby_19, :ruby_20, :ruby_21 do
     gem 'pry-stack_explorer'
     gem 'redcarpet'
   end
@@ -17,9 +16,9 @@ end
 group :test do
   gem 'backports'
   gem 'coveralls', :require => false
-  gem 'mime-types', '~> 1.25', :platforms => :ruby_18
+  gem 'mime-types', '~> 1.25', :platforms => [:jruby, :ruby_18]
   gem 'rspec', '>= 2.14'
-  gem 'rubocop', '>= 0.15', :platforms => [:ruby_19, :ruby_20]
+  gem 'rubocop', '>= 0.15', :platforms => [:ruby_19, :ruby_20, :ruby_21]
   gem 'simplecov', :require => false
   gem 'timecop', '0.6.1'
   gem 'webmock'
@@ -27,8 +26,9 @@ group :test do
 end
 
 platforms :rbx do
-  gem 'rubinius-coverage'
-  gem 'rubysl'
+  gem 'racc'
+  gem 'rubinius-coverage', '~> 2.0'
+  gem 'rubysl', '~> 2.0'
 end
 
 gemspec
