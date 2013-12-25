@@ -16,6 +16,8 @@ module Twitter
       self
     end
 
+  private
+
     # @return [Boolean]
     def last?
       true
