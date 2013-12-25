@@ -42,7 +42,7 @@ module Twitter
       @path = path
       @options = options
       @collection = []
-      set_attrs(attrs)
+      self.attrs = attrs
     end
 
   private
@@ -59,10 +59,10 @@ module Twitter
 
     def fetch_next_page
       response = @client.send(@request_method, @path, @options.merge(:cursor => next_cursor))
-      set_attrs(response[:body])
+      self.attrs = response[:body]
     end
 
-    def set_attrs(attrs)
+    def attrs=(attrs)
       @attrs = attrs
       Array(attrs[@key]).each do |element|
         @collection << (@klass ? @klass.new(element) : element)
