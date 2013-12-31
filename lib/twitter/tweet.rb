@@ -6,13 +6,14 @@ module Twitter
   class Tweet < Twitter::Identity
     include Twitter::Creatable
     include Twitter::Entities
-    attr_reader :favorite_count, :favorited, :in_reply_to_screen_name,
-                :in_reply_to_attrs_id, :in_reply_to_status_id,
-                :in_reply_to_user_id, :lang, :retweet_count, :retweeted,
-                :source, :text, :truncated
+    attr_reader :favorite_count, :favorited, :filter_level,
+                :in_reply_to_screen_name, :in_reply_to_attrs_id,
+                :in_reply_to_status_id, :in_reply_to_user_id, :lang,
+                :retweet_count, :retweeted, :source, :text, :truncated
     alias_method :favorites_count, :favorite_count
     alias_method :favoriters_count, :favorite_count
     alias_method :in_reply_to_tweet_id, :in_reply_to_status_id
+    alias_method :reply?, :in_reply_to_status_id?
     alias_method :retweeters_count, :retweet_count
     object_attr_reader :GeoFactory, :geo
     object_attr_reader :Metadata, :metadata
@@ -24,15 +25,10 @@ module Twitter
     alias_method :retweeted_tweet?, :retweeted_status?
     object_attr_reader :User, :user, :status
 
-    def filter_level
-      @attrs[:filter_level] || 'none'
-    end
-    memoize :filter_level
-
-    # @return [String]
     # @note May be > 140 characters.
+    # @return [String]
     def full_text
-      if retweeted_status?
+      if retweet?
         prefix = text[/\A(RT @[a-z0-9_]{1,20}: )/i, 1]
         [prefix, retweeted_status.text].compact.join
       else
@@ -41,15 +37,9 @@ module Twitter
     end
     memoize :full_text
 
-    # @return [Boolean]
-    def reply?
-      !!@attrs[:in_reply_to_status_id]
-    end
-    memoize :reply?
-
     # @return [String] The URL to the tweet.
     def uri
-      Addressable::URI.parse("https://twitter.com/#{user.screen_name}/status/#{id}")
+      Addressable::URI.parse("https://twitter.com/#{user.screen_name}/status/#{id}") unless user.nil?
     end
     memoize :uri
     alias_method :url, :uri

@@ -58,9 +58,9 @@ describe Twitter::Tweet do
       expect(tweet.filter_level).to be_a String
       expect(tweet.filter_level).to eq('high')
     end
-    it 'returns \'none\' when not set' do
+    it 'returns nil when not set' do
       tweet = Twitter::Tweet.new(:id => 28_669_546_014)
-      expect(tweet.filter_level).to eq('none')
+      expect(tweet.filter_level).to be nil
     end
   end
 

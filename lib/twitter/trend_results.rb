@@ -38,7 +38,7 @@ module Twitter
     #
     # @return [Time]
     def as_of
-      Time.parse(@attrs[:as_of]) if @attrs[:as_of]
+      Time.parse(@attrs[:as_of]) unless @attrs[:as_of].nil?
     end
     memoize :as_of
 

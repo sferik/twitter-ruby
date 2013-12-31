@@ -73,7 +73,7 @@ module Twitter
       # @param key2 [Symbol]
       def define_uri_method(key1, key2)
         define_method(key1) do ||
-          Addressable::URI.parse(@attrs[key2]) if @attrs[key2]
+          Addressable::URI.parse(@attrs[key2]) unless @attrs[key2].nil?
         end
         memoize(key1)
       end
@@ -88,11 +88,11 @@ module Twitter
           if klass.nil?
             @attrs[key1]
           else
-            if @attrs[key1]
+            if @attrs[key1].nil?
+              NullObject.new
+            else
               attrs = attrs_for_object(key1, key2)
               Twitter.const_get(klass).new(attrs)
-            else
-              NullObject.new
             end
           end
         end

@@ -43,14 +43,14 @@ module Twitter
 
     # @return [String] The URL to the user.
     def uri
-      Addressable::URI.parse("https://twitter.com/#{screen_name}")
+      Addressable::URI.parse("https://twitter.com/#{screen_name}") unless screen_name.nil?
     end
     memoize :uri
     alias_method :url, :uri
 
     # @return [String] The URL to the user's website.
     def website
-      Addressable::URI.parse(@attrs[:url]) if @attrs[:url]
+      Addressable::URI.parse(@attrs[:url]) unless @attrs[:url].nil?
     end
     memoize :website
 
