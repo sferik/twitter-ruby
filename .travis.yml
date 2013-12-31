@@ -30,4 +30,3 @@ matrix:
     - rvm: rbx
     - rvm: ruby-head
   fast_finish: true
-script: bundle exec rake default
