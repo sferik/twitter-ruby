@@ -1,6 +1,8 @@
 AllCops:
   Includes:
     - 'Gemfile'
+    - 'Rakefile'
+    - 'twitter.gemspec'
 
 # Avoid long parameter lists
 ParameterLists:
