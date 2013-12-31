@@ -52,30 +52,6 @@ describe Twitter::Tweet do
     end
   end
 
-  describe '#entities?' do
-    it 'returns false if there are no entities set' do
-      tweet = Twitter::Tweet.new(:id => 28_669_546_014)
-      expect(tweet.entities?).to be false
-    end
-
-    it 'returns false if there are blank lists of entities set' do
-      tweet = Twitter::Tweet.new(:id => 28_669_546_014, :entities => {:urls => []})
-      expect(tweet.entities?).to be false
-    end
-    it 'returns true if there are entities set' do
-      urls_array = [
-        {
-          :url => 'http://example.com/t.co',
-          :expanded_url => 'http://example.com/expanded',
-          :display_url => 'example.com/expanded…',
-          :indices => [10, 33],
-        }
-      ]
-      tweet = Twitter::Tweet.new(:id => 28_669_546_014, :entities => {:urls => urls_array})
-      expect(tweet.entities?).to be true
-    end
-  end
-
   describe '#filter_level' do
     it 'returns the filter level when filter_level is set' do
       tweet = Twitter::Tweet.new(:id => 28_669_546_014, :filter_level => 'high')

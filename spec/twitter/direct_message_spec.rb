@@ -2,6 +2,15 @@ require 'helper'
 
 describe Twitter::DirectMessage do
 
+  before do
+    @old_stderr = $stderr
+    $stderr = StringIO.new
+  end
+
+  after do
+    $stderr = @old_stderr
+  end
+
   describe '#==' do
     it 'returns true when objects IDs are the same' do
       direct_message = Twitter::DirectMessage.new(:id => 1, :text => 'foo')
@@ -83,6 +92,138 @@ describe Twitter::DirectMessage do
     it 'returns false when sender is not set' do
       direct_message = Twitter::DirectMessage.new(:id => 1_825_786_345)
       expect(direct_message.sender?).to be false
+    end
+  end
+
+  describe '#hashtags' do
+    it 'returns an array of Entity::Hashtag when entities are set' do
+      hashtags_array = [
+        {
+          :text => 'twitter',
+          :indices => [10, 33],
+        }
+      ]
+      hashtags = Twitter::DirectMessage.new(:id => 28_669_546_014, :entities => {:hashtags => hashtags_array}).hashtags
+      expect(hashtags).to be_an Array
+      expect(hashtags.first).to be_a Twitter::Entity::Hashtag
+      expect(hashtags.first.indices).to eq([10, 33])
+      expect(hashtags.first.text).to eq('twitter')
+    end
+    it 'is empty when not set' do
+      hashtags = Twitter::DirectMessage.new(:id => 28_669_546_014).hashtags
+      expect(hashtags).to be_empty
+    end
+    it 'warns when not set' do
+      Twitter::DirectMessage.new(:id => 28_669_546_014).hashtags
+      expect($stderr.string).to match(/To get hashtags, you must pass `:include_entities => true` when requesting the Twitter::DirectMessage\./)
+    end
+  end
+
+  describe '#media' do
+    it 'returns media' do
+      media = Twitter::DirectMessage.new(:id => 28_669_546_014, :entities => {:media => [{:id => 1, :type => 'photo'}]}).media
+      expect(media).to be_an Array
+      expect(media.first).to be_a Twitter::Media::Photo
+    end
+    it 'is empty when not set' do
+      media = Twitter::DirectMessage.new(:id => 28_669_546_014).media
+      expect(media).to be_empty
+    end
+    it 'warns when not set' do
+      Twitter::DirectMessage.new(:id => 28_669_546_014).media
+      expect($stderr.string).to match(/To get media, you must pass `:include_entities => true` when requesting the Twitter::DirectMessage\./)
+    end
+  end
+
+  describe '#symbols' do
+    it 'returns an array of Entity::Symbol when symbols are set' do
+      symbols_array = [
+        {:text => 'PEP', :indices => [114, 118]},
+        {:text => 'COKE', :indices => [128, 133]}
+      ]
+      symbols = Twitter::DirectMessage.new(:id => 28_669_546_014, :entities => {:symbols => symbols_array}).symbols
+      expect(symbols).to be_an Array
+      expect(symbols.size).to eq(2)
+      expect(symbols.first).to be_a Twitter::Entity::Symbol
+      expect(symbols.first.indices).to eq([114, 118])
+      expect(symbols.first.text).to eq('PEP')
+    end
+    it 'is empty when not set' do
+      symbols = Twitter::DirectMessage.new(:id => 28_669_546_014).symbols
+      expect(symbols).to be_empty
+    end
+    it 'warns when not set' do
+      Twitter::DirectMessage.new(:id => 28_669_546_014).symbols
+      expect($stderr.string).to match(/To get symbols, you must pass `:include_entities => true` when requesting the Twitter::DirectMessage\./)
+    end
+  end
+
+  describe '#uris' do
+    it 'returns an array of Entity::URIs when entities are set' do
+      urls_array = [
+        {
+          :url => 'http://example.com/t.co',
+          :expanded_url => 'http://example.com/expanded',
+          :display_url => 'example.com/expanded…',
+          :indices => [10, 33],
+        }
+      ]
+      direct_message = Twitter::DirectMessage.new(:id => 28_669_546_014, :entities => {:urls => urls_array})
+      expect(direct_message.uris).to be_an Array
+      expect(direct_message.uris.first).to be_a Twitter::Entity::URI
+      expect(direct_message.uris.first.indices).to eq([10, 33])
+      expect(direct_message.uris.first.display_uri).to be_a String
+      expect(direct_message.uris.first.display_uri).to eq('example.com/expanded…')
+    end
+    it 'is empty when not set' do
+      direct_message = Twitter::DirectMessage.new(:id => 28_669_546_014)
+      expect(direct_message.uris).to be_empty
+    end
+    it 'warns when not set' do
+      Twitter::DirectMessage.new(:id => 28_669_546_014).urls
+      expect($stderr.string).to match(/To get urls, you must pass `:include_entities => true` when requesting the Twitter::DirectMessage\./)
+    end
+    it 'can handle strange urls' do
+      urls_array = [
+        {
+          :url => 'http://with_underscore.example.com/t.co',
+          :expanded_url => 'http://with_underscore.example.com/expanded',
+          :display_url => 'with_underscore.example.com/expanded…',
+          :indices => [10, 33],
+        }
+      ]
+      direct_message = Twitter::DirectMessage.new(:id => 28_669_546_014, :entities => {:urls => urls_array})
+      uri = direct_message.uris.first
+      expect { uri.url }.not_to raise_error
+      expect { uri.expanded_url }.not_to raise_error
+      expect { uri.display_url }.not_to raise_error
+    end
+  end
+
+  describe '#user_mentions' do
+    it 'returns an array of Entity::UserMention when entities are set' do
+      user_mentions_array = [
+        {
+          :screen_name => 'sferik',
+          :name => 'Erik Michaels-Ober',
+          :id_str => '7_505_382',
+          :indices => [0, 6],
+          :id => 7_505_382,
+        }
+      ]
+      user_mentions = Twitter::DirectMessage.new(:id => 28_669_546_014, :entities => {:user_mentions => user_mentions_array}).user_mentions
+      expect(user_mentions).to be_an Array
+      expect(user_mentions.first).to be_a Twitter::Entity::UserMention
+      expect(user_mentions.first.indices).to eq([0, 6])
+      expect(user_mentions.first.id).to eq(7_505_382)
+    end
+    it 'is empty when not set' do
+      user_mentions = Twitter::DirectMessage.new(:id => 28_669_546_014).user_mentions
+      expect(user_mentions).to be_empty
+    end
+    it 'warns when not set' do
+      Twitter::DirectMessage.new(:id => 28_669_546_014).user_mentions
+      expect($stderr.string).to match(/To get user mentions, you must pass `:include_entities => true` when requesting the Twitter::DirectMessage\./)
     end
   end
 

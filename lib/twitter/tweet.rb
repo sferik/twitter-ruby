@@ -1,8 +1,11 @@
 require 'twitter/creatable'
+require 'twitter/entities'
+require 'twitter/identity'
 
 module Twitter
   class Tweet < Twitter::Identity
     include Twitter::Creatable
+    include Twitter::Entities
     attr_reader :favorite_count, :favorited, :in_reply_to_screen_name,
                 :in_reply_to_attrs_id, :in_reply_to_status_id,
                 :in_reply_to_user_id, :lang, :retweet_count, :retweeted,
@@ -21,12 +24,6 @@ module Twitter
     alias_method :retweeted_tweet?, :retweeted_status?
     object_attr_reader :User, :user, :status
 
-    # @return [Boolean]
-    def entities?
-      !@attrs[:entities].nil? && @attrs[:entities].any? { |_, array| !array.empty? }
-    end
-    memoize :entities?
-
     def filter_level
       @attrs[:filter_level] || 'none'
     end
@@ -44,32 +41,11 @@ module Twitter
     end
     memoize :full_text
 
-    # @note Must include entities in your request for this method to work
-    # @return [Array<Twitter::Entity::Hashtag>]
-    def hashtags
-      entities(Entity::Hashtag, :hashtags)
-    end
-    memoize :hashtags
-
-    # @note Must include entities in your request for this method to work
-    # @return [Array<Twitter::Media>]
-    def media
-      entities(MediaFactory, :media)
-    end
-    memoize :media
-
     # @return [Boolean]
     def reply?
       !!@attrs[:in_reply_to_status_id]
     end
     memoize :reply?
-
-    # @note Must include entities in your request for this method to work
-    # @return [Array<Twitter::Entity::Symbol>]
-    def symbols
-      entities(Entity::Symbol, :symbols)
-    end
-    memoize :symbols
 
     # @return [String] The URL to the tweet.
     def uri
@@ -77,36 +53,6 @@ module Twitter
     end
     memoize :uri
     alias_method :url, :uri
-
-    # @note Must include entities in your request for this method to work
-    # @return [Array<Twitter::Entity::URI>]
-    def uris
-      entities(Entity::URI, :urls)
-    end
-    memoize :uris
-    alias_method :urls, :uris
-
-    # @note Must include entities in your request for this method to work
-    # @return [Array<Twitter::Entity::UserMention>]
-    def user_mentions
-      entities(Entity::UserMention, :user_mentions)
-    end
-    memoize :user_mentions
-
-  private
-
-    # @param klass [Class]
-    # @param key [Symbol]
-    def entities(klass, key)
-      if entities?
-        Array(@attrs[:entities][key.to_sym]).map do |entity|
-          klass.new(entity)
-        end
-      else
-        warn "#{Kernel.caller.first}: To get #{key.to_s.tr('_', ' ')}, you must pass `:include_entities => true` when requesting the #{self.class}."
-        []
-      end
-    end
   end
   Status = Tweet # rubocop:disable ConstantName
 end
