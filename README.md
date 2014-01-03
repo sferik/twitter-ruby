@@ -82,6 +82,12 @@ does not work on Ruby 2.0.0][bug].
 [tweetstream]: http://rubygems.org/gems/tweetstream
 [bug]: https://github.com/tweetstream/tweetstream/issues/117
 
+Site Streams are restricted to whitelisted accounts. To apply for access to
+Site Streams see the "Applying for access" section in the Site Streams Twitter
+API [here][twitter]. User Streams, however, are open and do not require approval.
+
+[twitter]: https://dev.twitter.com/docs/streaming-apis/streams/site#Applying_for_access
+
 Unlike the rest of this library, this feature is not well tested and not
 recommended for production applications. That said, if you need to do Twitter
 streaming on Ruby 2.0.0, this is probably your best option. I've decided to
