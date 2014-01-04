@@ -5,7 +5,8 @@ module Twitter
   # Custom error class for rescuing from all Twitter errors
   class Error < StandardError
     extend DescendantsTracker
-    attr_reader :rate_limit, :wrapped_exception, :code
+    attr_reader :cause, :code, :rate_limit
+    alias_method :wrapped_exception, :cause
 
     # If error code is missing see https://dev.twitter.com/docs/error-codes-responses
     module Codes
@@ -75,9 +76,9 @@ module Twitter
     # @param response_headers [Hash]
     # @param code [Integer]
     # @return [Twitter::Error]
-    def initialize(exception = $ERROR_INFO, response_headers = {}, code = nil) # rubocop:disable MethodLength
+    def initialize(exception = $ERROR_INFO, response_headers = {}, code = nil)
       @rate_limit = RateLimit.new(response_headers)
-      @wrapped_exception = exception
+      @cause = exception
       @code = code
       exception.respond_to?(:message) ? super(exception.message) : super(exception.to_s)
     end
