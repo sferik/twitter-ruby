@@ -58,6 +58,7 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1.1/get/site
       # @see https://dev.twitter.com/docs/streaming-apis/streams/site
       # @see https://dev.twitter.com/docs/streaming-apis/parameters
+      # @note Site Streams is currently in a limited beta. Access is restricted to whitelisted accounts.
       # @param follow [Enumerable<Integer, String, Twitter::User>] A list of user IDs, indicating the users to return statuses for in the stream.
       # @param options [Hash] A customizable set of options.
       # @option options [String] :with Specifies whether to return information for just the users specified in the follow parameter, or include messages from accounts they follow.
