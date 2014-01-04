@@ -77,7 +77,7 @@ module Twitter
         #   @param options [Hash] A customizable set of options.
         #   @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
         def statuses(*args)
-          threaded_tweets_from_response(:get, '/1.1/statuses/show', args)
+          parallel_tweets_from_response(:get, '/1.1/statuses/show', args)
         end
 
         # Destroys the specified Tweets
@@ -95,7 +95,7 @@ module Twitter
         #   @param options [Hash] A customizable set of options.
         #   @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
         def destroy_status(*args)
-          threaded_tweets_from_response(:post, '/1.1/statuses/destroy', args)
+          parallel_tweets_from_response(:post, '/1.1/statuses/destroy', args)
         end
         alias_method :destroy_tweet, :destroy_status
         deprecate_alias :status_destroy, :destroy_status
@@ -280,7 +280,7 @@ module Twitter
         # @param path [String]
         # @param args [Array]
         # @return [Array<Twitter::Tweet>]
-        def threaded_tweets_from_response(request_method, path, args)
+        def parallel_tweets_from_response(request_method, path, args)
           arguments = Twitter::Arguments.new(args)
           Twitter::Utils.parallel_map(arguments) do |tweet|
             id = extract_id(tweet)

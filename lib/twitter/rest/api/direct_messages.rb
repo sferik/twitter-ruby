@@ -109,7 +109,7 @@ module Twitter
         #   @param ids [Enumerable<Integer>] A collection of direct message IDs.
         #   @param options [Hash] A customizable set of options.
         def destroy_direct_message(*args)
-          threaded_objects_from_response(Twitter::DirectMessage, :post, '/1.1/direct_messages/destroy.json', args)
+          parallel_objects_from_response(Twitter::DirectMessage, :post, '/1.1/direct_messages/destroy.json', args)
         end
         deprecate_alias :direct_message_destroy, :destroy_direct_message
 

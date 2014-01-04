@@ -49,7 +49,7 @@ module Twitter
         #   @param tweets [Enumerable<Integer, String, URI, Twitter::Tweet>] A collection of Tweet IDs, URIs, or objects.
         #   @param options [Hash] A customizable set of options.
         def unfavorite(*args)
-          threaded_objects_from_response(Twitter::Tweet, :post, '/1.1/favorites/destroy.json', args)
+          parallel_objects_from_response(Twitter::Tweet, :post, '/1.1/favorites/destroy.json', args)
         end
         alias_method :destroy_favorite, :unfavorite
         deprecate_alias :favorite_destroy, :unfavorite
