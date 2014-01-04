@@ -139,8 +139,8 @@ module Twitter
           end
         end
         response.env
-      rescue Faraday::Error::ClientError, JSON::ParserError
-        raise Twitter::Error
+      rescue Faraday::Error::ClientError, JSON::ParserError => error
+        raise Twitter::Error.new(error)
       end
 
       def auth_token(method, path, params = {}, signature_params = params) # rubocop:disable ParameterLists
