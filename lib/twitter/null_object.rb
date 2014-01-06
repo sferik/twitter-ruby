@@ -1,9 +1,12 @@
+require 'forwardable'
+
 module Twitter
   class NullObject
-    # @return [TrueClass] This method always returns true.
-    def nil?
-      true
-    end
+    extend Forwardable
+    def_instance_delegators :nil, :nil?, :to_a, :to_c, :to_c, :to_f, :to_h,
+                            :to_i, :to_r, :to_s
+    alias_method :to_ary, :to_a
+    alias_method :to_str, :to_s
 
     # @return [Twitter::NullObject] This method always returns self.
     def method_missing(*args, &block)
