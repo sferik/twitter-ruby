@@ -1,3 +1,9 @@
+5.5.1
+-----
+* [Fix bug where `Twitter::Error::AlreadyFavorited` would never be raised](https://github.com/sferik/twitter/issues/512) ([@polestarw](https://twitter.com/polestarw))
+* [Fix bug where `Twitter::Error::AlreadyPosted` would never be raised](https://github.com/sferik/twitter/commit/e6b37b930c056a88d8ee1477246635caf579111d)
+* [Restore `Twitter::Entities#entities?` as a public method](https://github.com/sferik/twitter/commit/234a9e3134eeee072bd511e1c1f1823ceb1531a2)
+
 5.5.0
 -----
 * [Add entities to `Twitter::DirectMessage`](https://github.com/sferik/twitter/commit/d911deb456cb2da6e14d0b3c69ba4d068ca85868)
