@@ -7,23 +7,23 @@ describe Twitter::Error do
   end
 
   describe '#message' do
-    it 'returns the message of the wrapped exception' do
+    it 'returns the message of the cause' do
       error = Twitter::Error.new(Faraday::Error::ClientError.new('Oops'))
       expect(error.message).to eq('Oops')
     end
   end
 
   describe '#rate_limit' do
-    it 'returns the wrapped exception' do
+    it 'returns the cause' do
       error = Twitter::Error.new(Faraday::Error::ClientError.new('Oops'))
       expect(error.rate_limit).to be_a Twitter::RateLimit
     end
   end
 
-  describe '#wrapped_exception' do
-    it 'returns the wrapped exception' do
+  describe '#cause' do
+    it 'returns the cause' do
       error = Twitter::Error.new(Faraday::Error::ClientError.new('Oops'))
-      expect(error.wrapped_exception.class).to eq(Faraday::Error::ClientError)
+      expect(error.cause.class).to eq(Faraday::Error::ClientError)
     end
   end
 
