@@ -1,3 +1,8 @@
+5.5.0
+-----
+* [Add entities to `Twitter::DirectMessage`](https://github.com/sferik/twitter/commit/d911deb456cb2da6e14d0b3c69ba4d068ca85868)
+* [Add conversion methods to `Twitter::NullObject`](https://github.com/sferik/twitter/commit/4900fee474feaa1514c06d459a9da6d52c45a60e)
+
 5.4.1
 -----
 * [Default to maximum number of tweets per request](https://github.com/sferik/twitter/commit/1e41b5d4dde8678f5968b57dafe9da63b092646c)
