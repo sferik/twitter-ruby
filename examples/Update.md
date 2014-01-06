@@ -1,9 +1,9 @@
 # Update
 
-All examples assume you have a configured Twitter REST `client`. Configuration
-examples can be found in [examples/Configuration.md][configuration].
+These examples assume you have a configured Twitter REST `client`. Instructions
+on how to configure a client can be found in [examples/Configuration.md][cfg].
 
-[configuration]: https://github.com/sferik/twitter/blob/master/examples/Configuration.md
+[cfg]: https://github.com/sferik/twitter/blob/master/examples/Configuration.md
 
 If the authenticated user has granted read/write permission to your
 application, you may tweet as them.
