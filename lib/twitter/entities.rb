@@ -9,6 +9,12 @@ module Twitter
   module Entities
     include Memoizable
 
+    # @return [Boolean]
+    def entities?
+      !@attrs[:entities].nil? && @attrs[:entities].any? { |_, array| !array.empty? }
+    end
+    memoize :entities?
+
     # @note Must include entities in your request for this method to work
     # @return [Array<Twitter::Entity::Hashtag>]
     def hashtags
@@ -46,12 +52,6 @@ module Twitter
     memoize :user_mentions
 
   private
-
-    # @return [Boolean]
-    def entities?
-      !@attrs[:entities].nil? && @attrs[:entities].any? { |_, array| !array.empty? }
-    end
-    memoize :entities?
 
     # @param klass [Class]
     # @param key [Symbol]
