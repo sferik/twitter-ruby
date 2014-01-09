@@ -173,7 +173,7 @@ module Twitter
 
         # @param count [Integer]
         # @return [Array<Twitter::Tweet>]
-        def collect_with_count(count, &block)
+        def collect_with_count(count)
           options = {}
           options[:count] = MAX_TWEETS_PER_REQUEST
           collect_with_max_id do |max_id|

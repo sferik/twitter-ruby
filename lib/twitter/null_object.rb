@@ -9,7 +9,7 @@ module Twitter
     alias_method :to_str, :to_s
 
     # @return [Twitter::NullObject] This method always returns self.
-    def method_missing(*args, &block)
+    def method_missing(*args)
       self
     end
 

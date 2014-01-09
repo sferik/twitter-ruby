@@ -13,7 +13,7 @@ module Twitter
       # Initializes a new Client object
       #
       # @return [Twitter::Streaming::Client]
-      def initialize(options = {}, &block)
+      def initialize(options = {})
         super
         @connection = Streaming::Connection.new
       end
@@ -99,13 +99,13 @@ module Twitter
 
     private
 
-      def request(method, uri, params, &block) # rubocop:disable ParameterLists
+      def request(method, uri, params)
         before_request.call
         headers  = default_headers.merge(:authorization => oauth_auth_header(method, uri, params).to_s)
         request  = HTTP::Request.new(method, uri + '?' + to_url_params(params), headers)
         response = Streaming::Response.new do |data|
           if item = Streaming::MessageParser.parse(data) # rubocop:disable AssignmentInCondition, IfUnlessModifier
-            block.call(item)
+            yield(item)
           end
         end
         @connection.stream(request, response)
