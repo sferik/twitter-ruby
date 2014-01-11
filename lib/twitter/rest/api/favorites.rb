@@ -11,6 +11,7 @@ module Twitter
     module API
       module Favorites
         include Twitter::REST::API::Utils
+        include Twitter::Utils
 
         # @see https://dev.twitter.com/docs/api/1.1/get/favorites/list
         # @rate_limited Yes
@@ -68,7 +69,7 @@ module Twitter
         #   @param options [Hash] A customizable set of options.
         def favorite(*args)
           arguments = Twitter::Arguments.new(args)
-          Twitter::Utils.parallel_map(arguments) do |tweet|
+          parallel_map(arguments) do |tweet|
             id = extract_id(tweet)
             begin
               object_from_response(Twitter::Tweet, :post, '/1.1/favorites/create.json', arguments.options.merge(:id => id))
@@ -96,7 +97,7 @@ module Twitter
         #   @param options [Hash] A customizable set of options.
         def favorite!(*args)
           arguments = Twitter::Arguments.new(args)
-          Twitter::Utils.parallel_map(arguments) do |tweet|
+          parallel_map(arguments) do |tweet|
             id = extract_id(tweet)
             begin
               object_from_response(Twitter::Tweet, :post, '/1.1/favorites/create.json', arguments.options.merge(:id => id))

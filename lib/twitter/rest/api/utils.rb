@@ -8,23 +8,9 @@ module Twitter
   module REST
     module API
       module Utils
+        include Twitter::Utils
         DEFAULT_CURSOR = -1
         URI_SUBSTRING = '://'
-
-        class << self
-          def included(base)
-            base.extend(ClassMethods)
-          end
-        end
-
-        module ClassMethods
-          def deprecate_alias(new_name, old_name)
-            define_method(new_name) do |*args, &block|
-              warn "#{Kernel.caller.first}: [DEPRECATION] ##{new_name} is deprecated. Use ##{old_name} instead."
-              send(old_name, *args, &block)
-            end
-          end
-        end
 
       private
 
@@ -51,7 +37,7 @@ module Twitter
         # @return [Array<Twitter::User>]
         def parallel_user_objects_from_response(request_method, path, args)
           arguments = Twitter::Arguments.new(args)
-          Twitter::Utils.parallel_map(arguments) do |user|
+          parallel_map(arguments) do |user|
             object_from_response(Twitter::User, request_method, path, merge_user(arguments.options, user))
           end
         end
@@ -103,7 +89,7 @@ module Twitter
         # @return [Array]
         def parallel_objects_from_response(klass, request_method, path, args) # rubocop:disable ParameterLists
           arguments = Twitter::Arguments.new(args)
-          Twitter::Utils.parallel_map(arguments) do |object|
+          parallel_map(arguments) do |object|
             id = extract_id(object)
             object_from_response(klass, request_method, path, arguments.options.merge(:id => id))
           end

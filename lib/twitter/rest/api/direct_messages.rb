@@ -9,6 +9,7 @@ module Twitter
     module API
       module DirectMessages
         include Twitter::REST::API::Utils
+        include Twitter::Utils
 
         # Returns the 20 most recent direct messages sent to the authenticating user
         #
@@ -89,7 +90,7 @@ module Twitter
           if arguments.empty?
             direct_messages_received(arguments.options)
           else
-            Twitter::Utils.parallel_map(arguments) do |id|
+            parallel_map(arguments) do |id|
               direct_message(id, arguments.options)
             end
           end

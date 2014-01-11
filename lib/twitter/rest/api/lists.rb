@@ -13,6 +13,7 @@ module Twitter
     module API
       module Lists
         include Twitter::REST::API::Utils
+        include Twitter::Utils
         MAX_USERS_PER_REQUEST = 100
         URI_SUBSTRING = '://'
 
@@ -446,7 +447,7 @@ module Twitter
           members = arguments.pop
           merge_list!(options, arguments.pop)
           merge_owner!(options, arguments.pop)
-          Twitter::Utils.parallel_map(members.flatten.each_slice(MAX_USERS_PER_REQUEST)) do |users|
+          parallel_map(members.flatten.each_slice(MAX_USERS_PER_REQUEST)) do |users|
             object_from_response(Twitter::List, request_method, path, merge_users(options, users))
           end.last
         end

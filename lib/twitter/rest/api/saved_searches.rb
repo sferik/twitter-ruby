@@ -8,6 +8,7 @@ module Twitter
     module API
       module SavedSearches
         include Twitter::REST::API::Utils
+        include Twitter::Utils
 
         # @rate_limited Yes
         # @authentication Requires user context
@@ -34,7 +35,7 @@ module Twitter
           if arguments.empty?
             objects_from_response(Twitter::SavedSearch, :get, '/1.1/saved_searches/list.json', arguments.options)
           else
-            Twitter::Utils.parallel_map(arguments) do |id|
+            parallel_map(arguments) do |id|
               saved_search(id, arguments.options)
             end
           end
@@ -82,7 +83,7 @@ module Twitter
         #   @param options [Hash] A customizable set of options.
         def destroy_saved_search(*args)
           arguments = Twitter::Arguments.new(args)
-          Twitter::Utils.parallel_map(arguments) do |id|
+          parallel_map(arguments) do |id|
             object_from_response(Twitter::SavedSearch, :post, "/1.1/saved_searches/destroy/#{id}.json", arguments.options)
           end
         end
