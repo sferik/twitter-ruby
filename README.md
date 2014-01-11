@@ -5,14 +5,14 @@
 [![Dependency Status](https://gemnasium.com/sferik/twitter.png?travis)][gemnasium]
 [![Code Climate](https://codeclimate.com/github/sferik/twitter.png)][codeclimate]
 [![Coverage Status](https://coveralls.io/repos/sferik/twitter/badge.png?branch=master)][coveralls]
-[![Gittip](http://img.shields.io/gittip/sferik.png)][gittip]
+[![Gittip](http://img.shields.io/gittip/gems.png)][gittip]
 
 [gem]: https://rubygems.org/gems/twitter
 [travis]: http://travis-ci.org/sferik/twitter
 [gemnasium]: https://gemnasium.com/sferik/twitter
 [codeclimate]: https://codeclimate.com/github/sferik/twitter
 [coveralls]: https://coveralls.io/r/sferik/twitter
-[gittip]: https://www.gittip.com/sferik/
+[gittip]: https://www.gittip.com/gems/
 
 A Ruby interface to the Twitter API.
 
