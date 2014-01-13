@@ -1,17 +1,19 @@
+require 'memoizable'
 require 'twitter/creatable'
 require 'twitter/enumerable'
-require 'memoizable'
 require 'twitter/null_object'
+require 'twitter/utils'
 
 module Twitter
   class TrendResults
     include Twitter::Creatable
     include Twitter::Enumerable
+    include Twitter::Utils
     include Memoizable
     attr_reader :attrs
     alias_method :to_h, :attrs
-    alias_method :to_hash, :attrs
-    alias_method :to_hsh, :attrs
+    deprecate_alias :to_hash, :to_h
+    deprecate_alias :to_hsh, :to_h
 
     class << self
       # Construct a new TrendResults object from a response hash

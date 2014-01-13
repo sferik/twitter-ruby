@@ -2,15 +2,17 @@ require 'addressable/uri'
 require 'forwardable'
 require 'memoizable'
 require 'twitter/null_object'
+require 'twitter/utils'
 
 module Twitter
   class Base
     extend Forwardable
     include Memoizable
+    include Twitter::Utils
     attr_reader :attrs
     alias_method :to_h, :attrs
-    alias_method :to_hash, :attrs
-    alias_method :to_hsh, :attrs
+    deprecate_alias :to_hash, :to_h
+    deprecate_alias :to_hsh, :to_h
 
     class << self
       # Construct an object from a response hash

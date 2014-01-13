@@ -1,12 +1,14 @@
 require 'twitter/enumerable'
+require 'twitter/utils'
 
 module Twitter
   class Cursor
     include Twitter::Enumerable
+    include Twitter::Utils
     attr_reader :attrs
     alias_method :to_h, :attrs
-    alias_method :to_hash, :attrs
-    alias_method :to_hsh, :attrs
+    deprecate_alias :to_hash, :to_h
+    deprecate_alias :to_hsh, :to_h
 
     class << self
       # Construct a new Cursor object from a response hash
