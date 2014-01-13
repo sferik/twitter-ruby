@@ -10,8 +10,8 @@ module Twitter
                 :in_reply_to_screen_name, :in_reply_to_attrs_id,
                 :in_reply_to_status_id, :in_reply_to_user_id, :lang,
                 :retweet_count, :retweeted, :source, :text, :truncated
-    alias_method :favorites_count, :favorite_count
-    alias_method :favoriters_count, :favorite_count
+    deprecate_alias :favorites_count, :favorite_count
+    deprecate_alias :favoriters_count, :favorite_count
     alias_method :in_reply_to_tweet_id, :in_reply_to_status_id
     alias_method :reply?, :in_reply_to_status_id?
     alias_method :retweeters_count, :retweet_count
