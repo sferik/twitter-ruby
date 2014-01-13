@@ -43,28 +43,24 @@ module Twitter
 
     # @return [Boolean]
     def last?
-      !next_results?
+      !next_page?
     end
 
     # @return [Boolean]
-    def next_results?
-      !!(@attrs[:search_metadata] && @attrs[:search_metadata][:next_results])
+    def next_page?
+      !!@attrs[:search_metadata][:next_results] unless @attrs[:search_metadata].nil?
     end
-    alias_method :next_page?, :next_results?
-    alias_method :next?, :next_results?
 
     # Returns a Hash of query parameters for the next result in the search
     #
     # @note Returned Hash can be merged into the previous search options list to easily access the next page.
     # @return [Hash] The parameters needed to fetch the next page.
-    def next_results
-      if next_results?
+    def next_page
+      if next_page?
         query_string = strip_first_character(@attrs[:search_metadata][:next_results])
         query_string_to_hash(query_string)
       end
     end
-    alias_method :next_page, :next_results
-    alias_method :next, :next_results
 
     def fetch_next_page
       response = @client.send(@request_method, @path, next_page)
