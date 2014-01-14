@@ -43,26 +43,6 @@ describe Twitter::REST::Client do
     expect(user1).not_to eq(user2)
   end
 
-  describe '#delete' do
-    before do
-      stub_delete('/custom/delete').with(:query => {:deleted => 'object'})
-    end
-    it 'allows custom delete requests' do
-      @client.delete('/custom/delete', :deleted => 'object')
-      expect(a_delete('/custom/delete').with(:query => {:deleted => 'object'})).to have_been_made
-    end
-  end
-
-  describe '#put' do
-    before do
-      stub_put('/custom/put').with(:body => {:updated => 'object'})
-    end
-    it 'allows custom put requests' do
-      @client.put('/custom/put', :updated => 'object')
-      expect(a_put('/custom/put').with(:body => {:updated => 'object'})).to have_been_made
-    end
-  end
-
   describe '#user_token?' do
     it 'returns true if the user token/secret are present' do
       client = Twitter::REST::Client.new(:consumer_key => 'CK', :consumer_secret => 'CS', :access_token => 'AT', :access_token_secret => 'AS')

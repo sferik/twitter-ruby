@@ -87,11 +87,6 @@ module Twitter
         end
       end
 
-      # Perform an HTTP DELETE request
-      def delete(path, params = {})
-        request(:delete, path, params)
-      end
-
       # Perform an HTTP GET request
       def get(path, params = {})
         request(:get, path, params)
@@ -101,11 +96,6 @@ module Twitter
       def post(path, params = {})
         signature_params = params.values.any? { |value| value.respond_to?(:to_io) } ? {} : params
         request(:post, path, params, signature_params)
-      end
-
-      # Perform an HTTP PUT request
-      def put(path, params = {})
-        request(:put, path, params)
       end
 
       # @return [Boolean]
