@@ -6,16 +6,16 @@ AllCops:
 
 # Avoid long parameter lists
 ParameterLists:
-  Max: 3
+  Max: 4
   CountKeywordArgs: true
 
 MethodLength:
   CountComments: false
-  Max: 15
+  Max: 14
 
 # Avoid more than `Max` levels of nesting.
 BlockNesting:
-  Max: 3
+  Max: 2
 
 # Align with the style guide.
 CollectionMethods:

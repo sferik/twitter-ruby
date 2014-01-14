@@ -14,27 +14,23 @@ module Twitter
       # Construct a new SearchResults object from a response hash
       #
       # @param response [Hash]
-      # @param client [Twitter::REST::Client]
-      # @param path [String]
+      # @param request [Twitter::Request]
       # @return [Twitter::SearchResults]
-      def from_response(response, client, request_method, path, options) # rubocop:disable ParameterLists
-        new(response[:body], client, request_method, path, options)
+      def from_response(response, request)
+        new(response[:body], request)
       end
     end
 
     # Initializes a new SearchResults object
     #
     # @param attrs [Hash]
-    # @param client [Twitter::REST::Client]
-    # @param request_method [String, Symbol]
-    # @param path [String]
-    # @param options [Hash]
+    # @param request [Twitter::Request]
     # @return [Twitter::SearchResults]
-    def initialize(attrs, client, request_method, path, options = {}) # rubocop:disable ParameterLists
-      @client = client
-      @request_method = request_method.to_sym
-      @path = path
-      @options = options
+    def initialize(attrs, request)
+      @client = request.client
+      @request_method = request.verb
+      @path = request.path
+      @options = request.options
       @collection = []
       self.attrs = attrs
     end

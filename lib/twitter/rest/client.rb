@@ -117,7 +117,7 @@ module Twitter
         @connection ||= Faraday.new(ENDPOINT, connection_options)
       end
 
-      def request(method, path, params = {}, signature_params = params) # rubocop:disable ParameterLists
+      def request(method, path, params = {}, signature_params = params)
         response = connection.send(method.to_sym, path, params) do |request|
           request.headers.update(request_headers(method, path, params, signature_params))
         end
@@ -126,7 +126,7 @@ module Twitter
         raise Twitter::Error.new(error) # rubocop:disable RaiseArgs
       end
 
-      def request_headers(method, path, params = {}, signature_params = params) # rubocop:disable ParameterLists
+      def request_headers(method, path, params = {}, signature_params = params)
         bearer_token_request = params.delete(:bearer_token_request)
         headers = {}
         if bearer_token_request
@@ -139,7 +139,7 @@ module Twitter
         headers
       end
 
-      def auth_token(method, path, params = {}, signature_params = params) # rubocop:disable ParameterLists
+      def auth_token(method, path, params = {}, signature_params = params)
         if !user_token?
           @bearer_token = token unless bearer_token?
           bearer_auth_header

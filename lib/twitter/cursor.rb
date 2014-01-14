@@ -16,13 +16,10 @@ module Twitter
       # @param response [Hash]
       # @param key [String, Symbol] The key to fetch the data from the response
       # @param klass [Class] The class to instantiate objects in the response
-      # @param client [Twitter::REST::Client]
-      # @param request_method [String, Symbol]
-      # @param path [String]
-      # @param options [Hash]
+      # @param request [Twitter::Request]
       # @return [Twitter::Cursor]
-      def from_response(response, key, klass, client, request_method, path, options) # rubocop:disable ParameterLists
-        new(response[:body], key, klass, client, request_method, path, options)
+      def from_response(response, key, klass, request)
+        new(response[:body], key, klass, request)
       end
     end
 
@@ -31,18 +28,15 @@ module Twitter
     # @param attrs [Hash]
     # @param key [String, Symbol] The key to fetch the data from the response
     # @param klass [Class] The class to instantiate objects in the response
-    # @param client [Twitter::REST::Client]
-    # @param request_method [String, Symbol]
-    # @param path [String]
-    # @param options [Hash]
+    # @param request [Twitter::Request]
     # @return [Twitter::Cursor]
-    def initialize(attrs, key, klass, client, request_method, path, options = {}) # rubocop:disable ParameterLists
+    def initialize(attrs, key, klass, request)
       @key = key.to_sym
       @klass = klass
-      @client = client
-      @request_method = request_method.to_sym
-      @path = path
-      @options = options
+      @client = request.client
+      @request_method = request.verb
+      @path = request.path
+      @options = request.options
       @collection = []
       self.attrs = attrs
     end

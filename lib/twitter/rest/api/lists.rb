@@ -3,6 +3,7 @@ require 'twitter/cursor'
 require 'twitter/error/forbidden'
 require 'twitter/error/not_found'
 require 'twitter/list'
+require 'twitter/request'
 require 'twitter/rest/api/utils'
 require 'twitter/tweet'
 require 'twitter/user'
@@ -60,7 +61,7 @@ module Twitter
           arguments = Twitter::Arguments.new(args)
           merge_list!(arguments.options, arguments.pop)
           merge_owner!(arguments.options, arguments.pop)
-          objects_from_response(Twitter::Tweet, :get, '/1.1/lists/statuses.json', arguments.options)
+          perform_with_objects(:get, '/1.1/lists/statuses.json', arguments.options, Twitter::Tweet)
         end
 
         # Removes the specified member from the list
@@ -320,7 +321,7 @@ module Twitter
         # @option options [String] :mode ('public') Whether your list is public or private. Values can be 'public' or 'private'.
         # @option options [String] :description The description to give the list.
         def create_list(name, options = {})
-          object_from_response(Twitter::List, :post, '/1.1/lists/create.json', options.merge(:name => name))
+          perform_with_object(:post, '/1.1/lists/create.json', options.merge(:name => name), Twitter::List)
         end
         deprecate_alias :list_create, :create_list
 
@@ -412,14 +413,14 @@ module Twitter
           arguments = Twitter::Arguments.new(args)
           merge_list!(arguments.options, arguments.pop)
           merge_owner!(arguments.options, arguments.pop)
-          object_from_response(Twitter::List, request_method, path, arguments.options)
+          perform_with_object(request_method, path, arguments.options, Twitter::List)
         end
 
         def cursor_from_response_with_list(request_method, path, args)
           arguments = Twitter::Arguments.new(args)
           merge_list!(arguments.options, arguments.pop)
           merge_owner!(arguments.options, arguments.pop)
-          cursor_from_response(:users, Twitter::User, request_method, path, arguments.options)
+          perform_with_cursor(request_method, path, arguments.options, :users, Twitter::User)
         end
 
         def list_user?(request_method, path, args)
@@ -438,7 +439,7 @@ module Twitter
           merge_user!(arguments.options, arguments.pop)
           merge_list!(arguments.options, arguments.pop)
           merge_owner!(arguments.options, arguments.pop)
-          object_from_response(Twitter::List, request_method, path, arguments.options)
+          perform_with_object(request_method, path, arguments.options, Twitter::List)
         end
 
         def list_from_response_with_users(request_method, path, args)
@@ -448,7 +449,7 @@ module Twitter
           merge_list!(options, arguments.pop)
           merge_owner!(options, arguments.pop)
           parallel_map(members.flatten.each_slice(MAX_USERS_PER_REQUEST)) do |users|
-            object_from_response(Twitter::List, request_method, path, merge_users(options, users))
+            perform_with_object(request_method, path, merge_users(options, users), Twitter::List)
           end.last
         end
 

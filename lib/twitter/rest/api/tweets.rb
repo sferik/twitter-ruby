@@ -3,6 +3,7 @@ require 'twitter/error/already_posted'
 require 'twitter/error/already_retweeted'
 require 'twitter/error/forbidden'
 require 'twitter/oembed'
+require 'twitter/request'
 require 'twitter/rest/api/utils'
 require 'twitter/tweet'
 require 'twitter/utils'
@@ -26,8 +27,7 @@ module Twitter
         # @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 100.
         # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
         def retweets(tweet, options = {})
-          id = extract_id(tweet)
-          objects_from_response(Twitter::Tweet, :get, "/1.1/statuses/retweets/#{id}.json", options)
+          perform_with_objects(:get, "/1.1/statuses/retweets/#{extract_id(tweet)}.json", options, Twitter::Tweet)
         end
 
         # Show up to 100 users who retweeted the Tweet
@@ -60,8 +60,7 @@ module Twitter
         # @param options [Hash] A customizable set of options.
         # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
         def status(tweet, options = {})
-          id = extract_id(tweet)
-          object_from_response(Twitter::Tweet, :get, "/1.1/statuses/show/#{id}.json", options)
+          perform_with_object(:get, "/1.1/statuses/show/#{extract_id(tweet)}.json", options, Twitter::Tweet)
         end
 
         # Returns Tweets
@@ -124,7 +123,7 @@ module Twitter
           hash = options.dup
           hash[:in_reply_to_status_id] = hash.delete(:in_reply_to_status).id unless hash[:in_reply_to_status].nil?
           hash[:place_id] = hash.delete(:place).woeid unless hash[:place].nil?
-          object_from_response(Twitter::Tweet, :post, '/1.1/statuses/update.json', hash.merge(:status => status))
+          perform_with_object(:post, '/1.1/statuses/update.json', hash.merge(:status => status), Twitter::Tweet)
         rescue Twitter::Error::Forbidden => error
           handle_forbidden_error(Twitter::Error::AlreadyPosted, error)
         end
@@ -145,9 +144,8 @@ module Twitter
         def retweet(*args)
           arguments = Twitter::Arguments.new(args)
           parallel_map(arguments) do |tweet|
-            id = extract_id(tweet)
             begin
-              post_retweet(id, arguments.options)
+              post_retweet(extract_id(tweet), arguments.options)
             rescue Twitter::Error::Forbidden => error
               raise unless error.message == Twitter::Error::AlreadyRetweeted::MESSAGE
             end
@@ -171,9 +169,8 @@ module Twitter
         def retweet!(*args)
           arguments = Twitter::Arguments.new(args)
           parallel_map(arguments) do |tweet|
-            id = extract_id(tweet)
             begin
-              post_retweet(id, arguments.options)
+              post_retweet(extract_id(tweet), arguments.options)
             rescue Twitter::Error::Forbidden => error
               handle_forbidden_error(Twitter::Error::AlreadyRetweeted, error)
             end
@@ -204,7 +201,7 @@ module Twitter
           hash = options.dup
           hash[:in_reply_to_status_id] = hash.delete(:in_reply_to_status).id unless hash[:in_reply_to_status].nil?
           hash[:place_id] = hash.delete(:place).woeid unless hash[:place].nil?
-          object_from_response(Twitter::Tweet, :post, '/1.1/statuses/update_with_media.json', hash.merge('media[]' => media, 'status' => status))
+          perform_with_object(:post, '/1.1/statuses/update_with_media.json', hash.merge('media[]' => media, 'status' => status), Twitter::Tweet)
         rescue Twitter::Error::Forbidden => error
           handle_forbidden_error(Twitter::Error::AlreadyPosted, error)
         end
@@ -227,7 +224,7 @@ module Twitter
         # @option options [String] :lang Language code for the rendered embed. This will affect the text and localization of the rendered HTML.
         def oembed(tweet, options = {})
           options[:id] = extract_id(tweet)
-          object_from_response(Twitter::OEmbed, :get, '/1.1/statuses/oembed.json', options)
+          perform_with_object(:get, '/1.1/statuses/oembed.json', options, Twitter::OEmbed)
         end
 
         # Returns oEmbeds for Tweets
@@ -252,8 +249,7 @@ module Twitter
         def oembeds(*args)
           arguments = Twitter::Arguments.new(args)
           parallel_map(arguments) do |tweet|
-            id = extract_id(tweet)
-            oembed(id, arguments.options)
+            oembed(extract_id(tweet), arguments.options)
           end
         end
 
@@ -272,7 +268,7 @@ module Twitter
         def retweeters_ids(*args)
           arguments = Twitter::Arguments.new(args)
           arguments.options[:id] ||= extract_id(arguments.first)
-          cursor_from_response(:ids, nil, :get, '/1.1/statuses/retweeters/ids.json', arguments.options)
+          perform_with_cursor(:get, '/1.1/statuses/retweeters/ids.json', arguments.options, :ids)
         end
 
       private
@@ -284,14 +280,12 @@ module Twitter
         def parallel_tweets_from_response(request_method, path, args)
           arguments = Twitter::Arguments.new(args)
           parallel_map(arguments) do |tweet|
-            id = extract_id(tweet)
-            object_from_response(Twitter::Tweet, request_method, path + "/#{id}.json", arguments.options)
+            perform_with_object(request_method, path + "/#{extract_id(tweet)}.json", arguments.options, Twitter::Tweet)
           end
         end
 
         def post_retweet(tweet, options)
-          id = extract_id(tweet)
-          response = post("/1.1/statuses/retweet/#{id}.json", options)
+          response = post("/1.1/statuses/retweet/#{extract_id(tweet)}.json", options)
           retweeted_status = response.dup
           retweeted_status[:body] = response[:body].delete(:retweeted_status)
           retweeted_status[:body][:retweeted_status] = response[:body]

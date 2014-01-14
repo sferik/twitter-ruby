@@ -1,6 +1,7 @@
-require 'twitter/rest/api/utils'
 require 'twitter/configuration'
 require 'twitter/language'
+require 'twitter/request'
+require 'twitter/rest/api/utils'
 
 module Twitter
   module REST
@@ -16,7 +17,7 @@ module Twitter
         # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
         # @return [Twitter::Configuration] Twitter's configuration.
         def configuration(options = {})
-          object_from_response(Twitter::Configuration, :get, '/1.1/help/configuration.json', options)
+          perform_with_object(:get, '/1.1/help/configuration.json', options, Twitter::Configuration)
         end
 
         # Returns the list of languages supported by Twitter
@@ -27,7 +28,7 @@ module Twitter
         # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
         # @return [Array<Twitter::Language>]
         def languages(options = {})
-          objects_from_response(Twitter::Language, :get, '/1.1/help/languages.json', options)
+          perform_with_objects(:get, '/1.1/help/languages.json', options, Twitter::Language)
         end
 
         # Returns {https://twitter.com/privacy Twitter's Privacy Policy}

@@ -1,11 +1,10 @@
-require 'twitter/rest/api/utils'
+require 'twitter/request'
 require 'twitter/search_results'
 
 module Twitter
   module REST
     module API
       module Search
-        include Twitter::REST::API::Utils
         MAX_TWEETS_PER_REQUEST = 100
 
         # Returns tweets that match a specified query.
@@ -30,14 +29,9 @@ module Twitter
         # @return [Twitter::SearchResults] Return tweets that match a specified query with search metadata
         def search(q, options = {})
           options[:count] ||= MAX_TWEETS_PER_REQUEST
-          search_results_from_response(:get, '/1.1/search/tweets.json', options.merge(:q => q))
-        end
-
-      private
-
-        def search_results_from_response(request_method, path, options = {}) # rubocop:disable ParameterLists
-          response = send(request_method.to_sym, path, options)
-          Twitter::SearchResults.from_response(response, self, request_method, path, options)
+          request = Twitter::Request.new(self, :get, '/1.1/search/tweets.json', options.merge(:q => q))
+          response = get(request.path, request.options)
+          Twitter::SearchResults.from_response(response, request)
         end
       end
     end

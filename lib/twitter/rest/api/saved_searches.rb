@@ -1,4 +1,5 @@
 require 'twitter/arguments'
+require 'twitter/request'
 require 'twitter/rest/api/utils'
 require 'twitter/saved_search'
 require 'twitter/utils'
@@ -33,7 +34,7 @@ module Twitter
         def saved_searches(*args)
           arguments = Twitter::Arguments.new(args)
           if arguments.empty?
-            objects_from_response(Twitter::SavedSearch, :get, '/1.1/saved_searches/list.json', arguments.options)
+            perform_with_objects(:get, '/1.1/saved_searches/list.json', arguments.options, Twitter::SavedSearch)
           else
             parallel_map(arguments) do |id|
               saved_search(id, arguments.options)
@@ -51,7 +52,7 @@ module Twitter
         # @param id [Integer] The ID of the saved search.
         # @param options [Hash] A customizable set of options.
         def saved_search(id, options = {})
-          object_from_response(Twitter::SavedSearch, :get, "/1.1/saved_searches/show/#{id}.json", options)
+          perform_with_object(:get, "/1.1/saved_searches/show/#{id}.json", options, Twitter::SavedSearch)
         end
 
         # Creates a saved search for the authenticated user
@@ -64,7 +65,7 @@ module Twitter
         # @param query [String] The query of the search the user would like to save.
         # @param options [Hash] A customizable set of options.
         def create_saved_search(query, options = {})
-          object_from_response(Twitter::SavedSearch, :post, '/1.1/saved_searches/create.json', options.merge(:query => query))
+          perform_with_object(:post, '/1.1/saved_searches/create.json', options.merge(:query => query), Twitter::SavedSearch)
         end
         deprecate_alias :saved_search_create, :create_saved_search
 
@@ -84,7 +85,7 @@ module Twitter
         def destroy_saved_search(*args)
           arguments = Twitter::Arguments.new(args)
           parallel_map(arguments) do |id|
-            object_from_response(Twitter::SavedSearch, :post, "/1.1/saved_searches/destroy/#{id}.json", arguments.options)
+            perform_with_object(:post, "/1.1/saved_searches/destroy/#{id}.json", arguments.options, Twitter::SavedSearch)
           end
         end
         deprecate_alias :saved_search_destroy, :destroy_saved_search

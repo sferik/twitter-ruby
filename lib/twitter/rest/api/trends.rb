@@ -1,5 +1,6 @@
-require 'twitter/rest/api/utils'
 require 'twitter/place'
+require 'twitter/request'
+require 'twitter/rest/api/utils'
 require 'twitter/trend_results'
 
 module Twitter
@@ -20,7 +21,7 @@ module Twitter
         # @return [Array<Twitter::Trend>]
         def trends(id = 1, options = {})
           options[:id] = id
-          object_from_response(Twitter::TrendResults, :get, '/1.1/trends/place.json', options)
+          perform_with_object(:get, '/1.1/trends/place.json', options, Twitter::TrendResults)
         end
         alias_method :local_trends, :trends
         alias_method :trends_place, :trends
@@ -34,7 +35,7 @@ module Twitter
         # @param options [Hash] A customizable set of options.
         # @return [Array<Twitter::Place>]
         def trends_available(options = {})
-          objects_from_response(Twitter::Place, :get, '/1.1/trends/available.json', options)
+          perform_with_objects(:get, '/1.1/trends/available.json', options, Twitter::Place)
         end
         alias_method :trend_locations, :trends_available
 
@@ -49,7 +50,7 @@ module Twitter
         # @option options [Float] :long If provided with a :lat option the available trend locations will be sorted by distance, nearest to furthest, to the co-ordinate pair. The valid ranges for longitude are -180.0 to +180.0 (East is positive) inclusive.
         # @return [Array<Twitter::Place>]
         def trends_closest(options = {})
-          objects_from_response(Twitter::Place, :get, '/1.1/trends/closest.json', options)
+          perform_with_objects(:get, '/1.1/trends/closest.json', options, Twitter::Place)
         end
       end
     end

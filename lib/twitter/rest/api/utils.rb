@@ -1,6 +1,6 @@
 require 'addressable/uri'
 require 'twitter/arguments'
-require 'twitter/cursor'
+require 'twitter/request'
 require 'twitter/user'
 require 'twitter/utils'
 
@@ -9,8 +9,8 @@ module Twitter
     module API
       module Utils
         include Twitter::Utils
-        DEFAULT_CURSOR = -1
         URI_SUBSTRING = '://'
+        DEFAULT_CURSOR = -1
 
       private
 
@@ -33,12 +33,40 @@ module Twitter
 
         # @param request_method [Symbol]
         # @param path [String]
+        # @param options [Hash]
+        # @param klass [Class]
+        def perform_with_object(request_method, path, options, klass)
+          request = Twitter::Request.new(self, request_method, path, options)
+          request.perform_with_object(klass)
+        end
+
+        # @param request_method [Symbol]
+        # @param path [String]
+        # @param options [Hash]
+        # @param klass [Class]
+        def perform_with_objects(request_method, path, options, klass)
+          request = Twitter::Request.new(self, request_method, path, options)
+          request.perform_with_objects(klass)
+        end
+
+        # @param request_method [Symbol]
+        # @param path [String]
+        # @param options [Hash]
+        # @param klass [Class]
+        def perform_with_cursor(request_method, path, options, collection_name, klass = nil) # rubocop:disable ParameterLists
+          merge_default_cursor!(options)
+          request = Twitter::Request.new(self, request_method, path, options)
+          request.perform_with_cursor(collection_name.to_sym, klass)
+        end
+
+        # @param request_method [Symbol]
+        # @param path [String]
         # @param args [Array]
         # @return [Array<Twitter::User>]
         def parallel_user_objects_from_response(request_method, path, args)
           arguments = Twitter::Arguments.new(args)
           parallel_map(arguments) do |user|
-            object_from_response(Twitter::User, request_method, path, merge_user(arguments.options, user))
+            perform_with_object(request_method, path, merge_user(arguments.options, user), Twitter::User)
           end
         end
 
@@ -49,7 +77,7 @@ module Twitter
         def user_objects_from_response(request_method, path, args)
           arguments = Twitter::Arguments.new(args)
           merge_user!(arguments.options, arguments.pop || screen_name) unless arguments.options[:user_id] || arguments.options[:screen_name]
-          objects_from_response(Twitter::User, request_method, path, arguments.options)
+          perform_with_objects(request_method, path, arguments.options, Twitter::User)
         end
 
         # @param klass [Class]
@@ -57,29 +85,10 @@ module Twitter
         # @param path [String]
         # @param args [Array]
         # @return [Array]
-        def objects_from_response_with_user(klass, request_method, path, args) # rubocop:disable ParameterLists
+        def objects_from_response_with_user(klass, request_method, path, args)
           arguments = Twitter::Arguments.new(args)
           merge_user!(arguments.options, arguments.pop)
-          objects_from_response(klass, request_method, path, arguments.options)
-        end
-
-        # @param klass [Class]
-        # @param request_method [Symbol]
-        # @param path [String]
-        # @param options [Hash]
-        # @return [Array]
-        def objects_from_response(klass, request_method, path, options = {}) # rubocop:disable ParameterLists
-          response = send(request_method.to_sym, path, options)[:body]
-          objects_from_array(klass, response)
-        end
-
-        # @param klass [Class]
-        # @param array [Array]
-        # @return [Array]
-        def objects_from_array(klass, array)
-          array.map do |element|
-            klass.new(element)
-          end
+          perform_with_objects(request_method, path, arguments.options, klass)
         end
 
         # @param klass [Class]
@@ -87,22 +96,11 @@ module Twitter
         # @param path [String]
         # @param args [Array]
         # @return [Array]
-        def parallel_objects_from_response(klass, request_method, path, args) # rubocop:disable ParameterLists
+        def parallel_objects_from_response(klass, request_method, path, args)
           arguments = Twitter::Arguments.new(args)
           parallel_map(arguments) do |object|
-            id = extract_id(object)
-            object_from_response(klass, request_method, path, arguments.options.merge(:id => id))
+            perform_with_object(request_method, path, arguments.options.merge(:id => extract_id(object)), klass)
           end
-        end
-
-        # @param klass [Class]
-        # @param request_method [Symbol]
-        # @param path [String]
-        # @param options [Hash]
-        # @return [Object]
-        def object_from_response(klass, request_method, path, options = {}) # rubocop:disable ParameterLists
-          response = send(request_method.to_sym, path, options)
-          klass.from_response(response)
         end
 
         # @param collection_name [Symbol]
@@ -114,19 +112,7 @@ module Twitter
         def cursor_from_response_with_user(collection_name, klass, request_method, path, args) # rubocop:disable ParameterLists
           arguments = Twitter::Arguments.new(args)
           merge_user!(arguments.options, arguments.pop || screen_name) unless arguments.options[:user_id] || arguments.options[:screen_name]
-          cursor_from_response(collection_name, klass, request_method, path, arguments.options)
-        end
-
-        # @param collection_name [Symbol]
-        # @param klass [Class]
-        # @param request_method [Symbol]
-        # @param path [String]
-        # @param options [Hash]
-        # @return [Twitter::Cursor]
-        def cursor_from_response(collection_name, klass, request_method, path, options) # rubocop:disable ParameterLists
-          merge_default_cursor!(options)
-          response = send(request_method.to_sym, path, options)
-          Twitter::Cursor.from_response(response, collection_name.to_sym, klass, self, request_method, path, options)
+          perform_with_cursor(request_method, path, arguments.options, collection_name, klass)
         end
 
         def handle_forbidden_error(klass, error)
@@ -134,12 +120,12 @@ module Twitter
           fail(error)
         end
 
-        def merge_default_cursor!(options)
-          options[:cursor] = DEFAULT_CURSOR unless options[:cursor]
-        end
-
         def screen_name
           @screen_name ||= verify_credentials.screen_name
+        end
+
+        def merge_default_cursor!(options)
+          options[:cursor] = DEFAULT_CURSOR unless options[:cursor]
         end
 
         # Take a user and merge it into the hash with the correct key
@@ -173,7 +159,7 @@ module Twitter
           end
         end
 
-        def set_compound_key(key, value, hash, prefix = nil) # rubocop:disable ParameterLists
+        def set_compound_key(key, value, hash, prefix = nil)
           compound_key = [prefix, key].compact.join('_').to_sym
           hash[compound_key] = value
           hash

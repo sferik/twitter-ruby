@@ -1,3 +1,4 @@
+require 'twitter/request'
 require 'twitter/rest/api/utils'
 require 'twitter/user'
 

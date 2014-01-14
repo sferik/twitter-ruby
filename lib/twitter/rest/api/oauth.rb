@@ -1,6 +1,7 @@
+require 'twitter/request'
 require 'twitter/rest/api/utils'
-require 'twitter/token'
 require 'twitter/rest/response/parse_error_json'
+require 'twitter/token'
 
 module Twitter
   module REST
@@ -19,11 +20,14 @@ module Twitter
         # @authentication Required
         # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
         # @return [Twitter::Token] The Bearer Token. token_type should be 'bearer'.
+        # @param options [Hash] A customizable set of options.
         # @example Generate a Bearer Token
         #   client = Twitter::REST::Client.new(:consumer_key => "abc", :consumer_secret => 'def')
         #   bearer_token = client.token
-        def token
-          object_from_response(Twitter::Token, :post, '/oauth2/token', :grant_type => 'client_credentials', :bearer_token_request => true)
+        def token(options = {})
+          options[:bearer_token_request] = true
+          options[:grant_type] ||= 'client_credentials'
+          perform_with_object(:post, '/oauth2/token', options, Twitter::Token)
         end
         alias_method :bearer_token, :token
 
@@ -34,10 +38,12 @@ module Twitter
         # @authentication Required
         # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
         # @param access_token [String, Twitter::Token] The bearer token to revoke.
+        # @param options [Hash] A customizable set of options.
         # @return [Twitter::Token] The invalidated token. token_type should be nil.
-        def invalidate_token(access_token)
+        def invalidate_token(access_token, options = {})
           access_token = access_token.access_token if access_token.is_a?(Twitter::Token)
-          object_from_response(Twitter::Token, :post, '/oauth2/invalidate_token', :access_token => access_token)
+          options[:access_token] = access_token
+          perform_with_object(:post, '/oauth2/invalidate_token', options, Twitter::Token)
         end
 
         # Allows a registered application to revoke an issued OAuth 2 Bearer Token by presenting its client credentials.

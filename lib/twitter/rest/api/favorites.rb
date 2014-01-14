@@ -1,6 +1,7 @@
 require 'twitter/arguments'
 require 'twitter/error/already_favorited'
 require 'twitter/error/forbidden'
+require 'twitter/request'
 require 'twitter/rest/api/utils'
 require 'twitter/tweet'
 require 'twitter/user'
@@ -34,7 +35,7 @@ module Twitter
         def favorites(*args)
           arguments = Twitter::Arguments.new(args)
           merge_user!(arguments.options, arguments.pop) if arguments.last
-          objects_from_response(Twitter::Tweet, :get, '/1.1/favorites/list.json', arguments.options)
+          perform_with_objects(:get, '/1.1/favorites/list.json', arguments.options, Twitter::Tweet)
         end
 
         # Un-favorites the specified Tweets as the authenticating user
@@ -70,9 +71,8 @@ module Twitter
         def favorite(*args)
           arguments = Twitter::Arguments.new(args)
           parallel_map(arguments) do |tweet|
-            id = extract_id(tweet)
             begin
-              object_from_response(Twitter::Tweet, :post, '/1.1/favorites/create.json', arguments.options.merge(:id => id))
+              perform_with_object(:post, '/1.1/favorites/create.json', arguments.options.merge(:id => extract_id(tweet)), Twitter::Tweet)
             rescue Twitter::Error::Forbidden => error
               raise unless error.message == Twitter::Error::AlreadyFavorited::MESSAGE
             end
@@ -98,9 +98,8 @@ module Twitter
         def favorite!(*args)
           arguments = Twitter::Arguments.new(args)
           parallel_map(arguments) do |tweet|
-            id = extract_id(tweet)
             begin
-              object_from_response(Twitter::Tweet, :post, '/1.1/favorites/create.json', arguments.options.merge(:id => id))
+              perform_with_object(:post, '/1.1/favorites/create.json', arguments.options.merge(:id => extract_id(tweet)), Twitter::Tweet)
             rescue Twitter::Error::Forbidden => error
               handle_forbidden_error(Twitter::Error::AlreadyFavorited, error)
             end

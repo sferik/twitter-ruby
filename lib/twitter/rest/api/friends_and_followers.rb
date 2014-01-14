@@ -2,6 +2,7 @@ require 'twitter/arguments'
 require 'twitter/cursor'
 require 'twitter/error/forbidden'
 require 'twitter/relationship'
+require 'twitter/request'
 require 'twitter/rest/api/utils'
 require 'twitter/user'
 require 'twitter/utils'
@@ -68,7 +69,7 @@ module Twitter
         def friendships(*args)
           arguments = Twitter::Arguments.new(args)
           merge_users!(arguments.options, arguments)
-          objects_from_response(Twitter::User, :get, '/1.1/friendships/lookup.json', arguments.options)
+          perform_with_objects(:get, '/1.1/friendships/lookup.json', arguments.options, Twitter::User)
         end
 
         # Returns an array of numeric IDs for every user who has a pending request to follow the authenticating user
@@ -81,7 +82,7 @@ module Twitter
         # @param options [Hash] A customizable set of options.
         # @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
         def friendships_incoming(options = {})
-          cursor_from_response(:ids, nil, :get, '/1.1/friendships/incoming.json', options)
+          perform_with_cursor(:get, '/1.1/friendships/incoming.json', options, :ids)
         end
 
         # Returns an array of numeric IDs for every protected user for whom the authenticating user has a pending follow request
@@ -94,7 +95,7 @@ module Twitter
         # @param options [Hash] A customizable set of options.
         # @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
         def friendships_outgoing(options = {})
-          cursor_from_response(:ids, nil, :get, '/1.1/friendships/outgoing.json', options)
+          perform_with_cursor(:get, '/1.1/friendships/outgoing.json', options, :ids)
         end
 
         # Allows the authenticating user to follow the specified users, unless they are already followed
@@ -139,7 +140,7 @@ module Twitter
         def follow!(*args)
           arguments = Twitter::Arguments.new(args)
           parallel_map(arguments) do |user|
-            object_from_response(Twitter::User, :post, '/1.1/friendships/create.json', merge_user(arguments.options, user))
+            perform_with_object(:post, '/1.1/friendships/create.json', merge_user(arguments.options, user), Twitter::User)
           end.compact
         end
         alias_method :create_friendship!, :follow!
@@ -176,7 +177,7 @@ module Twitter
         # @option options [Boolean] :retweets Enable/disable retweets from the target user.
         def friendship_update(user, options = {})
           merge_user!(options, user)
-          object_from_response(Twitter::Relationship, :post, '/1.1/friendships/update.json', options)
+          perform_with_object(:post, '/1.1/friendships/update.json', options, Twitter::Relationship)
         end
 
         # Returns detailed information about the relationship between two users
@@ -194,7 +195,7 @@ module Twitter
           options[:source_id] = options.delete(:source_user_id) unless options[:source_user_id].nil?
           merge_user!(options, target, 'target')
           options[:target_id] = options.delete(:target_user_id) unless options[:target_user_id].nil?
-          object_from_response(Twitter::Relationship, :get, '/1.1/friendships/show.json', options)
+          perform_with_object(:get, '/1.1/friendships/show.json', options, Twitter::Relationship)
         end
         alias_method :friendship_show, :friendship
         alias_method :relationship, :friendship
