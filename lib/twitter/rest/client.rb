@@ -129,18 +129,24 @@ module Twitter
 
       def request(method, path, params = {}, signature_params = params) # rubocop:disable ParameterLists
         response = connection.send(method.to_sym, path, params) do |request|
-          bearer_token_request = params.delete(:bearer_token_request)
-          if bearer_token_request
-            request.headers[:accept] = '*/*' # It is important we set this, otherwise we get an error.
-            request.headers[:authorization] = bearer_token_credentials_auth_header
-            request.headers[:content_type] = 'application/x-www-form-urlencoded; charset=UTF-8'
-          else
-            request.headers[:authorization] = auth_token(method, path, params, signature_params)
-          end
+          request.headers.update(request_headers(method, path, params, signature_params))
         end
         response.env
       rescue Faraday::Error::ClientError, JSON::ParserError => error
         raise Twitter::Error.new(error) # rubocop:disable RaiseArgs
+      end
+
+      def request_headers(method, path, params = {}, signature_params = params) # rubocop:disable ParameterLists
+        bearer_token_request = params.delete(:bearer_token_request)
+        headers = {}
+        if bearer_token_request
+          headers[:accept]        = '*/*'
+          headers[:authorization] = bearer_token_credentials_auth_header
+          headers[:content_type]  = 'application/x-www-form-urlencoded; charset=UTF-8'
+        else
+          headers[:authorization] = auth_token(method, path, params, signature_params)
+        end
+        headers
       end
 
       def auth_token(method, path, params = {}, signature_params = params) # rubocop:disable ParameterLists
