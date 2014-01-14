@@ -116,7 +116,7 @@ module Twitter
             friend_ids.to_a
           end
           new_friends = Thread.new do
-            users(args).map(&:id)
+            users(args).collect(&:id)
           end
           follow!(new_friends.value - existing_friends.value, arguments.options)
         end
@@ -274,7 +274,7 @@ module Twitter
         # @return [Array<Integer>]
         # @param options [Hash] A customizable set of options.
         def no_retweet_ids(options = {})
-          get('/1.1/friendships/no_retweets/ids.json', options)[:body].map(&:to_i)
+          get('/1.1/friendships/no_retweets/ids.json', options)[:body].collect(&:to_i)
         end
         alias_method :no_retweets_ids, :no_retweet_ids
       end

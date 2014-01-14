@@ -26,7 +26,7 @@ module Twitter
     # @return [Twitter::GeoResults]
     def initialize(attrs = {})
       @attrs = attrs
-      @collection = Array(@attrs[:result][:places]).map do |place|
+      @collection = Array(@attrs[:result][:places]).collect do |place|
         Place.new(place)
       end
     end

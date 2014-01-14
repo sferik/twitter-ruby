@@ -175,7 +175,7 @@ module Twitter
           when Twitter::User
             user.id
           end
-          blocked_ids(options).map(&:to_i).include?(user_id)
+          blocked_ids(options).collect(&:to_i).include?(user_id)
         end
 
         # Blocks the users specified by the authenticating user

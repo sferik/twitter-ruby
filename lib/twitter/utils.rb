@@ -18,9 +18,9 @@ module Twitter
     def parallel_map(enumerable)
       # Don't bother spawning a new thread if there's only one item
       if enumerable.count == 1
-        enumerable.map { |object| yield object }
+        enumerable.collect { |object| yield object }
       else
-        enumerable.map { |object| Thread.new { yield object } }.map(&:value)
+        enumerable.collect { |object| Thread.new { yield object } }.collect(&:value)
       end
     end
     module_function :parallel_map

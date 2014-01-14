@@ -31,7 +31,7 @@ module Twitter
     # @return [Twitter::TrendResults]
     def initialize(attrs = {})
       @attrs = attrs
-      @collection = Array(@attrs[:trends]).map do |trend|
+      @collection = Array(@attrs[:trends]).collect do |trend|
         Trend.new(trend)
       end
     end

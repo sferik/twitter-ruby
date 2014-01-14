@@ -8,7 +8,7 @@ module Twitter
 
     # @return [Array<Twitter::User>]
     def users
-      Array(@attrs[:users]).map do |user|
+      Array(@attrs[:users]).collect do |user|
         User.new(user)
       end
     end

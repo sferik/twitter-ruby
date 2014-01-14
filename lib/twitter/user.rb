@@ -34,7 +34,7 @@ module Twitter
 
     # @return [Array<Twitter::Entity::URI>]
     def description_uris
-      Array(@attrs[:entities][:description][:urls]).map do |entity|
+      Array(@attrs[:entities][:description][:urls]).collect do |entity|
         Entity::URI.new(entity)
       end
     end

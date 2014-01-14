@@ -44,8 +44,8 @@ module Twitter
         # @option options [Boolean] :ids_only ('false') Only return user ids instead of full user objects.
         def retweeters_of(tweet, options = {})
           ids_only = !!options.delete(:ids_only)
-          retweeters = retweets(tweet, options).map(&:user)
-          ids_only ? retweeters.map(&:id) : retweeters
+          retweeters = retweets(tweet, options).collect(&:user)
+          ids_only ? retweeters.collect(&:id) : retweeters
         end
 
         # Returns a Tweet

@@ -42,7 +42,7 @@ module Twitter
 
       # @return [Hash]
       def errors
-        @errors ||= descendants.reduce({}) do |hash, klass|
+        @errors ||= descendants.inject({}) do |hash, klass|
           hash[klass::HTTP_STATUS_CODE] = klass
           hash
         end

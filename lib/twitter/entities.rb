@@ -57,7 +57,7 @@ module Twitter
     # @param key [Symbol]
     def entities(klass, key)
       if entities?
-        Array(@attrs[:entities][key.to_sym]).map do |entity|
+        Array(@attrs[:entities][key.to_sym]).collect do |entity|
           klass.new(entity)
         end
       else

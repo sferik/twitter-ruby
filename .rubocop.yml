@@ -20,8 +20,8 @@ BlockNesting:
 # Align with the style guide.
 CollectionMethods:
   PreferredMethods:
-    collect:  'map'
-    inject:   'reduce'
+    map:      'collect'
+    reduce:   'inject'
     find:     'detect'
     find_all: 'select'
 

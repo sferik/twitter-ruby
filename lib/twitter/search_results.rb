@@ -69,7 +69,7 @@ module Twitter
 
     def attrs=(attrs)
       @attrs = attrs
-      Array(@attrs[:statuses]).map do |tweet|
+      Array(@attrs[:statuses]).collect do |tweet|
         @collection << Tweet.new(tweet)
       end
     end
@@ -113,7 +113,7 @@ module Twitter
     # @example Convert hash's keys to symbols
     #   symbolize_keys({"foo"=>"bar", "baz"=>"qux"}) #=> {:foo=>"bar", :baz=>"qux"}
     def symbolize_keys(hash)
-      Hash[hash.map { |key, value| [key.to_sym, value] }]
+      Hash[hash.collect { |key, value| [key.to_sym, value] }]
     end
   end
 end
