@@ -24,3 +24,5 @@ module Twitter
     end
   end
 end
+
+Faraday::Response.register_middleware :raise_error => Twitter::REST::Response::RaiseError

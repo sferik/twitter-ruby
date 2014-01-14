@@ -69,21 +69,21 @@ module Twitter
       # @note Faraday's middleware stack implementation is comparable to that of Rack middleware.  The order of middleware is important: the first middleware on the list wraps all others, while the last middleware is the innermost one.
       # @see https://github.com/technoweenie/faraday#advanced-middleware-usage
       # @see http://mislav.uniqpath.com/2011/07/faraday-advanced-http/
-      # @return [Faraday::Builder]
+      # @return [Faraday::RackBuilder]
       def middleware
-        @middleware ||= Faraday::Builder.new do |builder|
+        @middleware ||= Faraday::RackBuilder.new do |faraday|
           # Convert file uploads to Faraday::UploadIO objects
-          builder.use Twitter::REST::Request::MultipartWithFile
-          # Checks for files in the payload
-          builder.use Faraday::Request::Multipart
-          # Convert request params to "www-form-urlencoded"
-          builder.use Faraday::Request::UrlEncoded
+          faraday.request :multipart_with_file
+          # Checks for files in the payload, otherwise leaves everything untouched
+          faraday.request :multipart
+          # Encodes as "application/x-www-form-urlencoded" if not already encoded
+          faraday.request :url_encoded
           # Handle error responses
-          builder.use Twitter::REST::Response::RaiseError
+          faraday.response :raise_error
           # Parse JSON response bodies
-          builder.use Twitter::REST::Response::ParseJson
-          # Set Faraday's HTTP adapter
-          builder.adapter Faraday.default_adapter
+          faraday.response :parse_json
+          # Set default HTTP adapter
+          faraday.adapter :net_http
         end
       end
 

@@ -36,3 +36,5 @@ module Twitter
     end
   end
 end
+
+Faraday::Request.register_middleware :multipart_with_file => Twitter::REST::Request::MultipartWithFile

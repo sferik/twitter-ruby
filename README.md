@@ -469,7 +469,7 @@ client.update("I'm tweeting with @gem!")
 
 ### Middleware
 The Faraday middleware stack is fully configurable and is exposed as a
-`Faraday::Builder` object. You can modify the default middleware in-place:
+`Faraday::RackBuilder` object. You can modify the default middleware in-place:
 
 ```ruby
 client.middleware.insert_after Twitter::Response::RaiseError, CustomMiddleware
@@ -478,12 +478,10 @@ client.middleware.insert_after Twitter::Response::RaiseError, CustomMiddleware
 A custom adapter may be set as part of a custom middleware stack:
 
 ```ruby
-client.middleware = Faraday::Builder.new(
-  &Proc.new do |builder|
-    # Specify a middleware stack here
-    builder.adapter :some_other_adapter
-  end
-)
+client.middleware = Faraday::RackBuilder.new do |faraday|
+  # Specify a middleware stack here
+  faraday.adapter :some_other_adapter
+end
 ```
 
 ## Usage Examples
