@@ -123,7 +123,8 @@ module Twitter
         end
         response.env
       rescue Faraday::Error::ClientError, JSON::ParserError => error
-        raise Twitter::Error.new(error) # rubocop:disable RaiseArgs
+        error = Twitter::Error.new(error)
+        raise error
       end
 
       def request_headers(method, path, params = {}, signature_params = params)
