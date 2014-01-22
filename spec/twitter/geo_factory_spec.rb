@@ -12,7 +12,7 @@ describe Twitter::GeoFactory do
       expect(geo).to be_a Twitter::Geo::Polygon
     end
     it 'raises an IndexError when type is not specified' do
-      expect { Twitter::GeoFactory.new }.to raise_error IndexError
+      expect { Twitter::GeoFactory.new }.to raise_error(IndexError)
     end
   end
 

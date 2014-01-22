@@ -97,13 +97,21 @@ describe Twitter::REST::Client do
       @client.update_with_media('Update', fixture('pbjt.gif'))
       expect(a_post('/1.1/statuses/update_with_media.json')).to have_been_made
     end
-    it 'catches Faraday errors' do
-      allow(@client).to receive(:connection).and_raise(Faraday::Error::ClientError.new('Oops'))
-      expect { @client.send(:request, :get, '/path') }.to raise_error Twitter::Error
+    it 'catches and reraises Faraday timeout errors' do
+      allow(@client).to receive(:connection).and_raise(Faraday::Error::TimeoutError.new('execution expired'))
+      expect { @client.send(:request, :get, '/path') }.to raise_error(Twitter::Error::RequestTimeout)
     end
-    it 'catches JSON::ParserError errors' do
+    it 'catches and reraises Timeout errors' do
+      allow(@client).to receive(:connection).and_raise(Timeout::Error.new('execution expired'))
+      expect { @client.send(:request, :get, '/path') }.to raise_error(Twitter::Error::RequestTimeout)
+    end
+    it 'catches and reraises Faraday client errors' do
+      allow(@client).to receive(:connection).and_raise(Faraday::Error::ClientError.new('connection failed'))
+      expect { @client.send(:request, :get, '/path') }.to raise_error(Twitter::Error)
+    end
+    it 'catches and reraises JSON::ParserError errors' do
       allow(@client).to receive(:connection).and_raise(JSON::ParserError.new('unexpected token'))
-      expect { @client.send(:request, :get, '/path') }.to raise_error Twitter::Error
+      expect { @client.send(:request, :get, '/path') }.to raise_error(Twitter::Error)
     end
   end
 

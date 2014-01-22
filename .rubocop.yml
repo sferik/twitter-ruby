@@ -67,3 +67,6 @@ CaseIndentation:
 
 Lambda:
   Enabled: false
+
+RaiseArgs:
+  EnforcedStyle: compact

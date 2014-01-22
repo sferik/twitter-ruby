@@ -8,7 +8,7 @@ describe Twitter::MediaFactory do
       expect(media).to be_a Twitter::Media::Photo
     end
     it 'raises an IndexError when type is not specified' do
-      expect { Twitter::MediaFactory.new }.to raise_error IndexError
+      expect { Twitter::MediaFactory.new }.to raise_error(IndexError)
     end
   end
 

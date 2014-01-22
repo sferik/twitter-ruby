@@ -2,9 +2,11 @@ require 'base64'
 require 'faraday'
 require 'faraday/request/multipart'
 require 'json'
+require 'timeout'
 require 'twitter/client'
 require 'twitter/error'
 require 'twitter/error/configuration_error'
+require 'twitter/error/request_timeout'
 require 'twitter/rest/api/direct_messages'
 require 'twitter/rest/api/favorites'
 require 'twitter/rest/api/friends_and_followers'
@@ -122,9 +124,10 @@ module Twitter
           request.headers.update(request_headers(method, path, params, signature_params))
         end
         response.env
+      rescue Faraday::Error::TimeoutError, Timeout::Error => error
+        raise(Twitter::Error::RequestTimeout.new(error))
       rescue Faraday::Error::ClientError, JSON::ParserError => error
-        error = Twitter::Error.new(error)
-        raise error
+        fail(Twitter::Error.new(error))
       end
 
       def request_headers(method, path, params = {}, signature_params = params)

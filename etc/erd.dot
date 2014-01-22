@@ -32,6 +32,7 @@ digraph classes {
 	Twitter__Error__InternalServerError [label="Twitter::Error::InternalServerError"]
 	Twitter__Error__NotAcceptable [label="Twitter::Error::NotAcceptable"]
 	Twitter__Error__NotFound [label="Twitter::Error::NotFound"]
+	Twitter__Error__RequestTimeout [label="Twitter::Error::RequestTimeout"]
 	Twitter__Error__ServiceUnavailable [label="Twitter::Error::ServiceUnavailable"]
 	Twitter__Error__TooManyRequests [label="Twitter::Error::TooManyRequests"]
 	Twitter__Error__Unauthorized [label="Twitter::Error::Unauthorized"]
@@ -111,6 +112,7 @@ digraph classes {
 	Twitter__Error__InternalServerError -> Twitter__Error
 	Twitter__Error__NotAcceptable -> Twitter__Error
 	Twitter__Error__NotFound -> Twitter__Error
+	Twitter__Error__RequestTimeout -> Twitter__Error
 	Twitter__Error__ServiceUnavailable -> Twitter__Error
 	Twitter__Error__TooManyRequests -> Twitter__Error
 	Twitter__Error__Unauthorized -> Twitter__Error
