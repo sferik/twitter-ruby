@@ -62,8 +62,8 @@ module Twitter
             :user_agent => user_agent,
           },
           :request => {
-            :open_timeout => 5,
-            :timeout => 10,
+            :open_timeout => 10,
+            :timeout => 30,
           },
         }
       end
