@@ -70,3 +70,6 @@ Lambda:
 
 RaiseArgs:
   EnforcedStyle: compact
+
+TrailingComma:
+  Enabled: false
