@@ -43,6 +43,7 @@ module Twitter
 
   private
 
+    # @return [Integer]
     def next_cursor
       @attrs[:next_cursor] || -1
     end
@@ -53,16 +54,20 @@ module Twitter
       next_cursor.zero?
     end
 
+    # @return [Hash]
     def fetch_next_page
       response = @client.send(@request_method, @path, @options.merge(:cursor => next_cursor))
       self.attrs = response[:body]
     end
 
+    # @param attrs [Hash]
+    # @return [Hash]
     def attrs=(attrs)
       @attrs = attrs
       Array(attrs[@key]).each do |element|
         @collection << (@klass ? @klass.new(element) : element)
       end
+      @attrs
     end
   end
 end
