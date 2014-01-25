@@ -9,6 +9,11 @@ module Twitter
   module Entities
     include Memoizable
 
+    # @return [Array<Symbol>]
+    def entity_types
+      @attrs.fetch(:entities, {}).keys
+    end
+
     # @return [Boolean]
     def entities?
       !@attrs[:entities].nil? && @attrs[:entities].any? { |_, array| !array.empty? }
