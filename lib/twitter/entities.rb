@@ -11,7 +11,7 @@ module Twitter
 
     # @return [Array<Symbol>]
     def entities
-      @attrs.fetch(:entities, {}).reject{ |_, value| value.empty? }.keys
+      @attrs.fetch(:entities, {}).reject { |_, value| value.empty? }.keys
     end
 
     # @return [Boolean]

@@ -60,8 +60,8 @@ describe Twitter::Tweet do
 
     it 'returns an array of entity types included with the tweet' do
       entities = {
-        :urls => [{ :url => 'http://example.com/t.co' }],
-        :media => [{ :url => 'http://example.com/t.co' }]
+        :urls => [{:url => 'http://example.com/t.co'}],
+        :media => [{:url => 'http://example.com/t.co'}]
       }
       tweet = Twitter::Tweet.new(:id => 28_669_546_014, :entities => entities)
       expect(tweet.entities).to eq([:urls, :media])
