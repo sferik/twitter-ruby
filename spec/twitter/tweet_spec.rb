@@ -52,15 +52,19 @@ describe Twitter::Tweet do
     end
   end
 
-  describe '#entity_types' do
+  describe '#entities' do
     it 'returns an empty array for tweets without entities' do
       tweet = Twitter::Tweet.new(:id => 28_669_546_014)
-      expect(tweet.entity_types).to be_empty
+      expect(tweet.entities).to be_empty
     end
 
     it 'returns an array of entity types included with the tweet' do
-      tweet = Twitter::Tweet.new(:id => 28_669_546_014, :entities => {:urls => [], :media => []})
-      expect(tweet.entity_types).to eq([:urls, :media])
+      entities = {
+        :urls => [{ :url => 'http://example.com/t.co' }],
+        :media => [{ :url => 'http://example.com/t.co' }]
+      }
+      tweet = Twitter::Tweet.new(:id => 28_669_546_014, :entities => entities)
+      expect(tweet.entities).to eq([:urls, :media])
     end
   end
 

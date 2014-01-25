@@ -10,8 +10,8 @@ module Twitter
     include Memoizable
 
     # @return [Array<Symbol>]
-    def entity_types
-      @attrs.fetch(:entities, {}).keys
+    def entities
+      @attrs.fetch(:entities, {}).reject{ |_, value| value.empty? }.keys
     end
 
     # @return [Boolean]
@@ -23,28 +23,28 @@ module Twitter
     # @note Must include entities in your request for this method to work
     # @return [Array<Twitter::Entity::Hashtag>]
     def hashtags
-      entities(Entity::Hashtag, :hashtags)
+      entities_for(Entity::Hashtag, :hashtags)
     end
     memoize :hashtags
 
     # @note Must include entities in your request for this method to work
     # @return [Array<Twitter::Media>]
     def media
-      entities(MediaFactory, :media)
+      entities_for(MediaFactory, :media)
     end
     memoize :media
 
     # @note Must include entities in your request for this method to work
     # @return [Array<Twitter::Entity::Symbol>]
     def symbols
-      entities(Entity::Symbol, :symbols)
+      entities_for(Entity::Symbol, :symbols)
     end
     memoize :symbols
 
     # @note Must include entities in your request for this method to work
     # @return [Array<Twitter::Entity::URI>]
     def uris
-      entities(Entity::URI, :urls)
+      entities_for(Entity::URI, :urls)
     end
     memoize :uris
     alias_method :urls, :uris
@@ -52,7 +52,7 @@ module Twitter
     # @note Must include entities in your request for this method to work
     # @return [Array<Twitter::Entity::UserMention>]
     def user_mentions
-      entities(Entity::UserMention, :user_mentions)
+      entities_for(Entity::UserMention, :user_mentions)
     end
     memoize :user_mentions
 
@@ -60,7 +60,7 @@ module Twitter
 
     # @param klass [Class]
     # @param key [Symbol]
-    def entities(klass, key)
+    def entities_for(klass, key)
       if entities?
         Array(@attrs[:entities][key.to_sym]).collect do |entity|
           klass.new(entity)
