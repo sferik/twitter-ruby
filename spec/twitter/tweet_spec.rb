@@ -156,6 +156,20 @@ describe Twitter::Tweet do
     end
   end
 
+  describe '#hashtags?' do
+    it 'returns true when the tweet includes hashtags entities' do
+      entities = {
+        :hashtags => [{:text => 'twitter', :indices => [10, 33]}]
+      }
+      tweet = Twitter::Tweet.new(:id => 28_669_546_014, :entities => entities)
+      expect(tweet.hashtags?).to be_true
+    end
+    it 'returns false when no entities are present' do
+      tweet = Twitter::Tweet.new(:id => 28_669_546_014)
+      expect(tweet.hashtags?).to be_false
+    end
+  end
+
   describe '#media' do
     it 'returns media' do
       media = Twitter::Tweet.new(:id => 28_669_546_014, :entities => {:media => [{:id => 1, :type => 'photo'}]}).media
@@ -169,6 +183,20 @@ describe Twitter::Tweet do
     it 'warns when not set' do
       Twitter::Tweet.new(:id => 28_669_546_014).media
       expect($stderr.string).to match(/To get media, you must pass `:include_entities => true` when requesting the Twitter::Tweet\./)
+    end
+  end
+
+  describe '#media?' do
+    it 'returns true when the tweet includes media entities' do
+      entities = {
+        :media => [{:id => '1', :type => 'photo'}]
+      }
+      tweet = Twitter::Tweet.new(:id => 28_669_546_014, :entities => entities)
+      expect(tweet.media?).to be_true
+    end
+    it 'returns false when no entities are present' do
+      tweet = Twitter::Tweet.new(:id => 28_669_546_014)
+      expect(tweet.media?).to be_false
     end
   end
 
@@ -284,6 +312,20 @@ describe Twitter::Tweet do
     end
   end
 
+  describe '#symbols?' do
+    it 'returns true when the tweet includes symbols entities' do
+      entities = {
+        :symbols => [{:text => 'PEP'}]
+      }
+      tweet = Twitter::Tweet.new(:id => 28_669_546_014, :entities => entities)
+      expect(tweet.symbols?).to be_true
+    end
+    it 'returns false when no entities are present' do
+      tweet = Twitter::Tweet.new(:id => 28_669_546_014)
+      expect(tweet.symbols?).to be_false
+    end
+  end
+
   describe '#uris' do
     it 'returns an array of Entity::URIs when entities are set' do
       urls_array = [
@@ -331,6 +373,20 @@ describe Twitter::Tweet do
       tweet = Twitter::Tweet.new(:id => 28_669_546_014, :user => {:id => 7_505_382, :screen_name => 'sferik'})
       expect(tweet.uri).to be_a Addressable::URI
       expect(tweet.uri.to_s).to eq('https://twitter.com/sferik/status/28669546014')
+    end
+  end
+
+  describe '#uris?' do
+    it 'returns true when the tweet includes urls entities' do
+      entities = {
+        :urls => [{:url => 'http://with_underscore.example.com/t.co'}]
+      }
+      tweet = Twitter::Tweet.new(:id => 28_669_546_014, :entities => entities)
+      expect(tweet.uris?).to be_true
+    end
+    it 'returns false when no entities are present' do
+      tweet = Twitter::Tweet.new(:id => 28_669_546_014)
+      expect(tweet.uris?).to be_false
     end
   end
 
@@ -388,4 +444,17 @@ describe Twitter::Tweet do
     end
   end
 
+  describe '#user_mentions?' do
+    it 'returns true when the tweet includes user_mention entities' do
+      entities = {
+        :user_mentions => [{:screen_name => 'sferik'}]
+      }
+      tweet = Twitter::Tweet.new(:id => 28_669_546_014, :entities => entities)
+      expect(tweet.user_mentions?).to be_true
+    end
+    it 'returns false when no entities are present' do
+      tweet = Twitter::Tweet.new(:id => 28_669_546_014)
+      expect(tweet.user_mentions?).to be_false
+    end
+  end
 end
