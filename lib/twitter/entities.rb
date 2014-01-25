@@ -27,6 +27,11 @@ module Twitter
     end
     memoize :hashtags
 
+    # @return [Boolean]
+    def hashtags?
+      hashtags.any?
+    end
+
     # @note Must include entities in your request for this method to work
     # @return [Array<Twitter::Media>]
     def media
@@ -34,12 +39,22 @@ module Twitter
     end
     memoize :media
 
+    # @return [Boolean]
+    def media?
+      media.any?
+    end
+
     # @note Must include entities in your request for this method to work
     # @return [Array<Twitter::Entity::Symbol>]
     def symbols
       entities_for(Entity::Symbol, :symbols)
     end
     memoize :symbols
+
+    # @return [Boolean]
+    def symbols?
+      symbols.any?
+    end
 
     # @note Must include entities in your request for this method to work
     # @return [Array<Twitter::Entity::URI>]
@@ -49,12 +64,23 @@ module Twitter
     memoize :uris
     alias_method :urls, :uris
 
+    # @return [Boolean]
+    def uris?
+      uris.any?
+    end
+    alias_method :urls?, :uris?
+
     # @note Must include entities in your request for this method to work
     # @return [Array<Twitter::Entity::UserMention>]
     def user_mentions
       entities_for(Entity::UserMention, :user_mentions)
     end
     memoize :user_mentions
+
+    # @return [Boolean]
+    def user_mentions?
+      user_mentions.any?
+    end
 
   private
 
