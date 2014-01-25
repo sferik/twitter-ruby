@@ -9,6 +9,11 @@ module Twitter
   module Entities
     include Memoizable
 
+    # @return [Array<Symbol>]
+    def entities
+      @attrs.fetch(:entities, {}).reject { |_, value| value.empty? }.keys
+    end
+
     # @return [Boolean]
     def entities?
       !@attrs[:entities].nil? && @attrs[:entities].any? { |_, array| !array.empty? }
@@ -18,44 +23,70 @@ module Twitter
     # @note Must include entities in your request for this method to work
     # @return [Array<Twitter::Entity::Hashtag>]
     def hashtags
-      entities(Entity::Hashtag, :hashtags)
+      entities_for(Entity::Hashtag, :hashtags)
     end
     memoize :hashtags
+
+    # @return [Boolean]
+    def hashtags?
+      hashtags.any?
+    end
 
     # @note Must include entities in your request for this method to work
     # @return [Array<Twitter::Media>]
     def media
-      entities(MediaFactory, :media)
+      entities_for(MediaFactory, :media)
     end
     memoize :media
+
+    # @return [Boolean]
+    def media?
+      media.any?
+    end
 
     # @note Must include entities in your request for this method to work
     # @return [Array<Twitter::Entity::Symbol>]
     def symbols
-      entities(Entity::Symbol, :symbols)
+      entities_for(Entity::Symbol, :symbols)
     end
     memoize :symbols
+
+    # @return [Boolean]
+    def symbols?
+      symbols.any?
+    end
 
     # @note Must include entities in your request for this method to work
     # @return [Array<Twitter::Entity::URI>]
     def uris
-      entities(Entity::URI, :urls)
+      entities_for(Entity::URI, :urls)
     end
     memoize :uris
     alias_method :urls, :uris
 
+    # @return [Boolean]
+    def uris?
+      uris.any?
+    end
+    alias_method :urls?, :uris?
+
     # @note Must include entities in your request for this method to work
     # @return [Array<Twitter::Entity::UserMention>]
     def user_mentions
-      entities(Entity::UserMention, :user_mentions)
+      entities_for(Entity::UserMention, :user_mentions)
     end
     memoize :user_mentions
+
+    # @return [Boolean]
+    def user_mentions?
+      user_mentions.any?
+    end
 
   private
 
     # @param klass [Class]
     # @param key [Symbol]
-    def entities(klass, key)
+    def entities_for(klass, key)
       if entities?
         Array(@attrs[:entities][key.to_sym]).collect do |entity|
           klass.new(entity)
