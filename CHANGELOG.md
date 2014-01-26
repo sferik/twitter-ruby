@@ -1,3 +1,15 @@
+5.6.0
+-----
+* [Replace custom `Twitter::NullObject` with `Naught`](https://github.com/sferik/twitter/commit/bc3990e3588f889569f1c92e465c329c508ce32e)
+* [Use `URI` and `CGI` to convert query string into a hash](https://github.com/sferik/twitter/commit/6dd9d97aaef3917868b870e01896ab937cbacfbb)
+* [Increase default timeout values](https://github.com/sferik/twitter/commit/350536926d1c2c0656fdc79948c5f543e306e14e)
+* [Add `Twitter::Error::RequestTimeout`](https://github.com/sferik/twitter/commit/3179537af41b2e2f85c0bc74be799faea0817e48)
+* [Remove unused methods `#put` and `#delete` in `Twitter::REST::Client`](https://github.com/sferik/twitter/commit/eaaf234b84a6e2e1f7695f73befaf11f30664f4a)
+* [Deprecate `retweeters_count` in favor of `retweet_count`](https://github.com/sferik/twitter/commit/ea39bd013364dc24f02e9a1eb25b4b48b99a5480)
+* [Deprecate `favorites_count`/`favoriters_count` in favor of `favorite_count`](https://github.com/sferik/twitter/commit/ea39bd013364dc24f02e9a1eb25b4b48b99a5480)
+* [Deprecate `to_hash`/`to_hsh` in favor of `to_h` or `attrs`](https://github.com/sferik/twitter/commit/63e2cdd693aece2912564988d06786cd23a2cad5)
+* [Deprecate `oauth_token` and `oauth_token_secret` accessors](https://github.com/sferik/twitter/commit/ac246717557ea02565a1d93b3f9a975e7fd39874)
+
 5.5.1
 -----
 * [Fix bug where `Twitter::Error::AlreadyFavorited` would never be raised](https://github.com/sferik/twitter/issues/512) ([@polestarw](https://twitter.com/polestarw))
