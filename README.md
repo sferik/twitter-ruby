@@ -547,10 +547,10 @@ client.mentions_timeline
 ```ruby
 client.status(27558893223)
 ```
-**Collect the 3 most recent marriage proposals to @justinbieber**
+**Collect the three most recent marriage proposals to @justinbieber**
 
 ```ruby
-client.search("to:justinbieber marry me", :count => 3, :result_type => "recent").take(3).collect do |tweet|
+client.search("to:justinbieber marry me", :result_type => "recent").take(3).collect do |tweet|
   "#{tweet.user.screen_name}: #{tweet.text}"
 end
 ```

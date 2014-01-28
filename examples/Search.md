@@ -1,20 +1,15 @@
 # Search
 
-Here is a simple demonstration of how to get tweets using this gem. 
+This example assumes you have a configured Twitter REST `client`. Instructions
+on how to configure a client can be found in [examples/Configuration.md][cfg].
 
-See the [Configuration][] example for info about keys/tokens/secrets. 
+[cfg]: https://github.com/sferik/twitter/blob/master/examples/Configuration.md
 
-[Configuration]: https://github.com/sferik/twitter/blob/master/examples/Configuration.md
+Here's a simple example of how to search for tweets. This query will return the
+three most recent marriage proposals to @justinbieber.
 
 ```ruby
-require 'twitter'
-
-client = Twitter::REST::Client.new do |config|
-  config.consumer_key = "YOUR_CONSUMER_KEY"
-  config.consumer_secret = "YOUR_CONSUMER_SECRET"
-end
-
-client.search("#helloworld", :count => 10).each do |tweet| 
-  puts "#{tweet.user.name} (@#{tweet.user.screen_name}): #{tweet.text} [Created #{tweet.created_at}]"
+client.search("to:justinbieber marry me", :result_type => "recent").take(3).each do |tweet|
+  puts tweet.text
 end
 ```

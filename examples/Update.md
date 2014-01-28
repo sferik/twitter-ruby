@@ -1,7 +1,8 @@
 # Update
 
-These examples assume you have a configured Twitter REST `client`. Instructions
-on how to configure a client can be found in [examples/Configuration.md][cfg].
+These examples assume you have a configured Twitter REST `client`.
+Instructions on how to configure a client can be found in
+[examples/Configuration.md][cfg].
 
 [cfg]: https://github.com/sferik/twitter/blob/master/examples/Configuration.md
 

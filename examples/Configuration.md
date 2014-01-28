@@ -32,7 +32,7 @@ client = Twitter::REST::Client.new do |config|
 end
 ```
 
-If you prefer, you can pass in configuration as a Ruby `Hash`:
+If you prefer, you can pass in configuration as a `Hash`:
 
 ```ruby
 config = {
