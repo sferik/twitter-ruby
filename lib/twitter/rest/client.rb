@@ -7,22 +7,22 @@ require 'twitter/client'
 require 'twitter/error'
 require 'twitter/error/configuration_error'
 require 'twitter/error/request_timeout'
-require 'twitter/rest/api/direct_messages'
-require 'twitter/rest/api/favorites'
-require 'twitter/rest/api/friends_and_followers'
-require 'twitter/rest/api/help'
-require 'twitter/rest/api/lists'
-require 'twitter/rest/api/oauth'
-require 'twitter/rest/api/places_and_geo'
-require 'twitter/rest/api/saved_searches'
-require 'twitter/rest/api/search'
-require 'twitter/rest/api/spam_reporting'
-require 'twitter/rest/api/suggested_users'
-require 'twitter/rest/api/timelines'
-require 'twitter/rest/api/trends'
-require 'twitter/rest/api/tweets'
-require 'twitter/rest/api/undocumented'
-require 'twitter/rest/api/users'
+require 'twitter/rest/direct_messages'
+require 'twitter/rest/favorites'
+require 'twitter/rest/friends_and_followers'
+require 'twitter/rest/help'
+require 'twitter/rest/lists'
+require 'twitter/rest/oauth'
+require 'twitter/rest/places_and_geo'
+require 'twitter/rest/saved_searches'
+require 'twitter/rest/search'
+require 'twitter/rest/spam_reporting'
+require 'twitter/rest/suggested_users'
+require 'twitter/rest/timelines'
+require 'twitter/rest/trends'
+require 'twitter/rest/tweets'
+require 'twitter/rest/undocumented'
+require 'twitter/rest/users'
 require 'twitter/rest/request/multipart_with_file'
 require 'twitter/rest/response/parse_json'
 require 'twitter/rest/response/raise_error'
@@ -34,22 +34,22 @@ module Twitter
     # @note All methods have been separated into modules and follow the same grouping used in {http://dev.twitter.com/doc the Twitter API Documentation}.
     # @see http://dev.twitter.com/pages/every_developer
     class Client < Twitter::Client
-      include Twitter::REST::API::DirectMessages
-      include Twitter::REST::API::Favorites
-      include Twitter::REST::API::FriendsAndFollowers
-      include Twitter::REST::API::Help
-      include Twitter::REST::API::Lists
-      include Twitter::REST::API::OAuth
-      include Twitter::REST::API::PlacesAndGeo
-      include Twitter::REST::API::SavedSearches
-      include Twitter::REST::API::Search
-      include Twitter::REST::API::SpamReporting
-      include Twitter::REST::API::SuggestedUsers
-      include Twitter::REST::API::Timelines
-      include Twitter::REST::API::Trends
-      include Twitter::REST::API::Tweets
-      include Twitter::REST::API::Undocumented
-      include Twitter::REST::API::Users
+      include Twitter::REST::DirectMessages
+      include Twitter::REST::Favorites
+      include Twitter::REST::FriendsAndFollowers
+      include Twitter::REST::Help
+      include Twitter::REST::Lists
+      include Twitter::REST::OAuth
+      include Twitter::REST::PlacesAndGeo
+      include Twitter::REST::SavedSearches
+      include Twitter::REST::Search
+      include Twitter::REST::SpamReporting
+      include Twitter::REST::SuggestedUsers
+      include Twitter::REST::Timelines
+      include Twitter::REST::Trends
+      include Twitter::REST::Tweets
+      include Twitter::REST::Undocumented
+      include Twitter::REST::Users
       attr_accessor :bearer_token
       attr_writer :connection_options, :middleware
       ENDPOINT = 'https://api.twitter.com'
