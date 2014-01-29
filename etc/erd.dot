@@ -7,6 +7,7 @@ digraph classes {
 	Exception [label="Exception"]
 	Faraday__Middleware [label="Faraday::Middleware"]
 	Faraday__Response__Middleware [label="Faraday::Response::Middleware"]
+	Naught__BasicObject [label="Naught::BasicObject"]
 	StandardError [label="StandardError"]
 	Twitter__Arguments [label="Twitter::Arguments"]
 	Twitter__Base [label="Twitter::Base"]
@@ -87,6 +88,7 @@ digraph classes {
 	Exception -> Object
 	Faraday__Middleware -> Object
 	Faraday__Response__Middleware -> Faraday__Middleware
+	Naught__BasicObject -> Object
 	StandardError -> Exception
 	Twitter__Arguments -> Array
 	Twitter__Base -> Object
@@ -129,7 +131,7 @@ digraph classes {
 	Twitter__MediaFactory -> Twitter__Factory
 	Twitter__Media__Photo -> Twitter__Identity
 	Twitter__Metadata -> Twitter__Base
-	Twitter__NullObject -> Object
+	Twitter__NullObject -> Naught__BasicObject
 	Twitter__OEmbed -> Twitter__Base
 	Twitter__Place -> Twitter__Base
 	Twitter__ProfileBanner -> Twitter__Base
