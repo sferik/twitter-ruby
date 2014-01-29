@@ -7,22 +7,7 @@ require 'twitter/client'
 require 'twitter/error'
 require 'twitter/error/configuration_error'
 require 'twitter/error/request_timeout'
-require 'twitter/rest/direct_messages'
-require 'twitter/rest/favorites'
-require 'twitter/rest/friends_and_followers'
-require 'twitter/rest/help'
-require 'twitter/rest/lists'
-require 'twitter/rest/oauth'
-require 'twitter/rest/places_and_geo'
-require 'twitter/rest/saved_searches'
-require 'twitter/rest/search'
-require 'twitter/rest/spam_reporting'
-require 'twitter/rest/suggested_users'
-require 'twitter/rest/timelines'
-require 'twitter/rest/trends'
-require 'twitter/rest/tweets'
-require 'twitter/rest/undocumented'
-require 'twitter/rest/users'
+require 'twitter/rest/api'
 require 'twitter/rest/request/multipart_with_file'
 require 'twitter/rest/response/parse_json'
 require 'twitter/rest/response/raise_error'
@@ -34,22 +19,7 @@ module Twitter
     # @note All methods have been separated into modules and follow the same grouping used in {http://dev.twitter.com/doc the Twitter API Documentation}.
     # @see http://dev.twitter.com/pages/every_developer
     class Client < Twitter::Client
-      include Twitter::REST::DirectMessages
-      include Twitter::REST::Favorites
-      include Twitter::REST::FriendsAndFollowers
-      include Twitter::REST::Help
-      include Twitter::REST::Lists
-      include Twitter::REST::OAuth
-      include Twitter::REST::PlacesAndGeo
-      include Twitter::REST::SavedSearches
-      include Twitter::REST::Search
-      include Twitter::REST::SpamReporting
-      include Twitter::REST::SuggestedUsers
-      include Twitter::REST::Timelines
-      include Twitter::REST::Trends
-      include Twitter::REST::Tweets
-      include Twitter::REST::Undocumented
-      include Twitter::REST::Users
+      include Twitter::REST::API
       attr_accessor :bearer_token
       attr_writer :connection_options, :middleware
       ENDPOINT = 'https://api.twitter.com'
