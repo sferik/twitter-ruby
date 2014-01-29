@@ -10,16 +10,6 @@ module Twitter
     deprecate_alias :to_hash, :to_h
     deprecate_alias :to_hsh, :to_h
 
-    class << self
-      # Construct a new GeoResults object from a response hash
-      #
-      # @param response [Hash]
-      # @return [Twitter::Base]
-      def from_response(response = {})
-        new(response[:body])
-      end
-    end
-
     # Initializes a new GeoResults object
     #
     # @param attrs [Hash]

@@ -19,27 +19,27 @@ module Twitter
 
     # @return [Hash]
     def perform
-      @client.send(@request_method, @path, @options)
+      @client.send(@request_method, @path, @options).body
     end
 
     # @param klass [Class]
     # @param request [Twitter::Request]
     # @return [Object]
     def perform_with_object(klass)
-      klass.from_response(perform)
+      klass.new(perform)
     end
 
     # @param collection_name [Symbol]
     # @param klass [Class]
     # @return [Twitter::Cursor]
     def perform_with_cursor(collection_name, klass = nil)
-      Twitter::Cursor.from_response(perform, collection_name.to_sym, klass, self)
+      Twitter::Cursor.new(perform, collection_name.to_sym, klass, self)
     end
 
     # @param klass [Class]
     # @return [Array]
     def perform_with_objects(klass)
-      perform[:body].collect do |element|
+      perform.collect do |element|
         klass.new(element)
       end
     end

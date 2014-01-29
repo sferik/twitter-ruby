@@ -15,16 +15,6 @@ module Twitter
     deprecate_alias :to_hash, :to_h
     deprecate_alias :to_hsh, :to_h
 
-    class << self
-      # Construct a new TrendResults object from a response hash
-      #
-      # @param response [Hash]
-      # @return [Twitter::Base]
-      def from_response(response = {})
-        new(response[:body].first)
-      end
-    end
-
     # Initializes a new TrendResults object
     #
     # @param attrs [Hash]

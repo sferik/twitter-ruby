@@ -10,19 +10,6 @@ module Twitter
     deprecate_alias :to_hash, :to_h
     deprecate_alias :to_hsh, :to_h
 
-    class << self
-      # Construct a new Cursor object from a response hash
-      #
-      # @param response [Hash]
-      # @param key [String, Symbol] The key to fetch the data from the response
-      # @param klass [Class] The class to instantiate objects in the response
-      # @param request [Twitter::Request]
-      # @return [Twitter::Cursor]
-      def from_response(response, key, klass, request)
-        new(response[:body], key, klass, request)
-      end
-    end
-
     # Initializes a new Cursor
     #
     # @param attrs [Hash]
@@ -56,8 +43,8 @@ module Twitter
 
     # @return [Hash]
     def fetch_next_page
-      response = @client.send(@request_method, @path, @options.merge(:cursor => next_cursor))
-      self.attrs = response[:body]
+      response = @client.send(@request_method, @path, @options.merge(:cursor => next_cursor)).body
+      self.attrs = response
     end
 
     # @param attrs [Hash]

@@ -20,7 +20,8 @@ module Twitter
       # @return [Array<Twitter::Trend>]
       def trends(id = 1, options = {})
         options[:id] = id
-        perform_with_object(:get, '/1.1/trends/place.json', options, Twitter::TrendResults)
+        response = get('/1.1/trends/place.json', options).body.first
+        Twitter::TrendResults.new(response)
       end
       alias_method :local_trends, :trends
       alias_method :trends_place, :trends

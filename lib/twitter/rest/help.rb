@@ -38,7 +38,7 @@ module Twitter
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [String]
       def privacy(options = {})
-        get('/1.1/help/privacy.json', options)[:body][:privacy]
+        get('/1.1/help/privacy.json', options).body[:privacy]
       end
 
       # Returns {https://twitter.com/tos Twitter's Terms of Service}
@@ -49,7 +49,7 @@ module Twitter
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [String]
       def tos(options = {})
-        get('/1.1/help/tos.json', options)[:body][:tos]
+        get('/1.1/help/tos.json', options).body[:tos]
       end
     end
   end

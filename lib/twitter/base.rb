@@ -15,14 +15,6 @@ module Twitter
     deprecate_alias :to_hsh, :to_h
 
     class << self
-      # Construct an object from a response hash
-      #
-      # @param response [Hash]
-      # @return [Twitter::Base]
-      def from_response(response = {})
-        new(response[:body])
-      end
-
       # Define methods that retrieve the value from attributes
       #
       # @param attrs [Array, Symbol]
