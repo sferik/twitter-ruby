@@ -59,7 +59,7 @@ module Twitter
     def validate_credential_type!
       credentials.each do |credential, value|
         next if value.nil?
-        fail(Error::ConfigurationError.new("Invalid #{credential} specified: #{value.inspect} must be a string or symbol.")) unless value.is_a?(String) || value.is_a?(Symbol)
+        fail(Twitter::Error::ConfigurationError.new("Invalid #{credential} specified: #{value.inspect} must be a string or symbol.")) unless value.is_a?(String) || value.is_a?(Symbol)
       end
     end
 

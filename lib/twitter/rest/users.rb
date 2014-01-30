@@ -1,5 +1,5 @@
 require 'twitter/arguments'
-require 'twitter/error/not_found'
+require 'twitter/error'
 require 'twitter/profile_banner'
 require 'twitter/request'
 require 'twitter/rest/utils'

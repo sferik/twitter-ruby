@@ -1,15 +1,5 @@
 require 'faraday'
-require 'twitter/error/bad_gateway'
-require 'twitter/error/bad_request'
-require 'twitter/error/forbidden'
-require 'twitter/error/gateway_timeout'
-require 'twitter/error/internal_server_error'
-require 'twitter/error/not_acceptable'
-require 'twitter/error/not_found'
-require 'twitter/error/service_unavailable'
-require 'twitter/error/too_many_requests'
-require 'twitter/error/unauthorized'
-require 'twitter/error/unprocessable_entity'
+require 'twitter/error'
 
 module Twitter
   module REST

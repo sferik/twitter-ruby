@@ -7,7 +7,7 @@ module Twitter
     alias_method :wrapped_exception, :cause
 
     # If error code is missing see https://dev.twitter.com/docs/error-codes-responses
-    module Codes
+    module Code
       AUTHENTICATION_PROBLEM       = 32
       RESOURCE_NOT_FOUND           = 34
       SUSPENDED_ACCOUNT            = 64
@@ -18,6 +18,7 @@ module Twitter
       OVER_CAPACITY                = 130
       INTERNAL_ERROR               = 131
       OAUTH_TIMESTAMP_OUT_OF_RANGE = 135
+      ALREADY_FAVORITED            = 139
       FOLLOW_ALREADY_REQUESTED     = 160
       FOLLOW_LIMIT_EXCEEDED        = 161
       PROTECTED_STATUS             = 179
@@ -27,6 +28,7 @@ module Twitter
       LOGIN_VERIFICATION_NEEDED    = 231
       ENDPOINT_RETIRED             = 251
     end
+    Codes = Code # rubocop:disable ConstantName
 
     class << self
       # Create a new error from an HTTP response
@@ -46,6 +48,7 @@ module Twitter
           403 => Twitter::Error::Forbidden,
           404 => Twitter::Error::NotFound,
           406 => Twitter::Error::NotAcceptable,
+          408 => Twitter::Error::RequestTimeout,
           422 => Twitter::Error::UnprocessableEntity,
           429 => Twitter::Error::TooManyRequests,
           500 => Twitter::Error::InternalServerError,
@@ -89,5 +92,66 @@ module Twitter
       @code = code
       exception.respond_to?(:message) ? super(exception.message) : super(exception.to_s)
     end
+
+    class ConfigurationError < ::ArgumentError; end
+
+    # Raised when Twitter returns a 4xx HTTP status code
+    class ClientError < self; end
+
+    # Raised when Twitter returns the HTTP status code 400
+    class BadRequest < ClientError; end
+
+    # Raised when Twitter returns the HTTP status code 401
+    class Unauthorized < ClientError; end
+
+    # Raised when Twitter returns the HTTP status code 403
+    class Forbidden < ClientError; end
+
+    # Raised when a Tweet has already been favorited
+    class AlreadyFavorited < Forbidden
+      MESSAGE = 'You have already favorited this status.'
+    end
+
+    # Raised when a Tweet has already been posted
+    class AlreadyPosted < Forbidden
+      MESSAGE = 'Status is a duplicate.'
+    end
+
+    # Raised when a Tweet has already been retweeted
+    class AlreadyRetweeted < Forbidden
+      MESSAGE = 'sharing is not permissible for this status (Share validations failed)'
+    end
+
+    # Raised when Twitter returns the HTTP status code 404
+    class NotFound < ClientError; end
+
+    # Raised when Twitter returns the HTTP status code 406
+    class NotAcceptable < ClientError; end
+
+    # Raised when Twitter returns the HTTP status code 408
+    class RequestTimeout < ClientError; end
+
+    # Raised when Twitter returns the HTTP status code 422
+    class UnprocessableEntity < ClientError; end
+
+    # Raised when Twitter returns the HTTP status code 429
+    class TooManyRequests < ClientError; end
+    EnhanceYourCalm = TooManyRequests # rubocop:disable ConstantName
+    RateLimited = TooManyRequests # rubocop:disable ConstantName
+
+    # Raised when Twitter returns a 5xx HTTP status code
+    class ServerError < self; end
+
+    # Raised when Twitter returns the HTTP status code 500
+    class InternalServerError < ServerError; end
+
+    # Raised when Twitter returns the HTTP status code 502
+    class BadGateway < ServerError; end
+
+    # Raised when Twitter returns the HTTP status code 503
+    class ServiceUnavailable < ServerError; end
+
+    # Raised when Twitter returns the HTTP status code 504
+    class GatewayTimeout < ServerError; end
   end
 end

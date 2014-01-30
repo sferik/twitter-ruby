@@ -1,7 +1,5 @@
 require 'twitter/arguments'
-require 'twitter/error/already_posted'
-require 'twitter/error/already_retweeted'
-require 'twitter/error/forbidden'
+require 'twitter/error'
 require 'twitter/oembed'
 require 'twitter/request'
 require 'twitter/rest/utils'

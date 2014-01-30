@@ -1,7 +1,6 @@
 require 'twitter/arguments'
 require 'twitter/cursor'
-require 'twitter/error/forbidden'
-require 'twitter/error/not_found'
+require 'twitter/error'
 require 'twitter/list'
 require 'twitter/request'
 require 'twitter/rest/utils'

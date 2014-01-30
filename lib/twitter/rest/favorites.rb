@@ -1,6 +1,5 @@
 require 'twitter/arguments'
-require 'twitter/error/already_favorited'
-require 'twitter/error/forbidden'
+require 'twitter/error'
 require 'twitter/request'
 require 'twitter/rest/utils'
 require 'twitter/tweet'
