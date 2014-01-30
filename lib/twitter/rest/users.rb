@@ -336,6 +336,7 @@ module Twitter
       # @param options [Hash] A customizable set of options.
       def remove_profile_banner(options = {})
         post('/1.1/account/remove_profile_banner.json', options).body
+        true
       end
       deprecate_alias :profile_banner_remove, :remove_profile_banner
 
@@ -358,6 +359,7 @@ module Twitter
       # @option options [Integer] :offset_top The number of pixels by which to offset the uploaded image from the top. Use with height, width, and offset_left to select the desired region of the image to use.
       def update_profile_banner(banner, options = {})
         post('/1.1/account/update_profile_banner.json', options.merge(:banner => banner)).body
+        true
       end
 
       # Returns the available size variations of the specified user's profile banner.

@@ -647,8 +647,8 @@ describe Twitter::REST::Users do
       expect(a_post('/1.1/account/remove_profile_banner.json')).to have_been_made
     end
     it 'returns a user' do
-      user = @client.remove_profile_banner
-      expect(user).to be_nil
+      response = @client.remove_profile_banner
+      expect(response).to be true
     end
   end
 
@@ -661,8 +661,8 @@ describe Twitter::REST::Users do
       expect(a_post('/1.1/account/update_profile_banner.json')).to have_been_made
     end
     it 'returns a user' do
-      user = @client.update_profile_banner(fixture('me.jpeg'))
-      expect(user).to be_nil
+      response = @client.update_profile_banner(fixture('me.jpeg'))
+      expect(response).to be true
     end
   end
 

@@ -84,7 +84,7 @@ describe Twitter::Tweet do
     end
     it 'returns nil when not set' do
       tweet = Twitter::Tweet.new(:id => 28_669_546_014)
-      expect(tweet.filter_level).to be nil
+      expect(tweet.filter_level).to be_nil
     end
   end
 
