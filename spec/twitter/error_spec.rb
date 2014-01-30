@@ -20,13 +20,6 @@ describe Twitter::Error do
     end
   end
 
-  describe '#cause' do
-    it 'returns the cause' do
-      error = Twitter::Error.new(Faraday::Error::ClientError.new('Oops'))
-      expect(error.cause.class).to eq(Faraday::Error::ClientError)
-    end
-  end
-
   Twitter::Error.errors.each do |status, exception|
 
     [nil, 'error', 'errors'].each do |body|
