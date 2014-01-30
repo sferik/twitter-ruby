@@ -1,10 +1,8 @@
-require 'descendants_tracker'
 require 'twitter/rate_limit'
 
 module Twitter
   # Custom error class for rescuing from all Twitter errors
   class Error < StandardError
-    extend DescendantsTracker
     attr_reader :cause, :code, :rate_limit
     alias_method :wrapped_exception, :cause
 
@@ -42,10 +40,19 @@ module Twitter
 
       # @return [Hash]
       def errors
-        @errors ||= descendants.inject({}) do |hash, klass|
-          hash[klass::HTTP_STATUS_CODE] = klass
-          hash
-        end
+        @errors ||= {
+          400 => Twitter::Error::BadRequest,
+          401 => Twitter::Error::Unauthorized,
+          403 => Twitter::Error::Forbidden,
+          404 => Twitter::Error::NotFound,
+          406 => Twitter::Error::NotAcceptable,
+          422 => Twitter::Error::UnprocessableEntity,
+          429 => Twitter::Error::TooManyRequests,
+          500 => Twitter::Error::InternalServerError,
+          502 => Twitter::Error::BadGateway,
+          503 => Twitter::Error::ServiceUnavailable,
+          504 => Twitter::Error::GatewayTimeout,
+        }
       end
 
     private
