@@ -117,12 +117,35 @@ module Twitter
       # @option options [String] :display_coordinates Whether or not to put a pin on the exact coordinates a tweet has been sent from.
       # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       def update(status, options = {})
+        update!(status, options)
+      rescue Twitter::Error::AlreadyPosted
+        user_timeline(:count => 1).first
+      end
+
+      # Updates the authenticating user's status
+      #
+      # @see https://dev.twitter.com/docs/api/1.1/post/statuses/update
+      # @note A status update with text identical to the authenticating user's current status will be ignored to prevent duplicates.
+      # @rate_limited No
+      # @authentication Requires user context
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @raise [Twitter::Error::AlreadyPosted] Error raised when a duplicate status is posted.
+      # @return [Twitter::Tweet] The created Tweet.
+      # @param status [String] The text of your status update, up to 140 characters.
+      # @param options [Hash] A customizable set of options.
+      # @option options [Twitter::Tweet] :in_reply_to_status An existing status that the update is in reply to.
+      # @option options [Integer] :in_reply_to_status_id The ID of an existing status that the update is in reply to.
+      # @option options [Float] :lat The latitude of the location this tweet refers to. This option will be ignored unless it is inside the range -90.0 to +90.0 (North is positive) inclusive. It will also be ignored if there isn't a corresponding :long option.
+      # @option options [Float] :long The longitude of the location this tweet refers to. The valid ranges for longitude is -180.0 to +180.0 (East is positive) inclusive. This option will be ignored if outside that range, if it is not a number, if geo_enabled is disabled, or if there not a corresponding :lat option.
+      # @option options [Twitter::Place] :place A place in the world. These can be retrieved from {Twitter::REST::PlacesAndGeo#reverse_geocode}.
+      # @option options [String] :place_id A place in the world. These IDs can be retrieved from {Twitter::REST::PlacesAndGeo#reverse_geocode}.
+      # @option options [String] :display_coordinates Whether or not to put a pin on the exact coordinates a tweet has been sent from.
+      # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
+      def update!(status, options = {})
         hash = options.dup
         hash[:in_reply_to_status_id] = hash.delete(:in_reply_to_status).id unless hash[:in_reply_to_status].nil?
         hash[:place_id] = hash.delete(:place).woeid unless hash[:place].nil?
         perform_with_object(:post, '/1.1/statuses/update.json', hash.merge(:status => status), Twitter::Tweet)
-      rescue Twitter::Error::Forbidden => error
-        handle_forbidden_error(Twitter::Error::AlreadyPosted, error)
       end
 
       # Retweets the specified Tweets as the authenticating user
@@ -143,8 +166,8 @@ module Twitter
         parallel_map(arguments) do |tweet|
           begin
             post_retweet(extract_id(tweet), arguments.options)
-          rescue Twitter::Error::Forbidden => error
-            raise unless error.message == Twitter::Error::AlreadyRetweeted::MESSAGE
+          rescue Twitter::Error::AlreadyRetweeted
+            next
           end
         end.compact
       end
@@ -166,11 +189,7 @@ module Twitter
       def retweet!(*args)
         arguments = Twitter::Arguments.new(args)
         parallel_map(arguments) do |tweet|
-          begin
-            post_retweet(extract_id(tweet), arguments.options)
-          rescue Twitter::Error::Forbidden => error
-            handle_forbidden_error(Twitter::Error::AlreadyRetweeted, error)
-          end
+          post_retweet(extract_id(tweet), arguments.options)
         end.compact
       end
 
@@ -199,8 +218,6 @@ module Twitter
         hash[:in_reply_to_status_id] = hash.delete(:in_reply_to_status).id unless hash[:in_reply_to_status].nil?
         hash[:place_id] = hash.delete(:place).woeid unless hash[:place].nil?
         perform_with_object(:post, '/1.1/statuses/update_with_media.json', hash.merge('media[]' => media, 'status' => status), Twitter::Tweet)
-      rescue Twitter::Error::Forbidden => error
-        handle_forbidden_error(Twitter::Error::AlreadyPosted, error)
       end
 
       # Returns oEmbed for a Tweet

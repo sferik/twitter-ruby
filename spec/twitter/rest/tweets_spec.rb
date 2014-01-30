@@ -221,9 +221,17 @@ describe Twitter::REST::Tweets do
     context 'already posted' do
       before do
         stub_post('/1.1/statuses/update.json').to_return(:status => 403, :body => fixture('already_posted.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
+        stub_get('/1.1/statuses/user_timeline.json').with(:query => {:count => 1}).to_return(:body => fixture('statuses.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
       end
-      it 'raises an AlreadyPosted error' do
-        expect { @client.update("The problem with your code is that it's doing exactly what you told it to do.") }.to raise_error(Twitter::Error::AlreadyPosted)
+      it 'requests the correct resources' do
+        @client.update("The problem with your code is that it's doing exactly what you told it to do.")
+        expect(a_post('/1.1/statuses/update.json').with(:body => {:status => "The problem with your code is that it's doing exactly what you told it to do."})).to have_been_made
+        expect(a_get('/1.1/statuses/user_timeline.json').with(:query => {:count => 1})).to have_been_made
+      end
+      it 'returns a Tweet' do
+        tweet = @client.update("The problem with your code is that it's doing exactly what you told it to do.")
+        expect(tweet).to be_a Twitter::Tweet
+        expect(tweet.text).to eq('Happy Birthday @imdane. Watch out for those @rally pranksters!')
       end
     end
     context 'with an in-reply-to status' do
@@ -261,6 +269,67 @@ describe Twitter::REST::Tweets do
       end
       it 'requests the correct resource' do
         @client.update("The problem with your code is that it's doing exactly what you told it to do.", :place_id => 'df51dec6f4ee2b2c')
+        expect(a_post('/1.1/statuses/update.json').with(:body => {:status => "The problem with your code is that it's doing exactly what you told it to do.", :place_id => 'df51dec6f4ee2b2c'})).to have_been_made
+      end
+    end
+  end
+
+  describe '#update!' do
+    before do
+      stub_post('/1.1/statuses/update.json').with(:body => {:status => "The problem with your code is that it's doing exactly what you told it to do."}).to_return(:body => fixture('status.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
+    end
+    it 'requests the correct resource' do
+      @client.update!("The problem with your code is that it's doing exactly what you told it to do.")
+      expect(a_post('/1.1/statuses/update.json').with(:body => {:status => "The problem with your code is that it's doing exactly what you told it to do."})).to have_been_made
+    end
+    it 'returns a Tweet' do
+      tweet = @client.update!("The problem with your code is that it's doing exactly what you told it to do.")
+      expect(tweet).to be_a Twitter::Tweet
+      expect(tweet.text).to eq("The problem with your code is that it's doing exactly what you told it to do.")
+    end
+    context 'already posted' do
+      before do
+        stub_post('/1.1/statuses/update.json').to_return(:status => 403, :body => fixture('already_posted.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
+      end
+      it 'raises an AlreadyPosted error' do
+        expect { @client.update!("The problem with your code is that it's doing exactly what you told it to do.") }.to raise_error(Twitter::Error::AlreadyPosted)
+      end
+    end
+    context 'with an in-reply-to status' do
+      before do
+        @tweet = Twitter::Tweet.new(:id => 1)
+        stub_post('/1.1/statuses/update.json').with(:body => {:status => "The problem with your code is that it's doing exactly what you told it to do.", :in_reply_to_status_id => '1'}).to_return(:body => fixture('status.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
+      end
+      it 'requests the correct resource' do
+        @client.update!("The problem with your code is that it's doing exactly what you told it to do.", :in_reply_to_status => @tweet)
+        expect(a_post('/1.1/statuses/update.json').with(:body => {:status => "The problem with your code is that it's doing exactly what you told it to do.", :in_reply_to_status_id => '1'})).to have_been_made
+      end
+    end
+    context 'with an in-reply-to status ID' do
+      before do
+        stub_post('/1.1/statuses/update.json').with(:body => {:status => "The problem with your code is that it's doing exactly what you told it to do.", :in_reply_to_status_id => '1'}).to_return(:body => fixture('status.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
+      end
+      it 'requests the correct resource' do
+        @client.update!("The problem with your code is that it's doing exactly what you told it to do.", :in_reply_to_status_id => 1)
+        expect(a_post('/1.1/statuses/update.json').with(:body => {:status => "The problem with your code is that it's doing exactly what you told it to do.", :in_reply_to_status_id => '1'})).to have_been_made
+      end
+    end
+    context 'with a place' do
+      before do
+        @place = Twitter::Place.new(:woeid => 'df51dec6f4ee2b2c')
+        stub_post('/1.1/statuses/update.json').with(:body => {:status => "The problem with your code is that it's doing exactly what you told it to do.", :place_id => 'df51dec6f4ee2b2c'}).to_return(:body => fixture('status.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
+      end
+      it 'requests the correct resource' do
+        @client.update!("The problem with your code is that it's doing exactly what you told it to do.", :place => @place)
+        expect(a_post('/1.1/statuses/update.json').with(:body => {:status => "The problem with your code is that it's doing exactly what you told it to do.", :place_id => 'df51dec6f4ee2b2c'})).to have_been_made
+      end
+    end
+    context 'with a place ID' do
+      before do
+        stub_post('/1.1/statuses/update.json').with(:body => {:status => "The problem with your code is that it's doing exactly what you told it to do.", :place_id => 'df51dec6f4ee2b2c'}).to_return(:body => fixture('status.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
+      end
+      it 'requests the correct resource' do
+        @client.update!("The problem with your code is that it's doing exactly what you told it to do.", :place_id => 'df51dec6f4ee2b2c')
         expect(a_post('/1.1/statuses/update.json').with(:body => {:status => "The problem with your code is that it's doing exactly what you told it to do.", :place_id => 'df51dec6f4ee2b2c'})).to have_been_made
       end
     end

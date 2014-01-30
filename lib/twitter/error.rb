@@ -36,7 +36,7 @@ module Twitter
       # @return [Twitter::Error]
       def from_response(response)
         message, code = parse_error(response.body)
-        new(message, response.headers, code)
+        new(message, response.response_headers, code)
       end
 
       # @return [Hash]
@@ -54,6 +54,14 @@ module Twitter
           502 => Twitter::Error::BadGateway,
           503 => Twitter::Error::ServiceUnavailable,
           504 => Twitter::Error::GatewayTimeout,
+        }
+      end
+
+      def forbidden_messages
+        @forbidden_messages ||= {
+          'Status is a duplicate.' => Twitter::Error::DuplicateStatus,
+          'You have already favorited this status.' => Twitter::Error::AlreadyFavorited,
+          'sharing is not permissible for this status (Share validations failed)' => Twitter::Error::AlreadyRetweeted,
         }
       end
 
@@ -106,19 +114,14 @@ module Twitter
     class Forbidden < ClientError; end
 
     # Raised when a Tweet has already been favorited
-    class AlreadyFavorited < Forbidden
-      MESSAGE = 'You have already favorited this status.'
-    end
-
-    # Raised when a Tweet has already been posted
-    class AlreadyPosted < Forbidden
-      MESSAGE = 'Status is a duplicate.'
-    end
+    class AlreadyFavorited < Forbidden; end
 
     # Raised when a Tweet has already been retweeted
-    class AlreadyRetweeted < Forbidden
-      MESSAGE = 'sharing is not permissible for this status (Share validations failed)'
-    end
+    class AlreadyRetweeted < Forbidden; end
+
+    # Raised when a Tweet has already been posted
+    class DuplicateStatus < Forbidden; end
+    AlreadyPosted = DuplicateStatus # rubocop:disable ConstantName
 
     # Raised when Twitter returns the HTTP status code 404
     class NotFound < ClientError; end

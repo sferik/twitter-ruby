@@ -1,5 +1,6 @@
 require 'addressable/uri'
 require 'simple_oauth'
+require 'twitter/error'
 require 'twitter/utils'
 require 'twitter/version'
 

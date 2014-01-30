@@ -114,11 +114,6 @@ module Twitter
         perform_with_cursor(request_method, path, arguments.options, collection_name, klass)
       end
 
-      def handle_forbidden_error(klass, error)
-        error = klass.new(error) if error.message == klass::MESSAGE
-        fail(error)
-      end
-
       def screen_name
         @screen_name ||= verify_credentials.screen_name
       end

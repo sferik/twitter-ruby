@@ -16,10 +16,8 @@ module Twitter
           end
         end
 
-        def on_complete(env)
-          if respond_to?(:parse)
-            env.body = parse(env.body) unless unparsable_status_codes.include?(env[:status])
-          end
+        def on_complete(response)
+          response.body = parse(response.body) if respond_to?(:parse) && !unparsable_status_codes.include?(response.status)
         end
 
         def unparsable_status_codes

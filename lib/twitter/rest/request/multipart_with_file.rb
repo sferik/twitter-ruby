@@ -9,13 +9,13 @@ module Twitter
         JPEG_REGEX = /\.jpe?g/i
         PNG_REGEX = /\.png$/i
 
-        def call(env)
-          env.body.each do |key, value|
+        def call(request)
+          request.body.each do |key, value|
             if value.respond_to?(:to_io)
-              env.body[key] = Faraday::UploadIO.new(value, mime_type(value.path), value.path)
+              request.body[key] = Faraday::UploadIO.new(value, mime_type(value.path), value.path)
             end
-          end if env.body.is_a?(::Hash)
-          @app.call(env)
+          end if request.body.is_a?(::Hash)
+          @app.call(request)
         end
 
       private

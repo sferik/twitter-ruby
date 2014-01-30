@@ -1,6 +1,5 @@
 require 'twitter/arguments'
 require 'twitter/cursor'
-require 'twitter/error'
 require 'twitter/relationship'
 require 'twitter/request'
 require 'twitter/rest/utils'
@@ -244,7 +243,7 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1.1/get/friendships/show
       # @rate_limited Yes
       # @authentication Requires user context
-      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @raise [Twittera:Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Twitter::Cursor]
       # @overload friends(options = {})
       #   Returns a cursored collection of user objects for every user the authenticated user is following (otherwise known as their "friends").
