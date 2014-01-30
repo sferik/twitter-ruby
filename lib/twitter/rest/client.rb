@@ -59,13 +59,14 @@ module Twitter
 
       # Perform an HTTP GET request
       def get(path, params = {})
-        request(:get, path, params)
+        headers = request_headers(:get, path, params)
+        request(:get, path, params, headers)
       end
 
       # Perform an HTTP POST request
       def post(path, params = {})
-        signature_params = params.values.any? { |value| value.respond_to?(:to_io) } ? {} : params
-        request(:post, path, params, signature_params)
+        headers = params.values.any? { |value| value.respond_to?(:to_io) } ? request_headers(:post, path, params, {}) : request_headers(:post, path, params)
+        request(:post, path, params, headers)
       end
 
       # @return [Boolean]
@@ -87,11 +88,8 @@ module Twitter
         @connection ||= Faraday.new(ENDPOINT, connection_options)
       end
 
-      def request(method, path, params = {}, signature_params = params)
-        response = connection.send(method.to_sym, path, params) do |request|
-          request.headers.update(request_headers(method, path, params, signature_params))
-        end
-        response.env
+      def request(method, path, params = {}, headers = {})
+        connection.send(method.to_sym, path, params) { |request| request.headers.update(headers) }.env
       rescue Faraday::Error::TimeoutError, Timeout::Error => error
         raise(Twitter::Error::RequestTimeout.new(error))
       rescue Faraday::Error::ClientError, JSON::ParserError => error
@@ -106,12 +104,12 @@ module Twitter
           headers[:authorization] = bearer_token_credentials_auth_header
           headers[:content_type]  = 'application/x-www-form-urlencoded; charset=UTF-8'
         else
-          headers[:authorization] = auth_token(method, path, params, signature_params)
+          headers[:authorization] = auth_header(method, path, params, signature_params)
         end
         headers
       end
 
-      def auth_token(method, path, params = {}, signature_params = params)
+      def auth_header(method, path, params = {}, signature_params = params)
         if !user_token?
           @bearer_token = token unless bearer_token?
           bearer_auth_header
