@@ -217,6 +217,7 @@ module Twitter
         hash = options.dup
         hash[:in_reply_to_status_id] = hash.delete(:in_reply_to_status).id unless hash[:in_reply_to_status].nil?
         hash[:place_id] = hash.delete(:place).woeid unless hash[:place].nil?
+        hash[:headers] = {'Content-Type' => 'multipart/form-data', 'Host' => 'upload.twitter.com'}
         perform_with_object(:post, '/1.1/statuses/update_with_media.json', hash.merge('media[]' => media, 'status' => status), Twitter::Tweet)
       end
 
