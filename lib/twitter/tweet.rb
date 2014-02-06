@@ -27,6 +27,58 @@ module Twitter
 
     # @note May be > 140 characters.
     # @return [String]
+    def attributes
+        @attrs
+    end
+
+    def attr
+        @attrs
+    end
+    
+    def favorite_count
+        @attrs.favorite_count
+    end
+
+    def favorited
+        @attrs.favorited
+    end
+
+    def in_reply_to_screen_name
+        @attrs.in_reply_to_screen_name
+    end
+
+    def in_reply_to_attrs_id
+        @attrs.in_reply_to_attrs_id
+    end
+
+    def in_reply_to_status_id
+        @attrs.in_reply_to_status_id
+    end    
+
+    def in_reply_to_user_id
+        @attr.in_reply_to_user_id
+    end
+
+    def retweet_count
+        @attrs.retweet_count
+    end
+
+    def retweeted
+        @attrs.retweeted
+    end
+
+    def source
+        @attrs.source
+    end
+
+    def text
+        @attrs.text
+    end
+
+    def truncated
+        @attrs.truncated
+    end
+
     def full_text
       if retweet?
         prefix = text[/\A(RT @[a-z0-9_]{1,20}: )/i, 1]

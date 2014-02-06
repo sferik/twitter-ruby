@@ -7,6 +7,16 @@ module Twitter
     attr_reader :name, :size, :slug
 
     # @return [Array<Twitter::User>]
+
+    def attributes
+        @attrs
+    end
+
+    def attr
+        @attrs
+    end
+
+    
     def users
       Array(@attrs[:users]).collect do |user|
         User.new(user)
