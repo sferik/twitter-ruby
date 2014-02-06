@@ -381,7 +381,7 @@ at the beginning:
 * `#list_remove_members` is now `#remove_list_members`
 * `#list_add_member` is now `#add_list_member`
 * `#list_add_members` is now `#add_list_members`
-* `#lists_owned` is now `#owned_list`
+* `#lists_owned` is now `#owned_lists`
 * `#saved_search_create` is now `#create_saved_search`
 * `#saved_search_destroy` is now `#destroy_saved_search`
 * `#status_destroy` is now `#destroy_status`
