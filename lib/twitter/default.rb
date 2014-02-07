@@ -22,7 +22,7 @@ module Twitter
       },
     } unless defined? Twitter::Default::CONNECTION_OPTIONS
     IDENTITY_MAP = false unless defined? Twitter::Default::IDENTITY_MAP
-    MIDDLEWARE = Faraday::Builder.new do |builder|
+    MIDDLEWARE = Faraday::RackBuilder.new do |builder|
       # Convert file uploads to Faraday::UploadIO objects
       builder.use Twitter::Request::MultipartWithFile
       # Checks for files in the payload
