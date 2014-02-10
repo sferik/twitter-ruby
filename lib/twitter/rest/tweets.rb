@@ -118,7 +118,7 @@ module Twitter
       # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       def update(status, options = {})
         update!(status, options)
-      rescue Twitter::Error::AlreadyPosted
+      rescue Twitter::Error::DuplicateStatus
         user_timeline(:count => 1).first
       end
 
@@ -129,7 +129,7 @@ module Twitter
       # @rate_limited No
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-      # @raise [Twitter::Error::AlreadyPosted] Error raised when a duplicate status is posted.
+      # @raise [Twitter::Error::DuplicateStatus] Error raised when a duplicate status is posted.
       # @return [Twitter::Tweet] The created Tweet.
       # @param status [String] The text of your status update, up to 140 characters.
       # @param options [Hash] A customizable set of options.

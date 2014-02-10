@@ -23,12 +23,12 @@ digraph classes {
 	Twitter__Entity__UserMention [label="Twitter::Entity::UserMention"]
 	Twitter__Error [label="Twitter::Error"]
 	Twitter__Error__AlreadyFavorited [label="Twitter::Error::AlreadyFavorited"]
-	Twitter__Error__AlreadyPosted [label="Twitter::Error::AlreadyPosted"]
 	Twitter__Error__AlreadyRetweeted [label="Twitter::Error::AlreadyRetweeted"]
 	Twitter__Error__BadGateway [label="Twitter::Error::BadGateway"]
 	Twitter__Error__BadRequest [label="Twitter::Error::BadRequest"]
 	Twitter__Error__ClientError [label="Twitter::Error::ClientError"]
 	Twitter__Error__ConfigurationError [label="Twitter::Error::ConfigurationError"]
+	Twitter__Error__DuplicateStatus [label="Twitter::Error::DuplicateStatus"]
 	Twitter__Error__Forbidden [label="Twitter::Error::Forbidden"]
 	Twitter__Error__GatewayTimeout [label="Twitter::Error::GatewayTimeout"]
 	Twitter__Error__InternalServerError [label="Twitter::Error::InternalServerError"]
@@ -106,12 +106,12 @@ digraph classes {
 	Twitter__Entity__UserMention -> Twitter__Entity
 	Twitter__Error -> StandardError
 	Twitter__Error__AlreadyFavorited -> Twitter__Error__Forbidden
-	Twitter__Error__AlreadyPosted -> Twitter__Error__Forbidden
 	Twitter__Error__AlreadyRetweeted -> Twitter__Error__Forbidden
 	Twitter__Error__BadGateway -> Twitter__Error__ServerError
 	Twitter__Error__BadRequest -> Twitter__Error__ClientError
 	Twitter__Error__ClientError -> Twitter__Error
 	Twitter__Error__ConfigurationError -> ArgumentError
+	Twitter__Error__DuplicateStatus -> Twitter__Error__Forbidden
 	Twitter__Error__Forbidden -> Twitter__Error__ClientError
 	Twitter__Error__GatewayTimeout -> Twitter__Error__ServerError
 	Twitter__Error__InternalServerError -> Twitter__Error__ServerError

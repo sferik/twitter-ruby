@@ -291,8 +291,8 @@ describe Twitter::REST::Tweets do
       before do
         stub_post('/1.1/statuses/update.json').to_return(:status => 403, :body => fixture('already_posted.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
       end
-      it 'raises an AlreadyPosted error' do
-        expect { @client.update!("The problem with your code is that it's doing exactly what you told it to do.") }.to raise_error(Twitter::Error::AlreadyPosted)
+      it 'raises an DuplicateStatus error' do
+        expect { @client.update!("The problem with your code is that it's doing exactly what you told it to do.") }.to raise_error(Twitter::Error::DuplicateStatus)
       end
     end
     context 'with an in-reply-to status' do
@@ -478,8 +478,8 @@ describe Twitter::REST::Tweets do
       before do
         stub_post('/1.1/statuses/update_with_media.json').to_return(:status => 403, :body => fixture('already_posted.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
       end
-      it 'raises an AlreadyPosted error' do
-        expect { @client.update_with_media("The problem with your code is that it's doing exactly what you told it to do.", fixture('pbjt.gif')) }.to raise_error(Twitter::Error::AlreadyPosted)
+      it 'raises an DuplicateStatus error' do
+        expect { @client.update_with_media("The problem with your code is that it's doing exactly what you told it to do.", fixture('pbjt.gif')) }.to raise_error(Twitter::Error::DuplicateStatus)
       end
     end
   end
