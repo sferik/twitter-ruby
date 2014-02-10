@@ -1,3 +1,11 @@
+5.7.0
+-----
+* [Remove `Twitter::Base.from_response` method](https://github.com/sferik/twitter/commit/6f9a352adaa5eee0611fa8d2e45fc7349b5cecae)
+* [Remove `Twitter::REST::API` namespace](https://github.com/sferik/twitter/commit/f9c4e8214bfe0e4cbd13681a6454956f2c6ac21b)
+* [Remove `descendants_tracker`](https://github.com/sferik/twitter/commit/4cbcb0fc58c55b84b642bc7c66085bb581e9b20a)
+* [Remove unused `HTTP_STATUS_CODE` constants](https://github.com/sferik/twitter/commit/b45d89bc96f11079b31976f14ade4f89d50b4dc9)
+* [Remove `Twitter::Error#cause`](https://github.com/sferik/twitter/commit/a5748b925aa3220e7388311bd0228a62d45d09a4)
+
 5.6.0
 -----
 * [Replace custom `Twitter::NullObject` with `Naught`](https://github.com/sferik/twitter/commit/bc3990e3588f889569f1c92e465c329c508ce32e)

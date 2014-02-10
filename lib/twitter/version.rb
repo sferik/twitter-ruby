@@ -1,7 +1,7 @@
 module Twitter
   class Version
     MAJOR = 5
-    MINOR = 6
+    MINOR = 7
     PATCH = 0
     PRE = nil
 
