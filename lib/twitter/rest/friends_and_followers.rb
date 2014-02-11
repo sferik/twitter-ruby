@@ -21,13 +21,11 @@ module Twitter
       #   Returns an array of numeric IDs for every user the authenticated user is following
       #
       #   @param options [Hash] A customizable set of options.
-      #   @option options [Integer] :cursor (-1) Breaks the results into pages. This is recommended for users who are following many users. Provide a value of -1 to begin paging. Provide values as returned in the response body's next_cursor and previous_cursor attributes to page back and forth in the list.
       # @overload friend_ids(user, options = {})
       #   Returns an array of numeric IDs for every user the specified user is following
       #
       #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, URI, or object.
       #   @param options [Hash] A customizable set of options.
-      #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
       def friend_ids(*args)
         cursor_from_response_with_user(:ids, nil, :get, '/1.1/friends/ids.json', args)
       end
@@ -41,13 +39,11 @@ module Twitter
       #   Returns an array of numeric IDs for every user following the authenticated user
       #
       #   @param options [Hash] A customizable set of options.
-      #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
       # @overload follower_ids(user, options = {})
       #   Returns an array of numeric IDs for every user following the specified user
       #
       #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, URI, or object.
       #   @param options [Hash] A customizable set of options.
-      #   @option options [Integer] :cursor (-1) Breaks the results into pages. This is recommended for users who are following many users. Provide a value of -1 to begin paging. Provide values as returned in the response body's next_cursor and previous_cursor attributes to page back and forth in the list.
       def follower_ids(*args)
         cursor_from_response_with_user(:ids, nil, :get, '/1.1/followers/ids.json', args)
       end
@@ -78,7 +74,6 @@ module Twitter
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Twitter::Cursor]
       # @param options [Hash] A customizable set of options.
-      # @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
       def friendships_incoming(options = {})
         perform_with_cursor(:get, '/1.1/friendships/incoming.json', options, :ids)
       end
@@ -91,7 +86,6 @@ module Twitter
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Twitter::Cursor]
       # @param options [Hash] A customizable set of options.
-      # @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
       def friendships_outgoing(options = {})
         perform_with_cursor(:get, '/1.1/friendships/outgoing.json', options, :ids)
       end
@@ -223,7 +217,6 @@ module Twitter
       #   Returns a cursored collection of user objects for users following the authenticated user.
       #
       #   @param options [Hash] A customizable set of options.
-      #   @option options [Integer] :cursor (-1) Breaks the results into pages. This is recommended for users who are following many users. Provide a value of -1 to begin paging. Provide values as returned in the response body's next_cursor and previous_cursor attributes to page back and forth in the list.
       #   @option options [Boolean, String, Integer] :skip_status Do not include contributee's Tweets when set to true, 't' or 1.
       #   @option options [Boolean, String, Integer] :include_user_entities The user entities node will be disincluded when set to false.
       # @overload followers(user, options = {})
@@ -231,7 +224,6 @@ module Twitter
       #
       #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, URI, or object.
       #   @param options [Hash] A customizable set of options.
-      #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
       #   @option options [Boolean, String, Integer] :skip_status Do not include contributee's Tweets when set to true, 't' or 1.
       #   @option options [Boolean, String, Integer] :include_user_entities The user entities node will be disincluded when set to false.
       def followers(*args)
@@ -249,7 +241,6 @@ module Twitter
       #   Returns a cursored collection of user objects for every user the authenticated user is following (otherwise known as their "friends").
       #
       #   @param options [Hash] A customizable set of options.
-      #   @option options [Integer] :cursor (-1) Breaks the results into pages. This is recommended for users who are following many users. Provide a value of -1 to begin paging. Provide values as returned in the response body's next_cursor and previous_cursor attributes to page back and forth in the list.
       #   @option options [Boolean, String, Integer] :skip_status Do not include contributee's Tweets when set to true, 't' or 1.
       #   @option options [Boolean, String, Integer] :include_user_entities The user entities node will be disincluded when set to false.
       # @overload friends(user, options = {})
@@ -257,7 +248,6 @@ module Twitter
       #
       #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, URI, or object.
       #   @param options [Hash] A customizable set of options.
-      #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
       #   @option options [Boolean, String, Integer] :skip_status Do not include contributee's Tweets when set to true, 't' or 1.
       #   @option options [Boolean, String, Integer] :include_user_entities The user entities node will be disincluded when set to false.
       def friends(*args)

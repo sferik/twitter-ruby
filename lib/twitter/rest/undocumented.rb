@@ -13,21 +13,16 @@ module Twitter
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-      #
+      # @return [Twitter::Cursor]
       # @overload following_followers_of(options = {})
       #   Returns users following followers of the specified user
       #
       #   @param options [Hash] A customizable set of options.
-      #     @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
-      #     @return [Twitter::Cursor]
-      #
       # @overload following_followers_of(user, options = {})
       #   Returns users following followers of the authenticated user
       #
       #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, URI, or object.
       #   @param options [Hash] A customizable set of options.
-      #     @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
-      #     @return [Twitter::Cursor]
       def following_followers_of(*args)
         cursor_from_response_with_user(:users, Twitter::User, :get, '/users/following_followers_of.json', args)
       end

@@ -92,12 +92,10 @@ module Twitter
       # @return [Twitter::Cursor]
       # @overload memberships(options = {})
       #   @param options [Hash] A customizable set of options.
-      #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
       #   @option options [Boolean, String, Integer] :filter_to_owned_lists When set to true, t or 1, will return just lists the authenticating user owns, and the user represented by user_id or screen_name is a member of.
       # @overload memberships(user, options = {})
       #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, URI, or object.
       #   @param options [Hash] A customizable set of options.
-      #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
       #   @option options [Boolean, String, Integer] :filter_to_owned_lists When set to true, t or 1, will return just lists the authenticating user owns, and the user represented by user_id or screen_name is a member of.
       def memberships(*args)
         cursor_from_response_with_user(:lists, Twitter::List, :get, '/1.1/lists/memberships.json', args)
@@ -113,12 +111,10 @@ module Twitter
       # @overload list_subscribers(list, options = {})
       #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, URI, or object.
       #   @param options [Hash] A customizable set of options.
-      #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
       # @overload list_subscribers(user, list, options = {})
       #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, URI, or object.
       #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, URI, or object.
       #   @param options [Hash] A customizable set of options.
-      #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
       def list_subscribers(*args)
         cursor_from_response_with_list(:get, '/1.1/lists/subscribers.json', args)
       end
@@ -232,12 +228,10 @@ module Twitter
       # @overload list_members(list, options = {})
       #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, URI, or object.
       #   @param options [Hash] A customizable set of options.
-      #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
       # @overload list_members(user, list, options = {})
       #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, URI, or object.
       #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, URI, or object.
       #   @param options [Hash] A customizable set of options.
-      #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
       def list_members(*args)
         cursor_from_response_with_list(:get, '/1.1/lists/members.json', args)
       end
@@ -351,11 +345,9 @@ module Twitter
       # @return [Twitter::Cursor]
       # @overload subscriptions(options = {})
       #   @param options [Hash] A customizable set of options.
-      #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
       # @overload subscriptions(user, options = {})
       #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, URI, or object.
       #   @param options [Hash] A customizable set of options.
-      #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
       def subscriptions(*args)
         cursor_from_response_with_user(:lists, Twitter::List, :get, '/1.1/lists/subscriptions.json', args)
       end
