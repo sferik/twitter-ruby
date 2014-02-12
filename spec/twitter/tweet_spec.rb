@@ -133,26 +133,51 @@ describe Twitter::Tweet do
   end
 
   describe '#hashtags' do
-    it 'returns an array of Entity::Hashtag when entities are set' do
-      hashtags_array = [
-        {
+    context 'when entities are set' do
+      let(:hashtags_array) do
+        [{
           :text => 'twitter',
           :indices => [10, 33],
-        }
-      ]
-      hashtags = Twitter::Tweet.new(:id => 28_669_546_014, :entities => {:hashtags => hashtags_array}).hashtags
-      expect(hashtags).to be_an Array
-      expect(hashtags.first).to be_a Twitter::Entity::Hashtag
-      expect(hashtags.first.indices).to eq([10, 33])
-      expect(hashtags.first.text).to eq('twitter')
+        }]
+      end
+
+      let(:subject) do
+        Twitter::Tweet.new(:id => 28_669_546_014, :entities => {:hashtags => hashtags_array})
+      end
+
+      it 'returns an array of Entity::Hashtag' do
+        hashtags = subject.hashtags
+        expect(hashtags).to be_an Array
+        expect(hashtags.first).to be_a Twitter::Entity::Hashtag
+        expect(hashtags.first.indices).to eq([10, 33])
+        expect(hashtags.first.text).to eq('twitter')
+      end
     end
-    it 'is empty when not set' do
-      hashtags = Twitter::Tweet.new(:id => 28_669_546_014).hashtags
-      expect(hashtags).to be_empty
+
+    context 'when entities are set, but empty' do
+      subject { Twitter::Tweet.new(:id => 28_669_546_014, :entities => {:hashtags => []}) }
+
+      it 'is empty' do
+        expect(subject.hashtags).to be_empty
+      end
+
+      it 'does not warn' do
+        subject.hashtags
+        expect($stderr.string).to be_empty
+      end
     end
-    it 'warns when not set' do
-      Twitter::Tweet.new(:id => 28_669_546_014).hashtags
-      expect($stderr.string).to match(/To get hashtags, you must pass `:include_entities => true` when requesting the Twitter::Tweet\./)
+
+    context 'when entities are not set' do
+      subject { Twitter::Tweet.new(:id => 28_669_546_014) }
+
+      it 'is empty' do
+        expect(subject.hashtags).to be_empty
+      end
+
+      it 'warns' do
+        subject.hashtags
+        expect($stderr.string).to match(/To get hashtags, you must pass `:include_entities => true` when requesting the Twitter::Tweet\./)
+      end
     end
   end
 
