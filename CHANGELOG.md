@@ -1,3 +1,8 @@
+5.7.1
+-----
+* [Only warn if entities are not included](https://github.com/sferik/twitter/commit/82ed19e69c03ccaccc366744421b3bb3ee444625) ([@matthewrudy](https://twitter.com/matthewrudy))
+* [Fix typos in documentation](https://github.com/sferik/twitter/pull/531) ([@attilaolah](https://twitter.com/attilaolah))
+
 5.7.0
 -----
 * [Remove `Twitter::Base.from_response` method](https://github.com/sferik/twitter/commit/6f9a352adaa5eee0611fa8d2e45fc7349b5cecae)
