@@ -9,6 +9,9 @@ ParameterLists:
   Max: 4
   CountKeywordArgs: true
 
+LineLength:
+  Enabled: false
+
 MethodLength:
   CountComments: false
   Max: 14
@@ -24,10 +27,6 @@ CollectionMethods:
     reduce:   'inject'
     find:     'detect'
     find_all: 'select'
-
-# Limit line length
-LineLength:
-  Enabled: false
 
 # Disable documentation checking until a class needs to be documented once
 Documentation:
