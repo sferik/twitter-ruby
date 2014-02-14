@@ -9,6 +9,9 @@ ParameterLists:
   Max: 4
   CountKeywordArgs: true
 
+ClassLength:
+  Max: 85
+
 LineLength:
   Enabled: false
 
