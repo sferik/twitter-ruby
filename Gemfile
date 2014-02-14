@@ -6,7 +6,6 @@ gem 'yard'
 
 group :development do
   gem 'pry'
-  gem 'pry-rescue'
   platforms :ruby_19, :ruby_20, :ruby_21 do
     gem 'pry-stack_explorer'
     gem 'redcarpet'
