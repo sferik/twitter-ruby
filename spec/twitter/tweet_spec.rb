@@ -270,11 +270,11 @@ describe Twitter::Tweet do
   end
 
   describe '#reply?' do
-    it 'returns true when there is an in-reply-to status' do
-      tweet = Twitter::Tweet.new(:id => 28_669_546_014, :in_reply_to_status_id => 114_749_583_439_036_416)
+    it 'returns true when there is an in-reply-to user' do
+      tweet = Twitter::Tweet.new(:id => 28_669_546_014, :in_reply_to_user_id => 7_505_382)
       expect(tweet.reply?).to be true
     end
-    it 'returns false when in_reply_to_status_id is not set' do
+    it 'returns false when in_reply_to_user_id is not set' do
       tweet = Twitter::Tweet.new(:id => 28_669_546_014)
       expect(tweet.reply?).to be false
     end

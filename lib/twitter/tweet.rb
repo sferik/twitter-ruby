@@ -13,7 +13,7 @@ module Twitter
     deprecate_alias :favorites_count, :favorite_count
     deprecate_alias :favoriters_count, :favorite_count
     alias_method :in_reply_to_tweet_id, :in_reply_to_status_id
-    alias_method :reply?, :in_reply_to_status_id?
+    alias_method :reply?, :in_reply_to_user_id?
     deprecate_alias :retweeters_count, :retweet_count
     object_attr_reader :GeoFactory, :geo
     object_attr_reader :Metadata, :metadata
