@@ -21,16 +21,20 @@ module Twitter
                 :profile_sidebar_fill_color, :profile_text_color,
                 :profile_use_background_image, :protected, :statuses_count,
                 :time_zone, :utc_offset, :verified
-    alias_method :favorites_count, :favourites_count
-    remove_method :favourites_count
-    alias_method :profile_background_image_uri, :profile_background_image_url
-    alias_method :profile_background_image_uri_https, :profile_background_image_url_https
-    alias_method :translator?, :is_translator
-    alias_method :tweets_count, :statuses_count
     object_attr_reader :Tweet, :status, :user
-    alias_method :tweet, :status
-    alias_method :tweet?, :status?
-    alias_method :tweeted?, :status?
+    {
+      :favorites_count => :favourites_count,
+      :profile_background_image_uri => :profile_background_image_url,
+      :profile_background_image_uri_https => :profile_background_image_url_https,
+      :translator? => :is_translator,
+      :tweets_count => :statuses_count,
+      :tweet => :status,
+      :tweet? => :status?,
+      :tweeted? => :status?,
+    }.each do |new_method, existing_method|
+      alias_method new_method, existing_method
+    end
+    remove_method :favourites_count
 
     # @return [Array<Twitter::Entity::URI>]
     def description_uris
