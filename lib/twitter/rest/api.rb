@@ -18,26 +18,22 @@ require 'twitter/rest/users'
 module Twitter
   module REST
     module API
-      [
-        Twitter::REST::DirectMessages,
-        Twitter::REST::Favorites,
-        Twitter::REST::FriendsAndFollowers,
-        Twitter::REST::Help,
-        Twitter::REST::Lists,
-        Twitter::REST::OAuth,
-        Twitter::REST::PlacesAndGeo,
-        Twitter::REST::SavedSearches,
-        Twitter::REST::Search,
-        Twitter::REST::SpamReporting,
-        Twitter::REST::SuggestedUsers,
-        Twitter::REST::Timelines,
-        Twitter::REST::Trends,
-        Twitter::REST::Tweets,
-        Twitter::REST::Undocumented,
-        Twitter::REST::Users,
-      ].each do |klass|
-        include klass
-      end
+      include Twitter::REST::DirectMessages
+      include Twitter::REST::Favorites
+      include Twitter::REST::FriendsAndFollowers
+      include Twitter::REST::Help
+      include Twitter::REST::Lists
+      include Twitter::REST::OAuth
+      include Twitter::REST::PlacesAndGeo
+      include Twitter::REST::SavedSearches
+      include Twitter::REST::Search
+      include Twitter::REST::SpamReporting
+      include Twitter::REST::SuggestedUsers
+      include Twitter::REST::Timelines
+      include Twitter::REST::Trends
+      include Twitter::REST::Tweets
+      include Twitter::REST::Undocumented
+      include Twitter::REST::Users
     end
   end
 end
