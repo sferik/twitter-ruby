@@ -19,6 +19,16 @@ module Twitter
     #
     # @param attrs [Hash]
     # @return [Twitter::TrendResults]
+
+    def attributes
+        @attrs
+    end
+
+    def attr
+        @attrs
+    end
+
+    
     def initialize(attrs = {})
       @attrs = attrs
       @collection = Array(@attrs[:trends]).collect do |trend|

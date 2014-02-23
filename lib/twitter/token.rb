@@ -8,6 +8,22 @@ module Twitter
     BEARER_TYPE = 'bearer'
 
     # @return [Boolean]
+
+    def attributes
+        @attrs
+    end
+
+    def attr
+        @attrs
+    end
+
+    def access_token
+   @attrs.access_token
+end
+def token_type
+   @attrs.token_type
+end
+    
     def bearer?
       @attrs[:token_type] == BEARER_TYPE
     end
