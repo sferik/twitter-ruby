@@ -187,11 +187,11 @@ describe Twitter::Tweet do
         :hashtags => [{:text => 'twitter', :indices => [10, 33]}]
       }
       tweet = Twitter::Tweet.new(:id => 28_669_546_014, :entities => entities)
-      expect(tweet.hashtags?).to be_true
+      expect(tweet.hashtags?).to be true
     end
     it 'returns false when no entities are present' do
       tweet = Twitter::Tweet.new(:id => 28_669_546_014)
-      expect(tweet.hashtags?).to be_false
+      expect(tweet.hashtags?).to be false
     end
   end
 
@@ -217,11 +217,11 @@ describe Twitter::Tweet do
         :media => [{:id => '1', :type => 'photo'}]
       }
       tweet = Twitter::Tweet.new(:id => 28_669_546_014, :entities => entities)
-      expect(tweet.media?).to be_true
+      expect(tweet.media?).to be true
     end
     it 'returns false when no entities are present' do
       tweet = Twitter::Tweet.new(:id => 28_669_546_014)
-      expect(tweet.media?).to be_false
+      expect(tweet.media?).to be false
     end
   end
 
@@ -343,11 +343,11 @@ describe Twitter::Tweet do
         :symbols => [{:text => 'PEP'}]
       }
       tweet = Twitter::Tweet.new(:id => 28_669_546_014, :entities => entities)
-      expect(tweet.symbols?).to be_true
+      expect(tweet.symbols?).to be true
     end
     it 'returns false when no entities are present' do
       tweet = Twitter::Tweet.new(:id => 28_669_546_014)
-      expect(tweet.symbols?).to be_false
+      expect(tweet.symbols?).to be false
     end
   end
 
@@ -407,11 +407,11 @@ describe Twitter::Tweet do
         :urls => [{:url => 'http://with_underscore.example.com/t.co'}]
       }
       tweet = Twitter::Tweet.new(:id => 28_669_546_014, :entities => entities)
-      expect(tweet.uris?).to be_true
+      expect(tweet.uris?).to be true
     end
     it 'returns false when no entities are present' do
       tweet = Twitter::Tweet.new(:id => 28_669_546_014)
-      expect(tweet.uris?).to be_false
+      expect(tweet.uris?).to be false
     end
   end
 
@@ -475,11 +475,11 @@ describe Twitter::Tweet do
         :user_mentions => [{:screen_name => 'sferik'}]
       }
       tweet = Twitter::Tweet.new(:id => 28_669_546_014, :entities => entities)
-      expect(tweet.user_mentions?).to be_true
+      expect(tweet.user_mentions?).to be true
     end
     it 'returns false when no entities are present' do
       tweet = Twitter::Tweet.new(:id => 28_669_546_014)
-      expect(tweet.user_mentions?).to be_false
+      expect(tweet.user_mentions?).to be false
     end
   end
 end
