@@ -1,11 +1,11 @@
 # The Twitter Ruby Gem
 
-[![Gem Version](https://badge.fury.io/rb/twitter.png)][gem]
-[![Build Status](https://secure.travis-ci.org/sferik/twitter.png?branch=master)][travis]
-[![Dependency Status](https://gemnasium.com/sferik/twitter.png?travis)][gemnasium]
-[![Code Climate](https://codeclimate.com/github/sferik/twitter.png)][codeclimate]
-[![Coverage Status](https://coveralls.io/repos/sferik/twitter/badge.png?branch=master)][coveralls]
-[![Gittip](http://img.shields.io/gittip/gems.png)][gittip]
+[![Gem Version](http://img.shields.io/gem/v/twitter.svg)][gem]
+[![Build Status](http://img.shields.io/travis/sferik/twitter.svg)][travis]
+[![Dependency Status](http://img.shields.io/gemnasium/sferik/twitter.svg)][gemnasium]
+[![Code Climate](http://img.shields.io/codeclimate/github/sferik/twitter.svg)][codeclimate]
+[![Coverage Status](http://img.shields.io/coveralls/sferik/twitter.svg)][coveralls]
+[![Gittip](http://img.shields.io/gittip/gems.svg)][gittip]
 
 [gem]: https://rubygems.org/gems/twitter
 [travis]: http://travis-ci.org/sferik/twitter
