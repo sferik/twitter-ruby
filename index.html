@@ -31,12 +31,12 @@
         <h1>
 <a name="the-twitter-ruby-gem" class="anchor" href="#the-twitter-ruby-gem"><span class="octicon octicon-link"></span></a>The Twitter Ruby Gem</h1>
 
-<p><a href="https://rubygems.org/gems/twitter"><img src="https://badge.fury.io/rb/twitter.png" alt="Gem Version"></a>
-<a href="http://travis-ci.org/sferik/twitter"><img src="https://secure.travis-ci.org/sferik/twitter.png?branch=master" alt="Build Status"></a>
-<a href="https://gemnasium.com/sferik/twitter"><img src="https://gemnasium.com/sferik/twitter.png?travis" alt="Dependency Status"></a>
-<a href="https://codeclimate.com/github/sferik/twitter"><img src="https://codeclimate.com/github/sferik/twitter.png" alt="Code Climate"></a>
-<a href="https://coveralls.io/r/sferik/twitter"><img src="https://coveralls.io/repos/sferik/twitter/badge.png?branch=master" alt="Coverage Status"></a>
-<a href="https://www.gittip.com/sferik/"><img src="http://img.shields.io/gittip/sferik.png" alt="Gittip"></a></p>
+<p><a href="https://rubygems.org/gems/twitter"><img src="http://img.shields.io/gem/v/twitter.svg" alt="Gem Version"></a>
+<a href="http://travis-ci.org/sferik/twitter"><img src="http://img.shields.io/travis/sferik/twitter.svg" alt="Build Status"></a>
+<a href="https://gemnasium.com/sferik/twitter"><img src="http://img.shields.io/gemnasium/sferik/twitter.svg" alt="Dependency Status"></a>
+<a href="https://codeclimate.com/github/sferik/twitter"><img src="http://img.shields.io/codeclimate/github/sferik/twitter.svg" alt="Code Climate"></a>
+<a href="https://coveralls.io/r/sferik/twitter"><img src="http://img.shields.io/coveralls/sferik/twitter.svg" alt="Coverage Status"></a>
+<a href="https://www.gittip.com/gems/"><img src="http://img.shields.io/gittip/gems.svg" alt="Gittip"></a></p>
 
 <p>A Ruby interface to the Twitter API.</p>
 
@@ -107,6 +107,10 @@ developer documentation.</p>
 <p>This library now offers support for the <a href="https://dev.twitter.com/docs/streaming-apis">Twitter Streaming API</a>. We
 previously recommended using <a href="http://rubygems.org/gems/tweetstream">TweetStream</a> for this, however <a href="https://github.com/tweetstream/tweetstream/issues/117">TweetStream
 does not work on Ruby 2.0.0</a>.</p>
+
+<p>Site Streams are restricted to whitelisted accounts. To apply for access,
+<a href="https://dev.twitter.com/docs/streaming-apis/streams/site#Applying_for_access">follow the steps in the Site Streams documentation</a>. <a href="https://dev.twitter.com/docs/streaming-apis/streams/user">User
+Streams</a> do not require prior approval.</p>
 
 <p>Unlike the rest of this library, this feature is not well tested and not
 recommended for production applications. That said, if you need to do Twitter
@@ -433,7 +437,7 @@ at the beginning:</p>
 <code>#list_add_members</code> is now <code>#add_list_members</code>
 </li>
 <li>
-<code>#lists_owned</code> is now <code>#owned_list</code>
+<code>#lists_owned</code> is now <code>#owned_lists</code>
 </li>
 <li>
 <code>#saved_search_create</code> is now <code>#create_saved_search</code>
@@ -534,19 +538,17 @@ error:</p>
 <a name="middleware" class="anchor" href="#middleware"><span class="octicon octicon-link"></span></a>Middleware</h3>
 
 <p>The Faraday middleware stack is fully configurable and is exposed as a
-<code>Faraday::Builder</code> object. You can modify the default middleware in-place:</p>
+<code>Faraday::RackBuilder</code> object. You can modify the default middleware in-place:</p>
 
 <div class="highlight highlight-ruby"><pre><span class="n">client</span><span class="o">.</span><span class="n">middleware</span><span class="o">.</span><span class="n">insert_after</span> <span class="no">Twitter</span><span class="o">::</span><span class="no">Response</span><span class="o">::</span><span class="no">RaiseError</span><span class="p">,</span> <span class="no">CustomMiddleware</span>
 </pre></div>
 
 <p>A custom adapter may be set as part of a custom middleware stack:</p>
 
-<div class="highlight highlight-ruby"><pre><span class="n">client</span><span class="o">.</span><span class="n">middleware</span> <span class="o">=</span> <span class="no">Faraday</span><span class="o">::</span><span class="no">Builder</span><span class="o">.</span><span class="n">new</span><span class="p">(</span>
-  <span class="o">&amp;</span><span class="no">Proc</span><span class="o">.</span><span class="n">new</span> <span class="k">do</span> <span class="o">|</span><span class="n">builder</span><span class="o">|</span>
-    <span class="c1"># Specify a middleware stack here</span>
-    <span class="n">builder</span><span class="o">.</span><span class="n">adapter</span> <span class="ss">:some_other_adapter</span>
-  <span class="k">end</span>
-<span class="p">)</span>
+<div class="highlight highlight-ruby"><pre><span class="n">client</span><span class="o">.</span><span class="n">middleware</span> <span class="o">=</span> <span class="no">Faraday</span><span class="o">::</span><span class="no">RackBuilder</span><span class="o">.</span><span class="n">new</span> <span class="k">do</span> <span class="o">|</span><span class="n">faraday</span><span class="o">|</span>
+  <span class="c1"># Specify a middleware stack here</span>
+  <span class="n">faraday</span><span class="o">.</span><span class="n">adapter</span> <span class="ss">:some_other_adapter</span>
+<span class="k">end</span>
 </pre></div>
 
 <h2>
@@ -611,9 +613,9 @@ error:</p>
 <div class="highlight highlight-ruby"><pre><span class="n">client</span><span class="o">.</span><span class="n">status</span><span class="p">(</span><span class="mi">27558893223</span><span class="p">)</span>
 </pre></div>
 
-<p><strong>Collect the 3 most recent marriage proposals to <a href="https://github.com/justinbieber" class="user-mention">@justinbieber</a></strong></p>
+<p><strong>Collect the three most recent marriage proposals to <a href="https://github.com/justinbieber" class="user-mention">@justinbieber</a></strong></p>
 
-<div class="highlight highlight-ruby"><pre><span class="n">client</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">"to:justinbieber marry me"</span><span class="p">,</span> <span class="ss">:count</span> <span class="o">=&gt;</span> <span class="mi">3</span><span class="p">,</span> <span class="ss">:result_type</span> <span class="o">=&gt;</span> <span class="s2">"recent"</span><span class="p">)</span><span class="o">.</span><span class="n">collect</span> <span class="k">do</span> <span class="o">|</span><span class="n">tweet</span><span class="o">|</span>
+<div class="highlight highlight-ruby"><pre><span class="n">client</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">"to:justinbieber marry me"</span><span class="p">,</span> <span class="ss">:result_type</span> <span class="o">=&gt;</span> <span class="s2">"recent"</span><span class="p">)</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">collect</span> <span class="k">do</span> <span class="o">|</span><span class="n">tweet</span><span class="o">|</span>
   <span class="s2">"</span><span class="si">#{</span><span class="n">tweet</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">screen_name</span><span class="si">}</span><span class="s2">: </span><span class="si">#{</span><span class="n">tweet</span><span class="o">.</span><span class="n">text</span><span class="si">}</span><span class="s2">"</span>
 <span class="k">end</span>
 </pre></div>
@@ -648,6 +650,7 @@ versions:</p>
 <li>Ruby 1.9.2</li>
 <li>Ruby 1.9.3</li>
 <li>Ruby 2.0.0</li>
+<li>Ruby 2.1.0</li>
 </ul><p>If something doesn't work on one of these versions, it's a bug.</p>
 
 <p>This library may inadvertently work (or seem to work) on other Ruby versions,
