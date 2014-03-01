@@ -15,6 +15,17 @@ module Twitter
       end
     end
 
+    # Returns a new array with the concatenated results of running block once for every element in enumerable.
+    # If no block is given, an enumerator is returned instead.
+    #
+    # @param enumerable [Enumerable]
+    # @return [Array, Enumerator]
+    def flat_pmap(enumerable, &block)
+      return to_enum(:flat_pmap, enumerable) unless block_given?
+      pmap(enumerable, &block).flatten(1)
+    end
+    module_function :flat_pmap
+
     # Returns a new array with the results of running block once for every element in enumerable.
     # If no block is given, an enumerator is returned instead.
     #
