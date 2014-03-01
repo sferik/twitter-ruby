@@ -6,7 +6,7 @@ module Twitter
     def each(start = 0, &block)
       return to_enum(:each, start) unless block_given?
       Array(@collection[start..-1]).each do |element|
-        yield element
+        yield(element)
       end
       unless last?
         start = [@collection.size, start].max

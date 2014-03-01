@@ -21,7 +21,7 @@ module Twitter
       options.each do |key, value|
         send(:"#{key}=", value)
       end
-      yield self if block_given?
+      yield(self) if block_given?
       validate_credential_type!
     end
 

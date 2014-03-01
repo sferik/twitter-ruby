@@ -22,13 +22,24 @@ module Twitter
     # @return [Array, Enumerator]
     def pmap(enumerable)
       return to_enum(:pmap, enumerable) unless block_given?
-      # Don't bother spawning a new thread if there's only one item
-      if enumerable.count == 1
-        enumerable.collect { |object| yield object }
-      else
-        enumerable.collect { |object| Thread.new { yield object } }.collect(&:value)
-      end
+      pmap_with_index(enumerable).sort_by { |_, index| index }.collect { |object, _| yield(object) }
     end
     module_function :pmap
+
+    # Calls block with two arguments, the item and its index, for each item in enumerable. Given arguments are passed through to pmap.
+    # If no block is given, an enumerator is returned instead.
+    #
+    # @param enumerable [Enumerable]
+    # @return [Array, Enumerator]
+    def pmap_with_index(enumerable)
+      return to_enum(:pmap_with_index, enumerable) unless block_given?
+      # Don't bother spawning a new thread if there's only one item
+      if enumerable.count == 1
+        enumerable.collect { |object| yield(object, 0) }
+      else
+        enumerable.each_with_index.collect { |object, index| Thread.new { yield(object, index) } }.collect(&:value)
+      end
+    end
+    module_function :pmap_with_index
   end
 end
