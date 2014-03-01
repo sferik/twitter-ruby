@@ -163,7 +163,7 @@ module Twitter
       #   @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       def retweet(*args)
         arguments = Twitter::Arguments.new(args)
-        parallel_map(arguments) do |tweet|
+        pmap(arguments) do |tweet|
           begin
             post_retweet(extract_id(tweet), arguments.options)
           rescue Twitter::Error::AlreadyRetweeted
@@ -188,7 +188,7 @@ module Twitter
       #   @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       def retweet!(*args)
         arguments = Twitter::Arguments.new(args)
-        parallel_map(arguments) do |tweet|
+        pmap(arguments) do |tweet|
           post_retweet(extract_id(tweet), arguments.options)
         end.compact
       end
@@ -262,7 +262,7 @@ module Twitter
       #   @option options [String] :lang Language code for the rendered embed. This will affect the text and localization of the rendered HTML.
       def oembeds(*args)
         arguments = Twitter::Arguments.new(args)
-        parallel_map(arguments) do |tweet|
+        pmap(arguments) do |tweet|
           oembed(extract_id(tweet), arguments.options)
         end
       end
@@ -293,7 +293,7 @@ module Twitter
       # @return [Array<Twitter::Tweet>]
       def parallel_tweets_from_response(request_method, path, args)
         arguments = Twitter::Arguments.new(args)
-        parallel_map(arguments) do |tweet|
+        pmap(arguments) do |tweet|
           perform_with_object(request_method, path + "/#{extract_id(tweet)}.json", arguments.options, Twitter::Tweet)
         end
       end

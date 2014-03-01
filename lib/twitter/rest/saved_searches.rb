@@ -35,7 +35,7 @@ module Twitter
         if arguments.empty?
           perform_with_objects(:get, '/1.1/saved_searches/list.json', arguments.options, Twitter::SavedSearch)
         else
-          parallel_map(arguments) do |id|
+          pmap(arguments) do |id|
             saved_search(id, arguments.options)
           end
         end
@@ -83,7 +83,7 @@ module Twitter
       #   @param options [Hash] A customizable set of options.
       def destroy_saved_search(*args)
         arguments = Twitter::Arguments.new(args)
-        parallel_map(arguments) do |id|
+        pmap(arguments) do |id|
           perform_with_object(:post, "/1.1/saved_searches/destroy/#{id}.json", arguments.options, Twitter::SavedSearch)
         end
       end

@@ -90,7 +90,7 @@ module Twitter
         if arguments.empty?
           direct_messages_received(arguments.options)
         else
-          parallel_map(arguments) do |id|
+          pmap(arguments) do |id|
             direct_message(id, arguments.options)
           end
         end

@@ -438,7 +438,7 @@ module Twitter
         members = arguments.pop
         merge_list!(options, arguments.pop)
         merge_owner!(options, arguments.pop)
-        parallel_map(members.flatten.each_slice(MAX_USERS_PER_REQUEST)) do |users|
+        pmap(members.flatten.each_slice(MAX_USERS_PER_REQUEST)) do |users|
           perform_with_object(request_method, path, merge_users(options, users), Twitter::List)
         end.last
       end

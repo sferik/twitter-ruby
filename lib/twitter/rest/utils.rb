@@ -64,7 +64,7 @@ module Twitter
       # @return [Array<Twitter::User>]
       def parallel_user_objects_from_response(request_method, path, args)
         arguments = Twitter::Arguments.new(args)
-        parallel_map(arguments) do |user|
+        pmap(arguments) do |user|
           perform_with_object(request_method, path, merge_user(arguments.options, user), Twitter::User)
         end
       end
@@ -97,7 +97,7 @@ module Twitter
       # @return [Array]
       def parallel_objects_from_response(klass, request_method, path, args)
         arguments = Twitter::Arguments.new(args)
-        parallel_map(arguments) do |object|
+        pmap(arguments) do |object|
           perform_with_object(request_method, path, arguments.options.merge(:id => extract_id(object)), klass)
         end
       end

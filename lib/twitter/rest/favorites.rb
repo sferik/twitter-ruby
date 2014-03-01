@@ -68,7 +68,7 @@ module Twitter
       #   @param options [Hash] A customizable set of options.
       def favorite(*args)
         arguments = Twitter::Arguments.new(args)
-        parallel_map(arguments) do |tweet|
+        pmap(arguments) do |tweet|
           begin
             perform_with_object(:post, '/1.1/favorites/create.json', arguments.options.merge(:id => extract_id(tweet)), Twitter::Tweet)
           rescue Twitter::Error::AlreadyFavorited
@@ -95,7 +95,7 @@ module Twitter
       #   @param options [Hash] A customizable set of options.
       def favorite!(*args)
         arguments = Twitter::Arguments.new(args)
-        parallel_map(arguments) do |tweet|
+        pmap(arguments) do |tweet|
           perform_with_object(:post, '/1.1/favorites/create.json', arguments.options.merge(:id => extract_id(tweet)), Twitter::Tweet)
         end
       end
