@@ -347,8 +347,8 @@ describe Twitter::REST::Tweets do
       tweets = @client.retweet(25_938_088_801)
       expect(tweets).to be_an Array
       expect(tweets.first).to be_a Twitter::Tweet
-      expect(tweets.first.text).to eq("As for the Series, I'm for the Giants. Fuck Texas, fuck Nolan Ryan, fuck George Bush.")
-      expect(tweets.first.retweeted_tweet.text).to eq("RT @gruber: As for the Series, I'm for the Giants. Fuck Texas, fuck Nolan Ryan, fuck George Bush.")
+      expect(tweets.first.text).to eq("RT @gruber: As for the Series, I'm for the Giants. Fuck Texas, fuck Nolan Ryan, fuck George Bush.")
+      expect(tweets.first.retweeted_tweet.text).to eq("As for the Series, I'm for the Giants. Fuck Texas, fuck Nolan Ryan, fuck George Bush.")
       expect(tweets.first.retweeted_tweet.id).not_to eq(tweets.first.id)
     end
     context 'already retweeted' do
@@ -393,8 +393,8 @@ describe Twitter::REST::Tweets do
       tweets = @client.retweet!(25_938_088_801)
       expect(tweets).to be_an Array
       expect(tweets.first).to be_a Twitter::Tweet
-      expect(tweets.first.text).to eq("As for the Series, I'm for the Giants. Fuck Texas, fuck Nolan Ryan, fuck George Bush.")
-      expect(tweets.first.retweeted_tweet.text).to eq("RT @gruber: As for the Series, I'm for the Giants. Fuck Texas, fuck Nolan Ryan, fuck George Bush.")
+      expect(tweets.first.text).to eq("RT @gruber: As for the Series, I'm for the Giants. Fuck Texas, fuck Nolan Ryan, fuck George Bush.")
+      expect(tweets.first.retweeted_tweet.text).to eq("As for the Series, I'm for the Giants. Fuck Texas, fuck Nolan Ryan, fuck George Bush.")
       expect(tweets.first.retweeted_tweet.id).not_to eq(tweets.first.id)
     end
     context 'forbidden' do
