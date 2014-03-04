@@ -19,7 +19,6 @@ module Twitter
     object_attr_reader :Metadata, :metadata
     object_attr_reader :Place, :place
     object_attr_reader :Tweet, :retweeted_status
-    alias_method :retweet, :retweeted_status
     alias_method :retweeted_tweet, :retweeted_status
     alias_method :retweet?, :retweeted_status?
     alias_method :retweeted_tweet?, :retweeted_status?
