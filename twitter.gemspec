@@ -15,7 +15,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'simple_oauth', '~> 0.2.0'
   spec.add_development_dependency 'bundler', '~> 1.0'
   spec.authors = ['Erik Michaels-Ober', 'John Nunemaker', 'Wynn Netherland', 'Steve Richert', 'Steve Agalloco']
-  spec.cert_chain  = %w[certs/sferik.pem]
   spec.description = %q{A Ruby interface to the Twitter API.}
   spec.email = %w[sferik@gmail.com]
   spec.files = %w(.yardopts CHANGELOG.md CONTRIBUTING.md LICENSE.md README.md Rakefile twitter.gemspec)
@@ -26,7 +25,6 @@ Gem::Specification.new do |spec|
   spec.name = 'twitter'
   spec.require_paths = %w[lib]
   spec.required_rubygems_version = '>= 1.3.5'
-  spec.signing_key = File.expand_path('~/.gem/private_key.pem') if $PROGRAM_NAME =~ /gem\z/
   spec.summary = spec.description
   spec.test_files = Dir.glob('spec/**/*')
   spec.version = Twitter::Version
