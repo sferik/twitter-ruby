@@ -1,8 +1,8 @@
 module Twitter
   class Version
     MAJOR = 5
-    MINOR = 7
-    PATCH = 1
+    MINOR = 8
+    PATCH = 0
     PRE = nil
 
     class << self

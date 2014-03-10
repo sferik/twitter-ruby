@@ -1,3 +1,9 @@
+5.8.0
+-----
+* [Alias `Twitter::Tweet#reply?` to `Twitter::Tweet#in_reply_to_user_id?`](https://github.com/sferik/twitter/commit/57147287d25e21a5e740ee69c3e9aeec6abd1b06)
+* [Add `Twitter::Error::SSL_REQUIRED` error code](https://github.com/sferik/twitter/commit/0cb7e6c132b73766bc978ccb45dd8d9cba43f660)
+* [`Twitter::Tweet#retweeted_status` always returns the original tweet, not the retweet](https://github.com/sferik/twitter/commit/70fede7fa09a87b7e1cba5b8b4be82127c9eaf51) ([@IanChoiJugnoo](https://twitter.com/IanChoiJugnoo))
+
 5.7.1
 -----
 * [Only warn if entities are not included](https://github.com/sferik/twitter/commit/82ed19e69c03ccaccc366744421b3bb3ee444625) ([@matthewrudy](https://twitter.com/matthewrudy))
