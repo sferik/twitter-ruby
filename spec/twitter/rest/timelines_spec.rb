@@ -108,8 +108,8 @@ describe Twitter::REST::Timelines do
     end
     it 'requests the correct resource' do
       @client.retweeted_to_me
-      expect(stub_get('/1.1/statuses/home_timeline.json').with(:query => {:include_rts => 'true', :count => '200'})).to have_been_made
-      expect(stub_get('/1.1/statuses/home_timeline.json').with(:query => {:include_rts => 'true', :count => '200', :max_id => '244102729860009983'})).to have_been_made.times(3)
+      expect(a_get('/1.1/statuses/home_timeline.json').with(:query => {:include_rts => 'true', :count => '200'})).to have_been_made
+      expect(a_get('/1.1/statuses/home_timeline.json').with(:query => {:include_rts => 'true', :count => '200', :max_id => '244102729860009983'})).to have_been_made.times(3)
     end
     it 'returns the 20 most recent retweets posted by users the authenticating user follow' do
       tweets = @client.retweeted_to_me

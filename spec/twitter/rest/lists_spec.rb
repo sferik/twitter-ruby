@@ -455,7 +455,7 @@ describe Twitter::REST::Lists do
     end
     context 'with a screen name passed for user_to_check' do
       before do
-        stub_get('/1.1/lists/members/show.json').with(:query => {:owner_screen_name => 'sferik', :slug => 'presidents', :screen_name => 'erebor'}).to_return(:body => fixture('list.json'), :headers => {:content_type => 'application/.json; charset=utf-8'})
+        stub_get('/1.1/lists/members/show.json').with(:query => {:owner_screen_name => 'sferik', :slug => 'presidents', :screen_name => 'erebor'}).to_return(:body => fixture('list.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
       end
       it 'requests the correct resource' do
         @client.list_member?('sferik', 'presidents', 'erebor')
@@ -465,7 +465,7 @@ describe Twitter::REST::Lists do
     context 'without a screen name passed' do
       before do
         stub_get('/1.1/account/verify_credentials.json').to_return(:body => fixture('sferik.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
-        stub_get('/1.1/lists/members/show.json').with(:query => {:owner_screen_name => 'sferik', :slug => 'presidents', :user_id => '813286'}).to_return(:body => fixture('list.json'), :headers => {:content_type => 'application/.json; charset=utf-8'})
+        stub_get('/1.1/lists/members/show.json').with(:query => {:owner_screen_name => 'sferik', :slug => 'presidents', :user_id => '813286'}).to_return(:body => fixture('list.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
       end
       it 'requests the correct resource' do
         @client.list_member?('presidents', 813_286)

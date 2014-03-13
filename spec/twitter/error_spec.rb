@@ -31,7 +31,7 @@ describe Twitter::Error do
     context "when JSON body contains #{key.inspect}" do
       before do
         body = "{\"#{key}\":\"Internal Server Error\"}" unless body.nil?
-        stub_get('/1.1/statuses/user_timeline.json').with(:query => {:screen_name => 'sferik'}).to_return(:status => 500, :body => body)
+        stub_get('/1.1/statuses/user_timeline.json').with(:query => {:screen_name => 'sferik'}).to_return(:status => 500, :body => body, :headers => {:content_type => 'application/json; charset=utf-8'})
       end
       it 'raises an exception with the proper message' do
         expect { @client.user_timeline('sferik') }.to raise_error(Twitter::Error::InternalServerError)
@@ -42,7 +42,7 @@ describe Twitter::Error do
   Twitter::Error.errors.each do |status, exception|
     context "when HTTP status is #{status}" do
       before do
-        stub_get('/1.1/statuses/user_timeline.json').with(:query => {:screen_name => 'sferik'}).to_return(:status => status, :body => '{}')
+        stub_get('/1.1/statuses/user_timeline.json').with(:query => {:screen_name => 'sferik'}).to_return(:status => status, :body => '{}', :headers => {:content_type => 'application/json; charset=utf-8'})
       end
       it "raises #{exception}" do
         expect { @client.user_timeline('sferik') }.to raise_error(exception)
