@@ -15,9 +15,9 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'simple_oauth', '~> 0.2.0'
   spec.add_development_dependency 'bundler', '~> 1.0'
   spec.authors = ['Erik Michaels-Ober', 'John Nunemaker', 'Wynn Netherland', 'Steve Richert', 'Steve Agalloco']
-  spec.description = %q{A Ruby interface to the Twitter API.}
+  spec.description = %q(A Ruby interface to the Twitter API.)
   spec.email = %w[sferik@gmail.com]
-  spec.files = %w(.yardopts CHANGELOG.md CONTRIBUTING.md LICENSE.md README.md Rakefile twitter.gemspec)
+  spec.files = %w[.yardopts CHANGELOG.md CONTRIBUTING.md LICENSE.md README.md Rakefile twitter.gemspec]
   spec.files += Dir.glob('lib/**/*.rb')
   spec.files += Dir.glob('spec/**/*')
   spec.homepage = 'http://sferik.github.com/twitter/'
