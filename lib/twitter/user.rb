@@ -33,6 +33,14 @@ module Twitter
     alias_method :tweeted?, :status?
 
     # @return [Array<Twitter::Entity::URI>]
+    def expanded_description_uris
+      Array(@attrs[:entities][:url][:urls]).collect do |entity|
+        Entity::URI.new(entity)
+      end
+    end
+    memoize :expanded_description_uris
+
+    # @return [Array<Twitter::Entity::URI>]
     def description_uris
       Array(@attrs[:entities][:description][:urls]).collect do |entity|
         Entity::URI.new(entity)
