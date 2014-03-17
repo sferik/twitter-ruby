@@ -58,7 +58,13 @@ module Twitter
 
     # @return [String] The URL to the user's website.
     def website
-      Addressable::URI.parse(@attrs[:url]) unless @attrs[:url].nil?
+        website = ''
+        if (@attrs[:entities] && @attrs[:entities][:url][:urls][0][:expanded_url])
+            website = Addressable::URI.parse(@attrs[:entities][:url][:urls][0][:expanded_url])
+        else
+            website = Addressable::URI.parse(@attrs[:url])
+        end
+        website
     end
     memoize :website
 
