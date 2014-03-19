@@ -33,6 +33,14 @@ module Twitter
     alias_method :tweeted?, :status?
 
     # @return [Array<Twitter::Entity::URI>]
+    def expanded_description_uris
+      Array(@attrs[:entities][:url][:urls]).collect do |entity|
+        Entity::URI.new(entity)
+      end
+    end
+    memoize :expanded_description_uris
+
+    # @return [Array<Twitter::Entity::URI>]
     def description_uris
       Array(@attrs[:entities][:description][:urls]).collect do |entity|
         Entity::URI.new(entity)
@@ -50,7 +58,13 @@ module Twitter
 
     # @return [String] The URL to the user's website.
     def website
-      Addressable::URI.parse(@attrs[:url]) unless @attrs[:url].nil?
+        website = ''
+        if (@attrs[:entities] && @attrs[:entities][:url][:urls][0][:expanded_url])
+            website = Addressable::URI.parse(@attrs[:entities][:url][:urls][0][:expanded_url])
+        else
+            website = Addressable::URI.parse(@attrs[:url])
+        end
+        website
     end
     memoize :website
 
