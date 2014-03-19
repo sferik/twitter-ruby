@@ -153,12 +153,12 @@ end
 ```
 
 An `object` may be one of the following:
-* Twitter::DirectMessage
-* Twitter::Streaming::DeletedTweet
-* Twitter::Streaming::Event
-* Twitter::Streaming::FriendList
-* Twitter::Streaming::StallWarning
-* Twitter::Tweet
+* `Twitter::DirectMessage`
+* `Twitter::Streaming::DeletedTweet`
+* `Twitter::Streaming::Event`
+* `Twitter::Streaming::FriendList`
+* `Twitter::Streaming::StallWarning`
+* `Twitter::Tweet`
 
 ### Cursors
 The `Twitter::Cursor` class has been completely redesigned with a focus on
@@ -388,11 +388,6 @@ at the beginning:
 * `#saved_search_destroy` is now `#destroy_saved_search`
 * `#status_destroy` is now `#destroy_status`
 
-### Errors
-The `Twitter::Error::ClientError` and `Twitter::Error::ServerError` class
-hierarchy has been removed. All errors now inherit directly from
-`Twitter::Error`.
-
 ### Null Objects
 In version 4, methods you would expect to return a `Twitter` object would
 return `nil` if that object was missing. This may have resulted in a
@@ -467,23 +462,6 @@ After configuration, requests can be made like so:
 
 ```ruby
 client.update("I'm tweeting with @gem!")
-```
-
-### Middleware
-The Faraday middleware stack is fully configurable and is exposed as a
-`Faraday::RackBuilder` object. You can modify the default middleware in-place:
-
-```ruby
-client.middleware.insert_after Twitter::Response::RaiseError, CustomMiddleware
-```
-
-A custom adapter may be set as part of a custom middleware stack:
-
-```ruby
-client.middleware = Faraday::RackBuilder.new do |faraday|
-  # Specify a middleware stack here
-  faraday.adapter :some_other_adapter
-end
 ```
 
 ## Usage Examples

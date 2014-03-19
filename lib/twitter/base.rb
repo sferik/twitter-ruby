@@ -99,7 +99,7 @@ module Twitter
       # @param key2 [Symbol]
       def define_predicate_method(key1, key2 = key1)
         define_method(:"#{key1}?") do ||
-          !!@attrs[key2]
+          !@attrs[key2].nil? && @attrs[key2] != false
         end
         memoize(:"#{key1}?")
       end
