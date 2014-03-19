@@ -32,14 +32,50 @@ module Twitter
     alias_method :tweet?, :status?
     alias_method :tweeted?, :status?
 
-    # @return [Array<Twitter::Entity::URI>]
-    def description_uris
-      Array(@attrs[:entities][:description][:urls]).collect do |entity|
-        Entity::URI.new(entity)
+    class << self
+
+    private
+
+      # Dynamically define a method for entity URIs
+      #
+      # @param key1 [Symbol]
+      # @param key2 [Symbol]
+      def define_entity_uris_methods(key1, key2)
+        array = key1.to_s.split('_')
+        index = array.index('uris')
+        array[index] = 'urls'
+        url_key = array.join('_').to_sym
+        define_entity_uris_method(key1, key2)
+        alias_method(url_key, key1)
+        define_entity_uris_predicate_method(key1)
+        alias_method(:"#{url_key}?", :"#{key1}?")
+      end
+
+      def define_entity_uris_method(key1, key2)
+        define_method(key1) do ||
+          Array(@attrs[:entities] && @attrs[:entities][key2] && @attrs[:entities][key2][:urls]).collect do |url|
+            Entity::URI.new(url)
+          end
+        end
+        memoize(key1)
+      end
+
+      def define_entity_uris_predicate_method(key1)
+        define_method(:"#{key1}?") do ||
+          send(:"#{key1}").any?
+        end
+        memoize(:"#{key1}?")
       end
     end
-    memoize :description_uris
-    alias_method :description_urls, :description_uris
+
+    define_entity_uris_methods :description_uris, :description
+    define_entity_uris_methods :website_uris, :url
+
+    # @return [Boolean]
+    def entities?
+      !@attrs[:entities].nil? && @attrs[:entities].any? { |_, hash| hash[:urls].any? }
+    end
+    memoize :entities?
 
     # @return [String] The URL to the user.
     def uri
@@ -50,12 +86,16 @@ module Twitter
 
     # @return [String] The URL to the user's website.
     def website
-      Addressable::URI.parse(@attrs[:url]) unless @attrs[:url].nil?
+      if website_urls?
+        website_urls.first.expanded_url
+      elsif @attrs[:url]
+        Addressable::URI.parse(@attrs[:url])
+      end
     end
     memoize :website
 
     def website?
-      !!@attrs[:url]
+      !!(website_uris? || @attrs[:url])
     end
     memoize :website?
   end

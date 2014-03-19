@@ -11,7 +11,7 @@ module Twitter
 
     # @return [Boolean]
     def entities?
-      !@attrs[:entities].nil? && @attrs[:entities].any? { |_, array| !array.empty? }
+      !@attrs[:entities].nil? && @attrs[:entities].any? { |_, array| array.any? }
     end
     memoize :entities?
 
@@ -26,6 +26,7 @@ module Twitter
     def hashtags?
       hashtags.any?
     end
+    memoize :hashtags?
 
     # @note Must include entities in your request for this method to work
     # @return [Array<Twitter::Media>]
@@ -38,6 +39,7 @@ module Twitter
     def media?
       media.any?
     end
+    memoize :media?
 
     # @note Must include entities in your request for this method to work
     # @return [Array<Twitter::Entity::Symbol>]
@@ -50,6 +52,7 @@ module Twitter
     def symbols?
       symbols.any?
     end
+    memoize :symbols?
 
     # @note Must include entities in your request for this method to work
     # @return [Array<Twitter::Entity::URI>]
@@ -76,6 +79,7 @@ module Twitter
     def user_mentions?
       user_mentions.any?
     end
+    memoize :user_mentions?
 
   private
 

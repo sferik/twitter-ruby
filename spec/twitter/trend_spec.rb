@@ -28,7 +28,7 @@ describe Twitter::Trend do
   describe '#uri' do
     it 'returns a URI when the url is set' do
       trend = Twitter::Trend.new(:url => 'http://twitter.com/search/?q=%23sevenwordsaftersex')
-      expect(trend.uri).to be_a Addressable::URI
+      expect(trend.uri).to be_an Addressable::URI
       expect(trend.uri.to_s).to eq('http://twitter.com/search/?q=%23sevenwordsaftersex')
     end
     it 'returns nil when the url is not set' do

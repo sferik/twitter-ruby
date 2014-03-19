@@ -53,26 +53,25 @@ describe Twitter::DirectMessage do
   end
 
   describe '#entities?' do
-    it 'returns false if there are no entities set' do
-      tweet = Twitter::DirectMessage.new(:id => 1_825_786_345)
-      expect(tweet.entities?).to be false
-    end
-
-    it 'returns false if there are blank lists of entities set' do
-      tweet = Twitter::DirectMessage.new(:id => 1_825_786_345, :entities => {:urls => []})
-      expect(tweet.entities?).to be false
-    end
     it 'returns true if there are entities set' do
       urls_array = [
         {
-          :url => 'http://example.com/t.co',
+          :url => 'https://t.co/L2xIBazMPf',
           :expanded_url => 'http://example.com/expanded',
-          :display_url => 'example.com/expandedâ¦',
+          :display_url => 'example.com/expanded…',
           :indices => [10, 33],
         }
       ]
       tweet = Twitter::DirectMessage.new(:id => 1_825_786_345, :entities => {:urls => urls_array})
       expect(tweet.entities?).to be true
+    end
+    it 'returns false if there are blank lists of entities set' do
+      tweet = Twitter::DirectMessage.new(:id => 1_825_786_345, :entities => {:urls => []})
+      expect(tweet.entities?).to be false
+    end
+    it 'returns false if there are no entities set' do
+      tweet = Twitter::DirectMessage.new(:id => 1_825_786_345)
+      expect(tweet.entities?).to be false
     end
   end
 
@@ -187,7 +186,7 @@ describe Twitter::DirectMessage do
     it 'returns an array of Entity::URIs when entities are set' do
       urls_array = [
         {
-          :url => 'http://example.com/t.co',
+          :url => 'https://t.co/L2xIBazMPf',
           :expanded_url => 'http://example.com/expanded',
           :display_url => 'example.com/expanded…',
           :indices => [10, 33],
@@ -211,7 +210,7 @@ describe Twitter::DirectMessage do
     it 'can handle strange urls' do
       urls_array = [
         {
-          :url => 'http://with_underscore.example.com/t.co',
+          :url => 'https://t.co/L2xIBazMPf',
           :expanded_url => 'http://with_underscore.example.com/expanded',
           :display_url => 'with_underscore.example.com/expanded…',
           :indices => [10, 33],

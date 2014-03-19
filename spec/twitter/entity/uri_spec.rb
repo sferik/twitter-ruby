@@ -29,7 +29,7 @@ describe Twitter::Entity::URI do
   describe '#expanded_uri' do
     it 'returns a URI when the expanded_url is set' do
       uri = Twitter::Entity::URI.new(:expanded_url => 'https://github.com/sferik')
-      expect(uri.expanded_uri).to be_a Addressable::URI
+      expect(uri.expanded_uri).to be_an Addressable::URI
       expect(uri.expanded_uri.to_s).to eq('https://github.com/sferik')
     end
     it 'returns nil when the expanded_url is not set' do
@@ -52,7 +52,7 @@ describe Twitter::Entity::URI do
   describe '#uri' do
     it 'returns a URI when the url is set' do
       uri = Twitter::Entity::URI.new(:url => 'https://github.com/sferik')
-      expect(uri.uri).to be_a Addressable::URI
+      expect(uri.uri).to be_an Addressable::URI
       expect(uri.uri.to_s).to eq('https://github.com/sferik')
     end
     it 'returns nil when the url is not set' do

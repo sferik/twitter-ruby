@@ -5,7 +5,7 @@ describe Twitter::OEmbed do
   describe '#author_uri' do
     it 'returns a URI when the author_url is set' do
       oembed = Twitter::OEmbed.new(:author_url => 'https://twitter.com/sferik')
-      expect(oembed.author_uri).to be_a Addressable::URI
+      expect(oembed.author_uri).to be_an Addressable::URI
       expect(oembed.author_uri.to_s).to eq('https://twitter.com/sferik')
     end
     it 'returns nil when the author_uri is not set' do
@@ -87,7 +87,7 @@ describe Twitter::OEmbed do
   describe '#provider_uri' do
     it 'returns a URI when the provider_url is set' do
       oembed = Twitter::OEmbed.new(:provider_url => 'http://twitter.com')
-      expect(oembed.provider_uri).to be_a Addressable::URI
+      expect(oembed.provider_uri).to be_an Addressable::URI
       expect(oembed.provider_uri.to_s).to eq('http://twitter.com')
     end
     it 'returns nil when the provider_uri is not set' do
@@ -136,7 +136,7 @@ describe Twitter::OEmbed do
   describe '#uri' do
     it 'returns a URI when the url is set' do
       oembed = Twitter::OEmbed.new(:url => 'https://twitter.com/twitterapi/status/133640144317198338')
-      expect(oembed.uri).to be_a Addressable::URI
+      expect(oembed.uri).to be_an Addressable::URI
       expect(oembed.uri.to_s).to eq('https://twitter.com/twitterapi/status/133640144317198338')
     end
     it 'returns nil when the url is not set' do

@@ -53,26 +53,25 @@ describe Twitter::Tweet do
   end
 
   describe '#entities?' do
-    it 'returns false if there are no entities set' do
-      tweet = Twitter::Tweet.new(:id => 28_669_546_014)
-      expect(tweet.entities?).to be false
-    end
-
-    it 'returns false if there are blank lists of entities set' do
-      tweet = Twitter::Tweet.new(:id => 28_669_546_014, :entities => {:urls => []})
-      expect(tweet.entities?).to be false
-    end
     it 'returns true if there are entities set' do
       urls_array = [
         {
-          :url => 'http://example.com/t.co',
+          :url => 'https://t.co/L2xIBazMPf',
           :expanded_url => 'http://example.com/expanded',
-          :display_url => 'example.com/expandedâ¦',
+          :display_url => 'example.com/expanded…',
           :indices => [10, 33],
         }
       ]
       tweet = Twitter::Tweet.new(:id => 28_669_546_014, :entities => {:urls => urls_array})
       expect(tweet.entities?).to be true
+    end
+    it 'returns false if there are blank lists of entities set' do
+      tweet = Twitter::Tweet.new(:id => 28_669_546_014, :entities => {:urls => []})
+      expect(tweet.entities?).to be false
+    end
+    it 'returns false if there are no entities set' do
+      tweet = Twitter::Tweet.new(:id => 28_669_546_014)
+      expect(tweet.entities?).to be false
     end
   end
 
@@ -140,11 +139,9 @@ describe Twitter::Tweet do
           :indices => [10, 33],
         }]
       end
-
       let(:subject) do
         Twitter::Tweet.new(:id => 28_669_546_014, :entities => {:hashtags => hashtags_array})
       end
-
       it 'returns an array of Entity::Hashtag' do
         hashtags = subject.hashtags
         expect(hashtags).to be_an Array
@@ -153,27 +150,21 @@ describe Twitter::Tweet do
         expect(hashtags.first.text).to eq('twitter')
       end
     end
-
     context 'when entities are set, but empty' do
       subject { Twitter::Tweet.new(:id => 28_669_546_014, :entities => {:hashtags => []}) }
-
       it 'is empty' do
         expect(subject.hashtags).to be_empty
       end
-
       it 'does not warn' do
         subject.hashtags
         expect($stderr.string).to be_empty
       end
     end
-
     context 'when entities are not set' do
       subject { Twitter::Tweet.new(:id => 28_669_546_014) }
-
       it 'is empty' do
         expect(subject.hashtags).to be_empty
       end
-
       it 'warns' do
         subject.hashtags
         expect($stderr.string).to match(/To get hashtags, you must pass `:include_entities => true` when requesting the Twitter::Tweet\./)
@@ -355,7 +346,7 @@ describe Twitter::Tweet do
     it 'returns an array of Entity::URIs when entities are set' do
       urls_array = [
         {
-          :url => 'http://example.com/t.co',
+          :url => 'https://t.co/L2xIBazMPf',
           :expanded_url => 'http://example.com/expanded',
           :display_url => 'example.com/expanded…',
           :indices => [10, 33],
@@ -379,7 +370,7 @@ describe Twitter::Tweet do
     it 'can handle strange urls' do
       urls_array = [
         {
-          :url => 'http://with_underscore.example.com/t.co',
+          :url => 'https://t.co/L2xIBazMPf',
           :expanded_url => 'http://with_underscore.example.com/expanded',
           :display_url => 'with_underscore.example.com/expanded…',
           :indices => [10, 33],
@@ -396,7 +387,7 @@ describe Twitter::Tweet do
   describe '#uri' do
     it 'returns the URI to the tweet' do
       tweet = Twitter::Tweet.new(:id => 28_669_546_014, :user => {:id => 7_505_382, :screen_name => 'sferik'})
-      expect(tweet.uri).to be_a Addressable::URI
+      expect(tweet.uri).to be_an Addressable::URI
       expect(tweet.uri.to_s).to eq('https://twitter.com/sferik/status/28669546014')
     end
   end
@@ -404,7 +395,7 @@ describe Twitter::Tweet do
   describe '#uris?' do
     it 'returns true when the tweet includes urls entities' do
       entities = {
-        :urls => [{:url => 'http://with_underscore.example.com/t.co'}]
+        :urls => [{:url => 'https://t.co/L2xIBazMPf'}]
       }
       tweet = Twitter::Tweet.new(:id => 28_669_546_014, :entities => entities)
       expect(tweet.uris?).to be true

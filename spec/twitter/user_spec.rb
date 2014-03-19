@@ -44,10 +44,10 @@ describe Twitter::User do
   end
 
   describe '#description_uris' do
-    it 'returns an array of Entity::URIs when entities are set' do
+    it 'returns an array of Entity::URIs when description URI entities are set' do
       urls_array = [
         {
-          :url => 'http://example.com/t.co',
+          :url => 'https://t.co/L2xIBazMPf',
           :expanded_url => 'http://example.com/expanded',
           :display_url => 'example.com/expanded…',
           :indices => [10, 33],
@@ -57,7 +57,7 @@ describe Twitter::User do
       expect(user.description_uris).to be_an Array
       expect(user.description_uris.first).to be_a Twitter::Entity::URI
       expect(user.description_uris.first.indices).to eq([10, 33])
-      expect(user.description_uris.first.display_uri).to eq('example.com/expanded…')
+      expect(user.description_uris.first.expanded_uri).to be_an Addressable::URI
     end
     it 'is empty when not set' do
       user = Twitter::User.new(:id => 7_505_382, :entities => {:description => {:urls => []}})
@@ -65,14 +65,56 @@ describe Twitter::User do
     end
   end
 
+  describe '#description_uris?' do
+    it 'returns true when the tweet includes description URI entities' do
+      urls_array = [
+        {
+          :url => 'https://t.co/L2xIBazMPf',
+          :expanded_url => 'http://example.com/expanded',
+          :display_url => 'example.com/expanded…',
+          :indices => [10, 33],
+        }
+      ]
+      user = Twitter::User.new(:id => 7_505_382, :entities => {:description => {:urls => urls_array}})
+      expect(user.description_uris?).to be true
+    end
+    it 'returns false when no entities are present' do
+      user = Twitter::User.new(:id => 7_505_382, :entities => {:description => {:urls => []}})
+      expect(user.description_uris?).to be false
+    end
+  end
+
+  describe '#entities?' do
+    it 'returns true if there are entities set' do
+      urls_array = [
+        {
+          :url => 'https://t.co/L2xIBazMPf',
+          :expanded_url => 'http://example.com/expanded',
+          :display_url => 'example.com/expanded…',
+          :indices => [10, 33],
+        }
+      ]
+      user = Twitter::User.new(:id => 7_505_382, :entities => {:description => {:urls => urls_array}})
+      expect(user.entities?).to be true
+    end
+    it 'returns false if there are blank lists of entities set' do
+      user = Twitter::User.new(:id => 7_505_382, :entities => {:description => {:urls => []}})
+      expect(user.entities?).to be false
+    end
+    it 'returns false if there are no entities set' do
+      user = Twitter::User.new(:id => 7_505_382)
+      expect(user.entities?).to be false
+    end
+  end
+
   describe '#profile_banner_uri' do
     it 'accepts utf8 urls' do
       user = Twitter::User.new(:id => 7_505_382, :profile_banner_url => 'https://si0.twimg.com/profile_banners/7_505_382/1348266581©_normal.png')
-      expect(user.profile_banner_uri).to be_a Addressable::URI
+      expect(user.profile_banner_uri).to be_an Addressable::URI
     end
     it 'returns a URI when profile_banner_url is set' do
       user = Twitter::User.new(:id => 7_505_382, :profile_banner_url => 'https://si0.twimg.com/profile_banners/7_505_382/1348266581')
-      expect(user.profile_banner_uri).to be_a Addressable::URI
+      expect(user.profile_banner_uri).to be_an Addressable::URI
     end
     it 'returns nil when profile_banner_uri is not set' do
       user = Twitter::User.new(:id => 7_505_382)
@@ -117,11 +159,11 @@ describe Twitter::User do
   describe '#profile_banner_uri_https' do
     it 'accepts utf8 urls' do
       user = Twitter::User.new(:id => 7_505_382, :profile_banner_url => 'https://si0.twimg.com/profile_banners/7_505_382/1348266581©_normal.png')
-      expect(user.profile_banner_uri_https).to be_a Addressable::URI
+      expect(user.profile_banner_uri_https).to be_an Addressable::URI
     end
     it 'returns a URI when profile_banner_url is set' do
       user = Twitter::User.new(:id => 7_505_382, :profile_banner_url => 'https://si0.twimg.com/profile_banners/7_505_382/1348266581')
-      expect(user.profile_banner_uri_https).to be_a Addressable::URI
+      expect(user.profile_banner_uri_https).to be_an Addressable::URI
     end
     it 'returns nil when created_at is not set' do
       user = Twitter::User.new(:id => 7_505_382)
@@ -177,11 +219,11 @@ describe Twitter::User do
   describe '#profile_image_uri' do
     it 'accepts utf8 urls' do
       user = Twitter::User.new(:id => 7_505_382, :profile_image_url_https => 'https://si0.twimg.com/profile_images/7_505_382/1348266581©_normal.png')
-      expect(user.profile_image_uri).to be_a Addressable::URI
+      expect(user.profile_image_uri).to be_an Addressable::URI
     end
     it 'returns a URI when profile_image_url_https is set' do
       user = Twitter::User.new(:id => 7_505_382, :profile_image_url_https => 'https://a0.twimg.com/profile_images/1759857427/image1326743606_normal.png')
-      expect(user.profile_image_uri).to be_a Addressable::URI
+      expect(user.profile_image_uri).to be_an Addressable::URI
     end
     it 'returns nil when created_at is not set' do
       user = Twitter::User.new(:id => 7_505_382)
@@ -222,11 +264,11 @@ describe Twitter::User do
   describe '#profile_image_uri_https' do
     it 'accepts utf8 urls' do
       user = Twitter::User.new(:id => 7_505_382, :profile_image_url_https => 'https://si0.twimg.com/profile_images/7_505_382/1348266581©_normal.png')
-      expect(user.profile_image_uri_https).to be_a Addressable::URI
+      expect(user.profile_image_uri_https).to be_an Addressable::URI
     end
     it 'returns a URI when profile_image_url_https is set' do
       user = Twitter::User.new(:id => 7_505_382, :profile_image_url_https => 'https://a0.twimg.com/profile_images/1759857427/image1326743606_normal.png')
-      expect(user.profile_image_uri_https).to be_a Addressable::URI
+      expect(user.profile_image_uri_https).to be_an Addressable::URI
     end
     it 'returns nil when created_at is not set' do
       user = Twitter::User.new(:id => 7_505_382)
@@ -305,7 +347,7 @@ describe Twitter::User do
   describe '#uri' do
     it 'returns the URI to the user' do
       user = Twitter::User.new(:id => 7_505_382, :screen_name => 'sferik')
-      expect(user.uri).to be_a Addressable::URI
+      expect(user.uri).to be_an Addressable::URI
       expect(user.uri.to_s).to eq('https://twitter.com/sferik')
     end
   end
@@ -313,8 +355,21 @@ describe Twitter::User do
   describe '#website' do
     it 'returns a URI when the url is set' do
       user = Twitter::User.new(:id => 7_505_382, :url => 'https://github.com/sferik')
-      expect(user.website).to be_a Addressable::URI
+      expect(user.website).to be_an Addressable::URI
       expect(user.website.to_s).to eq('https://github.com/sferik')
+    end
+    it 'returns a URI when the tweet includes website URI entities' do
+      urls_array = [
+        {
+          :url => 'https://t.co/L2xIBazMPf',
+          :expanded_url => 'http://example.com/expanded',
+          :display_url => 'example.com/expanded…',
+          :indices => [0, 23],
+        }
+      ]
+      user = Twitter::User.new(:id => 7_505_382, :entities => {:url => {:urls => urls_array}})
+      expect(user.website).to be_an Addressable::URI
+      expect(user.website.to_s).to eq('http://example.com/expanded')
     end
     it 'returns nil when the url is not set' do
       user = Twitter::User.new(:id => 7_505_382)
@@ -327,10 +382,62 @@ describe Twitter::User do
       user = Twitter::User.new(:id => 7_505_382, :url => 'https://github.com/sferik')
       expect(user.website?).to be true
     end
+    it 'returns true when the tweet includes website URI entities' do
+      urls_array = [
+        {
+          :url => 'https://t.co/L2xIBazMPf',
+          :expanded_url => 'http://example.com/expanded',
+          :display_url => 'example.com/expanded…',
+          :indices => [0, 23],
+        }
+      ]
+      user = Twitter::User.new(:id => 7_505_382, :entities => {:url => {:urls => urls_array}})
+      expect(user.website?).to be true
+    end
     it 'returns false when the url is not set' do
       user = Twitter::User.new(:id => 7_505_382)
       expect(user.website?).to be false
     end
   end
 
+  describe '#website_uris' do
+    it 'returns an array of Entity::URIs when website URI entities are set' do
+      urls_array = [
+        {
+          :url => 'https://t.co/L2xIBazMPf',
+          :expanded_url => 'http://example.com/expanded',
+          :display_url => 'example.com/expanded…',
+          :indices => [0, 23],
+        }
+      ]
+      user = Twitter::User.new(:id => 7_505_382, :entities => {:url => {:urls => urls_array}})
+      expect(user.website_uris).to be_an Array
+      expect(user.website_uris.first).to be_a Twitter::Entity::URI
+      expect(user.website_uris.first.indices).to eq([0, 23])
+      expect(user.website_uris.first.expanded_uri).to be_an Addressable::URI
+    end
+    it 'is empty when not set' do
+      user = Twitter::User.new(:id => 7_505_382, :entities => {:url => {:urls => []}})
+      expect(user.website_uris).to be_empty
+    end
+  end
+
+  describe '#website_uris?' do
+    it 'returns true when the tweet includes website URI entities' do
+      urls_array = [
+        {
+          :url => 'https://t.co/L2xIBazMPf',
+          :expanded_url => 'http://example.com/expanded',
+          :display_url => 'example.com/expanded…',
+          :indices => [0, 23],
+        }
+      ]
+      user = Twitter::User.new(:id => 7_505_382, :entities => {:url => {:urls => urls_array}})
+      expect(user.website_uris?).to be true
+    end
+    it 'returns false when no entities are present' do
+      user = Twitter::User.new(:id => 7_505_382, :entities => {})
+      expect(user.website_uris?).to be false
+    end
+  end
 end
