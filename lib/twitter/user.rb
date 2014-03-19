@@ -33,7 +33,6 @@ module Twitter
     alias_method :tweeted?, :status?
 
     class << self
-
     private
 
       # Dynamically define a method for entity URIs

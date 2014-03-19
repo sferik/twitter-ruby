@@ -19,9 +19,16 @@ module Twitter
     class Client < Twitter::Client
       include Twitter::REST::API
       attr_accessor :bearer_token
-      attr_writer :connection_options, :middleware
       ENDPOINT = 'https://api.twitter.com'
 
+      # @param connection_options [Hash]
+      # @return [Hash]
+      def connection_options=(connection_options)
+        warn "#{Kernel.caller.first}: [DEPRECATION] Twitter::REST::Client#connection_options= is deprecated and will be removed in version 6.0.0."
+        @connection_options = connection_options
+      end
+
+      # @return [Hash]
       def connection_options
         @connection_options ||= {
           :builder => middleware,
@@ -34,6 +41,13 @@ module Twitter
             :timeout => 30,
           },
         }
+      end
+
+      # @params middleware [Faraday::RackBuilder]
+      # @return [Faraday::RackBuilder]
+      def middleware=(middleware)
+        warn "#{Kernel.caller.first}: [DEPRECATION] Twitter::REST::Client#middleware= is deprecated and will be removed in version 6.0.0."
+        @middleware = middleware
       end
 
       # @note Faraday's middleware stack implementation is comparable to that of Rack middleware.  The order of middleware is important: the first middleware on the list wraps all others, while the last middleware is the innermost one.

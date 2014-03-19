@@ -65,6 +65,36 @@ describe Twitter::REST::Client do
     end
   end
 
+  describe '#connection_options=' do
+    it 'sets connection options' do
+      capture_warning do
+        @client.connection_options = 'connection options'
+      end
+      expect(@client.connection_options).to eq('connection options')
+    end
+    it 'outputs a warning' do
+      warning = capture_warning do
+        @client.connection_options = nil
+      end
+      expect(warning).to match(/\[DEPRECATION\] Twitter::REST::Client#connection_options= is deprecated and will be removed in version 6\.0\.0\.$/)
+    end
+  end
+
+  describe '#middleware=' do
+    it 'sets middleware' do
+      capture_warning do
+        @client.middleware = 'middleware'
+      end
+      expect(@client.middleware).to eq 'middleware'
+    end
+    it 'outputs a warning' do
+      warning = capture_warning do
+        @client.middleware = nil
+      end
+      expect(warning).to match(/\[DEPRECATION\] Twitter::REST::Client#middleware= is deprecated and will be removed in version 6\.0\.0\.$/)
+    end
+  end
+
   describe '#credentials?' do
     it 'returns true if all credentials are present' do
       client = Twitter::REST::Client.new(:consumer_key => 'CK', :consumer_secret => 'CS', :access_token => 'AT', :access_token_secret => 'AS')

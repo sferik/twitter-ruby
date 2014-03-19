@@ -65,3 +65,15 @@ end
 def fixture(file)
   File.new(fixture_path + '/' + file)
 end
+
+def capture_warning
+  begin
+    old_stderr = $stderr
+    $stderr = StringIO.new
+    yield
+    result = $stderr.string
+  ensure
+    $stderr = old_stderr
+  end
+  result
+end
