@@ -3,7 +3,7 @@ require 'twitter/base'
 
 module Twitter
   class Place < Twitter::Base
-    attr_reader :attributes, :country, :full_name, :name, :woeid
+    attr_reader :attributes, :country, :full_name, :name, :woeid, :id
     alias_method :woe_id, :woeid
     object_attr_reader :GeoFactory, :bounding_box
     object_attr_reader :Place, :contained_within
