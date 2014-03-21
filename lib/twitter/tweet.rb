@@ -6,10 +6,9 @@ module Twitter
   class Tweet < Twitter::Identity
     include Twitter::Creatable
     include Twitter::Entities
-    attr_reader :favorite_count, :favorited, :filter_level,
-                :in_reply_to_screen_name, :in_reply_to_attrs_id,
-                :in_reply_to_status_id, :in_reply_to_user_id, :lang,
-                :retweet_count, :retweeted, :source, :text, :truncated
+    attr_reader :favorite_count, :filter_level, :in_reply_to_screen_name,
+                :in_reply_to_attrs_id, :in_reply_to_status_id, :in_reply_to_user_id,
+                :lang, :retweet_count, :source, :text
     deprecate_alias :favorites_count, :favorite_count
     deprecate_alias :favoriters_count, :favorite_count
     alias_method :in_reply_to_tweet_id, :in_reply_to_status_id
@@ -23,6 +22,7 @@ module Twitter
     alias_method :retweet?, :retweeted_status?
     alias_method :retweeted_tweet?, :retweeted_status?
     object_attr_reader :User, :user, :status
+    predicate_attr_reader :favorited, :retweeted, :truncated
 
     # @note May be > 140 characters.
     # @return [String]

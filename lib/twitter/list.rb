@@ -4,9 +4,10 @@ require 'twitter/identity'
 module Twitter
   class List < Twitter::Identity
     include Twitter::Creatable
-    attr_reader :description, :following, :full_name, :member_count,
-                :mode, :name, :slug, :subscriber_count
+    attr_reader :description, :full_name, :member_count, :mode, :name, :slug,
+                :subscriber_count
     object_attr_reader :User, :user
+    predicate_attr_reader :following
 
     # @return [Addressable::URI] The URI to the list members.
     def members_uri

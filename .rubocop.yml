@@ -10,7 +10,7 @@ ParameterLists:
   CountKeywordArgs: true
 
 ClassLength:
-  Max: 90
+  Max: 100
 
 LineLength:
   Enabled: false

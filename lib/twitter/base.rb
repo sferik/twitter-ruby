@@ -25,6 +25,13 @@ module Twitter
         end
       end
 
+      def predicate_attr_reader(*attrs)
+        attrs.each do |attr|
+          define_predicate_method(attr)
+          deprecate_attribute_method(attr)
+        end
+      end
+
       # Define object methods from attributes
       #
       # @param klass [Symbol]
@@ -59,8 +66,6 @@ module Twitter
         alias_method(:display_url?, :display_uri?)
       end
 
-    private
-
       # Dynamically define a method for a URI
       #
       # @param key1 [Symbol]
@@ -91,6 +96,17 @@ module Twitter
           end
         end
         memoize(key1)
+      end
+
+      # Dynamically define a method for an attribute
+      #
+      # @param key [Symbol]
+      def deprecate_attribute_method(key)
+        define_method(key) do ||
+          warn "#{Kernel.caller.first}: [DEPRECATION] ##{key} is deprecated. Use ##{key}? instead."
+          @attrs[key]
+        end
+        memoize(key)
       end
 
       # Dynamically define a predicate method for an attribute
