@@ -5,7 +5,6 @@ require 'resolv'
 module Twitter
   module Streaming
     class Connection
-
       def initialize(opts = {})
         @tcp_socket_klass = opts.fetch(:tcp_socket_klass) { TCPSocket }
         @ssl_socket_klass = opts.fetch(:ssl_socket_klass) { OpenSSL::SSL::SSLSocket }
