@@ -5,10 +5,17 @@ require 'resolv'
 module Twitter
   module Streaming
     class Connection
-      def stream(request, response)
+      def initialize(opts = {})
+        @tcp_socket_class = opts.fetch(:tcp_socket_class) { TCPSocket }
+        @ssl_socket_class = opts.fetch(:ssl_socket_class) { OpenSSL::SSL::SSLSocket }
+      end
+      attr_reader :tcp_socket_class, :ssl_socket_class
+
+      def stream(request, response, opts = {})
         client_context = OpenSSL::SSL::SSLContext.new
-        client         = TCPSocket.new(Resolv.getaddress(request.uri.host), request.uri.port)
-        ssl_client     = OpenSSL::SSL::SSLSocket.new(client, client_context)
+        client         = @tcp_socket_class.new(Resolv.getaddress(request.uri.host), request.uri.port)
+        ssl_client     = @ssl_socket_class.new(client, client_context)
+
         ssl_client.connect
         request.stream(ssl_client)
         while body = ssl_client.readpartial(1024) # rubocop:disable AssignmentInCondition, WhileUntilModifier
