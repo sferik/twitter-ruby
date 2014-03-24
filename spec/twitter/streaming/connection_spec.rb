@@ -7,8 +7,8 @@ describe Twitter::Streaming::Connection do
       subject(:connection) { Twitter::Streaming::Connection.new }
 
       it 'sets the default socket classes' do
-        expect(connection.tcp_socket_klass).to eq TCPSocket
-        expect(connection.ssl_socket_klass).to eq OpenSSL::SSL::SSLSocket
+        expect(connection.tcp_socket_class).to eq TCPSocket
+        expect(connection.ssl_socket_class).to eq OpenSSL::SSL::SSLSocket
       end
     end
 
@@ -18,14 +18,14 @@ describe Twitter::Streaming::Connection do
 
       subject(:connection) do
         Twitter::Streaming::Connection.new(
-          :tcp_socket_klass => DummyTCPSocket,
-          :ssl_socket_klass => DummySSLSocket
+          :tcp_socket_class => DummyTCPSocket,
+          :ssl_socket_class => DummySSLSocket
         )
       end
 
       it 'sets the default socket classes' do
-        expect(connection.tcp_socket_klass).to eq DummyTCPSocket
-        expect(connection.ssl_socket_klass).to eq DummySSLSocket
+        expect(connection.tcp_socket_class).to eq DummyTCPSocket
+        expect(connection.ssl_socket_class).to eq DummySSLSocket
       end
     end
   end

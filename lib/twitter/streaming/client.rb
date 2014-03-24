@@ -9,13 +9,13 @@ module Twitter
   module Streaming
     class Client < Twitter::Client
       attr_writer :connection
-      attr_accessor :tcp_socket_klass, :ssl_socket_klass
+      attr_accessor :tcp_socket_class, :ssl_socket_class
 
       # Initializes a new Client object
       #
       # @param options [Hash] A customizable set of options.
-      # @option options [String] :tcp_socket_klass A class that Connection will use to create a new TCP socket.
-      # @option options [String] :ssl_socket_klass A class that Connection will use to create a new SSL socket.
+      # @option options [String] :tcp_socket_class A class that Connection will use to create a new TCP socket.
+      # @option options [String] :ssl_socket_class A class that Connection will use to create a new SSL socket.
       # @return [Twitter::Streaming::Client]
       def initialize(options = {})
         super
