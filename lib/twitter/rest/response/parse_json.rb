@@ -17,7 +17,12 @@ module Twitter
         end
 
         def on_complete(response)
-          response.body = parse(response.body) if respond_to?(:parse) && !unparsable_status_codes.include?(response.status)
+          if response.response_headers['content-encoding'] && response.response_headers['content-encoding'].include?("gzip")
+            body = StringIO.new(response.body)
+            string = Zlib::GzipReader.new(body).read
+            response.body = string
+          end
+          response.body = parse(response.body) unless [204, 301, 302, 304].include?(response.status)
         end
 
         def unparsable_status_codes
