@@ -107,7 +107,7 @@ module Twitter
       rescue Faraday::Error::TimeoutError, Timeout::Error => error
         raise(Twitter::Error::RequestTimeout.new(error))
       rescue Faraday::Error::ClientError, JSON::ParserError => error
-        fail(Twitter::Error.new(error))
+        raise(Twitter::Error.new(error))
       end
 
       def request_headers(method, path, params = {}, signature_params = params)

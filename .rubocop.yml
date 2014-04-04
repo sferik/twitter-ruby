@@ -1,5 +1,5 @@
 AllCops:
-  Includes:
+  Include:
     - 'Gemfile'
     - 'Rakefile'
     - 'twitter.gemspec'
@@ -90,3 +90,6 @@ PercentLiteralDelimiters:
     '%w': '[]'
     '%W': '[]'
     '%x': ()
+
+NonNilCheck:
+  Enabled: false
