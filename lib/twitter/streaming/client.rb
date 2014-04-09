@@ -81,7 +81,8 @@ module Twitter
       # @see https://dev.twitter.com/docs/streaming-apis/parameters
       # @param options [Hash] A customizable set of options.
       # @option options [String] :with Specifies whether to return information for just the users specified in the follow parameter, or include messages from accounts they follow.
-      # @option options [String] :replies Specifies whether stall warnings should be delivered.
+      # @option options [String] :replies Specifies whether to return additional @replies.
+      # @option options [String] :stall_warnings Specifies whether stall warnings should be delivered.
       # @option options [String] :track Includes additional Tweets matching the specified keywords. Phrases of keywords are specified by a comma-separated list.
       # @option options [String] :locations Includes additional Tweets falling within the specified bounding boxes.
       # @yield [Twitter::Tweet, Twitter::Streaming::Event, Twitter::DirectMessage, Twitter::Streaming::FriendList, Twitter::Streaming::DeletedTweet, Twitter::Streaming::StallWarning] A stream of Twitter objects.
