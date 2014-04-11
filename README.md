@@ -76,13 +76,9 @@ is now `access_token_secret` to conform to the terminology used in Twitter's
 developer documentation.
 
 ### Streaming (Experimental)
-This library now offers support for the [Twitter Streaming API][streaming]. We
-previously recommended using [TweetStream][] for this, however [TweetStream
-does not work on Ruby 2.0.0][bug].
+This library now offers support for the [Twitter Streaming API][streaming].
 
 [streaming]: https://dev.twitter.com/docs/streaming-apis
-[tweetstream]: http://rubygems.org/gems/tweetstream
-[bug]: https://github.com/tweetstream/tweetstream/issues/117
 
 Site Streams are restricted to whitelisted accounts. To apply for access,
 [follow the steps in the Site Streams documentation][site-streams]. [User
@@ -92,10 +88,9 @@ Streams][user-streams] do not require prior approval.
 [user-streams]: https://dev.twitter.com/docs/streaming-apis/streams/user
 
 Unlike the rest of this library, this feature is not well tested and not
-recommended for production applications. That said, if you need to do Twitter
-streaming on Ruby 2.0.0, this is probably your best option. I've decided to
-ship it as an experimental feature and make it more robust over time. Patches
-in this area are particularly welcome.
+recommended for production applications. I've decided to ship it as an
+experimental feature and make it more robust over time. Patches in this area are
+particularly welcome.
 
 Hopefully, by the time version 6 is released, this gem can fully replace
 [TweetStream][], [em-twitter][], [twitterstream][], and [twitter-stream].
