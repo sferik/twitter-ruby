@@ -79,6 +79,7 @@ developer documentation.
 This library now offers support for the [Twitter Streaming API][streaming].
 
 [streaming]: https://dev.twitter.com/docs/streaming-apis
+[tweetstream]: http://rubygems.org/gems/tweetstream
 
 Site Streams are restricted to whitelisted accounts. To apply for access,
 [follow the steps in the Site Streams documentation][site-streams]. [User
