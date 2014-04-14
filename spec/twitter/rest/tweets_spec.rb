@@ -474,6 +474,13 @@ describe Twitter::REST::Tweets do
         expect(a_post('/1.1/statuses/update_with_media.json')).to have_been_made
       end
     end
+    context "A non IO object" do
+      it "raises an error" do
+        expect {
+          @client.update_with_media("You always have options", "Unacceptable IO")
+        }.to raise_error(Twitter::Error::UnacceptableIO)
+      end
+    end
     context 'already posted' do
       before do
         stub_post('/1.1/statuses/update_with_media.json').to_return(:status => 403, :body => fixture('already_posted.json'), :headers => {:content_type => 'application/json; charset=utf-8'})

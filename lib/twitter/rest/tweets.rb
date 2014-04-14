@@ -200,6 +200,7 @@ module Twitter
       # @rate_limited No
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @raise [Twitter::Error::UnacceptableIO] Error when the IO object for the media argument does not have a to_io method.
       # @return [Twitter::Tweet] The created Tweet.
       # @param status [String] The text of your status update, up to 140 characters.
       # @param media [File, Hash] A File object with your picture (PNG, JPEG or GIF)
@@ -214,6 +215,8 @@ module Twitter
       # @option options [String] :display_coordinates Whether or not to put a pin on the exact coordinates a tweet has been sent from.
       # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       def update_with_media(status, media, options = {})
+        raise Twitter::Error::UnacceptableIO.new unless media.respond_to?(:to_io)
+
         hash = options.dup
         hash[:in_reply_to_status_id] = hash.delete(:in_reply_to_status).id unless hash[:in_reply_to_status].nil?
         hash[:place_id] = hash.delete(:place).woeid unless hash[:place].nil?
