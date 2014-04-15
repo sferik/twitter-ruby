@@ -105,7 +105,7 @@ module Twitter
     # Raised when a Tweet includes media that doesn't have a to_io method
     class UnacceptableIO < StandardError
       def initialize
-        super("The IO object for media must respond to to_io")
+        super('The IO object for media must respond to to_io')
       end
     end
 
