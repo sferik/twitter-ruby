@@ -8,9 +8,13 @@ module Twitter
 
     module ClassMethods
       def deprecate_alias(new_name, old_name)
-        define_method(new_name) do |*args, &block|
+        define_method(new_name) do |*args|
           warn "#{Kernel.caller.first}: [DEPRECATION] ##{new_name} is deprecated. Use ##{old_name} instead."
-          send(old_name, *args, &block)
+          if block_given?
+            send(old_name, *args, &Proc.new)
+          else
+            send(old_name, *args)
+          end
         end
       end
     end
@@ -20,9 +24,12 @@ module Twitter
     #
     # @param enumerable [Enumerable]
     # @return [Array, Enumerator]
-    def flat_pmap(enumerable, &block)
-      return to_enum(:flat_pmap, enumerable) unless block_given?
-      pmap(enumerable, &block).flatten(1)
+    def flat_pmap(enumerable)
+      if block_given?
+        pmap(enumerable, &Proc.new).flatten(1)
+      else
+        to_enum(:flat_pmap, enumerable)
+      end
     end
     module_function :flat_pmap
 

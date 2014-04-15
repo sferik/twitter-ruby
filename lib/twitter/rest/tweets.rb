@@ -215,8 +215,7 @@ module Twitter
       # @option options [String] :display_coordinates Whether or not to put a pin on the exact coordinates a tweet has been sent from.
       # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       def update_with_media(status, media, options = {})
-        fail Twitter::Error::UnacceptableIO.new unless media.respond_to?(:to_io)
-
+        fail(Twitter::Error::UnacceptableIO.new) unless media.respond_to?(:to_io)
         hash = options.dup
         hash[:in_reply_to_status_id] = hash.delete(:in_reply_to_status).id unless hash[:in_reply_to_status].nil?
         hash[:place_id] = hash.delete(:place).woeid unless hash[:place].nil?

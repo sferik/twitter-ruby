@@ -3,7 +3,7 @@ module Twitter
     include ::Enumerable
 
     # @return [Enumerator]
-    def each(start = 0, &block)
+    def each(start = 0)
       return to_enum(:each, start) unless block_given?
       Array(@collection[start..-1]).each do |element|
         yield(element)
@@ -11,7 +11,7 @@ module Twitter
       unless last?
         start = [@collection.size, start].max
         fetch_next_page
-        each(start, &block)
+        each(start, &Proc.new)
       end
       self
     end
