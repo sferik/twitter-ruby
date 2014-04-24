@@ -10,7 +10,7 @@ describe Twitter::Streaming::Client do
       @body = body
     end
 
-    def stream(request, response)
+    def stream(_, response)
       @body.each_line do |line|
         response.on_body(line)
       end

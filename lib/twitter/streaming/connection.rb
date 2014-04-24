@@ -11,7 +11,7 @@ module Twitter
       end
       attr_reader :tcp_socket_class, :ssl_socket_class
 
-      def stream(request, response, opts = {})
+      def stream(request, response)
         client_context = OpenSSL::SSL::SSLContext.new
         client         = @tcp_socket_class.new(Resolv.getaddress(request.uri.host), request.uri.port)
         ssl_client     = @ssl_socket_class.new(client, client_context)
