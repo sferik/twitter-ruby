@@ -214,7 +214,7 @@ module Twitter
       #
       # @see https://dev.twitter.com/docs/api/1.1/get/users/lookup
       # @rate_limited Yes
-      # @authentication Requires user context
+      # @authentication Required
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Array<Twitter::User>] The requested users.
       # @overload users(*users)

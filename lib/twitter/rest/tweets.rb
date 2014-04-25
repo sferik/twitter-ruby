@@ -11,6 +11,7 @@ module Twitter
     module Tweets
       include Twitter::REST::Utils
       include Twitter::Utils
+      MAX_TWEETS_PER_REQUEST = 100
 
       # Returns up to 100 of the first retweets of a given tweet
       #
@@ -62,19 +63,24 @@ module Twitter
 
       # Returns Tweets
       #
-      # @see https://dev.twitter.com/docs/api/1.1/get/statuses/show/:id
+      # @see https://dev.twitter.com/docs/api/1.1/get/statuses/lookup
       # @rate_limited Yes
-      # @authentication Requires user context
-      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @authentication Required
       # @return [Array<Twitter::Tweet>] The requested Tweets.
       # @overload statuses(*tweets)
       #   @param tweets [Enumerable<Integer, String, URI, Twitter::Tweet>] A collection of Tweet IDs, URIs, or objects.
       # @overload statuses(*tweets, options)
       #   @param tweets [Enumerable<Integer, String, URI, Twitter::Tweet>] A collection of Tweet IDs, URIs, or objects.
       #   @param options [Hash] A customizable set of options.
+      #   @option options [Symbol, String] :method Requests users via a GET request instead of the standard POST request if set to ':get'.
+      #   @option options [Boolean] :include_entities The tweet entities node will be disincluded when set to false.
       #   @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       def statuses(*args)
-        parallel_tweets_from_response(:get, '/1.1/statuses/show', args)
+        arguments = Twitter::Arguments.new(args)
+        request_method = arguments.options.delete(:method) || :post
+        flat_pmap(arguments.each_slice(MAX_TWEETS_PER_REQUEST)) do |tweets|
+          perform_with_objects(request_method, '/1.1/statuses/lookup.json', arguments.options.merge(:id => tweets.collect { |u| extract_id(u) }.join(',')), Twitter::Tweet)
+        end
       end
 
       # Destroys the specified Tweets
@@ -92,7 +98,10 @@ module Twitter
       #   @param options [Hash] A customizable set of options.
       #   @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       def destroy_status(*args)
-        parallel_tweets_from_response(:post, '/1.1/statuses/destroy', args)
+        arguments = Twitter::Arguments.new(args)
+        pmap(arguments) do |tweet|
+          perform_with_object(:post, "/1.1/statuses/destroy/#{extract_id(tweet)}.json", arguments.options, Twitter::Tweet)
+        end
       end
       alias_method :destroy_tweet, :destroy_status
       deprecate_alias :status_destroy, :destroy_status
@@ -288,17 +297,6 @@ module Twitter
       end
 
     private
-
-      # @param request_method [Symbol]
-      # @param path [String]
-      # @param args [Array]
-      # @return [Array<Twitter::Tweet>]
-      def parallel_tweets_from_response(request_method, path, args)
-        arguments = Twitter::Arguments.new(args)
-        pmap(arguments) do |tweet|
-          perform_with_object(request_method, path + "/#{extract_id(tweet)}.json", arguments.options, Twitter::Tweet)
-        end
-      end
 
       def post_retweet(tweet, options)
         response = post("/1.1/statuses/retweet/#{extract_id(tweet)}.json", options).body
