@@ -54,7 +54,7 @@ module Twitter
 
       def define_entity_uris_method(key1, key2)
         define_method(key1) do ||
-          Array(@attrs[:entities] && @attrs[:entities][key2] && @attrs[:entities][key2][:urls]).collect do |url|
+          @attrs.fetch(:entities, {}).fetch(key2, {}).fetch(:urls, []).collect do |url|
             Entity::URI.new(url)
           end
         end

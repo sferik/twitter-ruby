@@ -21,7 +21,7 @@ module Twitter
     # @return [Twitter::TrendResults]
     def initialize(attrs = {})
       @attrs = attrs
-      @collection = Array(@attrs[:trends]).collect do |trend|
+      @collection = @attrs.fetch(:trends, []).collect do |trend|
         Trend.new(trend)
       end
     end

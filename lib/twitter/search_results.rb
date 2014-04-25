@@ -58,7 +58,7 @@ module Twitter
     # @return [Hash]
     def attrs=(attrs)
       @attrs = attrs
-      Array(@attrs[:statuses]).collect do |tweet|
+      @attrs.fetch(:statuses, []).collect do |tweet|
         @collection << Tweet.new(tweet)
       end
       @attrs

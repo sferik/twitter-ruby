@@ -86,13 +86,13 @@ module Twitter
     # @param klass [Class]
     # @param key [Symbol]
     def entities(klass, key)
-      if !@attrs[:entities].nil?
-        Array(@attrs[:entities][key.to_sym]).collect do |entity|
-          klass.new(entity)
-        end
-      else
+      if @attrs[:entities].nil?
         warn "#{Kernel.caller.first}: To get #{key.to_s.tr('_', ' ')}, you must pass `:include_entities => true` when requesting the #{self.class}."
         []
+      else
+        @attrs[:entities].fetch(key.to_sym, []).collect do |entity|
+          klass.new(entity)
+        end
       end
     end
   end

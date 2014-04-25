@@ -51,7 +51,7 @@ module Twitter
     # @return [Hash]
     def attrs=(attrs)
       @attrs = attrs
-      Array(attrs[@key]).each do |element|
+      @attrs.fetch(@key, []).each do |element|
         @collection << (@klass ? @klass.new(element) : element)
       end
       @attrs
