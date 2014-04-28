@@ -133,35 +133,35 @@ describe Twitter::REST::Tweets do
     end
   end
 
-  describe '#statuses' do
+  describe '#lookup' do
     before do
       stub_post('/1.1/statuses/lookup.json').with(:body => {:id => '25938088801,91151181040201728'}).to_return(:body => fixture('statuses.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
     end
     it 'requests the correct resource' do
-      @client.statuses(25_938_088_801, 91_151_181_040_201_728)
+      @client.lookup(25_938_088_801, 91_151_181_040_201_728)
       expect(a_post('/1.1/statuses/lookup.json').with(:body => {:id => '25938088801,91151181040201728'})).to have_been_made
     end
     it 'returns an array of Tweets' do
-      tweets = @client.statuses(25_938_088_801, 91_151_181_040_201_728)
+      tweets = @client.lookup(25_938_088_801, 91_151_181_040_201_728)
       expect(tweets).to be_an Array
       expect(tweets.first).to be_a Twitter::Tweet
       expect(tweets.first.text).to eq('Happy Birthday @imdane. Watch out for those @rally pranksters!')
     end
     context 'with URI objects passed' do
       it 'requests the correct resource' do
-        @client.statuses(URI.parse('https://twitter.com/sferik/status/25938088801'), URI.parse('https://twitter.com/sferik/status/91151181040201728'))
+        @client.lookup(URI.parse('https://twitter.com/sferik/status/25938088801'), URI.parse('https://twitter.com/sferik/status/91151181040201728'))
         expect(a_post('/1.1/statuses/lookup.json').with(:body => {:id => '25938088801,91151181040201728'})).to have_been_made
       end
     end
     context 'with URI strings passed' do
       it 'requests the correct resource' do
-        @client.statuses('https://twitter.com/sferik/status/25938088801', 'https://twitter.com/sferik/status/91151181040201728')
+        @client.lookup('https://twitter.com/sferik/status/25938088801', 'https://twitter.com/sferik/status/91151181040201728')
         expect(a_post('/1.1/statuses/lookup.json').with(:body => {:id => '25938088801,91151181040201728'})).to have_been_made
       end
     end
     context 'with Tweets passed' do
       it 'requests the correct resource' do
-        @client.statuses(Twitter::Tweet.new(:id => 25_938_088_801), Twitter::Tweet.new(:id => 91_151_181_040_201_728))
+        @client.lookup(Twitter::Tweet.new(:id => 25_938_088_801), Twitter::Tweet.new(:id => 91_151_181_040_201_728))
         expect(a_post('/1.1/statuses/lookup.json').with(:body => {:id => '25938088801,91151181040201728'})).to have_been_made
       end
     end

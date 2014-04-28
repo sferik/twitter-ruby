@@ -75,13 +75,14 @@ module Twitter
       #   @option options [Symbol, String] :method Requests users via a GET request instead of the standard POST request if set to ':get'.
       #   @option options [Boolean] :include_entities The tweet entities node will be disincluded when set to false.
       #   @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
-      def statuses(*args)
+      def lookup(*args)
         arguments = Twitter::Arguments.new(args)
         request_method = arguments.options.delete(:method) || :post
         flat_pmap(arguments.each_slice(MAX_TWEETS_PER_REQUEST)) do |tweets|
           perform_with_objects(request_method, '/1.1/statuses/lookup.json', arguments.options.merge(:id => tweets.collect { |u| extract_id(u) }.join(',')), Twitter::Tweet)
         end
       end
+      alias_method :statuses, :lookup
 
       # Destroys the specified Tweets
       #
