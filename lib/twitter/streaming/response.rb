@@ -16,9 +16,9 @@ module Twitter
         @parser << data
       end
 
-      def on_headers_complete(headers)
-        # TODO: handle response codes
-        p(:status_code => @parser.status_code, :header => headers) unless @parser.status_code == 200
+      def on_headers_complete(_headers)
+        error = Twitter::Error.errors[@parser.status_code]
+        fail error.new if error
       end
 
       def on_body(data)
