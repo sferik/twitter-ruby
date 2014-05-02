@@ -118,6 +118,10 @@ module Twitter
         @screen_name ||= verify_credentials.screen_name
       end
 
+      def screen_name?
+        instance_variable_defined?(:@screen_name)
+      end
+
       def merge_default_cursor!(options)
         options[:cursor] = DEFAULT_CURSOR unless options[:cursor]
       end
