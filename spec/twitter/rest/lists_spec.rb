@@ -67,12 +67,12 @@ describe Twitter::REST::Lists do
     end
     context 'without a screen name passed' do
       before do
-        stub_get('/1.1/account/verify_credentials.json').with(:query => {:skip_status => 'true'}).to_return(:body => fixture('sferik.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
+        stub_get('/1.1/account/verify_credentials.json').with(:query => {:include_entities => 'false', :skip_status => 'true'}).to_return(:body => fixture('sferik.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
         stub_get('/1.1/lists/statuses.json').with(:query => {:owner_id => '7505382', :slug => 'presidents'}).to_return(:body => fixture('statuses.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
       end
       it 'requests the correct resource' do
         @client.list_timeline('presidents')
-        expect(a_get('/1.1/account/verify_credentials.json').with(:query => {:skip_status => 'true'})).to have_been_made
+        expect(a_get('/1.1/account/verify_credentials.json').with(:query => {:include_entities => 'false', :skip_status => 'true'})).to have_been_made
         expect(a_get('/1.1/lists/statuses.json').with(:query => {:owner_id => '7505382', :slug => 'presidents'})).to have_been_made
       end
     end
@@ -95,12 +95,12 @@ describe Twitter::REST::Lists do
     end
     context 'without a screen name passed' do
       before do
-        stub_get('/1.1/account/verify_credentials.json').with(:query => {:skip_status => 'true'}).to_return(:body => fixture('sferik.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
+        stub_get('/1.1/account/verify_credentials.json').with(:query => {:include_entities => 'false', :skip_status => 'true'}).to_return(:body => fixture('sferik.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
         stub_post('/1.1/lists/members/destroy.json').with(:body => {:owner_id => '7505382', :slug => 'presidents', :user_id => '813286'}).to_return(:body => fixture('list.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
       end
       it 'requests the correct resource' do
         @client.remove_list_member('presidents', 813_286)
-        expect(a_get('/1.1/account/verify_credentials.json').with(:query => {:skip_status => 'true'})).to have_been_made
+        expect(a_get('/1.1/account/verify_credentials.json').with(:query => {:include_entities => 'false', :skip_status => 'true'})).to have_been_made
         expect(a_post('/1.1/lists/members/destroy.json').with(:body => {:owner_id => '7505382', :slug => 'presidents', :user_id => '813286'})).to have_been_made
       end
     end
@@ -153,12 +153,12 @@ describe Twitter::REST::Lists do
     end
     context 'without a screen name passed' do
       before do
-        stub_get('/1.1/account/verify_credentials.json').with(:query => {:skip_status => 'true'}).to_return(:body => fixture('sferik.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
+        stub_get('/1.1/account/verify_credentials.json').with(:query => {:include_entities => 'false', :skip_status => 'true'}).to_return(:body => fixture('sferik.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
         stub_get('/1.1/lists/memberships.json').with(:query => {:user_id => '7505382', :cursor => '-1'}).to_return(:body => fixture('memberships.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
       end
       it 'requests the correct resource' do
         @client.memberships
-        expect(a_get('/1.1/account/verify_credentials.json').with(:query => {:skip_status => 'true'})).to have_been_made
+        expect(a_get('/1.1/account/verify_credentials.json').with(:query => {:include_entities => 'false', :skip_status => 'true'})).to have_been_made
         expect(a_get('/1.1/lists/memberships.json').with(:query => {:user_id => '7505382', :cursor => '-1'})).to have_been_made
       end
       context 'with each' do
@@ -167,7 +167,7 @@ describe Twitter::REST::Lists do
         end
         it 'requests the correct resource' do
           @client.memberships.each {}
-          expect(a_get('/1.1/account/verify_credentials.json').with(:query => {:skip_status => 'true'})).to have_been_made
+          expect(a_get('/1.1/account/verify_credentials.json').with(:query => {:include_entities => 'false', :skip_status => 'true'})).to have_been_made
           expect(a_get('/1.1/lists/memberships.json').with(:query => {:user_id => '7505382', :cursor => '-1'})).to have_been_made
           expect(a_get('/1.1/lists/memberships.json').with(:query => {:user_id => '7505382', :cursor => '1401037770457540712'})).to have_been_made
         end
@@ -222,12 +222,12 @@ describe Twitter::REST::Lists do
     end
     context 'without a screen name passed' do
       before do
-        stub_get('/1.1/account/verify_credentials.json').with(:query => {:skip_status => 'true'}).to_return(:body => fixture('sferik.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
+        stub_get('/1.1/account/verify_credentials.json').with(:query => {:include_entities => 'false', :skip_status => 'true'}).to_return(:body => fixture('sferik.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
         stub_get('/1.1/lists/subscribers.json').with(:query => {:owner_id => '7505382', :slug => 'presidents', :cursor => '-1'}).to_return(:body => fixture('users_list.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
       end
       it 'requests the correct resource' do
         @client.list_subscribers('presidents')
-        expect(a_get('/1.1/account/verify_credentials.json').with(:query => {:skip_status => 'true'})).to have_been_made
+        expect(a_get('/1.1/account/verify_credentials.json').with(:query => {:include_entities => 'false', :skip_status => 'true'})).to have_been_made
         expect(a_get('/1.1/lists/subscribers.json').with(:query => {:owner_id => '7505382', :slug => 'presidents', :cursor => '-1'})).to have_been_made
       end
       context 'with each' do
@@ -236,7 +236,7 @@ describe Twitter::REST::Lists do
         end
         it 'requests the correct resource' do
           @client.list_subscribers('presidents').each {}
-          expect(a_get('/1.1/account/verify_credentials.json').with(:query => {:skip_status => 'true'})).to have_been_made
+          expect(a_get('/1.1/account/verify_credentials.json').with(:query => {:include_entities => 'false', :skip_status => 'true'})).to have_been_made
           expect(a_get('/1.1/lists/subscribers.json').with(:query => {:owner_id => '7505382', :slug => 'presidents', :cursor => '-1'})).to have_been_made
           expect(a_get('/1.1/lists/subscribers.json').with(:query => {:owner_id => '7505382', :slug => 'presidents', :cursor => '1322801608223717003'})).to have_been_made
         end
@@ -261,12 +261,12 @@ describe Twitter::REST::Lists do
     end
     context 'without a screen name passed' do
       before do
-        stub_get('/1.1/account/verify_credentials.json').with(:query => {:skip_status => 'true'}).to_return(:body => fixture('sferik.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
+        stub_get('/1.1/account/verify_credentials.json').with(:query => {:include_entities => 'false', :skip_status => 'true'}).to_return(:body => fixture('sferik.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
         stub_post('/1.1/lists/subscribers/create.json').with(:body => {:owner_id => '7505382', :slug => 'presidents'}).to_return(:body => fixture('list.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
       end
       it 'requests the correct resource' do
         @client.list_subscribe('presidents')
-        expect(a_get('/1.1/account/verify_credentials.json').with(:query => {:skip_status => 'true'})).to have_been_made
+        expect(a_get('/1.1/account/verify_credentials.json').with(:query => {:include_entities => 'false', :skip_status => 'true'})).to have_been_made
         expect(a_post('/1.1/lists/subscribers/create.json').with(:body => {:owner_id => '7505382', :slug => 'presidents'})).to have_been_made
       end
     end
@@ -335,12 +335,12 @@ describe Twitter::REST::Lists do
     end
     context 'without a screen name passed' do
       before do
-        stub_get('/1.1/account/verify_credentials.json').with(:query => {:skip_status => 'true'}).to_return(:body => fixture('sferik.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
+        stub_get('/1.1/account/verify_credentials.json').with(:query => {:include_entities => 'false', :skip_status => 'true'}).to_return(:body => fixture('sferik.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
         stub_get('/1.1/lists/subscribers/show.json').with(:query => {:owner_id => '7505382', :slug => 'presidents', :user_id => '813286'}).to_return(:body => fixture('sferik.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
       end
       it 'requests the correct resource' do
         @client.list_subscriber?('presidents', 813_286)
-        expect(a_get('/1.1/account/verify_credentials.json').with(:query => {:skip_status => 'true'})).to have_been_made
+        expect(a_get('/1.1/account/verify_credentials.json').with(:query => {:include_entities => 'false', :skip_status => 'true'})).to have_been_made
         expect(a_get('/1.1/lists/subscribers/show.json').with(:query => {:owner_id => '7505382', :slug => 'presidents', :user_id => '813286'})).to have_been_made
       end
     end
@@ -363,12 +363,12 @@ describe Twitter::REST::Lists do
     end
     context 'without a screen name passed' do
       before do
-        stub_get('/1.1/account/verify_credentials.json').with(:query => {:skip_status => 'true'}).to_return(:body => fixture('sferik.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
+        stub_get('/1.1/account/verify_credentials.json').with(:query => {:include_entities => 'false', :skip_status => 'true'}).to_return(:body => fixture('sferik.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
         stub_post('/1.1/lists/subscribers/destroy.json').with(:body => {:owner_id => '7505382', :slug => 'presidents'}).to_return(:body => fixture('list.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
       end
       it 'requests the correct resource' do
         @client.list_unsubscribe('presidents')
-        expect(a_get('/1.1/account/verify_credentials.json').with(:query => {:skip_status => 'true'})).to have_been_made
+        expect(a_get('/1.1/account/verify_credentials.json').with(:query => {:include_entities => 'false', :skip_status => 'true'})).to have_been_made
         expect(a_post('/1.1/lists/subscribers/destroy.json').with(:body => {:owner_id => '7505382', :slug => 'presidents'})).to have_been_made
       end
     end
@@ -400,12 +400,12 @@ describe Twitter::REST::Lists do
     end
     context 'without a screen name passed' do
       before do
-        stub_get('/1.1/account/verify_credentials.json').with(:query => {:skip_status => 'true'}).to_return(:body => fixture('sferik.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
+        stub_get('/1.1/account/verify_credentials.json').with(:query => {:include_entities => 'false', :skip_status => 'true'}).to_return(:body => fixture('sferik.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
         stub_post('/1.1/lists/members/create_all.json').with(:body => {:owner_id => '7505382', :slug => 'presidents', :user_id => '813286,18755393'}).to_return(:body => fixture('list.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
       end
       it 'requests the correct resource' do
         @client.add_list_members('presidents', [813_286, 18_755_393])
-        expect(a_get('/1.1/account/verify_credentials.json').with(:query => {:skip_status => 'true'})).to have_been_made
+        expect(a_get('/1.1/account/verify_credentials.json').with(:query => {:include_entities => 'false', :skip_status => 'true'})).to have_been_made
         expect(a_post('/1.1/lists/members/create_all.json').with(:body => {:owner_id => '7505382', :slug => 'presidents', :user_id => '813286,18755393'})).to have_been_made
       end
     end
@@ -474,12 +474,12 @@ describe Twitter::REST::Lists do
     end
     context 'without a screen name passed' do
       before do
-        stub_get('/1.1/account/verify_credentials.json').with(:query => {:skip_status => 'true'}).to_return(:body => fixture('sferik.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
+        stub_get('/1.1/account/verify_credentials.json').with(:query => {:include_entities => 'false', :skip_status => 'true'}).to_return(:body => fixture('sferik.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
         stub_get('/1.1/lists/members/show.json').with(:query => {:owner_id => '7505382', :slug => 'presidents', :user_id => '813286'}).to_return(:body => fixture('list.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
       end
       it 'requests the correct resource' do
         @client.list_member?('presidents', 813_286)
-        expect(a_get('/1.1/account/verify_credentials.json').with(:query => {:skip_status => 'true'})).to have_been_made
+        expect(a_get('/1.1/account/verify_credentials.json').with(:query => {:include_entities => 'false', :skip_status => 'true'})).to have_been_made
         expect(a_get('/1.1/lists/members/show.json').with(:query => {:owner_id => '7505382', :slug => 'presidents', :user_id => '813286'})).to have_been_made
       end
     end
@@ -532,12 +532,12 @@ describe Twitter::REST::Lists do
     end
     context 'without a screen name passed' do
       before do
-        stub_get('/1.1/account/verify_credentials.json').with(:query => {:skip_status => 'true'}).to_return(:body => fixture('sferik.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
+        stub_get('/1.1/account/verify_credentials.json').with(:query => {:include_entities => 'false', :skip_status => 'true'}).to_return(:body => fixture('sferik.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
         stub_get('/1.1/lists/members.json').with(:query => {:owner_id => '7505382', :slug => 'presidents', :cursor => '-1'}).to_return(:body => fixture('users_list.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
       end
       it 'requests the correct resource' do
         @client.list_members('presidents')
-        expect(a_get('/1.1/account/verify_credentials.json').with(:query => {:skip_status => 'true'})).to have_been_made
+        expect(a_get('/1.1/account/verify_credentials.json').with(:query => {:include_entities => 'false', :skip_status => 'true'})).to have_been_made
         expect(a_get('/1.1/lists/members.json').with(:query => {:owner_id => '7505382', :slug => 'presidents', :cursor => '-1'})).to have_been_made
       end
       context 'with each' do
@@ -546,7 +546,7 @@ describe Twitter::REST::Lists do
         end
         it 'requests the correct resource' do
           @client.list_members('presidents').each {}
-          expect(a_get('/1.1/account/verify_credentials.json').with(:query => {:skip_status => 'true'})).to have_been_made
+          expect(a_get('/1.1/account/verify_credentials.json').with(:query => {:include_entities => 'false', :skip_status => 'true'})).to have_been_made
           expect(a_get('/1.1/lists/members.json').with(:query => {:owner_id => '7505382', :slug => 'presidents', :cursor => '-1'})).to have_been_made
           expect(a_get('/1.1/lists/members.json').with(:query => {:owner_id => '7505382', :slug => 'presidents', :cursor => '1322801608223717003'})).to have_been_made
         end
@@ -571,12 +571,12 @@ describe Twitter::REST::Lists do
     end
     context 'without a screen name passed' do
       before do
-        stub_get('/1.1/account/verify_credentials.json').with(:query => {:skip_status => 'true'}).to_return(:body => fixture('sferik.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
+        stub_get('/1.1/account/verify_credentials.json').with(:query => {:include_entities => 'false', :skip_status => 'true'}).to_return(:body => fixture('sferik.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
         stub_post('/1.1/lists/members/create.json').with(:body => {:owner_id => '7505382', :slug => 'presidents', :user_id => '813286'}).to_return(:body => fixture('list.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
       end
       it 'requests the correct resource' do
         @client.add_list_member('presidents', 813_286)
-        expect(a_get('/1.1/account/verify_credentials.json').with(:query => {:skip_status => 'true'})).to have_been_made
+        expect(a_get('/1.1/account/verify_credentials.json').with(:query => {:include_entities => 'false', :skip_status => 'true'})).to have_been_made
         expect(a_post('/1.1/lists/members/create.json').with(:body => {:owner_id => '7505382', :slug => 'presidents', :user_id => '813286'})).to have_been_made
       end
     end
@@ -599,12 +599,12 @@ describe Twitter::REST::Lists do
     end
     context 'without a screen name passed' do
       before do
-        stub_get('/1.1/account/verify_credentials.json').with(:query => {:skip_status => 'true'}).to_return(:body => fixture('sferik.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
+        stub_get('/1.1/account/verify_credentials.json').with(:query => {:include_entities => 'false', :skip_status => 'true'}).to_return(:body => fixture('sferik.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
         stub_post('/1.1/lists/destroy.json').with(:body => {:owner_id => '7505382', :slug => 'presidents'}).to_return(:body => fixture('list.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
       end
       it 'requests the correct resource' do
         @client.destroy_list('presidents')
-        expect(a_get('/1.1/account/verify_credentials.json').with(:query => {:skip_status => 'true'})).to have_been_made
+        expect(a_get('/1.1/account/verify_credentials.json').with(:query => {:include_entities => 'false', :skip_status => 'true'})).to have_been_made
         expect(a_post('/1.1/lists/destroy.json').with(:body => {:owner_id => '7505382', :slug => 'presidents'})).to have_been_made
       end
     end
@@ -646,12 +646,12 @@ describe Twitter::REST::Lists do
     end
     context 'without a screen name passed' do
       before do
-        stub_get('/1.1/account/verify_credentials.json').with(:query => {:skip_status => 'true'}).to_return(:body => fixture('sferik.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
+        stub_get('/1.1/account/verify_credentials.json').with(:query => {:include_entities => 'false', :skip_status => 'true'}).to_return(:body => fixture('sferik.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
         stub_post('/1.1/lists/update.json').with(:body => {:owner_id => '7505382', :slug => 'presidents', :description => 'Presidents of the United States of America'}).to_return(:body => fixture('list.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
       end
       it 'requests the correct resource' do
         @client.list_update('presidents', :description => 'Presidents of the United States of America')
-        expect(a_get('/1.1/account/verify_credentials.json').with(:query => {:skip_status => 'true'})).to have_been_made
+        expect(a_get('/1.1/account/verify_credentials.json').with(:query => {:include_entities => 'false', :skip_status => 'true'})).to have_been_made
         expect(a_post('/1.1/lists/update.json').with(:body => {:owner_id => '7505382', :slug => 'presidents', :description => 'Presidents of the United States of America'})).to have_been_made
       end
     end
@@ -727,12 +727,12 @@ describe Twitter::REST::Lists do
     end
     context 'without a screen name passed' do
       before do
-        stub_get('/1.1/account/verify_credentials.json').with(:query => {:skip_status => 'true'}).to_return(:body => fixture('sferik.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
+        stub_get('/1.1/account/verify_credentials.json').with(:query => {:include_entities => 'false', :skip_status => 'true'}).to_return(:body => fixture('sferik.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
         stub_get('/1.1/lists/show.json').with(:query => {:owner_id => '7505382', :slug => 'presidents'}).to_return(:body => fixture('list.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
       end
       it 'requests the correct resource' do
         @client.list('presidents')
-        expect(a_get('/1.1/account/verify_credentials.json').with(:query => {:skip_status => 'true'})).to have_been_made
+        expect(a_get('/1.1/account/verify_credentials.json').with(:query => {:include_entities => 'false', :skip_status => 'true'})).to have_been_made
         expect(a_get('/1.1/lists/show.json').with(:query => {:owner_id => '7505382', :slug => 'presidents'})).to have_been_made
       end
     end
@@ -804,12 +804,12 @@ describe Twitter::REST::Lists do
     end
     context 'without a screen name passed' do
       before do
-        stub_get('/1.1/account/verify_credentials.json').with(:query => {:skip_status => 'true'}).to_return(:body => fixture('sferik.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
+        stub_get('/1.1/account/verify_credentials.json').with(:query => {:include_entities => 'false', :skip_status => 'true'}).to_return(:body => fixture('sferik.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
         stub_get('/1.1/lists/subscriptions.json').with(:query => {:user_id => '7505382', :cursor => '-1'}).to_return(:body => fixture('subscriptions.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
       end
       it 'requests the correct resource' do
         @client.subscriptions
-        expect(a_get('/1.1/account/verify_credentials.json').with(:query => {:skip_status => 'true'})).to have_been_made
+        expect(a_get('/1.1/account/verify_credentials.json').with(:query => {:include_entities => 'false', :skip_status => 'true'})).to have_been_made
         expect(a_get('/1.1/lists/subscriptions.json').with(:query => {:user_id => '7505382', :cursor => '-1'})).to have_been_made
       end
       context 'with each' do
@@ -818,7 +818,7 @@ describe Twitter::REST::Lists do
         end
         it 'requests the correct resource' do
           @client.subscriptions.each {}
-          expect(a_get('/1.1/account/verify_credentials.json').with(:query => {:skip_status => 'true'})).to have_been_made
+          expect(a_get('/1.1/account/verify_credentials.json').with(:query => {:include_entities => 'false', :skip_status => 'true'})).to have_been_made
           expect(a_get('/1.1/lists/subscriptions.json').with(:query => {:user_id => '7505382', :cursor => '-1'})).to have_been_made
           expect(a_get('/1.1/lists/subscriptions.json').with(:query => {:user_id => '7505382', :cursor => '1401037770457540712'})).to have_been_made
         end
@@ -861,12 +861,12 @@ describe Twitter::REST::Lists do
     end
     context 'without a screen name passed' do
       before do
-        stub_get('/1.1/account/verify_credentials.json').with(:query => {:skip_status => 'true'}).to_return(:body => fixture('sferik.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
+        stub_get('/1.1/account/verify_credentials.json').with(:query => {:include_entities => 'false', :skip_status => 'true'}).to_return(:body => fixture('sferik.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
         stub_post('/1.1/lists/members/destroy_all.json').with(:body => {:owner_id => '7505382', :slug => 'presidents', :user_id => '813286,18755393'}).to_return(:body => fixture('list.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
       end
       it 'requests the correct resource' do
         @client.remove_list_members('presidents', [813_286, 18_755_393])
-        expect(a_get('/1.1/account/verify_credentials.json').with(:query => {:skip_status => 'true'})).to have_been_made
+        expect(a_get('/1.1/account/verify_credentials.json').with(:query => {:include_entities => 'false', :skip_status => 'true'})).to have_been_made
         expect(a_post('/1.1/lists/members/destroy_all.json').with(:body => {:owner_id => '7505382', :slug => 'presidents', :user_id => '813286,18755393'})).to have_been_made
       end
     end
@@ -890,12 +890,12 @@ describe Twitter::REST::Lists do
     end
     context 'without a screen name passed' do
       before do
-        stub_get('/1.1/account/verify_credentials.json').with(:query => {:skip_status => 'true'}).to_return(:body => fixture('sferik.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
+        stub_get('/1.1/account/verify_credentials.json').with(:query => {:include_entities => 'false', :skip_status => 'true'}).to_return(:body => fixture('sferik.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
         stub_get('/1.1/lists/ownerships.json').with(:query => {:user_id => '7505382', :cursor => '-1'}).to_return(:body => fixture('ownerships.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
       end
       it 'requests the correct resource' do
         @client.owned_lists
-        expect(a_get('/1.1/account/verify_credentials.json').with(:query => {:skip_status => 'true'})).to have_been_made
+        expect(a_get('/1.1/account/verify_credentials.json').with(:query => {:include_entities => 'false', :skip_status => 'true'})).to have_been_made
         expect(a_get('/1.1/lists/ownerships.json').with(:query => {:user_id => '7505382', :cursor => '-1'})).to have_been_made
       end
       it 'returns the requested list' do
