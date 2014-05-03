@@ -580,11 +580,11 @@ describe Twitter::REST::Users do
     context 'without arguments passed' do
       before do
         stub_get('/1.1/account/verify_credentials.json').to_return(:body => fixture('sferik.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
-        stub_get('/1.1/users/contributees.json').with(:query => {:screen_name => 'sferik'}).to_return(:body => fixture('contributees.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
+        stub_get('/1.1/users/contributees.json').with(:query => {:user_id => '7505382'}).to_return(:body => fixture('contributees.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
       end
       it 'requests the correct resource' do
         @client.contributees
-        expect(a_get('/1.1/users/contributees.json').with(:query => {:screen_name => 'sferik'})).to have_been_made
+        expect(a_get('/1.1/users/contributees.json').with(:query => {:user_id => '7505382'})).to have_been_made
       end
       it 'returns contributees' do
         contributees = @client.contributees
@@ -623,11 +623,11 @@ describe Twitter::REST::Users do
     context 'without arguments passed' do
       before do
         stub_get('/1.1/account/verify_credentials.json').to_return(:body => fixture('sferik.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
-        stub_get('/1.1/users/contributors.json').with(:query => {:screen_name => 'sferik'}).to_return(:body => fixture('members.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
+        stub_get('/1.1/users/contributors.json').with(:query => {:user_id => '7505382'}).to_return(:body => fixture('members.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
       end
       it 'requests the correct resource' do
         @client.contributors
-        expect(a_get('/1.1/users/contributors.json').with(:query => {:screen_name => 'sferik'})).to have_been_made
+        expect(a_get('/1.1/users/contributors.json').with(:query => {:user_id => '7505382'})).to have_been_made
       end
       it 'returns contributors' do
         contributors = @client.contributors
@@ -694,12 +694,12 @@ describe Twitter::REST::Users do
     context 'without arguments passed' do
       before do
         stub_get('/1.1/account/verify_credentials.json').to_return(:body => fixture('sferik.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
-        stub_get('/1.1/users/profile_banner.json').with(:query => {:screen_name => 'sferik'}).to_return(:body => fixture('profile_banner.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
+        stub_get('/1.1/users/profile_banner.json').with(:query => {:user_id => '7505382'}).to_return(:body => fixture('profile_banner.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
       end
       it 'requests the correct resource' do
         @client.profile_banner
         expect(a_get('/1.1/account/verify_credentials.json')).to have_been_made
-        expect(a_get('/1.1/users/profile_banner.json').with(:query => {:screen_name => 'sferik'})).to have_been_made
+        expect(a_get('/1.1/users/profile_banner.json').with(:query => {:user_id => '7505382'})).to have_been_made
       end
       it 'returns an array of numeric IDs for every user following the specified user' do
         banner = @client.profile_banner

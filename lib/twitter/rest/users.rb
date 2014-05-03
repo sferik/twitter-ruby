@@ -252,8 +252,8 @@ module Twitter
       #   @option options [Boolean, String, Integer] :skip_status Do not include user's Tweets when set to true, 't' or 1.
       def user(*args)
         arguments = Twitter::Arguments.new(args)
-        if arguments.last || screen_name?
-          merge_user!(arguments.options, arguments.pop || screen_name)
+        if arguments.last || user_id?
+          merge_user!(arguments.options, arguments.pop || user_id)
           perform_with_object(:get, '/1.1/users/show.json', arguments.options, Twitter::User)
         else
           verify_credentials(arguments.options)
@@ -375,7 +375,7 @@ module Twitter
       #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, URI, or object.
       def profile_banner(*args)
         arguments = Twitter::Arguments.new(args)
-        merge_user!(arguments.options, arguments.pop || screen_name) unless arguments.options[:user_id] || arguments.options[:screen_name]
+        merge_user!(arguments.options, arguments.pop || user_id) unless arguments.options[:user_id] || arguments.options[:screen_name]
         perform_with_object(:get, '/1.1/users/profile_banner.json', arguments.options, Twitter::ProfileBanner)
       end
     end

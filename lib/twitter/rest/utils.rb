@@ -75,7 +75,7 @@ module Twitter
       # @return [Array<Twitter::User>]
       def user_objects_from_response(request_method, path, args)
         arguments = Twitter::Arguments.new(args)
-        merge_user!(arguments.options, arguments.pop || screen_name) unless arguments.options[:user_id] || arguments.options[:screen_name]
+        merge_user!(arguments.options, arguments.pop || user_id) unless arguments.options[:user_id] || arguments.options[:screen_name]
         perform_with_objects(request_method, path, arguments.options, Twitter::User)
       end
 
@@ -110,16 +110,16 @@ module Twitter
       # @return [Twitter::Cursor]
       def cursor_from_response_with_user(collection_name, klass, request_method, path, args) # rubocop:disable ParameterLists
         arguments = Twitter::Arguments.new(args)
-        merge_user!(arguments.options, arguments.pop || screen_name) unless arguments.options[:user_id] || arguments.options[:screen_name]
+        merge_user!(arguments.options, arguments.pop || user_id) unless arguments.options[:user_id] || arguments.options[:screen_name]
         perform_with_cursor(request_method, path, arguments.options, collection_name, klass)
       end
 
-      def screen_name
-        @screen_name ||= verify_credentials.screen_name
+      def user_id
+        @user_id ||= verify_credentials.id
       end
 
-      def screen_name?
-        instance_variable_defined?(:@screen_name)
+      def user_id?
+        instance_variable_defined?(:@user_id)
       end
 
       def merge_default_cursor!(options)

@@ -477,10 +477,12 @@ module Twitter
       # @param user[Integer, String, Twitter::User] A Twitter user ID, screen_name, or object.
       # @return [Hash]
       def merge_owner!(hash, user)
-        unless hash[:owner_id] || hash[:owner_screen_name]
-          user ||= screen_name
+        return hash if hash[:owner_id] || hash[:owner_screen_name]
+        if user
           merge_user!(hash, user, 'owner')
           hash[:owner_id] = hash.delete(:owner_user_id) unless hash[:owner_user_id].nil?
+        else
+          hash[:owner_id] = user_id
         end
         hash
       end
