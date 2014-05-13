@@ -28,7 +28,7 @@ module Twitter
     alias_method :tweeted?, :status?
     predicate_attr_reader :contributors_enabled, :default_profile,
                           :default_profile_image, :follow_request_sent,
-                          :geo_enabled, :needs_phone_verification,
+                          :geo_enabled, :muting, :needs_phone_verification,
                           :notifications, :protected, :profile_background_tile,
                           :profile_use_background_image, :suspended, :verified
     define_predicate_method :translator, :is_translator

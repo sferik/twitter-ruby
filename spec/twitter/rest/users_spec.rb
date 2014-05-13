@@ -171,26 +171,26 @@ describe Twitter::REST::Users do
     end
   end
 
-  describe '#blocking' do
+  describe '#blocked' do
     before do
       stub_get('/1.1/blocks/list.json').with(:query => {:cursor => '-1'}).to_return(:body => fixture('users_list.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
     end
     it 'requests the correct resource' do
-      @client.blocking
+      @client.blocked
       expect(a_get('/1.1/blocks/list.json').with(:query => {:cursor => '-1'})).to have_been_made
     end
     it 'returns an array of user objects that the authenticating user is blocking' do
-      blocking = @client.blocking
-      expect(blocking).to be_a Twitter::Cursor
-      expect(blocking.first).to be_a Twitter::User
-      expect(blocking.first.id).to eq(7_505_382)
+      blocked = @client.blocked
+      expect(blocked).to be_a Twitter::Cursor
+      expect(blocked.first).to be_a Twitter::User
+      expect(blocked.first.id).to eq(7_505_382)
     end
     context 'with each' do
       before do
         stub_get('/1.1/blocks/list.json').with(:query => {:cursor => '1322801608223717003'}).to_return(:body => fixture('users_list2.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
       end
       it 'requests the correct resource' do
-        @client.blocking.each {}
+        @client.blocked.each {}
         expect(a_get('/1.1/blocks/list.json').with(:query => {:cursor => '-1'})).to have_been_made
         expect(a_get('/1.1/blocks/list.json').with(:query => {:cursor => '1322801608223717003'})).to have_been_made
       end
@@ -712,4 +712,86 @@ describe Twitter::REST::Users do
     end
   end
 
+  describe '#mute' do
+    before do
+      stub_post('/1.1/mutes/users/create.json').with(:body => {:screen_name => 'sferik'}).to_return(:body => fixture('sferik.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
+    end
+    it 'requests the correct resource' do
+      @client.mute('sferik')
+      expect(a_post('/1.1/mutes/users/create.json')).to have_been_made
+    end
+    it 'returns an array of muteed users' do
+      users = @client.mute('sferik')
+      expect(users).to be_an Array
+      expect(users.first).to be_a Twitter::User
+      expect(users.first.id).to eq(7_505_382)
+    end
+  end
+
+  describe '#unmute' do
+    before do
+      stub_post('/1.1/mutes/users/destroy.json').with(:body => {:screen_name => 'sferik'}).to_return(:body => fixture('sferik.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
+    end
+    it 'requests the correct resource' do
+      @client.unmute('sferik')
+      expect(a_post('/1.1/mutes/users/destroy.json').with(:body => {:screen_name => 'sferik'})).to have_been_made
+    end
+    it 'returns an array of un-muteed users' do
+      users = @client.unmute('sferik')
+      expect(users).to be_an Array
+      expect(users.first).to be_a Twitter::User
+      expect(users.first.id).to eq(7_505_382)
+    end
+  end
+
+  describe '#muted' do
+    before do
+      stub_get('/1.1/mutes/users/list.json').with(:query => {:cursor => '-1'}).to_return(:body => fixture('users_list.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
+    end
+    it 'requests the correct resource' do
+      @client.muted
+      expect(a_get('/1.1/mutes/users/list.json').with(:query => {:cursor => '-1'})).to have_been_made
+    end
+    it 'returns an array of user objects that the authenticating user is muting' do
+      muted = @client.muted
+      expect(muted).to be_a Twitter::Cursor
+      expect(muted.first).to be_a Twitter::User
+      expect(muted.first.id).to eq(7_505_382)
+    end
+    context 'with each' do
+      before do
+        stub_get('/1.1/mutes/users/list.json').with(:query => {:cursor => '1322801608223717003'}).to_return(:body => fixture('users_list2.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
+      end
+      it 'requests the correct resource' do
+        @client.muted.each {}
+        expect(a_get('/1.1/mutes/users/list.json').with(:query => {:cursor => '-1'})).to have_been_made
+        expect(a_get('/1.1/mutes/users/list.json').with(:query => {:cursor => '1322801608223717003'})).to have_been_made
+      end
+    end
+  end
+
+  describe '#muted_ids' do
+    before do
+      stub_get('/1.1/mutes/users/ids.json').with(:query => {:cursor => '-1'}).to_return(:body => fixture('ids_list.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
+    end
+    it 'requests the correct resource' do
+      @client.muted_ids
+      expect(a_get('/1.1/mutes/users/ids.json').with(:query => {:cursor => '-1'})).to have_been_made
+    end
+    it 'returns an array of numeric user IDs the authenticating user is muting' do
+      muted_ids = @client.muted_ids
+      expect(muted_ids).to be_a Twitter::Cursor
+      expect(muted_ids.first).to eq(20_009_713)
+    end
+    context 'with each' do
+      before do
+        stub_get('/1.1/mutes/users/ids.json').with(:query => {:cursor => '1305102810874389703'}).to_return(:body => fixture('ids_list2.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
+      end
+      it 'requests the correct resource' do
+        @client.muted_ids.each {}
+        expect(a_get('/1.1/mutes/users/ids.json').with(:query => {:cursor => '-1'})).to have_been_made
+        expect(a_get('/1.1/mutes/users/ids.json').with(:query => {:cursor => '1305102810874389703'})).to have_been_made
+      end
+    end
+  end
 end

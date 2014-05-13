@@ -136,19 +136,21 @@ module Twitter
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Array<Twitter::User>] User objects that the authenticating user is blocking.
       # @param options [Hash] A customizable set of options.
-      # @option options [Integer] :page Specifies the page of results to retrieve.
-      def blocking(options = {})
+      # @option options [Boolean] :include_entities The tweet entities node will be disincluded when set to false.
+      # @option options [Boolean, String, Integer] :skip_status Do not include user's Tweets when set to true, 't' or 1.
+      def blocked(options = {})
         perform_with_cursor(:get, '/1.1/blocks/list.json', options, :users, Twitter::User)
       end
+      deprecate_alias :blocking, :blocked
 
-      # Returns an array of numeric user ids the authenticating user is blocking
+      # Returns an array of numeric user IDs the authenticating user is blocking
       #
       # @see https://dev.twitter.com/docs/api/1.1/get/blocks/ids
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Twitter::Cursor] Numeric user IDs the authenticating user is blocking.
-      # @overload block(options = {})
+      # @overload blocked_ids(options = {})
       #   @param options [Hash] A customizable set of options.
       def blocked_ids(*args)
         arguments = Twitter::Arguments.new(args)
@@ -191,7 +193,7 @@ module Twitter
       #   @param users [Enumerable<Integer, String, Twitter::User>] A collection of Twitter user IDs, screen names, or objects.
       #   @param options [Hash] A customizable set of options.
       def block(*args)
-        parallel_user_objects_from_response(:post, '/1.1/blocks/create.json', args)
+        parallel_users_from_response(:post, '/1.1/blocks/create.json', args)
       end
 
       # Un-blocks the users specified by the authenticating user
@@ -207,7 +209,7 @@ module Twitter
       #   @param users [Enumerable<Integer, String, Twitter::User>] A collection of Twitter user IDs, screen names, or objects.
       #   @param options [Hash] A customizable set of options.
       def unblock(*args)
-        parallel_user_objects_from_response(:post, '/1.1/blocks/destroy.json', args)
+        parallel_users_from_response(:post, '/1.1/blocks/destroy.json', args)
       end
 
       # Returns extended information for up to 100 users
@@ -305,7 +307,7 @@ module Twitter
       #   @param options [Hash] A customizable set of options.
       #   @option options [Boolean, String, Integer] :skip_status Do not include contributee's Tweets when set to true, 't' or 1.
       def contributees(*args)
-        user_objects_from_response(:get, '/1.1/users/contributees.json', args)
+        users_from_response(:get, '/1.1/users/contributees.json', args)
       end
 
       # Returns an array of users who can contribute to the specified account
@@ -323,7 +325,7 @@ module Twitter
       #   @param options [Hash] A customizable set of options.
       #   @option options [Boolean, String, Integer] :skip_status Do not include contributee's Tweets when set to true, 't' or 1.
       def contributors(*args)
-        user_objects_from_response(:get, '/1.1/users/contributors.json', args)
+        users_from_response(:get, '/1.1/users/contributors.json', args)
       end
 
       # Removes the authenticating user's profile banner image
@@ -377,6 +379,68 @@ module Twitter
         arguments = Twitter::Arguments.new(args)
         merge_user!(arguments.options, arguments.pop || user_id) unless arguments.options[:user_id] || arguments.options[:screen_name]
         perform_with_object(:get, '/1.1/users/profile_banner.json', arguments.options, Twitter::ProfileBanner)
+      end
+
+      # Mutes the users specified by the authenticating user
+      #
+      # @see https://dev.twitter.com/docs/api/1.1/post/mutes/users/create
+      # @rate_limited Yes
+      # @authentication Requires user context
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @return [Array<Twitter::User>] The muted users.
+      # @overload mute(*users)
+      #   @param users [Enumerable<Integer, String, Twitter::User>] A collection of Twitter user IDs, screen names, or objects.
+      # @overload mute(*users, options)
+      #   @param users [Enumerable<Integer, String, Twitter::User>] A collection of Twitter user IDs, screen names, or objects.
+      #   @param options [Hash] A customizable set of options.
+      def mute(*args)
+        parallel_users_from_response(:post, '/1.1/mutes/users/create.json', args)
+      end
+
+      # Un-mutes the user specified by the authenticating user.
+      #
+      # @see https://dev.twitter.com/docs/api/1.1/post/mutes/users/destroy
+      # @rate_limited Yes
+      # @authentication Requires user context
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @return [Array<Twitter::User>] The un-muted users.
+      # @overload unmute(*users)
+      #   @param users [Enumerable<Integer, String, Twitter::User>] A collection of Twitter user IDs, screen names, or objects.
+      # @overload unmute(*users, options)
+      #   @param users [Enumerable<Integer, String, Twitter::User>] A collection of Twitter user IDs, screen names, or objects.
+      #   @param options [Hash] A customizable set of options.
+      def unmute(*args)
+        parallel_users_from_response(:post, '/1.1/mutes/users/destroy.json', args)
+      end
+
+      # Returns an array of user objects that the authenticating user is muting
+      #
+      # @see https://dev.twitter.com/docs/api/1.1/get/mutes/users/list
+      # @rate_limited Yes
+      # @authentication Requires user context
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @return [Array<Twitter::User>] User objects that the authenticating user is muting.
+      # @param options [Hash] A customizable set of options.
+      # @option options [Boolean] :include_entities The tweet entities node will be disincluded when set to false.
+      # @option options [Boolean, String, Integer] :skip_status Do not include user's Tweets when set to true, 't' or 1.
+      def muted(options = {})
+        perform_with_cursor(:get, '/1.1/mutes/users/list.json', options, :users, Twitter::User)
+      end
+      deprecate_alias :muting, :muted
+
+      # Returns an array of numeric user IDs the authenticating user is muting
+      #
+      # @see https://dev.twitter.com/docs/api/1.1/get/mutes/users/ids
+      # @rate_limited Yes
+      # @authentication Requires user context
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @return [Twitter::Cursor] Numeric user IDs the authenticating user is muting
+      # @overload muted_ids(options = {})
+      #   @param options [Hash] A customizable set of options.
+      def muted_ids(*args)
+        arguments = Twitter::Arguments.new(args)
+        merge_user!(arguments.options, arguments.pop)
+        perform_with_cursor(:get, '/1.1/mutes/users/ids.json', arguments.options, :ids)
       end
     end
   end

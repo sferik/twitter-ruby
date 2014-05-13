@@ -151,7 +151,7 @@ module Twitter
       #   @param users [Enumerable<Integer, String, Twitter::User>] A collection of Twitter user IDs, screen names, or objects.
       #   @param options [Hash] A customizable set of options.
       def unfollow(*args)
-        parallel_user_objects_from_response(:post, '/1.1/friendships/destroy.json', args)
+        parallel_users_from_response(:post, '/1.1/friendships/destroy.json', args)
       end
       alias_method :destroy_friendship, :unfollow
       deprecate_alias :friendship_destroy, :unfollow

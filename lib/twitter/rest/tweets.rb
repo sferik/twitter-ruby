@@ -39,7 +39,7 @@ module Twitter
       # @param options [Hash] A customizable set of options.
       # @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 100.
       # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
-      # @option options [Boolean] :ids_only ('false') Only return user ids instead of full user objects.
+      # @option options [Boolean] :ids_only ('false') Only return user IDs instead of full user objects.
       def retweeters_of(tweet, options = {})
         ids_only = !!options.delete(:ids_only)
         retweeters = retweets(tweet, options).collect(&:user)
