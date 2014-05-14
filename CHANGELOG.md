@@ -1,3 +1,21 @@
+5.9.0
+-----
+* [Use expanded URIs when available](https://github.com/sferik/twitter/commit/f1d5d1f4c0ea75ebeaf9e7eb760b9efd245a5df2)
+* [Deprecate `Twitter::REST::Client#middleware=` and `#connection_options`](https://github.com/sferik/twitter/commit/71b0a38670102841fda9642de586e6cb67d33083)
+* [Ensure predicate methods return `false` for `Twitter::NullObject`](https://github.com/sferik/twitter/commit/f1b42bf82440f2dc0ba61761fc8f12460e20aadf)
+* [Make `Twitter::Place#id` attribute accessible](https://github.com/sferik/twitter/commit/a4fa4739283a325886d44f97b2648e3b00f933b1)
+* [Enable injection of custom TCP/SSL socket classes](https://github.com/sferik/twitter/commit/3629a1edfbc6b35099d4b0fc165b938a67c02d86) ([@neektza](https://twitter.com/neektza))
+* [Deprecate predicate methods without question marks](https://github.com/sferik/twitter/commit/0305a8535357b6114be73e6b94744eed6b6d3bb5)
+* [Deprecate `Twitter::Base#[]`](https://github.com/sferik/twitter/commit/2ab6c0d546b7c1d3635ac9c319fb5c2aa2514da0)
+* [Remove statement that TweetStream is not 2.0.0-compatible](https://github.com/sferik/twitter/pull/553) ([@melaniegilman](https://twitter.com/melaniegilman))
+* [Dont allow unacceptable IO objects in `Twitter::REST::Client#update_with_media`](https://github.com/sferik/twitter/commit/f22f1e2efd29200f157af041a470678cd4ef637a) ([@tim_linquist](https://twitter.com/tim_linquist))
+* [Add support for new REST API endpoint for bulk lookup of Tweets by ID](https://github.com/sferik/twitter/commit/0d23c5ed65a7e7728cd096d611e5edeecdbc6e79)
+* [Make the streaming API raise exceptions for status codes](https://github.com/sferik/twitter/commit/b571e03ed18cd63ec1d1a57c03e5744b284111d6) ([@eroberts](https://twitter.com/eroberts))
+* [Call GET users/show if screen name has already been fetched](https://github.com/sferik/twitter/commit/0691a62ca5b43d33aa2f7b63aeb039d9155a24ed)
+* [Add the ability to set user_agent and proxy](https://github.com/sferik/twitter/commit/e72185e1b0299221448650760b91c74ff1bec3e7)
+* [Use (immutable) user ID instead of (mutable) screen name](https://github.com/sferik/twitter/commit/ceeccb08bbc7cc65c3e6eddaf408b236b8a98677)
+* [Implement mute functionality](https://github.com/sferik/twitter/commit/dfe206cae5f2189ce2b5cd5db6307d5d5e8af4ef)
+
 5.8.0
 -----
 * [Alias `Twitter::Tweet#reply?` to `Twitter::Tweet#in_reply_to_user_id?`](https://github.com/sferik/twitter/commit/57147287d25e21a5e740ee69c3e9aeec6abd1b06)
