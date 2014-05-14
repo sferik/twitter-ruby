@@ -79,6 +79,22 @@ describe Twitter::REST::Client do
       expect(warning).to match(/\[DEPRECATION\] Twitter::REST::Client#connection_options= is deprecated and will be removed in version 6\.0\.0\.$/)
     end
   end
+  
+  describe '#connection_options' do
+    it 'returns the connection options hash with proxy and user_agent' do
+      client = Twitter::REST::Client.new do |config|
+        config.consumer_key        = 'CK'
+        config.consumer_secret     = 'CS'
+        config.access_token        = 'AT'
+        config.access_token_secret = 'ATS'
+        config.proxy               = 'http://localhost:99'
+        config.user_agent          = 'My Twitter Ruby Gem'
+      end
+      
+      expect(client.connection_options[:proxy]).to eql('http://localhost:99')
+      expect(client.connection_options[:headers][:user_agent]).to eql('My Twitter Ruby Gem')
+    end
+  end
 
   describe '#middleware=' do
     it 'sets middleware' do

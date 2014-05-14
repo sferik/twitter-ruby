@@ -7,7 +7,7 @@ require 'twitter/version'
 module Twitter
   class Client
     include Twitter::Utils
-    attr_accessor :access_token, :access_token_secret, :consumer_key, :consumer_secret
+    attr_accessor :access_token, :access_token_secret, :consumer_key, :consumer_secret, :user_agent, :proxy
     deprecate_alias :oauth_token, :access_token
     deprecate_alias :oauth_token=, :access_token=
     deprecate_alias :oauth_token_secret, :access_token_secret
