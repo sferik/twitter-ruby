@@ -11,9 +11,8 @@ module Twitter
 
         def call(request)
           request.body.each do |key, value|
-            if value.respond_to?(:to_io)
-              request.body[key] = Faraday::UploadIO.new(value, mime_type(value.path), value.path)
-            end
+            next unless value.respond_to?(:to_io)
+            request.body[key] = Faraday::UploadIO.new(value, mime_type(value.path), value.path)
           end if request.body.is_a?(::Hash)
           @app.call(request)
         end

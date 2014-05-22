@@ -350,6 +350,10 @@ describe Twitter::User do
       expect(user.uri).to be_an Addressable::URI
       expect(user.uri.to_s).to eq('https://twitter.com/sferik')
     end
+    it 'returns nil when the screen name is not set' do
+      user = Twitter::User.new(:id => 7_505_382)
+      expect(user.uri).to be_nil
+    end
   end
 
   describe '#website' do

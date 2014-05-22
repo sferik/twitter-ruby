@@ -93,3 +93,6 @@ PercentLiteralDelimiters:
 
 NonNilCheck:
   Enabled: false
+
+EachWithObject:
+  Enabled: false

@@ -8,14 +8,13 @@ module Twitter
         def on_complete(response)
           status_code = response.status.to_i
           klass = Twitter::Error.errors[status_code]
-          if klass
-            error = if klass == Twitter::Error::Forbidden
-              handle_forbidden_errors(response)
-            else
-              klass.from_response(response)
-            end
-            fail(error)
+          return unless klass
+          error = if klass == Twitter::Error::Forbidden
+            handle_forbidden_errors(response)
+          else
+            klass.from_response(response)
           end
+          fail(error)
         end
 
       private

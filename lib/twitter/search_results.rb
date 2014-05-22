@@ -43,9 +43,7 @@ module Twitter
     # @note Returned Hash can be merged into the previous search options list to easily access the next page.
     # @return [Hash] The parameters needed to fetch the next page.
     def next_page
-      if next_page?
-        query_string_to_hash(@attrs[:search_metadata][:next_results])
-      end
+      query_string_to_hash(@attrs[:search_metadata][:next_results]) if next_page?
     end
 
     # @return [Hash]

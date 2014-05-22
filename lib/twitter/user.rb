@@ -89,7 +89,7 @@ module Twitter
     def website
       if website_urls?
         website_urls.first.expanded_url
-      elsif @attrs[:url]
+      else
         Addressable::URI.parse(@attrs[:url])
       end
     end
