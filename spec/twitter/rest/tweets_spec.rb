@@ -1,3 +1,4 @@
+# coding: utf-8
 require 'helper'
 
 describe Twitter::REST::Tweets do
@@ -109,7 +110,7 @@ describe Twitter::REST::Tweets do
     it 'returns a Tweet' do
       tweet = @client.status(25_938_088_801)
       expect(tweet).to be_a Twitter::Tweet
-      expect(tweet.text).to eq("The problem with your code is that it's doing exactly what you told it to do.")
+      expect(tweet.text).to eq("\"I hope you'll keep...building bonds of friendship that will enrich your lives &amp; enrich our world\" —FLOTUS in China, http://t.co/fxmuQN9JL9")
     end
     context 'with a URI object passed' do
       it 'requests the correct resource' do
@@ -179,7 +180,7 @@ describe Twitter::REST::Tweets do
       tweets = @client.destroy_status(25_938_088_801)
       expect(tweets).to be_an Array
       expect(tweets.first).to be_a Twitter::Tweet
-      expect(tweets.first.text).to eq("The problem with your code is that it's doing exactly what you told it to do.")
+      expect(tweets.first.text).to eq("\"I hope you'll keep...building bonds of friendship that will enrich your lives &amp; enrich our world\" —FLOTUS in China, http://t.co/fxmuQN9JL9")
     end
     context 'with a URI object passed' do
       it 'requests the correct resource' do
@@ -205,16 +206,16 @@ describe Twitter::REST::Tweets do
 
   describe '#update' do
     before do
-      stub_post('/1.1/statuses/update.json').with(:body => {:status => "The problem with your code is that it's doing exactly what you told it to do."}).to_return(:body => fixture('status.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
+      stub_post('/1.1/statuses/update.json').with(:body => {:status => "\"I hope you'll keep...building bonds of friendship that will enrich your lives &amp; enrich our world\" —FLOTUS in China, http://t.co/fxmuQN9JL9"}).to_return(:body => fixture('status.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
     end
     it 'requests the correct resource' do
-      @client.update("The problem with your code is that it's doing exactly what you told it to do.")
-      expect(a_post('/1.1/statuses/update.json').with(:body => {:status => "The problem with your code is that it's doing exactly what you told it to do."})).to have_been_made
+      @client.update("\"I hope you'll keep...building bonds of friendship that will enrich your lives &amp; enrich our world\" —FLOTUS in China, http://t.co/fxmuQN9JL9")
+      expect(a_post('/1.1/statuses/update.json').with(:body => {:status => "\"I hope you'll keep...building bonds of friendship that will enrich your lives &amp; enrich our world\" —FLOTUS in China, http://t.co/fxmuQN9JL9"})).to have_been_made
     end
     it 'returns a Tweet' do
-      tweet = @client.update("The problem with your code is that it's doing exactly what you told it to do.")
+      tweet = @client.update("\"I hope you'll keep...building bonds of friendship that will enrich your lives &amp; enrich our world\" —FLOTUS in China, http://t.co/fxmuQN9JL9")
       expect(tweet).to be_a Twitter::Tweet
-      expect(tweet.text).to eq("The problem with your code is that it's doing exactly what you told it to do.")
+      expect(tweet.text).to eq("\"I hope you'll keep...building bonds of friendship that will enrich your lives &amp; enrich our world\" —FLOTUS in China, http://t.co/fxmuQN9JL9")
     end
     context 'already posted' do
       before do
@@ -222,12 +223,12 @@ describe Twitter::REST::Tweets do
         stub_get('/1.1/statuses/user_timeline.json').with(:query => {:count => 1}).to_return(:body => fixture('statuses.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
       end
       it 'requests the correct resources' do
-        @client.update("The problem with your code is that it's doing exactly what you told it to do.")
-        expect(a_post('/1.1/statuses/update.json').with(:body => {:status => "The problem with your code is that it's doing exactly what you told it to do."})).to have_been_made
+        @client.update("\"I hope you'll keep...building bonds of friendship that will enrich your lives &amp; enrich our world\" —FLOTUS in China, http://t.co/fxmuQN9JL9")
+        expect(a_post('/1.1/statuses/update.json').with(:body => {:status => "\"I hope you'll keep...building bonds of friendship that will enrich your lives &amp; enrich our world\" —FLOTUS in China, http://t.co/fxmuQN9JL9"})).to have_been_made
         expect(a_get('/1.1/statuses/user_timeline.json').with(:query => {:count => 1})).to have_been_made
       end
       it 'returns a Tweet' do
-        tweet = @client.update("The problem with your code is that it's doing exactly what you told it to do.")
+        tweet = @client.update("\"I hope you'll keep...building bonds of friendship that will enrich your lives &amp; enrich our world\" —FLOTUS in China, http://t.co/fxmuQN9JL9")
         expect(tweet).to be_a Twitter::Tweet
         expect(tweet.text).to eq('Happy Birthday @imdane. Watch out for those @rally pranksters!')
       end
@@ -235,100 +236,100 @@ describe Twitter::REST::Tweets do
     context 'with an in-reply-to status' do
       before do
         @tweet = Twitter::Tweet.new(:id => 1)
-        stub_post('/1.1/statuses/update.json').with(:body => {:status => "The problem with your code is that it's doing exactly what you told it to do.", :in_reply_to_status_id => '1'}).to_return(:body => fixture('status.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
+        stub_post('/1.1/statuses/update.json').with(:body => {:status => "\"I hope you'll keep...building bonds of friendship that will enrich your lives &amp; enrich our world\" —FLOTUS in China, http://t.co/fxmuQN9JL9", :in_reply_to_status_id => '1'}).to_return(:body => fixture('status.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
       end
       it 'requests the correct resource' do
-        @client.update("The problem with your code is that it's doing exactly what you told it to do.", :in_reply_to_status => @tweet)
-        expect(a_post('/1.1/statuses/update.json').with(:body => {:status => "The problem with your code is that it's doing exactly what you told it to do.", :in_reply_to_status_id => '1'})).to have_been_made
+        @client.update("\"I hope you'll keep...building bonds of friendship that will enrich your lives &amp; enrich our world\" —FLOTUS in China, http://t.co/fxmuQN9JL9", :in_reply_to_status => @tweet)
+        expect(a_post('/1.1/statuses/update.json').with(:body => {:status => "\"I hope you'll keep...building bonds of friendship that will enrich your lives &amp; enrich our world\" —FLOTUS in China, http://t.co/fxmuQN9JL9", :in_reply_to_status_id => '1'})).to have_been_made
       end
     end
     context 'with an in-reply-to status ID' do
       before do
-        stub_post('/1.1/statuses/update.json').with(:body => {:status => "The problem with your code is that it's doing exactly what you told it to do.", :in_reply_to_status_id => '1'}).to_return(:body => fixture('status.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
+        stub_post('/1.1/statuses/update.json').with(:body => {:status => "\"I hope you'll keep...building bonds of friendship that will enrich your lives &amp; enrich our world\" —FLOTUS in China, http://t.co/fxmuQN9JL9", :in_reply_to_status_id => '1'}).to_return(:body => fixture('status.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
       end
       it 'requests the correct resource' do
-        @client.update("The problem with your code is that it's doing exactly what you told it to do.", :in_reply_to_status_id => 1)
-        expect(a_post('/1.1/statuses/update.json').with(:body => {:status => "The problem with your code is that it's doing exactly what you told it to do.", :in_reply_to_status_id => '1'})).to have_been_made
+        @client.update("\"I hope you'll keep...building bonds of friendship that will enrich your lives &amp; enrich our world\" —FLOTUS in China, http://t.co/fxmuQN9JL9", :in_reply_to_status_id => 1)
+        expect(a_post('/1.1/statuses/update.json').with(:body => {:status => "\"I hope you'll keep...building bonds of friendship that will enrich your lives &amp; enrich our world\" —FLOTUS in China, http://t.co/fxmuQN9JL9", :in_reply_to_status_id => '1'})).to have_been_made
       end
     end
     context 'with a place' do
       before do
         @place = Twitter::Place.new(:woeid => 'df51dec6f4ee2b2c')
-        stub_post('/1.1/statuses/update.json').with(:body => {:status => "The problem with your code is that it's doing exactly what you told it to do.", :place_id => 'df51dec6f4ee2b2c'}).to_return(:body => fixture('status.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
+        stub_post('/1.1/statuses/update.json').with(:body => {:status => "\"I hope you'll keep...building bonds of friendship that will enrich your lives &amp; enrich our world\" —FLOTUS in China, http://t.co/fxmuQN9JL9", :place_id => 'df51dec6f4ee2b2c'}).to_return(:body => fixture('status.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
       end
       it 'requests the correct resource' do
-        @client.update("The problem with your code is that it's doing exactly what you told it to do.", :place => @place)
-        expect(a_post('/1.1/statuses/update.json').with(:body => {:status => "The problem with your code is that it's doing exactly what you told it to do.", :place_id => 'df51dec6f4ee2b2c'})).to have_been_made
+        @client.update("\"I hope you'll keep...building bonds of friendship that will enrich your lives &amp; enrich our world\" —FLOTUS in China, http://t.co/fxmuQN9JL9", :place => @place)
+        expect(a_post('/1.1/statuses/update.json').with(:body => {:status => "\"I hope you'll keep...building bonds of friendship that will enrich your lives &amp; enrich our world\" —FLOTUS in China, http://t.co/fxmuQN9JL9", :place_id => 'df51dec6f4ee2b2c'})).to have_been_made
       end
     end
     context 'with a place ID' do
       before do
-        stub_post('/1.1/statuses/update.json').with(:body => {:status => "The problem with your code is that it's doing exactly what you told it to do.", :place_id => 'df51dec6f4ee2b2c'}).to_return(:body => fixture('status.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
+        stub_post('/1.1/statuses/update.json').with(:body => {:status => "\"I hope you'll keep...building bonds of friendship that will enrich your lives &amp; enrich our world\" —FLOTUS in China, http://t.co/fxmuQN9JL9", :place_id => 'df51dec6f4ee2b2c'}).to_return(:body => fixture('status.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
       end
       it 'requests the correct resource' do
-        @client.update("The problem with your code is that it's doing exactly what you told it to do.", :place_id => 'df51dec6f4ee2b2c')
-        expect(a_post('/1.1/statuses/update.json').with(:body => {:status => "The problem with your code is that it's doing exactly what you told it to do.", :place_id => 'df51dec6f4ee2b2c'})).to have_been_made
+        @client.update("\"I hope you'll keep...building bonds of friendship that will enrich your lives &amp; enrich our world\" —FLOTUS in China, http://t.co/fxmuQN9JL9", :place_id => 'df51dec6f4ee2b2c')
+        expect(a_post('/1.1/statuses/update.json').with(:body => {:status => "\"I hope you'll keep...building bonds of friendship that will enrich your lives &amp; enrich our world\" —FLOTUS in China, http://t.co/fxmuQN9JL9", :place_id => 'df51dec6f4ee2b2c'})).to have_been_made
       end
     end
   end
 
   describe '#update!' do
     before do
-      stub_post('/1.1/statuses/update.json').with(:body => {:status => "The problem with your code is that it's doing exactly what you told it to do."}).to_return(:body => fixture('status.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
+      stub_post('/1.1/statuses/update.json').with(:body => {:status => "\"I hope you'll keep...building bonds of friendship that will enrich your lives &amp; enrich our world\" —FLOTUS in China, http://t.co/fxmuQN9JL9"}).to_return(:body => fixture('status.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
     end
     it 'requests the correct resource' do
-      @client.update!("The problem with your code is that it's doing exactly what you told it to do.")
-      expect(a_post('/1.1/statuses/update.json').with(:body => {:status => "The problem with your code is that it's doing exactly what you told it to do."})).to have_been_made
+      @client.update!("\"I hope you'll keep...building bonds of friendship that will enrich your lives &amp; enrich our world\" —FLOTUS in China, http://t.co/fxmuQN9JL9")
+      expect(a_post('/1.1/statuses/update.json').with(:body => {:status => "\"I hope you'll keep...building bonds of friendship that will enrich your lives &amp; enrich our world\" —FLOTUS in China, http://t.co/fxmuQN9JL9"})).to have_been_made
     end
     it 'returns a Tweet' do
-      tweet = @client.update!("The problem with your code is that it's doing exactly what you told it to do.")
+      tweet = @client.update!("\"I hope you'll keep...building bonds of friendship that will enrich your lives &amp; enrich our world\" —FLOTUS in China, http://t.co/fxmuQN9JL9")
       expect(tweet).to be_a Twitter::Tweet
-      expect(tweet.text).to eq("The problem with your code is that it's doing exactly what you told it to do.")
+      expect(tweet.text).to eq("\"I hope you'll keep...building bonds of friendship that will enrich your lives &amp; enrich our world\" —FLOTUS in China, http://t.co/fxmuQN9JL9")
     end
     context 'already posted' do
       before do
         stub_post('/1.1/statuses/update.json').to_return(:status => 403, :body => fixture('already_posted.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
       end
       it 'raises an DuplicateStatus error' do
-        expect { @client.update!("The problem with your code is that it's doing exactly what you told it to do.") }.to raise_error(Twitter::Error::DuplicateStatus)
+        expect { @client.update!("\"I hope you'll keep...building bonds of friendship that will enrich your lives &amp; enrich our world\" —FLOTUS in China, http://t.co/fxmuQN9JL9") }.to raise_error(Twitter::Error::DuplicateStatus)
       end
     end
     context 'with an in-reply-to status' do
       before do
         @tweet = Twitter::Tweet.new(:id => 1)
-        stub_post('/1.1/statuses/update.json').with(:body => {:status => "The problem with your code is that it's doing exactly what you told it to do.", :in_reply_to_status_id => '1'}).to_return(:body => fixture('status.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
+        stub_post('/1.1/statuses/update.json').with(:body => {:status => "\"I hope you'll keep...building bonds of friendship that will enrich your lives &amp; enrich our world\" —FLOTUS in China, http://t.co/fxmuQN9JL9", :in_reply_to_status_id => '1'}).to_return(:body => fixture('status.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
       end
       it 'requests the correct resource' do
-        @client.update!("The problem with your code is that it's doing exactly what you told it to do.", :in_reply_to_status => @tweet)
-        expect(a_post('/1.1/statuses/update.json').with(:body => {:status => "The problem with your code is that it's doing exactly what you told it to do.", :in_reply_to_status_id => '1'})).to have_been_made
+        @client.update!("\"I hope you'll keep...building bonds of friendship that will enrich your lives &amp; enrich our world\" —FLOTUS in China, http://t.co/fxmuQN9JL9", :in_reply_to_status => @tweet)
+        expect(a_post('/1.1/statuses/update.json').with(:body => {:status => "\"I hope you'll keep...building bonds of friendship that will enrich your lives &amp; enrich our world\" —FLOTUS in China, http://t.co/fxmuQN9JL9", :in_reply_to_status_id => '1'})).to have_been_made
       end
     end
     context 'with an in-reply-to status ID' do
       before do
-        stub_post('/1.1/statuses/update.json').with(:body => {:status => "The problem with your code is that it's doing exactly what you told it to do.", :in_reply_to_status_id => '1'}).to_return(:body => fixture('status.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
+        stub_post('/1.1/statuses/update.json').with(:body => {:status => "\"I hope you'll keep...building bonds of friendship that will enrich your lives &amp; enrich our world\" —FLOTUS in China, http://t.co/fxmuQN9JL9", :in_reply_to_status_id => '1'}).to_return(:body => fixture('status.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
       end
       it 'requests the correct resource' do
-        @client.update!("The problem with your code is that it's doing exactly what you told it to do.", :in_reply_to_status_id => 1)
-        expect(a_post('/1.1/statuses/update.json').with(:body => {:status => "The problem with your code is that it's doing exactly what you told it to do.", :in_reply_to_status_id => '1'})).to have_been_made
+        @client.update!("\"I hope you'll keep...building bonds of friendship that will enrich your lives &amp; enrich our world\" —FLOTUS in China, http://t.co/fxmuQN9JL9", :in_reply_to_status_id => 1)
+        expect(a_post('/1.1/statuses/update.json').with(:body => {:status => "\"I hope you'll keep...building bonds of friendship that will enrich your lives &amp; enrich our world\" —FLOTUS in China, http://t.co/fxmuQN9JL9", :in_reply_to_status_id => '1'})).to have_been_made
       end
     end
     context 'with a place' do
       before do
         @place = Twitter::Place.new(:woeid => 'df51dec6f4ee2b2c')
-        stub_post('/1.1/statuses/update.json').with(:body => {:status => "The problem with your code is that it's doing exactly what you told it to do.", :place_id => 'df51dec6f4ee2b2c'}).to_return(:body => fixture('status.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
+        stub_post('/1.1/statuses/update.json').with(:body => {:status => "\"I hope you'll keep...building bonds of friendship that will enrich your lives &amp; enrich our world\" —FLOTUS in China, http://t.co/fxmuQN9JL9", :place_id => 'df51dec6f4ee2b2c'}).to_return(:body => fixture('status.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
       end
       it 'requests the correct resource' do
-        @client.update!("The problem with your code is that it's doing exactly what you told it to do.", :place => @place)
-        expect(a_post('/1.1/statuses/update.json').with(:body => {:status => "The problem with your code is that it's doing exactly what you told it to do.", :place_id => 'df51dec6f4ee2b2c'})).to have_been_made
+        @client.update!("\"I hope you'll keep...building bonds of friendship that will enrich your lives &amp; enrich our world\" —FLOTUS in China, http://t.co/fxmuQN9JL9", :place => @place)
+        expect(a_post('/1.1/statuses/update.json').with(:body => {:status => "\"I hope you'll keep...building bonds of friendship that will enrich your lives &amp; enrich our world\" —FLOTUS in China, http://t.co/fxmuQN9JL9", :place_id => 'df51dec6f4ee2b2c'})).to have_been_made
       end
     end
     context 'with a place ID' do
       before do
-        stub_post('/1.1/statuses/update.json').with(:body => {:status => "The problem with your code is that it's doing exactly what you told it to do.", :place_id => 'df51dec6f4ee2b2c'}).to_return(:body => fixture('status.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
+        stub_post('/1.1/statuses/update.json').with(:body => {:status => "\"I hope you'll keep...building bonds of friendship that will enrich your lives &amp; enrich our world\" —FLOTUS in China, http://t.co/fxmuQN9JL9", :place_id => 'df51dec6f4ee2b2c'}).to_return(:body => fixture('status.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
       end
       it 'requests the correct resource' do
-        @client.update!("The problem with your code is that it's doing exactly what you told it to do.", :place_id => 'df51dec6f4ee2b2c')
-        expect(a_post('/1.1/statuses/update.json').with(:body => {:status => "The problem with your code is that it's doing exactly what you told it to do.", :place_id => 'df51dec6f4ee2b2c'})).to have_been_made
+        @client.update!("\"I hope you'll keep...building bonds of friendship that will enrich your lives &amp; enrich our world\" —FLOTUS in China, http://t.co/fxmuQN9JL9", :place_id => 'df51dec6f4ee2b2c')
+        expect(a_post('/1.1/statuses/update.json').with(:body => {:status => "\"I hope you'll keep...building bonds of friendship that will enrich your lives &amp; enrich our world\" —FLOTUS in China, http://t.co/fxmuQN9JL9", :place_id => 'df51dec6f4ee2b2c'})).to have_been_made
       end
     end
   end
@@ -439,13 +440,13 @@ describe Twitter::REST::Tweets do
     end
     context 'a gif image' do
       it 'requests the correct resource' do
-        @client.update_with_media("The problem with your code is that it's doing exactly what you told it to do.", fixture('pbjt.gif'))
+        @client.update_with_media("\"I hope you'll keep...building bonds of friendship that will enrich your lives &amp; enrich our world\" —FLOTUS in China, http://t.co/fxmuQN9JL9", fixture('pbjt.gif'))
         expect(a_post('/1.1/statuses/update_with_media.json')).to have_been_made
       end
       it 'returns a Tweet' do
-        tweet = @client.update_with_media("The problem with your code is that it's doing exactly what you told it to do.", fixture('pbjt.gif'))
+        tweet = @client.update_with_media("\"I hope you'll keep...building bonds of friendship that will enrich your lives &amp; enrich our world\" —FLOTUS in China, http://t.co/fxmuQN9JL9", fixture('pbjt.gif'))
         expect(tweet).to be_a Twitter::Tweet
-        expect(tweet.text).to eq("The problem with your code is that it's doing exactly what you told it to do.")
+        expect(tweet.text).to eq("\"I hope you'll keep...building bonds of friendship that will enrich your lives &amp; enrich our world\" —FLOTUS in China, http://t.co/fxmuQN9JL9")
       end
     end
     context 'a jpe image' do
@@ -483,7 +484,7 @@ describe Twitter::REST::Tweets do
         stub_post('/1.1/statuses/update_with_media.json').to_return(:status => 403, :body => fixture('already_posted.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
       end
       it 'raises an DuplicateStatus error' do
-        expect { @client.update_with_media("The problem with your code is that it's doing exactly what you told it to do.", fixture('pbjt.gif')) }.to raise_error(Twitter::Error::DuplicateStatus)
+        expect { @client.update_with_media("\"I hope you'll keep...building bonds of friendship that will enrich your lives &amp; enrich our world\" —FLOTUS in China, http://t.co/fxmuQN9JL9", fixture('pbjt.gif')) }.to raise_error(Twitter::Error::DuplicateStatus)
       end
     end
   end

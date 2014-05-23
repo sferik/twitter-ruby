@@ -1,3 +1,4 @@
+# coding: utf-8
 require 'helper'
 
 describe Twitter::REST::Favorites do
@@ -64,7 +65,7 @@ describe Twitter::REST::Favorites do
       tweets = @client.unfavorite(25_938_088_801)
       expect(tweets).to be_an Array
       expect(tweets.first).to be_a Twitter::Tweet
-      expect(tweets.first.text).to eq("The problem with your code is that it's doing exactly what you told it to do.")
+      expect(tweets.first.text).to eq("\"I hope you'll keep...building bonds of friendship that will enrich your lives &amp; enrich our world\" —FLOTUS in China, http://t.co/fxmuQN9JL9")
     end
     context 'with a URI object passed' do
       it 'requests the correct resource' do
@@ -100,7 +101,7 @@ describe Twitter::REST::Favorites do
       tweets = @client.favorite(25_938_088_801)
       expect(tweets).to be_an Array
       expect(tweets.first).to be_a Twitter::Tweet
-      expect(tweets.first.text).to eq("The problem with your code is that it's doing exactly what you told it to do.")
+      expect(tweets.first.text).to eq("\"I hope you'll keep...building bonds of friendship that will enrich your lives &amp; enrich our world\" —FLOTUS in China, http://t.co/fxmuQN9JL9")
     end
     context 'already favorited' do
       before do
@@ -144,7 +145,7 @@ describe Twitter::REST::Favorites do
       tweets = @client.favorite!(25_938_088_801)
       expect(tweets).to be_an Array
       expect(tweets.first).to be_a Twitter::Tweet
-      expect(tweets.first.text).to eq("The problem with your code is that it's doing exactly what you told it to do.")
+      expect(tweets.first.text).to eq("\"I hope you'll keep...building bonds of friendship that will enrich your lives &amp; enrich our world\" —FLOTUS in China, http://t.co/fxmuQN9JL9")
     end
     context 'forbidden' do
       before do
