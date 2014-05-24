@@ -73,7 +73,6 @@ module Twitter
       #   @param tweets [Enumerable<Integer, String, URI, Twitter::Tweet>] A collection of Tweet IDs, URIs, or objects.
       #   @param options [Hash] A customizable set of options.
       #   @option options [Symbol, String] :method Requests users via a GET request instead of the standard POST request if set to ':get'.
-      #   @option options [Boolean] :include_entities The tweet entities node will be disincluded when set to false.
       #   @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       def statuses(*args)
         arguments = Twitter::Arguments.new(args)

@@ -14,8 +14,8 @@ module Twitter
     # Initializes a new place
     #
     # @param attrs [Hash]
-    # @raise [ArgumentError] Error raised when supplied argument is missing an :id key.
-    # @return [Twitter::Identity]
+    # @raise [ArgumentError] Error raised when supplied argument is missing a :woeid key.
+    # @return [Twitter::Place]
     def initialize(attrs = {})
       attrs[:id] ||= attrs[:woeid]
       super

@@ -110,7 +110,6 @@ module Twitter
       # @option options [Boolean, String, Integer] :exclude_replies This parameter will prevent replies from appearing in the returned timeline. Using exclude_replies with the count parameter will mean you will receive up-to count tweets - this is because the count parameter retrieves that many tweets before filtering out retweets and replies.
       # @option options [Boolean, String, Integer] :include_rts Specifies that the timeline should include native retweets in addition to regular tweets. Note: If you're using the trim_user parameter in conjunction with include_rts, the retweets will no longer contain a full user object.
       # @option options [Boolean, String, Integer] :contributor_details Specifies that the contributors element should be enhanced to include the screen_name of the contributor.
-      # @option options [Boolean, String, Integer] :include_entities The tweet entities node will be disincluded when set to false.
       def home_timeline(options = {})
         perform_with_objects(:get, '/1.1/statuses/home_timeline.json', options, Twitter::Tweet)
       end
@@ -130,7 +129,6 @@ module Twitter
       # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       # @option options [Boolean, String, Integer] :exclude_replies This parameter will prevent replies from appearing in the returned timeline. Using exclude_replies with the count parameter will mean you will receive up-to count tweets - this is because the count parameter retrieves that many tweets before filtering out retweets and replies.
       # @option options [Boolean, String, Integer] :contributor_details Specifies that the contributors element should be enhanced to include the screen_name of the contributor.
-      # @option options [Boolean, String, Integer] :include_entities The tweet entities node will be disincluded when set to false.
       def retweeted_to_me(options = {})
         retweets_from_timeline(options) do |opts|
           home_timeline(opts)
@@ -149,7 +147,6 @@ module Twitter
       # @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID.
       # @option options [Integer] :max_id Returns results with an ID less than (that is, older than) or equal to the specified ID.
       # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
-      # @option options [Boolean, String, Integer] :include_entities The tweet entities node will be disincluded when set to false.
       # @option options [Boolean, String, Integer] :include_user_entities The user entities node will be disincluded when set to false.
       def retweets_of_me(options = {})
         perform_with_objects(:get, '/1.1/statuses/retweets_of_me.json', options, Twitter::Tweet)

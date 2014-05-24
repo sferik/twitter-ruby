@@ -115,7 +115,7 @@ module Twitter
       end
 
       def user_id
-        @user_id ||= verify_credentials(:include_entities => false, :skip_status => true).id
+        @user_id ||= verify_credentials(:skip_status => true).id
       end
 
       def user_id?

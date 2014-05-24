@@ -165,10 +165,6 @@ describe Twitter::Tweet do
       it 'is empty' do
         expect(subject.hashtags).to be_empty
       end
-      it 'warns' do
-        subject.hashtags
-        expect($stderr.string).to match(/To get hashtags, you must pass `:include_entities => true` when requesting the Twitter::Tweet\./)
-      end
     end
   end
 
@@ -195,10 +191,6 @@ describe Twitter::Tweet do
     it 'is empty when not set' do
       media = Twitter::Tweet.new(:id => 28_669_546_014).media
       expect(media).to be_empty
-    end
-    it 'warns when not set' do
-      Twitter::Tweet.new(:id => 28_669_546_014).media
-      expect($stderr.string).to match(/To get media, you must pass `:include_entities => true` when requesting the Twitter::Tweet\./)
     end
   end
 
@@ -322,10 +314,6 @@ describe Twitter::Tweet do
       symbols = Twitter::Tweet.new(:id => 28_669_546_014).symbols
       expect(symbols).to be_empty
     end
-    it 'warns when not set' do
-      Twitter::Tweet.new(:id => 28_669_546_014).symbols
-      expect($stderr.string).to match(/To get symbols, you must pass `:include_entities => true` when requesting the Twitter::Tweet\./)
-    end
   end
 
   describe '#symbols?' do
@@ -362,10 +350,6 @@ describe Twitter::Tweet do
     it 'is empty when not set' do
       tweet = Twitter::Tweet.new(:id => 28_669_546_014)
       expect(tweet.uris).to be_empty
-    end
-    it 'warns when not set' do
-      Twitter::Tweet.new(:id => 28_669_546_014).urls
-      expect($stderr.string).to match(/To get urls, you must pass `:include_entities => true` when requesting the Twitter::Tweet\./)
     end
     it 'can handle strange urls' do
       urls_array = [
@@ -453,10 +437,6 @@ describe Twitter::Tweet do
     it 'is empty when not set' do
       user_mentions = Twitter::Tweet.new(:id => 28_669_546_014).user_mentions
       expect(user_mentions).to be_empty
-    end
-    it 'warns when not set' do
-      Twitter::Tweet.new(:id => 28_669_546_014).user_mentions
-      expect($stderr.string).to match(/To get user mentions, you must pass `:include_entities => true` when requesting the Twitter::Tweet\./)
     end
   end
 

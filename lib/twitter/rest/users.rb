@@ -136,7 +136,6 @@ module Twitter
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Array<Twitter::User>] User objects that the authenticating user is blocking.
       # @param options [Hash] A customizable set of options.
-      # @option options [Boolean] :include_entities The tweet entities node will be disincluded when set to false.
       # @option options [Boolean, String, Integer] :skip_status Do not include user's Tweets when set to true, 't' or 1.
       def blocked(options = {})
         perform_with_cursor(:get, '/1.1/blocks/list.json', options, :users, Twitter::User)
@@ -225,7 +224,6 @@ module Twitter
       #   @param users [Enumerable<Integer, String, Twitter::User>] A collection of Twitter user IDs, screen names, or objects.
       #   @param options [Hash] A customizable set of options.
       #   @option options [Symbol, String] :method Requests users via a GET request instead of the standard POST request if set to ':get'.
-      #   @option options [Boolean] :include_entities The tweet entities node will be disincluded when set to false.
       def users(*args)
         arguments = Twitter::Arguments.new(args)
         request_method = arguments.options.delete(:method) || :post
@@ -243,14 +241,12 @@ module Twitter
       #   Returns extended information for the authenticated user
       #
       #   @param options [Hash] A customizable set of options.
-      #   @option options [Boolean] :include_entities The tweet entities node will be disincluded when set to false.
       #   @option options [Boolean, String, Integer] :skip_status Do not include user's Tweets when set to true, 't' or 1.
       # @overload user(user, options = {})
       #   Returns extended information for a given user
       #
       #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, URI, or object.
       #   @param options [Hash] A customizable set of options.
-      #   @option options [Boolean] :include_entities The tweet entities node will be disincluded when set to false.
       #   @option options [Boolean, String, Integer] :skip_status Do not include user's Tweets when set to true, 't' or 1.
       def user(*args)
         arguments = Twitter::Arguments.new(args)
@@ -421,7 +417,6 @@ module Twitter
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Array<Twitter::User>] User objects that the authenticating user is muting.
       # @param options [Hash] A customizable set of options.
-      # @option options [Boolean] :include_entities The tweet entities node will be disincluded when set to false.
       # @option options [Boolean, String, Integer] :skip_status Do not include user's Tweets when set to true, 't' or 1.
       def muted(options = {})
         perform_with_cursor(:get, '/1.1/mutes/users/list.json', options, :users, Twitter::User)

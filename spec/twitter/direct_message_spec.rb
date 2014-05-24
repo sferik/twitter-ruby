@@ -2,7 +2,6 @@
 require 'helper'
 
 describe Twitter::DirectMessage do
-
   before do
     @old_stderr = $stderr
     $stderr = StringIO.new
@@ -137,10 +136,6 @@ describe Twitter::DirectMessage do
       hashtags = Twitter::DirectMessage.new(:id => 1_825_786_345).hashtags
       expect(hashtags).to be_empty
     end
-    it 'warns when not set' do
-      Twitter::DirectMessage.new(:id => 1_825_786_345).hashtags
-      expect($stderr.string).to match(/To get hashtags, you must pass `:include_entities => true` when requesting the Twitter::DirectMessage\./)
-    end
   end
 
   describe '#media' do
@@ -152,10 +147,6 @@ describe Twitter::DirectMessage do
     it 'is empty when not set' do
       media = Twitter::DirectMessage.new(:id => 1_825_786_345).media
       expect(media).to be_empty
-    end
-    it 'warns when not set' do
-      Twitter::DirectMessage.new(:id => 1_825_786_345).media
-      expect($stderr.string).to match(/To get media, you must pass `:include_entities => true` when requesting the Twitter::DirectMessage\./)
     end
   end
 
@@ -175,10 +166,6 @@ describe Twitter::DirectMessage do
     it 'is empty when not set' do
       symbols = Twitter::DirectMessage.new(:id => 1_825_786_345).symbols
       expect(symbols).to be_empty
-    end
-    it 'warns when not set' do
-      Twitter::DirectMessage.new(:id => 1_825_786_345).symbols
-      expect($stderr.string).to match(/To get symbols, you must pass `:include_entities => true` when requesting the Twitter::DirectMessage\./)
     end
   end
 
@@ -202,10 +189,6 @@ describe Twitter::DirectMessage do
     it 'is empty when not set' do
       direct_message = Twitter::DirectMessage.new(:id => 1_825_786_345)
       expect(direct_message.uris).to be_empty
-    end
-    it 'warns when not set' do
-      Twitter::DirectMessage.new(:id => 1_825_786_345).urls
-      expect($stderr.string).to match(/To get urls, you must pass `:include_entities => true` when requesting the Twitter::DirectMessage\./)
     end
     it 'can handle strange urls' do
       urls_array = [
@@ -245,10 +228,5 @@ describe Twitter::DirectMessage do
       user_mentions = Twitter::DirectMessage.new(:id => 1_825_786_345).user_mentions
       expect(user_mentions).to be_empty
     end
-    it 'warns when not set' do
-      Twitter::DirectMessage.new(:id => 1_825_786_345).user_mentions
-      expect($stderr.string).to match(/To get user mentions, you must pass `:include_entities => true` when requesting the Twitter::DirectMessage\./)
-    end
   end
-
 end
