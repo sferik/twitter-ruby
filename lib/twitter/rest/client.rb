@@ -19,7 +19,7 @@ module Twitter
     class Client < Twitter::Client
       include Twitter::REST::API
       attr_accessor :bearer_token
-      ENDPOINT = 'https://api.twitter.com'
+      URL_PREFIX = 'https://api.twitter.com'
 
       # @param connection_options [Hash]
       # @return [Hash]
@@ -74,13 +74,13 @@ module Twitter
 
       # Perform an HTTP GET request
       def get(path, params = {})
-        headers = request_headers(:get, path, params)
+        headers = request_headers(:get, URL_PREFIX + path, params)
         request(:get, path, params, headers)
       end
 
       # Perform an HTTP POST request
       def post(path, params = {})
-        headers = params.values.any? { |value| value.respond_to?(:to_io) } ? request_headers(:post, path, params, {}) : request_headers(:post, path, params)
+        headers = params.values.any? { |value| value.respond_to?(:to_io) } ? request_headers(:post, URL_PREFIX + path, params, {}) : request_headers(:post, URL_PREFIX + path, params)
         request(:post, path, params, headers)
       end
 
@@ -100,7 +100,7 @@ module Twitter
       #
       # @return [Faraday::Connection]
       def connection
-        @connection ||= Faraday.new(ENDPOINT, connection_options)
+        @connection ||= Faraday.new(URL_PREFIX, connection_options)
       end
 
       def request(method, path, params = {}, headers = {})
@@ -111,7 +111,7 @@ module Twitter
         raise(Twitter::Error.new(error))
       end
 
-      def request_headers(method, path, params = {}, signature_params = params)
+      def request_headers(method, url, params = {}, signature_params = params)
         bearer_token_request = params.delete(:bearer_token_request)
         headers = {}
         if bearer_token_request
@@ -119,17 +119,17 @@ module Twitter
           headers[:authorization] = bearer_token_credentials_auth_header
           headers[:content_type]  = 'application/x-www-form-urlencoded; charset=UTF-8'
         else
-          headers[:authorization] = auth_header(method, path, params, signature_params)
+          headers[:authorization] = auth_header(method, url, params, signature_params)
         end
         headers
       end
 
-      def auth_header(method, path, params = {}, signature_params = params)
+      def auth_header(method, url, params = {}, signature_params = params)
         if !user_token?
           @bearer_token = token unless bearer_token?
           bearer_auth_header
         else
-          oauth_auth_header(method, ENDPOINT + path, signature_params).to_s
+          oauth_auth_header(method, url, signature_params).to_s
         end
       end
 
