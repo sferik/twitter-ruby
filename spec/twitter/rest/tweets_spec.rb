@@ -475,8 +475,7 @@ describe Twitter::REST::Tweets do
     end
     context 'A non IO object' do
       it 'raises an error' do
-        update = lambda { @client.update_with_media('You always have options', 'Unacceptable IO') }
-        expect { update.call }.to raise_error(Twitter::Error::UnacceptableIO)
+        expect { @client.update_with_media('You always have options', 'Unacceptable IO') }.to raise_error(Twitter::Error::UnacceptableIO)
       end
     end
     context 'already posted' do

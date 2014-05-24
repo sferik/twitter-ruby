@@ -3,6 +3,7 @@ require 'twitter/rest/favorites'
 require 'twitter/rest/friends_and_followers'
 require 'twitter/rest/help'
 require 'twitter/rest/lists'
+require 'twitter/rest/media'
 require 'twitter/rest/oauth'
 require 'twitter/rest/places_and_geo'
 require 'twitter/rest/saved_searches'
@@ -23,6 +24,7 @@ module Twitter
       include Twitter::REST::FriendsAndFollowers
       include Twitter::REST::Help
       include Twitter::REST::Lists
+      include Twitter::REST::Media
       include Twitter::REST::OAuth
       include Twitter::REST::PlacesAndGeo
       include Twitter::REST::SavedSearches
