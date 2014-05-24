@@ -318,7 +318,7 @@ method has been removed.
 ### Trend Results
 The `#trends` method now returns an [`Enumerable`][enumerable]
 `Twitter::TrendResults` object instead of an array. This object provides
-methods to determinte the recency of the trend (`#as_of`), when the trend
+methods to determine the recency of the trend (`#as_of`), when the trend
 started (`#created_at`), and the location of the trend (`#location`). This data
 was previously unavailable.
 
