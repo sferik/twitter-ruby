@@ -31,7 +31,8 @@ module Twitter
     # @note Must include entities in your request for this method to work
     # @return [Array<Twitter::Media>]
     def media
-      entities(MediaFactory, :media)
+      extended_entities = entities(MediaFactory, :media, :extended_entities)
+      extended_entities.empty? ? entities(MediaFactory, :media) : extended_entities
     end
     memoize :media
 
@@ -84,9 +85,10 @@ module Twitter
   private
 
     # @param klass [Class]
-    # @param key [Symbol]
-    def entities(klass, key)
-      @attrs.fetch(:entities, {}).fetch(key.to_sym, []).collect do |entity|
+    # @param key2 [Symbol]
+    # @param key1 [Symbol]
+    def entities(klass, key2, key1 = :entities)
+      @attrs.fetch(key1.to_sym, {}).fetch(key2.to_sym, []).collect do |entity|
         klass.new(entity)
       end
     end
