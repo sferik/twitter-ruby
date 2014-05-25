@@ -9,7 +9,7 @@
 [![Inline docs](http://inch-pages.github.io/github/sferik/twitter.png)][inchpages]
 
 [gem]: https://rubygems.org/gems/twitter
-[travis]: http://travis-ci.org/sferik/twitter
+[travis]: https://travis-ci.org/sferik/twitter
 [gemnasium]: https://gemnasium.com/sferik/twitter
 [codeclimate]: https://codeclimate.com/github/sferik/twitter
 [coveralls]: https://coveralls.io/r/sferik/twitter
