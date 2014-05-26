@@ -38,6 +38,7 @@ digraph classes {
 	Twitter__Error__ServerError [label="Twitter::Error::ServerError"]
 	Twitter__Error__ServiceUnavailable [label="Twitter::Error::ServiceUnavailable"]
 	Twitter__Error__TooManyRequests [label="Twitter::Error::TooManyRequests"]
+	Twitter__Error__UnacceptableIO [label="Twitter::Error::UnacceptableIO"]
 	Twitter__Error__Unauthorized [label="Twitter::Error::Unauthorized"]
 	Twitter__Error__UnprocessableEntity [label="Twitter::Error::UnprocessableEntity"]
 	Twitter__Factory [label="Twitter::Factory"]
@@ -121,6 +122,7 @@ digraph classes {
 	Twitter__Error__ServerError -> Twitter__Error
 	Twitter__Error__ServiceUnavailable -> Twitter__Error__ServerError
 	Twitter__Error__TooManyRequests -> Twitter__Error__ClientError
+	Twitter__Error__UnacceptableIO -> StandardError
 	Twitter__Error__Unauthorized -> Twitter__Error__ClientError
 	Twitter__Error__UnprocessableEntity -> Twitter__Error__ClientError
 	Twitter__Factory -> Object
@@ -137,7 +139,7 @@ digraph classes {
 	Twitter__Metadata -> Twitter__Base
 	Twitter__NullObject -> Naught__BasicObject
 	Twitter__OEmbed -> Twitter__Base
-	Twitter__Place -> Twitter__Base
+	Twitter__Place -> Twitter__Identity
 	Twitter__ProfileBanner -> Twitter__Base
 	Twitter__REST__Client -> Twitter__Client
 	Twitter__REST__Request__MultipartWithFile -> Faraday__Middleware
