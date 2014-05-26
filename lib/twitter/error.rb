@@ -49,6 +49,7 @@ module Twitter
           404 => Twitter::Error::NotFound,
           406 => Twitter::Error::NotAcceptable,
           408 => Twitter::Error::RequestTimeout,
+          420 => Twitter::Error::EnhanceYourCalm,
           422 => Twitter::Error::UnprocessableEntity,
           429 => Twitter::Error::TooManyRequests,
           500 => Twitter::Error::InternalServerError,

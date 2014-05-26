@@ -17,7 +17,7 @@ LineLength:
 
 MethodLength:
   CountComments: false
-  Max: 14
+  Max: 15
 
 # Avoid more than `Max` levels of nesting.
 BlockNesting:
