@@ -20,6 +20,7 @@ module Twitter
       include Twitter::REST::API
       attr_accessor :bearer_token
       URL_PREFIX = 'https://api.twitter.com'
+      ENDPOINT = URL_PREFIX
 
       # @param connection_options [Hash]
       # @return [Hash]
