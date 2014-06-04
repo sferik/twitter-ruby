@@ -116,6 +116,7 @@ module Twitter
       # @return [Twitter::Tweet] The created Tweet.
       # @param status [String] The text of your status update, up to 140 characters.
       # @param options [Hash] A customizable set of options.
+      # @option options [Boolean, String, Integer] :possibly_sensitive Set to true for content which may not be suitable for every audience.
       # @option options [Twitter::Tweet] :in_reply_to_status An existing status that the update is in reply to.
       # @option options [Integer] :in_reply_to_status_id The ID of an existing status that the update is in reply to.
       # @option options [Float] :lat The latitude of the location this tweet refers to. This option will be ignored unless it is inside the range -90.0 to +90.0 (North is positive) inclusive. It will also be ignored if there isn't a corresponding :long option.
@@ -142,6 +143,7 @@ module Twitter
       # @return [Twitter::Tweet] The created Tweet.
       # @param status [String] The text of your status update, up to 140 characters.
       # @param options [Hash] A customizable set of options.
+      # @option options [Boolean, String, Integer] :possibly_sensitive Set to true for content which may not be suitable for every audience.
       # @option options [Twitter::Tweet] :in_reply_to_status An existing status that the update is in reply to.
       # @option options [Integer] :in_reply_to_status_id The ID of an existing status that the update is in reply to.
       # @option options [Float] :lat The latitude of the location this tweet refers to. This option will be ignored unless it is inside the range -90.0 to +90.0 (North is positive) inclusive. It will also be ignored if there isn't a corresponding :long option.

@@ -14,7 +14,6 @@ module Twitter
       # @return [Integer] The uploaded media ID.
       # @param media [File, Hash] A File object with your picture (PNG, JPEG or GIF)
       # @param options [Hash] A customizable set of options.
-      # @option options [Boolean, String, Integer] :possibly_sensitive Set to true for content which may not be suitable for every audience.
       def upload(media, options = {})
         fail(Twitter::Error::UnacceptableIO.new) unless media.respond_to?(:to_io)
         url_prefix = 'https://upload.twitter.com'
