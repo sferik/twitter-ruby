@@ -6,7 +6,7 @@
 [![Code Climate](http://img.shields.io/codeclimate/github/sferik/twitter.svg)][codeclimate]
 [![Coverage Status](http://img.shields.io/coveralls/sferik/twitter.svg)][coveralls]
 [![Gittip](http://img.shields.io/gittip/gems.svg)][gittip]
-[![Inline docs](http://inch-pages.github.io/github/sferik/twitter.png)][inchpages]
+[![Inline docs](http://inch-ci.org/github/sferik/twitter.png)][inchpages]
 
 [gem]: https://rubygems.org/gems/twitter
 [travis]: https://travis-ci.org/sferik/twitter
@@ -14,7 +14,7 @@
 [codeclimate]: https://codeclimate.com/github/sferik/twitter
 [coveralls]: https://coveralls.io/r/sferik/twitter
 [gittip]: https://www.gittip.com/gems/
-[inchpages]: http://inch-pages.github.io/github/sferik/twitter
+[inchpages]: http://inch-ci.org/github/sferik/twitter
 
 A Ruby interface to the Twitter API.
 
