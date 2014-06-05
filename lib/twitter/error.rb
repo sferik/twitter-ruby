@@ -91,7 +91,7 @@ module Twitter
 
     # Initializes a new Error object
     #
-    # @param exception [Exception, String]
+    # @param message [Exception, String]
     # @param rate_limit [Hash]
     # @param code [Integer]
     # @return [Twitter::Error]
