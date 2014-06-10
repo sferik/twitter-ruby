@@ -1,3 +1,8 @@
+5.10.0
+------
+* [Add support for extended entities](https://github.com/sferik/twitter/commit/ed7c708e4208de1df27d141678c14e23422504a0)
+* [Add `Twitter::REST::Client#upload`](https://github.com/sferik/twitter/commit/f5a747b53c4866bb378d6022f309d6176620122e)
+
 5.9.0
 -----
 * [Use expanded URIs when available](https://github.com/sferik/twitter/commit/f1d5d1f4c0ea75ebeaf9e7eb760b9efd245a5df2)
