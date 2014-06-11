@@ -66,23 +66,23 @@ module Twitter
       # @overload favorite(*tweets, options)
       #   @param tweets [Enumerable<Integer, String, URI, Twitter::Tweet>] A collection of Tweet IDs, URIs, or objects.
       #   @param options [Hash] A customizable set of options.
-      def favorite(*args)
-        arguments = Twitter::Arguments.new(args)
-        pmap(arguments) do |tweet|
-          begin
-            perform_with_object(:post, '/1.1/favorites/create.json', arguments.options.merge(:id => extract_id(tweet)), Twitter::Tweet)
-          rescue Twitter::Error::AlreadyFavorited
-            puts 'already favorited'
-            next
-          rescue Twitter::Error::NotFound
-            puts 'tweet not found'
-            next
-          end
-        end.compact
-      end
-      alias_method :fav, :favorite
-      alias_method :fave, :favorite
-      deprecate_alias :favorite_create, :favorite
+      # def favorite(*args)
+      #   arguments = Twitter::Arguments.new(args)
+      #   pmap(arguments) do |tweet|
+      #     begin
+      #       perform_with_object(:post, '/1.1/favorites/create.json', arguments.options.merge(:id => extract_id(tweet)), Twitter::Tweet)
+      #     rescue Twitter::Error::AlreadyFavorited
+      #       puts 'already favorited'
+      #       next
+      #     rescue Twitter::Error::NotFound
+      #       puts 'tweet not found'
+      #       next
+      #     end
+      #   end.compact
+      # end
+      # alias_method :fav, :favorite
+      # alias_method :fave, :favorite
+      # deprecate_alias :favorite_create, :favorite
 
       # Favorites the specified Tweets as the authenticating user and raises an error if one has already been favorited
       #
