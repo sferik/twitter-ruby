@@ -73,6 +73,9 @@ module Twitter
             perform_with_object(:post, '/1.1/favorites/create.json', arguments.options.merge(:id => extract_id(tweet)), Twitter::Tweet)
           rescue Twitter::Error::AlreadyFavorited
             next
+          rescue Twitter::Error::NotFound
+            puts 'tweet not found'
+            next
           end
         end.compact
       end
