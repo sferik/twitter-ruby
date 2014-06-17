@@ -210,7 +210,7 @@ describe Twitter::Tweet do
 
   describe '#metadata' do
     it 'returns a Twitter::Metadata when metadata is set' do
-      tweet = Twitter::Tweet.new(:id => 28_669_546_014, :metadata => {})
+      tweet = Twitter::Tweet.new(:id => 28_669_546_014, :metadata => {:result_type => 'recent'})
       expect(tweet.metadata).to be_a Twitter::Metadata
     end
     it 'returns nil when metadata is not set' do
@@ -221,7 +221,7 @@ describe Twitter::Tweet do
 
   describe '#metadata?' do
     it 'returns true when metadata is set' do
-      tweet = Twitter::Tweet.new(:id => 28_669_546_014, :metadata => {})
+      tweet = Twitter::Tweet.new(:id => 28_669_546_014, :metadata => {:result_type => 'recent'})
       expect(tweet.metadata?).to be true
     end
     it 'returns false when metadata is not set' do

@@ -84,11 +84,11 @@ module Twitter
       # @param key2 [Symbol]
       def define_attribute_method(key1, klass = nil, key2 = nil)
         define_method(key1) do ||
-          if klass.nil?
-            @attrs[key1]
+          if @attrs[key1].nil? || @attrs[key1].respond_to?(:empty?) && @attrs[key1].empty?
+            NullObject.new
           else
-            if @attrs[key1].nil?
-              NullObject.new
+            if klass.nil?
+              @attrs[key1]
             else
               attrs = attrs_for_object(key1, key2)
               Twitter.const_get(klass).new(attrs)
@@ -115,7 +115,7 @@ module Twitter
       # @param key2 [Symbol]
       def define_predicate_method(key1, key2 = key1)
         define_method(:"#{key1}?") do ||
-          !@attrs[key2].nil? && @attrs[key2] != false
+          !@attrs[key2].nil? && @attrs[key2] != false && !(@attrs[key2].respond_to?(:empty?) && @attrs[key2].empty?)
         end
         memoize(:"#{key1}?")
       end
