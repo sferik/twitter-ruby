@@ -2,6 +2,14 @@ require 'helper'
 
 describe Twitter::Place do
 
+  describe '.new' do
+    it 'raises an IndexError when id or woeid is not specified' do
+      expect { Twitter::Place.new(:id => 1) }.not_to raise_error
+      expect { Twitter::Place.new(:woeid => 1) }.not_to raise_error
+      expect { Twitter::Place.new }.to raise_error(IndexError)
+    end
+  end
+
   describe '#eql?' do
     it 'returns true when objects WOE IDs are the same' do
       place = Twitter::Place.new(:woeid => 1, :name => 'foo')

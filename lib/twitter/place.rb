@@ -17,7 +17,7 @@ module Twitter
     # @raise [ArgumentError] Error raised when supplied argument is missing a :woeid key.
     # @return [Twitter::Place]
     def initialize(attrs = {})
-      attrs[:id] ||= attrs[:woeid]
+      attrs[:id] ||= attrs.fetch(:woeid)
       super
     end
 
