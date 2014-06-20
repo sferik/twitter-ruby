@@ -1,3 +1,8 @@
+5.11.0
+------
+* [Return a Twitter::NullObject for empty attributes](https://github.com/sferik/twitter/commit/bca179eefb1c157f19b882a88ba608f6817b76bb)
+* [Add `iso_language_code` attribute to `Twitter::Metadata`](https://github.com/sferik/twitter/commit/7bf3a1b6ad0c35dc608b03ba2b3321b594e4da1c)
+
 5.10.0
 ------
 * [Add support for extended entities](https://github.com/sferik/twitter/commit/ed7c708e4208de1df27d141678c14e23422504a0)
