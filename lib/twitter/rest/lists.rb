@@ -92,10 +92,12 @@ module Twitter
       # @return [Twitter::Cursor]
       # @overload memberships(options = {})
       #   @param options [Hash] A customizable set of options.
+      #   @option options [Integer] :count The amount of results to return per page. Defaults to 20. No more than 1000 results will ever be returned in a single page.
       #   @option options [Boolean, String, Integer] :filter_to_owned_lists When set to true, t or 1, will return just lists the authenticating user owns, and the user represented by user_id or screen_name is a member of.
       # @overload memberships(user, options = {})
       #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, URI, or object.
       #   @param options [Hash] A customizable set of options.
+      #   @option options [Integer] :count The amount of results to return per page. Defaults to 20. No more than 1000 results will ever be returned in a single page.
       #   @option options [Boolean, String, Integer] :filter_to_owned_lists When set to true, t or 1, will return just lists the authenticating user owns, and the user represented by user_id or screen_name is a member of.
       def memberships(*args)
         cursor_from_response_with_user(:lists, Twitter::List, :get, '/1.1/lists/memberships.json', args)
