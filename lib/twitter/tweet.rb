@@ -6,9 +6,16 @@ module Twitter
   class Tweet < Twitter::Identity
     include Twitter::Creatable
     include Twitter::Entities
-    attr_reader :favorite_count, :filter_level, :in_reply_to_screen_name,
-                :in_reply_to_attrs_id, :in_reply_to_status_id, :in_reply_to_user_id,
-                :lang, :retweet_count, :source, :text
+    # @note Appears in Streaming API
+    # @return [String]
+    attr_reader :filter_level
+    # @return [String]
+    attr_reader :in_reply_to_screen_name,
+                :lang, :source, :text
+    # @return [Integer]
+    attr_reader :favorite_count, :retweet_count,
+                :in_reply_to_status_id, :in_reply_to_user_id
+
     deprecate_alias :favorites_count, :favorite_count
     deprecate_alias :favoriters_count, :favorite_count
     alias_method :in_reply_to_tweet_id, :in_reply_to_status_id
@@ -36,7 +43,7 @@ module Twitter
     end
     memoize :full_text
 
-    # @return [String] The URL to the tweet.
+    # @return [Addressable::URI] The URL to the tweet.
     def uri
       Addressable::URI.parse("https://twitter.com/#{user.screen_name}/status/#{id}") unless user.nil?
     end
