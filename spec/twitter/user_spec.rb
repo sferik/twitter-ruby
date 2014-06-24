@@ -107,6 +107,30 @@ describe Twitter::User do
     end
   end
 
+  describe '#profile_background_image_uri' do
+    it 'returns the URI to the user' do
+      user = Twitter::User.new(:id => 7_505_382, :profile_background_image_url => 'http://pbs.twimg.com/profile_background_images/677717672/bb0b3653dcf0644e344823e0a2eb3382.png')
+      expect(user.profile_background_image_uri).to be_an Addressable::URI
+      expect(user.profile_background_image_uri.to_s).to eq('http://pbs.twimg.com/profile_background_images/677717672/bb0b3653dcf0644e344823e0a2eb3382.png')
+    end
+    it 'returns nil when the screen name is not set' do
+      user = Twitter::User.new(:id => 7_505_382)
+      expect(user.profile_background_image_uri).to be_nil
+    end
+  end
+
+  describe '#profile_background_image_uri_https' do
+    it 'returns the URI to the user' do
+      user = Twitter::User.new(:id => 7_505_382, :profile_background_image_url_https => 'https://pbs.twimg.com/profile_background_images/677717672/bb0b3653dcf0644e344823e0a2eb3382.png')
+      expect(user.profile_background_image_uri_https).to be_an Addressable::URI
+      expect(user.profile_background_image_uri_https.to_s).to eq('https://pbs.twimg.com/profile_background_images/677717672/bb0b3653dcf0644e344823e0a2eb3382.png')
+    end
+    it 'returns nil when the screen name is not set' do
+      user = Twitter::User.new(:id => 7_505_382)
+      expect(user.profile_background_image_uri_https).to be_nil
+    end
+  end
+
   describe '#profile_banner_uri' do
     it 'accepts utf8 urls' do
       user = Twitter::User.new(:id => 7_505_382, :profile_banner_url => 'https://si0.twimg.com/profile_banners/7_505_382/1348266581©_normal.png')

@@ -34,6 +34,7 @@ module Twitter
                           :profile_use_background_image, :suspended, :verified
     define_predicate_method :translator, :is_translator
     define_predicate_method :translation_enabled, :is_translation_enabled
+    uri_attr_reader :profile_background_image_uri, :profile_background_image_uri_https
 
     class << self
     private
