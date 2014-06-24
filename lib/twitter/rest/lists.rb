@@ -41,6 +41,7 @@ module Twitter
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @raise [Twitter::Error::NotFound] Error raised when supplied list is not found.
       # @return [Array<Twitter::Tweet>]
       # @overload list_timeline(list, options = {})
       #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, URI, or object.
@@ -185,6 +186,8 @@ module Twitter
       # @rate_limited No
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @raise [Twitter::Error::NotFound] Error raised when supplied list is not found.
+      # @raise [Twitter::Error::Forbidden] Error raised when multiple calls are made at the same time.
       # @return [Twitter::List] The list.
       # @overload add_list_members(list, users, options = {})
       #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, URI, or object.

@@ -78,14 +78,14 @@ module Twitter
     end
     memoize :entities?
 
-    # @return [String] The URL to the user.
+    # @return [Addressable::URI] The URL to the user.
     def uri
       Addressable::URI.parse("https://twitter.com/#{screen_name}") unless screen_name.nil?
     end
     memoize :uri
     alias_method :url, :uri
 
-    # @return [String] The URL to the user's website.
+    # @return [Addressable::URI] The URL to the user's website.
     def website
       if website_urls?
         website_urls.first.expanded_url
