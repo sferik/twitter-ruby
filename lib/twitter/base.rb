@@ -99,8 +99,6 @@ module Twitter
         memoize(key1)
       end
 
-      # Dynamically define a method for an attribute
-      #
       # @param key [Symbol]
       def deprecate_attribute_method(key)
         define_method(key) do ||

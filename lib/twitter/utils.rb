@@ -7,14 +7,10 @@ module Twitter
     end
 
     module ClassMethods
-      def deprecate_alias(new_name, old_name)
+      def deprecate_alias(new_name, old_name, &block)
         define_method(new_name) do |*args|
           warn "#{Kernel.caller.first}: [DEPRECATION] ##{new_name} is deprecated. Use ##{old_name} instead."
-          if block_given?
-            send(old_name, *args, &Proc.new)
-          else
-            send(old_name, *args)
-          end
+          send(old_name, *args, &block)
         end
       end
     end
