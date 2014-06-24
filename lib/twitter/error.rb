@@ -3,7 +3,10 @@ require 'twitter/rate_limit'
 module Twitter
   # Custom error class for rescuing from all Twitter errors
   class Error < StandardError
-    attr_reader :code, :rate_limit
+    # @return [Integer]
+    attr_reader :code
+    # @return [Twitter::RateLimit]
+    attr_reader :rate_limit
 
     # If error code is missing see https://dev.twitter.com/docs/error-codes-responses
     module Code

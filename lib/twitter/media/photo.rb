@@ -3,6 +3,7 @@ require 'twitter/identity'
 module Twitter
   module Media
     class Photo < Twitter::Identity
+      # @return [Array<Integer>]
       attr_reader :indices
       display_uri_attr_reader
       uri_attr_reader :expanded_uri, :media_uri, :media_uri_https, :uri

@@ -3,7 +3,10 @@ require 'twitter/identity'
 
 module Twitter
   class Place < Twitter::Identity
-    attr_reader :attributes, :country, :full_name, :name
+    # @return [Hash]
+    attr_reader :attributes
+    # @return [String]
+    attr_reader :country, :full_name, :name
     alias_method :woe_id, :id
     alias_method :woeid, :id
     object_attr_reader :GeoFactory, :bounding_box

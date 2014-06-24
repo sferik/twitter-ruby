@@ -6,16 +6,11 @@ module Twitter
   class Tweet < Twitter::Identity
     include Twitter::Creatable
     include Twitter::Entities
-    # @note Appears in Streaming API
     # @return [String]
-    attr_reader :filter_level
-    # @return [String]
-    attr_reader :in_reply_to_screen_name,
-                :lang, :source, :text
+    attr_reader :filter_level, :in_reply_to_screen_name, :lang, :source, :text
     # @return [Integer]
-    attr_reader :favorite_count, :retweet_count,
-                :in_reply_to_status_id, :in_reply_to_user_id
-
+    attr_reader :favorite_count, :in_reply_to_status_id, :in_reply_to_user_id,
+                :retweet_count
     deprecate_alias :favorites_count, :favorite_count
     deprecate_alias :favoriters_count, :favorite_count
     alias_method :in_reply_to_tweet_id, :in_reply_to_status_id
@@ -45,7 +40,7 @@ module Twitter
 
     # @return [Addressable::URI] The URL to the tweet.
     def uri
-      Addressable::URI.parse("https://twitter.com/#{user.screen_name}/status/#{id}") unless user.nil?
+      Addressable::URI.parse("https://twitter.com/#{user.screen_name}/status/#{id}") if user?
     end
     memoize :uri
     alias_method :url, :uri

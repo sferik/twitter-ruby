@@ -10,17 +10,18 @@ module Twitter
     include Twitter::Creatable
     include Twitter::Profile
     include Memoizable
-    attr_reader :connections, :description, :favourites_count,
-                :followers_count, :friends_count, :lang, :listed_count,
-                :location, :name, :profile_background_color,
-                :profile_background_image_url,
-                :profile_background_image_url_https, :profile_link_color,
+    # @return [Array]
+    attr_reader :connections
+    # @return [Integer]
+    attr_reader :favourites_count, :followers_count, :friends_count,
+                :listed_count, :statuses_count, :utc_offset
+    # @return [String]
+    attr_reader :description, :lang, :location, :name,
+                :profile_background_color, :profile_link_color,
                 :profile_sidebar_border_color, :profile_sidebar_fill_color,
-                :profile_text_color, :statuses_count, :time_zone, :utc_offset
+                :profile_text_color, :time_zone
     alias_method :favorites_count, :favourites_count
     remove_method :favourites_count
-    alias_method :profile_background_image_uri, :profile_background_image_url
-    alias_method :profile_background_image_uri_https, :profile_background_image_url_https
     alias_method :tweets_count, :statuses_count
     object_attr_reader :Tweet, :status, :user
     alias_method :tweet, :status
@@ -80,7 +81,7 @@ module Twitter
 
     # @return [Addressable::URI] The URL to the user.
     def uri
-      Addressable::URI.parse("https://twitter.com/#{screen_name}") unless screen_name.nil?
+      Addressable::URI.parse("https://twitter.com/#{screen_name}") if screen_name?
     end
     memoize :uri
     alias_method :url, :uri

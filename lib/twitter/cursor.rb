@@ -5,6 +5,7 @@ module Twitter
   class Cursor
     include Twitter::Enumerable
     include Twitter::Utils
+    # @return [Hash]
     attr_reader :attrs
     alias_method :to_h, :attrs
     deprecate_alias :to_hash, :to_h

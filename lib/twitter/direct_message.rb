@@ -6,6 +6,7 @@ module Twitter
   class DirectMessage < Twitter::Identity
     include Twitter::Creatable
     include Twitter::Entities
+    # @return [String]
     attr_reader :text
     alias_method :full_text, :text
     object_attr_reader :User, :recipient

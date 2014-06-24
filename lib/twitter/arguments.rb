@@ -1,5 +1,6 @@
 module Twitter
   class Arguments < Array
+    # @return [Hash]
     attr_reader :options
 
     # Initializes a new Arguments object

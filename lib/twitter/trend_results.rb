@@ -10,6 +10,7 @@ module Twitter
     include Twitter::Enumerable
     include Twitter::Utils
     include Memoizable
+    # @return [Hash]
     attr_reader :attrs
     alias_method :to_h, :attrs
     deprecate_alias :to_hash, :to_h
