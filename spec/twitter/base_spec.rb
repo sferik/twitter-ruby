@@ -61,12 +61,12 @@ describe Twitter::Base do
     end
   end
 
-  describe '#to_hash' do
+  describe '#to_hsh' do
     it 'outputs a warning' do
       warning = capture_warning do
-        expect(@base.to_hash).to eq(:id => 1)
+        expect(@base.to_hsh).to eq(:id => 1)
       end
-      expect(warning).to match(/\[DEPRECATION\] #to_hash is deprecated\. Use #to_h instead\./)
+      expect(warning).to match(/\[DEPRECATION\] #to_hsh is deprecated\. Use #to_hash instead\./)
     end
   end
 end

@@ -12,8 +12,8 @@ module Twitter
     # @return [Hash]
     attr_reader :attrs
     alias_method :to_h, :attrs
-    deprecate_alias :to_hash, :to_h
-    deprecate_alias :to_hsh, :to_h
+    alias_method :to_hash, :to_h
+    deprecate_alias :to_hsh, :to_hash
 
     class << self
       # Define methods that retrieve the value from attributes
