@@ -178,7 +178,7 @@ module Twitter
         pmap(arguments) do |tweet|
           begin
             post_retweet(extract_id(tweet), arguments.options)
-          rescue Twitter::Error::AlreadyRetweeted
+          rescue Twitter::Error::AlreadyRetweeted, Twitter::Error::NotFound
             next
           end
         end.compact
@@ -190,6 +190,7 @@ module Twitter
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::AlreadyRetweeted] Error raised when tweet has already been retweeted.
+      # @raise [Twitter::Error::NotFound] Error raised when tweet does not exist or has been deleted.
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Array<Twitter::Tweet>] The original tweets with retweet details embedded.
       # @overload retweet!(*tweets)

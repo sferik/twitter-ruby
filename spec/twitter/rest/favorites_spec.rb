@@ -107,7 +107,15 @@ describe Twitter::REST::Favorites do
       before do
         stub_post('/1.1/favorites/create.json').with(:body => {:id => '25938088801'}).to_return(:status => 403, :body => fixture('already_favorited.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
       end
-      it 'does not raises an error' do
+      it 'does not raise an error' do
+        expect { @client.favorite(25_938_088_801) }.not_to raise_error
+      end
+    end
+    context 'not found' do
+      before do
+        stub_post('/1.1/favorites/create.json').with(:body => {:id => '25938088801'}).to_return(:status => 404, :body => fixture('not_found.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
+      end
+      it 'does not raise an error' do
         expect { @client.favorite(25_938_088_801) }.not_to raise_error
       end
     end
@@ -161,6 +169,14 @@ describe Twitter::REST::Favorites do
       end
       it 'raises an AlreadyFavorited error' do
         expect { @client.favorite!(25_938_088_801) }.to raise_error(Twitter::Error::AlreadyFavorited)
+      end
+    end
+    context 'does not exist' do
+      before do
+        stub_post('/1.1/favorites/create.json').with(:body => {:id => '25938088801'}).to_return(:status => 404, :body => fixture('not_found.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
+      end
+      it 'raises a NotFound error' do
+        expect { @client.favorite!(25_938_088_801) }.to raise_error(Twitter::Error::NotFound)
       end
     end
     context 'with a URI object passed' do

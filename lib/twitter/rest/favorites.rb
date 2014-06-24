@@ -71,7 +71,7 @@ module Twitter
         pmap(arguments) do |tweet|
           begin
             perform_with_object(:post, '/1.1/favorites/create.json', arguments.options.merge(:id => extract_id(tweet)), Twitter::Tweet)
-          rescue Twitter::Error::AlreadyFavorited
+          rescue Twitter::Error::AlreadyFavorited, Twitter::Error::NotFound
             next
           end
         end.compact
@@ -86,6 +86,7 @@ module Twitter
       # @rate_limited No
       # @authentication Requires user context
       # @raise [Twitter::Error::AlreadyFavorited] Error raised when tweet has already been favorited.
+      # @raise [Twitter::Error::NotFound] Error raised when tweet does not exist or has been deleted.
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Array<Twitter::Tweet>] The favorited Tweets.
       # @overload favorite(*tweets)

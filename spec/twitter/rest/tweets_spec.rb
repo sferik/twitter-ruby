@@ -358,6 +358,14 @@ describe Twitter::REST::Tweets do
         expect { @client.retweet(25_938_088_801) }.not_to raise_error
       end
     end
+    context 'not found' do
+      before do
+        stub_post('/1.1/statuses/retweet/25938088801.json').to_return(:status => 404, :body => fixture('not_found.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
+      end
+      it 'does not raise an error' do
+        expect { @client.retweet(25_938_088_801) }.not_to raise_error
+      end
+    end
     context 'with a URI object passed' do
       it 'requests the correct resource' do
         tweet = URI.parse('https://twitter.com/sferik/status/25938088801')
@@ -410,6 +418,14 @@ describe Twitter::REST::Tweets do
       end
       it 'raises an AlreadyRetweeted error' do
         expect { @client.retweet!(25_938_088_801) }.to raise_error(Twitter::Error::AlreadyRetweeted)
+      end
+    end
+    context 'not found' do
+      before do
+        stub_post('/1.1/statuses/retweet/25938088801.json').to_return(:status => 404, :body => fixture('not_found.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
+      end
+      it 'raises a NotFound error' do
+        expect { @client.retweet!(25_938_088_801) }.to raise_error(Twitter::Error::NotFound)
       end
     end
     context 'with a URI object passed' do
