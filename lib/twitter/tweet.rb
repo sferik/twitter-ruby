@@ -24,7 +24,8 @@ module Twitter
     alias_method :retweet?, :retweeted_status?
     alias_method :retweeted_tweet?, :retweeted_status?
     object_attr_reader :User, :user, :status
-    predicate_attr_reader :favorited, :retweeted, :truncated
+    predicate_attr_reader :favorited, :possibly_sensitive, :retweeted,
+                          :truncated
 
     # @note May be > 140 characters.
     # @return [String]
