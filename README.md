@@ -458,6 +458,10 @@ After configuration, requests can be made like so:
 client.update("I'm tweeting with @gem!")
 ```
 
+**Performance/DNS settings issue**
+
+When you are using the gem in production (running for example in a DigitalOcean VPS) be aware that DNS settings on the server can affect outbound traffic performance with `Twitter::Error::RequestTimeout` as a result. Don't use the public Google DNS services (4.4.4.4 / 8.8.8.8) they are rate-limited and have very bad response times. Use a DNS service close to your data-center.
+
 ## Usage Examples
 All examples require an authenticated Twitter client. See the section on <a
 href="#configuration">configuration</a>.
