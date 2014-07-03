@@ -73,7 +73,6 @@ Note: `oauth_token` has been renamed to `access_token` and `oauth_token_secret`
 is now `access_token_secret` to conform to the terminology used in Twitter's
 developer documentation.
 
-
 ### Streaming (Experimental)
 This library now offers support for the [Twitter Streaming API][streaming].
 
@@ -460,9 +459,7 @@ client.update("I'm tweeting with @gem!")
 ```
 
 **Performance/DNS settings issue**
-
 When you are using the gem in production (running for example in a DigitalOcean VPS) be aware that DNS settings on the server can affect outbound traffic performance with `Twitter::Error::RequestTimeout` as a result. Don't use the public Google DNS services (4.4.4.4 / 8.8.8.8) they are rate-limited and have very bad response times. Use a DNS service close to your data-center.
-
 
 ## Usage Examples
 All examples require an authenticated Twitter client. See the section on <a
