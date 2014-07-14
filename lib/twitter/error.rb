@@ -104,7 +104,7 @@ module Twitter
       @code = code
     end
 
-    class ConfigurationError < ::ArgumentError; end
+    ConfigurationError = Class.new(::ArgumentError)
 
     # Raised when a Tweet includes media that doesn't have a to_io method
     class UnacceptableIO < StandardError
@@ -114,57 +114,57 @@ module Twitter
     end
 
     # Raised when Twitter returns a 4xx HTTP status code
-    class ClientError < self; end
+    ClientError = Class.new(self)
 
     # Raised when Twitter returns the HTTP status code 400
-    class BadRequest < ClientError; end
+    BadRequest = Class.new(ClientError)
 
     # Raised when Twitter returns the HTTP status code 401
-    class Unauthorized < ClientError; end
+    Unauthorized = Class.new(ClientError)
 
     # Raised when Twitter returns the HTTP status code 403
-    class Forbidden < ClientError; end
+    Forbidden = Class.new(ClientError)
 
     # Raised when a Tweet has already been favorited
-    class AlreadyFavorited < Forbidden; end
+    AlreadyFavorited = Class.new(Forbidden)
 
     # Raised when a Tweet has already been retweeted
-    class AlreadyRetweeted < Forbidden; end
+    AlreadyRetweeted = Class.new(Forbidden)
 
     # Raised when a Tweet has already been posted
-    class DuplicateStatus < Forbidden; end
+    DuplicateStatus = Class.new(Forbidden)
     AlreadyPosted = DuplicateStatus # rubocop:disable ConstantName
 
     # Raised when Twitter returns the HTTP status code 404
-    class NotFound < ClientError; end
+    NotFound = Class.new(ClientError)
 
     # Raised when Twitter returns the HTTP status code 406
-    class NotAcceptable < ClientError; end
+    NotAcceptable = Class.new(ClientError)
 
     # Raised when Twitter returns the HTTP status code 408
-    class RequestTimeout < ClientError; end
+    RequestTimeout = Class.new(ClientError)
 
     # Raised when Twitter returns the HTTP status code 422
-    class UnprocessableEntity < ClientError; end
+    UnprocessableEntity = Class.new(ClientError)
 
     # Raised when Twitter returns the HTTP status code 429
-    class TooManyRequests < ClientError; end
+    TooManyRequests = Class.new(ClientError)
     EnhanceYourCalm = TooManyRequests # rubocop:disable ConstantName
     RateLimited = TooManyRequests # rubocop:disable ConstantName
 
     # Raised when Twitter returns a 5xx HTTP status code
-    class ServerError < self; end
+    ServerError = Class.new(self)
 
     # Raised when Twitter returns the HTTP status code 500
-    class InternalServerError < ServerError; end
+    InternalServerError = Class.new(ServerError)
 
     # Raised when Twitter returns the HTTP status code 502
-    class BadGateway < ServerError; end
+    BadGateway = Class.new(ServerError)
 
     # Raised when Twitter returns the HTTP status code 503
-    class ServiceUnavailable < ServerError; end
+    ServiceUnavailable = Class.new(ServerError)
 
     # Raised when Twitter returns the HTTP status code 504
-    class GatewayTimeout < ServerError; end
+    GatewayTimeout = Class.new(ServerError)
   end
 end
