@@ -1,4 +1,7 @@
 bundler_args: --without development
+env:
+  global:
+    - JRUBY_OPTS="$JRUBY_OPTS --debug"
 language: ruby
 rvm:
   - 1.8.7
@@ -6,16 +9,12 @@ rvm:
   - 1.9.3
   - 2.0.0
   - 2.1
+  - jruby-18mode
+  - jruby-19mode
+  - jruby-head
   - rbx-2
   - ruby-head
 matrix:
-  include:
-    - rvm: jruby-18mode
-      env: JRUBY_OPTS="$JRUBY_OPTS --debug"
-    - rvm: jruby-19mode
-      env: JRUBY_OPTS="$JRUBY_OPTS --debug"
-    - rvm: jruby-head
-      env: JRUBY_OPTS="$JRUBY_OPTS --debug"
   allow_failures:
     - rvm: jruby-head
     - rvm: rbx-2
