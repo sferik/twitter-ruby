@@ -187,7 +187,7 @@ module Twitter
       # Adds specified members to a list
       #
       # @see https://dev.twitter.com/docs/api/1.1/post/lists/members/create_all
-      # @note Lists are limited to having 500 members, and you are limited to adding up to 100 members to a list at a time with this method.
+      # @note Lists are limited to having 5,000 members, and you are limited to adding up to 100 members to a list at a time with this method.
       # @rate_limited No
       # @authentication Requires user context
       # @raise [Twitter::Error::Forbidden] Error raised when user has already been added.
@@ -251,7 +251,7 @@ module Twitter
       # Add a member to a list
       #
       # @see https://dev.twitter.com/docs/api/1.1/post/lists/members/create
-      # @note Lists are limited to having 500 members.
+      # @note Lists are limited to having 5,000 members.
       # @rate_limited No
       # @authentication Requires user context
       # @raise [Twitter::Error::NotFound] Error raised when supplied list is not found.
