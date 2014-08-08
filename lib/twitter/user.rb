@@ -14,7 +14,7 @@ module Twitter
     attr_reader :connections
     # @return [Integer]
     attr_reader :favourites_count, :followers_count, :friends_count,
-                :listed_count, :statuses_count, :utc_offset
+                :listed_count, :media_count, :statuses_count, :utc_offset
     # @return [String]
     attr_reader :description, :lang, :location, :name,
                 :profile_background_color, :profile_link_color,
