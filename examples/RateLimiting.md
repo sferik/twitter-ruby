@@ -8,20 +8,13 @@ on how to configure a client can be found in [examples/Configuration.md][cfg].
 Here's an example of how to handle rate limits:
 
 ```ruby
-MAX_ATTEMPTS = 3
-num_attempts = 0
-follower_ids = client.follower_ids
+follower_ids = client.follower_ids('justinbieber')
 begin
-  num_attempts += 1
   follower_ids.to_a
 rescue Twitter::Error::TooManyRequests => error
-  if num_attempts <= MAX_ATTEMPTS
-    # NOTE: Your process could go to sleep for up to 15 minutes but if you
-    # retry any sooner, it will almost certainly fail with the same exception.
-    sleep error.rate_limit.reset_in
-    retry
-  else
-    raise
-  end
+  # NOTE: Your process could go to sleep for up to 15 minutes but if you
+  # retry any sooner, it will almost certainly fail with the same exception.
+  sleep error.rate_limit.reset_in + 1
+  retry
 end
 ```
