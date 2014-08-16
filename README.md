@@ -193,7 +193,7 @@ simplicity and performance.
     </tr>
     <tr>
       <td>
-        Return your most recent follower.
+        Return your most recent friend.
       </td>
       <td>
         <pre><code>client.friends.users.first</code></pre>
