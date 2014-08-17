@@ -51,7 +51,7 @@ describe Twitter::User do
           :expanded_url => 'http://example.com/expanded',
           :display_url => 'example.com/expanded…',
           :indices => [10, 33],
-        }
+        },
       ]
       user = Twitter::User.new(:id => 7_505_382, :entities => {:description => {:urls => urls_array}})
       expect(user.description_uris).to be_an Array
@@ -73,7 +73,7 @@ describe Twitter::User do
           :expanded_url => 'http://example.com/expanded',
           :display_url => 'example.com/expanded…',
           :indices => [10, 33],
-        }
+        },
       ]
       user = Twitter::User.new(:id => 7_505_382, :entities => {:description => {:urls => urls_array}})
       expect(user.description_uris?).to be true
@@ -92,7 +92,7 @@ describe Twitter::User do
           :expanded_url => 'http://example.com/expanded',
           :display_url => 'example.com/expanded…',
           :indices => [10, 33],
-        }
+        },
       ]
       user = Twitter::User.new(:id => 7_505_382, :entities => {:description => {:urls => urls_array}})
       expect(user.entities?).to be true
@@ -403,7 +403,7 @@ describe Twitter::User do
           :expanded_url => 'http://example.com/expanded',
           :display_url => 'example.com/expanded…',
           :indices => [0, 23],
-        }
+        },
       ]
       user = Twitter::User.new(:id => 7_505_382, :entities => {:url => {:urls => urls_array}})
       expect(user.website).to be_an Addressable::URI
@@ -427,7 +427,7 @@ describe Twitter::User do
           :expanded_url => 'http://example.com/expanded',
           :display_url => 'example.com/expanded…',
           :indices => [0, 23],
-        }
+        },
       ]
       user = Twitter::User.new(:id => 7_505_382, :entities => {:url => {:urls => urls_array}})
       expect(user.website?).to be true
@@ -446,7 +446,7 @@ describe Twitter::User do
           :expanded_url => 'http://example.com/expanded',
           :display_url => 'example.com/expanded…',
           :indices => [0, 23],
-        }
+        },
       ]
       user = Twitter::User.new(:id => 7_505_382, :entities => {:url => {:urls => urls_array}})
       expect(user.website_uris).to be_an Array
@@ -468,7 +468,7 @@ describe Twitter::User do
           :expanded_url => 'http://example.com/expanded',
           :display_url => 'example.com/expanded…',
           :indices => [0, 23],
-        }
+        },
       ]
       user = Twitter::User.new(:id => 7_505_382, :entities => {:url => {:urls => urls_array}})
       expect(user.website_uris?).to be true

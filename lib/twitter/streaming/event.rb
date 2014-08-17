@@ -4,11 +4,11 @@ module Twitter
       LIST_EVENTS = [
         :list_created, :list_destroyed, :list_updated, :list_member_added,
         :list_member_added, :list_member_removed, :list_user_subscribed,
-        :list_user_subscribed, :list_user_unsubscribed, :list_user_unsubscribed,
+        :list_user_subscribed, :list_user_unsubscribed, :list_user_unsubscribed
       ]
 
       TWEET_EVENTS = [
-        :favorite, :unfavorite,
+        :favorite, :unfavorite
       ]
 
       attr_reader :name, :source, :target, :target_object

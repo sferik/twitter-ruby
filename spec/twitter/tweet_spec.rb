@@ -60,7 +60,7 @@ describe Twitter::Tweet do
           :expanded_url => 'http://example.com/expanded',
           :display_url => 'example.com/expanded…',
           :indices => [10, 33],
-        }
+        },
       ]
       tweet = Twitter::Tweet.new(:id => 28_669_546_014, :entities => {:urls => urls_array})
       expect(tweet.entities?).to be true
@@ -171,7 +171,7 @@ describe Twitter::Tweet do
   describe '#hashtags?' do
     it 'returns true when the tweet includes hashtags entities' do
       entities = {
-        :hashtags => [{:text => 'twitter', :indices => [10, 33]}]
+        :hashtags => [{:text => 'twitter', :indices => [10, 33]}],
       }
       tweet = Twitter::Tweet.new(:id => 28_669_546_014, :entities => entities)
       expect(tweet.hashtags?).to be true
@@ -197,7 +197,7 @@ describe Twitter::Tweet do
   describe '#media?' do
     it 'returns true when the tweet includes media entities' do
       entities = {
-        :media => [{:id => '1', :type => 'photo'}]
+        :media => [{:id => '1', :type => 'photo'}],
       }
       tweet = Twitter::Tweet.new(:id => 28_669_546_014, :entities => entities)
       expect(tweet.media?).to be true
@@ -301,7 +301,7 @@ describe Twitter::Tweet do
     it 'returns an array of Entity::Symbol when symbols are set' do
       symbols_array = [
         {:text => 'PEP', :indices => [114, 118]},
-        {:text => 'COKE', :indices => [128, 133]}
+        {:text => 'COKE', :indices => [128, 133]},
       ]
       symbols = Twitter::Tweet.new(:id => 28_669_546_014, :entities => {:symbols => symbols_array}).symbols
       expect(symbols).to be_an Array
@@ -319,7 +319,7 @@ describe Twitter::Tweet do
   describe '#symbols?' do
     it 'returns true when the tweet includes symbols entities' do
       entities = {
-        :symbols => [{:text => 'PEP'}]
+        :symbols => [{:text => 'PEP'}],
       }
       tweet = Twitter::Tweet.new(:id => 28_669_546_014, :entities => entities)
       expect(tweet.symbols?).to be true
@@ -338,7 +338,7 @@ describe Twitter::Tweet do
           :expanded_url => 'http://example.com/expanded',
           :display_url => 'example.com/expanded…',
           :indices => [10, 33],
-        }
+        },
       ]
       tweet = Twitter::Tweet.new(:id => 28_669_546_014, :entities => {:urls => urls_array})
       expect(tweet.uris).to be_an Array
@@ -358,7 +358,7 @@ describe Twitter::Tweet do
           :expanded_url => 'http://with_underscore.example.com/expanded',
           :display_url => 'with_underscore.example.com/expanded…',
           :indices => [10, 33],
-        }
+        },
       ]
       tweet = Twitter::Tweet.new(:id => 28_669_546_014, :entities => {:urls => urls_array})
       uri = tweet.uris.first
@@ -379,7 +379,7 @@ describe Twitter::Tweet do
   describe '#uris?' do
     it 'returns true when the tweet includes urls entities' do
       entities = {
-        :urls => [{:url => 'https://t.co/L2xIBazMPf'}]
+        :urls => [{:url => 'https://t.co/L2xIBazMPf'}],
       }
       tweet = Twitter::Tweet.new(:id => 28_669_546_014, :entities => entities)
       expect(tweet.uris?).to be true
@@ -426,7 +426,7 @@ describe Twitter::Tweet do
           :id_str => '7_505_382',
           :indices => [0, 6],
           :id => 7_505_382,
-        }
+        },
       ]
       user_mentions = Twitter::Tweet.new(:id => 28_669_546_014, :entities => {:user_mentions => user_mentions_array}).user_mentions
       expect(user_mentions).to be_an Array
@@ -443,7 +443,7 @@ describe Twitter::Tweet do
   describe '#user_mentions?' do
     it 'returns true when the tweet includes user_mention entities' do
       entities = {
-        :user_mentions => [{:screen_name => 'sferik'}]
+        :user_mentions => [{:screen_name => 'sferik'}],
       }
       tweet = Twitter::Tweet.new(:id => 28_669_546_014, :entities => entities)
       expect(tweet.user_mentions?).to be true

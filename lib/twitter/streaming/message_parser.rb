@@ -8,7 +8,7 @@ require 'twitter/tweet'
 module Twitter
   module Streaming
     class MessageParser
-      def self.parse(data) # rubocop:disable CyclomaticComplexity
+      def self.parse(data) # rubocop:disable CyclomaticComplexity, PerceivedComplexity
         if data[:id]
           Tweet.new(data)
         elsif data[:event]

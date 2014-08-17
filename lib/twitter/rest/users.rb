@@ -167,14 +167,17 @@ module Twitter
       # @param user [Integer, String, URI, Twitter::User] A Twitter user ID, screen name, URI, or object.
       # @param options [Hash] A customizable set of options.
       def block?(user, options = {})
-        user_id = case user
-        when Integer
-          user
-        when String, URI, Addressable::URI
-          user(user).id
-        when Twitter::User
-          user.id
+        user_id = begin
+          case user
+          when Integer
+            user
+          when String, URI, Addressable::URI
+            user(user).id
+          when Twitter::User
+            user.id
+          end
         end
+
         blocked_ids(options).collect(&:to_i).include?(user_id)
       end
 

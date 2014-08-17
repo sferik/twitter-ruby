@@ -1,98 +1,54 @@
-AllCops:
-  Include:
-    - 'Gemfile'
-    - 'Rakefile'
-    - 'twitter.gemspec'
+Metrics/BlockNesting:
+  Max: 2
 
-# Avoid long parameter lists
-ParameterLists:
-  Max: 4
-  CountKeywordArgs: true
-
-ClassLength:
-  Max: 100
-
-LineLength:
+Metrics/LineLength:
+  AllowURI: true
   Enabled: false
 
-MethodLength:
+Metrics/MethodLength:
   CountComments: false
   Max: 15
 
-# Avoid more than `Max` levels of nesting.
-BlockNesting:
-  Max: 2
+Metrics/ParameterLists:
+  Max: 4
+  CountKeywordArgs: true
 
-# Align with the style guide.
-CollectionMethods:
+Style/AccessModifierIndentation:
+  EnforcedStyle: outdent
+
+Style/CollectionMethods:
   PreferredMethods:
     map:      'collect'
     reduce:   'inject'
     find:     'detect'
     find_all: 'select'
 
-# Disable documentation checking until a class needs to be documented once
-Documentation:
+Style/Documentation:
   Enabled: false
 
-# Enforce Ruby 1.8-compatible hash syntax
-HashSyntax:
+Style/DotPosition:
+  EnforcedStyle: trailing
+
+Style/DoubleNegation:
+  Enabled: false
+
+Style/EachWithObject:
+  Enabled: false
+
+Style/Encoding:
+  Enabled: false
+
+Style/HashSyntax:
   EnforcedStyle: hash_rockets
 
-# No spaces inside hash literals
-SpaceInsideHashLiteralBraces:
-  EnforcedStyle: no_space
-
-# Allow dots at the end of lines
-DotPosition:
+Style/Lambda:
   Enabled: false
 
-# Don't require magic comment at the top of every file
-Encoding:
-  Enabled: false
-
-# Enforce outdenting of access modifiers (i.e. public, private, protected)
-AccessModifierIndentation:
-  EnforcedStyle: outdent
-
-EmptyLinesAroundAccessModifier:
-  Enabled: true
-
-# Align ends correctly
-EndAlignment:
-  AlignWith: variable
-
-# Indentation of when/else
-CaseIndentation:
-  IndentWhenRelativeTo: end
-  IndentOneStep: false
-
-Lambda:
-  Enabled: false
-
-RaiseArgs:
+Style/RaiseArgs:
   EnforcedStyle: compact
 
-TrailingComma:
-  Enabled: false
+Style/SpaceInsideHashLiteralBraces:
+  EnforcedStyle: no_space
 
-DoubleNegation:
-  Enabled: false
-
-PercentLiteralDelimiters:
-  PreferredDelimiters:
-    '%':  ()
-    '%i': ()
-    '%q': ()
-    '%Q': ()
-    '%r': '{}'
-    '%s': ()
-    '%w': '[]'
-    '%W': '[]'
-    '%x': ()
-
-NonNilCheck:
-  Enabled: false
-
-EachWithObject:
-  Enabled: false
+Style/TrailingComma:
+  EnforcedStyleForMultiline: 'comma'

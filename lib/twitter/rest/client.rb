@@ -41,7 +41,7 @@ module Twitter
             :open_timeout => 10,
             :timeout => 30,
           },
-          :proxy => proxy
+          :proxy => proxy,
         }
       end
 

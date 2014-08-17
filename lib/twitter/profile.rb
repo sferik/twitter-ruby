@@ -11,7 +11,7 @@ module Twitter
     private
 
       def alias_predicate_uri_methods(method)
-        %w[_url? _uri_https? _url_https?].each do |replacement|
+        %w(_url? _uri_https? _url_https?).each do |replacement|
           alias_method_sub(method, PREDICATE_URI_METHOD_REGEX, replacement)
         end
       end
