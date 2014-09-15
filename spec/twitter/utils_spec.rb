@@ -23,7 +23,7 @@ describe Twitter::Utils do
       array = (0..4).to_a.combination(2).to_a
       size  = array.size
       block = proc { |x| sleep(delay) && x.reverse }
-      block_without_sleep = proc { |x| x.reverse }
+      block_without_sleep = proc(&:reverse)
       expected = array.collect(&block_without_sleep).flatten!(1)
       elapsed_time = Benchmark.realtime do
         expect(subject.flat_pmap(array, &block)).to eq(expected)
