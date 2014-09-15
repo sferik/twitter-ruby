@@ -28,4 +28,4 @@ module Twitter
   end
 end
 
-Faraday::Response.register_middleware :parse_json => Twitter::REST::Response::ParseJson
+Faraday::Response.register_middleware :twitter_parse_json => Twitter::REST::Response::ParseJson

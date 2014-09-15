@@ -32,4 +32,4 @@ module Twitter
   end
 end
 
-Faraday::Response.register_middleware :raise_error => Twitter::REST::Response::RaiseError
+Faraday::Response.register_middleware :twitter_raise_error => Twitter::REST::Response::RaiseError
