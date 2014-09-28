@@ -6,6 +6,10 @@ module Twitter
     config.define_explicit_conversions
     config.define_implicit_conversions
 
+    def to_int
+      0
+    end
+
     def nil?
       true
     end
