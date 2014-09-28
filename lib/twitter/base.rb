@@ -86,7 +86,7 @@ module Twitter
       def define_attribute_method(key1, klass = nil, key2 = nil)
         define_method(key1) do ||
           if @attrs[key1].nil? || @attrs[key1].respond_to?(:empty?) && @attrs[key1].empty?
-            nil
+            NullObject.new
           else
             if klass.nil?
               @attrs[key1]
