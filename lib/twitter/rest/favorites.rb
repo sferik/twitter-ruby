@@ -89,9 +89,9 @@ module Twitter
       # @raise [Twitter::Error::NotFound] Error raised when tweet does not exist or has been deleted.
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Array<Twitter::Tweet>] The favorited Tweets.
-      # @overload favorite(*tweets)
+      # @overload favorite!(*tweets)
       #   @param tweets [Enumerable<Integer, String, URI, Twitter::Tweet>] A collection of Tweet IDs, URIs, or objects.
-      # @overload favorite(*tweets, options)
+      # @overload favorite!(*tweets, options)
       #   @param tweets [Enumerable<Integer, String, URI, Twitter::Tweet>] A collection of Tweet IDs, URIs, or objects.
       #   @param options [Hash] A customizable set of options.
       def favorite!(*args)
