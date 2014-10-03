@@ -20,11 +20,9 @@ describe Twitter::SearchResults do
     end
     context 'with start' do
       it 'iterates' do
-        pp "======="
         count = 0
-        @client.search('#freebandnames').each(2) { count += 1 }
+        @client.search('#freebandnames').each(5) { count += 1 }
         expect(count).to eq(1)
-        pp "=======end"
       end
     end
   end

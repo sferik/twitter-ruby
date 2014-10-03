@@ -24,7 +24,6 @@ module Twitter
       @path = request.path
       @options = request.options
       @collection = []
-      @page_record = 0
       self.attrs = attrs
     end
 
@@ -50,9 +49,7 @@ module Twitter
 
     # @return [Hash]
     def fetch_next_page
-      @page_record += @collection.size
       response = @client.send(@request_method, @path, next_page).body
-
       self.attrs = response
     end
 
@@ -60,7 +57,6 @@ module Twitter
     # @return [Hash]
     def attrs=(attrs)
       @attrs = attrs
-      @collection = []
       @attrs.fetch(:statuses, []).collect do |tweet|
         @collection << Tweet.new(tweet)
       end
