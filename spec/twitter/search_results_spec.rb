@@ -24,6 +24,12 @@ describe Twitter::SearchResults do
       expect(a_get('/1.1/search/tweets.json').with(query: {q: '#freebandnames', since_id: '414071360078878542', count: '100'})).to have_been_made
       expect(a_get('/1.1/search/tweets.json').with(query: {q: '#freebandnames', since_id: '414071360078878542', count: '3', include_entities: '1', max_id: '414071361066532863'})).to have_been_made
     end
+    it 'do not store the iterated tweets' do
+      count = 0
+      searched_tweets = @client.search('#freebandnames')
+      searched_tweets.each { count += 1 }
+      expect(searched_tweets.instance_variable_get(:@collection).size).to eq(3)
+    end
     context 'with start' do
       it 'iterates' do
         count = 0
