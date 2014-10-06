@@ -90,7 +90,8 @@ module Twitter
     # @return [Addressable::URI] The URL to the user's website.
     def website
       if website_uris?
-        website_uris.first.expanded_url.dup
+        website_uri = website_uris.first.expanded_url
+        website_uri && website_uri.dup
       else
         Addressable::URI.parse(@attrs[:url])
       end
