@@ -46,6 +46,19 @@ Post an update with a possibly-sensitive image.
 client.update_with_media("I'm tweeting with @gem!", File.new("/path/to/sensitive-media.png"), :possibly_sensitive => true)
 ```
 
+Post an update with multiple images.
+
+This will return media IDs, which you can pass into the media_ids parameter (as a comma-separated string) of the update method.
+```ruby
+media_ids = %w(/path/to/media1.png /path/to/media2.png).map do |filename|
+  Thread.new do
+    client.upload(File.new(filename))
+  end
+end.map(&:value)
+
+client.update("I'm tweeting with @gem!", :media_ids => media_ids.join(','))
+```
+
 For more information, see the documentation for the [`#update`][update] and
 [`#update_with_media`][update_with_media] methods.
 
