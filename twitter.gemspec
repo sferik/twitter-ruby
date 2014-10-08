@@ -17,15 +17,12 @@ Gem::Specification.new do |spec|
   spec.authors = ['Erik Michaels-Ober', 'John Nunemaker', 'Wynn Netherland', 'Steve Richert', 'Steve Agalloco']
   spec.description = 'A Ruby interface to the Twitter API.'
   spec.email = %w(sferik@gmail.com)
-  spec.files = %w(.yardopts CHANGELOG.md CONTRIBUTING.md LICENSE.md README.md Rakefile twitter.gemspec)
-  spec.files += Dir.glob('lib/**/*.rb')
-  spec.files += Dir.glob('spec/**/*')
+  spec.files = %w(.yardopts CHANGELOG.md CONTRIBUTING.md LICENSE.md README.md twitter.gemspec) + Dir['lib/**/*.rb']
   spec.homepage = 'http://sferik.github.com/twitter/'
   spec.licenses = %w(MIT)
   spec.name = 'twitter'
   spec.require_paths = %w(lib)
   spec.required_rubygems_version = '>= 1.3.5'
   spec.summary = spec.description
-  spec.test_files = Dir.glob('spec/**/*')
   spec.version = Twitter::Version
 end
