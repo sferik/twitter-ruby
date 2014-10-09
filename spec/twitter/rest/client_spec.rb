@@ -174,7 +174,7 @@ describe Twitter::REST::Client do
     end
     it 'submits the correct auth header when no media is present' do
       # We use static values for nounce and timestamp to get a stable signature
-      secret = {:consumer_key => 'CK', :consumer_secret => 'CS', :token => 'OT', :token_secret => 'OS', :nonce => 'b6ebe4c2a11af493f8a2290fe1296965', :timestamp => '1370968658'}
+      secret = {:consumer_key => 'CK', :consumer_secret => 'CS', :token => 'OT', :token_secret => 'OS', :nonce => 'b6ebe4c2a11af493f8a2290fe1296965', :timestamp => '1370968658', :ignore_extra_keys => true}
       headers = {:authorization => /oauth_signature="FbthwmgGq02iQw%2FuXGEWaL6V6eM%3D"/, :content_type => 'application/json; charset=utf-8'}
 
       allow(@client).to receive(:credentials).and_return(secret)
@@ -184,7 +184,7 @@ describe Twitter::REST::Client do
     end
     it 'submits the correct auth header when media is present' do
       # We use static values for nounce and timestamp to get a stable signature
-      secret = {:consumer_key => 'CK', :consumer_secret => 'CS', :token => 'OT', :token_secret => 'OS', :nonce => 'e08201ad0dab4897c99445056feefd95', :timestamp => '1370967652'}
+      secret = {:consumer_key => 'CK', :consumer_secret => 'CS', :token => 'OT', :token_secret => 'OS', :nonce => 'e08201ad0dab4897c99445056feefd95', :timestamp => '1370967652', :ignore_extra_keys => true}
       headers = {:authorization => /oauth_signature="9ziouUPwZT9IWWRbJL8r0BerKYA%3D"/, :content_type => 'application/json; charset=utf-8'}
 
       allow(@client).to receive(:credentials).and_return(secret)
