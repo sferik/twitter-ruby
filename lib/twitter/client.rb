@@ -20,7 +20,7 @@ module Twitter
     # @return [Twitter::Client]
     def initialize(options = {})
       options.each do |key, value|
-        send(:"#{key}=", value)
+        instance_variable_set("@#{key}", value)
       end
       yield(self) if block_given?
       validate_credential_type!
