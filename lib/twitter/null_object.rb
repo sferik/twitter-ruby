@@ -5,7 +5,10 @@ module Twitter
     config.black_hole
     config.define_explicit_conversions
     config.define_implicit_conversions
-    config.predicates_return false
+
+    def to_int
+      0
+    end
 
     def nil?
       true
