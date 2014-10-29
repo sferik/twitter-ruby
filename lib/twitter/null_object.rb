@@ -10,12 +10,12 @@ module Twitter
     config.predicates_return false
 
     def instance_of?(klass)
-      raise(TypeError.new("class or module required")) unless klass.is_a?(Class)
+      fail(TypeError.new('class or module required')) unless klass.is_a?(Class)
       self.class == klass
     end
 
     def kind_of?(mod)
-      raise(TypeError.new("class or module required")) unless mod.is_a?(Module)
+      fail(TypeError.new('class or module required')) unless mod.is_a?(Module)
       self.class.ancestors.include?(mod)
     end
 

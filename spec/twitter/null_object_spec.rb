@@ -51,26 +51,26 @@ describe Twitter::NullObject do
 
   describe 'explicit conversions' do
     describe '#to_a' do
-      it 'returns []' do
-        expect(subject.to_a).to eq([])
+      it 'returns an empty array' do
+        expect(subject.to_a).to be_empty
       end
     end
     describe '#to_s' do
-      it 'returns ""' do
-        expect(subject.to_s).to eq("")
+      it 'returns an empty string' do
+        expect(subject.to_s).to be_empty
       end
     end
   end
 
   describe 'implicit conversions' do
     describe '#to_ary' do
-      it 'returns []' do
-        expect(subject.to_ary).to eq([])
+      it 'returns an empty array' do
+        expect(subject.to_ary).to be_empty
       end
     end
     describe '#to_str' do
-      it 'returns ""' do
-        expect(subject.to_str).to eq("")
+      it 'returns an empty string' do
+        expect(subject.to_str).to be_empty
       end
     end
   end
