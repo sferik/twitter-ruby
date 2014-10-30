@@ -1,3 +1,13 @@
+5.12.0
+------
+* [Rescue `Twitter::Error::NotFound` for safe `#favorite` and `#retweet`](https://github.com/sferik/twitter/commit/5e6223df20217fd6b0ac78b44b0defdb46d1e018)
+* [Make `Twitter::User#profile_background_image_uri` methods return a URI](https://github.com/sferik/twitter/commit/d96194c0c3b17076e48faed1b05cd48d043a6778)
+* [Un-deprecate `Twitter::Base#to_hash`](https://github.com/sferik/twitter/commit/f45ce597408ab2bae2b55db6456543bf6d9ea081)
+* [Add `Twitter::Tweet#possibly_sensitive?`](https://github.com/sferik/twitter/commit/917e8f14f7707eb646e8057827ed0ba9d1766eeb)
+* [Namespace registered Faraday middleware](https://github.com/sferik/twitter/commit/a96931171e32c142f36318547f2cffa6ccd5c199) ([@godfoca](https://twitter.com/godfoca))
+* [Fix test failures on Ruby 2.2.0-preview1](https://github.com/sferik/twitter/commit/74fb2e676f5882c62a6d4f07d7bbf8ca1f469fe2)
+* [Make Twitter::NullObject Comparable](https://github.com/sferik/twitter/commit/9635db5128708525f3368800f11c519d6b14b1e4)
+
 5.11.0
 ------
 * [Return a Twitter::NullObject for empty attributes](https://github.com/sferik/twitter/commit/bca179eefb1c157f19b882a88ba608f6817b76bb)
