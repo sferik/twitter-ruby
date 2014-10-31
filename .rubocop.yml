@@ -13,6 +13,9 @@ Metrics/ParameterLists:
   Max: 4
   CountKeywordArgs: true
 
+Metrics/AbcSize:
+  Enabled: false
+
 Style/AccessModifierIndentation:
   EnforcedStyle: outdent
 
