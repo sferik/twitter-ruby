@@ -19,7 +19,7 @@ module Twitter
 
     # @return [Hash]
     def perform
-      @client.send(@request_method, @path, @options).body
+      perform_request.body
     end
 
     # @param klass [Class]
@@ -33,7 +33,9 @@ module Twitter
     # @param klass [Class]
     # @return [Twitter::Cursor]
     def perform_with_cursor(collection_name, klass = nil)
-      Twitter::Cursor.new(perform, collection_name.to_sym, klass, self)
+      response   = perform_request
+      rate_limit = Twitter::RateLimit.new(response.response_headers)
+      Twitter::Cursor.new(response.body, collection_name.to_sym, klass, self, rate_limit)
     end
 
     # @param klass [Class]
@@ -42,6 +44,12 @@ module Twitter
       perform.collect do |element|
         klass.new(element)
       end
+    end
+
+  private
+
+    def perform_request
+      @client.send(@request_method, @path, @options)
     end
   end
 end
