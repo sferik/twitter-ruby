@@ -1,5 +1,6 @@
 require 'cgi'
 require 'twitter/enumerable'
+require 'twitter/request'
 require 'twitter/utils'
 require 'uri'
 
@@ -49,7 +50,7 @@ module Twitter
 
     # @return [Hash]
     def fetch_next_page
-      response = @client.send(@request_method, @path, next_page).body
+      response = Twitter::Request.new(@client, @request_method, @path, next_page).perform
       self.attrs = response
     end
 
