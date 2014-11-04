@@ -1,8 +1,9 @@
 require 'twitter/cursor'
+require 'twitter/rate_limit'
 
 module Twitter
   class Request
-    attr_accessor :client, :request_method, :path, :options
+    attr_accessor :client, :rate_limit, :request_method, :path, :options
     alias_method :verb, :request_method
 
     # @param client [Twitter::Client]
@@ -19,7 +20,9 @@ module Twitter
 
     # @return [Hash]
     def perform
-      @client.send(@request_method, @path, @options).body
+      response = @client.send(@request_method, @path, @options)
+      @rate_limit = Twitter::RateLimit.new(response.response_headers)
+      response.body
     end
 
     # @param klass [Class]
