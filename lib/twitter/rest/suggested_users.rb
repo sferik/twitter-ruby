@@ -27,9 +27,9 @@ module Twitter
       def suggestions(*args)
         arguments = Twitter::Arguments.new(args)
         if arguments.last
-          perform_with_object(:get, "/1.1/users/suggestions/#{arguments.pop}.json", arguments.options, Twitter::Suggestion)
+          get_with_object("/1.1/users/suggestions/#{arguments.pop}.json", arguments.options, Twitter::Suggestion)
         else
-          perform_with_objects(:get, '/1.1/users/suggestions.json', arguments.options, Twitter::Suggestion)
+          get_with_objects('/1.1/users/suggestions.json', arguments.options, Twitter::Suggestion)
         end
       end
 
@@ -42,7 +42,7 @@ module Twitter
       # @param options [Hash] A customizable set of options.
       # @return [Array<Twitter::User>]
       def suggest_users(slug, options = {})
-        perform_with_objects(:get, "/1.1/users/suggestions/#{slug}/members.json", options, Twitter::User)
+        get_with_objects("/1.1/users/suggestions/#{slug}/members.json", options, Twitter::User)
       end
     end
   end

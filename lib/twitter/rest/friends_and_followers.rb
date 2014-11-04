@@ -63,7 +63,7 @@ module Twitter
       def friendships(*args)
         arguments = Twitter::Arguments.new(args)
         merge_users!(arguments.options, arguments)
-        perform_with_objects(:get, '/1.1/friendships/lookup.json', arguments.options, Twitter::User)
+        get_with_objects('/1.1/friendships/lookup.json', arguments.options, Twitter::User)
       end
 
       # Returns an array of numeric IDs for every user who has a pending request to follow the authenticating user
@@ -75,7 +75,7 @@ module Twitter
       # @return [Twitter::Cursor]
       # @param options [Hash] A customizable set of options.
       def friendships_incoming(options = {})
-        perform_with_cursor(:get, '/1.1/friendships/incoming.json', options, :ids)
+        get_with_cursor('/1.1/friendships/incoming.json', options, :ids)
       end
 
       # Returns an array of numeric IDs for every protected user for whom the authenticating user has a pending follow request
@@ -87,7 +87,7 @@ module Twitter
       # @return [Twitter::Cursor]
       # @param options [Hash] A customizable set of options.
       def friendships_outgoing(options = {})
-        perform_with_cursor(:get, '/1.1/friendships/outgoing.json', options, :ids)
+        get_with_cursor('/1.1/friendships/outgoing.json', options, :ids)
       end
 
       # Allows the authenticating user to follow the specified users, unless they are already followed
@@ -132,7 +132,7 @@ module Twitter
       def follow!(*args)
         arguments = Twitter::Arguments.new(args)
         pmap(arguments) do |user|
-          perform_with_object(:post, '/1.1/friendships/create.json', merge_user(arguments.options, user), Twitter::User)
+          post_with_object('/1.1/friendships/create.json', merge_user(arguments.options, user), Twitter::User)
         end.compact
       end
       alias_method :create_friendship!, :follow!
@@ -169,7 +169,7 @@ module Twitter
       # @option options [Boolean] :retweets Enable/disable retweets from the target user.
       def friendship_update(user, options = {})
         merge_user!(options, user)
-        perform_with_object(:post, '/1.1/friendships/update.json', options, Twitter::Relationship)
+        post_with_object('/1.1/friendships/update.json', options, Twitter::Relationship)
       end
 
       # Returns detailed information about the relationship between two users
@@ -187,7 +187,7 @@ module Twitter
         options[:source_id] = options.delete(:source_user_id) unless options[:source_user_id].nil?
         merge_user!(options, target, 'target')
         options[:target_id] = options.delete(:target_user_id) unless options[:target_user_id].nil?
-        perform_with_object(:get, '/1.1/friendships/show.json', options, Twitter::Relationship)
+        get_with_object('/1.1/friendships/show.json', options, Twitter::Relationship)
       end
       alias_method :friendship_show, :friendship
       alias_method :relationship, :friendship

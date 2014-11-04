@@ -60,7 +60,7 @@ module Twitter
         arguments = Twitter::Arguments.new(args)
         merge_list!(arguments.options, arguments.pop)
         merge_owner!(arguments.options, arguments.pop)
-        perform_with_objects(:get, '/1.1/lists/statuses.json', arguments.options, Twitter::Tweet)
+        get_with_objects('/1.1/lists/statuses.json', arguments.options, Twitter::Tweet)
       end
 
       # Removes the specified member from the list
@@ -81,7 +81,7 @@ module Twitter
       #   @param user_to_remove [Integer, String] The user id or screen name of the list member to remove.
       #   @param options [Hash] A customizable set of options.
       def remove_list_member(*args)
-        list_from_response_with_user(:post, '/1.1/lists/members/destroy.json', args)
+        list_from_response_with_user('/1.1/lists/members/destroy.json', args)
       end
       deprecate_alias :list_remove_member, :remove_list_member
 
@@ -121,7 +121,7 @@ module Twitter
       #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, URI, or object.
       #   @param options [Hash] A customizable set of options.
       def list_subscribers(*args)
-        cursor_from_response_with_list(:get, '/1.1/lists/subscribers.json', args)
+        cursor_from_response_with_list('/1.1/lists/subscribers.json', args)
       end
 
       # Make the authenticated user follow the specified list
@@ -204,7 +204,7 @@ module Twitter
       #   @param users [Enumerable<Integer, String, Twitter::User>] A collection of Twitter user IDs, screen names, or objects.
       #   @param options [Hash] A customizable set of options.
       def add_list_members(*args)
-        list_from_response_with_users(:post, '/1.1/lists/members/create_all.json', args)
+        list_from_response_with_users('/1.1/lists/members/create_all.json', args)
       end
       deprecate_alias :list_add_members, :add_list_members
 
@@ -245,7 +245,7 @@ module Twitter
       #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, URI, or object.
       #   @param options [Hash] A customizable set of options.
       def list_members(*args)
-        cursor_from_response_with_list(:get, '/1.1/lists/members.json', args)
+        cursor_from_response_with_list('/1.1/lists/members.json', args)
       end
 
       # Add a member to a list
@@ -267,7 +267,7 @@ module Twitter
       #   @param user_to_add [Integer, String] The user id or screen name to add to the list.
       #   @param options [Hash] A customizable set of options.
       def add_list_member(*args)
-        list_from_response_with_user(:post, '/1.1/lists/members/create.json', args)
+        list_from_response_with_user('/1.1/lists/members/create.json', args)
       end
       deprecate_alias :list_add_member, :add_list_member
 
@@ -328,7 +328,7 @@ module Twitter
       # @option options [String] :mode ('public') Whether your list is public or private. Values can be 'public' or 'private'.
       # @option options [String] :description The description to give the list.
       def create_list(name, options = {})
-        perform_with_object(:post, '/1.1/lists/create.json', options.merge(:name => name), Twitter::List)
+        post_with_object('/1.1/lists/create.json', options.merge(:name => name), Twitter::List)
       end
       deprecate_alias :list_create, :create_list
 
@@ -386,7 +386,7 @@ module Twitter
       #   @param users [Enumerable<Integer, String, Twitter::User>] A collection of Twitter user IDs, screen names, or objects.
       #   @param options [Hash] A customizable set of options.
       def remove_list_members(*args)
-        list_from_response_with_users(:post, '/1.1/lists/members/destroy_all.json', args)
+        list_from_response_with_users('/1.1/lists/members/destroy_all.json', args)
       end
       deprecate_alias :list_remove_members, :remove_list_members
 
@@ -420,14 +420,14 @@ module Twitter
         arguments = Twitter::Arguments.new(args)
         merge_list!(arguments.options, arguments.pop)
         merge_owner!(arguments.options, arguments.pop)
-        perform_with_object(request_method, path, arguments.options, Twitter::List)
+        request_with_object(request_method, path, arguments.options, Twitter::List)
       end
 
-      def cursor_from_response_with_list(request_method, path, args)
+      def cursor_from_response_with_list(path, args)
         arguments = Twitter::Arguments.new(args)
         merge_list!(arguments.options, arguments.pop)
         merge_owner!(arguments.options, arguments.pop)
-        perform_with_cursor(request_method, path, arguments.options, :users, Twitter::User)
+        get_with_cursor(path, arguments.options, :users, Twitter::User)
       end
 
       def list_user?(request_method, path, args)
@@ -441,22 +441,22 @@ module Twitter
         false
       end
 
-      def list_from_response_with_user(request_method, path, args)
+      def list_from_response_with_user(path, args)
         arguments = Twitter::Arguments.new(args)
         merge_user!(arguments.options, arguments.pop)
         merge_list!(arguments.options, arguments.pop)
         merge_owner!(arguments.options, arguments.pop)
-        perform_with_object(request_method, path, arguments.options, Twitter::List)
+        post_with_object(path, arguments.options, Twitter::List)
       end
 
-      def list_from_response_with_users(request_method, path, args)
+      def list_from_response_with_users(path, args)
         arguments = args.dup
         options = arguments.last.is_a?(::Hash) ? arguments.pop : {}
         members = arguments.pop
         merge_list!(options, arguments.pop)
         merge_owner!(options, arguments.pop)
         pmap(members.each_slice(MAX_USERS_PER_REQUEST)) do |users|
-          perform_with_object(request_method, path, merge_users(options, users), Twitter::List)
+          post_with_object(path, merge_users(options, users), Twitter::List)
         end.last
       end
 
