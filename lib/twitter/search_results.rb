@@ -1,6 +1,6 @@
 require 'cgi'
 require 'twitter/enumerable'
-require 'twitter/request'
+require 'twitter/rest/request'
 require 'twitter/utils'
 require 'uri'
 
@@ -17,7 +17,7 @@ module Twitter
     # Initializes a new SearchResults object
     #
     # @param attrs [Hash]
-    # @param request [Twitter::Request]
+    # @param request [Twitter::REST::Request]
     # @return [Twitter::SearchResults]
     def initialize(attrs, request)
       @client = request.client
@@ -50,7 +50,7 @@ module Twitter
 
     # @return [Hash]
     def fetch_next_page
-      response = Twitter::Request.new(@client, @request_method, @path, next_page).perform
+      response = Twitter::REST::Request.new(@client, @request_method, @path, next_page).perform
       self.attrs = response
     end
 

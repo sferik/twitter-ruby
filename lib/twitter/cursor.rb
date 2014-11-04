@@ -1,5 +1,5 @@
 require 'twitter/enumerable'
-require 'twitter/request'
+require 'twitter/rest/request'
 require 'twitter/utils'
 
 module Twitter
@@ -17,7 +17,7 @@ module Twitter
     # @param attrs [Hash]
     # @param key [String, Symbol] The key to fetch the data from the response
     # @param klass [Class] The class to instantiate objects in the response
-    # @param request [Twitter::Request]
+    # @param request [Twitter::REST::Request]
     # @return [Twitter::Cursor]
     def initialize(attrs, key, klass, request)
       @key = key.to_sym
@@ -45,7 +45,7 @@ module Twitter
 
     # @return [Hash]
     def fetch_next_page
-      response = Twitter::Request.new(@client, @request_method, @path, @options.merge(:cursor => next_cursor)).perform
+      response = Twitter::REST::Request.new(@client, @request_method, @path, @options.merge(:cursor => next_cursor)).perform
       self.attrs = response
     end
 

@@ -1,6 +1,5 @@
 require 'twitter/configuration'
 require 'twitter/language'
-require 'twitter/request'
 require 'twitter/rest/utils'
 
 module Twitter

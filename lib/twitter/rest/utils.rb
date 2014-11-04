@@ -1,6 +1,6 @@
 require 'addressable/uri'
 require 'twitter/arguments'
-require 'twitter/request'
+require 'twitter/rest/request'
 require 'twitter/user'
 require 'twitter/utils'
 
@@ -49,7 +49,7 @@ module Twitter
       # @param options [Hash]
       # @param klass [Class]
       def request_with_object(request_method, path, options, klass)
-        request = Twitter::Request.new(self, request_method, path, options)
+        request = Twitter::REST::Request.new(self, request_method, path, options)
         request.perform_with_object(klass)
       end
 
@@ -72,7 +72,7 @@ module Twitter
       # @param options [Hash]
       # @param klass [Class]
       def request_with_objects(request_method, path, options, klass)
-        request = Twitter::Request.new(self, request_method, path, options)
+        request = Twitter::REST::Request.new(self, request_method, path, options)
         request.perform_with_objects(klass)
       end
 
@@ -82,7 +82,7 @@ module Twitter
       # @param klass [Class]
       def get_with_cursor(path, options, collection_name, klass = nil)
         merge_default_cursor!(options)
-        request = Twitter::Request.new(self, :get, path, options)
+        request = Twitter::REST::Request.new(self, :get, path, options)
         request.perform_with_cursor(collection_name.to_sym, klass)
       end
 
@@ -93,7 +93,7 @@ module Twitter
       # @param klass [Class]
       def request_with_cursor(request_method, path, options, collection_name, klass = nil) # rubocop:disable ParameterLists
         merge_default_cursor!(options)
-        request = Twitter::Request.new(self, request_method, path, options)
+        request = Twitter::REST::Request.new(self, request_method, path, options)
         request.perform_with_cursor(collection_name.to_sym, klass)
       end
 

@@ -1,4 +1,4 @@
-require 'twitter/request'
+require 'twitter/rest/request'
 require 'twitter/search_results'
 
 module Twitter
@@ -27,7 +27,7 @@ module Twitter
       # @return [Twitter::SearchResults] Return tweets that match a specified query with search metadata
       def search(q, options = {})
         options[:count] ||= MAX_TWEETS_PER_REQUEST
-        request = Twitter::Request.new(self, :get, '/1.1/search/tweets.json', options.merge(:q => q))
+        request = Twitter::REST::Request.new(self, :get, '/1.1/search/tweets.json', options.merge(:q => q))
         response = get(request.path, request.options).body
         Twitter::SearchResults.new(response, request)
       end

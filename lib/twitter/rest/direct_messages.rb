@@ -1,6 +1,5 @@
 require 'twitter/arguments'
 require 'twitter/direct_message'
-require 'twitter/request'
 require 'twitter/rest/utils'
 require 'twitter/user'
 require 'twitter/utils'

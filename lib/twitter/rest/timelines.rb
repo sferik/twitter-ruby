@@ -1,4 +1,3 @@
-require 'twitter/request'
 require 'twitter/rest/utils'
 require 'twitter/tweet'
 require 'twitter/user'

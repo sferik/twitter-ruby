@@ -1,6 +1,5 @@
 require 'twitter/geo_results'
 require 'twitter/place'
-require 'twitter/request'
 require 'twitter/rest/utils'
 
 module Twitter

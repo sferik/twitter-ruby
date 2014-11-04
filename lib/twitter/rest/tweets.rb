@@ -1,7 +1,6 @@
 require 'twitter/arguments'
 require 'twitter/error'
 require 'twitter/oembed'
-require 'twitter/request'
 require 'twitter/rest/utils'
 require 'twitter/tweet'
 require 'twitter/utils'

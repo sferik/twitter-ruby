@@ -1,4 +1,3 @@
-require 'twitter/request'
 require 'twitter/rest/utils'
 require 'twitter/rest/response/parse_error_json'
 require 'twitter/token'

@@ -58,13 +58,13 @@ digraph classes {
 	Twitter__Place [label="Twitter::Place"]
 	Twitter__ProfileBanner [label="Twitter::ProfileBanner"]
 	Twitter__REST__Client [label="Twitter::REST::Client"]
+	Twitter__REST__Request [label="Twitter::REST::Request"]
 	Twitter__REST__Request__MultipartWithFile [label="Twitter::REST::Request::MultipartWithFile"]
 	Twitter__REST__Response__ParseErrorJson [label="Twitter::REST::Response::ParseErrorJson"]
 	Twitter__REST__Response__ParseJson [label="Twitter::REST::Response::ParseJson"]
 	Twitter__REST__Response__RaiseError [label="Twitter::REST::Response::RaiseError"]
 	Twitter__RateLimit [label="Twitter::RateLimit"]
 	Twitter__Relationship [label="Twitter::Relationship"]
-	Twitter__Request [label="Twitter::Request"]
 	Twitter__SavedSearch [label="Twitter::SavedSearch"]
 	Twitter__SearchResults [label="Twitter::SearchResults"]
 	Twitter__Settings [label="Twitter::Settings"]
@@ -142,13 +142,13 @@ digraph classes {
 	Twitter__Place -> Twitter__Identity
 	Twitter__ProfileBanner -> Twitter__Base
 	Twitter__REST__Client -> Twitter__Client
+	Twitter__REST__Request -> Object
 	Twitter__REST__Request__MultipartWithFile -> Faraday__Middleware
 	Twitter__REST__Response__ParseErrorJson -> Twitter__REST__Response__ParseJson
 	Twitter__REST__Response__ParseJson -> Faraday__Response__Middleware
 	Twitter__REST__Response__RaiseError -> Faraday__Response__Middleware
 	Twitter__RateLimit -> Twitter__Base
 	Twitter__Relationship -> Twitter__Base
-	Twitter__Request -> Object
 	Twitter__SavedSearch -> Twitter__Identity
 	Twitter__SearchResults -> Object
 	Twitter__Settings -> Twitter__Base

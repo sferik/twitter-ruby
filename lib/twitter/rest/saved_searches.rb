@@ -1,5 +1,4 @@
 require 'twitter/arguments'
-require 'twitter/request'
 require 'twitter/rest/utils'
 require 'twitter/saved_search'
 require 'twitter/utils'

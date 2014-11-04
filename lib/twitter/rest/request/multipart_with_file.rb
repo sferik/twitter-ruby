@@ -2,7 +2,7 @@ require 'faraday'
 
 module Twitter
   module REST
-    module Request
+    class Request
       class MultipartWithFile < Faraday::Middleware
         CONTENT_TYPE = 'Content-Type'
         GIF_REGEX = /\.gif$/i

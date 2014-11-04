@@ -1,7 +1,6 @@
 require 'twitter/arguments'
 require 'twitter/error'
 require 'twitter/profile_banner'
-require 'twitter/request'
 require 'twitter/rest/utils'
 require 'twitter/settings'
 require 'twitter/user'

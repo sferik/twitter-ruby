@@ -1,7 +1,6 @@
 require 'twitter/arguments'
 require 'twitter/cursor'
 require 'twitter/relationship'
-require 'twitter/request'
 require 'twitter/rest/utils'
 require 'twitter/user'
 require 'twitter/utils'
