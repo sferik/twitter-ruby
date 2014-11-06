@@ -49,7 +49,7 @@ module Twitter
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [String]
       def tos(options = {})
-        perform_get('1.1/help/tos.json', options)[:tos]
+        perform_get('/1.1/help/tos.json', options)[:tos]
       end
     end
   end

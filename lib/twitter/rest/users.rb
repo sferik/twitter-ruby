@@ -357,7 +357,7 @@ module Twitter
       # @option options [Integer] :offset_left The number of pixels by which to offset the uploaded image from the left. Use with height, width, and offset_top to select the desired region of the image to use.
       # @option options [Integer] :offset_top The number of pixels by which to offset the uploaded image from the top. Use with height, width, and offset_left to select the desired region of the image to use.
       def update_profile_banner(banner, options = {})
-        perform_post('1.1/account/update_profile_banner.json', options.merge(:banner => banner))
+        perform_post('/1.1/account/update_profile_banner.json', options.merge(:banner => banner))
         true
       end
 
