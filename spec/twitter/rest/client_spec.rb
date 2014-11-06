@@ -165,25 +165,4 @@ describe Twitter::REST::Client do
       expect(c1.object_id).to eq(c2.object_id)
     end
   end
-
-  describe '#bearer_auth_header' do
-    it 'creates the correct auth headers with supplied bearer_token' do
-      client = Twitter::REST::Client.new(:bearer_token => 'BT')
-      authorization = client.send(:bearer_auth_header)
-      expect(authorization).to eq('Bearer BT')
-    end
-    it 'creates the correct auth headers with supplied bearer token' do
-      token = Twitter::Token.new(:token_type => 'bearer', :access_token => 'BT')
-      client = Twitter::REST::Client.new(:bearer_token => token)
-      authorization = client.send(:bearer_auth_header)
-      expect(authorization).to eq('Bearer BT')
-    end
-  end
-
-  describe '#bearer_token_credentials_auth_header' do
-    it 'creates the correct auth header with supplied consumer_key and consumer_secret' do
-      authorization = @client.send(:bearer_token_credentials_auth_header)
-      expect(authorization).to eq('Basic Q0s6Q1M=')
-    end
-  end
 end

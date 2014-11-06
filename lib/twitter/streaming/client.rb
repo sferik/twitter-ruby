@@ -1,6 +1,7 @@
 require 'http/request'
 require 'twitter/arguments'
 require 'twitter/client'
+require 'twitter/headers'
 require 'twitter/streaming/connection'
 require 'twitter/streaming/response'
 require 'twitter/streaming/message_parser'
@@ -106,8 +107,9 @@ module Twitter
 
       def request(method, uri, params)
         before_request.call
-        headers  = default_headers.merge(:authorization => oauth_auth_header(method, uri, params).to_s)
-        request  = HTTP::Request.new(method, uri + '?' + to_url_params(params), headers)
+        authorization = Twitter::Headers.new(self, method, uri, params).oauth_auth_header.to_s
+        headers = default_headers.merge(:authorization => authorization)
+        request = HTTP::Request.new(method, uri + '?' + to_url_params(params), headers)
         response = Streaming::Response.new do |data|
           if item = Streaming::MessageParser.parse(data) # rubocop:disable AssignmentInCondition, IfUnlessModifier
             yield(item)

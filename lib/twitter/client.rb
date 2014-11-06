@@ -1,5 +1,3 @@
-require 'addressable/uri'
-require 'simple_oauth'
 require 'twitter/error'
 require 'twitter/utils'
 require 'twitter/version'
@@ -50,11 +48,6 @@ module Twitter
     # @return [Boolean]
     def credentials?
       credentials.values.all?
-    end
-
-    def oauth_auth_header(method, uri, options = {})
-      uri = Addressable::URI.parse(uri)
-      SimpleOAuth::Header.new(method, uri, options, credentials)
     end
 
   private

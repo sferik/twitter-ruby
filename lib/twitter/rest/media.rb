@@ -1,4 +1,5 @@
 require 'twitter/error'
+require 'twitter/headers'
 require 'twitter/rest/utils'
 
 module Twitter
@@ -20,7 +21,7 @@ module Twitter
         path = '/1.1/media/upload.json'
         conn = connection.dup
         conn.url_prefix = url_prefix
-        headers = request_headers(:post, url_prefix + path, options)
+        headers = Twitter::Headers.new(self, :post, url_prefix + path, options).request_headers
         options.merge!(:media => media)
         conn.post(path, options) { |request| request.headers.update(headers) }.env.body[:media_id]
       end

@@ -1,15 +1,15 @@
 require 'helper'
 
-describe Twitter::Client do
+describe Twitter::Headers do
 
   before do
     @client = Twitter::REST::Client.new(:consumer_key => 'CK', :consumer_secret => 'CS', :access_token => 'AT', :access_token_secret => 'AS')
+    @headers = Twitter::Headers.new(@client, :get, Twitter::REST::Request::URL_PREFIX + '/path')
   end
 
   describe '#oauth_auth_header' do
     it 'creates the correct auth headers' do
-      uri = Twitter::REST::Request::URL_PREFIX + '/path'
-      authorization = @client.send(:oauth_auth_header, :get, uri)
+      authorization = @headers.oauth_auth_header
       expect(authorization.options[:signature_method]).to eq('HMAC-SHA1')
       expect(authorization.options[:version]).to eq('1.0')
       expect(authorization.options[:consumer_key]).to eq('CK')
@@ -34,6 +34,29 @@ describe Twitter::Client do
       stub_post('/1.1/statuses/update_with_media.json').to_return(:body => fixture('status.json'), :headers => headers)
       @client.update_with_media('Just a test', fixture('pbjt.gif'))
       expect(a_post('/1.1/statuses/update_with_media.json').with(:headers => {:authorization => headers[:authorization]})).to have_been_made
+    end
+  end
+
+  describe '#bearer_auth_header' do
+    it 'creates the correct auth headers with supplied bearer token' do
+      client = Twitter::REST::Client.new(:bearer_token => 'BT')
+      headers = Twitter::Headers.new(client, :get, Twitter::REST::Request::URL_PREFIX + '/path')
+      authorization = headers.send(:bearer_auth_header)
+      expect(authorization).to eq('Bearer BT')
+    end
+    it 'creates the correct auth headers with supplied Twitter::Token' do
+      token = Twitter::Token.new(:token_type => 'bearer', :access_token => 'BT')
+      client = Twitter::REST::Client.new(:bearer_token => token)
+      headers = Twitter::Headers.new(client, :get, Twitter::REST::Request::URL_PREFIX + '/path')
+      authorization = headers.send(:bearer_auth_header)
+      expect(authorization).to eq('Bearer BT')
+    end
+  end
+
+  describe '#bearer_token_credentials_auth_header' do
+    it 'creates the correct auth header with supplied consumer_key and consumer_secret' do
+      authorization = @headers.send(:bearer_token_credentials_auth_header)
+      expect(authorization).to eq('Basic Q0s6Q1M=')
     end
   end
 end

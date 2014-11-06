@@ -1,3 +1,4 @@
+require 'twitter/headers'
 require 'twitter/rest/utils'
 require 'twitter/rest/response/parse_error_json'
 require 'twitter/token'
@@ -55,7 +56,7 @@ module Twitter
         conn = connection.dup
         conn.builder.swap(4, Twitter::REST::Response::ParseErrorJson)
         response = conn.post('/oauth/request_token?x_auth_mode=reverse_auth') do |request|
-          request.headers[:authorization] = oauth_auth_header(:post, 'https://api.twitter.com/oauth/request_token', :x_auth_mode => 'reverse_auth').to_s
+          request.headers[:authorization] = Twitter::Headers.new(self, :post, 'https://api.twitter.com/oauth/request_token', :x_auth_mode => 'reverse_auth').oauth_auth_header.to_s
         end
         response.body
       end

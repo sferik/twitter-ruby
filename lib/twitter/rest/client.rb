@@ -1,4 +1,3 @@
-require 'base64'
 require 'faraday'
 require 'faraday/request/multipart'
 require 'twitter/client'
@@ -94,48 +93,6 @@ module Twitter
       # @return [Faraday::Connection]
       def connection
         @connection ||= Faraday.new(URL_PREFIX, connection_options)
-      end
-
-      def request_headers(method, url, options = {}, signature_options = options)
-        bearer_token_request = options.delete(:bearer_token_request)
-        headers = {}
-        if bearer_token_request
-          headers[:accept]        = '*/*'
-          headers[:authorization] = bearer_token_credentials_auth_header
-          headers[:content_type]  = 'application/x-www-form-urlencoded; charset=UTF-8'
-        else
-          headers[:authorization] = auth_header(method, url, options, signature_options)
-        end
-        headers
-      end
-
-    private
-
-      def auth_header(method, url, options = {}, signature_options = options)
-        if !user_token?
-          @bearer_token = token unless bearer_token?
-          bearer_auth_header
-        else
-          oauth_auth_header(method, url, signature_options).to_s
-        end
-      end
-
-      # Generates authentication header for a bearer token request
-      #
-      # @return [String]
-      def bearer_token_credentials_auth_header
-        basic_auth_token = strict_encode64("#{@consumer_key}:#{@consumer_secret}")
-        "Basic #{basic_auth_token}"
-      end
-
-      def bearer_auth_header
-        token = bearer_token.is_a?(Twitter::Token) && bearer_token.bearer? ? bearer_token.access_token : bearer_token
-        "Bearer #{token}"
-      end
-
-      # Base64.strict_encode64 is not available on Ruby 1.8.7
-      def strict_encode64(str)
-        Base64.encode64(str).gsub("\n", '')
       end
     end
   end
