@@ -31,7 +31,7 @@ module Twitter
 
     # @return [String]
     def user_agent
-      @user_agent ||= "Twitter Ruby Gem #{Twitter::Version}"
+      @user_agent ||= "TwitterRubyGem/#{Twitter::Version}"
     end
 
     # @return [Hash]
