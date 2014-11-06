@@ -19,10 +19,10 @@ module Twitter
     def request_headers
       bearer_token_request = @options.delete(:bearer_token_request)
       headers = {}
+      headers[:user_agent] = @client.user_agent
       if bearer_token_request
         headers[:accept]        = '*/*'
         headers[:authorization] = bearer_token_credentials_auth_header
-        headers[:content_type]  = 'application/x-www-form-urlencoded; charset=UTF-8'
       else
         headers[:authorization] = auth_header
       end

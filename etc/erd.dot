@@ -5,9 +5,8 @@ digraph classes {
 	ArgumentError [label="ArgumentError"]
 	Array [label="Array"]
 	Exception [label="Exception"]
-	Faraday__Middleware [label="Faraday::Middleware"]
-	Faraday__Response__Middleware [label="Faraday::Response::Middleware"]
 	Naught__BasicObject [label="Naught::BasicObject"]
+	Object [label="Object"]
 	StandardError [label="StandardError"]
 	Twitter__Arguments [label="Twitter::Arguments"]
 	Twitter__Base [label="Twitter::Base"]
@@ -34,7 +33,6 @@ digraph classes {
 	Twitter__Error__InternalServerError [label="Twitter::Error::InternalServerError"]
 	Twitter__Error__NotAcceptable [label="Twitter::Error::NotAcceptable"]
 	Twitter__Error__NotFound [label="Twitter::Error::NotFound"]
-	Twitter__Error__RequestTimeout [label="Twitter::Error::RequestTimeout"]
 	Twitter__Error__ServerError [label="Twitter::Error::ServerError"]
 	Twitter__Error__ServiceUnavailable [label="Twitter::Error::ServiceUnavailable"]
 	Twitter__Error__TooManyRequests [label="Twitter::Error::TooManyRequests"]
@@ -63,10 +61,6 @@ digraph classes {
 	Twitter__ProfileBanner [label="Twitter::ProfileBanner"]
 	Twitter__REST__Client [label="Twitter::REST::Client"]
 	Twitter__REST__Request [label="Twitter::REST::Request"]
-	Twitter__REST__Request__MultipartWithFile [label="Twitter::REST::Request::MultipartWithFile"]
-	Twitter__REST__Response__ParseErrorJson [label="Twitter::REST::Response::ParseErrorJson"]
-	Twitter__REST__Response__ParseJson [label="Twitter::REST::Response::ParseJson"]
-	Twitter__REST__Response__RaiseError [label="Twitter::REST::Response::RaiseError"]
 	Twitter__RateLimit [label="Twitter::RateLimit"]
 	Twitter__Relationship [label="Twitter::Relationship"]
 	Twitter__SavedSearch [label="Twitter::SavedSearch"]
@@ -93,9 +87,8 @@ digraph classes {
 	ArgumentError -> StandardError
 	Array -> Object
 	Exception -> Object
-	Faraday__Middleware -> Object
-	Faraday__Response__Middleware -> Faraday__Middleware
-	Naught__BasicObject -> Object
+	Naught__BasicObject -> BasicObject
+	Object -> BasicObject
 	StandardError -> Exception
 	Twitter__Arguments -> Array
 	Twitter__Base -> Object
@@ -122,7 +115,6 @@ digraph classes {
 	Twitter__Error__InternalServerError -> Twitter__Error__ServerError
 	Twitter__Error__NotAcceptable -> Twitter__Error__ClientError
 	Twitter__Error__NotFound -> Twitter__Error__ClientError
-	Twitter__Error__RequestTimeout -> Twitter__Error__ClientError
 	Twitter__Error__ServerError -> Twitter__Error
 	Twitter__Error__ServiceUnavailable -> Twitter__Error__ServerError
 	Twitter__Error__TooManyRequests -> Twitter__Error__ClientError
@@ -151,10 +143,6 @@ digraph classes {
 	Twitter__ProfileBanner -> Twitter__Base
 	Twitter__REST__Client -> Twitter__Client
 	Twitter__REST__Request -> Object
-	Twitter__REST__Request__MultipartWithFile -> Faraday__Middleware
-	Twitter__REST__Response__ParseErrorJson -> Twitter__REST__Response__ParseJson
-	Twitter__REST__Response__ParseJson -> Faraday__Response__Middleware
-	Twitter__REST__Response__RaiseError -> Faraday__Response__Middleware
 	Twitter__RateLimit -> Twitter__Base
 	Twitter__Relationship -> Twitter__Base
 	Twitter__SavedSearch -> Twitter__Identity

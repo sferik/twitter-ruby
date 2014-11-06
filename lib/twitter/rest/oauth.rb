@@ -1,12 +1,13 @@
 require 'twitter/headers'
 require 'twitter/rest/utils'
-require 'twitter/rest/response/parse_error_json'
 require 'twitter/token'
+require 'twitter/utils'
 
 module Twitter
   module REST
     module OAuth
       include Twitter::REST::Utils
+      include Twitter::Utils
 
       # Allows a registered application to obtain an OAuth 2 Bearer Token, which can be used to make API requests
       # on an application's own behalf, without a user context.
@@ -26,7 +27,9 @@ module Twitter
       def token(options = {})
         options[:bearer_token_request] = true
         options[:grant_type] ||= 'client_credentials'
-        perform_post_with_object('/oauth2/token', options, Twitter::Token)
+        headers = Twitter::Headers.new(self, :post, 'https://api.twitter.com/oauth2/token', options).request_headers
+        response = HTTP.with(headers).post('https://api.twitter.com/oauth2/token', :form => options)
+        Twitter::Token.new(symbolize_keys!(response.parse))
       end
       alias_method :bearer_token, :token
 
@@ -53,12 +56,10 @@ module Twitter
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [String] The token string.
       def reverse_token
-        conn = connection.dup
-        conn.builder.swap(4, Twitter::REST::Response::ParseErrorJson)
-        response = conn.post('/oauth/request_token?x_auth_mode=reverse_auth') do |request|
-          request.headers[:authorization] = Twitter::Headers.new(self, :post, 'https://api.twitter.com/oauth/request_token', :x_auth_mode => 'reverse_auth').oauth_auth_header.to_s
-        end
-        response.body
+        options = {:x_auth_mode => 'reverse_auth'}
+        url = 'https://api.twitter.com/oauth/request_token'
+        auth_header = Twitter::Headers.new(self, :post, url, options).oauth_auth_header.to_s
+        HTTP.with(:authorization => auth_header).post(url, :params => options).to_s
       end
     end
   end
