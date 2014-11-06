@@ -17,11 +17,11 @@ module Twitter
       # @param options [Hash] A customizable set of options.
       def upload(media, options = {})
         fail(Twitter::Error::UnacceptableIO.new) unless media.respond_to?(:to_io)
-        url_prefix = 'https://upload.twitter.com'
+        base_url = 'https://upload.twitter.com'
         path = '/1.1/media/upload.json'
         conn = connection.dup
-        conn.url_prefix = url_prefix
-        headers = Twitter::Headers.new(self, :post, url_prefix + path, options).request_headers
+        conn.url_prefix = base_url
+        headers = Twitter::Headers.new(self, :post, base_url + path, options).request_headers
         options.merge!(:media => media)
         conn.post(path, options) { |request| request.headers.update(headers) }.env.body[:media_id]
       end

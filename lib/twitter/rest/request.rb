@@ -1,3 +1,4 @@
+require 'addressable/uri'
 require 'faraday'
 require 'json'
 require 'timeout'
@@ -8,9 +9,9 @@ require 'twitter/rate_limit'
 module Twitter
   module REST
     class Request
-      attr_accessor :client, :headers, :rate_limit, :request_method, :path, :options
+      attr_accessor :client, :headers, :options, :rate_limit, :request_method,
+                    :path, :uri
       alias_method :verb, :request_method
-      URL_PREFIX = 'https://api.twitter.com'
 
       # @param client [Twitter::Client]
       # @param request_method [String, Symbol]
@@ -21,12 +22,13 @@ module Twitter
         @client = client
         @request_method = request_method.to_sym
         @path = path
+        @uri = Addressable::URI.parse(client.connection.url_prefix + path)
         @options = options
       end
 
       # @return [Array, Hash]
       def perform
-        @headers = Twitter::Headers.new(@client, @request_method, URL_PREFIX + @path, @options).request_headers
+        @headers = Twitter::Headers.new(@client, @request_method, @uri.to_s, @options).request_headers
         begin
           response = @client.connection.send(@request_method, @path, @options) { |request| request.headers.update(@headers) }.env
         rescue Faraday::Error::TimeoutError, Timeout::Error => error

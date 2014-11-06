@@ -12,7 +12,7 @@ module Twitter
   module REST
     class Client < Twitter::Client
       include Twitter::REST::API
-      URL_PREFIX = 'https://api.twitter.com'
+      BASE_URL = 'https://api.twitter.com'
       attr_accessor :bearer_token
 
       # @param connection_options [Hash]
@@ -92,7 +92,7 @@ module Twitter
       #
       # @return [Faraday::Connection]
       def connection
-        @connection ||= Faraday.new(URL_PREFIX, connection_options)
+        @connection ||= Faraday.new(BASE_URL, connection_options)
       end
     end
   end
