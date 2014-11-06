@@ -1,5 +1,6 @@
 require 'addressable/uri'
 require 'twitter/arguments'
+require 'twitter/cursor'
 require 'twitter/rest/request'
 require 'twitter/user'
 require 'twitter/utils'
@@ -32,69 +33,79 @@ module Twitter
 
       # @param path [String]
       # @param options [Hash]
-      # @param klass [Class]
-      def get_with_object(path, options, klass)
-        request_with_object(:get, path, options, klass)
+      def perform_get(path, options = {})
+        perform_request(:get, path, options)
       end
 
       # @param path [String]
       # @param options [Hash]
       # @param klass [Class]
-      def post_with_object(path, options, klass)
-        request_with_object(:post, path, options, klass)
+      def perform_post(path, options = {})
+        perform_request(:post, path, options)
+      end
+
+      # @param request_method [Symbol]
+      # @param path [String]
+      # @param options [Hash]
+      def perform_request(request_method, path, options = {})
+        Twitter::REST::Request.new(self, request_method, path, options).perform
+      end
+
+      # @param path [String]
+      # @param options [Hash]
+      # @param klass [Class]
+      def perform_get_with_object(path, options, klass)
+        perform_request_with_object(:get, path, options, klass)
+      end
+
+      # @param path [String]
+      # @param options [Hash]
+      # @param klass [Class]
+      def perform_post_with_object(path, options, klass)
+        perform_request_with_object(:post, path, options, klass)
       end
 
       # @param request_method [Symbol]
       # @param path [String]
       # @param options [Hash]
       # @param klass [Class]
-      def request_with_object(request_method, path, options, klass)
-        request = Twitter::REST::Request.new(self, request_method, path, options)
-        request.perform_with_object(klass)
+      def perform_request_with_object(request_method, path, options, klass)
+        response = perform_request(request_method, path, options)
+        klass.new(response)
       end
 
       # @param path [String]
       # @param options [Hash]
       # @param klass [Class]
-      def get_with_objects(path, options, klass)
-        request_with_objects(:get, path, options, klass)
+      def perform_get_with_objects(path, options, klass)
+        perform_request_with_objects(:get, path, options, klass)
       end
 
       # @param path [String]
       # @param options [Hash]
       # @param klass [Class]
-      def post_with_objects(path, options, klass)
-        request_with_objects(:post, path, options, klass)
+      def perform_post_with_objects(path, options, klass)
+        perform_request_with_objects(:post, path, options, klass)
       end
 
       # @param request_method [Symbol]
       # @param path [String]
       # @param options [Hash]
       # @param klass [Class]
-      def request_with_objects(request_method, path, options, klass)
-        request = Twitter::REST::Request.new(self, request_method, path, options)
-        request.perform_with_objects(klass)
+      def perform_request_with_objects(request_method, path, options, klass)
+        perform_request(request_method, path, options).collect do |element|
+          klass.new(element)
+        end
       end
 
       # @param path [String]
       # @param options [Hash]
       # @collection_name [Symbol]
       # @param klass [Class]
-      def get_with_cursor(path, options, collection_name, klass = nil)
+      def perform_get_with_cursor(path, options, collection_name, klass = nil)
         merge_default_cursor!(options)
         request = Twitter::REST::Request.new(self, :get, path, options)
-        request.perform_with_cursor(collection_name.to_sym, klass)
-      end
-
-      # @param request_method [Symbol]
-      # @param path [String]
-      # @param options [Hash]
-      # @collection_name [Symbol]
-      # @param klass [Class]
-      def request_with_cursor(request_method, path, options, collection_name, klass = nil) # rubocop:disable ParameterLists
-        merge_default_cursor!(options)
-        request = Twitter::REST::Request.new(self, request_method, path, options)
-        request.perform_with_cursor(collection_name.to_sym, klass)
+        Twitter::Cursor.new(collection_name.to_sym, klass, request)
       end
 
       # @param request_method [Symbol]
@@ -104,7 +115,7 @@ module Twitter
       def parallel_users_from_response(request_method, path, args)
         arguments = Twitter::Arguments.new(args)
         pmap(arguments) do |user|
-          request_with_object(request_method, path, merge_user(arguments.options, user), Twitter::User)
+          perform_request_with_object(request_method, path, merge_user(arguments.options, user), Twitter::User)
         end
       end
 
@@ -115,7 +126,7 @@ module Twitter
       def users_from_response(request_method, path, args)
         arguments = Twitter::Arguments.new(args)
         merge_user!(arguments.options, arguments.pop || user_id) unless arguments.options[:user_id] || arguments.options[:screen_name]
-        request_with_objects(request_method, path, arguments.options, Twitter::User)
+        perform_request_with_objects(request_method, path, arguments.options, Twitter::User)
       end
 
       # @param klass [Class]
@@ -126,7 +137,7 @@ module Twitter
       def objects_from_response_with_user(klass, request_method, path, args)
         arguments = Twitter::Arguments.new(args)
         merge_user!(arguments.options, arguments.pop)
-        request_with_objects(request_method, path, arguments.options, klass)
+        perform_request_with_objects(request_method, path, arguments.options, klass)
       end
 
       # @param klass [Class]
@@ -137,20 +148,19 @@ module Twitter
       def parallel_objects_from_response(klass, request_method, path, args)
         arguments = Twitter::Arguments.new(args)
         pmap(arguments) do |object|
-          request_with_object(request_method, path, arguments.options.merge(:id => extract_id(object)), klass)
+          perform_request_with_object(request_method, path, arguments.options.merge(:id => extract_id(object)), klass)
         end
       end
 
       # @param collection_name [Symbol]
       # @param klass [Class]
-      # @param request_method [Symbol]
       # @param path [String]
       # @param args [Array]
       # @return [Twitter::Cursor]
-      def cursor_from_response_with_user(collection_name, klass, request_method, path, args) # rubocop:disable ParameterLists
+      def cursor_from_response_with_user(collection_name, klass, path, args) # rubocop:disable ParameterLists
         arguments = Twitter::Arguments.new(args)
         merge_user!(arguments.options, arguments.pop || user_id) unless arguments.options[:user_id] || arguments.options[:screen_name]
-        request_with_cursor(request_method, path, arguments.options, collection_name, klass)
+        perform_get_with_cursor(path, arguments.options, collection_name, klass)
       end
 
       def user_id

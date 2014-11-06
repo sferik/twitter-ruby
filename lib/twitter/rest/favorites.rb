@@ -32,7 +32,7 @@ module Twitter
       def favorites(*args)
         arguments = Twitter::Arguments.new(args)
         merge_user!(arguments.options, arguments.pop) if arguments.last
-        get_with_objects('/1.1/favorites/list.json', arguments.options, Twitter::Tweet)
+        perform_get_with_objects('/1.1/favorites/list.json', arguments.options, Twitter::Tweet)
       end
 
       # Un-favorites the specified Tweets as the authenticating user
@@ -69,7 +69,7 @@ module Twitter
         arguments = Twitter::Arguments.new(args)
         pmap(arguments) do |tweet|
           begin
-            post_with_object('/1.1/favorites/create.json', arguments.options.merge(:id => extract_id(tweet)), Twitter::Tweet)
+            perform_post_with_object('/1.1/favorites/create.json', arguments.options.merge(:id => extract_id(tweet)), Twitter::Tweet)
           rescue Twitter::Error::AlreadyFavorited, Twitter::Error::NotFound
             next
           end
@@ -96,7 +96,7 @@ module Twitter
       def favorite!(*args)
         arguments = Twitter::Arguments.new(args)
         pmap(arguments) do |tweet|
-          post_with_object('/1.1/favorites/create.json', arguments.options.merge(:id => extract_id(tweet)), Twitter::Tweet)
+          perform_post_with_object('/1.1/favorites/create.json', arguments.options.merge(:id => extract_id(tweet)), Twitter::Tweet)
         end
       end
       alias_method :create_favorite!, :favorite!

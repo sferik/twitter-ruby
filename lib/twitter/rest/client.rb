@@ -1,31 +1,25 @@
 require 'base64'
 require 'faraday'
 require 'faraday/request/multipart'
-require 'json'
-require 'timeout'
 require 'twitter/client'
-require 'twitter/error'
 require 'twitter/rest/api'
+require 'twitter/rest/request'
 require 'twitter/rest/request/multipart_with_file'
 require 'twitter/rest/response/parse_json'
 require 'twitter/rest/response/raise_error'
+require 'twitter/rest/utils'
 
 module Twitter
   module REST
-    # Wrapper for the Twitter REST API
-    #
-    # @note All methods have been separated into modules and follow the same grouping used in {http://dev.twitter.com/doc the Twitter API Documentation}.
-    # @see http://dev.twitter.com/pages/every_developer
     class Client < Twitter::Client
       include Twitter::REST::API
-      attr_accessor :bearer_token
       URL_PREFIX = 'https://api.twitter.com'
-      ENDPOINT = URL_PREFIX
+      attr_accessor :bearer_token
 
       # @param connection_options [Hash]
       # @return [Hash]
       def connection_options=(connection_options)
-        warn "#{Kernel.caller.first}: [DEPRECATION] Twitter::REST::Client#connection_options= is deprecated and will be removed in version 6.0.0."
+        warn "#{Kernel.caller.first}: [DEPRECATION] #{self.class.name}##{__method__} is deprecated and will be removed."
         @connection_options = connection_options
       end
 
@@ -48,7 +42,7 @@ module Twitter
       # @params middleware [Faraday::RackBuilder]
       # @return [Faraday::RackBuilder]
       def middleware=(middleware)
-        warn "#{Kernel.caller.first}: [DEPRECATION] Twitter::REST::Client#middleware= is deprecated and will be removed in version 6.0.0."
+        warn "#{Kernel.caller.first}: [DEPRECATION] #{self.class.name}##{__method__} is deprecated and will be removed."
         @middleware = middleware
       end
 
@@ -74,15 +68,15 @@ module Twitter
       end
 
       # Perform an HTTP GET request
-      def get(path, params = {})
-        headers = request_headers(:get, URL_PREFIX + path, params)
-        request(:get, path, params, headers)
+      def get(path, options = {})
+        warn "#{Kernel.caller.first}: [DEPRECATION] #{self.class.name}##{__method__} is deprecated. Use Twitter::REST::Request#perform instead."
+        perform_get(path, options)
       end
 
       # Perform an HTTP POST request
-      def post(path, params = {})
-        headers = params.values.any? { |value| value.respond_to?(:to_io) } ? request_headers(:post, URL_PREFIX + path, params, {}) : request_headers(:post, URL_PREFIX + path, params)
-        request(:post, path, params, headers)
+      def post(path, options = {})
+        warn "#{Kernel.caller.first}: [DEPRECATION] #{self.class.name}##{__method__} is deprecated. Use Twitter::REST::Request#perform instead."
+        perform_post(path, options)
       end
 
       # @return [Boolean]
@@ -95,8 +89,6 @@ module Twitter
         super || bearer_token?
       end
 
-    private
-
       # Returns a Faraday::Connection object
       #
       # @return [Faraday::Connection]
@@ -104,33 +96,27 @@ module Twitter
         @connection ||= Faraday.new(URL_PREFIX, connection_options)
       end
 
-      def request(method, path, params = {}, headers = {})
-        connection.send(method.to_sym, path, params) { |request| request.headers.update(headers) }.env
-      rescue Faraday::Error::TimeoutError, Timeout::Error => error
-        raise(Twitter::Error::RequestTimeout.new(error))
-      rescue Faraday::Error::ClientError, JSON::ParserError => error
-        raise(Twitter::Error.new(error))
-      end
-
-      def request_headers(method, url, params = {}, signature_params = params)
-        bearer_token_request = params.delete(:bearer_token_request)
+      def request_headers(method, url, options = {}, signature_options = options)
+        bearer_token_request = options.delete(:bearer_token_request)
         headers = {}
         if bearer_token_request
           headers[:accept]        = '*/*'
           headers[:authorization] = bearer_token_credentials_auth_header
           headers[:content_type]  = 'application/x-www-form-urlencoded; charset=UTF-8'
         else
-          headers[:authorization] = auth_header(method, url, params, signature_params)
+          headers[:authorization] = auth_header(method, url, options, signature_options)
         end
         headers
       end
 
-      def auth_header(method, url, params = {}, signature_params = params)
+    private
+
+      def auth_header(method, url, options = {}, signature_options = options)
         if !user_token?
           @bearer_token = token unless bearer_token?
           bearer_auth_header
         else
-          oauth_auth_header(method, url, signature_params).to_s
+          oauth_auth_header(method, url, signature_options).to_s
         end
       end
 

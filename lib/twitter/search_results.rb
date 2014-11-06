@@ -16,16 +16,15 @@ module Twitter
 
     # Initializes a new SearchResults object
     #
-    # @param attrs [Hash]
     # @param request [Twitter::REST::Request]
     # @return [Twitter::SearchResults]
-    def initialize(attrs, request)
+    def initialize(request)
       @client = request.client
       @request_method = request.verb
       @path = request.path
       @options = request.options
       @collection = []
-      self.attrs = attrs
+      self.attrs = request.perform
     end
 
   private

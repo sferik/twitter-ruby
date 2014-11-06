@@ -1,4 +1,7 @@
-require 'twitter/cursor'
+require 'faraday'
+require 'json'
+require 'timeout'
+require 'twitter/error'
 require 'twitter/rate_limit'
 
 module Twitter
@@ -6,6 +9,7 @@ module Twitter
     class Request
       attr_accessor :client, :rate_limit, :request_method, :path, :options
       alias_method :verb, :request_method
+      URL_PREFIX = 'https://api.twitter.com'
 
       # @param client [Twitter::Client]
       # @param request_method [String, Symbol]
@@ -21,30 +25,21 @@ module Twitter
 
       # @return [Hash]
       def perform
-        response = @client.send(@request_method, @path, @options)
+        signature_options = @request_method == :post && @options.values.any? { |value| value.respond_to?(:to_io) } ? {} : @options
+        headers = @client.request_headers(@request_method, URL_PREFIX + @path, @options, signature_options)
+        response = request(@request_method, @path, @options, headers)
         @rate_limit = Twitter::RateLimit.new(response.response_headers)
         response.body
       end
 
-      # @param klass [Class]
-      # @return [Object]
-      def perform_with_object(klass)
-        klass.new(perform)
-      end
+    private
 
-      # @param collection_name [Symbol]
-      # @param klass [Class]
-      # @return [Twitter::Cursor]
-      def perform_with_cursor(collection_name, klass = nil)
-        Twitter::Cursor.new(perform, collection_name.to_sym, klass, self)
-      end
-
-      # @param klass [Class]
-      # @return [Array]
-      def perform_with_objects(klass)
-        perform.collect do |element|
-          klass.new(element)
-        end
+      def request(method, path, options = {}, headers = {})
+        @client.connection.send(method.to_sym, path, options) { |request| request.headers.update(headers) }.env
+      rescue Faraday::Error::TimeoutError, Timeout::Error => error
+        raise(Twitter::Error::RequestTimeout.new(error))
+      rescue Faraday::Error::ClientError, JSON::ParserError => error
+        raise(Twitter::Error.new(error))
       end
     end
   end

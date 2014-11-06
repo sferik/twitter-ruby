@@ -12,11 +12,46 @@ describe Twitter::REST::Client do
         expect { Twitter::REST::Client.new(:consumer_key => [12_345, 54_321]) }.to raise_exception(Twitter::Error::ConfigurationError)
       end
     end
-
     context 'when no credentials are provided' do
       it 'does not raise an exception' do
         expect { Twitter::REST::Client.new }.not_to raise_error
       end
+    end
+  end
+
+  describe '#get' do
+    before do
+      stub_get('/path')
+    end
+    it 'performs an HTTP GET' do
+      capture_warning do
+        @client.get('/path')
+      end
+      expect(a_get('/path')).to have_been_made
+    end
+    it 'outputs a warning' do
+      warning = capture_warning do
+        @client.get('/path')
+      end
+      expect(warning).to match(/\[DEPRECATION\] Twitter::REST::Client#get is deprecated\. Use Twitter::REST::Request#perform instead\.$/)
+    end
+  end
+
+  describe '#post' do
+    before do
+      stub_post('/path')
+    end
+    it 'performs an HTTP GET' do
+      capture_warning do
+        @client.post('/path')
+      end
+      expect(a_post('/path')).to have_been_made
+    end
+    it 'outputs a warning' do
+      warning = capture_warning do
+        @client.post('/path')
+      end
+      expect(warning).to match(/\[DEPRECATION\] Twitter::REST::Client#post is deprecated\. Use Twitter::REST::Request#perform instead\.$/)
     end
   end
 
@@ -76,7 +111,7 @@ describe Twitter::REST::Client do
       warning = capture_warning do
         @client.connection_options = nil
       end
-      expect(warning).to match(/\[DEPRECATION\] Twitter::REST::Client#connection_options= is deprecated and will be removed in version 6\.0\.0\.$/)
+      expect(warning).to match(/\[DEPRECATION\] Twitter::REST::Client#connection_options= is deprecated and will be removed\.$/)
     end
   end
 
@@ -90,7 +125,6 @@ describe Twitter::REST::Client do
         config.proxy               = 'http://localhost:99'
         config.user_agent          = 'My Twitter Ruby Gem'
       end
-
       expect(client.connection_options[:proxy]).to eql('http://localhost:99')
       expect(client.connection_options[:headers][:user_agent]).to eql('My Twitter Ruby Gem')
     end
@@ -107,7 +141,7 @@ describe Twitter::REST::Client do
       warning = capture_warning do
         @client.middleware = nil
       end
-      expect(warning).to match(/\[DEPRECATION\] Twitter::REST::Client#middleware= is deprecated and will be removed in version 6\.0\.0\.$/)
+      expect(warning).to match(/\[DEPRECATION\] Twitter::REST::Client#middleware= is deprecated and will be removed\.$/)
     end
   end
 
@@ -129,68 +163,6 @@ describe Twitter::REST::Client do
     it 'memoizes the connection' do
       c1, c2 = @client.send(:connection), @client.send(:connection)
       expect(c1.object_id).to eq(c2.object_id)
-    end
-  end
-
-  describe '#request' do
-    it 'encodes the entire body when no uploaded media is present' do
-      stub_post('/1.1/statuses/update.json').with(:body => {:status => 'Update'}).to_return(:body => fixture('status.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
-      @client.update('Update')
-      expect(a_post('/1.1/statuses/update.json').with(:body => {:status => 'Update'})).to have_been_made
-    end
-    it 'encodes none of the body when uploaded media is present' do
-      stub_post('/1.1/statuses/update_with_media.json').to_return(:body => fixture('status.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
-      @client.update_with_media('Update', fixture('pbjt.gif'))
-      expect(a_post('/1.1/statuses/update_with_media.json')).to have_been_made
-    end
-    it 'catches and reraises Faraday timeout errors' do
-      allow(@client).to receive(:connection).and_raise(Faraday::Error::TimeoutError.new('execution expired'))
-      expect { @client.send(:request, :get, '/path') }.to raise_error(Twitter::Error::RequestTimeout)
-    end
-    it 'catches and reraises Timeout errors' do
-      allow(@client).to receive(:connection).and_raise(Timeout::Error.new('execution expired'))
-      expect { @client.send(:request, :get, '/path') }.to raise_error(Twitter::Error::RequestTimeout)
-    end
-    it 'catches and reraises Faraday client errors' do
-      allow(@client).to receive(:connection).and_raise(Faraday::Error::ClientError.new('connection failed'))
-      expect { @client.send(:request, :get, '/path') }.to raise_error(Twitter::Error)
-    end
-    it 'catches and reraises JSON::ParserError errors' do
-      allow(@client).to receive(:connection).and_raise(JSON::ParserError.new('unexpected token'))
-      expect { @client.send(:request, :get, '/path') }.to raise_error(Twitter::Error)
-    end
-  end
-
-  describe '#oauth_auth_header' do
-    it 'creates the correct auth headers' do
-      uri = Twitter::REST::Client::URL_PREFIX + '/1.1/direct_messages.json'
-      authorization = @client.send(:oauth_auth_header, :get, uri)
-      expect(authorization.options[:signature_method]).to eq('HMAC-SHA1')
-      expect(authorization.options[:version]).to eq('1.0')
-      expect(authorization.options[:consumer_key]).to eq('CK')
-      expect(authorization.options[:consumer_secret]).to eq('CS')
-      expect(authorization.options[:token]).to eq('AT')
-      expect(authorization.options[:token_secret]).to eq('AS')
-    end
-    it 'submits the correct auth header when no media is present' do
-      # We use static values for nounce and timestamp to get a stable signature
-      secret = {:consumer_key => 'CK', :consumer_secret => 'CS', :token => 'OT', :token_secret => 'OS', :nonce => 'b6ebe4c2a11af493f8a2290fe1296965', :timestamp => '1370968658', :ignore_extra_keys => true}
-      headers = {:authorization => /oauth_signature="FbthwmgGq02iQw%2FuXGEWaL6V6eM%3D"/, :content_type => 'application/json; charset=utf-8'}
-
-      allow(@client).to receive(:credentials).and_return(secret)
-      stub_post('/1.1/statuses/update.json').with(:body => {:status => 'Just a test'}).to_return(:body => fixture('status.json'), :headers => headers)
-      @client.update('Just a test')
-      expect(a_post('/1.1/statuses/update.json').with(:headers => {:authorization => headers[:authorization]})).to have_been_made
-    end
-    it 'submits the correct auth header when media is present' do
-      # We use static values for nounce and timestamp to get a stable signature
-      secret = {:consumer_key => 'CK', :consumer_secret => 'CS', :token => 'OT', :token_secret => 'OS', :nonce => 'e08201ad0dab4897c99445056feefd95', :timestamp => '1370967652', :ignore_extra_keys => true}
-      headers = {:authorization => /oauth_signature="9ziouUPwZT9IWWRbJL8r0BerKYA%3D"/, :content_type => 'application/json; charset=utf-8'}
-
-      allow(@client).to receive(:credentials).and_return(secret)
-      stub_post('/1.1/statuses/update_with_media.json').to_return(:body => fixture('status.json'), :headers => headers)
-      @client.update_with_media('Just a test', fixture('pbjt.gif'))
-      expect(a_post('/1.1/statuses/update_with_media.json').with(:headers => {:authorization => headers[:authorization]})).to have_been_made
     end
   end
 

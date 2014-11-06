@@ -23,7 +23,7 @@ module Twitter
         instance_variable_set("@#{key}", value)
       end
       yield(self) if block_given?
-      validate_credential_type!
+      validate_credentials!
     end
 
     # @return [Boolean]
@@ -52,6 +52,11 @@ module Twitter
       credentials.values.all?
     end
 
+    def oauth_auth_header(method, uri, options = {})
+      uri = Addressable::URI.parse(uri)
+      SimpleOAuth::Header.new(method, uri, options, credentials)
+    end
+
   private
 
     # Ensures that all credentials set during configuration are of a
@@ -59,16 +64,11 @@ module Twitter
     #
     # @raise [Twitter::Error::ConfigurationError] Error is raised when
     #   supplied twitter credentials are not a String or Boolean.
-    def validate_credential_type!
+    def validate_credentials!
       credentials.each do |credential, value|
         next if value.nil? || value == true || value == false || value.is_a?(String)
-        fail(Twitter::Error::ConfigurationError.new("Invalid #{credential} specified: #{value.inspect} must be a string."))
+        fail(Twitter::Error::ConfigurationError.new("Invalid #{credential} specified: #{value.inspect} must be a String."))
       end
-    end
-
-    def oauth_auth_header(method, uri, params = {})
-      uri = Addressable::URI.parse(uri)
-      SimpleOAuth::Header.new(method, uri, params, credentials)
     end
   end
 end

@@ -14,12 +14,11 @@ module Twitter
 
     # Initializes a new Cursor
     #
-    # @param attrs [Hash]
     # @param key [String, Symbol] The key to fetch the data from the response
     # @param klass [Class] The class to instantiate objects in the response
     # @param request [Twitter::REST::Request]
     # @return [Twitter::Cursor]
-    def initialize(attrs, key, klass, request)
+    def initialize(key, klass, request)
       @key = key.to_sym
       @klass = klass
       @client = request.client
@@ -27,7 +26,7 @@ module Twitter
       @path = request.path
       @options = request.options
       @collection = []
-      self.attrs = attrs
+      self.attrs = request.perform
     end
 
   private

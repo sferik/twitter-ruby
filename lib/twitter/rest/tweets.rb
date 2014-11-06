@@ -1,6 +1,7 @@
 require 'twitter/arguments'
 require 'twitter/error'
 require 'twitter/oembed'
+require 'twitter/rest/request'
 require 'twitter/rest/utils'
 require 'twitter/tweet'
 require 'twitter/utils'
@@ -24,7 +25,7 @@ module Twitter
       # @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 100.
       # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       def retweets(tweet, options = {})
-        get_with_objects("/1.1/statuses/retweets/#{extract_id(tweet)}.json", options, Twitter::Tweet)
+        perform_get_with_objects("/1.1/statuses/retweets/#{extract_id(tweet)}.json", options, Twitter::Tweet)
       end
 
       # Show up to 100 users who retweeted the Tweet
@@ -57,7 +58,7 @@ module Twitter
       # @param options [Hash] A customizable set of options.
       # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       def status(tweet, options = {})
-        get_with_object("/1.1/statuses/show/#{extract_id(tweet)}.json", options, Twitter::Tweet)
+        perform_get_with_object("/1.1/statuses/show/#{extract_id(tweet)}.json", options, Twitter::Tweet)
       end
 
       # Returns Tweets
@@ -75,7 +76,7 @@ module Twitter
       def statuses(*args)
         arguments = Twitter::Arguments.new(args)
         flat_pmap(arguments.each_slice(MAX_TWEETS_PER_REQUEST)) do |tweets|
-          post_with_objects('/1.1/statuses/lookup.json', arguments.options.merge(:id => tweets.collect { |u| extract_id(u) }.join(',')), Twitter::Tweet)
+          perform_post_with_objects('/1.1/statuses/lookup.json', arguments.options.merge(:id => tweets.collect { |u| extract_id(u) }.join(',')), Twitter::Tweet)
         end
       end
 
@@ -96,7 +97,7 @@ module Twitter
       def destroy_status(*args)
         arguments = Twitter::Arguments.new(args)
         pmap(arguments) do |tweet|
-          post_with_object("/1.1/statuses/destroy/#{extract_id(tweet)}.json", arguments.options, Twitter::Tweet)
+          perform_post_with_object("/1.1/statuses/destroy/#{extract_id(tweet)}.json", arguments.options, Twitter::Tweet)
         end
       end
       alias_method :destroy_tweet, :destroy_status
@@ -154,7 +155,7 @@ module Twitter
         hash = options.dup
         hash[:in_reply_to_status_id] = hash.delete(:in_reply_to_status).id unless hash[:in_reply_to_status].nil?
         hash[:place_id] = hash.delete(:place).woeid unless hash[:place].nil?
-        post_with_object('/1.1/statuses/update.json', hash.merge(:status => status), Twitter::Tweet)
+        perform_post_with_object('/1.1/statuses/update.json', hash.merge(:status => status), Twitter::Tweet)
       end
 
       # Retweets the specified Tweets as the authenticating user
@@ -229,7 +230,7 @@ module Twitter
         hash = options.dup
         hash[:in_reply_to_status_id] = hash.delete(:in_reply_to_status).id unless hash[:in_reply_to_status].nil?
         hash[:place_id] = hash.delete(:place).woeid unless hash[:place].nil?
-        post_with_object('/1.1/statuses/update_with_media.json', hash.merge('media[]' => media, 'status' => status), Twitter::Tweet)
+        perform_post_with_object('/1.1/statuses/update_with_media.json', hash.merge('media[]' => media, 'status' => status), Twitter::Tweet)
       end
 
       # Returns oEmbed for a Tweet
@@ -250,7 +251,7 @@ module Twitter
       # @option options [String] :lang Language code for the rendered embed. This will affect the text and localization of the rendered HTML.
       def oembed(tweet, options = {})
         options[:id] = extract_id(tweet)
-        get_with_object('/1.1/statuses/oembed.json', options, Twitter::OEmbed)
+        perform_get_with_object('/1.1/statuses/oembed.json', options, Twitter::OEmbed)
       end
 
       # Returns oEmbeds for Tweets
@@ -294,13 +295,13 @@ module Twitter
       def retweeters_ids(*args)
         arguments = Twitter::Arguments.new(args)
         arguments.options[:id] ||= extract_id(arguments.first)
-        get_with_cursor('/1.1/statuses/retweeters/ids.json', arguments.options, :ids)
+        perform_get_with_cursor('/1.1/statuses/retweeters/ids.json', arguments.options, :ids)
       end
 
     private
 
       def post_retweet(tweet, options)
-        response = post("/1.1/statuses/retweet/#{extract_id(tweet)}.json", options).body
+        response = perform_post("/1.1/statuses/retweet/#{extract_id(tweet)}.json", options)
         Twitter::Tweet.new(response)
       end
     end
