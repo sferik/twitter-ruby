@@ -18,21 +18,5 @@ describe Twitter::REST::Request do
       @client.update_with_media('Update', fixture('pbjt.gif'))
       expect(a_post('/1.1/statuses/update_with_media.json')).to have_been_made
     end
-    it 'catches and reraises Faraday timeout errors' do
-      allow(@client).to receive(:connection).and_raise(Faraday::Error::TimeoutError.new('execution expired'))
-      expect { @request.perform }.to raise_error(Twitter::Error::RequestTimeout)
-    end
-    it 'catches and reraises Timeout errors' do
-      allow(@client).to receive(:connection).and_raise(Timeout::Error.new('execution expired'))
-      expect { @request.perform }.to raise_error(Twitter::Error::RequestTimeout)
-    end
-    it 'catches and reraises Faraday client errors' do
-      allow(@client).to receive(:connection).and_raise(Faraday::Error::ClientError.new('connection failed'))
-      expect { @request.perform }.to raise_error(Twitter::Error)
-    end
-    it 'catches and reraises JSON::ParserError errors' do
-      allow(@client).to receive(:connection).and_raise(JSON::ParserError.new('unexpected token'))
-      expect { @request.perform }.to raise_error(Twitter::Error)
-    end
   end
 end

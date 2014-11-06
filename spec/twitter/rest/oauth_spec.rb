@@ -8,13 +8,11 @@ describe Twitter::REST::OAuth do
 
   describe '#token' do
     before do
-      # Faraday treats Basic Auth differently so we have to use the full URL with credentials
-      @oauth2_token_url = 'https://CK:CS@api.twitter.com/oauth2/token'
-      stub_request(:post, @oauth2_token_url).with(:body => {'grant_type' => 'client_credentials'}).to_return(:body => fixture('bearer_token.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
+      stub_post('/oauth2/token').with(:body => {'grant_type' => 'client_credentials'}).to_return(:body => fixture('bearer_token.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
     end
     it 'requests the correct resource' do
       @client.token
-      expect(a_request(:post, @oauth2_token_url).with(:body => {:grant_type => 'client_credentials'}, :headers => {:content_type => 'application/x-www-form-urlencoded; charset=UTF-8', :accept => '*/*'})).to have_been_made
+      expect(a_post('/oauth2/token').with(:body => {:grant_type => 'client_credentials'}, :headers => {:authorization => 'Basic Q0s6Q1M=', :content_type => 'application/x-www-form-urlencoded', :accept => '*/*'})).to have_been_made
     end
     it 'returns the bearer token' do
       bearer_token = @client.token
@@ -48,7 +46,7 @@ describe Twitter::REST::OAuth do
 
   describe '#reverse_token' do
     before do
-      # WebMock treats Basic Auth differently so we have to chack against the full URL with credentials.
+      # WebMock treats Basic Auth differently so we have to check against the full URL with credentials.
       @oauth_request_token_url = 'https://api.twitter.com/oauth/request_token?x_auth_mode=reverse_auth'
       stub_request(:post, @oauth_request_token_url).to_return(:body => fixture('request_token.txt'), :headers => {:content_type => 'text/html; charset=utf-8'})
     end

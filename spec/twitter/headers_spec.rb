@@ -4,7 +4,7 @@ describe Twitter::Headers do
 
   before do
     @client = Twitter::REST::Client.new(:consumer_key => 'CK', :consumer_secret => 'CS', :access_token => 'AT', :access_token_secret => 'AS')
-    @headers = Twitter::Headers.new(@client, :get, Twitter::REST::Client::BASE_URL + '/path')
+    @headers = Twitter::Headers.new(@client, :get, Twitter::REST::Request::BASE_URL + '/path')
   end
 
   describe '#oauth_auth_header' do
@@ -40,23 +40,23 @@ describe Twitter::Headers do
   describe '#bearer_auth_header' do
     it 'creates the correct auth headers with supplied bearer token' do
       client = Twitter::REST::Client.new(:bearer_token => 'BT')
-      headers = Twitter::Headers.new(client, :get, Twitter::REST::Client::BASE_URL + '/path')
+      headers = Twitter::Headers.new(client, :get, Twitter::REST::Request::BASE_URL + '/path')
       authorization = headers.send(:bearer_auth_header)
       expect(authorization).to eq('Bearer BT')
     end
     it 'creates the correct auth headers with supplied Twitter::Token' do
       token = Twitter::Token.new(:token_type => 'bearer', :access_token => 'BT')
       client = Twitter::REST::Client.new(:bearer_token => token)
-      headers = Twitter::Headers.new(client, :get, Twitter::REST::Client::BASE_URL + '/path')
+      headers = Twitter::Headers.new(client, :get, Twitter::REST::Request::BASE_URL + '/path')
       authorization = headers.send(:bearer_auth_header)
       expect(authorization).to eq('Bearer BT')
     end
-  end
 
-  describe '#bearer_token_credentials_auth_header' do
-    it 'creates the correct auth header with supplied consumer_key and consumer_secret' do
-      authorization = @headers.send(:bearer_token_credentials_auth_header)
-      expect(authorization).to eq('Basic Q0s6Q1M=')
+    describe '#bearer_token_credentials_auth_header' do
+      it 'creates the correct auth header with supplied consumer_key and consumer_secret' do
+        authorization = @headers.send(:bearer_token_credentials_auth_header)
+        expect(authorization).to eq('Basic Q0s6Q1M=')
+      end
     end
   end
 end

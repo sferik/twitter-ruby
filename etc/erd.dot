@@ -5,8 +5,6 @@ digraph classes {
 	ArgumentError [label="ArgumentError"]
 	Array [label="Array"]
 	Exception [label="Exception"]
-	Faraday__Middleware [label="Faraday::Middleware"]
-	Faraday__Response__Middleware [label="Faraday::Response::Middleware"]
 	Naught__BasicObject [label="Naught::BasicObject"]
 	StandardError [label="StandardError"]
 	Twitter__Arguments [label="Twitter::Arguments"]
@@ -23,21 +21,20 @@ digraph classes {
 	Twitter__Entity__UserMention [label="Twitter::Entity::UserMention"]
 	Twitter__Error [label="Twitter::Error"]
 	Twitter__Error__AlreadyFavorited [label="Twitter::Error::AlreadyFavorited"]
-	Twitter__Error__AlreadyPosted [label="Twitter::Error::AlreadyPosted"]
 	Twitter__Error__AlreadyRetweeted [label="Twitter::Error::AlreadyRetweeted"]
 	Twitter__Error__BadGateway [label="Twitter::Error::BadGateway"]
 	Twitter__Error__BadRequest [label="Twitter::Error::BadRequest"]
 	Twitter__Error__ClientError [label="Twitter::Error::ClientError"]
 	Twitter__Error__ConfigurationError [label="Twitter::Error::ConfigurationError"]
-	Twitter__Error__EnhanceYourCalm [label="Twitter::Error::EnhanceYourCalm"]
+	Twitter__Error__DuplicateStatus [label="Twitter::Error::DuplicateStatus"]
 	Twitter__Error__Forbidden [label="Twitter::Error::Forbidden"]
 	Twitter__Error__GatewayTimeout [label="Twitter::Error::GatewayTimeout"]
 	Twitter__Error__InternalServerError [label="Twitter::Error::InternalServerError"]
 	Twitter__Error__NotAcceptable [label="Twitter::Error::NotAcceptable"]
 	Twitter__Error__NotFound [label="Twitter::Error::NotFound"]
-	Twitter__Error__RequestTimeout [label="Twitter::Error::RequestTimeout"]
 	Twitter__Error__ServerError [label="Twitter::Error::ServerError"]
 	Twitter__Error__ServiceUnavailable [label="Twitter::Error::ServiceUnavailable"]
+	Twitter__Error__TooManyRequests [label="Twitter::Error::TooManyRequests"]
 	Twitter__Error__UnacceptableIO [label="Twitter::Error::UnacceptableIO"]
 	Twitter__Error__Unauthorized [label="Twitter::Error::Unauthorized"]
 	Twitter__Error__UnprocessableEntity [label="Twitter::Error::UnprocessableEntity"]
@@ -60,10 +57,6 @@ digraph classes {
 	Twitter__ProfileBanner [label="Twitter::ProfileBanner"]
 	Twitter__REST__Client [label="Twitter::REST::Client"]
 	Twitter__REST__Request [label="Twitter::REST::Request"]
-	Twitter__REST__Request__MultipartWithFile [label="Twitter::REST::Request::MultipartWithFile"]
-	Twitter__REST__Response__ParseErrorJson [label="Twitter::REST::Response::ParseErrorJson"]
-	Twitter__REST__Response__ParseJson [label="Twitter::REST::Response::ParseJson"]
-	Twitter__REST__Response__RaiseError [label="Twitter::REST::Response::RaiseError"]
 	Twitter__RateLimit [label="Twitter::RateLimit"]
 	Twitter__Relationship [label="Twitter::Relationship"]
 	Twitter__SavedSearch [label="Twitter::SavedSearch"]
@@ -90,8 +83,6 @@ digraph classes {
 	ArgumentError -> StandardError
 	Array -> Object
 	Exception -> Object
-	Faraday__Middleware -> Object
-	Faraday__Response__Middleware -> Faraday__Middleware
 	Naught__BasicObject -> Object
 	StandardError -> Exception
 	Twitter__Arguments -> Array
@@ -108,21 +99,20 @@ digraph classes {
 	Twitter__Entity__UserMention -> Twitter__Entity
 	Twitter__Error -> StandardError
 	Twitter__Error__AlreadyFavorited -> Twitter__Error__Forbidden
-	Twitter__Error__AlreadyPosted -> Twitter__Error__Forbidden
 	Twitter__Error__AlreadyRetweeted -> Twitter__Error__Forbidden
 	Twitter__Error__BadGateway -> Twitter__Error__ServerError
 	Twitter__Error__BadRequest -> Twitter__Error__ClientError
 	Twitter__Error__ClientError -> Twitter__Error
 	Twitter__Error__ConfigurationError -> ArgumentError
-	Twitter__Error__EnhanceYourCalm -> Twitter__Error__ClientError
+	Twitter__Error__DuplicateStatus -> Twitter__Error__Forbidden
 	Twitter__Error__Forbidden -> Twitter__Error__ClientError
 	Twitter__Error__GatewayTimeout -> Twitter__Error__ServerError
 	Twitter__Error__InternalServerError -> Twitter__Error__ServerError
 	Twitter__Error__NotAcceptable -> Twitter__Error__ClientError
 	Twitter__Error__NotFound -> Twitter__Error__ClientError
-	Twitter__Error__RequestTimeout -> Twitter__Error__ClientError
 	Twitter__Error__ServerError -> Twitter__Error
 	Twitter__Error__ServiceUnavailable -> Twitter__Error__ServerError
+	Twitter__Error__TooManyRequests -> Twitter__Error__ClientError
 	Twitter__Error__UnacceptableIO -> StandardError
 	Twitter__Error__Unauthorized -> Twitter__Error__ClientError
 	Twitter__Error__UnprocessableEntity -> Twitter__Error__ClientError
@@ -145,10 +135,6 @@ digraph classes {
 	Twitter__ProfileBanner -> Twitter__Base
 	Twitter__REST__Client -> Twitter__Client
 	Twitter__REST__Request -> Object
-	Twitter__REST__Request__MultipartWithFile -> Faraday__Middleware
-	Twitter__REST__Response__ParseErrorJson -> Twitter__REST__Response__ParseJson
-	Twitter__REST__Response__ParseJson -> Faraday__Response__Middleware
-	Twitter__REST__Response__RaiseError -> Faraday__Response__Middleware
 	Twitter__RateLimit -> Twitter__Base
 	Twitter__Relationship -> Twitter__Base
 	Twitter__SavedSearch -> Twitter__Identity

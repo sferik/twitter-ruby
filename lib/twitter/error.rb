@@ -1,4 +1,5 @@
 require 'twitter/rate_limit'
+require 'twitter/utils'
 
 module Twitter
   # Custom error class for rescuing from all Twitter errors
@@ -34,13 +35,15 @@ module Twitter
     Codes = Code # rubocop:disable ConstantName
 
     class << self
+      include Twitter::Utils
+
       # Create a new error from an HTTP response
       #
-      # @param response [Faraday::Response]
+      # @param response [HTTP::Response]
       # @return [Twitter::Error]
       def from_response(response)
-        message, code = parse_error(response.body)
-        new(message, response.response_headers, code)
+        message, code = parse_error(symbolize_keys!(response.parse))
+        new(message, response.headers, code)
       end
 
       # @return [Hash]
@@ -51,7 +54,6 @@ module Twitter
           403 => Twitter::Error::Forbidden,
           404 => Twitter::Error::NotFound,
           406 => Twitter::Error::NotAcceptable,
-          408 => Twitter::Error::RequestTimeout,
           420 => Twitter::Error::EnhanceYourCalm,
           422 => Twitter::Error::UnprocessableEntity,
           429 => Twitter::Error::TooManyRequests,
@@ -73,7 +75,7 @@ module Twitter
     private
 
       def parse_error(body)
-        if body.nil?
+        if body.nil? || body.empty?
           ['', nil]
         elsif body[:error]
           [body[:error], nil]
@@ -140,9 +142,6 @@ module Twitter
 
     # Raised when Twitter returns the HTTP status code 406
     NotAcceptable = Class.new(ClientError)
-
-    # Raised when Twitter returns the HTTP status code 408
-    RequestTimeout = Class.new(ClientError)
 
     # Raised when Twitter returns the HTTP status code 422
     UnprocessableEntity = Class.new(ClientError)

@@ -6,7 +6,7 @@ if RUBY_VERSION >= '1.9'
 
   SimpleCov.start do
     add_filter '/spec/'
-    minimum_coverage(99.64)
+    minimum_coverage(99.63)
   end
 end
 
@@ -26,35 +26,35 @@ RSpec.configure do |config|
 end
 
 def a_delete(path)
-  a_request(:delete, Twitter::REST::Client::BASE_URL + path)
+  a_request(:delete, Twitter::REST::Request::BASE_URL + path)
 end
 
 def a_get(path)
-  a_request(:get, Twitter::REST::Client::BASE_URL + path)
+  a_request(:get, Twitter::REST::Request::BASE_URL + path)
 end
 
 def a_post(path)
-  a_request(:post, Twitter::REST::Client::BASE_URL + path)
+  a_request(:post, Twitter::REST::Request::BASE_URL + path)
 end
 
 def a_put(path)
-  a_request(:put, Twitter::REST::Client::BASE_URL + path)
+  a_request(:put, Twitter::REST::Request::BASE_URL + path)
 end
 
 def stub_delete(path)
-  stub_request(:delete, Twitter::REST::Client::BASE_URL + path)
+  stub_request(:delete, Twitter::REST::Request::BASE_URL + path)
 end
 
 def stub_get(path)
-  stub_request(:get, Twitter::REST::Client::BASE_URL + path)
+  stub_request(:get, Twitter::REST::Request::BASE_URL + path)
 end
 
 def stub_post(path)
-  stub_request(:post, Twitter::REST::Client::BASE_URL + path)
+  stub_request(:post, Twitter::REST::Request::BASE_URL + path)
 end
 
 def stub_put(path)
-  stub_request(:put, Twitter::REST::Client::BASE_URL + path)
+  stub_request(:put, Twitter::REST::Request::BASE_URL + path)
 end
 
 def fixture_path
