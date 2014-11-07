@@ -85,7 +85,7 @@ module Twitter
       # @param key2 [Symbol]
       def define_attribute_method(key1, klass = nil, key2 = nil)
         define_method(key1) do ||
-          if @attrs[key1].nil? || @attrs[key1].respond_to?(:empty?) && @attrs[key1].empty?
+          if attr_falsey_or_empty?(key1)
             NullObject.new
           else
             if klass.nil?
@@ -114,7 +114,7 @@ module Twitter
       # @param key2 [Symbol]
       def define_predicate_method(key1, key2 = key1)
         define_method(:"#{key1}?") do ||
-          !!@attrs[key2] && !(@attrs[key2].respond_to?(:empty?) && @attrs[key2].empty?)
+          !attr_falsey_or_empty?(key2)
         end
         memoize(:"#{key1}?")
       end
@@ -139,6 +139,10 @@ module Twitter
     end
 
   private
+
+    def attr_falsey_or_empty?(key)
+      !@attrs[key] || @attrs[key].respond_to?(:empty?) && @attrs[key].empty?
+    end
 
     def attrs_for_object(key1, key2 = nil)
       if key2.nil?
