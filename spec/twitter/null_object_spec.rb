@@ -1,6 +1,11 @@
 require 'helper'
 
 describe Twitter::NullObject do
+  describe '#!' do
+    it 'returns true' do
+      expect(!subject).to be true
+    end
+  end
 
   describe '#instance_of?' do
     it 'returns true for Twitter::NullObject' do
@@ -39,7 +44,7 @@ describe Twitter::NullObject do
 
   describe '#nil?' do
     it 'returns true' do
-      expect(subject).to be_nil
+      expect(subject.nil?).to be true
     end
   end
 
@@ -80,11 +85,4 @@ describe Twitter::NullObject do
       expect(subject.missing?).to be false
     end
   end
-
-  describe 'predicates' do
-    it 'return false for missing methods' do
-      expect(subject.missing?).to be false
-    end
-  end
-
 end

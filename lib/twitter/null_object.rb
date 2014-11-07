@@ -9,6 +9,10 @@ module Twitter
     config.define_implicit_conversions
     config.predicates_return false
 
+    def !
+      true
+    end
+
     def instance_of?(klass)
       fail(TypeError.new('class or module required')) unless klass.is_a?(Class)
       self.class == klass
