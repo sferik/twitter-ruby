@@ -21,7 +21,6 @@ module Twitter
                 :profile_sidebar_border_color, :profile_sidebar_fill_color,
                 :profile_text_color, :time_zone
     alias_method :favorites_count, :favourites_count
-    remove_method :favourites_count
     alias_method :tweets_count, :statuses_count
     object_attr_reader :Tweet, :status, :user
     alias_method :tweet, :status
