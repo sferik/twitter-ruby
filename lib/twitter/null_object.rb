@@ -9,9 +9,10 @@ module Twitter
     config.define_implicit_conversions
     config.predicates_return false
 
-    def !
-      true
-    end
+    # TODO: Add when support for Ruby 1.8.7 is dropped
+    # def !
+    #   true
+    # end
 
     def instance_of?(klass)
       fail(TypeError.new('class or module required')) unless klass.is_a?(Class)

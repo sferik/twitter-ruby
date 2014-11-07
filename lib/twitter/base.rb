@@ -141,7 +141,7 @@ module Twitter
   private
 
     def attr_falsey_or_empty?(key)
-      !@attrs[key] || @attrs[key].respond_to?(:empty?) && @attrs[key].empty?
+      @attrs[key].nil? || @attrs[key] == false || @attrs[key].respond_to?(:empty?) && @attrs[key].empty?
     end
 
     def attrs_for_object(key1, key2 = nil)
