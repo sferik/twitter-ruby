@@ -9,10 +9,9 @@ module Twitter
     config.define_implicit_conversions
     config.predicates_return false
 
-    # TODO: Add when support for Ruby 1.8.7 is dropped
-    # def !
-    #   true
-    # end
+    def !
+      true
+    end
 
     def respond_to?(*)
       true
