@@ -29,8 +29,12 @@ module Twitter
       OVER_UPDATE_LIMIT            = 185
       DUPLICATE_STATUS             = 187
       BAD_AUTHENTICATION_DATA      = 215
+      SPAM                         = 226
       LOGIN_VERIFICATION_NEEDED    = 231
       ENDPOINT_RETIRED             = 251
+      CANNOT_WRITE                 = 261
+      CANNOT_MUTE                  = 271
+      CANNOT_UNMUTE                = 272
     end
 
     class << self
