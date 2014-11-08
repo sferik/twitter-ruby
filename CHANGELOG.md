@@ -1,3 +1,13 @@
+5.13.0
+------
+* [Deprecate `Twitter::REST::Client#get` and `Twitter::REST::Client#post`](https://github.com/sferik/twitter/commit/65773c7d741098490f4164fae9e4433365cd4292)
+* [Rename `Twitter::REST::Client::URL_PREFIX` to `Twitter::REST::Client::BASE_URL`](https://github.com/sferik/twitter/commit/73e2b9be19acf1403f324e5be48a550d3756d822)
+* [Extract `Twitter::Headers` class](https://github.com/sferik/twitter/commit/e0d4c36bade95253b98b3ee657af409bfeadbbb6)
+* [Move `Twitter::Request` to `Twitter::REST::Request`](https://github.com/sferik/twitter/commit/a46d9f21067724c437d40c7cb9c609f6cd304df1)
+* [Add `Twitter::REST::Request#rate_limit`](https://github.com/sferik/twitter/commit/0c9f9d6a15835a0260a5a56a8aaffdc3f3e39eed)
+* [Rename `Twitter::REST::Utils` methods](https://github.com/sferik/twitter/commit/2b1cceca0d37a038d3afd0b5763f2308b3db1b2d)
+* [Update default `User-Agent` to comply with Section 5.5.3 of RFC 7231](https://github.com/sferik/twitter/commit/e5eb8d451d8be2d2751e6dda132c65039e5c879c)
+
 5.12.0
 ------
 * [Rescue `Twitter::Error::NotFound` for safe `#favorite` and `#retweet`](https://github.com/sferik/twitter/commit/5e6223df20217fd6b0ac78b44b0defdb46d1e018)
