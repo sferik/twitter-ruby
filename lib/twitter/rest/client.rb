@@ -13,6 +13,8 @@ module Twitter
     class Client < Twitter::Client
       include Twitter::REST::API
       BASE_URL = 'https://api.twitter.com'
+      URL_PREFIX = BASE_URL
+      ENDPOINT = BASE_URL
       attr_accessor :bearer_token
 
       # @param connection_options [Hash]
