@@ -31,7 +31,7 @@ module Twitter
       def perform
         @headers = Twitter::Headers.new(@client, @request_method, @uri.to_s, @options).request_headers
         options_key = @request_method == :get ? :params : :form
-        response = HTTP.with(@headers).send(@request_method, @uri.to_s, options_key => @options)
+        response = HTTP.with(@headers).public_send(@request_method, @uri.to_s, options_key => @options)
         error = error(response)
         fail(error) if error
         @rate_limit = Twitter::RateLimit.new(response.headers)
