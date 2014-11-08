@@ -2,7 +2,7 @@ Metrics/AbcSize:
   Enabled: false
 
 Metrics/BlockLength:
-  Max: 33
+  Max: 36
 
 Metrics/BlockNesting:
   Max: 2
@@ -41,19 +41,10 @@ Style/DotPosition:
 Style/DoubleNegation:
   Enabled: false
 
-Style/EachWithObject:
-  Enabled: false
-
 Style/Encoding:
   Enabled: false
 
 Style/FrozenStringLiteralComment:
-  Enabled: false
-
-Style/HashSyntax:
-  EnforcedStyle: hash_rockets
-
-Style/Lambda:
   Enabled: false
 
 Style/RaiseArgs:

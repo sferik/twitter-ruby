@@ -27,16 +27,16 @@ module Twitter
       # @return [Hash]
       def connection_options
         @connection_options ||= {
-          :builder => middleware,
-          :headers => {
-            :accept => 'application/json',
-            :user_agent => user_agent,
+          builder: middleware,
+          headers: {
+            accept: 'application/json',
+            user_agent: user_agent,
           },
-          :request => {
-            :open_timeout => 10,
-            :timeout => 30,
+          request: {
+            open_timeout: 10,
+            timeout: 30,
           },
-          :proxy => proxy,
+          proxy: proxy,
         }
       end
 

@@ -44,7 +44,7 @@ module Twitter
 
     # @return [Hash]
     def fetch_next_page
-      response = Twitter::REST::Request.new(@client, @request_method, @path, @options.merge(:cursor => next_cursor)).perform
+      response = Twitter::REST::Request.new(@client, @request_method, @path, @options.merge(cursor: next_cursor)).perform
       self.attrs = response
     end
 

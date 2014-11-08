@@ -1,4 +1,7 @@
 require 'buftok'
+require 'http'
+require 'json'
+require 'twitter/error'
 
 module Twitter
   module Streaming
@@ -24,7 +27,7 @@ module Twitter
       def on_body(data)
         @tokenizer.extract(data).each do |line|
           next if line.empty?
-          @block.call(JSON.parse(line, :symbolize_names => true))
+          @block.call(JSON.parse(line, symbolize_names: true))
         end
       end
     end

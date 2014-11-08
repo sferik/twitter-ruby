@@ -16,7 +16,7 @@ describe Twitter::Streaming::Connection do
       class DummySSLSocket; end
 
       subject(:connection) do
-        Twitter::Streaming::Connection.new(:tcp_socket_class => DummyTCPSocket, :ssl_socket_class => DummySSLSocket)
+        Twitter::Streaming::Connection.new(tcp_socket_class: DummyTCPSocket, ssl_socket_class: DummySSLSocket)
       end
 
       it 'sets the default socket classes' do

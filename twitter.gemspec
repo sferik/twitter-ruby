@@ -9,7 +9,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'faraday', '~> 0.9.0'
   spec.add_dependency 'http', '~> 1.0'
   spec.add_dependency 'http_parser.rb', '~> 0.6.0'
-  spec.add_dependency 'json', '~> 1.8'
   spec.add_dependency 'memoizable', '~> 0.4.0'
   spec.add_dependency 'naught', '~> 1.0'
   spec.add_dependency 'simple_oauth', '~> 0.3.0'
@@ -22,6 +21,7 @@ Gem::Specification.new do |spec|
   spec.licenses = %w(MIT)
   spec.name = 'twitter'
   spec.require_paths = %w(lib)
+  spec.required_ruby_version = '>= 2'
   spec.required_rubygems_version = '>= 1.3.5'
   spec.summary = spec.description
   spec.version = Twitter::Version

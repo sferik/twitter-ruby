@@ -1,14 +1,12 @@
-if RUBY_VERSION >= '1.9'
-  require 'simplecov'
-  require 'coveralls'
+require 'simplecov'
+require 'coveralls'
 
-  SimpleCov.formatters = [SimpleCov::Formatter::HTMLFormatter, Coveralls::SimpleCov::Formatter]
+SimpleCov.formatters = [SimpleCov::Formatter::HTMLFormatter, Coveralls::SimpleCov::Formatter]
 
-  SimpleCov.start do
-    add_filter '/spec/'
-    add_filter '/vendor/'
-    minimum_coverage(99.55)
-  end
+SimpleCov.start do
+  add_filter '/spec/'
+  add_filter '/vendor/'
+  minimum_coverage(99.55)
 end
 
 require 'twitter'
@@ -20,7 +18,7 @@ require 'webmock/rspec'
 
 require File.expand_path('../support/media_object_examples', __FILE__)
 
-WebMock.disable_net_connect!(:allow => 'coveralls.io')
+WebMock.disable_net_connect!(allow: 'coveralls.io')
 
 RSpec.configure do |config|
   config.expect_with :rspec do |c|

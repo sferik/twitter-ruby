@@ -37,7 +37,7 @@ module Twitter
       # @param options [Hash] A customizable set of options.
       def tweet_count(uri, options = {})
         connection = Faraday.new('https://cdn.api.twitter.com', connection_options)
-        connection.get('/1/urls/count.json', options.merge(:url => uri.to_s)).body[:count]
+        connection.get('/1/urls/count.json', options.merge(url: uri.to_s)).body[:count]
       end
     end
   end

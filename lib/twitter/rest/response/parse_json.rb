@@ -12,7 +12,7 @@ module Twitter
           when WHITESPACE_REGEX, nil
             nil
           else
-            JSON.parse(body, :symbolize_names => true)
+            JSON.parse(body, symbolize_names: true)
           end
         end
 
@@ -28,4 +28,4 @@ module Twitter
   end
 end
 
-Faraday::Response.register_middleware :twitter_parse_json => Twitter::REST::Response::ParseJson
+Faraday::Response.register_middleware twitter_parse_json: Twitter::REST::Response::ParseJson

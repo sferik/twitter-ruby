@@ -17,9 +17,8 @@ module Twitter
     #
     # @return [Array<Twitter::Size>]
     def photo_sizes
-      @attrs.fetch(:photo_sizes, []).inject({}) do |object, (key, value)|
+      @attrs.fetch(:photo_sizes, []).each_with_object({}) do |(key, value), object|
         object[key] = Size.new(value)
-        object
       end
     end
     memoize :photo_sizes
