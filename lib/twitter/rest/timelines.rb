@@ -11,7 +11,7 @@ module Twitter
 
       # Returns the 20 most recent mentions (statuses containing @username) for the authenticating user
       #
-      # @see https://dev.twitter.com/docs/api/1.1/get/statuses/mentions_timeline
+      # @see https://dev.twitter.com/rest/reference/get/statuses/mentions_timeline
       # @note This method can only return up to 800 Tweets.
       # @rate_limited Yes
       # @authentication Requires user context
@@ -29,7 +29,7 @@ module Twitter
 
       # Returns the 20 most recent Tweets posted by the specified user
       #
-      # @see https://dev.twitter.com/docs/api/1.1/get/statuses/user_timeline
+      # @see https://dev.twitter.com/rest/reference/get/statuses/user_timeline
       # @note This method can only return up to 3,200 Tweets.
       # @rate_limited Yes
       # @authentication Requires user context
@@ -51,7 +51,7 @@ module Twitter
 
       # Returns the 20 most recent retweets posted by the specified user
       #
-      # @see https://dev.twitter.com/docs/api/1.1/get/statuses/user_timeline
+      # @see https://dev.twitter.com/rest/reference/get/statuses/user_timeline
       # @note This method can only return up to 3,200 Tweets.
       # @rate_limited Yes
       # @authentication Requires user context
@@ -74,7 +74,7 @@ module Twitter
 
       # Returns the 20 most recent retweets posted by the authenticating user
       #
-      # @see https://dev.twitter.com/docs/api/1.1/get/statuses/user_timeline
+      # @see https://dev.twitter.com/rest/reference/get/statuses/user_timeline
       # @note This method can only return up to 3,200 Tweets.
       # @rate_limited Yes
       # @authentication Requires user context
@@ -95,7 +95,7 @@ module Twitter
 
       # Returns the 20 most recent Tweets, including retweets if they exist, posted by the authenticating user and the users they follow
       #
-      # @see https://dev.twitter.com/docs/api/1.1/get/statuses/home_timeline
+      # @see https://dev.twitter.com/rest/reference/get/statuses/home_timeline
       # @note This method can only return up to 800 Tweets, including retweets.
       # @rate_limited Yes
       # @authentication Requires user context
@@ -115,7 +115,7 @@ module Twitter
 
       # Returns the 20 most recent retweets posted by users the authenticating user follow.
       #
-      # @see https://dev.twitter.com/docs/api/1.1/get/statuses/home_timeline
+      # @see https://dev.twitter.com/rest/reference/get/statuses/home_timeline
       # @note This method can only return up to 800 Tweets, including retweets.
       # @rate_limited Yes
       # @authentication Requires user context
@@ -136,7 +136,7 @@ module Twitter
 
       # Returns the 20 most recent tweets of the authenticated user that have been retweeted by others
       #
-      # @see https://dev.twitter.com/docs/api/1.1/get/statuses/retweets_of_me
+      # @see https://dev.twitter.com/rest/reference/get/statuses/retweets_of_me
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.

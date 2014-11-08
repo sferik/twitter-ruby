@@ -18,7 +18,7 @@ module Twitter
 
       # Returns all lists the authenticating or specified user subscribes to, including their own
       #
-      # @see https://dev.twitter.com/docs/api/1.1/get/lists/list
+      # @see https://dev.twitter.com/rest/reference/get/lists/list
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
@@ -37,7 +37,7 @@ module Twitter
 
       # Show tweet timeline for members of the specified list
       #
-      # @see https://dev.twitter.com/docs/api/1.1/get/lists/statuses
+      # @see https://dev.twitter.com/rest/reference/get/lists/statuses
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::NotFound] Error raised when supplied list is not found.
@@ -65,7 +65,7 @@ module Twitter
 
       # Removes the specified member from the list
       #
-      # @see https://dev.twitter.com/docs/api/1.1/post/lists/members/destroy
+      # @see https://dev.twitter.com/rest/reference/post/lists/members/destroy
       # @rate_limited No
       # @authentication Requires user context
       # @raise [Twitter::Error::NotFound] Error raised when supplied list is not found.
@@ -86,7 +86,7 @@ module Twitter
 
       # List the lists the specified user has been added to
       #
-      # @see https://dev.twitter.com/docs/api/1.1/get/lists/memberships
+      # @see https://dev.twitter.com/rest/reference/get/lists/memberships
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
@@ -106,7 +106,7 @@ module Twitter
 
       # Returns the subscribers of the specified list
       #
-      # @see https://dev.twitter.com/docs/api/1.1/get/lists/subscribers
+      # @see https://dev.twitter.com/rest/reference/get/lists/subscribers
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::NotFound] Error raised when supplied list is not found.
@@ -125,7 +125,7 @@ module Twitter
 
       # Make the authenticated user follow the specified list
       #
-      # @see https://dev.twitter.com/docs/api/1.1/post/lists/subscribers/create
+      # @see https://dev.twitter.com/rest/reference/post/lists/subscribers/create
       # @rate_limited No
       # @authentication Requires user context
       # @raise [Twitter::Error::NotFound] Error raised when supplied list is not found.
@@ -144,7 +144,7 @@ module Twitter
 
       # Check if a user is a subscriber of the specified list
       #
-      # @see https://dev.twitter.com/docs/api/1.1/get/lists/subscribers/show
+      # @see https://dev.twitter.com/rest/reference/get/lists/subscribers/show
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::NotFound] Error raised when supplied list is not found.
@@ -166,7 +166,7 @@ module Twitter
 
       # Unsubscribes the authenticated user form the specified list
       #
-      # @see https://dev.twitter.com/docs/api/1.1/post/lists/subscribers/destroy
+      # @see https://dev.twitter.com/rest/reference/post/lists/subscribers/destroy
       # @rate_limited No
       # @authentication Requires user context
       # @raise [Twitter::Error::NotFound] Error raised when supplied list is not found.
@@ -185,7 +185,7 @@ module Twitter
 
       # Adds specified members to a list
       #
-      # @see https://dev.twitter.com/docs/api/1.1/post/lists/members/create_all
+      # @see https://dev.twitter.com/rest/reference/post/lists/members/create_all
       # @note Lists are limited to having 5,000 members, and you are limited to adding up to 100 members to a list at a time with this method.
       # @rate_limited No
       # @authentication Requires user context
@@ -208,7 +208,7 @@ module Twitter
 
       # Check if a user is a member of the specified list
       #
-      # @see https://dev.twitter.com/docs/api/1.1/get/lists/members/show
+      # @see https://dev.twitter.com/rest/reference/get/lists/members/show
       # @authentication Requires user context
       # @rate_limited Yes
       # @raise [Twitter::Error::NotFound] Error raised when supplied list is not found.
@@ -229,7 +229,7 @@ module Twitter
 
       # Returns the members of the specified list
       #
-      # @see https://dev.twitter.com/docs/api/1.1/get/lists/members
+      # @see https://dev.twitter.com/rest/reference/get/lists/members
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::NotFound] Error raised when supplied list is not found.
@@ -248,7 +248,7 @@ module Twitter
 
       # Add a member to a list
       #
-      # @see https://dev.twitter.com/docs/api/1.1/post/lists/members/create
+      # @see https://dev.twitter.com/rest/reference/post/lists/members/create
       # @note Lists are limited to having 5,000 members.
       # @rate_limited No
       # @authentication Requires user context
@@ -270,7 +270,7 @@ module Twitter
 
       # Deletes the specified list
       #
-      # @see https://dev.twitter.com/docs/api/1.1/post/lists/destroy
+      # @see https://dev.twitter.com/rest/reference/post/lists/destroy
       # @note Must be owned by the authenticated user.
       # @rate_limited No
       # @authentication Requires user context
@@ -290,7 +290,7 @@ module Twitter
 
       # Updates the specified list
       #
-      # @see https://dev.twitter.com/docs/api/1.1/post/lists/update
+      # @see https://dev.twitter.com/rest/reference/post/lists/update
       # @rate_limited No
       # @authentication Requires user context
       # @raise [Twitter::Error::NotFound] Error raised when supplied list is not found.
@@ -313,7 +313,7 @@ module Twitter
 
       # Creates a new list for the authenticated user
       #
-      # @see https://dev.twitter.com/docs/api/1.1/post/lists/create
+      # @see https://dev.twitter.com/rest/reference/post/lists/create
       # @note Accounts are limited to 20 lists.
       # @rate_limited No
       # @authentication Requires user context
@@ -329,7 +329,7 @@ module Twitter
 
       # Show the specified list
       #
-      # @see https://dev.twitter.com/docs/api/1.1/get/lists/show
+      # @see https://dev.twitter.com/rest/reference/get/lists/show
       # @note Private lists will only be shown if the authenticated user owns the specified list.
       # @rate_limited Yes
       # @authentication Requires user context
@@ -349,7 +349,7 @@ module Twitter
 
       # List the lists the specified user follows
       #
-      # @see https://dev.twitter.com/docs/api/1.1/get/lists/subscriptions
+      # @see https://dev.twitter.com/rest/reference/get/lists/subscriptions
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
@@ -365,7 +365,7 @@ module Twitter
 
       # Removes specified members from the list
       #
-      # @see https://dev.twitter.com/docs/api/1.1/post/lists/members/destroy_all
+      # @see https://dev.twitter.com/rest/reference/post/lists/members/destroy_all
       # @rate_limited No
       # @authentication Requires user context
       # @raise [Twitter::Error::NotFound] Error raised when supplied list is not found.
@@ -386,7 +386,7 @@ module Twitter
 
       # Returns the lists owned by the specified Twitter user
       #
-      # @see https://dev.twitter.com/docs/api/1.1/get/lists/ownerships
+      # @see https://dev.twitter.com/rest/reference/get/lists/ownerships
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.

@@ -10,7 +10,7 @@ module Twitter
 
       # Returns the current configuration used by Twitter
       #
-      # @see https://dev.twitter.com/docs/api/1.1/get/help/configuration
+      # @see https://dev.twitter.com/rest/reference/get/help/configuration
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
@@ -21,7 +21,7 @@ module Twitter
 
       # Returns the list of languages supported by Twitter
       #
-      # @see https://dev.twitter.com/docs/api/1.1/get/help/languages
+      # @see https://dev.twitter.com/rest/reference/get/help/languages
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
@@ -32,7 +32,7 @@ module Twitter
 
       # Returns {https://twitter.com/privacy Twitter's Privacy Policy}
       #
-      # @see https://dev.twitter.com/docs/api/1.1/get/help/privacy
+      # @see https://dev.twitter.com/rest/reference/get/help/privacy
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
@@ -43,7 +43,7 @@ module Twitter
 
       # Returns {https://twitter.com/tos Twitter's Terms of Service}
       #
-      # @see https://dev.twitter.com/docs/api/1.1/get/help/tos
+      # @see https://dev.twitter.com/rest/reference/get/help/tos
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.

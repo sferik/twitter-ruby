@@ -9,7 +9,7 @@ module Twitter
 
       # Returns all the information about a known place
       #
-      # @see https://dev.twitter.com/docs/api/1.1/get/geo/id/:place_id
+      # @see https://dev.twitter.com/rest/reference/get/geo/id/:place_id
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
@@ -22,7 +22,7 @@ module Twitter
 
       # Searches for up to 20 places that can be used as a place_id
       #
-      # @see https://dev.twitter.com/docs/api/1.1/get/geo/reverse_geocode
+      # @see https://dev.twitter.com/rest/reference/get/geo/reverse_geocode
       # @note This request is an informative call and will deliver generalized results about geography.
       # @rate_limited Yes
       # @authentication Requires user context
@@ -40,7 +40,7 @@ module Twitter
 
       # Search for places that can be attached to a {Twitter::REST::Tweets#update}
       #
-      # @see https://dev.twitter.com/docs/api/1.1/get/geo/search
+      # @see https://dev.twitter.com/rest/reference/get/geo/search
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
@@ -62,7 +62,7 @@ module Twitter
 
       # Locates places near the given coordinates which are similar in name
       #
-      # @see https://dev.twitter.com/docs/api/1.1/get/geo/similar_places
+      # @see https://dev.twitter.com/rest/reference/get/geo/similar_places
       # @note Conceptually, you would use this method to get a list of known places to choose from first. Then, if the desired place doesn't exist, make a request to {Twitter::REST::PlacesAndGeo#place} to create a new one. The token contained in the response is the token necessary to create a new place.
       # @rate_limited Yes
       # @authentication Requires user context

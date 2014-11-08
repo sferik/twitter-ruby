@@ -10,7 +10,7 @@ module Twitter
 
       # Returns the top 10 trending topics for a specific WOEID
       #
-      # @see https://dev.twitter.com/docs/api/1.1/get/trends/place
+      # @see https://dev.twitter.com/rest/reference/get/trends/place
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
@@ -28,7 +28,7 @@ module Twitter
 
       # Returns the locations that Twitter has trending topic information for
       #
-      # @see https://dev.twitter.com/docs/api/1.1/get/trends/available
+      # @see https://dev.twitter.com/rest/reference/get/trends/available
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
@@ -41,7 +41,7 @@ module Twitter
 
       # Returns the locations that Twitter has trending topic information for, closest to a specified location.
       #
-      # @see https://dev.twitter.com/docs/api/1.1/get/trends/closest
+      # @see https://dev.twitter.com/rest/reference/get/trends/closest
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.

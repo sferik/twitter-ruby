@@ -15,7 +15,7 @@ module Twitter
       # Only one bearer token may exist outstanding for an application, and repeated requests to this method
       # will yield the same already-existent token until it has been invalidated.
       #
-      # @see https://dev.twitter.com/docs/api/1.1/post/oauth2/token
+      # @see https://dev.twitter.com/rest/reference/post/oauth2/token
       # @rate_limited No
       # @authentication Required
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
@@ -35,7 +35,7 @@ module Twitter
 
       # Allows a registered application to revoke an issued OAuth 2 Bearer Token by presenting its client credentials.
       #
-      # @see https://dev.twitter.com/docs/api/1.1/post/oauth2/invalidate_token
+      # @see https://dev.twitter.com/rest/reference/post/oauth2/invalidate_token
       # @rate_limited No
       # @authentication Required
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
@@ -50,7 +50,7 @@ module Twitter
 
       # Allows a registered application to revoke an issued OAuth 2 Bearer Token by presenting its client credentials.
       #
-      # @see https://dev.twitter.com/docs/api/1.1/post/oauth2/invalidate_token
+      # @see https://dev.twitter.com/rest/reference/post/oauth2/invalidate_token
       # @rate_limited No
       # @authentication Required
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.

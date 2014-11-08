@@ -4,8 +4,8 @@ Twitter API version 1.1 requires authentication on all requests. Some requests
 can be made with [application-only authentication][application-only] while
 other requests require [single-user authentication][single-user].
 
-[application-only]: https://dev.twitter.com/docs/auth/application-only-auth
-[single-user]: https://dev.twitter.com/docs/auth/oauth/single-user-with-examples
+[application-only]: https://dev.twitter.com/oauth/application-only
+[single-user]: https://dev.twitter.com/oauth/overview/single-user
 
 ## Application-only Authentication
 
@@ -13,8 +13,8 @@ To start using the Twitter API, you need to [register your application with
 Twitter][register]. Registration requires you to answer some questions about
 your application and agree to the [Twitter API Terms of Use][api-terms].
 
-[register]: https://dev.twitter.com/apps
-[api-terms]: https://dev.twitter.com/terms/api-terms
+[register]: https://apps.twitter.com/
+[api-terms]: https://dev.twitter.com/overview/terms/agreement-and-policy
 
 Once you've registered an application, it's important that you set the correct
 access level. Otherwise you may see the error:
@@ -80,7 +80,7 @@ Not all Twitter API resources are accessible with application-only
 authentication. Some resources require single-user authentication tokens, which
 you can obtain from the [3-legged authorization][3-legged-authorization] flow.
 
-[3-legged-authorization]: https://dev.twitter.com/docs/auth/3-legged-authorization
+[3-legged-authorization]: https://dev.twitter.com/oauth/3-legged
 
 ```ruby
 client = Twitter::REST::Client.new do |config|

@@ -15,7 +15,7 @@ module Twitter
 
       # Returns up to 100 of the first retweets of a given tweet
       #
-      # @see https://dev.twitter.com/docs/api/1.1/get/statuses/retweets/:id
+      # @see https://dev.twitter.com/rest/reference/get/statuses/retweets/:id
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
@@ -30,7 +30,7 @@ module Twitter
 
       # Show up to 100 users who retweeted the Tweet
       #
-      # @see https://dev.twitter.com/docs/api/1.1/get/statuses/retweets/:id
+      # @see https://dev.twitter.com/rest/reference/get/statuses/retweets/:id
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
@@ -48,7 +48,7 @@ module Twitter
 
       # Returns a Tweet
       #
-      # @see https://dev.twitter.com/docs/api/1.1/get/statuses/show/:id
+      # @see https://dev.twitter.com/rest/reference/get/statuses/show/:id
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
@@ -63,7 +63,7 @@ module Twitter
 
       # Returns Tweets
       #
-      # @see https://dev.twitter.com/docs/api/1.1/get/statuses/lookup
+      # @see https://dev.twitter.com/rest/reference/get/statuses/lookup
       # @rate_limited Yes
       # @authentication Required
       # @return [Array<Twitter::Tweet>] The requested Tweets.
@@ -82,7 +82,7 @@ module Twitter
 
       # Destroys the specified Tweets
       #
-      # @see https://dev.twitter.com/docs/api/1.1/post/statuses/destroy/:id
+      # @see https://dev.twitter.com/rest/reference/post/statuses/destroy/:id
       # @note The authenticating user must be the author of the specified Tweets.
       # @rate_limited No
       # @authentication Requires user context
@@ -104,7 +104,7 @@ module Twitter
 
       # Updates the authenticating user's status
       #
-      # @see https://dev.twitter.com/docs/api/1.1/post/statuses/update
+      # @see https://dev.twitter.com/rest/reference/post/statuses/update
       # @note A status update with text identical to the authenticating user's current status will be ignored to prevent duplicates.
       # @rate_limited No
       # @authentication Requires user context
@@ -130,7 +130,7 @@ module Twitter
 
       # Updates the authenticating user's status
       #
-      # @see https://dev.twitter.com/docs/api/1.1/post/statuses/update
+      # @see https://dev.twitter.com/rest/reference/post/statuses/update
       # @note A status update with text identical to the authenticating user's current status will be ignored to prevent duplicates.
       # @rate_limited No
       # @authentication Requires user context
@@ -158,7 +158,7 @@ module Twitter
 
       # Retweets the specified Tweets as the authenticating user
       #
-      # @see https://dev.twitter.com/docs/api/1.1/post/statuses/retweet/:id
+      # @see https://dev.twitter.com/rest/reference/post/statuses/retweet/:id
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
@@ -182,7 +182,7 @@ module Twitter
 
       # Retweets the specified Tweets as the authenticating user and raises an error if one has already been retweeted
       #
-      # @see https://dev.twitter.com/docs/api/1.1/post/statuses/retweet/:id
+      # @see https://dev.twitter.com/rest/reference/post/statuses/retweet/:id
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::AlreadyRetweeted] Error raised when tweet has already been retweeted.
@@ -204,7 +204,7 @@ module Twitter
 
       # Updates the authenticating user's status with media
       #
-      # @see https://dev.twitter.com/docs/api/1.1/post/statuses/update_with_media
+      # @see https://dev.twitter.com/rest/reference/post/statuses/update_with_media
       # @note A status update with text/media identical to the authenticating user's current status will NOT be ignored
       # @rate_limited No
       # @authentication Requires user context
@@ -233,7 +233,7 @@ module Twitter
 
       # Returns oEmbed for a Tweet
       #
-      # @see https://dev.twitter.com/docs/api/1.1/get/statuses/oembed
+      # @see https://dev.twitter.com/rest/reference/get/statuses/oembed
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
@@ -241,11 +241,11 @@ module Twitter
       # @param tweet [Integer, String, URI, Twitter::Tweet] A Tweet ID, URI, or object.
       # @param options [Hash] A customizable set of options.
       # @option options [Integer] :maxwidth The maximum width in pixels that the embed should be rendered at. This value is constrained to be between 250 and 550 pixels.
-      # @option options [Boolean, String, Integer] :hide_media Specifies whether the embedded Tweet should automatically expand images which were uploaded via {https://dev.twitter.com/docs/api/1.1/post/statuses/update_with_media POST statuses/update_with_media}. When set to either true, t or 1 images will not be expanded. Defaults to false.
+      # @option options [Boolean, String, Integer] :hide_media Specifies whether the embedded Tweet should automatically expand images which were uploaded via {https://dev.twitter.com/rest/reference/post/statuses/update_with_media POST statuses/update_with_media}. When set to either true, t or 1 images will not be expanded. Defaults to false.
       # @option options [Boolean, String, Integer] :hide_thread Specifies whether the embedded Tweet should automatically show the original message in the case that the embedded Tweet is a reply. When set to either true, t or 1 the original Tweet will not be shown. Defaults to false.
       # @option options [Boolean, String, Integer] :omit_script Specifies whether the embedded Tweet HTML should include a `<script>` element pointing to widgets.js. In cases where a page already includes widgets.js, setting this value to true will prevent a redundant script element from being included. When set to either true, t or 1 the `<script>` element will not be included in the embed HTML, meaning that pages must include a reference to widgets.js manually. Defaults to false.
       # @option options [String] :align Specifies whether the embedded Tweet should be left aligned, right aligned, or centered in the page. Valid values are left, right, center, and none. Defaults to none, meaning no alignment styles are specified for the Tweet.
-      # @option options [String] :related A value for the TWT related parameter, as described in {https://dev.twitter.com/docs/intents Web Intents}. This value will be forwarded to all Web Intents calls.
+      # @option options [String] :related A value for the TWT related parameter, as described in {https://dev.twitter.com/web/intents Web Intents}. This value will be forwarded to all Web Intents calls.
       # @option options [String] :lang Language code for the rendered embed. This will affect the text and localization of the rendered HTML.
       def oembed(tweet, options = {})
         options[:id] = extract_id(tweet)
@@ -254,7 +254,7 @@ module Twitter
 
       # Returns oEmbeds for Tweets
       #
-      # @see https://dev.twitter.com/docs/api/1.1/get/statuses/oembed
+      # @see https://dev.twitter.com/rest/reference/get/statuses/oembed
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
@@ -265,11 +265,11 @@ module Twitter
       #   @param tweets [Enumerable<Integer, String, URI, Twitter::Tweet>] A collection of Tweet IDs, URIs, or objects.
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :maxwidth The maximum width in pixels that the embed should be rendered at. This value is constrained to be between 250 and 550 pixels.
-      #   @option options [Boolean, String, Integer] :hide_media Specifies whether the embedded Tweet should automatically expand images which were uploaded via {https://dev.twitter.com/docs/api/1.1/post/statuses/update_with_media POST statuses/update_with_media}. When set to either true, t or 1 images will not be expanded. Defaults to false.
+      #   @option options [Boolean, String, Integer] :hide_media Specifies whether the embedded Tweet should automatically expand images which were uploaded via {https://dev.twitter.com/rest/reference/post/statuses/update_with_media POST statuses/update_with_media}. When set to either true, t or 1 images will not be expanded. Defaults to false.
       #   @option options [Boolean, String, Integer] :hide_thread Specifies whether the embedded Tweet should automatically show the original message in the case that the embedded Tweet is a reply. When set to either true, t or 1 the original Tweet will not be shown. Defaults to false.
       #   @option options [Boolean, String, Integer] :omit_script Specifies whether the embedded Tweet HTML should include a `<script>` element pointing to widgets.js. In cases where a page already includes widgets.js, setting this value to true will prevent a redundant script element from being included. When set to either true, t or 1 the `<script>` element will not be included in the embed HTML, meaning that pages must include a reference to widgets.js manually. Defaults to false.
       #   @option options [String] :align Specifies whether the embedded Tweet should be left aligned, right aligned, or centered in the page. Valid values are left, right, center, and none. Defaults to none, meaning no alignment styles are specified for the Tweet.
-      #   @option options [String] :related A value for the TWT related parameter, as described in {https://dev.twitter.com/docs/intents Web Intents}. This value will be forwarded to all Web Intents calls.
+      #   @option options [String] :related A value for the TWT related parameter, as described in {https://dev.twitter.com/web/intents Web Intents}. This value will be forwarded to all Web Intents calls.
       #   @option options [String] :lang Language code for the rendered embed. This will affect the text and localization of the rendered HTML.
       def oembeds(*args)
         arguments = Twitter::Arguments.new(args)
@@ -280,7 +280,7 @@ module Twitter
 
       # Returns a collection of up to 100 user IDs belonging to users who have retweeted the tweet specified by the id parameter.
       #
-      # @see https://dev.twitter.com/docs/api/1.1/get/statuses/retweeters/ids
+      # @see https://dev.twitter.com/rest/reference/get/statuses/retweeters/ids
       # @rate_limited Yes
       # @authentication Required
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.

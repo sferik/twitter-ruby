@@ -76,15 +76,15 @@ developer documentation.
 ### Streaming (Experimental)
 This library now offers support for the [Twitter Streaming API][streaming].
 
-[streaming]: https://dev.twitter.com/docs/streaming-apis
+[streaming]: https://dev.twitter.com/streaming/overview
 [tweetstream]: http://rubygems.org/gems/tweetstream
 
 Site Streams are restricted to whitelisted accounts. To apply for access,
 [follow the steps in the Site Streams documentation][site-streams]. [User
 Streams][user-streams] do not require prior approval.
 
-[site-streams]: https://dev.twitter.com/docs/streaming-apis/streams/site#Applying_for_access
-[user-streams]: https://dev.twitter.com/docs/streaming-apis/streams/user
+[site-streams]: https://dev.twitter.com/streaming/sitestreams#applyingforaccess
+[user-streams]: https://dev.twitter.com/streaming/userstreams
 
 Unlike the rest of this library, this feature is not well tested and not
 recommended for production applications. I've decided to ship it as an
@@ -276,7 +276,7 @@ so if the authenticated user follows 200 people, calling
 request to the Twitter API will reduce the latency of your application by
 [about 500 ms][status].
 
-[status]: https://dev.twitter.com/status
+[status]: https://dev.twitter.com/overview/status
 
 The last example might seem contrived ("Why would I call
 `client.friends.take(20)` twice?") but it applies to any
@@ -430,7 +430,7 @@ Twitter API v1.1 requires you to authenticate via OAuth, so you'll need to
 application, make sure to set the correct access level, otherwise you may see
 the error:
 
-[register]: https://dev.twitter.com/apps
+[register]: https://apps.twitter.com/
 
     Read-only application cannot POST
 
