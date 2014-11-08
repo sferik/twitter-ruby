@@ -118,7 +118,7 @@ end
 
 ```ruby
 topics = ["coffee", "tea"]
-client.filter(:track => topics.join(",")) do |object|
+client.filter(track: topics.join(",")) do |object|
   puts object.text if object.is_a?(Twitter::Tweet)
 end
 ```
@@ -528,14 +528,14 @@ client.status(27558893223)
 **Collect the three most recent marriage proposals to @justinbieber**
 
 ```ruby
-client.search("to:justinbieber marry me", :result_type => "recent").take(3).collect do |tweet|
+client.search("to:justinbieber marry me", result_type: "recent").take(3).collect do |tweet|
   "#{tweet.user.screen_name}: #{tweet.text}"
 end
 ```
 **Find a Japanese-language Tweet tagged #ruby (excluding retweets)**
 
 ```ruby
-client.search("#ruby -rt", :lang => "ja").first.text
+client.search("#ruby -rt", lang: "ja").first.text
 ```
 For more usage examples, please see the full [documentation][].
 

@@ -16,13 +16,13 @@ client.update("I'm tweeting with @gem!")
 Post an update in reply to another tweet.
 
 ```ruby
-client.update("I'm tweeting with @gem!", :in_reply_to_status_id => 402712877960019968)
+client.update("I'm tweeting with @gem!", in_reply_to_status_id: 402712877960019968)
 ```
 
 Post an update with precise coordinates.
 
 ```ruby
-client.update("I'm tweeting with @gem!", :lat => 37.7821120598956, :long => -122.400612831116, :display_coordinates => true)
+client.update("I'm tweeting with @gem!", lat: 37.7821120598956, long: -122.400612831116, display_coordinates: true)
 ```
 
 Post an update from a specific place. Place IDs can be retrieved using the
@@ -31,7 +31,7 @@ Post an update from a specific place. Place IDs can be retrieved using the
 [reverse_geocode]: http://rdoc.info/gems/twitter/Twitter/REST/API/PlacesAndGeo#reverse_geocode-instance_method
 
 ```ruby
-client.update("I'm tweeting with @gem!", :place_id => "df51dec6f4ee2b2c")
+client.update("I'm tweeting with @gem!", place_id: "df51dec6f4ee2b2c")
 ```
 
 Post an update with an image.
@@ -43,7 +43,7 @@ client.update_with_media("I'm tweeting with @gem!", File.new("/path/to/media.png
 Post an update with a possibly-sensitive image.
 
 ```ruby
-client.update_with_media("I'm tweeting with @gem!", File.new("/path/to/sensitive-media.png"), :possibly_sensitive => true)
+client.update_with_media("I'm tweeting with @gem!", File.new("/path/to/sensitive-media.png"), possibly_sensitive: true)
 ```
 
 Post an update with multiple images.
@@ -56,7 +56,7 @@ media_ids = %w(/path/to/media1.png /path/to/media2.png).map do |filename|
   end
 end.map(&:value)
 
-client.update("I'm tweeting with @gem!", :media_ids => media_ids.join(','))
+client.update("I'm tweeting with @gem!", media_ids: media_ids.join(','))
 ```
 
 For more information, see the documentation for the [`#update`][update] and

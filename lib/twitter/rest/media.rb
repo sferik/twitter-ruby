@@ -19,7 +19,7 @@ module Twitter
         fail(Twitter::Error::UnacceptableIO) unless media.respond_to?(:to_io)
         url = 'https://upload.twitter.com/1.1/media/upload.json'
         headers = Twitter::Headers.new(self, :post, url, options).request_headers
-        HTTP.with(headers).post(url, :form => options).parse['media_id']
+        HTTP.with(headers).post(url, form: options).parse['media_id']
       end
     end
   end

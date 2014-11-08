@@ -9,7 +9,7 @@ Here's a simple example of how to search for tweets. This query will return the
 three most recent marriage proposals to @justinbieber.
 
 ```ruby
-client.search("to:justinbieber marry me", :result_type => "recent").take(3).each do |tweet|
+client.search("to:justinbieber marry me", result_type: "recent").take(3).each do |tweet|
   puts tweet.text
 end
 ```

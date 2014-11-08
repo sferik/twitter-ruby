@@ -147,7 +147,7 @@ module Twitter
       def parallel_objects_from_response(klass, request_method, path, args)
         arguments = Twitter::Arguments.new(args)
         pmap(arguments) do |object|
-          perform_request_with_object(request_method, path, arguments.options.merge(:id => extract_id(object)), klass)
+          perform_request_with_object(request_method, path, arguments.options.merge(id: extract_id(object)), klass)
         end
       end
 
@@ -163,7 +163,7 @@ module Twitter
       end
 
       def user_id
-        @user_id ||= verify_credentials(:skip_status => true).id
+        @user_id ||= verify_credentials(skip_status: true).id
       end
 
       def user_id?

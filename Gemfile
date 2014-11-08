@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'jruby-openssl', :platforms => :jruby
+gem 'jruby-openssl', platforms: :jruby
 gem 'rake'
 gem 'yard'
 

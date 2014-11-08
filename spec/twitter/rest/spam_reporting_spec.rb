@@ -2,16 +2,16 @@ require 'helper'
 
 describe Twitter::REST::SpamReporting do
   before do
-    @client = Twitter::REST::Client.new(:consumer_key => 'CK', :consumer_secret => 'CS', :access_token => 'AT', :access_token_secret => 'AS')
+    @client = Twitter::REST::Client.new(consumer_key: 'CK', consumer_secret: 'CS', access_token: 'AT', access_token_secret: 'AS')
   end
 
   describe '#report_spam' do
     before do
-      stub_post('/1.1/users/report_spam.json').with(:body => {:screen_name => 'sferik'}).to_return(:body => fixture('sferik.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
+      stub_post('/1.1/users/report_spam.json').with(body: {screen_name: 'sferik'}).to_return(body: fixture('sferik.json'), headers: {content_type: 'application/json; charset=utf-8'})
     end
     it 'requests the correct resource' do
       @client.report_spam('sferik')
-      expect(a_post('/1.1/users/report_spam.json').with(:body => {:screen_name => 'sferik'})).to have_been_made
+      expect(a_post('/1.1/users/report_spam.json').with(body: {screen_name: 'sferik'})).to have_been_made
     end
     it 'returns an array of users' do
       users = @client.report_spam('sferik')

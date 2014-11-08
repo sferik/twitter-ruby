@@ -18,7 +18,7 @@ require 'webmock/rspec'
 
 require File.expand_path('../support/media_object_examples', __FILE__)
 
-WebMock.disable_net_connect!(:allow => 'coveralls.io')
+WebMock.disable_net_connect!(allow: 'coveralls.io')
 
 RSpec.configure do |config|
   config.expect_with :rspec do |c|

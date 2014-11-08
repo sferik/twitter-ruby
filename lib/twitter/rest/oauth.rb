@@ -22,13 +22,13 @@ module Twitter
       # @return [Twitter::Token] The Bearer Token. token_type should be 'bearer'.
       # @param options [Hash] A customizable set of options.
       # @example Generate a Bearer Token
-      #   client = Twitter::REST::Client.new(:consumer_key => "abc", :consumer_secret => 'def')
+      #   client = Twitter::REST::Client.new(consumer_key: 'abc', consumer_secret: 'def')
       #   bearer_token = client.token
       def token(options = {})
         options[:bearer_token_request] = true
         options[:grant_type] ||= 'client_credentials'
         headers = Twitter::Headers.new(self, :post, 'https://api.twitter.com/oauth2/token', options).request_headers
-        response = HTTP.with(headers).post('https://api.twitter.com/oauth2/token', :form => options)
+        response = HTTP.with(headers).post('https://api.twitter.com/oauth2/token', form: options)
         Twitter::Token.new(symbolize_keys!(response.parse))
       end
       alias_method :bearer_token, :token
@@ -56,10 +56,10 @@ module Twitter
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [String] The token string.
       def reverse_token
-        options = {:x_auth_mode => 'reverse_auth'}
+        options = {x_auth_mode: 'reverse_auth'}
         url = 'https://api.twitter.com/oauth/request_token'
         auth_header = Twitter::Headers.new(self, :post, url, options).oauth_auth_header.to_s
-        HTTP.with(:authorization => auth_header).post(url, :params => options).to_s
+        HTTP.with(authorization: auth_header).post(url, params: options).to_s
       end
     end
   end

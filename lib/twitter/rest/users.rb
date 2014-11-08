@@ -34,7 +34,7 @@ module Twitter
         request_method = options.size.zero? ? :get : :post
         response = perform_request(request_method.to_sym, '/1.1/account/settings.json', options)
         # https://dev.twitter.com/issues/59
-        response.update(:trend_location => response.fetch(:trend_location, []).first)
+        response.update(trend_location: response.fetch(:trend_location, []).first)
         Twitter::Settings.new(response)
       end
 
@@ -62,7 +62,7 @@ module Twitter
       # @param device [String] Must be one of: 'sms', 'none'.
       # @param options [Hash] A customizable set of options.
       def update_delivery_device(device, options = {})
-        perform_post_with_object('/1.1/account/update_delivery_device.json', options.merge(:device => device), Twitter::User)
+        perform_post_with_object('/1.1/account/update_delivery_device.json', options.merge(device: device), Twitter::User)
       end
 
       # Sets values that users are able to set under the "Account" tab of their settings page
@@ -93,7 +93,7 @@ module Twitter
       # @param options [Hash] A customizable set of options.
       # @option options [Boolean] :tile Whether or not to tile the background image. If set to true the background image will be displayed tiled. The image will not be tiled otherwise.
       def update_profile_background_image(image, options = {})
-        perform_post_with_object('/1.1/account/update_profile_background_image.json', options.merge(:image => image), Twitter::User)
+        perform_post_with_object('/1.1/account/update_profile_background_image.json', options.merge(image: image), Twitter::User)
       end
 
       # Sets one or more hex values that control the color scheme of the authenticating user's profile
@@ -125,7 +125,7 @@ module Twitter
       # @param image [File] The avatar image for the profile, base64-encoded. Must be a valid GIF, JPG, or PNG image of less than 700 kilobytes in size. Images with width larger than 500 pixels will be scaled down. Animated GIFs will be converted to a static GIF of the first frame, removing the animation.
       # @param options [Hash] A customizable set of options.
       def update_profile_image(image, options = {})
-        perform_post_with_object('/1.1/account/update_profile_image.json', options.merge(:image => image), Twitter::User)
+        perform_post_with_object('/1.1/account/update_profile_image.json', options.merge(image: image), Twitter::User)
       end
 
       # Returns an array of user objects that the authenticating user is blocking
@@ -286,7 +286,7 @@ module Twitter
       # @option options [Integer] :count The number of people to retrieve. Maxiumum of 20 allowed per page.
       # @option options [Integer] :page Specifies the page of results to retrieve.
       def user_search(query, options = {})
-        perform_get_with_objects('/1.1/users/search.json', options.merge(:q => query), Twitter::User)
+        perform_get_with_objects('/1.1/users/search.json', options.merge(q: query), Twitter::User)
       end
 
       # Returns an array of users that the specified user can contribute to
@@ -357,7 +357,7 @@ module Twitter
       # @option options [Integer] :offset_left The number of pixels by which to offset the uploaded image from the left. Use with height, width, and offset_top to select the desired region of the image to use.
       # @option options [Integer] :offset_top The number of pixels by which to offset the uploaded image from the top. Use with height, width, and offset_left to select the desired region of the image to use.
       def update_profile_banner(banner, options = {})
-        perform_post('/1.1/account/update_profile_banner.json', options.merge(:banner => banner))
+        perform_post('/1.1/account/update_profile_banner.json', options.merge(banner: banner))
         true
       end
 

@@ -36,8 +36,8 @@ If you prefer, you can pass in configuration as a `Hash`:
 
 ```ruby
 config = {
-  :consumer_key    => "YOUR_CONSUMER_KEY",
-  :consumer_secret => "YOUR_CONSUMER_SECRET",
+  consumer_key:    "YOUR_CONSUMER_KEY",
+  consumer_secret: "YOUR_CONSUMER_SECRET",
 }
 
 client = Twitter::REST::Client.new(config)

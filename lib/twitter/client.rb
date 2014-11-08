@@ -37,11 +37,11 @@ module Twitter
     # @return [Hash]
     def credentials
       {
-        :consumer_key      => consumer_key,
-        :consumer_secret   => consumer_secret,
-        :token             => access_token,
-        :token_secret      => access_token_secret,
-        :ignore_extra_keys => true,
+        consumer_key: consumer_key,
+        consumer_secret: consumer_secret,
+        token: access_token,
+        token_secret: access_token_secret,
+        ignore_extra_keys: true,
       }
     end
 
