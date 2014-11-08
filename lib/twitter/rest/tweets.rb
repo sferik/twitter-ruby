@@ -76,7 +76,7 @@ module Twitter
       def statuses(*args)
         arguments = Twitter::Arguments.new(args)
         flat_pmap(arguments.each_slice(MAX_TWEETS_PER_REQUEST)) do |tweets|
-          perform_post_with_objects('/1.1/statuses/lookup.json', arguments.options.merge(:id => tweets.collect { |u| extract_id(u) }.join(',')), Twitter::Tweet)
+          perform_post_with_objects('/1.1/statuses/lookup.json', arguments.options.merge(id: tweets.collect { |u| extract_id(u) }.join(',')), Twitter::Tweet)
         end
       end
 
@@ -127,7 +127,7 @@ module Twitter
       def update(status, options = {})
         update!(status, options)
       rescue Twitter::Error::DuplicateStatus
-        user_timeline(:count => 1).first
+        user_timeline(count: 1).first
       end
 
       # Updates the authenticating user's status
@@ -155,7 +155,7 @@ module Twitter
         hash = options.dup
         hash[:in_reply_to_status_id] = hash.delete(:in_reply_to_status).id unless hash[:in_reply_to_status].nil?
         hash[:place_id] = hash.delete(:place).woeid unless hash[:place].nil?
-        perform_post_with_object('/1.1/statuses/update.json', hash.merge(:status => status), Twitter::Tweet)
+        perform_post_with_object('/1.1/statuses/update.json', hash.merge(status: status), Twitter::Tweet)
       end
 
       # Retweets the specified Tweets as the authenticating user

@@ -63,7 +63,7 @@ module Twitter
       # @param query [String] The query of the search the user would like to save.
       # @param options [Hash] A customizable set of options.
       def create_saved_search(query, options = {})
-        perform_post_with_object('/1.1/saved_searches/create.json', options.merge(:query => query), Twitter::SavedSearch)
+        perform_post_with_object('/1.1/saved_searches/create.json', options.merge(query: query), Twitter::SavedSearch)
       end
       deprecate_alias :saved_search_create, :create_saved_search
 

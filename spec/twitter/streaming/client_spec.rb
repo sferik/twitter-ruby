@@ -34,7 +34,7 @@ describe Twitter::Streaming::Client do
     it 'returns an arary of Tweets' do
       @client.connection = FakeConnection.new(fixture('track_streaming.json'))
       objects = []
-      @client.filter(:track => 'india') do |object|
+      @client.filter(track: 'india') do |object|
         objects << object
       end
       expect(objects.size).to eq(2)
@@ -86,7 +86,7 @@ describe Twitter::Streaming::Client do
       it 'returns an arary of Tweets' do
         @client.connection = FakeConnection.new(fixture('track_streaming.json'))
         objects = []
-        user = Twitter::User.new(:id => 7_505_382)
+        user = Twitter::User.new(id: 7_505_382)
         @client.site(user) do |object|
           objects << object
         end

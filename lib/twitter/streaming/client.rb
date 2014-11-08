@@ -72,7 +72,7 @@ module Twitter
       def site(*args, &block)
         arguments = Arguments.new(args)
         user_ids = collect_user_ids(arguments)
-        request(:get, 'https://sitestream.twitter.com:443/1.1/site.json', arguments.options.merge(:follow => user_ids.join(',')), &block)
+        request(:get, 'https://sitestream.twitter.com:443/1.1/site.json', arguments.options.merge(follow: user_ids.join(',')), &block)
       end
 
       # Streams messages for a single user
@@ -108,7 +108,7 @@ module Twitter
       def request(method, uri, params)
         before_request.call
         authorization = Twitter::Headers.new(self, method, uri, params).oauth_auth_header.to_s
-        headers = default_headers.merge(:authorization => authorization)
+        headers = default_headers.merge(authorization: authorization)
         request = HTTP::Request.new(method, uri + '?' + to_url_params(params), headers)
         response = Streaming::Response.new do |data|
           if item = Streaming::MessageParser.parse(data) # rubocop:disable AssignmentInCondition, IfUnlessModifier
@@ -126,8 +126,8 @@ module Twitter
 
       def default_headers
         @default_headers ||= {
-          :accept     => '*/*',
-          :user_agent => user_agent,
+          accept: '*/*',
+          user_agent: user_agent,
         }
       end
 

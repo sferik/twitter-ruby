@@ -3,7 +3,7 @@ require 'helper'
 describe Twitter::Headers do
 
   before do
-    @client = Twitter::REST::Client.new(:consumer_key => 'CK', :consumer_secret => 'CS', :access_token => 'AT', :access_token_secret => 'AS')
+    @client = Twitter::REST::Client.new(consumer_key: 'CK', consumer_secret: 'CS', access_token: 'AT', access_token_secret: 'AS')
     @headers = Twitter::Headers.new(@client, :get, Twitter::REST::Request::BASE_URL + '/path')
   end
 
@@ -19,34 +19,34 @@ describe Twitter::Headers do
     end
     it 'submits the correct auth header when no media is present' do
       # We use static values for nounce and timestamp to get a stable signature
-      secret = {:consumer_key => 'CK', :consumer_secret => 'CS', :token => 'OT', :token_secret => 'OS', :nonce => 'b6ebe4c2a11af493f8a2290fe1296965', :timestamp => '1370968658', :ignore_extra_keys => true}
-      headers = {:authorization => /oauth_signature="FbthwmgGq02iQw%2FuXGEWaL6V6eM%3D"/, :content_type => 'application/json; charset=utf-8'}
+      secret = {consumer_key: 'CK', consumer_secret: 'CS', token: 'OT', token_secret: 'OS', nonce: 'b6ebe4c2a11af493f8a2290fe1296965', timestamp: '1370968658', ignore_extra_keys: true}
+      headers = {authorization: /oauth_signature="FbthwmgGq02iQw%2FuXGEWaL6V6eM%3D"/, content_type: 'application/json; charset=utf-8'}
       allow(@client).to receive(:credentials).and_return(secret)
-      stub_post('/1.1/statuses/update.json').with(:body => {:status => 'Just a test'}).to_return(:body => fixture('status.json'), :headers => headers)
+      stub_post('/1.1/statuses/update.json').with(body: {status: 'Just a test'}).to_return(body: fixture('status.json'), headers: headers)
       @client.update('Just a test')
-      expect(a_post('/1.1/statuses/update.json').with(:headers => {:authorization => headers[:authorization]})).to have_been_made
+      expect(a_post('/1.1/statuses/update.json').with(headers: {authorization: headers[:authorization]})).to have_been_made
     end
     it 'submits the correct auth header when media is present' do
       # We use static values for nounce and timestamp to get a stable signature
-      secret = {:consumer_key => 'CK', :consumer_secret => 'CS', :token => 'OT', :token_secret => 'OS', :nonce => 'e08201ad0dab4897c99445056feefd95', :timestamp => '1370967652', :ignore_extra_keys => true}
-      headers = {:authorization => /oauth_signature="9ziouUPwZT9IWWRbJL8r0BerKYA%3D"/, :content_type => 'application/json; charset=utf-8'}
+      secret = {consumer_key: 'CK', consumer_secret: 'CS', token: 'OT', token_secret: 'OS', nonce: 'e08201ad0dab4897c99445056feefd95', timestamp: '1370967652', ignore_extra_keys: true}
+      headers = {authorization: /oauth_signature="9ziouUPwZT9IWWRbJL8r0BerKYA%3D"/, content_type: 'application/json; charset=utf-8'}
       allow(@client).to receive(:credentials).and_return(secret)
-      stub_post('/1.1/statuses/update_with_media.json').to_return(:body => fixture('status.json'), :headers => headers)
+      stub_post('/1.1/statuses/update_with_media.json').to_return(body: fixture('status.json'), headers: headers)
       @client.update_with_media('Just a test', fixture('pbjt.gif'))
-      expect(a_post('/1.1/statuses/update_with_media.json').with(:headers => {:authorization => headers[:authorization]})).to have_been_made
+      expect(a_post('/1.1/statuses/update_with_media.json').with(headers: {authorization: headers[:authorization]})).to have_been_made
     end
   end
 
   describe '#bearer_auth_header' do
     it 'creates the correct auth headers with supplied bearer token' do
-      client = Twitter::REST::Client.new(:bearer_token => 'BT')
+      client = Twitter::REST::Client.new(bearer_token: 'BT')
       headers = Twitter::Headers.new(client, :get, Twitter::REST::Request::BASE_URL + '/path')
       authorization = headers.send(:bearer_auth_header)
       expect(authorization).to eq('Bearer BT')
     end
     it 'creates the correct auth headers with supplied Twitter::Token' do
-      token = Twitter::Token.new(:token_type => 'bearer', :access_token => 'BT')
-      client = Twitter::REST::Client.new(:bearer_token => token)
+      token = Twitter::Token.new(token_type: 'bearer', access_token: 'BT')
+      client = Twitter::REST::Client.new(bearer_token: token)
       headers = Twitter::Headers.new(client, :get, Twitter::REST::Request::BASE_URL + '/path')
       authorization = headers.send(:bearer_auth_header)
       expect(authorization).to eq('Bearer BT')

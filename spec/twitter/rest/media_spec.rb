@@ -2,12 +2,12 @@ require 'helper'
 
 describe Twitter::REST::Media do
   before do
-    @client = Twitter::REST::Client.new(:consumer_key => 'CK', :consumer_secret => 'CS', :access_token => 'AT', :access_token_secret => 'AS')
+    @client = Twitter::REST::Client.new(consumer_key: 'CK', consumer_secret: 'CS', access_token: 'AT', access_token_secret: 'AS')
   end
 
   describe '#upload' do
     before do
-      stub_request(:post, 'https://upload.twitter.com/1.1/media/upload.json').to_return(:body => fixture('upload.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
+      stub_request(:post, 'https://upload.twitter.com/1.1/media/upload.json').to_return(body: fixture('upload.json'), headers: {content_type: 'application/json; charset=utf-8'})
     end
     context 'a gif image' do
       it 'requests the correct resource' do

@@ -3,12 +3,12 @@ require 'helper'
 describe Twitter::REST::PlacesAndGeo do
 
   before do
-    @client = Twitter::REST::Client.new(:consumer_key => 'CK', :consumer_secret => 'CS', :access_token => 'AT', :access_token_secret => 'AS')
+    @client = Twitter::REST::Client.new(consumer_key: 'CK', consumer_secret: 'CS', access_token: 'AT', access_token_secret: 'AS')
   end
 
   describe '#place' do
     before do
-      stub_get('/1.1/geo/id/247f43d441defc03.json').to_return(:body => fixture('place.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
+      stub_get('/1.1/geo/id/247f43d441defc03.json').to_return(body: fixture('place.json'), headers: {content_type: 'application/json; charset=utf-8'})
     end
     it 'requests the correct resource' do
       @client.place('247f43d441defc03')
@@ -22,14 +22,14 @@ describe Twitter::REST::PlacesAndGeo do
 
   describe '#reverse_geocode' do
     before do
-      stub_get('/1.1/geo/reverse_geocode.json').with(:query => {:lat => '37.7821120598956', :long => '-122.400612831116'}).to_return(:body => fixture('places.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
+      stub_get('/1.1/geo/reverse_geocode.json').with(query: {lat: '37.7821120598956', long: '-122.400612831116'}).to_return(body: fixture('places.json'), headers: {content_type: 'application/json; charset=utf-8'})
     end
     it 'requests the correct resource' do
-      @client.reverse_geocode(:lat => '37.7821120598956', :long => '-122.400612831116')
-      expect(a_get('/1.1/geo/reverse_geocode.json').with(:query => {:lat => '37.7821120598956', :long => '-122.400612831116'})).to have_been_made
+      @client.reverse_geocode(lat: '37.7821120598956', long: '-122.400612831116')
+      expect(a_get('/1.1/geo/reverse_geocode.json').with(query: {lat: '37.7821120598956', long: '-122.400612831116'})).to have_been_made
     end
     it 'returns places' do
-      places = @client.reverse_geocode(:lat => '37.7821120598956', :long => '-122.400612831116')
+      places = @client.reverse_geocode(lat: '37.7821120598956', long: '-122.400612831116')
       expect(places).to be_a Twitter::GeoResults
       expect(places.first.name).to eq('Bernal Heights')
     end
@@ -37,14 +37,14 @@ describe Twitter::REST::PlacesAndGeo do
 
   describe '#geo_search' do
     before do
-      stub_get('/1.1/geo/search.json').with(:query => {:ip => '74.125.19.104'}).to_return(:body => fixture('places.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
+      stub_get('/1.1/geo/search.json').with(query: {ip: '74.125.19.104'}).to_return(body: fixture('places.json'), headers: {content_type: 'application/json; charset=utf-8'})
     end
     it 'requests the correct resource' do
-      @client.geo_search(:ip => '74.125.19.104')
-      expect(a_get('/1.1/geo/search.json').with(:query => {:ip => '74.125.19.104'})).to have_been_made
+      @client.geo_search(ip: '74.125.19.104')
+      expect(a_get('/1.1/geo/search.json').with(query: {ip: '74.125.19.104'})).to have_been_made
     end
     it 'returns nearby places' do
-      places = @client.geo_search(:ip => '74.125.19.104')
+      places = @client.geo_search(ip: '74.125.19.104')
       expect(places).to be_a Twitter::GeoResults
       expect(places.first.name).to eq('Bernal Heights')
     end
@@ -52,14 +52,14 @@ describe Twitter::REST::PlacesAndGeo do
 
   describe '#similar_places' do
     before do
-      stub_get('/1.1/geo/similar_places.json').with(:query => {:lat => '37.7821120598956', :long => '-122.400612831116', :name => 'Twitter HQ'}).to_return(:body => fixture('places.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
+      stub_get('/1.1/geo/similar_places.json').with(query: {lat: '37.7821120598956', long: '-122.400612831116', name: 'Twitter HQ'}).to_return(body: fixture('places.json'), headers: {content_type: 'application/json; charset=utf-8'})
     end
     it 'requests the correct resource' do
-      @client.similar_places(:lat => '37.7821120598956', :long => '-122.400612831116', :name => 'Twitter HQ')
-      expect(a_get('/1.1/geo/similar_places.json').with(:query => {:lat => '37.7821120598956', :long => '-122.400612831116', :name => 'Twitter HQ'})).to have_been_made
+      @client.similar_places(lat: '37.7821120598956', long: '-122.400612831116', name: 'Twitter HQ')
+      expect(a_get('/1.1/geo/similar_places.json').with(query: {lat: '37.7821120598956', long: '-122.400612831116', name: 'Twitter HQ'})).to have_been_made
     end
     it 'returns similar places' do
-      places = @client.similar_places(:lat => '37.7821120598956', :long => '-122.400612831116', :name => 'Twitter HQ')
+      places = @client.similar_places(lat: '37.7821120598956', long: '-122.400612831116', name: 'Twitter HQ')
       expect(places).to be_a Twitter::GeoResults
       expect(places.first.name).to eq('Bernal Heights')
     end

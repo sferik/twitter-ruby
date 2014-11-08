@@ -36,7 +36,7 @@ module Twitter
       # @param url [String, URI] A URL.
       # @param options [Hash] A customizable set of options.
       def tweet_count(url, options = {})
-        HTTP.get('https://cdn.api.twitter.com/1/urls/count.json', :params => options.merge(:url => url.to_s)).parse['count']
+        HTTP.get('https://cdn.api.twitter.com/1/urls/count.json', params: options.merge(url: url.to_s)).parse['count']
       end
     end
   end
