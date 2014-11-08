@@ -65,7 +65,6 @@ module Twitter
       def create_saved_search(query, options = {})
         perform_post_with_object('/1.1/saved_searches/create.json', options.merge(query: query), Twitter::SavedSearch)
       end
-      deprecate_alias :saved_search_create, :create_saved_search
 
       # Destroys saved searches for the authenticated user
       #
@@ -86,7 +85,6 @@ module Twitter
           perform_post_with_object("/1.1/saved_searches/destroy/#{id}.json", arguments.options, Twitter::SavedSearch)
         end
       end
-      deprecate_alias :saved_search_destroy, :destroy_saved_search
     end
   end
 end

@@ -4,6 +4,5 @@ module Twitter
       # @return [Integer]
       attr_reader :user_id
     end
-    DeletedStatus = DeletedTweet
   end
 end

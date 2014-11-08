@@ -6,9 +6,5 @@ module Twitter
       display_uri_attr_reader
       uri_attr_reader :expanded_uri, :uri
     end
-
-    URL = URI
-    Uri = URI
-    Url = URI
   end
 end

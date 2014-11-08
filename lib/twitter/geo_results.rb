@@ -9,7 +9,6 @@ module Twitter
     attr_reader :attrs
     alias_method :to_h, :attrs
     alias_method :to_hash, :to_h
-    deprecate_alias :to_hsh, :to_hash
 
     # Initializes a new GeoResults object
     #

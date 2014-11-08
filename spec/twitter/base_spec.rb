@@ -22,26 +22,11 @@ describe Twitter::Base do
         expect(@base['foo']).to be_nil
       end
     end
-    it 'outputs a warning' do
-      warning = capture_warning do
-        @base[:object_id]
-      end
-      expect(warning).to match(/\[DEPRECATION\] #\[:object_id\] is deprecated\. Use #object_id to fetch the value\./)
-    end
   end
 
   describe '#attrs' do
     it 'returns a hash of attributes' do
       expect(@base.attrs).to eq(id: 1)
-    end
-  end
-
-  describe '#to_hsh' do
-    it 'outputs a warning' do
-      warning = capture_warning do
-        expect(@base.to_hsh).to eq(id: 1)
-      end
-      expect(warning).to match(/\[DEPRECATION\] #to_hsh is deprecated\. Use #to_hash instead\./)
     end
   end
 end

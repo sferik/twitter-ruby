@@ -101,8 +101,6 @@ module Twitter
         end
       end
       alias_method :destroy_tweet, :destroy_status
-      deprecate_alias :status_destroy, :destroy_status
-      deprecate_alias :tweet_destroy, :destroy_status
 
       # Updates the authenticating user's status
       #

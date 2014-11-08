@@ -13,7 +13,6 @@ module Twitter
     attr_reader :attrs
     alias_method :to_h, :attrs
     alias_method :to_hash, :to_h
-    deprecate_alias :to_hsh, :to_hash
 
     class << self
       # Define methods that retrieve the value from attributes
@@ -29,7 +28,6 @@ module Twitter
       def predicate_attr_reader(*attrs)
         attrs.each do |attr|
           define_predicate_method(attr)
-          deprecate_attribute_method(attr)
         end
       end
 
@@ -97,15 +95,6 @@ module Twitter
           end
         end
         memoize(key1)
-      end
-
-      # @param key [Symbol]
-      def deprecate_attribute_method(key)
-        define_method(key) do
-          warn "#{Kernel.caller.first}: [DEPRECATION] ##{key} is deprecated. Use ##{key}? instead."
-          @attrs[key]
-        end
-        memoize(key)
       end
 
       # Dynamically define a predicate method for an attribute

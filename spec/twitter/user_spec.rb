@@ -379,16 +379,6 @@ describe Twitter::User do
     end
   end
 
-  describe '#verified' do
-    it 'outputs a warning' do
-      user = Twitter::User.new(id: 7_505_382, verified: true)
-      warning = capture_warning do
-        expect(user.verified).to be true
-      end
-      expect(warning).to match(/\[DEPRECATION\] #verified is deprecated\. Use #verified\? instead\./)
-    end
-  end
-
   describe '#website' do
     it 'returns a URI when the url is set' do
       user = Twitter::User.new(id: 7_505_382, url: 'https://github.com/sferik')

@@ -7,10 +7,6 @@ module Twitter
     include Twitter::Utils
     attr_accessor :access_token, :access_token_secret, :consumer_key, :consumer_secret, :proxy
     attr_writer :user_agent
-    deprecate_alias :oauth_token, :access_token
-    deprecate_alias :oauth_token=, :access_token=
-    deprecate_alias :oauth_token_secret, :access_token_secret
-    deprecate_alias :oauth_token_secret=, :access_token_secret=
 
     # Initializes a new Client object
     #
