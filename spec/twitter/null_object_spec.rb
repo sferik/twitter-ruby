@@ -3,7 +3,6 @@ require 'helper'
 describe Twitter::NullObject do
   describe '#!' do
     it 'returns true' do
-      pending 'Add when support for Ruby 1.8.7 is dropped'
       expect(!subject).to be true
     end
   end
