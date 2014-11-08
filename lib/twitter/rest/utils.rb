@@ -233,7 +233,7 @@ module Twitter
         hash
       end
 
-      def collect_user_ids_and_screen_names(users) # rubocop:disable MethodLength
+      def collect_user_ids_and_screen_names(users) # rubocop:disable AbcSize, MethodLength
         user_ids, screen_names = [], []
         users.flatten.each do |user|
           case user
