@@ -15,12 +15,12 @@ module Twitter
       # @overload suggestions(options = {})
       #   Returns the list of suggested user categories
       #
-      #   @see https://dev.twitter.com/docs/api/1.1/get/users/suggestions
+      #   @see https://dev.twitter.com/rest/reference/get/users/suggestions
       #   @param options [Hash] A customizable set of options.
       # @overload suggestions(slug, options = {})
       #   Returns the users in a given category
       #
-      #   @see https://dev.twitter.com/docs/api/1.1/get/users/suggestions/:slug
+      #   @see https://dev.twitter.com/rest/reference/get/users/suggestions/:slug
       #   @param slug [String] The short name of list or a category.
       #   @param options [Hash] A customizable set of options.
       def suggestions(*args)
@@ -34,7 +34,7 @@ module Twitter
 
       # Access the users in a given category of the Twitter suggested user list and return their most recent Tweet if they are not a protected user
       #
-      # @see https://dev.twitter.com/docs/api/1.1/get/users/suggestions/:slug/members
+      # @see https://dev.twitter.com/rest/reference/get/users/suggestions/:slug/members
       # @rate_limited Yes
       # @authentication Requires user context
       # @param slug [String] The short name of list or a category.

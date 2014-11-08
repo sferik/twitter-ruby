@@ -8,7 +8,7 @@ module Twitter
     # @return [Twitter::RateLimit]
     attr_reader :rate_limit
 
-    # If error code is missing see https://dev.twitter.com/docs/error-codes-responses
+    # If error code is missing see https://dev.twitter.com/overview/api/response-codes
     module Code
       AUTHENTICATION_PROBLEM       =  32
       RESOURCE_NOT_FOUND           =  34

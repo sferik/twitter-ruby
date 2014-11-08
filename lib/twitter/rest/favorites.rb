@@ -11,7 +11,7 @@ module Twitter
       include Twitter::REST::Utils
       include Twitter::Utils
 
-      # @see https://dev.twitter.com/docs/api/1.1/get/favorites/list
+      # @see https://dev.twitter.com/rest/reference/get/favorites/list
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
@@ -37,7 +37,7 @@ module Twitter
 
       # Un-favorites the specified Tweets as the authenticating user
       #
-      # @see https://dev.twitter.com/docs/api/1.1/post/favorites/destroy
+      # @see https://dev.twitter.com/rest/reference/post/favorites/destroy
       # @rate_limited No
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
@@ -55,7 +55,7 @@ module Twitter
 
       # Favorites the specified Tweets as the authenticating user
       #
-      # @see https://dev.twitter.com/docs/api/1.1/post/favorites/create
+      # @see https://dev.twitter.com/rest/reference/post/favorites/create
       # @rate_limited No
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
@@ -81,7 +81,7 @@ module Twitter
 
       # Favorites the specified Tweets as the authenticating user and raises an error if one has already been favorited
       #
-      # @see https://dev.twitter.com/docs/api/1.1/post/favorites/create
+      # @see https://dev.twitter.com/rest/reference/post/favorites/create
       # @rate_limited No
       # @authentication Requires user context
       # @raise [Twitter::Error::AlreadyFavorited] Error raised when tweet has already been favorited.

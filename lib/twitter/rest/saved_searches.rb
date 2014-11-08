@@ -16,17 +16,17 @@ module Twitter
       # @overload saved_search(options = {})
       #   Returns the authenticated user's saved search queries
       #
-      #   @see https://dev.twitter.com/docs/api/1.1/get/saved_searches/list
+      #   @see https://dev.twitter.com/rest/reference/get/saved_searches/list
       #   @param options [Hash] A customizable set of options.
       # @overload saved_search(*ids)
       #   Retrieve the data for saved searches owned by the authenticating user
       #
-      #   @see https://dev.twitter.com/docs/api/1.1/get/saved_searches/show/:id
+      #   @see https://dev.twitter.com/rest/reference/get/saved_searches/show/:id
       #   @param ids [Enumerable<Integer>] A collection of saved search IDs.
       # @overload saved_search(*ids, options)
       #   Retrieve the data for saved searches owned by the authenticating user
       #
-      #   @see https://dev.twitter.com/docs/api/1.1/get/saved_searches/show/:id
+      #   @see https://dev.twitter.com/rest/reference/get/saved_searches/show/:id
       #   @param ids [Enumerable<Integer>] A collection of saved search IDs.
       #   @param options [Hash] A customizable set of options.
       def saved_searches(*args)
@@ -42,7 +42,7 @@ module Twitter
 
       # Retrieve the data for saved searches owned by the authenticating user
       #
-      # @see https://dev.twitter.com/docs/api/1.1/get/saved_searches/show/:id
+      # @see https://dev.twitter.com/rest/reference/get/saved_searches/show/:id
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
@@ -55,7 +55,7 @@ module Twitter
 
       # Creates a saved search for the authenticated user
       #
-      # @see https://dev.twitter.com/docs/api/1.1/post/saved_searches/create
+      # @see https://dev.twitter.com/rest/reference/post/saved_searches/create
       # @rate_limited No
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
@@ -69,7 +69,7 @@ module Twitter
 
       # Destroys saved searches for the authenticated user
       #
-      # @see https://dev.twitter.com/docs/api/1.1/post/saved_searches/destroy/:id
+      # @see https://dev.twitter.com/rest/reference/post/saved_searches/destroy/:id
       # @note The search specified by ID must be owned by the authenticating user.
       # @rate_limited No
       # @authentication Requires user context

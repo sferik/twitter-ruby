@@ -25,8 +25,8 @@ module Twitter
 
       # Returns public statuses that match one or more filter predicates
       #
-      # @see https://dev.twitter.com/docs/api/1.1/post/statuses/filter
-      # @see https://dev.twitter.com/docs/streaming-apis/parameters
+      # @see https://dev.twitter.com/streaming/reference/post/statuses/filter
+      # @see https://dev.twitter.com/streaming/overview/request-parameters
       # @note At least one predicate parameter (follow, locations, or track) must be specified.
       # @param options [Hash] A customizable set of options.
       # @option options [String] :follow A comma separated list of user IDs, indicating the users to return statuses for in the stream.
@@ -39,8 +39,8 @@ module Twitter
 
       # Returns all public statuses
       #
-      # @see https://dev.twitter.com/docs/api/1.1/get/statuses/firehose
-      # @see https://dev.twitter.com/docs/streaming-apis/parameters
+      # @see https://dev.twitter.com/streaming/reference/get/statuses/firehose
+      # @see https://dev.twitter.com/streaming/overview/request-parameters
       # @note This endpoint requires special permission to access.
       # @param options [Hash] A customizable set of options.
       # @option options [Integer] :count The number of messages to backfill.
@@ -51,8 +51,8 @@ module Twitter
 
       # Returns a small random sample of all public statuses
       #
-      # @see https://dev.twitter.com/docs/api/1.1/get/statuses/sample
-      # @see https://dev.twitter.com/docs/streaming-apis/parameters
+      # @see https://dev.twitter.com/streaming/reference/get/statuses/sample
+      # @see https://dev.twitter.com/streaming/overview/request-parameters
       # @yield [Twitter::Tweet, Twitter::Streaming::Event, Twitter::DirectMessage, Twitter::Streaming::FriendList, Twitter::Streaming::DeletedTweet, Twitter::Streaming::StallWarning] A stream of Twitter objects.
       def sample(options = {}, &block)
         request(:get, 'https://stream.twitter.com:443/1.1/statuses/sample.json', options, &block)
@@ -60,9 +60,9 @@ module Twitter
 
       # Streams messages for a set of user
       #
-      # @see https://dev.twitter.com/docs/api/1.1/get/site
-      # @see https://dev.twitter.com/docs/streaming-apis/streams/site
-      # @see https://dev.twitter.com/docs/streaming-apis/parameters
+      # @see https://dev.twitter.com/streaming/reference/get/site
+      # @see https://dev.twitter.com/streaming/sitestreams
+      # @see https://dev.twitter.com/streaming/overview/request-parameters
       # @note Site Streams is currently in a limited beta. Access is restricted to whitelisted accounts.
       # @param follow [Enumerable<Integer, String, Twitter::User>] A list of user IDs, indicating the users to return statuses for in the stream.
       # @param options [Hash] A customizable set of options.
@@ -77,9 +77,9 @@ module Twitter
 
       # Streams messages for a single user
       #
-      # @see https://dev.twitter.com/docs/api/1.1/get/user
-      # @see https://dev.twitter.com/docs/streaming-apis/streams/user
-      # @see https://dev.twitter.com/docs/streaming-apis/parameters
+      # @see https://dev.twitter.com/streaming/reference/get/user
+      # @see https://dev.twitter.com/streaming/userstreams
+      # @see https://dev.twitter.com/streaming/overview/request-parameters
       # @param options [Hash] A customizable set of options.
       # @option options [String] :with Specifies whether to return information for just the users specified in the follow parameter, or include messages from accounts they follow.
       # @option options [String] :replies Specifies whether to return additional @replies.

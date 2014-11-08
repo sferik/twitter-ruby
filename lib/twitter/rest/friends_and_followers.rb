@@ -12,7 +12,7 @@ module Twitter
       include Twitter::REST::Utils
       include Twitter::Utils
 
-      # @see https://dev.twitter.com/docs/api/1.1/get/friends/ids
+      # @see https://dev.twitter.com/rest/reference/get/friends/ids
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
@@ -30,7 +30,7 @@ module Twitter
         cursor_from_response_with_user(:ids, nil, '/1.1/friends/ids.json', args)
       end
 
-      # @see https://dev.twitter.com/docs/api/1.1/get/followers/ids
+      # @see https://dev.twitter.com/rest/reference/get/followers/ids
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
@@ -50,7 +50,7 @@ module Twitter
 
       # Returns the relationship of the authenticating user to the comma separated list of up to 100 screen_names or user_ids provided. Values for connections can be: following, following_requested, followed_by, none.
       #
-      # @see https://dev.twitter.com/docs/api/1.1/get/friendships/lookup
+      # @see https://dev.twitter.com/rest/reference/get/friendships/lookup
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
@@ -68,7 +68,7 @@ module Twitter
 
       # Returns an array of numeric IDs for every user who has a pending request to follow the authenticating user
       #
-      # @see https://dev.twitter.com/docs/api/1.1/get/friendships/incoming
+      # @see https://dev.twitter.com/rest/reference/get/friendships/incoming
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
@@ -80,7 +80,7 @@ module Twitter
 
       # Returns an array of numeric IDs for every protected user for whom the authenticating user has a pending follow request
       #
-      # @see https://dev.twitter.com/docs/api/1.1/get/friendships/outgoing
+      # @see https://dev.twitter.com/rest/reference/get/friendships/outgoing
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
@@ -92,7 +92,7 @@ module Twitter
 
       # Allows the authenticating user to follow the specified users, unless they are already followed
       #
-      # @see https://dev.twitter.com/docs/api/1.1/post/friendships/create
+      # @see https://dev.twitter.com/rest/reference/post/friendships/create
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
@@ -118,7 +118,7 @@ module Twitter
 
       # Allows the authenticating user to follow the specified users
       #
-      # @see https://dev.twitter.com/docs/api/1.1/post/friendships/create
+      # @see https://dev.twitter.com/rest/reference/post/friendships/create
       # @rate_limited No
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
@@ -140,7 +140,7 @@ module Twitter
 
       # Allows the authenticating user to unfollow the specified users
       #
-      # @see https://dev.twitter.com/docs/api/1.1/post/friendships/destroy
+      # @see https://dev.twitter.com/rest/reference/post/friendships/destroy
       # @rate_limited No
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
@@ -158,7 +158,7 @@ module Twitter
 
       # Allows one to enable or disable retweets and device notifications from the specified user.
       #
-      # @see https://dev.twitter.com/docs/api/1.1/post/friendships/update
+      # @see https://dev.twitter.com/rest/reference/post/friendships/update
       # @rate_limited No
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
@@ -174,7 +174,7 @@ module Twitter
 
       # Returns detailed information about the relationship between two users
       #
-      # @see https://dev.twitter.com/docs/api/1.1/get/friendships/show
+      # @see https://dev.twitter.com/rest/reference/get/friendships/show
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
@@ -194,7 +194,7 @@ module Twitter
 
       # Test for the existence of friendship between two users
       #
-      # @see https://dev.twitter.com/docs/api/1.1/get/friendships/show
+      # @see https://dev.twitter.com/rest/reference/get/friendships/show
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
@@ -208,7 +208,7 @@ module Twitter
 
       # Returns a cursored collection of user objects for users following the specified user.
       #
-      # @see https://dev.twitter.com/docs/api/1.1/get/followers/list
+      # @see https://dev.twitter.com/rest/reference/get/followers/list
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
@@ -232,7 +232,7 @@ module Twitter
 
       # Returns a cursored collection of user objects for every user the specified user is following (otherwise known as their "friends").
       #
-      # @see https://dev.twitter.com/docs/api/1.1/get/friends/list
+      # @see https://dev.twitter.com/rest/reference/get/friends/list
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
@@ -256,7 +256,7 @@ module Twitter
       alias_method :following, :friends
 
       # Returns a collection of user IDs that the currently authenticated user does not want to receive retweets from.
-      # @see https://dev.twitter.com/docs/api/1.1/get/friendships/no_retweets/ids
+      # @see https://dev.twitter.com/rest/reference/get/friendships/no_retweets/ids
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.

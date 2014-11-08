@@ -12,7 +12,7 @@ module Twitter
 
       # Returns the 20 most recent direct messages sent to the authenticating user
       #
-      # @see https://dev.twitter.com/docs/api/1.1/get/direct_messages
+      # @see https://dev.twitter.com/rest/reference/get/direct_messages
       # @note This method requires an access token with RWD (read, write & direct message) permissions. Consult The Application Permission Model for more information.
       # @rate_limited Yes
       # @authentication Requires user context
@@ -29,7 +29,7 @@ module Twitter
 
       # Returns the 20 most recent direct messages sent by the authenticating user
       #
-      # @see https://dev.twitter.com/docs/api/1.1/get/direct_messages/sent
+      # @see https://dev.twitter.com/rest/reference/get/direct_messages/sent
       # @note This method requires an access token with RWD (read, write & direct message) permissions. Consult The Application Permission Model for more information.
       # @rate_limited Yes
       # @authentication Requires user context
@@ -46,7 +46,7 @@ module Twitter
 
       # Returns a direct message
       #
-      # @see https://dev.twitter.com/docs/api/1.1/get/direct_messages/show
+      # @see https://dev.twitter.com/rest/reference/get/direct_messages/show
       # @note This method requires an access token with RWD (read, write & direct message) permissions. Consult The Application Permission Model for more information.
       # @rate_limited Yes
       # @authentication Requires user context
@@ -67,7 +67,7 @@ module Twitter
       # @overload direct_messages(options = {})
       #   Returns the 20 most recent direct messages sent to the authenticating user
       #
-      #   @see https://dev.twitter.com/docs/api/1.1/get/direct_messages
+      #   @see https://dev.twitter.com/rest/reference/get/direct_messages
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID.
       #   @option options [Integer] :max_id Returns results with an ID less than (that is, older than) or equal to the specified ID.
@@ -76,12 +76,12 @@ module Twitter
       # @overload direct_messages(*ids)
       #   Returns direct messages
       #
-      #   @see https://dev.twitter.com/docs/api/1.1/get/direct_messages/show
+      #   @see https://dev.twitter.com/rest/reference/get/direct_messages/show
       #   @param ids [Enumerable<Integer>] A collection of direct message IDs.
       # @overload direct_messages(*ids, options)
       #   Returns direct messages
       #
-      #   @see https://dev.twitter.com/docs/api/1.1/get/direct_messages/show
+      #   @see https://dev.twitter.com/rest/reference/get/direct_messages/show
       #   @param ids [Enumerable<Integer>] A collection of direct message IDs.
       #   @param options [Hash] A customizable set of options.
       def direct_messages(*args)
@@ -97,7 +97,7 @@ module Twitter
 
       # Destroys direct messages
       #
-      # @see https://dev.twitter.com/docs/api/1.1/post/direct_messages/destroy
+      # @see https://dev.twitter.com/rest/reference/post/direct_messages/destroy
       # @note This method requires an access token with RWD (read, write & direct message) permissions. Consult The Application Permission Model for more information.
       # @rate_limited No
       # @authentication Requires user context
@@ -115,7 +115,7 @@ module Twitter
 
       # Sends a new direct message to the specified user from the authenticating user
       #
-      # @see https://dev.twitter.com/docs/api/1.1/post/direct_messages/new
+      # @see https://dev.twitter.com/rest/reference/post/direct_messages/new
       # @rate_limited No
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.

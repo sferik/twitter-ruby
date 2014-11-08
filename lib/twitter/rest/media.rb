@@ -7,7 +7,7 @@ module Twitter
     module Media
       # Uploads media to attach to a tweet
       #
-      # @see https://dev.twitter.com/docs/api/multiple-media-extended-entities
+      # @see https://dev.twitter.com/rest/public/uploading-media-multiple-photos
       # @rate_limited No
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
