@@ -570,7 +570,7 @@ describe Twitter::REST::Users do
 
   describe '#remove_profile_banner' do
     before do
-      stub_post('/1.1/account/remove_profile_banner.json').to_return(:body => fixture('empty.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
+      stub_post('/1.1/account/remove_profile_banner.json').to_return(:body => '{}', :headers => {:content_type => 'application/json; charset=utf-8'})
     end
     it 'requests the correct resource' do
       @client.remove_profile_banner
@@ -584,7 +584,7 @@ describe Twitter::REST::Users do
 
   describe '#update_profile_banner' do
     before do
-      stub_post('/1.1/account/update_profile_banner.json').to_return(:body => fixture('empty.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
+      stub_post('/1.1/account/update_profile_banner.json').to_return(:body => '{}', :headers => {:content_type => 'application/json; charset=utf-8'})
     end
     it 'requests the correct resource' do
       @client.update_profile_banner(fixture('me.jpeg'))
