@@ -140,7 +140,6 @@ module Twitter
       def blocked(options = {})
         perform_get_with_cursor('/1.1/blocks/list.json', options, :users, Twitter::User)
       end
-      deprecate_alias :blocking, :blocked
 
       # Returns an array of numeric user IDs the authenticating user is blocking
       #
@@ -337,7 +336,6 @@ module Twitter
         perform_post('/1.1/account/remove_profile_banner.json', options)
         true
       end
-      deprecate_alias :profile_banner_remove, :remove_profile_banner
 
       # Updates the authenticating user's profile banner image
       #
@@ -422,7 +420,6 @@ module Twitter
       def muted(options = {})
         perform_get_with_cursor('/1.1/mutes/users/list.json', options, :users, Twitter::User)
       end
-      deprecate_alias :muting, :muted
 
       # Returns an array of numeric user IDs the authenticating user is muting
       #

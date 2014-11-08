@@ -111,7 +111,6 @@ module Twitter
       def destroy_direct_message(*args)
         parallel_objects_from_response(Twitter::DirectMessage, :post, '/1.1/direct_messages/destroy.json', args)
       end
-      deprecate_alias :direct_message_destroy, :destroy_direct_message
 
       # Sends a new direct message to the specified user from the authenticating user
       #
@@ -131,7 +130,6 @@ module Twitter
       alias_method :d, :create_direct_message
       alias_method :m, :create_direct_message
       alias_method :dm, :create_direct_message
-      deprecate_alias :direct_message_create, :create_direct_message
     end
   end
 end

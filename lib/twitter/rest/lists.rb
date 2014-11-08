@@ -83,7 +83,6 @@ module Twitter
       def remove_list_member(*args)
         list_from_response_with_user('/1.1/lists/members/destroy.json', args)
       end
-      deprecate_alias :list_remove_member, :remove_list_member
 
       # List the lists the specified user has been added to
       #
@@ -206,7 +205,6 @@ module Twitter
       def add_list_members(*args)
         list_from_response_with_users('/1.1/lists/members/create_all.json', args)
       end
-      deprecate_alias :list_add_members, :add_list_members
 
       # Check if a user is a member of the specified list
       #
@@ -269,7 +267,6 @@ module Twitter
       def add_list_member(*args)
         list_from_response_with_user('/1.1/lists/members/create.json', args)
       end
-      deprecate_alias :list_add_member, :add_list_member
 
       # Deletes the specified list
       #
@@ -290,7 +287,6 @@ module Twitter
       def destroy_list(*args)
         list_from_response(:post, '/1.1/lists/destroy.json', args)
       end
-      deprecate_alias :list_destroy, :destroy_list
 
       # Updates the specified list
       #
@@ -330,7 +326,6 @@ module Twitter
       def create_list(name, options = {})
         perform_post_with_object('/1.1/lists/create.json', options.merge(name: name), Twitter::List)
       end
-      deprecate_alias :list_create, :create_list
 
       # Show the specified list
       #
@@ -388,7 +383,6 @@ module Twitter
       def remove_list_members(*args)
         list_from_response_with_users('/1.1/lists/members/destroy_all.json', args)
       end
-      deprecate_alias :list_remove_members, :remove_list_members
 
       # Returns the lists owned by the specified Twitter user
       #
@@ -407,8 +401,6 @@ module Twitter
       def owned_lists(*args)
         cursor_from_response_with_user(:lists, Twitter::List, '/1.1/lists/ownerships.json', args)
       end
-      deprecate_alias :lists_ownerships, :owned_lists
-      deprecate_alias :lists_owned, :owned_lists
 
     private
 
