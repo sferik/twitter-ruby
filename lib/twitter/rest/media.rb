@@ -16,7 +16,7 @@ module Twitter
       # @param media [File, Hash] A File object with your picture (PNG, JPEG or GIF)
       # @param options [Hash] A customizable set of options.
       def upload(media, options = {})
-        fail(Twitter::Error::UnacceptableIO.new) unless media.respond_to?(:to_io)
+        fail(Twitter::Error::UnacceptableIO) unless media.respond_to?(:to_io)
         url = 'https://upload.twitter.com/1.1/media/upload.json'
         headers = Twitter::Headers.new(self, :post, url, options).request_headers
         HTTP.with(headers).post(url, :form => options).parse['media_id']
