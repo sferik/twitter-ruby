@@ -54,7 +54,7 @@ module Twitter
       end
 
       def define_entity_uris_method(key1, key2)
-        define_method(key1) do ||
+        define_method(key1) do
           @attrs.fetch(:entities, {}).fetch(key2, {}).fetch(:urls, []).collect do |url|
             Entity::URI.new(url)
           end
@@ -63,7 +63,7 @@ module Twitter
       end
 
       def define_entity_uris_predicate_method(key1)
-        define_method(:"#{key1}?") do ||
+        define_method(:"#{key1}?") do
           send(:"#{key1}").any?
         end
         memoize(:"#{key1}?")
