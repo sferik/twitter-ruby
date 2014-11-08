@@ -406,7 +406,7 @@ describe Twitter::REST::Tweets do
     end
     context 'forbidden' do
       before do
-        stub_post('/1.1/statuses/retweet/25938088801.json').to_return(status: 403, headers: {content_type: 'application/json; charset=utf-8'})
+        stub_post('/1.1/statuses/retweet/25938088801.json').to_return(status: 403, body: '{}', headers: {content_type: 'application/json; charset=utf-8'})
       end
       it 'raises a Forbidden error' do
         expect { @client.retweet!(25_938_088_801) }.to raise_error(Twitter::Error::Forbidden)
