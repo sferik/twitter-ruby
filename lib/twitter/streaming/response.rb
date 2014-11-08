@@ -1,4 +1,7 @@
 require 'buftok'
+require 'http'
+require 'json'
+require 'twitter/error'
 
 module Twitter
   module Streaming

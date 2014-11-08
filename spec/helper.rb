@@ -1,13 +1,11 @@
-if RUBY_VERSION >= '1.9'
-  require 'simplecov'
-  require 'coveralls'
+require 'simplecov'
+require 'coveralls'
 
-  SimpleCov.formatters = [SimpleCov::Formatter::HTMLFormatter, Coveralls::SimpleCov::Formatter]
+SimpleCov.formatters = [SimpleCov::Formatter::HTMLFormatter, Coveralls::SimpleCov::Formatter]
 
-  SimpleCov.start do
-    add_filter '/spec/'
-    minimum_coverage(99.63)
-  end
+SimpleCov.start do
+  add_filter '/spec/'
+  minimum_coverage(99.63)
 end
 
 require 'twitter'

@@ -6,6 +6,7 @@ digraph classes {
 	Array [label="Array"]
 	Exception [label="Exception"]
 	Naught__BasicObject [label="Naught::BasicObject"]
+	Object [label="Object"]
 	StandardError [label="StandardError"]
 	Twitter__Arguments [label="Twitter::Arguments"]
 	Twitter__Base [label="Twitter::Base"]
@@ -83,7 +84,8 @@ digraph classes {
 	ArgumentError -> StandardError
 	Array -> Object
 	Exception -> Object
-	Naught__BasicObject -> Object
+	Naught__BasicObject -> BasicObject
+	Object -> BasicObject
 	StandardError -> Exception
 	Twitter__Arguments -> Array
 	Twitter__Base -> Object
