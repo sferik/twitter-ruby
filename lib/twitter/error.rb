@@ -1,3 +1,4 @@
+require 'memoizable'
 require 'twitter/rate_limit'
 require 'twitter/utils'
 
@@ -38,6 +39,7 @@ module Twitter
     end
 
     class << self
+      include Memoizable
       include Twitter::Utils
 
       # Create a new error from an HTTP response
@@ -51,7 +53,7 @@ module Twitter
 
       # @return [Hash]
       def errors
-        @errors ||= {
+        {
           400 => Twitter::Error::BadRequest,
           401 => Twitter::Error::Unauthorized,
           403 => Twitter::Error::Forbidden,
@@ -66,14 +68,16 @@ module Twitter
           504 => Twitter::Error::GatewayTimeout,
         }
       end
+      memoize :errors
 
       def forbidden_messages
-        @forbidden_messages ||= {
+        {
           'Status is a duplicate.' => Twitter::Error::DuplicateStatus,
           'You have already favorited this status.' => Twitter::Error::AlreadyFavorited,
           'sharing is not permissible for this status (Share validations failed)' => Twitter::Error::AlreadyRetweeted,
         }
       end
+      memoize :forbidden_messages
 
     private
 

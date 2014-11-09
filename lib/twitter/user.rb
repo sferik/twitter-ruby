@@ -1,5 +1,4 @@
 require 'addressable/uri'
-require 'memoizable'
 require 'twitter/basic_user'
 require 'twitter/creatable'
 require 'twitter/entity/uri'
@@ -9,7 +8,6 @@ module Twitter
   class User < Twitter::BasicUser
     include Twitter::Creatable
     include Twitter::Profile
-    include Memoizable
     # @return [Array]
     attr_reader :connections
     # @return [Integer]
