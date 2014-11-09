@@ -3,14 +3,13 @@ require 'twitter/arguments'
 require 'twitter/client'
 require 'twitter/headers'
 require 'twitter/streaming/connection'
-require 'twitter/streaming/response'
 require 'twitter/streaming/message_parser'
+require 'twitter/streaming/response'
 
 module Twitter
   module Streaming
     class Client < Twitter::Client
       attr_writer :connection
-      attr_accessor :tcp_socket_class, :ssl_socket_class
 
       # Initializes a new Client object
       #
@@ -125,11 +124,12 @@ module Twitter
       end
 
       def default_headers
-        @default_headers ||= {
+        {
           accept: '*/*',
           user_agent: user_agent,
         }
       end
+      memoize :default_headers
 
       def collect_user_ids(users)
         user_ids = []

@@ -8,8 +8,13 @@ module Twitter
       @client = client
       @request_method = request_method.to_sym
       @uri = Addressable::URI.parse(url)
+      @bearer_token_request = options.delete(:bearer_token_request)
       @options = options
       @signature_options = @request_method == :post && @options.values.any? { |value| value.respond_to?(:to_io) } ? {} : @options
+    end
+
+    def bearer_token_request?
+      !!@bearer_token_request
     end
 
     def oauth_auth_header
@@ -17,10 +22,9 @@ module Twitter
     end
 
     def request_headers
-      bearer_token_request = @options.delete(:bearer_token_request)
       headers = {}
       headers[:user_agent] = @client.user_agent
-      if bearer_token_request
+      if bearer_token_request?
         headers[:accept]        = '*/*'
         headers[:authorization] = bearer_token_credentials_auth_header
       else

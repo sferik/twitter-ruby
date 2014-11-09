@@ -1,20 +1,20 @@
 require 'helper'
 
+class FakeConnection
+  def initialize(body)
+    @body = body
+  end
+
+  def stream(_, response)
+    @body.each_line do |line|
+      response.on_body(line)
+    end
+  end
+end
+
 describe Twitter::Streaming::Client do
   before do
     @client = Twitter::Streaming::Client.new
-  end
-
-  class FakeConnection
-    def initialize(body)
-      @body = body
-    end
-
-    def stream(_, response)
-      @body.each_line do |line|
-        response.on_body(line)
-      end
-    end
   end
 
   describe '#before_request' do

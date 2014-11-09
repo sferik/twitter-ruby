@@ -5,11 +5,12 @@ require 'resolv'
 module Twitter
   module Streaming
     class Connection
-      def initialize(opts = {})
-        @tcp_socket_class = opts.fetch(:tcp_socket_class) { TCPSocket }
-        @ssl_socket_class = opts.fetch(:ssl_socket_class) { OpenSSL::SSL::SSLSocket }
-      end
       attr_reader :tcp_socket_class, :ssl_socket_class
+
+      def initialize(options = {})
+        @tcp_socket_class = options.fetch(:tcp_socket_class) { TCPSocket }
+        @ssl_socket_class = options.fetch(:ssl_socket_class) { OpenSSL::SSL::SSLSocket }
+      end
 
       def stream(request, response)
         client_context = OpenSSL::SSL::SSLContext.new
