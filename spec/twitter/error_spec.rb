@@ -38,7 +38,7 @@ describe Twitter::Error do
     end
   end
 
-  Twitter::Error.errors.each do |status, exception|
+  Twitter::Error::ERRORS.each do |status, exception|
     context "when HTTP status is #{status}" do
       before do
         stub_get('/1.1/statuses/user_timeline.json').with(query: {screen_name: 'sferik'}).to_return(status: status, body: '{}', headers: {content_type: 'application/json; charset=utf-8'})

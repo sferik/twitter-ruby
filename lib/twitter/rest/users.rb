@@ -50,7 +50,6 @@ module Twitter
       def verify_credentials(options = {})
         perform_get_with_object('/1.1/account/verify_credentials.json', options, Twitter::User)
       end
-      alias_method :current_user, :verify_credentials
 
       # Sets which device Twitter delivers updates to for the authenticating user
       #
@@ -166,7 +165,7 @@ module Twitter
       # @param user [Integer, String, URI, Twitter::User] A Twitter user ID, screen name, URI, or object.
       # @param options [Hash] A customizable set of options.
       def block?(user, options = {})
-        user_id = begin
+        user_id =
           case user
           when Integer
             user
@@ -175,8 +174,6 @@ module Twitter
           when Twitter::User
             user.id
           end
-        end
-
         blocked_ids(options).collect(&:to_i).include?(user_id)
       end
 

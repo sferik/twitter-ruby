@@ -41,7 +41,7 @@ module Twitter
     private
 
       def error(response)
-        klass = Twitter::Error.errors[response.code]
+        klass = Twitter::Error::ERRORS[response.code]
         if klass == Twitter::Error::Forbidden
           forbidden_error(response)
         elsif !klass.nil?
@@ -51,7 +51,7 @@ module Twitter
 
       def forbidden_error(response)
         error = Twitter::Error::Forbidden.from_response(response)
-        klass = Twitter::Error.forbidden_messages[error.message]
+        klass = Twitter::Error::FORBIDDEN_MESSAGES[error.message]
         if klass
           klass.from_response(response)
         else

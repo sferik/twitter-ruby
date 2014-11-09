@@ -324,12 +324,6 @@ describe Twitter::REST::Users do
           expect(a_post('/1.1/users/lookup.json').with(body: {screen_name: 'sferik,pengwynn'})).to have_been_made
         end
       end
-      context 'with URI strings passed' do
-        it 'requests the correct resource' do
-          @client.users('https://twitter.com/sferik', 'https://twitter.com/pengwynn')
-          expect(a_post('/1.1/users/lookup.json').with(body: {screen_name: 'sferik,pengwynn'})).to have_been_made
-        end
-      end
     end
     context 'with numeric screen names passed' do
       before do

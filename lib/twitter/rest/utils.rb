@@ -4,12 +4,12 @@ require 'twitter/cursor'
 require 'twitter/rest/request'
 require 'twitter/user'
 require 'twitter/utils'
+require 'uri'
 
 module Twitter
   module REST
     module Utils
       include Twitter::Utils
-      URI_SUBSTRING = '://'
       DEFAULT_CURSOR = -1
 
     private
@@ -24,7 +24,7 @@ module Twitter
           object
         when ::String
           object.split('/').last.to_i
-        when URI
+        when URI, Addressable::URI
           object.path.split('/').last.to_i
         when Twitter::Identity
           object.id
@@ -193,11 +193,7 @@ module Twitter
         when Integer
           set_compound_key('user_id', user, hash, prefix)
         when String
-          if user[URI_SUBSTRING]
-            set_compound_key('screen_name', user.split('/').last, hash, prefix)
-          else
-            set_compound_key('screen_name', user, hash, prefix)
-          end
+          set_compound_key('screen_name', user, hash, prefix)
         when URI, Addressable::URI
           set_compound_key('screen_name', user.path.split('/').last, hash, prefix)
         when Twitter::User
@@ -217,7 +213,9 @@ module Twitter
       # @param users [Enumerable<Integer, String, Twitter::User>] A collection of Twitter user IDs, screen_names, or objects.
       # @return [Hash]
       def merge_users(hash, users)
-        merge_users!(hash.dup, users)
+        copy = hash.dup
+        merge_users!(copy, users)
+        copy
       end
 
       # Take a multiple users and merge them into the hash with the correct keys
@@ -226,32 +224,21 @@ module Twitter
       # @param users [Enumerable<Integer, String, URI, Twitter::User>] A collection of Twitter user IDs, screen_names, URIs, or objects.
       # @return [Hash]
       def merge_users!(hash, users)
-        user_ids, screen_names = collect_user_ids_and_screen_names(users)
+        user_ids = collect_user_ids(users)
+        screen_names = user_ids.size == users.size ? [] : collect_screen_names(users)
         hash[:user_id] = user_ids.join(',') unless user_ids.empty?
         hash[:screen_name] = screen_names.join(',') unless screen_names.empty?
-        hash
       end
 
-      def collect_user_ids_and_screen_names(users) # rubocop:disable MethodLength
-        user_ids = []
-        screen_names = []
-        users.flatten.each do |user|
+      def collect_screen_names(users)
+        users.map do |user|
           case user
-          when Integer
-            user_ids << user
           when String
-            if user[URI_SUBSTRING]
-              screen_names << user.split('/').last
-            else
-              screen_names << user
-            end
-          when URI
-            screen_names << user.path.split('/').last
-          when Twitter::User
-            user_ids << user.id
+            user
+          when URI, Addressable::URI
+            user.path.split('/').last
           end
-        end
-        [user_ids, screen_names]
+        end.compact
       end
     end
   end

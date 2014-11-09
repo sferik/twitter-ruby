@@ -18,7 +18,7 @@ module Twitter
     end
 
     def oauth_auth_header
-      SimpleOAuth::Header.new(@request_method, @uri, @signature_options, @client.credentials)
+      SimpleOAuth::Header.new(@request_method, @uri, @signature_options, @client.credentials.merge(ignore_extra_keys: true))
     end
 
     def request_headers

@@ -86,12 +86,7 @@ module Twitter
           if attr_falsey_or_empty?(key1)
             NullObject.new
           else
-            if klass.nil?
-              @attrs[key1]
-            else
-              attrs = attrs_for_object(key1, key2)
-              Twitter.const_get(klass).new(attrs)
-            end
+            klass.nil? ? @attrs[key1] : Twitter.const_get(klass).new(attrs_for_object(key1, key2))
           end
         end
         memoize(key1)

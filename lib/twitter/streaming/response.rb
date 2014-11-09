@@ -20,7 +20,7 @@ module Twitter
       end
 
       def on_headers_complete(_headers)
-        error = Twitter::Error.errors[@parser.status_code]
+        error = Twitter::Error::ERRORS[@parser.status_code]
         fail error if error
       end
 

@@ -2,7 +2,6 @@ digraph classes {
 	graph [rotate=0, rankdir="LR"]
 	node [fillcolor="#c4ddec", style="filled", fontname="Helvetica Neue"]
 	edge [color="#444444"]
-	ArgumentError [label="ArgumentError"]
 	Array [label="Array"]
 	Exception [label="Exception"]
 	Naught__BasicObject [label="Naught::BasicObject"]
@@ -26,7 +25,6 @@ digraph classes {
 	Twitter__Error__BadGateway [label="Twitter::Error::BadGateway"]
 	Twitter__Error__BadRequest [label="Twitter::Error::BadRequest"]
 	Twitter__Error__ClientError [label="Twitter::Error::ClientError"]
-	Twitter__Error__ConfigurationError [label="Twitter::Error::ConfigurationError"]
 	Twitter__Error__DuplicateStatus [label="Twitter::Error::DuplicateStatus"]
 	Twitter__Error__Forbidden [label="Twitter::Error::Forbidden"]
 	Twitter__Error__GatewayTimeout [label="Twitter::Error::GatewayTimeout"]
@@ -36,7 +34,6 @@ digraph classes {
 	Twitter__Error__ServerError [label="Twitter::Error::ServerError"]
 	Twitter__Error__ServiceUnavailable [label="Twitter::Error::ServiceUnavailable"]
 	Twitter__Error__TooManyRequests [label="Twitter::Error::TooManyRequests"]
-	Twitter__Error__UnacceptableIO [label="Twitter::Error::UnacceptableIO"]
 	Twitter__Error__Unauthorized [label="Twitter::Error::Unauthorized"]
 	Twitter__Error__UnprocessableEntity [label="Twitter::Error::UnprocessableEntity"]
 	Twitter__Factory [label="Twitter::Factory"]
@@ -84,7 +81,6 @@ digraph classes {
 	Twitter__Tweet [label="Twitter::Tweet"]
 	Twitter__User [label="Twitter::User"]
 	Twitter__Variant [label="Twitter::Variant"]
-	ArgumentError -> StandardError
 	Array -> Object
 	Exception -> Object
 	Naught__BasicObject -> BasicObject
@@ -108,7 +104,6 @@ digraph classes {
 	Twitter__Error__BadGateway -> Twitter__Error__ServerError
 	Twitter__Error__BadRequest -> Twitter__Error__ClientError
 	Twitter__Error__ClientError -> Twitter__Error
-	Twitter__Error__ConfigurationError -> ArgumentError
 	Twitter__Error__DuplicateStatus -> Twitter__Error__Forbidden
 	Twitter__Error__Forbidden -> Twitter__Error__ClientError
 	Twitter__Error__GatewayTimeout -> Twitter__Error__ServerError
@@ -118,7 +113,6 @@ digraph classes {
 	Twitter__Error__ServerError -> Twitter__Error
 	Twitter__Error__ServiceUnavailable -> Twitter__Error__ServerError
 	Twitter__Error__TooManyRequests -> Twitter__Error__ClientError
-	Twitter__Error__UnacceptableIO -> StandardError
 	Twitter__Error__Unauthorized -> Twitter__Error__ClientError
 	Twitter__Error__UnprocessableEntity -> Twitter__Error__ClientError
 	Twitter__Factory -> Object

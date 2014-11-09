@@ -43,23 +43,11 @@ describe Twitter::REST::Lists do
           expect(a_get('/1.1/lists/statuses.json').with(query: {owner_screen_name: 'sferik', slug: 'presidents'})).to have_been_made
         end
       end
-      context 'with a URI string passed' do
-        it 'requests the correct resource' do
-          @client.list_timeline('https://twitter.com/sferik/presidents')
-          expect(a_get('/1.1/lists/statuses.json').with(query: {owner_screen_name: 'sferik', slug: 'presidents'})).to have_been_made
-        end
-      end
       context 'with URI objects passed' do
         it 'requests the correct resource' do
           user = URI.parse('https://twitter.com/sferik')
           list = URI.parse('https://twitter.com/sferik/presidents')
           @client.list_timeline(user, list)
-          expect(a_get('/1.1/lists/statuses.json').with(query: {owner_screen_name: 'sferik', slug: 'presidents'})).to have_been_made
-        end
-      end
-      context 'with URI strings passed' do
-        it 'requests the correct resource' do
-          @client.list_timeline('https://twitter.com/sferik', 'https://twitter.com/sferik/presidents')
           expect(a_get('/1.1/lists/statuses.json').with(query: {owner_screen_name: 'sferik', slug: 'presidents'})).to have_been_made
         end
       end
@@ -621,7 +609,7 @@ describe Twitter::REST::Lists do
         stub_post('/1.1/lists/destroy.json').with(body: {owner_id: '7505382', list_id: '12345678'}).to_return(body: fixture('list.json'), headers: {content_type: 'application/json; charset=utf-8'})
       end
       it 'requests the correct resource' do
-        list = Twitter::List.new(id: '12345678', user: {id: 7_505_382, screen_name: 'sferik'})
+        list = Twitter::List.new(id: 12_345_678, user: {id: 7_505_382, screen_name: 'sferik'})
         @client.destroy_list(list)
         expect(a_post('/1.1/lists/destroy.json').with(body: {owner_id: '7505382', list_id: '12345678'})).to have_been_made
       end
@@ -668,7 +656,7 @@ describe Twitter::REST::Lists do
         stub_post('/1.1/lists/update.json').with(body: {owner_id: '7505382', list_id: '12345678', description: 'Presidents of the United States of America'}).to_return(body: fixture('list.json'), headers: {content_type: 'application/json; charset=utf-8'})
       end
       it 'requests the correct resource' do
-        list = Twitter::List.new(id: '12345678', user: {id: 7_505_382, screen_name: 'sferik'})
+        list = Twitter::List.new(id: 12_345_678, user: {id: 7_505_382, screen_name: 'sferik'})
         @client.list_update(list, description: 'Presidents of the United States of America')
         expect(a_post('/1.1/lists/update.json').with(body: {owner_id: '7505382', list_id: '12345678', description: 'Presidents of the United States of America'})).to have_been_made
       end
@@ -749,7 +737,7 @@ describe Twitter::REST::Lists do
         stub_get('/1.1/lists/show.json').with(query: {owner_id: '7505382', list_id: '12345678'}).to_return(body: fixture('list.json'), headers: {content_type: 'application/json; charset=utf-8'})
       end
       it 'requests the correct resource' do
-        list = Twitter::List.new(id: '12345678', user: {id: 7_505_382, screen_name: 'sferik'})
+        list = Twitter::List.new(id: 12_345_678, user: {id: 7_505_382, screen_name: 'sferik'})
         @client.list(list)
         expect(a_get('/1.1/lists/show.json').with(query: {owner_id: '7505382', list_id: '12345678'})).to have_been_made
       end

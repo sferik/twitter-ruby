@@ -5,10 +5,12 @@ require 'twitter/headers'
 require 'twitter/streaming/connection'
 require 'twitter/streaming/message_parser'
 require 'twitter/streaming/response'
+require 'twitter/utils'
 
 module Twitter
   module Streaming
     class Client < Twitter::Client
+      include Twitter::Utils
       attr_writer :connection
 
       # Initializes a new Client object
@@ -107,8 +109,7 @@ module Twitter
 
       def request(method, uri, params)
         before_request.call
-        authorization = Twitter::Headers.new(self, method, uri, params).oauth_auth_header.to_s
-        headers = default_headers.merge(authorization: authorization)
+        headers = Twitter::Headers.new(self, method, uri, params).request_headers
         request = HTTP::Request.new(method, uri + '?' + to_url_params(params), headers)
         response = Streaming::Response.new do |data|
           if item = Streaming::MessageParser.parse(data) # rubocop:disable AssignmentInCondition
@@ -122,27 +123,6 @@ module Twitter
         params.collect do |param, value|
           [param, URI.encode(value)].join('=')
         end.sort.join('&')
-      end
-
-      def default_headers
-        {
-          accept: '*/*',
-          user_agent: user_agent,
-        }
-      end
-      memoize :default_headers
-
-      def collect_user_ids(users)
-        user_ids = []
-        users.flatten.each do |user|
-          case user
-          when Integer
-            user_ids << user
-          when Twitter::User
-            user_ids << user.id
-          end
-        end
-        user_ids
       end
     end
   end
