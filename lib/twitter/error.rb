@@ -1,4 +1,3 @@
-require 'memoizable'
 require 'twitter/rate_limit'
 require 'twitter/utils'
 
@@ -9,118 +8,6 @@ module Twitter
     attr_reader :code
     # @return [Twitter::RateLimit]
     attr_reader :rate_limit
-
-    # If error code is missing see https://dev.twitter.com/overview/api/response-codes
-    module Code
-      AUTHENTICATION_PROBLEM       =  32
-      RESOURCE_NOT_FOUND           =  34
-      SUSPENDED_ACCOUNT            =  64
-      DEPRECATED_CALL              =  68
-      RATE_LIMIT_EXCEEDED          =  88
-      INVALID_OR_EXPIRED_TOKEN     =  89
-      SSL_REQUIRED                 =  92
-      UNABLE_TO_VERIFY_CREDENTIALS =  99
-      OVER_CAPACITY                = 130
-      INTERNAL_ERROR               = 131
-      OAUTH_TIMESTAMP_OUT_OF_RANGE = 135
-      ALREADY_FAVORITED            = 139
-      FOLLOW_ALREADY_REQUESTED     = 160
-      FOLLOW_LIMIT_EXCEEDED        = 161
-      PROTECTED_STATUS             = 179
-      OVER_UPDATE_LIMIT            = 185
-      DUPLICATE_STATUS             = 187
-      BAD_AUTHENTICATION_DATA      = 215
-      SPAM                         = 226
-      LOGIN_VERIFICATION_NEEDED    = 231
-      ENDPOINT_RETIRED             = 251
-      CANNOT_WRITE                 = 261
-      CANNOT_MUTE                  = 271
-      CANNOT_UNMUTE                = 272
-    end
-
-    class << self
-      include Memoizable
-      include Twitter::Utils
-
-      # Create a new error from an HTTP response
-      #
-      # @param response [HTTP::Response]
-      # @return [Twitter::Error]
-      def from_response(response)
-        message, code = parse_error(symbolize_keys!(response.parse))
-        new(message, response.headers, code)
-      end
-
-      # @return [Hash]
-      def errors
-        {
-          400 => Twitter::Error::BadRequest,
-          401 => Twitter::Error::Unauthorized,
-          403 => Twitter::Error::Forbidden,
-          404 => Twitter::Error::NotFound,
-          406 => Twitter::Error::NotAcceptable,
-          420 => Twitter::Error::TooManyRequests,
-          422 => Twitter::Error::UnprocessableEntity,
-          429 => Twitter::Error::TooManyRequests,
-          500 => Twitter::Error::InternalServerError,
-          502 => Twitter::Error::BadGateway,
-          503 => Twitter::Error::ServiceUnavailable,
-          504 => Twitter::Error::GatewayTimeout,
-        }
-      end
-      memoize :errors
-
-      def forbidden_messages
-        {
-          'Status is a duplicate.' => Twitter::Error::DuplicateStatus,
-          'You have already favorited this status.' => Twitter::Error::AlreadyFavorited,
-          'sharing is not permissible for this status (Share validations failed)' => Twitter::Error::AlreadyRetweeted,
-        }
-      end
-      memoize :forbidden_messages
-
-    private
-
-      def parse_error(body)
-        if body.nil? || body.empty?
-          ['', nil]
-        elsif body[:error]
-          [body[:error], nil]
-        elsif body[:errors]
-          extract_message_from_errors(body)
-        end
-      end
-
-      def extract_message_from_errors(body)
-        first = Array(body[:errors]).first
-        if first.is_a?(Hash)
-          [first[:message].chomp, first[:code]]
-        else
-          [first.chomp, nil]
-        end
-      end
-    end
-
-    # Initializes a new Error object
-    #
-    # @param message [Exception, String]
-    # @param rate_limit [Hash]
-    # @param code [Integer]
-    # @return [Twitter::Error]
-    def initialize(message = '', rate_limit = {}, code = nil)
-      super(message)
-      @rate_limit = Twitter::RateLimit.new(rate_limit)
-      @code = code
-    end
-
-    ConfigurationError = Class.new(::ArgumentError)
-
-    # Raised when a Tweet includes media that doesn't have a to_io method
-    class UnacceptableIO < StandardError
-      def initialize
-        super('The IO object for media must respond to to_io')
-      end
-    end
 
     # Raised when Twitter returns a 4xx HTTP status code
     ClientError = Class.new(self)
@@ -169,5 +56,99 @@ module Twitter
 
     # Raised when Twitter returns the HTTP status code 504
     GatewayTimeout = Class.new(ServerError)
+
+    ERRORS = {
+      400 => Twitter::Error::BadRequest,
+      401 => Twitter::Error::Unauthorized,
+      403 => Twitter::Error::Forbidden,
+      404 => Twitter::Error::NotFound,
+      406 => Twitter::Error::NotAcceptable,
+      422 => Twitter::Error::UnprocessableEntity,
+      429 => Twitter::Error::TooManyRequests,
+      500 => Twitter::Error::InternalServerError,
+      502 => Twitter::Error::BadGateway,
+      503 => Twitter::Error::ServiceUnavailable,
+      504 => Twitter::Error::GatewayTimeout,
+    }
+
+    FORBIDDEN_MESSAGES = {
+      'Status is a duplicate.' => Twitter::Error::DuplicateStatus,
+      'You have already favorited this status.' => Twitter::Error::AlreadyFavorited,
+      'sharing is not permissible for this status (Share validations failed)' => Twitter::Error::AlreadyRetweeted,
+    }
+
+    # If error code is missing see https://dev.twitter.com/overview/api/response-codes
+    module Code
+      AUTHENTICATION_PROBLEM       =  32
+      RESOURCE_NOT_FOUND           =  34
+      SUSPENDED_ACCOUNT            =  64
+      DEPRECATED_CALL              =  68
+      RATE_LIMIT_EXCEEDED          =  88
+      INVALID_OR_EXPIRED_TOKEN     =  89
+      SSL_REQUIRED                 =  92
+      UNABLE_TO_VERIFY_CREDENTIALS =  99
+      OVER_CAPACITY                = 130
+      INTERNAL_ERROR               = 131
+      OAUTH_TIMESTAMP_OUT_OF_RANGE = 135
+      ALREADY_FAVORITED            = 139
+      FOLLOW_ALREADY_REQUESTED     = 160
+      FOLLOW_LIMIT_EXCEEDED        = 161
+      PROTECTED_STATUS             = 179
+      OVER_UPDATE_LIMIT            = 185
+      DUPLICATE_STATUS             = 187
+      BAD_AUTHENTICATION_DATA      = 215
+      SPAM                         = 226
+      LOGIN_VERIFICATION_NEEDED    = 231
+      ENDPOINT_RETIRED             = 251
+      CANNOT_WRITE                 = 261
+      CANNOT_MUTE                  = 271
+      CANNOT_UNMUTE                = 272
+    end
+
+    class << self
+      include Twitter::Utils
+
+      # Create a new error from an HTTP response
+      #
+      # @param response [HTTP::Response]
+      # @return [Twitter::Error]
+      def from_response(response)
+        message, code = parse_error(symbolize_keys!(response.parse))
+        new(message, response.headers, code)
+      end
+
+    private
+
+      def parse_error(body)
+        if body.nil? || body.empty?
+          ['', nil]
+        elsif body[:error]
+          [body[:error], nil]
+        elsif body[:errors]
+          extract_message_from_errors(body)
+        end
+      end
+
+      def extract_message_from_errors(body)
+        first = Array(body[:errors]).first
+        if first.is_a?(Hash)
+          [first[:message].chomp, first[:code]]
+        else
+          [first.chomp, nil]
+        end
+      end
+    end
+
+    # Initializes a new Error object
+    #
+    # @param message [Exception, String]
+    # @param rate_limit [Hash]
+    # @param code [Integer]
+    # @return [Twitter::Error]
+    def initialize(message = '', rate_limit = {}, code = nil)
+      super(message)
+      @rate_limit = Twitter::RateLimit.new(rate_limit)
+      @code = code
+    end
   end
 end

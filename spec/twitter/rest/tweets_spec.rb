@@ -30,12 +30,6 @@ describe Twitter::REST::Tweets do
         expect(a_get('/1.1/statuses/retweets/25938088801.json')).to have_been_made
       end
     end
-    context 'with a URI string passed' do
-      it 'requests the correct resource' do
-        @client.retweets('https://twitter.com/sferik/status/25938088801')
-        expect(a_get('/1.1/statuses/retweets/25938088801.json')).to have_been_made
-      end
-    end
     context 'with a Tweet passed' do
       it 'requests the correct resource' do
         tweet = Twitter::Tweet.new(id: 25_938_088_801)
@@ -83,12 +77,6 @@ describe Twitter::REST::Tweets do
           expect(a_get('/1.1/statuses/retweets/25938088801.json')).to have_been_made
         end
       end
-      context 'with a URI string passed' do
-        it 'requests the correct resource' do
-          @client.retweeters_of('https://twitter.com/sferik/status/25938088801')
-          expect(a_get('/1.1/statuses/retweets/25938088801.json')).to have_been_made
-        end
-      end
       context 'with a Tweet passed' do
         it 'requests the correct resource' do
           tweet = Twitter::Tweet.new(id: 25_938_088_801)
@@ -116,12 +104,6 @@ describe Twitter::REST::Tweets do
       it 'requests the correct resource' do
         tweet = URI.parse('https://twitter.com/sferik/status/25938088801')
         @client.status(tweet)
-        expect(a_get('/1.1/statuses/show/25938088801.json')).to have_been_made
-      end
-    end
-    context 'with a URI string passed' do
-      it 'requests the correct resource' do
-        @client.status('https://twitter.com/sferik/status/25938088801')
         expect(a_get('/1.1/statuses/show/25938088801.json')).to have_been_made
       end
     end
@@ -154,12 +136,6 @@ describe Twitter::REST::Tweets do
         expect(a_post('/1.1/statuses/lookup.json').with(body: {id: '25938088801,91151181040201728'})).to have_been_made
       end
     end
-    context 'with URI strings passed' do
-      it 'requests the correct resource' do
-        @client.statuses('https://twitter.com/sferik/status/25938088801', 'https://twitter.com/sferik/status/91151181040201728')
-        expect(a_post('/1.1/statuses/lookup.json').with(body: {id: '25938088801,91151181040201728'})).to have_been_made
-      end
-    end
     context 'with Tweets passed' do
       it 'requests the correct resource' do
         @client.statuses(Twitter::Tweet.new(id: 25_938_088_801), Twitter::Tweet.new(id: 91_151_181_040_201_728))
@@ -186,12 +162,6 @@ describe Twitter::REST::Tweets do
       it 'requests the correct resource' do
         tweet = URI.parse('https://twitter.com/sferik/status/25938088801')
         @client.destroy_status(tweet)
-        expect(a_post('/1.1/statuses/destroy/25938088801.json')).to have_been_made
-      end
-    end
-    context 'with a URI string passed' do
-      it 'requests the correct resource' do
-        @client.destroy_status('https://twitter.com/sferik/status/25938088801')
         expect(a_post('/1.1/statuses/destroy/25938088801.json')).to have_been_made
       end
     end
@@ -373,12 +343,6 @@ describe Twitter::REST::Tweets do
         expect(a_post('/1.1/statuses/retweet/25938088801.json')).to have_been_made
       end
     end
-    context 'with a URI string passed' do
-      it 'requests the correct resource' do
-        @client.retweet('https://twitter.com/sferik/status/25938088801')
-        expect(a_post('/1.1/statuses/retweet/25938088801.json')).to have_been_made
-      end
-    end
     context 'with a Tweet passed' do
       it 'requests the correct resource' do
         tweet = Twitter::Tweet.new(id: 25_938_088_801)
@@ -435,12 +399,6 @@ describe Twitter::REST::Tweets do
         expect(a_post('/1.1/statuses/retweet/25938088801.json')).to have_been_made
       end
     end
-    context 'with a URI string passed' do
-      it 'requests the correct resource' do
-        @client.retweet!('https://twitter.com/sferik/status/25938088801')
-        expect(a_post('/1.1/statuses/retweet/25938088801.json')).to have_been_made
-      end
-    end
     context 'with a Tweet passed' do
       it 'requests the correct resource' do
         tweet = Twitter::Tweet.new(id: 25_938_088_801)
@@ -489,11 +447,6 @@ describe Twitter::REST::Tweets do
         expect(a_post('/1.1/statuses/update_with_media.json')).to have_been_made
       end
     end
-    context 'A non IO object' do
-      it 'raises an error' do
-        expect { @client.update_with_media('You always have options', 'Unacceptable IO') }.to raise_error(Twitter::Error::UnacceptableIO)
-      end
-    end
     context 'already posted' do
       before do
         stub_post('/1.1/statuses/update_with_media.json').to_return(status: 403, body: fixture('already_posted.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -528,12 +481,6 @@ describe Twitter::REST::Tweets do
         expect(a_get('/1.1/statuses/oembed.json').with(query: {id: '25938088801'})).to have_been_made
       end
     end
-    context 'with a URI string passed' do
-      it 'requests the correct resource' do
-        @client.oembed('https://twitter.com/sferik/status/25938088801')
-        expect(a_get('/1.1/statuses/oembed.json').with(query: {id: '25938088801'})).to have_been_made
-      end
-    end
     context 'with a Tweet passed' do
       it 'requests the correct resource' do
         tweet = Twitter::Tweet.new(id: 25_938_088_801)
@@ -564,12 +511,6 @@ describe Twitter::REST::Tweets do
       it 'requests the correct resource' do
         tweet = URI.parse('https://twitter.com/sferik/status/25938088801')
         @client.oembeds(tweet)
-        expect(a_get('/1.1/statuses/oembed.json').with(query: {id: '25938088801'})).to have_been_made
-      end
-    end
-    context 'with a URI string passed' do
-      it 'requests the correct resource' do
-        @client.oembeds('https://twitter.com/sferik/status/25938088801')
         expect(a_get('/1.1/statuses/oembed.json').with(query: {id: '25938088801'})).to have_been_made
       end
     end
@@ -612,12 +553,6 @@ describe Twitter::REST::Tweets do
         expect(a_get('/1.1/statuses/retweeters/ids.json').with(query: {id: '25938088801', cursor: '-1'})).to have_been_made
       end
     end
-    context 'with a URI string passed' do
-      it 'requests the correct resource' do
-        @client.retweeters_ids('https://twitter.com/sferik/status/25938088801')
-        expect(a_get('/1.1/statuses/retweeters/ids.json').with(query: {id: '25938088801', cursor: '-1'})).to have_been_made
-      end
-    end
     context 'with a Tweet passed' do
       it 'requests the correct resource' do
         tweet = Twitter::Tweet.new(id: 25_938_088_801)
@@ -626,5 +561,4 @@ describe Twitter::REST::Tweets do
       end
     end
   end
-
 end

@@ -343,15 +343,6 @@ describe Twitter::REST::FriendsAndFollowers do
       expect(a_post('/1.1/friendships/create.json').with(body: {screen_name: 'sferik'})).to have_been_made
     end
   end
-  context 'with a URI string passed' do
-    before do
-      stub_post('/1.1/friendships/create.json').with(body: {screen_name: 'sferik'}).to_return(body: fixture('sferik.json'), headers: {content_type: 'application/json; charset=utf-8'})
-    end
-    it 'requests the correct resource' do
-      @client.follow!('https://twitter.com/sferik')
-      expect(a_post('/1.1/friendships/create.json').with(body: {screen_name: 'sferik'})).to have_been_made
-    end
-  end
   context 'with a forbidden error' do
     before do
       stub_post('/1.1/friendships/create.json').with(body: {screen_name: 'sferik'}).to_return(status: 403, body: fixture('forbidden.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -444,15 +435,6 @@ describe Twitter::REST::FriendsAndFollowers do
         user1 = URI.parse('https://twitter.com/sferik')
         user2 = URI.parse('https://twitter.com/pengwynn')
         @client.friendship(user1, user2)
-        expect(a_get('/1.1/friendships/show.json').with(query: {source_screen_name: 'sferik', target_screen_name: 'pengwynn'})).to have_been_made
-      end
-    end
-    context 'with URI strings passed' do
-      before do
-        stub_get('/1.1/friendships/show.json').with(query: {source_screen_name: 'sferik', target_screen_name: 'pengwynn'}).to_return(body: fixture('following.json'), headers: {content_type: 'application/json; charset=utf-8'})
-      end
-      it 'requests the correct resource' do
-        @client.friendship('https://twitter.com/sferik', 'https://twitter.com/pengwynn')
         expect(a_get('/1.1/friendships/show.json').with(query: {source_screen_name: 'sferik', target_screen_name: 'pengwynn'})).to have_been_made
       end
     end

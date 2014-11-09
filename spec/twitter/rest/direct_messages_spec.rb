@@ -122,12 +122,6 @@ describe Twitter::REST::DirectMessages do
         expect(a_post('/1.1/direct_messages/new.json').with(body: {screen_name: 'pengwynn', text: "My #newride from @PUBLICBikes. Don't you want one? https://t.co/7HIwCl68Y8 https://t.co/JSSxDPr4Sf"})).to have_been_made
       end
     end
-    context 'with a URI string passed' do
-      it 'requests the correct resource' do
-        @client.create_direct_message('https://twitter.com/pengwynn', "My #newride from @PUBLICBikes. Don't you want one? https://t.co/7HIwCl68Y8 https://t.co/JSSxDPr4Sf")
-        expect(a_post('/1.1/direct_messages/new.json').with(body: {screen_name: 'pengwynn', text: "My #newride from @PUBLICBikes. Don't you want one? https://t.co/7HIwCl68Y8 https://t.co/JSSxDPr4Sf"})).to have_been_made
-      end
-    end
   end
 
 end

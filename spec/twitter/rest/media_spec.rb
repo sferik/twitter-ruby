@@ -45,10 +45,5 @@ describe Twitter::REST::Media do
         expect(a_request(:post, 'https://upload.twitter.com/1.1/media/upload.json')).to have_been_made
       end
     end
-    context 'A non IO object' do
-      it 'raises an error' do
-        expect { @client.upload('Unacceptable IO') }.to raise_error(Twitter::Error::UnacceptableIO)
-      end
-    end
   end
 end

@@ -1,3 +1,4 @@
+require 'addressable/uri'
 require 'twitter/arguments'
 require 'twitter/cursor'
 require 'twitter/error'
@@ -7,6 +8,7 @@ require 'twitter/rest/utils'
 require 'twitter/tweet'
 require 'twitter/user'
 require 'twitter/utils'
+require 'uri'
 
 module Twitter
   module REST
@@ -14,7 +16,6 @@ module Twitter
       include Twitter::REST::Utils
       include Twitter::Utils
       MAX_USERS_PER_REQUEST = 100
-      URI_SUBSTRING = '://'
 
       # Returns all lists the authenticating or specified user subscribes to, including their own
       #
@@ -456,28 +457,28 @@ module Twitter
       #
       # @param hash [Hash]
       # @param list [Integer, String, URI, Twitter::List] A Twitter list ID, slug, URI, or object.
-      # @return [Hash]
-      def merge_list!(hash, list) # rubocop:disable AbcSize, MethodLength
+      def merge_list!(hash, list)
         case list
         when Integer
           hash[:list_id] = list
         when String
-          if list[URI_SUBSTRING]
-            list = list.split('/')
-            hash[:slug] = list.pop
-            hash[:owner_screen_name] = list.pop
-          else
-            hash[:slug] = list
-          end
-        when URI
-          list = list.path.split('/')
-          hash[:slug] = list.pop
-          hash[:owner_screen_name] = list.pop
+          merge_slug_and_owner!(hash, list)
+        when URI, Addressable::URI
+          merge_slug_and_owner!(hash, list.path)
         when Twitter::List
-          hash[:list_id] = list.id
-          merge_owner!(hash, list.user)
+          merge_list_and_owner!(hash, list)
         end
-        hash
+      end
+
+      def merge_slug_and_owner!(hash, path)
+        list = path.split('/')
+        hash[:slug] = list.pop
+        hash[:owner_screen_name] = list.pop unless list.empty?
+      end
+
+      def merge_list_and_owner!(hash, list)
+        merge_list!(hash, list.id)
+        merge_owner!(hash, list.user)
       end
 
       # Take an owner and merge it into the hash with the correct key

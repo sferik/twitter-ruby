@@ -14,7 +14,7 @@ end
 
 describe Twitter::Streaming::Client do
   before do
-    @client = Twitter::Streaming::Client.new
+    @client = Twitter::Streaming::Client.new(consumer_key: 'CK', consumer_secret: 'CS', access_token: 'AT', access_token_secret: 'AS')
   end
 
   describe '#before_request' do

@@ -1,5 +1,21 @@
 module Twitter
   module Utils
+    # Takes a mixed array of Integers and Twitter::User objects and returns a
+    # consistent array of Twitter user IDs.
+    #
+    # @param users [Array]
+    # @return [Array<Integer>]
+    def collect_user_ids(users)
+      users.map do |user|
+        case user
+        when Integer
+          user
+        when Twitter::User
+          user.id
+        end
+      end.compact
+    end
+
     # Returns a new array with the concatenated results of running block once for every element in enumerable.
     # If no block is given, an enumerator is returned instead.
     #
