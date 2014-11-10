@@ -24,6 +24,7 @@ describe Twitter::SavedSearch do
     it 'returns a Time when created_at is set' do
       saved_search = Twitter::SavedSearch.new(id: 16_129_012, created_at: 'Mon Jul 16 12:59:01 +0000 2007')
       expect(saved_search.created_at).to be_a Time
+      expect(saved_search.created_at).to be_utc
     end
     it 'returns nil when created_at is not set' do
       saved_search = Twitter::SavedSearch.new(id: 16_129_012)

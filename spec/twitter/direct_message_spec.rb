@@ -33,6 +33,7 @@ describe Twitter::DirectMessage do
     it 'returns a Time when created_at is set' do
       direct_message = Twitter::DirectMessage.new(id: 1_825_786_345, created_at: 'Mon Jul 16 12:59:01 +0000 2007')
       expect(direct_message.created_at).to be_a Time
+      expect(direct_message.created_at).to be_utc
     end
     it 'returns nil when created_at is not set' do
       direct_message = Twitter::DirectMessage.new(id: 1_825_786_345)

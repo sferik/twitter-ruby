@@ -24,6 +24,7 @@ describe Twitter::List do
     it 'returns a Time when created_at is set' do
       list = Twitter::List.new(id: 8_863_586, created_at: 'Mon Jul 16 12:59:01 +0000 2007')
       expect(list.created_at).to be_a Time
+      expect(list.created_at).to be_utc
     end
     it 'returns nil when created_at is not set' do
       list = Twitter::List.new(id: 8_863_586)
