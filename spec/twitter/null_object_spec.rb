@@ -21,10 +21,10 @@ describe Twitter::NullObject do
 
   describe '#instance_of?' do
     it 'returns true for Twitter::NullObject' do
-      expect(subject.instance_of?(Twitter::NullObject)).to be true
+      expect(subject).to be_instance_of(Twitter::NullObject)
     end
     it 'returns false for other classes' do
-      expect(subject.instance_of?(String)).to be false
+      expect(subject).not_to be_instance_of(String)
     end
   end
 
@@ -100,7 +100,7 @@ describe Twitter::NullObject do
 
   describe 'predicates' do
     it 'return false for missing methods' do
-      expect(subject.missing?).to be false
+      expect(subject).not_to be_missing
     end
   end
 end

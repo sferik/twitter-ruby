@@ -15,8 +15,8 @@ describe Twitter::REST::OAuth do
     end
     it 'returns the bearer token' do
       bearer_token = @client.token
-      expect(bearer_token.access_token).to eq('AAAA%2FAAA%3DAAAAAAAA')
-      expect(bearer_token.token_type).to eq('bearer')
+      expect(bearer_token).to be_a String
+      expect(bearer_token).to eq('AAAA%2FAAA%3DAAAAAAAA')
     end
   end
 
@@ -31,12 +31,12 @@ describe Twitter::REST::OAuth do
     end
     it 'returns the invalidated token' do
       token = @client.invalidate_token('AAAA%2FAAA%3DAAAAAAAA')
-      expect(token.access_token).to eq('AAAA%2FAAA%3DAAAAAAAA')
-      expect(token.token_type).to be_nil
+      expect(token).to be_a String
+      expect(token).to eq('AAAA%2FAAA%3DAAAAAAAA')
     end
     context 'with a token' do
       it 'requests the correct resource' do
-        token = Twitter::Token.new(access_token: 'AAAA%2FAAA%3DAAAAAAAA')
+        token = 'AAAA%2FAAA%3DAAAAAAAA'
         @client.invalidate_token(token)
         expect(a_post('/oauth2/invalidate_token').with(body: {access_token: 'AAAA%2FAAA%3DAAAAAAAA'})).to have_been_made
       end

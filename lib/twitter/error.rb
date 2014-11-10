@@ -1,5 +1,4 @@
 require 'twitter/rate_limit'
-require 'twitter/utils'
 
 module Twitter
   # Custom error class for rescuing from all Twitter errors
@@ -112,9 +111,9 @@ module Twitter
       #
       # @param response [HTTP::Response]
       # @return [Twitter::Error]
-      def from_response(response)
-        message, code = parse_error(symbolize_keys!(response.parse))
-        new(message, response.headers, code)
+      def from_response(body, headers)
+        message, code = parse_error(body)
+        new(message, headers, code)
       end
 
     private

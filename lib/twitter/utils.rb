@@ -1,5 +1,7 @@
 module Twitter
   module Utils
+  module_function
+
     # Returns a new array with the concatenated results of running block once for every element in enumerable.
     # If no block is given, an enumerator is returned instead.
     #
@@ -9,7 +11,6 @@ module Twitter
       return to_enum(:flat_pmap, enumerable) unless block_given?
       pmap(enumerable, &Proc.new).flatten(1)
     end
-    module_function :flat_pmap
 
     # Returns a new array with the results of running block once for every element in enumerable.
     # If no block is given, an enumerator is returned instead.
@@ -24,20 +25,5 @@ module Twitter
         enumerable.collect { |object| Thread.new { yield(object) } }.collect(&:value)
       end
     end
-    module_function :pmap
-
-    def symbolize_keys!(object)
-      if object.is_a?(Array)
-        object.each_with_index do |val, index|
-          object[index] = symbolize_keys!(val)
-        end
-      elsif object.is_a?(Hash)
-        object.keys.each do |key|
-          object[key.to_sym] = symbolize_keys!(object.delete(key))
-        end
-      end
-      object
-    end
-    module_function :symbolize_keys!
   end
 end
