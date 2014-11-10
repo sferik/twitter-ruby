@@ -167,12 +167,9 @@ module Twitter
       def block?(user, options = {})
         user_id =
           case user
-          when Integer
-            user
-          when String, URI, Addressable::URI
-            user(user).id
-          when Twitter::User
-            user.id
+          when Integer                       then user
+          when String, URI, Addressable::URI then user(user).id
+          when Twitter::User                 then user.id
           end
         blocked_ids(options).collect(&:to_i).include?(user_id)
       end
