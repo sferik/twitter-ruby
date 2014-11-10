@@ -72,7 +72,6 @@ digraph classes {
 	Twitter__Streaming__StallWarning [label="Twitter::Streaming::StallWarning"]
 	Twitter__Suggestion [label="Twitter::Suggestion"]
 	Twitter__TargetUser [label="Twitter::TargetUser"]
-	Twitter__Token [label="Twitter::Token"]
 	Twitter__Trend [label="Twitter::Trend"]
 	Twitter__TrendResults [label="Twitter::TrendResults"]
 	Twitter__Tweet [label="Twitter::Tweet"]
@@ -148,7 +147,6 @@ digraph classes {
 	Twitter__Streaming__StallWarning -> Twitter__Base
 	Twitter__Suggestion -> Twitter__Base
 	Twitter__TargetUser -> Twitter__BasicUser
-	Twitter__Token -> Twitter__Base
 	Twitter__Trend -> Twitter__Base
 	Twitter__TrendResults -> Object
 	Twitter__Tweet -> Twitter__Identity

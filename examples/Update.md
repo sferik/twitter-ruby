@@ -48,15 +48,9 @@ client.update_with_media("I'm tweeting with @gem!", File.new("/path/to/sensitive
 
 Post an update with multiple images.
 
-This will return media IDs, which you can pass into the media_ids parameter (as a comma-separated string) of the update method.
 ```ruby
-media_ids = %w(/path/to/media1.png /path/to/media2.png).map do |filename|
-  Thread.new do
-    client.upload(File.new(filename))
-  end
-end.map(&:value)
-
-client.update("I'm tweeting with @gem!", media_ids: media_ids.join(','))
+media = %w(/path/to/media1.png /path/to/media2.png).map { |filename| File.new(filename) }
+client.update_with_media("I'm tweeting with @gem!", media)
 ```
 
 For more information, see the documentation for the [`#update`][update] and

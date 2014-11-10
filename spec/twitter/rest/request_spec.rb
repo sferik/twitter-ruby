@@ -14,9 +14,11 @@ describe Twitter::REST::Request do
       expect(a_post('/1.1/statuses/update.json').with(body: {status: 'Update'})).to have_been_made
     end
     it 'encodes none of the body when uploaded media is present' do
-      stub_post('/1.1/statuses/update_with_media.json').to_return(body: fixture('status.json'), headers: {content_type: 'application/json; charset=utf-8'})
+      stub_request(:post, 'https://upload.twitter.com/1.1/media/upload.json').to_return(body: fixture('upload.json'), headers: {content_type: 'application/json; charset=utf-8'})
+      stub_post('/1.1/statuses/update.json').with(body: {status: 'Update', media_ids: '470030289822314497'}).to_return(body: fixture('status.json'), headers: {content_type: 'application/json; charset=utf-8'})
       @client.update_with_media('Update', fixture('pbjt.gif'))
-      expect(a_post('/1.1/statuses/update_with_media.json')).to have_been_made
+      expect(a_request(:post, 'https://upload.twitter.com/1.1/media/upload.json')).to have_been_made
+      expect(a_post('/1.1/statuses/update.json').with(body: {status: 'Update', media_ids: '470030289822314497'})).to have_been_made
     end
   end
 end

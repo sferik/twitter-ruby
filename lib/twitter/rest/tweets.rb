@@ -119,7 +119,6 @@ module Twitter
       # @option options [Float] :long The longitude of the location this tweet refers to. The valid ranges for longitude is -180.0 to +180.0 (East is positive) inclusive. This option will be ignored if outside that range, if it is not a number, if geo_enabled is disabled, or if there not a corresponding :lat option.
       # @option options [Twitter::Place] :place A place in the world. These can be retrieved from {Twitter::REST::PlacesAndGeo#reverse_geocode}.
       # @option options [String] :place_id A place in the world. These IDs can be retrieved from {Twitter::REST::PlacesAndGeo#reverse_geocode}.
-      # @option options [String] :media_ids A comma separated list of uploaded media IDs to attach to the Tweet.
       # @option options [String] :display_coordinates Whether or not to put a pin on the exact coordinates a tweet has been sent from.
       # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       def update(status, options = {})
@@ -146,7 +145,6 @@ module Twitter
       # @option options [Float] :long The longitude of the location this tweet refers to. The valid ranges for longitude is -180.0 to +180.0 (East is positive) inclusive. This option will be ignored if outside that range, if it is not a number, if geo_enabled is disabled, or if there not a corresponding :lat option.
       # @option options [Twitter::Place] :place A place in the world. These can be retrieved from {Twitter::REST::PlacesAndGeo#reverse_geocode}.
       # @option options [String] :place_id A place in the world. These IDs can be retrieved from {Twitter::REST::PlacesAndGeo#reverse_geocode}.
-      # @option options [String] :media_ids A comma separated list of uploaded media IDs to attach to the Tweet.
       # @option options [String] :display_coordinates Whether or not to put a pin on the exact coordinates a tweet has been sent from.
       # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       def update!(status, options = {})
@@ -211,7 +209,7 @@ module Twitter
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Twitter::Tweet] The created Tweet.
       # @param status [String] The text of your status update, up to 140 characters.
-      # @param media [File, Hash] A File object with your picture (PNG, JPEG or GIF)
+      # @param media [File, Array<File>] An image file or array of image files (PNG, JPEG or GIF).
       # @param options [Hash] A customizable set of options.
       # @option options [Boolean, String, Integer] :possibly_sensitive Set to true for content which may not be suitable for every audience.
       # @option options [Twitter::Tweet] :in_reply_to_status An existing status that the update is in reply to.
@@ -223,10 +221,10 @@ module Twitter
       # @option options [String] :display_coordinates Whether or not to put a pin on the exact coordinates a tweet has been sent from.
       # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       def update_with_media(status, media, options = {})
-        hash = options.dup
-        hash[:in_reply_to_status_id] = hash.delete(:in_reply_to_status).id unless hash[:in_reply_to_status].nil?
-        hash[:place_id] = hash.delete(:place).woeid unless hash[:place].nil?
-        perform_post_with_object('/1.1/statuses/update_with_media.json', hash.merge('media[]' => media, 'status' => status), Twitter::Tweet)
+        media_ids = pmap(array_wrap(media)) do |medium|
+          upload(medium)[:media_id]
+        end
+        update!(status, options.merge(media_ids: media_ids.join(',')))
       end
 
       # Returns oEmbed for a Tweet
@@ -295,6 +293,20 @@ module Twitter
       end
 
     private
+
+      def upload(media)
+        Twitter::REST::Request.new(self, :multipart_post, 'https://upload.twitter.com/1.1/media/upload.json', key: :media, file: media).perform
+      end
+
+      def array_wrap(object)
+        if object.nil?
+          []
+        elsif object.respond_to?(:to_ary)
+          object.to_ary || [object]
+        else
+          [object]
+        end
+      end
 
       def post_retweet(tweet, options)
         response = perform_post("/1.1/statuses/retweet/#{extract_id(tweet)}.json", options)

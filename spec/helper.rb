@@ -5,7 +5,7 @@ SimpleCov.formatters = [SimpleCov::Formatter::HTMLFormatter, Coveralls::SimpleCo
 
 SimpleCov.start do
   add_filter '/spec/'
-  minimum_coverage(99.6)
+  minimum_coverage(99.5)
 end
 
 require 'twitter'

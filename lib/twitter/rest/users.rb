@@ -92,7 +92,7 @@ module Twitter
       # @param options [Hash] A customizable set of options.
       # @option options [Boolean] :tile Whether or not to tile the background image. If set to true the background image will be displayed tiled. The image will not be tiled otherwise.
       def update_profile_background_image(image, options = {})
-        perform_post_with_object('/1.1/account/update_profile_background_image.json', options.merge(image: image), Twitter::User)
+        post_profile_image('/1.1/account/update_profile_background_image.json', image, options)
       end
 
       # Sets one or more hex values that control the color scheme of the authenticating user's profile
@@ -124,7 +124,7 @@ module Twitter
       # @param image [File] The avatar image for the profile, base64-encoded. Must be a valid GIF, JPG, or PNG image of less than 700 kilobytes in size. Images with width larger than 500 pixels will be scaled down. Animated GIFs will be converted to a static GIF of the first frame, removing the animation.
       # @param options [Hash] A customizable set of options.
       def update_profile_image(image, options = {})
-        perform_post_with_object('/1.1/account/update_profile_image.json', options.merge(image: image), Twitter::User)
+        post_profile_image('/1.1/account/update_profile_image.json', image, options)
       end
 
       # Returns an array of user objects that the authenticating user is blocking
@@ -428,6 +428,13 @@ module Twitter
         arguments = Twitter::Arguments.new(args)
         merge_user!(arguments.options, arguments.pop)
         perform_get_with_cursor('/1.1/mutes/users/ids.json', arguments.options, :ids)
+      end
+
+    private
+
+      def post_profile_image(path, image, options)
+        response = Twitter::REST::Request.new(self, :multipart_post, path, options.merge(key: :image, file: image)).perform
+        Twitter::User.new(response)
       end
     end
   end

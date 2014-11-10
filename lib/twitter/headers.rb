@@ -10,7 +10,6 @@ module Twitter
       @uri = Addressable::URI.parse(url)
       @bearer_token_request = options.delete(:bearer_token_request)
       @options = options
-      @signature_options = @request_method == :post && @options.values.any? { |value| value.respond_to?(:to_io) } ? {} : @options
     end
 
     def bearer_token_request?
@@ -18,7 +17,7 @@ module Twitter
     end
 
     def oauth_auth_header
-      SimpleOAuth::Header.new(@request_method, @uri, @signature_options, @client.credentials.merge(ignore_extra_keys: true))
+      SimpleOAuth::Header.new(@request_method, @uri, @options, @client.credentials.merge(ignore_extra_keys: true))
     end
 
     def request_headers
@@ -44,18 +43,16 @@ module Twitter
       end
     end
 
+    # @return [String]
     def bearer_auth_header
-      bearer_token = @client.bearer_token
-      token = bearer_token.is_a?(Twitter::Token) && bearer_token.bearer? ? bearer_token.access_token : bearer_token
-      "Bearer #{token}"
+      "Bearer #{@client.bearer_token}"
     end
 
     # Generates authentication header for a bearer token request
     #
     # @return [String]
     def bearer_token_credentials_auth_header
-      basic_auth_token = Base64.strict_encode64("#{@client.consumer_key}:#{@client.consumer_secret}")
-      "Basic #{basic_auth_token}"
+      "Basic #{Base64.strict_encode64("#{@client.consumer_key}:#{@client.consumer_secret}")}"
     end
   end
 end
