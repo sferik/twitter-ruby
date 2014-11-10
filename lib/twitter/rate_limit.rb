@@ -21,7 +21,7 @@ module Twitter
     # @return [Time]
     def reset_at
       reset = @attrs['x-rate-limit-reset']
-      Time.at(reset.to_i) if reset
+      Time.at(reset.to_i).utc if reset
     end
     memoize :reset_at
 

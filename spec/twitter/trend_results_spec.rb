@@ -5,6 +5,7 @@ describe Twitter::TrendResults do
     it 'returns a Time when as_of is set' do
       trend_results = Twitter::TrendResults.new(id: 1, as_of: '2012-08-24T23:25:43Z')
       expect(trend_results.as_of).to be_a Time
+      expect(trend_results.as_of).to be_utc
     end
     it 'returns nil when as_of is not set' do
       trend_results = Twitter::TrendResults.new(id: 1)
@@ -27,6 +28,7 @@ describe Twitter::TrendResults do
     it 'returns a Time when created_at is set' do
       trend_results = Twitter::TrendResults.new(id: 1, created_at: '2012-08-24T23:24:14Z')
       expect(trend_results.created_at).to be_a Time
+      expect(trend_results.created_at).to be_utc
     end
     it 'returns nil when created_at is not set' do
       trend_results = Twitter::TrendResults.new(id: 1)

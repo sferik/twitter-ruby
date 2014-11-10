@@ -33,6 +33,7 @@ describe Twitter::Tweet do
     it 'returns a Time when set' do
       tweet = Twitter::Tweet.new(id: 28_669_546_014, created_at: 'Mon Jul 16 12:59:01 +0000 2007')
       expect(tweet.created_at).to be_a Time
+      expect(tweet.created_at).to be_utc
     end
     it 'returns nil when not set' do
       tweet = Twitter::Tweet.new(id: 28_669_546_014)
