@@ -14,6 +14,10 @@ module Twitter
     #   true
     # end
 
+    def respond_to?(*)
+      true
+    end
+
     def instance_of?(klass)
       fail(TypeError.new('class or module required')) unless klass.is_a?(Class)
       self.class == klass
