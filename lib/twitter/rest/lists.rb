@@ -459,14 +459,10 @@ module Twitter
       # @param list [Integer, String, URI, Twitter::List] A Twitter list ID, slug, URI, or object.
       def merge_list!(hash, list)
         case list
-        when Integer
-          hash[:list_id] = list
-        when String
-          merge_slug_and_owner!(hash, list)
-        when URI, Addressable::URI
-          merge_slug_and_owner!(hash, list.path)
-        when Twitter::List
-          merge_list_and_owner!(hash, list)
+        when Integer               then hash[:list_id] = list
+        when Twitter::List         then merge_list_and_owner!(hash, list)
+        when String                then merge_slug_and_owner!(hash, list)
+        when URI, Addressable::URI then merge_slug_and_owner!(hash, list.path)
         end
       end
 

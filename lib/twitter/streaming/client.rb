@@ -123,6 +123,20 @@ module Twitter
           [param, URI.encode(value)].join('=')
         end.sort.join('&')
       end
+
+      # Takes a mixed array of Integers and Twitter::User objects and returns a
+      # consistent array of Twitter user IDs.
+      #
+      # @param users [Array]
+      # @return [Array<Integer>]
+      def collect_user_ids(users)
+        users.map do |user|
+          case user
+          when Integer       then user
+          when Twitter::User then user.id
+          end
+        end.compact
+      end
     end
   end
 end

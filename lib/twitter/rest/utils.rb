@@ -225,21 +225,22 @@ module Twitter
       # @param users [Enumerable<Integer, String, URI, Twitter::User>] A collection of Twitter user IDs, screen_names, URIs, or objects.
       # @return [Hash]
       def merge_users!(hash, users)
-        user_ids = collect_user_ids(users)
-        screen_names = user_ids.size == users.size ? [] : collect_screen_names(users)
+        user_ids, screen_names = collect_users(users)
         hash[:user_id] = user_ids.join(',') unless user_ids.empty?
         hash[:screen_name] = screen_names.join(',') unless screen_names.empty?
       end
 
-      def collect_screen_names(users)
-        users.map do |user|
+      def collect_users(users)
+        user_ids, screen_names = [], []
+        users.each do |user|
           case user
-          when String
-            user
-          when URI, Addressable::URI
-            user.path.split('/').last
+          when Integer               then user_ids << user
+          when Twitter::User         then user_ids << user.id
+          when String                then screen_names << user
+          when URI, Addressable::URI then screen_names << user.path.split('/').last
           end
-        end.compact
+        end
+        [user_ids, screen_names]
       end
     end
   end
