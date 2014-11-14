@@ -1,11 +1,9 @@
-#!/usr/bin/ruby
-
 require 'twitter'
 
-COLON = ':'.freeze
-UNDERSCORE = '_'.freeze
-TAB = "\t".freeze
-NAMESPACE = 'Twitter::'.freeze
+COLON = ':'
+UNDERSCORE = '_'
+TAB = "\t"
+NAMESPACE = 'Twitter::'
 
 # Colons are invalid characters in DOT nodes.
 # Replace them with underscores.
@@ -34,19 +32,29 @@ end
 
 edges.delete(nil)
 
-def puts(object, indent = 0, tab = TAB)
-  super(tab * indent + object)
+@indent = 0
+
+def indent
+  @indent += 1
+  yield
+  @indent -= 1
+end
+
+def puts(string)
+  super(TAB * @indent + string)
 end
 
 puts 'digraph classes {'
 # Add or remove DOT formatting options here
-puts "graph [rotate=0, rankdir=\"LR\"]", 1
-puts "node [fillcolor=\"#c4ddec\", style=\"filled\", fontname=\"Helvetica Neue\"]", 1
-puts "edge [color=\"#444444\"]", 1
-nodes.sort.each do |node, label|
-  puts "#{node} [label=\"#{label}\"]", 1
-end
-edges.sort.each do |child, parent|
-  puts "#{child} -> #{parent}", 1
+indent do
+  puts "graph [rotate=0, rankdir=\"LR\"]"
+  puts "node [fillcolor=\"#c4ddec\", style=\"filled\", fontname=\"Helvetica Neue\"]"
+  puts "edge [color=\"#444444\"]"
+  nodes.sort.each do |node, label|
+    puts "#{node} [label=\"#{label}\"]"
+  end
+  edges.sort.each do |child, parent|
+    puts "#{child} -> #{parent}"
+  end
 end
 puts '}'
