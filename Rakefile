@@ -3,8 +3,7 @@ Bundler::GemHelper.install_tasks
 
 task :erd do
   `bundle exec ruby ./etc/erd.rb > ./etc/erd.dot`
-  `dot -Tpng ./etc/erd.dot -o ./etc/erd.png`
-  `open ./etc/erd.png`
+  `dot -Tsvg ./etc/erd.dot -o ./etc/erd.svg`
 end
 
 require 'rspec/core/rake_task'

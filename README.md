@@ -543,7 +543,7 @@ For more usage examples, please see the full [documentation][].
 
 ![Entity-relationship diagram][erd]
 
-[erd]: https://github.com/sferik/twitter/raw/master/etc/erd.png "Entity-relationship diagram"
+[erd]: https://github.com/sferik/twitter/raw/master/etc/erd.svg "Entity-relationship diagram"
 
 This entity-relationship diagram is generated programatically. If you add or
 remove any Twitter objects, please regenerate the ERD with the following
