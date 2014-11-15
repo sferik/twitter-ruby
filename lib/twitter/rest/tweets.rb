@@ -301,9 +301,7 @@ module Twitter
       end
 
       def array_wrap(object)
-        if object.nil?
-          []
-        elsif object.respond_to?(:to_ary)
+        if object.respond_to?(:to_ary)
           object.to_ary || [object]
         else
           [object]
