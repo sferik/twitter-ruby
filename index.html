@@ -29,482 +29,61 @@
       </header>
       <section>
         <h1>
-<a name="the-twitter-ruby-gem" class="anchor" href="#the-twitter-ruby-gem"><span class="octicon octicon-link"></span></a>The Twitter Ruby Gem</h1>
+<a id="the-twitter-ruby-gem" class="anchor" href="#the-twitter-ruby-gem" aria-hidden="true"><span class="octicon octicon-link"></span></a>The Twitter Ruby Gem</h1>
 
 <p><a href="https://rubygems.org/gems/twitter"><img src="http://img.shields.io/gem/v/twitter.svg" alt="Gem Version"></a>
-<a href="http://travis-ci.org/sferik/twitter"><img src="http://img.shields.io/travis/sferik/twitter.svg" alt="Build Status"></a>
+<a href="https://travis-ci.org/sferik/twitter"><img src="http://img.shields.io/travis/sferik/twitter.svg" alt="Build Status"></a>
 <a href="https://gemnasium.com/sferik/twitter"><img src="http://img.shields.io/gemnasium/sferik/twitter.svg" alt="Dependency Status"></a>
 <a href="https://codeclimate.com/github/sferik/twitter"><img src="http://img.shields.io/codeclimate/github/sferik/twitter.svg" alt="Code Climate"></a>
 <a href="https://coveralls.io/r/sferik/twitter"><img src="http://img.shields.io/coveralls/sferik/twitter.svg" alt="Coverage Status"></a>
-<a href="https://www.gittip.com/gems/"><img src="http://img.shields.io/gittip/gems.svg" alt="Gittip"></a></p>
+<a href="http://inch-ci.org/github/sferik/twitter"><img src="http://inch-ci.org/github/sferik/twitter.png" alt="Inline docs"></a></p>
 
 <p>A Ruby interface to the Twitter API.</p>
 
 <h2>
-<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h2>
 
 <pre><code>gem install twitter
 </code></pre>
 
 <h2>
-<a name="cli" class="anchor" href="#cli"><span class="octicon octicon-link"></span></a>CLI</h2>
+<a id="cli" class="anchor" href="#cli" aria-hidden="true"><span class="octicon octicon-link"></span></a>CLI</h2>
 
 <p>Looking for the Twitter command-line interface? It was <a href="https://github.com/sferik/twitter/commit/dd2445e3e2c97f38b28a3f32ea902536b3897adf">removed</a> from this
 gem in version 0.5.0 and now exists as a <a href="https://github.com/sferik/t">separate project</a>.</p>
 
 <h2>
-<a name="documentation" class="anchor" href="#documentation"><span class="octicon octicon-link"></span></a>Documentation</h2>
+<a id="documentation" class="anchor" href="#documentation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Documentation</h2>
 
 <p><a href="http://rdoc.info/gems/twitter">http://rdoc.info/gems/twitter</a></p>
 
 <h2>
-<a name="examples" class="anchor" href="#examples"><span class="octicon octicon-link"></span></a>Examples</h2>
+<a id="examples" class="anchor" href="#examples" aria-hidden="true"><span class="octicon octicon-link"></span></a>Examples</h2>
 
 <p><a href="https://github.com/sferik/twitter/tree/master/examples">https://github.com/sferik/twitter/tree/master/examples</a></p>
 
 <h2>
-<a name="announcements" class="anchor" href="#announcements"><span class="octicon octicon-link"></span></a>Announcements</h2>
+<a id="announcements" class="anchor" href="#announcements" aria-hidden="true"><span class="octicon octicon-link"></span></a>Announcements</h2>
 
 <p>You should <a href="https://twitter.com/gem">follow @gem</a> on Twitter for announcements and updates about
 this library.</p>
 
 <h2>
-<a name="mailing-list" class="anchor" href="#mailing-list"><span class="octicon octicon-link"></span></a>Mailing List</h2>
+<a id="mailing-list" class="anchor" href="#mailing-list" aria-hidden="true"><span class="octicon octicon-link"></span></a>Mailing List</h2>
 
 <p>Please direct questions about this library to the <a href="https://groups.google.com/group/twitter-ruby-gem">mailing list</a>.</p>
 
 <h2>
-<a name="apps-wiki" class="anchor" href="#apps-wiki"><span class="octicon octicon-link"></span></a>Apps Wiki</h2>
+<a id="apps-wiki" class="anchor" href="#apps-wiki" aria-hidden="true"><span class="octicon octicon-link"></span></a>Apps Wiki</h2>
 
 <p>Does your project or organization use this gem? Add it to the <a href="https://github.com/sferik/twitter/wiki/apps">apps
 wiki</a>!</p>
 
 <h2>
-<a name="whats-new-in-version-5" class="anchor" href="#whats-new-in-version-5"><span class="octicon octicon-link"></span></a>What's New in Version 5?</h2>
-
-<h3>
-<a name="configuration" class="anchor" href="#configuration"><span class="octicon octicon-link"></span></a>Configuration</h3>
-
-<p>Global configuration has been removed, as it was not threadsafe. Instead, you
-can configure a <code>Twitter::REST::Client</code> by passing it a block when it's
-initialized.</p>
-
-<div class="highlight highlight-ruby"><pre><span class="n">client</span> <span class="o">=</span> <span class="no">Twitter</span><span class="o">::</span><span class="no">REST</span><span class="o">::</span><span class="no">Client</span><span class="o">.</span><span class="n">new</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
-  <span class="n">config</span><span class="o">.</span><span class="n">consumer_key</span>        <span class="o">=</span> <span class="s2">"YOUR_CONSUMER_KEY"</span>
-  <span class="n">config</span><span class="o">.</span><span class="n">consumer_secret</span>     <span class="o">=</span> <span class="s2">"YOUR_CONSUMER_SECRET"</span>
-  <span class="n">config</span><span class="o">.</span><span class="n">access_token</span>        <span class="o">=</span> <span class="s2">"YOUR_ACCESS_TOKEN"</span>
-  <span class="n">config</span><span class="o">.</span><span class="n">access_token_secret</span> <span class="o">=</span> <span class="s2">"YOUR_ACCESS_SECRET"</span>
-<span class="k">end</span>
-</pre></div>
-
-<p>Note: <code>oauth_token</code> has been renamed to <code>access_token</code> and <code>oauth_token_secret</code>
-is now <code>access_token_secret</code> to conform to the terminology used in Twitter's
-developer documentation.</p>
-
-<h3>
-<a name="streaming-experimental" class="anchor" href="#streaming-experimental"><span class="octicon octicon-link"></span></a>Streaming (Experimental)</h3>
-
-<p>This library now offers support for the <a href="https://dev.twitter.com/docs/streaming-apis">Twitter Streaming API</a>. We
-previously recommended using <a href="http://rubygems.org/gems/tweetstream">TweetStream</a> for this, however <a href="https://github.com/tweetstream/tweetstream/issues/117">TweetStream
-does not work on Ruby 2.0.0</a>.</p>
-
-<p>Site Streams are restricted to whitelisted accounts. To apply for access,
-<a href="https://dev.twitter.com/docs/streaming-apis/streams/site#Applying_for_access">follow the steps in the Site Streams documentation</a>. <a href="https://dev.twitter.com/docs/streaming-apis/streams/user">User
-Streams</a> do not require prior approval.</p>
-
-<p>Unlike the rest of this library, this feature is not well tested and not
-recommended for production applications. That said, if you need to do Twitter
-streaming on Ruby 2.0.0, this is probably your best option. I've decided to
-ship it as an experimental feature and make it more robust over time. Patches
-in this area are particularly welcome.</p>
-
-<p>Hopefully, by the time version 6 is released, this gem can fully replace
-<a href="http://rubygems.org/gems/tweetstream">TweetStream</a>, <a href="http://rubygems.org/gems/em-twitter">em-twitter</a>, <a href="http://rubygems.org/gems/twitterstream">twitterstream</a>, and <a href="http://rubygems.org/gems/twitter-stream">twitter-stream</a>.
-Special thanks to <a href="https://github.com/spagalloco">Steve Agalloco</a>, <a href="https://github.com/halorgium">Tim Carey-Smith</a>,
-and <a href="https://github.com/tarcieri">Tony Arcieri</a> for helping to develop this feature.</p>
-
-<p><strong>Configuration works just like <code>Twitter::REST::Client</code></strong></p>
-
-<div class="highlight highlight-ruby"><pre><span class="n">client</span> <span class="o">=</span> <span class="no">Twitter</span><span class="o">::</span><span class="no">Streaming</span><span class="o">::</span><span class="no">Client</span><span class="o">.</span><span class="n">new</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
-  <span class="n">config</span><span class="o">.</span><span class="n">consumer_key</span>        <span class="o">=</span> <span class="s2">"YOUR_CONSUMER_KEY"</span>
-  <span class="n">config</span><span class="o">.</span><span class="n">consumer_secret</span>     <span class="o">=</span> <span class="s2">"YOUR_CONSUMER_SECRET"</span>
-  <span class="n">config</span><span class="o">.</span><span class="n">access_token</span>        <span class="o">=</span> <span class="s2">"YOUR_ACCESS_TOKEN"</span>
-  <span class="n">config</span><span class="o">.</span><span class="n">access_token_secret</span> <span class="o">=</span> <span class="s2">"YOUR_ACCESS_SECRET"</span>
-<span class="k">end</span>
-</pre></div>
-
-<p><strong>Stream mentions of coffee or tea</strong></p>
-
-<div class="highlight highlight-ruby"><pre><span class="n">topics</span> <span class="o">=</span> <span class="o">[</span><span class="s2">"coffee"</span><span class="p">,</span> <span class="s2">"tea"</span><span class="o">]</span>
-<span class="n">client</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="ss">:track</span> <span class="o">=&gt;</span> <span class="n">topics</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">","</span><span class="p">))</span> <span class="k">do</span> <span class="o">|</span><span class="n">object</span><span class="o">|</span>
-  <span class="nb">puts</span> <span class="n">object</span><span class="o">.</span><span class="n">text</span> <span class="k">if</span> <span class="n">object</span><span class="o">.</span><span class="n">is_a?</span><span class="p">(</span><span class="no">Twitter</span><span class="o">::</span><span class="no">Tweet</span><span class="p">)</span>
-<span class="k">end</span>
-</pre></div>
-
-<p><strong>Stream a random sample of all tweets</strong></p>
-
-<div class="highlight highlight-ruby"><pre><span class="n">client</span><span class="o">.</span><span class="n">sample</span> <span class="k">do</span> <span class="o">|</span><span class="n">object</span><span class="o">|</span>
-  <span class="nb">puts</span> <span class="n">object</span><span class="o">.</span><span class="n">text</span> <span class="k">if</span> <span class="n">object</span><span class="o">.</span><span class="n">is_a?</span><span class="p">(</span><span class="no">Twitter</span><span class="o">::</span><span class="no">Tweet</span><span class="p">)</span>
-<span class="k">end</span>
-</pre></div>
-
-<p><strong>Stream tweets, events, and direct messages for the authenticated user</strong></p>
-
-<div class="highlight highlight-ruby"><pre><span class="n">client</span><span class="o">.</span><span class="n">user</span> <span class="k">do</span> <span class="o">|</span><span class="n">object</span><span class="o">|</span>
-  <span class="k">case</span> <span class="n">object</span>
-  <span class="k">when</span> <span class="no">Twitter</span><span class="o">::</span><span class="no">Tweet</span>
-    <span class="nb">puts</span> <span class="s2">"It's a tweet!"</span>
-  <span class="k">when</span> <span class="no">Twitter</span><span class="o">::</span><span class="no">DirectMessage</span>
-    <span class="nb">puts</span> <span class="s2">"It's a direct message!"</span>
-  <span class="k">when</span> <span class="no">Twitter</span><span class="o">::</span><span class="no">Streaming</span><span class="o">::</span><span class="no">StallWarning</span>
-    <span class="nb">warn</span> <span class="s2">"Falling behind!"</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-</pre></div>
-
-<p>An <code>object</code> may be one of the following:</p>
-
-<ul>
-<li>Twitter::DirectMessage</li>
-<li>Twitter::Streaming::DeletedTweet</li>
-<li>Twitter::Streaming::Event</li>
-<li>Twitter::Streaming::FriendList</li>
-<li>Twitter::Streaming::StallWarning</li>
-<li>Twitter::Tweet</li>
-</ul><h3>
-<a name="cursors" class="anchor" href="#cursors"><span class="octicon octicon-link"></span></a>Cursors</h3>
-
-<p>The <code>Twitter::Cursor</code> class has been completely redesigned with a focus on
-simplicity and performance.</p>
-
-<table>
-<thead>
-<tr>
-<th>Notes</th>
-      <th colspan="2">Version 4</th>
-      <th colspan="2">Version 5</th>
-    </tr>
-<tr>
-<th></th>
-      <th>Code</th>
-      <th>HTTP GETs</th>
-      <th>Code</th>
-      <th>HTTP GETs</th>
-    </tr>
-</thead>
-<tbody>
-<tr>
-<td>
-        Are you at the start of the cursor?
-      </td>
-      <td>
-        <pre><code>client.friends.first</code></pre>
-      </td>
-      <td>
-        <em>Θ(1)</em>
-      </td>
-      <td>
-        <pre><code>client.friends.first?</code></pre>
-      </td>
-      <td>
-        <em>Θ(1)</em>
-      </td>
-    </tr>
-<tr>
-<td>
-        Return your most recent follower.
-      </td>
-      <td>
-        <pre><code>client.friends.users.first</code></pre>
-      </td>
-      <td>
-        <em>Θ(1)</em>
-      </td>
-      <td>
-        <pre><code>client.friends.first</code></pre>
-      </td>
-      <td>
-        <em>Θ(1)</em>
-      </td>
-    </tr>
-<tr>
-<td>
-        Return an array of all your friends.
-      </td>
-      <td>
-        <pre><code>client.friends.all</code></pre>
-      </td>
-      <td>
-        <em>Θ(n+1)</em>
-      </td>
-      <td>
-        <pre><code>client.friends.to_a</code></pre>
-      </td>
-      <td>
-        <em>Θ(n)</em>
-      </td>
-    </tr>
-<tr>
-<td>
-        Collect your 20 most recent friends.
-      </td>
-      <td>
-        <pre><code>client.friends.take(20)</code></pre>
-      </td>
-      <td>
-        <em>Θ(n+1)</em>
-      </td>
-      <td>
-        <pre><code>client.friends.take(20)</code></pre>
-      </td>
-      <td>
-        <em>Θ(1)</em>
-      </td>
-    </tr>
-<tr>
-<td>
-        Collect your 20 most recent friends twice.
-      </td>
-      <td>
-        <pre><code>friends = client.friends
-2.times.collect do
-  friends.take(20)
-end</code></pre>
-      </td>
-      <td>
-        <em>Θ(2n+2)</em>
-      </td>
-      <td>
-        <pre><code>friends = client.friends
-2.times.collect do
-  friends.take(20)
-end</code></pre>
-      </td>
-      <td>
-        <em>Θ(1)</em>
-      </td>
-    </tr>
-</tbody>
-</table><p>In the examples above, <em>n</em> varies with the number of people the authenticated
-user follows on Twitter. This resource returns up to 20 friends per HTTP GET,
-so if the authenticated user follows 200 people, calling
-<code>client.friends.take(20)</code> would make 11 HTTP requests in version 4. In version
-5, it makes just 1 HTTP request. Keep in mind, eliminating a single HTTP
-request to the Twitter API will reduce the latency of your application by
-<a href="https://dev.twitter.com/status">about 500 ms</a>.</p>
-
-<p>The last example might seem contrived ("Why would I call
-<code>client.friends.take(20)</code> twice?") but it applies to any
-<a href="http://ruby-doc.org/core-2.0/Enumerable.html"><code>Enumerable</code></a> method you might call on a cursor, including:
-<code>#all?</code>, <code>#collect</code>, <code>#count</code>, <code>#each</code>, <code>#inject</code>, <code>#max</code>, <code>#min</code>, <code>#reject</code>,
-<code>#reverse_each</code>, <code>#select</code>, <code>#sort</code>, <code>#sort_by</code>, and <code>#to_a</code>. In version 4,
-each time you called one of those methods, it would perform <em>n+1</em> HTTP
-requests. In version 5, it only performs those HTTP requests the first time any
-one of those methods is called. Each subsequent call fetches data from a
-<a href="https://github.com/sferik/twitter/commit/7d8b2727af9400643ac397207185fd54e3f6387b">cache</a>.</p>
-
-<p>The performance improvements are actually even <strong>better</strong> than the table above
-indicates. In version 5, calling <code>Twitter::Cursor#each</code> (or any
-<a href="http://ruby-doc.org/core-2.0/Enumerable.html"><code>Enumerable</code></a> method) starts yielding results immediately and
-continues yielding as each response comes back from the server. In version 4,
-<code>#each</code> made a series of requests and waited for the last one to complete
-before yielding any data.</p>
-
-<p>Here is a list of the interface changes to <code>Twitter::Cursor</code>:</p>
-
-<ul>
-<li>
-<code>#all</code> has been replaced by <code>#to_a</code>.</li>
-<li>
-<code>#last</code> has been replaced by <code>#last?</code>.</li>
-<li>
-<code>#first</code> has been replaced by <code>#first?</code>.</li>
-<li>
-<code>#first</code> now returns the first element in the collection, as prescribed by <code>Enumerable</code>.</li>
-<li>
-<code>#collection</code> and its aliases have been removed.</li>
-</ul><h3>
-<a name="search-results" class="anchor" href="#search-results"><span class="octicon octicon-link"></span></a>Search Results</h3>
-
-<p>The <code>Twitter::SearchResults</code> class has also been redesigned to have an
-<a href="http://ruby-doc.org/core-2.0/Enumerable.html"><code>Enumerable</code></a> interface. The <code>#statuses</code> method and its aliases
-(<code>#collection</code> and <code>#results</code>) have been replaced by <code>#to_a</code>. Additionally,
-this class no longer inherits from <code>Twitter::Base</code>. As a result, the <code>#[]</code>
-method has been removed.</p>
-
-<h3>
-<a name="trend-results" class="anchor" href="#trend-results"><span class="octicon octicon-link"></span></a>Trend Results</h3>
-
-<p>The <code>#trends</code> method now returns an <a href="http://ruby-doc.org/core-2.0/Enumerable.html"><code>Enumerable</code></a>
-<code>Twitter::TrendResults</code> object instead of an array. This object provides
-methods to determinte the recency of the trend (<code>#as_of</code>), when the trend
-started (<code>#created_at</code>), and the location of the trend (<code>#location</code>). This data
-was previously unavailable.</p>
-
-<h3>
-<a name="geo-results" class="anchor" href="#geo-results"><span class="octicon octicon-link"></span></a>Geo Results</h3>
-
-<p>Similarly, the <code>#reverse_geocode</code>, <code>#geo_search</code>, and <code>#similar_places</code> methods
-now return an <a href="http://ruby-doc.org/core-2.0/Enumerable.html"><code>Enumerable</code></a> <code>Twitter::GeoResults</code> object instead
-of an array. This object provides access to the token to create a new place
-(<code>#token</code>), which was previously unavailable.</p>
-
-<h3>
-<a name="tweets" class="anchor" href="#tweets"><span class="octicon octicon-link"></span></a>Tweets</h3>
-
-<p>The <code>Twitter::Tweet</code> object has been cleaned up. The following methods have been
-removed:</p>
-
-<ul>
-<li><code>#from_user</code></li>
-<li><code>#from_user_id</code></li>
-<li><code>#from_user_name</code></li>
-<li><code>#to_user</code></li>
-<li><code>#to_user_id</code></li>
-<li><code>#to_user_name</code></li>
-<li><code>#profile_image_url</code></li>
-<li><code>#profile_image_url_https</code></li>
-</ul><p>These attributes can be accessed via the <code>Twitter::User</code> object, returned
-through the <code>#user</code> method.</p>
-
-<h3>
-<a name="users" class="anchor" href="#users"><span class="octicon octicon-link"></span></a>Users</h3>
-
-<p>The <code>Twitter::User</code> object has also been cleaned up. The following aliases have
-been removed:</p>
-
-<ul>
-<li>
-<code>#favorite_count</code> (use <code>#favorites_count</code>)</li>
-<li>
-<code>#favoriters_count</code> (use <code>#favorites_count</code>)</li>
-<li>
-<code>#favourite_count</code> (use <code>#favorites_count</code>)</li>
-<li>
-<code>#favouriters_count</code> (use <code>#favorites_count</code>)</li>
-<li>
-<code>#follower_count</code> (use <code>#followers_count</code>)</li>
-<li>
-<code>#friend_count</code> (use <code>#friends_count</code>)</li>
-<li>
-<code>#status_count</code> (use <code>#statuses_count</code>)</li>
-<li>
-<code>#tweet_count</code> (use <code>#tweets_count</code>)</li>
-<li>
-<code>#update_count</code> (use <code>#tweets_count</code>)</li>
-<li>
-<code>#updates_count</code> (use <code>#tweets_count</code>)</li>
-<li>
-<code>#translator</code> (use <code>#translator?</code>)</li>
-</ul><h3>
-<a name="remove-british-english-aliases" class="anchor" href="#remove-british-english-aliases"><span class="octicon octicon-link"></span></a>Remove British English aliases</h3>
-
-<p>Earlier versions of this library aliased <code>favourites</code> to <code>favorites</code>. These
-aliases have been removed. Ruby is implemented in American English. The
-<code>initialize</code> method is spelled with a "z", not an "s", and Ruby provides no
-alias. Likewise, this library does not provide aliases for Commonwealthers.
-Merica. <img class="emoji" title=":us:" alt=":us:" src="https://github.global.ssl.fastly.net/images/icons/emoji/us.png" height="20" width="20" align="absmiddle"></p>
-
-<h3>
-<a name="more-natural-method-names" class="anchor" href="#more-natural-method-names"><span class="octicon octicon-link"></span></a>More natural method names</h3>
-
-<p>All create, destroy, add, and remove methods have been renamed to put the verb
-at the beginning:</p>
-
-<ul>
-<li>
-<code>#direct_message_create</code> is now <code>#create_direct_message</code>
-</li>
-<li>
-<code>#direct_message_destroy</code> is now <code>#destroy_direct_message</code>
-</li>
-<li>
-<code>#list_create</code> is now <code>#create_list</code>
-</li>
-<li>
-<code>#list_destroy</code> is now <code>#destroy_list</code>
-</li>
-<li>
-<code>#list_remove_member</code> is now <code>#remove_list_member</code>
-</li>
-<li>
-<code>#list_remove_members</code> is now <code>#remove_list_members</code>
-</li>
-<li>
-<code>#list_add_member</code> is now <code>#add_list_member</code>
-</li>
-<li>
-<code>#list_add_members</code> is now <code>#add_list_members</code>
-</li>
-<li>
-<code>#lists_owned</code> is now <code>#owned_lists</code>
-</li>
-<li>
-<code>#saved_search_create</code> is now <code>#create_saved_search</code>
-</li>
-<li>
-<code>#saved_search_destroy</code> is now <code>#destroy_saved_search</code>
-</li>
-<li>
-<code>#status_destroy</code> is now <code>#destroy_status</code>
-</li>
-</ul><h3>
-<a name="errors" class="anchor" href="#errors"><span class="octicon octicon-link"></span></a>Errors</h3>
-
-<p>The <code>Twitter::Error::ClientError</code> and <code>Twitter::Error::ServerError</code> class
-hierarchy has been removed. All errors now inherit directly from
-<code>Twitter::Error</code>.</p>
-
-<h3>
-<a name="null-objects" class="anchor" href="#null-objects"><span class="octicon octicon-link"></span></a>Null Objects</h3>
-
-<p>In version 4, methods you would expect to return a <code>Twitter</code> object would
-return <code>nil</code> if that object was missing. This may have resulted in a
-<code>NoMethodError</code>. To prevent such errors, you may have introduced checks for the
-truthiness of the response, for example:</p>
-
-<div class="highlight highlight-ruby"><pre><span class="n">status</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">status</span><span class="p">(</span><span class="mi">55709764298092545</span><span class="p">)</span>
-<span class="k">if</span> <span class="n">status</span><span class="o">.</span><span class="n">place</span>
-  <span class="c1"># Do something with the Twitter::Place object</span>
-<span class="k">elsif</span> <span class="n">status</span><span class="o">.</span><span class="n">geo</span>
-  <span class="c1"># Do something with the Twitter::Geo object</span>
-<span class="k">end</span>
-</pre></div>
-
-<p>In version 5, all such methods will return a <code>Twitter::NullObject</code> instead of
-<code>nil</code>. This should prevent <code>NoMethodError</code> but may result in unexpected
-behavior if you have truthiness checks in place, since everything is truthy in
-Ruby except <code>false</code> and <code>nil</code>. For these cases, there are now predicate
-methods:</p>
-
-<div class="highlight highlight-ruby"><pre><span class="n">status</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">status</span><span class="p">(</span><span class="mi">55709764298092545</span><span class="p">)</span>
-<span class="k">if</span> <span class="n">status</span><span class="o">.</span><span class="n">place?</span>
-  <span class="c1"># Do something with the Twitter::Place object</span>
-<span class="k">elsif</span> <span class="n">status</span><span class="o">.</span><span class="n">geo?</span>
-  <span class="c1"># Do something with the Twitter::Geo object</span>
-<span class="k">end</span>
-</pre></div>
-
-<h3>
-<a name="uri-methods" class="anchor" href="#uri-methods"><span class="octicon octicon-link"></span></a>URI Methods</h3>
-
-<p>The <code>Twitter::List</code>, <code>Twitter::Tweet</code>, and <code>Twitter::User</code> objects all have a
-<code>#uri</code> method, which returns an HTTPS URI to twitter.com. This clobbers the
-<code>Twitter::List#uri</code> method, which previously returned the list URI's path (not
-a URI).</p>
-
-<p>These methods are aliased to <code>#url</code> for users who prefer that nomenclature.
-<code>Twitter::User</code> previously had a <code>#url</code> method, which returned the user's
-website. This URI is now available via the <code>#website</code> method.</p>
-
-<p>All <code>#uri</code> methods now return <code>Addressable::URI</code> objects instead of strings. To convert an
-<code>Addressable::URI</code> object to a string, call <code>#to_s</code> on it.</p>
-
-<h2>
-<a name="configuration-1" class="anchor" href="#configuration-1"><span class="octicon octicon-link"></span></a>Configuration</h2>
+<a id="configuration" class="anchor" href="#configuration" aria-hidden="true"><span class="octicon octicon-link"></span></a>Configuration</h2>
 
 <p>Twitter API v1.1 requires you to authenticate via OAuth, so you'll need to
-<a href="https://dev.twitter.com/apps">register your application with Twitter</a>. Once you've registered an
+<a href="https://apps.twitter.com/">register your application with Twitter</a>. Once you've registered an
 application, make sure to set the correct access level, otherwise you may see
 the error:</p>
 
@@ -521,116 +100,130 @@ error:</p>
 
 <p>You can pass configuration options as a block to <code>Twitter::REST::Client.new</code>.</p>
 
-<div class="highlight highlight-ruby"><pre><span class="n">client</span> <span class="o">=</span> <span class="no">Twitter</span><span class="o">::</span><span class="no">REST</span><span class="o">::</span><span class="no">Client</span><span class="o">.</span><span class="n">new</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
-  <span class="n">config</span><span class="o">.</span><span class="n">consumer_key</span>        <span class="o">=</span> <span class="s2">"YOUR_CONSUMER_KEY"</span>
-  <span class="n">config</span><span class="o">.</span><span class="n">consumer_secret</span>     <span class="o">=</span> <span class="s2">"YOUR_CONSUMER_SECRET"</span>
-  <span class="n">config</span><span class="o">.</span><span class="n">access_token</span>        <span class="o">=</span> <span class="s2">"YOUR_ACCESS_TOKEN"</span>
-  <span class="n">config</span><span class="o">.</span><span class="n">access_token_secret</span> <span class="o">=</span> <span class="s2">"YOUR_ACCESS_SECRET"</span>
-<span class="k">end</span>
-</pre></div>
-
-<p>After configuration, requests can be made like so:</p>
-
-<div class="highlight highlight-ruby"><pre><span class="n">client</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="s2">"I'm tweeting with @gem!"</span><span class="p">)</span>
-</pre></div>
-
-<h3>
-<a name="middleware" class="anchor" href="#middleware"><span class="octicon octicon-link"></span></a>Middleware</h3>
-
-<p>The Faraday middleware stack is fully configurable and is exposed as a
-<code>Faraday::RackBuilder</code> object. You can modify the default middleware in-place:</p>
-
-<div class="highlight highlight-ruby"><pre><span class="n">client</span><span class="o">.</span><span class="n">middleware</span><span class="o">.</span><span class="n">insert_after</span> <span class="no">Twitter</span><span class="o">::</span><span class="no">Response</span><span class="o">::</span><span class="no">RaiseError</span><span class="p">,</span> <span class="no">CustomMiddleware</span>
-</pre></div>
-
-<p>A custom adapter may be set as part of a custom middleware stack:</p>
-
-<div class="highlight highlight-ruby"><pre><span class="n">client</span><span class="o">.</span><span class="n">middleware</span> <span class="o">=</span> <span class="no">Faraday</span><span class="o">::</span><span class="no">RackBuilder</span><span class="o">.</span><span class="n">new</span> <span class="k">do</span> <span class="o">|</span><span class="n">faraday</span><span class="o">|</span>
-  <span class="c1"># Specify a middleware stack here</span>
-  <span class="n">faraday</span><span class="o">.</span><span class="n">adapter</span> <span class="ss">:some_other_adapter</span>
-<span class="k">end</span>
-</pre></div>
+<div class="highlight highlight-ruby"><pre>client <span class="pl-ko">=</span> <span class="pl-sc">Twitter</span>::<span class="pl-sc">REST</span>::<span class="pl-sc">Client</span>.<span class="pl-kos">new</span> <span class="pl-k">do </span>|<span class="pl-v">config</span>|
+  config.consumer_key        <span class="pl-ko">=</span> <span class="pl-s1"><span class="pl-pds">"</span>YOUR_CONSUMER_KEY<span class="pl-pds">"</span></span>
+  config.consumer_secret     <span class="pl-ko">=</span> <span class="pl-s1"><span class="pl-pds">"</span>YOUR_CONSUMER_SECRET<span class="pl-pds">"</span></span>
+  config.access_token        <span class="pl-ko">=</span> <span class="pl-s1"><span class="pl-pds">"</span>YOUR_ACCESS_TOKEN<span class="pl-pds">"</span></span>
+  config.access_token_secret <span class="pl-ko">=</span> <span class="pl-s1"><span class="pl-pds">"</span>YOUR_ACCESS_SECRET<span class="pl-pds">"</span></span>
+<span class="pl-k">end</span></pre></div>
 
 <h2>
-<a name="usage-examples" class="anchor" href="#usage-examples"><span class="octicon octicon-link"></span></a>Usage Examples</h2>
+<a id="usage-examples" class="anchor" href="#usage-examples" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage Examples</h2>
 
-<p>All examples require an authenticated Twitter client. See the section on <a href="#configuration">configuration</a>.</p>
+<p>After configuring a <code>client</code>, you can do the following things.</p>
 
 <p><strong>Tweet (as the authenticated user)</strong></p>
 
-<div class="highlight highlight-ruby"><pre><span class="n">client</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="s2">"I'm tweeting with @gem!"</span><span class="p">)</span>
-</pre></div>
+<div class="highlight highlight-ruby"><pre>client.update(<span class="pl-s1"><span class="pl-pds">"</span>I'm tweeting with @gem!<span class="pl-pds">"</span></span>)</pre></div>
 
 <p><strong>Follow a user (by screen name or user ID)</strong></p>
 
-<div class="highlight highlight-ruby"><pre><span class="n">client</span><span class="o">.</span><span class="n">follow</span><span class="p">(</span><span class="s2">"gem"</span><span class="p">)</span>
-<span class="n">client</span><span class="o">.</span><span class="n">follow</span><span class="p">(</span><span class="mi">213747670</span><span class="p">)</span>
-</pre></div>
+<div class="highlight highlight-ruby"><pre>client.follow(<span class="pl-s1"><span class="pl-pds">"</span>gem<span class="pl-pds">"</span></span>)
+client.follow(<span class="pl-cn">213747670</span>)</pre></div>
 
 <p><strong>Fetch a user (by screen name or user ID)</strong></p>
 
-<div class="highlight highlight-ruby"><pre><span class="n">client</span><span class="o">.</span><span class="n">user</span><span class="p">(</span><span class="s2">"gem"</span><span class="p">)</span>
-<span class="n">client</span><span class="o">.</span><span class="n">user</span><span class="p">(</span><span class="mi">213747670</span><span class="p">)</span>
-</pre></div>
+<div class="highlight highlight-ruby"><pre>client.user(<span class="pl-s1"><span class="pl-pds">"</span>gem<span class="pl-pds">"</span></span>)
+client.user(<span class="pl-cn">213747670</span>)</pre></div>
 
 <p><strong>Fetch a cursored list of followers with profile details (by screen name or user ID, or by implicit authenticated user)</strong></p>
 
-<div class="highlight highlight-ruby"><pre><span class="n">client</span><span class="o">.</span><span class="n">followers</span><span class="p">(</span><span class="s2">"gem"</span><span class="p">)</span>
-<span class="n">client</span><span class="o">.</span><span class="n">followers</span><span class="p">(</span><span class="mi">213747670</span><span class="p">)</span>
-<span class="n">client</span><span class="o">.</span><span class="n">followers</span>
-</pre></div>
+<div class="highlight highlight-ruby"><pre>client.followers(<span class="pl-s1"><span class="pl-pds">"</span>gem<span class="pl-pds">"</span></span>)
+client.followers(<span class="pl-cn">213747670</span>)
+client.followers</pre></div>
 
 <p><strong>Fetch a cursored list of friends with profile details (by screen name or user ID, or by implicit authenticated user)</strong></p>
 
-<div class="highlight highlight-ruby"><pre><span class="n">client</span><span class="o">.</span><span class="n">friends</span><span class="p">(</span><span class="s2">"gem"</span><span class="p">)</span>
-<span class="n">client</span><span class="o">.</span><span class="n">friends</span><span class="p">(</span><span class="mi">213747670</span><span class="p">)</span>
-<span class="n">client</span><span class="o">.</span><span class="n">friends</span>
-</pre></div>
-
-<p><strong>Fetch a collection of user_ids that the currently authenticated user does not want to receive retweets from</strong></p>
-
-<div class="highlight highlight-ruby"><pre><span class="n">client</span><span class="o">.</span><span class="n">no_retweet_ids</span>
-</pre></div>
+<div class="highlight highlight-ruby"><pre>client.friends(<span class="pl-s1"><span class="pl-pds">"</span>gem<span class="pl-pds">"</span></span>)
+client.friends(<span class="pl-cn">213747670</span>)
+client.friends</pre></div>
 
 <p><strong>Fetch the timeline of Tweets by a user</strong></p>
 
-<div class="highlight highlight-ruby"><pre><span class="n">client</span><span class="o">.</span><span class="n">user_timeline</span><span class="p">(</span><span class="s2">"gem"</span><span class="p">)</span>
-<span class="n">client</span><span class="o">.</span><span class="n">user_timeline</span><span class="p">(</span><span class="mi">213747670</span><span class="p">)</span>
-</pre></div>
+<div class="highlight highlight-ruby"><pre>client.user_timeline(<span class="pl-s1"><span class="pl-pds">"</span>gem<span class="pl-pds">"</span></span>)
+client.user_timeline(<span class="pl-cn">213747670</span>)</pre></div>
 
 <p><strong>Fetch the timeline of Tweets from the authenticated user's home page</strong></p>
 
-<div class="highlight highlight-ruby"><pre><span class="n">client</span><span class="o">.</span><span class="n">home_timeline</span>
-</pre></div>
+<div class="highlight highlight-ruby"><pre>client.home_timeline</pre></div>
 
 <p><strong>Fetch the timeline of Tweets mentioning the authenticated user</strong></p>
 
-<div class="highlight highlight-ruby"><pre><span class="n">client</span><span class="o">.</span><span class="n">mentions_timeline</span>
-</pre></div>
+<div class="highlight highlight-ruby"><pre>client.mentions_timeline</pre></div>
 
 <p><strong>Fetch a particular Tweet by ID</strong></p>
 
-<div class="highlight highlight-ruby"><pre><span class="n">client</span><span class="o">.</span><span class="n">status</span><span class="p">(</span><span class="mi">27558893223</span><span class="p">)</span>
-</pre></div>
+<div class="highlight highlight-ruby"><pre>client.status(<span class="pl-cn">27558893223</span>)</pre></div>
 
 <p><strong>Collect the three most recent marriage proposals to <a href="https://github.com/justinbieber" class="user-mention">@justinbieber</a></strong></p>
 
-<div class="highlight highlight-ruby"><pre><span class="n">client</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">"to:justinbieber marry me"</span><span class="p">,</span> <span class="ss">:result_type</span> <span class="o">=&gt;</span> <span class="s2">"recent"</span><span class="p">)</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">collect</span> <span class="k">do</span> <span class="o">|</span><span class="n">tweet</span><span class="o">|</span>
-  <span class="s2">"</span><span class="si">#{</span><span class="n">tweet</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">screen_name</span><span class="si">}</span><span class="s2">: </span><span class="si">#{</span><span class="n">tweet</span><span class="o">.</span><span class="n">text</span><span class="si">}</span><span class="s2">"</span>
-<span class="k">end</span>
-</pre></div>
+<div class="highlight highlight-ruby"><pre>client.search(<span class="pl-s1"><span class="pl-pds">"</span>to:justinbieber marry me<span class="pl-pds">"</span></span>, <span class="pl-cos">result_type<span class="pl-pdc1">:</span></span> <span class="pl-s1"><span class="pl-pds">"</span>recent<span class="pl-pds">"</span></span>).take(<span class="pl-cn">3</span>).collect <span class="pl-k">do </span>|<span class="pl-v">tweet</span>|
+  <span class="pl-s1"><span class="pl-pds">"</span><span class="pl-pse">#{</span><span class="pl-s2">tweet.user.screen_name</span><span class="pl-pse"><span class="pl-s2">}</span></span>: <span class="pl-pse">#{</span><span class="pl-s2">tweet.text</span><span class="pl-pse"><span class="pl-s2">}</span></span><span class="pl-pds">"</span></span>
+<span class="pl-k">end</span></pre></div>
 
 <p><strong>Find a Japanese-language Tweet tagged #ruby (excluding retweets)</strong></p>
 
-<div class="highlight highlight-ruby"><pre><span class="n">client</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">"#ruby -rt"</span><span class="p">,</span> <span class="ss">:lang</span> <span class="o">=&gt;</span> <span class="s2">"ja"</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="o">.</span><span class="n">text</span>
-</pre></div>
+<div class="highlight highlight-ruby"><pre>client.search(<span class="pl-s1"><span class="pl-pds">"</span>#ruby -rt<span class="pl-pds">"</span></span>, <span class="pl-cos">lang<span class="pl-pdc1">:</span></span> <span class="pl-s1"><span class="pl-pds">"</span>ja<span class="pl-pds">"</span></span>).first.text</pre></div>
 
 <p>For more usage examples, please see the full <a href="http://rdoc.info/gems/twitter">documentation</a>.</p>
 
 <h2>
-<a name="object-graph" class="anchor" href="#object-graph"><span class="octicon octicon-link"></span></a>Object Graph</h2>
+<a id="streaming" class="anchor" href="#streaming" aria-hidden="true"><span class="octicon octicon-link"></span></a>Streaming</h2>
 
-<p><img src="https://github.com/sferik/twitter/raw/master/etc/erd.png" alt="Entity-relationship diagram" title="Entity-relationship diagram"></p>
+<p>Site Streams are restricted to whitelisted accounts. To apply for access,
+<a href="https://dev.twitter.com/streaming/sitestreams#applyingforaccess">follow the steps in the Site Streams documentation</a>. <a href="https://dev.twitter.com/streaming/userstreams">User
+Streams</a> do not require prior approval.</p>
+
+<p><strong>Configuration works just like <code>Twitter::REST::Client</code></strong></p>
+
+<div class="highlight highlight-ruby"><pre>client <span class="pl-ko">=</span> <span class="pl-sc">Twitter</span>::<span class="pl-sc">Streaming</span>::<span class="pl-sc">Client</span>.<span class="pl-kos">new</span> <span class="pl-k">do </span>|<span class="pl-v">config</span>|
+  config.consumer_key        <span class="pl-ko">=</span> <span class="pl-s1"><span class="pl-pds">"</span>YOUR_CONSUMER_KEY<span class="pl-pds">"</span></span>
+  config.consumer_secret     <span class="pl-ko">=</span> <span class="pl-s1"><span class="pl-pds">"</span>YOUR_CONSUMER_SECRET<span class="pl-pds">"</span></span>
+  config.access_token        <span class="pl-ko">=</span> <span class="pl-s1"><span class="pl-pds">"</span>YOUR_ACCESS_TOKEN<span class="pl-pds">"</span></span>
+  config.access_token_secret <span class="pl-ko">=</span> <span class="pl-s1"><span class="pl-pds">"</span>YOUR_ACCESS_SECRET<span class="pl-pds">"</span></span>
+<span class="pl-k">end</span></pre></div>
+
+<p><strong>Stream a random sample of all tweets</strong></p>
+
+<div class="highlight highlight-ruby"><pre>client.sample <span class="pl-k">do </span>|<span class="pl-v">object</span>|
+  puts object.text <span class="pl-k">if</span> object.is_a?(<span class="pl-sc">Twitter</span>::<span class="pl-v">Tweet</span>)
+<span class="pl-k">end</span></pre></div>
+
+<p><strong>Stream mentions of coffee or tea</strong></p>
+
+<div class="highlight highlight-ruby"><pre>topics <span class="pl-ko">=</span> [<span class="pl-s1"><span class="pl-pds">"</span>coffee<span class="pl-pds">"</span></span>, <span class="pl-s1"><span class="pl-pds">"</span>tea<span class="pl-pds">"</span></span>]
+client.filter(<span class="pl-cos">track<span class="pl-pdc1">:</span></span> topics.join(<span class="pl-s1"><span class="pl-pds">"</span>,<span class="pl-pds">"</span></span>)) <span class="pl-k">do </span>|<span class="pl-v">object</span>|
+  puts object.text <span class="pl-k">if</span> object.is_a?(<span class="pl-sc">Twitter</span>::<span class="pl-v">Tweet</span>)
+<span class="pl-k">end</span></pre></div>
+
+<p><strong>Stream tweets, events, and direct messages for the authenticated user</strong></p>
+
+<div class="highlight highlight-ruby"><pre>client.user <span class="pl-k">do </span>|<span class="pl-v">object</span>|
+  <span class="pl-k">case</span> object
+  <span class="pl-k">when</span> <span class="pl-sc">Twitter</span>::<span class="pl-v">Tweet</span>
+    puts <span class="pl-s1"><span class="pl-pds">"</span>It's a tweet!<span class="pl-pds">"</span></span>
+  <span class="pl-k">when</span> <span class="pl-sc">Twitter</span>::<span class="pl-v">DirectMessage</span>
+    puts <span class="pl-s1"><span class="pl-pds">"</span>It's a direct message!<span class="pl-pds">"</span></span>
+  <span class="pl-k">when</span> <span class="pl-sc">Twitter</span>::<span class="pl-sc">Streaming</span>::<span class="pl-v">StallWarning</span>
+    warn <span class="pl-s1"><span class="pl-pds">"</span>Falling behind!<span class="pl-pds">"</span></span>
+  <span class="pl-k">end</span>
+<span class="pl-k">end</span></pre></div>
+
+<p>An <code>object</code> may be one of the following:</p>
+
+<ul>
+<li><code>Twitter::Tweet</code></li>
+<li><code>Twitter::DirectMessage</code></li>
+<li><code>Twitter::Streaming::DeletedTweet</code></li>
+<li><code>Twitter::Streaming::Event</code></li>
+<li><code>Twitter::Streaming::FriendList</code></li>
+<li><code>Twitter::Streaming::StallWarning</code></li>
+</ul>
+
+<h2>
+<a id="object-graph" class="anchor" href="#object-graph" aria-hidden="true"><span class="octicon octicon-link"></span></a>Object Graph</h2>
+
+<p><img src="https://cdn.rawgit.com/sferik/twitter/master/etc/erd.svg" alt="Entity-relationship diagram" title="Entity-relationship diagram"></p>
 
 <p>This entity-relationship diagram is generated programatically. If you add or
 remove any Twitter objects, please regenerate the ERD with the following
@@ -640,18 +233,19 @@ command:</p>
 </code></pre>
 
 <h2>
-<a name="supported-ruby-versions" class="anchor" href="#supported-ruby-versions"><span class="octicon octicon-link"></span></a>Supported Ruby Versions</h2>
+<a id="supported-ruby-versions" class="anchor" href="#supported-ruby-versions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Supported Ruby Versions</h2>
 
-<p>This library aims to support and is <a href="http://travis-ci.org/sferik/twitter">tested against</a> the following Ruby
+<p>This library aims to support and is <a href="https://travis-ci.org/sferik/twitter">tested against</a> the following Ruby
 versions:</p>
 
 <ul>
-<li>Ruby 1.8.7</li>
-<li>Ruby 1.9.2</li>
 <li>Ruby 1.9.3</li>
 <li>Ruby 2.0.0</li>
-<li>Ruby 2.1.0</li>
-</ul><p>If something doesn't work on one of these versions, it's a bug.</p>
+<li>Ruby 2.1</li>
+<li>JRuby 1.7 (in Ruby 1.9 mode)</li>
+</ul>
+
+<p>If something doesn't work on one of these versions, it's a bug.</p>
 
 <p>This library may inadvertently work (or seem to work) on other Ruby versions,
 however support will only be provided for the versions listed above.</p>
@@ -665,7 +259,7 @@ exist at the time of a major release, support for that Ruby version may be
 dropped.</p>
 
 <h2>
-<a name="versioning" class="anchor" href="#versioning"><span class="octicon octicon-link"></span></a>Versioning</h2>
+<a id="versioning" class="anchor" href="#versioning" aria-hidden="true"><span class="octicon octicon-link"></span></a>Versioning</h2>
 
 <p>This library aims to adhere to <a href="http://semver.org/">Semantic Versioning 2.0.0</a>. Violations
 of this scheme should be reported as bugs. Specifically, if a minor or patch
@@ -676,13 +270,13 @@ introduced with new major versions. As a result of this policy, you can (and
 should) specify a dependency on this gem using the <a href="http://docs.rubygems.org/read/chapter/16#page74">Pessimistic Version
 Constraint</a> with two digits of precision. For example:</p>
 
-<pre><code>spec.add_dependency 'twitter', '~&gt; 5.0'
+<pre><code>spec.add_dependency 'twitter', '~&gt; 6.0'
 </code></pre>
 
 <h2>
-<a name="copyright" class="anchor" href="#copyright"><span class="octicon octicon-link"></span></a>Copyright</h2>
+<a id="copyright" class="anchor" href="#copyright" aria-hidden="true"><span class="octicon octicon-link"></span></a>Copyright</h2>
 
-<p>Copyright (c) 2006-2013 Erik Michaels-Ober, John Nunemaker, Wynn Netherland, Steve Richert, Steve Agalloco.
+<p>Copyright (c) 2006-2014 Erik Michaels-Ober, John Nunemaker, Wynn Netherland, Steve Richert, Steve Agalloco.
 See <a href="LICENSE.md">LICENSE</a> for details.</p>
       </section>
       <footer>
