@@ -2,8 +2,9 @@ require 'bundler'
 Bundler::GemHelper.install_tasks
 
 task :erd do
+  FORMAT = 'svg'
   `bundle exec ruby ./etc/erd.rb > ./etc/erd.dot`
-  `dot -Tsvg ./etc/erd.dot -o ./etc/erd.svg`
+  `dot -T #{FORMAT} ./etc/erd.dot -o ./etc/erd.#{FORMAT}`
 end
 
 require 'rspec/core/rake_task'
