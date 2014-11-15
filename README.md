@@ -213,7 +213,7 @@ An `object` may be one of the following:
 ## Object Graph
 ![Entity-relationship diagram][erd]
 
-[erd]: https://github.com/sferik/twitter/raw/master/etc/erd.svg "Entity-relationship diagram"
+[erd]: https://cdn.rawgit.com/sferik/twitter/master/etc/erd.svg "Entity-relationship diagram"
 
 This entity-relationship diagram is generated programatically. If you add or
 remove any Twitter objects, please regenerate the ERD with the following
