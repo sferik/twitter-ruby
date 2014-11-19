@@ -103,4 +103,10 @@ describe Twitter::NullObject do
       expect(subject).not_to be_missing
     end
   end
+
+  describe "#presence" do
+    it "returns nil" do
+      expect(subject.presence).to eq(nil)
+    end
+  end
 end
