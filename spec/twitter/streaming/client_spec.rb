@@ -10,6 +10,8 @@ class FakeConnection
       response.on_body(line)
     end
   end
+
+  def close; end
 end
 
 describe Twitter::Streaming::Client do
@@ -129,6 +131,18 @@ describe Twitter::Streaming::Client do
       @client.connection = FakeConnection.new(fixture('track_streaming.json'))
       expect(HTTP::Request).to receive(:new).with(:get, 'https://stream.twitter.com:443/1.1/statuses/sample.json?', kind_of(Hash), proxy)
       @client.sample {}
+    end
+  end
+
+  describe '#disconnect' do
+    before do
+      @client.connection = FakeConnection.new(fixture('track_streaming.json'))
+    end
+
+    it 'closes the connection' do
+      expect(@client.instance_variable_get(:@connection)).to receive(:close)
+      @client.filter(track: 'india') { |_| }
+      @client.disconnect
     end
   end
 end

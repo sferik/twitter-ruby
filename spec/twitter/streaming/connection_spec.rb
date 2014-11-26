@@ -1,5 +1,15 @@
 require 'helper'
 
+class FakeSSLSocket
+  def initialize(_, _); end
+
+  def connect; end
+
+  def <<(_); end
+
+  def readpartial(_); end
+end
+
 describe Twitter::Streaming::Connection do
   describe 'initialize' do
     context 'no options provided' do
@@ -23,6 +33,31 @@ describe Twitter::Streaming::Connection do
         expect(connection.tcp_socket_class).to eq DummyTCPSocket
         expect(connection.ssl_socket_class).to eq DummySSLSocket
       end
+    end
+
+    it 'initializes the connection state' do
+      expect(subject.state).to eq :initialized
+    end
+  end
+
+  describe '#stream' do
+    let(:request) do
+      HTTP::Request.new(:post, 'https://stream.twitter.com:443/1.1/statuses/filter.json')
+    end
+
+    subject(:connection) do
+      Twitter::Streaming::Connection.new(ssl_socket_class: FakeSSLSocket)
+    end
+
+    it 'sets the state to connected' do
+      connection.stream(request, Twitter::Streaming::Response.new)
+      expect(connection.state).to eq :connected
+    end
+  end
+
+  describe '#close' do
+    it 'no-ops when the client is not connected' do
+      expect(subject.close).to be nil
     end
   end
 end
