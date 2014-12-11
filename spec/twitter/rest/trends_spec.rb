@@ -1,7 +1,6 @@
 require 'helper'
 
 describe Twitter::REST::Trends do
-
   before do
     @client = Twitter::REST::Client.new(consumer_key: 'CK', consumer_secret: 'CS', access_token: 'AT', access_token_secret: 'AS')
   end
@@ -64,5 +63,4 @@ describe Twitter::REST::Trends do
       expect(locations.first.name).to eq('Ireland')
     end
   end
-
 end

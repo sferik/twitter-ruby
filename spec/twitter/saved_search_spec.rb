@@ -1,7 +1,6 @@
 require 'helper'
 
 describe Twitter::SavedSearch do
-
   describe '#==' do
     it 'returns true when objects IDs are the same' do
       saved_search = Twitter::SavedSearch.new(id: 1, name: 'foo')
@@ -42,5 +41,4 @@ describe Twitter::SavedSearch do
       expect(saved_search.created?).to be false
     end
   end
-
 end

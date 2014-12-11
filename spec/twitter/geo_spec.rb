@@ -1,7 +1,6 @@
 require 'helper'
 
 describe Twitter::Geo do
-
   before do
     @geo = Twitter::Geo.new(coordinates: [[[-122.40348192, 37.77752898], [-122.387436, 37.77752898], [-122.387436, 37.79448597], [-122.40348192, 37.79448597]]])
   end
@@ -25,5 +24,4 @@ describe Twitter::Geo do
       expect(@geo == other).to be true
     end
   end
-
 end

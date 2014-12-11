@@ -1,7 +1,6 @@
 require 'helper'
 
 describe Twitter::Trend do
-
   describe '#==' do
     it 'returns true for empty objects' do
       trend = Twitter::Trend.new
@@ -47,5 +46,4 @@ describe Twitter::Trend do
       expect(trend.uri?).to be false
     end
   end
-
 end

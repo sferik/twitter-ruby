@@ -1,7 +1,6 @@
 require 'helper'
 
 describe Twitter::Suggestion do
-
   describe '#==' do
     it 'returns true for empty objects' do
       suggestion = Twitter::Suggestion.new
@@ -36,5 +35,4 @@ describe Twitter::Suggestion do
       expect(users).to be_empty
     end
   end
-
 end

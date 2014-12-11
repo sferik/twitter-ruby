@@ -1,7 +1,6 @@
 require 'helper'
 
 describe Twitter::List do
-
   describe '#==' do
     it 'returns true when objects IDs are the same' do
       list = Twitter::List.new(id: 1, slug: 'foo')
@@ -85,5 +84,4 @@ describe Twitter::List do
       expect(list.user?).to be false
     end
   end
-
 end

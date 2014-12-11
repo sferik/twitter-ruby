@@ -1,7 +1,6 @@
 require 'helper'
 
 describe Twitter::REST::DirectMessages do
-
   before do
     @client = Twitter::REST::Client.new(consumer_key: 'CK', consumer_secret: 'CS', access_token: 'AT', access_token_secret: 'AS')
   end
@@ -123,5 +122,4 @@ describe Twitter::REST::DirectMessages do
       end
     end
   end
-
 end

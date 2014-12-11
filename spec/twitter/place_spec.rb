@@ -1,7 +1,6 @@
 require 'helper'
 
 describe Twitter::Place do
-
   describe '.new' do
     it 'raises an IndexError when id or woeid is not specified' do
       expect { Twitter::Place.new(id: 1) }.not_to raise_error
@@ -164,5 +163,4 @@ describe Twitter::Place do
       expect(place.uri?).to be false
     end
   end
-
 end

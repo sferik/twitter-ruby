@@ -1,7 +1,6 @@
 require 'helper'
 
 describe Twitter::REST::SuggestedUsers do
-
   before do
     @client = Twitter::REST::Client.new(consumer_key: 'CK', consumer_secret: 'CS', access_token: 'AT', access_token_secret: 'AS')
   end
@@ -55,5 +54,4 @@ describe Twitter::REST::SuggestedUsers do
       expect(suggest_users.first.id).to eq(13)
     end
   end
-
 end

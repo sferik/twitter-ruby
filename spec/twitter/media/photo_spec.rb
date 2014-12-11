@@ -2,7 +2,6 @@
 require 'helper'
 
 describe Twitter::Media::Photo do
-
   describe '#==' do
     it 'returns true when objects IDs are the same' do
       photo = Twitter::Media::Photo.new(id: 1)
@@ -147,5 +146,4 @@ describe Twitter::Media::Photo do
       expect(photo.uri?).to be false
     end
   end
-
 end

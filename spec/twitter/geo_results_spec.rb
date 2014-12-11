@@ -1,7 +1,6 @@
 require 'helper'
 
 describe Twitter::GeoResults do
-
   describe '#each' do
     before do
       @geo_results = Twitter::GeoResults.new(result: {places: [{id: 1}, {id: 2}, {id: 3}, {id: 4}, {id: 5}, {id: 6}]})
@@ -31,5 +30,4 @@ describe Twitter::GeoResults do
       expect(geo_results.token).to be_nil
     end
   end
-
 end

@@ -1,7 +1,6 @@
 require 'helper'
 
 describe Twitter::Streaming::DeletedTweet do
-
   describe '#==' do
     it 'returns true when objects IDs are the same' do
       deleted_tweet = Twitter::Streaming::DeletedTweet.new(id: 1)
@@ -19,5 +18,4 @@ describe Twitter::Streaming::DeletedTweet do
       expect(deleted_tweet == other).to be false
     end
   end
-
 end

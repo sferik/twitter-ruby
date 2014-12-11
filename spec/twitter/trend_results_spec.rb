@@ -1,7 +1,6 @@
 require 'helper'
 
 describe Twitter::TrendResults do
-
   describe '#as_of' do
     it 'returns a Time when as_of is set' do
       trend_results = Twitter::TrendResults.new(id: 1, as_of: '2012-08-24T23:25:43Z')
@@ -87,5 +86,4 @@ describe Twitter::TrendResults do
       expect(trend_results.location?).to be false
     end
   end
-
 end

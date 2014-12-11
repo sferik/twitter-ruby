@@ -1,7 +1,6 @@
 require 'helper'
 
 describe Twitter::SourceUser do
-
   describe '#==' do
     it 'returns true when objects IDs are the same' do
       saved_search = Twitter::SourceUser.new(id: 1, name: 'foo')
@@ -19,5 +18,4 @@ describe Twitter::SourceUser do
       expect(saved_search == other).to be false
     end
   end
-
 end

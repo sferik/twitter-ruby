@@ -2,7 +2,6 @@
 require 'helper'
 
 describe Twitter::Entity::URI do
-
   describe '#display_uri' do
     it 'returns a String when the display_url is set' do
       uri = Twitter::Entity::URI.new(display_url: 'example.com/expanded…')
@@ -71,5 +70,4 @@ describe Twitter::Entity::URI do
       expect(uri.uri?).to be false
     end
   end
-
 end

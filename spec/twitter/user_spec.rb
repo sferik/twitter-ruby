@@ -2,7 +2,6 @@
 require 'helper'
 
 describe Twitter::User do
-
   describe '#==' do
     it 'returns true when objects IDs are the same' do
       user = Twitter::User.new(id: 1, screen_name: 'foo')

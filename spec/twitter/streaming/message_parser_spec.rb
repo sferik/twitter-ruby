@@ -1,7 +1,6 @@
 require 'helper'
 
 describe Twitter::Streaming::MessageParser do
-
   subject do
     Twitter::Streaming::MessageParser
   end
@@ -50,5 +49,4 @@ describe Twitter::Streaming::MessageParser do
       expect(object.code).to eq('FALLING_BEHIND')
     end
   end
-
 end

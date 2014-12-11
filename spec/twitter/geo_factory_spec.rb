@@ -1,7 +1,6 @@
 require 'helper'
 
 describe Twitter::GeoFactory do
-
   describe '.new' do
     it 'generates a Point' do
       geo = Twitter::GeoFactory.new(type: 'Point')
@@ -15,5 +14,4 @@ describe Twitter::GeoFactory do
       expect { Twitter::GeoFactory.new }.to raise_error(IndexError)
     end
   end
-
 end

@@ -1,7 +1,6 @@
 require 'helper'
 
 describe Twitter::REST::SpamReporting do
-
   before do
     @client = Twitter::REST::Client.new(consumer_key: 'CK', consumer_secret: 'CS', access_token: 'AT', access_token_secret: 'AS')
   end
@@ -21,5 +20,4 @@ describe Twitter::REST::SpamReporting do
       expect(users.first.id).to eq(7_505_382)
     end
   end
-
 end
