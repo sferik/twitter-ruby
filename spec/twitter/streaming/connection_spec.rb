@@ -8,9 +8,15 @@ class FakeSSLSocket
   def <<(_); end
 
   def readpartial(_); end
+
+  def close; end
 end
 
 describe Twitter::Streaming::Connection do
+  let(:request) do
+    HTTP::Request.new(:post, 'https://stream.twitter.com:443/1.1/statuses/filter.json')
+  end
+
   describe 'initialize' do
     context 'no options provided' do
       subject(:connection) { Twitter::Streaming::Connection.new }
@@ -41,10 +47,6 @@ describe Twitter::Streaming::Connection do
   end
 
   describe '#stream' do
-    let(:request) do
-      HTTP::Request.new(:post, 'https://stream.twitter.com:443/1.1/statuses/filter.json')
-    end
-
     subject(:connection) do
       Twitter::Streaming::Connection.new(ssl_socket_class: FakeSSLSocket)
     end
@@ -56,8 +58,34 @@ describe Twitter::Streaming::Connection do
   end
 
   describe '#close' do
-    it 'no-ops when the client is not connected' do
-      expect(subject.close).to be nil
+    context 'when client is not connected' do
+      subject(:connection) do
+        Twitter::Streaming::Connection.new(ssl_socket_class: FakeSSLSocket)
+      end
+
+      it 'no-ops when the client is not connected' do
+        expect(subject.close).to be nil
+      end
+    end
+
+    context 'when connection open' do
+      subject(:connection) do
+        Twitter::Streaming::Connection.new(ssl_socket_class: FakeSSLSocket)
+      end
+
+      before do
+        subject.stream(request, Twitter::Streaming::Response.new)
+      end
+
+      it 'closes the connection when open' do
+        expect(subject.instance_variable_get('@ssl_client')).to receive(:close).once
+        subject.close
+      end
+
+      it 'changes the state of the connection to closed' do
+        subject.close
+        expect(subject.state).to eq :closed
+      end
     end
   end
 end
