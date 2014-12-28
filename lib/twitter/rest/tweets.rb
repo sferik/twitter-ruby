@@ -113,7 +113,7 @@ module Twitter
       # @param status [String] The text of your status update, up to 140 characters.
       # @param options [Hash] A customizable set of options.
       # @option options [Boolean, String, Integer] :possibly_sensitive Set to true for content which may not be suitable for every audience.
-      # @option options [Twitter::Tweet] :in_reply_to_status An existing status that the update is in reply to.
+      # @option options [Twitter::Tweet] :in_reply_to_status An existing status that the update is in reply to. If the status being replied to was not originally posted by the authenticated user, the text of the status must begin with an @-mention, or twitter will reject the update.
       # @option options [Integer] :in_reply_to_status_id The ID of an existing status that the update is in reply to.
       # @option options [Float] :lat The latitude of the location this tweet refers to. This option will be ignored unless it is inside the range -90.0 to +90.0 (North is positive) inclusive. It will also be ignored if there isn't a corresponding :long option.
       # @option options [Float] :long The longitude of the location this tweet refers to. The valid ranges for longitude is -180.0 to +180.0 (East is positive) inclusive. This option will be ignored if outside that range, if it is not a number, if geo_enabled is disabled, or if there not a corresponding :lat option.
@@ -139,7 +139,7 @@ module Twitter
       # @param status [String] The text of your status update, up to 140 characters.
       # @param options [Hash] A customizable set of options.
       # @option options [Boolean, String, Integer] :possibly_sensitive Set to true for content which may not be suitable for every audience.
-      # @option options [Twitter::Tweet] :in_reply_to_status An existing status that the update is in reply to.
+      # @option options [Twitter::Tweet] :in_reply_to_status An existing status that the update is in reply to. If the status being replied to was not originally posted by the authenticated user, the text of the status must begin with an @-mention, or twitter will reject the update.
       # @option options [Integer] :in_reply_to_status_id The ID of an existing status that the update is in reply to.
       # @option options [Float] :lat The latitude of the location this tweet refers to. This option will be ignored unless it is inside the range -90.0 to +90.0 (North is positive) inclusive. It will also be ignored if there isn't a corresponding :long option.
       # @option options [Float] :long The longitude of the location this tweet refers to. The valid ranges for longitude is -180.0 to +180.0 (East is positive) inclusive. This option will be ignored if outside that range, if it is not a number, if geo_enabled is disabled, or if there not a corresponding :lat option.
