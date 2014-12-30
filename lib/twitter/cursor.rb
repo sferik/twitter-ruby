@@ -28,6 +28,12 @@ module Twitter
       self.attrs = request.perform
     end
 
+    # @yield [Enumerator, Twitter::Cursor]
+    def each_page_with_cursor(start = 0)
+      return to_enum(:each_page_with_cursor, start) unless block_given?
+      each_page(start).each { |page| yield([page, self]) }
+    end
+
   private
 
     # @return [Integer]

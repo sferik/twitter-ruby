@@ -14,11 +14,22 @@ describe Twitter::Cursor do
       stub_get('/1.1/followers/ids.json').with(query: {cursor: '1305102810874389703', screen_name: 'sferik'}).to_return(body: fixture('ids_list2.json'), headers: {content_type: 'application/json; charset=utf-8'})
     end
 
-    [:each, :each_page].each do |method|
+    [:each, :each_page, :each_page_with_cursor].each do |method|
       it 'requests the correct resources' do
         subject.send(method) {}
         expect(a_get('/1.1/followers/ids.json').with(query: {cursor: '-1', screen_name: 'sferik'})).to have_been_made
         expect(a_get('/1.1/followers/ids.json').with(query: {cursor: '1305102810874389703', screen_name: 'sferik'})).to have_been_made
+      end
+    end
+
+    describe '#each_page_with_cursor' do
+      it_behaves_like 'an enumerable method', :each_page_with_cursor
+
+      it 'yields an enumerable and cursor' do
+        subject.each_page_with_cursor do |enumerable, cursor|
+          expect(enumerable).to be_an(Enumerable)
+          expect(cursor).to be_a(Twitter::Cursor)
+        end
       end
     end
   end
