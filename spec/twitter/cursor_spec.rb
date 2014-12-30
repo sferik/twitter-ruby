@@ -33,4 +33,34 @@ describe Twitter::Cursor do
       end
     end
   end
+
+  describe '#rate_limit' do
+    before do
+      stub_get('/1.1/followers/ids.json').with(query: {cursor: '-1', screen_name: 'sferik'}).to_return(
+        body: fixture('ids_list.json'),
+        headers: {
+          'content_type'           => 'application/json; charset=utf-8',
+          'X-Rate-Limit-Limit'     => '15',
+          'X-Rate-Limit-Remaining' => '1',
+          'X-Rate-Limit-Reset'     => Time.now + 10 * 60})
+
+      stub_get('/1.1/followers/ids.json').with(query: {cursor: '1305102810874389703', screen_name: 'sferik'}).to_return(
+        body: fixture('ids_list2.json'),
+        headers: {
+          'content_type'           => 'application/json; charset=utf-8',
+          'X-Rate-Limit-Limit'     => '15',
+          'X-Rate-Limit-Remaining' => '0',
+          'X-Rate-Limit-Reset'     => Time.now + 10 * 60})
+    end
+    it 'returns a rate limit object' do
+      cursor = subject
+      expect(cursor.rate_limit).to be_a(Twitter::RateLimit)
+    end
+    context 'when a new request is made' do
+      it 'returns an updated rate limit' do
+        cursor = subject
+        expect { cursor.take(5) }.to change { cursor.rate_limit.remaining }.from(1).to(0)
+      end
+    end
+  end
 end
