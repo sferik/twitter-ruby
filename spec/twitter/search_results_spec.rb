@@ -3,10 +3,9 @@ require 'shared_examples_for_enumerables'
 
 describe Twitter::SearchResults do
   let(:client) { Twitter::REST::Client.new(consumer_key: 'CK', consumer_secret: 'CS', access_token: 'AT', access_token_secret: 'AS') }
-  subject { client.search('#freebandnames') }
 
-  describe 'Enumeration Methods' do
-    it_behaves_like 'an enumerable'
+  it_behaves_like 'an enumerable' do
+    let(:enumerable) { client.search('#freebandnames')  }
 
     before do
       stub_get('/1.1/search/tweets.json').with(query: {q: '#freebandnames', count: '100'}).to_return(body: fixture('search.json'), headers: {content_type: 'application/json; charset=utf-8'})

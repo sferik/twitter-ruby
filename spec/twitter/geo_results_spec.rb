@@ -2,9 +2,9 @@ require 'helper'
 require 'shared_examples_for_enumerables'
 
 describe Twitter::GeoResults do
-  subject { Twitter::GeoResults.new(result: {places: [{id: 1}, {id: 2}, {id: 3}, {id: 4}, {id: 5}, {id: 6}]}) }
-
-  it_behaves_like 'an enumerable'
+  it_behaves_like 'an enumerable' do
+    let(:enumerable) { Twitter::GeoResults.new(result: {places: [{id: 1}, {id: 2}, {id: 3}, {id: 4}, {id: 5}, {id: 6}]}) }
+  end
 
   describe '#token' do
     it 'returns a String when token is set' do

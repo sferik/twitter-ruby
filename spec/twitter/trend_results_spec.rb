@@ -2,9 +2,9 @@ require 'helper'
 require 'shared_examples_for_enumerables'
 
 describe Twitter::TrendResults do
-  subject { Twitter::TrendResults.new(trends: [{id: 1}, {id: 2}, {id: 3}, {id: 4}, {id: 5}, {id: 6}]) }
-
-  it_behaves_like 'an enumerable'
+  it_behaves_like 'an enumerable' do
+    let(:enumerable) { Twitter::TrendResults.new(trends: [{id: 1}, {id: 2}, {id: 3}, {id: 4}, {id: 5}, {id: 6}]) }
+  end
 
   describe '#as_of' do
     it 'returns a Time when as_of is set' do
