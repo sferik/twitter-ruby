@@ -1,10 +1,9 @@
 shared_examples_for 'an enumerable' do |opts|
-  describe '#each' do
-    it_behaves_like 'an enumerable method', :each, opts
+  Twitter::Enumerable::METHODS.each do |method|
+    it_behaves_like 'an enumerable method', method, opts
   end
 
   describe '#each_page' do
-    it_behaves_like 'an enumerable method', :each_page, opts
     it 'yields an enumerable' do
       enumerable.each_page { |page| expect(page).to be_an(Enumerable) }
     end

@@ -2,6 +2,8 @@ module Twitter
   module Enumerable
     include ::Enumerable
 
+    METHODS = [:each, :each_page].freeze
+
     # @return [Enumerator]
     def each(start = 0)
       return to_enum(:each, start) unless block_given?

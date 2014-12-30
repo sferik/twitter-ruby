@@ -13,7 +13,8 @@ describe Twitter::Cursor do
       stub_get('/1.1/followers/ids.json').with(query: {cursor: '1305102810874389703', screen_name: 'sferik'}).to_return(body: fixture('ids_list2.json'), headers: {content_type: 'application/json; charset=utf-8'})
     end
 
-    [:each, :each_page, :each_page_with_cursor].each do |method|
+    resource_methods = Twitter::Enumerable::METHODS + [:each_page_with_cursor]
+    resource_methods.each do |method|
       it 'requests the correct resources' do
         enumerable.send(method) {}
         expect(a_get('/1.1/followers/ids.json').with(query: {cursor: '-1', screen_name: 'sferik'})).to have_been_made
