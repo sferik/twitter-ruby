@@ -55,4 +55,22 @@ describe Twitter::RateLimit do
       expect(rate_limit.reset_in).to be_nil
     end
   end
+
+  describe '#reached?' do
+    it 'returns true when the remaining value is zero' do
+      rate_limit = Twitter::RateLimit.new('x-rate-limit-remaining' => '0')
+      expect(rate_limit.remaining).to eq 0
+      expect(rate_limit.reached?).to be true
+    end
+    it 'returns false when the remaining value is greater than zero' do
+      rate_limit = Twitter::RateLimit.new('x-rate-limit-remaining' => '149')
+      expect(rate_limit.remaining).to eq 149
+      expect(rate_limit.reached?).to be false
+    end
+    it 'returns false when the remaining value is nil' do
+      rate_limit = Twitter::RateLimit.new
+      expect(rate_limit.remaining).to be nil
+      expect(rate_limit.reached?).to be false
+    end
+  end
 end
