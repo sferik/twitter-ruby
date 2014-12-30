@@ -37,7 +37,7 @@ describe Twitter::Cursor do
       stub_get('/1.1/followers/ids.json').with(query: {cursor: '-1', screen_name: 'sferik'}).to_return(
         body: fixture('ids_list.json'),
         headers: {
-          'content_type'           => 'application/json; charset=utf-8',
+          :content_type            => 'application/json; charset=utf-8',
           'X-Rate-Limit-Limit'     => '15',
           'X-Rate-Limit-Remaining' => '1',
           'X-Rate-Limit-Reset'     => Time.now + 10 * 60})
@@ -45,7 +45,7 @@ describe Twitter::Cursor do
       stub_get('/1.1/followers/ids.json').with(query: {cursor: '1305102810874389703', screen_name: 'sferik'}).to_return(
         body: fixture('ids_list2.json'),
         headers: {
-          'content_type'           => 'application/json; charset=utf-8',
+          :content_type            => 'application/json; charset=utf-8',
           'X-Rate-Limit-Limit'     => '15',
           'X-Rate-Limit-Remaining' => '0',
           'X-Rate-Limit-Reset'     => Time.now + 10 * 60})
