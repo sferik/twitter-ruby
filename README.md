@@ -228,6 +228,7 @@ versions:
 * Ruby 1.9.3
 * Ruby 2.0.0
 * Ruby 2.1
+* Ruby 2.2
 * JRuby 1.7 (in Ruby 1.9 mode)
 
 If something doesn't work on one of these versions, it's a bug.
