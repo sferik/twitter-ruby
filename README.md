@@ -5,7 +5,7 @@
 [![Dependency Status](http://img.shields.io/gemnasium/sferik/twitter.svg)][gemnasium]
 [![Code Climate](http://img.shields.io/codeclimate/github/sferik/twitter.svg)][codeclimate]
 [![Coverage Status](http://img.shields.io/coveralls/sferik/twitter.svg)][coveralls]
-[![Inline docs](http://inch-ci.org/github/sferik/twitter.png)][inchpages]
+[![Inline docs](http://inch-ci.org/github/sferik/twitter.svg?style=shields)][inchpages]
 
 [gem]: https://rubygems.org/gems/twitter
 [travis]: https://travis-ci.org/sferik/twitter
