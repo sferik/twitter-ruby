@@ -13,6 +13,9 @@ require 'twitter/tweet'
 module Twitter
   module Streaming
     class MessageParser
+
+      FALLING_BEHIND = 'FALLING_BEHIND'
+
       def self.parse(data) # rubocop:disable AbcSize, CyclomaticComplexity, MethodLength, PerceivedComplexity
         if data[:id]
           Tweet.new(data)
@@ -24,7 +27,7 @@ module Twitter
           FriendList.new(data[:friends])
         elsif data[:delete] && data[:delete][:status]
           DeletedTweet.new(data[:delete][:status])
-        elsif data[:warning]
+        elsif data[:warning] && data[:warning][:code] == FALLING_BEHIND
           StallWarning.new(data[:warning])
         elsif data[:disconnect]
           Disconnect.new(data[:disconnect])
