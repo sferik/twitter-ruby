@@ -48,5 +48,11 @@ describe Twitter::Streaming::MessageParser do
       expect(object).to be_a Twitter::Streaming::StallWarning
       expect(object.code).to eq('FALLING_BEHIND')
     end
+    it 'returns a disconnect if the data has a disconnect' do
+      data = {disconnect: {code: 4, stream_name: '', reason: ''}}
+      object = subject.parse(data)
+      expect(object).to be_a Twitter::Streaming::Disconnect
+      expect(object.code).to eq(4)
+    end
   end
 end

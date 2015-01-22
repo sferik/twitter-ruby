@@ -1,5 +1,6 @@
 require 'twitter/direct_message'
 require 'twitter/streaming/deleted_tweet'
+require 'twitter/streaming/disconnect'
 require 'twitter/streaming/event'
 require 'twitter/streaming/friend_list'
 require 'twitter/streaming/stall_warning'
@@ -21,6 +22,8 @@ module Twitter
           DeletedTweet.new(data[:delete][:status])
         elsif data[:warning]
           StallWarning.new(data[:warning])
+        elsif data[:disconnect]
+          Disconnect.new(data[:disconnect])
         end
       end
     end
