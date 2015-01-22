@@ -6,6 +6,7 @@ require 'twitter/streaming/friend_list'
 require 'twitter/streaming/limit'
 require 'twitter/streaming/scrub_geo'
 require 'twitter/streaming/stall_warning'
+require 'twitter/streaming/status_withheld'
 require 'twitter/tweet'
 
 module Twitter
@@ -30,6 +31,8 @@ module Twitter
           ScrubGeo.new(data[:scrub_geo])
         elsif data[:limit]
           Limit.new(data[:limit])
+        elsif data[:status_withheld]
+          StatusWithheld.new(data[:status_withheld])
         end
       end
     end

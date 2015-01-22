@@ -67,5 +67,12 @@ describe Twitter::Streaming::MessageParser do
       expect(object).to be_a Twitter::Streaming::Limit
       expect(object.track).to eq(1234)
     end
+    it 'returns a status withheld if the data has a status withheld' do
+      data = {status_withheld: {id:1234567890, user_id:123456,
+      withheld_in_countries:['DE', 'AR']}}
+      object = subject.parse(data)
+      expect(object).to be_a Twitter::Streaming::StatusWithheld
+      expect(object.user_id).to eq(123456)
+    end
   end
 end
