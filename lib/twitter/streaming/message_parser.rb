@@ -3,6 +3,7 @@ require 'twitter/streaming/deleted_tweet'
 require 'twitter/streaming/disconnect'
 require 'twitter/streaming/event'
 require 'twitter/streaming/friend_list'
+require 'twitter/streaming/limit'
 require 'twitter/streaming/scrub_geo'
 require 'twitter/streaming/stall_warning'
 require 'twitter/tweet'
@@ -27,6 +28,8 @@ module Twitter
           Disconnect.new(data[:disconnect])
         elsif data[:scrub_geo]
           ScrubGeo.new(data[:scrub_geo])
+        elsif data[:limit]
+          Limit.new(data[:limit])
         end
       end
     end

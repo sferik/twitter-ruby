@@ -61,6 +61,11 @@ describe Twitter::Streaming::MessageParser do
       expect(object).to be_a Twitter::Streaming::ScrubGeo
       expect(object.user_id).to eq(14090452)
     end
-
+    it 'returns a limit if the data has a limit message' do
+      data = {limit: {track:1234}}
+      object = subject.parse(data)
+      expect(object).to be_a Twitter::Streaming::Limit
+      expect(object.track).to eq(1234)
+    end
   end
 end
