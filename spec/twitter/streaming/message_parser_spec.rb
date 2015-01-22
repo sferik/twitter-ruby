@@ -54,5 +54,13 @@ describe Twitter::Streaming::MessageParser do
       expect(object).to be_a Twitter::Streaming::Disconnect
       expect(object.code).to eq(4)
     end
+    it 'returns a scrub geo if the data has a scrub geo message' do
+      data = {scrub_geo: {user_id:14090452, user_id_str:"14090452",
+      up_to_status_id:23260136625, up_to_status_id_str:'23260136625'}}
+      object = subject.parse(data)
+      expect(object).to be_a Twitter::Streaming::ScrubGeo
+      expect(object.user_id).to eq(14090452)
+    end
+
   end
 end
