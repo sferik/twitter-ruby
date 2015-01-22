@@ -55,31 +55,28 @@ describe Twitter::Streaming::MessageParser do
       expect(object.code).to eq(4)
     end
     it 'returns a scrub geo if the data has a scrub geo message' do
-      data = {scrub_geo: {user_id:14090452, user_id_str:"14090452",
-      up_to_status_id:23260136625, up_to_status_id_str:'23260136625'}}
+      data = {scrub_geo: {user_id: 14_090_452, up_to_status_id: 23_260_136_625}}
       object = subject.parse(data)
       expect(object).to be_a Twitter::Streaming::ScrubGeo
-      expect(object.user_id).to eq(14090452)
+      expect(object.user_id).to eq(14_090_452)
     end
     it 'returns a limit if the data has a limit message' do
-      data = {limit: {track:1234}}
+      data = {limit: {track: 1_234}}
       object = subject.parse(data)
       expect(object).to be_a Twitter::Streaming::Limit
-      expect(object.track).to eq(1234)
+      expect(object.track).to eq(1_234)
     end
     it 'returns a status withheld if the data has a status withheld' do
-      data = {status_withheld: {id:1234567890, user_id:123456,
-      withheld_in_countries:['DE', 'AR']}}
+      data = {status_withheld: {id: 1_234_567_890, user_id: 123_456}}
       object = subject.parse(data)
       expect(object).to be_a Twitter::Streaming::StatusWithheld
-      expect(object.user_id).to eq(123456)
+      expect(object.user_id).to eq(123_456)
     end
     it 'returns a user withheld if the data has a user withheld' do
-      data = {user_withheld: {id:1234567890,
-        withheld_in_countries:['DE', 'AR']}}
+      data = {user_withheld: {id: 1_234_567_890}}
       object = subject.parse(data)
       expect(object).to be_a Twitter::Streaming::UserWithheld
-      expect(object.id).to eq(1234567890)
+      expect(object.id).to eq(1_234_567_890)
     end
     it 'returns a too many follows warning if the data has a warning' do
       data = {warning: {code: 'FOLLOWS_OVER_LIMIT'}}

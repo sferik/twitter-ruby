@@ -14,7 +14,6 @@ require 'twitter/tweet'
 module Twitter
   module Streaming
     class MessageParser
-
       FALLING_BEHIND = 'FALLING_BEHIND'
       FOLLOWS_OVER_LIMIT = 'FOLLOWS_OVER_LIMIT'
 
