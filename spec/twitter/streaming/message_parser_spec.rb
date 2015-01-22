@@ -81,5 +81,11 @@ describe Twitter::Streaming::MessageParser do
       expect(object).to be_a Twitter::Streaming::UserWithheld
       expect(object.id).to eq(1234567890)
     end
+    it 'returns a too many follows warning if the data has a warning' do
+      data = {warning: {code: 'FOLLOWS_OVER_LIMIT'}}
+      object = subject.parse(data)
+      expect(object).to be_a Twitter::Streaming::TooManyFollowsWarning
+      expect(object.code).to eq('FOLLOWS_OVER_LIMIT')
+    end
   end
 end

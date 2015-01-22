@@ -7,6 +7,7 @@ require 'twitter/streaming/limit'
 require 'twitter/streaming/scrub_geo'
 require 'twitter/streaming/stall_warning'
 require 'twitter/streaming/status_withheld'
+require 'twitter/streaming/too_many_follows_warning'
 require 'twitter/streaming/user_withheld'
 require 'twitter/tweet'
 
@@ -15,6 +16,7 @@ module Twitter
     class MessageParser
 
       FALLING_BEHIND = 'FALLING_BEHIND'
+      FOLLOWS_OVER_LIMIT = 'FOLLOWS_OVER_LIMIT'
 
       def self.parse(data) # rubocop:disable AbcSize, CyclomaticComplexity, MethodLength, PerceivedComplexity
         if data[:id]
@@ -39,6 +41,8 @@ module Twitter
           UserWithheld.new(data[:user_withheld])
         elsif data[:warning] && data[:warning][:code] == FALLING_BEHIND
           StallWarning.new(data[:warning])
+        elsif data[:warning] && data[:warning][:code] == FOLLOWS_OVER_LIMIT
+          TooManyFollowsWarning.new(data[:warning])
         end
       end
     end
