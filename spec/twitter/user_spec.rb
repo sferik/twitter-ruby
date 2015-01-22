@@ -71,7 +71,7 @@ describe Twitter::User do
         {
           url: 'https://t.co/L2xIBazMPf',
           expanded_url: 'http://example.com/expanded',
-          display_url: 'example.com/expand...d…',
+          display_url: 'example.com/expanded...',
           indices: [10, 33],
         },
       ]
@@ -90,7 +90,7 @@ describe Twitter::User do
         {
           url: 'https://t.co/L2xIBazMPf',
           expanded_url: 'http://example.com/expanded',
-          display_url: 'example.com/expa...ded…',
+          display_url: 'example.com/expanded...',
           indices: [10, 33],
         },
       ]
@@ -343,7 +343,7 @@ describe Twitter::User do
 
   describe '#status' do
     it 'returns a Status when status is set' do
-      user = Twitter::User.new(id: 7_505_382, status: {id: 25_938_088_801})
+      user = Twitter::User.new(id: 7_505_382, status: {id: 540_897_316_908_331_009})
       expect(user.status).to be_a Twitter::Tweet
     end
     it 'returns nil when status is not set' do
@@ -351,7 +351,7 @@ describe Twitter::User do
       expect(user.status).to be_nil
     end
     it 'has a user' do
-      user = Twitter::User.new(id: 7_505_382, status: {id: 25_938_088_801})
+      user = Twitter::User.new(id: 7_505_382, status: {id: 540_897_316_908_331_009})
       expect(user.status.user).to be_a Twitter::User
       expect(user.status.user.id).to eq(7_505_382)
     end
@@ -359,7 +359,7 @@ describe Twitter::User do
 
   describe '#status?' do
     it 'returns true when status is set' do
-      user = Twitter::User.new(id: 7_505_382, status: {id: 25_938_088_801})
+      user = Twitter::User.new(id: 7_505_382, status: {id: 540_897_316_908_331_009})
       expect(user.status?).to be true
     end
     it 'returns false when status is not set' do
@@ -391,7 +391,7 @@ describe Twitter::User do
         {
           url: 'https://t.co/L2xIBazMPf',
           expanded_url: 'http://example.com/expanded',
-          display_url: 'example.com/ex...anded…',
+          display_url: 'example.com/expanded...',
           indices: [0, 23],
         },
       ]
@@ -415,7 +415,7 @@ describe Twitter::User do
         {
           url: 'https://t.co/L2xIBazMPf',
           expanded_url: 'http://example.com/expanded',
-          display_url: 'example.com/...xpanded…',
+          display_url: 'example.com/expanded...',
           indices: [0, 23],
         },
       ]
@@ -434,7 +434,7 @@ describe Twitter::User do
         {
           url: 'https://t.co/L2xIBazMPf',
           expanded_url: 'http://example.com/expanded',
-          display_url: 'example.co.../expanded…',
+          display_url: 'example.com/expanded...',
           indices: [0, 23],
         },
       ]
@@ -456,7 +456,7 @@ describe Twitter::User do
         {
           url: 'https://t.co/L2xIBazMPf',
           expanded_url: 'http://example.com/expanded',
-          display_url: 'example....om/expanded…',
+          display_url: 'example.com/expanded...',
           indices: [0, 23],
         },
       ]

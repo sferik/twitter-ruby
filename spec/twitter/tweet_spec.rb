@@ -99,7 +99,7 @@ describe Twitter::Tweet do
       expect(tweet.full_text).to eq('BOOSH')
     end
     it 'returns the full text of a retweeted Tweet' do
-      tweet = Twitter::Tweet.new(id: 28_669_546_014, text: 'RT @sferik: BOOSH', retweeted_status: {id: 25_938_088_801, text: 'BOOSH'})
+      tweet = Twitter::Tweet.new(id: 28_669_546_014, text: 'RT @sferik: BOOSH', retweeted_status: {id: 540_897_316_908_331_009, text: 'BOOSH'})
       expect(tweet.full_text).to be_a String
       expect(tweet.full_text).to eq('RT @sferik: BOOSH')
     end
@@ -265,7 +265,7 @@ describe Twitter::Tweet do
 
   describe '#retweet?' do
     it 'returns true when there is a retweeted status' do
-      tweet = Twitter::Tweet.new(id: 28_669_546_014, retweeted_status: {id: 25_938_088_801, text: 'BOOSH'})
+      tweet = Twitter::Tweet.new(id: 28_669_546_014, retweeted_status: {id: 540_897_316_908_331_009, text: 'BOOSH'})
       expect(tweet.retweet?).to be true
     end
     it 'returns false when retweeted_status is not set' do
@@ -276,7 +276,7 @@ describe Twitter::Tweet do
 
   describe '#retweeted_status' do
     it 'returns a Tweet when retweeted_status is set' do
-      tweet = Twitter::Tweet.new(id: 28_669_546_014, retweeted_status: {id: 25_938_088_801, text: 'BOOSH'})
+      tweet = Twitter::Tweet.new(id: 28_669_546_014, retweeted_status: {id: 540_897_316_908_331_009, text: 'BOOSH'})
       expect(tweet.retweeted_tweet).to be_a Twitter::Tweet
       expect(tweet.retweeted_tweet.text).to eq('BOOSH')
     end
@@ -288,7 +288,7 @@ describe Twitter::Tweet do
 
   describe '#retweeted_status?' do
     it 'returns true when retweeted_status is set' do
-      tweet = Twitter::Tweet.new(id: 28_669_546_014, retweeted_status: {id: 25_938_088_801, text: 'BOOSH'})
+      tweet = Twitter::Tweet.new(id: 28_669_546_014, retweeted_status: {id: 540_897_316_908_331_009, text: 'BOOSH'})
       expect(tweet.retweeted_status?).to be true
     end
     it 'returns false when retweeted_status is not set' do
@@ -370,7 +370,7 @@ describe Twitter::Tweet do
         {
           url: 'https://t.co/L2xIBazMPf',
           expanded_url: 'http://example.com/expanded',
-          display_url: 'example.com/expand...d…',
+          display_url: 'example.com/expanded...',
           indices: [10, 33],
         },
       ]
@@ -379,7 +379,7 @@ describe Twitter::Tweet do
       expect(tweet.uris.first).to be_a Twitter::Entity::URI
       expect(tweet.uris.first.indices).to eq([10, 33])
       expect(tweet.uris.first.display_uri).to be_a String
-      expect(tweet.uris.first.display_uri).to eq('example.com/expa...ded…')
+      expect(tweet.uris.first.display_uri).to eq('example.com/expanded...')
     end
     it 'is empty when not set' do
       tweet = Twitter::Tweet.new(id: 28_669_546_014)
@@ -390,7 +390,7 @@ describe Twitter::Tweet do
         {
           url: 'https://t.co/L2xIBazMPf',
           expanded_url: 'http://with_underscore.example.com/expanded',
-          display_url: 'with_underscore.example.com/ex...anded…',
+          display_url: 'with_underscore.example.com/expanded...',
           indices: [10, 33],
         },
       ]
