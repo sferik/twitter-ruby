@@ -58,7 +58,7 @@ describe Twitter::DirectMessage do
         {
           url: 'https://t.co/L2xIBazMPf',
           expanded_url: 'http://example.com/expanded',
-          display_url: 'example.com/expanded…',
+          display_url: 'example.com/expanded...',
           indices: [10, 33],
         },
       ]
@@ -176,7 +176,7 @@ describe Twitter::DirectMessage do
         {
           url: 'https://t.co/L2xIBazMPf',
           expanded_url: 'http://example.com/expanded',
-          display_url: 'example.com/expanded…',
+          display_url: 'example.com/expanded...',
           indices: [10, 33],
         },
       ]
@@ -185,7 +185,7 @@ describe Twitter::DirectMessage do
       expect(direct_message.uris.first).to be_a Twitter::Entity::URI
       expect(direct_message.uris.first.indices).to eq([10, 33])
       expect(direct_message.uris.first.display_uri).to be_a String
-      expect(direct_message.uris.first.display_uri).to eq('example.com/expanded…')
+      expect(direct_message.uris.first.display_uri).to eq('example.com/expanded...')
     end
     it 'is empty when not set' do
       direct_message = Twitter::DirectMessage.new(id: 1_825_786_345)
@@ -196,7 +196,7 @@ describe Twitter::DirectMessage do
         {
           url: 'https://t.co/L2xIBazMPf',
           expanded_url: 'http://with_underscore.example.com/expanded',
-          display_url: 'with_underscore.example.com/expanded…',
+          display_url: 'with_underscore.example.com/expanded...',
           indices: [10, 33],
         },
       ]
