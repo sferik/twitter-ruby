@@ -21,24 +21,24 @@ module Twitter
           Tweet.new(data)
         elsif data[:event]
           Event.new(data)
-        elsif data[:direct_message]
-          DirectMessage.new(data[:direct_message])
-        elsif data[:friends]
-          FriendList.new(data[:friends])
         elsif data[:delete] && data[:delete][:status]
           DeletedTweet.new(data[:delete][:status])
-        elsif data[:warning] && data[:warning][:code] == FALLING_BEHIND
-          StallWarning.new(data[:warning])
+        elsif data[:direct_message]
+          DirectMessage.new(data[:direct_message])
         elsif data[:disconnect]
           Disconnect.new(data[:disconnect])
-        elsif data[:scrub_geo]
-          ScrubGeo.new(data[:scrub_geo])
+        elsif data[:friends]
+          FriendList.new(data[:friends])
         elsif data[:limit]
           Limit.new(data[:limit])
+        elsif data[:scrub_geo]
+          ScrubGeo.new(data[:scrub_geo])
         elsif data[:status_withheld]
           StatusWithheld.new(data[:status_withheld])
         elsif data[:user_withheld]
           UserWithheld.new(data[:user_withheld])
+        elsif data[:warning] && data[:warning][:code] == FALLING_BEHIND
+          StallWarning.new(data[:warning])
         end
       end
     end
