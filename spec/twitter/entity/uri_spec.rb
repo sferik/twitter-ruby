@@ -4,9 +4,9 @@ require 'helper'
 describe Twitter::Entity::URI do
   describe '#display_uri' do
     it 'returns a String when the display_url is set' do
-      uri = Twitter::Entity::URI.new(display_url: 'example.com/expanded…')
+      uri = Twitter::Entity::URI.new(display_url: 'example.com/expanded...')
       expect(uri.display_uri).to be_a String
-      expect(uri.display_uri).to eq('example.com/expanded…')
+      expect(uri.display_uri).to eq('example.com/expand...d…')
     end
     it 'returns nil when the display_url is not set' do
       uri = Twitter::Entity::URI.new
@@ -16,7 +16,7 @@ describe Twitter::Entity::URI do
 
   describe '#display_uri?' do
     it 'returns true when the display_url is set' do
-      uri = Twitter::Entity::URI.new(display_url: 'example.com/expanded…')
+      uri = Twitter::Entity::URI.new(display_url: 'example.com/expa...ded…')
       expect(uri.display_uri?).to be true
     end
     it 'returns false when the display_url is not set' do

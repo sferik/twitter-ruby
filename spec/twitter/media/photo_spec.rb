@@ -34,9 +34,9 @@ describe Twitter::Media::Photo do
 
   describe '#display_uri' do
     it 'returns a String when the display_url is set' do
-      photo = Twitter::Media::Photo.new(id: 1, display_url: 'example.com/expanded…')
+      photo = Twitter::Media::Photo.new(id: 1, display_url: 'example.com/expanded...')
       expect(photo.display_uri).to be_a String
-      expect(photo.display_uri).to eq('example.com/expanded…')
+      expect(photo.display_uri).to eq('example.com/expand...d…')
     end
     it 'returns nil when the display_url is not set' do
       photo = Twitter::Media::Photo.new(id: 1)
@@ -46,7 +46,7 @@ describe Twitter::Media::Photo do
 
   describe '#display_uri?' do
     it 'returns true when the display_url is set' do
-      photo = Twitter::Media::Photo.new(id: 1, display_url: 'example.com/expanded…')
+      photo = Twitter::Media::Photo.new(id: 1, display_url: 'example.com/expa...ded…')
       expect(photo.display_uri?).to be true
     end
     it 'returns false when the display_url is not set' do
