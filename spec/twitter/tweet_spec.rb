@@ -58,7 +58,7 @@ describe Twitter::Tweet do
         {
           url: 'https://t.co/L2xIBazMPf',
           expanded_url: 'http://example.com/expanded',
-          display_url: 'example.com/expanded…',
+          display_url: 'example.com/expanded...',
           indices: [10, 33],
         },
       ]
@@ -370,7 +370,7 @@ describe Twitter::Tweet do
         {
           url: 'https://t.co/L2xIBazMPf',
           expanded_url: 'http://example.com/expanded',
-          display_url: 'example.com/expanded…',
+          display_url: 'example.com/expand...d…',
           indices: [10, 33],
         },
       ]
@@ -379,7 +379,7 @@ describe Twitter::Tweet do
       expect(tweet.uris.first).to be_a Twitter::Entity::URI
       expect(tweet.uris.first.indices).to eq([10, 33])
       expect(tweet.uris.first.display_uri).to be_a String
-      expect(tweet.uris.first.display_uri).to eq('example.com/expanded…')
+      expect(tweet.uris.first.display_uri).to eq('example.com/expa...ded…')
     end
     it 'is empty when not set' do
       tweet = Twitter::Tweet.new(id: 28_669_546_014)
@@ -390,7 +390,7 @@ describe Twitter::Tweet do
         {
           url: 'https://t.co/L2xIBazMPf',
           expanded_url: 'http://with_underscore.example.com/expanded',
-          display_url: 'with_underscore.example.com/expanded…',
+          display_url: 'with_underscore.example.com/ex...anded…',
           indices: [10, 33],
         },
       ]

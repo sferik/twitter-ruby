@@ -49,7 +49,7 @@ describe Twitter::User do
         {
           url: 'https://t.co/L2xIBazMPf',
           expanded_url: 'http://example.com/expanded',
-          display_url: 'example.com/expanded…',
+          display_url: 'example.com/expanded...',
           indices: [10, 33],
         },
       ]
@@ -71,7 +71,7 @@ describe Twitter::User do
         {
           url: 'https://t.co/L2xIBazMPf',
           expanded_url: 'http://example.com/expanded',
-          display_url: 'example.com/expanded…',
+          display_url: 'example.com/expand...d…',
           indices: [10, 33],
         },
       ]
@@ -90,7 +90,7 @@ describe Twitter::User do
         {
           url: 'https://t.co/L2xIBazMPf',
           expanded_url: 'http://example.com/expanded',
-          display_url: 'example.com/expanded…',
+          display_url: 'example.com/expa...ded…',
           indices: [10, 33],
         },
       ]
@@ -391,7 +391,7 @@ describe Twitter::User do
         {
           url: 'https://t.co/L2xIBazMPf',
           expanded_url: 'http://example.com/expanded',
-          display_url: 'example.com/expanded…',
+          display_url: 'example.com/ex...anded…',
           indices: [0, 23],
         },
       ]
@@ -415,7 +415,7 @@ describe Twitter::User do
         {
           url: 'https://t.co/L2xIBazMPf',
           expanded_url: 'http://example.com/expanded',
-          display_url: 'example.com/expanded…',
+          display_url: 'example.com/...xpanded…',
           indices: [0, 23],
         },
       ]
@@ -434,7 +434,7 @@ describe Twitter::User do
         {
           url: 'https://t.co/L2xIBazMPf',
           expanded_url: 'http://example.com/expanded',
-          display_url: 'example.com/expanded…',
+          display_url: 'example.co.../expanded…',
           indices: [0, 23],
         },
       ]
@@ -456,7 +456,7 @@ describe Twitter::User do
         {
           url: 'https://t.co/L2xIBazMPf',
           expanded_url: 'http://example.com/expanded',
-          display_url: 'example.com/expanded…',
+          display_url: 'example....om/expanded…',
           indices: [0, 23],
         },
       ]
