@@ -84,5 +84,11 @@ describe Twitter::Streaming::MessageParser do
       expect(object).to be_a Twitter::Streaming::TooManyFollowsWarning
       expect(object.code).to eq('FOLLOWS_OVER_LIMIT')
     end
+    it 'returns an envelope when the data is a site stream message' do
+      data = {for_user: 1_234, message: {friends: []}}
+      object = subject.parse(data)
+      expect(object).to be_a Twitter::Streaming::Envelope
+      expect(object.for_user).to eq(1_234)
+    end
   end
 end

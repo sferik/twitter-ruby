@@ -1,6 +1,7 @@
 require 'twitter/direct_message'
 require 'twitter/streaming/deleted_tweet'
 require 'twitter/streaming/disconnect'
+require 'twitter/streaming/envelope'
 require 'twitter/streaming/event'
 require 'twitter/streaming/friend_list'
 require 'twitter/streaming/limit'
@@ -22,6 +23,8 @@ module Twitter
           Tweet.new(data)
         elsif data[:event]
           Event.new(data)
+        elsif data[:for_user]
+          Envelope.new(data)
         elsif data[:delete] && data[:delete][:status]
           DeletedTweet.new(data[:delete][:status])
         elsif data[:direct_message]
