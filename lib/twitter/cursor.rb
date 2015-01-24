@@ -26,6 +26,7 @@ module Twitter
       @path = request.path
       @options = request.options
       @collection = []
+      @lock = Mutex.new
       self.attrs = request.perform
     end
 
@@ -37,7 +38,7 @@ module Twitter
 
     # @return [Twitter::RateLimit] The rate limit for the current cursor request
     def rate_limit
-      @request.rate_limit
+      @lock.synchronize { return @request.rate_limit }
     end
 
   private
@@ -55,7 +56,9 @@ module Twitter
 
     # @return [Hash]
     def fetch_next_page
-      @request = Twitter::REST::Request.new(@client, @request_method, @path, @options.merge(cursor: next_cursor))
+      @lock.synchronize do
+        @request = Twitter::REST::Request.new(@client, @request_method, @path, @options.merge(cursor: next_cursor))
+      end
       self.attrs = @request.perform
     end
 
