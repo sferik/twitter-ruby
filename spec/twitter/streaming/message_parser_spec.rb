@@ -90,5 +90,11 @@ describe Twitter::Streaming::MessageParser do
       expect(object).to be_a Twitter::Streaming::Envelope
       expect(object.for_user).to eq(1_234)
     end
+    it 'returns a control client when the data is a site stream congrol message' do
+      data = {control: {control_uri: '/1.1/site/c/1_1_54e345d655ee3e8df359ac033648530bfbe26c5f'}}
+      object = subject.parse(data)
+      expect(object).to be_a Twitter::Streaming::Control
+      expect(object.control_uri).to eq('/1.1/site/c/1_1_54e345d655ee3e8df359ac033648530bfbe26c5f')
+    end
   end
 end

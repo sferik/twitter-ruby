@@ -1,4 +1,5 @@
 require 'twitter/direct_message'
+require 'twitter/streaming/control'
 require 'twitter/streaming/deleted_tweet'
 require 'twitter/streaming/disconnect'
 require 'twitter/streaming/envelope'
@@ -21,6 +22,8 @@ module Twitter
       def self.parse(data) # rubocop:disable AbcSize, CyclomaticComplexity, MethodLength, PerceivedComplexity
         if data[:id]
           Tweet.new(data)
+        elsif data[:control]
+          Control.new(data[:control])
         elsif data[:event]
           Event.new(data)
         elsif data[:for_user]
