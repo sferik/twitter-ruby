@@ -61,4 +61,17 @@ describe Twitter::Streaming::Control do
       end
     end
   end
+
+  describe '#remove_user' do
+    before do
+      stub_post("#{control_uri}/remove_user.json", described_class).with(body: {user_id: '123456'}).to_return(status: 200, body: '', headers: {content_type: 'application/json; charset=utf-8'})
+    end
+    it 'requests the correct resource' do
+      @client.remove_user(123_456)
+      expect(a_post("#{control_uri}/remove_user.json", described_class).with(body: {user_id: '123456'})).to have_been_made
+    end
+    it 'returns true when successful' do
+      expect(@client.remove_user(123_456)).to be_truthy
+    end
+  end
 end

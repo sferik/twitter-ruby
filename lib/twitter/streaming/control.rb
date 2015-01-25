@@ -33,6 +33,19 @@ module Twitter
         # Successful add requests will be returned an empty 200 OK response so just return true
         true
       end
+
+      # Remove authenticated users from a Site stream connection
+      #
+      # @see https://dev.twitter.com/streaming/sitestreams/controlstreams#remove
+      # @param user_id [Integer] A customizable set of options.
+      # @authentication Requires user context
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @return [Boolean]
+      def remove_user(user_id)
+        perform_post("#{BASE_URL}#{control_uri}/remove_user.json", user_id: user_id)
+        # Successful removal requests will be returned an empty 200 OK response so just return true
+        true
+      end
     end
   end
 end
