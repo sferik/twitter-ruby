@@ -62,6 +62,19 @@ describe Twitter::Streaming::Control do
     end
   end
 
+  describe '#info' do
+    before do
+      stub_get("#{control_uri}/info.json", described_class).to_return(status: 200, body: fixture('site_stream_info.json'), headers: {content_type: 'application/json; charset=utf-8'})
+    end
+    it 'requests the correct resource' do
+      @client.info
+      expect(a_get("#{control_uri}/info.json", described_class)).to have_been_made
+    end
+    it 'returns a Twitter::Streaming::Info' do
+      expect(@client.info).to be_a Twitter::Streaming::Info
+    end
+  end
+
   describe '#remove_user' do
     before do
       stub_post("#{control_uri}/remove_user.json", described_class).with(body: {user_id: '123456'}).to_return(status: 200, body: '', headers: {content_type: 'application/json; charset=utf-8'})

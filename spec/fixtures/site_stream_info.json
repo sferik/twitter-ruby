@@ -1,0 +1,19 @@
+{"info":
+  {
+    "users":
+    [
+      {"id":1,"name":"raffi","dm":false},
+      {"id":3,"name":"fiaz","dm":true}
+    ],
+    "follows":
+    [
+      {"user":1,"other_users":[2,3]},
+      {"user":3,"other_users":[1,2,99]}
+    ],
+    "delimited":"none",
+    "include_followings_activity":false,
+    "include_user_changes":false,
+    "replies":"none",
+    "with":"followings"
+  }
+}
