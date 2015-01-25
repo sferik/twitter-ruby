@@ -30,12 +30,12 @@ def a_delete(path)
   a_request(:delete, Twitter::REST::Request::BASE_URL + path)
 end
 
-def a_get(path)
-  a_request(:get, Twitter::REST::Request::BASE_URL + path)
+def a_get(path, klass = Twitter::REST::Request)
+  a_request(:get, klass::BASE_URL + path)
 end
 
-def a_post(path)
-  a_request(:post, Twitter::REST::Request::BASE_URL + path)
+def a_post(path, klass = Twitter::REST::Request)
+  a_request(:post, klass::BASE_URL + path)
 end
 
 def a_put(path)
@@ -46,12 +46,12 @@ def stub_delete(path)
   stub_request(:delete, Twitter::REST::Request::BASE_URL + path)
 end
 
-def stub_get(path)
-  stub_request(:get, Twitter::REST::Request::BASE_URL + path)
+def stub_get(path, klass = Twitter::REST::Request)
+  stub_request(:get, klass::BASE_URL + path)
 end
 
-def stub_post(path)
-  stub_request(:post, Twitter::REST::Request::BASE_URL + path)
+def stub_post(path, klass = Twitter::REST::Request)
+  stub_request(:post, klass::BASE_URL + path)
 end
 
 def stub_put(path)

@@ -10,6 +10,7 @@ require 'twitter/utils'
 module Twitter
   module Streaming
     class Client < Twitter::Client
+      include Twitter::REST::Utils
       include Twitter::Utils
       attr_writer :connection
 
