@@ -62,6 +62,16 @@ describe Twitter::Streaming::Control do
     end
   end
 
+  describe '#friend_ids' do
+    before do
+      stub_post("#{control_uri}/friends/ids.json", described_class).with(body: {user_id: '7505382', cursor: '-1'}).to_return(body: fixture('site_stream_friends_ids.json'), headers: {content_type: 'application/json; charset=utf-8'})
+    end
+    it 'requests the correct resource' do
+      @client.friend_ids(7_505_382)
+      expect(a_post("#{control_uri}/friends/ids.json", described_class).with(body: {user_id: '7505382', cursor: '-1'})).to have_been_made
+    end
+  end
+
   describe '#info' do
     before do
       stub_get("#{control_uri}/info.json", described_class).to_return(status: 200, body: fixture('site_stream_info.json'), headers: {content_type: 'application/json; charset=utf-8'})

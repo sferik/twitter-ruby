@@ -35,6 +35,21 @@ module Twitter
         true
       end
 
+      # Obtain information about the followings of specific users present on a Site Streams connection
+      #
+      # @see https://dev.twitter.com/streaming/sitestreams/controlstreams#friends
+      # @authentication Requires user context
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @return [Twitter::Cursor]
+      # @overload friend_ids(user, options = {})
+      #   Returns an array of numeric IDs for every user the specified user is following
+      #
+      #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, URI, or object.
+      #   @param options [Hash] A customizable set of options.
+      def friend_ids(*args)
+        cursor_from_response_with_streaming_user(:friends, nil, "#{BASE_URL}#{control_uri}/friends/ids.json", args)
+      end
+
       # Obtain information the current state of a Site stream connection
       #
       # @see https://dev.twitter.com/streaming/sitestreams/controlstreams#info
@@ -57,6 +72,19 @@ module Twitter
         perform_post("#{BASE_URL}#{control_uri}/remove_user.json", user_id: user_id)
         # Successful removal requests will be returned an empty 200 OK response so just return true
         true
+      end
+
+    private
+
+      # @param collection_name [Symbol]
+      # @param klass [Class]
+      # @param path [String]
+      # @param args [Array]
+      # @return [Twitter::Cursor]
+      def cursor_from_response_with_streaming_user(collection_name, klass, path, args) # rubocop:disable ParameterLists
+        arguments = Twitter::Arguments.new(args)
+        merge_user!(arguments.options, arguments.pop) unless arguments.options[:user_id]
+        perform_post_with_cursor(path, arguments.options, collection_name, klass)
       end
     end
   end

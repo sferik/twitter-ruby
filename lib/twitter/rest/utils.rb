@@ -102,8 +102,25 @@ module Twitter
       # @param collection_name [Symbol]
       # @param klass [Class]
       def perform_get_with_cursor(path, options, collection_name, klass = nil)
+        perform_request_with_cursor(:get, path, options, collection_name, klass)
+      end
+
+      # @param path [String]
+      # @param options [Hash]
+      # @collection_name [Symbol]
+      # @param klass [Class]
+      def perform_post_with_cursor(path, options, collection_name, klass = nil)
+        perform_request_with_cursor(:post, path, options, collection_name, klass)
+      end
+
+      # @param method [String]
+      # @param path [String]
+      # @param options [Hash]
+      # @collection_name [Symbol]
+      # @param klass [Class]
+      def perform_request_with_cursor(method, path, options, collection_name, klass = nil) # rubocop:disable ParameterLists
         merge_default_cursor!(options)
-        request = Twitter::REST::Request.new(self, :get, path, options)
+        request = Twitter::REST::Request.new(self, method, path, options)
         Twitter::Cursor.new(collection_name.to_sym, klass, request)
       end
 
