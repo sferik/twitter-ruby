@@ -24,7 +24,7 @@ module Twitter
       #
       # @see https://dev.twitter.com/streaming/sitestreams/controlstreams#add
       # @note The user_id parameter can be supplied with up to 100 user IDs, separated with commas.
-      # @authentication Requires user context
+      # @authentication Requires site stream context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Boolean]
       def add_user(*args)
@@ -38,7 +38,7 @@ module Twitter
       # Obtain information about the followings of specific users present on a Site Streams connection
       #
       # @see https://dev.twitter.com/streaming/sitestreams/controlstreams#friends
-      # @authentication Requires user context
+      # @authentication Requires site stream context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Twitter::Cursor]
       # @overload friend_ids(user, options = {})
@@ -54,7 +54,7 @@ module Twitter
       #
       # @see https://dev.twitter.com/streaming/sitestreams/controlstreams#info
       # @see https://dev.twitter.com/streaming/reference/get/c/stream_id/info
-      # @authentication Requires user context
+      # @authentication Requires site stream context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Twitter::Streaming::Info]
       def info
@@ -65,7 +65,7 @@ module Twitter
       #
       # @see https://dev.twitter.com/streaming/sitestreams/controlstreams#remove
       # @param user_id [Integer] A customizable set of options.
-      # @authentication Requires user context
+      # @authentication Requires site stream context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Boolean]
       def remove_user(user_id)
