@@ -90,21 +90,6 @@ describe Twitter::REST::Users do
     end
   end
 
-  describe '#update_profile_colors' do
-    before do
-      stub_post('/1.1/account/update_profile_colors.json').with(body: {profile_background_color: '000000'}).to_return(body: fixture('sferik.json'), headers: {content_type: 'application/json; charset=utf-8'})
-    end
-    it 'requests the correct resource' do
-      @client.update_profile_colors(profile_background_color: '000000')
-      expect(a_post('/1.1/account/update_profile_colors.json').with(body: {profile_background_color: '000000'})).to have_been_made
-    end
-    it 'returns a user' do
-      user = @client.update_profile_colors(profile_background_color: '000000')
-      expect(user).to be_a Twitter::User
-      expect(user.id).to eq(7_505_382)
-    end
-  end
-
   describe '#update_profile_image' do
     before do
       stub_post('/1.1/account/update_profile_image.json').to_return(body: fixture('sferik.json'), headers: {content_type: 'application/json; charset=utf-8'})
