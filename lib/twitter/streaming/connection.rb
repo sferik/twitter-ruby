@@ -19,10 +19,11 @@ module Twitter
         client         = @tcp_socket_class.new(Resolv.getaddress(request.uri.host), request.uri.port)
         @ssl_client    = @ssl_socket_class.new(client, client_context)
 
-        @state = :connecting
-        @ssl_client.connect
-        request.stream(@ssl_client)
-        @state = :connected
+        transition(:connecting, :connected) do
+          @ssl_client.connect
+          request.stream(@ssl_client)
+        end
+
         while connected? && (body = @ssl_client.readpartial(1024)) # rubocop:disable AssignmentInCondition, WhileUntilModifier
           response << body
         end
@@ -32,9 +33,9 @@ module Twitter
       def close
         return unless closeable?
 
-        @state = :closing
-        @ssl_client.close
-        @state = :closed
+        transition(:closing, :closed) do
+          @ssl_client.close
+        end
       end
 
     private
@@ -49,6 +50,12 @@ module Twitter
 
       def closeable?
         connected? || connecting?
+      end
+
+      def transition(from, to)
+        @state = from
+        yield
+        @state = to
       end
     end
   end
