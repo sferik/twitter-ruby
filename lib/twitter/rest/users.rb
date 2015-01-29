@@ -77,6 +77,7 @@ module Twitter
       # @option options [String] :url URL associated with the profile. Will be prepended with "http://" if not present. Maximum of 100 characters.
       # @option options [String] :location The city or country describing where the user of the account is located. The contents are not normalized or geocoded in any way. Maximum of 30 characters.
       # @option options [String] :description A description of the user owning the account. Maximum of 160 characters.
+      # @option options [String] :profile_link_color A hex value of the color scheme used for links on user's profile page. Must be a valid hexadecimal value, and may be either three or six characters
       def update_profile(options = {})
         perform_post_with_object('/1.1/account/update_profile.json', options, Twitter::User)
       end
@@ -93,23 +94,6 @@ module Twitter
       # @option options [Boolean] :tile Whether or not to tile the background image. If set to true the background image will be displayed tiled. The image will not be tiled otherwise.
       def update_profile_background_image(image, options = {})
         post_profile_image('/1.1/account/update_profile_background_image.json', image, options)
-      end
-
-      # Sets one or more hex values that control the color scheme of the authenticating user's profile
-      #
-      # @see https://dev.twitter.com/rest/reference/post/account/update_profile_colors
-      # @rate_limited No
-      # @authentication Requires user context
-      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-      # @return [Twitter::User] The authenticated user.
-      # @param options [Hash] A customizable set of options.
-      # @option options [String] :profile_background_color Profile background color.
-      # @option options [String] :profile_text_color Profile text color.
-      # @option options [String] :profile_link_color Profile link color.
-      # @option options [String] :profile_sidebar_fill_color Profile sidebar's background color.
-      # @option options [String] :profile_sidebar_border_color Profile sidebar's border color.
-      def update_profile_colors(options = {})
-        perform_post_with_object('/1.1/account/update_profile_colors.json', options, Twitter::User)
       end
 
       # Updates the authenticating user's profile image
