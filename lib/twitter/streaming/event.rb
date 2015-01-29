@@ -18,7 +18,7 @@ module Twitter
         @name = data[:event].to_sym
         @source = Twitter::User.new(data[:source])
         @target = Twitter::User.new(data[:target])
-        @target_object = target_object_factory(@name, data[:target_object])
+        @target_object = target_object_factory(@name, data[:target_object]) unless data[:target_object].nil?
       end
 
     private
