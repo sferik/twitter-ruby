@@ -8,7 +8,7 @@ module Twitter
       ]
 
       TWEET_EVENTS = [
-        :favorite, :unfavorite
+        :favorite, :unfavorite, :retweeted_retweet
       ]
 
       attr_reader :name, :source, :target, :target_object
