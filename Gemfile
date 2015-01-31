@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'jruby-openssl', platforms: :jruby
+gem 'json', platforms: :mri_19
 gem 'rake'
 gem 'yard'
 
