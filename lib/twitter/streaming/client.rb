@@ -23,6 +23,7 @@ module Twitter
       def initialize(options = {})
         super
         @connection = Streaming::Connection.new(options)
+        @message_parser = Streaming::MessageParser.new(self)
       end
 
       # Returns public statuses that match one or more filter predicates
@@ -118,7 +119,7 @@ module Twitter
         headers = Twitter::Headers.new(self, method, uri, params).request_headers
         request = HTTP::Request.new(method, uri + '?' + to_url_params(params), headers, proxy)
         response = Streaming::Response.new do |data|
-          if item = Streaming::MessageParser.parse(data) # rubocop:disable AssignmentInCondition
+          if item = @message_parser.parse(data) # rubocop:disable AssignmentInCondition, IfUnlessModifier
             yield(item)
           end
         end
