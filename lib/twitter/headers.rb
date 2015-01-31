@@ -17,7 +17,7 @@ module Twitter
     end
 
     def oauth_auth_header
-      SimpleOAuth::Header.new(@request_method, @uri, @options, @client.credentials.merge(ignore_extra_keys: true))
+      SimpleOAuth::Header.new(@request_method, @uri, @options, credentials)
     end
 
     def request_headers
@@ -53,6 +53,17 @@ module Twitter
     # @return [String]
     def bearer_token_credentials_auth_header
       "Basic #{Base64.strict_encode64("#{@client.consumer_key}:#{@client.consumer_secret}")}"
+    end
+
+    # @return [Hash]
+    def credentials
+      {
+        consumer_key: @client.consumer_key,
+        consumer_secret: @client.consumer_secret,
+        token: @client.access_token,
+        token_secret: @client.access_token_secret,
+        ignore_extra_keys: true,
+      }
     end
   end
 end
