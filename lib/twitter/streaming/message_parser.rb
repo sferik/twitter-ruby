@@ -19,11 +19,11 @@ module Twitter
       FALLING_BEHIND = 'FALLING_BEHIND'
       FOLLOWS_OVER_LIMIT = 'FOLLOWS_OVER_LIMIT'
 
-      def self.parse(data) # rubocop:disable AbcSize, CyclomaticComplexity, MethodLength, PerceivedComplexity
+      def self.parse(data, client = nil) # rubocop:disable AbcSize, CyclomaticComplexity, MethodLength, PerceivedComplexity
         if data[:id]
           Tweet.new(data)
         elsif data[:control]
-          Control.new(data[:control])
+          Control.new(client.credentials.merge(data[:control]))
         elsif data[:event]
           Event.new(data)
         elsif data[:for_user]
@@ -49,6 +49,16 @@ module Twitter
         elsif data[:warning] && data[:warning][:code] == FOLLOWS_OVER_LIMIT
           TooManyFollowsWarning.new(data[:warning])
         end
+      end
+
+      attr_reader :client
+
+      def initialize(client)
+        @client = client
+      end
+
+      def parse(data)
+        MessageParser.parse(data, client)
       end
     end
   end

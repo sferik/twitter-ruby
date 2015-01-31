@@ -1,6 +1,7 @@
 require 'helper'
 
 describe Twitter::Streaming::MessageParser do
+  let(:client) { Twitter::Streaming::Client.new(consumer_key: 'CK', consumer_secret: 'CS', access_token: 'AT', access_token_secret: 'AS') }
   subject do
     Twitter::Streaming::MessageParser
   end
@@ -92,9 +93,20 @@ describe Twitter::Streaming::MessageParser do
     end
     it 'returns a control client when the data is a site stream congrol message' do
       data = {control: {control_uri: '/1.1/site/c/1_1_54e345d655ee3e8df359ac033648530bfbe26c5f'}}
-      object = subject.parse(data)
+      object = subject.parse(data, client)
       expect(object).to be_a Twitter::Streaming::Control
       expect(object.control_uri).to eq('/1.1/site/c/1_1_54e345d655ee3e8df359ac033648530bfbe26c5f')
+    end
+  end
+
+  describe '#parse' do
+    subject do
+      Twitter::Streaming::MessageParser.new(client)
+    end
+
+    it 'invokes the class method to parse responses' do
+      expect(Twitter::Streaming::MessageParser).to receive(:parse).with({a: '1'}, client)
+      subject.parse(a: '1')
     end
   end
 end
