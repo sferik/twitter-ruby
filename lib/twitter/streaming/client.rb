@@ -13,6 +13,7 @@ module Twitter
       include Twitter::REST::Utils
       include Twitter::Utils
       attr_writer :connection
+      attr_accessor :message_parser
 
       # Initializes a new Client object
       #
