@@ -13,7 +13,7 @@ module Twitter
       include Twitter::REST::Utils
       include Twitter::Utils
       attr_writer :connection
-      attr_accessor :message_parser
+      attr_accessor :parser
 
       # Initializes a new Client object
       #
@@ -22,9 +22,9 @@ module Twitter
       # @option options [String] :ssl_socket_class A class that Connection will use to create a new SSL socket.
       # @return [Twitter::Streaming::Client]
       def initialize(options = {})
+        @parser = options.delete(:parser) || Streaming::MessageParser.new(self)
         super
         @connection = Streaming::Connection.new(options)
-        @message_parser = Streaming::MessageParser.new(self)
       end
 
       # Returns public statuses that match one or more filter predicates
@@ -120,7 +120,7 @@ module Twitter
         headers = Twitter::Headers.new(self, method, uri, params).request_headers
         request = HTTP::Request.new(method, uri + '?' + to_url_params(params), headers, proxy)
         response = Streaming::Response.new do |data|
-          if item = @message_parser.parse(data) # rubocop:disable AssignmentInCondition, IfUnlessModifier
+          if item = @parser.parse(data) # rubocop:disable AssignmentInCondition, IfUnlessModifier
             yield(item)
           end
         end

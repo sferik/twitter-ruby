@@ -14,9 +14,21 @@ class FakeConnection
   def close; end
 end
 
+class FakeParser
+end
+
 describe Twitter::Streaming::Client do
   before do
     @client = Twitter::Streaming::Client.new(consumer_key: 'CK', consumer_secret: 'CS', access_token: 'AT', access_token_secret: 'AS')
+  end
+
+  it 'defines a default parser' do
+    expect(@client.parser).to be_a Twitter::Streaming::MessageParser
+  end
+
+  it 'allows a parser to be defined on instantiation' do
+    client = Twitter::Streaming::Client.new(parser: FakeParser.new)
+    expect(client.parser).to be_a FakeParser
   end
 
   describe '#before_request' do
