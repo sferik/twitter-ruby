@@ -27,35 +27,35 @@ RSpec.configure do |config|
 end
 
 def a_delete(path)
-  a_request(:delete, Twitter::REST::Request::BASE_URL + path)
+  a_request(:delete, Twitter::REST::Client::BASE_URL + path)
 end
 
-def a_get(path, klass = Twitter::REST::Request)
+def a_get(path, klass = Twitter::REST::Client)
   a_request(:get, klass::BASE_URL + path)
 end
 
-def a_post(path, klass = Twitter::REST::Request)
+def a_post(path, klass = Twitter::REST::Client)
   a_request(:post, klass::BASE_URL + path)
 end
 
 def a_put(path)
-  a_request(:put, Twitter::REST::Request::BASE_URL + path)
+  a_request(:put, Twitter::REST::Client::BASE_URL + path)
 end
 
 def stub_delete(path)
-  stub_request(:delete, Twitter::REST::Request::BASE_URL + path)
+  stub_request(:delete, Twitter::REST::Client::BASE_URL + path)
 end
 
-def stub_get(path, klass = Twitter::REST::Request)
+def stub_get(path, klass = Twitter::REST::Client)
   stub_request(:get, klass::BASE_URL + path)
 end
 
-def stub_post(path, klass = Twitter::REST::Request)
+def stub_post(path, klass = Twitter::REST::Client)
   stub_request(:post, klass::BASE_URL + path)
 end
 
 def stub_put(path)
-  stub_request(:put, Twitter::REST::Request::BASE_URL + path)
+  stub_request(:put, Twitter::REST::Client::BASE_URL + path)
 end
 
 def fixture_path

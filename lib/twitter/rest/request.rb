@@ -12,7 +12,6 @@ module Twitter
   module REST
     class Request
       include Twitter::Utils
-      BASE_URL = 'https://api.twitter.com'
       attr_accessor :client, :headers, :options, :path, :rate_limit,
                     :request_method, :uri
       alias_method :verb, :request_method
@@ -24,7 +23,7 @@ module Twitter
       # @return [Twitter::REST::Request]
       def initialize(client, request_method, path, options = {})
         @client = client
-        @uri = Addressable::URI.parse(path.start_with?('http') ? path : BASE_URL + path)
+        @uri = Addressable::URI.parse(path.start_with?('http') ? path : @client.class.const_get(:BASE_URL) + path)
         set_multipart_options!(request_method, options)
         @path = uri.path
         @options = options
