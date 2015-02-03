@@ -26,7 +26,7 @@ describe Twitter::Streaming::MessageParser do
       expect(object.target_object.id).to eq(1)
     end
     it 'returns a direct message if the data has a direct_message' do
-      data = {direct_message: {id: 1}}
+      data = {id: 1, sender: {}, recipient: {}}
       object = subject.parse(data)
       expect(object).to be_a Twitter::DirectMessage
       expect(object.id).to eq(1)

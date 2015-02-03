@@ -20,7 +20,9 @@ module Twitter
       FOLLOWS_OVER_LIMIT = 'FOLLOWS_OVER_LIMIT'
 
       def self.parse(data, client = nil) # rubocop:disable AbcSize, CyclomaticComplexity, MethodLength, PerceivedComplexity
-        if data[:id]
+        if data[:recipient] && data[:sender]
+          DirectMessage.new(data)
+        elsif data[:id]
           Tweet.new(data)
         elsif data[:control]
           Control.new(client.credentials.merge(data[:control]))
@@ -30,8 +32,6 @@ module Twitter
           Envelope.new(data)
         elsif data[:delete] && data[:delete][:status]
           DeletedTweet.new(data[:delete][:status])
-        elsif data[:direct_message]
-          DirectMessage.new(data[:direct_message])
         elsif data[:disconnect]
           Disconnect.new(data[:disconnect])
         elsif data[:friends]
