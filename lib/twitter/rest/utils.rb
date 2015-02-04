@@ -105,14 +105,6 @@ module Twitter
         perform_request_with_cursor(:get, path, options, collection_name, klass)
       end
 
-      # @param path [String]
-      # @param options [Hash]
-      # @collection_name [Symbol]
-      # @param klass [Class]
-      def perform_post_with_cursor(path, options, collection_name, klass = nil)
-        perform_request_with_cursor(:post, path, options, collection_name, klass)
-      end
-
       # @param method [String]
       # @param path [String]
       # @param options [Hash]

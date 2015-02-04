@@ -70,6 +70,25 @@ describe Twitter::Streaming::Control do
       @client.friend_ids(7_505_382)
       expect(a_post("#{control_uri}/friends/ids.json", described_class).with(body: {user_id: '7505382', cursor: '-1'})).to have_been_made
     end
+    it 'returns an array of numeric IDs for every user the specified user is following' do
+      friend_ids = @client.friend_ids(7_505_382)
+      expect(friend_ids).to be_a Twitter::Streaming::Cursor
+      expect(friend_ids.first).to eq(795_649)
+    end
+    it 'returns the streaming user info' do
+      friend_ids = @client.friend_ids(7_505_382)
+      expect(friend_ids.user).to be_a Twitter::Streaming::User
+    end
+    context 'with each' do
+      before do
+        stub_post("#{control_uri}/friends/ids.json", described_class).with(body: {user_id: '7505382', cursor: '1305102810874389703'}).to_return(body: fixture('site_stream_friends_ids2.json'), headers: {content_type: 'application/json; charset=utf-8'})
+      end
+      it 'requests the correct resource' do
+        @client.friend_ids(7_505_382).each {}
+        expect(a_post("#{control_uri}/friends/ids.json", described_class).with(body: {user_id: '7505382', cursor: '-1'})).to have_been_made
+        expect(a_post("#{control_uri}/friends/ids.json", described_class).with(body: {user_id: '7505382', cursor: '1305102810874389703'})).to have_been_made
+      end
+    end
   end
 
   describe '#info' do
