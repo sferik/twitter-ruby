@@ -1,9 +1,8 @@
-require 'twitter/identity'
-require 'twitter/media/photo'
+require 'twitter/media/video'
 
 module Twitter
   module Media
-    class AnimatedGif < Photo
+    class AnimatedGif < Video
     end
   end
 end
