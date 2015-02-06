@@ -243,6 +243,8 @@ module Twitter
       # @option options [String] :align Specifies whether the embedded Tweet should be left aligned, right aligned, or centered in the page. Valid values are left, right, center, and none. Defaults to none, meaning no alignment styles are specified for the Tweet.
       # @option options [String] :related A value for the TWT related parameter, as described in {https://dev.twitter.com/web/intents Web Intents}. This value will be forwarded to all Web Intents calls.
       # @option options [String] :lang Language code for the rendered embed. This will affect the text and localization of the rendered HTML.
+      # @option options [String] :widget_type Set to video to return a Twitter Video embed for the given Tweet.
+      # @option options [Boolean, String] :hide_tweet Applies to video type only. Set to 1 or true to link directly to the Tweet URL instead of displaying a Tweet overlay when a viewer clicks on the Twitter bird logo.
       def oembed(tweet, options = {})
         options[:id] = extract_id(tweet)
         perform_get_with_object('/1.1/statuses/oembed.json', options, Twitter::OEmbed)
