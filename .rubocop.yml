@@ -38,6 +38,9 @@ Style/DoubleNegation:
 Style/EachWithObject:
   Enabled: false
 
+Style/EmptyLinesAroundBlockBody:
+  Enabled: false
+
 Style/Encoding:
   Enabled: false
 
