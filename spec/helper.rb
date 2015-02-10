@@ -17,7 +17,7 @@ require 'tempfile'
 require 'timecop'
 require 'webmock/rspec'
 
-require_relative 'support/media_object_examples'
+require File.expand_path('../support/media_object_examples', __FILE__)
 
 WebMock.disable_net_connect!(:allow => 'coveralls.io')
 
