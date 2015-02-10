@@ -72,7 +72,7 @@ module Twitter
       # @param key1 [Symbol]
       # @param key2 [Symbol]
       def define_uri_method(key1, key2)
-        define_method(key1) do
+        define_method(key1) do ||
           Addressable::URI.parse(@attrs[key2].chomp('#')) unless @attrs[key2].nil?
         end
         memoize(key1)
@@ -84,7 +84,7 @@ module Twitter
       # @param klass [Symbol]
       # @param key2 [Symbol]
       def define_attribute_method(key1, klass = nil, key2 = nil)
-        define_method(key1) do
+        define_method(key1) do ||
           if attr_falsey_or_empty?(key1)
             NullObject.new
           else
@@ -101,7 +101,7 @@ module Twitter
 
       # @param key [Symbol]
       def deprecate_attribute_method(key)
-        define_method(key) do
+        define_method(key) do ||
           warn "#{Kernel.caller.first}: [DEPRECATION] ##{key} is deprecated. Use ##{key}? instead."
           @attrs[key]
         end
@@ -113,7 +113,7 @@ module Twitter
       # @param key1 [Symbol]
       # @param key2 [Symbol]
       def define_predicate_method(key1, key2 = key1)
-        define_method(:"#{key1}?") do
+        define_method(:"#{key1}?") do ||
           !attr_falsey_or_empty?(key2)
         end
         memoize(:"#{key1}?")

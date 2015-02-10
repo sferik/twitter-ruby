@@ -53,6 +53,9 @@ Style/Lambda:
 Style/RaiseArgs:
   EnforcedStyle: compact
 
+Style/SpaceAroundBlockParameters:
+  Enabled: false
+
 Style/SpaceInsideHashLiteralBraces:
   EnforcedStyle: no_space
 
