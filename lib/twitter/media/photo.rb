@@ -12,11 +12,10 @@ module Twitter
       #
       # @return [Array<Twitter::Size>]
       def sizes
-        object = {}
-        @attrs.fetch(:sizes, []).each do |(key, value)|
+        @attrs.fetch(:sizes, []).inject({}) do |object, (key, value)|
           object[key] = Size.new(value)
+          object
         end
-        object
       end
       memoize :sizes
     end
