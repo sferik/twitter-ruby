@@ -1,3 +1,9 @@
+5.14.0
+------
+* [Add `Twitter::NullObject#respond_to?`](https://github.com/sferik/twitter/commit/438e311d93f382960650e20898203c880ade6b25)
+* [Add `Twitter::Media::Video`, `Twitter::Media::VideoInfo`, and `Twitter::Media::Variant`](https://github.com/sferik/twitter/commit/158193f85843ebac7b3188bbad26d73907577f6a)
+* [Add `Twitter::Media::AnimatedGif` media entity](https://github.com/sferik/twitter/commit/76cb6645a54969edc7c9195e9e27e3728f5fd683) ([@nidev](https://twitter.com/nidev))
+
 5.13.0
 ------
 * [Deprecate `Twitter::REST::Client#get` and `Twitter::REST::Client#post`](https://github.com/sferik/twitter/commit/65773c7d741098490f4164fae9e4433365cd4292)
