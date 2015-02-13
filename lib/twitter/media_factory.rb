@@ -1,6 +1,6 @@
 require 'twitter/factory'
+require 'twitter/media/animated_gif'
 require 'twitter/media/photo'
-require 'twitter/media/animatedgif'
 require 'twitter/media/video'
 
 module Twitter
