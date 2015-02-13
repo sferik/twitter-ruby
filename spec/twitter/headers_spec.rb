@@ -1,7 +1,6 @@
 require 'helper'
 
 describe Twitter::Headers do
-
   before do
     @client = Twitter::REST::Client.new(:consumer_key => 'CK', :consumer_secret => 'CS', :access_token => 'AT', :access_token_secret => 'AS')
     @headers = Twitter::Headers.new(@client, :get, Twitter::REST::Client::BASE_URL + '/path')

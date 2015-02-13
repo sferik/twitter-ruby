@@ -1,7 +1,6 @@
 require 'helper'
 
 describe Twitter::Relationship do
-
   describe '#source' do
     it 'returns a User when source is set' do
       relationship = Twitter::Relationship.new(:relationship => {:source => {:id => 7_505_382}})
@@ -45,5 +44,4 @@ describe Twitter::Relationship do
       expect(relationship.target?).to be false
     end
   end
-
 end

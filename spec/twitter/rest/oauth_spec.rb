@@ -1,7 +1,6 @@
 require 'helper'
 
 describe Twitter::REST::OAuth do
-
   before do
     @client = Twitter::REST::Client.new(:consumer_key => 'CK', :consumer_secret => 'CS')
   end

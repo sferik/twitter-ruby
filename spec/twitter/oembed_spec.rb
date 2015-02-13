@@ -1,7 +1,6 @@
 require 'helper'
 
 describe Twitter::OEmbed do
-
   describe '#author_uri' do
     it 'returns a URI when the author_url is set' do
       oembed = Twitter::OEmbed.new(:author_url => 'https://twitter.com/sferik')
@@ -166,5 +165,4 @@ describe Twitter::OEmbed do
       expect(version).to be_nil
     end
   end
-
 end

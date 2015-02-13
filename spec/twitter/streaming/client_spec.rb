@@ -119,5 +119,4 @@ describe Twitter::Streaming::Client do
       expect(objects[5].code).to eq('FALLING_BEHIND')
     end
   end
-
 end

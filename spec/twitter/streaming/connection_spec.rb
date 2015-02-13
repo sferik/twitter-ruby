@@ -1,7 +1,6 @@
 require 'helper'
 
 describe Twitter::Streaming::Connection do
-
   describe 'initialize' do
     context 'no options provided' do
       subject(:connection) { Twitter::Streaming::Connection.new }

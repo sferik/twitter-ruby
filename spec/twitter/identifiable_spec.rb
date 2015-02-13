@@ -1,7 +1,6 @@
 require 'helper'
 
 describe Twitter::Identity do
-
   describe '#initialize' do
     it 'raises an IndexError when id is not specified' do
       expect { Twitter::Identity.new }.to raise_error(IndexError)
@@ -25,5 +24,4 @@ describe Twitter::Identity do
       expect(one == two).to be false
     end
   end
-
 end

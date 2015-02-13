@@ -1,7 +1,6 @@
 require 'helper'
 
 describe Twitter::REST::Lists do
-
   before do
     @client = Twitter::REST::Client.new(:consumer_key => 'CK', :consumer_secret => 'CS', :access_token => 'AT', :access_token_secret => 'AS')
   end
@@ -906,5 +905,4 @@ describe Twitter::REST::Lists do
       end
     end
   end
-
 end

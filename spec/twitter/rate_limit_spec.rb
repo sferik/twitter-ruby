@@ -1,7 +1,6 @@
 require 'helper'
 
 describe Twitter::RateLimit do
-
   describe '#limit' do
     it 'returns an Integer when x-rate-limit-limit header is set' do
       rate_limit = Twitter::RateLimit.new('x-rate-limit-limit' => '150')
@@ -55,5 +54,4 @@ describe Twitter::RateLimit do
       expect(rate_limit.reset_in).to be_nil
     end
   end
-
 end

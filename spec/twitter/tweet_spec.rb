@@ -2,7 +2,6 @@
 require 'helper'
 
 describe Twitter::Tweet do
-
   before do
     @old_stderr = $stderr
     $stderr = StringIO.new

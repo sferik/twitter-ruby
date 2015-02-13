@@ -1,7 +1,6 @@
 require 'helper'
 
 describe Twitter::Settings do
-
   describe '#trend_location' do
     it 'returns a Twitter::Place when trend_location is set' do
       settings = Twitter::Settings.new(:trend_location => {:countryCode => 'US', :name => 'San Francisco', :country => 'United States', :placeType => {:name => 'Town', :code => 7}, :woeid => 2_487_956, :parentid => 23_424_977, :url => 'http://where.yahooapis.com/v1/place/2487956'}) # rubocop:disable SymbolName
@@ -23,5 +22,4 @@ describe Twitter::Settings do
       expect(settings.trend_location?).to be false
     end
   end
-
 end

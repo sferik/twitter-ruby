@@ -1,7 +1,6 @@
 require 'helper'
 
 describe Twitter::Size do
-
   describe '#==' do
     it 'returns true for empty objects' do
       size = Twitter::Size.new
@@ -24,5 +23,4 @@ describe Twitter::Size do
       expect(size == other).to be false
     end
   end
-
 end

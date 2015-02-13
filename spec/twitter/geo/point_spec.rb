@@ -1,7 +1,6 @@
 require 'helper'
 
 describe Twitter::Geo::Point do
-
   before do
     @point = Twitter::Geo::Point.new(:coordinates => [-122.399983, 37.788299])
   end
@@ -37,5 +36,4 @@ describe Twitter::Geo::Point do
       expect(@point.longitude).to eq(37.788299)
     end
   end
-
 end
