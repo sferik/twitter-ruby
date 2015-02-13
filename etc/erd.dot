@@ -47,6 +47,7 @@ digraph classes {
 	Twitter__Language [label="Twitter::Language"]
 	Twitter__List [label="Twitter::List"]
 	Twitter__MediaFactory [label="Twitter::MediaFactory"]
+	Twitter__Media__AnimatedGif [label="Twitter::Media::AnimatedGif"]
 	Twitter__Media__Photo [label="Twitter::Media::Photo"]
 	Twitter__Media__Video [label="Twitter::Media::Video"]
 	Twitter__Media__VideoInfo [label="Twitter::Media::VideoInfo"]
@@ -125,6 +126,7 @@ digraph classes {
 	Twitter__Language -> Twitter__Base
 	Twitter__List -> Twitter__Identity
 	Twitter__MediaFactory -> Twitter__Factory
+	Twitter__Media__AnimatedGif -> Twitter__Media__Video
 	Twitter__Media__Photo -> Twitter__Identity
 	Twitter__Media__Video -> Twitter__Identity
 	Twitter__Media__VideoInfo -> Twitter__Base
