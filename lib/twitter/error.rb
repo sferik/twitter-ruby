@@ -109,7 +109,8 @@ module Twitter
 
       # Create a new error from an HTTP response
       #
-      # @param response [HTTP::Response]
+      # @param body [String]
+      # @param headers [Hash]
       # @return [Twitter::Error]
       def from_response(body, headers)
         message, code = parse_error(body)
