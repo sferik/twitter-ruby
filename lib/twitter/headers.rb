@@ -37,7 +37,7 @@ module Twitter
     def auth_header
       if @client.user_token?
         oauth_auth_header.to_s
-      else
+      elsif @client.respond_to?(:bearer_token?)
         @client.bearer_token = @client.token unless @client.bearer_token?
         bearer_auth_header
       end
