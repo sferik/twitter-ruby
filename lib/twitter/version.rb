@@ -7,8 +7,18 @@ module Twitter
 
     class << self
       # @return [Array]
+      def to_h
+        {
+          major: MAJOR,
+          minor: MINOR,
+          patch: PATCH,
+          pre: PRE,
+        }
+      end
+
+      # @return [Array]
       def to_a
-        [MAJOR, MINOR, PATCH, PRE].compact
+        to_h.values.compact
       end
 
       # @return [String]
