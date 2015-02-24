@@ -6,9 +6,14 @@ module Twitter
     PRE = nil
 
     class << self
+      # @return [Array]
+      def to_a
+        [MAJOR, MINOR, PATCH, PRE].compact
+      end
+
       # @return [String]
       def to_s
-        [MAJOR, MINOR, PATCH, PRE].compact.join('.')
+        to_a.join('.')
       end
     end
   end
