@@ -90,7 +90,6 @@ digraph classes {
 	Twitter__Tweet [label="Twitter::Tweet"]
 	Twitter__User [label="Twitter::User"]
 	Twitter__Variant [label="Twitter::Variant"]
-	Twitter__Version [label="Twitter::Version"]
 	ArgumentError -> StandardError
 	Array -> Object
 	Exception -> Object
@@ -179,5 +178,4 @@ digraph classes {
 	Twitter__Tweet -> Twitter__Identity
 	Twitter__User -> Twitter__BasicUser
 	Twitter__Variant -> Twitter__Base
-	Twitter__Version -> Object
 }
