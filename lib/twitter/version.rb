@@ -1,18 +1,33 @@
 module Twitter
   class Version
-    MAJOR = 5
-    MINOR = 14
-    PATCH = 0
-    PRE = nil
-
     class << self
-      # @return [Array]
+      # @return [Integer]
+      def major
+        6
+      end
+
+      # @return [Integer]
+      def minor
+        0
+      end
+
+      # @return [Integer]
+      def patch
+        0
+      end
+
+      # @return [Integer, NilClass]
+      def pre
+        nil
+      end
+
+      # @return [Hash]
       def to_h
         {
-          major: MAJOR,
-          minor: MINOR,
-          patch: PATCH,
-          pre: PRE,
+          major: major,
+          minor: minor,
+          patch: patch,
+          pre: pre,
         }
       end
 
