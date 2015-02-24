@@ -1,14 +1,39 @@
 module Twitter
   class Version
-    MAJOR = 5
-    MINOR = 14
-    PATCH = 0
-    PRE = nil
-
     class << self
+      # @return [Integer]
+      def major
+        5
+      end
+
+      # @return [Integer]
+      def minor
+        14
+      end
+
+      # @return [Integer]
+      def patch
+        0
+      end
+
+      # @return [Integer, NilClass]
+      def pre
+        nil
+      end
+
+      # @return [Hash]
+      def to_h
+        {
+          :major => MAJOR,
+          :minor => MINOR,
+          :patch => PATCH,
+          :pre => PRE,
+        }
+      end
+
       # @return [Array]
       def to_a
-        [MAJOR, MINOR, PATCH, PRE].compact
+        to_h.values.compact
       end
 
       # @return [String]
