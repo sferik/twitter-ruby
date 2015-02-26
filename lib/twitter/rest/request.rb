@@ -1,8 +1,7 @@
 require 'addressable/uri'
 require 'http'
+require 'http/form_data'
 require 'json'
-require 'net/https'
-require 'net/http/post/multipart'
 require 'openssl'
 require 'twitter/error'
 require 'twitter/headers'
@@ -14,10 +13,9 @@ module Twitter
     class Request
       include Twitter::Utils
       BASE_URL = 'https://api.twitter.com'
-      attr_accessor :client, :headers, :multipart, :options, :path,
-                    :rate_limit, :request_method, :uri
+      attr_accessor :client, :headers, :options, :path, :rate_limit,
+                    :request_method, :uri
       alias_method :verb, :request_method
-      alias_method :multipart?, :multipart
 
       # @param client [Twitter::Client]
       # @param request_method [String, Symbol]
@@ -26,38 +24,14 @@ module Twitter
       # @return [Twitter::REST::Request]
       def initialize(client, request_method, path, options = {})
         @client = client
-        set_multipart_options!(request_method, options)
         @uri = Addressable::URI.parse(path.start_with?('http') ? path : BASE_URL + path)
+        set_multipart_options!(request_method, options)
         @path = uri.path
         @options = options
       end
 
       # @return [Array, Hash]
       def perform
-        if multipart?
-          perform_multipart_post
-        else
-          perform_request
-        end
-      end
-
-    private
-
-      def set_multipart_options!(request_method, options)
-        if request_method.to_sym == :multipart_post
-          key = options.delete(:key)
-          file = options.delete(:file)
-          options.merge!(key => UploadIO.new(file, mime_type(file.path), File.basename(file)))
-          @request_method = :post
-          @multipart = true
-        else
-          @request_method = request_method.to_sym
-          @multipart = false
-        end
-      end
-
-      def perform_request
-        @headers = Twitter::Headers.new(@client, @request_method, @uri, @options).request_headers
         options_key = @request_method == :get ? :params : :form
         response = HTTP.with(@headers).public_send(@request_method, @uri.to_s, options_key => @options)
         response_body = symbolize_keys!(response.parse)
@@ -65,22 +39,23 @@ module Twitter
         fail_or_return_response_body(response.code, response_body, response_headers)
       end
 
-      def perform_multipart_post # rubocop:disable AbcSize
-        @headers = Twitter::Headers.new(@client, @request_method, @uri, {}).request_headers
-        request = Net::HTTP::Post::Multipart.new(@path, @options)
-        request['User-Agent'] = @headers[:user_agent]
-        request['Authorization'] = @headers[:authorization]
-        http = Net::HTTP.new(@uri.host, 443)
-        http.use_ssl = true
-        http.verify_mode = OpenSSL::SSL::VERIFY_PEER
-        response = http.start { |h| h.request(request) }
-        response_body = JSON.parse(response.body, symbolize_names: true)
-        response_headers = response.to_hash.each_with_object({}) { |(k, v), h| h[k] = v.first }
-        fail_or_return_response_body(response.code.to_i, response_body, response_headers)
+    private
+
+      def set_multipart_options!(request_method, options)
+        if request_method == :multipart_post
+          key = options.delete(:key)
+          file = options.delete(:file)
+          options.merge!(key => HTTP::FormData::File.new(file, filename: File.basename(file), mime_type: mime_type(File.basename(file))))
+          @request_method = :post
+          @headers = Twitter::Headers.new(@client, @request_method, @uri).request_headers
+        else
+          @request_method = request_method
+          @headers = Twitter::Headers.new(@client, @request_method, @uri, options).request_headers
+        end
       end
 
-      def mime_type(path)
-        case path
+      def mime_type(basename)
+        case basename
         when /\.gif$/i
           'image/gif'
         when /\.jpe?g/i
