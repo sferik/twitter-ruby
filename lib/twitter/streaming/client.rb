@@ -65,11 +65,12 @@ module Twitter
       # @see https://dev.twitter.com/streaming/sitestreams
       # @see https://dev.twitter.com/streaming/overview/request-parameters
       # @note Site Streams is currently in a limited beta. Access is restricted to whitelisted accounts.
-      # @param follow [Enumerable<Integer, String, Twitter::User>] A list of user IDs, indicating the users to return statuses for in the stream.
-      # @param options [Hash] A customizable set of options.
-      # @option options [String] :with Specifies whether to return information for just the users specified in the follow parameter, or include messages from accounts they follow.
-      # @option options [String] :replies Specifies whether stall warnings should be delivered.
-      # @yield [Twitter::Tweet, Twitter::Streaming::Event, Twitter::DirectMessage, Twitter::Streaming::FriendList, Twitter::Streaming::DeletedTweet, Twitter::Streaming::StallWarning] A stream of Twitter objects.
+      # @overload site(*follow, options = {}, &block)
+      #   @param follow [Enumerable<Integer, String, Twitter::User>] A list of user IDs, indicating the users to return statuses for in the stream.
+      #   @param options [Hash] A customizable set of options.
+      #   @option options [String] :with Specifies whether to return information for just the users specified in the follow parameter, or include messages from accounts they follow.
+      #   @option options [String] :replies Specifies whether stall warnings should be delivered.
+      #   @yield [Twitter::Tweet, Twitter::Streaming::Event, Twitter::DirectMessage, Twitter::Streaming::FriendList, Twitter::Streaming::DeletedTweet, Twitter::Streaming::StallWarning] A stream of Twitter objects.
       def site(*args, &block)
         arguments = Arguments.new(args)
         user_ids = collect_user_ids(arguments)

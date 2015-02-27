@@ -39,7 +39,6 @@ module Twitter
 
       # @param path [String]
       # @param options [Hash]
-      # @param klass [Class]
       def perform_post(path, options = {})
         perform_request(:post, path, options)
       end
@@ -100,7 +99,7 @@ module Twitter
 
       # @param path [String]
       # @param options [Hash]
-      # @collection_name [Symbol]
+      # @param collection_name [Symbol]
       # @param klass [Class]
       def perform_get_with_cursor(path, options, collection_name, klass = nil)
         merge_default_cursor!(options)
