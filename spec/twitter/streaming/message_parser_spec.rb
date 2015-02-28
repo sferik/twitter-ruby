@@ -13,7 +13,7 @@ describe Twitter::Streaming::MessageParser do
       expect(object.id).to eq(1)
     end
     it 'returns an event if the data has an event' do
-      data = {event: 'favorite', source: {id: 1}, target: {id: 2}, target_object: {id: 1}}
+      data = {event: 'favorite', source: {id: 1}, target: {id: 2}, target_object: {id: 1}, created_at: 'Mon Jul 16 12:59:01 +0000 2007'}
       object = subject.parse(data)
       expect(object).to be_a Twitter::Streaming::Event
       expect(object.name).to eq(:favorite)
@@ -23,6 +23,7 @@ describe Twitter::Streaming::MessageParser do
       expect(object.target.id).to eq(2)
       expect(object.target_object).to be_a Twitter::Tweet
       expect(object.target_object.id).to eq(1)
+      expect(object.created_at).to be_a Time
     end
     it 'returns a direct message if the data has a direct_message' do
       data = {direct_message: {id: 1}}
