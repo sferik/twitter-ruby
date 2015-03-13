@@ -10,6 +10,8 @@ module Twitter
     include Twitter::Utils
     # @return [Hash]
     attr_reader :attrs
+    # @return [Array<Twitter::Tweet>]
+    attr_reader :collection
     alias_method :to_h, :attrs
     alias_method :to_hash, :to_h
 
