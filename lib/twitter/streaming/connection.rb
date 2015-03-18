@@ -8,8 +8,9 @@ module Twitter
       def initialize(opts = {})
         @tcp_socket_class = opts.fetch(:tcp_socket_class) { TCPSocket }
         @ssl_socket_class = opts.fetch(:ssl_socket_class) { OpenSSL::SSL::SSLSocket }
+        @select_timeout = opts.fetch(:select_timeout) { 90 }
       end
-      attr_reader :tcp_socket_class, :ssl_socket_class
+      attr_reader :tcp_socket_class, :ssl_socket_class, :select_timeout
 
       def stream(request, response)
         client_context = OpenSSL::SSL::SSLContext.new
@@ -23,7 +24,7 @@ module Twitter
             body = ssl_client.read_nonblock(1024)
             response << body
           rescue IO::WaitReadable
-            r, w, e = IO.select([ssl_client], [], [], 90)
+            r, w, e = IO.select([ssl_client], [], [], @select_timeout)
             if r.nil?
               ssl_client.close
               raise Twitter::Error::ServerError.new("Connection stalled")
