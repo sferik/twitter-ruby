@@ -50,12 +50,6 @@ class FakeStalledSSLSocket < IO
 
   def readpartial(_); end
 
-  def sysread(_); end
-
-  def read_nonblock(_)
-    fail IO::EAGAINWaitReadable
-  end
-
   def close; end
 end
 
