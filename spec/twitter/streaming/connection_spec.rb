@@ -1,5 +1,11 @@
 require 'helper'
 
+unless IO.const_defined?(:EAGAINWaitReadable)
+  class IO
+    class EAGAINWaitReadable < StandardError; end
+  end
+end
+
 class DummyUri
   def initialize; end
 
@@ -23,7 +29,7 @@ class DummyRequest
 end
 
 class DummyTCPSocket
-  def initialize(_, _); end
+  def initialize(_a, _b); end
 end
 
 class DummyResponse
@@ -43,6 +49,8 @@ class FakeStalledSSLSocket < IO
   def <<(_); end
 
   def readpartial(_); end
+
+  def sysread(_); end
 
   def read_nonblock(_)
     fail IO::EAGAINWaitReadable
