@@ -33,7 +33,7 @@ class DummyResponse
 end
 
 class FakeStalledSSLSocket < IO
-  def initialize(_, _)
+  def initialize(_a, _b)
     # Initiate STDIN (fd 0)
     super(0)
   end
@@ -43,6 +43,10 @@ class FakeStalledSSLSocket < IO
   def <<(_); end
 
   def readpartial(_); end
+
+  def read_nonblock(_)
+    fail IO::EAGAINWaitReadable
+  end
 
   def close; end
 end
