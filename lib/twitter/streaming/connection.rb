@@ -23,7 +23,7 @@ module Twitter
           begin
             body = ssl_client.read_nonblock(1024)
             response << body
-          rescue IO::WaitReadable, Errno::EAGAIN
+          rescue Errno::EAGAIN
             readables, _, _ = IO.select([ssl_client], [], [], @select_timeout)
             if readables.nil?
               ssl_client.close

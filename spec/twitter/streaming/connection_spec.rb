@@ -1,11 +1,5 @@
 require 'helper'
 
-unless IO.const_defined?(:EAGAINWaitReadable)
-  class IO
-    class EAGAINWaitReadable < StandardError; end
-  end
-end
-
 class DummyUri
   def initialize; end
 
