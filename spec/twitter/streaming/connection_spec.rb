@@ -1,6 +1,5 @@
 require 'helper'
 
-
 class DummyUri
   def initialize; end
 
