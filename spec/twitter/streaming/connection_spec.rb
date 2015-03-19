@@ -1,5 +1,6 @@
 require 'helper'
 
+
 class DummyUri
   def initialize; end
 
@@ -34,8 +35,8 @@ end
 
 class FakeStalledSSLSocket < IO
   def initialize(_a, _b)
-    # Initiate STDIN (fd 0)
-    super(0)
+    @rpipe, @wpipe = IO.pipe
+    super(@rpipe.fileno)
   end
 
   def connect; end
