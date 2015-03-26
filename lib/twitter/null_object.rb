@@ -40,5 +40,9 @@ module Twitter
     def nil?
       true
     end
+
+    def as_json
+      'null'
+    end
   end
 end
