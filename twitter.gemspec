@@ -5,7 +5,7 @@ require 'twitter/version'
 Gem::Specification.new do |spec|
   spec.add_dependency 'addressable', '~> 2.3'
   spec.add_dependency 'buftok', '~> 0.2.0'
-  spec.add_dependency 'equalizer', '~> 0.0.9'
+  spec.add_dependency 'equalizer', '0.0.10'
   spec.add_dependency 'faraday', '~> 0.9.0'
   spec.add_dependency 'http', '~> 0.6.0'
   spec.add_dependency 'http_parser.rb', '~> 0.6.0'
