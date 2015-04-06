@@ -26,36 +26,40 @@ RSpec.configure do |config|
   end
 end
 
+def build_path(path)
+  @uri = Addressable::URI.parse(path.start_with?('http') ? path : Twitter::REST::Request::BASE_URL + path)
+end
+
 def a_delete(path)
-  a_request(:delete, Twitter::REST::Request::BASE_URL + path)
+  a_request(:delete, build_path(path))
 end
 
 def a_get(path)
-  a_request(:get, Twitter::REST::Request::BASE_URL + path)
+  a_request(:get, build_path(path))
 end
 
 def a_post(path)
-  a_request(:post, Twitter::REST::Request::BASE_URL + path)
+  a_request(:post, build_path(path))
 end
 
 def a_put(path)
-  a_request(:put, Twitter::REST::Request::BASE_URL + path)
+  a_request(:put, build_path(path))
 end
 
 def stub_delete(path)
-  stub_request(:delete, Twitter::REST::Request::BASE_URL + path)
+  stub_request(:delete, build_path(path))
 end
 
 def stub_get(path)
-  stub_request(:get, Twitter::REST::Request::BASE_URL + path)
+  stub_request(:get, build_path(path))
 end
 
 def stub_post(path)
-  stub_request(:post, Twitter::REST::Request::BASE_URL + path)
+  stub_request(:post, build_path(path))
 end
 
 def stub_put(path)
-  stub_request(:put, Twitter::REST::Request::BASE_URL + path)
+  stub_request(:put, build_path(path))
 end
 
 def fixture_path

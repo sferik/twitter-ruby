@@ -1,4 +1,5 @@
 require 'addressable/uri'
+require 'twitter/ads/client'
 require 'twitter/configuration'
 require 'twitter/cursor'
 require 'twitter/direct_message'
