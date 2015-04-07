@@ -15,6 +15,10 @@ module Twitter
       def accounts(options = {})
         perform_get_with_objects('https://ads-api.twitter.com/0/accounts', options, Twitter::Account)
       end
+
+      def account(id, options = {})
+        perform_get_with_object("https://ads-api.twitter.com/0/accounts/#{id}", options, Twitter::Account)
+      end
     end
   end
 end
