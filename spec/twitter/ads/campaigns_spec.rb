@@ -33,4 +33,30 @@ describe Twitter::Ads::Campaigns do
       expect(campaign.id).to eq('8zwv')
     end
   end
+
+  describe '#update_campaign' do
+    before do
+      stub_put('https://ads-api.twitter.com/0/accounts/hkk5/campaigns/8zwv').with(body: {'name' => 'Important', 'paused' => 'true'}).to_return(body: fixture('campaign_put.json'), headers:{content_type: 'application/json; charset=utf-8'})
+    end
+    it 'updates the correct resource' do
+      @client.update_campaign('hkk5', '8zwv', name: 'Important', paused: true)
+      expect(a_put('https://ads-api.twitter.com/0/accounts/hkk5/campaigns/8zwv')).to have_been_made
+    end
+    it 'gets the updated campaign' do
+      campaign = @client.update_campaign('hkk5', '8zwv', name: 'Important', paused: true)
+      expect(campaign).to be_a Twitter::Campaign
+      expect(campaign.name).to eq('Important')
+      expect(campaign).to be_paused
+    end
+  end
+
+  describe '#destroy_campaign' do
+    before do
+      stub_delete('https://ads-api.twitter.com/0/accounts/hkk5/campaigns/8zwv').to_return(body: fixture('campaign_delete.json'), headers:{content_type: 'application/json; charset=utf-8'})
+    end
+    it 'deletes the correct resource' do
+      @client.destroy_campaign('hkk5', '8zwv')
+      expect(a_delete('https://ads-api.twitter.com/0/accounts/hkk5/campaigns/8zwv')).to have_been_made
+    end
+  end
 end

@@ -13,8 +13,8 @@ A table!
 |X| GET    | accounts/:account_id/campaigns |
 |X| GET    | accounts/:account_id/campaigns/:campaign_id |
 |X| POST   | accounts/:account_id/campaigns |
-| | PUT    | accounts/:account_id/campaigns/:campaign_id |
-| | DELETE | accounts/:account_id/campaigns/:campaign_id |
+|X| PUT    | accounts/:account_id/campaigns/:campaign_id |
+|X| DELETE | accounts/:account_id/campaigns/:campaign_id |
 ||| *Line Items* |
 | | GET    | accounts/:account_id/line_items/:line_item_id |
 | | GET    | accounts/:account_id/line_items |
