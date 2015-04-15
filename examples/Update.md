@@ -56,5 +56,5 @@ client.update_with_media("I'm tweeting with @gem!", media)
 For more information, see the documentation for the [`#update`][update] and
 [`#update_with_media`][update_with_media] methods.
 
-[update]: http://rdoc.info/gems/twitter/Twitter/REST/API/Tweets#update-instance_method
-[update_with_media]: http://rdoc.info/gems/twitter/Twitter/REST/API/Tweets#update_with_media-instance_method
+[update]: http://rdoc.info/gems/twitter/Twitter/REST/Tweets#update-instance_method
+[update_with_media]: http://rdoc.info/gems/twitter/Twitter/REST/Tweets#update_with_media-instance_method
