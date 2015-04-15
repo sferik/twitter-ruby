@@ -34,6 +34,25 @@ describe Twitter::Ads::Campaigns do
     end
   end
 
+  describe '#create_campaign' do
+    before do
+      stub_post('https://ads-api.twitter.com/0/accounts/hkk5/campaigns').with(body:
+        {name: 'Launch', end_time: '2013-01-01T00:05:00Z', paused: 'true',
+         total_budget_amount_local_micro: '5500000', daily_budget_amount_local_micro: '500000',
+         start_time: '2013-01-01T00:00:01Z', funding_instrument_id: 'hw6ie'})
+        .to_return(body: fixture('campaign_create.json'), headers:{content_type: 'application/json; charset=utf-8'})
+    end
+    it 'creates a campgin' do
+      options = {name: 'Launch', end_time: '2013-01-01T00:05:00Z', paused: true,
+                 total_budget_amount_local_micro: 5_500_000, daily_budget_amount_local_micro: 500_000,
+                 start_time: '2013-01-01T00:00:01Z', funding_instrument_id: 'hw6ie'}
+      campaign = @client.create_campaign('hkk5', options)
+      expect(a_post('https://ads-api.twitter.com/0/accounts/hkk5/campaigns')).to have_been_made
+      expect(campaign).to be_a Twitter::Campaign
+      expect(campaign.id).to eq('8lp0')
+    end
+  end
+
   describe '#update_campaign' do
     before do
       stub_put('https://ads-api.twitter.com/0/accounts/hkk5/campaigns/8zwv').with(body: {'name' => 'Important', 'paused' => 'true'}).to_return(body: fixture('campaign_put.json'), headers:{content_type: 'application/json; charset=utf-8'})

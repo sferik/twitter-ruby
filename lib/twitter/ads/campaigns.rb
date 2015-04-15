@@ -16,6 +16,7 @@ module Twitter
       #
       # @see https://dev.twitter.com/ads/reference/get/accounts/%3Aaccount_id/campaigns
       # @rate_limited Yes
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Array<Twitter::Campaign>]
       # @param account_id [String] Ads account id.
@@ -32,6 +33,7 @@ module Twitter
       #
       # @see https://dev.twitter.com/ads/reference/get/accounts/%3Aaccount_id/campaigns/%3Acampaign_id
       # @rate_limited Yes
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @param account_id [String] An ads account id.
       # @param campaign_id [String] The id of the campaign to fetch.
@@ -42,10 +44,32 @@ module Twitter
                                 options, Twitter::Campaign)
       end
 
+      # Creates a new campaign belonging to an account
+      #
+      # @see https://dev.twitter.com/ads/reference/post/accounts/%3Aaccount_id/campaigns
+      # @rate_limited Yes
+      # @authentication Requires user context
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @param account_id [String] An ads account id.
+      # @param options [Hash] customizeable options.
+      # @option options [String] :name The name you will assign to the campaign.
+      # @option options [String] :funding_instrument_id The identifier for a funding instrument to be associated with this campaign.
+      # @option options [String, Time] :start_time Start time of the campaign (ISO 8601 if String).
+      # @option options [String, Time] :end_time Start time of the campaign (ISO 8601 if String).
+      # @option options [Boolean] :paused Set this to true to pause the campaign.
+      # @option options [Boolean] :standard_delivery Set to true to use standard delivery.
+      # @option options [Integer] :total_budget_amount_local_micro The total budget amount (Amount*1e6).
+      # @option options [Integer] :daily_budget_amount_local_micro The daily budget amount (Amount*1e6).
+      def create_campaign(account_id, options = {})
+        perform_post_with_object("https://ads-api.twitter.com/0/accounts/#{account_id}/campaigns",
+                                options, Twitter::Campaign)
+      end
+
       # Update a campaign belonging to an account
       #
       # @see https://dev.twitter.com/ads/reference/put/accounts/%3Aaccount_id/campaigns/%3Acampaign_id
       # @rate_limited Yes
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @param account_id [String] An ads account id.
       # @param campaign_id [String] The id of the campaign to fetch.
@@ -66,6 +90,7 @@ module Twitter
       #
       # @see https://dev.twitter.com/ads/reference/put/accounts/%3Aaccount_id/campaigns/%3Acampaign_id
       # @rate_limited Yes
+      # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @param account_id [String] An ads account id.
       # @param campaign_id [String] The id of the campaign to fetch.
