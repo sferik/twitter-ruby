@@ -14,6 +14,8 @@ module Twitter
 
       # Returns all campaigns for the supplied account id
       #
+      # TODO Cursoring
+      #
       # @see https://dev.twitter.com/ads/reference/get/accounts/%3Aaccount_id/campaigns
       # @rate_limited Yes
       # @authentication Requires user context
