@@ -26,5 +26,11 @@ module Twitter
       [(reset_at - Time.now).ceil, 0].max if reset_at
     end
     alias_method :retry_after, :reset_in
+
+    # @return [Boolean]
+    def reached?
+      remaining == 0
+    end
+    memoize :reached?
   end
 end

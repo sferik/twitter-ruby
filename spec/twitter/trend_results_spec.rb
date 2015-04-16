@@ -1,6 +1,11 @@
 require 'helper'
+require 'shared_examples_for_enumerables'
 
 describe Twitter::TrendResults do
+  it_behaves_like 'an enumerable' do
+    let(:enumerable) { Twitter::TrendResults.new(trends: [{id: 1}, {id: 2}, {id: 3}, {id: 4}, {id: 5}, {id: 6}]) }
+  end
+
   describe '#as_of' do
     it 'returns a Time when as_of is set' do
       trend_results = Twitter::TrendResults.new(id: 1, as_of: '2012-08-24T23:25:43Z')
@@ -44,24 +49,6 @@ describe Twitter::TrendResults do
     it 'returns false when created_at is not set' do
       trend_results = Twitter::TrendResults.new(id: 1)
       expect(trend_results.created?).to be false
-    end
-  end
-
-  describe '#each' do
-    before do
-      @trend_results = Twitter::TrendResults.new(trends: [{id: 1}, {id: 2}, {id: 3}, {id: 4}, {id: 5}, {id: 6}])
-    end
-    it 'iterates' do
-      count = 0
-      @trend_results.each { count += 1 }
-      expect(count).to eq(6)
-    end
-    context 'with start' do
-      it 'iterates' do
-        count = 0
-        @trend_results.each(5) { count += 1 }
-        expect(count).to eq(1)
-      end
     end
   end
 

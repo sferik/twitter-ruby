@@ -20,12 +20,25 @@ module Twitter
     def initialize(key, klass, request)
       @key = key.to_sym
       @klass = klass
+      @request = request
       @client = request.client
       @request_method = request.verb
       @path = request.path
       @options = request.options
       @collection = []
+      @lock = Mutex.new
       self.attrs = request.perform
+    end
+
+    # @yield [Enumerator, Twitter::Cursor]
+    def each_page_with_cursor(start = 0)
+      return to_enum(:each_page_with_cursor, start) unless block_given?
+      each_page(start).each { |page| yield([page, self]) }
+    end
+
+    # @return [Twitter::RateLimit] The rate limit for the current cursor request
+    def rate_limit
+      @lock.synchronize { return @request.rate_limit }
     end
 
   private
@@ -43,8 +56,10 @@ module Twitter
 
     # @return [Hash]
     def fetch_next_page
-      response = Twitter::REST::Request.new(@client, @request_method, @path, @options.merge(cursor: next_cursor)).perform
-      self.attrs = response
+      @lock.synchronize do
+        @request = Twitter::REST::Request.new(@client, @request_method, @path, @options.merge(cursor: next_cursor))
+      end
+      self.attrs = @request.perform
     end
 
     # @param attrs [Hash]

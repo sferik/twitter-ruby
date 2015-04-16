@@ -2,16 +2,25 @@ module Twitter
   module Enumerable
     include ::Enumerable
 
+    METHODS = [:each, :each_page].freeze
+
     # @return [Enumerator]
     def each(start = 0)
       return to_enum(:each, start) unless block_given?
-      Array(@collection[start..-1]).each do |element|
-        yield(element)
+      each_page(start) do |elements|
+        elements.each { |element| yield element }
       end
+      self
+    end
+
+    # @return [Enumerator]
+    def each_page(start = 0)
+      return to_enum(:each_page, start) unless block_given?
+      yield Array(@collection[start..-1])
       unless last?
         start = [@collection.size, start].max
         fetch_next_page
-        each(start, &Proc.new)
+        each_page(start, &Proc.new)
       end
       self
     end
