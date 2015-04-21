@@ -52,7 +52,7 @@ module Twitter
     #
     # @return [String]
     def bearer_token_credentials_auth_header
-      "Basic #{Base64.strict_encode64("#{@client.consumer_key}:#{@client.consumer_secret}")}"
+      token = @client.consumer_key + "&" + @client.consumer_secret
     end
   end
 end
