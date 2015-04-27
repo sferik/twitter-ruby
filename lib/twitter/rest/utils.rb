@@ -70,31 +70,7 @@ module Twitter
       # @param klass [Class]
       def perform_request_with_object(request_method, path, options, klass)
         response = perform_request(request_method, path, options)
-        klass.new(response)
-      end
-
-      # @param path [String]
-      # @param options [Hash]
-      # @param klass [Class]
-      def perform_get_with_objects(path, options, klass)
-        perform_request_with_objects(:get, path, options, klass)
-      end
-
-      # @param path [String]
-      # @param options [Hash]
-      # @param klass [Class]
-      def perform_post_with_objects(path, options, klass)
-        perform_request_with_objects(:post, path, options, klass)
-      end
-
-      # @param request_method [Symbol]
-      # @param path [String]
-      # @param options [Hash]
-      # @param klass [Class]
-      def perform_request_with_objects(request_method, path, options, klass)
-        perform_request(request_method, path, options).collect do |element|
-          klass.new(element)
-        end
+        JSON.parse(response, :symbolize_names => true, :object_class => klass)
       end
 
       # @param path [String]
@@ -125,7 +101,7 @@ module Twitter
       def users_from_response(request_method, path, args)
         arguments = Twitter::Arguments.new(args)
         merge_user!(arguments.options, arguments.pop || user_id) unless arguments.options[:user_id] || arguments.options[:screen_name]
-        perform_request_with_objects(request_method, path, arguments.options, Twitter::User)
+        perform_request_with_object(request_method, path, arguments.options, Twitter::User)
       end
 
       # @param klass [Class]
@@ -136,7 +112,7 @@ module Twitter
       def objects_from_response_with_user(klass, request_method, path, args)
         arguments = Twitter::Arguments.new(args)
         merge_user!(arguments.options, arguments.pop)
-        perform_request_with_objects(request_method, path, arguments.options, klass)
+        perform_request_with_object(request_method, path, arguments.options, klass)
       end
 
       # @param klass [Class]

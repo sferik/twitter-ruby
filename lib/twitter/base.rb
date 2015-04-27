@@ -112,14 +112,19 @@ module Twitter
       @attrs = attrs || {}
     end
 
+    # Sets an attribute of an object using hash notation
+    #
+    # @param key[String, Symbol] Name of the attribute to set
+    # @param value Name of the value to set
+    def []=(key, value)
+      @attrs[key.to_sym] = value
+    end
+
     # Fetches an attribute of an object using hash notation
     #
-    # @param method [String, Symbol] Message to send to the object
-    def [](method)
-      warn "#{Kernel.caller.first}: [DEPRECATION] #[#{method.inspect}] is deprecated. Use ##{method} to fetch the value."
-      send(method.to_sym)
-    rescue NoMethodError
-      nil
+    # @param key[String, Symbol] Name of the attribute to fetch
+    def [](key)
+      @attrs[key.to_sym]
     end
 
   private

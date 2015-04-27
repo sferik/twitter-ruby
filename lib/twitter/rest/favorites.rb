@@ -32,7 +32,7 @@ module Twitter
       def favorites(*args)
         arguments = Twitter::Arguments.new(args)
         merge_user!(arguments.options, arguments.pop) if arguments.last
-        perform_get_with_objects('/1.1/favorites/list.json', arguments.options, Twitter::Tweet)
+        perform_get_with_object('/1.1/favorites/list.json', arguments.options, Twitter::Tweet)
       end
 
       # Un-favorites the specified Tweets as the authenticating user

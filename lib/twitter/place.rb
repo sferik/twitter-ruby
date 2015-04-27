@@ -14,16 +14,6 @@ module Twitter
     alias_method :contained?, :contained_within?
     uri_attr_reader :uri
 
-    # Initializes a new place
-    #
-    # @param attrs [Hash]
-    # @raise [ArgumentError] Error raised when supplied argument is missing a :woeid key.
-    # @return [Twitter::Place]
-    def initialize(attrs = {})
-      attrs[:id] ||= attrs.fetch(:woeid)
-      super
-    end
-
     # @return [String]
     def country_code
       @attrs[:country_code] || @attrs[:countryCode] # rubocop:disable SymbolName

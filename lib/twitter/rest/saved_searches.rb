@@ -32,7 +32,7 @@ module Twitter
       def saved_searches(*args)
         arguments = Twitter::Arguments.new(args)
         if arguments.empty?
-          perform_get_with_objects('/1.1/saved_searches/list.json', arguments.options, Twitter::SavedSearch)
+          perform_get_with_object('/1.1/saved_searches/list.json', arguments.options, Twitter::SavedSearch)
         else
           pmap(arguments) do |id|
             saved_search(id, arguments.options)

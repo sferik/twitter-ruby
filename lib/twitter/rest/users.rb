@@ -206,7 +206,7 @@ module Twitter
       def users(*args)
         arguments = Twitter::Arguments.new(args)
         flat_pmap(arguments.each_slice(MAX_USERS_PER_REQUEST)) do |users|
-          perform_post_with_objects('/1.1/users/lookup.json', merge_users(arguments.options, users), Twitter::User)
+          perform_post_with_object('/1.1/users/lookup.json', merge_users(arguments.options, users), Twitter::User)
         end
       end
 
@@ -263,7 +263,7 @@ module Twitter
       # @option options [Integer] :count The number of people to retrieve. Maxiumum of 20 allowed per page.
       # @option options [Integer] :page Specifies the page of results to retrieve.
       def user_search(query, options = {})
-        perform_get_with_objects('/1.1/users/search.json', options.merge(q: query), Twitter::User)
+        perform_get_with_object('/1.1/users/search.json', options.merge(q: query), Twitter::User)
       end
 
       # Returns an array of users that the specified user can contribute to
@@ -418,7 +418,7 @@ module Twitter
 
       def post_profile_image(path, image, options)
         response = Twitter::REST::Request.new(self, :multipart_post, path, options.merge(key: :image, file: image)).perform
-        Twitter::User.new(response)
+        JSON.parse(response, :symbolize_names => true, :object_class => Twitter::User)
       end
     end
   end

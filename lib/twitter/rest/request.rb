@@ -1,8 +1,7 @@
 require 'addressable/uri'
+require 'json'
 require 'http'
 require 'http/form_data'
-require 'json'
-require 'openssl'
 require 'twitter/error'
 require 'twitter/headers'
 require 'twitter/rate_limit'
@@ -34,9 +33,7 @@ module Twitter
       def perform
         options_key = @request_method == :get ? :params : :form
         response = HTTP.with(@headers).public_send(@request_method, @uri.to_s, options_key => @options)
-        response_body = symbolize_keys!(response.parse)
-        response_headers = response.headers
-        fail_or_return_response_body(response.code, response_body, response_headers)
+        fail_or_return_response_body(response.code, response.to_s, response.headers)
       end
 
     private
@@ -74,6 +71,7 @@ module Twitter
       end
 
       def error(code, body, headers)
+        body = JSON.parse(body, :symbolize_keys => true)
         klass = Twitter::Error::ERRORS[code]
         if klass == Twitter::Error::Forbidden
           forbidden_error(body, headers)
@@ -90,19 +88,6 @@ module Twitter
         else
           error
         end
-      end
-
-      def symbolize_keys!(object)
-        if object.is_a?(Array)
-          object.each_with_index do |val, index|
-            object[index] = symbolize_keys!(val)
-          end
-        elsif object.is_a?(Hash)
-          object.keys.each do |key|
-            object[key.to_sym] = symbolize_keys!(object.delete(key))
-          end
-        end
-        object
       end
     end
   end

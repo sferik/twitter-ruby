@@ -27,7 +27,7 @@ module Twitter
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Array<Twitter::Language>]
       def languages(options = {})
-        perform_get_with_objects('/1.1/help/languages.json', options, Twitter::Language)
+        perform_get_with_object('/1.1/help/languages.json', options, Twitter::Language)
       end
 
       # Returns {https://twitter.com/privacy Twitter's Privacy Policy}

@@ -63,7 +63,7 @@ module Twitter
       def friendships(*args)
         arguments = Twitter::Arguments.new(args)
         merge_users!(arguments.options, arguments)
-        perform_get_with_objects('/1.1/friendships/lookup.json', arguments.options, Twitter::User)
+        perform_get_with_object('/1.1/friendships/lookup.json', arguments.options, Twitter::User)
       end
 
       # Returns an array of numeric IDs for every user who has a pending request to follow the authenticating user

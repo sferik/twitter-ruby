@@ -24,7 +24,7 @@ module Twitter
       # @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 200.
       # @option options [Integer] :page Specifies the page of results to retrieve.
       def direct_messages_received(options = {})
-        perform_get_with_objects('/1.1/direct_messages.json', options, Twitter::DirectMessage)
+        perform_get_with_object('/1.1/direct_messages.json', options, Twitter::DirectMessage)
       end
 
       # Returns the 20 most recent direct messages sent by the authenticating user
@@ -41,7 +41,7 @@ module Twitter
       # @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 200.
       # @option options [Integer] :page Specifies the page of results to retrieve.
       def direct_messages_sent(options = {})
-        perform_get_with_objects('/1.1/direct_messages/sent.json', options, Twitter::DirectMessage)
+        perform_get_with_object('/1.1/direct_messages/sent.json', options, Twitter::DirectMessage)
       end
 
       # Returns a direct message

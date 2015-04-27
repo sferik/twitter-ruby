@@ -24,8 +24,9 @@ module Twitter
       @request_method = request.verb
       @path = request.path
       @options = request.options
+      @attrs = {}
       @collection = []
-      self.attrs = request.perform
+      fetch_next_page
     end
 
   private
@@ -44,7 +45,7 @@ module Twitter
     # @return [Hash]
     def fetch_next_page
       response = Twitter::REST::Request.new(@client, @request_method, @path, @options.merge(cursor: next_cursor)).perform
-      self.attrs = response
+      self.attrs = JSON.parse(response, :symbolize_names => true)
     end
 
     # @param attrs [Hash]

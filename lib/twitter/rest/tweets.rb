@@ -25,7 +25,7 @@ module Twitter
       # @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 100.
       # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       def retweets(tweet, options = {})
-        perform_get_with_objects("/1.1/statuses/retweets/#{extract_id(tweet)}.json", options, Twitter::Tweet)
+        perform_get_with_object("/1.1/statuses/retweets/#{extract_id(tweet)}.json", options, Twitter::Tweet)
       end
 
       # Show up to 100 users who retweeted the Tweet
@@ -76,7 +76,7 @@ module Twitter
       def statuses(*args)
         arguments = Twitter::Arguments.new(args)
         flat_pmap(arguments.each_slice(MAX_TWEETS_PER_REQUEST)) do |tweets|
-          perform_post_with_objects('/1.1/statuses/lookup.json', arguments.options.merge(id: tweets.collect { |u| extract_id(u) }.join(',')), Twitter::Tweet)
+          perform_post_with_object('/1.1/statuses/lookup.json', arguments.options.merge(id: tweets.collect { |u| extract_id(u) }.join(',')), Twitter::Tweet)
         end
       end
 
@@ -310,7 +310,7 @@ module Twitter
 
       def post_retweet(tweet, options)
         response = perform_post("/1.1/statuses/retweet/#{extract_id(tweet)}.json", options)
-        Twitter::Tweet.new(response)
+        JSON.parse(response, :symbolize_names => true, :object_class => Twitter::Tweet)
       end
     end
   end

@@ -61,7 +61,7 @@ module Twitter
         arguments = Twitter::Arguments.new(args)
         merge_list!(arguments.options, arguments.pop)
         merge_owner!(arguments.options, arguments.pop)
-        perform_get_with_objects('/1.1/lists/statuses.json', arguments.options, Twitter::Tweet)
+        perform_get_with_object('/1.1/lists/statuses.json', arguments.options, Twitter::Tweet)
       end
 
       # Removes the specified member from the list
