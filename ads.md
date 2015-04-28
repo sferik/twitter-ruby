@@ -16,11 +16,11 @@ A table!
 |X| PUT    | accounts/:account_id/campaigns/:campaign_id |
 |X| DELETE | accounts/:account_id/campaigns/:campaign_id |
 ||| *Line Items* |
-| | GET    | accounts/:account_id/line_items/:line_item_id |
-| | GET    | accounts/:account_id/line_items |
-| | POST   | accounts/:account_id/line_items |
-| | PUT    | accounts/:account_id/line_items/:line_item_id |
-| | DELETE | accounts/:account_id/line_items/:line_item_id |
+|X| GET    | accounts/:account_id/line_items/:line_item_id |
+|X| GET    | accounts/:account_id/line_items |
+|X| POST   | accounts/:account_id/line_items |
+|X| PUT    | accounts/:account_id/line_items/:line_item_id |
+|X| DELETE | accounts/:account_id/line_items/:line_item_id |
 ||| *Promoted Accounts* |
 | | GET    | accounts/:account_id/promoted_accounts |
 | | POST   | accounts/:account_id/promoted_accounts |
