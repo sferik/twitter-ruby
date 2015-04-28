@@ -31,8 +31,8 @@ A table!
 | | POST   | accounts/:account_id/promoted_tweets |
 | | DELETE | accounts/:account_id/promoted_tweets/:id |
 ||| *Funding Instruments* |
-| | GET    | accounts/:account_id/funding_instruments |
-| | GET    | accounts/:account_id/funding_instruments/:id |
+|X| GET    | accounts/:account_id/funding_instruments |
+|X| GET    | accounts/:account_id/funding_instruments/:id |
 ||| *Targeting Suggestions* |
 | | GET    | accounts/:account_id/targeting_suggestions |
 ||| *Reach Estimate* |
