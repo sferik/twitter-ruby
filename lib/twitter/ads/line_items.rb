@@ -18,6 +18,7 @@ module Twitter
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @return [Array<Twitter::LineItem>]
       # @param account_id [String] Ads account id.
       # @param options [Hash] customizeable options.
       # @option options [String] :campaign_ids A comma separated list of campaign identifiers to scope the query.
@@ -37,6 +38,7 @@ module Twitter
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @return [Twitter::LineItem]
       # @param account_id [String] Ads account id.
       # @param line_item_id [String] Line item id
       # @param options [Hash] customizeable options.
@@ -52,6 +54,7 @@ module Twitter
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @return [Twitter::LineItem]
       # @param account_id [String] Ads account id.
       # @param campaign_id [String] Ads campaign id.
       # @param options [Hash] customizeable options.
@@ -76,6 +79,7 @@ module Twitter
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @return [Twitter::LineItem]
       # @param account_id [String] Ads account id.
       # @param line_item_id [String] Line item id
       # @param options [Hash] customizeable options.
@@ -93,6 +97,7 @@ module Twitter
       # @see https://dev.twitter.com/ads/reference/put/accounts/%3Aaccount_id/line_items/%3Aline_item_id
       # @rate_limited Yes # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @return [Twitter::LineItem]
       # @param account_id [String] Ads account id.
       # @param line_item_id [String] Line item id
       def destroy_line_item(account_id, line_item_id)

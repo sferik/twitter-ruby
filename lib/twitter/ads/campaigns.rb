@@ -37,6 +37,7 @@ module Twitter
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @return [Twitter::Campaign]
       # @param account_id [String] An ads account id.
       # @param campaign_id [String] The id of the campaign to fetch.
       # @param options [Hash] customizeable options.
@@ -52,6 +53,7 @@ module Twitter
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @return [Twitter::Campaign]
       # @param account_id [String] An ads account id.
       # @param options [Hash] customizeable options.
       # @option options [String] :name The name you will assign to the campaign.
@@ -73,6 +75,7 @@ module Twitter
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @return [Twitter::Campaign]
       # @param account_id [String] An ads account id.
       # @param campaign_id [String] The id of the campaign to fetch.
       # @param options [Hash] customizeable options.
@@ -94,6 +97,7 @@ module Twitter
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @return [Twitter::Campaign]
       # @param account_id [String] An ads account id.
       # @param campaign_id [String] The id of the campaign to fetch.
       def destroy_campaign(account_id, campaign_id)
