@@ -22,8 +22,8 @@ A table!
 |X| PUT    | accounts/:account_id/line_items/:line_item_id |
 |X| DELETE | accounts/:account_id/line_items/:line_item_id |
 ||| *Promoted Accounts* |
-| | GET    | accounts/:account_id/promoted_accounts |
-| | POST   | accounts/:account_id/promoted_accounts |
+|X| GET    | accounts/:account_id/promoted_accounts |
+|X| POST   | accounts/:account_id/promoted_accounts |
 ||| *Promotable Users* |
 | | GET    | accounts/:account_id/promotable_users |
 ||| *Promoted Tweets* |

@@ -3,6 +3,7 @@ require 'twitter/ads/campaigns'
 require 'twitter/ads/funding_instruments'
 require 'twitter/ads/line_items'
 require 'twitter/rest/oauth'
+require 'twitter/ads/promoted_accounts'
 
 module Twitter
   module Ads
@@ -11,6 +12,7 @@ module Twitter
       include Twitter::Ads::Campaigns
       include Twitter::Ads::FundingInstruments
       include Twitter::Ads::LineItems
+      include Twitter::Ads::PromotedAccounts
     end
   end
 end
