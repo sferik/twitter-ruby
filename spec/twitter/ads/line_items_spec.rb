@@ -44,7 +44,7 @@ describe Twitter::Ads::LineItems do
       }
     end
     let(:campaign_id) { '8lp0' }
-    let(:expected) {args.map {|k,v| [k, v.to_s]}.to_h.merge(campaign_id: '8lp0')}
+    let(:expected) {args.reduce({}) {|l,r| l[r[0]] = r[1].to_s; l}.merge(campaign_id: '8lp0')}
 
     before do
       stub_post('https://ads-api.twitter.com/0/accounts/hkk5/line_items')
@@ -63,7 +63,7 @@ describe Twitter::Ads::LineItems do
         bid_amount_local_micro: 150_000,
       }
     end
-    let(:expected) {args.map {|k,v| [k, v.to_s]}.to_h}
+    let(:expected) {args.reduce({}) {|l,r| l[r[0]] = r[1].to_s; l}}
     before do
       stub_put('https://ads-api.twitter.com/0/accounts/hkk5/line_items/6zva')
         .with(body: expected).to_return(body: fixture('line_item_put.json'), headers:{content_type: 'application/json; charset=utf-8'})
