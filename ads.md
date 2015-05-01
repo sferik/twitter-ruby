@@ -25,7 +25,7 @@ A table!
 |X| GET    | accounts/:account_id/promoted_accounts |
 |X| POST   | accounts/:account_id/promoted_accounts |
 ||| *Promotable Users* |
-| | GET    | accounts/:account_id/promotable_users |
+|X| GET    | accounts/:account_id/promotable_users |
 ||| *Promoted Tweets* |
 | | GET    | accounts/:account_id/promoted_tweets |
 | | POST   | accounts/:account_id/promoted_tweets |

@@ -1,0 +1,1 @@
+{ "data": [ { "account_id": "hkk5", "created_at": "2014-07-14T22:51:48Z", "deleted": false, "id": "45nb5", "promotable_user_type": "FULL", "updated_at": "2014-07-14T22:51:48Z", "user_id": "476751620" } ], "data_type": "promotable_user", "next_cursor": null, "request": { "params": { "account_id": "hkk5" } }, "total_count": 1 }
