@@ -27,9 +27,9 @@ A table!
 ||| *Promotable Users* |
 |X| GET    | accounts/:account_id/promotable_users |
 ||| *Promoted Tweets* |
-| | GET    | accounts/:account_id/promoted_tweets |
-| | POST   | accounts/:account_id/promoted_tweets |
-| | DELETE | accounts/:account_id/promoted_tweets/:id |
+|X| GET    | accounts/:account_id/promoted_tweets |
+|X| POST   | accounts/:account_id/promoted_tweets |
+|X| DELETE | accounts/:account_id/promoted_tweets/:id |
 ||| *Funding Instruments* |
 |X| GET    | accounts/:account_id/funding_instruments |
 |X| GET    | accounts/:account_id/funding_instruments/:id |
