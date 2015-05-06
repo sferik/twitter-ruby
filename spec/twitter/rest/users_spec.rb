@@ -342,8 +342,8 @@ describe Twitter::REST::Users do
         stub_post('/1.1/users/lookup.json').with(body: {user_id: '7505382,14100886'}).to_return(body: fixture('users.json'), headers: {content_type: 'application/json; charset=utf-8'})
       end
       it 'requests the correct resource' do
-        user1 = Twitter::User.new(id: '7505382')
-        user2 = Twitter::User.new(id: '14100886')
+        user1 = Twitter::User.new(id: 7_505_382)
+        user2 = Twitter::User.new(id: 14_100_886)
         @client.users(user1, user2)
         expect(a_post('/1.1/users/lookup.json').with(body: {user_id: '7505382,14100886'})).to have_been_made
       end
