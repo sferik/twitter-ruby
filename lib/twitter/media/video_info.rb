@@ -13,7 +13,7 @@ module Twitter
       #
       # @return [Array<Twitter::Variant>]
       def variants
-        @attrs.fetch(:variants, []).map do |variant|
+        @attrs.fetch(:variants, []).collect do |variant|
           Variant.new(variant)
         end
       end

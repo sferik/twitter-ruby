@@ -131,7 +131,7 @@ module Twitter
       # @param users [Array]
       # @return [Array<Integer>]
       def collect_user_ids(users)
-        users.map do |user|
+        users.collect do |user|
           case user
           when Integer       then user
           when Twitter::User then user.id
