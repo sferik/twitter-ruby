@@ -230,7 +230,8 @@ module Twitter
       end
 
       def collect_users(users)
-        user_ids, screen_names = [], []
+        user_ids = []
+        screen_names = []
         users.each do |user|
           case user
           when Integer               then user_ids << user
