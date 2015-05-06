@@ -11,7 +11,7 @@ module Twitter
     # @return [Integer]
     attr_reader :credit_limit_local_micro, :funded_amount_local_micro
 
-    predicate_attr_reader :cancelled, :deleted
+    predicate_attr_reader :able_to_fund, :cancelled, :deleted
 
     # Time when campaign started
     #
