@@ -160,7 +160,8 @@ describe Twitter::REST::Client do
       expect(@client.send(:connection)).to respond_to(:run_request)
     end
     it 'memoizes the connection' do
-      c1, c2 = @client.send(:connection), @client.send(:connection)
+      c1 = @client.send(:connection)
+      c2 = @client.send(:connection)
       expect(c1.object_id).to eq(c2.object_id)
     end
   end

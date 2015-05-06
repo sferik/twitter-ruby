@@ -14,7 +14,8 @@ def nodize(klass)
   klass.name.tr(COLON, UNDERSCORE)
 end
 
-nodes, edges = {}, {}
+nodes = {}
+edges = {}
 
 twitter_objects = ObjectSpace.each_object(Class).select do |klass|
   klass.name.to_s.start_with?(NAMESPACE)
