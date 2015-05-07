@@ -1,4 +1,5 @@
 require 'twitter/ads/accounts'
+require 'twitter/ads/basic'
 require 'twitter/ads/campaigns'
 require 'twitter/ads/funding_instruments'
 require 'twitter/ads/line_items'
@@ -11,6 +12,7 @@ module Twitter
   module Ads
     module API
       include Twitter::Ads::Accounts
+      include Twitter::Ads::Basic
       include Twitter::Ads::Campaigns
       include Twitter::Ads::FundingInstruments
       include Twitter::Ads::LineItems
