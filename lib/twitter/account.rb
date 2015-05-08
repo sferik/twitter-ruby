@@ -7,7 +7,7 @@ module Twitter
     include Twitter::Creatable
 
     # @return [String]
-    attr_reader :salt, :approval_status, :timezone, :timezone_switch_at
+    attr_reader :approval_status, :name, :salt, :timezone, :timezone_switch_at
 
     alias_method :time_zone, :timezone
     alias_method :time_zone_switch_at, :timezone_switch_at
