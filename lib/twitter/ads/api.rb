@@ -7,6 +7,7 @@ require 'twitter/rest/oauth'
 require 'twitter/ads/promotable_users'
 require 'twitter/ads/promoted_accounts'
 require 'twitter/ads/promoted_tweets'
+require 'twitter/ads/tailored_audiences'
 
 module Twitter
   module Ads
@@ -19,6 +20,7 @@ module Twitter
       include Twitter::Ads::PromotableUsers
       include Twitter::Ads::PromotedAccounts
       include Twitter::Ads::PromotedTweets
+      include Twitter::Ads::TailoredAudiences
     end
   end
 end

@@ -58,14 +58,14 @@ A table!
 | | GET    | targeting_criteria/tv_markets |
 | | GET    | targeting_criteria/tv_shows |
 ||| *Tailored Audiences* |
-| | GET    | accounts/:account_id/tailored_audiences |
-| | GET    | accounts/:account_id/tailored_audiences/:id |
-| | POST   | accounts/:account_id/tailored_audiences |
-| | DELETE | accounts/:account_id/tailored_audiences/:id |
-| | GET    | accounts/:account_id/tailored_audience_changes |
-| | GET    | accounts/:account_id/tailored_audience_changes/:id |
-| | POST   | accounts/:account_id/tailored_audience_changes |
-| | PUT    | accounts/:account_id/tailored_audiences/global_opt_out |
+|X| GET    | accounts/:account_id/tailored_audiences |
+|X| GET    | accounts/:account_id/tailored_audiences/:id |
+|X| POST   | accounts/:account_id/tailored_audiences |
+|X| DELETE | accounts/:account_id/tailored_audiences/:id |
+|o| GET    | accounts/:account_id/tailored_audience_changes |
+|o| GET    | accounts/:account_id/tailored_audience_changes/:id |
+|o| POST   | accounts/:account_id/tailored_audience_changes |
+|o| PUT    | accounts/:account_id/tailored_audiences/global_opt_out |
 ||| *Tweet!* |
 | | POST   | accounts/:account_id/tweet | Beta |
 ||| *Mobile App Cards* |
