@@ -1,0 +1,1 @@
+{ "data": { "id": "9q0", "input_file_path": "/ta_partner/3wyo1gwuqF7_Lhr", "operation": "ADD", "state": "COMPLETED", "tailored_audience_id": "13sf" }, "data_type": "tailored_audience_change", "request": { "params": { "account_id": "abc1", "tailored_audience_change_id": "9q0" } } }

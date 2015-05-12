@@ -62,9 +62,9 @@ A table!
 |X| GET    | accounts/:account_id/tailored_audiences/:id |
 |X| POST   | accounts/:account_id/tailored_audiences |
 |X| DELETE | accounts/:account_id/tailored_audiences/:id |
-|o| GET    | accounts/:account_id/tailored_audience_changes |
-|o| GET    | accounts/:account_id/tailored_audience_changes/:id |
-|o| POST   | accounts/:account_id/tailored_audience_changes |
+|X| GET    | accounts/:account_id/tailored_audience_changes |
+|X| GET    | accounts/:account_id/tailored_audience_changes/:id |
+|X| POST   | accounts/:account_id/tailored_audience_changes |
 |o| PUT    | accounts/:account_id/tailored_audiences/global_opt_out |
 ||| *Tweet!* |
 | | POST   | accounts/:account_id/tweet | Beta |
