@@ -10,7 +10,7 @@ require 'twitter/utils'
 
 module Twitter
   module REST
-    class Request
+    class Request # rubocop:disable Metrics/ClassLength
       include Twitter::Utils
       BASE_URL = 'https://api.twitter.com'
       attr_accessor :client, :headers, :options, :path, :rate_limit,
@@ -33,7 +33,7 @@ module Twitter
       # @return [Array, Hash]
       def perform
         options_key = @request_method == :get ? :params : :form
-        response = HTTP.with(@headers).public_send(@request_method, @uri.to_s, options_key => @options)
+        response = http_client.with(@headers).public_send(@request_method, @uri.to_s, options_key => @options)
         response_body = symbolize_keys!(response.parse)
         response_headers = response.headers
         fail_or_return_response_body(response.code, response_body, response_headers)
@@ -104,6 +104,18 @@ module Twitter
           end
         end
         object
+      end
+
+      # @return [HTTP::Client, HTTP]
+      def http_client
+        @client.proxy ? HTTP.via(*proxy) : HTTP
+      end
+
+      # Return proxy values as a compacted array
+      #
+      # @return [Array]
+      def proxy
+        @client.proxy.values_at(:host, :port, :username, :password).compact
       end
     end
   end

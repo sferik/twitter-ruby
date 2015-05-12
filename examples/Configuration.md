@@ -124,3 +124,30 @@ For more information, see the documentation for the
 [client]: http://rdoc.info/gems/twitter/Twitter/Client
 [rest-client]: http://rdoc.info/gems/twitter/Twitter/REST/Client
 [streaming-client]: http://rdoc.info/gems/twitter/Twitter/Streaming/Client
+
+## Using a Proxy
+
+If you'd like to connect via a proxy, a proxy can be configured by passing a
+`Hash` to your configuration:
+
+```ruby
+proxy = {
+  host: '127.0.0.1',
+  port: 3328,
+  username: 'proxy_username',
+  password: 'proxy_password',
+}
+
+client = Twitter::REST::Client.new do |config|
+  config.consumer_key        = "YOUR_CONSUMER_KEY"
+  config.consumer_secret     = "YOUR_CONSUMER_SECRET"
+  config.access_token        = "YOUR_ACCESS_TOKEN"
+  config.access_token_secret = "YOUR_ACCESS_SECRET"
+  config.proxy               = proxy
+end
+```
+
+Note that only a `host` and `port` are required, but a `username` and `password`
+can be optionally configured for an authenticated proxy server. Proxies are
+supported by both [`Twitter::REST::Client`][rest-client] and
+[`Twitter::Streaming::Client`][streaming-client] classes.
