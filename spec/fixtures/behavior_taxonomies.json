@@ -1,0 +1,81 @@
+{
+    "data": [
+        {
+            "created_at": "2014-10-13T22:17:58Z",
+            "id": "1",
+            "name": "DLX CPG",
+            "parent_id": null,
+            "updated_at": "2014-10-13T22:17:58Z"
+        },
+        {
+            "created_at": "2014-10-13T22:17:58Z",
+            "id": "4",
+            "name": "DLX TV powered by TRA",
+            "parent_id": null,
+            "updated_at": "2014-10-13T22:17:58Z"
+        },
+        {
+            "created_at": "2014-10-13T22:17:58Z",
+            "id": "d",
+            "name": "DLX Auto powered by Polk",
+            "parent_id": null,
+            "updated_at": "2014-10-13T22:17:58Z"
+        },
+        {
+            "created_at": "2014-10-13T22:17:58Z",
+            "id": "x",
+            "name": "DLX CPG Brands",
+            "parent_id": null,
+            "updated_at": "2014-10-13T22:17:58Z"
+        },
+        {
+            "created_at": "2014-10-13T22:17:58Z",
+            "id": "1d",
+            "name": "DLX Subscription Services",
+            "parent_id": null,
+            "updated_at": "2014-10-13T22:17:58Z"
+        },
+        {
+            "created_at": "2014-10-13T22:17:58Z",
+            "id": "1i",
+            "name": "DLX Seasonal",
+            "parent_id": null,
+            "updated_at": "2014-10-13T22:17:58Z"
+        },
+        {
+            "created_at": "2014-10-13T22:17:58Z",
+            "id": "1m",
+            "name": "DLX Lifestyles",
+            "parent_id": null,
+            "updated_at": "2014-10-13T22:17:58Z"
+        },
+        {
+            "created_at": "2014-10-13T22:17:58Z",
+            "id": "1o",
+            "name": "DLX Retail",
+            "parent_id": null,
+            "updated_at": "2014-10-13T22:17:58Z"
+        },
+        {
+            "created_at": "2014-10-13T22:17:58Z",
+            "id": "2x",
+            "name": "DLX Finance",
+            "parent_id": null,
+            "updated_at": "2014-10-13T22:17:58Z"
+        },
+        {
+            "created_at": "2014-10-13T22:17:58Z",
+            "id": "30",
+            "name": "DLX Philanthropy ",
+            "parent_id": null,
+            "updated_at": "2014-10-13T22:17:58Z"
+        }
+    ],
+    "data_type": "behavior_taxonomies",
+    "request": {
+        "params": {
+            "parent_behavior_taxonomy_ids": "null"
+        }
+    },
+    "total_count": 10
+}

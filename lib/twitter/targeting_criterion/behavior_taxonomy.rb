@@ -5,7 +5,7 @@ module Twitter
     class BehaviorTaxonomy < Twitter::Identity
 
       # @return [String]
-      attr_reader :name, :number, :platform, :targeting_type, :targeting_value
+      attr_reader :name, :parent_id, :targeting_type, :targeting_value
     end
   end
 end

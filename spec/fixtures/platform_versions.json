@@ -1,0 +1,1 @@
+{ "data": [ { "name": "Ice Cream Sandwich", "number": "4.0", "platform": "Android", "targeting_type": "PLATFORM_VERSION", "targeting_value": "17" }, { "name": "Jelly Bean", "number": "4.1", "platform": "Android", "targeting_type": "PLATFORM_VERSION", "targeting_value": "18" } ], "data_type": "targeting_criterion", "request": { "params": {} } }

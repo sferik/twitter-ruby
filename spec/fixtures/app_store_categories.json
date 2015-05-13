@@ -1,0 +1,1 @@
+{ "data": [ { "name": "Games: Music", "os_type": "IOS", "targeting_type": "APP_STORE_CATEGORY", "targeting_value": "i" }, { "name": "Music", "os_type": "IOS", "targeting_type": "APP_STORE_CATEGORY", "targeting_value": "u" } ], "data_type": "targeting_criterion", "request": { "params": { "q": "music", "store": "IOS_APP_STORE" } } }

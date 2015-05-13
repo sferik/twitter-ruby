@@ -1,6 +1,6 @@
 module Twitter
   class TargetingCriterion
-    class NetworkOperator
+    class NetworkOperator < Twitter::Base
 
       # @return [String]
       attr_reader :country_code, :name, :targeting_type, :targeting_value

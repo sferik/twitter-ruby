@@ -1,6 +1,6 @@
 module Twitter
   class TargetingCriterion
-    class Platform
+    class Platform < Twitter::Base
 
       # @return [String]
       attr_reader :name, :targeting_type, :targeting_value
