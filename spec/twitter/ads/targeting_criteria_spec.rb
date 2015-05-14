@@ -5,6 +5,18 @@ describe Twitter::Ads::TargetingCriteria do
     @client = Twitter::Ads::Client.new(consumer_key: 'CK', consumer_secret: 'CS', access_token: 'AT', access_token_secret: 'AS')
   end
 
+  describe '#targeting_criteria' do
+  end
+
+  describe '#targeting_criterion' do
+  end
+
+  describe '#create_targeting_criterion' do
+  end
+
+  describe '#update_targeting_criteria' do
+  end
+
   describe '#app_store_categories' do
     let(:args) { {q: 'music', store: 'IOS_APP_STORE'} }
     before do
