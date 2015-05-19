@@ -1,6 +1,6 @@
 require 'helper'
 
-describe Twitter::Ads::TargetingCriteria do
+describe Twitter::Ads::Targeting do
   before do
     @client = Twitter::Ads::Client.new(consumer_key: 'CK', consumer_secret: 'CS', access_token: 'AT', access_token_secret: 'AS')
   end

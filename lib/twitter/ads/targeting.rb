@@ -21,7 +21,7 @@ require 'twitter/utils'
 
 module Twitter
   module Ads
-    module TargetingCriteria
+    module Targeting
       include Twitter::Ads::Utils
       include Twitter::Utils
 
