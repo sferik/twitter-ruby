@@ -50,4 +50,23 @@ describe Twitter::Ads::PromotedTweets do
       expect(a_delete("https://ads-api.twitter.com/0/accounts/#{account_id}/promoted_tweets/r9z9")).to have_been_made
     end
   end
+
+  describe '#tweet' do
+    let(:status) { "Maybe he'll finally find his keys. #peterfalk" }
+    let(:expected) do
+      {
+        status: status,
+      }
+    end
+    before do
+      stub_post("https://ads-api.twitter.com/0/accounts/#{account_id}/tweet")
+        .with(body: expected).to_return(body: fixture('tweet.json'), headers:{content_type: 'application/json; charset=utf-8'})
+    end
+    it 'creates the tweet' do
+      tweet = @client.tweet(account_id, status)
+      expect(a_post("https://ads-api.twitter.com/0/accounts/#{account_id}/tweet").with(body: expected)).to have_been_made
+      expect(tweet).to be_a(Twitter::Tweet)
+      expect(tweet.text).to eq(status)
+    end
+  end
 end
