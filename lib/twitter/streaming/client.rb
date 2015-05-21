@@ -120,7 +120,7 @@ module Twitter
 
       def to_url_params(params)
         params.collect do |param, value|
-          [param, URI.encode(value)].join('=')
+          [param, escape_value(value)].join('=')
         end.sort.join('&')
       end
 
@@ -129,6 +129,13 @@ module Twitter
           :accept     => '*/*',
           :user_agent => user_agent,
         }
+      end
+
+      RESERVED_CHARACTERS = /[^a-zA-Z0-9\-\.\_\~]/
+      def escape_value(value)
+        URI.escape(value.to_s, RESERVED_CHARACTERS)
+      rescue ArgumentError
+        URI.escape(value.to_s.force_encoding(Encoding::UTF_8), RESERVED_CHARACTERS)
       end
 
       def collect_user_ids(users)

@@ -119,4 +119,22 @@ describe Twitter::Streaming::Client do
       expect(objects[5].code).to eq('FALLING_BEHIND')
     end
   end
+
+  context '#escape_value' do
+    it 'properly encodes spaces and +' do
+      expect(@client.send(:escape_value, 'Ladies + Gentlemen')).to eq('Ladies%20%2B%20Gentlemen')
+    end
+
+    it 'properly encodes spaces and +' do
+      expect(@client.send(:escape_value, 'An encoded string!')).to eq('An%20encoded%20string%21')
+    end
+
+    it 'properly encodes spaces and +' do
+      expect(@client.send(:escape_value, 'Dogs, Cats & Mice')).to eq('Dogs%2C%20Cats%20%26%20Mice')
+    end
+
+    it 'handles wrongly encoded unicode strings' do
+      expect(@client.send(:escape_value, '☃'.force_encoding(Encoding::ASCII))).to eq('%E2%98%83')
+    end
+  end
 end
