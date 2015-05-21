@@ -83,6 +83,13 @@ module Twitter
         perform_request_with_objects(:post, path, options, klass)
       end
 
+      # @param path [String]
+      # @param options [Hash]
+      # @param klass [Class]
+      def perform_put_with_objects(path, options, klass)
+        perform_request_with_objects(:put, path, options, klass)
+      end
+
       # @param request_method [Symbol]
       # @param path [String]
       # @param options [Hash]

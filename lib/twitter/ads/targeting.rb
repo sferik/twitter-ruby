@@ -3,6 +3,7 @@ require 'twitter/arguments'
 require 'twitter/error'
 require 'twitter/rest/request'
 require 'twitter/settings'
+require 'twitter/targeting_criterion'
 require 'twitter/targeting_criterion/app_store_category'
 require 'twitter/targeting_criterion/behavior'
 require 'twitter/targeting_criterion/behavior_taxonomy'
@@ -36,7 +37,11 @@ module Twitter
       # @param line_item_id [String] Line item to retrieve criteria for
       # @param options [Hash] customizeable options.
       # @option options [Boolean] :with_deleted Set to true if you want deleted criteria to be returned.
-      def targeting_criteria(account_id, line_item_id, options = {}); end
+      def targeting_criteria(account_id, line_item_id, options = {})
+        options = options.merge(line_item_id: line_item_id)
+        perform_get_with_objects("https://ads-api.twitter.com/0/accounts/#{account_id}/targeting_criteria",
+                                 options, Twitter::TargetingCriterion)
+      end
 
       # Returns targeting specified targeting criterion.
       #
@@ -49,7 +54,10 @@ module Twitter
       # @param criterion_id [String] Desired criterion's id.
       # @param options [Hash] customizeable options.
       # @option options [Boolean] :with_deleted Set to true if you want deleted criteria to be returned.
-      def targeting_criterion(account_id, criterion_id, options = {}); end
+      def targeting_criterion(account_id, criterion_id, options = {})
+        perform_get_with_object("https://ads-api.twitter.com/0/accounts/#{account_id}/targeting_criteria/#{criterion_id}",
+                                options, Twitter::TargetingCriterion)
+      end
 
       # Creates a targeting criterion and adds it to a specified line item.
       #
@@ -64,11 +72,18 @@ module Twitter
       # @param targeting_value [String,Integer] The targeting value to use in targeting.
       # @param options [Hash] customizeable options.
       # @option options [Boolean] :tailored_audience_expansion Set to true to expand audience (CRM only).
-      def create_targeting_criterion(account_id, line_item_id, targeting_type, targeting_value, options = {}); end
+      def create_targeting_criterion(account_id, line_item_id, targeting_type, targeting_value, options = {})
+        options = options.merge({ line_item_id: line_item_id,
+                                  targeting_type: targeting_type,
+                                  targeting_value: targeting_value })
+        perform_post_with_object("https://ads-api.twitter.com/0/accounts/#{account_id}/targeting_criteria",
+                                 options, Twitter::TargetingCriterion)
+
+      end
 
       # Update the targeting criteria for a specific line item.
       #
-      # @see https://dev.twitter.com/ads/reference/post/accounts/%3Aaccount_id/targeting_criteria
+      # @see https://dev.twitter.com/ads/reference/put/accounts/%3Aaccount_id/targeting_criteria
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
@@ -76,7 +91,26 @@ module Twitter
       # @param account_id [String] Ads account id.
       # @param line_item_id [String] Line item id.
       # @param options [Hash] customizeable options. See documentation for options.
-      def update_targeting_criteria(account_id, line_item_id, options = {}); end
+      def update_targeting_criteria(account_id, line_item_id, options = {})
+        options = options.merge(line_item_id: line_item_id)
+        perform_put_with_objects("https://ads-api.twitter.com/0/accounts/#{account_id}/targeting_criteria",
+                                 options, Twitter::TargetingCriterion)
+      end
+
+      # Deletes the specified specified targeting criterion.
+      #
+      # @see https://dev.twitter.com/ads/reference/delete/accounts/%3Aaccount_id/targeting_criteria
+      # @rate_limited Yes
+      # @authentication Requires user context
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @return [Twitter::TargetingCriterion]
+      # @param account_id [String] Ads account id.
+      # @param criterion_id [String] Desired criterion's id.
+      def destroy_targeting_criterion(account_id, criterion_id)
+        perform_delete_with_object("https://ads-api.twitter.com/0/accounts/#{account_id}/targeting_criteria/#{criterion_id}",
+                                   {}, Twitter::TargetingCriterion)
+      end
+
 
       # Returns app store category based targeting criteria. App store categories are for
       # iOS App Store and Google Play only.

@@ -1,20 +1,93 @@
 require 'helper'
 
 describe Twitter::Ads::Targeting do
+  let(:account) { "hkk5" }
+  let(:line_item) { "69ob" }
   before do
     @client = Twitter::Ads::Client.new(consumer_key: 'CK', consumer_secret: 'CS', access_token: 'AT', access_token_secret: 'AS')
   end
 
   describe '#targeting_criteria' do
+    before do
+      stub_get("https://ads-api.twitter.com/0/accounts/#{account}/targeting_criteria").with(query: {line_item_id: line_item})
+        .to_return(body: fixture('targeting_criteria.json'), headers:{content_type: 'application/json; charset=utf-8'})
+    end
+    it 'requests resources' do
+      @client.targeting_criteria(account, line_item)
+      expect(a_get("https://ads-api.twitter.com/0/accounts/#{account}/targeting_criteria").with(query: {line_item_id: line_item})).to have_been_made
+    end
+    it 'gets the right resources' do
+      criteria = @client.targeting_criteria(account, line_item)
+      expect(criteria.map(&:id)).to match(['2kzxf', '2kzxi', '2kzxj', '2mq7j'])
+    end
   end
 
   describe '#targeting_criterion' do
+    before do
+      stub_get("https://ads-api.twitter.com/0/accounts/#{account}/targeting_criteria/2rqqn")
+        .to_return(body: fixture('targeting_criterion_get.json'), headers:{content_type: 'application/json; charset=utf-8'})
+    end
+    it 'requests resource' do
+      @client.targeting_criterion(account, '2rqqn')
+      expect(a_get("https://ads-api.twitter.com/0/accounts/#{account}/targeting_criteria/2rqqn")).to have_been_made
+    end
+    it 'gets the correct resource' do
+      criterion = @client.targeting_criterion(account, '2rqqn')
+      expect(criterion.id).to eq('2rqqn')
+    end
   end
 
   describe '#create_targeting_criterion' do
+    let(:args) do
+      {
+        targeting_type: 'PHRASE_KEYWORD',
+        targeting_value: 'righteous dude',
+        line_item_id: line_item,
+      }
+    end
+    before do
+      stub_post("https://ads-api.twitter.com/0/accounts/#{account}/targeting_criteria")
+        .with(body: args).to_return(body: fixture('targeting_criterion_create.json'), headers:{content_type: 'application/json; charset=utf-8'})
+    end
+    it 'creates a targeting criterion' do
+      criterion = @client.create_targeting_criterion(account, line_item, 'PHRASE_KEYWORD', 'righteous dude')
+      expect(a_post("https://ads-api.twitter.com/0/accounts/#{account}/targeting_criteria").with(body: args)).to have_been_made
+      expect(criterion).to be_a(Twitter::TargetingCriterion)
+      expect(criterion.id).to eq('31umv7')
+    end
   end
 
   describe '#update_targeting_criteria' do
+    let(:args) do
+      {
+        broad_keywords: 'snowboarding',
+        locations: '3376992a082d67c7',
+        gender: '1',
+      }
+    end
+    let(:expected) { args.merge(line_item_id: '6zva') }
+    before do
+      stub_put("https://ads-api.twitter.com/0/accounts/#{account}/targeting_criteria")
+        .with(body: expected).to_return(body: fixture('targeting_criterion_put.json'), headers:{content_type: 'application/json; charset=utf-8'})
+    end
+    it 'updates the resource' do
+      criteria = @client.update_targeting_criteria(account, '6zva', args)
+      expect(a_put("https://ads-api.twitter.com/0/accounts/#{account}/targeting_criteria").with(body: expected)).to have_been_made
+      expect(criteria.map(&:id)).to match(['ziujs', 'ziujt', 'ziuju'])
+    end
+  end
+
+  describe '#destroy_targeting_criterion' do
+    before do
+      stub_delete("https://ads-api.twitter.com/0/accounts/#{account}/targeting_criteria/43852jv8hlet")
+        .to_return(body: fixture('targeting_criterion_delete.json'), headers:{content_type: 'application/json; charset=utf-8'})
+    end
+    it 'deletes the requested resource' do
+      criterion = @client.destroy_targeting_criterion(account, '43852jv8hlet')
+      expect(criterion).to be_a(Twitter::TargetingCriterion)
+      expect(criterion.id).to eq('43852jv8hlet')
+      expect(criterion).to be_deleted
+    end
   end
 
   describe '#app_store_categories' do
