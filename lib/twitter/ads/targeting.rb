@@ -18,6 +18,7 @@ require 'twitter/targeting_criterion/tv_channel'
 require 'twitter/targeting_criterion/tv_genre'
 require 'twitter/targeting_criterion/tv_markets'
 require 'twitter/targeting_criterion/tv_show'
+require 'twitter/targeting_suggestion'
 require 'twitter/utils'
 
 module Twitter
@@ -111,6 +112,23 @@ module Twitter
                                    {}, Twitter::TargetingCriterion)
       end
 
+      # Returns targeting suggestions as either keyword or user ids.
+      #
+      # @see https://dev.twitter.com/ads/reference/get/accounts/%3Aaccount_id/targeting_suggestions
+      # @rate_limited Yes
+      # @authentication Requires user context
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @return [Array<Twitter::TargetingSuggestion>]
+      # @param account_id [String] Ads account id.
+      # @param suggestion_type [String] Either KEYWORD or USER_ID
+      # @param targeting_values [String] Comma separated list of seed values.
+      # @param options [Hash] customizeable options.
+      def targeting_suggestions(account_id, suggestion_type, targeting_values, options = {})
+        options = options.merge(suggestion_type: suggestion_type,
+                                targeting_values: targeting_values)
+        perform_get_with_objects("https://ads-api.twitter.com/0/accounts/#{account_id}/targeting_suggestions",
+                                 options, Twitter::TargetingSuggestion)
+      end
 
       # Returns app store category based targeting criteria. App store categories are for
       # iOS App Store and Google Play only.

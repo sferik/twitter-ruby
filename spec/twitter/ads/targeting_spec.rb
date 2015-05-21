@@ -90,6 +90,29 @@ describe Twitter::Ads::Targeting do
     end
   end
 
+  describe '#targeting_suggestions' do
+    let(:args) do
+      {
+        suggestion_type: 'KEYWORD',
+        targeting_values: 'cats',
+      }
+    end
+    before do
+      stub_get("https://ads-api.twitter.com/0/accounts/abcd/targeting_suggestions")
+        .with(query: args).to_return(body: fixture('targeting_suggestions.json'), headers:{content_type: 'application/json; charset=utf-8'})
+    end
+    it 'requests targeting values' do
+      @client.targeting_suggestions('abcd', 'KEYWORD', 'cats')
+      expect(a_get("https://ads-api.twitter.com/0/accounts/abcd/targeting_suggestions").with(query: args)).to have_been_made
+    end
+    it 'gets the correct suggestions' do
+      suggestions = @client.targeting_suggestions('abcd', 'KEYWORD', 'cats')
+      expect(suggestions).to be_a(Array)
+      expect(suggestions.first).to be_a(Twitter::TargetingSuggestion)
+      expect(suggestions.map(&:suggestion_value)).to include('hairless', 'pugs', 'kittens')
+    end
+  end
+
   describe '#app_store_categories' do
     let(:args) { {q: 'music', store: 'IOS_APP_STORE'} }
     before do
