@@ -297,6 +297,40 @@ describe Twitter::Tweet do
     end
   end
 
+  describe '#quote?' do
+    it 'returns true when there is a quoted status' do
+      tweet = Twitter::Tweet.new(id: 28_669_546_014, quoted_status: {id: 540_897_316_908_331_009, text: 'BOOSH'})
+      expect(tweet.quote?).to be true
+    end
+    it 'returns false when quoted_status is not set' do
+      tweet = Twitter::Tweet.new(id: 28_669_546_014)
+      expect(tweet.quote?).to be false
+    end
+  end
+
+  describe '#quoted_status' do
+    it 'returns a Tweet when quoted_status is set' do
+      tweet = Twitter::Tweet.new(id: 28_669_546_014, quoted_status: {id: 540_897_316_908_331_009, text: 'BOOSH'})
+      expect(tweet.quoted_tweet).to be_a Twitter::Tweet
+      expect(tweet.quoted_tweet.text).to eq('BOOSH')
+    end
+    it 'returns nil when quoted_status is not set' do
+      tweet = Twitter::Tweet.new(id: 28_669_546_014)
+      expect(tweet.quoted_tweet).to be_nil
+    end
+  end
+
+  describe '#quoted_status?' do
+    it 'returns true when quoted_status is set' do
+      tweet = Twitter::Tweet.new(id: 28_669_546_014, quoted_status: {id: 540_897_316_908_331_009, text: 'BOOSH'})
+      expect(tweet.quoted_status?).to be true
+    end
+    it 'returns false when quoted_status is not set' do
+      tweet = Twitter::Tweet.new(id: 28_669_546_014)
+      expect(tweet.quoted_status?).to be false
+    end
+  end
+
   describe '#symbols' do
     it 'returns an array of Entity::Symbol when symbols are set' do
       symbols_array = [
