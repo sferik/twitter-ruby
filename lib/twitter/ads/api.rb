@@ -1,6 +1,7 @@
 require 'twitter/ads/accounts'
 require 'twitter/ads/basic'
 require 'twitter/ads/campaigns'
+require 'twitter/ads/cards'
 require 'twitter/ads/funding_instruments'
 require 'twitter/ads/line_items'
 require 'twitter/ads/promotable_users'
@@ -16,6 +17,7 @@ module Twitter
       include Twitter::Ads::Accounts
       include Twitter::Ads::Basic
       include Twitter::Ads::Campaigns
+      include Twitter::Ads::Cards
       include Twitter::Ads::FundingInstruments
       include Twitter::Ads::LineItems
       include Twitter::Ads::PromotableUsers
