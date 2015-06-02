@@ -7,7 +7,7 @@ module Twitter
       attr_reader :website_cta, :website_title
 
       # @return [String]
-      attr_reader :website_url
+      attr_reader :image, :website_dest_url, :website_display_url, :website_url
     end
   end
 end

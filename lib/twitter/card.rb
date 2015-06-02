@@ -7,7 +7,7 @@ module Twitter
       attr_reader :account_id
 
       # @return [String]
-      attr_reader :name
+      attr_reader :card_type, :name
 
       # @return [String]
       attr_reader :preview_url
