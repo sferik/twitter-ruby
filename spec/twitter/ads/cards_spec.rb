@@ -5,7 +5,102 @@ describe Twitter::Ads::Cards do
     @client = Twitter::Ads::Client.new(consumer_key: 'CK', consumer_secret: 'CS', access_token: 'AT', access_token_secret: 'AS')
   end
 
-  context 'lead gen' do;end
+  context 'lead gen' do
+    context '#lead_gen_cards' do
+      before do
+        stub_get('https://ads-api.twitter.com/0/accounts/gpj5/cards/lead_gen')
+          .to_return(body: fixture('cards/lead_gens.json'), headers:{content_type: 'application/json; charset=utf-8'})
+      end
+      it 'requests resources' do
+        @client.lead_gen_cards('gpj5')
+        expect(a_get('https://ads-api.twitter.com/0/accounts/gpj5/cards/lead_gen')).to have_been_made
+      end
+      it 'gets the right resources'do
+        cards = @client.lead_gen_cards('gpj5')
+        expect(cards.first).to be_a(Twitter::Card::LeadGen)
+        expect(cards.map(&:id)).to match(['2od', '4nq'])
+      end
+    end
+
+    context '#lead_gen_card' do
+      before do
+        stub_get('https://ads-api.twitter.com/0/accounts/gpj5/cards/lead_gen/2od')
+          .to_return(body: fixture('cards/lead_gen.json'), headers:{content_type: 'application/json; charset=utf-8'})
+      end
+      it 'requests resoruce' do
+        @client.lead_gen_card('gpj5', '2od')
+        expect(a_get('https://ads-api.twitter.com/0/accounts/gpj5/cards/lead_gen/2od')).to have_been_made
+      end
+      it 'gets the right resource' do
+        card = @client.lead_gen_card('gpj5', '2od')
+        expect(card).to be_a(Twitter::Card::LeadGen)
+        expect(card.id).to eq('2od')
+      end
+    end
+
+    context '#create_lead_gen_card' do
+      let(:expected) do
+        {
+          cta: 'Sign Up',
+          fallback_url: 'https://dev.twitter.com',
+          image_media_id: 'abc123',
+          name: 'Sample Card',
+          privacy_policy_url: 'https://twitter.com/privacy',
+          title: 'Sample Card',
+        }
+      end
+      before do
+        stub_post('https://ads-api.twitter.com/0/accounts/abc1/cards/lead_gen').with(body: expected)
+          .to_return(body: fixture('cards/lead_gen_create.json'), headers:{content_type: 'application/json; charset=utf-8'})
+      end
+      it 'makes the correct request' do
+        @client.create_lead_gen_card('abc1', expected)
+        expect(a_post('https://ads-api.twitter.com/0/accounts/abc1/cards/lead_gen').with(body: expected)).to have_been_made
+      end
+      it 'creates a lead_gen card' do
+        card = @client.create_lead_gen_card('abc1', expected)
+        expect(card).to be_a(Twitter::Card::LeadGen)
+        expect(card.id).to eq('8pq')
+      end
+    end
+
+    context '#update_lead_gen_card' do
+      let(:expected) do
+        {
+          name: 'New Name',
+        }
+      end
+      before do
+        stub_put('https://ads-api.twitter.com/0/accounts/abc1/cards/lead_gen/zy21').with(body: expected)
+          .to_return(body: fixture('cards/lead_gen_put.json'), headers:{content_type: 'application/json; charset=utf-8'})
+      end
+      it 'makes the correct request' do
+        @client.update_lead_gen_card('abc1', 'zy21', expected)
+        expect(a_put('https://ads-api.twitter.com/0/accounts/abc1/cards/lead_gen/zy21').with(body: expected)).to have_been_made
+      end
+      it 'updates the card' do
+        card = @client.update_lead_gen_card('abc1', 'zy21', expected)
+        expect(card).to be_a(Twitter::Card::LeadGen)
+        expect(card.name).to eq(expected[:name])
+      end
+    end
+
+    context '#destroy_lead_gen_card' do
+      before do
+        stub_delete('https://ads-api.twitter.com/0/accounts/abc1/cards/lead_gen/zy21')
+          .to_return(body: fixture('cards/lead_gen_delete.json'), headers:{content_type: 'application/json; charset=utf-8'})
+      end
+      it 'makes the correct request' do
+        @client.destroy_lead_gen_card('abc1', 'zy21')
+        expect(a_delete('https://ads-api.twitter.com/0/accounts/abc1/cards/lead_gen/zy21')).to have_been_made
+      end
+      it 'deletes the correct resource' do
+        card = @client.destroy_lead_gen_card('abc1', 'zy21')
+        expect(card.id).to eq('zy21')
+        expect(card).to be_deleted
+      end
+    end
+  end
 
   context 'app' do;end
 

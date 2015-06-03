@@ -1,6 +1,7 @@
 require 'twitter/ads/utils'
 require 'twitter/card'
 require 'twitter/card/website'
+require 'twitter/card/lead_gen'
 require 'twitter/error'
 require 'twitter/rest/request'
 require 'twitter/utils'
@@ -12,15 +13,85 @@ module Twitter
       include Twitter::Utils
 
       # Lead-Gen
-      def lead_gen_cards(account_id, options = {}); end
 
-      def lead_gen_card(account_id, card_id, options = {}); end
+      # Returns all lead gen cards for a given account.
+      #
+      # @see https://dev.twitter.com/ads/reference/get/accounts/%3Aaccount_id/cards/lead_gen
+      # @rate_limited Yes
+      # @authentication Requires user context
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @return [Array<Twitter::Card::LeadGen>]
+      # @param account_id [String] Ads account id.
+      # @param options [Hash] customizeable options.
+      # @option options [String] :card_ids A comma separated list of cards to lookup.
+      # @option options [Boolean] :with_deleted Set to true if you want deleted line items to be returned.
+      # @option options [String] :line_item_ids A comma separated list of line item identifiers to scope the query.
+      # @option options [String] :sort_by Set this to change the sorting of returned values.
+      def lead_gen_cards(account_id, options = {})
+        perform_get_with_objects("https://ads-api.twitter.com/0/accounts/#{account_id}/cards/lead_gen",
+                                 options, Twitter::Card::LeadGen)
+      end
 
-      def create_lead_gen_card(account_id, options = {}); end
+      # Returns the specified lead gen card for a given account.
+      #
+      # @see https://dev.twitter.com/ads/reference/get/accounts/%3Aaccount_id/cards/lead_gen/%3Acard_id
+      # @rate_limited Yes
+      # @authentication Requires user context
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @return [Array<Twitter::Card::LeadGen>]
+      # @param account_id [String] Ads account id.
+      # @param card_id [String] Card id.
+      def lead_gen_card(account_id, card_id)
+        perform_get_with_object("https://ads-api.twitter.com/0/accounts/#{account_id}/cards/lead_gen/#{card_id}",
+                                {}, Twitter::Card::LeadGen)
+      end
 
-      def update_lead_gen_card(account_id, options = {}); end
+      # Creates a lead gen card for the given account.
+      #
+      # @see https://dev.twitter.com/ads/reference/post/accounts/%3Aaccount_id/cards/lead_gen
+      # @rate_limited Yes
+      # @authentication Requires user context
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @return [Array<Twitter::Card::LeadGen>]
+      # @param account_id [String] Ads account id.
+      # @param options [Hash] customizeable options. See documentation for additional options
+      # @option params [String] :name Card name
+      # @option params [String] :image_media_id Image media id.
+      # @option params [String] :cta Enumeration for call-to-action button text.
+      # @option params [String] :fallback_url URL to redirect users to when card cannot be presented.
+      # @option params [String] :privacy_policy_url Privacy policy of the advertiser
+      def create_lead_gen_card(account_id, params = {})
+        perform_post_with_object("https://ads-api.twitter.com/0/accounts/#{account_id}/cards/lead_gen",
+                                 params, Twitter::Card::LeadGen)
+      end
 
-      def destroy_lead_gen_card(account_id, card_id); end
+      # Update a lead gen card for the given account.
+      #
+      # @see https://dev.twitter.com/ads/reference/put/accounts/%3Aaccount_id/cards/lead_gen/%3Acard_id
+      # @rate_limited Yes
+      # @authentication Requires user context
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @return [Array<Twitter::Card::LeadGen>]
+      # @param account_id [String] Ads account id.
+      # @param options [Hash] customizeable options. See documentation for  options.
+      def update_lead_gen_card(account_id, card_id, options = {})
+        perform_put_with_object("https://ads-api.twitter.com/0/accounts/#{account_id}/cards/lead_gen/#{card_id}",
+                                options, Twitter::Card::LeadGen)
+      end
+
+      # Delete the specified lead gen card for a given account.
+      #
+      # @see https://dev.twitter.com/ads/reference/delete/accounts/%3Aaccount_id/cards/lead_gen/%3Acard_id
+      # @rate_limited Yes
+      # @authentication Requires user context
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @return [Array<Twitter::Card::LeadGen>]
+      # @param account_id [String] Ads account id.
+      # @param card_id [String] Card id.
+      def destroy_lead_gen_card(account_id, card_id)
+        perform_delete_with_object("https://ads-api.twitter.com/0/accounts/#{account_id}/cards/lead_gen/#{card_id}",
+                                   {}, Twitter::Card::LeadGen)
+      end
 
       # Mobile App
       def app_cards(account_id, options = {}); end

@@ -3,16 +3,17 @@ require 'twitter/identity'
 
 module Twitter
   class Card < Twitter::Identity
-      # @return [String]
-      attr_reader :account_id
+    include Twitter::Creatable
+    # @return [String]
+    attr_reader :account_id
 
-      # @return [String]
-      attr_reader :card_type, :name
+    # @return [String]
+    attr_reader :card_type, :name
 
-      # @return [String]
-      attr_reader :preview_url
+    # @return [String]
+    attr_reader :preview_url
 
-      # @return [Boolean]
-      predicate_attr_reader :deleted
+    # @return [Boolean]
+    predicate_attr_reader :deleted
   end
 end
