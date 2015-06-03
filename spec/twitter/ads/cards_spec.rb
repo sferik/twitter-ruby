@@ -102,7 +102,103 @@ describe Twitter::Ads::Cards do
     end
   end
 
-  context 'app' do;end
+  context 'app download' do
+    context '#app_download_cards' do
+      before do
+        stub_get('https://ads-api.twitter.com/0/accounts/abc1/cards/app_download')
+          .to_return(body: fixture('cards/app_downloads.json'), headers:{content_type: 'application/json; charset=utf-8'})
+      end
+      it 'requests resources' do
+        @client.app_download_cards('abc1')
+        expect(a_get('https://ads-api.twitter.com/0/accounts/abc1/cards/app_download')).to have_been_made
+      end
+      it 'gets the right resources'do
+        cards = @client.app_download_cards('abc1')
+        expect(cards.first).to be_a(Twitter::Card::AppDownload)
+        expect(cards.map(&:id)).to match(['pfs'])
+      end
+    end
+
+    context '#app_download_card' do
+      before do
+        stub_get('https://ads-api.twitter.com/0/accounts/abc1/cards/app_download/pfs')
+          .to_return(body: fixture('cards/app_download.json'), headers:{content_type: 'application/json; charset=utf-8'})
+      end
+      it 'requests resoruce' do
+        @client.app_download_card('abc1', 'pfs')
+        expect(a_get('https://ads-api.twitter.com/0/accounts/abc1/cards/app_download/pfs')).to have_been_made
+      end
+      it 'gets the right resource' do
+        card = @client.app_download_card('abc1', 'pfs')
+        expect(card).to be_a(Twitter::Card::AppDownload)
+        expect(card.id).to eq('pfs')
+      end
+    end
+
+    context '#create_app_download_card' do
+      let(:expected) do
+        {
+          app_country_code: 'US',
+          name: 'Sample App Card',
+          iphone_ap_id: '333903271',
+          ipad_app_id: '333903271',
+          googleplay_app_id: 'com.twitter.android',
+        }
+      end
+      before do
+        stub_post('https://ads-api.twitter.com/0/accounts/abc1/cards/app_download').with(body: expected)
+          .to_return(body: fixture('cards/app_download_create.json'), headers:{content_type: 'application/json; charset=utf-8'})
+      end
+      it 'makes the correct request' do
+        @client.create_app_download_card('abc1', expected)
+        expect(a_post('https://ads-api.twitter.com/0/accounts/abc1/cards/app_download').with(body: expected)).to have_been_made
+      end
+      it 'creates a app_download card' do
+        card = @client.create_app_download_card('abc1', expected)
+        expect(card).to be_a(Twitter::Card::AppDownload)
+        expect(card.id).to eq('pfs')
+      end
+    end
+
+    context '#update_app_download_card' do
+      let(:expected) do
+        {
+          name: 'Sample App Card Twitter',
+          iphone_deep_link: 'travelapp://hotel/xyz123?referrer=foo',
+        }
+      end
+      before do
+        stub_put('https://ads-api.twitter.com/0/accounts/abc1/cards/app_download/pfs').with(body: expected)
+          .to_return(body: fixture('cards/app_download_put.json'), headers:{content_type: 'application/json; charset=utf-8'})
+      end
+      it 'makes the correct request' do
+        @client.update_app_download_card('abc1', 'pfs', expected)
+        expect(a_put('https://ads-api.twitter.com/0/accounts/abc1/cards/app_download/pfs').with(body: expected)).to have_been_made
+      end
+      it 'updates the card' do
+        card = @client.update_app_download_card('abc1', 'pfs', expected)
+        expect(card).to be_a(Twitter::Card::AppDownload)
+        expect(card.name).to eq(expected[:name])
+        expect(card.iphone_deep_link).to eq(expected[:iphone_deep_link])
+      end
+    end
+
+    context '#destroy_app_download_card' do
+      before do
+        stub_delete('https://ads-api.twitter.com/0/accounts/abc1/cards/app_download/9z8')
+          .to_return(body: fixture('cards/app_download_delete.json'), headers:{content_type: 'application/json; charset=utf-8'})
+      end
+      it 'makes the correct request' do
+        @client.destroy_app_download_card('abc1', '9z8')
+        expect(a_delete('https://ads-api.twitter.com/0/accounts/abc1/cards/app_download/9z8')).to have_been_made
+      end
+      it 'deletes the correct resource' do
+        card = @client.destroy_app_download_card('abc1', '9z8')
+        expect(card.id).to eq('9z8')
+        expect(card).to be_deleted
+      end
+    end
+  end
 
   context 'app image' do;end
 

@@ -1,0 +1,1 @@
+{ "data": { "account_id": "abc1", "card_type": "APP_DOWNLOAD", "created_at": "2014-04-25T21:19:49Z", "deleted": true, "id": "9z8", "name": "Sample Basic App Install Card", "updated_at": "2014-06-10T05:03:17Z" }, "data_type": "card", "request": { "params": { "account_id": "abc1", "card_id": "9z8" } } }

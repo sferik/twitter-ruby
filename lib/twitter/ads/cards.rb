@@ -1,7 +1,8 @@
 require 'twitter/ads/utils'
 require 'twitter/card'
-require 'twitter/card/website'
+require 'twitter/card/app_download'
 require 'twitter/card/lead_gen'
+require 'twitter/card/website'
 require 'twitter/error'
 require 'twitter/rest/request'
 require 'twitter/utils'
@@ -73,7 +74,7 @@ module Twitter
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Array<Twitter::Card::LeadGen>]
       # @param account_id [String] Ads account id.
-      # @param options [Hash] customizeable options. See documentation for  options.
+      # @param options [Hash] Fields to update. See documentation for options.
       def update_lead_gen_card(account_id, card_id, options = {})
         perform_put_with_object("https://ads-api.twitter.com/0/accounts/#{account_id}/cards/lead_gen/#{card_id}",
                                 options, Twitter::Card::LeadGen)
@@ -93,16 +94,86 @@ module Twitter
                                    {}, Twitter::Card::LeadGen)
       end
 
-      # Mobile App
-      def app_cards(account_id, options = {}); end
+      # Mobile App Downloads
 
-      def app_card(account_id, card_id, options = {}); end
+      # Returns all app download cards for a given account.
+      #
+      # @see https://dev.twitter.com/ads/reference/get/accounts/%3Aaccount_id/cards/app_download
+      # @rate_limited Yes
+      # @authentication Requires user context
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @return [Array<Twitter::Card::AppDownload>]
+      # @param account_id [String] Ads account id.
+      # @param options [Hash] customizeable options.
+      # @option options [String] :card_ids A comma separated list of cards to lookup.
+      # @option options [Boolean] :with_deleted Set to true if you want deleted line items to be returned.
+      # @option options [String] :line_item_ids A comma separated list of line item identifiers to scope the query.
+      # @option options [String] :sort_by Set this to change the sorting of returned values.
+      def app_download_cards(account_id, options = {})
+        perform_get_with_objects("https://ads-api.twitter.com/0/accounts/#{account_id}/cards/app_download",
+                                 options, Twitter::Card::AppDownload)
+      end
 
-      def create_app_card(account_id, options = {}); end
+      # Returns the specified app download card for a given account.
+      #
+      # @see https://dev.twitter.com/ads/reference/get/accounts/%3Aaccount_id/cards/app_download/%3Acard_id
+      # @rate_limited Yes
+      # @authentication Requires user context
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @return [Array<Twitter::Card::AppDownload>]
+      # @param account_id [String] Ads account id.
+      # @param card_id [String] Card id.
+      def app_download_card(account_id, card_id)
+        perform_get_with_object("https://ads-api.twitter.com/0/accounts/#{account_id}/cards/app_download/#{card_id}",
+                                {}, Twitter::Card::AppDownload)
+      end
 
-      def update_app_card(account_id, options = {}); end
+      # Creates a app download card for the given account.
+      #
+      # @see https://dev.twitter.com/ads/reference/post/accounts/%3Aaccount_id/cards/app_download
+      # @rate_limited Yes
+      # @authentication Requires user context
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @return [Array<Twitter::Card::AppDownload>]
+      # @param account_id [String] Ads account id.
+      # @param options [Hash] customizeable options. See documentation for additional options
+      # @option params [String] :name Card name
+      # @option params [String] :app_country_code 2 letter ISO country code
+      # @option params [String] :iphone_app_id App Store id
+      # @option params [String] :ipad_app_id App Store id
+      # @option params [String] :googleplay_app_id App Store id
+      def create_app_download_card(account_id, params = {})
+        perform_post_with_object("https://ads-api.twitter.com/0/accounts/#{account_id}/cards/app_download",
+                                 params, Twitter::Card::AppDownload)
+      end
 
-      def destroy_app_card(account_id, card_id); end
+      # Update a app download card for the given account.
+      #
+      # @see https://dev.twitter.com/ads/reference/put/accounts/%3Aaccount_id/cards/app_download/%3Acard_id
+      # @rate_limited Yes
+      # @authentication Requires user context
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @return [Array<Twitter::Card::AppDownload>]
+      # @param account_id [String] Ads account id.
+      # @param options [Hash] Fields to update. See documentation for options.
+      def update_app_download_card(account_id, card_id, options = {})
+        perform_put_with_object("https://ads-api.twitter.com/0/accounts/#{account_id}/cards/app_download/#{card_id}",
+                                options, Twitter::Card::AppDownload)
+      end
+
+      # Delete the specified app download card for a given account.
+      #
+      # @see https://dev.twitter.com/ads/reference/delete/accounts/%3Aaccount_id/cards/app_download/%3Acard_id
+      # @rate_limited Yes
+      # @authentication Requires user context
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @return [Array<Twitter::Card::AppDownload>]
+      # @param account_id [String] Ads account id.
+      # @param card_id [String] Card id.
+      def destroy_app_download_card(account_id, card_id)
+        perform_delete_with_object("https://ads-api.twitter.com/0/accounts/#{account_id}/cards/app_download/#{card_id}",
+                                   {}, Twitter::Card::AppDownload)
+      end
 
       # Mobile App (Image)
       def app_image_cards(account_id, options = {}); end
