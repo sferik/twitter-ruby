@@ -246,6 +246,7 @@ module Twitter
       # @return [Boolean] true if the user exists, otherwise false.
       # @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, URI, or object.
       def user?(user, options = {})
+        options = options.dup
         merge_user!(options, user)
         perform_get('/1.1/users/show.json', options)
         true
@@ -265,6 +266,7 @@ module Twitter
       # @option options [Integer] :count The number of people to retrieve. Maxiumum of 20 allowed per page.
       # @option options [Integer] :page Specifies the page of results to retrieve.
       def user_search(query, options = {})
+        options = options.dup
         perform_get_with_objects('/1.1/users/search.json', options.merge(q: query), Twitter::User)
       end
 

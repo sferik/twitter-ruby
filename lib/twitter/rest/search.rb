@@ -26,6 +26,7 @@ module Twitter
       # @option options [Integer] :max_id Returns results with an ID less than (that is, older than) or equal to the specified ID.
       # @return [Twitter::SearchResults] Return tweets that match a specified query with search metadata
       def search(q, options = {})
+        options = options.dup
         options[:count] ||= MAX_TWEETS_PER_REQUEST
         request = Twitter::REST::Request.new(self, :get, '/1.1/search/tweets.json', options.merge(q: q))
         Twitter::SearchResults.new(request)

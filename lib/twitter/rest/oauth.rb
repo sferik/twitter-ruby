@@ -22,6 +22,7 @@ module Twitter
       #   client = Twitter::REST::Client.new(consumer_key: 'abc', consumer_secret: 'def')
       #   bearer_token = client.token
       def token(options = {})
+        options = options.dup
         options[:bearer_token_request] = true
         options[:grant_type] ||= 'client_credentials'
         url = 'https://api.twitter.com/oauth2/token'
@@ -41,6 +42,7 @@ module Twitter
       # @param options [Hash] A customizable set of options.
       # @return [String] The invalidated token. token_type should be nil.
       def invalidate_token(access_token, options = {})
+        options = options.dup
         options[:access_token] = access_token
         perform_post('/oauth2/invalidate_token', options)[:access_token]
       end

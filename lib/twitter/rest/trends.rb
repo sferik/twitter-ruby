@@ -19,6 +19,7 @@ module Twitter
       # @option options [String] :exclude Setting this equal to 'hashtags' will remove all hashtags from the trends list.
       # @return [Array<Twitter::Trend>]
       def trends(id = 1, options = {})
+        options = options.dup
         options[:id] = id
         response = perform_get('/1.1/trends/place.json', options).first
         Twitter::TrendResults.new(response)
