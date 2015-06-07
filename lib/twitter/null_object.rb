@@ -8,6 +8,8 @@ module Twitter
     config.define_explicit_conversions
     config.define_implicit_conversions
     config.predicates_return false
+    
+    alias_method :to_hash, :to_h
 
     def !
       true
