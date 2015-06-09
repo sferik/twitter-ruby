@@ -22,8 +22,7 @@ module Twitter
 
       # Perform an HTTP POST request
       def post(path, params={})
-        signature_params = params.values.any?{|value| value.respond_to?(:to_io)} ? {} : params
-        perform_request(:post, path, params, signature_params)
+        perform_request(:post, path, params)
       end
 
       # Perform an HTTP PUT request

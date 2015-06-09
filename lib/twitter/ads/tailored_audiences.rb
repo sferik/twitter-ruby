@@ -147,6 +147,35 @@ module Twitter
         perform_get("https://ads-api.twitter.com/0/accounts/#{account_id}/tailored_audiences/global_opt_out",
                     args)
       end
+
+      # Upload a tailored audience file using the TON api.
+      #
+      # This is super hacky and probably shouldn't even be here but otherwise there's not
+      # a way to upload the tailored audience files. Perhaps this can be moved to a proper
+      # TON client/library functionality later.
+      #
+      # @see https://dev.twitter.com/rest/ton
+      # @authentication Requires user context
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @return Boolean
+      # @param stream [File, String] File or string path to file.
+      def upload_tailored_audience_file(stream, options = {})
+        options = options.merge(key: :body, file: stream, %s(X-TON-Expires) => ton_expiration)
+        response = Twitter::REST::Request.new(self, :multipart_post, 'https://ton.twitter.com/1.1/ton/bucket/ta_partner', options).perform_raw
+        if response.status == 201
+          response.headers['Location']
+        else
+          false
+        end
+      end
+
+      private
+
+      # 7 days, which is the max.
+      # See https://dev.twitter.com/rest/ton
+      def ton_expiration
+        (Time.now + 7*24*60*60).httpdate
+      end
     end
   end
 end
