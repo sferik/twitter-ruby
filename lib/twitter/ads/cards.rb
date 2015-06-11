@@ -1,6 +1,7 @@
 require 'twitter/ads/utils'
 require 'twitter/card'
 require 'twitter/card/app_download'
+require 'twitter/card/image_app_download'
 require 'twitter/card/lead_gen'
 require 'twitter/card/website'
 require 'twitter/error'
@@ -176,15 +177,91 @@ module Twitter
       end
 
       # Mobile App (Image)
-      def app_image_cards(account_id, options = {}); end
 
-      def app_image_card(account_id, card_id, options = {}); end
+      # Returns all image app download cards for a given account.
+      #
+      # @see https://dev.twitter.com/ads/reference/get/accounts/%3Aaccount_id/cards/image_app_download
+      # @rate_limited Yes
+      # @authentication Requires user context
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @return [Array<Twitter::Card::AppDownload>]
+      # @param account_id [String] Ads account id.
+      # @param options [Hash] customizeable options.
+      # @option options [String] :card_ids A comma separated list of cards to lookup.
+      # @option options [Boolean] :with_deleted Set to true if you want deleted line items to be returned.
+      # @option options [String] :sort_by Set this to change the sorting of returned values.
+      def image_app_download_cards(account_id, options = {})
+        perform_get_with_objects("https://ads-api.twitter.com/0/accounts/#{account_id}/cards/image_app_download",
+                                 options, Twitter::Card::ImageAppDownload)
+      end
 
-      def create_app_image_card(account_id, options = {}); end
+      # Returns the specified image app download card for a given account.
+      #
+      # @see https://dev.twitter.com/ads/reference/get/accounts/%3Aaccount_id/cards/image_app_download/%3Acard_id
+      # @rate_limited Yes
+      # @authentication Requires user context
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @return [Twitter::Card::ImageAppDownload]
+      # @param account_id [String] Ads account id.
+      # @param card_id [String] Card id.
+      def image_app_download_card(account_id, card_id, options = {})
+        perform_get_with_object("https://ads-api.twitter.com/0/accounts/#{account_id}/cards/image_app_download/#{card_id}",
+                                options, Twitter::Card::ImageAppDownload)
+      end
 
-      def update_app_image_card(account_id, options = {}); end
+      # Creates an image app download card for the given account.
+      #
+      # @see https://dev.twitter.com/ads/reference/post/accounts/%3Aaccount_id/cards/image_app_download
+      # @rate_limited Yes
+      # @authentication Requires user context
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @return [Twitter::Card::ImageAppDownload]
+      # @param account_id [String] Ads account id.
+      # @param options [Hash] customizeable options. See documentation for additional options
+      # @option params [String] :name Card name
+      # @option params [String] :app_country_code 2 letter ISO country code
+      # @option params [String] :iphone_app_id App Store id
+      # @option params [String] :ipad_app_id App Store id
+      # @option params [String] :googleplay_app_id App Store id
+      # @option params [String] :wide_app_image_media_id Media id of image to use instead of the app store icon
+      def create_image_app_download_card(account_id, options = {})
+        perform_post_with_object("https://ads-api.twitter.com/0/accounts/#{account_id}/cards/image_app_download",
+                                 options, Twitter::Card::ImageAppDownload)
+      end
 
-      def destroy_app_image_card(account_id, card_id); end
+      # Updates an image app download card for the given account.
+      #
+      # @see https://dev.twitter.com/ads/reference/put/accounts/%3Aaccount_id/cards/image_app_download/%3Acard_id
+      # @rate_limited Yes
+      # @authentication Requires user context
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @return [Twitter::Card::ImageAppDownload]
+      # @param account_id [String] Ads account id.
+      # @param options [Hash] customizeable options. See documentation for additional options
+      # @option params [String] :name Card name
+      # @option params [String] :app_country_code 2 letter ISO country code
+      # @option params [String] :iphone_app_id App Store id
+      # @option params [String] :ipad_app_id App Store id
+      # @option params [String] :googleplay_app_id App Store id
+      # @option params [String] :wide_app_image_media_id Media id of image to use instead of the app store icon
+      def update_image_app_download_card(account_id, card_id, options = {})
+        perform_put_with_object("https://ads-api.twitter.com/0/accounts/#{account_id}/cards/image_app_download/#{card_id}",
+                                options, Twitter::Card::ImageAppDownload)
+      end
+
+      # Delete the specified image app download card for a given account.
+      #
+      # @see https://dev.twitter.com/ads/reference/delete/accounts/%3Aaccount_id/cards/image_app_download/%3Acard_id
+      # @rate_limited Yes
+      # @authentication Requires user context
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @return [Twitter::Card::AppDownload]
+      # @param account_id [String] Ads account id.
+      # @param card_id [String] Card id.
+      def destroy_image_app_download_card(account_id, card_id)
+        perform_delete_with_object("https://ads-api.twitter.com/0/accounts/#{account_id}/cards/image_app_download/#{card_id}",
+                                   {}, Twitter::Card::ImageAppDownload)
+      end
 
       # Website
 
