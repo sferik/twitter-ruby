@@ -1,6 +1,5 @@
 require 'twitter/arguments'
 require 'twitter/campaign'
-require 'twitter/ads/cursor'
 require 'twitter/error'
 require 'twitter/rest/request'
 require 'twitter/ads/utils'
@@ -15,8 +14,6 @@ module Twitter
 
       # Returns all campaigns for the supplied account id
       #
-      # TODO Cursoring
-      #
       # @see https://dev.twitter.com/ads/reference/get/accounts/%3Aaccount_id/campaigns
       # @rate_limited Yes
       # @authentication Requires user context
@@ -29,10 +26,8 @@ module Twitter
       # @option options [Boolean] :with_deleted Set to true if you want deleted campaigns to be returned.
       # @option options [String] :sort_by Set this to change the sorting of returned values.
       def campaigns(account_id, options = {})
-        #perform_get_with_objects("https://ads-api.twitter.com/0/accounts/#{account_id}/campaigns", options, Twitter::Campaign)
-        path = "https://ads-api.twitter.com/0/accounts/#{account_id}/campaigns"
-        request = Twitter::REST::Request.new(self, :get, path, options)
-        Twitter::Ads::Cursor.new(:data, Twitter::Campaign, request)
+        perform_get_with_cursor("https://ads-api.twitter.com/0/accounts/#{account_id}/campaigns", options,
+                                :data, Twitter::Campaign)
       end
 
       # Returns a specific campaign belonging to an account

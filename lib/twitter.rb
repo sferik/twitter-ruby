@@ -1,6 +1,7 @@
 require 'addressable/uri'
 require 'twitter/account'
 require 'twitter/ads/client'
+require 'twitter/ads/cursor'
 require 'twitter/campaign'
 require 'twitter/card'
 require 'twitter/card/app_download'

@@ -13,8 +13,6 @@ module Twitter
 
       # Retrieve promoted accounts associated with a specified account.
       #
-      # TODO: Cursoring
-      #
       # @see https://dev.twitter.com/ads/reference/get/accounts/%3Aaccount_id/promoted_accounts
       # @rate_limited Yes
       # @authentication Requires user context
@@ -27,8 +25,8 @@ module Twitter
       # @option options [Boolean] :with_deleted Set to true if you want deleted funding instruments to be returned.
       # @option options [String] :sort_by Set this to change the sorting of returned values.
       def promoted_accounts(account_id, options = {})
-        perform_get_with_objects("https://ads-api.twitter.com/0/accounts/#{account_id}/promoted_accounts",
-                                 options, Twitter::PromotedAccount)
+        perform_get_with_cursor("https://ads-api.twitter.com/0/accounts/#{account_id}/promoted_accounts",
+                                 options, :data, Twitter::PromotedAccount)
       end
 
       # Associate a user account to the specified line item.

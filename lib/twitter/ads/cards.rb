@@ -30,8 +30,8 @@ module Twitter
       # @option options [String] :line_item_ids A comma separated list of line item identifiers to scope the query.
       # @option options [String] :sort_by Set this to change the sorting of returned values.
       def lead_gen_cards(account_id, options = {})
-        perform_get_with_objects("https://ads-api.twitter.com/0/accounts/#{account_id}/cards/lead_gen",
-                                 options, Twitter::Card::LeadGen)
+        perform_get_with_cursor("https://ads-api.twitter.com/0/accounts/#{account_id}/cards/lead_gen",
+                                 options, :data, Twitter::Card::LeadGen)
       end
 
       # Returns the specified lead gen card for a given account.
@@ -111,8 +111,8 @@ module Twitter
       # @option options [String] :line_item_ids A comma separated list of line item identifiers to scope the query.
       # @option options [String] :sort_by Set this to change the sorting of returned values.
       def app_download_cards(account_id, options = {})
-        perform_get_with_objects("https://ads-api.twitter.com/0/accounts/#{account_id}/cards/app_download",
-                                 options, Twitter::Card::AppDownload)
+        perform_get_with_cursor("https://ads-api.twitter.com/0/accounts/#{account_id}/cards/app_download",
+                                 options, :data, Twitter::Card::AppDownload)
       end
 
       # Returns the specified app download card for a given account.
@@ -191,8 +191,8 @@ module Twitter
       # @option options [Boolean] :with_deleted Set to true if you want deleted line items to be returned.
       # @option options [String] :sort_by Set this to change the sorting of returned values.
       def image_app_download_cards(account_id, options = {})
-        perform_get_with_objects("https://ads-api.twitter.com/0/accounts/#{account_id}/cards/image_app_download",
-                                 options, Twitter::Card::ImageAppDownload)
+        perform_get_with_cursor("https://ads-api.twitter.com/0/accounts/#{account_id}/cards/image_app_download",
+                                 options, :data, Twitter::Card::ImageAppDownload)
       end
 
       # Returns the specified image app download card for a given account.
@@ -279,8 +279,8 @@ module Twitter
       # @option options [String] :line_item_ids A comma separated list of line item identifiers to scope the query.
       # @option options [String] :sort_by Set this to change the sorting of returned values.
       def website_cards(account_id, options = {})
-        perform_get_with_objects("https://ads-api.twitter.com/0/accounts/#{account_id}/cards/website",
-                                options, Twitter::Card::Website)
+        perform_get_with_cursor("https://ads-api.twitter.com/0/accounts/#{account_id}/cards/website",
+                                options, :data, Twitter::Card::Website)
       end
 
       # Returns the specified website card for a given account.

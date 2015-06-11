@@ -28,8 +28,8 @@ module Twitter
       # @option options [Integer] :count Specifies the number of line items to retrieve.
       # @option options [String] :sort_by Set this to change the sorting of returned values.
       def line_items(account_id, options = {})
-        perform_get_with_objects("https://ads-api.twitter.com/0/accounts/#{account_id}/line_items",
-                                 options, Twitter::LineItem)
+        perform_get_with_cursor("https://ads-api.twitter.com/0/accounts/#{account_id}/line_items",
+                                 options, :data, Twitter::LineItem)
       end
 
       # Returns a specific line item for a supplied account id

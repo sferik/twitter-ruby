@@ -14,8 +14,6 @@ module Twitter
 
       # Returns all accounts.
       #
-      # TODO Cursoring
-      #
       # @see https://dev.twitter.com/ads/reference/get/accounts
       # @rate_limited Yes
       # @authentication Requires user context

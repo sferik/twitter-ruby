@@ -13,8 +13,6 @@ module Twitter
 
       # Retrieve funding instruments associated with a specified account.
       #
-      # TODO: Cursoring
-      #
       # @see https://dev.twitter.com/ads/reference/get/accounts/%3Aaccount_id/funding_instruments
       # @rate_limited Yes
       # @authentication Requires user context

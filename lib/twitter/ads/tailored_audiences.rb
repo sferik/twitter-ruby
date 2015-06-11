@@ -15,8 +15,6 @@ module Twitter
 
       # Returns tailored audiences associated with the given account.
       #
-      # TODO: Cursoring
-      #
       # @see https://dev.twitter.com/ads/reference/get/accounts/%3Aaccount_id/tailored_audiences
       # @rate_limited Yes
       # @authentication Requires user context
@@ -26,8 +24,8 @@ module Twitter
       # @param options [Hash] customizeable options.
       # @option options [Boolean] :with_deleted Set to true if you want deleted line items to be returned.
       def tailored_audiences(account_id, options = {})
-        perform_get_with_objects("https://ads-api.twitter.com/0/accounts/#{account_id}/tailored_audiences",
-                                 options, Twitter::TailoredAudience)
+        perform_get_with_cursor("https://ads-api.twitter.com/0/accounts/#{account_id}/tailored_audiences",
+                                 options, :data, Twitter::TailoredAudience)
       end
 
       # Returns a specific tailored audience belonging to the given account.
@@ -82,8 +80,6 @@ module Twitter
 
       # Returns all tailored audience changes associated with the given account.
       #
-      # TODO: Cursoring
-      #
       # @see https://dev.twitter.com/ads/reference/get/accounts/%3Aaccount_id/tailored_audience_change
       # @rate_limited Yes
       # @authentication Requires user context
@@ -92,8 +88,8 @@ module Twitter
       # @param account_id [String] Ads account id.
       # @param options [Hash] customizeable options.
       def tailored_audience_changes(account_id, options = {})
-        perform_get_with_objects("https://ads-api.twitter.com/0/accounts/#{account_id}/tailored_audience_changes",
-                                 options, Twitter::TailoredAudienceChange)
+        perform_get_with_cursor("https://ads-api.twitter.com/0/accounts/#{account_id}/tailored_audience_changes",
+                                 options, :data, Twitter::TailoredAudienceChange)
       end
 
       # Returns a specific tailored audience belonging to the given account.

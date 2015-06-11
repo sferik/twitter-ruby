@@ -1,1 +1,1 @@
-{ "data": [ { "estimated_users": 154958, "genre": "TALK", "id": 10002546242, "name": "BBC World News" }, { "estimated_users": 93330, "genre": "TALK", "id": 10000283242, "name": "E! News" } ], "data_type": "targeting_criterion", "next_cursor": "c-2", "request": { "params": {} } }
+{ "data": [ { "estimated_users": 154958, "genre": "TALK", "id": 10002546242, "name": "BBC World News" }, { "estimated_users": 93330, "genre": "TALK", "id": 10000283242, "name": "E! News" } ], "data_type": "targeting_criterion", "next_cursor": null, "request": { "params": {} } }

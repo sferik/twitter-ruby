@@ -148,8 +148,6 @@ module Twitter
 
       # Returns full or partial structure of behavior taxonomy trees.
       #
-      # TODO: Cursoring
-      #
       # @see https://dev.twitter.com/ads/reference/get/targeting_criteria/behavior_taxonomies
       # @rate_limited Yes
       # @authentication Requires user context
@@ -159,13 +157,11 @@ module Twitter
       # @option options [String] :behavior_taxonomy_ids Comma separated list of taxonomy ids to filter the response.
       # @option options [String] :parent_behavior_taxonomy_ids Limit results to the children of a comma separated list of taxonomy ids.
       def behavior_taxonomies(options = {})
-        perform_get_with_objects("https://ads-api.twitter.com/0/targeting_criteria/behavior_taxonomies",
-                                 options, Twitter::TargetingCriterion::BehaviorTaxonomy)
+        perform_get_with_cursor("https://ads-api.twitter.com/0/targeting_criteria/behavior_taxonomies",
+                                 options, :data, Twitter::TargetingCriterion::BehaviorTaxonomy)
       end
 
       # Return all valid behaviors that can be targeted
-      #
-      # TODO: Cursoring
       #
       # @see https://dev.twitter.com/ads/reference/get/targeting_criteria/behaviors
       # @rate_limited Yes
@@ -176,8 +172,8 @@ module Twitter
       # @option options [String] :behavior_ids Comma separated list of identifiers to filter by
       # @option options [String] :sort_by Set this to change the sorting of returned values.
       def behaviors(options = {})
-        perform_get_with_objects("https://ads-api.twitter.com/0/targeting_criteria/behaviors",
-                                 options, Twitter::TargetingCriterion::Behavior)
+        perform_get_with_cursor("https://ads-api.twitter.com/0/targeting_criteria/behaviors",
+                                 options, :data, Twitter::TargetingCriterion::Behavior)
       end
 
       # Returns device-based targeting criteria.
@@ -196,8 +192,6 @@ module Twitter
 
       # Returns interest-based targeting criteria.
       #
-      # TODO: Cursoring
-      #
       # @see https://dev.twitter.com/ads/reference/get/targeting_criteria/interests
       # @rate_limited Yes
       # @authentication Requires user context
@@ -206,13 +200,11 @@ module Twitter
       # @param options [Hash] customizeable options.
       # @option options [String] :q Query to scope results.
       def interests(options = {})
-        perform_get_with_objects("https://ads-api.twitter.com/0/targeting_criteria/interests",
-                                 options, Twitter::TargetingCriterion::Interest)
+        perform_get_with_cursor("https://ads-api.twitter.com/0/targeting_criteria/interests",
+                                 options, :data, Twitter::TargetingCriterion::Interest)
       end
 
       # Returns language-based targeting criteria.
-      #
-      # TODO: Cursoring
       #
       # @see https://dev.twitter.com/ads/reference/get/targeting_criteria/languages
       # @rate_limited Yes
@@ -222,13 +214,11 @@ module Twitter
       # @param options [Hash] customizeable options.
       # @option options [String] :q Query to scope results.
       def languages(options = {})
-        perform_get_with_objects("https://ads-api.twitter.com/0/targeting_criteria/languages",
-                                 options, Twitter::TargetingCriterion::Language)
+        perform_get_with_cursor("https://ads-api.twitter.com/0/targeting_criteria/languages",
+                                 options, :data, Twitter::TargetingCriterion::Language)
       end
 
       # Returns location-based targeting criteria.
-      #
-      # TODO: Cursoring
       #
       # @see https://dev.twitter.com/ads/reference/get/targeting_criteria/locations
       # @rate_limited Yes
@@ -240,13 +230,11 @@ module Twitter
       # @option options [String] :location_type Type of location to lookup (COUNTRY, REGION, CITY, POSTAL_CODE).
       # @option options [String] :q Query to scope results.
       def locations(options = {})
-        perform_get_with_objects("https://ads-api.twitter.com/0/targeting_criteria/locations",
-                                 options, Twitter::TargetingCriterion::Location)
+        perform_get_with_cursor("https://ads-api.twitter.com/0/targeting_criteria/locations",
+                                 options, :data, Twitter::TargetingCriterion::Location)
       end
 
       # Returns mobile network operator based targeting criteria.
-      #
-      # TODO: Cursoring
       #
       # @see https://dev.twitter.com/ads/reference/get/targeting_criteria/network_operators
       # @rate_limited Yes
@@ -257,8 +245,8 @@ module Twitter
       # @option options [String] :country_code Two letter ISO country code to restrict search
       # @option options [String] :q Query to scope results.
       def network_operators(options = {})
-        perform_get_with_objects("https://ads-api.twitter.com/0/targeting_criteria/network_operators",
-                                 options, Twitter::TargetingCriterion::NetworkOperator)
+        perform_get_with_cursor("https://ads-api.twitter.com/0/targeting_criteria/network_operators",
+                                 options, :data, Twitter::TargetingCriterion::NetworkOperator)
       end
 
       # Returns mobile os version based targeting criteria.
@@ -291,8 +279,6 @@ module Twitter
 
       # Returns TV channels for network targeting.
       #
-      # TODO: Cursoring
-      #
       # @see https://dev.twitter.com/ads/reference/get/targeting_criteria/tv_channels
       # @rate_limited Yes
       # @authentication Requires user context
@@ -301,8 +287,8 @@ module Twitter
       # @param options [Hash] customizeable options.
       # @option options [String] :tv_market_locale BCP 47 language code of locale to return results for.
       def tv_channels(options = {})
-        perform_get_with_objects("https://ads-api.twitter.com/0/targeting_criteria/tv_channels",
-                                 options, Twitter::TargetingCriterion::TVChannel)
+        perform_get_with_cursor("https://ads-api.twitter.com/0/targeting_criteria/tv_channels",
+                                 options, :data, Twitter::TargetingCriterion::TVChannel)
       end
 
       # Returns TV genres for targeting.
@@ -339,8 +325,8 @@ module Twitter
       # @option options [String] :tv_market_locale BCP 47 language code of locale to return results for.
       # @option options [String] :q Query to scope results.
       def tv_shows(options = {})
-        perform_get_with_objects("https://ads-api.twitter.com/0/targeting_criteria/tv_shows",
-                                 options, Twitter::TargetingCriterion::TVShow)
+        perform_get_with_cursor("https://ads-api.twitter.com/0/targeting_criteria/tv_shows",
+                                 options, :data, Twitter::TargetingCriterion::TVShow)
       end
     end
   end

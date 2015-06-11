@@ -15,8 +15,6 @@ module Twitter
       # Retrieve references to promoted tweets associated with an account and optionally
       # specific line items
       #
-      # TODO: Cursoring
-      #
       # @see https://dev.twitter.com/ads/reference/get/accounts/%3Aaccount_id/promoted_tweets
       # @rate_limited Yes
       # @authentication Requires user context
@@ -26,8 +24,8 @@ module Twitter
       # @option options [String] :line_item_id Restrict listing to accounts associated to the specified line item.
       # @option options [Boolean] :with_deleted Set to true if you want deleted funding instruments to be returned.
       def promoted_tweets(account_id, options = {})
-        perform_get_with_objects("https://ads-api.twitter.com/0/accounts/#{account_id}/promoted_tweets",
-                                 options, Twitter::PromotedTweet)
+        perform_get_with_cursor("https://ads-api.twitter.com/0/accounts/#{account_id}/promoted_tweets",
+                                 options, :data, Twitter::PromotedTweet)
       end
 
       # Promote tweets in association with a specified line item

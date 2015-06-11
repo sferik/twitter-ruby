@@ -1,4 +1,5 @@
 require 'addressable/uri'
+require 'twitter/ads/cursor'
 require 'twitter/arguments'
 require 'twitter/rest/request'
 require 'twitter/utils'
@@ -106,9 +107,8 @@ module Twitter
       # @param collection_name [Symbol]
       # @param klass [Class]
       def perform_get_with_cursor(path, options, collection_name, klass = nil)
-        merge_default_cursor!(options)
         request = Twitter::REST::Request.new(self, :get, path, options)
-        Twitter::Cursor.new(collection_name.to_sym, klass, request)
+        Twitter::Ads::Cursor.new(collection_name.to_sym, klass, request)
       end
     end
   end
