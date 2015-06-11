@@ -1,0 +1,113 @@
+{
+    "data": [
+        {
+            "account_id": "abc123",
+            "created_at": "2013-08-26T15:50:44Z",
+            "currency": "USD",
+            "daily_budget_amount_local_micro": 10000000,
+            "deleted": false,
+            "end_time": null,
+            "funding_instrument_id": "f8jfd",
+            "id": "d8fjjf",
+            "name": "Test camp 1",
+            "paused": true,
+            "reasons_not_servable": [
+                "PAUSED_BY_ADVERTISER"
+            ],
+            "servable": false,
+            "standard_delivery": true,
+            "start_time": "2013-08-26T15:09:00Z",
+            "total_budget_amount_local_micro": null,
+            "updated_at": "2013-10-29T16:55:43Z"
+        },
+        {
+            "account_id": "abc123",
+            "created_at": "2013-08-26T16:12:13Z",
+            "currency": "USD",
+            "daily_budget_amount_local_micro": 6000000,
+            "deleted": false,
+            "end_time": null,
+            "funding_instrument_id": "f8jfd",
+            "id": "dfj32",
+            "name": "test camp 2",
+            "paused": true,
+            "reasons_not_servable": [
+                "PAUSED_BY_ADVERTISER"
+            ],
+            "servable": false,
+            "standard_delivery": true,
+            "start_time": "2013-08-26T15:57:00Z",
+            "total_budget_amount_local_micro": null,
+            "updated_at": "2013-09-23T22:01:23Z"
+        },
+        {
+            "account_id": "abc123",
+            "created_at": "2013-08-26T17:34:55Z",
+            "currency": "USD",
+            "daily_budget_amount_local_micro": 55000000,
+            "deleted": false,
+            "end_time": null,
+            "funding_instrument_id": "f8jfd",
+            "id": "jjdk",
+            "name": "test camp 3",
+            "paused": true,
+            "reasons_not_servable": [
+                "PAUSED_BY_ADVERTISER"
+            ],
+            "servable": false,
+            "standard_delivery": true,
+            "start_time": "2013-08-26T17:23:00Z",
+            "total_budget_amount_local_micro": null,
+            "updated_at": "2014-04-25T15:02:35Z"
+        },
+        {
+            "account_id": "abc123",
+            "created_at": "2013-08-26T17:54:37Z",
+            "currency": "USD",
+            "daily_budget_amount_local_micro": 6000000,
+            "deleted": false,
+            "end_time": null,
+            "funding_instrument_id": "f8jfd",
+            "id": "xdf55",
+            "name": "Test camp 4",
+            "paused": true,
+            "reasons_not_servable": [
+                "PAUSED_BY_ADVERTISER"
+            ],
+            "servable": false,
+            "standard_delivery": true,
+            "start_time": "2013-08-26T17:45:00Z",
+            "total_budget_amount_local_micro": null,
+            "updated_at": "2013-10-29T16:56:06Z"
+        },
+        {
+            "account_id": "abc123",
+            "created_at": "2013-09-16T19:09:57Z",
+            "currency": "USD",
+            "daily_budget_amount_local_micro": 100000000,
+            "deleted": false,
+            "end_time": "2013-09-19T06:59:00Z",
+            "funding_instrument_id": "f8jfd",
+            "id": "f331d",
+            "name": "test camp 5",
+            "paused": false,
+            "reasons_not_servable": [
+                "EXPIRED"
+            ],
+            "servable": false,
+            "standard_delivery": true,
+            "start_time": "2013-09-16T19:04:00Z",
+            "total_budget_amount_local_micro": 100000000,
+            "updated_at": "2013-09-17T11:26:43Z"
+        }
+    ],
+    "data_type": "campaign",
+    "next_cursor": "8x7x8widc",
+    "request": {
+        "params": {
+            "account_id": "abc123",
+            "count": 5
+        }
+    },
+    "total_count": 6
+}
