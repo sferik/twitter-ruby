@@ -39,7 +39,7 @@ module Twitter
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-      # @return [Array<Twitter::Card::LeadGen>]
+      # @return [Twitter::Card::LeadGen]
       # @param account_id [String] Ads account id.
       # @param card_id [String] Card id.
       def lead_gen_card(account_id, card_id)
@@ -53,7 +53,7 @@ module Twitter
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-      # @return [Array<Twitter::Card::LeadGen>]
+      # @return [Twitter::Card::LeadGen]
       # @param account_id [String] Ads account id.
       # @param options [Hash] customizeable options. See documentation for additional options
       # @option params [String] :name Card name
@@ -72,7 +72,7 @@ module Twitter
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-      # @return [Array<Twitter::Card::LeadGen>]
+      # @return [Twitter::Card::LeadGen]
       # @param account_id [String] Ads account id.
       # @param options [Hash] Fields to update. See documentation for options.
       def update_lead_gen_card(account_id, card_id, options = {})
@@ -86,7 +86,7 @@ module Twitter
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-      # @return [Array<Twitter::Card::LeadGen>]
+      # @return [Twitter::Card::LeadGen]
       # @param account_id [String] Ads account id.
       # @param card_id [String] Card id.
       def destroy_lead_gen_card(account_id, card_id)
@@ -120,7 +120,7 @@ module Twitter
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-      # @return [Array<Twitter::Card::AppDownload>]
+      # @return [Twitter::Card::AppDownload]
       # @param account_id [String] Ads account id.
       # @param card_id [String] Card id.
       def app_download_card(account_id, card_id)
@@ -134,7 +134,7 @@ module Twitter
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-      # @return [Array<Twitter::Card::AppDownload>]
+      # @return [Twitter::Card::AppDownload]
       # @param account_id [String] Ads account id.
       # @param options [Hash] customizeable options. See documentation for additional options
       # @option params [String] :name Card name
@@ -153,7 +153,7 @@ module Twitter
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-      # @return [Array<Twitter::Card::AppDownload>]
+      # @return [Twitter::Card::AppDownload]
       # @param account_id [String] Ads account id.
       # @param options [Hash] Fields to update. See documentation for options.
       def update_app_download_card(account_id, card_id, options = {})
@@ -167,7 +167,7 @@ module Twitter
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-      # @return [Array<Twitter::Card::AppDownload>]
+      # @return [Twitter::Card::AppDownload]
       # @param account_id [String] Ads account id.
       # @param card_id [String] Card id.
       def destroy_app_download_card(account_id, card_id)
@@ -212,7 +212,7 @@ module Twitter
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-      # @return [Array<Twitter::Card::Website>]
+      # @return [Twitter::Card::Website]
       # @param account_id [String] Ads account id.
       # @param card_id [String] Card id.
       def website_card(account_id, card_id)
@@ -229,7 +229,7 @@ module Twitter
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-      # @return [Array<Twitter::Card::Website>]
+      # @return [Twitter::Card::Website]
       # @param account_id [String] Ads account id.
       # @param name [String] Card name
       # @param title [String] Card title.
@@ -250,13 +250,11 @@ module Twitter
 
       # Updates a website card for the given account.
       #
-      # TODO: Vet what is/isn't required. The docs are horribly weird/wrong looking.
-      #
       # @see https://dev.twitter.com/ads/reference/put/accounts/%3Aaccount_id/cards/website/%3Acard_id
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-      # @return [Array<Twitter::Card::Website>]
+      # @return [Twitter::Card::Website]
       # @param account_id [String] Ads account id.
       # @param card_id [String] Card id.
       # @param options [Hash] customizeable options.
@@ -276,7 +274,7 @@ module Twitter
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-      # @return [Array<Twitter::Card::Website>]
+      # @return [Twitter::Card::Website]
       # @param account_id [String] Ads account id.
       # @param card_id [String] Card id.
       def destroy_website_card(account_id, card_id)
