@@ -58,7 +58,7 @@ module Twitter
         request(:get, 'https://stream.twitter.com:443/1.1/statuses/sample.json', options, &block)
       end
 
-      # Streams messages for a set of user
+      # Streams messages for a set of users
       #
       # @see https://dev.twitter.com/streaming/reference/get/site
       # @see https://dev.twitter.com/streaming/sitestreams
