@@ -1,0 +1,57 @@
+{
+    "data": [
+        {
+            "contributors": null,
+            "coordinates": null,
+            "created_at": "Tue Jan 08 05:58:03 +0000 2013",
+            "entities": {
+                "hashtags": [],
+                "urls": [
+                    {
+                        "display_url": "twitter.com/i/discover",
+                        "expanded_url": "https://twitter.com/i/discover",
+                        "indices": [
+                            115,
+                            136
+                        ],
+                        "url": "https://t.co/cj32Sjeb"
+                    }
+                ],
+                "user_mentions": []
+            },
+            "favorited": false,
+            "geo": null,
+            "id": 288524949692489728,
+            "id_str": "288524949692489728",
+            "in_reply_to_screen_name": null,
+            "in_reply_to_status_id": null,
+            "in_reply_to_status_id_str": null,
+            "in_reply_to_user_id": null,
+            "in_reply_to_user_id_str": null,
+            "place": null,
+            "possibly_sensitive": false,
+            "retweet_count": 19,
+            "retweeted": false,
+            "scopes": {
+                "followers": false
+            },
+            "source": "Twitter Ads",
+            "text": "Discover lets you tap into a stream of useful and entertaining information, customized just for you. Check it out! https://t.co/cj32Sjeb",
+            "truncated": false,
+            "user": {
+                "id": 783214,
+                "id_str": "783214"
+            }
+        }
+    ],
+    "data_type": "status",
+    "next_cursor": null,
+    "request": {
+        "params": {
+            "account_id": "abc123",
+            "user_ids": [
+                "783214"
+            ]
+        }
+    }
+}
