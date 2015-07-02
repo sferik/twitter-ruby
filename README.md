@@ -137,6 +137,7 @@ client.mentions_timeline
 ```ruby
 client.status(27558893223)
 ```
+
 **Collect the three most recent marriage proposals to @justinbieber**
 
 ```ruby
@@ -144,11 +145,18 @@ client.search("to:justinbieber marry me", result_type: "recent").take(3).collect
   "#{tweet.user.screen_name}: #{tweet.text}"
 end
 ```
-**Find a Japanese-language Tweet tagged #ruby (excluding retweets)**
+**Find the text of a Japanese-language Tweet tagged #ruby (excluding retweets)**
 
 ```ruby
 client.search("#ruby -rt", lang: "ja").first.text
 ```
+
+**Find the ID of a Japanese-language Tweet tagged #ruby**
+```ruby
+client.search("#ruby -rt", lang: "ja").first.id
+```
+
+
 For more usage examples, please see the full [documentation][].
 
 ## Streaming
