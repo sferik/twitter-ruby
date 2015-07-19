@@ -19,7 +19,7 @@ module Twitter
 
         ssl_client.connect
         request.stream(ssl_client)
-        while body = ssl_client.readpartial(1024) # rubocop:disable AssignmentInCondition, WhileUntilModifier
+        while body = ssl_client.readpartial(1024) # rubocop:disable AssignmentInCondition
           response << body
         end
       end

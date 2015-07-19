@@ -156,7 +156,7 @@ module Twitter
       # @param path [String]
       # @param args [Array]
       # @return [Twitter::Cursor]
-      def cursor_from_response_with_user(collection_name, klass, path, args) # rubocop:disable ParameterLists
+      def cursor_from_response_with_user(collection_name, klass, path, args)
         arguments = Twitter::Arguments.new(args)
         merge_user!(arguments.options, arguments.pop || user_id) unless arguments.options[:user_id] || arguments.options[:screen_name]
         perform_get_with_cursor(path, arguments.options, collection_name, klass)

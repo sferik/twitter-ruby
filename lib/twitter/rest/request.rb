@@ -10,7 +10,7 @@ require 'twitter/utils'
 
 module Twitter
   module REST
-    class Request # rubocop:disable Metrics/ClassLength
+    class Request
       include Twitter::Utils
       BASE_URL = 'https://api.twitter.com'
       attr_accessor :client, :headers, :options, :path, :rate_limit,
