@@ -10,8 +10,13 @@ module Twitter
       end
       unless last?
         start = [@collection.size, start].max
-        fetch_next_page
-        each(start, &Proc.new)
+        begin
+          fetch_next_page
+          each(start, &Proc.new)
+        rescue Twitter::Error::TooManyRequests => error
+          sleep error.rate_limit.reset_in + 1
+          retry
+        end
       end
       self
     end
