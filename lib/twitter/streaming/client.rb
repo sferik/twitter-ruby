@@ -120,7 +120,7 @@ module Twitter
         headers = Twitter::Headers.new(self, method, uri, params).request_headers
         request = HTTP::Request.new(method, uri + '?' + to_url_params(params), headers, proxy)
         response = Streaming::Response.new do |data|
-          if item = @parser.parse(data) # rubocop:disable AssignmentInCondition, IfUnlessModifier
+          if item = @parser.parse(data) # rubocop:disable AssignmentInCondition
             yield(item)
           end
         end

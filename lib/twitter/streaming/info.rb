@@ -18,7 +18,7 @@ module Twitter
       #
       # @return [Array<Twitter::Streaming::User>]
       def users
-        @attrs.fetch(:users, []).map do |object|
+        @attrs.fetch(:users, []).collect do |object|
           Twitter::Streaming::User.new(object)
         end
       end
@@ -28,7 +28,7 @@ module Twitter
       #
       # @return [Array<Twitter::Streaming::Follow>]
       def follows
-        @attrs.fetch(:follows, []).map do |object|
+        @attrs.fetch(:follows, []).collect do |object|
           Twitter::Streaming::Follow.new(object)
         end
       end

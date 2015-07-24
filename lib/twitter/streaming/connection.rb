@@ -16,8 +16,7 @@ module Twitter
       # Initiate a socket connection and setup response handling
       def stream(request, response)
         client_context = OpenSSL::SSL::SSLContext.new
-        port           = request.uri.port || Addressable::URI::PORT_MAPPING[request.uri.scheme]
-        client         = @tcp_socket_class.new(Resolv.getaddress(request.uri.host), port)
+        client         = @tcp_socket_class.new(Resolv.getaddress(request.uri.host), request_port(request))
         @ssl_client    = @ssl_socket_class.new(client, client_context)
 
         transition(:connecting, :connected) do
@@ -25,7 +24,7 @@ module Twitter
           request.stream(@ssl_client)
         end
 
-        while connected? && (body = @ssl_client.readpartial(1024)) # rubocop:disable AssignmentInCondition, WhileUntilModifier
+        while connected? && (body = @ssl_client.readpartial(1024))
           response << body
         end
       end
@@ -57,6 +56,10 @@ module Twitter
         @state = from
         yield
         @state = to
+      end
+
+      def request_port(request)
+        request.uri.port || Addressable::URI::PORT_MAPPING[request.uri.scheme]
       end
     end
   end

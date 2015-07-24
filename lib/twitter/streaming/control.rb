@@ -82,7 +82,7 @@ module Twitter
       # @param path [String]
       # @param args [Array]
       # @return [Twitter::Cursor]
-      def cursor_from_response_with_streaming_user(collection_name, klass, path, args) # rubocop:disable ParameterLists
+      def cursor_from_response_with_streaming_user(collection_name, klass, path, args)
         arguments = Twitter::Arguments.new(args)
         merge_user!(arguments.options, arguments.pop) unless arguments.options[:user_id]
         perform_post_with_streaming_cursor(path, arguments.options, collection_name, klass)
@@ -93,7 +93,7 @@ module Twitter
       # @param options [Hash]
       # @collection_name [Symbol]
       # @param klass [Class]
-      def perform_post_with_streaming_cursor(path, options, collection_name, klass = nil) # rubocop:disable ParameterLists
+      def perform_post_with_streaming_cursor(path, options, collection_name, klass = nil)
         merge_default_cursor!(options)
         request = Twitter::REST::Request.new(self, :post, path, options)
         Twitter::Streaming::Cursor.new(collection_name.to_sym, klass, request, :follow)
