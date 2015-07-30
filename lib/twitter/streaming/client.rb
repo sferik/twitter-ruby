@@ -59,7 +59,7 @@ module Twitter
         request(:get, 'https://stream.twitter.com:443/1.1/statuses/sample.json', options, &block)
       end
 
-      # Streams messages for a set of user
+      # Streams messages for a set of users
       #
       # @see https://dev.twitter.com/streaming/reference/get/site
       # @see https://dev.twitter.com/streaming/sitestreams
@@ -110,9 +110,9 @@ module Twitter
       def request(method, uri, params)
         before_request.call
         headers = Twitter::Headers.new(self, method, uri, params).request_headers
-        request = HTTP::Request.new(method, uri + '?' + to_url_params(params), headers)
+        request = HTTP::Request.new(method, uri + '?' + to_url_params(params), headers, proxy)
         response = Streaming::Response.new do |data|
-          if item = Streaming::MessageParser.parse(data) # rubocop:disable AssignmentInCondition, IfUnlessModifier
+          if item = Streaming::MessageParser.parse(data) # rubocop:disable AssignmentInCondition
             yield(item)
           end
         end
@@ -131,7 +131,7 @@ module Twitter
       # @param users [Array]
       # @return [Array<Integer>]
       def collect_user_ids(users)
-        users.map do |user|
+        users.collect do |user|
           case user
           when Integer       then user
           when Twitter::User then user.id

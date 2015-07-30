@@ -17,9 +17,13 @@ module Twitter
     object_attr_reader :Metadata, :metadata
     object_attr_reader :Place, :place
     object_attr_reader :Tweet, :retweeted_status
+    object_attr_reader :Tweet, :quoted_status
     alias_method :retweeted_tweet, :retweeted_status
     alias_method :retweet?, :retweeted_status?
     alias_method :retweeted_tweet?, :retweeted_status?
+    alias_method :quoted_tweet, :quoted_status
+    alias_method :quote?, :quoted_status?
+    alias_method :quoted_tweet?, :quoted_status?
     object_attr_reader :User, :user, :status
     predicate_attr_reader :favorited, :possibly_sensitive, :retweeted,
                           :truncated

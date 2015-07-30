@@ -119,4 +119,16 @@ describe Twitter::Streaming::Client do
       expect(objects[5].code).to eq('FALLING_BEHIND')
     end
   end
+
+  context 'when using a proxy' do
+    let(:proxy) { {host: '127.0.0.1', port: 3328} }
+    before do
+      @client = Twitter::Streaming::Client.new(consumer_key: 'CK', consumer_secret: 'CS', access_token: 'AT', access_token_secret: 'AS', proxy: proxy)
+    end
+    it 'requests via the proxy' do
+      @client.connection = FakeConnection.new(fixture('track_streaming.json'))
+      expect(HTTP::Request).to receive(:new).with(:get, 'https://stream.twitter.com:443/1.1/statuses/sample.json?', kind_of(Hash), proxy)
+      @client.sample {}
+    end
+  end
 end

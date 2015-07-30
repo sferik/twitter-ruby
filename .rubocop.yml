@@ -9,6 +9,9 @@ Metrics/MethodLength:
   CountComments: false
   Max: 10
 
+Metrics/ModuleLength:
+  Max: 150 # TODO: Lower to 100
+
 Metrics/ParameterLists:
   Max: 4
   CountKeywordArgs: true
@@ -17,8 +20,10 @@ Style/AccessModifierIndentation:
   EnforcedStyle: outdent
 
 Style/CollectionMethods:
+  Enabled: true
   PreferredMethods:
     map:      'collect'
+    map!:     'collect!'
     reduce:   'inject'
     find:     'detect'
     find_all: 'select'

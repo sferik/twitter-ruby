@@ -40,14 +40,15 @@ module Twitter
 
       def perform_raw
         options_key = @request_method == :get ? :params : :form
-        HTTP.with(@headers).public_send(@request_method, @uri.to_s, options_key => @options)
+        http_client.with(@headers).public_send(@request_method, @uri.to_s, options_key => @options)
       end
 
     private
 
       def set_multipart_options!(request_method, options)
         if request_method == :multipart_post
-          key, file = options.delete(:key), options.delete(:file)
+          key = options.delete(:key)
+          file = options.delete(:file)
           @request_method = :post
           @headers = Twitter::Headers.new(@client, @request_method, @uri, options).request_headers
           options.merge!(key => HTTP::FormData::File.new(file, filename: File.basename(file), mime_type: mime_type(File.basename(file))))
@@ -107,6 +108,18 @@ module Twitter
           end
         end
         object
+      end
+
+      # @return [HTTP::Client, HTTP]
+      def http_client
+        @client.proxy ? HTTP.via(*proxy) : HTTP
+      end
+
+      # Return proxy values as a compacted array
+      #
+      # @return [Array]
+      def proxy
+        @client.proxy.values_at(:host, :port, :username, :password).compact
       end
     end
   end
