@@ -15,7 +15,7 @@ module Twitter
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-      # @return [Twitter::Stats]
+      # @return [Twitter::Stats, Array<Twitter::Stats>]
       # @param account_id [String] An ads account id.
       # @param options [Hash] customizeable options.
       # @option options [String] :start_time Scopes retrieved data to this ISO8601 start time.
@@ -35,7 +35,7 @@ module Twitter
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-      # @return [Twitter::Stats]
+      # @return [Twitter::Stats, Array<Twitter::Stats>]
       # @param account_id [String] An ads account id.
       # @param campaign_id [String] An ads campaign id.
       # @param options [Hash] customizeable options.
@@ -56,7 +56,7 @@ module Twitter
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-      # @return [Twitter::Stats]
+      # @return [Twitter::Stats, Array<Twitter::Stats>]
       # @param account_id [String] An ads account id.
       # @param line_item_id [String] An ads line_item id.
       # @param options [Hash] customizeable options.
@@ -77,7 +77,7 @@ module Twitter
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-      # @return [Twitter::Stats]
+      # @return [Twitter::Stats, Array<Twitter::Stats>]
       # @param account_id [String] An ads account id.
       # @param promoted_tweet_id [String] An ads promoted tweet id.
       # @param options [Hash] customizeable options.
@@ -98,7 +98,7 @@ module Twitter
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-      # @return [Twitter::Stats]
+      # @return [Twitter::Stats, Array<Twitter::Stats>]
       # @param account_id [String] An ads account id.
       # @param promoted_account_id [String] An ads promoted account id.
       # @param options [Hash] customizeable options.
@@ -119,7 +119,7 @@ module Twitter
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-      # @return [Twitter::Stats]
+      # @return [Twitter::Stats, Array<Twitter::Stats>]
       # @param account_id [String] An ads account id.
       # @param funding_instrument_id [String] An ads funding instrument id.
       # @param options [Hash] customizeable options.
@@ -140,7 +140,7 @@ module Twitter
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-      # @return [Twitter::Stats]
+      # @return [Twitter::Stats, Array<Twitter::Stats>]
       # @param account_id [String] An ads account id.
       # @param campaign_ids [Array<String>] Ads campaign ids.
       # @param options [Hash] customizeable options.
@@ -161,7 +161,7 @@ module Twitter
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-      # @return [Twitter::Stats]
+      # @return [Twitter::Stats, Array<Twitter::Stats>]
       # @param account_id [String] An ads account id.
       # @param line_item_ids [Array<String>] Ads line item ids.
       # @param options [Hash] customizeable options.
@@ -182,7 +182,7 @@ module Twitter
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-      # @return [Twitter::Stats]
+      # @return [Twitter::Stats, Array<Twitter::Stats>]
       # @param account_id [String] An ads account id.
       # @param promoted_tweet_ids [Array<String>] Ads promoted tweet ids.
       # @param options [Hash] customizeable options.
@@ -203,7 +203,7 @@ module Twitter
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-      # @return [Twitter::Stats]
+      # @return [Twitter::Stats, Array<Twitter::Stats>]
       # @param account_id [String] An ads account id.
       # @param promoted_account_ids [Array<String>] Ads promoted account ids.
       # @param options [Hash] customizeable options.
@@ -224,7 +224,7 @@ module Twitter
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-      # @return [Twitter::Stats]
+      # @return [Twitter::Stats, Array<Twitter::Stats>]
       # @param account_id [String] An ads account id.
       # @param funding_instrument_ids [Array<String>] Ads funding instrument ids.
       # @param options [Hash] customizeable options.

@@ -28,6 +28,9 @@ module Twitter
     attr_reader :promoted_account_follow_rate, :promoted_tweet_search_engagement_rate,
       :promoted_tweet_timeline_engagement_rate
 
+    # @return [Hash]
+    attr_reader :segment
+
 
     # Time when campaign started
     #
