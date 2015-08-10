@@ -47,7 +47,8 @@ module Twitter
       # @option options [String] :country A country targeting_value required for certain segmentation types.
       # @option options [String] :platform A platform targeting_value required for certain segmentation types.
       def campaign_stats(account_id, campaign_id, options = {})
-        raise 'Not yet implemented'
+        perform_get_for_stats("https://ads-api.twitter.com/0/stats/accounts/#{account_id}/campaigns/#{campaign_id}",
+                                options, Twitter::Stats)
       end
 
       # Returns a stats specific to a given line item.
@@ -237,6 +238,18 @@ module Twitter
       # @option options [String] :platform A platform targeting_value required for certain segmentation types.
       def funding_instruments_stats(account_id, funding_instrument_ids, options = {})
         raise 'Not yet implemented'
+      end
+
+    private
+
+      # If you elect for segmentation twitter returns an array of stats objects rather
+      # than a single stats object.
+      def perform_get_for_stats(url, options, klass)
+        if options.has_key?(:segmentation_type) || options.has_key?('segmentation_type')
+          perform_get_with_objects(url, options, klass)
+        else
+          perform_get_with_object(url, options, klass)
+        end
       end
     end
   end
