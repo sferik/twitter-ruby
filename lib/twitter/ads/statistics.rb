@@ -1,6 +1,8 @@
-require 'twitter/stats'
-require 'twitter/rest/request'
 require 'twitter/ads/utils'
+require 'twitter/error'
+require 'twitter/rest/request'
+require 'twitter/settings'
+require 'twitter/stats'
 require 'twitter/utils'
 
 module Twitter
@@ -26,7 +28,7 @@ module Twitter
       # @option options [String] :country A country targeting_value required for certain segmentation types.
       # @option options [String] :platform A platform targeting_value required for certain segmentation types.
       def account_stats(account_id, options = {})
-        raise 'Not yet implemented'
+        perform_get_for_stats("https://ads-api.twitter.com/0/stats/accounts/#{account_id}", options)
       end
 
       # Returns a stats specific to a given campaign.
@@ -47,8 +49,7 @@ module Twitter
       # @option options [String] :country A country targeting_value required for certain segmentation types.
       # @option options [String] :platform A platform targeting_value required for certain segmentation types.
       def campaign_stats(account_id, campaign_id, options = {})
-        perform_get_for_stats("https://ads-api.twitter.com/0/stats/accounts/#{account_id}/campaigns/#{campaign_id}",
-                                options, Twitter::Stats)
+        perform_get_for_stats("https://ads-api.twitter.com/0/stats/accounts/#{account_id}/campaigns/#{campaign_id}", options)
       end
 
       # Returns a stats specific to a given line item.
@@ -69,7 +70,7 @@ module Twitter
       # @option options [String] :country A country targeting_value required for certain segmentation types.
       # @option options [String] :platform A platform targeting_value required for certain segmentation types.
       def line_item_stats(account_id, line_item_id, options = {})
-        raise 'Not yet implemented'
+        perform_get_for_stats("https://ads-api.twitter.com/0/stats/accounts/#{account_id}/line_items/#{line_item_id}", options)
       end
 
       # Returns a stats specific to a given promoted tweet.
@@ -90,7 +91,7 @@ module Twitter
       # @option options [String] :country A country targeting_value required for certain segmentation types.
       # @option options [String] :platform A platform targeting_value required for certain segmentation types.
       def promoted_tweet_stats(account_id, promoted_tweet_id, options = {})
-        raise 'Not yet implemented'
+        perform_get_for_stats("https://ads-api.twitter.com/0/stats/accounts/#{account_id}/promoted_tweets/#{promoted_tweet_id}", options)
       end
 
       # Returns a stats specific to a given promoted account.
@@ -111,7 +112,7 @@ module Twitter
       # @option options [String] :country A country targeting_value required for certain segmentation types.
       # @option options [String] :platform A platform targeting_value required for certain segmentation types.
       def promoted_account_stats(account_id, promoted_account_id, options = {})
-        raise 'Not yet implemented'
+        perform_get_for_stats("https://ads-api.twitter.com/0/stats/accounts/#{account_id}/promoted_accounts/#{promoted_account_id}", options)
       end
 
       # Returns a stats specific to a given funding instrument.
@@ -132,7 +133,7 @@ module Twitter
       # @option options [String] :country A country targeting_value required for certain segmentation types.
       # @option options [String] :platform A platform targeting_value required for certain segmentation types.
       def funding_instrument_stats(account_id, funding_instrument_id, options = {})
-        raise 'Not yet implemented'
+        perform_get_for_stats("https://ads-api.twitter.com/0/stats/accounts/#{account_id}/funding_instruments/#{funding_instrument_id}", options)
       end
 
       # Return aggregate stats specific to a collection of campaigns
@@ -153,7 +154,8 @@ module Twitter
       # @option options [String] :country A country targeting_value required for certain segmentation types.
       # @option options [String] :platform A platform targeting_value required for certain segmentation types.
       def campaigns_stats(account_id, campaign_ids, options = {})
-        raise 'Not yet implemented'
+        perform_collection_get_for_stats("https://ads-api.twitter.com/0/stats/accounts/#{account_id}/campaigns",
+                                        campaign_ids, :campaign_ids,  options)
       end
 
       # Return aggregate stats specific to a collection of line items.
@@ -174,7 +176,8 @@ module Twitter
       # @option options [String] :country A country targeting_value required for certain segmentation types.
       # @option options [String] :platform A platform targeting_value required for certain segmentation types.
       def line_items_stats(account_id, line_item_ids, options = {})
-        raise 'Not yet implemented'
+        perform_collection_get_for_stats("https://ads-api.twitter.com/0/stats/accounts/#{account_id}/line_items",
+                                        line_item_ids, :line_item_ids,  options)
       end
 
       # Return aggregate stats specific to a collection of promoted tweets.
@@ -195,7 +198,8 @@ module Twitter
       # @option options [String] :country A country targeting_value required for certain segmentation types.
       # @option options [String] :platform A platform targeting_value required for certain segmentation types.
       def promoted_tweets_stats(account_id, promoted_tweet_ids, options = {})
-        raise 'Not yet implemented'
+        perform_collection_get_for_stats("https://ads-api.twitter.com/0/stats/accounts/#{account_id}/promoted_tweets",
+                                        promoted_tweet_ids, :promoted_tweet_ids,  options)
       end
 
       # Return aggregate stats specific to a collection of promoted accounts.
@@ -216,7 +220,8 @@ module Twitter
       # @option options [String] :country A country targeting_value required for certain segmentation types.
       # @option options [String] :platform A platform targeting_value required for certain segmentation types.
       def promoted_accounts_stats(account_id, promoted_account_ids, options = {})
-        raise 'Not yet implemented'
+        perform_collection_get_for_stats("https://ads-api.twitter.com/0/stats/accounts/#{account_id}/promoted_accounts",
+                                        promoted_account_ids, :promoted_account_ids,  options)
       end
 
       # Return aggregate stats specific to a collection of funding instruments
@@ -237,19 +242,29 @@ module Twitter
       # @option options [String] :country A country targeting_value required for certain segmentation types.
       # @option options [String] :platform A platform targeting_value required for certain segmentation types.
       def funding_instruments_stats(account_id, funding_instrument_ids, options = {})
-        raise 'Not yet implemented'
+        perform_collection_get_for_stats("https://ads-api.twitter.com/0/stats/accounts/#{account_id}/funding_instruments",
+                                        funding_instrument_ids, :funding_instrument_ids,  options)
       end
 
     private
 
       # If you elect for segmentation twitter returns an array of stats objects rather
       # than a single stats object.
-      def perform_get_for_stats(url, options, klass)
+      def perform_get_for_stats(url, options, klass = Twitter::Stats)
         if options.has_key?(:segmentation_type) || options.has_key?('segmentation_type')
           perform_get_with_objects(url, options, klass)
         else
           perform_get_with_object(url, options, klass)
         end
+      end
+
+      def perform_collection_get_for_stats(url, ids, key, options, klass = Twitter::Stats)
+        options[key] = case ids
+                       when String then ids
+                       when Array then ids.join(',')
+                       else raise 'Ids must be a string or array of strings.'
+                       end
+        perform_get_with_objects(url, options, klass)
       end
     end
   end
