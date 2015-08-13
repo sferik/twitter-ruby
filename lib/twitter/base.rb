@@ -13,7 +13,6 @@ module Twitter
     attr_reader :attrs
     alias_method :to_h, :attrs
     alias_method :to_hash, :to_h
-    deprecate_alias :to_hsh, :to_hash
 
     class << self
       # Define methods that retrieve the value from attributes
@@ -29,7 +28,6 @@ module Twitter
       def predicate_attr_reader(*attrs)
         attrs.each do |attr|
           define_predicate_method(attr)
-          deprecate_attribute_method(attr)
         end
       end
 
@@ -72,8 +70,8 @@ module Twitter
       # @param key1 [Symbol]
       # @param key2 [Symbol]
       def define_uri_method(key1, key2)
-        define_method(key1) do ||
-          Addressable::URI.parse(@attrs[key2]) unless @attrs[key2].nil?
+        define_method(key1) do
+          Addressable::URI.parse(@attrs[key2].chomp('#')) unless @attrs[key2].nil?
         end
         memoize(key1)
       end
@@ -84,28 +82,14 @@ module Twitter
       # @param klass [Symbol]
       # @param key2 [Symbol]
       def define_attribute_method(key1, klass = nil, key2 = nil)
-        define_method(key1) do ||
-          if @attrs[key1].nil? || @attrs[key1].respond_to?(:empty?) && @attrs[key1].empty?
+        define_method(key1) do
+          if attr_falsey_or_empty?(key1)
             NullObject.new
           else
-            if klass.nil?
-              @attrs[key1]
-            else
-              attrs = attrs_for_object(key1, key2)
-              Twitter.const_get(klass).new(attrs)
-            end
+            klass.nil? ? @attrs[key1] : Twitter.const_get(klass).new(attrs_for_object(key1, key2))
           end
         end
         memoize(key1)
-      end
-
-      # @param key [Symbol]
-      def deprecate_attribute_method(key)
-        define_method(key) do ||
-          warn "#{Kernel.caller.first}: [DEPRECATION] ##{key} is deprecated. Use ##{key}? instead."
-          @attrs[key]
-        end
-        memoize(key)
       end
 
       # Dynamically define a predicate method for an attribute
@@ -113,8 +97,8 @@ module Twitter
       # @param key1 [Symbol]
       # @param key2 [Symbol]
       def define_predicate_method(key1, key2 = key1)
-        define_method(:"#{key1}?") do ||
-          !@attrs[key2].nil? && @attrs[key2] != false && !(@attrs[key2].respond_to?(:empty?) && @attrs[key2].empty?)
+        define_method(:"#{key1}?") do
+          !attr_falsey_or_empty?(key2)
         end
         memoize(:"#{key1}?")
       end
@@ -139,6 +123,10 @@ module Twitter
     end
 
   private
+
+    def attr_falsey_or_empty?(key)
+      !@attrs[key] || @attrs[key].respond_to?(:empty?) && @attrs[key].empty?
+    end
 
     def attrs_for_object(key1, key2 = nil)
       if key2.nil?

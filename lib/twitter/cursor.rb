@@ -1,4 +1,5 @@
 require 'twitter/enumerable'
+require 'twitter/rest/request'
 require 'twitter/utils'
 
 module Twitter
@@ -9,16 +10,14 @@ module Twitter
     attr_reader :attrs
     alias_method :to_h, :attrs
     alias_method :to_hash, :to_h
-    deprecate_alias :to_hsh, :to_hash
 
     # Initializes a new Cursor
     #
-    # @param attrs [Hash]
     # @param key [String, Symbol] The key to fetch the data from the response
     # @param klass [Class] The class to instantiate objects in the response
-    # @param request [Twitter::Request]
+    # @param request [Twitter::REST::Request]
     # @return [Twitter::Cursor]
-    def initialize(attrs, key, klass, request)
+    def initialize(key, klass, request)
       @key = key.to_sym
       @klass = klass
       @client = request.client
@@ -26,7 +25,7 @@ module Twitter
       @path = request.path
       @options = request.options
       @collection = []
-      self.attrs = attrs
+      self.attrs = request.perform
     end
 
   private
@@ -44,7 +43,7 @@ module Twitter
 
     # @return [Hash]
     def fetch_next_page
-      response = @client.send(@request_method, @path, @options.merge(:cursor => next_cursor)).body
+      response = Twitter::REST::Request.new(@client, @request_method, @path, @options.merge(cursor: next_cursor)).perform
       self.attrs = response
     end
 

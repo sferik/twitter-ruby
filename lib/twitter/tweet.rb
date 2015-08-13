@@ -11,18 +11,19 @@ module Twitter
     # @return [Integer]
     attr_reader :favorite_count, :in_reply_to_status_id, :in_reply_to_user_id,
                 :retweet_count
-    deprecate_alias :favorites_count, :favorite_count
-    deprecate_alias :favoriters_count, :favorite_count
     alias_method :in_reply_to_tweet_id, :in_reply_to_status_id
     alias_method :reply?, :in_reply_to_user_id?
-    deprecate_alias :retweeters_count, :retweet_count
     object_attr_reader :GeoFactory, :geo
     object_attr_reader :Metadata, :metadata
     object_attr_reader :Place, :place
     object_attr_reader :Tweet, :retweeted_status
+    object_attr_reader :Tweet, :quoted_status
     alias_method :retweeted_tweet, :retweeted_status
     alias_method :retweet?, :retweeted_status?
     alias_method :retweeted_tweet?, :retweeted_status?
+    alias_method :quoted_tweet, :quoted_status
+    alias_method :quote?, :quoted_status?
+    alias_method :quoted_tweet?, :quoted_status?
     object_attr_reader :User, :user, :status
     predicate_attr_reader :favorited, :possibly_sensitive, :retweeted,
                           :truncated
@@ -46,5 +47,4 @@ module Twitter
     memoize :uri
     alias_method :url, :uri
   end
-  Status = Tweet # rubocop:disable ConstantName
 end

@@ -1,4 +1,4 @@
-require 'twitter/request'
+require 'twitter/rest/request'
 require 'twitter/search_results'
 
 module Twitter
@@ -8,8 +8,8 @@ module Twitter
 
       # Returns tweets that match a specified query.
       #
-      # @see https://dev.twitter.com/docs/api/1.1/get/search/tweets
-      # @see https://dev.twitter.com/docs/using-search
+      # @see https://dev.twitter.com/rest/reference/get/search/tweets
+      # @see https://dev.twitter.com/rest/public/search
       # @note Please note that Twitter's search service and, by extension, the Search API is not meant to be an exhaustive source of Tweets. Not all Tweets will be indexed or made available via the search interface.
       # @rate_limited Yes
       # @authentication Requires user context
@@ -27,9 +27,8 @@ module Twitter
       # @return [Twitter::SearchResults] Return tweets that match a specified query with search metadata
       def search(q, options = {})
         options[:count] ||= MAX_TWEETS_PER_REQUEST
-        request = Twitter::Request.new(self, :get, '/1.1/search/tweets.json', options.merge(:q => q))
-        response = get(request.path, request.options).body
-        Twitter::SearchResults.new(response, request)
+        request = Twitter::REST::Request.new(self, :get, '/1.1/search/tweets.json', options.merge(q: q))
+        Twitter::SearchResults.new(request)
       end
     end
   end

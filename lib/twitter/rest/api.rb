@@ -3,7 +3,6 @@ require 'twitter/rest/favorites'
 require 'twitter/rest/friends_and_followers'
 require 'twitter/rest/help'
 require 'twitter/rest/lists'
-require 'twitter/rest/media'
 require 'twitter/rest/oauth'
 require 'twitter/rest/places_and_geo'
 require 'twitter/rest/saved_searches'
@@ -18,13 +17,14 @@ require 'twitter/rest/users'
 
 module Twitter
   module REST
+    # @note All methods have been separated into modules and follow the same grouping used in {http://dev.twitter.com/doc the Twitter API Documentation}.
+    # @see https://dev.twitter.com/overview/general/things-every-developer-should-know
     module API
       include Twitter::REST::DirectMessages
       include Twitter::REST::Favorites
       include Twitter::REST::FriendsAndFollowers
       include Twitter::REST::Help
       include Twitter::REST::Lists
-      include Twitter::REST::Media
       include Twitter::REST::OAuth
       include Twitter::REST::PlacesAndGeo
       include Twitter::REST::SavedSearches

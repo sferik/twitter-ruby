@@ -10,7 +10,7 @@ describe Twitter::Streaming::Response do
       end.to_not raise_error
     end
 
-    Twitter::Error.errors.each do |code, klass|
+    Twitter::Error::ERRORS.each do |code, klass|
       it "should raise an exception of type #{klass} for status code #{code}" do
         expect do
           subject << "HTTP/1.1 #{code} NOK\r\nSome-Header: Woo\r\n\r\n"

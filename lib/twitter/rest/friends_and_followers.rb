@@ -1,7 +1,7 @@
 require 'twitter/arguments'
 require 'twitter/cursor'
 require 'twitter/relationship'
-require 'twitter/request'
+require 'twitter/rest/request'
 require 'twitter/rest/utils'
 require 'twitter/user'
 require 'twitter/utils'
@@ -12,7 +12,7 @@ module Twitter
       include Twitter::REST::Utils
       include Twitter::Utils
 
-      # @see https://dev.twitter.com/docs/api/1.1/get/friends/ids
+      # @see https://dev.twitter.com/rest/reference/get/friends/ids
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
@@ -27,10 +27,10 @@ module Twitter
       #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, URI, or object.
       #   @param options [Hash] A customizable set of options.
       def friend_ids(*args)
-        cursor_from_response_with_user(:ids, nil, :get, '/1.1/friends/ids.json', args)
+        cursor_from_response_with_user(:ids, nil, '/1.1/friends/ids.json', args)
       end
 
-      # @see https://dev.twitter.com/docs/api/1.1/get/followers/ids
+      # @see https://dev.twitter.com/rest/reference/get/followers/ids
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
@@ -45,12 +45,12 @@ module Twitter
       #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, URI, or object.
       #   @param options [Hash] A customizable set of options.
       def follower_ids(*args)
-        cursor_from_response_with_user(:ids, nil, :get, '/1.1/followers/ids.json', args)
+        cursor_from_response_with_user(:ids, nil, '/1.1/followers/ids.json', args)
       end
 
       # Returns the relationship of the authenticating user to the comma separated list of up to 100 screen_names or user_ids provided. Values for connections can be: following, following_requested, followed_by, none.
       #
-      # @see https://dev.twitter.com/docs/api/1.1/get/friendships/lookup
+      # @see https://dev.twitter.com/rest/reference/get/friendships/lookup
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
@@ -63,36 +63,36 @@ module Twitter
       def friendships(*args)
         arguments = Twitter::Arguments.new(args)
         merge_users!(arguments.options, arguments)
-        perform_with_objects(:get, '/1.1/friendships/lookup.json', arguments.options, Twitter::User)
+        perform_get_with_objects('/1.1/friendships/lookup.json', arguments.options, Twitter::User)
       end
 
       # Returns an array of numeric IDs for every user who has a pending request to follow the authenticating user
       #
-      # @see https://dev.twitter.com/docs/api/1.1/get/friendships/incoming
+      # @see https://dev.twitter.com/rest/reference/get/friendships/incoming
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Twitter::Cursor]
       # @param options [Hash] A customizable set of options.
       def friendships_incoming(options = {})
-        perform_with_cursor(:get, '/1.1/friendships/incoming.json', options, :ids)
+        perform_get_with_cursor('/1.1/friendships/incoming.json', options, :ids)
       end
 
       # Returns an array of numeric IDs for every protected user for whom the authenticating user has a pending follow request
       #
-      # @see https://dev.twitter.com/docs/api/1.1/get/friendships/outgoing
+      # @see https://dev.twitter.com/rest/reference/get/friendships/outgoing
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Twitter::Cursor]
       # @param options [Hash] A customizable set of options.
       def friendships_outgoing(options = {})
-        perform_with_cursor(:get, '/1.1/friendships/outgoing.json', options, :ids)
+        perform_get_with_cursor('/1.1/friendships/outgoing.json', options, :ids)
       end
 
       # Allows the authenticating user to follow the specified users, unless they are already followed
       #
-      # @see https://dev.twitter.com/docs/api/1.1/post/friendships/create
+      # @see https://dev.twitter.com/rest/reference/post/friendships/create
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
@@ -114,11 +114,10 @@ module Twitter
         follow!(new_friends.value - existing_friends.value, arguments.options)
       end
       alias_method :create_friendship, :follow
-      deprecate_alias :friendship_create, :follow
 
       # Allows the authenticating user to follow the specified users
       #
-      # @see https://dev.twitter.com/docs/api/1.1/post/friendships/create
+      # @see https://dev.twitter.com/rest/reference/post/friendships/create
       # @rate_limited No
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
@@ -132,15 +131,14 @@ module Twitter
       def follow!(*args)
         arguments = Twitter::Arguments.new(args)
         pmap(arguments) do |user|
-          perform_with_object(:post, '/1.1/friendships/create.json', merge_user(arguments.options, user), Twitter::User)
+          perform_post_with_object('/1.1/friendships/create.json', merge_user(arguments.options, user), Twitter::User)
         end.compact
       end
       alias_method :create_friendship!, :follow!
-      deprecate_alias :friendship_create!, :follow!
 
       # Allows the authenticating user to unfollow the specified users
       #
-      # @see https://dev.twitter.com/docs/api/1.1/post/friendships/destroy
+      # @see https://dev.twitter.com/rest/reference/post/friendships/destroy
       # @rate_limited No
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
@@ -154,11 +152,10 @@ module Twitter
         parallel_users_from_response(:post, '/1.1/friendships/destroy.json', args)
       end
       alias_method :destroy_friendship, :unfollow
-      deprecate_alias :friendship_destroy, :unfollow
 
       # Allows one to enable or disable retweets and device notifications from the specified user.
       #
-      # @see https://dev.twitter.com/docs/api/1.1/post/friendships/update
+      # @see https://dev.twitter.com/rest/reference/post/friendships/update
       # @rate_limited No
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
@@ -169,12 +166,12 @@ module Twitter
       # @option options [Boolean] :retweets Enable/disable retweets from the target user.
       def friendship_update(user, options = {})
         merge_user!(options, user)
-        perform_with_object(:post, '/1.1/friendships/update.json', options, Twitter::Relationship)
+        perform_post_with_object('/1.1/friendships/update.json', options, Twitter::Relationship)
       end
 
       # Returns detailed information about the relationship between two users
       #
-      # @see https://dev.twitter.com/docs/api/1.1/get/friendships/show
+      # @see https://dev.twitter.com/rest/reference/get/friendships/show
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
@@ -187,14 +184,14 @@ module Twitter
         options[:source_id] = options.delete(:source_user_id) unless options[:source_user_id].nil?
         merge_user!(options, target, 'target')
         options[:target_id] = options.delete(:target_user_id) unless options[:target_user_id].nil?
-        perform_with_object(:get, '/1.1/friendships/show.json', options, Twitter::Relationship)
+        perform_get_with_object('/1.1/friendships/show.json', options, Twitter::Relationship)
       end
       alias_method :friendship_show, :friendship
       alias_method :relationship, :friendship
 
       # Test for the existence of friendship between two users
       #
-      # @see https://dev.twitter.com/docs/api/1.1/get/friendships/show
+      # @see https://dev.twitter.com/rest/reference/get/friendships/show
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
@@ -208,7 +205,7 @@ module Twitter
 
       # Returns a cursored collection of user objects for users following the specified user.
       #
-      # @see https://dev.twitter.com/docs/api/1.1/get/followers/list
+      # @see https://dev.twitter.com/rest/reference/get/followers/list
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
@@ -227,12 +224,12 @@ module Twitter
       #   @option options [Boolean, String, Integer] :skip_status Do not include contributee's Tweets when set to true, 't' or 1.
       #   @option options [Boolean, String, Integer] :include_user_entities The user entities node will be disincluded when set to false.
       def followers(*args)
-        cursor_from_response_with_user(:users, Twitter::User, :get, '/1.1/followers/list.json', args)
+        cursor_from_response_with_user(:users, Twitter::User, '/1.1/followers/list.json', args)
       end
 
       # Returns a cursored collection of user objects for every user the specified user is following (otherwise known as their "friends").
       #
-      # @see https://dev.twitter.com/docs/api/1.1/get/friends/list
+      # @see https://dev.twitter.com/rest/reference/get/friends/list
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
@@ -251,19 +248,19 @@ module Twitter
       #   @option options [Boolean, String, Integer] :skip_status Do not include contributee's Tweets when set to true, 't' or 1.
       #   @option options [Boolean, String, Integer] :include_user_entities The user entities node will be disincluded when set to false.
       def friends(*args)
-        cursor_from_response_with_user(:users, Twitter::User, :get, '/1.1/friends/list.json', args)
+        cursor_from_response_with_user(:users, Twitter::User, '/1.1/friends/list.json', args)
       end
       alias_method :following, :friends
 
       # Returns a collection of user IDs that the currently authenticated user does not want to receive retweets from.
-      # @see https://dev.twitter.com/docs/api/1.1/get/friendships/no_retweets/ids
+      # @see https://dev.twitter.com/rest/reference/get/friendships/no_retweets/ids
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Array<Integer>]
       # @param options [Hash] A customizable set of options.
       def no_retweet_ids(options = {})
-        get('/1.1/friendships/no_retweets/ids.json', options).body.collect(&:to_i)
+        perform_get('/1.1/friendships/no_retweets/ids.json', options).collect(&:to_i)
       end
       alias_method :no_retweets_ids, :no_retweet_ids
     end

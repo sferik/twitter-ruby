@@ -9,7 +9,7 @@ Instructions on how to configure a client can be found in
 Here's a simple example of how to stream tweets from San Francisco:
 
 ```ruby
-client.filter(:locations => "-122.75,36.8,-121.75,37.8") do |tweet|
+client.filter(locations: "-122.75,36.8,-121.75,37.8") do |tweet|
   puts tweet.text
 end
 ```

@@ -1,4 +1,3 @@
-require 'twitter/request'
 require 'twitter/rest/utils'
 require 'twitter/tweet'
 require 'twitter/user'
@@ -12,7 +11,7 @@ module Twitter
 
       # Returns the 20 most recent mentions (statuses containing @username) for the authenticating user
       #
-      # @see https://dev.twitter.com/docs/api/1.1/get/statuses/mentions_timeline
+      # @see https://dev.twitter.com/rest/reference/get/statuses/mentions_timeline
       # @note This method can only return up to 800 Tweets.
       # @rate_limited Yes
       # @authentication Requires user context
@@ -24,13 +23,13 @@ module Twitter
       # @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 200.
       # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       def mentions_timeline(options = {})
-        perform_with_objects(:get, '/1.1/statuses/mentions_timeline.json', options, Twitter::Tweet)
+        perform_get_with_objects('/1.1/statuses/mentions_timeline.json', options, Twitter::Tweet)
       end
       alias_method :mentions, :mentions_timeline
 
       # Returns the 20 most recent Tweets posted by the specified user
       #
-      # @see https://dev.twitter.com/docs/api/1.1/get/statuses/user_timeline
+      # @see https://dev.twitter.com/rest/reference/get/statuses/user_timeline
       # @note This method can only return up to 3,200 Tweets.
       # @rate_limited Yes
       # @authentication Requires user context
@@ -52,7 +51,7 @@ module Twitter
 
       # Returns the 20 most recent retweets posted by the specified user
       #
-      # @see https://dev.twitter.com/docs/api/1.1/get/statuses/user_timeline
+      # @see https://dev.twitter.com/rest/reference/get/statuses/user_timeline
       # @note This method can only return up to 3,200 Tweets.
       # @rate_limited Yes
       # @authentication Requires user context
@@ -75,7 +74,7 @@ module Twitter
 
       # Returns the 20 most recent retweets posted by the authenticating user
       #
-      # @see https://dev.twitter.com/docs/api/1.1/get/statuses/user_timeline
+      # @see https://dev.twitter.com/rest/reference/get/statuses/user_timeline
       # @note This method can only return up to 3,200 Tweets.
       # @rate_limited Yes
       # @authentication Requires user context
@@ -96,7 +95,7 @@ module Twitter
 
       # Returns the 20 most recent Tweets, including retweets if they exist, posted by the authenticating user and the users they follow
       #
-      # @see https://dev.twitter.com/docs/api/1.1/get/statuses/home_timeline
+      # @see https://dev.twitter.com/rest/reference/get/statuses/home_timeline
       # @note This method can only return up to 800 Tweets, including retweets.
       # @rate_limited Yes
       # @authentication Requires user context
@@ -111,12 +110,12 @@ module Twitter
       # @option options [Boolean, String, Integer] :include_rts Specifies that the timeline should include native retweets in addition to regular tweets. Note: If you're using the trim_user parameter in conjunction with include_rts, the retweets will no longer contain a full user object.
       # @option options [Boolean, String, Integer] :contributor_details Specifies that the contributors element should be enhanced to include the screen_name of the contributor.
       def home_timeline(options = {})
-        perform_with_objects(:get, '/1.1/statuses/home_timeline.json', options, Twitter::Tweet)
+        perform_get_with_objects('/1.1/statuses/home_timeline.json', options, Twitter::Tweet)
       end
 
       # Returns the 20 most recent retweets posted by users the authenticating user follow.
       #
-      # @see https://dev.twitter.com/docs/api/1.1/get/statuses/home_timeline
+      # @see https://dev.twitter.com/rest/reference/get/statuses/home_timeline
       # @note This method can only return up to 800 Tweets, including retweets.
       # @rate_limited Yes
       # @authentication Requires user context
@@ -137,7 +136,7 @@ module Twitter
 
       # Returns the 20 most recent tweets of the authenticated user that have been retweeted by others
       #
-      # @see https://dev.twitter.com/docs/api/1.1/get/statuses/retweets_of_me
+      # @see https://dev.twitter.com/rest/reference/get/statuses/retweets_of_me
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
@@ -149,7 +148,7 @@ module Twitter
       # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       # @option options [Boolean, String, Integer] :include_user_entities The user entities node will be disincluded when set to false.
       def retweets_of_me(options = {})
-        perform_with_objects(:get, '/1.1/statuses/retweets_of_me.json', options, Twitter::Tweet)
+        perform_get_with_objects('/1.1/statuses/retweets_of_me.json', options, Twitter::Tweet)
       end
 
     private

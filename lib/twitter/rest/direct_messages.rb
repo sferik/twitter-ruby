@@ -1,6 +1,5 @@
 require 'twitter/arguments'
 require 'twitter/direct_message'
-require 'twitter/request'
 require 'twitter/rest/utils'
 require 'twitter/user'
 require 'twitter/utils'
@@ -13,7 +12,7 @@ module Twitter
 
       # Returns the 20 most recent direct messages sent to the authenticating user
       #
-      # @see https://dev.twitter.com/docs/api/1.1/get/direct_messages
+      # @see https://dev.twitter.com/rest/reference/get/direct_messages
       # @note This method requires an access token with RWD (read, write & direct message) permissions. Consult The Application Permission Model for more information.
       # @rate_limited Yes
       # @authentication Requires user context
@@ -24,13 +23,14 @@ module Twitter
       # @option options [Integer] :max_id Returns results with an ID less than (that is, older than) or equal to the specified ID.
       # @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 200.
       # @option options [Integer] :page Specifies the page of results to retrieve.
+      # @option options [Boolean] :full_text Returns the full text of a DM when message text is longer than 140 characters.
       def direct_messages_received(options = {})
-        perform_with_objects(:get, '/1.1/direct_messages.json', options, Twitter::DirectMessage)
+        perform_get_with_objects('/1.1/direct_messages.json', options, Twitter::DirectMessage)
       end
 
       # Returns the 20 most recent direct messages sent by the authenticating user
       #
-      # @see https://dev.twitter.com/docs/api/1.1/get/direct_messages/sent
+      # @see https://dev.twitter.com/rest/reference/get/direct_messages/sent
       # @note This method requires an access token with RWD (read, write & direct message) permissions. Consult The Application Permission Model for more information.
       # @rate_limited Yes
       # @authentication Requires user context
@@ -41,13 +41,14 @@ module Twitter
       # @option options [Integer] :max_id Returns results with an ID less than (that is, older than) or equal to the specified ID.
       # @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 200.
       # @option options [Integer] :page Specifies the page of results to retrieve.
+      # @option options [Boolean] :full_text Returns the full text of a DM when message text is longer than 140 characters.
       def direct_messages_sent(options = {})
-        perform_with_objects(:get, '/1.1/direct_messages/sent.json', options, Twitter::DirectMessage)
+        perform_get_with_objects('/1.1/direct_messages/sent.json', options, Twitter::DirectMessage)
       end
 
       # Returns a direct message
       #
-      # @see https://dev.twitter.com/docs/api/1.1/get/direct_messages/show
+      # @see https://dev.twitter.com/rest/reference/get/direct_messages/show
       # @note This method requires an access token with RWD (read, write & direct message) permissions. Consult The Application Permission Model for more information.
       # @rate_limited Yes
       # @authentication Requires user context
@@ -55,9 +56,10 @@ module Twitter
       # @return [Twitter::DirectMessage] The requested messages.
       # @param id [Integer] A direct message ID.
       # @param options [Hash] A customizable set of options.
+      # @option options [Boolean] :full_text Returns the full text of a DM when message text is longer than 140 characters.
       def direct_message(id, options = {})
         options[:id] = id
-        perform_with_object(:get, '/1.1/direct_messages/show.json', options, Twitter::DirectMessage)
+        perform_get_with_object('/1.1/direct_messages/show.json', options, Twitter::DirectMessage)
       end
 
       # @note This method requires an access token with RWD (read, write & direct message) permissions. Consult The Application Permission Model for more information.
@@ -68,7 +70,7 @@ module Twitter
       # @overload direct_messages(options = {})
       #   Returns the 20 most recent direct messages sent to the authenticating user
       #
-      #   @see https://dev.twitter.com/docs/api/1.1/get/direct_messages
+      #   @see https://dev.twitter.com/rest/reference/get/direct_messages
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID.
       #   @option options [Integer] :max_id Returns results with an ID less than (that is, older than) or equal to the specified ID.
@@ -77,12 +79,12 @@ module Twitter
       # @overload direct_messages(*ids)
       #   Returns direct messages
       #
-      #   @see https://dev.twitter.com/docs/api/1.1/get/direct_messages/show
+      #   @see https://dev.twitter.com/rest/reference/get/direct_messages/show
       #   @param ids [Enumerable<Integer>] A collection of direct message IDs.
       # @overload direct_messages(*ids, options)
       #   Returns direct messages
       #
-      #   @see https://dev.twitter.com/docs/api/1.1/get/direct_messages/show
+      #   @see https://dev.twitter.com/rest/reference/get/direct_messages/show
       #   @param ids [Enumerable<Integer>] A collection of direct message IDs.
       #   @param options [Hash] A customizable set of options.
       def direct_messages(*args)
@@ -98,7 +100,7 @@ module Twitter
 
       # Destroys direct messages
       #
-      # @see https://dev.twitter.com/docs/api/1.1/post/direct_messages/destroy
+      # @see https://dev.twitter.com/rest/reference/post/direct_messages/destroy
       # @note This method requires an access token with RWD (read, write & direct message) permissions. Consult The Application Permission Model for more information.
       # @rate_limited No
       # @authentication Requires user context
@@ -112,27 +114,25 @@ module Twitter
       def destroy_direct_message(*args)
         parallel_objects_from_response(Twitter::DirectMessage, :post, '/1.1/direct_messages/destroy.json', args)
       end
-      deprecate_alias :direct_message_destroy, :destroy_direct_message
 
       # Sends a new direct message to the specified user from the authenticating user
       #
-      # @see https://dev.twitter.com/docs/api/1.1/post/direct_messages/new
+      # @see https://dev.twitter.com/rest/reference/post/direct_messages/new
       # @rate_limited No
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Twitter::DirectMessage] The sent message.
       # @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, URI, or object.
-      # @param text [String] The text of your direct message, up to 140 characters.
+      # @param text [String] The text of your direct message, up to 10,000 characters.
       # @param options [Hash] A customizable set of options.
       def create_direct_message(user, text, options = {})
         merge_user!(options, user)
         options[:text] = text
-        perform_with_object(:post, '/1.1/direct_messages/new.json', options, Twitter::DirectMessage)
+        perform_post_with_object('/1.1/direct_messages/new.json', options, Twitter::DirectMessage)
       end
       alias_method :d, :create_direct_message
       alias_method :m, :create_direct_message
       alias_method :dm, :create_direct_message
-      deprecate_alias :direct_message_create, :create_direct_message
     end
   end
 end

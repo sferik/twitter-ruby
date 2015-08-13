@@ -2,12 +2,10 @@ digraph classes {
 	graph [rotate=0, rankdir="LR"]
 	node [fillcolor="#c4ddec", style="filled", fontname="Helvetica Neue"]
 	edge [color="#444444"]
-	ArgumentError [label="ArgumentError"]
 	Array [label="Array"]
 	Exception [label="Exception"]
-	Faraday__Middleware [label="Faraday::Middleware"]
-	Faraday__Response__Middleware [label="Faraday::Response::Middleware"]
 	Naught__BasicObject [label="Naught::BasicObject"]
+	Object [label="Object"]
 	StandardError [label="StandardError"]
 	Twitter__Arguments [label="Twitter::Arguments"]
 	Twitter__Base [label="Twitter::Base"]
@@ -27,18 +25,15 @@ digraph classes {
 	Twitter__Error__BadGateway [label="Twitter::Error::BadGateway"]
 	Twitter__Error__BadRequest [label="Twitter::Error::BadRequest"]
 	Twitter__Error__ClientError [label="Twitter::Error::ClientError"]
-	Twitter__Error__ConfigurationError [label="Twitter::Error::ConfigurationError"]
 	Twitter__Error__DuplicateStatus [label="Twitter::Error::DuplicateStatus"]
 	Twitter__Error__Forbidden [label="Twitter::Error::Forbidden"]
 	Twitter__Error__GatewayTimeout [label="Twitter::Error::GatewayTimeout"]
 	Twitter__Error__InternalServerError [label="Twitter::Error::InternalServerError"]
 	Twitter__Error__NotAcceptable [label="Twitter::Error::NotAcceptable"]
 	Twitter__Error__NotFound [label="Twitter::Error::NotFound"]
-	Twitter__Error__RequestTimeout [label="Twitter::Error::RequestTimeout"]
 	Twitter__Error__ServerError [label="Twitter::Error::ServerError"]
 	Twitter__Error__ServiceUnavailable [label="Twitter::Error::ServiceUnavailable"]
 	Twitter__Error__TooManyRequests [label="Twitter::Error::TooManyRequests"]
-	Twitter__Error__UnacceptableIO [label="Twitter::Error::UnacceptableIO"]
 	Twitter__Error__Unauthorized [label="Twitter::Error::Unauthorized"]
 	Twitter__Error__UnprocessableEntity [label="Twitter::Error::UnprocessableEntity"]
 	Twitter__Factory [label="Twitter::Factory"]
@@ -47,24 +42,24 @@ digraph classes {
 	Twitter__GeoResults [label="Twitter::GeoResults"]
 	Twitter__Geo__Point [label="Twitter::Geo::Point"]
 	Twitter__Geo__Polygon [label="Twitter::Geo::Polygon"]
+	Twitter__Headers [label="Twitter::Headers"]
 	Twitter__Identity [label="Twitter::Identity"]
 	Twitter__Language [label="Twitter::Language"]
 	Twitter__List [label="Twitter::List"]
 	Twitter__MediaFactory [label="Twitter::MediaFactory"]
+	Twitter__Media__AnimatedGif [label="Twitter::Media::AnimatedGif"]
 	Twitter__Media__Photo [label="Twitter::Media::Photo"]
+	Twitter__Media__Video [label="Twitter::Media::Video"]
+	Twitter__Media__VideoInfo [label="Twitter::Media::VideoInfo"]
 	Twitter__Metadata [label="Twitter::Metadata"]
 	Twitter__NullObject [label="Twitter::NullObject"]
 	Twitter__OEmbed [label="Twitter::OEmbed"]
 	Twitter__Place [label="Twitter::Place"]
 	Twitter__ProfileBanner [label="Twitter::ProfileBanner"]
 	Twitter__REST__Client [label="Twitter::REST::Client"]
-	Twitter__REST__Request__MultipartWithFile [label="Twitter::REST::Request::MultipartWithFile"]
-	Twitter__REST__Response__ParseErrorJson [label="Twitter::REST::Response::ParseErrorJson"]
-	Twitter__REST__Response__ParseJson [label="Twitter::REST::Response::ParseJson"]
-	Twitter__REST__Response__RaiseError [label="Twitter::REST::Response::RaiseError"]
+	Twitter__REST__Request [label="Twitter::REST::Request"]
 	Twitter__RateLimit [label="Twitter::RateLimit"]
 	Twitter__Relationship [label="Twitter::Relationship"]
-	Twitter__Request [label="Twitter::Request"]
 	Twitter__SavedSearch [label="Twitter::SavedSearch"]
 	Twitter__SearchResults [label="Twitter::SearchResults"]
 	Twitter__Settings [label="Twitter::Settings"]
@@ -80,18 +75,16 @@ digraph classes {
 	Twitter__Streaming__StallWarning [label="Twitter::Streaming::StallWarning"]
 	Twitter__Suggestion [label="Twitter::Suggestion"]
 	Twitter__TargetUser [label="Twitter::TargetUser"]
-	Twitter__Token [label="Twitter::Token"]
 	Twitter__Trend [label="Twitter::Trend"]
 	Twitter__TrendResults [label="Twitter::TrendResults"]
 	Twitter__Tweet [label="Twitter::Tweet"]
 	Twitter__User [label="Twitter::User"]
+	Twitter__Variant [label="Twitter::Variant"]
 	Twitter__Version [label="Twitter::Version"]
-	ArgumentError -> StandardError
 	Array -> Object
 	Exception -> Object
-	Faraday__Middleware -> Object
-	Faraday__Response__Middleware -> Faraday__Middleware
-	Naught__BasicObject -> Object
+	Naught__BasicObject -> BasicObject
+	Object -> BasicObject
 	StandardError -> Exception
 	Twitter__Arguments -> Array
 	Twitter__Base -> Object
@@ -111,18 +104,15 @@ digraph classes {
 	Twitter__Error__BadGateway -> Twitter__Error__ServerError
 	Twitter__Error__BadRequest -> Twitter__Error__ClientError
 	Twitter__Error__ClientError -> Twitter__Error
-	Twitter__Error__ConfigurationError -> ArgumentError
 	Twitter__Error__DuplicateStatus -> Twitter__Error__Forbidden
 	Twitter__Error__Forbidden -> Twitter__Error__ClientError
 	Twitter__Error__GatewayTimeout -> Twitter__Error__ServerError
 	Twitter__Error__InternalServerError -> Twitter__Error__ServerError
 	Twitter__Error__NotAcceptable -> Twitter__Error__ClientError
 	Twitter__Error__NotFound -> Twitter__Error__ClientError
-	Twitter__Error__RequestTimeout -> Twitter__Error__ClientError
 	Twitter__Error__ServerError -> Twitter__Error
 	Twitter__Error__ServiceUnavailable -> Twitter__Error__ServerError
 	Twitter__Error__TooManyRequests -> Twitter__Error__ClientError
-	Twitter__Error__UnacceptableIO -> StandardError
 	Twitter__Error__Unauthorized -> Twitter__Error__ClientError
 	Twitter__Error__UnprocessableEntity -> Twitter__Error__ClientError
 	Twitter__Factory -> Object
@@ -131,24 +121,24 @@ digraph classes {
 	Twitter__GeoResults -> Object
 	Twitter__Geo__Point -> Twitter__Geo
 	Twitter__Geo__Polygon -> Twitter__Geo
+	Twitter__Headers -> Object
 	Twitter__Identity -> Twitter__Base
 	Twitter__Language -> Twitter__Base
 	Twitter__List -> Twitter__Identity
 	Twitter__MediaFactory -> Twitter__Factory
+	Twitter__Media__AnimatedGif -> Twitter__Media__Video
 	Twitter__Media__Photo -> Twitter__Identity
+	Twitter__Media__Video -> Twitter__Identity
+	Twitter__Media__VideoInfo -> Twitter__Base
 	Twitter__Metadata -> Twitter__Base
 	Twitter__NullObject -> Naught__BasicObject
 	Twitter__OEmbed -> Twitter__Base
 	Twitter__Place -> Twitter__Identity
 	Twitter__ProfileBanner -> Twitter__Base
 	Twitter__REST__Client -> Twitter__Client
-	Twitter__REST__Request__MultipartWithFile -> Faraday__Middleware
-	Twitter__REST__Response__ParseErrorJson -> Twitter__REST__Response__ParseJson
-	Twitter__REST__Response__ParseJson -> Faraday__Response__Middleware
-	Twitter__REST__Response__RaiseError -> Faraday__Response__Middleware
+	Twitter__REST__Request -> Object
 	Twitter__RateLimit -> Twitter__Base
 	Twitter__Relationship -> Twitter__Base
-	Twitter__Request -> Object
 	Twitter__SavedSearch -> Twitter__Identity
 	Twitter__SearchResults -> Object
 	Twitter__Settings -> Twitter__Base
@@ -164,10 +154,10 @@ digraph classes {
 	Twitter__Streaming__StallWarning -> Twitter__Base
 	Twitter__Suggestion -> Twitter__Base
 	Twitter__TargetUser -> Twitter__BasicUser
-	Twitter__Token -> Twitter__Base
 	Twitter__Trend -> Twitter__Base
 	Twitter__TrendResults -> Object
 	Twitter__Tweet -> Twitter__Identity
 	Twitter__User -> Twitter__BasicUser
+	Twitter__Variant -> Twitter__Base
 	Twitter__Version -> Object
 }

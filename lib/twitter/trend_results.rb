@@ -14,7 +14,6 @@ module Twitter
     attr_reader :attrs
     alias_method :to_h, :attrs
     alias_method :to_hash, :to_h
-    deprecate_alias :to_hsh, :to_hash
 
     # Initializes a new TrendResults object
     #
@@ -31,7 +30,7 @@ module Twitter
     #
     # @return [Time]
     def as_of
-      Time.parse(@attrs[:as_of]) unless @attrs[:as_of].nil?
+      Time.parse(@attrs[:as_of]).utc unless @attrs[:as_of].nil?
     end
     memoize :as_of
 

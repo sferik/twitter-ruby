@@ -1,5 +1,6 @@
 require 'cgi'
 require 'twitter/enumerable'
+require 'twitter/rest/request'
 require 'twitter/utils'
 require 'uri'
 
@@ -11,20 +12,18 @@ module Twitter
     attr_reader :attrs
     alias_method :to_h, :attrs
     alias_method :to_hash, :to_h
-    deprecate_alias :to_hsh, :to_hash
 
     # Initializes a new SearchResults object
     #
-    # @param attrs [Hash]
-    # @param request [Twitter::Request]
+    # @param request [Twitter::REST::Request]
     # @return [Twitter::SearchResults]
-    def initialize(attrs, request)
+    def initialize(request)
       @client = request.client
       @request_method = request.verb
       @path = request.path
       @options = request.options
       @collection = []
-      self.attrs = attrs
+      self.attrs = request.perform
     end
 
   private
@@ -49,7 +48,7 @@ module Twitter
 
     # @return [Hash]
     def fetch_next_page
-      response = @client.send(@request_method, @path, next_page).body
+      response = Twitter::REST::Request.new(@client, @request_method, @path, @options.merge(next_page)).perform
       self.attrs = response
     end
 

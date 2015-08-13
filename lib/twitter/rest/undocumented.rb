@@ -24,7 +24,7 @@ module Twitter
       #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, URI, or object.
       #   @param options [Hash] A customizable set of options.
       def following_followers_of(*args)
-        cursor_from_response_with_user(:users, Twitter::User, :get, '/users/following_followers_of.json', args)
+        cursor_from_response_with_user(:users, Twitter::User, '/users/following_followers_of.json', args)
       end
 
       # Returns Tweets count for a URI
@@ -33,11 +33,10 @@ module Twitter
       # @rate_limited No
       # @authentication Not required
       # @return [Integer]
-      # @param uri [String, URI] A URI.
+      # @param url [String, URI] A URL.
       # @param options [Hash] A customizable set of options.
-      def tweet_count(uri, options = {})
-        connection = Faraday.new('https://cdn.api.twitter.com', connection_options.merge(:builder => middleware))
-        connection.get('/1/urls/count.json', options.merge(:url => uri.to_s)).body[:count]
+      def tweet_count(url, options = {})
+        HTTP.get('https://cdn.api.twitter.com/1/urls/count.json', params: options.merge(url: url.to_s)).parse['count']
       end
     end
   end

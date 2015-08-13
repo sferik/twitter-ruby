@@ -2,24 +2,18 @@ require 'bundler'
 Bundler::GemHelper.install_tasks
 
 task :erd do
+  FORMAT = 'svg'
   `bundle exec ruby ./etc/erd.rb > ./etc/erd.dot`
-  `dot -Tpng ./etc/erd.dot -o ./etc/erd.png`
-  `open ./etc/erd.png`
+  `dot -T #{FORMAT} ./etc/erd.dot -o ./etc/erd.#{FORMAT}`
 end
 
 require 'rspec/core/rake_task'
 RSpec::Core::RakeTask.new(:spec)
 
-task :test => :spec
+task test: :spec
 
-begin
-  require 'rubocop/rake_task'
-  RuboCop::RakeTask.new
-rescue LoadError
-  task :rubocop do
-    $stderr.puts 'Rubocop is disabled'
-  end
-end
+require 'rubocop/rake_task'
+RuboCop::RakeTask.new
 
 require 'yard'
 YARD::Rake::YardocTask.new
@@ -31,7 +25,8 @@ end
 
 require 'yardstick/rake/verify'
 Yardstick::Rake::Verify.new do |verify|
-  verify.threshold = 59.6
+  verify.threshold = 59.1
+  verify.require_exact_threshold = false
 end
 
-task :default => [:spec, :rubocop, :verify_measurements]
+task default: [:spec, :rubocop, :verify_measurements]

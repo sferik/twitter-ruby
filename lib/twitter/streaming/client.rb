@@ -1,15 +1,17 @@
 require 'http/request'
 require 'twitter/arguments'
 require 'twitter/client'
+require 'twitter/headers'
 require 'twitter/streaming/connection'
-require 'twitter/streaming/response'
 require 'twitter/streaming/message_parser'
+require 'twitter/streaming/response'
+require 'twitter/utils'
 
 module Twitter
   module Streaming
     class Client < Twitter::Client
+      include Twitter::Utils
       attr_writer :connection
-      attr_accessor :tcp_socket_class, :ssl_socket_class
 
       # Initializes a new Client object
       #
@@ -24,8 +26,8 @@ module Twitter
 
       # Returns public statuses that match one or more filter predicates
       #
-      # @see https://dev.twitter.com/docs/api/1.1/post/statuses/filter
-      # @see https://dev.twitter.com/docs/streaming-apis/parameters
+      # @see https://dev.twitter.com/streaming/reference/post/statuses/filter
+      # @see https://dev.twitter.com/streaming/overview/request-parameters
       # @note At least one predicate parameter (follow, locations, or track) must be specified.
       # @param options [Hash] A customizable set of options.
       # @option options [String] :follow A comma separated list of user IDs, indicating the users to return statuses for in the stream.
@@ -38,8 +40,8 @@ module Twitter
 
       # Returns all public statuses
       #
-      # @see https://dev.twitter.com/docs/api/1.1/get/statuses/firehose
-      # @see https://dev.twitter.com/docs/streaming-apis/parameters
+      # @see https://dev.twitter.com/streaming/reference/get/statuses/firehose
+      # @see https://dev.twitter.com/streaming/overview/request-parameters
       # @note This endpoint requires special permission to access.
       # @param options [Hash] A customizable set of options.
       # @option options [Integer] :count The number of messages to backfill.
@@ -50,35 +52,36 @@ module Twitter
 
       # Returns a small random sample of all public statuses
       #
-      # @see https://dev.twitter.com/docs/api/1.1/get/statuses/sample
-      # @see https://dev.twitter.com/docs/streaming-apis/parameters
+      # @see https://dev.twitter.com/streaming/reference/get/statuses/sample
+      # @see https://dev.twitter.com/streaming/overview/request-parameters
       # @yield [Twitter::Tweet, Twitter::Streaming::Event, Twitter::DirectMessage, Twitter::Streaming::FriendList, Twitter::Streaming::DeletedTweet, Twitter::Streaming::StallWarning] A stream of Twitter objects.
       def sample(options = {}, &block)
         request(:get, 'https://stream.twitter.com:443/1.1/statuses/sample.json', options, &block)
       end
 
-      # Streams messages for a set of user
+      # Streams messages for a set of users
       #
-      # @see https://dev.twitter.com/docs/api/1.1/get/site
-      # @see https://dev.twitter.com/docs/streaming-apis/streams/site
-      # @see https://dev.twitter.com/docs/streaming-apis/parameters
+      # @see https://dev.twitter.com/streaming/reference/get/site
+      # @see https://dev.twitter.com/streaming/sitestreams
+      # @see https://dev.twitter.com/streaming/overview/request-parameters
       # @note Site Streams is currently in a limited beta. Access is restricted to whitelisted accounts.
-      # @param follow [Enumerable<Integer, String, Twitter::User>] A list of user IDs, indicating the users to return statuses for in the stream.
-      # @param options [Hash] A customizable set of options.
-      # @option options [String] :with Specifies whether to return information for just the users specified in the follow parameter, or include messages from accounts they follow.
-      # @option options [String] :replies Specifies whether stall warnings should be delivered.
-      # @yield [Twitter::Tweet, Twitter::Streaming::Event, Twitter::DirectMessage, Twitter::Streaming::FriendList, Twitter::Streaming::DeletedTweet, Twitter::Streaming::StallWarning] A stream of Twitter objects.
+      # @overload site(*follow, options = {}, &block)
+      #   @param follow [Enumerable<Integer, String, Twitter::User>] A list of user IDs, indicating the users to return statuses for in the stream.
+      #   @param options [Hash] A customizable set of options.
+      #   @option options [String] :with Specifies whether to return information for just the users specified in the follow parameter, or include messages from accounts they follow.
+      #   @option options [String] :replies Specifies whether stall warnings should be delivered.
+      #   @yield [Twitter::Tweet, Twitter::Streaming::Event, Twitter::DirectMessage, Twitter::Streaming::FriendList, Twitter::Streaming::DeletedTweet, Twitter::Streaming::StallWarning] A stream of Twitter objects.
       def site(*args, &block)
         arguments = Arguments.new(args)
         user_ids = collect_user_ids(arguments)
-        request(:get, 'https://sitestream.twitter.com:443/1.1/site.json', arguments.options.merge(:follow => user_ids.join(',')), &block)
+        request(:get, 'https://sitestream.twitter.com:443/1.1/site.json', arguments.options.merge(follow: user_ids.join(',')), &block)
       end
 
       # Streams messages for a single user
       #
-      # @see https://dev.twitter.com/docs/api/1.1/get/user
-      # @see https://dev.twitter.com/docs/streaming-apis/streams/user
-      # @see https://dev.twitter.com/docs/streaming-apis/parameters
+      # @see https://dev.twitter.com/streaming/reference/get/user
+      # @see https://dev.twitter.com/streaming/userstreams
+      # @see https://dev.twitter.com/streaming/overview/request-parameters
       # @param options [Hash] A customizable set of options.
       # @option options [String] :with Specifies whether to return information for just the users specified in the follow parameter, or include messages from accounts they follow.
       # @option options [String] :replies Specifies whether to return additional @replies.
@@ -106,10 +109,10 @@ module Twitter
 
       def request(method, uri, params)
         before_request.call
-        headers  = default_headers.merge(:authorization => oauth_auth_header(method, uri, params).to_s)
-        request  = HTTP::Request.new(method, uri + '?' + to_url_params(params), headers)
+        headers = Twitter::Headers.new(self, method, uri, params).request_headers
+        request = HTTP::Request.new(method, uri + '?' + to_url_params(params), headers, proxy)
         response = Streaming::Response.new do |data|
-          if item = Streaming::MessageParser.parse(data) # rubocop:disable AssignmentInCondition, IfUnlessModifier
+          if item = Streaming::MessageParser.parse(data) # rubocop:disable AssignmentInCondition
             yield(item)
           end
         end
@@ -122,24 +125,18 @@ module Twitter
         end.sort.join('&')
       end
 
-      def default_headers
-        @default_headers ||= {
-          :accept     => '*/*',
-          :user_agent => user_agent,
-        }
-      end
-
+      # Takes a mixed array of Integers and Twitter::User objects and returns a
+      # consistent array of Twitter user IDs.
+      #
+      # @param users [Array]
+      # @return [Array<Integer>]
       def collect_user_ids(users)
-        user_ids = []
-        users.flatten.each do |user|
+        users.collect do |user|
           case user
-          when Integer
-            user_ids << user
-          when Twitter::User
-            user_ids << user.id
+          when Integer       then user
+          when Twitter::User then user.id
           end
-        end
-        user_ids
+        end.compact
       end
     end
   end

@@ -1,13 +1,12 @@
-if RUBY_VERSION >= '1.9'
-  require 'simplecov'
-  require 'coveralls'
+require 'simplecov'
+require 'coveralls'
 
-  SimpleCov.formatters = [SimpleCov::Formatter::HTMLFormatter, Coveralls::SimpleCov::Formatter]
+SimpleCov.formatters = [SimpleCov::Formatter::HTMLFormatter, Coveralls::SimpleCov::Formatter]
 
-  SimpleCov.start do
-    add_filter '/spec/'
-    minimum_coverage(99.63)
-  end
+SimpleCov.start do
+  add_filter '/spec/'
+  add_filter '/vendor/'
+  minimum_coverage(99.62)
 end
 
 require 'twitter'
@@ -17,7 +16,9 @@ require 'tempfile'
 require 'timecop'
 require 'webmock/rspec'
 
-WebMock.disable_net_connect!(:allow => 'coveralls.io')
+require_relative 'support/media_object_examples'
+
+WebMock.disable_net_connect!(allow: 'coveralls.io')
 
 RSpec.configure do |config|
   config.expect_with :rspec do |c|
@@ -26,35 +27,35 @@ RSpec.configure do |config|
 end
 
 def a_delete(path)
-  a_request(:delete, Twitter::REST::Client::URL_PREFIX + path)
+  a_request(:delete, Twitter::REST::Request::BASE_URL + path)
 end
 
 def a_get(path)
-  a_request(:get, Twitter::REST::Client::URL_PREFIX + path)
+  a_request(:get, Twitter::REST::Request::BASE_URL + path)
 end
 
 def a_post(path)
-  a_request(:post, Twitter::REST::Client::URL_PREFIX + path)
+  a_request(:post, Twitter::REST::Request::BASE_URL + path)
 end
 
 def a_put(path)
-  a_request(:put, Twitter::REST::Client::URL_PREFIX + path)
+  a_request(:put, Twitter::REST::Request::BASE_URL + path)
 end
 
 def stub_delete(path)
-  stub_request(:delete, Twitter::REST::Client::URL_PREFIX + path)
+  stub_request(:delete, Twitter::REST::Request::BASE_URL + path)
 end
 
 def stub_get(path)
-  stub_request(:get, Twitter::REST::Client::URL_PREFIX + path)
+  stub_request(:get, Twitter::REST::Request::BASE_URL + path)
 end
 
 def stub_post(path)
-  stub_request(:post, Twitter::REST::Client::URL_PREFIX + path)
+  stub_request(:post, Twitter::REST::Request::BASE_URL + path)
 end
 
 def stub_put(path)
-  stub_request(:put, Twitter::REST::Client::URL_PREFIX + path)
+  stub_request(:put, Twitter::REST::Request::BASE_URL + path)
 end
 
 def fixture_path

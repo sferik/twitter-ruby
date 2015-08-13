@@ -1,4 +1,3 @@
-require 'twitter/request'
 require 'twitter/rest/utils'
 require 'twitter/user'
 
@@ -9,7 +8,7 @@ module Twitter
 
       # The users specified are blocked by the authenticated user and reported as spammers
       #
-      # @see https://dev.twitter.com/docs/api/1.1/post/users/report_spam
+      # @see https://dev.twitter.com/rest/reference/post/users/report_spam
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.

@@ -4,8 +4,8 @@ Twitter API version 1.1 requires authentication on all requests. Some requests
 can be made with [application-only authentication][application-only] while
 other requests require [single-user authentication][single-user].
 
-[application-only]: https://dev.twitter.com/docs/auth/application-only-auth
-[single-user]: https://dev.twitter.com/docs/auth/oauth/single-user-with-examples
+[application-only]: https://dev.twitter.com/oauth/application-only
+[single-user]: https://dev.twitter.com/oauth/overview/single-user
 
 ## Application-only Authentication
 
@@ -13,8 +13,8 @@ To start using the Twitter API, you need to [register your application with
 Twitter][register]. Registration requires you to answer some questions about
 your application and agree to the [Twitter API Terms of Use][api-terms].
 
-[register]: https://dev.twitter.com/apps
-[api-terms]: https://dev.twitter.com/terms/api-terms
+[register]: https://apps.twitter.com/
+[api-terms]: https://dev.twitter.com/overview/terms/agreement-and-policy
 
 Once you've registered an application, it's important that you set the correct
 access level. Otherwise you may see the error:
@@ -36,8 +36,8 @@ If you prefer, you can pass in configuration as a `Hash`:
 
 ```ruby
 config = {
-  :consumer_key    => "YOUR_CONSUMER_KEY",
-  :consumer_secret => "YOUR_CONSUMER_SECRET",
+  consumer_key:    "YOUR_CONSUMER_KEY",
+  consumer_secret: "YOUR_CONSUMER_SECRET",
 }
 
 client = Twitter::REST::Client.new(config)
@@ -80,7 +80,7 @@ Not all Twitter API resources are accessible with application-only
 authentication. Some resources require single-user authentication tokens, which
 you can obtain from the [3-legged authorization][3-legged-authorization] flow.
 
-[3-legged-authorization]: https://dev.twitter.com/docs/auth/3-legged-authorization
+[3-legged-authorization]: https://dev.twitter.com/oauth/3-legged
 
 ```ruby
 client = Twitter::REST::Client.new do |config|
@@ -124,3 +124,30 @@ For more information, see the documentation for the
 [client]: http://rdoc.info/gems/twitter/Twitter/Client
 [rest-client]: http://rdoc.info/gems/twitter/Twitter/REST/Client
 [streaming-client]: http://rdoc.info/gems/twitter/Twitter/Streaming/Client
+
+## Using a Proxy
+
+If you'd like to connect via a proxy, a proxy can be configured by passing a
+`Hash` to your configuration:
+
+```ruby
+proxy = {
+  host: '127.0.0.1',
+  port: 3328,
+  username: 'proxy_username',
+  password: 'proxy_password',
+}
+
+client = Twitter::REST::Client.new do |config|
+  config.consumer_key        = "YOUR_CONSUMER_KEY"
+  config.consumer_secret     = "YOUR_CONSUMER_SECRET"
+  config.access_token        = "YOUR_ACCESS_TOKEN"
+  config.access_token_secret = "YOUR_ACCESS_SECRET"
+  config.proxy               = proxy
+end
+```
+
+Note that only a `host` and `port` are required, but a `username` and `password`
+can be optionally configured for an authenticated proxy server. Proxies are
+supported by both [`Twitter::REST::Client`][rest-client] and
+[`Twitter::Streaming::Client`][streaming-client] classes.

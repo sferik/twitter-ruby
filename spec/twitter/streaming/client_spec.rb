@@ -1,20 +1,20 @@
 require 'helper'
 
-describe Twitter::Streaming::Client do
-  before do
-    @client = Twitter::Streaming::Client.new
+class FakeConnection
+  def initialize(body)
+    @body = body
   end
 
-  class FakeConnection
-    def initialize(body)
-      @body = body
+  def stream(_, response)
+    @body.each_line do |line|
+      response.on_body(line)
     end
+  end
+end
 
-    def stream(_, response)
-      @body.each_line do |line|
-        response.on_body(line)
-      end
-    end
+describe Twitter::Streaming::Client do
+  before do
+    @client = Twitter::Streaming::Client.new(consumer_key: 'CK', consumer_secret: 'CS', access_token: 'AT', access_token_secret: 'AS')
   end
 
   describe '#before_request' do
@@ -34,7 +34,7 @@ describe Twitter::Streaming::Client do
     it 'returns an arary of Tweets' do
       @client.connection = FakeConnection.new(fixture('track_streaming.json'))
       objects = []
-      @client.filter(:track => 'india') do |object|
+      @client.filter(track: 'india') do |object|
         objects << object
       end
       expect(objects.size).to eq(2)
@@ -86,7 +86,7 @@ describe Twitter::Streaming::Client do
       it 'returns an arary of Tweets' do
         @client.connection = FakeConnection.new(fixture('track_streaming.json'))
         objects = []
-        user = Twitter::User.new(:id => 7_505_382)
+        user = Twitter::User.new(id: 7_505_382)
         @client.site(user) do |object|
           objects << object
         end
@@ -120,4 +120,15 @@ describe Twitter::Streaming::Client do
     end
   end
 
+  context 'when using a proxy' do
+    let(:proxy) { {host: '127.0.0.1', port: 3328} }
+    before do
+      @client = Twitter::Streaming::Client.new(consumer_key: 'CK', consumer_secret: 'CS', access_token: 'AT', access_token_secret: 'AS', proxy: proxy)
+    end
+    it 'requests via the proxy' do
+      @client.connection = FakeConnection.new(fixture('track_streaming.json'))
+      expect(HTTP::Request).to receive(:new).with(:get, 'https://stream.twitter.com:443/1.1/statuses/sample.json?', kind_of(Hash), proxy)
+      @client.sample {}
+    end
+  end
 end
