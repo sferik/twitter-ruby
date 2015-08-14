@@ -23,7 +23,6 @@ Gem::Specification.new do |spec|
   spec.name = 'twitter'
   spec.require_paths = %w(lib)
   spec.required_ruby_version = '>= 1.9.3'
-  spec.required_rubygems_version = '>= 1.3.5'
   spec.summary = spec.description
   spec.version = Twitter::Version
 end
