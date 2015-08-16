@@ -41,6 +41,7 @@ module Twitter
       # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       # @option options [Boolean] :ids_only ('false') Only return user IDs instead of full user objects.
       def retweeters_of(tweet, options = {})
+        options = options.dup
         ids_only = !!options.delete(:ids_only)
         retweeters = retweets(tweet, options).collect(&:user)
         ids_only ? retweeters.collect(&:id) : retweeters
@@ -221,6 +222,7 @@ module Twitter
       # @option options [String] :display_coordinates Whether or not to put a pin on the exact coordinates a tweet has been sent from.
       # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       def update_with_media(status, media, options = {})
+        options = options.dup
         media_ids = pmap(array_wrap(media)) do |medium|
           upload(medium)[:media_id]
         end
@@ -246,6 +248,7 @@ module Twitter
       # @option options [String] :widget_type Set to video to return a Twitter Video embed for the given Tweet.
       # @option options [Boolean, String] :hide_tweet Applies to video type only. Set to 1 or true to link directly to the Tweet URL instead of displaying a Tweet overlay when a viewer clicks on the Twitter bird logo.
       def oembed(tweet, options = {})
+        options = options.dup
         options[:id] = extract_id(tweet)
         perform_get_with_object('/1.1/statuses/oembed.json', options, Twitter::OEmbed)
       end

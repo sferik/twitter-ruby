@@ -180,6 +180,7 @@ module Twitter
       # @param target [Integer, String, Twitter::User] The Twitter user ID, screen name, or object of the target user.
       # @param options [Hash] A customizable set of options.
       def friendship(source, target, options = {})
+        options = options.dup
         merge_user!(options, source, 'source')
         options[:source_id] = options.delete(:source_user_id) unless options[:source_user_id].nil?
         merge_user!(options, target, 'target')
