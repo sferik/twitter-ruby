@@ -31,6 +31,8 @@ module Twitter
     # @return [Hash]
     attr_reader :segment
 
+    # @return [Twitter::RateLimit
+    attr_reader :rate_limit
 
     # Time when campaign started
     #

@@ -26,5 +26,12 @@ module Twitter
       [(reset_at - Time.now).ceil, 0].max if reset_at
     end
     alias_method :retry_after, :reset_in
+
+    # @return [Integer]
+    def cost
+      cost = @attrs['x-request-cost']
+      cost.to_i if cost
+    end
+    memoize :cost
   end
 end

@@ -247,24 +247,40 @@ module Twitter
       end
 
     private
+      def perform_stats_get_with_object(url, options)
+        request = Twitter::REST::Request.new(self, :get, url, options)
+        response = request.perform
+        data = response.fetch(:data, response)
+        data[:rate_limit] = request.rate_limit
+        Twitter::Stats.new(response.fetch(:data, response))
+      end
 
-      # If you elect for segmentation twitter returns an array of stats objects rather
-      # than a single stats object.
-      def perform_get_for_stats(url, options, klass = Twitter::Stats)
-        if options.has_key?(:segmentation_type) || options.has_key?('segmentation_type')
-          perform_get_with_objects(url, options, klass)
-        else
-          perform_get_with_object(url, options, klass)
+      def perform_stats_get_with_objects(url, options)
+        request = Twitter::REST::Request.new(self, :get, url, options)
+        response = request.perform
+        response.fetch(:data, response).collect do |element|
+          element[:rate_limit] = request.rate_limit
+          Twitter::Stats.new(element)
         end
       end
 
-      def perform_collection_get_for_stats(url, ids, key, options, klass = Twitter::Stats)
+      # If you elect for segmentation twitter returns an array of stats objects rather
+      # than a single stats object.
+      def perform_get_for_stats(url, options)
+        if options.has_key?(:segmentation_type) || options.has_key?('segmentation_type')
+          perform_stats_get_with_objects(url, options)
+        else
+          perform_stats_get_with_object(url, options)
+        end
+      end
+
+      def perform_collection_get_for_stats(url, ids, key, options)
         options[key] = case ids
                        when String then ids
                        when Array then ids.join(',')
                        else raise 'Ids must be a string or array of strings.'
                        end
-        perform_get_with_objects(url, options, klass)
+        perform_stats_get_with_objects(url, options)
       end
     end
   end
