@@ -157,7 +157,7 @@ module Twitter
       # @param stream [File, String] File or string path to file.
       def upload_tailored_audience_file(stream, options = {})
         options = options.merge(key: :body, file: stream, %s(X-TON-Expires) => ton_expiration)
-        response = Twitter::REST::Request.new(self, :multipart_post, 'https://ton.twitter.com/1.1/ton/bucket/ta_partner', options).perform_raw
+        response = Twitter::REST::Request.new(self, :csv_post, 'https://ton.twitter.com/1.1/ton/bucket/ta_partner', options).perform_raw
         if response.status == 201
           response.headers['Location']
         else
