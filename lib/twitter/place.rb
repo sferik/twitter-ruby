@@ -1,8 +1,10 @@
-require 'equalizer'
+require 'memoizable'
 require 'twitter/identity'
 
 module Twitter
   class Place < Twitter::Identity
+    include Memoizable
+
     # @return [Hash]
     attr_reader :attributes
     # @return [String]

@@ -1,7 +1,10 @@
+require 'memoizable'
 require 'twitter/base'
 
 module Twitter
   class Token < Twitter::Base
+    include Memoizable
+
     # @return [String]
     attr_reader :access_token, :token_type
     alias_method :to_s, :access_token

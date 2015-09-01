@@ -1,7 +1,10 @@
+require 'memoizable'
 require 'twitter/base'
 
 module Twitter
   class Configuration < Twitter::Base
+    include Memoizable
+
     # @return [Array<String>]
     attr_reader :non_username_paths
     # @return [Integer]
