@@ -5,9 +5,11 @@ module Twitter
     class Request
       class MultipartWithFile < Faraday::Middleware
         CONTENT_TYPE = 'Content-Type'
+        BMP_REGEX = /\.bmp/i
         GIF_REGEX = /\.gif$/i
         JPEG_REGEX = /\.jpe?g/i
         PNG_REGEX = /\.png$/i
+        WEBP_REGEX = /\.webp/i
 
         def call(request)
           request.body.each do |key, value|
@@ -21,12 +23,16 @@ module Twitter
 
         def mime_type(path)
           case path
+          when BMP_REGEX
+            'image/bmp'
           when GIF_REGEX
             'image/gif'
           when JPEG_REGEX
             'image/jpeg'
           when PNG_REGEX
             'image/png'
+          when WEBP_REGEX
+            'image/webp'
           else
             'application/octet-stream'
           end
