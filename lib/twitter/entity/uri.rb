@@ -8,7 +8,7 @@ module Twitter
     end
 
     URL = URI
-    Uri = URI # rubocop:disable ConstantName
-    Url = URI # rubocop:disable ConstantName
+    Uri = URI
+    Url = URI
   end
 end

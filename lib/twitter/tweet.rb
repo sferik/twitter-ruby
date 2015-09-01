@@ -50,5 +50,5 @@ module Twitter
     memoize :uri
     alias_method :url, :uri
   end
-  Status = Tweet # rubocop:disable ConstantName
+  Status = Tweet
 end

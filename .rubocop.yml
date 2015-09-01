@@ -12,6 +12,9 @@ Metrics/MethodLength:
   CountComments: false
   Max: 15
 
+Metrics/ModuleLength:
+  Max: 150 # TODO: Lower to 100
+
 Metrics/ParameterLists:
   Max: 4
   CountKeywordArgs: true

@@ -111,7 +111,7 @@ module Twitter
         headers = default_headers.merge(:authorization => authorization)
         request = HTTP::Request.new(method, uri + '?' + to_url_params(params), headers)
         response = Streaming::Response.new do |data|
-          if item = Streaming::MessageParser.parse(data) # rubocop:disable AssignmentInCondition, IfUnlessModifier
+          if item = Streaming::MessageParser.parse(data) # rubocop:disable AssignmentInCondition
             yield(item)
           end
         end

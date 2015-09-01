@@ -31,7 +31,7 @@ module Twitter
       LOGIN_VERIFICATION_NEEDED    = 231
       ENDPOINT_RETIRED             = 251
     end
-    Codes = Code # rubocop:disable ConstantName
+    Codes = Code
 
     class << self
       # Create a new error from an HTTP response
@@ -133,7 +133,7 @@ module Twitter
 
     # Raised when a Tweet has already been posted
     DuplicateStatus = Class.new(Forbidden)
-    AlreadyPosted = DuplicateStatus # rubocop:disable ConstantName
+    AlreadyPosted = DuplicateStatus
 
     # Raised when Twitter returns the HTTP status code 404
     NotFound = Class.new(ClientError)
@@ -149,8 +149,8 @@ module Twitter
 
     # Raised when Twitter returns the HTTP status code 429
     TooManyRequests = Class.new(ClientError)
-    EnhanceYourCalm = TooManyRequests # rubocop:disable ConstantName
-    RateLimited = TooManyRequests # rubocop:disable ConstantName
+    EnhanceYourCalm = TooManyRequests
+    RateLimited = TooManyRequests
 
     # Raised when Twitter returns a 5xx HTTP status code
     ServerError = Class.new(self)

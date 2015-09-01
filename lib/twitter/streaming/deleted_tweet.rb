@@ -4,6 +4,6 @@ module Twitter
       # @return [Integer]
       attr_reader :user_id
     end
-    DeletedStatus = DeletedTweet # rubocop:disable ConstantName
+    DeletedStatus = DeletedTweet
   end
 end
