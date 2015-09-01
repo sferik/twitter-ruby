@@ -1,8 +1,11 @@
+require 'memoizable'
 require 'twitter/identity'
 
 module Twitter
   module Media
     class Photo < Twitter::Identity
+      include Memoizable
+
       # @return [Array<Integer>]
       attr_reader :indices
       display_uri_attr_reader

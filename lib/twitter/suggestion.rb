@@ -1,9 +1,12 @@
 require 'equalizer'
+require 'memoizable'
 require 'twitter/base'
 
 module Twitter
   class Suggestion < Twitter::Base
     include Equalizer.new(:slug)
+    include Memoizable
+
     # @return [Integer]
     attr_reader :size
     # @return [String]

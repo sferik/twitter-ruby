@@ -1,7 +1,10 @@
+require 'memoizable'
 require 'twitter/base'
 
 module Twitter
   class ProfileBanner < Twitter::Base
+    include Memoizable
+
     # Returns an array of photo sizes
     #
     # @return [Array<Twitter::Size>]

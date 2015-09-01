@@ -1,5 +1,9 @@
+require 'memoizable'
+
 module Twitter
   class RateLimit < Twitter::Base
+    include Memoizable
+
     # @return [Integer]
     def limit
       limit = @attrs['x-rate-limit-limit']

@@ -1,8 +1,11 @@
+require 'memoizable'
 require 'twitter/variant'
 
 module Twitter
   module Media
     class VideoInfo < Twitter::Base
+      include Memoizable
+
       # @return [Array<Integer]
       attr_reader :aspect_ratio
 
