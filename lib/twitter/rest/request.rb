@@ -56,12 +56,16 @@ module Twitter
 
       def mime_type(basename)
         case basename
+        when /\.bmp$/i
+          'image/bmp'
         when /\.gif$/i
           'image/gif'
         when /\.jpe?g/i
           'image/jpeg'
         when /\.png$/i
           'image/png'
+        when /\.webp$/i
+          'image/webp'
         else
           'application/octet-stream'
         end
