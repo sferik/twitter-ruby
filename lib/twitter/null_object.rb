@@ -8,6 +8,10 @@ module Twitter
     config.define_explicit_conversions
     config.define_implicit_conversions
     config.predicates_return false
+    
+    def to_hash
+      {}
+    end
 
     def !
       true

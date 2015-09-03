@@ -90,6 +90,11 @@ describe Twitter::NullObject do
         expect(subject.to_str).to be_empty
       end
     end
+    describe '#to_hash' do
+      it 'returns an empty hash' do
+        expect(subject.to_hash).to be_empty
+      end
+    end
   end
 
   describe 'predicates' do
