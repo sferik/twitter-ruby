@@ -1,0 +1,1 @@
+{ "data": [ { "approval_status": "ACCEPTED", "created_at": "2012-11-30T22:58:11Z", "deleted": false, "id": "2iu7", "line_item_id": "5woz", "paused": false, "updated_at": "2012-11-30T22:58:11Z", "user_id": "6253282" } ], "data_type": "promotable_account", "next_cursor": null, "request": { "params": { "account_id": "hkk5", "line_item_id": "5woz" } }, "total_count": 1 }

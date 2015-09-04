@@ -55,4 +55,16 @@ describe Twitter::RateLimit do
       expect(rate_limit.reset_in).to be_nil
     end
   end
+
+  describe '#cost' do
+    it 'returns an Integer when x-request-cost is set' do
+      rate_limit = Twitter::RateLimit.new('x-request-cost' => '378')
+      expect(rate_limit.cost).to be_an Integer
+      expect(rate_limit.cost).to eq(378)
+    end
+    it 'returns nil when x-request-cost header is not set' do
+      rate_limit = Twitter::RateLimit.new
+      expect(rate_limit.cost).to be_nil
+    end
+  end
 end

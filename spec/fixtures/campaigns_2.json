@@ -1,0 +1,34 @@
+{
+    "data": [
+        {
+            "account_id": "abc123",
+            "created_at": "2013-09-23T22:27:43Z",
+            "currency": "USD",
+            "daily_budget_amount_local_micro": 12000000,
+            "deleted": false,
+            "end_time": null,
+            "funding_instrument_id": "f8jfd",
+            "id": "xj8",
+            "name": "test camp 6",
+            "paused": true,
+            "reasons_not_servable": [
+                "PAUSED_BY_ADVERTISER"
+            ],
+            "servable": false,
+            "standard_delivery": true,
+            "start_time": "2013-09-23T22:20:00Z",
+            "total_budget_amount_local_micro": null,
+            "updated_at": "2014-04-25T15:02:34Z"
+        }
+    ],
+    "data_type": "campaign",
+    "next_cursor": null,
+    "request": {
+        "params": {
+            "account_id": "abc123",
+            "count": 5,
+            "cursor": "8x7x8widc"
+        }
+    },
+    "total_count": 6
+}

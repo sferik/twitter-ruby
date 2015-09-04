@@ -1,0 +1,1 @@
+{ "data": [ { "approval_status": "ACCEPTED", "created_at": "2012-11-20T23:29:10Z", "deleted": false, "id": "n4zr", "line_item_id": "5woz", "paused": false, "tweet_id": "57583424575246337", "updated_at": "2012-11-20T23:29:10Z" } ], "data_type": "promoted_tweet", "request": { "params": { "account_id": "hkk5", "line_item_id": "5woz" } }, "total_count": 1 }

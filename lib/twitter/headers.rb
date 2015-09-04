@@ -9,11 +9,16 @@ module Twitter
       @request_method = request_method.to_sym
       @uri = Addressable::URI.parse(url)
       @bearer_token_request = options.delete(:bearer_token_request)
+      @x_ton_expires = options.delete(%s(X-TON-Expires))
       @options = options
     end
 
     def bearer_token_request?
       !!@bearer_token_request
+    end
+
+    def x_ton_expires?
+      !!@x_ton_expires
     end
 
     def oauth_auth_header
@@ -29,6 +34,11 @@ module Twitter
       else
         headers[:authorization] = auth_header
       end
+
+      if x_ton_expires?
+        headers[%s(X-TON-Expires)] = @x_ton_expires
+      end
+
       headers
     end
 

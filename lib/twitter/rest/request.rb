@@ -32,22 +32,33 @@ module Twitter
 
       # @return [Array, Hash]
       def perform
-        options_key = @request_method == :get ? :params : :form
-        response = http_client.with(@headers).public_send(@request_method, @uri.to_s, options_key => @options)
+        response = perform_raw
         response_body = symbolize_keys!(response.parse)
         response_headers = response.headers
         fail_or_return_response_body(response.code, response_body, response_headers)
       end
 
-    private
+      def perform_raw
+        options_key = @request_method == :get ? :params : :form
+        http_client.with(@headers).public_send(@request_method, @uri.to_s, options_key => @options)
+      end
 
+    private
       def set_multipart_options!(request_method, options)
         if request_method == :multipart_post
           key = options.delete(:key)
           file = options.delete(:file)
-          options.merge!(key => HTTP::FormData::File.new(file, filename: File.basename(file), mime_type: mime_type(File.basename(file))))
           @request_method = :post
-          @headers = Twitter::Headers.new(@client, @request_method, @uri).request_headers
+          @headers = Twitter::Headers.new(@client, @request_method, @uri, options).request_headers
+          options.merge!(key => HTTP::FormData::File.new(file, filename: File.basename(file), mime_type: mime_type(File.basename(file))))
+        elsif request_method == :csv_post
+          # TODO: This is a horrible hack. I'll figure out how to refactor/do correctly later.
+          key = options.delete(:key)
+          file = options.delete(:file)
+          @request_method = :post
+          @headers = Twitter::Headers.new(@client, @request_method, @uri, options).request_headers
+          @headers[:content_type] = 'text/comma-separated-values'
+          options.merge!(key => HTTP::FormData::File.new(file, filename: File.basename(file), mime_type: mime_type(File.basename(file))))
         else
           @request_method = request_method
           @headers = Twitter::Headers.new(@client, @request_method, @uri, options).request_headers
