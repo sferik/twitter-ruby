@@ -41,7 +41,7 @@ describe Twitter::Utils do
     it 'behaves like flat_map' do
       array = (0..4).to_a.combination(2).to_a
       block = proc { |x| x.reverse }
-      expect(subject.flat_pmap(array, &block)).to eq(array.collect(&block).flatten(1))
+      expect(subject.flat_pmap(array, &block)).to eq(array.flat_map(&block))
     end
 
     it 'flat maps in parallel' do
