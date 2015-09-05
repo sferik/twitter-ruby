@@ -22,7 +22,7 @@ module Twitter
     # @return [Array, Enumerator]
     def flat_pmap(enumerable)
       return to_enum(:flat_pmap, enumerable) unless block_given?
-      pmap(enumerable, &Proc.new).flatten!(1)
+      pmap(enumerable, &Proc.new).flatten(1)
     end
     module_function :flat_pmap
 
