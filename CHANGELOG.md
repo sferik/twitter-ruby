@@ -1,3 +1,11 @@
+5.15.0
+------
+* [`NullObject#as_json` returns 'null'](https://github.com/sferik/twitter/commit/2979e703c09a45f012cb2c5b2d6663bf1f4d3351) ([@lukevmorris](https://twitter.com/lukevmorris))
+* [Add methods to get to parameters of quoted tweet](https://github.com/sferik/twitter/commit/afd41a3e36cc94194a2110ba9adce13486ced9fd) ([@couhie](https://twitter.com/couhie))
+* [Add additional mime_types for multi-part upload](https://github.com/sferik/twitter/commit/947fcdc9f7348f267d74933ffa43d191cf248a9c)
+* [Fix bug where flat_pmap can return nil](https://github.com/sferik/twitter/commit/e22a5601ec702632510b3e983e50929ceb334b95)
+* [Add new error codes](https://github.com/sferik/twitter/commit/1ce6b2f02d0f5f78435ee898e8f5b6d3db18d6f1)
+
 5.14.0
 ------
 * [Add `Twitter::NullObject#respond_to?`](https://github.com/sferik/twitter/commit/438e311d93f382960650e20898203c880ade6b25)
