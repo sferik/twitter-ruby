@@ -13,15 +13,25 @@ module Twitter
       end
 
       def stream(request, response)
-        client_context = OpenSSL::SSL::SSLContext.new
-        client         = @tcp_socket_class.new(Resolv.getaddress(request.uri.host), request.uri.port)
-        ssl_client     = @ssl_socket_class.new(client, client_context)
-
-        ssl_client.connect
+        ssl_client = connect(request)
         request.stream(ssl_client)
         while body = ssl_client.readpartial(1024) # rubocop:disable AssignmentInCondition
           response << body
         end
+      end
+
+      def connect(request)
+        client_context = OpenSSL::SSL::SSLContext.new
+        client         = new_tcp_socket(request.socket_host, request.socket_port)
+        ssl_client     = @ssl_socket_class.new(client, client_context)
+
+        ssl_client.connect
+      end
+
+      private
+
+      def new_tcp_socket(host, port)
+        @tcp_socket_class.new(Resolv.getaddress(host), port)
       end
     end
   end
