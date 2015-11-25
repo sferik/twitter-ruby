@@ -25,4 +25,65 @@ describe Twitter::Streaming::Connection do
       end
     end
   end
+
+  describe "connection" do
+
+    class DummyResponse
+      def initiailze(&block)
+        yield
+      end
+
+      def <<(data)
+
+      end
+    end
+
+    subject(:connection) do
+      Twitter::Streaming::Connection.new(tcp_socket_class: DummyTCPSocket, ssl_socket_class: DummySSLSocket)
+    end
+
+    let(:method) { :get }
+    let(:uri)    { 'https://stream.twitter.com:443/1.1/statuses/sample.json' }
+    let(:ssl_socket) { double("ssl_socket") }
+
+    let(:request) { HTTP::Request.new(method, uri, {}) }
+
+    it 'requests via the proxy' do
+      expect(connection.ssl_socket_class).to receive(:new).and_return(ssl_socket)
+      allow(ssl_socket).to receive(:connect)
+
+      expect(connection).to receive(:new_tcp_socket).with('stream.twitter.com', 443)
+      connection.connect(request)
+    end
+
+
+    context "when using a proxy" do
+
+      let(:proxy) { {proxy_address: '127.0.0.1', proxy_port: 3328} }
+      let(:request) { HTTP::Request.new(method, uri, {}, proxy) }
+
+      it 'requests via the proxy' do
+        expect(connection).to receive(:new_tcp_socket).with('127.0.0.1', 3328)
+        connection.connect(request)
+      end
+
+      context "if using ssl" do
+
+        subject(:connection) do
+          Twitter::Streaming::Connection.new(tcp_socket_class: DummyTCPSocket, ssl_socket_class: DummySSLSocket, using_ssl: true)
+        end
+
+        it "connect with ssl" do
+          expect(connection.ssl_socket_class).to receive(:new).and_return(ssl_socket)
+          allow(ssl_socket).to receive(:connect)
+
+          expect(connection).to receive(:new_tcp_socket).with('127.0.0.1', 3328)
+          connection.connect(request)
+
+        end
+      end
+
+    end
+  end
+
 end
