@@ -22,7 +22,7 @@ module Twitter
       end
 
       def connect(request)
-        client         = new_tcp_socket(request.socket_host, request.socket_port)
+        client = new_tcp_socket(request.socket_host, request.socket_port)
         return client if !@using_ssl && request.using_proxy?
 
         client_context = OpenSSL::SSL::SSLContext.new
@@ -30,7 +30,7 @@ module Twitter
         ssl_client.connect
       end
 
-      private
+    private
 
       def new_tcp_socket(host, port)
         @tcp_socket_class.new(Resolv.getaddress(host), port)
