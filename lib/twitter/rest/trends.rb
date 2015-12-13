@@ -8,7 +8,7 @@ module Twitter
     module Trends
       include Twitter::REST::Utils
 
-      # Returns the top 10 trending topics for a specific WOEID
+      # Returns the top 50 trending topics for a specific WOEID
       #
       # @see https://dev.twitter.com/rest/reference/get/trends/place
       # @rate_limited Yes
