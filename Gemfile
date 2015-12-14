@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'addressable', '~> 2.3.8', :platforms => [:jruby, :ruby_18]
 gem 'jruby-openssl', :platforms => :jruby
 gem 'rake'
 gem 'yard'
