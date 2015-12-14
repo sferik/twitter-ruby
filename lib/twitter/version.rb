@@ -34,7 +34,7 @@ module Twitter
 
     # @return [Array]
     def to_a
-      to_h.values.compact
+      [major, minor, patch, pre].compact
     end
 
     # @return [String]
