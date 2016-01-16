@@ -1,9 +1,9 @@
 require 'twitter'
 
-COLON = ':'
-UNDERSCORE = '_'
-TAB = "\t"
-NAMESPACE = 'Twitter::'
+COLON = ':'.freeze
+UNDERSCORE = '_'.freeze
+TAB = "\t".freeze
+NAMESPACE = 'Twitter::'.freeze
 
 # Colons are invalid characters in DOT nodes.
 # Replace them with underscores.

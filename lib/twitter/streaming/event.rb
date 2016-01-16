@@ -5,11 +5,11 @@ module Twitter
         :list_created, :list_destroyed, :list_updated, :list_member_added,
         :list_member_added, :list_member_removed, :list_user_subscribed,
         :list_user_subscribed, :list_user_unsubscribed, :list_user_unsubscribed
-      ]
+      ].freeze
 
       TWEET_EVENTS = [
         :favorite, :unfavorite
-      ]
+      ].freeze
 
       attr_reader :name, :source, :target, :target_object
 

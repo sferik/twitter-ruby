@@ -12,7 +12,7 @@ module Twitter
   module REST
     class Request
       include Twitter::Utils
-      BASE_URL = 'https://api.twitter.com'
+      BASE_URL = 'https://api.twitter.com'.freeze
       attr_accessor :client, :headers, :options, :path, :rate_limit,
                     :request_method, :uri
       alias verb request_method
@@ -45,7 +45,7 @@ module Twitter
         if request_method == :multipart_post
           key = options.delete(:key)
           file = options.delete(:file)
-          options.merge!(key => HTTP::FormData::File.new(file, filename: File.basename(file), mime_type: mime_type(File.basename(file))))
+          options[key] = HTTP::FormData::File.new(file, filename: File.basename(file), mime_type: mime_type(File.basename(file)))
           @request_method = :post
           @headers = Twitter::Headers.new(@client, @request_method, @uri).request_headers
         else

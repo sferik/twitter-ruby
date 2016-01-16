@@ -68,13 +68,13 @@ module Twitter
       502 => Twitter::Error::BadGateway,
       503 => Twitter::Error::ServiceUnavailable,
       504 => Twitter::Error::GatewayTimeout,
-    }
+    }.freeze
 
     FORBIDDEN_MESSAGES = {
       'Status is a duplicate.' => Twitter::Error::DuplicateStatus,
       'You have already favorited this status.' => Twitter::Error::AlreadyFavorited,
       'sharing is not permissible for this status (Share validations failed)' => Twitter::Error::AlreadyRetweeted,
-    }
+    }.freeze
 
     # If error code is missing see https://dev.twitter.com/overview/api/response-codes
     module Code
