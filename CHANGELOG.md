@@ -45,7 +45,7 @@
 5.9.0
 -----
 * [Use expanded URIs when available](https://github.com/sferik/twitter/commit/f1d5d1f4c0ea75ebeaf9e7eb760b9efd245a5df2)
-* [Deprecate `Twitter::REST::Client#middleware=` and `#connection_options`](https://github.com/sferik/twitter/commit/71b0a38670102841fda9642de586e6cb67d33083)
+* [Deprecate `Twitter::REST::Client#middleware=` and `#connection_options`](https://github.com/sferik/twitter/commit/2ec17d8d43a87766dd4b89fcc6d5a2433530bf7c)
 * [Ensure predicate methods return `false` for `Twitter::NullObject`](https://github.com/sferik/twitter/commit/f1b42bf82440f2dc0ba61761fc8f12460e20aadf)
 * [Make `Twitter::Place#id` attribute accessible](https://github.com/sferik/twitter/commit/a4fa4739283a325886d44f97b2648e3b00f933b1)
 * [Enable injection of custom TCP/SSL socket classes](https://github.com/sferik/twitter/commit/3629a1edfbc6b35099d4b0fc165b938a67c02d86) ([@neektza](https://twitter.com/neektza))
