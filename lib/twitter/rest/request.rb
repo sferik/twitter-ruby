@@ -15,7 +15,7 @@ module Twitter
       BASE_URL = 'https://api.twitter.com'
       attr_accessor :client, :headers, :options, :path, :rate_limit,
                     :request_method, :uri
-      alias_method :verb, :request_method
+      alias verb request_method
 
       # @param client [Twitter::Client]
       # @param request_method [String, Symbol]

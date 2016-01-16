@@ -29,7 +29,7 @@ module Twitter
         response = HTTP.with(headers).post(url, form: options)
         response.parse['access_token']
       end
-      alias_method :bearer_token, :token
+      alias bearer_token token
 
       # Allows a registered application to revoke an issued OAuth 2 Bearer Token by presenting its client credentials.
       #

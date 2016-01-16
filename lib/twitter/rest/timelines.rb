@@ -25,7 +25,7 @@ module Twitter
       def mentions_timeline(options = {})
         perform_get_with_objects('/1.1/statuses/mentions_timeline.json', options, Twitter::Tweet)
       end
-      alias_method :mentions, :mentions_timeline
+      alias mentions mentions_timeline
 
       # Returns the 20 most recent Tweets posted by the specified user
       #
@@ -70,7 +70,7 @@ module Twitter
           user_timeline(user, opts)
         end
       end
-      alias_method :retweeted_by, :retweeted_by_user
+      alias retweeted_by retweeted_by_user
 
       # Returns the 20 most recent retweets posted by the authenticating user
       #

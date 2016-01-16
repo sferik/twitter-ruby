@@ -23,8 +23,8 @@ module Twitter
         response = perform_get('/1.1/trends/place.json', options).first
         Twitter::TrendResults.new(response)
       end
-      alias_method :local_trends, :trends
-      alias_method :trends_place, :trends
+      alias local_trends trends
+      alias trends_place trends
 
       # Returns the locations that Twitter has trending topic information for
       #
@@ -37,7 +37,7 @@ module Twitter
       def trends_available(options = {})
         perform_get_with_objects('/1.1/trends/available.json', options, Twitter::Place)
       end
-      alias_method :trend_locations, :trends_available
+      alias trend_locations trends_available
 
       # Returns the locations that Twitter has trending topic information for, closest to a specified location.
       #

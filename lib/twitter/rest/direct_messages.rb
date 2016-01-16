@@ -130,9 +130,9 @@ module Twitter
         options[:text] = text
         perform_post_with_object('/1.1/direct_messages/new.json', options, Twitter::DirectMessage)
       end
-      alias_method :d, :create_direct_message
-      alias_method :m, :create_direct_message
-      alias_method :dm, :create_direct_message
+      alias d create_direct_message
+      alias m create_direct_message
+      alias dm create_direct_message
     end
   end
 end

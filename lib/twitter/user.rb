@@ -18,12 +18,12 @@ module Twitter
                 :profile_background_color, :profile_link_color,
                 :profile_sidebar_border_color, :profile_sidebar_fill_color,
                 :profile_text_color, :time_zone
-    alias_method :favorites_count, :favourites_count
-    alias_method :tweets_count, :statuses_count
+    alias favorites_count favourites_count
+    alias tweets_count statuses_count
     object_attr_reader :Tweet, :status, :user
-    alias_method :tweet, :status
-    alias_method :tweet?, :status?
-    alias_method :tweeted?, :status?
+    alias tweet status
+    alias tweet? status?
+    alias tweeted? status?
     predicate_attr_reader :contributors_enabled, :default_profile,
                           :default_profile_image, :follow_request_sent,
                           :geo_enabled, :muting, :needs_phone_verification,
@@ -82,7 +82,7 @@ module Twitter
       Addressable::URI.parse("https://twitter.com/#{screen_name}") if screen_name?
     end
     memoize :uri
-    alias_method :url, :uri
+    alias url uri
 
     # @return [Addressable::URI] The URL to the user's website.
     def website

@@ -8,7 +8,7 @@ module Twitter
     attr_reader :h, :w
     # @return [String]
     attr_reader :resize
-    alias_method :height, :h
-    alias_method :width, :w
+    alias height h
+    alias width w
   end
 end
