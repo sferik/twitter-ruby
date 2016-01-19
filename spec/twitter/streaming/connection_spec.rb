@@ -28,7 +28,7 @@ describe Twitter::Streaming::Connection do
 
   describe 'connection' do
     class DummyResponse
-      def initiailze(&_block)
+      def initiailze
         yield
       end
 
