@@ -232,7 +232,7 @@ module Twitter
         hash
       end
 
-      def collect_user_ids_and_screen_names(users) # rubocop:disable MethodLength
+      def collect_user_ids_and_screen_names(users)
         user_ids = []
         screen_names = []
         users.flatten.each do |user|
@@ -240,11 +240,7 @@ module Twitter
           when Integer
             user_ids << user
           when String
-            if user[URI_SUBSTRING]
-              screen_names << user.split('/').last
-            else
-              screen_names << user
-            end
+            screen_names << (user[URI_SUBSTRING] ? user.split('/').last : user)
           when URI
             screen_names << user.path.split('/').last
           when Twitter::User
