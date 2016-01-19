@@ -4,7 +4,7 @@ module Twitter
   module REST
     class Request
       class MultipartWithFile < Faraday::Middleware
-        CONTENT_TYPE = 'Content-Type'
+        CONTENT_TYPE = 'Content-Type'.freeze
         BMP_REGEX = /\.bmp/i
         GIF_REGEX = /\.gif$/i
         JPEG_REGEX = /\.jpe?g/i

@@ -9,7 +9,7 @@ module Twitter
   module REST
     module Utils
       include Twitter::Utils
-      URI_SUBSTRING = '://'
+      URI_SUBSTRING = '://'.freeze
       DEFAULT_CURSOR = -1
 
     private

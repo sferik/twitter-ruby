@@ -14,7 +14,7 @@ module Twitter
       include Twitter::REST::Utils
       include Twitter::Utils
       MAX_USERS_PER_REQUEST = 100
-      URI_SUBSTRING = '://'
+      URI_SUBSTRING = '://'.freeze
 
       # Returns all lists the authenticating or specified user subscribes to, including their own
       #

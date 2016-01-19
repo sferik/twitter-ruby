@@ -9,7 +9,7 @@ module Twitter
     attr_reader :access_token, :token_type
     alias to_s access_token
 
-    BEARER_TYPE = 'bearer'
+    BEARER_TYPE = 'bearer'.freeze
 
     # @return [Boolean]
     def bearer?

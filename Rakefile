@@ -2,7 +2,7 @@ require 'bundler'
 Bundler::GemHelper.install_tasks
 
 task :erd do
-  FORMAT = 'svg'
+  FORMAT = 'svg'.freeze
   `bundle exec ruby ./etc/erd.rb > ./etc/erd.dot`
   `dot -T #{FORMAT} ./etc/erd.dot -o ./etc/erd.#{FORMAT}`
 end
