@@ -452,6 +452,8 @@ describe Twitter::REST::Tweets do
   describe '#update_with_media' do
     before do
       stub_post('/1.1/statuses/update_with_media.json').to_return(:body => fixture('status.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
+      stub_post('/1.1/statuses/update.json').to_return(body: fixture('status.json'), headers: {content_type: 'application/json; charset=utf-8'})
+      stub_request(:post, 'https://upload.twitter.com/1.1/media/upload.json').to_return(body: fixture('upload.json'), headers: {content_type: 'application/json; charset=utf-8'})
     end
     context 'a gif image' do
       it 'requests the correct resource' do
@@ -486,6 +488,13 @@ describe Twitter::REST::Tweets do
       it 'requests the correct resource' do
         @client.update_with_media('You always have options', Tempfile.new('tmp'))
         expect(a_post('/1.1/statuses/update_with_media.json')).to have_been_made
+      end
+    end
+    context 'a mp4 video' do
+      it 'requests the correct resources' do
+        @client.update_with_media('You always have options', fixture('1080p.mp4'))
+        expect(a_request(:post, 'https://upload.twitter.com/1.1/media/upload.json')).to have_been_made.times(3)
+        expect(a_post('/1.1/statuses/update.json')).to have_been_made
       end
     end
     context 'A non IO object' do
