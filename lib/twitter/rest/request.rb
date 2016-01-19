@@ -33,7 +33,7 @@ module Twitter
       # @return [Array, Hash]
       def perform
         options_key = @request_method == :get ? :params : :form
-        response = http_client.with(@headers).public_send(@request_method, @uri.to_s, options_key => @options)
+        response = http_client.headers(@headers).public_send(@request_method, @uri.to_s, options_key => @options)
         response_body = symbolize_keys!(response.parse)
         response_headers = response.headers
         fail_or_return_response_body(response.code, response_body, response_headers)

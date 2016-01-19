@@ -26,7 +26,7 @@ module Twitter
         options[:grant_type] ||= 'client_credentials'
         url = 'https://api.twitter.com/oauth2/token'
         headers = Twitter::Headers.new(self, :post, url, options).request_headers
-        response = HTTP.with(headers).post(url, form: options)
+        response = HTTP.headers(headers).post(url, form: options)
         response.parse['access_token']
       end
       alias bearer_token token
@@ -56,7 +56,7 @@ module Twitter
         options = {x_auth_mode: 'reverse_auth'}
         url = 'https://api.twitter.com/oauth/request_token'
         auth_header = Twitter::Headers.new(self, :post, url, options).oauth_auth_header.to_s
-        HTTP.with(authorization: auth_header).post(url, params: options).to_s
+        HTTP.headers(authorization: auth_header).post(url, params: options).to_s
       end
     end
   end

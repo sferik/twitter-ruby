@@ -44,7 +44,7 @@ describe Twitter::Streaming::Connection do
     let(:uri)    { 'https://stream.twitter.com:443/1.1/statuses/sample.json' }
     let(:ssl_socket) { double('ssl_socket') }
 
-    let(:request) { HTTP::Request.new(method, uri, {}) }
+    let(:request) { HTTP::Request.new(verb: method, uri: uri) }
 
     it 'requests via the proxy' do
       expect(connection.ssl_socket_class).to receive(:new).and_return(ssl_socket)
@@ -56,7 +56,7 @@ describe Twitter::Streaming::Connection do
 
     context 'when using a proxy' do
       let(:proxy) { {proxy_address: '127.0.0.1', proxy_port: 3328} }
-      let(:request) { HTTP::Request.new(method, uri, {}, proxy) }
+      let(:request) { HTTP::Request.new(verb: method, uri: uri, proxy: proxy) }
 
       it 'requests via the proxy' do
         expect(connection).to receive(:new_tcp_socket).with('127.0.0.1', 3328)
