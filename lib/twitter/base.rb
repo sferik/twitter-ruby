@@ -87,13 +87,11 @@ module Twitter
         define_method(key1) do ||
           if attr_falsey_or_empty?(key1)
             NullObject.new
+          elsif klass.nil?
+            @attrs[key1]
           else
-            if klass.nil?
-              @attrs[key1]
-            else
-              attrs = attrs_for_object(key1, key2)
-              Twitter.const_get(klass).new(attrs)
-            end
+            attrs = attrs_for_object(key1, key2)
+            Twitter.const_get(klass).new(attrs)
           end
         end
         memoize(key1)
