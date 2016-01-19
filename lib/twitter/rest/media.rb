@@ -22,7 +22,7 @@ module Twitter
         conn = connection.dup
         conn.url_prefix = base_url
         headers = Twitter::Headers.new(self, :post, base_url + path, options).request_headers
-        options.merge!(:media => media)
+        options[:media] = media
         conn.post(path, options) { |request| request.headers.update(headers) }.env.body[:media_id]
       end
     end
