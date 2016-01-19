@@ -6,6 +6,6 @@ module Twitter
     include Equalizer.new(:coordinates)
     # @return [Array<Float>]
     attr_reader :coordinates
-    alias_method :coords, :coordinates
+    alias coords coordinates
   end
 end

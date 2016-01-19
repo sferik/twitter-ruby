@@ -13,20 +13,20 @@ module Twitter
                 :retweet_count
     deprecate_alias :favorites_count, :favorite_count
     deprecate_alias :favoriters_count, :favorite_count
-    alias_method :in_reply_to_tweet_id, :in_reply_to_status_id
-    alias_method :reply?, :in_reply_to_user_id?
+    alias in_reply_to_tweet_id in_reply_to_status_id
+    alias reply? in_reply_to_user_id?
     deprecate_alias :retweeters_count, :retweet_count
     object_attr_reader :GeoFactory, :geo
     object_attr_reader :Metadata, :metadata
     object_attr_reader :Place, :place
     object_attr_reader :Tweet, :retweeted_status
     object_attr_reader :Tweet, :quoted_status
-    alias_method :retweeted_tweet, :retweeted_status
-    alias_method :retweet?, :retweeted_status?
-    alias_method :retweeted_tweet?, :retweeted_status?
-    alias_method :quoted_tweet, :quoted_status
-    alias_method :quote?, :quoted_status?
-    alias_method :quoted_tweet?, :quoted_status?
+    alias retweeted_tweet retweeted_status
+    alias retweet? retweeted_status?
+    alias retweeted_tweet? retweeted_status?
+    alias quoted_tweet quoted_status
+    alias quote? quoted_status?
+    alias quoted_tweet? quoted_status?
     object_attr_reader :User, :user, :status
     predicate_attr_reader :favorited, :possibly_sensitive, :retweeted,
                           :truncated
@@ -48,7 +48,7 @@ module Twitter
       Addressable::URI.parse("https://twitter.com/#{user.screen_name}/status/#{id}") if user?
     end
     memoize :uri
-    alias_method :url, :uri
+    alias url uri
   end
   Status = Tweet
 end

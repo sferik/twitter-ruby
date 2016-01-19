@@ -100,7 +100,7 @@ module Twitter
           perform_post_with_object("/1.1/statuses/destroy/#{extract_id(tweet)}.json", arguments.options, Twitter::Tweet)
         end
       end
-      alias_method :destroy_tweet, :destroy_status
+      alias destroy_tweet destroy_status
       deprecate_alias :status_destroy, :destroy_status
       deprecate_alias :tweet_destroy, :destroy_status
 

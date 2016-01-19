@@ -29,6 +29,6 @@ module Twitter
     def reset_in
       [(reset_at - Time.now).ceil, 0].max if reset_at
     end
-    alias_method :retry_after, :reset_in
+    alias retry_after reset_in
   end
 end

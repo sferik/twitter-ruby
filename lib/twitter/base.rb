@@ -11,8 +11,8 @@ module Twitter
     include Twitter::Utils
     # @return [Hash]
     attr_reader :attrs
-    alias_method :to_h, :attrs
-    alias_method :to_hash, :to_h
+    alias to_h attrs
+    alias to_hash to_h
     deprecate_alias :to_hsh, :to_hash
 
     class << self

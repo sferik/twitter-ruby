@@ -50,7 +50,7 @@ module Twitter
       def verify_credentials(options = {})
         perform_get_with_object('/1.1/account/verify_credentials.json', options, Twitter::User)
       end
-      alias_method :current_user, :verify_credentials
+      alias current_user verify_credentials
 
       # Sets which device Twitter delivers updates to for the authenticating user
       #

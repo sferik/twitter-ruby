@@ -7,14 +7,14 @@ module Twitter
       def latitude
         coordinates[0]
       end
-      alias_method :lat, :latitude
+      alias lat latitude
 
       # @return [Integer]
       def longitude
         coordinates[1]
       end
-      alias_method :long, :longitude
-      alias_method :lng, :longitude
+      alias long longitude
+      alias lng longitude
     end
   end
 end

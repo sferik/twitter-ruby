@@ -28,7 +28,7 @@ module Twitter
     def profile_banner_uri(size = :web)
       parse_uri(insecure_uri([@attrs[:profile_banner_url], size].join('/'))) unless @attrs[:profile_banner_url].nil?
     end
-    alias_method :profile_banner_url, :profile_banner_uri
+    alias profile_banner_url profile_banner_uri
 
     # Return the secure URL to the user's profile banner image
     #
@@ -37,7 +37,7 @@ module Twitter
     def profile_banner_uri_https(size = :web)
       parse_uri([@attrs[:profile_banner_url], size].join('/')) unless @attrs[:profile_banner_url].nil?
     end
-    alias_method :profile_banner_url_https, :profile_banner_uri_https
+    alias profile_banner_url_https profile_banner_uri_https
 
     # @return [Boolean]
     def profile_banner_uri?
@@ -53,7 +53,7 @@ module Twitter
     def profile_image_uri(size = :normal)
       parse_uri(insecure_uri(profile_image_uri_https(size))) unless @attrs[:profile_image_url_https].nil?
     end
-    alias_method :profile_image_url, :profile_image_uri
+    alias profile_image_url profile_image_uri
 
     # Return the secure URL to the user's profile image
     #
@@ -68,7 +68,7 @@ module Twitter
       # https://a0.twimg.com/profile_images/1759857427/image1326743606_bigger.png
       parse_uri(@attrs[:profile_image_url_https].sub(PROFILE_IMAGE_SUFFIX_REGEX, profile_image_suffix(size))) unless @attrs[:profile_image_url_https].nil?
     end
-    alias_method :profile_image_url_https, :profile_image_uri_https
+    alias profile_image_url_https profile_image_uri_https
 
     # @return [Boolean]
     def profile_image_uri?

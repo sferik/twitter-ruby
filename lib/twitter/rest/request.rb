@@ -11,7 +11,7 @@ module Twitter
     class Request
       attr_accessor :client, :headers, :options, :rate_limit, :request_method,
                     :path, :uri
-      alias_method :verb, :request_method
+      alias verb request_method
 
       # @param client [Twitter::Client]
       # @param request_method [String, Symbol]

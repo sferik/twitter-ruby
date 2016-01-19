@@ -28,7 +28,7 @@ module Twitter
         options[:grant_type] ||= 'client_credentials'
         perform_post_with_object('/oauth2/token', options, Twitter::Token)
       end
-      alias_method :bearer_token, :token
+      alias bearer_token token
 
       # Allows a registered application to revoke an issued OAuth 2 Bearer Token by presenting its client credentials.
       #
