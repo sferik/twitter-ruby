@@ -1,3 +1,10 @@
+5.16.0
+------
+* [Add new settings to `Twitter::Settings`](https://github.com/sferik/twitter/commit/d047ce00034d26a99927076c28679ce08fd69308)
+* [Add `Twitter::Trend#tweet_volume`](https://github.com/sferik/twitter/commit/e797b62e5e6a768e8aeafde6186e1f5310e6bfc6)
+* [Remove the encoding of profile urls](https://github.com/sferik/twitter/commit/6d46bd689ab4a4f119d1d692488aab37e4e99893) ([@TimHaines](https://twitter.com/TimHaines))
+* [Fix issue with port number in streaming connection](https://github.com/sferik/twitter/issues/709)
+
 5.15.0
 ------
 * [`NullObject#as_json` returns 'null'](https://github.com/sferik/twitter/commit/2979e703c09a45f012cb2c5b2d6663bf1f4d3351) ([@lukevmorris](https://twitter.com/lukevmorris))
