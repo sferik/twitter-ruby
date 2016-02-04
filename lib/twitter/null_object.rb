@@ -22,12 +22,12 @@ module Twitter
     end
 
     def instance_of?(klass)
-      fail(TypeError, 'class or module required') unless klass.is_a?(Class)
+      raise(TypeError, 'class or module required') unless klass.is_a?(Class)
       self.class == klass
     end
 
     def kind_of?(mod)
-      fail(TypeError, 'class or module required') unless mod.is_a?(Module)
+      raise(TypeError, 'class or module required') unless mod.is_a?(Module)
       self.class.ancestors.include?(mod)
     end
 
