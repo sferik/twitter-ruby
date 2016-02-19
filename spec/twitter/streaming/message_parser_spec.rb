@@ -13,10 +13,11 @@ describe Twitter::Streaming::MessageParser do
       expect(object.id).to eq(1)
     end
     it 'returns an event if the data has an event' do
-      data = {:event => 'favorite', :source => {:id => 1}, :target => {:id => 2}, :target_object => {:id => 1}}
+      data = {:event => 'favorite', :source => {:id => 1}, :target => {:id => 2}, :target_object => {:id => 1}, created_at: 'Fri Nov 09 00:35:12 +0000 2007'}
       object = subject.parse(data)
       expect(object).to be_a Twitter::Streaming::Event
       expect(object.name).to eq(:favorite)
+      expect(object.created_at).to be_a Time
       expect(object.source).to be_a Twitter::User
       expect(object.source.id).to eq(1)
       expect(object.target).to be_a Twitter::User
