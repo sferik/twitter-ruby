@@ -572,4 +572,44 @@ describe Twitter::REST::Tweets do
       end
     end
   end
+
+  describe '#unretweet' do
+    before do
+      stub_post('/1.1/statuses/unretweet/540897316908331009.json').to_return(body: fixture('retweet.json'), headers: {content_type: 'application/json; charset=utf-8'})
+    end
+    it 'requests the correct resource' do
+      @client.unretweet(540_897_316_908_331_009)
+      expect(a_post('/1.1/statuses/unretweet/540897316908331009.json')).to have_been_made
+    end
+    it 'returns an array of Tweets with retweet details embedded' do
+      tweets = @client.unretweet(540_897_316_908_331_009)
+      expect(tweets).to be_an Array
+      expect(tweets.first).to be_a Twitter::Tweet
+      expect(tweets.first.text).to eq("RT @gruber: As for the Series, I'm for the Giants. Fuck Texas, fuck Nolan Ryan, fuck George Bush.")
+      expect(tweets.first.retweeted_tweet.text).to eq("As for the Series, I'm for the Giants. Fuck Texas, fuck Nolan Ryan, fuck George Bush.")
+      expect(tweets.first.retweeted_tweet.id).not_to eq(tweets.first.id)
+    end
+    context 'not found' do
+      before do
+        stub_post('/1.1/statuses/unretweet/540897316908331009.json').to_return(status: 404, body: fixture('not_found.json'), headers: {content_type: 'application/json; charset=utf-8'})
+      end
+      it 'does not raise an error' do
+        expect { @client.unretweet(540_897_316_908_331_009) }.not_to raise_error
+      end
+    end
+    context 'with a URI object passed' do
+      it 'requests the correct resource' do
+        tweet = URI.parse('https://twitter.com/sferik/status/540897316908331009')
+        @client.unretweet(tweet)
+        expect(a_post('/1.1/statuses/unretweet/540897316908331009.json')).to have_been_made
+      end
+    end
+    context 'with a Tweet passed' do
+      it 'requests the correct resource' do
+        tweet = Twitter::Tweet.new(id: 540_897_316_908_331_009)
+        @client.unretweet(tweet)
+        expect(a_post('/1.1/statuses/unretweet/540897316908331009.json')).to have_been_made
+      end
+    end
+  end
 end
