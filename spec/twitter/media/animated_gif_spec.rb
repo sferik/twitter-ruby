@@ -13,4 +13,14 @@ describe Twitter::Media::AnimatedGif do
       expect(image.video_info).to be_nil
     end
   end
+  describe '#type' do
+    it 'returns true when the type is set' do
+      image = Twitter::Media::AnimatedGif.new(id: 1, type: 'animated_gif')
+      expect(image.type).to eq('animated_gif')
+    end
+    it 'returns false when the type is not set' do
+      image = Twitter::Media::AnimatedGif.new(id: 1)
+      expect(image.type).to be_nil
+    end
+  end
 end
