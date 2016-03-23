@@ -210,6 +210,12 @@ An `object` may be one of the following:
 * `Twitter::Streaming::FriendList`
 * `Twitter::Streaming::StallWarning`
 
+## Ads
+
+We recommend using the [Twitter Ads SDK for Ruby][ads] to interact with the Twitter Ads API.
+
+[ads]: http://twitterdev.github.io/twitter-ruby-ads-sdk/
+
 ## Object Graph
 ![Entity-relationship diagram][erd]
 
