@@ -131,19 +131,13 @@ If you'd like to connect via a proxy, a proxy can be configured by passing a
 `Hash` to your configuration:
 
 ```ruby
-proxy = {
-  host: '127.0.0.1',
-  port: 3328,
-  username: 'proxy_username',
-  password: 'proxy_password',
-}
 
 client = Twitter::REST::Client.new do |config|
   config.consumer_key        = "YOUR_CONSUMER_KEY"
   config.consumer_secret     = "YOUR_CONSUMER_SECRET"
   config.access_token        = "YOUR_ACCESS_TOKEN"
   config.access_token_secret = "YOUR_ACCESS_SECRET"
-  config.proxy               = proxy
+  config.proxy               = "http://username:password@host:port"
 end
 ```
 
