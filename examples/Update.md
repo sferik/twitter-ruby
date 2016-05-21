@@ -37,24 +37,22 @@ client.update("I'm tweeting with @gem!", place_id: "df51dec6f4ee2b2c")
 Post an update with an image.
 
 ```ruby
-client.update_with_media("I'm tweeting with @gem!", File.new("/path/to/media.png"))
+client.update("I'm tweeting with @gem!", media: File.new("/path/to/media.png"))
 ```
 
 Post an update with a possibly-sensitive image.
 
 ```ruby
-client.update_with_media("I'm tweeting with @gem!", File.new("/path/to/sensitive-media.png"), possibly_sensitive: true)
+client.update("I'm tweeting with @gem!", media: File.new("/path/to/sensitive-media.png"), possibly_sensitive: true)
 ```
 
 Post an update with multiple images.
 
 ```ruby
 media = %w(/path/to/media1.png /path/to/media2.png).map { |filename| File.new(filename) }
-client.update_with_media("I'm tweeting with @gem!", media)
+client.update("I'm tweeting with @gem!", media: media)
 ```
 
-For more information, see the documentation for the [`#update`][update] and
-[`#update_with_media`][update_with_media] methods.
+For more information, see the documentation for the [`#update`][update] method.
 
 [update]: http://rdoc.info/gems/twitter/Twitter/REST/Tweets#update-instance_method
-[update_with_media]: http://rdoc.info/gems/twitter/Twitter/REST/Tweets#update_with_media-instance_method
