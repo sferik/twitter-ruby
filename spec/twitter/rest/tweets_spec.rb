@@ -240,6 +240,33 @@ describe Twitter::REST::Tweets do
         expect(a_post('/1.1/statuses/update.json').with(body: {status: 'Powerful cartoon by @BillBramhall: http://t.co/IOEbc5QoES', place_id: 'df51dec6f4ee2b2c'})).to have_been_made
       end
     end
+    context 'with one media image' do
+      before do
+        stub_post('/1.1/statuses/update.json').to_return(body: fixture('status.json'), headers: {content_type: 'application/json; charset=utf-8'})
+        stub_request(:post, 'https://upload.twitter.com/1.1/media/upload.json').to_return(body: fixture('upload.json'), headers: {content_type: 'application/json; charset=utf-8'})
+      end
+      it 'requests the correct resource' do
+        @client.update('Powerful cartoon by @BillBramhall: http://t.co/IOEbc5QoES', media: fixture('pbjt.gif'))
+        expect(a_request(:post, 'https://upload.twitter.com/1.1/media/upload.json')).to have_been_made
+        expect(a_post('/1.1/statuses/update.json')).to have_been_made
+      end
+      it 'returns a Tweet' do
+        tweet = @client.update('Powerful cartoon by @BillBramhall: http://t.co/IOEbc5QoES', media: fixture('pbjt.gif'))
+        expect(tweet).to be_a Twitter::Tweet
+        expect(tweet.text).to eq('Powerful cartoon by @BillBramhall: http://t.co/IOEbc5QoES')
+      end
+    end
+    context 'with multiple media images' do
+      before do
+        stub_post('/1.1/statuses/update.json').to_return(body: fixture('status.json'), headers: {content_type: 'application/json; charset=utf-8'})
+        stub_request(:post, 'https://upload.twitter.com/1.1/media/upload.json').to_return(body: fixture('upload.json'), headers: {content_type: 'application/json; charset=utf-8'})
+      end
+      it 'requests the correct resource' do
+        @client.update('You always have options', media: [fixture('me.jpeg'), fixture('me.jpeg')])
+        expect(a_request(:post, 'https://upload.twitter.com/1.1/media/upload.json')).to have_been_made.times(2)
+        expect(a_post('/1.1/statuses/update.json')).to have_been_made
+      end
+    end
   end
 
   describe '#update!' do

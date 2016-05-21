@@ -118,6 +118,7 @@ module Twitter
       # @option options [Integer] :in_reply_to_status_id The ID of an existing status that the update is in reply to.
       # @option options [Float] :lat The latitude of the location this tweet refers to. This option will be ignored unless it is inside the range -90.0 to +90.0 (North is positive) inclusive. It will also be ignored if there isn't a corresponding :long option.
       # @option options [Float] :long The longitude of the location this tweet refers to. The valid ranges for longitude is -180.0 to +180.0 (East is positive) inclusive. This option will be ignored if outside that range, if it is not a number, if geo_enabled is disabled, or if there not a corresponding :lat option.
+      # @option options [File, Array<File>] :media An image file or array of image files (PNG, JPEG or GIF).
       # @option options [Twitter::Place] :place A place in the world. These can be retrieved from {Twitter::REST::PlacesAndGeo#reverse_geocode}.
       # @option options [String] :place_id A place in the world. These IDs can be retrieved from {Twitter::REST::PlacesAndGeo#reverse_geocode}.
       # @option options [String] :display_coordinates Whether or not to put a pin on the exact coordinates a tweet has been sent from.
@@ -144,12 +145,13 @@ module Twitter
       # @option options [Integer] :in_reply_to_status_id The ID of an existing status that the update is in reply to.
       # @option options [Float] :lat The latitude of the location this tweet refers to. This option will be ignored unless it is inside the range -90.0 to +90.0 (North is positive) inclusive. It will also be ignored if there isn't a corresponding :long option.
       # @option options [Float] :long The longitude of the location this tweet refers to. The valid ranges for longitude is -180.0 to +180.0 (East is positive) inclusive. This option will be ignored if outside that range, if it is not a number, if geo_enabled is disabled, or if there not a corresponding :lat option.
+      # @option options [File, Array<File>] :media An image file or array of image files (PNG, JPEG or GIF).
       # @option options [Twitter::Place] :place A place in the world. These can be retrieved from {Twitter::REST::PlacesAndGeo#reverse_geocode}.
       # @option options [String] :place_id A place in the world. These IDs can be retrieved from {Twitter::REST::PlacesAndGeo#reverse_geocode}.
       # @option options [String] :display_coordinates Whether or not to put a pin on the exact coordinates a tweet has been sent from.
       # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       def update!(status, options = {})
-        hash = options.dup
+        hash = prepare_media_options(options.dup)
         hash[:in_reply_to_status_id] = hash.delete(:in_reply_to_status).id unless hash[:in_reply_to_status].nil?
         hash[:place_id] = hash.delete(:place).woeid unless hash[:place].nil?
         perform_post_with_object('/1.1/statuses/update.json', hash.merge(status: status), Twitter::Tweet)
@@ -222,11 +224,7 @@ module Twitter
       # @option options [String] :display_coordinates Whether or not to put a pin on the exact coordinates a tweet has been sent from.
       # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       def update_with_media(status, media, options = {})
-        options = options.dup
-        media_ids = pmap(array_wrap(media)) do |medium|
-          upload(medium)[:media_id]
-        end
-        update!(status, options.merge(media_ids: media_ids.join(',')))
+        update!(status, options.merge(media: media))
       end
 
       # Returns oEmbed for a Tweet
@@ -352,6 +350,17 @@ module Twitter
           Twitter::REST::Request.new(self, :post, 'https://upload.twitter.com/1.1/media/upload.json',
                                      command: 'FINALIZE', media_id: init[:media_id]).perform
         end
+      end
+
+      def prepare_media_options(options = {})
+        options = options.dup
+        if (media = options.delete(:media))
+          media_ids = pmap(array_wrap(media)) do |medium|
+            upload(medium)[:media_id]
+          end
+          options[:media_ids] = media_ids.join(',')
+        end
+        options
       end
 
       def array_wrap(object)
