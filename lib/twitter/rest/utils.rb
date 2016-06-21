@@ -6,6 +6,8 @@ require 'twitter/user'
 require 'twitter/utils'
 require 'uri'
 
+require 'pp'
+
 module Twitter
   module REST
     module Utils
@@ -97,6 +99,12 @@ module Twitter
         end
       end
 
+      def perform_request_with_collections(request_method, path, options, klass)
+        perform_request(request_method, path, options)[:objects][:tweets].values.collect do |element|
+          klass.new(element)
+        end
+      end
+
       # @param path [String]
       # @param options [Hash]
       # @param collection_name [Symbol]
@@ -137,6 +145,12 @@ module Twitter
         arguments = Twitter::Arguments.new(args)
         merge_user!(arguments.options, arguments.pop)
         perform_request_with_objects(request_method, path, arguments.options, klass)
+      end
+
+      def objects_from_response_with_collection(klass, request_method, path, args)
+        arguments = Twitter::Arguments.new(args)
+        set_compound_key('id', arguments.pop, arguments.options)
+        perform_request_with_collections(request_method, path, arguments.options, klass)
       end
 
       # @param klass [Class]
