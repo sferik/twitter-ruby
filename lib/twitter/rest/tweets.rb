@@ -325,7 +325,7 @@ module Twitter
         Twitter::REST::Request.new(self, :get, "https://upload.twitter.com/1.1/media/upload.json?command=STATUS&media_id=#{media_id}").perform
       end
 
-      private
+    private
 
       # Uploads images and videos. Videos require multiple requests and uploads in chunks of 5 Megabytes.
       # The only supported video format is mp4.
