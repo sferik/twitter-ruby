@@ -355,6 +355,10 @@ module Twitter
         end
       end
 
+      def upload_status(media_id)
+        Twitter::REST::Request.new(self, :get, "https://upload.twitter.com/1.1/media/upload.json?command=STATUS&media_id=#{media_id}").perform
+      end
+
       def array_wrap(object)
         if object.respond_to?(:to_ary)
           object.to_ary || [object]
