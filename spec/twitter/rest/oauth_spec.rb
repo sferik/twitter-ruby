@@ -7,13 +7,11 @@ describe Twitter::REST::OAuth do
 
   describe '#token' do
     before do
-      # Faraday treats Basic Auth differently so we have to use the full URL with credentials
-      @oauth2_token_url = 'https://CK:CS@api.twitter.com/oauth2/token'
-      stub_request(:post, @oauth2_token_url).with(:body => {'grant_type' => 'client_credentials'}).to_return(:body => fixture('bearer_token.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
+      stub_request(:post, 'https://api.twitter.com/oauth2/token').with(:body => 'grant_type=client_credentials').to_return(:body => fixture('bearer_token.json'), :headers => {:content_type => 'application/json; charset=utf-8', :authorization => "Basic #{Base64.encode64('CK:CS')}"})
     end
     it 'requests the correct resource' do
       @client.token
-      expect(a_request(:post, @oauth2_token_url).with(:body => {:grant_type => 'client_credentials'}, :headers => {:content_type => 'application/x-www-form-urlencoded; charset=UTF-8', :accept => '*/*'})).to have_been_made
+      expect(a_request(:post, 'https://api.twitter.com/oauth2/token').with(:body => {:grant_type => 'client_credentials'}, :headers => {:content_type => 'application/x-www-form-urlencoded; charset=UTF-8', :accept => '*/*'})).to have_been_made
     end
     it 'returns the bearer token' do
       bearer_token = @client.token
