@@ -498,7 +498,7 @@ describe Twitter::REST::Tweets do
     end
     context 'already posted' do
       before do
-        stub_post('/1.1/statuses/update_with_media.json').to_return(:status => 403, :body => fixture('already_posted.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
+        stub_post('/1.1/statuses/update.json').to_return(:status => 403, :body => fixture('already_posted.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
       end
       it 'raises an DuplicateStatus error' do
         expect { @client.update_with_media("\"I hope you'll keep...building bonds of friendship that will enrich your lives &amp; enrich our world\" —FLOTUS in China, http://t.co/fxmuQN9JL9", fixture('pbjt.gif')) }.to raise_error(Twitter::Error::DuplicateStatus)
