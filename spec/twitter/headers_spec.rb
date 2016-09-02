@@ -28,12 +28,12 @@ describe Twitter::Headers do
     it 'submits the correct auth header when media is present' do
       # We use static values for nounce and timestamp to get a stable signature
       secret = {:consumer_key => 'CK', :consumer_secret => 'CS', :token => 'OT', :token_secret => 'OS', :nonce => 'e08201ad0dab4897c99445056feefd95', :timestamp => '1370967652', :ignore_extra_keys => true}
-      headers = {:authorization => /oauth_signature="9ziouUPwZT9IWWRbJL8r0BerKYA%3D"/, :content_type => 'application/json; charset=utf-8'}
+      headers = {:authorization => /oauth_signature="EW9bHUgfZX4PhCLpixTQo%2Ben3Ik%3D"/, :content_type => 'application/json; charset=utf-8'}
       allow(@client).to receive(:credentials).and_return(secret)
       stub_post('/1.1/statuses/update.json').to_return(:body => fixture('status.json'), :headers => headers)
       stub_request(:post, 'https://upload.twitter.com/1.1/media/upload.json').to_return(:body => fixture('status.json'), :headers => headers)
       @client.update_with_media('Just a test', fixture('pbjt.gif'))
-      expect(a_post('/1.1/statuses/update.json').with(:headers => {:authorization => headers[:authorization]})).to have_been_made
+      expect(a_request(:post, 'https://upload.twitter.com/1.1/media/upload.json').with(:headers => {:authorization => headers[:authorization]})).to have_been_made
     end
   end
 
