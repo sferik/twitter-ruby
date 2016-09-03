@@ -29,7 +29,6 @@ module Twitter
       # @return [Array, Hash]
       def perform
         begin
-          options_key = @request_method == :get ? :params : :form
           response = @client.connection.send(@request_method, @path, @options) { |request| request.headers.update(@headers) }.env
         rescue Faraday::Error::TimeoutError, Timeout::Error => error
           raise(Twitter::Error::RequestTimeout.new(error))
