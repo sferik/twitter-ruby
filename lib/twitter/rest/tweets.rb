@@ -305,7 +305,7 @@ module Twitter
       # The only supported video format is mp4.
       #
       # @see https://dev.twitter.com/rest/public/uploading-media
-      def upload(media) # rubocop:disable MethodLength, AbcSize
+      def upload(media) # rubocop:disable MethodLength
         if !(File.basename(media) =~ /\.mp4$/)
           Twitter::REST::Request.new(self, :multipart_post, 'https://upload.twitter.com/1.1/media/upload.json', key: :media, file: media).perform
         else
