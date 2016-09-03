@@ -10,9 +10,9 @@ module Twitter
           klass = Twitter::Error.errors[status_code]
           return unless klass
           if klass == Twitter::Error::Forbidden
-            fail(handle_forbidden_errors(response))
+            raise(handle_forbidden_errors(response))
           else
-            fail(klass.from_response(response))
+            raise(klass.from_response(response))
           end
         end
 
