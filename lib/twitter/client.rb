@@ -60,7 +60,7 @@ module Twitter
     def validate_credentials!
       credentials.each do |credential, value|
         next if value.nil? || value == true || value == false || value.is_a?(String)
-        fail(Twitter::Error::ConfigurationError.new("Invalid #{credential} specified: #{value.inspect} must be a String."))
+        raise(Twitter::Error::ConfigurationError.new("Invalid #{credential} specified: #{value.inspect} must be a String."))
       end
     end
   end
