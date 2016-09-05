@@ -451,12 +451,13 @@ describe Twitter::REST::Tweets do
 
   describe '#update_with_media' do
     before do
-      stub_post('/1.1/statuses/update_with_media.json').to_return(:body => fixture('status.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
+      stub_post('/1.1/statuses/update.json').to_return(:body => fixture('status.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
+      stub_request(:post, 'https://upload.twitter.com/1.1/media/upload.json').to_return(:body => fixture('upload.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
     end
     context 'a gif image' do
       it 'requests the correct resource' do
         @client.update_with_media("\"I hope you'll keep...building bonds of friendship that will enrich your lives &amp; enrich our world\" —FLOTUS in China, http://t.co/fxmuQN9JL9", fixture('pbjt.gif'))
-        expect(a_post('/1.1/statuses/update_with_media.json')).to have_been_made
+        expect(a_post('/1.1/statuses/update.json')).to have_been_made
       end
       it 'returns a Tweet' do
         tweet = @client.update_with_media("\"I hope you'll keep...building bonds of friendship that will enrich your lives &amp; enrich our world\" —FLOTUS in China, http://t.co/fxmuQN9JL9", fixture('pbjt.gif'))
@@ -467,35 +468,44 @@ describe Twitter::REST::Tweets do
     context 'a jpe image' do
       it 'requests the correct resource' do
         @client.update_with_media('You always have options', fixture('wildcomet2.jpe'))
-        expect(a_post('/1.1/statuses/update_with_media.json')).to have_been_made
+        expect(a_post('/1.1/statuses/update.json')).to have_been_made
       end
     end
     context 'a jpeg image' do
       it 'requests the correct resource' do
         @client.update_with_media('You always have options', fixture('me.jpeg'))
-        expect(a_post('/1.1/statuses/update_with_media.json')).to have_been_made
+        expect(a_post('/1.1/statuses/update.json')).to have_been_made
       end
     end
     context 'a png image' do
       it 'requests the correct resource' do
         @client.update_with_media('You always have options', fixture('we_concept_bg2.png'))
-        expect(a_post('/1.1/statuses/update_with_media.json')).to have_been_made
+        expect(a_post('/1.1/statuses/update.json')).to have_been_made
       end
     end
     context 'a Tempfile' do
       it 'requests the correct resource' do
         @client.update_with_media('You always have options', Tempfile.new('tmp'))
-        expect(a_post('/1.1/statuses/update_with_media.json')).to have_been_made
+        expect(a_post('/1.1/statuses/update.json')).to have_been_made
       end
     end
-    context 'A non IO object' do
-      it 'raises an error' do
-        expect { @client.update_with_media('You always have options', 'Unacceptable IO') }.to raise_error(Twitter::Error::UnacceptableIO)
+    context 'multiple files' do
+      it 'requests the correct resource' do
+        media = [Tempfile.new('tmp'), fixture('pbjt.gif')]
+        @client.update_with_media('You always have options', media)
+        expect(a_post('/1.1/statuses/update.json')).to have_been_made
+      end
+    end
+    context 'a mp4 video' do
+      it 'requests the correct resources' do
+        @client.update_with_media('You always have options', fixture('1080p.mp4'))
+        expect(a_request(:post, 'https://upload.twitter.com/1.1/media/upload.json')).to have_been_made.times(3)
+        expect(a_post('/1.1/statuses/update.json')).to have_been_made
       end
     end
     context 'already posted' do
       before do
-        stub_post('/1.1/statuses/update_with_media.json').to_return(:status => 403, :body => fixture('already_posted.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
+        stub_post('/1.1/statuses/update.json').to_return(:status => 403, :body => fixture('already_posted.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
       end
       it 'raises an DuplicateStatus error' do
         expect { @client.update_with_media("\"I hope you'll keep...building bonds of friendship that will enrich your lives &amp; enrich our world\" —FLOTUS in China, http://t.co/fxmuQN9JL9", fixture('pbjt.gif')) }.to raise_error(Twitter::Error::DuplicateStatus)

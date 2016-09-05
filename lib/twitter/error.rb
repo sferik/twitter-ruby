@@ -110,13 +110,6 @@ module Twitter
 
     ConfigurationError = Class.new(::ArgumentError)
 
-    # Raised when a Tweet includes media that doesn't have a to_io method
-    class UnacceptableIO < StandardError
-      def initialize
-        super('The IO object for media must respond to to_io')
-      end
-    end
-
     # Raised when Twitter returns a 4xx HTTP status code
     ClientError = Class.new(self)
 

@@ -13,9 +13,10 @@ describe Twitter::REST::Request do
       expect(a_post('/1.1/statuses/update.json').with(:body => {:status => 'Update'})).to have_been_made
     end
     it 'encodes none of the body when uploaded media is present' do
-      stub_post('/1.1/statuses/update_with_media.json').to_return(:body => fixture('status.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
+      stub_post('/1.1/statuses/update.json').to_return(:body => fixture('status.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
+      stub_request(:post, 'https://upload.twitter.com/1.1/media/upload.json').to_return(:body => fixture('status.json'), :headers => {:content_type => 'application/json; charset=utf-8'})
       @client.update_with_media('Update', fixture('pbjt.gif'))
-      expect(a_post('/1.1/statuses/update_with_media.json')).to have_been_made
+      expect(a_post('/1.1/statuses/update.json')).to have_been_made
     end
     it 'catches and reraises Faraday timeout errors' do
       allow(@client).to receive(:connection).and_raise(Faraday::Error::TimeoutError.new('execution expired'))
