@@ -8,7 +8,6 @@ describe Twitter::REST::Tweets do
 
   describe '#upload_media' do
     before do
-      stub_post('/1.1/statuses/update.json').to_return(body: fixture('status.json'), headers: {content_type: 'application/json; charset=utf-8'})
       stub_request(:post, 'https://upload.twitter.com/1.1/media/upload.json').to_return(body: fixture('upload.json'), headers: {content_type: 'application/json; charset=utf-8'})
     end
     context 'with a gif image' do
