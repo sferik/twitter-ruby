@@ -58,6 +58,10 @@ def stub_put(path)
   stub_request(:put, Twitter::REST::Request::BASE_URL + path)
 end
 
+def stub_multipart_post(path)
+  stub_request(:multipart_post, Twitter::REST::Request::BASE_URL + path)
+end
+
 def fixture_path
   File.expand_path('../fixtures', __FILE__)
 end
