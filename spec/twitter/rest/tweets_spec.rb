@@ -411,6 +411,7 @@ describe Twitter::REST::Tweets do
     before do
       stub_post('/1.1/statuses/update.json').to_return(body: fixture('status.json'), headers: {content_type: 'application/json; charset=utf-8'})
       stub_request(:post, 'https://upload.twitter.com/1.1/media/upload.json').to_return(body: fixture('upload.json'), headers: {content_type: 'application/json; charset=utf-8'})
+      stub_request(:get, "https://upload.twitter.com/1.1/media/upload.json?command=STATUS&media_id=12345678901234567890").to_return(:status => 200, :body => "", :headers => {content_type: 'application/json; charset=utf-8'})
     end
     context 'with a gif image' do
       it 'requests the correct resource' do
@@ -450,6 +451,12 @@ describe Twitter::REST::Tweets do
         @client.update_with_media('You always have options', fixture('1080p.mp4'))
         expect(a_request(:post, 'https://upload.twitter.com/1.1/media/upload.json')).to have_been_made.times(3)
         expect(a_post('/1.1/statuses/update.json')).to have_been_made
+      end
+    end
+    context 'with media upload status' do
+      it 'requests the correct resources' do
+        @client.upload_status('12345678901234567890')
+        expect(a_request(:get, 'https://upload.twitter.com/1.1/media/upload.json').with(query: {media_id: '12345678901234567890', command: 'STATUS'})).to have_been_made
       end
     end
     context 'with a Tempfile' do
