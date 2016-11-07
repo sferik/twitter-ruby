@@ -66,6 +66,12 @@ describe Twitter::NullObject do
     end
   end
 
+  describe '#to_json' do
+    it 'returns JSON' do
+      expect({ "null_object" => subject }.to_json).to eq(%Q({"null_object":null}))
+    end
+  end
+
   describe 'black hole' do
     it 'returns self for missing methods' do
       expect(subject.missing).to eq(subject)
