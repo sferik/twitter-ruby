@@ -68,7 +68,7 @@ describe Twitter::NullObject do
 
   describe '#to_json' do
     it 'returns JSON' do
-      expect({ "null_object" => subject }.to_json).to eq(%Q({"null_object":null}))
+      expect({'null_object' => subject}.to_json).to eq('{"null_object":null}')
     end
   end
 
