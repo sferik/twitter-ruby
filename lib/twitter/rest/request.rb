@@ -118,12 +118,15 @@ module Twitter
       # @return [HTTP::Client, HTTP]
       def http_client
         client = @client.proxy ? HTTP.via(*proxy) : HTTP
-        client = client.timeout(
-          :per_operation,
-          connect: @client.timeouts[:connect],
-          read: @client.timeouts[:read],
-          write: @client.timeouts[:write]
-        ) if @client.timeouts
+
+        if @client.timeouts
+          client = client.timeout(
+            :per_operation,
+            connect: @client.timeouts[:connect],
+            read: @client.timeouts[:read],
+            write: @client.timeouts[:write]
+          )
+        end
 
         client
       end

@@ -37,7 +37,7 @@ describe Twitter::REST::Request do
 
       context 'when using timeout options' do
         before do
-          @client = Twitter::REST::Client.new(consumer_key: 'CK', consumer_secret: 'CS', access_token: 'AT', access_token_secret: 'AS', proxy: {host: '127.0.0.1', port: 3328}, timeouts: { connect: 2, read: 2, write: 3 })
+          @client = Twitter::REST::Client.new(consumer_key: 'CK', consumer_secret: 'CS', access_token: 'AT', access_token_secret: 'AS', proxy: {host: '127.0.0.1', port: 3328}, timeouts: {connect: 2, read: 2, write: 3})
         end
         it 'requests with given timeout settings' do
           stub_post('/1.1/statuses/update.json').with(body: {status: 'Update'}).to_return(body: fixture('status.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -49,7 +49,7 @@ describe Twitter::REST::Request do
 
     context 'when using timeout options' do
       before do
-        @client = Twitter::REST::Client.new(consumer_key: 'CK', consumer_secret: 'CS', access_token: 'AT', access_token_secret: 'AS', timeouts: { connect: 2, read: 2, write: 3 })
+        @client = Twitter::REST::Client.new(consumer_key: 'CK', consumer_secret: 'CS', access_token: 'AT', access_token_secret: 'AS', timeouts: {connect: 2, read: 2, write: 3})
       end
       it 'requests with given timeout settings' do
         stub_post('/1.1/statuses/update.json').with(body: {status: 'Update'}).to_return(body: fixture('status.json'), headers: {content_type: 'application/json; charset=utf-8'})
