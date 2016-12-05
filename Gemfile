@@ -22,6 +22,7 @@ group :test do
   gem 'rubocop', '>= 0.36', :platforms => [:ruby_19, :ruby_20, :ruby_21]
   gem 'simplecov', '>= 0.9'
   gem 'timecop', '0.6.1'
+  gem 'tins', '~> 1.6.0'
   gem 'webmock'
   gem 'yardstick'
 end
