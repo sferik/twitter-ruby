@@ -23,7 +23,7 @@ group :test do
   gem 'simplecov', '>= 0.9'
   gem 'timecop', '0.6.1'
   gem 'tins', '~> 1.6.0'
-  gem 'webmock'
+  gem 'webmock', '~> 1.24.6'
   gem 'yardstick'
 end
 
