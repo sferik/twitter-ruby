@@ -21,6 +21,7 @@ module Twitter
     object_attr_reader :Place, :place
     object_attr_reader :Tweet, :retweeted_status
     object_attr_reader :Tweet, :quoted_status
+    object_attr_reader :Tweet, :current_user_retweet
     alias retweeted_tweet retweeted_status
     alias retweet? retweeted_status?
     alias retweeted_tweet? retweeted_status?
