@@ -12,10 +12,12 @@ module Twitter
         WEBP_REGEX = /\.webp/i
 
         def call(request)
-          request.body.each do |key, value|
-            next unless value.respond_to?(:to_io)
-            request.body[key] = Faraday::UploadIO.new(value, mime_type(value.path), value.path)
-          end if request.body.is_a?(::Hash)
+          if request.body.is_a?(::Hash)
+            request.body.each do |key, value|
+              next unless value.respond_to?(:to_io)
+              request.body[key] = Faraday::UploadIO.new(value, mime_type(value.path), value.path)
+            end
+          end
           @app.call(request)
         end
 
