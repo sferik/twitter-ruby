@@ -44,5 +44,9 @@ module Twitter
     def as_json(*)
       'null'
     end
+
+    def presence
+      nil
+    end
   end
 end
