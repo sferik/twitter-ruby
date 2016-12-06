@@ -3,7 +3,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'twitter/version'
 
 Gem::Specification.new do |spec|
-  spec.add_dependency 'addressable', '~> 2.3'
+  spec.add_dependency 'addressable', '~> 2.5'
   spec.add_dependency 'buftok', '~> 0.2.0'
   spec.add_dependency 'equalizer', '0.0.11'
   spec.add_dependency 'faraday', '~> 0.10.0'
