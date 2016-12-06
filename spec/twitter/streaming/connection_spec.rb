@@ -32,8 +32,7 @@ describe Twitter::Streaming::Connection do
         yield
       end
 
-      def <<(data)
-      end
+      def <<(data); end
     end
 
     subject(:connection) do
