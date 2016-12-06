@@ -44,5 +44,9 @@ module Twitter
     def as_json(*)
       'null'
     end
+
+    def to_json(*args)
+      nil.to_json(*args)
+    end
   end
 end
