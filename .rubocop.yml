@@ -2,7 +2,7 @@ Metrics/AbcSize:
   Enabled: false
 
 Metrics/BlockLength:
-  Max: 30
+  Max: 33
 
 Metrics/BlockNesting:
   Max: 2
