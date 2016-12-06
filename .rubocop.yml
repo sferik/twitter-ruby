@@ -1,3 +1,6 @@
+Metrics/BlockLength:
+  Max: 33
+
 Metrics/BlockNesting:
   Max: 2
 
