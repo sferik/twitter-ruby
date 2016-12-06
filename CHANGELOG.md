@@ -1,19 +1,8 @@
 5.16.0
 ------
 
-Breaking Changes
-
-* None
-
-Added
-
 * [Add Twitter::Trend#tweet_volume](https://github.com/sferik/twitter/commit/e797b62e5e6a768e8aeafde6186e1f5310e6bfc6)
 * [Add new settings to Twitter::Settings](https://github.com/sferik/twitter/commit/d047ce00034d26a99927076c28679ce08fd69308)
-
-Fixed
-
-* [Avoid comma after the last item of a hash, unless each item is on its own line](https://github.com/sferik/twitter/commit/6138cf8aef948a233b7d5583cc0281df0c8ba577)
-* [Lock addressable to ~> 2.3.8 on Ruby 1.8](https://github.com/sferik/twitter/commit/2d09056b63136317345fe5915a3a879f086b71d7)
 * [Fix `Version.to_a`](https://github.com/sferik/twitter/commit/0cd119abf64e6c2b7fd861b0df65b7cb41d892b4)
 * [Remove the encoding of profile urls](https://github.com/sferik/twitter/commit/6d46bd689ab4a4f119d1d692488aab37e4e99893)
 * [Update http dependency to ~> 1.0](https://github.com/sferik/twitter/commit/8d379a45be6948a9d9264aa2e91ef5f7bdbe1db8)
