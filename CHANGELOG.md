@@ -1,3 +1,7 @@
+6.0.0
+-----
+* [Drop support for Ruby 1.8.7 and Ruby 1.9.3](https://github.com/sferik/twitter/commit/27980f45fb357e34b86e46cb9134d86ed29b3ce3)
+
 5.17.0
 ------
 * [Add `email` to `Twitter::User`](https://github.com/sferik/twitter/commit/1d3aebcd0186d36c7c657ec913ac73bfa802d6ff)
