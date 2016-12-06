@@ -110,13 +110,19 @@ module Twitter
       def request(method, uri, params)
         before_request.call
         headers = Twitter::Headers.new(self, method, uri, params).request_headers
-        request = HTTP::Request.new(verb: method, uri: uri + '?' + URI.encode_www_form(params), headers: headers, proxy: proxy)
+        request = HTTP::Request.new(verb: method, uri: uri + '?' + to_url_params(params), headers: headers, proxy: proxy)
         response = Streaming::Response.new do |data|
           if item = Streaming::MessageParser.parse(data) # rubocop:disable AssignmentInCondition
             yield(item)
           end
         end
         @connection.stream(request, response)
+      end
+
+      def to_url_params(params)
+        uri = Addressable::URI.new
+        uri.query_values = params
+        uri.query
       end
 
       # Takes a mixed array of Integers and Twitter::User objects and returns a
