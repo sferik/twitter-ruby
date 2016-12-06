@@ -1,3 +1,10 @@
+5.17.0
+------
+* [Add `email` to `Twitter::User`](https://github.com/sferik/twitter/commit/1d3aebcd0186d36c7c657ec913ac73bfa802d6ff)
+* [Add `current_user_retweet` attribute to `Twitter::Tweet`](https://github.com/sferik/twitter/pull/819) ([@ysr227](https://twitter.com/ysr227))
+* [Add `quoted_tweet` Twitter::Streaming::Event](https://github.com/sferik/twitter/pull/800)
+* [Dump `Twitter::NullObject` as JSON properly](https://github.com/sferik/twitter/pull/815) ([@okkez](https://twitter.com/okkez))
+
 5.16.0
 ------
 * [Add new settings to `Twitter::Settings`](https://github.com/sferik/twitter/commit/d047ce00034d26a99927076c28679ce08fd69308)
