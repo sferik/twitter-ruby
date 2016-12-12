@@ -328,7 +328,7 @@ module Twitter
       #
       # @see https://dev.twitter.com/rest/public/uploading-media
       def upload(media) # rubocop:disable MethodLength, AbcSize
-        if !(File.basename(media) =~ /\.mp4$/)
+        if !(File.basename(media) =~ /\.mp4$/) && !(media.respond_to?(:meta) && media.meta['content-type'] =~ /\.mp4$/)
           Twitter::REST::Request.new(self, :multipart_post, 'https://upload.twitter.com/1.1/media/upload.json', key: :media, file: media).perform
         else
           init = Twitter::REST::Request.new(self, :post, 'https://upload.twitter.com/1.1/media/upload.json',
