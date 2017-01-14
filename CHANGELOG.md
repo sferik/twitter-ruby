@@ -1,3 +1,7 @@
+6.1.0
+-----
+* [Update faraday dependency to ~> 0.11.0](https://github.com/sferik/twitter/commit/6eb494d7c4ac1b06730d22bc9183e6a9035e3643)
+
 6.0.0
 -----
 * [Drop support for Ruby 1.8.7 and Ruby 1.9.3](https://github.com/sferik/twitter/commit/27980f45fb357e34b86e46cb9134d86ed29b3ce3)
