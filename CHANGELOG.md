@@ -1,3 +1,16 @@
+6.1.0
+------
+
+Not yet documented, sorry. For now, please use git to compare tags: 
+https://github.com/sferik/twitter/compare/v6.0.0...v6.1.0
+
+
+6.0.0
+------
+
+Not yet documented, sorry. For now, please use git to compare tags: 
+https://github.com/sferik/twitter/compare/v5.16.0...v6.0.0
+
 5.16.0
 ------
 
