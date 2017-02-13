@@ -1,5 +1,8 @@
 Metrics/BlockLength:
   Max: 36
+  Exclude:
+    - "**/*_spec.rb"
+    - "**/*_examples.rb"
 
 Metrics/BlockNesting:
   Max: 2
@@ -14,6 +17,9 @@ Metrics/MethodLength:
 
 Metrics/ModuleLength:
   Max: 150 # TODO: Lower to 100
+  Exclude:
+    - "**/*_spec.rb"
+    - "**/*_examples.rb"
 
 Metrics/ParameterLists:
   Max: 4
