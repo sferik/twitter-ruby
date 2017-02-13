@@ -33,7 +33,8 @@ module Twitter
     # @return [String]
     def full_text
       if retweet?
-        prefix = text[/\A(RT @[a-z0-9_]{1,20}: )/i, 1]
+        tweet_full_text = text.nil? ? attrs[:full_text] : text
+        prefix = tweet_full_text[/\A(RT @[a-z0-9_]{1,20}: )/i, 1]
         [prefix, retweeted_status.text].compact.join
       else
         text

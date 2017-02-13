@@ -103,6 +103,11 @@ describe Twitter::Tweet do
       expect(tweet.full_text).to be_a String
       expect(tweet.full_text).to eq('RT @sferik: BOOSH')
     end
+    it 'returns the full text of a retweeted tweet in extended mode' do
+      tweet = Twitter::Tweet.new(id: 28_669_546_014, full_text: 'RT @sferik: BOOSH', retweeted_status: {id: 540_897_316_908_331_009, text: 'BOOSH'})
+      expect(tweet.full_text).to be_a String
+      expect(tweet.full_text).to eq('RT @sferik: BOOSH')
+    end
     it 'returns nil when retweeted_status is not set' do
       tweet = Twitter::Tweet.new(id: 28_669_546_014)
       expect(tweet.full_text).to be_nil
