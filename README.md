@@ -6,6 +6,7 @@
 [![Code Climate](http://img.shields.io/codeclimate/github/sferik/twitter.svg)][codeclimate]
 [![Coverage Status](http://img.shields.io/coveralls/sferik/twitter.svg)][coveralls]
 [![Inline docs](http://inch-ci.org/github/sferik/twitter.svg?style=shields)][inchpages]
+[![API Testing](https://img.shields.io/badge/test%20this%20API%20on-RapidAPI.com-blue.svg)][rapidapi]
 
 [gem]: https://rubygems.org/gems/twitter
 [travis]: https://travis-ci.org/sferik/twitter
@@ -13,6 +14,7 @@
 [codeclimate]: https://codeclimate.com/github/sferik/twitter
 [coveralls]: https://coveralls.io/r/sferik/twitter
 [inchpages]: http://inch-ci.org/github/sferik/twitter
+[rapidapi]: https://rapidapi.com/package/Twitter/functions?utm_source=GithubTwitter&utm_medium=button
 
 A Ruby interface to the Twitter API.
 
