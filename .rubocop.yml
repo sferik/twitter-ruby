@@ -1,5 +1,7 @@
 Metrics/BlockLength:
   Max: 36
+  Exclude:
+    - spec/**/*.rb
 
 Metrics/BlockNesting:
   Max: 2
