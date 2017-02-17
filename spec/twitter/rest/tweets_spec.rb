@@ -412,57 +412,22 @@ describe Twitter::REST::Tweets do
       stub_post('/1.1/statuses/update.json').to_return(body: fixture('status.json'), headers: {content_type: 'application/json; charset=utf-8'})
       stub_request(:post, 'https://upload.twitter.com/1.1/media/upload.json').to_return(body: fixture('upload.json'), headers: {content_type: 'application/json; charset=utf-8'})
     end
-    context 'with a gif image' do
+    context 'with an image' do
       it 'requests the correct resource' do
-        @client.update_with_media('Powerful cartoon by @BillBramhall: http://t.co/IOEbc5QoES', fixture('pbjt.gif'))
-        expect(a_request(:post, 'https://upload.twitter.com/1.1/media/upload.json')).to have_been_made
+        expect(@client).to receive(:upload_media).and_return(media_id: 1234).once
+        @client.update_with_media('Powerful cartoon by @BillBramhall: http://t.co/IOEbc5QoES', fixture('me.jpeg'))
         expect(a_post('/1.1/statuses/update.json')).to have_been_made
       end
       it 'returns a Tweet' do
-        tweet = @client.update_with_media('Powerful cartoon by @BillBramhall: http://t.co/IOEbc5QoES', fixture('pbjt.gif'))
+        tweet = @client.update_with_media('Powerful cartoon by @BillBramhall: http://t.co/IOEbc5QoES', fixture('me.jpeg'))
         expect(tweet).to be_a Twitter::Tweet
         expect(tweet.text).to eq('Powerful cartoon by @BillBramhall: http://t.co/IOEbc5QoES')
       end
     end
-    context 'with a jpe image' do
-      it 'requests the correct resource' do
-        @client.update_with_media('You always have options', fixture('wildcomet2.jpe'))
-        expect(a_request(:post, 'https://upload.twitter.com/1.1/media/upload.json')).to have_been_made
-        expect(a_post('/1.1/statuses/update.json')).to have_been_made
-      end
-    end
-    context 'with a jpeg image' do
-      it 'requests the correct resource' do
-        @client.update_with_media('You always have options', fixture('me.jpeg'))
-        expect(a_request(:post, 'https://upload.twitter.com/1.1/media/upload.json')).to have_been_made
-        expect(a_post('/1.1/statuses/update.json')).to have_been_made
-      end
-    end
-    context 'with a png image' do
-      it 'requests the correct resource' do
-        @client.update_with_media('You always have options', fixture('we_concept_bg2.png'))
-        expect(a_request(:post, 'https://upload.twitter.com/1.1/media/upload.json')).to have_been_made
-        expect(a_post('/1.1/statuses/update.json')).to have_been_made
-      end
-    end
-    context 'with a mp4 video' do
-      it 'requests the correct resources' do
-        @client.update_with_media('You always have options', fixture('1080p.mp4'))
-        expect(a_request(:post, 'https://upload.twitter.com/1.1/media/upload.json')).to have_been_made.times(3)
-        expect(a_post('/1.1/statuses/update.json')).to have_been_made
-      end
-    end
-    context 'with a Tempfile' do
-      it 'requests the correct resource' do
-        @client.update_with_media('You always have options', Tempfile.new('tmp'))
-        expect(a_request(:post, 'https://upload.twitter.com/1.1/media/upload.json')).to have_been_made
-        expect(a_post('/1.1/statuses/update.json')).to have_been_made
-      end
-    end
     context 'with multiple images' do
       it 'requests the correct resource' do
+        expect(@client).to receive(:upload_media).and_return(media_id: 1234).twice
         @client.update_with_media('You always have options', [fixture('me.jpeg'), fixture('me.jpeg')])
-        expect(a_request(:post, 'https://upload.twitter.com/1.1/media/upload.json')).to have_been_made.times(2)
         expect(a_post('/1.1/statuses/update.json')).to have_been_made
       end
     end
