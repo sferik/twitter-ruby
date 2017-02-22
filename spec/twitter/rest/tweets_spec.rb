@@ -106,6 +106,13 @@ describe Twitter::REST::Tweets do
         expect(a_get('/1.1/statuses/show/540897316908331009.json')).to have_been_made
       end
     end
+    context 'with a status URI followed by /photo/1' do
+      it 'requests the correct resource' do
+        tweet = URI.parse('https://twitter.com/sferik/status/540897316908331009/photo/1')
+        @client.status(tweet)
+        expect(a_get('/1.1/statuses/show/540897316908331009.json')).to have_been_made
+      end
+    end
     context 'with a Tweet passed' do
       it 'requests the correct resource' do
         tweet = Twitter::Tweet.new(id: 540_897_316_908_331_009)
