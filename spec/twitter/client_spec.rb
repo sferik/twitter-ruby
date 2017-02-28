@@ -33,9 +33,17 @@ describe Twitter::Client do
   end
 
   describe '#credentials?' do
-    it 'returns true if all credentials are present' do
+    it 'returns true if all credentials are present in arguments' do
       client = Twitter::REST::Client.new(consumer_key: 'CK', consumer_secret: 'CS', access_token: 'AT', access_token_secret: 'AS')
       expect(client.credentials?).to be true
+    end
+    it 'returns true if all credentials are present in environment variabes' do
+      original = ENV.to_hash
+      vars = {CONSUMER_KEY: 'CK', CONSUMER_SECRET: 'CS', ACCESS_TOKEN: 'AT', ACCESS_TOKEN_SECRET: 'AS'}
+      vars.each { |k, v| ENV[k.to_s] = v }
+      client = Twitter::REST::Client.new
+      expect(client.credentials?).to be true
+      ENV.replace(original)
     end
     it 'returns false if any credentials are missing' do
       client = Twitter::REST::Client.new(consumer_key: 'CK', consumer_secret: 'CS', access_token: 'AT')

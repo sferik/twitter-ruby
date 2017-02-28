@@ -81,6 +81,17 @@ client = Twitter::REST::Client.new do |config|
 end
 ```
 
+Alternatively, you can set configuration options in environment variables.
+If configuration options were present in both environment variables and
+option blocks (above), options set in the block will be applied.
+
+```bash
+$ export CONSUMER_KEY=YOUR_CONSUMER_KEY
+$ export CONSUMER_SECRET=YOUR_CONSUMER_SECRET
+$ export ACCESS_TOKEN=YOUR_ACCESS_TOKEN
+$ export ACCESS_TOKEN_SECRET=YOUR_ACCESS_TOKEN_SECRET
+```
+
 ## Usage Examples
 After configuring a `client`, you can do the following things.
 

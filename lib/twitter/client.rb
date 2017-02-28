@@ -13,6 +13,7 @@ module Twitter
     # @param options [Hash]
     # @return [Twitter::Client]
     def initialize(options = {})
+      set_config_from_env
       options.each do |key, value|
         instance_variable_set("@#{key}", value)
       end
@@ -48,6 +49,18 @@ module Twitter
 
     def blank?(s)
       s.respond_to?(:empty?) ? s.empty? : !s
+    end
+
+    # Sets instance variables from environment variables
+    def set_config_from_env
+      env_keys.each do |key|
+        instance_variable_set("@#{key}", ENV[key.upcase])
+      end
+    end
+
+    # List of keys readable from environment variables
+    def env_keys
+      %w(consumer_key consumer_secret access_token access_token_secret)
     end
   end
 end
