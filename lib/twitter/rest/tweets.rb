@@ -223,8 +223,9 @@ module Twitter
       # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       def update_with_media(status, media, options = {})
         options = options.dup
+        upload_timeout = options.delete(:upload_timeout)
         media_ids = pmap(array_wrap(media)) do |medium|
-          upload(medium)[:media_id]
+          upload(medium, upload_timeout)[:media_id]
         end
         update!(status, options.merge(media_ids: media_ids.join(',')))
       end
@@ -327,14 +328,22 @@ module Twitter
       # The only supported video format is mp4.
       #
       # @see https://dev.twitter.com/rest/public/uploading-media
-      def upload(media) # rubocop:disable MethodLength, AbcSize
+      def upload(media, upload_timeout=nil) # rubocop:disable MethodLength, AbcSize
         if !(File.basename(media) =~ /\.mp4$/)
           Twitter::REST::Request.new(self, :multipart_post, 'https://upload.twitter.com/1.1/media/upload.json', key: :media, file: media).perform
         else
-          init = Twitter::REST::Request.new(self, :post, 'https://upload.twitter.com/1.1/media/upload.json',
-                                            command: 'INIT',
-                                            media_type: 'video/mp4',
-                                            total_bytes: media.size).perform
+          opts = {
+            command: 'INIT',
+            media_type: 'video/mp4',
+            total_bytes: media.size
+          }
+          wait_for_processing = false
+          if media.size > 15_000_000
+            wait_for_processing = true
+            opts[:media_category] = 'tweet_video'
+            tries = upload_timeout || 30
+          end
+          init = Twitter::REST::Request.new(self, :post, 'https://upload.twitter.com/1.1/media/upload.json', opts).perform
 
           until media.eof?
             chunk = media.read(5_000_000)
@@ -349,8 +358,19 @@ module Twitter
 
           media.close
 
-          Twitter::REST::Request.new(self, :post, 'https://upload.twitter.com/1.1/media/upload.json',
-                                     command: 'FINALIZE', media_id: init[:media_id]).perform
+          res = Twitter::REST::Request.new(self, :post, 'https://upload.twitter.com/1.1/media/upload.json',
+                                           command: 'FINALIZE', media_id: init[:media_id]).perform
+
+          if wait_for_processing && res[:processing_info] && res[:processing_info][:state] != 'succeeded'
+            tries.times do
+              res = Twitter::REST::Request.new(self, :get, 'https://upload.twitter.com/1.1/media/upload.json',
+                                               command: 'STATUS', media_id: init[:media_id]).perform
+              break if res[:processing_info][:state] == 'succeeded'
+              sleep 1
+            end
+          end
+
+          res
         end
       end
 
