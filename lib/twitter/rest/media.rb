@@ -1,6 +1,9 @@
 module Twitter
   module REST
     module Media
+      # Maximum number of times to poll twitter for upload status
+      MAX_STATUS_CHECKS = 20
+
       # Upload a media file to twitter in one request
       #
       # @see https://dev.twitter.com/rest/reference/post/media/upload.html
@@ -52,7 +55,7 @@ module Twitter
       # @param media_id [Integer] The media_id to check the status of
       def poll_status(media_id)
         response = chunked_upload_finalize(media_id)
-        10.times do
+        MAX_STATUS_CHECKS.times do
           return unless (info = response[:processing_info])
           return if info[:state] == 'succeeded'
 
