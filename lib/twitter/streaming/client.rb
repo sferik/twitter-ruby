@@ -105,6 +105,10 @@ module Twitter
         end
       end
 
+      def close
+        @connection.close
+      end
+
     private
 
       def request(method, uri, params)
