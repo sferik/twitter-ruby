@@ -13,4 +13,14 @@ describe Twitter::Media::Video do
       expect(video.video_info).to be_nil
     end
   end
+  describe '#type' do
+    it 'returns true when the type is set' do
+      video = Twitter::Media::Video.new(id: 1, type: 'video')
+      expect(video.type).to eq('video')
+    end
+    it 'returns false when the type is not set' do
+      video = Twitter::Media::Video.new(id: 1)
+      expect(video.type).to be_nil
+    end
+  end
 end

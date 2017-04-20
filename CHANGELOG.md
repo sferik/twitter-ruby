@@ -1,3 +1,26 @@
+6.1.0
+------
+
+Not yet documented, sorry. For now, please use git to compare tags: 
+https://github.com/sferik/twitter/compare/v6.0.0...v6.1.0
+
+
+6.0.0
+------
+
+Not yet documented, sorry. For now, please use git to compare tags: 
+https://github.com/sferik/twitter/compare/v5.16.0...v6.0.0
+
+5.16.0
+------
+
+* [Add Twitter::Trend#tweet_volume](https://github.com/sferik/twitter/commit/e797b62e5e6a768e8aeafde6186e1f5310e6bfc6)
+* [Add new settings to Twitter::Settings](https://github.com/sferik/twitter/commit/d047ce00034d26a99927076c28679ce08fd69308)
+* [Fix `Version.to_a`](https://github.com/sferik/twitter/commit/0cd119abf64e6c2b7fd861b0df65b7cb41d892b4)
+* [Remove the encoding of profile urls](https://github.com/sferik/twitter/commit/6d46bd689ab4a4f119d1d692488aab37e4e99893)
+* [Update http dependency to ~> 1.0](https://github.com/sferik/twitter/commit/8d379a45be6948a9d9264aa2e91ef5f7bdbe1db8)
+* [Fetch host and port directly from the request object](https://github.com/sferik/twitter/commit/f9f1bbdabde2ec96dcdd8900fe7bca072f9bea6b)
+
 5.15.0
 ------
 * [`NullObject#as_json` returns 'null'](https://github.com/sferik/twitter/commit/2979e703c09a45f012cb2c5b2d6663bf1f4d3351) ([@lukevmorris](https://twitter.com/lukevmorris))
@@ -45,7 +68,7 @@
 5.9.0
 -----
 * [Use expanded URIs when available](https://github.com/sferik/twitter/commit/f1d5d1f4c0ea75ebeaf9e7eb760b9efd245a5df2)
-* [Deprecate `Twitter::REST::Client#middleware=` and `#connection_options`](https://github.com/sferik/twitter/commit/71b0a38670102841fda9642de586e6cb67d33083)
+* [Deprecate `Twitter::REST::Client#middleware=` and `#connection_options`](https://github.com/sferik/twitter/commit/2ec17d8d43a87766dd4b89fcc6d5a2433530bf7c)
 * [Ensure predicate methods return `false` for `Twitter::NullObject`](https://github.com/sferik/twitter/commit/f1b42bf82440f2dc0ba61761fc8f12460e20aadf)
 * [Make `Twitter::Place#id` attribute accessible](https://github.com/sferik/twitter/commit/a4fa4739283a325886d44f97b2648e3b00f933b1)
 * [Enable injection of custom TCP/SSL socket classes](https://github.com/sferik/twitter/commit/3629a1edfbc6b35099d4b0fc165b938a67c02d86) ([@neektza](https://twitter.com/neektza))

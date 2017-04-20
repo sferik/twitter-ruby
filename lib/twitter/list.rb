@@ -16,21 +16,21 @@ module Twitter
       Addressable::URI.parse("#{uri}/members") if uri?
     end
     memoize :members_uri
-    alias_method :members_url, :members_uri
+    alias members_url members_uri
 
     # @return [Addressable::URI] The URI to the list subscribers.
     def subscribers_uri
       Addressable::URI.parse("#{uri}/subscribers") if uri?
     end
     memoize :subscribers_uri
-    alias_method :subscribers_url, :subscribers_uri
+    alias subscribers_url subscribers_uri
 
     # @return [Addressable::URI] The URI to the list.
     def uri
       Addressable::URI.parse("https://twitter.com/#{user.screen_name}/#{slug}") if slug? && user.screen_name?
     end
     memoize :uri
-    alias_method :url, :uri
+    alias url uri
 
     def uri?
       !!uri

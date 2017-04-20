@@ -20,6 +20,9 @@ module Twitter
     # Raised when Twitter returns the HTTP status code 403
     Forbidden = Class.new(ClientError)
 
+    # Raised when Twitter returns the HTTP status code 413
+    RequestEntityTooLarge = Class.new(ClientError)
+
     # Raised when a Tweet has already been favorited
     AlreadyFavorited = Class.new(Forbidden)
 
@@ -62,19 +65,20 @@ module Twitter
       403 => Twitter::Error::Forbidden,
       404 => Twitter::Error::NotFound,
       406 => Twitter::Error::NotAcceptable,
+      413 => Twitter::Error::RequestEntityTooLarge,
       422 => Twitter::Error::UnprocessableEntity,
       429 => Twitter::Error::TooManyRequests,
       500 => Twitter::Error::InternalServerError,
       502 => Twitter::Error::BadGateway,
       503 => Twitter::Error::ServiceUnavailable,
       504 => Twitter::Error::GatewayTimeout,
-    }
+    }.freeze
 
     FORBIDDEN_MESSAGES = {
       'Status is a duplicate.' => Twitter::Error::DuplicateStatus,
       'You have already favorited this status.' => Twitter::Error::AlreadyFavorited,
       'sharing is not permissible for this status (Share validations failed)' => Twitter::Error::AlreadyRetweeted,
-    }
+    }.freeze
 
     # If error code is missing see https://dev.twitter.com/overview/api/response-codes
     module Code

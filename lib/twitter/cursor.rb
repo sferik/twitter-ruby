@@ -8,8 +8,8 @@ module Twitter
     include Twitter::Utils
     # @return [Hash]
     attr_reader :attrs
-    alias_method :to_h, :attrs
-    alias_method :to_hash, :to_h
+    alias to_h attrs
+    alias to_hash to_h
 
     # Initializes a new Cursor
     #
@@ -34,7 +34,7 @@ module Twitter
     def next_cursor
       @attrs[:next_cursor] || -1
     end
-    alias_method :next, :next_cursor
+    alias next next_cursor
 
     # @return [Boolean]
     def last?
