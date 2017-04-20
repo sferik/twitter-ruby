@@ -453,12 +453,6 @@ describe Twitter::REST::Tweets do
         expect(a_post('/1.1/statuses/update.json')).to have_been_made
       end
     end
-    context 'with media upload status' do
-      it 'requests the correct resources' do
-        @client.upload_status('12345678901234567890')
-        expect(a_request(:get, 'https://upload.twitter.com/1.1/media/upload.json').with(query: {media_id: '12345678901234567890', command: 'STATUS'})).to have_been_made
-      end
-    end
     context 'with a Tempfile' do
       it 'requests the correct resource' do
         @client.update_with_media('You always have options', Tempfile.new('tmp'))

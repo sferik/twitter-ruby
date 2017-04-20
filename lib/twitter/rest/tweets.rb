@@ -224,7 +224,7 @@ module Twitter
       def update_with_media(status, media, options = {})
         options = options.dup
         media_ids = pmap(array_wrap(media)) do |medium|
-          upload(medium)[:media_id]
+          upload(medium)
         end
         update!(status, options.merge(media_ids: media_ids.join(',')))
       end
@@ -321,41 +321,17 @@ module Twitter
         end.compact
       end
 
-      def upload_status(media_id)
-        Twitter::REST::Request.new(self, :get, "https://upload.twitter.com/1.1/media/upload.json?command=STATUS&media_id=#{media_id}").perform
-      end
-
     private
 
-      # Uploads images and videos. Videos require multiple requests and uploads in chunks of 5 Megabytes.
+      # Uploads images and videos. Use chunked upload for videos and simple upload for images.
       # The only supported video format is mp4.
       #
       # @see https://dev.twitter.com/rest/public/uploading-media
-      def upload(media) # rubocop:disable MethodLength, AbcSize
+      def upload(media)
         if !(File.basename(media) =~ /\.mp4$/)
-          Twitter::REST::Request.new(self, :multipart_post, 'https://upload.twitter.com/1.1/media/upload.json', key: :media, file: media).perform
+          upload_media_simple(media)
         else
-          init = Twitter::REST::Request.new(self, :post, 'https://upload.twitter.com/1.1/media/upload.json',
-                                            command: 'INIT',
-                                            media_type: 'video/mp4',
-                                            media_category: 'tweet_video',
-                                            total_bytes: media.size).perform
-
-          until media.eof?
-            chunk = media.read(5_000_000)
-            seg ||= -1
-            Twitter::REST::Request.new(self, :multipart_post, 'https://upload.twitter.com/1.1/media/upload.json',
-                                       command: 'APPEND',
-                                       media_id: init[:media_id],
-                                       segment_index: seg += 1,
-                                       key: :media,
-                                       file: StringIO.new(chunk)).perform
-          end
-
-          media.close
-
-          Twitter::REST::Request.new(self, :post, 'https://upload.twitter.com/1.1/media/upload.json',
-                                     command: 'FINALIZE', media_id: init[:media_id]).perform
+          upload_media_chunked(media)
         end
       end
 
