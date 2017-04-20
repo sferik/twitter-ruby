@@ -210,6 +210,12 @@ An `object` may be one of the following:
 * `Twitter::Streaming::FriendList`
 * `Twitter::Streaming::StallWarning`
 
+## Ads
+
+We recommend using the [Twitter Ads SDK for Ruby][ads] to interact with the Twitter Ads API.
+
+[ads]: http://twitterdev.github.io/twitter-ruby-ads-sdk/
+
 ## Object Graph
 ![Entity-relationship diagram][erd]
 
@@ -225,11 +231,11 @@ command:
 This library aims to support and is [tested against][travis] the following Ruby
 versions:
 
-* Ruby 1.9.3
 * Ruby 2.0.0
 * Ruby 2.1
 * Ruby 2.2
-* JRuby 1.7 (in Ruby 1.9 mode)
+* Ruby 2.3
+* JRuby 9.1.6.0
 
 If something doesn't work on one of these versions, it's a bug.
 
@@ -260,7 +266,7 @@ Constraint][pvc] with two digits of precision. For example:
 [pvc]: http://guides.rubygems.org/patterns/#pessimistic-version-constraint
 
 ## Copyright
-Copyright (c) 2006-2015 Erik Michaels-Ober, John Nunemaker, Wynn Netherland, Steve Richert, Steve Agalloco.
+Copyright (c) 2006-2016 Erik Michaels-Ober, John Nunemaker, Wynn Netherland, Steve Richert, Steve Agalloco.
 See [LICENSE][] for details.
 
 [license]: LICENSE.md

@@ -36,7 +36,7 @@ module Twitter
         request_method = options.size.zero? ? :get : :post
         response = perform_request(request_method.to_sym, '/1.1/account/settings.json', options)
         # https://dev.twitter.com/issues/59
-        response.update(trend_location: response.fetch(:trend_location, []).first)
+        response[:trend_location] = response.fetch(:trend_location, []).first
         Twitter::Settings.new(response)
       end
 
@@ -208,7 +208,7 @@ module Twitter
       def users(*args)
         arguments = Twitter::Arguments.new(args)
         flat_pmap(arguments.each_slice(MAX_USERS_PER_REQUEST)) do |users|
-          perform_post_with_objects('/1.1/users/lookup.json', merge_users(arguments.options, users), Twitter::User)
+          perform_get_with_objects('/1.1/users/lookup.json', merge_users(arguments.options, users), Twitter::User)
         end
       end
 
@@ -246,6 +246,7 @@ module Twitter
       # @return [Boolean] true if the user exists, otherwise false.
       # @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, URI, or object.
       def user?(user, options = {})
+        options = options.dup
         merge_user!(options, user)
         perform_get('/1.1/users/show.json', options)
         true
@@ -265,6 +266,7 @@ module Twitter
       # @option options [Integer] :count The number of people to retrieve. Maxiumum of 20 allowed per page.
       # @option options [Integer] :page Specifies the page of results to retrieve.
       def user_search(query, options = {})
+        options = options.dup
         perform_get_with_objects('/1.1/users/search.json', options.merge(q: query), Twitter::User)
       end
 

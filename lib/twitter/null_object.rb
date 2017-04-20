@@ -17,17 +17,13 @@ module Twitter
       true
     end
 
-    def respond_to?(*)
-      true
-    end
-
     def instance_of?(klass)
-      fail(TypeError, 'class or module required') unless klass.is_a?(Class)
+      raise(TypeError, 'class or module required') unless klass.is_a?(Class)
       self.class == klass
     end
 
     def kind_of?(mod)
-      fail(TypeError, 'class or module required') unless mod.is_a?(Module)
+      raise(TypeError, 'class or module required') unless mod.is_a?(Module)
       self.class.ancestors.include?(mod)
     end
 
@@ -47,6 +43,10 @@ module Twitter
 
     def as_json(*)
       'null'
+    end
+
+    def to_json(*args)
+      nil.to_json(*args)
     end
   end
 end

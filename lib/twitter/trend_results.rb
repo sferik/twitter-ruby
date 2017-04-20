@@ -12,8 +12,8 @@ module Twitter
     include Memoizable
     # @return [Hash]
     attr_reader :attrs
-    alias_method :to_h, :attrs
-    alias_method :to_hash, :to_h
+    alias to_h attrs
+    alias to_hash to_h
 
     # Initializes a new TrendResults object
     #

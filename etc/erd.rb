@@ -1,9 +1,9 @@
 require 'twitter'
 
-COLON = ':'
-UNDERSCORE = '_'
-TAB = "\t"
-NAMESPACE = 'Twitter::'
+COLON = ':'.freeze
+UNDERSCORE = '_'.freeze
+TAB = "\t".freeze
+NAMESPACE = 'Twitter::'.freeze
 
 # Colons are invalid characters in DOT nodes.
 # Replace them with underscores.
@@ -47,9 +47,9 @@ end
 puts 'digraph classes {'
 # Add or remove DOT formatting options here
 indent do
-  puts "graph [rotate=0, rankdir=\"LR\"]"
-  puts "node [fillcolor=\"#c4ddec\", style=\"filled\", fontname=\"Helvetica Neue\"]"
-  puts "edge [color=\"#444444\"]"
+  puts 'graph [rotate=0, rankdir="LR"]'
+  puts 'node [fillcolor="#c4ddec", style="filled", fontname="Helvetica Neue"]'
+  puts 'edge [color="#444444"]'
   nodes.sort.each do |node, label|
     puts "#{node} [label=\"#{label}\"]"
   end

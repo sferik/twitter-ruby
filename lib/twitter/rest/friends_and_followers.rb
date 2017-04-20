@@ -113,7 +113,7 @@ module Twitter
         end
         follow!(new_friends.value - existing_friends.value, arguments.options)
       end
-      alias_method :create_friendship, :follow
+      alias create_friendship follow
 
       # Allows the authenticating user to follow the specified users
       #
@@ -134,7 +134,7 @@ module Twitter
           perform_post_with_object('/1.1/friendships/create.json', merge_user(arguments.options, user), Twitter::User)
         end.compact
       end
-      alias_method :create_friendship!, :follow!
+      alias create_friendship! follow!
 
       # Allows the authenticating user to unfollow the specified users
       #
@@ -151,7 +151,7 @@ module Twitter
       def unfollow(*args)
         parallel_users_from_response(:post, '/1.1/friendships/destroy.json', args)
       end
-      alias_method :destroy_friendship, :unfollow
+      alias destroy_friendship unfollow
 
       # Allows one to enable or disable retweets and device notifications from the specified user.
       #
@@ -180,14 +180,15 @@ module Twitter
       # @param target [Integer, String, Twitter::User] The Twitter user ID, screen name, or object of the target user.
       # @param options [Hash] A customizable set of options.
       def friendship(source, target, options = {})
+        options = options.dup
         merge_user!(options, source, 'source')
         options[:source_id] = options.delete(:source_user_id) unless options[:source_user_id].nil?
         merge_user!(options, target, 'target')
         options[:target_id] = options.delete(:target_user_id) unless options[:target_user_id].nil?
         perform_get_with_object('/1.1/friendships/show.json', options, Twitter::Relationship)
       end
-      alias_method :friendship_show, :friendship
-      alias_method :relationship, :friendship
+      alias friendship_show friendship
+      alias relationship friendship
 
       # Test for the existence of friendship between two users
       #
@@ -250,7 +251,7 @@ module Twitter
       def friends(*args)
         cursor_from_response_with_user(:users, Twitter::User, '/1.1/friends/list.json', args)
       end
-      alias_method :following, :friends
+      alias following friends
 
       # Returns a collection of user IDs that the currently authenticated user does not want to receive retweets from.
       # @see https://dev.twitter.com/rest/reference/get/friendships/no_retweets/ids
@@ -262,7 +263,7 @@ module Twitter
       def no_retweet_ids(options = {})
         perform_get('/1.1/friendships/no_retweets/ids.json', options).collect(&:to_i)
       end
-      alias_method :no_retweets_ids, :no_retweet_ids
+      alias no_retweets_ids no_retweet_ids
     end
   end
 end

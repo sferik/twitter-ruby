@@ -9,11 +9,11 @@ module Twitter
     attr_reader :attributes
     # @return [String]
     attr_reader :country, :full_name, :name
-    alias_method :woe_id, :id
-    alias_method :woeid, :id
+    alias woe_id id
+    alias woeid id
     object_attr_reader :GeoFactory, :bounding_box
     object_attr_reader :Place, :contained_within
-    alias_method :contained?, :contained_within?
+    alias contained? contained_within?
     uri_attr_reader :uri
 
     # Initializes a new place

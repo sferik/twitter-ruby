@@ -295,14 +295,14 @@ describe Twitter::REST::FriendsAndFollowers do
     before do
       stub_get('/1.1/account/verify_credentials.json').with(query: {skip_status: 'true'}).to_return(body: fixture('sferik.json'), headers: {content_type: 'application/json; charset=utf-8'})
       stub_get('/1.1/friends/ids.json').with(query: {user_id: '7505382', cursor: '-1'}).to_return(body: fixture('ids_list2.json'), headers: {content_type: 'application/json; charset=utf-8'})
-      stub_post('/1.1/users/lookup.json').with(body: {screen_name: 'sferik,pengwynn'}).to_return(body: fixture('friendships.json'), headers: {content_type: 'application/json; charset=utf-8'})
+      stub_get('/1.1/users/lookup.json').with(query: {screen_name: 'sferik,pengwynn'}).to_return(body: fixture('friendships.json'), headers: {content_type: 'application/json; charset=utf-8'})
       stub_post('/1.1/friendships/create.json').with(body: {user_id: '7505382'}).to_return(body: fixture('sferik.json'), headers: {content_type: 'application/json; charset=utf-8'})
     end
     it 'requests the correct resource' do
       @client.follow('sferik', 'pengwynn')
       expect(a_get('/1.1/account/verify_credentials.json').with(query: {skip_status: 'true'})).to have_been_made
       expect(a_get('/1.1/friends/ids.json').with(query: {user_id: '7505382', cursor: '-1'})).to have_been_made
-      expect(a_post('/1.1/users/lookup.json').with(body: {screen_name: 'sferik,pengwynn'})).to have_been_made
+      expect(a_get('/1.1/users/lookup.json').with(query: {screen_name: 'sferik,pengwynn'})).to have_been_made
       expect(a_post('/1.1/friendships/create.json').with(body: {user_id: '7505382'})).to have_been_made
     end
   end

@@ -41,6 +41,7 @@ module Twitter
       # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       # @option options [Boolean] :ids_only ('false') Only return user IDs instead of full user objects.
       def retweeters_of(tweet, options = {})
+        options = options.dup
         ids_only = !!options.delete(:ids_only)
         retweeters = retweets(tweet, options).collect(&:user)
         ids_only ? retweeters.collect(&:id) : retweeters
@@ -100,7 +101,7 @@ module Twitter
           perform_post_with_object("/1.1/statuses/destroy/#{extract_id(tweet)}.json", arguments.options, Twitter::Tweet)
         end
       end
-      alias_method :destroy_tweet, :destroy_status
+      alias destroy_tweet destroy_status
 
       # Updates the authenticating user's status
       #
@@ -221,6 +222,7 @@ module Twitter
       # @option options [String] :display_coordinates Whether or not to put a pin on the exact coordinates a tweet has been sent from.
       # @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       def update_with_media(status, media, options = {})
+        options = options.dup
         media_ids = pmap(array_wrap(media)) do |medium|
           upload(medium)[:media_id]
         end
@@ -246,6 +248,7 @@ module Twitter
       # @option options [String] :widget_type Set to video to return a Twitter Video embed for the given Tweet.
       # @option options [Boolean, String] :hide_tweet Applies to video type only. Set to 1 or true to link directly to the Tweet URL instead of displaying a Tweet overlay when a viewer clicks on the Twitter bird logo.
       def oembed(tweet, options = {})
+        options = options.dup
         options[:id] = extract_id(tweet)
         perform_get_with_object('/1.1/statuses/oembed.json', options, Twitter::OEmbed)
       end
@@ -294,10 +297,61 @@ module Twitter
         perform_get_with_cursor('/1.1/statuses/retweeters/ids.json', arguments.options, :ids)
       end
 
+      # Untweets a retweeted status as the authenticating user
+      #
+      # @see https://dev.twitter.com/rest/reference/post/statuses/unretweet/:id
+      # @rate_limited Yes
+      # @authentication Requires user context
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @return [Array<Twitter::Tweet>] The original tweets with retweet details embedded.
+      # @overload unretweet(*tweets)
+      #   @param tweets [Enumerable<Integer, String, URI, Twitter::Tweet>] A collection of Tweet IDs, URIs, or objects.
+      # @overload unretweet(*tweets, options)
+      #   @param tweets [Enumerable<Integer, String, URI, Twitter::Tweet>] A collection of Tweet IDs, URIs, or objects.
+      #   @param options [Hash] A customizable set of options.
+      #   @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
+      def unretweet(*args)
+        arguments = Twitter::Arguments.new(args)
+        pmap(arguments) do |tweet|
+          begin
+            post_unretweet(extract_id(tweet), arguments.options)
+          rescue Twitter::Error::NotFound
+            next
+          end
+        end.compact
+      end
+
     private
 
-      def upload(media)
-        Twitter::REST::Request.new(self, :multipart_post, 'https://upload.twitter.com/1.1/media/upload.json', key: :media, file: media).perform
+      # Uploads images and videos. Videos require multiple requests and uploads in chunks of 5 Megabytes.
+      # The only supported video format is mp4.
+      #
+      # @see https://dev.twitter.com/rest/public/uploading-media
+      def upload(media) # rubocop:disable MethodLength, AbcSize
+        if !(File.basename(media) =~ /\.mp4$/)
+          Twitter::REST::Request.new(self, :multipart_post, 'https://upload.twitter.com/1.1/media/upload.json', key: :media, file: media).perform
+        else
+          init = Twitter::REST::Request.new(self, :post, 'https://upload.twitter.com/1.1/media/upload.json',
+                                            command: 'INIT',
+                                            media_type: 'video/mp4',
+                                            total_bytes: media.size).perform
+
+          until media.eof?
+            chunk = media.read(5_000_000)
+            seg ||= -1
+            Twitter::REST::Request.new(self, :multipart_post, 'https://upload.twitter.com/1.1/media/upload.json',
+                                       command: 'APPEND',
+                                       media_id: init[:media_id],
+                                       segment_index: seg += 1,
+                                       key: :media,
+                                       file: StringIO.new(chunk)).perform
+          end
+
+          media.close
+
+          Twitter::REST::Request.new(self, :post, 'https://upload.twitter.com/1.1/media/upload.json',
+                                     command: 'FINALIZE', media_id: init[:media_id]).perform
+        end
       end
 
       def array_wrap(object)
@@ -310,6 +364,11 @@ module Twitter
 
       def post_retweet(tweet, options)
         response = perform_post("/1.1/statuses/retweet/#{extract_id(tweet)}.json", options)
+        Twitter::Tweet.new(response)
+      end
+
+      def post_unretweet(tweet, options)
+        response = perform_post("/1.1/statuses/unretweet/#{extract_id(tweet)}.json", options)
         Twitter::Tweet.new(response)
       end
     end

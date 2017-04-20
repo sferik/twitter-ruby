@@ -61,13 +61,13 @@ module Twitter
       entities(Entity::URI, :urls)
     end
     memoize :uris
-    alias_method :urls, :uris
+    alias urls uris
 
     # @return [Boolean]
     def uris?
       uris.any?
     end
-    alias_method :urls?, :uris?
+    alias urls? uris?
 
     # @note Must include entities in your request for this method to work
     # @return [Array<Twitter::Entity::UserMention>]

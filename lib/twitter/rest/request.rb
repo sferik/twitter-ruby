@@ -12,10 +12,10 @@ module Twitter
   module REST
     class Request
       include Twitter::Utils
-      BASE_URL = 'https://api.twitter.com'
+      BASE_URL = 'https://api.twitter.com'.freeze
       attr_accessor :client, :headers, :options, :path, :rate_limit,
                     :request_method, :uri
-      alias_method :verb, :request_method
+      alias verb request_method
 
       # @param client [Twitter::Client]
       # @param request_method [String, Symbol]
@@ -33,19 +33,28 @@ module Twitter
       # @return [Array, Hash]
       def perform
         options_key = @request_method == :get ? :params : :form
-        response = http_client.with(@headers).public_send(@request_method, @uri.to_s, options_key => @options)
-        response_body = symbolize_keys!(response.parse)
+        response = http_client.headers(@headers).public_send(@request_method, @uri.to_s, options_key => @options)
+        response_body = response.body.empty? ? '' : symbolize_keys!(response.parse)
         response_headers = response.headers
         fail_or_return_response_body(response.code, response_body, response_headers)
       end
 
     private
 
+      def merge_multipart_file!(options)
+        key = options.delete(:key)
+        file = options.delete(:file)
+
+        options[key] = if file.is_a?(StringIO)
+                         HTTP::FormData::File.new(file, mime_type: 'video/mp4')
+                       else
+                         HTTP::FormData::File.new(file, filename: File.basename(file), mime_type: mime_type(File.basename(file)))
+                       end
+      end
+
       def set_multipart_options!(request_method, options)
         if request_method == :multipart_post
-          key = options.delete(:key)
-          file = options.delete(:file)
-          options.merge!(key => HTTP::FormData::File.new(file, filename: File.basename(file), mime_type: mime_type(File.basename(file))))
+          merge_multipart_file!(options)
           @request_method = :post
           @headers = Twitter::Headers.new(@client, @request_method, @uri).request_headers
         else
@@ -69,7 +78,7 @@ module Twitter
 
       def fail_or_return_response_body(code, body, headers)
         error = error(code, body, headers)
-        fail(error) if error
+        raise(error) if error
         @rate_limit = Twitter::RateLimit.new(headers)
         body
       end
@@ -108,7 +117,9 @@ module Twitter
 
       # @return [HTTP::Client, HTTP]
       def http_client
-        @client.proxy ? HTTP.via(*proxy) : HTTP
+        client = @client.proxy ? HTTP.via(*proxy) : HTTP
+        client = client.timeout(:per_operation, connect: @client.timeouts[:connect], read: @client.timeouts[:read], write: @client.timeouts[:write]) if @client.timeouts
+        client
       end
 
       # Return proxy values as a compacted array
