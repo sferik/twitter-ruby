@@ -411,6 +411,7 @@ describe Twitter::REST::Tweets do
     before do
       stub_post('/1.1/statuses/update.json').to_return(body: fixture('status.json'), headers: {content_type: 'application/json; charset=utf-8'})
       stub_request(:post, 'https://upload.twitter.com/1.1/media/upload.json').to_return(body: fixture('upload.json'), headers: {content_type: 'application/json; charset=utf-8'})
+      stub_request(:get, "https://upload.twitter.com/1.1/media/upload.json?command=STATUS&media_id=12345678901234567890").to_return(:status => 200, :body => "", :headers => {content_type: 'application/json; charset=utf-8'})
     end
     context 'with a gif image' do
       it 'requests the correct resource' do

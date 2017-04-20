@@ -14,6 +14,7 @@ require 'twitter/rest/trends'
 require 'twitter/rest/tweets'
 require 'twitter/rest/undocumented'
 require 'twitter/rest/users'
+require 'twitter/rest/media'
 
 module Twitter
   module REST
@@ -36,6 +37,7 @@ module Twitter
       include Twitter::REST::Tweets
       include Twitter::REST::Undocumented
       include Twitter::REST::Users
+      include Twitter::REST::Media
     end
   end
 end

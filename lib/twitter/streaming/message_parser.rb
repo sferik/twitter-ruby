@@ -1,4 +1,5 @@
 require 'twitter/direct_message'
+require 'twitter/streaming/keep_alive'
 require 'twitter/streaming/deleted_tweet'
 require 'twitter/streaming/event'
 require 'twitter/streaming/friend_list'
@@ -9,7 +10,9 @@ module Twitter
   module Streaming
     class MessageParser
       def self.parse(data) # rubocop:disable AbcSize, CyclomaticComplexity, MethodLength, PerceivedComplexity
-        if data[:id]
+        if data.empty?
+          KeepAlive.new
+        elsif data[:id]
           Tweet.new(data)
         elsif data[:event]
           Event.new(data)
