@@ -321,6 +321,10 @@ module Twitter
         end.compact
       end
 
+      def upload_status(media_id)
+        Twitter::REST::Request.new(self, :get, "https://upload.twitter.com/1.1/media/upload.json?command=STATUS&media_id=#{media_id}").perform
+      end
+
     private
 
       # Uploads images and videos. Videos require multiple requests and uploads in chunks of 5 Megabytes.
@@ -334,6 +338,7 @@ module Twitter
           init = Twitter::REST::Request.new(self, :post, 'https://upload.twitter.com/1.1/media/upload.json',
                                             command: 'INIT',
                                             media_type: 'video/mp4',
+                                            media_category: 'tweet_video',
                                             total_bytes: media.size).perform
 
           until media.eof?
