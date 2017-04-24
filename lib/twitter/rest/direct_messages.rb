@@ -1,5 +1,6 @@
 require 'twitter/arguments'
 require 'twitter/direct_message'
+require 'twitter/direct_message_event'
 require 'twitter/rest/utils'
 require 'twitter/user'
 require 'twitter/utils'
@@ -26,6 +27,10 @@ module Twitter
       # @option options [Boolean] :full_text Returns the full text of a DM when message text is longer than 140 characters.
       def direct_messages_received(options = {})
         perform_get_with_objects('/1.1/direct_messages.json', options, Twitter::DirectMessage)
+      end
+
+      def direct_messages_events(options = {})
+        perform_get_with_cursor('/1.1/direct_messages/events/list.json', options.merge!({no_default_cursor: true}), :events, Twitter::DirectMessageEvent)
       end
 
       # Returns the 20 most recent direct messages sent by the authenticating user
