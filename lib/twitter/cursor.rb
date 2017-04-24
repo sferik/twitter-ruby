@@ -32,12 +32,14 @@ module Twitter
 
     # @return [Integer]
     def next_cursor
-      @attrs[:next_cursor] || -1
+      @attrs[:next_cursor]
     end
     alias next next_cursor
 
     # @return [Boolean]
     def last?
+      return false if next_cursor.is_a?(String)
+      return true if next_cursor.nil?
       next_cursor.zero?
     end
 
