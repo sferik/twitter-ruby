@@ -21,6 +21,26 @@ describe Twitter::REST::DirectMessages do
     end
   end
 
+  describe '#direct_messages_events' do
+    before do
+      stub_get('/1.1/direct_messages/events/list.json').to_return(body: fixture('events.json'), headers: {content_type: 'application/json; charset=utf-8'})
+    end
+
+    it 'requests the correct resource' do
+      @client.direct_messages_events
+      expect(a_get('/1.1/direct_messages/events/list.json')).to have_been_made
+    end
+
+    it 'returns messages' do
+      direct_messages = @client.direct_messages_events
+
+      expect(direct_messages).to be_a Twitter::Cursor
+      expect(direct_messages.first).to be_a Twitter::DirectMessageEvent
+    end
+
+  end
+
+
   describe '#direct_messages_sent' do
     before do
       stub_get('/1.1/direct_messages/sent.json').to_return(body: fixture('direct_messages.json'), headers: {content_type: 'application/json; charset=utf-8'})
