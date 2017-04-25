@@ -39,9 +39,12 @@ describe Twitter::REST::DirectMessages do
       expect(direct_messages.first.id).to eq('856574281366605831')
       expect(direct_messages.first.created_timestamp).to eq('1493058197715')
       expect(direct_messages.first.direct_message.text).to eq('Thanks https://twitter.com/i/stickers/image/10011')
+      expect(direct_messages.first.direct_message.sender_id).to eq(358_486_183)
+      expect(direct_messages.first.direct_message.recipient_id).to eq(22_095_868)
+      expect(direct_messages.first.direct_message.sender.id).to eq(358_486_183)
+      expect(direct_messages.first.direct_message.recipient.id).to eq(22_095_868)
     end
   end
-
   describe '#direct_messages_sent' do
     before do
       stub_get('/1.1/direct_messages/sent.json').to_return(body: fixture('direct_messages.json'), headers: {content_type: 'application/json; charset=utf-8'})
