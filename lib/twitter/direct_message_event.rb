@@ -24,13 +24,15 @@ module Twitter
   private
 
     def build_direct_message(attrs, text)
-      {
-        id: attrs[:id].to_i,
-        created_at: Time.at(attrs[:created_timestamp].to_i / 1000.0),
-        sender: {id: attrs[:message_create][:sender_id].to_i},
-        recipient: {id: attrs[:message_create][:target][:recipient_id].to_i},
-        text: text,
-      }
+      recipient_id = attrs[:message_create][:target][:recipient_id].to_i
+      sender_id = attrs[:message_create][:sender_id].to_i
+      {id: attrs[:id].to_i,
+       created_at: Time.at(attrs[:created_timestamp].to_i / 1000.0),
+       sender: {id: sender_id},
+       sender_id: sender_id,
+       recipient: {id: recipient_id},
+       recipient_id: recipient_id,
+       text: text}
     end
   end
 end
