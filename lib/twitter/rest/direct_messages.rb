@@ -29,6 +29,16 @@ module Twitter
         perform_get_with_objects('/1.1/direct_messages.json', options, Twitter::DirectMessage)
       end
 
+      # Returns the 20 most recent direct messages events sent to the authenticating user
+      # @see https://dev.twitter.com/rest/reference/get/direct_messages/events/list
+      # @note This method requires an access token with RWD (read, write & direct message) permissions. Consult The Application Permission Model for more information.
+      # @rate_limited Yes
+      # @authentication Requires user context
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @return [Array<Twitter::DirectMessageEvent>] Direct messages sent to and received by the authenticating user.
+      # @param options [Hash] A customizable set of options.
+      # @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 50. Default is 20
+      # @option options [String] :cursor Specifies the cursor position of results to retrieve.
       def direct_messages_events(options = {})
         perform_get_with_cursor('/1.1/direct_messages/events/list.json', options.merge!({no_default_cursor: true}), :events, Twitter::DirectMessageEvent)
       end
