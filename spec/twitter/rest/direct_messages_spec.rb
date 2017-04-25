@@ -36,13 +36,11 @@ describe Twitter::REST::DirectMessages do
 
       expect(direct_messages).to be_a Twitter::Cursor
       expect(direct_messages.first).to be_a Twitter::DirectMessageEvent
-      expect(direct_messages.first.id).to eq("856574281366605831")
-      expect(direct_messages.first.created_timestamp).to eq("1493058197715")
-      expect(direct_messages.first.direct_message.text).to eq("Thanks https://twitter.com/i/stickers/image/10011")
+      expect(direct_messages.first.id).to eq('856574281366605831')
+      expect(direct_messages.first.created_timestamp).to eq('1493058197715')
+      expect(direct_messages.first.direct_message.text).to eq('Thanks https://twitter.com/i/stickers/image/10011')
     end
-
   end
-
 
   describe '#direct_messages_sent' do
     before do
