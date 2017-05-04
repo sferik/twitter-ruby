@@ -7,7 +7,7 @@ module Twitter
     include Twitter::Creatable
     include Twitter::Entities
     # @return [String]
-    attr_reader :filter_level, :in_reply_to_screen_name, :lang, :source, :text
+    attr_reader :filter_level, :in_reply_to_screen_name, :lang, :source
     # @return [Integer]
     attr_reader :favorite_count, :in_reply_to_status_id, :in_reply_to_user_id,
                 :retweet_count
@@ -28,6 +28,10 @@ module Twitter
     object_attr_reader :User, :user, :status
     predicate_attr_reader :favorited, :possibly_sensitive, :retweeted,
                           :truncated
+
+    def text
+      attrs[:full_text] || attrs[:text]
+    end
 
     # @note May be > 140 characters.
     # @return [String]
