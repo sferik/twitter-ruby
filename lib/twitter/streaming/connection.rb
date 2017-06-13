@@ -7,10 +7,18 @@ module Twitter
     class Connection
       attr_reader :tcp_socket_class, :ssl_socket_class
 
+      DEFAULT_KEEPALIVE_SETTINGS = {
+        enabled: true,
+        idle_timeout: 60,
+        interval: 10,
+        count: 6,
+      }.freeze
+
       def initialize(options = {})
         @tcp_socket_class = options.fetch(:tcp_socket_class) { TCPSocket }
         @ssl_socket_class = options.fetch(:ssl_socket_class) { OpenSSL::SSL::SSLSocket }
         @using_ssl        = options.fetch(:using_ssl)        { false }
+        @keepalive        = DEFAULT_KEEPALIVE_SETTINGS.merge(options.fetch(:keepalive) { {enabled: false} })
       end
 
       def stream(request, response)
@@ -33,7 +41,15 @@ module Twitter
     private
 
       def new_tcp_socket(host, port)
-        @tcp_socket_class.new(Resolv.getaddress(host), port)
+        @tcp_socket_class.new(Resolv.getaddress(host), port).tap do |socket|
+          # Check that Socket::TCP_KEEPIDLE is present, so we know we can access these socket options
+          if @keepalive[:enabled] && defined?(Socket::TCP_KEEPIDLE)
+            socket.setsockopt(Socket::SOL_SOCKET, Socket::SO_KEEPALIVE, true)
+            socket.setsockopt(Socket::IPPROTO_TCP, Socket::TCP_KEEPIDLE, @keepalive[:idle_timeout])
+            socket.setsockopt(Socket::IPPROTO_TCP, Socket::TCP_KEEPINTVL, @keepalive[:interval])
+            socket.setsockopt(Socket::IPPROTO_TCP, Socket::TCP_KEEPCNT, @keepalive[:count])
+          end
+        end
       end
     end
   end
