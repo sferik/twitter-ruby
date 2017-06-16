@@ -5,8 +5,9 @@ require 'resolv'
 module Twitter
   module Streaming
     class Connection
+      attr_reader :tcp_socket_class, :ssl_socket_class, :keepalive
+
       DEFAULT_KEEPALIVE_SETTINGS = {
-        enabled: true,
         idle_timeout: 60,
         interval: 10,
         count: 6,
@@ -17,7 +18,6 @@ module Twitter
         @ssl_socket_class = opts.fetch(:ssl_socket_class) { OpenSSL::SSL::SSLSocket }
         @keepalive = DEFAULT_KEEPALIVE_SETTINGS.merge(opts.fetch(:keepalive) { {enabled: false} })
       end
-      attr_reader :tcp_socket_class, :ssl_socket_class
 
       def stream(request, response)
         client_context = OpenSSL::SSL::SSLContext.new
