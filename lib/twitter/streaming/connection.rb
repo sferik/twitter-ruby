@@ -5,7 +5,7 @@ require 'resolv'
 module Twitter
   module Streaming
     class Connection
-      attr_reader :tcp_socket_class, :ssl_socket_class
+      attr_reader :tcp_socket_class, :ssl_socket_class, :keepalive
 
       DEFAULT_KEEPALIVE_SETTINGS = {
         enabled: true,
