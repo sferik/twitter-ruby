@@ -32,11 +32,13 @@ module Twitter
     # @note May be > 140 characters.
     # @return [String]
     def full_text
+      tweet_full_text = text.nil? ? attrs[:full_text] : text
+
       if retweet?
-        prefix = text[/\A(RT @[a-z0-9_]{1,20}: )/i, 1]
+        prefix = tweet_full_text[/\A(RT @[a-z0-9_]{1,20}: )/i, 1]
         [prefix, retweeted_status.text].compact.join
       else
-        text
+        tweet_full_text
       end
     end
     memoize :full_text
