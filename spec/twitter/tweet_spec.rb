@@ -87,25 +87,51 @@ describe Twitter::Tweet do
     end
   end
 
-  describe '#full_text' do
-    it 'returns the text of a Tweet' do
+  describe '#extended_text' do
+    it 'returns the relevant_text of a Tweet' do
       tweet = Twitter::Tweet.new(id: 28_669_546_014, text: 'BOOSH')
-      expect(tweet.full_text).to be_a String
-      expect(tweet.full_text).to eq('BOOSH')
+      expect(tweet.extended_text).to be_a String
+      expect(tweet.extended_text).to eq('BOOSH')
+
+      tweet = Twitter::Tweet.new(id: 28_669_546_014, full_text: 'BOOSH')
+      expect(tweet.extended_text).to be_a String
+      expect(tweet.extended_text).to eq('BOOSH')
     end
     it 'returns the text of a Tweet without a user' do
       tweet = Twitter::Tweet.new(id: 28_669_546_014, text: 'BOOSH', retweeted_status: {id: 28_561_922_517, text: 'BOOSH'})
-      expect(tweet.full_text).to be_a String
-      expect(tweet.full_text).to eq('BOOSH')
+      expect(tweet.extended_text).to be_a String
+      expect(tweet.extended_text).to eq('BOOSH')
     end
-    it 'returns the full text of a retweeted Tweet' do
+    it 'returns the relevant_text of a retweeted Tweet' do
       tweet = Twitter::Tweet.new(id: 28_669_546_014, text: 'RT @sferik: BOOSH', retweeted_status: {id: 540_897_316_908_331_009, text: 'BOOSH'})
-      expect(tweet.full_text).to be_a String
-      expect(tweet.full_text).to eq('RT @sferik: BOOSH')
+      expect(tweet.extended_text).to be_a String
+      expect(tweet.extended_text).to eq('RT @sferik: BOOSH')
+
+      tweet = Twitter::Tweet.new(id: 28_669_546_014, full_text: 'RT @sferik: BOOSH', retweeted_status: {id: 540_897_316_908_331_009, full_text: 'BOOSH'})
+      expect(tweet.extended_text).to be_a String
+      expect(tweet.extended_text).to eq('RT @sferik: BOOSH')
+
+      tweet = Twitter::Tweet.new(id: 28_669_546_014, text: 'RT @sferik: ', retweeted_status: {id: 540_897_316_908_331_009, text: 'BOOSH'})
+      expect(tweet.extended_text).to be_a String
+      expect(tweet.extended_text).to eq('RT @sferik: BOOSH')
     end
     it 'returns nil when retweeted_status is not set' do
       tweet = Twitter::Tweet.new(id: 28_669_546_014)
-      expect(tweet.full_text).to be_nil
+      expect(tweet.extended_text).to be_nil
+    end
+  end
+
+  describe '#relevant_text' do
+    it 'returns the full_text of a Tweet when text is nil' do
+      tweet = Twitter::Tweet.new(id: 28_669_546_014, full_text: 'BOOSH')
+      expect(tweet.relevant_text).to be_a String
+      expect(tweet.relevant_text).to eq('BOOSH')
+    end
+
+    it 'return the text of a Tweet when present' do
+      tweet = Twitter::Tweet.new(id: 28_669_546_014, text: 'BOOSH')
+      expect(tweet.relevant_text).to be_a String
+      expect(tweet.relevant_text).to eq('BOOSH')
     end
   end
 
