@@ -1,3 +1,12 @@
+Layout/AccessModifierIndentation:
+  EnforcedStyle: outdent
+
+Layout/DotPosition:
+  EnforcedStyle: trailing
+
+Layout/SpaceInsideHashLiteralBraces:
+  EnforcedStyle: no_space
+
 Metrics/AbcSize:
   Enabled: false
 
@@ -24,9 +33,6 @@ Metrics/ParameterLists:
   Max: 4
   CountKeywordArgs: true
 
-Style/AccessModifierIndentation:
-  EnforcedStyle: outdent
-
 Style/CollectionMethods:
   PreferredMethods:
     map:      'collect'
@@ -36,9 +42,6 @@ Style/CollectionMethods:
 
 Style/Documentation:
   Enabled: false
-
-Style/DotPosition:
-  EnforcedStyle: trailing
 
 Style/DoubleNegation:
   Enabled: false
@@ -55,9 +58,6 @@ Style/PercentLiteralDelimiters:
 
 Style/RaiseArgs:
   EnforcedStyle: compact
-
-Style/SpaceInsideHashLiteralBraces:
-  EnforcedStyle: no_space
 
 Style/SymbolArray:
   EnforcedStyle: brackets
