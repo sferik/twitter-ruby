@@ -1,3 +1,12 @@
+Layout/AccessModifierIndentation:
+  EnforcedStyle: outdent
+
+Layout/DotPosition:
+  EnforcedStyle: trailing
+
+Layout/SpaceInsideHashLiteralBraces:
+  EnforcedStyle: no_space
+
 Metrics/BlockLength:
   Max: 36
   Exclude:
@@ -20,9 +29,6 @@ Metrics/ModuleLength:
 Metrics/ParameterLists:
   Max: 4
   CountKeywordArgs: true
-
-Style/AccessModifierIndentation:
-  EnforcedStyle: outdent
 
 Style/CollectionMethods:
   Enabled: true
@@ -48,9 +54,6 @@ Style/NumericPredicate:
 Style/PercentLiteralDelimiters:
   PreferredDelimiters:
     '%w': ()
-
-Style/SpaceInsideHashLiteralBraces:
-  EnforcedStyle: no_space
 
 Style/SymbolArray:
   EnforcedStyle: brackets
