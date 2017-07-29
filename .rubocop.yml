@@ -1,7 +1,18 @@
+Layout/AccessModifierIndentation:
+  EnforcedStyle: outdent
+
+Layout/DotPosition:
+  EnforcedStyle: trailing
+
+Layout/SpaceInsideHashLiteralBraces:
+  EnforcedStyle: no_space
+
 Metrics/AbcSize:
   Enabled: false
 
 Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'
   Max: 36
 
 Metrics/BlockNesting:
@@ -22,9 +33,6 @@ Metrics/ParameterLists:
   Max: 4
   CountKeywordArgs: true
 
-Style/AccessModifierIndentation:
-  EnforcedStyle: outdent
-
 Style/CollectionMethods:
   PreferredMethods:
     map:      'collect'
@@ -35,9 +43,6 @@ Style/CollectionMethods:
 Style/Documentation:
   Enabled: false
 
-Style/DotPosition:
-  EnforcedStyle: trailing
-
 Style/DoubleNegation:
   Enabled: false
 
@@ -47,11 +52,15 @@ Style/Encoding:
 Style/FrozenStringLiteralComment:
   Enabled: false
 
+Style/PercentLiteralDelimiters:
+  PreferredDelimiters:
+    '%w': ()
+
 Style/RaiseArgs:
   EnforcedStyle: compact
 
-Style/SpaceInsideHashLiteralBraces:
-  EnforcedStyle: no_space
+Style/SymbolArray:
+  EnforcedStyle: brackets
 
 Style/TrailingCommaInLiteral:
   EnforcedStyleForMultiline: 'comma'
