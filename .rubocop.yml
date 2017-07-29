@@ -2,6 +2,8 @@ Metrics/AbcSize:
   Enabled: false
 
 Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'
   Max: 36
 
 Metrics/BlockNesting:
@@ -47,11 +49,18 @@ Style/Encoding:
 Style/FrozenStringLiteralComment:
   Enabled: false
 
+Style/PercentLiteralDelimiters:
+  PreferredDelimiters:
+    '%w': ()
+
 Style/RaiseArgs:
   EnforcedStyle: compact
 
 Style/SpaceInsideHashLiteralBraces:
   EnforcedStyle: no_space
+
+Style/SymbolArray:
+  EnforcedStyle: brackets
 
 Style/TrailingCommaInLiteral:
   EnforcedStyleForMultiline: 'comma'
