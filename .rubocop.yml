@@ -45,8 +45,15 @@ Style/FrozenStringLiteralComment:
 Style/NumericPredicate:
   Enabled: false
 
+Style/PercentLiteralDelimiters:
+  PreferredDelimiters:
+    '%w': ()
+
 Style/SpaceInsideHashLiteralBraces:
   EnforcedStyle: no_space
+
+Style/SymbolArray:
+  EnforcedStyle: brackets
 
 Style/TrailingCommaInLiteral:
   EnforcedStyleForMultiline: 'comma'
