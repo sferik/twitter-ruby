@@ -323,18 +323,6 @@ module Twitter
 
     private
 
-      # Uploads images and videos. Use chunked upload for videos and simple upload for images.
-      # The only supported video format is mp4.
-      #
-      # @see https://dev.twitter.com/rest/public/uploading-media
-      def upload(media)
-        if !(File.basename(media) =~ /\.mp4$/)
-          upload_media_simple(media)
-        else
-          upload_media_chunked(media)
-        end
-      end
-
       def array_wrap(object)
         if object.respond_to?(:to_ary)
           object.to_ary || [object]

@@ -445,9 +445,11 @@ describe Twitter::REST::Tweets do
         expect(a_post('/1.1/statuses/update.json')).to have_been_made
       end
     end
-    context 'with a mp4 video' do
+    context 'with a 50MB mp4 video' do
       it 'requests the correct resources' do
-        @client.update_with_media('You always have options', fixture('1080p.mp4'))
+        video_file = fixture('1080p.mp4')
+        allow(video_file).to receive(:size).and_return(50 * 1024 * 1024)
+        @client.update_with_media('You always have options', video_file)
         expect(a_request(:post, 'https://upload.twitter.com/1.1/media/upload.json')).to have_been_made.times(3)
         expect(a_post('/1.1/statuses/update.json')).to have_been_made
       end

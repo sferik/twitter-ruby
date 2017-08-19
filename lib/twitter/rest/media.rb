@@ -4,6 +4,32 @@ module Twitter
       # Maximum number of times to poll twitter for upload status
       MAX_STATUS_CHECKS = 20
 
+      # Use chunked uploading if file size is greater than 5MB
+      CHUNKED_UPLOAD_THRESHOLD = (5 * 1024 * 1024)
+
+      # Upload a media file to twitter
+      #
+      # @see https://dev.twitter.com/rest/reference/post/media/upload.html
+      # @rate_limited Yes
+      # @authentication Requires user context
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @return [Integer] The media_id of the uploaded file.
+      # @param file [File] An image (PNG, JPEG or GIF) or video (MP4) file.
+      # @option options [String] :media_category Category with which to
+      #   identify media upload. When this is specified, it enables async
+      #   processing which allows larger uploads. See
+      #   https://dev.twitter.com/rest/media/uploading-media for details.
+      #   Possible values include tweet_image, tweet_gif, and tweet_video.
+      def upload(file, options = {})
+        if file.size < CHUNKED_UPLOAD_THRESHOLD
+          upload_media_simple(file, options)
+        else
+          upload_media_chunked(file, options)
+        end
+      end
+
+    private
+
       # Upload a media file to twitter in one request
       #
       # @see https://dev.twitter.com/rest/reference/post/media/upload.html
@@ -47,8 +73,6 @@ module Twitter
 
         media_id
       end
-
-    private
 
       # Finalize upload and poll status until upload is ready
       #
