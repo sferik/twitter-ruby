@@ -226,6 +226,9 @@ module Twitter
         media_ids = pmap(array_wrap(media)) do |medium|
           upload(medium)[:media_id]
         end
+        media_ids.each do |media_id|
+          check_status(media_id)
+        end
         update!(status, options.merge(media_ids: media_ids.join(',')))
       end
 
@@ -323,6 +326,17 @@ module Twitter
 
     private
 
+      # Check uploaded videos status. Videos status should be succeeded before tweet.
+      # @see https://dev.twitter.com/rest/public/uploading-media
+      def check_status(media_id)
+        request_info = Twitter::REST::Request.new(self, :get, 'https://upload.twitter.com/1.1/media/upload.json',
+                                   command: 'STATUS', media_id: media_id).perform
+        status = request_info[:processing_info][:state]
+        return true if status == "succeeded"
+        raise Twitter::Error::Forbidden if status == "failed"
+        check_status(media_id)
+      end
+
       # Uploads images and videos. Videos require multiple requests and uploads in chunks of 5 Megabytes.
       # The only supported video format is mp4.
       #
@@ -334,6 +348,7 @@ module Twitter
           init = Twitter::REST::Request.new(self, :post, 'https://upload.twitter.com/1.1/media/upload.json',
                                             command: 'INIT',
                                             media_type: 'video/mp4',
+                                            media_category: "tweet_video",
                                             total_bytes: media.size).perform
 
           until media.eof?
