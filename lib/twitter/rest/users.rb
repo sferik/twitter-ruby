@@ -208,7 +208,7 @@ module Twitter
       def users(*args)
         arguments = Twitter::Arguments.new(args)
         flat_pmap(arguments.each_slice(MAX_USERS_PER_REQUEST)) do |users|
-          perform_post_with_objects('/1.1/users/lookup.json', merge_users(arguments.options, users), Twitter::User)
+          perform_get_with_objects('/1.1/users/lookup.json', merge_users(arguments.options, users), Twitter::User)
         end
       end
 

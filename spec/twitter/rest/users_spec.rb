@@ -289,11 +289,11 @@ describe Twitter::REST::Users do
   describe '#users' do
     context 'with screen names passed' do
       before do
-        stub_post('/1.1/users/lookup.json').with(body: {screen_name: 'sferik,pengwynn'}).to_return(body: fixture('users.json'), headers: {content_type: 'application/json; charset=utf-8'})
+        stub_get('/1.1/users/lookup.json').with(query: {screen_name: 'sferik,pengwynn'}).to_return(body: fixture('users.json'), headers: {content_type: 'application/json; charset=utf-8'})
       end
       it 'requests the correct resource' do
         @client.users('sferik', 'pengwynn')
-        expect(a_post('/1.1/users/lookup.json').with(body: {screen_name: 'sferik,pengwynn'})).to have_been_made
+        expect(a_get('/1.1/users/lookup.json').with(query: {screen_name: 'sferik,pengwynn'})).to have_been_made
       end
       it 'returns up to 100 users worth of extended information' do
         users = @client.users('sferik', 'pengwynn')
@@ -306,46 +306,46 @@ describe Twitter::REST::Users do
           sferik = URI.parse('https://twitter.com/sferik')
           pengwynn = URI.parse('https://twitter.com/pengwynn')
           @client.users(sferik, pengwynn)
-          expect(a_post('/1.1/users/lookup.json').with(body: {screen_name: 'sferik,pengwynn'})).to have_been_made
+          expect(a_get('/1.1/users/lookup.json').with(query: {screen_name: 'sferik,pengwynn'})).to have_been_made
         end
       end
     end
     context 'with numeric screen names passed' do
       before do
-        stub_post('/1.1/users/lookup.json').with(body: {screen_name: '0,311'}).to_return(body: fixture('users.json'), headers: {content_type: 'application/json; charset=utf-8'})
+        stub_get('/1.1/users/lookup.json').with(query: {screen_name: '0,311'}).to_return(body: fixture('users.json'), headers: {content_type: 'application/json; charset=utf-8'})
       end
       it 'requests the correct resource' do
         @client.users('0', '311')
-        expect(a_post('/1.1/users/lookup.json').with(body: {screen_name: '0,311'})).to have_been_made
+        expect(a_get('/1.1/users/lookup.json').with(query: {screen_name: '0,311'})).to have_been_made
       end
     end
     context 'with user IDs passed' do
       before do
-        stub_post('/1.1/users/lookup.json').with(body: {user_id: '7505382,14100886'}).to_return(body: fixture('users.json'), headers: {content_type: 'application/json; charset=utf-8'})
+        stub_get('/1.1/users/lookup.json').with(query: {user_id: '7505382,14100886'}).to_return(body: fixture('users.json'), headers: {content_type: 'application/json; charset=utf-8'})
       end
       it 'requests the correct resource' do
         @client.users(7_505_382, 14_100_886)
-        expect(a_post('/1.1/users/lookup.json').with(body: {user_id: '7505382,14100886'})).to have_been_made
+        expect(a_get('/1.1/users/lookup.json').with(query: {user_id: '7505382,14100886'})).to have_been_made
       end
     end
     context 'with both screen names and user IDs passed' do
       before do
-        stub_post('/1.1/users/lookup.json').with(body: {screen_name: 'sferik', user_id: '14100886'}).to_return(body: fixture('users.json'), headers: {content_type: 'application/json; charset=utf-8'})
+        stub_get('/1.1/users/lookup.json').with(query: {screen_name: 'sferik', user_id: '14100886'}).to_return(body: fixture('users.json'), headers: {content_type: 'application/json; charset=utf-8'})
       end
       it 'requests the correct resource' do
         @client.users('sferik', 14_100_886)
-        expect(a_post('/1.1/users/lookup.json').with(body: {screen_name: 'sferik', user_id: '14100886'})).to have_been_made
+        expect(a_get('/1.1/users/lookup.json').with(query: {screen_name: 'sferik', user_id: '14100886'})).to have_been_made
       end
     end
     context 'with user objects passed' do
       before do
-        stub_post('/1.1/users/lookup.json').with(body: {user_id: '7505382,14100886'}).to_return(body: fixture('users.json'), headers: {content_type: 'application/json; charset=utf-8'})
+        stub_get('/1.1/users/lookup.json').with(query: {user_id: '7505382,14100886'}).to_return(body: fixture('users.json'), headers: {content_type: 'application/json; charset=utf-8'})
       end
       it 'requests the correct resource' do
         user1 = Twitter::User.new(id: 7_505_382)
         user2 = Twitter::User.new(id: 14_100_886)
         @client.users(user1, user2)
-        expect(a_post('/1.1/users/lookup.json').with(body: {user_id: '7505382,14100886'})).to have_been_made
+        expect(a_get('/1.1/users/lookup.json').with(query: {user_id: '7505382,14100886'})).to have_been_made
       end
     end
   end

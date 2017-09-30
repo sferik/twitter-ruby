@@ -1,3 +1,8 @@
+Metrics/BlockLength:
+  Max: 36
+  Exclude:
+    - spec/**/*.rb
+
 Metrics/BlockNesting:
   Max: 2
 
@@ -35,6 +40,9 @@ Style/DoubleNegation:
   Enabled: false
 
 Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/NumericPredicate:
   Enabled: false
 
 Style/SpaceInsideHashLiteralBraces:

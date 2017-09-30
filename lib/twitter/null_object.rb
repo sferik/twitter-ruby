@@ -17,10 +17,6 @@ module Twitter
       true
     end
 
-    def respond_to?(*)
-      true
-    end
-
     def instance_of?(klass)
       raise(TypeError, 'class or module required') unless klass.is_a?(Class)
       self.class == klass
@@ -47,6 +43,10 @@ module Twitter
 
     def as_json(*)
       'null'
+    end
+
+    def to_json(*args)
+      nil.to_json(*args)
     end
   end
 end

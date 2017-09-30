@@ -1,3 +1,26 @@
+6.1.0
+------
+
+Not yet documented, sorry. For now, please use git to compare tags: 
+https://github.com/sferik/twitter/compare/v6.0.0...v6.1.0
+
+
+6.0.0
+------
+
+Not yet documented, sorry. For now, please use git to compare tags: 
+https://github.com/sferik/twitter/compare/v5.16.0...v6.0.0
+
+5.16.0
+------
+
+* [Add Twitter::Trend#tweet_volume](https://github.com/sferik/twitter/commit/e797b62e5e6a768e8aeafde6186e1f5310e6bfc6)
+* [Add new settings to Twitter::Settings](https://github.com/sferik/twitter/commit/d047ce00034d26a99927076c28679ce08fd69308)
+* [Fix `Version.to_a`](https://github.com/sferik/twitter/commit/0cd119abf64e6c2b7fd861b0df65b7cb41d892b4)
+* [Remove the encoding of profile urls](https://github.com/sferik/twitter/commit/6d46bd689ab4a4f119d1d692488aab37e4e99893)
+* [Update http dependency to ~> 1.0](https://github.com/sferik/twitter/commit/8d379a45be6948a9d9264aa2e91ef5f7bdbe1db8)
+* [Fetch host and port directly from the request object](https://github.com/sferik/twitter/commit/f9f1bbdabde2ec96dcdd8900fe7bca072f9bea6b)
+
 5.15.0
 ------
 * [`NullObject#as_json` returns 'null'](https://github.com/sferik/twitter/commit/2979e703c09a45f012cb2c5b2d6663bf1f4d3351) ([@lukevmorris](https://twitter.com/lukevmorris))
