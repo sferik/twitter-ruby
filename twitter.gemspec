@@ -16,12 +16,12 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'bundler', '~> 1.0'
   spec.authors = ['Erik Michaels-Ober', 'John Nunemaker', 'Wynn Netherland', 'Steve Richert', 'Steve Agalloco']
   spec.description = 'A Ruby interface to the Twitter API.'
-  spec.email = %w(sferik@gmail.com)
-  spec.files = %w(.yardopts CHANGELOG.md CONTRIBUTING.md LICENSE.md README.md twitter.gemspec) + Dir['lib/**/*.rb']
+  spec.email = %w[sferik@gmail.com]
+  spec.files = %w[.yardopts CHANGELOG.md CONTRIBUTING.md LICENSE.md README.md twitter.gemspec] + Dir['lib/**/*.rb']
   spec.homepage = 'http://sferik.github.com/twitter/'
-  spec.licenses = %w(MIT)
+  spec.licenses = %w[MIT]
   spec.name = 'twitter'
-  spec.require_paths = %w(lib)
+  spec.require_paths = %w[lib]
   spec.required_ruby_version = '>= 1.9.3'
   spec.summary = spec.description
   spec.version = Twitter::Version

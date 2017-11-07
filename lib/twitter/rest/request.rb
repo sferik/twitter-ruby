@@ -108,7 +108,7 @@ module Twitter
             object[index] = symbolize_keys!(val)
           end
         elsif object.is_a?(Hash)
-          object.keys.each do |key|
+          object.dup.each_key do |key|
             object[key.to_sym] = symbolize_keys!(object.delete(key))
           end
         end
