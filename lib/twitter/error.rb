@@ -77,6 +77,7 @@ module Twitter
     FORBIDDEN_MESSAGES = {
       'Status is a duplicate.' => Twitter::Error::DuplicateStatus,
       'You have already favorited this status.' => Twitter::Error::AlreadyFavorited,
+      'You have already retweeted this tweet.' => Twitter::Error::AlreadyRetweeted,
       'sharing is not permissible for this status (Share validations failed)' => Twitter::Error::AlreadyRetweeted,
     }.freeze
 
