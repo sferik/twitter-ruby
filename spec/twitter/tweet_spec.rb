@@ -1,4 +1,3 @@
-# coding: utf-8
 require 'helper'
 
 describe Twitter::Tweet do
