@@ -121,7 +121,7 @@ module Twitter
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Twitter::DirectMessage] The sent message.
       # @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, URI, or object.
-      # @param text [String] The text of your direct message, up to 140 characters.
+      # @param text [String] The text of your direct message.
       # @param options [Hash] A customizable set of options.
       def create_direct_message(user, text, options = {})
         merge_user!(options, user)
