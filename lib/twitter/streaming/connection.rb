@@ -17,6 +17,7 @@ module Twitter
         @tcp_socket_class = opts.fetch(:tcp_socket_class) { TCPSocket }
         @ssl_socket_class = opts.fetch(:ssl_socket_class) { OpenSSL::SSL::SSLSocket }
         @keepalive = DEFAULT_KEEPALIVE_SETTINGS.merge(opts.fetch(:keepalive) { {enabled: false} })
+        @write_pipe = nil
       end
 
       def stream(request, response)
@@ -26,9 +27,22 @@ module Twitter
 
         ssl_client.connect
         request.stream(ssl_client)
-        while body = ssl_client.readpartial(1024) # rubocop:disable AssignmentInCondition
-          response << body
+        read_pipe, @write_pipe = IO.pipe
+        loop do
+          read_ios, _write_ios, _exception_ios = IO.select([read_pipe, ssl_client])
+          case read_ios.first
+          when ssl_client
+            response << ssl_client.readpartial(1024)
+          when read_pipe
+            break
+          end
         end
+        ssl_client.close
+        client.close
+      end
+
+      def close
+        @write_pipe.write('q') if @write_pipe
       end
 
     private
