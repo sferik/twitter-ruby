@@ -108,6 +108,7 @@ describe Twitter::Streaming::Connection do
         stream_closed = true
       end
       expect(stream_closed).to be false
+      sleep 1
       connection.close
       t.join
       expect(stream_closed).to be true
