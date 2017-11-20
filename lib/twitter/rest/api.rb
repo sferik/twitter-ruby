@@ -7,6 +7,7 @@ require 'twitter/rest/oauth'
 require 'twitter/rest/places_and_geo'
 require 'twitter/rest/saved_searches'
 require 'twitter/rest/search'
+require 'twitter/rest/premium_search'
 require 'twitter/rest/spam_reporting'
 require 'twitter/rest/suggested_users'
 require 'twitter/rest/timelines'
@@ -27,6 +28,7 @@ module Twitter
       include Twitter::REST::Lists
       include Twitter::REST::OAuth
       include Twitter::REST::PlacesAndGeo
+      include Twitter::REST::PremiumSearch
       include Twitter::REST::SavedSearches
       include Twitter::REST::Search
       include Twitter::REST::SpamReporting
