@@ -9,3 +9,7 @@ doc/*
 log/*
 measurement/*
 pkg/*
+
+# Ignore IntelliJ specific files
+*.iml
+.idea
