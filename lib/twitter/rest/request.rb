@@ -76,6 +76,16 @@ module Twitter
         end
       end
 
+      def options_key
+        if @request_method == :get
+          :params
+        elsif @options.delete(:request_body) == :json
+          :json
+        else
+          :form
+        end
+      end
+
       def fail_or_return_response_body(code, body, headers)
         error = error(code, body, headers)
         raise(error) if error
