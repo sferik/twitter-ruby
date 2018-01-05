@@ -1,5 +1,4 @@
 require 'helper'
-require 'byebug'
 
 describe Twitter::Tweet do
   before do
