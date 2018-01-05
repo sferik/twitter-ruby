@@ -16,6 +16,7 @@ group :test do
   gem 'timecop'
   gem 'webmock'
   gem 'yardstick'
+  gem 'byebug'
 end
 
 gemspec
