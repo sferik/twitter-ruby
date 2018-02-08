@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f68b96c8-3ea7-4cb9-953a-b5af6c88b52a" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/CONTRIBUTING.md" afterPath="$PROJECT_DIR$/CONTRIBUTING.md" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/twitter.gemspec" afterPath="$PROJECT_DIR$/twitter.gemspec" />
     </list>
     <ignored path="twitter.iws" />
@@ -52,8 +52,8 @@
       <file leaf-file-name="twitter.gemspec" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/twitter.gemspec">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="304">
-              <caret line="19" column="48" lean-forward="true" selection-start-line="19" selection-start-column="48" selection-end-line="19" selection-end-column="48" />
+            <state relative-caret-position="288">
+              <caret line="18" column="73" lean-forward="false" selection-start-line="18" selection-start-column="73" selection-end-line="18" selection-end-column="73" />
               <folding />
             </state>
           </provider>
@@ -722,7 +722,7 @@
       <workItem from="1466522299793" duration="11801000" />
       <workItem from="1466543291350" duration="337000" />
       <workItem from="1484001454949" duration="238000" />
-      <workItem from="1518128674839" duration="2584000" />
+      <workItem from="1518128674839" duration="2814000" />
     </task>
     <task id="LOCAL-00001" summary="Quick and dirty patch to make collections work.">
       <created>1466543387357</created>
@@ -735,7 +735,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="14960000" />
+    <option name="totallyTimeSpent" value="15190000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1920" y="0" width="2560" height="1440" extended-state="6" />
@@ -1078,8 +1078,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/twitter.gemspec">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="19" column="48" lean-forward="true" selection-start-line="19" selection-start-column="48" selection-end-line="19" selection-end-column="48" />
+        <state relative-caret-position="288">
+          <caret line="18" column="73" lean-forward="false" selection-start-line="18" selection-start-column="73" selection-end-line="18" selection-end-column="73" />
           <folding />
         </state>
       </provider>

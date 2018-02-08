@@ -7,9 +7,14 @@ Gem::Specification.new do |spec|
   spec.description = 'A Ruby interface to the Twitter API.'
   spec.summary     = spec.description
   spec.homepage    = 'http://sferik.github.com/twitter/'
-  spec.email       = %w[sferik@gmail.com]
-  spec.authors     = ['Erik Michaels-Ober', 'John Nunemaker', 'Wynn Netherland', 'Steve Richert', 'Steve Agalloco']
   spec.licenses    = %w[MIT]
+  spec.email       = %w[sferik@gmail.com]
+  spec.authors     = ['Erik Michaels-Ober',
+                      'John Nunemaker',
+                      'Wynn Netherland',
+                      'Steve Richert',
+                      'Steve Agalloco',
+                      'Robert Ingrum']
 
   spec.files         = %w[.yardopts CHANGELOG.md CONTRIBUTING.md LICENSE.md README.md twitter.gemspec] + Dir['lib/**/*.rb']
   spec.require_paths = %w[lib]
