@@ -14,7 +14,7 @@ module Twitter
       include Twitter::Utils
       BASE_URL = 'https://api.twitter.com'.freeze
       attr_accessor :client, :headers, :options, :path, :rate_limit,
-                    :request_method, :uri
+                    :request_method, :uri, :options_key
       alias verb request_method
 
       # @param client [Twitter::Client]
@@ -25,15 +25,14 @@ module Twitter
       def initialize(client, request_method, path, options = {})
         @client = client
         @uri = Addressable::URI.parse(path.start_with?('http') ? path : BASE_URL + path)
-        set_multipart_options!(request_method, options)
+        set_request_options!(request_method, options)
         @path = uri.path
         @options = options
       end
 
       # @return [Array, Hash]
       def perform
-        options_key = @request_method == :get ? :params : :form
-        response = http_client.headers(@headers).public_send(@request_method, @uri.to_s, options_key => @options)
+        response = http_client.headers(@headers).public_send(@request_method, @uri.to_s, @options_key => @options)
         response_body = response.body.empty? ? '' : symbolize_keys!(response.parse)
         response_headers = response.headers
         fail_or_return_response_body(response.code, response_body, response_headers)
@@ -52,14 +51,32 @@ module Twitter
                        end
       end
 
-      def set_multipart_options!(request_method, options)
+      def set_multipart_options!(options)
+        merge_multipart_file!(options)
+        @request_method = :post
+        @options_key = :form
+        @headers = Twitter::Headers.new(@client, @request_method, @uri).request_headers
+      end
+
+      def set_json_options!
+        @options_key = :json
+        @request_method = :post
+        @headers = Twitter::Headers.new(@client, @request_method, @uri).request_headers
+      end
+
+      def set_standard_options!(request_method, options)
+        @request_method = request_method
+        @options_key = @request_method == :get ? :params : :form
+        @headers = Twitter::Headers.new(@client, @request_method, @uri, options).request_headers
+      end
+
+      def set_request_options!(request_method, options)
         if request_method == :multipart_post
-          merge_multipart_file!(options)
-          @request_method = :post
-          @headers = Twitter::Headers.new(@client, @request_method, @uri).request_headers
+          set_multipart_options!(options)
+        elsif request_method == :json_post
+          set_json_options!
         else
-          @request_method = request_method
-          @headers = Twitter::Headers.new(@client, @request_method, @uri, options).request_headers
+          set_standard_options!(request_method, options)
         end
       end
 
