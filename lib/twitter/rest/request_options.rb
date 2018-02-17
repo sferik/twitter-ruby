@@ -3,6 +3,11 @@ require 'twitter/headers'
 module Twitter
   module REST
     module RequestOptions
+      # Set the request method, content type, and headers on the client
+      #
+      # @param request_method [Symbol] Desired request method
+      # @param options [Hash] the content body
+      # @return [void]
       def create_request_options!(request_method, options)
         if request_method == :multipart_post
           create_multipart_options!(options)
