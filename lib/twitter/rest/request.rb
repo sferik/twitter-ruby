@@ -4,14 +4,15 @@ require 'http/form_data'
 require 'json'
 require 'openssl'
 require 'twitter/error'
-require 'twitter/headers'
 require 'twitter/rate_limit'
 require 'twitter/utils'
+require 'twitter/rest/request_options'
 
 module Twitter
   module REST
     class Request
       include Twitter::Utils
+      include Twitter::REST::RequestOptions
       BASE_URL = 'https://api.twitter.com'.freeze
       attr_accessor :client, :headers, :options, :path, :rate_limit,
                     :request_method, :uri, :options_key
@@ -25,7 +26,7 @@ module Twitter
       def initialize(client, request_method, path, options = {})
         @client = client
         @uri = Addressable::URI.parse(path.start_with?('http') ? path : BASE_URL + path)
-        set_request_options!(request_method, options)
+        create_request_options!(request_method, options)
         @path = uri.path
         @options = options
       end
@@ -39,59 +40,6 @@ module Twitter
       end
 
     private
-
-      def merge_multipart_file!(options)
-        key = options.delete(:key)
-        file = options.delete(:file)
-
-        options[key] = if file.is_a?(StringIO)
-                         HTTP::FormData::File.new(file, mime_type: 'video/mp4')
-                       else
-                         HTTP::FormData::File.new(file, filename: File.basename(file), mime_type: mime_type(File.basename(file)))
-                       end
-      end
-
-      def set_multipart_options!(options)
-        merge_multipart_file!(options)
-        @request_method = :post
-        @options_key = :form
-        @headers = Twitter::Headers.new(@client, @request_method, @uri).request_headers
-      end
-
-      def set_json_options!
-        @options_key = :json
-        @request_method = :post
-        @headers = Twitter::Headers.new(@client, @request_method, @uri).request_headers
-      end
-
-      def set_standard_options!(request_method, options)
-        @request_method = request_method
-        @options_key = @request_method == :get ? :params : :form
-        @headers = Twitter::Headers.new(@client, @request_method, @uri, options).request_headers
-      end
-
-      def set_request_options!(request_method, options)
-        if request_method == :multipart_post
-          set_multipart_options!(options)
-        elsif request_method == :json_post
-          set_json_options!
-        else
-          set_standard_options!(request_method, options)
-        end
-      end
-
-      def mime_type(basename)
-        case basename
-        when /\.gif$/i
-          'image/gif'
-        when /\.jpe?g/i
-          'image/jpeg'
-        when /\.png$/i
-          'image/png'
-        else
-          'application/octet-stream'
-        end
-      end
 
       def fail_or_return_response_body(code, body, headers)
         error = error(code, body, headers)

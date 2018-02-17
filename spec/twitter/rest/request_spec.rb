@@ -22,14 +22,14 @@ describe Twitter::REST::Request do
     context 'when posting JSON' do
       it 'makes a proper json encoded request' do
         stub_post('/1.1/json-post-endpoint.json')
-          .with({
+          .with(
             body: {test_key: 'test value'},
             headers: {content_type: 'application/json; charset=UTF-8'}
-          })
-          .to_return({
+          )
+          .to_return(
             body: '{"success":true}',
             headers: {content_type: 'application/json; charset=utf-8'}
-          })
+          )
         Twitter::REST::Request.new(@client, :json_post, '/1.1/json-post-endpoint.json', test_key: 'test value').perform
         expect(a_post('/1.1/json-post-endpoint.json').with(body: {test_key: 'test value'})).to have_been_made
       end
