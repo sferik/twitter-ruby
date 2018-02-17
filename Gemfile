@@ -4,7 +4,7 @@ gem 'jruby-openssl', platforms: :jruby
 gem 'rake'
 gem 'yard'
 
-group :development do
+group :development, :test do
   gem 'pry'
 end
 

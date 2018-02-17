@@ -15,6 +15,7 @@ require 'stringio'
 require 'tempfile'
 require 'timecop'
 require 'webmock/rspec'
+require 'pry'
 
 require_relative 'support/media_object_examples'
 

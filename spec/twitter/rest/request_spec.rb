@@ -19,6 +19,22 @@ describe Twitter::REST::Request do
       expect(a_post('/1.1/statuses/update.json').with(body: {status: 'Update', media_ids: '470030289822314497'})).to have_been_made
     end
 
+    context 'when posting JSON' do
+      it 'makes a proper json encoded request' do
+        stub_post('/1.1/json-post-endpoint.json')
+          .with({
+            body: {test_key: 'test value'},
+            headers: {content_type: 'application/json; charset=UTF-8'}
+          })
+          .to_return({
+            body: '{"success":true}',
+            headers: {content_type: 'application/json; charset=utf-8'}
+          })
+        Twitter::REST::Request.new(@client, :json_post, '/1.1/json-post-endpoint.json', test_key: 'test value').perform
+        expect(a_post('/1.1/json-post-endpoint.json').with(body: {test_key: 'test value'})).to have_been_made
+      end
+    end
+
     context 'when using a proxy' do
       before do
         @client = Twitter::REST::Client.new(consumer_key: 'CK', consumer_secret: 'CS', access_token: 'AT', access_token_secret: 'AS', proxy: {host: '127.0.0.1', port: 3328})
