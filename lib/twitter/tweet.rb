@@ -29,7 +29,7 @@ module Twitter
     predicate_attr_reader :favorited, :possibly_sensitive, :retweeted,
                           :truncated
 
-    # @note May be > 140 characters.
+    # @note May be > 280 characters.
     # @return [String]
     def full_text
       if retweet?

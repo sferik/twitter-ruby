@@ -1,14 +1,14 @@
 module Twitter
   module Streaming
     class Event
-      LIST_EVENTS = [
-        :list_created, :list_destroyed, :list_updated, :list_member_added,
-        :list_member_added, :list_member_removed, :list_user_subscribed,
-        :list_user_subscribed, :list_user_unsubscribed, :list_user_unsubscribed
+      LIST_EVENTS = %i[
+        list_created list_destroyed list_updated list_member_added
+        list_member_added list_member_removed list_user_subscribed
+        list_user_subscribed list_user_unsubscribed list_user_unsubscribed
       ].freeze
 
-      TWEET_EVENTS = [
-        :favorite, :unfavorite, :quoted_tweet
+      TWEET_EVENTS = %i[
+        favorite unfavorite quoted_tweet
       ].freeze
 
       attr_reader :name, :source, :target, :target_object

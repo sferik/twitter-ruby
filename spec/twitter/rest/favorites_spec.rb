@@ -1,4 +1,3 @@
-# coding: utf-8
 require 'helper'
 
 describe Twitter::REST::Favorites do
@@ -60,6 +59,14 @@ describe Twitter::REST::Favorites do
       expect(tweets.first).to be_a Twitter::Tweet
       expect(tweets.first.text).to eq('Powerful cartoon by @BillBramhall: http://t.co/IOEbc5QoES')
     end
+    context 'not found' do
+      before do
+        stub_post('/1.1/favorites/destroy.json').with(body: {id: '540897316908331009'}).to_return(status: 404, body: fixture('not_found.json'), headers: {content_type: 'application/json; charset=utf-8'})
+      end
+      it 'does not raise an error' do
+        expect { @client.unfavorite(540_897_316_908_331_009) }.not_to raise_error
+      end
+    end
     context 'with a URI object passed' do
       it 'requests the correct resource' do
         tweet = URI.parse('https://twitter.com/sferik/status/540897316908331009')
@@ -71,6 +78,44 @@ describe Twitter::REST::Favorites do
       it 'requests the correct resource' do
         tweet = Twitter::Tweet.new(id: 540_897_316_908_331_009)
         @client.unfavorite(tweet)
+        expect(a_post('/1.1/favorites/destroy.json').with(body: {id: '540897316908331009'})).to have_been_made
+      end
+    end
+  end
+
+  describe '#unfavorite!' do
+    before do
+      stub_post('/1.1/favorites/destroy.json').with(body: {id: '540897316908331009'}).to_return(body: fixture('status.json'), headers: {content_type: 'application/json; charset=utf-8'})
+    end
+    it 'requests the correct resource' do
+      @client.unfavorite!(540_897_316_908_331_009)
+      expect(a_post('/1.1/favorites/destroy.json').with(body: {id: '540897316908331009'})).to have_been_made
+    end
+    it 'returns an array of un-favorited Tweets' do
+      tweets = @client.unfavorite!(540_897_316_908_331_009)
+      expect(tweets).to be_an Array
+      expect(tweets.first).to be_a Twitter::Tweet
+      expect(tweets.first.text).to eq('Powerful cartoon by @BillBramhall: http://t.co/IOEbc5QoES')
+    end
+    context 'does not exist' do
+      before do
+        stub_post('/1.1/favorites/destroy.json').with(body: {id: '540897316908331009'}).to_return(status: 404, body: fixture('not_found.json'), headers: {content_type: 'application/json; charset=utf-8'})
+      end
+      it 'raises a NotFound error' do
+        expect { @client.unfavorite!(540_897_316_908_331_009) }.to raise_error(Twitter::Error::NotFound)
+      end
+    end
+    context 'with a URI object passed' do
+      it 'requests the correct resource' do
+        tweet = URI.parse('https://twitter.com/sferik/status/540897316908331009')
+        @client.unfavorite!(tweet)
+        expect(a_post('/1.1/favorites/destroy.json').with(body: {id: '540897316908331009'})).to have_been_made
+      end
+    end
+    context 'with a Tweet passed' do
+      it 'requests the correct resource' do
+        tweet = Twitter::Tweet.new(id: 540_897_316_908_331_009)
+        @client.unfavorite!(tweet)
         expect(a_post('/1.1/favorites/destroy.json').with(body: {id: '540897316908331009'})).to have_been_made
       end
     end

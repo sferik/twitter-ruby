@@ -53,7 +53,7 @@ module Twitter
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-      # @raise [Twitter::Error::Forbidden] Error raised when supplied status is over 140 characters.
+      # @raise [Twitter::Error::Forbidden] Error raised when supplied status is over 280 characters.
       # @return [Twitter::Tweet] The requested Tweet.
       # @param tweet [Integer, String, URI, Twitter::Tweet] A Tweet ID, URI, or object.
       # @param options [Hash] A customizable set of options.
@@ -111,7 +111,7 @@ module Twitter
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Twitter::Tweet] The created Tweet. When the tweet is deemed a duplicate by Twitter, returns the last Tweet from the user's timeline.
-      # @param status [String] The text of your status update, up to 140 characters.
+      # @param status [String] The text of your status update, up to 280 characters.
       # @param options [Hash] A customizable set of options.
       # @option options [Boolean, String, Integer] :possibly_sensitive Set to true for content which may not be suitable for every audience.
       # @option options [Twitter::Tweet] :in_reply_to_status An existing status that the update is in reply to. If the status being replied to was not originally posted by the authenticated user, the text of the status must begin with an @-mention, or twitter will reject the update.
@@ -137,7 +137,7 @@ module Twitter
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @raise [Twitter::Error::DuplicateStatus] Error raised when a duplicate status is posted.
       # @return [Twitter::Tweet] The created Tweet.
-      # @param status [String] The text of your status update, up to 140 characters.
+      # @param status [String] The text of your status update, up to 280 characters.
       # @param options [Hash] A customizable set of options.
       # @option options [Boolean, String, Integer] :possibly_sensitive Set to true for content which may not be suitable for every audience.
       # @option options [Twitter::Tweet] :in_reply_to_status An existing status that the update is in reply to. If the status being replied to was not originally posted by the authenticated user, the text of the status must begin with an @-mention, or twitter will reject the update.
@@ -209,7 +209,7 @@ module Twitter
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Twitter::Tweet] The created Tweet.
-      # @param status [String] The text of your status update, up to 140 characters.
+      # @param status [String] The text of your status update, up to 280 characters.
       # @param media [File, Array<File>] An image file or array of image files (PNG, JPEG or GIF).
       # @param options [Hash] A customizable set of options.
       # @option options [Boolean, String, Integer] :possibly_sensitive Set to true for content which may not be suitable for every audience.
@@ -332,7 +332,7 @@ module Twitter
       #
       # @see https://dev.twitter.com/rest/public/uploading-media
       def upload(media) # rubocop:disable MethodLength, AbcSize
-        if !(File.basename(media) =~ /\.mp4$/)
+        if File.basename(media) !~ /\.mp4$/
           Twitter::REST::Request.new(self, :multipart_post, 'https://upload.twitter.com/1.1/media/upload.json', key: :media, file: media).perform
         else
           init = Twitter::REST::Request.new(self, :post, 'https://upload.twitter.com/1.1/media/upload.json',

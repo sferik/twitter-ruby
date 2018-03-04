@@ -1,3 +1,12 @@
+Layout/AccessModifierIndentation:
+  EnforcedStyle: outdent
+
+Layout/SpaceInsideHashLiteralBraces:
+  EnforcedStyle: no_space
+
+Lint/Void:
+  Enabled: false
+
 Metrics/BlockLength:
   Max: 36
   Exclude:
@@ -21,9 +30,6 @@ Metrics/ParameterLists:
   Max: 4
   CountKeywordArgs: true
 
-Style/AccessModifierIndentation:
-  EnforcedStyle: outdent
-
 Style/CollectionMethods:
   Enabled: true
   PreferredMethods:
@@ -44,9 +50,6 @@ Style/FrozenStringLiteralComment:
 
 Style/NumericPredicate:
   Enabled: false
-
-Style/SpaceInsideHashLiteralBraces:
-  EnforcedStyle: no_space
 
 Style/TrailingCommaInLiteral:
   EnforcedStyleForMultiline: 'comma'

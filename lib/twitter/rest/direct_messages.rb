@@ -23,7 +23,6 @@ module Twitter
       # @option options [Integer] :max_id Returns results with an ID less than (that is, older than) or equal to the specified ID.
       # @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 200.
       # @option options [Integer] :page Specifies the page of results to retrieve.
-      # @option options [Boolean] :full_text Returns the full text of a DM when message text is longer than 140 characters.
       def direct_messages_received(options = {})
         perform_get_with_objects('/1.1/direct_messages.json', options, Twitter::DirectMessage)
       end
@@ -41,7 +40,6 @@ module Twitter
       # @option options [Integer] :max_id Returns results with an ID less than (that is, older than) or equal to the specified ID.
       # @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 200.
       # @option options [Integer] :page Specifies the page of results to retrieve.
-      # @option options [Boolean] :full_text Returns the full text of a DM when message text is longer than 140 characters.
       def direct_messages_sent(options = {})
         perform_get_with_objects('/1.1/direct_messages/sent.json', options, Twitter::DirectMessage)
       end
@@ -56,7 +54,6 @@ module Twitter
       # @return [Twitter::DirectMessage] The requested messages.
       # @param id [Integer] A direct message ID.
       # @param options [Hash] A customizable set of options.
-      # @option options [Boolean] :full_text Returns the full text of a DM when message text is longer than 140 characters.
       def direct_message(id, options = {})
         options = options.dup
         options[:id] = id
