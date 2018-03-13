@@ -85,13 +85,13 @@ describe Twitter::Streaming::Connection do
 
     let(:method) { :get }
     let(:uri)    { 'https://stream.twitter.com:443/1.1/statuses/sample.json' }
-    let(:client) {  TCPSocket.new('127.0.0.1', 11443) }
+    let(:client) {  TCPSocket.new('127.0.0.1', 8443) }
 
     let(:request) { HTTP::Request.new(verb: method, uri: uri) }
     let(:response) { DummyResponse.new {} }
 
     before do
-      @server = TCPServer.new('127.0.0.1', 11443)
+      @server = TCPServer.new('127.0.0.1', 8443)
     end
 
     after do
