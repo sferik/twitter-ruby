@@ -35,7 +35,7 @@ module Twitter
         consumer_key: consumer_key,
         consumer_secret: consumer_secret,
         token: access_token,
-        token_secret: access_token_secret,
+        token_secret: access_token_secret
       }
     end
 

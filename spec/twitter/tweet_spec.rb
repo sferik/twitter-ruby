@@ -58,8 +58,8 @@ describe Twitter::Tweet do
           url: 'https://t.co/L2xIBazMPf',
           expanded_url: 'http://example.com/expanded',
           display_url: 'example.com/expanded...',
-          indices: [10, 33],
-        },
+          indices: [10, 33]
+        }
       ]
       tweet = Twitter::Tweet.new(id: 28_669_546_014, entities: {urls: urls_array})
       expect(tweet.entities?).to be true
@@ -135,7 +135,7 @@ describe Twitter::Tweet do
       let(:hashtags_array) do
         [{
           text: 'twitter',
-          indices: [10, 33],
+          indices: [10, 33]
         }]
       end
       let(:subject) do
@@ -330,7 +330,7 @@ describe Twitter::Tweet do
     it 'returns an array of Entity::Symbol when symbols are set' do
       symbols_array = [
         {text: 'PEP', indices: [114, 118]},
-        {text: 'COKE', indices: [128, 133]},
+        {text: 'COKE', indices: [128, 133]}
       ]
       symbols = Twitter::Tweet.new(id: 28_669_546_014, entities: {symbols: symbols_array}).symbols
       expect(symbols).to be_an Array
@@ -364,8 +364,8 @@ describe Twitter::Tweet do
           url: 'https://t.co/L2xIBazMPf',
           expanded_url: 'http://example.com/expanded',
           display_url: 'example.com/expanded...',
-          indices: [10, 33],
-        },
+          indices: [10, 33]
+        }
       ]
       tweet = Twitter::Tweet.new(id: 28_669_546_014, entities: {urls: urls_array})
       expect(tweet.uris).to be_an Array
@@ -384,8 +384,8 @@ describe Twitter::Tweet do
           url: 'https://t.co/L2xIBazMPf',
           expanded_url: 'http://with_underscore.example.com/expanded',
           display_url: 'with_underscore.example.com/expanded...',
-          indices: [10, 33],
-        },
+          indices: [10, 33]
+        }
       ]
       tweet = Twitter::Tweet.new(id: 28_669_546_014, entities: {urls: urls_array})
       uri = tweet.uris.first
@@ -450,8 +450,8 @@ describe Twitter::Tweet do
           name: 'Erik Michaels-Ober',
           id_str: '7_505_382',
           indices: [0, 6],
-          id: 7_505_382,
-        },
+          id: 7_505_382
+        }
       ]
       user_mentions = Twitter::Tweet.new(id: 28_669_546_014, entities: {user_mentions: user_mentions_array}).user_mentions
       expect(user_mentions).to be_an Array
