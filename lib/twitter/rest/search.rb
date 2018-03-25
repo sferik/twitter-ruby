@@ -26,10 +26,10 @@ module Twitter
       # @option options [Integer] :max_id Returns results with an ID less than (that is, older than) or equal to the specified ID.
       # @option options [Boolean] :include_entities The entities node will be disincluded when set to false.
       # @return [Twitter::SearchResults] Return tweets that match a specified query with search metadata
-      def search(q, options = {})
+      def search(query, options = {})
         options = options.dup
         options[:count] ||= MAX_TWEETS_PER_REQUEST
-        request = Twitter::REST::Request.new(self, :get, '/1.1/search/tweets.json', options.merge(q: q))
+        request = Twitter::REST::Request.new(self, :get, '/1.1/search/tweets.json', options.merge(q: query))
         Twitter::SearchResults.new(request)
       end
     end
