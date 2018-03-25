@@ -35,7 +35,7 @@ module Twitter
         consumer_key: consumer_key,
         consumer_secret: consumer_secret,
         token: access_token,
-        token_secret: access_token_secret,
+        token_secret: access_token_secret
       }
     end
 
@@ -46,8 +46,8 @@ module Twitter
 
   private
 
-    def blank?(s)
-      s.respond_to?(:empty?) ? s.empty? : !s
+    def blank?(str)
+      str.respond_to?(:empty?) ? str.empty? : !str
     end
   end
 end

@@ -1,3 +1,6 @@
+Gemspec/RequiredRubyVersion:
+  Enabled: false
+
 Layout/AccessModifierIndentation:
   EnforcedStyle: outdent
 
@@ -50,6 +53,3 @@ Style/FrozenStringLiteralComment:
 
 Style/NumericPredicate:
   Enabled: false
-
-Style/TrailingCommaInLiteral:
-  EnforcedStyleForMultiline: 'comma'
