@@ -29,6 +29,15 @@ module Twitter
     predicate_attr_reader :favorited, :possibly_sensitive, :retweeted,
                           :truncated
 
+    # Initializes a new object
+    #
+    # @param attrs [Hash]
+    # @return [Twitter::Tweet]
+    def initialize(attrs = {})
+      attrs[:text] = attrs[:full_text] if attrs[:text].nil? && !attrs[:full_text].nil?
+      super
+    end
+
     # @note May be > 280 characters.
     # @return [String]
     def full_text
