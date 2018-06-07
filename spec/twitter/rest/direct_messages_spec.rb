@@ -3,21 +3,22 @@ require 'helper'
 describe Twitter::REST::DirectMessages do
   before do
     @client = Twitter::REST::Client.new(consumer_key: 'CK', consumer_secret: 'CS', access_token: 'AT', access_token_secret: 'AS')
+    allow(@client).to receive(:user_id).and_return(22095868)
   end
 
   describe '#direct_messages_received' do
     before do
-      stub_get('/1.1/direct_messages.json').to_return(body: fixture('direct_messages.json'), headers: {content_type: 'application/json; charset=utf-8'})
+      stub_get('/1.1/direct_messages/events/list.json').to_return(body: fixture('events.json'), headers: {content_type: 'application/json; charset=utf-8'})
     end
     it 'requests the correct resource' do
       @client.direct_messages_received
-      expect(a_get('/1.1/direct_messages.json')).to have_been_made
+      expect(a_get('/1.1/direct_messages/events/list.json')).to have_been_made
     end
     it 'returns the 20 most recent direct messages sent to the authenticating user' do
       direct_messages = @client.direct_messages_received
       expect(direct_messages).to be_an Array
       expect(direct_messages.first).to be_a Twitter::DirectMessage
-      expect(direct_messages.first.sender.id).to eq(7_505_382)
+      expect(direct_messages.first.sender.id).to eq(358_486_183)
     end
   end
 
@@ -94,17 +95,17 @@ describe Twitter::REST::DirectMessages do
     end
     context 'without ids passed' do
       before do
-        stub_get('/1.1/direct_messages.json').to_return(body: fixture('direct_messages.json'), headers: {content_type: 'application/json; charset=utf-8'})
+        stub_get('/1.1/direct_messages/events/list.json').to_return(body: fixture('events.json'), headers: {content_type: 'application/json; charset=utf-8'})
       end
       it 'requests the correct resource' do
         @client.direct_messages
-        expect(a_get('/1.1/direct_messages.json')).to have_been_made
+        expect(a_get('/1.1/direct_messages/events/list.json')).to have_been_made
       end
       it 'returns the 20 most recent direct messages sent to the authenticating user' do
         direct_messages = @client.direct_messages
         expect(direct_messages).to be_an Array
         expect(direct_messages.first).to be_a Twitter::DirectMessage
-        expect(direct_messages.first.sender.id).to eq(7_505_382)
+        expect(direct_messages.first.sender.id).to eq(358_486_183)
       end
     end
   end

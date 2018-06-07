@@ -42,6 +42,10 @@ module Twitter
         perform_get_with_cursor('/1.1/direct_messages/events/list.json', options.merge!(no_default_cursor: true), :events, Twitter::DirectMessageEvent)
       end
 
+      def direct_messages_received(options = {})
+        direct_messages_events(options).collection.map(&:direct_message).select{|dm| dm.recipient_id == user_id}
+      end
+
       # Returns the 20 most recent direct messages sent by the authenticating user
       #
       # @see https://dev.twitter.com/rest/reference/get/direct_messages/sent

@@ -7,7 +7,7 @@ module Twitter
     include Twitter::Enumerable
     include Twitter::Utils
     # @return [Hash]
-    attr_reader :attrs
+    attr_reader :attrs, :collection
     alias to_h attrs
     alias to_hash to_h
 
