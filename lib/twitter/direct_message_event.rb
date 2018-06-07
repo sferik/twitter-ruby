@@ -12,6 +12,7 @@ module Twitter
     object_attr_reader :DirectMessage, :direct_message
 
     def initialize(attrs)
+      attrs = read_from_response(attrs)
       text = attrs[:message_create][:message_data][:text]
       urls = attrs[:message_create][:message_data][:entities][:urls]
 
@@ -22,6 +23,9 @@ module Twitter
     end
 
   private
+    def read_from_response(attrs)
+      attrs[:event].nil? ? attrs : attrs[:event]
+    end
 
     def build_direct_message(attrs, text)
       recipient_id = attrs[:message_create][:target][:recipient_id].to_i

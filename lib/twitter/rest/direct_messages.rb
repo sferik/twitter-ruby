@@ -73,10 +73,15 @@ module Twitter
       # @return [Twitter::DirectMessage] The requested messages.
       # @param id [Integer] A direct message ID.
       # @param options [Hash] A customizable set of options.
-      def direct_message(id, options = {})
+
+      def direct_message_event(id, options = {})
         options = options.dup
         options[:id] = id
-        perform_get_with_object('/1.1/direct_messages/show.json', options, Twitter::DirectMessage)
+        perform_get_with_object('/1.1/direct_messages/events/show.json', options, Twitter::DirectMessageEvent)
+      end
+
+      def direct_message(id, options = {})
+        direct_message_event(id, options).direct_message
       end
 
       # @note This method requires an access token with RWD (read, write & direct message) permissions. Consult The Application Permission Model for more information.
