@@ -60,7 +60,7 @@ module Twitter
       # @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 200.
       # @option options [Integer] :page Specifies the page of results to retrieve.
       def direct_messages_sent(options = {})
-        perform_get_with_objects('/1.1/direct_messages/sent.json', options, Twitter::DirectMessage)
+        direct_messages_events(options).collection.map(&:direct_message).select{|dm| dm.sender_id == user_id}
       end
 
       # Returns a direct message

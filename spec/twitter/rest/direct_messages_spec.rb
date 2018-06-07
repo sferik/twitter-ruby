@@ -48,17 +48,17 @@ describe Twitter::REST::DirectMessages do
   end
   describe '#direct_messages_sent' do
     before do
-      stub_get('/1.1/direct_messages/sent.json').to_return(body: fixture('direct_messages.json'), headers: {content_type: 'application/json; charset=utf-8'})
+      stub_get('/1.1/direct_messages/events/list.json').to_return(body: fixture('events.json'), headers: {content_type: 'application/json; charset=utf-8'})
     end
     it 'requests the correct resource' do
       @client.direct_messages_sent
-      expect(a_get('/1.1/direct_messages/sent.json')).to have_been_made
+      expect(a_get('/1.1/direct_messages/events/list.json')).to have_been_made
     end
     it 'returns the 20 most recent direct messages sent by the authenticating user' do
       direct_messages = @client.direct_messages_sent
       expect(direct_messages).to be_an Array
       expect(direct_messages.first).to be_a Twitter::DirectMessage
-      expect(direct_messages.first.sender.id).to eq(7_505_382)
+      expect(direct_messages.first.sender.id).to eq(22_095_868)
     end
   end
 
