@@ -156,6 +156,17 @@ module Twitter
         end
       end
 
+      # @param request_method [Symbol]
+      # @param path [String]
+      # @param ids [Array]
+      # @return nil
+      def perform_requests(request_method, path, ids)
+        ids.each do |id|
+          perform_request(request_method, path, {id: id})
+        end
+        nil
+      end
+
       # @param collection_name [Symbol]
       # @param klass [Class]
       # @param path [String]

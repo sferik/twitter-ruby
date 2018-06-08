@@ -122,19 +122,16 @@ module Twitter
 
       # Destroys direct messages
       #
-      # @see https://dev.twitter.com/rest/reference/post/direct_messages/destroy
+      # @see https://developer.twitter.com/en/docs/direct-messages/sending-and-receiving/api-reference/delete-message-event
       # @note This method requires an access token with RWD (read, write & direct message) permissions. Consult The Application Permission Model for more information.
-      # @rate_limited No
+      # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-      # @return [Array<Twitter::DirectMessage>] Deleted direct message.
+      # @return [nil] Response body from Twitter is nil if successful
       # @overload destroy_direct_message(*ids)
       #   @param ids [Enumerable<Integer>] A collection of direct message IDs.
-      # @overload destroy_direct_message(*ids, options)
-      #   @param ids [Enumerable<Integer>] A collection of direct message IDs.
-      #   @param options [Hash] A customizable set of options.
-      def destroy_direct_message(*args)
-        parallel_objects_from_response(Twitter::DirectMessage, :post, '/1.1/direct_messages/destroy.json', args)
+      def destroy_direct_message(*ids)
+        perform_requests(:delete, '/1.1/direct_messages/events/destroy.json', ids)
       end
 
       # Sends a new direct message to the specified user from the authenticating user

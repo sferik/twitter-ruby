@@ -112,17 +112,15 @@ describe Twitter::REST::DirectMessages do
 
   describe '#destroy_direct_message' do
     before do
-      stub_post('/1.1/direct_messages/destroy.json').with(body: {id: '1825785544'}).to_return(body: fixture('direct_message.json'), headers: {content_type: 'application/json; charset=utf-8'})
+      stub_delete('/1.1/direct_messages/events/destroy.json?id=1825785544').to_return(status: 204, body: "", headers: {content_type: 'application/json; charset=utf-8'})
     end
     it 'requests the correct resource' do
       @client.destroy_direct_message(1_825_785_544)
-      expect(a_post('/1.1/direct_messages/destroy.json').with(body: {id: '1825785544'})).to have_been_made
+      expect(a_delete('/1.1/direct_messages/events/destroy.json?id=1825785544')).to have_been_made
     end
-    it 'returns an array of deleted messages' do
-      direct_messages = @client.destroy_direct_message(1_825_785_544)
-      expect(direct_messages).to be_an Array
-      expect(direct_messages.first).to be_a Twitter::DirectMessage
-      expect(direct_messages.first.sender.id).to eq(14_471_007)
+    it 'returns nil' do
+      response = @client.destroy_direct_message(1_825_785_544)
+      expect(response).to be_nil
     end
   end
 
