@@ -28,12 +28,12 @@ module Twitter
         set_multipart_options!(request_method, options)
         @path = uri.path
         @options = options
+        @options_key = {get: :params, json_post: :json}[request_method] || :form
       end
 
       # @return [Array, Hash]
       def perform
-        options_key = @request_method == :get ? :params : :form
-        response = http_client.headers(@headers).public_send(@request_method, @uri.to_s, options_key => @options)
+        response = http_client.headers(@headers).public_send(@request_method, @uri.to_s, @options_key => @options)
         response_body = response.body.empty? ? '' : symbolize_keys!(response.parse)
         response_headers = response.headers
         fail_or_return_response_body(response.code, response_body, response_headers)
@@ -53,8 +53,8 @@ module Twitter
       end
 
       def set_multipart_options!(request_method, options)
-        if request_method == :multipart_post
-          merge_multipart_file!(options)
+        if %i[multipart_post json_post].include?(request_method)
+          merge_multipart_file!(options) if request_method == :multipart_post
           @request_method = :post
           @headers = Twitter::Headers.new(@client, @request_method, @uri).request_headers
         else

@@ -146,4 +146,19 @@ describe Twitter::REST::DirectMessages do
       end
     end
   end
+
+  describe '#create_direct_message_event' do
+    before do
+      stub_post('/1.1/direct_messages/events/new.json').with(body: {event: {type: 'message_create', message_create: {target: {recipient_id: 58_983}, message_data: {text: 'testing'}}}}).to_return(body: fixture('direct_message_event.json'), headers: {content_type: 'application/json; charset=utf-8'})
+    end
+    it 'requests the correct resource' do
+      @client.create_direct_message_event(58_983, 'testing')
+      expect(a_post('/1.1/direct_messages/events/new.json').with(body: {event: {type: 'message_create', message_create: {target: {recipient_id: 58_983}, message_data: {text: 'testing'}}}})).to have_been_made
+    end
+    it 'returns the sent message' do
+      direct_message_event = @client.create_direct_message_event(58_983, 'testing')
+      expect(direct_message_event).to be_a Twitter::DirectMessageEvent
+      expect(direct_message_event.direct_message.text).to eq('testing')
+    end
+  end
 end
