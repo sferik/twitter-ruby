@@ -102,7 +102,12 @@ module Twitter
       # @param collection_name [Symbol]
       # @param klass [Class]
       def perform_get_with_cursor(path, options, collection_name, klass = nil)
-        merge_default_cursor!(options)
+        if options[:no_default_cursor]
+          options.delete(:no_default_cursor)
+        else
+          merge_default_cursor!(options)
+        end
+
         request = Twitter::REST::Request.new(self, :get, path, options)
         Twitter::Cursor.new(collection_name.to_sym, klass, request)
       end
