@@ -125,24 +125,33 @@ describe Twitter::REST::DirectMessages do
   end
 
   describe '#create_direct_message' do
+    let(:json_options) {
+      {
+        "event": {
+          "type": "message_create",
+          "message_create": {
+            "target": {
+              "recipient_id": '7505382'
+            },
+            "message_data": {
+              "text": "My #newride from @PUBLICBikes. Don't you want one? https://t.co/7HIwCl68Y8 https://t.co/JSSxDPr4Sf"
+            }
+          }
+        }
+      }
+    }
     before do
-      stub_post('/1.1/direct_messages/new.json').with(body: {screen_name: 'pengwynn', text: "My #newride from @PUBLICBikes. Don't you want one? https://t.co/7HIwCl68Y8 https://t.co/JSSxDPr4Sf"}).to_return(body: fixture('direct_message.json'), headers: {content_type: 'application/json; charset=utf-8'})
+      stub_post('/1.1/direct_messages/events/new.json').to_return(body: fixture('direct_message_event.json'), headers: {content_type: 'application/json; charset=utf-8'})
     end
     it 'requests the correct resource' do
-      @client.create_direct_message('pengwynn', "My #newride from @PUBLICBikes. Don't you want one? https://t.co/7HIwCl68Y8 https://t.co/JSSxDPr4Sf")
-      expect(a_post('/1.1/direct_messages/new.json').with(body: {screen_name: 'pengwynn', text: "My #newride from @PUBLICBikes. Don't you want one? https://t.co/7HIwCl68Y8 https://t.co/JSSxDPr4Sf"})).to have_been_made
+      @client.create_direct_message('7505382', "My #newride from @PUBLICBikes. Don't you want one? https://t.co/7HIwCl68Y8 https://t.co/JSSxDPr4Sf")
+      expect(a_post('/1.1/direct_messages/events/new.json').with(body: json_options)).to have_been_made
     end
     it 'returns the sent message' do
-      direct_message = @client.create_direct_message('pengwynn', "My #newride from @PUBLICBikes. Don't you want one? https://t.co/7HIwCl68Y8 https://t.co/JSSxDPr4Sf")
+      direct_message = @client.create_direct_message('7505382', "My #newride from @PUBLICBikes. Don't you want one? https://t.co/7HIwCl68Y8 https://t.co/JSSxDPr4Sf")
       expect(direct_message).to be_a Twitter::DirectMessage
-      expect(direct_message.text).to eq("My #newride from @PUBLICBikes. Don't you want one? https://t.co/7HIwCl68Y8 https://t.co/JSSxDPr4Sf")
-    end
-    context 'with a URI object passed' do
-      it 'requests the correct resource' do
-        user = URI.parse('https://twitter.com/pengwynn')
-        @client.create_direct_message(user, "My #newride from @PUBLICBikes. Don't you want one? https://t.co/7HIwCl68Y8 https://t.co/JSSxDPr4Sf")
-        expect(a_post('/1.1/direct_messages/new.json').with(body: {screen_name: 'pengwynn', text: "My #newride from @PUBLICBikes. Don't you want one? https://t.co/7HIwCl68Y8 https://t.co/JSSxDPr4Sf"})).to have_been_made
-      end
+      expect(direct_message.text).to eq("testing")
+      expect(direct_message.recipient_id).to eq(58983)
     end
   end
 
