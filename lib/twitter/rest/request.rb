@@ -46,9 +46,9 @@ module Twitter
         file = options.delete(:file)
 
         options[key] = if file.is_a?(StringIO)
-                         HTTP::FormData::File.new(file, mime_type: 'video/mp4')
+                         HTTP::FormData::File.new(file, content_type: 'video/mp4')
                        else
-                         HTTP::FormData::File.new(file, filename: File.basename(file), mime_type: mime_type(File.basename(file)))
+                         HTTP::FormData::File.new(file, filename: File.basename(file), content_type: content_type(File.basename(file)))
                        end
       end
 
@@ -63,7 +63,7 @@ module Twitter
         end
       end
 
-      def mime_type(basename)
+      def content_type(basename)
         case basename
         when /\.gif$/i
           'image/gif'
