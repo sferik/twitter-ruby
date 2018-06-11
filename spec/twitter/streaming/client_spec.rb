@@ -5,7 +5,7 @@ class FakeConnection
     @body = body
   end
 
-  def stream(_, response)
+  def stream(_request, response)
     @body.each_line do |line|
       response.on_body(line)
     end

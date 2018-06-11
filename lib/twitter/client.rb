@@ -46,8 +46,8 @@ module Twitter
 
   private
 
-    def blank?(s)
-      s.respond_to?(:empty?) ? s.empty? : !s
+    def blank?(string)
+      string.respond_to?(:empty?) ? string.empty? : !string
     end
   end
 end

@@ -1,3 +1,6 @@
+Gemspec/RequiredRubyVersion:
+  Enabled: false
+
 Layout/AccessModifierIndentation:
   EnforcedStyle: outdent
 
