@@ -422,6 +422,22 @@ describe Twitter::REST::Tweets do
         expect(tweet).to be_a Twitter::Tweet
         expect(tweet.text).to eq('Powerful cartoon by @BillBramhall: http://t.co/IOEbc5QoES')
       end
+      context 'which size is bigger than 5 megabytes' do
+        let(:big_gif) { fixture('pbjt.gif') }
+        before do
+          expect(File).to receive(:size).with(big_gif).and_return(7_000_000)
+        end
+        it 'requests the correct resource' do
+          @client.update_with_media('Powerful cartoon by @BillBramhall: http://t.co/IOEbc5QoES', big_gif)
+          expect(a_request(:post, 'https://upload.twitter.com/1.1/media/upload.json')).to have_been_made.times(3)
+          expect(a_post('/1.1/statuses/update.json')).to have_been_made
+        end
+        it 'returns a Tweet' do
+          tweet = @client.update_with_media('Powerful cartoon by @BillBramhall: http://t.co/IOEbc5QoES', big_gif)
+          expect(tweet).to be_a Twitter::Tweet
+          expect(tweet.text).to eq('Powerful cartoon by @BillBramhall: http://t.co/IOEbc5QoES')
+        end
+      end
     end
     context 'with a jpe image' do
       it 'requests the correct resource' do
