@@ -31,7 +31,7 @@ module Twitter
       recipient_id = attrs[:message_create][:target][:recipient_id].to_i
       sender_id = attrs[:message_create][:sender_id].to_i
       {id: attrs[:id].to_i,
-       created_at: Time.at(attrs[:created_timestamp].to_i / 1000.0),
+       created_at: Time.at(attrs[:created_timestamp].to_i / 1000.0).to_s,
        sender: {id: sender_id},
        sender_id: sender_id,
        recipient: {id: recipient_id},
