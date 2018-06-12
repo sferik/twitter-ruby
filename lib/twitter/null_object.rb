@@ -48,5 +48,17 @@ module Twitter
     def to_json(*args)
       nil.to_json(*args)
     end
+
+    def presence
+      nil
+    end
+
+    def blank?
+      true
+    end
+
+    def present?
+      false
+    end
   end
 end
