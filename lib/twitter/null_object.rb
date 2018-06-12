@@ -1,7 +1,7 @@
 require 'naught'
 
 module Twitter
-  NullObject = Naught.build do |config|
+  NullObject = Naught.build do |config| # rubocop:disable Metrics/BlockLength
     include Comparable
 
     config.black_hole
