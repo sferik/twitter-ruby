@@ -77,4 +77,41 @@ describe Twitter::Streaming::Connection do
       end
     end
   end
+
+  describe 'stream' do
+    subject(:connection) do
+      Twitter::Streaming::Connection.new(tcp_socket_class: DummyTCPSocket, ssl_socket_class: DummySSLSocket)
+    end
+
+    let(:method) { :get }
+    let(:uri)    { 'https://stream.twitter.com:443/1.1/statuses/sample.json' }
+    let(:client) {  TCPSocket.new('127.0.0.1', 8443) }
+
+    let(:request) { HTTP::Request.new(verb: method, uri: uri) }
+    let(:response) { DummyResponse.new {} }
+
+    before do
+      @server = TCPServer.new('127.0.0.1', 8443)
+    end
+
+    after do
+      @server.close
+    end
+
+    it 'close stream' do
+      expect(connection).to receive(:connect).with(request).and_return(client)
+      expect(request).to receive(:stream).with(client)
+
+      stream_closed = false
+      t = Thread.start do
+        connection.stream(request, response)
+        stream_closed = true
+      end
+      expect(stream_closed).to be false
+      sleep 1
+      connection.close
+      t.join
+      expect(stream_closed).to be true
+    end
+  end
 end
