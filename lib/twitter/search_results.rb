@@ -9,7 +9,7 @@ module Twitter
     include Twitter::Enumerable
     include Twitter::Utils
     # @return [Hash]
-    attr_reader :attrs
+    attr_reader :attrs, :rate_limit
     alias to_h attrs
     alias to_hash to_h
 
@@ -48,8 +48,9 @@ module Twitter
 
     # @return [Hash]
     def fetch_next_page
-      response = Twitter::REST::Request.new(@client, @request_method, @path, @options.merge(next_page)).perform
-      self.attrs = response
+      response = Twitter::REST::Request.new(@client, @request_method, @path, @options.merge(next_page))
+      self.attrs = response.perform
+      @rate_limit = response.rate_limit
     end
 
     # @param attrs [Hash]
