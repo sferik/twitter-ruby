@@ -14,7 +14,7 @@ describe Twitter::SearchResults do
     end
     it 'iterates' do
       count = 0
-      search_results= @client.search('#freebandnames')
+      search_results = @client.search('#freebandnames')
       search_results.each { count += 1 }
       expect(count).to eq(6)
       expect(search_results.rate_limit).to be_a(Twitter::RateLimit)
