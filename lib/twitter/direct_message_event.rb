@@ -13,8 +13,8 @@ module Twitter
 
     def initialize(attrs)
       attrs = read_from_response(attrs)
-      text = attrs[:message_create][:message_data][:text]
-      urls = attrs[:message_create][:message_data][:entities][:urls]
+      text = attrs.dig(:message_create, :message_data, :text)
+      urls = attrs.dig(:message_create, :message_data, :entities, :urls)
 
       text.gsub!(urls[0][:url], urls[0][:expanded_url]) if urls.any?
 
@@ -23,6 +23,7 @@ module Twitter
     end
 
   private
+
     def read_from_response(attrs)
       attrs[:event].nil? ? attrs : attrs[:event]
     end

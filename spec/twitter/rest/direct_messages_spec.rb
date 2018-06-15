@@ -3,7 +3,7 @@ require 'helper'
 describe Twitter::REST::DirectMessages do
   before do
     @client = Twitter::REST::Client.new(consumer_key: 'CK', consumer_secret: 'CS', access_token: 'AT', access_token_secret: 'AS')
-    allow(@client).to receive(:user_id).and_return(22095868)
+    allow(@client).to receive(:user_id).and_return(22_095_868)
   end
 
   describe '#direct_messages_received' do
@@ -112,7 +112,7 @@ describe Twitter::REST::DirectMessages do
 
   describe '#destroy_direct_message' do
     before do
-      stub_delete('/1.1/direct_messages/events/destroy.json?id=1825785544').to_return(status: 204, body: "", headers: {content_type: 'application/json; charset=utf-8'})
+      stub_delete('/1.1/direct_messages/events/destroy.json?id=1825785544').to_return(status: 204, body: '', headers: {content_type: 'application/json; charset=utf-8'})
     end
     it 'requests the correct resource' do
       @client.destroy_direct_message(1_825_785_544)
@@ -125,21 +125,17 @@ describe Twitter::REST::DirectMessages do
   end
 
   describe '#create_direct_message' do
-    let(:json_options) {
+    let(:json_options) do
       {
-        "event": {
-          "type": "message_create",
-          "message_create": {
-            "target": {
-              "recipient_id": '7505382'
-            },
-            "message_data": {
-              "text": "My #newride from @PUBLICBikes. Don't you want one? https://t.co/7HIwCl68Y8 https://t.co/JSSxDPr4Sf"
-            }
-          }
-        }
+        'event': {
+          'type': 'message_create',
+          'message_create': {
+            'target': {'recipient_id': '7505382'},
+            'message_data': {'text': "My #newride from @PUBLICBikes. Don't you want one? https://t.co/7HIwCl68Y8 https://t.co/JSSxDPr4Sf"},
+          },
+        },
       }
-    }
+    end
     before do
       stub_post('/1.1/direct_messages/events/new.json').to_return(body: fixture('direct_message_event.json'), headers: {content_type: 'application/json; charset=utf-8'})
     end
@@ -150,8 +146,8 @@ describe Twitter::REST::DirectMessages do
     it 'returns the sent message' do
       direct_message = @client.create_direct_message('7505382', "My #newride from @PUBLICBikes. Don't you want one? https://t.co/7HIwCl68Y8 https://t.co/JSSxDPr4Sf")
       expect(direct_message).to be_a Twitter::DirectMessage
-      expect(direct_message.text).to eq("testing")
-      expect(direct_message.recipient_id).to eq(58983)
+      expect(direct_message.text).to eq('testing')
+      expect(direct_message.recipient_id).to eq(58_983)
     end
   end
 

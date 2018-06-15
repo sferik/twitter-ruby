@@ -101,7 +101,8 @@ module Twitter
       # @param options [Hash]
       # @param collection_name [Symbol]
       # @param klass [Class]
-      def perform_get_with_cursor(path:, options:, collection_name:, klass: nil, limit: nil)
+      def perform_get_with_cursor(path, options, collection_name, klass = nil)
+        limit = options.delete(:limit)
         if options[:no_default_cursor]
           options.delete(:no_default_cursor)
         else
@@ -162,7 +163,7 @@ module Twitter
       # @return nil
       def perform_requests(request_method, path, ids)
         ids.each do |id|
-          perform_request(request_method, path, {id: id})
+          perform_request(request_method, path, id: id)
         end
         nil
       end
@@ -175,7 +176,7 @@ module Twitter
       def cursor_from_response_with_user(collection_name, klass, path, args)
         arguments = Twitter::Arguments.new(args)
         merge_user!(arguments.options, arguments.pop || user_id) unless arguments.options[:user_id] || arguments.options[:screen_name]
-        perform_get_with_cursor(path: path, options: arguments.options, collection_name: collection_name, klass: klass)
+        perform_get_with_cursor(path, arguments.options, collection_name, klass)
       end
 
       def user_id
