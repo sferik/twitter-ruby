@@ -22,7 +22,8 @@ module Twitter
       # @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 50. Default is 20
       # @option options [String] :cursor Specifies the cursor position of results to retrieve.
       def direct_messages_events(options = {})
-        perform_get_with_cursor('/1.1/direct_messages/events/list.json', options.merge!(no_default_cursor: true), :events, Twitter::DirectMessageEvent)
+        limit = options.fetch(:count, 20)
+        perform_get_with_cursor(path: '/1.1/direct_messages/events/list.json', options: options.merge!(no_default_cursor: true, count: 50), collection_name: :events, klass: Twitter::DirectMessageEvent, limit: limit)
       end
 
       # Returns all Direct Messages for the authenticated user (both sent and received) within the last 30 days. Sorted in reverse-chronological order.
@@ -36,7 +37,7 @@ module Twitter
       # @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 50. Default is 20
       # @option options [String] :cursor Specifies the cursor position of results to retrieve.
       def direct_messages_list(options = {})
-        direct_messages_events(options).collection.map(&:direct_message)
+        direct_messages_events(options).map(&:direct_message)
       end
 
       # Returns Direct Messages received by the authenticated user within the last 30 days. Sorted in reverse-chronological order.
@@ -52,7 +53,7 @@ module Twitter
       # @option options [String] :cursor Specifies the cursor position of results to retrieve.
 
       def direct_messages_received(options = {})
-        direct_messages_list(options).select{|dm| dm.recipient_id == user_id}
+        direct_messages_list(options).select{|dm| dm.recipient_id == user_id}.first(options[:count])
       end
 
       # Returns Direct Messages sent by the authenticated user within the last 30 days. Sorted in reverse-chronological order.
@@ -67,7 +68,7 @@ module Twitter
       # this count does not directly correspond to the output, as we pull sent and received messages from twitter and only present received to the user
       # @option options [String] :cursor Specifies the cursor position of results to retrieve.
       def direct_messages_sent(options = {})
-        direct_messages_events(options).collection.map(&:direct_message).select{|dm| dm.sender_id == user_id}
+        direct_messages_list(options).select{|dm| dm.sender_id == user_id}.first(options[:count])
       end
 
       # Returns a direct message

@@ -123,7 +123,7 @@ module Twitter
       # @param options [Hash] A customizable set of options.
       # @option options [Boolean, String, Integer] :skip_status Do not include user's Tweets when set to true, 't' or 1.
       def blocked(options = {})
-        perform_get_with_cursor('/1.1/blocks/list.json', options, :users, Twitter::User)
+        perform_get_with_cursor(path: '/1.1/blocks/list.json', options: options, collection_name: :users, klass: Twitter::User)
       end
 
       # Returns an array of numeric user IDs the authenticating user is blocking
@@ -138,7 +138,7 @@ module Twitter
       def blocked_ids(*args)
         arguments = Twitter::Arguments.new(args)
         merge_user!(arguments.options, arguments.pop)
-        perform_get_with_cursor('/1.1/blocks/ids.json', arguments.options, :ids)
+        perform_get_with_cursor(path: '/1.1/blocks/ids.json', options: arguments.options, collection_name: :ids)
       end
 
       # Returns true if the authenticating user is blocking a target user
@@ -400,7 +400,7 @@ module Twitter
       # @param options [Hash] A customizable set of options.
       # @option options [Boolean, String, Integer] :skip_status Do not include user's Tweets when set to true, 't' or 1.
       def muted(options = {})
-        perform_get_with_cursor('/1.1/mutes/users/list.json', options, :users, Twitter::User)
+        perform_get_with_cursor(path: '/1.1/mutes/users/list.json', options: options, collection_name: :users, klass: Twitter::User)
       end
 
       # Returns an array of numeric user IDs the authenticating user is muting
@@ -415,7 +415,7 @@ module Twitter
       def muted_ids(*args)
         arguments = Twitter::Arguments.new(args)
         merge_user!(arguments.options, arguments.pop)
-        perform_get_with_cursor('/1.1/mutes/users/ids.json', arguments.options, :ids)
+        perform_get_with_cursor(path: '/1.1/mutes/users/ids.json', options: arguments.options, collection_name: :ids)
       end
 
     private

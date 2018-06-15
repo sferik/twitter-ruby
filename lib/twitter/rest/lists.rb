@@ -420,7 +420,7 @@ module Twitter
         arguments = Twitter::Arguments.new(args)
         merge_list!(arguments.options, arguments.pop)
         merge_owner!(arguments.options, arguments.pop)
-        perform_get_with_cursor(path, arguments.options, :users, Twitter::User)
+        perform_get_with_cursor(path: path, options: arguments.options, collection_name: :users, klass: Twitter::User)
       end
 
       def list_user?(request_method, path, args)

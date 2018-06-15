@@ -8,11 +8,11 @@ describe Twitter::REST::DirectMessages do
 
   describe '#direct_messages_received' do
     before do
-      stub_get('/1.1/direct_messages/events/list.json').to_return(body: fixture('events.json'), headers: {content_type: 'application/json; charset=utf-8'})
+      stub_get('/1.1/direct_messages/events/list.json?count=50').to_return(body: fixture('events.json'), headers: {content_type: 'application/json; charset=utf-8'})
     end
     it 'requests the correct resource' do
       @client.direct_messages_received
-      expect(a_get('/1.1/direct_messages/events/list.json')).to have_been_made
+      expect(a_get('/1.1/direct_messages/events/list.json?count=50')).to have_been_made
     end
     it 'returns the 20 most recent direct messages sent to the authenticating user' do
       direct_messages = @client.direct_messages_received
@@ -24,12 +24,12 @@ describe Twitter::REST::DirectMessages do
 
   describe '#direct_messages_events' do
     before do
-      stub_get('/1.1/direct_messages/events/list.json').to_return(body: fixture('events.json'), headers: {content_type: 'application/json; charset=utf-8'})
+      stub_get('/1.1/direct_messages/events/list.json?count=50').to_return(body: fixture('events.json'), headers: {content_type: 'application/json; charset=utf-8'})
     end
 
     it 'requests the correct resource' do
       @client.direct_messages_events
-      expect(a_get('/1.1/direct_messages/events/list.json')).to have_been_made
+      expect(a_get('/1.1/direct_messages/events/list.json?count=50')).to have_been_made
     end
 
     it 'returns messages' do
@@ -48,11 +48,11 @@ describe Twitter::REST::DirectMessages do
   end
   describe '#direct_messages_sent' do
     before do
-      stub_get('/1.1/direct_messages/events/list.json').to_return(body: fixture('events.json'), headers: {content_type: 'application/json; charset=utf-8'})
+      stub_get('/1.1/direct_messages/events/list.json?count=50').to_return(body: fixture('events.json'), headers: {content_type: 'application/json; charset=utf-8'})
     end
     it 'requests the correct resource' do
       @client.direct_messages_sent
-      expect(a_get('/1.1/direct_messages/events/list.json')).to have_been_made
+      expect(a_get('/1.1/direct_messages/events/list.json?count=50')).to have_been_made
     end
     it 'returns the 20 most recent direct messages sent by the authenticating user' do
       direct_messages = @client.direct_messages_sent
@@ -95,11 +95,11 @@ describe Twitter::REST::DirectMessages do
     end
     context 'without ids passed' do
       before do
-        stub_get('/1.1/direct_messages/events/list.json').to_return(body: fixture('events.json'), headers: {content_type: 'application/json; charset=utf-8'})
+        stub_get('/1.1/direct_messages/events/list.json?count=50').to_return(body: fixture('events.json'), headers: {content_type: 'application/json; charset=utf-8'})
       end
       it 'requests the correct resource' do
         @client.direct_messages
-        expect(a_get('/1.1/direct_messages/events/list.json')).to have_been_made
+        expect(a_get('/1.1/direct_messages/events/list.json?count=50')).to have_been_made
       end
       it 'returns the 20 most recent direct messages sent to the authenticating user' do
         direct_messages = @client.direct_messages

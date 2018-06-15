@@ -294,7 +294,7 @@ module Twitter
       def retweeters_ids(*args)
         arguments = Twitter::Arguments.new(args)
         arguments.options[:id] ||= extract_id(arguments.first)
-        perform_get_with_cursor('/1.1/statuses/retweeters/ids.json', arguments.options, :ids)
+        perform_get_with_cursor(path: '/1.1/statuses/retweeters/ids.json', options: arguments.options, collection_name: :ids)
       end
 
       # Untweets a retweeted status as the authenticating user

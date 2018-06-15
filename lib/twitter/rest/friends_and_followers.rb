@@ -75,7 +75,7 @@ module Twitter
       # @return [Twitter::Cursor]
       # @param options [Hash] A customizable set of options.
       def friendships_incoming(options = {})
-        perform_get_with_cursor('/1.1/friendships/incoming.json', options, :ids)
+        perform_get_with_cursor(path: '/1.1/friendships/incoming.json', options: options, collection_name: :ids)
       end
 
       # Returns an array of numeric IDs for every protected user for whom the authenticating user has a pending follow request
@@ -87,7 +87,7 @@ module Twitter
       # @return [Twitter::Cursor]
       # @param options [Hash] A customizable set of options.
       def friendships_outgoing(options = {})
-        perform_get_with_cursor('/1.1/friendships/outgoing.json', options, :ids)
+        perform_get_with_cursor(path: '/1.1/friendships/outgoing.json', options: options, collection_name: :ids)
       end
 
       # Allows the authenticating user to follow the specified users, unless they are already followed
