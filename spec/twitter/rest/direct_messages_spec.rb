@@ -165,4 +165,74 @@ describe Twitter::REST::DirectMessages do
       expect(direct_message_event.direct_message.text).to eq('testing')
     end
   end
+
+  describe '#create_direct_message_event_with_media' do
+    before do
+      stub_post('/1.1/direct_messages/events/new.json').to_return(body: fixture('direct_message_event.json'), headers: {content_type: 'application/json; charset=utf-8'})
+      stub_request(:post, 'https://upload.twitter.com/1.1/media/upload.json').to_return(body: fixture('upload.json'), headers: {content_type: 'application/json; charset=utf-8'})
+    end
+    context 'with a gif image' do
+      it 'requests the correct resource' do
+        @client.create_direct_message_event_with_media(58_983, 'testing', fixture('pbjt.gif'))
+        expect(a_request(:post, 'https://upload.twitter.com/1.1/media/upload.json')).to have_been_made
+        expect(a_post('/1.1/direct_messages/events/new.json')).to have_been_made
+      end
+      it 'returns a DirectMessageEvent' do
+        direct_message_event = @client.create_direct_message_event_with_media(58_983, 'testing', fixture('pbjt.gif'))
+        expect(direct_message_event).to be_a Twitter::DirectMessageEvent
+        expect(direct_message_event.direct_message.text).to eq('testing')
+      end
+      context 'which size is bigger than 5 megabytes' do
+        let(:big_gif) { fixture('pbjt.gif') }
+        before do
+          expect(File).to receive(:size).with(big_gif).and_return(7_000_000)
+        end
+        it 'requests the correct resource' do
+          @client.create_direct_message_event_with_media(58_983, 'testing', big_gif)
+          expect(a_request(:post, 'https://upload.twitter.com/1.1/media/upload.json')).to have_been_made.times(3)
+          expect(a_post('/1.1/direct_messages/events/new.json')).to have_been_made
+        end
+        it 'returns a DirectMessageEvent' do
+          direct_message_event = @client.create_direct_message_event_with_media(58_983, 'testing', big_gif)
+          expect(direct_message_event).to be_a Twitter::DirectMessageEvent
+          expect(direct_message_event.direct_message.text).to eq('testing')
+        end
+      end
+    end
+    context 'with a jpe image' do
+      it 'requests the correct resource' do
+        @client.create_direct_message_event_with_media(58_983, 'You always have options', fixture('wildcomet2.jpe'))
+        expect(a_request(:post, 'https://upload.twitter.com/1.1/media/upload.json')).to have_been_made
+        expect(a_post('/1.1/direct_messages/events/new.json')).to have_been_made
+      end
+    end
+    context 'with a jpeg image' do
+      it 'requests the correct resource' do
+        @client.create_direct_message_event_with_media(58_983, 'You always have options', fixture('me.jpeg'))
+        expect(a_request(:post, 'https://upload.twitter.com/1.1/media/upload.json')).to have_been_made
+        expect(a_post('/1.1/direct_messages/events/new.json')).to have_been_made
+      end
+    end
+    context 'with a png image' do
+      it 'requests the correct resource' do
+        @client.create_direct_message_event_with_media(58_983, 'You always have options', fixture('we_concept_bg2.png'))
+        expect(a_request(:post, 'https://upload.twitter.com/1.1/media/upload.json')).to have_been_made
+        expect(a_post('/1.1/direct_messages/events/new.json')).to have_been_made
+      end
+    end
+    context 'with a mp4 video' do
+      it 'requests the correct resources' do
+        @client.create_direct_message_event_with_media(58_983, 'You always have options', fixture('1080p.mp4'))
+        expect(a_request(:post, 'https://upload.twitter.com/1.1/media/upload.json')).to have_been_made.times(3)
+        expect(a_post('/1.1/direct_messages/events/new.json')).to have_been_made
+      end
+    end
+    context 'with a Tempfile' do
+      it 'requests the correct resource' do
+        @client.create_direct_message_event_with_media(58_983, 'You always have options', Tempfile.new('tmp'))
+        expect(a_request(:post, 'https://upload.twitter.com/1.1/media/upload.json')).to have_been_made
+        expect(a_post('/1.1/direct_messages/events/new.json')).to have_been_made
+      end
+    end
+  end
 end
