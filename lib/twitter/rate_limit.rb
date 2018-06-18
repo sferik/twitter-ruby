@@ -7,14 +7,14 @@ module Twitter
     # @return [Integer]
     def limit
       limit = @attrs['x-rate-limit-limit']
-      limit&.to_i
+      limit.to_i if limit
     end
     memoize :limit
 
     # @return [Integer]
     def remaining
       remaining = @attrs['x-rate-limit-remaining']
-      remaining&.to_i
+      remaining.to_i if remaining
     end
     memoize :remaining
 

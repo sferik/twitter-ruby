@@ -1,5 +1,5 @@
-AllCops:
-  TargetRubyVersion: 2.3
+Gemspec/RequiredRubyVersion:
+  Enabled: false
 
 Layout/AccessModifierIndentation:
   EnforcedStyle: outdent
