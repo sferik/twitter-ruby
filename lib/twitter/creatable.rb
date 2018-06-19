@@ -9,7 +9,10 @@ module Twitter
     #
     # @return [Time]
     def created_at
-      Time.parse(@attrs[:created_at]).utc unless @attrs[:created_at].nil?
+      time = @attrs[:created_at]
+      return if time.nil?
+      time = Time.parse(time) unless time.is_a?(Time)
+      time.utc
     end
     memoize :created_at
 

@@ -12,8 +12,9 @@ module Twitter
     object_attr_reader :DirectMessage, :direct_message
 
     def initialize(attrs)
-      text = attrs[:message_create][:message_data][:text]
-      urls = attrs[:message_create][:message_data][:entities][:urls]
+      attrs = read_from_response(attrs)
+      text = attrs.dig(:message_create, :message_data, :text)
+      urls = attrs.dig(:message_create, :message_data, :entities, :urls)
 
       text.gsub!(urls[0][:url], urls[0][:expanded_url]) if urls.any?
 
@@ -22,6 +23,11 @@ module Twitter
     end
 
   private
+
+    # @return [Hash] Normalized hash of attrs
+    def read_from_response(attrs)
+      attrs[:event].nil? ? attrs : attrs[:event]
+    end
 
     def build_direct_message(attrs, text)
       recipient_id = attrs[:message_create][:target][:recipient_id].to_i

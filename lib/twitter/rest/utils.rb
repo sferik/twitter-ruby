@@ -102,6 +102,7 @@ module Twitter
       # @param collection_name [Symbol]
       # @param klass [Class]
       def perform_get_with_cursor(path, options, collection_name, klass = nil)
+        limit = options.delete(:limit)
         if options[:no_default_cursor]
           options.delete(:no_default_cursor)
         else
@@ -109,7 +110,7 @@ module Twitter
         end
 
         request = Twitter::REST::Request.new(self, :get, path, options)
-        Twitter::Cursor.new(collection_name.to_sym, klass, request)
+        Twitter::Cursor.new(collection_name.to_sym, klass, request, limit)
       end
 
       # @param request_method [Symbol]
@@ -154,6 +155,17 @@ module Twitter
         pmap(arguments) do |object|
           perform_request_with_object(request_method, path, arguments.options.merge(id: extract_id(object)), klass)
         end
+      end
+
+      # @param request_method [Symbol]
+      # @param path [String]
+      # @param ids [Array]
+      # @return nil
+      def perform_requests(request_method, path, ids)
+        ids.each do |id|
+          perform_request(request_method, path, id: id)
+        end
+        nil
       end
 
       # @param collection_name [Symbol]

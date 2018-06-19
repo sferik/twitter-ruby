@@ -8,7 +8,7 @@ module Twitter
       Array(@collection[start..-1]).each do |element|
         yield(element)
       end
-      unless last?
+      unless finished?
         start = [@collection.size, start].max
         fetch_next_page
         each(start, &Proc.new)
@@ -21,6 +21,16 @@ module Twitter
     # @return [Boolean]
     def last?
       true
+    end
+
+    # @return [Boolean]
+    def reached_limit?
+      false
+    end
+
+    # @return [Boolean]
+    def finished?
+      last? || reached_limit?
     end
   end
 end
