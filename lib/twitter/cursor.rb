@@ -16,6 +16,7 @@ module Twitter
     # @param key [String, Symbol] The key to fetch the data from the response
     # @param klass [Class] The class to instantiate objects in the response
     # @param request [Twitter::REST::Request]
+    # @param limit [Integer] After reaching the limit, we stop fetching next page
     # @return [Twitter::Cursor]
     def initialize(key, klass, request, limit = nil)
       @key = key.to_sym
@@ -44,6 +45,7 @@ module Twitter
       next_cursor.zero?
     end
 
+    # @return [Boolean]
     def reached_limit?
       @limit && @limit <= attrs[@key].count
     end

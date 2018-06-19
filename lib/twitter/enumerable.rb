@@ -23,10 +23,12 @@ module Twitter
       true
     end
 
+    # @return [Boolean]
     def reached_limit?
       false
     end
 
+    # @return [Boolean]
     def finished?
       last? || reached_limit?
     end

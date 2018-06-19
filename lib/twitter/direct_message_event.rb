@@ -24,6 +24,7 @@ module Twitter
 
   private
 
+    # @return [Hash] Normalized hash of attrs
     def read_from_response(attrs)
       attrs[:event].nil? ? attrs : attrs[:event]
     end
