@@ -47,7 +47,7 @@ module Twitter
 
     # @return [Boolean]
     def reached_limit?
-      @limit && @limit <= attrs[@key].count
+      @limit && @collection.count >= @limit
     end
 
     # @return [Hash]
@@ -61,6 +61,8 @@ module Twitter
     def attrs=(attrs)
       @attrs = attrs
       @attrs.fetch(@key, []).each do |element|
+        # Don't add more items than we need.
+        return @attrs if reached_limit?
         @collection << (@klass ? @klass.new(element) : element)
       end
       @attrs

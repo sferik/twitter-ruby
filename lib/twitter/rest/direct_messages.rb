@@ -52,8 +52,7 @@ module Twitter
       # this count does not directly correspond to the output, as we pull sent and received messages from twitter and only present received to the user
       # @option options [String] :cursor Specifies the cursor position of results to retrieve.
       def direct_messages_received(options = {})
-        limit = options.fetch(:count, 20)
-        direct_messages_list(options).select { |dm| dm.recipient_id == user_id }.first(limit)
+        perform_get_with_objects('/1.1/direct_messages.json', options, Twitter::DirectMessage)
       end
 
       # Returns Direct Messages sent by the authenticated user within the last 30 days. Sorted in reverse-chronological order.
@@ -68,8 +67,7 @@ module Twitter
       # this count does not directly correspond to the output, as we pull sent and received messages from twitter and only present received to the user
       # @option options [String] :cursor Specifies the cursor position of results to retrieve.
       def direct_messages_sent(options = {})
-        limit = options.fetch(:count, 20)
-        direct_messages_list(options).select { |dm| dm.sender_id == user_id }.first(limit)
+        perform_get_with_objects('/1.1/direct_messages/sent.json', options, Twitter::DirectMessage)
       end
 
       # Returns a direct message
@@ -163,9 +161,11 @@ module Twitter
       # @param user [Integer, String, Twitter::User] A Twitter user ID
       # @param text [String] The text of your direct message, up to 10,000 characters.
       # @param options [Hash] A customizable set of options.
-      def create_direct_message(user_id, text, options = {})
-        event = perform_request_with_object(:json_post, '/1.1/direct_messages/events/new.json', format_json_options(user_id, text, options), Twitter::DirectMessageEvent)
-        event.direct_message
+      def create_direct_message(user, text, options = {})
+        options = options.dup
+        merge_user!(options, user)
+        options[:text] = text
+        perform_post_with_object('/1.1/direct_messages/new.json', options, Twitter::DirectMessage)
       end
       alias d create_direct_message
       alias m create_direct_message
