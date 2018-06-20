@@ -92,6 +92,12 @@ describe Twitter::Tweet do
       expect(tweet.full_text).to be_a String
       expect(tweet.full_text).to eq('BOOSH')
     end
+
+    it 'contains quote_count and reply_count of a Tweet' do
+      tweet = Twitter::Tweet.new(id: 28_669_546_014, text: 'BOOSH')
+      expect(tweet.quote_count)
+      expect(tweet.reply_count)
+    end
     it 'returns the text of a Tweet without a user' do
       tweet = Twitter::Tweet.new(id: 28_669_546_014, text: 'BOOSH', retweeted_status: {id: 28_561_922_517, text: 'BOOSH'})
       expect(tweet.full_text).to be_a String
