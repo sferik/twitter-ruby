@@ -1,24 +1,35 @@
+7.0.0
+------
+* [Add `Twitter::DirectMessageEvent`](https://github.com/sferik/twitter/commit/38f6aaa482dcd5f4982abd811dbe6e21e36c2ae8) ([@FabienChaynes](https://twitter.com/FabienChaynes))
+* [Create `Twitter::DirectMessageEvent` with media](https://github.com/sferik/twitter/commit/21478530ec6f8a798717a5ab8b197b895db3bc28) ([@FabienChaynes](https://twitter.com/FabienChaynes))
+* [Support for closing `Twitter::Streaming::Connection`](https://github.com/sferik/twitter/commit/89e3543aa06e00eeab7eaf5bdd3a33a6112356b1) ([@okkez](https://twitter.com/okkez))
+* [Add `Twitter::REST:Client#create_direct_message_event`](https://github.com/sferik/twitter/commit/b45d545c7ebfd28e4d908037dd3fde04e3c307cf) ([@cyu](https://twitter.com/cyu))
+* [Update all direct message methods to return `Twitter::DirectMessageEvent`](https://github.com/sferik/twitter/commit/0833471366a33657cd2920850e3928db010eecab) ([@flikglick](https://twitter.com/flikglick))
+* [Correctly handle different `Twitter::Error::AlreadyRetweeted` error messages](https://github.com/sferik/twitter/commit/c9bf100eedc89aee43689c17f160025e0f40cfb4) ([@knu](https://twitter.com/knu))
+* [Fix proxy setting sample](https://github.com/sferik/twitter/commit/91c037cfb26ac0c9d3099cdeec42d65fe8716b78) ([@nicklegr](https://twitter.com/nicklegr))
+* [Add Active Support `presence` methods on `Twitter::NullObject`](https://github.com/sferik/twitter/commit/07a5d7b60f335aefd583dae85ba959235bc9f55f) ([@davebrace](https://twitter.com/davebrace))
+* [Upload GIFs over 5MB in chunks](https://github.com/sferik/twitter/commit/ba6a3062782b37cf83b9813c5128c87d4971ab9c) ([@wild_dmitry](https://twitter.com/wild_dmitry))
+* [Track rate limit when searching tweets](https://github.com/sferik/twitter/commit/067e751d58b7bb0bfbe8a5531a4288f4c966b301) ([@dsalahutdinov1](https://twitter.com/dsalahutdinov1))
+* [Add `quote_count` and `reply_count` attributes to `Twitter::Tweet`](https://github.com/sferik/twitter/commit/844818cad07ce490ccb9d8542ebb6b4fc7a61cb4)
+* [Drop support for Ruby 2.0, 2.1, and 2.2](https://github.com/sferik/twitter/commit/95861ec83e582c2a88499b97d9d5388a96d0abf0)
+
+
 6.2.0
 ------
-
 Not yet documented, sorry. For now, please use git to compare tags:
 https://github.com/sferik/twitter/compare/v6.1.0...v6.2.0
 
 6.1.0
 ------
-
 Not yet documented, sorry. For now, please use git to compare tags:
 https://github.com/sferik/twitter/compare/v6.0.0...v6.1.0
 
-
 6.0.0
 ------
-
 * [Drop support for Ruby 1.8.7 and Ruby 1.9.3](https://github.com/sferik/twitter/commit/27980f45fb357e34b86e46cb9134d86ed29b3ce3)
 
 5.16.0
 ------
-
 * [Add Twitter::Trend#tweet_volume](https://github.com/sferik/twitter/commit/e797b62e5e6a768e8aeafde6186e1f5310e6bfc6)
 * [Add new settings to Twitter::Settings](https://github.com/sferik/twitter/commit/d047ce00034d26a99927076c28679ce08fd69308)
 * [Fix `Version.to_a`](https://github.com/sferik/twitter/commit/0cd119abf64e6c2b7fd861b0df65b7cb41d892b4)
