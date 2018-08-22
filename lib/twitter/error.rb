@@ -71,6 +71,9 @@ module Twitter
     # Raised when Twitter returns an UnsupportedMedia error
     UnsupportedMedia = Class.new(MediaError)
 
+    # Raised when an operation subject to timeout takes too long
+    TimeoutError = Class.new(self)
+
     ERRORS = {
       400 => Twitter::Error::BadRequest,
       401 => Twitter::Error::Unauthorized,

@@ -18,14 +18,16 @@ module Twitter
 
       # @see https://developer.twitter.com/en/docs/media/upload-media/uploading-media/chunked-media-upload
       def chunk_upload(media, media_type, media_category)
-        init = Twitter::REST::Request.new(self, :post, 'https://upload.twitter.com/1.1/media/upload.json',
-                                          command: 'INIT',
-                                          media_type: media_type,
-                                          media_category: media_category,
-                                          total_bytes: media.size).perform
-        append_media(media, init[:media_id])
-        media.close
-        finalize_media(init[:media_id])
+        Timeout.timeout(timeouts&.fetch(:upload, nil), Twitter::Error::TimeoutError) do
+          init = Twitter::REST::Request.new(self, :post, 'https://upload.twitter.com/1.1/media/upload.json',
+                                            command: 'INIT',
+                                            media_type: media_type,
+                                            media_category: media_category,
+                                            total_bytes: media.size).perform
+          append_media(media, init[:media_id])
+          media.close
+          finalize_media(init[:media_id])
+        end
       end
 
       # @see https://developer.twitter.com/en/docs/media/upload-media/api-reference/post-media-upload-append
@@ -47,7 +49,7 @@ module Twitter
       def finalize_media(media_id)
         response = Twitter::REST::Request.new(self, :post, 'https://upload.twitter.com/1.1/media/upload.json',
                                               command: 'FINALIZE', media_id: media_id).perform
-        3.times do
+        loop do
           return response if !response[:processing_info] || %w[failed succeeded].include?(response[:processing_info][:state])
           sleep(response[:processing_info][:check_after_secs])
           response = Twitter::REST::Request.new(self, :get, 'https://upload.twitter.com/1.1/media/upload.json',
