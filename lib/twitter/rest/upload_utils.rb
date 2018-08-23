@@ -16,6 +16,11 @@ module Twitter
         Twitter::REST::Request.new(self, :multipart_post, 'https://upload.twitter.com/1.1/media/upload.json', key: :media, file: media).perform
       end
 
+      # @raise [Twitter::Error::TimeoutError] Error raised when the upload is longer than the value specified in Twitter::Client#timeouts[:upload].
+      # @raise [Twitter::Error::MediaError] Error raised when Twitter return an error about a media which is not mapped by the gem.
+      # @raise [Twitter::Error::MediaInternalError] Error raised when Twitter returns an InternalError error.
+      # @raise [Twitter::Error::InvalidMedia] Error raised when Twitter returns an InvalidMedia error.
+      # @raise [Twitter::Error::UnsupportedMedia] Error raised when Twitter returns an UnsupportedMedia error.
       # @see https://developer.twitter.com/en/docs/media/upload-media/uploading-media/chunked-media-upload
       def chunk_upload(media, media_type, media_category)
         Timeout.timeout(timeouts&.fetch(:upload, nil), Twitter::Error::TimeoutError) do

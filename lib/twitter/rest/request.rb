@@ -117,6 +117,9 @@ module Twitter
         object
       end
 
+      # Returns boolean indicating if all the keys required by HTTP::Client are present in Twitter::Client#timeouts
+      #
+      # @return [Boolean]
       def timeout_keys_defined
         (%i[write connect read] - (@client.timeouts&.keys || [])).empty?
       end
