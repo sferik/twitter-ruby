@@ -1,0 +1,1 @@
+{ "environments": [ { "environment_name": "env_name", "webhooks":  [ { "id": "1234567890", "url": "https://your_domain.com/webhook/twitter", "valid": true, "created_at": "2017-06-02T23:54:02Z" } ] } ] }
