@@ -34,7 +34,7 @@ module Twitter
         perform_request(:get, "/1.1/account_activity/all/#{env_name}/webhooks.json")
       end
 
-      # Removes the webhook from the provided application’s all activities configuration. The webhook ID can be accessed by making a call to GET /1.1/account_activity/all/webhooks.
+      # Removes the webhook from the provided application's all activities configuration. The webhook ID can be accessed by making a call to GET /1.1/account_activity/all/webhooks.
       # @see https://developer.twitter.com/en/docs/accounts-and-users/subscribe-account-activity/api-reference/aaa-premium#delete-account-activity-all-env-name-webhooks-webhook-id
       # @note Delete a webhook
       # @authentication Requires user context - all consumer and access tokens
@@ -59,7 +59,7 @@ module Twitter
         perform_request(:json_put, "/1.1/account_activity/all/#{env_name}/webhooks/#{webhook_id}.json")
       end
 
-      # Subscribes the provided application to all events for the provided environment for all message types. After activation, all events for the requesting user will be sent to the application’s webhook via POST request.
+      # Subscribes the provided application to all events for the provided environment for all message types. After activation, all events for the requesting user will be sent to the application's webhook via POST request.
       # @see https://developer.twitter.com/en/docs/accounts-and-users/subscribe-account-activity/api-reference/aaa-premium#post-account-activity-all-env-name-subscriptions
       # @note Subscribe the user(whose credentials are provided) to the app so that the webhook can receive all types of events from user
       # @rate_limited Yes
@@ -71,7 +71,7 @@ module Twitter
         perform_request(:json_post, "/1.1/account_activity/all/#{env_name}/subscriptions.json")
       end
 
-      # Provides a way to determine if a webhook configuration is subscribed to the provided user’s events. If the provided user context has an active subscription with provided application, returns 204 OK.
+      # Provides a way to determine if a webhook configuration is subscribed to the provided user's events. If the provided user context has an active subscription with provided application, returns 204 OK.
       # @see https://developer.twitter.com/en/docs/accounts-and-users/subscribe-account-activity/api-reference/aaa-premium#get-account-activity-all-env-name-subscriptions
       # @note Check if the user is subscribed to the given app
       # @rate_limited Yes
