@@ -35,13 +35,16 @@ module Twitter
         end
 
         def update_welcome_message(welcome_message_id, text, name: nil)
+          params = {
+              id: welcome_message_id
+          }
           options = {
                   message_data: {
                     text: text
                   }
                 }
           options[:welcome_message][:name] = name if name
-          response = Twitter::REST::Request.new(self, :json_put, "/1.1/direct_messages/welcome_messages/update.json?id=#{welcome_message_id}", options).perform
+          response = Twitter::REST::Request.new(self, :json_put, "/1.1/direct_messages/welcome_messages/update.json", options, params).perform
           response
         end
 
