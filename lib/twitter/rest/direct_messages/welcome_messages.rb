@@ -13,85 +13,76 @@ module Twitter
 
         # Welcome Message
 
-        def create_welcome_message(text, name: nil)
-          options = {
+        def create_welcome_message(text, name = nil, options = {})
+          json_options = {
             welcome_message: {
               message_data: {
                 text: text
               }
             }
           }
-          options[:welcome_message][:name] = name if name
-          response = Twitter::REST::Request.new(self, :json_post, '/1.1/direct_messages/welcome_messages/new.json', options).perform
-          response
+          json_options[:welcome_message][:name] = name if name
+          event = perform_request_with_object(:json_post, '/1.1/direct_messages/welcome_messages/new.json', json_options.merge!(options), Twitter::WelcomeMessageWrapper)
+          event.welcome_message
         end
 
-        def delete_welcome_message(welcome_message_id)
-          options = {
-            id: welcome_message_id
-          }
-          response = Twitter::REST::Request.new(self, :delete, '/1.1/direct_messages/welcome_messages/destroy.json', options).perform
-          response
+        def destroy_welcome_message(*ids)
+          perform_requests(:delete, '/1.1/direct_messages/welcome_messages/destroy.json', ids)
         end
 
-        def update_welcome_message(welcome_message_id, text, name: nil)
+        def update_welcome_message(welcome_message_id, text, options = {})
           params = {
             id: welcome_message_id
           }
-          options = {
+          json_options = {
             message_data: {
               text: text
             }
           }
-          options[:welcome_message][:name] = name if name
-          response = Twitter::REST::Request.new(self, :json_put, "/1.1/direct_messages/welcome_messages/update.json", options, params).perform
-          response
+          event = perform_request_with_object(:json_put, '/1.1/direct_messages/welcome_messages/update.json', json_options.merge!(options), Twitter::WelcomeMessageWrapper, params)
+          event.welcome_message
         end
 
-        def welcome_message(welcome_message_id)
-          params = {
-            id: welcome_message_id
-          }
-          response = Twitter::REST::Request.new(self, :get, '/1.1/direct_messages/welcome_messages/show.json', params).perform
-          response
+        def welcome_message(id, options = {})
+          options = options.dup
+          options[:id] = id
+          event = perform_get_with_object('/1.1/direct_messages/welcome_messages/show.json', options, Twitter::WelcomeMessageWrapper)
+          event.welcome_message
         end
 
-        def welcome_message_list
-          response = Twitter::REST::Request.new(self, :get, '/1.1/direct_messages/welcome_messages/list.json').perform
-          response
+        def welcome_message_list(options = {})
+          limit = options.fetch(:count, 20)
+          events = perform_get_with_cursor('/1.1/direct_messages/welcome_messages/list.json', options.merge!(no_default_cursor: true, count: 50, limit: limit), :welcome_messages, Twitter::WelcomeMessageWrapper)
+          events.collect(&:welcome_message)
         end
 
         # Welcome Message Rule
 
-        def create_welcome_message_rule(welcome_message_id)
-          options = {
+        def create_welcome_message_rule(welcome_message_id, options = {})
+          json_options = {
               welcome_message_rule: {
                 welcome_message_id: welcome_message_id
             }
           }
-          response = Twitter::REST::Request.new(self, :json_post, '/1.1/direct_messages/welcome_messages/rules/new.json', options).perform
-          response
+          event = perform_request_with_object(:json_post, '/1.1/direct_messages/welcome_messages/rules/new.json', json_options.merge!(options), Twitter::WelcomeMessageRuleWrapper)
+          event.welcome_message_rule
         end
 
-        def delete_welcome_message_rule(welcome_message_rule_id)
-          options = {
-            id: welcome_message_rule_id
-          }
-          response = Twitter::REST::Request.new(self, :delete, '/1.1/direct_messages/welcome_messages/rules/destroy.json', options).perform
-          response
+        def destroy_welcome_message_rule(*ids)
+          perform_requests(:delete, '/1.1/direct_messages/welcome_messages/rules/destroy.json', ids)
         end
 
-        def welcome_message_rule(welcome_message_rule_id)
-          params = {
-            id: welcome_message_rule_id
-          }
-          response = Twitter::REST::Request.new(self, :get, '/1.1/direct_messages/welcome_messages/rules/show.json', params).perform
-          response
+        def welcome_message_rule(id, options = {})
+          options = options.dup
+          options[:id] = id
+          event = perform_get_with_object('/1.1/direct_messages/welcome_messages/rules/show.json', options, Twitter::WelcomeMessageRuleWrapper)
+          event.welcome_message_rule
         end
 
-        def welcome_message_rule_list
-          response = Twitter::REST::Request.new(self, :get, '/1.1/direct_messages/welcome_messages/rules/list.json').perform
-          response
+        def welcome_message_rule_list(options = {})
+          limit = options.fetch(:count, 20)
+          events = perform_get_with_cursor('/1.1/direct_messages/welcome_messages/rules/list.json', options.merge!(no_default_cursor: true, count: 50, limit: limit), :welcome_message_rules, Twitter::WelcomeMessageRuleWrapper)
+          events.collect(&:welcome_message_rule)
         end
       end
     end
