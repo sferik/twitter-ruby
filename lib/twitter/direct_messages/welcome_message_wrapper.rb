@@ -4,7 +4,6 @@ require 'twitter/identity'
 module Twitter
   module DirectMessages
     class WelcomeMessageWrapper < Twitter::Identity
-
       attr_reader :created_timestamp
 
       object_attr_reader 'DirectMessages::WelcomeMessage', :welcome_message
@@ -33,7 +32,7 @@ module Twitter
           id: attrs[:id].to_i,
           created_at: Time.at(attrs[:created_timestamp].to_i / 1000.0),
           text: text,
-          name: attrs[:name]
+          name: attrs[:name],
         }
       end
     end
