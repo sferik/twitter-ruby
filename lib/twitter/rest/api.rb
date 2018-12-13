@@ -1,4 +1,5 @@
 require 'twitter/rest/direct_messages'
+require 'twitter/rest/direct_messages/welcome_messages'
 require 'twitter/rest/favorites'
 require 'twitter/rest/friends_and_followers'
 require 'twitter/rest/help'
@@ -21,6 +22,7 @@ module Twitter
     # @see https://dev.twitter.com/overview/general/things-every-developer-should-know
     module API
       include Twitter::REST::DirectMessages
+      include Twitter::REST::DirectMessages::WelcomeMessages
       include Twitter::REST::Favorites
       include Twitter::REST::FriendsAndFollowers
       include Twitter::REST::Help
