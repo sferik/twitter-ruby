@@ -46,8 +46,8 @@ module Twitter
       # @param request_method [Symbol]
       # @param path [String]
       # @param options [Hash]
-      def perform_request(request_method, path, options = {})
-        Twitter::REST::Request.new(self, request_method, path, options).perform
+      def perform_request(request_method, path, options = {}, params = nil)
+        Twitter::REST::Request.new(self, request_method, path, options, params).perform
       end
 
       # @param path [String]
@@ -68,8 +68,8 @@ module Twitter
       # @param path [String]
       # @param options [Hash]
       # @param klass [Class]
-      def perform_request_with_object(request_method, path, options, klass)
-        response = perform_request(request_method, path, options)
+      def perform_request_with_object(request_method, path, options, klass, params = nil)
+        response = perform_request(request_method, path, options, params)
         klass.new(response)
       end
 
