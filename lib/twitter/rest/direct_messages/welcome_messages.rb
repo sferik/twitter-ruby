@@ -17,9 +17,9 @@ module Twitter
           json_options = {
             welcome_message: {
               message_data: {
-                text: text
-              }
-            }
+                text: text,
+              },
+            },
           }
           json_options[:welcome_message][:name] = name if name
           event = perform_request_with_object(:json_post, '/1.1/direct_messages/welcome_messages/new.json', json_options.merge!(options), Twitter::DirectMessages::WelcomeMessageWrapper)
@@ -32,12 +32,12 @@ module Twitter
 
         def update_welcome_message(welcome_message_id, text, options = {})
           params = {
-            id: welcome_message_id
+            id: welcome_message_id,
           }
           json_options = {
             message_data: {
-              text: text
-            }
+              text: text,
+            },
           }
           event = perform_request_with_object(:json_put, '/1.1/direct_messages/welcome_messages/update.json', json_options.merge!(options), Twitter::DirectMessages::WelcomeMessageWrapper, params)
           event.welcome_message
@@ -60,9 +60,9 @@ module Twitter
 
         def create_welcome_message_rule(welcome_message_id, options = {})
           json_options = {
-              welcome_message_rule: {
-                welcome_message_id: welcome_message_id
-            }
+            welcome_message_rule: {
+              welcome_message_id: welcome_message_id,
+            },
           }
           event = perform_request_with_object(:json_post, '/1.1/direct_messages/welcome_messages/rules/new.json', json_options.merge!(options), Twitter::DirectMessages::WelcomeMessageRuleWrapper)
           event.welcome_message_rule
