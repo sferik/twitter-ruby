@@ -1,0 +1,54 @@
+{
+  "welcome_message": {
+    "id": "1073522416838733829",
+    "created_timestamp": "1544782663913",
+    "message_data": {
+      "text": "Url: https://t.co/Fv7l28yris and #hashtag and @TwitterSupport",
+      "entities": {
+        "hashtags": [
+          {
+            "text": "hashtag",
+            "indices": [
+              33,
+              41
+            ]
+          }
+        ],
+        "symbols": [
+
+        ],
+        "user_mentions": [
+          {
+            "screen_name": "TwitterSupport",
+            "name": "Twitter Support",
+            "id": 17874544,
+            "id_str": "17874544",
+            "indices": [
+              46,
+              61
+            ]
+          }
+        ],
+        "urls": [
+          {
+            "url": "https://t.co/Fv7l28yris",
+            "expanded_url": "http://example.com/expanded",
+            "display_url": "example.com/expanded",
+            "indices": [
+              5,
+              28
+            ]
+          }
+        ]
+      }
+    },
+    "source_app_id": "1111111"
+  },
+  "apps": {
+    "1111111": {
+      "id": "1111111",
+      "name": "Foobar",
+      "url": "http://example.com"
+    }
+  }
+}
