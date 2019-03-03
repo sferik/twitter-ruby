@@ -107,10 +107,10 @@ client = Twitter::REST::Client.new do |config|
 end
 ```
 
-You can use this client to make a REST 30-Day Search API request. For example:
+You can use this client to make a REST 30-Day or Fullarchive Search API request. For example:
 
 ```ruby
-client.premium_search("#ruby", { maxResults: 100 })
+client.premium_search("#ruby", { maxResults: 100 }, { product: 'fullarchive' })
 ```
 
 ## Streaming Clients
