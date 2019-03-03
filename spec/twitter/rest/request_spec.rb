@@ -19,14 +19,6 @@ describe Twitter::REST::Request do
       expect(a_post('/1.1/statuses/update.json').with(body: {status: 'Update', media_ids: '470030289822314497'})).to have_been_made
     end
 
-    context 'when request body is json' do
-      it 'adds content-type header' do
-        stub_post('/1.1/statuses/update.json').with(body: '{"status":"Update"}').to_return(body: fixture('status.json'), headers: {content_type: 'application/json; charset=utf-8'})
-        @client.update('Update', request_body: :json)
-        expect(a_post('/1.1/statuses/update.json').with(body: '{"status":"Update"}', headers: {'Content-Type' => 'application/json; charset=UTF-8'})).to have_been_made
-      end
-    end
-
     context 'when using a proxy' do
       before do
         @client = Twitter::REST::Client.new(consumer_key: 'CK', consumer_secret: 'CS', access_token: 'AT', access_token_secret: 'AS', proxy: {host: '127.0.0.1', port: 3328})

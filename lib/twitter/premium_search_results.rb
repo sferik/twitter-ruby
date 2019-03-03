@@ -17,11 +17,12 @@ module Twitter
     #
     # @param request [Twitter::REST::Request]
     # @return [Twitter::PremiumSearchResults]
-    def initialize(request)
+    def initialize(request, request_config = {})
       @client = request.client
       @request_method = request.verb
       @path = request.path
       @options = request.options
+      @request_config = request_config
       @collection = []
       self.attrs = request.perform
     end
@@ -48,9 +49,9 @@ module Twitter
 
     # @return [Hash]
     def fetch_next_page
-      @options[:request_body] = :json if @request_method == :post
-      response = Twitter::REST::Request.new(@client, @request_method, @path, @options.merge(next_page)).perform
-      self.attrs = response
+      request = @client.premium_search(@options[:query], (@options.reject{ |k| k == :query } || {}).merge(next_page), @request_config)
+
+      self.attrs = request.attrs
     end
 
     # @param attrs [Hash]
