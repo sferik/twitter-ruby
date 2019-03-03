@@ -14,7 +14,7 @@ describe Twitter::PremiumSearchResults do
 
     it 'supports GET requests' do
       stub_get('/1.1/tweets/search/30day/DE.json').with(query: {query: '#freebandnames', maxResults: '100'}).to_return(body: fixture('premium_search.json'), headers: {content_type: 'application/json; charset=UTF-8; charset=utf-8'})
-      @client.premium_search('#freebandnames', {} ,request_method: :get).each {}
+      @client.premium_search('#freebandnames', {}, request_method: :get).each {}
       expect(a_get('/1.1/tweets/search/30day/DE.json').with(query: {query: '#freebandnames', maxResults: '100'})).to have_been_made
     end
 
