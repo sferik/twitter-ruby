@@ -21,7 +21,7 @@ module Twitter
 
     # @return [Boolean]
     def user_token?
-      !(blank?(access_token) || blank?(access_token_secret))
+      !(blank_string?(access_token) || blank_string?(access_token_secret))
     end
 
     # @return [String]
@@ -41,12 +41,12 @@ module Twitter
 
     # @return [Boolean]
     def credentials?
-      credentials.values.none? { |v| blank?(v) }
+      credentials.values.none? { |v| blank_string?(v) }
     end
 
   private
 
-    def blank?(string)
+    def blank_string?(string)
       string.respond_to?(:empty?) ? string.empty? : !string
     end
   end
