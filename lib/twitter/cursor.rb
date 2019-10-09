@@ -27,17 +27,16 @@ module Twitter
       @options = request.options
       @collection = []
       @limit = limit
-      @cursor = @options[:cursor]
       self.attrs = request.perform
     end
+
+  private
 
     # @return [Integer]
     def next_cursor
       @attrs[:next_cursor]
     end
     alias next next_cursor
-
-  private
 
     # @return [Boolean]
     def last?
@@ -48,14 +47,7 @@ module Twitter
 
     # @return [Boolean]
     def reached_limit?
-      return false unless @limit
-      # Strange bug in Twitter API where if we add the 'cursor' param, they only return 49
-      # instead of 50 messages.
-      if @cursor
-        return @collection.count >= (@limit - 1)
-      else
-        return @collection.count >= @limit
-      end
+      @limit && @limit <= attrs[@key].count
     end
 
     # @return [Hash]
@@ -69,8 +61,6 @@ module Twitter
     def attrs=(attrs)
       @attrs = attrs
       @attrs.fetch(@key, []).each do |element|
-        # Don't add more items than we need.
-        return @attrs if reached_limit?
         @collection << (@klass ? @klass.new(element) : element)
       end
       @attrs

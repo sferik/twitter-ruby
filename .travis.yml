@@ -12,6 +12,8 @@ rvm:
 
 sudo: false
 
+script: bundle exec rake test
+
 bundler_args: --without development --retry=3 --jobs=3
 
 env:
