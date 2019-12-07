@@ -74,11 +74,21 @@ module Twitter
       504 => Twitter::Error::GatewayTimeout,
     }.freeze
 
-    FORBIDDEN_MESSAGES = {
-      'Status is a duplicate.' => Twitter::Error::DuplicateStatus,
-      'You have already favorited this status.' => Twitter::Error::AlreadyFavorited,
-      'sharing is not permissible for this status (Share validations failed)' => Twitter::Error::AlreadyRetweeted,
-    }.freeze
+    FORBIDDEN_MESSAGES = proc do |message|
+      case message
+      when /(?=.*status).*duplicate/i
+        # - "Status is a duplicate."
+        Twitter::Error::DuplicateStatus
+      when /already favorited/i
+        # - "You have already favorited this status."
+        Twitter::Error::AlreadyFavorited
+      when /already retweeted|Share validations failed/i
+        # - "You have already retweeted this Tweet." (Nov 2017-)
+        # - "You have already retweeted this tweet." (?-Nov 2017)
+        # - "sharing is not permissible for this status (Share validations failed)" (-? 2017)
+        Twitter::Error::AlreadyRetweeted
+      end
+    end
 
     # If error code is missing see https://dev.twitter.com/overview/api/response-codes
     module Code

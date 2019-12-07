@@ -10,7 +10,7 @@ module Twitter
     attr_reader :filter_level, :in_reply_to_screen_name, :lang, :source, :text
     # @return [Integer]
     attr_reader :favorite_count, :in_reply_to_status_id, :in_reply_to_user_id,
-                :retweet_count
+                :quote_count, :reply_count, :retweet_count
     alias in_reply_to_tweet_id in_reply_to_status_id
     alias reply? in_reply_to_user_id?
     object_attr_reader :GeoFactory, :geo
@@ -29,7 +29,7 @@ module Twitter
     predicate_attr_reader :favorited, :possibly_sensitive, :retweeted,
                           :truncated
 
-    # @note May be > 140 characters.
+    # @note May be > 280 characters.
     # @return [String]
     def full_text
       tweet_full_text = text.nil? ? attrs[:full_text] : text

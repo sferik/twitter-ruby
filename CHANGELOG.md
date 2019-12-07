@@ -1,15 +1,20 @@
+6.2.0
+------
+
+Not yet documented, sorry. For now, please use git to compare tags:
+https://github.com/sferik/twitter/compare/v6.1.0...v6.2.0
+
 6.1.0
 ------
 
-Not yet documented, sorry. For now, please use git to compare tags: 
+Not yet documented, sorry. For now, please use git to compare tags:
 https://github.com/sferik/twitter/compare/v6.0.0...v6.1.0
 
 
 6.0.0
 ------
 
-Not yet documented, sorry. For now, please use git to compare tags: 
-https://github.com/sferik/twitter/compare/v5.16.0...v6.0.0
+* [Drop support for Ruby 1.8.7 and Ruby 1.9.3](https://github.com/sferik/twitter/commit/27980f45fb357e34b86e46cb9134d86ed29b3ce3)
 
 5.16.0
 ------

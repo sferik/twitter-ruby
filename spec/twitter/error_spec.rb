@@ -26,7 +26,7 @@ describe Twitter::Error do
     end
   end
 
-  %w(error errors).each do |key|
+  %w[error errors].each do |key|
     context "when JSON body contains #{key}" do
       before do
         body = "{\"#{key}\":\"Internal Server Error\"}"

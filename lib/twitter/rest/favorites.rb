@@ -48,9 +48,33 @@ module Twitter
       #   @param tweets [Enumerable<Integer, String, URI, Twitter::Tweet>] A collection of Tweet IDs, URIs, or objects.
       #   @param options [Hash] A customizable set of options.
       def unfavorite(*args)
-        parallel_objects_from_response(Twitter::Tweet, :post, '/1.1/favorites/destroy.json', args)
+        arguments = Twitter::Arguments.new(args)
+        pmap(arguments) do |tweet|
+          begin
+            perform_post_with_object('/1.1/favorites/destroy.json', arguments.options.merge(id: extract_id(tweet)), Twitter::Tweet)
+          rescue Twitter::Error::NotFound
+            next
+          end
+        end.compact
       end
       alias destroy_favorite unfavorite
+
+      # Un-favorites the specified Tweets as the authenticating user and raises an error if one is not found
+      #
+      # @see https://dev.twitter.com/rest/reference/post/favorites/destroy
+      # @rate_limited No
+      # @authentication Requires user context
+      # @raise [Twitter::Error::NotFound] Error raised when tweet does not exist or has been deleted.
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @return [Array<Twitter::Tweet>] The un-favorited Tweets.
+      # @overload unfavorite!(*tweets)
+      #   @param tweets [Enumerable<Integer, String, URI, Twitter::Tweet>] A collection of Tweet IDs, URIs, or objects.
+      # @overload unfavorite!(*tweets, options)
+      #   @param tweets [Enumerable<Integer, String, URI, Twitter::Tweet>] A collection of Tweet IDs, URIs, or objects.
+      #   @param options [Hash] A customizable set of options.
+      def unfavorite!(*args)
+        parallel_objects_from_response(Twitter::Tweet, :post, '/1.1/favorites/destroy.json', args)
+      end
 
       # Favorites the specified Tweets as the authenticating user
       #

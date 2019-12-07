@@ -14,8 +14,10 @@ describe Twitter::SearchResults do
     end
     it 'iterates' do
       count = 0
-      @client.search('#freebandnames').each { count += 1 }
+      search_results = @client.search('#freebandnames')
+      search_results.each { count += 1 }
       expect(count).to eq(6)
+      expect(search_results.rate_limit).to be_a(Twitter::RateLimit)
     end
     it 'passes through parameters to the next request' do
       stub_get('/1.1/search/tweets.json').with(query: {q: '#freebandnames', since_id: '414071360078878542', count: '100'}).to_return(body: fixture('search.json'), headers: {content_type: 'application/json; charset=utf-8'})

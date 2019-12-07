@@ -1,16 +1,14 @@
 # The Twitter Ruby Gem
 
-[![Gem Version](http://img.shields.io/gem/v/twitter.svg)][gem]
-[![Build Status](http://img.shields.io/travis/sferik/twitter.svg)][travis]
-[![Dependency Status](http://img.shields.io/gemnasium/sferik/twitter.svg)][gemnasium]
-[![Code Climate](http://img.shields.io/codeclimate/github/sferik/twitter.svg)][codeclimate]
-[![Coverage Status](http://img.shields.io/coveralls/sferik/twitter.svg)][coveralls]
+[![Gem Version](https://badge.fury.io/rb/twitter.svg)][gem]
+[![Build Status](https://travis-ci.org/sferik/twitter.svg?branch=master)][travis]
+[![Maintainability](https://api.codeclimate.com/v1/badges/09362621ad91e8f599b3/maintainability)][maintainability]
+[![Coverage Status](https://coveralls.io/repos/github/sferik/twitter/badge.svg?branch=master)][coveralls]
 [![Inline docs](http://inch-ci.org/github/sferik/twitter.svg?style=shields)][inchpages]
 
 [gem]: https://rubygems.org/gems/twitter
 [travis]: https://travis-ci.org/sferik/twitter
-[gemnasium]: https://gemnasium.com/sferik/twitter
-[codeclimate]: https://codeclimate.com/github/sferik/twitter
+[maintainability]: https://codeclimate.com/github/sferik/twitter/maintainability
 [coveralls]: https://coveralls.io/r/sferik/twitter
 [inchpages]: http://inch-ci.org/github/sferik/twitter
 
@@ -231,11 +229,10 @@ command:
 This library aims to support and is [tested against][travis] the following Ruby
 versions:
 
-* Ruby 2.0.0
-* Ruby 2.1
-* Ruby 2.2
 * Ruby 2.3
-* JRuby 9.1.6.0
+* Ruby 2.4
+* Ruby 2.5
+* JRuby 9.1.9.0
 
 If something doesn't work on one of these versions, it's a bug.
 
