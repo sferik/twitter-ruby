@@ -3,17 +3,19 @@ cache: bundler
 language: ruby
 
 rvm:
-  - 2.0.0
-  - 2.1
-  - 2.2
-  - 2.3
   - 2.4
   - 2.5
+  - 2.6
   - jruby-9.1.9.0
   - jruby-head
   - ruby-head
 
 sudo: false
+
+script: bundle exec rake test
+
+before_install:
+  - gem install bundler
 
 bundler_args: --without development --retry=3 --jobs=3
 

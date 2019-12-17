@@ -13,7 +13,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'multipart-post', '~> 2.0'
   spec.add_dependency 'naught', '~> 1.0'
   spec.add_dependency 'simple_oauth', '~> 0.3.0'
-  spec.add_development_dependency 'bundler', '~> 1.0'
+  spec.add_development_dependency 'bundler', '~> 2.0'
   spec.authors = ['Erik Michaels-Ober', 'John Nunemaker', 'Wynn Netherland', 'Steve Richert', 'Steve Agalloco']
   spec.description = 'A Ruby interface to the Twitter API.'
   spec.email = %w[sferik@gmail.com]
@@ -22,7 +22,7 @@ Gem::Specification.new do |spec|
   spec.licenses = %w[MIT]
   spec.name = 'twitter'
   spec.require_paths = %w[lib]
-  spec.required_ruby_version = '>= 1.9.3'
+  spec.required_ruby_version = '>= 2.3'
   spec.summary = spec.description
   spec.version = Twitter::Version
 end

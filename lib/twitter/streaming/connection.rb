@@ -40,7 +40,7 @@ module Twitter
       end
 
       def close
-        @write_pipe.write('q') if @write_pipe
+        @write_pipe&.write('q')
       end
 
     private
