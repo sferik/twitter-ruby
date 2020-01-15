@@ -18,6 +18,9 @@ env:
   global:
     - JRUBY_OPTS="$JRUBY_OPTS --debug"
 
+before_install:
+  - gem uninstall -ax bundler || true
+  - gem install bundler -v '< 2'
 matrix:
   allow_failures:
     - rvm: jruby-head
