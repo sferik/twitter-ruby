@@ -17,6 +17,7 @@ module Twitter
       # Take a URI string or Twitter::Identity object and return its ID
       #
       # @param object [Integer, String, URI, Twitter::Identity] An ID, URI, or object.
+      # @api private
       # @return [Integer]
       def extract_id(object)
         case object
@@ -31,18 +32,21 @@ module Twitter
         end
       end
 
+      # @api private
       # @param path [String]
       # @param options [Hash]
       def perform_get(path, options = {})
         perform_request(:get, path, options)
       end
 
+      # @api private
       # @param path [String]
       # @param options [Hash]
       def perform_post(path, options = {})
         perform_request(:post, path, options)
       end
 
+      # @api private
       # @param request_method [Symbol]
       # @param path [String]
       # @param options [Hash]

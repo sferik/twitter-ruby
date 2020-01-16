@@ -116,6 +116,9 @@ module Twitter
         object
       end
 
+      # Returns an HTTP client, using configuration set up in the client
+      #
+      # @api private
       # @return [HTTP::Client, HTTP]
       def http_client
         client = @client.proxy ? HTTP.via(*proxy) : HTTP
@@ -125,6 +128,7 @@ module Twitter
 
       # Return proxy values as a compacted array
       #
+      # @api private
       # @return [Array]
       def proxy
         @client.proxy.values_at(:host, :port, :username, :password).compact
