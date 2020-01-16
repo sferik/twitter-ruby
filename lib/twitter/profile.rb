@@ -4,8 +4,8 @@ require 'memoizable'
 
 module Twitter
   module Profile
-    PROFILE_IMAGE_SUFFIX_REGEX = /_normal(\.gif|\.jpe?g|\.png)$/i
-    PREDICATE_URI_METHOD_REGEX = /_uri\?$/
+    PROFILE_IMAGE_SUFFIX_REGEX = /_normal(\.gif|\.jpe?g|\.png)$/i # rubocop:disable Style/MutableConstant
+    PREDICATE_URI_METHOD_REGEX = /_uri\?$/ # rubocop:disable Style/MutableConstant
     include Memoizable
 
     class << self

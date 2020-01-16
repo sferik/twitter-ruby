@@ -79,6 +79,7 @@ module Twitter
       def fail_or_return_response_body(code, body, headers)
         error = error(code, body, headers)
         raise(error) if error
+
         @rate_limit = Twitter::RateLimit.new(headers)
         body
       end

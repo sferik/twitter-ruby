@@ -187,9 +187,7 @@ module Twitter
       def create_direct_message_event(*args)
         arguments = Twitter::Arguments.new(args)
         options = arguments.options.dup
-        if arguments.length >= 2
-          options[:event] = {type: 'message_create', message_create: {target: {recipient_id: extract_id(arguments[0])}, message_data: {text: arguments[1]}}}
-        end
+        options[:event] = {type: 'message_create', message_create: {target: {recipient_id: extract_id(arguments[0])}, message_data: {text: arguments[1]}}} if arguments.length >= 2
         response = Twitter::REST::Request.new(self, :json_post, '/1.1/direct_messages/events/new.json', options).perform
         Twitter::DirectMessageEvent.new(response[:event])
       end
