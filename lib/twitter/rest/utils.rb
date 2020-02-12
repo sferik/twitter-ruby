@@ -246,7 +246,7 @@ module Twitter
         hash[:screen_name] = screen_names.join(',') unless screen_names.empty?
       end
 
-      def collect_users(users) # rubocop:disable MethodLength
+      def collect_users(users) # rubocop:disable Metrics/MethodLength
         user_ids = []
         screen_names = []
         users.each do |user|

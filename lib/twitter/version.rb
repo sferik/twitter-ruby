@@ -4,12 +4,12 @@ module Twitter
 
     # @return [Integer]
     def major
-      6
+      7
     end
 
     # @return [Integer]
     def minor
-      2
+      0
     end
 
     # @return [Integer]

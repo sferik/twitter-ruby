@@ -484,6 +484,7 @@ module Twitter
       # @return [Hash]
       def merge_owner!(hash, user)
         return hash if hash[:owner_id] || hash[:owner_screen_name]
+
         if user
           merge_user!(hash, user, 'owner')
           hash[:owner_id] = hash.delete(:owner_user_id) unless hash[:owner_user_id].nil?

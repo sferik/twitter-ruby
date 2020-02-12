@@ -188,6 +188,7 @@ module Twitter
       def collect_with_max_id(collection = [], max_id = nil, &block)
         tweets = yield(max_id)
         return collection if tweets.nil?
+
         collection += tweets
         tweets.empty? ? collection.flatten : collect_with_max_id(collection, tweets.last.id - 1, &block)
       end

@@ -79,6 +79,7 @@ module Twitter
       def fail_or_return_response_body(code, body, headers)
         error = error(code, body, headers)
         raise(error) if error
+
         @rate_limit = Twitter::RateLimit.new(headers)
         body
       end
@@ -127,7 +128,7 @@ module Twitter
       # @return [HTTP::Client, HTTP]
       def http_client
         client = @client.proxy ? HTTP.via(*proxy) : HTTP
-        client = client.timeout(:per_operation, connect: @client.timeouts[:connect], read: @client.timeouts[:read], write: @client.timeouts[:write]) if timeout_keys_defined
+        client = client.timeout(connect: @client.timeouts[:connect], read: @client.timeouts[:read], write: @client.timeouts[:write]) if timeout_keys_defined
         client
       end
 
