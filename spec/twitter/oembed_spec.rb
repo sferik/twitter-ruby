@@ -26,8 +26,8 @@ describe Twitter::OEmbed do
 
   describe '#author_name' do
     it 'returns the author name' do
-      oembed = Twitter::OEmbed.new(author_name: 'Erik Michaels-Ober')
-      expect(oembed.author_name).to eq('Erik Michaels-Ober')
+      oembed = Twitter::OEmbed.new(author_name: 'Erik Berlin')
+      expect(oembed.author_name).to eq('Erik Berlin')
     end
     it 'returns nil when not set' do
       author_name = Twitter::OEmbed.new.author_name

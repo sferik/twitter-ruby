@@ -1,4 +1,4 @@
-Copyright (c) 2006-2016 Erik Michaels-Ober, John Nunemaker, Wynn Netherland, Steve Richert, Steve Agalloco
+Copyright (c) 2006-2020 Erik Berlin, John Nunemaker, Wynn Netherland, Steve Richert, Steve Agalloco
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the

@@ -445,14 +445,14 @@ describe Twitter::REST::Users do
 
   describe '#user_search' do
     before do
-      stub_get('/1.1/users/search.json').with(query: {q: 'Erik Michaels-Ober'}).to_return(body: fixture('user_search.json'), headers: {content_type: 'application/json; charset=utf-8'})
+      stub_get('/1.1/users/search.json').with(query: {q: 'Erik Berlin'}).to_return(body: fixture('user_search.json'), headers: {content_type: 'application/json; charset=utf-8'})
     end
     it 'requests the correct resource' do
-      @client.user_search('Erik Michaels-Ober')
-      expect(a_get('/1.1/users/search.json').with(query: {q: 'Erik Michaels-Ober'})).to have_been_made
+      @client.user_search('Erik Berlin')
+      expect(a_get('/1.1/users/search.json').with(query: {q: 'Erik Berlin'})).to have_been_made
     end
     it 'returns an array of user search results' do
-      user_search = @client.user_search('Erik Michaels-Ober')
+      user_search = @client.user_search('Erik Berlin')
       expect(user_search).to be_an Array
       expect(user_search.first).to be_a Twitter::User
       expect(user_search.first.id).to eq(7_505_382)

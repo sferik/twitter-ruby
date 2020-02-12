@@ -452,7 +452,7 @@ describe Twitter::Tweet do
       user_mentions_array = [
         {
           screen_name: 'sferik',
-          name: 'Erik Michaels-Ober',
+          name: 'Erik Berlin',
           id_str: '7_505_382',
           indices: [0, 6],
           id: 7_505_382,
