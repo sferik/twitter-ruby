@@ -1,0 +1,32 @@
+{
+  "welcome_message": {
+    "id": "1073276982106996741",
+    "created_timestamp": "1544724147713",
+    "message_data": {
+      "text": "A second welcome message with a name",
+      "entities": {
+        "hashtags": [
+
+        ],
+        "symbols": [
+
+        ],
+        "user_mentions": [
+
+        ],
+        "urls": [
+
+        ]
+      }
+    },
+    "source_app_id": "1111111",
+    "name": "welcome_message_name"
+  },
+  "apps": {
+    "1111111": {
+      "id": "1111111",
+      "name": "Foobar",
+      "url": "http://example.com"
+    }
+  }
+}

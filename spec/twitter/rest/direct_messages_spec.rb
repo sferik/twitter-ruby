@@ -8,11 +8,11 @@ describe Twitter::REST::DirectMessages do
 
   describe '#direct_messages_received' do
     before do
-      stub_get('/1.1/direct_messages/events/list.json?count=50').to_return(body: fixture('events.json'), headers: {content_type: 'application/json; charset=utf-8'})
+      stub_get('/1.1/direct_messages/events/list.json').with(query: {count: 50}).to_return(body: fixture('direct_message_events.json'), headers: {content_type: 'application/json; charset=utf-8'})
     end
     it 'requests the correct resource' do
       @client.direct_messages_received
-      expect(a_get('/1.1/direct_messages/events/list.json?count=50')).to have_been_made
+      expect(a_get('/1.1/direct_messages/events/list.json').with(query: {count: 50})).to have_been_made
     end
     it 'returns the 20 most recent direct messages sent to the authenticating user' do
       direct_messages = @client.direct_messages_received
@@ -24,12 +24,12 @@ describe Twitter::REST::DirectMessages do
 
   describe '#direct_messages_events' do
     before do
-      stub_get('/1.1/direct_messages/events/list.json?count=50').to_return(body: fixture('events.json'), headers: {content_type: 'application/json; charset=utf-8'})
+      stub_get('/1.1/direct_messages/events/list.json').with(query: {count: 50}).to_return(body: fixture('direct_message_events.json'), headers: {content_type: 'application/json; charset=utf-8'})
     end
 
     it 'requests the correct resource' do
       @client.direct_messages_events
-      expect(a_get('/1.1/direct_messages/events/list.json?count=50')).to have_been_made
+      expect(a_get('/1.1/direct_messages/events/list.json').with(query: {count: 50})).to have_been_made
     end
 
     it 'returns messages' do
@@ -48,11 +48,11 @@ describe Twitter::REST::DirectMessages do
   end
   describe '#direct_messages_sent' do
     before do
-      stub_get('/1.1/direct_messages/events/list.json?count=50').to_return(body: fixture('events.json'), headers: {content_type: 'application/json; charset=utf-8'})
+      stub_get('/1.1/direct_messages/events/list.json').with(query: {count: 50}).to_return(body: fixture('direct_message_events.json'), headers: {content_type: 'application/json; charset=utf-8'})
     end
     it 'requests the correct resource' do
       @client.direct_messages_sent
-      expect(a_get('/1.1/direct_messages/events/list.json?count=50')).to have_been_made
+      expect(a_get('/1.1/direct_messages/events/list.json').with(query: {count: 50})).to have_been_made
     end
     it 'returns the 20 most recent direct messages sent by the authenticating user' do
       direct_messages = @client.direct_messages_sent
@@ -95,11 +95,11 @@ describe Twitter::REST::DirectMessages do
     end
     context 'without ids passed' do
       before do
-        stub_get('/1.1/direct_messages/events/list.json?count=50').to_return(body: fixture('events.json'), headers: {content_type: 'application/json; charset=utf-8'})
+        stub_get('/1.1/direct_messages/events/list.json').with(query: {count: 50}).to_return(body: fixture('direct_message_events.json'), headers: {content_type: 'application/json; charset=utf-8'})
       end
       it 'requests the correct resource' do
         @client.direct_messages
-        expect(a_get('/1.1/direct_messages/events/list.json?count=50')).to have_been_made
+        expect(a_get('/1.1/direct_messages/events/list.json').with(query: {count: 50})).to have_been_made
       end
       it 'returns the 20 most recent direct messages sent to the authenticating user' do
         direct_messages = @client.direct_messages
@@ -222,9 +222,57 @@ describe Twitter::REST::DirectMessages do
     end
     context 'with a mp4 video' do
       it 'requests the correct resources' do
+        init_request = {body: fixture('chunk_upload_init.json'), headers: {content_type: 'application/json; charset=utf-8'}}
+        append_request = {body: '', headers: {content_type: 'text/html;charset=utf-8'}}
+        finalize_request = {body: fixture('chunk_upload_finalize_succeeded.json'), headers: {content_type: 'application/json; charset=utf-8'}}
+        stub_request(:post, 'https://upload.twitter.com/1.1/media/upload.json').to_return(init_request, append_request, finalize_request)
         @client.create_direct_message_event_with_media(58_983, 'You always have options', fixture('1080p.mp4'))
         expect(a_request(:post, 'https://upload.twitter.com/1.1/media/upload.json')).to have_been_made.times(3)
         expect(a_post('/1.1/direct_messages/events/new.json')).to have_been_made
+      end
+      context 'when the processing is not finished right after the upload' do
+        context 'when it succeeds' do
+          it 'asks for status until the processing is done' do
+            init_request = {body: fixture('chunk_upload_init.json'), headers: {content_type: 'application/json; charset=utf-8'}}
+            append_request = {body: '', headers: {content_type: 'text/html;charset=utf-8'}}
+            finalize_request = {body: fixture('chunk_upload_finalize_pending.json'), headers: {content_type: 'application/json; charset=utf-8'}}
+            pending_status_request = {body: fixture('chunk_upload_status_pending.json'), headers: {content_type: 'application/json; charset=utf-8'}}
+            completed_status_request = {body: fixture('chunk_upload_status_succeeded.json'), headers: {content_type: 'application/json; charset=utf-8'}}
+            stub_request(:post, 'https://upload.twitter.com/1.1/media/upload.json').to_return(init_request, append_request, finalize_request)
+            stub_request(:get, 'https://upload.twitter.com/1.1/media/upload.json?command=STATUS&media_id=710511363345354753').to_return(pending_status_request, completed_status_request)
+            expect_any_instance_of(Twitter::REST::DirectMessages).to receive(:sleep).with(5).and_return(5)
+            expect_any_instance_of(Twitter::REST::DirectMessages).to receive(:sleep).with(10).and_return(10)
+            @client.create_direct_message_event_with_media(58_983, 'You always have options', fixture('1080p.mp4'))
+            expect(a_request(:post, 'https://upload.twitter.com/1.1/media/upload.json')).to have_been_made.times(3)
+            expect(a_request(:get, 'https://upload.twitter.com/1.1/media/upload.json?command=STATUS&media_id=710511363345354753')).to have_been_made.times(2)
+            expect(a_post('/1.1/direct_messages/events/new.json')).to have_been_made
+          end
+        end
+        context 'when it fails' do
+          it 'raises an error' do
+            init_request = {body: fixture('chunk_upload_init.json'), headers: {content_type: 'application/json; charset=utf-8'}}
+            append_request = {body: '', headers: {content_type: 'text/html;charset=utf-8'}}
+            finalize_request = {body: fixture('chunk_upload_finalize_pending.json'), headers: {content_type: 'application/json; charset=utf-8'}}
+            failed_status_request = {body: fixture('chunk_upload_status_failed.json'), headers: {content_type: 'application/json; charset=utf-8'}}
+            stub_request(:post, 'https://upload.twitter.com/1.1/media/upload.json').to_return(init_request, append_request, finalize_request)
+            stub_request(:get, 'https://upload.twitter.com/1.1/media/upload.json?command=STATUS&media_id=710511363345354753').to_return(failed_status_request)
+            expect_any_instance_of(Twitter::REST::DirectMessages).to receive(:sleep).with(5).and_return(5)
+            expect { @client.create_direct_message_event_with_media(58_983, 'You always have options', fixture('1080p.mp4')) }.to raise_error(Twitter::Error::InvalidMedia)
+            expect(a_request(:post, 'https://upload.twitter.com/1.1/media/upload.json')).to have_been_made.times(3)
+            expect(a_request(:get, 'https://upload.twitter.com/1.1/media/upload.json?command=STATUS&media_id=710511363345354753')).to have_been_made
+          end
+        end
+        context 'when Twitter::Client#timeouts[:upload] is set' do
+          before(:each) { @client.timeouts = {upload: 0.1} }
+          it 'raises an error when the finalize step is too slow' do
+            init_request = {body: fixture('chunk_upload_init.json'), headers: {content_type: 'application/json; charset=utf-8'}}
+            append_request = {body: '', headers: {content_type: 'text/html;charset=utf-8'}}
+            finalize_request = {body: fixture('chunk_upload_finalize_pending.json'), headers: {content_type: 'application/json; charset=utf-8'}}
+            stub_request(:post, 'https://upload.twitter.com/1.1/media/upload.json').to_return(init_request, append_request, finalize_request)
+            expect { @client.create_direct_message_event_with_media(58_983, 'You always have options', fixture('1080p.mp4')) }.to raise_error(Twitter::Error::TimeoutError)
+            expect(a_request(:post, 'https://upload.twitter.com/1.1/media/upload.json')).to have_been_made.times(3)
+          end
+        end
       end
     end
     context 'with a Tempfile' do

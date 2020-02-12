@@ -20,14 +20,14 @@ module Twitter
       #   Returns the 20 most recent favorite Tweets for the authenticating user
       #
       #   @param options [Hash] A customizable set of options.
-      #   @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 100.
+      #   @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 200.
       #   @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID.
       # @overload favorites(user, options = {})
       #   Returns the 20 most recent favorite Tweets for the specified user
       #
       #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, URI, or object.
       #   @param options [Hash] A customizable set of options.
-      #   @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 100.
+      #   @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 200.
       #   @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID.
       def favorites(*args)
         arguments = Twitter::Arguments.new(args)

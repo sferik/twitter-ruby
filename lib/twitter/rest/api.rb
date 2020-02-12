@@ -1,5 +1,6 @@
 require 'twitter/rest/account_activity'
 require 'twitter/rest/direct_messages'
+require 'twitter/rest/direct_messages/welcome_messages'
 require 'twitter/rest/favorites'
 require 'twitter/rest/friends_and_followers'
 require 'twitter/rest/help'
@@ -8,6 +9,7 @@ require 'twitter/rest/oauth'
 require 'twitter/rest/places_and_geo'
 require 'twitter/rest/saved_searches'
 require 'twitter/rest/search'
+require 'twitter/rest/premium_search'
 require 'twitter/rest/spam_reporting'
 require 'twitter/rest/suggested_users'
 require 'twitter/rest/timelines'
@@ -23,12 +25,14 @@ module Twitter
     module API
       include Twitter::REST::AccountActivity
       include Twitter::REST::DirectMessages
+      include Twitter::REST::DirectMessages::WelcomeMessages
       include Twitter::REST::Favorites
       include Twitter::REST::FriendsAndFollowers
       include Twitter::REST::Help
       include Twitter::REST::Lists
       include Twitter::REST::OAuth
       include Twitter::REST::PlacesAndGeo
+      include Twitter::REST::PremiumSearch
       include Twitter::REST::SavedSearches
       include Twitter::REST::Search
       include Twitter::REST::SpamReporting

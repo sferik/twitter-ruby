@@ -42,6 +42,7 @@ module Twitter
     def last?
       return false if next_cursor.is_a?(String)
       return true if next_cursor.nil?
+
       next_cursor.zero?
     end
 
