@@ -20,6 +20,7 @@ module Twitter
       # @return [Hash] Normalized hash of attrs
       def read_from_response(attrs)
         return attrs[:welcome_message_rule] unless attrs[:welcome_message_rule].nil?
+
         attrs
       end
 

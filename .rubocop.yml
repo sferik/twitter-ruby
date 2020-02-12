@@ -30,7 +30,7 @@ Metrics/ModuleLength:
   Max: 150 # TODO: Lower to 100
 
 Metrics/ParameterLists:
-  Max: 4
+  Max: 5
   CountKeywordArgs: true
 
 Style/CollectionMethods:

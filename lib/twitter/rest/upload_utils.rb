@@ -56,6 +56,7 @@ module Twitter
                                               command: 'FINALIZE', media_id: media_id).perform
         loop do
           return response if !response[:processing_info] || %w[failed succeeded].include?(response[:processing_info][:state])
+
           sleep(response[:processing_info][:check_after_secs])
           response = Twitter::REST::Request.new(self, :get, 'https://upload.twitter.com/1.1/media/upload.json',
                                                 command: 'STATUS', media_id: media_id).perform

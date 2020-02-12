@@ -10,7 +10,7 @@ require 'twitter/utils'
 
 module Twitter
   module REST
-    class Request
+    class Request # rubocop:disable Metrics/ClassLength
       include Twitter::Utils
       BASE_URL = 'https://api.twitter.com'.freeze
       attr_accessor :client, :headers, :options, :path, :rate_limit,
@@ -25,7 +25,7 @@ module Twitter
       def initialize(client, request_method, path, options = {}, params = nil)
         @client = client
         @uri = Addressable::URI.parse(path.start_with?('http') ? path : BASE_URL + path)
-        multipart_options = params ? params : options
+        multipart_options = params || options
         set_multipart_options!(request_method, multipart_options)
         @path = uri.path
         @options = options
@@ -69,15 +69,14 @@ module Twitter
       def set_multipart_options!(request_method, options)
         if %i[multipart_post json_post].include?(request_method)
           merge_multipart_file!(options) if request_method == :multipart_post
+          options = {}
           @request_method = :post
-          @headers = Twitter::Headers.new(@client, @request_method, @uri).request_headers
-        elsif %i[json_put].include?(request_method)
+        elsif request_method == :json_put
           @request_method = :put
-          @headers = Twitter::Headers.new(@client, @request_method, @uri, options || {}).request_headers
         else
           @request_method = request_method
-          @headers = Twitter::Headers.new(@client, @request_method, @uri, options).request_headers
         end
+        @headers = Twitter::Headers.new(@client, @request_method, @uri, options).request_headers
       end
 
       def content_type(basename)
