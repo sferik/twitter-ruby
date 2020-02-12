@@ -4,8 +4,8 @@ require 'memoizable'
 
 module Twitter
   module Profile
-    PROFILE_IMAGE_SUFFIX_REGEX = /_normal(\.gif|\.jpe?g|\.png)$/i
-    PREDICATE_URI_METHOD_REGEX = /_uri\?$/
+    PROFILE_IMAGE_SUFFIX_REGEX = /_normal(\.gif|\.jpe?g|\.png)$/i.freeze
+    PREDICATE_URI_METHOD_REGEX = /_uri\?$/.freeze
     include Memoizable
 
     class << self

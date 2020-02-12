@@ -11,6 +11,7 @@ module Twitter
     def created_at
       time = @attrs[:created_at]
       return if time.nil?
+
       time = Time.parse(time) unless time.is_a?(Time)
       time.utc
     end

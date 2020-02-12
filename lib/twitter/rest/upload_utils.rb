@@ -16,7 +16,7 @@ module Twitter
         Twitter::REST::Request.new(self, :multipart_post, 'https://upload.twitter.com/1.1/media/upload.json', key: :media, file: media).perform
       end
 
-      # rubocop:disable MethodLength
+      # rubocop:disable Metrics/MethodLength
       def chunk_upload(media, media_type, media_category)
         init = Twitter::REST::Request.new(self, :post, 'https://upload.twitter.com/1.1/media/upload.json',
                                           command: 'INIT',
@@ -40,7 +40,7 @@ module Twitter
         Twitter::REST::Request.new(self, :post, 'https://upload.twitter.com/1.1/media/upload.json',
                                    command: 'FINALIZE', media_id: init[:media_id]).perform
       end
-      # rubocop:enable MethodLength
+      # rubocop:enable Metrics/MethodLength
     end
   end
 end

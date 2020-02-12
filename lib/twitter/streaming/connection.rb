@@ -14,7 +14,7 @@ module Twitter
         @write_pipe = nil
       end
 
-      def stream(request, response) # rubocop:disable MethodLength
+      def stream(request, response) # rubocop:disable Metrics/MethodLength
         client = connect(request)
         request.stream(client)
         read_pipe, @write_pipe = IO.pipe
