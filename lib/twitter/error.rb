@@ -59,6 +59,21 @@ module Twitter
     # Raised when Twitter returns the HTTP status code 504
     GatewayTimeout = Class.new(ServerError)
 
+    # Raised when Twitter returns a media related error
+    MediaError = Class.new(self)
+
+    # Raised when Twitter returns an InvalidMedia error
+    InvalidMedia = Class.new(MediaError)
+
+    # Raised when Twitter returns a media InternalError error
+    MediaInternalError = Class.new(MediaError)
+
+    # Raised when Twitter returns an UnsupportedMedia error
+    UnsupportedMedia = Class.new(MediaError)
+
+    # Raised when an operation subject to timeout takes too long
+    TimeoutError = Class.new(self)
+
     ERRORS = {
       400 => Twitter::Error::BadRequest,
       401 => Twitter::Error::Unauthorized,
@@ -90,7 +105,13 @@ module Twitter
       end
     end
 
-    # If error code is missing see https://dev.twitter.com/overview/api/response-codes
+    MEDIA_ERRORS = {
+      'InternalError' => Twitter::Error::MediaInternalError,
+      'InvalidMedia' => Twitter::Error::InvalidMedia,
+      'UnsupportedMedia' => Twitter::Error::UnsupportedMedia,
+    }.freeze
+
+    # If error code is missing see https://developer.twitter.com/en/docs/basics/response-codes
     module Code
       AUTHENTICATION_PROBLEM       =  32
       RESOURCE_NOT_FOUND           =  34
@@ -129,6 +150,18 @@ module Twitter
       def from_response(body, headers)
         message, code = parse_error(body)
         new(message, headers, code)
+      end
+
+      # Create a new error from a media error hash
+      #
+      # @param error [Hash]
+      # @param headers [Hash]
+      # @return [Twitter::MediaError]
+      def from_processing_response(error, headers)
+        klass = MEDIA_ERRORS[error[:name]] || self
+        message = error[:message]
+        code = error[:code]
+        klass.new(message, headers, code)
       end
 
     private

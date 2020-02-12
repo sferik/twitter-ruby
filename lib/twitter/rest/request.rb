@@ -90,6 +90,8 @@ module Twitter
           forbidden_error(body, headers)
         elsif !klass.nil?
           klass.from_response(body, headers)
+        elsif body&.is_a?(Hash) && (err = body.dig(:processing_info, :error))
+          Twitter::Error::MediaError.from_processing_response(err, headers)
         end
       end
 
@@ -116,10 +118,17 @@ module Twitter
         object
       end
 
+      # Returns boolean indicating if all the keys required by HTTP::Client are present in Twitter::Client#timeouts
+      #
+      # @return [Boolean]
+      def timeout_keys_defined
+        (%i[write connect read] - (@client.timeouts&.keys || [])).empty?
+      end
+
       # @return [HTTP::Client, HTTP]
       def http_client
         client = @client.proxy ? HTTP.via(*proxy) : HTTP
-        client = client.timeout(connect: @client.timeouts[:connect], read: @client.timeouts[:read], write: @client.timeouts[:write]) if @client.timeouts
+        client = client.timeout(connect: @client.timeouts[:connect], read: @client.timeouts[:read], write: @client.timeouts[:write]) if timeout_keys_defined
         client
       end
 
