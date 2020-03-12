@@ -31,7 +31,7 @@ describe Twitter::Streaming::Client do
   end
 
   describe '#filter' do
-    it 'returns an arary of Tweets' do
+    it 'returns an array of Tweets' do
       @client.connection = FakeConnection.new(fixture('track_streaming.json'))
       objects = []
       @client.filter(track: 'india') do |object|
