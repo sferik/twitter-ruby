@@ -44,7 +44,7 @@ describe Twitter::Streaming::Client do
   end
 
   describe '#firehose' do
-    it 'returns an arary of Tweets' do
+    it 'returns an array of Tweets' do
       @client.connection = FakeConnection.new(fixture('track_streaming.json'))
       objects = []
       @client.firehose do |object|
@@ -57,7 +57,7 @@ describe Twitter::Streaming::Client do
   end
 
   describe '#sample' do
-    it 'returns an arary of Tweets' do
+    it 'returns an array of Tweets' do
       @client.connection = FakeConnection.new(fixture('track_streaming.json'))
       objects = []
       @client.sample do |object|
@@ -71,7 +71,7 @@ describe Twitter::Streaming::Client do
 
   describe '#site' do
     context 'with a user ID passed' do
-      it 'returns an arary of Tweets' do
+      it 'returns an array of Tweets' do
         @client.connection = FakeConnection.new(fixture('track_streaming.json'))
         objects = []
         @client.site(7_505_382) do |object|
@@ -83,7 +83,7 @@ describe Twitter::Streaming::Client do
       end
     end
     context 'with a user object passed' do
-      it 'returns an arary of Tweets' do
+      it 'returns an array of Tweets' do
         @client.connection = FakeConnection.new(fixture('track_streaming.json'))
         objects = []
         user = Twitter::User.new(id: 7_505_382)
@@ -98,7 +98,7 @@ describe Twitter::Streaming::Client do
   end
 
   describe '#user' do
-    it 'returns an arary of Tweets' do
+    it 'returns an array of Tweets' do
       @client.connection = FakeConnection.new(fixture('track_streaming_user.json'))
       objects = []
       @client.user do |object|
