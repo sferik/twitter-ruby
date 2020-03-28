@@ -22,6 +22,7 @@ describe Twitter::REST::Request do
     it 'uses custom HTTP::FormData::Urlencoded instance for form requests' do
       stub_post('/1.1/statuses/update.json').with(body: {status: 'Update'}).to_return(body: fixture('status.json'), headers: {content_type: 'application/json; charset=utf-8'})
       expect_any_instance_of(HTTP::Client).to receive(:post).with('https://api.twitter.com/1.1/statuses/update.json', form: instance_of(HTTP::FormData::Urlencoded)).and_call_original
+      expect(Twitter::REST::FormEncoder).to receive(:encode).with({status: 'Update'}).and_call_original
       @client.update('Update')
     end
 
