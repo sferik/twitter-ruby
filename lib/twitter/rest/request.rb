@@ -7,6 +7,7 @@ require 'twitter/error'
 require 'twitter/headers'
 require 'twitter/rate_limit'
 require 'twitter/utils'
+require 'twitter/rest/form_encoder'
 
 module Twitter
   module REST
@@ -44,7 +45,12 @@ module Twitter
     private
 
       def request_options
-        options = {@options_key => @options}
+        if @options_key == :form
+          options = {form: HTTP::FormData.create(@options, encoder: FormEncoder.method(:encode))}
+        else
+          options = {@options_key => @options}
+        end
+
         if @params
           if options[:params]
             options[:params].merge(@params)
