@@ -10,8 +10,6 @@ rvm:
   - jruby-head
   - ruby-head
 
-sudo: false
-
 bundler_args: --without development --retry=3 --jobs=3
 
 env:
