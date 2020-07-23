@@ -1,0 +1,43 @@
+name: repo-checks
+on:
+  push:
+    branches: [master]
+  pull_request:
+jobs:
+  main:
+    name: rvm
+    runs-on: ubuntu-latest
+    env:
+      RAILS_ENV: test
+      JRUBY_OPTS: "$JRUBY_OPTS --debug"
+    continue-on-error: ${{ matrix.allow_failures }}
+    strategy:
+      fail-fast: true
+      matrix:
+        allow_failures: [false]
+        rvm:
+        - 2.4
+        - 2.5
+        - 2.6
+        - jruby-9.1.9.0
+        include:
+        - rvm: jruby-head
+          allow_failures: true
+        - rvm: head
+          allow_failures: true
+    steps:
+    - uses: zendesk/checkout@v2
+    - uses: zendesk/setup-ruby@v1
+    - name: gem_cache
+      id: cache
+      uses: zendesk/cache@v2
+      with:
+        path: vendor/bundle
+        key: cache-${{ runner.os }}-ruby-${{ matrix.rvm }}-${{ hashFiles('Gemfile.lock') }}
+    - name: install
+      run: |
+        bundle config path vendor/bundle
+        bundle install --without development --retry=3 --jobs=3
+    - name: ruby ${{ matrix.rvm }}
+      run: |
+        bundle exec rake test
