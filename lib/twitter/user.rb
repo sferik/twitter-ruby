@@ -89,7 +89,7 @@ module Twitter
       if website_uris?
         website_uris.first.expanded_url
       else
-        Addressable::URI.parse(@attrs[:url])
+        Addressable::URI.heuristic_parse(@attrs[:url])
       end
     end
     memoize :website

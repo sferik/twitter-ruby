@@ -71,7 +71,7 @@ module Twitter
       # @param key2 [Symbol]
       def define_uri_method(key1, key2)
         define_method(key1) do
-          Addressable::URI.parse(@attrs[key2].chomp('#')) unless @attrs[key2].nil?
+          Addressable::URI.heuristic_parse(@attrs[key2].chomp('#')) unless @attrs[key2].nil?
         end
         memoize(key1)
       end
