@@ -1,4 +1,4 @@
-require 'addressable/uri'
+require 'addressable/uri/'
 require 'twitter/configuration'
 require 'twitter/cursor'
 require 'twitter/direct_message'
