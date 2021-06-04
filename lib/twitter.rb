@@ -1,4 +1,4 @@
-require 'twitter/action_factory'
+require 'twitter/action_factory/'
 require 'twitter/client'
 require 'twitter/configurable'
 require 'twitter/configuration'
