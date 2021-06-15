@@ -115,7 +115,7 @@ module Twitter
         before_request.call
         headers = Twitter::Headers.new(self, method, uri, params).request_headers
         if method == :post
-          headers.merge!({ content_type: 'application/x-www-form-urlencoded' }
+          headers.merge!({ content_type: 'application/x-www-form-urlencoded' })
           request = HTTP::Request.new(verb: :post, uri: uri, body: to_url_params(params), headers: headers, proxy: proxy)
         else
           request = HTTP::Request.new(verb: method, uri: uri + '?' + to_url_params(params), headers: headers, proxy: proxy)
