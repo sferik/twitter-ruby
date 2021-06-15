@@ -114,12 +114,13 @@ module Twitter
       def request(method, uri, params)
         before_request.call
         headers = Twitter::Headers.new(self, method, uri, params).request_headers
+        body = nil
         if method == :post
-          headers.merge!({ content_type: 'application/x-www-form-urlencoded' })
-          request = HTTP::Request.new(verb: :post, uri: uri, body: to_url_params(params), headers: headers, proxy: proxy)
-        else
-          request = HTTP::Request.new(verb: method, uri: uri + '?' + to_url_params(params), headers: headers, proxy: proxy)
+          body = to_url_params(params)
+        else        
+          uri = uri + '?' + to_url_params(params)
         end
+        request = HTTP::Request.new(verb: method, uri: uri, headers: headers, proxy: proxy, body: body)
         response = Streaming::Response.new do |data|
           if item = Streaming::MessageParser.parse(data) # rubocop:disable Lint/AssignmentInCondition
             yield(item)
