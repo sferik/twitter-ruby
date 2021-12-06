@@ -81,6 +81,7 @@ module Twitter
       404 => Twitter::Error::NotFound,
       406 => Twitter::Error::NotAcceptable,
       413 => Twitter::Error::RequestEntityTooLarge,
+      420 => Twitter::Error::TooManyRequests,
       422 => Twitter::Error::UnprocessableEntity,
       429 => Twitter::Error::TooManyRequests,
       500 => Twitter::Error::InternalServerError,
