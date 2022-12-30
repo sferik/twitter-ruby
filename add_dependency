@@ -1,0 +1,1 @@
+spec.add_dependency 'twitter', '~> 6.0'
