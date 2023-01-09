@@ -1,8 +1,7 @@
 engines:
   rubocop:
     enabled: true
-  duplication:
-    enabled: true
+ 
     config:
       languages:
       - ruby
@@ -15,3 +14,6 @@ exclude_paths:
   - etc/**/*
   - examples/**/*
   - spec/**/*
+7c176accf5194648f727f5defcb9e782281d3d29
+ duplication:
+    enabled: true
