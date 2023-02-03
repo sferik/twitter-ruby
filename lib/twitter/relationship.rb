@@ -10,6 +10,7 @@ module Twitter
     # @param attrs [Hash]
     # @return [Twitter::Relationship]
     def initialize(attrs = {})
+      super
       @attrs = attrs[:relationship]
     end
   end
