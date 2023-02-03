@@ -7,7 +7,7 @@ describe Twitter::Streaming::Response do
     it 'does not error if status code is 200' do
       expect do
         subject << "HTTP/1.1 200 OK\r\nSome-Header: Woo\r\n\r\n"
-      end.to_not raise_error
+      end.not_to raise_error
     end
 
     Twitter::Error::ERRORS.each do |code, klass|
