@@ -7,6 +7,7 @@ describe Twitter::SearchResults do
       stub_get('/1.1/search/tweets.json').with(query: {q: '#freebandnames', count: '100'}).to_return(body: fixture('search.json'), headers: {content_type: 'application/json; charset=utf-8'})
       stub_get('/1.1/search/tweets.json').with(query: {q: '#freebandnames', count: '3', include_entities: '1', max_id: '414071361066532863'}).to_return(body: fixture('search2.json'), headers: {content_type: 'application/json; charset=utf-8'})
     end
+
     it 'requests the correct resources' do
       @client.search('#freebandnames').each {}
       expect(a_get('/1.1/search/tweets.json').with(query: {q: '#freebandnames', count: '100'})).to have_been_made

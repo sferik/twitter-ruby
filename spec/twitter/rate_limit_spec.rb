@@ -45,9 +45,11 @@ describe Twitter::RateLimit do
     before do
       Timecop.freeze(Time.utc(2012, 6, 6, 17, 22, 0))
     end
+
     after do
       Timecop.return
     end
+
     it 'returns an Integer when x-rate-limit-reset header is set' do
       rate_limit = described_class.new('x-rate-limit-reset' => '1339019097')
       expect(rate_limit.reset_in).to be_an Integer

@@ -10,6 +10,7 @@ describe Twitter::REST::SuggestedUsers do
       before do
         stub_get('/1.1/users/suggestions/art-design.json').to_return(body: fixture('category.json'), headers: {content_type: 'application/json; charset=utf-8'})
       end
+
       it 'requests the correct resource' do
         @client.suggestions('art-design')
         expect(a_get('/1.1/users/suggestions/art-design.json')).to have_been_made
@@ -27,6 +28,7 @@ describe Twitter::REST::SuggestedUsers do
       before do
         stub_get('/1.1/users/suggestions.json').to_return(body: fixture('suggestions.json'), headers: {content_type: 'application/json; charset=utf-8'})
       end
+
       it 'requests the correct resource' do
         @client.suggestions
         expect(a_get('/1.1/users/suggestions.json')).to have_been_made
@@ -45,6 +47,7 @@ describe Twitter::REST::SuggestedUsers do
     before do
       stub_get('/1.1/users/suggestions/art-design/members.json').to_return(body: fixture('members.json'), headers: {content_type: 'application/json; charset=utf-8'})
     end
+
     it 'requests the correct resource' do
       @client.suggest_users('art-design')
       expect(a_get('/1.1/users/suggestions/art-design/members.json')).to have_been_made

@@ -9,6 +9,7 @@ describe Twitter::REST::Timelines do
     before do
       stub_get('/1.1/statuses/mentions_timeline.json').to_return(body: fixture('statuses.json'), headers: {content_type: 'application/json; charset=utf-8'})
     end
+
     it 'requests the correct resource' do
       @client.mentions_timeline
       expect(a_get('/1.1/statuses/mentions_timeline.json')).to have_been_made
@@ -27,6 +28,7 @@ describe Twitter::REST::Timelines do
       before do
         stub_get('/1.1/statuses/user_timeline.json').with(query: {screen_name: 'sferik'}).to_return(body: fixture('statuses.json'), headers: {content_type: 'application/json; charset=utf-8'})
       end
+
       it 'requests the correct resource' do
         @client.user_timeline('sferik')
         expect(a_get('/1.1/statuses/user_timeline.json').with(query: {screen_name: 'sferik'})).to have_been_made
@@ -43,6 +45,7 @@ describe Twitter::REST::Timelines do
       before do
         stub_get('/1.1/statuses/user_timeline.json').to_return(body: fixture('statuses.json'), headers: {content_type: 'application/json; charset=utf-8'})
       end
+
       it 'requests the correct resource' do
         @client.user_timeline
         expect(a_get('/1.1/statuses/user_timeline.json')).to have_been_made
@@ -55,6 +58,7 @@ describe Twitter::REST::Timelines do
       stub_get('/1.1/statuses/user_timeline.json').with(query: {include_rts: 'true', screen_name: 'sferik', count: '200'}).to_return(body: fixture('statuses.json'), headers: {content_type: 'application/json; charset=utf-8'})
       stub_get('/1.1/statuses/user_timeline.json').with(query: {include_rts: 'true', screen_name: 'sferik', count: '200', max_id: '244102729860009983'}).to_return(body: fixture('statuses.json'), headers: {content_type: 'application/json; charset=utf-8'})
     end
+
     it 'requests the correct resource' do
       @client.retweeted_by_user('sferik')
       expect(a_get('/1.1/statuses/user_timeline.json').with(query: {include_rts: 'true', screen_name: 'sferik', count: '200'})).to have_been_made
@@ -74,6 +78,7 @@ describe Twitter::REST::Timelines do
       stub_get('/1.1/statuses/user_timeline.json').with(query: {include_rts: 'true', count: '200'}).to_return(body: fixture('statuses.json'), headers: {content_type: 'application/json; charset=utf-8'})
       stub_get('/1.1/statuses/user_timeline.json').with(query: {include_rts: 'true', count: '200', max_id: '244102729860009983'}).to_return(body: fixture('statuses.json'), headers: {content_type: 'application/json; charset=utf-8'})
     end
+
     it 'requests the correct resource' do
       @client.retweeted_by_me
       expect(a_get('/1.1/statuses/user_timeline.json').with(query: {include_rts: 'true', count: '200'})).to have_been_made
@@ -92,6 +97,7 @@ describe Twitter::REST::Timelines do
     before do
       stub_get('/1.1/statuses/home_timeline.json').to_return(body: fixture('statuses.json'), headers: {content_type: 'application/json; charset=utf-8'})
     end
+
     it 'requests the correct resource' do
       @client.home_timeline
       expect(a_get('/1.1/statuses/home_timeline.json')).to have_been_made
@@ -110,6 +116,7 @@ describe Twitter::REST::Timelines do
       stub_get('/1.1/statuses/home_timeline.json').with(query: {include_rts: 'true', count: '200'}).to_return(body: fixture('statuses.json'), headers: {content_type: 'application/json; charset=utf-8'})
       stub_get('/1.1/statuses/home_timeline.json').with(query: {include_rts: 'true', count: '200', max_id: '244102729860009983'}).to_return(body: fixture('statuses.json'), headers: {content_type: 'application/json; charset=utf-8'})
     end
+
     it 'requests the correct resource' do
       @client.retweeted_to_me
       expect(a_get('/1.1/statuses/home_timeline.json').with(query: {include_rts: 'true', count: '200'})).to have_been_made
@@ -128,6 +135,7 @@ describe Twitter::REST::Timelines do
     before do
       stub_get('/1.1/statuses/retweets_of_me.json').to_return(body: fixture('statuses.json'), headers: {content_type: 'application/json; charset=utf-8'})
     end
+
     it 'requests the correct resource' do
       @client.retweets_of_me
       expect(a_get('/1.1/statuses/retweets_of_me.json')).to have_been_made

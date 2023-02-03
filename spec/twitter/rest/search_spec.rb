@@ -10,6 +10,7 @@ describe Twitter::REST::Search do
       before do
         stub_get('/1.1/search/tweets.json').with(query: {q: '#freebandnames', count: '100'}).to_return(body: fixture('search.json'), headers: {content_type: 'application/json; charset=utf-8'})
       end
+
       it 'requests the correct resource' do
         @client.search('#freebandnames')
         expect(a_get('/1.1/search/tweets.json').with(query: {q: '#freebandnames', count: '100'})).to have_been_made
@@ -26,6 +27,7 @@ describe Twitter::REST::Search do
       before do
         stub_get('/1.1/search/tweets.json').with(query: {q: '#freebandnames', count: '3'}).to_return(body: fixture('search.json'), headers: {content_type: 'application/json; charset=utf-8'})
       end
+
       it 'requests the correct resource' do
         @client.search('#freebandnames', count: 3)
         expect(a_get('/1.1/search/tweets.json').with(query: {q: '#freebandnames', count: '3'})).to have_been_made

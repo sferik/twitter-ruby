@@ -10,6 +10,7 @@ describe Twitter::REST::Favorites do
       before do
         stub_get('/1.1/favorites/list.json').with(query: {screen_name: 'sferik'}).to_return(body: fixture('user_timeline.json'), headers: {content_type: 'application/json; charset=utf-8'})
       end
+
       it 'requests the correct resource' do
         @client.favorites('sferik')
         expect(a_get('/1.1/favorites/list.json').with(query: {screen_name: 'sferik'})).to have_been_made
@@ -34,6 +35,7 @@ describe Twitter::REST::Favorites do
       before do
         stub_get('/1.1/favorites/list.json').to_return(body: fixture('user_timeline.json'), headers: {content_type: 'application/json; charset=utf-8'})
       end
+
       it 'requests the correct resource' do
         @client.favorites
         expect(a_get('/1.1/favorites/list.json')).to have_been_made
@@ -52,6 +54,7 @@ describe Twitter::REST::Favorites do
     before do
       stub_post('/1.1/favorites/destroy.json').with(body: {id: '540897316908331009'}).to_return(body: fixture('status.json'), headers: {content_type: 'application/json; charset=utf-8'})
     end
+
     it 'requests the correct resource' do
       @client.unfavorite(540_897_316_908_331_009)
       expect(a_post('/1.1/favorites/destroy.json').with(body: {id: '540897316908331009'})).to have_been_made
@@ -68,6 +71,7 @@ describe Twitter::REST::Favorites do
       before do
         stub_post('/1.1/favorites/destroy.json').with(body: {id: '540897316908331009'}).to_return(status: 404, body: fixture('not_found.json'), headers: {content_type: 'application/json; charset=utf-8'})
       end
+
       it 'does not raise an error' do
         expect { @client.unfavorite(540_897_316_908_331_009) }.not_to raise_error
       end
@@ -92,6 +96,7 @@ describe Twitter::REST::Favorites do
     before do
       stub_post('/1.1/favorites/destroy.json').with(body: {id: '540897316908331009'}).to_return(body: fixture('status.json'), headers: {content_type: 'application/json; charset=utf-8'})
     end
+
     it 'requests the correct resource' do
       @client.unfavorite!(540_897_316_908_331_009)
       expect(a_post('/1.1/favorites/destroy.json').with(body: {id: '540897316908331009'})).to have_been_made
@@ -108,6 +113,7 @@ describe Twitter::REST::Favorites do
       before do
         stub_post('/1.1/favorites/destroy.json').with(body: {id: '540897316908331009'}).to_return(status: 404, body: fixture('not_found.json'), headers: {content_type: 'application/json; charset=utf-8'})
       end
+
       it 'raises a NotFound error' do
         expect { @client.unfavorite!(540_897_316_908_331_009) }.to raise_error(Twitter::Error::NotFound)
       end
@@ -132,6 +138,7 @@ describe Twitter::REST::Favorites do
     before do
       stub_post('/1.1/favorites/create.json').with(body: {id: '540897316908331009'}).to_return(body: fixture('status.json'), headers: {content_type: 'application/json; charset=utf-8'})
     end
+
     it 'requests the correct resource' do
       @client.favorite(540_897_316_908_331_009)
       expect(a_post('/1.1/favorites/create.json').with(body: {id: '540897316908331009'})).to have_been_made
@@ -148,6 +155,7 @@ describe Twitter::REST::Favorites do
       before do
         stub_post('/1.1/favorites/create.json').with(body: {id: '540897316908331009'}).to_return(status: 403, body: fixture('already_favorited.json'), headers: {content_type: 'application/json; charset=utf-8'})
       end
+
       it 'does not raise an error' do
         expect { @client.favorite(540_897_316_908_331_009) }.not_to raise_error
       end
@@ -156,6 +164,7 @@ describe Twitter::REST::Favorites do
       before do
         stub_post('/1.1/favorites/create.json').with(body: {id: '540897316908331009'}).to_return(status: 404, body: fixture('not_found.json'), headers: {content_type: 'application/json; charset=utf-8'})
       end
+
       it 'does not raise an error' do
         expect { @client.favorite(540_897_316_908_331_009) }.not_to raise_error
       end
@@ -180,6 +189,7 @@ describe Twitter::REST::Favorites do
     before do
       stub_post('/1.1/favorites/create.json').with(body: {id: '540897316908331009'}).to_return(body: fixture('status.json'), headers: {content_type: 'application/json; charset=utf-8'})
     end
+
     it 'requests the correct resource' do
       @client.favorite!(540_897_316_908_331_009)
       expect(a_post('/1.1/favorites/create.json').with(body: {id: '540897316908331009'})).to have_been_made
@@ -196,6 +206,7 @@ describe Twitter::REST::Favorites do
       before do
         stub_post('/1.1/favorites/create.json').with(body: {id: '540897316908331009'}).to_return(status: 403, body: '{}', headers: {content_type: 'application/json; charset=utf-8'})
       end
+
       it 'raises a Forbidden error' do
         expect { @client.favorite!(540_897_316_908_331_009) }.to raise_error(Twitter::Error::Forbidden)
       end
@@ -204,6 +215,7 @@ describe Twitter::REST::Favorites do
       before do
         stub_post('/1.1/favorites/create.json').with(body: {id: '540897316908331009'}).to_return(status: 403, body: fixture('already_favorited.json'), headers: {content_type: 'application/json; charset=utf-8'})
       end
+
       it 'raises an AlreadyFavorited error' do
         expect { @client.favorite!(540_897_316_908_331_009) }.to raise_error(Twitter::Error::AlreadyFavorited)
       end
@@ -212,6 +224,7 @@ describe Twitter::REST::Favorites do
       before do
         stub_post('/1.1/favorites/create.json').with(body: {id: '540897316908331009'}).to_return(status: 404, body: fixture('not_found.json'), headers: {content_type: 'application/json; charset=utf-8'})
       end
+
       it 'raises a NotFound error' do
         expect { @client.favorite!(540_897_316_908_331_009) }.to raise_error(Twitter::Error::NotFound)
       end
