@@ -141,11 +141,11 @@ describe Twitter::REST::DirectMessages do
   describe '#create_direct_message' do
     let(:json_options) do
       {
-        'event': {
-          'type': 'message_create',
-          'message_create': {
-            'target': {'recipient_id': '7505382'},
-            'message_data': {'text': "My #newride from @PUBLICBikes. Don't you want one? https://t.co/7HIwCl68Y8 https://t.co/JSSxDPr4Sf"},
+        event: {
+          type: 'message_create',
+          message_create: {
+            target: {recipient_id: '7505382'},
+            message_data: {text: "My #newride from @PUBLICBikes. Don't you want one? https://t.co/7HIwCl68Y8 https://t.co/JSSxDPr4Sf"},
           },
         },
       }
