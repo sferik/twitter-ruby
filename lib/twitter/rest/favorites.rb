@@ -50,11 +50,9 @@ module Twitter
       def unfavorite(*args)
         arguments = Twitter::Arguments.new(args)
         pmap(arguments) do |tweet|
-          begin
-            perform_post_with_object('/1.1/favorites/destroy.json', arguments.options.merge(id: extract_id(tweet)), Twitter::Tweet)
-          rescue Twitter::Error::NotFound
-            next
-          end
+          perform_post_with_object('/1.1/favorites/destroy.json', arguments.options.merge(id: extract_id(tweet)), Twitter::Tweet)
+        rescue Twitter::Error::NotFound
+          next
         end.compact
       end
       alias destroy_favorite unfavorite
@@ -91,11 +89,9 @@ module Twitter
       def favorite(*args)
         arguments = Twitter::Arguments.new(args)
         pmap(arguments) do |tweet|
-          begin
-            perform_post_with_object('/1.1/favorites/create.json', arguments.options.merge(id: extract_id(tweet)), Twitter::Tweet)
-          rescue Twitter::Error::AlreadyFavorited, Twitter::Error::NotFound
-            next
-          end
+          perform_post_with_object('/1.1/favorites/create.json', arguments.options.merge(id: extract_id(tweet)), Twitter::Tweet)
+        rescue Twitter::Error::AlreadyFavorited, Twitter::Error::NotFound
+          next
         end.compact
       end
       alias fav favorite
