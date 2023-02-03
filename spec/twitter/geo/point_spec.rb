@@ -11,14 +11,17 @@ describe Twitter::Geo::Point do
       other = described_class.new
       expect(point == other).to be true
     end
+
     it 'returns true when objects coordinates are the same' do
       other = described_class.new(coordinates: [-122.399983, 37.788299])
       expect(@point == other).to be true
     end
+
     it 'returns false when objects coordinates are different' do
       other = described_class.new(coordinates: [37.788299, -122.399983])
       expect(@point == other).to be false
     end
+
     it 'returns false when classes are different' do
       other = Twitter::Geo.new(coordinates: [-122.399983, 37.788299])
       expect(@point == other).to be false

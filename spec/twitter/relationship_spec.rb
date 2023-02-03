@@ -6,6 +6,7 @@ describe Twitter::Relationship do
       relationship = described_class.new(relationship: {source: {id: 7_505_382}})
       expect(relationship.source).to be_a Twitter::SourceUser
     end
+
     it 'returns nil when source is not set' do
       relationship = described_class.new(relationship: {})
       expect(relationship.source).to be_nil
@@ -17,6 +18,7 @@ describe Twitter::Relationship do
       relationship = described_class.new(relationship: {source: {id: 7_505_382}})
       expect(relationship.source?).to be true
     end
+
     it 'returns false when source is not set' do
       relationship = described_class.new(relationship: {})
       expect(relationship.source?).to be false
@@ -28,6 +30,7 @@ describe Twitter::Relationship do
       relationship = described_class.new(relationship: {target: {id: 7_505_382}})
       expect(relationship.target).to be_a Twitter::TargetUser
     end
+
     it 'returns nil when target is not set' do
       relationship = described_class.new(relationship: {})
       expect(relationship.target).to be_nil
@@ -39,6 +42,7 @@ describe Twitter::Relationship do
       relationship = described_class.new(relationship: {target: {id: 7_505_382}})
       expect(relationship.target?).to be true
     end
+
     it 'returns false when target is not set' do
       relationship = described_class.new(relationship: {})
       expect(relationship.target?).to be false

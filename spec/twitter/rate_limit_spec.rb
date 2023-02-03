@@ -7,6 +7,7 @@ describe Twitter::RateLimit do
       expect(rate_limit.limit).to be_an Integer
       expect(rate_limit.limit).to eq(150)
     end
+
     it 'returns nil when x-rate-limit-limit header is not set' do
       rate_limit = described_class.new
       expect(rate_limit.limit).to be_nil
@@ -19,6 +20,7 @@ describe Twitter::RateLimit do
       expect(rate_limit.remaining).to be_an Integer
       expect(rate_limit.remaining).to eq(149)
     end
+
     it 'returns nil when x-rate-limit-remaining header is not set' do
       rate_limit = described_class.new
       expect(rate_limit.remaining).to be_nil
@@ -32,6 +34,7 @@ describe Twitter::RateLimit do
       expect(rate_limit.reset_at).to be_utc
       expect(rate_limit.reset_at).to eq(Time.at(1_339_019_097))
     end
+
     it 'returns nil when x-rate-limit-reset header is not set' do
       rate_limit = described_class.new
       expect(rate_limit.reset_at).to be_nil
@@ -50,6 +53,7 @@ describe Twitter::RateLimit do
       expect(rate_limit.reset_in).to be_an Integer
       expect(rate_limit.reset_in).to eq(15_777)
     end
+
     it 'returns nil when x-rate-limit-reset header is not set' do
       rate_limit = described_class.new
       expect(rate_limit.reset_in).to be_nil

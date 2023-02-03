@@ -16,11 +16,13 @@ describe Twitter::DirectMessage do
       other = described_class.new(id: 1, text: 'bar')
       expect(direct_message == other).to be true
     end
+
     it 'returns false when objects IDs are different' do
       direct_message = described_class.new(id: 1)
       other = described_class.new(id: 2)
       expect(direct_message == other).to be false
     end
+
     it 'returns false when classes are different' do
       direct_message = described_class.new(id: 1)
       other = Twitter::Identity.new(id: 1)
@@ -34,6 +36,7 @@ describe Twitter::DirectMessage do
       expect(direct_message.created_at).to be_a Time
       expect(direct_message.created_at).to be_utc
     end
+
     it 'returns nil when created_at is not set' do
       direct_message = described_class.new(id: 1_825_786_345)
       expect(direct_message.created_at).to be_nil
@@ -45,6 +48,7 @@ describe Twitter::DirectMessage do
       direct_message = described_class.new(id: 1_825_786_345, created_at: 'Mon Jul 16 12:59:01 +0000 2007')
       expect(direct_message.created?).to be true
     end
+
     it 'returns false when created_at is not set' do
       direct_message = described_class.new(id: 1_825_786_345)
       expect(direct_message.created?).to be false
@@ -64,10 +68,12 @@ describe Twitter::DirectMessage do
       tweet = described_class.new(id: 1_825_786_345, entities: {urls: urls_array})
       expect(tweet.entities?).to be true
     end
+
     it 'returns false if there are blank lists of entities set' do
       tweet = described_class.new(id: 1_825_786_345, entities: {urls: []})
       expect(tweet.entities?).to be false
     end
+
     it 'returns false if there are no entities set' do
       tweet = described_class.new(id: 1_825_786_345)
       expect(tweet.entities?).to be false
@@ -79,6 +85,7 @@ describe Twitter::DirectMessage do
       direct_message = described_class.new(id: 1_825_786_345, recipient: {id: 7_505_382})
       expect(direct_message.recipient).to be_a Twitter::User
     end
+
     it 'returns nil when recipient is not set' do
       direct_message = described_class.new(id: 1_825_786_345)
       expect(direct_message.recipient).to be_nil
@@ -90,6 +97,7 @@ describe Twitter::DirectMessage do
       direct_message = described_class.new(id: 1_825_786_345, recipient: {id: 7_505_382})
       expect(direct_message.recipient?).to be true
     end
+
     it 'returns false when recipient is not set' do
       direct_message = described_class.new(id: 1_825_786_345)
       expect(direct_message.recipient?).to be false
@@ -101,6 +109,7 @@ describe Twitter::DirectMessage do
       direct_message = described_class.new(id: 1_825_786_345, sender: {id: 7_505_382})
       expect(direct_message.sender).to be_a Twitter::User
     end
+
     it 'returns nil when sender is not set' do
       direct_message = described_class.new(id: 1_825_786_345)
       expect(direct_message.sender).to be_nil
@@ -112,6 +121,7 @@ describe Twitter::DirectMessage do
       direct_message = described_class.new(id: 1_825_786_345, sender: {id: 7_505_382})
       expect(direct_message.sender?).to be true
     end
+
     it 'returns false when sender is not set' do
       direct_message = described_class.new(id: 1_825_786_345)
       expect(direct_message.sender?).to be false
@@ -132,6 +142,7 @@ describe Twitter::DirectMessage do
       expect(hashtags.first.indices).to eq([10, 33])
       expect(hashtags.first.text).to eq('twitter')
     end
+
     it 'is empty when not set' do
       hashtags = described_class.new(id: 1_825_786_345).hashtags
       expect(hashtags).to be_empty
@@ -144,6 +155,7 @@ describe Twitter::DirectMessage do
       expect(media).to be_an Array
       expect(media.first).to be_a Twitter::Media::Photo
     end
+
     it 'is empty when not set' do
       media = described_class.new(id: 1_825_786_345).media
       expect(media).to be_empty
@@ -163,6 +175,7 @@ describe Twitter::DirectMessage do
       expect(symbols.first.indices).to eq([114, 118])
       expect(symbols.first.text).to eq('PEP')
     end
+
     it 'is empty when not set' do
       symbols = described_class.new(id: 1_825_786_345).symbols
       expect(symbols).to be_empty
@@ -186,10 +199,12 @@ describe Twitter::DirectMessage do
       expect(direct_message.uris.first.display_uri).to be_a String
       expect(direct_message.uris.first.display_uri).to eq('example.com/expanded...')
     end
+
     it 'is empty when not set' do
       direct_message = described_class.new(id: 1_825_786_345)
       expect(direct_message.uris).to be_empty
     end
+
     it 'can handle strange urls' do
       urls_array = [
         {
@@ -224,6 +239,7 @@ describe Twitter::DirectMessage do
       expect(user_mentions.first.indices).to eq([0, 6])
       expect(user_mentions.first.id).to eq(7_505_382)
     end
+
     it 'is empty when not set' do
       user_mentions = described_class.new(id: 1_825_786_345).user_mentions
       expect(user_mentions).to be_empty

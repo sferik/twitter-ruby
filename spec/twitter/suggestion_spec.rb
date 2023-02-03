@@ -7,16 +7,19 @@ describe Twitter::Suggestion do
       other = described_class.new
       expect(suggestion == other).to be true
     end
+
     it 'returns true when objects slugs are the same' do
       suggestion = described_class.new(slug: 1, name: 'foo')
       other = described_class.new(slug: 1, name: 'bar')
       expect(suggestion == other).to be true
     end
+
     it 'returns false when objects slugs are different' do
       suggestion = described_class.new(slug: 1)
       other = described_class.new(slug: 2)
       expect(suggestion == other).to be false
     end
+
     it 'returns false when classes are different' do
       suggestion = described_class.new(slug: 1)
       other = Twitter::Base.new(slug: 1)
@@ -30,6 +33,7 @@ describe Twitter::Suggestion do
       expect(users).to be_an Array
       expect(users.first).to be_a Twitter::User
     end
+
     it 'is empty when not set' do
       users = described_class.new.users
       expect(users).to be_empty

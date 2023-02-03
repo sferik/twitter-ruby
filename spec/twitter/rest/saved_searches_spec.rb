@@ -16,6 +16,7 @@ describe Twitter::REST::SavedSearches do
         expect(a_get('/1.1/saved_searches/show/16129012.json')).to have_been_made
         expect(a_get('/1.1/saved_searches/show/16129013.json')).to have_been_made
       end
+
       it 'returns an array of saved searches' do
         saved_searches = @client.saved_searches(16_129_012, 16_129_013)
         expect(saved_searches).to be_an Array
@@ -34,6 +35,7 @@ describe Twitter::REST::SavedSearches do
         @client.saved_searches
         expect(a_get('/1.1/saved_searches/list.json')).to have_been_made
       end
+
       it 'returns the saved search queries for the authenticated user' do
         saved_searches = @client.saved_searches
         expect(saved_searches).to be_an Array
@@ -51,6 +53,7 @@ describe Twitter::REST::SavedSearches do
       @client.saved_search(16_129_012)
       expect(a_get('/1.1/saved_searches/show/16129012.json')).to have_been_made
     end
+
     it 'returns a saved search' do
       saved_search = @client.saved_search(16_129_012)
       expect(saved_search).to be_a Twitter::SavedSearch
@@ -66,6 +69,7 @@ describe Twitter::REST::SavedSearches do
       @client.create_saved_search('twitter')
       expect(a_post('/1.1/saved_searches/create.json').with(body: {query: 'twitter'})).to have_been_made
     end
+
     it 'returns the created saved search' do
       saved_search = @client.create_saved_search('twitter')
       expect(saved_search).to be_a Twitter::SavedSearch
@@ -83,6 +87,7 @@ describe Twitter::REST::SavedSearches do
       expect(a_post('/1.1/saved_searches/destroy/16129012.json')).to have_been_made
       expect(a_post('/1.1/saved_searches/destroy/16129013.json')).to have_been_made
     end
+
     it 'returns an array of deleted saved searches' do
       saved_searches = @client.destroy_saved_search(16_129_012, 16_129_013)
       expect(saved_searches).to be_an Array

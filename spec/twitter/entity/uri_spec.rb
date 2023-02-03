@@ -7,6 +7,7 @@ describe Twitter::Entity::URI do
       expect(uri.display_uri).to be_a String
       expect(uri.display_uri).to eq('example.com/expanded...')
     end
+
     it 'returns nil when the display_url is not set' do
       uri = described_class.new
       expect(uri.display_uri).to be_nil
@@ -18,6 +19,7 @@ describe Twitter::Entity::URI do
       uri = described_class.new(display_url: 'example.com/expanded...')
       expect(uri.display_uri?).to be true
     end
+
     it 'returns false when the display_url is not set' do
       uri = described_class.new
       expect(uri.display_uri?).to be false
@@ -30,6 +32,7 @@ describe Twitter::Entity::URI do
       expect(uri.expanded_uri).to be_an Addressable::URI
       expect(uri.expanded_uri.to_s).to eq('https://github.com/sferik')
     end
+
     it 'returns nil when the expanded_url is not set' do
       uri = described_class.new
       expect(uri.expanded_uri).to be_nil
@@ -41,6 +44,7 @@ describe Twitter::Entity::URI do
       uri = described_class.new(expanded_url: 'https://github.com/sferik')
       expect(uri.expanded_uri?).to be true
     end
+
     it 'returns false when the expanded_url is not set' do
       uri = described_class.new
       expect(uri.expanded_uri?).to be false
@@ -53,6 +57,7 @@ describe Twitter::Entity::URI do
       expect(uri.uri).to be_an Addressable::URI
       expect(uri.uri.to_s).to eq('https://github.com/sferik')
     end
+
     it 'returns nil when the url is not set' do
       uri = described_class.new
       expect(uri.uri).to be_nil
@@ -64,6 +69,7 @@ describe Twitter::Entity::URI do
       uri = described_class.new(url: 'https://github.com/sferik')
       expect(uri.uri?).to be true
     end
+
     it 'returns false when the url is not set' do
       uri = described_class.new
       expect(uri.uri?).to be false

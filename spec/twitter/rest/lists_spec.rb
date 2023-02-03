@@ -13,6 +13,7 @@ describe Twitter::REST::Lists do
       @client.lists
       expect(a_get('/1.1/lists/list.json')).to have_been_made
     end
+
     it 'returns the requested list' do
       lists = @client.lists
       expect(lists).to be_an Array
@@ -30,12 +31,14 @@ describe Twitter::REST::Lists do
         @client.list_timeline('sferik', 'presidents')
         expect(a_get('/1.1/lists/statuses.json').with(query: {owner_screen_name: 'sferik', slug: 'presidents'})).to have_been_made
       end
+
       it 'returns the timeline for members of the specified list' do
         tweets = @client.list_timeline('sferik', 'presidents')
         expect(tweets).to be_an Array
         expect(tweets.first).to be_a Twitter::Tweet
         expect(tweets.first.text).to eq('Happy Birthday @imdane. Watch out for those @rally pranksters!')
       end
+
       context 'with a URI object passed' do
         it 'requests the correct resource' do
           list = URI.parse('https://twitter.com/sferik/presidents')
@@ -74,6 +77,7 @@ describe Twitter::REST::Lists do
         @client.remove_list_member('sferik', 'presidents', 813_286)
         expect(a_post('/1.1/lists/members/destroy.json').with(body: {owner_screen_name: 'sferik', slug: 'presidents', user_id: '813286'})).to have_been_made
       end
+
       it 'returns the list' do
         list = @client.remove_list_member('sferik', 'presidents', 813_286)
         expect(list).to be_a Twitter::List
@@ -102,12 +106,14 @@ describe Twitter::REST::Lists do
         @client.memberships('sferik')
         expect(a_get('/1.1/lists/memberships.json').with(query: {screen_name: 'sferik', cursor: '-1'})).to have_been_made
       end
+
       it 'returns the lists the specified user has been added to' do
         memberships = @client.memberships('sferik')
         expect(memberships).to be_a Twitter::Cursor
         expect(memberships.first).to be_a Twitter::List
         expect(memberships.first.name).to eq('developer')
       end
+
       context 'with each' do
         before do
           stub_get('/1.1/lists/memberships.json').with(query: {screen_name: 'sferik', cursor: '1401037770457540712'}).to_return(body: fixture('memberships2.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -127,6 +133,7 @@ describe Twitter::REST::Lists do
         @client.memberships(7_505_382)
         expect(a_get('/1.1/lists/memberships.json').with(query: {user_id: '7505382', cursor: '-1'})).to have_been_made
       end
+
       context 'with each' do
         before do
           stub_get('/1.1/lists/memberships.json').with(query: {user_id: '7505382', cursor: '1401037770457540712'}).to_return(body: fixture('memberships2.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -148,6 +155,7 @@ describe Twitter::REST::Lists do
         expect(a_get('/1.1/account/verify_credentials.json').with(query: {skip_status: 'true'})).to have_been_made
         expect(a_get('/1.1/lists/memberships.json').with(query: {user_id: '7505382', cursor: '-1'})).to have_been_made
       end
+
       context 'with each' do
         before do
           stub_get('/1.1/lists/memberships.json').with(query: {user_id: '7505382', cursor: '1401037770457540712'}).to_return(body: fixture('memberships2.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -171,12 +179,14 @@ describe Twitter::REST::Lists do
         @client.list_subscribers('sferik', 'presidents')
         expect(a_get('/1.1/lists/subscribers.json').with(query: {owner_screen_name: 'sferik', slug: 'presidents', cursor: '-1'})).to have_been_made
       end
+
       it 'returns the subscribers of the specified list' do
         list_subscribers = @client.list_subscribers('sferik', 'presidents')
         expect(list_subscribers).to be_a Twitter::Cursor
         expect(list_subscribers.first).to be_a Twitter::User
         expect(list_subscribers.first.id).to eq(7_505_382)
       end
+
       context 'with each' do
         before do
           stub_get('/1.1/lists/subscribers.json').with(query: {owner_screen_name: 'sferik', slug: 'presidents', cursor: '1322801608223717003'}).to_return(body: fixture('users_list2.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -196,6 +206,7 @@ describe Twitter::REST::Lists do
         @client.list_subscribers(7_505_382, 'presidents')
         expect(a_get('/1.1/lists/subscribers.json').with(query: {owner_id: '7505382', slug: 'presidents', cursor: '-1'})).to have_been_made
       end
+
       context 'with each' do
         before do
           stub_get('/1.1/lists/subscribers.json').with(query: {owner_id: '7505382', slug: 'presidents', cursor: '1322801608223717003'}).to_return(body: fixture('users_list2.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -217,6 +228,7 @@ describe Twitter::REST::Lists do
         expect(a_get('/1.1/account/verify_credentials.json').with(query: {skip_status: 'true'})).to have_been_made
         expect(a_get('/1.1/lists/subscribers.json').with(query: {owner_id: '7505382', slug: 'presidents', cursor: '-1'})).to have_been_made
       end
+
       context 'with each' do
         before do
           stub_get('/1.1/lists/subscribers.json').with(query: {owner_id: '7505382', slug: 'presidents', cursor: '1322801608223717003'}).to_return(body: fixture('users_list2.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -240,6 +252,7 @@ describe Twitter::REST::Lists do
         @client.list_subscribe('sferik', 'presidents')
         expect(a_post('/1.1/lists/subscribers/create.json').with(body: {owner_screen_name: 'sferik', slug: 'presidents'})).to have_been_made
       end
+
       it 'returns the specified list' do
         list = @client.list_subscribe('sferik', 'presidents')
         expect(list).to be_a Twitter::List
@@ -270,14 +283,17 @@ describe Twitter::REST::Lists do
         @client.list_subscriber?('sferik', 'presidents', 813_286)
         expect(a_get('/1.1/lists/subscribers/show.json').with(query: {owner_screen_name: 'sferik', slug: 'presidents', user_id: '813286'})).to have_been_made
       end
+
       it 'returns true if the specified user subscribes to the specified list' do
         list_subscriber = @client.list_subscriber?('sferik', 'presidents', 813_286)
         expect(list_subscriber).to be true
       end
+
       it 'returns false if the specified user does not subscribe to the specified list' do
         list_subscriber = @client.list_subscriber?('sferik', 'presidents', 18_755_393)
         expect(list_subscriber).to be false
       end
+
       it 'returns false if user does not exist' do
         list_subscriber = @client.list_subscriber?('sferik', 'presidents', 12_345_678)
         expect(list_subscriber).to be false
@@ -342,6 +358,7 @@ describe Twitter::REST::Lists do
         @client.list_unsubscribe('sferik', 'presidents')
         expect(a_post('/1.1/lists/subscribers/destroy.json').with(body: {owner_screen_name: 'sferik', slug: 'presidents'})).to have_been_made
       end
+
       it 'returns the specified list' do
         list = @client.list_unsubscribe('sferik', 'presidents')
         expect(list).to be_a Twitter::List
@@ -370,6 +387,7 @@ describe Twitter::REST::Lists do
         @client.add_list_members('sferik', 'presidents', [813_286, 18_755_393])
         expect(a_post('/1.1/lists/members/create_all.json').with(body: {owner_screen_name: 'sferik', slug: 'presidents', user_id: '813286,18755393'})).to have_been_made
       end
+
       it 'returns the list' do
         list = @client.add_list_members('sferik', 'presidents', [813_286, 18_755_393])
         expect(list).to be_a Twitter::List
@@ -409,14 +427,17 @@ describe Twitter::REST::Lists do
         @client.list_member?('sferik', 'presidents', 813_286)
         expect(a_get('/1.1/lists/members/show.json').with(query: {owner_screen_name: 'sferik', slug: 'presidents', user_id: '813286'})).to have_been_made
       end
+
       it 'returns true if user is a list member' do
         list_member = @client.list_member?('sferik', 'presidents', 813_286)
         expect(list_member).to be true
       end
+
       it 'returns false if user is not a list member' do
         list_member = @client.list_member?('sferik', 'presidents', 65_493_023)
         expect(list_member).to be false
       end
+
       it 'returns false if user does not exist' do
         list_member = @client.list_member?('sferik', 'presidents', 12_345_678)
         expect(list_member).to be false
@@ -481,12 +502,14 @@ describe Twitter::REST::Lists do
         @client.list_members('sferik', 'presidents')
         expect(a_get('/1.1/lists/members.json').with(query: {owner_screen_name: 'sferik', slug: 'presidents', cursor: '-1'})).to have_been_made
       end
+
       it 'returns the members of the specified list' do
         list_members = @client.list_members('sferik', 'presidents')
         expect(list_members).to be_a Twitter::Cursor
         expect(list_members.first).to be_a Twitter::User
         expect(list_members.first.id).to eq(7_505_382)
       end
+
       context 'with each' do
         before do
           stub_get('/1.1/lists/members.json').with(query: {owner_screen_name: 'sferik', slug: 'presidents', cursor: '1322801608223717003'}).to_return(body: fixture('users_list2.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -506,6 +529,7 @@ describe Twitter::REST::Lists do
         @client.list_members(7_505_382, 'presidents')
         expect(a_get('/1.1/lists/members.json').with(query: {owner_id: '7505382', slug: 'presidents', cursor: '-1'})).to have_been_made
       end
+
       context 'with each' do
         before do
           stub_get('/1.1/lists/members.json').with(query: {owner_id: '7505382', slug: 'presidents', cursor: '1322801608223717003'}).to_return(body: fixture('users_list2.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -527,6 +551,7 @@ describe Twitter::REST::Lists do
         expect(a_get('/1.1/account/verify_credentials.json').with(query: {skip_status: 'true'})).to have_been_made
         expect(a_get('/1.1/lists/members.json').with(query: {owner_id: '7505382', slug: 'presidents', cursor: '-1'})).to have_been_made
       end
+
       context 'with each' do
         before do
           stub_get('/1.1/lists/members.json').with(query: {owner_id: '7505382', slug: 'presidents', cursor: '1322801608223717003'}).to_return(body: fixture('users_list2.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -550,6 +575,7 @@ describe Twitter::REST::Lists do
         @client.add_list_member('sferik', 'presidents', 813_286)
         expect(a_post('/1.1/lists/members/create.json').with(body: {owner_screen_name: 'sferik', slug: 'presidents', user_id: '813286'})).to have_been_made
       end
+
       it 'returns the list' do
         list = @client.add_list_member('sferik', 'presidents', 813_286)
         expect(list).to be_a Twitter::List
@@ -578,6 +604,7 @@ describe Twitter::REST::Lists do
         @client.destroy_list('sferik', 'presidents')
         expect(a_post('/1.1/lists/destroy.json').with(body: {owner_screen_name: 'sferik', slug: 'presidents'})).to have_been_made
       end
+
       it 'returns the deleted list' do
         list = @client.destroy_list('sferik', 'presidents')
         expect(list).to be_a Twitter::List
@@ -625,6 +652,7 @@ describe Twitter::REST::Lists do
         @client.list_update('sferik', 'presidents', description: 'Presidents of the United States of America')
         expect(a_post('/1.1/lists/update.json').with(body: {owner_screen_name: 'sferik', slug: 'presidents', description: 'Presidents of the United States of America'})).to have_been_made
       end
+
       it 'returns the updated list' do
         list = @client.list_update('sferik', 'presidents', description: 'Presidents of the United States of America')
         expect(list).to be_a Twitter::List
@@ -671,6 +699,7 @@ describe Twitter::REST::Lists do
       @client.create_list('presidents')
       expect(a_post('/1.1/lists/create.json').with(body: {name: 'presidents'})).to have_been_made
     end
+
     it 'returns the created list' do
       list = @client.create_list('presidents')
       expect(list).to be_a Twitter::List
@@ -687,6 +716,7 @@ describe Twitter::REST::Lists do
         @client.list('sferik', 'presidents')
         expect(a_get('/1.1/lists/show.json').with(query: {owner_screen_name: 'sferik', slug: 'presidents'})).to have_been_made
       end
+
       it 'returns the updated list' do
         list = @client.list('sferik', 'presidents')
         expect(list).to be_a Twitter::List
@@ -753,12 +783,14 @@ describe Twitter::REST::Lists do
         @client.subscriptions('sferik')
         expect(a_get('/1.1/lists/subscriptions.json').with(query: {screen_name: 'sferik', cursor: '-1'})).to have_been_made
       end
+
       it 'returns the lists the specified user follows' do
         subscriptions = @client.subscriptions('sferik')
         expect(subscriptions).to be_a Twitter::Cursor
         expect(subscriptions.first).to be_a Twitter::List
         expect(subscriptions.first.name).to eq('Rubyists')
       end
+
       context 'with each' do
         before do
           stub_get('/1.1/lists/subscriptions.json').with(query: {screen_name: 'sferik', cursor: '1401037770457540712'}).to_return(body: fixture('subscriptions2.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -778,6 +810,7 @@ describe Twitter::REST::Lists do
         @client.subscriptions(7_505_382)
         expect(a_get('/1.1/lists/subscriptions.json').with(query: {user_id: '7505382', cursor: '-1'})).to have_been_made
       end
+
       context 'with each' do
         before do
           stub_get('/1.1/lists/subscriptions.json').with(query: {user_id: '7505382', cursor: '1401037770457540712'}).to_return(body: fixture('subscriptions2.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -799,6 +832,7 @@ describe Twitter::REST::Lists do
         expect(a_get('/1.1/account/verify_credentials.json').with(query: {skip_status: 'true'})).to have_been_made
         expect(a_get('/1.1/lists/subscriptions.json').with(query: {user_id: '7505382', cursor: '-1'})).to have_been_made
       end
+
       context 'with each' do
         before do
           stub_get('/1.1/lists/subscriptions.json').with(query: {user_id: '7505382', cursor: '1401037770457540712'}).to_return(body: fixture('subscriptions2.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -822,6 +856,7 @@ describe Twitter::REST::Lists do
         @client.remove_list_members('sferik', 'presidents', [813_286, 18_755_393])
         expect(a_post('/1.1/lists/members/destroy_all.json').with(body: {owner_screen_name: 'sferik', slug: 'presidents', user_id: '813286,18755393'})).to have_been_made
       end
+
       it 'returns the list' do
         list = @client.remove_list_members('sferik', 'presidents', [813_286, 18_755_393])
         expect(list).to be_a Twitter::List
@@ -868,6 +903,7 @@ describe Twitter::REST::Lists do
         @client.owned_lists('sferik')
         expect(a_get('/1.1/lists/ownerships.json').with(query: {screen_name: 'sferik', cursor: '-1'})).to have_been_made
       end
+
       it 'returns the requested list' do
         lists = @client.owned_lists('sferik')
         expect(lists).to be_a Twitter::Cursor
@@ -885,6 +921,7 @@ describe Twitter::REST::Lists do
         expect(a_get('/1.1/account/verify_credentials.json').with(query: {skip_status: 'true'})).to have_been_made
         expect(a_get('/1.1/lists/ownerships.json').with(query: {user_id: '7505382', cursor: '-1'})).to have_been_made
       end
+
       it 'returns the requested list' do
         lists = @client.owned_lists
         expect(lists).to be_a Twitter::Cursor

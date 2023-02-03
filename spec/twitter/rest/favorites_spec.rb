@@ -14,12 +14,14 @@ describe Twitter::REST::Favorites do
         @client.favorites('sferik')
         expect(a_get('/1.1/favorites/list.json').with(query: {screen_name: 'sferik'})).to have_been_made
       end
+
       it 'returns the 20 most recent favorite Tweets for the authenticating user or user specified by the ID parameter' do
         favorites = @client.favorites('sferik')
         expect(favorites).to be_an Array
         expect(favorites.first).to be_a Twitter::Tweet
         expect(favorites.first.user.id).to eq(7_505_382)
       end
+
       context 'with a URI object passed' do
         it 'requests the correct resource' do
           user = URI.parse('https://twitter.com/sferik')
@@ -36,6 +38,7 @@ describe Twitter::REST::Favorites do
         @client.favorites
         expect(a_get('/1.1/favorites/list.json')).to have_been_made
       end
+
       it 'returns the 20 most recent favorite Tweets for the authenticating user or user specified by the ID parameter' do
         favorites = @client.favorites
         expect(favorites).to be_an Array
@@ -53,12 +56,14 @@ describe Twitter::REST::Favorites do
       @client.unfavorite(540_897_316_908_331_009)
       expect(a_post('/1.1/favorites/destroy.json').with(body: {id: '540897316908331009'})).to have_been_made
     end
+
     it 'returns an array of un-favorited Tweets' do
       tweets = @client.unfavorite(540_897_316_908_331_009)
       expect(tweets).to be_an Array
       expect(tweets.first).to be_a Twitter::Tweet
       expect(tweets.first.text).to eq('Powerful cartoon by @BillBramhall: http://t.co/IOEbc5QoES')
     end
+
     context 'not found' do
       before do
         stub_post('/1.1/favorites/destroy.json').with(body: {id: '540897316908331009'}).to_return(status: 404, body: fixture('not_found.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -91,12 +96,14 @@ describe Twitter::REST::Favorites do
       @client.unfavorite!(540_897_316_908_331_009)
       expect(a_post('/1.1/favorites/destroy.json').with(body: {id: '540897316908331009'})).to have_been_made
     end
+
     it 'returns an array of un-favorited Tweets' do
       tweets = @client.unfavorite!(540_897_316_908_331_009)
       expect(tweets).to be_an Array
       expect(tweets.first).to be_a Twitter::Tweet
       expect(tweets.first.text).to eq('Powerful cartoon by @BillBramhall: http://t.co/IOEbc5QoES')
     end
+
     context 'does not exist' do
       before do
         stub_post('/1.1/favorites/destroy.json').with(body: {id: '540897316908331009'}).to_return(status: 404, body: fixture('not_found.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -129,12 +136,14 @@ describe Twitter::REST::Favorites do
       @client.favorite(540_897_316_908_331_009)
       expect(a_post('/1.1/favorites/create.json').with(body: {id: '540897316908331009'})).to have_been_made
     end
+
     it 'returns an array of favorited Tweets' do
       tweets = @client.favorite(540_897_316_908_331_009)
       expect(tweets).to be_an Array
       expect(tweets.first).to be_a Twitter::Tweet
       expect(tweets.first.text).to eq('Powerful cartoon by @BillBramhall: http://t.co/IOEbc5QoES')
     end
+
     context 'already favorited' do
       before do
         stub_post('/1.1/favorites/create.json').with(body: {id: '540897316908331009'}).to_return(status: 403, body: fixture('already_favorited.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -175,12 +184,14 @@ describe Twitter::REST::Favorites do
       @client.favorite!(540_897_316_908_331_009)
       expect(a_post('/1.1/favorites/create.json').with(body: {id: '540897316908331009'})).to have_been_made
     end
+
     it 'returns an array of favorited Tweets' do
       tweets = @client.favorite!(540_897_316_908_331_009)
       expect(tweets).to be_an Array
       expect(tweets.first).to be_a Twitter::Tweet
       expect(tweets.first.text).to eq('Powerful cartoon by @BillBramhall: http://t.co/IOEbc5QoES')
     end
+
     context 'forbidden' do
       before do
         stub_post('/1.1/favorites/create.json').with(body: {id: '540897316908331009'}).to_return(status: 403, body: '{}', headers: {content_type: 'application/json; charset=utf-8'})

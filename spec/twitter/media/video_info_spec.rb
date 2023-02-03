@@ -7,6 +7,7 @@ describe Twitter::Media::VideoInfo do
       expect(info.aspect_ratio).to be_an Array
       expect(info.aspect_ratio).to eq([16, 9])
     end
+
     it 'returns nil when the aspect_ratio is not set' do
       info = described_class.new({})
       expect(info.aspect_ratio).to be_nil
@@ -19,6 +20,7 @@ describe Twitter::Media::VideoInfo do
       expect(info.duration_millis).to be_a Integer
       expect(info.duration_millis).to eq(30_033)
     end
+
     it 'returns nil when the duration_millis is not set' do
       info = described_class.new({})
       expect(info.duration_millis).to be_nil
@@ -31,6 +33,7 @@ describe Twitter::Media::VideoInfo do
       expect(variants).to be_an Array
       expect(variants.first).to be_a Twitter::Variant
     end
+
     it 'is empty when variants is not set' do
       variants = described_class.new({}).variants
       expect(variants).to be_empty

@@ -19,10 +19,12 @@ describe Twitter::Client do
       client = Twitter::REST::Client.new(access_token: 'AT', access_token_secret: 'AS')
       expect(client.user_token?).to be true
     end
+
     it 'returns false if the user token/secret are not completely present' do
       client = Twitter::REST::Client.new(access_token: 'AT')
       expect(client.user_token?).to be false
     end
+
     it 'returns false if any user token/secret is blank' do
       client = Twitter::REST::Client.new(access_token: '', access_token_secret: 'AS')
       expect(client.user_token?).to be false
@@ -37,10 +39,12 @@ describe Twitter::Client do
       client = Twitter::REST::Client.new(consumer_key: 'CK', consumer_secret: 'CS', access_token: 'AT', access_token_secret: 'AS')
       expect(client.credentials?).to be true
     end
+
     it 'returns false if any credentials are missing' do
       client = Twitter::REST::Client.new(consumer_key: 'CK', consumer_secret: 'CS', access_token: 'AT')
       expect(client.credentials?).to be false
     end
+
     it 'returns false if any credential is blank' do
       client = Twitter::REST::Client.new(consumer_key: 'CK', consumer_secret: 'CS', access_token: 'AT', access_token_secret: '')
       expect(client.credentials?).to be false

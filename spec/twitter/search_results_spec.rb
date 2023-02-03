@@ -12,6 +12,7 @@ describe Twitter::SearchResults do
       expect(a_get('/1.1/search/tweets.json').with(query: {q: '#freebandnames', count: '100'})).to have_been_made
       expect(a_get('/1.1/search/tweets.json').with(query: {q: '#freebandnames', count: '3', include_entities: '1', max_id: '414071361066532863'})).to have_been_made
     end
+
     it 'iterates' do
       count = 0
       search_results = @client.search('#freebandnames')
@@ -19,6 +20,7 @@ describe Twitter::SearchResults do
       expect(count).to eq(6)
       expect(search_results.rate_limit).to be_a(Twitter::RateLimit)
     end
+
     it 'passes through parameters to the next request' do
       stub_get('/1.1/search/tweets.json').with(query: {q: '#freebandnames', since_id: '414071360078878542', count: '100'}).to_return(body: fixture('search.json'), headers: {content_type: 'application/json; charset=utf-8'})
       stub_get('/1.1/search/tweets.json').with(query: {q: '#freebandnames', since_id: '414071360078878542', count: '3', include_entities: '1', max_id: '414071361066532863'}).to_return(body: fixture('search2.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -26,6 +28,7 @@ describe Twitter::SearchResults do
       expect(a_get('/1.1/search/tweets.json').with(query: {q: '#freebandnames', since_id: '414071360078878542', count: '100'})).to have_been_made
       expect(a_get('/1.1/search/tweets.json').with(query: {q: '#freebandnames', since_id: '414071360078878542', count: '3', include_entities: '1', max_id: '414071361066532863'})).to have_been_made
     end
+
     context 'with start' do
       it 'iterates' do
         count = 0

@@ -16,6 +16,7 @@ describe Twitter::Headers do
       expect(authorization.options[:token]).to eq('AT')
       expect(authorization.options[:token_secret]).to eq('AS')
     end
+
     it 'submits the correct auth header when no media is present' do
       # We use static values for nounce and timestamp to get a stable signature
       secret = {consumer_key: 'CK', consumer_secret: 'CS', token: 'OT', token_secret: 'OS', nonce: 'b6ebe4c2a11af493f8a2290fe1296965', timestamp: '1370968658', ignore_extra_keys: true}
@@ -25,6 +26,7 @@ describe Twitter::Headers do
       @client.update('Just a test')
       expect(a_post('/1.1/statuses/update.json').with(headers: {authorization: headers[:authorization]})).to have_been_made
     end
+
     it 'submits the correct auth header when media is present' do
       secret = {consumer_key: 'CK', consumer_secret: 'CS', token: 'OT', token_secret: 'OS', nonce: 'e08201ad0dab4897c99445056feefd95', timestamp: '1370967652', ignore_extra_keys: true}
       headers = {authorization: /oauth_signature="JVkElZ8O3WXkpZjtEHYRk67pYdQ%3D"/, content_type: 'application/json; charset=utf-8'}

@@ -14,6 +14,7 @@ describe Twitter::REST::DirectMessages do
       @client.direct_messages_received
       expect(a_get('/1.1/direct_messages/events/list.json').with(query: {count: 50})).to have_been_made
     end
+
     it 'returns the 20 most recent direct messages sent to the authenticating user' do
       direct_messages = @client.direct_messages_received
       expect(direct_messages).to be_an Array
@@ -54,6 +55,7 @@ describe Twitter::REST::DirectMessages do
       @client.direct_messages_sent
       expect(a_get('/1.1/direct_messages/events/list.json').with(query: {count: 50})).to have_been_made
     end
+
     it 'returns the 20 most recent direct messages sent by the authenticating user' do
       direct_messages = @client.direct_messages_sent
       expect(direct_messages).to be_an Array
@@ -70,6 +72,7 @@ describe Twitter::REST::DirectMessages do
       @client.direct_message(1_825_786_345)
       expect(a_get('/1.1/direct_messages/events/show.json').with(query: {id: '1825786345'})).to have_been_made
     end
+
     it 'returns the specified direct message' do
       direct_message = @client.direct_message(1_825_786_345)
       expect(direct_message).to be_a Twitter::DirectMessage
@@ -86,6 +89,7 @@ describe Twitter::REST::DirectMessages do
         @client.direct_messages(1_825_786_345)
         expect(a_get('/1.1/direct_messages/events/show.json').with(query: {id: '1825786345'})).to have_been_made
       end
+
       it 'returns an array of direct messages' do
         direct_messages = @client.direct_messages(1_825_786_345)
         expect(direct_messages).to be_an Array
@@ -101,6 +105,7 @@ describe Twitter::REST::DirectMessages do
         @client.direct_messages
         expect(a_get('/1.1/direct_messages/events/list.json').with(query: {count: 50})).to have_been_made
       end
+
       it 'returns the 20 most recent direct messages sent to the authenticating user' do
         direct_messages = @client.direct_messages
         expect(direct_messages).to be_an Array
@@ -118,6 +123,7 @@ describe Twitter::REST::DirectMessages do
       @client.destroy_direct_message(1_825_785_544)
       expect(a_delete('/1.1/direct_messages/events/destroy.json?id=1825785544')).to have_been_made
     end
+
     it 'returns nil' do
       response = @client.destroy_direct_message(1_825_785_544)
       expect(response).to be_nil
@@ -143,6 +149,7 @@ describe Twitter::REST::DirectMessages do
       @client.create_direct_message('7505382', "My #newride from @PUBLICBikes. Don't you want one? https://t.co/7HIwCl68Y8 https://t.co/JSSxDPr4Sf")
       expect(a_post('/1.1/direct_messages/events/new.json').with(body: json_options)).to have_been_made
     end
+
     it 'returns the sent message' do
       direct_message = @client.create_direct_message('7505382', "My #newride from @PUBLICBikes. Don't you want one? https://t.co/7HIwCl68Y8 https://t.co/JSSxDPr4Sf")
       expect(direct_message).to be_a Twitter::DirectMessage
@@ -159,6 +166,7 @@ describe Twitter::REST::DirectMessages do
       @client.create_direct_message_event(58_983, 'testing')
       expect(a_post('/1.1/direct_messages/events/new.json').with(body: {event: {type: 'message_create', message_create: {target: {recipient_id: 58_983}, message_data: {text: 'testing'}}}})).to have_been_made
     end
+
     it 'returns the sent message' do
       direct_message_event = @client.create_direct_message_event(58_983, 'testing')
       expect(direct_message_event).to be_a Twitter::DirectMessageEvent
@@ -177,11 +185,13 @@ describe Twitter::REST::DirectMessages do
         expect(a_request(:post, 'https://upload.twitter.com/1.1/media/upload.json')).to have_been_made
         expect(a_post('/1.1/direct_messages/events/new.json')).to have_been_made
       end
+
       it 'returns a DirectMessageEvent' do
         direct_message_event = @client.create_direct_message_event_with_media(58_983, 'testing', fixture('pbjt.gif'))
         expect(direct_message_event).to be_a Twitter::DirectMessageEvent
         expect(direct_message_event.direct_message.text).to eq('testing')
       end
+
       context 'which size is bigger than 5 megabytes' do
         let(:big_gif) { fixture('pbjt.gif') }
         before do
@@ -192,6 +202,7 @@ describe Twitter::REST::DirectMessages do
           expect(a_request(:post, 'https://upload.twitter.com/1.1/media/upload.json')).to have_been_made.times(3)
           expect(a_post('/1.1/direct_messages/events/new.json')).to have_been_made
         end
+
         it 'returns a DirectMessageEvent' do
           direct_message_event = @client.create_direct_message_event_with_media(58_983, 'testing', big_gif)
           expect(direct_message_event).to be_a Twitter::DirectMessageEvent
@@ -230,6 +241,7 @@ describe Twitter::REST::DirectMessages do
         expect(a_request(:post, 'https://upload.twitter.com/1.1/media/upload.json')).to have_been_made.times(3)
         expect(a_post('/1.1/direct_messages/events/new.json')).to have_been_made
       end
+
       context 'when the processing is not finished right after the upload' do
         context 'when it succeeds' do
           it 'asks for status until the processing is done' do

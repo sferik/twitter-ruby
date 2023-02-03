@@ -7,11 +7,13 @@ describe Twitter::SavedSearch do
       other = described_class.new(id: 1, name: 'bar')
       expect(saved_search == other).to be true
     end
+
     it 'returns false when objects IDs are different' do
       saved_search = described_class.new(id: 1)
       other = described_class.new(id: 2)
       expect(saved_search == other).to be false
     end
+
     it 'returns false when classes are different' do
       saved_search = described_class.new(id: 1)
       other = Twitter::Identity.new(id: 1)
@@ -25,6 +27,7 @@ describe Twitter::SavedSearch do
       expect(saved_search.created_at).to be_a Time
       expect(saved_search.created_at).to be_utc
     end
+
     it 'returns nil when created_at is not set' do
       saved_search = described_class.new(id: 16_129_012)
       expect(saved_search.created_at).to be_nil
@@ -36,6 +39,7 @@ describe Twitter::SavedSearch do
       saved_search = described_class.new(id: 16_129_012, created_at: 'Mon Jul 16 12:59:01 +0000 2007')
       expect(saved_search.created?).to be true
     end
+
     it 'returns false when created_at is not set' do
       saved_search = described_class.new(id: 16_129_012)
       expect(saved_search.created?).to be false
