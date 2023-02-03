@@ -23,6 +23,7 @@ describe Twitter::NullObject do
     it 'returns true for Twitter::NullObject' do
       expect(subject).to be_instance_of(described_class)
     end
+
     it 'returns false for other classes' do
       expect(subject).not_to be_instance_of(String)
     end
@@ -32,12 +33,15 @@ describe Twitter::NullObject do
     it 'returns true for Twitter::NullObject' do
       expect(subject).to be_a described_class
     end
+
     it 'returns true for module ancestors' do
       expect(subject).to be_a Comparable
     end
+
     it 'returns true for class ancestors' do
       expect(subject).to be_a Naught::BasicObject
     end
+
     it 'returns false for non-ancestors' do
       expect(subject).not_to be_a String
     end
@@ -47,6 +51,7 @@ describe Twitter::NullObject do
     it 'sorts before non-null objects' do
       expect(subject <=> 1).to eq(-1)
     end
+
     it 'is equal to other Twitter::NullObjects' do
       null_object1 = described_class.new
       null_object2 = described_class.new

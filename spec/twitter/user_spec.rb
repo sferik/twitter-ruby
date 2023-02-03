@@ -7,11 +7,13 @@ describe Twitter::User do
       other = described_class.new(id: 1, screen_name: 'bar')
       expect(user == other).to be true
     end
+
     it 'returns false when objects IDs are different' do
       user = described_class.new(id: 1)
       other = described_class.new(id: 2)
       expect(user == other).to be false
     end
+
     it 'returns false when classes are different' do
       user = described_class.new(id: 1)
       other = Twitter::Identity.new(id: 1)
@@ -25,6 +27,7 @@ describe Twitter::User do
       expect(user.created_at).to be_a Time
       expect(user.created_at).to be_utc
     end
+
     it 'returns nil when created_at is not set' do
       user = described_class.new(id: 7_505_382)
       expect(user.created_at).to be_nil
@@ -36,6 +39,7 @@ describe Twitter::User do
       user = described_class.new(id: 7_505_382, created_at: 'Mon Jul 16 12:59:01 +0000 2007')
       expect(user.created?).to be true
     end
+
     it 'returns false when created_at is not set' do
       user = described_class.new(id: 7_505_382)
       expect(user.created?).to be false
@@ -58,6 +62,7 @@ describe Twitter::User do
       expect(user.description_uris.first.indices).to eq([10, 33])
       expect(user.description_uris.first.expanded_uri).to be_an Addressable::URI
     end
+
     it 'is empty when not set' do
       user = described_class.new(id: 7_505_382, entities: {description: {urls: []}})
       expect(user.description_uris).to be_empty
@@ -77,6 +82,7 @@ describe Twitter::User do
       user = described_class.new(id: 7_505_382, entities: {description: {urls: urls_array}})
       expect(user.description_uris?).to be true
     end
+
     it 'returns false when no entities are present' do
       user = described_class.new(id: 7_505_382, entities: {description: {urls: []}})
       expect(user.description_uris?).to be false
@@ -96,10 +102,12 @@ describe Twitter::User do
       user = described_class.new(id: 7_505_382, entities: {description: {urls: urls_array}})
       expect(user.entities?).to be true
     end
+
     it 'returns false if there are blank lists of entities set' do
       user = described_class.new(id: 7_505_382, entities: {description: {urls: []}})
       expect(user.entities?).to be false
     end
+
     it 'returns false if there are no entities set' do
       user = described_class.new(id: 7_505_382)
       expect(user.entities?).to be false
@@ -112,6 +120,7 @@ describe Twitter::User do
       expect(user.profile_background_image_uri).to be_an Addressable::URI
       expect(user.profile_background_image_uri.to_s).to eq('http://pbs.twimg.com/profile_background_images/677717672/bb0b3653dcf0644e344823e0a2eb3382.png')
     end
+
     it 'returns nil when the screen name is not set' do
       user = described_class.new(id: 7_505_382)
       expect(user.profile_background_image_uri).to be_nil
@@ -124,6 +133,7 @@ describe Twitter::User do
       expect(user.profile_background_image_uri_https).to be_an Addressable::URI
       expect(user.profile_background_image_uri_https.to_s).to eq('https://pbs.twimg.com/profile_background_images/677717672/bb0b3653dcf0644e344823e0a2eb3382.png')
     end
+
     it 'returns nil when the screen name is not set' do
       user = described_class.new(id: 7_505_382)
       expect(user.profile_background_image_uri_https).to be_nil
@@ -135,18 +145,22 @@ describe Twitter::User do
       user = described_class.new(id: 7_505_382, profile_banner_url: 'https://si0.twimg.com/profile_banners/7_505_382/1348266581©_normal.png')
       expect(user.profile_banner_uri).to be_an Addressable::URI
     end
+
     it 'returns a URI when profile_banner_url is set' do
       user = described_class.new(id: 7_505_382, profile_banner_url: 'https://si0.twimg.com/profile_banners/7_505_382/1348266581')
       expect(user.profile_banner_uri).to be_an Addressable::URI
     end
+
     it 'returns nil when profile_banner_uri is not set' do
       user = described_class.new(id: 7_505_382)
       expect(user.profile_banner_uri).to be_nil
     end
+
     it 'returns the web-sized image' do
       user = described_class.new(id: 7_505_382, profile_banner_url: 'https://si0.twimg.com/profile_banners/7_505_382/1348266581')
       expect(user.profile_banner_uri.to_s).to eq('http://si0.twimg.com/profile_banners/7_505_382/1348266581/web')
     end
+
     context 'with :web_retina passed' do
       it 'returns the web retina-sized image' do
         user = described_class.new(id: 7_505_382, profile_banner_url: 'https://si0.twimg.com/profile_banners/7_505_382/1348266581')
@@ -184,18 +198,22 @@ describe Twitter::User do
       user = described_class.new(id: 7_505_382, profile_banner_url: 'https://si0.twimg.com/profile_banners/7_505_382/1348266581©_normal.png')
       expect(user.profile_banner_uri_https).to be_an Addressable::URI
     end
+
     it 'returns a URI when profile_banner_url is set' do
       user = described_class.new(id: 7_505_382, profile_banner_url: 'https://si0.twimg.com/profile_banners/7_505_382/1348266581')
       expect(user.profile_banner_uri_https).to be_an Addressable::URI
     end
+
     it 'returns nil when created_at is not set' do
       user = described_class.new(id: 7_505_382)
       expect(user.profile_banner_uri_https).to be_nil
     end
+
     it 'returns the web-sized image' do
       user = described_class.new(id: 7_505_382, profile_banner_url: 'https://si0.twimg.com/profile_banners/7_505_382/1348266581')
       expect(user.profile_banner_uri_https.to_s).to eq('https://si0.twimg.com/profile_banners/7_505_382/1348266581/web')
     end
+
     context 'with :web_retina passed' do
       it 'returns the web retina-sized image' do
         user = described_class.new(id: 7_505_382, profile_banner_url: 'https://si0.twimg.com/profile_banners/7_505_382/1348266581')
@@ -233,6 +251,7 @@ describe Twitter::User do
       user = described_class.new(id: 7_505_382, profile_banner_url: 'https://si0.twimg.com/profile_banners/7_505_382/1348266581')
       expect(user.profile_banner_uri?).to be true
     end
+
     it 'returns false when profile_banner_url is not set' do
       user = described_class.new(id: 7_505_382)
       expect(user.profile_banner_uri?).to be false
@@ -244,18 +263,22 @@ describe Twitter::User do
       user = described_class.new(id: 7_505_382, profile_image_url_https: 'https://si0.twimg.com/profile_images/7_505_382/1348266581©_normal.png')
       expect(user.profile_image_uri).to be_an Addressable::URI
     end
+
     it 'returns a URI when profile_image_url_https is set' do
       user = described_class.new(id: 7_505_382, profile_image_url_https: 'https://a0.twimg.com/profile_images/1759857427/image1326743606_normal.png')
       expect(user.profile_image_uri).to be_an Addressable::URI
     end
+
     it 'returns nil when created_at is not set' do
       user = described_class.new(id: 7_505_382)
       expect(user.profile_image_uri).to be_nil
     end
+
     it 'returns the normal-sized image' do
       user = described_class.new(id: 7_505_382, profile_image_url_https: 'https://a0.twimg.com/profile_images/1759857427/image1326743606_normal.png')
       expect(user.profile_image_uri.to_s).to eq('http://a0.twimg.com/profile_images/1759857427/image1326743606_normal.png')
     end
+
     context 'with :original passed' do
       it 'returns the original image' do
         user = described_class.new(id: 7_505_382, profile_image_url_https: 'https://a0.twimg.com/profile_images/1759857427/image1326743606_normal.png')
@@ -289,18 +312,22 @@ describe Twitter::User do
       user = described_class.new(id: 7_505_382, profile_image_url_https: 'https://si0.twimg.com/profile_images/7_505_382/1348266581©_normal.png')
       expect(user.profile_image_uri_https).to be_an Addressable::URI
     end
+
     it 'returns a URI when profile_image_url_https is set' do
       user = described_class.new(id: 7_505_382, profile_image_url_https: 'https://a0.twimg.com/profile_images/1759857427/image1326743606_normal.png')
       expect(user.profile_image_uri_https).to be_an Addressable::URI
     end
+
     it 'returns nil when created_at is not set' do
       user = described_class.new(id: 7_505_382)
       expect(user.profile_image_uri_https).to be_nil
     end
+
     it 'returns the normal-sized image' do
       user = described_class.new(id: 7_505_382, profile_image_url_https: 'https://a0.twimg.com/profile_images/1759857427/image1326743606_normal.png')
       expect(user.profile_image_uri_https.to_s).to eq('https://a0.twimg.com/profile_images/1759857427/image1326743606_normal.png')
     end
+
     context 'with :original passed' do
       it 'returns the original image' do
         user = described_class.new(id: 7_505_382, profile_image_url_https: 'https://a0.twimg.com/profile_images/1759857427/image1326743606_normal.png')
@@ -334,6 +361,7 @@ describe Twitter::User do
       user = described_class.new(id: 7_505_382, profile_image_url_https: 'https://si0.twimg.com/profile_banners/7_505_382/1348266581')
       expect(user.profile_image_uri?).to be true
     end
+
     it 'returns false when profile_image_url_https is not set' do
       user = described_class.new(id: 7_505_382)
       expect(user.profile_image_uri?).to be false
@@ -345,10 +373,12 @@ describe Twitter::User do
       user = described_class.new(id: 7_505_382, status: {id: 540_897_316_908_331_009})
       expect(user.status).to be_a Twitter::Tweet
     end
+
     it 'returns nil when status is not set' do
       user = described_class.new(id: 7_505_382)
       expect(user.status).to be_nil
     end
+
     it 'has a user' do
       user = described_class.new(id: 7_505_382, status: {id: 540_897_316_908_331_009})
       expect(user.status.user).to be_a described_class
@@ -361,6 +391,7 @@ describe Twitter::User do
       user = described_class.new(id: 7_505_382, status: {id: 540_897_316_908_331_009})
       expect(user.status?).to be true
     end
+
     it 'returns false when status is not set' do
       user = described_class.new(id: 7_505_382)
       expect(user.status?).to be false
@@ -373,6 +404,7 @@ describe Twitter::User do
       expect(user.uri).to be_an Addressable::URI
       expect(user.uri.to_s).to eq('https://twitter.com/sferik')
     end
+
     it 'returns nil when the screen name is not set' do
       user = described_class.new(id: 7_505_382)
       expect(user.uri).to be_nil
@@ -385,6 +417,7 @@ describe Twitter::User do
       expect(user.website).to be_an Addressable::URI
       expect(user.website.to_s).to eq('https://github.com/sferik')
     end
+
     it 'returns a URI when the tweet includes website URI entities' do
       urls_array = [
         {
@@ -398,6 +431,7 @@ describe Twitter::User do
       expect(user.website).to be_an Addressable::URI
       expect(user.website.to_s).to eq('http://example.com/expanded')
     end
+
     it 'returns nil when the url is not set' do
       user = described_class.new(id: 7_505_382)
       expect(user.website).to be_nil
@@ -409,6 +443,7 @@ describe Twitter::User do
       user = described_class.new(id: 7_505_382, url: 'https://github.com/sferik')
       expect(user.website?).to be true
     end
+
     it 'returns true when the tweet includes website URI entities' do
       urls_array = [
         {
@@ -421,6 +456,7 @@ describe Twitter::User do
       user = described_class.new(id: 7_505_382, entities: {url: {urls: urls_array}})
       expect(user.website?).to be true
     end
+
     it 'returns false when the url is not set' do
       user = described_class.new(id: 7_505_382)
       expect(user.website?).to be false
@@ -443,6 +479,7 @@ describe Twitter::User do
       expect(user.website_uris.first.indices).to eq([0, 23])
       expect(user.website_uris.first.expanded_uri).to be_an Addressable::URI
     end
+
     it 'is empty when not set' do
       user = described_class.new(id: 7_505_382, entities: {url: {urls: []}})
       expect(user.website_uris).to be_empty
@@ -462,6 +499,7 @@ describe Twitter::User do
       user = described_class.new(id: 7_505_382, entities: {url: {urls: urls_array}})
       expect(user.website_uris?).to be true
     end
+
     it 'returns false when no entities are present' do
       user = described_class.new(id: 7_505_382, entities: {})
       expect(user.website_uris?).to be false

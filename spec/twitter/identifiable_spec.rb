@@ -13,11 +13,13 @@ describe Twitter::Identity do
       two = described_class.new(id: 1, screen_name: 'garybernhardt')
       expect(one == two).to be true
     end
+
     it 'returns false when objects IDs are different' do
       one = described_class.new(id: 1)
       two = described_class.new(id: 2)
       expect(one == two).to be false
     end
+
     it 'returns false when classes are different' do
       one = described_class.new(id: 1)
       two = Twitter::Base.new(id: 1)

@@ -16,11 +16,13 @@ describe Twitter::Tweet do
       other = described_class.new(id: 1, text: 'bar')
       expect(tweet == other).to be true
     end
+
     it 'returns false when objects IDs are different' do
       tweet = described_class.new(id: 1)
       other = described_class.new(id: 2)
       expect(tweet == other).to be false
     end
+
     it 'returns false when classes are different' do
       tweet = described_class.new(id: 1)
       other = Twitter::Identity.new(id: 1)
@@ -34,6 +36,7 @@ describe Twitter::Tweet do
       expect(tweet.created_at).to be_a Time
       expect(tweet.created_at).to be_utc
     end
+
     it 'returns nil when not set' do
       tweet = described_class.new(id: 28_669_546_014)
       expect(tweet.created_at).to be_nil
@@ -45,6 +48,7 @@ describe Twitter::Tweet do
       tweet = described_class.new(id: 28_669_546_014, created_at: 'Mon Jul 16 12:59:01 +0000 2007')
       expect(tweet.created?).to be true
     end
+
     it 'returns false when created_at is not set' do
       tweet = described_class.new(id: 28_669_546_014)
       expect(tweet.created?).to be false
@@ -64,10 +68,12 @@ describe Twitter::Tweet do
       tweet = described_class.new(id: 28_669_546_014, entities: {urls: urls_array})
       expect(tweet.entities?).to be true
     end
+
     it 'returns false if there are blank lists of entities set' do
       tweet = described_class.new(id: 28_669_546_014, entities: {urls: []})
       expect(tweet.entities?).to be false
     end
+
     it 'returns false if there are no entities set' do
       tweet = described_class.new(id: 28_669_546_014)
       expect(tweet.entities?).to be false
@@ -80,6 +86,7 @@ describe Twitter::Tweet do
       expect(tweet.filter_level).to be_a String
       expect(tweet.filter_level).to eq('high')
     end
+
     it 'returns nil when not set' do
       tweet = described_class.new(id: 28_669_546_014)
       expect(tweet.filter_level).to be_nil
@@ -92,21 +99,25 @@ describe Twitter::Tweet do
       expect(tweet.full_text).to be_a String
       expect(tweet.full_text).to eq('BOOSH')
     end
+
     it 'returns the text of an extended Tweet' do
       tweet = described_class.new(id: 28_669_546_014, text: nil, full_text: 'BOOSH')
       expect(tweet.full_text).to be_a String
       expect(tweet.full_text).to eq('BOOSH')
     end
+
     it 'returns the text of a Tweet without a user' do
       tweet = described_class.new(id: 28_669_546_014, text: 'BOOSH', retweeted_status: {id: 28_561_922_517, text: 'BOOSH'})
       expect(tweet.full_text).to be_a String
       expect(tweet.full_text).to eq('BOOSH')
     end
+
     it 'returns the full text of a retweeted Tweet' do
       tweet = described_class.new(id: 28_669_546_014, text: 'RT @sferik: BOOSH', retweeted_status: {id: 540_897_316_908_331_009, text: 'BOOSH'})
       expect(tweet.full_text).to be_a String
       expect(tweet.full_text).to eq('RT @sferik: BOOSH')
     end
+
     it 'returns nil when retweeted_status is not set' do
       tweet = described_class.new(id: 28_669_546_014)
       expect(tweet.full_text).to be_nil
@@ -118,6 +129,7 @@ describe Twitter::Tweet do
       tweet = described_class.new(id: 28_669_546_014, geo: {id: 1, type: 'Point'})
       expect(tweet.geo).to be_a Twitter::Geo::Point
     end
+
     it 'returns nil when geo is not set' do
       tweet = described_class.new(id: 28_669_546_014)
       expect(tweet.geo).to be_nil
@@ -129,6 +141,7 @@ describe Twitter::Tweet do
       tweet = described_class.new(id: 28_669_546_014, geo: {id: 1, type: 'Point'})
       expect(tweet.geo?).to be true
     end
+
     it 'returns false when geo is not set' do
       tweet = described_class.new(id: 28_669_546_014)
       expect(tweet.geo?).to be false
@@ -159,6 +172,7 @@ describe Twitter::Tweet do
       it 'is empty' do
         expect(subject.hashtags).to be_empty
       end
+
       it 'does not warn' do
         subject.hashtags
         expect($stderr.string).to be_empty
@@ -178,6 +192,7 @@ describe Twitter::Tweet do
       tweet = described_class.new(id: 28_669_546_014, entities: entities)
       expect(tweet.hashtags?).to be true
     end
+
     it 'returns false when no entities are present' do
       tweet = described_class.new(id: 28_669_546_014)
       expect(tweet.hashtags?).to be false
@@ -190,6 +205,7 @@ describe Twitter::Tweet do
       expect(media).to be_an Array
       expect(media.first).to be_a Twitter::Media::Photo
     end
+
     it 'is empty when not set' do
       media = described_class.new(id: 28_669_546_014).media
       expect(media).to be_empty
@@ -202,6 +218,7 @@ describe Twitter::Tweet do
       tweet = described_class.new(id: 28_669_546_014, entities: entities)
       expect(tweet.media?).to be true
     end
+
     it 'returns false when no entities are present' do
       tweet = described_class.new(id: 28_669_546_014)
       expect(tweet.media?).to be false
@@ -213,6 +230,7 @@ describe Twitter::Tweet do
       tweet = described_class.new(id: 28_669_546_014, metadata: {result_type: 'recent'})
       expect(tweet.metadata).to be_a Twitter::Metadata
     end
+
     it 'returns nil when metadata is not set' do
       tweet = described_class.new(id: 28_669_546_014)
       expect(tweet.metadata).to be_nil
@@ -224,6 +242,7 @@ describe Twitter::Tweet do
       tweet = described_class.new(id: 28_669_546_014, metadata: {result_type: 'recent'})
       expect(tweet.metadata?).to be true
     end
+
     it 'returns false when metadata is not set' do
       tweet = described_class.new(id: 28_669_546_014)
       expect(tweet.metadata?).to be false
@@ -235,6 +254,7 @@ describe Twitter::Tweet do
       tweet = described_class.new(id: 28_669_546_014, place: {id: '247f43d441defc03'})
       expect(tweet.place).to be_a Twitter::Place
     end
+
     it 'returns nil when place is not set' do
       tweet = described_class.new(id: 28_669_546_014)
       expect(tweet.place).to be_nil
@@ -246,6 +266,7 @@ describe Twitter::Tweet do
       tweet = described_class.new(id: 28_669_546_014, place: {id: '247f43d441defc03'})
       expect(tweet.place?).to be true
     end
+
     it 'returns false when place is not set' do
       tweet = described_class.new(id: 28_669_546_014)
       expect(tweet.place?).to be false
@@ -257,6 +278,7 @@ describe Twitter::Tweet do
       tweet = described_class.new(id: 28_669_546_014, in_reply_to_user_id: 7_505_382)
       expect(tweet.reply?).to be true
     end
+
     it 'returns false when in_reply_to_user_id is not set' do
       tweet = described_class.new(id: 28_669_546_014)
       expect(tweet.reply?).to be false
@@ -268,6 +290,7 @@ describe Twitter::Tweet do
       tweet = described_class.new(id: 28_669_546_014, retweeted_status: {id: 540_897_316_908_331_009, text: 'BOOSH'})
       expect(tweet.retweet?).to be true
     end
+
     it 'returns false when retweeted_status is not set' do
       tweet = described_class.new(id: 28_669_546_014)
       expect(tweet.retweet?).to be false
@@ -280,6 +303,7 @@ describe Twitter::Tweet do
       expect(tweet.retweeted_tweet).to be_a described_class
       expect(tweet.retweeted_tweet.text).to eq('BOOSH')
     end
+
     it 'returns nil when retweeted_status is not set' do
       tweet = described_class.new(id: 28_669_546_014)
       expect(tweet.retweeted_tweet).to be_nil
@@ -291,6 +315,7 @@ describe Twitter::Tweet do
       tweet = described_class.new(id: 28_669_546_014, retweeted_status: {id: 540_897_316_908_331_009, text: 'BOOSH'})
       expect(tweet.retweeted_status?).to be true
     end
+
     it 'returns false when retweeted_status is not set' do
       tweet = described_class.new(id: 28_669_546_014)
       expect(tweet.retweeted_status?).to be false
@@ -302,6 +327,7 @@ describe Twitter::Tweet do
       tweet = described_class.new(id: 28_669_546_014, quoted_status: {id: 540_897_316_908_331_009, text: 'BOOSH'})
       expect(tweet.quote?).to be true
     end
+
     it 'returns false when quoted_status is not set' do
       tweet = described_class.new(id: 28_669_546_014)
       expect(tweet.quote?).to be false
@@ -314,6 +340,7 @@ describe Twitter::Tweet do
       expect(tweet.quoted_tweet).to be_a described_class
       expect(tweet.quoted_tweet.text).to eq('BOOSH')
     end
+
     it 'returns nil when quoted_status is not set' do
       tweet = described_class.new(id: 28_669_546_014)
       expect(tweet.quoted_tweet).to be_nil
@@ -325,6 +352,7 @@ describe Twitter::Tweet do
       tweet = described_class.new(id: 28_669_546_014, quoted_status: {id: 540_897_316_908_331_009, text: 'BOOSH'})
       expect(tweet.quoted_status?).to be true
     end
+
     it 'returns false when quoted_status is not set' do
       tweet = described_class.new(id: 28_669_546_014)
       expect(tweet.quoted_status?).to be false
@@ -344,6 +372,7 @@ describe Twitter::Tweet do
       expect(symbols.first.indices).to eq([114, 118])
       expect(symbols.first.text).to eq('PEP')
     end
+
     it 'is empty when not set' do
       symbols = described_class.new(id: 28_669_546_014).symbols
       expect(symbols).to be_empty
@@ -356,6 +385,7 @@ describe Twitter::Tweet do
       tweet = described_class.new(id: 28_669_546_014, entities: entities)
       expect(tweet.symbols?).to be true
     end
+
     it 'returns false when no entities are present' do
       tweet = described_class.new(id: 28_669_546_014)
       expect(tweet.symbols?).to be false
@@ -379,10 +409,12 @@ describe Twitter::Tweet do
       expect(tweet.uris.first.display_uri).to be_a String
       expect(tweet.uris.first.display_uri).to eq('example.com/expanded...')
     end
+
     it 'is empty when not set' do
       tweet = described_class.new(id: 28_669_546_014)
       expect(tweet.uris).to be_empty
     end
+
     it 'can handle strange urls' do
       urls_array = [
         {
@@ -414,6 +446,7 @@ describe Twitter::Tweet do
       tweet = described_class.new(id: 28_669_546_014, entities: entities)
       expect(tweet.uris?).to be true
     end
+
     it 'returns false when no entities are present' do
       tweet = described_class.new(id: 28_669_546_014)
       expect(tweet.uris?).to be false
@@ -425,10 +458,12 @@ describe Twitter::Tweet do
       tweet = described_class.new(id: 28_669_546_014, user: {id: 7_505_382})
       expect(tweet.user).to be_a Twitter::User
     end
+
     it 'returns nil when user is not set' do
       tweet = described_class.new(id: 28_669_546_014)
       expect(tweet.user).to be_nil
     end
+
     it 'has a status is set' do
       tweet = described_class.new(id: 28_669_546_014, text: 'Tweet text.', user: {id: 7_505_382})
       expect(tweet.user.status).to be_a described_class
@@ -441,6 +476,7 @@ describe Twitter::Tweet do
       tweet = described_class.new(id: 28_669_546_014, user: {id: 7_505_382})
       expect(tweet.user?).to be true
     end
+
     it 'returns false when status is not set' do
       tweet = described_class.new(id: 28_669_546_014)
       expect(tweet.user?).to be false
@@ -464,6 +500,7 @@ describe Twitter::Tweet do
       expect(user_mentions.first.indices).to eq([0, 6])
       expect(user_mentions.first.id).to eq(7_505_382)
     end
+
     it 'is empty when not set' do
       user_mentions = described_class.new(id: 28_669_546_014).user_mentions
       expect(user_mentions).to be_empty
@@ -476,6 +513,7 @@ describe Twitter::Tweet do
       tweet = described_class.new(id: 28_669_546_014, entities: entities)
       expect(tweet.user_mentions?).to be true
     end
+
     it 'returns false when no entities are present' do
       tweet = described_class.new(id: 28_669_546_014)
       expect(tweet.user_mentions?).to be false

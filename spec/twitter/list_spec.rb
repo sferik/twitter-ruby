@@ -7,11 +7,13 @@ describe Twitter::List do
       other = described_class.new(id: 1, slug: 'bar')
       expect(list == other).to be true
     end
+
     it 'returns false when objects IDs are different' do
       list = described_class.new(id: 1)
       other = described_class.new(id: 2)
       expect(list == other).to be false
     end
+
     it 'returns false when classes are different' do
       list = described_class.new(id: 1)
       other = Twitter::Identity.new(id: 1)
@@ -25,6 +27,7 @@ describe Twitter::List do
       expect(list.created_at).to be_a Time
       expect(list.created_at).to be_utc
     end
+
     it 'returns nil when created_at is not set' do
       list = described_class.new(id: 8_863_586)
       expect(list.created_at).to be_nil
@@ -36,6 +39,7 @@ describe Twitter::List do
       list = described_class.new(id: 8_863_586, created_at: 'Mon Jul 16 12:59:01 +0000 2007')
       expect(list.created?).to be true
     end
+
     it 'returns false when created_at is not set' do
       list = described_class.new(id: 8_863_586)
       expect(list.created?).to be false
@@ -68,6 +72,7 @@ describe Twitter::List do
       list = described_class.new(id: 8_863_586, user: {id: 7_505_382})
       expect(list.user).to be_a Twitter::User
     end
+
     it 'returns nil when status is not set' do
       list = described_class.new(id: 8_863_586)
       expect(list.user).to be_nil
@@ -79,6 +84,7 @@ describe Twitter::List do
       list = described_class.new(id: 8_863_586, user: {id: 7_505_382})
       expect(list.user?).to be true
     end
+
     it 'returns false when user is not set' do
       list = described_class.new(id: 8_863_586)
       expect(list.user?).to be false

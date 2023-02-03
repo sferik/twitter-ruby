@@ -14,6 +14,7 @@ describe Twitter::REST::Trends do
         @client.trends(2_487_956)
         expect(a_get('/1.1/trends/place.json').with(query: {id: '2487956'})).to have_been_made
       end
+
       it 'returns the top 10 trending topics for a specific WOEID' do
         matching_trends = @client.trends(2_487_956)
         expect(matching_trends).to be_a Twitter::TrendResults
@@ -40,6 +41,7 @@ describe Twitter::REST::Trends do
       @client.trends_available
       expect(a_get('/1.1/trends/available.json')).to have_been_made
     end
+
     it 'returns the locations that Twitter has trending topic information for' do
       locations = @client.trends_available
       expect(locations).to be_an Array
@@ -56,6 +58,7 @@ describe Twitter::REST::Trends do
       @client.trends_closest
       expect(a_get('/1.1/trends/closest.json')).to have_been_made
     end
+
     it 'returns the locations that Twitter has trending topic information for' do
       locations = @client.trends_closest
       expect(locations).to be_an Array

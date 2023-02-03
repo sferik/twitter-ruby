@@ -13,6 +13,7 @@ describe Twitter::REST::SpamReporting do
       @client.report_spam('sferik')
       expect(a_post('/1.1/users/report_spam.json').with(body: {screen_name: 'sferik'})).to have_been_made
     end
+
     it 'returns an array of users' do
       users = @client.report_spam('sferik')
       expect(users).to be_an Array

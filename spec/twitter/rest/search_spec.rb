@@ -14,6 +14,7 @@ describe Twitter::REST::Search do
         @client.search('#freebandnames')
         expect(a_get('/1.1/search/tweets.json').with(query: {q: '#freebandnames', count: '100'})).to have_been_made
       end
+
       it 'returns recent Tweets related to a query with images and videos embedded' do
         search = @client.search('#freebandnames')
         expect(search).to be_a Twitter::SearchResults
@@ -29,6 +30,7 @@ describe Twitter::REST::Search do
         @client.search('#freebandnames', count: 3)
         expect(a_get('/1.1/search/tweets.json').with(query: {q: '#freebandnames', count: '3'})).to have_been_made
       end
+
       it 'returns recent Tweets related to a query with images and videos embedded' do
         search = @client.search('#freebandnames', count: 3)
         expect(search).to be_a Twitter::SearchResults

@@ -14,6 +14,7 @@ describe Twitter::REST::SuggestedUsers do
         @client.suggestions('art-design')
         expect(a_get('/1.1/users/suggestions/art-design.json')).to have_been_made
       end
+
       it 'returns the users in a given category of the Twitter suggested user list' do
         suggestion = @client.suggestions('art-design')
         expect(suggestion).to be_a Twitter::Suggestion
@@ -30,6 +31,7 @@ describe Twitter::REST::SuggestedUsers do
         @client.suggestions
         expect(a_get('/1.1/users/suggestions.json')).to have_been_made
       end
+
       it 'returns the list of suggested user categories' do
         suggestions = @client.suggestions
         expect(suggestions).to be_an Array
@@ -47,6 +49,7 @@ describe Twitter::REST::SuggestedUsers do
       @client.suggest_users('art-design')
       expect(a_get('/1.1/users/suggestions/art-design/members.json')).to have_been_made
     end
+
     it 'returns users in a given category of the Twitter suggested user list and return their most recent status if they are not a protected user' do
       suggest_users = @client.suggest_users('art-design')
       expect(suggest_users).to be_an Array

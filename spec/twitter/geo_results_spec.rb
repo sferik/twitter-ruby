@@ -10,6 +10,7 @@ describe Twitter::GeoResults do
       @geo_results.each { count += 1 }
       expect(count).to eq(6)
     end
+
     context 'with start' do
       it 'iterates' do
         count = 0
@@ -25,6 +26,7 @@ describe Twitter::GeoResults do
       expect(geo_results.token).to be_a String
       expect(geo_results.token).to eq('abc123')
     end
+
     it 'returns nil when token is not set' do
       geo_results = described_class.new(result: {})
       expect(geo_results.token).to be_nil

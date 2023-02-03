@@ -13,6 +13,7 @@ describe Twitter::REST::Timelines do
       @client.mentions_timeline
       expect(a_get('/1.1/statuses/mentions_timeline.json')).to have_been_made
     end
+
     it 'returns the 20 most recent mentions (status containing @username) for the authenticating user' do
       tweets = @client.mentions_timeline
       expect(tweets).to be_an Array
@@ -30,6 +31,7 @@ describe Twitter::REST::Timelines do
         @client.user_timeline('sferik')
         expect(a_get('/1.1/statuses/user_timeline.json').with(query: {screen_name: 'sferik'})).to have_been_made
       end
+
       it 'returns the 20 most recent Tweets posted by the user specified by screen name or user id' do
         tweets = @client.user_timeline('sferik')
         expect(tweets).to be_an Array
@@ -58,6 +60,7 @@ describe Twitter::REST::Timelines do
       expect(a_get('/1.1/statuses/user_timeline.json').with(query: {include_rts: 'true', screen_name: 'sferik', count: '200'})).to have_been_made
       expect(a_get('/1.1/statuses/user_timeline.json').with(query: {include_rts: 'true', screen_name: 'sferik', count: '200', max_id: '244102729860009983'})).to have_been_made.times(3)
     end
+
     it 'returns the 20 most recent retweets posted by the authenticating user' do
       tweets = @client.retweeted_by_user('sferik')
       expect(tweets).to be_an Array
@@ -76,6 +79,7 @@ describe Twitter::REST::Timelines do
       expect(a_get('/1.1/statuses/user_timeline.json').with(query: {include_rts: 'true', count: '200'})).to have_been_made
       expect(a_get('/1.1/statuses/user_timeline.json').with(query: {include_rts: 'true', count: '200', max_id: '244102729860009983'})).to have_been_made.times(3)
     end
+
     it 'returns the 20 most recent retweets posted by the authenticating user' do
       tweets = @client.retweeted_by_me
       expect(tweets).to be_an Array
@@ -92,6 +96,7 @@ describe Twitter::REST::Timelines do
       @client.home_timeline
       expect(a_get('/1.1/statuses/home_timeline.json')).to have_been_made
     end
+
     it 'returns the 20 most recent Tweets, including retweets if they exist, posted by the authenticating user and the users they follow' do
       tweets = @client.home_timeline
       expect(tweets).to be_an Array
@@ -110,6 +115,7 @@ describe Twitter::REST::Timelines do
       expect(a_get('/1.1/statuses/home_timeline.json').with(query: {include_rts: 'true', count: '200'})).to have_been_made
       expect(a_get('/1.1/statuses/home_timeline.json').with(query: {include_rts: 'true', count: '200', max_id: '244102729860009983'})).to have_been_made.times(3)
     end
+
     it 'returns the 20 most recent retweets posted by users the authenticating user follow' do
       tweets = @client.retweeted_to_me
       expect(tweets).to be_an Array
@@ -126,6 +132,7 @@ describe Twitter::REST::Timelines do
       @client.retweets_of_me
       expect(a_get('/1.1/statuses/retweets_of_me.json')).to have_been_made
     end
+
     it 'returns the 20 most recent tweets of the authenticated user that have been retweeted by others' do
       tweets = @client.retweets_of_me
       expect(tweets).to be_an Array

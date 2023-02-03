@@ -7,11 +7,13 @@ describe Twitter::BasicUser do
       other = described_class.new(id: 1, name: 'bar')
       expect(saved_search == other).to be true
     end
+
     it 'returns false when objects IDs are different' do
       saved_search = described_class.new(id: 1)
       other = described_class.new(id: 2)
       expect(saved_search == other).to be false
     end
+
     it 'returns false when classes are different' do
       saved_search = described_class.new(id: 1)
       other = Twitter::Identity.new(id: 1)

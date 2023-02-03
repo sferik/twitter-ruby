@@ -8,6 +8,7 @@ describe Twitter::Media::Photo do
       photo = described_class.new(id: 1, type: 'photo')
       expect(photo.type).to eq('photo')
     end
+
     it 'returns false when the type is not set' do
       photo = described_class.new(id: 1)
       expect(photo.type).to be_nil

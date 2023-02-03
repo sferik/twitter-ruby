@@ -7,6 +7,7 @@ describe Twitter::TrendResults do
       expect(trend_results.as_of).to be_a Time
       expect(trend_results.as_of).to be_utc
     end
+
     it 'returns nil when as_of is not set' do
       trend_results = described_class.new(id: 1)
       expect(trend_results.as_of).to be_nil
@@ -18,6 +19,7 @@ describe Twitter::TrendResults do
       trend_results = described_class.new(id: 1, as_of: '2012-08-24T23:24:14Z')
       expect(trend_results.as_of?).to be true
     end
+
     it 'returns false when as_of is not set' do
       trend_results = described_class.new(id: 1)
       expect(trend_results.as_of?).to be false
@@ -30,6 +32,7 @@ describe Twitter::TrendResults do
       expect(trend_results.created_at).to be_a Time
       expect(trend_results.created_at).to be_utc
     end
+
     it 'returns nil when created_at is not set' do
       trend_results = described_class.new(id: 1)
       expect(trend_results.created_at).to be_nil
@@ -41,6 +44,7 @@ describe Twitter::TrendResults do
       trend_results = described_class.new(id: 1, created_at: '2012-08-24T23:24:14Z')
       expect(trend_results.created?).to be true
     end
+
     it 'returns false when created_at is not set' do
       trend_results = described_class.new(id: 1)
       expect(trend_results.created?).to be false
@@ -56,6 +60,7 @@ describe Twitter::TrendResults do
       @trend_results.each { count += 1 }
       expect(count).to eq(6)
     end
+
     context 'with start' do
       it 'iterates' do
         count = 0
@@ -70,6 +75,7 @@ describe Twitter::TrendResults do
       trend_results = described_class.new(id: 1, locations: [{name: 'Worldwide', woeid: 1}])
       expect(trend_results.location).to be_a Twitter::Place
     end
+
     it 'returns nil when location is not set' do
       trend_results = described_class.new(id: 1)
       expect(trend_results.location).to be_nil
@@ -81,6 +87,7 @@ describe Twitter::TrendResults do
       trend_results = described_class.new(id: 1, locations: [{name: 'Worldwide', woeid: 1}])
       expect(trend_results.location?).to be true
     end
+
     it 'returns false when location is not set' do
       trend_results = described_class.new(id: 1)
       expect(trend_results.location?).to be false

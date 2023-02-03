@@ -7,6 +7,7 @@ describe Twitter::Configuration do
       expect(photo_sizes).to be_a Hash
       expect(photo_sizes[:small]).to be_a Twitter::Size
     end
+
     it 'is empty when photo_sizes is not set' do
       photo_sizes = described_class.new.photo_sizes
       expect(photo_sizes).to be_empty

@@ -11,11 +11,13 @@ describe Twitter::Base do
         expect(@base[:object_id]).to be_an Integer
       end
     end
+
     it 'calls methods using [] with string' do
       capture_warning do
         expect(@base['object_id']).to be_an Integer
       end
     end
+
     it 'returns nil for missing method' do
       capture_warning do
         expect(@base[:foo]).to be_nil

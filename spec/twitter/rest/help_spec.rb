@@ -13,6 +13,7 @@ describe Twitter::REST::Help do
       @client.configuration
       expect(a_get('/1.1/help/configuration.json')).to have_been_made
     end
+
     it 'returns the Twitter configuration' do
       configuration = @client.configuration
       expect(configuration).to be_a Twitter::Configuration
@@ -28,6 +29,7 @@ describe Twitter::REST::Help do
       @client.languages
       expect(a_get('/1.1/help/languages.json')).to have_been_made
     end
+
     it 'returns the list of languages supported by Twitter' do
       languages = @client.languages
       expect(languages).to be_an Array
@@ -44,6 +46,7 @@ describe Twitter::REST::Help do
       @client.privacy
       expect(a_get('/1.1/help/privacy.json')).to have_been_made
     end
+
     it 'returns the Twitter Privacy Policy' do
       privacy = @client.privacy
       expect(privacy.split.first).to eq('Twitter')
@@ -58,6 +61,7 @@ describe Twitter::REST::Help do
       @client.tos
       expect(a_get('/1.1/help/tos.json')).to have_been_made
     end
+
     it 'returns the Twitter Terms of Service' do
       tos = @client.tos
       expect(tos.split.first).to eq('Terms')

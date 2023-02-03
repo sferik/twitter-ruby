@@ -12,11 +12,13 @@ describe Twitter::Cursor do
       expect(a_get('/1.1/followers/ids.json').with(query: {cursor: '-1', screen_name: 'sferik'})).to have_been_made
       expect(a_get('/1.1/followers/ids.json').with(query: {cursor: '1305102810874389703', screen_name: 'sferik'})).to have_been_made
     end
+
     it 'iterates' do
       count = 0
       @client.follower_ids('sferik').each { count += 1 }
       expect(count).to eq(6)
     end
+
     context 'with start' do
       it 'iterates' do
         count = 0
@@ -44,6 +46,7 @@ describe Twitter::Cursor do
       @client.follower_ids('sferik').each { count += 1 }
       expect(count).to eq(6)
     end
+
     context 'with start' do
       it 'iterates' do
         count = 0
