@@ -119,7 +119,7 @@ describe Twitter::NullObject do
 
   describe '#presence' do
     it 'returns nil' do
-      expect(subject.presence).to be nil
+      expect(subject.presence).to be_nil
     end
   end
 
