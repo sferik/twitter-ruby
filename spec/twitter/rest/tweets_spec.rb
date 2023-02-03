@@ -493,6 +493,7 @@ describe Twitter::REST::Tweets do
 
       context 'which size is bigger than 5 megabytes' do
         let(:big_gif) { fixture('pbjt.gif') }
+
         before do
           expect(File).to receive(:size).with(big_gif).and_return(7_000_000)
         end

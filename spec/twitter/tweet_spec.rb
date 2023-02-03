@@ -159,6 +159,7 @@ describe Twitter::Tweet do
       let(:subject) do
         described_class.new(id: 28_669_546_014, entities: {hashtags: hashtags_array})
       end
+
       it 'returns an array of Entity::Hashtag' do
         hashtags = subject.hashtags
         expect(hashtags).to be_an Array

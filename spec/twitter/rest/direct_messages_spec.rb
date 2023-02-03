@@ -150,6 +150,7 @@ describe Twitter::REST::DirectMessages do
         },
       }
     end
+
     before do
       stub_post('/1.1/direct_messages/events/new.json').to_return(body: fixture('direct_message_event.json'), headers: {content_type: 'application/json; charset=utf-8'})
     end
@@ -205,6 +206,7 @@ describe Twitter::REST::DirectMessages do
 
       context 'which size is bigger than 5 megabytes' do
         let(:big_gif) { fixture('pbjt.gif') }
+
         before do
           expect(File).to receive(:size).with(big_gif).and_return(7_000_000)
         end
