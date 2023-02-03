@@ -14,7 +14,7 @@ end
 
 describe Twitter::Streaming::Client do
   before do
-    @client = Twitter::Streaming::Client.new(consumer_key: 'CK', consumer_secret: 'CS', access_token: 'AT', access_token_secret: 'AS')
+    @client = described_class.new(consumer_key: 'CK', consumer_secret: 'CS', access_token: 'AT', access_token_secret: 'AS')
   end
 
   describe '#before_request' do
@@ -123,7 +123,7 @@ describe Twitter::Streaming::Client do
   context 'when using a proxy' do
     let(:proxy) { {host: '127.0.0.1', port: 3328} }
     before do
-      @client = Twitter::Streaming::Client.new(consumer_key: 'CK', consumer_secret: 'CS', access_token: 'AT', access_token_secret: 'AS', proxy: proxy)
+      @client = described_class.new(consumer_key: 'CK', consumer_secret: 'CS', access_token: 'AT', access_token_secret: 'AS', proxy: proxy)
     end
     it 'requests via the proxy' do
       @client.connection = FakeConnection.new(fixture('track_streaming.json'))

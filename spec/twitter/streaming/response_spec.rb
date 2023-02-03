@@ -1,7 +1,7 @@
 require 'helper'
 
 describe Twitter::Streaming::Response do
-  subject { Twitter::Streaming::Response.new }
+  subject { described_class.new }
 
   describe '#on_headers_complete' do
     it 'should not error if status code is 200' do

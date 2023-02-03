@@ -240,8 +240,8 @@ describe Twitter::REST::DirectMessages do
             completed_status_request = {body: fixture('chunk_upload_status_succeeded.json'), headers: {content_type: 'application/json; charset=utf-8'}}
             stub_request(:post, 'https://upload.twitter.com/1.1/media/upload.json').to_return(init_request, append_request, finalize_request)
             stub_request(:get, 'https://upload.twitter.com/1.1/media/upload.json?command=STATUS&media_id=710511363345354753').to_return(pending_status_request, completed_status_request)
-            expect_any_instance_of(Twitter::REST::DirectMessages).to receive(:sleep).with(5).and_return(5)
-            expect_any_instance_of(Twitter::REST::DirectMessages).to receive(:sleep).with(10).and_return(10)
+            expect_any_instance_of(described_class).to receive(:sleep).with(5).and_return(5)
+            expect_any_instance_of(described_class).to receive(:sleep).with(10).and_return(10)
             @client.create_direct_message_event_with_media(58_983, 'You always have options', fixture('1080p.mp4'))
             expect(a_request(:post, 'https://upload.twitter.com/1.1/media/upload.json')).to have_been_made.times(3)
             expect(a_request(:get, 'https://upload.twitter.com/1.1/media/upload.json?command=STATUS&media_id=710511363345354753')).to have_been_made.times(2)
@@ -256,7 +256,7 @@ describe Twitter::REST::DirectMessages do
             failed_status_request = {body: fixture('chunk_upload_status_failed.json'), headers: {content_type: 'application/json; charset=utf-8'}}
             stub_request(:post, 'https://upload.twitter.com/1.1/media/upload.json').to_return(init_request, append_request, finalize_request)
             stub_request(:get, 'https://upload.twitter.com/1.1/media/upload.json?command=STATUS&media_id=710511363345354753').to_return(failed_status_request)
-            expect_any_instance_of(Twitter::REST::DirectMessages).to receive(:sleep).with(5).and_return(5)
+            expect_any_instance_of(described_class).to receive(:sleep).with(5).and_return(5)
             expect { @client.create_direct_message_event_with_media(58_983, 'You always have options', fixture('1080p.mp4')) }.to raise_error(Twitter::Error::InvalidMedia)
             expect(a_request(:post, 'https://upload.twitter.com/1.1/media/upload.json')).to have_been_made.times(3)
             expect(a_request(:get, 'https://upload.twitter.com/1.1/media/upload.json?command=STATUS&media_id=710511363345354753')).to have_been_made

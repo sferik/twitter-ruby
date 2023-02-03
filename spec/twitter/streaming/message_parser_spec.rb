@@ -2,7 +2,7 @@ require 'helper'
 
 describe Twitter::Streaming::MessageParser do
   subject do
-    Twitter::Streaming::MessageParser
+    described_class
   end
 
   describe '.parse' do
