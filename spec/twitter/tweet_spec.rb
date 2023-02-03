@@ -171,6 +171,7 @@ describe Twitter::Tweet do
 
     context 'when entities are set, but empty' do
       subject { described_class.new(id: 28_669_546_014, entities: {hashtags: []}) }
+
       it 'is empty' do
         expect(subject.hashtags).to be_empty
       end
@@ -183,6 +184,7 @@ describe Twitter::Tweet do
 
     context 'when entities are not set' do
       subject { described_class.new(id: 28_669_546_014) }
+
       it 'is empty' do
         expect(subject.hashtags).to be_empty
       end
