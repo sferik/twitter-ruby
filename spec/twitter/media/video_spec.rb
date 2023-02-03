@@ -14,6 +14,7 @@ describe Twitter::Media::Video do
       expect(video.video_info).to be_nil
     end
   end
+
   describe '#type' do
     it 'returns true when the type is set' do
       video = described_class.new(id: 1, type: 'video')

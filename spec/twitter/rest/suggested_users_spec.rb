@@ -24,6 +24,7 @@ describe Twitter::REST::SuggestedUsers do
         expect(suggestion.users.first).to be_a Twitter::User
       end
     end
+
     context 'without arguments passed' do
       before do
         stub_get('/1.1/users/suggestions.json').to_return(body: fixture('suggestions.json'), headers: {content_type: 'application/json; charset=utf-8'})

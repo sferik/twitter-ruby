@@ -14,6 +14,7 @@ describe Twitter::Media::AnimatedGif do
       expect(image.video_info).to be_nil
     end
   end
+
   describe '#type' do
     it 'returns true when the type is set' do
       image = described_class.new(id: 1, type: 'animated_gif')

@@ -34,6 +34,7 @@ describe Twitter::REST::FriendsAndFollowers do
         end
       end
     end
+
     context 'with a user ID passed' do
       before do
         stub_get('/1.1/friends/ids.json').with(query: {user_id: '7505382', cursor: '-1'}).to_return(body: fixture('ids_list.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -56,6 +57,7 @@ describe Twitter::REST::FriendsAndFollowers do
         end
       end
     end
+
     context 'without arguments passed' do
       before do
         stub_get('/1.1/account/verify_credentials.json').with(query: {skip_status: 'true'}).to_return(body: fixture('sferik.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -118,6 +120,7 @@ describe Twitter::REST::FriendsAndFollowers do
         end
       end
     end
+
     context 'with a user ID passed' do
       before do
         stub_get('/1.1/followers/ids.json').with(query: {user_id: '7505382', cursor: '-1'}).to_return(body: fixture('ids_list.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -140,6 +143,7 @@ describe Twitter::REST::FriendsAndFollowers do
         end
       end
     end
+
     context 'without arguments passed' do
       before do
         stub_get('/1.1/account/verify_credentials.json').with(query: {skip_status: 'true'}).to_return(body: fixture('sferik.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -192,6 +196,7 @@ describe Twitter::REST::FriendsAndFollowers do
         expect(friendships.first.connections).to eq(['none'])
       end
     end
+
     context 'with numeric screen names passed' do
       before do
         stub_get('/1.1/friendships/lookup.json').with(query: {screen_name: '0,311'}).to_return(body: fixture('friendships.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -202,6 +207,7 @@ describe Twitter::REST::FriendsAndFollowers do
         expect(a_get('/1.1/friendships/lookup.json').with(query: {screen_name: '0,311'})).to have_been_made
       end
     end
+
     context 'with user IDs passed' do
       before do
         stub_get('/1.1/friendships/lookup.json').with(query: {user_id: '7505382,14100886'}).to_return(body: fixture('friendships.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -212,6 +218,7 @@ describe Twitter::REST::FriendsAndFollowers do
         expect(a_get('/1.1/friendships/lookup.json').with(query: {user_id: '7505382,14100886'})).to have_been_made
       end
     end
+
     context 'with both screen names and user IDs passed' do
       before do
         stub_get('/1.1/friendships/lookup.json').with(query: {screen_name: 'sferik', user_id: '14100886'}).to_return(body: fixture('friendships.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -243,6 +250,7 @@ describe Twitter::REST::FriendsAndFollowers do
         expect(friendships.first.connections).to eq(['none'])
       end
     end
+
     context 'with numeric screen names passed' do
       before do
         stub_get('/1.1/friendships/lookup.json').with(query: {screen_name: '0,311'}).to_return(body: fixture('friendships.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -253,6 +261,7 @@ describe Twitter::REST::FriendsAndFollowers do
         expect(a_get('/1.1/friendships/lookup.json').with(query: {screen_name: '0,311'})).to have_been_made
       end
     end
+
     context 'with user IDs passed' do
       before do
         stub_get('/1.1/friendships/lookup.json').with(query: {user_id: '7505382,14100886'}).to_return(body: fixture('friendships.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -263,6 +272,7 @@ describe Twitter::REST::FriendsAndFollowers do
         expect(a_get('/1.1/friendships/lookup.json').with(query: {user_id: '7505382,14100886'})).to have_been_made
       end
     end
+
     context 'with both screen names and user IDs passed' do
       before do
         stub_get('/1.1/friendships/lookup.json').with(query: {screen_name: 'sferik', user_id: '14100886'}).to_return(body: fixture('friendships.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -365,6 +375,7 @@ describe Twitter::REST::FriendsAndFollowers do
       expect(users.first.id).to eq(7_505_382)
     end
   end
+
   context 'with a user object passed' do
     before do
       stub_post('/1.1/friendships/create.json').with(body: {user_id: '7505382'}).to_return(body: fixture('sferik.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -376,6 +387,7 @@ describe Twitter::REST::FriendsAndFollowers do
       expect(a_post('/1.1/friendships/create.json').with(body: {user_id: '7505382'})).to have_been_made
     end
   end
+
   context 'with a URI object passed' do
     before do
       stub_post('/1.1/friendships/create.json').with(body: {screen_name: 'sferik'}).to_return(body: fixture('sferik.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -387,6 +399,7 @@ describe Twitter::REST::FriendsAndFollowers do
       expect(a_post('/1.1/friendships/create.json').with(body: {screen_name: 'sferik'})).to have_been_made
     end
   end
+
   context 'with a forbidden error' do
     before do
       stub_post('/1.1/friendships/create.json').with(body: {screen_name: 'sferik'}).to_return(status: 403, body: fixture('forbidden.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -449,6 +462,7 @@ describe Twitter::REST::FriendsAndFollowers do
         expect(relationship.source.id).to eq(7_505_382)
       end
     end
+
     context 'with numeric screen names passed' do
       before do
         stub_get('/1.1/friendships/show.json').with(query: {source_screen_name: '0', target_screen_name: '311'}).to_return(body: fixture('following.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -459,6 +473,7 @@ describe Twitter::REST::FriendsAndFollowers do
         expect(a_get('/1.1/friendships/show.json').with(query: {source_screen_name: '0', target_screen_name: '311'})).to have_been_made
       end
     end
+
     context 'with user IDs passed' do
       before do
         stub_get('/1.1/friendships/show.json').with(query: {source_id: '7505382', target_id: '14100886'}).to_return(body: fixture('following.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -469,6 +484,7 @@ describe Twitter::REST::FriendsAndFollowers do
         expect(a_get('/1.1/friendships/show.json').with(query: {source_id: '7505382', target_id: '14100886'})).to have_been_made
       end
     end
+
     context 'with user objects passed' do
       before do
         stub_get('/1.1/friendships/show.json').with(query: {source_id: '7505382', target_id: '14100886'}).to_return(body: fixture('following.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -481,6 +497,7 @@ describe Twitter::REST::FriendsAndFollowers do
         expect(a_get('/1.1/friendships/show.json').with(query: {source_id: '7505382', target_id: '14100886'})).to have_been_made
       end
     end
+
     context 'with URI objects passed' do
       before do
         stub_get('/1.1/friendships/show.json').with(query: {source_screen_name: 'sferik', target_screen_name: 'pengwynn'}).to_return(body: fixture('following.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -517,6 +534,7 @@ describe Twitter::REST::FriendsAndFollowers do
         expect(friendship).to be false
       end
     end
+
     context 'with user IDs passed' do
       before do
         stub_get('/1.1/friendships/show.json').with(query: {source_id: '7505382', target_id: '14100886'}).to_return(body: fixture('following.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -527,6 +545,7 @@ describe Twitter::REST::FriendsAndFollowers do
         expect(a_get('/1.1/friendships/show.json').with(query: {source_id: '7505382', target_id: '14100886'})).to have_been_made
       end
     end
+
     context 'with user objects passed' do
       before do
         stub_get('/1.1/friendships/show.json').with(query: {source_id: '7505382', target_id: '14100886'}).to_return(body: fixture('following.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -570,6 +589,7 @@ describe Twitter::REST::FriendsAndFollowers do
         end
       end
     end
+
     context 'with a user ID passed' do
       before do
         stub_get('/1.1/followers/list.json').with(query: {user_id: '7505382', cursor: '-1'}).to_return(body: fixture('followers_list.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -592,6 +612,7 @@ describe Twitter::REST::FriendsAndFollowers do
         end
       end
     end
+
     context 'without arguments passed' do
       before do
         stub_get('/1.1/account/verify_credentials.json').with(query: {skip_status: 'true'}).to_return(body: fixture('sferik.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -654,6 +675,7 @@ describe Twitter::REST::FriendsAndFollowers do
         end
       end
     end
+
     context 'with a user ID passed' do
       before do
         stub_get('/1.1/friends/list.json').with(query: {user_id: '7505382', cursor: '-1'}).to_return(body: fixture('friends_list.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -676,6 +698,7 @@ describe Twitter::REST::FriendsAndFollowers do
         end
       end
     end
+
     context 'without arguments passed' do
       before do
         stub_get('/1.1/account/verify_credentials.json').with(query: {skip_status: 'true'}).to_return(body: fixture('sferik.json'), headers: {content_type: 'application/json; charset=utf-8'})

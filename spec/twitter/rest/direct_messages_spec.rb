@@ -48,6 +48,7 @@ describe Twitter::REST::DirectMessages do
       expect(direct_messages.first.direct_message.recipient.id).to eq(22_095_868)
     end
   end
+
   describe '#direct_messages_sent' do
     before do
       stub_get('/1.1/direct_messages/events/list.json').with(query: {count: 50}).to_return(body: fixture('direct_message_events.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -101,6 +102,7 @@ describe Twitter::REST::DirectMessages do
         expect(direct_messages.first.sender.id).to eq(124_294_236)
       end
     end
+
     context 'without ids passed' do
       before do
         stub_get('/1.1/direct_messages/events/list.json').with(query: {count: 50}).to_return(body: fixture('direct_message_events.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -220,6 +222,7 @@ describe Twitter::REST::DirectMessages do
         end
       end
     end
+
     context 'with a jpe image' do
       it 'requests the correct resource' do
         @client.create_direct_message_event_with_media(58_983, 'You always have options', fixture('wildcomet2.jpe'))
@@ -227,6 +230,7 @@ describe Twitter::REST::DirectMessages do
         expect(a_post('/1.1/direct_messages/events/new.json')).to have_been_made
       end
     end
+
     context 'with a jpeg image' do
       it 'requests the correct resource' do
         @client.create_direct_message_event_with_media(58_983, 'You always have options', fixture('me.jpeg'))
@@ -234,6 +238,7 @@ describe Twitter::REST::DirectMessages do
         expect(a_post('/1.1/direct_messages/events/new.json')).to have_been_made
       end
     end
+
     context 'with a png image' do
       it 'requests the correct resource' do
         @client.create_direct_message_event_with_media(58_983, 'You always have options', fixture('we_concept_bg2.png'))
@@ -241,6 +246,7 @@ describe Twitter::REST::DirectMessages do
         expect(a_post('/1.1/direct_messages/events/new.json')).to have_been_made
       end
     end
+
     context 'with a mp4 video' do
       it 'requests the correct resources' do
         init_request = {body: fixture('chunk_upload_init.json'), headers: {content_type: 'application/json; charset=utf-8'}}
@@ -270,6 +276,7 @@ describe Twitter::REST::DirectMessages do
             expect(a_post('/1.1/direct_messages/events/new.json')).to have_been_made
           end
         end
+
         context 'when it fails' do
           it 'raises an error' do
             init_request = {body: fixture('chunk_upload_init.json'), headers: {content_type: 'application/json; charset=utf-8'}}
@@ -284,6 +291,7 @@ describe Twitter::REST::DirectMessages do
             expect(a_request(:get, 'https://upload.twitter.com/1.1/media/upload.json?command=STATUS&media_id=710511363345354753')).to have_been_made
           end
         end
+
         context 'when Twitter::Client#timeouts[:upload] is set' do
           before(:each) { @client.timeouts = {upload: 0.1} }
 
@@ -298,6 +306,7 @@ describe Twitter::REST::DirectMessages do
         end
       end
     end
+
     context 'with a Tempfile' do
       it 'requests the correct resource' do
         @client.create_direct_message_event_with_media(58_983, 'You always have options', Tempfile.new('tmp'))

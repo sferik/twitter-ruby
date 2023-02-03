@@ -34,6 +34,7 @@ describe Twitter::REST::Undocumented do
         end
       end
     end
+
     context 'with a user ID passed' do
       before do
         stub_get('/users/following_followers_of.json').with(query: {user_id: '7505382', cursor: '-1'}).to_return(body: fixture('users_list.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -56,6 +57,7 @@ describe Twitter::REST::Undocumented do
         end
       end
     end
+
     context 'without arguments passed' do
       before do
         stub_get('/1.1/account/verify_credentials.json').with(query: {skip_status: 'true'}).to_return(body: fixture('sferik.json'), headers: {content_type: 'application/json; charset=utf-8'})

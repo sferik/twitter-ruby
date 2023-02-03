@@ -23,6 +23,7 @@ describe Twitter::REST::Trends do
         expect(matching_trends.first.name).to eq('#sevenwordsaftersex')
       end
     end
+
     context 'without arguments passed' do
       before do
         stub_get('/1.1/trends/place.json').with(query: {id: '1'}).to_return(body: fixture('matching_trends.json'), headers: {content_type: 'application/json; charset=utf-8'})

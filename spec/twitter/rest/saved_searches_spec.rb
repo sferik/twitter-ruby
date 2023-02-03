@@ -28,6 +28,7 @@ describe Twitter::REST::SavedSearches do
         expect(saved_searches.last.name).to eq('twitter')
       end
     end
+
     context 'without ids passed' do
       before do
         stub_get('/1.1/saved_searches/list.json').to_return(body: fixture('saved_searches.json'), headers: {content_type: 'application/json; charset=utf-8'})
