@@ -24,6 +24,7 @@ describe Twitter::REST::Request do
       before do
         @client = Twitter::REST::Client.new(consumer_key: 'CK', consumer_secret: 'CS', access_token: 'AT', access_token_secret: 'AS', proxy: {host: '127.0.0.1', port: 3328})
       end
+
       it 'requests via the proxy when no uploaded media is present' do
         stub_post('/1.1/statuses/update.json').with(body: {status: 'Update'}).to_return(body: fixture('status.json'), headers: {content_type: 'application/json; charset=utf-8'})
         expect(HTTP).to receive(:via).with('127.0.0.1', 3328).and_call_original
@@ -41,6 +42,7 @@ describe Twitter::REST::Request do
         before do
           @client = Twitter::REST::Client.new(consumer_key: 'CK', consumer_secret: 'CS', access_token: 'AT', access_token_secret: 'AS', proxy: {host: '127.0.0.1', port: 3328}, timeouts: {connect: 2, read: 2, write: 3})
         end
+
         it 'requests with given timeout settings' do
           stub_post('/1.1/statuses/update.json').with(body: {status: 'Update'}).to_return(body: fixture('status.json'), headers: {content_type: 'application/json; charset=utf-8'})
           expect_any_instance_of(HTTP::Client).to receive(:timeout).with(connect: 2, read: 2, write: 3).and_call_original
@@ -53,6 +55,7 @@ describe Twitter::REST::Request do
       before do
         @client = Twitter::REST::Client.new(consumer_key: 'CK', consumer_secret: 'CS', access_token: 'AT', access_token_secret: 'AS', timeouts: {connect: 2, read: 2, write: 3})
       end
+
       it 'requests with given timeout settings' do
         stub_post('/1.1/statuses/update.json').with(body: {status: 'Update'}).to_return(body: fixture('status.json'), headers: {content_type: 'application/json; charset=utf-8'})
         expect(HTTP).to receive(:timeout).with(connect: 2, read: 2, write: 3).and_call_original

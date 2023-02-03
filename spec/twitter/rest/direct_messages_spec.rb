@@ -10,6 +10,7 @@ describe Twitter::REST::DirectMessages do
     before do
       stub_get('/1.1/direct_messages/events/list.json').with(query: {count: 50}).to_return(body: fixture('direct_message_events.json'), headers: {content_type: 'application/json; charset=utf-8'})
     end
+
     it 'requests the correct resource' do
       @client.direct_messages_received
       expect(a_get('/1.1/direct_messages/events/list.json').with(query: {count: 50})).to have_been_made
@@ -51,6 +52,7 @@ describe Twitter::REST::DirectMessages do
     before do
       stub_get('/1.1/direct_messages/events/list.json').with(query: {count: 50}).to_return(body: fixture('direct_message_events.json'), headers: {content_type: 'application/json; charset=utf-8'})
     end
+
     it 'requests the correct resource' do
       @client.direct_messages_sent
       expect(a_get('/1.1/direct_messages/events/list.json').with(query: {count: 50})).to have_been_made
@@ -68,6 +70,7 @@ describe Twitter::REST::DirectMessages do
     before do
       stub_get('/1.1/direct_messages/events/show.json').with(query: {id: '1825786345'}).to_return(body: fixture('direct_message_event.json'), headers: {content_type: 'application/json; charset=utf-8'})
     end
+
     it 'requests the correct resource' do
       @client.direct_message(1_825_786_345)
       expect(a_get('/1.1/direct_messages/events/show.json').with(query: {id: '1825786345'})).to have_been_made
@@ -85,6 +88,7 @@ describe Twitter::REST::DirectMessages do
       before do
         stub_get('/1.1/direct_messages/events/show.json').with(query: {id: '1825786345'}).to_return(body: fixture('direct_message_event.json'), headers: {content_type: 'application/json; charset=utf-8'})
       end
+
       it 'requests the correct resource' do
         @client.direct_messages(1_825_786_345)
         expect(a_get('/1.1/direct_messages/events/show.json').with(query: {id: '1825786345'})).to have_been_made
@@ -101,6 +105,7 @@ describe Twitter::REST::DirectMessages do
       before do
         stub_get('/1.1/direct_messages/events/list.json').with(query: {count: 50}).to_return(body: fixture('direct_message_events.json'), headers: {content_type: 'application/json; charset=utf-8'})
       end
+
       it 'requests the correct resource' do
         @client.direct_messages
         expect(a_get('/1.1/direct_messages/events/list.json').with(query: {count: 50})).to have_been_made
@@ -119,6 +124,7 @@ describe Twitter::REST::DirectMessages do
     before do
       stub_delete('/1.1/direct_messages/events/destroy.json?id=1825785544').to_return(status: 204, body: '', headers: {content_type: 'application/json; charset=utf-8'})
     end
+
     it 'requests the correct resource' do
       @client.destroy_direct_message(1_825_785_544)
       expect(a_delete('/1.1/direct_messages/events/destroy.json?id=1825785544')).to have_been_made
@@ -145,6 +151,7 @@ describe Twitter::REST::DirectMessages do
     before do
       stub_post('/1.1/direct_messages/events/new.json').to_return(body: fixture('direct_message_event.json'), headers: {content_type: 'application/json; charset=utf-8'})
     end
+
     it 'requests the correct resource' do
       @client.create_direct_message('7505382', "My #newride from @PUBLICBikes. Don't you want one? https://t.co/7HIwCl68Y8 https://t.co/JSSxDPr4Sf")
       expect(a_post('/1.1/direct_messages/events/new.json').with(body: json_options)).to have_been_made
@@ -162,6 +169,7 @@ describe Twitter::REST::DirectMessages do
     before do
       stub_post('/1.1/direct_messages/events/new.json').with(body: {event: {type: 'message_create', message_create: {target: {recipient_id: 58_983}, message_data: {text: 'testing'}}}}).to_return(body: fixture('direct_message_event.json'), headers: {content_type: 'application/json; charset=utf-8'})
     end
+
     it 'requests the correct resource' do
       @client.create_direct_message_event(58_983, 'testing')
       expect(a_post('/1.1/direct_messages/events/new.json').with(body: {event: {type: 'message_create', message_create: {target: {recipient_id: 58_983}, message_data: {text: 'testing'}}}})).to have_been_made
@@ -179,6 +187,7 @@ describe Twitter::REST::DirectMessages do
       stub_post('/1.1/direct_messages/events/new.json').to_return(body: fixture('direct_message_event.json'), headers: {content_type: 'application/json; charset=utf-8'})
       stub_request(:post, 'https://upload.twitter.com/1.1/media/upload.json').to_return(body: fixture('upload.json'), headers: {content_type: 'application/json; charset=utf-8'})
     end
+
     context 'with a gif image' do
       it 'requests the correct resource' do
         @client.create_direct_message_event_with_media(58_983, 'testing', fixture('pbjt.gif'))
@@ -197,6 +206,7 @@ describe Twitter::REST::DirectMessages do
         before do
           expect(File).to receive(:size).with(big_gif).and_return(7_000_000)
         end
+
         it 'requests the correct resource' do
           @client.create_direct_message_event_with_media(58_983, 'testing', big_gif)
           expect(a_request(:post, 'https://upload.twitter.com/1.1/media/upload.json')).to have_been_made.times(3)
@@ -276,6 +286,7 @@ describe Twitter::REST::DirectMessages do
         end
         context 'when Twitter::Client#timeouts[:upload] is set' do
           before(:each) { @client.timeouts = {upload: 0.1} }
+
           it 'raises an error when the finalize step is too slow' do
             init_request = {body: fixture('chunk_upload_init.json'), headers: {content_type: 'application/json; charset=utf-8'}}
             append_request = {body: '', headers: {content_type: 'text/html;charset=utf-8'}}

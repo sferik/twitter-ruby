@@ -55,6 +55,7 @@ describe Twitter::TrendResults do
     before do
       @trend_results = described_class.new(trends: [{id: 1}, {id: 2}, {id: 3}, {id: 4}, {id: 5}, {id: 6}])
     end
+
     it 'iterates' do
       count = 0
       @trend_results.each { count += 1 }

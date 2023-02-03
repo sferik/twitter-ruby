@@ -9,6 +9,7 @@ describe Twitter::REST::Help do
     before do
       stub_get('/1.1/help/configuration.json').to_return(body: fixture('configuration.json'), headers: {content_type: 'application/json; charset=utf-8'})
     end
+
     it 'requests the correct resource' do
       @client.configuration
       expect(a_get('/1.1/help/configuration.json')).to have_been_made
@@ -25,6 +26,7 @@ describe Twitter::REST::Help do
     before do
       stub_get('/1.1/help/languages.json').to_return(body: fixture('languages.json'), headers: {content_type: 'application/json; charset=utf-8'})
     end
+
     it 'requests the correct resource' do
       @client.languages
       expect(a_get('/1.1/help/languages.json')).to have_been_made
@@ -42,6 +44,7 @@ describe Twitter::REST::Help do
     before do
       stub_get('/1.1/help/privacy.json').to_return(body: fixture('privacy.json'), headers: {content_type: 'application/json; charset=utf-8'})
     end
+
     it 'requests the correct resource' do
       @client.privacy
       expect(a_get('/1.1/help/privacy.json')).to have_been_made
@@ -57,6 +60,7 @@ describe Twitter::REST::Help do
     before do
       stub_get('/1.1/help/tos.json').to_return(body: fixture('tos.json'), headers: {content_type: 'application/json; charset=utf-8'})
     end
+
     it 'requests the correct resource' do
       @client.tos
       expect(a_get('/1.1/help/tos.json')).to have_been_made

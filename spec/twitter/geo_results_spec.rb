@@ -5,6 +5,7 @@ describe Twitter::GeoResults do
     before do
       @geo_results = described_class.new(result: {places: [{id: 1}, {id: 2}, {id: 3}, {id: 4}, {id: 5}, {id: 6}]})
     end
+
     it 'iterates' do
       count = 0
       @geo_results.each { count += 1 }

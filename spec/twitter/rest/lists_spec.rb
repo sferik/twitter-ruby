@@ -9,6 +9,7 @@ describe Twitter::REST::Lists do
     before do
       stub_get('/1.1/lists/list.json').to_return(body: fixture('lists.json'), headers: {content_type: 'application/json; charset=utf-8'})
     end
+
     it 'requests the correct resource' do
       @client.lists
       expect(a_get('/1.1/lists/list.json')).to have_been_made
@@ -27,6 +28,7 @@ describe Twitter::REST::Lists do
       before do
         stub_get('/1.1/lists/statuses.json').with(query: {owner_screen_name: 'sferik', slug: 'presidents'}).to_return(body: fixture('statuses.json'), headers: {content_type: 'application/json; charset=utf-8'})
       end
+
       it 'requests the correct resource' do
         @client.list_timeline('sferik', 'presidents')
         expect(a_get('/1.1/lists/statuses.json').with(query: {owner_screen_name: 'sferik', slug: 'presidents'})).to have_been_made
@@ -60,6 +62,7 @@ describe Twitter::REST::Lists do
         stub_get('/1.1/account/verify_credentials.json').with(query: {skip_status: 'true'}).to_return(body: fixture('sferik.json'), headers: {content_type: 'application/json; charset=utf-8'})
         stub_get('/1.1/lists/statuses.json').with(query: {owner_id: '7505382', slug: 'presidents'}).to_return(body: fixture('statuses.json'), headers: {content_type: 'application/json; charset=utf-8'})
       end
+
       it 'requests the correct resource' do
         @client.list_timeline('presidents')
         expect(a_get('/1.1/account/verify_credentials.json').with(query: {skip_status: 'true'})).to have_been_made
@@ -73,6 +76,7 @@ describe Twitter::REST::Lists do
       before do
         stub_post('/1.1/lists/members/destroy.json').with(body: {owner_screen_name: 'sferik', slug: 'presidents', user_id: '813286'}).to_return(body: fixture('list.json'), headers: {content_type: 'application/json; charset=utf-8'})
       end
+
       it 'requests the correct resource' do
         @client.remove_list_member('sferik', 'presidents', 813_286)
         expect(a_post('/1.1/lists/members/destroy.json').with(body: {owner_screen_name: 'sferik', slug: 'presidents', user_id: '813286'})).to have_been_made
@@ -89,6 +93,7 @@ describe Twitter::REST::Lists do
         stub_get('/1.1/account/verify_credentials.json').with(query: {skip_status: 'true'}).to_return(body: fixture('sferik.json'), headers: {content_type: 'application/json; charset=utf-8'})
         stub_post('/1.1/lists/members/destroy.json').with(body: {owner_id: '7505382', slug: 'presidents', user_id: '813286'}).to_return(body: fixture('list.json'), headers: {content_type: 'application/json; charset=utf-8'})
       end
+
       it 'requests the correct resource' do
         @client.remove_list_member('presidents', 813_286)
         expect(a_get('/1.1/account/verify_credentials.json').with(query: {skip_status: 'true'})).to have_been_made
@@ -102,6 +107,7 @@ describe Twitter::REST::Lists do
       before do
         stub_get('/1.1/lists/memberships.json').with(query: {screen_name: 'sferik', cursor: '-1'}).to_return(body: fixture('memberships.json'), headers: {content_type: 'application/json; charset=utf-8'})
       end
+
       it 'requests the correct resource' do
         @client.memberships('sferik')
         expect(a_get('/1.1/lists/memberships.json').with(query: {screen_name: 'sferik', cursor: '-1'})).to have_been_made
@@ -118,6 +124,7 @@ describe Twitter::REST::Lists do
         before do
           stub_get('/1.1/lists/memberships.json').with(query: {screen_name: 'sferik', cursor: '1401037770457540712'}).to_return(body: fixture('memberships2.json'), headers: {content_type: 'application/json; charset=utf-8'})
         end
+
         it 'requests the correct resource' do
           @client.memberships('sferik').each {}
           expect(a_get('/1.1/lists/memberships.json').with(query: {screen_name: 'sferik', cursor: '-1'})).to have_been_made
@@ -129,6 +136,7 @@ describe Twitter::REST::Lists do
       before do
         stub_get('/1.1/lists/memberships.json').with(query: {user_id: '7505382', cursor: '-1'}).to_return(body: fixture('memberships.json'), headers: {content_type: 'application/json; charset=utf-8'})
       end
+
       it 'requests the correct resource' do
         @client.memberships(7_505_382)
         expect(a_get('/1.1/lists/memberships.json').with(query: {user_id: '7505382', cursor: '-1'})).to have_been_made
@@ -138,6 +146,7 @@ describe Twitter::REST::Lists do
         before do
           stub_get('/1.1/lists/memberships.json').with(query: {user_id: '7505382', cursor: '1401037770457540712'}).to_return(body: fixture('memberships2.json'), headers: {content_type: 'application/json; charset=utf-8'})
         end
+
         it 'requests the correct resource' do
           @client.memberships(7_505_382).each {}
           expect(a_get('/1.1/lists/memberships.json').with(query: {user_id: '7505382', cursor: '-1'})).to have_been_made
@@ -150,6 +159,7 @@ describe Twitter::REST::Lists do
         stub_get('/1.1/account/verify_credentials.json').with(query: {skip_status: 'true'}).to_return(body: fixture('sferik.json'), headers: {content_type: 'application/json; charset=utf-8'})
         stub_get('/1.1/lists/memberships.json').with(query: {user_id: '7505382', cursor: '-1'}).to_return(body: fixture('memberships.json'), headers: {content_type: 'application/json; charset=utf-8'})
       end
+
       it 'requests the correct resource' do
         @client.memberships
         expect(a_get('/1.1/account/verify_credentials.json').with(query: {skip_status: 'true'})).to have_been_made
@@ -160,6 +170,7 @@ describe Twitter::REST::Lists do
         before do
           stub_get('/1.1/lists/memberships.json').with(query: {user_id: '7505382', cursor: '1401037770457540712'}).to_return(body: fixture('memberships2.json'), headers: {content_type: 'application/json; charset=utf-8'})
         end
+
         it 'requests the correct resource' do
           @client.memberships.each {}
           expect(a_get('/1.1/account/verify_credentials.json').with(query: {skip_status: 'true'})).to have_been_made
@@ -175,6 +186,7 @@ describe Twitter::REST::Lists do
       before do
         stub_get('/1.1/lists/subscribers.json').with(query: {owner_screen_name: 'sferik', slug: 'presidents', cursor: '-1'}).to_return(body: fixture('users_list.json'), headers: {content_type: 'application/json; charset=utf-8'})
       end
+
       it 'requests the correct resource' do
         @client.list_subscribers('sferik', 'presidents')
         expect(a_get('/1.1/lists/subscribers.json').with(query: {owner_screen_name: 'sferik', slug: 'presidents', cursor: '-1'})).to have_been_made
@@ -191,6 +203,7 @@ describe Twitter::REST::Lists do
         before do
           stub_get('/1.1/lists/subscribers.json').with(query: {owner_screen_name: 'sferik', slug: 'presidents', cursor: '1322801608223717003'}).to_return(body: fixture('users_list2.json'), headers: {content_type: 'application/json; charset=utf-8'})
         end
+
         it 'requests the correct resource' do
           @client.list_subscribers('sferik', 'presidents').each {}
           expect(a_get('/1.1/lists/subscribers.json').with(query: {owner_screen_name: 'sferik', slug: 'presidents', cursor: '-1'})).to have_been_made
@@ -202,6 +215,7 @@ describe Twitter::REST::Lists do
       before do
         stub_get('/1.1/lists/subscribers.json').with(query: {owner_id: '7505382', slug: 'presidents', cursor: '-1'}).to_return(body: fixture('users_list.json'), headers: {content_type: 'application/json; charset=utf-8'})
       end
+
       it 'requests the correct resource' do
         @client.list_subscribers(7_505_382, 'presidents')
         expect(a_get('/1.1/lists/subscribers.json').with(query: {owner_id: '7505382', slug: 'presidents', cursor: '-1'})).to have_been_made
@@ -211,6 +225,7 @@ describe Twitter::REST::Lists do
         before do
           stub_get('/1.1/lists/subscribers.json').with(query: {owner_id: '7505382', slug: 'presidents', cursor: '1322801608223717003'}).to_return(body: fixture('users_list2.json'), headers: {content_type: 'application/json; charset=utf-8'})
         end
+
         it 'requests the correct resource' do
           @client.list_subscribers(7_505_382, 'presidents').each {}
           expect(a_get('/1.1/lists/subscribers.json').with(query: {owner_id: '7505382', slug: 'presidents', cursor: '-1'})).to have_been_made
@@ -223,6 +238,7 @@ describe Twitter::REST::Lists do
         stub_get('/1.1/account/verify_credentials.json').with(query: {skip_status: 'true'}).to_return(body: fixture('sferik.json'), headers: {content_type: 'application/json; charset=utf-8'})
         stub_get('/1.1/lists/subscribers.json').with(query: {owner_id: '7505382', slug: 'presidents', cursor: '-1'}).to_return(body: fixture('users_list.json'), headers: {content_type: 'application/json; charset=utf-8'})
       end
+
       it 'requests the correct resource' do
         @client.list_subscribers('presidents')
         expect(a_get('/1.1/account/verify_credentials.json').with(query: {skip_status: 'true'})).to have_been_made
@@ -233,6 +249,7 @@ describe Twitter::REST::Lists do
         before do
           stub_get('/1.1/lists/subscribers.json').with(query: {owner_id: '7505382', slug: 'presidents', cursor: '1322801608223717003'}).to_return(body: fixture('users_list2.json'), headers: {content_type: 'application/json; charset=utf-8'})
         end
+
         it 'requests the correct resource' do
           @client.list_subscribers('presidents').each {}
           expect(a_get('/1.1/account/verify_credentials.json').with(query: {skip_status: 'true'})).to have_been_made
@@ -248,6 +265,7 @@ describe Twitter::REST::Lists do
       before do
         stub_post('/1.1/lists/subscribers/create.json').with(body: {owner_screen_name: 'sferik', slug: 'presidents'}).to_return(body: fixture('list.json'), headers: {content_type: 'application/json; charset=utf-8'})
       end
+
       it 'requests the correct resource' do
         @client.list_subscribe('sferik', 'presidents')
         expect(a_post('/1.1/lists/subscribers/create.json').with(body: {owner_screen_name: 'sferik', slug: 'presidents'})).to have_been_made
@@ -264,6 +282,7 @@ describe Twitter::REST::Lists do
         stub_get('/1.1/account/verify_credentials.json').with(query: {skip_status: 'true'}).to_return(body: fixture('sferik.json'), headers: {content_type: 'application/json; charset=utf-8'})
         stub_post('/1.1/lists/subscribers/create.json').with(body: {owner_id: '7505382', slug: 'presidents'}).to_return(body: fixture('list.json'), headers: {content_type: 'application/json; charset=utf-8'})
       end
+
       it 'requests the correct resource' do
         @client.list_subscribe('presidents')
         expect(a_get('/1.1/account/verify_credentials.json').with(query: {skip_status: 'true'})).to have_been_made
@@ -279,6 +298,7 @@ describe Twitter::REST::Lists do
         stub_get('/1.1/lists/subscribers/show.json').with(query: {owner_screen_name: 'sferik', slug: 'presidents', user_id: '18755393'}).to_return(body: fixture('not_found.json'), status: 404, headers: {content_type: 'application/json; charset=utf-8'})
         stub_get('/1.1/lists/subscribers/show.json').with(query: {owner_screen_name: 'sferik', slug: 'presidents', user_id: '12345678'}).to_return(body: fixture('not_found.json'), status: 403, headers: {content_type: 'application/json; charset=utf-8'})
       end
+
       it 'requests the correct resource' do
         @client.list_subscriber?('sferik', 'presidents', 813_286)
         expect(a_get('/1.1/lists/subscribers/show.json').with(query: {owner_screen_name: 'sferik', slug: 'presidents', user_id: '813286'})).to have_been_made
@@ -303,6 +323,7 @@ describe Twitter::REST::Lists do
       before do
         stub_get('/1.1/lists/subscribers/show.json').with(query: {owner_id: '12345678', slug: 'presidents', user_id: '813286'}).to_return(body: fixture('sferik.json'), headers: {content_type: 'application/json; charset=utf-8'})
       end
+
       it 'requests the correct resource' do
         @client.list_subscriber?(12_345_678, 'presidents', 813_286)
         expect(a_get('/1.1/lists/subscribers/show.json').with(query: {owner_id: '12345678', slug: 'presidents', user_id: '813286'})).to have_been_made
@@ -312,6 +333,7 @@ describe Twitter::REST::Lists do
       before do
         stub_get('/1.1/lists/subscribers/show.json').with(query: {owner_screen_name: 'sferik', list_id: '12345678', user_id: '813286'}).to_return(body: fixture('sferik.json'), headers: {content_type: 'application/json; charset=utf-8'})
       end
+
       it 'requests the correct resource' do
         @client.list_subscriber?('sferik', 12_345_678, 813_286)
         expect(a_get('/1.1/lists/subscribers/show.json').with(query: {owner_screen_name: 'sferik', list_id: '12345678', user_id: '813286'})).to have_been_made
@@ -321,6 +343,7 @@ describe Twitter::REST::Lists do
       before do
         stub_get('/1.1/lists/subscribers/show.json').with(query: {owner_id: '7505382', list_id: '12345678', user_id: '813286'}).to_return(body: fixture('sferik.json'), headers: {content_type: 'application/json; charset=utf-8'})
       end
+
       it 'requests the correct resource' do
         list = Twitter::List.new(id: 12_345_678, user: {id: 7_505_382, screen_name: 'sferik'})
         @client.list_subscriber?(list, 813_286)
@@ -331,6 +354,7 @@ describe Twitter::REST::Lists do
       before do
         stub_get('/1.1/lists/subscribers/show.json').with(query: {owner_screen_name: 'sferik', slug: 'presidents', screen_name: 'erebor'}).to_return(body: fixture('sferik.json'), headers: {content_type: 'application/json; charset=utf-8'})
       end
+
       it 'requests the correct resource' do
         @client.list_subscriber?('sferik', 'presidents', 'erebor')
         expect(a_get('/1.1/lists/subscribers/show.json').with(query: {owner_screen_name: 'sferik', slug: 'presidents', screen_name: 'erebor'})).to have_been_made
@@ -341,6 +365,7 @@ describe Twitter::REST::Lists do
         stub_get('/1.1/account/verify_credentials.json').with(query: {skip_status: 'true'}).to_return(body: fixture('sferik.json'), headers: {content_type: 'application/json; charset=utf-8'})
         stub_get('/1.1/lists/subscribers/show.json').with(query: {owner_id: '7505382', slug: 'presidents', user_id: '813286'}).to_return(body: fixture('sferik.json'), headers: {content_type: 'application/json; charset=utf-8'})
       end
+
       it 'requests the correct resource' do
         @client.list_subscriber?('presidents', 813_286)
         expect(a_get('/1.1/account/verify_credentials.json').with(query: {skip_status: 'true'})).to have_been_made
@@ -354,6 +379,7 @@ describe Twitter::REST::Lists do
       before do
         stub_post('/1.1/lists/subscribers/destroy.json').with(body: {owner_screen_name: 'sferik', slug: 'presidents'}).to_return(body: fixture('list.json'), headers: {content_type: 'application/json; charset=utf-8'})
       end
+
       it 'requests the correct resource' do
         @client.list_unsubscribe('sferik', 'presidents')
         expect(a_post('/1.1/lists/subscribers/destroy.json').with(body: {owner_screen_name: 'sferik', slug: 'presidents'})).to have_been_made
@@ -370,6 +396,7 @@ describe Twitter::REST::Lists do
         stub_get('/1.1/account/verify_credentials.json').with(query: {skip_status: 'true'}).to_return(body: fixture('sferik.json'), headers: {content_type: 'application/json; charset=utf-8'})
         stub_post('/1.1/lists/subscribers/destroy.json').with(body: {owner_id: '7505382', slug: 'presidents'}).to_return(body: fixture('list.json'), headers: {content_type: 'application/json; charset=utf-8'})
       end
+
       it 'requests the correct resource' do
         @client.list_unsubscribe('presidents')
         expect(a_get('/1.1/account/verify_credentials.json').with(query: {skip_status: 'true'})).to have_been_made
@@ -383,6 +410,7 @@ describe Twitter::REST::Lists do
       before do
         stub_post('/1.1/lists/members/create_all.json').with(body: {owner_screen_name: 'sferik', slug: 'presidents', user_id: '813286,18755393'}).to_return(body: fixture('list.json'), headers: {content_type: 'application/json; charset=utf-8'})
       end
+
       it 'requests the correct resource' do
         @client.add_list_members('sferik', 'presidents', [813_286, 18_755_393])
         expect(a_post('/1.1/lists/members/create_all.json').with(body: {owner_screen_name: 'sferik', slug: 'presidents', user_id: '813286,18755393'})).to have_been_made
@@ -398,6 +426,7 @@ describe Twitter::REST::Lists do
       before do
         stub_post('/1.1/lists/members/create_all.json').with(body: {owner_screen_name: 'sferik', slug: 'presidents', user_id: '813286,18755393', screen_name: 'pengwynn,erebor'}).to_return(body: fixture('list.json'), headers: {content_type: 'application/json; charset=utf-8'})
       end
+
       it 'requests the correct resource' do
         @client.add_list_members('sferik', 'presidents', [813_286, 'pengwynn', 18_755_393, 'erebor'])
         expect(a_post('/1.1/lists/members/create_all.json').with(body: {owner_screen_name: 'sferik', slug: 'presidents', user_id: '813286,18755393', screen_name: 'pengwynn,erebor'})).to have_been_made
@@ -408,6 +437,7 @@ describe Twitter::REST::Lists do
         stub_get('/1.1/account/verify_credentials.json').with(query: {skip_status: 'true'}).to_return(body: fixture('sferik.json'), headers: {content_type: 'application/json; charset=utf-8'})
         stub_post('/1.1/lists/members/create_all.json').with(body: {owner_id: '7505382', slug: 'presidents', user_id: '813286,18755393'}).to_return(body: fixture('list.json'), headers: {content_type: 'application/json; charset=utf-8'})
       end
+
       it 'requests the correct resource' do
         @client.add_list_members('presidents', [813_286, 18_755_393])
         expect(a_get('/1.1/account/verify_credentials.json').with(query: {skip_status: 'true'})).to have_been_made
@@ -423,6 +453,7 @@ describe Twitter::REST::Lists do
         stub_get('/1.1/lists/members/show.json').with(query: {owner_screen_name: 'sferik', slug: 'presidents', user_id: '65493023'}).to_return(body: fixture('not_found.json'), status: 404, headers: {content_type: 'application/json; charset=utf-8'})
         stub_get('/1.1/lists/members/show.json').with(query: {owner_screen_name: 'sferik', slug: 'presidents', user_id: '12345678'}).to_return(body: fixture('not_found.json'), status: 403, headers: {content_type: 'application/json; charset=utf-8'})
       end
+
       it 'requests the correct resource' do
         @client.list_member?('sferik', 'presidents', 813_286)
         expect(a_get('/1.1/lists/members/show.json').with(query: {owner_screen_name: 'sferik', slug: 'presidents', user_id: '813286'})).to have_been_made
@@ -447,6 +478,7 @@ describe Twitter::REST::Lists do
       before do
         stub_get('/1.1/lists/members/show.json').with(query: {owner_id: '12345678', slug: 'presidents', user_id: '813286'}).to_return(body: fixture('list.json'), headers: {content_type: 'application/json; charset=utf-8'})
       end
+
       it 'requests the correct resource' do
         @client.list_member?(12_345_678, 'presidents', 813_286)
         expect(a_get('/1.1/lists/members/show.json').with(query: {owner_id: '12345678', slug: 'presidents', user_id: '813286'})).to have_been_made
@@ -456,6 +488,7 @@ describe Twitter::REST::Lists do
       before do
         stub_get('/1.1/lists/members/show.json').with(query: {owner_screen_name: 'sferik', list_id: '12345678', user_id: '813286'}).to_return(body: fixture('list.json'), headers: {content_type: 'application/json; charset=utf-8'})
       end
+
       it 'requests the correct resource' do
         @client.list_member?('sferik', 12_345_678, 813_286)
         expect(a_get('/1.1/lists/members/show.json').with(query: {owner_screen_name: 'sferik', list_id: '12345678', user_id: '813286'})).to have_been_made
@@ -465,6 +498,7 @@ describe Twitter::REST::Lists do
       before do
         stub_get('/1.1/lists/members/show.json').with(query: {owner_id: '7505382', list_id: '12345678', user_id: '813286'}).to_return(body: fixture('list.json'), headers: {content_type: 'application/json; charset=utf-8'})
       end
+
       it 'requests the correct resource' do
         list = Twitter::List.new(id: 12_345_678, user: {id: 7_505_382, screen_name: 'sferik'})
         @client.list_member?(list, 813_286)
@@ -475,6 +509,7 @@ describe Twitter::REST::Lists do
       before do
         stub_get('/1.1/lists/members/show.json').with(query: {owner_screen_name: 'sferik', slug: 'presidents', screen_name: 'erebor'}).to_return(body: fixture('list.json'), headers: {content_type: 'application/json; charset=utf-8'})
       end
+
       it 'requests the correct resource' do
         @client.list_member?('sferik', 'presidents', 'erebor')
         expect(a_get('/1.1/lists/members/show.json').with(query: {owner_screen_name: 'sferik', slug: 'presidents', screen_name: 'erebor'})).to have_been_made
@@ -485,6 +520,7 @@ describe Twitter::REST::Lists do
         stub_get('/1.1/account/verify_credentials.json').with(query: {skip_status: 'true'}).to_return(body: fixture('sferik.json'), headers: {content_type: 'application/json; charset=utf-8'})
         stub_get('/1.1/lists/members/show.json').with(query: {owner_id: '7505382', slug: 'presidents', user_id: '813286'}).to_return(body: fixture('list.json'), headers: {content_type: 'application/json; charset=utf-8'})
       end
+
       it 'requests the correct resource' do
         @client.list_member?('presidents', 813_286)
         expect(a_get('/1.1/account/verify_credentials.json').with(query: {skip_status: 'true'})).to have_been_made
@@ -498,6 +534,7 @@ describe Twitter::REST::Lists do
       before do
         stub_get('/1.1/lists/members.json').with(query: {owner_screen_name: 'sferik', slug: 'presidents', cursor: '-1'}).to_return(body: fixture('users_list.json'), headers: {content_type: 'application/json; charset=utf-8'})
       end
+
       it 'requests the correct resource' do
         @client.list_members('sferik', 'presidents')
         expect(a_get('/1.1/lists/members.json').with(query: {owner_screen_name: 'sferik', slug: 'presidents', cursor: '-1'})).to have_been_made
@@ -514,6 +551,7 @@ describe Twitter::REST::Lists do
         before do
           stub_get('/1.1/lists/members.json').with(query: {owner_screen_name: 'sferik', slug: 'presidents', cursor: '1322801608223717003'}).to_return(body: fixture('users_list2.json'), headers: {content_type: 'application/json; charset=utf-8'})
         end
+
         it 'requests the correct resource' do
           @client.list_members('sferik', 'presidents').each {}
           expect(a_get('/1.1/lists/members.json').with(query: {owner_screen_name: 'sferik', slug: 'presidents', cursor: '-1'})).to have_been_made
@@ -525,6 +563,7 @@ describe Twitter::REST::Lists do
       before do
         stub_get('/1.1/lists/members.json').with(query: {owner_id: '7505382', slug: 'presidents', cursor: '-1'}).to_return(body: fixture('users_list.json'), headers: {content_type: 'application/json; charset=utf-8'})
       end
+
       it 'requests the correct resource' do
         @client.list_members(7_505_382, 'presidents')
         expect(a_get('/1.1/lists/members.json').with(query: {owner_id: '7505382', slug: 'presidents', cursor: '-1'})).to have_been_made
@@ -534,6 +573,7 @@ describe Twitter::REST::Lists do
         before do
           stub_get('/1.1/lists/members.json').with(query: {owner_id: '7505382', slug: 'presidents', cursor: '1322801608223717003'}).to_return(body: fixture('users_list2.json'), headers: {content_type: 'application/json; charset=utf-8'})
         end
+
         it 'requests the correct resource' do
           @client.list_members(7_505_382, 'presidents').each {}
           expect(a_get('/1.1/lists/members.json').with(query: {owner_id: '7505382', slug: 'presidents', cursor: '-1'})).to have_been_made
@@ -546,6 +586,7 @@ describe Twitter::REST::Lists do
         stub_get('/1.1/account/verify_credentials.json').with(query: {skip_status: 'true'}).to_return(body: fixture('sferik.json'), headers: {content_type: 'application/json; charset=utf-8'})
         stub_get('/1.1/lists/members.json').with(query: {owner_id: '7505382', slug: 'presidents', cursor: '-1'}).to_return(body: fixture('users_list.json'), headers: {content_type: 'application/json; charset=utf-8'})
       end
+
       it 'requests the correct resource' do
         @client.list_members('presidents')
         expect(a_get('/1.1/account/verify_credentials.json').with(query: {skip_status: 'true'})).to have_been_made
@@ -556,6 +597,7 @@ describe Twitter::REST::Lists do
         before do
           stub_get('/1.1/lists/members.json').with(query: {owner_id: '7505382', slug: 'presidents', cursor: '1322801608223717003'}).to_return(body: fixture('users_list2.json'), headers: {content_type: 'application/json; charset=utf-8'})
         end
+
         it 'requests the correct resource' do
           @client.list_members('presidents').each {}
           expect(a_get('/1.1/account/verify_credentials.json').with(query: {skip_status: 'true'})).to have_been_made
@@ -571,6 +613,7 @@ describe Twitter::REST::Lists do
       before do
         stub_post('/1.1/lists/members/create.json').with(body: {owner_screen_name: 'sferik', slug: 'presidents', user_id: '813286'}).to_return(body: fixture('list.json'), headers: {content_type: 'application/json; charset=utf-8'})
       end
+
       it 'requests the correct resource' do
         @client.add_list_member('sferik', 'presidents', 813_286)
         expect(a_post('/1.1/lists/members/create.json').with(body: {owner_screen_name: 'sferik', slug: 'presidents', user_id: '813286'})).to have_been_made
@@ -587,6 +630,7 @@ describe Twitter::REST::Lists do
         stub_get('/1.1/account/verify_credentials.json').with(query: {skip_status: 'true'}).to_return(body: fixture('sferik.json'), headers: {content_type: 'application/json; charset=utf-8'})
         stub_post('/1.1/lists/members/create.json').with(body: {owner_id: '7505382', slug: 'presidents', user_id: '813286'}).to_return(body: fixture('list.json'), headers: {content_type: 'application/json; charset=utf-8'})
       end
+
       it 'requests the correct resource' do
         @client.add_list_member('presidents', 813_286)
         expect(a_get('/1.1/account/verify_credentials.json').with(query: {skip_status: 'true'})).to have_been_made
@@ -600,6 +644,7 @@ describe Twitter::REST::Lists do
       before do
         stub_post('/1.1/lists/destroy.json').with(body: {owner_screen_name: 'sferik', slug: 'presidents'}).to_return(body: fixture('list.json'), headers: {content_type: 'application/json; charset=utf-8'})
       end
+
       it 'requests the correct resource' do
         @client.destroy_list('sferik', 'presidents')
         expect(a_post('/1.1/lists/destroy.json').with(body: {owner_screen_name: 'sferik', slug: 'presidents'})).to have_been_made
@@ -616,6 +661,7 @@ describe Twitter::REST::Lists do
         stub_get('/1.1/account/verify_credentials.json').with(query: {skip_status: 'true'}).to_return(body: fixture('sferik.json'), headers: {content_type: 'application/json; charset=utf-8'})
         stub_post('/1.1/lists/destroy.json').with(body: {owner_id: '7505382', slug: 'presidents'}).to_return(body: fixture('list.json'), headers: {content_type: 'application/json; charset=utf-8'})
       end
+
       it 'requests the correct resource' do
         @client.destroy_list('presidents')
         expect(a_get('/1.1/account/verify_credentials.json').with(query: {skip_status: 'true'})).to have_been_made
@@ -626,6 +672,7 @@ describe Twitter::REST::Lists do
       before do
         stub_post('/1.1/lists/destroy.json').with(body: {owner_screen_name: 'sferik', list_id: '12345678'}).to_return(body: fixture('list.json'), headers: {content_type: 'application/json; charset=utf-8'})
       end
+
       it 'requests the correct resource' do
         @client.destroy_list('sferik', 12_345_678)
         expect(a_post('/1.1/lists/destroy.json').with(body: {owner_screen_name: 'sferik', list_id: '12345678'})).to have_been_made
@@ -635,6 +682,7 @@ describe Twitter::REST::Lists do
       before do
         stub_post('/1.1/lists/destroy.json').with(body: {owner_id: '7505382', list_id: '12345678'}).to_return(body: fixture('list.json'), headers: {content_type: 'application/json; charset=utf-8'})
       end
+
       it 'requests the correct resource' do
         list = Twitter::List.new(id: 12_345_678, user: {id: 7_505_382, screen_name: 'sferik'})
         @client.destroy_list(list)
@@ -648,6 +696,7 @@ describe Twitter::REST::Lists do
       before do
         stub_post('/1.1/lists/update.json').with(body: {owner_screen_name: 'sferik', slug: 'presidents', description: 'Presidents of the United States of America'}).to_return(body: fixture('list.json'), headers: {content_type: 'application/json; charset=utf-8'})
       end
+
       it 'requests the correct resource' do
         @client.list_update('sferik', 'presidents', description: 'Presidents of the United States of America')
         expect(a_post('/1.1/lists/update.json').with(body: {owner_screen_name: 'sferik', slug: 'presidents', description: 'Presidents of the United States of America'})).to have_been_made
@@ -664,6 +713,7 @@ describe Twitter::REST::Lists do
         stub_get('/1.1/account/verify_credentials.json').with(query: {skip_status: 'true'}).to_return(body: fixture('sferik.json'), headers: {content_type: 'application/json; charset=utf-8'})
         stub_post('/1.1/lists/update.json').with(body: {owner_id: '7505382', slug: 'presidents', description: 'Presidents of the United States of America'}).to_return(body: fixture('list.json'), headers: {content_type: 'application/json; charset=utf-8'})
       end
+
       it 'requests the correct resource' do
         @client.list_update('presidents', description: 'Presidents of the United States of America')
         expect(a_get('/1.1/account/verify_credentials.json').with(query: {skip_status: 'true'})).to have_been_made
@@ -674,6 +724,7 @@ describe Twitter::REST::Lists do
       before do
         stub_post('/1.1/lists/update.json').with(body: {owner_screen_name: 'sferik', list_id: '12345678', description: 'Presidents of the United States of America'}).to_return(body: fixture('list.json'), headers: {content_type: 'application/json; charset=utf-8'})
       end
+
       it 'requests the correct resource' do
         @client.list_update('sferik', 12_345_678, description: 'Presidents of the United States of America')
         expect(a_post('/1.1/lists/update.json').with(body: {owner_screen_name: 'sferik', list_id: '12345678', description: 'Presidents of the United States of America'})).to have_been_made
@@ -683,6 +734,7 @@ describe Twitter::REST::Lists do
       before do
         stub_post('/1.1/lists/update.json').with(body: {owner_id: '7505382', list_id: '12345678', description: 'Presidents of the United States of America'}).to_return(body: fixture('list.json'), headers: {content_type: 'application/json; charset=utf-8'})
       end
+
       it 'requests the correct resource' do
         list = Twitter::List.new(id: 12_345_678, user: {id: 7_505_382, screen_name: 'sferik'})
         @client.list_update(list, description: 'Presidents of the United States of America')
@@ -695,6 +747,7 @@ describe Twitter::REST::Lists do
     before do
       stub_post('/1.1/lists/create.json').with(body: {name: 'presidents'}).to_return(body: fixture('list.json'), headers: {content_type: 'application/json; charset=utf-8'})
     end
+
     it 'requests the correct resource' do
       @client.create_list('presidents')
       expect(a_post('/1.1/lists/create.json').with(body: {name: 'presidents'})).to have_been_made
@@ -712,6 +765,7 @@ describe Twitter::REST::Lists do
       before do
         stub_get('/1.1/lists/show.json').with(query: {owner_screen_name: 'sferik', slug: 'presidents'}).to_return(body: fixture('list.json'), headers: {content_type: 'application/json; charset=utf-8'})
       end
+
       it 'requests the correct resource' do
         @client.list('sferik', 'presidents')
         expect(a_get('/1.1/lists/show.json').with(query: {owner_screen_name: 'sferik', slug: 'presidents'})).to have_been_made
@@ -727,6 +781,7 @@ describe Twitter::REST::Lists do
       before do
         stub_get('/1.1/lists/show.json').with(query: {owner_id: '12345678', slug: 'presidents'}).to_return(body: fixture('list.json'), headers: {content_type: 'application/json; charset=utf-8'})
       end
+
       it 'requests the correct resource' do
         @client.list(12_345_678, 'presidents')
         expect(a_get('/1.1/lists/show.json').with(query: {owner_id: '12345678', slug: 'presidents'})).to have_been_made
@@ -736,6 +791,7 @@ describe Twitter::REST::Lists do
       before do
         stub_get('/1.1/lists/show.json').with(query: {owner_id: '12345678', slug: 'presidents'}).to_return(body: fixture('list.json'), headers: {content_type: 'application/json; charset=utf-8'})
       end
+
       it 'requests the correct resource' do
         user = Twitter::User.new(id: '12345678')
         @client.list(user, 'presidents')
@@ -747,6 +803,7 @@ describe Twitter::REST::Lists do
         stub_get('/1.1/account/verify_credentials.json').with(query: {skip_status: 'true'}).to_return(body: fixture('sferik.json'), headers: {content_type: 'application/json; charset=utf-8'})
         stub_get('/1.1/lists/show.json').with(query: {owner_id: '7505382', slug: 'presidents'}).to_return(body: fixture('list.json'), headers: {content_type: 'application/json; charset=utf-8'})
       end
+
       it 'requests the correct resource' do
         @client.list('presidents')
         expect(a_get('/1.1/account/verify_credentials.json').with(query: {skip_status: 'true'})).to have_been_made
@@ -757,6 +814,7 @@ describe Twitter::REST::Lists do
       before do
         stub_get('/1.1/lists/show.json').with(query: {owner_screen_name: 'sferik', list_id: '12345678'}).to_return(body: fixture('list.json'), headers: {content_type: 'application/json; charset=utf-8'})
       end
+
       it 'requests the correct resource' do
         @client.list('sferik', 12_345_678)
         expect(a_get('/1.1/lists/show.json').with(query: {owner_screen_name: 'sferik', list_id: '12345678'})).to have_been_made
@@ -766,6 +824,7 @@ describe Twitter::REST::Lists do
       before do
         stub_get('/1.1/lists/show.json').with(query: {owner_id: '7505382', list_id: '12345678'}).to_return(body: fixture('list.json'), headers: {content_type: 'application/json; charset=utf-8'})
       end
+
       it 'requests the correct resource' do
         list = Twitter::List.new(id: 12_345_678, user: {id: 7_505_382, screen_name: 'sferik'})
         @client.list(list)
@@ -779,6 +838,7 @@ describe Twitter::REST::Lists do
       before do
         stub_get('/1.1/lists/subscriptions.json').with(query: {screen_name: 'sferik', cursor: '-1'}).to_return(body: fixture('subscriptions.json'), headers: {content_type: 'application/json; charset=utf-8'})
       end
+
       it 'requests the correct resource' do
         @client.subscriptions('sferik')
         expect(a_get('/1.1/lists/subscriptions.json').with(query: {screen_name: 'sferik', cursor: '-1'})).to have_been_made
@@ -795,6 +855,7 @@ describe Twitter::REST::Lists do
         before do
           stub_get('/1.1/lists/subscriptions.json').with(query: {screen_name: 'sferik', cursor: '1401037770457540712'}).to_return(body: fixture('subscriptions2.json'), headers: {content_type: 'application/json; charset=utf-8'})
         end
+
         it 'requests the correct resource' do
           @client.subscriptions('sferik').each {}
           expect(a_get('/1.1/lists/subscriptions.json').with(query: {screen_name: 'sferik', cursor: '-1'})).to have_been_made
@@ -806,6 +867,7 @@ describe Twitter::REST::Lists do
       before do
         stub_get('/1.1/lists/subscriptions.json').with(query: {user_id: '7505382', cursor: '-1'}).to_return(body: fixture('subscriptions.json'), headers: {content_type: 'application/json; charset=utf-8'})
       end
+
       it 'requests the correct resource' do
         @client.subscriptions(7_505_382)
         expect(a_get('/1.1/lists/subscriptions.json').with(query: {user_id: '7505382', cursor: '-1'})).to have_been_made
@@ -815,6 +877,7 @@ describe Twitter::REST::Lists do
         before do
           stub_get('/1.1/lists/subscriptions.json').with(query: {user_id: '7505382', cursor: '1401037770457540712'}).to_return(body: fixture('subscriptions2.json'), headers: {content_type: 'application/json; charset=utf-8'})
         end
+
         it 'requests the correct resource' do
           @client.subscriptions(7_505_382).each {}
           expect(a_get('/1.1/lists/subscriptions.json').with(query: {user_id: '7505382', cursor: '-1'})).to have_been_made
@@ -827,6 +890,7 @@ describe Twitter::REST::Lists do
         stub_get('/1.1/account/verify_credentials.json').with(query: {skip_status: 'true'}).to_return(body: fixture('sferik.json'), headers: {content_type: 'application/json; charset=utf-8'})
         stub_get('/1.1/lists/subscriptions.json').with(query: {user_id: '7505382', cursor: '-1'}).to_return(body: fixture('subscriptions.json'), headers: {content_type: 'application/json; charset=utf-8'})
       end
+
       it 'requests the correct resource' do
         @client.subscriptions
         expect(a_get('/1.1/account/verify_credentials.json').with(query: {skip_status: 'true'})).to have_been_made
@@ -837,6 +901,7 @@ describe Twitter::REST::Lists do
         before do
           stub_get('/1.1/lists/subscriptions.json').with(query: {user_id: '7505382', cursor: '1401037770457540712'}).to_return(body: fixture('subscriptions2.json'), headers: {content_type: 'application/json; charset=utf-8'})
         end
+
         it 'requests the correct resource' do
           @client.subscriptions.each {}
           expect(a_get('/1.1/account/verify_credentials.json').with(query: {skip_status: 'true'})).to have_been_made
@@ -852,6 +917,7 @@ describe Twitter::REST::Lists do
       before do
         stub_post('/1.1/lists/members/destroy_all.json').with(body: {owner_screen_name: 'sferik', slug: 'presidents', user_id: '813286,18755393'}).to_return(body: fixture('list.json'), headers: {content_type: 'application/json; charset=utf-8'})
       end
+
       it 'requests the correct resource' do
         @client.remove_list_members('sferik', 'presidents', [813_286, 18_755_393])
         expect(a_post('/1.1/lists/members/destroy_all.json').with(body: {owner_screen_name: 'sferik', slug: 'presidents', user_id: '813286,18755393'})).to have_been_made
@@ -867,6 +933,7 @@ describe Twitter::REST::Lists do
       before do
         stub_post('/1.1/lists/members/destroy_all.json').with(body: {owner_id: '7505382', slug: 'presidents', user_id: '813286,18755393'}).to_return(body: fixture('list.json'), headers: {content_type: 'application/json; charset=utf-8'})
       end
+
       it 'requests the correct resource' do
         @client.remove_list_members(7_505_382, 'presidents', [813_286, 18_755_393])
         expect(a_post('/1.1/lists/members/destroy_all.json').with(body: {owner_id: '7505382', slug: 'presidents', user_id: '813286,18755393'})).to have_been_made
@@ -876,6 +943,7 @@ describe Twitter::REST::Lists do
       before do
         stub_post('/1.1/lists/members/destroy_all.json').with(body: {owner_screen_name: 'sferik', slug: 'presidents', user_id: '813286,18755393', screen_name: 'pengwynn,erebor'}).to_return(body: fixture('list.json'), headers: {content_type: 'application/json; charset=utf-8'})
       end
+
       it 'requests the correct resource' do
         @client.remove_list_members('sferik', 'presidents', [813_286, 'pengwynn', 18_755_393, 'erebor'])
         expect(a_post('/1.1/lists/members/destroy_all.json').with(body: {owner_screen_name: 'sferik', slug: 'presidents', user_id: '813286,18755393', screen_name: 'pengwynn,erebor'})).to have_been_made
@@ -886,6 +954,7 @@ describe Twitter::REST::Lists do
         stub_get('/1.1/account/verify_credentials.json').with(query: {skip_status: 'true'}).to_return(body: fixture('sferik.json'), headers: {content_type: 'application/json; charset=utf-8'})
         stub_post('/1.1/lists/members/destroy_all.json').with(body: {owner_id: '7505382', slug: 'presidents', user_id: '813286,18755393'}).to_return(body: fixture('list.json'), headers: {content_type: 'application/json; charset=utf-8'})
       end
+
       it 'requests the correct resource' do
         @client.remove_list_members('presidents', [813_286, 18_755_393])
         expect(a_get('/1.1/account/verify_credentials.json').with(query: {skip_status: 'true'})).to have_been_made
@@ -899,6 +968,7 @@ describe Twitter::REST::Lists do
       before do
         stub_get('/1.1/lists/ownerships.json').with(query: {screen_name: 'sferik', cursor: '-1'}).to_return(body: fixture('ownerships.json'), headers: {content_type: 'application/json; charset=utf-8'})
       end
+
       it 'requests the correct resource' do
         @client.owned_lists('sferik')
         expect(a_get('/1.1/lists/ownerships.json').with(query: {screen_name: 'sferik', cursor: '-1'})).to have_been_made
@@ -916,6 +986,7 @@ describe Twitter::REST::Lists do
         stub_get('/1.1/account/verify_credentials.json').with(query: {skip_status: 'true'}).to_return(body: fixture('sferik.json'), headers: {content_type: 'application/json; charset=utf-8'})
         stub_get('/1.1/lists/ownerships.json').with(query: {user_id: '7505382', cursor: '-1'}).to_return(body: fixture('ownerships.json'), headers: {content_type: 'application/json; charset=utf-8'})
       end
+
       it 'requests the correct resource' do
         @client.owned_lists
         expect(a_get('/1.1/account/verify_credentials.json').with(query: {skip_status: 'true'})).to have_been_made
