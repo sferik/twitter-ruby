@@ -1,5 +1,16 @@
 require 'helper'
 
+class DummyTCPSocket; end
+class DummySSLSocket; end
+
+class DummyResponse
+  def initiailze
+    yield
+  end
+
+  def <<(data); end
+end
+
 describe Twitter::Streaming::Connection do
   describe 'initialize' do
     context 'no options provided' do
@@ -12,9 +23,6 @@ describe Twitter::Streaming::Connection do
     end
 
     context 'custom socket classes provided in opts' do
-      class DummyTCPSocket; end
-      class DummySSLSocket; end
-
       subject(:connection) do
         Twitter::Streaming::Connection.new(tcp_socket_class: DummyTCPSocket, ssl_socket_class: DummySSLSocket)
       end
@@ -27,14 +35,6 @@ describe Twitter::Streaming::Connection do
   end
 
   describe 'connection' do
-    class DummyResponse
-      def initiailze
-        yield
-      end
-
-      def <<(data); end
-    end
-
     subject(:connection) do
       Twitter::Streaming::Connection.new(tcp_socket_class: DummyTCPSocket, ssl_socket_class: DummySSLSocket)
     end
