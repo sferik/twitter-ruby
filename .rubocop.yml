@@ -4,6 +4,7 @@ require:
 
 AllCops:
   TargetRubyVersion: 2.6
+  NewCops: enable
 
 Layout/AccessModifierIndentation:
   EnforcedStyle: outdent
