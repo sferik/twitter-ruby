@@ -71,7 +71,7 @@ module Twitter
     #   query_string_to_hash("foo=bar&baz=qux") #=> {:foo=>"bar", :baz=>"qux"}
     def query_string_to_hash(query_string)
       query = CGI.parse(URI.parse(query_string).query)
-      query.collect { |key, value| [key.to_sym, value.first] }.to_h
+      query.to_h { |key, value| [key.to_sym, value.first] }
     end
   end
 end
