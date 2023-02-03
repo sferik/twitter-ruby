@@ -7,6 +7,7 @@ module Twitter
 
     # @return [String]
     attr_reader :content_type
+
     uri_attr_reader :uri
   end
 end

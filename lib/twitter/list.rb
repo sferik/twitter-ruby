@@ -8,6 +8,7 @@ module Twitter
     attr_reader :member_count, :subscriber_count
     # @return [String]
     attr_reader :description, :full_name, :mode, :name, :slug
+
     object_attr_reader :User, :user
     predicate_attr_reader :following
 
