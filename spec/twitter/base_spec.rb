@@ -2,7 +2,7 @@ require 'helper'
 
 describe Twitter::Base do
   before do
-    @base = Twitter::Base.new(id: 1)
+    @base = described_class.new(id: 1)
   end
 
   describe '#[]' do

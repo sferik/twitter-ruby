@@ -21,7 +21,7 @@ describe Twitter::NullObject do
 
   describe '#instance_of?' do
     it 'returns true for Twitter::NullObject' do
-      expect(subject).to be_instance_of(Twitter::NullObject)
+      expect(subject).to be_instance_of(described_class)
     end
     it 'returns false for other classes' do
       expect(subject).not_to be_instance_of(String)
@@ -30,7 +30,7 @@ describe Twitter::NullObject do
 
   describe '#kind_of?' do
     it 'returns true for Twitter::NullObject' do
-      expect(subject).to be_a Twitter::NullObject
+      expect(subject).to be_a described_class
     end
     it 'returns true for module ancestors' do
       expect(subject).to be_a Comparable
@@ -48,8 +48,8 @@ describe Twitter::NullObject do
       expect(subject <=> 1).to eq(-1)
     end
     it 'is equal to other Twitter::NullObjects' do
-      null_object1 = Twitter::NullObject.new
-      null_object2 = Twitter::NullObject.new
+      null_object1 = described_class.new
+      null_object2 = described_class.new
       expect(null_object1 <=> null_object2).to eq(0)
     end
   end

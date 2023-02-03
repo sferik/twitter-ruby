@@ -7,21 +7,21 @@ describe Twitter::Error do
 
   describe '#code' do
     it 'returns the error code' do
-      error = Twitter::Error.new('execution expired', {}, 123)
+      error = described_class.new('execution expired', {}, 123)
       expect(error.code).to eq(123)
     end
   end
 
   describe '#message' do
     it 'returns the error message' do
-      error = Twitter::Error.new('execution expired')
+      error = described_class.new('execution expired')
       expect(error.message).to eq('execution expired')
     end
   end
 
   describe '#rate_limit' do
     it 'returns a rate limit object' do
-      error = Twitter::Error.new('execution expired')
+      error = described_class.new('execution expired')
       expect(error.rate_limit).to be_a Twitter::RateLimit
     end
   end
