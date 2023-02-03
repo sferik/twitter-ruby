@@ -10,7 +10,7 @@ module Twitter
       def initialize(options = {})
         @tcp_socket_class = options.fetch(:tcp_socket_class) { TCPSocket }
         @ssl_socket_class = options.fetch(:ssl_socket_class) { OpenSSL::SSL::SSLSocket }
-        @using_ssl        = options.fetch(:using_ssl)        { false }
+        @using_ssl        = options.fetch(:using_ssl, false)
         @write_pipe = nil
       end
 
