@@ -295,7 +295,7 @@ describe Twitter::REST::DirectMessages do
         end
 
         context 'when Twitter::Client#timeouts[:upload] is set' do
-          before(:each) { @client.timeouts = {upload: 0.1} }
+          before { @client.timeouts = {upload: 0.1} }
 
           it 'raises an error when the finalize step is too slow' do
             init_request = {body: fixture('chunk_upload_init.json'), headers: {content_type: 'application/json; charset=utf-8'}}
