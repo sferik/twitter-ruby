@@ -41,6 +41,7 @@ describe Twitter::REST::Timelines do
         expect(tweets.first.text).to eq('Happy Birthday @imdane. Watch out for those @rally pranksters!')
       end
     end
+
     context 'without a screen name passed' do
       before do
         stub_get('/1.1/statuses/user_timeline.json').to_return(body: fixture('statuses.json'), headers: {content_type: 'application/json; charset=utf-8'})

@@ -31,6 +31,7 @@ describe Twitter::REST::Favorites do
         end
       end
     end
+
     context 'without arguments passed' do
       before do
         stub_get('/1.1/favorites/list.json').to_return(body: fixture('user_timeline.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -76,6 +77,7 @@ describe Twitter::REST::Favorites do
         expect { @client.unfavorite(540_897_316_908_331_009) }.not_to raise_error
       end
     end
+
     context 'with a URI object passed' do
       it 'requests the correct resource' do
         tweet = URI.parse('https://twitter.com/sferik/status/540897316908331009')
@@ -83,6 +85,7 @@ describe Twitter::REST::Favorites do
         expect(a_post('/1.1/favorites/destroy.json').with(body: {id: '540897316908331009'})).to have_been_made
       end
     end
+
     context 'with a Tweet passed' do
       it 'requests the correct resource' do
         tweet = Twitter::Tweet.new(id: 540_897_316_908_331_009)
@@ -118,6 +121,7 @@ describe Twitter::REST::Favorites do
         expect { @client.unfavorite!(540_897_316_908_331_009) }.to raise_error(Twitter::Error::NotFound)
       end
     end
+
     context 'with a URI object passed' do
       it 'requests the correct resource' do
         tweet = URI.parse('https://twitter.com/sferik/status/540897316908331009')
@@ -125,6 +129,7 @@ describe Twitter::REST::Favorites do
         expect(a_post('/1.1/favorites/destroy.json').with(body: {id: '540897316908331009'})).to have_been_made
       end
     end
+
     context 'with a Tweet passed' do
       it 'requests the correct resource' do
         tweet = Twitter::Tweet.new(id: 540_897_316_908_331_009)
@@ -160,6 +165,7 @@ describe Twitter::REST::Favorites do
         expect { @client.favorite(540_897_316_908_331_009) }.not_to raise_error
       end
     end
+
     context 'not found' do
       before do
         stub_post('/1.1/favorites/create.json').with(body: {id: '540897316908331009'}).to_return(status: 404, body: fixture('not_found.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -169,6 +175,7 @@ describe Twitter::REST::Favorites do
         expect { @client.favorite(540_897_316_908_331_009) }.not_to raise_error
       end
     end
+
     context 'with a URI object passed' do
       it 'requests the correct resource' do
         tweet = URI.parse('https://twitter.com/sferik/status/540897316908331009')
@@ -176,6 +183,7 @@ describe Twitter::REST::Favorites do
         expect(a_post('/1.1/favorites/create.json').with(body: {id: '540897316908331009'})).to have_been_made
       end
     end
+
     context 'with a Tweet passed' do
       it 'requests the correct resource' do
         tweet = Twitter::Tweet.new(id: 540_897_316_908_331_009)
@@ -211,6 +219,7 @@ describe Twitter::REST::Favorites do
         expect { @client.favorite!(540_897_316_908_331_009) }.to raise_error(Twitter::Error::Forbidden)
       end
     end
+
     context 'already favorited' do
       before do
         stub_post('/1.1/favorites/create.json').with(body: {id: '540897316908331009'}).to_return(status: 403, body: fixture('already_favorited.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -220,6 +229,7 @@ describe Twitter::REST::Favorites do
         expect { @client.favorite!(540_897_316_908_331_009) }.to raise_error(Twitter::Error::AlreadyFavorited)
       end
     end
+
     context 'does not exist' do
       before do
         stub_post('/1.1/favorites/create.json').with(body: {id: '540897316908331009'}).to_return(status: 404, body: fixture('not_found.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -229,6 +239,7 @@ describe Twitter::REST::Favorites do
         expect { @client.favorite!(540_897_316_908_331_009) }.to raise_error(Twitter::Error::NotFound)
       end
     end
+
     context 'with a URI object passed' do
       it 'requests the correct resource' do
         tweet = URI.parse('https://twitter.com/sferik/status/540897316908331009')
@@ -236,6 +247,7 @@ describe Twitter::REST::Favorites do
         expect(a_post('/1.1/favorites/create.json').with(body: {id: '540897316908331009'})).to have_been_made
       end
     end
+
     context 'with a Tweet passed' do
       it 'requests the correct resource' do
         tweet = Twitter::Tweet.new(id: 540_897_316_908_331_009)

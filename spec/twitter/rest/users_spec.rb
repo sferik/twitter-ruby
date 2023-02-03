@@ -138,6 +138,7 @@ describe Twitter::REST::Users do
         expect(suggestion.users.first).to be_a Twitter::User
       end
     end
+
     context 'without arguments passed' do
       before do
         stub_get('/1.1/users/suggestions.json').to_return(body: fixture('suggestions.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -260,6 +261,7 @@ describe Twitter::REST::Users do
         expect(block).to be false
       end
     end
+
     context 'with a user ID passed' do
       before do
         stub_get('/1.1/blocks/ids.json').with(query: {cursor: '-1'}).to_return(body: fixture('ids_list.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -272,6 +274,7 @@ describe Twitter::REST::Users do
         expect(a_get('/1.1/blocks/ids.json').with(query: {cursor: '1305102810874389703'})).to have_been_made
       end
     end
+
     context 'with a user object passed' do
       before do
         stub_get('/1.1/blocks/ids.json').with(query: {cursor: '-1'}).to_return(body: fixture('ids_list.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -350,6 +353,7 @@ describe Twitter::REST::Users do
         end
       end
     end
+
     context 'with numeric screen names passed' do
       before do
         stub_get('/1.1/users/lookup.json').with(query: {screen_name: '0,311'}).to_return(body: fixture('users.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -360,6 +364,7 @@ describe Twitter::REST::Users do
         expect(a_get('/1.1/users/lookup.json').with(query: {screen_name: '0,311'})).to have_been_made
       end
     end
+
     context 'with user IDs passed' do
       before do
         stub_get('/1.1/users/lookup.json').with(query: {user_id: '7505382,14100886'}).to_return(body: fixture('users.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -370,6 +375,7 @@ describe Twitter::REST::Users do
         expect(a_get('/1.1/users/lookup.json').with(query: {user_id: '7505382,14100886'})).to have_been_made
       end
     end
+
     context 'with both screen names and user IDs passed' do
       before do
         stub_get('/1.1/users/lookup.json').with(query: {screen_name: 'sferik', user_id: '14100886'}).to_return(body: fixture('users.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -380,6 +386,7 @@ describe Twitter::REST::Users do
         expect(a_get('/1.1/users/lookup.json').with(query: {screen_name: 'sferik', user_id: '14100886'})).to have_been_made
       end
     end
+
     context 'with user objects passed' do
       before do
         stub_get('/1.1/users/lookup.json').with(query: {user_id: '7505382,14100886'}).to_return(body: fixture('users.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -411,6 +418,7 @@ describe Twitter::REST::Users do
         expect(user.id).to eq(7_505_382)
       end
     end
+
     context 'with a screen name including "@" passed' do
       before do
         stub_get('/1.1/users/show.json').with(query: {screen_name: '@sferik'}).to_return(body: fixture('sferik.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -421,6 +429,7 @@ describe Twitter::REST::Users do
         expect(a_get('/1.1/users/show.json').with(query: {screen_name: '@sferik'})).to have_been_made
       end
     end
+
     context 'with a numeric screen name passed' do
       before do
         stub_get('/1.1/users/show.json').with(query: {screen_name: '0'}).to_return(body: fixture('sferik.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -431,6 +440,7 @@ describe Twitter::REST::Users do
         expect(a_get('/1.1/users/show.json').with(query: {screen_name: '0'})).to have_been_made
       end
     end
+
     context 'with a user ID passed' do
       before do
         stub_get('/1.1/users/show.json').with(query: {user_id: '7505382'}).to_return(body: fixture('sferik.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -441,6 +451,7 @@ describe Twitter::REST::Users do
         expect(a_get('/1.1/users/show.json').with(query: {user_id: '7505382'})).to have_been_made
       end
     end
+
     context 'with a user object passed' do
       before do
         stub_get('/1.1/users/show.json').with(query: {user_id: '7505382'}).to_return(body: fixture('sferik.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -453,6 +464,7 @@ describe Twitter::REST::Users do
       end
     end
   end
+
   context 'without a screen name or user ID passed' do
     context 'without options passed' do
       before do
@@ -464,6 +476,7 @@ describe Twitter::REST::Users do
         expect(a_get('/1.1/account/verify_credentials.json')).to have_been_made
       end
     end
+
     context 'with options passed' do
       before do
         stub_get('/1.1/account/verify_credentials.json').with(query: {skip_status: 'true'}).to_return(body: fixture('sferik.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -534,6 +547,7 @@ describe Twitter::REST::Users do
         expect(contributees.first.name).to eq('Twitter API')
       end
     end
+
     context 'with a user ID passed' do
       before do
         stub_get('/1.1/users/contributees.json').with(query: {user_id: '7505382'}).to_return(body: fixture('contributees.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -544,6 +558,7 @@ describe Twitter::REST::Users do
         expect(a_get('/1.1/users/contributees.json').with(query: {user_id: '7505382'})).to have_been_made
       end
     end
+
     context 'without arguments passed' do
       before do
         stub_get('/1.1/account/verify_credentials.json').with(query: {skip_status: 'true'}).to_return(body: fixture('sferik.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -583,6 +598,7 @@ describe Twitter::REST::Users do
         expect(contributors.first.id).to eq(13)
       end
     end
+
     context 'with a user ID passed' do
       before do
         stub_get('/1.1/users/contributors.json').with(query: {user_id: '7505382'}).to_return(body: fixture('members.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -593,6 +609,7 @@ describe Twitter::REST::Users do
         expect(a_get('/1.1/users/contributors.json').with(query: {user_id: '7505382'})).to have_been_made
       end
     end
+
     context 'without arguments passed' do
       before do
         stub_get('/1.1/account/verify_credentials.json').with(query: {skip_status: 'true'}).to_return(body: fixture('sferik.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -664,6 +681,7 @@ describe Twitter::REST::Users do
         expect(banner.sizes[:mobile].height).to eq(160)
       end
     end
+
     context 'with a user ID passed' do
       before do
         stub_get('/1.1/users/profile_banner.json').with(query: {user_id: '7505382'}).to_return(body: fixture('profile_banner.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -674,6 +692,7 @@ describe Twitter::REST::Users do
         expect(a_get('/1.1/users/profile_banner.json').with(query: {user_id: '7505382'})).to have_been_made
       end
     end
+
     context 'without arguments passed' do
       before do
         stub_get('/1.1/account/verify_credentials.json').with(query: {skip_status: 'true'}).to_return(body: fixture('sferik.json'), headers: {content_type: 'application/json; charset=utf-8'})

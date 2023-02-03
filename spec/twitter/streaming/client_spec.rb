@@ -82,6 +82,7 @@ describe Twitter::Streaming::Client do
         expect(objects.first.text).to eq "The problem with your code is that it's doing exactly what you told it to do."
       end
     end
+
     context 'with a user object passed' do
       it 'returns an arary of Tweets' do
         @client.connection = FakeConnection.new(fixture('track_streaming.json'))

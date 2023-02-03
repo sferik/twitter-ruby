@@ -48,6 +48,7 @@ describe Twitter::REST::Lists do
           expect(a_get('/1.1/lists/statuses.json').with(query: {owner_screen_name: 'sferik', slug: 'presidents'})).to have_been_made
         end
       end
+
       context 'with URI objects passed' do
         it 'requests the correct resource' do
           user = URI.parse('https://twitter.com/sferik')
@@ -57,6 +58,7 @@ describe Twitter::REST::Lists do
         end
       end
     end
+
     context 'without a screen name passed' do
       before do
         stub_get('/1.1/account/verify_credentials.json').with(query: {skip_status: 'true'}).to_return(body: fixture('sferik.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -88,6 +90,7 @@ describe Twitter::REST::Lists do
         expect(list.name).to eq('presidents')
       end
     end
+
     context 'without a screen name passed' do
       before do
         stub_get('/1.1/account/verify_credentials.json').with(query: {skip_status: 'true'}).to_return(body: fixture('sferik.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -132,6 +135,7 @@ describe Twitter::REST::Lists do
         end
       end
     end
+
     context 'with a user ID passed' do
       before do
         stub_get('/1.1/lists/memberships.json').with(query: {user_id: '7505382', cursor: '-1'}).to_return(body: fixture('memberships.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -154,6 +158,7 @@ describe Twitter::REST::Lists do
         end
       end
     end
+
     context 'without a screen name passed' do
       before do
         stub_get('/1.1/account/verify_credentials.json').with(query: {skip_status: 'true'}).to_return(body: fixture('sferik.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -211,6 +216,7 @@ describe Twitter::REST::Lists do
         end
       end
     end
+
     context 'with a user ID passed' do
       before do
         stub_get('/1.1/lists/subscribers.json').with(query: {owner_id: '7505382', slug: 'presidents', cursor: '-1'}).to_return(body: fixture('users_list.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -233,6 +239,7 @@ describe Twitter::REST::Lists do
         end
       end
     end
+
     context 'without a screen name passed' do
       before do
         stub_get('/1.1/account/verify_credentials.json').with(query: {skip_status: 'true'}).to_return(body: fixture('sferik.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -277,6 +284,7 @@ describe Twitter::REST::Lists do
         expect(list.name).to eq('presidents')
       end
     end
+
     context 'without a screen name passed' do
       before do
         stub_get('/1.1/account/verify_credentials.json').with(query: {skip_status: 'true'}).to_return(body: fixture('sferik.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -319,6 +327,7 @@ describe Twitter::REST::Lists do
         expect(list_subscriber).to be false
       end
     end
+
     context 'with a owner ID passed' do
       before do
         stub_get('/1.1/lists/subscribers/show.json').with(query: {owner_id: '12345678', slug: 'presidents', user_id: '813286'}).to_return(body: fixture('sferik.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -329,6 +338,7 @@ describe Twitter::REST::Lists do
         expect(a_get('/1.1/lists/subscribers/show.json').with(query: {owner_id: '12345678', slug: 'presidents', user_id: '813286'})).to have_been_made
       end
     end
+
     context 'with a list ID passed' do
       before do
         stub_get('/1.1/lists/subscribers/show.json').with(query: {owner_screen_name: 'sferik', list_id: '12345678', user_id: '813286'}).to_return(body: fixture('sferik.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -339,6 +349,7 @@ describe Twitter::REST::Lists do
         expect(a_get('/1.1/lists/subscribers/show.json').with(query: {owner_screen_name: 'sferik', list_id: '12345678', user_id: '813286'})).to have_been_made
       end
     end
+
     context 'with a list object passed' do
       before do
         stub_get('/1.1/lists/subscribers/show.json').with(query: {owner_id: '7505382', list_id: '12345678', user_id: '813286'}).to_return(body: fixture('sferik.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -350,6 +361,7 @@ describe Twitter::REST::Lists do
         expect(a_get('/1.1/lists/subscribers/show.json').with(query: {owner_id: '7505382', list_id: '12345678', user_id: '813286'})).to have_been_made
       end
     end
+
     context 'with a screen name passed for user_to_check' do
       before do
         stub_get('/1.1/lists/subscribers/show.json').with(query: {owner_screen_name: 'sferik', slug: 'presidents', screen_name: 'erebor'}).to_return(body: fixture('sferik.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -360,6 +372,7 @@ describe Twitter::REST::Lists do
         expect(a_get('/1.1/lists/subscribers/show.json').with(query: {owner_screen_name: 'sferik', slug: 'presidents', screen_name: 'erebor'})).to have_been_made
       end
     end
+
     context 'without a screen name passed' do
       before do
         stub_get('/1.1/account/verify_credentials.json').with(query: {skip_status: 'true'}).to_return(body: fixture('sferik.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -391,6 +404,7 @@ describe Twitter::REST::Lists do
         expect(list.name).to eq('presidents')
       end
     end
+
     context 'without a screen name passed' do
       before do
         stub_get('/1.1/account/verify_credentials.json').with(query: {skip_status: 'true'}).to_return(body: fixture('sferik.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -422,6 +436,7 @@ describe Twitter::REST::Lists do
         expect(list.name).to eq('presidents')
       end
     end
+
     context 'with a combination of member IDs and member screen names to add' do
       before do
         stub_post('/1.1/lists/members/create_all.json').with(body: {owner_screen_name: 'sferik', slug: 'presidents', user_id: '813286,18755393', screen_name: 'pengwynn,erebor'}).to_return(body: fixture('list.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -432,6 +447,7 @@ describe Twitter::REST::Lists do
         expect(a_post('/1.1/lists/members/create_all.json').with(body: {owner_screen_name: 'sferik', slug: 'presidents', user_id: '813286,18755393', screen_name: 'pengwynn,erebor'})).to have_been_made
       end
     end
+
     context 'without a screen name passed' do
       before do
         stub_get('/1.1/account/verify_credentials.json').with(query: {skip_status: 'true'}).to_return(body: fixture('sferik.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -474,6 +490,7 @@ describe Twitter::REST::Lists do
         expect(list_member).to be false
       end
     end
+
     context 'with an owner ID passed' do
       before do
         stub_get('/1.1/lists/members/show.json').with(query: {owner_id: '12345678', slug: 'presidents', user_id: '813286'}).to_return(body: fixture('list.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -484,6 +501,7 @@ describe Twitter::REST::Lists do
         expect(a_get('/1.1/lists/members/show.json').with(query: {owner_id: '12345678', slug: 'presidents', user_id: '813286'})).to have_been_made
       end
     end
+
     context 'with a list ID passed' do
       before do
         stub_get('/1.1/lists/members/show.json').with(query: {owner_screen_name: 'sferik', list_id: '12345678', user_id: '813286'}).to_return(body: fixture('list.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -494,6 +512,7 @@ describe Twitter::REST::Lists do
         expect(a_get('/1.1/lists/members/show.json').with(query: {owner_screen_name: 'sferik', list_id: '12345678', user_id: '813286'})).to have_been_made
       end
     end
+
     context 'with a list object passed' do
       before do
         stub_get('/1.1/lists/members/show.json').with(query: {owner_id: '7505382', list_id: '12345678', user_id: '813286'}).to_return(body: fixture('list.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -505,6 +524,7 @@ describe Twitter::REST::Lists do
         expect(a_get('/1.1/lists/members/show.json').with(query: {owner_id: '7505382', list_id: '12345678', user_id: '813286'})).to have_been_made
       end
     end
+
     context 'with a screen name passed for user_to_check' do
       before do
         stub_get('/1.1/lists/members/show.json').with(query: {owner_screen_name: 'sferik', slug: 'presidents', screen_name: 'erebor'}).to_return(body: fixture('list.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -515,6 +535,7 @@ describe Twitter::REST::Lists do
         expect(a_get('/1.1/lists/members/show.json').with(query: {owner_screen_name: 'sferik', slug: 'presidents', screen_name: 'erebor'})).to have_been_made
       end
     end
+
     context 'without a screen name passed' do
       before do
         stub_get('/1.1/account/verify_credentials.json').with(query: {skip_status: 'true'}).to_return(body: fixture('sferik.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -559,6 +580,7 @@ describe Twitter::REST::Lists do
         end
       end
     end
+
     context 'with a user ID passed' do
       before do
         stub_get('/1.1/lists/members.json').with(query: {owner_id: '7505382', slug: 'presidents', cursor: '-1'}).to_return(body: fixture('users_list.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -581,6 +603,7 @@ describe Twitter::REST::Lists do
         end
       end
     end
+
     context 'without a screen name passed' do
       before do
         stub_get('/1.1/account/verify_credentials.json').with(query: {skip_status: 'true'}).to_return(body: fixture('sferik.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -625,6 +648,7 @@ describe Twitter::REST::Lists do
         expect(list.name).to eq('presidents')
       end
     end
+
     context 'without a screen name passed' do
       before do
         stub_get('/1.1/account/verify_credentials.json').with(query: {skip_status: 'true'}).to_return(body: fixture('sferik.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -656,6 +680,7 @@ describe Twitter::REST::Lists do
         expect(list.name).to eq('presidents')
       end
     end
+
     context 'without a screen name passed' do
       before do
         stub_get('/1.1/account/verify_credentials.json').with(query: {skip_status: 'true'}).to_return(body: fixture('sferik.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -668,6 +693,7 @@ describe Twitter::REST::Lists do
         expect(a_post('/1.1/lists/destroy.json').with(body: {owner_id: '7505382', slug: 'presidents'})).to have_been_made
       end
     end
+
     context 'with a list ID passed' do
       before do
         stub_post('/1.1/lists/destroy.json').with(body: {owner_screen_name: 'sferik', list_id: '12345678'}).to_return(body: fixture('list.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -678,6 +704,7 @@ describe Twitter::REST::Lists do
         expect(a_post('/1.1/lists/destroy.json').with(body: {owner_screen_name: 'sferik', list_id: '12345678'})).to have_been_made
       end
     end
+
     context 'with a list object passed' do
       before do
         stub_post('/1.1/lists/destroy.json').with(body: {owner_id: '7505382', list_id: '12345678'}).to_return(body: fixture('list.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -708,6 +735,7 @@ describe Twitter::REST::Lists do
         expect(list.name).to eq('presidents')
       end
     end
+
     context 'without a screen name passed' do
       before do
         stub_get('/1.1/account/verify_credentials.json').with(query: {skip_status: 'true'}).to_return(body: fixture('sferik.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -720,6 +748,7 @@ describe Twitter::REST::Lists do
         expect(a_post('/1.1/lists/update.json').with(body: {owner_id: '7505382', slug: 'presidents', description: 'Presidents of the United States of America'})).to have_been_made
       end
     end
+
     context 'with a list ID passed' do
       before do
         stub_post('/1.1/lists/update.json').with(body: {owner_screen_name: 'sferik', list_id: '12345678', description: 'Presidents of the United States of America'}).to_return(body: fixture('list.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -730,6 +759,7 @@ describe Twitter::REST::Lists do
         expect(a_post('/1.1/lists/update.json').with(body: {owner_screen_name: 'sferik', list_id: '12345678', description: 'Presidents of the United States of America'})).to have_been_made
       end
     end
+
     context 'with a list object passed' do
       before do
         stub_post('/1.1/lists/update.json').with(body: {owner_id: '7505382', list_id: '12345678', description: 'Presidents of the United States of America'}).to_return(body: fixture('list.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -777,6 +807,7 @@ describe Twitter::REST::Lists do
         expect(list.name).to eq('presidents')
       end
     end
+
     context 'with a user ID passed' do
       before do
         stub_get('/1.1/lists/show.json').with(query: {owner_id: '12345678', slug: 'presidents'}).to_return(body: fixture('list.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -787,6 +818,7 @@ describe Twitter::REST::Lists do
         expect(a_get('/1.1/lists/show.json').with(query: {owner_id: '12345678', slug: 'presidents'})).to have_been_made
       end
     end
+
     context 'with a user object passed' do
       before do
         stub_get('/1.1/lists/show.json').with(query: {owner_id: '12345678', slug: 'presidents'}).to_return(body: fixture('list.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -798,6 +830,7 @@ describe Twitter::REST::Lists do
         expect(a_get('/1.1/lists/show.json').with(query: {owner_id: '12345678', slug: 'presidents'})).to have_been_made
       end
     end
+
     context 'without a screen name passed' do
       before do
         stub_get('/1.1/account/verify_credentials.json').with(query: {skip_status: 'true'}).to_return(body: fixture('sferik.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -810,6 +843,7 @@ describe Twitter::REST::Lists do
         expect(a_get('/1.1/lists/show.json').with(query: {owner_id: '7505382', slug: 'presidents'})).to have_been_made
       end
     end
+
     context 'with a list ID passed' do
       before do
         stub_get('/1.1/lists/show.json').with(query: {owner_screen_name: 'sferik', list_id: '12345678'}).to_return(body: fixture('list.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -820,6 +854,7 @@ describe Twitter::REST::Lists do
         expect(a_get('/1.1/lists/show.json').with(query: {owner_screen_name: 'sferik', list_id: '12345678'})).to have_been_made
       end
     end
+
     context 'with a list object passed' do
       before do
         stub_get('/1.1/lists/show.json').with(query: {owner_id: '7505382', list_id: '12345678'}).to_return(body: fixture('list.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -863,6 +898,7 @@ describe Twitter::REST::Lists do
         end
       end
     end
+
     context 'with a user ID passed' do
       before do
         stub_get('/1.1/lists/subscriptions.json').with(query: {user_id: '7505382', cursor: '-1'}).to_return(body: fixture('subscriptions.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -885,6 +921,7 @@ describe Twitter::REST::Lists do
         end
       end
     end
+
     context 'without a screen name passed' do
       before do
         stub_get('/1.1/account/verify_credentials.json').with(query: {skip_status: 'true'}).to_return(body: fixture('sferik.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -929,6 +966,7 @@ describe Twitter::REST::Lists do
         expect(list.name).to eq('presidents')
       end
     end
+
     context 'with a user ID passed' do
       before do
         stub_post('/1.1/lists/members/destroy_all.json').with(body: {owner_id: '7505382', slug: 'presidents', user_id: '813286,18755393'}).to_return(body: fixture('list.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -939,6 +977,7 @@ describe Twitter::REST::Lists do
         expect(a_post('/1.1/lists/members/destroy_all.json').with(body: {owner_id: '7505382', slug: 'presidents', user_id: '813286,18755393'})).to have_been_made
       end
     end
+
     context 'with a combination of member IDs and member screen names to add' do
       before do
         stub_post('/1.1/lists/members/destroy_all.json').with(body: {owner_screen_name: 'sferik', slug: 'presidents', user_id: '813286,18755393', screen_name: 'pengwynn,erebor'}).to_return(body: fixture('list.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -949,6 +988,7 @@ describe Twitter::REST::Lists do
         expect(a_post('/1.1/lists/members/destroy_all.json').with(body: {owner_screen_name: 'sferik', slug: 'presidents', user_id: '813286,18755393', screen_name: 'pengwynn,erebor'})).to have_been_made
       end
     end
+
     context 'without a screen name passed' do
       before do
         stub_get('/1.1/account/verify_credentials.json').with(query: {skip_status: 'true'}).to_return(body: fixture('sferik.json'), headers: {content_type: 'application/json; charset=utf-8'})
@@ -981,6 +1021,7 @@ describe Twitter::REST::Lists do
         expect(lists.first.name).to eq('My favstar.fm list')
       end
     end
+
     context 'without a screen name passed' do
       before do
         stub_get('/1.1/account/verify_credentials.json').with(query: {skip_status: 'true'}).to_return(body: fixture('sferik.json'), headers: {content_type: 'application/json; charset=utf-8'})

@@ -167,24 +167,28 @@ describe Twitter::User do
         expect(user.profile_banner_uri(:web_retina).to_s).to eq('http://si0.twimg.com/profile_banners/7_505_382/1348266581/web_retina')
       end
     end
+
     context 'with :mobile passed' do
       it 'returns the mobile-sized image' do
         user = described_class.new(id: 7_505_382, profile_banner_url: 'https://si0.twimg.com/profile_banners/7_505_382/1348266581')
         expect(user.profile_banner_uri(:mobile).to_s).to eq('http://si0.twimg.com/profile_banners/7_505_382/1348266581/mobile')
       end
     end
+
     context 'with :mobile_retina passed' do
       it 'returns the mobile retina-sized image' do
         user = described_class.new(id: 7_505_382, profile_banner_url: 'https://si0.twimg.com/profile_banners/7_505_382/1348266581')
         expect(user.profile_banner_uri(:mobile_retina).to_s).to eq('http://si0.twimg.com/profile_banners/7_505_382/1348266581/mobile_retina')
       end
     end
+
     context 'with :ipad passed' do
       it 'returns the mobile-sized image' do
         user = described_class.new(id: 7_505_382, profile_banner_url: 'https://si0.twimg.com/profile_banners/7_505_382/1348266581')
         expect(user.profile_banner_uri(:ipad).to_s).to eq('http://si0.twimg.com/profile_banners/7_505_382/1348266581/ipad')
       end
     end
+
     context 'with :ipad_retina passed' do
       it 'returns the mobile retina-sized image' do
         user = described_class.new(id: 7_505_382, profile_banner_url: 'https://si0.twimg.com/profile_banners/7_505_382/1348266581')
@@ -220,24 +224,28 @@ describe Twitter::User do
         expect(user.profile_banner_uri_https(:web_retina).to_s).to eq('https://si0.twimg.com/profile_banners/7_505_382/1348266581/web_retina')
       end
     end
+
     context 'with :mobile passed' do
       it 'returns the mobile-sized image' do
         user = described_class.new(id: 7_505_382, profile_banner_url: 'https://si0.twimg.com/profile_banners/7_505_382/1348266581')
         expect(user.profile_banner_uri_https(:mobile).to_s).to eq('https://si0.twimg.com/profile_banners/7_505_382/1348266581/mobile')
       end
     end
+
     context 'with :mobile_retina passed' do
       it 'returns the mobile retina-sized image' do
         user = described_class.new(id: 7_505_382, profile_banner_url: 'https://si0.twimg.com/profile_banners/7_505_382/1348266581')
         expect(user.profile_banner_uri_https(:mobile_retina).to_s).to eq('https://si0.twimg.com/profile_banners/7_505_382/1348266581/mobile_retina')
       end
     end
+
     context 'with :ipad passed' do
       it 'returns the mobile-sized image' do
         user = described_class.new(id: 7_505_382, profile_banner_url: 'https://si0.twimg.com/profile_banners/7_505_382/1348266581')
         expect(user.profile_banner_uri_https(:ipad).to_s).to eq('https://si0.twimg.com/profile_banners/7_505_382/1348266581/ipad')
       end
     end
+
     context 'with :ipad_retina passed' do
       it 'returns the mobile retina-sized image' do
         user = described_class.new(id: 7_505_382, profile_banner_url: 'https://si0.twimg.com/profile_banners/7_505_382/1348266581')
@@ -285,18 +293,21 @@ describe Twitter::User do
         expect(user.profile_image_uri(:original).to_s).to eq('http://a0.twimg.com/profile_images/1759857427/image1326743606.png')
       end
     end
+
     context 'with :bigger passed' do
       it 'returns the bigger-sized image' do
         user = described_class.new(id: 7_505_382, profile_image_url_https: 'https://a0.twimg.com/profile_images/1759857427/image1326743606_normal.png')
         expect(user.profile_image_uri(:bigger).to_s).to eq('http://a0.twimg.com/profile_images/1759857427/image1326743606_bigger.png')
       end
     end
+
     context 'with :mini passed' do
       it 'returns the mini-sized image' do
         user = described_class.new(id: 7_505_382, profile_image_url_https: 'https://a0.twimg.com/profile_images/1759857427/image1326743606_normal.png')
         expect(user.profile_image_uri(:mini).to_s).to eq('http://a0.twimg.com/profile_images/1759857427/image1326743606_mini.png')
       end
     end
+
     context 'with capitalized file extension' do
       it 'returns the correct image' do
         user = described_class.new(id: 7_505_382, profile_image_url_https: 'https://si0.twimg.com/profile_images/67759670/DSCN2136_normal.JPG')
@@ -334,18 +345,21 @@ describe Twitter::User do
         expect(user.profile_image_uri_https(:original).to_s).to eq('https://a0.twimg.com/profile_images/1759857427/image1326743606.png')
       end
     end
+
     context 'with :bigger passed' do
       it 'returns the bigger-sized image' do
         user = described_class.new(id: 7_505_382, profile_image_url_https: 'https://a0.twimg.com/profile_images/1759857427/image1326743606_normal.png')
         expect(user.profile_image_uri_https(:bigger).to_s).to eq('https://a0.twimg.com/profile_images/1759857427/image1326743606_bigger.png')
       end
     end
+
     context 'with :mini passed' do
       it 'returns the mini-sized image' do
         user = described_class.new(id: 7_505_382, profile_image_url_https: 'https://a0.twimg.com/profile_images/1759857427/image1326743606_normal.png')
         expect(user.profile_image_uri_https(:mini).to_s).to eq('https://a0.twimg.com/profile_images/1759857427/image1326743606_mini.png')
       end
     end
+
     context 'with capitalized file extension' do
       it 'returns the correct image' do
         user = described_class.new(id: 7_505_382, profile_image_url_https: 'https://si0.twimg.com/profile_images/67759670/DSCN2136_normal.JPG')

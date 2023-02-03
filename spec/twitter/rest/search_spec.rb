@@ -23,6 +23,7 @@ describe Twitter::REST::Search do
         expect(search.first.text).to eq('@Just_Reboot #FreeBandNames mono surround')
       end
     end
+
     context 'with count specified' do
       before do
         stub_get('/1.1/search/tweets.json').with(query: {q: '#freebandnames', count: '3'}).to_return(body: fixture('search.json'), headers: {content_type: 'application/json; charset=utf-8'})

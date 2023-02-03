@@ -89,6 +89,7 @@ describe Twitter::NullObject do
         expect(subject.to_a).to be_empty
       end
     end
+
     describe '#to_s' do
       it 'returns an empty string' do
         expect(subject.to_s).to be_empty
@@ -102,6 +103,7 @@ describe Twitter::NullObject do
         expect(subject.to_ary).to be_empty
       end
     end
+
     describe '#to_str' do
       it 'returns an empty string' do
         expect(subject.to_str).to be_empty
