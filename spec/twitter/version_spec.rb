@@ -14,7 +14,7 @@ describe Twitter::Version do
       expect(described_class.to_h[:major]).to eq(1)
       expect(described_class.to_h[:minor]).to eq(2)
       expect(described_class.to_h[:patch]).to eq(3)
-      expect(described_class.to_h[:pre]).to be(nil)
+      expect(described_class.to_h[:pre]).to be_nil
     end
   end
 
