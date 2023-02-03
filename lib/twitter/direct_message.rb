@@ -8,8 +8,7 @@ module Twitter
     include Twitter::Entities
     # @return [String]
     attr_reader :text
-    attr_reader :sender_id
-    attr_reader :recipient_id
+    attr_reader :sender_id, :recipient_id
     alias full_text text
     object_attr_reader :User, :recipient
     object_attr_reader :User, :sender
