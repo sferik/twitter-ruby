@@ -18,11 +18,11 @@ module Twitter
     #
     # @param enumerable [Enumerable]
     # @return [Array, Enumerator]
-    def pmap(enumerable)
+    def pmap(enumerable, &block)
       return to_enum(:pmap, enumerable) unless block_given?
 
       if enumerable.count == 1
-        enumerable.collect { |object| yield(object) }
+        enumerable.collect(&block)
       else
         enumerable.collect { |object| Thread.new { yield(object) } }.collect(&:value)
       end
