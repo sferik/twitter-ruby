@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'jruby-openssl', platforms: :jruby
 gem 'rake'
+gem 'rubocop-rake'
 gem 'yard'
 
 group :development do
