@@ -17,7 +17,7 @@ describe Twitter::Utils do
       delay = 0.1
       array = (0..9).to_a
       size  = array.size
-      block = proc { |x| sleep(delay) && x + 1 }
+      block = proc { |x| sleep(delay) && (x + 1) }
       block_without_sleep = proc { |x| x + 1 }
       expected = array.collect(&block_without_sleep)
       elapsed_time = Benchmark.realtime do

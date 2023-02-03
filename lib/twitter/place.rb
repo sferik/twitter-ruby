@@ -40,7 +40,7 @@ module Twitter
 
     # @return [String]
     def place_type
-      @attrs[:place_type] || @attrs[:placeType] && @attrs[:placeType][:name]
+      @attrs[:place_type] || (@attrs[:placeType] && @attrs[:placeType][:name])
     end
     memoize :place_type
   end
