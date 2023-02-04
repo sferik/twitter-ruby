@@ -60,7 +60,7 @@ describe Twitter::REST::OAuth do
       expect(a_request(:post, @oauth_request_token_url).with(query: {x_auth_mode: 'reverse_auth'})).to have_been_made
     end
 
-    it 'requests the correct resource' do
+    it 'returns the correct value' do
       expect(@client.reverse_token).to eql fixture('request_token.txt').read
     end
   end
