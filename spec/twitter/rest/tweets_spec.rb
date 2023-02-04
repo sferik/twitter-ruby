@@ -626,7 +626,7 @@ describe Twitter::REST::Tweets do
 
     it 'requests the correct resource when a URL is given' do
       @client.oembed('https://twitter.com/sferik/status/540897316908331009')
-      expect(a_get('/1.1/statuses/oembed.json').with(query: {url: 'https://twitter.com/sferik/status/540897316908331009'}))
+      expect(a_get('/1.1/statuses/oembed.json').with(query: {id: '540897316908331009'})).to have_been_made
     end
 
     it 'returns an array of OEmbed instances' do
