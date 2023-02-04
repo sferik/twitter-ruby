@@ -1,15 +1,6 @@
 require 'helper'
 
 describe Twitter::Tweet do
-  before do
-    @old_stderr = $stderr
-    $stderr = StringIO.new
-  end
-
-  after do
-    $stderr = @old_stderr
-  end
-
   describe '#==' do
     it 'returns true when objects IDs are the same' do
       tweet = described_class.new(id: 1, text: 'foo')
@@ -177,8 +168,7 @@ describe Twitter::Tweet do
       end
 
       it 'does not warn' do
-        subject.hashtags
-        expect($stderr.string).to be_empty
+        expect { subject.hashtags }.not_to output.to_stderr
       end
     end
 
