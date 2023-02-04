@@ -11,26 +11,30 @@ describe Twitter::REST::Users do
       stub_post('/1.1/account/settings.json').with(body: {trend_location_woeid: '23424803'}).to_return(body: fixture('settings.json'), headers: {content_type: 'application/json; charset=utf-8'})
     end
 
-    it 'requests the correct resource on GET' do
-      @client.settings
-      expect(a_get('/1.1/account/settings.json')).to have_been_made
+    context 'on GET' do
+      it 'requests the correct resource' do
+        @client.settings
+        expect(a_get('/1.1/account/settings.json')).to have_been_made
+      end
+
+      it 'returns settings' do
+        settings = @client.settings
+        expect(settings).to be_a Twitter::Settings
+        expect(settings.language).to eq('en')
+      end
     end
 
-    it 'returns settings' do
-      settings = @client.settings
-      expect(settings).to be_a Twitter::Settings
-      expect(settings.language).to eq('en')
-    end
+    context 'on POST' do
+      it 'requests the correct resource' do
+        @client.settings(trend_location_woeid: '23424803')
+        expect(a_post('/1.1/account/settings.json').with(body: {trend_location_woeid: '23424803'})).to have_been_made
+      end
 
-    it 'requests the correct resource on POST' do
-      @client.settings(trend_location_woeid: '23424803')
-      expect(a_post('/1.1/account/settings.json').with(body: {trend_location_woeid: '23424803'})).to have_been_made
-    end
-
-    it 'returns settings' do
-      settings = @client.settings(trend_location_woeid: '23424803')
-      expect(settings).to be_a Twitter::Settings
-      expect(settings.language).to eq('en')
+      it 'returns settings' do
+        settings = @client.settings(trend_location_woeid: '23424803')
+        expect(settings).to be_a Twitter::Settings
+        expect(settings.language).to eq('en')
+      end
     end
   end
 
