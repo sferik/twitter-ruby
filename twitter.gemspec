@@ -19,6 +19,7 @@ Gem::Specification.new do |spec|
   spec.files = %w[.yardopts CHANGELOG.md CONTRIBUTING.md LICENSE.md README.md twitter.gemspec] + Dir['lib/**/*.rb']
   spec.homepage = 'http://sferik.github.com/twitter/'
   spec.licenses = %w[MIT]
+  spec.metadata['rubygems_mfa_required'] = 'true'
   spec.name = 'twitter'
   spec.require_paths = %w[lib]
   spec.required_ruby_version = '>= 2.6.10'
