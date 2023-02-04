@@ -20,6 +20,7 @@ describe Twitter::REST::Request do
       expect(a_request(:post, 'https://upload.twitter.com/1.1/media/upload.json')).to have_been_made
       expect(a_post('/1.1/statuses/update.json').with(body: {status: 'Update', media_ids: '470030289822314497'})).to have_been_made
     end
+
     it 'uses custom HTTP::FormData::Urlencoded instance for form requests' do
       stub_post('/1.1/statuses/update.json').with(body: {status: 'Update'}).to_return(body: fixture('status.json'), headers: {content_type: 'application/json; charset=utf-8'})
       expect_any_instance_of(HTTP::Client).to receive(:post).with('https://api.twitter.com/1.1/statuses/update.json', form: instance_of(HTTP::FormData::Urlencoded)).and_call_original

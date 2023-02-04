@@ -45,11 +45,11 @@ module Twitter
     private
 
       def request_options
-        if @options_key == :form
-          options = {form: HTTP::FormData.create(@options, encoder: Twitter::REST::FormEncoder.method(:encode))}
-        else
-          options = {@options_key => @options}
-        end
+        options = if @options_key == :form
+                    {form: HTTP::FormData.create(@options, encoder: Twitter::REST::FormEncoder.method(:encode))}
+                  else
+                    {@options_key => @options}
+                  end
 
         if @params
           if options[:params]

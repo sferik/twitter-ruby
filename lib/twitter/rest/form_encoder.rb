@@ -4,11 +4,11 @@ module Twitter
       UNESCAPED_CHARS = /[^a-z0-9\-\.\_\~]/i
 
       def self.encode(data)
-        data.map do |k, v|
+        data.collect do |k, v|
           if v.nil?
             ::URI::DEFAULT_PARSER.escape(k.to_s, UNESCAPED_CHARS)
           elsif v.respond_to?(:to_ary)
-            v.to_ary.map do |w|
+            v.to_ary.collect do |w|
               str = ::URI::DEFAULT_PARSER.escape(k.to_s, UNESCAPED_CHARS)
               unless w.nil?
                 str << '='
