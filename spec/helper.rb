@@ -1,7 +1,6 @@
 require 'simplecov'
-require 'coveralls'
 
-SimpleCov.formatters = [SimpleCov::Formatter::HTMLFormatter, Coveralls::SimpleCov::Formatter]
+SimpleCov.formatters = [SimpleCov::Formatter::HTMLFormatter]
 
 SimpleCov.start do
   add_filter '/spec/'
@@ -17,8 +16,6 @@ require 'timecop'
 require 'webmock/rspec'
 
 require_relative 'support/media_object_examples'
-
-WebMock.disable_net_connect!(allow: 'coveralls.io')
 
 RSpec.configure do |config|
   config.expect_with :rspec do |c|
