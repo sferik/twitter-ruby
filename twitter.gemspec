@@ -4,7 +4,7 @@ require 'twitter/version'
 
 Gem::Specification.new do |spec|
   spec.add_dependency 'addressable', '~> 2.3'
-  spec.add_dependency 'buftok', '~> 0.2.0'
+  spec.add_dependency 'buftok', '~> 0.3.0'
   spec.add_dependency 'equalizer', '~> 0.0.11'
   spec.add_dependency 'http', '~> 4.0'
   spec.add_dependency 'http-form_data', '~> 2.0'
