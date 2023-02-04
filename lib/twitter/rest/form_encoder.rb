@@ -1,7 +1,7 @@
 module Twitter
   module REST
     class FormEncoder
-      UNESCAPED_CHARS = /[^a-z0-9\-\.\_\~]/i
+      UNESCAPED_CHARS = /[^a-z0-9\-._~]/i
 
       def self.encode(data)
         data.collect do |k, v|
