@@ -11,7 +11,7 @@ group :development do
 end
 
 group :test do
-  gem 'rspec', '>= 2.14'
+  gem 'rspec', '>= 3.12'
   gem 'rubocop', '>= 1.44.1'
   gem 'simplecov', '>= 0.22'
   gem 'timecop'
