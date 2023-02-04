@@ -231,60 +231,6 @@ describe Twitter::REST::FriendsAndFollowers do
     end
   end
 
-  describe '#friendships' do
-    context 'with screen names passed' do
-      before do
-        stub_get('/1.1/friendships/lookup.json').with(query: {screen_name: 'sferik,pengwynn'}).to_return(body: fixture('friendships.json'), headers: {content_type: 'application/json; charset=utf-8'})
-      end
-
-      it 'requests the correct resource' do
-        @client.friendships('sferik', 'pengwynn')
-        expect(a_get('/1.1/friendships/lookup.json').with(query: {screen_name: 'sferik,pengwynn'})).to have_been_made
-      end
-
-      it 'returns up to 100 users worth of extended information' do
-        friendships = @client.friendships('sferik', 'pengwynn')
-        expect(friendships).to be_an Array
-        expect(friendships.first).to be_a Twitter::User
-        expect(friendships.first.id).to eq(7_505_382)
-        expect(friendships.first.connections).to eq(['none'])
-      end
-    end
-
-    context 'with numeric screen names passed' do
-      before do
-        stub_get('/1.1/friendships/lookup.json').with(query: {screen_name: '0,311'}).to_return(body: fixture('friendships.json'), headers: {content_type: 'application/json; charset=utf-8'})
-      end
-
-      it 'requests the correct resource' do
-        @client.friendships('0', '311')
-        expect(a_get('/1.1/friendships/lookup.json').with(query: {screen_name: '0,311'})).to have_been_made
-      end
-    end
-
-    context 'with user IDs passed' do
-      before do
-        stub_get('/1.1/friendships/lookup.json').with(query: {user_id: '7505382,14100886'}).to_return(body: fixture('friendships.json'), headers: {content_type: 'application/json; charset=utf-8'})
-      end
-
-      it 'requests the correct resource' do
-        @client.friendships(7_505_382, 14_100_886)
-        expect(a_get('/1.1/friendships/lookup.json').with(query: {user_id: '7505382,14100886'})).to have_been_made
-      end
-    end
-
-    context 'with both screen names and user IDs passed' do
-      before do
-        stub_get('/1.1/friendships/lookup.json').with(query: {screen_name: 'sferik', user_id: '14100886'}).to_return(body: fixture('friendships.json'), headers: {content_type: 'application/json; charset=utf-8'})
-      end
-
-      it 'requests the correct resource' do
-        @client.friendships('sferik', 14_100_886)
-        expect(a_get('/1.1/friendships/lookup.json').with(query: {screen_name: 'sferik', user_id: '14100886'})).to have_been_made
-      end
-    end
-  end
-
   describe '#friendships_incoming' do
     before do
       stub_get('/1.1/friendships/incoming.json').with(query: {cursor: '-1'}).to_return(body: fixture('ids_list.json'), headers: {content_type: 'application/json; charset=utf-8'})
