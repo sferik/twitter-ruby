@@ -1,15 +1,6 @@
 require 'helper'
 
 describe Twitter::DirectMessage do
-  before do
-    @old_stderr = $stderr
-    $stderr = StringIO.new
-  end
-
-  after do
-    $stderr = @old_stderr
-  end
-
   describe '#==' do
     it 'returns true when objects IDs are the same' do
       direct_message = described_class.new(id: 1, text: 'foo')
