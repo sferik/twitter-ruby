@@ -1,7 +1,10 @@
 require 'helper'
 
 class DummyTCPSocket; end
-class DummySSLSocket; end
+
+class DummySSLSocket
+  def connect; end
+end
 
 class DummyResponse
   def initiailze
@@ -41,7 +44,7 @@ describe Twitter::Streaming::Connection do
 
     let(:method) { :get }
     let(:uri)    { 'https://stream.twitter.com:443/1.1/statuses/sample.json' }
-    let(:ssl_socket) { double('ssl_socket') }
+    let(:ssl_socket) { instance_double(connection.ssl_socket_class) }
 
     let(:request) { HTTP::Request.new(verb: method, uri: uri) }
 
