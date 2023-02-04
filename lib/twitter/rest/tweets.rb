@@ -173,11 +173,9 @@ module Twitter
       def retweet(*args)
         arguments = Twitter::Arguments.new(args)
         pmap(arguments) do |tweet|
-          begin
-            post_retweet(extract_id(tweet), arguments.options)
-          rescue Twitter::Error::AlreadyRetweeted, Twitter::Error::NotFound
-            next
-          end
+          post_retweet(extract_id(tweet), arguments.options)
+        rescue Twitter::Error::AlreadyRetweeted, Twitter::Error::NotFound
+          next
         end.compact
       end
 
@@ -315,11 +313,9 @@ module Twitter
       def unretweet(*args)
         arguments = Twitter::Arguments.new(args)
         pmap(arguments) do |tweet|
-          begin
-            post_unretweet(extract_id(tweet), arguments.options)
-          rescue Twitter::Error::NotFound
-            next
-          end
+          post_unretweet(extract_id(tweet), arguments.options)
+        rescue Twitter::Error::NotFound
+          next
         end.compact
       end
 

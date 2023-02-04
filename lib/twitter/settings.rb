@@ -6,6 +6,7 @@ module Twitter
     attr_reader :sleep_time, :time_zone
     # @return [String]
     attr_reader :language, :screen_name
+
     object_attr_reader :Place, :trend_location
     predicate_attr_reader :allow_contributor_request,
                           :allow_dm_groups_from,

@@ -106,7 +106,7 @@ module Twitter
           forbidden_error(body, headers)
         elsif !klass.nil?
           klass.from_response(body, headers)
-        elsif body&.is_a?(Hash) && (err = body.dig(:processing_info, :error))
+        elsif body.is_a?(Hash) && (err = body.dig(:processing_info, :error))
           Twitter::Error::MediaError.from_processing_response(err, headers)
         end
       end
@@ -122,11 +122,12 @@ module Twitter
       end
 
       def symbolize_keys!(object)
-        if object.is_a?(Array)
+        case object
+        when Array
           object.each_with_index do |val, index|
             object[index] = symbolize_keys!(val)
           end
-        elsif object.is_a?(Hash)
+        when Hash
           object.dup.each_key do |key|
             object[key.to_sym] = symbolize_keys!(object.delete(key))
           end

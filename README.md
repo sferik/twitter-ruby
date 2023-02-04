@@ -3,13 +3,11 @@
 [![Gem Version](https://badge.fury.io/rb/twitter.svg)][gem]
 [![Build Status](https://travis-ci.org/sferik/twitter.svg?branch=master)][travis]
 [![Maintainability](https://api.codeclimate.com/v1/badges/09362621ad91e8f599b3/maintainability)][maintainability]
-[![Coverage Status](https://coveralls.io/repos/github/sferik/twitter/badge.svg?branch=master)][coveralls]
 [![Inline docs](http://inch-ci.org/github/sferik/twitter.svg?style=shields)][inchpages]
 
 [gem]: https://rubygems.org/gems/twitter
 [travis]: https://travis-ci.org/sferik/twitter
 [maintainability]: https://codeclimate.com/github/sferik/twitter/maintainability
-[coveralls]: https://coveralls.io/r/sferik/twitter
 [inchpages]: http://inch-ci.org/github/sferik/twitter
 
 A Ruby interface to the Twitter API.
@@ -229,10 +227,10 @@ command:
 This library aims to support and is [tested against][travis] the following Ruby
 versions:
 
-* Ruby 2.4
-* Ruby 2.5
-* Ruby 2.6
 * Ruby 2.7
+* Ruby 3.0
+* Ruby 3.1
+* Ruby 3.2
 
 If something doesn't work on one of these versions, it's a bug.
 

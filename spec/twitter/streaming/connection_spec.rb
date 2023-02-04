@@ -1,9 +1,23 @@
 require 'helper'
 
+class DummyTCPSocket; end
+
+class DummySSLSocket
+  def connect; end
+end
+
+class DummyResponse
+  def initiailze
+    yield
+  end
+
+  def <<(data); end
+end
+
 describe Twitter::Streaming::Connection do
   describe 'initialize' do
     context 'no options provided' do
-      subject(:connection) { Twitter::Streaming::Connection.new }
+      subject(:connection) { described_class.new }
 
       it 'sets the default socket classes' do
         expect(connection.tcp_socket_class).to eq TCPSocket
@@ -12,11 +26,8 @@ describe Twitter::Streaming::Connection do
     end
 
     context 'custom socket classes provided in opts' do
-      class DummyTCPSocket; end
-      class DummySSLSocket; end
-
       subject(:connection) do
-        Twitter::Streaming::Connection.new(tcp_socket_class: DummyTCPSocket, ssl_socket_class: DummySSLSocket)
+        described_class.new(tcp_socket_class: DummyTCPSocket, ssl_socket_class: DummySSLSocket)
       end
 
       it 'sets the default socket classes' do
@@ -27,21 +38,13 @@ describe Twitter::Streaming::Connection do
   end
 
   describe 'connection' do
-    class DummyResponse
-      def initiailze
-        yield
-      end
-
-      def <<(data); end
-    end
-
     subject(:connection) do
-      Twitter::Streaming::Connection.new(tcp_socket_class: DummyTCPSocket, ssl_socket_class: DummySSLSocket)
+      described_class.new(tcp_socket_class: DummyTCPSocket, ssl_socket_class: DummySSLSocket)
     end
 
     let(:method) { :get }
     let(:uri)    { 'https://stream.twitter.com:443/1.1/statuses/sample.json' }
-    let(:ssl_socket) { double('ssl_socket') }
+    let(:ssl_socket) { instance_double(connection.ssl_socket_class) }
 
     let(:request) { HTTP::Request.new(verb: method, uri: uri) }
 
@@ -64,7 +67,7 @@ describe Twitter::Streaming::Connection do
 
       context 'if using ssl' do
         subject(:connection) do
-          Twitter::Streaming::Connection.new(tcp_socket_class: DummyTCPSocket, ssl_socket_class: DummySSLSocket, using_ssl: true)
+          described_class.new(tcp_socket_class: DummyTCPSocket, ssl_socket_class: DummySSLSocket, using_ssl: true)
         end
 
         it 'connect with ssl' do
@@ -80,7 +83,7 @@ describe Twitter::Streaming::Connection do
 
   describe 'stream' do
     subject(:connection) do
-      Twitter::Streaming::Connection.new(tcp_socket_class: DummyTCPSocket, ssl_socket_class: DummySSLSocket)
+      described_class.new(tcp_socket_class: DummyTCPSocket, ssl_socket_class: DummySSLSocket)
     end
 
     let(:method) { :get }

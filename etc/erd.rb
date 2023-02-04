@@ -41,7 +41,7 @@ def indent
 end
 
 def puts(string)
-  super(TAB * @indent + string)
+  super((TAB * @indent) + string)
 end
 
 puts 'digraph classes {'

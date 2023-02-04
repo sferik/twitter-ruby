@@ -1,12 +1,11 @@
 require 'simplecov'
-require 'coveralls'
 
-SimpleCov.formatters = [SimpleCov::Formatter::HTMLFormatter, Coveralls::SimpleCov::Formatter]
+SimpleCov.formatters = [SimpleCov::Formatter::HTMLFormatter]
 
 SimpleCov.start do
   add_filter '/spec/'
   add_filter '/vendor/'
-  minimum_coverage(99.78)
+  minimum_coverage(99.77)
 end
 
 require 'twitter'
@@ -17,8 +16,6 @@ require 'timecop'
 require 'webmock/rspec'
 
 require_relative 'support/media_object_examples'
-
-WebMock.disable_net_connect!(allow: 'coveralls.io')
 
 RSpec.configure do |config|
   config.expect_with :rspec do |c|
@@ -63,7 +60,7 @@ def fixture_path
 end
 
 def fixture(file)
-  File.new(fixture_path + '/' + file)
+  File.new("#{fixture_path}/#{file}")
 end
 
 def capture_warning

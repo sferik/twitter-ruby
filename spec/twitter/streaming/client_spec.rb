@@ -14,7 +14,7 @@ end
 
 describe Twitter::Streaming::Client do
   before do
-    @client = Twitter::Streaming::Client.new(consumer_key: 'CK', consumer_secret: 'CS', access_token: 'AT', access_token_secret: 'AS')
+    @client = described_class.new(consumer_key: 'CK', consumer_secret: 'CS', access_token: 'AT', access_token_secret: 'AS')
   end
 
   describe '#before_request' do
@@ -82,6 +82,7 @@ describe Twitter::Streaming::Client do
         expect(objects.first.text).to eq "The problem with your code is that it's doing exactly what you told it to do."
       end
     end
+
     context 'with a user object passed' do
       it 'returns an arary of Tweets' do
         @client.connection = FakeConnection.new(fixture('track_streaming.json'))
@@ -122,9 +123,11 @@ describe Twitter::Streaming::Client do
 
   context 'when using a proxy' do
     let(:proxy) { {host: '127.0.0.1', port: 3328} }
+
     before do
-      @client = Twitter::Streaming::Client.new(consumer_key: 'CK', consumer_secret: 'CS', access_token: 'AT', access_token_secret: 'AS', proxy: proxy)
+      @client = described_class.new(consumer_key: 'CK', consumer_secret: 'CS', access_token: 'AT', access_token_secret: 'AS', proxy: proxy)
     end
+
     it 'requests via the proxy' do
       @client.connection = FakeConnection.new(fixture('track_streaming.json'))
       expect(HTTP::Request).to receive(:new).with(verb: :get, uri: 'https://stream.twitter.com:443/1.1/statuses/sample.json?', headers: kind_of(Hash), proxy: proxy)

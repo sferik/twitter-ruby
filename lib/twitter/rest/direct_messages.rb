@@ -219,7 +219,7 @@ module Twitter
     private
 
       def format_json_options(user_id, text, options)
-        {'event': {'type': 'message_create', 'message_create': {'target': {'recipient_id': user_id}, 'message_data': {'text': text}.merge(options)}}}
+        {event: {type: 'message_create', message_create: {target: {recipient_id: user_id}, message_data: {text: text}.merge(options)}}}
       end
     end
   end
