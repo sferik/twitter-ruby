@@ -33,7 +33,7 @@ module Twitter
       # @option options [String] :allow_contributor_request Whether to allow others to include user as contributor. Possible values include 'all' (anyone can include user), 'following' (only followers can include user) or 'none'. Also note that changes to this field require the request also include a current_password value with the user's password to successfully modify this field.
       # @option options [String] :current_password The user's password. This is only required when modifying the allow_contributor_request field.
       def settings(options = {})
-        request_method = options.size.zero? ? :get : :post
+        request_method = options.empty? ? :get : :post
         response = perform_request(request_method.to_sym, '/1.1/account/settings.json', options)
         # https://dev.twitter.com/issues/59
         response[:trend_location] = response.fetch(:trend_location, []).first

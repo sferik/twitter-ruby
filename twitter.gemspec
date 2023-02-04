@@ -4,11 +4,11 @@ require 'twitter/version'
 
 Gem::Specification.new do |spec|
   spec.add_dependency 'addressable', '~> 2.3'
-  spec.add_dependency 'buftok', '~> 0.2.0'
+  spec.add_dependency 'buftok', '~> 0.3.0'
   spec.add_dependency 'equalizer', '~> 0.0.11'
-  spec.add_dependency 'http', '~> 4.0'
+  spec.add_dependency 'http', '~> 5.1'
   spec.add_dependency 'http-form_data', '~> 2.0'
-  spec.add_dependency 'http_parser.rb', '~> 0.6.0'
+  spec.add_dependency 'http_parser.rb', '~> 0.8.0'
   spec.add_dependency 'memoizable', '~> 0.4.0'
   spec.add_dependency 'multipart-post', '~> 2.0'
   spec.add_dependency 'naught', '~> 1.0'
@@ -19,9 +19,10 @@ Gem::Specification.new do |spec|
   spec.files = %w[.yardopts CHANGELOG.md CONTRIBUTING.md LICENSE.md README.md twitter.gemspec] + Dir['lib/**/*.rb']
   spec.homepage = 'http://sferik.github.com/twitter/'
   spec.licenses = %w[MIT]
+  spec.metadata['rubygems_mfa_required'] = 'true'
   spec.name = 'twitter'
   spec.require_paths = %w[lib]
-  spec.required_ruby_version = '>= 2.4'
+  spec.required_ruby_version = '>= 3.0'
   spec.summary = spec.description
   spec.version = Twitter::Version
 end
