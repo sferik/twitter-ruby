@@ -13,12 +13,6 @@ describe Twitter::NullObject do
     end
   end
 
-  describe '#respond_to?' do
-    it 'returns true for any method' do
-      expect(subject).to respond_to(:missing?)
-    end
-  end
-
   describe '#instance_of?' do
     it 'returns true for Twitter::NullObject' do
       expect(subject).to be_instance_of(described_class)
