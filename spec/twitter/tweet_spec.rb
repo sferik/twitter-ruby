@@ -141,14 +141,13 @@ describe Twitter::Tweet do
 
   describe '#hashtags' do
     context 'when entities are set' do
+      subject { described_class.new(id: 28_669_546_014, entities: {hashtags: hashtags_array}) }
+
       let(:hashtags_array) do
         [{
           text: 'twitter',
           indices: [10, 33],
         }]
-      end
-      let(:subject) do
-        described_class.new(id: 28_669_546_014, entities: {hashtags: hashtags_array})
       end
 
       it 'returns an array of Entity::Hashtag' do
