@@ -1,5 +1,10 @@
+8.0.0
+-----
+Not yet documented, sorry. For now, please use git to compare tags:
+https://github.com/sferik/twitter/compare/v7.0.0...v8.0.0
+
 7.0.0
-------
+-----
 * [Add `Twitter::DirectMessageEvent`](https://github.com/sferik/twitter/commit/38f6aaa482dcd5f4982abd811dbe6e21e36c2ae8) ([@FabienChaynes](https://twitter.com/FabienChaynes))
 * [Create `Twitter::DirectMessageEvent` with media](https://github.com/sferik/twitter/commit/21478530ec6f8a798717a5ab8b197b895db3bc28) ([@FabienChaynes](https://twitter.com/FabienChaynes))
 * [Support for DM welcome messages](https://github.com/sferik/twitter/pull/950) ([@FabienChaynes](https://twitter.com/FabienChaynes))
@@ -17,17 +22,17 @@
 * [Drop support for Ruby 2.0, 2.1, and 2.2](https://github.com/sferik/twitter/commit/95861ec83e582c2a88499b97d9d5388a96d0abf0)
 
 6.2.0
-------
+-----
 Not yet documented, sorry. For now, please use git to compare tags:
 https://github.com/sferik/twitter/compare/v6.1.0...v6.2.0
 
 6.1.0
-------
+-----
 Not yet documented, sorry. For now, please use git to compare tags:
 https://github.com/sferik/twitter/compare/v6.0.0...v6.1.0
 
 6.0.0
-------
+-----
 * [Drop support for Ruby 1.8.7 and Ruby 1.9.3](https://github.com/sferik/twitter/commit/27980f45fb357e34b86e46cb9134d86ed29b3ce3)
 
 5.16.0
