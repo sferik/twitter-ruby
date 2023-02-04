@@ -1,5 +1,5 @@
 require 'addressable/uri'
-require 'twitter/configuration'
+require 'twitter/base'
 require 'twitter/cursor'
 require 'twitter/direct_message'
 require 'twitter/entity'

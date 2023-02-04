@@ -1,4 +1,3 @@
-require 'twitter/configuration'
 require 'twitter/language'
 require 'twitter/rest/request'
 require 'twitter/rest/utils'
@@ -7,17 +6,6 @@ module Twitter
   module REST
     module Help
       include Twitter::REST::Utils
-
-      # Returns the current configuration used by Twitter
-      #
-      # @see https://dev.twitter.com/rest/reference/get/help/configuration
-      # @rate_limited Yes
-      # @authentication Requires user context
-      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-      # @return [Twitter::Configuration] Twitter's configuration.
-      def configuration(options = {})
-        perform_get_with_object('/1.1/help/configuration.json', options, Twitter::Configuration)
-      end
 
       # Returns the list of languages supported by Twitter
       #
