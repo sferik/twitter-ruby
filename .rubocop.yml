@@ -3,7 +3,7 @@ require:
   - rubocop-rspec
 
 AllCops:
-  TargetRubyVersion: 2.6
+  TargetRubyVersion: 3.0
   NewCops: enable
 
 Layout/AccessModifierIndentation:
