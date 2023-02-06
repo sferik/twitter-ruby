@@ -17,7 +17,7 @@ Gem::Specification.new do |spec|
   spec.description = 'A Ruby interface to the Twitter API.'
   spec.email = %w[sferik@gmail.com]
   spec.files = %w[.yardopts CHANGELOG.md CONTRIBUTING.md LICENSE.md README.md twitter.gemspec] + Dir['lib/**/*.rb']
-  spec.homepage = 'http://sferik.github.com/twitter/'
+  spec.homepage = 'https://sferik.github.io/twitter/'
   spec.licenses = %w[MIT]
   spec.metadata['rubygems_mfa_required'] = 'true'
   spec.name = 'twitter'
