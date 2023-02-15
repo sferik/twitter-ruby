@@ -1,5 +1,5 @@
 # All Tweets
-
+# Editted Part
 This example assumes you have a configured Twitter REST `client`. Instructions
 on how to configure a client can be found in [examples/Configuration.md][cfg].
 
