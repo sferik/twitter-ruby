@@ -1,6 +1,6 @@
-require 'equalizer'
-require 'memoizable'
-require 'twitter/base'
+require "equalizer"
+require "memoizable"
+require "twitter/base"
 
 module Twitter
   class Suggestion < Twitter::Base

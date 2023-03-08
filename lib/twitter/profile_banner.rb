@@ -1,5 +1,5 @@
-require 'memoizable'
-require 'twitter/base'
+require "memoizable"
+require "twitter/base"
 
 module Twitter
   class ProfileBanner < Twitter::Base

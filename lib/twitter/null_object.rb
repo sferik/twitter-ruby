@@ -1,4 +1,4 @@
-require 'naught'
+require "naught"
 
 module Twitter
   NullObject = Naught.build do |config| # rubocop:disable Metrics/BlockLength
@@ -18,13 +18,13 @@ module Twitter
     end
 
     def instance_of?(klass)
-      raise(TypeError, 'class or module required') unless klass.is_a?(Class)
+      raise(TypeError, "class or module required") unless klass.is_a?(Class)
 
       self.class == klass
     end
 
     def kind_of?(mod)
-      raise(TypeError, 'class or module required') unless mod.is_a?(Module)
+      raise(TypeError, "class or module required") unless mod.is_a?(Module)
 
       self.class.ancestors.include?(mod)
     end
@@ -44,7 +44,7 @@ module Twitter
     end
 
     def as_json(*)
-      'null'
+      "null"
     end
 
     def to_json(*args)

@@ -1,8 +1,8 @@
-require 'addressable/uri'
-require 'forwardable'
-require 'memoizable'
-require 'twitter/null_object'
-require 'twitter/utils'
+require "addressable/uri"
+require "forwardable"
+require "memoizable"
+require "twitter/null_object"
+require "twitter/utils"
 
 module Twitter
   class Base
@@ -46,10 +46,10 @@ module Twitter
       # @param attrs [Array, Symbol]
       def uri_attr_reader(*attrs)
         attrs.each do |uri_key|
-          array = uri_key.to_s.split('_')
-          index = array.index('uri')
-          array[index] = 'url'
-          url_key = array.join('_').to_sym
+          array = uri_key.to_s.split("_")
+          index = array.index("uri")
+          array[index] = "url"
+          url_key = array.join("_").to_sym
           define_uri_method(uri_key, url_key)
           alias_method(url_key, uri_key)
           define_predicate_method(uri_key, url_key)
@@ -71,7 +71,7 @@ module Twitter
       # @param key2 [Symbol]
       def define_uri_method(key1, key2)
         define_method(key1) do
-          Addressable::URI.parse(@attrs[key2].chomp('#')) unless @attrs[key2].nil?
+          Addressable::URI.parse(@attrs[key2].chomp("#")) unless @attrs[key2].nil?
         end
         memoize(key1)
       end

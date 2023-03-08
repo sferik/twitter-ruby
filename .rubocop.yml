@@ -59,6 +59,9 @@ Style/FrozenStringLiteralComment:
 Style/NumericPredicate:
   Enabled: false
 
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+
 Style/TrailingCommaInArrayLiteral:
   EnforcedStyleForMultiline: 'comma'
 

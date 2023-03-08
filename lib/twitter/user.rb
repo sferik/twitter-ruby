@@ -1,8 +1,8 @@
-require 'addressable/uri'
-require 'twitter/basic_user'
-require 'twitter/creatable'
-require 'twitter/entity/uri'
-require 'twitter/profile'
+require "addressable/uri"
+require "twitter/basic_user"
+require "twitter/creatable"
+require "twitter/entity/uri"
+require "twitter/profile"
 
 module Twitter
   class User < Twitter::BasicUser
@@ -41,10 +41,10 @@ module Twitter
       # @param key1 [Symbol]
       # @param key2 [Symbol]
       def define_entity_uris_methods(key1, key2)
-        array = key1.to_s.split('_')
-        index = array.index('uris')
-        array[index] = 'urls'
-        url_key = array.join('_').to_sym
+        array = key1.to_s.split("_")
+        index = array.index("uris")
+        array[index] = "urls"
+        url_key = array.join("_").to_sym
         define_entity_uris_method(key1, key2)
         alias_method(url_key, key1)
         define_entity_uris_predicate_method(key1)

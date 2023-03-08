@@ -1,6 +1,6 @@
-require 'twitter/enumerable'
-require 'twitter/rest/request'
-require 'twitter/utils'
+require "twitter/enumerable"
+require "twitter/rest/request"
+require "twitter/utils"
 
 module Twitter
   class Cursor

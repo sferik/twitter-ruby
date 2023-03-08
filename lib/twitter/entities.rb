@@ -1,9 +1,9 @@
-require 'memoizable'
-require 'twitter/entity/hashtag'
-require 'twitter/entity/symbol'
-require 'twitter/entity/uri'
-require 'twitter/entity/user_mention'
-require 'twitter/media_factory'
+require "memoizable"
+require "twitter/entity/hashtag"
+require "twitter/entity/symbol"
+require "twitter/entity/uri"
+require "twitter/entity/user_mention"
+require "twitter/media_factory"
 
 module Twitter
   module Entities

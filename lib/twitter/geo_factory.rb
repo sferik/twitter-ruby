@@ -1,6 +1,6 @@
-require 'twitter/factory'
-require 'twitter/geo/point'
-require 'twitter/geo/polygon'
+require "twitter/factory"
+require "twitter/geo/point"
+require "twitter/geo/polygon"
 
 module Twitter
   class GeoFactory < Twitter::Factory

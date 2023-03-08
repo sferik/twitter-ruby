@@ -1,4 +1,4 @@
-require 'twitter/basic_user'
+require "twitter/basic_user"
 
 module Twitter
   class TargetUser < Twitter::BasicUser

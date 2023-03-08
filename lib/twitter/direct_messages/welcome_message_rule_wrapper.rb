@@ -1,12 +1,12 @@
-require 'twitter/creatable'
-require 'twitter/identity'
+require "twitter/creatable"
+require "twitter/identity"
 
 module Twitter
   module DirectMessages
     class WelcomeMessageRuleWrapper < Twitter::Identity
       attr_reader :created_timestamp
 
-      object_attr_reader 'DirectMessages::WelcomeMessageRule', :welcome_message_rule
+      object_attr_reader "DirectMessages::WelcomeMessageRule", :welcome_message_rule
 
       def initialize(attrs)
         attrs = read_from_response(attrs)

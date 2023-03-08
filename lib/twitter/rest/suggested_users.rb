@@ -1,7 +1,7 @@
-require 'twitter/arguments'
-require 'twitter/rest/utils'
-require 'twitter/suggestion'
-require 'twitter/user'
+require "twitter/arguments"
+require "twitter/rest/utils"
+require "twitter/suggestion"
+require "twitter/user"
 
 module Twitter
   module REST
@@ -28,7 +28,7 @@ module Twitter
         if arguments.last
           perform_get_with_object("/1.1/users/suggestions/#{arguments.pop}.json", arguments.options, Twitter::Suggestion)
         else
-          perform_get_with_objects('/1.1/users/suggestions.json', arguments.options, Twitter::Suggestion)
+          perform_get_with_objects("/1.1/users/suggestions.json", arguments.options, Twitter::Suggestion)
         end
       end
 

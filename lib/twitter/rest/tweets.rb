@@ -1,11 +1,11 @@
-require 'twitter/arguments'
-require 'twitter/error'
-require 'twitter/oembed'
-require 'twitter/rest/request'
-require 'twitter/rest/upload_utils'
-require 'twitter/rest/utils'
-require 'twitter/tweet'
-require 'twitter/utils'
+require "twitter/arguments"
+require "twitter/error"
+require "twitter/oembed"
+require "twitter/rest/request"
+require "twitter/rest/upload_utils"
+require "twitter/rest/utils"
+require "twitter/tweet"
+require "twitter/utils"
 
 module Twitter
   module REST
@@ -79,7 +79,7 @@ module Twitter
       def statuses(*args)
         arguments = Twitter::Arguments.new(args)
         flat_pmap(arguments.each_slice(MAX_TWEETS_PER_REQUEST)) do |tweets|
-          perform_post_with_objects('/1.1/statuses/lookup.json', arguments.options.merge(id: tweets.collect { |u| extract_id(u) }.join(',')), Twitter::Tweet)
+          perform_post_with_objects("/1.1/statuses/lookup.json", arguments.options.merge(id: tweets.collect { |u| extract_id(u) }.join(",")), Twitter::Tweet)
         end
       end
 
@@ -154,7 +154,7 @@ module Twitter
         hash = options.dup
         hash[:in_reply_to_status_id] = hash.delete(:in_reply_to_status).id unless hash[:in_reply_to_status].nil?
         hash[:place_id] = hash.delete(:place).woeid unless hash[:place].nil?
-        perform_post_with_object('/1.1/statuses/update.json', hash.merge(status: status), Twitter::Tweet)
+        perform_post_with_object("/1.1/statuses/update.json", hash.merge(status: status), Twitter::Tweet)
       end
 
       # Retweets the specified Tweets as the authenticating user
@@ -226,7 +226,7 @@ module Twitter
         media_ids = pmap(array_wrap(media)) do |medium|
           upload(medium)[:media_id]
         end
-        update!(status, options.merge(media_ids: media_ids.join(',')))
+        update!(status, options.merge(media_ids: media_ids.join(",")))
       end
 
       # Returns oEmbed for a Tweet
@@ -250,7 +250,7 @@ module Twitter
       def oembed(tweet, options = {})
         options = options.dup
         options[:id] = extract_id(tweet)
-        perform_get_with_object('/1.1/statuses/oembed.json', options, Twitter::OEmbed)
+        perform_get_with_object("/1.1/statuses/oembed.json", options, Twitter::OEmbed)
       end
 
       # Returns oEmbeds for Tweets
@@ -294,7 +294,7 @@ module Twitter
       def retweeters_ids(*args)
         arguments = Twitter::Arguments.new(args)
         arguments.options[:id] ||= extract_id(arguments.first)
-        perform_get_with_cursor('/1.1/statuses/retweeters/ids.json', arguments.options, :ids)
+        perform_get_with_cursor("/1.1/statuses/retweeters/ids.json", arguments.options, :ids)
       end
 
       # Untweets a retweeted status as the authenticating user

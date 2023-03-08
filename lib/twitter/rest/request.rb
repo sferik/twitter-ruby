@@ -1,19 +1,19 @@
-require 'addressable/uri'
-require 'http'
-require 'http/form_data'
-require 'json'
-require 'openssl'
-require 'twitter/error'
-require 'twitter/headers'
-require 'twitter/rate_limit'
-require 'twitter/utils'
-require 'twitter/rest/form_encoder'
+require "addressable/uri"
+require "http"
+require "http/form_data"
+require "json"
+require "openssl"
+require "twitter/error"
+require "twitter/headers"
+require "twitter/rate_limit"
+require "twitter/utils"
+require "twitter/rest/form_encoder"
 
 module Twitter
   module REST
     class Request # rubocop:disable Metrics/ClassLength
       include Twitter::Utils
-      BASE_URL = 'https://api.twitter.com'.freeze
+      BASE_URL = "https://api.twitter.com".freeze
       attr_accessor :client, :headers, :options, :path, :rate_limit,
                     :request_method, :uri
       alias verb request_method
@@ -25,7 +25,7 @@ module Twitter
       # @return [Twitter::REST::Request]
       def initialize(client, request_method, path, options = {}, params = nil)
         @client = client
-        @uri = Addressable::URI.parse(path.start_with?('http') ? path : BASE_URL + path)
+        @uri = Addressable::URI.parse(path.start_with?("http") ? path : BASE_URL + path)
         multipart_options = params || options
         set_multipart_options!(request_method, multipart_options)
         @path = uri.path
@@ -37,7 +37,7 @@ module Twitter
       # @return [Array, Hash]
       def perform
         response = http_client.headers(@headers).public_send(@request_method, @uri.to_s, request_options)
-        response_body = response.body.empty? ? '' : symbolize_keys!(response.parse)
+        response_body = response.body.empty? ? "" : symbolize_keys!(response.parse)
         response_headers = response.headers
         fail_or_return_response_body(response.code, response_body, response_headers)
       end
@@ -66,7 +66,7 @@ module Twitter
         file = options.delete(:file)
 
         options[key] = if file.is_a?(StringIO)
-                         HTTP::FormData::File.new(file, content_type: 'video/mp4')
+                         HTTP::FormData::File.new(file, content_type: "video/mp4")
                        else
                          HTTP::FormData::File.new(file, filename: File.basename(file), content_type: content_type(File.basename(file)))
                        end
@@ -88,13 +88,13 @@ module Twitter
       def content_type(basename)
         case basename
         when /\.gif$/i
-          'image/gif'
+          "image/gif"
         when /\.jpe?g/i
-          'image/jpeg'
+          "image/jpeg"
         when /\.png$/i
-          'image/png'
+          "image/png"
         else
-          'application/octet-stream'
+          "application/octet-stream"
         end
       end
 

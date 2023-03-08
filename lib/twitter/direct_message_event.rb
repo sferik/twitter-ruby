@@ -1,6 +1,6 @@
-require 'twitter/creatable'
-require 'twitter/entities'
-require 'twitter/identity'
+require "twitter/creatable"
+require "twitter/entities"
+require "twitter/identity"
 
 module Twitter
   class DirectMessageEvent < Twitter::Identity

@@ -1,7 +1,7 @@
-require 'twitter/arguments'
-require 'twitter/rest/utils'
-require 'twitter/saved_search'
-require 'twitter/utils'
+require "twitter/arguments"
+require "twitter/rest/utils"
+require "twitter/saved_search"
+require "twitter/utils"
 
 module Twitter
   module REST
@@ -32,7 +32,7 @@ module Twitter
       def saved_searches(*args)
         arguments = Twitter::Arguments.new(args)
         if arguments.empty?
-          perform_get_with_objects('/1.1/saved_searches/list.json', arguments.options, Twitter::SavedSearch)
+          perform_get_with_objects("/1.1/saved_searches/list.json", arguments.options, Twitter::SavedSearch)
         else
           pmap(arguments) do |id|
             saved_search(id, arguments.options)
@@ -63,7 +63,7 @@ module Twitter
       # @param query [String] The query of the search the user would like to save.
       # @param options [Hash] A customizable set of options.
       def create_saved_search(query, options = {})
-        perform_post_with_object('/1.1/saved_searches/create.json', options.merge(query: query), Twitter::SavedSearch)
+        perform_post_with_object("/1.1/saved_searches/create.json", options.merge(query: query), Twitter::SavedSearch)
       end
 
       # Destroys saved searches for the authenticated user

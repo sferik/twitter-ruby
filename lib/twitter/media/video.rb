@@ -1,6 +1,6 @@
-require 'memoizable'
-require 'twitter/identity'
-require 'twitter/media/video_info'
+require "memoizable"
+require "twitter/identity"
+require "twitter/media/video_info"
 
 module Twitter
   module Media

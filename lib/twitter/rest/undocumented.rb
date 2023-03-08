@@ -1,8 +1,8 @@
-require 'twitter/arguments'
-require 'twitter/cursor'
-require 'twitter/rest/utils'
-require 'twitter/tweet'
-require 'twitter/user'
+require "twitter/arguments"
+require "twitter/cursor"
+require "twitter/rest/utils"
+require "twitter/tweet"
+require "twitter/user"
 
 module Twitter
   module REST
@@ -24,7 +24,7 @@ module Twitter
       #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, URI, or object.
       #   @param options [Hash] A customizable set of options.
       def following_followers_of(*args)
-        cursor_from_response_with_user(:users, Twitter::User, '/users/following_followers_of.json', args)
+        cursor_from_response_with_user(:users, Twitter::User, "/users/following_followers_of.json", args)
       end
 
       # Returns Tweets count for a URI
@@ -36,7 +36,7 @@ module Twitter
       # @param url [String, URI] A URL.
       # @param options [Hash] A customizable set of options.
       def tweet_count(url, options = {})
-        HTTP.get('https://cdn.api.twitter.com/1/urls/count.json', params: options.merge(url: url.to_s)).parse['count']
+        HTTP.get("https://cdn.api.twitter.com/1/urls/count.json", params: options.merge(url: url.to_s)).parse["count"]
       end
     end
   end

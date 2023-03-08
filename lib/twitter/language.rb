@@ -1,4 +1,4 @@
-require 'twitter/base'
+require "twitter/base"
 
 module Twitter
   class Language < Twitter::Base

@@ -1,5 +1,5 @@
-require 'twitter/identity'
-require 'twitter/utils'
+require "twitter/identity"
+require "twitter/utils"
 
 module Twitter
   class BasicUser < Twitter::Identity

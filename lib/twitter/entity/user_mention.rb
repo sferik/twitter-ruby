@@ -1,4 +1,4 @@
-require 'twitter/entity'
+require "twitter/entity"
 
 module Twitter
   class Entity

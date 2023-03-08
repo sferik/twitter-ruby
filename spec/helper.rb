@@ -1,21 +1,21 @@
-require 'simplecov'
+require "simplecov"
 
 SimpleCov.formatters = [SimpleCov::Formatter::HTMLFormatter]
 
 SimpleCov.start do
-  add_filter '/spec/'
-  add_filter '/vendor/'
+  add_filter "/spec/"
+  add_filter "/vendor/"
   minimum_coverage(99.77)
 end
 
-require 'twitter'
-require 'rspec'
-require 'stringio'
-require 'tempfile'
-require 'timecop'
-require 'webmock/rspec'
+require "twitter"
+require "rspec"
+require "stringio"
+require "tempfile"
+require "timecop"
+require "webmock/rspec"
 
-require_relative 'support/media_object_examples'
+require_relative "support/media_object_examples"
 
 RSpec.configure do |config|
   config.expect_with :rspec do |c|
@@ -56,7 +56,7 @@ def stub_put(path)
 end
 
 def fixture_path
-  File.expand_path('fixtures', __dir__)
+  File.expand_path("fixtures", __dir__)
 end
 
 def fixture(file)

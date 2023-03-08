@@ -11,16 +11,16 @@ module Twitter
             v.to_ary.collect do |w|
               str = ::URI::DEFAULT_PARSER.escape(k.to_s, UNESCAPED_CHARS)
               unless w.nil?
-                str << '='
+                str << "="
                 str << ::URI::DEFAULT_PARSER.escape(w.to_s, UNESCAPED_CHARS)
               end
-            end.join('&')
+            end.join("&")
           else
             str = ::URI::DEFAULT_PARSER.escape(k.to_s, UNESCAPED_CHARS)
-            str << '='
+            str << "="
             str << ::URI::DEFAULT_PARSER.escape(v.to_s, UNESCAPED_CHARS)
           end
-        end.join('&')
+        end.join("&")
       end
     end
   end

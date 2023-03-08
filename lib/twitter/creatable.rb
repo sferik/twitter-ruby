@@ -1,5 +1,5 @@
-require 'time'
-require 'memoizable'
+require "time"
+require "memoizable"
 
 module Twitter
   module Creatable

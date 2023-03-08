@@ -1,5 +1,5 @@
-require 'twitter/headers'
-require 'twitter/rest/utils'
+require "twitter/headers"
+require "twitter/rest/utils"
 
 module Twitter
   module REST
@@ -24,11 +24,11 @@ module Twitter
       def token(options = {})
         options = options.dup
         options[:bearer_token_request] = true
-        options[:grant_type] ||= 'client_credentials'
-        url = 'https://api.twitter.com/oauth2/token'
+        options[:grant_type] ||= "client_credentials"
+        url = "https://api.twitter.com/oauth2/token"
         headers = Twitter::Headers.new(self, :post, url, options).request_headers
         response = HTTP.headers(headers).post(url, form: options)
-        response.parse['access_token']
+        response.parse["access_token"]
       end
       alias bearer_token token
 
@@ -44,7 +44,7 @@ module Twitter
       def invalidate_token(access_token, options = {})
         options = options.dup
         options[:access_token] = access_token
-        perform_post('/oauth2/invalidate_token', options)[:access_token]
+        perform_post("/oauth2/invalidate_token", options)[:access_token]
       end
 
       # Allows a registered application to revoke an issued OAuth 2 Bearer Token by presenting its client credentials.
@@ -55,8 +55,8 @@ module Twitter
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [String] The token string.
       def reverse_token
-        options = {x_auth_mode: 'reverse_auth'}
-        url = 'https://api.twitter.com/oauth/request_token'
+        options = {x_auth_mode: "reverse_auth"}
+        url = "https://api.twitter.com/oauth/request_token"
         auth_header = Twitter::Headers.new(self, :post, url, options).oauth_auth_header.to_s
         HTTP.headers(authorization: auth_header).post(url, params: options).to_s
       end

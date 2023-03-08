@@ -1,5 +1,5 @@
-require 'openssl'
-require 'resolv'
+require "openssl"
+require "resolv"
 
 module Twitter
   module Streaming
@@ -39,7 +39,7 @@ module Twitter
       end
 
       def close
-        @write_pipe&.write('q')
+        @write_pipe&.write("q")
       end
 
     private

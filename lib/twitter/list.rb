@@ -1,5 +1,5 @@
-require 'twitter/creatable'
-require 'twitter/identity'
+require "twitter/creatable"
+require "twitter/identity"
 
 module Twitter
   class List < Twitter::Identity

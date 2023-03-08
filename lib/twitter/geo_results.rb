@@ -1,5 +1,5 @@
-require 'twitter/enumerable'
-require 'twitter/utils'
+require "twitter/enumerable"
+require "twitter/utils"
 
 module Twitter
   class GeoResults

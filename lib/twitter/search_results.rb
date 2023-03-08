@@ -1,8 +1,8 @@
-require 'cgi'
-require 'twitter/enumerable'
-require 'twitter/rest/request'
-require 'twitter/utils'
-require 'uri'
+require "cgi"
+require "twitter/enumerable"
+require "twitter/rest/request"
+require "twitter/utils"
+require "uri"
 
 module Twitter
   class SearchResults

@@ -1,9 +1,9 @@
-require 'twitter'
+require "twitter"
 
-COLON = ':'.freeze
-UNDERSCORE = '_'.freeze
+COLON = ":".freeze
+UNDERSCORE = "_".freeze
 TAB = "\t".freeze
-NAMESPACE = 'Twitter::'.freeze
+NAMESPACE = "Twitter::".freeze
 
 # Colons are invalid characters in DOT nodes.
 # Replace them with underscores.
@@ -44,7 +44,7 @@ def puts(string)
   super((TAB * @indent) + string)
 end
 
-puts 'digraph classes {'
+puts "digraph classes {"
 # Add or remove DOT formatting options here
 indent do
   puts 'graph [rotate=0, rankdir="LR"]'
@@ -57,4 +57,4 @@ indent do
     puts "#{child} -> #{parent}"
   end
 end
-puts '}'
+puts "}"

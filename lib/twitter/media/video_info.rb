@@ -1,5 +1,5 @@
-require 'memoizable'
-require 'twitter/variant'
+require "memoizable"
+require "twitter/variant"
 
 module Twitter
   module Media

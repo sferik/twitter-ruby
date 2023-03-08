@@ -1,5 +1,5 @@
-require 'equalizer'
-require 'twitter/base'
+require "equalizer"
+require "twitter/base"
 
 module Twitter
   class Trend < Twitter::Base

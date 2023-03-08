@@ -1,14 +1,14 @@
-require 'addressable/uri'
-require 'twitter/arguments'
-require 'twitter/cursor'
-require 'twitter/error'
-require 'twitter/list'
-require 'twitter/rest/request'
-require 'twitter/rest/utils'
-require 'twitter/tweet'
-require 'twitter/user'
-require 'twitter/utils'
-require 'uri'
+require "addressable/uri"
+require "twitter/arguments"
+require "twitter/cursor"
+require "twitter/error"
+require "twitter/list"
+require "twitter/rest/request"
+require "twitter/rest/utils"
+require "twitter/tweet"
+require "twitter/user"
+require "twitter/utils"
+require "uri"
 
 module Twitter
   module REST
@@ -32,7 +32,7 @@ module Twitter
       #   @param options [Hash] A customizable set of options.
       #   @option options [Boolean] :reverse Set this to true if you would like owned lists to be returned first.
       def lists(*args)
-        objects_from_response_with_user(Twitter::List, :get, '/1.1/lists/list.json', args)
+        objects_from_response_with_user(Twitter::List, :get, "/1.1/lists/list.json", args)
       end
       alias lists_subscribed_to lists
 
@@ -61,7 +61,7 @@ module Twitter
         arguments = Twitter::Arguments.new(args)
         merge_list!(arguments.options, arguments.pop)
         merge_owner!(arguments.options, arguments.pop)
-        perform_get_with_objects('/1.1/lists/statuses.json', arguments.options, Twitter::Tweet)
+        perform_get_with_objects("/1.1/lists/statuses.json", arguments.options, Twitter::Tweet)
       end
 
       # Removes the specified member from the list
@@ -82,7 +82,7 @@ module Twitter
       #   @param user_to_remove [Integer, String] The user id or screen name of the list member to remove.
       #   @param options [Hash] A customizable set of options.
       def remove_list_member(*args)
-        list_from_response_with_user('/1.1/lists/members/destroy.json', args)
+        list_from_response_with_user("/1.1/lists/members/destroy.json", args)
       end
 
       # List the lists the specified user has been added to
@@ -102,7 +102,7 @@ module Twitter
       #   @option options [Integer] :count The amount of results to return per page. Defaults to 20. No more than 1000 results will ever be returned in a single page.
       #   @option options [Boolean, String, Integer] :filter_to_owned_lists When set to true, t or 1, will return just lists the authenticating user owns, and the user represented by user_id or screen_name is a member of.
       def memberships(*args)
-        cursor_from_response_with_user(:lists, Twitter::List, '/1.1/lists/memberships.json', args)
+        cursor_from_response_with_user(:lists, Twitter::List, "/1.1/lists/memberships.json", args)
       end
 
       # Returns the subscribers of the specified list
@@ -121,7 +121,7 @@ module Twitter
       #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, URI, or object.
       #   @param options [Hash] A customizable set of options.
       def list_subscribers(*args)
-        cursor_from_response_with_list('/1.1/lists/subscribers.json', args)
+        cursor_from_response_with_list("/1.1/lists/subscribers.json", args)
       end
 
       # Make the authenticated user follow the specified list
@@ -140,7 +140,7 @@ module Twitter
       #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, URI, or object.
       #   @param options [Hash] A customizable set of options.
       def list_subscribe(*args)
-        list_from_response(:post, '/1.1/lists/subscribers/create.json', args)
+        list_from_response(:post, "/1.1/lists/subscribers/create.json", args)
       end
 
       # Check if a user is a subscriber of the specified list
@@ -162,7 +162,7 @@ module Twitter
       #   @param options [Hash] A customizable set of options.
       # @return [Boolean] true if user is a subscriber of the specified list, otherwise false.
       def list_subscriber?(*args)
-        list_user?(:get, '/1.1/lists/subscribers/show.json', args)
+        list_user?(:get, "/1.1/lists/subscribers/show.json", args)
       end
 
       # Unsubscribes the authenticated user form the specified list
@@ -181,7 +181,7 @@ module Twitter
       #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, URI, or object.
       #   @param options [Hash] A customizable set of options.
       def list_unsubscribe(*args)
-        list_from_response(:post, '/1.1/lists/subscribers/destroy.json', args)
+        list_from_response(:post, "/1.1/lists/subscribers/destroy.json", args)
       end
 
       # Adds specified members to a list
@@ -204,7 +204,7 @@ module Twitter
       #   @param users [Enumerable<Integer, String, Twitter::User>] A collection of Twitter user IDs, screen names, or objects.
       #   @param options [Hash] A customizable set of options.
       def add_list_members(*args)
-        list_from_response_with_users('/1.1/lists/members/create_all.json', args)
+        list_from_response_with_users("/1.1/lists/members/create_all.json", args)
       end
 
       # Check if a user is a member of the specified list
@@ -225,7 +225,7 @@ module Twitter
       #   @param user_to_check [Integer, String] The user ID or screen name of the list member.
       #   @param options [Hash] A customizable set of options.
       def list_member?(*args)
-        list_user?(:get, '/1.1/lists/members/show.json', args)
+        list_user?(:get, "/1.1/lists/members/show.json", args)
       end
 
       # Returns the members of the specified list
@@ -244,7 +244,7 @@ module Twitter
       #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, URI, or object.
       #   @param options [Hash] A customizable set of options.
       def list_members(*args)
-        cursor_from_response_with_list('/1.1/lists/members.json', args)
+        cursor_from_response_with_list("/1.1/lists/members.json", args)
       end
 
       # Add a member to a list
@@ -266,7 +266,7 @@ module Twitter
       #   @param user_to_add [Integer, String] The user id or screen name to add to the list.
       #   @param options [Hash] A customizable set of options.
       def add_list_member(*args)
-        list_from_response_with_user('/1.1/lists/members/create.json', args)
+        list_from_response_with_user("/1.1/lists/members/create.json", args)
       end
 
       # Deletes the specified list
@@ -286,7 +286,7 @@ module Twitter
       #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, URI, or object.
       #   @param options [Hash] A customizable set of options.
       def destroy_list(*args)
-        list_from_response(:post, '/1.1/lists/destroy.json', args)
+        list_from_response(:post, "/1.1/lists/destroy.json", args)
       end
 
       # Updates the specified list
@@ -309,7 +309,7 @@ module Twitter
       #   @option options [String] :mode ('public') Whether your list is public or private. Values can be 'public' or 'private'.
       #   @option options [String] :description The description to give the list.
       def list_update(*args)
-        list_from_response(:post, '/1.1/lists/update.json', args)
+        list_from_response(:post, "/1.1/lists/update.json", args)
       end
 
       # Creates a new list for the authenticated user
@@ -325,7 +325,7 @@ module Twitter
       # @option options [String] :mode ('public') Whether your list is public or private. Values can be 'public' or 'private'.
       # @option options [String] :description The description to give the list.
       def create_list(name, options = {})
-        perform_post_with_object('/1.1/lists/create.json', options.merge(name: name), Twitter::List)
+        perform_post_with_object("/1.1/lists/create.json", options.merge(name: name), Twitter::List)
       end
 
       # Show the specified list
@@ -345,7 +345,7 @@ module Twitter
       #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, URI, or object.
       #   @param options [Hash] A customizable set of options.
       def list(*args)
-        list_from_response(:get, '/1.1/lists/show.json', args)
+        list_from_response(:get, "/1.1/lists/show.json", args)
       end
 
       # List the lists the specified user follows
@@ -361,7 +361,7 @@ module Twitter
       #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, URI, or object.
       #   @param options [Hash] A customizable set of options.
       def subscriptions(*args)
-        cursor_from_response_with_user(:lists, Twitter::List, '/1.1/lists/subscriptions.json', args)
+        cursor_from_response_with_user(:lists, Twitter::List, "/1.1/lists/subscriptions.json", args)
       end
 
       # Removes specified members from the list
@@ -382,7 +382,7 @@ module Twitter
       #   @param users [Enumerable<Integer, String, Twitter::User>] A collection of Twitter user IDs, screen names, or objects.
       #   @param options [Hash] A customizable set of options.
       def remove_list_members(*args)
-        list_from_response_with_users('/1.1/lists/members/destroy_all.json', args)
+        list_from_response_with_users("/1.1/lists/members/destroy_all.json", args)
       end
 
       # Returns the lists owned by the specified Twitter user
@@ -400,7 +400,7 @@ module Twitter
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :count The amount of results to return per page. Defaults to 20. No more than 1000 results will ever be returned in a single page.
       def owned_lists(*args)
-        cursor_from_response_with_user(:lists, Twitter::List, '/1.1/lists/ownerships.json', args)
+        cursor_from_response_with_user(:lists, Twitter::List, "/1.1/lists/ownerships.json", args)
       end
 
     private
@@ -467,7 +467,7 @@ module Twitter
       end
 
       def merge_slug_and_owner!(hash, path)
-        list = path.split('/')
+        list = path.split("/")
         hash[:slug] = list.pop
         hash[:owner_screen_name] = list.pop unless list.empty?
       end
@@ -486,7 +486,7 @@ module Twitter
         return hash if hash[:owner_id] || hash[:owner_screen_name]
 
         if user
-          merge_user!(hash, user, 'owner')
+          merge_user!(hash, user, "owner")
           hash[:owner_id] = hash.delete(:owner_user_id) unless hash[:owner_user_id].nil?
         else
           hash[:owner_id] = user_id

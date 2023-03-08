@@ -1,6 +1,6 @@
-require 'twitter/error'
-require 'twitter/utils'
-require 'twitter/version'
+require "twitter/error"
+require "twitter/utils"
+require "twitter/version"
 
 module Twitter
   class Client

@@ -1,7 +1,7 @@
-require 'twitter/client'
-require 'twitter/rest/api'
-require 'twitter/rest/request'
-require 'twitter/rest/utils'
+require "twitter/client"
+require "twitter/rest/api"
+require "twitter/rest/request"
+require "twitter/rest/utils"
 
 module Twitter
   module REST

@@ -1,9 +1,9 @@
-require 'twitter/direct_message'
-require 'twitter/streaming/deleted_tweet'
-require 'twitter/streaming/event'
-require 'twitter/streaming/friend_list'
-require 'twitter/streaming/stall_warning'
-require 'twitter/tweet'
+require "twitter/direct_message"
+require "twitter/streaming/deleted_tweet"
+require "twitter/streaming/event"
+require "twitter/streaming/friend_list"
+require "twitter/streaming/stall_warning"
+require "twitter/tweet"
 
 module Twitter
   module Streaming

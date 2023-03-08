@@ -1,4 +1,4 @@
-require 'twitter/geo'
+require "twitter/geo"
 
 module Twitter
   class Geo

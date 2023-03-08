@@ -1,8 +1,8 @@
-require 'memoizable'
-require 'twitter/creatable'
-require 'twitter/enumerable'
-require 'twitter/null_object'
-require 'twitter/utils'
+require "memoizable"
+require "twitter/creatable"
+require "twitter/enumerable"
+require "twitter/null_object"
+require "twitter/utils"
 
 module Twitter
   class TrendResults

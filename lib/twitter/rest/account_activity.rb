@@ -1,6 +1,6 @@
-require 'twitter/rest/request'
-require 'twitter/rest/utils'
-require 'twitter/utils'
+require "twitter/rest/request"
+require "twitter/rest/utils"
+require "twitter/utils"
 
 module Twitter
   module REST

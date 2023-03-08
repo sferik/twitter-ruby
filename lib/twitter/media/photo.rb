@@ -1,5 +1,5 @@
-require 'memoizable'
-require 'twitter/identity'
+require "memoizable"
+require "twitter/identity"
 
 module Twitter
   module Media

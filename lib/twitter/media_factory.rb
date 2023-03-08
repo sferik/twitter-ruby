@@ -1,7 +1,7 @@
-require 'twitter/factory'
-require 'twitter/media/animated_gif'
-require 'twitter/media/photo'
-require 'twitter/media/video'
+require "twitter/factory"
+require "twitter/media/animated_gif"
+require "twitter/media/photo"
+require "twitter/media/video"
 
 module Twitter
   class MediaFactory < Twitter::Factory

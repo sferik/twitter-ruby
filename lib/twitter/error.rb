@@ -1,4 +1,4 @@
-require 'twitter/rate_limit'
+require "twitter/rate_limit"
 
 module Twitter
   # Custom error class for rescuing from all Twitter errors
@@ -107,9 +107,9 @@ module Twitter
     end
 
     MEDIA_ERRORS = {
-      'InternalError' => Twitter::Error::MediaInternalError,
-      'InvalidMedia' => Twitter::Error::InvalidMedia,
-      'UnsupportedMedia' => Twitter::Error::UnsupportedMedia,
+      "InternalError" => Twitter::Error::MediaInternalError,
+      "InvalidMedia" => Twitter::Error::InvalidMedia,
+      "UnsupportedMedia" => Twitter::Error::UnsupportedMedia,
     }.freeze
 
     # If error code is missing see https://developer.twitter.com/en/docs/basics/response-codes
@@ -169,7 +169,7 @@ module Twitter
 
       def parse_error(body)
         if body.nil? || body.empty?
-          ['', nil]
+          ["", nil]
         elsif body[:error]
           [body[:error], nil]
         elsif body[:errors]
@@ -193,7 +193,7 @@ module Twitter
     # @param rate_limit [Hash]
     # @param code [Integer]
     # @return [Twitter::Error]
-    def initialize(message = '', rate_limit = {}, code = nil)
+    def initialize(message = "", rate_limit = {}, code = nil)
       super(message)
       @rate_limit = Twitter::RateLimit.new(rate_limit)
       @code = code

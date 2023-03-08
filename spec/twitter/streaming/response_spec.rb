@@ -1,10 +1,10 @@
-require 'helper'
+require "helper"
 
 describe Twitter::Streaming::Response do
   subject { described_class.new }
 
-  describe '#on_headers_complete' do
-    it 'does not error if status code is 200' do
+  describe "#on_headers_complete" do
+    it "does not error if status code is 200" do
       expect do
         subject << "HTTP/1.1 200 OK\r\nSome-Header: Woo\r\n\r\n"
       end.not_to raise_error

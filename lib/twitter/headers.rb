@@ -1,6 +1,6 @@
-require 'addressable/uri'
-require 'base64'
-require 'simple_oauth'
+require "addressable/uri"
+require "base64"
+require "simple_oauth"
 
 module Twitter
   class Headers
@@ -24,7 +24,7 @@ module Twitter
       headers = {}
       headers[:user_agent] = @client.user_agent
       if bearer_token_request?
-        headers[:accept]        = '*/*'
+        headers[:accept]        = "*/*"
         headers[:authorization] = bearer_token_credentials_auth_header
       else
         headers[:authorization] = auth_header

@@ -1,6 +1,6 @@
-require 'addressable/uri'
-require 'cgi'
-require 'memoizable'
+require "addressable/uri"
+require "cgi"
+require "memoizable"
 
 module Twitter
   module Profile
@@ -27,7 +27,7 @@ module Twitter
     # @param size [String, Symbol] The size of the image. Must be one of: 'mobile', 'mobile_retina', 'web', 'web_retina', 'ipad', or 'ipad_retina'
     # @return [Addressable::URI]
     def profile_banner_uri(size = :web)
-      parse_uri(insecure_uri([@attrs[:profile_banner_url], size].join('/'))) unless @attrs[:profile_banner_url].nil?
+      parse_uri(insecure_uri([@attrs[:profile_banner_url], size].join("/"))) unless @attrs[:profile_banner_url].nil?
     end
     alias profile_banner_url profile_banner_uri
 
@@ -36,7 +36,7 @@ module Twitter
     # @param size [String, Symbol] The size of the image. Must be one of: 'mobile', 'mobile_retina', 'web', 'web_retina', 'ipad', or 'ipad_retina'
     # @return [Addressable::URI]
     def profile_banner_uri_https(size = :web)
-      parse_uri([@attrs[:profile_banner_url], size].join('/')) unless @attrs[:profile_banner_url].nil?
+      parse_uri([@attrs[:profile_banner_url], size].join("/")) unless @attrs[:profile_banner_url].nil?
     end
     alias profile_banner_url_https profile_banner_uri_https
 
@@ -85,7 +85,7 @@ module Twitter
     end
 
     def insecure_uri(uri)
-      uri.to_s.sub(/^https/i, 'http')
+      uri.to_s.sub(/^https/i, "http")
     end
 
     def profile_image_suffix(size)

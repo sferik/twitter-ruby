@@ -1,4 +1,4 @@
-require 'twitter/media/video'
+require "twitter/media/video"
 
 module Twitter
   module Media
