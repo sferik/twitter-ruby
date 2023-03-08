@@ -4,7 +4,7 @@ module Twitter
 
     # @return [Integer]
     def major
-      7
+      8
     end
 
     # @return [Integer]
@@ -19,7 +19,7 @@ module Twitter
 
     # @return [Integer, NilClass]
     def pre
-      nil
+      "rc.1"
     end
 
     # @return [Hash]

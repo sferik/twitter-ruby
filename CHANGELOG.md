@@ -1,7 +1,12 @@
 8.0.0
 -----
-Not yet documented, sorry. For now, please use git to compare tags:
-https://github.com/sferik/twitter/compare/v7.0.0...v8.0.0
+* [Fix filter limit issue](https://github.com/sferik/twitter/commit/be91024f7af7e94dd6578e08937975443dc09487)
+* [Pass custom `HTTP::FormData` with encoder for post requests](https://github.com/sferik/twitter/commit/62d15daf1f7009b532bced2423d2e3878c4a6628)
+* [Removed the `Twitter::Configuration` class](https://github.com/sferik/twitter/commit/d9b49dbb60427e447b25afad5a4824a068b577c5)
+* [Replace `http_parser.rb` with `llhttp`](https://github.com/sferik/twitter/commit/b30a831477910fa6b311c6de98fafabc5dccf827)
+* [Update `buftok` dependency to ~> 0.3.0](https://github.com/sferik/twitter/commit/69237190197cae174cee09b4765230aadf231e3a)
+* [Update `http` dependency to ~> 5.0](https://github.com/sferik/twitter/commit/d218358b9fdba501d0f4e59a10bd1e86f18e044f)
+* [Set minimum required ruby version to 2.7.7](https://github.com/sferik/twitter/commit/3b50a1fe31233fbe85e5cf9d722aba13fa61aed8)
 
 7.0.0
 -----
