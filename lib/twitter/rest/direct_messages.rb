@@ -50,8 +50,7 @@ module Twitter
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Array<Twitter::DirectMessage>] Direct messages received by the authenticating user.
       # @param options [Hash] A customizable set of options.
-      # @option options [Integer] :count Specifies the number of records (sent and received dms) to retrieve. Must be less than or equal to 50. Default is 50
-      # this count does not directly correspond to the output, as we pull sent and received messages from twitter and only present received to the user
+      # @option options [Integer] :count Specifies the number of records (sent and received dms) to retrieve. Must be less than or equal to 50. Default is 20
       # @option options [String] :cursor Specifies the cursor position of results to retrieve.
       def direct_messages_received(options = {})
         limit = options.fetch(:count, 20)
@@ -66,8 +65,7 @@ module Twitter
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Array<Twitter::DirectMessage>] Direct messages sent by the authenticating user.
       # @param options [Hash] A customizable set of options.
-      # @option options [Integer] :count Specifies the number of records (sent and received dms) to retrieve. Must be less than or equal to 50. Default is 50
-      # this count does not directly correspond to the output, as we pull sent and received messages from twitter and only present received to the user
+      # @option options [Integer] :count Specifies the number of records (sent and received dms) to retrieve. Must be less than or equal to 50. Default is 20
       # @option options [String] :cursor Specifies the cursor position of results to retrieve.
       def direct_messages_sent(options = {})
         limit = options.fetch(:count, 20)
@@ -116,8 +114,7 @@ module Twitter
 
       #   @see https://developer.twitter.com/en/docs/direct-messages/sending-and-receiving/api-reference/list-events
       #   @param options [Hash] A customizable set of options.
-      #   @option options [Integer] :count Specifies the number of records (sent and received dms) to retrieve. Must be less than or equal to 50. Default is 50
-      #   this count does not directly correspond to the output, as we pull sent and received messages from twitter and only present received to the user
+      #   @option options [Integer] :count Specifies the number of records (sent and received dms) to retrieve. Must be less than or equal to 50. Default is 20
       #   @option options [String] :cursor Specifies the cursor position of results to retrieve.
       # @overload direct_messages(*ids)
       #   Returns direct messages
