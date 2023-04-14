@@ -82,7 +82,6 @@ module Twitter
       # @return [Twitter::DirectMessage] The requested message.
       # @param id [Integer] A direct message ID.
       # @param options [Hash] A customizable set of options.
-
       def direct_message(id, options = {})
         direct_message_event(id, options).direct_message
       end
@@ -162,7 +161,7 @@ module Twitter
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Twitter::DirectMessage] The sent message.
-      # @param user [Integer, String, Twitter::User] A Twitter user ID
+      # @param user_id [Integer] A Twitter user ID
       # @param text [String] The text of your direct message, up to 10,000 characters.
       # @param options [Hash] A customizable set of options.
       def create_direct_message(user_id, text, options = {})
