@@ -241,7 +241,7 @@ module Twitter
       # @param users [Enumerable<Integer, String, URI, Twitter::User>] A collection of Twitter user IDs, screen_names, URIs, or objects.
       # @return [Hash]
       def merge_users!(hash, users)
-        user_ids, screen_names = collect_users(users)
+        user_ids, screen_names = collect_users(users.uniq)
         hash[:user_id] = user_ids.join(",") unless user_ids.empty?
         hash[:screen_name] = screen_names.join(",") unless screen_names.empty?
       end
