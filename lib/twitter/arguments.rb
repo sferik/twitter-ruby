@@ -8,7 +8,7 @@ module Twitter
     # @return [Twitter::Arguments]
     def initialize(args)
       @options = args.last.is_a?(::Hash) ? args.pop : {}
-      super(args.flatten.uniq)
+      super(args.flatten)
     end
   end
 end
