@@ -19,7 +19,7 @@ module Twitter
 
     # @return [Integer, NilClass]
     def pre
-      "rc.1"
+      nil
     end
 
     # @return [Hash]
