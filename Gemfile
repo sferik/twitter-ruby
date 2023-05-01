@@ -2,8 +2,6 @@ source "https://rubygems.org"
 
 gem "jruby-openssl", platforms: :jruby
 gem "rake"
-gem "rubocop-rake"
-gem "rubocop-rspec"
 gem "yard"
 
 group :development do
@@ -13,6 +11,8 @@ end
 group :test do
   gem "rspec", ">= 3.12"
   gem "rubocop", ">= 1.44.1"
+  gem "rubocop-rake"
+  gem "rubocop-rspec"
   gem "simplecov", ">= 0.22"
   gem "timecop"
   gem "webmock"
