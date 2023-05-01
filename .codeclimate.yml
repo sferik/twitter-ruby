@@ -1,4 +1,5 @@
-engines:
+version: "2"
+plugins:
   rubocop:
     enabled: true
   duplication:
@@ -7,11 +8,7 @@ engines:
       languages:
       - ruby
 
-ratings:
-  paths:
-  - "**.rb"
-
-exclude_paths:
+exclude_patterns:
   - etc/**/*
   - examples/**/*
   - spec/**/*
