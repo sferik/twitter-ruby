@@ -4,7 +4,7 @@ module Twitter
 
     # @return [Enumerator]
     def each(start = 0, &block)
-      return to_enum(:each, start) unless block_given?
+      return to_enum(:each, start) unless block
 
       Array(@collection[start..]).each(&block)
       unless finished?

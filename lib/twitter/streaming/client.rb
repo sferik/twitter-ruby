@@ -95,7 +95,7 @@ module Twitter
 
       # Set a Proc to be run when connection established.
       def before_request(&block)
-        if block_given?
+        if block
           @before_request = block
           self
         elsif instance_variable_defined?(:@before_request)
