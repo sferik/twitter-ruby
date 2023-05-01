@@ -50,7 +50,7 @@ describe Twitter::Utils do
       size  = array.size
       block = proc { |x| sleep(delay) && x.reverse }
       block_without_sleep = proc(&:reverse)
-      expected = array.collect(&block_without_sleep).flatten!(1)
+      expected = array.flat_map(&block_without_sleep)
       elapsed_time = Benchmark.realtime do
         expect(subject.flat_pmap(array, &block)).to eq(expected)
       end
