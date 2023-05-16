@@ -54,7 +54,7 @@ module Twitter
       def finalize_media(media_id)
         response = Twitter::REST::Request.new(self, :post, "https://upload.twitter.com/1.1/media/upload.json",
                                               command: "FINALIZE", media_id: media_id).perform
-	failed_or_succeeded = %w[failed succeeded]
+        failed_or_succeeded = %w[failed succeeded]
 
         loop do
           return response if !response[:processing_info] || failed_or_succeeded.include?(response[:processing_info][:state])
