@@ -25,7 +25,7 @@ module Twitter
       # @option options [String] :cursor Specifies the cursor position of results to retrieve.
       def direct_messages_events(options = {})
         limit = options.fetch(:count, 20)
-        perform_get_with_cursor("/1.1/direct_messages/events/list.json", options.merge!(no_default_cursor: true, count: 50, limit: limit), :events, Twitter::DirectMessageEvent)
+        perform_get_with_cursor("/2/direct_messages/events/list.json", options.merge!(no_default_cursor: true, count: 50, limit: limit), :events, Twitter::DirectMessageEvent)
       end
 
       # Returns all Direct Messages for the authenticated user (both sent and received) within the last 30 days. Sorted in reverse-chronological order.
@@ -99,7 +99,7 @@ module Twitter
       def direct_message_event(id, options = {})
         options = options.dup
         options[:id] = id
-        perform_get_with_object("/1.1/direct_messages/events/show.json", options, Twitter::DirectMessageEvent)
+        perform_get_with_object("/2/direct_messages/events/show.json", options, Twitter::DirectMessageEvent)
       end
 
       # Returns direct messages specified in arguments, or, if no arguments are given, returns direct messages received by authenticating user
@@ -149,7 +149,7 @@ module Twitter
       #   @param ids [Enumerable<Integer>] A collection of direct message IDs.
       def destroy_direct_message(*ids)
         pmap(ids) do |id|
-          perform_requests(:delete, "/1.1/direct_messages/events/destroy.json", id: id)
+          perform_requests(:delete, "/2/direct_messages/events/destroy.json", id: id)
         end
         nil
       end
@@ -165,7 +165,7 @@ module Twitter
       # @param text [String] The text of your direct message, up to 10,000 characters.
       # @param options [Hash] A customizable set of options.
       def create_direct_message(user_id, text, options = {})
-        event = perform_request_with_object(:json_post, "/1.1/direct_messages/events/new.json", format_json_options(user_id, text, options), Twitter::DirectMessageEvent)
+        event = perform_request_with_object(:json_post, "/2/direct_messages/events/new.json", format_json_options(user_id, text, options), Twitter::DirectMessageEvent)
         event.direct_message
       end
       alias d create_direct_message
@@ -187,7 +187,7 @@ module Twitter
         arguments = Twitter::Arguments.new(args)
         options = arguments.options.dup
         options[:event] = {type: "message_create", message_create: {target: {recipient_id: extract_id(arguments[0])}, message_data: {text: arguments[1]}}} if arguments.length >= 2
-        response = Twitter::REST::Request.new(self, :json_post, "/1.1/direct_messages/events/new.json", options).perform
+        response = Twitter::REST::Request.new(self, :json_post, "/2/direct_messages/events/new.json", options).perform
         Twitter::DirectMessageEvent.new(response[:event])
       end
 
@@ -208,7 +208,7 @@ module Twitter
         media_id = upload(media, media_category_prefix: "dm")[:media_id]
         options = options.dup
         options[:event] = {type: "message_create", message_create: {target: {recipient_id: extract_id(user)}, message_data: {text: text, attachment: {type: "media", media: {id: media_id}}}}}
-        response = Twitter::REST::Request.new(self, :json_post, "/1.1/direct_messages/events/new.json", options).perform
+        response = Twitter::REST::Request.new(self, :json_post, "/2/direct_messages/events/new.json", options).perform
         Twitter::DirectMessageEvent.new(response[:event])
       end
 

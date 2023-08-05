@@ -36,17 +36,17 @@ describe Twitter::REST::Client do
 
   describe "#user_id" do
     it "caches the user ID" do
-      stub_get("/1.1/account/verify_credentials.json").with(query: {skip_status: "true"}).to_return(body: fixture("sferik.json"), headers: {content_type: "application/json; charset=utf-8"})
+      stub_get("/2/account/verify_credentials.json").with(query: {skip_status: "true"}).to_return(body: fixture("sferik.json"), headers: {content_type: "application/json; charset=utf-8"})
       client = described_class.new(consumer_key: "CK", consumer_secret: "CS", access_token: "AT", access_token_secret: "AS")
       2.times { client.send(:user_id) }
-      expect(a_get("/1.1/account/verify_credentials.json").with(query: {skip_status: "true"})).to have_been_made.times(1)
+      expect(a_get("/2/account/verify_credentials.json").with(query: {skip_status: "true"})).to have_been_made.times(1)
     end
 
     it "does not cache the user ID across clients" do
-      stub_get("/1.1/account/verify_credentials.json").with(query: {skip_status: "true"}).to_return(body: fixture("sferik.json"), headers: {content_type: "application/json; charset=utf-8"})
+      stub_get("/2/account/verify_credentials.json").with(query: {skip_status: "true"}).to_return(body: fixture("sferik.json"), headers: {content_type: "application/json; charset=utf-8"})
       described_class.new(consumer_key: "CK", consumer_secret: "CS", access_token: "AT", access_token_secret: "AS").send(:user_id)
       described_class.new(consumer_key: "CK", consumer_secret: "CS", access_token: "AT", access_token_secret: "AS").send(:user_id)
-      expect(a_get("/1.1/account/verify_credentials.json").with(query: {skip_status: "true"})).to have_been_made.times(2)
+      expect(a_get("/2/account/verify_credentials.json").with(query: {skip_status: "true"})).to have_been_made.times(2)
     end
   end
 end

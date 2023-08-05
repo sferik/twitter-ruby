@@ -22,20 +22,20 @@ describe Twitter::Headers do
       secret = {consumer_key: "CK", consumer_secret: "CS", token: "OT", token_secret: "OS", nonce: "b6ebe4c2a11af493f8a2290fe1296965", timestamp: "1370968658", ignore_extra_keys: true}
       headers = {authorization: /oauth_signature="FbthwmgGq02iQw%2FuXGEWaL6V6eM%3D"/, content_type: "application/json; charset=utf-8"}
       allow(@client).to receive(:credentials).and_return(secret)
-      stub_post("/1.1/statuses/update.json").with(body: {status: "Just a test"}).to_return(body: fixture("status.json"), headers: headers)
+      stub_post("/2/statuses/update.json").with(body: {status: "Just a test"}).to_return(body: fixture("status.json"), headers: headers)
       @client.update("Just a test")
-      expect(a_post("/1.1/statuses/update.json").with(headers: {authorization: headers[:authorization]})).to have_been_made
+      expect(a_post("/2/statuses/update.json").with(headers: {authorization: headers[:authorization]})).to have_been_made
     end
 
     it "submits the correct auth header when media is present" do
       secret = {consumer_key: "CK", consumer_secret: "CS", token: "OT", token_secret: "OS", nonce: "e08201ad0dab4897c99445056feefd95", timestamp: "1370967652", ignore_extra_keys: true}
       headers = {authorization: /oauth_signature="JVkElZ8O3WXkpZjtEHYRk67pYdQ%3D"/, content_type: "application/json; charset=utf-8"}
       allow(@client).to receive(:credentials).and_return(secret)
-      stub_request(:post, "https://upload.twitter.com/1.1/media/upload.json").to_return(body: fixture("upload.json"), headers: {content_type: "application/json; charset=utf-8"})
-      stub_post("/1.1/statuses/update.json").to_return(body: fixture("status.json"), headers: {content_type: "application/json; charset=utf-8"})
+      stub_request(:post, "https://upload.twitter.com/2/media/upload.json").to_return(body: fixture("upload.json"), headers: {content_type: "application/json; charset=utf-8"})
+      stub_post("/2/statuses/update.json").to_return(body: fixture("status.json"), headers: {content_type: "application/json; charset=utf-8"})
       @client.update_with_media("Just a test", fixture("pbjt.gif"))
-      expect(a_request(:post, "https://upload.twitter.com/1.1/media/upload.json")).to have_been_made
-      expect(a_post("/1.1/statuses/update.json").with(headers: {authorization: headers[:authorization]})).to have_been_made
+      expect(a_request(:post, "https://upload.twitter.com/2/media/upload.json")).to have_been_made
+      expect(a_post("/2/statuses/update.json").with(headers: {authorization: headers[:authorization]})).to have_been_made
     end
   end
 

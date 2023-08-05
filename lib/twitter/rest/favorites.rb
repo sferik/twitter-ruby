@@ -32,7 +32,7 @@ module Twitter
       def favorites(*args)
         arguments = Twitter::Arguments.new(args)
         merge_user!(arguments.options, arguments.pop) if arguments.last
-        perform_get_with_objects("/1.1/favorites/list.json", arguments.options, Twitter::Tweet)
+        perform_get_with_objects("/2/favorites/list.json", arguments.options, Twitter::Tweet)
       end
 
       # Un-favorites the specified Tweets as the authenticating user
@@ -50,7 +50,7 @@ module Twitter
       def unfavorite(*args)
         arguments = Twitter::Arguments.new(args)
         pmap(arguments) do |tweet|
-          perform_post_with_object("/1.1/favorites/destroy.json", arguments.options.merge(id: extract_id(tweet)), Twitter::Tweet)
+          perform_post_with_object("/2/favorites/destroy.json", arguments.options.merge(id: extract_id(tweet)), Twitter::Tweet)
         rescue Twitter::Error::NotFound
           next
         end.compact
@@ -71,7 +71,7 @@ module Twitter
       #   @param tweets [Enumerable<Integer, String, URI, Twitter::Tweet>] A collection of Tweet IDs, URIs, or objects.
       #   @param options [Hash] A customizable set of options.
       def unfavorite!(*args)
-        parallel_objects_from_response(Twitter::Tweet, :post, "/1.1/favorites/destroy.json", args)
+        parallel_objects_from_response(Twitter::Tweet, :post, "/2/favorites/destroy.json", args)
       end
 
       # Favorites the specified Tweets as the authenticating user
@@ -89,7 +89,7 @@ module Twitter
       def favorite(*args)
         arguments = Twitter::Arguments.new(args)
         pmap(arguments) do |tweet|
-          perform_post_with_object("/1.1/favorites/create.json", arguments.options.merge(id: extract_id(tweet)), Twitter::Tweet)
+          perform_post_with_object("/2/favorites/create.json", arguments.options.merge(id: extract_id(tweet)), Twitter::Tweet)
         rescue Twitter::Error::AlreadyFavorited, Twitter::Error::NotFound
           next
         end.compact
@@ -114,7 +114,7 @@ module Twitter
       def favorite!(*args)
         arguments = Twitter::Arguments.new(args)
         pmap(arguments) do |tweet|
-          perform_post_with_object("/1.1/favorites/create.json", arguments.options.merge(id: extract_id(tweet)), Twitter::Tweet)
+          perform_post_with_object("/2/favorites/create.json", arguments.options.merge(id: extract_id(tweet)), Twitter::Tweet)
         end
       end
       alias create_favorite! favorite!

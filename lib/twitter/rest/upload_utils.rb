@@ -13,7 +13,7 @@ module Twitter
         return chunk_upload(media, "video/mp4", "#{media_category_prefix}_video") if File.extname(media) == ".mp4"
         return chunk_upload(media, "image/gif", "#{media_category_prefix}_gif") if File.extname(media) == ".gif" && File.size(media) > 5_000_000
 
-        Twitter::REST::Request.new(self, :multipart_post, "https://upload.twitter.com/1.1/media/upload.json", key: :media, file: media).perform
+        Twitter::REST::Request.new(self, :multipart_post, "https://upload.twitter.com/2/media/upload.json", key: :media, file: media).perform
       end
 
       # @raise [Twitter::Error::TimeoutError] Error raised when the upload is longer than the value specified in Twitter::Client#timeouts[:upload].
@@ -24,7 +24,7 @@ module Twitter
       # @see https://developer.twitter.com/en/docs/media/upload-media/uploading-media/chunked-media-upload
       def chunk_upload(media, media_type, media_category)
         Timeout.timeout(timeouts&.fetch(:upload, nil), Twitter::Error::TimeoutError) do
-          init = Twitter::REST::Request.new(self, :post, "https://upload.twitter.com/1.1/media/upload.json",
+          init = Twitter::REST::Request.new(self, :post, "https://upload.twitter.com/2/media/upload.json",
                                             command: "INIT",
                                             media_type: media_type,
                                             media_category: media_category,
@@ -40,7 +40,7 @@ module Twitter
         until media.eof?
           chunk = media.read(5_000_000)
           seg ||= -1
-          Twitter::REST::Request.new(self, :multipart_post, "https://upload.twitter.com/1.1/media/upload.json",
+          Twitter::REST::Request.new(self, :multipart_post, "https://upload.twitter.com/2/media/upload.json",
                                      command: "APPEND",
                                      media_id: media_id,
                                      segment_index: seg += 1,
@@ -52,7 +52,7 @@ module Twitter
       # @see https://developer.twitter.com/en/docs/media/upload-media/api-reference/post-media-upload-finalize
       # @see https://developer.twitter.com/en/docs/media/upload-media/api-reference/get-media-upload-status
       def finalize_media(media_id)
-        response = Twitter::REST::Request.new(self, :post, "https://upload.twitter.com/1.1/media/upload.json",
+        response = Twitter::REST::Request.new(self, :post, "https://upload.twitter.com/2/media/upload.json",
                                               command: "FINALIZE", media_id: media_id).perform
         failed_or_succeeded = %w[failed succeeded]
 
@@ -60,7 +60,7 @@ module Twitter
           return response if !response[:processing_info] || failed_or_succeeded.include?(response[:processing_info][:state])
 
           sleep(response[:processing_info][:check_after_secs])
-          response = Twitter::REST::Request.new(self, :get, "https://upload.twitter.com/1.1/media/upload.json",
+          response = Twitter::REST::Request.new(self, :get, "https://upload.twitter.com/2/media/upload.json",
                                                 command: "STATUS", media_id: media_id).perform
         end
         response

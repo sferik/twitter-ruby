@@ -145,9 +145,9 @@ describe Twitter::Place do
 
   describe "#uri" do
     it "returns a URI when the url is set" do
-      place = described_class.new(woeid: "247f43d441defc03", url: "https://api.twitter.com/1.1/geo/id/247f43d441defc03.json")
+      place = described_class.new(woeid: "247f43d441defc03", url: "https://api.twitter.com/2/geo/id/247f43d441defc03.json")
       expect(place.uri).to be_an Addressable::URI
-      expect(place.uri.to_s).to eq("https://api.twitter.com/1.1/geo/id/247f43d441defc03.json")
+      expect(place.uri.to_s).to eq("https://api.twitter.com/2/geo/id/247f43d441defc03.json")
     end
 
     it "returns nil when the url is not set" do
@@ -158,7 +158,7 @@ describe Twitter::Place do
 
   describe "#uri?" do
     it "returns true when the url is set" do
-      place = described_class.new(woeid: "247f43d441defc03", url: "https://api.twitter.com/1.1/geo/id/247f43d441defc03.json")
+      place = described_class.new(woeid: "247f43d441defc03", url: "https://api.twitter.com/2/geo/id/247f43d441defc03.json")
       expect(place.uri?).to be true
     end
 

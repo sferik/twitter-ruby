@@ -130,7 +130,7 @@ describe Twitter::Streaming::Client do
 
     it "requests via the proxy" do
       @client.connection = FakeConnection.new(fixture("track_streaming.json"))
-      expect(HTTP::Request).to receive(:new).with(verb: :get, uri: "https://stream.twitter.com:443/1.1/statuses/sample.json?", headers: kind_of(Hash), proxy: proxy)
+      expect(HTTP::Request).to receive(:new).with(verb: :get, uri: "https://stream.twitter.com:443/2/statuses/sample.json?", headers: kind_of(Hash), proxy: proxy)
       @client.sample {}
     end
   end

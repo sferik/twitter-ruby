@@ -9,12 +9,12 @@ describe Twitter::REST::DirectMessages::WelcomeMessages do
   context "Welcome Messages" do
     describe "#create_welcome_message" do
       before do
-        stub_post("/1.1/direct_messages/welcome_messages/new.json").to_return(body: fixture("welcome_message.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_post("/2/direct_messages/welcome_messages/new.json").to_return(body: fixture("welcome_message.json"), headers: {content_type: "application/json; charset=utf-8"})
       end
 
       it "requests the correct resource" do
         @client.create_welcome_message("Welcome message text")
-        expect(a_post("/1.1/direct_messages/welcome_messages/new.json")).to have_been_made
+        expect(a_post("/2/direct_messages/welcome_messages/new.json")).to have_been_made
       end
 
       it "returns the created welcome message" do
@@ -25,7 +25,7 @@ describe Twitter::REST::DirectMessages::WelcomeMessages do
       end
 
       it "can set the welcome message name" do
-        stub_post("/1.1/direct_messages/welcome_messages/new.json").to_return(body: fixture("welcome_message_with_name.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_post("/2/direct_messages/welcome_messages/new.json").to_return(body: fixture("welcome_message_with_name.json"), headers: {content_type: "application/json; charset=utf-8"})
 
         welcome_message = @client.create_welcome_message("A second welcome message with a name", "welcome_message_name")
         expect(welcome_message).to be_a Twitter::DirectMessages::WelcomeMessage
@@ -35,7 +35,7 @@ describe Twitter::REST::DirectMessages::WelcomeMessages do
       end
 
       it "sets the entities" do
-        stub_post("/1.1/direct_messages/welcome_messages/new.json").to_return(body: fixture("welcome_message_with_entities.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_post("/2/direct_messages/welcome_messages/new.json").to_return(body: fixture("welcome_message_with_entities.json"), headers: {content_type: "application/json; charset=utf-8"})
         welcome_message = @client.create_welcome_message("Url: http://example.com/expanded and #hashtag and @TwitterSupport")
         expect(welcome_message.hashtags).to be_an(Array)
         expect(welcome_message.hashtags.first).to be_a(Twitter::Entity::Hashtag)
@@ -55,12 +55,12 @@ describe Twitter::REST::DirectMessages::WelcomeMessages do
 
     describe "#destroy_welcome_message" do
       before do
-        stub_delete("/1.1/direct_messages/welcome_messages/destroy.json?id=1073273784206012421").to_return(status: 204, body: "", headers: {content_type: "application/json; charset=utf-8"})
+        stub_delete("/2/direct_messages/welcome_messages/destroy.json?id=1073273784206012421").to_return(status: 204, body: "", headers: {content_type: "application/json; charset=utf-8"})
       end
 
       it "requests the correct resource" do
         @client.destroy_welcome_message(1_073_273_784_206_012_421)
-        expect(a_delete("/1.1/direct_messages/welcome_messages/destroy.json?id=1073273784206012421")).to have_been_made
+        expect(a_delete("/2/direct_messages/welcome_messages/destroy.json?id=1073273784206012421")).to have_been_made
       end
 
       it "returns nil" do
@@ -71,12 +71,12 @@ describe Twitter::REST::DirectMessages::WelcomeMessages do
 
     describe "#update_welcome_message" do
       before do
-        stub_put("/1.1/direct_messages/welcome_messages/update.json?id=1073273784206012421").to_return(body: fixture("welcome_message.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_put("/2/direct_messages/welcome_messages/update.json?id=1073273784206012421").to_return(body: fixture("welcome_message.json"), headers: {content_type: "application/json; charset=utf-8"})
       end
 
       it "requests the correct resource" do
         @client.update_welcome_message(1_073_273_784_206_012_421, "Welcome message text")
-        expect(a_put("/1.1/direct_messages/welcome_messages/update.json?id=1073273784206012421")).to have_been_made
+        expect(a_put("/2/direct_messages/welcome_messages/update.json?id=1073273784206012421")).to have_been_made
       end
 
       it "returns the updated welcome message" do
@@ -89,12 +89,12 @@ describe Twitter::REST::DirectMessages::WelcomeMessages do
 
     describe "#welcome_message" do
       before do
-        stub_get("/1.1/direct_messages/welcome_messages/show.json?id=1073273784206012421").to_return(body: fixture("welcome_message.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/2/direct_messages/welcome_messages/show.json?id=1073273784206012421").to_return(body: fixture("welcome_message.json"), headers: {content_type: "application/json; charset=utf-8"})
       end
 
       it "requests the correct resource" do
         @client.welcome_message(1_073_273_784_206_012_421)
-        expect(a_get("/1.1/direct_messages/welcome_messages/show.json?id=1073273784206012421")).to have_been_made
+        expect(a_get("/2/direct_messages/welcome_messages/show.json?id=1073273784206012421")).to have_been_made
       end
 
       it "returns the requested welcome message" do
@@ -107,12 +107,12 @@ describe Twitter::REST::DirectMessages::WelcomeMessages do
 
     describe "#welcome_message_list" do
       before do
-        stub_get("/1.1/direct_messages/welcome_messages/list.json?count=50").to_return(body: fixture("welcome_messages.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/2/direct_messages/welcome_messages/list.json?count=50").to_return(body: fixture("welcome_messages.json"), headers: {content_type: "application/json; charset=utf-8"})
       end
 
       it "requests the correct resource" do
         @client.welcome_message_list
-        expect(a_get("/1.1/direct_messages/welcome_messages/list.json?count=50")).to have_been_made
+        expect(a_get("/2/direct_messages/welcome_messages/list.json?count=50")).to have_been_made
       end
 
       it "returns the welcome message list" do
@@ -129,12 +129,12 @@ describe Twitter::REST::DirectMessages::WelcomeMessages do
   context "Welcome Message Rules" do
     describe "#create_welcome_message_rule" do
       before do
-        stub_post("/1.1/direct_messages/welcome_messages/rules/new.json").to_return(body: fixture("welcome_message_rule.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_post("/2/direct_messages/welcome_messages/rules/new.json").to_return(body: fixture("welcome_message_rule.json"), headers: {content_type: "application/json; charset=utf-8"})
       end
 
       it "requests the correct resource" do
         @client.create_welcome_message_rule(1_073_273_784_206_012_421)
-        expect(a_post("/1.1/direct_messages/welcome_messages/rules/new.json")).to have_been_made
+        expect(a_post("/2/direct_messages/welcome_messages/rules/new.json")).to have_been_made
       end
 
       it "returns the created welcome message rule" do
@@ -147,12 +147,12 @@ describe Twitter::REST::DirectMessages::WelcomeMessages do
 
     describe "#destroy_welcome_message_rule" do
       before do
-        stub_delete("/1.1/direct_messages/welcome_messages/rules/destroy.json?id=1073279057817731072").to_return(status: 204, body: "", headers: {content_type: "application/json; charset=utf-8"})
+        stub_delete("/2/direct_messages/welcome_messages/rules/destroy.json?id=1073279057817731072").to_return(status: 204, body: "", headers: {content_type: "application/json; charset=utf-8"})
       end
 
       it "requests the correct resource" do
         @client.destroy_welcome_message_rule(1_073_279_057_817_731_072)
-        expect(a_delete("/1.1/direct_messages/welcome_messages/rules/destroy.json?id=1073279057817731072")).to have_been_made
+        expect(a_delete("/2/direct_messages/welcome_messages/rules/destroy.json?id=1073279057817731072")).to have_been_made
       end
 
       it "returns nil" do
@@ -163,12 +163,12 @@ describe Twitter::REST::DirectMessages::WelcomeMessages do
 
     describe "#welcome_message_rule" do
       before do
-        stub_get("/1.1/direct_messages/welcome_messages/rules/show.json?id=1073279057817731072").to_return(body: fixture("welcome_message_rule.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/2/direct_messages/welcome_messages/rules/show.json?id=1073279057817731072").to_return(body: fixture("welcome_message_rule.json"), headers: {content_type: "application/json; charset=utf-8"})
       end
 
       it "requests the correct resource" do
         @client.welcome_message_rule(1_073_279_057_817_731_072)
-        expect(a_get("/1.1/direct_messages/welcome_messages/rules/show.json?id=1073279057817731072")).to have_been_made
+        expect(a_get("/2/direct_messages/welcome_messages/rules/show.json?id=1073279057817731072")).to have_been_made
       end
 
       it "returns the requested welcome message rule" do
@@ -181,12 +181,12 @@ describe Twitter::REST::DirectMessages::WelcomeMessages do
 
     describe "#welcome_message_rule_list" do
       before do
-        stub_get("/1.1/direct_messages/welcome_messages/rules/list.json?count=50").to_return(body: fixture("welcome_message_rules.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/2/direct_messages/welcome_messages/rules/list.json?count=50").to_return(body: fixture("welcome_message_rules.json"), headers: {content_type: "application/json; charset=utf-8"})
       end
 
       it "requests the correct resource" do
         @client.welcome_message_rule_list
-        expect(a_get("/1.1/direct_messages/welcome_messages/rules/list.json?count=50")).to have_been_made
+        expect(a_get("/2/direct_messages/welcome_messages/rules/list.json?count=50")).to have_been_made
       end
 
       it "returns the welcome message rule list" do

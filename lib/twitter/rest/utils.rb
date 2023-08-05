@@ -130,7 +130,7 @@ module Twitter
       # @return [Array<Twitter::User>]
       def users_from_response(request_method, path, args)
         arguments = Twitter::Arguments.new(args)
-        merge_user!(arguments.options, arguments.pop || user_id) unless arguments.options[:user_id] || arguments.options[:screen_name]
+        merge_user!(arguments.options, arguments.pop || user_id) unless arguments.options[:user_id] || arguments.options[:username]
         perform_request_with_objects(request_method, path, arguments.options, Twitter::User)
       end
 
@@ -175,7 +175,7 @@ module Twitter
       # @return [Twitter::Cursor]
       def cursor_from_response_with_user(collection_name, klass, path, args)
         arguments = Twitter::Arguments.new(args)
-        merge_user!(arguments.options, arguments.pop || user_id) unless arguments.options[:user_id] || arguments.options[:screen_name]
+        merge_user!(arguments.options, arguments.pop || user_id) unless arguments.options[:user_id] || arguments.options[:username]
         perform_get_with_cursor(path, arguments.options, collection_name, klass)
       end
 
@@ -210,9 +210,10 @@ module Twitter
         when Integer
           set_compound_key("user_id", user, hash, prefix)
         when String
-          set_compound_key("screen_name", user, hash, prefix)
+          # mw: take the original hash, and just adds a [:username] key with value = user
+          set_compound_key("usernames", user, hash, prefix)
         when URI, Addressable::URI
-          set_compound_key("screen_name", user.path.split("/").last, hash, prefix)
+          set_compound_key("usernames", user.path.split("/").last, hash, prefix)
         when Twitter::User
           set_compound_key("user_id", user.id, hash, prefix)
         end
@@ -227,7 +228,7 @@ module Twitter
       # Take a multiple users and merge them into the hash with the correct keys
       #
       # @param hash [Hash]
-      # @param users [Enumerable<Integer, String, Twitter::User>] A collection of Twitter user IDs, screen_names, or objects.
+      # @param users [Enumerable<Integer, String, Twitter::User>] A collection of Twitter user IDs, usernames, or objects.
       # @return [Hash]
       def merge_users(hash, users)
         copy = hash.dup
@@ -238,26 +239,26 @@ module Twitter
       # Take a multiple users and merge them into the hash with the correct keys
       #
       # @param hash [Hash]
-      # @param users [Enumerable<Integer, String, URI, Twitter::User>] A collection of Twitter user IDs, screen_names, URIs, or objects.
+      # @param users [Enumerable<Integer, String, URI, Twitter::User>] A collection of Twitter user IDs, usernames, URIs, or objects.
       # @return [Hash]
       def merge_users!(hash, users)
-        user_ids, screen_names = collect_users(users.uniq)
+        user_ids, usernames = collect_users(users.uniq)
         hash[:user_id] = user_ids.join(",") unless user_ids.empty?
-        hash[:screen_name] = screen_names.join(",") unless screen_names.empty?
+        hash[:usernames] = usernames.join(",") unless usernames.empty?
       end
 
       def collect_users(users) # rubocop:disable Metrics/MethodLength
         user_ids = []
-        screen_names = []
+        usernames = []
         users.each do |user|
           case user
           when Integer               then user_ids << user
           when Twitter::User         then user_ids << user.id
-          when String                then screen_names << user
-          when URI, Addressable::URI then screen_names << user.path.split("/").last
+          when String                then usernames << user
+          when URI, Addressable::URI then usernames << user.path.split("/").last
           end
         end
-        [user_ids, screen_names]
+        [user_ids, usernames]
       end
     end
   end

@@ -5,7 +5,7 @@ module Twitter
     # @return [Hash]
     attr_reader :sleep_time, :time_zone
     # @return [String]
-    attr_reader :language, :screen_name
+    attr_reader :language, :username
 
     object_attr_reader :Place, :trend_location
     predicate_attr_reader :allow_contributor_request,

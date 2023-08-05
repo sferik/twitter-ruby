@@ -17,7 +17,7 @@ module Twitter
       # @param options [Hash] A customizable set of options.
       # @return [Twitter::Place] The requested place.
       def place(place_id, options = {})
-        perform_get_with_object("/1.1/geo/id/#{place_id}.json", options, Twitter::Place)
+        perform_get_with_object("/2/geo/id/#{place_id}.json", options, Twitter::Place)
       end
 
       # Searches for up to 20 places that can be used as a place_id
@@ -35,7 +35,7 @@ module Twitter
       # @option options [Integer] :max_results A hint as to the number of results to return. This does not guarantee that the number of results returned will equal max_results, but instead informs how many "nearby" results to return. Ideally, only pass in the number of places you intend to display to the user here.
       # @return [Array<Twitter::Place>]
       def reverse_geocode(options = {})
-        perform_get_with_object("/1.1/geo/reverse_geocode.json", options, Twitter::GeoResults)
+        perform_get_with_object("/2/geo/reverse_geocode.json", options, Twitter::GeoResults)
       end
 
       # Search for places that can be attached to a {Twitter::REST::Tweets#update}
@@ -56,7 +56,7 @@ module Twitter
       # @option options [String] :"attribute:street_address" This option searches for places which have this given street address. There are other well-known and application-specific attributes available. Custom attributes are also permitted.
       # @return [Array<Twitter::Place>]
       def geo_search(options = {})
-        perform_get_with_object("/1.1/geo/search.json", options, Twitter::GeoResults)
+        perform_get_with_object("/2/geo/search.json", options, Twitter::GeoResults)
       end
       alias places_nearby geo_search
 
@@ -75,7 +75,7 @@ module Twitter
       # @option options [String] :"attribute:street_address" This option searches for places which have this given street address. There are other well-known and application-specific attributes available. Custom attributes are also permitted.
       # @return [Array<Twitter::Place>]
       def similar_places(options = {})
-        perform_get_with_object("/1.1/geo/similar_places.json", options, Twitter::GeoResults)
+        perform_get_with_object("/2/geo/similar_places.json", options, Twitter::GeoResults)
       end
       alias places_similar similar_places
     end

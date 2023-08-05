@@ -7,14 +7,14 @@ describe Twitter::REST::Users do
 
   describe "#settings" do
     before do
-      stub_get("/1.1/account/settings.json").to_return(body: fixture("settings.json"), headers: {content_type: "application/json; charset=utf-8"})
-      stub_post("/1.1/account/settings.json").with(body: {trend_location_woeid: "23424803"}).to_return(body: fixture("settings.json"), headers: {content_type: "application/json; charset=utf-8"})
+      stub_get("/2/account/settings.json").to_return(body: fixture("settings.json"), headers: {content_type: "application/json; charset=utf-8"})
+      stub_post("/2/account/settings.json").with(body: {trend_location_woeid: "23424803"}).to_return(body: fixture("settings.json"), headers: {content_type: "application/json; charset=utf-8"})
     end
 
     context "on GET" do
       it "requests the correct resource" do
         @client.settings
-        expect(a_get("/1.1/account/settings.json")).to have_been_made
+        expect(a_get("/2/account/settings.json")).to have_been_made
       end
 
       it "returns settings" do
@@ -27,7 +27,7 @@ describe Twitter::REST::Users do
     context "on POST" do
       it "requests the correct resource" do
         @client.settings(trend_location_woeid: "23424803")
-        expect(a_post("/1.1/account/settings.json").with(body: {trend_location_woeid: "23424803"})).to have_been_made
+        expect(a_post("/2/account/settings.json").with(body: {trend_location_woeid: "23424803"})).to have_been_made
       end
 
       it "returns settings" do
@@ -40,12 +40,12 @@ describe Twitter::REST::Users do
 
   describe "#verify_credentials" do
     before do
-      stub_get("/1.1/account/verify_credentials.json").to_return(body: fixture("sferik.json"), headers: {content_type: "application/json; charset=utf-8"})
+      stub_get("/2/account/verify_credentials.json").to_return(body: fixture("sferik.json"), headers: {content_type: "application/json; charset=utf-8"})
     end
 
     it "requests the correct resource" do
       @client.verify_credentials
-      expect(a_get("/1.1/account/verify_credentials.json")).to have_been_made
+      expect(a_get("/2/account/verify_credentials.json")).to have_been_made
     end
 
     it "returns the requesting user" do
@@ -57,12 +57,12 @@ describe Twitter::REST::Users do
 
   describe "#update_delivery_device" do
     before do
-      stub_post("/1.1/account/update_delivery_device.json").with(body: {device: "sms"}).to_return(body: fixture("sferik.json"), headers: {content_type: "application/json; charset=utf-8"})
+      stub_post("/2/account/update_delivery_device.json").with(body: {device: "sms"}).to_return(body: fixture("sferik.json"), headers: {content_type: "application/json; charset=utf-8"})
     end
 
     it "requests the correct resource" do
       @client.update_delivery_device("sms")
-      expect(a_post("/1.1/account/update_delivery_device.json").with(body: {device: "sms"})).to have_been_made
+      expect(a_post("/2/account/update_delivery_device.json").with(body: {device: "sms"})).to have_been_made
     end
 
     it "returns a user" do
@@ -74,12 +74,12 @@ describe Twitter::REST::Users do
 
   describe "#update_profile" do
     before do
-      stub_post("/1.1/account/update_profile.json").with(body: {url: "http://github.com/sferik/"}).to_return(body: fixture("sferik.json"), headers: {content_type: "application/json; charset=utf-8"})
+      stub_post("/2/account/update_profile.json").with(body: {url: "http://github.com/sferik/"}).to_return(body: fixture("sferik.json"), headers: {content_type: "application/json; charset=utf-8"})
     end
 
     it "requests the correct resource" do
       @client.update_profile(url: "http://github.com/sferik/")
-      expect(a_post("/1.1/account/update_profile.json").with(body: {url: "http://github.com/sferik/"})).to have_been_made
+      expect(a_post("/2/account/update_profile.json").with(body: {url: "http://github.com/sferik/"})).to have_been_made
     end
 
     it "returns a user" do
@@ -91,12 +91,12 @@ describe Twitter::REST::Users do
 
   describe "#update_profile_background_image" do
     before do
-      stub_post("/1.1/account/update_profile_background_image.json").to_return(body: fixture("sferik.json"), headers: {content_type: "application/json; charset=utf-8"})
+      stub_post("/2/account/update_profile_background_image.json").to_return(body: fixture("sferik.json"), headers: {content_type: "application/json; charset=utf-8"})
     end
 
     it "requests the correct resource" do
       @client.update_profile_background_image(fixture("we_concept_bg2.png"))
-      expect(a_post("/1.1/account/update_profile_background_image.json")).to have_been_made
+      expect(a_post("/2/account/update_profile_background_image.json")).to have_been_made
     end
 
     it "returns a user" do
@@ -108,12 +108,12 @@ describe Twitter::REST::Users do
 
   describe "#update_profile_image" do
     before do
-      stub_post("/1.1/account/update_profile_image.json").to_return(body: fixture("sferik.json"), headers: {content_type: "application/json; charset=utf-8"})
+      stub_post("/2/account/update_profile_image.json").to_return(body: fixture("sferik.json"), headers: {content_type: "application/json; charset=utf-8"})
     end
 
     it "requests the correct resource" do
       @client.update_profile_image(fixture("me.jpeg"))
-      expect(a_post("/1.1/account/update_profile_image.json")).to have_been_made
+      expect(a_post("/2/account/update_profile_image.json")).to have_been_made
     end
 
     it "returns a user" do
@@ -126,12 +126,12 @@ describe Twitter::REST::Users do
   describe "#suggestions" do
     context "with a category slug passed" do
       before do
-        stub_get("/1.1/users/suggestions/art-design.json").to_return(body: fixture("category.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/2/users/suggestions/art-design.json").to_return(body: fixture("category.json"), headers: {content_type: "application/json; charset=utf-8"})
       end
 
       it "requests the correct resource" do
         @client.suggestions("art-design")
-        expect(a_get("/1.1/users/suggestions/art-design.json")).to have_been_made
+        expect(a_get("/2/users/suggestions/art-design.json")).to have_been_made
       end
 
       it "returns the users in a given category of the Twitter suggested user list" do
@@ -145,12 +145,12 @@ describe Twitter::REST::Users do
 
     context "without arguments passed" do
       before do
-        stub_get("/1.1/users/suggestions.json").to_return(body: fixture("suggestions.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/2/users/suggestions.json").to_return(body: fixture("suggestions.json"), headers: {content_type: "application/json; charset=utf-8"})
       end
 
       it "requests the correct resource" do
         @client.suggestions
-        expect(a_get("/1.1/users/suggestions.json")).to have_been_made
+        expect(a_get("/2/users/suggestions.json")).to have_been_made
       end
 
       it "returns the list of suggested user categories" do
@@ -164,12 +164,12 @@ describe Twitter::REST::Users do
 
   describe "#suggest_users" do
     before do
-      stub_get("/1.1/users/suggestions/art-design/members.json").to_return(body: fixture("members.json"), headers: {content_type: "application/json; charset=utf-8"})
+      stub_get("/2/users/suggestions/art-design/members.json").to_return(body: fixture("members.json"), headers: {content_type: "application/json; charset=utf-8"})
     end
 
     it "requests the correct resource" do
       @client.suggest_users("art-design")
-      expect(a_get("/1.1/users/suggestions/art-design/members.json")).to have_been_made
+      expect(a_get("/2/users/suggestions/art-design/members.json")).to have_been_made
     end
 
     it "returns users in a given category of the Twitter suggested user list and return their most recent status if they are not a protected user" do
@@ -182,12 +182,12 @@ describe Twitter::REST::Users do
 
   describe "#blocked" do
     before do
-      stub_get("/1.1/blocks/list.json").with(query: {cursor: "-1"}).to_return(body: fixture("users_list.json"), headers: {content_type: "application/json; charset=utf-8"})
+      stub_get("/2/blocks/list.json").with(query: {cursor: "-1"}).to_return(body: fixture("users_list.json"), headers: {content_type: "application/json; charset=utf-8"})
     end
 
     it "requests the correct resource" do
       @client.blocked
-      expect(a_get("/1.1/blocks/list.json").with(query: {cursor: "-1"})).to have_been_made
+      expect(a_get("/2/blocks/list.json").with(query: {cursor: "-1"})).to have_been_made
     end
 
     it "returns an array of user objects that the authenticating user is blocking" do
@@ -199,25 +199,25 @@ describe Twitter::REST::Users do
 
     context "with each" do
       before do
-        stub_get("/1.1/blocks/list.json").with(query: {cursor: "1322801608223717003"}).to_return(body: fixture("users_list2.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/2/blocks/list.json").with(query: {cursor: "1322801608223717003"}).to_return(body: fixture("users_list2.json"), headers: {content_type: "application/json; charset=utf-8"})
       end
 
       it "requests the correct resource" do
         @client.blocked.each {}
-        expect(a_get("/1.1/blocks/list.json").with(query: {cursor: "-1"})).to have_been_made
-        expect(a_get("/1.1/blocks/list.json").with(query: {cursor: "1322801608223717003"})).to have_been_made
+        expect(a_get("/2/blocks/list.json").with(query: {cursor: "-1"})).to have_been_made
+        expect(a_get("/2/blocks/list.json").with(query: {cursor: "1322801608223717003"})).to have_been_made
       end
     end
   end
 
   describe "#blocked_ids" do
     before do
-      stub_get("/1.1/blocks/ids.json").with(query: {cursor: "-1"}).to_return(body: fixture("ids_list.json"), headers: {content_type: "application/json; charset=utf-8"})
+      stub_get("/2/blocks/ids.json").with(query: {cursor: "-1"}).to_return(body: fixture("ids_list.json"), headers: {content_type: "application/json; charset=utf-8"})
     end
 
     it "requests the correct resource" do
       @client.blocked_ids
-      expect(a_get("/1.1/blocks/ids.json").with(query: {cursor: "-1"})).to have_been_made
+      expect(a_get("/2/blocks/ids.json").with(query: {cursor: "-1"})).to have_been_made
     end
 
     it "returns an array of numeric user IDs the authenticating user is blocking" do
@@ -228,13 +228,13 @@ describe Twitter::REST::Users do
 
     context "with each" do
       before do
-        stub_get("/1.1/blocks/ids.json").with(query: {cursor: "1305102810874389703"}).to_return(body: fixture("ids_list2.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/2/blocks/ids.json").with(query: {cursor: "1305102810874389703"}).to_return(body: fixture("ids_list2.json"), headers: {content_type: "application/json; charset=utf-8"})
       end
 
       it "requests the correct resource" do
         @client.blocked_ids.each {}
-        expect(a_get("/1.1/blocks/ids.json").with(query: {cursor: "-1"})).to have_been_made
-        expect(a_get("/1.1/blocks/ids.json").with(query: {cursor: "1305102810874389703"})).to have_been_made
+        expect(a_get("/2/blocks/ids.json").with(query: {cursor: "-1"})).to have_been_made
+        expect(a_get("/2/blocks/ids.json").with(query: {cursor: "1305102810874389703"})).to have_been_made
       end
     end
   end
@@ -242,17 +242,17 @@ describe Twitter::REST::Users do
   describe "#block?" do
     context "with a screen name passed" do
       before do
-        stub_get("/1.1/blocks/ids.json").with(query: {cursor: "-1"}).to_return(body: fixture("ids_list.json"), headers: {content_type: "application/json; charset=utf-8"})
-        stub_get("/1.1/blocks/ids.json").with(query: {cursor: "1305102810874389703"}).to_return(body: fixture("ids_list2.json"), headers: {content_type: "application/json; charset=utf-8"})
-        stub_get("/1.1/users/show.json").with(query: {screen_name: "pengwynn"}).to_return(body: fixture("pengwynn.json"), headers: {content_type: "application/json; charset=utf-8"})
-        stub_get("/1.1/users/show.json").with(query: {screen_name: "sferik"}).to_return(body: fixture("sferik.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/2/blocks/ids.json").with(query: {cursor: "-1"}).to_return(body: fixture("ids_list.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/2/blocks/ids.json").with(query: {cursor: "1305102810874389703"}).to_return(body: fixture("ids_list2.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/2/users/show.json").with(query: {screen_name: "pengwynn"}).to_return(body: fixture("pengwynn.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/2/users/show.json").with(query: {screen_name: "sferik"}).to_return(body: fixture("sferik.json"), headers: {content_type: "application/json; charset=utf-8"})
       end
 
       it "requests the correct resource" do
         @client.block?("sferik")
-        expect(a_get("/1.1/blocks/ids.json").with(query: {cursor: "-1"})).to have_been_made
-        expect(a_get("/1.1/blocks/ids.json").with(query: {cursor: "1305102810874389703"})).to have_been_made
-        expect(a_get("/1.1/users/show.json").with(query: {screen_name: "sferik"})).to have_been_made
+        expect(a_get("/2/blocks/ids.json").with(query: {cursor: "-1"})).to have_been_made
+        expect(a_get("/2/blocks/ids.json").with(query: {cursor: "1305102810874389703"})).to have_been_made
+        expect(a_get("/2/users/show.json").with(query: {screen_name: "sferik"})).to have_been_made
       end
 
       it "returns true if block exists" do
@@ -268,40 +268,40 @@ describe Twitter::REST::Users do
 
     context "with a user ID passed" do
       before do
-        stub_get("/1.1/blocks/ids.json").with(query: {cursor: "-1"}).to_return(body: fixture("ids_list.json"), headers: {content_type: "application/json; charset=utf-8"})
-        stub_get("/1.1/blocks/ids.json").with(query: {cursor: "1305102810874389703"}).to_return(body: fixture("ids_list2.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/2/blocks/ids.json").with(query: {cursor: "-1"}).to_return(body: fixture("ids_list.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/2/blocks/ids.json").with(query: {cursor: "1305102810874389703"}).to_return(body: fixture("ids_list2.json"), headers: {content_type: "application/json; charset=utf-8"})
       end
 
       it "requests the correct resources" do
         @client.block?(7_505_382)
-        expect(a_get("/1.1/blocks/ids.json").with(query: {cursor: "-1"})).to have_been_made
-        expect(a_get("/1.1/blocks/ids.json").with(query: {cursor: "1305102810874389703"})).to have_been_made
+        expect(a_get("/2/blocks/ids.json").with(query: {cursor: "-1"})).to have_been_made
+        expect(a_get("/2/blocks/ids.json").with(query: {cursor: "1305102810874389703"})).to have_been_made
       end
     end
 
     context "with a user object passed" do
       before do
-        stub_get("/1.1/blocks/ids.json").with(query: {cursor: "-1"}).to_return(body: fixture("ids_list.json"), headers: {content_type: "application/json; charset=utf-8"})
-        stub_get("/1.1/blocks/ids.json").with(query: {cursor: "1305102810874389703"}).to_return(body: fixture("ids_list2.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/2/blocks/ids.json").with(query: {cursor: "-1"}).to_return(body: fixture("ids_list.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/2/blocks/ids.json").with(query: {cursor: "1305102810874389703"}).to_return(body: fixture("ids_list2.json"), headers: {content_type: "application/json; charset=utf-8"})
       end
 
       it "requests the correct resources" do
         user = Twitter::User.new(id: "7505382")
         @client.block?(user)
-        expect(a_get("/1.1/blocks/ids.json").with(query: {cursor: "-1"})).to have_been_made
-        expect(a_get("/1.1/blocks/ids.json").with(query: {cursor: "1305102810874389703"})).to have_been_made
+        expect(a_get("/2/blocks/ids.json").with(query: {cursor: "-1"})).to have_been_made
+        expect(a_get("/2/blocks/ids.json").with(query: {cursor: "1305102810874389703"})).to have_been_made
       end
     end
   end
 
   describe "#block" do
     before do
-      stub_post("/1.1/blocks/create.json").with(body: {screen_name: "sferik"}).to_return(body: fixture("sferik.json"), headers: {content_type: "application/json; charset=utf-8"})
+      stub_post("/2/blocks/create.json").with(body: {screen_name: "sferik"}).to_return(body: fixture("sferik.json"), headers: {content_type: "application/json; charset=utf-8"})
     end
 
     it "requests the correct resource" do
       @client.block("sferik")
-      expect(a_post("/1.1/blocks/create.json")).to have_been_made
+      expect(a_post("/2/blocks/create.json")).to have_been_made
     end
 
     it "returns an array of blocked users" do
@@ -314,12 +314,12 @@ describe Twitter::REST::Users do
 
   describe "#unblock" do
     before do
-      stub_post("/1.1/blocks/destroy.json").with(body: {screen_name: "sferik"}).to_return(body: fixture("sferik.json"), headers: {content_type: "application/json; charset=utf-8"})
+      stub_post("/2/blocks/destroy.json").with(body: {screen_name: "sferik"}).to_return(body: fixture("sferik.json"), headers: {content_type: "application/json; charset=utf-8"})
     end
 
     it "requests the correct resource" do
       @client.unblock("sferik")
-      expect(a_post("/1.1/blocks/destroy.json").with(body: {screen_name: "sferik"})).to have_been_made
+      expect(a_post("/2/blocks/destroy.json").with(body: {screen_name: "sferik"})).to have_been_made
     end
 
     it "returns an array of un-blocked users" do
@@ -333,12 +333,12 @@ describe Twitter::REST::Users do
   describe "#users" do
     context "with screen names passed" do
       before do
-        stub_get("/1.1/users/lookup.json").with(query: {screen_name: "sferik,pengwynn"}).to_return(body: fixture("users.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/2/users/lookup.json").with(query: {screen_name: "sferik,pengwynn"}).to_return(body: fixture("users.json"), headers: {content_type: "application/json; charset=utf-8"})
       end
 
       it "requests the correct resource" do
         @client.users("sferik", "pengwynn")
-        expect(a_get("/1.1/users/lookup.json").with(query: {screen_name: "sferik,pengwynn"})).to have_been_made
+        expect(a_get("/2/users/lookup.json").with(query: {screen_name: "sferik,pengwynn"})).to have_been_made
       end
 
       it "returns up to 100 users worth of extended information" do
@@ -353,54 +353,54 @@ describe Twitter::REST::Users do
           sferik = URI.parse("https://twitter.com/sferik")
           pengwynn = URI.parse("https://twitter.com/pengwynn")
           @client.users(sferik, pengwynn)
-          expect(a_get("/1.1/users/lookup.json").with(query: {screen_name: "sferik,pengwynn"})).to have_been_made
+          expect(a_get("/2/users/lookup.json").with(query: {screen_name: "sferik,pengwynn"})).to have_been_made
         end
       end
     end
 
     context "with numeric screen names passed" do
       before do
-        stub_get("/1.1/users/lookup.json").with(query: {screen_name: "0,311"}).to_return(body: fixture("users.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/2/users/lookup.json").with(query: {screen_name: "0,311"}).to_return(body: fixture("users.json"), headers: {content_type: "application/json; charset=utf-8"})
       end
 
       it "requests the correct resource" do
         @client.users("0", "311")
-        expect(a_get("/1.1/users/lookup.json").with(query: {screen_name: "0,311"})).to have_been_made
+        expect(a_get("/2/users/lookup.json").with(query: {screen_name: "0,311"})).to have_been_made
       end
     end
 
     context "with user IDs passed" do
       before do
-        stub_get("/1.1/users/lookup.json").with(query: {user_id: "7505382,14100886"}).to_return(body: fixture("users.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/2/users/lookup.json").with(query: {user_id: "7505382,14100886"}).to_return(body: fixture("users.json"), headers: {content_type: "application/json; charset=utf-8"})
       end
 
       it "requests the correct resource" do
         @client.users(7_505_382, 14_100_886)
-        expect(a_get("/1.1/users/lookup.json").with(query: {user_id: "7505382,14100886"})).to have_been_made
+        expect(a_get("/2/users/lookup.json").with(query: {user_id: "7505382,14100886"})).to have_been_made
       end
     end
 
     context "with both screen names and user IDs passed" do
       before do
-        stub_get("/1.1/users/lookup.json").with(query: {screen_name: "sferik", user_id: "14100886"}).to_return(body: fixture("users.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/2/users/lookup.json").with(query: {screen_name: "sferik", user_id: "14100886"}).to_return(body: fixture("users.json"), headers: {content_type: "application/json; charset=utf-8"})
       end
 
       it "requests the correct resource" do
         @client.users("sferik", 14_100_886)
-        expect(a_get("/1.1/users/lookup.json").with(query: {screen_name: "sferik", user_id: "14100886"})).to have_been_made
+        expect(a_get("/2/users/lookup.json").with(query: {screen_name: "sferik", user_id: "14100886"})).to have_been_made
       end
     end
 
     context "with user objects passed" do
       before do
-        stub_get("/1.1/users/lookup.json").with(query: {user_id: "7505382,14100886"}).to_return(body: fixture("users.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/2/users/lookup.json").with(query: {user_id: "7505382,14100886"}).to_return(body: fixture("users.json"), headers: {content_type: "application/json; charset=utf-8"})
       end
 
       it "requests the correct resource" do
         user1 = Twitter::User.new(id: 7_505_382)
         user2 = Twitter::User.new(id: 14_100_886)
         @client.users(user1, user2)
-        expect(a_get("/1.1/users/lookup.json").with(query: {user_id: "7505382,14100886"})).to have_been_made
+        expect(a_get("/2/users/lookup.json").with(query: {user_id: "7505382,14100886"})).to have_been_made
       end
     end
   end
@@ -408,12 +408,12 @@ describe Twitter::REST::Users do
   describe "#user" do
     context "with a screen name passed" do
       before do
-        stub_get("/1.1/users/show.json").with(query: {screen_name: "sferik"}).to_return(body: fixture("sferik.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/2/users/show.json").with(query: {screen_name: "sferik"}).to_return(body: fixture("sferik.json"), headers: {content_type: "application/json; charset=utf-8"})
       end
 
       it "requests the correct resource" do
         @client.user("sferik")
-        expect(a_get("/1.1/users/show.json").with(query: {screen_name: "sferik"})).to have_been_made
+        expect(a_get("/2/users/show.json").with(query: {screen_name: "sferik"})).to have_been_made
       end
 
       it "returns extended information of a given user" do
@@ -425,46 +425,46 @@ describe Twitter::REST::Users do
 
     context 'with a screen name including "@" passed' do
       before do
-        stub_get("/1.1/users/show.json").with(query: {screen_name: "@sferik"}).to_return(body: fixture("sferik.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/2/users/show.json").with(query: {screen_name: "@sferik"}).to_return(body: fixture("sferik.json"), headers: {content_type: "application/json; charset=utf-8"})
       end
 
       it "requests the correct resource" do
         @client.user("@sferik")
-        expect(a_get("/1.1/users/show.json").with(query: {screen_name: "@sferik"})).to have_been_made
+        expect(a_get("/2/users/show.json").with(query: {screen_name: "@sferik"})).to have_been_made
       end
     end
 
     context "with a numeric screen name passed" do
       before do
-        stub_get("/1.1/users/show.json").with(query: {screen_name: "0"}).to_return(body: fixture("sferik.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/2/users/show.json").with(query: {screen_name: "0"}).to_return(body: fixture("sferik.json"), headers: {content_type: "application/json; charset=utf-8"})
       end
 
       it "requests the correct resource" do
         @client.user("0")
-        expect(a_get("/1.1/users/show.json").with(query: {screen_name: "0"})).to have_been_made
+        expect(a_get("/2/users/show.json").with(query: {screen_name: "0"})).to have_been_made
       end
     end
 
     context "with a user ID passed" do
       before do
-        stub_get("/1.1/users/show.json").with(query: {user_id: "7505382"}).to_return(body: fixture("sferik.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/2/users/show.json").with(query: {user_id: "7505382"}).to_return(body: fixture("sferik.json"), headers: {content_type: "application/json; charset=utf-8"})
       end
 
       it "requests the correct resource" do
         @client.user(7_505_382)
-        expect(a_get("/1.1/users/show.json").with(query: {user_id: "7505382"})).to have_been_made
+        expect(a_get("/2/users/show.json").with(query: {user_id: "7505382"})).to have_been_made
       end
     end
 
     context "with a user object passed" do
       before do
-        stub_get("/1.1/users/show.json").with(query: {user_id: "7505382"}).to_return(body: fixture("sferik.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/2/users/show.json").with(query: {user_id: "7505382"}).to_return(body: fixture("sferik.json"), headers: {content_type: "application/json; charset=utf-8"})
       end
 
       it "requests the correct resource" do
         user = Twitter::User.new(id: 7_505_382)
         @client.user(user)
-        expect(a_get("/1.1/users/show.json").with(query: {user_id: "7505382"})).to have_been_made
+        expect(a_get("/2/users/show.json").with(query: {user_id: "7505382"})).to have_been_made
       end
     end
   end
@@ -472,36 +472,36 @@ describe Twitter::REST::Users do
   context "without a screen name or user ID passed" do
     context "without options passed" do
       before do
-        stub_get("/1.1/account/verify_credentials.json").to_return(body: fixture("sferik.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/2/account/verify_credentials.json").to_return(body: fixture("sferik.json"), headers: {content_type: "application/json; charset=utf-8"})
       end
 
       it "requests the correct resource" do
         @client.user
-        expect(a_get("/1.1/account/verify_credentials.json")).to have_been_made
+        expect(a_get("/2/account/verify_credentials.json")).to have_been_made
       end
     end
 
     context "with options passed" do
       before do
-        stub_get("/1.1/account/verify_credentials.json").with(query: {skip_status: "true"}).to_return(body: fixture("sferik.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/2/account/verify_credentials.json").with(query: {skip_status: "true"}).to_return(body: fixture("sferik.json"), headers: {content_type: "application/json; charset=utf-8"})
       end
 
       it "requests the correct resource" do
         @client.user(skip_status: true)
-        expect(a_get("/1.1/account/verify_credentials.json").with(query: {skip_status: "true"})).to have_been_made
+        expect(a_get("/2/account/verify_credentials.json").with(query: {skip_status: "true"})).to have_been_made
       end
     end
   end
 
   describe "#user?" do
     before do
-      stub_get("/1.1/users/show.json").with(query: {screen_name: "sferik"}).to_return(body: fixture("sferik.json"), headers: {content_type: "application/json; charset=utf-8"})
-      stub_get("/1.1/users/show.json").with(query: {screen_name: "pengwynn"}).to_return(body: fixture("not_found.json"), status: 404, headers: {content_type: "application/json; charset=utf-8"})
+      stub_get("/2/users/show.json").with(query: {screen_name: "sferik"}).to_return(body: fixture("sferik.json"), headers: {content_type: "application/json; charset=utf-8"})
+      stub_get("/2/users/show.json").with(query: {screen_name: "pengwynn"}).to_return(body: fixture("not_found.json"), status: 404, headers: {content_type: "application/json; charset=utf-8"})
     end
 
     it "requests the correct resource" do
       @client.user?("sferik")
-      expect(a_get("/1.1/users/show.json").with(query: {screen_name: "sferik"})).to have_been_made
+      expect(a_get("/2/users/show.json").with(query: {screen_name: "sferik"})).to have_been_made
     end
 
     it "returns true if user exists" do
@@ -517,12 +517,12 @@ describe Twitter::REST::Users do
 
   describe "#user_search" do
     before do
-      stub_get("/1.1/users/search.json").with(query: {q: "Erik Berlin"}).to_return(body: fixture("user_search.json"), headers: {content_type: "application/json; charset=utf-8"})
+      stub_get("/2/users/search.json").with(query: {q: "Erik Berlin"}).to_return(body: fixture("user_search.json"), headers: {content_type: "application/json; charset=utf-8"})
     end
 
     it "requests the correct resource" do
       @client.user_search("Erik Berlin")
-      expect(a_get("/1.1/users/search.json").with(query: {q: "Erik Berlin"})).to have_been_made
+      expect(a_get("/2/users/search.json").with(query: {q: "Erik Berlin"})).to have_been_made
     end
 
     it "returns an array of user search results" do
@@ -536,12 +536,12 @@ describe Twitter::REST::Users do
   describe "#contributees" do
     context "with a screen name passed" do
       before do
-        stub_get("/1.1/users/contributees.json").with(query: {screen_name: "sferik"}).to_return(body: fixture("contributees.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/2/users/contributees.json").with(query: {screen_name: "sferik"}).to_return(body: fixture("contributees.json"), headers: {content_type: "application/json; charset=utf-8"})
       end
 
       it "requests the correct resource" do
         @client.contributees("sferik")
-        expect(a_get("/1.1/users/contributees.json").with(query: {screen_name: "sferik"})).to have_been_made
+        expect(a_get("/2/users/contributees.json").with(query: {screen_name: "sferik"})).to have_been_made
       end
 
       it "returns contributees" do
@@ -554,25 +554,25 @@ describe Twitter::REST::Users do
 
     context "with a user ID passed" do
       before do
-        stub_get("/1.1/users/contributees.json").with(query: {user_id: "7505382"}).to_return(body: fixture("contributees.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/2/users/contributees.json").with(query: {user_id: "7505382"}).to_return(body: fixture("contributees.json"), headers: {content_type: "application/json; charset=utf-8"})
       end
 
       it "requests the correct resource" do
         @client.contributees(7_505_382)
-        expect(a_get("/1.1/users/contributees.json").with(query: {user_id: "7505382"})).to have_been_made
+        expect(a_get("/2/users/contributees.json").with(query: {user_id: "7505382"})).to have_been_made
       end
     end
 
     context "without arguments passed" do
       before do
-        stub_get("/1.1/account/verify_credentials.json").with(query: {skip_status: "true"}).to_return(body: fixture("sferik.json"), headers: {content_type: "application/json; charset=utf-8"})
-        stub_get("/1.1/users/contributees.json").with(query: {user_id: "7505382"}).to_return(body: fixture("contributees.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/2/account/verify_credentials.json").with(query: {skip_status: "true"}).to_return(body: fixture("sferik.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/2/users/contributees.json").with(query: {user_id: "7505382"}).to_return(body: fixture("contributees.json"), headers: {content_type: "application/json; charset=utf-8"})
       end
 
       it "requests the correct resource" do
         @client.contributees
-        expect(a_get("/1.1/account/verify_credentials.json").with(query: {skip_status: "true"})).to have_been_made
-        expect(a_get("/1.1/users/contributees.json").with(query: {user_id: "7505382"})).to have_been_made
+        expect(a_get("/2/account/verify_credentials.json").with(query: {skip_status: "true"})).to have_been_made
+        expect(a_get("/2/users/contributees.json").with(query: {user_id: "7505382"})).to have_been_made
       end
 
       it "returns contributees" do
@@ -587,12 +587,12 @@ describe Twitter::REST::Users do
   describe "#contributors" do
     context "with a screen name passed" do
       before do
-        stub_get("/1.1/users/contributors.json").with(query: {screen_name: "sferik"}).to_return(body: fixture("members.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/2/users/contributors.json").with(query: {screen_name: "sferik"}).to_return(body: fixture("members.json"), headers: {content_type: "application/json; charset=utf-8"})
       end
 
       it "requests the correct resource" do
         @client.contributors("sferik")
-        expect(a_get("/1.1/users/contributors.json").with(query: {screen_name: "sferik"})).to have_been_made
+        expect(a_get("/2/users/contributors.json").with(query: {screen_name: "sferik"})).to have_been_made
       end
 
       it "returns contributors" do
@@ -605,25 +605,25 @@ describe Twitter::REST::Users do
 
     context "with a user ID passed" do
       before do
-        stub_get("/1.1/users/contributors.json").with(query: {user_id: "7505382"}).to_return(body: fixture("members.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/2/users/contributors.json").with(query: {user_id: "7505382"}).to_return(body: fixture("members.json"), headers: {content_type: "application/json; charset=utf-8"})
       end
 
       it "requests the correct resource" do
         @client.contributors(7_505_382)
-        expect(a_get("/1.1/users/contributors.json").with(query: {user_id: "7505382"})).to have_been_made
+        expect(a_get("/2/users/contributors.json").with(query: {user_id: "7505382"})).to have_been_made
       end
     end
 
     context "without arguments passed" do
       before do
-        stub_get("/1.1/account/verify_credentials.json").with(query: {skip_status: "true"}).to_return(body: fixture("sferik.json"), headers: {content_type: "application/json; charset=utf-8"})
-        stub_get("/1.1/users/contributors.json").with(query: {user_id: "7505382"}).to_return(body: fixture("members.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/2/account/verify_credentials.json").with(query: {skip_status: "true"}).to_return(body: fixture("sferik.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/2/users/contributors.json").with(query: {user_id: "7505382"}).to_return(body: fixture("members.json"), headers: {content_type: "application/json; charset=utf-8"})
       end
 
       it "requests the correct resource" do
         @client.contributors
-        expect(a_get("/1.1/account/verify_credentials.json").with(query: {skip_status: "true"})).to have_been_made
-        expect(a_get("/1.1/users/contributors.json").with(query: {user_id: "7505382"})).to have_been_made
+        expect(a_get("/2/account/verify_credentials.json").with(query: {skip_status: "true"})).to have_been_made
+        expect(a_get("/2/users/contributors.json").with(query: {user_id: "7505382"})).to have_been_made
       end
 
       it "returns contributors" do
@@ -637,12 +637,12 @@ describe Twitter::REST::Users do
 
   describe "#remove_profile_banner" do
     before do
-      stub_post("/1.1/account/remove_profile_banner.json").to_return(body: "{}", headers: {content_type: "application/json; charset=utf-8"})
+      stub_post("/2/account/remove_profile_banner.json").to_return(body: "{}", headers: {content_type: "application/json; charset=utf-8"})
     end
 
     it "requests the correct resource" do
       @client.remove_profile_banner
-      expect(a_post("/1.1/account/remove_profile_banner.json")).to have_been_made
+      expect(a_post("/2/account/remove_profile_banner.json")).to have_been_made
     end
 
     it "returns a user" do
@@ -653,12 +653,12 @@ describe Twitter::REST::Users do
 
   describe "#update_profile_banner" do
     before do
-      stub_post("/1.1/account/update_profile_banner.json").to_return(body: "{}", headers: {content_type: "application/json; charset=utf-8"})
+      stub_post("/2/account/update_profile_banner.json").to_return(body: "{}", headers: {content_type: "application/json; charset=utf-8"})
     end
 
     it "requests the correct resource" do
       @client.update_profile_banner(fixture("me.jpeg"))
-      expect(a_post("/1.1/account/update_profile_banner.json")).to have_been_made
+      expect(a_post("/2/account/update_profile_banner.json")).to have_been_made
     end
 
     it "returns a user" do
@@ -670,12 +670,12 @@ describe Twitter::REST::Users do
   describe "#profile_banner" do
     context "with a screen_name passed" do
       before do
-        stub_get("/1.1/users/profile_banner.json").with(query: {screen_name: "sferik"}).to_return(body: fixture("profile_banner.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/2/users/profile_banner.json").with(query: {screen_name: "sferik"}).to_return(body: fixture("profile_banner.json"), headers: {content_type: "application/json; charset=utf-8"})
       end
 
       it "requests the correct resource" do
         @client.profile_banner("sferik")
-        expect(a_get("/1.1/users/profile_banner.json").with(query: {screen_name: "sferik"})).to have_been_made
+        expect(a_get("/2/users/profile_banner.json").with(query: {screen_name: "sferik"})).to have_been_made
       end
 
       it "returns a profile banner" do
@@ -688,25 +688,25 @@ describe Twitter::REST::Users do
 
     context "with a user ID passed" do
       before do
-        stub_get("/1.1/users/profile_banner.json").with(query: {user_id: "7505382"}).to_return(body: fixture("profile_banner.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/2/users/profile_banner.json").with(query: {user_id: "7505382"}).to_return(body: fixture("profile_banner.json"), headers: {content_type: "application/json; charset=utf-8"})
       end
 
       it "requests the correct resource" do
         @client.profile_banner(7_505_382)
-        expect(a_get("/1.1/users/profile_banner.json").with(query: {user_id: "7505382"})).to have_been_made
+        expect(a_get("/2/users/profile_banner.json").with(query: {user_id: "7505382"})).to have_been_made
       end
     end
 
     context "without arguments passed" do
       before do
-        stub_get("/1.1/account/verify_credentials.json").with(query: {skip_status: "true"}).to_return(body: fixture("sferik.json"), headers: {content_type: "application/json; charset=utf-8"})
-        stub_get("/1.1/users/profile_banner.json").with(query: {user_id: "7505382"}).to_return(body: fixture("profile_banner.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/2/account/verify_credentials.json").with(query: {skip_status: "true"}).to_return(body: fixture("sferik.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/2/users/profile_banner.json").with(query: {user_id: "7505382"}).to_return(body: fixture("profile_banner.json"), headers: {content_type: "application/json; charset=utf-8"})
       end
 
       it "requests the correct resource" do
         @client.profile_banner
-        expect(a_get("/1.1/account/verify_credentials.json").with(query: {skip_status: "true"})).to have_been_made
-        expect(a_get("/1.1/users/profile_banner.json").with(query: {user_id: "7505382"})).to have_been_made
+        expect(a_get("/2/account/verify_credentials.json").with(query: {skip_status: "true"})).to have_been_made
+        expect(a_get("/2/users/profile_banner.json").with(query: {user_id: "7505382"})).to have_been_made
       end
 
       it "returns an array of numeric IDs for every user following the specified user" do
@@ -720,12 +720,12 @@ describe Twitter::REST::Users do
 
   describe "#mute" do
     before do
-      stub_post("/1.1/mutes/users/create.json").with(body: {screen_name: "sferik"}).to_return(body: fixture("sferik.json"), headers: {content_type: "application/json; charset=utf-8"})
+      stub_post("/2/mutes/users/create.json").with(body: {screen_name: "sferik"}).to_return(body: fixture("sferik.json"), headers: {content_type: "application/json; charset=utf-8"})
     end
 
     it "requests the correct resource" do
       @client.mute("sferik")
-      expect(a_post("/1.1/mutes/users/create.json")).to have_been_made
+      expect(a_post("/2/mutes/users/create.json")).to have_been_made
     end
 
     it "returns an array of muteed users" do
@@ -738,12 +738,12 @@ describe Twitter::REST::Users do
 
   describe "#unmute" do
     before do
-      stub_post("/1.1/mutes/users/destroy.json").with(body: {screen_name: "sferik"}).to_return(body: fixture("sferik.json"), headers: {content_type: "application/json; charset=utf-8"})
+      stub_post("/2/mutes/users/destroy.json").with(body: {screen_name: "sferik"}).to_return(body: fixture("sferik.json"), headers: {content_type: "application/json; charset=utf-8"})
     end
 
     it "requests the correct resource" do
       @client.unmute("sferik")
-      expect(a_post("/1.1/mutes/users/destroy.json").with(body: {screen_name: "sferik"})).to have_been_made
+      expect(a_post("/2/mutes/users/destroy.json").with(body: {screen_name: "sferik"})).to have_been_made
     end
 
     it "returns an array of un-muteed users" do
@@ -756,12 +756,12 @@ describe Twitter::REST::Users do
 
   describe "#muted" do
     before do
-      stub_get("/1.1/mutes/users/list.json").with(query: {cursor: "-1"}).to_return(body: fixture("users_list.json"), headers: {content_type: "application/json; charset=utf-8"})
+      stub_get("/2/mutes/users/list.json").with(query: {cursor: "-1"}).to_return(body: fixture("users_list.json"), headers: {content_type: "application/json; charset=utf-8"})
     end
 
     it "requests the correct resource" do
       @client.muted
-      expect(a_get("/1.1/mutes/users/list.json").with(query: {cursor: "-1"})).to have_been_made
+      expect(a_get("/2/mutes/users/list.json").with(query: {cursor: "-1"})).to have_been_made
     end
 
     it "returns an array of user objects that the authenticating user is muting" do
@@ -773,25 +773,25 @@ describe Twitter::REST::Users do
 
     context "with each" do
       before do
-        stub_get("/1.1/mutes/users/list.json").with(query: {cursor: "1322801608223717003"}).to_return(body: fixture("users_list2.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/2/mutes/users/list.json").with(query: {cursor: "1322801608223717003"}).to_return(body: fixture("users_list2.json"), headers: {content_type: "application/json; charset=utf-8"})
       end
 
       it "requests the correct resource" do
         @client.muted.each {}
-        expect(a_get("/1.1/mutes/users/list.json").with(query: {cursor: "-1"})).to have_been_made
-        expect(a_get("/1.1/mutes/users/list.json").with(query: {cursor: "1322801608223717003"})).to have_been_made
+        expect(a_get("/2/mutes/users/list.json").with(query: {cursor: "-1"})).to have_been_made
+        expect(a_get("/2/mutes/users/list.json").with(query: {cursor: "1322801608223717003"})).to have_been_made
       end
     end
   end
 
   describe "#muted_ids" do
     before do
-      stub_get("/1.1/mutes/users/ids.json").with(query: {cursor: "-1"}).to_return(body: fixture("ids_list.json"), headers: {content_type: "application/json; charset=utf-8"})
+      stub_get("/2/mutes/users/ids.json").with(query: {cursor: "-1"}).to_return(body: fixture("ids_list.json"), headers: {content_type: "application/json; charset=utf-8"})
     end
 
     it "requests the correct resource" do
       @client.muted_ids
-      expect(a_get("/1.1/mutes/users/ids.json").with(query: {cursor: "-1"})).to have_been_made
+      expect(a_get("/2/mutes/users/ids.json").with(query: {cursor: "-1"})).to have_been_made
     end
 
     it "returns an array of numeric user IDs the authenticating user is muting" do
@@ -802,13 +802,13 @@ describe Twitter::REST::Users do
 
     context "with each" do
       before do
-        stub_get("/1.1/mutes/users/ids.json").with(query: {cursor: "1305102810874389703"}).to_return(body: fixture("ids_list2.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/2/mutes/users/ids.json").with(query: {cursor: "1305102810874389703"}).to_return(body: fixture("ids_list2.json"), headers: {content_type: "application/json; charset=utf-8"})
       end
 
       it "requests the correct resource" do
         @client.muted_ids.each {}
-        expect(a_get("/1.1/mutes/users/ids.json").with(query: {cursor: "-1"})).to have_been_made
-        expect(a_get("/1.1/mutes/users/ids.json").with(query: {cursor: "1305102810874389703"})).to have_been_made
+        expect(a_get("/2/mutes/users/ids.json").with(query: {cursor: "-1"})).to have_been_made
+        expect(a_get("/2/mutes/users/ids.json").with(query: {cursor: "1305102810874389703"})).to have_been_made
       end
     end
   end

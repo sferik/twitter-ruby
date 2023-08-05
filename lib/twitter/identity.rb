@@ -13,6 +13,8 @@ module Twitter
     # @raise [ArgumentError] Error raised when supplied argument is missing an :id key.
     # @return [Twitter::Identity]
     def initialize(attrs = {})
+      puts "debug8: attrs.inspect"
+      puts attrs.inspect
       attrs.fetch(:id)
       super
     end

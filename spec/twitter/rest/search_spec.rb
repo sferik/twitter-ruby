@@ -8,12 +8,12 @@ describe Twitter::REST::Search do
   describe "#search" do
     context "without count specified" do
       before do
-        stub_get("/1.1/search/tweets.json").with(query: {q: "#freebandnames", count: "100"}).to_return(body: fixture("search.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/2/search/tweets.json").with(query: {q: "#freebandnames", count: "100"}).to_return(body: fixture("search.json"), headers: {content_type: "application/json; charset=utf-8"})
       end
 
       it "requests the correct resource" do
         @client.search("#freebandnames")
-        expect(a_get("/1.1/search/tweets.json").with(query: {q: "#freebandnames", count: "100"})).to have_been_made
+        expect(a_get("/2/search/tweets.json").with(query: {q: "#freebandnames", count: "100"})).to have_been_made
       end
 
       it "returns recent Tweets related to a query with images and videos embedded" do
@@ -26,12 +26,12 @@ describe Twitter::REST::Search do
 
     context "with count specified" do
       before do
-        stub_get("/1.1/search/tweets.json").with(query: {q: "#freebandnames", count: "3"}).to_return(body: fixture("search.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/2/search/tweets.json").with(query: {q: "#freebandnames", count: "3"}).to_return(body: fixture("search.json"), headers: {content_type: "application/json; charset=utf-8"})
       end
 
       it "requests the correct resource" do
         @client.search("#freebandnames", count: 3)
-        expect(a_get("/1.1/search/tweets.json").with(query: {q: "#freebandnames", count: "3"})).to have_been_made
+        expect(a_get("/2/search/tweets.json").with(query: {q: "#freebandnames", count: "3"})).to have_been_made
       end
 
       it "returns recent Tweets related to a query with images and videos embedded" do

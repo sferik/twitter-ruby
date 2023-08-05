@@ -35,7 +35,7 @@ module Twitter
       # @option options [String] :locations Includes additional Tweets falling within the specified bounding boxes.
       # @yield [Twitter::Tweet, Twitter::Streaming::Event, Twitter::DirectMessage, Twitter::Streaming::FriendList, Twitter::Streaming::DeletedTweet, Twitter::Streaming::StallWarning] A stream of Twitter objects.
       def filter(options = {}, &block)
-        request(:post, "https://stream.twitter.com:443/1.1/statuses/filter.json", options, &block)
+        request(:post, "https://stream.twitter.com:443/2/statuses/filter.json", options, &block)
       end
 
       # Returns all public statuses
@@ -47,7 +47,7 @@ module Twitter
       # @option options [Integer] :count The number of messages to backfill.
       # @yield [Twitter::Tweet, Twitter::Streaming::Event, Twitter::DirectMessage, Twitter::Streaming::FriendList, Twitter::Streaming::DeletedTweet, Twitter::Streaming::StallWarning] A stream of Twitter objects.
       def firehose(options = {}, &block)
-        request(:get, "https://stream.twitter.com:443/1.1/statuses/firehose.json", options, &block)
+        request(:get, "https://stream.twitter.com:443/2/statuses/firehose.json", options, &block)
       end
 
       # Returns a small random sample of all public statuses
@@ -56,7 +56,7 @@ module Twitter
       # @see https://dev.twitter.com/streaming/overview/request-parameters
       # @yield [Twitter::Tweet, Twitter::Streaming::Event, Twitter::DirectMessage, Twitter::Streaming::FriendList, Twitter::Streaming::DeletedTweet, Twitter::Streaming::StallWarning] A stream of Twitter objects.
       def sample(options = {}, &block)
-        request(:get, "https://stream.twitter.com:443/1.1/statuses/sample.json", options, &block)
+        request(:get, "https://stream.twitter.com:443/2/statuses/sample.json", options, &block)
       end
 
       # Streams messages for a set of users
@@ -74,7 +74,7 @@ module Twitter
       def site(*args, &block)
         arguments = Arguments.new(args)
         user_ids = collect_user_ids(arguments)
-        request(:get, "https://sitestream.twitter.com:443/1.1/site.json", arguments.options.merge(follow: user_ids.join(",")), &block)
+        request(:get, "https://sitestream.twitter.com:443/2/site.json", arguments.options.merge(follow: user_ids.join(",")), &block)
       end
 
       # Streams messages for a single user
@@ -90,7 +90,7 @@ module Twitter
       # @option options [String] :locations Includes additional Tweets falling within the specified bounding boxes.
       # @yield [Twitter::Tweet, Twitter::Streaming::Event, Twitter::DirectMessage, Twitter::Streaming::FriendList, Twitter::Streaming::DeletedTweet, Twitter::Streaming::StallWarning] A stream of Twitter objects.
       def user(options = {}, &block)
-        request(:get, "https://userstream.twitter.com:443/1.1/user.json", options, &block)
+        request(:get, "https://userstream.twitter.com:443/2/user.json", options, &block)
       end
 
       # Set a Proc to be run when connection established.

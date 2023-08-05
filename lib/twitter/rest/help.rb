@@ -15,7 +15,7 @@ module Twitter
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Array<Twitter::Language>]
       def languages(options = {})
-        perform_get_with_objects("/1.1/help/languages.json", options, Twitter::Language)
+        perform_get_with_objects("/2/help/languages.json", options, Twitter::Language)
       end
 
       # Returns {https://twitter.com/privacy Twitter's Privacy Policy}
@@ -26,7 +26,7 @@ module Twitter
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [String]
       def privacy(options = {})
-        perform_get("/1.1/help/privacy.json", options)[:privacy]
+        perform_get("/2/help/privacy.json", options)[:privacy]
       end
 
       # Returns {https://twitter.com/tos Twitter's Terms of Service}
@@ -37,7 +37,7 @@ module Twitter
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [String]
       def tos(options = {})
-        perform_get("/1.1/help/tos.json", options)[:tos]
+        perform_get("/2/help/tos.json", options)[:tos]
       end
     end
   end

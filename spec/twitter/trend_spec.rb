@@ -42,7 +42,7 @@ describe Twitter::Trend do
 
   describe "#uri?" do
     it "returns true when the url is set" do
-      trend = described_class.new(url: "https://api.twitter.com/1.1/geo/id/247f43d441defc03.json")
+      trend = described_class.new(url: "https://api.twitter.com/2/geo/id/247f43d441defc03.json")
       expect(trend.uri?).to be true
     end
 

@@ -8,12 +8,12 @@ describe Twitter::REST::Favorites do
   describe "#favorites" do
     context "with a screen name passed" do
       before do
-        stub_get("/1.1/favorites/list.json").with(query: {screen_name: "sferik"}).to_return(body: fixture("user_timeline.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/2/favorites/list.json").with(query: {screen_name: "sferik"}).to_return(body: fixture("user_timeline.json"), headers: {content_type: "application/json; charset=utf-8"})
       end
 
       it "requests the correct resource" do
         @client.favorites("sferik")
-        expect(a_get("/1.1/favorites/list.json").with(query: {screen_name: "sferik"})).to have_been_made
+        expect(a_get("/2/favorites/list.json").with(query: {screen_name: "sferik"})).to have_been_made
       end
 
       it "returns the 20 most recent favorite Tweets for the authenticating user or user specified by the ID parameter" do
@@ -27,19 +27,19 @@ describe Twitter::REST::Favorites do
         it "requests the correct resource" do
           user = URI.parse("https://twitter.com/sferik")
           @client.favorites(user)
-          expect(a_get("/1.1/favorites/list.json").with(query: {screen_name: "sferik"})).to have_been_made
+          expect(a_get("/2/favorites/list.json").with(query: {screen_name: "sferik"})).to have_been_made
         end
       end
     end
 
     context "without arguments passed" do
       before do
-        stub_get("/1.1/favorites/list.json").to_return(body: fixture("user_timeline.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/2/favorites/list.json").to_return(body: fixture("user_timeline.json"), headers: {content_type: "application/json; charset=utf-8"})
       end
 
       it "requests the correct resource" do
         @client.favorites
-        expect(a_get("/1.1/favorites/list.json")).to have_been_made
+        expect(a_get("/2/favorites/list.json")).to have_been_made
       end
 
       it "returns the 20 most recent favorite Tweets for the authenticating user or user specified by the ID parameter" do
@@ -53,12 +53,12 @@ describe Twitter::REST::Favorites do
 
   describe "#unfavorite" do
     before do
-      stub_post("/1.1/favorites/destroy.json").with(body: {id: "540897316908331009"}).to_return(body: fixture("status.json"), headers: {content_type: "application/json; charset=utf-8"})
+      stub_post("/2/favorites/destroy.json").with(body: {id: "540897316908331009"}).to_return(body: fixture("status.json"), headers: {content_type: "application/json; charset=utf-8"})
     end
 
     it "requests the correct resource" do
       @client.unfavorite(540_897_316_908_331_009)
-      expect(a_post("/1.1/favorites/destroy.json").with(body: {id: "540897316908331009"})).to have_been_made
+      expect(a_post("/2/favorites/destroy.json").with(body: {id: "540897316908331009"})).to have_been_made
     end
 
     it "returns an array of un-favorited Tweets" do
@@ -70,7 +70,7 @@ describe Twitter::REST::Favorites do
 
     context "not found" do
       before do
-        stub_post("/1.1/favorites/destroy.json").with(body: {id: "540897316908331009"}).to_return(status: 404, body: fixture("not_found.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_post("/2/favorites/destroy.json").with(body: {id: "540897316908331009"}).to_return(status: 404, body: fixture("not_found.json"), headers: {content_type: "application/json; charset=utf-8"})
       end
 
       it "does not raise an error" do
@@ -82,7 +82,7 @@ describe Twitter::REST::Favorites do
       it "requests the correct resource" do
         tweet = URI.parse("https://twitter.com/sferik/status/540897316908331009")
         @client.unfavorite(tweet)
-        expect(a_post("/1.1/favorites/destroy.json").with(body: {id: "540897316908331009"})).to have_been_made
+        expect(a_post("/2/favorites/destroy.json").with(body: {id: "540897316908331009"})).to have_been_made
       end
     end
 
@@ -90,19 +90,19 @@ describe Twitter::REST::Favorites do
       it "requests the correct resource" do
         tweet = Twitter::Tweet.new(id: 540_897_316_908_331_009)
         @client.unfavorite(tweet)
-        expect(a_post("/1.1/favorites/destroy.json").with(body: {id: "540897316908331009"})).to have_been_made
+        expect(a_post("/2/favorites/destroy.json").with(body: {id: "540897316908331009"})).to have_been_made
       end
     end
   end
 
   describe "#unfavorite!" do
     before do
-      stub_post("/1.1/favorites/destroy.json").with(body: {id: "540897316908331009"}).to_return(body: fixture("status.json"), headers: {content_type: "application/json; charset=utf-8"})
+      stub_post("/2/favorites/destroy.json").with(body: {id: "540897316908331009"}).to_return(body: fixture("status.json"), headers: {content_type: "application/json; charset=utf-8"})
     end
 
     it "requests the correct resource" do
       @client.unfavorite!(540_897_316_908_331_009)
-      expect(a_post("/1.1/favorites/destroy.json").with(body: {id: "540897316908331009"})).to have_been_made
+      expect(a_post("/2/favorites/destroy.json").with(body: {id: "540897316908331009"})).to have_been_made
     end
 
     it "returns an array of un-favorited Tweets" do
@@ -114,7 +114,7 @@ describe Twitter::REST::Favorites do
 
     context "does not exist" do
       before do
-        stub_post("/1.1/favorites/destroy.json").with(body: {id: "540897316908331009"}).to_return(status: 404, body: fixture("not_found.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_post("/2/favorites/destroy.json").with(body: {id: "540897316908331009"}).to_return(status: 404, body: fixture("not_found.json"), headers: {content_type: "application/json; charset=utf-8"})
       end
 
       it "raises a NotFound error" do
@@ -126,7 +126,7 @@ describe Twitter::REST::Favorites do
       it "requests the correct resource" do
         tweet = URI.parse("https://twitter.com/sferik/status/540897316908331009")
         @client.unfavorite!(tweet)
-        expect(a_post("/1.1/favorites/destroy.json").with(body: {id: "540897316908331009"})).to have_been_made
+        expect(a_post("/2/favorites/destroy.json").with(body: {id: "540897316908331009"})).to have_been_made
       end
     end
 
@@ -134,19 +134,19 @@ describe Twitter::REST::Favorites do
       it "requests the correct resource" do
         tweet = Twitter::Tweet.new(id: 540_897_316_908_331_009)
         @client.unfavorite!(tweet)
-        expect(a_post("/1.1/favorites/destroy.json").with(body: {id: "540897316908331009"})).to have_been_made
+        expect(a_post("/2/favorites/destroy.json").with(body: {id: "540897316908331009"})).to have_been_made
       end
     end
   end
 
   describe "#favorite" do
     before do
-      stub_post("/1.1/favorites/create.json").with(body: {id: "540897316908331009"}).to_return(body: fixture("status.json"), headers: {content_type: "application/json; charset=utf-8"})
+      stub_post("/2/favorites/create.json").with(body: {id: "540897316908331009"}).to_return(body: fixture("status.json"), headers: {content_type: "application/json; charset=utf-8"})
     end
 
     it "requests the correct resource" do
       @client.favorite(540_897_316_908_331_009)
-      expect(a_post("/1.1/favorites/create.json").with(body: {id: "540897316908331009"})).to have_been_made
+      expect(a_post("/2/favorites/create.json").with(body: {id: "540897316908331009"})).to have_been_made
     end
 
     it "returns an array of favorited Tweets" do
@@ -158,7 +158,7 @@ describe Twitter::REST::Favorites do
 
     context "already favorited" do
       before do
-        stub_post("/1.1/favorites/create.json").with(body: {id: "540897316908331009"}).to_return(status: 403, body: fixture("already_favorited.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_post("/2/favorites/create.json").with(body: {id: "540897316908331009"}).to_return(status: 403, body: fixture("already_favorited.json"), headers: {content_type: "application/json; charset=utf-8"})
       end
 
       it "does not raise an error" do
@@ -168,7 +168,7 @@ describe Twitter::REST::Favorites do
 
     context "not found" do
       before do
-        stub_post("/1.1/favorites/create.json").with(body: {id: "540897316908331009"}).to_return(status: 404, body: fixture("not_found.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_post("/2/favorites/create.json").with(body: {id: "540897316908331009"}).to_return(status: 404, body: fixture("not_found.json"), headers: {content_type: "application/json; charset=utf-8"})
       end
 
       it "does not raise an error" do
@@ -180,7 +180,7 @@ describe Twitter::REST::Favorites do
       it "requests the correct resource" do
         tweet = URI.parse("https://twitter.com/sferik/status/540897316908331009")
         @client.favorite(tweet)
-        expect(a_post("/1.1/favorites/create.json").with(body: {id: "540897316908331009"})).to have_been_made
+        expect(a_post("/2/favorites/create.json").with(body: {id: "540897316908331009"})).to have_been_made
       end
     end
 
@@ -188,19 +188,19 @@ describe Twitter::REST::Favorites do
       it "requests the correct resource" do
         tweet = Twitter::Tweet.new(id: 540_897_316_908_331_009)
         @client.favorite(tweet)
-        expect(a_post("/1.1/favorites/create.json").with(body: {id: "540897316908331009"})).to have_been_made
+        expect(a_post("/2/favorites/create.json").with(body: {id: "540897316908331009"})).to have_been_made
       end
     end
   end
 
   describe "#favorite!" do
     before do
-      stub_post("/1.1/favorites/create.json").with(body: {id: "540897316908331009"}).to_return(body: fixture("status.json"), headers: {content_type: "application/json; charset=utf-8"})
+      stub_post("/2/favorites/create.json").with(body: {id: "540897316908331009"}).to_return(body: fixture("status.json"), headers: {content_type: "application/json; charset=utf-8"})
     end
 
     it "requests the correct resource" do
       @client.favorite!(540_897_316_908_331_009)
-      expect(a_post("/1.1/favorites/create.json").with(body: {id: "540897316908331009"})).to have_been_made
+      expect(a_post("/2/favorites/create.json").with(body: {id: "540897316908331009"})).to have_been_made
     end
 
     it "returns an array of favorited Tweets" do
@@ -212,7 +212,7 @@ describe Twitter::REST::Favorites do
 
     context "forbidden" do
       before do
-        stub_post("/1.1/favorites/create.json").with(body: {id: "540897316908331009"}).to_return(status: 403, body: "{}", headers: {content_type: "application/json; charset=utf-8"})
+        stub_post("/2/favorites/create.json").with(body: {id: "540897316908331009"}).to_return(status: 403, body: "{}", headers: {content_type: "application/json; charset=utf-8"})
       end
 
       it "raises a Forbidden error" do
@@ -222,7 +222,7 @@ describe Twitter::REST::Favorites do
 
     context "already favorited" do
       before do
-        stub_post("/1.1/favorites/create.json").with(body: {id: "540897316908331009"}).to_return(status: 403, body: fixture("already_favorited.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_post("/2/favorites/create.json").with(body: {id: "540897316908331009"}).to_return(status: 403, body: fixture("already_favorited.json"), headers: {content_type: "application/json; charset=utf-8"})
       end
 
       it "raises an AlreadyFavorited error" do
@@ -232,7 +232,7 @@ describe Twitter::REST::Favorites do
 
     context "does not exist" do
       before do
-        stub_post("/1.1/favorites/create.json").with(body: {id: "540897316908331009"}).to_return(status: 404, body: fixture("not_found.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_post("/2/favorites/create.json").with(body: {id: "540897316908331009"}).to_return(status: 404, body: fixture("not_found.json"), headers: {content_type: "application/json; charset=utf-8"})
       end
 
       it "raises a NotFound error" do
@@ -244,7 +244,7 @@ describe Twitter::REST::Favorites do
       it "requests the correct resource" do
         tweet = URI.parse("https://twitter.com/sferik/status/540897316908331009")
         @client.favorite!(tweet)
-        expect(a_post("/1.1/favorites/create.json").with(body: {id: "540897316908331009"})).to have_been_made
+        expect(a_post("/2/favorites/create.json").with(body: {id: "540897316908331009"})).to have_been_made
       end
     end
 
@@ -252,7 +252,7 @@ describe Twitter::REST::Favorites do
       it "requests the correct resource" do
         tweet = Twitter::Tweet.new(id: 540_897_316_908_331_009)
         @client.favorite!(tweet)
-        expect(a_post("/1.1/favorites/create.json").with(body: {id: "540897316908331009"})).to have_been_made
+        expect(a_post("/2/favorites/create.json").with(body: {id: "540897316908331009"})).to have_been_made
       end
     end
   end

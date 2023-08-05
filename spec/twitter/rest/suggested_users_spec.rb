@@ -8,12 +8,12 @@ describe Twitter::REST::SuggestedUsers do
   describe "#suggestions" do
     context "with a category slug passed" do
       before do
-        stub_get("/1.1/users/suggestions/art-design.json").to_return(body: fixture("category.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/2/users/suggestions/art-design.json").to_return(body: fixture("category.json"), headers: {content_type: "application/json; charset=utf-8"})
       end
 
       it "requests the correct resource" do
         @client.suggestions("art-design")
-        expect(a_get("/1.1/users/suggestions/art-design.json")).to have_been_made
+        expect(a_get("/2/users/suggestions/art-design.json")).to have_been_made
       end
 
       it "returns the users in a given category of the Twitter suggested user list" do
@@ -27,12 +27,12 @@ describe Twitter::REST::SuggestedUsers do
 
     context "without arguments passed" do
       before do
-        stub_get("/1.1/users/suggestions.json").to_return(body: fixture("suggestions.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/2/users/suggestions.json").to_return(body: fixture("suggestions.json"), headers: {content_type: "application/json; charset=utf-8"})
       end
 
       it "requests the correct resource" do
         @client.suggestions
-        expect(a_get("/1.1/users/suggestions.json")).to have_been_made
+        expect(a_get("/2/users/suggestions.json")).to have_been_made
       end
 
       it "returns the list of suggested user categories" do
@@ -46,12 +46,12 @@ describe Twitter::REST::SuggestedUsers do
 
   describe "#suggest_users" do
     before do
-      stub_get("/1.1/users/suggestions/art-design/members.json").to_return(body: fixture("members.json"), headers: {content_type: "application/json; charset=utf-8"})
+      stub_get("/2/users/suggestions/art-design/members.json").to_return(body: fixture("members.json"), headers: {content_type: "application/json; charset=utf-8"})
     end
 
     it "requests the correct resource" do
       @client.suggest_users("art-design")
-      expect(a_get("/1.1/users/suggestions/art-design/members.json")).to have_been_made
+      expect(a_get("/2/users/suggestions/art-design/members.json")).to have_been_made
     end
 
     it "returns users in a given category of the Twitter suggested user list and return their most recent status if they are not a protected user" do

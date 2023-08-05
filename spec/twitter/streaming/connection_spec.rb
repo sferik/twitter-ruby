@@ -43,7 +43,7 @@ describe Twitter::Streaming::Connection do
     end
 
     let(:method) { :get }
-    let(:uri)    { "https://stream.twitter.com:443/1.1/statuses/sample.json" }
+    let(:uri)    { "https://stream.twitter.com:443/2/statuses/sample.json" }
     let(:ssl_socket) { instance_double(connection.ssl_socket_class) }
 
     let(:request) { HTTP::Request.new(verb: method, uri: uri) }
@@ -87,7 +87,7 @@ describe Twitter::Streaming::Connection do
     end
 
     let(:method) { :get }
-    let(:uri)    { "https://stream.twitter.com:443/1.1/statuses/sample.json" }
+    let(:uri)    { "https://stream.twitter.com:443/2/statuses/sample.json" }
     let(:client) {  TCPSocket.new("127.0.0.1", 8443) }
 
     let(:request) { HTTP::Request.new(verb: method, uri: uri) }

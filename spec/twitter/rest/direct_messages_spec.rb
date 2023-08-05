@@ -8,12 +8,12 @@ describe Twitter::REST::DirectMessages do
 
   describe "#direct_messages_received" do
     before do
-      stub_get("/1.1/direct_messages/events/list.json").with(query: {count: 50}).to_return(body: fixture("direct_message_events.json"), headers: {content_type: "application/json; charset=utf-8"})
+      stub_get("/2/direct_messages/events/list.json").with(query: {count: 50}).to_return(body: fixture("direct_message_events.json"), headers: {content_type: "application/json; charset=utf-8"})
     end
 
     it "requests the correct resource" do
       @client.direct_messages_received
-      expect(a_get("/1.1/direct_messages/events/list.json").with(query: {count: 50})).to have_been_made
+      expect(a_get("/2/direct_messages/events/list.json").with(query: {count: 50})).to have_been_made
     end
 
     it "returns the 20 most recent direct messages sent to the authenticating user" do
@@ -26,12 +26,12 @@ describe Twitter::REST::DirectMessages do
 
   describe "#direct_messages_events" do
     before do
-      stub_get("/1.1/direct_messages/events/list.json").with(query: {count: 50}).to_return(body: fixture("direct_message_events.json"), headers: {content_type: "application/json; charset=utf-8"})
+      stub_get("/2/direct_messages/events/list.json").with(query: {count: 50}).to_return(body: fixture("direct_message_events.json"), headers: {content_type: "application/json; charset=utf-8"})
     end
 
     it "requests the correct resource" do
       @client.direct_messages_events
-      expect(a_get("/1.1/direct_messages/events/list.json").with(query: {count: 50})).to have_been_made
+      expect(a_get("/2/direct_messages/events/list.json").with(query: {count: 50})).to have_been_made
     end
 
     it "returns messages" do
@@ -51,12 +51,12 @@ describe Twitter::REST::DirectMessages do
 
   describe "#direct_messages_sent" do
     before do
-      stub_get("/1.1/direct_messages/events/list.json").with(query: {count: 50}).to_return(body: fixture("direct_message_events.json"), headers: {content_type: "application/json; charset=utf-8"})
+      stub_get("/2/direct_messages/events/list.json").with(query: {count: 50}).to_return(body: fixture("direct_message_events.json"), headers: {content_type: "application/json; charset=utf-8"})
     end
 
     it "requests the correct resource" do
       @client.direct_messages_sent
-      expect(a_get("/1.1/direct_messages/events/list.json").with(query: {count: 50})).to have_been_made
+      expect(a_get("/2/direct_messages/events/list.json").with(query: {count: 50})).to have_been_made
     end
 
     it "returns the 20 most recent direct messages sent by the authenticating user" do
@@ -69,12 +69,12 @@ describe Twitter::REST::DirectMessages do
 
   describe "#direct_message" do
     before do
-      stub_get("/1.1/direct_messages/events/show.json").with(query: {id: "1825786345"}).to_return(body: fixture("direct_message_event.json"), headers: {content_type: "application/json; charset=utf-8"})
+      stub_get("/2/direct_messages/events/show.json").with(query: {id: "1825786345"}).to_return(body: fixture("direct_message_event.json"), headers: {content_type: "application/json; charset=utf-8"})
     end
 
     it "requests the correct resource" do
       @client.direct_message(1_825_786_345)
-      expect(a_get("/1.1/direct_messages/events/show.json").with(query: {id: "1825786345"})).to have_been_made
+      expect(a_get("/2/direct_messages/events/show.json").with(query: {id: "1825786345"})).to have_been_made
     end
 
     it "returns the specified direct message" do
@@ -87,12 +87,12 @@ describe Twitter::REST::DirectMessages do
   describe "#direct_messages" do
     context "with ids passed" do
       before do
-        stub_get("/1.1/direct_messages/events/show.json").with(query: {id: "1825786345"}).to_return(body: fixture("direct_message_event.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/2/direct_messages/events/show.json").with(query: {id: "1825786345"}).to_return(body: fixture("direct_message_event.json"), headers: {content_type: "application/json; charset=utf-8"})
       end
 
       it "requests the correct resource" do
         @client.direct_messages(1_825_786_345)
-        expect(a_get("/1.1/direct_messages/events/show.json").with(query: {id: "1825786345"})).to have_been_made
+        expect(a_get("/2/direct_messages/events/show.json").with(query: {id: "1825786345"})).to have_been_made
       end
 
       it "returns an array of direct messages" do
@@ -105,12 +105,12 @@ describe Twitter::REST::DirectMessages do
 
     context "without ids passed" do
       before do
-        stub_get("/1.1/direct_messages/events/list.json").with(query: {count: 50}).to_return(body: fixture("direct_message_events.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/2/direct_messages/events/list.json").with(query: {count: 50}).to_return(body: fixture("direct_message_events.json"), headers: {content_type: "application/json; charset=utf-8"})
       end
 
       it "requests the correct resource" do
         @client.direct_messages
-        expect(a_get("/1.1/direct_messages/events/list.json").with(query: {count: 50})).to have_been_made
+        expect(a_get("/2/direct_messages/events/list.json").with(query: {count: 50})).to have_been_made
       end
 
       it "returns the 20 most recent direct messages sent to the authenticating user" do
@@ -124,12 +124,12 @@ describe Twitter::REST::DirectMessages do
 
   describe "#destroy_direct_message" do
     before do
-      stub_delete("/1.1/direct_messages/events/destroy.json?id=1825785544").to_return(status: 204, body: "", headers: {content_type: "application/json; charset=utf-8"})
+      stub_delete("/2/direct_messages/events/destroy.json?id=1825785544").to_return(status: 204, body: "", headers: {content_type: "application/json; charset=utf-8"})
     end
 
     it "requests the correct resource" do
       @client.destroy_direct_message(1_825_785_544)
-      expect(a_delete("/1.1/direct_messages/events/destroy.json?id=1825785544")).to have_been_made
+      expect(a_delete("/2/direct_messages/events/destroy.json?id=1825785544")).to have_been_made
     end
 
     it "returns nil" do
@@ -152,12 +152,12 @@ describe Twitter::REST::DirectMessages do
     end
 
     before do
-      stub_post("/1.1/direct_messages/events/new.json").to_return(body: fixture("direct_message_event.json"), headers: {content_type: "application/json; charset=utf-8"})
+      stub_post("/2/direct_messages/events/new.json").to_return(body: fixture("direct_message_event.json"), headers: {content_type: "application/json; charset=utf-8"})
     end
 
     it "requests the correct resource" do
       @client.create_direct_message("7505382", "My #newride from @PUBLICBikes. Don't you want one? https://t.co/7HIwCl68Y8 https://t.co/JSSxDPr4Sf")
-      expect(a_post("/1.1/direct_messages/events/new.json").with(body: json_options)).to have_been_made
+      expect(a_post("/2/direct_messages/events/new.json").with(body: json_options)).to have_been_made
     end
 
     it "returns the sent message" do
@@ -170,12 +170,12 @@ describe Twitter::REST::DirectMessages do
 
   describe "#create_direct_message_event" do
     before do
-      stub_post("/1.1/direct_messages/events/new.json").with(body: {event: {type: "message_create", message_create: {target: {recipient_id: 58_983}, message_data: {text: "testing"}}}}).to_return(body: fixture("direct_message_event.json"), headers: {content_type: "application/json; charset=utf-8"})
+      stub_post("/2/direct_messages/events/new.json").with(body: {event: {type: "message_create", message_create: {target: {recipient_id: 58_983}, message_data: {text: "testing"}}}}).to_return(body: fixture("direct_message_event.json"), headers: {content_type: "application/json; charset=utf-8"})
     end
 
     it "requests the correct resource" do
       @client.create_direct_message_event(58_983, "testing")
-      expect(a_post("/1.1/direct_messages/events/new.json").with(body: {event: {type: "message_create", message_create: {target: {recipient_id: 58_983}, message_data: {text: "testing"}}}})).to have_been_made
+      expect(a_post("/2/direct_messages/events/new.json").with(body: {event: {type: "message_create", message_create: {target: {recipient_id: 58_983}, message_data: {text: "testing"}}}})).to have_been_made
     end
 
     it "returns the sent message" do
@@ -187,15 +187,15 @@ describe Twitter::REST::DirectMessages do
 
   describe "#create_direct_message_event_with_media" do
     before do
-      stub_post("/1.1/direct_messages/events/new.json").to_return(body: fixture("direct_message_event.json"), headers: {content_type: "application/json; charset=utf-8"})
-      stub_request(:post, "https://upload.twitter.com/1.1/media/upload.json").to_return(body: fixture("upload.json"), headers: {content_type: "application/json; charset=utf-8"})
+      stub_post("/2/direct_messages/events/new.json").to_return(body: fixture("direct_message_event.json"), headers: {content_type: "application/json; charset=utf-8"})
+      stub_request(:post, "https://upload.twitter.com/2/media/upload.json").to_return(body: fixture("upload.json"), headers: {content_type: "application/json; charset=utf-8"})
     end
 
     context "with a gif image" do
       it "requests the correct resource" do
         @client.create_direct_message_event_with_media(58_983, "testing", fixture("pbjt.gif"))
-        expect(a_request(:post, "https://upload.twitter.com/1.1/media/upload.json")).to have_been_made
-        expect(a_post("/1.1/direct_messages/events/new.json")).to have_been_made
+        expect(a_request(:post, "https://upload.twitter.com/2/media/upload.json")).to have_been_made
+        expect(a_post("/2/direct_messages/events/new.json")).to have_been_made
       end
 
       it "returns a DirectMessageEvent" do
@@ -213,8 +213,8 @@ describe Twitter::REST::DirectMessages do
 
         it "requests the correct resource" do
           @client.create_direct_message_event_with_media(58_983, "testing", big_gif)
-          expect(a_request(:post, "https://upload.twitter.com/1.1/media/upload.json")).to have_been_made.times(3)
-          expect(a_post("/1.1/direct_messages/events/new.json")).to have_been_made
+          expect(a_request(:post, "https://upload.twitter.com/2/media/upload.json")).to have_been_made.times(3)
+          expect(a_post("/2/direct_messages/events/new.json")).to have_been_made
         end
 
         it "returns a DirectMessageEvent" do
@@ -228,24 +228,24 @@ describe Twitter::REST::DirectMessages do
     context "with a jpe image" do
       it "requests the correct resource" do
         @client.create_direct_message_event_with_media(58_983, "You always have options", fixture("wildcomet2.jpe"))
-        expect(a_request(:post, "https://upload.twitter.com/1.1/media/upload.json")).to have_been_made
-        expect(a_post("/1.1/direct_messages/events/new.json")).to have_been_made
+        expect(a_request(:post, "https://upload.twitter.com/2/media/upload.json")).to have_been_made
+        expect(a_post("/2/direct_messages/events/new.json")).to have_been_made
       end
     end
 
     context "with a jpeg image" do
       it "requests the correct resource" do
         @client.create_direct_message_event_with_media(58_983, "You always have options", fixture("me.jpeg"))
-        expect(a_request(:post, "https://upload.twitter.com/1.1/media/upload.json")).to have_been_made
-        expect(a_post("/1.1/direct_messages/events/new.json")).to have_been_made
+        expect(a_request(:post, "https://upload.twitter.com/2/media/upload.json")).to have_been_made
+        expect(a_post("/2/direct_messages/events/new.json")).to have_been_made
       end
     end
 
     context "with a png image" do
       it "requests the correct resource" do
         @client.create_direct_message_event_with_media(58_983, "You always have options", fixture("we_concept_bg2.png"))
-        expect(a_request(:post, "https://upload.twitter.com/1.1/media/upload.json")).to have_been_made
-        expect(a_post("/1.1/direct_messages/events/new.json")).to have_been_made
+        expect(a_request(:post, "https://upload.twitter.com/2/media/upload.json")).to have_been_made
+        expect(a_post("/2/direct_messages/events/new.json")).to have_been_made
       end
     end
 
@@ -254,10 +254,10 @@ describe Twitter::REST::DirectMessages do
         init_request = {body: fixture("chunk_upload_init.json"), headers: {content_type: "application/json; charset=utf-8"}}
         append_request = {body: "", headers: {content_type: "text/html;charset=utf-8"}}
         finalize_request = {body: fixture("chunk_upload_finalize_succeeded.json"), headers: {content_type: "application/json; charset=utf-8"}}
-        stub_request(:post, "https://upload.twitter.com/1.1/media/upload.json").to_return(init_request, append_request, finalize_request)
+        stub_request(:post, "https://upload.twitter.com/2/media/upload.json").to_return(init_request, append_request, finalize_request)
         @client.create_direct_message_event_with_media(58_983, "You always have options", fixture("1080p.mp4"))
-        expect(a_request(:post, "https://upload.twitter.com/1.1/media/upload.json")).to have_been_made.times(3)
-        expect(a_post("/1.1/direct_messages/events/new.json")).to have_been_made
+        expect(a_request(:post, "https://upload.twitter.com/2/media/upload.json")).to have_been_made.times(3)
+        expect(a_post("/2/direct_messages/events/new.json")).to have_been_made
       end
 
       context "when the processing is not finished right after the upload" do
@@ -268,14 +268,14 @@ describe Twitter::REST::DirectMessages do
             finalize_request = {body: fixture("chunk_upload_finalize_pending.json"), headers: {content_type: "application/json; charset=utf-8"}}
             pending_status_request = {body: fixture("chunk_upload_status_pending.json"), headers: {content_type: "application/json; charset=utf-8"}}
             completed_status_request = {body: fixture("chunk_upload_status_succeeded.json"), headers: {content_type: "application/json; charset=utf-8"}}
-            stub_request(:post, "https://upload.twitter.com/1.1/media/upload.json").to_return(init_request, append_request, finalize_request)
-            stub_request(:get, "https://upload.twitter.com/1.1/media/upload.json?command=STATUS&media_id=710511363345354753").to_return(pending_status_request, completed_status_request)
+            stub_request(:post, "https://upload.twitter.com/2/media/upload.json").to_return(init_request, append_request, finalize_request)
+            stub_request(:get, "https://upload.twitter.com/2/media/upload.json?command=STATUS&media_id=710511363345354753").to_return(pending_status_request, completed_status_request)
             expect_any_instance_of(described_class).to receive(:sleep).with(5).and_return(5)
             expect_any_instance_of(described_class).to receive(:sleep).with(10).and_return(10)
             @client.create_direct_message_event_with_media(58_983, "You always have options", fixture("1080p.mp4"))
-            expect(a_request(:post, "https://upload.twitter.com/1.1/media/upload.json")).to have_been_made.times(3)
-            expect(a_request(:get, "https://upload.twitter.com/1.1/media/upload.json?command=STATUS&media_id=710511363345354753")).to have_been_made.times(2)
-            expect(a_post("/1.1/direct_messages/events/new.json")).to have_been_made
+            expect(a_request(:post, "https://upload.twitter.com/2/media/upload.json")).to have_been_made.times(3)
+            expect(a_request(:get, "https://upload.twitter.com/2/media/upload.json?command=STATUS&media_id=710511363345354753")).to have_been_made.times(2)
+            expect(a_post("/2/direct_messages/events/new.json")).to have_been_made
           end
         end
 
@@ -285,12 +285,12 @@ describe Twitter::REST::DirectMessages do
             append_request = {body: "", headers: {content_type: "text/html;charset=utf-8"}}
             finalize_request = {body: fixture("chunk_upload_finalize_pending.json"), headers: {content_type: "application/json; charset=utf-8"}}
             failed_status_request = {body: fixture("chunk_upload_status_failed.json"), headers: {content_type: "application/json; charset=utf-8"}}
-            stub_request(:post, "https://upload.twitter.com/1.1/media/upload.json").to_return(init_request, append_request, finalize_request)
-            stub_request(:get, "https://upload.twitter.com/1.1/media/upload.json?command=STATUS&media_id=710511363345354753").to_return(failed_status_request)
+            stub_request(:post, "https://upload.twitter.com/2/media/upload.json").to_return(init_request, append_request, finalize_request)
+            stub_request(:get, "https://upload.twitter.com/2/media/upload.json?command=STATUS&media_id=710511363345354753").to_return(failed_status_request)
             expect_any_instance_of(described_class).to receive(:sleep).with(5).and_return(5)
             expect { @client.create_direct_message_event_with_media(58_983, "You always have options", fixture("1080p.mp4")) }.to raise_error(Twitter::Error::InvalidMedia)
-            expect(a_request(:post, "https://upload.twitter.com/1.1/media/upload.json")).to have_been_made.times(3)
-            expect(a_request(:get, "https://upload.twitter.com/1.1/media/upload.json?command=STATUS&media_id=710511363345354753")).to have_been_made
+            expect(a_request(:post, "https://upload.twitter.com/2/media/upload.json")).to have_been_made.times(3)
+            expect(a_request(:get, "https://upload.twitter.com/2/media/upload.json?command=STATUS&media_id=710511363345354753")).to have_been_made
           end
         end
 
@@ -301,9 +301,9 @@ describe Twitter::REST::DirectMessages do
             init_request = {body: fixture("chunk_upload_init.json"), headers: {content_type: "application/json; charset=utf-8"}}
             append_request = {body: "", headers: {content_type: "text/html;charset=utf-8"}}
             finalize_request = {body: fixture("chunk_upload_finalize_pending.json"), headers: {content_type: "application/json; charset=utf-8"}}
-            stub_request(:post, "https://upload.twitter.com/1.1/media/upload.json").to_return(init_request, append_request, finalize_request)
+            stub_request(:post, "https://upload.twitter.com/2/media/upload.json").to_return(init_request, append_request, finalize_request)
             expect { @client.create_direct_message_event_with_media(58_983, "You always have options", fixture("1080p.mp4")) }.to raise_error(Twitter::Error::TimeoutError)
-            expect(a_request(:post, "https://upload.twitter.com/1.1/media/upload.json")).to have_been_made.times(3)
+            expect(a_request(:post, "https://upload.twitter.com/2/media/upload.json")).to have_been_made.times(3)
           end
         end
       end
@@ -312,8 +312,8 @@ describe Twitter::REST::DirectMessages do
     context "with a Tempfile" do
       it "requests the correct resource" do
         @client.create_direct_message_event_with_media(58_983, "You always have options", Tempfile.new("tmp"))
-        expect(a_request(:post, "https://upload.twitter.com/1.1/media/upload.json")).to have_been_made
-        expect(a_post("/1.1/direct_messages/events/new.json")).to have_been_made
+        expect(a_request(:post, "https://upload.twitter.com/2/media/upload.json")).to have_been_made
+        expect(a_post("/2/direct_messages/events/new.json")).to have_been_made
       end
     end
   end

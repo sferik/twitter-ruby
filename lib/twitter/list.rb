@@ -28,7 +28,7 @@ module Twitter
 
     # @return [Addressable::URI] The URI to the list.
     def uri
-      Addressable::URI.parse("https://twitter.com/#{user.screen_name}/#{slug}") if slug? && user.screen_name?
+      Addressable::URI.parse("https://twitter.com/#{user.username}/#{slug}") if slug? && user.username?
     end
     memoize :uri
     alias url uri

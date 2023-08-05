@@ -6,7 +6,7 @@ module Twitter
       # @return [Integer]
       attr_reader :id
       # @return [String]
-      attr_reader :name, :screen_name
+      attr_reader :name, :username
     end
   end
 end

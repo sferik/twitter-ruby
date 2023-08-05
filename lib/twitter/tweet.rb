@@ -7,7 +7,7 @@ module Twitter
     include Twitter::Creatable
     include Twitter::Entities
     # @return [String]
-    attr_reader :filter_level, :in_reply_to_screen_name, :lang, :source, :text
+    attr_reader :filter_level, :in_reply_to_username, :lang, :source, :text
     # @return [Integer]
     attr_reader :favorite_count, :in_reply_to_status_id, :in_reply_to_user_id,
                 :quote_count, :reply_count, :retweet_count
@@ -52,7 +52,7 @@ module Twitter
 
     # @return [Addressable::URI] The URL to the tweet.
     def uri
-      Addressable::URI.parse("https://twitter.com/#{user.screen_name}/status/#{id}") if user?
+      Addressable::URI.parse("https://twitter.com/#{user.username}/status/#{id}") if user?
     end
     memoize :uri
     alias url uri
