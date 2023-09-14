@@ -225,7 +225,6 @@ command:
 This library aims to support and is [tested against][travis] the following Ruby
 versions:
 
-* Ruby 2.7
 * Ruby 3.0
 * Ruby 3.1
 * Ruby 3.2
