@@ -21,6 +21,35 @@ Gem::Specification.new do |spec|
   spec.licenses = %w[MIT]
   spec.metadata["rubygems_mfa_required"] = "true"
   spec.name = "twitter"
+  spec.post_install_message = %q{📣 Attention Twitter Ruby Gem User!
+If you're seeing this message, that means you're using the old Twitter Ruby gem
+which is no longer maintained and will not support Twitter API v2.
+
+🎉 Here's the good news:
+We recommend switching to the X gem, which supports both v1.1 and v2 to make
+the transition easier. It's a robust, modern libary that is designed to ensure
+you'll be able to easily integrate any new changes Twitter/X may roll out.
+
+🔗 For more details, visit: https://sferik.github.io/x-ruby/
+
+🤔 Why consider sponsoring?
+The X gem is free to use, but with new API pricing tiers, it actually costs
+money to develop and maintain. By contributing to the project, you help us:
+
+1. 🛠  Maintain the library: Keeping it up-to-date and secure.
+2. 🌈 Add new features: Enhancements that make your life easier.
+3. 💬 Provide support: Faster responses to issues and feature requests.
+⭐️ Bonus: Sponsors will get priority support and influence over the project
+roadmap. We will also list your name or your company's logo on our GitHub page.
+
+🔗 To sponsor, visit: https://github.com/sponsors/sferik
+
+Building and maintaining an open-source project like this takes a considerable
+amount of time and effort. Your sponsorship can help sustain this project. Even
+a small monthly donation makes a huge difference!
+
+💖 Thanks for considering sponsorship. Together we can make the X gem even better!
+}
   spec.require_paths = %w[lib]
   spec.required_ruby_version = ">= 3.0"
   spec.summary = spec.description
