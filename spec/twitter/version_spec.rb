@@ -2,10 +2,7 @@ require "helper"
 
 describe Twitter::Version do
   before do
-    allow(described_class).to receive(:major).and_return(1)
-    allow(described_class).to receive(:minor).and_return(2)
-    allow(described_class).to receive(:patch).and_return(3)
-    allow(described_class).to receive(:pre).and_return(nil)
+    allow(described_class).to receive_messages(major: 1, minor: 2, patch: 3, pre: nil)
   end
 
   describe ".to_h" do
