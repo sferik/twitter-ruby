@@ -1,3 +1,7 @@
+8.0.1
+-----
+* [Add post-install message](https://github.com/sferik/twitter/commit/154e66b3655b41226ca8b6cbf52e2866a9e5b2d0)
+
 8.0.0
 -----
 * [Fix filter limit issue](https://github.com/sferik/twitter/commit/be91024f7af7e94dd6578e08937975443dc09487)
