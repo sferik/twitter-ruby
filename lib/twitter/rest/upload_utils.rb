@@ -10,8 +10,10 @@ module Twitter
       #
       # @see https://developer.twitter.com/en/docs/media/upload-media/uploading-media/media-best-practices
       def upload(media, media_category_prefix: "tweet")
-        return chunk_upload(media, "video/mp4", "#{media_category_prefix}_video") if File.extname(media) == ".mp4"
-        return chunk_upload(media, "image/gif", "#{media_category_prefix}_gif") if File.extname(media) == ".gif" && File.size(media) > 5_000_000
+        ext = File.extname(media)
+        return chunk_upload(media, "video/mp4", "#{media_category_prefix}_video") if ext == ".mp4"
+        return chunk_upload(media, "video/quicktime", "#{media_category_prefix}_video") if ext == ".mov"
+        return chunk_upload(media, "image/gif", "#{media_category_prefix}_gif") if ext == ".gif" && File.size(media) > 5_000_000
 
         Twitter::REST::Request.new(self, :multipart_post, "https://upload.twitter.com/1.1/media/upload.json", key: :media, file: media).perform
       end
