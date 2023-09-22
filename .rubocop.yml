@@ -20,7 +20,7 @@ Lint/Void:
   Enabled: false
 
 Metrics/BlockLength:
-  Max: 36
+  Max: 48
   Exclude:
     - spec/**/*.rb
 
@@ -29,13 +29,13 @@ Metrics/BlockNesting:
 
 Metrics/MethodLength:
   CountComments: false
-  Max: 10
+  Max: 8
 
 Metrics/ModuleLength:
-  Max: 150 # TODO: Lower to 100
+  Max: 128 # TODO: Lower to 100
 
 Metrics/ParameterLists:
-  Max: 5
+  Max: 7
   CountKeywordArgs: true
 
 Style/CollectionMethods:
