@@ -13,9 +13,11 @@
 A Ruby interface to the Twitter API.
 
 ## Installation
-    gem install twitter
+
+gem install twitter
 
 ## CLI
+
 Looking for the Twitter command-line interface? It was [removed][] from this
 gem in version 0.5.0 and now exists as a [separate project][t].
 
@@ -23,27 +25,32 @@ gem in version 0.5.0 and now exists as a [separate project][t].
 [t]: https://github.com/sferik/t
 
 ## Documentation
+
 [http://rdoc.info/gems/twitter][documentation]
 
 [documentation]: http://rdoc.info/gems/twitter
 
 ## Examples
+
 [https://github.com/sferik/twitter/tree/master/examples][examples]
 
 [examples]: https://github.com/sferik/twitter/tree/master/examples
 
 ## Announcements
+
 You should [follow @gem][follow] on Twitter for announcements and updates about
 this library.
 
 [follow]: https://twitter.com/gem
 
 ## Mailing List
+
 Please direct questions about this library to the [mailing list].
 
 [mailing list]: https://groups.google.com/group/twitter-ruby-gem
 
 ## Apps Wiki
+
 Does your project or organization use this gem? Add it to the [apps
 wiki][apps]!
 
@@ -68,7 +75,8 @@ error:
 
 You can pass configuration options as a block to `Twitter::REST::Client.new`.
 
-```ruby
+
+` ``  # #  ruby
 client = Twitter::REST::Client.new do |config|
   config.consumer_key        = "YOUR_CONSUMER_KEY"
   config.consumer_secret     = "YOUR_CONSUMER_SECRET"
@@ -213,6 +221,7 @@ We recommend using the [Twitter Ads SDK for Ruby][ads] to interact with the Twit
 [ads]: http://twitterdev.github.io/twitter-ruby-ads-sdk/
 
 ## Object Graph
+
 ![Entity-relationship diagram][erd]
 
 [erd]: https://cdn.rawgit.com/sferik/twitter/master/etc/erd.svg "Entity-relationship diagram"
