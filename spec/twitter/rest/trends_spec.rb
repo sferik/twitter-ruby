@@ -1,8 +1,8 @@
 require "helper"
 
-describe Twitter::REST::Trends do
+describe X::REST::Trends do
   before do
-    @client = Twitter::REST::Client.new(consumer_key: "CK", consumer_secret: "CS", access_token: "AT", access_token_secret: "AS")
+    @client = X::REST::Client.new(consumer_key: "CK", consumer_secret: "CS", access_token: "AT", access_token_secret: "AS")
   end
 
   describe "#trends" do
@@ -18,8 +18,8 @@ describe Twitter::REST::Trends do
 
       it "returns the top 10 trending topics for a specific WOEID" do
         matching_trends = @client.trends(2_487_956)
-        expect(matching_trends).to be_a Twitter::TrendResults
-        expect(matching_trends.first).to be_a Twitter::Trend
+        expect(matching_trends).to be_a X::TrendResults
+        expect(matching_trends.first).to be_a X::Trend
         expect(matching_trends.first.name).to eq("#sevenwordsaftersex")
       end
     end
@@ -46,10 +46,10 @@ describe Twitter::REST::Trends do
       expect(a_get("/1.1/trends/available.json")).to have_been_made
     end
 
-    it "returns the locations that Twitter has trending topic information for" do
+    it "returns the locations that X has trending topic information for" do
       locations = @client.trends_available
       expect(locations).to be_an Array
-      expect(locations.first).to be_a Twitter::Place
+      expect(locations.first).to be_a X::Place
       expect(locations.first.name).to eq("Ireland")
     end
   end
@@ -64,10 +64,10 @@ describe Twitter::REST::Trends do
       expect(a_get("/1.1/trends/closest.json")).to have_been_made
     end
 
-    it "returns the locations that Twitter has trending topic information for" do
+    it "returns the locations that X has trending topic information for" do
       locations = @client.trends_closest
       expect(locations).to be_an Array
-      expect(locations.first).to be_a Twitter::Place
+      expect(locations.first).to be_a X::Place
       expect(locations.first.name).to eq("Ireland")
     end
   end

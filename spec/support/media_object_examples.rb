@@ -1,4 +1,4 @@
-shared_examples_for "a Twitter::Media object" do
+shared_examples_for "a X::Media object" do
   describe "#==" do
     it "returns true when objects IDs are the same" do
       media = described_class.new(id: 1)
@@ -14,7 +14,7 @@ shared_examples_for "a Twitter::Media object" do
 
     it "returns false when classes are different" do
       media = described_class.new(id: 1)
-      other = Twitter::Identity.new(id: 1)
+      other = X::Identity.new(id: 1)
       expect(media == other).to be false
     end
   end
@@ -23,7 +23,7 @@ shared_examples_for "a Twitter::Media object" do
     it "returns a hash of Sizes when sizes is set" do
       sizes = described_class.new(id: 110_102_452_988_157_952, sizes: {small: {h: 226, w: 340, resize: "fit"}, large: {h: 466, w: 700, resize: "fit"}, medium: {h: 399, w: 600, resize: "fit"}, thumb: {h: 150, w: 150, resize: "crop"}}).sizes
       expect(sizes).to be_a Hash
-      expect(sizes[:small]).to be_a Twitter::Size
+      expect(sizes[:small]).to be_a X::Size
     end
 
     it "is empty when sizes is not set" do
@@ -34,25 +34,25 @@ shared_examples_for "a Twitter::Media object" do
 
   describe "#display_uri" do
     it "returns a String when the display_url is set" do
-      photo = Twitter::Media::Photo.new(id: 1, display_url: "example.com/expanded...")
+      photo = X::Media::Photo.new(id: 1, display_url: "example.com/expanded...")
       expect(photo.display_uri).to be_a String
       expect(photo.display_uri).to eq("example.com/expanded...")
     end
 
     it "returns nil when the display_url is not set" do
-      photo = Twitter::Media::Photo.new(id: 1)
+      photo = X::Media::Photo.new(id: 1)
       expect(photo.display_uri).to be_nil
     end
   end
 
   describe "#display_uri?" do
     it "returns true when the display_url is set" do
-      photo = Twitter::Media::Photo.new(id: 1, display_url: "example.com/expanded...")
+      photo = X::Media::Photo.new(id: 1, display_url: "example.com/expanded...")
       expect(photo.display_uri?).to be true
     end
 
     it "returns false when the display_url is not set" do
-      photo = Twitter::Media::Photo.new(id: 1)
+      photo = X::Media::Photo.new(id: 1)
       expect(photo.display_uri?).to be false
     end
   end

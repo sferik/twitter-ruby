@@ -1,6 +1,6 @@
 require "helper"
 
-describe Twitter::Suggestion do
+describe X::Suggestion do
   describe "#==" do
     it "returns true for empty objects" do
       suggestion = described_class.new
@@ -22,7 +22,7 @@ describe Twitter::Suggestion do
 
     it "returns false when classes are different" do
       suggestion = described_class.new(slug: 1)
-      other = Twitter::Base.new(slug: 1)
+      other = X::Base.new(slug: 1)
       expect(suggestion == other).to be false
     end
   end
@@ -31,7 +31,7 @@ describe Twitter::Suggestion do
     it "returns a User when user is set" do
       users = described_class.new(users: [{id: 7_505_382}]).users
       expect(users).to be_an Array
-      expect(users.first).to be_a Twitter::User
+      expect(users.first).to be_a X::User
     end
 
     it "is empty when not set" do

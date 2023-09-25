@@ -1,9 +1,9 @@
-require "twitter"
+require "X"
 
 COLON = ":".freeze
 UNDERSCORE = "_".freeze
 TAB = "\t".freeze
-NAMESPACE = "Twitter::".freeze
+NAMESPACE = "X::".freeze
 
 # Colons are invalid characters in DOT nodes.
 # Replace them with underscores.
@@ -15,11 +15,11 @@ end
 nodes = {}
 edges = {}
 
-twitter_objects = ObjectSpace.each_object(Class).select do |klass|
+X_objects = ObjectSpace.each_object(Class).select do |klass|
   klass.name.to_s.start_with?(NAMESPACE)
 end
 
-twitter_objects.each do |klass|
+X_objects.each do |klass|
   loop do
     unless klass.nil? || klass.superclass.nil? || klass.name.empty?
       nodes[nodize(klass)] = klass.name

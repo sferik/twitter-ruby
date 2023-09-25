@@ -1,8 +1,8 @@
 require "helper"
 
-describe Twitter::REST::AccountActivity do
+describe X::REST::AccountActivity do
   before do
-    @client = Twitter::REST::Client.new(consumer_key: "CK", consumer_secret: "CS", access_token: "AT", access_token_secret: "AS")
+    @client = X::REST::Client.new(consumer_key: "CK", consumer_secret: "CS", access_token: "AT", access_token_secret: "AS")
   end
 
   describe "#create_webhook" do

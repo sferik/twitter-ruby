@@ -1,8 +1,8 @@
 require "helper"
 
-describe Twitter::REST::Favorites do
+describe X::REST::Favorites do
   before do
-    @client = Twitter::REST::Client.new(consumer_key: "CK", consumer_secret: "CS", access_token: "AT", access_token_secret: "AS")
+    @client = X::REST::Client.new(consumer_key: "CK", consumer_secret: "CS", access_token: "AT", access_token_secret: "AS")
   end
 
   describe "#favorites" do
@@ -19,13 +19,13 @@ describe Twitter::REST::Favorites do
       it "returns the 20 most recent favorite Tweets for the authenticating user or user specified by the ID parameter" do
         favorites = @client.favorites("sferik")
         expect(favorites).to be_an Array
-        expect(favorites.first).to be_a Twitter::Tweet
+        expect(favorites.first).to be_a X::Tweet
         expect(favorites.first.user.id).to eq(7_505_382)
       end
 
       context "with a URI object passed" do
         it "requests the correct resource" do
-          user = URI.parse("https://twitter.com/sferik")
+          user = URI.parse("https://X.com/sferik")
           @client.favorites(user)
           expect(a_get("/1.1/favorites/list.json").with(query: {screen_name: "sferik"})).to have_been_made
         end
@@ -45,7 +45,7 @@ describe Twitter::REST::Favorites do
       it "returns the 20 most recent favorite Tweets for the authenticating user or user specified by the ID parameter" do
         favorites = @client.favorites
         expect(favorites).to be_an Array
-        expect(favorites.first).to be_a Twitter::Tweet
+        expect(favorites.first).to be_a X::Tweet
         expect(favorites.first.user.id).to eq(7_505_382)
       end
     end
@@ -64,7 +64,7 @@ describe Twitter::REST::Favorites do
     it "returns an array of un-favorited Tweets" do
       tweets = @client.unfavorite(540_897_316_908_331_009)
       expect(tweets).to be_an Array
-      expect(tweets.first).to be_a Twitter::Tweet
+      expect(tweets.first).to be_a X::Tweet
       expect(tweets.first.text).to eq("Powerful cartoon by @BillBramhall: http://t.co/IOEbc5QoES")
     end
 
@@ -80,7 +80,7 @@ describe Twitter::REST::Favorites do
 
     context "with a URI object passed" do
       it "requests the correct resource" do
-        tweet = URI.parse("https://twitter.com/sferik/status/540897316908331009")
+        tweet = URI.parse("https://X.com/sferik/status/540897316908331009")
         @client.unfavorite(tweet)
         expect(a_post("/1.1/favorites/destroy.json").with(body: {id: "540897316908331009"})).to have_been_made
       end
@@ -88,7 +88,7 @@ describe Twitter::REST::Favorites do
 
     context "with a Tweet passed" do
       it "requests the correct resource" do
-        tweet = Twitter::Tweet.new(id: 540_897_316_908_331_009)
+        tweet = X::Tweet.new(id: 540_897_316_908_331_009)
         @client.unfavorite(tweet)
         expect(a_post("/1.1/favorites/destroy.json").with(body: {id: "540897316908331009"})).to have_been_made
       end
@@ -108,7 +108,7 @@ describe Twitter::REST::Favorites do
     it "returns an array of un-favorited Tweets" do
       tweets = @client.unfavorite!(540_897_316_908_331_009)
       expect(tweets).to be_an Array
-      expect(tweets.first).to be_a Twitter::Tweet
+      expect(tweets.first).to be_a X::Tweet
       expect(tweets.first.text).to eq("Powerful cartoon by @BillBramhall: http://t.co/IOEbc5QoES")
     end
 
@@ -118,13 +118,13 @@ describe Twitter::REST::Favorites do
       end
 
       it "raises a NotFound error" do
-        expect { @client.unfavorite!(540_897_316_908_331_009) }.to raise_error(Twitter::Error::NotFound)
+        expect { @client.unfavorite!(540_897_316_908_331_009) }.to raise_error(X::Error::NotFound)
       end
     end
 
     context "with a URI object passed" do
       it "requests the correct resource" do
-        tweet = URI.parse("https://twitter.com/sferik/status/540897316908331009")
+        tweet = URI.parse("https://X.com/sferik/status/540897316908331009")
         @client.unfavorite!(tweet)
         expect(a_post("/1.1/favorites/destroy.json").with(body: {id: "540897316908331009"})).to have_been_made
       end
@@ -132,7 +132,7 @@ describe Twitter::REST::Favorites do
 
     context "with a Tweet passed" do
       it "requests the correct resource" do
-        tweet = Twitter::Tweet.new(id: 540_897_316_908_331_009)
+        tweet = X::Tweet.new(id: 540_897_316_908_331_009)
         @client.unfavorite!(tweet)
         expect(a_post("/1.1/favorites/destroy.json").with(body: {id: "540897316908331009"})).to have_been_made
       end
@@ -152,7 +152,7 @@ describe Twitter::REST::Favorites do
     it "returns an array of favorited Tweets" do
       tweets = @client.favorite(540_897_316_908_331_009)
       expect(tweets).to be_an Array
-      expect(tweets.first).to be_a Twitter::Tweet
+      expect(tweets.first).to be_a X::Tweet
       expect(tweets.first.text).to eq("Powerful cartoon by @BillBramhall: http://t.co/IOEbc5QoES")
     end
 
@@ -178,7 +178,7 @@ describe Twitter::REST::Favorites do
 
     context "with a URI object passed" do
       it "requests the correct resource" do
-        tweet = URI.parse("https://twitter.com/sferik/status/540897316908331009")
+        tweet = URI.parse("https://X.com/sferik/status/540897316908331009")
         @client.favorite(tweet)
         expect(a_post("/1.1/favorites/create.json").with(body: {id: "540897316908331009"})).to have_been_made
       end
@@ -186,7 +186,7 @@ describe Twitter::REST::Favorites do
 
     context "with a Tweet passed" do
       it "requests the correct resource" do
-        tweet = Twitter::Tweet.new(id: 540_897_316_908_331_009)
+        tweet = X::Tweet.new(id: 540_897_316_908_331_009)
         @client.favorite(tweet)
         expect(a_post("/1.1/favorites/create.json").with(body: {id: "540897316908331009"})).to have_been_made
       end
@@ -206,7 +206,7 @@ describe Twitter::REST::Favorites do
     it "returns an array of favorited Tweets" do
       tweets = @client.favorite!(540_897_316_908_331_009)
       expect(tweets).to be_an Array
-      expect(tweets.first).to be_a Twitter::Tweet
+      expect(tweets.first).to be_a X::Tweet
       expect(tweets.first.text).to eq("Powerful cartoon by @BillBramhall: http://t.co/IOEbc5QoES")
     end
 
@@ -216,7 +216,7 @@ describe Twitter::REST::Favorites do
       end
 
       it "raises a Forbidden error" do
-        expect { @client.favorite!(540_897_316_908_331_009) }.to raise_error(Twitter::Error::Forbidden)
+        expect { @client.favorite!(540_897_316_908_331_009) }.to raise_error(X::Error::Forbidden)
       end
     end
 
@@ -226,7 +226,7 @@ describe Twitter::REST::Favorites do
       end
 
       it "raises an AlreadyFavorited error" do
-        expect { @client.favorite!(540_897_316_908_331_009) }.to raise_error(Twitter::Error::AlreadyFavorited)
+        expect { @client.favorite!(540_897_316_908_331_009) }.to raise_error(X::Error::AlreadyFavorited)
       end
     end
 
@@ -236,13 +236,13 @@ describe Twitter::REST::Favorites do
       end
 
       it "raises a NotFound error" do
-        expect { @client.favorite!(540_897_316_908_331_009) }.to raise_error(Twitter::Error::NotFound)
+        expect { @client.favorite!(540_897_316_908_331_009) }.to raise_error(X::Error::NotFound)
       end
     end
 
     context "with a URI object passed" do
       it "requests the correct resource" do
-        tweet = URI.parse("https://twitter.com/sferik/status/540897316908331009")
+        tweet = URI.parse("https://X.com/sferik/status/540897316908331009")
         @client.favorite!(tweet)
         expect(a_post("/1.1/favorites/create.json").with(body: {id: "540897316908331009"})).to have_been_made
       end
@@ -250,7 +250,7 @@ describe Twitter::REST::Favorites do
 
     context "with a Tweet passed" do
       it "requests the correct resource" do
-        tweet = Twitter::Tweet.new(id: 540_897_316_908_331_009)
+        tweet = X::Tweet.new(id: 540_897_316_908_331_009)
         @client.favorite!(tweet)
         expect(a_post("/1.1/favorites/create.json").with(body: {id: "540897316908331009"})).to have_been_made
       end

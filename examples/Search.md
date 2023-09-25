@@ -1,9 +1,9 @@
 # Search
 
-This example assumes you have a configured Twitter REST `client`. Instructions
+This example assumes you have a configured X REST `client`. Instructions
 on how to configure a client can be found in [examples/Configuration.md][cfg].
 
-[cfg]: https://github.com/sferik/twitter/blob/master/examples/Configuration.md
+[cfg]: https://github.com/sferik/X/blob/master/examples/Configuration.md
 
 Here's a simple example of how to search for tweets. This query will return the
 three most recent marriage proposals to @justinbieber.

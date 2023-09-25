@@ -1,9 +1,9 @@
 require "helper"
 
-describe Twitter::PremiumSearchResults do
+describe X::PremiumSearchResults do
   describe "#each" do
     before do
-      @client = Twitter::REST::Client.new(consumer_key: "CK", consumer_secret: "CS", access_token: "AT", access_token_secret: "AS", dev_environment: "DE")
+      @client = X::REST::Client.new(consumer_key: "CK", consumer_secret: "CS", access_token: "AT", access_token_secret: "AS", dev_environment: "DE")
     end
 
     it "requests the correct resources" do
@@ -46,15 +46,15 @@ describe Twitter::PremiumSearchResults do
     end
 
     it "supports from operator" do
-      stub_post("/1.1/tweets/search/30day/DE.json").with(body: '{"maxResults":100,"query":"from:twitterdev"}').to_return(body: fixture("premium_search_from.json"), headers: {content_type: "application/json; charset=UTF-8; charset=utf-8"})
-      @client.premium_search("from:twitterdev").each {}
-      expect(a_post("/1.1/tweets/search/30day/DE.json").with(body: '{"maxResults":100,"query":"from:twitterdev"}', headers: {"Content-Type" => "application/json; charset=UTF-8"})).to have_been_made
+      stub_post("/1.1/tweets/search/30day/DE.json").with(body: '{"maxResults":100,"query":"from:Xdev"}').to_return(body: fixture("premium_search_from.json"), headers: {content_type: "application/json; charset=UTF-8; charset=utf-8"})
+      @client.premium_search("from:Xdev").each {}
+      expect(a_post("/1.1/tweets/search/30day/DE.json").with(body: '{"maxResults":100,"query":"from:Xdev"}', headers: {"Content-Type" => "application/json; charset=UTF-8"})).to have_been_made
     end
 
     it "supports to operator" do
-      stub_post("/1.1/tweets/search/30day/DE.json").with(body: '{"maxResults":100,"query":"to:twitterdev"}').to_return(body: fixture("premium_search_to.json"), headers: {content_type: "application/json; charset=UTF-8; charset=utf-8"})
-      @client.premium_search("to:twitterdev").each {}
-      expect(a_post("/1.1/tweets/search/30day/DE.json").with(body: '{"maxResults":100,"query":"to:twitterdev"}', headers: {"Content-Type" => "application/json; charset=UTF-8"})).to have_been_made
+      stub_post("/1.1/tweets/search/30day/DE.json").with(body: '{"maxResults":100,"query":"to:Xdev"}').to_return(body: fixture("premium_search_to.json"), headers: {content_type: "application/json; charset=UTF-8; charset=utf-8"})
+      @client.premium_search("to:Xdev").each {}
+      expect(a_post("/1.1/tweets/search/30day/DE.json").with(body: '{"maxResults":100,"query":"to:Xdev"}', headers: {"Content-Type" => "application/json; charset=UTF-8"})).to have_been_made
     end
 
     it "supports point_radius operator" do
@@ -64,15 +64,15 @@ describe Twitter::PremiumSearchResults do
     end
 
     it "supports url operator" do
-      stub_post("/1.1/tweets/search/30day/DE.json").with(body: '{"maxResults":100,"query":"url:github.com/sferik/twitter"}').to_return(body: fixture("premium_search_url.json"), headers: {content_type: "application/json; charset=UTF-8; charset=utf-8"})
-      @client.premium_search("url:github.com/sferik/twitter").each {}
-      expect(a_post("/1.1/tweets/search/30day/DE.json").with(body: '{"maxResults":100,"query":"url:github.com/sferik/twitter"}', headers: {"Content-Type" => "application/json; charset=UTF-8"})).to have_been_made
+      stub_post("/1.1/tweets/search/30day/DE.json").with(body: '{"maxResults":100,"query":"url:github.com/sferik/X"}').to_return(body: fixture("premium_search_url.json"), headers: {content_type: "application/json; charset=UTF-8; charset=utf-8"})
+      @client.premium_search("url:github.com/sferik/X").each {}
+      expect(a_post("/1.1/tweets/search/30day/DE.json").with(body: '{"maxResults":100,"query":"url:github.com/sferik/X"}', headers: {"Content-Type" => "application/json; charset=UTF-8"})).to have_been_made
     end
 
     it "supports product fullarchive" do
-      stub_post("/1.1/tweets/search/fullarchive/DE.json").with(body: '{"maxResults":100,"query":"url:github.com/sferik/twitter"}').to_return(body: fixture("premium_search_url.json"), headers: {content_type: "application/json; charset=UTF-8; charset=utf-8"})
-      @client.premium_search("url:github.com/sferik/twitter", {}, product: "fullarchive").each {}
-      expect(a_post("/1.1/tweets/search/fullarchive/DE.json").with(body: '{"maxResults":100,"query":"url:github.com/sferik/twitter"}', headers: {"Content-Type" => "application/json; charset=UTF-8"})).to have_been_made
+      stub_post("/1.1/tweets/search/fullarchive/DE.json").with(body: '{"maxResults":100,"query":"url:github.com/sferik/X"}').to_return(body: fixture("premium_search_url.json"), headers: {content_type: "application/json; charset=UTF-8; charset=utf-8"})
+      @client.premium_search("url:github.com/sferik/X", {}, product: "fullarchive").each {}
+      expect(a_post("/1.1/tweets/search/fullarchive/DE.json").with(body: '{"maxResults":100,"query":"url:github.com/sferik/X"}', headers: {"Content-Type" => "application/json; charset=UTF-8"})).to have_been_made
     end
   end
 end

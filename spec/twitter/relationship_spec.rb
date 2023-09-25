@@ -1,10 +1,10 @@
 require "helper"
 
-describe Twitter::Relationship do
+describe X::Relationship do
   describe "#source" do
     it "returns a User when source is set" do
       relationship = described_class.new(relationship: {source: {id: 7_505_382}})
-      expect(relationship.source).to be_a Twitter::SourceUser
+      expect(relationship.source).to be_a X::SourceUser
     end
 
     it "returns nil when source is not set" do
@@ -28,7 +28,7 @@ describe Twitter::Relationship do
   describe "#target" do
     it "returns a User when target is set" do
       relationship = described_class.new(relationship: {target: {id: 7_505_382}})
-      expect(relationship.target).to be_a Twitter::TargetUser
+      expect(relationship.target).to be_a X::TargetUser
     end
 
     it "returns nil when target is not set" do

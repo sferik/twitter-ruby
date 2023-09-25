@@ -1,11 +1,11 @@
 require "helper"
 
-describe Twitter::OEmbed do
+describe X::OEmbed do
   describe "#author_uri" do
     it "returns a URI when the author_url is set" do
-      oembed = described_class.new(author_url: "https://twitter.com/sferik")
+      oembed = described_class.new(author_url: "https://X.com/sferik")
       expect(oembed.author_uri).to be_an Addressable::URI
-      expect(oembed.author_uri.to_s).to eq("https://twitter.com/sferik")
+      expect(oembed.author_uri.to_s).to eq("https://X.com/sferik")
     end
 
     it "returns nil when the author_uri is not set" do
@@ -16,7 +16,7 @@ describe Twitter::OEmbed do
 
   describe "#author_uri?" do
     it "returns true when the author_url is set" do
-      oembed = described_class.new(author_url: "https://twitter.com/sferik")
+      oembed = described_class.new(author_url: "https://X.com/sferik")
       expect(oembed.author_uri?).to be true
     end
 
@@ -81,8 +81,8 @@ describe Twitter::OEmbed do
 
   describe "#provider_name" do
     it "returns the provider_name" do
-      oembed = described_class.new(provider_name: "Twitter")
-      expect(oembed.provider_name).to eq("Twitter")
+      oembed = described_class.new(provider_name: "X")
+      expect(oembed.provider_name).to eq("X")
     end
 
     it "returns nil when not set" do
@@ -93,9 +93,9 @@ describe Twitter::OEmbed do
 
   describe "#provider_uri" do
     it "returns a URI when the provider_url is set" do
-      oembed = described_class.new(provider_url: "http://twitter.com")
+      oembed = described_class.new(provider_url: "http://X.com")
       expect(oembed.provider_uri).to be_an Addressable::URI
-      expect(oembed.provider_uri.to_s).to eq("http://twitter.com")
+      expect(oembed.provider_uri.to_s).to eq("http://X.com")
     end
 
     it "returns nil when the provider_uri is not set" do
@@ -106,7 +106,7 @@ describe Twitter::OEmbed do
 
   describe "#provider_uri?" do
     it "returns true when the provider_url is set" do
-      oembed = described_class.new(provider_url: "https://twitter.com/sferik")
+      oembed = described_class.new(provider_url: "https://X.com/sferik")
       expect(oembed.provider_uri?).to be true
     end
 
@@ -147,9 +147,9 @@ describe Twitter::OEmbed do
 
   describe "#uri" do
     it "returns a URI when the url is set" do
-      oembed = described_class.new(url: "https://twitter.com/twitterapi/status/133640144317198338")
+      oembed = described_class.new(url: "https://X.com/Xapi/status/133640144317198338")
       expect(oembed.uri).to be_an Addressable::URI
-      expect(oembed.uri.to_s).to eq("https://twitter.com/twitterapi/status/133640144317198338")
+      expect(oembed.uri.to_s).to eq("https://X.com/Xapi/status/133640144317198338")
     end
 
     it "returns nil when the url is not set" do
@@ -160,7 +160,7 @@ describe Twitter::OEmbed do
 
   describe "#uri?" do
     it "returns true when the url is set" do
-      oembed = described_class.new(url: "https://twitter.com/twitterapi/status/133640144317198338")
+      oembed = described_class.new(url: "https://X.com/Xapi/status/133640144317198338")
       expect(oembed.uri?).to be true
     end
 

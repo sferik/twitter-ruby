@@ -1,8 +1,8 @@
 require "helper"
 
-describe Twitter::REST::OAuth do
+describe X::REST::OAuth do
   before do
-    @client = Twitter::REST::Client.new(consumer_key: "CK", consumer_secret: "CS")
+    @client = X::REST::Client.new(consumer_key: "CK", consumer_secret: "CS")
   end
 
   describe "#token" do
@@ -51,7 +51,7 @@ describe Twitter::REST::OAuth do
   describe "#reverse_token" do
     before do
       # WebMock treats Basic Auth differently so we have to check against the full URL with credentials.
-      @oauth_request_token_url = "https://api.twitter.com/oauth/request_token?x_auth_mode=reverse_auth"
+      @oauth_request_token_url = "https://api.X.com/oauth/request_token?x_auth_mode=reverse_auth"
       stub_request(:post, @oauth_request_token_url).to_return(body: fixture("request_token.txt"), headers: {content_type: "text/html; charset=utf-8"})
     end
 

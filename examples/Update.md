@@ -1,10 +1,10 @@
 # Update
 
-These examples assume you have a configured Twitter REST `client`.
+These examples assume you have a configured X REST `client`.
 Instructions on how to configure a client can be found in
 [examples/Configuration.md][cfg].
 
-[cfg]: https://github.com/sferik/twitter/blob/master/examples/Configuration.md
+[cfg]: https://github.com/sferik/X/blob/master/examples/Configuration.md
 
 If the authenticated user has granted read/write permission to your
 application, you may tweet as them.
@@ -28,7 +28,7 @@ client.update("I'm tweeting with @gem!", lat: 37.7821120598956, long: -122.40061
 Post an update from a specific place. Place IDs can be retrieved using the
 [`#reverse_geocode`][reverse_geocode] method.
 
-[reverse_geocode]: http://rdoc.info/gems/twitter/Twitter/REST/API/PlacesAndGeo#reverse_geocode-instance_method
+[reverse_geocode]: http://rdoc.info/gems/X/X/REST/API/PlacesAndGeo#reverse_geocode-instance_method
 
 ```ruby
 client.update("I'm tweeting with @gem!", place_id: "df51dec6f4ee2b2c")
@@ -56,5 +56,5 @@ client.update_with_media("I'm tweeting with @gem!", media)
 For more information, see the documentation for the [`#update`][update] and
 [`#update_with_media`][update_with_media] methods.
 
-[update]: http://rdoc.info/gems/twitter/Twitter/REST/Tweets#update-instance_method
-[update_with_media]: http://rdoc.info/gems/twitter/Twitter/REST/Tweets#update_with_media-instance_method
+[update]: http://rdoc.info/gems/X/X/REST/Tweets#update-instance_method
+[update_with_media]: http://rdoc.info/gems/X/X/REST/Tweets#update_with_media-instance_method

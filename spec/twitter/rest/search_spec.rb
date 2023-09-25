@@ -1,8 +1,8 @@
 require "helper"
 
-describe Twitter::REST::Search do
+describe X::REST::Search do
   before do
-    @client = Twitter::REST::Client.new(consumer_key: "CK", consumer_secret: "CS", access_token: "AT", access_token_secret: "AS")
+    @client = X::REST::Client.new(consumer_key: "CK", consumer_secret: "CS", access_token: "AT", access_token_secret: "AS")
   end
 
   describe "#search" do
@@ -18,8 +18,8 @@ describe Twitter::REST::Search do
 
       it "returns recent Tweets related to a query with images and videos embedded" do
         search = @client.search("#freebandnames")
-        expect(search).to be_a Twitter::SearchResults
-        expect(search.first).to be_a Twitter::Tweet
+        expect(search).to be_a X::SearchResults
+        expect(search.first).to be_a X::Tweet
         expect(search.first.text).to eq("@Just_Reboot #FreeBandNames mono surround")
       end
     end
@@ -36,8 +36,8 @@ describe Twitter::REST::Search do
 
       it "returns recent Tweets related to a query with images and videos embedded" do
         search = @client.search("#freebandnames", count: 3)
-        expect(search).to be_a Twitter::SearchResults
-        expect(search.first).to be_a Twitter::Tweet
+        expect(search).to be_a X::SearchResults
+        expect(search.first).to be_a X::Tweet
         expect(search.first.text).to eq("@Just_Reboot #FreeBandNames mono surround")
       end
     end

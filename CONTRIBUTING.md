@@ -16,7 +16,7 @@ improve this project. Here are some ways *you* can contribute:
 * Review patches.
 * Financially pledge using [gittip][].
 
-[issues]: https://github.com/sferik/twitter/issues
+[issues]: https://github.com/sferik/X/issues
 [gittip]: https://www.gittip.com/sferik/
 
 ## Submitting an Issue

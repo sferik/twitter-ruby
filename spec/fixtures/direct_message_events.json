@@ -18,8 +18,8 @@
             "urls":[
               {
                 "url":"https://t.co/ZxBEw35k5z",
-                "expanded_url":"https://twitter.com/i/stickers/image/10011",
-                "display_url":"twitter.com/i/stickers/ima…",
+                "expanded_url":"https://X.com/i/stickers/image/10011",
+                "display_url":"X.com/i/stickers/ima…",
                 "indices":[1,24]
               }
             ]
@@ -103,8 +103,8 @@
             "urls":[
               {
                 "url":"https://t.co/ZxBEw35k5z",
-                "expanded_url":"https://twitter.com/i/stickers/image/10011",
-                "display_url":"twitter.com/i/stickers/ima…","indices":[1,24]
+                "expanded_url":"https://X.com/i/stickers/image/10011",
+                "display_url":"X.com/i/stickers/ima…","indices":[1,24]
               }
             ]
           }
@@ -140,8 +140,8 @@
             "urls":[
               {
                 "url":"https://t.co/KQcQAF6hVS",
-                "expanded_url":"https://twitter.com/i/stickers/image/10018",
-                "display_url":"twitter.com/i/stickers/ima…",
+                "expanded_url":"https://X.com/i/stickers/image/10018",
+                "display_url":"X.com/i/stickers/ima…",
                 "indices":[1,24]
               }
             ]
@@ -165,8 +165,8 @@
             "urls":[
               {
                 "url":"https://t.co/MG2QdVuPGa",
-                "expanded_url":"https://twitter.com/i/stickers/image/10017",
-                "display_url":"twitter.com/i/stickers/ima…",
+                "expanded_url":"https://X.com/i/stickers/image/10017",
+                "display_url":"X.com/i/stickers/ima…",
                 "indices":[1,24]
               }
             ]
@@ -228,8 +228,8 @@
             "urls":[
               {
                 "url":"https://t.co/1ojXzm8bKx",
-                "expanded_url":"https://twitter.com/messages/media/856478621090942979",
-                "display_url":"pic.twitter.com/1ojXzm8bKx",
+                "expanded_url":"https://X.com/messages/media/856478621090942979",
+                "display_url":"pic.X.com/1ojXzm8bKx",
                 "indices":[1,24]
               }
             ]
@@ -240,11 +240,11 @@
               "id":856478542527385601,
               "id_str":"856478542527385601",
               "indices":[1,24],
-              "media_url":"https://ton.twitter.com/1.1/ton/data/dm/856478621090942979/856478542527385601/d3LfgVMN.jpg",
-              "media_url_https":"https://ton.twitter.com/1.1/ton/data/dm/856478621090942979/856478542527385601/d3LfgVMN.jpg",
+              "media_url":"https://ton.X.com/1.1/ton/data/dm/856478621090942979/856478542527385601/d3LfgVMN.jpg",
+              "media_url_https":"https://ton.X.com/1.1/ton/data/dm/856478621090942979/856478542527385601/d3LfgVMN.jpg",
               "url":"https://t.co/1ojXzm8bKx",
-              "display_url":"pic.twitter.com/1ojXzm8bKx",
-              "expanded_url":"https://twitter.com/messages/media/856478621090942979",
+              "display_url":"pic.X.com/1ojXzm8bKx",
+              "expanded_url":"https://X.com/messages/media/856478621090942979",
               "type":"photo",
               "sizes":{
                 "small":{"w":340,"h":255,"resize":"fit"},
@@ -286,8 +286,8 @@
             "urls":[
               {
                 "url":"https://t.co/RrE2qo9upr",
-                "expanded_url":"https://twitter.com/messages/media/856477710595624963",
-                "display_url":"pic.twitter.com/RrE2qo9upr",
+                "expanded_url":"https://X.com/messages/media/856477710595624963",
+                "display_url":"pic.X.com/RrE2qo9upr",
                 "indices":[1,24]
               }
             ]
@@ -298,11 +298,11 @@
               "id":856477689447841792,
               "id_str":"856477689447841792",
               "indices":[1,24],
-              "media_url":"https://ton.twitter.com/1.1/ton/data/dm/856477710595624963/856477689447841792/i3ViseFg.jpg",
-              "media_url_https":"https://ton.twitter.com/1.1/ton/data/dm/856477710595624963/856477689447841792/i3ViseFg.jpg",
+              "media_url":"https://ton.X.com/1.1/ton/data/dm/856477710595624963/856477689447841792/i3ViseFg.jpg",
+              "media_url_https":"https://ton.X.com/1.1/ton/data/dm/856477710595624963/856477689447841792/i3ViseFg.jpg",
               "url":"https://t.co/RrE2qo9upr",
-              "display_url":"pic.twitter.com/RrE2qo9upr",
-              "expanded_url":"https://twitter.com/messages/media/856477710595624963",
+              "display_url":"pic.X.com/RrE2qo9upr",
+              "expanded_url":"https://X.com/messages/media/856477710595624963",
               "type":"photo",
               "sizes":{
                 "small":{"w":340,"h":453,"resize":"fit"},

@@ -1,6 +1,6 @@
 require "helper"
 
-describe Twitter::Media::VideoInfo do
+describe X::Media::VideoInfo do
   describe "#aspect_ratio" do
     it "returns a String when the aspect_ratio is set" do
       info = described_class.new(aspect_ratio: [16, 9])
@@ -31,7 +31,7 @@ describe Twitter::Media::VideoInfo do
     it "returns a hash of Variants when variants is set" do
       variants = described_class.new(variants: [{bitrate: 2_176_000, content_type: "video/mp4", url: "http://video.twimg.com/c4E56sl91ZB7cpYi.mp4"}]).variants
       expect(variants).to be_an Array
-      expect(variants.first).to be_a Twitter::Variant
+      expect(variants.first).to be_a X::Variant
     end
 
     it "is empty when variants is not set" do

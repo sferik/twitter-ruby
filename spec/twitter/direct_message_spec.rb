@@ -1,6 +1,6 @@
 require "helper"
 
-describe Twitter::DirectMessage do
+describe X::DirectMessage do
   describe "#==" do
     it "returns true when objects IDs are the same" do
       direct_message = described_class.new(id: 1, text: "foo")
@@ -16,7 +16,7 @@ describe Twitter::DirectMessage do
 
     it "returns false when classes are different" do
       direct_message = described_class.new(id: 1)
-      other = Twitter::Identity.new(id: 1)
+      other = X::Identity.new(id: 1)
       expect(direct_message == other).to be false
     end
   end
@@ -74,7 +74,7 @@ describe Twitter::DirectMessage do
   describe "#recipient" do
     it "returns a User when recipient is set" do
       direct_message = described_class.new(id: 1_825_786_345, recipient: {id: 7_505_382})
-      expect(direct_message.recipient).to be_a Twitter::User
+      expect(direct_message.recipient).to be_a X::User
     end
 
     it "returns nil when recipient is not set" do
@@ -98,7 +98,7 @@ describe Twitter::DirectMessage do
   describe "#sender" do
     it "returns a User when sender is set" do
       direct_message = described_class.new(id: 1_825_786_345, sender: {id: 7_505_382})
-      expect(direct_message.sender).to be_a Twitter::User
+      expect(direct_message.sender).to be_a X::User
     end
 
     it "returns nil when sender is not set" do
@@ -123,15 +123,15 @@ describe Twitter::DirectMessage do
     it "returns an array of Entity::Hashtag when entities are set" do
       hashtags_array = [
         {
-          text: "twitter",
+          text: "X",
           indices: [10, 33],
         },
       ]
       hashtags = described_class.new(id: 1_825_786_345, entities: {hashtags: hashtags_array}).hashtags
       expect(hashtags).to be_an Array
-      expect(hashtags.first).to be_a Twitter::Entity::Hashtag
+      expect(hashtags.first).to be_a X::Entity::Hashtag
       expect(hashtags.first.indices).to eq([10, 33])
-      expect(hashtags.first.text).to eq("twitter")
+      expect(hashtags.first.text).to eq("X")
     end
 
     it "is empty when not set" do
@@ -144,7 +144,7 @@ describe Twitter::DirectMessage do
     it "returns media" do
       media = described_class.new(id: 1_825_786_345, entities: {media: [{id: 1, type: "photo"}]}).media
       expect(media).to be_an Array
-      expect(media.first).to be_a Twitter::Media::Photo
+      expect(media.first).to be_a X::Media::Photo
     end
 
     it "is empty when not set" do
@@ -162,7 +162,7 @@ describe Twitter::DirectMessage do
       symbols = described_class.new(id: 1_825_786_345, entities: {symbols: symbols_array}).symbols
       expect(symbols).to be_an Array
       expect(symbols.size).to eq(2)
-      expect(symbols.first).to be_a Twitter::Entity::Symbol
+      expect(symbols.first).to be_a X::Entity::Symbol
       expect(symbols.first.indices).to eq([114, 118])
       expect(symbols.first.text).to eq("PEP")
     end
@@ -185,7 +185,7 @@ describe Twitter::DirectMessage do
       ]
       direct_message = described_class.new(id: 1_825_786_345, entities: {urls: urls_array})
       expect(direct_message.uris).to be_an Array
-      expect(direct_message.uris.first).to be_a Twitter::Entity::URI
+      expect(direct_message.uris.first).to be_a X::Entity::URI
       expect(direct_message.uris.first.indices).to eq([10, 33])
       expect(direct_message.uris.first.display_uri).to be_a String
       expect(direct_message.uris.first.display_uri).to eq("example.com/expanded...")
@@ -226,7 +226,7 @@ describe Twitter::DirectMessage do
       ]
       user_mentions = described_class.new(id: 1_825_786_345, entities: {user_mentions: user_mentions_array}).user_mentions
       expect(user_mentions).to be_an Array
-      expect(user_mentions.first).to be_a Twitter::Entity::UserMention
+      expect(user_mentions.first).to be_a X::Entity::UserMention
       expect(user_mentions.first.indices).to eq([0, 6])
       expect(user_mentions.first.id).to eq(7_505_382)
     end

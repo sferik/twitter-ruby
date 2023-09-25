@@ -1,6 +1,6 @@
 require "helper"
 
-describe Twitter::REST::FormEncoder do
+describe X::REST::FormEncoder do
   describe ".encode" do
     it "form encodes values values" do
       expect(described_class.encode({foo: "<>", bar: "+&"})).to eq("foo=%3C%3E&bar=%2B%26")

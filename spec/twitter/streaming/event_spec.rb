@@ -1,6 +1,6 @@
 require "helper"
 
-describe Twitter::Streaming::Event do
+describe X::Streaming::Event do
   describe "#initialize" do
     subject do
       described_class.new(@data)
@@ -15,12 +15,12 @@ describe Twitter::Streaming::Event do
     end
 
     it "sets the source to be the User" do
-      expect(subject.source).to be_a(Twitter::User)
+      expect(subject.source).to be_a(X::User)
       expect(subject.source.id).to eq(10_083_602)
     end
 
     it "sets the target to be the User" do
-      expect(subject.target).to be_a(Twitter::User)
+      expect(subject.target).to be_a(X::User)
       expect(subject.target.id).to eq(1_292_911_088)
     end
 
@@ -30,7 +30,7 @@ describe Twitter::Streaming::Event do
       end
 
       it "has the list object as the target object" do
-        expect(subject.target_object).to be_a(Twitter::List)
+        expect(subject.target_object).to be_a(X::List)
         expect(subject.target_object.full_name).to eq("@adambird/lists/dev")
       end
     end
@@ -41,7 +41,7 @@ describe Twitter::Streaming::Event do
       end
 
       it "has the tweet as the target object" do
-        expect(subject.target_object).to be_a(Twitter::Tweet)
+        expect(subject.target_object).to be_a(X::Tweet)
         expect(subject.target_object.id).to eq(394_454_214_132_256_768)
       end
     end

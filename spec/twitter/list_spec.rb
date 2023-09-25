@@ -1,6 +1,6 @@
 require "helper"
 
-describe Twitter::List do
+describe X::List do
   describe "#==" do
     it "returns true when objects IDs are the same" do
       list = described_class.new(id: 1, slug: "foo")
@@ -16,7 +16,7 @@ describe Twitter::List do
 
     it "returns false when classes are different" do
       list = described_class.new(id: 1)
-      other = Twitter::Identity.new(id: 1)
+      other = X::Identity.new(id: 1)
       expect(list == other).to be false
     end
   end
@@ -49,28 +49,28 @@ describe Twitter::List do
   describe "#members_uri" do
     it "returns the URI to the list members" do
       list = described_class.new(id: 8_863_586, slug: "presidents", user: {id: 7_505_382, screen_name: "sferik"})
-      expect(list.members_uri.to_s).to eq("https://twitter.com/sferik/presidents/members")
+      expect(list.members_uri.to_s).to eq("https://X.com/sferik/presidents/members")
     end
   end
 
   describe "#subscribers_uri" do
     it "returns the URI to the list subscribers" do
       list = described_class.new(id: 8_863_586, slug: "presidents", user: {id: 7_505_382, screen_name: "sferik"})
-      expect(list.subscribers_uri.to_s).to eq("https://twitter.com/sferik/presidents/subscribers")
+      expect(list.subscribers_uri.to_s).to eq("https://X.com/sferik/presidents/subscribers")
     end
   end
 
   describe "#uri" do
     it "returns the URI to the list" do
       list = described_class.new(id: 8_863_586, slug: "presidents", user: {id: 7_505_382, screen_name: "sferik"})
-      expect(list.uri.to_s).to eq("https://twitter.com/sferik/presidents")
+      expect(list.uri.to_s).to eq("https://X.com/sferik/presidents")
     end
   end
 
   describe "#user" do
     it "returns a User when user is set" do
       list = described_class.new(id: 8_863_586, user: {id: 7_505_382})
-      expect(list.user).to be_a Twitter::User
+      expect(list.user).to be_a X::User
     end
 
     it "returns nil when status is not set" do

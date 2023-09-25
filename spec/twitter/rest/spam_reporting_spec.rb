@@ -1,8 +1,8 @@
 require "helper"
 
-describe Twitter::REST::SpamReporting do
+describe X::REST::SpamReporting do
   before do
-    @client = Twitter::REST::Client.new(consumer_key: "CK", consumer_secret: "CS", access_token: "AT", access_token_secret: "AS")
+    @client = X::REST::Client.new(consumer_key: "CK", consumer_secret: "CS", access_token: "AT", access_token_secret: "AS")
   end
 
   describe "#report_spam" do
@@ -18,7 +18,7 @@ describe Twitter::REST::SpamReporting do
     it "returns an array of users" do
       users = @client.report_spam("sferik")
       expect(users).to be_an Array
-      expect(users.first).to be_a Twitter::User
+      expect(users.first).to be_a X::User
       expect(users.first.id).to eq(7_505_382)
     end
   end

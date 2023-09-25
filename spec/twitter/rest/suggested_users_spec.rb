@@ -1,8 +1,8 @@
 require "helper"
 
-describe Twitter::REST::SuggestedUsers do
+describe X::REST::SuggestedUsers do
   before do
-    @client = Twitter::REST::Client.new(consumer_key: "CK", consumer_secret: "CS", access_token: "AT", access_token_secret: "AS")
+    @client = X::REST::Client.new(consumer_key: "CK", consumer_secret: "CS", access_token: "AT", access_token_secret: "AS")
   end
 
   describe "#suggestions" do
@@ -16,12 +16,12 @@ describe Twitter::REST::SuggestedUsers do
         expect(a_get("/1.1/users/suggestions/art-design.json")).to have_been_made
       end
 
-      it "returns the users in a given category of the Twitter suggested user list" do
+      it "returns the users in a given category of the X suggested user list" do
         suggestion = @client.suggestions("art-design")
-        expect(suggestion).to be_a Twitter::Suggestion
+        expect(suggestion).to be_a X::Suggestion
         expect(suggestion.name).to eq("Art & Design")
         expect(suggestion.users).to be_an Array
-        expect(suggestion.users.first).to be_a Twitter::User
+        expect(suggestion.users.first).to be_a X::User
       end
     end
 
@@ -38,7 +38,7 @@ describe Twitter::REST::SuggestedUsers do
       it "returns the list of suggested user categories" do
         suggestions = @client.suggestions
         expect(suggestions).to be_an Array
-        expect(suggestions.first).to be_a Twitter::Suggestion
+        expect(suggestions.first).to be_a X::Suggestion
         expect(suggestions.first.name).to eq("Art & Design")
       end
     end
@@ -54,10 +54,10 @@ describe Twitter::REST::SuggestedUsers do
       expect(a_get("/1.1/users/suggestions/art-design/members.json")).to have_been_made
     end
 
-    it "returns users in a given category of the Twitter suggested user list and return their most recent status if they are not a protected user" do
+    it "returns users in a given category of the X suggested user list and return their most recent status if they are not a protected user" do
       suggest_users = @client.suggest_users("art-design")
       expect(suggest_users).to be_an Array
-      expect(suggest_users.first).to be_a Twitter::User
+      expect(suggest_users.first).to be_a X::User
       expect(suggest_users.first.id).to eq(13)
     end
   end

@@ -1,6 +1,6 @@
 require "helper"
 
-describe Twitter::RateLimit do
+describe X::RateLimit do
   describe "#limit" do
     it "returns an Integer when x-rate-limit-limit header is set" do
       rate_limit = described_class.new("x-rate-limit-limit" => "150")

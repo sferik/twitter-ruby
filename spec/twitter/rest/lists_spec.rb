@@ -1,8 +1,8 @@
 require "helper"
 
-describe Twitter::REST::Lists do
+describe X::REST::Lists do
   before do
-    @client = Twitter::REST::Client.new(consumer_key: "CK", consumer_secret: "CS", access_token: "AT", access_token_secret: "AS")
+    @client = X::REST::Client.new(consumer_key: "CK", consumer_secret: "CS", access_token: "AT", access_token_secret: "AS")
   end
 
   describe "#lists" do
@@ -18,7 +18,7 @@ describe Twitter::REST::Lists do
     it "returns the requested list" do
       lists = @client.lists
       expect(lists).to be_an Array
-      expect(lists.first).to be_a Twitter::List
+      expect(lists.first).to be_a X::List
       expect(lists.first.name).to eq("Rubyists")
     end
   end
@@ -37,13 +37,13 @@ describe Twitter::REST::Lists do
       it "returns the timeline for members of the specified list" do
         tweets = @client.list_timeline("sferik", "presidents")
         expect(tweets).to be_an Array
-        expect(tweets.first).to be_a Twitter::Tweet
+        expect(tweets.first).to be_a X::Tweet
         expect(tweets.first.text).to eq("Happy Birthday @imdane. Watch out for those @rally pranksters!")
       end
 
       context "with a URI object passed" do
         it "requests the correct resource" do
-          list = URI.parse("https://twitter.com/sferik/presidents")
+          list = URI.parse("https://X.com/sferik/presidents")
           @client.list_timeline(list)
           expect(a_get("/1.1/lists/statuses.json").with(query: {owner_screen_name: "sferik", slug: "presidents"})).to have_been_made
         end
@@ -51,8 +51,8 @@ describe Twitter::REST::Lists do
 
       context "with URI objects passed" do
         it "requests the correct resource" do
-          user = URI.parse("https://twitter.com/sferik")
-          list = URI.parse("https://twitter.com/sferik/presidents")
+          user = URI.parse("https://X.com/sferik")
+          list = URI.parse("https://X.com/sferik/presidents")
           @client.list_timeline(user, list)
           expect(a_get("/1.1/lists/statuses.json").with(query: {owner_screen_name: "sferik", slug: "presidents"})).to have_been_made
         end
@@ -86,7 +86,7 @@ describe Twitter::REST::Lists do
 
       it "returns the list" do
         list = @client.remove_list_member("sferik", "presidents", 813_286)
-        expect(list).to be_a Twitter::List
+        expect(list).to be_a X::List
         expect(list.name).to eq("presidents")
       end
     end
@@ -118,8 +118,8 @@ describe Twitter::REST::Lists do
 
       it "returns the lists the specified user has been added to" do
         memberships = @client.memberships("sferik")
-        expect(memberships).to be_a Twitter::Cursor
-        expect(memberships.first).to be_a Twitter::List
+        expect(memberships).to be_a X::Cursor
+        expect(memberships.first).to be_a X::List
         expect(memberships.first.name).to eq("developer")
       end
 
@@ -199,8 +199,8 @@ describe Twitter::REST::Lists do
 
       it "returns the subscribers of the specified list" do
         list_subscribers = @client.list_subscribers("sferik", "presidents")
-        expect(list_subscribers).to be_a Twitter::Cursor
-        expect(list_subscribers.first).to be_a Twitter::User
+        expect(list_subscribers).to be_a X::Cursor
+        expect(list_subscribers.first).to be_a X::User
         expect(list_subscribers.first.id).to eq(7_505_382)
       end
 
@@ -280,7 +280,7 @@ describe Twitter::REST::Lists do
 
       it "returns the specified list" do
         list = @client.list_subscribe("sferik", "presidents")
-        expect(list).to be_a Twitter::List
+        expect(list).to be_a X::List
         expect(list.name).to eq("presidents")
       end
     end
@@ -356,7 +356,7 @@ describe Twitter::REST::Lists do
       end
 
       it "requests the correct resource" do
-        list = Twitter::List.new(id: 12_345_678, user: {id: 7_505_382, screen_name: "sferik"})
+        list = X::List.new(id: 12_345_678, user: {id: 7_505_382, screen_name: "sferik"})
         @client.list_subscriber?(list, 813_286)
         expect(a_get("/1.1/lists/subscribers/show.json").with(query: {owner_id: "7505382", list_id: "12345678", user_id: "813286"})).to have_been_made
       end
@@ -400,7 +400,7 @@ describe Twitter::REST::Lists do
 
       it "returns the specified list" do
         list = @client.list_unsubscribe("sferik", "presidents")
-        expect(list).to be_a Twitter::List
+        expect(list).to be_a X::List
         expect(list.name).to eq("presidents")
       end
     end
@@ -432,7 +432,7 @@ describe Twitter::REST::Lists do
 
       it "returns the list" do
         list = @client.add_list_members("sferik", "presidents", [813_286, 18_755_393])
-        expect(list).to be_a Twitter::List
+        expect(list).to be_a X::List
         expect(list.name).to eq("presidents")
       end
     end
@@ -519,7 +519,7 @@ describe Twitter::REST::Lists do
       end
 
       it "requests the correct resource" do
-        list = Twitter::List.new(id: 12_345_678, user: {id: 7_505_382, screen_name: "sferik"})
+        list = X::List.new(id: 12_345_678, user: {id: 7_505_382, screen_name: "sferik"})
         @client.list_member?(list, 813_286)
         expect(a_get("/1.1/lists/members/show.json").with(query: {owner_id: "7505382", list_id: "12345678", user_id: "813286"})).to have_been_made
       end
@@ -563,8 +563,8 @@ describe Twitter::REST::Lists do
 
       it "returns the members of the specified list" do
         list_members = @client.list_members("sferik", "presidents")
-        expect(list_members).to be_a Twitter::Cursor
-        expect(list_members.first).to be_a Twitter::User
+        expect(list_members).to be_a X::Cursor
+        expect(list_members.first).to be_a X::User
         expect(list_members.first.id).to eq(7_505_382)
       end
 
@@ -644,7 +644,7 @@ describe Twitter::REST::Lists do
 
       it "returns the list" do
         list = @client.add_list_member("sferik", "presidents", 813_286)
-        expect(list).to be_a Twitter::List
+        expect(list).to be_a X::List
         expect(list.name).to eq("presidents")
       end
     end
@@ -676,7 +676,7 @@ describe Twitter::REST::Lists do
 
       it "returns the deleted list" do
         list = @client.destroy_list("sferik", "presidents")
-        expect(list).to be_a Twitter::List
+        expect(list).to be_a X::List
         expect(list.name).to eq("presidents")
       end
     end
@@ -711,7 +711,7 @@ describe Twitter::REST::Lists do
       end
 
       it "requests the correct resource" do
-        list = Twitter::List.new(id: 12_345_678, user: {id: 7_505_382, screen_name: "sferik"})
+        list = X::List.new(id: 12_345_678, user: {id: 7_505_382, screen_name: "sferik"})
         @client.destroy_list(list)
         expect(a_post("/1.1/lists/destroy.json").with(body: {owner_id: "7505382", list_id: "12345678"})).to have_been_made
       end
@@ -731,7 +731,7 @@ describe Twitter::REST::Lists do
 
       it "returns the updated list" do
         list = @client.list_update("sferik", "presidents", description: "Presidents of the United States of America")
-        expect(list).to be_a Twitter::List
+        expect(list).to be_a X::List
         expect(list.name).to eq("presidents")
       end
     end
@@ -766,7 +766,7 @@ describe Twitter::REST::Lists do
       end
 
       it "requests the correct resource" do
-        list = Twitter::List.new(id: 12_345_678, user: {id: 7_505_382, screen_name: "sferik"})
+        list = X::List.new(id: 12_345_678, user: {id: 7_505_382, screen_name: "sferik"})
         @client.list_update(list, description: "Presidents of the United States of America")
         expect(a_post("/1.1/lists/update.json").with(body: {owner_id: "7505382", list_id: "12345678", description: "Presidents of the United States of America"})).to have_been_made
       end
@@ -785,7 +785,7 @@ describe Twitter::REST::Lists do
 
     it "returns the created list" do
       list = @client.create_list("presidents")
-      expect(list).to be_a Twitter::List
+      expect(list).to be_a X::List
       expect(list.name).to eq("presidents")
     end
   end
@@ -803,7 +803,7 @@ describe Twitter::REST::Lists do
 
       it "returns the updated list" do
         list = @client.list("sferik", "presidents")
-        expect(list).to be_a Twitter::List
+        expect(list).to be_a X::List
         expect(list.name).to eq("presidents")
       end
     end
@@ -825,7 +825,7 @@ describe Twitter::REST::Lists do
       end
 
       it "requests the correct resource" do
-        user = Twitter::User.new(id: "12345678")
+        user = X::User.new(id: "12345678")
         @client.list(user, "presidents")
         expect(a_get("/1.1/lists/show.json").with(query: {owner_id: "12345678", slug: "presidents"})).to have_been_made
       end
@@ -861,7 +861,7 @@ describe Twitter::REST::Lists do
       end
 
       it "requests the correct resource" do
-        list = Twitter::List.new(id: 12_345_678, user: {id: 7_505_382, screen_name: "sferik"})
+        list = X::List.new(id: 12_345_678, user: {id: 7_505_382, screen_name: "sferik"})
         @client.list(list)
         expect(a_get("/1.1/lists/show.json").with(query: {owner_id: "7505382", list_id: "12345678"})).to have_been_made
       end
@@ -881,8 +881,8 @@ describe Twitter::REST::Lists do
 
       it "returns the lists the specified user follows" do
         subscriptions = @client.subscriptions("sferik")
-        expect(subscriptions).to be_a Twitter::Cursor
-        expect(subscriptions.first).to be_a Twitter::List
+        expect(subscriptions).to be_a X::Cursor
+        expect(subscriptions.first).to be_a X::List
         expect(subscriptions.first.name).to eq("Rubyists")
       end
 
@@ -962,7 +962,7 @@ describe Twitter::REST::Lists do
 
       it "returns the list" do
         list = @client.remove_list_members("sferik", "presidents", [813_286, 18_755_393])
-        expect(list).to be_a Twitter::List
+        expect(list).to be_a X::List
         expect(list.name).to eq("presidents")
       end
     end
@@ -1016,8 +1016,8 @@ describe Twitter::REST::Lists do
 
       it "returns the requested list" do
         lists = @client.owned_lists("sferik")
-        expect(lists).to be_a Twitter::Cursor
-        expect(lists.first).to be_a Twitter::List
+        expect(lists).to be_a X::Cursor
+        expect(lists.first).to be_a X::List
         expect(lists.first.name).to eq("My favstar.fm list")
       end
     end
@@ -1036,8 +1036,8 @@ describe Twitter::REST::Lists do
 
       it "returns the requested list" do
         lists = @client.owned_lists
-        expect(lists).to be_a Twitter::Cursor
-        expect(lists.first).to be_a Twitter::List
+        expect(lists).to be_a X::Cursor
+        expect(lists.first).to be_a X::List
         expect(lists.first.name).to eq("My favstar.fm list")
       end
     end

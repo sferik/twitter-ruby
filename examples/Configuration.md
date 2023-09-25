@@ -1,20 +1,20 @@
 # Configuration
 
-Twitter API version 1.1 requires authentication on all requests. Some requests
+X API version 1.1 requires authentication on all requests. Some requests
 can be made with [application-only authentication][application-only] while
 other requests require [single-user authentication][single-user].
 
-[application-only]: https://dev.twitter.com/oauth/application-only
-[single-user]: https://dev.twitter.com/oauth/overview/single-user
+[application-only]: https://dev.X.com/oauth/application-only
+[single-user]: https://dev.X.com/oauth/overview/single-user
 
 ## Application-only Authentication
 
-To start using the Twitter API, you need to [register your application with
-Twitter][register]. Registration requires you to answer some questions about
-your application and agree to the [Twitter API Terms of Use][api-terms].
+To start using the X API, you need to [register your application with
+X][register]. Registration requires you to answer some questions about
+your application and agree to the [X API Terms of Use][api-terms].
 
-[register]: https://apps.twitter.com/
-[api-terms]: https://dev.twitter.com/overview/terms/agreement-and-policy
+[register]: https://apps.X.com/
+[api-terms]: https://dev.X.com/overview/terms/agreement-and-policy
 
 Once you've registered an application, it's important that you set the correct
 access level. Otherwise you may see the error:
@@ -22,11 +22,11 @@ access level. Otherwise you may see the error:
     Read-only application cannot POST
 
 Your new application will be assigned a consumer key/secret pair that
-identifies your application to Twitter. This is all you need to configure your
+identifies your application to X. This is all you need to configure your
 client for application-only authentication.
 
 ```ruby
-client = Twitter::REST::Client.new do |config|
+client = X::REST::Client.new do |config|
   config.consumer_key    = "YOUR_CONSUMER_KEY"
   config.consumer_secret = "YOUR_CONSUMER_SECRET"
 end
@@ -40,11 +40,11 @@ config = {
   consumer_secret: "YOUR_CONSUMER_SECRET",
 }
 
-client = Twitter::REST::Client.new(config)
+client = X::REST::Client.new(config)
 ```
 
 Regardless of your configuration style, you should now be able to use this
-client to make any Twitter API request that does not require single-user
+client to make any X API request that does not require single-user
 authentication. For example:
 
 ```ruby
@@ -67,7 +67,7 @@ you've obtained a bearer token, you can use it to initialize clients to avoid
 making an extra request.
 
 ```ruby
-client = Twitter::REST::Client.new do |config|
+client = X::REST::Client.new do |config|
   config.consumer_key    = "YOUR_CONSUMER_KEY"
   config.consumer_secret = "YOUR_CONSUMER_SECRET"
   config.bearer_token    = "YOUR_BEARER_TOKEN"
@@ -76,14 +76,14 @@ end
 
 ## Single-user Authentication
 
-Not all Twitter API resources are accessible with application-only
+Not all X API resources are accessible with application-only
 authentication. Some resources require single-user authentication tokens, which
 you can obtain from the [3-legged authorization][3-legged-authorization] flow.
 
-[3-legged-authorization]: https://dev.twitter.com/oauth/3-legged
+[3-legged-authorization]: https://dev.X.com/oauth/3-legged
 
 ```ruby
-client = Twitter::REST::Client.new do |config|
+client = X::REST::Client.new do |config|
   config.consumer_key        = "YOUR_CONSUMER_KEY"
   config.consumer_secret     = "YOUR_CONSUMER_SECRET"
   config.access_token        = "YOUR_ACCESS_TOKEN"
@@ -91,7 +91,7 @@ client = Twitter::REST::Client.new do |config|
 end
 ```
 
-You can use this client to make any Twitter REST API request. For example:
+You can use this client to make any X REST API request. For example:
 
 ```ruby
 client.update("I'm tweeting with @gem!")
@@ -100,7 +100,7 @@ client.update("I'm tweeting with @gem!")
 ## Premium Search API
 
 ```ruby
-client = Twitter::REST::Client.new do |config|
+client = X::REST::Client.new do |config|
   config.consumer_key        = "YOUR_CONSUMER_KEY"
   config.consumer_secret     = "YOUR_CONSUMER_SECRET"
   config.dev_environment     = "YOUR_DEV_ENVIRONMENT"
@@ -119,7 +119,7 @@ Streaming clients are initialized just like single-user authenticated REST
 clients:
 
 ```ruby
-client = Twitter::Streaming::Client.new do |config|
+client = X::Streaming::Client.new do |config|
   config.consumer_key        = "YOUR_CONSUMER_KEY"
   config.consumer_secret     = "YOUR_CONSUMER_SECRET"
   config.access_token        = "YOUR_ACCESS_TOKEN"
@@ -129,17 +129,17 @@ end
 
 ```ruby
 client.sample do |object|
-  puts object.text if object.is_a?(Twitter::Tweet)
+  puts object.text if object.is_a?(X::Tweet)
 end
 ```
 
 For more information, see the documentation for the
-[`Twitter::Client`][client], [`Twitter::REST::Client`][rest-client], and
-[`Twitter::Streaming::Client`][streaming-client] classes.
+[`X::Client`][client], [`X::REST::Client`][rest-client], and
+[`X::Streaming::Client`][streaming-client] classes.
 
-[client]: http://rdoc.info/gems/twitter/Twitter/Client
-[rest-client]: http://rdoc.info/gems/twitter/Twitter/REST/Client
-[streaming-client]: http://rdoc.info/gems/twitter/Twitter/Streaming/Client
+[client]: http://rdoc.info/gems/X/X/Client
+[rest-client]: http://rdoc.info/gems/X/X/REST/Client
+[streaming-client]: http://rdoc.info/gems/X/X/Streaming/Client
 
 ## Using a Proxy
 
@@ -154,7 +154,7 @@ proxy = {
   password: "proxy_password"
 }
 
-client = Twitter::REST::Client.new do |config|
+client = X::REST::Client.new do |config|
   config.consumer_key        = "YOUR_CONSUMER_KEY"
   config.consumer_secret     = "YOUR_CONSUMER_SECRET"
   config.access_token        = "YOUR_ACCESS_TOKEN"
@@ -165,5 +165,5 @@ end
 
 Note that only a `host` and `port` are required, but a `username` and `password`
 can be optionally configured for an authenticated proxy server. Proxies are
-supported by both [`Twitter::REST::Client`][rest-client] and
-[`Twitter::Streaming::Client`][streaming-client] classes.
+supported by both [`X::REST::Client`][rest-client] and
+[`X::Streaming::Client`][streaming-client] classes.

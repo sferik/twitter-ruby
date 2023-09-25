@@ -14,7 +14,7 @@ class DummyResponse
   def <<(data); end
 end
 
-describe Twitter::Streaming::Connection do
+describe X::Streaming::Connection do
   describe "initialize" do
     context "no options provided" do
       subject(:connection) { described_class.new }
@@ -43,7 +43,7 @@ describe Twitter::Streaming::Connection do
     end
 
     let(:method) { :get }
-    let(:uri)    { "https://stream.twitter.com:443/1.1/statuses/sample.json" }
+    let(:uri)    { "https://stream.X.com:443/1.1/statuses/sample.json" }
     let(:ssl_socket) { instance_double(connection.ssl_socket_class) }
 
     let(:request) { HTTP::Request.new(verb: method, uri: uri) }
@@ -52,7 +52,7 @@ describe Twitter::Streaming::Connection do
       expect(connection.ssl_socket_class).to receive(:new).and_return(ssl_socket)
       allow(ssl_socket).to receive(:connect)
 
-      expect(connection).to receive(:new_tcp_socket).with("stream.twitter.com", 443)
+      expect(connection).to receive(:new_tcp_socket).with("stream.X.com", 443)
       connection.connect(request)
     end
 
@@ -87,7 +87,7 @@ describe Twitter::Streaming::Connection do
     end
 
     let(:method) { :get }
-    let(:uri)    { "https://stream.twitter.com:443/1.1/statuses/sample.json" }
+    let(:uri)    { "https://stream.X.com:443/1.1/statuses/sample.json" }
     let(:client) {  TCPSocket.new("127.0.0.1", 8443) }
 
     let(:request) { HTTP::Request.new(verb: method, uri: uri) }

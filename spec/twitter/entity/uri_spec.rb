@@ -1,6 +1,6 @@
 require "helper"
 
-describe Twitter::Entity::URI do
+describe X::Entity::URI do
   describe "#display_uri" do
     it "returns a String when the display_url is set" do
       uri = described_class.new(display_url: "example.com/expanded...")

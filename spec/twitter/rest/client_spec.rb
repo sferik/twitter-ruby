@@ -1,6 +1,6 @@
 require "helper"
 
-describe Twitter::REST::Client do
+describe X::REST::Client do
   before do
     @client = described_class.new(consumer_key: "CK", consumer_secret: "CS", access_token: "AT", access_token_secret: "AS")
   end

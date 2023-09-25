@@ -1,8 +1,8 @@
 require "helper"
 
-describe Twitter::Error do
+describe X::Error do
   before do
-    @client = Twitter::REST::Client.new(consumer_key: "CK", consumer_secret: "CS", access_token: "AT", access_token_secret: "AS")
+    @client = X::REST::Client.new(consumer_key: "CK", consumer_secret: "CS", access_token: "AT", access_token_secret: "AS")
   end
 
   describe "#code" do
@@ -22,7 +22,7 @@ describe Twitter::Error do
   describe "#rate_limit" do
     it "returns a rate limit object" do
       error = described_class.new("execution expired")
-      expect(error.rate_limit).to be_a Twitter::RateLimit
+      expect(error.rate_limit).to be_a X::RateLimit
     end
   end
 
@@ -34,12 +34,12 @@ describe Twitter::Error do
       end
 
       it "raises an exception with the proper message" do
-        expect { @client.user_timeline("sferik") }.to raise_error(Twitter::Error::InternalServerError)
+        expect { @client.user_timeline("sferik") }.to raise_error(X::Error::InternalServerError)
       end
     end
   end
 
-  Twitter::Error::ERRORS.each do |status, exception|
+  X::Error::ERRORS.each do |status, exception|
     context "when HTTP status is #{status}" do
       before do
         stub_get("/1.1/statuses/user_timeline.json").with(query: {screen_name: "sferik"}).to_return(status: status, body: "{}", headers: {content_type: "application/json; charset=utf-8"})

@@ -1,12 +1,12 @@
 require "helper"
 
-describe Twitter::Media::Video do
-  it_behaves_like "a Twitter::Media object"
+describe X::Media::Video do
+  it_behaves_like "a X::Media object"
 
   describe "#video_info" do
-    it "returns a Twitter::Media::VideoInfo when the video is set" do
+    it "returns a X::Media::VideoInfo when the video is set" do
       video = described_class.new(id: 1, video_info: {})
-      expect(video.video_info).to be_a Twitter::Media::VideoInfo
+      expect(video.video_info).to be_a X::Media::VideoInfo
     end
 
     it "returns nil when the display_url is not set" do

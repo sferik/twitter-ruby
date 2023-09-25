@@ -1,6 +1,6 @@
 require "helper"
 
-describe Twitter::Geo::Point do
+describe X::Geo::Point do
   before do
     @point = described_class.new(coordinates: [-122.399983, 37.788299])
   end
@@ -23,7 +23,7 @@ describe Twitter::Geo::Point do
     end
 
     it "returns false when classes are different" do
-      other = Twitter::Geo.new(coordinates: [-122.399983, 37.788299])
+      other = X::Geo.new(coordinates: [-122.399983, 37.788299])
       expect(@point == other).to be false
     end
   end

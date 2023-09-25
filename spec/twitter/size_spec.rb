@@ -1,6 +1,6 @@
 require "helper"
 
-describe Twitter::Size do
+describe X::Size do
   describe "#==" do
     it "returns true for empty objects" do
       size = described_class.new
@@ -22,7 +22,7 @@ describe Twitter::Size do
 
     it "returns false when classes are different" do
       size = described_class.new(h: 1, w: 1)
-      other = Twitter::Base.new(h: 1, w: 1)
+      other = X::Base.new(h: 1, w: 1)
       expect(size == other).to be false
     end
   end

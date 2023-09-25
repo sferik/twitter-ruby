@@ -1,8 +1,8 @@
 require "helper"
 
-describe Twitter::REST::Help do
+describe X::REST::Help do
   before do
-    @client = Twitter::REST::Client.new(consumer_key: "CK", consumer_secret: "CS", access_token: "AT", access_token_secret: "AS")
+    @client = X::REST::Client.new(consumer_key: "CK", consumer_secret: "CS", access_token: "AT", access_token_secret: "AS")
   end
 
   describe "#languages" do
@@ -15,10 +15,10 @@ describe Twitter::REST::Help do
       expect(a_get("/1.1/help/languages.json")).to have_been_made
     end
 
-    it "returns the list of languages supported by Twitter" do
+    it "returns the list of languages supported by X" do
       languages = @client.languages
       expect(languages).to be_an Array
-      expect(languages.first).to be_a Twitter::Language
+      expect(languages.first).to be_a X::Language
       expect(languages.first.name).to eq("Portuguese")
     end
   end
@@ -33,9 +33,9 @@ describe Twitter::REST::Help do
       expect(a_get("/1.1/help/privacy.json")).to have_been_made
     end
 
-    it "returns the Twitter Privacy Policy" do
+    it "returns the X Privacy Policy" do
       privacy = @client.privacy
-      expect(privacy.split.first).to eq("Twitter")
+      expect(privacy.split.first).to eq("X")
     end
   end
 
@@ -49,7 +49,7 @@ describe Twitter::REST::Help do
       expect(a_get("/1.1/help/tos.json")).to have_been_made
     end
 
-    it "returns the Twitter Terms of Service" do
+    it "returns the X Terms of Service" do
       tos = @client.tos
       expect(tos.split.first).to eq("Terms")
     end

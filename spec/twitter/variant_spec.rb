@@ -1,6 +1,6 @@
 require "helper"
 
-describe Twitter::Variant do
+describe X::Variant do
   describe "#uri" do
     it "returns a URI when the url is set" do
       variant = described_class.new(id: 1, url: "https://video.twimg.com/media/BQD6MPOCEAAbCH0.mp4")

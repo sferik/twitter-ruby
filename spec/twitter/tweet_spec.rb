@@ -1,6 +1,6 @@
 require "helper"
 
-describe Twitter::Tweet do
+describe X::Tweet do
   describe "#==" do
     it "returns true when objects IDs are the same" do
       tweet = described_class.new(id: 1, text: "foo")
@@ -16,7 +16,7 @@ describe Twitter::Tweet do
 
     it "returns false when classes are different" do
       tweet = described_class.new(id: 1)
-      other = Twitter::Identity.new(id: 1)
+      other = X::Identity.new(id: 1)
       expect(tweet == other).to be false
     end
   end
@@ -116,9 +116,9 @@ describe Twitter::Tweet do
   end
 
   describe "#geo" do
-    it "returns a Twitter::Geo::Point when geo is set" do
+    it "returns a X::Geo::Point when geo is set" do
       tweet = described_class.new(id: 28_669_546_014, geo: {id: 1, type: "Point"})
-      expect(tweet.geo).to be_a Twitter::Geo::Point
+      expect(tweet.geo).to be_a X::Geo::Point
     end
 
     it "returns nil when geo is not set" do
@@ -145,7 +145,7 @@ describe Twitter::Tweet do
 
       let(:hashtags_array) do
         [{
-          text: "twitter",
+          text: "X",
           indices: [10, 33],
         }]
       end
@@ -153,9 +153,9 @@ describe Twitter::Tweet do
       it "returns an array of Entity::Hashtag" do
         hashtags = subject.hashtags
         expect(hashtags).to be_an Array
-        expect(hashtags.first).to be_a Twitter::Entity::Hashtag
+        expect(hashtags.first).to be_a X::Entity::Hashtag
         expect(hashtags.first.indices).to eq([10, 33])
-        expect(hashtags.first.text).to eq("twitter")
+        expect(hashtags.first.text).to eq("X")
       end
     end
 
@@ -182,7 +182,7 @@ describe Twitter::Tweet do
 
   describe "#hashtags?" do
     it "returns true when the tweet includes hashtags entities" do
-      entities = {hashtags: [{text: "twitter", indices: [10, 33]}]}
+      entities = {hashtags: [{text: "X", indices: [10, 33]}]}
       tweet = described_class.new(id: 28_669_546_014, entities: entities)
       expect(tweet.hashtags?).to be true
     end
@@ -197,7 +197,7 @@ describe Twitter::Tweet do
     it "returns media" do
       media = described_class.new(id: 28_669_546_014, entities: {media: [{id: 1, type: "photo"}]}).media
       expect(media).to be_an Array
-      expect(media.first).to be_a Twitter::Media::Photo
+      expect(media.first).to be_a X::Media::Photo
     end
 
     it "is empty when not set" do
@@ -220,9 +220,9 @@ describe Twitter::Tweet do
   end
 
   describe "#metadata" do
-    it "returns a Twitter::Metadata when metadata is set" do
+    it "returns a X::Metadata when metadata is set" do
       tweet = described_class.new(id: 28_669_546_014, metadata: {result_type: "recent"})
-      expect(tweet.metadata).to be_a Twitter::Metadata
+      expect(tweet.metadata).to be_a X::Metadata
     end
 
     it "returns nil when metadata is not set" do
@@ -244,9 +244,9 @@ describe Twitter::Tweet do
   end
 
   describe "#place" do
-    it "returns a Twitter::Place when place is set" do
+    it "returns a X::Place when place is set" do
       tweet = described_class.new(id: 28_669_546_014, place: {id: "247f43d441defc03"})
-      expect(tweet.place).to be_a Twitter::Place
+      expect(tweet.place).to be_a X::Place
     end
 
     it "returns nil when place is not set" do
@@ -362,7 +362,7 @@ describe Twitter::Tweet do
       symbols = described_class.new(id: 28_669_546_014, entities: {symbols: symbols_array}).symbols
       expect(symbols).to be_an Array
       expect(symbols.size).to eq(2)
-      expect(symbols.first).to be_a Twitter::Entity::Symbol
+      expect(symbols.first).to be_a X::Entity::Symbol
       expect(symbols.first.indices).to eq([114, 118])
       expect(symbols.first.text).to eq("PEP")
     end
@@ -398,7 +398,7 @@ describe Twitter::Tweet do
       ]
       tweet = described_class.new(id: 28_669_546_014, entities: {urls: urls_array})
       expect(tweet.uris).to be_an Array
-      expect(tweet.uris.first).to be_a Twitter::Entity::URI
+      expect(tweet.uris.first).to be_a X::Entity::URI
       expect(tweet.uris.first.indices).to eq([10, 33])
       expect(tweet.uris.first.display_uri).to be_a String
       expect(tweet.uris.first.display_uri).to eq("example.com/expanded...")
@@ -430,7 +430,7 @@ describe Twitter::Tweet do
     it "returns the URI to the tweet" do
       tweet = described_class.new(id: 28_669_546_014, user: {id: 7_505_382, screen_name: "sferik"})
       expect(tweet.uri).to be_an Addressable::URI
-      expect(tweet.uri.to_s).to eq("https://twitter.com/sferik/status/28669546014")
+      expect(tweet.uri.to_s).to eq("https://X.com/sferik/status/28669546014")
     end
   end
 
@@ -450,7 +450,7 @@ describe Twitter::Tweet do
   describe "#user" do
     it "returns a User when user is set" do
       tweet = described_class.new(id: 28_669_546_014, user: {id: 7_505_382})
-      expect(tweet.user).to be_a Twitter::User
+      expect(tweet.user).to be_a X::User
     end
 
     it "returns nil when user is not set" do
@@ -490,7 +490,7 @@ describe Twitter::Tweet do
       ]
       user_mentions = described_class.new(id: 28_669_546_014, entities: {user_mentions: user_mentions_array}).user_mentions
       expect(user_mentions).to be_an Array
-      expect(user_mentions.first).to be_a Twitter::Entity::UserMention
+      expect(user_mentions.first).to be_a X::Entity::UserMention
       expect(user_mentions.first.indices).to eq([0, 6])
       expect(user_mentions.first.id).to eq(7_505_382)
     end

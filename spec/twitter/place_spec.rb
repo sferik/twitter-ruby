@@ -1,6 +1,6 @@
 require "helper"
 
-describe Twitter::Place do
+describe X::Place do
   describe ".new" do
     it "raises an IndexError when id or woeid is not specified" do
       expect { described_class.new(id: 1) }.not_to raise_error
@@ -24,7 +24,7 @@ describe Twitter::Place do
 
     it "returns false when classes are different" do
       place = described_class.new(woeid: 1)
-      other = Twitter::Base.new(woeid: 1)
+      other = X::Base.new(woeid: 1)
       expect(place).not_to eql(other)
     end
   end
@@ -44,15 +44,15 @@ describe Twitter::Place do
 
     it "returns false when classes are different" do
       place = described_class.new(woeid: 1)
-      other = Twitter::Base.new(woeid: 1)
+      other = X::Base.new(woeid: 1)
       expect(place == other).to be false
     end
   end
 
   describe "#bounding_box" do
-    it "returns a Twitter::Geo when bounding_box is set" do
+    it "returns a X::Geo when bounding_box is set" do
       place = described_class.new(woeid: "247f43d441defc03", bounding_box: {type: "Polygon", coordinates: [[[-122.40348192, 37.77752898], [-122.387436, 37.77752898], [-122.387436, 37.79448597], [-122.40348192, 37.79448597]]]})
-      expect(place.bounding_box).to be_a Twitter::Geo::Polygon
+      expect(place.bounding_box).to be_a X::Geo::Polygon
     end
 
     it "returns nil when not bounding_box is not set" do
@@ -74,7 +74,7 @@ describe Twitter::Place do
   end
 
   describe "#contained_within" do
-    it "returns a Twitter::Place when contained_within is set" do
+    it "returns a X::Place when contained_within is set" do
       place = described_class.new(woeid: "247f43d441defc03", contained_within: {woeid: "247f43d441defc04"})
       expect(place.contained_within).to be_a described_class
     end
@@ -145,9 +145,9 @@ describe Twitter::Place do
 
   describe "#uri" do
     it "returns a URI when the url is set" do
-      place = described_class.new(woeid: "247f43d441defc03", url: "https://api.twitter.com/1.1/geo/id/247f43d441defc03.json")
+      place = described_class.new(woeid: "247f43d441defc03", url: "https://api.X.com/1.1/geo/id/247f43d441defc03.json")
       expect(place.uri).to be_an Addressable::URI
-      expect(place.uri.to_s).to eq("https://api.twitter.com/1.1/geo/id/247f43d441defc03.json")
+      expect(place.uri.to_s).to eq("https://api.X.com/1.1/geo/id/247f43d441defc03.json")
     end
 
     it "returns nil when the url is not set" do
@@ -158,7 +158,7 @@ describe Twitter::Place do
 
   describe "#uri?" do
     it "returns true when the url is set" do
-      place = described_class.new(woeid: "247f43d441defc03", url: "https://api.twitter.com/1.1/geo/id/247f43d441defc03.json")
+      place = described_class.new(woeid: "247f43d441defc03", url: "https://api.X.com/1.1/geo/id/247f43d441defc03.json")
       expect(place.uri?).to be true
     end
 

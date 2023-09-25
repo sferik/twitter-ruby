@@ -1,7 +1,7 @@
 require "helper"
 
-describe Twitter::Media::Photo do
-  it_behaves_like "a Twitter::Media object"
+describe X::Media::Photo do
+  it_behaves_like "a X::Media object"
 
   describe "#type" do
     it "returns true when the type is set" do

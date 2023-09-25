@@ -1,6 +1,6 @@
 require "helper"
 
-describe Twitter::Geo::Polygon do
+describe X::Geo::Polygon do
   before do
     @polygon = described_class.new(coordinates: [[[-122.40348192, 37.77752898], [-122.387436, 37.77752898], [-122.387436, 37.79448597], [-122.40348192, 37.79448597]]])
   end
@@ -23,7 +23,7 @@ describe Twitter::Geo::Polygon do
     end
 
     it "returns false when classes are different" do
-      other = Twitter::Geo.new(coordinates: [[[-122.40348192, 37.77752898], [-122.387436, 37.77752898], [-122.387436, 37.79448597], [-122.40348192, 37.79448597]]])
+      other = X::Geo.new(coordinates: [[[-122.40348192, 37.77752898], [-122.387436, 37.77752898], [-122.387436, 37.79448597], [-122.40348192, 37.79448597]]])
       expect(@polygon == other).to be false
     end
   end

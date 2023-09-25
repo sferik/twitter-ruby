@@ -1,8 +1,8 @@
 require "helper"
 
-describe Twitter::REST::Undocumented do
+describe X::REST::Undocumented do
   before do
-    @client = Twitter::REST::Client.new(consumer_key: "CK", consumer_secret: "CS", access_token: "AT", access_token_secret: "AS")
+    @client = X::REST::Client.new(consumer_key: "CK", consumer_secret: "CS", access_token: "AT", access_token_secret: "AS")
   end
 
   describe "#following_followers_of" do
@@ -18,8 +18,8 @@ describe Twitter::REST::Undocumented do
 
       it "returns an array of numeric IDs for every user following the specified user" do
         following_followers_of = @client.following_followers_of("sferik")
-        expect(following_followers_of).to be_a Twitter::Cursor
-        expect(following_followers_of.first).to be_a Twitter::User
+        expect(following_followers_of).to be_a X::Cursor
+        expect(following_followers_of.first).to be_a X::User
       end
 
       context "with each" do
@@ -72,8 +72,8 @@ describe Twitter::REST::Undocumented do
 
       it "returns an array of numeric IDs for every user following the specified user" do
         following_followers_of = @client.following_followers_of
-        expect(following_followers_of).to be_a Twitter::Cursor
-        expect(following_followers_of.first).to be_a Twitter::User
+        expect(following_followers_of).to be_a X::Cursor
+        expect(following_followers_of.first).to be_a X::User
       end
 
       context "with each" do
@@ -92,25 +92,25 @@ describe Twitter::REST::Undocumented do
 
   describe "#tweet_count" do
     before do
-      stub_request(:get, "https://cdn.api.twitter.com/1/urls/count.json").with(query: {url: "http://twitter.com"}).to_return(body: fixture("count.json"), headers: {content_type: "application/json; charset=utf-8"})
+      stub_request(:get, "https://cdn.api.X.com/1/urls/count.json").with(query: {url: "http://X.com"}).to_return(body: fixture("count.json"), headers: {content_type: "application/json; charset=utf-8"})
     end
 
     it "requests the correct resource" do
-      @client.tweet_count("http://twitter.com")
-      expect(a_request(:get, "https://cdn.api.twitter.com/1/urls/count.json").with(query: {url: "http://twitter.com"})).to have_been_made
+      @client.tweet_count("http://X.com")
+      expect(a_request(:get, "https://cdn.api.X.com/1/urls/count.json").with(query: {url: "http://X.com"})).to have_been_made
     end
 
     it "returns a Tweet count" do
-      tweet_count = @client.tweet_count("http://twitter.com")
+      tweet_count = @client.tweet_count("http://X.com")
       expect(tweet_count).to be_an Integer
       expect(tweet_count).to eq(13_845_465)
     end
 
     context "with a URI" do
       it "requests the correct resource" do
-        uri = URI.parse("http://twitter.com")
+        uri = URI.parse("http://X.com")
         @client.tweet_count(uri)
-        expect(a_request(:get, "https://cdn.api.twitter.com/1/urls/count.json").with(query: {url: "http://twitter.com"})).to have_been_made
+        expect(a_request(:get, "https://cdn.api.X.com/1/urls/count.json").with(query: {url: "http://X.com"})).to have_been_made
       end
     end
   end

@@ -7,155 +7,155 @@ digraph classes {
 	Naught__BasicObject [label="Naught::BasicObject"]
 	Object [label="Object"]
 	StandardError [label="StandardError"]
-	Twitter__Arguments [label="Twitter::Arguments"]
-	Twitter__Base [label="Twitter::Base"]
-	Twitter__BasicUser [label="Twitter::BasicUser"]
-	Twitter__Client [label="Twitter::Client"]
-	Twitter__Configuration [label="Twitter::Configuration"]
-	Twitter__Cursor [label="Twitter::Cursor"]
-	Twitter__DirectMessage [label="Twitter::DirectMessage"]
-	Twitter__Entity [label="Twitter::Entity"]
-	Twitter__Entity__Hashtag [label="Twitter::Entity::Hashtag"]
-	Twitter__Entity__Symbol [label="Twitter::Entity::Symbol"]
-	Twitter__Entity__URI [label="Twitter::Entity::URI"]
-	Twitter__Entity__UserMention [label="Twitter::Entity::UserMention"]
-	Twitter__Error [label="Twitter::Error"]
-	Twitter__Error__AlreadyFavorited [label="Twitter::Error::AlreadyFavorited"]
-	Twitter__Error__AlreadyRetweeted [label="Twitter::Error::AlreadyRetweeted"]
-	Twitter__Error__BadGateway [label="Twitter::Error::BadGateway"]
-	Twitter__Error__BadRequest [label="Twitter::Error::BadRequest"]
-	Twitter__Error__ClientError [label="Twitter::Error::ClientError"]
-	Twitter__Error__DuplicateStatus [label="Twitter::Error::DuplicateStatus"]
-	Twitter__Error__Forbidden [label="Twitter::Error::Forbidden"]
-	Twitter__Error__GatewayTimeout [label="Twitter::Error::GatewayTimeout"]
-	Twitter__Error__InternalServerError [label="Twitter::Error::InternalServerError"]
-	Twitter__Error__NotAcceptable [label="Twitter::Error::NotAcceptable"]
-	Twitter__Error__NotFound [label="Twitter::Error::NotFound"]
-	Twitter__Error__ServerError [label="Twitter::Error::ServerError"]
-	Twitter__Error__ServiceUnavailable [label="Twitter::Error::ServiceUnavailable"]
-	Twitter__Error__TooManyRequests [label="Twitter::Error::TooManyRequests"]
-	Twitter__Error__Unauthorized [label="Twitter::Error::Unauthorized"]
-	Twitter__Error__UnprocessableEntity [label="Twitter::Error::UnprocessableEntity"]
-	Twitter__Factory [label="Twitter::Factory"]
-	Twitter__Geo [label="Twitter::Geo"]
-	Twitter__GeoFactory [label="Twitter::GeoFactory"]
-	Twitter__GeoResults [label="Twitter::GeoResults"]
-	Twitter__Geo__Point [label="Twitter::Geo::Point"]
-	Twitter__Geo__Polygon [label="Twitter::Geo::Polygon"]
-	Twitter__Headers [label="Twitter::Headers"]
-	Twitter__Identity [label="Twitter::Identity"]
-	Twitter__Language [label="Twitter::Language"]
-	Twitter__List [label="Twitter::List"]
-	Twitter__MediaFactory [label="Twitter::MediaFactory"]
-	Twitter__Media__AnimatedGif [label="Twitter::Media::AnimatedGif"]
-	Twitter__Media__Photo [label="Twitter::Media::Photo"]
-	Twitter__Media__Video [label="Twitter::Media::Video"]
-	Twitter__Media__VideoInfo [label="Twitter::Media::VideoInfo"]
-	Twitter__Metadata [label="Twitter::Metadata"]
-	Twitter__NullObject [label="Twitter::NullObject"]
-	Twitter__OEmbed [label="Twitter::OEmbed"]
-	Twitter__Place [label="Twitter::Place"]
-	Twitter__ProfileBanner [label="Twitter::ProfileBanner"]
-	Twitter__REST__Client [label="Twitter::REST::Client"]
-	Twitter__REST__Request [label="Twitter::REST::Request"]
-	Twitter__RateLimit [label="Twitter::RateLimit"]
-	Twitter__Relationship [label="Twitter::Relationship"]
-	Twitter__SavedSearch [label="Twitter::SavedSearch"]
-	Twitter__SearchResults [label="Twitter::SearchResults"]
-	Twitter__Settings [label="Twitter::Settings"]
-	Twitter__Size [label="Twitter::Size"]
-	Twitter__SourceUser [label="Twitter::SourceUser"]
-	Twitter__Streaming__Client [label="Twitter::Streaming::Client"]
-	Twitter__Streaming__Connection [label="Twitter::Streaming::Connection"]
-	Twitter__Streaming__DeletedTweet [label="Twitter::Streaming::DeletedTweet"]
-	Twitter__Streaming__Event [label="Twitter::Streaming::Event"]
-	Twitter__Streaming__FriendList [label="Twitter::Streaming::FriendList"]
-	Twitter__Streaming__MessageParser [label="Twitter::Streaming::MessageParser"]
-	Twitter__Streaming__Response [label="Twitter::Streaming::Response"]
-	Twitter__Streaming__StallWarning [label="Twitter::Streaming::StallWarning"]
-	Twitter__Suggestion [label="Twitter::Suggestion"]
-	Twitter__TargetUser [label="Twitter::TargetUser"]
-	Twitter__Trend [label="Twitter::Trend"]
-	Twitter__TrendResults [label="Twitter::TrendResults"]
-	Twitter__Tweet [label="Twitter::Tweet"]
-	Twitter__User [label="Twitter::User"]
-	Twitter__Variant [label="Twitter::Variant"]
+	X__Arguments [label="X::Arguments"]
+	X__Base [label="X::Base"]
+	X__BasicUser [label="X::BasicUser"]
+	X__Client [label="X::Client"]
+	X__Configuration [label="X::Configuration"]
+	X__Cursor [label="X::Cursor"]
+	X__DirectMessage [label="X::DirectMessage"]
+	X__Entity [label="X::Entity"]
+	X__Entity__Hashtag [label="X::Entity::Hashtag"]
+	X__Entity__Symbol [label="X::Entity::Symbol"]
+	X__Entity__URI [label="X::Entity::URI"]
+	X__Entity__UserMention [label="X::Entity::UserMention"]
+	X__Error [label="X::Error"]
+	X__Error__AlreadyFavorited [label="X::Error::AlreadyFavorited"]
+	X__Error__AlreadyRetweeted [label="X::Error::AlreadyRetweeted"]
+	X__Error__BadGateway [label="X::Error::BadGateway"]
+	X__Error__BadRequest [label="X::Error::BadRequest"]
+	X__Error__ClientError [label="X::Error::ClientError"]
+	X__Error__DuplicateStatus [label="X::Error::DuplicateStatus"]
+	X__Error__Forbidden [label="X::Error::Forbidden"]
+	X__Error__GatewayTimeout [label="X::Error::GatewayTimeout"]
+	X__Error__InternalServerError [label="X::Error::InternalServerError"]
+	X__Error__NotAcceptable [label="X::Error::NotAcceptable"]
+	X__Error__NotFound [label="X::Error::NotFound"]
+	X__Error__ServerError [label="X::Error::ServerError"]
+	X__Error__ServiceUnavailable [label="X::Error::ServiceUnavailable"]
+	X__Error__TooManyRequests [label="X::Error::TooManyRequests"]
+	X__Error__Unauthorized [label="X::Error::Unauthorized"]
+	X__Error__UnprocessableEntity [label="X::Error::UnprocessableEntity"]
+	X__Factory [label="X::Factory"]
+	X__Geo [label="X::Geo"]
+	X__GeoFactory [label="X::GeoFactory"]
+	X__GeoResults [label="X::GeoResults"]
+	X__Geo__Point [label="X::Geo::Point"]
+	X__Geo__Polygon [label="X::Geo::Polygon"]
+	X__Headers [label="X::Headers"]
+	X__Identity [label="X::Identity"]
+	X__Language [label="X::Language"]
+	X__List [label="X::List"]
+	X__MediaFactory [label="X::MediaFactory"]
+	X__Media__AnimatedGif [label="X::Media::AnimatedGif"]
+	X__Media__Photo [label="X::Media::Photo"]
+	X__Media__Video [label="X::Media::Video"]
+	X__Media__VideoInfo [label="X::Media::VideoInfo"]
+	X__Metadata [label="X::Metadata"]
+	X__NullObject [label="X::NullObject"]
+	X__OEmbed [label="X::OEmbed"]
+	X__Place [label="X::Place"]
+	X__ProfileBanner [label="X::ProfileBanner"]
+	X__REST__Client [label="X::REST::Client"]
+	X__REST__Request [label="X::REST::Request"]
+	X__RateLimit [label="X::RateLimit"]
+	X__Relationship [label="X::Relationship"]
+	X__SavedSearch [label="X::SavedSearch"]
+	X__SearchResults [label="X::SearchResults"]
+	X__Settings [label="X::Settings"]
+	X__Size [label="X::Size"]
+	X__SourceUser [label="X::SourceUser"]
+	X__Streaming__Client [label="X::Streaming::Client"]
+	X__Streaming__Connection [label="X::Streaming::Connection"]
+	X__Streaming__DeletedTweet [label="X::Streaming::DeletedTweet"]
+	X__Streaming__Event [label="X::Streaming::Event"]
+	X__Streaming__FriendList [label="X::Streaming::FriendList"]
+	X__Streaming__MessageParser [label="X::Streaming::MessageParser"]
+	X__Streaming__Response [label="X::Streaming::Response"]
+	X__Streaming__StallWarning [label="X::Streaming::StallWarning"]
+	X__Suggestion [label="X::Suggestion"]
+	X__TargetUser [label="X::TargetUser"]
+	X__Trend [label="X::Trend"]
+	X__TrendResults [label="X::TrendResults"]
+	X__Tweet [label="X::Tweet"]
+	X__User [label="X::User"]
+	X__Variant [label="X::Variant"]
 	Array -> Object
 	Exception -> Object
 	Naught__BasicObject -> BasicObject
 	Object -> BasicObject
 	StandardError -> Exception
-	Twitter__Arguments -> Array
-	Twitter__Base -> Object
-	Twitter__BasicUser -> Twitter__Identity
-	Twitter__Client -> Object
-	Twitter__Configuration -> Twitter__Base
-	Twitter__Cursor -> Object
-	Twitter__DirectMessage -> Twitter__Identity
-	Twitter__Entity -> Twitter__Base
-	Twitter__Entity__Hashtag -> Twitter__Entity
-	Twitter__Entity__Symbol -> Twitter__Entity
-	Twitter__Entity__URI -> Twitter__Entity
-	Twitter__Entity__UserMention -> Twitter__Entity
-	Twitter__Error -> StandardError
-	Twitter__Error__AlreadyFavorited -> Twitter__Error__Forbidden
-	Twitter__Error__AlreadyRetweeted -> Twitter__Error__Forbidden
-	Twitter__Error__BadGateway -> Twitter__Error__ServerError
-	Twitter__Error__BadRequest -> Twitter__Error__ClientError
-	Twitter__Error__ClientError -> Twitter__Error
-	Twitter__Error__DuplicateStatus -> Twitter__Error__Forbidden
-	Twitter__Error__Forbidden -> Twitter__Error__ClientError
-	Twitter__Error__GatewayTimeout -> Twitter__Error__ServerError
-	Twitter__Error__InternalServerError -> Twitter__Error__ServerError
-	Twitter__Error__NotAcceptable -> Twitter__Error__ClientError
-	Twitter__Error__NotFound -> Twitter__Error__ClientError
-	Twitter__Error__ServerError -> Twitter__Error
-	Twitter__Error__ServiceUnavailable -> Twitter__Error__ServerError
-	Twitter__Error__TooManyRequests -> Twitter__Error__ClientError
-	Twitter__Error__Unauthorized -> Twitter__Error__ClientError
-	Twitter__Error__UnprocessableEntity -> Twitter__Error__ClientError
-	Twitter__Factory -> Object
-	Twitter__Geo -> Twitter__Base
-	Twitter__GeoFactory -> Twitter__Factory
-	Twitter__GeoResults -> Object
-	Twitter__Geo__Point -> Twitter__Geo
-	Twitter__Geo__Polygon -> Twitter__Geo
-	Twitter__Headers -> Object
-	Twitter__Identity -> Twitter__Base
-	Twitter__Language -> Twitter__Base
-	Twitter__List -> Twitter__Identity
-	Twitter__MediaFactory -> Twitter__Factory
-	Twitter__Media__AnimatedGif -> Twitter__Media__Video
-	Twitter__Media__Photo -> Twitter__Identity
-	Twitter__Media__Video -> Twitter__Identity
-	Twitter__Media__VideoInfo -> Twitter__Base
-	Twitter__Metadata -> Twitter__Base
-	Twitter__NullObject -> Naught__BasicObject
-	Twitter__OEmbed -> Twitter__Base
-	Twitter__Place -> Twitter__Identity
-	Twitter__ProfileBanner -> Twitter__Base
-	Twitter__REST__Client -> Twitter__Client
-	Twitter__REST__Request -> Object
-	Twitter__RateLimit -> Twitter__Base
-	Twitter__Relationship -> Twitter__Base
-	Twitter__SavedSearch -> Twitter__Identity
-	Twitter__SearchResults -> Object
-	Twitter__Settings -> Twitter__Base
-	Twitter__Size -> Twitter__Base
-	Twitter__SourceUser -> Twitter__BasicUser
-	Twitter__Streaming__Client -> Twitter__Client
-	Twitter__Streaming__Connection -> Object
-	Twitter__Streaming__DeletedTweet -> Twitter__Identity
-	Twitter__Streaming__Event -> Object
-	Twitter__Streaming__FriendList -> Array
-	Twitter__Streaming__MessageParser -> Object
-	Twitter__Streaming__Response -> Object
-	Twitter__Streaming__StallWarning -> Twitter__Base
-	Twitter__Suggestion -> Twitter__Base
-	Twitter__TargetUser -> Twitter__BasicUser
-	Twitter__Trend -> Twitter__Base
-	Twitter__TrendResults -> Object
-	Twitter__Tweet -> Twitter__Identity
-	Twitter__User -> Twitter__BasicUser
-	Twitter__Variant -> Twitter__Base
+	X__Arguments -> Array
+	X__Base -> Object
+	X__BasicUser -> X__Identity
+	X__Client -> Object
+	X__Configuration -> X__Base
+	X__Cursor -> Object
+	X__DirectMessage -> X__Identity
+	X__Entity -> X__Base
+	X__Entity__Hashtag -> X__Entity
+	X__Entity__Symbol -> X__Entity
+	X__Entity__URI -> X__Entity
+	X__Entity__UserMention -> X__Entity
+	X__Error -> StandardError
+	X__Error__AlreadyFavorited -> X__Error__Forbidden
+	X__Error__AlreadyRetweeted -> X__Error__Forbidden
+	X__Error__BadGateway -> X__Error__ServerError
+	X__Error__BadRequest -> X__Error__ClientError
+	X__Error__ClientError -> X__Error
+	X__Error__DuplicateStatus -> X__Error__Forbidden
+	X__Error__Forbidden -> X__Error__ClientError
+	X__Error__GatewayTimeout -> X__Error__ServerError
+	X__Error__InternalServerError -> X__Error__ServerError
+	X__Error__NotAcceptable -> X__Error__ClientError
+	X__Error__NotFound -> X__Error__ClientError
+	X__Error__ServerError -> X__Error
+	X__Error__ServiceUnavailable -> X__Error__ServerError
+	X__Error__TooManyRequests -> X__Error__ClientError
+	X__Error__Unauthorized -> X__Error__ClientError
+	X__Error__UnprocessableEntity -> X__Error__ClientError
+	X__Factory -> Object
+	X__Geo -> X__Base
+	X__GeoFactory -> X__Factory
+	X__GeoResults -> Object
+	X__Geo__Point -> X__Geo
+	X__Geo__Polygon -> X__Geo
+	X__Headers -> Object
+	X__Identity -> X__Base
+	X__Language -> X__Base
+	X__List -> X__Identity
+	X__MediaFactory -> X__Factory
+	X__Media__AnimatedGif -> X__Media__Video
+	X__Media__Photo -> X__Identity
+	X__Media__Video -> X__Identity
+	X__Media__VideoInfo -> X__Base
+	X__Metadata -> X__Base
+	X__NullObject -> Naught__BasicObject
+	X__OEmbed -> X__Base
+	X__Place -> X__Identity
+	X__ProfileBanner -> X__Base
+	X__REST__Client -> X__Client
+	X__REST__Request -> Object
+	X__RateLimit -> X__Base
+	X__Relationship -> X__Base
+	X__SavedSearch -> X__Identity
+	X__SearchResults -> Object
+	X__Settings -> X__Base
+	X__Size -> X__Base
+	X__SourceUser -> X__BasicUser
+	X__Streaming__Client -> X__Client
+	X__Streaming__Connection -> Object
+	X__Streaming__DeletedTweet -> X__Identity
+	X__Streaming__Event -> Object
+	X__Streaming__FriendList -> Array
+	X__Streaming__MessageParser -> Object
+	X__Streaming__Response -> Object
+	X__Streaming__StallWarning -> X__Base
+	X__Suggestion -> X__Base
+	X__TargetUser -> X__BasicUser
+	X__Trend -> X__Base
+	X__TrendResults -> Object
+	X__Tweet -> X__Identity
+	X__User -> X__BasicUser
+	X__Variant -> X__Base
 }

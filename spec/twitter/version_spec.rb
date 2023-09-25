@@ -1,6 +1,6 @@
 require "helper"
 
-describe Twitter::Version do
+describe X::Version do
   before do
     allow(described_class).to receive(:major).and_return(1)
     allow(described_class).to receive(:minor).and_return(2)

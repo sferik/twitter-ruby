@@ -12,7 +12,7 @@ class FakeConnection
   end
 end
 
-describe Twitter::Streaming::Client do
+describe X::Streaming::Client do
   before do
     @client = described_class.new(consumer_key: "CK", consumer_secret: "CS", access_token: "AT", access_token_secret: "AS")
   end
@@ -38,7 +38,7 @@ describe Twitter::Streaming::Client do
         objects << object
       end
       expect(objects.size).to eq(2)
-      expect(objects.first).to be_a Twitter::Tweet
+      expect(objects.first).to be_a X::Tweet
       expect(objects.first.text).to eq "The problem with your code is that it's doing exactly what you told it to do."
     end
   end
@@ -51,7 +51,7 @@ describe Twitter::Streaming::Client do
         objects << object
       end
       expect(objects.size).to eq(2)
-      expect(objects.first).to be_a Twitter::Tweet
+      expect(objects.first).to be_a X::Tweet
       expect(objects.first.text).to eq "The problem with your code is that it's doing exactly what you told it to do."
     end
   end
@@ -64,7 +64,7 @@ describe Twitter::Streaming::Client do
         objects << object
       end
       expect(objects.size).to eq(2)
-      expect(objects.first).to be_a Twitter::Tweet
+      expect(objects.first).to be_a X::Tweet
       expect(objects.first.text).to eq "The problem with your code is that it's doing exactly what you told it to do."
     end
   end
@@ -78,7 +78,7 @@ describe Twitter::Streaming::Client do
           objects << object
         end
         expect(objects.size).to eq(2)
-        expect(objects.first).to be_a Twitter::Tweet
+        expect(objects.first).to be_a X::Tweet
         expect(objects.first.text).to eq "The problem with your code is that it's doing exactly what you told it to do."
       end
     end
@@ -87,12 +87,12 @@ describe Twitter::Streaming::Client do
       it "returns an arary of Tweets" do
         @client.connection = FakeConnection.new(fixture("track_streaming.json"))
         objects = []
-        user = Twitter::User.new(id: 7_505_382)
+        user = X::User.new(id: 7_505_382)
         @client.site(user) do |object|
           objects << object
         end
         expect(objects.size).to eq(2)
-        expect(objects.first).to be_a Twitter::Tweet
+        expect(objects.first).to be_a X::Tweet
         expect(objects.first.text).to eq "The problem with your code is that it's doing exactly what you told it to do."
       end
     end
@@ -106,17 +106,17 @@ describe Twitter::Streaming::Client do
         objects << object
       end
       expect(objects.size).to eq(6)
-      expect(objects[0]).to be_a Twitter::Streaming::FriendList
+      expect(objects[0]).to be_a X::Streaming::FriendList
       expect(objects[0]).to eq([488_736_931, 311_444_249])
-      expect(objects[1]).to be_a Twitter::Tweet
+      expect(objects[1]).to be_a X::Tweet
       expect(objects[1].text).to eq("The problem with your code is that it's doing exactly what you told it to do.")
-      expect(objects[2]).to be_a Twitter::DirectMessage
+      expect(objects[2]).to be_a X::DirectMessage
       expect(objects[2].text).to eq("hello bot")
-      expect(objects[3]).to be_a Twitter::Streaming::Event
+      expect(objects[3]).to be_a X::Streaming::Event
       expect(objects[3].name).to eq(:follow)
-      expect(objects[4]).to be_a Twitter::Streaming::DeletedTweet
+      expect(objects[4]).to be_a X::Streaming::DeletedTweet
       expect(objects[4].id).to eq(272_691_609_211_117_568)
-      expect(objects[5]).to be_a Twitter::Streaming::StallWarning
+      expect(objects[5]).to be_a X::Streaming::StallWarning
       expect(objects[5].code).to eq("FALLING_BEHIND")
     end
   end
@@ -130,7 +130,7 @@ describe Twitter::Streaming::Client do
 
     it "requests via the proxy" do
       @client.connection = FakeConnection.new(fixture("track_streaming.json"))
-      expect(HTTP::Request).to receive(:new).with(verb: :get, uri: "https://stream.twitter.com:443/1.1/statuses/sample.json?", headers: kind_of(Hash), proxy: proxy)
+      expect(HTTP::Request).to receive(:new).with(verb: :get, uri: "https://stream.X.com:443/1.1/statuses/sample.json?", headers: kind_of(Hash), proxy: proxy)
       @client.sample {}
     end
   end

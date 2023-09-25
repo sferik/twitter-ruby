@@ -1,6 +1,6 @@
 require "helper"
 
-describe Twitter::User do
+describe X::User do
   describe "#==" do
     it "returns true when objects IDs are the same" do
       user = described_class.new(id: 1, screen_name: "foo")
@@ -16,7 +16,7 @@ describe Twitter::User do
 
     it "returns false when classes are different" do
       user = described_class.new(id: 1)
-      other = Twitter::Identity.new(id: 1)
+      other = X::Identity.new(id: 1)
       expect(user == other).to be false
     end
   end
@@ -58,7 +58,7 @@ describe Twitter::User do
       ]
       user = described_class.new(id: 7_505_382, entities: {description: {urls: urls_array}})
       expect(user.description_uris).to be_an Array
-      expect(user.description_uris.first).to be_a Twitter::Entity::URI
+      expect(user.description_uris.first).to be_a X::Entity::URI
       expect(user.description_uris.first.indices).to eq([10, 33])
       expect(user.description_uris.first.expanded_uri).to be_an Addressable::URI
     end
@@ -385,7 +385,7 @@ describe Twitter::User do
   describe "#status" do
     it "returns a Status when status is set" do
       user = described_class.new(id: 7_505_382, status: {id: 540_897_316_908_331_009})
-      expect(user.status).to be_a Twitter::Tweet
+      expect(user.status).to be_a X::Tweet
     end
 
     it "returns nil when status is not set" do
@@ -416,7 +416,7 @@ describe Twitter::User do
     it "returns the URI to the user" do
       user = described_class.new(id: 7_505_382, screen_name: "sferik")
       expect(user.uri).to be_an Addressable::URI
-      expect(user.uri.to_s).to eq("https://twitter.com/sferik")
+      expect(user.uri.to_s).to eq("https://X.com/sferik")
     end
 
     it "returns nil when the screen name is not set" do
@@ -489,7 +489,7 @@ describe Twitter::User do
       ]
       user = described_class.new(id: 7_505_382, entities: {url: {urls: urls_array}})
       expect(user.website_uris).to be_an Array
-      expect(user.website_uris.first).to be_a Twitter::Entity::URI
+      expect(user.website_uris.first).to be_a X::Entity::URI
       expect(user.website_uris.first.indices).to eq([0, 23])
       expect(user.website_uris.first.expanded_uri).to be_an Addressable::URI
     end

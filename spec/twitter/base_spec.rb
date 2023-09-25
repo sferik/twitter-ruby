@@ -1,6 +1,6 @@
 require "helper"
 
-describe Twitter::Base do
+describe X::Base do
   before do
     @base = described_class.new(id: 1)
   end

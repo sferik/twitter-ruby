@@ -1,68 +1,68 @@
-# The Twitter Ruby Gem
+# The X Ruby Gem
 
-[![Gem Version](https://badge.fury.io/rb/twitter.svg)][gem]
-[![Build Status](https://travis-ci.org/sferik/twitter.svg?branch=master)][travis]
+[![Gem Version](https://badge.fury.io/rb/X.svg)][gem]
+[![Build Status](https://travis-ci.org/sferik/X.svg?branch=master)][travis]
 [![Maintainability](https://api.codeclimate.com/v1/badges/09362621ad91e8f599b3/maintainability)][maintainability]
-[![Inline docs](http://inch-ci.org/github/sferik/twitter.svg?style=shields)][inchpages]
+[![Inline docs](http://inch-ci.org/github/sferik/X.svg?style=shields)][inchpages]
 
-[gem]: https://rubygems.org/gems/twitter
-[travis]: https://travis-ci.org/sferik/twitter
-[maintainability]: https://codeclimate.com/github/sferik/twitter/maintainability
-[inchpages]: http://inch-ci.org/github/sferik/twitter
+[gem]: https://rubygems.org/gems/X
+[travis]: https://travis-ci.org/sferik/X
+[maintainability]: https://codeclimate.com/github/sferik/X/maintainability
+[inchpages]: http://inch-ci.org/github/sferik/X
 
-A Ruby interface to the Twitter API.
+A Ruby interface to the X API.
 
 ## Installation
 
-gem install twitter
+gem install X
 
 ## CLI
 
-Looking for the Twitter command-line interface? It was [removed][] from this
+Looking for the X command-line interface? It was [removed][] from this
 gem in version 0.5.0 and now exists as a [separate project][t].
 
-[removed]: https://github.com/sferik/twitter/commit/dd2445e3e2c97f38b28a3f32ea902536b3897adf
+[removed]: https://github.com/sferik/X/commit/dd2445e3e2c97f38b28a3f32ea902536b3897adf
 [t]: https://github.com/sferik/t
 
 ## Documentation
 
-[http://rdoc.info/gems/twitter][documentation]
+[http://rdoc.info/gems/X][documentation]
 
-[documentation]: http://rdoc.info/gems/twitter
+[documentation]: http://rdoc.info/gems/X
 
 ## Examples
 
-[https://github.com/sferik/twitter/tree/master/examples][examples]
+[https://github.com/sferik/X/tree/master/examples][examples]
 
-[examples]: https://github.com/sferik/twitter/tree/master/examples
+[examples]: https://github.com/sferik/X/tree/master/examples
 
 ## Announcements
 
-You should [follow @gem][follow] on Twitter for announcements and updates about
+You should [follow @gem][follow] on X for announcements and updates about
 this library.
 
-[follow]: https://twitter.com/gem
+[follow]: https://X.com/gem
 
 ## Mailing List
 
 Please direct questions about this library to the [mailing list].
 
-[mailing list]: https://groups.google.com/group/twitter-ruby-gem
+[mailing list]: https://groups.google.com/group/X-ruby-gem
 
 ## Apps Wiki
 
 Does your project or organization use this gem? Add it to the [apps
 wiki][apps]!
 
-[apps]: https://github.com/sferik/twitter/wiki/apps
+[apps]: https://github.com/sferik/X/wiki/apps
 
 ## Configuration
-Twitter API v1.1 requires you to authenticate via OAuth, so you'll need to
-[register your application with Twitter][register]. Once you've registered an
+X API v1.1 requires you to authenticate via OAuth, so you'll need to
+[register your application with X][register]. Once you've registered an
 application, make sure to set the correct access level, otherwise you may see
 the error:
 
-[register]: https://apps.twitter.com/
+[register]: https://apps.X.com/
 
     Read-only application cannot POST
 
@@ -73,11 +73,11 @@ error:
 
     Bad Authentication data
 
-You can pass configuration options as a block to `Twitter::REST::Client.new`.
+You can pass configuration options as a block to `X::REST::Client.new`.
 
 
 ` ``  # #  ruby
-client = Twitter::REST::Client.new do |config|
+client = X::REST::Client.new do |config|
   config.consumer_key        = "YOUR_CONSUMER_KEY"
   config.consumer_secret     = "YOUR_CONSUMER_SECRET"
   config.access_token        = "YOUR_ACCESS_TOKEN"
@@ -160,13 +160,13 @@ Site Streams are restricted to whitelisted accounts. To apply for access,
 [follow the steps in the Site Streams documentation][site-streams]. [User
 Streams][user-streams] do not require prior approval.
 
-[site-streams]: https://dev.twitter.com/streaming/sitestreams#applyingforaccess
-[user-streams]: https://dev.twitter.com/streaming/userstreams
+[site-streams]: https://dev.X.com/streaming/sitestreams#applyingforaccess
+[user-streams]: https://dev.X.com/streaming/userstreams
 
-**Configuration works just like `Twitter::REST::Client`**
+**Configuration works just like `X::REST::Client`**
 
 ```ruby
-client = Twitter::Streaming::Client.new do |config|
+client = X::Streaming::Client.new do |config|
   config.consumer_key        = "YOUR_CONSUMER_KEY"
   config.consumer_secret     = "YOUR_CONSUMER_SECRET"
   config.access_token        = "YOUR_ACCESS_TOKEN"
@@ -178,7 +178,7 @@ end
 
 ```ruby
 client.sample do |object|
-  puts object.text if object.is_a?(Twitter::Tweet)
+  puts object.text if object.is_a?(X::Tweet)
 end
 ```
 
@@ -187,7 +187,7 @@ end
 ```ruby
 topics = ["coffee", "tea"]
 client.filter(track: topics.join(",")) do |object|
-  puts object.text if object.is_a?(Twitter::Tweet)
+  puts object.text if object.is_a?(X::Tweet)
 end
 ```
 
@@ -196,38 +196,38 @@ end
 ```ruby
 client.user do |object|
   case object
-  when Twitter::Tweet
+  when X::Tweet
     puts "It's a tweet!"
-  when Twitter::DirectMessage
+  when X::DirectMessage
     puts "It's a direct message!"
-  when Twitter::Streaming::StallWarning
+  when X::Streaming::StallWarning
     warn "Falling behind!"
   end
 end
 ```
 
 An `object` may be one of the following:
-* `Twitter::Tweet`
-* `Twitter::DirectMessage`
-* `Twitter::Streaming::DeletedTweet`
-* `Twitter::Streaming::Event`
-* `Twitter::Streaming::FriendList`
-* `Twitter::Streaming::StallWarning`
+* `X::Tweet`
+* `X::DirectMessage`
+* `X::Streaming::DeletedTweet`
+* `X::Streaming::Event`
+* `X::Streaming::FriendList`
+* `X::Streaming::StallWarning`
 
 ## Ads
 
-We recommend using the [Twitter Ads SDK for Ruby][ads] to interact with the Twitter Ads API.
+We recommend using the [X Ads SDK for Ruby][ads] to interact with the X Ads API.
 
-[ads]: http://twitterdev.github.io/twitter-ruby-ads-sdk/
+[ads]: http://Xdev.github.io/X-ruby-ads-sdk/
 
 ## Object Graph
 
 ![Entity-relationship diagram][erd]
 
-[erd]: https://cdn.rawgit.com/sferik/twitter/master/etc/erd.svg "Entity-relationship diagram"
+[erd]: https://cdn.rawgit.com/sferik/X/master/etc/erd.svg "Entity-relationship diagram"
 
 This entity-relationship diagram is generated programatically. If you add or
-remove any Twitter objects, please regenerate the ERD with the following
+remove any X objects, please regenerate the ERD with the following
 command:
 
     bundle exec rake erd
@@ -264,7 +264,7 @@ introduced with new major versions. As a result of this policy, you can (and
 should) specify a dependency on this gem using the [Pessimistic Version
 Constraint][pvc] with two digits of precision. For example:
 
-    spec.add_dependency 'twitter', '~> 6.0'
+    spec.add_dependency 'X', '~> 6.0'
 
 [semver]: http://semver.org/
 [pvc]: http://guides.rubygems.org/patterns/#pessimistic-version-constraint

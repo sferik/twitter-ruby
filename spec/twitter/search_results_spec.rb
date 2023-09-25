@@ -1,9 +1,9 @@
 require "helper"
 
-describe Twitter::SearchResults do
+describe X::SearchResults do
   describe "#each" do
     before do
-      @client = Twitter::REST::Client.new(consumer_key: "CK", consumer_secret: "CS", access_token: "AT", access_token_secret: "AS")
+      @client = X::REST::Client.new(consumer_key: "CK", consumer_secret: "CS", access_token: "AT", access_token_secret: "AS")
       stub_get("/1.1/search/tweets.json").with(query: {q: "#freebandnames", count: "100"}).to_return(body: fixture("search.json"), headers: {content_type: "application/json; charset=utf-8"})
       stub_get("/1.1/search/tweets.json").with(query: {q: "#freebandnames", count: "3", include_entities: "1", max_id: "414071361066532863"}).to_return(body: fixture("search2.json"), headers: {content_type: "application/json; charset=utf-8"})
     end
@@ -19,7 +19,7 @@ describe Twitter::SearchResults do
       search_results = @client.search("#freebandnames")
       search_results.each { count += 1 }
       expect(count).to eq(6)
-      expect(search_results.rate_limit).to be_a(Twitter::RateLimit)
+      expect(search_results.rate_limit).to be_a(X::RateLimit)
     end
 
     it "passes through parameters to the next request" do

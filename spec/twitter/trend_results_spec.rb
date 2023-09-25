@@ -1,6 +1,6 @@
 require "helper"
 
-describe Twitter::TrendResults do
+describe X::TrendResults do
   describe "#as_of" do
     it "returns a Time when as_of is set" do
       trend_results = described_class.new(id: 1, as_of: "2012-08-24T23:25:43Z")
@@ -72,9 +72,9 @@ describe Twitter::TrendResults do
   end
 
   describe "#location" do
-    it "returns a Twitter::Place when location is set" do
+    it "returns a X::Place when location is set" do
       trend_results = described_class.new(id: 1, locations: [{name: "Worldwide", woeid: 1}])
-      expect(trend_results.location).to be_a Twitter::Place
+      expect(trend_results.location).to be_a X::Place
     end
 
     it "returns nil when location is not set" do

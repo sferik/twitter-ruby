@@ -1,6 +1,6 @@
 require "helper"
 
-describe Twitter::Identity do
+describe X::Identity do
   describe "#initialize" do
     it "raises an IndexError when id is not specified" do
       expect { described_class.new }.to raise_error(IndexError)
@@ -22,7 +22,7 @@ describe Twitter::Identity do
 
     it "returns false when classes are different" do
       one = described_class.new(id: 1)
-      two = Twitter::Base.new(id: 1)
+      two = X::Base.new(id: 1)
       expect(one == two).to be false
     end
   end

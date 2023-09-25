@@ -1,8 +1,8 @@
 require "helper"
 
-describe Twitter::REST::FriendsAndFollowers do
+describe X::REST::FriendsAndFollowers do
   before do
-    @client = Twitter::REST::Client.new(consumer_key: "CK", consumer_secret: "CS", access_token: "AT", access_token_secret: "AS")
+    @client = X::REST::Client.new(consumer_key: "CK", consumer_secret: "CS", access_token: "AT", access_token_secret: "AS")
   end
 
   describe "#friend_ids" do
@@ -18,7 +18,7 @@ describe Twitter::REST::FriendsAndFollowers do
 
       it "returns an array of numeric IDs for every user the specified user is following" do
         friend_ids = @client.friend_ids("sferik")
-        expect(friend_ids).to be_a Twitter::Cursor
+        expect(friend_ids).to be_a X::Cursor
         expect(friend_ids.first).to eq(20_009_713)
       end
 
@@ -72,7 +72,7 @@ describe Twitter::REST::FriendsAndFollowers do
 
       it "returns an array of numeric IDs for every user the specified user is following" do
         friend_ids = @client.friend_ids
-        expect(friend_ids).to be_a Twitter::Cursor
+        expect(friend_ids).to be_a X::Cursor
         expect(friend_ids.first).to eq(20_009_713)
       end
 
@@ -104,7 +104,7 @@ describe Twitter::REST::FriendsAndFollowers do
 
       it "returns an array of numeric IDs for every user following the specified user" do
         follower_ids = @client.follower_ids("sferik")
-        expect(follower_ids).to be_a Twitter::Cursor
+        expect(follower_ids).to be_a X::Cursor
         expect(follower_ids.first).to eq(20_009_713)
       end
 
@@ -158,7 +158,7 @@ describe Twitter::REST::FriendsAndFollowers do
 
       it "returns an array of numeric IDs for every user following the specified user" do
         follower_ids = @client.follower_ids
-        expect(follower_ids).to be_a Twitter::Cursor
+        expect(follower_ids).to be_a X::Cursor
         expect(follower_ids.first).to eq(20_009_713)
       end
 
@@ -191,7 +191,7 @@ describe Twitter::REST::FriendsAndFollowers do
       it "returns up to 100 users worth of extended information" do
         friendships = @client.friendships("sferik", "pengwynn")
         expect(friendships).to be_an Array
-        expect(friendships.first).to be_a Twitter::User
+        expect(friendships.first).to be_a X::User
         expect(friendships.first.id).to eq(7_505_382)
         expect(friendships.first.connections).to eq(["none"])
       end
@@ -243,7 +243,7 @@ describe Twitter::REST::FriendsAndFollowers do
 
     it "returns an array of numeric IDs for every user who has a pending request to follow the authenticating user" do
       friendships_incoming = @client.friendships_incoming
-      expect(friendships_incoming).to be_a Twitter::Cursor
+      expect(friendships_incoming).to be_a X::Cursor
       expect(friendships_incoming.first).to eq(20_009_713)
     end
 
@@ -271,7 +271,7 @@ describe Twitter::REST::FriendsAndFollowers do
 
     it "returns an array of numeric IDs for every protected user for whom the authenticating user has a pending follow request" do
       friendships_outgoing = @client.friendships_outgoing
-      expect(friendships_outgoing).to be_a Twitter::Cursor
+      expect(friendships_outgoing).to be_a X::Cursor
       expect(friendships_outgoing.first).to eq(20_009_713)
     end
 
@@ -317,7 +317,7 @@ describe Twitter::REST::FriendsAndFollowers do
     it "returns an array of befriended users" do
       users = @client.follow!("sferik")
       expect(users).to be_an Array
-      expect(users.first).to be_a Twitter::User
+      expect(users.first).to be_a X::User
       expect(users.first.id).to eq(7_505_382)
     end
   end
@@ -328,7 +328,7 @@ describe Twitter::REST::FriendsAndFollowers do
     end
 
     it "requests the correct resources" do
-      user = Twitter::User.new(id: "7505382")
+      user = X::User.new(id: "7505382")
       @client.follow!(user)
       expect(a_post("/1.1/friendships/create.json").with(body: {user_id: "7505382"})).to have_been_made
     end
@@ -340,7 +340,7 @@ describe Twitter::REST::FriendsAndFollowers do
     end
 
     it "requests the correct resource" do
-      user = URI.parse("https://twitter.com/sferik")
+      user = URI.parse("https://X.com/sferik")
       @client.follow!(user)
       expect(a_post("/1.1/friendships/create.json").with(body: {screen_name: "sferik"})).to have_been_made
     end
@@ -352,7 +352,7 @@ describe Twitter::REST::FriendsAndFollowers do
     end
 
     it "raises an exception" do
-      expect { @client.follow!("sferik") }.to raise_error(Twitter::Error::Forbidden)
+      expect { @client.follow!("sferik") }.to raise_error(X::Error::Forbidden)
     end
   end
 
@@ -369,7 +369,7 @@ describe Twitter::REST::FriendsAndFollowers do
     it "returns an array of unfollowed users" do
       users = @client.unfollow("sferik")
       expect(users).to be_an Array
-      expect(users.first).to be_a Twitter::User
+      expect(users.first).to be_a X::User
       expect(users.first.id).to eq(7_505_382)
     end
   end
@@ -386,7 +386,7 @@ describe Twitter::REST::FriendsAndFollowers do
 
     it "returns detailed information about the relationship between two users" do
       relationship = @client.friendship_update("sferik", retweets: true)
-      expect(relationship).to be_a Twitter::Relationship
+      expect(relationship).to be_a X::Relationship
       expect(relationship.source.id).to eq(7_505_382)
     end
   end
@@ -404,7 +404,7 @@ describe Twitter::REST::FriendsAndFollowers do
 
       it "returns detailed information about the relationship between two users" do
         relationship = @client.friendship("sferik", "pengwynn")
-        expect(relationship).to be_a Twitter::Relationship
+        expect(relationship).to be_a X::Relationship
         expect(relationship.source.id).to eq(7_505_382)
       end
     end
@@ -437,8 +437,8 @@ describe Twitter::REST::FriendsAndFollowers do
       end
 
       it "requests the correct resource" do
-        user1 = Twitter::User.new(id: "7505382")
-        user2 = Twitter::User.new(id: "14100886")
+        user1 = X::User.new(id: "7505382")
+        user2 = X::User.new(id: "14100886")
         @client.friendship(user1, user2)
         expect(a_get("/1.1/friendships/show.json").with(query: {source_id: "7505382", target_id: "14100886"})).to have_been_made
       end
@@ -450,8 +450,8 @@ describe Twitter::REST::FriendsAndFollowers do
       end
 
       it "requests the correct resource" do
-        user1 = URI.parse("https://twitter.com/sferik")
-        user2 = URI.parse("https://twitter.com/pengwynn")
+        user1 = URI.parse("https://X.com/sferik")
+        user2 = URI.parse("https://X.com/pengwynn")
         @client.friendship(user1, user2)
         expect(a_get("/1.1/friendships/show.json").with(query: {source_screen_name: "sferik", target_screen_name: "pengwynn"})).to have_been_made
       end
@@ -498,8 +498,8 @@ describe Twitter::REST::FriendsAndFollowers do
       end
 
       it "requests the correct resource" do
-        user1 = Twitter::User.new(id: "7505382")
-        user2 = Twitter::User.new(id: "14100886")
+        user1 = X::User.new(id: "7505382")
+        user2 = X::User.new(id: "14100886")
         @client.friendship?(user1, user2)
         expect(a_get("/1.1/friendships/show.json").with(query: {source_id: "7505382", target_id: "14100886"})).to have_been_made
       end
@@ -519,8 +519,8 @@ describe Twitter::REST::FriendsAndFollowers do
 
       it "returns a cursor of followers with details for every user the specified user is followed by" do
         followers = @client.followers("sferik")
-        expect(followers).to be_a Twitter::Cursor
-        expect(followers.first).to be_a Twitter::User
+        expect(followers).to be_a X::Cursor
+        expect(followers.first).to be_a X::User
       end
 
       context "with each" do
@@ -573,8 +573,8 @@ describe Twitter::REST::FriendsAndFollowers do
 
       it "returns a cursor of followers with details for every user the specified user is followed by" do
         followers = @client.followers
-        expect(followers).to be_a Twitter::Cursor
-        expect(followers.first).to be_a Twitter::User
+        expect(followers).to be_a X::Cursor
+        expect(followers.first).to be_a X::User
       end
 
       context "with each" do
@@ -605,8 +605,8 @@ describe Twitter::REST::FriendsAndFollowers do
 
       it "returns a cursor of friends with details for every user the specified user is following" do
         friends = @client.friends("sferik")
-        expect(friends).to be_a Twitter::Cursor
-        expect(friends.first).to be_a Twitter::User
+        expect(friends).to be_a X::Cursor
+        expect(friends.first).to be_a X::User
       end
 
       context "with each" do
@@ -659,8 +659,8 @@ describe Twitter::REST::FriendsAndFollowers do
 
       it "returns a cursor of friends with details for every user the specified user is following" do
         friends = @client.friends
-        expect(friends).to be_a Twitter::Cursor
-        expect(friends.first).to be_a Twitter::User
+        expect(friends).to be_a X::Cursor
+        expect(friends.first).to be_a X::User
       end
 
       context "with each" do

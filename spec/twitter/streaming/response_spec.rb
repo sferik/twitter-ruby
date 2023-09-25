@@ -1,6 +1,6 @@
 require "helper"
 
-describe Twitter::Streaming::Response do
+describe X::Streaming::Response do
   subject { described_class.new }
 
   describe "#on_headers_complete" do
@@ -10,7 +10,7 @@ describe Twitter::Streaming::Response do
       end.not_to raise_error
     end
 
-    Twitter::Error::ERRORS.each do |code, klass|
+    X::Error::ERRORS.each do |code, klass|
       it "raises an exception of type #{klass} for status code #{code}" do
         expect do
           subject << "HTTP/1.1 #{code} NOK\r\nSome-Header: Woo\r\n\r\n"

@@ -3,7 +3,7 @@
     "id": "1073522416838733829",
     "created_timestamp": "1544782663913",
     "message_data": {
-      "text": "Url: https://t.co/Fv7l28yris and #hashtag and @TwitterSupport",
+      "text": "Url: https://t.co/Fv7l28yris and #hashtag and @XSupport",
       "entities": {
         "hashtags": [
           {
@@ -19,8 +19,8 @@
         ],
         "user_mentions": [
           {
-            "screen_name": "TwitterSupport",
-            "name": "Twitter Support",
+            "screen_name": "XSupport",
+            "name": "X Support",
             "id": 17874544,
             "id_str": "17874544",
             "indices": [

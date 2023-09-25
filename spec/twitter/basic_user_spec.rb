@@ -1,6 +1,6 @@
 require "helper"
 
-describe Twitter::BasicUser do
+describe X::BasicUser do
   describe "#==" do
     it "returns true when objects IDs are the same" do
       saved_search = described_class.new(id: 1, name: "foo")
@@ -16,7 +16,7 @@ describe Twitter::BasicUser do
 
     it "returns false when classes are different" do
       saved_search = described_class.new(id: 1)
-      other = Twitter::Identity.new(id: 1)
+      other = X::Identity.new(id: 1)
       expect(saved_search == other).to be false
     end
   end

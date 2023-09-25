@@ -1,6 +1,6 @@
 require "helper"
 
-describe Twitter::NullObject do
+describe X::NullObject do
   describe "#!" do
     it "returns true" do
       expect(!subject).to be true
@@ -14,7 +14,7 @@ describe Twitter::NullObject do
   end
 
   describe "#instance_of?" do
-    it "returns true for Twitter::NullObject" do
+    it "returns true for X::NullObject" do
       expect(subject).to be_instance_of(described_class)
     end
 
@@ -24,7 +24,7 @@ describe Twitter::NullObject do
   end
 
   describe "#kind_of?" do
-    it "returns true for Twitter::NullObject" do
+    it "returns true for X::NullObject" do
       expect(subject).to be_a described_class
     end
 
@@ -46,7 +46,7 @@ describe Twitter::NullObject do
       expect(subject <=> 1).to eq(-1)
     end
 
-    it "is equal to other Twitter::NullObjects" do
+    it "is equal to other X::NullObjects" do
       null_object1 = described_class.new
       null_object2 = described_class.new
       expect(null_object1 <=> null_object2).to eq(0)

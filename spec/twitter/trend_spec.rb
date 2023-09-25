@@ -1,6 +1,6 @@
 require "helper"
 
-describe Twitter::Trend do
+describe X::Trend do
   describe "#==" do
     it "returns true for empty objects" do
       trend = described_class.new
@@ -22,16 +22,16 @@ describe Twitter::Trend do
 
     it "returns false when classes are different" do
       trend = described_class.new(name: "#sevenwordsaftersex")
-      other = Twitter::Base.new(name: "#sevenwordsaftersex")
+      other = X::Base.new(name: "#sevenwordsaftersex")
       expect(trend == other).to be false
     end
   end
 
   describe "#uri" do
     it "returns a URI when the url is set" do
-      trend = described_class.new(url: "http://twitter.com/search/?q=%23sevenwordsaftersex")
+      trend = described_class.new(url: "http://X.com/search/?q=%23sevenwordsaftersex")
       expect(trend.uri).to be_an Addressable::URI
-      expect(trend.uri.to_s).to eq("http://twitter.com/search/?q=%23sevenwordsaftersex")
+      expect(trend.uri.to_s).to eq("http://X.com/search/?q=%23sevenwordsaftersex")
     end
 
     it "returns nil when the url is not set" do
@@ -42,7 +42,7 @@ describe Twitter::Trend do
 
   describe "#uri?" do
     it "returns true when the url is set" do
-      trend = described_class.new(url: "https://api.twitter.com/1.1/geo/id/247f43d441defc03.json")
+      trend = described_class.new(url: "https://api.X.com/1.1/geo/id/247f43d441defc03.json")
       expect(trend.uri?).to be true
     end
 

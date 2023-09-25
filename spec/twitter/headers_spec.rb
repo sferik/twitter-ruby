@@ -1,9 +1,9 @@
 require "helper"
 
-describe Twitter::Headers do
+describe X::Headers do
   before do
-    @client = Twitter::REST::Client.new(consumer_key: "CK", consumer_secret: "CS", access_token: "AT", access_token_secret: "AS")
-    @headers = described_class.new(@client, :get, "#{Twitter::REST::Request::BASE_URL}/path")
+    @client = X::REST::Client.new(consumer_key: "CK", consumer_secret: "CS", access_token: "AT", access_token_secret: "AS")
+    @headers = described_class.new(@client, :get, "#{X::REST::Request::BASE_URL}/path")
   end
 
   describe "#oauth_auth_header" do
@@ -31,18 +31,18 @@ describe Twitter::Headers do
       secret = {consumer_key: "CK", consumer_secret: "CS", token: "OT", token_secret: "OS", nonce: "e08201ad0dab4897c99445056feefd95", timestamp: "1370967652", ignore_extra_keys: true}
       headers = {authorization: /oauth_signature="JVkElZ8O3WXkpZjtEHYRk67pYdQ%3D"/, content_type: "application/json; charset=utf-8"}
       allow(@client).to receive(:credentials).and_return(secret)
-      stub_request(:post, "https://upload.twitter.com/1.1/media/upload.json").to_return(body: fixture("upload.json"), headers: {content_type: "application/json; charset=utf-8"})
+      stub_request(:post, "https://upload.X.com/1.1/media/upload.json").to_return(body: fixture("upload.json"), headers: {content_type: "application/json; charset=utf-8"})
       stub_post("/1.1/statuses/update.json").to_return(body: fixture("status.json"), headers: {content_type: "application/json; charset=utf-8"})
       @client.update_with_media("Just a test", fixture("pbjt.gif"))
-      expect(a_request(:post, "https://upload.twitter.com/1.1/media/upload.json")).to have_been_made
+      expect(a_request(:post, "https://upload.X.com/1.1/media/upload.json")).to have_been_made
       expect(a_post("/1.1/statuses/update.json").with(headers: {authorization: headers[:authorization]})).to have_been_made
     end
   end
 
   describe "#bearer_auth_header" do
     it "creates the correct auth headers with supplied bearer token" do
-      client = Twitter::REST::Client.new(bearer_token: "BT")
-      headers = described_class.new(client, :get, "#{Twitter::REST::Request::BASE_URL}/path")
+      client = X::REST::Client.new(bearer_token: "BT")
+      headers = described_class.new(client, :get, "#{X::REST::Request::BASE_URL}/path")
       authorization = headers.send(:bearer_auth_header)
       expect(authorization).to eq("Bearer BT")
     end

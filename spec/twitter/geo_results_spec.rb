@@ -1,6 +1,6 @@
 require "helper"
 
-describe Twitter::GeoResults do
+describe X::GeoResults do
   describe "#each" do
     before do
       @geo_results = described_class.new(result: {places: [{id: 1}, {id: 2}, {id: 3}, {id: 4}, {id: 5}, {id: 6}]})

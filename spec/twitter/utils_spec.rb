@@ -1,7 +1,7 @@
 require "benchmark"
 require "helper"
 
-describe Twitter::Utils do
+describe X::Utils do
   describe "#pmap" do
     it "returns an array" do
       expect(subject.flat_pmap([], &:reverse)).to be_an(Array)
