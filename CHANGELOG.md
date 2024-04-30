@@ -1,3 +1,9 @@
+8.1.0
+-----
+* [Update runtime dependencies](https://github.com/sferik/twitter-ruby/commit/25e8a3c623ef7d6b67b38276ad3d2f0b7e925f07)
+* [Drop support for Ruby 3.0](https://github.com/sferik/twitter-ruby/commit/4ef27b3dd66d9f0a875be4918cf61600aeb85d96)
+* [Update post-install message](https://github.com/sferik/twitter-ruby/commit/882381494dabeb8ff43ad150449a99d950b0a211)
+
 8.0.1
 -----
 * [Add post-install message](https://github.com/sferik/twitter/commit/154e66b3655b41226ca8b6cbf52e2866a9e5b2d0)

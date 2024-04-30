@@ -9,12 +9,12 @@ module Twitter
 
     # @return [Integer]
     def minor
-      0
+      1
     end
 
     # @return [Integer]
     def patch
-      1
+      0
     end
 
     # @return [Integer, NilClass]
@@ -24,12 +24,7 @@ module Twitter
 
     # @return [Hash]
     def to_h
-      {
-        major:,
-        minor:,
-        patch:,
-        pre:,
-      }
+      {major:, minor:, patch:, pre:}
     end
 
     # @return [Array]
