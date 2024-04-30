@@ -163,7 +163,7 @@ module Twitter
       # @return nil
       def perform_requests(request_method, path, ids)
         ids.each do |id|
-          perform_request(request_method, path, id: id)
+          perform_request(request_method, path, id:)
         end
         nil
       end

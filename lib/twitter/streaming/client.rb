@@ -34,8 +34,8 @@ module Twitter
       # @option options [String] :track Includes additional Tweets matching the specified keywords. Phrases of keywords are specified by a comma-separated list.
       # @option options [String] :locations Includes additional Tweets falling within the specified bounding boxes.
       # @yield [Twitter::Tweet, Twitter::Streaming::Event, Twitter::DirectMessage, Twitter::Streaming::FriendList, Twitter::Streaming::DeletedTweet, Twitter::Streaming::StallWarning] A stream of Twitter objects.
-      def filter(options = {}, &block)
-        request(:post, "https://stream.twitter.com:443/1.1/statuses/filter.json", options, &block)
+      def filter(options = {}, &)
+        request(:post, "https://stream.twitter.com:443/1.1/statuses/filter.json", options, &)
       end
 
       # Returns all public statuses
@@ -46,8 +46,8 @@ module Twitter
       # @param options [Hash] A customizable set of options.
       # @option options [Integer] :count The number of messages to backfill.
       # @yield [Twitter::Tweet, Twitter::Streaming::Event, Twitter::DirectMessage, Twitter::Streaming::FriendList, Twitter::Streaming::DeletedTweet, Twitter::Streaming::StallWarning] A stream of Twitter objects.
-      def firehose(options = {}, &block)
-        request(:get, "https://stream.twitter.com:443/1.1/statuses/firehose.json", options, &block)
+      def firehose(options = {}, &)
+        request(:get, "https://stream.twitter.com:443/1.1/statuses/firehose.json", options, &)
       end
 
       # Returns a small random sample of all public statuses
@@ -55,8 +55,8 @@ module Twitter
       # @see https://dev.twitter.com/streaming/reference/get/statuses/sample
       # @see https://dev.twitter.com/streaming/overview/request-parameters
       # @yield [Twitter::Tweet, Twitter::Streaming::Event, Twitter::DirectMessage, Twitter::Streaming::FriendList, Twitter::Streaming::DeletedTweet, Twitter::Streaming::StallWarning] A stream of Twitter objects.
-      def sample(options = {}, &block)
-        request(:get, "https://stream.twitter.com:443/1.1/statuses/sample.json", options, &block)
+      def sample(options = {}, &)
+        request(:get, "https://stream.twitter.com:443/1.1/statuses/sample.json", options, &)
       end
 
       # Streams messages for a set of users
@@ -71,10 +71,10 @@ module Twitter
       #   @option options [String] :with Specifies whether to return information for just the users specified in the follow parameter, or include messages from accounts they follow.
       #   @option options [String] :replies Specifies whether stall warnings should be delivered.
       #   @yield [Twitter::Tweet, Twitter::Streaming::Event, Twitter::DirectMessage, Twitter::Streaming::FriendList, Twitter::Streaming::DeletedTweet, Twitter::Streaming::StallWarning] A stream of Twitter objects.
-      def site(*args, &block)
+      def site(*args, &)
         arguments = Arguments.new(args)
         user_ids = collect_user_ids(arguments)
-        request(:get, "https://sitestream.twitter.com:443/1.1/site.json", arguments.options.merge(follow: user_ids.join(",")), &block)
+        request(:get, "https://sitestream.twitter.com:443/1.1/site.json", arguments.options.merge(follow: user_ids.join(",")), &)
       end
 
       # Streams messages for a single user
@@ -89,8 +89,8 @@ module Twitter
       # @option options [String] :track Includes additional Tweets matching the specified keywords. Phrases of keywords are specified by a comma-separated list.
       # @option options [String] :locations Includes additional Tweets falling within the specified bounding boxes.
       # @yield [Twitter::Tweet, Twitter::Streaming::Event, Twitter::DirectMessage, Twitter::Streaming::FriendList, Twitter::Streaming::DeletedTweet, Twitter::Streaming::StallWarning] A stream of Twitter objects.
-      def user(options = {}, &block)
-        request(:get, "https://userstream.twitter.com:443/1.1/user.json", options, &block)
+      def user(options = {}, &)
+        request(:get, "https://userstream.twitter.com:443/1.1/user.json", options, &)
       end
 
       # Set a Proc to be run when connection established.
@@ -114,7 +114,7 @@ module Twitter
       def request(method, uri, params)
         before_request.call
         headers = Twitter::Headers.new(self, method, uri, params).request_headers
-        request = HTTP::Request.new(verb: method, uri: "#{uri}?#{to_url_params(params)}", headers: headers, proxy: proxy)
+        request = HTTP::Request.new(verb: method, uri: "#{uri}?#{to_url_params(params)}", headers:, proxy:)
         response = Streaming::Response.new do |data|
           if item = Streaming::MessageParser.parse(data) # rubocop:disable Lint/AssignmentInCondition
             yield(item)

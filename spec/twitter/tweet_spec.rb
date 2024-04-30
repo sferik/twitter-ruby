@@ -183,7 +183,7 @@ describe Twitter::Tweet do
   describe "#hashtags?" do
     it "returns true when the tweet includes hashtags entities" do
       entities = {hashtags: [{text: "twitter", indices: [10, 33]}]}
-      tweet = described_class.new(id: 28_669_546_014, entities: entities)
+      tweet = described_class.new(id: 28_669_546_014, entities:)
       expect(tweet.hashtags?).to be true
     end
 
@@ -209,7 +209,7 @@ describe Twitter::Tweet do
   describe "#media?" do
     it "returns true when the tweet includes media entities" do
       entities = {media: [{id: "1", type: "photo"}]}
-      tweet = described_class.new(id: 28_669_546_014, entities: entities)
+      tweet = described_class.new(id: 28_669_546_014, entities:)
       expect(tweet.media?).to be true
     end
 
@@ -376,7 +376,7 @@ describe Twitter::Tweet do
   describe "#symbols?" do
     it "returns true when the tweet includes symbols entities" do
       entities = {symbols: [{text: "PEP"}]}
-      tweet = described_class.new(id: 28_669_546_014, entities: entities)
+      tweet = described_class.new(id: 28_669_546_014, entities:)
       expect(tweet.symbols?).to be true
     end
 
@@ -437,7 +437,7 @@ describe Twitter::Tweet do
   describe "#uris?" do
     it "returns true when the tweet includes urls entities" do
       entities = {urls: [{url: "https://t.co/L2xIBazMPf"}]}
-      tweet = described_class.new(id: 28_669_546_014, entities: entities)
+      tweet = described_class.new(id: 28_669_546_014, entities:)
       expect(tweet.uris?).to be true
     end
 
@@ -504,7 +504,7 @@ describe Twitter::Tweet do
   describe "#user_mentions?" do
     it "returns true when the tweet includes user_mention entities" do
       entities = {user_mentions: [{screen_name: "sferik"}]}
-      tweet = described_class.new(id: 28_669_546_014, entities: entities)
+      tweet = described_class.new(id: 28_669_546_014, entities:)
       expect(tweet.user_mentions?).to be true
     end
 

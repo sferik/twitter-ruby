@@ -32,7 +32,7 @@ module Twitter
         {
           id: attrs[:id].to_i,
           created_at: Time.at(attrs[:created_timestamp].to_i / 1000.0),
-          text: text,
+          text:,
           name: attrs[:name],
           entities: attrs.dig(:message_data, :entities),
         }

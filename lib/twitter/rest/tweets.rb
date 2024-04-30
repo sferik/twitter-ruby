@@ -154,7 +154,7 @@ module Twitter
         hash = options.dup
         hash[:in_reply_to_status_id] = hash.delete(:in_reply_to_status).id unless hash[:in_reply_to_status].nil?
         hash[:place_id] = hash.delete(:place).woeid unless hash[:place].nil?
-        perform_post_with_object("/1.1/statuses/update.json", hash.merge(status: status), Twitter::Tweet)
+        perform_post_with_object("/1.1/statuses/update.json", hash.merge(status:), Twitter::Tweet)
       end
 
       # Retweets the specified Tweets as the authenticating user

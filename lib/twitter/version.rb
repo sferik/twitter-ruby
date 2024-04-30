@@ -25,10 +25,10 @@ module Twitter
     # @return [Hash]
     def to_h
       {
-        major: major,
-        minor: minor,
-        patch: patch,
-        pre: pre,
+        major:,
+        minor:,
+        patch:,
+        pre:,
       }
     end
 

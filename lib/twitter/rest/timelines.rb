@@ -185,12 +185,12 @@ module Twitter
       # @param collection [Array]
       # @param max_id [Integer, NilClass]
       # @return [Array<Twitter::Tweet>]
-      def collect_with_max_id(collection = [], max_id = nil, &block)
+      def collect_with_max_id(collection = [], max_id = nil, &)
         tweets = yield(max_id)
         return collection if tweets.nil?
 
         collection += tweets
-        tweets.empty? ? collection.flatten : collect_with_max_id(collection, tweets.last.id - 1, &block)
+        tweets.empty? ? collection.flatten : collect_with_max_id(collection, tweets.last.id - 1, &)
       end
     end
   end

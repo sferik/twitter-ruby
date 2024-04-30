@@ -28,8 +28,8 @@ module Twitter
         Timeout.timeout(timeouts&.fetch(:upload, nil), Twitter::Error::TimeoutError) do
           init = Twitter::REST::Request.new(self, :post, "https://upload.twitter.com/1.1/media/upload.json",
                                             command: "INIT",
-                                            media_type: media_type,
-                                            media_category: media_category,
+                                            media_type:,
+                                            media_category:,
                                             total_bytes: media.size).perform
           append_media(media, init[:media_id])
           media.close
@@ -44,7 +44,7 @@ module Twitter
           seg ||= -1
           Twitter::REST::Request.new(self, :multipart_post, "https://upload.twitter.com/1.1/media/upload.json",
                                      command: "APPEND",
-                                     media_id: media_id,
+                                     media_id:,
                                      segment_index: seg += 1,
                                      key: :media,
                                      file: StringIO.new(chunk)).perform
@@ -55,7 +55,7 @@ module Twitter
       # @see https://developer.twitter.com/en/docs/media/upload-media/api-reference/get-media-upload-status
       def finalize_media(media_id)
         response = Twitter::REST::Request.new(self, :post, "https://upload.twitter.com/1.1/media/upload.json",
-                                              command: "FINALIZE", media_id: media_id).perform
+                                              command: "FINALIZE", media_id:).perform
         failed_or_succeeded = %w[failed succeeded]
 
         loop do
@@ -63,7 +63,7 @@ module Twitter
 
           sleep(response[:processing_info][:check_after_secs])
           response = Twitter::REST::Request.new(self, :get, "https://upload.twitter.com/1.1/media/upload.json",
-                                                command: "STATUS", media_id: media_id).perform
+                                                command: "STATUS", media_id:).perform
         end
         response
       end

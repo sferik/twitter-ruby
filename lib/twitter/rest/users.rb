@@ -63,7 +63,7 @@ module Twitter
       # @param device [String] Must be one of: 'sms', 'none'.
       # @param options [Hash] A customizable set of options.
       def update_delivery_device(device, options = {})
-        perform_post_with_object("/1.1/account/update_delivery_device.json", options.merge(device: device), Twitter::User)
+        perform_post_with_object("/1.1/account/update_delivery_device.json", options.merge(device:), Twitter::User)
       end
 
       # Sets values that users are able to set under the "Account" tab of their settings page
@@ -337,7 +337,7 @@ module Twitter
       # @option options [Integer] :offset_left The number of pixels by which to offset the uploaded image from the left. Use with height, width, and offset_top to select the desired region of the image to use.
       # @option options [Integer] :offset_top The number of pixels by which to offset the uploaded image from the top. Use with height, width, and offset_left to select the desired region of the image to use.
       def update_profile_banner(banner, options = {})
-        perform_post("/1.1/account/update_profile_banner.json", options.merge(banner: banner))
+        perform_post("/1.1/account/update_profile_banner.json", options.merge(banner:))
         true
       end
 

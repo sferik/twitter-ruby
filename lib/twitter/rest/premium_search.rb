@@ -26,7 +26,7 @@ module Twitter
         request_config[:request_method] = :json_post if request_config[:request_method].nil? || request_config[:request_method] == :post
         request_config[:product] ||= "30day"
         path = "/1.1/tweets/search/#{request_config[:product]}/#{dev_environment}.json"
-        request = Twitter::REST::Request.new(self, request_config[:request_method], path, options.merge(query: query))
+        request = Twitter::REST::Request.new(self, request_config[:request_method], path, options.merge(query:))
         Twitter::PremiumSearchResults.new(request, request_config)
       end
     end

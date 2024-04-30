@@ -14,7 +14,7 @@ module Twitter
     # @return [Twitter::Client]
     def initialize(options = {})
       options.each do |key, value|
-        instance_variable_set("@#{key}", value)
+        instance_variable_set(:"@#{key}", value)
       end
       yield(self) if block_given?
     end
@@ -32,8 +32,8 @@ module Twitter
     # @return [Hash]
     def credentials
       {
-        consumer_key: consumer_key,
-        consumer_secret: consumer_secret,
+        consumer_key:,
+        consumer_secret:,
         token: access_token,
         token_secret: access_token_secret,
       }

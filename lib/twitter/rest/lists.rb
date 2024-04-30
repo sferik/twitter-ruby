@@ -325,7 +325,7 @@ module Twitter
       # @option options [String] :mode ('public') Whether your list is public or private. Values can be 'public' or 'private'.
       # @option options [String] :description The description to give the list.
       def create_list(name, options = {})
-        perform_post_with_object("/1.1/lists/create.json", options.merge(name: name), Twitter::List)
+        perform_post_with_object("/1.1/lists/create.json", options.merge(name:), Twitter::List)
       end
 
       # Show the specified list

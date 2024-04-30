@@ -35,10 +35,10 @@ module Twitter
       {id: attrs[:id].to_i,
        created_at: Time.at(attrs[:created_timestamp].to_i / 1000.0),
        sender: {id: sender_id},
-       sender_id: sender_id,
+       sender_id:,
        recipient: {id: recipient_id},
-       recipient_id: recipient_id,
-       text: text}
+       recipient_id:,
+       text:}
     end
   end
 end
