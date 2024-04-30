@@ -26,27 +26,27 @@ If you're seeing this message, that means you're using the old Twitter Ruby gem
 which is no longer maintained and will not support Twitter API v2.
 
 🎉 Here's the good news:
-We recommend switching to the X gem, which supports both v1.1 and v2 to make
-the transition easier. It's a robust, modern libary that is designed to ensure
-you'll be able to easily integrate any new changes Twitter/X may roll out.
+We recommend switching to the X gem, which supports both API v1.1 and v2. It's
+a robust, modern libary that is designed to ensure you'll be able to easily
+integrate forthcoming API changes.
 
 🔗 For more details, visit: https://sferik.github.io/x-ruby/
 
-🤔 Why consider sponsoring?
+🤔 Please consider sponsoring
 The X gem is free to use, but with new API pricing tiers, it actually costs
-money to develop and maintain. By contributing to the project, you help us:
+money to develop and maintain. By contributing to the project, you help:
 
 1. 🛠  Maintain the library: Keeping it up-to-date and secure.
 2. 🌈 Add new features: Enhancements that make your life easier.
 3. 💬 Provide support: Faster responses to issues and feature requests.
-⭐️ Bonus: Sponsors will get priority support and influence over the project
-roadmap. We will also list your name or your company's logo on our GitHub page.
+⭐️ Bonus: Sponsors will get priority influence over the project roadmap.
+Your company's logo will also be displayed on the project's GitHub page.
 
 🔗 To sponsor, visit: https://github.com/sponsors/sferik
 
 Building and maintaining an open-source project like this takes a considerable
 amount of time and effort. Your sponsorship can help sustain this project. Even
-a small monthly donation makes a huge difference!
+a small monthly donation makes a big difference!
 
 💖 Thanks for considering sponsorship. Together we can make the X gem even better!
 "
