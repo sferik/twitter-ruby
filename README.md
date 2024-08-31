@@ -1,7 +1,7 @@
-# The Twitter Ruby Gem
+# The X (Twitter) Ruby Gem
 
 ## 📣 This gem is no longer maintained
-The Twitter Ruby Gem is no longer maintained and will not support Twitter API v2.
+The X (Twitter) Ruby Gem is no longer maintained and will not support X (Twitter) API v2.
 
 ## 🎉 Here’s the good news
 We recommend switching to the [X gem][x], which supports both v1.1 and v2 to make
@@ -35,7 +35,7 @@ Thanks for considering sponsorship. Together we can make the X gem even better!
 You should [follow @gem][follow] on Twitter for announcements and updates about
 this library.
 
-[follow]: https://twitter.com/gem
+[follow]: https://x.com/gem
 
 ## Copyright
 Copyright (c) 2006-2025 Erik Berlin, John Nunemaker, Wynn Netherland, Steve Richert, Steve Agalloco.
