@@ -1,12 +1,12 @@
-# The X (Twitter) Ruby Gem
+# The Twitter Ruby Gem
 
 ## 📣 This gem is no longer maintained
-The X (Twitter) Ruby Gem is no longer maintained and will not support X (Twitter) API v2.
+The Twitter Ruby Gem is no longer maintained and will not support X (Twitter) API v2.
 
 ## 🎉 Here’s the good news
-We recommend switching to the [X gem][x], which supports both v1.1 and v2 to make
-the transition easier. It’s a robust, modern libary that is designed to ensure
-you’ll be able to easily integrate any new changes Twitter/X may roll out.
+We recommend switching to the [X gem][x], which supports both API v1.1 and v2
+to make the transition easier. It’s a robust, modern libary that is designed to
+ensure you’ll be able to easily integrate any new changes X may roll out.
 
 [x]: https://sferik.github.io/x-ruby/
 
