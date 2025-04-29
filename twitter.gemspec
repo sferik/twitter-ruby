@@ -51,7 +51,7 @@ a small monthly donation makes a big difference!
 💖 Thanks for considering sponsorship. Together we can make the X gem even better!
 "
   spec.require_paths = %w[lib]
-  spec.required_ruby_version = ">= 3.1.4"
+  spec.required_ruby_version = ">= 3.2"
   spec.summary = spec.description
   spec.version = Twitter::Version
 end
