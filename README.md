@@ -38,7 +38,7 @@ this library.
 [follow]: https://twitter.com/gem
 
 ## Copyright
-Copyright (c) 2006-2024 Erik Berlin, John Nunemaker, Wynn Netherland, Steve Richert, Steve Agalloco.
+Copyright (c) 2006-2025 Erik Berlin, John Nunemaker, Wynn Netherland, Steve Richert, Steve Agalloco.
 See [LICENSE][] for details.
 
 [license]: LICENSE.md
