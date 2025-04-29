@@ -19,37 +19,20 @@ Gem::Specification.new do |spec|
   spec.files = %w[.yardopts CHANGELOG.md CONTRIBUTING.md LICENSE.md README.md twitter.gemspec] + Dir["lib/**/*.rb"]
   spec.homepage = "https://sferik.github.io/twitter/"
   spec.licenses = %w[MIT]
-  spec.metadata["rubygems_mfa_required"] = "true"
+
+  spec.metadata = {
+    "allowed_push_host" => "https://rubygems.org",
+    "bug_tracker_uri" => "https://github.com/sferik/twitter-ruby/issues",
+    "changelog_uri" => "https://github.com/sferik/twitter-ruby/blob/master/CHANGELOG.md",
+    "documentation_uri" => "https://rubydoc.info/gems/twitter/",
+    "funding_uri" => "https://github.com/sponsors/sferik/",
+    "homepage_uri" => spec.homepage,
+    "rubygems_mfa_required" => "true",
+    "source_code_uri" => "https://github.com/sferik/twitter-ruby",
+  }
+
   spec.name = "twitter"
-  spec.post_install_message = "📣 Attention Twitter Ruby Gem User!
-If you're seeing this message, that means you're using the old Twitter Ruby gem
-which is no longer maintained and will not support Twitter API v2.
-
-🎉 Here's the good news:
-We recommend switching to the X gem, which supports both API v1.1 and v2. It's
-a robust, modern libary that is designed to ensure you'll be able to easily
-integrate forthcoming API changes.
-
-🔗 For more details, visit: https://sferik.github.io/x-ruby/
-
-🤔 Please consider sponsoring
-The X gem is free to use, but with new API pricing tiers, it actually costs
-money to develop and maintain. By contributing to the project, you help:
-
-1. 🛠  Maintain the library: Keeping it up-to-date and secure.
-2. 🌈 Add new features: Enhancements that make your life easier.
-3. 💬 Provide support: Faster responses to issues and feature requests.
-⭐️ Bonus: Sponsors will get priority influence over the project roadmap.
-Your company's logo will also be displayed on the project's GitHub page.
-
-🔗 To sponsor, visit: https://github.com/sponsors/sferik
-
-Building and maintaining an open-source project like this takes a considerable
-amount of time and effort. Your sponsorship can help sustain this project. Even
-a small monthly donation makes a big difference!
-
-💖 Thanks for considering sponsorship. Together we can make the X gem even better!
-"
+  spec.post_install_message = "The `twitter` gem is deprecated and no longer maintained. Use the `x` gem instead."
   spec.require_paths = %w[lib]
   spec.required_ruby_version = ">= 3.2"
   spec.summary = spec.description
