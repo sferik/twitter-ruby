@@ -17,6 +17,10 @@ Layout/LineLength:
 Layout/SpaceInsideHashLiteralBraces:
   EnforcedStyle: no_space
 
+Lint/EmptyBlock:
+  Exclude:
+    - spec/**/*.rb
+
 Lint/Void:
   Enabled: false
 
