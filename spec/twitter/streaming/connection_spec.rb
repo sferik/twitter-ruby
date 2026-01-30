@@ -1,6 +1,6 @@
 require "helper"
 
-class DummyTCPSocket; end
+DummyTCPSocket = Class.new
 
 class DummySSLSocket
   def connect; end

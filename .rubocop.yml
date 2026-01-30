@@ -68,3 +68,6 @@ Style/TrailingCommaInArrayLiteral:
 
 Style/TrailingCommaInHashLiteral:
   EnforcedStyleForMultiline: 'comma'
+
+Style/EmptyClassDefinition:
+  Enabled: false
