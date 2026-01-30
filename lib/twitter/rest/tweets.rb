@@ -13,6 +13,7 @@ module Twitter
       include Twitter::REST::UploadUtils
       include Twitter::REST::Utils
       include Twitter::Utils
+
       MAX_TWEETS_PER_REQUEST = 100
 
       # Returns up to 100 of the first retweets of a given tweet

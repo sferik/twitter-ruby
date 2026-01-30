@@ -7,6 +7,7 @@ module Twitter
   module REST
     class Client < Twitter::Client
       include Twitter::REST::API
+
       attr_accessor :bearer_token
 
       # @return [Boolean]

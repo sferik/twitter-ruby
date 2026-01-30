@@ -8,6 +8,7 @@ module Twitter
   class SearchResults
     include Twitter::Enumerable
     include Twitter::Utils
+
     # @return [Hash]
     attr_reader :attrs, :rate_limit
     alias to_h attrs

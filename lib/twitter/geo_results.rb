@@ -5,6 +5,7 @@ module Twitter
   class GeoResults
     include Twitter::Enumerable
     include Twitter::Utils
+
     # @return [Hash]
     attr_reader :attrs
     alias to_h attrs

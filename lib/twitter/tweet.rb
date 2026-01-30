@@ -6,6 +6,7 @@ module Twitter
   class Tweet < Twitter::Identity
     include Twitter::Creatable
     include Twitter::Entities
+
     # @return [String]
     attr_reader :filter_level, :in_reply_to_screen_name, :lang, :source, :text
     # @return [Integer]

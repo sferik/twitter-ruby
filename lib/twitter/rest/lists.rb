@@ -15,6 +15,7 @@ module Twitter
     module Lists
       include Twitter::REST::Utils
       include Twitter::Utils
+
       MAX_USERS_PER_REQUEST = 100
 
       # Returns all lists the authenticating or specified user subscribes to, including their own

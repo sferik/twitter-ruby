@@ -11,6 +11,7 @@ module Twitter
   module Streaming
     class Client < Twitter::Client
       include Twitter::Utils
+
       attr_writer :connection
 
       # Initializes a new Client object

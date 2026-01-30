@@ -5,6 +5,7 @@ require "twitter/version"
 module Twitter
   class Client
     include Twitter::Utils
+
     attr_accessor :access_token, :access_token_secret, :consumer_key, :consumer_secret, :proxy, :timeouts, :dev_environment
     attr_writer :user_agent
 

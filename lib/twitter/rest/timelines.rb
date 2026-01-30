@@ -6,6 +6,7 @@ module Twitter
   module REST
     module Timelines
       include Twitter::REST::Utils
+
       DEFAULT_TWEETS_PER_REQUEST = 20
       MAX_TWEETS_PER_REQUEST = 200
 

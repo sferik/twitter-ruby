@@ -7,6 +7,7 @@ module Twitter
     class WelcomeMessage < Twitter::Identity
       include Twitter::Creatable
       include Twitter::Entities
+
       # @return [String]
       attr_reader :text
       # @return [String]

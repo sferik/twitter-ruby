@@ -4,6 +4,7 @@ require "twitter/identity"
 module Twitter
   class List < Twitter::Identity
     include Twitter::Creatable
+
     # @return [Integer]
     attr_reader :member_count, :subscriber_count
     # @return [String]

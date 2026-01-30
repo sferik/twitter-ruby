@@ -10,6 +10,7 @@ module Twitter
   module REST
     module Utils
       include Twitter::Utils
+
       DEFAULT_CURSOR = -1
 
     private

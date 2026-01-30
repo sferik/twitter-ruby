@@ -8,6 +8,7 @@ module Twitter
   class User < Twitter::BasicUser
     include Twitter::Creatable
     include Twitter::Profile
+
     # @return [Array]
     attr_reader :connections
     # @return [Integer]

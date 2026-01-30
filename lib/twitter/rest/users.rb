@@ -12,6 +12,7 @@ module Twitter
     module Users
       include Twitter::REST::Utils
       include Twitter::Utils
+
       MAX_USERS_PER_REQUEST = 100
 
       # Updates the authenticating user's settings.
