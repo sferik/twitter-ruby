@@ -21,7 +21,7 @@ module Twitter
     def pmap(enumerable, &block)
       return to_enum(:pmap, enumerable) unless block
 
-      if enumerable.count == 1
+      if enumerable.one?
         enumerable.collect(&block)
       else
         enumerable.collect { |object| Thread.new { yield(object) } }.collect(&:value)
