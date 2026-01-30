@@ -208,7 +208,7 @@ describe Twitter::REST::DirectMessages do
         let(:big_gif) { fixture("pbjt.gif") }
 
         before do
-          expect(File).to receive(:size).with(big_gif).and_return(7_000_000)
+          allow(File).to receive(:size).with(big_gif).and_return(7_000_000)
         end
 
         it "requests the correct resource" do
