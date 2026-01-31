@@ -52,13 +52,7 @@ module Twitter
                     {@options_key => @options}
                   end
 
-        if @params
-          if options[:params]
-            options[:params].merge(@params)
-          else
-            options[:params] = @params
-          end
-        end
+        options[:params] = @params if @params
         options
       end
 

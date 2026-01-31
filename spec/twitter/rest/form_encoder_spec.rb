@@ -14,6 +14,10 @@ describe Twitter::REST::FormEncoder do
       expect(described_class.encode({array: [1, 2, 3]})).to eq("array=1&array=2&array=3")
     end
 
+    it "handles arrays with nil values" do
+      expect(described_class.encode({array: [1, nil, 3]})).to eq("array=1&array&array=3")
+    end
+
     it "encodes asterisk correctly" do
       expect(described_class.encode({status: "Update *"})).to eq("status=Update%20%2A")
     end

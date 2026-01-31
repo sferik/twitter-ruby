@@ -71,6 +71,7 @@ describe Twitter::REST::Lists do
         expect(a_get("/1.1/lists/statuses.json").with(query: {owner_id: "7505382", slug: "presidents"})).to have_been_made
       end
     end
+
   end
 
   describe "#remove_list_member" do
@@ -458,6 +459,17 @@ describe Twitter::REST::Lists do
         @client.add_list_members("presidents", [813_286, 18_755_393])
         expect(a_get("/1.1/account/verify_credentials.json").with(query: {skip_status: "true"})).to have_been_made
         expect(a_post("/1.1/lists/members/create_all.json").with(body: {owner_id: "7505382", slug: "presidents", user_id: "813286,18755393"})).to have_been_made
+      end
+    end
+
+    context "with options hash as last argument" do
+      before do
+        stub_post("/1.1/lists/members/create_all.json").with(body: {owner_screen_name: "sferik", slug: "presidents", user_id: "813286,18755393"}).to_return(body: fixture("list.json"), headers: {content_type: "application/json; charset=utf-8"})
+      end
+
+      it "requests the correct resource" do
+        @client.add_list_members("sferik", "presidents", [813_286, 18_755_393], {})
+        expect(a_post("/1.1/lists/members/create_all.json").with(body: {owner_screen_name: "sferik", slug: "presidents", user_id: "813286,18755393"})).to have_been_made
       end
     end
   end

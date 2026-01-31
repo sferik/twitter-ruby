@@ -48,6 +48,17 @@ describe Twitter::Headers do
     end
   end
 
+  describe "#auth_header" do
+    it "fetches bearer token when not using user token and no bearer token set" do
+      client = Twitter::REST::Client.new(consumer_key: "CK", consumer_secret: "CS")
+      allow(client).to receive(:token).and_return("fetched_bearer_token")
+      headers = described_class.new(client, :get, "#{Twitter::REST::Request::BASE_URL}/path")
+      authorization = headers.send(:auth_header)
+      expect(authorization).to eq("Bearer fetched_bearer_token")
+      expect(client.bearer_token).to eq("fetched_bearer_token")
+    end
+  end
+
   describe "#bearer_token_credentials_auth_header" do
     it "creates the correct auth header with supplied consumer_key and consumer_secret" do
       authorization = @headers.send(:bearer_token_credentials_auth_header)

@@ -39,6 +39,17 @@ describe Twitter::Error do
     end
   end
 
+  context "when JSON body contains neither error nor errors" do
+    before do
+      body = '{"foo":"bar"}'
+      stub_get("/1.1/statuses/user_timeline.json").with(query: {screen_name: "sferik"}).to_return(status: 500, body:, headers: {content_type: "application/json; charset=utf-8"})
+    end
+
+    it "raises an exception with empty message" do
+      expect { @client.user_timeline("sferik") }.to raise_error(Twitter::Error::InternalServerError)
+    end
+  end
+
   Twitter::Error::ERRORS.each do |status, exception|
     context "when HTTP status is #{status}" do
       before do

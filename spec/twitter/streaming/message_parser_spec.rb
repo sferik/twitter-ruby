@@ -53,5 +53,11 @@ describe Twitter::Streaming::MessageParser do
       expect(object).to be_a Twitter::Streaming::StallWarning
       expect(object.code).to eq("FALLING_BEHIND")
     end
+
+    it "returns nil for unrecognized data" do
+      data = {unknown_key: "value"}
+      object = subject.parse(data)
+      expect(object).to be_nil
+    end
   end
 end

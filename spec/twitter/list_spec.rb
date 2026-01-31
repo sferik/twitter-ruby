@@ -51,6 +51,11 @@ describe Twitter::List do
       list = described_class.new(id: 8_863_586, slug: "presidents", user: {id: 7_505_382, screen_name: "sferik"})
       expect(list.members_uri.to_s).to eq("https://twitter.com/sferik/presidents/members")
     end
+
+    it "returns nil when the list has no uri" do
+      list = described_class.new(id: 8_863_586)
+      expect(list.members_uri).to be_nil
+    end
   end
 
   describe "#subscribers_uri" do
@@ -58,12 +63,27 @@ describe Twitter::List do
       list = described_class.new(id: 8_863_586, slug: "presidents", user: {id: 7_505_382, screen_name: "sferik"})
       expect(list.subscribers_uri.to_s).to eq("https://twitter.com/sferik/presidents/subscribers")
     end
+
+    it "returns nil when the list has no uri" do
+      list = described_class.new(id: 8_863_586)
+      expect(list.subscribers_uri).to be_nil
+    end
   end
 
   describe "#uri" do
     it "returns the URI to the list" do
       list = described_class.new(id: 8_863_586, slug: "presidents", user: {id: 7_505_382, screen_name: "sferik"})
       expect(list.uri.to_s).to eq("https://twitter.com/sferik/presidents")
+    end
+
+    it "returns nil when the list has no slug" do
+      list = described_class.new(id: 8_863_586, user: {id: 7_505_382, screen_name: "sferik"})
+      expect(list.uri).to be_nil
+    end
+
+    it "returns nil when the list has no user screen_name" do
+      list = described_class.new(id: 8_863_586, slug: "presidents", user: {id: 7_505_382})
+      expect(list.uri).to be_nil
     end
   end
 

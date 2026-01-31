@@ -292,6 +292,18 @@ describe Twitter::REST::Users do
         expect(a_get("/1.1/blocks/ids.json").with(query: {cursor: "1305102810874389703"})).to have_been_made
       end
     end
+
+    context "with nil passed" do
+      before do
+        stub_get("/1.1/blocks/ids.json").with(query: {cursor: "-1"}).to_return(body: fixture("ids_list.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/1.1/blocks/ids.json").with(query: {cursor: "1305102810874389703"}).to_return(body: fixture("ids_list2.json"), headers: {content_type: "application/json; charset=utf-8"})
+      end
+
+      it "returns false" do
+        block = @client.block?(nil)
+        expect(block).to be false
+      end
+    end
   end
 
   describe "#block" do
@@ -582,6 +594,17 @@ describe Twitter::REST::Users do
         expect(contributees.first.name).to eq("Twitter API")
       end
     end
+
+    context "with user_id in options" do
+      before do
+        stub_get("/1.1/users/contributees.json").with(query: {user_id: "7505382"}).to_return(body: fixture("contributees.json"), headers: {content_type: "application/json; charset=utf-8"})
+      end
+
+      it "does not call verify_credentials when user_id is already in options" do
+        @client.contributees(user_id: 7_505_382)
+        expect(a_get("/1.1/users/contributees.json").with(query: {user_id: "7505382"})).to have_been_made
+      end
+    end
   end
 
   describe "#contributors" do
@@ -714,6 +737,17 @@ describe Twitter::REST::Users do
         expect(banner).to be_a Twitter::ProfileBanner
         expect(banner.sizes).to be_a Hash
         expect(banner.sizes[:mobile].height).to eq(160)
+      end
+    end
+
+    context "with user_id in options" do
+      before do
+        stub_get("/1.1/users/profile_banner.json").with(query: {user_id: "7505382"}).to_return(body: fixture("profile_banner.json"), headers: {content_type: "application/json; charset=utf-8"})
+      end
+
+      it "does not call verify_credentials when user_id is already in options" do
+        @client.profile_banner(user_id: 7_505_382)
+        expect(a_get("/1.1/users/profile_banner.json").with(query: {user_id: "7505382"})).to have_been_made
       end
     end
   end

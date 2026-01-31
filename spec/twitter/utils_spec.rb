@@ -25,6 +25,17 @@ describe Twitter::Utils do
       end
       expect(elapsed_time).to be_between(delay, delay * size)
     end
+
+    it "returns an enumerator when no block is given" do
+      array = (0..9).to_a
+      expect(subject.pmap(array)).to be_an(Enumerator)
+    end
+
+    it "collects without threads for single-element arrays" do
+      array = [1]
+      block = proc { |x| x + 1 }
+      expect(subject.pmap(array, &block)).to eq([2])
+    end
   end
 
   describe "#flat_pmap" do
@@ -55,6 +66,11 @@ describe Twitter::Utils do
         expect(subject.flat_pmap(array, &block)).to eq(expected)
       end
       expect(elapsed_time).to be_between(delay, delay * size)
+    end
+
+    it "returns an enumerator when no block is given" do
+      array = (0..9).to_a
+      expect(subject.flat_pmap(array)).to be_an(Enumerator)
     end
   end
 end

@@ -611,6 +611,23 @@ describe Twitter::REST::Tweets do
         expect(a_post("/1.1/statuses/update.json")).to have_been_made
       end
     end
+
+    context "with a .mov video file" do
+      it "requests the correct resources for chunked upload" do
+        init_request = {body: fixture("chunk_upload_init.json"), headers: {content_type: "application/json; charset=utf-8"}}
+        append_request = {body: "", headers: {content_type: "text/html;charset=utf-8"}}
+        finalize_request = {body: fixture("chunk_upload_finalize_succeeded.json"), headers: {content_type: "application/json; charset=utf-8"}}
+        stub_request(:post, "https://upload.twitter.com/1.1/media/upload.json").to_return(init_request, append_request, finalize_request)
+        mov_file = Tempfile.new(["test", ".mov"])
+        mov_file.write("test video content")
+        mov_file.rewind
+        @client.update_with_media("Video test", mov_file)
+        expect(a_request(:post, "https://upload.twitter.com/1.1/media/upload.json")).to have_been_made.times(3)
+        expect(a_post("/1.1/statuses/update.json")).to have_been_made
+        mov_file.close
+        mov_file.unlink
+      end
+    end
   end
 
   describe "#oembed" do

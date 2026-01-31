@@ -18,4 +18,14 @@ describe Twitter::Streaming::Response do
       end
     end
   end
+
+  describe "#on_body" do
+    it "skips empty lines" do
+      called = false
+      response = described_class.new { |_data| called = true }
+      response << "HTTP/1.1 200 OK\r\n\r\n"
+      response.on_body("\r\n")
+      expect(called).to be false
+    end
+  end
 end

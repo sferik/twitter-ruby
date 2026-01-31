@@ -92,6 +92,18 @@ describe Twitter::REST::Timelines do
       expect(tweets.first).to be_a Twitter::Tweet
       expect(tweets.first.text).to eq("RT @olivercameron: Mosaic looks cool: http://t.co/A8013C9k")
     end
+
+    context "when no tweets are returned" do
+      before do
+        stub_get("/1.1/statuses/user_timeline.json").with(query: {include_rts: "true", count: "200"}).to_return(body: "[]", headers: {content_type: "application/json; charset=utf-8"})
+      end
+
+      it "returns an empty array" do
+        tweets = @client.retweeted_by_me
+        expect(tweets).to be_an Array
+        expect(tweets).to be_empty
+      end
+    end
   end
 
   describe "#home_timeline" do

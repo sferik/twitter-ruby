@@ -134,4 +134,13 @@ describe Twitter::Streaming::Client do
       @client.sample {}
     end
   end
+
+  describe "#close" do
+    it "closes the connection" do
+      connection = instance_double(Twitter::Streaming::Connection)
+      @client.connection = connection
+      expect(connection).to receive(:close)
+      @client.close
+    end
+  end
 end

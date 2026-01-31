@@ -1,6 +1,14 @@
 require "helper"
 
 describe Twitter::Client do
+  describe "#initialize" do
+    it "yields self to the given block" do
+      yielded_client = nil
+      client = described_class.new { |c| yielded_client = c }
+      expect(yielded_client).to be(client)
+    end
+  end
+
   describe "#user_agent" do
     it "defaults TwitterRubyGem/version" do
       expect(subject.user_agent).to eq("TwitterRubyGem/#{Twitter::Version}")

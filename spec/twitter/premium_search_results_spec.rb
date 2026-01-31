@@ -75,4 +75,16 @@ describe Twitter::PremiumSearchResults do
       expect(a_post("/1.1/tweets/search/fullarchive/DE.json").with(body: '{"maxResults":100,"query":"url:github.com/sferik/twitter"}', headers: {"Content-Type" => "application/json; charset=utf-8"})).to have_been_made
     end
   end
+
+  describe "#next_page" do
+    before do
+      @client = Twitter::REST::Client.new(consumer_key: "CK", consumer_secret: "CS", access_token: "AT", access_token_secret: "AS", dev_environment: "DE")
+    end
+
+    it "returns nil when there is no next page" do
+      stub_post("/1.1/tweets/search/30day/DE.json").with(body: '{"maxResults":100,"query":"#test"}').to_return(body: '{"results":[]}', headers: {content_type: "application/json; charset=utf-8"})
+      results = @client.premium_search("#test")
+      expect(results.send(:next_page)).to be_nil
+    end
+  end
 end

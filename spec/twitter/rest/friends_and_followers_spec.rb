@@ -89,6 +89,29 @@ describe Twitter::REST::FriendsAndFollowers do
         end
       end
     end
+
+    context "with user_id already in options" do
+      before do
+        stub_get("/1.1/friends/ids.json").with(query: {user_id: "12345", cursor: "-1"}).to_return(body: fixture("ids_list.json"), headers: {content_type: "application/json; charset=utf-8"})
+      end
+
+      it "uses the provided user_id" do
+        @client.friend_ids(user_id: 12_345)
+        expect(a_get("/1.1/friends/ids.json").with(query: {user_id: "12345", cursor: "-1"})).to have_been_made
+      end
+    end
+
+    context "with cursor already in options" do
+      before do
+        stub_get("/1.1/account/verify_credentials.json").with(query: {skip_status: "true"}).to_return(body: fixture("sferik.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/1.1/friends/ids.json").with(query: {user_id: "7505382", cursor: "12345"}).to_return(body: fixture("ids_list.json"), headers: {content_type: "application/json; charset=utf-8"})
+      end
+
+      it "uses the provided cursor" do
+        @client.friend_ids(cursor: "12345")
+        expect(a_get("/1.1/friends/ids.json").with(query: {user_id: "7505382", cursor: "12345"})).to have_been_made
+      end
+    end
   end
 
   describe "#follower_ids" do

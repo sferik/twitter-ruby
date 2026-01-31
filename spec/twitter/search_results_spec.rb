@@ -37,5 +37,43 @@ describe Twitter::SearchResults do
         expect(count).to eq(1)
       end
     end
+
+    context "without a block" do
+      it "returns an Enumerator" do
+        stub_get("/1.1/search/tweets.json").with(query: {q: "#freebandnames", count: "100"}).to_return(body: fixture("search.json"), headers: {content_type: "application/json; charset=utf-8"})
+        result = @client.search("#freebandnames").each
+        expect(result).to be_an Enumerator
+      end
+    end
+
+    context "when search_metadata is nil" do
+      it "handles missing metadata gracefully" do
+        stub_get("/1.1/search/tweets.json").with(query: {q: "#test", count: "100"}).to_return(body: '{"statuses":[]}', headers: {content_type: "application/json; charset=utf-8"})
+        count = 0
+        @client.search("#test").each { count += 1 }
+        expect(count).to eq(0)
+      end
+    end
+
+    context "when next_results is missing" do
+      it "does not paginate" do
+        stub_get("/1.1/search/tweets.json").with(query: {q: "#test", count: "100"}).to_return(body: '{"statuses":[],"search_metadata":{}}', headers: {content_type: "application/json; charset=utf-8"})
+        count = 0
+        @client.search("#test").each { count += 1 }
+        expect(count).to eq(0)
+      end
+    end
+  end
+
+  describe "#next_page" do
+    before do
+      @client = Twitter::REST::Client.new(consumer_key: "CK", consumer_secret: "CS", access_token: "AT", access_token_secret: "AS")
+    end
+
+    it "returns nil when there is no next page" do
+      stub_get("/1.1/search/tweets.json").with(query: {q: "#test", count: "100"}).to_return(body: '{"statuses":[],"search_metadata":{}}', headers: {content_type: "application/json; charset=utf-8"})
+      results = @client.search("#test")
+      expect(results.send(:next_page)).to be_nil
+    end
   end
 end

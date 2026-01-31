@@ -3,9 +3,10 @@ require "simplecov"
 SimpleCov.formatters = [SimpleCov::Formatter::HTMLFormatter]
 
 SimpleCov.start do
+  enable_coverage :branch
   add_filter "/spec/"
   add_filter "/vendor/"
-  minimum_coverage(99.77)
+  minimum_coverage line: 100, branch: 97
 end
 
 require "twitter"

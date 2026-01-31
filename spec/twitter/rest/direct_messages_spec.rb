@@ -183,6 +183,14 @@ describe Twitter::REST::DirectMessages do
       expect(direct_message_event).to be_a Twitter::DirectMessageEvent
       expect(direct_message_event.direct_message.text).to eq("testing")
     end
+
+    context "when called with fewer than 2 arguments" do
+      it "does not set event in options" do
+        stub_post("/1.1/direct_messages/events/new.json").to_return(body: fixture("direct_message_event.json"), headers: {content_type: "application/json; charset=utf-8"})
+        @client.create_direct_message_event
+        expect(a_post("/1.1/direct_messages/events/new.json")).to have_been_made
+      end
+    end
   end
 
   describe "#create_direct_message_event_with_media" do

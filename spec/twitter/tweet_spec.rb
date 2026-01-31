@@ -32,6 +32,14 @@ describe Twitter::Tweet do
       tweet = described_class.new(id: 28_669_546_014)
       expect(tweet.created_at).to be_nil
     end
+
+    it "returns the same Time when created_at is already a Time object" do
+      time = Time.now.utc
+      tweet = described_class.new(id: 28_669_546_014, created_at: time)
+      expect(tweet.created_at).to be_a Time
+      expect(tweet.created_at).to be_utc
+      expect(tweet.created_at).to eq(time)
+    end
   end
 
   describe "#created?" do
@@ -203,6 +211,12 @@ describe Twitter::Tweet do
     it "is empty when not set" do
       media = described_class.new(id: 28_669_546_014).media
       expect(media).to be_empty
+    end
+
+    it "returns extended_entities media when present" do
+      media = described_class.new(id: 28_669_546_014, extended_entities: {media: [{id: 1, type: "photo"}]}).media
+      expect(media).to be_an Array
+      expect(media.first).to be_a Twitter::Media::Photo
     end
   end
 
@@ -431,6 +445,11 @@ describe Twitter::Tweet do
       tweet = described_class.new(id: 28_669_546_014, user: {id: 7_505_382, screen_name: "sferik"})
       expect(tweet.uri).to be_an Addressable::URI
       expect(tweet.uri.to_s).to eq("https://twitter.com/sferik/status/28669546014")
+    end
+
+    it "returns nil when user is not set" do
+      tweet = described_class.new(id: 28_669_546_014)
+      expect(tweet.uri).to be_nil
     end
   end
 

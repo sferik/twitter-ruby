@@ -65,7 +65,6 @@ module Twitter
           response = Twitter::REST::Request.new(self, :get, "https://upload.twitter.com/1.1/media/upload.json",
                                                 command: "STATUS", media_id:).perform
         end
-        response
       end
     end
   end
