@@ -13,7 +13,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "memoizable", "~> 0.4.0"
   spec.add_dependency "multipart-post", "~> 2.4"
   spec.add_dependency "naught", "~> 2.0"
-  spec.add_dependency "simple_oauth", "~> 0.3.0"
+  spec.add_dependency "simple_oauth", "~> 0.4.0"
   spec.authors = ["Erik Berlin", "John Nunemaker", "Wynn Netherland", "Steve Richert", "Steve Agalloco"]
   spec.description = "A Ruby interface to the Twitter API."
   spec.email = %w[sferik@gmail.com]
