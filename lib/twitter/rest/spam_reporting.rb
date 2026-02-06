@@ -3,15 +3,19 @@ require "twitter/user"
 
 module Twitter
   module REST
+    # Methods for reporting spam accounts
     module SpamReporting
       include Twitter::REST::Utils
 
-      # The users specified are blocked by the authenticated user and reported as spammers
+      # Blocks users and reports them as spammers
       #
+      # @api public
       # @see https://dev.twitter.com/rest/reference/post/users/report_spam
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @example
+      #   client.report_spam('spammer')
       # @return [Array<Twitter::User>] The reported users.
       # @overload report_spam(*users)
       #   @param users [Enumerable<Integer, String, Twitter::User>] A collection of Twitter user IDs, screen names, or objects.

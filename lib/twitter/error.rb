@@ -3,8 +3,19 @@ require "twitter/rate_limit"
 module Twitter
   # Custom error class for rescuing from all Twitter errors
   class Error < StandardError
+    # The error code from Twitter
+    #
+    # @api public
+    # @example
+    #   error.code
     # @return [Integer]
     attr_reader :code
+
+    # The rate limit information from the response
+    #
+    # @api public
+    # @example
+    #   error.rate_limit
     # @return [Twitter::RateLimit]
     attr_reader :rate_limit
 
@@ -74,6 +85,7 @@ module Twitter
     # Raised when an operation subject to timeout takes too long
     TimeoutError = Class.new(self)
 
+    # Maps HTTP status codes to error classes
     ERRORS = {
       400 => Twitter::Error::BadRequest,
       401 => Twitter::Error::Unauthorized,
@@ -90,6 +102,7 @@ module Twitter
       504 => Twitter::Error::GatewayTimeout,
     }.freeze
 
+    # Maps forbidden message patterns to error classes
     FORBIDDEN_MESSAGES = proc do |message|
       case message
       when /(?=.*status).*duplicate/i
@@ -106,57 +119,89 @@ module Twitter
       end
     end
 
+    # Maps media error names to error classes
     MEDIA_ERRORS = {
       "InternalError" => Twitter::Error::MediaInternalError,
       "InvalidMedia" => Twitter::Error::InvalidMedia,
       "UnsupportedMedia" => Twitter::Error::UnsupportedMedia,
     }.freeze
 
-    # If error code is missing see https://developer.twitter.com/en/docs/basics/response-codes
+    # Twitter API error codes
+    # @see https://developer.twitter.com/en/docs/basics/response-codes
     module Code
+      # Authentication problem error code
       AUTHENTICATION_PROBLEM       =  32
+      # Resource not found error code
       RESOURCE_NOT_FOUND           =  34
+      # Suspended account error code
       SUSPENDED_ACCOUNT            =  64
+      # Deprecated call error code
       DEPRECATED_CALL              =  68
+      # Rate limit exceeded error code
       RATE_LIMIT_EXCEEDED          =  88
+      # Invalid or expired token error code
       INVALID_OR_EXPIRED_TOKEN     =  89
+      # SSL required error code
       SSL_REQUIRED                 =  92
+      # Unable to verify credentials error code
       UNABLE_TO_VERIFY_CREDENTIALS =  99
+      # Over capacity error code
       OVER_CAPACITY                = 130
+      # Internal error code
       INTERNAL_ERROR               = 131
+      # OAuth timestamp out of range error code
       OAUTH_TIMESTAMP_OUT_OF_RANGE = 135
+      # Already favorited error code
       ALREADY_FAVORITED            = 139
+      # Follow already requested error code
       FOLLOW_ALREADY_REQUESTED     = 160
+      # Follow limit exceeded error code
       FOLLOW_LIMIT_EXCEEDED        = 161
+      # Protected status error code
       PROTECTED_STATUS             = 179
+      # Over update limit error code
       OVER_UPDATE_LIMIT            = 185
+      # Duplicate status error code
       DUPLICATE_STATUS             = 187
+      # Bad authentication data error code
       BAD_AUTHENTICATION_DATA      = 215
+      # Spam error code
       SPAM                         = 226
+      # Login verification needed error code
       LOGIN_VERIFICATION_NEEDED    = 231
+      # Endpoint retired error code
       ENDPOINT_RETIRED             = 251
+      # Cannot write error code
       CANNOT_WRITE                 = 261
+      # Cannot mute error code
       CANNOT_MUTE                  = 271
+      # Cannot unmute error code
       CANNOT_UNMUTE                = 272
     end
 
     class << self
       include Twitter::Utils
 
-      # Create a new error from an HTTP response
+      # Creates a new error from an HTTP response
       #
-      # @param body [String]
-      # @param headers [Hash]
+      # @api public
+      # @example
+      #   Twitter::Error.from_response(body, headers)
+      # @param body [String] The response body
+      # @param headers [Hash] The response headers
       # @return [Twitter::Error]
       def from_response(body, headers)
         message, code = parse_error(body)
         new(message, headers, code)
       end
 
-      # Create a new error from a media error hash
+      # Creates a new error from a media error hash
       #
-      # @param error [Hash]
-      # @param headers [Hash]
+      # @api public
+      # @example
+      #   Twitter::Error.from_processing_response(error, headers)
+      # @param error [Hash] The error hash from the response
+      # @param headers [Hash] The response headers
       # @return [Twitter::MediaError]
       def from_processing_response(error, headers)
         klass = MEDIA_ERRORS[error[:name]] || self
@@ -167,6 +212,11 @@ module Twitter
 
     private
 
+      # Parses an error from the response body
+      #
+      # @api private
+      # @param body [Hash, nil] The response body
+      # @return [Array]
       def parse_error(body)
         if body.nil? || body.empty?
           ["", nil]
@@ -177,6 +227,11 @@ module Twitter
         end
       end
 
+      # Extracts error message from errors array
+      #
+      # @api private
+      # @param body [Hash] The response body with errors
+      # @return [Array]
       def extract_message_from_errors(body)
         first = Array(body[:errors]).first
         if first.is_a?(Hash)
@@ -189,9 +244,12 @@ module Twitter
 
     # Initializes a new Error object
     #
-    # @param message [Exception, String]
-    # @param rate_limit [Hash]
-    # @param code [Integer]
+    # @api public
+    # @example
+    #   Twitter::Error.new("Something went wrong", {}, 123)
+    # @param message [Exception, String] The error message
+    # @param rate_limit [Hash] The rate limit headers
+    # @param code [Integer] The error code
     # @return [Twitter::Error]
     def initialize(message = "", rate_limit = {}, code = nil)
       super(message)

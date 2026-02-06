@@ -5,18 +5,22 @@ require "twitter/trend_results"
 
 module Twitter
   module REST
+    # Methods for accessing trending topics
     module Trends
       include Twitter::REST::Utils
 
       # Returns the top 50 trending topics for a specific WOEID
       #
+      # @api public
       # @see https://dev.twitter.com/rest/reference/get/trends/place
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-      # @param id [Integer] The {https://developer.yahoo.com/geo/geoplanet Yahoo! Where On Earth ID} of the location to return trending information for. WOEIDs can be retrieved by calling {Twitter::REST::Trends#trends_available}. Global information is available by using 1 as the WOEID.
+      # @example
+      #   client.trends
+      # @param id [Integer] The Yahoo! Where On Earth ID of the location.
       # @param options [Hash] A customizable set of options.
-      # @option options [String] :exclude Setting this equal to 'hashtags' will remove all hashtags from the trends list.
+      # @option options [String] :exclude Setting this equal to 'hashtags' excludes hashtags.
       # @return [Array<Twitter::Trend>]
       def trends(id = 1, options = {})
         options = options.dup
@@ -24,31 +28,46 @@ module Twitter
         response = perform_get("/1.1/trends/place.json", options).first
         Twitter::TrendResults.new(response)
       end
+      # @!method local_trends
+      #   @api public
+      #   @see #trends
       alias local_trends trends
+      # @!method trends_place
+      #   @api public
+      #   @see #trends
       alias trends_place trends
 
-      # Returns the locations that Twitter has trending topic information for
+      # Returns locations with trending topic information
       #
+      # @api public
       # @see https://dev.twitter.com/rest/reference/get/trends/available
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @example
+      #   client.trends_available
       # @param options [Hash] A customizable set of options.
       # @return [Array<Twitter::Place>]
       def trends_available(options = {})
         perform_get_with_objects("/1.1/trends/available.json", options, Twitter::Place)
       end
+      # @!method trend_locations
+      #   @api public
+      #   @see #trends_available
       alias trend_locations trends_available
 
-      # Returns the locations that Twitter has trending topic information for, closest to a specified location.
+      # Returns trend locations closest to a specified location
       #
+      # @api public
       # @see https://dev.twitter.com/rest/reference/get/trends/closest
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @example
+      #   client.trends_closest(lat: 37.7821, long: -122.4093)
       # @param options [Hash] A customizable set of options.
-      # @option options [Float] :lat If provided with a :long option the available trend locations will be sorted by distance, nearest to furthest, to the co-ordinate pair. The valid ranges for latitude are -90.0 to +90.0 (North is positive) inclusive.
-      # @option options [Float] :long If provided with a :lat option the available trend locations will be sorted by distance, nearest to furthest, to the co-ordinate pair. The valid ranges for longitude are -180.0 to +180.0 (East is positive) inclusive.
+      # @option options [Float] :lat The latitude to search around.
+      # @option options [Float] :long The longitude to search around.
       # @return [Array<Twitter::Place>]
       def trends_closest(options = {})
         perform_get_with_objects("/1.1/trends/closest.json", options, Twitter::Place)

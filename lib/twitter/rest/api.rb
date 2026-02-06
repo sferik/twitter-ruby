@@ -19,7 +19,9 @@ require "twitter/rest/undocumented"
 require "twitter/rest/users"
 
 module Twitter
+  # REST API modules for Twitter
   module REST
+    # Combined Twitter REST API methods
     # @note All methods have been separated into modules and follow the same grouping used in {http://dev.twitter.com/doc the Twitter API Documentation}.
     # @see https://dev.twitter.com/overview/general/things-every-developer-should-know
     module API

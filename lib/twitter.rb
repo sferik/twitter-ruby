@@ -1,4 +1,9 @@
 require "addressable/uri"
+
+# Ruby interface to the Twitter API
+module Twitter
+end
+
 require "twitter/base"
 require "twitter/cursor"
 require "twitter/direct_message"

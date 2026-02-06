@@ -3,11 +3,25 @@ require "twitter/identity"
 
 module Twitter
   module DirectMessages
+    # Wraps a Twitter welcome message response
     class WelcomeMessageWrapper < Twitter::Identity
+      # The timestamp when the message was created
+      #
+      # @api public
+      # @example
+      #   wrapper.created_timestamp
+      # @return [String]
       attr_reader :created_timestamp
 
       object_attr_reader "DirectMessages::WelcomeMessage", :welcome_message
 
+      # Initializes a new WelcomeMessageWrapper
+      #
+      # @api public
+      # @example
+      #   Twitter::DirectMessages::WelcomeMessageWrapper.new(attrs)
+      # @param attrs [Hash] The attributes hash from the API response
+      # @return [Twitter::DirectMessages::WelcomeMessageWrapper]
       def initialize(attrs)
         attrs = read_from_response(attrs)
         text = attrs.dig(:message_data, :text)
@@ -21,13 +35,23 @@ module Twitter
 
     private
 
-      # @return [Hash] Normalized hash of attrs
+      # Normalizes the response attributes
+      #
+      # @api private
+      # @param attrs [Hash] The raw attributes hash
+      # @return [Hash]
       def read_from_response(attrs)
         return attrs[:welcome_message] unless attrs[:welcome_message].nil?
 
         attrs
       end
 
+      # Builds the welcome message hash from attributes
+      #
+      # @api private
+      # @param attrs [Hash] The wrapper attributes
+      # @param text [String] The message text
+      # @return [Hash]
       def build_welcome_message(attrs, text)
         {
           id: attrs[:id].to_i,

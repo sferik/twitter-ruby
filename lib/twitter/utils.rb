@@ -1,10 +1,13 @@
 module Twitter
+  # Utility methods for parallel mapping
+  #
+  # @api private
   module Utils
   module_function
 
-    # Returns a new array with the concatenated results of running block once for every element in enumerable.
-    # If no block is given, an enumerator is returned instead.
+    # Parallel flat_map for enumerables
     #
+    # @api private
     # @param enumerable [Enumerable]
     # @return [Array, Enumerator]
     def flat_pmap(enumerable, &block)
@@ -13,9 +16,9 @@ module Twitter
       pmap(enumerable, &block).flatten(1)
     end
 
-    # Returns a new array with the results of running block once for every element in enumerable.
-    # If no block is given, an enumerator is returned instead.
+    # Parallel map for enumerables
     #
+    # @api private
     # @param enumerable [Enumerable]
     # @return [Array, Enumerator]
     def pmap(enumerable, &block)

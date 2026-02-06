@@ -8,16 +8,19 @@ require "uri"
 
 module Twitter
   module REST
+    # Utility methods for Twitter REST API requests
     module Utils
       include Twitter::Utils
 
+      # The default cursor position for paginated requests
       DEFAULT_CURSOR = -1
 
     private
 
       # Take a URI string or Twitter::Identity object and return its ID
       #
-      # @param object [Integer, String, URI, Twitter::Identity] An ID, URI, or object.
+      # @api private
+      # @param object [Integer, String, URI, Twitter::Identity] An ID, URI, or object
       # @return [Integer]
       def extract_id(object)
         case object
@@ -32,76 +35,118 @@ module Twitter
         end
       end
 
+      # Perform a GET request
+      #
+      # @api private
       # @param path [String]
       # @param options [Hash]
+      # @return [Hash, Array]
       def perform_get(path, options = {})
         perform_request(:get, path, options)
       end
 
+      # Perform a POST request
+      #
+      # @api private
       # @param path [String]
       # @param options [Hash]
+      # @return [Hash, Array]
       def perform_post(path, options = {})
         perform_request(:post, path, options)
       end
 
+      # Perform an HTTP request
+      #
+      # @api private
       # @param request_method [Symbol]
       # @param path [String]
       # @param options [Hash]
+      # @param params [Hash]
+      # @return [Hash, Array]
       def perform_request(request_method, path, options = {}, params = nil)
         Twitter::REST::Request.new(self, request_method, path, options, params).perform
       end
 
+      # Perform a GET request and return an object
+      #
+      # @api private
       # @param path [String]
       # @param options [Hash]
       # @param klass [Class]
+      # @return [Object]
       def perform_get_with_object(path, options, klass)
         perform_request_with_object(:get, path, options, klass)
       end
 
+      # Perform a POST request and return an object
+      #
+      # @api private
       # @param path [String]
       # @param options [Hash]
       # @param klass [Class]
+      # @return [Object]
       def perform_post_with_object(path, options, klass)
         perform_request_with_object(:post, path, options, klass)
       end
 
+      # Perform a request and return an object
+      #
+      # @api private
       # @param request_method [Symbol]
       # @param path [String]
       # @param options [Hash]
       # @param klass [Class]
+      # @param params [Hash]
+      # @return [Object]
       def perform_request_with_object(request_method, path, options, klass, params = nil)
         response = perform_request(request_method, path, options, params)
         klass.new(response)
       end
 
+      # Perform a GET request and return objects
+      #
+      # @api private
       # @param path [String]
       # @param options [Hash]
       # @param klass [Class]
+      # @return [Array]
       def perform_get_with_objects(path, options, klass)
         perform_request_with_objects(:get, path, options, klass)
       end
 
+      # Perform a POST request and return objects
+      #
+      # @api private
       # @param path [String]
       # @param options [Hash]
       # @param klass [Class]
+      # @return [Array]
       def perform_post_with_objects(path, options, klass)
         perform_request_with_objects(:post, path, options, klass)
       end
 
+      # Perform a request and return objects
+      #
+      # @api private
       # @param request_method [Symbol]
       # @param path [String]
       # @param options [Hash]
       # @param klass [Class]
+      # @return [Array]
       def perform_request_with_objects(request_method, path, options, klass)
         perform_request(request_method, path, options).collect do |element|
           klass.new(element)
         end
       end
 
+      # Perform a GET request with cursor pagination
+      #
+      # @api private
       # @param path [String]
       # @param options [Hash]
       # @param collection_name [Symbol]
       # @param klass [Class]
+      # @return [Twitter::Cursor]
       def perform_get_with_cursor(path, options, collection_name, klass = nil)
         limit = options.delete(:limit)
         if options[:no_default_cursor]
@@ -114,6 +159,9 @@ module Twitter
         Twitter::Cursor.new(collection_name.to_sym, klass, request, limit)
       end
 
+      # Perform parallel user requests
+      #
+      # @api private
       # @param request_method [Symbol]
       # @param path [String]
       # @param args [Array]
@@ -125,6 +173,9 @@ module Twitter
         end
       end
 
+      # Get users from response
+      #
+      # @api private
       # @param request_method [Symbol]
       # @param path [String]
       # @param args [Array]
@@ -135,6 +186,9 @@ module Twitter
         perform_request_with_objects(request_method, path, arguments.options, Twitter::User)
       end
 
+      # Get objects from response with user
+      #
+      # @api private
       # @param klass [Class]
       # @param request_method [Symbol]
       # @param path [String]
@@ -146,6 +200,9 @@ module Twitter
         perform_request_with_objects(request_method, path, arguments.options, klass)
       end
 
+      # Perform parallel object requests
+      #
+      # @api private
       # @param klass [Class]
       # @param request_method [Symbol]
       # @param path [String]
@@ -158,10 +215,13 @@ module Twitter
         end
       end
 
+      # Perform multiple requests for IDs
+      #
+      # @api private
       # @param request_method [Symbol]
       # @param path [String]
       # @param ids [Array]
-      # @return nil
+      # @return [nil]
       def perform_requests(request_method, path, ids)
         ids.each do |id|
           perform_request(request_method, path, id:)
@@ -169,6 +229,9 @@ module Twitter
         nil
       end
 
+      # Get cursor from response with user
+      #
+      # @api private
       # @param collection_name [Symbol]
       # @param klass [Class]
       # @param path [String]
@@ -180,22 +243,37 @@ module Twitter
         perform_get_with_cursor(path, arguments.options, collection_name, klass)
       end
 
+      # Get the current user's ID
+      #
+      # @api private
+      # @return [Integer]
       def user_id
         @user_id ||= verify_credentials(skip_status: true).id
       end
 
+      # Check if user_id is set
+      #
+      # @api private
+      # @return [Boolean]
       def user_id?
         instance_variable_defined?(:@user_id)
       end
 
+      # Merge default cursor into options
+      #
+      # @api private
+      # @param options [Hash]
+      # @return [void]
       def merge_default_cursor!(options)
         options[:cursor] = DEFAULT_CURSOR unless options[:cursor]
       end
 
       # Take a user and merge it into the hash with the correct key
       #
+      # @api private
       # @param hash [Hash]
-      # @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, URI, or object.
+      # @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, URI, or object
+      # @param prefix [String]
       # @return [Hash]
       def merge_user(hash, user, prefix = nil)
         merge_user!(hash.dup, user, prefix)
@@ -203,8 +281,10 @@ module Twitter
 
       # Take a user and merge it into the hash with the correct key
       #
+      # @api private
       # @param hash [Hash]
-      # @param user [Integer, String, URI, Twitter::User] A Twitter user ID, screen name, URI, or object.
+      # @param user [Integer, String, URI, Twitter::User] A Twitter user ID, screen name, URI, or object
+      # @param prefix [String]
       # @return [Hash]
       def merge_user!(hash, user, prefix = nil)
         case user
@@ -219,6 +299,14 @@ module Twitter
         end
       end
 
+      # Set a compound key in a hash
+      #
+      # @api private
+      # @param key [String]
+      # @param value [Object]
+      # @param hash [Hash]
+      # @param prefix [String]
+      # @return [Hash]
       def set_compound_key(key, value, hash, prefix = nil)
         compound_key = [prefix, key].compact.join("_").to_sym
         hash[compound_key] = value
@@ -227,8 +315,9 @@ module Twitter
 
       # Take a multiple users and merge them into the hash with the correct keys
       #
+      # @api private
       # @param hash [Hash]
-      # @param users [Enumerable<Integer, String, Twitter::User>] A collection of Twitter user IDs, screen_names, or objects.
+      # @param users [Enumerable<Integer, String, Twitter::User>] A collection of Twitter user IDs, screen_names, or objects
       # @return [Hash]
       def merge_users(hash, users)
         copy = hash.dup
@@ -238,15 +327,21 @@ module Twitter
 
       # Take a multiple users and merge them into the hash with the correct keys
       #
+      # @api private
       # @param hash [Hash]
-      # @param users [Enumerable<Integer, String, URI, Twitter::User>] A collection of Twitter user IDs, screen_names, URIs, or objects.
-      # @return [Hash]
+      # @param users [Enumerable<Integer, String, URI, Twitter::User>] A collection of Twitter user IDs, screen_names, URIs, or objects
+      # @return [void]
       def merge_users!(hash, users)
         user_ids, screen_names = collect_users(users.uniq)
         hash[:user_id] = user_ids.join(",") unless user_ids.empty?
         hash[:screen_name] = screen_names.join(",") unless screen_names.empty?
       end
 
+      # Collect users into user_ids and screen_names arrays
+      #
+      # @api private
+      # @param users [Enumerable]
+      # @return [Array<Array, Array>]
       def collect_users(users) # rubocop:disable Metrics/MethodLength
         user_ids = []
         screen_names = []

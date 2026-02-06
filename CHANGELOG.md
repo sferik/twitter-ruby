@@ -585,7 +585,7 @@ https://github.com/sferik/twitter/compare/v6.0.0...v6.1.0
 1.2.0
 -----
 * [Respect global load path](https://github.com/sferik/twitter/commit/6a629a6a06e115388cce6f1de04f45a4b0707cac)
-* [Use map and `Hash[]` instead of `inject({})`](https://github.com/sferik/twitter/commit/a2b0b51618f40b526f554c019a6c83b0bf9a8cdf) ([@wtnelson](https://twitter.com/wtnelson))
+* [Use map and `Hash[]` instead of `inject(&#123;&#125;)`](https://github.com/sferik/twitter/commit/a2b0b51618f40b526f554c019a6c83b0bf9a8cdf) ([@wtnelson](https://twitter.com/wtnelson))
 * [Check headers for `Retry-After` in absence of `retry-after`](https://github.com/sferik/twitter/commit/924253214efcedfeb80b4c6fe57dcbb2a7470177) ([@wtnelson](https://twitter.com/wtnelson))
 * [Fix name of `#list_add_members` resource](https://github.com/sferik/twitter/commit/3adcc1592240be2679f0a2c7d0c390b574abe8f1)
 * [Don't strip @ signs from screen names](https://github.com/sferik/twitter/commit/38c9dd0a720ea857ff6220b28f66db4c780a7fda)

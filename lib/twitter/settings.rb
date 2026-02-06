@@ -1,9 +1,35 @@
 require "twitter/base"
 
 module Twitter
+  # Represents Twitter account settings
   class Settings < Twitter::Base
+    # The sleep time settings
+    #
+    # @api public
+    # @example
+    #   settings.sleep_time
+    # @return [Hash]
+
+    # The time zone settings
+    #
+    # @api public
+    # @example
+    #   settings.time_zone
     # @return [Hash]
     attr_reader :sleep_time, :time_zone
+
+    # The language preference
+    #
+    # @api public
+    # @example
+    #   settings.language
+    # @return [String]
+
+    # The screen name of the account
+    #
+    # @api public
+    # @example
+    #   settings.screen_name
     # @return [String]
     attr_reader :language, :screen_name
 

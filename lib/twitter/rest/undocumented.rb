@@ -6,13 +6,19 @@ require "twitter/user"
 
 module Twitter
   module REST
+    # Undocumented Twitter API endpoints
     module Undocumented
       include Twitter::REST::Utils
 
+      # Returns users following followers of the specified user
+      #
+      # @api public
       # @note Undocumented
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @example
+      #   client.following_followers_of('sferik')
       # @return [Twitter::Cursor]
       # @overload following_followers_of(options = {})
       #   Returns users following followers of the specified user
@@ -29,9 +35,12 @@ module Twitter
 
       # Returns Tweets count for a URI
       #
+      # @api public
       # @note Undocumented
       # @rate_limited No
       # @authentication Not required
+      # @example
+      #   client.tweet_count('https://twitter.com')
       # @return [Integer]
       # @param url [String, URI] A URL.
       # @param options [Hash] A customizable set of options.

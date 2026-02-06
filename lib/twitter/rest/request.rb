@@ -11,18 +11,89 @@ require "twitter/rest/form_encoder"
 
 module Twitter
   module REST
+    # Handles HTTP requests to the Twitter API
     class Request # rubocop:disable Metrics/ClassLength
       include Twitter::Utils
 
+      # The base URL for Twitter API requests
       BASE_URL = "https://api.twitter.com".freeze
-      attr_accessor :client, :headers, :options, :path, :rate_limit,
-                    :request_method, :uri
-      alias verb request_method
 
+      # The client making the request
+      #
+      # @api public
+      # @example
+      #   request.client # => #<Twitter::REST::Client>
+      # @return [Twitter::Client]
+      attr_accessor :client
+
+      # The request headers
+      #
+      # @api public
+      # @example
+      #   request.headers # => {user_agent: "...", authorization: "..."}
+      # @return [Hash]
+      attr_accessor :headers
+
+      # The request options
+      #
+      # @api public
+      # @example
+      #   request.options # => {count: 10}
+      # @return [Hash]
+      attr_accessor :options
+
+      # The request path
+      #
+      # @api public
+      # @example
+      #   request.path # => "/1.1/statuses/home_timeline.json"
+      # @return [String]
+      attr_accessor :path
+
+      # The rate limit information from the response
+      #
+      # @api public
+      # @example
+      #   request.rate_limit # => #<Twitter::RateLimit>
+      # @return [Twitter::RateLimit]
+      attr_accessor :rate_limit
+
+      # The HTTP request method
+      #
+      # @api public
+      # @example
+      #   request.request_method # => :get
+      # @return [Symbol]
+      attr_accessor :request_method
+
+      # The request URI
+      #
+      # @api public
+      # @example
+      #   request.uri # => #<Addressable::URI>
+      # @return [Addressable::URI]
+      attr_accessor :uri
+
+      # Returns the HTTP verb
+      #
+      # @api public
+      # @example
+      #   request.verb # => :get
+      # @return [Symbol]
+      def verb
+        request_method
+      end
+
+      # Initializes a new Request
+      #
+      # @api public
+      # @example
+      #   Twitter::REST::Request.new(client, :get, "/1.1/statuses/home_timeline.json")
       # @param client [Twitter::Client]
       # @param request_method [String, Symbol]
       # @param path [String]
       # @param options [Hash]
+      # @param params [Hash]
       # @return [Twitter::REST::Request]
       def initialize(client, request_method, path, options = {}, params = nil)
         @client = client
@@ -35,6 +106,11 @@ module Twitter
         @params = params
       end
 
+      # Performs the HTTP request and returns the response
+      #
+      # @api public
+      # @example
+      #   request.perform # => [{id: 123, text: "Hello"}]
       # @return [Array, Hash]
       def perform
         response = http_client.headers(@headers).public_send(@request_method, @uri.to_s, request_options)
@@ -45,6 +121,10 @@ module Twitter
 
     private
 
+      # Build the request options hash
+      #
+      # @api private
+      # @return [Hash]
       def request_options
         options = if @options_key == :form
                     {form: HTTP::FormData.create(@options, encoder: Twitter::REST::FormEncoder.method(:encode))}
@@ -56,6 +136,11 @@ module Twitter
         options
       end
 
+      # Merge multipart file data into options
+      #
+      # @api private
+      # @param options [Hash]
+      # @return [void]
       def merge_multipart_file!(options)
         key = options.delete(:key)
         file = options.delete(:file)
@@ -67,6 +152,12 @@ module Twitter
                        end
       end
 
+      # Set multipart and header options based on request method
+      #
+      # @api private
+      # @param request_method [Symbol]
+      # @param options [Hash]
+      # @return [void]
       def set_multipart_options!(request_method, options)
         if %i[multipart_post json_post].include?(request_method)
           merge_multipart_file!(options) if request_method == :multipart_post
@@ -80,6 +171,11 @@ module Twitter
         @headers = Twitter::Headers.new(@client, @request_method, @uri, options).request_headers
       end
 
+      # Determine content type based on file extension
+      #
+      # @api private
+      # @param basename [String]
+      # @return [String]
       def content_type(basename)
         case basename
         when /\.gif$/i
@@ -93,6 +189,13 @@ module Twitter
         end
       end
 
+      # Check response and return body or raise error
+      #
+      # @api private
+      # @param code [Integer]
+      # @param body [Hash, Array, String]
+      # @param headers [Hash]
+      # @return [Hash, Array, String]
       def fail_or_return_response_body(code, body, headers)
         error = error(code, body, headers)
         raise(error) if error
@@ -101,6 +204,13 @@ module Twitter
         body
       end
 
+      # Build error object from response
+      #
+      # @api private
+      # @param code [Integer]
+      # @param body [Hash, Array, String]
+      # @param headers [Hash]
+      # @return [Twitter::Error, nil]
       def error(code, body, headers)
         klass = Twitter::Error::ERRORS[code]
         if klass == Twitter::Error::Forbidden
@@ -112,6 +222,12 @@ module Twitter
         end
       end
 
+      # Build forbidden error with specific message handling
+      #
+      # @api private
+      # @param body [Hash, Array, String]
+      # @param headers [Hash]
+      # @return [Twitter::Error]
       def forbidden_error(body, headers)
         error = Twitter::Error::Forbidden.from_response(body, headers)
         klass = Twitter::Error::FORBIDDEN_MESSAGES[error.message]
@@ -122,6 +238,11 @@ module Twitter
         end
       end
 
+      # Recursively symbolize hash keys
+      #
+      # @api private
+      # @param object [Hash, Array, Object]
+      # @return [Hash, Array, Object]
       def symbolize_keys!(object)
         case object
         when Array
@@ -136,13 +257,17 @@ module Twitter
         object
       end
 
-      # Returns boolean indicating if all the keys required by HTTP::Client are present in Twitter::Client#timeouts
+      # Check if all timeout keys are defined
       #
+      # @api private
       # @return [Boolean]
       def timeout_keys_defined
         (%i[write connect read] - (@client.timeouts&.keys || [])).empty?
       end
 
+      # Build HTTP client with proxy and timeout settings
+      #
+      # @api private
       # @return [HTTP::Client, HTTP]
       def http_client
         client = @client.proxy ? HTTP.via(*proxy) : HTTP
@@ -152,6 +277,7 @@ module Twitter
 
       # Return proxy values as a compacted array
       #
+      # @api private
       # @return [Array]
       def proxy
         @client.proxy.values_at(:host, :port, :username, :password).compact

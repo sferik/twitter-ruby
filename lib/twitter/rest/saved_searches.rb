@@ -5,13 +5,19 @@ require "twitter/utils"
 
 module Twitter
   module REST
+    # Methods for working with saved searches
     module SavedSearches
       include Twitter::REST::Utils
       include Twitter::Utils
 
+      # Returns the authenticated user's saved search queries
+      #
+      # @api public
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @example
+      #   client.saved_searches
       # @return [Array<Twitter::SavedSearch>] The saved searches.
       # @overload saved_search(options = {})
       #   Returns the authenticated user's saved search queries
@@ -40,12 +46,15 @@ module Twitter
         end
       end
 
-      # Retrieve the data for saved searches owned by the authenticating user
+      # Retrieves a saved search by ID
       #
+      # @api public
       # @see https://dev.twitter.com/rest/reference/get/saved_searches/show/:id
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @example
+      #   client.saved_search(16129012)
       # @return [Twitter::SavedSearch] The saved searches.
       # @param id [Integer] The ID of the saved search.
       # @param options [Hash] A customizable set of options.
@@ -55,10 +64,13 @@ module Twitter
 
       # Creates a saved search for the authenticated user
       #
+      # @api public
       # @see https://dev.twitter.com/rest/reference/post/saved_searches/create
       # @rate_limited No
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @example
+      #   client.create_saved_search('twitter')
       # @return [Twitter::SavedSearch] The created saved search.
       # @param query [String] The query of the search the user would like to save.
       # @param options [Hash] A customizable set of options.
@@ -68,11 +80,14 @@ module Twitter
 
       # Destroys saved searches for the authenticated user
       #
+      # @api public
       # @see https://dev.twitter.com/rest/reference/post/saved_searches/destroy/:id
       # @note The search specified by ID must be owned by the authenticating user.
       # @rate_limited No
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @example
+      #   client.destroy_saved_search(16129012)
       # @return [Array<Twitter::SavedSearch>] The deleted saved searches.
       # @overload destroy_saved_search(*ids)
       #   @param ids [Enumerable<Integer>] A collection of saved search IDs.

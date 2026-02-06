@@ -7,7 +7,17 @@ require "twitter/tweet"
 
 module Twitter
   module Streaming
+    # Parses streaming messages from the Twitter API
+    #
+    # @api public
     class MessageParser
+      # Parses streaming data into appropriate objects
+      #
+      # @api public
+      # @example
+      #   MessageParser.parse(data)
+      # @param data [Hash] The streaming data to parse.
+      # @return [Twitter::Tweet, Twitter::Streaming::Event, Twitter::DirectMessage, Twitter::Streaming::FriendList, Twitter::Streaming::DeletedTweet, Twitter::Streaming::StallWarning, nil]
       def self.parse(data) # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength, Metrics/PerceivedComplexity
         if data[:id]
           Tweet.new(data)

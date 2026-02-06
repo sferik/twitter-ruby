@@ -4,93 +4,122 @@ require "twitter/utils"
 
 module Twitter
   module REST
+    # Methods for interacting with the Account Activity API
     module AccountActivity
       include Twitter::REST::Utils
       include Twitter::Utils
 
-      # Registers a webhook URL for all event types. The URL will be validated via CRC request before saving. In case the validation failed, returns comprehensive error message to the requester.
+      # Registers a webhook URL for all event types
+      #
+      # @api public
       # @see https://developer.twitter.com/en/docs/accounts-and-users/subscribe-account-activity/api-reference
       # @see https://developer.twitter.com/en/docs/accounts-and-users/subscribe-account-activity/api-reference/aaa-premium#post-account-activity-all-env-name-webhooks
       # @note Create a webhook
       # @rate_limited Yes
       # @authentication Requires user context - all consumer and access tokens
-      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @example
+      #   client.create_webhook("production", "https://example.com/webhook")
+      # @param env_name [String] Environment Name
+      # @param url [String] Encoded URL for the callback endpoint
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid
       # @return [Hash]
-      # @param env_name [String] Environment Name.
-      # @param url [String] Encoded URL for the callback endpoint.
       def create_webhook(env_name, url)
         perform_request(:json_post, "/1.1/account_activity/all/#{env_name}/webhooks.json?url=#{url}")
       end
 
-      # Returns all environments, webhook URLs and their statuses for the authenticating app. Currently, only one webhook URL can be registered to each environment.
+      # Returns all environments and webhook URLs for the app
+      #
+      # @api public
       # @see https://developer.twitter.com/en/docs/accounts-and-users/subscribe-account-activity/api-reference/aaa-premium#get-account-activity-all-webhooks
       # @note List webhooks
       # @rate_limited Yes
       # @authentication Requires user context - all consumer and access tokens
-      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @example
+      #   client.list_webhooks("production")
+      # @param env_name [String] Environment Name
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid
       # @return [Hash]
-      # @param env_name [String] Environment Name.
       def list_webhooks(env_name)
         perform_request(:get, "/1.1/account_activity/all/#{env_name}/webhooks.json")
       end
 
-      # Removes the webhook from the provided application's all activities configuration. The webhook ID can be accessed by making a call to GET /1.1/account_activity/all/webhooks.
+      # Removes the webhook from the application's configuration
+      #
+      # @api public
       # @see https://developer.twitter.com/en/docs/accounts-and-users/subscribe-account-activity/api-reference/aaa-premium#delete-account-activity-all-env-name-webhooks-webhook-id
       # @note Delete a webhook
       # @authentication Requires user context - all consumer and access tokens
-      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @example
+      #   client.delete_webhook("production", "12345")
+      # @param env_name [String] Environment Name
+      # @param webhook_id [String] Webhook ID
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid
       # @return [nil]
-      # @param env_name [String] Environment Name.
-      # @param webhook_id [String] Webhook ID.
       def delete_webhook(env_name, webhook_id)
         perform_request(:delete, "/1.1/account_activity/all/#{env_name}/webhooks/#{webhook_id}.json")
       end
 
-      # Triggers the challenge response check (CRC) for the given enviroments webhook for all activites. If the check is successful, returns 204 and reenables the webhook by setting its status to valid.
+      # Triggers the challenge response check (CRC) for a webhook
+      #
+      # @api public
       # @see https://developer.twitter.com/en/docs/accounts-and-users/subscribe-account-activity/api-reference/aaa-premium#put-account-activity-all-env-name-webhooks-webhook-id
       # @note Trigger CRC check to a webhook
       # @rate_limited Yes
       # @authentication Requires user context - all consumer and access tokens
-      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @example
+      #   client.trigger_crc_check("production", "12345")
+      # @param env_name [String] Environment Name
+      # @param webhook_id [String] Webhook ID
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid
       # @return [nil]
-      # @param env_name [String] Environment Name.
-      # @param webhook_id [String] Webhook ID.
       def trigger_crc_check(env_name, webhook_id)
         perform_request(:json_put, "/1.1/account_activity/all/#{env_name}/webhooks/#{webhook_id}.json")
       end
 
-      # Subscribes the provided application to all events for the provided environment for all message types. After activation, all events for the requesting user will be sent to the application's webhook via POST request.
+      # Subscribes the application to all events for the environment
+      #
+      # @api public
       # @see https://developer.twitter.com/en/docs/accounts-and-users/subscribe-account-activity/api-reference/aaa-premium#post-account-activity-all-env-name-subscriptions
-      # @note Subscribe the user(whose credentials are provided) to the app so that the webhook can receive all types of events from user
+      # @note Subscribe the user to receive webhook events
       # @rate_limited Yes
       # @authentication Requires user context - all consumer and access tokens
-      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-      # @return [nil]
+      # @example
+      #   client.create_subscription("production")
       # @param env_name [String] Environment Name
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid
+      # @return [nil]
       def create_subscription(env_name)
         perform_request(:json_post, "/1.1/account_activity/all/#{env_name}/subscriptions.json")
       end
 
-      # Provides a way to determine if a webhook configuration is subscribed to the provided user's events. If the provided user context has an active subscription with provided application, returns 204 OK.
+      # Checks if the user is subscribed to the webhook
+      #
+      # @api public
       # @see https://developer.twitter.com/en/docs/accounts-and-users/subscribe-account-activity/api-reference/aaa-premium#get-account-activity-all-env-name-subscriptions
       # @note Check if the user is subscribed to the given app
       # @rate_limited Yes
       # @authentication Requires user context - all consumer and access tokens
-      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-      # @return [nil]
+      # @example
+      #   client.check_subscription("production")
       # @param env_name [String] Environment Name
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid
+      # @return [nil]
       def check_subscription(env_name)
         perform_request(:get, "/1.1/account_activity/all/#{env_name}/subscriptions.json")
       end
 
-      # Deactivates subscription(s) for the provided user context and application for all activities. After deactivation, all events for the requesting user will no longer be sent to the webhook URL.
+      # Deactivates subscription for the user and application
+      #
+      # @api public
       # @see https://developer.twitter.com/en/docs/accounts-and-users/subscribe-account-activity/api-reference/aaa-premium#delete-account-activity-all-env-name-subscriptions
-      # @note Deactivate a subscription, Users events will not be sent to the app
+      # @note Deactivate a subscription
       # @rate_limited Yes
       # @authentication Requires user context - all consumer and access tokens
-      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-      # @return [nil]
+      # @example
+      #   client.deactivate_subscription("production")
       # @param env_name [String] Environment Name
+      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid
+      # @return [nil]
       def deactivate_subscription(env_name)
         perform_request(:delete, "/1.1/account_activity/all/#{env_name}/subscriptions.json")
       end

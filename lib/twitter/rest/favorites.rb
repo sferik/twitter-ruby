@@ -7,14 +7,20 @@ require "twitter/utils"
 
 module Twitter
   module REST
+    # Methods for working with favorite tweets
     module Favorites
       include Twitter::REST::Utils
       include Twitter::Utils
 
+      # Returns favorite Tweets for the user
+      #
+      # @api public
       # @see https://dev.twitter.com/rest/reference/get/favorites/list
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @example
+      #   client.favorites
       # @return [Array<Twitter::Tweet>] favorite Tweets.
       # @overload favorites(options = {})
       #   Returns the 20 most recent favorite Tweets for the authenticating user
@@ -37,10 +43,13 @@ module Twitter
 
       # Un-favorites the specified Tweets as the authenticating user
       #
+      # @api public
       # @see https://dev.twitter.com/rest/reference/post/favorites/destroy
       # @rate_limited No
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @example
+      #   client.unfavorite(25938088801)
       # @return [Array<Twitter::Tweet>] The un-favorited Tweets.
       # @overload unfavorite(*tweets)
       #   @param tweets [Enumerable<Integer, String, URI, Twitter::Tweet>] A collection of Tweet IDs, URIs, or objects.
@@ -55,15 +64,21 @@ module Twitter
           next
         end.compact
       end
+      # @!method destroy_favorite
+      #   @api public
+      #   @see #unfavorite
       alias destroy_favorite unfavorite
 
-      # Un-favorites the specified Tweets as the authenticating user and raises an error if one is not found
+      # Un-favorites the specified Tweets and raises an error if not found
       #
+      # @api public
       # @see https://dev.twitter.com/rest/reference/post/favorites/destroy
       # @rate_limited No
       # @authentication Requires user context
       # @raise [Twitter::Error::NotFound] Error raised when tweet does not exist or has been deleted.
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @example
+      #   client.unfavorite!(25938088801)
       # @return [Array<Twitter::Tweet>] The un-favorited Tweets.
       # @overload unfavorite!(*tweets)
       #   @param tweets [Enumerable<Integer, String, URI, Twitter::Tweet>] A collection of Tweet IDs, URIs, or objects.
@@ -76,10 +91,13 @@ module Twitter
 
       # Favorites the specified Tweets as the authenticating user
       #
+      # @api public
       # @see https://dev.twitter.com/rest/reference/post/favorites/create
       # @rate_limited No
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @example
+      #   client.favorite(25938088801)
       # @return [Array<Twitter::Tweet>] The favorited Tweets.
       # @overload favorite(*tweets)
       #   @param tweets [Enumerable<Integer, String, URI, Twitter::Tweet>] A collection of Tweet IDs, URIs, or objects.
@@ -94,17 +112,26 @@ module Twitter
           next
         end.compact
       end
+      # @!method fav
+      #   @api public
+      #   @see #favorite
       alias fav favorite
+      # @!method fave
+      #   @api public
+      #   @see #favorite
       alias fave favorite
 
-      # Favorites the specified Tweets as the authenticating user and raises an error if one has already been favorited
+      # Favorites the specified Tweets and raises an error if already favorited
       #
+      # @api public
       # @see https://dev.twitter.com/rest/reference/post/favorites/create
       # @rate_limited No
       # @authentication Requires user context
       # @raise [Twitter::Error::AlreadyFavorited] Error raised when tweet has already been favorited.
       # @raise [Twitter::Error::NotFound] Error raised when tweet does not exist or has been deleted.
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @example
+      #   client.favorite!(25938088801)
       # @return [Array<Twitter::Tweet>] The favorited Tweets.
       # @overload favorite!(*tweets)
       #   @param tweets [Enumerable<Integer, String, URI, Twitter::Tweet>] A collection of Tweet IDs, URIs, or objects.
@@ -117,8 +144,17 @@ module Twitter
           perform_post_with_object("/1.1/favorites/create.json", arguments.options.merge(id: extract_id(tweet)), Twitter::Tweet)
         end
       end
+      # @!method create_favorite!
+      #   @api public
+      #   @see #favorite!
       alias create_favorite! favorite!
+      # @!method fav!
+      #   @api public
+      #   @see #favorite!
       alias fav! favorite!
+      # @!method fave!
+      #   @api public
+      #   @see #favorite!
       alias fave! favorite!
     end
   end

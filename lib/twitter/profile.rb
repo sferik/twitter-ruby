@@ -3,43 +3,83 @@ require "cgi"
 require "memoizable"
 
 module Twitter
+  # Provides profile image and banner URL methods
   module Profile
+    # Regular expression for profile image suffix
     PROFILE_IMAGE_SUFFIX_REGEX = /_normal(\.gif|\.jpe?g|\.png)$/i
+    # Regular expression for predicate URI methods
     PREDICATE_URI_METHOD_REGEX = /_uri\?$/
     include Memoizable
 
     class << self
     private
 
+      # Aliases predicate URI methods to URL variants
+      #
+      # @api private
+      # @param method [Symbol] The method name to alias
+      # @return [void]
       def alias_predicate_uri_methods(method)
         %w[_url? _uri_https? _url_https?].each do |replacement|
           alias_method_sub(method, PREDICATE_URI_METHOD_REGEX, replacement)
         end
       end
 
+      # Substitutes method name pattern and creates alias
+      #
+      # @api private
+      # @param method [Symbol] The method name
+      # @param pattern [Regexp] The pattern to match
+      # @param replacement [String] The replacement string
+      # @return [void]
       def alias_method_sub(method, pattern, replacement)
         alias_method(method.to_s.sub(pattern, replacement).to_sym, method)
       end
     end
 
-    # Return the URL to the user's profile banner image
+    # Returns the URL to the user's profile banner image
     #
-    # @param size [String, Symbol] The size of the image. Must be one of: 'mobile', 'mobile_retina', 'web', 'web_retina', 'ipad', or 'ipad_retina'
+    # @api public
+    # @example
+    #   user.profile_banner_uri(:web)
+    # @param size [String, Symbol] The size of the image
     # @return [Addressable::URI]
     def profile_banner_uri(size = :web)
       parse_uri(insecure_uri([@attrs[:profile_banner_url], size].join("/"))) unless @attrs[:profile_banner_url].nil?
     end
+
+    # @!method profile_banner_url
+    #   Returns the URL to the user's profile banner image
+    #   @api public
+    #   @example
+    #     user.profile_banner_url(:web)
+    #   @return [Addressable::URI]
     alias profile_banner_url profile_banner_uri
 
-    # Return the secure URL to the user's profile banner image
+    # Returns the secure URL to the user's profile banner image
     #
-    # @param size [String, Symbol] The size of the image. Must be one of: 'mobile', 'mobile_retina', 'web', 'web_retina', 'ipad', or 'ipad_retina'
+    # @api public
+    # @example
+    #   user.profile_banner_uri_https(:web)
+    # @param size [String, Symbol] The size of the image
     # @return [Addressable::URI]
     def profile_banner_uri_https(size = :web)
       parse_uri([@attrs[:profile_banner_url], size].join("/")) unless @attrs[:profile_banner_url].nil?
     end
+
+    # @!method profile_banner_url_https
+    #   Returns the secure URL to the user's profile banner image
+    #   @api public
+    #   @example
+    #     user.profile_banner_url_https(:web)
+    #   @return [Addressable::URI]
     alias profile_banner_url_https profile_banner_uri_https
 
+    # Returns true if the user has a profile banner
+    #
+    # @api public
+    # @example
+    #   user.profile_banner_uri?
     # @return [Boolean]
     def profile_banner_uri?
       !!@attrs[:profile_banner_url]
@@ -47,18 +87,31 @@ module Twitter
     memoize :profile_banner_uri?
     alias_predicate_uri_methods :profile_banner_uri?
 
-    # Return the URL to the user's profile image
+    # Returns the URL to the user's profile image
     #
-    # @param size [String, Symbol] The size of the image. Must be one of: 'mini', 'normal', 'bigger' or 'original'
+    # @api public
+    # @example
+    #   user.profile_image_uri(:normal)
+    # @param size [String, Symbol] The size of the image
     # @return [Addressable::URI]
     def profile_image_uri(size = :normal)
       parse_uri(insecure_uri(profile_image_uri_https(size))) unless @attrs[:profile_image_url_https].nil?
     end
+
+    # @!method profile_image_url
+    #   Returns the URL to the user's profile image
+    #   @api public
+    #   @example
+    #     user.profile_image_url(:normal)
+    #   @return [Addressable::URI]
     alias profile_image_url profile_image_uri
 
-    # Return the secure URL to the user's profile image
+    # Returns the secure URL to the user's profile image
     #
-    # @param size [String, Symbol] The size of the image. Must be one of: 'mini', 'normal', 'bigger' or 'original'
+    # @api public
+    # @example
+    #   user.profile_image_uri_https(:normal)
+    # @param size [String, Symbol] The size of the image
     # @return [Addressable::URI]
     def profile_image_uri_https(size = :normal)
       # The profile image URL comes in looking like like this:
@@ -69,8 +122,20 @@ module Twitter
       # https://a0.twimg.com/profile_images/1759857427/image1326743606_bigger.png
       parse_uri(@attrs[:profile_image_url_https].sub(PROFILE_IMAGE_SUFFIX_REGEX, profile_image_suffix(size))) unless @attrs[:profile_image_url_https].nil?
     end
+
+    # @!method profile_image_url_https
+    #   Returns the secure URL to the user's profile image
+    #   @api public
+    #   @example
+    #     user.profile_image_url_https(:normal)
+    #   @return [Addressable::URI]
     alias profile_image_url_https profile_image_uri_https
 
+    # Returns true if the user has a profile image
+    #
+    # @api public
+    # @example
+    #   user.profile_image_uri?
     # @return [Boolean]
     def profile_image_uri?
       !!@attrs[:profile_image_url_https]
@@ -80,14 +145,29 @@ module Twitter
 
   private
 
+    # Parses a URI string
+    #
+    # @api private
+    # @param uri [String] The URI string
+    # @return [Addressable::URI]
     def parse_uri(uri)
       Addressable::URI.parse(uri)
     end
 
+    # Converts a URI to insecure (http) version
+    #
+    # @api private
+    # @param uri [Object] The URI to convert
+    # @return [String]
     def insecure_uri(uri)
       uri.to_s.sub(/^https/i, "http")
     end
 
+    # Returns the suffix for profile image URLs
+    #
+    # @api private
+    # @param size [Symbol] The size
+    # @return [String]
     def profile_image_suffix(size)
       size.to_sym == :original ? '\\1' : "_#{size}\\1"
     end

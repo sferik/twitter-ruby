@@ -10,9 +10,7 @@ You can fetch up to 3,200 tweets for a user, 200 at a time.
 Here is an example of recursively getting pages of 200 Tweets until you receive
 an empty response.
 
-**Note: This may result in [rate limiting][].**
-
-[rate limiting]: https://github.com/sferik/twitter/blob/master/examples/RateLimiting.md
+**Note: This may result in being rate-limited. See <a href="https://github.com/sferik/twitter/blob/master/examples/RateLimiting.md">RateLimiting.md</a> for more info.**
 
 ```ruby
 def collect_with_max_id(collection=[], max_id=nil, &block)

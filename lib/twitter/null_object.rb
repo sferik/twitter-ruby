@@ -1,6 +1,8 @@
 require "naught"
 
 module Twitter
+  # A null object that absorbs all method calls and returns itself
+  # @see https://github.com/avdi/naught
   NullObject = Naught.build do |config| # rubocop:disable Metrics/BlockLength
     include Comparable
 

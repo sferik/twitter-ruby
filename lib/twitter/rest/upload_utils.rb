@@ -2,13 +2,17 @@ require "twitter/rest/request"
 
 module Twitter
   module REST
+    # Utilities for uploading media to Twitter
+    #
+    # @api private
     module UploadUtils
     private
 
-      # Uploads images and videos. Videos require multiple requests and uploads in chunks of 5 Megabytes.
-      # The only supported video format is mp4.
+      # Uploads images and videos to Twitter
       #
+      # @api private
       # @see https://developer.twitter.com/en/docs/media/upload-media/uploading-media/media-best-practices
+      # @return [Hash]
       def upload(media, media_category_prefix: "tweet")
         ext = File.extname(media)
         return chunk_upload(media, "video/mp4", "#{media_category_prefix}_video") if ext == ".mp4"
@@ -18,12 +22,16 @@ module Twitter
         Twitter::REST::Request.new(self, :multipart_post, "https://upload.twitter.com/1.1/media/upload.json", key: :media, file: media).perform
       end
 
+      # Uploads large media in chunks
+      #
+      # @api private
       # @raise [Twitter::Error::TimeoutError] Error raised when the upload is longer than the value specified in Twitter::Client#timeouts[:upload].
       # @raise [Twitter::Error::MediaError] Error raised when Twitter return an error about a media which is not mapped by the gem.
       # @raise [Twitter::Error::MediaInternalError] Error raised when Twitter returns an InternalError error.
       # @raise [Twitter::Error::InvalidMedia] Error raised when Twitter returns an InvalidMedia error.
       # @raise [Twitter::Error::UnsupportedMedia] Error raised when Twitter returns an UnsupportedMedia error.
       # @see https://developer.twitter.com/en/docs/media/upload-media/uploading-media/chunked-media-upload
+      # @return [Hash]
       def chunk_upload(media, media_type, media_category)
         Timeout.timeout(timeouts&.fetch(:upload, nil), Twitter::Error::TimeoutError) do
           init = Twitter::REST::Request.new(self, :post, "https://upload.twitter.com/1.1/media/upload.json",
@@ -37,7 +45,11 @@ module Twitter
         end
       end
 
+      # Appends media chunks
+      #
+      # @api private
       # @see https://developer.twitter.com/en/docs/media/upload-media/api-reference/post-media-upload-append
+      # @return [void]
       def append_media(media, media_id)
         until media.eof?
           chunk = media.read(5_000_000)
@@ -51,8 +63,12 @@ module Twitter
         end
       end
 
+      # Finalizes a media upload
+      #
+      # @api private
       # @see https://developer.twitter.com/en/docs/media/upload-media/api-reference/post-media-upload-finalize
       # @see https://developer.twitter.com/en/docs/media/upload-media/api-reference/get-media-upload-status
+      # @return [Hash]
       def finalize_media(media_id)
         response = Twitter::REST::Request.new(self, :post, "https://upload.twitter.com/1.1/media/upload.json",
                                               command: "FINALIZE", media_id:).perform

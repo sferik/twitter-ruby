@@ -5,13 +5,19 @@ require "twitter/user"
 
 module Twitter
   module REST
+    # Methods for accessing suggested users
     module SuggestedUsers
       include Twitter::REST::Utils
 
+      # Returns suggested user categories or users in a category
+      #
+      # @api public
       # @return [Array<Twitter::Suggestion>]
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @example
+      #   client.suggestions
       # @overload suggestions(options = {})
       #   Returns the list of suggested user categories
       #
@@ -32,11 +38,14 @@ module Twitter
         end
       end
 
-      # Access the users in a given category of the Twitter suggested user list and return their most recent Tweet if they are not a protected user
+      # Returns users in a given category with their most recent Tweet
       #
+      # @api public
       # @see https://dev.twitter.com/rest/reference/get/users/suggestions/:slug/members
       # @rate_limited Yes
       # @authentication Requires user context
+      # @example
+      #   client.suggest_users('technology')
       # @param slug [String] The short name of list or a category.
       # @param options [Hash] A customizable set of options.
       # @return [Array<Twitter::User>]

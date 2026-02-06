@@ -12,18 +12,23 @@ require "uri"
 
 module Twitter
   module REST
+    # Methods for working with Twitter lists
     module Lists
       include Twitter::REST::Utils
       include Twitter::Utils
 
+      # Maximum users per request
       MAX_USERS_PER_REQUEST = 100
 
-      # Returns all lists the authenticating or specified user subscribes to, including their own
+      # Returns all lists the user subscribes to, including their own
       #
+      # @api public
       # @see https://dev.twitter.com/rest/reference/get/lists/list
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @example
+      #   client.lists
       # @return [Array<Twitter::List>]
       # @overload lists(options = {})
       #   @param options [Hash] A customizable set of options.
@@ -35,15 +40,21 @@ module Twitter
       def lists(*args)
         objects_from_response_with_user(Twitter::List, :get, "/1.1/lists/list.json", args)
       end
+      # @!method lists_subscribed_to
+      #   @api public
+      #   @see #lists
       alias lists_subscribed_to lists
 
-      # Show tweet timeline for members of the specified list
+      # Shows tweet timeline for members of the specified list
       #
+      # @api public
       # @see https://dev.twitter.com/rest/reference/get/lists/statuses
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::NotFound] Error raised when supplied list is not found.
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @example
+      #   client.list_timeline('twitter-engineering')
       # @return [Array<Twitter::Tweet>]
       # @overload list_timeline(list, options = {})
       #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, URI, or object.
@@ -67,11 +78,14 @@ module Twitter
 
       # Removes the specified member from the list
       #
+      # @api public
       # @see https://dev.twitter.com/rest/reference/post/lists/members/destroy
       # @rate_limited No
       # @authentication Requires user context
       # @raise [Twitter::Error::NotFound] Error raised when supplied list is not found.
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @example
+      #   client.remove_list_member('twitter-engineering', 'sferik')
       # @return [Twitter::List] The list.
       # @overload remove_list_member(list, user_to_remove, options = {})
       #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, URI, or object.
@@ -86,12 +100,15 @@ module Twitter
         list_from_response_with_user("/1.1/lists/members/destroy.json", args)
       end
 
-      # List the lists the specified user has been added to
+      # Lists the lists the specified user has been added to
       #
+      # @api public
       # @see https://dev.twitter.com/rest/reference/get/lists/memberships
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @example
+      #   client.memberships
       # @return [Twitter::Cursor]
       # @overload memberships(options = {})
       #   @param options [Hash] A customizable set of options.
@@ -108,11 +125,14 @@ module Twitter
 
       # Returns the subscribers of the specified list
       #
+      # @api public
       # @see https://dev.twitter.com/rest/reference/get/lists/subscribers
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::NotFound] Error raised when supplied list is not found.
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @example
+      #   client.list_subscribers('twitter-engineering')
       # @return [Twitter::Cursor] The subscribers of the specified list.
       # @overload list_subscribers(list, options = {})
       #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, URI, or object.
@@ -125,13 +145,16 @@ module Twitter
         cursor_from_response_with_list("/1.1/lists/subscribers.json", args)
       end
 
-      # Make the authenticated user follow the specified list
+      # Makes the authenticated user follow the specified list
       #
+      # @api public
       # @see https://dev.twitter.com/rest/reference/post/lists/subscribers/create
       # @rate_limited No
       # @authentication Requires user context
       # @raise [Twitter::Error::NotFound] Error raised when supplied list is not found.
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @example
+      #   client.list_subscribe('twitter-engineering')
       # @return [Twitter::List] The specified list.
       # @overload list_subscribe(list, options = {})
       #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, URI, or object.
@@ -144,13 +167,16 @@ module Twitter
         list_from_response(:post, "/1.1/lists/subscribers/create.json", args)
       end
 
-      # Check if a user is a subscriber of the specified list
+      # Checks if a user is a subscriber of the specified list
       #
+      # @api public
       # @see https://dev.twitter.com/rest/reference/get/lists/subscribers/show
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::NotFound] Error raised when supplied list is not found.
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @example
+      #   client.list_subscriber?('twitter-engineering', 'sferik')
       # @return [Boolean] true if user is a subscriber of the specified list, otherwise false.
       # @overload list_subscriber?(list, user_to_check, options = {})
       #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, URI, or object.
@@ -166,13 +192,16 @@ module Twitter
         list_user?(:get, "/1.1/lists/subscribers/show.json", args)
       end
 
-      # Unsubscribes the authenticated user form the specified list
+      # Unsubscribes the authenticated user from the specified list
       #
+      # @api public
       # @see https://dev.twitter.com/rest/reference/post/lists/subscribers/destroy
       # @rate_limited No
       # @authentication Requires user context
       # @raise [Twitter::Error::NotFound] Error raised when supplied list is not found.
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @example
+      #   client.list_unsubscribe('twitter-engineering')
       # @return [Twitter::List] The specified list.
       # @overload list_unsubscribe(list, options = {})
       #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, URI, or object.
@@ -187,13 +216,16 @@ module Twitter
 
       # Adds specified members to a list
       #
+      # @api public
       # @see https://dev.twitter.com/rest/reference/post/lists/members/create_all
-      # @note Lists are limited to having 5,000 members, and you are limited to adding up to 100 members to a list at a time with this method.
+      # @note Lists are limited to having 5,000 members.
       # @rate_limited No
       # @authentication Requires user context
       # @raise [Twitter::Error::Forbidden] Error raised when user has already been added.
       # @raise [Twitter::Error::NotFound] Error raised when supplied list is not found.
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @example
+      #   client.add_list_members('twitter-engineering', ['sferik', 'pengwynn'])
       # @return [Twitter::List] The list.
       # @overload add_list_members(list, users, options = {})
       #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, URI, or object.
@@ -208,13 +240,16 @@ module Twitter
         list_from_response_with_users("/1.1/lists/members/create_all.json", args)
       end
 
-      # Check if a user is a member of the specified list
+      # Checks if a user is a member of the specified list
       #
+      # @api public
       # @see https://dev.twitter.com/rest/reference/get/lists/members/show
       # @authentication Requires user context
       # @rate_limited Yes
       # @raise [Twitter::Error::NotFound] Error raised when supplied list is not found.
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @example
+      #   client.list_member?('twitter-engineering', 'sferik')
       # @return [Boolean] true if user is a member of the specified list, otherwise false.
       # @overload list_member?(list, user_to_check, options = {})
       #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, URI, or object.
@@ -231,11 +266,14 @@ module Twitter
 
       # Returns the members of the specified list
       #
+      # @api public
       # @see https://dev.twitter.com/rest/reference/get/lists/members
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::NotFound] Error raised when supplied list is not found.
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @example
+      #   client.list_members('twitter-engineering')
       # @return [Twitter::Cursor]
       # @overload list_members(list, options = {})
       #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, URI, or object.
@@ -248,14 +286,17 @@ module Twitter
         cursor_from_response_with_list("/1.1/lists/members.json", args)
       end
 
-      # Add a member to a list
+      # Adds a member to a list
       #
+      # @api public
       # @see https://dev.twitter.com/rest/reference/post/lists/members/create
       # @note Lists are limited to having 5,000 members.
       # @rate_limited No
       # @authentication Requires user context
       # @raise [Twitter::Error::NotFound] Error raised when supplied list is not found.
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @example
+      #   client.add_list_member('twitter-engineering', 'sferik')
       # @return [Twitter::List] The list.
       # @overload add_list_member(list, user_to_add, options = {})
       #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, URI, or object.
@@ -272,12 +313,15 @@ module Twitter
 
       # Deletes the specified list
       #
+      # @api public
       # @see https://dev.twitter.com/rest/reference/post/lists/destroy
       # @note Must be owned by the authenticated user.
       # @rate_limited No
       # @authentication Requires user context
       # @raise [Twitter::Error::NotFound] Error raised when supplied list is not found.
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @example
+      #   client.destroy_list('twitter-engineering')
       # @return [Twitter::List] The deleted list.
       # @overload destroy_list(list, options = {})
       #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, URI, or object.
@@ -292,11 +336,14 @@ module Twitter
 
       # Updates the specified list
       #
+      # @api public
       # @see https://dev.twitter.com/rest/reference/post/lists/update
       # @rate_limited No
       # @authentication Requires user context
       # @raise [Twitter::Error::NotFound] Error raised when supplied list is not found.
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @example
+      #   client.list_update('twitter-engineering', description: 'Tweeps')
       # @return [Twitter::List] The created list.
       # @overload list_update(list, options = {})
       #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, URI, or object.
@@ -315,11 +362,14 @@ module Twitter
 
       # Creates a new list for the authenticated user
       #
+      # @api public
       # @see https://dev.twitter.com/rest/reference/post/lists/create
       # @note Accounts are limited to 20 lists.
       # @rate_limited No
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @example
+      #   client.create_list('twitter-engineering')
       # @return [Twitter::List] The created list.
       # @param name [String] The name for the list.
       # @param options [Hash] A customizable set of options.
@@ -329,14 +379,17 @@ module Twitter
         perform_post_with_object("/1.1/lists/create.json", options.merge(name:), Twitter::List)
       end
 
-      # Show the specified list
+      # Shows the specified list
       #
+      # @api public
       # @see https://dev.twitter.com/rest/reference/get/lists/show
-      # @note Private lists will only be shown if the authenticated user owns the specified list.
+      # @note Private lists are only shown if the authenticated user owns them.
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::NotFound] Error raised when supplied list is not found.
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @example
+      #   client.list('twitter-engineering')
       # @return [Twitter::List] The specified list.
       # @overload list(list, options = {})
       #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, URI, or object.
@@ -349,12 +402,15 @@ module Twitter
         list_from_response(:get, "/1.1/lists/show.json", args)
       end
 
-      # List the lists the specified user follows
+      # Lists the lists the specified user follows
       #
+      # @api public
       # @see https://dev.twitter.com/rest/reference/get/lists/subscriptions
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @example
+      #   client.subscriptions
       # @return [Twitter::Cursor]
       # @overload subscriptions(options = {})
       #   @param options [Hash] A customizable set of options.
@@ -367,11 +423,14 @@ module Twitter
 
       # Removes specified members from the list
       #
+      # @api public
       # @see https://dev.twitter.com/rest/reference/post/lists/members/destroy_all
       # @rate_limited No
       # @authentication Requires user context
       # @raise [Twitter::Error::NotFound] Error raised when supplied list is not found.
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @example
+      #   client.remove_list_members('twitter-engineering', ['sferik'])
       # @return [Twitter::List] The list.
       # @overload remove_list_members(list, users, options = {})
       #   @param list [Integer, String, Twitter::List] A Twitter list ID, slug, URI, or object.
@@ -388,10 +447,13 @@ module Twitter
 
       # Returns the lists owned by the specified Twitter user
       #
+      # @api public
       # @see https://dev.twitter.com/rest/reference/get/lists/ownerships
       # @rate_limited Yes
       # @authentication Requires user context
       # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @example
+      #   client.owned_lists
       # @return [Array<Twitter::List>]
       # @overload owned_lists(options = {})
       #   @param options [Hash] A customizable set of options.
@@ -406,10 +468,10 @@ module Twitter
 
     private
 
-      # @param request_method [Symbol]
-      # @param path [String]
-      # @param args [Array]
-      # @return [Array<Twitter::User>]
+      # Retrieves a list from the response
+      #
+      # @api private
+      # @return [Twitter::List]
       def list_from_response(request_method, path, args)
         arguments = Twitter::Arguments.new(args)
         merge_list!(arguments.options, arguments.pop)
@@ -417,6 +479,10 @@ module Twitter
         perform_request_with_object(request_method, path, arguments.options, Twitter::List)
       end
 
+      # Retrieves a cursor from the response with list
+      #
+      # @api private
+      # @return [Twitter::Cursor]
       def cursor_from_response_with_list(path, args)
         arguments = Twitter::Arguments.new(args)
         merge_list!(arguments.options, arguments.pop)
@@ -424,6 +490,10 @@ module Twitter
         perform_get_with_cursor(path, arguments.options, :users, Twitter::User)
       end
 
+      # Checks if user is a member of a list
+      #
+      # @api private
+      # @return [Boolean]
       def list_user?(request_method, path, args)
         arguments = Twitter::Arguments.new(args)
         merge_user!(arguments.options, arguments.pop)
@@ -435,6 +505,10 @@ module Twitter
         false
       end
 
+      # Retrieves a list from response with user
+      #
+      # @api private
+      # @return [Twitter::List]
       def list_from_response_with_user(path, args)
         arguments = Twitter::Arguments.new(args)
         merge_user!(arguments.options, arguments.pop)
@@ -443,6 +517,10 @@ module Twitter
         perform_post_with_object(path, arguments.options, Twitter::List)
       end
 
+      # Retrieves a list from response with users
+      #
+      # @api private
+      # @return [Twitter::List]
       def list_from_response_with_users(path, args)
         arguments = args.dup
         options = arguments.last.is_a?(::Hash) ? arguments.pop : {}
@@ -456,8 +534,10 @@ module Twitter
 
       # Take a list and merge it into the hash with the correct key
       #
+      # @api private
       # @param hash [Hash]
       # @param list [Integer, String, URI, Twitter::List] A Twitter list ID, slug, URI, or object.
+      # @return [void]
       def merge_list!(hash, list)
         case list
         when Integer               then hash[:list_id] = list
@@ -467,12 +547,20 @@ module Twitter
         end
       end
 
+      # Merges slug and owner into hash
+      #
+      # @api private
+      # @return [void]
       def merge_slug_and_owner!(hash, path)
         list = path.split("/")
         hash[:slug] = list.pop
         hash[:owner_screen_name] = list.pop unless list.empty?
       end
 
+      # Merges list and owner into hash
+      #
+      # @api private
+      # @return [void]
       def merge_list_and_owner!(hash, list)
         merge_list!(hash, list.id)
         merge_owner!(hash, list.user)
@@ -480,6 +568,7 @@ module Twitter
 
       # Take an owner and merge it into the hash with the correct key
       #
+      # @api private
       # @param hash [Hash]
       # @param user[Integer, String, Twitter::User] A Twitter user ID, screen_name, or object.
       # @return [Hash]

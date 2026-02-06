@@ -2,12 +2,16 @@ require "memoizable"
 require "twitter/base"
 
 module Twitter
+  # Represents a user's profile banner
   class ProfileBanner < Twitter::Base
     include Memoizable
 
-    # Returns an array of photo sizes
+    # Returns a hash of banner sizes
     #
-    # @return [Array<Twitter::Size>]
+    # @api public
+    # @example
+    #   profile_banner.sizes
+    # @return [Hash{Symbol => Twitter::Size}]
     def sizes
       @attrs.fetch(:sizes, []).each_with_object({}) do |(key, value), object|
         object[key] = Size.new(value)
