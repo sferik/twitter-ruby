@@ -152,7 +152,7 @@ module Twitter
     #   Twitter::Base.new(id: 123, name: "John")
     # @param attrs [Hash]
     # @return [Twitter::Base]
-    def initialize(attrs = {})
+    def initialize(attrs = nil)
       @attrs = attrs || {}
     end
 
@@ -165,8 +165,9 @@ module Twitter
     # @param method [String, Symbol] Message to send to the object
     # @return [Object, nil]
     def [](method)
-      warn "#{Kernel.caller.first}: [DEPRECATION] #[#{method.inspect}] is deprecated. Use ##{method} to fetch the value."
-      send(method.to_sym)
+      location = caller_locations(1, 1)&.first
+      warn "#{location&.path}:#{location&.lineno}: [DEPRECATION] #[#{method.inspect}] is deprecated. Use ##{method} to fetch the value."
+      public_send(method.to_sym)
     rescue NoMethodError
       nil
     end

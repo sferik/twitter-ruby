@@ -75,9 +75,9 @@ module Twitter
       #   @param users [Enumerable<Integer, String, Twitter::User>] A collection of Twitter user IDs, screen names, or objects.
       #   @param options [Hash] A customizable set of options.
       def friendships(*args)
-        arguments = Twitter::Arguments.new(args)
+        arguments = Arguments.new(args)
         merge_users!(arguments.options, arguments)
-        perform_get_with_objects("/1.1/friendships/lookup.json", arguments.options, Twitter::User)
+        perform_get_with_objects("/1.1/friendships/lookup.json", arguments.options, User)
       end
 
       # Returns IDs of users with pending follow requests
@@ -127,7 +127,7 @@ module Twitter
       #   @param options [Hash] A customizable set of options.
       #   @option options [Boolean] :follow (false) Enable notifications for the target user.
       def follow(*args)
-        arguments = Twitter::Arguments.new(args)
+        arguments = Arguments.new(args)
         existing_friends = Thread.new do
           friend_ids.to_a
         end
@@ -158,10 +158,10 @@ module Twitter
       #   @param options [Hash] A customizable set of options.
       #   @option options [Boolean] :follow (false) Enable notifications for the target user.
       def follow!(*args)
-        arguments = Twitter::Arguments.new(args)
+        arguments = Arguments.new(args)
         pmap(arguments) do |user|
-          perform_post_with_object("/1.1/friendships/create.json", merge_user(arguments.options, user), Twitter::User) # steep:ignore ArgumentTypeMismatch
-        end.compact
+          perform_post_with_object("/1.1/friendships/create.json", merge_user(arguments.options, user), User) # steep:ignore ArgumentTypeMismatch
+        end
       end
       # @!method create_friendship!
       #   @api public
@@ -207,7 +207,7 @@ module Twitter
       # @option options [Boolean] :retweets Enable/disable retweets from the target user.
       def friendship_update(user, options = {})
         merge_user!(options, user)
-        perform_post_with_object("/1.1/friendships/update.json", options, Twitter::Relationship)
+        perform_post_with_object("/1.1/friendships/update.json", options, Relationship)
       end
 
       # Returns detailed information about the relationship between two users
@@ -229,7 +229,7 @@ module Twitter
         options[:source_id] = options.delete(:source_user_id) unless options[:source_user_id].nil?
         merge_user!(options, target, "target")
         options[:target_id] = options.delete(:target_user_id) unless options[:target_user_id].nil?
-        perform_get_with_object("/1.1/friendships/show.json", options, Twitter::Relationship)
+        perform_get_with_object("/1.1/friendships/show.json", options, Relationship)
       end
       # @!method friendship_show
       #   @api public
@@ -281,7 +281,7 @@ module Twitter
       #   @option options [Boolean, String, Integer] :skip_status Do not include contributee's Tweets when set to true, 't' or 1.
       #   @option options [Boolean, String, Integer] :include_user_entities The user entities node will be disincluded when set to false.
       def followers(*args)
-        cursor_from_response_with_user(:users, Twitter::User, "/1.1/followers/list.json", args)
+        cursor_from_response_with_user(:users, User, "/1.1/followers/list.json", args)
       end
 
       # Returns a collection of users the specified user is following
@@ -308,7 +308,7 @@ module Twitter
       #   @option options [Boolean, String, Integer] :skip_status Do not include contributee's Tweets when set to true, 't' or 1.
       #   @option options [Boolean, String, Integer] :include_user_entities The user entities node will be disincluded when set to false.
       def friends(*args)
-        cursor_from_response_with_user(:users, Twitter::User, "/1.1/friends/list.json", args)
+        cursor_from_response_with_user(:users, User, "/1.1/friends/list.json", args)
       end
       # @!method following
       #   @api public

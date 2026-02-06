@@ -6,9 +6,9 @@ require "twitter/profile"
 
 module Twitter
   # Represents a Twitter user
-  class User < Twitter::BasicUser
-    include Twitter::Creatable
-    include Twitter::Profile
+  class User < BasicUser
+    include Creatable
+    include Profile
 
     # The user's connections
     #
@@ -195,58 +195,89 @@ module Twitter
     define_predicate_method :translation_enabled, :is_translation_enabled
     uri_attr_reader :profile_background_image_uri, :profile_background_image_uri_https
 
-    class << self
-    private
-
-      # Dynamically defines methods for entity URIs
-      #
-      # @api private
-      # @param key1 [Symbol] The method name
-      # @param key2 [Symbol] The entity key
-      # @return [void]
-      def define_entity_uris_methods(key1, key2)
-        array = key1.to_s.split("_")
-        index = array.index("uris")
-        array[index] = "urls" # steep:ignore UnresolvedOverloading
-        url_key = array.join("_").to_sym
-        define_entity_uris_method(key1, key2)
-        alias_method(url_key, key1)
-        define_entity_uris_predicate_method(key1)
-        alias_method(:"#{url_key}?", :"#{key1}?")
-      end
-
-      # Defines an entity URIs method
-      #
-      # @api private
-      # @param key1 [Symbol] The method name
-      # @param key2 [Symbol] The entity key
-      # @return [void]
-      def define_entity_uris_method(key1, key2)
-        define_method(key1) do
-          empty_hash = {} #: Hash[Symbol, untyped]
-          empty_array = [] #: Array[untyped]
-          @attrs.fetch(:entities, empty_hash).fetch(key2, empty_hash).fetch(:urls, empty_array).collect do |url| # steep:ignore FallbackAny
-            Entity::URI.new(url)
-          end
-        end
-        memoize(key1)
-      end
-
-      # Defines an entity URIs predicate method
-      #
-      # @api private
-      # @param key1 [Symbol] The method name
-      # @return [void]
-      def define_entity_uris_predicate_method(key1)
-        define_method(:"#{key1}?") do
-          send(:"#{key1}").any? # steep:ignore NoMethod
-        end
-        memoize(:"#{key1}?")
+    # Returns an array of URIs in the user's description
+    #
+    # @api public
+    # @example
+    #   user.description_uris
+    # @return [Array<Twitter::Entity::URI>]
+    def description_uris
+      empty_hash = {} #: Hash[Symbol, untyped]
+      empty_array = [] #: Array[untyped]
+      @attrs.fetch(:entities, empty_hash).fetch(:description, empty_hash).fetch(:urls, empty_array).collect do |url| # steep:ignore FallbackAny
+        Entity::URI.new(url)
       end
     end
+    memoize :description_uris
 
-    define_entity_uris_methods :description_uris, :description
-    define_entity_uris_methods :website_uris, :url
+    # @!method description_urls
+    #   Returns an array of URLs in the user's description
+    #   @api public
+    #   @example
+    #     user.description_urls
+    #   @return [Array<Twitter::Entity::URI>]
+    alias description_urls description_uris
+
+    # Returns true if the user has description URIs
+    #
+    # @api public
+    # @example
+    #   user.description_uris?
+    # @return [Boolean]
+    def description_uris?
+      description_uris.any?
+    end
+    memoize :description_uris?
+
+    # @!method description_urls?
+    #   Returns true if the user has description URLs
+    #   @api public
+    #   @example
+    #     user.description_urls?
+    #   @return [Boolean]
+    alias description_urls? description_uris?
+
+    # Returns an array of URIs in the user's website
+    #
+    # @api public
+    # @example
+    #   user.website_uris
+    # @return [Array<Twitter::Entity::URI>]
+    def website_uris
+      empty_hash = {} #: Hash[Symbol, untyped]
+      empty_array = [] #: Array[untyped]
+      @attrs.fetch(:entities, empty_hash).fetch(:url, empty_hash).fetch(:urls, empty_array).collect do |url| # steep:ignore FallbackAny
+        Entity::URI.new(url)
+      end
+    end
+    memoize :website_uris
+
+    # @!method website_urls
+    #   Returns an array of URLs in the user's website
+    #   @api public
+    #   @example
+    #     user.website_urls
+    #   @return [Array<Twitter::Entity::URI>]
+    alias website_urls website_uris
+
+    # Returns true if the user has website URIs
+    #
+    # @api public
+    # @example
+    #   user.website_uris?
+    # @return [Boolean]
+    def website_uris?
+      website_uris.any?
+    end
+    memoize :website_uris?
+
+    # @!method website_urls?
+    #   Returns true if the user has website URLs
+    #   @api public
+    #   @example
+    #     user.website_urls?
+    #   @return [Boolean]
+    alias website_urls? website_uris?
 
     # Returns true if the user has entities
     #

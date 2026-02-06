@@ -6,6 +6,77 @@ describe Twitter::Headers do
     @headers = described_class.new(@client, :get, "#{Twitter::REST::Request::BASE_URL}/path")
   end
 
+  describe "#initialize" do
+    it "stores the request method" do
+      headers = described_class.new(@client, :post, "#{Twitter::REST::Request::BASE_URL}/path")
+      # The request_method is used in oauth_auth_header - SimpleOAuth upcases it
+      expect(headers.oauth_auth_header.method).to eq("POST")
+    end
+
+    it "stores the URL for oauth signature" do
+      url = "#{Twitter::REST::Request::BASE_URL}/path?q=test"
+      headers = described_class.new(@client, :get, url)
+      # Verify the URL is used in oauth_auth_header
+      auth_header = headers.oauth_auth_header
+      expect(auth_header).to be_a(SimpleOAuth::Header)
+    end
+
+    it "stores the URL as an Addressable::URI" do
+      headers = described_class.new(@client, :get, "#{Twitter::REST::Request::BASE_URL}/path")
+      expect(headers.instance_variable_get(:@uri)).to be_a(Addressable::URI)
+    end
+
+    it "extracts bearer_token_request from options" do
+      headers = described_class.new(@client, :get, "#{Twitter::REST::Request::BASE_URL}/path", bearer_token_request: true)
+      expect(headers.bearer_token_request?).to be true
+    end
+
+    it "stores remaining options" do
+      headers = described_class.new(@client, :get, "#{Twitter::REST::Request::BASE_URL}/path", foo: "bar")
+      # Options are used in oauth_auth_header
+      auth_header = headers.oauth_auth_header
+      expect(auth_header).to be_a(SimpleOAuth::Header)
+    end
+  end
+
+  describe "#bearer_token_request?" do
+    it "returns true when bearer_token_request option was set" do
+      headers = described_class.new(@client, :get, "#{Twitter::REST::Request::BASE_URL}/path", bearer_token_request: true)
+      expect(headers.bearer_token_request?).to be true
+    end
+
+    it "returns falsy when bearer_token_request option was not set" do
+      headers = described_class.new(@client, :get, "#{Twitter::REST::Request::BASE_URL}/path")
+      expect(headers.bearer_token_request?).to be_falsy
+    end
+
+    it "returns a strict boolean for truthy option values" do
+      headers = described_class.new(@client, :get, "#{Twitter::REST::Request::BASE_URL}/path", bearer_token_request: "yes")
+      expect(headers.bearer_token_request?).to eq(true)
+    end
+  end
+
+  describe "#request_headers" do
+    context "when bearer_token_request is true" do
+      it "returns headers with accept and basic authorization" do
+        headers = described_class.new(@client, :get, "#{Twitter::REST::Request::BASE_URL}/path", bearer_token_request: true)
+        result = headers.request_headers
+        expect(result[:user_agent]).to eq(@client.user_agent)
+        expect(result[:accept]).to eq("*/*")
+        expect(result[:authorization]).to eq("Basic Q0s6Q1M=")
+      end
+    end
+
+    context "when bearer_token_request is false" do
+      it "returns headers with oauth authorization" do
+        result = @headers.request_headers
+        expect(result[:user_agent]).to eq(@client.user_agent)
+        expect(result[:accept]).to be_nil
+        expect(result[:authorization]).to match(/^OAuth /)
+      end
+    end
+  end
+
   describe "#oauth_auth_header" do
     it "creates the correct auth headers" do
       authorization = @headers.oauth_auth_header
@@ -37,6 +108,19 @@ describe Twitter::Headers do
       expect(a_request(:post, "https://upload.twitter.com/1.1/media/upload.json")).to have_been_made
       expect(a_post("/1.1/statuses/update.json").with(headers: {authorization: headers[:authorization]})).to have_been_made
     end
+
+    it "always passes ignore_extra_keys: true to SimpleOAuth::Header" do
+      credentials = {consumer_key: "CK", consumer_secret: "CS", token: "AT", token_secret: "AS", extra: "value"}
+      allow(@client).to receive(:credentials).and_return(credentials)
+
+      expect(SimpleOAuth::Header).to receive(:new) do |_method, _uri, _options, options|
+        expect(options[:ignore_extra_keys]).to eq(true)
+        expect(options[:extra]).to eq("value")
+        double(to_s: "OAuth test")
+      end
+
+      @headers.oauth_auth_header
+    end
   end
 
   describe "#bearer_auth_header" do
@@ -49,6 +133,12 @@ describe Twitter::Headers do
   end
 
   describe "#auth_header" do
+    it "returns oauth header as string when user token is present" do
+      authorization = @headers.send(:auth_header)
+      expect(authorization).to be_a(String)
+      expect(authorization).to match(/^OAuth /)
+    end
+
     it "fetches bearer token when not using user token and no bearer token set" do
       client = Twitter::REST::Client.new(consumer_key: "CK", consumer_secret: "CS")
       allow(client).to receive(:token).and_return("fetched_bearer_token")
@@ -56,6 +146,14 @@ describe Twitter::Headers do
       authorization = headers.send(:auth_header)
       expect(authorization).to eq("Bearer fetched_bearer_token")
       expect(client.bearer_token).to eq("fetched_bearer_token")
+    end
+
+    it "does not fetch bearer token when bearer token is already set" do
+      client = Twitter::REST::Client.new(consumer_key: "CK", consumer_secret: "CS", bearer_token: "existing_token")
+      expect(client).not_to receive(:token)
+      headers = described_class.new(client, :get, "#{Twitter::REST::Request::BASE_URL}/path")
+      authorization = headers.send(:auth_header)
+      expect(authorization).to eq("Bearer existing_token")
     end
   end
 

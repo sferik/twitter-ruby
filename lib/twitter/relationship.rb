@@ -2,7 +2,7 @@ require "twitter/base"
 
 module Twitter
   # Represents a relationship between two Twitter users
-  class Relationship < Twitter::Base
+  class Relationship < Base
     object_attr_reader :SourceUser, :source
     object_attr_reader :TargetUser, :target
 
@@ -14,8 +14,7 @@ module Twitter
     # @param attrs [Hash] The attributes hash
     # @return [Twitter::Relationship]
     def initialize(attrs = {})
-      super
-      @attrs = attrs[:relationship] # steep:ignore NoMethod
+      @attrs = attrs[:relationship] || {} # steep:ignore NoMethod
     end
   end
 end

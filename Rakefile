@@ -14,6 +14,11 @@ RSpec::Core::RakeTask.new(:spec)
 desc "Run specs"
 task test: :spec
 
+desc "Run mutant"
+task :mutant do
+  sh "bundle exec mutant"
+end
+
 require "rubocop/rake_task"
 RuboCop::RakeTask.new
 

@@ -30,7 +30,7 @@ module Twitter
       # @option options [Integer] :count Specifies the number of records to retrieve.
       # @option options [Boolean, String, Integer] :trim_user Include only the author's ID.
       def mentions_timeline(options = {})
-        perform_get_with_objects("/1.1/statuses/mentions_timeline.json", options, Twitter::Tweet)
+        perform_get_with_objects("/1.1/statuses/mentions_timeline.json", options, Tweet)
       end
       # @!method mentions
       #   @api public
@@ -59,7 +59,7 @@ module Twitter
       #   @option options [Boolean, String, Integer] :contributor_details Specifies that the contributors element should be enhanced to include the screen_name of the contributor.
       #   @option options [Boolean, String, Integer] :include_rts Specifies that the timeline should include native retweets in addition to regular tweets. Note: If you're using the trim_user parameter in conjunction with include_rts, the retweets will no longer contain a full user object.
       def user_timeline(*args)
-        objects_from_response_with_user(Twitter::Tweet, :get, "/1.1/statuses/user_timeline.json", args)
+        objects_from_response_with_user(Tweet, :get, "/1.1/statuses/user_timeline.json", args)
       end
 
       # Returns the 20 most recent retweets posted by the specified user
@@ -135,7 +135,7 @@ module Twitter
       # @option options [Boolean, String, Integer] :include_rts Include native retweets.
       # @option options [Boolean, String, Integer] :contributor_details Include contributor screen names.
       def home_timeline(options = {})
-        perform_get_with_objects("/1.1/statuses/home_timeline.json", options, Twitter::Tweet)
+        perform_get_with_objects("/1.1/statuses/home_timeline.json", options, Tweet)
       end
 
       # Returns the 20 most recent retweets posted by followed users
@@ -179,7 +179,7 @@ module Twitter
       # @option options [Boolean, String, Integer] :trim_user Include only the author's ID.
       # @option options [Boolean, String, Integer] :include_user_entities Include user entities.
       def retweets_of_me(options = {})
-        perform_get_with_objects("/1.1/statuses/retweets_of_me.json", options, Twitter::Tweet)
+        perform_get_with_objects("/1.1/statuses/retweets_of_me.json", options, Tweet)
       end
 
     private
@@ -218,7 +218,7 @@ module Twitter
             count -= tweets.length
             tweets
           end
-        end.flatten.compact[0...count]
+        end[nil...count]
       end
 
       # Collects tweets using max_id pagination
@@ -230,7 +230,7 @@ module Twitter
         return collection if tweets.nil?
 
         collection += tweets
-        tweets.empty? ? collection.flatten : collect_with_max_id(collection, tweets.last.id - 1, &) # steep:ignore NoMethod
+        tweets.empty? ? collection : collect_with_max_id(collection, tweets.last.id - 1, &) # steep:ignore NoMethod
       end
     end
   end

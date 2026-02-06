@@ -30,11 +30,11 @@ module Twitter
       #   @param slug [String] The short name of list or a category.
       #   @param options [Hash] A customizable set of options.
       def suggestions(*args)
-        arguments = Twitter::Arguments.new(args)
+        arguments = Arguments.new(args)
         if arguments.last
-          perform_get_with_object("/1.1/users/suggestions/#{arguments.pop}.json", arguments.options, Twitter::Suggestion)
+          perform_get_with_object("/1.1/users/suggestions/#{arguments.pop}.json", arguments.options, Suggestion)
         else
-          perform_get_with_objects("/1.1/users/suggestions.json", arguments.options, Twitter::Suggestion)
+          perform_get_with_objects("/1.1/users/suggestions.json", arguments.options, Suggestion)
         end
       end
 
@@ -50,7 +50,7 @@ module Twitter
       # @param options [Hash] A customizable set of options.
       # @return [Array<Twitter::User>]
       def suggest_users(slug, options = {})
-        perform_get_with_objects("/1.1/users/suggestions/#{slug}/members.json", options, Twitter::User)
+        perform_get_with_objects("/1.1/users/suggestions/#{slug}/members.json", options, User)
       end
     end
   end

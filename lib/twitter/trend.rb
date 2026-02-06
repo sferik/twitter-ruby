@@ -3,7 +3,7 @@ require "twitter/base"
 
 module Twitter
   # Represents a Twitter trending topic
-  class Trend < Twitter::Base
+  class Trend < Base
     include Equalizer.new(:name)
 
     # Events associated with this trend

@@ -4,8 +4,8 @@ require "twitter/utils"
 module Twitter
   # Represents a collection of geo search results
   class GeoResults
-    include Twitter::Enumerable
-    include Twitter::Utils
+    include Enumerable
+    include Utils
 
     # The raw attributes hash
     #
@@ -38,10 +38,11 @@ module Twitter
     #   Twitter::GeoResults.new(result: {places: []})
     # @param attrs [Hash] The attributes hash from the API response
     # @return [Twitter::GeoResults]
-    def initialize(attrs = {})
-      @attrs = attrs
+    def initialize(attrs = nil)
+      @attrs = attrs || {}
+      empty_hash = {} #: Hash[Symbol, untyped]
       empty_array = [] #: Array[untyped]
-      @collection = @attrs[:result].fetch(:places, empty_array).collect do |place|
+      @collection = @attrs.fetch(:result, empty_hash).fetch(:places, empty_array).collect do |place| # steep:ignore ArgumentTypeMismatch
         Place.new(place)
       end
     end

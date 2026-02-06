@@ -3,7 +3,7 @@ require "twitter/base"
 
 module Twitter
   # Represents a size for media objects
-  class Size < Twitter::Base
+  class Size < Base
     include Equalizer.new(:h, :w)
 
     # The height in pixels

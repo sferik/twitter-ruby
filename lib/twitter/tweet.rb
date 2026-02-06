@@ -4,9 +4,9 @@ require "twitter/identity"
 
 module Twitter
   # Represents a Twitter tweet
-  class Tweet < Twitter::Identity
-    include Twitter::Creatable
-    include Twitter::Entities
+  class Tweet < Identity
+    include Creatable
+    include Entities
 
     # The filter level of the tweet
     #
@@ -173,10 +173,10 @@ module Twitter
     # @api public
     # @example
     #   Twitter::Tweet.new(id: 123, text: "Hello")
-    # @param attrs [Hash] The attributes hash
+    # @param attrs [Hash] The attributes hash containing at least :id
     # @return [Twitter::Tweet]
-    def initialize(attrs = {})
-      attrs[:text] = attrs[:full_text] if attrs[:text].nil? && !attrs[:full_text].nil?
+    def initialize(attrs)
+      attrs[:text] ||= attrs[:full_text]
       super
     end
 

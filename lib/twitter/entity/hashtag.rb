@@ -3,7 +3,7 @@ require "twitter/entity"
 module Twitter
   class Entity
     # Represents a Twitter hashtag entity
-    class Hashtag < Twitter::Entity
+    class Hashtag < Entity
       # The text of the hashtag without the hash symbol
       #
       # @api public

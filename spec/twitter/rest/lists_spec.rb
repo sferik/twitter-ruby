@@ -5,6 +5,19 @@ describe Twitter::REST::Lists do
     @client = Twitter::REST::Client.new(consumer_key: "CK", consumer_secret: "CS", access_token: "AT", access_token_secret: "AS")
   end
 
+  describe "private path parsing helpers" do
+    describe "#merge_slug_and_owner!" do
+      it "extracts owner_screen_name as a string when owner and slug are in the path" do
+        hash = {}
+
+        @client.send(:merge_slug_and_owner!, hash, "sferik/presidents")
+
+        expect(hash).to eq(owner_screen_name: "sferik", slug: "presidents")
+        expect(hash[:owner_screen_name]).to be_a(String)
+      end
+    end
+  end
+
   describe "#lists" do
     before do
       stub_get("/1.1/lists/list.json").to_return(body: fixture("lists.json"), headers: {content_type: "application/json; charset=utf-8"})
@@ -44,6 +57,14 @@ describe Twitter::REST::Lists do
       context "with a URI object passed" do
         it "requests the correct resource" do
           list = URI.parse("https://twitter.com/sferik/presidents")
+          @client.list_timeline(list)
+          expect(a_get("/1.1/lists/statuses.json").with(query: {owner_screen_name: "sferik", slug: "presidents"})).to have_been_made
+        end
+      end
+
+      context "with an Addressable::URI object passed" do
+        it "requests the correct resource" do
+          list = Addressable::URI.parse("https://twitter.com/sferik/presidents")
           @client.list_timeline(list)
           expect(a_get("/1.1/lists/statuses.json").with(query: {owner_screen_name: "sferik", slug: "presidents"})).to have_been_made
         end
@@ -799,6 +820,17 @@ describe Twitter::REST::Lists do
       list = @client.create_list("presidents")
       expect(list).to be_a Twitter::List
       expect(list.name).to eq("presidents")
+    end
+
+    context "with options" do
+      before do
+        stub_post("/1.1/lists/create.json").with(body: {name: "presidents", mode: "private"}).to_return(body: fixture("list.json"), headers: {content_type: "application/json; charset=utf-8"})
+      end
+
+      it "passes options to the request" do
+        @client.create_list("presidents", mode: "private")
+        expect(a_post("/1.1/lists/create.json").with(body: {name: "presidents", mode: "private"})).to have_been_made
+      end
     end
   end
 

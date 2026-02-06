@@ -3,7 +3,7 @@ require "twitter/base"
 
 module Twitter
   # Represents geographic information
-  class Geo < Twitter::Base
+  class Geo < Base
     include Equalizer.new(:coordinates)
 
     # The coordinates of this geographic location

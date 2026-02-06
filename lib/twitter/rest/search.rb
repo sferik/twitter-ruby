@@ -34,8 +34,8 @@ module Twitter
       def search(query, options = {})
         options = options.dup
         options[:count] ||= MAX_TWEETS_PER_REQUEST
-        request = Twitter::REST::Request.new(self, :get, "/1.1/search/tweets.json", options.merge(q: query))
-        Twitter::SearchResults.new(request)
+        request = Request.new(self, :get, "/1.1/search/tweets.json", options.merge(q: query))
+        SearchResults.new(request)
       end
     end
   end

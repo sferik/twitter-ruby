@@ -26,7 +26,7 @@ module Twitter
         options = options.dup
         options[:id] = id
         response = perform_get("/1.1/trends/place.json", options).first
-        Twitter::TrendResults.new(response)
+        TrendResults.new(response)
       end
       # @!method local_trends
       #   @api public
@@ -49,7 +49,7 @@ module Twitter
       # @param options [Hash] A customizable set of options.
       # @return [Array<Twitter::Place>]
       def trends_available(options = {})
-        perform_get_with_objects("/1.1/trends/available.json", options, Twitter::Place)
+        perform_get_with_objects("/1.1/trends/available.json", options, Place)
       end
       # @!method trend_locations
       #   @api public
@@ -70,7 +70,7 @@ module Twitter
       # @option options [Float] :long The longitude to search around.
       # @return [Array<Twitter::Place>]
       def trends_closest(options = {})
-        perform_get_with_objects("/1.1/trends/closest.json", options, Twitter::Place)
+        perform_get_with_objects("/1.1/trends/closest.json", options, Place)
       end
     end
   end

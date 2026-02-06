@@ -3,7 +3,7 @@ require "twitter/entity"
 module Twitter
   class Entity
     # Represents a Twitter user mention entity
-    class UserMention < Twitter::Entity
+    class UserMention < Entity
       # The ID of the mentioned user
       #
       # @api public

@@ -33,7 +33,6 @@ module Twitter
         @tcp_socket_class = options.fetch(:tcp_socket_class) { TCPSocket } # steep:ignore UnknownConstant
         @ssl_socket_class = options.fetch(:ssl_socket_class) { OpenSSL::SSL::SSLSocket } # steep:ignore UnknownConstant
         @using_ssl        = options.fetch(:using_ssl, false)
-        @write_pipe = nil
       end
 
       # Streams data from the connection

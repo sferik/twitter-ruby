@@ -19,7 +19,7 @@ module Twitter
         return chunk_upload(media, "video/quicktime", "#{media_category_prefix}_video") if ext == ".mov"
         return chunk_upload(media, "image/gif", "#{media_category_prefix}_gif") if ext == ".gif" && File.size(media) > 5_000_000
 
-        Twitter::REST::Request.new(self, :multipart_post, "https://upload.twitter.com/1.1/media/upload.json", key: :media, file: media).perform
+        Request.new(self, :multipart_post, "https://upload.twitter.com/1.1/media/upload.json", key: :media, file: media).perform
       end
 
       # Uploads large media in chunks
@@ -33,15 +33,15 @@ module Twitter
       # @see https://developer.twitter.com/en/docs/media/upload-media/uploading-media/chunked-media-upload
       # @return [Hash]
       def chunk_upload(media, media_type, media_category)
-        Timeout.timeout(timeouts&.fetch(:upload, nil), Twitter::Error::TimeoutError) do # steep:ignore UnknownConstant,NoMethod
-          init = Twitter::REST::Request.new(self, :post, "https://upload.twitter.com/1.1/media/upload.json",
-                                            command: "INIT",
-                                            media_type:,
-                                            media_category:,
-                                            total_bytes: media.size).perform
-          append_media(media, init[:media_id])
+        Timeout.timeout(timeouts&.fetch(:upload, nil), Error::TimeoutError) do # steep:ignore UnknownConstant,NoMethod
+          init = Request.new(self, :post, "https://upload.twitter.com/1.1/media/upload.json",
+                             command: "INIT",
+                             media_type:,
+                             media_category:,
+                             total_bytes: media.size).perform
+          append_media(media, init.fetch(:media_id))
           media.close
-          finalize_media(init[:media_id])
+          finalize_media(init.fetch(:media_id))
         end
       end
 
@@ -54,12 +54,12 @@ module Twitter
         until media.eof?
           chunk = media.read(5_000_000)
           seg ||= -1
-          Twitter::REST::Request.new(self, :multipart_post, "https://upload.twitter.com/1.1/media/upload.json",
-                                     command: "APPEND",
-                                     media_id:,
-                                     segment_index: seg += 1,
-                                     key: :media,
-                                     file: StringIO.new(chunk)).perform
+          Request.new(self, :multipart_post, "https://upload.twitter.com/1.1/media/upload.json",
+                      command: "APPEND",
+                      media_id:,
+                      segment_index: seg += 1,
+                      key: :media,
+                      file: StringIO.new(chunk)).perform
         end
       end
 
@@ -70,16 +70,16 @@ module Twitter
       # @see https://developer.twitter.com/en/docs/media/upload-media/api-reference/get-media-upload-status
       # @return [Hash]
       def finalize_media(media_id)
-        response = Twitter::REST::Request.new(self, :post, "https://upload.twitter.com/1.1/media/upload.json",
-                                              command: "FINALIZE", media_id:).perform
-        failed_or_succeeded = %w[failed succeeded]
+        response = Request.new(self, :post, "https://upload.twitter.com/1.1/media/upload.json",
+                               command: "FINALIZE", media_id:).perform
 
         loop do
-          return response if !response[:processing_info] || failed_or_succeeded.include?(response[:processing_info][:state])
+          processing_info = response[:processing_info]
+          return response if !processing_info || %w[failed succeeded].include?(processing_info[:state])
 
-          sleep(response[:processing_info][:check_after_secs])
-          response = Twitter::REST::Request.new(self, :get, "https://upload.twitter.com/1.1/media/upload.json",
-                                                command: "STATUS", media_id:).perform
+          sleep(processing_info.fetch(:check_after_secs))
+          response = Request.new(self, :get, "https://upload.twitter.com/1.1/media/upload.json",
+                                 command: "STATUS", media_id:).perform
         end
       end
     end

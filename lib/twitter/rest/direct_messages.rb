@@ -30,7 +30,8 @@ module Twitter
       # @return [Array<Twitter::DirectMessageEvent>] Direct message events
       def direct_messages_events(options = {})
         limit = options.fetch(:count, 20)
-        perform_get_with_cursor("/1.1/direct_messages/events/list.json", options.merge!(no_default_cursor: true, count: 50, limit:), :events, Twitter::DirectMessageEvent)
+        request_options = options.merge(no_default_cursor: true, count: 50, limit:)
+        perform_get_with_cursor("/1.1/direct_messages/events/list.json", request_options, :events, DirectMessageEvent)
       end
 
       # Returns all Direct Messages for the authenticated user
@@ -120,9 +121,8 @@ module Twitter
       # @raise [Twitter::Error::Unauthorized] Error raised when credentials are not valid
       # @return [Twitter::DirectMessageEvent] The requested message event
       def direct_message_event(id, options = {})
-        options = options.dup
         options[:id] = id
-        perform_get_with_object("/1.1/direct_messages/events/show.json", options, Twitter::DirectMessageEvent)
+        perform_get_with_object("/1.1/direct_messages/events/show.json", options, DirectMessageEvent)
       end
 
       # Returns direct messages
@@ -151,7 +151,7 @@ module Twitter
       # @raise [Twitter::Error::Unauthorized] Error raised when credentials are not valid
       # @return [Array<Twitter::DirectMessage>] The requested messages
       def direct_messages(*args)
-        arguments = Twitter::Arguments.new(args)
+        arguments = Arguments.new(args)
         if arguments.empty?
           direct_messages_received(arguments.options)
         else
@@ -195,7 +195,7 @@ module Twitter
       # @raise [Twitter::Error::Unauthorized] Error raised when credentials are not valid
       # @return [Twitter::DirectMessage] The sent message
       def create_direct_message(user_id, text, options = {})
-        event = perform_request_with_object(:json_post, "/1.1/direct_messages/events/new.json", format_json_options(user_id, text, options), Twitter::DirectMessageEvent)
+        event = perform_request_with_object(:json_post, "/1.1/direct_messages/events/new.json", format_json_options(user_id, text, options), DirectMessageEvent)
         event.direct_message
       end
 
@@ -239,11 +239,11 @@ module Twitter
       # @raise [Twitter::Error::Unauthorized] Error raised when credentials are not valid
       # @return [Twitter::DirectMessageEvent] The created direct message event
       def create_direct_message_event(*args)
-        arguments = Twitter::Arguments.new(args)
-        options = arguments.options.dup
-        options[:event] = {type: "message_create", message_create: {target: {recipient_id: extract_id(arguments[0])}, message_data: {text: arguments[1]}}} if arguments.length >= 2
-        response = Twitter::REST::Request.new(self, :json_post, "/1.1/direct_messages/events/new.json", options).perform
-        Twitter::DirectMessageEvent.new(response[:event])
+        arguments = Arguments.new(args)
+        options = arguments.options
+        options[:event] = {type: "message_create", message_create: {target: {recipient_id: extract_id(arguments.fetch(0))}, message_data: {text: arguments.fetch(1)}}} if arguments.length == 2
+        response = Request.new(self, :json_post, "/1.1/direct_messages/events/new.json", options).perform
+        DirectMessageEvent.new(response)
       end
 
       # Creates a direct message event with media attachment
@@ -263,11 +263,10 @@ module Twitter
       # @raise [Twitter::Error::Unauthorized] Error raised when credentials are not valid
       # @return [Twitter::DirectMessageEvent] The created direct message event
       def create_direct_message_event_with_media(user, text, media, options = {})
-        media_id = upload(media, media_category_prefix: "dm")[:media_id] # steep:ignore NoMethod
-        options = options.dup
+        media_id = upload(media, media_category_prefix: "dm").fetch(:media_id) # steep:ignore NoMethod
         options[:event] = {type: "message_create", message_create: {target: {recipient_id: extract_id(user)}, message_data: {text:, attachment: {type: "media", media: {id: media_id}}}}}
-        response = Twitter::REST::Request.new(self, :json_post, "/1.1/direct_messages/events/new.json", options).perform
-        Twitter::DirectMessageEvent.new(response[:event])
+        response = Request.new(self, :json_post, "/1.1/direct_messages/events/new.json", options).perform
+        DirectMessageEvent.new(response)
       end
 
     private

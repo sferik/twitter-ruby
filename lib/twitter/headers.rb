@@ -17,7 +17,7 @@ module Twitter
     # @return [Twitter::Headers]
     def initialize(client, request_method, url, options = {})
       @client = client
-      @request_method = request_method.to_sym
+      @request_method = request_method
       @uri = Addressable::URI.parse(url)
       @bearer_token_request = options.delete(:bearer_token_request)
       @options = options

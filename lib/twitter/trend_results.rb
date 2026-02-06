@@ -7,9 +7,9 @@ require "twitter/utils"
 module Twitter
   # Represents a collection of trending topics
   class TrendResults
-    include Twitter::Creatable
-    include Twitter::Enumerable
-    include Twitter::Utils
+    include Creatable
+    include Enumerable
+    include Utils
     include Memoizable
 
     # The raw attributes hash

@@ -3,7 +3,7 @@ require "twitter/entity"
 module Twitter
   class Entity
     # Represents a Twitter cashtag symbol entity
-    class Symbol < Twitter::Entity
+    class Symbol < Entity
       # The text of the cashtag without the dollar sign
       #
       # @api public

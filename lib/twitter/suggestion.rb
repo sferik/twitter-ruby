@@ -4,7 +4,7 @@ require "twitter/base"
 
 module Twitter
   # Represents a Twitter user suggestion category
-  class Suggestion < Twitter::Base
+  class Suggestion < Base
     include Equalizer.new(:slug)
     include Memoizable
 

@@ -7,8 +7,8 @@ require "uri"
 module Twitter
   # Represents premium search results from Twitter
   class PremiumSearchResults
-    include Twitter::Enumerable
-    include Twitter::Utils
+    include Enumerable
+    include Utils
 
     # The raw attributes hash
     #
@@ -76,7 +76,10 @@ module Twitter
     # @note Returned Hash can be merged into previous search options
     # @return [Hash]
     def next_page
-      {next: @attrs[:next]} if next_page?
+      next_token = @attrs[:next]
+      return unless next_token
+
+      {next: next_token}
     end
 
     # Fetches the next page of results
@@ -84,7 +87,8 @@ module Twitter
     # @api private
     # @return [Hash]
     def fetch_next_page
-      request = @client.premium_search(@options[:query], (@options.reject { |k| k == :query } || {}).merge(next_page), @request_config) # steep:ignore ArgumentTypeMismatch
+      next_options = @options.reject { |k| k == :query }.merge(next_page)
+      request = @client.premium_search(@options[:query], next_options, @request_config) # steep:ignore ArgumentTypeMismatch
 
       self.attrs = request.attrs
     end

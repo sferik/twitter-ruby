@@ -47,6 +47,12 @@ describe Twitter::Streaming::MessageParser do
       expect(object.id).to eq(1)
     end
 
+    it "returns nil if delete key exists but status key is missing" do
+      data = {delete: {other_key: "value"}}
+      object = subject.parse(data)
+      expect(object).to be_nil
+    end
+
     it "returns a stall warning if the data has a warning" do
       data = {warning: {code: "FALLING_BEHIND"}}
       object = subject.parse(data)

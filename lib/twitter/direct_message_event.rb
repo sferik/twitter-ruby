@@ -4,9 +4,9 @@ require "twitter/identity"
 
 module Twitter
   # Represents a Twitter direct message event
-  class DirectMessageEvent < Twitter::Identity
-    include Twitter::Creatable
-    include Twitter::Entities
+  class DirectMessageEvent < Identity
+    include Creatable
+    include Entities
 
     # The timestamp when the event was created
     #
@@ -54,10 +54,10 @@ module Twitter
     # @param text [String] The message text
     # @return [Hash]
     def build_direct_message(attrs, text)
-      recipient_id = attrs[:message_create][:target][:recipient_id].to_i
-      sender_id = attrs[:message_create][:sender_id].to_i
-      {id: attrs[:id].to_i,
-       created_at: Time.at(attrs[:created_timestamp].to_i / 1000.0),
+      recipient_id = Integer(attrs.fetch(:message_create).fetch(:target).fetch(:recipient_id))
+      sender_id = Integer(attrs.fetch(:message_create).fetch(:sender_id))
+      {id: Integer(attrs.fetch(:id)),
+       created_at: Time.at(Integer(attrs.fetch(:created_timestamp)) / 1000.0),
        sender: {id: sender_id},
        sender_id:,
        recipient: {id: recipient_id},

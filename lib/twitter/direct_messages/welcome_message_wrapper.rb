@@ -24,12 +24,13 @@ module Twitter
       # @return [Twitter::DirectMessages::WelcomeMessageWrapper]
       def initialize(attrs)
         attrs = read_from_response(attrs)
-        text = attrs.dig(:message_data, :text)
-        urls = attrs.dig(:message_data, :entities, :urls)
+        message_data = attrs.fetch(:message_data)
+        text = message_data.fetch(:text)
+        urls = message_data.fetch(:entities).fetch(:urls)
 
-        text.gsub!(urls[0][:url], urls[0][:expanded_url]) if urls.any?
+        text.gsub!(urls.fetch(0).fetch(:url), urls.fetch(0).fetch(:expanded_url)) if urls.any?
 
-        attrs[:welcome_message] = build_welcome_message(attrs, text)
+        attrs[:welcome_message] = build_welcome_message(attrs, text, message_data)
         super
       end
 
@@ -41,7 +42,7 @@ module Twitter
       # @param attrs [Hash] The raw attributes hash
       # @return [Hash]
       def read_from_response(attrs)
-        return attrs[:welcome_message] unless attrs[:welcome_message].nil?
+        return attrs.fetch(:welcome_message) unless attrs[:welcome_message].nil?
 
         attrs
       end
@@ -52,13 +53,13 @@ module Twitter
       # @param attrs [Hash] The wrapper attributes
       # @param text [String] The message text
       # @return [Hash]
-      def build_welcome_message(attrs, text)
+      def build_welcome_message(attrs, text, message_data)
         {
-          id: attrs[:id].to_i,
-          created_at: Time.at(attrs[:created_timestamp].to_i / 1000.0),
+          id: Integer(attrs.fetch(:id)),
+          created_at: Time.at(Integer(attrs.fetch(:created_timestamp)) / 1000.0),
           text:,
           name: attrs[:name],
-          entities: attrs.dig(:message_data, :entities),
+          entities: message_data.fetch(:entities),
         }
       end
     end

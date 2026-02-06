@@ -2,7 +2,7 @@ require "twitter/base"
 
 module Twitter
   # Represents a Twitter entity with position information
-  class Entity < Twitter::Base
+  class Entity < Base
     # The indices of this entity in the text
     #
     # @api public

@@ -3,8 +3,8 @@ require "twitter/identity"
 
 module Twitter
   # Represents a saved search
-  class SavedSearch < Twitter::Identity
-    include Twitter::Creatable
+  class SavedSearch < Identity
+    include Creatable
 
     # The name of the saved search
     #

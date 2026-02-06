@@ -92,6 +92,28 @@ describe Twitter::Tweet do
     end
   end
 
+  describe "#initialize" do
+    it "copies full_text to text when text is nil and full_text is present" do
+      tweet = described_class.new(id: 1, full_text: "extended text")
+      expect(tweet.text).to eq("extended text")
+    end
+
+    it "does not copy full_text to text when text is already present" do
+      tweet = described_class.new(id: 1, text: "original", full_text: "extended")
+      expect(tweet.text).to eq("original")
+    end
+
+    it "leaves text as nil when both text and full_text are nil" do
+      tweet = described_class.new(id: 1, text: nil, full_text: nil)
+      expect(tweet.text).to be_nil
+    end
+
+    it "handles missing text and full_text keys" do
+      tweet = described_class.new(id: 1)
+      expect(tweet.text).to be_nil
+    end
+  end
+
   describe "#full_text" do
     it "returns the text of a Tweet" do
       tweet = described_class.new(id: 28_669_546_014, text: "BOOSH")
@@ -530,6 +552,29 @@ describe Twitter::Tweet do
     it "returns false when no entities are present" do
       tweet = described_class.new(id: 28_669_546_014)
       expect(tweet.user_mentions?).to be false
+    end
+  end
+
+  describe "#entities (private)" do
+    it "symbolizes key arguments passed as strings" do
+      tweet = described_class.new(
+        id: 28_669_546_014,
+        entities: {
+          urls: [
+            {
+              url: "https://t.co/example",
+              expanded_url: "https://example.com",
+              display_url: "example.com",
+              indices: [0, 23],
+            },
+          ],
+        },
+      )
+
+      uris = tweet.send(:entities, Twitter::Entity::URI, "urls", "entities")
+      expect(uris).to be_an(Array)
+      expect(uris.first).to be_a(Twitter::Entity::URI)
+      expect(uris.first.expanded_uri.to_s).to eq("https://example.com")
     end
   end
 end

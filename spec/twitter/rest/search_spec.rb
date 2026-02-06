@@ -6,6 +6,15 @@ describe Twitter::REST::Search do
   end
 
   describe "#search" do
+    it "does not mutate the options hash passed by the caller" do
+      options = {}
+      stub_get("/1.1/search/tweets.json").with(query: {q: "#freebandnames", count: "100"}).to_return(body: fixture("search.json"), headers: {content_type: "application/json; charset=utf-8"})
+
+      @client.search("#freebandnames", options)
+
+      expect(options).to eq({})
+    end
+
     context "without count specified" do
       before do
         stub_get("/1.1/search/tweets.json").with(query: {q: "#freebandnames", count: "100"}).to_return(body: fixture("search.json"), headers: {content_type: "application/json; charset=utf-8"})

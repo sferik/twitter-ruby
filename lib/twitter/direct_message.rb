@@ -4,9 +4,9 @@ require "twitter/identity"
 
 module Twitter
   # Represents a Twitter direct message
-  class DirectMessage < Twitter::Identity
-    include Twitter::Creatable
-    include Twitter::Entities
+  class DirectMessage < Identity
+    include Creatable
+    include Entities
 
     # The text content of the direct message
     #

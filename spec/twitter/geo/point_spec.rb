@@ -32,11 +32,54 @@ describe Twitter::Geo::Point do
     it "returns the latitude" do
       expect(@point.latitude).to eq(-122.399983)
     end
+
+    it "returns nil when the latitude index is missing" do
+      point = described_class.new(coordinates: [])
+      expect(point.latitude).to be_nil
+    end
+
+    it "uses index access for coordinate containers that do not implement #at" do
+      coordinates = Class.new do
+        def [](index)
+          {0 => -122.399983, 1 => 37.788299}[index]
+        end
+
+        def fetch(_index)
+          raise "fetch should not be called"
+        end
+      end.new
+      point = described_class.new(coordinates:)
+
+      expect(point.latitude).to eq(-122.399983)
+    end
   end
 
   describe "#longitude" do
     it "returns the longitude" do
       expect(@point.longitude).to eq(37.788299)
+    end
+
+    it "returns nil when the longitude index is missing" do
+      point = described_class.new(coordinates: [-122.399983])
+      expect(point.longitude).to be_nil
+    end
+
+    it "uses index access for coordinate containers that do not implement #at" do
+      coordinates = Class.new do
+        def [](index)
+          {0 => -122.399983, 1 => 37.788299}[index]
+        end
+
+        def fetch(index)
+          value = self[index]
+          raise IndexError if value.nil?
+
+          value
+        end
+      end.new
+      point = described_class.new(coordinates:)
+
+      expect(point.longitude).to eq(37.788299)
     end
   end
 end

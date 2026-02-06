@@ -33,7 +33,7 @@ module Twitter
       # @option options [Integer] :count Specifies the number of records to retrieve.
       # @option options [Boolean, String, Integer] :trim_user Include only the author's ID.
       def retweets(tweet, options = {})
-        perform_get_with_objects("/1.1/statuses/retweets/#{extract_id(tweet)}.json", options, Twitter::Tweet)
+        perform_get_with_objects("/1.1/statuses/retweets/#{extract_id(tweet)}.json", options, Tweet)
       end
 
       # Shows up to 100 users who retweeted the Tweet
@@ -53,7 +53,7 @@ module Twitter
       # @option options [Boolean] :ids_only Only return user IDs.
       def retweeters_of(tweet, options = {})
         options = options.dup
-        ids_only = !!options.delete(:ids_only)
+        ids_only = options.delete(:ids_only)
         retweeters = retweets(tweet, options).collect(&:user)
         ids_only ? retweeters.collect(&:id) : retweeters
       end
@@ -73,7 +73,7 @@ module Twitter
       # @param options [Hash] A customizable set of options.
       # @option options [Boolean, String, Integer] :trim_user Include only the author's ID.
       def status(tweet, options = {})
-        perform_get_with_object("/1.1/statuses/show/#{extract_id(tweet)}.json", options, Twitter::Tweet)
+        perform_get_with_object("/1.1/statuses/show/#{extract_id(tweet)}.json", options, Tweet)
       end
 
       # Returns Tweets
@@ -92,9 +92,9 @@ module Twitter
       #   @param options [Hash] A customizable set of options.
       #   @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       def statuses(*args)
-        arguments = Twitter::Arguments.new(args)
+        arguments = Arguments.new(args)
         flat_pmap(arguments.each_slice(MAX_TWEETS_PER_REQUEST)) do |tweets|
-          perform_post_with_objects("/1.1/statuses/lookup.json", arguments.options.merge(id: tweets.collect { |u| extract_id(u) }.join(",")), Twitter::Tweet)
+          perform_post_with_objects("/1.1/statuses/lookup.json", arguments.options.merge(id: tweets.collect { |u| extract_id(u) }.join(",")), Tweet)
         end
       end
 
@@ -116,9 +116,9 @@ module Twitter
       #   @param options [Hash] A customizable set of options.
       #   @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       def destroy_status(*args)
-        arguments = Twitter::Arguments.new(args)
+        arguments = Arguments.new(args)
         pmap(arguments) do |tweet|
-          perform_post_with_object("/1.1/statuses/destroy/#{extract_id(tweet)}.json", arguments.options, Twitter::Tweet)
+          perform_post_with_object("/1.1/statuses/destroy/#{extract_id(tweet)}.json", arguments.options, Tweet)
         end
       end
       # @!method destroy_tweet
@@ -150,7 +150,7 @@ module Twitter
       # @option options [Boolean, String, Integer] :trim_user Include only the author's ID.
       def update(status, options = {})
         update!(status, options)
-      rescue Twitter::Error::DuplicateStatus
+      rescue Error::DuplicateStatus
         user_timeline(count: 1).first # steep:ignore NoMethod
       end
 
@@ -180,7 +180,7 @@ module Twitter
         hash = options.dup
         hash[:in_reply_to_status_id] = hash.delete(:in_reply_to_status).id unless hash[:in_reply_to_status].nil?
         hash[:place_id] = hash.delete(:place).woeid unless hash[:place].nil?
-        perform_post_with_object("/1.1/statuses/update.json", hash.merge(status:), Twitter::Tweet)
+        perform_post_with_object("/1.1/statuses/update.json", hash.merge(status:), Tweet)
       end
 
       # Retweets the specified Tweets as the authenticating user
@@ -200,11 +200,11 @@ module Twitter
       #   @param options [Hash] A customizable set of options.
       #   @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       def retweet(*args)
-        arguments = Twitter::Arguments.new(args)
+        arguments = Arguments.new(args)
         pmap(arguments) do |tweet|
           post_retweet(extract_id(tweet), arguments.options)
-        rescue Twitter::Error::AlreadyRetweeted, Twitter::Error::NotFound
-          next
+        rescue Error::AlreadyRetweeted, Error::NotFound
+          nil
         end.compact
       end
 
@@ -227,10 +227,10 @@ module Twitter
       #   @param options [Hash] A customizable set of options.
       #   @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       def retweet!(*args)
-        arguments = Twitter::Arguments.new(args)
+        arguments = Arguments.new(args)
         pmap(arguments) do |tweet|
           post_retweet(extract_id(tweet), arguments.options)
-        end.compact
+        end
       end
 
       # Updates the authenticating user's status with media
@@ -256,9 +256,8 @@ module Twitter
       # @option options [String] :display_coordinates Pin on exact coordinates.
       # @option options [Boolean, String, Integer] :trim_user Include only the author's ID.
       def update_with_media(status, media, options = {})
-        options = options.dup
         media_ids = pmap(array_wrap(media)) do |medium|
-          upload(medium)[:media_id]
+          upload(medium).fetch(:media_id)
         end
         update!(status, options.merge(media_ids: media_ids.join(",")))
       end
@@ -287,7 +286,7 @@ module Twitter
       def oembed(tweet, options = {})
         options = options.dup
         options[:id] = extract_id(tweet)
-        perform_get_with_object("/1.1/statuses/oembed.json", options, Twitter::OEmbed)
+        perform_get_with_object("/1.1/statuses/oembed.json", options, OEmbed)
       end
 
       # Returns oEmbeds for Tweets
@@ -313,9 +312,9 @@ module Twitter
       #   @option options [String] :related A value for the TWT related parameter, as described in {https://dev.twitter.com/web/intents Web Intents}. This value will be forwarded to all Web Intents calls.
       #   @option options [String] :lang Language code for the rendered embed. This will affect the text and localization of the rendered HTML.
       def oembeds(*args)
-        arguments = Twitter::Arguments.new(args)
+        arguments = Arguments.new(args)
         pmap(arguments) do |tweet|
-          oembed(extract_id(tweet), arguments.options)
+          oembed(tweet, arguments.options)
         end
       end
 
@@ -335,7 +334,7 @@ module Twitter
       #   @param tweet [Integer, String, URI, Twitter::Tweet] A Tweet ID, URI, or object.
       #   @param options [Hash] A customizable set of options.
       def retweeters_ids(*args)
-        arguments = Twitter::Arguments.new(args)
+        arguments = Arguments.new(args)
         arguments.options[:id] ||= extract_id(arguments.first)
         perform_get_with_cursor("/1.1/statuses/retweeters/ids.json", arguments.options, :ids)
       end
@@ -357,11 +356,11 @@ module Twitter
       #   @param options [Hash] A customizable set of options.
       #   @option options [Boolean, String, Integer] :trim_user Each tweet returned in a timeline will include a user object with only the author's numerical ID when set to true, 't' or 1.
       def unretweet(*args)
-        arguments = Twitter::Arguments.new(args)
+        arguments = Arguments.new(args)
         pmap(arguments) do |tweet|
           post_unretweet(extract_id(tweet), arguments.options)
-        rescue Twitter::Error::NotFound
-          next
+        rescue Error::NotFound
+          nil
         end.compact
       end
 
@@ -372,29 +371,29 @@ module Twitter
       # @api private
       # @return [Array]
       def array_wrap(object)
-        if object.respond_to?(:to_ary)
-          object.to_ary || [object]
-        else
-          [object]
-        end
+        object.instance_of?(Array) ? object : [object]
       end
 
       # Posts a retweet
       #
       # @api private
+      # @param tweet_id [Integer] The tweet ID to retweet
+      # @param options [Hash] Request options
       # @return [Twitter::Tweet]
-      def post_retweet(tweet, options)
-        response = perform_post("/1.1/statuses/retweet/#{extract_id(tweet)}.json", options)
-        Twitter::Tweet.new(response)
+      def post_retweet(tweet_id, options)
+        response = perform_post("/1.1/statuses/retweet/#{tweet_id}.json", options)
+        Tweet.new(response)
       end
 
       # Posts an unretweet
       #
       # @api private
+      # @param tweet_id [Integer] The tweet ID to unretweet
+      # @param options [Hash] Request options
       # @return [Twitter::Tweet]
-      def post_unretweet(tweet, options)
-        response = perform_post("/1.1/statuses/unretweet/#{extract_id(tweet)}.json", options)
-        Twitter::Tweet.new(response)
+      def post_unretweet(tweet_id, options)
+        response = perform_post("/1.1/statuses/unretweet/#{tweet_id}.json", options)
+        Tweet.new(response)
       end
     end
   end

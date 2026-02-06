@@ -221,7 +221,7 @@ module Twitter
         if body.nil? || body.empty?
           ["", nil]
         elsif body[:error]
-          [body[:error], nil]
+          [body.fetch(:error), nil]
         elsif body[:errors]
           extract_message_from_errors(body)
         end
@@ -253,7 +253,7 @@ module Twitter
     # @return [Twitter::Error]
     def initialize(message = "", rate_limit = {}, code = nil)
       super(message)
-      @rate_limit = Twitter::RateLimit.new(rate_limit)
+      @rate_limit = RateLimit.new(rate_limit)
       @code = code
     end
   end

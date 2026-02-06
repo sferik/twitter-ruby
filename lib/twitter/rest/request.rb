@@ -113,10 +113,9 @@ module Twitter
       #   request.perform # => [{id: 123, text: "Hello"}]
       # @return [Array, Hash]
       def perform
-        response = http_client.headers(@headers).public_send(@request_method, @uri.to_s, request_options)
+        response = http_client.headers(@headers).public_send(@request_method, @uri.to_str, request_options)
         response_body = response.body.empty? ? "" : symbolize_keys!(response.parse)
-        response_headers = response.headers
-        fail_or_return_response_body(response.code, response_body, response_headers)
+        fail_or_return_response_body(response.code, response_body, response)
       end
 
     private
@@ -127,7 +126,7 @@ module Twitter
       # @return [Hash]
       def request_options
         options = if @options_key == :form
-                    {form: HTTP::FormData.create(@options, encoder: Twitter::REST::FormEncoder.method(:encode))}
+                    {form: HTTP::FormData.create(@options, encoder: FormEncoder.public_method(:encode))}
                   else
                     {@options_key => @options}
                   end
@@ -145,7 +144,7 @@ module Twitter
         key = options.delete(:key)
         file = options.delete(:file)
 
-        options[key] = if file.is_a?(StringIO)
+        options[key] = if file.instance_of?(StringIO)
                          HTTP::FormData::File.new(file, content_type: "video/mp4")
                        else
                          HTTP::FormData::File.new(file, filename: File.basename(file), content_type: content_type(File.basename(file)))
@@ -168,7 +167,7 @@ module Twitter
         else
           @request_method = request_method
         end
-        @headers = Twitter::Headers.new(@client, @request_method, @uri, options).request_headers # steep:ignore ArgumentTypeMismatch
+        @headers = Headers.new(@client, @request_method, @uri, options).request_headers # steep:ignore ArgumentTypeMismatch
       end
 
       # Determine content type based on file extension
@@ -178,11 +177,11 @@ module Twitter
       # @return [String]
       def content_type(basename)
         case basename
-        when /\.gif$/i
+        when /\.gif\z/i
           "image/gif"
-        when /\.jpe?g/i
+        when /\.jpe?g\z/i
           "image/jpeg"
-        when /\.png$/i
+        when /\.png\z/i
           "image/png"
         else
           "application/octet-stream"
@@ -194,13 +193,13 @@ module Twitter
       # @api private
       # @param code [Integer]
       # @param body [Hash, Array, String]
-      # @param headers [Hash]
+      # @param response [HTTP::Response]
       # @return [Hash, Array, String]
-      def fail_or_return_response_body(code, body, headers)
-        error = error(code, body, headers)
+      def fail_or_return_response_body(code, body, response)
+        error = error(code, body, response)
         raise(error) if error
 
-        @rate_limit = Twitter::RateLimit.new(headers)
+        @rate_limit = RateLimit.new(response)
         body
       end
 
@@ -209,16 +208,16 @@ module Twitter
       # @api private
       # @param code [Integer]
       # @param body [Hash, Array, String]
-      # @param headers [Hash]
+      # @param response [HTTP::Response]
       # @return [Twitter::Error, nil]
-      def error(code, body, headers)
-        klass = Twitter::Error::ERRORS[code]
-        if klass == Twitter::Error::Forbidden
-          forbidden_error(body, headers)
+      def error(code, body, response)
+        klass = Error::ERRORS[code]
+        if klass == Error::Forbidden
+          forbidden_error(body, response)
         elsif !klass.nil?
-          klass.from_response(body, headers)
-        elsif body.is_a?(Hash) && (err = body.dig(:processing_info, :error))
-          Twitter::Error::MediaError.from_processing_response(err, headers)
+          klass.from_response(body, response)
+        elsif body.instance_of?(Hash) && (err = body.dig(:processing_info, :error))
+          Error::MediaError.from_processing_response(err, response)
         end
       end
 
@@ -226,13 +225,13 @@ module Twitter
       #
       # @api private
       # @param body [Hash, Array, String]
-      # @param headers [Hash]
+      # @param response [HTTP::Response]
       # @return [Twitter::Error]
-      def forbidden_error(body, headers)
-        error = Twitter::Error::Forbidden.from_response(body, headers)
-        klass = Twitter::Error::FORBIDDEN_MESSAGES[error.message]
+      def forbidden_error(body, response)
+        error = Error::Forbidden.from_response(body, response)
+        klass = Error::FORBIDDEN_MESSAGES[error.message]
         if klass
-          klass.from_response(body, headers)
+          klass.from_response(body, response)
         else
           error
         end
@@ -246,9 +245,7 @@ module Twitter
       def symbolize_keys!(object)
         case object
         when Array
-          object.each_with_index do |val, index|
-            object[index] = symbolize_keys!(val)
-          end
+          object.each { |val| symbolize_keys!(val) }
         when Hash
           object.dup.each_key do |key|
             object[key.to_sym] = symbolize_keys!(object.delete(key))
@@ -271,7 +268,7 @@ module Twitter
       # @return [HTTP::Client, HTTP]
       def http_client
         client = @client.proxy ? HTTP.via(*proxy) : HTTP # steep:ignore NoMethod
-        client = client.timeout(connect: @client.timeouts[:connect], read: @client.timeouts[:read], write: @client.timeouts[:write]) if timeout_keys_defined # steep:ignore NoMethod
+        client = client.timeout(connect: @client.timeouts.fetch(:connect), read: @client.timeouts.fetch(:read), write: @client.timeouts.fetch(:write)) if timeout_keys_defined # steep:ignore NoMethod
         client
       end
 

@@ -19,7 +19,7 @@ module Twitter
       #   client.languages
       # @return [Array<Twitter::Language>]
       def languages(options = {})
-        perform_get_with_objects("/1.1/help/languages.json", options, Twitter::Language)
+        perform_get_with_objects("/1.1/help/languages.json", options, Language)
       end
 
       # Returns Twitter's Privacy Policy

@@ -48,6 +48,11 @@ describe Twitter::REST::Favorites do
         expect(favorites.first).to be_a Twitter::Tweet
         expect(favorites.first.user.id).to eq(7_505_382)
       end
+
+      it "does not attempt to merge a user when no user argument is given" do
+        expect(@client).not_to receive(:merge_user!)
+        @client.favorites
+      end
     end
   end
 
@@ -75,6 +80,10 @@ describe Twitter::REST::Favorites do
 
       it "does not raise an error" do
         expect { @client.unfavorite(540_897_316_908_331_009) }.not_to raise_error
+      end
+
+      it "returns an empty array instead of nil entries" do
+        expect(@client.unfavorite(540_897_316_908_331_009)).to eq([])
       end
     end
 
@@ -164,6 +173,10 @@ describe Twitter::REST::Favorites do
       it "does not raise an error" do
         expect { @client.favorite(540_897_316_908_331_009) }.not_to raise_error
       end
+
+      it "returns an empty array instead of nil entries" do
+        expect(@client.favorite(540_897_316_908_331_009)).to eq([])
+      end
     end
 
     context "not found" do
@@ -173,6 +186,10 @@ describe Twitter::REST::Favorites do
 
       it "does not raise an error" do
         expect { @client.favorite(540_897_316_908_331_009) }.not_to raise_error
+      end
+
+      it "returns an empty array instead of nil entries" do
+        expect(@client.favorite(540_897_316_908_331_009)).to eq([])
       end
     end
 

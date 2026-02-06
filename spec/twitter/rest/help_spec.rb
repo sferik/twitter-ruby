@@ -21,6 +21,12 @@ describe Twitter::REST::Help do
       expect(languages.first).to be_a Twitter::Language
       expect(languages.first.name).to eq("Portuguese")
     end
+
+    it "passes options through to the request" do
+      stub_get("/1.1/help/languages.json").with(query: {foo: "bar"}).to_return(body: fixture("languages.json"), headers: {content_type: "application/json; charset=utf-8"})
+      @client.languages(foo: "bar")
+      expect(a_get("/1.1/help/languages.json").with(query: {foo: "bar"})).to have_been_made
+    end
   end
 
   describe "#privacy" do
@@ -37,6 +43,19 @@ describe Twitter::REST::Help do
       privacy = @client.privacy
       expect(privacy.split.first).to eq("Twitter")
     end
+
+    it "passes options through to the request" do
+      stub_get("/1.1/help/privacy.json").with(query: {foo: "bar"}).to_return(body: fixture("privacy.json"), headers: {content_type: "application/json; charset=utf-8"})
+      @client.privacy(foo: "bar")
+      expect(a_get("/1.1/help/privacy.json").with(query: {foo: "bar"})).to have_been_made
+    end
+
+    it "uses hash defaults when the privacy key is missing" do
+      fallback = Hash.new("fallback privacy")
+      allow(@client).to receive(:perform_get).with("/1.1/help/privacy.json", {}).and_return(fallback)
+
+      expect(@client.privacy).to eq("fallback privacy")
+    end
   end
 
   describe "#tos" do
@@ -52,6 +71,19 @@ describe Twitter::REST::Help do
     it "returns the Twitter Terms of Service" do
       tos = @client.tos
       expect(tos.split.first).to eq("Terms")
+    end
+
+    it "passes options through to the request" do
+      stub_get("/1.1/help/tos.json").with(query: {foo: "bar"}).to_return(body: fixture("tos.json"), headers: {content_type: "application/json; charset=utf-8"})
+      @client.tos(foo: "bar")
+      expect(a_get("/1.1/help/tos.json").with(query: {foo: "bar"})).to have_been_made
+    end
+
+    it "uses hash defaults when the tos key is missing" do
+      fallback = Hash.new("fallback tos")
+      allow(@client).to receive(:perform_get).with("/1.1/help/tos.json", {}).and_return(fallback)
+
+      expect(@client.tos).to eq("fallback tos")
     end
   end
 end

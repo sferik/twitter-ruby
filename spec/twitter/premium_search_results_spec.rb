@@ -1,6 +1,105 @@
 require "helper"
 
 describe Twitter::PremiumSearchResults do
+  let(:client) { instance_double(Twitter::REST::Client) }
+  let(:request_options) { {query: "pizza", from_date: "202401010000"} }
+  let(:initial_attrs) { {results: [{id: 1, text: "one"}], next: "next-token"} }
+  let(:request) do
+    instance_double(
+      Twitter::REST::Request,
+      client:,
+      verb: :post,
+      path: "/1.1/tweets/search/30day/DE.json",
+      options: request_options,
+      perform: initial_attrs
+    )
+  end
+
+  describe "#initialize" do
+    it "defaults request_config to an empty hash" do
+      results = described_class.new(request)
+
+      expect(results.instance_variable_get(:@request_config)).to eq({})
+      expect(results.instance_variable_get(:@request_method)).to eq(:post)
+      expect(results.instance_variable_get(:@path)).to eq("/1.1/tweets/search/30day/DE.json")
+    end
+
+    it "preserves an explicit request_config" do
+      config = {request_method: :get}
+      results = described_class.new(request, config)
+
+      expect(results.instance_variable_get(:@request_config)).to eq(config)
+    end
+  end
+
+  describe "private pagination helpers" do
+    it "returns a strict boolean for next_page? and treats nil next as false" do
+      without_next = described_class.new(instance_double(Twitter::REST::Request, client:, verb: :post, path: "/path", options: request_options, perform: {results: []}))
+      with_nil_next = described_class.new(instance_double(Twitter::REST::Request, client:, verb: :post, path: "/path", options: request_options, perform: {results: [], next: nil}))
+      with_next = described_class.new(request)
+
+      expect(without_next.send(:next_page?)).to be(false)
+      expect(with_nil_next.send(:next_page?)).to be(false)
+      expect(with_next.send(:next_page?)).to be(true)
+    end
+
+    it "returns a next-page hash only when there is a next page" do
+      without_next = described_class.new(instance_double(Twitter::REST::Request, client:, verb: :post, path: "/path", options: request_options, perform: {results: []}))
+      with_next = described_class.new(request)
+
+      expect(without_next.send(:next_page)).to be_nil
+      expect(with_next.send(:next_page)).to eq(next: "next-token")
+    end
+
+    it "requests the next page using query and merged next token" do
+      results = described_class.new(request, {request_method: :post})
+      next_results = described_class.new(
+        instance_double(Twitter::REST::Request, client:, verb: :post, path: "/path", options: request_options, perform: {results: [{id: 2, text: "two"}]})
+      )
+
+      expect(client).to receive(:premium_search).with("pizza", {from_date: "202401010000", next: "next-token"}, {request_method: :post}).and_return(next_results)
+      results.send(:fetch_next_page)
+      expect(results.to_a.map(&:id)).to eq([1, 2])
+    end
+
+    it "passes nil query when query is not present in options" do
+      request_without_query = instance_double(
+        Twitter::REST::Request,
+        client:,
+        verb: :post,
+        path: "/path",
+        options: {from_date: "202401010000"},
+        perform: {results: [{id: 1}], next: "next-token"}
+      )
+      results = described_class.new(request_without_query)
+      next_results = described_class.new(
+        instance_double(Twitter::REST::Request, client:, verb: :post, path: "/path", options: {from_date: "202401010000"}, perform: {results: [{id: 2}]})
+      )
+
+      expect(client).to receive(:premium_search).with(nil, {from_date: "202401010000", next: "next-token"}, {}).and_return(next_results)
+      results.send(:fetch_next_page)
+      expect(results.to_a.map(&:id)).to eq([1, 2])
+    end
+  end
+
+  describe "private attrs= behavior" do
+    it "converts each result to Tweet objects and returns attrs" do
+      results = described_class.new(request)
+
+      attrs = results.send(:attrs=, {results: [{id: 2, text: "two"}]})
+      expect(attrs).to eq(results: [{id: 2, text: "two"}])
+      expect(results.to_a.last).to be_a(Twitter::Tweet)
+      expect(results.to_a.last.id).to eq(2)
+    end
+
+    it "accepts missing :results and does not raise" do
+      results = described_class.new(request)
+
+      expect { results.send(:attrs=, {}) }.not_to raise_error
+      expect(results.send(:attrs=, {})).to eq({})
+    end
+  end
+
   describe "#each" do
     before do
       @client = Twitter::REST::Client.new(consumer_key: "CK", consumer_secret: "CS", access_token: "AT", access_token_secret: "AS", dev_environment: "DE")

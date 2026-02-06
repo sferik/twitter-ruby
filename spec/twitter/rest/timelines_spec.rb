@@ -21,6 +21,17 @@ describe Twitter::REST::Timelines do
       expect(tweets.first).to be_a Twitter::Tweet
       expect(tweets.first.text).to eq("Happy Birthday @imdane. Watch out for those @rally pranksters!")
     end
+
+    context "with options" do
+      before do
+        stub_get("/1.1/statuses/mentions_timeline.json").with(query: {since_id: "12345"}).to_return(body: fixture("statuses.json"), headers: {content_type: "application/json; charset=utf-8"})
+      end
+
+      it "passes options to the request" do
+        @client.mentions_timeline(since_id: 12345)
+        expect(a_get("/1.1/statuses/mentions_timeline.json").with(query: {since_id: "12345"})).to have_been_made
+      end
+    end
   end
 
   describe "#user_timeline" do
@@ -72,6 +83,19 @@ describe Twitter::REST::Timelines do
       expect(tweets.first).to be_a Twitter::Tweet
       expect(tweets.first.text).to eq("RT @olivercameron: Mosaic looks cool: http://t.co/A8013C9k")
     end
+
+    context "with count option" do
+      before do
+        stub_get("/1.1/statuses/user_timeline.json").with(query: {include_rts: "true", screen_name: "sferik", count: "200", since_id: "12345"}).to_return(body: fixture("statuses.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/1.1/statuses/user_timeline.json").with(query: {include_rts: "true", screen_name: "sferik", count: "200", since_id: "12345", max_id: "244102729860009983"}).to_return(body: fixture("statuses.json"), headers: {content_type: "application/json; charset=utf-8"})
+      end
+
+      it "passes options through and respects count" do
+        tweets = @client.retweeted_by_user("sferik", count: 5, since_id: 12345)
+        expect(tweets.length).to eq(5)
+        expect(a_get("/1.1/statuses/user_timeline.json").with(query: {include_rts: "true", screen_name: "sferik", count: "200", since_id: "12345"})).to have_been_made
+      end
+    end
   end
 
   describe "#retweeted_by_me" do
@@ -102,6 +126,40 @@ describe Twitter::REST::Timelines do
         tweets = @client.retweeted_by_me
         expect(tweets).to be_an Array
         expect(tweets).to be_empty
+      end
+    end
+
+    context "with count option" do
+      before do
+        stub_get("/1.1/statuses/user_timeline.json").with(query: {include_rts: "true", count: "200", since_id: "12345"}).to_return(body: fixture("statuses.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/1.1/statuses/user_timeline.json").with(query: {include_rts: "true", count: "200", since_id: "12345", max_id: "244102729860009983"}).to_return(body: fixture("statuses.json"), headers: {content_type: "application/json; charset=utf-8"})
+      end
+
+      it "passes options through and respects count" do
+        tweets = @client.retweeted_by_me(count: 5, since_id: 12345)
+        expect(tweets.length).to eq(5)
+        expect(a_get("/1.1/statuses/user_timeline.json").with(query: {include_rts: "true", count: "200", since_id: "12345"})).to have_been_made
+      end
+    end
+
+    context "with count of 1" do
+      before do
+        stub_get("/1.1/statuses/user_timeline.json").with(query: {include_rts: "true", count: "200"}).to_return(body: fixture("statuses.json"), headers: {content_type: "application/json; charset=utf-8"})
+      end
+
+      it "returns exactly 1 retweet" do
+        tweets = @client.retweeted_by_me(count: 1)
+        expect(tweets.length).to eq(1)
+        expect(tweets.first).to be_a Twitter::Tweet
+      end
+    end
+
+    context "with count of 0" do
+      it "returns an empty array without fetching tweets" do
+        tweets = @client.retweeted_by_me(count: 0)
+        expect(tweets).to be_an Array
+        expect(tweets).to be_empty
+        expect(a_get("/1.1/statuses/user_timeline.json").with(query: {include_rts: "true", count: "200"})).not_to have_been_made
       end
     end
   end
@@ -142,6 +200,19 @@ describe Twitter::REST::Timelines do
       expect(tweets.first).to be_a Twitter::Tweet
       expect(tweets.first.text).to eq("RT @olivercameron: Mosaic looks cool: http://t.co/A8013C9k")
     end
+
+    context "with count option" do
+      before do
+        stub_get("/1.1/statuses/home_timeline.json").with(query: {include_rts: "true", count: "200", since_id: "12345"}).to_return(body: fixture("statuses.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/1.1/statuses/home_timeline.json").with(query: {include_rts: "true", count: "200", since_id: "12345", max_id: "244102729860009983"}).to_return(body: fixture("statuses.json"), headers: {content_type: "application/json; charset=utf-8"})
+      end
+
+      it "passes options through and respects count" do
+        tweets = @client.retweeted_to_me(count: 5, since_id: 12345)
+        expect(tweets.length).to eq(5)
+        expect(a_get("/1.1/statuses/home_timeline.json").with(query: {include_rts: "true", count: "200", since_id: "12345"})).to have_been_made
+      end
+    end
   end
 
   describe "#retweets_of_me" do
@@ -159,6 +230,17 @@ describe Twitter::REST::Timelines do
       expect(tweets).to be_an Array
       expect(tweets.first).to be_a Twitter::Tweet
       expect(tweets.first.text).to eq("Happy Birthday @imdane. Watch out for those @rally pranksters!")
+    end
+
+    context "with options" do
+      before do
+        stub_get("/1.1/statuses/retweets_of_me.json").with(query: {since_id: "12345"}).to_return(body: fixture("statuses.json"), headers: {content_type: "application/json; charset=utf-8"})
+      end
+
+      it "passes options to the request" do
+        @client.retweets_of_me(since_id: 12345)
+        expect(a_get("/1.1/statuses/retweets_of_me.json").with(query: {since_id: "12345"})).to have_been_made
+      end
     end
   end
 end

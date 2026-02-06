@@ -254,10 +254,6 @@ module Twitter
     include Creatable
     include Profile
 
-    def self.define_entity_uris_methods: (Symbol, Symbol) -> void
-    def self.define_entity_uris_method: (Symbol, Symbol) -> void
-    def self.define_entity_uris_predicate_method: (Symbol) -> void
-
     attr_reader connections: untyped
     attr_reader favourites_count: untyped
     attr_reader followers_count: untyped
@@ -1350,10 +1346,6 @@ module Twitter
     include Memoizable
 
     PROFILE_IMAGE_SUFFIX_REGEX: Regexp
-    PREDICATE_URI_METHOD_REGEX: Regexp
-
-    def self.alias_predicate_uri_methods: (Symbol) -> void
-    def self.alias_method_sub: (Symbol, Regexp, String) -> void
 
     def profile_banner_uri: (?Symbol size) -> Addressable::URI?
     alias profile_banner_url profile_banner_uri

@@ -2,7 +2,7 @@ require "twitter/base"
 
 module Twitter
   # Represents oEmbed data for a Tweet
-  class OEmbed < Twitter::Base
+  class OEmbed < Base
     # The height of the embedded content
     #
     # @api public

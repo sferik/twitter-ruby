@@ -56,6 +56,58 @@ describe Twitter::Streaming::Connection do
       connection.connect(request)
     end
 
+    it "creates an SSL socket with both client and context" do
+      tcp_client = instance_double(DummyTCPSocket)
+      allow(connection).to receive(:new_tcp_socket).and_return(tcp_client)
+      allow(ssl_socket).to receive(:connect)
+
+      expect(connection.ssl_socket_class).to receive(:new).with(tcp_client, instance_of(OpenSSL::SSL::SSLContext)).and_return(ssl_socket)
+      connection.connect(request)
+    end
+
+    it "creates an SSLContext instance" do
+      tcp_client = instance_double(DummyTCPSocket)
+      allow(connection).to receive(:new_tcp_socket).and_return(tcp_client)
+
+      context_received = nil
+      allow(connection.ssl_socket_class).to receive(:new) do |client, context|
+        context_received = context
+        ssl_socket
+      end
+      allow(ssl_socket).to receive(:connect)
+
+      connection.connect(request)
+      expect(context_received).to be_a(OpenSSL::SSL::SSLContext)
+    end
+
+    it "calls connect on the SSL socket" do
+      tcp_client = instance_double(DummyTCPSocket)
+      allow(connection).to receive(:new_tcp_socket).and_return(tcp_client)
+      allow(connection.ssl_socket_class).to receive(:new).and_return(ssl_socket)
+
+      expect(ssl_socket).to receive(:connect)
+      connection.connect(request)
+    end
+
+    it "returns the connected SSL socket" do
+      tcp_client = instance_double(DummyTCPSocket)
+      allow(connection).to receive(:new_tcp_socket).and_return(tcp_client)
+      allow(connection.ssl_socket_class).to receive(:new).and_return(ssl_socket)
+      allow(ssl_socket).to receive(:connect).and_return(ssl_socket)
+
+      result = connection.connect(request)
+      expect(result).to eq(ssl_socket)
+    end
+
+    it "passes the TCP client as first argument to SSLSocket" do
+      tcp_client = instance_double(DummyTCPSocket)
+      allow(connection).to receive(:new_tcp_socket).and_return(tcp_client)
+      allow(ssl_socket).to receive(:connect)
+
+      expect(connection.ssl_socket_class).to receive(:new).with(tcp_client, anything).and_return(ssl_socket)
+      connection.connect(request)
+    end
+
     context "when using a proxy" do
       let(:proxy) { {proxy_address: "127.0.0.1", proxy_port: 3328} }
       let(:request) { HTTP::Request.new(verb: method, uri:, proxy:) }
@@ -111,6 +163,18 @@ describe Twitter::Streaming::Connection do
     it "does nothing when write_pipe is nil" do
       # write_pipe is nil before stream is called
       expect { connection.close }.not_to raise_error
+    end
+  end
+
+  describe "#new_tcp_socket" do
+    it "resolves the host before opening a TCP socket" do
+      tcp_socket_class = double("tcp_socket_class")
+      connection = described_class.new(tcp_socket_class:, ssl_socket_class: DummySSLSocket)
+
+      expect(Resolv).to receive(:getaddress).with("stream.twitter.com").and_return("203.0.113.10")
+      expect(tcp_socket_class).to receive(:new).with("203.0.113.10", 443)
+
+      connection.send(:new_tcp_socket, "stream.twitter.com", 443)
     end
   end
 
@@ -178,6 +242,25 @@ describe Twitter::Streaming::Connection do
       server_client.close
 
       expect(received_data).to include("test data")
+    end
+
+    it "uses IO.select, reads 1024-byte chunks, and closes the client" do
+      read_pipe = instance_double(IO)
+      write_pipe = instance_double(IO)
+      mocked_client = instance_double(TCPSocket)
+      mocked_request = instance_double(HTTP::Request)
+      mocked_response = double("response")
+
+      expect(connection).to receive(:connect).with(mocked_request).and_return(mocked_client)
+      expect(mocked_request).to receive(:stream).with(mocked_client)
+      expect(IO).to receive(:pipe).and_return([read_pipe, write_pipe])
+      expect(IO).to receive(:select).with([read_pipe, mocked_client]).ordered.and_return([[mocked_client], nil, nil])
+      expect(IO).to receive(:select).with([read_pipe, mocked_client]).ordered.and_return([[read_pipe], nil, nil])
+      expect(mocked_client).to receive(:readpartial).with(1024).and_return("test chunk")
+      expect(mocked_response).to receive(:<<).with("test chunk")
+      expect(mocked_client).to receive(:close)
+
+      connection.stream(mocked_request, mocked_response)
     end
   end
 

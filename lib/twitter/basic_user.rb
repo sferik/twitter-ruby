@@ -3,7 +3,7 @@ require "twitter/utils"
 
 module Twitter
   # Represents a basic Twitter user with minimal attributes
-  class BasicUser < Twitter::Identity
+  class BasicUser < Identity
     # The user's screen name (handle)
     #
     # @api public

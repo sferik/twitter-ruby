@@ -2,7 +2,7 @@ require "memoizable"
 
 module Twitter
   # Represents rate limit information from Twitter API responses
-  class RateLimit < Twitter::Base
+  class RateLimit < Base
     include Memoizable
 
     # Returns the rate limit ceiling for this request

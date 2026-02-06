@@ -106,12 +106,38 @@ describe Twitter::REST::Undocumented do
       expect(tweet_count).to eq(13_845_465)
     end
 
+    it "passes options through to the request" do
+      stub_request(:get, "https://cdn.api.twitter.com/1/urls/count.json").with(query: {url: "http://twitter.com", foo: "bar"}).to_return(body: fixture("count.json"), headers: {content_type: "application/json; charset=utf-8"})
+      @client.tweet_count("http://twitter.com", foo: "bar")
+      expect(a_request(:get, "https://cdn.api.twitter.com/1/urls/count.json").with(query: {url: "http://twitter.com", foo: "bar"})).to have_been_made
+    end
+
     context "with a URI" do
       it "requests the correct resource" do
         uri = URI.parse("http://twitter.com")
         @client.tweet_count(uri)
         expect(a_request(:get, "https://cdn.api.twitter.com/1/urls/count.json").with(query: {url: "http://twitter.com"})).to have_been_made
       end
+    end
+
+    it "uses #to_s for URL-like objects without #to_str" do
+      uri_like = Class.new do
+        def to_s
+          "http://twitter.com"
+        end
+      end.new
+      response = double(parse: {"count" => 13_845_465})
+
+      expect(HTTP).to receive(:get).with("https://cdn.api.twitter.com/1/urls/count.json", params: {url: "http://twitter.com"}).and_return(response)
+      @client.tweet_count(uri_like)
+    end
+
+    it "uses Hash#[] semantics when reading the parsed count" do
+      parsed = Hash.new(7)
+      response = double(parse: parsed)
+      allow(HTTP).to receive(:get).and_return(response)
+
+      expect(@client.tweet_count("http://twitter.com")).to eq(7)
     end
   end
 end

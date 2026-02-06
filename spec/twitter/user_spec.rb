@@ -69,6 +69,36 @@ describe Twitter::User do
     end
   end
 
+  describe "#description_urls (alias)" do
+    it "is an alias for description_uris" do
+      urls_array = [
+        {
+          url: "https://t.co/L2xIBazMPf",
+          expanded_url: "http://example.com/expanded",
+          display_url: "example.com/expanded...",
+          indices: [10, 33],
+        },
+      ]
+      user = described_class.new(id: 7_505_382, entities: {description: {urls: urls_array}})
+      expect(user.description_urls).to eq(user.description_uris)
+    end
+  end
+
+  describe "#description_urls? (alias)" do
+    it "is an alias for description_uris?" do
+      urls_array = [
+        {
+          url: "https://t.co/L2xIBazMPf",
+          expanded_url: "http://example.com/expanded",
+          display_url: "example.com/expanded...",
+          indices: [10, 33],
+        },
+      ]
+      user = described_class.new(id: 7_505_382, entities: {description: {urls: urls_array}})
+      expect(user.description_urls?).to eq(user.description_uris?)
+    end
+  end
+
   describe "#description_uris?" do
     it "returns true when the tweet includes description URI entities" do
       urls_array = [
@@ -161,6 +191,18 @@ describe Twitter::User do
       expect(user.profile_banner_uri.to_s).to eq("http://si0.twimg.com/profile_banners/7_505_382/1348266581/web")
     end
 
+    it "does not trigger deprecated hash access internally" do
+      user = described_class.new(id: 7_505_382, profile_banner_url: "https://si0.twimg.com/profile_banners/7_505_382/1348266581")
+      expect { user.profile_banner_uri }.not_to output(/DEPRECATION/).to_stderr
+    end
+
+    it "uses hash defaults when profile_banner_url key is missing" do
+      attrs = Hash.new("https://si0.twimg.com/profile_banners/default/1")
+      attrs[:id] = 7_505_382
+      user = described_class.new(attrs)
+      expect(user.profile_banner_uri(:mobile).to_s).to eq("http://si0.twimg.com/profile_banners/default/1/mobile")
+    end
+
     context "with :web_retina passed" do
       it "returns the web retina-sized image" do
         user = described_class.new(id: 7_505_382, profile_banner_url: "https://si0.twimg.com/profile_banners/7_505_382/1348266581")
@@ -218,6 +260,18 @@ describe Twitter::User do
       expect(user.profile_banner_uri_https.to_s).to eq("https://si0.twimg.com/profile_banners/7_505_382/1348266581/web")
     end
 
+    it "does not trigger deprecated hash access internally" do
+      user = described_class.new(id: 7_505_382, profile_banner_url: "https://si0.twimg.com/profile_banners/7_505_382/1348266581")
+      expect { user.profile_banner_uri_https }.not_to output(/DEPRECATION/).to_stderr
+    end
+
+    it "uses hash defaults when profile_banner_url key is missing" do
+      attrs = Hash.new("https://si0.twimg.com/profile_banners/default/1")
+      attrs[:id] = 7_505_382
+      user = described_class.new(attrs)
+      expect(user.profile_banner_uri_https(:mobile).to_s).to eq("https://si0.twimg.com/profile_banners/default/1/mobile")
+    end
+
     context "with :web_retina passed" do
       it "returns the web retina-sized image" do
         user = described_class.new(id: 7_505_382, profile_banner_url: "https://si0.twimg.com/profile_banners/7_505_382/1348266581")
@@ -266,6 +320,42 @@ describe Twitter::User do
     end
   end
 
+  describe "#profile_banner_url? (alias)" do
+    it "returns true when profile_banner_url is set" do
+      user = described_class.new(id: 7_505_382, profile_banner_url: "https://si0.twimg.com/profile_banners/7_505_382/1348266581")
+      expect(user.profile_banner_url?).to be true
+    end
+
+    it "returns false when profile_banner_url is not set" do
+      user = described_class.new(id: 7_505_382)
+      expect(user.profile_banner_url?).to be false
+    end
+  end
+
+  describe "#profile_banner_uri_https? (alias)" do
+    it "returns true when profile_banner_url is set" do
+      user = described_class.new(id: 7_505_382, profile_banner_url: "https://si0.twimg.com/profile_banners/7_505_382/1348266581")
+      expect(user.profile_banner_uri_https?).to be true
+    end
+
+    it "returns false when profile_banner_url is not set" do
+      user = described_class.new(id: 7_505_382)
+      expect(user.profile_banner_uri_https?).to be false
+    end
+  end
+
+  describe "#profile_banner_url_https? (alias)" do
+    it "returns true when profile_banner_url is set" do
+      user = described_class.new(id: 7_505_382, profile_banner_url: "https://si0.twimg.com/profile_banners/7_505_382/1348266581")
+      expect(user.profile_banner_url_https?).to be true
+    end
+
+    it "returns false when profile_banner_url is not set" do
+      user = described_class.new(id: 7_505_382)
+      expect(user.profile_banner_url_https?).to be false
+    end
+  end
+
   describe "#profile_image_uri" do
     it "accepts utf8 urls" do
       user = described_class.new(id: 7_505_382, profile_image_url_https: "https://si0.twimg.com/profile_images/7_505_382/1348266581©_normal.png")
@@ -287,10 +377,20 @@ describe Twitter::User do
       expect(user.profile_image_uri.to_s).to eq("http://a0.twimg.com/profile_images/1759857427/image1326743606_normal.png")
     end
 
+    it "does not trigger deprecated hash access internally" do
+      user = described_class.new(id: 7_505_382, profile_image_url_https: "https://a0.twimg.com/profile_images/1759857427/image1326743606_normal.png")
+      expect { user.profile_image_uri }.not_to output(/DEPRECATION/).to_stderr
+    end
+
     context "with :original passed" do
       it "returns the original image" do
         user = described_class.new(id: 7_505_382, profile_image_url_https: "https://a0.twimg.com/profile_images/1759857427/image1326743606_normal.png")
         expect(user.profile_image_uri(:original).to_s).to eq("http://a0.twimg.com/profile_images/1759857427/image1326743606.png")
+      end
+
+      it "accepts a string size and still returns the original image" do
+        user = described_class.new(id: 7_505_382, profile_image_url_https: "https://a0.twimg.com/profile_images/1759857427/image1326743606_normal.png")
+        expect(user.profile_image_uri("original").to_s).to eq("http://a0.twimg.com/profile_images/1759857427/image1326743606.png")
       end
     end
 
@@ -339,10 +439,27 @@ describe Twitter::User do
       expect(user.profile_image_uri_https.to_s).to eq("https://a0.twimg.com/profile_images/1759857427/image1326743606_normal.png")
     end
 
+    it "does not trigger deprecated hash access internally" do
+      user = described_class.new(id: 7_505_382, profile_image_url_https: "https://a0.twimg.com/profile_images/1759857427/image1326743606_normal.png")
+      expect { user.profile_image_uri_https }.not_to output(/DEPRECATION/).to_stderr
+    end
+
+    it "uses hash defaults when profile_image_url_https key is missing" do
+      attrs = Hash.new("https://a0.twimg.com/profile_images/1759857427/image1326743606_normal.png")
+      attrs[:id] = 7_505_382
+      user = described_class.new(attrs)
+      expect(user.profile_image_uri_https(:bigger).to_s).to eq("https://a0.twimg.com/profile_images/1759857427/image1326743606_bigger.png")
+    end
+
     context "with :original passed" do
       it "returns the original image" do
         user = described_class.new(id: 7_505_382, profile_image_url_https: "https://a0.twimg.com/profile_images/1759857427/image1326743606_normal.png")
         expect(user.profile_image_uri_https(:original).to_s).to eq("https://a0.twimg.com/profile_images/1759857427/image1326743606.png")
+      end
+
+      it "accepts a string size and still returns the original image" do
+        user = described_class.new(id: 7_505_382, profile_image_url_https: "https://a0.twimg.com/profile_images/1759857427/image1326743606_normal.png")
+        expect(user.profile_image_uri_https("original").to_s).to eq("https://a0.twimg.com/profile_images/1759857427/image1326743606.png")
       end
     end
 
@@ -379,6 +496,61 @@ describe Twitter::User do
     it "returns false when profile_image_url_https is not set" do
       user = described_class.new(id: 7_505_382)
       expect(user.profile_image_uri?).to be false
+    end
+  end
+
+  describe "#profile_image_url? (alias)" do
+    it "returns true when profile_image_url_https is set" do
+      user = described_class.new(id: 7_505_382, profile_image_url_https: "https://si0.twimg.com/profile_images/7_505_382/1348266581_normal.png")
+      expect(user.profile_image_url?).to be true
+    end
+
+    it "returns false when profile_image_url_https is not set" do
+      user = described_class.new(id: 7_505_382)
+      expect(user.profile_image_url?).to be false
+    end
+  end
+
+  describe "#profile_image_uri_https? (alias)" do
+    it "returns true when profile_image_url_https is set" do
+      user = described_class.new(id: 7_505_382, profile_image_url_https: "https://si0.twimg.com/profile_images/7_505_382/1348266581_normal.png")
+      expect(user.profile_image_uri_https?).to be true
+    end
+
+    it "returns false when profile_image_url_https is not set" do
+      user = described_class.new(id: 7_505_382)
+      expect(user.profile_image_uri_https?).to be false
+    end
+  end
+
+  describe "#profile_image_url_https? (alias)" do
+    it "returns true when profile_image_url_https is set" do
+      user = described_class.new(id: 7_505_382, profile_image_url_https: "https://si0.twimg.com/profile_images/7_505_382/1348266581_normal.png")
+      expect(user.profile_image_url_https?).to be true
+    end
+
+    it "returns false when profile_image_url_https is not set" do
+      user = described_class.new(id: 7_505_382)
+      expect(user.profile_image_url_https?).to be false
+    end
+  end
+
+  describe "#insecure_uri (private)" do
+    it "converts uppercase HTTPS schemes to http" do
+      user = described_class.new(id: 7_505_382)
+
+      expect(user.send(:insecure_uri, "HTTPS://example.com/image.png")).to eq("http://example.com/image.png")
+    end
+
+    it "uses #to_s for objects that do not implement #to_str" do
+      user = described_class.new(id: 7_505_382)
+      uri_like = Class.new do
+        def to_s
+          "HTTPS://example.com/avatar.png"
+        end
+      end.new
+
+      expect(user.send(:insecure_uri, uri_like)).to eq("http://example.com/avatar.png")
     end
   end
 
@@ -497,6 +669,36 @@ describe Twitter::User do
     it "is empty when not set" do
       user = described_class.new(id: 7_505_382, entities: {url: {urls: []}})
       expect(user.website_uris).to be_empty
+    end
+  end
+
+  describe "#website_urls (alias)" do
+    it "is an alias for website_uris" do
+      urls_array = [
+        {
+          url: "https://t.co/L2xIBazMPf",
+          expanded_url: "http://example.com/expanded",
+          display_url: "example.com/expanded...",
+          indices: [0, 23],
+        },
+      ]
+      user = described_class.new(id: 7_505_382, entities: {url: {urls: urls_array}})
+      expect(user.website_urls).to eq(user.website_uris)
+    end
+  end
+
+  describe "#website_urls? (alias)" do
+    it "is an alias for website_uris?" do
+      urls_array = [
+        {
+          url: "https://t.co/L2xIBazMPf",
+          expanded_url: "http://example.com/expanded",
+          display_url: "example.com/expanded...",
+          indices: [0, 23],
+        },
+      ]
+      user = described_class.new(id: 7_505_382, entities: {url: {urls: urls_array}})
+      expect(user.website_urls?).to eq(user.website_uris?)
     end
   end
 

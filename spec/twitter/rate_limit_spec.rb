@@ -60,5 +60,11 @@ describe Twitter::RateLimit do
       rate_limit = described_class.new
       expect(rate_limit.reset_in).to be_nil
     end
+
+    it "returns 0 when reset time is in the past" do
+      past_reset = Time.utc(2012, 6, 6, 17, 20, 0).to_i.to_s
+      rate_limit = described_class.new("x-rate-limit-reset" => past_reset)
+      expect(rate_limit.reset_in).to eq(0)
+    end
   end
 end

@@ -29,8 +29,8 @@ module Twitter
               },
             },
           }
-          json_options[:welcome_message][:name] = name if name # steep:ignore ArgumentTypeMismatch
-          welcome_message_wrapper = perform_request_with_object(:json_post, "/1.1/direct_messages/welcome_messages/new.json", json_options.merge!(options), Twitter::DirectMessages::WelcomeMessageWrapper)
+          json_options.fetch(:welcome_message)[:name] = name if name # steep:ignore ArgumentTypeMismatch
+          welcome_message_wrapper = perform_request_with_object(:json_post, "/1.1/direct_messages/welcome_messages/new.json", options.merge(json_options), Twitter::DirectMessages::WelcomeMessageWrapper)
           welcome_message_wrapper.welcome_message
         end
 
@@ -63,7 +63,7 @@ module Twitter
               text:,
             },
           }
-          welcome_message_wrapper = perform_request_with_object(:json_put, "/1.1/direct_messages/welcome_messages/update.json", json_options.merge!(options), Twitter::DirectMessages::WelcomeMessageWrapper, params)
+          welcome_message_wrapper = perform_request_with_object(:json_put, "/1.1/direct_messages/welcome_messages/update.json", options.merge(json_options), Twitter::DirectMessages::WelcomeMessageWrapper, params)
           welcome_message_wrapper.welcome_message
         end
 
@@ -92,7 +92,8 @@ module Twitter
         # @return [Array<Twitter::DirectMessages::WelcomeMessage>]
         def welcome_message_list(options = {})
           limit = options.fetch(:count, 20)
-          welcome_message_wrappers = perform_get_with_cursor("/1.1/direct_messages/welcome_messages/list.json", options.merge!(no_default_cursor: true, count: 50, limit:), :welcome_messages, Twitter::DirectMessages::WelcomeMessageWrapper)
+          request_options = options.merge(no_default_cursor: true, count: 50, limit:)
+          welcome_message_wrappers = perform_get_with_cursor("/1.1/direct_messages/welcome_messages/list.json", request_options, :welcome_messages, Twitter::DirectMessages::WelcomeMessageWrapper)
           welcome_message_wrappers.collect(&:welcome_message)
         end
 
@@ -110,7 +111,7 @@ module Twitter
               welcome_message_id:,
             },
           }
-          rule_wrapper = perform_request_with_object(:json_post, "/1.1/direct_messages/welcome_messages/rules/new.json", json_options.merge!(options), Twitter::DirectMessages::WelcomeMessageRuleWrapper)
+          rule_wrapper = perform_request_with_object(:json_post, "/1.1/direct_messages/welcome_messages/rules/new.json", options.merge(json_options), Twitter::DirectMessages::WelcomeMessageRuleWrapper)
           rule_wrapper.welcome_message_rule
         end
 
@@ -150,7 +151,8 @@ module Twitter
         # @return [Array<Twitter::DirectMessages::WelcomeMessageRule>]
         def welcome_message_rule_list(options = {})
           limit = options.fetch(:count, 20)
-          rule_wrappers = perform_get_with_cursor("/1.1/direct_messages/welcome_messages/rules/list.json", options.merge!(no_default_cursor: true, count: 50, limit:), :welcome_message_rules, Twitter::DirectMessages::WelcomeMessageRuleWrapper)
+          request_options = options.merge(no_default_cursor: true, count: 50, limit:)
+          rule_wrappers = perform_get_with_cursor("/1.1/direct_messages/welcome_messages/rules/list.json", request_options, :welcome_message_rules, Twitter::DirectMessages::WelcomeMessageRuleWrapper)
           rule_wrappers.collect(&:welcome_message_rule)
         end
       end

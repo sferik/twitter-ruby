@@ -3,7 +3,7 @@ require "twitter/identity"
 
 module Twitter
   # Represents a Twitter place
-  class Place < Twitter::Identity
+  class Place < Identity
     include Memoizable
 
     # The place attributes hash

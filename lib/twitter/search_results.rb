@@ -7,8 +7,8 @@ require "uri"
 module Twitter
   # Represents search results from Twitter
   class SearchResults
-    include Twitter::Enumerable
-    include Twitter::Utils
+    include Enumerable
+    include Utils
 
     # The raw attributes hash
     #
@@ -89,7 +89,7 @@ module Twitter
     # @api private
     # @return [Hash]
     def fetch_next_page
-      response = Twitter::REST::Request.new(@client, @request_method, @path, @options.merge(next_page)) # steep:ignore ArgumentTypeMismatch
+      response = REST::Request.new(@client, @request_method, @path, @options.merge(next_page)) # steep:ignore ArgumentTypeMismatch
       self.attrs = response.perform
       @rate_limit = response.rate_limit
     end
@@ -104,7 +104,6 @@ module Twitter
       @attrs.fetch(:statuses, []).collect do |tweet|
         @collection << Tweet.new(tweet)
       end
-      @attrs
     end
 
     # Converts query string to a hash

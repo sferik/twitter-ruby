@@ -27,6 +27,15 @@ describe Twitter::REST::SavedSearches do
         expect(saved_searches.last).to be_a Twitter::SavedSearch
         expect(saved_searches.last.name).to eq("twitter")
       end
+
+      it "passes options to each saved_search request" do
+        stub_get("/1.1/saved_searches/show/16129012.json").with(query: {include_entities: "true"}).to_return(body: fixture("saved_search.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/1.1/saved_searches/show/16129013.json").with(query: {include_entities: "true"}).to_return(body: fixture("saved_search.json"), headers: {content_type: "application/json; charset=utf-8"})
+
+        @client.saved_searches(16_129_012, 16_129_013, include_entities: true)
+        expect(a_get("/1.1/saved_searches/show/16129012.json").with(query: {include_entities: "true"})).to have_been_made
+        expect(a_get("/1.1/saved_searches/show/16129013.json").with(query: {include_entities: "true"})).to have_been_made
+      end
     end
 
     context "without ids passed" do
@@ -44,6 +53,12 @@ describe Twitter::REST::SavedSearches do
         expect(saved_searches).to be_an Array
         expect(saved_searches.first).to be_a Twitter::SavedSearch
         expect(saved_searches.first.name).to eq("twitter")
+      end
+
+      it "passes options to the list request" do
+        stub_get("/1.1/saved_searches/list.json").with(query: {foo: "bar"}).to_return(body: fixture("saved_searches.json"), headers: {content_type: "application/json; charset=utf-8"})
+        @client.saved_searches(foo: "bar")
+        expect(a_get("/1.1/saved_searches/list.json").with(query: {foo: "bar"})).to have_been_made
       end
     end
   end
@@ -63,6 +78,12 @@ describe Twitter::REST::SavedSearches do
       expect(saved_search).to be_a Twitter::SavedSearch
       expect(saved_search.name).to eq("twitter")
     end
+
+    it "passes options to the request" do
+      stub_get("/1.1/saved_searches/show/16129012.json").with(query: {foo: "bar"}).to_return(body: fixture("saved_search.json"), headers: {content_type: "application/json; charset=utf-8"})
+      @client.saved_search(16_129_012, foo: "bar")
+      expect(a_get("/1.1/saved_searches/show/16129012.json").with(query: {foo: "bar"})).to have_been_made
+    end
   end
 
   describe "#create_saved_search" do
@@ -79,6 +100,12 @@ describe Twitter::REST::SavedSearches do
       saved_search = @client.create_saved_search("twitter")
       expect(saved_search).to be_a Twitter::SavedSearch
       expect(saved_search.name).to eq("twitter")
+    end
+
+    it "passes additional options in the request body" do
+      stub_post("/1.1/saved_searches/create.json").with(body: {query: "twitter", foo: "bar"}).to_return(body: fixture("saved_search.json"), headers: {content_type: "application/json; charset=utf-8"})
+      @client.create_saved_search("twitter", foo: "bar")
+      expect(a_post("/1.1/saved_searches/create.json").with(body: {query: "twitter", foo: "bar"})).to have_been_made
     end
   end
 

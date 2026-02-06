@@ -19,6 +19,12 @@ describe Twitter::REST::PlacesAndGeo do
       place = @client.place("247f43d441defc03")
       expect(place.name).to eq("Twitter HQ")
     end
+
+    it "passes options through to the request" do
+      stub_get("/1.1/geo/id/247f43d441defc03.json").with(query: {accuracy: "10m"}).to_return(body: fixture("place.json"), headers: {content_type: "application/json; charset=utf-8"})
+      @client.place("247f43d441defc03", accuracy: "10m")
+      expect(a_get("/1.1/geo/id/247f43d441defc03.json").with(query: {accuracy: "10m"})).to have_been_made
+    end
   end
 
   describe "#reverse_geocode" do
@@ -35,6 +41,11 @@ describe Twitter::REST::PlacesAndGeo do
       places = @client.reverse_geocode(lat: "37.7821120598956", long: "-122.400612831116")
       expect(places).to be_a Twitter::GeoResults
       expect(places.first.name).to eq("Bernal Heights")
+    end
+
+    it "works without options" do
+      stub_get("/1.1/geo/reverse_geocode.json").to_return(body: fixture("places.json"), headers: {content_type: "application/json; charset=utf-8"})
+      expect { @client.reverse_geocode }.not_to raise_error
     end
   end
 
@@ -53,6 +64,11 @@ describe Twitter::REST::PlacesAndGeo do
       expect(places).to be_a Twitter::GeoResults
       expect(places.first.name).to eq("Bernal Heights")
     end
+
+    it "works without options" do
+      stub_get("/1.1/geo/search.json").to_return(body: fixture("places.json"), headers: {content_type: "application/json; charset=utf-8"})
+      expect { @client.geo_search }.not_to raise_error
+    end
   end
 
   describe "#similar_places" do
@@ -69,6 +85,11 @@ describe Twitter::REST::PlacesAndGeo do
       places = @client.similar_places(lat: "37.7821120598956", long: "-122.400612831116", name: "Twitter HQ")
       expect(places).to be_a Twitter::GeoResults
       expect(places.first.name).to eq("Bernal Heights")
+    end
+
+    it "works without options" do
+      stub_get("/1.1/geo/similar_places.json").to_return(body: fixture("places.json"), headers: {content_type: "application/json; charset=utf-8"})
+      expect { @client.similar_places }.not_to raise_error
     end
   end
 end

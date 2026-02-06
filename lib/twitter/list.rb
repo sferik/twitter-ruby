@@ -3,8 +3,8 @@ require "twitter/identity"
 
 module Twitter
   # Represents a Twitter list
-  class List < Twitter::Identity
-    include Twitter::Creatable
+  class List < Identity
+    include Creatable
 
     # The number of members in this list
     #

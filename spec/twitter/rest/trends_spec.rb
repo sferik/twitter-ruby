@@ -22,6 +22,15 @@ describe Twitter::REST::Trends do
         expect(matching_trends.first).to be_a Twitter::Trend
         expect(matching_trends.first.name).to eq("#sevenwordsaftersex")
       end
+
+      it "passes options and does not mutate the caller hash" do
+        stub_get("/1.1/trends/place.json").with(query: {id: "2487956", exclude: "hashtags"}).to_return(body: fixture("matching_trends.json"), headers: {content_type: "application/json; charset=utf-8"})
+        options = {exclude: "hashtags"}
+
+        @client.trends(2_487_956, options)
+        expect(options).to eq({exclude: "hashtags"})
+        expect(a_get("/1.1/trends/place.json").with(query: {id: "2487956", exclude: "hashtags"})).to have_been_made
+      end
     end
 
     context "without arguments passed" do
@@ -52,6 +61,12 @@ describe Twitter::REST::Trends do
       expect(locations.first).to be_a Twitter::Place
       expect(locations.first.name).to eq("Ireland")
     end
+
+    it "passes options through to the request" do
+      stub_get("/1.1/trends/available.json").with(query: {foo: "bar"}).to_return(body: fixture("locations.json"), headers: {content_type: "application/json; charset=utf-8"})
+      @client.trends_available(foo: "bar")
+      expect(a_get("/1.1/trends/available.json").with(query: {foo: "bar"})).to have_been_made
+    end
   end
 
   describe "#trends_closest" do
@@ -69,6 +84,12 @@ describe Twitter::REST::Trends do
       expect(locations).to be_an Array
       expect(locations.first).to be_a Twitter::Place
       expect(locations.first.name).to eq("Ireland")
+    end
+
+    it "passes options through to the request" do
+      stub_get("/1.1/trends/closest.json").with(query: {lat: "37.7821", long: "-122.4093"}).to_return(body: fixture("locations.json"), headers: {content_type: "application/json; charset=utf-8"})
+      @client.trends_closest(lat: "37.7821", long: "-122.4093")
+      expect(a_get("/1.1/trends/closest.json").with(query: {lat: "37.7821", long: "-122.4093"})).to have_been_made
     end
   end
 end

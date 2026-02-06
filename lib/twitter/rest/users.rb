@@ -38,11 +38,11 @@ module Twitter
       # @option options [String] :current_password The user's password.
       def settings(options = {})
         request_method = options.empty? ? :get : :post
-        response = perform_request(request_method.to_sym, "/1.1/account/settings.json", options)
+        response = perform_request(request_method, "/1.1/account/settings.json", options)
         # https://dev.twitter.com/issues/59
         empty_array = [] #: Array[untyped]
         response[:trend_location] = response.fetch(:trend_location, empty_array).first
-        Twitter::Settings.new(response)
+        Settings.new(response)
       end
 
       # Returns the requesting user if authentication was successful
@@ -58,7 +58,7 @@ module Twitter
       # @param options [Hash] A customizable set of options.
       # @option options [Boolean, String, Integer] :skip_status Do not include user's Tweets.
       def verify_credentials(options = {})
-        perform_get_with_object("/1.1/account/verify_credentials.json", options, Twitter::User)
+        perform_get_with_object("/1.1/account/verify_credentials.json", options, User)
       end
 
       # Sets which device Twitter delivers updates to for the authenticating user
@@ -74,7 +74,7 @@ module Twitter
       # @param device [String] Must be one of: 'sms', 'none'.
       # @param options [Hash] A customizable set of options.
       def update_delivery_device(device, options = {})
-        perform_post_with_object("/1.1/account/update_delivery_device.json", options.merge(device:), Twitter::User)
+        perform_post_with_object("/1.1/account/update_delivery_device.json", options.merge(device:), User)
       end
 
       # Sets values that users can set in their profile settings
@@ -95,7 +95,7 @@ module Twitter
       # @option options [String] :description A description of the user.
       # @option options [String] :profile_link_color A hex value for link color.
       def update_profile(options = {})
-        perform_post_with_object("/1.1/account/update_profile.json", options, Twitter::User)
+        perform_post_with_object("/1.1/account/update_profile.json", options, User)
       end
 
       # Updates the authenticating user's profile background image
@@ -145,7 +145,7 @@ module Twitter
       # @param options [Hash] A customizable set of options.
       # @option options [Boolean, String, Integer] :skip_status Do not include user's Tweets.
       def blocked(options = {})
-        perform_get_with_cursor("/1.1/blocks/list.json", options, :users, Twitter::User)
+        perform_get_with_cursor("/1.1/blocks/list.json", options, :users, User)
       end
 
       # Returns user IDs the authenticating user is blocking
@@ -161,7 +161,7 @@ module Twitter
       # @overload blocked_ids(options = {})
       #   @param options [Hash] A customizable set of options.
       def blocked_ids(*args)
-        arguments = Twitter::Arguments.new(args)
+        arguments = Arguments.new(args)
         merge_user!(arguments.options, arguments.pop)
         perform_get_with_cursor("/1.1/blocks/ids.json", arguments.options, :ids)
       end
@@ -183,7 +183,7 @@ module Twitter
           case user
           when Integer                       then user
           when String, URI, Addressable::URI then user(user).id
-          when Twitter::User                 then user.id
+          when User                          then user.id
           end
         blocked_ids(options).collect(&:to_i).include?(user_id)
       end
@@ -243,9 +243,9 @@ module Twitter
       #   @param users [Enumerable<Integer, String, Twitter::User>] A collection of Twitter user IDs, screen names, or objects.
       #   @param options [Hash] A customizable set of options.
       def users(*args)
-        arguments = Twitter::Arguments.new(args)
+        arguments = Arguments.new(args)
         flat_pmap(arguments.each_slice(MAX_USERS_PER_REQUEST)) do |users|
-          perform_get_with_objects("/1.1/users/lookup.json", merge_users(arguments.options, users), Twitter::User)
+          perform_get_with_objects("/1.1/users/lookup.json", merge_users(arguments.options, users), User)
         end
       end
 
@@ -271,10 +271,10 @@ module Twitter
       #   @param options [Hash] A customizable set of options.
       #   @option options [Boolean, String, Integer] :skip_status Do not include user's Tweets when set to true, 't' or 1.
       def user(*args)
-        arguments = Twitter::Arguments.new(args)
+        arguments = Arguments.new(args)
         if arguments.last || user_id?
           merge_user!(arguments.options, arguments.pop || user_id)
-          perform_get_with_object("/1.1/users/show.json", arguments.options, Twitter::User)
+          perform_get_with_object("/1.1/users/show.json", arguments.options, User)
         else
           verify_credentials(arguments.options)
         end
@@ -314,8 +314,7 @@ module Twitter
       # @option options [Integer] :count The number of people to retrieve.
       # @option options [Integer] :page Specifies the page of results to retrieve.
       def user_search(query, options = {})
-        options = options.dup
-        perform_get_with_objects("/1.1/users/search.json", options.merge(q: query), Twitter::User)
+        perform_get_with_objects("/1.1/users/search.json", options.merge(q: query), User)
       end
 
       # Returns users that the specified user can contribute to
@@ -415,9 +414,9 @@ module Twitter
       # @overload profile_banner(user, options = {})
       #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, URI, or object.
       def profile_banner(*args)
-        arguments = Twitter::Arguments.new(args)
-        merge_user!(arguments.options, arguments.pop || user_id) unless arguments.options[:user_id] || arguments.options[:screen_name]
-        perform_get_with_object("/1.1/users/profile_banner.json", arguments.options, Twitter::ProfileBanner)
+        arguments = Arguments.new(args)
+        merge_user!(arguments.options, arguments.pop || user_id) unless arguments.options.key?(:user_id) || arguments.options.key?(:screen_name)
+        perform_get_with_object("/1.1/users/profile_banner.json", arguments.options, ProfileBanner)
       end
 
       # Mutes the users specified by the authenticating user
@@ -471,7 +470,7 @@ module Twitter
       # @param options [Hash] A customizable set of options.
       # @option options [Boolean, String, Integer] :skip_status Do not include user's Tweets.
       def muted(options = {})
-        perform_get_with_cursor("/1.1/mutes/users/list.json", options, :users, Twitter::User)
+        perform_get_with_cursor("/1.1/mutes/users/list.json", options, :users, User)
       end
 
       # Returns user IDs the authenticating user is muting
@@ -487,7 +486,7 @@ module Twitter
       # @overload muted_ids(options = {})
       #   @param options [Hash] A customizable set of options.
       def muted_ids(*args)
-        arguments = Twitter::Arguments.new(args)
+        arguments = Arguments.new(args)
         merge_user!(arguments.options, arguments.pop)
         perform_get_with_cursor("/1.1/mutes/users/ids.json", arguments.options, :ids)
       end
@@ -499,8 +498,8 @@ module Twitter
       # @api private
       # @return [Twitter::User]
       def post_profile_image(path, image, options)
-        response = Twitter::REST::Request.new(self, :multipart_post, path, options.merge(key: :image, file: image)).perform
-        Twitter::User.new(response)
+        response = Request.new(self, :multipart_post, path, options.merge(key: :image, file: image)).perform
+        User.new(response)
       end
     end
   end

@@ -3,7 +3,7 @@ require "twitter/base"
 
 module Twitter
   # Represents a user's profile banner
-  class ProfileBanner < Twitter::Base
+  class ProfileBanner < Base
     include Memoizable
 
     # Returns a hash of banner sizes

@@ -5,8 +5,8 @@ require "twitter/utils"
 module Twitter
   # Represents a cursor for paginating through Twitter API responses
   class Cursor
-    include Twitter::Enumerable
-    include Twitter::Utils
+    include Enumerable
+    include Utils
 
     # The raw response attributes
     #
@@ -43,7 +43,7 @@ module Twitter
     # @param limit [Integer] After reaching the limit, we stop fetching next page
     # @return [Twitter::Cursor]
     def initialize(key, klass, request, limit = nil)
-      @key = key.to_sym
+      @key = key
       @klass = klass
       @client = request.client
       @request_method = request.verb
@@ -97,7 +97,7 @@ module Twitter
     # @api private
     # @return [Hash]
     def fetch_next_page
-      response = Twitter::REST::Request.new(@client, @request_method, @path, @options.merge(cursor: next_cursor)).perform
+      response = REST::Request.new(@client, @request_method, @path, @options.merge(cursor: next_cursor)).perform
       self.attrs = response
     end
 
@@ -112,7 +112,6 @@ module Twitter
       @attrs.fetch(@key, []).each do |element|
         @collection << (klass ? klass.new(element) : element) # steep:ignore UnexpectedPositionalArgument
       end
-      @attrs
     end
   end
 end

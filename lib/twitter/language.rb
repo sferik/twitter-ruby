@@ -2,7 +2,7 @@ require "twitter/base"
 
 module Twitter
   # Represents a Twitter supported language
-  class Language < Twitter::Base
+  class Language < Base
     # The language code
     #
     # @api public

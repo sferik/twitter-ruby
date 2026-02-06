@@ -1,0 +1,16 @@
+integration:
+  name: minitest
+
+requires:
+  - twitter
+  - rspec_wrapper_test
+
+includes:
+  - lib
+  - test
+
+usage: opensource
+
+matcher:
+  subjects:
+    - Twitter*

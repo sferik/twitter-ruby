@@ -1,6 +1,14 @@
 require "helper"
 
 describe Twitter::TrendResults do
+  describe "#initialize" do
+    it "supports initialization without attrs" do
+      trend_results = described_class.new
+      expect(trend_results.attrs).to eq({})
+      expect(trend_results.to_a).to eq([])
+    end
+  end
+
   describe "#as_of" do
     it "returns a Time when as_of is set" do
       trend_results = described_class.new(id: 1, as_of: "2012-08-24T23:25:43Z")
@@ -53,13 +61,18 @@ describe Twitter::TrendResults do
 
   describe "#each" do
     before do
-      @trend_results = described_class.new(trends: [{id: 1}, {id: 2}, {id: 3}, {id: 4}, {id: 5}, {id: 6}])
+      @trend_results = described_class.new(trends: [{name: "foo"}, {name: "bar"}, {name: "baz"}, {name: "qux"}, {name: "quux"}, {name: "corge"}])
     end
 
     it "iterates" do
       count = 0
       @trend_results.each { count += 1 }
       expect(count).to eq(6)
+    end
+
+    it "contains Trend objects with correct data" do
+      expect(@trend_results.first).to be_a Twitter::Trend
+      expect(@trend_results.first.name).to eq("foo")
     end
 
     context "with start" do

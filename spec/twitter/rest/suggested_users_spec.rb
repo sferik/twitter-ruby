@@ -23,6 +23,12 @@ describe Twitter::REST::SuggestedUsers do
         expect(suggestion.users).to be_an Array
         expect(suggestion.users.first).to be_a Twitter::User
       end
+
+      it "passes options through to the category request" do
+        stub_get("/1.1/users/suggestions/art-design.json").with(query: {lang: "en"}).to_return(body: fixture("category.json"), headers: {content_type: "application/json; charset=utf-8"})
+        @client.suggestions("art-design", lang: "en")
+        expect(a_get("/1.1/users/suggestions/art-design.json").with(query: {lang: "en"})).to have_been_made
+      end
     end
 
     context "without arguments passed" do
@@ -40,6 +46,12 @@ describe Twitter::REST::SuggestedUsers do
         expect(suggestions).to be_an Array
         expect(suggestions.first).to be_a Twitter::Suggestion
         expect(suggestions.first.name).to eq("Art & Design")
+      end
+
+      it "passes options through to the list request" do
+        stub_get("/1.1/users/suggestions.json").with(query: {lang: "en"}).to_return(body: fixture("suggestions.json"), headers: {content_type: "application/json; charset=utf-8"})
+        @client.suggestions(lang: "en")
+        expect(a_get("/1.1/users/suggestions.json").with(query: {lang: "en"})).to have_been_made
       end
     end
   end
@@ -59,6 +71,12 @@ describe Twitter::REST::SuggestedUsers do
       expect(suggest_users).to be_an Array
       expect(suggest_users.first).to be_a Twitter::User
       expect(suggest_users.first.id).to eq(13)
+    end
+
+    it "passes options through to the members request" do
+      stub_get("/1.1/users/suggestions/art-design/members.json").with(query: {lang: "en"}).to_return(body: fixture("members.json"), headers: {content_type: "application/json; charset=utf-8"})
+      @client.suggest_users("art-design", lang: "en")
+      expect(a_get("/1.1/users/suggestions/art-design/members.json").with(query: {lang: "en"})).to have_been_made
     end
   end
 end

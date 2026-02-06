@@ -1,0 +1,24 @@
+name: Mutant
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+permissions:
+  contents: read
+
+jobs:
+  mutant:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v6
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.4'
+        bundler-cache: true
+    - name: Run mutation tests
+      run: bundle exec mutant run --include lib --include test --require twitter --require rspec_wrapper_test --mutation-timeout 5 'Twitter*'

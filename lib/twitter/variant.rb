@@ -2,7 +2,7 @@ require "twitter/base"
 
 module Twitter
   # Represents a video variant with a specific bitrate and format
-  class Variant < Twitter::Base
+  class Variant < Base
     # The bitrate of this variant in bits per second
     #
     # @api public

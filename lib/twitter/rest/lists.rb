@@ -38,7 +38,7 @@ module Twitter
       #   @param options [Hash] A customizable set of options.
       #   @option options [Boolean] :reverse Set this to true if you would like owned lists to be returned first.
       def lists(*args)
-        objects_from_response_with_user(Twitter::List, :get, "/1.1/lists/list.json", args)
+        objects_from_response_with_user(List, :get, "/1.1/lists/list.json", args)
       end
       # @!method lists_subscribed_to
       #   @api public
@@ -70,10 +70,10 @@ module Twitter
       #   @option options [Integer] :max_id Returns results with an ID less than (that is, older than) or equal to the specified ID.
       #   @option options [Integer] :count The number of results to retrieve.
       def list_timeline(*args)
-        arguments = Twitter::Arguments.new(args)
+        arguments = Arguments.new(args)
         merge_list!(arguments.options, arguments.pop)
         merge_owner!(arguments.options, arguments.pop)
-        perform_get_with_objects("/1.1/lists/statuses.json", arguments.options, Twitter::Tweet)
+        perform_get_with_objects("/1.1/lists/statuses.json", arguments.options, Tweet)
       end
 
       # Removes the specified member from the list
@@ -120,7 +120,7 @@ module Twitter
       #   @option options [Integer] :count The amount of results to return per page. Defaults to 20. No more than 1000 results will ever be returned in a single page.
       #   @option options [Boolean, String, Integer] :filter_to_owned_lists When set to true, t or 1, will return just lists the authenticating user owns, and the user represented by user_id or screen_name is a member of.
       def memberships(*args)
-        cursor_from_response_with_user(:lists, Twitter::List, "/1.1/lists/memberships.json", args)
+        cursor_from_response_with_user(:lists, List, "/1.1/lists/memberships.json", args)
       end
 
       # Returns the subscribers of the specified list
@@ -376,7 +376,7 @@ module Twitter
       # @option options [String] :mode ('public') Whether your list is public or private. Values can be 'public' or 'private'.
       # @option options [String] :description The description to give the list.
       def create_list(name, options = {})
-        perform_post_with_object("/1.1/lists/create.json", options.merge(name:), Twitter::List)
+        perform_post_with_object("/1.1/lists/create.json", options.merge(name:), List)
       end
 
       # Shows the specified list
@@ -418,7 +418,7 @@ module Twitter
       #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, URI, or object.
       #   @param options [Hash] A customizable set of options.
       def subscriptions(*args)
-        cursor_from_response_with_user(:lists, Twitter::List, "/1.1/lists/subscriptions.json", args)
+        cursor_from_response_with_user(:lists, List, "/1.1/lists/subscriptions.json", args)
       end
 
       # Removes specified members from the list
@@ -463,7 +463,7 @@ module Twitter
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :count The amount of results to return per page. Defaults to 20. No more than 1000 results will ever be returned in a single page.
       def owned_lists(*args)
-        cursor_from_response_with_user(:lists, Twitter::List, "/1.1/lists/ownerships.json", args)
+        cursor_from_response_with_user(:lists, List, "/1.1/lists/ownerships.json", args)
       end
 
     private
@@ -473,10 +473,10 @@ module Twitter
       # @api private
       # @return [Twitter::List]
       def list_from_response(request_method, path, args)
-        arguments = Twitter::Arguments.new(args)
+        arguments = Arguments.new(args)
         merge_list!(arguments.options, arguments.pop)
         merge_owner!(arguments.options, arguments.pop)
-        perform_request_with_object(request_method, path, arguments.options, Twitter::List)
+        perform_request_with_object(request_method, path, arguments.options, List)
       end
 
       # Retrieves a cursor from the response with list
@@ -484,10 +484,10 @@ module Twitter
       # @api private
       # @return [Twitter::Cursor]
       def cursor_from_response_with_list(path, args)
-        arguments = Twitter::Arguments.new(args)
+        arguments = Arguments.new(args)
         merge_list!(arguments.options, arguments.pop)
         merge_owner!(arguments.options, arguments.pop)
-        perform_get_with_cursor(path, arguments.options, :users, Twitter::User)
+        perform_get_with_cursor(path, arguments.options, :users, User)
       end
 
       # Checks if user is a member of a list
@@ -495,13 +495,13 @@ module Twitter
       # @api private
       # @return [Boolean]
       def list_user?(request_method, path, args)
-        arguments = Twitter::Arguments.new(args)
+        arguments = Arguments.new(args)
         merge_user!(arguments.options, arguments.pop)
         merge_list!(arguments.options, arguments.pop)
         merge_owner!(arguments.options, arguments.pop)
-        perform_request(request_method.to_sym, path, arguments.options)
+        perform_request(request_method, path, arguments.options)
         true
-      rescue Twitter::Error::Forbidden, Twitter::Error::NotFound
+      rescue Error::Forbidden, Error::NotFound
         false
       end
 
@@ -510,11 +510,11 @@ module Twitter
       # @api private
       # @return [Twitter::List]
       def list_from_response_with_user(path, args)
-        arguments = Twitter::Arguments.new(args)
+        arguments = Arguments.new(args)
         merge_user!(arguments.options, arguments.pop)
         merge_list!(arguments.options, arguments.pop)
         merge_owner!(arguments.options, arguments.pop)
-        perform_post_with_object(path, arguments.options, Twitter::List)
+        perform_post_with_object(path, arguments.options, List)
       end
 
       # Retrieves a list from response with users
@@ -522,13 +522,13 @@ module Twitter
       # @api private
       # @return [Twitter::List]
       def list_from_response_with_users(path, args)
-        arguments = args.dup
-        options = arguments.last.is_a?(::Hash) ? arguments.pop : {} #: Hash[Symbol, untyped]
+        arguments = args
+        options = arguments.last.instance_of?(Hash) ? arguments.pop : {} #: Hash[Symbol, untyped]
         members = arguments.pop
         merge_list!(options, arguments.pop)
         merge_owner!(options, arguments.pop)
         pmap(members.each_slice(MAX_USERS_PER_REQUEST)) do |users|
-          perform_post_with_object(path, merge_users(options, users), Twitter::List)
+          perform_post_with_object(path, merge_users(options, users), List)
         end.last
       end
 
@@ -540,9 +540,9 @@ module Twitter
       # @return [void]
       def merge_list!(hash, list)
         case list
-        when Integer               then hash[:list_id] = list
-        when Twitter::List         then merge_list_and_owner!(hash, list)
-        when String                then merge_slug_and_owner!(hash, list)
+        when Integer          then hash[:list_id] = list
+        when List             then merge_list_and_owner!(hash, list)
+        when String           then merge_slug_and_owner!(hash, list)
         when URI, Addressable::URI then merge_slug_and_owner!(hash, list.path) # steep:ignore NoMethod
         end
       end
@@ -571,9 +571,9 @@ module Twitter
       # @api private
       # @param hash [Hash]
       # @param user[Integer, String, Twitter::User] A Twitter user ID, screen_name, or object.
-      # @return [Hash]
+      # @return [void]
       def merge_owner!(hash, user)
-        return hash if hash[:owner_id] || hash[:owner_screen_name]
+        return if hash.key?(:owner_id) || hash.key?(:owner_screen_name)
 
         if user
           merge_user!(hash, user, "owner")
@@ -581,7 +581,6 @@ module Twitter
         else
           hash[:owner_id] = user_id
         end
-        hash
       end
     end
   end

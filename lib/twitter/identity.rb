@@ -3,7 +3,7 @@ require "twitter/base"
 
 module Twitter
   # Base class for Twitter objects with an identity
-  class Identity < Twitter::Base
+  class Identity < Base
     include Equalizer.new(:id)
 
     # The unique identifier for this object

@@ -264,6 +264,17 @@ describe Twitter::REST::FriendsAndFollowers do
       expect(a_get("/1.1/friendships/incoming.json").with(query: {cursor: "-1"})).to have_been_made
     end
 
+    context "with options" do
+      before do
+        stub_get("/1.1/friendships/incoming.json").with(query: {cursor: "12345"}).to_return(body: fixture("ids_list.json"), headers: {content_type: "application/json; charset=utf-8"})
+      end
+
+      it "passes options to the request" do
+        @client.friendships_incoming(cursor: "12345")
+        expect(a_get("/1.1/friendships/incoming.json").with(query: {cursor: "12345"})).to have_been_made
+      end
+    end
+
     it "returns an array of numeric IDs for every user who has a pending request to follow the authenticating user" do
       friendships_incoming = @client.friendships_incoming
       expect(friendships_incoming).to be_a Twitter::Cursor
@@ -290,6 +301,17 @@ describe Twitter::REST::FriendsAndFollowers do
     it "requests the correct resource" do
       @client.friendships_outgoing
       expect(a_get("/1.1/friendships/outgoing.json").with(query: {cursor: "-1"})).to have_been_made
+    end
+
+    context "with options" do
+      before do
+        stub_get("/1.1/friendships/outgoing.json").with(query: {cursor: "12345"}).to_return(body: fixture("ids_list.json"), headers: {content_type: "application/json; charset=utf-8"})
+      end
+
+      it "passes options to the request" do
+        @client.friendships_outgoing(cursor: "12345")
+        expect(a_get("/1.1/friendships/outgoing.json").with(query: {cursor: "12345"})).to have_been_made
+      end
     end
 
     it "returns an array of numeric IDs for every protected user for whom the authenticating user has a pending follow request" do
@@ -324,6 +346,20 @@ describe Twitter::REST::FriendsAndFollowers do
       expect(a_get("/1.1/friends/ids.json").with(query: {user_id: "7505382", cursor: "-1"})).to have_been_made
       expect(a_get("/1.1/users/lookup.json").with(query: {screen_name: "sferik,pengwynn"})).to have_been_made
       expect(a_post("/1.1/friendships/create.json").with(body: {user_id: "7505382"})).to have_been_made
+    end
+
+    context "with options" do
+      before do
+        stub_get("/1.1/account/verify_credentials.json").with(query: {skip_status: "true"}).to_return(body: fixture("sferik.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/1.1/friends/ids.json").with(query: {user_id: "7505382", cursor: "-1"}).to_return(body: fixture("ids_list2.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/1.1/users/lookup.json").with(query: {screen_name: "sferik,pengwynn"}).to_return(body: fixture("friendships.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_post("/1.1/friendships/create.json").with(body: {user_id: "7505382", follow: "true"}).to_return(body: fixture("sferik.json"), headers: {content_type: "application/json; charset=utf-8"})
+      end
+
+      it "passes options to the follow! request" do
+        @client.follow("sferik", "pengwynn", follow: true)
+        expect(a_post("/1.1/friendships/create.json").with(body: {user_id: "7505382", follow: "true"})).to have_been_made
+      end
     end
   end
 
@@ -412,6 +448,18 @@ describe Twitter::REST::FriendsAndFollowers do
       expect(relationship).to be_a Twitter::Relationship
       expect(relationship.source.id).to eq(7_505_382)
     end
+
+    context "without options" do
+      before do
+        stub_post("/1.1/friendships/update.json").with(body: {screen_name: "sferik"}).to_return(body: fixture("following.json"), headers: {content_type: "application/json; charset=utf-8"})
+      end
+
+      it "uses an empty hash as default options" do
+        relationship = @client.friendship_update("sferik")
+        expect(relationship).to be_a Twitter::Relationship
+        expect(a_post("/1.1/friendships/update.json").with(body: {screen_name: "sferik"})).to have_been_made
+      end
+    end
   end
 
   describe "#friendship" do
@@ -479,6 +527,19 @@ describe Twitter::REST::FriendsAndFollowers do
         expect(a_get("/1.1/friendships/show.json").with(query: {source_screen_name: "sferik", target_screen_name: "pengwynn"})).to have_been_made
       end
     end
+
+    context "with options hash mutation" do
+      before do
+        stub_get("/1.1/friendships/show.json").with(query: {source_screen_name: "sferik", target_screen_name: "pengwynn", extra: "option"}).to_return(body: fixture("following.json"), headers: {content_type: "application/json; charset=utf-8"})
+      end
+
+      it "does not mutate the original options hash" do
+        options = {extra: "option"}
+        options_copy = options.dup
+        @client.friendship("sferik", "pengwynn", options)
+        expect(options).to eq(options_copy)
+      end
+    end
   end
 
   describe "#friendship?" do
@@ -501,6 +562,17 @@ describe Twitter::REST::FriendsAndFollowers do
       it "returns false if user A does not follow user B" do
         friendship = @client.friendship?("pengwynn", "sferik")
         expect(friendship).to be false
+      end
+    end
+
+    context "with options" do
+      before do
+        stub_get("/1.1/friendships/show.json").with(query: {source_screen_name: "sferik", target_screen_name: "pengwynn", extra: "option"}).to_return(body: fixture("following.json"), headers: {content_type: "application/json; charset=utf-8"})
+      end
+
+      it "passes options through to the request" do
+        @client.friendship?("sferik", "pengwynn", extra: "option")
+        expect(a_get("/1.1/friendships/show.json").with(query: {source_screen_name: "sferik", target_screen_name: "pengwynn", extra: "option"})).to have_been_made
       end
     end
 
@@ -721,6 +793,26 @@ describe Twitter::REST::FriendsAndFollowers do
       expect(no_retweet_ids).to be_an Array
       expect(no_retweet_ids.first).to be_an Integer
       expect(no_retweet_ids.first).to eq(47)
+    end
+
+    it "coerces string ids into integers" do
+      stub_get("/1.1/friendships/no_retweets/ids.json").to_return(body: "[\"47\",\"48431692\"]", headers: {content_type: "application/json; charset=utf-8"})
+
+      no_retweet_ids = @client.no_retweet_ids
+
+      expect(no_retweet_ids).to eq([47, 48_431_692])
+      expect(no_retweet_ids).to all(be_an(Integer))
+    end
+
+    context "with options" do
+      before do
+        stub_get("/1.1/friendships/no_retweets/ids.json").with(query: {stringify_ids: "true"}).to_return(body: fixture("ids.json"), headers: {content_type: "application/json; charset=utf-8"})
+      end
+
+      it "passes options to the request" do
+        @client.no_retweet_ids(stringify_ids: true)
+        expect(a_get("/1.1/friendships/no_retweets/ids.json").with(query: {stringify_ids: "true"})).to have_been_made
+      end
     end
   end
 end

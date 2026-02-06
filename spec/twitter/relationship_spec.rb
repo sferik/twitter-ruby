@@ -48,4 +48,19 @@ describe Twitter::Relationship do
       expect(relationship.target?).to be false
     end
   end
+
+  describe "#initialize" do
+    it "supports initialization without arguments" do
+      relationship = described_class.new
+      expect(relationship.source).to be_nil
+      expect(relationship.target).to be_nil
+    end
+
+    it "uses hash defaults when relationship key is missing" do
+      attrs = Hash.new({source: {id: 7_505_382}})
+      relationship = described_class.new(attrs)
+      expect(relationship.source).to be_a(Twitter::SourceUser)
+      expect(relationship.source.id).to eq(7_505_382)
+    end
+  end
 end

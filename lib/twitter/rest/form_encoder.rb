@@ -39,7 +39,7 @@ module Twitter
       # @param array [Array] The array of values
       # @return [String]
       def self.encode_array(key, array)
-        array.collect { |item| encode_array_item(key, item) }.join("&")
+        array.collect { |item| encode_array_item(key, item) }
       end
 
       # Encodes a single array item
@@ -58,7 +58,7 @@ module Twitter
       # @param value [Object] The value to escape
       # @return [String]
       def self.escape(value)
-        ::URI::DEFAULT_PARSER.escape(value.to_s, UNESCAPED_CHARS) # steep:ignore UnknownConstant
+        URI::DEFAULT_PARSER.escape(value.to_s, UNESCAPED_CHARS) # steep:ignore UnknownConstant
       end
 
       private_class_method :encode_pair, :encode_array, :encode_array_item, :escape

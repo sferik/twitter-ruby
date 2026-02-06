@@ -2,7 +2,7 @@ require "twitter/base"
 
 module Twitter
   # Represents metadata about a search result
-  class Metadata < Twitter::Base
+  class Metadata < Base
     # The ISO language code
     #
     # @api public

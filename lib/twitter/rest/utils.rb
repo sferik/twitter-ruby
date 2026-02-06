@@ -1,6 +1,7 @@
 require "addressable/uri"
 require "twitter/arguments"
 require "twitter/cursor"
+require "twitter/identity"
 require "twitter/rest/request"
 require "twitter/user"
 require "twitter/utils"
@@ -24,13 +25,13 @@ module Twitter
       # @return [Integer]
       def extract_id(object)
         case object
-        when ::Integer
+        when Integer
           object
-        when ::String
-          object.split("/").last.to_i
+        when String
+          Integer(object.split("/").last)
         when URI, Addressable::URI
-          object.path.split("/").last.to_i # steep:ignore NoMethod
-        when Twitter::Identity
+          Integer(object.path.split("/").last) # steep:ignore NoMethod
+        when Identity
           object.id
         end
       end
@@ -64,7 +65,7 @@ module Twitter
       # @param params [Hash]
       # @return [Hash, Array]
       def perform_request(request_method, path, options = {}, params = nil)
-        Twitter::REST::Request.new(self, request_method, path, options, params).perform
+        Request.new(self, request_method, path, options, params).perform
       end
 
       # Perform a GET request and return an object
@@ -155,8 +156,8 @@ module Twitter
           merge_default_cursor!(options)
         end
 
-        request = Twitter::REST::Request.new(self, :get, path, options)
-        Twitter::Cursor.new(collection_name.to_sym, klass, request, limit)
+        request = Request.new(self, :get, path, options)
+        Cursor.new(collection_name, klass, request, limit)
       end
 
       # Perform parallel user requests
@@ -167,9 +168,9 @@ module Twitter
       # @param args [Array]
       # @return [Array<Twitter::User>]
       def parallel_users_from_response(request_method, path, args)
-        arguments = Twitter::Arguments.new(args)
+        arguments = Arguments.new(args)
         pmap(arguments) do |user|
-          perform_request_with_object(request_method, path, merge_user(arguments.options, user), Twitter::User) # steep:ignore ArgumentTypeMismatch
+          perform_request_with_object(request_method, path, merge_user(arguments.options, user), User) # steep:ignore ArgumentTypeMismatch
         end
       end
 
@@ -181,9 +182,9 @@ module Twitter
       # @param args [Array]
       # @return [Array<Twitter::User>]
       def users_from_response(request_method, path, args)
-        arguments = Twitter::Arguments.new(args)
-        merge_user!(arguments.options, arguments.pop || user_id) unless arguments.options[:user_id] || arguments.options[:screen_name]
-        perform_request_with_objects(request_method, path, arguments.options, Twitter::User)
+        arguments = Arguments.new(args)
+        merge_user!(arguments.options, arguments.pop || user_id) unless arguments.options.key?(:user_id) || arguments.options.key?(:screen_name)
+        perform_request_with_objects(request_method, path, arguments.options, User)
       end
 
       # Get objects from response with user
@@ -195,7 +196,7 @@ module Twitter
       # @param args [Array]
       # @return [Array]
       def objects_from_response_with_user(klass, request_method, path, args)
-        arguments = Twitter::Arguments.new(args)
+        arguments = Arguments.new(args)
         merge_user!(arguments.options, arguments.pop)
         perform_request_with_objects(request_method, path, arguments.options, klass)
       end
@@ -209,7 +210,7 @@ module Twitter
       # @param args [Array]
       # @return [Array]
       def parallel_objects_from_response(klass, request_method, path, args)
-        arguments = Twitter::Arguments.new(args)
+        arguments = Arguments.new(args)
         pmap(arguments) do |object|
           perform_request_with_object(request_method, path, arguments.options.merge(id: extract_id(object)), klass)
         end
@@ -238,8 +239,8 @@ module Twitter
       # @param args [Array]
       # @return [Twitter::Cursor]
       def cursor_from_response_with_user(collection_name, klass, path, args)
-        arguments = Twitter::Arguments.new(args)
-        merge_user!(arguments.options, arguments.pop || user_id) unless arguments.options[:user_id] || arguments.options[:screen_name]
+        arguments = Arguments.new(args)
+        merge_user!(arguments.options, arguments.pop || user_id) unless arguments.options.key?(:user_id) || arguments.options.key?(:screen_name)
         perform_get_with_cursor(path, arguments.options, collection_name, klass)
       end
 
@@ -294,7 +295,7 @@ module Twitter
           set_compound_key("screen_name", user, hash, prefix)
         when URI, Addressable::URI
           set_compound_key("screen_name", user.path.split("/").last, hash, prefix) # steep:ignore NoMethod
-        when Twitter::User
+        when User
           set_compound_key("user_id", user.id, hash, prefix)
         end
       end
@@ -347,9 +348,9 @@ module Twitter
         screen_names = [] #: Array[String]
         users.each do |user|
           case user
-          when Integer               then user_ids << user
-          when Twitter::User         then user_ids << user.id
-          when String                then screen_names << user
+          when Integer then user_ids << user
+          when User    then user_ids << user.id
+          when String  then screen_names << user
           when URI, Addressable::URI then screen_names << user.path.split("/").last # steep:ignore NoMethod
           end
         end

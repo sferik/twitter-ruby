@@ -24,6 +24,17 @@ describe Twitter::REST::Tweets do
       end
     end
 
+    context "with options" do
+      before do
+        stub_get("/1.1/statuses/retweets/540897316908331009.json").with(query: {count: "5"}).to_return(body: fixture("retweets.json"), headers: {content_type: "application/json; charset=utf-8"})
+      end
+
+      it "passes options to the request" do
+        @client.retweets(540_897_316_908_331_009, count: 5)
+        expect(a_get("/1.1/statuses/retweets/540897316908331009.json").with(query: {count: "5"})).to have_been_made
+      end
+    end
+
     context "with a URI object passed" do
       it "requests the correct resource" do
         tweet = URI.parse("https://twitter.com/sferik/status/540897316908331009")
@@ -57,6 +68,30 @@ describe Twitter::REST::Tweets do
           ids = @client.retweeters_of(540_897_316_908_331_009, ids_only: true)
           expect(ids).to be_an Array
           expect(ids.first).to eq(7_505_382)
+        end
+      end
+
+      context "with ids_only as false" do
+        before do
+          stub_get("/1.1/statuses/retweets/540897316908331009.json").to_return(body: fixture("retweets.json"), headers: {content_type: "application/json; charset=utf-8"})
+        end
+
+        it "returns users, not ids" do
+          users = @client.retweeters_of(540_897_316_908_331_009, ids_only: false)
+          expect(users).to be_an Array
+          expect(users.first).to be_a Twitter::User
+        end
+      end
+
+      context "with ids_only as nil" do
+        before do
+          stub_get("/1.1/statuses/retweets/540897316908331009.json").to_return(body: fixture("retweets.json"), headers: {content_type: "application/json; charset=utf-8"})
+        end
+
+        it "returns users, not ids (nil is falsey)" do
+          users = @client.retweeters_of(540_897_316_908_331_009, ids_only: nil)
+          expect(users).to be_an Array
+          expect(users.first).to be_a Twitter::User
         end
       end
     end
@@ -94,6 +129,23 @@ describe Twitter::REST::Tweets do
         end
       end
     end
+
+    context "with additional options" do
+      before do
+        stub_get("/1.1/statuses/retweets/540897316908331009.json").with(query: {count: "5"}).to_return(body: fixture("retweets.json"), headers: {content_type: "application/json; charset=utf-8"})
+      end
+
+      it "passes options to retweets request" do
+        @client.retweeters_of(540_897_316_908_331_009, count: 5)
+        expect(a_get("/1.1/statuses/retweets/540897316908331009.json").with(query: {count: "5"})).to have_been_made
+      end
+
+      it "does not modify the original options hash" do
+        options = {count: 5, ids_only: true}
+        @client.retweeters_of(540_897_316_908_331_009, options)
+        expect(options).to eq({count: 5, ids_only: true})
+      end
+    end
   end
 
   describe "#status" do
@@ -110,6 +162,17 @@ describe Twitter::REST::Tweets do
       tweet = @client.status(540_897_316_908_331_009)
       expect(tweet).to be_a Twitter::Tweet
       expect(tweet.text).to eq("Powerful cartoon by @BillBramhall: http://t.co/IOEbc5QoES")
+    end
+
+    context "with options" do
+      before do
+        stub_get("/1.1/statuses/show/540897316908331009.json").with(query: {trim_user: "true"}).to_return(body: fixture("status.json"), headers: {content_type: "application/json; charset=utf-8"})
+      end
+
+      it "passes options to the request" do
+        @client.status(540_897_316_908_331_009, trim_user: true)
+        expect(a_get("/1.1/statuses/show/540897316908331009.json").with(query: {trim_user: "true"})).to have_been_made
+      end
     end
 
     context "with a URI object passed" do
@@ -348,6 +411,18 @@ describe Twitter::REST::Tweets do
         expect(a_post("/1.1/statuses/update.json").with(body: {status: "Powerful cartoon by @BillBramhall: http://t.co/IOEbc5QoES", place_id: "df51dec6f4ee2b2c"})).to have_been_made
       end
     end
+
+    context "with options modification verification" do
+      before do
+        stub_post("/1.1/statuses/update.json").to_return(body: fixture("status.json"), headers: {content_type: "application/json; charset=utf-8"})
+      end
+
+      it "does not modify the original options hash" do
+        options = {in_reply_to_status: Twitter::Tweet.new(id: 1)}
+        @client.update!("Test", options)
+        expect(options).to eq({in_reply_to_status: Twitter::Tweet.new(id: 1)})
+      end
+    end
   end
 
   describe "#retweet" do
@@ -369,6 +444,17 @@ describe Twitter::REST::Tweets do
       expect(tweets.first.retweeted_tweet.id).not_to eq(tweets.first.id)
     end
 
+    context "with options" do
+      before do
+        stub_post("/1.1/statuses/retweet/540897316908331009.json").with(body: {trim_user: "true"}).to_return(body: fixture("retweet.json"), headers: {content_type: "application/json; charset=utf-8"})
+      end
+
+      it "passes options to the request" do
+        @client.retweet(540_897_316_908_331_009, trim_user: true)
+        expect(a_post("/1.1/statuses/retweet/540897316908331009.json").with(body: {trim_user: "true"})).to have_been_made
+      end
+    end
+
     context "already retweeted" do
       before do
         stub_post("/1.1/statuses/retweet/540897316908331009.json").to_return(status: 403, body: fixture("already_retweeted.json"), headers: {content_type: "application/json; charset=utf-8"})
@@ -386,6 +472,22 @@ describe Twitter::REST::Tweets do
 
       it "does not raise an error" do
         expect { @client.retweet(540_897_316_908_331_009) }.not_to raise_error
+      end
+    end
+
+    context "with mixed success and failure" do
+      before do
+        stub_post("/1.1/statuses/retweet/111.json").to_return(body: fixture("retweet.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_post("/1.1/statuses/retweet/222.json").to_return(status: 403, body: fixture("already_retweeted.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_post("/1.1/statuses/retweet/333.json").to_return(body: fixture("retweet.json"), headers: {content_type: "application/json; charset=utf-8"})
+      end
+
+      it "returns only successful retweets without nils" do
+        tweets = @client.retweet(111, 222, 333)
+        expect(tweets).to be_an Array
+        expect(tweets.size).to eq(2)
+        expect(tweets).to all(be_a(Twitter::Tweet))
+        expect(tweets).not_to include(nil)
       end
     end
 
@@ -423,6 +525,17 @@ describe Twitter::REST::Tweets do
       expect(tweets.first.text).to eq("RT @gruber: As for the Series, I'm for the Giants. Fuck Texas, fuck Nolan Ryan, fuck George Bush.")
       expect(tweets.first.retweeted_tweet.text).to eq("As for the Series, I'm for the Giants. Fuck Texas, fuck Nolan Ryan, fuck George Bush.")
       expect(tweets.first.retweeted_tweet.id).not_to eq(tweets.first.id)
+    end
+
+    context "with options" do
+      before do
+        stub_post("/1.1/statuses/retweet/540897316908331009.json").with(body: {trim_user: "true"}).to_return(body: fixture("retweet.json"), headers: {content_type: "application/json; charset=utf-8"})
+      end
+
+      it "passes options to the request" do
+        @client.retweet!(540_897_316_908_331_009, trim_user: true)
+        expect(a_post("/1.1/statuses/retweet/540897316908331009.json").with(body: {trim_user: "true"})).to have_been_made
+      end
     end
 
     context "forbidden" do
@@ -496,6 +609,10 @@ describe Twitter::REST::Tweets do
 
         before do
           allow(File).to receive(:size).with(big_gif).and_return(7_000_000)
+          init_request = {body: fixture("chunk_upload_init.json"), headers: {content_type: "application/json; charset=utf-8"}}
+          append_request = {body: "", headers: {content_type: "text/html;charset=utf-8"}}
+          finalize_request = {body: fixture("chunk_upload_finalize_succeeded.json"), headers: {content_type: "application/json; charset=utf-8"}}
+          stub_request(:post, "https://upload.twitter.com/1.1/media/upload.json").to_return(init_request, append_request, finalize_request)
         end
 
         it "requests the correct resource" do
@@ -508,6 +625,15 @@ describe Twitter::REST::Tweets do
           tweet = @client.update_with_media("Powerful cartoon by @BillBramhall: http://t.co/IOEbc5QoES", big_gif)
           expect(tweet).to be_a Twitter::Tweet
           expect(tweet.text).to eq("Powerful cartoon by @BillBramhall: http://t.co/IOEbc5QoES")
+        end
+
+        it "sends the correct media_category for gif" do
+          @client.update_with_media("Powerful cartoon by @BillBramhall: http://t.co/IOEbc5QoES", big_gif)
+          expect(a_request(:post, "https://upload.twitter.com/1.1/media/upload.json").with { |req|
+            req.body.include?("command=INIT") &&
+            req.body.include?("media_type=image%2Fgif") &&
+            req.body.include?("media_category=tweet_gif")
+          }).to have_been_made
         end
       end
     end
@@ -545,6 +671,48 @@ describe Twitter::REST::Tweets do
         @client.update_with_media("You always have options", fixture("1080p.mp4"))
         expect(a_request(:post, "https://upload.twitter.com/1.1/media/upload.json")).to have_been_made.times(3)
         expect(a_post("/1.1/statuses/update.json")).to have_been_made
+      end
+
+      it "sends the correct INIT request parameters" do
+        init_request = {body: fixture("chunk_upload_init.json"), headers: {content_type: "application/json; charset=utf-8"}}
+        append_request = {body: "", headers: {content_type: "text/html;charset=utf-8"}}
+        finalize_request = {body: fixture("chunk_upload_finalize_succeeded.json"), headers: {content_type: "application/json; charset=utf-8"}}
+        stub_request(:post, "https://upload.twitter.com/1.1/media/upload.json").to_return(init_request, append_request, finalize_request)
+        mp4_file = fixture("1080p.mp4")
+        @client.update_with_media("You always have options", mp4_file)
+        expect(a_request(:post, "https://upload.twitter.com/1.1/media/upload.json").with { |req|
+          req.body.include?("command=INIT") &&
+          req.body.include?("media_type=video%2Fmp4") &&
+          req.body.include?("media_category=tweet_video") &&
+          req.body.include?("total_bytes=")
+        }).to have_been_made
+      end
+
+      it "sends the correct APPEND request parameters with segment_index starting at 0" do
+        init_request = {body: fixture("chunk_upload_init.json"), headers: {content_type: "application/json; charset=utf-8"}}
+        append_request = {body: "", headers: {content_type: "text/html;charset=utf-8"}}
+        finalize_request = {body: fixture("chunk_upload_finalize_succeeded.json"), headers: {content_type: "application/json; charset=utf-8"}}
+        stub_request(:post, "https://upload.twitter.com/1.1/media/upload.json").to_return(init_request, append_request, finalize_request)
+        @client.update_with_media("You always have options", fixture("1080p.mp4"))
+        # Multipart form has different format - verify command, media_id, segment_index, and media key
+        expect(a_request(:post, "https://upload.twitter.com/1.1/media/upload.json").with { |req|
+          req.body.include?("name=\"command\"\r\n\r\nAPPEND") &&
+          req.body.include?("name=\"media_id\"\r\n\r\n710511363345354753") &&
+          req.body.include?("name=\"segment_index\"\r\n\r\n0") &&
+          req.body.include?("name=\"media\"")
+        }).to have_been_made
+      end
+
+      it "sends the correct FINALIZE request parameters" do
+        init_request = {body: fixture("chunk_upload_init.json"), headers: {content_type: "application/json; charset=utf-8"}}
+        append_request = {body: "", headers: {content_type: "text/html;charset=utf-8"}}
+        finalize_request = {body: fixture("chunk_upload_finalize_succeeded.json"), headers: {content_type: "application/json; charset=utf-8"}}
+        stub_request(:post, "https://upload.twitter.com/1.1/media/upload.json").to_return(init_request, append_request, finalize_request)
+        @client.update_with_media("You always have options", fixture("1080p.mp4"))
+        expect(a_request(:post, "https://upload.twitter.com/1.1/media/upload.json").with { |req|
+          req.body.include?("command=FINALIZE") &&
+          req.body.include?("media_id=710511363345354753")
+        }).to have_been_made
       end
 
       context "when the processing is not finished right after the upload" do
@@ -593,6 +761,19 @@ describe Twitter::REST::Tweets do
             expect(a_request(:post, "https://upload.twitter.com/1.1/media/upload.json")).to have_been_made.times(3)
           end
         end
+
+        context "when Twitter::Client#timeouts is set without an upload key" do
+          before { @client.timeouts = {other: 10} }
+
+          it "does not raise an error for the timeout" do
+            init_request = {body: fixture("chunk_upload_init.json"), headers: {content_type: "application/json; charset=utf-8"}}
+            append_request = {body: "", headers: {content_type: "text/html;charset=utf-8"}}
+            finalize_request = {body: fixture("chunk_upload_finalize_succeeded.json"), headers: {content_type: "application/json; charset=utf-8"}}
+            stub_request(:post, "https://upload.twitter.com/1.1/media/upload.json").to_return(init_request, append_request, finalize_request)
+            @client.update_with_media("You always have options", fixture("1080p.mp4"))
+            expect(a_request(:post, "https://upload.twitter.com/1.1/media/upload.json")).to have_been_made.times(3)
+          end
+        end
       end
     end
 
@@ -610,6 +791,40 @@ describe Twitter::REST::Tweets do
         expect(a_request(:post, "https://upload.twitter.com/1.1/media/upload.json")).to have_been_made.times(2)
         expect(a_post("/1.1/statuses/update.json")).to have_been_made
       end
+
+      it "sends comma-separated media_ids" do
+        # Stub uploads to return different media IDs
+        stub_request(:post, "https://upload.twitter.com/1.1/media/upload.json")
+          .to_return(
+            {body: '{"media_id": 111}', headers: {content_type: "application/json; charset=utf-8"}},
+            {body: '{"media_id": 222}', headers: {content_type: "application/json; charset=utf-8"}}
+          )
+        stub_post("/1.1/statuses/update.json").with(body: hash_including(media_ids: "111,222")).to_return(body: fixture("status.json"), headers: {content_type: "application/json; charset=utf-8"})
+        @client.update_with_media("Multiple images", [fixture("me.jpeg"), fixture("me.jpeg")])
+        expect(a_post("/1.1/statuses/update.json").with(body: hash_including(media_ids: "111,222"))).to have_been_made
+      end
+    end
+
+    context "with options" do
+      it "does not modify the original options hash" do
+        options = {possibly_sensitive: true}
+        @client.update_with_media("Test", fixture("pbjt.gif"), options)
+        expect(options).to eq({possibly_sensitive: true})
+      end
+
+      it "passes options to the update request" do
+        stub_post("/1.1/statuses/update.json").with(body: hash_including(possibly_sensitive: "true")).to_return(body: fixture("status.json"), headers: {content_type: "application/json; charset=utf-8"})
+        @client.update_with_media("Test", fixture("pbjt.gif"), possibly_sensitive: true)
+        expect(a_post("/1.1/statuses/update.json").with(body: hash_including(possibly_sensitive: "true"))).to have_been_made
+      end
+    end
+
+    context "status text verification" do
+      it "passes the status text to the update request" do
+        stub_post("/1.1/statuses/update.json").with(body: hash_including(status: "My status text")).to_return(body: fixture("status.json"), headers: {content_type: "application/json; charset=utf-8"})
+        @client.update_with_media("My status text", fixture("pbjt.gif"))
+        expect(a_post("/1.1/statuses/update.json").with(body: hash_including(status: "My status text"))).to have_been_made
+      end
     end
 
     context "with a .mov video file" do
@@ -624,6 +839,24 @@ describe Twitter::REST::Tweets do
         @client.update_with_media("Video test", mov_file)
         expect(a_request(:post, "https://upload.twitter.com/1.1/media/upload.json")).to have_been_made.times(3)
         expect(a_post("/1.1/statuses/update.json")).to have_been_made
+        mov_file.close
+        mov_file.unlink
+      end
+
+      it "sends the correct INIT request parameters with quicktime media type" do
+        init_request = {body: fixture("chunk_upload_init.json"), headers: {content_type: "application/json; charset=utf-8"}}
+        append_request = {body: "", headers: {content_type: "text/html;charset=utf-8"}}
+        finalize_request = {body: fixture("chunk_upload_finalize_succeeded.json"), headers: {content_type: "application/json; charset=utf-8"}}
+        stub_request(:post, "https://upload.twitter.com/1.1/media/upload.json").to_return(init_request, append_request, finalize_request)
+        mov_file = Tempfile.new(["test", ".mov"])
+        mov_file.write("test video content")
+        mov_file.rewind
+        @client.update_with_media("Video test", mov_file)
+        expect(a_request(:post, "https://upload.twitter.com/1.1/media/upload.json").with { |req|
+          req.body.include?("command=INIT") &&
+          req.body.include?("media_type=video%2Fquicktime") &&
+          req.body.include?("media_category=tweet_video")
+        }).to have_been_made
         mov_file.close
         mov_file.unlink
       end
@@ -649,6 +882,23 @@ describe Twitter::REST::Tweets do
     it "returns an array of OEmbed instances" do
       oembed = @client.oembed(540_897_316_908_331_009)
       expect(oembed).to be_a Twitter::OEmbed
+    end
+
+    context "with options" do
+      before do
+        stub_get("/1.1/statuses/oembed.json").with(query: {id: "540897316908331009", maxwidth: "300"}).to_return(body: fixture("oembed.json"), headers: {content_type: "application/json; charset=utf-8"})
+      end
+
+      it "passes options to the request" do
+        @client.oembed(540_897_316_908_331_009, maxwidth: 300)
+        expect(a_get("/1.1/statuses/oembed.json").with(query: {id: "540897316908331009", maxwidth: "300"})).to have_been_made
+      end
+
+      it "does not modify the original options hash" do
+        options = {maxwidth: 300}
+        @client.oembed(540_897_316_908_331_009, options)
+        expect(options).to eq({maxwidth: 300})
+      end
     end
 
     context "with a URI object passed" do
@@ -687,6 +937,17 @@ describe Twitter::REST::Tweets do
       oembeds = @client.oembeds(540_897_316_908_331_009)
       expect(oembeds).to be_an Array
       expect(oembeds.first).to be_a Twitter::OEmbed
+    end
+
+    context "with options" do
+      before do
+        stub_get("/1.1/statuses/oembed.json").with(query: {id: "540897316908331009", maxwidth: "300"}).to_return(body: fixture("oembed.json"), headers: {content_type: "application/json; charset=utf-8"})
+      end
+
+      it "passes options to each oembed request" do
+        @client.oembeds(540_897_316_908_331_009, maxwidth: 300)
+        expect(a_get("/1.1/statuses/oembed.json").with(query: {id: "540897316908331009", maxwidth: "300"})).to have_been_made
+      end
     end
 
     context "with a URI object passed" do
@@ -770,6 +1031,17 @@ describe Twitter::REST::Tweets do
       expect(tweets.first.retweeted_tweet.id).not_to eq(tweets.first.id)
     end
 
+    context "with options" do
+      before do
+        stub_post("/1.1/statuses/unretweet/540897316908331009.json").with(body: {trim_user: "true"}).to_return(body: fixture("retweet.json"), headers: {content_type: "application/json; charset=utf-8"})
+      end
+
+      it "passes options to the request" do
+        @client.unretweet(540_897_316_908_331_009, trim_user: true)
+        expect(a_post("/1.1/statuses/unretweet/540897316908331009.json").with(body: {trim_user: "true"})).to have_been_made
+      end
+    end
+
     context "not found" do
       before do
         stub_post("/1.1/statuses/unretweet/540897316908331009.json").to_return(status: 404, body: fixture("not_found.json"), headers: {content_type: "application/json; charset=utf-8"})
@@ -777,6 +1049,22 @@ describe Twitter::REST::Tweets do
 
       it "does not raise an error" do
         expect { @client.unretweet(540_897_316_908_331_009) }.not_to raise_error
+      end
+    end
+
+    context "with mixed success and failure" do
+      before do
+        stub_post("/1.1/statuses/unretweet/111.json").to_return(body: fixture("retweet.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_post("/1.1/statuses/unretweet/222.json").to_return(status: 404, body: fixture("not_found.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_post("/1.1/statuses/unretweet/333.json").to_return(body: fixture("retweet.json"), headers: {content_type: "application/json; charset=utf-8"})
+      end
+
+      it "returns only successful unretweets without nils" do
+        tweets = @client.unretweet(111, 222, 333)
+        expect(tweets).to be_an Array
+        expect(tweets.size).to eq(2)
+        expect(tweets).to all(be_a(Twitter::Tweet))
+        expect(tweets).not_to include(nil)
       end
     end
 

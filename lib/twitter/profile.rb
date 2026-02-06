@@ -7,35 +7,8 @@ module Twitter
   module Profile
     # Regular expression for profile image suffix
     PROFILE_IMAGE_SUFFIX_REGEX = /_normal(\.gif|\.jpe?g|\.png)$/i
-    # Regular expression for predicate URI methods
-    PREDICATE_URI_METHOD_REGEX = /_uri\?$/
     include Memoizable
 
-    class << self
-    private
-
-      # Aliases predicate URI methods to URL variants
-      #
-      # @api private
-      # @param method [Symbol] The method name to alias
-      # @return [void]
-      def alias_predicate_uri_methods(method)
-        %w[_url? _uri_https? _url_https?].each do |replacement|
-          alias_method_sub(method, PREDICATE_URI_METHOD_REGEX, replacement)
-        end
-      end
-
-      # Substitutes method name pattern and creates alias
-      #
-      # @api private
-      # @param method [Symbol] The method name
-      # @param pattern [Regexp] The pattern to match
-      # @param replacement [String] The replacement string
-      # @return [void]
-      def alias_method_sub(method, pattern, replacement)
-        alias_method(method.to_s.sub(pattern, replacement).to_sym, method)
-      end
-    end
 
     # Returns the URL to the user's profile banner image
     #
@@ -85,7 +58,9 @@ module Twitter
       !!@attrs[:profile_banner_url] # steep:ignore FallbackAny
     end
     memoize :profile_banner_uri?
-    alias_predicate_uri_methods :profile_banner_uri?
+    alias profile_banner_url? profile_banner_uri?
+    alias profile_banner_uri_https? profile_banner_uri?
+    alias profile_banner_url_https? profile_banner_uri?
 
     # Returns the URL to the user's profile image
     #
@@ -141,7 +116,9 @@ module Twitter
       !!@attrs[:profile_image_url_https] # steep:ignore FallbackAny
     end
     memoize :profile_image_uri?
-    alias_predicate_uri_methods :profile_image_uri?
+    alias profile_image_url? profile_image_uri?
+    alias profile_image_uri_https? profile_image_uri?
+    alias profile_image_url_https? profile_image_uri?
 
   private
 
@@ -160,7 +137,7 @@ module Twitter
     # @param uri [Object] The URI to convert
     # @return [String]
     def insecure_uri(uri)
-      uri.to_s.sub(/^https/i, "http")
+      uri.to_s.sub(/\Ahttps/i, "http")
     end
 
     # Returns the suffix for profile image URLs

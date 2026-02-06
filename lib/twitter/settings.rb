@@ -2,7 +2,7 @@ require "twitter/base"
 
 module Twitter
   # Represents Twitter account settings
-  class Settings < Twitter::Base
+  class Settings < Base
     # The sleep time settings
     #
     # @api public
