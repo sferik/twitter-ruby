@@ -179,7 +179,7 @@ module Twitter
       # @return [String]
       def to_url_params(params)
         uri = Addressable::URI.new
-        uri.query_values = params
+        uri.query_values = params # steep:ignore ArgumentTypeMismatch
         uri.query
       end
 

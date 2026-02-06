@@ -48,7 +48,8 @@ module Twitter
     #   rate_limit.reset_in
     # @return [Integer]
     def reset_in
-      [(reset_at - Time.now).ceil, 0].max if reset_at
+      time = reset_at
+      [(time - Time.now).ceil, 0].max if time
     end
 
     # @!method retry_after

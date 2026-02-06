@@ -40,7 +40,8 @@ module Twitter
     # @return [Twitter::GeoResults]
     def initialize(attrs = {})
       @attrs = attrs
-      @collection = @attrs[:result].fetch(:places, []).collect do |place|
+      empty_array = [] #: Array[untyped]
+      @collection = @attrs[:result].fetch(:places, empty_array).collect do |place|
         Place.new(place)
       end
     end

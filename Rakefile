@@ -30,4 +30,9 @@ Yardstick::Rake::Verify.new do |verify|
   verify.threshold = 100
 end
 
-task default: %i[spec rubocop verify_measurements]
+desc "Run Steep type checker"
+task :steep do
+  sh "bundle exec steep check"
+end
+
+task default: %i[spec rubocop verify_measurements steep]

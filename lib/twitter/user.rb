@@ -207,7 +207,7 @@ module Twitter
       def define_entity_uris_methods(key1, key2)
         array = key1.to_s.split("_")
         index = array.index("uris")
-        array[index] = "urls"
+        array[index] = "urls" # steep:ignore UnresolvedOverloading
         url_key = array.join("_").to_sym
         define_entity_uris_method(key1, key2)
         alias_method(url_key, key1)
@@ -223,7 +223,9 @@ module Twitter
       # @return [void]
       def define_entity_uris_method(key1, key2)
         define_method(key1) do
-          @attrs.fetch(:entities, {}).fetch(key2, {}).fetch(:urls, []).collect do |url|
+          empty_hash = {} #: Hash[Symbol, untyped]
+          empty_array = [] #: Array[untyped]
+          @attrs.fetch(:entities, empty_hash).fetch(key2, empty_hash).fetch(:urls, empty_array).collect do |url| # steep:ignore FallbackAny
             Entity::URI.new(url)
           end
         end
@@ -237,7 +239,7 @@ module Twitter
       # @return [void]
       def define_entity_uris_predicate_method(key1)
         define_method(:"#{key1}?") do
-          send(:"#{key1}").any?
+          send(:"#{key1}").any? # steep:ignore NoMethod
         end
         memoize(:"#{key1}?")
       end

@@ -18,8 +18,8 @@ module Twitter
       # @return [Twitter::Streaming::Response]
       def initialize(&block)
         @block     = block
-        @parser    = LLHttp::Parser.new(self, type: :response)
-        @tokenizer = BufferedTokenizer.new("\r\n")
+        @parser    = LLHttp::Parser.new(self, type: :response) # steep:ignore UnknownConstant
+        @tokenizer = BufferedTokenizer.new("\r\n") # steep:ignore UnknownConstant
       end
 
       # Appends data to the parser
@@ -44,7 +44,7 @@ module Twitter
         @tokenizer.extract(data).each do |line|
           next if line.empty?
 
-          @block.call(JSON.parse(line, symbolize_names: true))
+          @block.call(JSON.parse(line, symbolize_names: true)) # steep:ignore UnknownConstant
         end
       end
 

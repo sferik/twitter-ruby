@@ -29,7 +29,7 @@ module Twitter
         when ::String
           object.split("/").last.to_i
         when URI, Addressable::URI
-          object.path.split("/").last.to_i
+          object.path.split("/").last.to_i # steep:ignore NoMethod
         when Twitter::Identity
           object.id
         end
@@ -100,7 +100,7 @@ module Twitter
       # @return [Object]
       def perform_request_with_object(request_method, path, options, klass, params = nil)
         response = perform_request(request_method, path, options, params)
-        klass.new(response)
+        klass.new(response) # steep:ignore UnexpectedPositionalArgument
       end
 
       # Perform a GET request and return objects
@@ -135,7 +135,7 @@ module Twitter
       # @return [Array]
       def perform_request_with_objects(request_method, path, options, klass)
         perform_request(request_method, path, options).collect do |element|
-          klass.new(element)
+          klass.new(element) # steep:ignore UnexpectedPositionalArgument
         end
       end
 
@@ -169,7 +169,7 @@ module Twitter
       def parallel_users_from_response(request_method, path, args)
         arguments = Twitter::Arguments.new(args)
         pmap(arguments) do |user|
-          perform_request_with_object(request_method, path, merge_user(arguments.options, user), Twitter::User)
+          perform_request_with_object(request_method, path, merge_user(arguments.options, user), Twitter::User) # steep:ignore ArgumentTypeMismatch
         end
       end
 
@@ -248,7 +248,7 @@ module Twitter
       # @api private
       # @return [Integer]
       def user_id
-        @user_id ||= verify_credentials(skip_status: true).id
+        @user_id ||= verify_credentials(skip_status: true).id # steep:ignore NoMethod,UnknownInstanceVariable
       end
 
       # Check if user_id is set
@@ -293,7 +293,7 @@ module Twitter
         when String
           set_compound_key("screen_name", user, hash, prefix)
         when URI, Addressable::URI
-          set_compound_key("screen_name", user.path.split("/").last, hash, prefix)
+          set_compound_key("screen_name", user.path.split("/").last, hash, prefix) # steep:ignore NoMethod
         when Twitter::User
           set_compound_key("user_id", user.id, hash, prefix)
         end
@@ -343,14 +343,14 @@ module Twitter
       # @param users [Enumerable]
       # @return [Array<Array, Array>]
       def collect_users(users) # rubocop:disable Metrics/MethodLength
-        user_ids = []
-        screen_names = []
+        user_ids = [] #: Array[Integer]
+        screen_names = [] #: Array[String]
         users.each do |user|
           case user
           when Integer               then user_ids << user
           when Twitter::User         then user_ids << user.id
           when String                then screen_names << user
-          when URI, Addressable::URI then screen_names << user.path.split("/").last
+          when URI, Addressable::URI then screen_names << user.path.split("/").last # steep:ignore NoMethod
           end
         end
         [user_ids, screen_names]

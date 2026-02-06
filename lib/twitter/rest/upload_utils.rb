@@ -33,7 +33,7 @@ module Twitter
       # @see https://developer.twitter.com/en/docs/media/upload-media/uploading-media/chunked-media-upload
       # @return [Hash]
       def chunk_upload(media, media_type, media_category)
-        Timeout.timeout(timeouts&.fetch(:upload, nil), Twitter::Error::TimeoutError) do
+        Timeout.timeout(timeouts&.fetch(:upload, nil), Twitter::Error::TimeoutError) do # steep:ignore UnknownConstant,NoMethod
           init = Twitter::REST::Request.new(self, :post, "https://upload.twitter.com/1.1/media/upload.json",
                                             command: "INIT",
                                             media_type:,

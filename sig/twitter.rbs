@@ -1,0 +1,1626 @@
+# Type signatures for the Twitter gem
+module Twitter
+  # Version information for the Twitter gem
+  module Version
+    def self.major: () -> Integer
+    def self.minor: () -> Integer
+    def self.patch: () -> Integer
+    def self.pre: () -> Integer?
+    def self.to_h: () -> Hash[Symbol, Integer?]
+    def self.to_a: () -> Array[Integer]
+    def self.to_s: () -> String
+
+    private
+    def major: () -> Integer
+    def minor: () -> Integer
+    def patch: () -> Integer
+    def pre: () -> Integer?
+    def to_h: () -> Hash[Symbol, Integer?]
+    def to_a: () -> Array[Integer]
+    def to_s: () -> String
+  end
+
+  # Utility methods for parallel mapping
+  module Utils
+    def self?.flat_pmap: (untyped) ?{ (untyped) -> untyped } -> untyped
+    def self?.pmap: (untyped) ?{ (untyped) -> untyped } -> untyped
+  end
+
+  # Provides iteration support for collections
+  module Enumerable
+    include ::Enumerable[untyped]
+
+    def each: (?Integer start) ?{ (untyped) -> void } -> untyped
+
+    private
+    def last?: () -> bool
+    def reached_limit?: () -> bool
+    def finished?: () -> bool
+    def fetch_next_page: () -> void
+  end
+
+  # A null object that absorbs all method calls
+  # NullObject is created via Naught.build, so we declare it as a Class constant
+  NullObject: Class
+
+  # Base class for Twitter objects
+  class Base
+    extend Forwardable
+    extend Memoizable::ClassMethods
+    include Memoizable
+    include Utils
+
+    attr_reader attrs: Hash[Symbol, untyped]
+
+    alias to_h attrs
+    alias to_hash to_h
+
+    def self.attr_reader: (*untyped) -> void
+    def self.predicate_attr_reader: (*untyped) -> void
+    def self.object_attr_reader: (untyped, untyped, ?untyped?) -> void
+    def self.uri_attr_reader: (*untyped) -> void
+    def self.display_uri_attr_reader: () -> void
+    def self.define_uri_method: (untyped, untyped) -> void
+    def self.define_attribute_method: (untyped, ?untyped?, ?untyped?) -> void
+    def self.define_predicate_method: (untyped, ?untyped) -> void
+
+    def initialize: (?Hash[Symbol, untyped]?) -> void
+    def []: (untyped) -> untyped
+
+    private
+
+    def attr_falsey_or_empty?: (Symbol) -> bool
+    def attrs_for_object: (Symbol, ?Symbol?) -> Hash[Symbol, untyped]
+  end
+
+  # Base class for Twitter objects with an identity
+  class Identity < Base
+    attr_reader id: Integer
+
+    def initialize: (?Hash[Symbol, untyped]) -> void
+  end
+
+  # Represents rate limit information from Twitter API responses
+  class RateLimit
+    extend Memoizable::ClassMethods
+    include Memoizable
+
+    attr_reader attrs: Hash[String, untyped]
+
+    def initialize: (?Hash[String, untyped]?) -> void
+    def limit: () -> Integer?
+    def remaining: () -> Integer?
+    def reset_at: () -> Time?
+    def reset_in: () -> Integer?
+    alias retry_after reset_in
+  end
+
+  # Factory for creating Twitter objects based on type
+  class Factory
+    def self.new: (Symbol, untyped, ?Hash[Symbol, untyped]) -> untyped
+  end
+
+  # Custom error class for rescuing from all Twitter errors
+  class Error < StandardError
+    include Utils
+
+    attr_reader code: Integer?
+    attr_reader rate_limit: RateLimit
+
+    ERRORS: Hash[Integer, singleton(Error)]
+    FORBIDDEN_MESSAGES: Proc
+    MEDIA_ERRORS: Hash[String, singleton(Error)]
+
+    def self.from_response: (untyped, Hash[String, untyped]) -> Error
+    def self.from_processing_response: (Hash[Symbol, untyped], Hash[String, untyped]) -> Error
+    def self.parse_error: (untyped) -> Array[untyped]?
+    def self.extract_message_from_errors: (untyped) -> Array[untyped]
+
+    def initialize: (?untyped, ?Hash[String, untyped], ?Integer?) -> void
+
+    # Error subclasses
+    class ClientError < Error
+    end
+
+    class BadRequest < ClientError
+    end
+
+    class Unauthorized < ClientError
+    end
+
+    class Forbidden < ClientError
+    end
+
+    class AlreadyFavorited < Forbidden
+    end
+
+    class AlreadyRetweeted < Forbidden
+    end
+
+    class DuplicateStatus < Forbidden
+    end
+
+    class NotFound < ClientError
+    end
+
+    class NotAcceptable < ClientError
+    end
+
+    class RequestEntityTooLarge < ClientError
+    end
+
+    class UnprocessableEntity < ClientError
+    end
+
+    class TooManyRequests < ClientError
+    end
+
+    class ServerError < Error
+    end
+
+    class InternalServerError < ServerError
+    end
+
+    class BadGateway < ServerError
+    end
+
+    class ServiceUnavailable < ServerError
+    end
+
+    class GatewayTimeout < ServerError
+    end
+
+    class MediaError < Error
+    end
+
+    class InvalidMedia < MediaError
+    end
+
+    class MediaInternalError < MediaError
+    end
+
+    class UnsupportedMedia < MediaError
+    end
+
+    class TimeoutError < Error
+    end
+
+    # Twitter API error codes
+    module Code
+      AUTHENTICATION_PROBLEM: Integer
+      RESOURCE_NOT_FOUND: Integer
+      SUSPENDED_ACCOUNT: Integer
+      DEPRECATED_CALL: Integer
+      RATE_LIMIT_EXCEEDED: Integer
+      INVALID_OR_EXPIRED_TOKEN: Integer
+      SSL_REQUIRED: Integer
+      UNABLE_TO_VERIFY_CREDENTIALS: Integer
+      OVER_CAPACITY: Integer
+      INTERNAL_ERROR: Integer
+      OAUTH_TIMESTAMP_OUT_OF_RANGE: Integer
+      ALREADY_FAVORITED: Integer
+      FOLLOW_ALREADY_REQUESTED: Integer
+      FOLLOW_LIMIT_EXCEEDED: Integer
+      PROTECTED_STATUS: Integer
+      OVER_UPDATE_LIMIT: Integer
+      DUPLICATE_STATUS: Integer
+      BAD_AUTHENTICATION_DATA: Integer
+      SPAM: Integer
+      LOGIN_VERIFICATION_NEEDED: Integer
+      ENDPOINT_RETIRED: Integer
+      CANNOT_WRITE: Integer
+      CANNOT_MUTE: Integer
+      CANNOT_UNMUTE: Integer
+    end
+  end
+
+  # Base client class for Twitter API authentication
+  class Client
+    include Utils
+
+    attr_accessor access_token: String?
+    attr_accessor access_token_secret: String?
+    attr_accessor consumer_key: String?
+    attr_accessor consumer_secret: String?
+    attr_accessor proxy: untyped
+    attr_accessor timeouts: Hash[Symbol, Integer]?
+    attr_accessor dev_environment: String?
+    attr_accessor bearer_token: String?
+    attr_writer user_agent: String?
+
+    def initialize: (?Hash[Symbol, untyped]) ?{ (self) -> void } -> void
+    def user_token?: () -> bool
+    def bearer_token?: () -> bool
+    def token: () -> String?
+    def user_agent: () -> String
+    def credentials: () -> Hash[Symbol, String?]
+    def credentials?: () -> bool
+
+    private
+
+    def blank_string?: (untyped) -> bool
+  end
+
+  # Represents a basic Twitter user with minimal attributes
+  class BasicUser < Identity
+    attr_reader screen_name: untyped
+
+    def screen_name?: () -> bool
+    def following?: () -> bool
+  end
+
+  # Represents a Twitter user
+  class User < BasicUser
+    include Creatable
+    include Profile
+
+    def self.define_entity_uris_methods: (Symbol, Symbol) -> void
+    def self.define_entity_uris_method: (Symbol, Symbol) -> void
+    def self.define_entity_uris_predicate_method: (Symbol) -> void
+
+    attr_reader connections: untyped
+    attr_reader favourites_count: untyped
+    attr_reader followers_count: untyped
+    attr_reader friends_count: untyped
+    attr_reader listed_count: untyped
+    attr_reader statuses_count: untyped
+    attr_reader utc_offset: untyped
+    attr_reader description: untyped
+    attr_reader email: untyped
+    attr_reader lang: untyped
+    attr_reader location: untyped
+    attr_reader name: untyped
+    attr_reader profile_background_color: untyped
+    attr_reader profile_link_color: untyped
+    attr_reader profile_sidebar_border_color: untyped
+    attr_reader profile_sidebar_fill_color: untyped
+    attr_reader profile_text_color: untyped
+    attr_reader time_zone: untyped
+
+    alias favorites_count favourites_count
+    alias tweets_count statuses_count
+
+    def status: () -> untyped
+    alias tweet status
+    def status?: () -> bool
+    alias tweet? status?
+    alias tweeted? status?
+
+    def contributors_enabled?: () -> bool
+    def default_profile?: () -> bool
+    def default_profile_image?: () -> bool
+    def follow_request_sent?: () -> bool
+    def geo_enabled?: () -> bool
+    def muting?: () -> bool
+    def needs_phone_verification?: () -> bool
+    def notifications?: () -> bool
+    def protected?: () -> bool
+    def profile_background_tile?: () -> bool
+    def profile_use_background_image?: () -> bool
+    def suspended?: () -> bool
+    def verified?: () -> bool
+    def translator?: () -> bool
+    def translation_enabled?: () -> bool
+
+    def profile_background_image_uri: () -> Addressable::URI?
+    alias profile_background_image_url profile_background_image_uri
+    def profile_background_image_uri?: () -> bool
+    alias profile_background_image_url? profile_background_image_uri?
+    def profile_background_image_uri_https: () -> Addressable::URI?
+    alias profile_background_image_url_https profile_background_image_uri_https
+    def profile_background_image_uri_https?: () -> bool
+    alias profile_background_image_url_https? profile_background_image_uri_https?
+
+    def description_uris: () -> Array[Entity::URI]
+    alias description_urls description_uris
+    def description_uris?: () -> bool
+    alias description_urls? description_uris?
+    def website_uris: () -> Array[Entity::URI]
+    alias website_urls website_uris
+    def website_uris?: () -> bool
+    alias website_urls? website_uris?
+
+    def entities?: () -> bool
+    def uri: () -> Addressable::URI?
+    alias url uri
+    def website: () -> Addressable::URI?
+    def website?: () -> bool
+  end
+
+  # Represents a Twitter tweet
+  class Tweet < Identity
+    include Creatable
+    include Entities
+
+    attr_reader filter_level: untyped
+    attr_reader in_reply_to_screen_name: untyped
+    attr_reader lang: untyped
+    attr_reader source: untyped
+    attr_reader text: untyped
+    attr_reader favorite_count: untyped
+    attr_reader in_reply_to_status_id: untyped
+    attr_reader in_reply_to_user_id: untyped
+    attr_reader quote_count: untyped
+    attr_reader reply_count: untyped
+    attr_reader retweet_count: untyped
+
+    alias in_reply_to_tweet_id in_reply_to_status_id
+
+    def filter_level?: () -> bool
+    def in_reply_to_screen_name?: () -> bool
+    def lang?: () -> bool
+    def source?: () -> bool
+    def text?: () -> bool
+    def favorite_count?: () -> bool
+    def in_reply_to_status_id?: () -> bool
+    alias in_reply_to_tweet_id? in_reply_to_status_id?
+    def in_reply_to_user_id?: () -> bool
+    alias reply? in_reply_to_user_id?
+    def quote_count?: () -> bool
+    def reply_count?: () -> bool
+    def retweet_count?: () -> bool
+
+    def geo: () -> untyped
+    def geo?: () -> bool
+    def metadata: () -> untyped
+    def metadata?: () -> bool
+    def place: () -> untyped
+    def place?: () -> bool
+    def retweeted_status: () -> untyped
+    alias retweeted_tweet retweeted_status
+    def retweeted_status?: () -> bool
+    alias retweet? retweeted_status?
+    alias retweeted_tweet? retweeted_status?
+    def quoted_status: () -> untyped
+    alias quoted_tweet quoted_status
+    def quoted_status?: () -> bool
+    alias quote? quoted_status?
+    alias quoted_tweet? quoted_status?
+    def current_user_retweet: () -> untyped
+    def current_user_retweet?: () -> bool
+
+    def user: () -> untyped
+    def user?: () -> bool
+
+    def favorited?: () -> bool
+    def possibly_sensitive?: () -> bool
+    def retweeted?: () -> bool
+    def truncated?: () -> bool
+
+    def initialize: (?Hash[Symbol, untyped]) -> void
+    def full_text: () -> String?
+    def uri: () -> Addressable::URI?
+    alias url uri
+  end
+
+  # Represents a cursor for paginating through Twitter API responses
+  class Cursor
+    include Enumerable
+    include Utils
+
+    @key: Symbol
+    @klass: Class?
+    @client: untyped
+    @request_method: Symbol
+    @path: String
+    @options: Hash[Symbol, untyped]
+    @limit: Integer?
+
+    attr_reader attrs: Hash[Symbol, untyped]
+    attr_accessor collection: Array[untyped]
+
+    alias to_h attrs
+    alias to_hash to_h
+
+    def initialize: (untyped, Class?, REST::Request, ?Integer?) -> void
+    def next_cursor: () -> Integer
+    def previous_cursor: () -> Integer
+
+    private
+    attr_writer attrs: Hash[Symbol, untyped]
+  end
+
+  # Represents search results from Twitter
+  class SearchResults
+    include Enumerable
+    include Utils
+
+    @client: untyped
+    @request_method: Symbol
+    @path: String
+    @options: Hash[Symbol, untyped]
+    @collection: Array[Tweet]
+
+    attr_reader attrs: Hash[Symbol, untyped]
+    attr_reader rate_limit: RateLimit?
+
+    alias to_h attrs
+    alias to_hash to_h
+
+    def initialize: (REST::Request) -> void
+
+    private
+    attr_writer attrs: Hash[Symbol, untyped]
+    def last?: () -> bool
+    def next_page?: () -> bool?
+    def next_page: () -> Hash[Symbol, untyped]?
+    def fetch_next_page: () -> void
+    def query_string_to_hash: (String) -> Hash[Symbol, untyped]
+  end
+
+  # Geo results collection
+  class GeoResults
+    include Enumerable
+    include Utils
+
+    @attrs: Hash[Symbol, untyped]
+    @collection: Array[Place]
+
+    attr_reader attrs: Hash[Symbol, untyped]
+    alias to_h attrs
+    alias to_hash to_h
+
+    def initialize: (?Hash[Symbol, untyped]) -> void
+    def token: () -> untyped
+  end
+
+  # REST API modules
+  module REST
+    # Utility methods for REST API requests
+    module Utils
+      include Twitter::Utils
+
+      DEFAULT_CURSOR: Integer
+
+      private
+      def extract_id: (untyped) -> Integer?
+      def perform_get: (String, ?Hash[Symbol, untyped]) -> untyped
+      def perform_post: (String, ?Hash[Symbol, untyped]) -> untyped
+      def perform_request: (Symbol, String, ?Hash[Symbol, untyped], ?Hash[Symbol, untyped]?) -> untyped
+      def perform_get_with_object: (String, Hash[Symbol, untyped], Class) -> untyped
+      def perform_post_with_object: (String, Hash[Symbol, untyped], Class) -> untyped
+      def perform_request_with_object: (Symbol, String, Hash[Symbol, untyped], Class, ?Hash[Symbol, untyped]?) -> untyped
+      def perform_get_with_objects: (String, Hash[Symbol, untyped], Class) -> Array[untyped]
+      def perform_post_with_objects: (String, Hash[Symbol, untyped], Class) -> Array[untyped]
+      def perform_request_with_objects: (Symbol, String, Hash[Symbol, untyped], Class) -> Array[untyped]
+      def perform_get_with_cursor: (String, Hash[Symbol, untyped], Symbol, ?Class?) -> Cursor
+      def parallel_users_from_response: (Symbol, String, Array[untyped]) -> Array[User]
+      def users_from_response: (Symbol, String, Array[untyped]) -> Array[User]
+      def objects_from_response_with_user: (Class, Symbol, String, Array[untyped]) -> Array[untyped]
+      def parallel_objects_from_response: (Class, Symbol, String, Array[untyped]) -> Array[untyped]
+      def perform_requests: (Symbol, String, Array[untyped]) -> nil
+      def cursor_from_response_with_user: (Symbol, Class?, String, Array[untyped]) -> Cursor
+      def user_id: () -> Integer
+      def user_id?: () -> bool
+      def merge_default_cursor!: (Hash[Symbol, untyped]) -> void
+      def merge_user: (Hash[Symbol, untyped], untyped, ?String?) -> Hash[Symbol, untyped]?
+      def merge_user!: (Hash[Symbol, untyped], untyped, ?String?) -> Hash[Symbol, untyped]?
+      def set_compound_key: (String, untyped, Hash[Symbol, untyped], ?String?) -> Hash[Symbol, untyped]
+      def merge_users: (Hash[Symbol, untyped], untyped) -> Hash[Symbol, untyped]
+      def merge_users!: (Hash[Symbol, untyped], untyped) -> void
+      def collect_users: (untyped) -> [Array[Integer], Array[String]]
+    end
+
+    # Handles HTTP requests to the Twitter API
+    class Request
+      include Twitter::Utils
+
+      BASE_URL: String
+
+      @options_key: Symbol
+      @params: Hash[Symbol, untyped]?
+
+      attr_accessor client: untyped
+      attr_accessor headers: Hash[Symbol, untyped]
+      attr_accessor options: Hash[Symbol, untyped]
+      attr_accessor path: String
+      attr_accessor rate_limit: RateLimit?
+      attr_accessor request_method: Symbol
+      attr_accessor uri: Addressable::URI?
+
+      def verb: () -> Symbol
+      def initialize: (untyped, untyped, String, ?Hash[Symbol, untyped], ?Hash[Symbol, untyped]?) -> void
+      def perform: () -> untyped
+
+      private
+      def request_options: () -> Hash[Symbol, untyped]
+      def merge_multipart_file!: (Hash[Symbol, untyped]) -> void
+      def set_multipart_options!: (Symbol, Hash[Symbol, untyped]) -> void
+      def content_type: (String) -> String
+      def fail_or_return_response_body: (Integer, untyped, untyped) -> untyped
+      def error: (Integer, untyped, untyped) -> Error?
+      def forbidden_error: (untyped, untyped) -> Error
+      def symbolize_keys!: (untyped) -> untyped
+      def timeout_keys_defined: () -> bool
+      def http_client: () -> untyped
+      def proxy: () -> Array[untyped]
+    end
+
+    # REST API client for Twitter
+    class Client < Twitter::Client
+      include REST::API
+
+      attr_accessor bearer_token: String?
+
+      def bearer_token?: () -> bool
+      def credentials?: () -> bool
+    end
+
+    # Combined REST API module
+    module API
+      include AccountActivity
+      include DirectMessages
+      include Favorites
+      include FriendsAndFollowers
+      include Help
+      include Lists
+      include OAuth
+      include PlacesAndGeo
+      include PremiumSearch
+      include SavedSearches
+      include Search
+      include SpamReporting
+      include SuggestedUsers
+      include Timelines
+      include Trends
+      include Tweets
+      include Undocumented
+      include Users
+      include Utils
+    end
+
+    module AccountActivity
+      include Utils
+
+      def create_webhook: (String, String) -> untyped
+      def list_webhooks: (String) -> untyped
+      def delete_webhook: (String, untyped) -> untyped
+      def trigger_crc_check: (String, untyped) -> untyped
+      def create_subscription: (String) -> untyped
+      def check_subscription: (String) -> bool
+      def deactivate_subscription: (String) -> untyped
+    end
+
+    module DirectMessages
+      include Utils
+
+      def direct_messages_events: (?Hash[Symbol, untyped]) -> Cursor
+      def direct_messages_list: (?Hash[Symbol, untyped]) -> Array[untyped]
+      def direct_messages_received: (?Hash[Symbol, untyped]) -> Array[untyped]
+      def direct_messages_sent: (?Hash[Symbol, untyped]) -> Array[untyped]
+      def direct_message: (untyped, ?Hash[Symbol, untyped]) -> untyped
+      def direct_message_event: (untyped, ?Hash[Symbol, untyped]) -> untyped
+      def direct_messages: (*untyped) -> Array[untyped]
+      def destroy_direct_message: (*untyped) -> nil
+      def create_direct_message: (untyped, String, ?Hash[Symbol, untyped]) -> untyped
+      def create_direct_message_event: (*untyped) -> untyped
+      def create_direct_message_event_with_media: (untyped, String, untyped, ?Hash[Symbol, untyped]) -> untyped
+
+      private
+      def format_json_options: (untyped, String, Hash[Symbol, untyped]) -> Hash[Symbol, untyped]
+
+      module WelcomeMessages
+        include Utils
+
+        def create_welcome_message: (String, ?String?, ?Hash[Symbol, untyped]) -> untyped
+        def destroy_welcome_message: (*untyped) -> untyped
+        def update_welcome_message: (untyped, String, ?Hash[Symbol, untyped]) -> untyped
+        def welcome_message: (untyped, ?Hash[Symbol, untyped]) -> untyped
+        def welcome_message_list: (?Hash[Symbol, untyped]) -> Array[untyped]
+        def create_welcome_message_rule: (untyped, ?Hash[Symbol, untyped]) -> untyped
+        def destroy_welcome_message_rule: (*untyped) -> untyped
+        def welcome_message_rule: (untyped, ?Hash[Symbol, untyped]) -> untyped
+        def welcome_message_rule_list: (?Hash[Symbol, untyped]) -> Array[untyped]
+      end
+    end
+
+    module Favorites
+      include Utils
+
+      def favorites: (*untyped) -> Array[Tweet]
+      def unfavorite: (*untyped) -> Array[Tweet]
+      alias destroy_favorite unfavorite
+      def unfavorite!: (*untyped) -> Array[Tweet]
+      alias destroy_favorite! unfavorite!
+      def favorite: (*untyped) -> Array[Tweet]
+      alias create_favorite favorite
+      alias fav favorite
+      alias fave favorite
+      def favorite!: (*untyped) -> Array[Tweet]
+      alias create_favorite! favorite!
+      alias fav! favorite!
+      alias fave! favorite!
+    end
+
+    module FriendsAndFollowers
+      include Utils
+
+      def friend_ids: (*untyped) -> Cursor
+      def follower_ids: (*untyped) -> Cursor
+      def friendships: (*untyped) -> Array[untyped]
+      def friendships_incoming: (?Hash[Symbol, untyped]) -> Cursor
+      def friendships_outgoing: (?Hash[Symbol, untyped]) -> Cursor
+      def follow: (*untyped) -> Array[User]
+      alias create_friendship follow
+      def follow!: (*untyped) -> Array[User]
+      alias create_friendship! follow!
+      def unfollow: (*untyped) -> Array[User]
+      alias destroy_friendship unfollow
+      def friendship_update: (untyped, ?Hash[Symbol, untyped]) -> untyped
+      def friendship: (untyped, untyped, ?Hash[Symbol, untyped]) -> untyped
+      def friendship?: (untyped, untyped, ?Hash[Symbol, untyped]) -> bool
+      def followers: (*untyped) -> Cursor
+      def friends: (*untyped) -> Cursor
+      alias following friends
+      def no_retweet_ids: (?Hash[Symbol, untyped]) -> Cursor
+    end
+
+    module Help
+      include Utils
+
+      def languages: (?Hash[Symbol, untyped]) -> Array[untyped]
+      def privacy: (?Hash[Symbol, untyped]) -> String
+      def tos: (?Hash[Symbol, untyped]) -> String
+    end
+
+    module Lists
+      include Utils
+
+      MAX_USERS_PER_REQUEST: Integer
+
+      def lists: (*untyped) -> Array[untyped]
+      alias lists_owned lists
+      def list_timeline: (*untyped) -> Array[Tweet]
+      def remove_list_member: (*untyped) -> untyped
+      def memberships: (*untyped) -> Cursor
+      alias list_memberships memberships
+      def list_subscribers: (*untyped) -> Cursor
+      def list_subscribe: (*untyped) -> untyped
+      alias list_add list_subscribe
+      def list_subscriber?: (*untyped) -> bool
+      def list_unsubscribe: (*untyped) -> untyped
+      alias list_remove list_unsubscribe
+      def add_list_members: (*untyped) -> untyped
+      def list_member?: (*untyped) -> bool
+      alias list_members? list_member?
+      def list_members: (*untyped) -> Cursor
+      def add_list_member: (*untyped) -> untyped
+      def destroy_list: (*untyped) -> untyped
+      def list_update: (*untyped) -> untyped
+      def create_list: (String, ?Hash[Symbol, untyped]) -> untyped
+      def list: (*untyped) -> untyped
+      def subscriptions: (*untyped) -> Cursor
+      alias list_subscriptions subscriptions
+      def remove_list_members: (*untyped) -> untyped
+      def owned_lists: (*untyped) -> Cursor
+
+      private
+      def list_from_response: (Symbol, String, untyped) -> untyped
+      def cursor_from_response_with_list: (String, untyped) -> Cursor
+      def list_user?: (Symbol, String, untyped) -> bool
+      def list_from_response_with_user: (String, untyped) -> untyped
+      def list_from_response_with_users: (String, untyped) -> untyped
+      def merge_list!: (Hash[Symbol, untyped], untyped) -> void
+      def merge_slug_and_owner!: (Hash[Symbol, untyped], untyped) -> void
+      def merge_list_and_owner!: (Hash[Symbol, untyped], untyped) -> void
+      def merge_owner!: (Hash[Symbol, untyped], untyped) -> void
+    end
+
+    module OAuth
+      include Utils
+
+      def token: (?Hash[Symbol, untyped]) -> untyped
+      alias bearer_token token
+      def invalidate_token: (untyped, ?Hash[Symbol, untyped]) -> untyped
+      def reverse_token: () -> untyped
+    end
+
+    module PlacesAndGeo
+      include Utils
+
+      def place: (String, ?Hash[Symbol, untyped]) -> Place
+      def reverse_geocode: (?Hash[Symbol, untyped]) -> GeoResults
+      def geo_search: (?Hash[Symbol, untyped]) -> GeoResults
+      def similar_places: (?Hash[Symbol, untyped]) -> GeoResults
+    end
+
+    module PremiumSearch
+      include Utils
+
+      MAX_TWEETS_PER_REQUEST: Integer
+
+      def premium_search: (String, ?Hash[Symbol, untyped], ?Hash[Symbol, untyped]) -> PremiumSearchResults
+    end
+
+    module SavedSearches
+      include Utils
+
+      def saved_searches: (*untyped) -> Array[untyped]
+      def saved_search: (untyped, ?Hash[Symbol, untyped]) -> untyped
+      def create_saved_search: (String, ?Hash[Symbol, untyped]) -> untyped
+      def destroy_saved_search: (*untyped) -> Array[untyped]
+    end
+
+    module Search
+      include Utils
+
+      MAX_TWEETS_PER_REQUEST: Integer
+
+      def search: (String, ?Hash[Symbol, untyped]) -> SearchResults
+    end
+
+    module SpamReporting
+      include Utils
+
+      def report_spam: (*untyped) -> Array[User]
+    end
+
+    module SuggestedUsers
+      include Utils
+
+      def suggestions: (*untyped) -> Array[untyped]
+      def suggest_users: (untyped, ?Hash[Symbol, untyped]) -> Array[User]
+    end
+
+    module Timelines
+      include Utils
+
+      DEFAULT_TWEETS_PER_REQUEST: Integer
+      MAX_TWEETS_PER_REQUEST: Integer
+
+      def mentions_timeline: (?Hash[Symbol, untyped]) -> Array[Tweet]
+      alias mentions mentions_timeline
+      def user_timeline: (*untyped) -> Array[Tweet]
+      def retweeted_by_user: (untyped, ?Hash[Symbol, untyped]) -> Array[Tweet]
+      alias retweeted_by retweeted_by_user
+      def retweeted_by_me: (?Hash[Symbol, untyped]) -> Array[Tweet]
+      def home_timeline: (?Hash[Symbol, untyped]) -> Array[Tweet]
+      def retweeted_to_me: (?Hash[Symbol, untyped]) -> Array[Tweet]
+      def retweets_of_me: (?Hash[Symbol, untyped]) -> Array[Tweet]
+
+      private
+      def retweets_from_timeline: (Hash[Symbol, untyped]) ?{ (untyped) -> untyped } -> Array[Tweet]
+      def select_retweets: (untyped) -> Array[Tweet]
+      def collect_with_count: (Integer) ?{ (untyped) -> untyped } -> Array[untyped]
+      def collect_with_max_id: (?Array[untyped], ?Integer?) ?{ (untyped) -> untyped } -> untyped
+    end
+
+    module Trends
+      include Utils
+
+      def trends: (?untyped, ?Hash[Symbol, untyped]) -> TrendResults
+      alias local_trends trends
+      def trends_available: (?Hash[Symbol, untyped]) -> Array[Place]
+      alias trend_locations trends_available
+      def trends_closest: (?Hash[Symbol, untyped]) -> Array[Place]
+    end
+
+    module Tweets
+      include Utils
+      include UploadUtils
+
+      MAX_TWEETS_PER_REQUEST: Integer
+
+      def retweets: (untyped, ?Hash[Symbol, untyped]) -> Array[Tweet]
+      def retweeters_of: (untyped, ?Hash[Symbol, untyped]) -> Array[User]
+      def status: (untyped, ?Hash[Symbol, untyped]) -> Tweet
+      alias tweet status
+      def statuses: (*untyped) -> Array[Tweet]
+      alias tweets statuses
+      def destroy_status: (*untyped) -> Array[Tweet]
+      alias destroy_tweet destroy_status
+      def update: (String, ?Hash[Symbol, untyped]) -> Tweet
+      alias tweet! update
+      def update!: (String, ?Hash[Symbol, untyped]) -> Tweet
+      def retweet: (*untyped) -> Array[Tweet]
+      def retweet!: (*untyped) -> Array[Tweet]
+      def update_with_media: (String, untyped, ?Hash[Symbol, untyped]) -> Tweet
+      def oembed: (untyped, ?Hash[Symbol, untyped]) -> untyped
+      def oembeds: (*untyped) -> Array[untyped]
+      def retweeters_ids: (*untyped) -> Cursor
+      alias retweeters_of_ids retweeters_ids
+      def unretweet: (*untyped) -> Array[Tweet]
+
+      private
+      def array_wrap: (untyped) -> Array[untyped]
+      def post_retweet: (untyped, Hash[Symbol, untyped]) -> Tweet
+      def post_unretweet: (untyped, Hash[Symbol, untyped]) -> Tweet
+    end
+
+    module Undocumented
+      include Utils
+
+      def following_followers_of: (*untyped) -> Cursor
+      def tweet_count: (untyped, ?Hash[Symbol, untyped]) -> Integer
+    end
+
+    module Users
+      include Utils
+
+      MAX_USERS_PER_REQUEST: Integer
+
+      def settings: (?Hash[Symbol, untyped]) -> untyped
+      def verify_credentials: (?Hash[Symbol, untyped]) -> User
+      def update_delivery_device: (untyped, ?Hash[Symbol, untyped]) -> User
+      def update_profile: (?Hash[Symbol, untyped]) -> User
+      def update_profile_background_image: (untyped, ?Hash[Symbol, untyped]) -> User
+      def update_profile_image: (untyped, ?Hash[Symbol, untyped]) -> User
+      def blocked: (?Hash[Symbol, untyped]) -> Cursor
+      alias blocking blocked
+      def blocked_ids: (*untyped) -> Cursor
+      def block?: (untyped, ?Hash[Symbol, untyped]) -> bool
+      def block: (*untyped) -> Array[User]
+      def unblock: (*untyped) -> Array[User]
+      def users: (*untyped) -> Array[User]
+      def user: (*untyped) -> User
+      def user?: (untyped, ?Hash[Symbol, untyped]) -> bool
+      def user_search: (String, ?Hash[Symbol, untyped]) -> Array[User]
+      def contributees: (*untyped) -> Array[User]
+      def contributors: (*untyped) -> Array[User]
+      def remove_profile_banner: (?Hash[Symbol, untyped]) -> untyped
+      def update_profile_banner: (untyped, ?Hash[Symbol, untyped]) -> untyped
+      def profile_banner: (*untyped) -> untyped
+      def mute: (*untyped) -> Array[User]
+      def unmute: (*untyped) -> Array[User]
+      def muted: (?Hash[Symbol, untyped]) -> Cursor
+      def muted_ids: (*untyped) -> Cursor
+
+      private
+      def post_profile_image: (String, untyped, Hash[Symbol, untyped]) -> User
+    end
+
+    module UploadUtils
+      include Utils
+
+      def upload: (untyped, ?media_category_prefix: String) -> untyped
+      def chunk_upload: (untyped, String, String) -> untyped
+      def append_media: (untyped, untyped) -> untyped
+      def finalize_media: (untyped) -> untyped
+    end
+
+    class FormEncoder
+      UNESCAPED_CHARS: Regexp
+
+      def self.encode: (untyped) -> String
+      def self.encode_pair: (untyped, untyped) -> String
+      def self.encode_array: (untyped, Array[untyped]) -> String
+      def self.encode_array_item: (untyped, untyped) -> String
+      def self.escape: (untyped) -> String
+    end
+  end
+
+  # Streaming API modules
+  module Streaming
+    class Connection
+      @using_ssl: bool
+      @write_pipe: IO?
+
+      attr_reader tcp_socket_class: untyped
+      attr_reader ssl_socket_class: untyped
+
+      def initialize: (?Hash[Symbol, untyped]) -> void
+      def stream: (untyped, untyped) -> void
+      def close: () -> void
+
+      private
+      def connect: (untyped) -> untyped
+      def new_tcp_socket: (String, Integer) -> untyped
+    end
+
+    class Response
+      @block: ^(untyped) -> void
+      @parser: untyped
+      @tokenizer: untyped
+
+      def initialize: () { (untyped) -> void } -> void
+      def <<: (untyped) -> void
+      def on_body: (String) -> void
+      def on_status: (untyped) -> void
+    end
+
+    class MessageParser
+      def self.parse: (untyped) -> untyped
+    end
+
+    # Client for consuming the Twitter Streaming API
+    class Client < Twitter::Client
+      include Twitter::Utils
+
+      @before_request: (^() -> void)?
+
+      attr_writer connection: Connection
+
+      def initialize: (?Hash[Symbol, untyped]) ?{ (self) -> void } -> void
+      def filter: (?Hash[Symbol, untyped]) { (untyped) -> void } -> void
+      def firehose: (?Hash[Symbol, untyped]) { (untyped) -> void } -> void
+      def sample: (?Hash[Symbol, untyped]) { (untyped) -> void } -> void
+      def site: (*untyped) { (untyped) -> void } -> void
+      def user: (?Hash[Symbol, untyped]) { (untyped) -> void } -> void
+      def before_request: () ?{ () -> void } -> untyped
+      def close: () -> void
+
+      private
+      def request: (Symbol, String, Hash[Symbol, untyped]) ?{ (untyped) -> void } -> void
+      def to_url_params: (Hash[Symbol, untyped]) -> String?
+      def collect_user_ids: (untyped) -> Array[Integer]
+    end
+
+    class DeletedTweet < Identity
+    end
+
+    class Event
+      LIST_EVENTS: Array[Symbol]
+      TWEET_EVENTS: Array[Symbol]
+
+      attr_reader name: Symbol
+      attr_reader source: User
+      attr_reader target: User
+      attr_reader target_object: untyped
+
+      def initialize: (Hash[Symbol, untyped]) -> void
+
+      private
+      def target_object_factory: (Symbol, untyped) -> untyped
+    end
+
+    class FriendList < Array[Integer]
+    end
+
+    class StallWarning < Base
+    end
+  end
+
+  # Entity class - base class for tweet entities
+  class Entity < Base
+    attr_reader indices: untyped
+    def indices?: () -> bool
+
+    class Hashtag < Entity
+      attr_reader text: untyped
+      def text?: () -> bool
+    end
+
+    class Symbol < Entity
+      attr_reader text: untyped
+      def text?: () -> bool
+    end
+
+    class URI < Entity
+      def display_url: () -> untyped
+      alias display_uri display_url
+      def display_url?: () -> bool
+      alias display_uri? display_url?
+      def expanded_url: () -> Addressable::URI?
+      alias expanded_uri expanded_url
+      def expanded_url?: () -> bool
+      alias expanded_uri? expanded_url?
+      def url: () -> Addressable::URI?
+      alias uri url
+      def url?: () -> bool
+      alias uri? url?
+    end
+
+    class UserMention < Entity
+      attr_reader id: untyped
+      attr_reader name: untyped
+      attr_reader screen_name: untyped
+
+      def id?: () -> bool
+      def name?: () -> bool
+      def screen_name?: () -> bool
+    end
+  end
+
+  class Place < Identity
+    include Memoizable
+
+    attr_reader country: untyped
+    attr_reader full_name: untyped
+    attr_reader name: untyped
+
+    def country?: () -> bool
+    def full_name?: () -> bool
+    def name?: () -> bool
+
+    def bounding_box: () -> untyped
+    def bounding_box?: () -> bool
+    def contained_within: () -> untyped
+    def contained_within?: () -> bool
+    alias contained? contained_within?
+    def uri: () -> Addressable::URI?
+    alias url uri
+    def uri?: () -> bool
+    alias url? uri?
+    def country_code: () -> untyped
+    def parent_id: () -> untyped
+    def place_type: () -> untyped
+
+    alias woe_id id
+    alias woeid id
+  end
+
+  class Trend < Base
+    attr_reader events: untyped
+    attr_reader name: untyped
+    attr_reader query: untyped
+    attr_reader tweet_volume: untyped
+
+    def events?: () -> bool
+    def name?: () -> bool
+    def query?: () -> bool
+    def tweet_volume?: () -> bool
+    def promoted_content?: () -> bool
+    def uri: () -> Addressable::URI?
+    alias url uri
+    def uri?: () -> bool
+    alias url? uri?
+  end
+
+  class TrendResults
+    extend Memoizable::ClassMethods
+    include Creatable
+    include Enumerable
+    include Memoizable
+    include Utils
+
+    @collection: Array[Trend]
+
+    attr_reader attrs: Hash[Symbol, untyped]
+
+    alias to_h attrs
+    alias to_hash to_h
+
+    def initialize: (?Hash[Symbol, untyped]) -> void
+    def as_of: () -> Time?
+    def as_of?: () -> bool
+    def location: () -> (Place | untyped)
+    def location?: () -> bool
+  end
+
+  class List < Identity
+    include Creatable
+
+    attr_reader description: untyped
+    attr_reader full_name: untyped
+    attr_reader member_count: untyped
+    attr_reader mode: untyped
+    attr_reader name: untyped
+    attr_reader slug: untyped
+    attr_reader subscriber_count: untyped
+
+    def description?: () -> bool
+    def full_name?: () -> bool
+    def member_count?: () -> bool
+    def mode?: () -> bool
+    def name?: () -> bool
+    def slug?: () -> bool
+    def subscriber_count?: () -> bool
+
+    def user: () -> untyped
+    def user?: () -> bool
+    def uri: () -> Addressable::URI?
+    alias url uri
+    def uri?: () -> bool
+    alias url? uri?
+    def members_uri: () -> Addressable::URI?
+    alias members_url members_uri
+    def members_uri?: () -> bool
+    alias members_url? members_uri?
+    def subscribers_uri: () -> Addressable::URI?
+    alias subscribers_url subscribers_uri
+    def subscribers_uri?: () -> bool
+    alias subscribers_url? subscribers_uri?
+  end
+
+  class DirectMessage < Identity
+    include Creatable
+
+    attr_reader text: untyped
+
+    def text?: () -> bool
+    def sender: () -> untyped
+    def sender?: () -> bool
+    def recipient: () -> untyped
+    def recipient?: () -> bool
+  end
+
+  class DirectMessageEvent < Identity
+    include Creatable
+    include Entities
+
+    attr_reader created_timestamp: untyped
+
+    def initialize: (untyped) -> void
+    def direct_message: () -> untyped
+    def direct_message?: () -> bool
+    def text: () -> untyped
+    def text?: () -> bool
+    def sender_id: () -> untyped
+    def sender_id?: () -> bool
+    def recipient_id: () -> untyped
+    def recipient_id?: () -> bool
+
+    private
+    def read_from_response: (untyped) -> untyped
+    def build_direct_message: (untyped, untyped) -> Hash[Symbol, untyped]
+  end
+
+  class SavedSearch < Identity
+    include Creatable
+
+    attr_reader name: untyped
+    attr_reader query: untyped
+
+    def name?: () -> bool
+    def query?: () -> bool
+  end
+
+  class Settings < Base
+    attr_reader language: untyped
+    attr_reader screen_name: untyped
+    attr_reader time_zone: untyped
+    attr_reader sleep_time: untyped
+    attr_reader trend_location: untyped
+
+    def language?: () -> bool
+    def screen_name?: () -> bool
+    def time_zone?: () -> bool
+    def sleep_time?: () -> bool
+    def trend_location?: () -> bool
+    def always_use_https?: () -> bool
+    def discoverable_by_email?: () -> bool
+    def discoverable_by_mobile_phone?: () -> bool
+    def display_sensitive_media?: () -> bool
+    def geo_enabled?: () -> bool
+    def protected?: () -> bool
+    def use_cookie_personalization?: () -> bool
+  end
+
+  class Relationship < Base
+    def initialize: (?Hash[Symbol, untyped]?) -> void
+    def source: () -> untyped
+    def source?: () -> bool
+    def target: () -> untyped
+    def target?: () -> bool
+    def update: (Hash[Symbol, untyped]) -> self
+  end
+
+  class SourceUser < BasicUser
+    def all_replies?: () -> bool
+    def blocking?: () -> bool
+    def can_dm?: () -> bool
+    def following?: () -> bool
+    def followed_by?: () -> bool
+    def following_received?: () -> bool
+    def following_requested?: () -> bool
+    def marked_spam?: () -> bool
+    def muting?: () -> bool
+    def notifications_enabled?: () -> bool
+    def want_retweets?: () -> bool
+  end
+
+  class TargetUser < BasicUser
+    def followed_by?: () -> bool
+    def following?: () -> bool
+  end
+
+  class Suggestion < Base
+    attr_reader name: untyped
+    attr_reader size: untyped
+    attr_reader slug: untyped
+
+    def name?: () -> bool
+    def size?: () -> bool
+    def slug?: () -> bool
+
+    def users: () -> Array[User]
+    def users?: () -> bool
+  end
+
+  class OEmbed < Base
+    include Memoizable
+
+    attr_reader author_name: untyped
+    attr_reader cache_age: untyped
+    attr_reader height: untyped
+    attr_reader html: untyped
+    attr_reader provider_name: untyped
+    attr_reader type: untyped
+    attr_reader width: untyped
+    attr_reader version: untyped
+
+    def author_name?: () -> bool
+    def cache_age?: () -> bool
+    def height?: () -> bool
+    def html?: () -> bool
+    def provider_name?: () -> bool
+    def type?: () -> bool
+    def width?: () -> bool
+    def version?: () -> bool
+
+    def author_url: () -> Addressable::URI?
+    alias author_uri author_url
+    def author_url?: () -> bool
+    alias author_uri? author_url?
+    def provider_url: () -> Addressable::URI?
+    alias provider_uri provider_url
+    def provider_url?: () -> bool
+    alias provider_uri? provider_url?
+    def url: () -> Addressable::URI?
+    alias uri url
+    def url?: () -> bool
+    alias uri? url?
+  end
+
+  class Metadata < Base
+    attr_reader result_type: untyped
+    attr_reader iso_language_code: untyped
+
+    def result_type?: () -> bool
+    def iso_language_code?: () -> bool
+  end
+
+  class ProfileBanner < Base
+    def sizes: () -> Hash[String, Size]
+    def sizes?: () -> bool
+  end
+
+  class Size < Base
+    attr_reader h: untyped
+    attr_reader w: untyped
+    attr_reader resize: untyped
+
+    def h?: () -> bool
+    def w?: () -> bool
+    def resize?: () -> bool
+  end
+
+  class Language < Base
+    attr_reader code: untyped
+    attr_reader name: untyped
+    attr_reader status: untyped
+
+    def code?: () -> bool
+    def name?: () -> bool
+    def status?: () -> bool
+  end
+
+  class PremiumSearchResults
+    include Enumerable
+    include Utils
+
+    @client: untyped
+    @request_method: Symbol
+    @path: String
+    @options: Hash[Symbol, untyped]
+    @request_config: Hash[Symbol, untyped]
+    @collection: Array[Tweet]
+
+    attr_reader attrs: Hash[Symbol, untyped]
+    attr_reader rate_limit: RateLimit?
+
+    alias to_h attrs
+    alias to_hash to_h
+
+    def initialize: (REST::Request, ?Hash[Symbol, untyped]) -> void
+
+    private
+    attr_writer attrs: Hash[Symbol, untyped]
+    def last?: () -> bool
+    def next_page?: () -> bool
+    def next_page: () -> Hash[Symbol, untyped]?
+    def fetch_next_page: () -> void
+  end
+
+  # Creatable module for objects with timestamps
+  module Creatable
+    extend Memoizable::ClassMethods
+    include Memoizable
+
+    def created?: () -> bool
+    def created_at: () -> Time?
+  end
+
+  # Entities module for objects with entity data
+  module Entities
+    extend Memoizable::ClassMethods
+    include Memoizable
+
+    def hashtags: () -> Array[Entity::Hashtag]
+    def hashtags?: () -> bool
+    def media: () -> Array[untyped]
+    def media?: () -> bool
+    def symbols: () -> Array[Entity::Symbol]
+    def symbols?: () -> bool
+    def uris: () -> Array[Entity::URI]
+    alias urls uris
+    def uris?: () -> bool
+    alias urls? uris?
+    def user_mentions: () -> Array[Entity::UserMention]
+    def user_mentions?: () -> bool
+    def entities?: () -> bool
+
+    private
+    def entities: (untyped, Symbol, ?Symbol) -> Array[untyped]
+  end
+
+  # Profile module for user profile methods
+  module Profile
+    extend Memoizable::ClassMethods
+    include Memoizable
+
+    PROFILE_IMAGE_SUFFIX_REGEX: Regexp
+    PREDICATE_URI_METHOD_REGEX: Regexp
+
+    def self.alias_predicate_uri_methods: (Symbol) -> void
+    def self.alias_method_sub: (Symbol, Regexp, String) -> void
+
+    def profile_banner_uri: (?Symbol size) -> Addressable::URI?
+    alias profile_banner_url profile_banner_uri
+    def profile_banner_uri?: () -> bool
+    alias profile_banner_url? profile_banner_uri?
+    def profile_banner_uri_https: (?Symbol size) -> Addressable::URI?
+    alias profile_banner_url_https profile_banner_uri_https
+    def profile_banner_uri_https?: () -> bool
+    alias profile_banner_url_https? profile_banner_uri_https?
+    def profile_image_uri: (?Symbol size) -> Addressable::URI?
+    alias profile_image_url profile_image_uri
+    def profile_image_uri?: () -> bool
+    alias profile_image_url? profile_image_uri?
+    def profile_image_uri_https: (?Symbol size) -> Addressable::URI?
+    alias profile_image_url_https profile_image_uri_https
+    def profile_image_uri_https?: () -> bool
+    alias profile_image_url_https? profile_image_uri_https?
+
+    private
+    def parse_uri: (untyped) -> Addressable::URI?
+    def insecure_uri: (untyped) -> String
+    def profile_image_suffix: (Symbol) -> String
+  end
+
+  # Geo classes
+  class GeoFactory < Factory
+    def self.new: (?Hash[Symbol, untyped]) -> untyped
+  end
+
+  # Base Geo class with coordinates
+  class Geo < Base
+    attr_reader coordinates: Array[Float]
+    alias coords coordinates
+
+    def coordinates?: () -> bool
+
+    class Point < Geo
+      def latitude: () -> Float
+      alias lat latitude
+      def longitude: () -> Float
+      alias long longitude
+      alias lng longitude
+    end
+
+    class Polygon < Geo
+    end
+  end
+
+  # Media classes
+  class MediaFactory < Factory
+    def self.new: (?Hash[Symbol, untyped]) -> untyped
+  end
+
+  module Media
+    class Photo < Identity
+      include Memoizable
+
+      def display_url: () -> untyped
+      alias display_uri display_url
+      def display_url?: () -> bool
+      alias display_uri? display_url?
+      def expanded_url: () -> Addressable::URI?
+      alias expanded_uri expanded_url
+      def expanded_url?: () -> bool
+      alias expanded_uri? expanded_url?
+      def media_url: () -> Addressable::URI?
+      alias media_uri media_url
+      def media_url?: () -> bool
+      alias media_uri? media_url?
+      def media_url_https: () -> Addressable::URI?
+      alias media_uri_https media_url_https
+      def media_url_https?: () -> bool
+      alias media_uri_https? media_url_https?
+      def url: () -> Addressable::URI?
+      alias uri url
+      def url?: () -> bool
+      alias uri? url?
+      def indices: () -> untyped
+      def indices?: () -> bool
+      def sizes: () -> Hash[String, Size]
+      def sizes?: () -> bool
+    end
+
+    class Video < Photo
+      def video_info: () -> untyped
+      def video_info?: () -> bool
+    end
+
+    class AnimatedGif < Video
+    end
+
+    class VideoInfo < Base
+      include Memoizable
+
+      def variants: () -> Array[Variant]
+      def variants?: () -> bool
+    end
+
+    class Variant < Base
+      attr_reader bitrate: untyped
+      attr_reader content_type: untyped
+
+      def bitrate?: () -> bool
+      def content_type?: () -> bool
+      def uri: () -> Addressable::URI?
+      alias url uri
+      def uri?: () -> bool
+      alias url? uri?
+    end
+  end
+
+  # Represents a video variant with bitrate and format
+  class Variant < Base
+    attr_reader bitrate: untyped
+    attr_reader content_type: untyped
+
+    def bitrate?: () -> bool
+    def content_type?: () -> bool
+    def uri: () -> Addressable::URI?
+    alias url uri
+    def uri?: () -> bool
+    alias url? uri?
+  end
+
+  # Arguments helper class
+  class Arguments < Array[untyped]
+    @options: Hash[Symbol, untyped]
+
+    def initialize: (Array[untyped]) -> void
+    def options: () -> Hash[Symbol, untyped]
+  end
+
+  # Headers class for building request headers
+  class Headers
+    @client: Client
+    @request_method: Symbol
+    @uri: Addressable::URI?
+    @bearer_token_request: bool?
+    @options: Hash[Symbol, untyped]
+
+    def initialize: (Client, Symbol, String, ?Hash[Symbol, untyped]) -> void
+    def bearer_token_request?: () -> bool
+    def oauth_auth_header: () -> SimpleOAuth::Header
+    def request_headers: () -> Hash[Symbol, untyped]
+
+    private
+    def auth_header: () -> String
+    def bearer_auth_header: () -> String
+    def bearer_token_credentials_auth_header: () -> String
+  end
+
+  # Direct Messages namespace
+  module DirectMessages
+    class WelcomeMessage < Identity
+      include Creatable
+
+      def text: () -> untyped
+      def text?: () -> bool
+    end
+
+    class WelcomeMessageRule < Identity
+      include Creatable
+    end
+
+    class WelcomeMessageWrapper < Identity
+      attr_reader created_timestamp: untyped
+
+      def initialize: (untyped) -> void
+      def welcome_message: () -> WelcomeMessage?
+
+      private
+      def read_from_response: (untyped) -> untyped
+      def build_welcome_message: (untyped, untyped) -> Hash[Symbol, untyped]
+    end
+
+    class WelcomeMessageRuleWrapper < Identity
+      attr_reader created_timestamp: untyped
+
+      def initialize: (untyped) -> void
+      def welcome_message_rule: () -> WelcomeMessageRule?
+
+      private
+      def read_from_response: (untyped) -> untyped
+      def build_welcome_message_rule: (untyped) -> Hash[Symbol, untyped]
+    end
+  end
+end
+
+# Stub for external libraries
+module Memoizable
+  # When included, adds memoize class method
+  def self.included: (Module) -> void
+
+  # Class methods added when Memoizable is included
+  module ClassMethods
+    def memoize: (Symbol) -> void
+  end
+
+  # Instance method for freezing
+  def freeze: () -> self
+  def memoized: (Symbol) { () -> untyped } -> untyped
+end
+
+interface _Memoizable
+  def memoize: (Symbol) -> void
+end
+
+module Equalizer
+  def self.new: (*Symbol) -> Module
+end
+
+module Forwardable
+end
+
+module Addressable
+  class URI
+    def self.parse: (String?) -> URI?
+    def to_s: () -> String
+    def path: () -> String
+    def query: () -> String?
+    def query_values: () -> Hash[String, untyped]?
+    def query_values=: (Hash[String, untyped]?) -> void
+  end
+end
+
+module HTTP
+  class Request
+    def initialize: (?verb: Symbol, ?uri: String, ?headers: Hash[Symbol, untyped], ?proxy: untyped) -> void
+  end
+
+  module FormData
+    def self.create: (Hash[Symbol, untyped], ?encoder: untyped) -> untyped
+
+    class File
+      def initialize: (untyped, ?filename: String?, ?content_type: String?) -> void
+    end
+  end
+end
+
+module Naught
+  def self.build: () { (untyped) -> void } -> Class
+end
+
+class Time
+  def self.parse: (String) -> Time
+end
+
+module SimpleOAuth
+  class Header
+    def initialize: (Symbol, Addressable::URI?, Hash[Symbol, untyped], Hash[Symbol, untyped]) -> void
+    def to_s: () -> String
+  end
+end
+
+module Base64
+  def self.strict_encode64: (String) -> String
+end
+
+module CGI
+  def self.parse: (String?) -> Hash[String, Array[String]]
+end
+
+module URI
+  def self.parse: (String) -> URI::Generic
+
+  class Generic
+    def query: () -> String?
+    def path: () -> String
+  end
+end

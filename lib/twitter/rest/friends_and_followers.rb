@@ -132,7 +132,7 @@ module Twitter
           friend_ids.to_a
         end
         new_friends = Thread.new do
-          users(args).collect(&:id)
+          users(args).collect(&:id) # steep:ignore NoMethod
         end
         follow!(new_friends.value - existing_friends.value, arguments.options)
       end
@@ -160,7 +160,7 @@ module Twitter
       def follow!(*args)
         arguments = Twitter::Arguments.new(args)
         pmap(arguments) do |user|
-          perform_post_with_object("/1.1/friendships/create.json", merge_user(arguments.options, user), Twitter::User)
+          perform_post_with_object("/1.1/friendships/create.json", merge_user(arguments.options, user), Twitter::User) # steep:ignore ArgumentTypeMismatch
         end.compact
       end
       # @!method create_friendship!

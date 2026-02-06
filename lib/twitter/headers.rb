@@ -50,7 +50,7 @@ module Twitter
     #   headers.request_headers # => {user_agent: "...", authorization: "..."}
     # @return [Hash]
     def request_headers
-      headers = {}
+      headers = {} #: Hash[Symbol, String]
       headers[:user_agent] = @client.user_agent
       if bearer_token_request?
         headers[:accept]        = "*/*"

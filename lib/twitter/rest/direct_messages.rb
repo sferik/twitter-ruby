@@ -176,7 +176,7 @@ module Twitter
       # @return [nil] Response body from Twitter is nil if successful
       def destroy_direct_message(*ids)
         pmap(ids) do |id|
-          perform_requests(:delete, "/1.1/direct_messages/events/destroy.json", id:)
+          perform_requests(:delete, "/1.1/direct_messages/events/destroy.json", id:) # steep:ignore ArgumentTypeMismatch
         end
         nil
       end
@@ -263,7 +263,7 @@ module Twitter
       # @raise [Twitter::Error::Unauthorized] Error raised when credentials are not valid
       # @return [Twitter::DirectMessageEvent] The created direct message event
       def create_direct_message_event_with_media(user, text, media, options = {})
-        media_id = upload(media, media_category_prefix: "dm")[:media_id]
+        media_id = upload(media, media_category_prefix: "dm")[:media_id] # steep:ignore NoMethod
         options = options.dup
         options[:event] = {type: "message_create", message_create: {target: {recipient_id: extract_id(user)}, message_data: {text:, attachment: {type: "media", media: {id: media_id}}}}}
         response = Twitter::REST::Request.new(self, :json_post, "/1.1/direct_messages/events/new.json", options).perform

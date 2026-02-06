@@ -29,7 +29,7 @@ module Twitter
               },
             },
           }
-          json_options[:welcome_message][:name] = name if name
+          json_options[:welcome_message][:name] = name if name # steep:ignore ArgumentTypeMismatch
           welcome_message_wrapper = perform_request_with_object(:json_post, "/1.1/direct_messages/welcome_messages/new.json", json_options.merge!(options), Twitter::DirectMessages::WelcomeMessageWrapper)
           welcome_message_wrapper.welcome_message
         end

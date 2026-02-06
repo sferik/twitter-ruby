@@ -209,7 +209,7 @@ module Twitter
       # @api private
       # @return [Array<Twitter::Tweet>]
       def collect_with_count(count)
-        options = {}
+        options = {} #: Hash[Symbol, untyped]
         options[:count] = MAX_TWEETS_PER_REQUEST
         collect_with_max_id do |max_id|
           options[:max_id] = max_id unless max_id.nil?
@@ -230,7 +230,7 @@ module Twitter
         return collection if tweets.nil?
 
         collection += tweets
-        tweets.empty? ? collection.flatten : collect_with_max_id(collection, tweets.last.id - 1, &)
+        tweets.empty? ? collection.flatten : collect_with_max_id(collection, tweets.last.id - 1, &) # steep:ignore NoMethod
       end
     end
   end

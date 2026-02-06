@@ -523,7 +523,7 @@ module Twitter
       # @return [Twitter::List]
       def list_from_response_with_users(path, args)
         arguments = args.dup
-        options = arguments.last.is_a?(::Hash) ? arguments.pop : {}
+        options = arguments.last.is_a?(::Hash) ? arguments.pop : {} #: Hash[Symbol, untyped]
         members = arguments.pop
         merge_list!(options, arguments.pop)
         merge_owner!(options, arguments.pop)
@@ -543,7 +543,7 @@ module Twitter
         when Integer               then hash[:list_id] = list
         when Twitter::List         then merge_list_and_owner!(hash, list)
         when String                then merge_slug_and_owner!(hash, list)
-        when URI, Addressable::URI then merge_slug_and_owner!(hash, list.path)
+        when URI, Addressable::URI then merge_slug_and_owner!(hash, list.path) # steep:ignore NoMethod
         end
       end
 

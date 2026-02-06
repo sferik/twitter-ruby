@@ -86,7 +86,10 @@ module Twitter
     # @api private
     # @return [Boolean]
     def reached_limit?
-      @limit && @limit <= attrs[@key].count
+      limit = @limit
+      return false if limit.nil?
+
+      limit <= attrs[@key].count
     end
 
     # Fetch the next page of results
@@ -105,8 +108,9 @@ module Twitter
     # @return [Hash]
     def attrs=(attrs)
       @attrs = attrs
+      klass = @klass
       @attrs.fetch(@key, []).each do |element|
-        @collection << (@klass ? @klass.new(element) : element)
+        @collection << (klass ? klass.new(element) : element) # steep:ignore UnexpectedPositionalArgument
       end
       @attrs
     end

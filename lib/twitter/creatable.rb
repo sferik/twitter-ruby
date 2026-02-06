@@ -13,7 +13,7 @@ module Twitter
     #   tweet.created_at # => 2025-01-15 12:00:00 UTC
     # @return [Time]
     def created_at
-      time = @attrs[:created_at]
+      time = @attrs[:created_at] # steep:ignore FallbackAny
       return if time.nil?
 
       time = Time.parse(time) unless time.is_a?(Time)
@@ -28,7 +28,7 @@ module Twitter
     #   tweet.created? # => true
     # @return [Boolean]
     def created?
-      !!@attrs[:created_at]
+      !!@attrs[:created_at] # steep:ignore FallbackAny
     end
     memoize :created?
   end

@@ -17,7 +17,7 @@ module Twitter
     #   tweet.entities?
     # @return [Boolean]
     def entities?
-      !@attrs[:entities].nil? && @attrs[:entities].any? { |_, array| array.any? }
+      !@attrs[:entities].nil? && @attrs[:entities].any? { |_, array| array.any? } # steep:ignore FallbackAny
     end
     memoize :entities?
 
@@ -162,7 +162,9 @@ module Twitter
     # @param key1 [Symbol] The top-level key containing entities
     # @return [Array]
     def entities(klass, key2, key1 = :entities)
-      @attrs.fetch(key1.to_sym, {}).fetch(key2.to_sym, []).collect do |entity|
+      empty_hash = {} #: Hash[Symbol, untyped]
+      empty_array = [] #: Array[untyped]
+      @attrs.fetch(key1.to_sym, empty_hash).fetch(key2.to_sym, empty_array).collect do |entity| # steep:ignore FallbackAny
         klass.new(entity)
       end
     end

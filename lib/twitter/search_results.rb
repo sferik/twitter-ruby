@@ -89,7 +89,7 @@ module Twitter
     # @api private
     # @return [Hash]
     def fetch_next_page
-      response = Twitter::REST::Request.new(@client, @request_method, @path, @options.merge(next_page))
+      response = Twitter::REST::Request.new(@client, @request_method, @path, @options.merge(next_page)) # steep:ignore ArgumentTypeMismatch
       self.attrs = response.perform
       @rate_limit = response.rate_limit
     end

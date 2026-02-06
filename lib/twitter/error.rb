@@ -20,70 +20,70 @@ module Twitter
     attr_reader :rate_limit
 
     # Raised when Twitter returns a 4xx HTTP status code
-    ClientError = Class.new(self)
+    ClientError = Class.new(self) # steep:ignore IncompatibleAssignment
 
     # Raised when Twitter returns the HTTP status code 400
-    BadRequest = Class.new(ClientError)
+    BadRequest = Class.new(ClientError) # steep:ignore IncompatibleAssignment
 
     # Raised when Twitter returns the HTTP status code 401
-    Unauthorized = Class.new(ClientError)
+    Unauthorized = Class.new(ClientError) # steep:ignore IncompatibleAssignment
 
     # Raised when Twitter returns the HTTP status code 403
-    Forbidden = Class.new(ClientError)
+    Forbidden = Class.new(ClientError) # steep:ignore IncompatibleAssignment
 
     # Raised when Twitter returns the HTTP status code 413
-    RequestEntityTooLarge = Class.new(ClientError)
+    RequestEntityTooLarge = Class.new(ClientError) # steep:ignore IncompatibleAssignment
 
     # Raised when a Tweet has already been favorited
-    AlreadyFavorited = Class.new(Forbidden)
+    AlreadyFavorited = Class.new(Forbidden) # steep:ignore IncompatibleAssignment
 
     # Raised when a Tweet has already been retweeted
-    AlreadyRetweeted = Class.new(Forbidden)
+    AlreadyRetweeted = Class.new(Forbidden) # steep:ignore IncompatibleAssignment
 
     # Raised when a Tweet has already been posted
-    DuplicateStatus = Class.new(Forbidden)
+    DuplicateStatus = Class.new(Forbidden) # steep:ignore IncompatibleAssignment
 
     # Raised when Twitter returns the HTTP status code 404
-    NotFound = Class.new(ClientError)
+    NotFound = Class.new(ClientError) # steep:ignore IncompatibleAssignment
 
     # Raised when Twitter returns the HTTP status code 406
-    NotAcceptable = Class.new(ClientError)
+    NotAcceptable = Class.new(ClientError) # steep:ignore IncompatibleAssignment
 
     # Raised when Twitter returns the HTTP status code 422
-    UnprocessableEntity = Class.new(ClientError)
+    UnprocessableEntity = Class.new(ClientError) # steep:ignore IncompatibleAssignment
 
     # Raised when Twitter returns the HTTP status code 429
-    TooManyRequests = Class.new(ClientError)
+    TooManyRequests = Class.new(ClientError) # steep:ignore IncompatibleAssignment
 
     # Raised when Twitter returns a 5xx HTTP status code
-    ServerError = Class.new(self)
+    ServerError = Class.new(self) # steep:ignore IncompatibleAssignment
 
     # Raised when Twitter returns the HTTP status code 500
-    InternalServerError = Class.new(ServerError)
+    InternalServerError = Class.new(ServerError) # steep:ignore IncompatibleAssignment
 
     # Raised when Twitter returns the HTTP status code 502
-    BadGateway = Class.new(ServerError)
+    BadGateway = Class.new(ServerError) # steep:ignore IncompatibleAssignment
 
     # Raised when Twitter returns the HTTP status code 503
-    ServiceUnavailable = Class.new(ServerError)
+    ServiceUnavailable = Class.new(ServerError) # steep:ignore IncompatibleAssignment
 
     # Raised when Twitter returns the HTTP status code 504
-    GatewayTimeout = Class.new(ServerError)
+    GatewayTimeout = Class.new(ServerError) # steep:ignore IncompatibleAssignment
 
     # Raised when Twitter returns a media related error
-    MediaError = Class.new(self)
+    MediaError = Class.new(self) # steep:ignore IncompatibleAssignment
 
     # Raised when Twitter returns an InvalidMedia error
-    InvalidMedia = Class.new(MediaError)
+    InvalidMedia = Class.new(MediaError) # steep:ignore IncompatibleAssignment
 
     # Raised when Twitter returns a media InternalError error
-    MediaInternalError = Class.new(MediaError)
+    MediaInternalError = Class.new(MediaError) # steep:ignore IncompatibleAssignment
 
     # Raised when Twitter returns an UnsupportedMedia error
-    UnsupportedMedia = Class.new(MediaError)
+    UnsupportedMedia = Class.new(MediaError) # steep:ignore IncompatibleAssignment
 
     # Raised when an operation subject to timeout takes too long
-    TimeoutError = Class.new(self)
+    TimeoutError = Class.new(self) # steep:ignore IncompatibleAssignment
 
     # Maps HTTP status codes to error classes
     ERRORS = {
@@ -237,7 +237,7 @@ module Twitter
         if first.is_a?(Hash)
           [first[:message].chomp, first[:code]]
         else
-          [first.chomp, nil]
+          [first.chomp, nil] # steep:ignore NoMethod
         end
       end
     end

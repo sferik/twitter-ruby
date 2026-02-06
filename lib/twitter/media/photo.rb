@@ -34,7 +34,8 @@ module Twitter
       #   photo.sizes
       # @return [Hash{Symbol => Twitter::Size}]
       def sizes
-        @attrs.fetch(:sizes, []).each_with_object({}) do |(key, value), object|
+        result = {} #: Hash[Symbol, Size]
+        @attrs.fetch(:sizes, []).each_with_object(result) do |(key, value), object|
           object[key] = Size.new(value)
         end
       end

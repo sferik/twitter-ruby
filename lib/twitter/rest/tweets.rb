@@ -151,7 +151,7 @@ module Twitter
       def update(status, options = {})
         update!(status, options)
       rescue Twitter::Error::DuplicateStatus
-        user_timeline(count: 1).first
+        user_timeline(count: 1).first # steep:ignore NoMethod
       end
 
       # Updates the authenticating user's status, raising an error on duplicate

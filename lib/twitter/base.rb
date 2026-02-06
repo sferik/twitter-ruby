@@ -108,7 +108,7 @@ module Twitter
       # @return [void]
       def define_uri_method(key1, key2)
         define_method(key1) do
-          Addressable::URI.parse(@attrs[key2].chomp("#")) unless @attrs[key2].nil?
+          Addressable::URI.parse(@attrs[key2].chomp("#")) unless @attrs[key2].nil? # steep:ignore FallbackAny
         end
         memoize(key1)
       end
@@ -122,10 +122,10 @@ module Twitter
       # @return [void]
       def define_attribute_method(key1, klass = nil, key2 = nil)
         define_method(key1) do
-          if attr_falsey_or_empty?(key1)
+          if attr_falsey_or_empty?(key1) # steep:ignore NoMethod
             NullObject.new
           else
-            klass.nil? ? @attrs[key1] : Twitter.const_get(klass).new(attrs_for_object(key1, key2))
+            klass.nil? ? @attrs[key1] : Twitter.const_get(klass).new(attrs_for_object(key1, key2)) # steep:ignore NoMethod,FallbackAny
           end
         end
         memoize(key1)
@@ -139,7 +139,7 @@ module Twitter
       # @return [void]
       def define_predicate_method(key1, key2 = key1)
         define_method(:"#{key1}?") do
-          !attr_falsey_or_empty?(key2)
+          !attr_falsey_or_empty?(key2) # steep:ignore NoMethod
         end
         memoize(:"#{key1}?")
       end

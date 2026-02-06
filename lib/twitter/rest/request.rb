@@ -100,7 +100,7 @@ module Twitter
         @uri = Addressable::URI.parse(path.start_with?("http") ? path : BASE_URL + path)
         multipart_options = params || options
         set_multipart_options!(request_method, multipart_options)
-        @path = uri.path
+        @path = uri.path # steep:ignore NoMethod
         @options = options
         @options_key = {get: :params, json_post: :json, json_put: :json, delete: :params}[request_method] || :form
         @params = params
@@ -132,7 +132,7 @@ module Twitter
                     {@options_key => @options}
                   end
 
-        options[:params] = @params if @params
+        options[:params] = @params if @params # steep:ignore ArgumentTypeMismatch
         options
       end
 
@@ -161,14 +161,14 @@ module Twitter
       def set_multipart_options!(request_method, options)
         if %i[multipart_post json_post].include?(request_method)
           merge_multipart_file!(options) if request_method == :multipart_post
-          options = {}
+          options = {} #: Hash[Symbol, untyped]
           @request_method = :post
         elsif request_method == :json_put
           @request_method = :put
         else
           @request_method = request_method
         end
-        @headers = Twitter::Headers.new(@client, @request_method, @uri, options).request_headers
+        @headers = Twitter::Headers.new(@client, @request_method, @uri, options).request_headers # steep:ignore ArgumentTypeMismatch
       end
 
       # Determine content type based on file extension
@@ -270,8 +270,8 @@ module Twitter
       # @api private
       # @return [HTTP::Client, HTTP]
       def http_client
-        client = @client.proxy ? HTTP.via(*proxy) : HTTP
-        client = client.timeout(connect: @client.timeouts[:connect], read: @client.timeouts[:read], write: @client.timeouts[:write]) if timeout_keys_defined
+        client = @client.proxy ? HTTP.via(*proxy) : HTTP # steep:ignore NoMethod
+        client = client.timeout(connect: @client.timeouts[:connect], read: @client.timeouts[:read], write: @client.timeouts[:write]) if timeout_keys_defined # steep:ignore NoMethod
         client
       end
 

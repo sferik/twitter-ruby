@@ -15,7 +15,7 @@ module Twitter
     # @return [Twitter::Relationship]
     def initialize(attrs = {})
       super
-      @attrs = attrs[:relationship]
+      @attrs = attrs[:relationship] # steep:ignore NoMethod
     end
   end
 end

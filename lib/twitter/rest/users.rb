@@ -40,7 +40,8 @@ module Twitter
         request_method = options.empty? ? :get : :post
         response = perform_request(request_method.to_sym, "/1.1/account/settings.json", options)
         # https://dev.twitter.com/issues/59
-        response[:trend_location] = response.fetch(:trend_location, []).first
+        empty_array = [] #: Array[untyped]
+        response[:trend_location] = response.fetch(:trend_location, empty_array).first
         Twitter::Settings.new(response)
       end
 
