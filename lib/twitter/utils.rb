@@ -21,7 +21,7 @@ module Twitter
     # @param enumerable [Enumerable]
     # @return [Array, Enumerator]
     def pmap(enumerable)
-      return to_enum(__method__, enumerable) unless block_given?
+      return to_enum(:pmap, enumerable) unless block_given?
 
       enumerable.collect { |object| yield(object) }
     end

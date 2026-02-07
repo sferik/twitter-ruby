@@ -80,6 +80,25 @@ describe Twitter::PremiumSearchResults do
       results.send(:fetch_next_page)
       expect(results.to_a.map(&:id)).to eq([1, 2])
     end
+
+    it "treats missing next_page data as an empty merge when fetching the next page" do
+      request_without_next = instance_double(
+        Twitter::REST::Request,
+        client:,
+        verb: :post,
+        path: "/path",
+        options: request_options,
+        perform: {results: [{id: 1, text: "one"}]}
+      )
+      results = described_class.new(request_without_next)
+      next_results = described_class.new(
+        instance_double(Twitter::REST::Request, client:, verb: :post, path: "/path", options: request_options, perform: {results: [{id: 2, text: "two"}]})
+      )
+
+      expect(client).to receive(:premium_search).with("pizza", {from_date: "202401010000"}, {}).and_return(next_results)
+      expect { results.send(:fetch_next_page) }.not_to raise_error
+      expect(results.to_a.map(&:id)).to eq([1, 2])
+    end
   end
 
   describe "private attrs= behavior" do

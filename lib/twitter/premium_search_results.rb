@@ -87,7 +87,8 @@ module Twitter
     # @api private
     # @return [Hash]
     def fetch_next_page
-      next_options = @options.reject { |k| k == :query }.merge(next_page)
+      page = next_page || {}
+      next_options = @options.reject { |k| k == :query }.merge(page)
       request = @client.premium_search(@options[:query], next_options, @request_config) # steep:ignore ArgumentTypeMismatch
 
       self.attrs = request.attrs

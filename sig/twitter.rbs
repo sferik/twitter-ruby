@@ -383,7 +383,7 @@ module Twitter
     def retweeted?: () -> bool
     def truncated?: () -> bool
 
-    def initialize: (?Hash[Symbol, untyped]) -> void
+    def initialize: (Hash[Symbol, untyped]) -> void
     def full_text: () -> String?
     def uri: () -> Addressable::URI?
     alias url uri
@@ -456,7 +456,7 @@ module Twitter
     alias to_h attrs
     alias to_hash to_h
 
-    def initialize: (?Hash[Symbol, untyped]) -> void
+    def initialize: (?Hash[Symbol, untyped]?) -> void
     def token: () -> untyped
   end
 
@@ -512,7 +512,7 @@ module Twitter
       attr_accessor path: String
       attr_accessor rate_limit: RateLimit?
       attr_accessor request_method: Symbol
-      attr_accessor uri: Addressable::URI?
+      attr_accessor uri: Addressable::URI
 
       def verb: () -> Symbol
       def initialize: (untyped, untyped, String, ?Hash[Symbol, untyped], ?Hash[Symbol, untyped]?) -> void
@@ -879,7 +879,7 @@ module Twitter
 
       def self.encode: (untyped) -> String
       def self.encode_pair: (untyped, untyped) -> String
-      def self.encode_array: (untyped, Array[untyped]) -> String
+      def self.encode_array: (untyped, Array[untyped]) -> untyped
       def self.encode_array_item: (untyped, untyped) -> String
       def self.escape: (untyped) -> String
     end
@@ -1518,7 +1518,7 @@ module Twitter
 
       private
       def read_from_response: (untyped) -> untyped
-      def build_welcome_message: (untyped, untyped) -> Hash[Symbol, untyped]
+      def build_welcome_message: (untyped, untyped, untyped) -> Hash[Symbol, untyped]
     end
 
     class WelcomeMessageRuleWrapper < Identity
@@ -1562,7 +1562,8 @@ end
 
 module Addressable
   class URI
-    def self.parse: (String?) -> URI?
+    def self.parse: (String) -> URI
+    def to_str: () -> String
     def to_s: () -> String
     def path: () -> String
     def query: () -> String?
