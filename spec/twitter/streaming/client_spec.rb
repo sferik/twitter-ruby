@@ -144,6 +144,16 @@ describe Twitter::Streaming::Client do
       @client.sample(stall_warnings: true) {}
     end
 
+    it "does not yield when the message parser returns nil" do
+      @client.connection = FakeConnection.new(fixture("track_streaming.json"))
+      allow(Twitter::Streaming::MessageParser).to receive(:parse).and_return(nil)
+      yielded = []
+
+      @client.sample { |object| yielded << object }
+
+      expect(yielded).to be_empty
+    end
+
     it "uses Streaming::MessageParser explicitly even if Client::MessageParser exists" do
       stub_const("Twitter::Streaming::Client::MessageParser", Class.new do
         def self.parse(*)

@@ -16,6 +16,16 @@ describe Twitter::REST::Lists do
         expect(hash[:owner_screen_name]).to be_a(String)
       end
     end
+
+    describe "#merge_list!" do
+      it "leaves the hash unchanged for unsupported list input types" do
+        hash = {existing: true}
+
+        @client.send(:merge_list!, hash, Object.new)
+
+        expect(hash).to eq(existing: true)
+      end
+    end
   end
 
   describe "#lists" do

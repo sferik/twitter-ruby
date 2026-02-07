@@ -33,6 +33,10 @@ describe "Twitter::REST::Utils helper behavior" do
       expect(client.send(:extract_id, addressable_uri)).to eq(456)
       expect(client.send(:extract_id, identity)).to eq(99)
     end
+
+    it "returns nil for unsupported input types" do
+      expect(client.send(:extract_id, Object.new)).to be_nil
+    end
   end
 
   describe "#perform_get" do
@@ -207,6 +211,14 @@ describe "Twitter::REST::Utils helper behavior" do
       user_ids, screen_names = client.send(:collect_users, users)
       expect(user_ids).to eq([1, 2])
       expect(screen_names).to eq(%w[sferik erik alice])
+    end
+
+    it "ignores unsupported user-like objects" do
+      users = [1, Object.new, "sferik"]
+
+      user_ids, screen_names = client.send(:collect_users, users)
+      expect(user_ids).to eq([1])
+      expect(screen_names).to eq(["sferik"])
     end
   end
 end

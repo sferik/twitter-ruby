@@ -21,6 +21,10 @@ describe Twitter::NullObject do
     it "returns false for other classes" do
       expect(subject).not_to be_instance_of(String)
     end
+
+    it "returns false for non-class arguments" do
+      expect(subject.instance_of?(:not_a_class)).to be(false)
+    end
   end
 
   describe "#kind_of?" do
@@ -38,6 +42,10 @@ describe Twitter::NullObject do
 
     it "returns false for non-ancestors" do
       expect(subject).not_to be_a String
+    end
+
+    it "returns false for non-module arguments" do
+      expect(subject.kind_of?(123)).to be(false)
     end
   end
 

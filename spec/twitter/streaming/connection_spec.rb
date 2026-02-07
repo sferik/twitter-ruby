@@ -262,6 +262,26 @@ describe Twitter::Streaming::Connection do
 
       connection.stream(mocked_request, mocked_response)
     end
+
+    it "ignores unknown readable IO objects and keeps looping" do
+      read_pipe = instance_double(IO)
+      write_pipe = instance_double(IO)
+      unknown_io = instance_double(IO)
+      mocked_client = instance_double(TCPSocket)
+      mocked_request = instance_double(HTTP::Request)
+      mocked_response = double("response")
+
+      expect(connection).to receive(:connect).with(mocked_request).and_return(mocked_client)
+      expect(mocked_request).to receive(:stream).with(mocked_client)
+      expect(IO).to receive(:pipe).and_return([read_pipe, write_pipe])
+      expect(IO).to receive(:select).with([read_pipe, mocked_client]).ordered.and_return([[unknown_io], nil, nil])
+      expect(IO).to receive(:select).with([read_pipe, mocked_client]).ordered.and_return([[read_pipe], nil, nil])
+      expect(mocked_client).not_to receive(:readpartial)
+      expect(mocked_response).not_to receive(:<<)
+      expect(mocked_client).to receive(:close)
+
+      connection.stream(mocked_request, mocked_response)
+    end
   end
 
 end
