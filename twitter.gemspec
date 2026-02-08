@@ -34,7 +34,6 @@ Gem::Specification.new do |spec|
   }
 
   spec.name = "twitter"
-  spec.post_install_message = "The `twitter` gem is deprecated and no longer maintained. Use the `x` gem instead."
   spec.require_paths = %w[lib]
   spec.required_ruby_version = ">= 3.2"
   spec.summary = spec.description
