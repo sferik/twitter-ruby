@@ -40,7 +40,7 @@ module Twitter
     #   headers.oauth_auth_header # => #<SimpleOAuth::Header>
     # @return [SimpleOAuth::Header]
     def oauth_auth_header
-      SimpleOAuth::Header.new(@request_method, @uri, @options, @client.credentials.merge(ignore_extra_keys: true))
+      SimpleOAuth::Header.new(@request_method, @uri.to_s, @options, @client.credentials.merge(ignore_extra_keys: true))
     end
 
     # Build the request headers hash

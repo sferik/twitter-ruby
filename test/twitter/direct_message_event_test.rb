@@ -1,4 +1,4 @@
-require "helper"
+require "test_helper"
 
 describe Twitter::DirectMessageEvent do
   let(:event_attrs) do
@@ -26,18 +26,18 @@ describe Twitter::DirectMessageEvent do
 
   describe "#initialize" do
     it "accepts wrapped :event responses" do
-      event = described_class.new(event: event_attrs)
+      event = Twitter::DirectMessageEvent.new(event: event_attrs)
 
-      expect(event.id).to eq("1006278767680131076")
-      expect(event.direct_message.id).to eq(1_006_278_767_680_131_076)
-      expect(event.direct_message.sender_id).to eq(124_294_236)
-      expect(event.direct_message.recipient_id).to eq(58_983)
+      assert_equal("1006278767680131076", event.id)
+      assert_equal(1_006_278_767_680_131_076, event.direct_message.id)
+      assert_equal(124_294_236, event.direct_message.sender_id)
+      assert_equal(58_983, event.direct_message.recipient_id)
     end
 
     it "accepts unwrapped responses and expands the first URL mapping" do
-      event = described_class.new(event_attrs)
+      event = Twitter::DirectMessageEvent.new(event_attrs)
 
-      expect(event.direct_message.text).to eq("first https://example.com/one second https://t.co/two")
+      assert_equal("first https://example.com/one second https://t.co/two", event.direct_message.text)
     end
 
     it "expands every occurrence of the first URL mapping" do
@@ -47,15 +47,15 @@ describe Twitter::DirectMessageEvent do
         {url: "https://t.co/one", expanded_url: "https://example.com/one"}
       ]
 
-      event = described_class.new(attrs)
+      event = Twitter::DirectMessageEvent.new(attrs)
 
-      expect(event.direct_message.text).to eq("repeat https://example.com/one and https://example.com/one")
+      assert_equal("repeat https://example.com/one and https://example.com/one", event.direct_message.text)
     end
 
     it "raises NoMethodError when message_create is missing" do
-      expect do
-        described_class.new(id: "1", created_timestamp: "1")
-      end.to raise_error(NoMethodError)
+      assert_raises(NoMethodError) do
+        Twitter::DirectMessageEvent.new(id: "1", created_timestamp: "1")
+      end
     end
 
     it "uses [] to access the first URL mapping" do
@@ -80,8 +80,9 @@ describe Twitter::DirectMessageEvent do
       attrs[:message_create][:message_data][:text] = "primary https://t.co/primary"
       attrs[:message_create][:message_data][:entities][:urls] = urls_class.new
 
-      event = described_class.new(attrs)
-      expect(event.direct_message.text).to eq("primary https://example.com/primary")
+      event = Twitter::DirectMessageEvent.new(attrs)
+
+      assert_equal("primary https://example.com/primary", event.direct_message.text)
     end
 
     it "does not expand URLs when none are present" do
@@ -89,40 +90,41 @@ describe Twitter::DirectMessageEvent do
       attrs[:message_create][:message_data][:text] = "no links here"
       attrs[:message_create][:message_data][:entities][:urls] = []
 
-      event = described_class.new(attrs)
-      expect(event.direct_message.text).to eq("no links here")
+      event = Twitter::DirectMessageEvent.new(attrs)
+
+      assert_equal("no links here", event.direct_message.text)
     end
 
     it "raises TypeError when the URL hash is missing :url" do
       attrs = Marshal.load(Marshal.dump(event_attrs))
       attrs[:message_create][:message_data][:entities][:urls] = [{expanded_url: "https://example.com/primary"}]
 
-      expect do
-        described_class.new(attrs)
-      end.to raise_error(TypeError)
+      assert_raises(TypeError) do
+        Twitter::DirectMessageEvent.new(attrs)
+      end
     end
 
     it "raises TypeError when the URL hash is missing :expanded_url" do
       attrs = Marshal.load(Marshal.dump(event_attrs))
       attrs[:message_create][:message_data][:entities][:urls] = [{url: "https://t.co/primary"}]
 
-      expect do
-        described_class.new(attrs)
-      end.to raise_error(TypeError)
+      assert_raises(TypeError) do
+        Twitter::DirectMessageEvent.new(attrs)
+      end
     end
   end
 
   describe "private helpers" do
     it "returns the input hash unchanged when :event is missing" do
-      event = described_class.allocate
+      event = Twitter::DirectMessageEvent.allocate
 
-      expect(event.send(:read_from_response, event_attrs)).to eq(event_attrs)
+      assert_equal(event_attrs, event.send(:read_from_response, event_attrs))
     end
 
     it "returns the nested :event hash when present" do
-      event = described_class.allocate
+      event = Twitter::DirectMessageEvent.allocate
 
-      expect(event.send(:read_from_response, {event: event_attrs})).to eq(event_attrs)
+      assert_equal(event_attrs, event.send(:read_from_response, {event: event_attrs}))
     end
 
     it "uses [] access when reading wrapped :event data from hash-like inputs" do
@@ -137,26 +139,27 @@ describe Twitter::DirectMessageEvent do
           raise KeyError, "fetch should not be used"
         end
       end
-      event = described_class.allocate
+      event = Twitter::DirectMessageEvent.allocate
 
       parsed = event.send(:read_from_response, hash_like_attrs_class.new)
-      expect(parsed[:id]).to eq("1006278767680131076")
+
+      assert_equal("1006278767680131076", parsed[:id])
     end
 
     it "builds a normalized direct message hash with converted ids and timestamp" do
-      event = described_class.allocate
+      event = Twitter::DirectMessageEvent.allocate
       text = "normalized text"
 
       built = event.send(:build_direct_message, event_attrs, text)
 
-      expect(built.keys).to eq(%i[id created_at sender sender_id recipient recipient_id text])
-      expect(built[:id]).to eq(1_006_278_767_680_131_076)
-      expect(built[:created_at]).to eq(Time.at(1_528_750_528_627 / 1000.0))
-      expect(built[:sender]).to eq({id: 124_294_236})
-      expect(built[:sender_id]).to eq(124_294_236)
-      expect(built[:recipient]).to eq({id: 58_983})
-      expect(built[:recipient_id]).to eq(58_983)
-      expect(built[:text]).to eq("normalized text")
+      assert_equal(%i[id created_at sender sender_id recipient recipient_id text], built.keys)
+      assert_equal(1_006_278_767_680_131_076, built[:id])
+      assert_equal(Time.at(1_528_750_528_627 / 1000.0), built[:created_at])
+      assert_equal({id: 124_294_236}, built[:sender])
+      assert_equal(124_294_236, built[:sender_id])
+      assert_equal({id: 58_983}, built[:recipient])
+      assert_equal(58_983, built[:recipient_id])
+      assert_equal("normalized text", built[:text])
     end
   end
 end

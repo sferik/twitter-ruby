@@ -4,6 +4,7 @@ gem "benchmark", ">= 0.5"
 gem "jruby-openssl", ">=0.14.2", platforms: :jruby
 gem "minitest", ">= 6"
 gem "minitest-mock", ">= 5.27"
+gem "minitest-strict", ">= 1"
 gem "mutant-minitest", ">= 0.14"
 gem "rake", ">= 13.3.1"
 gem "rubocop", ">= 1.82.1"

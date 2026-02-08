@@ -1,54 +1,62 @@
-require "helper"
+require "test_helper"
 
 describe Twitter::Trend do
   describe "#==" do
     it "returns true for empty objects" do
-      trend = described_class.new
-      other = described_class.new
-      expect(trend == other).to be true
+      trend = Twitter::Trend.new
+      other = Twitter::Trend.new
+
+      assert_equal(trend, other)
     end
 
     it "returns true when objects names are the same" do
-      trend = described_class.new(name: "#sevenwordsaftersex", query: "foo")
-      other = described_class.new(name: "#sevenwordsaftersex", query: "bar")
-      expect(trend == other).to be true
+      trend = Twitter::Trend.new(name: "#sevenwordsaftersex", query: "foo")
+      other = Twitter::Trend.new(name: "#sevenwordsaftersex", query: "bar")
+
+      assert_equal(trend, other)
     end
 
     it "returns false when objects names are different" do
-      trend = described_class.new(name: "#sevenwordsaftersex")
-      other = described_class.new(name: "#sixwordsaftersex")
-      expect(trend == other).to be false
+      trend = Twitter::Trend.new(name: "#sevenwordsaftersex")
+      other = Twitter::Trend.new(name: "#sixwordsaftersex")
+
+      refute_equal(trend, other)
     end
 
     it "returns false when classes are different" do
-      trend = described_class.new(name: "#sevenwordsaftersex")
+      trend = Twitter::Trend.new(name: "#sevenwordsaftersex")
       other = Twitter::Base.new(name: "#sevenwordsaftersex")
-      expect(trend == other).to be false
+
+      refute_equal(trend, other)
     end
   end
 
   describe "#uri" do
     it "returns a URI when the url is set" do
-      trend = described_class.new(url: "http://twitter.com/search/?q=%23sevenwordsaftersex")
-      expect(trend.uri).to be_an Addressable::URI
-      expect(trend.uri.to_s).to eq("http://twitter.com/search/?q=%23sevenwordsaftersex")
+      trend = Twitter::Trend.new(url: "http://twitter.com/search/?q=%23sevenwordsaftersex")
+
+      assert_kind_of(Addressable::URI, trend.uri)
+      assert_equal("http://twitter.com/search/?q=%23sevenwordsaftersex", trend.uri.to_s)
     end
 
     it "returns nil when the url is not set" do
-      trend = described_class.new
-      expect(trend.uri).to be_nil
+      trend = Twitter::Trend.new
+
+      assert_nil(trend.uri)
     end
   end
 
   describe "#uri?" do
     it "returns true when the url is set" do
-      trend = described_class.new(url: "https://api.twitter.com/1.1/geo/id/247f43d441defc03.json")
-      expect(trend.uri?).to be true
+      trend = Twitter::Trend.new(url: "https://api.twitter.com/1.1/geo/id/247f43d441defc03.json")
+
+      assert_predicate(trend, :uri?)
     end
 
     it "returns false when the url is not set" do
-      trend = described_class.new
-      expect(trend.uri?).to be false
+      trend = Twitter::Trend.new
+
+      refute_predicate(trend, :uri?)
     end
   end
 end

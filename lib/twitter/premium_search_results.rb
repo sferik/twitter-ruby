@@ -67,7 +67,7 @@ module Twitter
     # @api private
     # @return [Boolean]
     def next_page?
-      !!@attrs[:next]
+      !next_page_token.nil?
     end
 
     # Returns query parameters for the next page
@@ -76,10 +76,9 @@ module Twitter
     # @note Returned Hash can be merged into previous search options
     # @return [Hash]
     def next_page
-      next_token = @attrs[:next]
-      return unless next_token
+      return if next_page_token.nil?
 
-      {next: next_token}
+      {next: next_page_token}
     end
 
     # Fetches the next page of results
@@ -87,9 +86,7 @@ module Twitter
     # @api private
     # @return [Hash]
     def fetch_next_page
-      page = next_page || {}
-      next_options = @options.reject { |k| k == :query }.merge(page)
-      request = @client.premium_search(@options[:query], next_options, @request_config) # steep:ignore ArgumentTypeMismatch
+      request = @client.premium_search(search_query, next_page_options, @request_config) # steep:ignore ArgumentTypeMismatch
 
       self.attrs = request.attrs
     end
@@ -102,10 +99,38 @@ module Twitter
     def attrs=(attrs)
       attrs.tap do |value|
         @attrs = value
-        value.fetch(:results, []).each do |tweet|
-          @collection << Tweet.new(tweet)
-        end
+        @collection.concat(value.fetch(:results, []).map { |tweet| Tweet.new(tweet) })
       end
+    end
+
+    # Returns the token used to fetch the next results page
+    #
+    # @api private
+    # @example
+    #   results.send(:next_page_token)
+    # @return [String, nil]
+    def next_page_token
+      @attrs[:next]
+    end
+
+    # Returns the original search query for this result set
+    #
+    # @api private
+    # @example
+    #   results.send(:search_query)
+    # @return [String, nil]
+    def search_query
+      @options[:query]
+    end
+
+    # Returns request options for fetching the next page
+    #
+    # @api private
+    # @example
+    #   results.send(:next_page_options)
+    # @return [Hash]
+    def next_page_options
+      @options.dup.tap { |options| options.delete(:query) }.merge(next_page || {})
     end
   end
 end

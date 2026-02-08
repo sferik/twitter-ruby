@@ -1305,6 +1305,9 @@ module Twitter
     def last?: () -> bool
     def next_page?: () -> bool
     def next_page: () -> Hash[Symbol, untyped]?
+    def next_page_token: () -> untyped
+    def search_query: () -> untyped
+    def next_page_options: () -> Hash[Symbol, untyped]
     def fetch_next_page: () -> void
   end
 
@@ -1596,7 +1599,7 @@ end
 
 module SimpleOAuth
   class Header
-    def initialize: (Symbol, Addressable::URI?, Hash[Symbol, untyped], Hash[Symbol, untyped]) -> void
+    def initialize: (Symbol, String, Hash[Symbol, untyped], Hash[Symbol, untyped]) -> void
     def to_s: () -> String
   end
 end

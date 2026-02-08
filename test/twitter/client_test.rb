@@ -1,92 +1,105 @@
-require "helper"
+require "test_helper"
 
 describe Twitter::Client do
+  let(:client_instance) { Twitter::Client.new }
+
   describe "#initialize" do
     it "yields self to the given block" do
       yielded_client = nil
-      client = described_class.new { |c| yielded_client = c }
-      expect(yielded_client).to be(client)
+      client = Twitter::Client.new { |c| yielded_client = c }
+
+      assert_operator(client, :equal?, yielded_client)
     end
   end
 
   describe "#user_agent" do
     it "defaults TwitterRubyGem/version" do
-      expect(subject.user_agent).to eq("TwitterRubyGem/#{Twitter::Version}")
+      assert_equal("TwitterRubyGem/#{Twitter::Version}", client_instance.user_agent)
     end
 
     it "uses Twitter::Version explicitly even if Client::Version exists" do
-      stub_const("Twitter::Client::Version", "MUTANT_VERSION")
-      client = described_class.new
+      with_stubbed_const("Twitter::Client::Version", "MUTANT_VERSION") do
+        client = Twitter::Client.new
 
-      expect(client.user_agent).to eq("TwitterRubyGem/#{Twitter::Version}")
+        assert_equal("TwitterRubyGem/#{Twitter::Version}", client.user_agent)
+      end
     end
   end
 
   describe "#user_agent=" do
     it "overwrites the User-Agent string" do
-      subject.user_agent = "MyTwitterClient/1.0.0"
-      expect(subject.user_agent).to eq("MyTwitterClient/1.0.0")
+      client_instance.user_agent = "MyTwitterClient/1.0.0"
+
+      assert_equal("MyTwitterClient/1.0.0", client_instance.user_agent)
     end
   end
 
   describe "#user_token?" do
     it "returns true if the user token/secret are present" do
       client = Twitter::REST::Client.new(access_token: "AT", access_token_secret: "AS")
-      expect(client.user_token?).to be true
+
+      assert_predicate(client, :user_token?)
     end
 
     it "returns false if the user token/secret are not completely present" do
       client = Twitter::REST::Client.new(access_token: "AT")
-      expect(client.user_token?).to be false
+
+      refute_predicate(client, :user_token?)
     end
 
     it "returns false if any user token/secret is blank" do
       client = Twitter::REST::Client.new(access_token: "", access_token_secret: "AS")
-      expect(client.user_token?).to be false
+
+      refute_predicate(client, :user_token?)
 
       client = Twitter::REST::Client.new(access_token: "AT", access_token_secret: "")
-      expect(client.user_token?).to be false
+
+      refute_predicate(client, :user_token?)
     end
   end
 
   describe "#credentials" do
     it "returns a hash with the correct keys for simple_oauth" do
-      client = Twitter::REST::Client.new(consumer_key: "CK", consumer_secret: "CS", access_token: "AT", access_token_secret: "AS")
+      client = build_rest_client
       credentials = client.credentials
-      expect(credentials).to have_key(:consumer_key)
-      expect(credentials).to have_key(:consumer_secret)
-      expect(credentials).to have_key(:token)
-      expect(credentials).to have_key(:token_secret)
-      expect(credentials[:consumer_key]).to eq("CK")
-      expect(credentials[:consumer_secret]).to eq("CS")
-      expect(credentials[:token]).to eq("AT")
-      expect(credentials[:token_secret]).to eq("AS")
+
+      assert_operator(credentials, :key?, :consumer_key)
+      assert_operator(credentials, :key?, :consumer_secret)
+      assert_operator(credentials, :key?, :token)
+      assert_operator(credentials, :key?, :token_secret)
+      assert_equal("CK", credentials[:consumer_key])
+      assert_equal("CS", credentials[:consumer_secret])
+      assert_equal("AT", credentials[:token])
+      assert_equal("AS", credentials[:token_secret])
     end
   end
 
   describe "#credentials?" do
     it "returns true if all credentials are present" do
-      client = Twitter::REST::Client.new(consumer_key: "CK", consumer_secret: "CS", access_token: "AT", access_token_secret: "AS")
-      expect(client.credentials?).to be true
+      client = build_rest_client
+
+      assert_predicate(client, :credentials?)
     end
 
     it "returns false if any credentials are missing" do
       client = Twitter::REST::Client.new(consumer_key: "CK", consumer_secret: "CS", access_token: "AT")
-      expect(client.credentials?).to be false
+
+      refute_predicate(client, :credentials?)
     end
 
     it "returns false if any credential is blank" do
       client = Twitter::REST::Client.new(consumer_key: "CK", consumer_secret: "CS", access_token: "AT", access_token_secret: "")
-      expect(client.credentials?).to be false
+
+      refute_predicate(client, :credentials?)
     end
   end
 
   describe "#blank_string? (private)" do
     it "returns false for truthy objects that do not implement #empty?" do
-      client = described_class.new
+      client = Twitter::Client.new
       value = Object.new
 
-      expect(client.send(:blank_string?, value)).to be(false)
+      refute(client.send(:blank_string?, value))
     end
   end
 end

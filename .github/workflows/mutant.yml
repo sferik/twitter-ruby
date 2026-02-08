@@ -21,4 +21,7 @@ jobs:
         ruby-version: '3.4'
         bundler-cache: true
     - name: Run mutation tests
-      run: bundle exec mutant run --include lib --include test --require twitter --mutation-timeout 5 'Twitter*'
+      run: |
+        jobs="$(nproc)"
+        echo "Detected ${jobs} cores"
+        MUTANT_JOBS="${jobs}" bundle exec rake mutant

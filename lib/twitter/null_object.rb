@@ -49,8 +49,8 @@ module Twitter
       "null"
     end
 
-    def to_json(*args) # steep:ignore UndeclaredMethodDefinition
-      nil.to_json(*args) # steep:ignore NoMethod
+    def to_json(*) # steep:ignore UndeclaredMethodDefinition,FallbackAny
+      nil.to_json(*) # steep:ignore NoMethod
     end
 
     def presence # steep:ignore UndeclaredMethodDefinition

@@ -6,6 +6,8 @@ plugins:
 AllCops:
   TargetRubyVersion: 3.2
   NewCops: enable
+  Exclude:
+    - "vendor/**/*"
 
 Layout/AccessModifierIndentation:
   EnforcedStyle: indent
@@ -27,6 +29,10 @@ Lint/Void:
   Enabled: false
 
 Lint/EmptyBlock:
+  Exclude:
+    - "test/**/*.rb"
+
+Lint/EmptyClass:
   Exclude:
     - "test/**/*.rb"
 
@@ -61,6 +67,9 @@ Style/FrozenStringLiteralComment:
 Style/NumericPredicate:
   Enabled: false
 
+Style/RescueStandardError:
+  EnforcedStyle: implicit
+
 Style/Alias:
   Enabled: false
 
@@ -75,3 +84,6 @@ Style/TrailingCommaInArrayLiteral:
 
 Style/TrailingCommaInHashLiteral:
   EnforcedStyleForMultiline: "no_comma"
+
+Minitest/AssertNil:
+  Enabled: false

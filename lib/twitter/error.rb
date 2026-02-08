@@ -23,64 +23,82 @@ module Twitter
     ClientError = Class.new(self) # steep:ignore IncompatibleAssignment
 
     # Raised when Twitter returns the HTTP status code 400
-    BadRequest = Class.new(ClientError) # steep:ignore IncompatibleAssignment
+    class BadRequest < ClientError
+    end # steep:ignore IncompatibleAssignment
 
     # Raised when Twitter returns the HTTP status code 401
-    Unauthorized = Class.new(ClientError) # steep:ignore IncompatibleAssignment
+    class Unauthorized < ClientError
+    end # steep:ignore IncompatibleAssignment
 
     # Raised when Twitter returns the HTTP status code 403
-    Forbidden = Class.new(ClientError) # steep:ignore IncompatibleAssignment
+    class Forbidden < ClientError
+    end # steep:ignore IncompatibleAssignment
 
     # Raised when Twitter returns the HTTP status code 413
-    RequestEntityTooLarge = Class.new(ClientError) # steep:ignore IncompatibleAssignment
+    class RequestEntityTooLarge < ClientError
+    end # steep:ignore IncompatibleAssignment
 
     # Raised when a Tweet has already been favorited
-    AlreadyFavorited = Class.new(Forbidden) # steep:ignore IncompatibleAssignment
+    class AlreadyFavorited < Forbidden
+    end # steep:ignore IncompatibleAssignment
 
     # Raised when a Tweet has already been retweeted
-    AlreadyRetweeted = Class.new(Forbidden) # steep:ignore IncompatibleAssignment
+    class AlreadyRetweeted < Forbidden
+    end # steep:ignore IncompatibleAssignment
 
     # Raised when a Tweet has already been posted
-    DuplicateStatus = Class.new(Forbidden) # steep:ignore IncompatibleAssignment
+    class DuplicateStatus < Forbidden
+    end # steep:ignore IncompatibleAssignment
 
     # Raised when Twitter returns the HTTP status code 404
-    NotFound = Class.new(ClientError) # steep:ignore IncompatibleAssignment
+    class NotFound < ClientError
+    end # steep:ignore IncompatibleAssignment
 
     # Raised when Twitter returns the HTTP status code 406
-    NotAcceptable = Class.new(ClientError) # steep:ignore IncompatibleAssignment
+    class NotAcceptable < ClientError
+    end # steep:ignore IncompatibleAssignment
 
     # Raised when Twitter returns the HTTP status code 422
-    UnprocessableEntity = Class.new(ClientError) # steep:ignore IncompatibleAssignment
+    class UnprocessableEntity < ClientError
+    end # steep:ignore IncompatibleAssignment
 
     # Raised when Twitter returns the HTTP status code 429
-    TooManyRequests = Class.new(ClientError) # steep:ignore IncompatibleAssignment
+    class TooManyRequests < ClientError
+    end # steep:ignore IncompatibleAssignment
 
     # Raised when Twitter returns a 5xx HTTP status code
     ServerError = Class.new(self) # steep:ignore IncompatibleAssignment
 
     # Raised when Twitter returns the HTTP status code 500
-    InternalServerError = Class.new(ServerError) # steep:ignore IncompatibleAssignment
+    class InternalServerError < ServerError
+    end # steep:ignore IncompatibleAssignment
 
     # Raised when Twitter returns the HTTP status code 502
-    BadGateway = Class.new(ServerError) # steep:ignore IncompatibleAssignment
+    class BadGateway < ServerError
+    end # steep:ignore IncompatibleAssignment
 
     # Raised when Twitter returns the HTTP status code 503
-    ServiceUnavailable = Class.new(ServerError) # steep:ignore IncompatibleAssignment
+    class ServiceUnavailable < ServerError
+    end # steep:ignore IncompatibleAssignment
 
     # Raised when Twitter returns the HTTP status code 504
-    GatewayTimeout = Class.new(ServerError) # steep:ignore IncompatibleAssignment
+    class GatewayTimeout < ServerError
+    end # steep:ignore IncompatibleAssignment
 
     # Raised when Twitter returns a media related error
     MediaError = Class.new(self) # steep:ignore IncompatibleAssignment
 
     # Raised when Twitter returns an InvalidMedia error
-    InvalidMedia = Class.new(MediaError) # steep:ignore IncompatibleAssignment
+    class InvalidMedia < MediaError
+    end # steep:ignore IncompatibleAssignment
 
     # Raised when Twitter returns a media InternalError error
-    MediaInternalError = Class.new(MediaError) # steep:ignore IncompatibleAssignment
+    class MediaInternalError < MediaError
+    end # steep:ignore IncompatibleAssignment
 
     # Raised when Twitter returns an UnsupportedMedia error
-    UnsupportedMedia = Class.new(MediaError) # steep:ignore IncompatibleAssignment
+    class UnsupportedMedia < MediaError
+    end # steep:ignore IncompatibleAssignment
 
     # Raised when an operation subject to timeout takes too long
     TimeoutError = Class.new(self) # steep:ignore IncompatibleAssignment

@@ -112,7 +112,10 @@ module Twitter
     # @param query_string [String] The query string of a URL
     # @return [Hash]
     def query_string_to_hash(query_string)
-      query = CGI.parse(URI.parse(query_string).query)
+      parsed_query = URI.parse(query_string).query
+      return {} if parsed_query.nil?
+
+      query = CGI.parse(parsed_query)
       query.to_h { |key, value| [key.to_sym, value.first] }
     end
   end

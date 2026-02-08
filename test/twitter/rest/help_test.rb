@@ -1,89 +1,116 @@
-require "helper"
+require "test_helper"
 
 describe Twitter::REST::Help do
   before do
-    @client = Twitter::REST::Client.new(consumer_key: "CK", consumer_secret: "CS", access_token: "AT", access_token_secret: "AS")
+    @client = build_rest_client
   end
 
   describe "#languages" do
     before do
-      stub_get("/1.1/help/languages.json").to_return(body: fixture("languages.json"), headers: {content_type: "application/json; charset=utf-8"})
+      stub_get("/1.1/help/languages.json").to_return(body: fixture("languages.json"), headers: json_headers)
     end
 
     it "requests the correct resource" do
       @client.languages
-      expect(a_get("/1.1/help/languages.json")).to have_been_made
+
+      assert_requested(a_get("/1.1/help/languages.json"))
     end
 
     it "returns the list of languages supported by Twitter" do
       languages = @client.languages
-      expect(languages).to be_an Array
-      expect(languages.first).to be_a Twitter::Language
-      expect(languages.first.name).to eq("Portuguese")
+
+      assert_kind_of(Array, languages)
+      assert_kind_of(Twitter::Language, languages.first)
+      assert_equal("Portuguese", languages.first.name)
     end
 
     it "passes options through to the request" do
-      stub_get("/1.1/help/languages.json").with(query: {foo: "bar"}).to_return(body: fixture("languages.json"), headers: {content_type: "application/json; charset=utf-8"})
+      stub_get("/1.1/help/languages.json").with(query: {foo: "bar"}).to_return(body: fixture("languages.json"), headers: json_headers)
       @client.languages(foo: "bar")
-      expect(a_get("/1.1/help/languages.json").with(query: {foo: "bar"})).to have_been_made
+
+      assert_requested(a_get("/1.1/help/languages.json").with(query: {foo: "bar"}))
     end
   end
 
   describe "#privacy" do
     before do
-      stub_get("/1.1/help/privacy.json").to_return(body: fixture("privacy.json"), headers: {content_type: "application/json; charset=utf-8"})
+      stub_get("/1.1/help/privacy.json").to_return(body: fixture("privacy.json"), headers: json_headers)
     end
 
     it "requests the correct resource" do
       @client.privacy
-      expect(a_get("/1.1/help/privacy.json")).to have_been_made
+
+      assert_requested(a_get("/1.1/help/privacy.json"))
     end
 
     it "returns the Twitter Privacy Policy" do
       privacy = @client.privacy
-      expect(privacy.split.first).to eq("Twitter")
+
+      assert_equal("Twitter", privacy.split.first)
     end
 
     it "passes options through to the request" do
-      stub_get("/1.1/help/privacy.json").with(query: {foo: "bar"}).to_return(body: fixture("privacy.json"), headers: {content_type: "application/json; charset=utf-8"})
+      stub_get("/1.1/help/privacy.json").with(query: {foo: "bar"}).to_return(body: fixture("privacy.json"), headers: json_headers)
       @client.privacy(foo: "bar")
-      expect(a_get("/1.1/help/privacy.json").with(query: {foo: "bar"})).to have_been_made
+
+      assert_requested(a_get("/1.1/help/privacy.json").with(query: {foo: "bar"}))
     end
 
     it "uses hash defaults when the privacy key is missing" do
       fallback = Hash.new("fallback privacy")
-      allow(@client).to receive(:perform_get).with("/1.1/help/privacy.json", {}).and_return(fallback)
+      called = false
 
-      expect(@client.privacy).to eq("fallback privacy")
+      @client.stub(:perform_get, lambda { |path, options|
+        called = true
+
+        assert_equal("/1.1/help/privacy.json", path)
+        assert_empty(options)
+        fallback
+      }) do
+        assert_equal("fallback privacy", @client.privacy)
+      end
+      assert(called)
     end
   end
 
   describe "#tos" do
     before do
-      stub_get("/1.1/help/tos.json").to_return(body: fixture("tos.json"), headers: {content_type: "application/json; charset=utf-8"})
+      stub_get("/1.1/help/tos.json").to_return(body: fixture("tos.json"), headers: json_headers)
     end
 
     it "requests the correct resource" do
       @client.tos
-      expect(a_get("/1.1/help/tos.json")).to have_been_made
+
+      assert_requested(a_get("/1.1/help/tos.json"))
     end
 
     it "returns the Twitter Terms of Service" do
       tos = @client.tos
-      expect(tos.split.first).to eq("Terms")
+
+      assert_equal("Terms", tos.split.first)
     end
 
     it "passes options through to the request" do
-      stub_get("/1.1/help/tos.json").with(query: {foo: "bar"}).to_return(body: fixture("tos.json"), headers: {content_type: "application/json; charset=utf-8"})
+      stub_get("/1.1/help/tos.json").with(query: {foo: "bar"}).to_return(body: fixture("tos.json"), headers: json_headers)
       @client.tos(foo: "bar")
-      expect(a_get("/1.1/help/tos.json").with(query: {foo: "bar"})).to have_been_made
+
+      assert_requested(a_get("/1.1/help/tos.json").with(query: {foo: "bar"}))
     end
 
     it "uses hash defaults when the tos key is missing" do
       fallback = Hash.new("fallback tos")
-      allow(@client).to receive(:perform_get).with("/1.1/help/tos.json", {}).and_return(fallback)
+      called = false
 
-      expect(@client.tos).to eq("fallback tos")
+      @client.stub(:perform_get, lambda { |path, options|
+        called = true
+
+        assert_equal("/1.1/help/tos.json", path)
+        assert_empty(options)
+        fallback
+      }) do
+        assert_equal("fallback tos", @client.tos)
+      end
+      assert(called)
     end
   end
 end
