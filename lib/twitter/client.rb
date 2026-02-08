@@ -116,7 +116,7 @@ module Twitter
         consumer_key:,
         consumer_secret:,
         token: access_token,
-        token_secret: access_token_secret,
+        token_secret: access_token_secret
       }
     end
 
@@ -130,7 +130,7 @@ module Twitter
       credentials.values.none? { |v| blank_string?(v) }
     end
 
-  private
+    private
 
     # Check if string is blank or nil
     #

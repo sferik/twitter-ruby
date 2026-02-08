@@ -155,7 +155,7 @@ module Twitter
         @connection.close
       end
 
-    private
+      private
 
       # Performs the streaming request
       #
@@ -191,7 +191,7 @@ module Twitter
       def collect_user_ids(users)
         users.filter_map do |user|
           case user
-          when Integer       then user
+          when Integer then user
           when Twitter::User then user.id
           end
         end

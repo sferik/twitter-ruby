@@ -23,7 +23,7 @@ module Twitter
       self
     end
 
-  private
+    private
 
     # Returns true if this is the last page
     #

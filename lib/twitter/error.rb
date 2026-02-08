@@ -99,7 +99,7 @@ module Twitter
       500 => Twitter::Error::InternalServerError,
       502 => Twitter::Error::BadGateway,
       503 => Twitter::Error::ServiceUnavailable,
-      504 => Twitter::Error::GatewayTimeout,
+      504 => Twitter::Error::GatewayTimeout
     }.freeze
 
     # Maps forbidden message patterns to error classes
@@ -123,60 +123,60 @@ module Twitter
     MEDIA_ERRORS = {
       "InternalError" => Twitter::Error::MediaInternalError,
       "InvalidMedia" => Twitter::Error::InvalidMedia,
-      "UnsupportedMedia" => Twitter::Error::UnsupportedMedia,
+      "UnsupportedMedia" => Twitter::Error::UnsupportedMedia
     }.freeze
 
     # Twitter API error codes
     # @see https://developer.twitter.com/en/docs/basics/response-codes
     module Code
       # Authentication problem error code
-      AUTHENTICATION_PROBLEM       =  32
+      AUTHENTICATION_PROBLEM = 32
       # Resource not found error code
-      RESOURCE_NOT_FOUND           =  34
+      RESOURCE_NOT_FOUND = 34
       # Suspended account error code
-      SUSPENDED_ACCOUNT            =  64
+      SUSPENDED_ACCOUNT = 64
       # Deprecated call error code
-      DEPRECATED_CALL              =  68
+      DEPRECATED_CALL = 68
       # Rate limit exceeded error code
-      RATE_LIMIT_EXCEEDED          =  88
+      RATE_LIMIT_EXCEEDED = 88
       # Invalid or expired token error code
-      INVALID_OR_EXPIRED_TOKEN     =  89
+      INVALID_OR_EXPIRED_TOKEN = 89
       # SSL required error code
-      SSL_REQUIRED                 =  92
+      SSL_REQUIRED = 92
       # Unable to verify credentials error code
-      UNABLE_TO_VERIFY_CREDENTIALS =  99
+      UNABLE_TO_VERIFY_CREDENTIALS = 99
       # Over capacity error code
-      OVER_CAPACITY                = 130
+      OVER_CAPACITY = 130
       # Internal error code
-      INTERNAL_ERROR               = 131
+      INTERNAL_ERROR = 131
       # OAuth timestamp out of range error code
       OAUTH_TIMESTAMP_OUT_OF_RANGE = 135
       # Already favorited error code
-      ALREADY_FAVORITED            = 139
+      ALREADY_FAVORITED = 139
       # Follow already requested error code
-      FOLLOW_ALREADY_REQUESTED     = 160
+      FOLLOW_ALREADY_REQUESTED = 160
       # Follow limit exceeded error code
-      FOLLOW_LIMIT_EXCEEDED        = 161
+      FOLLOW_LIMIT_EXCEEDED = 161
       # Protected status error code
-      PROTECTED_STATUS             = 179
+      PROTECTED_STATUS = 179
       # Over update limit error code
-      OVER_UPDATE_LIMIT            = 185
+      OVER_UPDATE_LIMIT = 185
       # Duplicate status error code
-      DUPLICATE_STATUS             = 187
+      DUPLICATE_STATUS = 187
       # Bad authentication data error code
-      BAD_AUTHENTICATION_DATA      = 215
+      BAD_AUTHENTICATION_DATA = 215
       # Spam error code
-      SPAM                         = 226
+      SPAM = 226
       # Login verification needed error code
-      LOGIN_VERIFICATION_NEEDED    = 231
+      LOGIN_VERIFICATION_NEEDED = 231
       # Endpoint retired error code
-      ENDPOINT_RETIRED             = 251
+      ENDPOINT_RETIRED = 251
       # Cannot write error code
-      CANNOT_WRITE                 = 261
+      CANNOT_WRITE = 261
       # Cannot mute error code
-      CANNOT_MUTE                  = 271
+      CANNOT_MUTE = 271
       # Cannot unmute error code
-      CANNOT_UNMUTE                = 272
+      CANNOT_UNMUTE = 272
     end
 
     class << self
@@ -210,7 +210,7 @@ module Twitter
         klass.new(message, headers, code)
       end
 
-    private
+      private
 
       # Parses an error from the response body
       #

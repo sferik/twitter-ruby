@@ -50,10 +50,10 @@ module Twitter
     #   headers.request_headers # => {user_agent: "...", authorization: "..."}
     # @return [Hash]
     def request_headers
-      headers = {} #: Hash[Symbol, String]
+      headers = {} # : Hash[Symbol, String]
       headers[:user_agent] = @client.user_agent
       if bearer_token_request?
-        headers[:accept]        = "*/*"
+        headers[:accept] = "*/*"
         headers[:authorization] = bearer_token_credentials_auth_header
       else
         headers[:authorization] = auth_header
@@ -61,7 +61,7 @@ module Twitter
       headers
     end
 
-  private
+    private
 
     # Generate the appropriate auth header based on credentials
     #

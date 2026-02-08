@@ -63,7 +63,7 @@ describe Twitter::Streaming::Client do
     end
 
     it "returns self when given a block for method chaining" do
-      result = @client.before_request { }
+      result = @client.before_request {}
       expect(result).to be @client
     end
 
@@ -97,7 +97,7 @@ describe Twitter::Streaming::Client do
 
     it "passes options to the request" do
       @client.connection = FakeConnection.new(fixture("track_streaming.json"))
-      expect(HTTP::Request).to receive(:new).with(hash_including(uri: %r{track=india}))
+      expect(HTTP::Request).to receive(:new).with(hash_including(uri: /track=india/))
       @client.filter(track: "india") {}
     end
 
@@ -121,7 +121,7 @@ describe Twitter::Streaming::Client do
 
     it "passes options to the request" do
       @client.connection = FakeConnection.new(fixture("track_streaming.json"))
-      expect(HTTP::Request).to receive(:new).with(hash_including(uri: %r{count=5}))
+      expect(HTTP::Request).to receive(:new).with(hash_including(uri: /count=5/))
       @client.firehose(count: 5) {}
     end
   end
@@ -140,7 +140,7 @@ describe Twitter::Streaming::Client do
 
     it "passes options to the request" do
       @client.connection = FakeConnection.new(fixture("track_streaming.json"))
-      expect(HTTP::Request).to receive(:new).with(hash_including(uri: %r{stall_warnings=true}))
+      expect(HTTP::Request).to receive(:new).with(hash_including(uri: /stall_warnings=true/))
       @client.sample(stall_warnings: true) {}
     end
 
@@ -184,7 +184,7 @@ describe Twitter::Streaming::Client do
 
       it "includes the user ID in the follow parameter" do
         @client.connection = FakeConnection.new(fixture("track_streaming.json"))
-        expect(HTTP::Request).to receive(:new).with(hash_including(uri: %r{follow=7505382}))
+        expect(HTTP::Request).to receive(:new).with(hash_including(uri: /follow=7505382/))
         @client.site(7_505_382) {}
       end
     end
@@ -205,7 +205,7 @@ describe Twitter::Streaming::Client do
       it "extracts the user ID and includes it in the follow parameter" do
         @client.connection = FakeConnection.new(fixture("track_streaming.json"))
         user = Twitter::User.new(id: 7_505_382)
-        expect(HTTP::Request).to receive(:new).with(hash_including(uri: %r{follow=7505382}))
+        expect(HTTP::Request).to receive(:new).with(hash_including(uri: /follow=7505382/))
         @client.site(user) {}
       end
     end
@@ -214,7 +214,7 @@ describe Twitter::Streaming::Client do
       it "extracts all user IDs correctly" do
         @client.connection = FakeConnection.new(fixture("track_streaming.json"))
         user = Twitter::User.new(id: 123)
-        expect(HTTP::Request).to receive(:new).with(hash_including(uri: %r{follow=456%2C123}))
+        expect(HTTP::Request).to receive(:new).with(hash_including(uri: /follow=456%2C123/))
         @client.site(456, user) {}
       end
     end
@@ -244,7 +244,7 @@ describe Twitter::Streaming::Client do
 
     it "passes options to the request" do
       @client.connection = FakeConnection.new(fixture("track_streaming.json"))
-      expect(HTTP::Request).to receive(:new).with(hash_including(uri: %r{track=test}))
+      expect(HTTP::Request).to receive(:new).with(hash_including(uri: /track=test/))
       @client.user(track: "test") {}
     end
   end

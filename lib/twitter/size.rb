@@ -35,7 +35,7 @@ module Twitter
     #   @example
     #     size.height
     #   @return [Integer]
-    alias height h
+    alias_method :height, :h
 
     # @!method width
     #   The width in pixels
@@ -43,6 +43,6 @@ module Twitter
     #   @example
     #     size.width
     #   @return [Integer]
-    alias width w
+    alias_method :width, :w
   end
 end

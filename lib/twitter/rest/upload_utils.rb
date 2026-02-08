@@ -6,7 +6,7 @@ module Twitter
     #
     # @api private
     module UploadUtils
-    private
+      private
 
       # Uploads images and videos to Twitter
       #
@@ -35,10 +35,10 @@ module Twitter
       def chunk_upload(media, media_type, media_category)
         Timeout.timeout(timeouts&.fetch(:upload, nil), Error::TimeoutError) do # steep:ignore UnknownConstant,NoMethod
           init = Request.new(self, :post, "https://upload.twitter.com/1.1/media/upload.json",
-                             command: "INIT",
-                             media_type:,
-                             media_category:,
-                             total_bytes: media.size).perform
+            command: "INIT",
+            media_type:,
+            media_category:,
+            total_bytes: media.size).perform
           append_media(media, init.fetch(:media_id))
           media.close
           finalize_media(init.fetch(:media_id))
@@ -55,11 +55,11 @@ module Twitter
           chunk = media.read(5_000_000)
           seg ||= -1
           Request.new(self, :multipart_post, "https://upload.twitter.com/1.1/media/upload.json",
-                      command: "APPEND",
-                      media_id:,
-                      segment_index: seg += 1,
-                      key: :media,
-                      file: StringIO.new(chunk)).perform
+            command: "APPEND",
+            media_id:,
+            segment_index: seg += 1,
+            key: :media,
+            file: StringIO.new(chunk)).perform
         end
       end
 
@@ -71,15 +71,16 @@ module Twitter
       # @return [Hash]
       def finalize_media(media_id)
         response = Request.new(self, :post, "https://upload.twitter.com/1.1/media/upload.json",
-                               command: "FINALIZE", media_id:).perform
+          command: "FINALIZE", media_id:).perform
+        terminal_states = %w[failed succeeded]
 
         loop do
           processing_info = response[:processing_info]
-          return response if !processing_info || %w[failed succeeded].include?(processing_info[:state])
+          return response if !processing_info || terminal_states.include?(processing_info[:state])
 
           sleep(processing_info.fetch(:check_after_secs))
           response = Request.new(self, :get, "https://upload.twitter.com/1.1/media/upload.json",
-                                 command: "STATUS", media_id:).perform
+            command: "STATUS", media_id:).perform
         end
       end
     end

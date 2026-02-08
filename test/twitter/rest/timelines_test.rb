@@ -28,7 +28,7 @@ describe Twitter::REST::Timelines do
       end
 
       it "passes options to the request" do
-        @client.mentions_timeline(since_id: 12345)
+        @client.mentions_timeline(since_id: 12_345)
         expect(a_get("/1.1/statuses/mentions_timeline.json").with(query: {since_id: "12345"})).to have_been_made
       end
     end
@@ -91,7 +91,7 @@ describe Twitter::REST::Timelines do
       end
 
       it "passes options through and respects count" do
-        tweets = @client.retweeted_by_user("sferik", count: 5, since_id: 12345)
+        tweets = @client.retweeted_by_user("sferik", count: 5, since_id: 12_345)
         expect(tweets.length).to eq(5)
         expect(a_get("/1.1/statuses/user_timeline.json").with(query: {include_rts: "true", screen_name: "sferik", count: "200", since_id: "12345"})).to have_been_made
       end
@@ -136,7 +136,7 @@ describe Twitter::REST::Timelines do
       end
 
       it "passes options through and respects count" do
-        tweets = @client.retweeted_by_me(count: 5, since_id: 12345)
+        tweets = @client.retweeted_by_me(count: 5, since_id: 12_345)
         expect(tweets.length).to eq(5)
         expect(a_get("/1.1/statuses/user_timeline.json").with(query: {include_rts: "true", count: "200", since_id: "12345"})).to have_been_made
       end
@@ -208,7 +208,7 @@ describe Twitter::REST::Timelines do
       end
 
       it "passes options through and respects count" do
-        tweets = @client.retweeted_to_me(count: 5, since_id: 12345)
+        tweets = @client.retweeted_to_me(count: 5, since_id: 12_345)
         expect(tweets.length).to eq(5)
         expect(a_get("/1.1/statuses/home_timeline.json").with(query: {include_rts: "true", count: "200", since_id: "12345"})).to have_been_made
       end
@@ -238,7 +238,7 @@ describe Twitter::REST::Timelines do
       end
 
       it "passes options to the request" do
-        @client.retweets_of_me(since_id: 12345)
+        @client.retweets_of_me(since_id: 12_345)
         expect(a_get("/1.1/statuses/retweets_of_me.json").with(query: {since_id: "12345"})).to have_been_made
       end
     end

@@ -527,7 +527,7 @@ module Twitter
       def error: (Integer, untyped, untyped) -> Error?
       def forbidden_error: (untyped, untyped) -> Error
       def symbolize_keys!: (untyped) -> untyped
-      def timeout_keys_defined: () -> bool
+      def timeout_keys_defined?: () -> bool
       def http_client: () -> untyped
       def proxy: () -> Array[untyped]
     end

@@ -24,4 +24,4 @@ end
 require "minitest/spec"
 require "mutant/minitest/coverage"
 
-require_relative "support/rspec_compat"
+require_relative "support/spec_support"

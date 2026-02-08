@@ -29,7 +29,7 @@ module Twitter
         super
       end
 
-    private
+      private
 
       # Normalizes the response attributes
       #
@@ -51,7 +51,7 @@ module Twitter
         {
           id: attrs[:id].to_i,
           created_at: Time.at(attrs[:created_timestamp].to_i / 1000.0),
-          welcome_message_id: attrs[:welcome_message_id].to_i,
+          welcome_message_id: attrs[:welcome_message_id].to_i
         }
       end
     end

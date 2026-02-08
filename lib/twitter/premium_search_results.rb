@@ -24,7 +24,7 @@ module Twitter
     #   @example
     #     results.to_h
     #   @return [Hash]
-    alias to_h attrs
+    alias_method :to_h, :attrs
 
     # @!method to_hash
     #   Returns the attributes as a hash
@@ -32,7 +32,7 @@ module Twitter
     #   @example
     #     results.to_hash
     #   @return [Hash]
-    alias to_hash to_h
+    alias_method :to_hash, :to_h
 
     # Initializes a new PremiumSearchResults object
     #
@@ -52,7 +52,7 @@ module Twitter
       self.attrs = request.perform
     end
 
-  private
+    private
 
     # Returns true if this is the last page of results
     #
@@ -100,11 +100,12 @@ module Twitter
     # @param attrs [Hash] The attributes hash
     # @return [Hash]
     def attrs=(attrs)
-      @attrs = attrs
-      @attrs.fetch(:results, []).collect do |tweet|
-        @collection << Tweet.new(tweet)
+      attrs.tap do |value|
+        @attrs = value
+        value.fetch(:results, []).each do |tweet|
+          @collection << Tweet.new(tweet)
+        end
       end
-      @attrs
     end
   end
 end

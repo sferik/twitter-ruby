@@ -16,11 +16,11 @@ describe Twitter::DirectMessageEvent do
             user_mentions: [],
             urls: [
               {url: "https://t.co/one", expanded_url: "https://example.com/one"},
-              {url: "https://t.co/two", expanded_url: "https://example.com/two"},
-            ],
-          },
-        },
-      },
+              {url: "https://t.co/two", expanded_url: "https://example.com/two"}
+            ]
+          }
+        }
+      }
     }
   end
 
@@ -44,7 +44,7 @@ describe Twitter::DirectMessageEvent do
       attrs = Marshal.load(Marshal.dump(event_attrs))
       attrs[:message_create][:message_data][:text] = "repeat https://t.co/one and https://t.co/one"
       attrs[:message_create][:message_data][:entities][:urls] = [
-        {url: "https://t.co/one", expanded_url: "https://example.com/one"},
+        {url: "https://t.co/one", expanded_url: "https://example.com/one"}
       ]
 
       event = described_class.new(attrs)
@@ -149,7 +149,7 @@ describe Twitter::DirectMessageEvent do
 
       built = event.send(:build_direct_message, event_attrs, text)
 
-      expect(built.keys).to eq([:id, :created_at, :sender, :sender_id, :recipient, :recipient_id, :text])
+      expect(built.keys).to eq(%i[id created_at sender sender_id recipient recipient_id text])
       expect(built[:id]).to eq(1_006_278_767_680_131_076)
       expect(built[:created_at]).to eq(Time.at(1_528_750_528_627 / 1000.0))
       expect(built[:sender]).to eq({id: 124_294_236})

@@ -60,7 +60,7 @@ module Twitter
     #   oembed.version
     # @return [String]
     attr_reader :author_name, :cache_age, :html, :provider_name, :type,
-                :version
+      :version
 
     uri_attr_reader :author_uri, :provider_uri, :uri
   end

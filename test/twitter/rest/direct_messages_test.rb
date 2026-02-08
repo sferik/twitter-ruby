@@ -95,7 +95,7 @@ describe Twitter::REST::DirectMessages do
 
     context "with count option" do
       it "uses count option to set the limit" do
-        direct_messages = @client.direct_messages_events(count: 1)
+        @client.direct_messages_events(count: 1)
         # The count option is used to set limit, we can verify it's being passed
         expect(a_get("/1.1/direct_messages/events/list.json").with(query: {count: 50})).to have_been_made
       end
@@ -382,9 +382,9 @@ describe Twitter::REST::DirectMessages do
           type: "message_create",
           message_create: {
             target: {recipient_id: "7505382"},
-            message_data: {text: "My #newride from @PUBLICBikes. Don't you want one? https://t.co/7HIwCl68Y8 https://t.co/JSSxDPr4Sf"},
-          },
-        },
+            message_data: {text: "My #newride from @PUBLICBikes. Don't you want one? https://t.co/7HIwCl68Y8 https://t.co/JSSxDPr4Sf"}
+          }
+        }
       }
     end
 
@@ -411,9 +411,9 @@ describe Twitter::REST::DirectMessages do
             type: "message_create",
             message_create: {
               target: {recipient_id: "7505382"},
-              message_data: {text: "Hello", quick_reply: {type: "options"}},
-            },
-          },
+              message_data: {text: "Hello", quick_reply: {type: "options"}}
+            }
+          }
         }
       end
 
@@ -563,10 +563,10 @@ describe Twitter::REST::DirectMessages do
 
       it "sends the correct media_category for dm_video" do
         @client.create_direct_message_event_with_media(58_983, "testing", video)
-        expect(a_request(:post, "https://upload.twitter.com/1.1/media/upload.json").with { |req|
+        expect(a_request(:post, "https://upload.twitter.com/1.1/media/upload.json").with do |req|
           req.body.include?("command=INIT") &&
           req.body.include?("media_category=dm_video")
-        }).to have_been_made
+        end).to have_been_made
       end
     end
 

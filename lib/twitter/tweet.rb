@@ -86,7 +86,7 @@ module Twitter
     #   tweet.retweet_count
     # @return [Integer]
     attr_reader :favorite_count, :in_reply_to_status_id, :in_reply_to_user_id,
-                :quote_count, :reply_count, :retweet_count
+      :quote_count, :reply_count, :retweet_count
 
     # @!method in_reply_to_tweet_id
     #   The ID of the tweet being replied to
@@ -94,7 +94,7 @@ module Twitter
     #   @example
     #     tweet.in_reply_to_tweet_id
     #   @return [Integer]
-    alias in_reply_to_tweet_id in_reply_to_status_id
+    alias_method :in_reply_to_tweet_id, :in_reply_to_status_id
 
     # Returns true if this is a reply
     #
@@ -103,7 +103,7 @@ module Twitter
     # @example
     #   tweet.reply?
     # @return [Boolean]
-    alias reply? in_reply_to_user_id?
+    alias_method :reply?, :in_reply_to_user_id?
     object_attr_reader :GeoFactory, :geo
     object_attr_reader :Metadata, :metadata
     object_attr_reader :Place, :place
@@ -118,7 +118,7 @@ module Twitter
     # @example
     #   tweet.retweeted_tweet
     # @return [Twitter::Tweet]
-    alias retweeted_tweet retweeted_status
+    alias_method :retweeted_tweet, :retweeted_status
 
     # Returns true if this is a retweet
     #
@@ -127,7 +127,7 @@ module Twitter
     # @example
     #   tweet.retweet?
     # @return [Boolean]
-    alias retweet? retweeted_status?
+    alias_method :retweet?, :retweeted_status?
 
     # Returns true if this has a retweeted tweet
     #
@@ -136,7 +136,7 @@ module Twitter
     # @example
     #   tweet.retweeted_tweet?
     # @return [Boolean]
-    alias retweeted_tweet? retweeted_status?
+    alias_method :retweeted_tweet?, :retweeted_status?
 
     # Returns the quoted tweet
     #
@@ -145,7 +145,7 @@ module Twitter
     # @example
     #   tweet.quoted_tweet
     # @return [Twitter::Tweet]
-    alias quoted_tweet quoted_status
+    alias_method :quoted_tweet, :quoted_status
 
     # Returns true if this is a quote tweet
     #
@@ -154,7 +154,7 @@ module Twitter
     # @example
     #   tweet.quote?
     # @return [Boolean]
-    alias quote? quoted_status?
+    alias_method :quote?, :quoted_status?
 
     # Returns true if this has a quoted tweet
     #
@@ -163,10 +163,10 @@ module Twitter
     # @example
     #   tweet.quoted_tweet?
     # @return [Boolean]
-    alias quoted_tweet? quoted_status?
+    alias_method :quoted_tweet?, :quoted_status?
     object_attr_reader :User, :user, :status
     predicate_attr_reader :favorited, :possibly_sensitive, :retweeted,
-                          :truncated
+      :truncated
 
     # Initializes a new Tweet object
     #
@@ -214,6 +214,6 @@ module Twitter
     #   @example
     #     tweet.url
     #   @return [Addressable::URI]
-    alias url uri
+    alias_method :url, :uri
   end
 end

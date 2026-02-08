@@ -59,7 +59,7 @@ describe Twitter::PremiumSearchResults do
 
       expect(client).to receive(:premium_search).with("pizza", {from_date: "202401010000", next: "next-token"}, {request_method: :post}).and_return(next_results)
       results.send(:fetch_next_page)
-      expect(results.to_a.map(&:id)).to eq([1, 2])
+      expect(results.to_a.collect(&:id)).to eq([1, 2])
     end
 
     it "passes nil query when query is not present in options" do
@@ -78,7 +78,7 @@ describe Twitter::PremiumSearchResults do
 
       expect(client).to receive(:premium_search).with(nil, {from_date: "202401010000", next: "next-token"}, {}).and_return(next_results)
       results.send(:fetch_next_page)
-      expect(results.to_a.map(&:id)).to eq([1, 2])
+      expect(results.to_a.collect(&:id)).to eq([1, 2])
     end
 
     it "treats missing next_page data as an empty merge when fetching the next page" do
@@ -97,7 +97,7 @@ describe Twitter::PremiumSearchResults do
 
       expect(client).to receive(:premium_search).with("pizza", {from_date: "202401010000"}, {}).and_return(next_results)
       expect { results.send(:fetch_next_page) }.not_to raise_error
-      expect(results.to_a.map(&:id)).to eq([1, 2])
+      expect(results.to_a.collect(&:id)).to eq([1, 2])
     end
   end
 

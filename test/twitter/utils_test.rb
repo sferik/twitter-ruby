@@ -33,7 +33,7 @@ describe Twitter::Utils do
       enumerator = utils_includer.send(:pmap, array)
       expect(enumerator).to be_an(Enumerator)
       # Verify enumerator yields the same results when iterated with a block
-      expect(enumerator.each { |x| x + 1 }).to eq(array.map { |x| x + 1 })
+      expect(enumerator.each { |x| x + 1 }).to eq(array.collect { |x| x + 1 })
     end
 
     it "collects single-element arrays correctly" do
@@ -55,11 +55,14 @@ describe Twitter::Utils do
     end
 
     it "yields each object exactly once with correct value" do
-      array = [:a, :b, :c]
+      array = %i[a b c]
       yielded_values = []
-      result = utils_includer.send(:pmap, array) { |x| yielded_values << x; x }
-      expect(yielded_values.sort).to eq([:a, :b, :c])
-      expect(result.sort).to eq([:a, :b, :c])
+      result = utils_includer.send(:pmap, array) do |x|
+        yielded_values << x
+        x
+      end
+      expect(yielded_values.sort).to eq(%i[a b c])
+      expect(result.sort).to eq(%i[a b c])
     end
 
     it "yields the actual object value not nil" do
@@ -84,8 +87,8 @@ describe Twitter::Utils do
     it "yields distinct non-nil values for each element" do
       # Forces use of the actual element values
       array = [Object.new, Object.new]
-      result = utils_includer.send(:pmap, array) { |obj| obj.object_id }
-      expect(result).to eq(array.map(&:object_id))
+      result = utils_includer.send(:pmap, array, &:object_id)
+      expect(result).to eq(array.collect(&:object_id))
     end
 
     it "returns early with enumerator when no block given" do
@@ -93,6 +96,7 @@ describe Twitter::Utils do
       # This should return immediately without processing the array
       result = utils_includer.send(:pmap, array)
       expect(result).to be_an(Enumerator)
+      expect(result.size).to be_nil
       # Verify the enumerator yields from the original array
       expect(result.to_a).to eq([1, 2, 3])
     end
@@ -100,7 +104,10 @@ describe Twitter::Utils do
     it "processes with block instead of returning enumerator" do
       array = [1, 2]
       block_called = false
-      result = utils_includer.send(:pmap, array) { |x| block_called = true; x * 2 }
+      result = utils_includer.send(:pmap, array) do |x|
+        block_called = true
+        x * 2
+      end
       expect(block_called).to be true
       expect(result).to eq([2, 4])
     end

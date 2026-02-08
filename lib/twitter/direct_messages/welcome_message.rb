@@ -32,7 +32,7 @@ module Twitter
       #   @example
       #     welcome_message.full_text
       #   @return [String]
-      alias full_text text
+      alias_method :full_text, :text
     end
   end
 end

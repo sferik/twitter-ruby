@@ -27,12 +27,12 @@ describe Twitter::REST::FormEncoder do
     end
 
     it "handles array-like objects with to_ary" do
-      class ArrayLike
+      array_like_class = Class.new do
         def to_ary
           [1, 2]
         end
       end
-      expect(described_class.encode({arr: ArrayLike.new})).to eq("arr=1&arr=2")
+      expect(described_class.encode({arr: array_like_class.new})).to eq("arr=1&arr=2")
     end
 
     it "encodes array values that need escaping" do

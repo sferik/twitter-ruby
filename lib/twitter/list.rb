@@ -77,7 +77,7 @@ module Twitter
     #   @example
     #     list.members_url
     #   @return [Addressable::URI]
-    alias members_url members_uri
+    alias_method :members_url, :members_uri
 
     # Returns the URI to the list subscribers
     #
@@ -96,7 +96,7 @@ module Twitter
     #   @example
     #     list.subscribers_url
     #   @return [Addressable::URI]
-    alias subscribers_url subscribers_uri
+    alias_method :subscribers_url, :subscribers_uri
 
     # Returns the URI to the list
     #
@@ -115,7 +115,7 @@ module Twitter
     #   @example
     #     list.url
     #   @return [Addressable::URI]
-    alias url uri
+    alias_method :url, :uri
 
     # Returns true if a URI is available for this list
     #

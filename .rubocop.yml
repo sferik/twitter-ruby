@@ -8,7 +8,13 @@ AllCops:
   NewCops: enable
 
 Layout/AccessModifierIndentation:
-  EnforcedStyle: outdent
+  EnforcedStyle: indent
+
+Layout/ArgumentAlignment:
+  EnforcedStyle: with_fixed_indentation
+
+Layout/EndAlignment:
+  EnforcedStyleAlignWith: start_of_line
 
 Layout/LineLength:
   AllowURI: true
@@ -20,8 +26,14 @@ Layout/SpaceInsideHashLiteralBraces:
 Lint/Void:
   Enabled: false
 
+Lint/EmptyBlock:
+  Exclude:
+    - "test/**/*.rb"
+
 Metrics/BlockLength:
   Max: 36
+  Exclude:
+    - "test/**/*.rb"
 
 Metrics/BlockNesting:
   Max: 2
@@ -37,20 +49,11 @@ Metrics/ParameterLists:
   Max: 5
   CountKeywordArgs: true
 
-Style/CollectionMethods:
-  Enabled: true
-  PreferredMethods:
-    map:      'collect'
-    map!:     'collect!'
-    reduce:   'inject'
-    find:     'detect'
-    find_all: 'select'
-
-Style/Documentation:
-  Enabled: false
-
 Style/DoubleNegation:
   Enabled: false
+
+Style/EmptyMethod:
+  EnforcedStyle: expanded
 
 Style/FrozenStringLiteralComment:
   Enabled: false
@@ -58,14 +61,17 @@ Style/FrozenStringLiteralComment:
 Style/NumericPredicate:
   Enabled: false
 
+Style/Alias:
+  Enabled: false
+
 Style/StringLiterals:
   EnforcedStyle: double_quotes
 
+Style/TernaryParentheses:
+  EnforcedStyle: require_parentheses_when_complex
+
 Style/TrailingCommaInArrayLiteral:
-  EnforcedStyleForMultiline: 'comma'
+  EnforcedStyleForMultiline: "no_comma"
 
 Style/TrailingCommaInHashLiteral:
-  EnforcedStyleForMultiline: 'comma'
-
-Style/EmptyClassDefinition:
-  Enabled: false
+  EnforcedStyleForMultiline: "no_comma"

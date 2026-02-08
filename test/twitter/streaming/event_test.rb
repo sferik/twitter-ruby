@@ -35,7 +35,7 @@ describe Twitter::Streaming::Event do
     end
 
     it "uses hash defaults when the source key is missing" do
-      data = Hash.new({id: 10_083_602})
+      data = Hash.new { |_hash, _key| {id: 10_083_602} }
       data[:event] = "follow"
       data[:target] = {id: 1_292_911_088}
       data[:target_object] = nil
@@ -45,7 +45,7 @@ describe Twitter::Streaming::Event do
     end
 
     it "uses hash defaults when the target key is missing" do
-      data = Hash.new({id: 1_292_911_088})
+      data = Hash.new { |_hash, _key| {id: 1_292_911_088} }
       data[:event] = "follow"
       data[:source] = {id: 10_083_602}
       data[:target_object] = nil

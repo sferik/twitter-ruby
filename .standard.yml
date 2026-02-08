@@ -1,0 +1,5 @@
+plugins:
+  - standard-performance
+
+ignore:
+  - "test/support/spec_support.rb"

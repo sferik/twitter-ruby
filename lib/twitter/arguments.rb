@@ -20,7 +20,7 @@ module Twitter
     # @param args [Array] An array of arguments, optionally ending with a Hash
     # @return [Twitter::Arguments]
     def initialize(args)
-      @options = args.last.is_a?(Hash) ? args.pop : {} #: Hash[Symbol, untyped]
+      @options = args.last.is_a?(Hash) ? args.pop : {} # : Hash[Symbol, untyped]
       super(args.flatten)
     end
   end

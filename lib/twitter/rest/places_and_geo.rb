@@ -70,7 +70,7 @@ module Twitter
       # @!method places_nearby
       #   @api public
       #   @see #geo_search
-      alias places_nearby geo_search
+      alias_method :places_nearby, :geo_search
 
       # Locates places near the given coordinates which are similar in name
       #
@@ -93,7 +93,7 @@ module Twitter
       # @!method places_similar
       #   @api public
       #   @see #similar_places
-      alias places_similar similar_places
+      alias_method :places_similar, :similar_places
     end
   end
 end

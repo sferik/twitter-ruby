@@ -53,8 +53,8 @@ describe Twitter::DirectMessage do
           url: "https://t.co/L2xIBazMPf",
           expanded_url: "http://example.com/expanded",
           display_url: "example.com/expanded...",
-          indices: [10, 33],
-        },
+          indices: [10, 33]
+        }
       ]
       tweet = described_class.new(id: 1_825_786_345, entities: {urls: urls_array})
       expect(tweet.entities?).to be true
@@ -124,8 +124,8 @@ describe Twitter::DirectMessage do
       hashtags_array = [
         {
           text: "twitter",
-          indices: [10, 33],
-        },
+          indices: [10, 33]
+        }
       ]
       hashtags = described_class.new(id: 1_825_786_345, entities: {hashtags: hashtags_array}).hashtags
       expect(hashtags).to be_an Array
@@ -157,7 +157,7 @@ describe Twitter::DirectMessage do
     it "returns an array of Entity::Symbol when symbols are set" do
       symbols_array = [
         {text: "PEP", indices: [114, 118]},
-        {text: "COKE", indices: [128, 133]},
+        {text: "COKE", indices: [128, 133]}
       ]
       symbols = described_class.new(id: 1_825_786_345, entities: {symbols: symbols_array}).symbols
       expect(symbols).to be_an Array
@@ -180,8 +180,8 @@ describe Twitter::DirectMessage do
           url: "https://t.co/L2xIBazMPf",
           expanded_url: "http://example.com/expanded",
           display_url: "example.com/expanded...",
-          indices: [10, 33],
-        },
+          indices: [10, 33]
+        }
       ]
       direct_message = described_class.new(id: 1_825_786_345, entities: {urls: urls_array})
       expect(direct_message.uris).to be_an Array
@@ -202,8 +202,8 @@ describe Twitter::DirectMessage do
           url: "https://t.co/L2xIBazMPf",
           expanded_url: "http://with_underscore.example.com/expanded",
           display_url: "with_underscore.example.com/expanded...",
-          indices: [10, 33],
-        },
+          indices: [10, 33]
+        }
       ]
       direct_message = described_class.new(id: 1_825_786_345, entities: {urls: urls_array})
       uri = direct_message.uris.first
@@ -221,8 +221,8 @@ describe Twitter::DirectMessage do
           name: "Erik Berlin",
           id_str: "7_505_382",
           indices: [0, 6],
-          id: 7_505_382,
-        },
+          id: 7_505_382
+        }
       ]
       user_mentions = described_class.new(id: 1_825_786_345, entities: {user_mentions: user_mentions_array}).user_mentions
       expect(user_mentions).to be_an Array

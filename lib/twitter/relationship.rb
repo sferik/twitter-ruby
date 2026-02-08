@@ -14,7 +14,7 @@ module Twitter
     # @param attrs [Hash] The attributes hash
     # @return [Twitter::Relationship]
     def initialize(attrs = {})
-      @attrs = attrs[:relationship] || {} # steep:ignore NoMethod
+      super(attrs[:relationship]) # steep:ignore NoMethod
     end
   end
 end

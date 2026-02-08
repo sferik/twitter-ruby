@@ -20,7 +20,7 @@ module Twitter
       #   @example
       #     point.lat
       #   @return [Float]
-      alias lat latitude
+      alias_method :lat, :latitude
 
       # Returns the longitude of this point
       #
@@ -38,7 +38,7 @@ module Twitter
       #   @example
       #     point.long
       #   @return [Float]
-      alias long longitude
+      alias_method :long, :longitude
 
       # @!method lng
       #   Returns the longitude of this point
@@ -46,7 +46,7 @@ module Twitter
       #   @example
       #     point.lng
       #   @return [Float]
-      alias lng longitude
+      alias_method :lng, :longitude
     end
   end
 end

@@ -20,10 +20,10 @@ module Twitter
     # @api private
     # @param enumerable [Enumerable]
     # @return [Array, Enumerator]
-    def pmap(enumerable)
+    def pmap(enumerable, &)
       return to_enum(:pmap, enumerable) unless block_given?
 
-      enumerable.collect { |object| yield(object) }
+      enumerable.collect(&)
     end
     module_function :pmap
   end

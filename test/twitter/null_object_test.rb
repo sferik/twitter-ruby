@@ -45,7 +45,7 @@ describe Twitter::NullObject do
     end
 
     it "returns false for non-module arguments" do
-      expect(subject.kind_of?(123)).to be(false)
+      expect(subject.is_a?(123)).to be(false)
     end
   end
 

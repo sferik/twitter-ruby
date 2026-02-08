@@ -5,7 +5,7 @@ describe Twitter::DirectMessages::WelcomeMessageRuleWrapper do
     {
       id: "1073279057817731072",
       created_timestamp: "1544724642601",
-      welcome_message_id: "1073273784206012421",
+      welcome_message_id: "1073273784206012421"
     }
   end
 
@@ -70,7 +70,7 @@ describe Twitter::DirectMessages::WelcomeMessageRuleWrapper do
           {
             id: "1",
             created_timestamp: "1000",
-            welcome_message_id: "2",
+            welcome_message_id: "2"
           }
         end
 

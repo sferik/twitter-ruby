@@ -205,7 +205,7 @@ module Twitter
       #   @example
       #     client.d(123456789, "Hello!")
       #   @return [Twitter::DirectMessage]
-      alias d create_direct_message
+      alias_method :d, :create_direct_message
 
       # @!method m
       #   @see #create_direct_message
@@ -213,7 +213,7 @@ module Twitter
       #   @example
       #     client.m(123456789, "Hello!")
       #   @return [Twitter::DirectMessage]
-      alias m create_direct_message
+      alias_method :m, :create_direct_message
 
       # @!method dm
       #   @see #create_direct_message
@@ -221,7 +221,7 @@ module Twitter
       #   @example
       #     client.dm(123456789, "Hello!")
       #   @return [Twitter::DirectMessage]
-      alias dm create_direct_message
+      alias_method :dm, :create_direct_message
 
       # Creates a new direct message event to the specified user
       #
@@ -269,7 +269,7 @@ module Twitter
         DirectMessageEvent.new(response)
       end
 
-    private
+      private
 
       # Formats options for JSON direct message requests
       #

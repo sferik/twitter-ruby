@@ -102,7 +102,6 @@ describe Twitter::REST::Lists do
         expect(a_get("/1.1/lists/statuses.json").with(query: {owner_id: "7505382", slug: "presidents"})).to have_been_made
       end
     end
-
   end
 
   describe "#remove_list_member" do

@@ -20,9 +20,9 @@ module Twitter
     end
 
     def instance_of?(klass)
-      raise(TypeError, "class or module required") unless klass.is_a?(Class)
-
-      self.class == klass
+      Object.instance_method(:instance_of?).bind_call(self, klass)
+    rescue TypeError
+      false
     end
 
     def kind_of?(mod)

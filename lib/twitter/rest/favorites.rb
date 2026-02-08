@@ -67,7 +67,7 @@ module Twitter
       # @!method destroy_favorite
       #   @api public
       #   @see #unfavorite
-      alias destroy_favorite unfavorite
+      alias_method :destroy_favorite, :unfavorite
 
       # Un-favorites the specified Tweets and raises an error if not found
       #
@@ -115,11 +115,11 @@ module Twitter
       # @!method fav
       #   @api public
       #   @see #favorite
-      alias fav favorite
+      alias_method :fav, :favorite
       # @!method fave
       #   @api public
       #   @see #favorite
-      alias fave favorite
+      alias_method :fave, :favorite
 
       # Favorites the specified Tweets and raises an error if already favorited
       #
@@ -147,15 +147,15 @@ module Twitter
       # @!method create_favorite!
       #   @api public
       #   @see #favorite!
-      alias create_favorite! favorite!
+      alias_method :create_favorite!, :favorite!
       # @!method fav!
       #   @api public
       #   @see #favorite!
-      alias fav! favorite!
+      alias_method :fav!, :favorite!
       # @!method fave!
       #   @api public
       #   @see #favorite!
-      alias fave! favorite!
+      alias_method :fave!, :favorite!
     end
   end
 end

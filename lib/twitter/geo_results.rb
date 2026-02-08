@@ -21,7 +21,7 @@ module Twitter
     #   @example
     #     results.to_h
     #   @return [Hash]
-    alias to_h attrs
+    alias_method :to_h, :attrs
 
     # @!method to_hash
     #   Returns the attributes as a hash
@@ -29,7 +29,7 @@ module Twitter
     #   @example
     #     results.to_hash
     #   @return [Hash]
-    alias to_hash to_h
+    alias_method :to_hash, :to_h
 
     # Initializes a new GeoResults object
     #
@@ -40,8 +40,8 @@ module Twitter
     # @return [Twitter::GeoResults]
     def initialize(attrs = nil)
       @attrs = attrs || {}
-      empty_hash = {} #: Hash[Symbol, untyped]
-      empty_array = [] #: Array[untyped]
+      empty_hash = {} # : Hash[Symbol, untyped]
+      empty_array = [] # : Array[untyped]
       @collection = @attrs.fetch(:result, empty_hash).fetch(:places, empty_array).collect do |place| # steep:ignore ArgumentTypeMismatch
         Place.new(place)
       end

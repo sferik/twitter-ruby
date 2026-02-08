@@ -13,7 +13,7 @@ module Twitter
     #   profile_banner.sizes
     # @return [Hash{Symbol => Twitter::Size}]
     def sizes
-      result = {} #: Hash[Symbol, Size]
+      result = {} # : Hash[Symbol, Size]
       @attrs.fetch(:sizes, []).each_with_object(result) do |(key, value), object|
         object[key] = Size.new(value)
       end

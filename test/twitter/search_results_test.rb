@@ -131,7 +131,7 @@ describe Twitter::SearchResults do
     end
 
     it "uses search_metadata defaults when the key is missing" do
-      attrs = Hash.new({next_results: "?max_id=123&q=%23test"})
+      attrs = Hash.new { |_hash, _key| {next_results: "?max_id=123&q=%23test"} }
       results.instance_variable_set(:@attrs, attrs)
 
       expect(results.send(:next_page?)).to be(true)
@@ -139,7 +139,7 @@ describe Twitter::SearchResults do
     end
 
     it "uses next_results defaults from search_metadata hashes" do
-      metadata = Hash.new("?max_id=321&q=%23fallback")
+      metadata = Hash.new { |_hash, _key| "?max_id=321&q=%23fallback" }
       results.instance_variable_set(:@attrs, {search_metadata: metadata})
 
       expect(results.send(:next_page?)).to be(true)

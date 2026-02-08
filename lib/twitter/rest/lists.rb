@@ -43,7 +43,7 @@ module Twitter
       # @!method lists_subscribed_to
       #   @api public
       #   @see #lists
-      alias lists_subscribed_to lists
+      alias_method :lists_subscribed_to, :lists
 
       # Shows tweet timeline for members of the specified list
       #
@@ -466,7 +466,7 @@ module Twitter
         cursor_from_response_with_user(:lists, List, "/1.1/lists/ownerships.json", args)
       end
 
-    private
+      private
 
       # Retrieves a list from the response
       #
@@ -523,7 +523,7 @@ module Twitter
       # @return [Twitter::List]
       def list_from_response_with_users(path, args)
         arguments = args
-        options = arguments.last.instance_of?(Hash) ? arguments.pop : {} #: Hash[Symbol, untyped]
+        options = arguments.last.instance_of?(Hash) ? arguments.pop : {} # : Hash[Symbol, untyped]
         members = arguments.pop
         merge_list!(options, arguments.pop)
         merge_owner!(options, arguments.pop)
@@ -540,9 +540,9 @@ module Twitter
       # @return [void]
       def merge_list!(hash, list)
         case list
-        when Integer          then hash[:list_id] = list
-        when List             then merge_list_and_owner!(hash, list)
-        when String           then merge_slug_and_owner!(hash, list)
+        when Integer then hash[:list_id] = list
+        when List then merge_list_and_owner!(hash, list)
+        when String then merge_slug_and_owner!(hash, list)
         when URI, Addressable::URI then merge_slug_and_owner!(hash, list.path) # steep:ignore NoMethod
         end
       end

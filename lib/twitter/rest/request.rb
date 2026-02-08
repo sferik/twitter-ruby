@@ -118,7 +118,7 @@ module Twitter
         fail_or_return_response_body(response.code, response_body, response)
       end
 
-    private
+      private
 
       # Build the request options hash
       #
@@ -126,10 +126,10 @@ module Twitter
       # @return [Hash]
       def request_options
         options = if @options_key == :form
-                    {form: HTTP::FormData.create(@options, encoder: FormEncoder.public_method(:encode))}
-                  else
-                    {@options_key => @options}
-                  end
+          {form: HTTP::FormData.create(@options, encoder: FormEncoder.public_method(:encode))}
+        else
+          {@options_key => @options}
+        end
 
         options[:params] = @params if @params # steep:ignore ArgumentTypeMismatch
         options
@@ -145,10 +145,10 @@ module Twitter
         file = options.delete(:file)
 
         options[key] = if file.instance_of?(StringIO)
-                         HTTP::FormData::File.new(file, content_type: "video/mp4")
-                       else
-                         HTTP::FormData::File.new(file, filename: File.basename(file), content_type: content_type(File.basename(file)))
-                       end
+          HTTP::FormData::File.new(file, content_type: "video/mp4")
+        else
+          HTTP::FormData::File.new(file, filename: File.basename(file), content_type: content_type(File.basename(file)))
+        end
       end
 
       # Set multipart and header options based on request method
@@ -160,7 +160,7 @@ module Twitter
       def set_multipart_options!(request_method, options)
         if %i[multipart_post json_post].include?(request_method)
           merge_multipart_file!(options) if request_method == :multipart_post
-          options = {} #: Hash[Symbol, untyped]
+          options = {} # : Hash[Symbol, untyped]
           @request_method = :post
         elsif request_method == :json_put
           @request_method = :put
@@ -258,7 +258,7 @@ module Twitter
       #
       # @api private
       # @return [Boolean]
-      def timeout_keys_defined
+      def timeout_keys_defined?
         (%i[write connect read] - (@client.timeouts&.keys || [])).empty?
       end
 
@@ -268,7 +268,7 @@ module Twitter
       # @return [HTTP::Client, HTTP]
       def http_client
         client = @client.proxy ? HTTP.via(*proxy) : HTTP # steep:ignore NoMethod
-        client = client.timeout(connect: @client.timeouts.fetch(:connect), read: @client.timeouts.fetch(:read), write: @client.timeouts.fetch(:write)) if timeout_keys_defined # steep:ignore NoMethod
+        client = client.timeout(connect: @client.timeouts.fetch(:connect), read: @client.timeouts.fetch(:read), write: @client.timeouts.fetch(:write)) if timeout_keys_defined? # steep:ignore NoMethod
         client
       end
 

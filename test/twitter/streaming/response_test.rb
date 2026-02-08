@@ -68,9 +68,7 @@ describe Twitter::Streaming::Response do
       status_code, klass = Twitter::Error::ERRORS.first
       response = described_class.new
       response.instance_variable_set(:@parser, double("parser", status_code: status_code))
-      stub_const("Twitter::Streaming::Response::Error", Class.new do
-        ERRORS = {}
-      end)
+      stub_const("Twitter::Streaming::Response::Error", Class.new.tap { |klass| klass.const_set(:ERRORS, {}.freeze) })
 
       expect { response.on_status(status_code) }.to raise_error(klass)
     end

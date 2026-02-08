@@ -25,7 +25,7 @@ module Twitter
     #   @example
     #     user.to_h # => {id: 123, name: "John"}
     #   @return [Hash]
-    alias to_h attrs
+    alias_method :to_h, :attrs
 
     # @!method to_hash
     #   Converts the object to a hash
@@ -33,7 +33,7 @@ module Twitter
     #   @example
     #     user.to_hash # => {id: 123, name: "John"}
     #   @return [Hash]
-    alias to_hash to_h
+    alias_method :to_hash, :to_h
 
     class << self
       # Define methods that retrieve the value from attributes
@@ -172,7 +172,7 @@ module Twitter
       nil
     end
 
-  private
+    private
 
     # Check if an attribute is falsey or empty
     #

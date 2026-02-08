@@ -14,10 +14,10 @@ describe Twitter::DirectMessages::WelcomeMessageWrapper do
           user_mentions: [],
           urls: [
             {url: "https://t.co/one", expanded_url: "https://example.com/one"},
-            {url: "https://t.co/two", expanded_url: "https://example.com/two"},
-          ],
-        },
-      },
+            {url: "https://t.co/two", expanded_url: "https://example.com/two"}
+          ]
+        }
+      }
     }
   end
 
@@ -43,7 +43,7 @@ describe Twitter::DirectMessages::WelcomeMessageWrapper do
     attrs_with_repeated_url = Marshal.load(Marshal.dump(attrs))
     attrs_with_repeated_url[:message_data][:text] = "repeat https://t.co/one and https://t.co/one"
     attrs_with_repeated_url[:message_data][:entities][:urls] = [
-      {url: "https://t.co/one", expanded_url: "https://example.com/one"},
+      {url: "https://t.co/one", expanded_url: "https://example.com/one"}
     ]
 
     wrapper = described_class.new(attrs_with_repeated_url)
@@ -76,7 +76,7 @@ describe Twitter::DirectMessages::WelcomeMessageWrapper do
 
       built = wrapper.send(:build_welcome_message, attrs, text, message_data)
 
-      expect(built.keys).to eq([:id, :created_at, :text, :name, :entities])
+      expect(built.keys).to eq(%i[id created_at text name entities])
       expect(built[:id]).to eq(1_073_273_784_206_012_421)
       expect(built[:created_at]).to eq(Time.at(1_544_723_385_274 / 1000.0))
       expect(built[:text]).to eq("normalized text")

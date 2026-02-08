@@ -16,7 +16,7 @@ module Twitter
       # The default cursor position for paginated requests
       DEFAULT_CURSOR = -1
 
-    private
+      private
 
       # Take a URI string or Twitter::Identity object and return its ID
       #
@@ -344,13 +344,13 @@ module Twitter
       # @param users [Enumerable]
       # @return [Array<Array, Array>]
       def collect_users(users) # rubocop:disable Metrics/MethodLength
-        user_ids = [] #: Array[Integer]
-        screen_names = [] #: Array[String]
+        user_ids = [] # : Array[Integer]
+        screen_names = [] # : Array[String]
         users.each do |user|
           case user
           when Integer then user_ids << user
-          when User    then user_ids << user.id
-          when String  then screen_names << user
+          when User then user_ids << user.id
+          when String then screen_names << user
           when URI, Addressable::URI then screen_names << user.path.split("/").last # steep:ignore NoMethod
           end
         end

@@ -9,7 +9,6 @@ module Twitter
     PROFILE_IMAGE_SUFFIX_REGEX = /_normal(\.gif|\.jpe?g|\.png)$/i
     include Memoizable
 
-
     # Returns the URL to the user's profile banner image
     #
     # @api public
@@ -27,7 +26,7 @@ module Twitter
     #   @example
     #     user.profile_banner_url(:web)
     #   @return [Addressable::URI]
-    alias profile_banner_url profile_banner_uri
+    alias_method :profile_banner_url, :profile_banner_uri
 
     # Returns the secure URL to the user's profile banner image
     #
@@ -46,7 +45,7 @@ module Twitter
     #   @example
     #     user.profile_banner_url_https(:web)
     #   @return [Addressable::URI]
-    alias profile_banner_url_https profile_banner_uri_https
+    alias_method :profile_banner_url_https, :profile_banner_uri_https
 
     # Returns true if the user has a profile banner
     #
@@ -58,9 +57,9 @@ module Twitter
       !!@attrs[:profile_banner_url] # steep:ignore FallbackAny
     end
     memoize :profile_banner_uri?
-    alias profile_banner_url? profile_banner_uri?
-    alias profile_banner_uri_https? profile_banner_uri?
-    alias profile_banner_url_https? profile_banner_uri?
+    alias_method :profile_banner_url?, :profile_banner_uri?
+    alias_method :profile_banner_uri_https?, :profile_banner_uri?
+    alias_method :profile_banner_url_https?, :profile_banner_uri?
 
     # Returns the URL to the user's profile image
     #
@@ -79,7 +78,7 @@ module Twitter
     #   @example
     #     user.profile_image_url(:normal)
     #   @return [Addressable::URI]
-    alias profile_image_url profile_image_uri
+    alias_method :profile_image_url, :profile_image_uri
 
     # Returns the secure URL to the user's profile image
     #
@@ -104,7 +103,7 @@ module Twitter
     #   @example
     #     user.profile_image_url_https(:normal)
     #   @return [Addressable::URI]
-    alias profile_image_url_https profile_image_uri_https
+    alias_method :profile_image_url_https, :profile_image_uri_https
 
     # Returns true if the user has a profile image
     #
@@ -116,11 +115,11 @@ module Twitter
       !!@attrs[:profile_image_url_https] # steep:ignore FallbackAny
     end
     memoize :profile_image_uri?
-    alias profile_image_url? profile_image_uri?
-    alias profile_image_uri_https? profile_image_uri?
-    alias profile_image_url_https? profile_image_uri?
+    alias_method :profile_image_url?, :profile_image_uri?
+    alias_method :profile_image_uri_https?, :profile_image_uri?
+    alias_method :profile_image_url_https?, :profile_image_uri?
 
-  private
+    private
 
     # Parses a URI string
     #
@@ -146,7 +145,7 @@ module Twitter
     # @param size [Symbol] The size
     # @return [String]
     def profile_image_suffix(size)
-      size.to_sym == :original ? '\\1' : "_#{size}\\1"
+      (size.to_sym == :original) ? '\\1' : "_#{size}\\1"
     end
   end
 end

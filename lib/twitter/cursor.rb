@@ -22,7 +22,7 @@ module Twitter
     #   @example
     #     cursor.to_h # => {users: [...], next_cursor: 123}
     #   @return [Hash]
-    alias to_h attrs
+    alias_method :to_h, :attrs
 
     # @!method to_hash
     #   Returns the attributes as a hash
@@ -30,7 +30,7 @@ module Twitter
     #   @example
     #     cursor.to_hash # => {users: [...], next_cursor: 123}
     #   @return [Hash]
-    alias to_hash to_h
+    alias_method :to_hash, :to_h
 
     # Initializes a new Cursor
     #
@@ -54,7 +54,7 @@ module Twitter
       self.attrs = request.perform
     end
 
-  private
+    private
 
     # The next cursor value for pagination
     #
@@ -68,7 +68,7 @@ module Twitter
     #   The next cursor value for pagination
     #   @api private
     #   @return [Integer]
-    alias next next_cursor
+    alias_method :next, :next_cursor
 
     # Check if this is the last page of results
     #

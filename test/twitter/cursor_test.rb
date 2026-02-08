@@ -165,7 +165,7 @@ describe Twitter::Cursor do
         verb: :get,
         path: "/1.1/followers/ids.json",
         options: {},
-        perform: {ids: [], next_cursor: 0},
+        perform: {ids: [], next_cursor: 0}
       )
 
       expect { described_class.new(:ids, nil, request) }.not_to raise_error
@@ -181,7 +181,7 @@ describe Twitter::Cursor do
 
     it "uses hash defaults when checking reached limits" do
       cursor = described_class.allocate
-      attrs = Hash.new([1, 2, 3])
+      attrs = Hash.new { |_hash, _key| [1, 2, 3] }
       cursor.instance_variable_set(:@attrs, attrs)
       cursor.instance_variable_set(:@limit, 2)
       cursor.instance_variable_set(:@key, :ids)

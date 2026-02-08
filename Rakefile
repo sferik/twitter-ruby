@@ -17,11 +17,17 @@ end
 
 desc "Run mutant"
 task :mutant do
-  sh "bundle exec mutant"
+  sh "bundle exec mutant run"
 end
 
 require "rubocop/rake_task"
 RuboCop::RakeTask.new
+
+desc "Run lint checks"
+task :lint do
+  sh "bundle exec standardrb"
+  sh "bundle exec rubocop"
+end
 
 require "yard"
 YARD::Rake::YardocTask.new

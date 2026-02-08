@@ -40,7 +40,7 @@ module Twitter
         request_method = options.empty? ? :get : :post
         response = perform_request(request_method, "/1.1/account/settings.json", options)
         # https://dev.twitter.com/issues/59
-        empty_array = [] #: Array[untyped]
+        empty_array = [] # : Array[untyped]
         response[:trend_location] = response.fetch(:trend_location, empty_array).first
         Settings.new(response)
       end
@@ -181,9 +181,9 @@ module Twitter
       def block?(user, options = {})
         user_id =
           case user
-          when Integer                       then user
+          when Integer then user
           when String, URI, Addressable::URI then user(user).id
-          when User                          then user.id
+          when User then user.id
           end
         blocked_ids(options).collect(&:to_i).include?(user_id)
       end
@@ -370,6 +370,7 @@ module Twitter
       #   client.remove_profile_banner
       # @return [nil]
       # @param options [Hash] A customizable set of options.
+      # rubocop:disable Naming/PredicateMethod
       def remove_profile_banner(options = {})
         perform_post("/1.1/account/remove_profile_banner.json", options)
         true
@@ -398,6 +399,7 @@ module Twitter
         perform_post("/1.1/account/update_profile_banner.json", options.merge(banner:))
         true
       end
+      # rubocop:enable Naming/PredicateMethod
 
       # Returns the profile banner size variations for a user
       #
@@ -491,7 +493,7 @@ module Twitter
         perform_get_with_cursor("/1.1/mutes/users/ids.json", arguments.options, :ids)
       end
 
-    private
+      private
 
       # Posts a profile image update
       #

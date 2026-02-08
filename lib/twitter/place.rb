@@ -43,7 +43,7 @@ module Twitter
     # @example
     #   place.woe_id
     # @return [Integer]
-    alias woe_id id
+    alias_method :woe_id, :id
 
     # The Where On Earth ID
     #
@@ -52,7 +52,7 @@ module Twitter
     # @example
     #   place.woeid
     # @return [Integer]
-    alias woeid id
+    alias_method :woeid, :id
     object_attr_reader :GeoFactory, :bounding_box
     object_attr_reader :Place, :contained_within
 
@@ -63,7 +63,7 @@ module Twitter
     # @example
     #   place.contained?
     # @return [Boolean]
-    alias contained? contained_within?
+    alias_method :contained?, :contained_within?
     uri_attr_reader :uri
 
     # Initializes a new place

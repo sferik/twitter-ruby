@@ -40,7 +40,8 @@ module Twitter
       # @example
       #   Twitter::Version.pre # => nil
       # @return [Integer, NilClass]
-      def pre; end
+      def pre
+      end
 
       # The version as a hash
       #

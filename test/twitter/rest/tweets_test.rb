@@ -629,11 +629,11 @@ describe Twitter::REST::Tweets do
 
         it "sends the correct media_category for gif" do
           @client.update_with_media("Powerful cartoon by @BillBramhall: http://t.co/IOEbc5QoES", big_gif)
-          expect(a_request(:post, "https://upload.twitter.com/1.1/media/upload.json").with { |req|
+          expect(a_request(:post, "https://upload.twitter.com/1.1/media/upload.json").with do |req|
             req.body.include?("command=INIT") &&
             req.body.include?("media_type=image%2Fgif") &&
             req.body.include?("media_category=tweet_gif")
-          }).to have_been_made
+          end).to have_been_made
         end
       end
     end
@@ -680,12 +680,12 @@ describe Twitter::REST::Tweets do
         stub_request(:post, "https://upload.twitter.com/1.1/media/upload.json").to_return(init_request, append_request, finalize_request)
         mp4_file = fixture("1080p.mp4")
         @client.update_with_media("You always have options", mp4_file)
-        expect(a_request(:post, "https://upload.twitter.com/1.1/media/upload.json").with { |req|
+        expect(a_request(:post, "https://upload.twitter.com/1.1/media/upload.json").with do |req|
           req.body.include?("command=INIT") &&
           req.body.include?("media_type=video%2Fmp4") &&
           req.body.include?("media_category=tweet_video") &&
           req.body.include?("total_bytes=")
-        }).to have_been_made
+        end).to have_been_made
       end
 
       it "sends the correct APPEND request parameters with segment_index starting at 0" do
@@ -695,12 +695,12 @@ describe Twitter::REST::Tweets do
         stub_request(:post, "https://upload.twitter.com/1.1/media/upload.json").to_return(init_request, append_request, finalize_request)
         @client.update_with_media("You always have options", fixture("1080p.mp4"))
         # Multipart form has different format - verify command, media_id, segment_index, and media key
-        expect(a_request(:post, "https://upload.twitter.com/1.1/media/upload.json").with { |req|
+        expect(a_request(:post, "https://upload.twitter.com/1.1/media/upload.json").with do |req|
           req.body.include?("name=\"command\"\r\n\r\nAPPEND") &&
           req.body.include?("name=\"media_id\"\r\n\r\n710511363345354753") &&
           req.body.include?("name=\"segment_index\"\r\n\r\n0") &&
           req.body.include?("name=\"media\"")
-        }).to have_been_made
+        end).to have_been_made
       end
 
       it "sends the correct FINALIZE request parameters" do
@@ -709,10 +709,10 @@ describe Twitter::REST::Tweets do
         finalize_request = {body: fixture("chunk_upload_finalize_succeeded.json"), headers: {content_type: "application/json; charset=utf-8"}}
         stub_request(:post, "https://upload.twitter.com/1.1/media/upload.json").to_return(init_request, append_request, finalize_request)
         @client.update_with_media("You always have options", fixture("1080p.mp4"))
-        expect(a_request(:post, "https://upload.twitter.com/1.1/media/upload.json").with { |req|
+        expect(a_request(:post, "https://upload.twitter.com/1.1/media/upload.json").with do |req|
           req.body.include?("command=FINALIZE") &&
           req.body.include?("media_id=710511363345354753")
-        }).to have_been_made
+        end).to have_been_made
       end
 
       context "when the processing is not finished right after the upload" do
@@ -852,11 +852,11 @@ describe Twitter::REST::Tweets do
         mov_file.write("test video content")
         mov_file.rewind
         @client.update_with_media("Video test", mov_file)
-        expect(a_request(:post, "https://upload.twitter.com/1.1/media/upload.json").with { |req|
+        expect(a_request(:post, "https://upload.twitter.com/1.1/media/upload.json").with do |req|
           req.body.include?("command=INIT") &&
           req.body.include?("media_type=video%2Fquicktime") &&
           req.body.include?("media_category=tweet_video")
-        }).to have_been_made
+        end).to have_been_made
         mov_file.close
         mov_file.unlink
       end

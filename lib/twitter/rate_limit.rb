@@ -58,6 +58,6 @@ module Twitter
     #   @example
     #     rate_limit.retry_after
     #   @return [Integer]
-    alias retry_after reset_in
+    alias_method :retry_after, :reset_in
   end
 end

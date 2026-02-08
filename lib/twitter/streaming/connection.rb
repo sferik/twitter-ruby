@@ -32,7 +32,7 @@ module Twitter
       def initialize(options = {})
         @tcp_socket_class = options.fetch(:tcp_socket_class) { TCPSocket } # steep:ignore UnknownConstant
         @ssl_socket_class = options.fetch(:ssl_socket_class) { OpenSSL::SSL::SSLSocket } # steep:ignore UnknownConstant
-        @using_ssl        = options.fetch(:using_ssl, false)
+        @using_ssl = options.fetch(:using_ssl, false)
       end
 
       # Streams data from the connection
@@ -71,7 +71,7 @@ module Twitter
         return client if !@using_ssl && request.using_proxy?
 
         client_context = OpenSSL::SSL::SSLContext.new # steep:ignore UnknownConstant
-        ssl_client     = @ssl_socket_class.new(client, client_context)
+        ssl_client = @ssl_socket_class.new(client, client_context)
         ssl_client.connect
       end
 
@@ -85,7 +85,7 @@ module Twitter
         @write_pipe&.write("q")
       end
 
-    private
+      private
 
       # Creates a new TCP socket
       #

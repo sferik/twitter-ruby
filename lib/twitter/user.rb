@@ -60,7 +60,7 @@ module Twitter
     #   user.utc_offset
     # @return [Integer]
     attr_reader :favourites_count, :followers_count, :friends_count,
-                :listed_count, :statuses_count, :utc_offset
+      :listed_count, :statuses_count, :utc_offset
 
     # The user's description
     #
@@ -139,9 +139,9 @@ module Twitter
     #   user.time_zone
     # @return [String]
     attr_reader :description, :email, :lang, :location, :name,
-                :profile_background_color, :profile_link_color,
-                :profile_sidebar_border_color, :profile_sidebar_fill_color,
-                :profile_text_color, :time_zone
+      :profile_background_color, :profile_link_color,
+      :profile_sidebar_border_color, :profile_sidebar_fill_color,
+      :profile_text_color, :time_zone
 
     # @!method favorites_count
     #   The number of favorites (US spelling)
@@ -149,7 +149,7 @@ module Twitter
     #   @example
     #     user.favorites_count
     #   @return [Integer]
-    alias favorites_count favourites_count
+    alias_method :favorites_count, :favourites_count
 
     # @!method tweets_count
     #   The number of tweets
@@ -157,7 +157,7 @@ module Twitter
     #   @example
     #     user.tweets_count
     #   @return [Integer]
-    alias tweets_count statuses_count
+    alias_method :tweets_count, :statuses_count
     object_attr_reader :Tweet, :status, :user
 
     # The user's latest tweet
@@ -167,7 +167,7 @@ module Twitter
     # @example
     #   user.tweet
     # @return [Twitter::Tweet]
-    alias tweet status
+    alias_method :tweet, :status
 
     # Returns true if the user has a tweet
     #
@@ -176,7 +176,7 @@ module Twitter
     # @example
     #   user.tweet?
     # @return [Boolean]
-    alias tweet? status?
+    alias_method :tweet?, :status?
 
     # Returns true if the user has tweeted
     #
@@ -185,12 +185,12 @@ module Twitter
     # @example
     #   user.tweeted?
     # @return [Boolean]
-    alias tweeted? status?
+    alias_method :tweeted?, :status?
     predicate_attr_reader :contributors_enabled, :default_profile,
-                          :default_profile_image, :follow_request_sent,
-                          :geo_enabled, :muting, :needs_phone_verification,
-                          :notifications, :protected, :profile_background_tile,
-                          :profile_use_background_image, :suspended, :verified
+      :default_profile_image, :follow_request_sent,
+      :geo_enabled, :muting, :needs_phone_verification,
+      :notifications, :protected, :profile_background_tile,
+      :profile_use_background_image, :suspended, :verified
     define_predicate_method :translator, :is_translator
     define_predicate_method :translation_enabled, :is_translation_enabled
     uri_attr_reader :profile_background_image_uri, :profile_background_image_uri_https
@@ -202,8 +202,8 @@ module Twitter
     #   user.description_uris
     # @return [Array<Twitter::Entity::URI>]
     def description_uris
-      empty_hash = {} #: Hash[Symbol, untyped]
-      empty_array = [] #: Array[untyped]
+      empty_hash = {} # : Hash[Symbol, untyped]
+      empty_array = [] # : Array[untyped]
       @attrs.fetch(:entities, empty_hash).fetch(:description, empty_hash).fetch(:urls, empty_array).collect do |url| # steep:ignore FallbackAny
         Entity::URI.new(url)
       end
@@ -216,7 +216,7 @@ module Twitter
     #   @example
     #     user.description_urls
     #   @return [Array<Twitter::Entity::URI>]
-    alias description_urls description_uris
+    alias_method :description_urls, :description_uris
 
     # Returns true if the user has description URIs
     #
@@ -235,7 +235,7 @@ module Twitter
     #   @example
     #     user.description_urls?
     #   @return [Boolean]
-    alias description_urls? description_uris?
+    alias_method :description_urls?, :description_uris?
 
     # Returns an array of URIs in the user's website
     #
@@ -244,8 +244,8 @@ module Twitter
     #   user.website_uris
     # @return [Array<Twitter::Entity::URI>]
     def website_uris
-      empty_hash = {} #: Hash[Symbol, untyped]
-      empty_array = [] #: Array[untyped]
+      empty_hash = {} # : Hash[Symbol, untyped]
+      empty_array = [] # : Array[untyped]
       @attrs.fetch(:entities, empty_hash).fetch(:url, empty_hash).fetch(:urls, empty_array).collect do |url| # steep:ignore FallbackAny
         Entity::URI.new(url)
       end
@@ -258,7 +258,7 @@ module Twitter
     #   @example
     #     user.website_urls
     #   @return [Array<Twitter::Entity::URI>]
-    alias website_urls website_uris
+    alias_method :website_urls, :website_uris
 
     # Returns true if the user has website URIs
     #
@@ -277,7 +277,7 @@ module Twitter
     #   @example
     #     user.website_urls?
     #   @return [Boolean]
-    alias website_urls? website_uris?
+    alias_method :website_urls?, :website_uris?
 
     # Returns true if the user has entities
     #
@@ -307,7 +307,7 @@ module Twitter
     #   @example
     #     user.url
     #   @return [Addressable::URI]
-    alias url uri
+    alias_method :url, :uri
 
     # Returns the user's website URL
     #

@@ -30,7 +30,7 @@ module Twitter
       # @!method bearer_token
       #   @api public
       #   @see #token
-      alias bearer_token token
+      alias_method :bearer_token, :token
 
       # Revokes an issued OAuth 2 Bearer Token
       #

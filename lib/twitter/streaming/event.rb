@@ -59,7 +59,7 @@ module Twitter
         @target_object = target_object_factory(@name, data[:target_object])
       end
 
-    private
+      private
 
       # Builds the target object based on event type
       #

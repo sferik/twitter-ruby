@@ -37,7 +37,7 @@ module Twitter
     #   @example
     #     direct_message.full_text
     #   @return [String]
-    alias full_text text
+    alias_method :full_text, :text
     object_attr_reader :User, :recipient
     object_attr_reader :User, :sender
   end

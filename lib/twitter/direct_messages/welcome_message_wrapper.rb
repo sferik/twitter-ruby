@@ -34,7 +34,7 @@ module Twitter
         super
       end
 
-    private
+      private
 
       # Normalizes the response attributes
       #
@@ -59,7 +59,7 @@ module Twitter
           created_at: Time.at(Integer(attrs.fetch(:created_timestamp)) / 1000.0),
           text:,
           name: attrs[:name],
-          entities: message_data.fetch(:entities),
+          entities: message_data.fetch(:entities)
         }
       end
     end

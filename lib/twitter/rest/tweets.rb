@@ -124,7 +124,7 @@ module Twitter
       # @!method destroy_tweet
       #   @api public
       #   @see #destroy_status
-      alias destroy_tweet destroy_status
+      alias_method :destroy_tweet, :destroy_status
 
       # Updates the authenticating user's status
       #
@@ -364,7 +364,7 @@ module Twitter
         end.compact
       end
 
-    private
+      private
 
       # Wraps object in an array if not already an array
       #

@@ -31,11 +31,11 @@ module Twitter
       # @!method local_trends
       #   @api public
       #   @see #trends
-      alias local_trends trends
+      alias_method :local_trends, :trends
       # @!method trends_place
       #   @api public
       #   @see #trends
-      alias trends_place trends
+      alias_method :trends_place, :trends
 
       # Returns locations with trending topic information
       #
@@ -54,7 +54,7 @@ module Twitter
       # @!method trend_locations
       #   @api public
       #   @see #trends_available
-      alias trend_locations trends_available
+      alias_method :trend_locations, :trends_available
 
       # Returns trend locations closest to a specified location
       #

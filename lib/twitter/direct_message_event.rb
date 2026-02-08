@@ -36,7 +36,7 @@ module Twitter
       super
     end
 
-  private
+    private
 
     # Normalizes the response attributes
     #

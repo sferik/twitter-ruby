@@ -20,8 +20,8 @@ describe Twitter::Arguments do
     end
 
     it "accepts Hash subclasses as options" do
-      class CustomHash < Hash; end
-      custom = CustomHash.new
+      custom_hash_class = Class.new(Hash)
+      custom = custom_hash_class.new
       custom[:key] = "value"
       args = Twitter::Arguments.new([1, custom])
       expect(args.options).to eq(key: "value")

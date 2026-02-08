@@ -30,7 +30,7 @@ Gem::Specification.new do |spec|
     "funding_uri" => "https://github.com/sponsors/sferik/",
     "homepage_uri" => spec.homepage,
     "rubygems_mfa_required" => "true",
-    "source_code_uri" => "https://github.com/sferik/twitter-ruby",
+    "source_code_uri" => "https://github.com/sferik/twitter-ruby"
   }
 
   spec.name = "twitter"

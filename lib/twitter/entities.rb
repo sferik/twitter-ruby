@@ -109,7 +109,7 @@ module Twitter
     #   @example
     #     tweet.urls
     #   @return [Array<Twitter::Entity::URI>]
-    alias urls uris
+    alias_method :urls, :uris
 
     # Returns true if the object has any URIs
     #
@@ -127,7 +127,7 @@ module Twitter
     #   @example
     #     tweet.urls?
     #   @return [Boolean]
-    alias urls? uris?
+    alias_method :urls?, :uris?
 
     # Returns an array of user mentions in the object
     #
@@ -152,7 +152,7 @@ module Twitter
     end
     memoize :user_mentions?
 
-  private
+    private
 
     # Extracts entities of a given type from the attributes
     #
@@ -162,8 +162,8 @@ module Twitter
     # @param key1 [Symbol] The top-level key containing entities
     # @return [Array]
     def entities(klass, key2, key1 = :entities)
-      empty_hash = {} #: Hash[Symbol, untyped]
-      empty_array = [] #: Array[untyped]
+      empty_hash = {} # : Hash[Symbol, untyped]
+      empty_array = [] # : Array[untyped]
       @attrs.fetch(key1.to_sym, empty_hash).fetch(key2.to_sym, empty_array).collect do |entity| # steep:ignore FallbackAny
         klass.new(entity)
       end

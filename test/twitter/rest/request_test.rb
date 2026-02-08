@@ -213,7 +213,7 @@ describe Twitter::REST::Request do
       stub_post("/1.1/statuses/update.json").with(body: {status: "Update"}).to_return(
         body: fixture("status.json"),
         headers: {
-          content_type: "application/json; charset=utf-8",
+          :content_type => "application/json; charset=utf-8",
           "x-rate-limit-limit" => "15",
           "x-rate-limit-remaining" => "14",
           "x-rate-limit-reset" => "1234567890"
@@ -229,7 +229,7 @@ describe Twitter::REST::Request do
       stub_get("/1.1/test.json").to_return(
         body: '{"success": true}',
         headers: {
-          content_type: "application/json; charset=utf-8",
+          :content_type => "application/json; charset=utf-8",
           "x-rate-limit-limit" => "100",
           "x-rate-limit-remaining" => "99",
           "x-rate-limit-reset" => "1234567890"
@@ -248,7 +248,7 @@ describe Twitter::REST::Request do
         status: 404,
         body: '{"errors": [{"message": "Not Found", "code": 34}]}',
         headers: {
-          content_type: "application/json; charset=utf-8",
+          :content_type => "application/json; charset=utf-8",
           "x-rate-limit-limit" => "150",
           "x-rate-limit-remaining" => "149",
           "x-rate-limit-reset" => "9876543210"
@@ -498,7 +498,7 @@ describe Twitter::REST::Request do
         status: 403,
         body: '{"errors": [{"message": "Status is a duplicate.", "code": 187}]}',
         headers: {
-          content_type: "application/json; charset=utf-8",
+          :content_type => "application/json; charset=utf-8",
           "x-rate-limit-limit" => "15",
           "x-rate-limit-remaining" => "0",
           "x-rate-limit-reset" => "1234567890"
@@ -518,7 +518,7 @@ describe Twitter::REST::Request do
         status: 403,
         body: '{"errors": [{"message": "Some generic forbidden error", "code": 1}]}',
         headers: {
-          content_type: "application/json; charset=utf-8",
+          :content_type => "application/json; charset=utf-8",
           "x-rate-limit-limit" => "20",
           "x-rate-limit-remaining" => "5",
           "x-rate-limit-reset" => "1234567890"
@@ -538,7 +538,7 @@ describe Twitter::REST::Request do
         status: 404,
         body: '{"errors": [{"message": "Not Found", "code": 34}]}',
         headers: {
-          content_type: "application/json; charset=utf-8",
+          :content_type => "application/json; charset=utf-8",
           "x-rate-limit-limit" => "30",
           "x-rate-limit-remaining" => "29",
           "x-rate-limit-reset" => "1234567890"
@@ -588,7 +588,7 @@ describe Twitter::REST::Request do
         status: 200,
         body: '{"processing_info": {"error": {"name": "InvalidMedia", "message": "Invalid media format", "code": 100}}}',
         headers: {
-          content_type: "application/json; charset=utf-8",
+          :content_type => "application/json; charset=utf-8",
           "x-rate-limit-limit" => "25"
         }
       )
@@ -767,7 +767,7 @@ describe Twitter::REST::Request do
     let(:temp_dir) { Dir.mktmpdir }
 
     after do
-      FileUtils.remove_entry(temp_dir) if File.exist?(temp_dir)
+      FileUtils.rm_rf(temp_dir)
     end
 
     it "sets request_method to :post for :multipart_post" do
@@ -811,7 +811,7 @@ describe Twitter::REST::Request do
       params = {key: :media, file: file}
 
       # For multipart_post, the params should have :media set to HTTP::FormData::File
-      request = described_class.new(@client, :multipart_post, "/test.json", {}, params)
+      described_class.new(@client, :multipart_post, "/test.json", {}, params)
 
       # After initialization, the params should have been modified
       expect(params[:media]).to be_a(HTTP::FormData::File)
@@ -895,7 +895,7 @@ describe Twitter::REST::Request do
     let(:temp_dir) { Dir.mktmpdir }
 
     after do
-      FileUtils.remove_entry(temp_dir) if File.exist?(temp_dir)
+      FileUtils.rm_rf(temp_dir)
     end
 
     it "removes :key from options and sets it as the key for the file" do

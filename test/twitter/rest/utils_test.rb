@@ -205,7 +205,7 @@ describe "Twitter::REST::Utils helper behavior" do
         Twitter::User.new(id: 2),
         "sferik",
         URI.parse("https://twitter.com/erik"),
-        Addressable::URI.parse("https://twitter.com/alice"),
+        Addressable::URI.parse("https://twitter.com/alice")
       ]
 
       user_ids, screen_names = client.send(:collect_users, users)

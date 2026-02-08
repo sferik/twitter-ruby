@@ -159,9 +159,9 @@ describe Twitter::REST::Users do
     context "with options" do
       it "passes options in the request" do
         @client.update_profile_background_image(fixture("we_concept_bg2.png"), tile: true)
-        expect(a_post("/1.1/account/update_profile_background_image.json").with { |req|
+        expect(a_post("/1.1/account/update_profile_background_image.json").with do |req|
           req.body.include?("tile")
-        }).to have_been_made
+        end).to have_been_made
       end
     end
 
@@ -201,9 +201,9 @@ describe Twitter::REST::Users do
     context "with options" do
       it "passes options in the request" do
         @client.update_profile_image(fixture("me.jpeg"), skip_status: true)
-        expect(a_post("/1.1/account/update_profile_image.json").with { |req|
+        expect(a_post("/1.1/account/update_profile_image.json").with do |req|
           req.body.include?("skip_status")
-        }).to have_been_made
+        end).to have_been_made
       end
     end
 
@@ -935,9 +935,9 @@ describe Twitter::REST::Users do
     context "with options" do
       it "passes options in the request" do
         @client.update_profile_banner(fixture("me.jpeg"), width: 800, height: 400)
-        expect(a_post("/1.1/account/update_profile_banner.json").with { |req|
+        expect(a_post("/1.1/account/update_profile_banner.json").with do |req|
           req.body.include?("width") && req.body.include?("height")
-        }).to have_been_made
+        end).to have_been_made
       end
     end
 
@@ -1349,7 +1349,7 @@ describe Twitter::REST::Users do
           Twitter::User.new(id: 2),
           "sferik",
           URI.parse("https://twitter.com/erik"),
-          Addressable::URI.parse("https://twitter.com/alice"),
+          Addressable::URI.parse("https://twitter.com/alice")
         ]
 
         user_ids, screen_names = utils_client.send(:collect_users, users)

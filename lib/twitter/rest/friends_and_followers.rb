@@ -136,7 +136,7 @@ module Twitter
       # @!method create_friendship
       #   @api public
       #   @see #follow
-      alias create_friendship follow
+      alias_method :create_friendship, :follow
 
       # Follows the specified users
       #
@@ -163,7 +163,7 @@ module Twitter
       # @!method create_friendship!
       #   @api public
       #   @see #follow!
-      alias create_friendship! follow!
+      alias_method :create_friendship!, :follow!
 
       # Unfollows the specified users
       #
@@ -186,7 +186,7 @@ module Twitter
       # @!method destroy_friendship
       #   @api public
       #   @see #unfollow
-      alias destroy_friendship unfollow
+      alias_method :destroy_friendship, :unfollow
 
       # Enables or disables retweets and notifications from the user
       #
@@ -231,11 +231,11 @@ module Twitter
       # @!method friendship_show
       #   @api public
       #   @see #friendship
-      alias friendship_show friendship
+      alias_method :friendship_show, :friendship
       # @!method relationship
       #   @api public
       #   @see #friendship
-      alias relationship friendship
+      alias_method :relationship, :friendship
 
       # Tests for the existence of friendship between two users
       #
@@ -310,7 +310,7 @@ module Twitter
       # @!method following
       #   @api public
       #   @see #friends
-      alias following friends
+      alias_method :following, :friends
 
       # Returns IDs of users you don't want to receive retweets from
       #
@@ -329,7 +329,7 @@ module Twitter
       # @!method no_retweets_ids
       #   @api public
       #   @see #no_retweet_ids
-      alias no_retweets_ids no_retweet_ids
+      alias_method :no_retweets_ids, :no_retweet_ids
     end
   end
 end

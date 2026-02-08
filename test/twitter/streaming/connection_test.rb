@@ -3,7 +3,8 @@ require "helper"
 DummyTCPSocket = Class.new
 
 class DummySSLSocket
-  def connect; end
+  def connect
+  end
 end
 
 class DummyResponse
@@ -11,7 +12,8 @@ class DummyResponse
     yield
   end
 
-  def <<(data); end
+  def <<(data)
+  end
 end
 
 describe Twitter::Streaming::Connection do
@@ -43,7 +45,7 @@ describe Twitter::Streaming::Connection do
     end
 
     let(:method) { :get }
-    let(:uri)    { "https://stream.twitter.com:443/1.1/statuses/sample.json" }
+    let(:uri) { "https://stream.twitter.com:443/1.1/statuses/sample.json" }
     let(:ssl_socket) { instance_double(connection.ssl_socket_class) }
 
     let(:request) { HTTP::Request.new(verb: method, uri:) }
@@ -70,7 +72,7 @@ describe Twitter::Streaming::Connection do
       allow(connection).to receive(:new_tcp_socket).and_return(tcp_client)
 
       context_received = nil
-      allow(connection.ssl_socket_class).to receive(:new) do |client, context|
+      allow(connection.ssl_socket_class).to receive(:new) do |_client, context|
         context_received = context
         ssl_socket
       end
@@ -184,8 +186,8 @@ describe Twitter::Streaming::Connection do
     end
 
     let(:method) { :get }
-    let(:uri)    { "https://stream.twitter.com:443/1.1/statuses/sample.json" }
-    let(:client) {  TCPSocket.new("127.0.0.1", @server.addr[1]) }
+    let(:uri) { "https://stream.twitter.com:443/1.1/statuses/sample.json" }
+    let(:client) { TCPSocket.new("127.0.0.1", @server.addr[1]) }
 
     let(:request) { HTTP::Request.new(verb: method, uri:) }
     let(:response) { DummyResponse.new {} }
@@ -216,10 +218,11 @@ describe Twitter::Streaming::Connection do
 
     it "reads data from the client and passes it to the response" do
       received_data = []
-      response_with_capture = Class.new do
-        define_method(:initialize) { |&block| @received = received_data }
+      response_with_capture_class = Class.new do
+        define_method(:initialize) { @received = received_data }
         define_method(:<<) { |data| @received << data }
-      end.new {}
+      end
+      response_with_capture = response_with_capture_class.new {}
 
       expect(connection).to receive(:connect).with(request).and_return(client)
       expect(request).to receive(:stream).with(client)
@@ -283,5 +286,4 @@ describe Twitter::Streaming::Connection do
       connection.stream(mocked_request, mocked_response)
     end
   end
-
 end

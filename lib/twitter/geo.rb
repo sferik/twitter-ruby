@@ -20,6 +20,6 @@ module Twitter
     #   @example
     #     geo.coords
     #   @return [Array<Float>]
-    alias coords coordinates
+    alias_method :coords, :coordinates
   end
 end

@@ -35,7 +35,7 @@ module Twitter
       # @!method mentions
       #   @api public
       #   @see #mentions_timeline
-      alias mentions mentions_timeline
+      alias_method :mentions, :mentions_timeline
 
       # Returns the 20 most recent Tweets posted by the specified user
       #
@@ -89,7 +89,7 @@ module Twitter
       # @!method retweeted_by
       #   @api public
       #   @see #retweeted_by_user
-      alias retweeted_by retweeted_by_user
+      alias_method :retweeted_by, :retweeted_by_user
 
       # Returns the 20 most recent retweets posted by the authenticating user
       #
@@ -182,7 +182,7 @@ module Twitter
         perform_get_with_objects("/1.1/statuses/retweets_of_me.json", options, Tweet)
       end
 
-    private
+      private
 
       # Retrieves retweets from a timeline
       #
@@ -209,7 +209,7 @@ module Twitter
       # @api private
       # @return [Array<Twitter::Tweet>]
       def collect_with_count(count)
-        options = {} #: Hash[Symbol, untyped]
+        options = {} # : Hash[Symbol, untyped]
         options[:count] = MAX_TWEETS_PER_REQUEST
         collect_with_max_id do |max_id|
           options[:max_id] = max_id unless max_id.nil?

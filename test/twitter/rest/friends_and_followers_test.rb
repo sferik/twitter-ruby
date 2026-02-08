@@ -366,7 +366,7 @@ describe Twitter::REST::FriendsAndFollowers do
       returned_users = [double(id: 30)]
 
       expect(@client).to receive(:friend_ids).and_return([10, 20])
-      expect(@client).to receive(:users).with(["sferik", "pengwynn"]).and_return([double(id: 20), double(id: 30)])
+      expect(@client).to receive(:users).with(%w[sferik pengwynn]).and_return([double(id: 20), double(id: 30)])
       expect(@client).to receive(:follow!).with([30], {follow: true}).and_return(returned_users)
 
       expect(@client.follow("sferik", "pengwynn", {follow: true})).to equal(returned_users)
