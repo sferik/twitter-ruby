@@ -328,7 +328,8 @@ describe Twitter::Streaming::Client do
 
     before do
       @client.connection = connection
-      allow(Twitter::Headers).to receive_message_chain(:new, :request_headers).and_return({})
+      header_builder = instance_double(Twitter::Headers, request_headers: {})
+      allow(Twitter::Headers).to receive(:new).and_return(header_builder)
       allow(HTTP::Request).to receive(:new).and_return(request_object)
       allow(Twitter::Streaming::Response).to receive(:new).and_return(response_object)
       allow(Twitter::Streaming::MessageParser).to receive(:parse).and_return(nil)

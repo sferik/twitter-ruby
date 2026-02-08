@@ -361,6 +361,16 @@ describe Twitter::REST::FriendsAndFollowers do
         expect(a_post("/1.1/friendships/create.json").with(body: {user_id: "7505382", follow: "true"})).to have_been_made
       end
     end
+
+    it "passes only unfollowed IDs and options to follow! and returns its value" do
+      returned_users = [double(id: 30)]
+
+      expect(@client).to receive(:friend_ids).and_return([10, 20])
+      expect(@client).to receive(:users).with(["sferik", "pengwynn"]).and_return([double(id: 20), double(id: 30)])
+      expect(@client).to receive(:follow!).with([30], {follow: true}).and_return(returned_users)
+
+      expect(@client.follow("sferik", "pengwynn", {follow: true})).to equal(returned_users)
+    end
   end
 
   describe "#follow!" do

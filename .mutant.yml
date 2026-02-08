@@ -3,7 +3,9 @@ integration:
 
 requires:
   - twitter
-  - rspec_wrapper_test
+
+environment_variables:
+  MUTANT: "1"
 
 includes:
   - lib

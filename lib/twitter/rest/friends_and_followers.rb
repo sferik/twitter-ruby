@@ -128,13 +128,10 @@ module Twitter
       #   @option options [Boolean] :follow (false) Enable notifications for the target user.
       def follow(*args)
         arguments = Arguments.new(args)
-        existing_friends = Thread.new do
-          friend_ids.to_a
-        end
-        new_friends = Thread.new do
-          users(args).collect(&:id) # steep:ignore NoMethod
-        end
-        follow!(new_friends.value - existing_friends.value, arguments.options)
+        existing_friends = friend_ids.to_a
+        new_friends = users(args).collect(&:id) # steep:ignore NoMethod
+
+        follow!(new_friends - existing_friends, arguments.options)
       end
       # @!method create_friendship
       #   @api public

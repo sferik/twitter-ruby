@@ -1,20 +1,27 @@
-require "minitest"
-require "mutant/minitest/coverage"
-require "rspec/core"
+# frozen_string_literal: true
 
-RSpec::Core::Runner.disable_autorun!
+$LOAD_PATH.unshift(File.expand_path("../lib", __dir__))
+$LOAD_PATH.unshift(File.expand_path(__dir__))
 
-module RSpecWrapper
-  module_function
+unless ENV["MUTANT"]
+  require "simplecov"
 
-  def run(spec_files)
-    spec_files = Array(spec_files)
+  SimpleCov.formatters = [SimpleCov::Formatter::HTMLFormatter]
 
-    # Ensure we don't leak example groups between runs.
-    RSpec.world.reset
-    result = RSpec::Core::Runner.run(spec_files, $stderr, $stdout)
-    RSpec.world.reset
-
-    result
+  SimpleCov.start do
+    enable_coverage :branch
+    add_filter "/test/"
+    add_filter "/vendor/"
+    minimum_coverage line: 100, branch: 100
   end
 end
+
+if ENV["MUTANT"]
+  require "minitest"
+else
+  require "minitest/autorun"
+end
+require "minitest/spec"
+require "mutant/minitest/coverage"
+
+require_relative "support/rspec_compat"

@@ -30,7 +30,7 @@ module Twitter
       text = attrs.dig(:message_create, :message_data, :text)
       urls = attrs.dig(:message_create, :message_data, :entities, :urls)
 
-      text.gsub!(urls[0][:url], urls[0][:expanded_url]) if urls.any?
+      text = text.gsub(urls[0][:url], urls[0][:expanded_url]) if urls.any?
 
       attrs[:direct_message] = build_direct_message(attrs, text)
       super

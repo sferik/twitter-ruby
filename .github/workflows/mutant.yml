@@ -21,4 +21,4 @@ jobs:
         ruby-version: '3.4'
         bundler-cache: true
     - name: Run mutation tests
-      run: bundle exec mutant run --include lib --include test --require twitter --require rspec_wrapper_test --mutation-timeout 5 'Twitter*'
+      run: bundle exec mutant run --include lib --include test --require twitter --mutation-timeout 5 'Twitter*'

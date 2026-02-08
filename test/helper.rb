@@ -1,30 +1,11 @@
-unless ENV["MUTANT"]
-  require "simplecov"
-
-  SimpleCov.formatters = [SimpleCov::Formatter::HTMLFormatter]
-
-  SimpleCov.start do
-    enable_coverage :branch
-    add_filter "/spec/"
-    add_filter "/vendor/"
-    minimum_coverage line: 100, branch: 97
-  end
-end
-
+require_relative "test_helper"
 require "twitter"
-require "rspec"
 require "stringio"
 require "tempfile"
 require "timecop"
-require "webmock/rspec"
+require "webmock/minitest"
 
 require_relative "support/media_object_examples"
-
-RSpec.configure do |config|
-  config.expect_with :rspec do |c|
-    c.syntax = :expect
-  end
-end
 
 def a_delete(path)
   a_request(:delete, Twitter::REST::Request::BASE_URL + path)

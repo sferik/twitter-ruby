@@ -40,6 +40,18 @@ describe Twitter::DirectMessageEvent do
       expect(event.direct_message.text).to eq("first https://example.com/one second https://t.co/two")
     end
 
+    it "expands every occurrence of the first URL mapping" do
+      attrs = Marshal.load(Marshal.dump(event_attrs))
+      attrs[:message_create][:message_data][:text] = "repeat https://t.co/one and https://t.co/one"
+      attrs[:message_create][:message_data][:entities][:urls] = [
+        {url: "https://t.co/one", expanded_url: "https://example.com/one"},
+      ]
+
+      event = described_class.new(attrs)
+
+      expect(event.direct_message.text).to eq("repeat https://example.com/one and https://example.com/one")
+    end
+
     it "raises NoMethodError when message_create is missing" do
       expect do
         described_class.new(id: "1", created_timestamp: "1")
@@ -70,6 +82,15 @@ describe Twitter::DirectMessageEvent do
 
       event = described_class.new(attrs)
       expect(event.direct_message.text).to eq("primary https://example.com/primary")
+    end
+
+    it "does not expand URLs when none are present" do
+      attrs = Marshal.load(Marshal.dump(event_attrs))
+      attrs[:message_create][:message_data][:text] = "no links here"
+      attrs[:message_create][:message_data][:entities][:urls] = []
+
+      event = described_class.new(attrs)
+      expect(event.direct_message.text).to eq("no links here")
     end
 
     it "raises TypeError when the URL hash is missing :url" do
@@ -120,6 +141,22 @@ describe Twitter::DirectMessageEvent do
 
       parsed = event.send(:read_from_response, hash_like_attrs_class.new)
       expect(parsed[:id]).to eq("1006278767680131076")
+    end
+
+    it "builds a normalized direct message hash with converted ids and timestamp" do
+      event = described_class.allocate
+      text = "normalized text"
+
+      built = event.send(:build_direct_message, event_attrs, text)
+
+      expect(built.keys).to eq([:id, :created_at, :sender, :sender_id, :recipient, :recipient_id, :text])
+      expect(built[:id]).to eq(1_006_278_767_680_131_076)
+      expect(built[:created_at]).to eq(Time.at(1_528_750_528_627 / 1000.0))
+      expect(built[:sender]).to eq({id: 124_294_236})
+      expect(built[:sender_id]).to eq(124_294_236)
+      expect(built[:recipient]).to eq({id: 58_983})
+      expect(built[:recipient_id]).to eq(58_983)
+      expect(built[:text]).to eq("normalized text")
     end
   end
 end

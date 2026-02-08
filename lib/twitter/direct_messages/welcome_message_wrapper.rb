@@ -28,7 +28,7 @@ module Twitter
         text = message_data.fetch(:text)
         urls = message_data.fetch(:entities).fetch(:urls)
 
-        text.gsub!(urls.fetch(0).fetch(:url), urls.fetch(0).fetch(:expanded_url)) if urls.any?
+        text = text.gsub(urls.fetch(0).fetch(:url), urls.fetch(0).fetch(:expanded_url)) if urls.any?
 
         attrs[:welcome_message] = build_welcome_message(attrs, text, message_data)
         super

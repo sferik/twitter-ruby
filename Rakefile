@@ -8,11 +8,12 @@ task :erd do
   `dot -T #{FORMAT} ./etc/erd.dot -o ./etc/erd.#{FORMAT}`
 end
 
-require "rspec/core/rake_task"
-RSpec::Core::RakeTask.new(:spec)
-
-desc "Run specs"
-task test: :spec
+require "rake/testtask"
+Rake::TestTask.new(:test) do |task|
+  task.libs << "test"
+  task.pattern = "test/**/*_test.rb"
+  task.warning = false
+end
 
 desc "Run mutant"
 task :mutant do
@@ -40,4 +41,4 @@ task :steep do
   sh "bundle exec steep check"
 end
 
-task default: %i[spec rubocop verify_measurements steep]
+task default: %i[test rubocop verify_measurements steep]
