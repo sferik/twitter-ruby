@@ -1,4 +1,4 @@
-require "helper"
+require "test_helper"
 
 describe Twitter::DirectMessages::WelcomeMessageWrapper do
   let(:attrs) do
@@ -22,21 +22,21 @@ describe Twitter::DirectMessages::WelcomeMessageWrapper do
   end
 
   it "builds a typed welcome_message object from flat attributes" do
-    wrapper = described_class.new(attrs)
+    wrapper = Twitter::DirectMessages::WelcomeMessageWrapper.new(attrs)
     message = wrapper.welcome_message
 
-    expect(message).to be_a(Twitter::DirectMessages::WelcomeMessage)
-    expect(message.id).to eq(1_073_273_784_206_012_421)
-    expect(message.created_at).to eq(Time.at(1_544_723_385_274 / 1000.0))
-    expect(message.name).to eq("welcome_message_name")
-    expect(message.text).to eq("first https://example.com/one second https://t.co/two")
+    assert_kind_of(Twitter::DirectMessages::WelcomeMessage, message)
+    assert_equal(1_073_273_784_206_012_421, message.id)
+    assert_equal(Time.at(1_544_723_385_274 / 1000.0), message.created_at)
+    assert_equal("welcome_message_name", message.name)
+    assert_equal("first https://example.com/one second https://t.co/two", message.text)
   end
 
   it "accepts wrapped response format" do
-    wrapper = described_class.new(welcome_message: attrs)
+    wrapper = Twitter::DirectMessages::WelcomeMessageWrapper.new(welcome_message: attrs)
 
-    expect(wrapper.welcome_message.id).to eq(1_073_273_784_206_012_421)
-    expect(wrapper.welcome_message.text).to eq("first https://example.com/one second https://t.co/two")
+    assert_equal(1_073_273_784_206_012_421, wrapper.welcome_message.id)
+    assert_equal("first https://example.com/one second https://t.co/two", wrapper.welcome_message.text)
   end
 
   it "expands every occurrence of the first URL mapping" do
@@ -46,9 +46,9 @@ describe Twitter::DirectMessages::WelcomeMessageWrapper do
       {url: "https://t.co/one", expanded_url: "https://example.com/one"}
     ]
 
-    wrapper = described_class.new(attrs_with_repeated_url)
+    wrapper = Twitter::DirectMessages::WelcomeMessageWrapper.new(attrs_with_repeated_url)
 
-    expect(wrapper.welcome_message.text).to eq("repeat https://example.com/one and https://example.com/one")
+    assert_equal("repeat https://example.com/one and https://example.com/one", wrapper.welcome_message.text)
   end
 
   it "does not expand URLs when the URL list is empty" do
@@ -56,32 +56,34 @@ describe Twitter::DirectMessages::WelcomeMessageWrapper do
     attrs_with_no_urls[:message_data][:text] = "welcome"
     attrs_with_no_urls[:message_data][:entities][:urls] = []
 
-    wrapper = described_class.new(attrs_with_no_urls)
-    expect(wrapper.welcome_message.text).to eq("welcome")
+    wrapper = Twitter::DirectMessages::WelcomeMessageWrapper.new(attrs_with_no_urls)
+
+    assert_equal("welcome", wrapper.welcome_message.text)
   end
 
   it "allows missing name values" do
     unnamed_attrs = Marshal.load(Marshal.dump(attrs))
     unnamed_attrs.delete(:name)
 
-    wrapper = described_class.new(unnamed_attrs)
-    expect(wrapper.welcome_message.name).to be_nil
+    wrapper = Twitter::DirectMessages::WelcomeMessageWrapper.new(unnamed_attrs)
+
+    assert_nil(wrapper.welcome_message.name)
   end
 
   describe "private helpers" do
     it "builds a normalized welcome message hash" do
-      wrapper = described_class.allocate
+      wrapper = Twitter::DirectMessages::WelcomeMessageWrapper.allocate
       message_data = attrs.fetch(:message_data)
       text = "normalized text"
 
       built = wrapper.send(:build_welcome_message, attrs, text, message_data)
 
-      expect(built.keys).to eq(%i[id created_at text name entities])
-      expect(built[:id]).to eq(1_073_273_784_206_012_421)
-      expect(built[:created_at]).to eq(Time.at(1_544_723_385_274 / 1000.0))
-      expect(built[:text]).to eq("normalized text")
-      expect(built[:name]).to eq("welcome_message_name")
-      expect(built[:entities]).to eq(message_data.fetch(:entities))
+      assert_equal(%i[id created_at text name entities], built.keys)
+      assert_equal(1_073_273_784_206_012_421, built[:id])
+      assert_equal(Time.at(1_544_723_385_274 / 1000.0), built[:created_at])
+      assert_equal("normalized text", built[:text])
+      assert_equal("welcome_message_name", built[:name])
+      assert_equal(message_data.fetch(:entities), built[:entities])
     end
   end
 end

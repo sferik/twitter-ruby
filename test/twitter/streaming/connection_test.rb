@@ -1,4 +1,4 @@
-require "helper"
+require "test_helper"
 
 DummyTCPSocket = Class.new
 
@@ -8,188 +8,269 @@ class DummySSLSocket
 end
 
 class DummyResponse
-  def initiailze
-    yield
+  def initialize
+    yield if block_given?
   end
 
-  def <<(data)
+  def <<(_data)
   end
 end
 
 describe Twitter::Streaming::Connection do
   describe "initialize" do
-    context "no options provided" do
-      subject(:connection) { described_class.new }
+    describe "no options provided" do
+      let(:connection) { Twitter::Streaming::Connection.new }
 
       it "sets the default socket classes" do
-        expect(connection.tcp_socket_class).to eq TCPSocket
-        expect(connection.ssl_socket_class).to eq OpenSSL::SSL::SSLSocket
+        assert_equal(TCPSocket, connection.tcp_socket_class)
+        assert_equal(OpenSSL::SSL::SSLSocket, connection.ssl_socket_class)
       end
     end
 
-    context "custom socket classes provided in opts" do
-      subject(:connection) do
-        described_class.new(tcp_socket_class: DummyTCPSocket, ssl_socket_class: DummySSLSocket)
+    describe "custom socket classes provided in opts" do
+      let(:connection) do
+        Twitter::Streaming::Connection.new(tcp_socket_class: DummyTCPSocket, ssl_socket_class: DummySSLSocket)
       end
 
       it "sets the default socket classes" do
-        expect(connection.tcp_socket_class).to eq DummyTCPSocket
-        expect(connection.ssl_socket_class).to eq DummySSLSocket
+        assert_equal(DummyTCPSocket, connection.tcp_socket_class)
+        assert_equal(DummySSLSocket, connection.ssl_socket_class)
       end
     end
   end
 
   describe "connection" do
-    subject(:connection) do
-      described_class.new(tcp_socket_class: DummyTCPSocket, ssl_socket_class: DummySSLSocket)
+    let(:connection) do
+      Twitter::Streaming::Connection.new(tcp_socket_class: DummyTCPSocket, ssl_socket_class: DummySSLSocket)
     end
 
-    let(:method) { :get }
+    let(:http_method) { :get }
     let(:uri) { "https://stream.twitter.com:443/1.1/statuses/sample.json" }
-    let(:ssl_socket) { instance_double(connection.ssl_socket_class) }
+    let(:request) { HTTP::Request.new(verb: http_method, uri:) }
 
-    let(:request) { HTTP::Request.new(verb: method, uri:) }
+    it "opens a TCP socket to the request host and port" do
+      tcp_args = nil
+      connect_called = false
+      ssl_socket = Object.new
+      ssl_socket.define_singleton_method(:connect) { connect_called = true }
 
-    it "requests via the proxy" do
-      expect(connection.ssl_socket_class).to receive(:new).and_return(ssl_socket)
-      allow(ssl_socket).to receive(:connect)
+      connection.stub(:new_tcp_socket, lambda { |host, port|
+        tcp_args = [host, port]
+        Object.new
+      }) do
+        connection.ssl_socket_class.stub(:new, ->(_client, _context) { ssl_socket }) do
+          connection.connect(request)
+        end
+      end
 
-      expect(connection).to receive(:new_tcp_socket).with("stream.twitter.com", 443)
-      connection.connect(request)
+      assert_equal(["stream.twitter.com", 443], tcp_args)
+      assert(connect_called)
     end
 
     it "creates an SSL socket with both client and context" do
-      tcp_client = instance_double(DummyTCPSocket)
-      allow(connection).to receive(:new_tcp_socket).and_return(tcp_client)
-      allow(ssl_socket).to receive(:connect)
+      tcp_client = Object.new
+      ssl_new_args = nil
+      ssl_socket = Object.new
+      ssl_socket.define_singleton_method(:connect) { nil }
 
-      expect(connection.ssl_socket_class).to receive(:new).with(tcp_client, instance_of(OpenSSL::SSL::SSLContext)).and_return(ssl_socket)
-      connection.connect(request)
+      connection.stub(:new_tcp_socket, ->(_host, _port) { tcp_client }) do
+        connection.ssl_socket_class.stub(:new, lambda { |*args|
+          ssl_new_args = args
+          ssl_socket
+        }) do
+          connection.connect(request)
+        end
+      end
+
+      assert_equal(tcp_client, ssl_new_args[0])
+      assert_kind_of(OpenSSL::SSL::SSLContext, ssl_new_args[1])
     end
 
     it "creates an SSLContext instance" do
-      tcp_client = instance_double(DummyTCPSocket)
-      allow(connection).to receive(:new_tcp_socket).and_return(tcp_client)
-
+      tcp_client = Object.new
       context_received = nil
-      allow(connection.ssl_socket_class).to receive(:new) do |_client, context|
-        context_received = context
-        ssl_socket
-      end
-      allow(ssl_socket).to receive(:connect)
+      ssl_socket = Object.new
+      ssl_socket.define_singleton_method(:connect) { nil }
 
-      connection.connect(request)
-      expect(context_received).to be_a(OpenSSL::SSL::SSLContext)
+      connection.stub(:new_tcp_socket, ->(_host, _port) { tcp_client }) do
+        connection.ssl_socket_class.stub(:new, lambda { |_client, context|
+          context_received = context
+          ssl_socket
+        }) do
+          connection.connect(request)
+        end
+      end
+
+      assert_kind_of(OpenSSL::SSL::SSLContext, context_received)
     end
 
     it "calls connect on the SSL socket" do
-      tcp_client = instance_double(DummyTCPSocket)
-      allow(connection).to receive(:new_tcp_socket).and_return(tcp_client)
-      allow(connection.ssl_socket_class).to receive(:new).and_return(ssl_socket)
+      connect_called = false
+      ssl_socket = Object.new
+      ssl_socket.define_singleton_method(:connect) { connect_called = true }
 
-      expect(ssl_socket).to receive(:connect)
-      connection.connect(request)
+      connection.stub(:new_tcp_socket, ->(_host, _port) { Object.new }) do
+        connection.ssl_socket_class.stub(:new, ->(_client, _context) { ssl_socket }) do
+          connection.connect(request)
+        end
+      end
+
+      assert(connect_called)
     end
 
-    it "returns the connected SSL socket" do
-      tcp_client = instance_double(DummyTCPSocket)
-      allow(connection).to receive(:new_tcp_socket).and_return(tcp_client)
-      allow(connection.ssl_socket_class).to receive(:new).and_return(ssl_socket)
-      allow(ssl_socket).to receive(:connect).and_return(ssl_socket)
+    it "returns the value from SSL socket connect" do
+      ssl_socket = Object.new
+      ssl_socket.define_singleton_method(:connect) { :connected_ssl_socket }
 
-      result = connection.connect(request)
-      expect(result).to eq(ssl_socket)
+      result = nil
+      connection.stub(:new_tcp_socket, ->(_host, _port) { Object.new }) do
+        connection.ssl_socket_class.stub(:new, ->(_client, _context) { ssl_socket }) do
+          result = connection.connect(request)
+        end
+      end
+
+      assert_equal(:connected_ssl_socket, result)
     end
 
     it "passes the TCP client as first argument to SSLSocket" do
-      tcp_client = instance_double(DummyTCPSocket)
-      allow(connection).to receive(:new_tcp_socket).and_return(tcp_client)
-      allow(ssl_socket).to receive(:connect)
+      tcp_client = Object.new
+      first_ssl_arg = nil
+      ssl_socket = Object.new
+      ssl_socket.define_singleton_method(:connect) { nil }
 
-      expect(connection.ssl_socket_class).to receive(:new).with(tcp_client, anything).and_return(ssl_socket)
-      connection.connect(request)
+      connection.stub(:new_tcp_socket, ->(_host, _port) { tcp_client }) do
+        connection.ssl_socket_class.stub(:new, lambda { |client, _context|
+          first_ssl_arg = client
+          ssl_socket
+        }) do
+          connection.connect(request)
+        end
+      end
+
+      assert_equal(tcp_client, first_ssl_arg)
     end
 
-    context "when using a proxy" do
+    describe "when using a proxy" do
       let(:proxy) { {proxy_address: "127.0.0.1", proxy_port: 3328} }
-      let(:request) { HTTP::Request.new(verb: method, uri:, proxy:) }
+      let(:request) { HTTP::Request.new(verb: http_method, uri:, proxy:) }
 
       it "requests via the proxy" do
-        expect(connection).to receive(:new_tcp_socket).with("127.0.0.1", 3328)
-        connection.connect(request)
+        tcp_args = nil
+        tcp_client = Object.new
+
+        connection.stub(:new_tcp_socket, lambda { |host, port|
+          tcp_args = [host, port]
+          tcp_client
+        }) do
+          result = connection.connect(request)
+
+          assert_equal(tcp_client, result)
+        end
+
+        assert_equal(["127.0.0.1", 3328], tcp_args)
       end
 
       it "creates a real TCP socket when connecting via proxy without SSL" do
         server = TCPServer.new("::", 0)
         port = server.addr[1]
         proxy_opts = {proxy_address: "localhost", proxy_port: port}
-        proxy_request = HTTP::Request.new(verb: method, uri:, proxy: proxy_opts)
+        proxy_request = HTTP::Request.new(verb: http_method, uri:, proxy: proxy_opts)
 
-        connection_instance = described_class.new(tcp_socket_class: TCPSocket, ssl_socket_class: DummySSLSocket, using_ssl: false)
+        connection_instance = Twitter::Streaming::Connection.new(tcp_socket_class: TCPSocket, ssl_socket_class: DummySSLSocket, using_ssl: false)
 
         accepted_socket = nil
-        t = Thread.start { accepted_socket = server.accept }
+        thread = Thread.start { accepted_socket = server.accept }
 
         client = connection_instance.connect(proxy_request)
-        t.join
+        thread.join
 
-        expect(client).to be_a(TCPSocket)
-        expect(accepted_socket).not_to be_nil
+        assert_kind_of(TCPSocket, client)
+        refute_nil(accepted_socket)
 
         client.close
         accepted_socket&.close
         server.close
       end
 
-      context "if using ssl" do
-        subject(:connection) do
-          described_class.new(tcp_socket_class: DummyTCPSocket, ssl_socket_class: DummySSLSocket, using_ssl: true)
+      describe "if using ssl" do
+        let(:connection) do
+          Twitter::Streaming::Connection.new(tcp_socket_class: DummyTCPSocket, ssl_socket_class: DummySSLSocket, using_ssl: true)
         end
 
-        it "connect with ssl" do
-          expect(connection.ssl_socket_class).to receive(:new).and_return(ssl_socket)
-          allow(ssl_socket).to receive(:connect)
+        it "connects with ssl" do
+          tcp_args = nil
+          ssl_new_called = false
+          ssl_connect_called = false
+          ssl_socket = Object.new
+          ssl_socket.define_singleton_method(:connect) { ssl_connect_called = true }
 
-          expect(connection).to receive(:new_tcp_socket).with("127.0.0.1", 3328)
-          connection.connect(request)
+          connection.stub(:new_tcp_socket, lambda { |host, port|
+            tcp_args = [host, port]
+            Object.new
+          }) do
+            connection.ssl_socket_class.stub(:new, lambda { |_client, _context|
+              ssl_new_called = true
+              ssl_socket
+            }) do
+              connection.connect(request)
+            end
+          end
+
+          assert_equal(["127.0.0.1", 3328], tcp_args)
+          assert(ssl_new_called)
+          assert(ssl_connect_called)
         end
       end
     end
   end
 
   describe "#close" do
-    subject(:connection) do
-      described_class.new(tcp_socket_class: DummyTCPSocket, ssl_socket_class: DummySSLSocket)
+    let(:connection) do
+      Twitter::Streaming::Connection.new(tcp_socket_class: DummyTCPSocket, ssl_socket_class: DummySSLSocket)
     end
 
     it "does nothing when write_pipe is nil" do
-      # write_pipe is nil before stream is called
-      expect { connection.close }.not_to raise_error
+      assert_nothing_raised { connection.close }
     end
   end
 
   describe "#new_tcp_socket" do
     it "resolves the host before opening a TCP socket" do
-      tcp_socket_class = double("tcp_socket_class")
-      connection = described_class.new(tcp_socket_class:, ssl_socket_class: DummySSLSocket)
+      tcp_socket_class = Class.new do
+        class << self
+          attr_accessor :new_args
+        end
 
-      expect(Resolv).to receive(:getaddress).with("stream.twitter.com").and_return("203.0.113.10")
-      expect(tcp_socket_class).to receive(:new).with("203.0.113.10", 443)
+        def self.new(host, port)
+          self.new_args = [host, port]
+          :socket
+        end
+      end
+      connection = Twitter::Streaming::Connection.new(tcp_socket_class:, ssl_socket_class: DummySSLSocket)
 
-      connection.send(:new_tcp_socket, "stream.twitter.com", 443)
+      resolved_host = nil
+      Resolv.stub(:getaddress, lambda { |host|
+        resolved_host = host
+        "203.0.113.10"
+      }) do
+        connection.send(:new_tcp_socket, "stream.twitter.com", 443)
+      end
+
+      assert_equal("stream.twitter.com", resolved_host)
+      assert_equal(["203.0.113.10", 443], tcp_socket_class.new_args)
     end
   end
 
   describe "stream" do
-    subject(:connection) do
-      described_class.new(tcp_socket_class: DummyTCPSocket, ssl_socket_class: DummySSLSocket)
+    let(:connection) do
+      Twitter::Streaming::Connection.new(tcp_socket_class: DummyTCPSocket, ssl_socket_class: DummySSLSocket)
     end
 
-    let(:method) { :get }
+    let(:http_method) { :get }
     let(:uri) { "https://stream.twitter.com:443/1.1/statuses/sample.json" }
     let(:client) { TCPSocket.new("127.0.0.1", @server.addr[1]) }
 
-    let(:request) { HTTP::Request.new(verb: method, uri:) }
+    let(:request) { HTTP::Request.new(verb: http_method, uri:) }
     let(:response) { DummyResponse.new {} }
 
     before do
@@ -200,20 +281,31 @@ describe Twitter::Streaming::Connection do
       @server.close
     end
 
-    it "close stream" do
-      expect(connection).to receive(:connect).with(request).and_return(client)
-      expect(request).to receive(:stream).with(client)
+    it "closes stream" do
+      connect_args = []
+      request_stream_args = []
+      request.define_singleton_method(:stream) { |socket| request_stream_args << socket }
 
-      stream_closed = false
-      t = Thread.start do
-        connection.stream(request, response)
-        stream_closed = true
+      connection.stub(:connect, lambda { |incoming_request|
+        connect_args << incoming_request
+        client
+      }) do
+        stream_closed = false
+        thread = Thread.start do
+          connection.stream(request, response)
+          stream_closed = true
+        end
+
+        refute(stream_closed)
+        sleep 1
+        connection.close
+        thread.join
+
+        assert(stream_closed)
       end
-      expect(stream_closed).to be false
-      sleep 1
-      connection.close
-      t.join
-      expect(stream_closed).to be true
+
+      assert_equal([request], connect_args)
+      assert_equal([client], request_stream_args)
     end
 
     it "reads data from the client and passes it to the response" do
@@ -224,66 +316,108 @@ describe Twitter::Streaming::Connection do
       end
       response_with_capture = response_with_capture_class.new {}
 
-      expect(connection).to receive(:connect).with(request).and_return(client)
-      expect(request).to receive(:stream).with(client)
+      request_stream_args = []
+      request.define_singleton_method(:stream) { |socket| request_stream_args << socket }
 
-      t = Thread.start do
-        connection.stream(request, response_with_capture)
+      connection.stub(:connect, ->(_incoming_request) { client }) do
+        thread = Thread.start do
+          connection.stream(request, response_with_capture)
+        end
+
+        server_client = @server.accept
+        server_client.write("test data")
+        server_client.flush
+
+        sleep 0.1
+
+        connection.close
+        thread.join
+        server_client.close
       end
 
-      # Send data from server to client
-      server_client = @server.accept
-      server_client.write("test data")
-      server_client.flush
-
-      # Give time for data to be read
-      sleep 0.1
-
-      # Close the stream
-      connection.close
-      t.join
-      server_client.close
-
-      expect(received_data).to include("test data")
+      assert_equal([client], request_stream_args)
+      assert_includes(received_data, "test data")
     end
 
     it "uses IO.select, reads 1024-byte chunks, and closes the client" do
-      read_pipe = instance_double(IO)
-      write_pipe = instance_double(IO)
-      mocked_client = instance_double(TCPSocket)
-      mocked_request = instance_double(HTTP::Request)
-      mocked_response = double("response")
+      read_pipe = Object.new
+      write_pipe = Object.new
+      mocked_client = Object.new
+      mocked_request = Object.new
+      mocked_response = Object.new
 
-      expect(connection).to receive(:connect).with(mocked_request).and_return(mocked_client)
-      expect(mocked_request).to receive(:stream).with(mocked_client)
-      expect(IO).to receive(:pipe).and_return([read_pipe, write_pipe])
-      expect(IO).to receive(:select).with([read_pipe, mocked_client]).ordered.and_return([[mocked_client], nil, nil])
-      expect(IO).to receive(:select).with([read_pipe, mocked_client]).ordered.and_return([[read_pipe], nil, nil])
-      expect(mocked_client).to receive(:readpartial).with(1024).and_return("test chunk")
-      expect(mocked_response).to receive(:<<).with("test chunk")
-      expect(mocked_client).to receive(:close)
+      streamed_client = nil
+      mocked_request.define_singleton_method(:stream) { |client_arg| streamed_client = client_arg }
 
-      connection.stream(mocked_request, mocked_response)
+      read_sizes = []
+      mocked_client.define_singleton_method(:readpartial) do |size|
+        read_sizes << size
+        "test chunk"
+      end
+
+      received_chunks = []
+      mocked_response.define_singleton_method(:<<) { |chunk| received_chunks << chunk }
+
+      client_closed = false
+      mocked_client.define_singleton_method(:close) { client_closed = true }
+
+      select_args = []
+      select_returns = [
+        [[mocked_client], nil, nil],
+        [[read_pipe], nil, nil]
+      ]
+
+      connection.stub(:connect, lambda { |request_arg|
+        assert_equal(mocked_request, request_arg)
+        mocked_client
+      }) do
+        IO.stub(:pipe, [read_pipe, write_pipe]) do
+          IO.stub(:select, lambda { |readables|
+            select_args << readables
+            select_returns.shift
+          }) do
+            connection.stream(mocked_request, mocked_response)
+          end
+        end
+      end
+
+      assert_equal(mocked_client, streamed_client)
+      assert_equal([[read_pipe, mocked_client], [read_pipe, mocked_client]], select_args)
+      assert_equal([1024], read_sizes)
+      assert_equal(["test chunk"], received_chunks)
+      assert(client_closed)
     end
 
     it "ignores unknown readable IO objects and keeps looping" do
-      read_pipe = instance_double(IO)
-      write_pipe = instance_double(IO)
-      unknown_io = instance_double(IO)
-      mocked_client = instance_double(TCPSocket)
-      mocked_request = instance_double(HTTP::Request)
-      mocked_response = double("response")
+      read_pipe = Object.new
+      write_pipe = Object.new
+      unknown_io = Object.new
+      mocked_client = Object.new
+      mocked_request = Object.new
+      mocked_response = Object.new
 
-      expect(connection).to receive(:connect).with(mocked_request).and_return(mocked_client)
-      expect(mocked_request).to receive(:stream).with(mocked_client)
-      expect(IO).to receive(:pipe).and_return([read_pipe, write_pipe])
-      expect(IO).to receive(:select).with([read_pipe, mocked_client]).ordered.and_return([[unknown_io], nil, nil])
-      expect(IO).to receive(:select).with([read_pipe, mocked_client]).ordered.and_return([[read_pipe], nil, nil])
-      expect(mocked_client).not_to receive(:readpartial)
-      expect(mocked_response).not_to receive(:<<)
-      expect(mocked_client).to receive(:close)
+      mocked_request.define_singleton_method(:stream) { |_client_arg| nil }
 
-      connection.stream(mocked_request, mocked_response)
+      mocked_client.define_singleton_method(:readpartial) { |_size| flunk("readpartial should not be called") }
+      mocked_response.define_singleton_method(:<<) { |_chunk| flunk("response append should not be called") }
+
+      client_closed = false
+      mocked_client.define_singleton_method(:close) { client_closed = true }
+
+      select_returns = [
+        [[unknown_io], nil, nil],
+        [[read_pipe], nil, nil]
+      ]
+
+      connection.stub(:connect, ->(_request_arg) { mocked_client }) do
+        IO.stub(:pipe, [read_pipe, write_pipe]) do
+          IO.stub(:select, ->(_readables) { select_returns.shift }) do
+            connection.stream(mocked_request, mocked_response)
+          end
+        end
+      end
+
+      assert(client_closed)
     end
   end
 end

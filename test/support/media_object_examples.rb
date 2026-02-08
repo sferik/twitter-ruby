@@ -1,159 +1,165 @@
-shared_examples_for "a Twitter::Media object" do
-  describe "#==" do
-    it "returns true when objects IDs are the same" do
-      media = described_class.new(id: 1)
-      other = described_class.new(id: 1)
-      expect(media == other).to be true
-    end
+module MediaObjectExamples
+  MEDIA_ID = 110_102_452_988_157_952
+  SAMPLE_MEDIA_URI = "http://pbs.twimg.com/media/BQD6MPOCEAAbCH0.png".freeze
+  SIZES = {
+    small: {h: 226, w: 340, resize: "fit"},
+    large: {h: 466, w: 700, resize: "fit"},
+    medium: {h: 399, w: 600, resize: "fit"},
+    thumb: {h: 150, w: 150, resize: "crop"}
+  }.freeze
+  URI_CASES = [
+    {name: :expanded_uri, source: :expanded_url},
+    {name: :media_uri, source: :media_url},
+    {name: :media_uri_https, source: :media_url_https},
+    {name: :uri, source: :url}
+  ].freeze
 
-    it "returns false when objects IDs are different" do
-      media = described_class.new(id: 1)
-      other = described_class.new(id: 2)
-      expect(media == other).to be false
-    end
+  def media_object_examples(klass:)
+    media_equality_examples(klass)
+    media_sizes_examples(klass)
+    display_uri_examples
+    URI_CASES.each { |test_case| uri_examples(test_case, klass) }
+  end
 
+  private
+
+  def media_equality_examples(klass)
+    describe "#==" do
+      id_equality_example(klass, "returns true when objects IDs are the same", 1, 1, :assert_equal)
+      id_equality_example(klass, "returns false when objects IDs are different", 1, 2, :refute_equal)
+      class_equality_example(klass)
+    end
+  end
+
+  def id_equality_example(klass, description, media_id, other_id, assertion)
+    it description do
+      media = klass.new(id: media_id)
+      other = klass.new(id: other_id)
+
+      send(assertion, media, other)
+    end
+  end
+
+  def class_equality_example(klass)
     it "returns false when classes are different" do
-      media = described_class.new(id: 1)
+      media = klass.new(id: 1)
       other = Twitter::Identity.new(id: 1)
-      expect(media == other).to be false
+
+      refute_equal(media, other)
     end
   end
 
-  describe "#sizes" do
+  def media_sizes_examples(klass)
+    describe "#sizes" do
+      sizes_present_example(klass)
+      sizes_missing_example(klass)
+    end
+  end
+
+  def sizes_present_example(klass)
     it "returns a hash of Sizes when sizes is set" do
-      sizes = described_class.new(id: 110_102_452_988_157_952, sizes: {small: {h: 226, w: 340, resize: "fit"}, large: {h: 466, w: 700, resize: "fit"}, medium: {h: 399, w: 600, resize: "fit"}, thumb: {h: 150, w: 150, resize: "crop"}}).sizes
-      expect(sizes).to be_a Hash
-      expect(sizes[:small]).to be_a Twitter::Size
-    end
+      sizes = klass.new(id: MEDIA_ID, sizes: SIZES).sizes
 
-    it "is empty when sizes is not set" do
-      sizes = described_class.new(id: 110_102_452_988_157_952).sizes
-      expect(sizes).to be_empty
+      assert_kind_of(Hash, sizes)
+      assert_kind_of(Twitter::Size, sizes[:small])
     end
   end
 
-  describe "#display_uri" do
+  def sizes_missing_example(klass)
+    it "is empty when sizes is not set" do
+      sizes = klass.new(id: MEDIA_ID).sizes
+
+      assert_empty(sizes)
+    end
+  end
+
+  def display_uri_examples
+    describe "#display_uri" do
+      display_uri_value_example
+      display_uri_nil_example
+    end
+    describe "#display_uri?" do
+      display_uri_predicate_true_example
+      display_uri_predicate_false_example
+    end
+  end
+
+  def display_uri_value_example
     it "returns a String when the display_url is set" do
       photo = Twitter::Media::Photo.new(id: 1, display_url: "example.com/expanded...")
-      expect(photo.display_uri).to be_a String
-      expect(photo.display_uri).to eq("example.com/expanded...")
-    end
 
+      assert_kind_of(String, photo.display_uri)
+      assert_equal("example.com/expanded...", photo.display_uri)
+    end
+  end
+
+  def display_uri_nil_example
     it "returns nil when the display_url is not set" do
       photo = Twitter::Media::Photo.new(id: 1)
-      expect(photo.display_uri).to be_nil
+
+      assert_nil(photo.display_uri)
     end
   end
 
-  describe "#display_uri?" do
+  def display_uri_predicate_true_example
     it "returns true when the display_url is set" do
       photo = Twitter::Media::Photo.new(id: 1, display_url: "example.com/expanded...")
-      expect(photo.display_uri?).to be true
-    end
 
+      assert_predicate(photo, :display_uri?)
+    end
+  end
+
+  def display_uri_predicate_false_example
     it "returns false when the display_url is not set" do
       photo = Twitter::Media::Photo.new(id: 1)
-      expect(photo.display_uri?).to be false
+
+      refute_predicate(photo, :display_uri?)
     end
   end
 
-  describe "#expanded_uri" do
-    it "returns a URI when the expanded_url is set" do
-      media = described_class.new(id: 1, expanded_url: "http://pbs.twimg.com/media/BQD6MPOCEAAbCH0.png")
-      expect(media.expanded_uri).to be_an Addressable::URI
-      expect(media.expanded_uri.to_s).to eq("http://pbs.twimg.com/media/BQD6MPOCEAAbCH0.png")
+  def uri_examples(test_case, klass)
+    describe "##{test_case[:name]}" do
+      uri_value_example(test_case[:name], test_case[:source], klass)
+      uri_nil_example(test_case[:name], test_case[:source], klass)
     end
-
-    it "returns nil when the expanded_url is not set" do
-      media = described_class.new(id: 1)
-      expect(media.expanded_uri).to be_nil
+    describe "##{test_case[:name]}?" do
+      uri_predicate_true_example(test_case[:name], test_case[:source], klass)
+      uri_predicate_false_example(test_case[:name], test_case[:source], klass)
     end
   end
 
-  describe "#expanded_uri?" do
-    it "returns true when the expanded_url is set" do
-      media = described_class.new(id: 1, expanded_url: "http://pbs.twimg.com/media/BQD6MPOCEAAbCH0.png")
-      expect(media.expanded_uri?).to be true
-    end
+  def uri_value_example(method_name, source_name, klass)
+    it "returns a URI when the #{source_name} is set" do
+      media = klass.new({id: 1}.merge(source_name => SAMPLE_MEDIA_URI))
 
-    it "returns false when the expanded_url is not set" do
-      media = described_class.new(id: 1)
-      expect(media.expanded_uri?).to be false
+      assert_kind_of(Addressable::URI, media.public_send(method_name))
+      assert_equal(SAMPLE_MEDIA_URI, media.public_send(method_name).to_s)
     end
   end
 
-  describe "#media_uri" do
-    it "returns a URI when the media_url is set" do
-      media = described_class.new(id: 1, media_url: "http://pbs.twimg.com/media/BQD6MPOCEAAbCH0.png")
-      expect(media.media_uri).to be_an Addressable::URI
-      expect(media.media_uri.to_s).to eq("http://pbs.twimg.com/media/BQD6MPOCEAAbCH0.png")
-    end
+  def uri_nil_example(method_name, source_name, klass)
+    it "returns nil when the #{source_name} is not set" do
+      media = klass.new(id: 1)
 
-    it "returns nil when the media_url is not set" do
-      media = described_class.new(id: 1)
-      expect(media.media_uri).to be_nil
+      assert_nil(media.public_send(method_name))
     end
   end
 
-  describe "#media_uri?" do
-    it "returns true when the media_url is set" do
-      media = described_class.new(id: 1, media_url: "http://pbs.twimg.com/media/BQD6MPOCEAAbCH0.png")
-      expect(media.media_uri?).to be true
-    end
+  def uri_predicate_true_example(method_name, source_name, klass)
+    it "returns true when the #{source_name} is set" do
+      media = klass.new({id: 1}.merge(source_name => SAMPLE_MEDIA_URI))
 
-    it "returns false when the media_url is not set" do
-      media = described_class.new(id: 1)
-      expect(media.media_uri?).to be false
+      assert_predicate(media, :"#{method_name}?")
     end
   end
 
-  describe "#media_uri_https" do
-    it "returns a URI when the media_url_https is set" do
-      media = described_class.new(id: 1, media_url_https: "http://pbs.twimg.com/media/BQD6MPOCEAAbCH0.png")
-      expect(media.media_uri_https).to be_an Addressable::URI
-      expect(media.media_uri_https.to_s).to eq("http://pbs.twimg.com/media/BQD6MPOCEAAbCH0.png")
-    end
+  def uri_predicate_false_example(method_name, source_name, klass)
+    it "returns false when the #{source_name} is not set" do
+      media = klass.new(id: 1)
 
-    it "returns nil when the media_url_https is not set" do
-      media = described_class.new(id: 1)
-      expect(media.media_uri_https).to be_nil
-    end
-  end
-
-  describe "#media_uri_https?" do
-    it "returns true when the media_url_https is set" do
-      media = described_class.new(id: 1, media_url_https: "http://pbs.twimg.com/media/BQD6MPOCEAAbCH0.png")
-      expect(media.media_uri_https?).to be true
-    end
-
-    it "returns false when the media_url_https is not set" do
-      media = described_class.new(id: 1)
-      expect(media.media_uri_https?).to be false
-    end
-  end
-
-  describe "#uri" do
-    it "returns a URI when the url is set" do
-      media = described_class.new(id: 1, url: "http://pbs.twimg.com/media/BQD6MPOCEAAbCH0.png")
-      expect(media.uri).to be_an Addressable::URI
-      expect(media.uri.to_s).to eq("http://pbs.twimg.com/media/BQD6MPOCEAAbCH0.png")
-    end
-
-    it "returns nil when the url is not set" do
-      media = described_class.new(id: 1)
-      expect(media.uri).to be_nil
-    end
-  end
-
-  describe "#uri?" do
-    it "returns true when the url is set" do
-      media = described_class.new(id: 1, url: "http://pbs.twimg.com/media/BQD6MPOCEAAbCH0.png")
-      expect(media.uri?).to be true
-    end
-
-    it "returns false when the url is not set" do
-      media = described_class.new(id: 1)
-      expect(media.uri?).to be false
+      refute_predicate(media, :"#{method_name}?")
     end
   end
 end
+
+Minitest::Spec.extend(MediaObjectExamples)

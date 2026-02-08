@@ -3,6 +3,7 @@ source "https://rubygems.org"
 gem "benchmark", ">= 0.5"
 gem "jruby-openssl", ">=0.14.2", platforms: :jruby
 gem "minitest", ">= 6"
+gem "minitest-bonus-assertions", ">= 3.0"
 gem "minitest-mock", ">= 5.27"
 gem "mutant-minitest", ">= 0.14"
 gem "rake", ">= 13.3.1"

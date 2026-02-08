@@ -1,170 +1,196 @@
-require "helper"
+require "test_helper"
 
 describe Twitter::Place do
   describe ".new" do
     it "raises an IndexError when id or woeid is not specified" do
-      expect { described_class.new(id: 1) }.not_to raise_error
-      expect { described_class.new(woeid: 1) }.not_to raise_error
-      expect { described_class.new }.to raise_error(IndexError)
+      assert_nothing_raised { Twitter::Place.new(id: 1) }
+      assert_nothing_raised { Twitter::Place.new(woeid: 1) }
+      assert_raises(IndexError) { Twitter::Place.new }
     end
   end
 
   describe "#eql?" do
     it "returns true when objects WOE IDs are the same" do
-      place = described_class.new(woeid: 1, name: "foo")
-      other = described_class.new(woeid: 1, name: "bar")
-      expect(place).to eql(other)
+      place = Twitter::Place.new(woeid: 1, name: "foo")
+      other = Twitter::Place.new(woeid: 1, name: "bar")
+
+      assert_operator(place, :eql?, other)
     end
 
     it "returns false when objects WOE IDs are different" do
-      place = described_class.new(woeid: 1)
-      other = described_class.new(woeid: 2)
-      expect(place).not_to eql(other)
+      place = Twitter::Place.new(woeid: 1)
+      other = Twitter::Place.new(woeid: 2)
+
+      refute_operator(place, :eql?, other)
     end
 
     it "returns false when classes are different" do
-      place = described_class.new(woeid: 1)
+      place = Twitter::Place.new(woeid: 1)
       other = Twitter::Base.new(woeid: 1)
-      expect(place).not_to eql(other)
+
+      refute_operator(place, :eql?, other)
     end
   end
 
   describe "#==" do
     it "returns true when objects WOE IDs are the same" do
-      place = described_class.new(woeid: 1, name: "foo")
-      other = described_class.new(woeid: 1, name: "bar")
-      expect(place == other).to be true
+      place = Twitter::Place.new(woeid: 1, name: "foo")
+      other = Twitter::Place.new(woeid: 1, name: "bar")
+
+      assert_equal(place, other)
     end
 
     it "returns false when objects WOE IDs are different" do
-      place = described_class.new(woeid: 1)
-      other = described_class.new(woeid: 2)
-      expect(place == other).to be false
+      place = Twitter::Place.new(woeid: 1)
+      other = Twitter::Place.new(woeid: 2)
+
+      refute_equal(place, other)
     end
 
     it "returns false when classes are different" do
-      place = described_class.new(woeid: 1)
+      place = Twitter::Place.new(woeid: 1)
       other = Twitter::Base.new(woeid: 1)
-      expect(place == other).to be false
+
+      refute_equal(place, other)
     end
   end
 
   describe "#bounding_box" do
     it "returns a Twitter::Geo when bounding_box is set" do
-      place = described_class.new(woeid: "247f43d441defc03", bounding_box: {type: "Polygon", coordinates: [[[-122.40348192, 37.77752898], [-122.387436, 37.77752898], [-122.387436, 37.79448597], [-122.40348192, 37.79448597]]]})
-      expect(place.bounding_box).to be_a Twitter::Geo::Polygon
+      place = Twitter::Place.new(woeid: "247f43d441defc03", bounding_box: {type: "Polygon", coordinates: [[[-122.40348192, 37.77752898], [-122.387436, 37.77752898], [-122.387436, 37.79448597], [-122.40348192, 37.79448597]]]})
+
+      assert_kind_of(Twitter::Geo::Polygon, place.bounding_box)
     end
 
     it "returns nil when not bounding_box is not set" do
-      place = described_class.new(woeid: "247f43d441defc03")
-      expect(place.bounding_box).to be_nil
+      place = Twitter::Place.new(woeid: "247f43d441defc03")
+
+      assert_nil(place.bounding_box)
     end
   end
 
   describe "#bounding_box?" do
     it "returns true when bounding_box is set" do
-      place = described_class.new(woeid: "247f43d441defc03", bounding_box: {type: "Polygon", coordinates: [[[-122.40348192, 37.77752898], [-122.387436, 37.77752898], [-122.387436, 37.79448597], [-122.40348192, 37.79448597]]]})
-      expect(place.bounding_box?).to be true
+      place = Twitter::Place.new(woeid: "247f43d441defc03", bounding_box: {type: "Polygon", coordinates: [[[-122.40348192, 37.77752898], [-122.387436, 37.77752898], [-122.387436, 37.79448597], [-122.40348192, 37.79448597]]]})
+
+      assert_predicate(place, :bounding_box?)
     end
 
     it "returns false when bounding_box is not set" do
-      place = described_class.new(woeid: "247f43d441defc03")
-      expect(place.bounding_box?).to be false
+      place = Twitter::Place.new(woeid: "247f43d441defc03")
+
+      refute_predicate(place, :bounding_box?)
     end
   end
 
   describe "#contained_within" do
     it "returns a Twitter::Place when contained_within is set" do
-      place = described_class.new(woeid: "247f43d441defc03", contained_within: {woeid: "247f43d441defc04"})
-      expect(place.contained_within).to be_a described_class
+      place = Twitter::Place.new(woeid: "247f43d441defc03", contained_within: {woeid: "247f43d441defc04"})
+
+      assert_kind_of(Twitter::Place, place.contained_within)
     end
 
     it "returns nil when not contained_within is not set" do
-      place = described_class.new(woeid: "247f43d441defc03")
-      expect(place.contained_within).to be_nil
+      place = Twitter::Place.new(woeid: "247f43d441defc03")
+
+      assert_nil(place.contained_within)
     end
   end
 
   describe "#contained_within?" do
     it "returns true when contained_within is set" do
-      place = described_class.new(woeid: "247f43d441defc03", contained_within: {woeid: "247f43d441defc04"})
-      expect(place.contained?).to be true
+      place = Twitter::Place.new(woeid: "247f43d441defc03", contained_within: {woeid: "247f43d441defc04"})
+
+      assert_predicate(place, :contained?)
     end
 
     it "returns false when contained_within is not set" do
-      place = described_class.new(woeid: "247f43d441defc03")
-      expect(place.contained?).to be false
+      place = Twitter::Place.new(woeid: "247f43d441defc03")
+
+      refute_predicate(place, :contained?)
     end
   end
 
   describe "#country_code" do
     it "returns a country code when set with country_code" do
-      place = described_class.new(woeid: "247f43d441defc03", country_code: "US")
-      expect(place.country_code).to eq("US")
+      place = Twitter::Place.new(woeid: "247f43d441defc03", country_code: "US")
+
+      assert_equal("US", place.country_code)
     end
 
     it "returns a country code when set with countryCode" do
-      place = described_class.new(woeid: "247f43d441defc03", countryCode: "US")
-      expect(place.country_code).to eq("US")
+      place = Twitter::Place.new(woeid: "247f43d441defc03", countryCode: "US")
+
+      assert_equal("US", place.country_code)
     end
 
     it "returns nil when not set" do
-      place = described_class.new(woeid: "247f43d441defc03")
-      expect(place.country_code).to be_nil
+      place = Twitter::Place.new(woeid: "247f43d441defc03")
+
+      assert_nil(place.country_code)
     end
   end
 
   describe "#parent_id" do
     it "returns a parent ID when set with parentid" do
-      place = described_class.new(woeid: "247f43d441defc03", parentid: 1)
-      expect(place.parent_id).to eq(1)
+      place = Twitter::Place.new(woeid: "247f43d441defc03", parentid: 1)
+
+      assert_equal(1, place.parent_id)
     end
 
     it "returns nil when not set" do
-      place = described_class.new(woeid: "247f43d441defc03")
-      expect(place.parent_id).to be_nil
+      place = Twitter::Place.new(woeid: "247f43d441defc03")
+
+      assert_nil(place.parent_id)
     end
   end
 
   describe "#place_type" do
     it "returns a place type when set with place_type" do
-      place = described_class.new(woeid: "247f43d441defc03", place_type: "city")
-      expect(place.place_type).to eq("city")
+      place = Twitter::Place.new(woeid: "247f43d441defc03", place_type: "city")
+
+      assert_equal("city", place.place_type)
     end
 
     it "returns a place type when set with placeType[name]" do
-      place = described_class.new(woeid: "247f43d441defc03", placeType: {name: "Town"})
-      expect(place.place_type).to eq("Town")
+      place = Twitter::Place.new(woeid: "247f43d441defc03", placeType: {name: "Town"})
+
+      assert_equal("Town", place.place_type)
     end
 
     it "returns nil when not set" do
-      place = described_class.new(woeid: "247f43d441defc03")
-      expect(place.place_type).to be_nil
+      place = Twitter::Place.new(woeid: "247f43d441defc03")
+
+      assert_nil(place.place_type)
     end
   end
 
   describe "#uri" do
     it "returns a URI when the url is set" do
-      place = described_class.new(woeid: "247f43d441defc03", url: "https://api.twitter.com/1.1/geo/id/247f43d441defc03.json")
-      expect(place.uri).to be_an Addressable::URI
-      expect(place.uri.to_s).to eq("https://api.twitter.com/1.1/geo/id/247f43d441defc03.json")
+      place = Twitter::Place.new(woeid: "247f43d441defc03", url: "https://api.twitter.com/1.1/geo/id/247f43d441defc03.json")
+
+      assert_kind_of(Addressable::URI, place.uri)
+      assert_equal("https://api.twitter.com/1.1/geo/id/247f43d441defc03.json", place.uri.to_s)
     end
 
     it "returns nil when the url is not set" do
-      place = described_class.new(woeid: "247f43d441defc03")
-      expect(place.uri).to be_nil
+      place = Twitter::Place.new(woeid: "247f43d441defc03")
+
+      assert_nil(place.uri)
     end
   end
 
   describe "#uri?" do
     it "returns true when the url is set" do
-      place = described_class.new(woeid: "247f43d441defc03", url: "https://api.twitter.com/1.1/geo/id/247f43d441defc03.json")
-      expect(place.uri?).to be true
+      place = Twitter::Place.new(woeid: "247f43d441defc03", url: "https://api.twitter.com/1.1/geo/id/247f43d441defc03.json")
+
+      assert_predicate(place, :uri?)
     end
 
     it "returns false when the url is not set" do
-      place = described_class.new(woeid: "247f43d441defc03")
-      expect(place.uri?).to be false
+      place = Twitter::Place.new(woeid: "247f43d441defc03")
+
+      refute_predicate(place, :uri?)
     end
   end
 end

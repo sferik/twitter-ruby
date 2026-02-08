@@ -1,41 +1,46 @@
-require "helper"
+require "test_helper"
 
 describe Twitter::Geo::Point do
   before do
-    @point = described_class.new(coordinates: [-122.399983, 37.788299])
+    @point = Twitter::Geo::Point.new(coordinates: [-122.399983, 37.788299])
   end
 
   describe "#==" do
     it "returns true for empty objects" do
-      point = described_class.new
-      other = described_class.new
-      expect(point == other).to be true
+      point = Twitter::Geo::Point.new
+      other = Twitter::Geo::Point.new
+
+      assert_equal(point, other)
     end
 
     it "returns true when objects coordinates are the same" do
-      other = described_class.new(coordinates: [-122.399983, 37.788299])
-      expect(@point == other).to be true
+      other = Twitter::Geo::Point.new(coordinates: [-122.399983, 37.788299])
+
+      assert_equal(@point, other)
     end
 
     it "returns false when objects coordinates are different" do
-      other = described_class.new(coordinates: [37.788299, -122.399983])
-      expect(@point == other).to be false
+      other = Twitter::Geo::Point.new(coordinates: [37.788299, -122.399983])
+
+      refute_equal(@point, other)
     end
 
     it "returns false when classes are different" do
       other = Twitter::Geo.new(coordinates: [-122.399983, 37.788299])
-      expect(@point == other).to be false
+
+      refute_equal(@point, other)
     end
   end
 
   describe "#latitude" do
     it "returns the latitude" do
-      expect(@point.latitude).to eq(-122.399983)
+      assert_in_delta(-122.399983, @point.latitude)
     end
 
     it "returns nil when the latitude index is missing" do
-      point = described_class.new(coordinates: [])
-      expect(point.latitude).to be_nil
+      point = Twitter::Geo::Point.new(coordinates: [])
+
+      assert_nil(point.latitude)
     end
 
     it "uses index access for coordinate containers that do not implement #at" do
@@ -48,20 +53,21 @@ describe Twitter::Geo::Point do
           raise "fetch should not be called"
         end
       end.new
-      point = described_class.new(coordinates:)
+      point = Twitter::Geo::Point.new(coordinates:)
 
-      expect(point.latitude).to eq(-122.399983)
+      assert_in_delta(-122.399983, point.latitude)
     end
   end
 
   describe "#longitude" do
     it "returns the longitude" do
-      expect(@point.longitude).to eq(37.788299)
+      assert_in_delta(37.788299, @point.longitude)
     end
 
     it "returns nil when the longitude index is missing" do
-      point = described_class.new(coordinates: [-122.399983])
-      expect(point.longitude).to be_nil
+      point = Twitter::Geo::Point.new(coordinates: [-122.399983])
+
+      assert_nil(point.longitude)
     end
 
     it "uses index access for coordinate containers that do not implement #at" do
@@ -77,9 +83,9 @@ describe Twitter::Geo::Point do
           value
         end
       end.new
-      point = described_class.new(coordinates:)
+      point = Twitter::Geo::Point.new(coordinates:)
 
-      expect(point.longitude).to eq(37.788299)
+      assert_in_delta(37.788299, point.longitude)
     end
   end
 end

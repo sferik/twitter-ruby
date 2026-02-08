@@ -1,90 +1,98 @@
-require "helper"
+require "test_helper"
 
 describe Twitter::REST::Undocumented do
   before do
-    @client = Twitter::REST::Client.new(consumer_key: "CK", consumer_secret: "CS", access_token: "AT", access_token_secret: "AS")
+    @client = build_rest_client
   end
 
   describe "#following_followers_of" do
-    context "with a screen_name passed" do
+    describe "with a screen_name passed" do
       before do
-        stub_get("/users/following_followers_of.json").with(query: {screen_name: "sferik", cursor: "-1"}).to_return(body: fixture("users_list.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/users/following_followers_of.json").with(query: {screen_name: "sferik", cursor: "-1"}).to_return(body: fixture("users_list.json"), headers: json_headers)
       end
 
       it "requests the correct resource" do
         @client.following_followers_of("sferik")
-        expect(a_get("/users/following_followers_of.json").with(query: {screen_name: "sferik", cursor: "-1"})).to have_been_made
+
+        assert_requested(a_get("/users/following_followers_of.json").with(query: {screen_name: "sferik", cursor: "-1"}))
       end
 
       it "returns an array of numeric IDs for every user following the specified user" do
         following_followers_of = @client.following_followers_of("sferik")
-        expect(following_followers_of).to be_a Twitter::Cursor
-        expect(following_followers_of.first).to be_a Twitter::User
+
+        assert_kind_of(Twitter::Cursor, following_followers_of)
+        assert_kind_of(Twitter::User, following_followers_of.first)
       end
 
-      context "with each" do
+      describe "with each" do
         before do
-          stub_get("/users/following_followers_of.json").with(query: {screen_name: "sferik", cursor: "1322801608223717003"}).to_return(body: fixture("users_list2.json"), headers: {content_type: "application/json; charset=utf-8"})
+          stub_get("/users/following_followers_of.json").with(query: {screen_name: "sferik", cursor: "1322801608223717003"}).to_return(body: fixture("users_list2.json"), headers: json_headers)
         end
 
         it "requests the correct resource" do
           @client.following_followers_of("sferik").each {}
-          expect(a_get("/users/following_followers_of.json").with(query: {screen_name: "sferik", cursor: "-1"})).to have_been_made
-          expect(a_get("/users/following_followers_of.json").with(query: {screen_name: "sferik", cursor: "1322801608223717003"})).to have_been_made
+
+          assert_requested(a_get("/users/following_followers_of.json").with(query: {screen_name: "sferik", cursor: "-1"}))
+          assert_requested(a_get("/users/following_followers_of.json").with(query: {screen_name: "sferik", cursor: "1322801608223717003"}))
         end
       end
     end
 
-    context "with a user ID passed" do
+    describe "with a user ID passed" do
       before do
-        stub_get("/users/following_followers_of.json").with(query: {user_id: "7505382", cursor: "-1"}).to_return(body: fixture("users_list.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/users/following_followers_of.json").with(query: {user_id: "7505382", cursor: "-1"}).to_return(body: fixture("users_list.json"), headers: json_headers)
       end
 
       it "requests the correct resource" do
         @client.following_followers_of(7_505_382)
-        expect(a_get("/users/following_followers_of.json").with(query: {user_id: "7505382", cursor: "-1"})).to have_been_made
+
+        assert_requested(a_get("/users/following_followers_of.json").with(query: {user_id: "7505382", cursor: "-1"}))
       end
 
-      context "with each" do
+      describe "with each" do
         before do
-          stub_get("/users/following_followers_of.json").with(query: {user_id: "7505382", cursor: "1322801608223717003"}).to_return(body: fixture("users_list2.json"), headers: {content_type: "application/json; charset=utf-8"})
+          stub_get("/users/following_followers_of.json").with(query: {user_id: "7505382", cursor: "1322801608223717003"}).to_return(body: fixture("users_list2.json"), headers: json_headers)
         end
 
         it "requests the correct resource" do
           @client.following_followers_of(7_505_382).each {}
-          expect(a_get("/users/following_followers_of.json").with(query: {user_id: "7505382", cursor: "-1"})).to have_been_made
-          expect(a_get("/users/following_followers_of.json").with(query: {user_id: "7505382", cursor: "1322801608223717003"})).to have_been_made
+
+          assert_requested(a_get("/users/following_followers_of.json").with(query: {user_id: "7505382", cursor: "-1"}))
+          assert_requested(a_get("/users/following_followers_of.json").with(query: {user_id: "7505382", cursor: "1322801608223717003"}))
         end
       end
     end
 
-    context "without arguments passed" do
+    describe "without arguments passed" do
       before do
-        stub_get("/1.1/account/verify_credentials.json").with(query: {skip_status: "true"}).to_return(body: fixture("sferik.json"), headers: {content_type: "application/json; charset=utf-8"})
-        stub_get("/users/following_followers_of.json").with(query: {user_id: "7505382", cursor: "-1"}).to_return(body: fixture("users_list.json"), headers: {content_type: "application/json; charset=utf-8"})
+        stub_get("/1.1/account/verify_credentials.json").with(query: {skip_status: "true"}).to_return(body: fixture("sferik.json"), headers: json_headers)
+        stub_get("/users/following_followers_of.json").with(query: {user_id: "7505382", cursor: "-1"}).to_return(body: fixture("users_list.json"), headers: json_headers)
       end
 
       it "requests the correct resource" do
         @client.following_followers_of
-        expect(a_get("/1.1/account/verify_credentials.json").with(query: {skip_status: "true"})).to have_been_made
-        expect(a_get("/users/following_followers_of.json").with(query: {user_id: "7505382", cursor: "-1"})).to have_been_made
+
+        assert_requested(a_get("/1.1/account/verify_credentials.json").with(query: {skip_status: "true"}))
+        assert_requested(a_get("/users/following_followers_of.json").with(query: {user_id: "7505382", cursor: "-1"}))
       end
 
       it "returns an array of numeric IDs for every user following the specified user" do
         following_followers_of = @client.following_followers_of
-        expect(following_followers_of).to be_a Twitter::Cursor
-        expect(following_followers_of.first).to be_a Twitter::User
+
+        assert_kind_of(Twitter::Cursor, following_followers_of)
+        assert_kind_of(Twitter::User, following_followers_of.first)
       end
 
-      context "with each" do
+      describe "with each" do
         before do
-          stub_get("/users/following_followers_of.json").with(query: {user_id: "7505382", cursor: "1322801608223717003"}).to_return(body: fixture("users_list2.json"), headers: {content_type: "application/json; charset=utf-8"})
+          stub_get("/users/following_followers_of.json").with(query: {user_id: "7505382", cursor: "1322801608223717003"}).to_return(body: fixture("users_list2.json"), headers: json_headers)
         end
 
         it "requests the correct resource" do
           @client.following_followers_of.each {}
-          expect(a_get("/users/following_followers_of.json").with(query: {user_id: "7505382", cursor: "-1"})).to have_been_made
-          expect(a_get("/users/following_followers_of.json").with(query: {user_id: "7505382", cursor: "1322801608223717003"})).to have_been_made
+
+          assert_requested(a_get("/users/following_followers_of.json").with(query: {user_id: "7505382", cursor: "-1"}))
+          assert_requested(a_get("/users/following_followers_of.json").with(query: {user_id: "7505382", cursor: "1322801608223717003"}))
         end
       end
     end
@@ -92,31 +100,35 @@ describe Twitter::REST::Undocumented do
 
   describe "#tweet_count" do
     before do
-      stub_request(:get, "https://cdn.api.twitter.com/1/urls/count.json").with(query: {url: "http://twitter.com"}).to_return(body: fixture("count.json"), headers: {content_type: "application/json; charset=utf-8"})
+      stub_request(:get, "https://cdn.api.twitter.com/1/urls/count.json").with(query: {url: "http://twitter.com"}).to_return(body: fixture("count.json"), headers: json_headers)
     end
 
     it "requests the correct resource" do
       @client.tweet_count("http://twitter.com")
-      expect(a_request(:get, "https://cdn.api.twitter.com/1/urls/count.json").with(query: {url: "http://twitter.com"})).to have_been_made
+
+      assert_requested(a_request(:get, "https://cdn.api.twitter.com/1/urls/count.json").with(query: {url: "http://twitter.com"}))
     end
 
     it "returns a Tweet count" do
       tweet_count = @client.tweet_count("http://twitter.com")
-      expect(tweet_count).to be_an Integer
-      expect(tweet_count).to eq(13_845_465)
+
+      assert_kind_of(Integer, tweet_count)
+      assert_equal(13_845_465, tweet_count)
     end
 
     it "passes options through to the request" do
-      stub_request(:get, "https://cdn.api.twitter.com/1/urls/count.json").with(query: {url: "http://twitter.com", foo: "bar"}).to_return(body: fixture("count.json"), headers: {content_type: "application/json; charset=utf-8"})
+      stub_request(:get, "https://cdn.api.twitter.com/1/urls/count.json").with(query: {url: "http://twitter.com", foo: "bar"}).to_return(body: fixture("count.json"), headers: json_headers)
       @client.tweet_count("http://twitter.com", foo: "bar")
-      expect(a_request(:get, "https://cdn.api.twitter.com/1/urls/count.json").with(query: {url: "http://twitter.com", foo: "bar"})).to have_been_made
+
+      assert_requested(a_request(:get, "https://cdn.api.twitter.com/1/urls/count.json").with(query: {url: "http://twitter.com", foo: "bar"}))
     end
 
-    context "with a URI" do
+    describe "with a URI" do
       it "requests the correct resource" do
         uri = URI.parse("http://twitter.com")
         @client.tweet_count(uri)
-        expect(a_request(:get, "https://cdn.api.twitter.com/1/urls/count.json").with(query: {url: "http://twitter.com"})).to have_been_made
+
+        assert_requested(a_request(:get, "https://cdn.api.twitter.com/1/urls/count.json").with(query: {url: "http://twitter.com"}))
       end
     end
 
@@ -126,18 +138,31 @@ describe Twitter::REST::Undocumented do
           "http://twitter.com"
         end
       end.new
-      response = double(parse: {"count" => 13_845_465})
+      response = Object.new
+      response.define_singleton_method(:parse) { {"count" => 13_845_465} }
+      called = false
 
-      expect(HTTP).to receive(:get).with("https://cdn.api.twitter.com/1/urls/count.json", params: {url: "http://twitter.com"}).and_return(response)
-      @client.tweet_count(uri_like)
+      HTTP.stub(:get, lambda { |url, params:|
+        called = true
+
+        assert_equal("https://cdn.api.twitter.com/1/urls/count.json", url)
+        assert_equal({url: "http://twitter.com"}, params)
+        response
+      }) do
+        @client.tweet_count(uri_like)
+      end
+
+      assert(called)
     end
 
     it "uses Hash#[] semantics when reading the parsed count" do
       parsed = Hash.new(7)
-      response = double(parse: parsed)
-      allow(HTTP).to receive(:get).and_return(response)
+      response = Object.new
+      response.define_singleton_method(:parse) { parsed }
 
-      expect(@client.tweet_count("http://twitter.com")).to eq(7)
+      HTTP.stub(:get, response) do
+        assert_equal(7, @client.tweet_count("http://twitter.com"))
+      end
     end
   end
 end

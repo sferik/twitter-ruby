@@ -1305,6 +1305,9 @@ module Twitter
     def last?: () -> bool
     def next_page?: () -> bool
     def next_page: () -> Hash[Symbol, untyped]?
+    def next_page_token: () -> untyped
+    def search_query: () -> untyped
+    def next_page_options: () -> Hash[Symbol, untyped]
     def fetch_next_page: () -> void
   end
 

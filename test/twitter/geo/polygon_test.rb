@@ -1,30 +1,34 @@
-require "helper"
+require "test_helper"
 
 describe Twitter::Geo::Polygon do
   before do
-    @polygon = described_class.new(coordinates: [[[-122.40348192, 37.77752898], [-122.387436, 37.77752898], [-122.387436, 37.79448597], [-122.40348192, 37.79448597]]])
+    @polygon = Twitter::Geo::Polygon.new(coordinates: [[[-122.40348192, 37.77752898], [-122.387436, 37.77752898], [-122.387436, 37.79448597], [-122.40348192, 37.79448597]]])
   end
 
   describe "#==" do
     it "returns true for empty objects" do
-      polygon = described_class.new
-      other = described_class.new
-      expect(polygon == other).to be true
+      polygon = Twitter::Geo::Polygon.new
+      other = Twitter::Geo::Polygon.new
+
+      assert_equal(polygon, other)
     end
 
     it "returns true when objects coordinates are the same" do
-      other = described_class.new(coordinates: [[[-122.40348192, 37.77752898], [-122.387436, 37.77752898], [-122.387436, 37.79448597], [-122.40348192, 37.79448597]]])
-      expect(@polygon == other).to be true
+      other = Twitter::Geo::Polygon.new(coordinates: [[[-122.40348192, 37.77752898], [-122.387436, 37.77752898], [-122.387436, 37.79448597], [-122.40348192, 37.79448597]]])
+
+      assert_equal(@polygon, other)
     end
 
     it "returns false when objects coordinates are different" do
-      other = described_class.new(coordinates: [[[37.77752898, -122.40348192], [37.77752898, -122.387436], [37.79448597, -122.387436], [37.79448597, -122.40348192]]])
-      expect(@polygon == other).to be false
+      other = Twitter::Geo::Polygon.new(coordinates: [[[37.77752898, -122.40348192], [37.77752898, -122.387436], [37.79448597, -122.387436], [37.79448597, -122.40348192]]])
+
+      refute_equal(@polygon, other)
     end
 
     it "returns false when classes are different" do
       other = Twitter::Geo.new(coordinates: [[[-122.40348192, 37.77752898], [-122.387436, 37.77752898], [-122.387436, 37.79448597], [-122.40348192, 37.79448597]]])
-      expect(@polygon == other).to be false
+
+      refute_equal(@polygon, other)
     end
   end
 end

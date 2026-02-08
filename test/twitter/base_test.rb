@@ -1,158 +1,192 @@
-require "helper"
+require "test_helper"
 
 describe Twitter::Base do
   before do
-    @base = described_class.new(id: 1)
+    @base = Twitter::Base.new(id: 1)
   end
 
   describe "#[]" do
     it "calls methods using [] with symbol" do
       capture_warning do
-        expect(@base[:object_id]).to be_an Integer
+        assert_kind_of(Integer, @base[:object_id])
       end
     end
 
     it "calls methods using [] with string" do
       capture_warning do
-        expect(@base["object_id"]).to be_an Integer
+        assert_kind_of(Integer, @base["object_id"])
       end
     end
 
     it "returns nil for missing method" do
       capture_warning do
-        expect(@base[:foo]).to be_nil
-        expect(@base["foo"]).to be_nil
+        assert_nil(@base[:foo])
+        assert_nil(@base["foo"])
       end
     end
 
     it "emits a deprecation warning with caller info and method name" do
       warning = capture_warning { @base[:object_id] }
-      expect(warning).to include("[DEPRECATION]")
-      expect(warning).to include(":object_id")
-      expect(warning).to include("Use #object_id")
-      expect(warning).to match(/\.rb:\d+:/) # caller location format with path:lineno:
+
+      assert_includes(warning, "[DEPRECATION]")
+      assert_includes(warning, ":object_id")
+      assert_includes(warning, "Use #object_id")
+      assert_match(/\.rb:\d+:/, warning) # caller location format with path:lineno:
     end
 
     it "calls caller_locations with exactly one caller frame" do
-      location = instance_double("Thread::Backtrace::Location", path: "spec/file.rb", lineno: 123, to_s: "sentinel")
-      expect(@base).to receive(:caller_locations).with(1, 1).and_return([location])
+      location = Object.new
+      location.define_singleton_method(:path) { "spec/file.rb" }
+      location.define_singleton_method(:lineno) { 123 }
+      location.define_singleton_method(:to_s) { "sentinel" }
+      warning = nil
 
-      warning = capture_warning { @base[:object_id] }
-      expect(warning).to eq("spec/file.rb:123: [DEPRECATION] #[:object_id] is deprecated. Use #object_id to fetch the value.\n")
+      @base.stub(:caller_locations, lambda { |start, count|
+        assert_equal(1, start)
+        assert_equal(1, count)
+        [location]
+      }) do
+        warning = capture_warning { @base[:object_id] }
+      end
+
+      assert_equal("spec/file.rb:123: [DEPRECATION] #[:object_id] is deprecated. Use #object_id to fetch the value.\n", warning)
     end
 
     it "supports any method-like object that responds to to_sym" do
-      method_name = instance_double("MethodName")
-      allow(method_name).to receive(:to_sym).and_return(:object_id)
+      method_name = Object.new
+      method_name.define_singleton_method(:to_sym) { :object_id }
 
       capture_warning do
-        expect(@base[method_name]).to be_an Integer
+        assert_kind_of(Integer, @base[method_name])
       end
     end
 
     it "does not raise when caller location is nil" do
-      allow(@base).to receive(:caller_locations).with(1, 1).and_return([nil])
-
-      warning = capture_warning do
-        expect(@base[:object_id]).to be_an Integer
+      warning = nil
+      @base.stub(:caller_locations, lambda { |start, count|
+        assert_equal(1, start)
+        assert_equal(1, count)
+        [nil]
+      }) do
+        warning = capture_warning do
+          assert_kind_of(Integer, @base[:object_id])
+        end
       end
-      expect(warning).to include("[DEPRECATION]")
+
+      assert_includes(warning, "[DEPRECATION]")
     end
 
     it "still works when caller_locations itself returns nil" do
-      allow(@base).to receive(:caller_locations).with(1, 1).and_return(nil)
-
-      capture_warning do
-        expect(@base[:object_id]).to be_an Integer
+      @base.stub(:caller_locations, lambda { |start, count|
+        assert_equal(1, start)
+        assert_equal(1, count)
+        nil
+      }) do
+        capture_warning do
+          assert_kind_of(Integer, @base[:object_id])
+        end
       end
     end
   end
 
   describe "#attrs" do
     it "returns a hash of attributes" do
-      expect(@base.attrs).to eq(id: 1)
+      assert_equal({id: 1}, @base.attrs)
     end
   end
 
   describe "#initialize" do
     it "converts nil to empty hash" do
-      base = described_class.new(nil)
-      expect(base.attrs).to eq({})
+      base = Twitter::Base.new(nil)
+
+      assert_empty(base.attrs)
     end
 
     it "works with no arguments (defaults to empty hash)" do
-      base = described_class.new
-      expect(base.attrs).to eq({})
+      base = Twitter::Base.new
+
+      assert_empty(base.attrs)
     end
 
     it "uses the provided hash directly" do
       attrs = {id: 42}
-      base = described_class.new(attrs)
-      expect(base.attrs).to eq({id: 42})
+      base = Twitter::Base.new(attrs)
+
+      assert_equal({id: 42}, base.attrs)
     end
   end
 
   describe ".attr_reader" do
-    let(:test_class) do
-      Class.new(described_class) do
+    let(:example_class) do
+      Class.new(Twitter::Base) do
         attr_reader :name, :tags
       end
     end
 
     it "defines an attribute reader method" do
-      obj = test_class.new(name: "test")
-      expect(obj.name).to eq("test")
+      obj = example_class.new(name: "test")
+
+      assert_equal("test", obj.name)
     end
 
     it "defines a predicate method" do
-      obj = test_class.new(name: "test")
-      expect(obj.name?).to be true
+      obj = example_class.new(name: "test")
+
+      assert_predicate(obj, :name?)
     end
 
     it "returns NullObject when attribute is missing" do
-      obj = test_class.new({})
-      expect(obj.name).to be_a Twitter::NullObject
+      obj = example_class.new({})
+
+      assert_kind_of(Twitter::NullObject, obj.name)
     end
 
     it "returns false from predicate when attribute is missing" do
-      obj = test_class.new({})
-      expect(obj.name?).to be false
+      obj = example_class.new({})
+
+      refute_predicate(obj, :name?)
     end
 
     it "treats explicit nil as falsey (key exists but value is nil)" do
-      obj = test_class.new(name: nil)
-      expect(obj.name?).to be false
-      expect(obj.name).to be_a Twitter::NullObject
+      obj = example_class.new(name: nil)
+
+      refute_predicate(obj, :name?)
+      assert_kind_of(Twitter::NullObject, obj.name)
     end
 
     it "returns NullObject when attribute is empty array" do
-      obj = test_class.new(tags: [])
-      expect(obj.tags).to be_a Twitter::NullObject
+      obj = example_class.new(tags: [])
+
+      assert_kind_of(Twitter::NullObject, obj.tags)
     end
 
     it "returns false from predicate when attribute is empty" do
-      obj = test_class.new(tags: [])
-      expect(obj.tags?).to be false
+      obj = example_class.new(tags: [])
+
+      refute_predicate(obj, :tags?)
     end
 
     it "returns the array when it has items" do
-      obj = test_class.new(tags: ["ruby"])
-      expect(obj.tags).to eq(["ruby"])
-      expect(obj.tags?).to be true
+      obj = example_class.new(tags: ["ruby"])
+
+      assert_equal(["ruby"], obj.tags)
+      assert_predicate(obj, :tags?)
     end
 
     it "memoizes the attribute value" do
-      obj = test_class.new(name: "test")
+      obj = example_class.new(name: "test")
       first_call = obj.name
       second_call = obj.name
-      expect(first_call).to equal(second_call)
+
+      assert_operator(second_call, :equal?, first_call)
     end
 
     it "memoizes the predicate value" do
-      obj = test_class.new(name: "test")
+      obj = example_class.new(name: "test")
       first_call = obj.name?
       second_call = obj.name?
-      expect(first_call).to eq(second_call)
+
+      assert_equal(second_call, first_call)
     end
 
     it "memoizes values even when [] returns a fresh object each time" do
@@ -161,9 +195,9 @@ describe Twitter::Base do
           Object.new
         end
       end
-      obj = test_class.new(volatile_attrs_class.new)
+      obj = example_class.new(volatile_attrs_class.new)
 
-      expect(obj.name).to equal(obj.name)
+      assert_operator(obj.name, :equal?, obj.name)
     end
 
     it "uses [] access for attribute value lookup (not fetch)" do
@@ -176,78 +210,88 @@ describe Twitter::Base do
           raise KeyError, "fetch should not be used"
         end
       end
-      obj = test_class.new(attrs_class.new)
+      obj = example_class.new(attrs_class.new)
 
-      expect(obj.name).to eq("value-from-brackets")
+      assert_equal("value-from-brackets", obj.name)
     end
 
     it "memoizes predicate values even when backing attrs change" do
       attrs = {name: "present"}
-      obj = test_class.new(attrs)
-      expect(obj.name?).to be(true)
+      obj = example_class.new(attrs)
+
+      assert_predicate(obj, :name?)
 
       attrs[:name] = nil
-      expect(obj.name?).to be(true)
+
+      assert_predicate(obj, :name?)
     end
   end
 
   describe ".predicate_attr_reader" do
-    let(:test_class) do
-      Class.new(described_class) do
+    let(:example_class) do
+      Class.new(Twitter::Base) do
         predicate_attr_reader :active
       end
     end
 
     it "defines a predicate method" do
-      obj = test_class.new(active: true)
-      expect(obj.active?).to be true
+      obj = example_class.new(active: true)
+
+      assert_predicate(obj, :active?)
     end
 
     it "returns false when attribute is missing" do
-      obj = test_class.new({})
-      expect(obj.active?).to be false
+      obj = example_class.new({})
+
+      refute_predicate(obj, :active?)
     end
   end
 
   describe ".uri_attr_reader" do
-    let(:test_class) do
-      Class.new(described_class) do
+    let(:example_class) do
+      Class.new(Twitter::Base) do
         uri_attr_reader :profile_uri
       end
     end
 
     it "defines a URI method that parses the URL attribute" do
-      obj = test_class.new(profile_url: "https://example.com/profile")
-      expect(obj.profile_uri).to be_a Addressable::URI
-      expect(obj.profile_uri.to_s).to eq("https://example.com/profile")
+      obj = example_class.new(profile_url: "https://example.com/profile")
+
+      assert_kind_of(Addressable::URI, obj.profile_uri)
+      assert_equal("https://example.com/profile", obj.profile_uri.to_s)
     end
 
     it "aliases the url method" do
-      obj = test_class.new(profile_url: "https://example.com/profile")
-      expect(obj.profile_url).to eq(obj.profile_uri)
+      obj = example_class.new(profile_url: "https://example.com/profile")
+
+      assert_equal(obj.profile_uri, obj.profile_url)
     end
 
     it "returns nil when URL attribute is missing" do
-      obj = test_class.new({})
-      expect(obj.profile_uri).to be_nil
+      obj = example_class.new({})
+
+      assert_nil(obj.profile_uri)
     end
 
     it "defines predicate methods for both uri and url" do
-      obj = test_class.new(profile_url: "https://example.com")
-      expect(obj.profile_uri?).to be true
-      expect(obj.profile_url?).to be true
+      obj = example_class.new(profile_url: "https://example.com")
+
+      assert_predicate(obj, :profile_uri?)
+      assert_predicate(obj, :profile_url?)
     end
 
     it "strips trailing # from URLs" do
-      obj = test_class.new(profile_url: "https://example.com#")
-      expect(obj.profile_uri.to_s).to eq("https://example.com")
+      obj = example_class.new(profile_url: "https://example.com#")
+
+      assert_equal("https://example.com", obj.profile_uri.to_s)
     end
 
     it "memoizes the URI value" do
-      obj = test_class.new(profile_url: "https://example.com")
+      obj = example_class.new(profile_url: "https://example.com")
       first_call = obj.profile_uri
       second_call = obj.profile_uri
-      expect(first_call).to equal(second_call)
+
+      assert_operator(second_call, :equal?, first_call)
     end
 
     it "uses [] for uri lookup (not fetch)" do
@@ -260,121 +304,130 @@ describe Twitter::Base do
           raise KeyError, "fetch should not be used"
         end
       end
-      obj = test_class.new(attrs_class.new)
+      obj = example_class.new(attrs_class.new)
 
-      expect(obj.profile_uri.to_s).to eq("https://example.com/profile")
+      assert_equal("https://example.com/profile", obj.profile_uri.to_s)
     end
   end
 
   describe ".object_attr_reader" do
-    let(:test_class) do
-      Class.new(described_class) do
+    let(:example_class) do
+      Class.new(Twitter::Base) do
         object_attr_reader :Place, :place
       end
     end
 
     it "defines a method that returns an object of the specified class" do
-      obj = test_class.new(place: {name: "NYC", woeid: 123})
-      expect(obj.place).to be_a Twitter::Place
-      expect(obj.place.name).to eq("NYC")
+      obj = example_class.new(place: {name: "NYC", woeid: 123})
+
+      assert_kind_of(Twitter::Place, obj.place)
+      assert_equal("NYC", obj.place.name)
     end
 
     it "returns NullObject when attribute is missing" do
-      obj = test_class.new({})
-      expect(obj.place).to be_a Twitter::NullObject
+      obj = example_class.new({})
+
+      assert_kind_of(Twitter::NullObject, obj.place)
     end
 
     it "defines a predicate method" do
-      obj = test_class.new(place: {name: "NYC", woeid: 123})
-      expect(obj.place?).to be true
+      obj = example_class.new(place: {name: "NYC", woeid: 123})
+
+      assert_predicate(obj, :place?)
     end
 
-    context "with key2 parameter" do
-      let(:test_class_with_key2) do
-        Class.new(described_class) do
+    describe "with key2 parameter" do
+      let(:example_class_with_key2) do
+        Class.new(Twitter::Base) do
           object_attr_reader :User, :user, :context_key
         end
       end
 
       it "passes merged attrs with key2 to the object" do
         # When key2 is provided, attrs_for_object merges other attrs under key2
-        obj = test_class_with_key2.new(user: {id: 123, name: "Test"}, extra: "data")
+        obj = example_class_with_key2.new(user: {id: 123, name: "Test"}, extra: "data")
         result = obj.user
-        expect(result).to be_a Twitter::User
+
+        assert_kind_of(Twitter::User, result)
         # The User should have access to :context_key containing remaining attrs
-        expect(result.attrs[:context_key]).to include(extra: "data")
+        assert_equal({extra: "data"}, result.attrs[:context_key])
       end
 
       it "removes key1 from the merged hash" do
-        obj = test_class_with_key2.new(user: {id: 123}, other: "value")
+        obj = example_class_with_key2.new(user: {id: 123}, other: "value")
         result = obj.user
-        expect(result.attrs[:context_key]).not_to have_key(:user)
+
+        refute_operator(result.attrs[:context_key], :key?, :user)
       end
 
       it "does not mutate the original attrs" do
         original_attrs = {user: {id: 123}, other: "value"}
-        obj = test_class_with_key2.new(original_attrs)
+        obj = example_class_with_key2.new(original_attrs)
         obj.user
-        expect(original_attrs).to eq({user: {id: 123}, other: "value"})
+
+        assert_equal({user: {id: 123}, other: "value"}, original_attrs)
       end
     end
 
-    context "without key2 parameter (default behavior)" do
-      let(:test_class_without_key2) do
-        Class.new(described_class) do
+    describe "without key2 parameter (default behavior)" do
+      let(:example_class_without_key2) do
+        Class.new(Twitter::Base) do
           object_attr_reader :Place, :place
         end
       end
 
       it "returns the attribute value directly from attrs" do
-        obj = test_class_without_key2.new(place: {name: "NYC", woeid: 123})
+        obj = example_class_without_key2.new(place: {name: "NYC", woeid: 123})
         result = obj.place
-        expect(result.attrs[:name]).to eq("NYC")
-        expect(result.attrs[:woeid]).to eq(123)
+
+        assert_equal("NYC", result.attrs[:name])
+        assert_equal(123, result.attrs[:woeid])
       end
     end
   end
 
   describe ".display_uri_attr_reader" do
-    let(:test_class) do
-      Class.new(described_class) do
+    let(:example_class) do
+      Class.new(Twitter::Base) do
         display_uri_attr_reader
       end
     end
 
     it "defines display_url and display_uri methods" do
-      obj = test_class.new(display_url: "example.com")
-      expect(obj.display_url).to eq("example.com")
-      expect(obj.display_uri).to eq("example.com")
+      obj = example_class.new(display_url: "example.com")
+
+      assert_equal("example.com", obj.display_url)
+      assert_equal("example.com", obj.display_uri)
     end
 
     it "defines predicate methods" do
-      obj = test_class.new(display_url: "example.com")
-      expect(obj.display_url?).to be true
-      expect(obj.display_uri?).to be true
+      obj = example_class.new(display_url: "example.com")
+
+      assert_predicate(obj, :display_url?)
+      assert_predicate(obj, :display_uri?)
     end
   end
 
   describe "private helpers" do
     describe "#attrs_for_object" do
       it "accepts a single key argument and returns nil for unknown keys" do
-        base = described_class.new({})
+        base = Twitter::Base.new({})
 
-        expect(base.send(:attrs_for_object, :missing)).to be_nil
+        assert_nil(base.send(:attrs_for_object, :missing))
       end
 
       it "returns raw nested attrs when key2 is nil" do
-        base = described_class.new(user: {id: 123}, extra: "data")
+        base = Twitter::Base.new(user: {id: 123}, extra: "data")
 
-        expect(base.send(:attrs_for_object, :user, nil)).to eq(id: 123)
+        assert_equal({id: 123}, base.send(:attrs_for_object, :user, nil))
       end
 
       it "returns merged context attrs when key2 is provided" do
-        base = described_class.new(user: {id: 123}, extra: "data")
+        base = Twitter::Base.new(user: {id: 123}, extra: "data")
         merged = base.send(:attrs_for_object, :user, :context)
 
-        expect(merged[:context]).to include(extra: "data")
-        expect(merged[:context]).not_to have_key(:user)
+        assert_equal({extra: "data"}, merged[:context])
+        refute_operator(merged[:context], :key?, :user)
       end
     end
 
@@ -389,9 +442,9 @@ describe Twitter::Base do
             raise KeyError, "fetch should not be used"
           end
         end
-        base = described_class.new(attrs_class.new)
+        base = Twitter::Base.new(attrs_class.new)
 
-        expect(base.send(:attr_falsey_or_empty?, :name)).to be(true)
+        assert(base.send(:attr_falsey_or_empty?, :name))
       end
     end
   end

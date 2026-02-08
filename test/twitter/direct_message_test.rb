@@ -1,48 +1,55 @@
-require "helper"
+require "test_helper"
 
 describe Twitter::DirectMessage do
   describe "#==" do
     it "returns true when objects IDs are the same" do
-      direct_message = described_class.new(id: 1, text: "foo")
-      other = described_class.new(id: 1, text: "bar")
-      expect(direct_message == other).to be true
+      direct_message = Twitter::DirectMessage.new(id: 1, text: "foo")
+      other = Twitter::DirectMessage.new(id: 1, text: "bar")
+
+      assert_equal(direct_message, other)
     end
 
     it "returns false when objects IDs are different" do
-      direct_message = described_class.new(id: 1)
-      other = described_class.new(id: 2)
-      expect(direct_message == other).to be false
+      direct_message = Twitter::DirectMessage.new(id: 1)
+      other = Twitter::DirectMessage.new(id: 2)
+
+      refute_equal(direct_message, other)
     end
 
     it "returns false when classes are different" do
-      direct_message = described_class.new(id: 1)
+      direct_message = Twitter::DirectMessage.new(id: 1)
       other = Twitter::Identity.new(id: 1)
-      expect(direct_message == other).to be false
+
+      refute_equal(direct_message, other)
     end
   end
 
   describe "#created_at" do
     it "returns a Time when created_at is set" do
-      direct_message = described_class.new(id: 1_825_786_345, created_at: "Mon Jul 16 12:59:01 +0000 2007")
-      expect(direct_message.created_at).to be_a Time
-      expect(direct_message.created_at).to be_utc
+      direct_message = Twitter::DirectMessage.new(id: 1_825_786_345, created_at: "Mon Jul 16 12:59:01 +0000 2007")
+
+      assert_kind_of(Time, direct_message.created_at)
+      assert_predicate(direct_message.created_at, :utc?)
     end
 
     it "returns nil when created_at is not set" do
-      direct_message = described_class.new(id: 1_825_786_345)
-      expect(direct_message.created_at).to be_nil
+      direct_message = Twitter::DirectMessage.new(id: 1_825_786_345)
+
+      assert_nil(direct_message.created_at)
     end
   end
 
   describe "#created?" do
     it "returns true when created_at is set" do
-      direct_message = described_class.new(id: 1_825_786_345, created_at: "Mon Jul 16 12:59:01 +0000 2007")
-      expect(direct_message.created?).to be true
+      direct_message = Twitter::DirectMessage.new(id: 1_825_786_345, created_at: "Mon Jul 16 12:59:01 +0000 2007")
+
+      assert_predicate(direct_message, :created?)
     end
 
     it "returns false when created_at is not set" do
-      direct_message = described_class.new(id: 1_825_786_345)
-      expect(direct_message.created?).to be false
+      direct_message = Twitter::DirectMessage.new(id: 1_825_786_345)
+
+      refute_predicate(direct_message, :created?)
     end
   end
 
@@ -56,66 +63,77 @@ describe Twitter::DirectMessage do
           indices: [10, 33]
         }
       ]
-      tweet = described_class.new(id: 1_825_786_345, entities: {urls: urls_array})
-      expect(tweet.entities?).to be true
+      tweet = Twitter::DirectMessage.new(id: 1_825_786_345, entities: {urls: urls_array})
+
+      assert_predicate(tweet, :entities?)
     end
 
     it "returns false if there are blank lists of entities set" do
-      tweet = described_class.new(id: 1_825_786_345, entities: {urls: []})
-      expect(tweet.entities?).to be false
+      tweet = Twitter::DirectMessage.new(id: 1_825_786_345, entities: {urls: []})
+
+      refute_predicate(tweet, :entities?)
     end
 
     it "returns false if there are no entities set" do
-      tweet = described_class.new(id: 1_825_786_345)
-      expect(tweet.entities?).to be false
+      tweet = Twitter::DirectMessage.new(id: 1_825_786_345)
+
+      refute_predicate(tweet, :entities?)
     end
   end
 
   describe "#recipient" do
     it "returns a User when recipient is set" do
-      direct_message = described_class.new(id: 1_825_786_345, recipient: {id: 7_505_382})
-      expect(direct_message.recipient).to be_a Twitter::User
+      direct_message = Twitter::DirectMessage.new(id: 1_825_786_345, recipient: {id: 7_505_382})
+
+      assert_kind_of(Twitter::User, direct_message.recipient)
     end
 
     it "returns nil when recipient is not set" do
-      direct_message = described_class.new(id: 1_825_786_345)
-      expect(direct_message.recipient).to be_nil
+      direct_message = Twitter::DirectMessage.new(id: 1_825_786_345)
+
+      assert_nil(direct_message.recipient)
     end
   end
 
   describe "#recipient?" do
     it "returns true when recipient is set" do
-      direct_message = described_class.new(id: 1_825_786_345, recipient: {id: 7_505_382})
-      expect(direct_message.recipient?).to be true
+      direct_message = Twitter::DirectMessage.new(id: 1_825_786_345, recipient: {id: 7_505_382})
+
+      assert_predicate(direct_message, :recipient?)
     end
 
     it "returns false when recipient is not set" do
-      direct_message = described_class.new(id: 1_825_786_345)
-      expect(direct_message.recipient?).to be false
+      direct_message = Twitter::DirectMessage.new(id: 1_825_786_345)
+
+      refute_predicate(direct_message, :recipient?)
     end
   end
 
   describe "#sender" do
     it "returns a User when sender is set" do
-      direct_message = described_class.new(id: 1_825_786_345, sender: {id: 7_505_382})
-      expect(direct_message.sender).to be_a Twitter::User
+      direct_message = Twitter::DirectMessage.new(id: 1_825_786_345, sender: {id: 7_505_382})
+
+      assert_kind_of(Twitter::User, direct_message.sender)
     end
 
     it "returns nil when sender is not set" do
-      direct_message = described_class.new(id: 1_825_786_345)
-      expect(direct_message.sender).to be_nil
+      direct_message = Twitter::DirectMessage.new(id: 1_825_786_345)
+
+      assert_nil(direct_message.sender)
     end
   end
 
   describe "#sender?" do
     it "returns true when sender is set" do
-      direct_message = described_class.new(id: 1_825_786_345, sender: {id: 7_505_382})
-      expect(direct_message.sender?).to be true
+      direct_message = Twitter::DirectMessage.new(id: 1_825_786_345, sender: {id: 7_505_382})
+
+      assert_predicate(direct_message, :sender?)
     end
 
     it "returns false when sender is not set" do
-      direct_message = described_class.new(id: 1_825_786_345)
-      expect(direct_message.sender?).to be false
+      direct_message = Twitter::DirectMessage.new(id: 1_825_786_345)
+
+      refute_predicate(direct_message, :sender?)
     end
   end
 
@@ -127,29 +145,33 @@ describe Twitter::DirectMessage do
           indices: [10, 33]
         }
       ]
-      hashtags = described_class.new(id: 1_825_786_345, entities: {hashtags: hashtags_array}).hashtags
-      expect(hashtags).to be_an Array
-      expect(hashtags.first).to be_a Twitter::Entity::Hashtag
-      expect(hashtags.first.indices).to eq([10, 33])
-      expect(hashtags.first.text).to eq("twitter")
+      hashtags = Twitter::DirectMessage.new(id: 1_825_786_345, entities: {hashtags: hashtags_array}).hashtags
+
+      assert_kind_of(Array, hashtags)
+      assert_kind_of(Twitter::Entity::Hashtag, hashtags.first)
+      assert_equal([10, 33], hashtags.first.indices)
+      assert_equal("twitter", hashtags.first.text)
     end
 
     it "is empty when not set" do
-      hashtags = described_class.new(id: 1_825_786_345).hashtags
-      expect(hashtags).to be_empty
+      hashtags = Twitter::DirectMessage.new(id: 1_825_786_345).hashtags
+
+      assert_empty(hashtags)
     end
   end
 
   describe "#media" do
     it "returns media" do
-      media = described_class.new(id: 1_825_786_345, entities: {media: [{id: 1, type: "photo"}]}).media
-      expect(media).to be_an Array
-      expect(media.first).to be_a Twitter::Media::Photo
+      media = Twitter::DirectMessage.new(id: 1_825_786_345, entities: {media: [{id: 1, type: "photo"}]}).media
+
+      assert_kind_of(Array, media)
+      assert_kind_of(Twitter::Media::Photo, media.first)
     end
 
     it "is empty when not set" do
-      media = described_class.new(id: 1_825_786_345).media
-      expect(media).to be_empty
+      media = Twitter::DirectMessage.new(id: 1_825_786_345).media
+
+      assert_empty(media)
     end
   end
 
@@ -159,17 +181,19 @@ describe Twitter::DirectMessage do
         {text: "PEP", indices: [114, 118]},
         {text: "COKE", indices: [128, 133]}
       ]
-      symbols = described_class.new(id: 1_825_786_345, entities: {symbols: symbols_array}).symbols
-      expect(symbols).to be_an Array
-      expect(symbols.size).to eq(2)
-      expect(symbols.first).to be_a Twitter::Entity::Symbol
-      expect(symbols.first.indices).to eq([114, 118])
-      expect(symbols.first.text).to eq("PEP")
+      symbols = Twitter::DirectMessage.new(id: 1_825_786_345, entities: {symbols: symbols_array}).symbols
+
+      assert_kind_of(Array, symbols)
+      assert_equal(2, symbols.size)
+      assert_kind_of(Twitter::Entity::Symbol, symbols.first)
+      assert_equal([114, 118], symbols.first.indices)
+      assert_equal("PEP", symbols.first.text)
     end
 
     it "is empty when not set" do
-      symbols = described_class.new(id: 1_825_786_345).symbols
-      expect(symbols).to be_empty
+      symbols = Twitter::DirectMessage.new(id: 1_825_786_345).symbols
+
+      assert_empty(symbols)
     end
   end
 
@@ -183,17 +207,19 @@ describe Twitter::DirectMessage do
           indices: [10, 33]
         }
       ]
-      direct_message = described_class.new(id: 1_825_786_345, entities: {urls: urls_array})
-      expect(direct_message.uris).to be_an Array
-      expect(direct_message.uris.first).to be_a Twitter::Entity::URI
-      expect(direct_message.uris.first.indices).to eq([10, 33])
-      expect(direct_message.uris.first.display_uri).to be_a String
-      expect(direct_message.uris.first.display_uri).to eq("example.com/expanded...")
+      direct_message = Twitter::DirectMessage.new(id: 1_825_786_345, entities: {urls: urls_array})
+
+      assert_kind_of(Array, direct_message.uris)
+      assert_kind_of(Twitter::Entity::URI, direct_message.uris.first)
+      assert_equal([10, 33], direct_message.uris.first.indices)
+      assert_kind_of(String, direct_message.uris.first.display_uri)
+      assert_equal("example.com/expanded...", direct_message.uris.first.display_uri)
     end
 
     it "is empty when not set" do
-      direct_message = described_class.new(id: 1_825_786_345)
-      expect(direct_message.uris).to be_empty
+      direct_message = Twitter::DirectMessage.new(id: 1_825_786_345)
+
+      assert_empty(direct_message.uris)
     end
 
     it "can handle strange urls" do
@@ -205,11 +231,11 @@ describe Twitter::DirectMessage do
           indices: [10, 33]
         }
       ]
-      direct_message = described_class.new(id: 1_825_786_345, entities: {urls: urls_array})
+      direct_message = Twitter::DirectMessage.new(id: 1_825_786_345, entities: {urls: urls_array})
       uri = direct_message.uris.first
-      expect { uri.url }.not_to raise_error
-      expect { uri.expanded_url }.not_to raise_error
-      expect { uri.display_url }.not_to raise_error
+      assert_nothing_raised { uri.url }
+      assert_nothing_raised { uri.expanded_url }
+      assert_nothing_raised { uri.display_url }
     end
   end
 
@@ -224,16 +250,18 @@ describe Twitter::DirectMessage do
           id: 7_505_382
         }
       ]
-      user_mentions = described_class.new(id: 1_825_786_345, entities: {user_mentions: user_mentions_array}).user_mentions
-      expect(user_mentions).to be_an Array
-      expect(user_mentions.first).to be_a Twitter::Entity::UserMention
-      expect(user_mentions.first.indices).to eq([0, 6])
-      expect(user_mentions.first.id).to eq(7_505_382)
+      user_mentions = Twitter::DirectMessage.new(id: 1_825_786_345, entities: {user_mentions: user_mentions_array}).user_mentions
+
+      assert_kind_of(Array, user_mentions)
+      assert_kind_of(Twitter::Entity::UserMention, user_mentions.first)
+      assert_equal([0, 6], user_mentions.first.indices)
+      assert_equal(7_505_382, user_mentions.first.id)
     end
 
     it "is empty when not set" do
-      user_mentions = described_class.new(id: 1_825_786_345).user_mentions
-      expect(user_mentions).to be_empty
+      user_mentions = Twitter::DirectMessage.new(id: 1_825_786_345).user_mentions
+
+      assert_empty(user_mentions)
     end
   end
 end

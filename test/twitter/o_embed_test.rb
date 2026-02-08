@@ -1,184 +1,214 @@
-require "helper"
+require "test_helper"
 
 describe Twitter::OEmbed do
   describe "#author_uri" do
     it "returns a URI when the author_url is set" do
-      oembed = described_class.new(author_url: "https://twitter.com/sferik")
-      expect(oembed.author_uri).to be_an Addressable::URI
-      expect(oembed.author_uri.to_s).to eq("https://twitter.com/sferik")
+      oembed = Twitter::OEmbed.new(author_url: "https://twitter.com/sferik")
+
+      assert_kind_of(Addressable::URI, oembed.author_uri)
+      assert_equal("https://twitter.com/sferik", oembed.author_uri.to_s)
     end
 
     it "returns nil when the author_uri is not set" do
-      oembed = described_class.new
-      expect(oembed.author_uri).to be_nil
+      oembed = Twitter::OEmbed.new
+
+      assert_nil(oembed.author_uri)
     end
   end
 
   describe "#author_uri?" do
     it "returns true when the author_url is set" do
-      oembed = described_class.new(author_url: "https://twitter.com/sferik")
-      expect(oembed.author_uri?).to be true
+      oembed = Twitter::OEmbed.new(author_url: "https://twitter.com/sferik")
+
+      assert_predicate(oembed, :author_uri?)
     end
 
     it "returns false when the author_uri is not set" do
-      oembed = described_class.new
-      expect(oembed.author_uri?).to be false
+      oembed = Twitter::OEmbed.new
+
+      refute_predicate(oembed, :author_uri?)
     end
   end
 
   describe "#author_name" do
     it "returns the author name" do
-      oembed = described_class.new(author_name: "Erik Berlin")
-      expect(oembed.author_name).to eq("Erik Berlin")
+      oembed = Twitter::OEmbed.new(author_name: "Erik Berlin")
+
+      assert_equal("Erik Berlin", oembed.author_name)
     end
 
     it "returns nil when not set" do
-      author_name = described_class.new.author_name
-      expect(author_name).to be_nil
+      author_name = Twitter::OEmbed.new.author_name
+
+      assert_nil(author_name)
     end
   end
 
   describe "#cache_age" do
     it "returns the cache_age" do
-      oembed = described_class.new(cache_age: "31536000000")
-      expect(oembed.cache_age).to eq("31536000000")
+      oembed = Twitter::OEmbed.new(cache_age: "31536000000")
+
+      assert_equal("31536000000", oembed.cache_age)
     end
 
     it "returns nil when not set" do
-      cache_age = described_class.new.cache_age
-      expect(cache_age).to be_nil
+      cache_age = Twitter::OEmbed.new.cache_age
+
+      assert_nil(cache_age)
     end
   end
 
   describe "#height" do
     it "returns the height" do
-      oembed = described_class.new(height: 200)
-      expect(oembed.height).to eq(200)
+      oembed = Twitter::OEmbed.new(height: 200)
+
+      assert_equal(200, oembed.height)
     end
 
     it "returns it as an Integer" do
-      oembed = described_class.new(height: 200)
-      expect(oembed.height).to be_an Integer
+      oembed = Twitter::OEmbed.new(height: 200)
+
+      assert_kind_of(Integer, oembed.height)
     end
 
     it "returns nil when not set" do
-      height = described_class.new.height
-      expect(height).to be_nil
+      height = Twitter::OEmbed.new.height
+
+      assert_nil(height)
     end
   end
 
   describe "#html" do
     it "returns the html" do
-      oembed = described_class.new(html: "<blockquote>all my <b>witty tweet</b> stuff here</blockquote>")
-      expect(oembed.html).to eq("<blockquote>all my <b>witty tweet</b> stuff here</blockquote>")
+      oembed = Twitter::OEmbed.new(html: "<blockquote>all my <b>witty tweet</b> stuff here</blockquote>")
+
+      assert_equal("<blockquote>all my <b>witty tweet</b> stuff here</blockquote>", oembed.html)
     end
 
     it "returns nil when not set" do
-      html = described_class.new.html
-      expect(html).to be_nil
+      html = Twitter::OEmbed.new.html
+
+      assert_nil(html)
     end
   end
 
   describe "#provider_name" do
     it "returns the provider_name" do
-      oembed = described_class.new(provider_name: "Twitter")
-      expect(oembed.provider_name).to eq("Twitter")
+      oembed = Twitter::OEmbed.new(provider_name: "Twitter")
+
+      assert_equal("Twitter", oembed.provider_name)
     end
 
     it "returns nil when not set" do
-      provider_name = described_class.new.provider_name
-      expect(provider_name).to be_nil
+      provider_name = Twitter::OEmbed.new.provider_name
+
+      assert_nil(provider_name)
     end
   end
 
   describe "#provider_uri" do
     it "returns a URI when the provider_url is set" do
-      oembed = described_class.new(provider_url: "http://twitter.com")
-      expect(oembed.provider_uri).to be_an Addressable::URI
-      expect(oembed.provider_uri.to_s).to eq("http://twitter.com")
+      oembed = Twitter::OEmbed.new(provider_url: "http://twitter.com")
+
+      assert_kind_of(Addressable::URI, oembed.provider_uri)
+      assert_equal("http://twitter.com", oembed.provider_uri.to_s)
     end
 
     it "returns nil when the provider_uri is not set" do
-      oembed = described_class.new
-      expect(oembed.provider_uri).to be_nil
+      oembed = Twitter::OEmbed.new
+
+      assert_nil(oembed.provider_uri)
     end
   end
 
   describe "#provider_uri?" do
     it "returns true when the provider_url is set" do
-      oembed = described_class.new(provider_url: "https://twitter.com/sferik")
-      expect(oembed.provider_uri?).to be true
+      oembed = Twitter::OEmbed.new(provider_url: "https://twitter.com/sferik")
+
+      assert_predicate(oembed, :provider_uri?)
     end
 
     it "returns false when the provider_uri is not set" do
-      oembed = described_class.new
-      expect(oembed.provider_uri?).to be false
+      oembed = Twitter::OEmbed.new
+
+      refute_predicate(oembed, :provider_uri?)
     end
   end
 
   describe "#type" do
     it "returns the type" do
-      oembed = described_class.new(type: "rich")
-      expect(oembed.type).to eq("rich")
+      oembed = Twitter::OEmbed.new(type: "rich")
+
+      assert_equal("rich", oembed.type)
     end
 
     it "returns nil when not set" do
-      type = described_class.new.type
-      expect(type).to be_nil
+      type = Twitter::OEmbed.new.type
+
+      assert_nil(type)
     end
   end
 
   describe "#width" do
     it "returns the width" do
-      oembed = described_class.new(width: 550)
-      expect(oembed.width).to eq(550)
+      oembed = Twitter::OEmbed.new(width: 550)
+
+      assert_equal(550, oembed.width)
     end
 
     it "returns it as an Integer" do
-      oembed = described_class.new(width: 550)
-      expect(oembed.width).to be_an Integer
+      oembed = Twitter::OEmbed.new(width: 550)
+
+      assert_kind_of(Integer, oembed.width)
     end
 
     it "returns nil when not set" do
-      width = described_class.new.width
-      expect(width).to be_nil
+      width = Twitter::OEmbed.new.width
+
+      assert_nil(width)
     end
   end
 
   describe "#uri" do
     it "returns a URI when the url is set" do
-      oembed = described_class.new(url: "https://twitter.com/twitterapi/status/133640144317198338")
-      expect(oembed.uri).to be_an Addressable::URI
-      expect(oembed.uri.to_s).to eq("https://twitter.com/twitterapi/status/133640144317198338")
+      oembed = Twitter::OEmbed.new(url: "https://twitter.com/twitterapi/status/133640144317198338")
+
+      assert_kind_of(Addressable::URI, oembed.uri)
+      assert_equal("https://twitter.com/twitterapi/status/133640144317198338", oembed.uri.to_s)
     end
 
     it "returns nil when the url is not set" do
-      oembed = described_class.new
-      expect(oembed.uri).to be_nil
+      oembed = Twitter::OEmbed.new
+
+      assert_nil(oembed.uri)
     end
   end
 
   describe "#uri?" do
     it "returns true when the url is set" do
-      oembed = described_class.new(url: "https://twitter.com/twitterapi/status/133640144317198338")
-      expect(oembed.uri?).to be true
+      oembed = Twitter::OEmbed.new(url: "https://twitter.com/twitterapi/status/133640144317198338")
+
+      assert_predicate(oembed, :uri?)
     end
 
     it "returns false when the url is not set" do
-      oembed = described_class.new
-      expect(oembed.uri?).to be false
+      oembed = Twitter::OEmbed.new
+
+      refute_predicate(oembed, :uri?)
     end
   end
 
   describe "#version" do
     it "returns the version" do
-      oembed = described_class.new(version: "1.0")
-      expect(oembed.version).to eq("1.0")
+      oembed = Twitter::OEmbed.new(version: "1.0")
+
+      assert_equal("1.0", oembed.version)
     end
 
     it "returns nil when not set" do
-      version = described_class.new.version
-      expect(version).to be_nil
+      version = Twitter::OEmbed.new.version
+
+      assert_nil(version)
     end
   end
 end

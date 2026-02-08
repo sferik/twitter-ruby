@@ -1,17 +1,19 @@
-require "helper"
+require "test_helper"
 
 describe Twitter::Media::Photo do
-  it_behaves_like "a Twitter::Media object"
+  media_object_examples(klass: Twitter::Media::Photo)
 
   describe "#type" do
     it "returns true when the type is set" do
-      photo = described_class.new(id: 1, type: "photo")
-      expect(photo.type).to eq("photo")
+      photo = Twitter::Media::Photo.new(id: 1, type: "photo")
+
+      assert_equal("photo", photo.type)
     end
 
     it "returns false when the type is not set" do
-      photo = described_class.new(id: 1)
-      expect(photo.type).to be_nil
+      photo = Twitter::Media::Photo.new(id: 1)
+
+      assert_nil(photo.type)
     end
   end
 end

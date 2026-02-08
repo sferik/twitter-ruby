@@ -1,14 +1,15 @@
-require "helper"
+require "test_helper"
 
 describe Twitter::Factory do
   describe ".new" do
     it "raises KeyError when attrs are omitted" do
-      expect { described_class.new(:type, Twitter::Geo) }.to raise_error(KeyError)
+      assert_raises(KeyError) { Twitter::Factory.new(:type, Twitter::Geo) }
     end
 
     it "accepts string method names by symbolizing them" do
-      geo = described_class.new("type", Twitter::Geo, type: "point", coordinates: [12.34, 56.78])
-      expect(geo).to be_a(Twitter::Geo::Point)
+      geo = Twitter::Factory.new("type", Twitter::Geo, type: "point", coordinates: [12.34, 56.78])
+
+      assert_kind_of(Twitter::Geo::Point, geo)
     end
 
     it "calls const_get with a Symbol constant name" do
@@ -27,9 +28,10 @@ describe Twitter::Factory do
         product_class
       end
 
-      object = described_class.new(:type, base_class, type: "custom_type")
-      expect(object).to be_a(product_class)
-      expect(object.attrs[:type]).to eq("custom_type")
+      object = Twitter::Factory.new(:type, base_class, type: "custom_type")
+
+      assert_kind_of(product_class, object)
+      assert_equal("custom_type", object.attrs[:type])
     end
   end
 end

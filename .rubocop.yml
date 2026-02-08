@@ -6,6 +6,8 @@ plugins:
 AllCops:
   TargetRubyVersion: 3.2
   NewCops: enable
+  Exclude:
+    - "vendor/**/*"
 
 Layout/AccessModifierIndentation:
   EnforcedStyle: indent
@@ -60,6 +62,9 @@ Style/FrozenStringLiteralComment:
 
 Style/NumericPredicate:
   Enabled: false
+
+Style/RescueStandardError:
+  EnforcedStyle: implicit
 
 Style/Alias:
   Enabled: false

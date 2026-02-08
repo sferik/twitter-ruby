@@ -1,100 +1,103 @@
-require "helper"
+require "test_helper"
 
 describe Twitter::NullObject do
+  let(:null_object) { Twitter::NullObject.new }
+
   describe "#!" do
     it "returns true" do
-      expect(!subject).to be true
+      refute(null_object)
     end
   end
 
   describe "#respond_to?" do
     it "returns true for any method" do
-      expect(subject).to respond_to(:missing?)
+      assert_respond_to(null_object, :missing?)
     end
   end
 
   describe "#instance_of?" do
     it "returns true for Twitter::NullObject" do
-      expect(subject).to be_instance_of(described_class)
+      assert_instance_of(Twitter::NullObject, null_object)
     end
 
     it "returns false for other classes" do
-      expect(subject).not_to be_instance_of(String)
+      refute_instance_of(String, null_object)
     end
 
     it "returns false for non-class arguments" do
-      expect(subject.instance_of?(:not_a_class)).to be(false)
+      refute(null_object.instance_of?(:not_a_class))
     end
   end
 
   describe "#kind_of?" do
     it "returns true for Twitter::NullObject" do
-      expect(subject).to be_a described_class
+      assert_kind_of(Twitter::NullObject, null_object)
     end
 
     it "returns true for module ancestors" do
-      expect(subject).to be_a Comparable
+      assert_kind_of(Comparable, null_object)
     end
 
     it "returns true for class ancestors" do
-      expect(subject).to be_a Naught::BasicObject
+      assert_kind_of(Naught::BasicObject, null_object)
     end
 
     it "returns false for non-ancestors" do
-      expect(subject).not_to be_a String
+      refute_kind_of(String, null_object)
     end
 
     it "returns false for non-module arguments" do
-      expect(subject.is_a?(123)).to be(false)
+      refute_kind_of(123, null_object)
     end
   end
 
   describe "#<=>" do
     it "sorts before non-null objects" do
-      expect(subject <=> 1).to eq(-1)
+      assert_equal(-1, null_object <=> 1)
     end
 
     it "is equal to other Twitter::NullObjects" do
-      null_object1 = described_class.new
-      null_object2 = described_class.new
-      expect(null_object1 <=> null_object2).to eq(0)
+      null_object1 = Twitter::NullObject.new
+      null_object2 = Twitter::NullObject.new
+
+      assert_equal(0, null_object1 <=> null_object2)
     end
   end
 
   describe "#nil?" do
     it "returns true" do
-      expect(subject.nil?).to be true
+      assert_nil(null_object)
     end
   end
 
   describe "#as_json" do
     it "returns 'null'" do
-      expect(subject.as_json).to eq("null")
+      assert_equal("null", null_object.as_json)
     end
   end
 
   describe "#to_json" do
     it "returns JSON" do
-      expect({"null_object" => subject}.to_json).to eq('{"null_object":null}')
+      assert_equal('{"null_object":null}', {"null_object" => null_object}.to_json)
     end
   end
 
   describe "black hole" do
     it "returns self for missing methods" do
-      expect(subject.missing).to eq(subject)
+      assert_operator(null_object, :equal?, null_object.missing)
     end
   end
 
   describe "explicit conversions" do
     describe "#to_a" do
       it "returns an empty array" do
-        expect(subject.to_a).to be_empty
+        assert_empty(null_object.to_a)
       end
     end
 
     describe "#to_s" do
       it "returns an empty string" do
-        expect(subject.to_s).to be_empty
+        assert_empty(null_object.to_s)
       end
     end
   end
@@ -102,38 +105,38 @@ describe Twitter::NullObject do
   describe "implicit conversions" do
     describe "#to_ary" do
       it "returns an empty array" do
-        expect(subject.to_ary).to be_empty
+        assert_empty(null_object.to_ary)
       end
     end
 
     describe "#to_str" do
       it "returns an empty string" do
-        expect(subject.to_str).to be_empty
+        assert_empty(null_object.to_str)
       end
     end
   end
 
   describe "predicates" do
     it "return false for missing methods" do
-      expect(subject).not_to be_missing
+      refute_predicate(null_object, :missing?)
     end
   end
 
   describe "#presence" do
     it "returns nil" do
-      expect(subject.presence).to be_nil
+      assert_nil(null_object.presence)
     end
   end
 
   describe "#blank?" do
     it "returns true" do
-      expect(subject.blank?).to be true
+      assert_predicate(null_object, :blank?)
     end
   end
 
   describe "#present?" do
     it "returns false" do
-      expect(subject.present?).to be false
+      refute_predicate(null_object, :present?)
     end
   end
 end

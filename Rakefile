@@ -1,11 +1,12 @@
 require "bundler"
+require "etc"
 Bundler::GemHelper.install_tasks
 FORMAT = "svg".freeze
 
 desc "Generate entity-relationship diagram"
 task :erd do
-  `bundle exec ruby ./etc/erd.rb > ./etc/erd.dot`
-  `dot -T #{FORMAT} ./etc/erd.dot -o ./etc/erd.#{FORMAT}`
+  sh "bundle exec ruby ./etc/erd.rb > ./etc/erd.dot"
+  sh "dot -T #{FORMAT} ./etc/erd.dot -o ./etc/erd.#{FORMAT}"
 end
 
 require "rake/testtask"
@@ -17,7 +18,15 @@ end
 
 desc "Run mutant"
 task :mutant do
-  sh "bundle exec mutant run"
+  jobs = ENV.fetch("MUTANT_JOBS", Etc.nprocessors.to_s).to_i
+  jobs = 1 if jobs < 1
+  noun = if jobs == 1
+    "job"
+  else
+    "jobs"
+  end
+  puts "Running mutant with #{jobs} #{noun}"
+  sh "bundle exec mutant run --jobs #{jobs}"
 end
 
 require "rubocop/rake_task"
@@ -26,7 +35,7 @@ RuboCop::RakeTask.new
 desc "Run lint checks"
 task :lint do
   sh "bundle exec standardrb"
-  sh "bundle exec rubocop"
+  sh "bundle exec rubocop --force-exclusion"
 end
 
 require "yard"
