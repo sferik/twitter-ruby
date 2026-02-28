@@ -1,0 +1,18 @@
+# - vi_vi_vi=VI<
+<engines:
+  <rubocop:
+    <enabled: true
+  <duplication:
+    <enabled: true
+    <config:
+      <languages:
+      # - VI<ruby
+<2
+<ratings:
+  <paths:
+  vi_vi_vi=VI<rb
+<2
+<exclude_paths:
+ # - VI<etc/**/*
+ # - VI<examples/**/*
+ # - VI<spec/**/*
