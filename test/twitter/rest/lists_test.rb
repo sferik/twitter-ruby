@@ -86,9 +86,9 @@ describe Twitter::REST::Lists do
         end
       end
 
-      describe "with an Addressable::URI object passed" do
+      describe "with a URI object passed" do
         it "requests the correct resource" do
-          list = Addressable::URI.parse("https://twitter.com/sferik/presidents")
+          list = URI.parse("https://twitter.com/sferik/presidents")
           @client.list_timeline(list)
 
           assert_requested(a_get("/1.1/lists/statuses.json").with(query: {owner_screen_name: "sferik", slug: "presidents"}))

@@ -1,4 +1,3 @@
-require "addressable/uri"
 require "twitter/arguments"
 require "twitter/cursor"
 require "twitter/error"
@@ -543,7 +542,7 @@ module Twitter
         when Integer then hash[:list_id] = list
         when List then merge_list_and_owner!(hash, list)
         when String then merge_slug_and_owner!(hash, list)
-        when URI, Addressable::URI then merge_slug_and_owner!(hash, list.path) # steep:ignore NoMethod
+        when URI then merge_slug_and_owner!(hash, list.path) # steep:ignore NoMethod
         end
       end
 

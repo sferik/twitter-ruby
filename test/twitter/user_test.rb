@@ -68,7 +68,7 @@ describe Twitter::User do
       assert_kind_of(Array, user.description_uris)
       assert_kind_of(Twitter::Entity::URI, user.description_uris.first)
       assert_equal([10, 33], user.description_uris.first.indices)
-      assert_kind_of(Addressable::URI, user.description_uris.first.expanded_uri)
+      assert_kind_of(URI::Generic, user.description_uris.first.expanded_uri)
     end
 
     it "is empty when not set" do
@@ -164,7 +164,7 @@ describe Twitter::User do
     it "returns the URI to the user" do
       user = Twitter::User.new(id: 7_505_382, profile_background_image_url: "http://pbs.twimg.com/profile_background_images/677717672/bb0b3653dcf0644e344823e0a2eb3382.png")
 
-      assert_kind_of(Addressable::URI, user.profile_background_image_uri)
+      assert_kind_of(URI::Generic, user.profile_background_image_uri)
       assert_equal("http://pbs.twimg.com/profile_background_images/677717672/bb0b3653dcf0644e344823e0a2eb3382.png", user.profile_background_image_uri.to_s)
     end
 
@@ -179,7 +179,7 @@ describe Twitter::User do
     it "returns the URI to the user" do
       user = Twitter::User.new(id: 7_505_382, profile_background_image_url_https: "https://pbs.twimg.com/profile_background_images/677717672/bb0b3653dcf0644e344823e0a2eb3382.png")
 
-      assert_kind_of(Addressable::URI, user.profile_background_image_uri_https)
+      assert_kind_of(URI::Generic, user.profile_background_image_uri_https)
       assert_equal("https://pbs.twimg.com/profile_background_images/677717672/bb0b3653dcf0644e344823e0a2eb3382.png", user.profile_background_image_uri_https.to_s)
     end
 
@@ -191,16 +191,17 @@ describe Twitter::User do
   end
 
   describe "#profile_banner_uri" do
-    it "accepts utf8 urls" do
-      user = Twitter::User.new(id: 7_505_382, profile_banner_url: "https://si0.twimg.com/profile_banners/7_505_382/1348266581©_normal.png")
+    it "percent-encodes non-ASCII characters in utf8 urls" do
+      user = Twitter::User.new(id: 7_505_382, profile_banner_url: "https://si0.twimg.com/profile_banners/7_505_382/©1348266581©_normal.png")
 
-      assert_kind_of(Addressable::URI, user.profile_banner_uri)
+      assert_kind_of(URI::Generic, user.profile_banner_uri)
+      assert_equal("http://si0.twimg.com/profile_banners/7_505_382/%C2%A91348266581%C2%A9_normal.png/web", user.profile_banner_uri.to_s)
     end
 
     it "returns a URI when profile_banner_url is set" do
       user = Twitter::User.new(id: 7_505_382, profile_banner_url: "https://si0.twimg.com/profile_banners/7_505_382/1348266581")
 
-      assert_kind_of(Addressable::URI, user.profile_banner_uri)
+      assert_kind_of(URI::Generic, user.profile_banner_uri)
     end
 
     it "returns nil when profile_banner_uri is not set" do
@@ -271,16 +272,17 @@ describe Twitter::User do
   end
 
   describe "#profile_banner_uri_https" do
-    it "accepts utf8 urls" do
-      user = Twitter::User.new(id: 7_505_382, profile_banner_url: "https://si0.twimg.com/profile_banners/7_505_382/1348266581©_normal.png")
+    it "percent-encodes non-ASCII characters in utf8 urls" do
+      user = Twitter::User.new(id: 7_505_382, profile_banner_url: "https://si0.twimg.com/profile_banners/7_505_382/©1348266581©_normal.png")
 
-      assert_kind_of(Addressable::URI, user.profile_banner_uri_https)
+      assert_kind_of(URI::Generic, user.profile_banner_uri_https)
+      assert_equal("https://si0.twimg.com/profile_banners/7_505_382/%C2%A91348266581%C2%A9_normal.png/web", user.profile_banner_uri_https.to_s)
     end
 
     it "returns a URI when profile_banner_url is set" do
       user = Twitter::User.new(id: 7_505_382, profile_banner_url: "https://si0.twimg.com/profile_banners/7_505_382/1348266581")
 
-      assert_kind_of(Addressable::URI, user.profile_banner_uri_https)
+      assert_kind_of(URI::Generic, user.profile_banner_uri_https)
     end
 
     it "returns nil when created_at is not set" do
@@ -407,16 +409,17 @@ describe Twitter::User do
   end
 
   describe "#profile_image_uri" do
-    it "accepts utf8 urls" do
-      user = Twitter::User.new(id: 7_505_382, profile_image_url_https: "https://si0.twimg.com/profile_images/7_505_382/1348266581©_normal.png")
+    it "percent-encodes all non-ASCII characters in utf8 urls" do
+      user = Twitter::User.new(id: 7_505_382, profile_image_url_https: "https://si0.twimg.com/profile_images/7_505_382/©1348266581©_normal.png")
 
-      assert_kind_of(Addressable::URI, user.profile_image_uri)
+      assert_kind_of(URI::Generic, user.profile_image_uri)
+      assert_equal("http://si0.twimg.com/profile_images/7_505_382/%C2%A91348266581%C2%A9_normal.png", user.profile_image_uri.to_s)
     end
 
     it "returns a URI when profile_image_url_https is set" do
       user = Twitter::User.new(id: 7_505_382, profile_image_url_https: "https://a0.twimg.com/profile_images/1759857427/image1326743606_normal.png")
 
-      assert_kind_of(Addressable::URI, user.profile_image_uri)
+      assert_kind_of(URI::Generic, user.profile_image_uri)
     end
 
     it "returns nil when created_at is not set" do
@@ -479,16 +482,17 @@ describe Twitter::User do
   end
 
   describe "#profile_image_uri_https" do
-    it "accepts utf8 urls" do
-      user = Twitter::User.new(id: 7_505_382, profile_image_url_https: "https://si0.twimg.com/profile_images/7_505_382/1348266581©_normal.png")
+    it "percent-encodes all non-ASCII characters in utf8 urls" do
+      user = Twitter::User.new(id: 7_505_382, profile_image_url_https: "https://si0.twimg.com/profile_images/7_505_382/©1348266581©_normal.png")
 
-      assert_kind_of(Addressable::URI, user.profile_image_uri_https)
+      assert_kind_of(URI::Generic, user.profile_image_uri_https)
+      assert_equal("https://si0.twimg.com/profile_images/7_505_382/%C2%A91348266581%C2%A9_normal.png", user.profile_image_uri_https.to_s)
     end
 
     it "returns a URI when profile_image_url_https is set" do
       user = Twitter::User.new(id: 7_505_382, profile_image_url_https: "https://a0.twimg.com/profile_images/1759857427/image1326743606_normal.png")
 
-      assert_kind_of(Addressable::URI, user.profile_image_uri_https)
+      assert_kind_of(URI::Generic, user.profile_image_uri_https)
     end
 
     it "returns nil when created_at is not set" do
@@ -672,7 +676,7 @@ describe Twitter::User do
     it "returns the URI to the user" do
       user = Twitter::User.new(id: 7_505_382, screen_name: "sferik")
 
-      assert_kind_of(Addressable::URI, user.uri)
+      assert_kind_of(URI::Generic, user.uri)
       assert_equal("https://twitter.com/sferik", user.uri.to_s)
     end
 
@@ -687,7 +691,7 @@ describe Twitter::User do
     it "returns a URI when the url is set" do
       user = Twitter::User.new(id: 7_505_382, url: "https://github.com/sferik")
 
-      assert_kind_of(Addressable::URI, user.website)
+      assert_kind_of(URI::Generic, user.website)
       assert_equal("https://github.com/sferik", user.website.to_s)
     end
 
@@ -702,7 +706,7 @@ describe Twitter::User do
       ]
       user = Twitter::User.new(id: 7_505_382, entities: {url: {urls: urls_array}})
 
-      assert_kind_of(Addressable::URI, user.website)
+      assert_kind_of(URI::Generic, user.website)
       assert_equal("http://example.com/expanded", user.website.to_s)
     end
 
@@ -756,7 +760,7 @@ describe Twitter::User do
       assert_kind_of(Array, user.website_uris)
       assert_kind_of(Twitter::Entity::URI, user.website_uris.first)
       assert_equal([0, 23], user.website_uris.first.indices)
-      assert_kind_of(Addressable::URI, user.website_uris.first.expanded_uri)
+      assert_kind_of(URI::Generic, user.website_uris.first.expanded_uri)
     end
 
     it "is empty when not set" do

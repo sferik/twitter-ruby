@@ -22,10 +22,10 @@ describe Twitter::Headers do
       assert_kind_of(SimpleOAuth::Header, auth_header)
     end
 
-    it "stores the URL as an Addressable::URI" do
+    it "stores the URL as an URI::Generic" do
       headers = Twitter::Headers.new(@client, :get, "#{Twitter::REST::Request::BASE_URL}/path")
 
-      assert_kind_of(Addressable::URI, headers.instance_variable_get(:@uri))
+      assert_kind_of(URI::Generic, headers.instance_variable_get(:@uri))
     end
 
     it "extracts bearer_token_request from options" do

@@ -1,4 +1,4 @@
-require "addressable/uri"
+require "uri"
 require "http"
 require "http/form_data"
 require "json"
@@ -70,8 +70,8 @@ module Twitter
       #
       # @api public
       # @example
-      #   request.uri # => #<Addressable::URI>
-      # @return [Addressable::URI]
+      #   request.uri # => #<URI::HTTPS>
+      # @return [URI::Generic]
       attr_accessor :uri
 
       # Returns the HTTP verb
@@ -97,7 +97,7 @@ module Twitter
       # @return [Twitter::REST::Request]
       def initialize(client, request_method, path, options = {}, params = nil)
         @client = client
-        @uri = Addressable::URI.parse(path.start_with?("http") ? path : BASE_URL + path)
+        @uri = URI.parse(path.start_with?("http") ? path : BASE_URL + path)
         multipart_options = params || options
         set_multipart_options!(request_method, multipart_options)
         @path = uri.path # steep:ignore NoMethod

@@ -1,4 +1,4 @@
-require "addressable/uri"
+require "uri"
 require "twitter/basic_user"
 require "twitter/creatable"
 require "twitter/entity/uri"
@@ -295,9 +295,9 @@ module Twitter
     # @api public
     # @example
     #   user.uri
-    # @return [Addressable::URI]
+    # @return [URI::Generic]
     def uri
-      Addressable::URI.parse("https://twitter.com/#{screen_name}") if screen_name?
+      URI.parse("https://twitter.com/#{screen_name}") if screen_name?
     end
     memoize :uri
 
@@ -306,7 +306,7 @@ module Twitter
     #   @api public
     #   @example
     #     user.url
-    #   @return [Addressable::URI]
+    #   @return [URI::Generic]
     alias_method :url, :uri
 
     # Returns the user's website URL
@@ -314,12 +314,12 @@ module Twitter
     # @api public
     # @example
     #   user.website
-    # @return [Addressable::URI]
+    # @return [URI::Generic]
     def website
       if website_uris?
         website_uris.first.expanded_url
       else
-        Addressable::URI.parse(@attrs[:url])
+        URI.parse(@attrs[:url]) unless @attrs[:url].nil?
       end
     end
     memoize :website

@@ -269,15 +269,15 @@ describe Twitter::REST::Users do
       end
     end
 
-    describe "with an Addressable::URI passed" do
+    describe "with a URI passed" do
       before do
         stub_get("/1.1/blocks/ids.json").with(query: {cursor: "-1"}).to_return(body: fixture("ids_list.json"), headers: json_headers)
         stub_get("/1.1/blocks/ids.json").with(query: {cursor: "1305102810874389703"}).to_return(body: fixture("ids_list2.json"), headers: json_headers)
         stub_get("/1.1/users/show.json").with(query: {screen_name: "pengwynn"}).to_return(body: fixture("pengwynn.json"), headers: json_headers)
       end
 
-      it "returns true when Addressable::URI user is in the block list" do
-        uri = Addressable::URI.parse("https://twitter.com/pengwynn")
+      it "returns true when URI user is in the block list" do
+        uri = URI.parse("https://twitter.com/pengwynn")
         block = @client.block?(uri)
 
         assert(block)
@@ -1103,12 +1103,10 @@ describe Twitter::REST::Users do
       it "extracts integer IDs from each supported input type" do
         identity = Twitter::Identity.new(id: 99)
         uri = URI.parse("https://twitter.com/sferik/123")
-        addressable_uri = Addressable::URI.parse("https://twitter.com/sferik/456")
 
         assert_equal(1, utils_client.send(:extract_id, 1))
         assert_equal(2, utils_client.send(:extract_id, "https://twitter.com/sferik/2"))
         assert_equal(123, utils_client.send(:extract_id, uri))
-        assert_equal(456, utils_client.send(:extract_id, addressable_uri))
         assert_equal(99, utils_client.send(:extract_id, identity))
       end
     end
@@ -1373,14 +1371,13 @@ describe Twitter::REST::Users do
           1,
           Twitter::User.new(id: 2),
           "sferik",
-          URI.parse("https://twitter.com/erik"),
-          Addressable::URI.parse("https://twitter.com/alice")
+          URI.parse("https://twitter.com/erik")
         ]
 
         user_ids, screen_names = utils_client.send(:collect_users, users)
 
         assert_equal([1, 2], user_ids)
-        assert_equal(%w[sferik erik alice], screen_names)
+        assert_equal(%w[sferik erik], screen_names)
       end
     end
   end

@@ -202,9 +202,9 @@ module Twitter
     # @api public
     # @example
     #   tweet.uri
-    # @return [Addressable::URI]
+    # @return [URI::Generic]
     def uri
-      Addressable::URI.parse("https://twitter.com/#{user.screen_name}/status/#{id}") if user?
+      URI.parse("https://twitter.com/#{user.screen_name}/status/#{id}") if user?
     end
     memoize :uri
 
@@ -213,7 +213,7 @@ module Twitter
     #   @api public
     #   @example
     #     tweet.url
-    #   @return [Addressable::URI]
+    #   @return [URI::Generic]
     alias_method :url, :uri
   end
 end

@@ -1,4 +1,4 @@
-require "addressable/uri"
+require "uri"
 require "forwardable"
 require "memoizable"
 require "twitter/null_object"
@@ -108,7 +108,7 @@ module Twitter
       # @return [void]
       def define_uri_method(key1, key2)
         define_method(key1) do
-          Addressable::URI.parse(@attrs[key2].chomp("#")) unless @attrs[key2].nil? # steep:ignore FallbackAny
+          URI.parse(@attrs[key2].chomp("#").gsub(/[^\x00-\x7F]/) { |c| c.bytes.map { |b| format("%%%02X", b) }.join }) unless @attrs[key2].nil? # steep:ignore FallbackAny
         end
         memoize(key1)
       end

@@ -298,7 +298,7 @@ describe Twitter::Streaming::Connection do
         end
 
         refute(stream_closed)
-        sleep 1
+        sleep 0.01
         connection.close
         thread.join
 
@@ -329,7 +329,7 @@ describe Twitter::Streaming::Connection do
         server_client.write("test data")
         server_client.flush
 
-        sleep 0.1
+        sleep 0.01
 
         connection.close
         thread.join

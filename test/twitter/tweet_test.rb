@@ -528,7 +528,7 @@ describe Twitter::Tweet do
     it "returns the URI to the tweet" do
       tweet = Twitter::Tweet.new(id: 28_669_546_014, user: {id: 7_505_382, screen_name: "sferik"})
 
-      assert_kind_of(Addressable::URI, tweet.uri)
+      assert_kind_of(URI::Generic, tweet.uri)
       assert_equal("https://twitter.com/sferik/status/28669546014", tweet.uri.to_s)
     end
 

@@ -5,7 +5,7 @@ describe Twitter::Variant do
     it "returns a URI when the url is set" do
       variant = Twitter::Variant.new(id: 1, url: "https://video.twimg.com/media/BQD6MPOCEAAbCH0.mp4")
 
-      assert_kind_of(Addressable::URI, variant.uri)
+      assert_kind_of(URI::Generic, variant.uri)
       assert_equal("https://video.twimg.com/media/BQD6MPOCEAAbCH0.mp4", variant.uri.to_s)
     end
 

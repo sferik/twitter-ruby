@@ -182,7 +182,7 @@ module Twitter
         user_id =
           case user
           when Integer then user
-          when String, URI, Addressable::URI then user(user).id
+          when String, URI then user(user).id
           when User then user.id
           end
         blocked_ids(options).collect(&:to_i).include?(user_id)

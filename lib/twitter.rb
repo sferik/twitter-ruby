@@ -1,4 +1,4 @@
-require "addressable/uri"
+require "uri"
 
 # Ruby interface to the Twitter API
 module Twitter

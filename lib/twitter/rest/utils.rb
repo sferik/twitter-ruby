@@ -1,4 +1,3 @@
-require "addressable/uri"
 require "twitter/arguments"
 require "twitter/cursor"
 require "twitter/identity"
@@ -29,7 +28,7 @@ module Twitter
           object
         when String
           Integer(object.split("/").last)
-        when URI, Addressable::URI
+        when URI
           Integer(object.path.split("/").last) # steep:ignore NoMethod
         when Identity
           object.id
@@ -293,7 +292,7 @@ module Twitter
           set_compound_key("user_id", user, hash, prefix)
         when String
           set_compound_key("screen_name", user, hash, prefix)
-        when URI, Addressable::URI
+        when URI
           set_compound_key("screen_name", user.path.split("/").last, hash, prefix) # steep:ignore NoMethod
         when User
           set_compound_key("user_id", user.id, hash, prefix)
@@ -351,7 +350,7 @@ module Twitter
           when Integer then user_ids << user
           when User then user_ids << user.id
           when String then screen_names << user
-          when URI, Addressable::URI then screen_names << user.path.split("/").last # steep:ignore NoMethod
+          when URI then screen_names << user.path.split("/").last # steep:ignore NoMethod
           end
         end
         [user_ids, screen_names]

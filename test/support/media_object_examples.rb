@@ -132,7 +132,7 @@ module MediaObjectExamples
     it "returns a URI when the #{source_name} is set" do
       media = klass.new({id: 1}.merge(source_name => SAMPLE_MEDIA_URI))
 
-      assert_kind_of(Addressable::URI, media.public_send(method_name))
+      assert_kind_of(URI::Generic, media.public_send(method_name))
       assert_equal(SAMPLE_MEDIA_URI, media.public_send(method_name).to_s)
     end
   end

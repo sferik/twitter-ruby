@@ -5,7 +5,7 @@ describe Twitter::OEmbed do
     it "returns a URI when the author_url is set" do
       oembed = Twitter::OEmbed.new(author_url: "https://twitter.com/sferik")
 
-      assert_kind_of(Addressable::URI, oembed.author_uri)
+      assert_kind_of(URI::Generic, oembed.author_uri)
       assert_equal("https://twitter.com/sferik", oembed.author_uri.to_s)
     end
 
@@ -110,7 +110,7 @@ describe Twitter::OEmbed do
     it "returns a URI when the provider_url is set" do
       oembed = Twitter::OEmbed.new(provider_url: "http://twitter.com")
 
-      assert_kind_of(Addressable::URI, oembed.provider_uri)
+      assert_kind_of(URI::Generic, oembed.provider_uri)
       assert_equal("http://twitter.com", oembed.provider_uri.to_s)
     end
 
@@ -173,7 +173,7 @@ describe Twitter::OEmbed do
     it "returns a URI when the url is set" do
       oembed = Twitter::OEmbed.new(url: "https://twitter.com/twitterapi/status/133640144317198338")
 
-      assert_kind_of(Addressable::URI, oembed.uri)
+      assert_kind_of(URI::Generic, oembed.uri)
       assert_equal("https://twitter.com/twitterapi/status/133640144317198338", oembed.uri.to_s)
     end
 

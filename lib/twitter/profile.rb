@@ -1,4 +1,4 @@
-require "addressable/uri"
+require "uri"
 require "cgi"
 require "memoizable"
 
@@ -15,7 +15,7 @@ module Twitter
     # @example
     #   user.profile_banner_uri(:web)
     # @param size [String, Symbol] The size of the image
-    # @return [Addressable::URI]
+    # @return [URI::Generic]
     def profile_banner_uri(size = :web)
       parse_uri(insecure_uri([@attrs[:profile_banner_url], size].join("/"))) unless @attrs[:profile_banner_url].nil? # steep:ignore FallbackAny
     end
@@ -25,7 +25,7 @@ module Twitter
     #   @api public
     #   @example
     #     user.profile_banner_url(:web)
-    #   @return [Addressable::URI]
+    #   @return [URI::Generic]
     alias_method :profile_banner_url, :profile_banner_uri
 
     # Returns the secure URL to the user's profile banner image
@@ -34,7 +34,7 @@ module Twitter
     # @example
     #   user.profile_banner_uri_https(:web)
     # @param size [String, Symbol] The size of the image
-    # @return [Addressable::URI]
+    # @return [URI::Generic]
     def profile_banner_uri_https(size = :web)
       parse_uri([@attrs[:profile_banner_url], size].join("/")) unless @attrs[:profile_banner_url].nil? # steep:ignore FallbackAny
     end
@@ -44,7 +44,7 @@ module Twitter
     #   @api public
     #   @example
     #     user.profile_banner_url_https(:web)
-    #   @return [Addressable::URI]
+    #   @return [URI::Generic]
     alias_method :profile_banner_url_https, :profile_banner_uri_https
 
     # Returns true if the user has a profile banner
@@ -67,7 +67,7 @@ module Twitter
     # @example
     #   user.profile_image_uri(:normal)
     # @param size [String, Symbol] The size of the image
-    # @return [Addressable::URI]
+    # @return [URI::Generic]
     def profile_image_uri(size = :normal)
       parse_uri(insecure_uri(profile_image_uri_https(size))) unless @attrs[:profile_image_url_https].nil? # steep:ignore FallbackAny
     end
@@ -77,7 +77,7 @@ module Twitter
     #   @api public
     #   @example
     #     user.profile_image_url(:normal)
-    #   @return [Addressable::URI]
+    #   @return [URI::Generic]
     alias_method :profile_image_url, :profile_image_uri
 
     # Returns the secure URL to the user's profile image
@@ -86,7 +86,7 @@ module Twitter
     # @example
     #   user.profile_image_uri_https(:normal)
     # @param size [String, Symbol] The size of the image
-    # @return [Addressable::URI]
+    # @return [URI::Generic]
     def profile_image_uri_https(size = :normal)
       # The profile image URL comes in looking like like this:
       # https://a0.twimg.com/profile_images/1759857427/image1326743606_normal.png
@@ -102,7 +102,7 @@ module Twitter
     #   @api public
     #   @example
     #     user.profile_image_url_https(:normal)
-    #   @return [Addressable::URI]
+    #   @return [URI::Generic]
     alias_method :profile_image_url_https, :profile_image_uri_https
 
     # Returns true if the user has a profile image
@@ -125,9 +125,9 @@ module Twitter
     #
     # @api private
     # @param uri [String] The URI string
-    # @return [Addressable::URI]
+    # @return [URI::Generic]
     def parse_uri(uri)
-      Addressable::URI.parse(uri)
+      URI.parse(uri.gsub(/[^\x00-\x7F]/) { |c| c.bytes.map { |b| format("%%%02X", b) }.join })
     end
 
     # Converts a URI to insecure (http) version

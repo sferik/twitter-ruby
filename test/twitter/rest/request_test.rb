@@ -81,10 +81,10 @@ describe Twitter::REST::Request do
       assert_empty(request.options)
     end
 
-    it "uses Addressable::URI for parsing (supports unicode)" do
+    it "uses URI::Generic for parsing (supports unicode)" do
       request = Twitter::REST::Request.new(@client, :get, "https://example.com/test%20path.json", {})
 
-      assert_kind_of(Addressable::URI, request.uri)
+      assert_kind_of(URI::Generic, request.uri)
       assert_includes(request.uri.to_s, "test%20path")
     end
   end

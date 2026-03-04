@@ -34,7 +34,7 @@ describe Twitter::Entity::URI do
     it "returns a URI when the expanded_url is set" do
       uri = Twitter::Entity::URI.new(expanded_url: "https://github.com/sferik")
 
-      assert_kind_of(Addressable::URI, uri.expanded_uri)
+      assert_kind_of(URI::Generic, uri.expanded_uri)
       assert_equal("https://github.com/sferik", uri.expanded_uri.to_s)
     end
 
@@ -63,7 +63,7 @@ describe Twitter::Entity::URI do
     it "returns a URI when the url is set" do
       uri = Twitter::Entity::URI.new(url: "https://github.com/sferik")
 
-      assert_kind_of(Addressable::URI, uri.uri)
+      assert_kind_of(URI::Generic, uri.uri)
       assert_equal("https://github.com/sferik", uri.uri.to_s)
     end
 

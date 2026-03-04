@@ -25,12 +25,10 @@ describe "Twitter::REST::Utils helper behavior" do
     it "extracts IDs from each supported input type" do
       identity = Twitter::Identity.new(id: 99)
       uri = URI.parse("https://twitter.com/sferik/123")
-      addressable_uri = Addressable::URI.parse("https://twitter.com/sferik/456")
 
       assert_equal(1, client.send(:extract_id, 1))
       assert_equal(2, client.send(:extract_id, "https://twitter.com/sferik/2"))
       assert_equal(123, client.send(:extract_id, uri))
-      assert_equal(456, client.send(:extract_id, addressable_uri))
       assert_equal(99, client.send(:extract_id, identity))
     end
 
@@ -344,14 +342,13 @@ describe "Twitter::REST::Utils helper behavior" do
         1,
         Twitter::User.new(id: 2),
         "sferik",
-        URI.parse("https://twitter.com/erik"),
-        Addressable::URI.parse("https://twitter.com/alice")
+        URI.parse("https://twitter.com/erik")
       ]
 
       user_ids, screen_names = client.send(:collect_users, users)
 
       assert_equal([1, 2], user_ids)
-      assert_equal(%w[sferik erik alice], screen_names)
+      assert_equal(%w[sferik erik], screen_names)
     end
 
     it "ignores unsupported user-like objects" do

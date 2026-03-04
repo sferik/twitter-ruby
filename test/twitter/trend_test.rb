@@ -35,7 +35,7 @@ describe Twitter::Trend do
     it "returns a URI when the url is set" do
       trend = Twitter::Trend.new(url: "http://twitter.com/search/?q=%23sevenwordsaftersex")
 
-      assert_kind_of(Addressable::URI, trend.uri)
+      assert_kind_of(URI::Generic, trend.uri)
       assert_equal("http://twitter.com/search/?q=%23sevenwordsaftersex", trend.uri.to_s)
     end
 

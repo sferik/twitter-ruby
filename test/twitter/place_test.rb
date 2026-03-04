@@ -169,7 +169,7 @@ describe Twitter::Place do
     it "returns a URI when the url is set" do
       place = Twitter::Place.new(woeid: "247f43d441defc03", url: "https://api.twitter.com/1.1/geo/id/247f43d441defc03.json")
 
-      assert_kind_of(Addressable::URI, place.uri)
+      assert_kind_of(URI::Generic, place.uri)
       assert_equal("https://api.twitter.com/1.1/geo/id/247f43d441defc03.json", place.uri.to_s)
     end
 

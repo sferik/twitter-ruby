@@ -260,7 +260,7 @@ describe Twitter::Base do
     it "defines a URI method that parses the URL attribute" do
       obj = example_class.new(profile_url: "https://example.com/profile")
 
-      assert_kind_of(Addressable::URI, obj.profile_uri)
+      assert_kind_of(URI::Generic, obj.profile_uri)
       assert_equal("https://example.com/profile", obj.profile_uri.to_s)
     end
 
@@ -287,6 +287,13 @@ describe Twitter::Base do
       obj = example_class.new(profile_url: "https://example.com#")
 
       assert_equal("https://example.com", obj.profile_uri.to_s)
+    end
+
+    it "percent-encodes all non-ASCII characters" do
+      obj = example_class.new(profile_url: "https://example.com/©path©file")
+
+      assert_kind_of(URI::Generic, obj.profile_uri)
+      assert_equal("https://example.com/%C2%A9path%C2%A9file", obj.profile_uri.to_s)
     end
 
     it "memoizes the URI value" do

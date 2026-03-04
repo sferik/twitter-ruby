@@ -65,9 +65,9 @@ module Twitter
     # @api public
     # @example
     #   list.members_uri
-    # @return [Addressable::URI]
+    # @return [URI::Generic]
     def members_uri
-      Addressable::URI.parse("#{uri}/members") if uri?
+      URI.parse("#{uri}/members") if uri?
     end
     memoize :members_uri
 
@@ -76,7 +76,7 @@ module Twitter
     #   @api public
     #   @example
     #     list.members_url
-    #   @return [Addressable::URI]
+    #   @return [URI::Generic]
     alias_method :members_url, :members_uri
 
     # Returns the URI to the list subscribers
@@ -84,9 +84,9 @@ module Twitter
     # @api public
     # @example
     #   list.subscribers_uri
-    # @return [Addressable::URI]
+    # @return [URI::Generic]
     def subscribers_uri
-      Addressable::URI.parse("#{uri}/subscribers") if uri?
+      URI.parse("#{uri}/subscribers") if uri?
     end
     memoize :subscribers_uri
 
@@ -95,7 +95,7 @@ module Twitter
     #   @api public
     #   @example
     #     list.subscribers_url
-    #   @return [Addressable::URI]
+    #   @return [URI::Generic]
     alias_method :subscribers_url, :subscribers_uri
 
     # Returns the URI to the list
@@ -103,9 +103,9 @@ module Twitter
     # @api public
     # @example
     #   list.uri
-    # @return [Addressable::URI]
+    # @return [URI::Generic]
     def uri
-      Addressable::URI.parse("https://twitter.com/#{user.screen_name}/#{slug}") if slug? && user.screen_name?
+      URI.parse("https://twitter.com/#{user.screen_name}/#{slug}") if slug? && user.screen_name?
     end
     memoize :uri
 
@@ -114,7 +114,7 @@ module Twitter
     #   @api public
     #   @example
     #     list.url
-    #   @return [Addressable::URI]
+    #   @return [URI::Generic]
     alias_method :url, :uri
 
     # Returns true if a URI is available for this list

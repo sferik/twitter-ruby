@@ -298,11 +298,11 @@ module Twitter
     def translator?: () -> bool
     def translation_enabled?: () -> bool
 
-    def profile_background_image_uri: () -> Addressable::URI?
+    def profile_background_image_uri: () -> URI::Generic?
     alias profile_background_image_url profile_background_image_uri
     def profile_background_image_uri?: () -> bool
     alias profile_background_image_url? profile_background_image_uri?
-    def profile_background_image_uri_https: () -> Addressable::URI?
+    def profile_background_image_uri_https: () -> URI::Generic?
     alias profile_background_image_url_https profile_background_image_uri_https
     def profile_background_image_uri_https?: () -> bool
     alias profile_background_image_url_https? profile_background_image_uri_https?
@@ -317,9 +317,9 @@ module Twitter
     alias website_urls? website_uris?
 
     def entities?: () -> bool
-    def uri: () -> Addressable::URI?
+    def uri: () -> URI::Generic?
     alias url uri
-    def website: () -> Addressable::URI?
+    def website: () -> URI::Generic?
     def website?: () -> bool
   end
 
@@ -385,7 +385,7 @@ module Twitter
 
     def initialize: (Hash[Symbol, untyped]) -> void
     def full_text: () -> String?
-    def uri: () -> Addressable::URI?
+    def uri: () -> URI::Generic?
     alias url uri
   end
 
@@ -512,7 +512,7 @@ module Twitter
       attr_accessor path: String
       attr_accessor rate_limit: RateLimit?
       attr_accessor request_method: Symbol
-      attr_accessor uri: Addressable::URI
+      attr_accessor uri: URI::Generic
 
       def verb: () -> Symbol
       def initialize: (untyped, untyped, String, ?Hash[Symbol, untyped], ?Hash[Symbol, untyped]?) -> void
@@ -986,11 +986,11 @@ module Twitter
       alias display_uri display_url
       def display_url?: () -> bool
       alias display_uri? display_url?
-      def expanded_url: () -> Addressable::URI?
+      def expanded_url: () -> URI::Generic?
       alias expanded_uri expanded_url
       def expanded_url?: () -> bool
       alias expanded_uri? expanded_url?
-      def url: () -> Addressable::URI?
+      def url: () -> URI::Generic?
       alias uri url
       def url?: () -> bool
       alias uri? url?
@@ -1023,7 +1023,7 @@ module Twitter
     def contained_within: () -> untyped
     def contained_within?: () -> bool
     alias contained? contained_within?
-    def uri: () -> Addressable::URI?
+    def uri: () -> URI::Generic?
     alias url uri
     def uri?: () -> bool
     alias url? uri?
@@ -1046,7 +1046,7 @@ module Twitter
     def query?: () -> bool
     def tweet_volume?: () -> bool
     def promoted_content?: () -> bool
-    def uri: () -> Addressable::URI?
+    def uri: () -> URI::Generic?
     alias url uri
     def uri?: () -> bool
     alias url? uri?
@@ -1094,15 +1094,15 @@ module Twitter
 
     def user: () -> untyped
     def user?: () -> bool
-    def uri: () -> Addressable::URI?
+    def uri: () -> URI::Generic?
     alias url uri
     def uri?: () -> bool
     alias url? uri?
-    def members_uri: () -> Addressable::URI?
+    def members_uri: () -> URI::Generic?
     alias members_url members_uri
     def members_uri?: () -> bool
     alias members_url? members_uri?
-    def subscribers_uri: () -> Addressable::URI?
+    def subscribers_uri: () -> URI::Generic?
     alias subscribers_url subscribers_uri
     def subscribers_uri?: () -> bool
     alias subscribers_url? subscribers_uri?
@@ -1234,15 +1234,15 @@ module Twitter
     def width?: () -> bool
     def version?: () -> bool
 
-    def author_url: () -> Addressable::URI?
+    def author_url: () -> URI::Generic?
     alias author_uri author_url
     def author_url?: () -> bool
     alias author_uri? author_url?
-    def provider_url: () -> Addressable::URI?
+    def provider_url: () -> URI::Generic?
     alias provider_uri provider_url
     def provider_url?: () -> bool
     alias provider_uri? provider_url?
-    def url: () -> Addressable::URI?
+    def url: () -> URI::Generic?
     alias uri url
     def url?: () -> bool
     alias uri? url?
@@ -1350,25 +1350,25 @@ module Twitter
 
     PROFILE_IMAGE_SUFFIX_REGEX: Regexp
 
-    def profile_banner_uri: (?Symbol size) -> Addressable::URI?
+    def profile_banner_uri: (?Symbol size) -> URI::Generic?
     alias profile_banner_url profile_banner_uri
     def profile_banner_uri?: () -> bool
     alias profile_banner_url? profile_banner_uri?
-    def profile_banner_uri_https: (?Symbol size) -> Addressable::URI?
+    def profile_banner_uri_https: (?Symbol size) -> URI::Generic?
     alias profile_banner_url_https profile_banner_uri_https
     def profile_banner_uri_https?: () -> bool
     alias profile_banner_url_https? profile_banner_uri_https?
-    def profile_image_uri: (?Symbol size) -> Addressable::URI?
+    def profile_image_uri: (?Symbol size) -> URI::Generic?
     alias profile_image_url profile_image_uri
     def profile_image_uri?: () -> bool
     alias profile_image_url? profile_image_uri?
-    def profile_image_uri_https: (?Symbol size) -> Addressable::URI?
+    def profile_image_uri_https: (?Symbol size) -> URI::Generic?
     alias profile_image_url_https profile_image_uri_https
     def profile_image_uri_https?: () -> bool
     alias profile_image_url_https? profile_image_uri_https?
 
     private
-    def parse_uri: (untyped) -> Addressable::URI?
+    def parse_uri: (untyped) -> URI::Generic?
     def insecure_uri: (untyped) -> String
     def profile_image_suffix: (Symbol) -> String
   end
@@ -1410,19 +1410,19 @@ module Twitter
       alias display_uri display_url
       def display_url?: () -> bool
       alias display_uri? display_url?
-      def expanded_url: () -> Addressable::URI?
+      def expanded_url: () -> URI::Generic?
       alias expanded_uri expanded_url
       def expanded_url?: () -> bool
       alias expanded_uri? expanded_url?
-      def media_url: () -> Addressable::URI?
+      def media_url: () -> URI::Generic?
       alias media_uri media_url
       def media_url?: () -> bool
       alias media_uri? media_url?
-      def media_url_https: () -> Addressable::URI?
+      def media_url_https: () -> URI::Generic?
       alias media_uri_https media_url_https
       def media_url_https?: () -> bool
       alias media_uri_https? media_url_https?
-      def url: () -> Addressable::URI?
+      def url: () -> URI::Generic?
       alias uri url
       def url?: () -> bool
       alias uri? url?
@@ -1453,7 +1453,7 @@ module Twitter
 
       def bitrate?: () -> bool
       def content_type?: () -> bool
-      def uri: () -> Addressable::URI?
+      def uri: () -> URI::Generic?
       alias url uri
       def uri?: () -> bool
       alias url? uri?
@@ -1467,7 +1467,7 @@ module Twitter
 
     def bitrate?: () -> bool
     def content_type?: () -> bool
-    def uri: () -> Addressable::URI?
+    def uri: () -> URI::Generic?
     alias url uri
     def uri?: () -> bool
     alias url? uri?
@@ -1485,7 +1485,7 @@ module Twitter
   class Headers
     @client: Client
     @request_method: Symbol
-    @uri: Addressable::URI?
+    @uri: URI::Generic?
     @bearer_token_request: bool?
     @options: Hash[Symbol, untyped]
 

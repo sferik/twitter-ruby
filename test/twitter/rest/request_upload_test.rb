@@ -149,7 +149,7 @@ describe Twitter::REST::Request do
         Twitter::REST::Request.new(@client, :get, "/test.json", {})
       end
 
-      assert_kind_of(Addressable::URI, captured_uri)
+      assert_kind_of(URI::Generic, captured_uri)
       assert_equal("https://api.twitter.com/test.json", captured_uri.to_s)
     end
 

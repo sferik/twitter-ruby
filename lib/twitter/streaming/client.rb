@@ -178,9 +178,7 @@ module Twitter
       # @api private
       # @return [String]
       def to_url_params(params)
-        uri = Addressable::URI.new
-        uri.query_values = params # steep:ignore ArgumentTypeMismatch
-        uri.query
+        URI.encode_www_form(params)
       end
 
       # Takes a mixed array of Integers and Twitter::User objects
