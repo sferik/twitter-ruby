@@ -8,6 +8,7 @@ target :lib do
   library "cgi"
   library "forwardable"
   library "memoizable"
+  library "naught"
   library "simple_oauth"
   library "time"
   library "uri"
