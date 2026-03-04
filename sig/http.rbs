@@ -1,0 +1,31 @@
+module HTTP
+  def self.headers: (untyped headers) -> HTTP::Client
+  def self.get: (String uri, **untyped options) -> HTTP::Response
+
+  class Client
+    def post: (String uri, **untyped options) -> HTTP::Response
+    def get: (String uri, **untyped options) -> HTTP::Response
+  end
+
+  class Request
+    def initialize: (verb: Symbol, uri: String, headers: untyped, ?proxy: untyped?) -> void
+    def uri: () -> String
+    def verb: () -> Symbol
+    def headers: () -> untyped
+  end
+
+  class Response
+    def to_s: () -> String
+    def parse: () -> untyped
+    def status: () -> Integer
+    def body: () -> untyped
+  end
+
+  module FormData
+    def self.create: (untyped data, **untyped options) -> untyped
+
+    class File
+      def initialize: (untyped file, **untyped options) -> void
+    end
+  end
+end

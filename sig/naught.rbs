@@ -1,0 +1,3 @@
+module Naught
+  def self.build: () { (untyped config) -> void } -> singleton(Object)
+end

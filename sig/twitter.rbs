@@ -46,7 +46,7 @@ module Twitter
   # Base class for Twitter objects
   class Base
     extend Forwardable
-    extend Memoizable::ClassMethods
+    extend Memoizable::ModuleMethods
     include Memoizable
     include Utils
 
@@ -82,7 +82,7 @@ module Twitter
 
   # Represents rate limit information from Twitter API responses
   class RateLimit
-    extend Memoizable::ClassMethods
+    extend Memoizable::ModuleMethods
     include Memoizable
 
     attr_reader attrs: Hash[String, untyped]
@@ -1053,7 +1053,7 @@ module Twitter
   end
 
   class TrendResults
-    extend Memoizable::ClassMethods
+    extend Memoizable::ModuleMethods
     include Creatable
     include Enumerable
     include Memoizable
@@ -1313,7 +1313,7 @@ module Twitter
 
   # Creatable module for objects with timestamps
   module Creatable
-    extend Memoizable::ClassMethods
+    extend Memoizable::ModuleMethods
     include Memoizable
 
     def created?: () -> bool
@@ -1322,7 +1322,7 @@ module Twitter
 
   # Entities module for objects with entity data
   module Entities
-    extend Memoizable::ClassMethods
+    extend Memoizable::ModuleMethods
     include Memoizable
 
     def hashtags: () -> Array[Entity::Hashtag]
@@ -1345,7 +1345,7 @@ module Twitter
 
   # Profile module for user profile methods
   module Profile
-    extend Memoizable::ClassMethods
+    extend Memoizable::ModuleMethods
     include Memoizable
 
     PROFILE_IMAGE_SUFFIX_REGEX: Regexp
@@ -1563,36 +1563,6 @@ end
 module Forwardable
 end
 
-module Addressable
-  class URI
-    def self.parse: (String) -> URI
-    def to_str: () -> String
-    def to_s: () -> String
-    def path: () -> String
-    def query: () -> String?
-    def query_values: () -> Hash[String, untyped]?
-    def query_values=: (Hash[String, untyped]?) -> void
-  end
-end
-
-module HTTP
-  class Request
-    def initialize: (?verb: Symbol, ?uri: String, ?headers: Hash[Symbol, untyped], ?proxy: untyped) -> void
-  end
-
-  module FormData
-    def self.create: (Hash[Symbol, untyped], ?encoder: untyped) -> untyped
-
-    class File
-      def initialize: (untyped, ?filename: String?, ?content_type: String?) -> void
-    end
-  end
-end
-
-module Naught
-  def self.build: () { (untyped) -> void } -> Class
-end
-
 class Time
   def self.parse: (String) -> Time
 end
@@ -1606,10 +1576,6 @@ end
 
 module Base64
   def self.strict_encode64: (String) -> String
-end
-
-module CGI
-  def self.parse: (String?) -> Hash[String, Array[String]]
 end
 
 module URI
