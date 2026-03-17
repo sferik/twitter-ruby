@@ -16,7 +16,7 @@ gem "standard", ">= 1.50"
 gem "standard-performance", ">= 1.8"
 gem "steep", ">= 1.10"
 gem "timecop", ">= 0.9.8"
-gem "webmock", ">= 3.26.1"
+gem "webmock", ">= 3.26.2"
 gem "yard", ">= 0.9.38"
 gem "yardstick", ">= 0.9.9"
 

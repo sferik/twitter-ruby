@@ -284,6 +284,16 @@ describe Twitter::REST::Tweets do
         assert_requested(a_post("/1.1/statuses/destroy/540897316908331009.json"))
       end
     end
+
+    describe "with options" do
+      it "passes options to the request" do
+        stub_post("/1.1/statuses/destroy/540897316908331009.json").with(body: {trim_user: "true"}).to_return(body: fixture("status.json"), headers: json_headers)
+
+        @client.destroy_status(540_897_316_908_331_009, trim_user: true)
+
+        assert_requested(a_post("/1.1/statuses/destroy/540897316908331009.json").with(body: {trim_user: "true"}))
+      end
+    end
   end
 
   describe "#update" do

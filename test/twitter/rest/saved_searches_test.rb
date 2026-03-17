@@ -144,5 +144,15 @@ describe Twitter::REST::SavedSearches do
       assert_kind_of(Twitter::SavedSearch, saved_searches.last)
       assert_equal("twitter", saved_searches.last.name)
     end
+
+    it "passes options to each destroy request" do
+      stub_post("/1.1/saved_searches/destroy/16129012.json").with(body: {trim_user: "true"}).to_return(body: fixture("saved_search.json"), headers: json_headers)
+      stub_post("/1.1/saved_searches/destroy/16129013.json").with(body: {trim_user: "true"}).to_return(body: fixture("saved_search.json"), headers: json_headers)
+
+      @client.destroy_saved_search(16_129_012, 16_129_013, trim_user: true)
+
+      assert_requested(a_post("/1.1/saved_searches/destroy/16129012.json").with(body: {trim_user: "true"}))
+      assert_requested(a_post("/1.1/saved_searches/destroy/16129013.json").with(body: {trim_user: "true"}))
+    end
   end
 end

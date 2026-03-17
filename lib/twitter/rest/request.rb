@@ -1,6 +1,5 @@
 require "uri"
 require "http"
-require "http/form_data"
 require "json"
 require "openssl"
 require "twitter/error"
@@ -113,7 +112,7 @@ module Twitter
       #   request.perform # => [{id: 123, text: "Hello"}]
       # @return [Array, Hash]
       def perform
-        response = http_client.headers(@headers).public_send(@request_method, @uri.to_str, request_options)
+        response = http_client.headers(@headers).public_send(@request_method, @uri.to_str, **request_options)
         response_body = response.body.empty? ? "" : symbolize_keys!(response.parse)
         fail_or_return_response_body(response.code, response_body, response)
       end
@@ -196,10 +195,11 @@ module Twitter
       # @param response [HTTP::Response]
       # @return [Hash, Array, String]
       def fail_or_return_response_body(code, body, response)
-        error = error(code, body, response)
+        headers = response.headers
+        error = error(code, body, headers)
         raise(error) if error
 
-        @rate_limit = RateLimit.new(response)
+        @rate_limit = RateLimit.new(headers)
         body
       end
 
@@ -265,7 +265,7 @@ module Twitter
       # Build HTTP client with proxy and timeout settings
       #
       # @api private
-      # @return [HTTP::Client, HTTP]
+      # @return [HTTP::Session, HTTP]
       def http_client
         client = @client.proxy ? HTTP.via(*proxy) : HTTP # steep:ignore NoMethod
         client = client.timeout(connect: @client.timeouts.fetch(:connect), read: @client.timeouts.fetch(:read), write: @client.timeouts.fetch(:write)) if timeout_keys_defined? # steep:ignore NoMethod

@@ -25,6 +25,24 @@ describe Twitter::Streaming::Response do
     end
   end
 
+  describe "#<<" do
+    it "forwards data to the parser" do
+      captured_data = nil
+      parser = Object.new
+      parser.define_singleton_method(:<<) { |data| captured_data = data }
+      tokenizer = Object.new
+
+      BufferedTokenizer.stub(:new, tokenizer) do
+        LLHttp::Parser.stub(:new, parser) do
+          response = Twitter::Streaming::Response.new
+          response << "test data"
+        end
+      end
+
+      assert_equal("test data", captured_data)
+    end
+  end
+
   describe "#on_headers_complete" do
     it "does not error if status code is 200" do
       assert_nothing_raised do
