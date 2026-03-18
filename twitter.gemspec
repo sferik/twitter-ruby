@@ -10,7 +10,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency "http-form_data", "~> 2.3"
   spec.add_dependency "llhttp-ffi", "~> 0.5.0"
   spec.add_dependency "memoizable", "~> 0.5.1"
-  spec.add_dependency "multipart-post", "~> 2.4"
   spec.add_dependency "naught", "~> 2.3"
   spec.add_dependency "simple_oauth", "~> 0.4.0"
   spec.add_dependency "uri", "~> 1.1"
