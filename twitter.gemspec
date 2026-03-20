@@ -5,7 +5,7 @@ require "twitter/version"
 Gem::Specification.new do |spec|
   spec.add_dependency "base64"
   spec.add_dependency "buftok", "~> 1.0"
-  spec.add_dependency "equalizer", "~> 0.0.11"
+  spec.add_dependency "equalizer", "~> 1.0"
   spec.add_dependency "http", "~> 6.0"
   spec.add_dependency "memoizable", "~> 0.5.1"
   spec.add_dependency "naught", "~> 2.3"

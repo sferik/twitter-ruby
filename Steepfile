@@ -4,8 +4,10 @@ D = Steep::Diagnostic
 
 target :lib do
   signature "sig"
+
   library "base64"
   library "cgi"
+  library "equalizer"
   library "http"
   library "forwardable"
   library "memoizable"
