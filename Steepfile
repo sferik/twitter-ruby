@@ -8,11 +8,12 @@ target :lib do
   library "base64"
   library "cgi"
   library "equalizer"
-  library "http"
   library "forwardable"
   library "memoizable"
+  library "monitor"
   library "naught"
   library "simple_oauth"
+  library "singleton"
   library "time"
   library "uri"
 

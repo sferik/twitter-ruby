@@ -108,7 +108,7 @@ module Twitter
       # @return [void]
       def define_uri_method(key1, key2)
         define_method(key1) do
-          URI.parse(@attrs[key2].chomp("#").gsub(/[^\x00-\x7F]/) { |c| c.bytes.map { |b| format("%%%02X", b) }.join }) unless @attrs[key2].nil? # steep:ignore FallbackAny
+          URI.parse(@attrs[key2].chomp("#").gsub(/[^\x00-\x7F]/) { |c| c.bytes.map { |b| format("%%%02X", b) }.join }) unless @attrs[key2].nil? # steep:ignore FallbackAny,NoMethod
         end
         memoize(key1)
       end

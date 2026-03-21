@@ -55,17 +55,17 @@ module Twitter
     alias to_h attrs
     alias to_hash to_h
 
-    def self.attr_reader: (*untyped) -> void
-    def self.predicate_attr_reader: (*untyped) -> void
-    def self.object_attr_reader: (untyped, untyped, ?untyped?) -> void
+    def self.attr_reader: (*Symbol) -> void
+    def self.predicate_attr_reader: (*Symbol) -> void
+    def self.object_attr_reader: (Symbol | String, Symbol, ?Symbol?) -> void
     def self.uri_attr_reader: (*untyped) -> void
     def self.display_uri_attr_reader: () -> void
-    def self.define_uri_method: (untyped, untyped) -> void
-    def self.define_attribute_method: (untyped, ?untyped?, ?untyped?) -> void
-    def self.define_predicate_method: (untyped, ?untyped) -> void
+    def self.define_uri_method: (Symbol, Symbol) -> void
+    def self.define_attribute_method: (Symbol, ?(Symbol | String)?, ?Symbol?) -> void
+    def self.define_predicate_method: (Symbol, ?Symbol) -> void
 
     def initialize: (?Hash[Symbol, untyped]?) -> void
-    def []: (untyped) -> untyped
+    def []: (String | Symbol) -> untyped
 
     private
 
@@ -111,12 +111,12 @@ module Twitter
     FORBIDDEN_MESSAGES: Proc
     MEDIA_ERRORS: Hash[String, singleton(Error)]
 
-    def self.from_response: (untyped, Hash[String, untyped]) -> Error
-    def self.from_processing_response: (Hash[Symbol, untyped], Hash[String, untyped]) -> Error
+    def self.from_response: (untyped, untyped) -> Error
+    def self.from_processing_response: (Hash[Symbol, untyped], untyped) -> Error
     def self.parse_error: (untyped) -> Array[untyped]?
-    def self.extract_message_from_errors: (untyped) -> Array[untyped]
+    def self.extract_message_from_errors: (Hash[Symbol, untyped]) -> Array[untyped]
 
-    def initialize: (?untyped, ?Hash[String, untyped], ?Integer?) -> void
+    def initialize: (?String, ?untyped, ?Integer?) -> void
 
     # Error subclasses
     class ClientError < Error
@@ -222,7 +222,7 @@ module Twitter
     attr_accessor access_token_secret: String?
     attr_accessor consumer_key: String?
     attr_accessor consumer_secret: String?
-    attr_accessor proxy: untyped
+    attr_accessor proxy: Hash[Symbol, untyped]?
     attr_accessor timeouts: Hash[Symbol, Integer]?
     attr_accessor dev_environment: String?
     attr_accessor bearer_token: String?
@@ -243,7 +243,7 @@ module Twitter
 
   # Represents a basic Twitter user with minimal attributes
   class BasicUser < Identity
-    attr_reader screen_name: untyped
+    attr_reader screen_name: String
 
     def screen_name?: () -> bool
     def following?: () -> bool
@@ -254,29 +254,29 @@ module Twitter
     include Creatable
     include Profile
 
-    attr_reader connections: untyped
-    attr_reader favourites_count: untyped
-    attr_reader followers_count: untyped
-    attr_reader friends_count: untyped
-    attr_reader listed_count: untyped
-    attr_reader statuses_count: untyped
-    attr_reader utc_offset: untyped
-    attr_reader description: untyped
-    attr_reader email: untyped
-    attr_reader lang: untyped
-    attr_reader location: untyped
-    attr_reader name: untyped
-    attr_reader profile_background_color: untyped
-    attr_reader profile_link_color: untyped
-    attr_reader profile_sidebar_border_color: untyped
-    attr_reader profile_sidebar_fill_color: untyped
-    attr_reader profile_text_color: untyped
-    attr_reader time_zone: untyped
+    attr_reader connections: Array[String]
+    attr_reader favourites_count: Integer
+    attr_reader followers_count: Integer
+    attr_reader friends_count: Integer
+    attr_reader listed_count: Integer
+    attr_reader statuses_count: Integer
+    attr_reader utc_offset: Integer
+    attr_reader description: String
+    attr_reader email: String
+    attr_reader lang: String
+    attr_reader location: String
+    attr_reader name: String
+    attr_reader profile_background_color: String
+    attr_reader profile_link_color: String
+    attr_reader profile_sidebar_border_color: String
+    attr_reader profile_sidebar_fill_color: String
+    attr_reader profile_text_color: String
+    attr_reader time_zone: String
 
     alias favorites_count favourites_count
     alias tweets_count statuses_count
 
-    def status: () -> untyped
+    def status: () -> Tweet
     alias tweet status
     def status?: () -> bool
     alias tweet? status?
@@ -328,17 +328,17 @@ module Twitter
     include Creatable
     include Entities
 
-    attr_reader filter_level: untyped
-    attr_reader in_reply_to_screen_name: untyped
-    attr_reader lang: untyped
-    attr_reader source: untyped
-    attr_reader text: untyped
-    attr_reader favorite_count: untyped
-    attr_reader in_reply_to_status_id: untyped
-    attr_reader in_reply_to_user_id: untyped
-    attr_reader quote_count: untyped
-    attr_reader reply_count: untyped
-    attr_reader retweet_count: untyped
+    attr_reader filter_level: String
+    attr_reader in_reply_to_screen_name: String
+    attr_reader lang: String
+    attr_reader source: String
+    attr_reader text: String
+    attr_reader favorite_count: Integer
+    attr_reader in_reply_to_status_id: Integer
+    attr_reader in_reply_to_user_id: Integer
+    attr_reader quote_count: Integer
+    attr_reader reply_count: Integer
+    attr_reader retweet_count: Integer
 
     alias in_reply_to_tweet_id in_reply_to_status_id
 
@@ -356,26 +356,26 @@ module Twitter
     def reply_count?: () -> bool
     def retweet_count?: () -> bool
 
-    def geo: () -> untyped
+    def geo: () -> Geo
     def geo?: () -> bool
-    def metadata: () -> untyped
+    def metadata: () -> Metadata
     def metadata?: () -> bool
-    def place: () -> untyped
+    def place: () -> Place
     def place?: () -> bool
-    def retweeted_status: () -> untyped
+    def retweeted_status: () -> Tweet
     alias retweeted_tweet retweeted_status
     def retweeted_status?: () -> bool
     alias retweet? retweeted_status?
     alias retweeted_tweet? retweeted_status?
-    def quoted_status: () -> untyped
+    def quoted_status: () -> Tweet
     alias quoted_tweet quoted_status
     def quoted_status?: () -> bool
     alias quote? quoted_status?
     alias quoted_tweet? quoted_status?
-    def current_user_retweet: () -> untyped
+    def current_user_retweet: () -> Tweet
     def current_user_retweet?: () -> bool
 
-    def user: () -> untyped
+    def user: () -> User
     def user?: () -> bool
 
     def favorited?: () -> bool
@@ -408,7 +408,7 @@ module Twitter
     alias to_h attrs
     alias to_hash to_h
 
-    def initialize: (untyped, Class?, REST::Request, ?Integer?) -> void
+    def initialize: (Symbol, Class?, REST::Request, ?Integer?) -> void
     def next_cursor: () -> Integer
     def previous_cursor: () -> Integer
 
@@ -457,7 +457,7 @@ module Twitter
     alias to_hash to_h
 
     def initialize: (?Hash[Symbol, untyped]?) -> void
-    def token: () -> untyped
+    def token: () -> String?
   end
 
   # REST API modules
@@ -515,7 +515,7 @@ module Twitter
       attr_accessor uri: URI::Generic
 
       def verb: () -> Symbol
-      def initialize: (untyped, untyped, String, ?Hash[Symbol, untyped], ?Hash[Symbol, untyped]?) -> void
+      def initialize: (untyped, Symbol, String, ?Hash[Symbol, untyped], ?Hash[Symbol, untyped]?) -> void
       def perform: () -> untyped
 
       private
@@ -529,7 +529,7 @@ module Twitter
       def symbolize_keys!: (untyped) -> untyped
       def timeout_keys_defined?: () -> bool
       def http_client: () -> untyped
-      def proxy: () -> Array[untyped]
+      def proxy: () -> Array[String | Integer | nil]
     end
 
     # REST API client for Twitter
@@ -568,10 +568,10 @@ module Twitter
     module AccountActivity
       include Utils
 
-      def create_webhook: (String, String) -> untyped
-      def list_webhooks: (String) -> untyped
-      def delete_webhook: (String, untyped) -> untyped
-      def trigger_crc_check: (String, untyped) -> untyped
+      def create_webhook: (String, String) -> Hash[Symbol, untyped]
+      def list_webhooks: (String) -> Hash[Symbol, untyped]
+      def delete_webhook: (String, String) -> untyped
+      def trigger_crc_check: (String, String) -> untyped
       def create_subscription: (String) -> untyped
       def check_subscription: (String) -> bool
       def deactivate_subscription: (String) -> untyped
@@ -584,13 +584,13 @@ module Twitter
       def direct_messages_list: (?Hash[Symbol, untyped]) -> Array[untyped]
       def direct_messages_received: (?Hash[Symbol, untyped]) -> Array[untyped]
       def direct_messages_sent: (?Hash[Symbol, untyped]) -> Array[untyped]
-      def direct_message: (untyped, ?Hash[Symbol, untyped]) -> untyped
-      def direct_message_event: (untyped, ?Hash[Symbol, untyped]) -> untyped
+      def direct_message: (untyped, ?Hash[Symbol, untyped]) -> DirectMessage
+      def direct_message_event: (untyped, ?Hash[Symbol, untyped]) -> DirectMessageEvent
       def direct_messages: (*untyped) -> Array[untyped]
       def destroy_direct_message: (*untyped) -> nil
-      def create_direct_message: (untyped, String, ?Hash[Symbol, untyped]) -> untyped
-      def create_direct_message_event: (*untyped) -> untyped
-      def create_direct_message_event_with_media: (untyped, String, untyped, ?Hash[Symbol, untyped]) -> untyped
+      def create_direct_message: (untyped, String, ?Hash[Symbol, untyped]) -> DirectMessage
+      def create_direct_message_event: (*untyped) -> DirectMessageEvent
+      def create_direct_message_event_with_media: (untyped, String, untyped, ?Hash[Symbol, untyped]) -> DirectMessageEvent
 
       private
       def format_json_options: (untyped, String, Hash[Symbol, untyped]) -> Hash[Symbol, untyped]
@@ -598,15 +598,15 @@ module Twitter
       module WelcomeMessages
         include Utils
 
-        def create_welcome_message: (String, ?String?, ?Hash[Symbol, untyped]) -> untyped
-        def destroy_welcome_message: (*untyped) -> untyped
-        def update_welcome_message: (untyped, String, ?Hash[Symbol, untyped]) -> untyped
-        def welcome_message: (untyped, ?Hash[Symbol, untyped]) -> untyped
-        def welcome_message_list: (?Hash[Symbol, untyped]) -> Array[untyped]
-        def create_welcome_message_rule: (untyped, ?Hash[Symbol, untyped]) -> untyped
-        def destroy_welcome_message_rule: (*untyped) -> untyped
-        def welcome_message_rule: (untyped, ?Hash[Symbol, untyped]) -> untyped
-        def welcome_message_rule_list: (?Hash[Symbol, untyped]) -> Array[untyped]
+        def create_welcome_message: (String, ?String?, ?Hash[Symbol, untyped]) -> Twitter::DirectMessages::WelcomeMessage?
+        def destroy_welcome_message: (*untyped) -> nil
+        def update_welcome_message: (untyped, String, ?Hash[Symbol, untyped]) -> Twitter::DirectMessages::WelcomeMessage?
+        def welcome_message: (untyped, ?Hash[Symbol, untyped]) -> Twitter::DirectMessages::WelcomeMessage?
+        def welcome_message_list: (?Hash[Symbol, untyped]) -> Array[Twitter::DirectMessages::WelcomeMessage?]
+        def create_welcome_message_rule: (untyped, ?Hash[Symbol, untyped]) -> Twitter::DirectMessages::WelcomeMessageRule?
+        def destroy_welcome_message_rule: (*untyped) -> nil
+        def welcome_message_rule: (untyped, ?Hash[Symbol, untyped]) -> Twitter::DirectMessages::WelcomeMessageRule?
+        def welcome_message_rule_list: (?Hash[Symbol, untyped]) -> Array[Twitter::DirectMessages::WelcomeMessageRule?]
       end
     end
 
@@ -642,13 +642,13 @@ module Twitter
       alias create_friendship! follow!
       def unfollow: (*untyped) -> Array[User]
       alias destroy_friendship unfollow
-      def friendship_update: (untyped, ?Hash[Symbol, untyped]) -> untyped
-      def friendship: (untyped, untyped, ?Hash[Symbol, untyped]) -> untyped
+      def friendship_update: (untyped, ?Hash[Symbol, untyped]) -> Relationship
+      def friendship: (untyped, untyped, ?Hash[Symbol, untyped]) -> Relationship
       def friendship?: (untyped, untyped, ?Hash[Symbol, untyped]) -> bool
       def followers: (*untyped) -> Cursor
       def friends: (*untyped) -> Cursor
       alias following friends
-      def no_retweet_ids: (?Hash[Symbol, untyped]) -> Cursor
+      def no_retweet_ids: (?Hash[Symbol, untyped]) -> Array[Integer]
     end
 
     module Help
@@ -667,35 +667,35 @@ module Twitter
       def lists: (*untyped) -> Array[untyped]
       alias lists_owned lists
       def list_timeline: (*untyped) -> Array[Tweet]
-      def remove_list_member: (*untyped) -> untyped
+      def remove_list_member: (*untyped) -> List
       def memberships: (*untyped) -> Cursor
       alias list_memberships memberships
       def list_subscribers: (*untyped) -> Cursor
-      def list_subscribe: (*untyped) -> untyped
+      def list_subscribe: (*untyped) -> List
       alias list_add list_subscribe
       def list_subscriber?: (*untyped) -> bool
-      def list_unsubscribe: (*untyped) -> untyped
+      def list_unsubscribe: (*untyped) -> List
       alias list_remove list_unsubscribe
-      def add_list_members: (*untyped) -> untyped
+      def add_list_members: (*untyped) -> List?
       def list_member?: (*untyped) -> bool
       alias list_members? list_member?
       def list_members: (*untyped) -> Cursor
-      def add_list_member: (*untyped) -> untyped
-      def destroy_list: (*untyped) -> untyped
-      def list_update: (*untyped) -> untyped
-      def create_list: (String, ?Hash[Symbol, untyped]) -> untyped
-      def list: (*untyped) -> untyped
+      def add_list_member: (*untyped) -> List
+      def destroy_list: (*untyped) -> List
+      def list_update: (*untyped) -> List
+      def create_list: (String, ?Hash[Symbol, untyped]) -> List
+      def list: (*untyped) -> List
       def subscriptions: (*untyped) -> Cursor
       alias list_subscriptions subscriptions
-      def remove_list_members: (*untyped) -> untyped
+      def remove_list_members: (*untyped) -> List?
       def owned_lists: (*untyped) -> Cursor
 
       private
-      def list_from_response: (Symbol, String, untyped) -> untyped
+      def list_from_response: (Symbol, String, untyped) -> List
       def cursor_from_response_with_list: (String, untyped) -> Cursor
       def list_user?: (Symbol, String, untyped) -> bool
-      def list_from_response_with_user: (String, untyped) -> untyped
-      def list_from_response_with_users: (String, untyped) -> untyped
+      def list_from_response_with_user: (String, untyped) -> List
+      def list_from_response_with_users: (String, untyped) -> List?
       def merge_list!: (Hash[Symbol, untyped], untyped) -> void
       def merge_slug_and_owner!: (Hash[Symbol, untyped], untyped) -> void
       def merge_list_and_owner!: (Hash[Symbol, untyped], untyped) -> void
@@ -705,10 +705,10 @@ module Twitter
     module OAuth
       include Utils
 
-      def token: (?Hash[Symbol, untyped]) -> untyped
+      def token: (?Hash[Symbol, untyped]) -> String
       alias bearer_token token
-      def invalidate_token: (untyped, ?Hash[Symbol, untyped]) -> untyped
-      def reverse_token: () -> untyped
+      def invalidate_token: (String, ?Hash[Symbol, untyped]) -> String
+      def reverse_token: () -> String
     end
 
     module PlacesAndGeo
@@ -732,8 +732,8 @@ module Twitter
       include Utils
 
       def saved_searches: (*untyped) -> Array[untyped]
-      def saved_search: (untyped, ?Hash[Symbol, untyped]) -> untyped
-      def create_saved_search: (String, ?Hash[Symbol, untyped]) -> untyped
+      def saved_search: (untyped, ?Hash[Symbol, untyped]) -> SavedSearch
+      def create_saved_search: (String, ?Hash[Symbol, untyped]) -> SavedSearch
       def destroy_saved_search: (*untyped) -> Array[untyped]
     end
 
@@ -811,7 +811,7 @@ module Twitter
       def retweet: (*untyped) -> Array[Tweet]
       def retweet!: (*untyped) -> Array[Tweet]
       def update_with_media: (String, untyped, ?Hash[Symbol, untyped]) -> Tweet
-      def oembed: (untyped, ?Hash[Symbol, untyped]) -> untyped
+      def oembed: (untyped, ?Hash[Symbol, untyped]) -> OEmbed
       def oembeds: (*untyped) -> Array[untyped]
       def retweeters_ids: (*untyped) -> Cursor
       alias retweeters_of_ids retweeters_ids
@@ -835,7 +835,7 @@ module Twitter
 
       MAX_USERS_PER_REQUEST: Integer
 
-      def settings: (?Hash[Symbol, untyped]) -> untyped
+      def settings: (?Hash[Symbol, untyped]) -> Settings
       def verify_credentials: (?Hash[Symbol, untyped]) -> User
       def update_delivery_device: (untyped, ?Hash[Symbol, untyped]) -> User
       def update_profile: (?Hash[Symbol, untyped]) -> User
@@ -853,9 +853,9 @@ module Twitter
       def user_search: (String, ?Hash[Symbol, untyped]) -> Array[User]
       def contributees: (*untyped) -> Array[User]
       def contributors: (*untyped) -> Array[User]
-      def remove_profile_banner: (?Hash[Symbol, untyped]) -> untyped
-      def update_profile_banner: (untyped, ?Hash[Symbol, untyped]) -> untyped
-      def profile_banner: (*untyped) -> untyped
+      def remove_profile_banner: (?Hash[Symbol, untyped]) -> bool
+      def update_profile_banner: (untyped, ?Hash[Symbol, untyped]) -> bool
+      def profile_banner: (*untyped) -> ProfileBanner
       def mute: (*untyped) -> Array[User]
       def unmute: (*untyped) -> Array[User]
       def muted: (?Hash[Symbol, untyped]) -> Cursor
@@ -877,9 +877,9 @@ module Twitter
     class FormEncoder
       UNESCAPED_CHARS: Regexp
 
-      def self.encode: (untyped) -> String
-      def self.encode_pair: (untyped, untyped) -> String
-      def self.encode_array: (untyped, Array[untyped]) -> untyped
+      def self.encode: (Hash[untyped, untyped]) -> String
+      def self.encode_pair: (untyped, untyped) -> (String | Array[String])
+      def self.encode_array: (untyped, Array[untyped]) -> Array[String]
       def self.encode_array_item: (untyped, untyped) -> String
       def self.escape: (untyped) -> String
     end
@@ -895,8 +895,8 @@ module Twitter
       attr_reader ssl_socket_class: untyped
 
       def initialize: (?Hash[Symbol, untyped]) -> void
-      def stream: (untyped, untyped) -> void
-      def close: () -> void
+      def stream: (untyped, Response) -> void
+      def close: () -> (Integer | nil)
 
       private
       def connect: (untyped) -> untyped
@@ -904,18 +904,18 @@ module Twitter
     end
 
     class Response
-      @block: ^(untyped) -> void
+      @block: ^(Hash[Symbol, untyped]) -> void
       @parser: untyped
       @tokenizer: untyped
 
-      def initialize: () { (untyped) -> void } -> void
-      def <<: (untyped) -> void
+      def initialize: () { (Hash[Symbol, untyped]) -> void } -> void
+      def <<: (String) -> void
       def on_body: (String) -> void
-      def on_status: (untyped) -> void
+      def on_status: (Integer) -> void
     end
 
     class MessageParser
-      def self.parse: (untyped) -> untyped
+      def self.parse: (Hash[Symbol, untyped]) -> (Tweet | Event | DirectMessage | FriendList | DeletedTweet | StallWarning | nil)
     end
 
     # Client for consuming the Twitter Streaming API
@@ -937,7 +937,7 @@ module Twitter
 
       private
       def request: (Symbol, String, Hash[Symbol, untyped]) ?{ (untyped) -> void } -> void
-      def to_url_params: (Hash[Symbol, untyped]) -> String?
+      def to_url_params: (Hash[Symbol, untyped]) -> String
       def collect_user_ids: (untyped) -> Array[Integer]
     end
 
@@ -951,7 +951,7 @@ module Twitter
       attr_reader name: Symbol
       attr_reader source: User
       attr_reader target: User
-      attr_reader target_object: untyped
+      attr_reader target_object: (Tweet | List | untyped)
 
       def initialize: (Hash[Symbol, untyped]) -> void
 
@@ -968,21 +968,21 @@ module Twitter
 
   # Entity class - base class for tweet entities
   class Entity < Base
-    attr_reader indices: untyped
+    attr_reader indices: Array[Integer]
     def indices?: () -> bool
 
     class Hashtag < Entity
-      attr_reader text: untyped
+      attr_reader text: String
       def text?: () -> bool
     end
 
     class Symbol < Entity
-      attr_reader text: untyped
+      attr_reader text: String
       def text?: () -> bool
     end
 
     class URI < Entity
-      def display_url: () -> untyped
+      def display_url: () -> String
       alias display_uri display_url
       def display_url?: () -> bool
       alias display_uri? display_url?
@@ -997,9 +997,9 @@ module Twitter
     end
 
     class UserMention < Entity
-      attr_reader id: untyped
-      attr_reader name: untyped
-      attr_reader screen_name: untyped
+      attr_reader id: Integer
+      attr_reader name: String
+      attr_reader screen_name: String
 
       def id?: () -> bool
       def name?: () -> bool
@@ -1010,36 +1010,36 @@ module Twitter
   class Place < Identity
     include Memoizable
 
-    attr_reader country: untyped
-    attr_reader full_name: untyped
-    attr_reader name: untyped
+    attr_reader country: String
+    attr_reader full_name: String
+    attr_reader name: String
 
     def country?: () -> bool
     def full_name?: () -> bool
     def name?: () -> bool
 
-    def bounding_box: () -> untyped
+    def bounding_box: () -> Geo
     def bounding_box?: () -> bool
-    def contained_within: () -> untyped
+    def contained_within: () -> Place
     def contained_within?: () -> bool
     alias contained? contained_within?
     def uri: () -> URI::Generic?
     alias url uri
     def uri?: () -> bool
     alias url? uri?
-    def country_code: () -> untyped
-    def parent_id: () -> untyped
-    def place_type: () -> untyped
+    def country_code: () -> String
+    def parent_id: () -> Integer
+    def place_type: () -> String
 
     alias woe_id id
     alias woeid id
   end
 
   class Trend < Base
-    attr_reader events: untyped
-    attr_reader name: untyped
-    attr_reader query: untyped
-    attr_reader tweet_volume: untyped
+    attr_reader events: Array[untyped]
+    attr_reader name: String
+    attr_reader query: String
+    attr_reader tweet_volume: Integer
 
     def events?: () -> bool
     def name?: () -> bool
@@ -1076,13 +1076,13 @@ module Twitter
   class List < Identity
     include Creatable
 
-    attr_reader description: untyped
-    attr_reader full_name: untyped
-    attr_reader member_count: untyped
-    attr_reader mode: untyped
-    attr_reader name: untyped
-    attr_reader slug: untyped
-    attr_reader subscriber_count: untyped
+    attr_reader description: String
+    attr_reader full_name: String
+    attr_reader member_count: Integer
+    attr_reader mode: String
+    attr_reader name: String
+    attr_reader slug: String
+    attr_reader subscriber_count: Integer
 
     def description?: () -> bool
     def full_name?: () -> bool
@@ -1092,7 +1092,7 @@ module Twitter
     def slug?: () -> bool
     def subscriber_count?: () -> bool
 
-    def user: () -> untyped
+    def user: () -> User
     def user?: () -> bool
     def uri: () -> URI::Generic?
     alias url uri
@@ -1111,12 +1111,12 @@ module Twitter
   class DirectMessage < Identity
     include Creatable
 
-    attr_reader text: untyped
+    attr_reader text: String
 
     def text?: () -> bool
-    def sender: () -> untyped
+    def sender: () -> User
     def sender?: () -> bool
-    def recipient: () -> untyped
+    def recipient: () -> User
     def recipient?: () -> bool
   end
 
@@ -1124,39 +1124,39 @@ module Twitter
     include Creatable
     include Entities
 
-    attr_reader created_timestamp: untyped
+    attr_reader created_timestamp: String
 
-    def initialize: (untyped) -> void
-    def direct_message: () -> untyped
+    def initialize: (Hash[Symbol, untyped]) -> void
+    def direct_message: () -> DirectMessage
     def direct_message?: () -> bool
-    def text: () -> untyped
+    def text: () -> String
     def text?: () -> bool
-    def sender_id: () -> untyped
+    def sender_id: () -> Integer
     def sender_id?: () -> bool
-    def recipient_id: () -> untyped
+    def recipient_id: () -> Integer
     def recipient_id?: () -> bool
 
     private
-    def read_from_response: (untyped) -> untyped
-    def build_direct_message: (untyped, untyped) -> Hash[Symbol, untyped]
+    def read_from_response: (Hash[Symbol, untyped]) -> Hash[Symbol, untyped]
+    def build_direct_message: (Hash[Symbol, untyped], String?) -> Hash[Symbol, untyped]
   end
 
   class SavedSearch < Identity
     include Creatable
 
-    attr_reader name: untyped
-    attr_reader query: untyped
+    attr_reader name: String
+    attr_reader query: String
 
     def name?: () -> bool
     def query?: () -> bool
   end
 
   class Settings < Base
-    attr_reader language: untyped
-    attr_reader screen_name: untyped
-    attr_reader time_zone: untyped
-    attr_reader sleep_time: untyped
-    attr_reader trend_location: untyped
+    attr_reader language: String
+    attr_reader screen_name: String
+    attr_reader time_zone: String
+    attr_reader sleep_time: Hash[Symbol, untyped]
+    attr_reader trend_location: Array[Hash[Symbol, untyped]]
 
     def language?: () -> bool
     def screen_name?: () -> bool
@@ -1174,9 +1174,9 @@ module Twitter
 
   class Relationship < Base
     def initialize: (?Hash[Symbol, untyped]?) -> void
-    def source: () -> untyped
+    def source: () -> SourceUser
     def source?: () -> bool
-    def target: () -> untyped
+    def target: () -> TargetUser
     def target?: () -> bool
     def update: (Hash[Symbol, untyped]) -> self
   end
@@ -1201,9 +1201,9 @@ module Twitter
   end
 
   class Suggestion < Base
-    attr_reader name: untyped
-    attr_reader size: untyped
-    attr_reader slug: untyped
+    attr_reader name: String
+    attr_reader size: Integer
+    attr_reader slug: String
 
     def name?: () -> bool
     def size?: () -> bool
@@ -1216,14 +1216,14 @@ module Twitter
   class OEmbed < Base
     include Memoizable
 
-    attr_reader author_name: untyped
-    attr_reader cache_age: untyped
-    attr_reader height: untyped
-    attr_reader html: untyped
-    attr_reader provider_name: untyped
-    attr_reader type: untyped
-    attr_reader width: untyped
-    attr_reader version: untyped
+    attr_reader author_name: String
+    attr_reader cache_age: String
+    attr_reader height: Integer
+    attr_reader html: String
+    attr_reader provider_name: String
+    attr_reader type: String
+    attr_reader width: Integer
+    attr_reader version: String
 
     def author_name?: () -> bool
     def cache_age?: () -> bool
@@ -1249,8 +1249,8 @@ module Twitter
   end
 
   class Metadata < Base
-    attr_reader result_type: untyped
-    attr_reader iso_language_code: untyped
+    attr_reader result_type: String
+    attr_reader iso_language_code: String
 
     def result_type?: () -> bool
     def iso_language_code?: () -> bool
@@ -1262,9 +1262,9 @@ module Twitter
   end
 
   class Size < Base
-    attr_reader h: untyped
-    attr_reader w: untyped
-    attr_reader resize: untyped
+    attr_reader h: Integer
+    attr_reader w: Integer
+    attr_reader resize: String
 
     def h?: () -> bool
     def w?: () -> bool
@@ -1272,9 +1272,9 @@ module Twitter
   end
 
   class Language < Base
-    attr_reader code: untyped
-    attr_reader name: untyped
-    attr_reader status: untyped
+    attr_reader code: String
+    attr_reader name: String
+    attr_reader status: String
 
     def code?: () -> bool
     def name?: () -> bool
@@ -1305,8 +1305,8 @@ module Twitter
     def last?: () -> bool
     def next_page?: () -> bool
     def next_page: () -> Hash[Symbol, untyped]?
-    def next_page_token: () -> untyped
-    def search_query: () -> untyped
+    def next_page_token: () -> String?
+    def search_query: () -> String?
     def next_page_options: () -> Hash[Symbol, untyped]
     def fetch_next_page: () -> void
   end
@@ -1406,7 +1406,7 @@ module Twitter
     class Photo < Identity
       include Memoizable
 
-      def display_url: () -> untyped
+      def display_url: () -> String
       alias display_uri display_url
       def display_url?: () -> bool
       alias display_uri? display_url?
@@ -1426,14 +1426,14 @@ module Twitter
       alias uri url
       def url?: () -> bool
       alias uri? url?
-      def indices: () -> untyped
+      def indices: () -> Array[Integer]
       def indices?: () -> bool
       def sizes: () -> Hash[String, Size]
       def sizes?: () -> bool
     end
 
     class Video < Photo
-      def video_info: () -> untyped
+      def video_info: () -> VideoInfo
       def video_info?: () -> bool
     end
 
@@ -1448,8 +1448,8 @@ module Twitter
     end
 
     class Variant < Base
-      attr_reader bitrate: untyped
-      attr_reader content_type: untyped
+      attr_reader bitrate: Integer
+      attr_reader content_type: String
 
       def bitrate?: () -> bool
       def content_type?: () -> bool
@@ -1462,8 +1462,8 @@ module Twitter
 
   # Represents a video variant with bitrate and format
   class Variant < Base
-    attr_reader bitrate: untyped
-    attr_reader content_type: untyped
+    attr_reader bitrate: Integer
+    attr_reader content_type: String
 
     def bitrate?: () -> bool
     def content_type?: () -> bool
@@ -1505,7 +1505,7 @@ module Twitter
     class WelcomeMessage < Identity
       include Creatable
 
-      def text: () -> untyped
+      def text: () -> String
       def text?: () -> bool
     end
 
@@ -1514,25 +1514,25 @@ module Twitter
     end
 
     class WelcomeMessageWrapper < Identity
-      attr_reader created_timestamp: untyped
+      attr_reader created_timestamp: String
 
-      def initialize: (untyped) -> void
+      def initialize: (Hash[Symbol, untyped]) -> void
       def welcome_message: () -> WelcomeMessage?
 
       private
-      def read_from_response: (untyped) -> untyped
-      def build_welcome_message: (untyped, untyped, untyped) -> Hash[Symbol, untyped]
+      def read_from_response: (Hash[Symbol, untyped]) -> Hash[Symbol, untyped]
+      def build_welcome_message: (Hash[Symbol, untyped], String, Hash[Symbol, untyped]) -> Hash[Symbol, untyped]
     end
 
     class WelcomeMessageRuleWrapper < Identity
-      attr_reader created_timestamp: untyped
+      attr_reader created_timestamp: String
 
-      def initialize: (untyped) -> void
+      def initialize: (Hash[Symbol, untyped]) -> void
       def welcome_message_rule: () -> WelcomeMessageRule?
 
       private
-      def read_from_response: (untyped) -> untyped
-      def build_welcome_message_rule: (untyped) -> Hash[Symbol, untyped]
+      def read_from_response: (Hash[Symbol, untyped]) -> Hash[Symbol, untyped]
+      def build_welcome_message_rule: (Hash[Symbol, untyped]) -> Hash[Symbol, untyped]
     end
   end
 end
