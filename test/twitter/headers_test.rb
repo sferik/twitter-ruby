@@ -132,9 +132,8 @@ describe Twitter::Headers do
       @headers.instance_variable_set(:@uri, custom_uri)
 
       url_passed = nil
-      header_object = Class.new do
-        def to_s = "OAuth test"
-      end.new
+      header_object = Object.new
+      header_object.define_singleton_method(:to_s) { "OAuth test" }
 
       SimpleOAuth::Header.stub(:new, lambda { |_method, url, _options, _credentials|
         url_passed = url
@@ -149,9 +148,8 @@ describe Twitter::Headers do
     it "always passes ignore_extra_keys: true to SimpleOAuth::Header" do
       credentials = {consumer_key: "CK", consumer_secret: "CS", token: "AT", token_secret: "AS", extra: "value"}
       called = false
-      header_object = Class.new do
-        def to_s = "OAuth test"
-      end.new
+      header_object = Object.new
+      header_object.define_singleton_method(:to_s) { "OAuth test" }
 
       @client.stub(:credentials, credentials) do
         SimpleOAuth::Header.stub(:new, lambda { |_method, _uri, _options, options|
