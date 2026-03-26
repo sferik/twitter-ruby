@@ -1,3 +1,19 @@
+8.3.0
+-----
+* [Drop support for Ruby 3.2](https://github.com/sferik/twitter-ruby/commit/14e14056201e5d0423b7208bb56a739a8b540a38)
+* [Upgrade http gem from v5.2 to v6.0](https://github.com/sferik/twitter-ruby/commit/2e21bbe947b88a869d473e01b0c1ee6842d6689b)
+* [Upgrade buftok from v0.3 to v1.0](https://github.com/sferik/twitter-ruby/commit/10246c4c7d319879a93ee594e6f7f4cfeb672a82)
+* [Replace Addressable with stdlib URI](https://github.com/sferik/twitter-ruby/commit/b48da16f527e8a8b22b4553811650e0fdebcaa4e)
+* [Remove unused multipart-post dependency](https://github.com/sferik/twitter-ruby/commit/132ec1b64b59eebd44ded35cefb5b842b39980d6)
+* [Update equalizer dependency to ~> 1.0](https://github.com/sferik/twitter-ruby/commit/80cbe06991c86ec9317f801e531941ff3b6819fa)
+* [Update naught dependency to ~> 2.3](https://github.com/sferik/twitter-ruby/commit/c613c6c9a3382835a1753d94d5b89afd83540024)
+* [Update memoizable dependency to ~> 0.5.1](https://github.com/sferik/twitter-ruby/commit/d2cdca7a8e1262e8c8342de7435e963d087768a5)
+* [Update simple_oauth dependency to ~> 0.4.0](https://github.com/sferik/twitter-ruby/commit/7a803320020c2b2ecc0c69d75dba0a3ba55b36a7)
+* [Add base64 gem dependency (removed from stdlib in Ruby 3.4)](https://github.com/sferik/twitter-ruby/commit/388e6798a96d2d4ec8c212f01cd8b336a5150a21)
+* [Add uri dependency](https://github.com/sferik/twitter-ruby/commit/527dcd43fbbe69f5d54dc44bf3d51b3b53e4ccfc)
+* [Avoid redefining Object#to_s by using define_singleton_method](https://github.com/sferik/twitter-ruby/commit/aeff5089d96099eeb9c1444125b1cb88550bcf6d)
+* [Remove unnecessary files from gem package](https://github.com/sferik/twitter-ruby/commit/421630e963306ce548ea775b21c3b76c3513f3f5)
+
 8.2.0
 -----
 * [Drop support for Ruby 3.1](https://github.com/sferik/twitter-ruby/commit/6e63502356711f8a614b18030ab4e9fbbcb478c1)
