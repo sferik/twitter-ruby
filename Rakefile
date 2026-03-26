@@ -1,6 +1,10 @@
-require "bundler"
+require "bundler/gem_tasks"
 require "etc"
-Bundler::GemHelper.install_tasks
+
+# Override release task to skip gem push (handled by GitHub Actions with attestations)
+Rake::Task["release"].clear
+desc "Build gem and create tag (gem push handled by CI)"
+task release: %w[build release:guard_clean release:source_control_push]
 FORMAT = "svg".freeze
 
 desc "Generate entity-relationship diagram"

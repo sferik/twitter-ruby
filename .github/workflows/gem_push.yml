@@ -1,0 +1,37 @@
+name: Push gem to RubyGems
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: read
+
+jobs:
+  push:
+    if: github.repository == 'sferik/twitter-ruby'
+    runs-on: ubuntu-latest
+    environment:
+      name: rubygems.org
+      url: https://rubygems.org/gems/twitter
+    permissions:
+      contents: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@v6
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ruby
+          bundler-cache: true
+      - uses: rubygems/configure-rubygems-credentials@v1.0.0
+      - name: Update RubyGems
+        run: gem update --system
+      - name: Build gem
+        run: bundle exec rake build
+      - name: Sign gem with Sigstore
+        run: gem exec sigstore-cli sign pkg/*.gem --bundle pkg/twitter.gem.sigstore.json
+      - name: Push gem
+        run: gem push pkg/*.gem --attestation pkg/twitter.gem.sigstore.json
+      - name: Wait for release
+        run: gem exec rubygems-await pkg/*.gem
