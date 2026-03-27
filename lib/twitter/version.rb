@@ -18,10 +18,10 @@ module Twitter
       #
       # @api private
       # @example
-      #   Twitter::Version.minor # => 2
+      #   Twitter::Version.minor # => 3
       # @return [Integer]
       def minor
-        2
+        3
       end
 
       # The patch version number
@@ -47,7 +47,7 @@ module Twitter
       #
       # @api private
       # @example
-      #   Twitter::Version.to_h # => {major: 8, minor: 2, patch: 0, pre: nil}
+      #   Twitter::Version.to_h # => {major: 8, minor: 3, patch: 0, pre: nil}
       # @return [Hash]
       def to_h
         {major:, minor:, patch:, pre: nil}
@@ -57,7 +57,7 @@ module Twitter
       #
       # @api private
       # @example
-      #   Twitter::Version.to_a # => [8, 2, 0]
+      #   Twitter::Version.to_a # => [8, 3, 0]
       # @return [Array]
       def to_a
         [major, minor, patch]
@@ -67,7 +67,7 @@ module Twitter
       #
       # @api private
       # @example
-      #   Twitter::Version.to_s # => "8.2.0"
+      #   Twitter::Version.to_s # => "8.3.0"
       # @return [String]
       def to_s
         to_a.join(".")
