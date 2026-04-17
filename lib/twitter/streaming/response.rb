@@ -17,7 +17,7 @@ module Twitter
       # @return [Twitter::Streaming::Response]
       def initialize(&block)
         @block = block
-        @parser = LLHttp::Parser.new(self, type: :response) # steep:ignore UnknownConstant
+        @parser = LLHttp::Parser.new(self, type: :response)
         @tokenizer = BufferedTokenizer.new("\r\n") # steep:ignore UnknownConstant
       end
 

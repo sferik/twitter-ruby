@@ -164,7 +164,7 @@ module Twitter
       def request(method, uri, params)
         before_request.call
         headers = Twitter::Headers.new(self, method, uri, params).request_headers
-        request = HTTP::Request.new(verb: method, uri: "#{uri}?#{to_url_params(params)}", headers:, proxy:)
+        request = HTTP::Request.new(verb: method, uri: "#{uri}?#{to_url_params(params)}", headers:, proxy: proxy || {})
         response = Streaming::Response.new do |data|
           if item = Streaming::MessageParser.parse(data) # rubocop:disable Lint/AssignmentInCondition
             yield(item)

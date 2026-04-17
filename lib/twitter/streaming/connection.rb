@@ -30,8 +30,8 @@ module Twitter
       # @param options [Hash] A customizable set of options.
       # @return [Twitter::Streaming::Connection]
       def initialize(options = {})
-        @tcp_socket_class = options.fetch(:tcp_socket_class) { TCPSocket } # steep:ignore UnknownConstant
-        @ssl_socket_class = options.fetch(:ssl_socket_class) { OpenSSL::SSL::SSLSocket } # steep:ignore UnknownConstant
+        @tcp_socket_class = options.fetch(:tcp_socket_class) { TCPSocket }
+        @ssl_socket_class = options.fetch(:ssl_socket_class) { OpenSSL::SSL::SSLSocket }
         @using_ssl = options.fetch(:using_ssl, false)
       end
 
@@ -70,7 +70,7 @@ module Twitter
         client = new_tcp_socket(request.socket_host, request.socket_port)
         return client if !@using_ssl && request.using_proxy?
 
-        client_context = OpenSSL::SSL::SSLContext.new # steep:ignore UnknownConstant
+        client_context = OpenSSL::SSL::SSLContext.new
         ssl_client = @ssl_socket_class.new(client, client_context)
         ssl_client.connect
       end

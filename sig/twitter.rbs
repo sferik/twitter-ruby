@@ -529,7 +529,7 @@ module Twitter
       def symbolize_keys!: (untyped) -> untyped
       def timeout_keys_defined?: () -> bool
       def http_client: () -> untyped
-      def proxy: () -> Array[String | Integer | nil]
+      def proxy: () -> Array[String | Integer]
     end
 
     # REST API client for Twitter

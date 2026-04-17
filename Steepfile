@@ -9,6 +9,7 @@ target :lib do
   library "cgi"
   library "equalizer"
   library "forwardable"
+  library "http"
   library "memoizable"
   library "monitor"
   library "naught"
