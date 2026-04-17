@@ -42,7 +42,7 @@ module Twitter
       @attrs = attrs || {}
       empty_hash = {} # : Hash[Symbol, untyped]
       empty_array = [] # : Array[untyped]
-      @collection = @attrs.fetch(:result, empty_hash).fetch(:places, empty_array).collect do |place| # steep:ignore ArgumentTypeMismatch
+      @collection = @attrs.fetch(:result, empty_hash).fetch(:places, empty_array).collect do |place|
         Place.new(place)
       end
     end

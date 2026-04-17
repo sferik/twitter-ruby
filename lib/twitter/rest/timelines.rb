@@ -230,7 +230,7 @@ module Twitter
         return collection if tweets.nil?
 
         collection += tweets
-        tweets.empty? ? collection : collect_with_max_id(collection, tweets.last.id - 1, &) # steep:ignore NoMethod
+        tweets.empty? ? collection : collect_with_max_id(collection, tweets.last.id - 1, &)
       end
     end
   end

@@ -267,7 +267,7 @@ module Twitter
       # @api private
       # @return [HTTP::Session, HTTP]
       def http_client
-        client = @client.proxy ? HTTP.via(*proxy) : HTTP # steep:ignore NoMethod
+        client = @client.proxy ? HTTP.via(*proxy) : HTTP
         client = client.timeout(connect: @client.timeouts.fetch(:connect), read: @client.timeouts.fetch(:read), write: @client.timeouts.fetch(:write)) if timeout_keys_defined? # steep:ignore NoMethod
         client
       end

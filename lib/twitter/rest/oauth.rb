@@ -24,7 +24,7 @@ module Twitter
         options[:grant_type] ||= "client_credentials"
         url = "https://api.twitter.com/oauth2/token"
         headers = ::Twitter::Headers.new(self, :post, url, options).request_headers # steep:ignore ArgumentTypeMismatch
-        response = HTTP.headers(headers).post(url, form: options) # steep:ignore NoMethod
+        response = HTTP.headers(headers).post(url, form: options)
         response.parse.fetch("access_token")
       end
       # @!method bearer_token
@@ -64,7 +64,7 @@ module Twitter
         options = {x_auth_mode: "reverse_auth"}
         url = "https://api.twitter.com/oauth/request_token"
         auth_header = ::Twitter::Headers.new(self, :post, url, options).oauth_auth_header.to_s # steep:ignore ArgumentTypeMismatch
-        HTTP.headers(authorization: auth_header).post(url, params: options).to_s # steep:ignore NoMethod
+        HTTP.headers(authorization: auth_header).post(url, params: options).to_s
       end
     end
   end

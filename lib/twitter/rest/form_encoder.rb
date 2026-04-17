@@ -58,7 +58,7 @@ module Twitter
       # @param value [Object] The value to escape
       # @return [String]
       def self.escape(value)
-        URI::DEFAULT_PARSER.escape(value.to_s, UNESCAPED_CHARS) # steep:ignore UnknownConstant
+        URI::DEFAULT_PARSER.escape(value.to_s, UNESCAPED_CHARS)
       end
 
       private_class_method :encode_pair, :encode_array, :encode_array_item, :escape

@@ -27,11 +27,11 @@ module Twitter
       # @return [Twitter::PremiumSearchResults] Tweets matching the query.
       def premium_search(query, options = {}, request_config = {})
         options = options.clone
-        options[:maxResults] ||= MAX_TWEETS_PER_REQUEST # steep:ignore UnresolvedOverloading
+        options[:maxResults] ||= MAX_TWEETS_PER_REQUEST
         request_config[:request_method] = :json_post if request_config[:request_method].nil? || request_config.fetch(:request_method) == :post
         request_config[:product] ||= "30day"
         path = "/1.1/tweets/search/#{request_config.fetch(:product)}/#{dev_environment}.json" # steep:ignore NoMethod
-        request = Request.new(self, request_config.fetch(:request_method), path, options.merge(query:)) # steep:ignore NoMethod
+        request = Request.new(self, request_config.fetch(:request_method), path, options.merge(query:))
         PremiumSearchResults.new(request, request_config)
       end
     end

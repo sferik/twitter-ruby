@@ -204,7 +204,7 @@ module Twitter
     def description_uris
       empty_hash = {} # : Hash[Symbol, untyped]
       empty_array = [] # : Array[untyped]
-      @attrs.fetch(:entities, empty_hash).fetch(:description, empty_hash).fetch(:urls, empty_array).collect do |url| # steep:ignore FallbackAny
+      @attrs.fetch(:entities, empty_hash).fetch(:description, empty_hash).fetch(:urls, empty_array).collect do |url|
         Entity::URI.new(url)
       end
     end
@@ -246,7 +246,7 @@ module Twitter
     def website_uris
       empty_hash = {} # : Hash[Symbol, untyped]
       empty_array = [] # : Array[untyped]
-      @attrs.fetch(:entities, empty_hash).fetch(:url, empty_hash).fetch(:urls, empty_array).collect do |url| # steep:ignore FallbackAny
+      @attrs.fetch(:entities, empty_hash).fetch(:url, empty_hash).fetch(:urls, empty_array).collect do |url|
         Entity::URI.new(url)
       end
     end
