@@ -1,6 +1,7 @@
 *.gem
 *~
 .bundle
+.mutant
 .ruby-version
 .rvmrc
 .yardoc
