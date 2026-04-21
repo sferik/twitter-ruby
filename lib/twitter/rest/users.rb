@@ -40,8 +40,8 @@ module Twitter
         request_method = options.empty? ? :get : :post
         response = perform_request(request_method, "/1.1/account/settings.json", options)
         # https://dev.twitter.com/issues/59
-        empty_array = [] # : Array[untyped]
-        response[:trend_location] = response.fetch(:trend_location, empty_array).first
+        trend_location, = response[:trend_location]
+        response[:trend_location] = trend_location
         Settings.new(response)
       end
 
@@ -272,7 +272,7 @@ module Twitter
       #   @option options [Boolean, String, Integer] :skip_status Do not include user's Tweets when set to true, 't' or 1.
       def user(*args)
         arguments = Arguments.new(args)
-        if arguments.last || user_id?
+        if arguments.any? || user_id?
           merge_user!(arguments.options, arguments.pop || user_id)
           perform_get_with_object("/1.1/users/show.json", arguments.options, User)
         else

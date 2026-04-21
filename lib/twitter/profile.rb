@@ -145,7 +145,7 @@ module Twitter
     # @param size [Symbol] The size
     # @return [String]
     def profile_image_suffix(size)
-      (size.to_sym == :original) ? '\\1' : "_#{size}\\1"
+      {original: '\\1'}.fetch(size.to_sym) { "_#{size}\\1" }
     end
   end
 end

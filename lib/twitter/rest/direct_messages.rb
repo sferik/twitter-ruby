@@ -68,7 +68,7 @@ module Twitter
       # @return [Array<Twitter::DirectMessage>] Direct messages received
       def direct_messages_received(options = {})
         limit = options.fetch(:count, 20)
-        direct_messages_list(options).select { |dm| dm.recipient_id == user_id }.first(limit)
+        direct_messages_list(options).select { |dm| dm.recipient_id.eql?(user_id) }.first(limit)
       end
 
       # Returns Direct Messages sent by the authenticated user
@@ -87,7 +87,7 @@ module Twitter
       # @return [Array<Twitter::DirectMessage>] Direct messages sent
       def direct_messages_sent(options = {})
         limit = options.fetch(:count, 20)
-        direct_messages_list(options).select { |dm| dm.sender_id == user_id }.first(limit)
+        direct_messages_list(options).select { |dm| dm.sender_id.eql?(user_id) }.first(limit)
       end
 
       # Returns a direct message
@@ -241,7 +241,7 @@ module Twitter
       def create_direct_message_event(*args)
         arguments = Arguments.new(args)
         options = arguments.options
-        options[:event] = {type: "message_create", message_create: {target: {recipient_id: extract_id(arguments.fetch(0))}, message_data: {text: arguments.fetch(1)}}} if arguments.length == 2
+        options[:event] = {type: "message_create", message_create: {target: {recipient_id: extract_id(arguments.fetch(0))}, message_data: {text: arguments.fetch(1)}}} if arguments.length.eql?(2)
         response = Request.new(self, :json_post, "/1.1/direct_messages/events/new.json", options).perform
         DirectMessageEvent.new(response)
       end

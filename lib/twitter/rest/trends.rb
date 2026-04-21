@@ -25,7 +25,7 @@ module Twitter
       def trends(id = 1, options = {})
         options = options.dup
         options[:id] = id
-        response = perform_get("/1.1/trends/place.json", options).first
+        response, = perform_get("/1.1/trends/place.json", options)
         TrendResults.new(response)
       end
       # @!method local_trends

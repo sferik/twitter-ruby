@@ -15,9 +15,9 @@ module Twitter
       # @return [Hash]
       def upload(media, media_category_prefix: "tweet")
         ext = File.extname(media)
-        return chunk_upload(media, "video/mp4", "#{media_category_prefix}_video") if ext == ".mp4"
-        return chunk_upload(media, "video/quicktime", "#{media_category_prefix}_video") if ext == ".mov"
-        return chunk_upload(media, "image/gif", "#{media_category_prefix}_gif") if ext == ".gif" && File.size(media) > 5_000_000
+        return chunk_upload(media, "video/mp4", "#{media_category_prefix}_video") if ext.eql?(".mp4")
+        return chunk_upload(media, "video/quicktime", "#{media_category_prefix}_video") if ext.eql?(".mov")
+        return chunk_upload(media, "image/gif", "#{media_category_prefix}_gif") if ext.eql?(".gif") && File.size(media) > 5_000_000
 
         Request.new(self, :multipart_post, "https://upload.twitter.com/1.1/media/upload.json", key: :media, file: media).perform
       end

@@ -335,7 +335,8 @@ module Twitter
       #   @param options [Hash] A customizable set of options.
       def retweeters_ids(*args)
         arguments = Arguments.new(args)
-        arguments.options[:id] ||= extract_id(arguments.first)
+        id, = arguments
+        arguments.options[:id] ||= extract_id(id)
         perform_get_with_cursor("/1.1/statuses/retweeters/ids.json", arguments.options, :ids)
       end
 

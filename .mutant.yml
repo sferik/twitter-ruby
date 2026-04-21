@@ -13,6 +13,9 @@ includes:
 
 usage: opensource
 
+mutation:
+  operators: full
+
 matcher:
   subjects:
     - Twitter*
