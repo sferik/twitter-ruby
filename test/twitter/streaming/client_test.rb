@@ -353,6 +353,24 @@ describe Twitter::Streaming::Client do
     end
   end
 
+  describe "when not using a proxy" do
+    it "passes an empty hash as the proxy" do
+      @client.connection = FakeConnection.new(fixture("track_streaming.json"))
+      request_args = nil
+      dummy_request = Object.new
+      dummy_request.define_singleton_method(:stream) { |_client| nil }
+
+      HTTP::Request.stub(:new, lambda { |args|
+        request_args = args
+        dummy_request
+      }) do
+        @client.sample {}
+      end
+
+      assert_equal({}, request_args[:proxy])
+    end
+  end
+
   describe "request header generation" do
     it "passes method to Headers" do
       @client.connection = FakeConnection.new(fixture("track_streaming.json"))
