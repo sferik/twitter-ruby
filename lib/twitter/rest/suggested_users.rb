@@ -31,7 +31,7 @@ module Twitter
       #   @param options [Hash] A customizable set of options.
       def suggestions(*args)
         arguments = Arguments.new(args)
-        if arguments.last
+        if arguments.any?
           perform_get_with_object("/1.1/users/suggestions/#{arguments.pop}.json", arguments.options, Suggestion)
         else
           perform_get_with_objects("/1.1/users/suggestions.json", arguments.options, Suggestion)

@@ -250,7 +250,7 @@ describe Twitter::REST::DirectMessages do
 
     it "defaults to returning at most 20 matching sent messages" do
       message_class = Struct.new(:sender_id, :recipient_id)
-      matching = Array.new(25) { message_class.new(22_095_868, 1) }
+      matching = Array.new(25) { |i| message_class.new(22_095_868, i) }
 
       @client.stub(:direct_messages_list, matching) do
         assert_equal(matching.first(20), @client.direct_messages_sent)

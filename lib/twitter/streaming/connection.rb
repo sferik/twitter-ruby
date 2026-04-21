@@ -49,7 +49,8 @@ module Twitter
         read_pipe, @write_pipe = IO.pipe
         loop do
           read_ios, _write_ios, _exception_ios = IO.select([read_pipe, client])
-          case read_ios.first
+          first_io, = read_ios
+          case first_io
           when client
             response << client.readpartial(1024)
           when read_pipe

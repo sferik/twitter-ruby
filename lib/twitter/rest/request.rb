@@ -124,7 +124,7 @@ module Twitter
       # @api private
       # @return [Hash]
       def request_options
-        options = if @options_key == :form
+        options = if @options_key.eql?(:form)
           {form: HTTP::FormData.create(@options, encoder: FormEncoder.public_method(:encode))}
         else
           {@options_key => @options}
@@ -158,10 +158,10 @@ module Twitter
       # @return [void]
       def set_multipart_options!(request_method, options)
         if %i[multipart_post json_post].include?(request_method)
-          merge_multipart_file!(options) if request_method == :multipart_post
+          merge_multipart_file!(options) if request_method.eql?(:multipart_post)
           options = {} # : Hash[Symbol, untyped]
           @request_method = :post
-        elsif request_method == :json_put
+        elsif request_method.eql?(:json_put)
           @request_method = :put
         else
           @request_method = request_method
@@ -212,7 +212,7 @@ module Twitter
       # @return [Twitter::Error, nil]
       def error(code, body, response)
         klass = Error::ERRORS[code]
-        if klass == Error::Forbidden
+        if klass.eql?(Error::Forbidden)
           forbidden_error(body, response)
         elsif !klass.nil?
           klass.from_response(body, response)

@@ -1479,6 +1479,7 @@ module Twitter
 
     def initialize: (Array[untyped]) -> void
     def options: () -> Hash[Symbol, untyped]
+    def to_ary: () -> Array[untyped]
   end
 
   # Headers class for building request headers

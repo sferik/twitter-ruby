@@ -526,9 +526,10 @@ module Twitter
         members = arguments.pop
         merge_list!(options, arguments.pop)
         merge_owner!(options, arguments.pop)
-        pmap(members.each_slice(MAX_USERS_PER_REQUEST)) do |users|
+        *, result = pmap(members.each_slice(MAX_USERS_PER_REQUEST)) do |users|
           perform_post_with_object(path, merge_users(options, users), List)
-        end.last
+        end
+        result
       end
 
       # Take a list and merge it into the hash with the correct key

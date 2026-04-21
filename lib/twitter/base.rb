@@ -165,7 +165,7 @@ module Twitter
     # @param method [String, Symbol] Message to send to the object
     # @return [Object, nil]
     def [](method)
-      location = caller_locations(1, 1)&.first
+      location, = caller_locations(1, 1)
       warn "#{location&.path}:#{location&.lineno}: [DEPRECATION] #[#{method.inspect}] is deprecated. Use ##{method} to fetch the value."
       public_send(method.to_sym)
     rescue NoMethodError
