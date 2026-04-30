@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [8.3.1] - 2026-04-30
+
+### Changed
+
+- [Consume HTTP gem's shipped RBS signatures](https://github.com/sferik/twitter-ruby/commit/57a31d59d7410a865632bfe0d3020145545bdc62)
+- [Remove redundant steep:ignore comments](https://github.com/sferik/twitter-ruby/commit/be1d25b51a4c45b4511df12975c41042c0d160d5)
+- [Kill mutants on streaming client proxy fallback](https://github.com/sferik/twitter-ruby/commit/13e5f29af1ad77adf2b3849742b61dd048852532)
+- [Enable operators: full in Mutant and kill all surviving mutants](https://github.com/sferik/twitter-ruby/commit/2c4709759449c6b52b1271b6aaec3230047ee02d)
+
 ## [8.3.0] - 2025-03-30
 
 ### Added

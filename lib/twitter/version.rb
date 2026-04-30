@@ -28,10 +28,10 @@ module Twitter
       #
       # @api private
       # @example
-      #   Twitter::Version.patch # => 0
+      #   Twitter::Version.patch # => 1
       # @return [Integer]
       def patch
-        0
+        1
       end
 
       # The pre-release version identifier
@@ -47,7 +47,7 @@ module Twitter
       #
       # @api private
       # @example
-      #   Twitter::Version.to_h # => {major: 8, minor: 3, patch: 0, pre: nil}
+      #   Twitter::Version.to_h # => {major: 8, minor: 3, patch: 1, pre: nil}
       # @return [Hash]
       def to_h
         {major:, minor:, patch:, pre: nil}
@@ -57,7 +57,7 @@ module Twitter
       #
       # @api private
       # @example
-      #   Twitter::Version.to_a # => [8, 3, 0]
+      #   Twitter::Version.to_a # => [8, 3, 1]
       # @return [Array]
       def to_a
         [major, minor, patch]
@@ -67,7 +67,7 @@ module Twitter
       #
       # @api private
       # @example
-      #   Twitter::Version.to_s # => "8.3.0"
+      #   Twitter::Version.to_s # => "8.3.1"
       # @return [String]
       def to_s
         to_a.join(".")
