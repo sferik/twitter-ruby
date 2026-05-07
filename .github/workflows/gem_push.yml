@@ -24,7 +24,7 @@ jobs:
         with:
           ruby-version: ruby
           bundler-cache: true
-      - uses: rubygems/configure-rubygems-credentials@v1.0.0
+      - uses: rubygems/configure-rubygems-credentials@v2.0.0
       - name: Update RubyGems
         run: gem update --system
       - name: Build gem
