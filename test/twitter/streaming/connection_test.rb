@@ -55,7 +55,7 @@ describe Twitter::Streaming::Connection do
       ssl_socket = Object.new
       ssl_socket.define_singleton_method(:connect) { connect_called = true }
 
-      connection.stub(:new_tcp_socket, lambda { |host, port|
+      with_stubbed_method(connection, :new_tcp_socket, lambda { |host, port|
         tcp_args = [host, port]
         Object.new
       }) do
@@ -74,7 +74,7 @@ describe Twitter::Streaming::Connection do
       ssl_socket = Object.new
       ssl_socket.define_singleton_method(:connect) { nil }
 
-      connection.stub(:new_tcp_socket, ->(_host, _port) { tcp_client }) do
+      with_stubbed_method(connection, :new_tcp_socket, ->(_host, _port) { tcp_client }) do
         connection.ssl_socket_class.stub(:new, lambda { |*args|
           ssl_new_args = args
           ssl_socket
@@ -93,7 +93,7 @@ describe Twitter::Streaming::Connection do
       ssl_socket = Object.new
       ssl_socket.define_singleton_method(:connect) { nil }
 
-      connection.stub(:new_tcp_socket, ->(_host, _port) { tcp_client }) do
+      with_stubbed_method(connection, :new_tcp_socket, ->(_host, _port) { tcp_client }) do
         connection.ssl_socket_class.stub(:new, lambda { |_client, context|
           context_received = context
           ssl_socket
@@ -110,7 +110,7 @@ describe Twitter::Streaming::Connection do
       ssl_socket = Object.new
       ssl_socket.define_singleton_method(:connect) { connect_called = true }
 
-      connection.stub(:new_tcp_socket, ->(_host, _port) { Object.new }) do
+      with_stubbed_method(connection, :new_tcp_socket, ->(_host, _port) { Object.new }) do
         connection.ssl_socket_class.stub(:new, ->(_client, _context) { ssl_socket }) do
           connection.connect(request)
         end
@@ -124,7 +124,7 @@ describe Twitter::Streaming::Connection do
       ssl_socket.define_singleton_method(:connect) { :connected_ssl_socket }
 
       result = nil
-      connection.stub(:new_tcp_socket, ->(_host, _port) { Object.new }) do
+      with_stubbed_method(connection, :new_tcp_socket, ->(_host, _port) { Object.new }) do
         connection.ssl_socket_class.stub(:new, ->(_client, _context) { ssl_socket }) do
           result = connection.connect(request)
         end
@@ -139,7 +139,7 @@ describe Twitter::Streaming::Connection do
       ssl_socket = Object.new
       ssl_socket.define_singleton_method(:connect) { nil }
 
-      connection.stub(:new_tcp_socket, ->(_host, _port) { tcp_client }) do
+      with_stubbed_method(connection, :new_tcp_socket, ->(_host, _port) { tcp_client }) do
         connection.ssl_socket_class.stub(:new, lambda { |client, _context|
           first_ssl_arg = client
           ssl_socket
@@ -159,7 +159,7 @@ describe Twitter::Streaming::Connection do
         tcp_args = nil
         tcp_client = Object.new
 
-        connection.stub(:new_tcp_socket, lambda { |host, port|
+        with_stubbed_method(connection, :new_tcp_socket, lambda { |host, port|
           tcp_args = [host, port]
           tcp_client
         }) do
@@ -205,7 +205,7 @@ describe Twitter::Streaming::Connection do
           ssl_socket = Object.new
           ssl_socket.define_singleton_method(:connect) { ssl_connect_called = true }
 
-          connection.stub(:new_tcp_socket, lambda { |host, port|
+          with_stubbed_method(connection, :new_tcp_socket, lambda { |host, port|
             tcp_args = [host, port]
             Object.new
           }) do
@@ -287,7 +287,7 @@ describe Twitter::Streaming::Connection do
       request_stream_args = []
       request.define_singleton_method(:stream) { |socket| request_stream_args << socket }
 
-      connection.stub(:connect, lambda { |incoming_request|
+      with_stubbed_method(connection, :connect, lambda { |incoming_request|
         connect_args << incoming_request
         client
       }) do
@@ -320,7 +320,7 @@ describe Twitter::Streaming::Connection do
       request_stream_args = []
       request.define_singleton_method(:stream) { |socket| request_stream_args << socket }
 
-      connection.stub(:connect, ->(_incoming_request) { client }) do
+      with_stubbed_method(connection, :connect, ->(_incoming_request) { client }) do
         thread = Thread.start do
           connection.stream(request, response_with_capture)
         end
@@ -368,7 +368,7 @@ describe Twitter::Streaming::Connection do
         [[read_pipe], nil, nil]
       ]
 
-      connection.stub(:connect, lambda { |request_arg|
+      with_stubbed_method(connection, :connect, lambda { |request_arg|
         assert_equal(mocked_request, request_arg)
         mocked_client
       }) do
@@ -410,7 +410,7 @@ describe Twitter::Streaming::Connection do
         [[read_pipe], nil, nil]
       ]
 
-      connection.stub(:connect, ->(_request_arg) { mocked_client }) do
+      with_stubbed_method(connection, :connect, ->(_request_arg) { mocked_client }) do
         IO.stub(:pipe, [read_pipe, write_pipe]) do
           IO.stub(:select, ->(_readables) { select_returns.shift }) do
             connection.stream(mocked_request, mocked_response)

@@ -103,7 +103,7 @@ describe Twitter::Headers do
       secret = {consumer_key: "CK", consumer_secret: "CS", token: "OT", token_secret: "OS", nonce: "b6ebe4c2a11af493f8a2290fe1296965", timestamp: "1370968658", ignore_extra_keys: true}
       headers = {authorization: /oauth_signature="FbthwmgGq02iQw%2FuXGEWaL6V6eM%3D"/, content_type: "application/json; charset=utf-8"}
       stub_post("/1.1/statuses/update.json").with(body: {status: "Just a test"}).to_return(body: fixture("status.json"), headers:)
-      @client.stub(:credentials, secret) do
+      with_stubbed_method(@client, :credentials, secret) do
         @client.update("Just a test")
       end
 
@@ -115,7 +115,7 @@ describe Twitter::Headers do
       headers = {authorization: /oauth_signature="JVkElZ8O3WXkpZjtEHYRk67pYdQ%3D"/, content_type: "application/json; charset=utf-8"}
       stub_request(:post, "https://upload.twitter.com/1.1/media/upload.json").to_return(body: fixture("upload.json"), headers: json_headers)
       stub_post("/1.1/statuses/update.json").to_return(body: fixture("status.json"), headers: json_headers)
-      @client.stub(:credentials, secret) do
+      with_stubbed_method(@client, :credentials, secret) do
         @client.update_with_media("Just a test", fixture_file("pbjt.gif"))
       end
 
@@ -151,7 +151,7 @@ describe Twitter::Headers do
       header_object = Object.new
       header_object.define_singleton_method(:to_s) { "OAuth test" }
 
-      @client.stub(:credentials, credentials) do
+      with_stubbed_method(@client, :credentials, credentials) do
         SimpleOAuth::Header.stub(:new, lambda { |_method, _uri, _options, options|
           called = true
 

@@ -10,9 +10,10 @@ unless ENV["MUTANT"]
 
   SimpleCov.start do
     enable_coverage :branch
+    enable_coverage :method
     add_filter "/test/"
     add_filter "/vendor/"
-    minimum_coverage line: 100, branch: 100
+    minimum_coverage line: 100, branch: 100, method: 100
   end
 end
 
@@ -199,6 +200,24 @@ module TestSupport
     end
   end
 
+  module MethodHelpers
+    # Replace a single method on a specific object for the duration of the
+    # block. Like Minitest::Mock#stub, but using `define_singleton_method`
+    # directly so SimpleCov method coverage doesn't see an extra entry on the
+    # singleton class (Minitest's alias_method trampoline records a separate
+    # singleton-class method that's always count=0). The callable is invoked
+    # via `#call` so its closure binding is preserved (matching stub).
+    def with_stubbed_method(object, name, value_or_callable)
+      singleton = object.singleton_class
+      had_singleton = singleton.method_defined?(name, false) || singleton.private_method_defined?(name, false)
+      callable = value_or_callable.respond_to?(:call) ? value_or_callable : ->(*) { value_or_callable }
+      object.define_singleton_method(name) { |*args, **kwargs, &block| callable.call(*args, **kwargs, &block) }
+      yield
+    ensure
+      singleton.send(:remove_method, name) unless had_singleton
+    end
+  end
+
   module ConstantHelpers
     StubbedConstant = Struct.new(:had_original, :original)
 
@@ -261,6 +280,7 @@ module Minitest
     include TestSupport::RequestHelpers
     include TestSupport::FixtureHelpers
     include TestSupport::ConstantHelpers
+    include TestSupport::MethodHelpers
     include TestSupport::ClientHelpers
   end
 end

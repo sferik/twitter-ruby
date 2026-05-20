@@ -421,8 +421,8 @@ describe Twitter::REST::Request do
         response
       end
 
-      request.stub(:http_client, fake_client) do
-        request.stub(:fail_or_return_response_body, ->(_code, _body, _response) { :ok }) do
+      with_stubbed_method(request, :http_client, fake_client) do
+        with_stubbed_method(request, :fail_or_return_response_body, ->(_code, _body, _response) { :ok }) do
           assert_equal(:ok, request.perform)
         end
       end
