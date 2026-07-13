@@ -10,8 +10,8 @@ unless ENV["MUTANT"]
 
   SimpleCov.start do
     enable_coverage :branch
-    add_filter "/test/"
-    add_filter "/vendor/"
+    skip "/test/"
+    skip "/vendor/"
     minimum_coverage line: 100, branch: 100
   end
 end
