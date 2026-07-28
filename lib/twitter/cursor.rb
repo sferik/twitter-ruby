@@ -110,7 +110,7 @@ module Twitter
       @attrs = attrs
       klass = @klass
       @attrs.fetch(@key, []).each do |element|
-        @collection << (klass ? klass.new(element) : element) # steep:ignore UnexpectedPositionalArgument
+        @collection << (klass ? klass.new(element) : element)
       end
     end
   end

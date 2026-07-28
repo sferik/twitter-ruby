@@ -133,6 +133,13 @@ describe Twitter::SearchResults do
       assert_equal("123", next_page[:max_id])
       assert_equal("#test", next_page[:q])
     end
+
+    it "takes the first value when a query parameter is repeated" do
+      stub_get("/1.1/search/tweets.json").with(query: {q: "#test", count: "100"}).to_return(body: '{"statuses":[{"id":1}],"search_metadata":{"next_results":"?max_id=123&max_id=456&q=%23test"}}', headers: json_headers)
+      results = @client.search("#test")
+
+      assert_equal("123", results.send(:next_page)[:max_id])
+    end
   end
 
   describe "pagination internals" do

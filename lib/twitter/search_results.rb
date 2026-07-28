@@ -116,10 +116,7 @@ module Twitter
       return {} if parsed_query.nil?
 
       query = CGI.parse(parsed_query)
-      query.to_h do |key, values|
-        value, = values
-        [key.to_sym, value]
-      end
+      query.transform_keys(&:to_sym).transform_values(&:first)
     end
   end
 end

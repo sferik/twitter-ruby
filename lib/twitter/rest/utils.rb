@@ -100,7 +100,7 @@ module Twitter
       # @return [Object]
       def perform_request_with_object(request_method, path, options, klass, params = nil)
         response = perform_request(request_method, path, options, params)
-        klass.new(response) # steep:ignore UnexpectedPositionalArgument
+        klass.new(response)
       end
 
       # Perform a GET request and return objects
@@ -135,7 +135,7 @@ module Twitter
       # @return [Array]
       def perform_request_with_objects(request_method, path, options, klass)
         perform_request(request_method, path, options).collect do |element|
-          klass.new(element) # steep:ignore UnexpectedPositionalArgument
+          klass.new(element)
         end
       end
 
