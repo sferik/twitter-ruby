@@ -6,14 +6,7 @@ $LOAD_PATH.unshift(File.expand_path(__dir__))
 unless ENV["MUTANT"]
   require "simplecov"
 
-  SimpleCov.formatters = [SimpleCov::Formatter::HTMLFormatter]
-
-  SimpleCov.start do
-    enable_coverage :branch
-    skip "/test/"
-    skip "/vendor/"
-    minimum_coverage line: 100, branch: 100
-  end
+  SimpleCov.start "strict"
 end
 
 if ENV["MUTANT"]
