@@ -286,6 +286,15 @@ describe Twitter::REST::Request do
       assert_equal("", result)
     end
 
+    it "uses #to_s to convert the URI into the request URL" do
+      stub_get("/1.1/test.json").to_return(body: "{}", headers: json_headers)
+      request = Twitter::REST::Request.new(@client, :get, "/1.1/test.json", {})
+      request.uri.define_singleton_method(:to_str) { "https://api.twitter.com/1.1/wrong.json" }
+      request.perform
+
+      assert_requested(a_get("/1.1/test.json"))
+    end
+
     it "sets rate_limit on successful requests" do
       stub_post("/1.1/statuses/update.json").with(body: {status: "Update"}).to_return(
         body: fixture("status.json"),
