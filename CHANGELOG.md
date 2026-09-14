@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [8.3.2] - 2026-09-14
+
+### Fixed
+
+- [Fix query string parsing on Ruby 4.0](https://github.com/sferik/twitter-ruby/commit/e8679ebd474428b20fd88c177b61a329e6c87aa1)
+
+### Changed
+
+- [Update simple_oauth to version 1.0](https://github.com/sferik/twitter-ruby/commit/ec97210d893f0a24d8180fffe5f9859bfbeeec25)
+- [Fix Steep check failures with RBS 4.1](https://github.com/sferik/twitter-ruby/commit/b8d18b7821daf6ef61b60f58d46c7d8f888bf920)
+- [Enable method coverage](https://github.com/sferik/twitter-ruby/commit/ac4a555d53212c0415813eac9f1a7b64581fcf28)
+- [Update SimpleCov to version 1.0](https://github.com/sferik/twitter-ruby/commit/795fdda314b7bd0178833362f595d95832ce1614)
+
 ## [8.3.1] - 2026-04-30
 
 ### Changed
