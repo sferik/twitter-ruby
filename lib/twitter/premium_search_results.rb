@@ -1,4 +1,3 @@
-require "cgi"
 require "twitter/enumerable"
 require "twitter/rest/request"
 require "twitter/utils"

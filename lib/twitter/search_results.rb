@@ -1,4 +1,3 @@
-require "cgi"
 require "twitter/enumerable"
 require "twitter/rest/request"
 require "twitter/utils"
@@ -115,8 +114,8 @@ module Twitter
       parsed_query = URI.parse(query_string).query
       return {} if parsed_query.nil?
 
-      query = CGI.parse(parsed_query)
-      query.transform_keys(&:to_sym).transform_values(&:first)
+      query = URI.decode_www_form(parsed_query).reverse.to_h
+      query.transform_keys(&:to_sym)
     end
   end
 end

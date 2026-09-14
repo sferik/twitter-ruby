@@ -6,7 +6,6 @@ target :lib do
   signature "sig"
 
   library "base64"
-  library "cgi"
   library "equalizer"
   library "forwardable"
   library "http"

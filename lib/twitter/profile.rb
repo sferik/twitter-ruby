@@ -1,5 +1,4 @@
 require "uri"
-require "cgi"
 require "memoizable"
 
 module Twitter
