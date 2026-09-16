@@ -1,5 +1,4 @@
 require "uri"
-require "base64"
 require "simple_oauth"
 
 module Twitter
@@ -89,7 +88,8 @@ module Twitter
     # @api private
     # @return [String]
     def bearer_token_credentials_auth_header
-      "Basic #{Base64.strict_encode64("#{@client.consumer_key}:#{@client.consumer_secret}")}"
+      credentials = ["#{@client.consumer_key}:#{@client.consumer_secret}"].pack("m0")
+      "Basic #{credentials}"
     end
   end
 end

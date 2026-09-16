@@ -5,7 +5,6 @@ D = Steep::Diagnostic
 target :lib do
   signature "sig"
 
-  library "base64"
   library "equalizer"
   library "forwardable"
   library "http"
