@@ -8,6 +8,7 @@ target :lib do
   library "equalizer"
   library "forwardable"
   library "http"
+  library "json"
   library "memoizable"
   library "monitor"
   library "naught"

@@ -43,7 +43,7 @@ module Twitter
         @tokenizer.extract(data).each do |line|
           next if line.empty?
 
-          @block.call(JSON.parse(line, symbolize_names: true)) # steep:ignore UnknownConstant
+          @block.call(JSON.parse(line, symbolize_names: true))
         end
       end
 
