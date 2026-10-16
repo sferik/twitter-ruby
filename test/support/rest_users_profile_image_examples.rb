@@ -43,7 +43,7 @@ module RestUsersProfileImageExamples
     end
   end
 
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable-next Metrics/AbcSize, Metrics/MethodLength
   def profile_image_multipart_upload_example(method_name:, path:, fixture_name:, option_key:)
     it "uses multipart upload with :image key" do
       image = fixture_file(fixture_name)
@@ -67,7 +67,6 @@ module RestUsersProfileImageExamples
       assert_equal(7_505_382, user.id)
     end
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 end
 
 Minitest::Spec.extend(RestUsersProfileImageExamples)
