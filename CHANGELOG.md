@@ -2,14 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/2.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
 ## [8.3.2] - 2026-09-14
-
-### Fixed
-
-- [Fix query string parsing on Ruby 4.0](https://github.com/sferik/twitter-ruby/commit/e8679ebd474428b20fd88c177b61a329e6c87aa1)
 
 ### Changed
 
@@ -17,6 +15,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Fix Steep check failures with RBS 4.1](https://github.com/sferik/twitter-ruby/commit/b8d18b7821daf6ef61b60f58d46c7d8f888bf920)
 - [Enable method coverage](https://github.com/sferik/twitter-ruby/commit/ac4a555d53212c0415813eac9f1a7b64581fcf28)
 - [Update SimpleCov to version 1.0](https://github.com/sferik/twitter-ruby/commit/795fdda314b7bd0178833362f595d95832ce1614)
+
+### Fixed
+
+- [Fix query string parsing on Ruby 4.0](https://github.com/sferik/twitter-ruby/commit/e8679ebd474428b20fd88c177b61a329e6c87aa1)
 
 ## [8.3.1] - 2026-04-30
 
@@ -27,7 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Kill mutants on streaming client proxy fallback](https://github.com/sferik/twitter-ruby/commit/13e5f29af1ad77adf2b3849742b61dd048852532)
 - [Enable operators: full in Mutant and kill all surviving mutants](https://github.com/sferik/twitter-ruby/commit/2c4709759449c6b52b1271b6aaec3230047ee02d)
 
-## [8.3.0] - 2025-03-30
+## [8.3.0] - 2026-03-30
 
 ### Added
 
@@ -103,21 +105,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- [Add `Twitter::DirectMessageEvent`](https://github.com/sferik/twitter/commit/38f6aaa482dcd5f4982abd811dbe6e21e36c2ae8) ([@FabienChaynes](https://twitter.com/FabienChaynes))
-- [Create `Twitter::DirectMessageEvent` with media](https://github.com/sferik/twitter/commit/21478530ec6f8a798717a5ab8b197b895db3bc28) ([@FabienChaynes](https://twitter.com/FabienChaynes))
-- [Support for DM welcome messages](https://github.com/sferik/twitter/pull/950) ([@FabienChaynes](https://twitter.com/FabienChaynes))
-- [Support for closing `Twitter::Streaming::Connection`](https://github.com/sferik/twitter/commit/89e3543aa06e00eeab7eaf5bdd3a33a6112356b1) ([@okkez](https://twitter.com/okkez))
-- [Add `Twitter::REST::Client#create_direct_message_event`](https://github.com/sferik/twitter/commit/b45d545c7ebfd28e4d908037dd3fde04e3c307cf) ([@cyu](https://twitter.com/cyu))
-- [Add `Twitter::REST::Client#premium_search`](https://github.com/sferik/twitter/pull/953)
-- [Add `Twitter::REST::AccountActivity`](https://github.com/sferik/twitter/pull/939)
-- [Add Active Support `presence` methods on `Twitter::NullObject`](https://github.com/sferik/twitter/commit/07a5d7b60f335aefd583dae85ba959235bc9f55f) ([@davebrace](https://twitter.com/davebrace))
+- [Add `Twitter::DirectMessageEvent`](https://github.com/sferik/twitter/commit/38f6aaa482dcd5f4982abd811dbe6e21e36c2ae8) ([@FabienChaynes])
+- [Create `Twitter::DirectMessageEvent` with media](https://github.com/sferik/twitter/commit/21478530ec6f8a798717a5ab8b197b895db3bc28) ([@FabienChaynes])
+- Support for DM welcome messages ([#950], [@FabienChaynes])
+- [Support for closing `Twitter::Streaming::Connection`](https://github.com/sferik/twitter/commit/89e3543aa06e00eeab7eaf5bdd3a33a6112356b1) ([@okkez])
+- [Add `Twitter::REST::Client#create_direct_message_event`](https://github.com/sferik/twitter/commit/b45d545c7ebfd28e4d908037dd3fde04e3c307cf) ([@cyu])
+- Add `Twitter::REST::Client#premium_search` ([#953])
+- Add `Twitter::REST::AccountActivity` ([#939])
+- [Add Active Support `presence` methods on `Twitter::NullObject`](https://github.com/sferik/twitter/commit/07a5d7b60f335aefd583dae85ba959235bc9f55f) ([@davebrace])
 - [Add `quote_count` and `reply_count` attributes to `Twitter::Tweet`](https://github.com/sferik/twitter/commit/844818cad07ce490ccb9d8542ebb6b4fc7a61cb4)
 
 ### Changed
 
-- [Update all direct message methods to return `Twitter::DirectMessageEvent`](https://github.com/sferik/twitter/commit/0833471366a33657cd2920850e3928db010eecab) ([@flikglick](https://twitter.com/flikglick))
-- [Upload GIFs over 5MB in chunks](https://github.com/sferik/twitter/commit/ba6a3062782b37cf83b9813c5128c87d4971ab9c) ([@wild_dmitry](https://twitter.com/wild_dmitry))
-- [Track rate limit when searching tweets](https://github.com/sferik/twitter/commit/067e751d58b7bb0bfbe8a5531a4288f4c966b301) ([@dsalahutdinov1](https://twitter.com/dsalahutdinov1))
+- [Update all direct message methods to return `Twitter::DirectMessageEvent`](https://github.com/sferik/twitter/commit/0833471366a33657cd2920850e3928db010eecab) ([@flikglick])
+- [Upload GIFs over 5MB in chunks](https://github.com/sferik/twitter/commit/ba6a3062782b37cf83b9813c5128c87d4971ab9c) ([@wild_dmitry])
+- [Track rate limit when searching tweets](https://github.com/sferik/twitter/commit/067e751d58b7bb0bfbe8a5531a4288f4c966b301) ([@dsalahutdinov1])
 
 ### Removed
 
@@ -125,8 +127,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- [Correctly handle different `Twitter::Error::AlreadyRetweeted` error messages](https://github.com/sferik/twitter/commit/c9bf100eedc89aee43689c17f160025e0f40cfb4) ([@knu](https://twitter.com/knu))
-- [Fix proxy setting sample](https://github.com/sferik/twitter/commit/91c037cfb26ac0c9d3099cdeec42d65fe8716b78) ([@nicklegr](https://twitter.com/nicklegr))
+- [Correctly handle different `Twitter::Error::AlreadyRetweeted` error messages](https://github.com/sferik/twitter/commit/c9bf100eedc89aee43689c17f160025e0f40cfb4) ([@knu])
+- [Fix proxy setting sample](https://github.com/sferik/twitter/commit/91c037cfb26ac0c9d3099cdeec42d65fe8716b78) ([@nicklegr])
 
 ## [6.2.0] - 2017-11-08
 
@@ -165,13 +167,13 @@ https://github.com/sferik/twitter/compare/v6.0.0...v6.1.0
 
 ### Added
 
-- [Add methods to get to parameters of quoted tweet](https://github.com/sferik/twitter/commit/afd41a3e36cc94194a2110ba9adce13486ced9fd) ([@couhie](https://twitter.com/couhie))
+- [Add methods to get to parameters of quoted tweet](https://github.com/sferik/twitter/commit/afd41a3e36cc94194a2110ba9adce13486ced9fd) ([@couhie])
 - [Add additional mime_types for multi-part upload](https://github.com/sferik/twitter/commit/947fcdc9f7348f267d74933ffa43d191cf248a9c)
 - [Add new error codes](https://github.com/sferik/twitter/commit/1ce6b2f02d0f5f78435ee898e8f5b6d3db18d6f1)
 
 ### Changed
 
-- [`NullObject#as_json` returns 'null'](https://github.com/sferik/twitter/commit/2979e703c09a45f012cb2c5b2d6663bf1f4d3351) ([@lukevmorris](https://twitter.com/lukevmorris))
+- [`NullObject#as_json` returns 'null'](https://github.com/sferik/twitter/commit/2979e703c09a45f012cb2c5b2d6663bf1f4d3351) ([@lukevmorris])
 
 ### Fixed
 
@@ -183,7 +185,7 @@ https://github.com/sferik/twitter/compare/v6.0.0...v6.1.0
 
 - [Add `Twitter::NullObject#respond_to?`](https://github.com/sferik/twitter/commit/438e311d93f382960650e20898203c880ade6b25)
 - [Add `Twitter::Media::Video`, `Twitter::Media::VideoInfo`, and `Twitter::Media::Variant`](https://github.com/sferik/twitter/commit/158193f85843ebac7b3188bbad26d73907577f6a)
-- [Add `Twitter::Media::AnimatedGif` media entity](https://github.com/sferik/twitter/commit/76cb6645a54969edc7c9195e9e27e3728f5fd683) ([@nidev](https://twitter.com/nidev))
+- [Add `Twitter::Media::AnimatedGif` media entity](https://github.com/sferik/twitter/commit/76cb6645a54969edc7c9195e9e27e3728f5fd683) ([@nidev])
 
 ## [5.13.0] - 2014-11-08
 
@@ -215,7 +217,7 @@ https://github.com/sferik/twitter/compare/v6.0.0...v6.1.0
 - [Rescue `Twitter::Error::NotFound` for safe `#favorite` and `#retweet`](https://github.com/sferik/twitter/commit/5e6223df20217fd6b0ac78b44b0defdb46d1e018)
 - [Make `Twitter::User#profile_background_image_uri` methods return a URI](https://github.com/sferik/twitter/commit/d96194c0c3b17076e48faed1b05cd48d043a6778)
 - [Un-deprecate `Twitter::Base#to_hash`](https://github.com/sferik/twitter/commit/f45ce597408ab2bae2b55db6456543bf6d9ea081)
-- [Namespace registered Faraday middleware](https://github.com/sferik/twitter/commit/a96931171e32c142f36318547f2cffa6ccd5c199) ([@godfoca](https://twitter.com/godfoca))
+- [Namespace registered Faraday middleware](https://github.com/sferik/twitter/commit/a96931171e32c142f36318547f2cffa6ccd5c199) ([@godfoca])
 
 ### Fixed
 
@@ -243,7 +245,7 @@ https://github.com/sferik/twitter/compare/v6.0.0...v6.1.0
 ### Added
 
 - [Add support for new REST API endpoint for bulk lookup of Tweets by ID](https://github.com/sferik/twitter/commit/0d23c5ed65a7e7728cd096d611e5edeecdbc6e79)
-- [Enable injection of custom TCP/SSL socket classes](https://github.com/sferik/twitter/commit/3629a1edfbc6b35099d4b0fc165b938a67c02d86) ([@neektza](https://twitter.com/neektza))
+- [Enable injection of custom TCP/SSL socket classes](https://github.com/sferik/twitter/commit/3629a1edfbc6b35099d4b0fc165b938a67c02d86) ([@neektza])
 - [Add the ability to set user_agent and proxy](https://github.com/sferik/twitter/commit/e72185e1b0299221448650760b91c74ff1bec3e7)
 - [Implement mute functionality](https://github.com/sferik/twitter/commit/dfe206cae5f2189ce2b5cd5db6307d5d5e8af4ef)
 
@@ -254,8 +256,8 @@ https://github.com/sferik/twitter/compare/v6.0.0...v6.1.0
 - [Make `Twitter::Place#id` attribute accessible](https://github.com/sferik/twitter/commit/a4fa4739283a325886d44f97b2648e3b00f933b1)
 - [Call GET users/show if screen name has already been fetched](https://github.com/sferik/twitter/commit/0691a62ca5b43d33aa2f7b63aeb039d9155a24ed)
 - [Use (immutable) user ID instead of (mutable) screen name](https://github.com/sferik/twitter/commit/ceeccb08bbc7cc65c3e6eddaf408b236b8a98677)
-- [Make the streaming API raise exceptions for status codes](https://github.com/sferik/twitter/commit/b571e03ed18cd63ec1d1a57c03e5744b284111d6) ([@eroberts](https://twitter.com/eroberts))
-- [Don't allow unacceptable IO objects in `Twitter::REST::Client#update_with_media`](https://github.com/sferik/twitter/commit/f22f1e2efd29200f157af041a470678cd4ef637a) ([@tim_linquist](https://twitter.com/tim_linquist))
+- [Make the streaming API raise exceptions for status codes](https://github.com/sferik/twitter/commit/b571e03ed18cd63ec1d1a57c03e5744b284111d6) ([@eroberts])
+- [Don't allow unacceptable IO objects in `Twitter::REST::Client#update_with_media`](https://github.com/sferik/twitter/commit/f22f1e2efd29200f157af041a470678cd4ef637a) ([@tim_linquist])
 
 ### Deprecated
 
@@ -265,7 +267,7 @@ https://github.com/sferik/twitter/compare/v6.0.0...v6.1.0
 
 ### Removed
 
-- [Remove statement that TweetStream is not 2.0.0-compatible](https://github.com/sferik/twitter/pull/553) ([@melaniegilman](https://twitter.com/melaniegilman))
+- Remove statement that TweetStream is not 2.0.0-compatible ([#553], [@melaniegilman])
 
 ## [5.8.0] - 2014-03-10
 
@@ -279,17 +281,17 @@ https://github.com/sferik/twitter/compare/v6.0.0...v6.1.0
 
 ### Fixed
 
-- [`Twitter::Tweet#retweeted_status` always returns the original tweet, not the retweet](https://github.com/sferik/twitter/commit/70fede7fa09a87b7e1cba5b8b4be82127c9eaf51) ([@IanChoiJugnoo](https://twitter.com/IanChoiJugnoo))
+- [`Twitter::Tweet#retweeted_status` always returns the original tweet, not the retweet](https://github.com/sferik/twitter/commit/70fede7fa09a87b7e1cba5b8b4be82127c9eaf51) ([@IanChoiJugnoo])
 
 ## [5.7.1] - 2014-02-12
 
 ### Changed
 
-- [Only warn if entities are not included](https://github.com/sferik/twitter/commit/82ed19e69c03ccaccc366744421b3bb3ee444625) ([@matthewrudy](https://twitter.com/matthewrudy))
+- [Only warn if entities are not included](https://github.com/sferik/twitter/commit/82ed19e69c03ccaccc366744421b3bb3ee444625) ([@matthewrudy])
 
 ### Fixed
 
-- [Fix typos in documentation](https://github.com/sferik/twitter/pull/531) ([@attilaolah](https://twitter.com/attilaolah))
+- Fix typos in documentation ([#531], [@attilaolah])
 
 ## [5.7.0] - 2014-02-10
 
@@ -332,7 +334,7 @@ https://github.com/sferik/twitter/compare/v6.0.0...v6.1.0
 
 ### Fixed
 
-- [Fix bug where `Twitter::Error::AlreadyFavorited` would never be raised](https://github.com/sferik/twitter/issues/512) ([@polestarw](https://twitter.com/polestarw))
+- Fix bug where `Twitter::Error::AlreadyFavorited` would never be raised ([#512], [@polestarw])
 - [Fix bug where `Twitter::Error::AlreadyPosted` would never be raised](https://github.com/sferik/twitter/commit/e6b37b930c056a88d8ee1477246635caf579111d)
 
 ## [5.5.0] - 2014-01-06
@@ -358,17 +360,17 @@ https://github.com/sferik/twitter/compare/v6.0.0...v6.1.0
 
 ### Added
 
-- [Add `Twitter::Utils` module](https://github.com/sferik/twitter/commit/a1f47fbf19b859c8e680a0a92eff5e225a015090) ([@charliesome](https://twitter.com/charliesome))
+- [Add `Twitter::Utils` module](https://github.com/sferik/twitter/commit/a1f47fbf19b859c8e680a0a92eff5e225a015090) ([@charliesome])
 
 ### Changed
 
 - [Don't spawn a new thread if there's only one element](https://github.com/sferik/twitter/commit/c01ea8309c16eb77eeb368452df1dadd1e405532)
-- [Introduce meaningful constant names](https://github.com/sferik/twitter/commit/215c80890d702535de83d8f849885a95ec153920) ([@futuresanta](https://twitter.com/futuresanta))
+- [Introduce meaningful constant names](https://github.com/sferik/twitter/commit/215c80890d702535de83d8f849885a95ec153920) ([@futuresanta])
 - [Automatically flatten `Twitter::Arguments`](https://github.com/sferik/twitter/commit/a556028ace04cb00c3c2b9cb8f72f792a86f04d6)
 
 ### Removed
 
-- [Remove `Enumerable` monkey patch](https://github.com/sferik/twitter/commit/818b28d1621e843c0c6f9ef471076f4125623e52) ([@charliesome](https://twitter.com/charliesome))
+- [Remove `Enumerable` monkey patch](https://github.com/sferik/twitter/commit/818b28d1621e843c0c6f9ef471076f4125623e52) ([@charliesome])
 
 ## [5.3.0] - 2013-12-18
 
@@ -379,7 +381,7 @@ https://github.com/sferik/twitter/compare/v6.0.0...v6.1.0
 ### Changed
 
 - [Don't suppress `Twitter::Error::Forbidden` in `#follow` and `#follow!`](https://github.com/sferik/twitter/commit/b949c0400dabc6774419025e7b131d0a18447c3a)
-- [Update memoizable dependency to ~> 0.3.1](https://github.com/sferik/twitter/pull/501)
+- Update memoizable dependency to ~> 0.3.1 ([#501])
 
 ## [5.2.0] - 2013-12-12
 
@@ -407,7 +409,7 @@ https://github.com/sferik/twitter/compare/v6.0.0...v6.1.0
 
 ### Changed
 
-- [Use `Addressable::URI` everywhere](https://github.com/sferik/twitter/commit/97d7c68900c9974a1f6841f6eed2706df9030d64) ([@matthewrudy](https://twitter.com/matthewrudy))
+- [Use `Addressable::URI` everywhere](https://github.com/sferik/twitter/commit/97d7c68900c9974a1f6841f6eed2706df9030d64) ([@matthewrudy])
 - [Allow use of `Twitter::Place` instead of `place_id`](https://github.com/sferik/twitter/commit/c2b31dd2385fefa30a9ddccf15415a713cf5953a)
 - [Allow use of `Twitter::Tweet` instead of `in_reply_to_status_id`](https://github.com/sferik/twitter/commit/6b7d6c2b637a074c348a56a51fb1e02252482fb2)
 
@@ -419,7 +421,7 @@ https://github.com/sferik/twitter/compare/v6.0.0...v6.1.0
 
 ### Fixed
 
-- [Fix `buftok` delimiter handling](https://github.com/sferik/twitter/pull/484)
+- Fix `buftok` delimiter handling ([#484])
 
 ## [5.0.0] - 2013-11-19
 
@@ -473,7 +475,7 @@ https://github.com/sferik/twitter/compare/v6.0.0...v6.1.0
 ### Added
 
 - [Add `Twitter::API::Undocumented#tweet_count`](https://github.com/sferik/twitter/commit/795458a25ec7b143a995e7f2f2043e523c11961c)
-- [Add missing dependencies](https://github.com/sferik/twitter/commit/e07e034472df8b7aa44c779371cf1e25d8caa77d) ([@tmatilai](https://twitter.com/tmatilai))
+- [Add missing dependencies](https://github.com/sferik/twitter/commit/e07e034472df8b7aa44c779371cf1e25d8caa77d) ([@tmatilai])
 
 ### Changed
 
@@ -484,7 +486,7 @@ https://github.com/sferik/twitter/compare/v6.0.0...v6.1.0
 
 ### Added
 
-- [Add `Twitter::SearchResults#refresh_url`](https://github.com/sferik/twitter/commit/6bf08c008de139aad3ec173461e8633bfa5a3bd8) ([@mustafaturan](https://twitter.com/mustafaturan))
+- [Add `Twitter::SearchResults#refresh_url`](https://github.com/sferik/twitter/commit/6bf08c008de139aad3ec173461e8633bfa5a3bd8) ([@mustafaturan])
 
 ### Changed
 
@@ -496,18 +498,18 @@ https://github.com/sferik/twitter/compare/v6.0.0...v6.1.0
 
 ### Fixed
 
-- [Fix issue with wrong signature being generated when multipart data is posted](https://github.com/sferik/twitter/commit/65ab90a6d51755e5901434a3568f8163ca3e262f) ([@mustafaturan](https://twitter.com/mustafaturan))
+- [Fix issue with wrong signature being generated when multipart data is posted](https://github.com/sferik/twitter/commit/65ab90a6d51755e5901434a3568f8163ca3e262f) ([@mustafaturan])
 
 ## [4.7.0] - 2013-05-30
 
 ### Added
 
-- [Add support for application-only authentication](https://github.com/sferik/twitter/pull/387) ([@paracycle](https://twitter.com/paracycle))
-- [Add support for `Twitter::Entity::Symbol` entities](https://github.com/sferik/twitter/commit/a14a0cdc57ad5d7760392f71a280c7100a5b5936) ([@anno](https://twitter.com/anno))
-- [Add `Twitter::API::OAuth#invalidate_token`](https://github.com/sferik/twitter/pull/372) ([@terenceponce](https://twitter.com/terenceponce))
+- Add support for application-only authentication ([#387], [@paracycle])
+- [Add support for `Twitter::Entity::Symbol` entities](https://github.com/sferik/twitter/commit/a14a0cdc57ad5d7760392f71a280c7100a5b5936) ([@anno])
+- Add `Twitter::API::OAuth#invalidate_token` ([#372], [@terenceponce])
 - [Add `Twitter::API::Lists#lists_owned` method](https://github.com/sferik/twitter/commit/9e97b51c20aabf4485a91ae7db697ee3be131a89)
 - [Add `Twitter::API::Tweets#retweeters_ids` method](https://github.com/sferik/twitter/commit/8cf5b2ddf3d2647084496c7c3f205b2468d84cbe)
-- [Add `Twitter::SearchResults#next_results`](https://github.com/sferik/twitter/pull/365) ([@KentonWhite](https://twitter.com/KentonWhite))
+- Add `Twitter::SearchResults#next_results` ([#365], [@KentonWhite])
 
 ### Changed
 
@@ -523,35 +525,35 @@ https://github.com/sferik/twitter/compare/v6.0.0...v6.1.0
 ### Added
 
 - [Add `Twitter::Tweet#favorite_count`](https://github.com/sferik/twitter/commit/de8a356d0d5e757bfe383b58744efa1c2d842b79)
-- [Add `Twitter::SearchResults#next_results?`](https://github.com/sferik/twitter/commit/d951db4bdaa1ef72383f2026ec6236a289ee9074) ([@KentonWhite](https://twitter.com/KentonWhite))
+- [Add `Twitter::SearchResults#next_results?`](https://github.com/sferik/twitter/commit/d951db4bdaa1ef72383f2026ec6236a289ee9074) ([@KentonWhite])
 
 ### Fixed
 
-- [Fix `SystemStackError: stack level too deep` when converting to JSON](https://github.com/sferik/twitter/issues/368)
+- Fix `SystemStackError: stack level too deep` when converting to JSON ([#368])
 
 ## [4.6.1] - 2013-03-14
 
 ### Changed
 
-- [Convert nested classes in `Twitter::Base#attrs`](https://github.com/sferik/twitter/commit/e56c34c640189eb8b25a16994676a5e82b783cb3) ([@anno](https://twitter.com/anno))
+- [Convert nested classes in `Twitter::Base#attrs`](https://github.com/sferik/twitter/commit/e56c34c640189eb8b25a16994676a5e82b783cb3) ([@anno])
 
 ## [4.6.0] - 2013-03-08
 
 ### Added
 
 - [Add `Twitter::Tweet#filter_level` and `Twitter::Tweet#lang` attribute readers](https://github.com/sferik/twitter/commit/283aafbe1219e55f19a76517d9edce497001fca2)
-- [Add "Quick Start Guide" to the `README`](https://github.com/sferik/twitter/commit/afc24ee1bd07f19ef7fb8fd6b85aede34f3ab156) ([@coreyhaines](https://twitter.com/coreyhaines))
+- [Add "Quick Start Guide" to the `README`](https://github.com/sferik/twitter/commit/afc24ee1bd07f19ef7fb8fd6b85aede34f3ab156) ([@coreyhaines])
 
 ### Changed
 
 - [Make `Twitter::Base#attrs` call methods if they exist](https://github.com/sferik/twitter/commit/ff4f2daccd1acdfddcea7139d4dd6490b55129db)
-- [Allow `Twitter::API::Tweets#oembed` and `Twitter::API::Tweets#oembeds` to take a URL](https://github.com/sferik/twitter/commit/0d986fa4b0c254e8c816bce086c3f6648d8fd3d7) ([@bshelton229](https://twitter.com/bshelton229))
+- [Allow `Twitter::API::Tweets#oembed` and `Twitter::API::Tweets#oembeds` to take a URL](https://github.com/sferik/twitter/commit/0d986fa4b0c254e8c816bce086c3f6648d8fd3d7) ([@bshelton229])
 
 ## [4.5.0] - 2013-01-26
 
 ### Added
 
-- [Add `no_retweet_ids`](https://github.com/sferik/twitter/commit/cab8d6ebf3afdbd24463932262798a132d70a6f1) ([@tibbon](https://twitter.com/tibbon))
+- [Add `no_retweet_ids`](https://github.com/sferik/twitter/commit/cab8d6ebf3afdbd24463932262798a132d70a6f1) ([@tibbon])
 
 ## [4.4.4] - 2013-01-10
 
@@ -587,7 +589,7 @@ https://github.com/sferik/twitter/compare/v6.0.0...v6.1.0
 
 ### Fixed
 
-- [Fix `Twitter::API::FriendsAndFollowers#friends` and `Twitter::API::FriendsAndFollowers#followers`](https://github.com/sferik/twitter/commit/d97438f5de89a1a15ad8ff5e67e8e0c7d412911f) ([@nbraem](https://twitter.com/nbraem))
+- [Fix `Twitter::API::FriendsAndFollowers#friends` and `Twitter::API::FriendsAndFollowers#followers`](https://github.com/sferik/twitter/commit/d97438f5de89a1a15ad8ff5e67e8e0c7d412911f) ([@nbraem])
 
 ## [4.4.1] - 2012-12-08
 
@@ -599,8 +601,8 @@ https://github.com/sferik/twitter/compare/v6.0.0...v6.1.0
 
 ### Added
 
-- [Add `Twitter::API::FriendsAndFollowers#friends` and `Twitter::API::FriendsAndFollowers#followers`](https://github.com/sferik/twitter/commit/03e1512a8e5e589771414aaf46db34718f1469ce) ([@tibbon](https://twitter.com/tibbon))
-- [Add `method` parameter to `Twitter::API::Users#users`](https://github.com/sferik/twitter/commit/4885c8df5f36fcbe39bd435ef12b6e0bed06dcb5) ([@thomasjklemm](https://twitter.com/thomasjklemm))
+- [Add `Twitter::API::FriendsAndFollowers#friends` and `Twitter::API::FriendsAndFollowers#followers`](https://github.com/sferik/twitter/commit/03e1512a8e5e589771414aaf46db34718f1469ce) ([@tibbon])
+- [Add `method` parameter to `Twitter::API::Users#users`](https://github.com/sferik/twitter/commit/4885c8df5f36fcbe39bd435ef12b6e0bed06dcb5) ([@thomasjklemm])
 
 ### Changed
 
@@ -616,7 +618,7 @@ https://github.com/sferik/twitter/compare/v6.0.0...v6.1.0
 
 ### Fixed
 
-- [Correct endpoint of `Twitter::Client#report_spam` method](https://github.com/sferik/twitter/commit/e59c0c4c31a9f7eed3d202c276628a3ea0df6d28) ([@uasi](https://twitter.com/uasi))
+- [Correct endpoint of `Twitter::Client#report_spam` method](https://github.com/sferik/twitter/commit/e59c0c4c31a9f7eed3d202c276628a3ea0df6d28) ([@uasi])
 
 ## [4.3.0] - 2012-11-20
 
@@ -641,7 +643,7 @@ https://github.com/sferik/twitter/compare/v6.0.0...v6.1.0
 
 ### Changed
 
-- [Add `abort_on_exception` to `Enumerable#threaded_map`](https://github.com/sferik/twitter/commit/15c9a7c221f24226c1003b76b287d2b2ed9306cb) ([@aheaven87](https://twitter.com/aheaven87))
+- [Add `abort_on_exception` to `Enumerable#threaded_map`](https://github.com/sferik/twitter/commit/15c9a7c221f24226c1003b76b287d2b2ed9306cb) ([@aheaven87])
 
 ## [4.1.1] - 2012-10-18
 
@@ -698,7 +700,7 @@ https://github.com/sferik/twitter/compare/v6.0.0...v6.1.0
 - [Remove `Twitter::API#recommendations`](https://github.com/sferik/twitter/commit/e4bcec169faafb78772e60d6cdeb5583a40f32e3)
 - [Remove `Twitter::API#network_timeline`](https://github.com/sferik/twitter/commit/93c65f25eafb3051a86140ab7e980d03431040f1)
 
-## [3.8.0] - 2012-10-06
+## [3.8.0] - 2012-10-06 [YANKED]
 
 ### Added
 
@@ -709,9 +711,9 @@ https://github.com/sferik/twitter/compare/v6.0.0...v6.1.0
 
 ### Changed
 
-- [Do not attempt to parse redirects](https://github.com/sferik/twitter/commit/30ee1c733cfea091f60b18a51d01eab1d0cc6f30) ([@twoism](https://twitter.com/twoism))
+- [Do not attempt to parse redirects](https://github.com/sferik/twitter/commit/30ee1c733cfea091f60b18a51d01eab1d0cc6f30) ([@twoism])
 
-## [3.7.0] - 2012-08-26
+## [3.7.0] - 2012-08-26 [YANKED]
 
 ### Added
 
@@ -728,7 +730,7 @@ https://github.com/sferik/twitter/compare/v6.0.0...v6.1.0
 
 - [Remove support for `IO` hash syntax](https://github.com/sferik/twitter/commit/bfe842d714a77b8edda90d0e2b547be434dc0148)
 
-## [3.6.0] - 2012-08-14
+## [3.6.0] - 2012-08-14 [YANKED]
 
 ### Changed
 
@@ -736,7 +738,7 @@ https://github.com/sferik/twitter/compare/v6.0.0...v6.1.0
 - [Make `Twitter::Cursor` an `Enumerable`](https://github.com/sferik/twitter/commit/2582f2ed3518a11bcad150778da18618dd9a0d37)
 - [Always define `respond_to_missing?` when overriding `method_missing`](https://github.com/sferik/twitter/commit/23cfaf9dec4bc58fd9b3fd8366fb0e087c7f1e51)
 
-## [3.5.0] - 2012-08-09
+## [3.5.0] - 2012-08-09 [YANKED]
 
 ### Added
 
@@ -748,7 +750,7 @@ https://github.com/sferik/twitter/compare/v6.0.0...v6.1.0
 - [Alias `Twitter::API#status_activity` to `Twitter::API#tweet_activity`](https://github.com/sferik/twitter/commit/ccbdc6776a6780277e6ec813d3ed579f42440631)
 - [Move `IdentityMapKeyError` under `Twitter::Error` namespace](https://github.com/sferik/twitter/commit/f1491d2fe1827140ea42b2618d0a25dc03110394)
 
-## [3.4.1] - 2012-07-26
+## [3.4.1] - 2012-07-26 [YANKED]
 
 ### Added
 
@@ -759,19 +761,19 @@ https://github.com/sferik/twitter/compare/v6.0.0...v6.1.0
 - [Prevent `MultiJson::DecodeError` from bubbling up](https://github.com/sferik/twitter/commit/d870b7b8605e48bb0cd40e4b60684705ec06a846)
 - [Correctly handle `nil` response body](https://github.com/sferik/twitter/commit/7fc785fa2ad43187fee2ba4808ffb3d09e8533dc)
 
-## [3.4.0] - 2012-07-24
+## [3.4.0] - 2012-07-24 [YANKED]
 
 ### Changed
 
 - [Refactor `retweeted_to` and `retweeted_by` into multiple methods](https://github.com/sferik/twitter/commit/7600cc3d529599cefc8d9c715e5f308ac4ca7319)
 
-## [3.3.1] - 2012-07-18
+## [3.3.1] - 2012-07-18 [YANKED]
 
 ### Fixed
 
 - [Fix authentication bug](https://github.com/sferik/twitter/commit/b1fc6eac21293f2f87df9ca6684c30ef8155137f)
 
-## [3.3.0] - 2012-07-18
+## [3.3.0] - 2012-07-18 [YANKED]
 
 ### Changed
 
@@ -781,16 +783,16 @@ https://github.com/sferik/twitter/compare/v6.0.0...v6.1.0
 - [Move `Twitter::Point` and `Twitter::Polygon` classes under `Twitter::Geo` namespace](https://github.com/sferik/twitter/commit/059cc5545195f99ba1b484e8359b7246f29be37e)
 - [Move `Twitter::Photo` class under `Twitter::Media` namespace](https://github.com/sferik/twitter/commit/979ed718c6c31140a5698cbb6c7bd311b799f39e)
 
-## [3.2.0] - 2012-07-16
+## [3.2.0] - 2012-07-16 [YANKED]
 
 ### Changed
 
-- [Make identity map configurable](https://github.com/sferik/twitter/pull/288)
-- [Decouple identity map from object instantiation](https://github.com/sferik/twitter/pull/286)
+- Make identity map configurable ([#288])
+- Decouple identity map from object instantiation ([#286])
 - [Make `IdentityMapKeyError` inherit from `IndexError`](https://github.com/sferik/twitter/commit/5503704c8601fa533299e22b49040cd073b85a6a)
 - [Break up `Twitter::User` class into `Twitter::BasicUser`, `Twitter::SourceUser`, `Twitter::TargetUser`, and `Twitter::User`](https://github.com/sferik/twitter/commit/9d4f1e5dc4001adb124d07584f64322555e0e73c)
 
-## [3.1.0] - 2012-07-06
+## [3.1.0] - 2012-07-06 [YANKED]
 
 ### Added
 
@@ -801,7 +803,7 @@ https://github.com/sferik/twitter/compare/v6.0.0...v6.1.0
 - [Make object equality more strict](https://github.com/sferik/twitter/commit/537a5463d568e9a07ef5de5ce4dcad701b068ff3)
 - [Pass options from `Twitter::Client.user` to `Twitter::Client.verify_credentials`](https://github.com/sferik/twitter/commit/8d99cfdbc7614690769c1682664cbe8cd9ea9c93)
 
-## [3.0.0] - 2012-06-28
+## [3.0.0] - 2012-06-28 [YANKED]
 
 ### Added
 
@@ -815,7 +817,7 @@ https://github.com/sferik/twitter/compare/v6.0.0...v6.1.0
 - [All returned hashes now use `Symbol` keys instead of `String` keys](https://github.com/sferik/twitter/commit/d5b5d8788dc0c0cef6f2c28e6fa2dc6ffcf389eb)
 - [`Twitter::Client` methods now allow multiple arguments and return an `Array`](https://github.com/sferik/twitter/commit/78adf3833ebfcafda48d31dee7befdcfa76f2971)
 - [`Twitter::Client#users` can now return more than 100 `Twitter::User` objects](https://github.com/sferik/twitter/commit/296a8847aa9bea0881369649a91e38fc2e9b3076)
-- [`Twitter::Client#search` now returns a `Twitter::SearchResult` object instead of an array of `Twitter::Status` objects](https://github.com/sferik/twitter/pull/261/files) ([@wjlroe](https://twitter.com/wjlroe))
+- `Twitter::Client#search` now returns a `Twitter::SearchResult` object instead of an array of `Twitter::Status` objects ([#261], [@wjlroe])
 - [`Twitter::Client#follow` now checks to make sure a user is not already being followed before following](https://github.com/sferik/twitter/commit/24ffbca370f6957bc9a6c43cb6a1ee55cade7bb8)
 - [Middleware is now specified as a `Faraday::Builder`](https://github.com/sferik/twitter/commit/2bd5010fc38b235ee9cc09b75e1ae89f23409f94)
 - [Faraday errors are now captured and re-raised as a `Twitter::Error::ClientError`](https://github.com/sferik/twitter/commit/ccf3ddeb4cae937fdf3335546c17884472855149)
@@ -827,25 +829,25 @@ https://github.com/sferik/twitter/compare/v6.0.0...v6.1.0
 - [Remove untested gateway middleware](https://github.com/sferik/twitter/commit/7e501a99fe15ba9be69d2b791fc1d99c1904542b)
 - [Remove deprecated `Twitter::Status#expanded_urls` method](https://github.com/sferik/twitter/commit/50d2613b1ade92c820f553d6e8389a49ec53dac1)
 
-## [2.5.0] - 2012-06-01
+## [2.5.0] - 2012-06-01 [YANKED]
 
 ### Removed
 
 - [Remove `Active Support` dependency](https://github.com/sferik/twitter/compare/v2.4.0...v2.5.0)
 
-## [2.4.0] - 2012-05-21
+## [2.4.0] - 2012-05-21 [YANKED]
 
 ### Changed
 
 - [`Twitter::User` objects can be used interchangeably with user IDs or screen names](https://github.com/sferik/twitter/commit/2dd5d32ca1a67a88d61d2f762e011295cab8a9bd)
 - [`Twitter::List` objects can be used interchangeably with list IDs or slugs](https://github.com/sferik/twitter/commit/621e1ee428ea9fea024b26c8775baa47a7c235d9)
 
-## [2.3.0] - 2012-05-12
+## [2.3.0] - 2012-05-12 [YANKED]
 
 ### Added
 
 - [Add `Twitter::Status#full_text`](https://github.com/sferik/twitter/commit/a03eb945df6a58f92cc832f5ffc1c8973c57339e)
-- [Add `profile_image_url_https` accessor to `Twitter::Status`](https://github.com/sferik/twitter/commit/5991fa395fcd94bb88e88ed6c9bfae51896978b5) ([@terryjray](https://twitter.com/terryjray))
+- [Add `profile_image_url_https` accessor to `Twitter::Status`](https://github.com/sferik/twitter/commit/5991fa395fcd94bb88e88ed6c9bfae51896978b5) ([@terryjray])
 - [Add `created_at` attribute to `Twitter::List`](https://github.com/sferik/twitter/commit/6d408ead1cfa83dd0539fe771495b5f5e594282e)
 - [Add ability to pass a user to `Twitter::Client#recommendations`](https://github.com/sferik/twitter/commit/19f5796ba618e634ed56e936eb8f3bcb9822124c)
 
@@ -853,22 +855,22 @@ https://github.com/sferik/twitter/compare/v6.0.0...v6.1.0
 
 - [Merge `Twitter::Client` modules into a monolithic `Twitter::Client` class](https://github.com/sferik/twitter/commit/396bb15fe8a273e01370e6a22efbf1e7f6a7805e)
 - [Make `Status#screen_name` return `from_user` attribute and vice versa](https://github.com/sferik/twitter/commit/82afc66a342c51258f80d1ba26959358be1a9c73)
-- [Alias `trends` to `local_trends`](https://github.com/sferik/twitter/commit/b4eb89c33a6b00f9fd685fd7dc95b79ee9e403bb) ([@Tricon](https://twitter.com/Tricon))
+- [Alias `trends` to `local_trends`](https://github.com/sferik/twitter/commit/b4eb89c33a6b00f9fd685fd7dc95b79ee9e403bb) ([@Tricon])
 
-## [2.2.0] - 2012-03-28
+## [2.2.0] - 2012-03-28 [YANKED]
 
 ### Added
 
 - [Add `Twitter::Mention#source`](https://github.com/sferik/twitter/commit/6829994f4d8ca1e6d444fa75dc78c06bd01a5d74)
-- [Add `Twitter::ListMemeberAdded`](https://github.com/sferik/twitter/commit/b40c79d59e8a4cfc71078127542c1f434c3ca517) ([@aamerabbas](https://twitter.com/aamerabbas))
-- [Add `entities` attribute to `Twitter::Status`](https://github.com/sferik/twitter/pull/245/files) ([@tomykaira](https://twitter.com/tomykaira))
+- [Add `Twitter::ListMemeberAdded`](https://github.com/sferik/twitter/commit/b40c79d59e8a4cfc71078127542c1f434c3ca517) ([@aamerabbas])
+- Add `entities` attribute to `Twitter::Status` ([#245], [@tomykaira])
 - [Add `Twitter::Client#list_remove_members`](https://github.com/sferik/twitter/commit/025c5281c9e695ad7fd21bcc34d4df4aaf0f3fb7)
 
 ### Changed
 
-- [Don't create a new Faraday instance on every request](https://github.com/sferik/twitter/pull/233/files)
+- Don't create a new Faraday instance on every request ([#233])
 
-## [2.1.0] - 2012-01-28
+## [2.1.0] - 2012-01-28 [YANKED]
 
 ### Added
 
@@ -883,9 +885,9 @@ https://github.com/sferik/twitter/compare/v6.0.0...v6.1.0
 
 ### Fixed
 
-- [Fix `Twitter::Status` object returned by `Twitter::Client#retweet`](https://github.com/sferik/twitter/pull/228/files)
+- Fix `Twitter::Status` object returned by `Twitter::Client#retweet` ([#228])
 
-## [2.0.0] - 2011-11-18
+## [2.0.0] - 2011-11-18 [YANKED]
 
 ### Added
 
@@ -906,40 +908,40 @@ https://github.com/sferik/twitter/compare/v6.0.0...v6.1.0
 - [Remove support for XML response format](https://github.com/sferik/twitter/commit/e60b9cac2b14d11dcc703c87b9a74328c173f35a)
 - [Remove all deprecated methods](https://github.com/sferik/twitter/commit/5f59f1935d31df2756fd5bc43ae0f7e57879a5a4)
 
-## [1.7.2] - 2011-09-22
+## [1.7.2] - 2011-09-22 [YANKED]
 
 ### Added
 
-- [Add support for passing options directly to faraday](https://github.com/sferik/twitter/commit/4cc469761ea9e663abaf761e061a89e848ce9beb) ([@icambron](https://twitter.com/icambron))
+- [Add support for passing options directly to faraday](https://github.com/sferik/twitter/commit/4cc469761ea9e663abaf761e061a89e848ce9beb) ([@icambron])
 
 ### Changed
 
-- [Update `multi_xml` dependency to 0.4.0](https://github.com/sferik/twitter/commit/01105b7e7f211a140ce61bdbe5e3fc7d68c9b301) ([@masterkain](https://twitter.com/masterkain))
+- [Update `multi_xml` dependency to 0.4.0](https://github.com/sferik/twitter/commit/01105b7e7f211a140ce61bdbe5e3fc7d68c9b301) ([@masterkain])
 
 ### Deprecated
 
 - [Deprecate `Trends#trends_current` and remove the XML response format](https://github.com/sferik/twitter/commit/f9c7af99b4560f39b3542582934ae07955b6c9cc)
 
-## [1.7.1] - 2011-09-08
+## [1.7.1] - 2011-09-08 [YANKED]
 
 ### Changed
 
-- [Refactor connection and requests to accept options](https://github.com/sferik/twitter/commit/f7570de9f38f57e9fc6f15aa275f308a5ea69bc7) ([@laserlemon](https://twitter.com/laserlemon))
-- [Include X-Phx header for internal APIs only](https://github.com/sferik/twitter/compare/f7570de9...34f29fe6) ([@laserlemon](https://twitter.com/laserlemon))
+- [Refactor connection and requests to accept options](https://github.com/sferik/twitter/commit/f7570de9f38f57e9fc6f15aa275f308a5ea69bc7) ([@laserlemon])
+- [Include X-Phx header for internal APIs only](https://github.com/sferik/twitter/compare/f7570de9...34f29fe6) ([@laserlemon])
 
-## [1.7.0] - 2011-09-06
+## [1.7.0] - 2011-09-06 [YANKED]
 
 ### Added
 
-- [Add `Account#totals` and `Account#settings`](https://github.com/sferik/twitter/commit/6496e318ec49f5b054f93a13ea91b4f1d4bb58c0) ([@gazoombo](https://twitter.com/gazoombo))
+- [Add `Account#totals` and `Account#settings`](https://github.com/sferik/twitter/commit/6496e318ec49f5b054f93a13ea91b4f1d4bb58c0) ([@gazoombo])
 - [Add `Activity#about_me` and `Activity#by_friends`](https://github.com/sferik/twitter/commit/35e96108c450e76611137feed841f595d7214533)
-- [Add `Help#configuration` and `Help#language`](https://github.com/sferik/twitter/commit/a0c88b43990a64b22b82e32301f2b91c094ab721) ([@anno](https://twitter.com/anno))
+- [Add `Help#configuration` and `Help#language`](https://github.com/sferik/twitter/commit/a0c88b43990a64b22b82e32301f2b91c094ab721) ([@anno])
 - [Add `Search#images_facets` and `Search#video_facets`](https://github.com/sferik/twitter/commit/1cc1f3cd75128f5e2c802fe95524a1afffc3962b)
 - [Add `Search#search`](https://github.com/sferik/twitter/commit/327724b8edcefaf726d9d92c7e9d8f5380003097)
 - [Add `Statuses#media_timeline`](https://github.com/sferik/twitter/commit/f1a78ea183663e9853b4b5dc128dee9ce79391a3)
-- [Add `Tweets#update_with_media`](https://github.com/sferik/twitter/commit/cdf717b366a9ac73133a6f576391c4c3f46f9bb3) ([@JulienNakache](https://twitter.com/JulienNakache))
+- [Add `Tweets#update_with_media`](https://github.com/sferik/twitter/commit/cdf717b366a9ac73133a6f576391c4c3f46f9bb3) ([@JulienNakache])
 - [Add `Urls#resolve`](https://github.com/sferik/twitter/commit/b8d92b9f3b9669cc7267774b563bae543295350e)
-- [Add `User#contributees`](https://github.com/sferik/twitter/commit/2b88f819775b9a90f4969fe03dc66ef1ecc2fb38) ([@GhettoCode](https://twitter.com/GhettoCode))
+- [Add `User#contributees`](https://github.com/sferik/twitter/commit/2b88f819775b9a90f4969fe03dc66ef1ecc2fb38) ([@GhettoCode])
 - [Add `User#contributor`](https://github.com/sferik/twitter/commit/1bb9f2000a322f9026681b78d1e8966409a333a2)
 - [Add `User#recommendations`](https://github.com/sferik/twitter/commit/52d13cd4711931539686a483daa15666bae297a5)
 - [Add `User#suggest_users`](https://github.com/sferik/twitter/commit/15dc1812f270be0f635f65091044d7cbb88cae4d)
@@ -948,23 +950,23 @@ https://github.com/sferik/twitter/compare/v6.0.0...v6.1.0
 
 - [Move API version out of endpoint and into path](https://github.com/sferik/twitter/commit/d156fd54a8591b44b22f72890099fce0ce4d58c8)
 
-## [1.6.2] - 2011-08-02
+## [1.6.2] - 2011-08-02 [YANKED]
 
 ### Changed
 
 - [Update hashie dependency to 1.1.0](https://github.com/sferik/twitter/commit/fb86f58203fb7c7dfec30068de663624416e955f)
 
-## [1.6.1] - 2011-07-30
+## [1.6.1] - 2011-07-30 [YANKED]
 
 ### Changed
 
-- [Update faraday dependency to 0.7.0](https://github.com/sferik/twitter/commit/59a50a8f08999fa7a90b0e332171079a137c6752) ([@ngauthier](https://twitter.com/ngauthier))
+- [Update faraday dependency to 0.7.0](https://github.com/sferik/twitter/commit/59a50a8f08999fa7a90b0e332171079a137c6752) ([@ngauthier])
 
-## [1.6.0] - 2011-06-24
+## [1.6.0] - 2011-06-24 [YANKED]
 
 ### Added
 
-- [Add a custom OAuth implementation](https://github.com/sferik/twitter/commit/5d2e7cc514b13842d7fe02fa7bc724136ef9f276) ([@NathanielBarnes](https://twitter.com/NathanielBarnes))
+- [Add a custom OAuth implementation](https://github.com/sferik/twitter/commit/5d2e7cc514b13842d7fe02fa7bc724136ef9f276) ([@NathanielBarnes])
 - [Add convenience method to determine whether a user exists](https://github.com/sferik/twitter/commit/a7fc8616e5733e4c64f98f2ff5562e74e025a1f3)
 
 ### Changed
@@ -975,29 +977,29 @@ https://github.com/sferik/twitter/compare/v6.0.0...v6.1.0
 
 - [Fully remove `Rash`](https://github.com/sferik/twitter/commit/3b39696902cc05a29bac35e7465ef352264b694d)
 
-## [1.5.0] - 2011-05-29
+## [1.5.0] - 2011-05-29 [YANKED]
 
 ### Changed
 
 - [Change interface to make `Twitter` module behave more like a class](https://github.com/sferik/twitter/commit/df5247de490f7448c35c8f84112a9e7c14ce4057)
 
-## [1.4.1] - 2011-04-28
+## [1.4.1] - 2011-04-28 [YANKED]
 
 ### Changed
 
 - [Update `multi_json` dependency to version 1.0.0](https://github.com/sferik/twitter/commit/9ab51bc5536e5eebea10283d771cfe57e2fccbc7)
 
-## [1.4.0] - 2011-04-21
+## [1.4.0] - 2011-04-21 [YANKED]
 
 ### Changed
 
-- [Update list methods to use new resources](https://github.com/sferik/twitter/compare/v1.3.0...v1.4.0) ([@erebor](https://twitter.com/erebor))
+- [Update list methods to use new resources](https://github.com/sferik/twitter/compare/v1.3.0...v1.4.0) ([@erebor])
 
 ### Fixed
 
 - [Fix copy/paste bug in `Error#ratelimit_remaining`](https://github.com/sferik/twitter/commit/b74861e75f0cdf7eaafc37162e2f040ae27db002)
 
-## [1.3.0] - 2011-04-06
+## [1.3.0] - 2011-04-06 [YANKED]
 
 ### Changed
 
@@ -1006,77 +1008,77 @@ https://github.com/sferik/twitter/compare/v6.0.0...v6.1.0
 
 ### Fixed
 
-- [Fix typo in README for accessing friends and followers](https://github.com/sferik/twitter/commit/2043ab4a6b723cac2a8ed77e26a4b0e3f4f55b03) ([@surfacedamage](https://twitter.com/surfacedamage))
+- [Fix typo in README for accessing friends and followers](https://github.com/sferik/twitter/commit/2043ab4a6b723cac2a8ed77e26a4b0e3f4f55b03) ([@surfacedamage])
 
-## [1.2.0] - 2011-03-20
+## [1.2.0] - 2011-03-20 [YANKED]
 
 ### Changed
 
 - [Respect global load path](https://github.com/sferik/twitter/commit/6a629a6a06e115388cce6f1de04f45a4b0707cac)
-- [Use `map` and `Hash[]` instead of `inject({})`](https://github.com/sferik/twitter/commit/a2b0b51618f40b526f554c019a6c83b0bf9a8cdf) ([@wtnelson](https://twitter.com/wtnelson))
-- [Check headers for `Retry-After` in absence of `retry-after`](https://github.com/sferik/twitter/commit/924253214efcedfeb80b4c6fe57dcbb2a7470177) ([@wtnelson](https://twitter.com/wtnelson))
+- [Use `map` and `Hash[]` instead of `inject({})`](https://github.com/sferik/twitter/commit/a2b0b51618f40b526f554c019a6c83b0bf9a8cdf) ([@wtnelson])
+- [Check headers for `Retry-After` in absence of `retry-after`](https://github.com/sferik/twitter/commit/924253214efcedfeb80b4c6fe57dcbb2a7470177) ([@wtnelson])
 - [Don't strip @ signs from screen names](https://github.com/sferik/twitter/commit/38c9dd0a720ea857ff6220b28f66db4c780a7fda)
-- [Make `#places_similar` method return a token](https://github.com/sferik/twitter/commit/351e2240717a34d6575a802078077a1681fa4616) ([@nicolassanta](https://twitter.com/nicolassanta))
+- [Make `#places_similar` method return a token](https://github.com/sferik/twitter/commit/351e2240717a34d6575a802078077a1681fa4616) ([@nicolassanta])
 
 ### Fixed
 
 - [Fix name of `#list_add_members` resource](https://github.com/sferik/twitter/commit/3adcc1592240be2679f0a2c7d0c390b574abe8f1)
 
-## [1.1.2] - 2011-02-02
+## [1.1.2] - 2011-02-02 [YANKED]
 
 ### Added
 
-- [Add support for `Twitter.respond_to?`](https://github.com/sferik/twitter/commit/ce64c7818f9b62cf91f1fa5dc2e76a9d4205cd2e) ([@fernandezpablo](https://twitter.com/fernandezpablo))
+- [Add support for `Twitter.respond_to?`](https://github.com/sferik/twitter/commit/ce64c7818f9b62cf91f1fa5dc2e76a9d4205cd2e) ([@fernandezpablo])
 
 ### Changed
 
 - [Opt-in for testing with rubygems-test](https://github.com/sferik/twitter/commit/7d92afc138cac1b751b17682fd166b2603f804c6)
 
-## [1.1.1] - 2011-01-16
+## [1.1.1] - 2011-01-16 [YANKED]
 
 ### Fixed
 
 - [Don't set cached `screen_name` when creating a new API client](https://github.com/sferik/twitter/commit/ceeed993b16f95582c648e93de03738362ba1d7b)
 
-## [1.1.0] - 2011-01-06
+## [1.1.0] - 2011-01-06 [YANKED]
 
 ### Added
 
-- [Add `Enumerable` mixin to `Twitter::Search`](https://github.com/sferik/twitter/commit/c175c15d320d10db542ebb4cc13c5f5d583c89c4) ([@ALindeman](https://twitter.com/ALindeman))
+- [Add `Enumerable` mixin to `Twitter::Search`](https://github.com/sferik/twitter/commit/c175c15d320d10db542ebb4cc13c5f5d583c89c4) ([@ALindeman])
 
 ### Changed
 
-- [Overload all methods that require a `screen_name` parameter](https://github.com/sferik/twitter/compare/ecd647e414ac0b0cae96...59cf052ca646a2b79446) ([@gabriel_somoza](https://twitter.com/gabriel_somoza))
-- [Rename `user_screen_name` to `screen_name`](https://github.com/sferik/twitter/commit/4fb4f8a28c967f7d5a2cf295b34548a346900cfd) ([@jalada](https://twitter.com/jalada))
-- [Handle error returns from lookup](https://github.com/sferik/twitter/commit/0553cdbe262f006fae149309ce51a03985ed8fd2) ([@leshill](https://twitter.com/leshill))
-- [Use 'tude' parameter for attitudes](https://github.com/sferik/twitter/commit/8db1bf9dadec3a660a281c94cab2fc335891ce30) ([@ALindeman](https://twitter.com/ALindeman))
+- [Overload all methods that require a `screen_name` parameter](https://github.com/sferik/twitter/compare/ecd647e414ac0b0cae96...59cf052ca646a2b79446) ([@gabriel_somoza])
+- [Rename `user_screen_name` to `screen_name`](https://github.com/sferik/twitter/commit/4fb4f8a28c967f7d5a2cf295b34548a346900cfd) ([@jalada])
+- [Handle error returns from lookup](https://github.com/sferik/twitter/commit/0553cdbe262f006fae149309ce51a03985ed8fd2) ([@leshill])
+- [Use 'tude' parameter for attitudes](https://github.com/sferik/twitter/commit/8db1bf9dadec3a660a281c94cab2fc335891ce30) ([@ALindeman])
 
-## [1.0.0] - 2010-11-18
+## [1.0.0] - 2010-11-18 [YANKED]
 
 ### Added
 
 - [Add methods to `Search` class](https://github.com/sferik/twitter/commit/1871913342a5621edfebb9a7c8be705608e082d5)
 - [Add proxy support](https://github.com/sferik/twitter/commit/1df33b7495093bc1f136d61b8aac9c9038414bc5)
-- [Add `Twitter.profile_image` method](https://github.com/sferik/twitter/commit/e6737ec8b07b9fd1ffd96a21074a100a6fb3cf7e) ([@ratherchad](https://twitter.com/ratherchad))
+- [Add `Twitter.profile_image` method](https://github.com/sferik/twitter/commit/e6737ec8b07b9fd1ffd96a21074a100a6fb3cf7e) ([@ratherchad])
 - [Add `#NewTwitter` methods and tests](https://github.com/sferik/twitter/commit/0bfbf6352de9bdda2b93ed053a358c0cb8e78e8f)
 
 ### Changed
 
 - [Allow users to pass in screen names with leading '@'](https://github.com/sferik/twitter/commit/fc3af84e0d7358ddacf49acefe7d950ac11983e0)
 - [UTF-8 encode `Utils` module](https://github.com/sferik/twitter/commit/4a62f181c2ae7b931e17fcfa6532b3a3f0ed0c8e)
-- [Copy-edit documentation](https://github.com/sferik/twitter/commit/7873b0306d5fb1f27e4061cd024ab43589441fa4) ([@dianakimball](https://twitter.com/dianakimball))
+- [Copy-edit documentation](https://github.com/sferik/twitter/commit/7873b0306d5fb1f27e4061cd024ab43589441fa4) ([@dianakimball])
 - [Changes to `Search` class](https://github.com/sferik/twitter/commit/e769fabc0232cbbcb9d0fa5a07277fb9f50b17c8)
 - [Make `#suggestions` method consistent with Twitter API documentation](https://github.com/sferik/twitter/commit/8393a06a9e8ca03be9adffdbfd042c176e2f6597)
 - [Rename default user agent](https://github.com/sferik/twitter/commit/2929e533f441bea2313882c4e0ed5593fe999491)
 - [Make all global settings overrideable at the class level](https://github.com/sferik/twitter/commit/66f3ac223d6f0822c8b3acd4cdcd8c84c8dacfe0)
-- [Expose a property in `EnhanceYourCalm` for HTTP header "Retry-After"](https://github.com/sferik/twitter/commit/7ab91f9d26351f52d3c803bb191d33bdacff5094) ([@duylam](https://twitter.com/duylam))
-- [Merge `Base`, `Geo`, `Trends`, and `Unauthenticated` into `Client` class](https://github.com/sferik/twitter/commit/eb53872249634ee1f0179982b091a1a0fd9c0973) ([@laserlemon](https://twitter.com/laserlemon))
+- [Expose a property in `EnhanceYourCalm` for HTTP header "Retry-After"](https://github.com/sferik/twitter/commit/7ab91f9d26351f52d3c803bb191d33bdacff5094) ([@duylam])
+- [Merge `Base`, `Geo`, `Trends`, and `Unauthenticated` into `Client` class](https://github.com/sferik/twitter/commit/eb53872249634ee1f0179982b091a1a0fd9c0973) ([@laserlemon])
 - [Move examples into README](https://github.com/sferik/twitter/commit/96600cb5611965788c41b3788668188d37e16803)
 - [Rename `Twitter.scheme` to `Twitter.protocol`](https://github.com/sferik/twitter/commit/512fcdfc22b796d39dd07c2dcc712aa48131d7c6)
 - [Map access key/secret names to SimpleOAuth correctly](https://github.com/sferik/twitter/commit/9fa5be3a9e0b7f7dcb4046314d8c6bc41f4f063d)
 - [Improved error handling by separating HTTP 4xx errors from HTTP 5xx errors](https://github.com/sferik/twitter/commit/f26e7875980a7b2b16285c31198601b92ac5cbb6)
 - [Switch from httparty to faraday HTTP client library](https://github.com/sferik/twitter/commit/80aff88dae11d64673fe4e025cc8f065a6796345)
-- [Switch from oauth to simple_oauth for authentication](https://github.com/sferik/twitter/commit/76cfe3749e56b2b486f2b5ffc9aa7f437cb2db29) ([@laserlemon](https://twitter.com/laserlemon))
+- [Switch from oauth to simple_oauth for authentication](https://github.com/sferik/twitter/commit/76cfe3749e56b2b486f2b5ffc9aa7f437cb2db29) ([@laserlemon])
 - [Handle errors in faraday middleware](https://github.com/sferik/twitter/commit/466a0d9942d1c0c0c35c6302951087076ddf4b82#diff-2)
 - [Enable SSL by default (add option to disable SSL)](https://github.com/sferik/twitter/commit/c4f8907d6595f93d63bc84d6575920a14774e656)
 - [Use HTTP DELETE method instead of HTTP POST for all destructive methods](https://github.com/sferik/twitter/commit/0bfbf6352de9bdda2b93ed053a358c0cb8e78e8f)
@@ -1086,75 +1088,75 @@ https://github.com/sferik/twitter/compare/v6.0.0...v6.1.0
 ### Fixed
 
 - [Fix conditional inclusion of jruby-openssl in Ruby 1.9](https://github.com/sferik/twitter/commit/e8e9b1d7232bf69ac5e217e2e18dc9c8e75f2fc4)
-- [Fix tests that assume position in a `Hash`](https://github.com/sferik/twitter/commit/c9f7ed1d9106807aa6fb27d48a92f4b92d0594a7) ([@duncan](https://twitter.com/duncan))
+- [Fix tests that assume position in a `Hash`](https://github.com/sferik/twitter/commit/c9f7ed1d9106807aa6fb27d48a92f4b92d0594a7) ([@duncan])
 
-## [0.9.12] - 2010-09-25
-
-### Changed
-
-- [Rename parameters to be less confusing](https://github.com/rorra/twitter/commit/cd7ea8de6663d6ed5ea22b590d39adc72646fc1e) ([@rorra](https://twitter.com/rorra))
-- [Update `user` method to match the Twitter API docs](https://github.com/sferik/twitter/commit/cb31e4a26b20d93006d568fab50ccce5c4d1626f) ([@nerdEd](https://twitter.com/nerdEd))
-- [Add aliases for search methods](https://github.com/sferik/twitter/commit/05dd3e5a058ef69f874cfe33ae35b01f574e549b)
+## [0.9.12] - 2010-09-25 [YANKED]
 
 ### Added
 
 - [Add `Twitter.user_agent` and `Twitter.user_agent=` methods](https://github.com/sferik/twitter/commit/0fc68f1c52e3b754194fe8a9cfbd9d4499eacbe1)
 - [Add `Search#locale` method](https://github.com/sferik/twitter/commit/584bcf9eb896530a87e4122fb1a020c35744f0cf)
 
-## [0.9.11] - 2010-09-24
+### Changed
+
+- [Rename parameters to be less confusing](https://github.com/rorra/twitter/commit/cd7ea8de6663d6ed5ea22b590d39adc72646fc1e) ([@rorra])
+- [Update `user` method to match the Twitter API docs](https://github.com/sferik/twitter/commit/cb31e4a26b20d93006d568fab50ccce5c4d1626f) ([@nerdEd])
+- [Add aliases for search methods](https://github.com/sferik/twitter/commit/05dd3e5a058ef69f874cfe33ae35b01f574e549b)
+
+## [0.9.11] - 2010-09-24 [YANKED]
 
 ### Added
 
-- [Add `Search#filter` method](https://github.com/sferik/twitter/commit/0b37998055158d4fed0e3c296d8d2a42ac77d5d9) ([@pjdavis](https://twitter.com/pjdavis))
-- [Add `Search#retweeted` and `Search#not_retweeted` methods](https://github.com/sferik/twitter/commit/9ef83acdcbe682a8b5a325f89d566f7ef97fffc2) ([@levycarneiro](https://twitter.com/levycarneiro))
+- [Add `Search#filter` method](https://github.com/sferik/twitter/commit/0b37998055158d4fed0e3c296d8d2a42ac77d5d9) ([@pjdavis])
+- [Add `Search#retweeted` and `Search#not_retweeted` methods](https://github.com/sferik/twitter/commit/9ef83acdcbe682a8b5a325f89d566f7ef97fffc2) ([@levycarneiro])
 
 ### Changed
 
-- [Add test to ensure `Search#fetch` doesn't overwrite `@query(:q)`](https://github.com/sferik/twitter/commit/2e05847cf70692b760c45dd54b6bad820176c9bd) ([@pjdavis](https://twitter.com/pjdavis))
-- [Switch from YAJL to MultiJson](https://github.com/sferik/twitter/commit/60a7cb179e77319e03c595850119b63fb413a53d) ([@MichaelRykov](https://twitter.com/MichaelRykov))
+- [Add test to ensure `Search#fetch` doesn't overwrite `@query(:q)`](https://github.com/sferik/twitter/commit/2e05847cf70692b760c45dd54b6bad820176c9bd) ([@pjdavis])
+- [Switch from YAJL to MultiJson](https://github.com/sferik/twitter/commit/60a7cb179e77319e03c595850119b63fb413a53d) ([@MichaelRykov])
 
-## [0.9.10] - 2010-09-23
+## [0.9.10] - 2010-09-23 [YANKED]
 
 ### Changed
 
 - [Specify Twitter API version for all REST API calls](https://github.com/sferik/twitter/commit/76b1fa31588bbc20166464313027f75e3771e385)
 - [Parse all responses with YAJL JSON parser](https://github.com/sferik/twitter/commit/c477f368fde6161dbae59ea7bc7c7d182b15721b)
-- [Ensure that users are tested](https://github.com/sferik/twitter/commit/108019e83d745c23ebc92fc8a3f9f8c605b2e884) ([@duncan](https://twitter.com/duncan))
-- [Remove redgreen due to Ruby 1.9 incompatibility](https://github.com/sferik/twitter/commit/83e1ea168da2e38c3f393972bf1d8eb665df2510) ([@duncan](https://twitter.com/duncan))
-- [Make all tests pass in Ruby 1.9](https://github.com/sferik/twitter/commit/7bead60774fb118ef63fb1557976194848af6754) ([@duncan](https://twitter.com/duncan))
+- [Ensure that users are tested](https://github.com/sferik/twitter/commit/108019e83d745c23ebc92fc8a3f9f8c605b2e884) ([@duncan])
+- [Remove redgreen due to Ruby 1.9 incompatibility](https://github.com/sferik/twitter/commit/83e1ea168da2e38c3f393972bf1d8eb665df2510) ([@duncan])
+- [Make all tests pass in Ruby 1.9](https://github.com/sferik/twitter/commit/7bead60774fb118ef63fb1557976194848af6754) ([@duncan])
 
-## [0.9.9] - 2010-09-22
+## [0.9.9] - 2010-09-22 [YANKED]
 
 ### Changed
 
 - [Bump dependency versions](https://github.com/sferik/twitter/commit/ac8114c1f6ba2da20c2267d3133252c2ffc6b6a3)
-- [Flatten `ids_or_usernames` before iterating](https://github.com/sferik/twitter/commit/956fb23f82cc1f91f6beefb24cf052cf48475a3f) ([@jacqui](https://twitter.com/jacqui))
-- [Add an example to list followers and friends sorted by followers count](https://github.com/sferik/twitter/commit/fb57b27e8a48abcc82810fe476413e8b506cebe6) ([@danicuki](https://twitter.com/danicuki))
+- [Flatten `ids_or_usernames` before iterating](https://github.com/sferik/twitter/commit/956fb23f82cc1f91f6beefb24cf052cf48475a3f) ([@jacqui])
+- [Add an example to list followers and friends sorted by followers count](https://github.com/sferik/twitter/commit/fb57b27e8a48abcc82810fe476413e8b506cebe6) ([@danicuki])
 - [Add optional query parameter to `list_subscribers`](https://github.com/sferik/twitter/commit/a608d4088edf8772a3549326bed1124c9a2a123d)
 - [Change trends endpoint to `api.twitter.com/1/trends`](https://github.com/sferik/twitter/commit/39ff888b243ba57098589d4e304dd6dec877d05f)
 - [Use Bundler](https://github.com/sferik/twitter/commit/ebcb1d2c76d45f691cc90c880d13d19bc69a6f32)
 
 ### Removed
 
-- [Remove Basic Auth](https://github.com/sferik/twitter/pull/56) ([@rodrigo3n](https://twitter.com/rodrigo3n))
+- Remove Basic Auth ([#56], [@rodrigo3n])
 
-## [0.9.8] - 2010-06-22
+## [0.9.8] - 2010-06-22 [YANKED]
 
 ### Added
 
-- [Geo API](https://github.com/sferik/twitter/commit/0e5aa205f9e29db434d84452f59694d9b64877d2) ([@anno](https://twitter.com/anno))
+- [Geo API](https://github.com/sferik/twitter/commit/0e5aa205f9e29db434d84452f59694d9b64877d2) ([@anno])
 
 ### Changed
 
-- [Set `api_endpoint` for unauthenticated calls](https://github.com/sferik/twitter/commit/ff20ecb4f4fef12c58572fb31e5c06162f8659d7) ([@earth2marsh](https://twitter.com/earth2marsh))
+- [Set `api_endpoint` for unauthenticated calls](https://github.com/sferik/twitter/commit/ff20ecb4f4fef12c58572fb31e5c06162f8659d7) ([@earth2marsh])
 
-## [0.9.7] - 2010-05-26
+## [0.9.7] - 2010-05-26 [YANKED]
 
 ### Added
 
 - [Add `api_endpoint` option for Search](https://github.com/sferik/twitter/commit/3c3d73fb8eedb5d322aeb1e4431d9936226fef9b)
 
-## [0.9.6] - 2010-05-26
+## [0.9.6] - 2010-05-26 [YANKED]
 
 ### Added
 
@@ -1164,136 +1166,136 @@ https://github.com/sferik/twitter/compare/v6.0.0...v6.1.0
 
 - [Deprecate Basic Auth](https://github.com/sferik/twitter/commit/878c09527037ab8ec5ac11a48afece61f03861e1)
 
-## [0.9.5] - 2010-04-21
+## [0.9.5] - 2010-04-21 [YANKED]
 
 ### Added
 
-- [Add saved searches](https://github.com/sferik/twitter/commit/d5f0b5846b24468f323cc4f96e583fd267240615) ([@zmoazeni](https://twitter.com/zmoazeni))
-- [Add `report_spam`](https://github.com/sferik/twitter/commit/91275b549ebdd1cad795dff9f7a1772a4ca37749) ([@chrisrbailey](https://twitter.com/chrisrbailey))
-- [Add cursors for lists](https://github.com/sferik/twitter/commit/d283cefdbcaeee6005b0ec747e8d6bded14911b2) ([@zmoazeni](https://twitter.com/zmoazeni))
+- [Add saved searches](https://github.com/sferik/twitter/commit/d5f0b5846b24468f323cc4f96e583fd267240615) ([@zmoazeni])
+- [Add `report_spam`](https://github.com/sferik/twitter/commit/91275b549ebdd1cad795dff9f7a1772a4ca37749) ([@chrisrbailey])
+- [Add cursors for lists](https://github.com/sferik/twitter/commit/d283cefdbcaeee6005b0ec747e8d6bded14911b2) ([@zmoazeni])
 
 ### Changed
 
-- [Handle null result sets in search more gracefully](https://github.com/sferik/twitter/commit/f6d1f995dc7757dda4f4ac71dda2487d56d51c85) ([@sferik](https://twitter.com/sferik))
-- [Replace JSON parser with YAJL JSON parser](https://github.com/sferik/twitter/commit/1f480a85925025aec1ac5c91cfb45b4e74e4c9c3) ([@sferik](https://twitter.com/sferik))
-- [Add tests for `friendship_exists?` method](https://github.com/sferik/twitter/commit/e778d7f5f2bed73428c854d5d788d4a2d58540cd) ([@sferik](https://twitter.com/sferik))
+- [Handle null result sets in search more gracefully](https://github.com/sferik/twitter/commit/f6d1f995dc7757dda4f4ac71dda2487d56d51c85) ([@sferik])
+- [Replace JSON parser with YAJL JSON parser](https://github.com/sferik/twitter/commit/1f480a85925025aec1ac5c91cfb45b4e74e4c9c3) ([@sferik])
+- [Add tests for `friendship_exists?` method](https://github.com/sferik/twitter/commit/e778d7f5f2bed73428c854d5d788d4a2d58540cd) ([@sferik])
 
-## [0.9.4] - 2010-03-30
+## [0.9.4] - 2010-03-30 [YANKED]
 
 ### Changed
 
-- [Roll back search API endpoint to get around rate limiting issues](https://github.com/sferik/twitter/commit/f9c7af99b4560f39b3542582934ae07955b6c9cc) ([@secobarbital](https://twitter.com/secobarbital))
+- [Roll back search API endpoint to get around rate limiting issues](https://github.com/sferik/twitter/commit/f9c7af99b4560f39b3542582934ae07955b6c9cc) ([@secobarbital])
 
-## [0.9.3] - 2010-03-30
+## [0.9.3] - 2010-03-30 [YANKED]
 
 ### Fixed
 
-- [Restore Ruby 1.8.6 compatibility](https://github.com/sferik/twitter/commit/b725b1b8a105fa3488783cef43b7db8b0dbb7c99) ([@raykrueger](https://twitter.com/raykrueger))
+- [Restore Ruby 1.8.6 compatibility](https://github.com/sferik/twitter/commit/b725b1b8a105fa3488783cef43b7db8b0dbb7c99) ([@raykrueger])
 
-## [0.9.2] - 2010-03-24
-
-### Changed
-
-- [Make error handling consistent between authenticated and unauthenticated method calls](https://github.com/sferik/twitter/commit/f62a1502ba9c4a764d25a4179982fabd3bff2210) ([@sferik](https://twitter.com/sferik))
-- [Test error handling for unauthenticated methods](https://github.com/sferik/twitter/commit/4de5c9212142ceb0206f979755e6e151280b16b9) ([@sferik](https://twitter.com/sferik))
-
-## [0.9.1] - 2010-03-23
+## [0.9.2] - 2010-03-24 [YANKED]
 
 ### Changed
 
-- [Add cursor to `lists` method](https://github.com/sferik/twitter/commit/a16ad354be4fae3d3f86207d8c5ae8b4c2a11b52) ([@sferik](https://twitter.com/sferik))
-- [Add Twitter API version to trends method calls](https://github.com/sferik/twitter/commit/6f23c5eb3ffdac6eac65fa2b6d36f08aa7b6e1fb) ([@sferik](https://twitter.com/sferik))
-- [Add Twitter API version to unauthenticated method calls](https://github.com/sferik/twitter/commit/fb895cc7e645499826dcc96e2cf8727c94eac83f) ([@sferik](https://twitter.com/sferik))
-- [Remove rubygems dependencies](https://github.com/sferik/twitter/commit/0f7a9ee4a1aee45bfb7136a0f6f48f9b7632e663) ([@sferik](https://twitter.com/sferik))
+- [Make error handling consistent between authenticated and unauthenticated method calls](https://github.com/sferik/twitter/commit/f62a1502ba9c4a764d25a4179982fabd3bff2210) ([@sferik])
+- [Test error handling for unauthenticated methods](https://github.com/sferik/twitter/commit/4de5c9212142ceb0206f979755e6e151280b16b9) ([@sferik])
 
-## [0.9.0] - 2010-03-20
+## [0.9.1] - 2010-03-23 [YANKED]
+
+### Changed
+
+- [Add cursor to `lists` method](https://github.com/sferik/twitter/commit/a16ad354be4fae3d3f86207d8c5ae8b4c2a11b52) ([@sferik])
+- [Add Twitter API version to trends method calls](https://github.com/sferik/twitter/commit/6f23c5eb3ffdac6eac65fa2b6d36f08aa7b6e1fb) ([@sferik])
+- [Add Twitter API version to unauthenticated method calls](https://github.com/sferik/twitter/commit/fb895cc7e645499826dcc96e2cf8727c94eac83f) ([@sferik])
+- [Remove rubygems dependencies](https://github.com/sferik/twitter/commit/0f7a9ee4a1aee45bfb7136a0f6f48f9b7632e663) ([@sferik])
+
+## [0.9.0] - 2010-03-20 [YANKED]
 
 ### Added
 
 - [Add `Base#retweeters_of` method](https://github.com/sferik/twitter/commit/7de2d6204028b6741ce7a72b12efe868e074331c)
 - [Add `result_type` to search for popular/recent results](https://github.com/sferik/twitter/commit/c32fa818f8331a7ff02f04f6cba8739423902029)
-- [Add `users` method for bulk user lookup](https://github.com/sferik/twitter/commit/5723b60f042d98b630040fa076ac86e9b735dee8) ([@sferik](https://twitter.com/sferik))
-- [Add search exclusions](https://github.com/sferik/twitter/commit/cb05e77adb2d771170d731ad2e55ba17bcb13766) ([@abozanich](https://twitter.com/abozanich))
+- [Add `users` method for bulk user lookup](https://github.com/sferik/twitter/commit/5723b60f042d98b630040fa076ac86e9b735dee8) ([@sferik])
+- [Add search exclusions](https://github.com/sferik/twitter/commit/cb05e77adb2d771170d731ad2e55ba17bcb13766) ([@abozanich])
 
 ### Changed
 
-- [Add Twitter API version to authenticated method calls](https://github.com/sferik/twitter/commit/69d4df515fe95f727221dad19b92665dc24f06d0) ([@sferik](https://twitter.com/sferik))
+- [Add Twitter API version to authenticated method calls](https://github.com/sferik/twitter/commit/69d4df515fe95f727221dad19b92665dc24f06d0) ([@sferik])
 
-## [0.8.6] - 2010-03-11
+## [0.8.6] - 2010-03-11 [YANKED]
 
 ### Changed
 
-- [Bump httparty version](https://github.com/sferik/twitter/commit/643517da3d12442883d90918b280e968809a4750) ([@dewski](https://twitter.com/dewski))
+- [Bump httparty version](https://github.com/sferik/twitter/commit/643517da3d12442883d90918b280e968809a4750) ([@dewski])
 
-## [0.8.5]
-
-### Added
-
-- [Add `Search#next_page?` and `Search#fetch_next_page` methods](https://github.com/sferik/twitter/commit/767ddaa62e8fa9e3872ddd17323f323d9f1393e4) ([@cyu](https://twitter.com/cyu))
-
-## [0.8.4] - 2010-02-11
+## [0.8.5] - 2010-03-11
 
 ### Added
 
-- [Add `query` parameter to `membership` method](https://github.com/sferik/twitter/commit/f09b3121d4c721c34f40a11580a7a1d4ffc0df22) ([@mingyeow](https://twitter.com/mingyeow))
-- [Add `Search#phrase` method](https://github.com/sferik/twitter/commit/e3e8f7e4b1ea8a315f935805e409a3fff6a5483d) ([@zagari](https://twitter.com/zagari))
+- [Add `Search#next_page?` and `Search#fetch_next_page` methods](https://github.com/sferik/twitter/commit/767ddaa62e8fa9e3872ddd17323f323d9f1393e4) ([@cyu])
+
+## [0.8.4] - 2010-02-11 [YANKED]
+
+### Added
+
+- [Add `query` parameter to `membership` method](https://github.com/sferik/twitter/commit/f09b3121d4c721c34f40a11580a7a1d4ffc0df22) ([@mingyeow])
+- [Add `Search#phrase` method](https://github.com/sferik/twitter/commit/e3e8f7e4b1ea8a315f935805e409a3fff6a5483d) ([@zagari])
 - [Add `Trends#available` and `Trends#location` methods](https://github.com/sferik/twitter/commit/39b8d8dd3bb25cb5cd081cae23486fb47c25ec8f)
 
-## [0.8.3] - 2010-01-29
+## [0.8.3] - 2010-01-29 [YANKED]
 
 ### Added
 
-- [Add `Twitter.list_timeline` method](https://github.com/sferik/twitter/commit/aed3a298b613a508bb9caf93afc7f12c50626ad7) ([@spastorino](https://twitter.com/spastorino))
+- [Add `Twitter.list_timeline` method](https://github.com/sferik/twitter/commit/aed3a298b613a508bb9caf93afc7f12c50626ad7) ([@spastorino])
 
-## [0.8.2] - 2010-01-21
+## [0.8.2] - 2010-01-21 [YANKED]
 
 ### Added
 
-- [Add `Base#update_profile_image` method](https://github.com/sferik/twitter/commit/10afe76daef3a2b8e10917b9550724cc9c3a6c19) ([@urajat](https://twitter.com/urajat))
+- [Add `Base#update_profile_image` method](https://github.com/sferik/twitter/commit/10afe76daef3a2b8e10917b9550724cc9c3a6c19) ([@urajat])
 
-## [0.8.1] - 2010-01-18
+## [0.8.1] - 2010-01-18 [YANKED]
 
 ### Added
 
 - [Add `Twitter.timeline` method](https://github.com/sferik/twitter/commit/dc26a0c9b5a6a98aec4ca9c0a48333e665c9bf18)
 
-## [0.8.0] - 2009-12-18
+## [0.8.0] - 2009-12-18 [YANKED]
 
 ### Changed
 
 - [Make API endpoint configurable to use services like Tumblr](https://github.com/sferik/twitter/commit/c5550f1317538638b754d6b0dbbb372e069b5580)
 
-## [0.7.11] - 2009-12-16
+## [0.7.11] - 2009-12-16 [YANKED]
 
 ### Added
 
-- [Add list timeline paging](https://github.com/sferik/twitter/commit/591d31a45b1a360d5743d2bf3966e7e9b563b9b7) ([@kchen1](https://twitter.com/kchen1))
+- [Add list timeline paging](https://github.com/sferik/twitter/commit/591d31a45b1a360d5743d2bf3966e7e9b563b9b7) ([@kchen1])
 
-## [0.7.10] - 2009-12-12
+## [0.7.10] - 2009-12-12 [YANKED]
 
 ### Added
 
 - [Add `Base#blocks` and `Base#blocking` methods](https://github.com/sferik/twitter/commit/0eb099001f060431c56c1884d86abb2e53a09c6d)
 
-## [0.7.9] - 2009-12-01
+## [0.7.9] - 2009-12-01 [YANKED]
 
 ### Added
 
-- [Add `Base#retweets` method](https://github.com/sferik/twitter/commit/a1a834575000bbb8fb430632b6bf88e19daeb8fb) ([@ivey](https://twitter.com/ivey))
+- [Add `Base#retweets` method](https://github.com/sferik/twitter/commit/a1a834575000bbb8fb430632b6bf88e19daeb8fb) ([@ivey])
 
-## [0.7.8] - 2009-11-30
+## [0.7.8] - 2009-11-30 [YANKED]
 
 ### Changed
 
-- [Use `cursor` parameter to `list_members` method](https://github.com/sferik/twitter/commit/9f393f05c127623f4c58a68e2246a3553f225349) ([@ivey](https://twitter.com/ivey))
+- [Use `cursor` parameter to `list_members` method](https://github.com/sferik/twitter/commit/9f393f05c127623f4c58a68e2246a3553f225349) ([@ivey])
 
-## [0.7.7] - 2009-11-29
+## [0.7.7] - 2009-11-29 [YANKED]
 
 ### Added
 
-- [Add `Base#update_profile_background` method](https://github.com/sferik/twitter/commit/3eeed693180d15ba4ca2370c41bd5547f715fc88) ([@kev_in](https://twitter.com/kev_in))
-- [Add `Base#blocked_ids` method](https://github.com/sferik/twitter/commit/2a5046500eb30141f55552d9b151857d08a1436a) ([@rizwanreza](https://twitter.com/rizwanreza))
-- [Add `Search#since_date` and `Search#until_date` methods](https://github.com/sferik/twitter/commit/9dcd340817224fa34fcb515f79a846886ffa1427) ([@jschairb](https://twitter.com/jschairb))
+- [Add `Base#update_profile_background` method](https://github.com/sferik/twitter/commit/3eeed693180d15ba4ca2370c41bd5547f715fc88) ([@kev_in])
+- [Add `Base#blocked_ids` method](https://github.com/sferik/twitter/commit/2a5046500eb30141f55552d9b151857d08a1436a) ([@rizwanreza])
+- [Add `Search#since_date` and `Search#until_date` methods](https://github.com/sferik/twitter/commit/9dcd340817224fa34fcb515f79a846886ffa1427) ([@jschairb])
 
 ### Changed
 
@@ -1303,61 +1305,61 @@ https://github.com/sferik/twitter/compare/v6.0.0...v6.1.0
 
 - [Fix bug in `list_remove_member` when using OAuth](https://github.com/sferik/twitter/commit/b20b770af3d6594f8e551cade3cfbd58a0647c2d)
 
-## [0.7.6] - 2009-11-26
+## [0.7.6] - 2009-11-26 [YANKED]
 
 ### Added
 
-- [Add `Base#home_timeline` method](https://github.com/sferik/twitter/commit/2de3786e75e6a1725572d3f08f6886f64e507851) ([@coderifous](https://twitter.com/coderifous))
+- [Add `Base#home_timeline` method](https://github.com/sferik/twitter/commit/2de3786e75e6a1725572d3f08f6886f64e507851) ([@coderifous])
 
-## [0.7.5] - 2009-11-17
+## [0.7.5] - 2009-11-17 [YANKED]
 
 ### Changed
 
-- [Use Hashie instead of Mash to avoid conflicts with extlib](https://github.com/sferik/twitter/commit/365f8378b45c93ed6219ac49afec5c7f7eb85fe6) ([@hassox](https://twitter.com/hassox))
+- [Use Hashie instead of Mash to avoid conflicts with extlib](https://github.com/sferik/twitter/commit/365f8378b45c93ed6219ac49afec5c7f7eb85fe6) ([@hassox])
 
-## [0.7.4] - 2009-11-17
+## [0.7.4] - 2009-11-17 [YANKED]
 
 ### Added
 
 - [Support for user search](https://github.com/sferik/twitter/commit/54e046924431a08e3dfce06f571f71ebb76f7bbd)
 
-## [0.7.3] - 2009-11-06
+## [0.7.3] - 2009-11-06 [YANKED]
 
 ### Added
 
-- [Add `Base#list_subscriptions` method](https://github.com/sferik/twitter/commit/2273c8a4e7c5d496922fc34551b46b22d30b68aa) ([@christospappas](https://twitter.com/christospappas))
+- [Add `Base#list_subscriptions` method](https://github.com/sferik/twitter/commit/2273c8a4e7c5d496922fc34551b46b22d30b68aa) ([@christospappas])
 
-## [0.7.2] - 2009-11-05
+## [0.7.2] - 2009-11-05 [YANKED]
 
 ### Added
 
-- [Add `Base#friendship_show` method](https://github.com/sferik/twitter/commit/693f95a6a19dd51c047078ef969e14357930bcd7) ([@dcrec1](https://twitter.com/dcrec1))
+- [Add `Base#friendship_show` method](https://github.com/sferik/twitter/commit/693f95a6a19dd51c047078ef969e14357930bcd7) ([@dcrec1])
 
-## [0.7.1] - 2009-11-05
+## [0.7.1] - 2009-11-05 [YANKED]
 
 ### Changed
 
 - [Bump dependency versions](https://github.com/sferik/twitter/commit/d6bf8c5693f0ec4eedd641b97a7e6f0fdce75e2c)
 
-## [0.7.0] - 2009-11-01
+## [0.7.0] - 2009-11-01 [YANKED]
 
 ### Added
 
 - [Add support for lists](https://github.com/sferik/twitter/commit/be4bffd79c2bdcfd2988ef6a65cbca8a8f6abd6d)
 
-## [0.6.14] - 2009-08-18
+## [0.6.14] - 2009-08-18 [YANKED]
 
 ### Changed
 
 - [Lower oauth dependency to version 0.3.4 as people are complaining about 0.3.5](https://github.com/sferik/twitter/commit/dd144c377bc888388099e029a0e1505a66392bb1)
 
-## [0.6.13] - 2009-08-05
+## [0.6.13] - 2009-08-05 [YANKED]
 
 ### Changed
 
 - [Bump oauth dependency to version >= 0.3.5](https://github.com/sferik/twitter/commit/555ae1fc13146b74b8df0346caea1a6b065b344f)
 
-## [0.6.12] - 2009-08-05
+## [0.6.12] - 2009-08-05 [YANKED]
 
 ### Added
 
@@ -1365,39 +1367,39 @@ https://github.com/sferik/twitter/compare/v6.0.0...v6.1.0
 
 ### Fixed
 
-- [Fix `fakeweb` test issue](https://github.com/sferik/twitter/commit/cdd9dba19f6edc21f1b7eefb66db133dec682423) ([@obie](https://twitter.com/obie))
+- [Fix `fakeweb` test issue](https://github.com/sferik/twitter/commit/cdd9dba19f6edc21f1b7eefb66db133dec682423) ([@obie])
 
-## [0.6.11] - 2009-05-18
+## [0.6.11] - 2009-05-18 [YANKED]
 
 ### Added
 
 - [Add the ability to sign in with Twitter instead of authorizing](https://github.com/sferik/twitter/commit/68b6252a21e7e773d108027f693b8378593e21ad)
 
-## [0.6.10] - 2009-05-18
+## [0.6.10] - 2009-05-18 [YANKED]
 
 ### Added
 
 - [Add `Trends#current`](https://github.com/sferik/twitter/commit/549f34903be38232c24044d9972629a86a0503a4), [`Trends#daily`, and `Trends#weekly` methods](https://github.com/sferik/twitter/commit/dc8046aea5794303f6f36622221a412a4e80f9a8)
 
-## [0.6.9] - 2009-05-17
+## [0.6.9] - 2009-05-17 [YANKED]
 
 ### Changed
 
 - [Bump oauth dependency to version 0.3.4](https://github.com/sferik/twitter/commit/88d4612b50d2be7cc300120278d53c80265e8780)
 
-## [0.6.8] - 2009-04-23
+## [0.6.8] - 2009-04-23 [YANKED]
 
 ### Fixed
 
 - [Fix httparty dependency](https://github.com/sferik/twitter/commit/44aa418a22233c84cea1dae74b158cd490589b10)
 
-## [0.6.7] - 2009-04-23
+## [0.6.7] - 2009-04-23 [YANKED]
 
 ### Changed
 
 - [Bump httparty dependency to version 0.4.3 which allows `response.message` and fixes errors that the lack of `response.message` was causing](https://github.com/sferik/twitter/commit/a630b1c77792641794745d2f3cbba6c64d168d62)
 
-## [0.6.6] - 2009-04-16
+## [0.6.6] - 2009-04-16 [YANKED]
 
 ### Added
 
@@ -1405,65 +1407,65 @@ https://github.com/sferik/twitter/compare/v6.0.0...v6.1.0
 - [Add `ssl` optional parameter to use HTTPS instead of HTTP for `HTTPAuth`](https://github.com/sferik/twitter/commit/f46cdf9ce957b03539bd4dc76a83ce439535d349)
 - [Add `Twitter.status`, `Twitter.friend_ids`, and `Twitter.follower_ids` methods](https://github.com/sferik/twitter/commit/55813617c5b4cf672800bf7f9e7473904e3c3194)
 
-## [0.6.5] - 2009-04-15
+## [0.6.5] - 2009-04-15 [YANKED]
 
 ### Fixed
 
 - [Fix `friend_ids` and `follower_ids` bombing on mashing](https://github.com/sferik/twitter/commit/f01c2878033cd6afc1e718f2140c82b9708e5603)
 
-## [0.6.4] - 2009-04-14
+## [0.6.4] - 2009-04-14 [YANKED]
 
 ### Changed
 
 - [More explicit about dependency versions in gemspec and when requiring](https://github.com/sferik/twitter/commit/5ce3eeb25c5b8bcd8caa8704c5d125174781781d)
 
-## [0.6.3] - 2009-04-14
+## [0.6.3] - 2009-04-14 [YANKED]
 
 ### Added
 
 - [Add `Twitter.user` method](https://github.com/sferik/twitter/commit/cb46975eaa8aa7e02ad798ba8b7b62017f15604c)
 
-## [0.6.2] - 2009-04-14
+## [0.6.2] - 2009-04-14 [YANKED]
 
 ### Added
 
 - [Add `Search#max` method](https://github.com/sferik/twitter/commit/e79cc1fdb306da24462c6617b118e03ccbead9f1)
 
-## [0.6.1] - 2009-04-12
+## [0.6.1] - 2009-04-12 [YANKED]
 
 ### Fixed
 
 - [Rename one of the two `friend_ids` methods to `follower_ids`](https://github.com/sferik/twitter/commit/051d19db49dce2422d06181c5a3b595e3a9b85b3)
 
-## [0.6.0] - 2009-04-11
+## [0.6.0] - 2009-04-11 [YANKED]
 
 ### Added
 
 - [Add HTTP authentication](https://github.com/sferik/twitter/commit/d713ecfbe80edde688009fa6bfbf32a2de687a39)
 
-## [0.5.3] - 2009-04-10
+## [0.5.3] - 2009-04-10 [YANKED]
 
 ### Changed
 
 - [Only send `follow` parameter to Twitter if `follow` is true for calls to `friendship_create`](https://github.com/sferik/twitter/commit/5ebf39c0538a3dfd48c6a1dbdf8558305737ce69)
 
-## [0.5.2] - 2009-04-08
+## [0.5.2] - 2009-04-08 [YANKED]
 
 ### Added
 
 - [Add mash as an install dependency](https://github.com/sferik/twitter/commit/a8693b27791e966736415cb90335600d075f60dd)
 - [Add options to `search`](https://github.com/sferik/twitter/commit/096d56ed9a62a0ea53bfe3a8df588ddef71df1c9)
-- [Add workaround for `Mash#hash` that allows using return objects in sets and such](https://github.com/sferik/twitter/commit/2da491308766e82c797c7801bdc3a440b7f8d719) ([@technomancy](https://twitter.com/technomancy))
+- [Add workaround for `Mash#hash` that allows using return objects in sets and such](https://github.com/sferik/twitter/commit/2da491308766e82c797c7801bdc3a440b7f8d719) ([@technomancy])
 
 ### Changed
 
-- [Add development dependencies to `Rakefile` to make that more explicit](https://github.com/sferik/twitter/commit/de57b1c2834653ea4c336ed426ee8fbbebcd80b2) ([@technomancy](https://twitter.com/technomancy))
+- [Add development dependencies to `Rakefile` to make that more explicit](https://github.com/sferik/twitter/commit/de57b1c2834653ea4c336ed426ee8fbbebcd80b2) ([@technomancy])
 
 ### Fixed
 
 - [Add missing variables in exception raising](https://github.com/sferik/twitter/commit/e21a4f69c68d28148045e7c98ce1841d72994e1e)
 
-## [0.5.1] - 2009-04-05
+## [0.5.1] - 2009-04-05 [YANKED]
 
 ### Added
 
@@ -1473,7 +1475,7 @@ https://github.com/sferik/twitter/compare/v6.0.0...v6.1.0
 
 - [Fix bug with `friendship_exists?` throwing a stringify keys error because it was returning `true` or `false` instead of a `Hash` or `Array`](https://github.com/sferik/twitter/commit/1e9def65277125f23739be034abd4059a42d2b87)
 
-## [0.5.0] - 2009-04-03
+## [0.5.0] - 2009-04-03 [YANKED]
 
 ### Removed
 
@@ -1481,74 +1483,74 @@ https://github.com/sferik/twitter/compare/v6.0.0...v6.1.0
 - [Identica support killed with an axe (nothing against them but I don't use it)](https://github.com/sferik/twitter/commit/dd2445e3e2c97f38b28a3f32ea902536b3897adf)
 - [CLI shot to death (will be reborn at a later date using OAuth and its own gem)](https://github.com/sferik/twitter/commit/dd2445e3e2c97f38b28a3f32ea902536b3897adf)
 
-## 0.4.3
+## [0.4.3] - 2009-02-21
 
 ### Changed
 
 - [Make `verify_credentials` return a `Twitter::User` rather than a Hpricot doc](https://github.com/sferik/twitter/commit/6a8efc464dcb174e41b2eb0197a79e778dae1428)
 
-## [0.4.2] - 2009-02-11
+## [0.4.2] - 2009-02-11 [YANKED]
 
 ### Added
 
-- [Add `Base#friend_ids` and `Base#follower_ids` methods](https://github.com/sferik/twitter/commit/b70718cc31684af6ce2d1c2a11adaaba29ea7b92) ([@joshowens](https://twitter.com/joshowens))
+- [Add `Base#friend_ids` and `Base#follower_ids` methods](https://github.com/sferik/twitter/commit/b70718cc31684af6ce2d1c2a11adaaba29ea7b92) ([@joshowens])
 
-## [0.4.1] - 2009-01-05
+## [0.4.1] - 2009-01-05 [YANKED]
 
 ### Added
 
-- [Add better exception handling](https://github.com/sferik/twitter/commit/2b85bed874902d184e5d53c0a0bd249fd1ed3b8b) ([@billymeltdown](https://twitter.com/billymeltdown))
-- [Add `Search#page` method](https://github.com/sferik/twitter/commit/977023126fbe7fdf13af53d840ca3b6807cd2d85) ([@ivey](https://twitter.com/ivey))
-- [Add an option to display tweets on CLI in reverse chronological order](https://github.com/sferik/twitter/commit/40d2f1ae631dce3c31c6a13d295989e945b22622) ([@coderdaddy](https://twitter.com/coderdaddy))
-- [Add `in_reply_to_status_id` option for replying to statuses](https://github.com/sferik/twitter/commit/2ecceda9fa74d486e3ba62edba7fa42a443191fa) ([@anthonycrumley](https://twitter.com/anthonycrumley))
+- [Add better exception handling](https://github.com/sferik/twitter/commit/2b85bed874902d184e5d53c0a0bd249fd1ed3b8b) ([@billymeltdown])
+- [Add `Search#page` method](https://github.com/sferik/twitter/commit/977023126fbe7fdf13af53d840ca3b6807cd2d85) ([@ivey])
+- [Add an option to display tweets on CLI in reverse chronological order](https://github.com/sferik/twitter/commit/40d2f1ae631dce3c31c6a13d295989e945b22622) ([@coderdaddy])
+- [Add `in_reply_to_status_id` option for replying to statuses](https://github.com/sferik/twitter/commit/2ecceda9fa74d486e3ba62edba7fa42a443191fa) ([@anthonycrumley])
 
 ### Fixed
 
-- [Fix a bug where the @config was improperly set](https://github.com/sferik/twitter/commit/9c5fd0f0a0186638aae189e28a3a0d0d20e7d3d5) ([@pope](https://twitter.com/pope))
-- [Fix `verify_credentials` to include a format](https://github.com/sferik/twitter/commit/bf6f783e8867148a056d130f00a03679ea9b414b) ([@dlsspy](https://twitter.com/dlsspy))
+- [Fix a bug where the @config was improperly set](https://github.com/sferik/twitter/commit/9c5fd0f0a0186638aae189e28a3a0d0d20e7d3d5) ([@pope])
+- [Fix `verify_credentials` to include a format](https://github.com/sferik/twitter/commit/bf6f783e8867148a056d130f00a03679ea9b414b) ([@dlsspy])
 
-## [0.4.0] - 2008-12-23
+## [0.4.0] - 2008-12-23 [YANKED]
 
 ### Removed
 
 - [Remove Active Support dependency and switch to echoe for gem management](https://github.com/sferik/twitter/commit/fbb792561ea2aba8c8e7abb946d2a5e6e3d64fb0)
 - [Remove CLI dependencies](https://github.com/sferik/twitter/commit/906d34db1a81314bb8929d9b5ee61519ed6dc080)
 
-## [0.3.7] - 2008-08-26
+## [0.3.7] - 2008-08-26 [YANKED]
 
 ### Fixed
 
 - [Fix `source` parameter not getting through](https://github.com/sferik/twitter/commit/e3743cf22df3ad9406bf8c2e4425f30680606283)
 
-## [0.3.6] - 2008-08-11
+## [0.3.6] - 2008-08-11 [YANKED]
 
 ### Changed
 
 - [Refactor the remaining methods that were not using `request` to use it](https://github.com/sferik/twitter/commit/8a802c4b461be0d4d7f374888591a9af6ef8b8d2)
 
-## [0.3.5] - 2008-08-04
+## [0.3.5] - 2008-08-04 [YANKED]
 
 ### Removed
 
 - [Remove sqlite-ruby dependency](https://github.com/sferik/twitter/commit/9277e832daf9539e70f446b8b4f7093d8eb98484)
 
-## [0.3.4] - 2008-08-03
+## [0.3.4] - 2008-08-03 [YANKED]
 
 ### Added
 
 - [Add `Search` class](https://github.com/sferik/twitter/commit/538a5d4b1a72ed2bf97404704699f498ab082ca9)
 
-## [0.3.3] - 2008-08-03
+## [0.3.3] - 2008-08-03 [YANKED]
 
 ### Added
 
-- [Add Identica support](https://github.com/sferik/twitter/commit/ed06aaf27eea8852198200eb3db510d56508e727) ([@dlsspy](https://twitter.com/dlsspy))
+- [Add Identica support](https://github.com/sferik/twitter/commit/ed06aaf27eea8852198200eb3db510d56508e727) ([@dlsspy])
 
 ### Changed
 
 - [Update methods to `POST` instead of `GET`](https://github.com/sferik/twitter/commit/ed06aaf27eea8852198200eb3db510d56508e727)
 
-## [0.3.2] - 2008-07-26
+## [0.3.2] - 2008-07-26 [YANKED]
 
 ### Added
 
@@ -1556,7 +1558,7 @@ https://github.com/sferik/twitter/compare/v6.0.0...v6.1.0
 - [Add cleaner CLI errors for no active account or no accounts at all](https://github.com/sferik/twitter/commit/dbc9e57d0a66ee585893b0b5955078575effc616)
 - [Add `username` and `password` parameters to `add` method](https://github.com/sferik/twitter/commit/013b48229786c1080ee79a490e731f4b1811a7e4)
 
-## [0.3.1] - 2008-07-23
+## [0.3.1] - 2008-07-23 [YANKED]
 
 ### Added
 
@@ -1568,7 +1570,7 @@ https://github.com/sferik/twitter/compare/v6.0.0...v6.1.0
 
 - [Improved the output of `timelines` and `replies`](https://github.com/sferik/twitter/commit/84e77a1d515f762d7a24f697786f5959d4f1cc2e)
 
-## [0.3.0] - 2008-07-22
+## [0.3.0] - 2008-07-22 [YANKED]
 
 ### Added
 
@@ -1581,72 +1583,72 @@ https://github.com/sferik/twitter/compare/v6.0.0...v6.1.0
 - [Make `d` method accept stdin](https://github.com/sferik/twitter/commit/25ddfe33a10a252ff7d9ba74d4d16e3e25719661)
 - [Rewrite methods that had `since` or `lite` parameters to use a `Hash`](https://github.com/sferik/twitter/commit/eeca67c5693dc175cf1990c2657a6efd8c4cbd6d)
 
-## [0.2.7] - 2008-07-06
+## [0.2.7] - 2008-07-06 [YANKED]
 
 ### Added
 
-- [Add `Base#rate_limit_status` method](https://github.com/sferik/twitter/commit/2b5325b1875574805fde77f30d0df84e423272e5) ([@danielmorrison](https://twitter.com/danielmorrison))
+- [Add `Base#rate_limit_status` method](https://github.com/sferik/twitter/commit/2b5325b1875574805fde77f30d0df84e423272e5) ([@danielmorrison])
 - [Add `source` parameter to `Base#post`](https://github.com/sferik/twitter/commit/215b2ca687014e042f991192281ea1dfbe100665)
-- [Add gemspec](https://github.com/sferik/twitter/commit/d94b6bdb23dd27ff25cf170cd7ceb5610187d176) ([@technoweenie](https://twitter.com/technoweenie), [@mileszs](https://twitter.com/mileszs))
+- [Add gemspec](https://github.com/sferik/twitter/commit/d94b6bdb23dd27ff25cf170cd7ceb5610187d176) ([@technoweenie], [@mileszs])
 
 ### Changed
 
 - [Add `twittergem` as the source when posting from the command-line interface](https://github.com/sferik/twitter/commit/d94b6bdb23dd27ff25cf170cd7ceb5610187d176)
-- [Raise `Twitter::RateExceeded` when you hit your limit](https://github.com/sferik/twitter/commit/d94b6bdb23dd27ff25cf170cd7ceb5610187d176) ([@jimoleary](https://twitter.com/jimoleary))
+- [Raise `Twitter::RateExceeded` when you hit your limit](https://github.com/sferik/twitter/commit/d94b6bdb23dd27ff25cf170cd7ceb5610187d176) ([@jimoleary])
 - [Raise `Twitter::Unavailable` when Twitter returns 503](https://github.com/sferik/twitter/commit/d94b6bdb23dd27ff25cf170cd7ceb5610187d176)
 - [Make `Twitter::CantConnect` messages more descriptive](https://github.com/sferik/twitter/commit/d94b6bdb23dd27ff25cf170cd7ceb5610187d176)
-- [Make quoting your message optional when posting from the command-line interface](https://github.com/sferik/twitter/commit/d94b6bdb23dd27ff25cf170cd7ceb5610187d176) ([@bcaccinolo](https://twitter.com/bcaccinolo))
-- [Alias `post` to `p` on the command-line interface](https://github.com/sferik/twitter/commit/d94b6bdb23dd27ff25cf170cd7ceb5610187d176) ([@bcaccinolo](https://twitter.com/bcaccinolo))
-- [Unescape HTML and add color to the command-line interface](https://github.com/sferik/twitter/commit/d94b6bdb23dd27ff25cf170cd7ceb5610187d176) ([@mileszs](https://twitter.com/mileszs))
+- [Make quoting your message optional when posting from the command-line interface](https://github.com/sferik/twitter/commit/d94b6bdb23dd27ff25cf170cd7ceb5610187d176) ([@bcaccinolo])
+- [Alias `post` to `p` on the command-line interface](https://github.com/sferik/twitter/commit/d94b6bdb23dd27ff25cf170cd7ceb5610187d176) ([@bcaccinolo])
+- [Unescape HTML and add color to the command-line interface](https://github.com/sferik/twitter/commit/d94b6bdb23dd27ff25cf170cd7ceb5610187d176) ([@mileszs])
 
 ### Fixed
 
-- [Fix stack trace error on first command-line operation](https://github.com/sferik/twitter/commit/d94b6bdb23dd27ff25cf170cd7ceb5610187d176) ([@mrose2n](https://twitter.com/mrose2n))
+- [Fix stack trace error on first command-line operation](https://github.com/sferik/twitter/commit/d94b6bdb23dd27ff25cf170cd7ceb5610187d176) ([@mrose2n])
 
-## [0.2.6] - 2008-04-02
+## [0.2.6] - 2008-04-02 [YANKED]
 
 ### Changed
 
 - [Found a simpler way of doing `stdin` without any extra gem dependencies](https://github.com/sferik/twitter/commit/2ef6c3e7280b64d5d4a956ca245e631b126001b0)
 
-## [0.2.5] - 2008-04-02
+## [0.2.5] - 2008-04-02 [YANKED]
 
 ### Changed
 
-- [Command-line interface can use `stdin` for posting](https://github.com/sferik/twitter/commit/d4e710bd3184f33775bf969b0993cbc9dff0ed50) ([@reclusive_geek](https://twitter.com/reclusive_geek))
+- [Command-line interface can use `stdin` for posting](https://github.com/sferik/twitter/commit/d4e710bd3184f33775bf969b0993cbc9dff0ed50) ([@reclusive_geek])
 
-## [0.2.4] - 2008-04-01
+## [0.2.4] - 2008-04-01 [YANKED]
 
 ### Added
 
-- [Add `lite` parameter to `friends` and `followers` methods, which doesn't include the user's current status](https://github.com/sferik/twitter/commit/0de3901258de5b2a4a3fda308e495ee373d07ea6) ([@danielmorrison](https://twitter.com/danielmorrison))
-- [Add `since` parameter on `timeline` and `replies` methods](https://github.com/sferik/twitter/commit/90b5b5ebb2a7d94a278e3ff374e4fde4cf850234) ([@danielmorrison](https://twitter.com/danielmorrison))
+- [Add `lite` parameter to `friends` and `followers` methods, which doesn't include the user's current status](https://github.com/sferik/twitter/commit/0de3901258de5b2a4a3fda308e495ee373d07ea6) ([@danielmorrison])
+- [Add `since` parameter on `timeline` and `replies` methods](https://github.com/sferik/twitter/commit/90b5b5ebb2a7d94a278e3ff374e4fde4cf850234) ([@danielmorrison])
 
 ### Changed
 
-- [Update `since` parameter to use HTTP header](https://github.com/sferik/twitter/commit/90b5b5ebb2a7d94a278e3ff374e4fde4cf850234) ([@danielmorrison](https://twitter.com/danielmorrison))
+- [Update `since` parameter to use HTTP header](https://github.com/sferik/twitter/commit/90b5b5ebb2a7d94a278e3ff374e4fde4cf850234) ([@danielmorrison])
 
-## [0.2.3] - 2008-01-16
+## [0.2.3] - 2008-01-16 [YANKED]
 
 ### Added
 
-- [Add `d` to the command-line interface](https://github.com/sferik/twitter/commit/a9ecddd3323ef202248dae59d049b00b88b76b4e) ([@humbucker](https://twitter.com/humbucker))
-- [Add progress dots while waiting for confirmation when Twitter is being slow](https://github.com/sferik/twitter/commit/02a24d9042f3fa0235759fbbd6f34ea639a01578) ([@HendyIrawan](https://twitter.com/HendyIrawan))
+- [Add `d` to the command-line interface](https://github.com/sferik/twitter/commit/a9ecddd3323ef202248dae59d049b00b88b76b4e) ([@humbucker])
+- [Add progress dots while waiting for confirmation when Twitter is being slow](https://github.com/sferik/twitter/commit/02a24d9042f3fa0235759fbbd6f34ea639a01578) ([@HendyIrawan])
 
-## [0.2.2] - 2008-01-16
+## [0.2.2] - 2008-01-16 [YANKED]
 
 ### Added
 
 - [Add `Base#leave` and `Base#follow` methods](https://github.com/sferik/twitter/commit/4878689063574ad88ea76343387094fc634ccead)
 
-## [0.2.1] - 2007-10-23
+## [0.2.1] - 2007-10-23 [YANKED]
 
-## [0.2.0] - 2007-08-04
+## [0.2.0] - 2007-08-04 [YANKED]
 
 ### Added
 
 - [Add `Base#sent_messages`, `Base#create_friendship`, `Base#destroy_friendship`, `Base#featured`, `Base#replies`, `Base#destroy`, and `Base#status` methods](https://github.com/sferik/twitter/commit/c2d8c55516747627452224af8faecc15ee6b5fd4)
-- [Add `Base#d` method](https://github.com/sferik/twitter/commit/139a820de0bcc97ece7e33435535985555231bc8) ([@jnewland](https://twitter.com/jnewland))
+- [Add `Base#d` method](https://github.com/sferik/twitter/commit/139a820de0bcc97ece7e33435535985555231bc8) ([@jnewland])
 
 ### Changed
 
@@ -1655,15 +1657,15 @@ https://github.com/sferik/twitter/compare/v6.0.0...v6.1.0
 
 ### Fixed
 
-- [Fix `since` parameter in `Base#direct_messages` method](https://github.com/sferik/twitter/commit/41a9006be9221d7305752639ac4440b3a8859cd0) ([@jnewland](https://twitter.com/jnewland))
+- [Fix `since` parameter in `Base#direct_messages` method](https://github.com/sferik/twitter/commit/41a9006be9221d7305752639ac4440b3a8859cd0) ([@jnewland])
 
-## [0.1.1] - 2007-05-20
+## [0.1.1] - 2007-05-20 [YANKED]
 
 ### Changed
 
-- [Add support for Hpricot 0.5+](https://github.com/sferik/twitter/commit/4aa2fabaa62c60e9f11f29510db10b6ed406e510) ([@erebor](https://twitter.com/erebor))
+- [Add support for Hpricot 0.5+](https://github.com/sferik/twitter/commit/4aa2fabaa62c60e9f11f29510db10b6ed406e510) ([@erebor])
 
-## [0.1.0] - 2007-03-31
+## [0.1.0] - 2007-03-31 [YANKED]
 
 ### Added
 
@@ -1676,38 +1678,41 @@ https://github.com/sferik/twitter/compare/v6.0.0...v6.1.0
 
 - [Remove `relative_created_at`](https://github.com/sferik/twitter/commit/ff1ae65766109c75f80c4b15797e12a69d7c29ad)
 
-## [0.0.5] - 2007-03-12
+## [0.0.5] - 2007-03-12 [YANKED]
 
 ### Changed
 
 - [Code cleanup](https://github.com/sferik/twitter/commit/abd6eb31089975e3dc65f7e0bb4156feacc97a1c)
 
-## [0.0.4] - 2007-01-20
+## [0.0.4] - 2007-01-20 [YANKED]
 
 ### Added
 
-- [Add `User#location`, `User#description`, `User#url`, and `User#profile_image_url` methods](https://github.com/sferik/twitter/commit/e6737ec8b07b9fd1ffd96a21074a100a6fb3cf7e) ([@al3x](https://twitter.com/al3x))
+- [Add `User#location`, `User#description`, `User#url`, and `User#profile_image_url` methods](https://github.com/sferik/twitter/commit/e6737ec8b07b9fd1ffd96a21074a100a6fb3cf7e) ([@al3x])
 
-## [0.0.3] - 2006-12-17
+## [0.0.3] - 2006-12-17 [YANKED]
 
 ### Changed
 
 - [Make error message more informative](https://github.com/sferik/twitter/commit/1763cd85c4fd85cde6815cc7c1b74937dd7aeeaf)
 
-## [0.0.2] - 2006-11-26
+## [0.0.2] - 2006-11-26 [YANKED]
 
 ### Added
 
 - Add command-line options for `friend` and `follower`
 - Improved docs
 
-## [0.0.1] - 2006-11-26
+## 0.0.1 - 2006-11-26 [YANKED]
 
 ### Added
 
 - [Initial release](https://github.com/sferik/twitter/commit/cd7aecde450157ae2ec0c07a2171d7149bebb74a)
 
-[Unreleased]: https://github.com/sferik/twitter-ruby/compare/v8.2.0...HEAD
+[Unreleased]: https://github.com/sferik/twitter-ruby/compare/v8.3.2...HEAD
+[8.3.2]: https://github.com/sferik/twitter-ruby/compare/v8.3.1...v8.3.2
+[8.3.1]: https://github.com/sferik/twitter-ruby/compare/v8.3.0...v8.3.1
+[8.3.0]: https://github.com/sferik/twitter-ruby/compare/v8.2.0...v8.3.0
 [8.2.0]: https://github.com/sferik/twitter-ruby/compare/v8.1.0...v8.2.0
 [8.1.0]: https://github.com/sferik/twitter-ruby/compare/v8.0.1...v8.1.0
 [8.0.1]: https://github.com/sferik/twitter-ruby/compare/v8.0.0...v8.0.1
@@ -1802,8 +1807,8 @@ https://github.com/sferik/twitter/compare/v6.0.0...v6.1.0
 [0.9.2]: https://github.com/sferik/twitter-ruby/compare/v0.9.1...v0.9.2
 [0.9.1]: https://github.com/sferik/twitter-ruby/compare/v0.9.0...v0.9.1
 [0.9.0]: https://github.com/sferik/twitter-ruby/compare/v0.8.6...v0.9.0
-[0.8.6]: https://github.com/sferik/twitter-ruby/compare/v0.8.4...v0.8.6
-[0.8.5]: https://github.com/sferik/twitter-ruby/compare/v0.8.4...v0.8.5
+[0.8.6]: https://github.com/sferik/twitter-ruby/compare/31afa0857e243847d02ebeb7fc69e40c79ce062f...v0.8.6
+[0.8.5]: https://github.com/sferik/twitter-ruby/compare/v0.8.4...31afa0857e243847d02ebeb7fc69e40c79ce062f
 [0.8.4]: https://github.com/sferik/twitter-ruby/compare/v0.8.3...v0.8.4
 [0.8.3]: https://github.com/sferik/twitter-ruby/compare/v0.8.2...v0.8.3
 [0.8.2]: https://github.com/sferik/twitter-ruby/compare/v0.8.1...v0.8.2
@@ -1818,8 +1823,8 @@ https://github.com/sferik/twitter/compare/v6.0.0...v6.1.0
 [0.7.5]: https://github.com/sferik/twitter-ruby/compare/v0.7.4...v0.7.5
 [0.7.4]: https://github.com/sferik/twitter-ruby/compare/v0.7.3...v0.7.4
 [0.7.3]: https://github.com/sferik/twitter-ruby/compare/v0.7.2...v0.7.3
-[0.7.2]: https://github.com/sferik/twitter-ruby/compare/v0.7.1...v0.7.2
-[0.7.1]: https://github.com/sferik/twitter-ruby/compare/v0.7.0...v0.7.1
+[0.7.2]: https://github.com/sferik/twitter-ruby/compare/adfda7dc17187d986a812e8430f4bf7bb3529b82...v0.7.2
+[0.7.1]: https://github.com/sferik/twitter-ruby/compare/v0.7.0...adfda7dc17187d986a812e8430f4bf7bb3529b82
 [0.7.0]: https://github.com/sferik/twitter-ruby/compare/v0.6.14...v0.7.0
 [0.6.14]: https://github.com/sferik/twitter-ruby/compare/v0.6.13...v0.6.14
 [0.6.13]: https://github.com/sferik/twitter-ruby/compare/v0.6.12...v0.6.13
@@ -1838,31 +1843,163 @@ https://github.com/sferik/twitter/compare/v6.0.0...v6.1.0
 [0.6.0]: https://github.com/sferik/twitter-ruby/compare/v0.5.3...v0.6.0
 [0.5.3]: https://github.com/sferik/twitter-ruby/compare/v0.5.2...v0.5.3
 [0.5.2]: https://github.com/sferik/twitter-ruby/compare/v0.5.1...v0.5.2
-[0.5.1]: https://github.com/sferik/twitter-ruby/compare/v0.5.0...v0.5.1
-[0.5.0]: https://github.com/sferik/twitter-ruby/compare/v0.4.2...v0.5.0
-[0.4.2]: https://github.com/sferik/twitter-ruby/compare/v0.4.1...v0.4.2
-[0.4.1]: https://github.com/sferik/twitter-ruby/compare/v0.4.0...v0.4.1
-[0.4.0]: https://github.com/sferik/twitter-ruby/compare/v0.3.7...v0.4.0
-[0.3.7]: https://github.com/sferik/twitter-ruby/compare/v0.3.6...v0.3.7
-[0.3.6]: https://github.com/sferik/twitter-ruby/compare/v0.3.5...v0.3.6
-[0.3.5]: https://github.com/sferik/twitter-ruby/compare/v0.3.4...v0.3.5
-[0.3.4]: https://github.com/sferik/twitter-ruby/compare/v0.3.3...v0.3.4
-[0.3.3]: https://github.com/sferik/twitter-ruby/compare/v0.3.2...v0.3.3
-[0.3.2]: https://github.com/sferik/twitter-ruby/compare/v0.3.1...v0.3.2
-[0.3.1]: https://github.com/sferik/twitter-ruby/compare/v0.3.0...v0.3.1
-[0.3.0]: https://github.com/sferik/twitter-ruby/compare/v0.2.7...v0.3.0
-[0.2.7]: https://github.com/sferik/twitter-ruby/compare/v0.2.6...v0.2.7
-[0.2.6]: https://github.com/sferik/twitter-ruby/compare/v0.2.5...v0.2.6
-[0.2.5]: https://github.com/sferik/twitter-ruby/compare/v0.2.4...v0.2.5
-[0.2.4]: https://github.com/sferik/twitter-ruby/compare/v0.2.3...v0.2.4
-[0.2.3]: https://github.com/sferik/twitter-ruby/compare/v0.2.2...v0.2.3
-[0.2.2]: https://github.com/sferik/twitter-ruby/compare/v0.2.1...v0.2.2
-[0.2.1]: https://github.com/sferik/twitter-ruby/compare/v0.2.0...v0.2.1
-[0.2.0]: https://github.com/sferik/twitter-ruby/compare/v0.1.1...v0.2.0
-[0.1.1]: https://github.com/sferik/twitter-ruby/compare/v0.1.0...v0.1.1
-[0.1.0]: https://github.com/sferik/twitter-ruby/compare/v0.0.5...v0.1.0
-[0.0.5]: https://github.com/sferik/twitter-ruby/compare/v0.0.4...v0.0.5
-[0.0.4]: https://github.com/sferik/twitter-ruby/compare/v0.0.3...v0.0.4
-[0.0.3]: https://github.com/sferik/twitter-ruby/compare/v0.0.2...v0.0.3
-[0.0.2]: https://github.com/sferik/twitter-ruby/compare/v0.0.1...v0.0.2
-[0.0.1]: https://github.com/sferik/twitter-ruby/releases/tag/v0.0.1
+[0.5.1]: https://github.com/sferik/twitter-ruby/compare/9a2b10e799004105ad9c5f3bc2a070ddfaa48188...v0.5.1
+[0.5.0]: https://github.com/sferik/twitter-ruby/compare/d84b6538014c634be45570911e451ef20bb2d602...9a2b10e799004105ad9c5f3bc2a070ddfaa48188
+[0.4.3]: https://github.com/sferik/twitter-ruby/compare/45ad7afeac5476590077b0f9719565a2d53e0d13...d84b6538014c634be45570911e451ef20bb2d602
+[0.4.2]: https://github.com/sferik/twitter-ruby/compare/62daae394c0ed7ddbf8f04a1f217fd379bd797c4...45ad7afeac5476590077b0f9719565a2d53e0d13
+[0.4.1]: https://github.com/sferik/twitter-ruby/compare/fbb792561ea2aba8c8e7abb946d2a5e6e3d64fb0...62daae394c0ed7ddbf8f04a1f217fd379bd797c4
+[0.4.0]: https://github.com/sferik/twitter-ruby/compare/e3743cf22df3ad9406bf8c2e4425f30680606283...fbb792561ea2aba8c8e7abb946d2a5e6e3d64fb0
+[0.3.7]: https://github.com/sferik/twitter-ruby/compare/8a802c4b461be0d4d7f374888591a9af6ef8b8d2...e3743cf22df3ad9406bf8c2e4425f30680606283
+[0.3.6]: https://github.com/sferik/twitter-ruby/compare/9277e832daf9539e70f446b8b4f7093d8eb98484...8a802c4b461be0d4d7f374888591a9af6ef8b8d2
+[0.3.5]: https://github.com/sferik/twitter-ruby/compare/538a5d4b1a72ed2bf97404704699f498ab082ca9...9277e832daf9539e70f446b8b4f7093d8eb98484
+[0.3.4]: https://github.com/sferik/twitter-ruby/compare/ed06aaf27eea8852198200eb3db510d56508e727...538a5d4b1a72ed2bf97404704699f498ab082ca9
+[0.3.3]: https://github.com/sferik/twitter-ruby/compare/52af6fd83bb2e72b90abd6114e264a88431cfb34...ed06aaf27eea8852198200eb3db510d56508e727
+[0.3.2]: https://github.com/sferik/twitter-ruby/compare/84e77a1d515f762d7a24f697786f5959d4f1cc2e...52af6fd83bb2e72b90abd6114e264a88431cfb34
+[0.3.1]: https://github.com/sferik/twitter-ruby/compare/eeca67c5693dc175cf1990c2657a6efd8c4cbd6d...84e77a1d515f762d7a24f697786f5959d4f1cc2e
+[0.3.0]: https://github.com/sferik/twitter-ruby/compare/868cea531d00b97ded01f05bd96376dc41c14cc5...eeca67c5693dc175cf1990c2657a6efd8c4cbd6d
+[0.2.7]: https://github.com/sferik/twitter-ruby/compare/74e979a4a187b731f41226713da66741867512fe...868cea531d00b97ded01f05bd96376dc41c14cc5
+[0.2.6]: https://github.com/sferik/twitter-ruby/compare/d4e710bd3184f33775bf969b0993cbc9dff0ed50...74e979a4a187b731f41226713da66741867512fe
+[0.2.5]: https://github.com/sferik/twitter-ruby/compare/c884431eb60bab64dd7be5ac853ab8ef6ecc387a...d4e710bd3184f33775bf969b0993cbc9dff0ed50
+[0.2.4]: https://github.com/sferik/twitter-ruby/compare/a9ecddd3323ef202248dae59d049b00b88b76b4e...c884431eb60bab64dd7be5ac853ab8ef6ecc387a
+[0.2.3]: https://github.com/sferik/twitter-ruby/compare/4878689063574ad88ea76343387094fc634ccead...a9ecddd3323ef202248dae59d049b00b88b76b4e
+[0.2.2]: https://github.com/sferik/twitter-ruby/compare/d29f0e538614a2b3bcaf478b826fc007ffa9451a...4878689063574ad88ea76343387094fc634ccead
+[0.2.1]: https://github.com/sferik/twitter-ruby/compare/c2d8c55516747627452224af8faecc15ee6b5fd4...d29f0e538614a2b3bcaf478b826fc007ffa9451a
+[0.2.0]: https://github.com/sferik/twitter-ruby/compare/4aa2fabaa62c60e9f11f29510db10b6ed406e510...c2d8c55516747627452224af8faecc15ee6b5fd4
+[0.1.1]: https://github.com/sferik/twitter-ruby/compare/ff1ae65766109c75f80c4b15797e12a69d7c29ad...4aa2fabaa62c60e9f11f29510db10b6ed406e510
+[0.1.0]: https://github.com/sferik/twitter-ruby/compare/abd6eb31089975e3dc65f7e0bb4156feacc97a1c...ff1ae65766109c75f80c4b15797e12a69d7c29ad
+[0.0.5]: https://github.com/sferik/twitter-ruby/compare/7e713f12fea893a237b6e149a09fd0891a6ca277...abd6eb31089975e3dc65f7e0bb4156feacc97a1c
+[0.0.4]: https://github.com/sferik/twitter-ruby/compare/1763cd85c4fd85cde6815cc7c1b74937dd7aeeaf...7e713f12fea893a237b6e149a09fd0891a6ca277
+[0.0.3]: https://github.com/sferik/twitter-ruby/compare/cd7aecde450157ae2ec0c07a2171d7149bebb74a...1763cd85c4fd85cde6815cc7c1b74937dd7aeeaf
+[0.0.2]: https://github.com/sferik/twitter-ruby/tree/cd7aecde450157ae2ec0c07a2171d7149bebb74a
+
+[#56]: https://github.com/sferik/twitter-ruby/pull/56
+[#228]: https://github.com/sferik/twitter-ruby/pull/228
+[#233]: https://github.com/sferik/twitter-ruby/pull/233
+[#245]: https://github.com/sferik/twitter-ruby/pull/245
+[#261]: https://github.com/sferik/twitter-ruby/pull/261
+[#286]: https://github.com/sferik/twitter-ruby/pull/286
+[#288]: https://github.com/sferik/twitter-ruby/pull/288
+[#365]: https://github.com/sferik/twitter-ruby/pull/365
+[#368]: https://github.com/sferik/twitter-ruby/issues/368
+[#372]: https://github.com/sferik/twitter-ruby/pull/372
+[#387]: https://github.com/sferik/twitter-ruby/pull/387
+[#484]: https://github.com/sferik/twitter-ruby/pull/484
+[#501]: https://github.com/sferik/twitter-ruby/pull/501
+[#512]: https://github.com/sferik/twitter-ruby/issues/512
+[#531]: https://github.com/sferik/twitter-ruby/pull/531
+[#553]: https://github.com/sferik/twitter-ruby/pull/553
+[#939]: https://github.com/sferik/twitter-ruby/pull/939
+[#950]: https://github.com/sferik/twitter-ruby/pull/950
+[#953]: https://github.com/sferik/twitter-ruby/pull/953
+
+[@aamerabbas]: https://twitter.com/aamerabbas
+[@abozanich]: https://twitter.com/abozanich
+[@aheaven87]: https://twitter.com/aheaven87
+[@al3x]: https://twitter.com/al3x
+[@ALindeman]: https://twitter.com/ALindeman
+[@anno]: https://twitter.com/anno
+[@anthonycrumley]: https://twitter.com/anthonycrumley
+[@attilaolah]: https://twitter.com/attilaolah
+[@bcaccinolo]: https://twitter.com/bcaccinolo
+[@billymeltdown]: https://twitter.com/billymeltdown
+[@bshelton229]: https://twitter.com/bshelton229
+[@charliesome]: https://twitter.com/charliesome
+[@chrisrbailey]: https://twitter.com/chrisrbailey
+[@christospappas]: https://twitter.com/christospappas
+[@coderdaddy]: https://twitter.com/coderdaddy
+[@coderifous]: https://twitter.com/coderifous
+[@coreyhaines]: https://twitter.com/coreyhaines
+[@couhie]: https://twitter.com/couhie
+[@cyu]: https://twitter.com/cyu
+[@danicuki]: https://twitter.com/danicuki
+[@danielmorrison]: https://twitter.com/danielmorrison
+[@davebrace]: https://twitter.com/davebrace
+[@dcrec1]: https://twitter.com/dcrec1
+[@dewski]: https://twitter.com/dewski
+[@dianakimball]: https://twitter.com/dianakimball
+[@dlsspy]: https://twitter.com/dlsspy
+[@dsalahutdinov1]: https://twitter.com/dsalahutdinov1
+[@duncan]: https://twitter.com/duncan
+[@duylam]: https://twitter.com/duylam
+[@earth2marsh]: https://twitter.com/earth2marsh
+[@erebor]: https://twitter.com/erebor
+[@eroberts]: https://twitter.com/eroberts
+[@FabienChaynes]: https://twitter.com/FabienChaynes
+[@fernandezpablo]: https://twitter.com/fernandezpablo
+[@flikglick]: https://twitter.com/flikglick
+[@futuresanta]: https://twitter.com/futuresanta
+[@gabriel_somoza]: https://twitter.com/gabriel_somoza
+[@gazoombo]: https://twitter.com/gazoombo
+[@GhettoCode]: https://twitter.com/GhettoCode
+[@godfoca]: https://twitter.com/godfoca
+[@hassox]: https://twitter.com/hassox
+[@HendyIrawan]: https://twitter.com/HendyIrawan
+[@humbucker]: https://twitter.com/humbucker
+[@IanChoiJugnoo]: https://twitter.com/IanChoiJugnoo
+[@icambron]: https://twitter.com/icambron
+[@ivey]: https://twitter.com/ivey
+[@jacqui]: https://twitter.com/jacqui
+[@jalada]: https://twitter.com/jalada
+[@jimoleary]: https://twitter.com/jimoleary
+[@jnewland]: https://twitter.com/jnewland
+[@joshowens]: https://twitter.com/joshowens
+[@jschairb]: https://twitter.com/jschairb
+[@JulienNakache]: https://twitter.com/JulienNakache
+[@kchen1]: https://twitter.com/kchen1
+[@KentonWhite]: https://twitter.com/KentonWhite
+[@kev_in]: https://twitter.com/kev_in
+[@knu]: https://twitter.com/knu
+[@laserlemon]: https://twitter.com/laserlemon
+[@leshill]: https://twitter.com/leshill
+[@levycarneiro]: https://twitter.com/levycarneiro
+[@lukevmorris]: https://twitter.com/lukevmorris
+[@masterkain]: https://twitter.com/masterkain
+[@matthewrudy]: https://twitter.com/matthewrudy
+[@melaniegilman]: https://twitter.com/melaniegilman
+[@MichaelRykov]: https://twitter.com/MichaelRykov
+[@mileszs]: https://twitter.com/mileszs
+[@mingyeow]: https://twitter.com/mingyeow
+[@mrose2n]: https://twitter.com/mrose2n
+[@mustafaturan]: https://twitter.com/mustafaturan
+[@NathanielBarnes]: https://twitter.com/NathanielBarnes
+[@nbraem]: https://twitter.com/nbraem
+[@neektza]: https://twitter.com/neektza
+[@nerdEd]: https://twitter.com/nerdEd
+[@ngauthier]: https://twitter.com/ngauthier
+[@nicklegr]: https://twitter.com/nicklegr
+[@nicolassanta]: https://twitter.com/nicolassanta
+[@nidev]: https://twitter.com/nidev
+[@obie]: https://twitter.com/obie
+[@okkez]: https://twitter.com/okkez
+[@paracycle]: https://twitter.com/paracycle
+[@pjdavis]: https://twitter.com/pjdavis
+[@polestarw]: https://twitter.com/polestarw
+[@pope]: https://twitter.com/pope
+[@ratherchad]: https://twitter.com/ratherchad
+[@raykrueger]: https://twitter.com/raykrueger
+[@reclusive_geek]: https://twitter.com/reclusive_geek
+[@rizwanreza]: https://twitter.com/rizwanreza
+[@rodrigo3n]: https://twitter.com/rodrigo3n
+[@rorra]: https://twitter.com/rorra
+[@secobarbital]: https://twitter.com/secobarbital
+[@sferik]: https://twitter.com/sferik
+[@spastorino]: https://twitter.com/spastorino
+[@surfacedamage]: https://twitter.com/surfacedamage
+[@technomancy]: https://twitter.com/technomancy
+[@technoweenie]: https://twitter.com/technoweenie
+[@terenceponce]: https://twitter.com/terenceponce
+[@terryjray]: https://twitter.com/terryjray
+[@thomasjklemm]: https://twitter.com/thomasjklemm
+[@tibbon]: https://twitter.com/tibbon
+[@tim_linquist]: https://twitter.com/tim_linquist
+[@tmatilai]: https://twitter.com/tmatilai
+[@tomykaira]: https://twitter.com/tomykaira
+[@Tricon]: https://twitter.com/Tricon
+[@twoism]: https://twitter.com/twoism
+[@uasi]: https://twitter.com/uasi
+[@urajat]: https://twitter.com/urajat
+[@wild_dmitry]: https://twitter.com/wild_dmitry
+[@wjlroe]: https://twitter.com/wjlroe
+[@wtnelson]: https://twitter.com/wtnelson
+[@zagari]: https://twitter.com/zagari
+[@zmoazeni]: https://twitter.com/zmoazeni
