@@ -1,2 +1,8 @@
 plugins:
   - standard-performance
+
+ignore:
+  # Standard 1.57 doesn't recognize RuboCop's disable-next directive. Remove
+  # once https://github.com/standardrb/standard/pull/838 is released.
+  - test/support/rest_users_profile_image_examples.rb:
+    - Lint/CopDirectiveSyntax

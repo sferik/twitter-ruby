@@ -34,7 +34,8 @@ RuboCop::RakeTask.new
 require "standard/rake"
 
 desc "Run lint checks"
-task lint: %i[standard rubocop]
+# Run RuboCop first: Standard patches RuboCop's directive parsing in-process
+task lint: %i[rubocop standard]
 
 require "yard"
 YARD::Rake::YardocTask.new
